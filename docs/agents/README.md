@@ -24,6 +24,9 @@ PRs — no agent may edit any charter, including its own.
 5. Audited by (who checks it — never itself)
 6. Budget (per-run and standing token/spend expectations)
 7. Migrating to a service (the contract any port must honor)
+8. Sampling rubric — for desks the weekly output sample covers
+   (`.github/workflows/output-sampling.yml`, T-20): the 1–3 scale one merged
+   output of that desk gets scored against, with one evidence sentence
 
 Plus, for every agent: **one checkout per agent** (own worktree/clone,
 verify branch before any git op) and **artifact-only interfaces** (agents

@@ -356,6 +356,15 @@ outside its rights and the PR must wait for a human.
 - Never itself: Tree's own audit step reads *shipped posts*, not its own
   reasoning.
 
+## Sampling rubric
+
+Score one sampled `social/queue/` draft or `social/calendar.md` plan PR 1–3, one
+evidence sentence. **3** — every entry passes `check-drafts.mjs` (no banned or
+reused openers, X structurally unlike its IG sibling), media is a credited Taylor
+photo or a committed site screenshot, nothing unshipped teased. **2** — on-strategy
+but a gate near-missed or a slot's purpose unstated. **1** — posted or self-merged,
+an unsupported format planned, or `social-strategy.md` edited directly.
+
 ## Budget
 
 One run per week, ~1 cold-boot Opus session. Reads: this charter, the strategy,

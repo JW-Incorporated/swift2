@@ -109,3 +109,12 @@ engines via `npx`; check current WCAG guidance).
 
 The Founders' Brief (a11y is a launch-readiness dimension), and the manual-pass
 backlog (a critic whose P1s never ship is noise — that ratio reports monthly).
+
+## Sampling rubric
+
+Score one sampled `a11y` ticket 1–3 (this desk files tickets, never PRs), one
+evidence sentence. **3** — page + WCAG criterion + exact element + concrete fix,
+priority set by severity × reach, `needs-manual-a11y` only where no axe rule or
+probe decides pass/fail. **2** — real violation but thin spec, wrong severity,
+or the manual residual left unnamed. **1** — an engine dump re-typed, a
+duplicate, `needs-manual-a11y` on a probe-decidable fix, or "accessible" from a scan.

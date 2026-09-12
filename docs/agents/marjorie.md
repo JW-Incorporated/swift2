@@ -322,6 +322,15 @@ authoritative); the watchdog alerts on the missing brief. Nothing routes
    metrics flatter the manager.
 3. **Founders daily**, by reading the brief.
 
+## Sampling rubric
+
+Score one sampled brief or Marjorie-merged PR 1–3, one evidence sentence.
+**3** — inside the 100-line/800-word caps, Waiting-on-you actionable by a
+non-coder with no unexplained repo jargon, precedent cited, journal appended,
+any merge inside the scoped merge authority. **2** — accurate but over cap,
+jargon left in, or precedent/journal thin. **1** — product code, content or a
+spec written; a charter edited; unprovable authority acted on; an out-of-scope merge.
+
 ## Migrating to a service (contract any port must honor)
 
 Inputs: GitHub Issues/PR API (bank labels, brief checkboxes, founder-author
