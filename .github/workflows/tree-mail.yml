@@ -85,9 +85,16 @@ jobs:
       group: tree-mail-pr-${{ github.event.inputs.pr }}
       cancel-in-progress: true
     steps:
-      # Trusted base-ref checkout only — never the PR head. The mailer script
-      # is the only thing we need from the tree.
+      # Trusted base-ref checkout only — never the PR head, and never
+      # whatever ref a `workflow_dispatch` happened to be fired against
+      # (HIGH-1 recurrence, Codex round 2: `actions/checkout@v7` with no
+      # explicit `ref:` defaults to the triggering ref, not `main`). This
+      # job holds GMAIL_APP_PASSWORD, so `ref: main` is pinned explicitly —
+      # the mailer script is the only thing we need from the tree, and it
+      # must always be OUR copy of it.
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
       - name: Build payload from the plan PR
         env:
@@ -141,7 +148,12 @@ jobs:
       group: tree-mail-digest
       cancel-in-progress: false
     steps:
+      # HIGH-1 recurrence (Codex round 2): same reasoning as tree-pr-mail
+      # above — this job also holds GMAIL_APP_PASSWORD, so its checkout is
+      # pinned to `main` explicitly rather than relying on default behavior.
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
       - name: Collect open founder-task issues
         env:

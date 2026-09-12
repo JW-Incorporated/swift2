@@ -90,6 +90,29 @@ jobs:
       pull-requests: write
       actions: write
     steps:
+      # MEDIUM (Codex round 2): the auto-discovery search has no recency
+      # ordering (GitHub search defaults to relevance, not creation date),
+      # and plan PRs are never auto-merged, so a stale open one from a prior
+      # week is the NORMAL state, not an edge case -- `sort:created-desc`
+      # plus a freshness check below (the explicit `pr` input path skips the
+      # freshness check; it has its own branch-name validation instead)
+      # keep this from re-briefing the wrong week's PR.
+      #
+      # MEDIUM (Codex round 2): the `pr` dispatch input was never validated
+      # as an actual plan PR at all -- anyone dispatching with an arbitrary
+      # `pr` got it treated as the target for both this step's own later
+      # `gh pr edit --body` call and everything downstream. Both paths now
+      # reject (loudly, not silently) a PR whose head branch is not
+      # `tree/plan/*`.
+      #
+      # HIGH (Codex round 2, output-injection): this PR's own body is
+      # attacker-influenced content (anyone who can open/edit a PR the `pr`
+      # input can name controls it), so writing it into $GITHUB_OUTPUT via a
+      # FIXED heredoc delimiter is exploitable -- a body containing a bare
+      # `PR_BODY_EOF` line followed by injected `key=value` lines closes the
+      # heredoc early and forges additional outputs (reproduced for real
+      # before this fix; see the PR body's own writeup). The delimiter is
+      # now randomized per run so it cannot be guessed or embedded.
       - name: Find the plan PR this run just opened or amended
         id: find_pr
         env:
@@ -99,28 +122,59 @@ jobs:
         run: |
           set -euo pipefail
           if [ -n "${INPUT_PR:-}" ]; then
-            PR_JSON=$(gh pr view "$INPUT_PR" --repo "$REPO" --json number,url,headRefOid,body)
+            PR_JSON=$(gh pr view "$INPUT_PR" --repo "$REPO" --json number,url,headRefOid,headRefName,body)
           else
-            PR_JSON=$(gh pr list --repo "$REPO" --search "head:tree/plan/" --state open --limit 1 --json number,url,headRefOid,body --jq '.[0]')
+            PR_JSON=$(gh pr list --repo "$REPO" --search "head:tree/plan/ sort:created-desc" --state open --limit 1 --json number,url,headRefOid,headRefName,body,updatedAt --jq '.[0]')
           fi
           if [ -z "$PR_JSON" ] || [ "$PR_JSON" = "null" ]; then
             echo "::error::send-brief: could not find the plan PR to send a brief for (pr input: '${INPUT_PR:-}')"
             exit 1
           fi
-          echo "number=$(echo "$PR_JSON" | jq -r .number)" >> "$GITHUB_OUTPUT"
+
+          HEAD_REF_NAME=$(echo "$PR_JSON" | jq -r .headRefName)
+          PR_NUMBER_FOUND=$(echo "$PR_JSON" | jq -r .number)
+          case "$HEAD_REF_NAME" in
+            tree/plan/*) ;;
+            *)
+              echo "::error::send-brief: PR #$PR_NUMBER_FOUND head branch '$HEAD_REF_NAME' is not tree/plan/* -- refusing to treat an arbitrary PR as the weekly plan brief."
+              exit 1
+              ;;
+          esac
+
+          if [ -z "${INPUT_PR:-}" ]; then
+            UPDATED_EPOCH=$(date -u -d "$(echo "$PR_JSON" | jq -r .updatedAt)" +%s)
+            NOW_EPOCH=$(date -u +%s)
+            AGE_SECONDS=$((NOW_EPOCH - UPDATED_EPOCH))
+            if [ "$AGE_SECONDS" -gt 3600 ]; then
+              echo "::error::send-brief: the most recently created open tree/plan/ PR (#$PR_NUMBER_FOUND) was last updated ${AGE_SECONDS}s ago (>1h) -- this run's agent job may not have actually touched a plan PR this time; refusing to re-brief what looks like a stale PR."
+              exit 1
+            fi
+          fi
+
+          echo "number=$PR_NUMBER_FOUND" >> "$GITHUB_OUTPUT"
           echo "url=$(echo "$PR_JSON" | jq -r .url)" >> "$GITHUB_OUTPUT"
           echo "head_sha=$(echo "$PR_JSON" | jq -r .headRefOid)" >> "$GITHUB_OUTPUT"
+          BODY_DELIM="PR_BODY_EOF_$(openssl rand -hex 16)"
           {
-            echo 'body<<PR_BODY_EOF'
+            echo "body<<$BODY_DELIM"
             echo "$PR_JSON" | jq -r .body
-            echo PR_BODY_EOF
+            echo "$BODY_DELIM"
           } >> "$GITHUB_OUTPUT"
 
-      # Trusted checkout ONLY — the default branch (main), never the plan
-      # PR's own head. weekly-brief.mjs (and everything it imports) runs
-      # from THIS tree for the rest of the job, regardless of what the plan
-      # PR branch itself contains.
+      # HIGH (Codex round 2, HIGH-1 recurrence): `actions/checkout@v7` with
+      # no explicit `ref:` defaults to whatever ref TRIGGERED the run --
+      # for `workflow_dispatch` that is whatever `--ref` the dispatch itself
+      # specified, not necessarily `main`. Pinning `ref: main` explicitly
+      # (the same fix social-approval-poll.yml's own sibling secret-holding
+      # job already uses) makes the guarantee hold regardless of how this
+      # workflow was triggered, rather than depending on default behavior
+      # that varies by trigger type. weekly-brief.mjs (and everything it
+      # imports) runs from THIS pinned tree for the rest of the job,
+      # regardless of what the plan PR branch -- or a malicious dispatch
+      # ref -- contains.
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
       - uses: actions/setup-node@v7
         with:
@@ -180,16 +234,28 @@ jobs:
           fi
           node scripts/social/weekly-brief.mjs --replan-permalink "$PERMALINK" --plan /tmp/calendar.brief.json
 
+      # HIGH (Codex round 2, output-injection): `${{ steps.*.outputs.* }}` is
+      # substituted TEXTUALLY into the script source before bash ever sees
+      # it -- not a safe parameter pass -- so a value that itself contains
+      # shell metacharacters (reachable via the heredoc-escape half of this
+      # same finding) becomes arbitrary code running in a step that also
+      # holds the webhook secret. Every such value goes through `env:` and
+      # is referenced as a shell variable instead, which is immune to this
+      # class of injection regardless of content (reproduced for real
+      # before this fix; see the PR body's own writeup).
       - name: Send the weekly brief to #longlive-social
         if: github.event.inputs.mode != 'replan'
         id: send
         env:
           SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          PR_NUMBER: ${{ steps.find_pr.outputs.number }}
+          PR_URL: ${{ steps.find_pr.outputs.url }}
+          HEAD_SHA_OUT: ${{ steps.find_pr.outputs.head_sha }}
         run: |
           node scripts/social/weekly-brief.mjs \
-            --pr "${{ steps.find_pr.outputs.number }}" \
-            --pr-url "${{ steps.find_pr.outputs.url }}" \
-            --head-sha "${{ steps.find_pr.outputs.head_sha }}" \
+            --pr "$PR_NUMBER" \
+            --pr-url "$PR_URL" \
+            --head-sha "$HEAD_SHA_OUT" \
             --plan /tmp/calendar.brief.json
 
       - name: Write the Discord permalink into the PR body
@@ -210,4 +276,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-        run: gh workflow run tree-mail.yml --repo "$REPO" -f pr="${{ steps.find_pr.outputs.number }}"
+          PR_NUMBER: ${{ steps.find_pr.outputs.number }}
+        run: gh workflow run tree-mail.yml --repo "$REPO" -f pr="$PR_NUMBER"
