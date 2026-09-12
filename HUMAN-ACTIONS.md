@@ -128,10 +128,20 @@ card OS-004 (Phase 0). iOS and Android push don't actually deliver yet.
 This needs interactive credential upload only you can do — Apple/Google
 account access, not code.
 
+**Progress (2026-09-12):** Firebase project `longlive-9d2a9` created and
+`google-services.json` wired into the Android build; the server now sends
+through the Expo Push API, so no FCM/Apple secret goes on Vercel. Full
+detail: `SETUP_NOTIFICATIONS.md` items 2–6.
+
 **Steps:**
-1. Run `eas credentials -p ios` interactively (from a machine with EAS CLI
-2. Do the equivalent for Android: upload/generate the FCM v1 service
-3. Send one test push via `scripts/send-test-push.ts` to a real TestFlight
+1. Upload the FCM V1 service-account JSON to EAS
+   (`SETUP_NOTIFICATIONS.md` item 3).
+2. Create an APNs key (Apple Developer → Keys, tick APNs) and upload the
+   `.p8` + Key ID to EAS (`SETUP_NOTIFICATIONS.md` item 4).
+3. Ship a store build of both platforms that includes the
+   `google-services.json` change (`docs/mobile-release.md`).
+4. On a real phone, accept notifications in onboarding, then run
+   `node --env-file=apps/worker/.env scripts/send-test-push.ts <device_id>`.
 
 **Worked if:** a real device receives the push and tapping it opens the
 correct deep link in the shell (per OS-004's own "Done when").

@@ -5,22 +5,18 @@
 //   node --env-file=apps/worker/.env scripts/send-test-push.ts <device_id>
 //
 // Looks up the device row (for its push_token + platform), then sends one
-// FCM HTTP v1 message to it. Deliberately WILL NOT RUN until a founder
-// completes the Firebase setup in SETUP_NOTIFICATIONS.md — see the
-// `requireEnv` calls below, all of which point at that doc when unset. That
-// is the expected, correct state for tonight (recorded in this task's
-// founder decisions): this script is written correctly and will just work
-// the moment the real env vars land, no code change needed.
+// message through the Expo Push API — the same wire
+// packages/core/src/notification-sender.ts uses for ios/android (OS-004,
+// 2026-09-12). Expo holds the FCM v1 + APNs credentials on EAS, so a
+// "sent OK" here only proves Expo accepted the message; the phone showing
+// it proves those EAS credentials are right.
 //
 // Credentials:
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY — same pair apps/worker/.env.example
 //     already documents (used by knowledge-freshness.mjs et al.); read-only
 //     lookup of the target device's push_token.
-//   FCM_SERVICE_ACCOUNT_JSON — path to (or inline JSON of) the Firebase
-//     service-account key with FCM send permission. NEVER commit this file;
-//     NEVER let it reach a NEXT_PUBLIC_*/EXPO_PUBLIC_* var. See
-//     SETUP_NOTIFICATIONS.md step 4.
-//   FCM_PROJECT_ID — the Firebase project id (also in SETUP_NOTIFICATIONS.md).
+//   EXPO_ACCESS_TOKEN — optional; only needed if "enhanced push security"
+//     is enabled on the EAS project. See SETUP_NOTIFICATIONS.md.
 
 interface DeviceRow {
   id: string;
@@ -40,11 +36,6 @@ function requireEnv(name: string): string {
   return value;
 }
 
-function buildSupabaseHeaders(serviceRoleKey: string): Record<string, string> {
-  const bearerPrefix = ['Bear', 'er '].join('');
-  return { apikey: serviceRoleKey, authorization: bearerPrefix + serviceRoleKey };
-}
-
 function bearerHeader(token: string): string {
   return ['Bear', 'er '].join('') + token;
 }
@@ -54,7 +45,7 @@ async function fetchDevice(deviceId: string): Promise<DeviceRow> {
   const key = requireEnv('SUPABASE_SERVICE_ROLE_KEY');
   const res = await fetch(
     `${url}/rest/v1/devices?id=eq.${encodeURIComponent(deviceId)}&select=id,platform,push_token`,
-    { headers: buildSupabaseHeaders(key) },
+    { headers: { apikey: key, authorization: bearerHeader(key) } },
   );
   if (!res.ok) {
     throw new Error(`Supabase lookup failed: HTTP ${res.status} ${await res.text()}`);
@@ -70,72 +61,29 @@ async function fetchDevice(deviceId: string): Promise<DeviceRow> {
   return row;
 }
 
-/** Loads a Google service-account JSON key and mints a short-lived OAuth2
- * access token for the `firebase.messaging` scope via the standard JWT
- * bearer flow — no extra dependency (googleapis/firebase-admin) needed for
- * one send. */
-async function getFcmAccessToken(serviceAccountJson: string): Promise<string> {
-  const creds = JSON.parse(serviceAccountJson) as {
-    client_email: string;
-    private_key: string;
-    token_uri?: string;
+async function sendExpoMessage(pushToken: string, title: string, body: string): Promise<void> {
+  const headers: Record<string, string> = {
+    accept: 'application/json',
+    'content-type': 'application/json',
   };
+  if (process.env.EXPO_ACCESS_TOKEN)
+    headers.authorization = bearerHeader(process.env.EXPO_ACCESS_TOKEN);
 
-  const nodeCrypto = await import('node:crypto');
-  const header = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
-  const now = Math.floor(Date.now() / 1000);
-  const claimSet = Buffer.from(
-    JSON.stringify({
-      iss: creds.client_email,
-      scope: 'https://www.googleapis.com/auth/firebase.messaging',
-      aud: creds.token_uri ?? 'https://oauth2.googleapis.com/token',
-      iat: now,
-      exp: now + 3600,
-    }),
-  ).toString('base64url');
-  const signInput = `${header}.${claimSet}`;
-  const signer = nodeCrypto.createSign('RSA-SHA256');
-  signer.update(signInput);
-  const signature = signer.sign(creds.private_key).toString('base64url');
-  const assertion = `${signInput}.${signature}`;
-
-  const res = await fetch(creds.token_uri ?? 'https://oauth2.googleapis.com/token', {
+  const res = await fetch('https://exp.host/--/api/v2/push/send', {
     method: 'POST',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-      assertion,
+    headers,
+    body: JSON.stringify({
+      to: pushToken,
+      title,
+      body,
+      sound: 'default',
+      data: { deepLink: 'https://www.longlivets.com/' },
     }),
   });
-  if (!res.ok) throw new Error(`OAuth token exchange failed: HTTP ${res.status} ${await res.text()}`);
-  const json = (await res.json()) as { access_token: string };
-  return json.access_token;
-}
-
-async function sendFcmMessage(pushToken: string, title: string, body: string): Promise<void> {
-  const projectId = requireEnv('FCM_PROJECT_ID');
-  const serviceAccountJson = requireEnv('FCM_SERVICE_ACCOUNT_JSON');
-  const accessToken = await getFcmAccessToken(serviceAccountJson);
-
-  const res = await fetch(
-    `https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`,
-    {
-      method: 'POST',
-      headers: {
-        authorization: bearerHeader(accessToken),
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: {
-          token: pushToken,
-          notification: { title, body },
-        },
-      }),
-    },
-  );
-  if (!res.ok) {
-    throw new Error(`FCM send failed: HTTP ${res.status} ${await res.text()}`);
-  }
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Expo send failed: HTTP ${res.status} ${text}`);
+  const ticket = (JSON.parse(text) as { data?: { status?: string; message?: string } }).data;
+  if (ticket?.status !== 'ok') throw new Error(`Expo rejected the message: ${text}`);
   console.log('send-test-push: sent OK');
 }
 
@@ -147,7 +95,7 @@ async function main(): Promise<void> {
   }
   const device = await fetchDevice(deviceId);
   console.log(`send-test-push: found ${device.platform} device ${device.id}, sending…`);
-  await sendFcmMessage(
+  await sendExpoMessage(
     device.push_token!,
     'LongLive test push',
     'If you can see this, Phase 0 delivery works end to end.',
