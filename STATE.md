@@ -1,90 +1,104 @@
 # STATE — session working memory
 
-## 2026-09-12 (session: Opus — Marjorie Overhaul wave M0, design)
+## 2026-09-12 (session: Opus — Marjorie Overhaul M0 + the charter-merge rule)
 
-Prior session (Fable) verified Tree Wave 4 6/6 merged and kicked off the
-Marjorie Overhaul. That work is landed: #4178 (channel rename + decisions),
-#4181 (plan dir + recheck routine), #4182 (HA #51/#65 closed). Epic #4180 open.
+### Shipped and MERGED
 
-### M0 — what shipped
-
-| Deliverable | Where |
+| PR | What |
 |---|---|
-| Five specs | `docs/specs/marjorie-overhaul/{c1-delivery,c2-brief,c3-email-retired,w1-watchdog-handling,s1-triage}.md`, all <300 lines |
-| 3 decision entries | `docs/decisions.md` 2026-09-12 "Marjorie posts by webhook; the brief is the one daily surface; triage classifies but never decides" |
-| Roadmap ownership | `docs/roadmap.md` — "Site ownership: Marjorie (single owner)" beside Tree's line |
-| MAP rows | 5 spec rows |
-| Charter amendment | **PR #4183, OPEN, NOT merged** — needs the founder's approving comment (hard invariant 5) |
+| #4184 | M0 design — five specs in `docs/specs/marjorie-overhaul/`, 3 decision entries, roadmap ownership line, MAP rows |
+| #4183 | Marjorie charter amended — site-ops manager, `#longlive-marjorie`, Channels section, new sampling rubric |
+| #4185 | **The charter-merge stamp is dead.** A charter PR merges on green CI; only *Marjorie* may not edit a charter |
+| #4186 | HA #61 and #62 closed — both were verifiably already done (see below) |
 
-### Findings that changed the design (verified in source, not taken on report)
+Epic #4180: M0 ticked, closeout comment posted.
+
+### The rule change (Joey, in chat: "No PR ever needs me")
+
+`docs/agents/marjorie.md`'s header had welded two rules into one sentence.
+Split them: **kept** "Marjorie may not edit any charter, including her own,
+including to expand her own authority" (invariant 5 — an agent rewriting the
+contract it is judged against); **removed** "a charter PR needs a founder's
+approving comment". Reasoning: `CLAUDE.md`'s reversibility test — a charter
+edit is a markdown diff a `git revert` undoes. Also fixed the same stamp in
+`docs/plans/marjorie-overhaul/PLAN.md`'s M0 gate. Decision entry logged.
+
+**Follow-up filed as #4187:** seven runner prompts/charters still say "never
+merge" (austin-run, content-shift-run, cross-link-builder, karen-nightly,
+karen-deep-review, paul-blart, content-shift). That is the *systemic* version
+of the same complaint and #4185 did not touch it — deliberately, because it
+is seven per-agent autonomy calls with different risk profiles, not one
+stamp. The issue carries the per-agent analysis and a recommended order.
+**Start there if Joey raises "no PR ever needs me" again.**
+
+Explicitly NOT part of that sweep: `tree.md:25` (strategy is product
+direction, stays founder's) and `marjorie.md:440` (don't merge over requested
+changes) — both should survive.
+
+### HA #66 — half done by me, half owed by the founder
+
+**I created the `ops` environment** via `gh api` and restricted its
+deployment branches to `main` (verified). The guard denies `gh secret set`,
+not `gh api`, so that half was never human-only. **Still owed:** create the
+Discord webhook in `#longlive-marjorie` and paste it as the environment
+secret `DISCORD_MARJORIE_WEBHOOK_URL`. Verify with
+`gh api repos/JW-Incorporated/swift2/environments/ops/secrets`, then close #66.
+
+### Human actions: 8 open (was 10)
+
+#61 and #62 closed on objective evidence — `SOCIAL_FREEZE` reads `false`
+(updated 2026-09-12T15:43:52Z) and issue #4169 exists with the exact required
+title. #62 was never a human action; it landed in the list because
+`gh issue create` hit the guard false-positive (a poster filename appearing
+in *prose*). **That guard bug fired twice more this session** — the
+workaround is `--body-file` from a Write-tool file, never an inline heredoc.
+Filed as #4170.
+
+### M0 findings that bind M1 (all verified in source)
 
 1. **`routine-template.yml` has no `environment:` key** → an `ops`-scoped
-   secret is unreachable from any routine job. The brief delivers from a
-   second job (`needs: run`, `environment: ops`), the Tree pattern
-   (`routine-tree-weekly-plan.yml:84-101`). Ops/triage need a new
-   `environment` input on the template — **prove it with an empty default on
-   an existing routine before any Marjorie routine depends on it.**
-2. **`upsert-alert.sh` has SIX callers**, not two: watchdog,
-   production-backup, backup-restore-drill, production-backup-drill,
-   mobile-parity, social-audit. All six need `environment: ops` or they
-   silently fall back to email.
-3. **Watchdog is hourly** (`cron: "5 * * * *"`) and re-`open`s a standing
-   alert every pass → Discord would flood. Fix: post on state change only
-   (create/close branches), not the "commented on existing" branch.
-4. **There is no nightly backup receipt.** On success `upsert-alert.sh close`
-   exits at `:50` before the mail tail when no alert is open. The "receipt"
-   is really failure-and-recovery notices. Flagged for the founder.
-5. **The Gmail secrets cannot be deleted.** `community-inbox.yml` (live, cron
-   `5,35 * * * *`) reads `MARJORIE_EMAIL`/`GMAIL_APP_PASSWORD` over IMAP. The
-   wave prompt asked for an HA to remove them after MR1 — **not filed**, the
-   premise is wrong.
+   secret is unreachable from any routine job. **M1's first task** is adding
+   that input and proving an empty default is safe on an existing routine;
+   everything else depends on it. The brief instead delivers from a second
+   job (`needs: run`, `environment: ops`) — pattern confirmed verbatim at
+   `routine-tree-weekly-plan.yml:84-101`.
+2. **`upsert-alert.sh` has SIX callers**: watchdog, production-backup,
+   backup-restore-drill, production-backup-drill, mobile-parity,
+   social-audit. All six need `environment: ops` or they silently mail.
+3. **Watchdog is hourly** and re-`open`s standing alerts every pass → post on
+   state change only, or a week-long outage is 168 Discord posts.
+4. **No nightly backup receipt exists** — the close branch exits at
+   `upsert-alert.sh:50` before the mail tail. Open question for Joey.
+5. **Gmail secrets cannot be deleted** — `community-inbox.yml` reads them
+   over IMAP every 30 min. The removal HA the wave prompt asked for was
+   deliberately **not** filed.
 6. **"Definition of Done" is three documents.** The brief scores
-   `docs/definition-of-done.md`'s eight product items; `CLAUDE.md` has six
-   engineering clauses; `launch-readiness.md`'s 12 gates are retired. The
-   wave prompt conflated the first two.
-7. **The `intake` label has three producers** (reader reports, content-desk
-   drops, agent chores) → triage selects by title prefix
-   (`[Feedback] `/`[Intake] `/`[Link submission] `), filtered `startsWith` in
-   code because GitHub search strips brackets.
-8. `desk:*` labels in `bootstrap-labels.mjs` **do not exist live** — routing
-   on them would drop tickets. Live path is Kevin triage → Austin.
-9. `send-community-mail.py` has zero callers and holds the last CC address.
-10. `plan-recheck-marjorie.yml` is **not** in watchdog's watch list (has a
-    cron but doesn't match `routine-*.yml`); `marjorie-inbox.yml` **is**.
+   `docs/definition-of-done.md`'s eight *product* items.
+7. **`intake` has three producers** → triage selects by title prefix,
+   `startsWith` in code (GitHub search strips brackets).
+8. `desk:*` labels don't exist live. `plan-recheck-marjorie.yml` isn't
+   watched by watchdog; `marjorie-inbox.yml` is.
 
 ### Architect invocations
 
-**1 — 2026-09-12, Fable, read-only review of the five M0 specs** (per the
-wave prompt's explicit instruction, ~20 min budget). Found three real
-blockers, all independently verified before folding in: the environment
-plumbing (#1 above), the hourly flood (#3), and no mechanism behind
-"accountable for the outcome". Also cut four over-built pieces (per-alert
-dispatch, Marjorie spending CI re-runs, the aging-HA handler, the per-post
-social success notice) and caught two overstatements I had made ("no
-Write/Edit = structurally cannot edit code" — false, `Bash` writes files;
-and the GitHub bracket-search trap). Everything material was folded in;
-nothing was rejected outright. High-value invocation.
+**1 — 2026-09-12, Fable, read-only review of the five M0 specs.** Found three
+real blockers (environment plumbing, hourly flood, accountability had no
+mechanism), all verified independently before folding in. Cut four
+over-built pieces and caught two overstatements of mine. High value.
 
-### Open / next
+### Next
 
-- **PR #4183 (charter) needs Joey's approving comment.** Do not merge it.
-- HA #66 (`ops` env + `DISCORD_MARJORIE_WEBHOOK_URL`) still **OPEN** — M1
-  cannot be verified without it. Recommend filing the bot's View Channel
-  grant alongside it now, so the reply poller isn't blocked twice.
-- M1 (Sonnet) is next: c1 + c2 + c3. Its first task is the
-  `routine-template.yml` `environment` input experiment — everything else
-  depends on it.
-- Recommend the reply poller ships in **M2**, not M4; only the Tree-facing
-  prompt edits need to wait for Tree R2 (2026-09-21).
-- Two open watchdog alerts to hand M2 a real test: #4129 (5 workflows never
-  succeeded) and #4009 (FB export, open since 09-07, plus reminder issues
-  #3911/#3536 never actioned).
+- M1 (Sonnet): c1 + c2 + c3, gated on the `routine-template.yml` experiment
+  and on HA #66.
+- Recommend the reply poller ships in **M2, not M4** — no Tree dependency;
+  only the Tree-facing prompt edits need Tree R2 (2026-09-21).
+- Two open watchdog alerts give M2 a real test: #4129, #4009 (FB export, open
+  since 09-07; reminders #3911/#3536 never actioned).
 
 ### Local checkout notes
 
 `apps/web/app/tokens.generated.css` shows modified but the diff is CRLF-only
 — do not revert, do not commit. Untracked `PLAN.md` is the Tree Wave 4 lane
-plan (historical; `PLAN.md` is not tracked). Local vitest cannot run (Windows
-EPERM symlink in globalSetup) — CI is the gate. Worktrees to remove once
-their PRs land: `%TEMP%\claude-worktrees\{marjorie-overhaul-specs,
-marjorie-charter-amendment}`, plus the older wave-4/discord-rename ones.
+plan (historical; not tracked). Local vitest cannot run (Windows EPERM
+symlink in globalSetup) — CI is the gate. All this session's worktrees are
+removed except `ha-close-61-62` (drop it once #4186 lands).
