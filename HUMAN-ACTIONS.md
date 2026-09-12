@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -39,28 +39,6 @@
 
 **Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
 
-## #62 🟢 [UPGRADE] File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue (~2 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** gh issue create was guard-denied (false positive on the words post-queue.mjs in prose) filing a T7 follow-up: routine-tree-weekly-plan.yml never passes SOCIAL_FREEZE to the brief step, so the ladder-standing block can show eligible during a real freeze. No risk yet; must land before Wave 5.
-
-**Steps:**
-1. Run `gh issue create --repo JW-Incorporated/swift2` titled "T7 ladder standing reads SOCIAL_FREEZE but routine-tree-weekly-plan.yml never passes it through" (body in PR #4159 session log).
-2. Or tell an agent to retry filing it directly — the guard matched the literal filename in prose, not a real invocation.
-
-**Worked if:** the issue exists in the tracker, linked from epic #4117 and PR #4159.
-
-## #61 🔴 [BLOCKING] Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged (~2 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** SOCIAL_FREEZE=true (HA #60) unblocked CI for Wave 3's posting-path PRs; all 6 have now merged (#4139/4140/4144/4145/4148/4149), so the freeze's reason is gone and 4 real scheduled posts stay paused until you flip it back.
-
-**Steps:**
-1. `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
-2. Confirm: `gh api repos/JW-Incorporated/swift2/actions/variables/SOCIAL_FREEZE` shows `"value":"false"`
-
-**Worked if:** the next scheduled social-poster run posts normally instead of being blocked by the A6 freeze gate.
-
 ## #57 🟡 [DECIDE] Stale git worktrees — 259 registered, 73 hidden inside the Projects tree (~30 min)
 <!-- ha filed=2026-09-11 kind=default -->
 
@@ -72,7 +50,6 @@
 3. Once entries are removed, `git worktree prune` to clean the registry.
 
 **Worked if:** `git worktree list` count drops substantially and disk space is reclaimed, with no lost work.
-
 
 ---
 
@@ -87,7 +64,6 @@
 3. No code changes needed — `codeql.yml` already checks this variable correctly (line 18: `if: vars.CODE_SCANNING_ENABLED == 'true'`).
 
 **Worked if:** a manually dispatched `codeql.yml` run from the Actions tab shows the **Analyze** job running (not skipped) and Security → Code scanning alerts begin to populate with real findings.
-
 
 ---
 
