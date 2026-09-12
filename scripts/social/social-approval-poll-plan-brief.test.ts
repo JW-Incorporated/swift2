@@ -301,7 +301,12 @@ describe('the Wednesday cut-off (AC#6, AC#7)', () => {
     await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
     const dispatchCallsAfterFirst = calls.filter((c) => c[0] === 'workflow' && c[1] === 'run');
     expect(dispatchCallsAfterFirst).toHaveLength(1);
-    expect(dispatchCallsAfterFirst[0]).toEqual(expect.arrayContaining(['workflow', 'run', 'routine-tree-weekly-plan.yml', '-f', 'mode=replan', '-f', `pr=${PR_NUMBER}`]));
+    // LOW (Codex round 3): asserts the EXACT full argv, not arrayContaining
+    // -- mutation testing proved arrayContaining lets a missing --repo (or
+    // any other dropped/misordered argument) slip through with every test
+    // in this file still green, since it only checks the listed elements
+    // are present SOMEWHERE, never that the actual call has nothing else.
+    expect(dispatchCallsAfterFirst[0]).toEqual(['workflow', 'run', 'routine-tree-weekly-plan.yml', '--repo', REPO, '-f', 'mode=replan', '-f', `pr=${PR_NUMBER}`]);
     expect(state[PR_NUMBER].comments.some((c) => c.startsWith('replan-dispatched: 2026-W38'))).toBe(true);
 
     // Two more replies, same Tuesday — the marker this run just posted must

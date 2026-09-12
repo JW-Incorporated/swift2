@@ -715,20 +715,27 @@ async function processPlanBriefRefs({ pr, planRefs, repliesByParent, failedThrea
   // added to the draft dispatch's own, already-tested `--json` field list
   // above) covers both, per S3's "no new state file" pattern.
   //
-  // LOW (Codex round 2): both dedupe checks used to match ANY comment on
+  // LOW (Codex round 2/3): both dedupe checks used to match ANY comment on
   // the PR containing the marker text, from any commenter — a founder or
   // any other collaborator typing (accidentally or not) a line shaped like
   // `replan-dispatched: <week>` could permanently suppress that week's real
   // dispatch, and the same for `discord-reply: <id>` suppressing a real
   // reply's relay. Both checks are now restricted to comments actually
-  // authored by this poll's own identity. `sffan15-sys` (lib/approvers.mjs's
-  // own header comment: "GitHub has only one identity ... for the owner,
-  // every agent session's gh, every routine's PAT" — SOCIAL_POSTER_PAT
-  // authenticates as that same account) is shared across this repo's
-  // automation broadly, so this narrows the threat to "another routine
-  // impersonating this exact marker shape", not a perfect Discord-webhook-id
-  // -style binding — resolved at runtime via `gh api user`, never hardcoded,
-  // so it never drifts from whichever identity GH_TOKEN actually is.
+  // authored by this poll's own identity, resolved at runtime via `gh api
+  // user` (never hardcoded, so it never drifts from whichever identity
+  // GH_TOKEN actually is).
+  //
+  // Honest about what this does and does not cover (Codex round 3): `gh
+  // api user` resolves to `sffan15-sys` — per lib/approvers.mjs's own
+  // header comment, "GitHub has only one identity ... for the owner, every
+  // agent session's gh, every routine's PAT" — which is BOTH the founder's
+  // own account AND every routine's shared automation identity in this
+  // repo. This fix excludes any THIRD-PARTY collaborator from spoofing a
+  // marker, which is the actual threat this closes. It does NOT protect
+  // against the founder's own genuine, unrelated comment (or another
+  // routine's own unrelated comment, since they share the identity)
+  // happening to contain matching text — that residual gap is real,
+  // narrow, and accepted, not silently assumed away by this comment.
   let existingComments;
   let botLogin;
   try {

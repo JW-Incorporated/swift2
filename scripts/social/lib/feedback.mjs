@@ -360,7 +360,11 @@ function draftRows(rows) {
 export function aggregateVerdicts(rows) {
   const counts = { approve: 0, edit: 0, reject: 0 };
   for (const row of draftRows(rows)) {
-    if (row.action in counts) counts[row.action] += 1;
+    // LOW (Codex round 3): `in` walks the prototype chain -- a ledger row
+    // with `action: "toString"` (the ledger lives on the unprotected
+    // social-ledger branch, not founder-reviewed content) would otherwise
+    // overwrite an inherited Object.prototype method on `counts`.
+    if (Object.prototype.hasOwnProperty.call(counts, row.action)) counts[row.action] += 1;
   }
   const total = counts.approve + counts.edit + counts.reject;
   const needsChangePct = total === 0 ? null : Math.round(((counts.edit + counts.reject) / total) * 100);

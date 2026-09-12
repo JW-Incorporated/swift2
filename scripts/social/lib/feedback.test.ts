@@ -345,6 +345,23 @@ describe('aggregateVerdicts', () => {
     expect(aggregateVerdicts([])).toEqual({ approve: 0, edit: 0, reject: 0, total: 0, needsChangePct: null });
     expect(aggregateVerdicts([{ file: 'brief', action: 'approve' }])).toEqual({ approve: 0, edit: 0, reject: 0, total: 0, needsChangePct: null });
   });
+
+  // LOW (Codex round 3): `action in counts` walks the prototype chain -- a
+  // ledger row with action: "toString" (the ledger lives on the
+  // unprotected social-ledger branch) must not be able to corrupt the
+  // counts object with an inherited Object.prototype method.
+  it('a row with a prototype-chain action name (e.g. "toString") is never counted and never corrupts the totals object', () => {
+    const rows = [
+      { file: 'social/queue/a.json', action: 'approve' },
+      { file: 'social/queue/b.json', action: 'toString' },
+      { file: 'social/queue/c.json', action: 'hasOwnProperty' },
+      { file: 'social/queue/d.json', action: 'constructor' },
+    ];
+    const result = aggregateVerdicts(rows);
+    expect(result).toEqual({ approve: 1, edit: 0, reject: 0, total: 1, needsChangePct: 0 });
+    expect(typeof result.toString).toBe('function'); // untouched, still the real Object.prototype method
+    expect(typeof result.hasOwnProperty).toBe('function');
+  });
 });
 
 describe('aggregateLatency', () => {
