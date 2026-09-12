@@ -1,0 +1,34 @@
+{
+  "$comment": "Observation checkpoints for the Marjorie Overhaul (epic #4180). plan-recheck-marjorie.yml runs daily; the routine handles every entry whose due <= today and status == pending, then flips status to reported via PR. Statuses: pending | reported | skipped. The M1 session sets MR1/MR2 dates when M1 merges (due is null until then, and a null due is never due).",
+  "epic": 4180,
+  "checkpoints": [
+    {
+      "id": "MR1",
+      "due": null,
+      "status": "pending",
+      "title": "Comms hold under real schedules (+7d after M1)",
+      "checks": [
+        "routine-marjorie-brief.yml: every scheduled run since M1 merged succeeded and each posted one message to #longlive-marjorie (run log shows the Discord POST 2xx)",
+        "No workflow other than production-backup.yml invoked scripts/watchdog/send-mail.py in the window (search run logs), and the fallback step never fired unless a Discord call returned non-2xx",
+        "watchdog.yml opened or closed at least one alert in the window and the same alert appeared in #longlive-marjorie (run log)",
+        "marjorie-inbox.yml no longer exists on main",
+        "The brief's waiting-on-you section lists exactly the open HUMAN-ACTIONS.md numbers on the day it ran (compare one brief to the file at that SHA)",
+        "M2 and M3 status per #4180"
+      ]
+    },
+    {
+      "id": "MR2",
+      "due": null,
+      "status": "pending",
+      "title": "Marjorie acted on real events (+21d after M1)",
+      "checks": [
+        "routine-marjorie-ops.yml resolved at least one real watchdog-alert issue: the issue shows Marjorie's comment, a dispatch or a human action, and a close",
+        "If the FB export alert fired, a HUMAN-ACTIONS.md item with literal steps was filed by the routine via PR and appeared as a card (HUMAN-ACTIONS.md history)",
+        "routine-marjorie-triage.yml handled at least one intake or feedback issue: either a build-desk issue with acceptance criteria or an in-channel founder question with a recommendation",
+        "Nothing was auto-closed by triage without a founder or a merged fix",
+        "If M4 merged: one Monday cycle produced an issue from a Tree ask and an issue from a Marjorie ask, both numbered in the next brief",
+        "Recommend close or extend on #4180"
+      ]
+    }
+  ]
+}
