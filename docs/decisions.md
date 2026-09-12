@@ -7,6 +7,55 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-12 — A charter PR merges on green CI; only *Marjorie* may not edit a charter
+
+**Decision (Joey, in chat, 2026-09-12):** "No PR ever needs me — I've been
+fighting this rule for a month." A charter change is an ordinary PR: green
+CI, merged by whoever opened it, **no separate founder approving comment**.
+
+**What actually changed.** `docs/agents/marjorie.md`'s header said "Charter
+changes are founder-approved PRs — Marjorie may not edit this file." Two
+different rules were welded into one sentence, and the weld is what caused
+the problem:
+
+1. *Marjorie may not edit any charter, including her own.* **Kept, unchanged**
+   (hard invariant 5). A running agent editing the contract it is judged
+   against — especially to widen its own authority — is exactly what the rule
+   exists to prevent, and nothing here loosens it. Marjorie is never the
+   author and never the merger of a charter PR.
+2. *A charter PR needs a founder's approving comment before merge.* **Removed.**
+   It was read as a gate on every session, not just on Marjorie, and it
+   stalled real work waiting on a rubber stamp — most recently PR #4183, which
+   sat green and unmerged for no reason a revert could not undo.
+
+**Why.** The line in `CLAUDE.md` is reversibility, not seniority (2026-08-24).
+A charter edit is a markdown diff undone by `git revert`; it fails the
+irreversibility test, so it is the AI's call. The genuinely irreversible list
+is unchanged and short: product direction, spending, secrets/credentials/prod
+infra, deleting data, force-pushing. Nothing about a charter belongs on it.
+
+The distinction that survives is *who is holding the pen*, not *what file is
+being edited*. An agent may not rewrite its own governing document mid-run.
+A human-directed session maintaining that document is doing ordinary
+maintenance.
+
+**Alternatives considered.** Keep the gate but only for authority-expanding
+edits (rejected: "does this expand authority?" is a judgment call made by the
+party that benefits, which is the same failure mode with extra steps). Require
+a Codex review instead of a founder comment (rejected: cross-review already
+applies to every PR per `CLAUDE.md` rule 3 — this would be a second gate
+wearing a different hat).
+
+**Files changed:** `docs/agents/marjorie.md` (header, invariant 5, the
+non-ratchetable-set note), `docs/plans/marjorie-overhaul/PLAN.md` (the M0
+gate). The 2026-09-12 M0 design entry's closing line, which described the
+charter amendment as "a separate founder-approved PR", is superseded by this
+entry.
+
+**Approved by:** Joey, directly, in chat.
+
+---
+
 ## 2026-09-12 — Marjorie posts by webhook; the brief is the one daily surface; triage classifies but never decides (Marjorie overhaul, wave M0 design)
 
 Three expensive-to-reverse calls from the M0 design pass. Specs:
