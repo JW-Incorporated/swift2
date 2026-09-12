@@ -99,10 +99,23 @@ export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
  * images (uploaded via the v1.1 media endpoint — see lib/platforms.mjs's
  * postToX). Instagram requires at least one and supports a 10-image carousel.
  */
-export const PLATFORM_RULES = {
+// Round 5 review: a null prototype, not a plain `{}` — `PLATFORM_RULES[x]`
+// is keyed directly by an unvalidated `item.platform`/`draft.platform` in
+// two places below and in approval-prompt.mjs, and a plain object literal
+// inherits from Object.prototype, so `platform: "constructor"` (or
+// "toString"/"valueOf"/etc.) resolves to a REAL, truthy inherited
+// property — defeating an `if (!rules)`/`else if (rules)` guard that
+// assumed a missing key returns `undefined` — and then crashes on
+// `rules.measure(...)`, which doesn't exist on that inherited value. This
+// is directly reachable by a plain drafting bug (not just malice): neither
+// social-approval-notify.yml's jq projection nor this file's own CI
+// backstop guarantees `platform` is one of the two real values BEFORE this
+// lookup runs. A null prototype has no inherited properties at all, so
+// only an actual own `x`/`instagram` key can ever resolve here.
+export const PLATFORM_RULES = Object.assign(Object.create(null), {
   x: { maxBody: 280, media: 'required', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
   instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
-};
+});
 
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 

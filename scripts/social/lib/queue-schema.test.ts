@@ -92,6 +92,21 @@ describe('validateQueueItem', () => {
     expect(findingFor({ ...validX, platform: undefined }, 'platform:')).toBeDefined();
   });
 
+  // Round 5 review (found during the type-safety audit, not named by the
+  // reviewer, but the identical root cause): a plain object literal's
+  // PLATFORM_RULES inherits from Object.prototype, so
+  // `platform: "constructor"` (or "toString"/"valueOf"/etc.) used to
+  // resolve to a REAL, truthy inherited property, defeating the
+  // `else if (rules)` guard a few lines down and crashing on
+  // `rules.measure(...)` — this is validateQueueItem itself, the CI
+  // schema gate, not just the Discord brief.
+  it('an Object.prototype property name as `platform` is rejected as unknown, never crashes on an inherited property', () => {
+    for (const evilPlatform of ['constructor', 'toString', 'valueOf', 'hasOwnProperty']) {
+      expect(() => validateQueueItem({ ...validX, platform: evilPlatform })).not.toThrow();
+      expect(findingFor({ ...validX, platform: evilPlatform }, 'platform:')).toBeDefined();
+    }
+  });
+
   describe('lane (Tree Overhaul T1, 2026-09-12 — replaces sourceRoutine)', () => {
     it('rejects a missing lane', () => {
       expect(findingFor({ ...validX, lane: undefined }, 'lane:')).toBeDefined();

@@ -44,6 +44,36 @@ describe('pillarOf', () => {
     expect(errorSpy).not.toHaveBeenCalled();
     errorSpy.mockRestore();
   });
+
+  // Round 5 review: a non-string, non-nullish campaign (e.g. a plain
+  // drafting bug producing `campaign: 2026`) used to throw inside
+  // `.startsWith` here — crashing social-approval-poll.mjs's whole run
+  // (stampRow/rejectRow both call this) or approval-prompt.mjs's identity
+  // line, not just this one item's pillar.
+  it('does not crash on a non-string, non-nullish campaign — coerces to string first', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    expect(() => pillarOf(2026)).not.toThrow();
+    expect(() => pillarOf({ a: 1 })).not.toThrow();
+    expect(() => pillarOf(true)).not.toThrow();
+    errorSpy.mockRestore();
+  });
+
+  it('a coercible non-string value that stringifies to a recognized prefix still derives correctly (proves coercion, not just crash-avoidance)', () => {
+    const campaignLike = { toString: () => 'launch:mood-chat:announce' };
+    expect(pillarOf(campaignLike)).toBe('launch:mood-chat');
+  });
+
+  // Round 5, MEDIUM: this is a GitHub Actions `::warning::` log line — a
+  // raw newline in the campaign could otherwise start a second line the
+  // Actions runner reads as its own workflow command (e.g. `::error::`).
+  it('strips newlines from the campaign before it reaches the ::warning:: log line', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    pillarOf(`bad:x\n::error::injected workflow command`);
+    const [message] = errorSpy.mock.calls[0];
+    expect(message.split('\n')).toHaveLength(1);
+    expect(message).toContain('::error::injected workflow command'); // present as inert text, not its own line
+    errorSpy.mockRestore();
+  });
 });
 
 describe('classifyReaction', () => {

@@ -48,12 +48,27 @@ export function isoWeek(date) {
  * since that silently mis-buckets every downstream metric otherwise. */
 export function pillarOf(campaign) {
   if (campaign === null || campaign === undefined) return null;
-  const prefix = Object.keys(PILLAR_ARITY).find((p) => campaign.startsWith(p));
+  // Round 5 review: a non-string, non-nullish campaign (e.g. `campaign:
+  // 2026` — a plain drafting bug, not just malice; neither
+  // social-approval-notify.yml's projection nor social-approval-poll.mjs's
+  // stampRow/rejectRow guarantee this is a string before calling here)
+  // used to throw on `.startsWith` below — crashing the WHOLE poll run for
+  // the former, or the whole PR's Discord brief for the latter, not just
+  // misreporting this one item's pillar.
+  const value = String(campaign);
+  const prefix = Object.keys(PILLAR_ARITY).find((p) => value.startsWith(p));
   if (!prefix) {
-    console.error(`::warning::feedback: unrecognised campaign prefix in "${campaign}" — pillar set to null; check the family table in docs/marketing/social-strategy.md §1`);
+    // Round 5, MEDIUM: this is a GitHub Actions log line consumed by the
+    // Actions runner as a `::warning::` workflow command — a raw newline
+    // in `value` could otherwise start a second line the runner reads as
+    // its own `::error::`/`::add-mask::`/etc. command. Collapsed the same
+    // way approval-prompt.mjs's sanitizeInlineField defends the analogous
+    // Discord ref-line-injection risk, just for a log command instead.
+    const safeValue = value.replace(/\s+/g, ' ').trim();
+    console.error(`::warning::feedback: unrecognised campaign prefix in "${safeValue}" — pillar set to null; check the family table in docs/marketing/social-strategy.md §1`);
     return null;
   }
-  return campaign.split(':').slice(0, PILLAR_ARITY[prefix]).join(':');
+  return value.split(':').slice(0, PILLAR_ARITY[prefix]).join(':');
 }
 
 /** spec §Data-1's 2000-character cap on `reason`, applied on its own so a

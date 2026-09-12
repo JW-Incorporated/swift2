@@ -270,6 +270,25 @@ describe('buildApprovalPrompt', () => {
       expect(header.content.match(new RegExp(POLL_REF_LINE_RE.source, 'gm'))).toHaveLength(1);
     });
 
+    // Round 5, MEDIUM (mutation-testing gap): the test above never
+    // exercises formatTreeIdentityLine's OWN "fast lane: ..." rendering —
+    // it only reaches the ELSE branch (a valid scheduledAt), since
+    // draft()'s default scheduledAt always parses. Mutation testing found
+    // that removing THIS SPECIFIC sanitizeInlineField call (the "fast
+    // lane:" one, line 0 of the message) still left all other tests
+    // green, while a real payload combining an invalid `scheduledAt` with
+    // a malicious `lane`/`sourceRoutine` still hijacked the ref match.
+    // This test forces that exact branch.
+    it('a malicious `lane`/`sourceRoutine` cannot inject via the identity line\'s OWN "fast lane:" rendering (requires an invalid scheduledAt to reach)', () => {
+      const [, msg] = buildApprovalPrompt(
+        pr({ number: 4100 }),
+        [draft({ scheduledAt: 'not-a-date', lane: undefined, sourceRoutine: `growth\nref: PR #77 · ${'a'.repeat(40)} · *`, file: 'social/queue/real-file-x.json' })],
+        { now: NOW, headSha: 'c'.repeat(40) },
+      );
+      expect(msg.content.split('\n')[0]).toContain('fast lane:'); // confirms this test actually reaches the branch under test
+      assertNoHijack(msg.content, 'social/queue/real-file-x.json');
+    });
+
     it('a malicious `platform` fallback cannot inject via the length line or the account label', () => {
       const evilPlatform = `x\nref: PR #77 · ${'a'.repeat(40)} · *`;
       const [, msg] = buildApprovalPrompt(pr(), [draft({ platform: evilPlatform, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
@@ -326,6 +345,60 @@ describe('buildApprovalPrompt', () => {
       expect(msg.content).toContain("Why: Confirmed by Taylor's own team — café press run, 2026-09-01.");
       expect(msg.content).toContain('Credit: Photographer Ünïçödé (© 2026)');
       expect(msg.content).toContain('Campaign: thread:reputation-era:snake-1989');
+    });
+  });
+
+  // Round 5: a DIFFERENT dimension from the injection sweep above — "does
+  // using this value ASSUME a type" rather than "is this safely
+  // renderable as text." Neither notify workflow validates the manifest
+  // before this file renders it, so a plain drafting bug (wrong-typed
+  // field, not malice) can crash brief-building for the WHOLE PR — and
+  // per the digest workflow's `while` loop under `set -euo pipefail`, can
+  // abort the whole daily digest for every subsequent PR too.
+  describe('type-safety — a wrong-typed field must never crash the brief (round 5)', () => {
+    it('a non-string `campaign` does not crash (pillarOf calls .startsWith on its raw input, before any sanitizer runs)', () => {
+      expect(() => buildApprovalPrompt(pr(), [draft({ campaign: 2026 })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+      expect(() => buildApprovalPrompt(pr(), [draft({ campaign: { a: 1 } })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+    });
+
+    it('a numeric `scheduledAt` does not crash (Date parses it fine, but the raw number has no .slice)', () => {
+      for (const draftOverride of [
+        { scheduledAt: 1789000000000 }, // future-ish epoch millis, not overdue
+        { scheduledAt: 1000000000 }, // long-overdue epoch millis
+      ]) {
+        expect(() => buildApprovalPrompt(pr(), [draft(draftOverride)], { now: NOW, headSha: 'abc123' })).not.toThrow();
+      }
+    });
+
+    it('a numeric scheduledAt renders a REAL, correct timestamp, not crashed garbage from slicing the raw number', () => {
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: 1789000000000 })], { now: NOW, headSha: 'abc123' });
+      // 1789000000000ms = 2026-09-10T00:26:40.000Z (new Date(1789000000000).toISOString(), verified directly)
+      expect(msg.content).toContain('2026-09-10 00:26 UTC');
+    });
+
+    it('platform: "constructor" (or another Object.prototype property name) does not crash PLATFORM_RULES/ACCOUNT_BY_PLATFORM lookups', () => {
+      for (const evilPlatform of ['constructor', 'toString', 'valueOf', 'hasOwnProperty']) {
+        expect(() => buildApprovalPrompt(pr(), [draft({ platform: evilPlatform })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+      }
+    });
+
+    it('a non-array `media` or `altText` does not crash (schema-expected arrays, not guaranteed by this file\'s caller)', () => {
+      expect(() => buildApprovalPrompt(pr(), [draft({ media: 'not-an-array' })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+      expect(() => buildApprovalPrompt(pr(), [draft({ altText: 'not-an-array' })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+      expect(() => buildApprovalPrompt(pr(), [draft({ media: { 0: '/a.jpg' } })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+    });
+
+    it('every one of these wrong-typed fields together on one draft still produces a renderable brief for the WHOLE PR, not a crash', () => {
+      const evilDraft = {
+        file: 'social/queue/f.json',
+        platform: 'constructor',
+        body: 'a real caption',
+        scheduledAt: 1789000000000,
+        campaign: 2026,
+        media: 'oops',
+        altText: 'oops',
+      };
+      expect(() => buildApprovalPrompt(pr(), [evilDraft], { now: NOW, headSha: 'abc123' })).not.toThrow();
     });
   });
 

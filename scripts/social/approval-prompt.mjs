@@ -88,6 +88,58 @@ function neutralizeRefLikeLines(text) {
   return String(text ?? '').replace(/^ref: PR #/gm, 'ref\u200B: PR #');
 }
 
+/**
+ * Round 5 review \u2014 a DIFFERENT dimension from the injection sweep above
+ * (this is "does using this value ASSUME a type," not "is this safely
+ * renderable as text"). Three shared helpers for every queue-item field
+ * this file uses in a way that assumes a type, not just renders one:
+ *
+ * `stringOrNull(value)` \u2014 for `pillarOf`, which itself calls
+ * `campaign.startsWith(...)` on its argument BEFORE this file's own
+ * sanitizer ever sees the *output* \u2014 a non-string, non-nullish `campaign`
+ * (e.g. `campaign: 2026`, a plain drafting bug) throws inside pillarOf
+ * itself. Preserves pillarOf's own null-vs-unrecognized-prefix distinction
+ * (a genuinely absent campaign must stay `null`, never become the string
+ * `"null"` or trigger its unrecognized-prefix warning).
+ */
+function stringOrNull(value) {
+  return value == null ? null : String(value);
+}
+
+/**
+ * `compactUtcStamp(scheduled)` \u2014 the "YYYY-MM-DD HH:MM" stamp both the
+ * identity line and the schedule line render, formatted from the ALREADY
+ * -PARSED `Date` object (via `toISOString()`), never by slicing the raw
+ * `draft.scheduledAt` value's own string form. `scheduledAt` is schema-
+ * validated as an ISO string, but `Date` happily parses a NUMBER too
+ * (`scheduledAt: 1789000000000`, epoch millis) \u2014 that slips straight past
+ * the `Number.isNaN(scheduled.getTime())` guard both callers already run,
+ * and the raw number has no `.slice` method, so slicing IT (not the
+ * parsed Date) used to crash. Formatting from the Date object instead is
+ * strictly better than merely not-crashing: it renders a real, correct
+ * timestamp for any Date-parseable input, not just the expected ISO
+ * string shape. Only ever called after that same NaN guard already
+ * passed, so `toISOString()` itself cannot throw (it only ever throws for
+ * a `getTime()` that IS NaN \u2014 i.e. exactly the case both callers already
+ * excluded).
+ */
+function compactUtcStamp(scheduled) {
+  return scheduled.toISOString().slice(0, 16).replace('T', ' ');
+}
+
+/**
+ * `asArray(value)` \u2014 `media`/`altText` are schema-expected to be arrays,
+ * but neither notify workflow validates the manifest before this file
+ * renders it (a raw jq projection, and check-drafts.mjs's own CI check
+ * runs independently, not before this step) \u2014 `media: "not-an-array"`
+ * (a plain drafting bug) crashed on `.map` inside the shared
+ * `mediaUrlsFor` (lib/queue.mjs, out of scope to change here \u2014 used by
+ * the real poster too) the instant it ran.
+ */
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
 /** Webhook display identity (Tree Overhaul S5) — every message this script
  * posts to #longlive-social shows as "Tree", not a bare webhook name, with
  * a stable avatar so the channel reads as one consistent actor.
@@ -110,13 +162,17 @@ function formatTreeIdentityLine(draft) {
   const scheduled = new Date(draft.scheduledAt);
   const slot = Number.isNaN(scheduled.getTime())
     ? `fast lane: ${sanitizeInlineField(draft.lane ?? draft.sourceRoutine ?? 'unknown')}`
-    : `${draft.scheduledAt.slice(0, 16).replace('T', ' ')} UTC`;
+    : `${compactUtcStamp(scheduled)} UTC`;
   // Round 3, MEDIUM (ref-line injection via pillar/campaign): `campaign` is
   // schema-validated only as "a string when present" — no newline/control-
   // char restriction — so pillarOf's output (which passes an unrecognized
   // prefix's campaign straight through untouched, see feedback.mjs) must
   // be sanitized here, the same as every other field in this message.
-  const pillar = sanitizeInlineField(pillarOf(draft.campaign ?? null) ?? 'unspecified');
+  // Round 5: `stringOrNull` first — pillarOf calls `.startsWith` on a
+  // non-nullish campaign BEFORE this sanitizer ever sees its output, so a
+  // non-string campaign (e.g. `campaign: 2026`) threw inside pillarOf
+  // itself, one function too early for the round-3 fix to catch.
+  const pillar = sanitizeInlineField(pillarOf(stringOrNull(draft.campaign)) ?? 'unspecified');
   return `Tree · slot: ${slot} · pillar: ${pillar}`;
 }
 
@@ -124,11 +180,14 @@ function formatTreeIdentityLine(draft) {
  * draft's own fields (a draft carries no account id; the posted ledger's
  * URLs are the only place the handle shows up today, and hardcoding it
  * here is simpler and cannot drift since this repo only ever posts one
- * account per platform). */
-const ACCOUNT_BY_PLATFORM = {
+ * account per platform). Round 5: null prototype, same reasoning as
+ * queue-schema.mjs's PLATFORM_RULES — `draft.platform: "constructor"`
+ * would otherwise resolve to a truthy inherited Object.prototype property
+ * instead of falling through to the `?? {...}` fallback below. */
+const ACCOUNT_BY_PLATFORM = Object.assign(Object.create(null), {
   x: { label: 'X', handle: '@longlivetscom' },
   instagram: { label: 'Instagram', handle: '@longlivetscom' },
-};
+});
 
 /** "in 1d 14h" / "OVERDUE by 25h" — RULINGS-SOCIAL A3 field 3. Never a bare
  * timestamp: hoursOverdue/simple subtraction tell a founder at a glance
@@ -145,14 +204,19 @@ function formatScheduleLine(draft, now) {
   const overdue = hoursOverdue({ scheduledAt: draft.scheduledAt }, now);
   if (overdue > 0) {
     const h = Math.round(overdue);
-    return `Posts at: ${iso.slice(0, 16).replace('T', ' ')} UTC — OVERDUE by ${h}h: posts on the first run after approval, retired to failed/ at 48h.`;
+    // Round 5: `compactUtcStamp(scheduled)`, not `iso.slice(...)` — `iso`
+    // is the RAW, unvalidated field (a number, e.g. `scheduledAt:
+    // 1789000000000`, parses fine as a Date but has no `.slice` method);
+    // `scheduled` is the already-parsed Date this NaN guard just proved
+    // valid, formatted properly instead.
+    return `Posts at: ${compactUtcStamp(scheduled)} UTC — OVERDUE by ${h}h: posts on the first run after approval, retired to failed/ at 48h.`;
   }
   const ms = scheduled.getTime() - now.getTime();
   const totalHours = Math.round(ms / (60 * 60 * 1000));
   const days = Math.floor(totalHours / 24);
   const hours = totalHours - days * 24;
   const relative = days > 0 ? `in ${days}d ${hours}h` : `in ${hours}h`;
-  return `Posts at: ${iso.slice(0, 16).replace('T', ' ')} UTC (${relative})`;
+  return `Posts at: ${compactUtcStamp(scheduled)} UTC (${relative})`;
 }
 
 /** "1,012 / 2,200 characters" / "~256 / 280 weighted characters" —
@@ -179,8 +243,14 @@ function formatWhyLine(draft, { headSha, repo }) {
   // ("the one-line why", docs/agents/runner-prompts/tree-daily-draft.md).
   const why = sanitizeInlineField(draft.why);
   const truncated = why.length > 240 ? `${why.slice(0, 240)}...` : why;
+  // Round 5 LOW: `draft.file` sanitized here too, for consistency with
+  // everything else in this pass — it's safe today only because of
+  // external invariants this file doesn't itself enforce (the workflow's
+  // own jq `$file` argument and automerge-social-approval-gate.mjs's path
+  // regex upstream, not anything checked here), so a future reader must
+  // not assume this Why: link's construction is what protects it.
   const fileLink =
-    headSha && repo && draft.file ? ` (full: https://github.com/${repo}/blob/${headSha}/${draft.file})` : '';
+    headSha && repo && draft.file ? ` (full: https://github.com/${repo}/blob/${headSha}/${sanitizeInlineField(draft.file)})` : '';
   return `Why: ${truncated}${fileLink}`;
 }
 
@@ -210,8 +280,12 @@ function formatRationaleLine(draft) {
  * the embed, which buildApprovalPrompt/sendApprovalPrompt handle
  * separately). */
 function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
-  const media = draft.media ?? [];
-  const altText = draft.altText ?? [];
+  // Round 5: `asArray`, not `?? []` — `media`/`altText` are schema-
+  // expected arrays, but a present-and-truthy non-array (e.g.
+  // `media: "not-an-array"`) skips the `??` fallback entirely and crashed
+  // inside mediaUrlsFor's/this function's own `.map` the instant it ran.
+  const media = asArray(draft.media);
+  const altText = asArray(draft.altText);
   const mediaUrls = mediaUrlsFor({ media }, MEDIA_BASE_URL);
 
   return [
@@ -294,7 +368,7 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
     // an unrecognized platform, rendered into the message's bold header
     // line with no sanitization otherwise — same injection class.
     const account = ACCOUNT_BY_PLATFORM[draft.platform] ?? { label: sanitizeInlineField(draft.platform), handle: '(unknown account)' };
-    const mediaUrls = mediaUrlsFor({ media: draft.media ?? [] }, MEDIA_BASE_URL);
+    const mediaUrls = mediaUrlsFor({ media: asArray(draft.media) }, MEDIA_BASE_URL);
     const embeds = mediaUrls.map((url) => ({ image: { url } }));
     const content = [
       formatTreeIdentityLine(draft),
