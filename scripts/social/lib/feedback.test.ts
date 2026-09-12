@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { appendRows, capReason, classifyReaction, classifyTarget, groupTargets, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER, pollOwnFieldChange } from './feedback.mjs';
+import { aggregateLatency, aggregateVerdicts, appendRows, capReason, classifyReaction, classifyTarget, groupTargets, isoWeek, pillarOf, PENCIL_UNSUPPORTED_ON_HEADER, pollOwnFieldChange, snowflakeTimestampMs } from './feedback.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 
 const APPROVER = SOCIAL_APPROVERS[0];
@@ -312,5 +312,75 @@ describe('capReason', () => {
     expect(capReason('x'.repeat(2500))).toHaveLength(2000);
     expect(capReason('short')).toBe('short');
     expect(capReason(null)).toBe('');
+  });
+});
+
+// T4 (docs/specs/tree-overhaul/t4-weekly-brief.md §Data): weekly-scorecard.mjs
+// lines 4-5's aggregation helpers.
+describe('snowflakeTimestampMs', () => {
+  it("decodes a Discord snowflake id to its creation time (Discord's own documented example)", () => {
+    expect(snowflakeTimestampMs('175928847299117063')).toBe(Date.parse('2016-04-30T11:18:25.796Z'));
+  });
+
+  it('returns null for anything that is not a bare numeric snowflake, never a thrown error', () => {
+    expect(snowflakeTimestampMs(null)).toBeNull();
+    expect(snowflakeTimestampMs(undefined)).toBeNull();
+    expect(snowflakeTimestampMs('not-a-snowflake')).toBeNull();
+  });
+});
+
+describe('aggregateVerdicts', () => {
+  it('counts social/queue/** rows by action and computes the needs-a-change percentage', () => {
+    const rows = [
+      { file: 'social/queue/a.json', action: 'approve' },
+      { file: 'social/queue/b.json', action: 'approve' },
+      { file: 'social/queue/c.json', action: 'edit' },
+      { file: 'social/queue/d.json', action: 'reject' },
+      { file: 'proposal:1', action: 'approve' }, // a plan verdict, not a draft one — excluded
+    ];
+    expect(aggregateVerdicts(rows)).toEqual({ approve: 2, edit: 1, reject: 1, total: 4, needsChangePct: 50 });
+  });
+
+  it('needsChangePct is null (never 0 or NaN) when there is nothing to divide by', () => {
+    expect(aggregateVerdicts([])).toEqual({ approve: 0, edit: 0, reject: 0, total: 0, needsChangePct: null });
+    expect(aggregateVerdicts([{ file: 'brief', action: 'approve' }])).toEqual({ approve: 0, edit: 0, reject: 0, total: 0, needsChangePct: null });
+  });
+
+  // LOW (Codex round 3): `action in counts` walks the prototype chain -- a
+  // ledger row with action: "toString" (the ledger lives on the
+  // unprotected social-ledger branch) must not be able to corrupt the
+  // counts object with an inherited Object.prototype method.
+  it('a row with a prototype-chain action name (e.g. "toString") is never counted and never corrupts the totals object', () => {
+    const rows = [
+      { file: 'social/queue/a.json', action: 'approve' },
+      { file: 'social/queue/b.json', action: 'toString' },
+      { file: 'social/queue/c.json', action: 'hasOwnProperty' },
+      { file: 'social/queue/d.json', action: 'constructor' },
+    ];
+    const result = aggregateVerdicts(rows);
+    expect(result).toEqual({ approve: 1, edit: 0, reject: 0, total: 1, needsChangePct: 0 });
+    expect(typeof result.toString).toBe('function'); // untouched, still the real Object.prototype method
+    expect(typeof result.hasOwnProperty).toBe('function');
+  });
+});
+
+describe('aggregateLatency', () => {
+  const POSTED_1 = '1548996732518400000'; // 2026-09-14T10:00:00.000Z
+  const POSTED_2 = '1549208125440000000'; // 2026-09-15T00:00:00.000Z
+
+  it('measures brief-message-timestamp -> ledger-row-timestamp and reports median/slowest', () => {
+    const rows = [
+      { file: 'social/queue/a.json', messageId: POSTED_1, ts: '2026-09-14T13:10:00.000Z' }, // 3h10m
+      { file: 'social/queue/b.json', messageId: POSTED_2, ts: '2026-09-15T19:00:00.000Z' }, // 19h
+    ];
+    const latency = aggregateLatency(rows);
+    expect(latency?.slowest).toBe(19 * 60 * 60 * 1000);
+    expect(latency?.median).toBe((3 * 60 * 60 * 1000 + 10 * 60 * 1000 + 19 * 60 * 60 * 1000) / 2);
+  });
+
+  it('skips rows with no decodable messageId or a non-draft file, returning null with no samples', () => {
+    expect(aggregateLatency([])).toBeNull();
+    expect(aggregateLatency([{ file: 'social/queue/a.json', messageId: null, ts: '2026-09-14T13:10:00.000Z' }])).toBeNull();
+    expect(aggregateLatency([{ file: 'proposal:1', messageId: POSTED_1, ts: '2026-09-14T13:10:00.000Z' }])).toBeNull();
   });
 });

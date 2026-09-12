@@ -56,4 +56,37 @@ describe('renderScorecard', () => {
     expect(renderScorecard(card)).toContain('Failed posts this week:** 2');
     expect(renderScorecard(card)).toContain('target is zero');
   });
+
+  // T4 (docs/specs/tree-overhaul/t4-weekly-brief.md AC#9/AC#10): 3 -> 5 lines.
+  const BASE_CARD = {
+    posts: { total: 12, x: 5, instagram: 4, facebook: 3 },
+    failedCount: 0,
+    deltas: { instagram: 5, x: 1, facebook: -1 },
+    weekAgoDate: '2026-08-16',
+  };
+
+  it('AC#9: grows to 5 lines, with the first 3 byte-identical to the pre-T4 render for the same fixture', () => {
+    const withVerdicts = { ...BASE_CARD, verdicts: { approve: 9, edit: 2, reject: 1, total: 12, needsChangePct: 25 }, latency: { median: 190 * 60000, slowest: 19 * 60 * 60000 } };
+    const legacyLines = renderScorecard(BASE_CARD).split('\n');
+    const fullLines = renderScorecard(withVerdicts).split('\n');
+    expect(fullLines).toHaveLength(5);
+    expect(fullLines.slice(0, 3)).toEqual(legacyLines.slice(0, 3));
+    expect(fullLines[3]).toBe('**Your verdicts:** 9 ✅ · 2 ✏️ · 1 ❌ — 25% needed a change from you');
+    expect(fullLines[4]).toBe('**Time to your answer:** median 3h 10m, slowest 19h');
+  });
+
+  it('AC#10: an empty ledger renders lines 4-5 as sentences, never 0% or NaN', () => {
+    const card = { ...BASE_CARD, verdicts: { approve: 0, edit: 0, reject: 0, total: 0, needsChangePct: null }, latency: null };
+    const out = renderScorecard(card);
+    expect(out).toContain('**Your verdicts:** no drafts went to you this week');
+    expect(out).toContain('**Time to your answer:** no drafts went to you this week');
+    expect(out).not.toMatch(/0%|NaN/);
+  });
+
+  it('renders the same empty-window sentences when verdicts/latency are simply absent (pre-T4 callers)', () => {
+    const out = renderScorecard(BASE_CARD);
+    expect(out.split('\n')).toHaveLength(5);
+    expect(out).toContain('**Your verdicts:** no drafts went to you this week');
+    expect(out).toContain('**Time to your answer:** no drafts went to you this week');
+  });
 });
