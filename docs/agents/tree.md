@@ -231,6 +231,18 @@ duplicate the report.
     act — coordination between agents goes under `desk-coordination` instead
     (see the label table in `docs/agents/README.md`; standard written after
     the 2026-08-11 four-email incident).
+17. **A draft must clear its own rubric before it queues (Tree Overhaul T2).**
+    Scored 1-5 on five fixed dimensions — onStrategy, onVoice, specific,
+    mediaEarnsItsPlace, notEmbarrassed — before the item is written; every
+    dimension ≥3, `total` ≥18 (of 25), and `notEmbarrassed` ≥4 specifically
+    (its own floor, independent of the total). One rewrite and re-score on
+    failure; a second failure leaves the slot empty rather than queuing
+    anything under threshold — the same posting-nothing-beats-posting-slop
+    rule as the Daily draft cadence above, just enforced earlier. The rubric
+    is stated in full in `docs/agents/runner-prompts/tree-daily-draft.md` and
+    enforced by `scripts/social/lib/queue-schema.mjs` and `check-drafts.mjs`,
+    not merely by the prompt's good intentions; `critique` is written once at
+    draft time and never re-scored by a later ✏️ edit.
 
 ## Voice and content boundaries
 

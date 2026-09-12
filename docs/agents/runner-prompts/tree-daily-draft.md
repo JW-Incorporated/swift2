@@ -22,6 +22,18 @@ BACKGROUND (the failure this rewrite fixes): with no calendar, this run invented
 
    **`scheduledAt` is what ships the post once a founder has approved it** (the approval gate was restored 2026-09-10 and is now content-bound and stamp-enforced — docs/social/RULINGS-SOCIAL.md A2; see step 6 and the "Your drafts wait on a founder" note below). Use the calendar's paired beat time exactly — `15:00Z` or `23:00Z` on both siblings. Never backdate. Respect the caps in `scripts/social/lib/queue.mjs` — **1 per run, 1 per platform per UTC calendar day** (changed 2026-08-26, issue #3373 — was 5 per run / 10 per platform per day). Combined with mandatory pairing, the real ceiling is one campaign (one X + one Instagram item) shipping per platform per day: drafting far beyond the ≥8-queued backlog cap in step 2 just piles up content the poster will take days to drain, it does not make it ship any faster.
 
+   **Score every draft against the rubric before you write it — a new mandatory step, between drafting and writing the queue file (Tree Overhaul T2).** Draft the caption first. Then score it, writing all five integers and the two-sentence rationale *before* you look at the threshold — scoring to hit a threshold is not scoring. The rubric, stated here in full so this run never depends on reading another file to score:
+
+   | Dimension | 1 | 3 | 5 |
+   |---|---|---|---|
+   | **onStrategy** | no slot in the calendar, or a pillar we aren't running | fills a real slot but the angle is generic | executes a named slot with the campaign's specific angle and rotation state |
+   | **onVoice** | reads like a brand account or an AI | inoffensive but flat | sounds like a fluent Swiftie who is also a fan of this product |
+   | **specific** | could be about any artist in any year | one concrete detail | a dated/named/verifiable fact a fan could check, carrying the post |
+   | **mediaEarnsItsPlace** | decoration, or a stock-feeling tile | a real credited photo, loosely related | the image *is* the argument — remove it and the post stops working |
+   | **notEmbarrassed** | I would not want this attributed to me | fine, forgettable | I would be glad this went out under our name |
+
+   **Queueable requires all three:** every dimension ≥3 · `total` ≥18 (of 25) · `notEmbarrassed` ≥4 — this last floor is independent of the total and cannot be traded off against the other four. If the draft fails, rewrite it once and re-score. If it fails again, **leave the slot empty** and say so in the PR body, naming the slot and the failing dimension — the same posting-nothing-beats-posting-slop rule as the no-calendar-entry case above, just caught before it ships instead of after. Once it passes, write `critique` into the item alongside `body`: `{ v: 1, scores: { onStrategy, onVoice, specific, mediaEarnsItsPlace, notEmbarrassed }, total, rationale, rulesChecked: [], revision }` (`social/README.md` has the exact field types) — `rationale` is the same two sentences from your scoring pass, ≤320 characters, plain English (this is what a founder reads as the pitch in the brief); `rulesChecked` is `[]` until T5 ships; `revision` is `1` if the first pass passed, `2` if it took the rewrite. `critique` is written once and never touched again — a later ✏️ edit replaces `body`, never `critique`.
+
 ### Voice — written out, because copying yesterday is what broke it
 
 The site's editorial standard (`docs/content-ops/editorial-voice-and-pipeline.md`)

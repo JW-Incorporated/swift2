@@ -99,10 +99,23 @@ export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
  * images (uploaded via the v1.1 media endpoint — see lib/platforms.mjs's
  * postToX). Instagram requires at least one and supports a 10-image carousel.
  */
-export const PLATFORM_RULES = {
+// Round 5 review: a null prototype, not a plain `{}` — `PLATFORM_RULES[x]`
+// is keyed directly by an unvalidated `item.platform`/`draft.platform` in
+// two places below and in approval-prompt.mjs, and a plain object literal
+// inherits from Object.prototype, so `platform: "constructor"` (or
+// "toString"/"valueOf"/etc.) resolves to a REAL, truthy inherited
+// property — defeating an `if (!rules)`/`else if (rules)` guard that
+// assumed a missing key returns `undefined` — and then crashes on
+// `rules.measure(...)`, which doesn't exist on that inherited value. This
+// is directly reachable by a plain drafting bug (not just malice): neither
+// social-approval-notify.yml's jq projection nor this file's own CI
+// backstop guarantees `platform` is one of the two real values BEFORE this
+// lookup runs. A null prototype has no inherited properties at all, so
+// only an actual own `x`/`instagram` key can ever resolve here.
+export const PLATFORM_RULES = Object.assign(Object.create(null), {
   x: { maxBody: 280, media: 'required', maxMedia: MAX_X_IMAGES, measure: weightedTweetLength, unit: 'weighted characters' },
   instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
-};
+});
 
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 
@@ -183,6 +196,217 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
 }
 
 /**
+ * `critique` shape + threshold (Tree Overhaul T2,
+ * docs/specs/tree-overhaul/t2-self-critique.md) — the five-dimension rubric
+ * a draft must clear before it can queue. `v: 1` is the only schema version
+ * this checks; T6 adds `v: 2` (six dimensions, `timely`) for merch/appearance
+ * lanes on its own lane-selected path.
+ */
+export const CRITIQUE_DIMENSIONS = ['onStrategy', 'onVoice', 'specific', 'mediaEarnsItsPlace', 'notEmbarrassed'];
+export const CRITIQUE_MIN_DIMENSION_SCORE = 3;
+export const CRITIQUE_TOTAL_THRESHOLD = 18;
+export const CRITIQUE_NOT_EMBARRASSED_MIN = 4;
+export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
+/** Newlines and other C0/DEL control characters, PLUS the Unicode line
+ * separator (U+2028) and paragraph separator (U+2029) — `rationale`
+ * renders as the first line of the approval brief, above the trusted
+ * `ref:` line (round 2, MEDIUM 1 — ref-line-injection hardening; U+2028/
+ * U+2029 added round 3, LOW: both are real LineTerminators for `^`/`$` in
+ * a `/m` regex, same as `\n`/`\r`, so a rationale containing one would
+ * still open a fake "line start" even though it's outside the \x00-\x1F
+ * C0 range — round 2's whitespace-collapse in approval-prompt.mjs
+ * happened to already catch this too (JS's `\s` includes both), but this
+ * schema-level check should actually deliver on its own claim rather than
+ * relying on that as an accident). The control characters are the whole
+ * point of this regex, not an accident.
+ */
+// eslint-disable-next-line no-control-regex
+export const CRITIQUE_RATIONALE_CONTROL_CHAR_RE = /[\x00-\x1F\x7F\u2028\u2029]/;
+/** The only mathematically possible range for a real critique total — five
+ * dimensions, each 1-5. */
+export const CRITIQUE_MIN_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length;
+export const CRITIQUE_MAX_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length * 5;
+
+/**
+ * Whether `value` is a plausible critique total — a bounded integer
+ * (CRITIQUE_MIN_POSSIBLE_TOTAL..CRITIQUE_MAX_POSSIBLE_TOTAL). Shared so
+ * weekly-scorecard.mjs's calibration() (Codex round 1, MEDIUM 3) doesn't
+ * re-derive the bounds independently and drift from the rubric above — a
+ * bare integer (a ledger row's `critiqueTotal`, or a live item's
+ * `critique.total` read without its `scores` to cross-check) can't be
+ * fully validated the way findCritiqueIssues validates a real `critique`
+ * object, but a plausibility bound is cheap insurance against a corrupted
+ * or fabricated value (e.g. `{ critique: { total: 999 } }`) silently
+ * skewing a mean.
+ */
+export function isPlausibleCritiqueTotal(value) {
+  return Number.isInteger(value) && value >= CRITIQUE_MIN_POSSIBLE_TOTAL && value <= CRITIQUE_MAX_POSSIBLE_TOTAL;
+}
+
+/**
+ * Findings against ONE queue item's `critique` object — required shape
+ * (`v`, `scores.*`, `total`, `rationale`, `rulesChecked`, `revision`) and the
+ * queueing threshold (every dimension >= 3, `total` >= 18, `notEmbarrassed`
+ * >= 4 specifically — independent of the total, since it is the dimension a
+ * model is most tempted to inflate). Shared by validateQueueItem below (the
+ * CI schema gate) and check-drafts.mjs's checkCritique (the PR-time quality
+ * gate) so the two can never drift on the rubric's numbers — the same
+ * drift concern documented on check-drafts.mjs's re-exported
+ * weightedTweetLength. No sentence count is enforced on `rationale`: a
+ * terminal-punctuation counter mis-splits the exact prose this field
+ * contains ("22 Oct.", "vs.", "No. 1"), so the character cap is the only
+ * enforcement (spec §Mechanics).
+ *
+ * EXEMPT entirely once the item already carries an approval that is
+ * shape/id/hash-valid — `approvalStatus(item, { approvers: SOCIAL_APPROVERS
+ * })`, no `key`, the exact call validateQueueItem's own `approval` finding
+ * below already makes.
+ *
+ * SECURITY NOTE, stated explicitly and CORRECTLY (Codex round 1, MEDIUM 2;
+ * corrected round 2 after a real repro proved the round-1 wording wrong —
+ * see below) — verified by forging one: take any real item, recompute its
+ * public `contentHash`, pair it with an approver id from the public
+ * SOCIAL_APPROVERS list and any string shaped like `hmac-sha256:<hex>`, and
+ * this check accepts it, because it CANNOT verify the HMAC signature
+ * without `SOCIAL_APPROVAL_KEY` — a secret this module must never hold, since
+ * it is a pure, unit-tested validator with no network/fs access, called from
+ * plain CI (`validate-queue.mjs`) that never has it either.
+ *
+ * What the forgery can actually do (corrected): round 1's comment claimed
+ * this "buys nothing but a stuck, unpublishable item" — FALSE, proven false
+ * by a real repro. A keyless-forged approval passes this exemption, CI goes
+ * green, and if a founder then genuinely reacts ✅ in Discord on that item
+ * (having no way to know critique was ever skipped — the brief shows the
+ * rationale/caption, never critique's pass/fail status), the poll job
+ * mints a REAL, validly-signed v3 approval in response to that REAL
+ * reaction — overwriting whatever fake `approval` was already there,
+ * exactly as it would for any other item — and merges it. The item DOES
+ * post, having never been through the self-critique gate at all. The
+ * forged approval's only job was to survive CI long enough to reach a real
+ * founder's eyes; the founder's own genuine ✅ supplies the real,
+ * cryptographically valid signature that actually ships it.
+ *
+ * What is still true, and still the load-bearing fact: NOTHING can post
+ * without a GENUINE founder reaction. `post-queue.mjs` calls
+ * `approvalStatus` WITH the real key before ever publishing, and
+ * `verifyApprovalSig` (lib/queue.mjs) rejects a non-matching HMAC there,
+ * unconditionally — a forged approval that a founder NEVER reacts to
+ * really does sit in `social/queue/` and never post. And this exemption
+ * only ever touches the critique check specifically: every OTHER gate
+ * (length, media/photo binding, campaign pairing, voice, cross-post
+ * copy — check-drafts.mjs's whole rule set, and queue-schema.mjs's own
+ * shape/platform rules) still fully applies to a critique-exempt item,
+ * forged approval or not. So the honest framing is: a forged approval lets
+ * a critique-less item skip the self-scoring gate entirely, IF it is good
+ * enough (voice, length, sourcing, everything else Tree's other checks and
+ * a human eye would catch) to fool a founder into approving it without
+ * noticing — not "harmless," but bounded to exactly the same trust
+ * boundary this whole pipeline already rests on: the founder's own read of
+ * what's in front of them in Discord.
+ *
+ * Given that corrected picture, shape/hash-valid (option "b" of the three
+ * considered — see the PR body) is still the chosen answer, but on the
+ * right grounds: critique is a quality aid that grades TREE's drafting
+ * (spec: "the founder judges the post; the scores exist to grade Tree"),
+ * not itself a safety gate — the founder's own judgment already was, and
+ * remains, the actual gate on what ships, forged critique-exemption or
+ * not. Losing critique's quality signal on a successfully-fooled item is a
+ * real but bounded cost, not a new hole in the thing that was never
+ * critique's job to guard. Options considered and rejected: (a) something
+ * CI could verify without the secret that still can't be forged — nothing
+ * exists that isn't itself either forgeable from public repo content or
+ * new git-diff-aware plumbing this pure module was deliberately never
+ * given (see its own module docstring).
+ *
+ * Separately: this is a DIFFERENT question from lib/queue.mjs's "a v1
+ * stamp is malformed under v2 — nothing before that date grandfathers":
+ * that rule is about signature STRENGTH and deliberately grandfathers
+ * nothing; this one is about SCOPE — critique exists to force Tree to
+ * self-score BEFORE a human ever sees a draft, and a founder's own
+ * approval (real or, per above, forged-but-bounded) is already a later
+ * check than a rubric this gate would otherwise retroactively demand of
+ * content approved under an earlier rule (four real live queue items
+ * predate T2 entirely and can never have a real one — a v1-only stamp is
+ * not a live case here since S3's redesign re-stamps every still-live item
+ * to v2/v3). Once approved, critique is not checked at all here — present,
+ * absent, or malformed makes no difference: the founder's sign-off (or,
+ * worst case, a forgery already contained by the paragraph above) is the
+ * gate this rule was always downstream of.
+ *
+ * KNOWN GAP (round 2 review, latent, documented not fixed — see
+ * social-approval-poll.mjs's edit-handling loop for the full writeup):
+ * an ✏️ edit on an item that was ONLY exempt via this approval check (never
+ * had a real critique) voids that approval's contentHash on the very
+ * change that's supposed to go through, so the exemption stops applying
+ * mid-edit and no replacement caption can ever satisfy this function
+ * afterward — a permanent per-target deadlock, not a security hole.
+ */
+export function findCritiqueIssues(item) {
+  if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {
+    return [];
+  }
+  const critique = item?.critique;
+  const findings = [];
+  if (critique === null || typeof critique !== 'object' || Array.isArray(critique)) {
+    return ['critique: required — every social/queue/ item carries a self-critique (Tree Overhaul T2).'];
+  }
+  if (critique.v !== 1) {
+    findings.push(`critique.v: must be 1, got ${JSON.stringify(critique.v)}.`);
+  }
+  const scores = critique.scores;
+  const hasScoresObject = scores !== null && typeof scores === 'object' && !Array.isArray(scores);
+  if (!hasScoresObject) {
+    findings.push('critique.scores: required object with all five dimensions.');
+  } else {
+    for (const dim of CRITIQUE_DIMENSIONS) {
+      if (!Number.isInteger(scores[dim]) || scores[dim] < 1 || scores[dim] > 5) {
+        findings.push(`critique.scores.${dim}: must be an integer 1-5, got ${JSON.stringify(scores[dim])}.`);
+      }
+    }
+  }
+  const allScoresValid =
+    hasScoresObject && CRITIQUE_DIMENSIONS.every((dim) => Number.isInteger(scores[dim]) && scores[dim] >= 1 && scores[dim] <= 5);
+  if (allScoresValid) {
+    const sum = CRITIQUE_DIMENSIONS.reduce((total, dim) => total + scores[dim], 0);
+    if (critique.total !== sum) {
+      findings.push(`critique.total: is ${JSON.stringify(critique.total)}, must equal the sum of the five scores (${sum}).`);
+    }
+    for (const dim of CRITIQUE_DIMENSIONS) {
+      const min = dim === 'notEmbarrassed' ? CRITIQUE_NOT_EMBARRASSED_MIN : CRITIQUE_MIN_DIMENSION_SCORE;
+      if (scores[dim] < min) {
+        findings.push(`critique.${dim} is ${scores[dim]}, needs ${min}`);
+      }
+    }
+    if (sum < CRITIQUE_TOTAL_THRESHOLD) {
+      findings.push(`critique.total is ${sum}, needs ${CRITIQUE_TOTAL_THRESHOLD}`);
+    }
+  }
+  if (typeof critique.rationale !== 'string' || critique.rationale.trim() === '') {
+    findings.push('critique.rationale: required, non-empty string.');
+  } else if (critique.rationale.length > CRITIQUE_RATIONALE_MAX_CHARS) {
+    findings.push(`critique.rationale: ${critique.rationale.length} characters exceeds the ${CRITIQUE_RATIONALE_MAX_CHARS}-character cap.`);
+  } else if (CRITIQUE_RATIONALE_CONTROL_CHAR_RE.test(critique.rationale)) {
+    // Round 2, MEDIUM 1 (ref-line injection): `rationale` renders as the
+    // FIRST line of the approval brief, above the trusted trailing `ref:`
+    // line (approval-prompt.mjs's formatRationaleLine) — a newline or
+    // other control character here could otherwise plant a fake
+    // `ref: PR #<n> · <sha> · *`-shaped line earlier in the message and
+    // hijack which draft/scope a reaction resolves to. formatRationaleLine
+    // also normalizes whitespace defensively, but a malformed rationale
+    // should never pass CI in the first place — plain, single-line
+    // English prose has no legitimate reason to contain one.
+    findings.push('critique.rationale: must not contain newlines or other control characters.');
+  }
+  if (!Array.isArray(critique.rulesChecked) || !critique.rulesChecked.every((r) => typeof r === 'string')) {
+    findings.push('critique.rulesChecked: required, must be an array of strings (e.g. [] before T5 ships).');
+  }
+  if (critique.revision !== 1 && critique.revision !== 2) {
+    findings.push(`critique.revision: must be 1 or 2, got ${JSON.stringify(critique.revision)}.`);
+  }
+  return findings;
+}
+
+/**
  * Validates one parsed queue item. Returns an array of human-readable
  * findings; an empty array means the item is well-formed. Never throws —
  * callers get every problem at once rather than the first one.
@@ -212,6 +436,9 @@ export function validateQueueItem(item) {
   if (!LANES.includes(item.lane)) {
     findings.push(`lane: ${JSON.stringify(item.lane)} is not one of ${LANES.map((l) => `"${l}"`).join(', ')}.`);
   }
+
+  // --- critique (Tree Overhaul T2, self-critique before queueing) --------
+  findings.push(...findCritiqueIssues(item));
 
   // --- body ---------------------------------------------------------------
   if (typeof item.body !== 'string' || item.body.trim() === '') {

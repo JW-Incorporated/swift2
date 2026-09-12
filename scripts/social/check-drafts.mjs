@@ -88,7 +88,7 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
-import { THEMED_CAMPAIGN_PREFIXES } from './lib/queue-schema.mjs';
+import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues } from './lib/queue-schema.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -724,6 +724,18 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
   return findings;
 }
 
+/**
+ * Tree's self-critique threshold (Tree Overhaul T2), re-checked here — not
+ * only in queue-schema.mjs's CI backstop — because this is the PR-time gate
+ * a drafting run actually sees before merge. Shares queue-schema.mjs's
+ * findCritiqueIssues rather than re-implementing the rubric numbers: two
+ * independent ports would drift, and a drifted rubric is exactly how a
+ * below-threshold draft would slip past one gate but not the other.
+ */
+export function checkCritique(item) {
+  return findCritiqueIssues(item);
+}
+
 export async function recentInstagramPosted(n = ERA_ART_LOOKBACK) {
   const posted = (await readJsonDir(POSTED_DIR)).map((p) => p.data).filter((d) => d.platform === 'instagram');
   return posted.sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).slice(-n);
@@ -785,6 +797,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkCrossPostCopy(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
+    ...checkCritique(target.data),
   ];
 }
 

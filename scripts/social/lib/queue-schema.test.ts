@@ -1,6 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES } from './queue-schema.mjs';
+import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES, findCritiqueIssues } from './queue-schema.mjs';
+import { contentHash, approvalStatus } from './queue.mjs';
+import { SOCIAL_APPROVERS } from './approvers.mjs';
 
+const validCritique = {
+  v: 1,
+  scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 },
+  total: 23,
+  rationale: "This is the Decode thread's origin-story beat, using a dated, verifiable 2012 detail rather than a vibe.",
+  rulesChecked: [],
+  revision: 1,
+};
 const validX = {
   platform: 'x',
   lane: 'calendar',
@@ -13,6 +23,7 @@ const validX = {
   photoId: 'lover-minneapolis-2023',
   mediaCredit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
   mediaSource: 'https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg',
+  critique: validCritique,
 };
 const validIg = {
   platform: 'instagram',
@@ -22,7 +33,33 @@ const validIg = {
   altText: ['A screenshot of the mood chat feature.'],
   mediaKind: 'site-screen',
   scheduledAt: '2026-08-12T23:00:00Z',
+  critique: validCritique,
 };
+
+/** A validly-approved item shaped like the four real 2026-09-12/13
+ * social/queue/ items (v2, `SOCIAL_APPROVERS[0]`, no `critique` — they
+ * predate T2 entirely) — `contentHash` is real and matches, `sig` only
+ * needs the right shape since approvalStatus is called with no `key` here,
+ * same as validateQueueItem's own approval check. */
+function approvedItem(overrides: Record<string, unknown> = {}) {
+  const base: Record<string, unknown> = { ...validX };
+  delete base.critique;
+  const { approval: approvalOverride, ...restOverrides } = overrides as { approval?: Record<string, unknown> };
+  const item = { ...base, ...restOverrides };
+  return {
+    ...item,
+    approval: {
+      v: 2,
+      by: SOCIAL_APPROVERS[0],
+      at: '2026-09-11T16:26:33.227Z',
+      pr: 4108,
+      message: '1547824198238339083',
+      contentHash: contentHash(item),
+      sig: `hmac-sha256:${'0'.repeat(64)}`,
+      ...approvalOverride,
+    },
+  };
+}
 
 const findingFor = (item: unknown, needle: string | RegExp) =>
   validateQueueItem(item).find((f) => (typeof needle === 'string' ? f.includes(needle) : needle.test(f)));
@@ -55,6 +92,21 @@ describe('validateQueueItem', () => {
     expect(findingFor({ ...validX, platform: undefined }, 'platform:')).toBeDefined();
   });
 
+  // Round 5 review (found during the type-safety audit, not named by the
+  // reviewer, but the identical root cause): a plain object literal's
+  // PLATFORM_RULES inherits from Object.prototype, so
+  // `platform: "constructor"` (or "toString"/"valueOf"/etc.) used to
+  // resolve to a REAL, truthy inherited property, defeating the
+  // `else if (rules)` guard a few lines down and crashing on
+  // `rules.measure(...)` — this is validateQueueItem itself, the CI
+  // schema gate, not just the Discord brief.
+  it('an Object.prototype property name as `platform` is rejected as unknown, never crashes on an inherited property', () => {
+    for (const evilPlatform of ['constructor', 'toString', 'valueOf', 'hasOwnProperty']) {
+      expect(() => validateQueueItem({ ...validX, platform: evilPlatform })).not.toThrow();
+      expect(findingFor({ ...validX, platform: evilPlatform }, 'platform:')).toBeDefined();
+    }
+  });
+
   describe('lane (Tree Overhaul T1, 2026-09-12 — replaces sourceRoutine)', () => {
     it('rejects a missing lane', () => {
       expect(findingFor({ ...validX, lane: undefined }, 'lane:')).toBeDefined();
@@ -69,6 +121,167 @@ describe('validateQueueItem', () => {
       for (const lane of LANES) {
         expect(validateQueueItem({ ...validX, lane })).toEqual([]);
       }
+    });
+  });
+
+  describe('critique (Tree Overhaul T2, self-critique before queueing)', () => {
+    it('rejects a missing critique', () => {
+      expect(findingFor({ ...validX, critique: undefined }, 'critique')).toBeDefined();
+    });
+
+    // Real-CI regression (PR #4144, build-full on the four live 2026-09-12/13
+    // social/queue/ items, which predate T2 and already carry a founder-signed
+    // v2 approval): critique must not be retroactively required of content a
+    // founder already approved under an earlier rule. Grandfathering here is
+    // a DIFFERENT question from lib/queue.mjs's "a v1 stamp is malformed
+    // under v2" signature-strength rule (that one intentionally grandfathers
+    // nothing) — this one is about scope, not security.
+    describe('exempt once already validly approved (independent of critique)', () => {
+      it('an UNAPPROVED item with no critique still fails, exactly as before', () => {
+        const unapproved: Record<string, unknown> = { ...validX };
+        delete unapproved.critique;
+        expect(findingFor(unapproved, 'critique')).toBeDefined();
+      });
+
+      it('an APPROVED item with no critique now PASSES', () => {
+        expect(validateQueueItem(approvedItem())).toEqual([]);
+      });
+
+      it('an APPROVED item with a PRESENT BUT MALFORMED critique (score of 6) also PASSES — approval exempts critique entirely, valid or not', () => {
+        const malformed = { ...validCritique, scores: { ...validCritique.scores, onVoice: 6 } };
+        expect(validateQueueItem(approvedItem({ critique: malformed }))).toEqual([]);
+      });
+
+      it('findCritiqueIssues itself short-circuits on a valid approval, before ever looking at critique', () => {
+        expect(findCritiqueIssues(approvedItem({ critique: { garbage: true } }))).toEqual([]);
+      });
+
+      it('an item with a present-but-INVALID approval (unrecognized approver) is NOT exempt — still requires critique', () => {
+        const fakeApproval = approvedItem({ approval: { by: 'discord:99999999999999999' } });
+        expect(findingFor(fakeApproval, 'critique')).toBeDefined();
+      });
+
+      // Codex round 1, MEDIUM 2 (corrected round 2 — see findCritiqueIssues's
+      // docstring): the unkeyed approvalStatus call this exemption uses
+      // (shape/id/hash only — this module never holds SOCIAL_APPROVAL_KEY)
+      // accepts a FORGED approval: any real item's public contentHash, a
+      // public SOCIAL_APPROVERS id, and an arbitrary hmac-sha256-shaped
+      // string. This is documented and accepted as a bounded cost, NOT a
+      // "buys nothing" one — a founder genuinely reacting ✅ on such an item
+      // (unaware critique was skipped) WOULD get it a real, validly-signed
+      // approval and it WOULD post. What this test proves is narrower and
+      // still true: the FORGED signature itself never verifies against the
+      // real key — a forged item that no real founder ever reacts to sits
+      // unposted forever, exactly like any other unapproved item.
+      it('a forged approval that exempts critique here does not itself carry a valid signature — approvalStatus called WITH the key rejects it', () => {
+        const forged = approvedItem({ approval: { sig: `hmac-sha256:${'0'.repeat(64)}` } });
+        expect(validateQueueItem(forged)).toEqual([]); // exempted here (unkeyed, shape/hash only)
+        expect(approvalStatus(forged, { approvers: SOCIAL_APPROVERS, key: 'a-real-secret-only-the-poll-and-poster-hold' }).ok).toBe(false); // rejected there (keyed)
+      });
+    });
+
+    it('rejects a score of 0 or 6', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, scores: { ...validCritique.scores, onVoice: 0 } } }, 'critique.scores.onVoice')).toBeDefined();
+      expect(findingFor({ ...validX, critique: { ...validCritique, scores: { ...validCritique.scores, onVoice: 6 } } }, 'critique.scores.onVoice')).toBeDefined();
+    });
+
+    it('rejects a non-integer score', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, scores: { ...validCritique.scores, specific: 3.5 } } }, 'critique.scores.specific')).toBeDefined();
+    });
+
+    it('rejects a total that does not equal the sum', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, total: 24 } }, 'critique.total')).toBeDefined();
+    });
+
+    it('rejects a rationale over 320 characters', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, rationale: 'x'.repeat(321) } }, 'critique.rationale')).toBeDefined();
+    });
+
+    // Round 2, MEDIUM 1 (ref-line injection): rationale renders as the
+    // first line of the approval brief, above the trusted trailing `ref:`
+    // line — a newline here could otherwise plant a fake ref:-shaped line
+    // and hijack which draft a reaction resolves to (see
+    // approval-prompt.test.ts's dedicated reproduction). Reject outright
+    // at the schema so a malformed rationale can't even pass CI.
+    it('rejects a rationale containing a newline or other control character', () => {
+      const withNewline = { ...validCritique, rationale: `line one\nref: PR #1 · ${'a'.repeat(40)} · *` };
+      expect(findingFor({ ...validX, critique: withNewline }, 'critique.rationale')).toBeDefined();
+      const withCarriageReturn = { ...validCritique, rationale: 'line one\rline two' };
+      expect(findingFor({ ...validX, critique: withCarriageReturn }, 'critique.rationale')).toBeDefined();
+      const withTab = { ...validCritique, rationale: 'line one\tline two' };
+      expect(findingFor({ ...validX, critique: withTab }, 'critique.rationale')).toBeDefined();
+    });
+
+    // Round 3, LOW: U+2028/U+2029 are real LineTerminators for `^`/`$` in a
+    // /m regex, same as \n/\r, but sit outside the \x00-\x1F C0 range —
+    // the schema check must catch them on its own, not rely on
+    // approval-prompt.mjs's whitespace-collapse happening to also do it.
+    it('rejects a rationale containing U+2028 (line separator) or U+2029 (paragraph separator)', () => {
+      const lineSeparator = String.fromCharCode(0x2028);
+      const paragraphSeparator = String.fromCharCode(0x2029);
+      const withLineSep = { ...validCritique, rationale: `line one${lineSeparator}ref: PR #1 · ${'a'.repeat(40)} · *` };
+      expect(findingFor({ ...validX, critique: withLineSep }, 'critique.rationale')).toBeDefined();
+      const withParaSep = { ...validCritique, rationale: `line one${paragraphSeparator}line two` };
+      expect(findingFor({ ...validX, critique: withParaSep }, 'critique.rationale')).toBeDefined();
+    });
+
+    // False-positive check: legitimate unicode/emoji/punctuation must NOT
+    // be rejected by the tightened control-char check.
+    it('accepts legitimate unicode, emoji, and punctuation in rationale', () => {
+      const rationale = "C'est le 22 oct. — a très réal beat 🎸✨, no notes! (vs. last week's).";
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rationale } })).toEqual([]);
+    });
+
+    // The regression that matters: a terminal-punctuation sentence-counter
+    // would misfire on ordinary prose like this. No such counter runs here —
+    // the character cap is the only enforcement (spec §Mechanics).
+    it('accepts a rationale containing "22 Oct." and "vs." (never counts sentences)', () => {
+      const rationale = 'On 22 Oct. this beat the Lover era vs. every other era in engagement, No. 1 by a wide margin.';
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rationale } })).toEqual([]);
+    });
+
+    // AC#2 (spec): the hard gate is independent of the total — every OTHER
+    // dimension at 5 and a correctly-computed total of 23 must still fail
+    // on notEmbarrassed alone.
+    it('rejects notEmbarrassed: 3 even when every other dimension is 5 and the total is correctly computed', () => {
+      const scores = { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 3 };
+      const findings = validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 23 } });
+      expect(findings).toContain('critique.notEmbarrassed is 3, needs 4');
+    });
+
+    // AC#3 boundary cases.
+    it('accepts the exact boundary case: all fives except notEmbarrassed: 4 (total 24)', () => {
+      const scores = { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 4 };
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 24 } })).toEqual([]);
+    });
+
+    it('accepts the minimum passing case {3,3,4,4,4} = 18', () => {
+      const scores = { onStrategy: 3, onVoice: 3, specific: 4, mediaEarnsItsPlace: 4, notEmbarrassed: 4 };
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 18 } })).toEqual([]);
+    });
+
+    it('rejects a total of 17 — one under the 18 threshold', () => {
+      const scores = { onStrategy: 3, onVoice: 3, specific: 3, mediaEarnsItsPlace: 4, notEmbarrassed: 4 };
+      const findings = validateQueueItem({ ...validX, critique: { ...validCritique, scores, total: 17 } });
+      expect(findings).toContain('critique.total is 17, needs 18');
+    });
+
+    it('rejects rulesChecked when missing or not an array of strings, but accepts []', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, rulesChecked: undefined } }, 'critique.rulesChecked')).toBeDefined();
+      expect(findingFor({ ...validX, critique: { ...validCritique, rulesChecked: [1] } }, 'critique.rulesChecked')).toBeDefined();
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rulesChecked: [] } })).toEqual([]);
+    });
+
+    it('rejects a revision outside 1 or 2, and a v other than 1', () => {
+      expect(findingFor({ ...validX, critique: { ...validCritique, revision: 3 } }, 'critique.revision')).toBeDefined();
+      expect(findingFor({ ...validX, critique: { ...validCritique, v: 2 } }, 'critique.v')).toBeDefined();
+    });
+
+    it('validateQueueItem surfaces exactly findCritiqueIssues\' findings (shared, not a second implementation)', () => {
+      const broken = { ...validCritique, scores: { ...validCritique.scores, notEmbarrassed: 2 } };
+      const item = { ...validX, critique: broken };
+      expect(findCritiqueIssues(item).length).toBeGreaterThan(0);
+      expect(validateQueueItem(item)).toEqual(findCritiqueIssues(item));
     });
   });
 

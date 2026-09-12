@@ -20,6 +20,7 @@ import {
   MAX_POSTS_PER_RUN,
   MAX_POSTS_PER_PLATFORM_PER_DAY,
   contentHash,
+  contentHashPayload,
   approvalSigPayload,
   approvalStatus,
   signApproval,
@@ -545,5 +546,34 @@ describe('approvalStatus (v3 — the head SHA is signed, docs/decisions.md 2026-
     expect(approvalStatus({ ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } }, { approvers: [approver], key })).toEqual({ ok: true });
     expect(approvalSigPayload(unsigned)).toBe(`2|${approver}|2026-09-20T00:00:00Z|1|${contentHash(item)}`);
     expect(approvalSigPayload({ ...unsigned, v: 3, sha })).toBe(`3|${approver}|2026-09-20T00:00:00Z|1|${sha}|${contentHash(item)}`);
+  });
+});
+
+describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec AC#7)', () => {
+  const base = { platform: 'x', body: 'hello', media: [], altText: [], scheduledAt: '2026-09-20T00:00:00Z', campaign: 'launch:x:y' };
+  const critiqueA = { v: 1, scores: { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 5 }, total: 25, rationale: 'a', rulesChecked: [], revision: 1 };
+  const critiqueB = { v: 1, scores: { onStrategy: 3, onVoice: 3, specific: 3, mediaEarnsItsPlace: 3, notEmbarrassed: 4 }, total: 16, rationale: 'b', rulesChecked: [], revision: 2 };
+
+  it('contentHashPayload never includes `critique`', () => {
+    expect(Object.keys(contentHashPayload({ ...base, critique: critiqueA }))).not.toContain('critique');
+  });
+
+  it('contentHash is identical whether critique is absent or which critique it carries', () => {
+    const hashNone = contentHash(base);
+    expect(contentHash({ ...base, critique: critiqueA })).toBe(hashNone);
+    expect(contentHash({ ...base, critique: critiqueB })).toBe(hashNone);
+  });
+
+  it('a stamp minted against one critique still verifies after critique changes underneath it — the regression for the not-hashed decision', () => {
+    const key = 'test-key';
+    const approver = 'discord:100000000000000001';
+    const unsigned = { v: 2, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, message: '1', contentHash: contentHash({ ...base, critique: critiqueA }) };
+    const stamp = { ...unsigned, sig: signApproval(unsigned, key) };
+    const stamped = { ...base, critique: critiqueA, approval: stamp };
+    // `critique` is written once and never touched by a real ✏️ (spec: "not
+    // by anything") — drifting it here anyway proves the stamp is
+    // indifferent to it either way, the strongest form of "not hashed."
+    const drifted = { ...stamped, critique: critiqueB };
+    expect(approvalStatus(drifted, { approvers: [approver], key })).toEqual({ ok: true });
   });
 });
