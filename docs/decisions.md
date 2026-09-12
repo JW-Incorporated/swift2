@@ -7,6 +7,115 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-12 — Approval stamps become v3 (the head SHA is signed); a Discord message id is never a gate again (S3 redesign, architect-directed)
+
+**Decision:** `social-approval-poll.mjs` stops using Discord message identity
+to decide anything. Two axes, kept separate by construction:
+
+- **Listening axis (Discord).** The poll reads reactions and replies on
+  *every* message in the 100-message window whose `ref:` line names the PR
+  — header (`*`) or per-file — at *any* head SHA, and classifies the
+  **union** per target: a ❌ anywhere wins, the latest qualifying reply
+  anywhere wins (by timestamp). `approval.message` is still written, but it
+  is **audit-only**: nothing reads it to decide whether to listen, mint, or
+  merge.
+- **Safety axis (git).** The poll mints **v3 stamps** whose signed payload
+  adds the head SHA it stamped on:
+  `${v}|${by}|${at}|${pr}|${sha}|${contentHash}` (`lib/queue.mjs`'s
+  `approvalSigPayload`, now dispatching on `v`; v2's payload is unchanged so
+  every already-issued stamp keeps verifying, and the poster verifies both).
+  One predicate decides both "may this ✅/✏️ mint" and "may this stamp
+  merge": `cleanSince(S, head)` — every path in `git diff --name-only S head`
+  must be a `social/queue/**.json` file that is either absent at head (a
+  deletion cannot publish unseen content) or validly stamped at head;
+  unreadable fails closed — plus `selfClean(F)`, the file's own bytes at
+  `approval.sha` vs head differing only in `approval`/`body`/`edit`. A
+  reaction on a message at SHA `m.sha` may mint `F` iff `m.sha === head`, or
+  `cleanSince(m.sha, head)` holds and `F` is not in that diff. A PR merges
+  iff every queue file at head is validly stamped and passes
+  `cleanSince(approval.sha, head)` and `selfClean`; otherwise one notice per
+  PR per 24h names the offending paths. Drift is recovered by a fresh ✅ on
+  the newest brief; there is no separate stamp-stripping path and no sticky
+  per-file flag.
+- **Ledger rows are derived from state every run**, never only from the
+  run's own actions: approve/edit rows from each valid stamp at head
+  (`ts = approval.at`, `action: "edit"` iff `edit.at === approval.at`, the
+  new `edit.reply` is `replyId`), reject rows from a ❌+reason on a file now
+  absent at head; each row dedupes against the ISO-week file its own `ts`
+  falls in. The MERGED-only self-heal is deleted, as are
+  `partitionCurrentHonoured`, `resolveGoverningRef`, `unsafeFiles`,
+  `isPollAuthorizedDeletion` and `ledgerHasRejectRow`.
+
+**Why:** three consecutive fix attempts on PR #4139 (a per-finding patch, a
+fresh-context redesign around a per-file "governing message", then Codex
+round 3) each closed the reported cases and each opened new ones in the
+same mechanism. The architect (Fable) diagnosis (`DEBUG.md` on that
+branch): all of them gated *listening* on message identity
+(`approval.message === ref.message.id`, then `resolveGoverningRef`) — but
+messages are ephemeral and multiply by construction.
+`social-approval-notify.yml` re-posts the header and every unstamped brief
+on every `synchronize` (including the poll's own stamp/edit/reject pushes),
+the daily digest re-posts at the same SHA, and the 100-message window drops
+old ones. Header-vs-per-file, duplicate briefs, identity not preserved
+across runs, a hand-edited unsigned `message`, stranded `unsafeFiles` — each
+is one more way for the recorded id not to be the message the founder
+actually reacted on. **That class is unbounded; no fourth implementation
+pass closes it by adding a rule.** The durable-record instinct is right for
+the SHA (what the founder saw) and wrong for the message id (which one they
+happened to tap). Signing the SHA is what makes `git diff approval.sha head`
+a trustworthy question; an unsigned field there would be the same hole
+`approval.message` was.
+
+**What this reverses:** the 2026-09-11 S3 entry below ("a Discord brief
+whose `ref:` head SHA is stale is still authoritative for a queue file that
+already carries a valid `approval` naming that exact message … The
+signature payload is therefore left untouched") and the spec's
+§"The stale-SHA problem" honouring rule. A *versioned* payload leaves every
+v2 signature valid, so "changing it would invalidate every prior stamp" no
+longer holds. The spec's "every diff path … validly stamped at head" was
+also over-strict for a deletion (it spawned the ledger-corroboration
+workaround for the poll's own reject commits) and for cross-file drift (a
+permanent strand after any sibling's unrelated change); `selfClean` is
+per-file and self-anchored instead.
+
+**Version-number collision, resolved here:** the T7 entry directly below
+(2026-09-12) reserved `v: 3` for a signed `kind` field. This entry takes
+`v: 3` for `sha` because it lands first and T7 is not yet built; T7's
+`kind` lands as **`v: 4`** = `${v}|${kind}|${by}|${at}|${pr}|${sha}|${contentHash}`,
+layered on v3 — a policy stamp has to be SHA-anchored to pass the merge
+predicate at all, so T7 needs `sha` regardless. T7's spec
+(`docs/specs/tree-overhaul/t7-autonomy-ladder.md`, the payload table and
+acceptance items 4/5) needs that renumber before its Wave 4/5 build.
+
+**Consequences, stated plainly:** a v2 stamp still sitting on an *open* PR
+when this lands needs one fresh ✅ to become a v3 stamp (one-time
+transition; already-merged v2 content keeps posting). ✏️ on a stale message
+now has to pass the mint predicate too (a real tightening). The 100-message
+window is still a spec-accepted limit. A drift confined to non-queue paths
+(e.g. only image bytes changing) does not fire `notify`, so no fresh brief
+appears until the next daily digest — the notice says so rather than
+implying an immediate fix. Later stages (S6, T4, T7) must never treat a
+message id as authoritative state. The cheapest signal this call was wrong:
+an adversarial review finding a merge where a ❌ on any window-visible
+message for that file went unread, or where `git diff approval.sha head`
+contains a non-`social/queue/**` path.
+
+**Alternatives rejected:** (A) a more careful implementation of the
+message-identity model — proven insufficient three rounds running; (B) a
+durable record of "the governing message" (the DEBUG.md synthesis
+hypothesis) — makes the blind spot permanent instead of transient, every
+other message for that file becomes unread by construction; (C) dropping
+stale-SHA honouring entirely — ✏️ makes a stale SHA a certainty, so S3
+without it isn't S3.
+
+**Decided by:** the architect (Fable) verdict recorded in `DEBUG.md` on
+`feat/tree-s3-reason-protocol`, reached through the mandatory debug ladder
+(`CLAUDE.md` two-strike rule), executed by Claude Code. Reversible in code
+(a revert re-mints); the format change is the expensive part, hence this
+entry before implementation.
+
+---
+
 ## 2026-09-12 — Autonomy ladder: a campaign type can earn post-and-notify, per type, revocably (T7)
 
 **Decision:** A campaign family that accumulates ≥8 briefs over a trailing
