@@ -37,7 +37,7 @@ import { WORKFLOWS_DIR, listRoutineWorkflowFiles } from './check-routine-workflo
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'routine-output-sampling');
 const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
-const WINDOW_DAYS = 7;
+export const WINDOW_DAYS = 7;
 const STALE_HOURS = 72;
 const CLOSED_UNMERGED_FLAG_RATE = 0.4;
 
@@ -161,8 +161,13 @@ export function buildReport({ date, repo, routines }) {
   return lines.join('\n');
 }
 
-/** The 15 routines to sample: workflow name, prompt file, resolved identifier. */
-function discoverRoutines() {
+/**
+ * The routines to sample: workflow name, prompt file, resolved identifier.
+ * Exported so routine-quality-sample.mjs (output-sampling.yml's second job)
+ * reuses this exact discovery/attribution-matching instead of reimplementing
+ * `Tier-2:` parsing.
+ */
+export function discoverRoutines() {
   const dir = path.join(ROOT, WORKFLOWS_DIR);
   const dirents = readdirSync(dir);
   const files = listRoutineWorkflowFiles(dirents);
@@ -186,7 +191,8 @@ function discoverRoutines() {
   });
 }
 
-async function fetchForRoutine(identifier) {
+/** Exported for reuse by routine-quality-sample.mjs — same PR/issue fetch, same query shape. */
+export async function fetchForRoutine(identifier) {
   const query = `Tier-2: ${identifier}`;
   const [prsOut, issuesOut] = await Promise.all([
     gh(['search', 'prs', '--repo', REPO, query, '--limit', '100', '--json', 'number,state,createdAt,closedAt']),
@@ -210,11 +216,27 @@ async function main() {
   // worth of queries (same reasoning as fleet-telemetry-snapshot.mjs).
   for (const r of discovered) {
     if (!r.identifier) {
-      routines.push({ name: r.name, identifier: null, metrics: null });
+      routines.push({ name: r.name, identifier: null, metrics: null, prs: [] });
       continue;
     }
     const data = await fetchForRoutine(r.identifier);
-    routines.push({ name: r.name, identifier: r.identifier, metrics: computeMetrics(data, now) });
+    routines.push({ name: r.name, identifier: r.identifier, metrics: computeMetrics(data, now), prs: data.prs });
+  }
+
+  // Optional: hand this run's already-fetched raw PR lists to a downstream
+  // job (output-sampling.yml's quality-sample) via a build artifact, so it
+  // never re-issues the same `gh search prs` queries this process just
+  // made — the GitHub Search API's per-minute cap is easy for two jobs in
+  // the same run to collide on back-to-back (T5, found via a real dispatch:
+  // quality-sample's first attempt hit "API rate limit exceeded" on its
+  // second routine because it re-fetched all 13 routines' searches moments
+  // after this loop already spent that same window). Unset by default —
+  // zero behavior change for anyone running this script standalone.
+  if (process.env.RAW_OUTPUT_FILE) {
+    await writeFile(
+      process.env.RAW_OUTPUT_FILE,
+      JSON.stringify(routines.map(({ name, identifier, prs }) => ({ name, identifier, prs }))),
+    );
   }
 
   const report = buildReport({ date, repo: REPO, routines });

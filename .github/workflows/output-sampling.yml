@@ -12,6 +12,19 @@
 # LLM tokens, report-only — same commit-via-PR shape as
 # fleet-telemetry-snapshot.yml (main is branch-protected).
 #
+# A second job, quality-sample (A4, Tree Overhaul epic #4117), adds the
+# judgment half: for every routine this first job has volume data for, it
+# samples at most 2 merged PRs (at most 30/week total across the fleet) and,
+# only when that routine's charter doc carries a `## Sampling rubric`
+# heading, has one cheap Sonnet call (thinking disabled, forced-tool
+# response) score the PR 1-3 against that rubric with one evidence sentence
+# — see scripts/routine-quality-sample.mjs. Routines with no rubric
+# available this week (no Tier-2: tag at all, or a charter with no rubric
+# heading) are listed by name, never silently dropped. It checks out the
+# SAME branch this job just pushed and appends a "## Quality sampling"
+# section to the SAME report file with a second commit, rather than opening
+# a competing parallel PR.
+#
 # Cron offset (per watchdog.yml's scheduling-contention note): this repo has
 # several daily crons clustered at :00/:30 (social-poster.yml,
 # marjorie-inbox.yml) where GitHub Actions schedule triggers are documented
@@ -42,6 +55,10 @@ jobs:
   sample:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      branch: ${{ steps.meta.outputs.branch }}
+      date: ${{ steps.meta.outputs.date }}
+      changed: ${{ steps.commit.outputs.changed }}
     steps:
       - name: Checkout (resolve local composite actions)
         uses: actions/checkout@v7
@@ -53,18 +70,39 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+          RAW_OUTPUT_FILE: ${{ github.workspace }}/routine-output-raw.json
         run: node scripts/routine-output-sample.mjs
 
+      # Hands this run's already-fetched PR lists to quality-sample so it
+      # never re-issues the same gh search queries (the Search API's
+      # per-minute cap is easy for two jobs in the same run to collide on
+      # back-to-back — see routine-output-sample.mjs's RAW_OUTPUT_FILE
+      # comment).
+      - name: Upload raw PR data for quality-sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: routine-output-raw
+          path: routine-output-raw.json
+          if-no-files-found: ignore
+          retention-days: 1
+
       - name: Compute PR metadata
+        id: meta
         if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
         run: |
           STAMP=$(date -u +%Y-%m-%d)
+          BRANCH="routine-output-sampling/$(date -u +%Y%m%d%H%M%S)"
           {
-            echo "branch=routine-output-sampling/$(date -u +%Y%m%d%H%M%S)"
+            echo "branch=$BRANCH"
             echo "commit_message=routine-output-sampling: $STAMP"
             echo "pr_title=routine-output-sampling: $STAMP"
           } >> "$GITHUB_ENV"
+          {
+            echo "branch=$BRANCH"
+            echo "date=$STAMP"
+          } >> "$GITHUB_OUTPUT"
       - uses: ./.github/actions/commit-and-pr
+        id: commit
         if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
         with:
           token: ${{ secrets.SOCIAL_POSTER_PAT }}
@@ -77,3 +115,47 @@ jobs:
             attribution tag, last 7 days). Zero LLM tokens, report-only. See
             docs/TIER2-OPTIMIZATION.md T-20.
           no-changes-message: "No routine-output changes to commit."
+
+  quality-sample:
+    needs: sample
+    if: ${{ (github.event_name == 'schedule' || inputs.dry_run == false) && needs.sample.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+          ref: ${{ needs.sample.outputs.branch }}
+
+      - name: Download the first job's raw PR data
+        uses: actions/download-artifact@v4
+        with:
+          name: routine-output-raw
+          path: ${{ github.workspace }}/raw
+
+      - name: Sample <=2 merged PRs per routine and score against each charter's rubric
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          REPORT_DATE: ${{ needs.sample.outputs.date }}
+          RAW_DATA_FILE: ${{ github.workspace }}/raw/routine-output-raw.json
+        run: node scripts/routine-quality-sample.mjs
+
+      - name: Append the quality section to the same branch/PR the first job opened
+        env:
+          BRANCH: ${{ needs.sample.outputs.branch }}
+          COMMIT_MESSAGE: 'routine-output-sampling: quality section for ${{ needs.sample.outputs.date }}'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout "$BRANCH"
+          git add docs/audits/routine-output-sampling
+          if git diff --cached --quiet; then
+            echo "No quality-sampling changes to commit."
+          else
+            git commit -m "$COMMIT_MESSAGE"
+            git push origin "$BRANCH"
+          fi

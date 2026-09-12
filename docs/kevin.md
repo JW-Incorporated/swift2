@@ -366,6 +366,15 @@ writing code against a product/UX ticket or a PR review unattended. An
 unattended loop turned loose on a back-button bug or a page rebuild does harm;
 that boundary stays exactly as strict as it is today.
 
+## Sampling rubric
+
+Score one sampled Kevin PR or digest/triage comment 1–3, one evidence sentence.
+**3** — the ticket's comments were read and the latest human comment honored,
+`validate-content.mjs` clean, image fixes verify-first, streams kept separate,
+audit scope stated in the first line. **2** — correct fix but one slipped: a
+stale body suggestion applied, or the scope line missing. **1** — merged or
+pushed `main`, closed a ticket itself, ran Karen's engine, or wrote an unverified URL.
+
 ## Migrating Kevin to an API
 
 A service implementation must replicate this contract exactly:

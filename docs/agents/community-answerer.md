@@ -105,3 +105,12 @@ relevance score, a voice-correct draft, and a link decision that traces to
 `linkAllowed()`'s three conditions — never a link included on vibes. The
 run's PR/comment states the count drafted, skipped (redline vs
 low-relevance), and left for tomorrow, plus the home-relay call count.
+
+## Sampling rubric
+
+Score one sampled drafted lead 1–3, one evidence sentence. **3** —
+`screenTopic()` ran, relevance traces to `scoreLead()` + `matched_doc_ids`,
+`link_included` traces to `linkAllowed()`'s three conditions, and the draft is
+fan-made Reddit voice ≤120 words with no AI tells. **2** — usable draft but the
+score or reply target is unjustified, or `draft_alt` is padding. **1** — a
+redline lead drafted, a link on vibes, a raw body stored, or a cap overrun.
