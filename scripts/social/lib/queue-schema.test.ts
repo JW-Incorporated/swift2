@@ -197,6 +197,26 @@ describe('validateQueueItem', () => {
       expect(findingFor({ ...validX, critique: withTab }, 'critique.rationale')).toBeDefined();
     });
 
+    // Round 3, LOW: U+2028/U+2029 are real LineTerminators for `^`/`$` in a
+    // /m regex, same as \n/\r, but sit outside the \x00-\x1F C0 range —
+    // the schema check must catch them on its own, not rely on
+    // approval-prompt.mjs's whitespace-collapse happening to also do it.
+    it('rejects a rationale containing U+2028 (line separator) or U+2029 (paragraph separator)', () => {
+      const lineSeparator = String.fromCharCode(0x2028);
+      const paragraphSeparator = String.fromCharCode(0x2029);
+      const withLineSep = { ...validCritique, rationale: `line one${lineSeparator}ref: PR #1 · ${'a'.repeat(40)} · *` };
+      expect(findingFor({ ...validX, critique: withLineSep }, 'critique.rationale')).toBeDefined();
+      const withParaSep = { ...validCritique, rationale: `line one${paragraphSeparator}line two` };
+      expect(findingFor({ ...validX, critique: withParaSep }, 'critique.rationale')).toBeDefined();
+    });
+
+    // False-positive check: legitimate unicode/emoji/punctuation must NOT
+    // be rejected by the tightened control-char check.
+    it('accepts legitimate unicode, emoji, and punctuation in rationale', () => {
+      const rationale = "C'est le 22 oct. — a très réal beat 🎸✨, no notes! (vs. last week's).";
+      expect(validateQueueItem({ ...validX, critique: { ...validCritique, rationale } })).toEqual([]);
+    });
+
     // The regression that matters: a terminal-punctuation sentence-counter
     // would misfire on ordinary prose like this. No such counter runs here —
     // the character cap is the only enforcement (spec §Mechanics).

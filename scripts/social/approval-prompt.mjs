@@ -43,6 +43,51 @@ function escapeFences(text) {
   return String(text ?? '').replace(/```/g, '``​`');
 }
 
+/**
+ * Round 3 fix (comprehensive audit, not a fifth ad-hoc patch): the ONE
+ * shared helper for every dynamic, drafter-controlled field this file
+ * renders on a line of its own before the trusted trailing
+ * `ref: PR #<n> · <sha> · <file|*>` line — rationale, pillar (via
+ * campaign), why, mediaCredit, campaign's own display, the lane/
+ * sourceRoutine and platform fallbacks, a raw scheduledAt fallback, and
+ * media/alt-text lines. Any one of these left unsanitized is the SAME
+ * hijack: a newline (or a Unicode line/paragraph separator — U+2028/2029
+ * are LineTerminators for JS's `\s` and for `^`/`$` in `/m` regexes alike,
+ * same as `\n`) can plant a second, fake ref:-shaped line earlier in the
+ * message, and the poll's REF_LINE_RE match (first match, not last) binds
+ * a reaction to the WRONG scope (round 2's rationale finding, round 3's
+ * pillar/campaign finding — this generalizes both so a sixth field can't
+ * quietly reopen the same class).
+ *
+ * `String(value ?? '')` first — this PR's own critique exemption
+ * (findCritiqueIssues) lets an approved item's `critique` be completely
+ * malformed with zero CI findings, by design, so `rationale` (and in
+ * principle any other field) is not guaranteed to be a string; a
+ * non-string value must never throw and crash brief-building for the
+ * WHOLE PR (round 3's self-inflicted regression) — matches
+ * neutralizeMentions's own defensive coercion.
+ */
+function sanitizeInlineField(value) {
+  const singleLine = String(value ?? '').replace(/\s+/g, ' ').trim();
+  return escapeFences(neutralizeMentions(singleLine));
+}
+
+/**
+ * `body` (and nothing else in this file) legitimately spans multiple
+ * lines — real captions have paragraph breaks — so it can never go
+ * through sanitizeInlineField's whitespace-collapse without breaking the
+ * product. It still renders before the trusted trailing ref: line, wrapped
+ * in a ``` fence for a HUMAN reader, but the poll parses the raw Discord
+ * message content string — backticks and all — so a fenced line that
+ * happens to match `^ref: PR #\d+ · ...$` is exactly as parseable as an
+ * unfenced one (round 3 audit finding). Neutralizes ONLY a line matching
+ * that literal, distinctive prefix, leaving every other newline and the
+ * rest of the caption completely untouched.
+ */
+function neutralizeRefLikeLines(text) {
+  return String(text ?? '').replace(/^ref: PR #/gm, 'ref\u200B: PR #');
+}
+
 /** Webhook display identity (Tree Overhaul S5) — every message this script
  * posts to #longlive-social shows as "Tree", not a bare webhook name, with
  * a stable avatar so the channel reads as one consistent actor.
@@ -64,9 +109,14 @@ export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
 function formatTreeIdentityLine(draft) {
   const scheduled = new Date(draft.scheduledAt);
   const slot = Number.isNaN(scheduled.getTime())
-    ? `fast lane: ${draft.lane ?? draft.sourceRoutine ?? 'unknown'}`
+    ? `fast lane: ${sanitizeInlineField(draft.lane ?? draft.sourceRoutine ?? 'unknown')}`
     : `${draft.scheduledAt.slice(0, 16).replace('T', ' ')} UTC`;
-  const pillar = pillarOf(draft.campaign ?? null) ?? 'unspecified';
+  // Round 3, MEDIUM (ref-line injection via pillar/campaign): `campaign` is
+  // schema-validated only as "a string when present" — no newline/control-
+  // char restriction — so pillarOf's output (which passes an unrecognized
+  // prefix's campaign straight through untouched, see feedback.mjs) must
+  // be sanitized here, the same as every other field in this message.
+  const pillar = sanitizeInlineField(pillarOf(draft.campaign ?? null) ?? 'unspecified');
   return `Tree · slot: ${slot} · pillar: ${pillar}`;
 }
 
@@ -86,7 +136,12 @@ const ACCOUNT_BY_PLATFORM = {
 function formatScheduleLine(draft, now) {
   const iso = draft.scheduledAt ?? 'n/a';
   const scheduled = new Date(draft.scheduledAt);
-  if (Number.isNaN(scheduled.getTime())) return `Posts at: ${iso} — invalid scheduledAt.`;
+  // Round 3 audit: an invalid scheduledAt renders RAW here (a genuinely
+  // valid ISO date, the only case reaching the two interpolations below,
+  // can never itself contain a newline) — the same injection class as
+  // rationale/pillar, just via a field a founder would assume is a plain
+  // timestamp.
+  if (Number.isNaN(scheduled.getTime())) return `Posts at: ${sanitizeInlineField(iso)} — invalid scheduledAt.`;
   const overdue = hoursOverdue({ scheduledAt: draft.scheduledAt }, now);
   if (overdue > 0) {
     const h = Math.round(overdue);
@@ -106,7 +161,7 @@ function formatScheduleLine(draft, now) {
  * whose platform is itself the problem check-drafts.mjs will flag. */
 function formatLengthLine(draft) {
   const rules = PLATFORM_RULES[draft.platform];
-  if (!rules) return `Length: ${String(draft.body ?? '').length} characters (unrecognized platform "${draft.platform}")`;
+  if (!rules) return `Length: ${String(draft.body ?? '').length} characters (unrecognized platform "${sanitizeInlineField(draft.platform)}")`;
   const measured = rules.measure(draft.body ?? '');
   const approx = rules.unit.startsWith('weighted') ? '~' : '';
   return `Length: ${approx}${measured.toLocaleString('en-US')} / ${rules.maxBody.toLocaleString('en-US')} ${rules.unit}`;
@@ -118,10 +173,15 @@ function formatLengthLine(draft) {
  * sourcing claim. */
 function formatWhyLine(draft, { headSha, repo }) {
   if (!draft.why) return null;
-  const truncated = draft.why.length > 240 ? `${draft.why.slice(0, 240)}...` : draft.why;
+  // Round 3 audit: sanitized (collapsed to one line, escaped, mention-
+  // neutralized) before truncation — same injection class as
+  // rationale/pillar, and this field is meant to be one line anyway
+  // ("the one-line why", docs/agents/runner-prompts/tree-daily-draft.md).
+  const why = sanitizeInlineField(draft.why);
+  const truncated = why.length > 240 ? `${why.slice(0, 240)}...` : why;
   const fileLink =
     headSha && repo && draft.file ? ` (full: https://github.com/${repo}/blob/${headSha}/${draft.file})` : '';
-  return `Why: ${escapeFences(truncated)}${fileLink}`;
+  return `Why: ${truncated}${fileLink}`;
 }
 
 /** The critique's rationale as the first, UNLABELED paragraph of the brief
@@ -135,19 +195,15 @@ function formatWhyLine(draft, { headSha, repo }) {
 function formatRationaleLine(draft) {
   const rationale = draft.critique?.rationale;
   if (!rationale) return null;
-  // Round 2, MEDIUM 1 (ref-line injection, same class as T4's this wave):
-  // this is the FIRST line of the message, above the trusted trailing
-  // `ref:` line. Collapsing ALL whitespace — including newlines — to a
-  // single space, before escaping/neutralizing, means no literal newline
-  // from this field can ever reach the rendered message: an attacker
-  // cannot plant a second, fake `ref: PR #<n> · <sha> · *`-shaped line
-  // earlier in the content to hijack which draft/scope a reaction
-  // resolves to, regardless of whether a downstream parser trusts the
-  // first or last matching line. findCritiqueIssues additionally rejects
-  // control characters in `rationale` outright, so this can't happen via
-  // any other path either.
-  const singleLine = rationale.replace(/\s+/g, ' ').trim();
-  return escapeFences(neutralizeMentions(singleLine));
+  // Round 2, MEDIUM 1 (ref-line injection, same class as T4's this wave)
+  // — this is the FIRST line of the message, above the trusted trailing
+  // `ref:` line. Round 3: `rationale` is not guaranteed to be a string —
+  // this PR's own approval exemption lets an approved item's `critique`
+  // be totally malformed with zero CI findings, by design — so
+  // sanitizeInlineField's String() coercion is load-bearing here, not
+  // decorative (a non-string rationale used to throw and crash
+  // brief-building for the whole PR).
+  return sanitizeInlineField(rationale);
 }
 
 /** One draft's message body lines (everything except the header line and
@@ -166,14 +222,34 @@ function formatDraftLines(draft, { now, headSha, repo, facebookCrosspost }) {
     formatScheduleLine(draft, now),
     formatLengthLine(draft),
     '```',
-    escapeFences(neutralizeMentions(draft.body ?? '(no body on file)')),
+    // Round 3 audit: `body` legitimately spans multiple lines (real
+    // captions have paragraph breaks), so — unlike every other field in
+    // this array — it can't go through sanitizeInlineField's whitespace
+    // collapse. neutralizeRefLikeLines closes the same injection class
+    // without touching any other newline: the poll parses the raw
+    // message content string, backticks and all, so a fenced line that
+    // happens to match the trusted ref: line's exact shape is exactly as
+    // parseable as an unfenced one.
+    neutralizeRefLikeLines(escapeFences(neutralizeMentions(draft.body ?? '(no body on file)'))),
     '```',
-    ...mediaUrls.map((url, i) => `Image ${i + 1}/${mediaUrls.length}: ${url}`),
-    ...altText.map((alt, i) => `Alt text ${i + 1}/${altText.length}: ${JSON.stringify(alt)}`),
-    draft.mediaCredit ? `Credit: ${draft.mediaCredit}` : null,
+    // Round 3 audit: a media path is schema-validated only as "a string
+    // starting with /" — no newline restriction — and mediaUrlsFor
+    // (lib/queue.mjs, shared with the real poster, out of scope to change
+    // here) does a bare string concatenation with no encoding. A URL can
+    // never legitimately contain whitespace, so collapsing it is always
+    // safe, never a false positive.
+    ...mediaUrls.map((url, i) => `Image ${i + 1}/${mediaUrls.length}: ${sanitizeInlineField(url)}`),
+    // Round 3 audit: JSON.stringify escapes \n/\r but NOT the Unicode
+    // line/paragraph separators U+2028/U+2029, which DO start a new
+    // "line" for `^`/`$` in a /m regex — a raw U+2028 inside alt text
+    // would otherwise still open a fake ref: line right here. altText is
+    // meant to be one descriptive line anyway (social/README.md), so
+    // collapsing first is always safe.
+    ...altText.map((alt, i) => `Alt text ${i + 1}/${altText.length}: ${JSON.stringify(sanitizeInlineField(alt))}`),
+    draft.mediaCredit ? `Credit: ${sanitizeInlineField(draft.mediaCredit)}` : null,
     formatWhyLine(draft, { headSha, repo }),
-    draft.campaign ? `Campaign: ${draft.campaign}` : null,
-    `Drafted by: ${draft.lane ?? draft.sourceRoutine ?? 'unknown'}`,
+    draft.campaign ? `Campaign: ${sanitizeInlineField(draft.campaign)}` : null,
+    `Drafted by: ${sanitizeInlineField(draft.lane ?? draft.sourceRoutine ?? 'unknown')}`,
   ].filter((l) => l !== null && l !== undefined);
 }
 
@@ -199,8 +275,11 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
   const header = {
     content: [
       `**Social approval needed · PR #${pr.number}** — <${pr.url}>`,
-      `Drafted by: ${drafts[0]?.lane ?? drafts[0]?.sourceRoutine ?? 'unknown'} · ${drafts.length} draft${drafts.length === 1 ? '' : 's'}` +
-        (drafts[0]?.campaign ? ` · campaign \`${drafts[0].campaign}\`` : ''),
+      // Round 3 audit: this header line is JUST as reachable a target for
+      // the ref-line-injection class as anything in a draft message —
+      // sanitized the same way, same shared helper.
+      `Drafted by: ${sanitizeInlineField(drafts[0]?.lane ?? drafts[0]?.sourceRoutine ?? 'unknown')} · ${drafts.length} draft${drafts.length === 1 ? '' : 's'}` +
+        (drafts[0]?.campaign ? ` · campaign \`${sanitizeInlineField(drafts[0].campaign)}\`` : ''),
       'Approve: ✅. Approve with a fix: ✏️ then reply with the caption you want.',
       'Reject: ❌ then reply with why. ✏️ and ❌ do nothing until you reply.',
       'React on a draft for that one, or here for all of them.',
@@ -211,7 +290,10 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
   };
 
   const draftMessages = drafts.map((draft, i) => {
-    const account = ACCOUNT_BY_PLATFORM[draft.platform] ?? { label: draft.platform, handle: '(unknown account)' };
+    // Round 3 audit: the label falls back to the raw `draft.platform` for
+    // an unrecognized platform, rendered into the message's bold header
+    // line with no sanitization otherwise — same injection class.
+    const account = ACCOUNT_BY_PLATFORM[draft.platform] ?? { label: sanitizeInlineField(draft.platform), handle: '(unknown account)' };
     const mediaUrls = mediaUrlsFor({ media: draft.media ?? [] }, MEDIA_BASE_URL);
     const embeds = mediaUrls.map((url) => ({ image: { url } }));
     const content = [

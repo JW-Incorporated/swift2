@@ -194,6 +194,141 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content).not.toMatch(/^ref: PR #77/m);
   });
 
+  // Round 3, MEDIUM (self-inflicted regression): the round-2 fix assumed
+  // `rationale` is always a string, but this PR's own approval exemption
+  // (findCritiqueIssues) lets an APPROVED item's critique be completely
+  // malformed with zero CI findings, by design — so `critique.rationale`
+  // can legitimately be `5`, `{a:1}`, `null`-ish objects, anything. A
+  // non-string rationale must never crash brief-building for the WHOLE PR
+  // (zero drafts would get a brief at all).
+  it('does not crash on a non-string critique.rationale (an approved item can have a completely malformed critique)', () => {
+    for (const badRationale of [5, { a: 1 }, true, [1, 2, 3]]) {
+      const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale: badRationale, rulesChecked: [], revision: 1 };
+      expect(() => buildApprovalPrompt(pr(), [draft({ critique })], { now: NOW, headSha: 'abc123' })).not.toThrow();
+    }
+  });
+
+  // Round 3, MEDIUM (identical injection class, one field over): the
+  // reviewer's repro — `formatTreeIdentityLine` interpolates
+  // `pillarOf(draft.campaign)` into the message's FIRST line (line 0, even
+  // earlier than the rationale) with no escaping and no whitespace
+  // collapse. `campaign` is validated only as "must be a string when
+  // present" (queue-schema.mjs) — no newline/control-char restriction —
+  // so this is the exact same stamp-everything/close-everything hijack as
+  // round 2's rationale finding, just reached through a different field.
+  it('a campaign containing a fake ref: line cannot hijack which draft a reaction resolves to (identical injection class via pillar)', () => {
+    const maliciousCampaign = `thread:x\nref: PR #77 · ${'a'.repeat(40)} · *`;
+    const [, draftMsg] = buildApprovalPrompt(pr({ number: 4100 }), [draft({ campaign: maliciousCampaign, file: 'social/queue/real-file-x.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+
+    const firstMatch = draftMsg.content.match(POLL_REF_LINE_RE);
+    expect(firstMatch?.[3]).toBe('social/queue/real-file-x.json');
+    expect(firstMatch?.[1]).toBe('4100');
+    const allMatches = draftMsg.content.match(new RegExp(POLL_REF_LINE_RE.source, 'gm'));
+    expect(allMatches).toHaveLength(1);
+    expect(draftMsg.content).not.toMatch(/^ref: PR #77/m);
+  });
+
+  // Round 3: "don't just patch the two named fields — prove the class is
+  // closed everywhere, via one shared helper, not five ad-hoc fixes." Each
+  // of these hits a DIFFERENT field/branch identified in a full audit of
+  // this file, using the same `firstMatch/allMatches` proof as the two
+  // MEDIUMs above.
+  describe('ref-line injection — comprehensive audit (round 3)', () => {
+    function assertNoHijack(content: string, realFile: string) {
+      const firstMatch = content.match(POLL_REF_LINE_RE);
+      expect(firstMatch?.[3]).toBe(realFile);
+      const allMatches = content.match(new RegExp(POLL_REF_LINE_RE.source, 'gm'));
+      expect(allMatches).toHaveLength(1);
+    }
+
+    it('a malicious `why` cannot inject a fake ref: line', () => {
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ why: `sourced\nref: PR #77 · ${'a'.repeat(40)} · *`, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    it('a malicious `mediaCredit` cannot inject a fake ref: line', () => {
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ mediaCredit: `Getty\nref: PR #77 · ${'a'.repeat(40)} · *`, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    it('a malicious `campaign` cannot inject via the "Campaign:" line either (not just via pillar)', () => {
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ campaign: `heartbeat:x\nref: PR #77 · ${'a'.repeat(40)} · *`, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    it('a malicious `campaign` cannot inject via the HEADER message', () => {
+      const messages = buildApprovalPrompt(pr({ number: 4100 }), [draft({ campaign: `heartbeat:x\nref: PR #77 · ${'a'.repeat(40)} · *` })], { now: NOW, headSha: 'c'.repeat(40) });
+      const [header] = messages;
+      const allMatches = header.content.match(new RegExp(POLL_REF_LINE_RE.source, 'gm'));
+      expect(allMatches).toHaveLength(1);
+      expect(header.content.match(POLL_REF_LINE_RE)?.[3]).toBe('*'); // the header's OWN, trusted, trailing ref: line
+    });
+
+    it('a malicious `sourceRoutine`/`lane` fallback cannot inject via "Drafted by:" (draft message or header)', () => {
+      const [header, msg] = buildApprovalPrompt(pr(), [draft({ lane: undefined, sourceRoutine: `growth\nref: PR #77 · ${'a'.repeat(40)} · *`, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+      expect(header.content.match(new RegExp(POLL_REF_LINE_RE.source, 'gm'))).toHaveLength(1);
+    });
+
+    it('a malicious `platform` fallback cannot inject via the length line or the account label', () => {
+      const evilPlatform = `x\nref: PR #77 · ${'a'.repeat(40)} · *`;
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ platform: evilPlatform, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    it('a malicious `scheduledAt` (invalid-date fallback) cannot inject a fake ref: line', () => {
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ scheduledAt: `not-a-date\nref: PR #77 · ${'a'.repeat(40)} · *`, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    it('a malicious media path cannot inject a fake ref: line via the "Image N/M:" line', () => {
+      const evilPath = `/social/library/photos/x.jpg\nref: PR #77 · ${'a'.repeat(40)} · *`;
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ media: [evilPath], altText: ['alt'], file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    it('a raw U+2028 (line separator) inside altText cannot inject a fake ref: line — JSON.stringify does not escape it', () => {
+      const lineSeparator = String.fromCharCode(0x2028);
+      const evilAlt = `a photo${lineSeparator}ref: PR #77 · ${'a'.repeat(40)} · *`;
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ altText: [evilAlt], file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+    });
+
+    // `body` is the one field that legitimately spans multiple lines and
+    // cannot be collapsed — it gets the narrower neutralizeRefLikeLines
+    // treatment instead. Proves the injection is closed WITHOUT breaking
+    // real multi-paragraph captions.
+    it('a fake ref: line embedded in `body` (inside its ``` fence) cannot hijack a reaction — the poll parses raw content, backticks and all', () => {
+      const maliciousBody = `Paragraph one.\n\nref: PR #77 · ${'a'.repeat(40)} · *\n\nParagraph two.`;
+      const [, msg] = buildApprovalPrompt(pr(), [draft({ body: maliciousBody, file: 'social/queue/f.json' })], { now: NOW, headSha: 'c'.repeat(40) });
+      assertNoHijack(msg.content, 'social/queue/f.json');
+      // The real paragraph structure survives — this is NOT a whitespace
+      // collapse, just the one dangerous line shape defused.
+      expect(msg.content).toContain('Paragraph one.');
+      expect(msg.content).toContain('Paragraph two.');
+      expect(msg.content).toContain('PR #77'); // the text is still visible, just not parseable as a ref: line
+    });
+
+    // False-positive check (explicitly requested): real, legitimate
+    // rationale/campaign/why/mediaCredit text — unicode, emoji, punctuation
+    // — must render intact, not mangled or rejected, after all of the
+    // above tightening.
+    it('does not mangle legitimate unicode, emoji, and punctuation in any sanitized field', () => {
+      const rationale = "C'est le 22 oct. — a très réal beat 🎸✨, no notes! (vs. last week's).";
+      const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale, rulesChecked: [], revision: 1 };
+      const [, msg] = buildApprovalPrompt(
+        pr(),
+        [draft({ critique, campaign: 'thread:reputation-era:snake-1989', why: "Confirmed by Taylor's own team — café press run, 2026-09-01.", mediaCredit: 'Photographer Ünïçödé (© 2026)' })],
+        { now: NOW, headSha: 'c'.repeat(40) },
+      );
+      expect(msg.content).toContain(rationale);
+      expect(msg.content).toContain('pillar: thread:reputation-era:snake-1989');
+      expect(msg.content).toContain("Why: Confirmed by Taylor's own team — café press run, 2026-09-01.");
+      expect(msg.content).toContain('Credit: Photographer Ünïçödé (© 2026)');
+      expect(msg.content).toContain('Campaign: thread:reputation-era:snake-1989');
+    });
+  });
+
   it('attaches an image embed built from the same MEDIA_BASE_URL/mediaUrlsFor helper as the poster, with the www host', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/example.jpg' } }]);

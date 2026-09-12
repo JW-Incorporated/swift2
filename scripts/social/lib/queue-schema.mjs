@@ -194,13 +194,21 @@ export const CRITIQUE_MIN_DIMENSION_SCORE = 3;
 export const CRITIQUE_TOTAL_THRESHOLD = 18;
 export const CRITIQUE_NOT_EMBARRASSED_MIN = 4;
 export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
-/** Newlines and other C0/DEL control characters — `rationale` renders as
- * the first line of the approval brief, above the trusted `ref:` line
- * (round 2, MEDIUM 1 — ref-line-injection hardening). The control
- * characters are the whole point of this regex, not an accident.
+/** Newlines and other C0/DEL control characters, PLUS the Unicode line
+ * separator (U+2028) and paragraph separator (U+2029) — `rationale`
+ * renders as the first line of the approval brief, above the trusted
+ * `ref:` line (round 2, MEDIUM 1 — ref-line-injection hardening; U+2028/
+ * U+2029 added round 3, LOW: both are real LineTerminators for `^`/`$` in
+ * a `/m` regex, same as `\n`/`\r`, so a rationale containing one would
+ * still open a fake "line start" even though it's outside the \x00-\x1F
+ * C0 range — round 2's whitespace-collapse in approval-prompt.mjs
+ * happened to already catch this too (JS's `\s` includes both), but this
+ * schema-level check should actually deliver on its own claim rather than
+ * relying on that as an accident). The control characters are the whole
+ * point of this regex, not an accident.
  */
 // eslint-disable-next-line no-control-regex
-export const CRITIQUE_RATIONALE_CONTROL_CHAR_RE = /[\x00-\x1F\x7F]/;
+export const CRITIQUE_RATIONALE_CONTROL_CHAR_RE = /[\x00-\x1F\x7F\u2028\u2029]/;
 /** The only mathematically possible range for a real critique total — five
  * dimensions, each 1-5. */
 export const CRITIQUE_MIN_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length;
