@@ -76,7 +76,8 @@ Four new, everything else already live:
 | `marjorie-triaged` | **new** | Bookkeeping: this submission has been classified. Never apply or remove by hand | Marjorie, machine-only |
 | `marjorie-filed` | **new** | Bookkeeping: Marjorie opened this issue by dispatching work. Machine-only — it is how "accountable for the outcome" is counted | Marjorie |
 | `link-submission` | **provision** | Already used by `submit-link.ts`; give it a colour and description | bootstrap |
-| `bug`, `enhancement`, `content`, `founder-decision`, `needs-triage`, `user-feedback`, `feedback`, `intake`, `duplicate` | live | unchanged | various |
+| `bug`, `enhancement`, `content`, `needs-triage`, `user-feedback`, `feedback`, `intake`, `duplicate` | live | unchanged | various |
+| `founder-decision` | **not live** (verified 2026-09-12) | created by `bootstrap-labels.mjs` in M3 | needs-founder |
 
 **Do not use the `desk:*` taxonomy.** `bootstrap-labels.mjs:21-32` defines
 `desk:build`, `desk:ops`, `desk:content` and seven more, and **none of them
@@ -186,7 +187,7 @@ isn't.
 
 A direct Marjorie→Austin lane, like the one Laura has for `a11y:P2|P3`
 (`austin.md:27-32`), would be faster. It needs Austin's charter amended by a
-founder-approved PR, so it is out of scope here. Named as the obvious next
+separate PR, so it is out of scope here. Named as the obvious next
 step once M3 has produced a few tickets worth judging.
 
 ### The founder branch, and overruling in one reply
@@ -263,7 +264,7 @@ whether the classifier is calibrated — check it.
 | `docs/agents/runner-prompts/marjorie-triage.md` | **new** — classification rules, the issue template, the overrule vocabulary |
 | `scripts/marjorie/lib/submissions.mjs` | extended (created in `c2-brief.md`) — prefix selector + counts, pure and tested |
 | `scripts/marjorie/lib/submissions.test.ts` | classification-boundary cases |
-| `scripts/marjorie/bootstrap-labels.mjs` | add `spam`, `marjorie-triaged`, `marjorie-filed`, `link-submission` |
+| `scripts/marjorie/bootstrap-labels.mjs` | add `spam`, `marjorie-triaged`, `marjorie-filed`, `link-submission`, `founder-decision` |
 | `docs/agents/README.md` § Labels the desks own | three new rows |
 | `MAP.md` | rows for the new files |
 

@@ -4,21 +4,21 @@ Same rhythm as the Tree Overhaul: one fresh session per wave, paste the
 prompt, walk away, gate on command output, checkpoint, `/clear`. The live
 runbook page (the artifact) carries the same schedule with copy buttons.
 
-## Before M0 can prove anything live
+## Before M1 can prove anything live
 
 - **HA #51** done (routines run on the OAuth token). ✓ 2026-09-12.
 - **HA #66**: a webhook for `#longlive-marjorie` deposited as
   `DISCORD_MARJORIE_WEBHOOK_URL` in a new `main`-only `ops` environment.
-  M0 can be designed without it; M1 cannot be verified without it.
+  The `ops` environment already exists and is locked to `main`; only the webhook secret is missing. M1 cannot be verified without it.
 
 ## Schedule
 
 | When | You | Model | Then |
 |---|---|---|---|
-| Sat 09-13 | M0 prompt (`waves/m0-design.md`) | Opus | Approve the charter amendment PR with a comment; answer any DECIDE human action |
-| Sun 09-14 → Mon 09-15 | M1 prompt, after HA #66 | Sonnet | Watch `#longlive-marjorie` for the first real brief the next morning |
-| Tue 09-16 → Wed 09-17 | M2 prompt, then M3 prompt (separate sessions) | Sonnet | Do the FB export human action if it appears |
-| Mon 09-22 (after Tree R2 reports) | M4 prompt | Opus | Reply in Tree's Monday thread as usual |
+| Fri 09-12 ✓ done | M0 prompt (`waves/m0-design.md`) | Opus | Specs #4184, charter #4183, charter-merge rule #4185 merged; audit fixes + M1–M4 prompts followed |
+| Sun 09-14 → Mon 09-15 | M1 prompt (`waves/m1-comms.md`), after HA #66 | Sonnet | Watch `#longlive-marjorie` for the first real brief the next morning |
+| Tue 09-16 → Wed 09-17 | M2 (`waves/m2-watchdog-handling.md`), then M3 (`waves/m3-triage.md`), separate sessions | Sonnet | Do the FB export human action if it appears |
+| Mon 09-22 (after Tree R2 reports) | M4 prompt (`waves/m4-loop.md`) | Opus | Reply in Tree's Monday thread as usual |
 | M1 + 7d | Nothing. MR1 comments on #4180 | Opus (routine) | Run any follow-up prompt it includes |
 | M1 + 21d | MR2 proposes close or extend | — | Decide in a comment on #4180 |
 

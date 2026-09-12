@@ -44,12 +44,12 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 
 | Wave | Session model | Depends on | Time | Output |
 |---|---|---|---|---|
-| M0 · Plan committed, recheck routine live | (done in the assessing session) | — | 1h | this dir, `plan-recheck-marjorie.yml`, #4180 |
-| M0 · Design | **Opus** (`/model opus`), Fable read-only review | HA #66 filed | 2–3h | `docs/specs/marjorie-overhaul/*.md`, charter amendment PR, decisions |
-| M1 · Comms | **Sonnet**, up to 4 executors | M0 approved, HA #66 done | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel |
-| M2 · Watchdog handling | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action |
+| M0 · Plan committed, recheck routine live ✓ 09-12 | (done in the assessing session) | — | 1h | this dir, `plan-recheck-marjorie.yml`, #4180 |
+| M0 · Design ✓ 09-12 (#4184, #4183, #4185) | **Opus** (`/model opus`), Fable read-only review | HA #66 filed | 2–3h | `docs/specs/marjorie-overhaul/*.md`, charter amendment PR, decisions |
+| M1 · Comms | **Sonnet**, up to 4 executors | M0 merged, HA #66 done, PR #4047 reconciled first (`waves/m1-comms.md` Step 0) | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel |
+| M2 · Watchdog handling | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
 | M3 · Submissions triage | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
-| M4 · Tree/Marjorie loop | **Opus** (touches Tree's prompts) | Tree R2 reported (2026-09-21), M1 merged | half day | brief sections both ways, ask→issue mechanics |
+| M4 · Tree/Marjorie loop | **Opus** (touches Tree's prompts) | Tree R2 reported (2026-09-21), M1 + M2 merged | half day | L1 spec, brief sections both ways, ask→issue mechanics |
 | MR1–MR2 · Rechecks | **Opus** routine | dates in `checkpoints.json` | 20 min | comment on #4180 + PR |
 
 M2 and M3 are independent; run in either order, never in one checkout.
@@ -60,7 +60,7 @@ M2 and M3 are independent; run in either order, never in one checkout.
 |---|---|---|
 | C1 delivery | Marjorie posts in `#longlive-marjorie` as "Marjorie" | `scripts/marjorie/lib/discord.mjs`, env `ops`, `DISCORD_MARJORIE_WEBHOOK_URL` |
 | C2 brief | One morning message: yesterday, today, waiting-on-you (open human actions by number), alerts, Tree's line, distance to done against the real Definition of Done | `scripts/marjorie/assemble-brief.mjs` rebuilt, `routine-marjorie-brief.yml`, `brief-mailer.yml` retired |
-| C3 email off | `send-mail.py` called only by `production-backup.yml` and the webhook-failure fallback | `brief-mailer.yml`, `watchdog.yml`, `tree-mail.yml`, `social-poster.yml`, `marjorie-inbox.yml` |
+| C3 email off | `send-mail.py` reachable only through `upsert-alert.sh`'s `ALERT_ALSO_MAIL` opt-in (used by `production-backup.yml`) and the webhook-failure fallback | `brief-mailer.yml`, `watchdog.yml`, `tree-mail.yml`, `social-poster.yml`, `marjorie-inbox.yml` |
 | W1 alerts | Every watchdog alert appears in-channel with what Marjorie did about it | `scripts/watchdog/upsert-alert.sh` gains a Discord leg |
 | W2 handler | A quiet routine gets re-dispatched; a stuck PR gets a nudge; the FB export becomes HA with literal steps | `routine-marjorie-ops.yml`, `docs/agents/runner-prompts/marjorie-ops.md` |
 | S1 triage | A site submission becomes either a build-desk issue with acceptance criteria or a founder question in-channel | `routine-marjorie-triage.yml`, labels |
@@ -73,8 +73,8 @@ criteria / Files affected / Open questions; decisions logged; HA #66 status
 known.
 
 **M1 done:** a real scheduled run posted the brief to `#longlive-marjorie`;
-`git grep send-mail.py .github/workflows` returns only `production-backup.yml`
-and the fallback step; `marjorie-inbox.yml` deleted; a forced watchdog alert
+`git grep send-mail.py` over workflows and `upsert-alert.sh` shows only the
+`ALERT_ALSO_MAIL` opt-in tail and the `post-or-mail.mjs` fallback; `marjorie-inbox.yml` deleted; a forced watchdog alert
 appeared in-channel; no founder received a bot email that day.
 
 **M2 done:** a synthetic quiet-routine alert was resolved by a real
@@ -101,6 +101,23 @@ R2 unreadable. M4 starts the day after R2 reports.
 M1 merges (brief cadence, zero bot emails, alert leg working). MR2 at +21
 days (handler resolved a real alert, triage handled a real submission, the
 loop produced an issue). Dates are set by the M1 session when it merges.
+
+## M0 findings that bind M1 (verified in source 2026-09-12; details on #4180)
+
+1. **PR #4047 already implements most of C1/C2's delivery layer** (open since
+   09-09, `CONFLICTING`, repo-level secret, wrong channel, built on
+   `brief-mailer.yml`). M1 lifts its logic and tests, keeps C1's
+   environment-scoped two-job shape, and closes or rebases it — before any
+   Discord code. Its human gate (HA #50) was closed without the secret ever
+   existing; a closed human action is not proof.
+2. `routine-template.yml` has no `environment:` input → M1's first task.
+3. `upsert-alert.sh` has six callers; each needs `environment: ops` or it
+   silently keeps mailing.
+4. Watchdog is hourly and re-opens standing alerts → post on state change only.
+5. The Gmail secrets stay (`community-inbox.yml` reads them over IMAP).
+6. The brief scores `docs/definition-of-done.md`'s eight product items.
+7. The `intake` label has three producers → select by title prefix in code.
+8. `founder-decision` is **not** a live label; M3 creates it.
 
 ## Non-negotiables carried into every wave prompt
 
