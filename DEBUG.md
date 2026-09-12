@@ -480,3 +480,18 @@ time as `ts` (spec §Data-1's meaning), with dedupe widened to every week
 file on the branch so a re-derived row is still caught whatever week it
 lands in — the verdict's "week file matching the row's own ts" is honoured
 for where a row is written, and strictly widened for where it is checked.
+
+**Codex review of round 4 (merge commit `5c2d8766`):** no concrete unsafe
+merge bypass — the two-axis separation holds. Three recovery-path
+findings, all fixed with fail-first tests: (HIGH) the notifier's
+already-stamped filter had no notion of stamp *health*, so a drifted stamp
+was "already stamped" and, when every draft was, the whole prompt (header
+included) was suppressed — the filter now runs the poll's own
+`cleanSince`/`selfClean` (`lib/stamp-health.mjs`, one implementation for
+both) against the PR head and re-briefs anything whose stamp no longer
+covers it; (MEDIUM) a stale per-file ✅ that couldn't mint stopped the poll
+from even trying a fresh header ✅ — the stamp phase now falls through to
+the header; (MEDIUM) re-minting an edit stamp bumped `edit.at` alone, which
+`pollOwnFieldChange` refused as "edit moved without body" — an `at`-only
+bump is now recognised as the poll's own shape. Also removed a literal NUL
+byte the round-4 `dedupeProblems` key had put in the poll file.

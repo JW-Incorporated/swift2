@@ -38,7 +38,11 @@ modifies, or renames a `social/queue/**.json` draft no longer auto-merges —
 outright (the SOCIAL APPROVAL GATE), and
 `.github/workflows/social-approval-notify.yml` posts the full caption(s), an
 embedded image, and everything else a go/no-go needs to `#longlive-social` so
-the founder can decide from the prompt alone. **Approval is the founder's
+the founder can decide from the prompt alone (a draft whose stamp still
+*covers* the PR head — `scripts/social/filter-already-stamped.mjs`, the same
+`cleanSince`/`selfClean` check the poll merges on — is left out of a
+re-brief; one whose stamp no longer covers it is briefed again, header
+included, because a fresh header ✅ is how it gets re-approved). **Approval is the founder's
 own ✅ reaction on that message (on a draft for just that one, on the header
 for all of them) — merging the PR yourself does NOT approve it, it kills the
 draft.** `.github/workflows/social-approval-poll.yml` polls for the

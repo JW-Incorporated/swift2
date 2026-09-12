@@ -297,6 +297,14 @@ describe('pollOwnFieldChange', () => {
     expect(pollOwnFieldChange(base, { ...base, mediaCredit: 'x' })).toBe(false);
     expect(pollOwnFieldChange(base, { ...base, body: 'new' })).toBe(false);
   });
+
+  it("M2 (round 4): a re-mint that only bumps edit.at (body unchanged) is the poll's own shape too; any other edit-only change is not", () => {
+    const edited = { ...base, body: 'new', edit: { by: 'discord:1', at: 'T1', message: 'm', reply: 'r', fromBody: 'hello' }, approval: { v: 3, at: 'T1' } };
+    expect(pollOwnFieldChange(edited, { ...edited, edit: { ...edited.edit, at: 'T2' }, approval: { v: 3, at: 'T2' } })).toBe(true);
+    expect(pollOwnFieldChange(edited, { ...edited, edit: { ...edited.edit, fromBody: 'forged' } })).toBe(false);
+    expect(pollOwnFieldChange(edited, { ...edited, edit: { ...edited.edit, message: 'other' } })).toBe(false);
+    expect(pollOwnFieldChange(base, { ...base, edit: { by: 'discord:1', at: 'T1', message: 'm', fromBody: 'hello' } })).toBe(false); // an edit appearing with no body change is not a re-mint
+  });
 });
 
 describe('capReason', () => {

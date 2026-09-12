@@ -282,7 +282,23 @@ export function pollOwnFieldChange(fromItem, toItem) {
   }
   const bodyChanged = JSON.stringify(fromItem?.body) !== JSON.stringify(toItem?.body);
   const editChanged = JSON.stringify(fromItem?.edit) !== JSON.stringify(toItem?.edit);
-  return bodyChanged === editChanged; // body only ever moves together with `edit` (one edit commit) — never alone
+  if (bodyChanged) return editChanged; // body only ever moves together with `edit` (one edit commit) — never alone
+  if (!editChanged) return true; // a plain stamp
+  // `edit` moved without `body`: the one shape the poll's own commits
+  // produce is a re-mint of an edit stamp (a fresh ✅ after drift), which
+  // bumps `edit.at` to the new `approval.at` and nothing else — the
+  // founder's words stay recorded as an edit. Any other edit-only change
+  // (fromBody, message, reply, by; or an `edit` appearing/vanishing) is not.
+  return Boolean(fromItem?.edit && toItem?.edit) && editSansAt(fromItem.edit) === editSansAt(toItem.edit);
+}
+
+function editSansAt(edit) {
+  return JSON.stringify(
+    Object.keys(edit)
+      .filter((k) => k !== 'at')
+      .sort()
+      .map((k) => [k, edit[k]]),
+  );
 }
 
 function dedupeKey(row) {

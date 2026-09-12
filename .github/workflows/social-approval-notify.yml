@@ -111,8 +111,15 @@ jobs:
           # Needs `approval` projected into the manifest above — it was
           # missing until 2026-09-12, so this filter saw every draft as
           # unstamped and filtered nothing (found during PR #4139's
-          # architect review).
-          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json)
+          # architect review). Needs --pr/--head too: a stamp that is still
+          # content-valid but no longer COVERS the branch (a `why`-only
+          # drift, changed image bytes, a v2 stamp) must be re-briefed —
+          # header included — because a fresh header ✅ is how the poll
+          # re-mints after drift; filtering it as "already stamped" used to
+          # suppress the whole prompt (PR #4139 round 4). The filter reads
+          # git only (fetch of this PR's head ref, show, diff) — data,
+          # never PR code.
+          FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json --pr "$PR" --head "$SHA")
           echo "$FILTER_OUT"
           if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
             echo "has_drafts=false" >> "$GITHUB_OUTPUT"
@@ -203,8 +210,11 @@ jobs:
             echo "]" >> /tmp/digest-drafts.json
 
             # RULINGS-SOCIAL-2.md B1: skip a PR whose drafts are already
-            # all stamped (awaiting only the poll job's next merge pass).
-            FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/digest-drafts.json)
+            # all stamped AND still covered at its head (awaiting only the
+            # poll job's next merge pass). A drifted stamp is re-briefed
+            # here too — this digest is the only fresh brief a PR whose
+            # drift touched no social/queue/** path (image bytes) ever gets.
+            FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/digest-drafts.json --pr "$PR" --head "$SHA")
             echo "$FILTER_OUT"
             if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
               continue

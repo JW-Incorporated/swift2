@@ -4,13 +4,14 @@
 // `429 retry_after 1.035` because the old discordGet threw on the first 429
 // it ever saw; these tests pin the fix so it can't regress silently.
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { existsSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 // @ts-expect-error — implementation is plain .mjs
 import { run } from './social-approval-poll.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
+import { makeFakeGit as makeFakeGitAt, type Tree } from './lib/fake-git.test-helper';
 import { PENCIL_UNSUPPORTED_ON_HEADER } from './lib/feedback.mjs';
 import { approvalStatus, contentHash, signApproval } from './lib/queue.mjs';
 
@@ -432,61 +433,10 @@ function readAllLedgerRows() {
     );
 }
 
-type Tree = Record<string, string | null>;
-
-/** A minimal in-memory git: trees keyed by SHA, `diff --name-only` computed
- * from them, `show <sha>:<path>` read from them, `rm` unlinking the working
- * copy like the real thing, and `commit` snapshotting the staged paths from
- * disk into a new head SHA. Ledger-branch commits (only social/feedback
- * staged) never move the PR head, mirroring the real branch switch. */
+/** The shared in-memory git (lib/fake-git.test-helper.ts), bound to this
+ * test's temp root and defaulting to the PR head the gh stub reports. */
 function makeFakeGit({ trees, head = HEAD_SHA }: { trees: Record<string, Tree>; head?: string }) {
-  const calls: string[][] = [];
-  const state = { head, trees: { ...trees } as Record<string, Tree>, staged: [] as string[], commits: 0 };
-  const impl = vi.fn((args: string[]) => {
-    calls.push(args);
-    const [cmd] = args;
-    if (cmd === 'rev-parse' && args[1] === 'HEAD') return state.head;
-    if (cmd === 'show') {
-      const [sha, ...rest] = args[1].split(':');
-      const p = rest.join(':');
-      const tree = sha.startsWith('origin/') ? undefined : state.trees[sha];
-      if (!tree || tree[p] === undefined || tree[p] === null) throw new Error(`fatal: path '${p}' does not exist in '${sha}'`);
-      return tree[p];
-    }
-    if (cmd === 'diff' && args[1] === '--name-only') {
-      const a = state.trees[args[2]];
-      const b = state.trees[args[3]];
-      if (!a || !b) throw new Error(`fatal: bad object ${!a ? args[2] : args[3]}`);
-      const paths = new Set([...Object.keys(a), ...Object.keys(b)]);
-      return [...paths].filter((p) => (a[p] ?? null) !== (b[p] ?? null)).sort().join('\n');
-    }
-    if (cmd === 'rm') {
-      rmSync(path.join(root, args[1]), { force: true });
-      state.staged.push(args[1]);
-      return '';
-    }
-    if (cmd === 'add') {
-      state.staged.push(...args.slice(1));
-      return '';
-    }
-    if (cmd === 'commit') {
-      const staged = state.staged;
-      state.staged = [];
-      if (staged.length > 0 && staged.every((p) => p.startsWith('social/feedback/'))) return '';
-      const next: Tree = { ...state.trees[state.head] };
-      for (const p of staged) {
-        const abs = path.join(root, p);
-        next[p] = existsSync(abs) ? readFileSync(abs, 'utf8') : null;
-      }
-      state.commits += 1;
-      const sha = `c${state.commits}`.padEnd(40, '0');
-      state.trees[sha] = next;
-      state.head = sha;
-      return '';
-    }
-    return '';
-  });
-  return { impl, calls, state };
+  return makeFakeGitAt({ trees, head, root });
 }
 
 describe('S3 reason protocol', () => {
@@ -1347,5 +1297,69 @@ describe('architect redesign — union listening + SHA-signed v3 stamps', () => 
     await mergedRun();
     rows = readAllLedgerRows();
     expect(rows).toHaveLength(1);
+  });
+});
+
+// Round 4 (Codex review of the redesign): the recovery paths themselves.
+// Both ran against the pre-fix code first and failed (PR body).
+describe('architect redesign — round 4 recovery paths', () => {
+  it('M1: a stale per-file ✅ that cannot mint falls through to a fresh header ✅ at head — the "fresh ✅ on the newest header" recovery path', async () => {
+    const stampedF = { ...BASE_ITEM, approval: signedStamp(BASE_ITEM, { sha: STALE_SHA, message: MESSAGE_ID }) };
+    const driftedText = await seedQueueFile(QUEUE_FILE, { ...stampedF, why: 'a rationale nobody approved' });
+    const fakeGit = makeFakeGit({ trees: { [STALE_SHA]: { [REL_FILE]: JSON.stringify(BASE_ITEM, null, 2) + '\n' }, [HEAD_SHA]: { [REL_FILE]: driftedText } } });
+    const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE }), refMessage({ id: NEW_HEADER_MESSAGE_ID, sha: HEAD_SHA, file: '*' })], {
+      [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // the file's own ✅ — on a brief older than the drift, so it can't mint
+      [NEW_HEADER_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // a fresh header ✅ at the current head
+    });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }] });
+
+    await run({ execGh, execGit: fakeGit.impl, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const item = await readQueueItem();
+    expect(item.approval.sha).toBe(HEAD_SHA);
+    expect(item.approval.message).toBe(NEW_HEADER_MESSAGE_ID);
+    const mergeCall = ghCalls.find((c) => c[0] === 'pr' && c[1] === 'merge');
+    expect(mergeCall).toBeDefined();
+    expect(mergeCall?.[mergeCall.indexOf('--match-head-commit') + 1]).toBe(fakeGit.state.head);
+  });
+
+  it('M2: re-minting an edit stamp through a fresh header ✅ keeps it an edit stamp AND merges — an edit.at bump alone is self-clean', async () => {
+    const MID_SHA = 'd'.repeat(40);
+    const editedBody = 'On 22 Oct 2012, Taylor...';
+    const at = '2026-09-10T00:00:00Z';
+    const editedItem = { ...BASE_ITEM, body: editedBody, edit: { by: APPROVER, at, message: MESSAGE_ID, reply: 'reply-1', fromBody: BASE_ITEM.body } };
+    const stamped = { ...editedItem, approval: signedStamp(editedItem, { sha: STALE_SHA, at }) };
+    const driftedText = await seedQueueFile(QUEUE_FILE, { ...stamped, why: 'a rationale nobody approved' });
+    const fakeGit = makeFakeGit({
+      trees: {
+        [STALE_SHA]: { [REL_FILE]: JSON.stringify(BASE_ITEM, null, 2) + '\n' },
+        [MID_SHA]: { [REL_FILE]: JSON.stringify(stamped, null, 2) + '\n' },
+        [HEAD_SHA]: { [REL_FILE]: driftedText },
+      },
+    });
+    const { impl: baseImpl } = makeFetchImplByMessage(
+      [refMessage({ id: MESSAGE_ID, sha: STALE_SHA, file: REL_FILE }), replyMessage({ id: 'reply-1', parentId: MESSAGE_ID, content: editedBody }), refMessage({ id: NEW_HEADER_MESSAGE_ID, sha: HEAD_SHA, file: '*' })],
+      {
+        [MESSAGE_ID]: { pencil: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // the ✏️ that produced the edit stamp — already applied
+        [NEW_HEADER_MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] }, // the founder re-approves after the drift
+      },
+    );
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: REL_FILE }] });
+
+    await run({ execGh, execGit: fakeGit.impl, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()), checkDraftImpl: vi.fn(() => ({ ok: true, findings: [] })) });
+
+    const item = await readQueueItem();
+    expect(item.body).toBe(editedBody);
+    expect(item.approval.sha).toBe(HEAD_SHA);
+    expect(item.edit.at).toBe(item.approval.at); // still an edit stamp
+    expect(item.edit.fromBody).toBe(BASE_ITEM.body); // provenance untouched
+    expect(approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: TEST_KEY }).ok).toBe(true);
+    const mergeCall = ghCalls.find((c) => c[0] === 'pr' && c[1] === 'merge');
+    expect(mergeCall).toBeDefined(); // the poll must merge what it just legitimately re-signed
+    const rows = readAllLedgerRows();
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ action: 'edit', editedBody, originalBody: BASE_ITEM.body, replyId: 'reply-1' });
   });
 });

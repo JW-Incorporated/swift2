@@ -61,8 +61,9 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
-import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf, pollOwnFieldChange } from './lib/feedback.mjs';
-import { approvalStatus, stampedSha } from './lib/queue.mjs';
+import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
+import { approvalStatus } from './lib/queue.mjs';
+import { isQueueJson, makeGitState, parseJson, short, stampHealth } from './lib/stamp-health.mjs';
 import { stampFiles } from './stamp-approval.mjs';
 import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
 
@@ -292,151 +293,19 @@ async function postToChannel(fetchImpl, webhookUrl, content) {
   }
 }
 
-function isQueueJson(p) {
-  return p.startsWith('social/queue/') && p.endsWith('.json');
-}
-
-function parseJson(text) {
-  if (text === null || text === undefined || text === '') return null;
-  try {
-    return JSON.parse(text);
-  } catch {
-    return null;
-  }
-}
-
-function short(sha) {
-  return String(sha).slice(0, 7);
-}
-
-/**
- * Safety axis, one instance per PR per run. Plumbing only (`show`, `diff`)
- * — never disturbs whatever branch this run has or hasn't checked out. A
- * shallow CI checkout (actions/checkout@v7's default) may not hold an older
- * commit's objects yet, so history is fetched lazily, once, bounded
- * (`--depth=100` of the PR's own head ref; a single-SHA fetch as the
- * fallback); anything still unreadable FAILS CLOSED — "can't read it" is
- * "can't clear it", never a crash and never a pass.
- */
-function makeGitState(execGit, pr) {
-  let historyFetched = null;
-  const diffCache = new Map();
-  const showCache = new Map();
-
-  function ensureHistory() {
-    if (historyFetched === null) {
-      try {
-        execGit(['fetch', '--depth=100', 'origin', `pull/${pr}/head`]);
-        historyFetched = true;
-      } catch (err) {
-        console.error(`::warning::social-approval-poll: PR #${pr} — could not fetch history (pull/${pr}/head): ${err.message}`);
-        historyFetched = false;
-      }
-    }
-    return historyFetched;
-  }
-
-  /** `<sha>:<relPath>` or null when absent/unreadable. */
-  function show(sha, relPath) {
-    const key = `${sha}:${relPath}`;
-    if (showCache.has(key)) return showCache.get(key);
-    let content = null;
-    for (let attempt = 0; attempt < 2; attempt++) {
-      try {
-        content = execGit(['show', `${sha}:${relPath}`]);
-        break;
-      } catch {
-        if (attempt === 0 && historyFetched === null) ensureHistory();
-        else break;
-      }
-    }
-    showCache.set(key, content);
-    return content;
-  }
-
-  /** `git diff --name-only from to` as a path list, or null if unreadable. */
-  function changedPaths(from, to) {
-    if (from === to) return [];
-    const key = `${from}..${to}`;
-    if (diffCache.has(key)) return diffCache.get(key);
-    let paths;
-    const attempt = () => execGit(['diff', '--name-only', from, to]).split('\n').filter(Boolean);
-    ensureHistory();
-    try {
-      paths = attempt();
-    } catch {
-      try {
-        execGit(['fetch', '--depth=1', 'origin', from]);
-        paths = attempt();
-      } catch {
-        paths = null;
-      }
-    }
-    diffCache.set(key, paths);
-    return paths;
-  }
-
-  /** Every path changed between `from` and `to` must be a queue file that is
-   * absent at `to` (a deletion cannot publish unseen content) or validly
-   * stamped at `to`. `offending` names every path that isn't. */
-  function cleanSince(from, to, approvalKey) {
-    const changed = changedPaths(from, to);
-    if (changed === null) {
-      return { ok: false, changed: null, offending: [{ path: `${short(from)}..${short(to)}`, why: 'history unreadable this run — nothing is cleared on an unreadable diff' }] };
-    }
-    const offending = [];
-    for (const p of changed) {
-      if (!isQueueJson(p)) {
-        offending.push({ path: p, why: 'changed on the branch but is not a social/queue/**.json draft — nobody approved it' });
-        continue;
-      }
-      const content = show(to, p);
-      if (content === null) continue; // deleted — safe by construction
-      const item = parseJson(content);
-      const status = item ? approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }) : { ok: false, reason: 'unparseable' };
-      if (!status.ok) offending.push({ path: p, why: `changed on the branch and is not validly stamped there (${status.reason})` });
-    }
-    return { ok: offending.length === 0, changed, offending };
-  }
-
-  /** F's own bytes at `from` vs `to` differ only in approval/body/edit. */
-  function selfClean(relPath, from, to) {
-    if (from === to) return { ok: true };
-    const fromItem = parseJson(show(from, relPath));
-    const toItem = parseJson(show(to, relPath));
-    if (!fromItem || !toItem) return { ok: false, why: `${relPath} could not be read at both ${short(from)} and ${short(to)} — nothing is cleared on an unreadable file` };
-    if (!pollOwnFieldChange(fromItem, toItem)) return { ok: false, why: `${relPath} changed outside approval/body/edit since its stamp at ${short(from)} — nobody approved that change` };
-    return { ok: true };
-  }
-
-  return { show, changedPaths, cleanSince, selfClean };
-}
-
-/** Is F's current stamp good to merge as-is? `stamped` distinguishes "no
- * stamp yet" (normal, nothing to report) from "has a stamp that can't
- * merge" (worth a notice). */
-function stampHealth(gitState, relPath, item, head, approvalKey) {
-  if (!item?.approval) return { ok: false, stamped: false, problems: [] };
-  const status = approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey });
-  if (!status.ok) return { ok: false, stamped: true, problems: [{ path: relPath, why: `its approval is invalid (${status.reason})` }] };
-  const sha = stampedSha(item);
-  if (!sha) return { ok: false, stamped: true, problems: [{ path: relPath, why: 'its approval predates the SHA-signed (v3) stamp format — a fresh ✅ re-mints it' }] };
-  const since = gitState.cleanSince(sha, head, approvalKey);
-  if (!since.ok) return { ok: false, stamped: true, problems: since.offending };
-  const self = gitState.selfClean(relPath, sha, head);
-  if (!self.ok) return { ok: false, stamped: true, problems: [{ path: relPath, why: self.why }] };
-  return { ok: true, stamped: true, problems: [] };
-}
+// The safety axis itself — makeGitState (cleanSince/selfClean) and
+// stampHealth — lives in lib/stamp-health.mjs, shared with the notifier's
+// already-stamped filter so both ask the same question of git.
 
 /** The first anchor (a message carrying the deciding reaction, with its
  * ref SHA) that may mint `relPath` against `head`: at head itself, or
  * clean-since with `relPath` untouched in that range. */
-function mintableAnchor(gitState, anchors, relPath, head, approvalKey) {
+function mintableAnchor(gitState, anchors, relPath, head, statusOptions) {
   const atHead = anchors.find((a) => a.sha === head);
   if (atHead) return { anchor: atHead, problems: [] };
   const problems = [];
   for (const a of anchors) {
-    const since = gitState.cleanSince(a.sha, head, approvalKey);
+    const since = gitState.cleanSince(a.sha, head, statusOptions);
     if (!since.ok) {
       problems.push(...since.offending);
       continue;
@@ -453,7 +322,7 @@ function mintableAnchor(gitState, anchors, relPath, head, approvalKey) {
 function dedupeProblems(problems) {
   const seen = new Set();
   return problems.filter((p) => {
-    const key = `${p.path} ${p.why}`;
+    const key = JSON.stringify([p.path, p.why]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -584,6 +453,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   requireEnv.call(null, 'GH_TOKEN');
   const repo = requireEnv.call(null, 'REPO');
   const discordOpts = { fetchImpl, sleepImpl };
+  const statusOptions = { approvers: SOCIAL_APPROVERS, key: approvalKey }; // approvalStatus WITH the key — this is the one caller that must verify signatures
 
   const webhookId = webhookIdFromUrl(webhookUrl);
   const channelId = await resolveChannelId(webhookUrl);
@@ -704,7 +574,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of prQueueFiles) {
             const item = parseJson(gitState.show(prView.headRefOid, relPath));
             if (!item) continue;
-            const ok = Boolean(item.approval) && approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok;
+            const ok = Boolean(item.approval) && approvalStatus(item, statusOptions).ok;
             if (ok) {
               prLedgerRows.push(stampRow(relPath, item));
               continue;
@@ -801,9 +671,9 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         // that has since drifted and is handled by the stamp/merge phases
         // below): never re-write `edit.fromBody` with the already-edited
         // body, never spend another commit + CI cycle on the same words.
-        if (item.body === c.editedBody && approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok) continue;
+        if (item.body === c.editedBody && approvalStatus(item, statusOptions).ok) continue;
 
-        const { anchor, problems: mintProblems } = mintableAnchor(gitState, c.anchors, key, headSha, approvalKey);
+        const { anchor, problems: mintProblems } = mintableAnchor(gitState, c.anchors, key, headSha, statusOptions);
         if (!anchor) {
           problems.push(...mintProblems.map((p) => ({ path: p.path, why: `your ✏️ for ${path.basename(key)} can't be applied: ${p.why}` })));
           prBlockedByPending = true;
@@ -872,16 +742,31 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         if (unresolved.has(relPath)) continue;
         const item = parseJson(readFileSync(path.join(process.cwd(), relPath), 'utf8'));
         if (!item) continue;
-        const health = stampHealth(gitState, relPath, item, headSha, approvalKey);
+        const health = stampHealth(gitState, relPath, item, headSha, statusOptions);
         if (health.ok) continue;
+        // The file's own ✅ first, then the header's — and the header is
+        // tried whenever the file's own ✅ exists but can't mint (a brief
+        // older than the drift), not only when the file has no ✅ of its
+        // own: "a fresh ✅ on the newest header re-mints" is THE recovery
+        // path, and a stale per-file ✅ must never stand in front of it
+        // (PR #4139 round 4, M1).
         const own = classified.get(relPath);
-        const source = own?.action === 'approve' ? own : header?.action === 'approve' ? header : null;
-        if (!source) {
+        const sources = [own?.action === 'approve' ? own : null, header?.action === 'approve' ? header : null].filter(Boolean);
+        if (sources.length === 0) {
           if (health.stamped) problems.push(...health.problems);
           continue;
         }
-        const { anchor, problems: mintProblems } = mintableAnchor(gitState, source.anchors, relPath, headSha, approvalKey);
-        if (!anchor) {
+        let minted = null;
+        const mintProblems = [];
+        for (const source of sources) {
+          const { anchor, problems: sourceProblems } = mintableAnchor(gitState, source.anchors, relPath, headSha, statusOptions);
+          if (anchor) {
+            minted = { anchor, by: source.approver };
+            break;
+          }
+          mintProblems.push(...sourceProblems);
+        }
+        if (!minted) {
           problems.push(...mintProblems.map((p) => ({ path: p.path, why: `your ✅ can't mint ${path.basename(relPath)}: ${p.why}` })));
           continue;
         }
@@ -889,8 +774,10 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         // approval.at) keeps it one: `edit.at` moves with the new `at`, so
         // the founder's words stay recorded as an edit, never re-counted as
         // a plain approve, and the row dedupes onto the one already recorded.
+        // (pollOwnFieldChange treats exactly that `at`-only bump as the
+        // poll's own shape, so the re-signed file is self-clean at merge.)
         const carryEditAt = Boolean(item.edit && item.approval && item.edit.at === item.approval.at);
-        toStamp.push({ relPath, by: source.approver, anchor, carryEditAt });
+        toStamp.push({ relPath, by: minted.by, anchor: minted.anchor, carryEditAt });
       }
 
       if (toStamp.length > 0) {
@@ -942,7 +829,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       let allClean = present.length > 0;
       for (const relPath of present) {
         const item = parseJson(readFileSync(path.join(process.cwd(), relPath), 'utf8'));
-        const health = item ? stampHealth(gitState, relPath, item, headSha, approvalKey) : { ok: false, stamped: false, problems: [] };
+        const health = item ? stampHealth(gitState, relPath, item, headSha, statusOptions) : { ok: false, stamped: false, problems: [] };
         if (health.ok) continue;
         allClean = false;
         if (health.stamped) problems.push(...health.problems);
@@ -975,7 +862,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of files) {
             const absPath = path.join(process.cwd(), relPath);
             const item = rejectedThisRun.has(relPath) || !existsSync(absPath) ? null : parseJson(readFileSync(absPath, 'utf8'));
-            if (item?.approval && approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: approvalKey }).ok) prLedgerRows.push(stampRow(relPath, item));
+            if (item?.approval && approvalStatus(item, statusOptions).ok) prLedgerRows.push(stampRow(relPath, item));
           }
           for (const [key, c] of classified) {
             if (key === '*' || c.action !== 'reject') continue;
