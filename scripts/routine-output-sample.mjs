@@ -37,7 +37,7 @@ import { WORKFLOWS_DIR, listRoutineWorkflowFiles } from './check-routine-workflo
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'docs', 'audits', 'routine-output-sampling');
 const REPO = process.env.GITHUB_REPOSITORY || 'JW-Incorporated/swift2';
-const WINDOW_DAYS = 7;
+export const WINDOW_DAYS = 7;
 const STALE_HOURS = 72;
 const CLOSED_UNMERGED_FLAG_RATE = 0.4;
 
@@ -161,8 +161,13 @@ export function buildReport({ date, repo, routines }) {
   return lines.join('\n');
 }
 
-/** The 15 routines to sample: workflow name, prompt file, resolved identifier. */
-function discoverRoutines() {
+/**
+ * The routines to sample: workflow name, prompt file, resolved identifier.
+ * Exported so routine-quality-sample.mjs (output-sampling.yml's second job)
+ * reuses this exact discovery/attribution-matching instead of reimplementing
+ * `Tier-2:` parsing.
+ */
+export function discoverRoutines() {
   const dir = path.join(ROOT, WORKFLOWS_DIR);
   const dirents = readdirSync(dir);
   const files = listRoutineWorkflowFiles(dirents);
@@ -186,7 +191,8 @@ function discoverRoutines() {
   });
 }
 
-async function fetchForRoutine(identifier) {
+/** Exported for reuse by routine-quality-sample.mjs — same PR/issue fetch, same query shape. */
+export async function fetchForRoutine(identifier) {
   const query = `Tier-2: ${identifier}`;
   const [prsOut, issuesOut] = await Promise.all([
     gh(['search', 'prs', '--repo', REPO, query, '--limit', '100', '--json', 'number,state,createdAt,closedAt']),
