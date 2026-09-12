@@ -10,6 +10,11 @@ import * as ghMjs from '../lib/gh.mjs';
 
 const NOW = new Date('2026-07-12T13:00:00Z').getTime();
 
+// assemble-brief.mjs is plain JS with no exported types — this local shape
+// covers only the fields these two fixtures/tests actually read
+// (title/status/blockedOn/nextAction), just enough to avoid `any`.
+type DoneItemFixture = { title?: string; status?: string; blockedOn?: string; nextAction?: string };
+
 const formBody = [
   '### Context',
   'We need a thing decided.',
@@ -183,7 +188,7 @@ describe('renderSiteLine', () => {
 
 describe('renderDistanceClosingLine', () => {
   it('names the count blocked on nobody and says so plainly with no history', () => {
-    const doneOpen: [string, any][] = [
+    const doneOpen: [string, DoneItemFixture][] = [
       ['4', { blockedOn: 'agent (Marketplace) · nobody (Community)' }],
       ['5', { blockedOn: 'agent' }],
     ];
@@ -418,7 +423,7 @@ describe('buildBrief — six sections (Marjorie Overhaul C2, 2026-09-12)', () =>
   // must truncate its item list, never drop the closing sentence of
   // judgment, which is reserved its own slot.
   it('truncates its own oversized item list but always keeps the closing sentence', () => {
-    const doneItems: Record<number, any> = {};
+    const doneItems: Record<number, DoneItemFixture> = {};
     for (let i = 1; i <= 8; i += 1) doneItems[i] = { title: `Item ${i}`, status: 'red', blockedOn: 'nobody', nextAction: 'x' };
     const brief = buildBrief({ ...emptyState, doneItems }, { now: NOW });
     expect(brief.split('\n').length).toBeLessThanOrEqual(40);
