@@ -6226,6 +6226,26 @@ export default {
       sourceUrl: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987',
       thumbnailUrl: null,
       moment: {
+        // The post this page is ABOUT: Taylor's own @taylorswift backstage
+        // selfie from the first London Eras Tour show. Shortcode taken from
+        // the permalink E! Online and Just Jared both embed (Just Jared's story
+        // is titled "Taylor Swift Shares First Photo With Travis Kelce on
+        // Instagram, Along With Prince William & Kids"), and verified this
+        // session (photo pass #762, 2026-09-12) by fetching Instagram's own
+        // media endpoint for C8hIungMPmD and vision-confirming the image: a
+        // selfie Taylor is holding herself, with Prince William, Prince George,
+        // Princess Charlotte and Travis Kelce — the exact backstage moment this
+        // page describes. Distinct from the Kensington Royal account's own post
+        // of the visit (a different shortcode). Embedded rather than hotlinked
+        // because Instagram CDN urls are signed/expiring and the host is off
+        // the image allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            'Taylor\'s Instagram selfie backstage at her first London Eras Tour show — with Travis Kelce, Prince William, Prince George and Princess Charlotte.',
+          postedOn: '2024-06-21',
+        },
         context:
           'Marked the first time Taylor publicly shared a photo with Kelce on her own Instagram, taken during the royal family backstage visit at Wembley Stadium.',
         sources: [
@@ -6474,6 +6494,31 @@ export default {
         sources: [
           { outlet: 'ABC News', url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-super-bowl-2025/story?id=118535158' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-arrives-super-bowl-2025-travis-kelce-1235260088/' },
+        ],
+        // Photo pass #762 (2026-09-12): two real press photos of this exact
+        // moment, both licensed Getty frames hosted on ABC News's own CDN
+        // (i.abcnewsfe.com — allowlisted, unwatermarked, no signed query
+        // string), pulled from the ABC News story this page cites. Downloaded
+        // and vision-confirmed this session: the first shows Taylor seated with
+        // Ice Spice, the second shows her standing with the Haim sisters —
+        // together they cover the "Haim sisters and Ice Spice" this page names.
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/32caf223-ffe5-49d5-8700-43ed9dbd0db0/sb57-gty-gmh-250209_1739145827948_hpMain.jpg',
+            focalPoint: '50% 52%',
+            credit: 'Getty Images (via ABC News)',
+            caption:
+              'Taylor Swift seated beside Ice Spice in the stands at Super Bowl LIX, Caesars Superdome, Feb. 9, 2025.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/2e222f6d-3238-4fb8-b81b-36379944891a/sb65-gty-gmh-250208_1739148915493_hpMain.jpg',
+            focalPoint: '46% 34%',
+            credit: 'Getty Images (via ABC News)',
+            caption:
+              'Taylor Swift with the Haim sisters in the suite at Super Bowl LIX, watching the Chiefs face the Eagles.',
+            kind: 'primary',
+          },
         ],
       },
     },
