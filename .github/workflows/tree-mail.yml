@@ -44,55 +44,98 @@
 # which never mails anyone.
 #
 # Zero AI, no polling loops. The `founder-mailed` label is created by
-# scripts/marjorie/bootstrap-labels.mjs. `pull_request` on a same-repo branch
-# has normal secrets access; Tree cannot run code here (no PR-head checkout —
-# the mailer runs from the trusted base ref).
+# scripts/marjorie/bootstrap-labels.mjs. Tree cannot run code here (no
+# PR-head checkout — the mailer runs from the trusted base ref).
 name: tree-mail
 
 on:
-  pull_request:
-    types: [opened]
-  # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note above.
-  # `workflow_dispatch` still runs the digest job manually for testing.
+  # Digest sweep's schedule removed 2026-08-23 — see the RETIRED note below.
+  # T4 (docs/specs/tree-overhaul/t4-weekly-brief.md): the `pull_request`
+  # trigger this file used to carry was REMOVED, not narrowed — it was the
+  # ONLY thing that ever fired tree-pr-mail, and `pull_request:opened` raced
+  # the Discord post (mail could go out with no permalink if the brief
+  # hadn't sent yet). `pr` lets routine-tree-weekly-plan.yml's send-brief
+  # job dispatch the plan-PR mail explicitly instead, once the permalink is
+  # already written into the PR body.
   workflow_dispatch:
+    inputs:
+      pr:
+        description: "Plan PR number to mail (dispatched by routine-tree-weekly-plan.yml's send-brief job) — leave blank to run the founder-task digest sweep instead"
+        required: false
+        type: string
 
 permissions:
   contents: read
   issues: write # digest sweep applies the `founder-mailed` bookkeeping label
 
 jobs:
-  # Tree's weekly planning PR (head branch `tree/<date>`, per
+  # Tree's weekly planning PR (head branch `tree/plan/<date>`, per
   # docs/agents/tree.md › Mutation rights) — the PR body IS Tree's weekly
-  # report to its manager, so it goes out instantly on `opened`. This is the
-  # only per-event mail left, and it is Tree-authored by construction.
+  # report to its manager, so it mails as soon as the Discord brief exists.
+  #
+  # LOW 10 (Codex round 1): gated on `inputs.pr` being non-empty so a manual
+  # `workflow_dispatch` with no `pr` filled in (the digest sweep's own
+  # long-standing manual-testing path) can never ALSO try to run this job —
+  # the two dispatch modes are mutually exclusive, never a side effect of
+  # each other.
   tree-pr-mail:
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.head.ref, 'tree/plan/')
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr != ''
     runs-on: ubuntu-latest
+    # HIGH-1, third finding (Codex round 3): a checkout-step `ref: main`
+    # override is only file content on whatever ref actually got
+    # dispatched -- `gh workflow run tree-mail.yml --ref <attacker-branch>`
+    # runs that branch's own copy of this whole job, override included. This
+    # job holds GMAIL_APP_PASSWORD, so `environment: tree-mail` adds the
+    # server-side gate GitHub enforces before the job can even start,
+    # regardless of file content on any ref -- its deployment branch policy
+    # is restricted to `main` only (verified directly via `gh api
+    # repos/JW-Incorporated/swift2/environments/tree-mail` and its
+    # `deployment-branch-policies` sub-resource; it holds no secret of its
+    # own). The checkout `ref: main` below stays too -- defense in depth.
+    environment: tree-mail
     concurrency:
-      group: tree-mail-pr-${{ github.event.pull_request.number }}
+      group: tree-mail-pr-${{ github.event.inputs.pr }}
       cancel-in-progress: true
     steps:
-      # Trusted base-ref checkout only — never the PR head. The mailer script
-      # is the only thing we need from the tree.
+      # Trusted base-ref checkout only — never the PR head, and never
+      # whatever ref a `workflow_dispatch` happened to be fired against
+      # (HIGH-1 recurrence, Codex round 2: `actions/checkout@v7` with no
+      # explicit `ref:` defaults to the triggering ref, not `main`). This
+      # job holds GMAIL_APP_PASSWORD, so `ref: main` is pinned explicitly —
+      # the mailer script is the only thing we need from the tree, and it
+      # must always be OUR copy of it.
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
-      - name: Build payload from the event
+      - name: Build payload from the plan PR
         env:
-          # Event fields via env, never inline-interpolated into the script,
-          # so a crafted PR body cannot inject shell.
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_BODY: ${{ github.event.pull_request.body }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.inputs.pr }}
         run: |
           set -euo pipefail
+          export PR_JSON=$(gh pr view "$PR" --repo "$REPO" --json title,body,url)
           python3 - <<'PY'
-          import json, os
+          import json, os, re
+          pr = json.loads(os.environ["PR_JSON"])
+          body = pr.get("body") or "(no PR body)"
+          # LOW (Codex round 3): mirrors routine-tree-weekly-plan.yml's own
+          # tail-1 fix for the identical marker convention -- the line is
+          # APPENDED each time send-brief runs, so the last one in the body
+          # is always the real, current one; re.search alone would take
+          # the first.
+          matches = re.findall(r"Discord brief: (https://discord\.com/channels/\S+)", body)
+          link = matches[-1] if matches else None
+          copy_line = (
+              "This is a copy. The live version, where you can react and reply, is in #longlive-social: " + link
+              if link
+              else "This is a copy. The live version is in #longlive-social."
+          )
           payload = {
-              "subject": "Tree's weekly plan: " + os.environ["PR_TITLE"],
-              "body": os.environ.get("PR_BODY") or "(no PR body)",
-              "url": os.environ["PR_URL"],
+              "subject": "Tree's weekly plan: " + pr["title"],
+              "body": copy_line + "\n\n" + body,
+              "url": pr["url"],
               "fromName": "Tree (Long Live social)",
           }
           with open("payload.json", "w", encoding="utf-8") as f:
@@ -111,14 +154,26 @@ jobs:
   # batched into ONE email. Exactly-once via the `founder-mailed` label —
   # applied only after the send step succeeds, so a failed send retries on
   # the next sweep instead of going silent.
+  #
+  # LOW 10 (Codex round 1): mutually exclusive with tree-pr-mail above —
+  # this only runs a `workflow_dispatch` with `pr` left blank, never
+  # alongside a plan-PR mail dispatch.
   founder-task-digest:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr == ''
     runs-on: ubuntu-latest
+    # HIGH-1, third finding (Codex round 3): same server-side gate as
+    # tree-pr-mail above — this job also holds GMAIL_APP_PASSWORD.
+    environment: tree-mail
     concurrency:
       group: tree-mail-digest
       cancel-in-progress: false
     steps:
+      # HIGH-1 recurrence (Codex round 2): same reasoning as tree-pr-mail
+      # above — this job also holds GMAIL_APP_PASSWORD, so its checkout is
+      # pinned to `main` explicitly rather than relying on default behavior.
       - uses: actions/checkout@v7
+        with:
+          ref: main
 
       - name: Collect open founder-task issues
         env:

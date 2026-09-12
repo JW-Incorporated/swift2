@@ -349,3 +349,78 @@ export function appendRows(existingLines, rows) {
   }
   return appended;
 }
+
+// T4 (docs/specs/tree-overhaul/t4-weekly-brief.md §Data, "the five scorecard
+// lines"): weekly-scorecard.mjs's own latency + verdict aggregation, kept
+// here (pure, no I/O) per this file's own header rule that everything
+// worth a unit test lives here rather than in the calling script.
+
+const DRAFT_ROW_PREFIX = 'social/queue/';
+
+/** "Your verdicts" (line 4) and "Time to your answer" (line 5) both count
+ * real draft decisions only — a `proposal:<n>`/`brief`/`calendar:<n>`/
+ * `questions` row is a plan decision, a different signal, and must not
+ * blend into either count. T7's own per-campaign-type ladder reads the
+ * identical filter (spec: "the filter is `file.startsWith('social/queue/')`"),
+ * so this is the one definition, not two that could quietly drift apart. */
+function draftRows(rows) {
+  return (rows ?? []).filter((r) => typeof r?.file === 'string' && r.file.startsWith(DRAFT_ROW_PREFIX));
+}
+
+/** spec line 4: counts by action, plus "(edit + reject) / total" — the
+ * number T7's ladder reads and the number that should trend to zero.
+ * `needsChangePct` is `null` (never `0`/`NaN`) when there is nothing to
+ * divide by, so the empty-window sentence (weekly-scorecard.mjs) has an
+ * unambiguous signal to render on. */
+export function aggregateVerdicts(rows) {
+  const counts = { approve: 0, edit: 0, reject: 0 };
+  for (const row of draftRows(rows)) {
+    // LOW (Codex round 3): `in` walks the prototype chain -- a ledger row
+    // with `action: "toString"` (the ledger lives on the unprotected
+    // social-ledger branch, not founder-reviewed content) would otherwise
+    // overwrite an inherited Object.prototype method on `counts`.
+    if (Object.prototype.hasOwnProperty.call(counts, row.action)) counts[row.action] += 1;
+  }
+  const total = counts.approve + counts.edit + counts.reject;
+  const needsChangePct = total === 0 ? null : Math.round(((counts.edit + counts.reject) / total) * 100);
+  return { ...counts, total, needsChangePct };
+}
+
+const DISCORD_EPOCH_MS = 1420070400000n; // 2015-01-01T00:00:00.000Z
+
+/** Discord snowflake ids encode their own creation time in their top 42
+ * bits (Discord's own documented algorithm) — decoding `messageId` needs no
+ * Discord call at all, which matters here since weekly-scorecard.mjs (the
+ * only caller) is a pure, offline reader of social/feedback/**.jsonl, never
+ * a Discord client. Returns `null` for anything that isn't a bare numeric
+ * snowflake string, never a thrown BigInt error. */
+export function snowflakeTimestampMs(id) {
+  if (typeof id !== 'string' || !/^\d+$/.test(id)) return null;
+  return Number((BigInt(id) >> 22n) + DISCORD_EPOCH_MS);
+}
+
+/** spec line 5: "brief message timestamp -> the poll run that resolved it."
+ * Discord exposes no per-reaction timestamp, so latency is measured from
+ * when the brief message carrying the reaction was POSTED (decoded from its
+ * snowflake `messageId`, already on every row) to when the ledger row
+ * itself was written (`row.ts` — the poll run's own resolution time). This
+ * over-reports by up to the poll's own cron interval; weekly-scorecard.mjs
+ * documents that on the rendered line rather than hiding it. Rows with no
+ * decodable messageId, or a negative span (clock skew), are skipped, never
+ * counted as a zero. Returns `null` (not `{median: 0, ...}`) when there is
+ * no sample to measure. */
+export function aggregateLatency(rows) {
+  const samples = [];
+  for (const row of draftRows(rows)) {
+    const posted = snowflakeTimestampMs(row?.messageId);
+    const resolved = Date.parse(row?.ts ?? '');
+    if (posted === null || Number.isNaN(resolved)) continue;
+    const ms = resolved - posted;
+    if (ms >= 0) samples.push(ms);
+  }
+  if (samples.length === 0) return null;
+  const sorted = [...samples].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  const median = sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+  return { median, slowest: sorted[sorted.length - 1] };
+}

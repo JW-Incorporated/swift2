@@ -1393,3 +1393,34 @@ describe('architect redesign — round 4 recovery paths', () => {
     expect(rows[0]).toMatchObject({ action: 'edit', editedBody, originalBody: BASE_ITEM.body, replyId: 'reply-1' });
   });
 });
+
+// HIGH 3 (Codex round 1): a thread-fetch failure used to just `continue`,
+// which looked identical to "no replies exist" — with ✏️ and ✅ both
+// present and the founder's real edit sitting unread in a thread that
+// failed to fetch, classifyReaction's own "✏️ with no reply yet, ✅ also
+// present -> approve stands" fallback would stamp and merge the ORIGINAL
+// caption instead of the edit. This is the exact "wrong content ships"
+// scenario Codex reproduced.
+describe('HIGH 3 — a failed thread fetch must never fall back to approving the original caption', () => {
+  it('✏️ + ✅ present, the real edit only in a thread that fails to fetch -> no stamp, no merge, the original body survives untouched', async () => {
+    const threadId = '900000000000000001';
+    const draftMessage = { id: MESSAGE_ID, webhook_id: '999999999999999999', thread: { id: threadId }, content: `Draft 1 · X\nref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${REL_FILE}` };
+    const { impl: baseImpl } = makeFetchImplByMessage([draftMessage], {
+      [MESSAGE_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])], pencil: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const fetchImpl = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.includes(`/channels/${threadId}/messages`)) throw new Error('simulated Discord outage fetching thread messages');
+      return baseImpl(url, init);
+    });
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const item = await readQueueItem();
+    expect(item.approval).toBeUndefined(); // never stamped -- approving the original would BE the bug
+    expect(item.body).toBe('hello world'); // the original caption, unchanged
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+    expect(await readLedgerLines()).toHaveLength(0);
+  });
+});
