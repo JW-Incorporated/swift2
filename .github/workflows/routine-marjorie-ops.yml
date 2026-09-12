@@ -1,0 +1,92 @@
+# Marjorie — hourly watchdog-alert handling sweep (Marjorie Overhaul M2,
+# docs/specs/marjorie-overhaul/w1-watchdog-handling.md). Every open
+# `watchdog-alert` issue gets a reply within the hour: what she checked,
+# what she did, and whether it needs a founder — never a silent alert.
+#
+# Zero-cost `gate` job first (spec: "A zero-cost gate job runs first"): a
+# plain `gh issue list` step, no agent, ~5s. Most hours there are no open
+# alerts, so the Sonnet `run` job is skipped entirely via `needs`/`if` and
+# the hourly cadence costs almost nothing. A SKIPPED job does not fail the
+# workflow run as long as nothing else failed, so `conclusion: success` is
+# still reported — confirmed on the first real run per the spec's AC2, not
+# assumed here.
+#
+# No per-alert dispatch from watchdog.yml (architect's call, spec's
+# Mechanics section): watchdog runs at :05 and this sweep follows 13
+# minutes later at :18, so a per-open dispatch would only add a second
+# concurrent run for no latency worth having.
+#
+# `allowed_tools` uses the space-free scoped form the spec asks M2 to try
+# first (`Bash(gh:*),Bash(git:*),Bash(node:*)` — no spaces, so it survives
+# `routine-template.yml`'s UNQUOTED interpolation into `claude_args` the
+# same way every existing routine's bare tool list does) instead of the
+# commissioning brief's `gh issue`/`gh run`/`gh workflow run`/`gh pr` list,
+# which contains spaces and would not. No `Write`, `Edit`, or `Task` — a
+# narrowing, not a guarantee (`Bash` can still write files); the real
+# enforcement that she edits no product code is acceptance criterion 5,
+# checked on the PR diff. `.claude/hooks/guard.sh` denies `gh secret`/
+# `gh variable` on every Bash call regardless.
+#
+# `checkout_token_secret: SOCIAL_POSTER_PAT` — she files HUMAN-ACTIONS.md
+# items and build-desk issues by PR against branch-protected main;
+# `GITHUB_TOKEN` cannot trigger this repo's required `build` check on its
+# own PRs (same reason routine-karen-nightly.yml / routine-marjorie-brief.yml
+# use the PAT). Static per workflow, so the job holds the PAT on every run
+# that gets past the gate, not only when filing a human action — acceptable,
+# not implied away (spec, "On scoping, stated honestly").
+#
+# DISCORD_BOT_TOKEN / any webhook are never passed to this job on purpose —
+# they live only in an `environment:`-scoped plain job elsewhere in this
+# fleet (routine-marjorie-brief.yml's `deliver` job), never in an agent job.
+# Her "post" for a handled alert is the issue comment itself (see the prompt
+# file) — `upsert-alert.sh`'s own open/close cycle is what reaches Discord.
+name: routine-marjorie-ops
+
+on:
+  schedule:
+    - cron: "18 * * * *" # 13 min after watchdog.yml's :05 sweep
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write # gh workflow run — re-dispatching a quiet routine
+  id-token: write # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      work: ${{ steps.check.outputs.work }}
+    steps:
+      - name: Any open watchdog-alert issue?
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
+          if [ "$COUNT" -gt 0 ]; then
+            echo "work=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "work=no" >> "$GITHUB_OUTPUT"
+          fi
+
+  run:
+    needs: gate
+    if: needs.gate.outputs.work == 'yes'
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Marjorie — site ops"
+      prompt_file: docs/agents/runner-prompts/marjorie-ops.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
+      timeout_minutes: 20
+      max_turns: 30
+      checkout_token_secret: SOCIAL_POSTER_PAT
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
