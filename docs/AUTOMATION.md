@@ -94,7 +94,7 @@ why desk routines can open a PR and exit instead of babysitting it (which was
 
 | Workflow | Trigger | LLM | Mutates | Docs |
 |---|---|---|---|---|
-| [`watchdog.yml`](../.github/workflows/watchdog.yml) | daily 14:35 + **hourly :05** | no | opens/closes `watchdog-alert` issues, emails founders, can re-trigger `brief-mailer` | header (very thorough) |
+| [`watchdog.yml`](../.github/workflows/watchdog.yml) | daily 14:35 + **hourly :05** | no | opens/closes `watchdog-alert` issues, emails founders | header (very thorough) |
 | [`e2e.yml`](../.github/workflows/e2e.yml) | daily 13:05 + dispatch | no | nothing (Playwright against live prod) | header |
 | [`a11y.yml`](../.github/workflows/a11y.yml) | daily 16:10 | no | nothing (axe/pa11y artifacts, non-blocking) | [`agents/laura.md`](agents/laura.md) |
 | [`unowned-sweep.yml`](../.github/workflows/unowned-sweep.yml) | issue events + daily 15:20 | no | applies `needs-triage`, refreshes one ledger issue | [`ops/unowned-queues.md`](ops/unowned-queues.md) |
@@ -110,12 +110,10 @@ content-lane liveness (`vault/`, 36h) → Facebook export freshness →
 knowledge-engine freshness. Those two confirmations are expired scaffolding
 still firing daily — see [the review](automation/review-2026-08-31.md#rec-5).
 
-### Founder communications (3)
+### Founder communications (1)
 
 | Workflow | Trigger | LLM | Mutates | Docs |
 |---|---|---|---|---|
-| [`brief-mailer.yml`](../.github/workflows/brief-mailer.yml) | daily 12:45 | no | sends the Founders' Brief email | [`agents/marjorie.md`](agents/marjorie.md) § Delivery |
-| [`marjorie-inbox.yml`](../.github/workflows/marjorie-inbox.yml) | **every 30 min** | no | posts founder email replies as issue/PR comments | header (DKIM + idempotency rules) |
 | [`tree-mail.yml`](../.github/workflows/tree-mail.yml) | PR opened + dispatch | no | emails Tree's weekly plan; digest job applies `founder-mailed` | header — **but see [REC-5](automation/review-2026-08-31.md#rec-5), the header is stale** |
 
 Standing constraint (Joey, 2026-08-23): **at most 1–2 founder-facing report

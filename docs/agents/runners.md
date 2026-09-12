@@ -632,7 +632,7 @@ inventory drifting ahead of reality.
 | **Karen Deep — agent review** ⚠️ **APPROVED, NOT YET CREATED** (Joey, D3=A, 2026-08-31 — full dial; config below) | `40 9 * * *` (proposed) | **Sonnet 5** | [`runner-prompts/karen-deep-review.md`](runner-prompts/karen-deep-review.md) | **Wyatt** | The LLM half of Karen (fabricated events/quotes, wrong-subject images, safety classification). Dark 2026-07-10 → 2026-08-11 because it was a manual ritual |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
-| watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+| watchdog / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
 | appearance-discovery | `40 13 * * *` (GitHub Actions) | none | `.github/workflows/appearance-discovery.yml` + `scripts/appearance-discovery/` | repo | **Zero LLM (detection layer).** Polls 14 curated YouTube channel RSS feeds and files `intake` issues for new Taylor appearances; the Content Shift is the judge. No new secrets (channel RSS is keyless; only `GITHUB_TOKEN`). Runs 06:40 PT, ahead of the 10:00 PT Content Shift so fresh intake is queued. Stateless dedupe — no state file, no state PR (#2031), repo-scoped issue list only, never `/search` (#2008) |
 
 ## Karen Deep — trigger config to create (2026-08-11; spend approved 2026-08-31, Joey, D3=A)
@@ -994,9 +994,11 @@ Extending to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul
 Blart, Austin, Growth) is now one more `check_lane` line, once/if one of them
 is actually observed going dark — not pre-built speculatively for all of them.
 
-Also fixed: every `watchdog-alert` issue is now real-emailed via
-`scripts/watchdog/send-mail.py` (the same delivery path `brief-mailer.yml`
-uses), not just GitHub-mentioned. `@sffan15-sys` / `@wjduvall-cmd` mentions
+Also fixed: every `watchdog-alert` issue now posts to `#longlive-marjorie` by
+default (via `scripts/marjorie/post-or-mail.mjs`), with email only as the
+Discord-failure fallback or `production-backup.yml`'s deliberate exception
+(Marjorie Overhaul C3) — not just GitHub-mentioned. `@sffan15-sys` /
+`@wjduvall-cmd` mentions
 don't reach the founders' actual inboxes (see `marjorie.md` › Delivery) —
 that gap is exactly why four consecutive daily "no Founders' Brief" alerts
 (#947, #1177, #1203, #1224) sat open and uncommented-on for days. Alert

@@ -44,6 +44,7 @@ jobs:
   drill:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    environment: ops
     services:
       postgres:
         # Scratch target only — never touched by the source connection.
@@ -114,6 +115,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           OUTCOME: ${{ steps.drill.outcome }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
           set -euo pipefail
           ALERT_TITLE="Production-bytes backup/restore drill result (#680)"

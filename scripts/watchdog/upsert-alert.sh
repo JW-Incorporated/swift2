@@ -29,6 +29,7 @@ ACTION="$1"
 TITLE="$2"
 BODY_FILE="$3"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NOTIFY=0
 
 # --search does a text match, not an exact-title match, so a second jq pass
 # filters to the exact title -- avoids merging two different alerts that
@@ -44,6 +45,7 @@ if [ "$ACTION" = "close" ]; then
     gh issue comment "$EXISTING_NUM" --repo "$REPO" --body-file "$BODY_FILE"
     gh issue close "$EXISTING_NUM" --repo "$REPO"
     ISSUE_URL="$EXISTING_URL"
+    NOTIFY=1
     echo "closed watchdog-alert #$EXISTING_NUM ($TITLE)"
   else
     echo "no open watchdog-alert for '$TITLE' -- nothing to close"
@@ -57,6 +59,7 @@ elif [ "$ACTION" = "open" ]; then
   else
     ISSUE_URL=$(gh issue create --repo "$REPO" --label watchdog-alert \
       --title "$TITLE" --body-file "$BODY_FILE")
+    NOTIFY=1
     echo "opened new watchdog-alert: $ISSUE_URL"
   fi
 else
@@ -64,6 +67,28 @@ else
   exit 2
 fi
 
-jq -n --arg subject "$TITLE" --arg url "$ISSUE_URL" --rawfile body "$BODY_FILE" \
-  '{subject: $subject, body: $body, url: $url}' > /tmp/watchdog-mail-payload.json
-python3 "$SCRIPT_DIR/send-mail.py" /tmp/watchdog-mail-payload.json
+# Mail leg FIRST, deliberately: the script runs under `set -euo pipefail`,
+# so a non-zero exit from post-or-mail.mjs below would abort before the
+# mail ran — and, inside watchdog's per-workflow loop, abort every
+# remaining workflow's check too.
+if [ "${ALERT_ALSO_MAIL:-}" = "1" ]; then
+  jq -n --arg subject "$TITLE" --arg url "$ISSUE_URL" --rawfile body "$BODY_FILE" \
+    '{subject: $subject, body: $body, url: $url}' > /tmp/watchdog-alert-payload.json
+  python3 "$SCRIPT_DIR/send-mail.py" /tmp/watchdog-alert-payload.json
+  MAIL_FLAG=--no-mail-fallback   # already mailed; never mail twice
+fi
+
+# Post to Discord only on a state CHANGE (NOTIFY=1) — otherwise an hourly
+# watchdog re-check of a standing alert would flood the channel.
+#
+# KNOWN LIMITATION (Codex review, PR #4201): the issue create/close above
+# already happened by the time we get here, so if post-or-mail.mjs fails
+# BOTH legs (Discord down and mail unreachable/unconfigured), this state
+# change is never retried -- the next run either sees "already open" (no
+# NOTIFY) or has nothing left to close. A double-outage at the exact moment
+# of a state change is the only way to hit this; tracked as a hardening
+# follow-up (candidate for the M2 watchdog-handling wave), not fixed here.
+if [ "$NOTIFY" = "1" ]; then
+  node scripts/marjorie/post-or-mail.mjs \
+    --subject "$TITLE" --body-file "$BODY_FILE" --url "$ISSUE_URL" ${MAIL_FLAG:-}
+fi

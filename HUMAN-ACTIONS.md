@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -17,6 +17,18 @@
 4. Once green, merge PR #4202 (squash).
 5. Unfreeze once the standard post-merge conditions are met (docs/social/RULINGS-SOCIAL-2.md B4) — set SOCIAL_FREEZE back to `false` the same way as step 2.
 **Worked if:** PR #4202 is merged to main.
+
+## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** Marjorie Overhaul C3: social-posters permanent-post-failure alert now routes through upsert-alert.sh, but its post job runs under environment: social, not ops -- the #longlive-marjorie webhook already deposited in ops (HA #66) is invisible there, so this alert falls back to email instead of Discord.
+
+**Steps:**
+1. In JW-Incorporated/swift2, open Settings -> Environments -> social -> Environment secrets -> Add secret.
+2. Name it DISCORD_MARJORIE_WEBHOOK_URL, value = the same webhook URL already stored on the ops environment (HA #66).
+3. Save.
+
+**Worked if:** a forced social-poster.yml permanent-failure run posts to #longlive-marjorie directly, with no [discord failed] email.
 
 ## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
 <!-- ha filed=2026-09-12 -->
