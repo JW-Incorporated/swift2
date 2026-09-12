@@ -1,8 +1,17 @@
 name: marjorie-discord-smoketest
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Smoke test mode
+        type: choice
+        default: post
+        options:
+          - post
+          - upsert-alert
 permissions:
   contents: read
+  issues: write
 jobs:
   smoketest:
     runs-on: ubuntu-latest
@@ -21,8 +30,20 @@ jobs:
         with:
           node-version: "24"
       - name: Post a smoke-test message to #longlive-marjorie
+        if: ${{ inputs.mode == 'post' }}
         run: |
           echo "Marjorie Discord smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/smoketest-body.txt
           node scripts/marjorie/post-or-mail.mjs --subject "Discord smoke test" --body-file /tmp/smoketest-body.txt --no-mail-fallback
         env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+      - name: Synthetic watchdog-alert open+close
+        if: ${{ inputs.mode == 'upsert-alert' }}
+        run: |
+          echo "Synthetic smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/body.md
+          scripts/watchdog/upsert-alert.sh open "Watchdog: synthetic smoke test" /tmp/body.md
+          scripts/watchdog/upsert-alert.sh close "Watchdog: synthetic smoke test" /tmp/body.md
+          echo "SMOKE: open+close done"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
