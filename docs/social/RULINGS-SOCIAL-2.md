@@ -41,7 +41,7 @@ logs a denied queue-PR merge attempt by an agent"). Under B1, merging a
 `social-draft` PR yourself no longer approves it — the poll job
 (`social-approval-poll.mjs`) only ever stamps and merges an OPEN PR, so an
 agent's premature merge just strands the draft as `unapproved` (red at 24h,
-retired at 48h, a "merged before approval" notice to `#longlive-social`),
+retired at 48h, a "merged before approval" notice to `#longlive-tree`),
 not an unauthorized post. A guard fence would therefore imply a coverage
 guarantee ("this can't be merged without approval") that no longer matches
 what actually happens — the real protection is the poll job never stamping

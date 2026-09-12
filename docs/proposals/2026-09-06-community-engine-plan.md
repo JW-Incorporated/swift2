@@ -6,7 +6,7 @@ and ready to dispatch on board `swift2` once Joey has read this and answered
 the four founder questions in §8 (each carries a recommendation; silence =
 recommendation adopted).
 
-Source brief: Joey, 2026-09-06 (#long-live). Standing rule from the brief that
+Source brief: Joey, 2026-09-06 (#longlive). Standing rule from the brief that
 governs everything here: **a human always posts. Hermes only creates the
 content and makes the human's job quicker.** Nothing in this plan auto-posts,
 auto-comments, auto-replies, or auto-DMs on Reddit or Facebook.

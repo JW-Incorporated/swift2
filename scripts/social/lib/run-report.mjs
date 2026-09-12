@@ -218,7 +218,7 @@ export function formatReportMarkdown(outcomes, { runUrl, abortReason } = {}) {
     lines.push(
       `### 🔒 ${unapproved.length} awaiting founder (no attempt spent)`,
       '',
-      'No valid founder approval stamp on file (RULINGS-SOCIAL.md A2) — react ✅ to the draft\'s brief in #longlive-social to approve it (stamped by social-approval-poll), or re-open the PR if its content changed after it was stamped.',
+      'No valid founder approval stamp on file (RULINGS-SOCIAL.md A2) — react ✅ to the draft\'s brief in #longlive-tree to approve it (stamped by social-approval-poll), or re-open the PR if its content changed after it was stamped.',
       '',
     );
     for (const outcome of unapproved) {

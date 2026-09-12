@@ -6,7 +6,7 @@ gate live-broken, (b) the feedback loop wired but fed nothing, (c) Tree not
 the accountable owner of anything a founder sees.
 
 **Goal state.** Tree is the single accountable social media manager. Every
-brief and Reddit prompt in `#longlive-social` comes from Tree with a stated
+brief and Reddit prompt in `#longlive-tree` comes from Tree with a stated
 "why". A human gate stays before anything goes live. Every ✏️ or ❌ carries a
 reason that Tree reads and distills into standing lessons. Tree posts a weekly
 strategy brief in the channel, the founder answers in-thread, and next week's

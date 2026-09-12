@@ -1,4 +1,4 @@
-# social-approval-notify — prompts a founder in #longlive-social to approve
+# social-approval-notify — prompts a founder in #longlive-tree to approve
 # a pending social draft PR (2026-09-10 decision, docs/decisions.md:
 # "Social posting requires founder approval before publish", reversing
 # #2316/the 2026-07-25 no-human-review decision). Sends the FULL caption
@@ -141,7 +141,7 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
         run: gh pr edit "$PR" --repo "$REPO" --add-label social-draft
 
-      - name: Send the approval prompt to #longlive-social
+      - name: Send the approval prompt to #longlive-tree
         if: steps.manifest.outputs.has_drafts == 'true'
         env:
           SOCIAL_APPROVAL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}

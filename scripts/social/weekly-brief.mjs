@@ -1,4 +1,4 @@
-// Builds and sends Tree's Monday brief to #longlive-social (Tree Overhaul
+// Builds and sends Tree's Monday brief to #longlive-tree (Tree Overhaul
 // T4, docs/specs/tree-overhaul/t4-weekly-brief.md) — the same channel the
 // founder already approves drafts in, instead of an email-only report.
 // Mirrors approval-prompt.mjs's structure deliberately: a pure

@@ -64,7 +64,7 @@ stamped; (2) the gate PR is merged green with its named refusal tests
 present and passing; (3) a real `social-approval-notify` run logs
 `approval-prompt: embeds accepted: N` for a founder-visible brief with the
 image; (4) the owner says in chat that he saw the image in
-`#longlive-social`. No single PR flips the freeze itself or claims a
+`#longlive-tree`. No single PR flips the freeze itself or claims a
 condition met without evidence. **Superseded 2026-09-11 by B4**, which
 restates the same four-condition structure against the B1 Discord-poll
 mechanism instead of the A2 merge-stamp mechanism.

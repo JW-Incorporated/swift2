@@ -9,7 +9,7 @@
 // a truncated `why` with a file link, and the Facebook cross-post
 // disclosure (A4) on every Instagram draft.
 //
-// Approve = react ✅ in #longlive-social, on a draft message for just that
+// Approve = react ✅ in #longlive-tree, on a draft message for just that
 // one or on the header for every draft in the PR (docs/social/RULINGS-SOCIAL-2.md B1 —
 // social-approval-poll.yml polls for the reaction, stamps a v2 signed
 // approval, then merges; merging the PR yourself does NOT approve it, it
@@ -141,7 +141,7 @@ function asArray(value) {
 }
 
 /** Webhook display identity (Tree Overhaul S5) — every message this script
- * posts to #longlive-social shows as "Tree", not a bare webhook name, with
+ * posts to #longlive-tree shows as "Tree", not a bare webhook name, with
  * a stable avatar so the channel reads as one consistent actor.
  * `apps/web/public/social/tree-avatar.png` is a placeholder (see MAP.md),
  * served from the same host post-queue.mjs/mediaUrlsFor already publish
