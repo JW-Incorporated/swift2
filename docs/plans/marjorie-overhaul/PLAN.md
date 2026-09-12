@@ -46,7 +46,7 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 |---|---|---|---|---|
 | M0 · Plan committed, recheck routine live ✓ 09-12 | (done in the assessing session) | — | 1h | this dir, `plan-recheck-marjorie.yml`, #4180 |
 | M0 · Design ✓ 09-12 (#4184, #4183, #4185) | **Opus** (`/model opus`), Fable read-only review | HA #66 filed | 2–3h | `docs/specs/marjorie-overhaul/*.md`, charter amendment PR, decisions |
-| M1 · Comms | **Sonnet**, up to 4 executors | M0 merged, HA #66 done, PR #4047 reconciled first (`waves/m1-comms.md` Step 0) | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel |
+| M1 · Comms ✓ 09-12 | **Sonnet**, up to 4 executors | M0 merged, HA #66 done, PR #4047 reconciled first (`waves/m1-comms.md` Step 0) | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel — social-poster's own alert deferred to PR #4202/HA #68 (social-posting-freeze CI gate, human-only) |
 | M2 · Watchdog handling | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
 | M3 · Submissions triage | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
 | M4 · Tree/Marjorie loop | **Opus** (touches Tree's prompts) | Tree R2 reported (2026-09-21), M1 + M2 merged | half day | L1 spec, brief sections both ways, ask→issue mechanics |

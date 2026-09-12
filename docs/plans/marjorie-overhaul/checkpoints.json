@@ -4,7 +4,7 @@
   "checkpoints": [
     {
       "id": "MR1",
-      "due": null,
+      "due": "2026-09-19",
       "status": "pending",
       "title": "Comms hold under real schedules (+7d after M1)",
       "checks": [
@@ -18,7 +18,7 @@
     },
     {
       "id": "MR2",
-      "due": null,
+      "due": "2026-10-03",
       "status": "pending",
       "title": "Marjorie acted on real events (+21d after M1)",
       "checks": [
