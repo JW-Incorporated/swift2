@@ -102,13 +102,17 @@ jobs:
             first=0
             gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
               | jq --arg routine "$SOURCE_ROUTINE" --arg file "$f" \
-                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, sourceRoutine: $routine}' \
+                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, approval, sourceRoutine: $routine}' \
               >> /tmp/drafts.json
           done <<<"$QUEUE_FILES"
           echo "]" >> /tmp/drafts.json
 
           # RULINGS-SOCIAL-2.md B1: a file the poll job already stamped
           # (owner's Discord ✅) must not be re-briefed on a `synchronize`.
+          # Needs `approval` projected into the manifest above — it was
+          # missing until 2026-09-12, so this filter saw every draft as
+          # unstamped and filtered nothing (found during PR #4139's
+          # architect review).
           FILTER_OUT=$(node scripts/social/filter-already-stamped.mjs /tmp/drafts.json)
           echo "$FILTER_OUT"
           if printf '%s' "$FILTER_OUT" | grep -q 'already-stamped: all drafts filtered'; then
@@ -195,7 +199,7 @@ jobs:
               first=0
               gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
                 | jq --arg routine "$AUTHOR" --arg file "$f" \
-                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, sourceRoutine: $routine}' \
+                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, approval, sourceRoutine: $routine}' \
                 >> /tmp/digest-drafts.json
             done <<<"$QUEUE_FILES"
             echo "]" >> /tmp/digest-drafts.json
