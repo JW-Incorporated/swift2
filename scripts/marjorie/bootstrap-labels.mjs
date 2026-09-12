@@ -79,6 +79,13 @@ export const LABELS = [
     'Agent-to-agent coordination (merge order, file claims) — mails no one',
   ],
   ['founder-mailed', 'F9D0C4', 'Machine-only: the tree-mail digest already emailed this issue'],
+
+  // Marjorie Overhaul C2 (docs/specs/marjorie-overhaul/c2-brief.md): the
+  // brief's "Since yesterday" accountability line counts open work under
+  // this label. Doesn't exist anywhere yet — added now so a future M2/M3
+  // session doesn't hit a "label doesn't exist" error the first time it
+  // tries to apply it.
+  ['marjorie-filed', '006B75', "Marjorie filed this and is accountable for the outcome, not just the ticket"],
 ];
 
 const invokedDirectly =
