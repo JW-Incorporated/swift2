@@ -13,31 +13,30 @@
 // future scheduled run and reports itself, the same shape as
 // news-worker-rotation-check.mjs / karen-post-repair-check.mjs.
 //
-// WHAT IT WATCHES, using `gh run list --workflow routine-vault-run.yml`:
-//   1. Any of the last N *scheduled* (event=schedule) runs failed.
+// WHAT IT WATCHES, using `gh run list --workflow routine-vault-run.yml
+// --event schedule` (server-side filtered, so a burst of manual
+// workflow_dispatch runs can never displace scheduled history out of the
+// fetched window):
+//   1. Any of the last N *scheduled* runs failed.
 //   2. No scheduled run has started in the last ~26h (missed schedule) —
 //      the cron fires daily at 16:07 UTC (routine-vault-run.yml), so 26h
 //      gives a comfortable grace window past the next expected fire without
 //      paging on ordinary scheduling jitter.
 //
-// Deliberately excludes workflow_dispatch runs from both checks — a manual
-// fix-verification run succeeding (or failing) says nothing about whether
-// the CRON ITSELF is healthy, which is the one question this check exists
-// to answer.
-//
-// Feeds the founder-task digest/mailer path (build-founder-digest.mjs +
-// scripts/watchdog/send-mail.py) via a GitHub issue labelled `founder-task`,
-// rather than a new bespoke alert channel — batch, don't spam. Uses the same
-// persistent-issue upsert pattern as every other watchdog.yml alert
-// (scripts/watchdog/upsert-alert.sh) so a multi-day outage is one evolving
-// issue, not a new one every day.
+// Feeds the SAME real-email alert lane every other watchdog.yml check
+// already uses (a persistent `watchdog-alert`-labelled GitHub issue via
+// scripts/watchdog/upsert-alert.sh, which itself calls send-mail.py) rather
+// than inventing a new channel — batch, don't spam, and one evolving issue
+// per condition instead of a new one every day.
 //
 // Usage: node --use-env-proxy scripts/watchdog/routine-vault-run-check.mjs \
 //          --repo owner/name --alert-body /tmp/alert-body.md
-// Exit: 0 = nothing to alarm on (recent scheduled runs all succeeded, or
-//           still within the grace window since the last one) — caller closes.
-//       1 = a scheduled run failed, or the schedule appears to have been
-//           missed — caller opens.
+// Exit: 0 = nothing to alarm on (recent scheduled runs all succeeded or are
+//           still pending, within the grace window since the last one) —
+//           caller closes.
+//       1 = a scheduled run failed, the schedule appears to have been
+//           missed, or there is no scheduled-run history at all to confirm
+//           the cron works — caller opens.
 //       2 = the check itself broke — caller must not report this as "clear".
 import { writeFileSync } from 'node:fs';
 import { gh } from '../lib/gh.mjs';
@@ -55,28 +54,29 @@ export const LOOKBACK = 5;
 // day an alarm rather than noise.
 export const MISSED_SCHEDULE_HOURS = 26;
 
-/** Only the runs GitHub Actions started on its own cron, newest first. */
-export function scheduledRuns(runs) {
-  return (runs || [])
-    .filter((r) => r.event === 'schedule')
-    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
-}
-
 /**
- * Evaluate cadence health. Pure — takes already-fetched runs, so it is
- * unit-testable without gh.
+ * Evaluate cadence health. Pure — takes already-fetched, ALREADY
+ * schedule-filtered runs (newest first is not assumed; this sorts), so it
+ * is unit-testable without gh.
  *
- * @param {{runs: Array<{conclusion?: string, createdAt: string, event: string,
+ * @param {{runs: Array<{conclusion?: string, createdAt: string, event?: string,
  *   headBranch?: string, url?: string}>, now?: Date|string}} args
  */
 export function evaluate({ runs, now = new Date() }) {
   const nowMs = now instanceof Date ? now.getTime() : Date.parse(now);
-  const scheduled = scheduledRuns(runs);
+  // Defense in depth even though the caller fetches with --event schedule:
+  // a test or a future caller passing unfiltered runs must not silently
+  // count a workflow_dispatch run as cadence evidence.
+  const scheduled = (runs || [])
+    .filter((r) => (r.event ?? 'schedule') === 'schedule')
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   if (scheduled.length === 0) {
     return {
       status: 'no-data',
-      reason: `No scheduled run of \`${WORKFLOW}\` has ever been recorded. Either the workflow was just added, or its cron trigger has never fired.`,
+      // Alarms (not a silent close): "never scheduled" is exactly what this
+      // check exists to catch, not a reason to assume health.
+      reason: `No scheduled run of \`${WORKFLOW}\` has ever been recorded. Either the workflow was just added, or its cron trigger has never fired — there is no evidence the schedule works.`,
     };
   }
 
@@ -104,10 +104,10 @@ export function evaluate({ runs, now = new Date() }) {
     };
   }
 
-  if (pending.length === recent.length) {
+  if (pending.length > 0) {
     return {
       status: 'pending',
-      reason: `The most recent scheduled run(s) of \`${WORKFLOW}\` are still in progress — no verdict yet.`,
+      reason: `${pending.length} of the last ${recent.length} scheduled run(s) of \`${WORKFLOW}\` are still in progress (no verdict yet); the rest that have concluded all succeeded. Not alarming while a run is still live.`,
     };
   }
 
@@ -123,7 +123,7 @@ function renderBody(result) {
     failing: 'A scheduled Vault Run failed.',
     'missed-schedule': 'The Vault Run\u2019s daily schedule appears to have been missed.',
     'no-data': 'No scheduled Vault Run has ever been recorded.',
-    pending: 'No verdict yet — the most recent scheduled run(s) are still in progress.',
+    pending: 'A recent scheduled run is still in progress — no verdict yet, nothing alarming so far.',
   }[result.status];
   return (
     `@sffan15-sys — ${heading}\n\n${result.reason}\n\n` +
@@ -131,6 +131,16 @@ function renderBody(result) {
     `scripts/watchdog/routine-vault-run-check.mjs — replaces the one-off ` +
     `founder recheck filed as swift2#58. See docs/agents/vault-run-plan.md ` +
     `for the orchestrator's own history.)\n`
+  );
+}
+
+/** Alert body used when the check itself breaks (exit 2) — never claims "clear". */
+function renderErrorBody(message) {
+  return (
+    `@sffan15-sys — the routine-vault-run cadence watchdog itself failed to run: ${message}\n\n` +
+    `This is NOT a "the schedule is healthy" signal — it means the check could not evaluate ` +
+    `\`${WORKFLOW}\`'s recent runs at all. Investigate scripts/watchdog/routine-vault-run-check.mjs ` +
+    `and the \`gh run list\` call it makes before assuming anything about the Vault Run's own health.\n`
   );
 }
 
@@ -144,8 +154,8 @@ async function main() {
   const repoArgs = repo ? ['--repo', repo] : [];
 
   const { stdout } = await gh([
-    'run', 'list', ...repoArgs, '--workflow', WORKFLOW,
-    '--json', 'conclusion,createdAt,event,headBranch,url', '--limit', '14',
+    'run', 'list', ...repoArgs, '--workflow', WORKFLOW, '--event', 'schedule',
+    '--json', 'conclusion,createdAt,event,headBranch,url', '--limit', String(LOOKBACK * 2),
   ]);
   const runs = JSON.parse(stdout || '[]');
 
@@ -155,7 +165,7 @@ async function main() {
   const alertFile = arg('--alert-body');
   if (alertFile) writeFileSync(alertFile, renderBody(result));
 
-  return result.status === 'failing' || result.status === 'missed-schedule' ? 1 : 0;
+  return result.status === 'failing' || result.status === 'missed-schedule' || result.status === 'no-data' ? 1 : 0;
 }
 
 const invokedDirectly =
@@ -166,7 +176,12 @@ if (invokedDirectly) {
       return await main();
     } catch (e) {
       console.error(`\u2717 routine-vault-run check could not run: ${e.message}`);
+      const argv = process.argv.slice(2);
+      const i = argv.indexOf('--alert-body');
+      const alertFile = i === -1 ? undefined : argv[i + 1];
+      if (alertFile) writeFileSync(alertFile, renderErrorBody(e.message));
       return 2;
     }
   }, { name: 'routine-vault-run-check' });
 }
+

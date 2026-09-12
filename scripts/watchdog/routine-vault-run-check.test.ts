@@ -4,7 +4,6 @@ import {
   MISSED_SCHEDULE_HOURS,
   WORKFLOW,
   evaluate,
-  scheduledRuns,
 } from './routine-vault-run-check.mjs';
 
 type RunExtra = { event?: string; headBranch?: string; url?: string };
@@ -20,40 +19,40 @@ const run = (createdAt: string, conclusion: string | undefined, extra: RunExtra 
 
 const NOW = '2026-09-12T18:00:00Z';
 
-describe('scheduledRuns', () => {
-  it('keeps only event=schedule runs, newest first', () => {
-    const runs = [
-      run('2026-09-10T16:07:00Z', 'success', { event: 'workflow_dispatch' }),
-      run('2026-09-09T16:07:00Z', 'failure'),
-      run('2026-09-11T16:07:00Z', 'success'),
-    ];
-    const out = scheduledRuns(runs);
-    expect(out.map((r: { createdAt: string }) => r.createdAt)).toEqual([
-      '2026-09-11T16:07:00Z',
-      '2026-09-09T16:07:00Z',
-    ]);
-  });
-
-  it('handles an empty/undefined list', () => {
-    expect(scheduledRuns(undefined)).toEqual([]);
-    expect(scheduledRuns([])).toEqual([]);
-  });
-});
-
 describe('evaluate', () => {
-  it('reports no-data when there is no scheduled run at all', () => {
+  it('reports no-data (an alarm, not a silent pass) when there is no scheduled run at all', () => {
     const result = evaluate({ runs: [run('2026-09-10T00:00:00Z', 'success', { event: 'workflow_dispatch' })], now: NOW });
+    expect(result.status).toBe('no-data');
+  });
+
+  it('reports no-data on a genuinely empty run list', () => {
+    const result = evaluate({ runs: [], now: NOW });
     expect(result.status).toBe('no-data');
   });
 
   it('reports missed-schedule when the newest scheduled run is too old', () => {
     const result = evaluate({
       runs: [run('2026-09-10T16:07:00Z', 'success')],
-      now: NOW, // ~25.9h... make it clearly over 26h
+      now: NOW, // 2026-09-10T16:07 -> 2026-09-12T18:00 is well over 26h (~49h)
     });
-    // 2026-09-10T16:07 -> 2026-09-12T18:00 is well over 26h (~49h)
     expect(result.status).toBe('missed-schedule');
     expect(result.reason).toContain('16:07 UTC cron appears to have been skipped');
+  });
+
+  it('treats exactly the 26h boundary as still within the grace window', () => {
+    const result = evaluate({
+      runs: [run('2026-09-11T16:00:00Z', 'success')], // exactly 26h before NOW
+      now: NOW,
+    });
+    expect(result.status).toBe('healthy');
+  });
+
+  it('treats just over the 26h boundary as a missed schedule', () => {
+    const result = evaluate({
+      runs: [run('2026-09-11T15:59:00Z', 'success')], // 26h01m before NOW
+      now: NOW,
+    });
+    expect(result.status).toBe('missed-schedule');
   });
 
   it('does not report healthy when a failure sits within the lookback window even alongside recent successes', () => {
@@ -61,7 +60,7 @@ describe('evaluate', () => {
       runs: [
         run('2026-09-12T16:07:00Z', 'success'),
         run('2026-09-11T16:07:00Z', 'success'),
-        run('2026-09-10T16:07:00Z', 'failure'), // outside default lookback slice? still within 5 -> check below
+        run('2026-09-10T16:07:00Z', 'failure'),
       ],
       now: NOW,
     });
@@ -93,7 +92,7 @@ describe('evaluate', () => {
       now: NOW,
     });
     expect(result.status).toBe('failing');
-    expect(result.failures.length).toBe(4);
+    expect(result.failures?.length).toBe(4);
     expect(result.reason).toContain('4 of the last 5 scheduled run(s)');
   });
 
@@ -108,12 +107,35 @@ describe('evaluate', () => {
     expect(result.status).toBe('healthy');
   });
 
-  it('reports pending when the newest scheduled runs have no conclusion yet', () => {
+  it('reports pending, not healthy, when the newest scheduled run has no conclusion yet', () => {
     const result = evaluate({
       runs: [run('2026-09-12T16:07:00Z', undefined)],
       now: NOW,
     });
     expect(result.status).toBe('pending');
+  });
+
+  it('reports pending (not falsely healthy) for a mix of pending and succeeded runs', () => {
+    const result = evaluate({
+      runs: [
+        run('2026-09-12T17:00:00Z', undefined),
+        run('2026-09-11T16:07:00Z', 'success'),
+        run('2026-09-10T16:07:00Z', 'success'),
+      ],
+      now: NOW,
+    });
+    expect(result.status).toBe('pending');
+  });
+
+  it('a pending run does not mask a real failure among the concluded ones', () => {
+    const result = evaluate({
+      runs: [
+        run('2026-09-12T17:00:00Z', undefined),
+        run('2026-09-11T16:07:00Z', 'failure'),
+      ],
+      now: NOW,
+    });
+    expect(result.status).toBe('failing');
   });
 
   it('never confuses a workflow_dispatch run with a scheduled one for cadence purposes', () => {

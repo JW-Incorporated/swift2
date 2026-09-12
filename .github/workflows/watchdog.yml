@@ -736,10 +736,8 @@ jobs:
         run: |
           set -uo pipefail
           ALERT_TITLE="Watchdog: routine-vault-run scheduled cadence"
-          node --use-env-proxy scripts/watchdog/routine-vault-run-check.mjs \
-            --repo "$REPO" --alert-body /tmp/alert-body.md
-          STATUS=$?
-          if [ "$STATUS" -eq 0 ]; then
+          if node --use-env-proxy scripts/watchdog/routine-vault-run-check.mjs \
+              --repo "$REPO" --alert-body /tmp/alert-body.md; then
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "vault-run cadence OK"
           else
