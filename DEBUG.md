@@ -271,3 +271,182 @@ of problem, currently solved the opposite way (re-derived each run instead
 of recorded once and trusted thereafter). Whether that's the right
 direction, and what the minimal correct version of it looks like, is
 exactly the judgment this escalation is for.
+
+## Architect (Fable) verdict — implement this, do not re-litigate it
+
+**Delete the "governing message" concept entirely.** Three attempts failed
+on one design decision, not three separate bugs: the poll gates *listening*
+(which reactions it reads) on message identity (`approval.message === ref.
+message.id`, then round 3's `resolveGoverningRef`). But messages are
+ephemeral and multiply by construction — `social-approval-notify.yml`
+re-posts the header and every unstamped brief on every `synchronize`
+(including the poll's own stamp/edit/reject pushes), the daily digest
+re-posts at the same SHA, and the 100-message window drops old ones. Every
+finding across all 3 attempts (header vs per-file, duplicate briefs,
+identity not preserved across runs, hand-edited unsigned `message`,
+stranded `unsafeFiles`) is one more way for the recorded id not to be the
+one the founder actually reacted on. That class is unbounded — no 4th
+implementation pass closes it by adding one more rule. **This is
+architectural, and the fix is a simplification, not more rules.**
+
+Explicitly rejected: (A) a more careful implementation of the current
+model — proven insufficient 3 rounds running; (B) this file's own
+"synthesis" hypothesis above (a durable record of the governing message) —
+**wrong**, because it makes the blind spot *permanent* instead of
+transient: every other message for that file becomes permanently unread by
+construction. The durable-record instinct is right for the **SHA**, wrong
+for the **message id**. (Dropping honouring entirely was also considered
+and rejected: ✏️ makes stale-SHA a certainty, so S3 without honouring isn't
+S3.)
+
+### The design — two axes, cleanly separated
+
+**Listening axis (Discord):** read reactions on *every* window message
+whose ref is `(pr, *)` or `(pr, file)`, any SHA. Union reactions and
+replies per target; classify the union (❌ anywhere wins; latest reply
+anywhere wins, by timestamp). `approval.message` becomes **audit-only** —
+nothing gates on it, ever again.
+
+**Safety axis (git):** mint **v3 stamps** whose signed payload adds the
+head SHA the poll stamped on: `${v}|${by}|${at}|${pr}|${sha}|${contentHash}`
+(currently v2 has no `sha`; `lib/queue.mjs`'s `approvalStatus` hard-codes
+`v === 2` — dispatch on `v` so v2 stamps on already-merged content stay
+valid, poll mints v3 only, going forward). One predicate now decides both
+"may this ✅/✏️ mint" and "may this stamp merge":
+
+```
+cleanSince(execGit, S, head, key) → {ok, offending[]}
+  for every path in `git diff --name-only S head`:
+    must be social/queue/**.json
+    absent at head → OK (a deletion cannot publish unseen content —
+      this deletes finding-9's whole authorization machinery entirely,
+      isPollAuthorizedDeletion/ledgerHasRejectRow go away)
+    present at head → must be validly stamped at head
+  fetch --depth=100 pull/<n>/head, fallback fetch --depth=1 origin <S>;
+  unreadable → fail closed
+
+selfClean(F): F's bytes at approval.sha vs head differ only in
+  approval/body/edit (existing honouredFieldChangeOk logic, reused).
+  Per-file, self-anchored — sibling drift never permanently strands an
+  untouched file.
+
+mintable(m, F): m.sha === head OR (cleanSince(m.sha, head).ok AND F not
+  in that diff). Applies to ✅ AND ✏️ alike. A header ✅ at head expands to
+  every queue file that still needs a stamp.
+
+needsStamp(F): !approvalStatus.ok || !cleanSince(approval.sha, head).ok
+  || !selfClean(F) — drift is recoverable by a fresh ✅ on the newest
+  header; no separate stamp-stripping write path is needed.
+
+MERGE iff: every queue file at head is validly stamped AND for every F:
+  cleanSince(approval_F.sha, head).ok AND selfClean(F). Otherwise post one
+  notice per PR per 24h naming the offending paths (a `notice:` trailer,
+  same dedupe pattern as the existing nudge).
+```
+
+**Ledger rows are derived from state every run, never only from this run's
+own actions** — approve/edit rows from each valid stamp (`ts =
+approval.at`; `action = 'edit'` iff `edit.at === approval.at`, since the
+code already sets both from one `nowIso`; add `edit.reply` for `replyId`);
+reject rows from a ❌+reason on a file now absent at head (`originalBody`
+via `git show m.sha:F`). Dedupe against the week file matching the row's
+own `ts`. **Delete the MERGED-only self-heal entirely** — it's now
+unnecessary (derivation happens every run, not just once).
+
+### Findings closure — verify each of these when done
+
+| Finding | Closed by |
+|---|---|
+| R2-1 header bypasses field check | no honoured set at all; merge is per-file `cleanSince`+`selfClean`, header-independent |
+| R2-2 header stamp orphans per-file ❌ | all messages read (union), nothing gates on `approval.message` |
+| R2-3 concurrent ledger writers (poster vs poll) | **poster-side fix required too**: round 3's retry re-pushed a fixed `NEW_TREE`, silently reverting feedback rows the poll pushed in between — each retry attempt must re-read the fresh tip and stage only `social/queue\|posted\|failed`, never a stale full-tree snapshot |
+| R2-4 spoofable deletion auth | deletions are always safe now (a deletion can't publish unseen content) — delete `isPollAuthorizedDeletion`/`ledgerHasRejectRow` outright |
+| R2-5 lost feedback rows | state-derived rows + dedupe — convergent within the message window, no longer dependent on one run's in-memory state surviving to the ledger push |
+| R2-6 caption truncation cap | already closed (round 3), keep as-is |
+| R3-H1 hand-edited `approval.message` | not a gate any more; `sha` is the signed, load-bearing field |
+| R3-H2 duplicate briefs / R3-H3 identity-not-stable-across-runs (both directions) | union across all window messages; ❌ on ANY of them wins |
+| R3-M1 self-heal duplicates an edit row | the derivation rule above (one edit row OR one approve row per stamp, never both) |
+| R3-M2 stranded `unsafeFiles` | no sticky/persistent flag at all — re-evaluated fresh every run via `needsStamp` |
+
+**Residuals to state plainly in the PR, not hide:** the 100-message window
+is still a real (spec-accepted) limit; a non-queue-path drift (e.g. only
+image bytes changing) doesn't itself fire `notify`, so no fresh header
+appears until the next daily digest cycle — the notice text must say this
+explicitly rather than imply an immediate fix path; ✏️ on a stale message
+now needs to pass `mintable` too (a real tightening of spec §"the stale-SHA
+problem", not a bug).
+
+### Spec defects found along the way (contributed to this, distinct from an implementation gap)
+
+1. Spec's "no change to the signature payload… none should be made" is
+   **wrong now** — a **versioned** v3 leaves v2 signatures valid; this
+   needs a `docs/decisions.md` entry (data-model/auth change) before
+   implementation, per this repo's rule 6.
+2. Spec's honouring rule keys on "an `approval` naming that exact
+   message" — message identity as the anchor is the actual root cause.
+3. Spec's "every diff path… validly stamped at head" is over-strict for a
+   deletion (this is what spawned finding 9's whole ledger-corroboration
+   workaround) and for cross-file drift (a permanent strand after any
+   sibling's unrelated change).
+4. Spec's "freshness required to create" as strict SHA-equality silently
+   discards a ✅ on a brief the poll's own sibling stamp made stale, with
+   zero founder-visible feedback that anything was dropped.
+5. Spec models one message per target; multiples are the *normal* state
+   given how notify re-posts. It must say: union across every message.
+6. Spec's workflow section claims "nothing races `social-ledger`" — false,
+   the poster is a second independent writer to that branch. State
+   namespace ownership explicitly.
+7. This whole change (v3 payload) is a data-model/auth change — needs a
+   `docs/decisions.md` entry BEFORE implementation, not after.
+
+### Execution notes for whoever implements this
+
+**Touch set:** `scripts/social/lib/queue.mjs` (payload/verifier/
+`stampFiles` gains `sha`), `scripts/social/lib/feedback.mjs` (delete
+`resolveGoverningRef` entirely; add pure `groupTargets`/`classifyTarget`
+functions operating over unions, returning ✅/❌/✏️-bearing messages *with
+their SHAs* for `mintable` to consume, plus per-message pending states for
+nudges), `scripts/social/social-approval-poll.mjs` (delete
+`partitionCurrentHonoured`, every `honoured*` name, `unsafeFiles`,
+`POLL_COMMIT_AUTHOR`, both deletion-auth functions, the MERGED self-heal;
+fetch reactions for **every** ref belonging to the PR, not a filtered
+subset), `.github/workflows/social-poster.yml` (the ledger push step —
+re-read-tree per retry attempt), plus tests throughout.
+
+**Per-PR order, unchanged in overall shape:** classify unions → header
+reject → nudges → checkout + TOCTOU guard (keep this — it's a different,
+already-correctly-closed race) → rejects (file absent at head: no `git rm`
+needed since it's already gone, no comment needed if already commented,
+row still emitted from state) → edits (`mintable` else post a notice) →
+stamps → merge with `--match-head-commit` (keep this too) → ledger write in
+a `finally`.
+
+**Regression tests that MUST fail against the pre-this-fix code, then pass
+after:** a ❌+reason on a stale duplicate brief blocks a header ✅ from
+merging; a hand-edited `approval.sha` fails signature verification; a
+`why`-only drift produces no merge + a notice, then a fresh header ✅
+re-mints only that file and merges; a deletion within the diff range with
+no ledger row still merges cleanly; a poster retry that races an
+interleaved poll push preserves the poll's feedback rows; a lost approve
+row re-derives on the next run with no duplicate; an edit-stamped file
+yields exactly one edit row and zero approve rows for that same stamp.
+
+**One more real bug found along the way, worth a one-line fix regardless
+of this redesign:** `social-approval-notify.yml`'s jq projection omits
+`approval` from what it emits, so `scripts/social/filter-already-stamped.mjs`
+may be filtering nothing at all. Verify and fix if confirmed — separate
+from this redesign but cheap to fix in the same PR since you'll be reading
+this exact code path anyway.
+
+**Consequences of this call, stated plainly:** this commits to v3 stamps
+(the poster keeps verifying v2 for already-merged historical items; the
+poll mints v3 only, going forward — a v2 stamp still sitting on an open PR
+at the moment this lands needs one fresh re-✅ to become a v3 stamp,
+mention this in the PR body as a known one-time transition cost). This
+forecloses ever treating message id as authoritative state — S6 and T4
+(later Wave 3 stages, already built or in flight) must not be built
+assuming otherwise. The cheapest signal this call was wrong: a later
+adversarial review finds a merge where a ❌ on any window-visible message
+for that file went unread, or where `diff approval.sha head` contains a
+non-`social/queue/**` path — either means the two axes leaked back
+together.
