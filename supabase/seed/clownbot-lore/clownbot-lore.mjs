@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-10',
+  updatedOn: '2026-09-12',
   items: [
     {
       id: 'masters-buyback',
@@ -71,7 +71,7 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      lastCheckedOn: '2026-09-10',
+      lastCheckedOn: '2026-09-12',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -179,7 +179,7 @@ export default {
       id: 'green-ts-next-era',
       status: 'reported',
       date: '2026-08-20',
-      lastCheckedOn: '2026-09-10',
+      lastCheckedOn: '2026-09-12',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -206,7 +206,7 @@ export default {
       id: 'ts13-lilac-cipher',
       status: 'reported',
       date: '2026-08-21',
-      lastCheckedOn: '2026-09-10',
+      lastCheckedOn: '2026-09-12',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -229,7 +229,7 @@ export default {
       id: 'writing-new-music-post-wedding',
       status: 'reported',
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-10',
+      lastCheckedOn: '2026-09-12',
       headline: 'Reportedly "writing new music" and "incredibly inspired" since the wedding',
       detail:
         'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." Reported across outlets, all tracing to that single Page Six sourcing; Taylor and her team have announced no album, title, or timeline. Status stays `reported`, not `confirmed` — an unnamed-insider report is not an announcement.',
@@ -350,6 +350,29 @@ export default {
         on: '2026-09-02',
       },
       tags: ['relationship', 'confirmed', 'easter-eggs'],
+    },
+    {
+      id: 'cma-2026-single-of-the-year-nod',
+      status: 'confirmed',
+      date: '2026-09-10',
+      lastCheckedOn: '2026-09-12',
+      headline: 'Her first CMA nod in years — Single of the Year for "I Knew It, I Knew You"',
+      detail:
+        'On 10 September 2026 the CMA revealed its Single of the Year field on Good Morning America and Taylor was on it, for "I Knew It, I Knew You" — an original she wrote for "Toy Story 5" that topped US country radio, her first country-format No. 1 in over a decade. It is her first CMA Awards nomination in years and reads as a genuine return to the country-radio conversation for an artist who left the genre after 1989. She confirmed she will attend, posting "See you there Nov 18 🤠." The 60th CMA Awards air 18 November 2026 from Bridgestone Arena in Nashville on ABC.',
+      sources: [
+        {
+          name: 'Good Morning America / ABC News',
+          url: 'https://www.goodmorningamerica.com/culture/story/cma-awards-2026-nominees-136307131',
+        },
+        {
+          name: 'Rolling Stone',
+          url: 'https://www.rollingstone.com/music/music-country/2026-cma-awards-nominations-ella-langley-1235624050/',
+        },
+      ],
+      prompts: [
+        'She left country after 1989 and just landed a Single of the Year CMA nod for a "Toy Story 5" song. One-off, or a real return to the genre? Commit.',
+      ],
+      tags: ['tloas', 'music', 'awards'],
     },
   ],
 };
