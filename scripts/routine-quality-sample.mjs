@@ -209,9 +209,15 @@ export async function scorePrWithClaude({
   return extractToolUseInput(raw, { toolName: SCORE_TOOL.name });
 }
 
-/** Neutralizes markdown table-breaking characters in free-text (LLM-authored) cell content. */
+/**
+ * Neutralizes markdown table-breaking characters in free-text (LLM-authored)
+ * cell content. Backslashes are escaped FIRST — escaping `|` without also
+ * escaping a pre-existing `\` immediately before it lets a `\|` in the
+ * source text smuggle an unescaped pipe through as `\\|` (CodeQL: incomplete
+ * string escaping, caught in PR #4168 review).
+ */
 function escapeTableCell(text) {
-  return String(text).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+  return String(text).replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
 }
 
 /**

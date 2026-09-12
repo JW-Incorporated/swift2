@@ -322,6 +322,37 @@ describe('buildQualitySection', () => {
     expect(tableRows[0]).toContain('Added a \\| delimiter and a second line.');
   });
 
+  it('escapes a pre-existing backslash before escaping pipes, so a \\| in the source cannot smuggle an unescaped pipe through (CodeQL)', () => {
+    const backslash = '\\';
+    const pipe = '|';
+    const evidence = `uses a ${backslash}${pipe} escape`; // literal source text: uses a \| escape
+    const section = buildQualitySection({
+      date: '2026-09-14',
+      scored: [
+        {
+          routineName: 'routine-austin-build',
+          prNumber: 13,
+          prUrl: 'https://github.com/JW-Incorporated/swift2/pull/13',
+          score: 2,
+          evidence,
+          error: null,
+        },
+      ],
+      noRubric: [],
+    });
+    const tableRows = section
+      .split('\n')
+      .filter((line) => line.startsWith('| routine-austin-build'));
+    expect(tableRows).toHaveLength(1);
+    // Escaping the pipe without first escaping the backslash immediately
+    // before it would render as `\\|` (an escaped backslash followed by a
+    // BARE pipe) — still a table-breaking delimiter. The correct escape
+    // doubles the original backslash first, then escapes the pipe: `\\\|`
+    // (an escaped backslash followed by an escaped pipe).
+    const expectedEscaped = `${backslash}${backslash}${backslash}${pipe}`;
+    expect(tableRows[0]).toContain(`uses a ${expectedEscaped} escape`);
+  });
+
   it('lists every no-rubric routine explicitly, never silently', () => {
     const section = buildQualitySection({
       date: '2026-09-14',
