@@ -110,6 +110,16 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           OUTCOME: ${{ steps.drill.outcome }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          # Codex review round 2, PR #4201: these are NOT gated by
+          # ALERT_ALSO_MAIL (that stays exclusive to production-backup.yml's
+          # dual-send exception) — post-or-mail.mjs's own internal fallback
+          # fires whenever Discord fails and --no-mail-fallback wasn't
+          # passed, independent of ALERT_ALSO_MAIL entirely. This caller
+          # already had working fallback credentials before C3; removing
+          # them (my original round-1 mistake) would have turned "Discord
+          # down -> email" into "Discord down -> neither".
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           set -euo pipefail
           ALERT_TITLE="Backup/restore drill failing"
