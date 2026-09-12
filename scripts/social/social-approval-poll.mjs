@@ -380,6 +380,28 @@ function rejectRow(pr, file, classified, item, now) {
   };
 }
 
+/**
+ * One reject row PER real `social/queue/` file a header-level ❌ covers
+ * (Codex round 1, MEDIUM 5) — in addition to, not instead of, the header's
+ * own `file: '*'` row above. A founder rejecting the whole brief (common
+ * when every draft in it is bad) used to contribute ZERO rejected scores
+ * to calibration() — it excludes `file: '*'` rows entirely, since `'*'`
+ * is not a draft — which could leave calibration permanently stuck at
+ * 'insufficient' even after real rejections happened. `sha` is read via
+ * `gitState.show`, never a checkout: the OPEN-PR header-reject call site
+ * closes the PR and `continue`s before checkout ever runs this pass, and
+ * the CLOSED-PR catch-up call site never checks out at all.
+ */
+function perDraftRejectRows(pr, header, prQueueFiles, gitState, sha, now) {
+  const rows = [];
+  for (const relPath of prQueueFiles) {
+    const item = parseJson(gitState.show(sha, relPath));
+    if (!item) continue; // already gone at this ref — nothing to attribute
+    rows.push(rejectRow(pr, relPath, header, item, now));
+  }
+  return rows;
+}
+
 /** The rejected draft's content as the founder saw it — read at the
  * replied-to message's SHA first, then any other message carrying the ❌. */
 function itemAtAnchors(gitState, anchors, relPath) {
@@ -598,7 +620,10 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
             await postToChannel(fetchImpl, webhookUrl, `PR #${pr} was merged before approval (by an automation merge) — that draft cannot be approved and will be retired by the poster; the drafting routine re-queues it.`);
           }
         }
-        if (prView.state === 'CLOSED' && header?.action === 'reject') prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
+        if (prView.state === 'CLOSED' && header?.action === 'reject') {
+          prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
+          prLedgerRows.push(...perDraftRejectRows(pr, header, prQueueFiles, gitState, prView.headRefOid, runResolvedAt));
+        }
         for (const [key, c] of classified) {
           if (key === '*' || c.action !== 'reject') continue;
           if (gitState.show(prView.headRefOid, key) !== null) continue; // still there at the PR's final head — this ❌ was never acted on
@@ -612,6 +637,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       if (header?.action === 'reject') {
         execGh(['pr', 'close', String(pr), '--repo', repo, '--comment', `reject: founder reacted ❌ on the brief — ${header.reason}`]);
         prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
+        prLedgerRows.push(...perDraftRejectRows(pr, header, listPrQueueFiles(), gitState, prView.headRefOid, runResolvedAt));
         continue;
       }
 

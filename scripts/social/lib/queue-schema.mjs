@@ -194,6 +194,26 @@ export const CRITIQUE_MIN_DIMENSION_SCORE = 3;
 export const CRITIQUE_TOTAL_THRESHOLD = 18;
 export const CRITIQUE_NOT_EMBARRASSED_MIN = 4;
 export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
+/** The only mathematically possible range for a real critique total — five
+ * dimensions, each 1-5. */
+export const CRITIQUE_MIN_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length;
+export const CRITIQUE_MAX_POSSIBLE_TOTAL = CRITIQUE_DIMENSIONS.length * 5;
+
+/**
+ * Whether `value` is a plausible critique total — a bounded integer
+ * (CRITIQUE_MIN_POSSIBLE_TOTAL..CRITIQUE_MAX_POSSIBLE_TOTAL). Shared so
+ * weekly-scorecard.mjs's calibration() (Codex round 1, MEDIUM 3) doesn't
+ * re-derive the bounds independently and drift from the rubric above — a
+ * bare integer (a ledger row's `critiqueTotal`, or a live item's
+ * `critique.total` read without its `scores` to cross-check) can't be
+ * fully validated the way findCritiqueIssues validates a real `critique`
+ * object, but a plausibility bound is cheap insurance against a corrupted
+ * or fabricated value (e.g. `{ critique: { total: 999 } }`) silently
+ * skewing a mean.
+ */
+export function isPlausibleCritiqueTotal(value) {
+  return Number.isInteger(value) && value >= CRITIQUE_MIN_POSSIBLE_TOTAL && value <= CRITIQUE_MAX_POSSIBLE_TOTAL;
+}
 
 /**
  * Findings against ONE queue item's `critique` object — required shape
@@ -209,26 +229,53 @@ export const CRITIQUE_RATIONALE_MAX_CHARS = 320;
  * contains ("22 Oct.", "vs.", "No. 1"), so the character cap is the only
  * enforcement (spec §Mechanics).
  *
- * EXEMPT entirely once the item already carries a valid, signed `approval`
- * — checked the exact way validateQueueItem's own `approval` finding below
- * already does, `approvalStatus(item, { approvers: SOCIAL_APPROVERS })` with
- * no `key` (this module never holds SOCIAL_APPROVAL_KEY, so this is
- * shape/id/hash only — a forged-but-well-formed signature is the poster's
- * problem, not this gate's, same caveat as the approval check below). This
- * is a DIFFERENT question from lib/queue.mjs's "a v1 stamp is malformed
- * under v2 — nothing before that date grandfathers": that rule is about
- * signature STRENGTH and deliberately grandfathers nothing; this one is
- * about SCOPE — critique exists to force Tree to self-score BEFORE a human
- * ever sees a draft, and a founder's own approval is already a later,
- * stronger check than a rubric this gate would otherwise retroactively
- * demand of content approved under an earlier rule (four real live queue
- * items predate T2 entirely and can never have a real one — a v1-only
- * stamp is not a live case here since S3's redesign re-stamps every
- * still-live item to v2/v3). Once approved, critique is not checked at
- * all here — present, absent, or malformed makes no difference: the
- * founder's sign-off is the stronger gate this rule was always downstream
- * of (see the PR body for why "ignore entirely" rather than "still
- * validate a present-but-malformed one").
+ * EXEMPT entirely once the item already carries an approval that is
+ * shape/id/hash-valid — `approvalStatus(item, { approvers: SOCIAL_APPROVERS
+ * })`, no `key`, the exact call validateQueueItem's own `approval` finding
+ * below already makes.
+ *
+ * SECURITY NOTE, stated explicitly rather than left implicit (Codex round 1,
+ * MEDIUM 2 — verified by forging one: take any real item, recompute its
+ * public `contentHash`, pair it with an approver id from the public
+ * SOCIAL_APPROVERS list and any string shaped like `hmac-sha256:<hex>`, and
+ * this check accepts it, because it CANNOT verify the HMAC signature
+ * without `SOCIAL_APPROVAL_KEY` — a secret this module must never hold, since
+ * it is a pure, unit-tested validator with no network/fs access, called from
+ * plain CI (`validate-queue.mjs`) that never has it either. So: an item can
+ * pass THIS gate's critique exemption on a forged approval. What that
+ * forgery can and cannot do is the load-bearing fact: it CANNOT make
+ * anything post — `post-queue.mjs` calls `approvalStatus` WITH the real key
+ * before ever publishing, and `verifyApprovalSig` (lib/queue.mjs) rejects a
+ * non-matching HMAC there, every time, unconditionally. The forgery's only
+ * effect is getting a critique-less item PAST THIS CI CHECK, where it will
+ * sit in `social/queue/` and never post — the exact "unapproved" outcome
+ * an item with no approval at all already gets at post time, just reached
+ * by a different door. Given that, shape/hash-valid (option "b" of the
+ * three considered — see the PR body) is deliberately accepted as the best
+ * signal available to a keyless, pure validator for this NARROW purpose:
+ * the real security boundary was always downstream at post time, is
+ * unaffected by this exemption, and is proven so by
+ * queue.test.ts's "a forged approval... is REJECTED by the real keyed
+ * check" regression. Options considered and rejected: (a) something CI
+ * could verify without the secret that still can't be forged — nothing
+ * exists that isn't itself either forgeable from public repo content or
+ * new git-diff-aware plumbing this pure module was deliberately never
+ * given (see its own module docstring).
+ *
+ * Separately: this is a DIFFERENT question from lib/queue.mjs's "a v1
+ * stamp is malformed under v2 — nothing before that date grandfathers":
+ * that rule is about signature STRENGTH and deliberately grandfathers
+ * nothing; this one is about SCOPE — critique exists to force Tree to
+ * self-score BEFORE a human ever sees a draft, and a founder's own
+ * approval (real or, per above, forged-but-bounded) is already a later
+ * check than a rubric this gate would otherwise retroactively demand of
+ * content approved under an earlier rule (four real live queue items
+ * predate T2 entirely and can never have a real one — a v1-only stamp is
+ * not a live case here since S3's redesign re-stamps every still-live item
+ * to v2/v3). Once approved, critique is not checked at all here — present,
+ * absent, or malformed makes no difference: the founder's sign-off (or,
+ * worst case, a forgery already contained by the paragraph above) is the
+ * gate this rule was always downstream of.
  */
 export function findCritiqueIssues(item) {
   if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {

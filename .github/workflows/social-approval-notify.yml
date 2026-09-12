@@ -93,6 +93,10 @@ jobs:
           # it into the manifest approval-prompt.mjs expects. Full `media`
           # array (not just [0]) and `altText`/`why` — the 2026-09-10
           # version dropped all three (RCA-social-brief-image.md §1, §4).
+          # `critique` (Tree Overhaul T2) was missing the same way until
+          # Codex's PR #4144 round-1 review caught it: the rationale
+          # (formatRationaleLine, approval-prompt.mjs) silently never
+          # rendered because this projection never sent it.
           echo "[" > /tmp/drafts.json
           first=1
           while IFS= read -r f; do
@@ -101,7 +105,7 @@ jobs:
             first=0
             gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
               | jq --arg file "$f" \
-                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval}' \
+                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval, critique}' \
               >> /tmp/drafts.json
           done <<<"$QUEUE_FILES"
           echo "]" >> /tmp/drafts.json
@@ -204,7 +208,7 @@ jobs:
               first=0
               gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
                 | jq --arg file "$f" \
-                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval}' \
+                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval, critique}' \
                 >> /tmp/digest-drafts.json
             done <<<"$QUEUE_FILES"
             echo "]" >> /tmp/digest-drafts.json

@@ -9,6 +9,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { countPostsByPlatformSince, computeDeltas } from './lib/growth.mjs';
+import { isPlausibleCritiqueTotal } from './lib/queue-schema.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const POSTED_DIR = path.join(ROOT, 'social', 'posted');
@@ -106,18 +107,26 @@ function mean(values) {
 }
 
 /**
- * The critique total for one `social/feedback/<week>.jsonl` row: prefers
- * the still-on-disk item's own `critique.total` (joined by `file` against
- * `items`), falling back to the row's own `critiqueTotal` (written at
- * stamp/reject time — see social-approval-poll.mjs's stampRow/rejectRow) —
- * the fallback this exists for is a REJECTED item, whose queue file the ❌
- * deletes, leaving the ledger row as the only surviving record. `undefined`
- * when neither source has a number, so the row is excluded rather than
- * silently treated as a zero.
+ * The critique total for one `social/feedback/<week>.jsonl` row (Codex
+ * round 1, MEDIUM 3). PRIMARY source is the ledger row's own `critiqueTotal`
+ * — written ONCE, immutably, at stamp/reject time (social-approval-poll.mjs's
+ * stampRow/rejectRow) — not a fallback: the whole point of recording it
+ * there was to have a snapshot nothing can mutate after the fact, and a
+ * rejected item's queue file is gone anyway (the ❌ deletes it), so the
+ * ledger is its ONLY possible source. The still-on-disk item's current
+ * `critique.total` (joined by `file` against `items`) is the FALLBACK, for
+ * an older ledger row that predates `critiqueTotal` being recorded at all
+ * — using the live item as primary let a corrupted or hand-edited
+ * `critique.total` (e.g. `{ critique: { total: 999 } }`, live and mutable)
+ * silently overrule the immutable snapshot. Both sources are bounds-checked
+ * via `isPlausibleCritiqueTotal` before being trusted; `undefined` when
+ * neither has a plausible number, so the row is excluded rather than
+ * silently treated as a zero (or as 999).
  */
 function critiqueTotalFor(row, itemsByFile) {
+  if (isPlausibleCritiqueTotal(row.critiqueTotal)) return row.critiqueTotal;
   const fromItem = itemsByFile.get(row.file)?.critique?.total;
-  return typeof fromItem === 'number' ? fromItem : row.critiqueTotal;
+  return isPlausibleCritiqueTotal(fromItem) ? fromItem : undefined;
 }
 
 /**
@@ -155,8 +164,13 @@ export function calibration({ ledgerRows = [], items = [] } = {}) {
   const spread = approvedMean !== null && rejectedMean !== null ? approvedMean - rejectedMean : null;
   const aRejectionOutscoredApproved = approvedMean !== null && byAction.reject.some((total) => total > approvedMean);
 
+  // Codex round 1, MEDIUM 4: both sides of the comparison need real data —
+  // 3+ rejections alone used to be enough to reach 'calibrated' even with
+  // ZERO scored approvals (null spread math fell through to the final
+  // `else`), which is nonsense: there is nothing to compare the rejections
+  // against.
   let verdict;
-  if (n < CALIBRATION_MIN_REJECTIONS) verdict = 'insufficient';
+  if (n < CALIBRATION_MIN_REJECTIONS || approvedMean === null) verdict = 'insufficient';
   else if ((spread !== null && spread < CALIBRATION_SPREAD_THRESHOLD) || aRejectionOutscoredApproved) verdict = 'uncalibrated';
   else verdict = 'calibrated';
 
@@ -175,7 +189,11 @@ function fmtMean(value, suffix) {
  * function can derive from numbers alone. */
 export function renderCalibration(c) {
   if (c.verdict === 'insufficient') {
-    return `Self-scoring: not enough rejections to calibrate against yet (${c.n} this week).`;
+    // Two distinct reasons can land here (MEDIUM 4) — say which one honestly
+    // rather than always blaming the rejection count.
+    return c.approvedMean === null
+      ? `Self-scoring: ${c.n} rejection${c.n === 1 ? '' : 's'} this week, but nothing approved yet to compare them against — not enough data to calibrate.`
+      : `Self-scoring: not enough rejections to calibrate against yet (${c.n} this week).`;
   }
   const parts = [
     fmtMean(c.approvedMean, 'on what you approved'),

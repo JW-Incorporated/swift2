@@ -12,7 +12,19 @@ describe('social-approval-notify.yml — the already-stamped filter (PR #4139)',
   it('projects `approval` into BOTH manifests — without it the filter sees every draft as unstamped and filters nothing', () => {
     const projections = wf.match(/'\{file: \$file,[^']*\}'/g) ?? [];
     expect(projections).toHaveLength(2);
-    for (const p of projections) expect(p).toContain(', approval}');
+    for (const p of projections) expect(p).toMatch(/\bapproval\b/);
+  });
+
+  // Codex round 1, MEDIUM 1 (PR #4144): `critique` went missing from this
+  // exact projection the same way `approval` once did above — the
+  // rationale (formatRationaleLine, approval-prompt.mjs) silently never
+  // rendered in a real brief because this projection never sent it, even
+  // though every test that passed a full draft object straight in (not
+  // this projected shape) kept passing. Pinned here the same way.
+  it('projects `critique` into BOTH manifests — without it the brief\'s rationale (formatRationaleLine) silently never renders', () => {
+    const projections = wf.match(/'\{file: \$file,[^']*\}'/g) ?? [];
+    expect(projections).toHaveLength(2);
+    for (const p of projections) expect(p).toMatch(/\bcritique\b/);
   });
 
   it('hands the PR number and head SHA to the filter in BOTH jobs, so a stamp that no longer covers the branch is re-briefed instead of suppressing the whole prompt (round 4, Codex HIGH)', () => {

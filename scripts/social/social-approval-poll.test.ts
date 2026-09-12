@@ -643,6 +643,31 @@ describe('S3 reason protocol', () => {
       expect(rows[0]).toMatchObject({ action: 'reject', file: '*', reason: 'campaign is dead', messageId: HEADER_MESSAGE_ID });
     });
 
+    // Codex round 1, MEDIUM 5: rejecting the whole brief must not lose
+    // every draft's calibration evidence — a founder rejecting an entire
+    // brief (common when every draft in it is bad) used to contribute ZERO
+    // rejected scores to calibration(), since it excludes `file: '*'` rows
+    // entirely and the header path never captured a per-file critiqueTotal.
+    it('an OPEN PR header reject captures each real draft file\'s critiqueTotal into its own per-file row, alongside the header\'s own row', async () => {
+      const itemWithCritique = {
+        ...BASE_ITEM,
+        critique: { v: 1, scores: { onStrategy: 3, onVoice: 3, specific: 3, mediaEarnsItsPlace: 3, notEmbarrassed: 4 }, total: 16, rationale: 'x', rulesChecked: [], revision: 1 },
+      };
+      const { impl: baseImpl } = makeFetchImplByMessage([refMessage({ id: HEADER_MESSAGE_ID, sha: HEAD_SHA, file: '*' }), replyMessage({ id: 'reply-1', parentId: HEADER_MESSAGE_ID, content: 'all bad' })], {
+        [HEADER_MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+      });
+      const { impl: fetchImpl } = withPostCapture(baseImpl);
+      const { impl: execGh } = makeExecGh({ files: [{ path: REL_FILE }] });
+      const { impl: execGit } = makeFakeGit({ trees: { [HEAD_SHA]: { [REL_FILE]: JSON.stringify(itemWithCritique, null, 2) + '\n' } } });
+
+      await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+      const rows = readAllLedgerRows();
+      expect(rows).toHaveLength(2);
+      expect(rows.find((r) => r.file === '*')).toMatchObject({ action: 'reject', reason: 'all bad', critiqueTotal: null });
+      expect(rows.find((r) => r.file === REL_FILE)).toMatchObject({ action: 'reject', reason: 'all bad', critiqueTotal: 16, originalBody: BASE_ITEM.body });
+    });
+
     it('finding 5: merge is refused when only an unsigned field (mediaCredit) changed on the file since its stamp — selfClean, not merely a still-valid signature', async () => {
       const MID_SHA = 'd'.repeat(40);
       const stampedText = JSON.stringify(stampedAtStale(), null, 2) + '\n';
@@ -1115,8 +1140,13 @@ describe('S3 reason protocol', () => {
     await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
 
     const rows = readAllLedgerRows();
-    expect(rows).toHaveLength(1);
+    // Codex round 1, MEDIUM 5: a header reject also writes one reject row
+    // PER real social/queue/ file it covers (in addition to the header's
+    // own `'*'` row), so calibration() has per-draft scores to read even
+    // when a whole brief is rejected at once.
+    expect(rows).toHaveLength(2);
     expect(rows[0]).toMatchObject({ file: '*', action: 'reject', reason: 'campaign is dead', messageId: HEADER_MESSAGE_ID, replyId: 'reply-1' });
+    expect(rows[1]).toMatchObject({ file: REL_FILE, action: 'reject', reason: 'campaign is dead', originalBody: BASE_ITEM.body, messageId: HEADER_MESSAGE_ID, replyId: 'reply-1' });
     expect(execGh.mock.calls.some((c) => c[0] === 'pr' && c[1] === 'close')).toBe(false); // already closed — never re-closed or re-commented
   });
 });

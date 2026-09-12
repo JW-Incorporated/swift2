@@ -131,6 +131,37 @@ describe('buildApprovalPrompt', () => {
     expect(draftMsg.content).toContain('Posts at:');
   });
 
+  // Codex round 1, MEDIUM 1: the draft() fixture above is MORE permissive
+  // than what social-approval-notify.yml's jq manifest projection actually
+  // sends in production (it also carries sourceRoutine, which the real
+  // manifest never did either) — that gap is exactly how `critique` went
+  // missing from the real projection while every test here kept passing.
+  // This constructs the manifest's REAL, narrow, exact field list (jq
+  // `{file, platform, body, scheduledAt, campaign, mediaCredit, media,
+  // mediaKind, altText, why, lane, approval, critique}`, both projections
+  // in that workflow) with nothing extra, so a future field this shape
+  // doesn't carry can't hide behind a too-permissive fixture again.
+  it('renders the rationale through the ACTUAL projected-manifest shape (social-approval-notify.yml\'s jq filter), not just the more permissive draft() fixture', () => {
+    const rationale = "This is the Decode thread's origin-story beat: it teaches the one mechanic new followers don't get yet.";
+    const projectedManifestDraft = {
+      file: 'social/queue/2026-09-18-example-x.json',
+      platform: 'x',
+      body: 'on this day in 2012: the mechanic clicked.',
+      scheduledAt: '2026-09-18T15:00:00Z',
+      campaign: 'thread:hidden-clues:origin-story:2026-09',
+      mediaCredit: 'Photographer/Getty',
+      media: ['/social/library/photos/example.jpg'],
+      mediaKind: 'photo',
+      altText: ['Taylor Swift performing live, guitar in hand.'],
+      why: 'sourcing explanation',
+      lane: 'calendar',
+      approval: null,
+      critique: { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale, rulesChecked: [], revision: 1 },
+    };
+    const [, draftMsg] = buildApprovalPrompt(pr(), [projectedManifestDraft], { now: NOW, headSha: 'abc123' });
+    expect(draftMsg.content).toContain(rationale);
+  });
+
   it('attaches an image embed built from the same MEDIA_BASE_URL/mediaUrlsFor helper as the poster, with the www host', () => {
     const [, draftMsg] = buildApprovalPrompt(pr(), [draft()], { now: NOW, headSha: 'abc123' });
     expect(draftMsg.embeds).toEqual([{ image: { url: 'https://www.longlivets.com/social/library/photos/example.jpg' } }]);

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { validatePhotoInventoryBinding, validateQueueItem, PLATFORM_RULES, LANES, findCritiqueIssues } from './queue-schema.mjs';
-import { contentHash } from './queue.mjs';
+import { contentHash, approvalStatus } from './queue.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 
 const validCritique = {
@@ -144,6 +144,24 @@ describe('validateQueueItem', () => {
       it('an item with a present-but-INVALID approval (unrecognized approver) is NOT exempt — still requires critique', () => {
         const fakeApproval = approvedItem({ approval: { by: 'discord:99999999999999999' } });
         expect(findingFor(fakeApproval, 'critique')).toBeDefined();
+      });
+
+      // Codex round 1, MEDIUM 2: the unkeyed approvalStatus call this
+      // exemption uses (shape/id/hash only — this module never holds
+      // SOCIAL_APPROVAL_KEY) accepts a FORGED approval: any real item's
+      // public contentHash, a public SOCIAL_APPROVERS id, and an
+      // arbitrary hmac-sha256-shaped string. This is documented and
+      // accepted (see findCritiqueIssues's docstring for the full
+      // reasoning) BECAUSE the forgery is bounded — it can get a
+      // critique-less item past this CI check, but it cannot make
+      // anything actually post. This test is that bound, checked: the
+      // exact same forged item that exempts critique here is rejected by
+      // the REAL security boundary — approvalStatus called WITH the key,
+      // exactly as post-queue.mjs does before ever publishing.
+      it('a forged approval that exempts critique here is REJECTED by the real keyed check at post time — the security boundary is downstream, not here', () => {
+        const forged = approvedItem({ approval: { sig: `hmac-sha256:${'0'.repeat(64)}` } });
+        expect(validateQueueItem(forged)).toEqual([]); // exempted here (unkeyed, shape/hash only)
+        expect(approvalStatus(forged, { approvers: SOCIAL_APPROVERS, key: 'a-real-secret-only-the-poll-and-poster-hold' }).ok).toBe(false); // rejected there (keyed)
       });
     });
 
