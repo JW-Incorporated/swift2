@@ -405,6 +405,9 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/checkpoints.json` | Dated observation checkpoints R1–R4; `plan-recheck.yml` fires the routine when one is due |
 | `docs/plans/tree-overhaul/rechecks/` | Routine-written recheck reports (one per checkpoint) |
 | `docs/specs/marjorie-overhaul/c1-delivery.md` | M0 design: `scripts/marjorie/lib/discord.mjs`, webhook-not-bot-token and why, the `ops` environment, the mechanical `[discord failed]` mail fallback, and what M4 needs to read thread replies |
+| `scripts/marjorie/lib/discord.mjs` | C1: `post()` — chunked Discord webhook delivery, one retry (2s, or the 429 body's `retry_after`), reuses `chunkForDiscord`/`neutralizeMentions` from `discord-delivery.mjs` rather than a 4th reimplementation |
+| `scripts/marjorie/post-or-mail.mjs` | C1: thin CLI — Discord via `discord.mjs`'s `post()`, `[discord failed]` email via `send-mail.py` only on an HTTP-observable failure; the only judgment-free path from Marjorie to email |
+| `.github/workflows/marjorie-discord-smoketest.yml` | C1: `workflow_dispatch`-only smoke test proving the `ops`-environment webhook delivers end-to-end, ahead of C2's `deliver` job existing |
 | `docs/specs/marjorie-overhaul/c2-brief.md` | M0 design: the Founders' Brief rebuilt — six sections, 40-line cap, exact template with a filled example; Distance to done scores `docs/definition-of-done.md`'s eight items, not the 12 retired gates |
 | `docs/specs/marjorie-overhaul/c3-email-retired.md` | M0 design: every `send-mail.py` call site and what it becomes; the `ALERT_ALSO_MAIL` opt-in that keeps the backup receipt on email; why the Gmail secrets must NOT be deleted |
 | `docs/specs/marjorie-overhaul/w1-watchdog-handling.md` | M0 design: `routine-marjorie-ops.yml`, a handler row for all 14 watchdog alerts, the re-run budget, and the Facebook-export human action's final text |
