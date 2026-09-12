@@ -7,6 +7,104 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-12 — Marjorie posts by webhook; the brief is the one daily surface; triage classifies but never decides (Marjorie overhaul, wave M0 design)
+
+Three expensive-to-reverse calls from the M0 design pass. Specs:
+`docs/specs/marjorie-overhaul/` (`c1-delivery.md`, `c2-brief.md`,
+`c3-email-retired.md`, `w1-watchdog-handling.md`, `s1-triage.md`). Epic
+#4180. Implements the channel/email decision recorded above the same day.
+
+### 1. Delivery mechanism: a webhook, not a bot token
+
+**Decision.** Marjorie posts to `#longlive-marjorie` through a Discord
+webhook (`DISCORD_MARJORIE_WEBHOOK_URL`, in a new `main`-only `ops`
+environment) from one module, `scripts/marjorie/lib/discord.mjs`. The
+existing read-only `DISCORD_BOT_TOKEN` is used only by a later poller job
+that reads thread replies — a plain `run:` step, never an agent step,
+modelled on `social-approval-poll.yml`.
+
+**Why.** Every Discord post in this repo is already a webhook post, so a bot
+post would be the only one of its kind with its own auth and error handling.
+#4180 listed unverified bot Send-Messages/Create-Threads permissions as a
+blocker; a webhook has no scopes to verify, so the choice removes the blocker
+instead of scheduling work to clear it. Most importantly **a webhook cannot
+read** — the write credential that runs inside agent steps is structurally
+incapable of pulling channel history, which keeps the standing "agent
+processes never see `DISCORD_BOT_TOKEN`" rule true by construction rather
+than by discipline. A webhook cannot create a thread, but it can post into
+one, which is all the design needs.
+
+**Alternatives considered.** Bot token for both directions (rejected: puts a
+read-capable credential in an agent step, and needs permissions we have not
+verified). A second bot for Marjorie (rejected: an account to provision for
+no capability we lack).
+
+**Reversible?** Yes — a one-file change behind the same `post()` signature.
+
+### 2. The brief is the single daily surface, and it scores the product bar
+
+**Decision.** One message a day in `#longlive-marjorie`, six sections, capped
+at 40 lines, delivered by the brief routine itself at its existing 12:00 UTC
+cron. `brief-mailer.yml` is deleted and no bot mails a founder except the
+production-backup receipt and a mechanical `[discord failed]` fallback. The
+GitHub issue remains the durable copy. Founder replies in the thread become
+issue comments via a poller.
+
+**Distance to done scores `docs/definition-of-done.md`'s eight product items**
+— not `CLAUDE.md`'s six per-feature engineering clauses, and not
+`docs/launch-readiness.md`'s 12 retired gates. `assemble-brief.mjs:645`
+currently carries an in-code admission that its estimator still measures the
+12 gates; that dependency is removed rather than documented again.
+
+**Why.** Three documents in this repo are called some version of "definition
+of done" and they are routinely conflated — the prompt commissioning this
+design conflated two of them. `docs/definition-of-done.md` states in its own
+naming note that it is what a founder means by the phrase about the product.
+A founders' brief that reports engineering-process compliance, or progress
+against a bar the founders retired, is measuring the wrong thing precisely.
+
+**Alternatives considered.** Keep the email as a backup channel (rejected:
+five bot emails a day with no feedback path is the problem being solved, and
+a backup nobody reads is not a backup). Keep the 12-gate estimator alongside
+the new score (rejected: two numbers called "distance to done" is worse than
+one).
+
+**Reversible?** Yes — restoring a mailer is a workflow file.
+
+### 3. Triage classifies and dispatches; it never decides and never closes
+
+**Decision.** Marjorie classifies every site submission into bug / content
+correction / request / spam / needs-founder, files GitHub issues with
+acceptance criteria and the reporter's verbatim words, and posts
+needs-founder items in-channel with a recommendation and a single 7-day
+nudge. **The only thing she may close on her own judgment is spam**, and
+only with a comment and a `spam` label — never silently. Everything else
+stays open until a fix merges or a founder acts. Any founder reply naming a
+class overrules her, and she reverses and says so. She never edits product
+code or content: her routines carry no `Write` or `Edit` tool.
+
+**Why.** Triage authority is the one part of this overhaul that can destroy
+information. A misclassified request that gets closed is a user's report
+deleted by an agent's opinion. Restricting autonomous closure to spam, and
+requiring a labelled comment even there, keeps every judgment reversible and
+searchable. Withholding `Write`/`Edit` makes "never writes product code or
+content" a property of the runtime rather than an instruction that a long
+context might erode.
+
+**Alternatives considered.** Let her close resolved-looking items (rejected:
+no way to distinguish resolved from ignored without a merged fix). A
+confidence threshold for auto-close (rejected: a number invented to license
+an irreversible act).
+
+**Reversible?** The authority is; individual closures are cheap to reopen.
+
+**Approved by:** the owner's standing Decision Authority delegation — all
+three are reversible by a later change and none touches secrets, spend, or
+product direction. The charter amendment that names these duties is a
+separate founder-approved PR.
+
+---
+
 ## 2026-09-12 — Three Discord channels, one job each; email retired as a bot channel (Marjorie overhaul kickoff)
 
 **Decision (Joey, in chat, 2026-09-12):**
