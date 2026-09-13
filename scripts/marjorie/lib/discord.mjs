@@ -40,13 +40,13 @@ function postUrl(webhook, thread) {
 // One attempt at posting a single chunk. A non-2xx HTTP response is a
 // normal returned Response, not a throw — only a network-level failure
 // (DNS, refused connection, etc.) rejects, which the caller catches.
-function postChunk(chunk, { webhook, thread, fetchImpl }) {
+function postChunk(chunk, { webhook, thread, username, fetchImpl }) {
   return fetchImpl(postUrl(webhook, thread), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       content: chunk,
-      username: 'Marjorie',
+      username,
       allowed_mentions: { parse: [] },
     }),
   });
@@ -80,7 +80,8 @@ async function messageIdOf(response) {
  * actually sleeping through the retry wait, the same way `fetchImpl` lets
  * them inject a fake network — it defaults to a real `setTimeout` wait.
  */
-export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl = defaultWait } = {}) {
+// `username` defaults to Marjorie; M5's Tree chat replies pass 'Tree'.
+export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait } = {}) {
   const chunks = chunkForDiscord(neutralizeMentions(text));
   let delivered = 0;
   let messageId = null;
@@ -88,7 +89,7 @@ export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl 
   for (const [index, chunk] of chunks.entries()) {
     let response;
     try {
-      response = await postChunk(chunk, { webhook, thread, fetchImpl });
+      response = await postChunk(chunk, { webhook, thread, username, fetchImpl });
     } catch {
       response = undefined;
     }
@@ -103,7 +104,7 @@ export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl 
     let retryResponse;
     let retryError;
     try {
-      retryResponse = await postChunk(chunk, { webhook, thread, fetchImpl });
+      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl });
     } catch (err) {
       retryError = err;
     }
