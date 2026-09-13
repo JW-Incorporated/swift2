@@ -40,6 +40,21 @@
 # fleet (routine-marjorie-brief.yml's `deliver` job), never in an agent job.
 # Her "post" for a handled alert is the issue comment itself (see the prompt
 # file) — `upsert-alert.sh`'s own open/close cycle is what reaches Discord.
+#
+# `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
+# 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
+# ZERO durable progress against 2 simultaneously-open real alerts (#4009,
+# #4129) — confirmed via arithmetic over this prompt's own instructions
+# (DEBUG.md, local, not committed) that the minimum happy-path tool-call
+# sequence for handling both in one pass is ~29 turns with no margin for
+# any retry. 30 was also below `routine-template.yml`'s own 40-turn
+# default, which two OTHER routines in this fleet already had to raise
+# (`routine-community-answerer.yml` to 80, `routine-tree-daily-draft.yml`
+# to 50) for comparable multi-step work. See also `marjorie-ops.md`'s new
+# "work one alert at a time" instruction, added in the same fix — a busy
+# day with more open alerts than even 60 turns can finish should degrade
+# to partial-but-real progress, never the zero-progress failure this run
+# actually hit.
 name: routine-marjorie-ops
 
 on:
@@ -84,8 +99,8 @@ jobs:
       prompt_file: docs/agents/runner-prompts/marjorie-ops.md
       model: claude-sonnet-5
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
-      timeout_minutes: 20
-      max_turns: 30
+      timeout_minutes: 30
+      max_turns: 60
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

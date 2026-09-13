@@ -24,6 +24,22 @@ scripts), `Read`, `Grep`, `Glob`. You never touch `gh secret` or
 gh issue list --repo "$GITHUB_REPOSITORY" --label watchdog-alert --state open --json number,title
 ```
 
+**Work alerts one at a time, each to full completion, before starting the
+next.** Do not partially investigate every alert and then run out of turns
+with nothing posted anywhere — a run that fully finishes one alert (its
+ledger comment posted, or its PR opened) and leaves a second, third, etc.
+untouched is a GOOD outcome: the untouched ones are still open, still
+labeled `watchdog-alert`, and the next hourly sweep (13 minutes after the
+next `watchdog.yml` pass) will pick them up. A run that ends with zero
+alerts fully handled is the failure this instruction exists to prevent
+(2026-09-13: the first real dispatch hit its turn limit with 2 open alerts
+and posted nothing on either). If you have multiple open alerts, handle
+`[BLOCKING]`-equivalent ones first (`prod-smoke-check-failing` always;
+otherwise lowest issue number = oldest = first), and if you sense you are
+running low on remaining turns partway through one that has NOT yet taken
+an irreversible step (no PR opened, no `gh workflow run` dispatched yet),
+stop cleanly and leave it for next hour rather than leaving it half-touched.
+
 For each issue, match its title:
 
 ```
@@ -146,10 +162,19 @@ PR** (never a direct push — you are not exempt from branch protection):
    group lines from `scripts/knowledge/fb-groups-checklist.mjs` at filing
    time — never hand-copy a group list, a later roster change needs no spec
    or prompt edit.
-3. Open a branch, append the rendered block to the end of `HUMAN-ACTIONS.md`
-   (append — v2 items have no required order, but appending avoids merge
-   noise with any concurrent item), commit, push, open a PR touching
-   **only** `HUMAN-ACTIONS.md`. Nothing else in that PR.
+3. Open a branch. Append the rendered block to the end of
+   `HUMAN-ACTIONS.md` (append — v2 items have no required order, but
+   appending avoids merge noise with any concurrent item) by redirecting
+   step 2's own command straight to the file in ONE call — you have no
+   generic Bash, only `Bash(gh:*)`/`Bash(git:*)`/`Bash(node:*)`, so the
+   whole call must start with `node` (no `printf`/`cat`/heredoc as a
+   separate leading command, even chained with `&&` — the allowlist
+   matches the call's leading command):
+   ```
+   node -e "require('fs').appendFileSync('HUMAN-ACTIONS.md', '\n' + require('child_process').execFileSync('node', ['scripts/marjorie/lib/alert-router.mjs', 'render-fb-item', '<N>', '<today>'], {encoding:'utf8'}))"
+   ```
+   Commit, push, open a PR touching **only** `HUMAN-ACTIONS.md`. Nothing
+   else in that PR.
 4. Comment on the alert issue (Step 3) with `action=human-action`, naming
    the PR.
 
@@ -198,5 +223,6 @@ there is no dispatch, no re-run, nothing else for you to try.
 
 End your run with a short summary (in your final message, not a comment
 anywhere): how many alerts were open, how many you acted on vs. skipped
-(and why — unmatched / handled-awaiting-watchdog / escalated), and any PR or
-build-desk issue numbers you filed.
+(and why — unmatched / handled-awaiting-watchdog / escalated / deferred to
+next hour for turn budget), and any PR or build-desk issue numbers you
+filed.
