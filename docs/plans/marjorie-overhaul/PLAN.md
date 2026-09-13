@@ -47,7 +47,7 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 | M0 · Plan committed, recheck routine live ✓ 09-12 | (done in the assessing session) | — | 1h | this dir, `plan-recheck-marjorie.yml`, #4180 |
 | M0 · Design ✓ 09-12 (#4184, #4183, #4185) | **Opus** (`/model opus`), Fable read-only review | HA #66 filed | 2–3h | `docs/specs/marjorie-overhaul/*.md`, charter amendment PR, decisions |
 | M1 · Comms ✓ 09-12 | **Sonnet**, up to 4 executors | M0 merged, HA #66 done, PR #4047 reconciled first (`waves/m1-comms.md` Step 0) | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel — social-poster's own alert deferred to PR #4202/HA #68 (social-posting-freeze CI gate, human-only) |
-| M2 · Watchdog handling | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
+| M2 · Watchdog handling ✓ 09-12 (#4216, #4217, #4221, #4224, #4225) | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
 | M3 · Submissions triage | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
 | M4 · Tree/Marjorie loop | **Opus** (touches Tree's prompts) | Tree R2 reported (2026-09-21), M1 + M2 merged | half day | L1 spec, brief sections both ways, ask→issue mechanics |
 | MR1–MR2 · Rechecks | **Opus** routine | dates in `checkpoints.json` | 20 min | comment on #4180 + PR |
@@ -77,10 +77,32 @@ known.
 `ALERT_ALSO_MAIL` opt-in tail and the `post-or-mail.mjs` fallback; `marjorie-inbox.yml` deleted; a forced watchdog alert
 appeared in-channel; no founder received a bot email that day.
 
-**M2 done:** a synthetic quiet-routine alert was resolved by a real
-`routine-marjorie-ops` run (dispatch + close + in-channel line); the FB export
-human action exists with steps a non-coder can follow; `watchdog.yml` is
-shorter than before.
+**M2 done ✓ 09-12, with one honest caveat.** Proven against real alerts
+(#4009, #4129), not just synthetic ones: `routine-marjorie-ops.yml` ran
+for real multiple times (runs `34728233315`→`34731784616`), diagnosed
+both, filed the FB-export HUMAN-ACTIONS.md item (#70, PR #4222) with the
+spec's literal text, and correctly recognizes its own prior work on
+later sweeps (0 duplicate comments, 7 turns on a clean re-run vs. 65 on
+first real contact). `watchdog.yml` shrank 1190→1083 lines.
+**Caveat, not silently closed:** neither alert has actually CLOSED yet —
+#4009 needs the founder's own browser/upload work (HA #70, by design,
+not automatable); #4129's `gh workflow run` redispatch 403s under the
+routine's current GitHub App installation token (tracked in **#4223**,
+likely needs an `actions:write` grant on the App installation — a
+founder/admin action, not a code fix). Until #4223 resolves, 7 of the 14
+handler rows (every row whose "may do" is a redispatch) are diagnosis-only
+in practice. Three iterations were needed to get the routine's own
+duplicate-work-detection actually correct (**#4216** hardcoded a wrong
+identity, **#4224** live-queried a wrong identity via the wrong endpoint,
+**#4225** finally used GitHub's `viewerDidAuthor` field instead of any
+identity string at all) — full trail on #4180. Also found and fixed: the
+first live run hit `error_max_turns` with zero progress (**#4221**,
+30→60 turns + "finish one alert before starting the next" prompt
+guidance). Open non-blocking follow-ups: **#4218** (does `allowedTools`
+actually restrict tool availability, or only preapprove?), **#4219**
+(a permanent handled-marker can suppress a NEW target added later to an
+aggregate alert), **#4226** (a failed upstream `gh issue view` looks
+identical to a genuinely empty ledger).
 
 **M3 done:** a synthetic feedback issue was classified and dispatched with
 acceptance criteria; a second one needing a founder was posted in-channel
