@@ -29,11 +29,16 @@ handler rows, by design. Reply poller runs on cron and no-ops until HA #69.
   `tree-filed` label does not exist live, the cross-job identity trap
   (#4225/#4238), comment truncation (#4230), allowedTools (#4218), the
   App-token dispatch 403 (#4223), turn budgets (#4221).
-- #4223 re-diagnosed as a CODE fix, not a founder action: the caller
-  declares `actions: write` and sets `GH_TOKEN`, but claude-code-action
-  runs `gh` under its own App installation token. A Sonnet agent is fixing
-  it (opt-in template input so only the ops routine uses the workflow
-  token). Outcome recorded below once proven by a real redispatch.
+- #4223 re-diagnosed as a CODE fix, not a founder action: claude-code-action
+  mints its own App installation token (OIDC) whenever `github_token` is
+  empty, so the caller's `actions: write` never reached the agent's `gh`.
+  Fixed in PR #4244 (merged): template input `expose_dispatch_token`
+  exposes the job's own token as `GH_DISPATCH_TOKEN`, used only for
+  `gh workflow run`; the agent identity stays `claude[bot]` so marker
+  recognition is untouched (Codex round 1 caught the identity-swap
+  version). Proof run 34758238356 green, env confirmed; no live redispatch
+  observed yet because every open alert was already handled today. #4223
+  stays open until a real redispatch is seen.
 
 **M4 readiness:** ready on its stated gate — Tree R2 reports 2026-09-21,
 then M4 runs on Opus. No M2/M3 defect blocks it. The runbook artifact
