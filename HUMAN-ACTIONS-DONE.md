@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #69 · 2026-09-13 · done · Grant the Discord bot four permissions on #longlive-marjorie and #longlive-tree — "owner said done in chat; reply-poll run 34774300277 read the channel without a 403" · by chat
 - #68 · 2026-09-13 · done · Freeze, merge PR #4202 (social-poster alert reroute), unfreeze — "PR #4202 MERGED; SOCIAL_FREEZE verified false via gh variable list" · by agent
 - #64 · 2026-09-12 · done · X per-post metrics need a paid API tier — "closed via Discord reply" · by discord
 - #57 · 2026-09-12 · done · Stale git worktrees — 259 registered, 73 hidden inside the Projects tree — "closed via Discord reply" · by discord
