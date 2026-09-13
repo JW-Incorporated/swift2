@@ -408,8 +408,11 @@ describe('buildBrief — six sections (Marjorie Overhaul C2, 2026-09-12)', () =>
         1: { title: 'One', status: 'yellow', blockedOn: 'agent', nextAction: 'x' },
         2: { title: 'Two', status: 'yellow', blockedOn: 'nobody', nextAction: 'x' },
       },
+      // L1: the Tree section's full four lines, For Tree slot last.
+      treeLines: ['- Lessons: x', '- Scorecard: y', '- From Tree: [#1](<u>) get the run green · 0d', '- For Tree: —'],
     }, { now: NOW });
     expect(brief.split('\n').length).toBeLessThanOrEqual(40);
+    expect(brief).toContain('- From Tree: [#1](<u>) get the run green · 0d\n- For Tree: —');
     for (const h of ['**Waiting on you', '**Since yesterday**', '**Today**', '**Site**', '**Tree**', '**Distance to done**']) {
       expect(brief).toContain(h);
     }

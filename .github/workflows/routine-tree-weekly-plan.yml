@@ -115,6 +115,7 @@ jobs:
       contents: read
       pull-requests: write
       actions: write
+      issues: write # L1: files Tree's asks of Marjorie (loop-asks.mjs file-tree)
     steps:
       # MEDIUM (Codex round 2): the auto-discovery search has no recency
       # ordering (GitHub search defaults to relevance, not creation date),
@@ -235,6 +236,23 @@ jobs:
           set -euo pipefail
           gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/social/calendar.brief.json?ref=$HEAD_SHA" > /tmp/calendar.brief.json
 
+      # L1 (docs/specs/marjorie-overhaul/l1-loop.md): Tree's
+      # `needsFromMarjorie` asks become `tree-filed` + `desk:ops` issues
+      # BEFORE the brief posts, so the brief already carries their numbers;
+      # Marjorie's asks of Tree are read here too. A plain step on the
+      # workflow token running trusted `main` code over the hand-off as DATA
+      # — no agent judges an ask, and no webhook secret is in this step's
+      # env. Soft-fail: a filing failure must never stop the brief.
+      - name: File Tree's asks of Marjorie as issues (data only)
+        if: github.event.inputs.mode != 'replan'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.find_pr.outputs.number }}
+          PR_URL: ${{ steps.find_pr.outputs.url }}
+        run: |
+          node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/calendar.brief.json --pr "$PR_NUMBER" --pr-url "$PR_URL" --out /tmp/loop.json \
+            || echo "::warning::loop-asks file-tree failed; the brief goes out with a could-not-load line instead"
+
       # mode=replan: docs/agents/runner-prompts/tree-weekly-plan.md's own
       # replan behaviour posts a short "what changed" update instead of a
       # whole new brief. MEDIUM 5 (Codex round 1): posted as a new message
@@ -293,7 +311,8 @@ jobs:
             --pr "$PR_NUMBER" \
             --pr-url "$PR_URL" \
             --head-sha "$HEAD_SHA_OUT" \
-            --plan /tmp/calendar.brief.json
+            --plan /tmp/calendar.brief.json \
+            --loop /tmp/loop.json
 
       - name: Write the Discord permalink into the PR body
         if: github.event.inputs.mode != 'replan' && steps.send.outputs.permalink != ''

@@ -86,6 +86,10 @@ export const LABELS = [
   // session doesn't hit a "label doesn't exist" error the first time it
   // tries to apply it.
   ['marjorie-filed', '006B75', "Marjorie filed this and is accountable for the outcome, not just the ticket"],
+  // L1 (docs/specs/marjorie-overhaul/l1-loop.md): the mirror of
+  // `marjorie-filed` for asks Tree makes of Marjorie in its Monday brief,
+  // filed by routine-tree-weekly-plan.yml's send-brief job.
+  ['tree-filed', '2E7D32', 'Tree asked Marjorie for this in its Monday brief — Marjorie answers and closes it'],
   ['spam', '6E6E6E', 'Abuse, a test string, or empty — closed, kept searchable (applied by Marjorie)'],
   ['marjorie-triaged', 'BFD4F2', 'Bookkeeping: classified. Machine-only — never apply or remove by hand'],
   ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],

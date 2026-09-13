@@ -99,19 +99,19 @@ export function buildBrief(state, { now = state?.now ?? Date.now() } = {}) {
 
   // ── WAITING ON YOU ────────────────────────────────────────────────────
   const openActions = sortForBrief(state.openActions || []);
-  out.push(`**Waiting on you (${openActions.length})**`, '');
+  out.push(`**Waiting on you (${openActions.length})**`);
   out.push(...capSection(buildWaitingOnYouLines(openActions), SECTION_BUDGETS.waitingOnYou), '');
 
   // ── SINCE YESTERDAY ───────────────────────────────────────────────────
-  out.push('**Since yesterday**', '');
+  out.push('**Since yesterday**');
   out.push(...capSection(buildSinceYesterdayLines(state, a, now), SECTION_BUDGETS.sinceYesterday), '');
 
   // ── TODAY ─────────────────────────────────────────────────────────────
-  out.push('**Today**', '');
+  out.push('**Today**');
   out.push(...capSection(buildTodayLines(state, openAlertsNow), SECTION_BUDGETS.today), '');
 
   // ── SITE ──────────────────────────────────────────────────────────────
-  out.push('**Site**', '');
+  out.push('**Site**');
   const runnersResult = checkRunners({
     allPRs: state.allPRs || [], issues: [], briefComments: [],
     cadence: state.cadence || { runners: [] }, now, listsCapExhausted: state.allPRsCapExhausted,
@@ -121,13 +121,13 @@ export function buildBrief(state, { now = state?.now ?? Date.now() } = {}) {
   out.push(...capSection(siteLines, SECTION_BUDGETS.site), '');
 
   // ── TREE ──────────────────────────────────────────────────────────────
-  out.push('**Tree**', '');
+  out.push('**Tree**');
   const treeLines = state.treeLines && state.treeLines.length ? state.treeLines : ['- Nothing to report yet.'];
   out.push(...capSection(treeLines, SECTION_BUDGETS.tree), '');
 
   // ── DISTANCE TO DONE ──────────────────────────────────────────────────
   const distance = buildDistanceToDoneSection(state, now);
-  out.push(distance.heading, '');
+  out.push(distance.heading);
   out.push(...capSection(distance.lines, SECTION_BUDGETS.distanceToDone));
 
   return `${out.join('\n').trimEnd()}\n`;

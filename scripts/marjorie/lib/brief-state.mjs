@@ -9,6 +9,7 @@ import { readOpenActions } from '../human-actions.mjs';
 import { fetchContentShipped } from '../content-shipped.mjs';
 import { fetchSubmissionCounts } from './submissions.mjs';
 import { buildTreeLines } from './tree-line.mjs';
+import { FOR_TREE_PLACEHOLDER, fetchAsksFor, selectAsksFor, renderFromTreeLine } from './loop-asks.mjs';
 import { DAY_MS } from './brief-sections.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
@@ -58,6 +59,7 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     alerts,
     dispatched,
     submissions,
+    asksFromTree,
   ] = await Promise.all([
     // Org-wide, high-volume list: also feeds Site's Vault Run freshness
     // check via checkRunners, hence ghWithCompleteness (#3689).
@@ -67,6 +69,9 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     gh(['issue', 'list', '--repo', repo, '--label', 'watchdog-alert', '--state', 'all', '--limit', '100', '--json', 'number,title,createdAt,closedAt,state']),
     gh(['issue', 'list', '--repo', repo, '--label', 'marjorie-filed', '--state', 'open', '--limit', '200', '--json', 'number,createdAt']),
     fetchSubmissionCounts(repo, { now }),
+    // L1: Tree's open asks of Marjorie. Soft — a failed read prints a line
+    // saying so rather than taking the whole brief down.
+    fetchAsksFor('marjorie', { repo }).catch(() => null),
   ]);
 
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
@@ -77,7 +82,16 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     dispatched,
     submissions,
     contentShipped,
-    treeLines: buildTreeLines({ now }),
+    asksFromTree,
+    // L1 (docs/specs/marjorie-overhaul/l1-loop.md): From Tree, then the
+    // For Tree slot the agent fills and `deliver` files.
+    treeLines: [
+      ...buildTreeLines({ now }),
+      asksFromTree
+        ? renderFromTreeLine(selectAsksFor('marjorie', asksFromTree, { now }), now)
+        : "- From Tree: couldn't read Tree's asks this run.",
+      FOR_TREE_PLACEHOLDER,
+    ],
     doneItems: readCurrentDone(),
     doneSeries: readDoneHistory(),
     openActions: readOpenActions({ now }),

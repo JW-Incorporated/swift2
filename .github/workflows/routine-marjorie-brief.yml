@@ -86,6 +86,15 @@ jobs:
           echo "$ISSUE_JSON" | jq -r '.[0].body' > /tmp/brief-body.md
           ISSUE_URL=$(echo "$ISSUE_JSON" | jq -r '.[0].url')
           ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r '.[0].number')
+          # L1 (docs/specs/marjorie-overhaul/l1-loop.md): file the brief's
+          # `- For Tree:` ask as a `marjorie-filed` + `desk:tree` issue and
+          # write its number into the line — and the issue body — before the
+          # post, so Discord and the durable copy carry the same number. A
+          # plain step on the workflow token; no agent judges the line.
+          # Soft-fail: on any error the body file is untouched and the brief
+          # still goes out.
+          node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$ISSUE_NUMBER" --issue-url "$ISSUE_URL" --body-file /tmp/brief-body.md --out /tmp/brief-body.md \
+            || echo "::warning::loop-asks file-marjorie failed; delivering the brief unchanged"
           DELIVERY_OUTPUT=$(node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file /tmp/brief-body.md --url "$ISSUE_URL")
           echo "$DELIVERY_OUTPUT"
           MESSAGE_ID=$(echo "$DELIVERY_OUTPUT" | sed -n 's/^discord-message-id: //p')
