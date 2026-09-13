@@ -39,7 +39,7 @@ The old "Today in 30 seconds", "Scoreboard", "Notes" and "The plan" sections are
    What still needs YOU, per the charter:
    - For each item the assembler reports as resolved, post the fixed-form pointer comment `Founder decision (Brief YYYY-MM-DD → <link>): <the answer>` to every issue/PR in its **Affects** field, and close the bank item.
    - High-blast-radius classes (spending, merge/deploy grants, anything public-facing) still need an **explicit founder comment**, not a checkbox alone. If the assembler resolved one of those on a checkbox only, carry it over and say so.
-   - Read every `💬 Reply from …` comment since your last run and answer each one explicitly. They are conversation, never decision authority — restate any decision they contain as a bank item. (The Discord-thread poller that relays founder replies into these comments is M2 work, not built yet — until then, expect no `💬 Reply from …` comments to exist.)
+   - Read every `💬 Reply from …` comment since your last run and answer each one explicitly. They are conversation, never decision authority — restate any decision they contain as a bank item. Skip a relay whose `<!-- relay-id: N -->` matches a `<!-- chat-id: N -->` turn-log comment on the same issue — the chat routine already answered that message in Discord (M5, `docs/specs/marjorie-overhaul/m5-chat.md`); note it in the journal only.
    - Check each still-open bank item against docs/decisions.md precedent: if precedent covers it, answer + close it citing the entry instead of asking again.
 
 3a. **The Tree loop** (L1, `docs/specs/marjorie-overhaul/l1-loop.md`). Two lines of the assembler's **Tree** section are yours to act on. Never post to `#longlive-tree`, and never write `social/lessons.md` — it is read-only to you.

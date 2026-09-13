@@ -206,8 +206,20 @@ one covers only the conversational loop. Epic #4180.
   `routine-tree-chat.yml`; `scripts/marjorie/chat-poll.mjs` + `.test.ts`;
   `scripts/marjorie/chat-post.mjs` + `.test.ts`;
   `docs/agents/runner-prompts/marjorie-chat.md`, `tree-chat.md`.
+  *(Added at build: `scripts/marjorie/lib/discord-bot.mjs` (the bot-token
+  REST helper moved out of `reply-poll.mjs`), `lib/chat-inbox.mjs` (the
+  poll's pure half), `scripts/marjorie/ha-close.mjs` + test (a
+  deterministic human-action close — the agent has no Write tool),
+  `scripts/marjorie/chat-workflows.test.ts`. The agent saves its reply with
+  `chat-post.mjs save`. `finish` deletes the run's chat artifacts: this
+  repo is public, and they hold founder messages.)*
 - Edited: `.github/workflows/routine-template.yml` (optional artifact
-  pre-step), `docs/agents/marjorie.md`, `docs/agents/tree.md`,
+  pre-step; added at build: `post_run_artifact`, `concurrency_key`),
+  `marjorie-reply-poll.yml` and `watchdog.yml` (added at build),
+  `scripts/check-routine-workflows.mjs` (dispatch-only routines, added at
+  build), `scripts/marjorie/lib/discord.mjs` (`username` option),
+  `docs/agents/runner-prompts/marjorie-brief.md` (a relay already answered
+  in chat is not answered again), `docs/agents/marjorie.md`, `docs/agents/tree.md`,
   `docs/decisions.md`, `MAP.md`, `HUMAN-ACTIONS.md` (#69 amended),
   `docs/plans/marjorie-overhaul/PLAN.md`, `checkpoints.json` (MR2 counts
   chat turns).
