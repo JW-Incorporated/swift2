@@ -25,23 +25,24 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 56
+Stories: 43
 
-## Kanye West's 2009 VMAs Speech Interruption Remembered
+## Taylor Swift's Historic Moment at the 2009 MTV VMAs
 
-- first seen: 2026-09-13 19:25 UTC | category: music | importance: 6
+- first seen: 2026-09-13 23:06 UTC | category: music | importance: 7
 - verification_status: rumor | source_count: 1
-- summary: The 2009 VMAs incident where Kanye West interrupted Taylor Swift’s acceptance speech is revisited, marking 17 years since the event. This moment had a lasting impact on both artists' careers.
+- summary: The article recalls Taylor Swift's significant achievement at the 2009 MTV VMAs, marking a pivotal moment in her career and the award show's history.
 - sources:
-  - [unverified] VICE — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPLWpBTDUzalJvVUplUzBQWG5oM2JGNGpZaEc2U19xTWQxUmlpdjR2NXpwbFBPZDBhNTlodHA0NzJ3eUNjZThWUzVhVV9TalEteFBuTlpKVXhsZzUzc3ZrZDhKa3QyNnlvQnZyT05FdlZaRDQxWDEwTVQ0eDdHeWxNamI2X2k2WUp2ZkhFQXpwQmpheFRXR202YnlDS3E0SHVjZFYwRDhRTkI3Zm5mUjg0cHcxVzl6eGpOTU5YUGhxZDlfSDh0NGk1SGtxRHhWcXpTVXc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] americansongwriter.com — https://news.google.com/rss/articles/CBMi5wFBVV95cUxQWDFaenJzYXFlM2FuMm1yb0czSFJGczNuUDlTc2otS3hib3d3V0hDdE5Pa3NtRC13R2I3Tms2eW02YmhZUVpQM2FsWlNaRjhSWUZuMThpdUp5UmlGRnB4U2xNTHB3djBULXc2QUc5M2NnS2tFOFRWT3JBeERCMEs1ZjdaQy1PaG5uYTZSU2lYejhXTDBZVUJlYXVrMjVLUjFNOTl5QVVtQTRfLXllVm1yM1l6SU5JVjViVE15Z2kwcVJ1UC1tNXNoZUtVZjdtaG92eTNqUmJOUWhkQzZORmM5bm5lT0RLeWs?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dakota Johnson Seen with MGK After Visiting Taylor Swift's Apartment
 
 - first seen: 2026-09-13 19:25 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Dakota Johnson was spotted in New York City with Machine Gun Kelly following a visit to Taylor Swift's apartment. The outing has caught the attention of fans and media alike.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxNemJzTU5mUjhuU1pQRDVvTllndHViRGpsOWxlcURwc28tdnFHQ0tNUzB1Y2VmWGFlVEdqUWJsUlp6ZDZjWkJNVWdMX1BTX1lVRnpCRnp1LXd6YUQxTnFMalpfUnEtdnBybzVEZWZNU2RBNVVaZmhZeEpNc2JTSTlkZWttR0txeExFWnlsUllzV0dtdXlRRzV1N3pXNVFzNU1fc0dCbC1qWVBRa0wwdG9FUEx2d3I?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPSEhpTVlWcVNoME5BQXprY2dXMFhoQVNwVTdvczdVRUFxbFl0M1R5SkpfcEtqcEhTbmVXcUIwVEloLWVaR0tmajNrRzZtWFZRQ2Jfd195NzBaYm1KRlpyY05BMFJEUkk1YzlFbFVnODJiSkY3bkxWeFlhX3VLZ1Y5djFzcml6dmp1UVNzVTJkN3kxX2RpQzlZU1NtNXRKZ3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dakota Johnson and Machine Gun Kelly Seen Together in NYC
 
@@ -51,6 +52,15 @@ Stories: 56
 - sources:
   - [unverified] Thought Catalog — https://news.google.com/rss/articles/CBMi7AFBVV95cUxQVVhnUGlTc2M3b1JiQ0IxNWthYnBaYlRPSEpJeDlwaU1ucUNGaHpPMmJjT20tRlNjSFZrcmIwLWVIMndBOXEwTkJaSUx6YlBfdXFHWVFQSmVOSHFiZmVEdWk3UFlpekpRZ2RaX0NKQWoxZ0tMa0Z4T29BVHRKSHNVcVFRLTdRc3RjZm1uaWViVi1aa2pGRnZXdUZNQkQwb1ZhS1A1d1Iycm5vX196UzdDUFh1ZHRDazZLT1BYLVFjZGtxd3plakhpbnBLMTk5LWFXTmxKSmVtVGJHRV9JZ3BsOHZXb0EtcVl1VktTbA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TMZ — https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG1HVlVYc2x3aDZLZkJzNlVrTU0wV1o0ZjFPUGVWZ3E3cmh5QUJtdWRaa05DUkVJamktZzRyaUQwLTUxVFlXVVZEamUyVVdqakxGdmlyYy1leUN5amM1aDdRNkZVNnJrZW95eEU0TExtYS0xbVR0UFFoRXdzWkZjTXNxOTlpMnZBbU5hRTM3UnpDMzdFSHd3Nw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kanye West's 2009 VMAs Speech Interruption Remembered
+
+- first seen: 2026-09-13 19:25 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: The 2009 VMAs incident where Kanye West interrupted Taylor Swift’s acceptance speech is revisited, marking 17 years since the event. This moment had a lasting impact on both artists' careers.
+- sources:
+  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcWtiY2c0YmhXNVlvY21ud3FDQXVnRE5vR25aMlJudlprZEFLRDRrWmQzcnY3c3JKX0FMbFZ4b19wMGVXeDJZRmF0VndUb2cxWWVwU1VVTmZhbmFxTm1Ha2RBdkljb3RXWDBmVWphX0JEQjZUTnFxVmp3OXN5T3RUQ3BkV0sxMFdaSE1xV0JrLXhKUkktZjJwbmthbGU4cnRTbFl3Z2V3cW5nb2sxZW0zWnVJTXRIWFk5ZVl1TTFB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] VICE — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPLWpBTDUzalJvVUplUzBQWG5oM2JGNGpZaEc2U19xTWQxUmlpdjR2NXpwbFBPZDBhNTlodHA0NzJ3eUNjZThWUzVhVV9TalEteFBuTlpKVXhsZzUzc3ZrZDhKa3QyNnlvQnZyT05FdlZaRDQxWDEwTVQ0eDdHeWxNamI2X2k2WUp2ZkhFQXpwQmpheFRXR202YnlDS3E0SHVjZFYwRDhRTkI3Zm5mUjg0cHcxVzl6eGpOTU5YUGhxZDlfSDh0NGk1SGtxRHhWcXpTVXc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## NFL Stars in Relationships with Celebrities
 
@@ -71,9 +81,10 @@ Stories: 56
 ## Travis Kelce Shares What Tops Winning a Super Bowl
 
 - first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Travis Kelce states that there is one experience that surpasses winning a Super Bowl with the Chiefs, calling it 'the best night of my life.'
 - sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNRFpqNEg4ZUxsYlJEdDBqZ3EwTnhVbUhmQUNrRTktMm1NVWFzcmdCM0l0SE9TRTZqZFNFczFMRVdlZThDRGlTWjZ2YWFiRXdySDBMZzZoXy0tWEF4Um0tNnJURkhQcXNkWDgxMmoxSUJNYTNaMV9YNGF6MXpubGpjVHoyVkJQblVsYkczNEc5TXR0U2ZtT1BmdkZFa19NU0lGenVBYUN4YmxqbUFzNGxLZ29JbHFxUGM?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPWkNYbTc5cFlDUTE0X0FxSno3cC1VVlJGc2QyR0ViVTVmVl9DOU9lZFZ1d0dCcm8xc05iQlRMLXRzNjBPSHZxbm1DUVFzUFczX19GU3NuUUhmNWozSUlZQ0xZcXN0OFVndUtOTjdLUjlSeG5tcXNHdFNPTGRXcUlKdnJJTVN5Q2VXQ0Q0b2FSYlR0NUJRU0RfX2JmMnNxRElQRUo4WTBtMWRIUFM3VTY3WTdFMXM2SlZfOGJuQU5oN1d2NVVvMm84ZnE0U0ZoLWxQcFFYMjN2aDZzRVF0YV9TOFhGSTNkTGlCelRSTjcyMzJac2piYlHSAfYBQVVfeXFMUF9wY09SWWVjYU94Unh4bkFqSDI0dzZ0RHNrc3E4N09XN2trTHZWblJCUUVKbDJ0VEZOaVBCSThHS2lxVy1tMVEtUWh2VnhmRWkzTk8zYWRuVndVRllpUkY1Z1hpYm9Hb2xyQnlDaVRWMDFGODRrSWRZckxsWFFOcjViYTJmTWJna2hxTmpZX2g4NU94dzFWRmtmdjVZT0V3c0cwMkhyejhYZUREazFGSjRlOGF2Y0ZDckxLN1duckNOTk1vVFAzcWxoNWpMRWdSdElwR0pLT2F5VzlBTnB6WTZ4a0x0UENLaVptSV9zX2plNjRRQzFn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Calls Taylor Swift Wedding the Best Night of His Life
@@ -377,126 +388,3 @@ Stories: 56
 - summary: Taylor Swift is set to make a significant return to the Country Music Association Awards (CMAs). Details about her performance are anticipated by fans.
 - sources:
   - [unverified] The Cut — https://news.google.com/rss/articles/CBMickFVX3lxTE1tdDJkQkJneEdyXzZGdHdrXzg3WTlPdG5HZ2lMenFVaW5NUnB4RzJ4QkpOMjFuRl9nUUUtSGpPY1JfZ1c4TXIwYXBTMnNGWF96LVItTUZ2dDR2N1VJalhqeHpYcmNscHdnRExEbmxWS0lqQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Confirmed to Attend CMA Awards After 10-Year Hiatus
-
-- first seen: 2026-09-10 23:07 UTC | category: relationship | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift will attend the CMA Awards for the first time in a decade after receiving a nomination for her single "I Knew It, I Knew You." This marks a significant moment in her return to the country music scene.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPcFVzS0JPLXFGaW5naGVxdG5LcVExdDFsLVAyOG5iazIyMVlVbTZfY2tkQ2ZqS2tKTEloU01tblhhbEUyanlLTEtQTDBwb0IxQ2FRQUFsbUMwMUNhTWtkNmtQaldNOE8wblJhdzFGbkx3SUxZbG9fOFRDWHhoNnNwXzhkOWwyT3htaWtqa1NBbW41dVozMUxNTXRDTTJDV2dqVHU0MHdka1kzYmc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/
-
-## Taylor Swift Becomes Namesake for Newly Described Insects
-
-- first seen: 2026-09-10 23:07 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has been honored by having newly described insect species named after her. This recognition reflects her cultural impact and personal brand, extending beyond music into scientific communities.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1kWjNNUVlPQ2VtcGJ0RVZuR1lNNTRfNDZacEF3aXRYUEQtaTNlQVZSRXhWdmFtT2FXS3lEbFA1Z1JaZEJETjB5LWVBeG9NWkJ6RDdneE5hSTR4OE01bWtiaC12MkZCTjFhMjZwanktRjlqbHFxa216YzFhWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMilAFBVV95cUxORlM5aThmakdEVzFxbTNXLV9MVEFycldyOTJQNzBTQTFSRkppRjdlSWhMcHdwVGotYkh3U0dQbXVhalQxZXN5T1NTblNVenJKS0NlZVlYTnNtZHY3d1l4b245ZHZIckwyY3g2c2JoZE5la3hvNGh1MWR0VzdXQ3M0R1BOSHBJdUx6VXhBR3hNbmVndHAy?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Nomination for 2026 CMA Awards
-
-- first seen: 2026-09-10 23:07 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among the nominees for the 2026 CMA Awards, alongside Ella Langley. The awards recognize outstanding achievements in country music.
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMifkFVX3lxTE9ReUIza2NoUUJFdk5PUGZvV2VHSFNhei05R0kzSkRzSFRMWkIxZ2hZRW1MNXo1OVFweVZCN3p3Q0ZidHFqOVdIamxPUlRibVVENEh6MjFySEZrY3BuRVljVEF6VjB3cHF2Y180R2tHNkd6Q2puZUc2S3ZiUEhIdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Brian Duckworth of Taylor Made Passes Away at 56
-
-- first seen: 2026-09-10 23:07 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Brian Duckworth, a member of the country music group Taylor Made, has died at the age of 56. The news highlights his contributions to music and his life.
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQanNHSVc0YlJJYkdBQnlZYllkeVN2NTJZUGhWQVlYMjFDX1ZyVUFXMHpGbWtrZTd6Rk8zUmMtV0V3bHl2UGVKdEtlOVBrdlRmWGxrWk1IWG1ad2QySUcwMjhjbzlEY1lyNmFYOC1NRmVURzVSb1NyV1ZuVUxPV2RtbFlQQlRNNjFZdU40UWstMWJvNWVXUTRvaGRRU3psRndneTVqSlNuZmFkRWF2MUhIWHNmMC11eHRid0FZUkNGcnVqaUhncDViWUhQTjYxS2lPRzA0bXF1OFBXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Announces Return to Nashville for CMA Show
-
-- first seen: 2026-09-10 23:07 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reacted to her CMA nomination and confirmed she will be returning to Nashville for the event.
-- sources:
-  - [unverified] Sunny 106.5 — https://news.google.com/rss/articles/CBMizAFBVV95cUxOd2VzTW9lTmhkSVpkMDBWMXVkNUc2NmtmLXlfU2hBQl9mZlRfM2hWYWNyVEx2Vi1HdVRWQ0g2X1FLbGxrZ3BZVVQtci1WcnhVWXZCTkV5NzZiSU9tS3YxcmI5cHZVRDBUX2VXR1ZZSDBONVJEUk1lVXFTUDJwUS1JMWhiekJMTzVFT1ltaHlHMTY5Y1RRNU5rR1dxYjBiaHp1RTR3V0h1cEZVOGtLMG85d281NUwyWXpHd3pTTlRBUWhncC1wRjRSWEdyQkI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Domhnall Gleeson Discusses Taylor Swift's 'Opalite' Video
-
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Domhnall Gleeson shares insights on his upcoming series 'The Paper' Season 2 while also mentioning Taylor Swift's 'Opalite' music video. The discussion highlights his perspectives on both projects.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNclNhdWFIT3ZkSm0wVlpnVWlfTFNHWEg2RmVEYlRJdlU5eUtaZHpmMEJfN3hUaktMYmlYalk2TDd5MWVBWnV4V1NZV09aMV9pY05oRXBuYnhQVFZiQmdISGZlcUFuWksweWctS2ZuN2pfRXpFMWRTeG1MMEx0ZGRzVTRhZUpMQjFmVkQ4U2MwaXU5SmtIc2tiN0N0LVBvcHJRTjZsQw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Nominated for CMA Award After Four Years
-
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift is nominated for Single of the Year at the CMA Awards for her song ‘I Knew It, I Knew You’. She will be attending the awards ceremony, marking her first nomination in four years.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitwFBVV95cUxNMUJrUkthdkVKU0NyQnJBZnlIXzFHQ0hXdmJLZzdMRFg4TlhPZ1hsVlFpSXFvM3V5NThUaGFscnRVVmhIc29vUVJhSU5tU0pHTjhBLV9iTTcxZkhhWmdkWklkVXYyamVrb1ZxNHl1N0xxVkZBZm81RWJ1MURQZmtKbWhBX2VpLUZPX1c1SWJoNG5LZllhODhWTDhzMlc1MVN1M3BvYmZyS29sNHVsZWxwMDlKcHBfTFk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxPblk3QmJHVGJUVFBfTXh4Sk5VbkNJdGhaZ18taXZtU1lUZjJtazRyOThieUdyUHV6c3d5ejVRQVhBWU5yaDF5a3EtZWRnRlNzcVM0bktDd1h6RTMxb2poejNrMWhidkpyeVNYTk00UDY1YmFKemQ1R3pUcXBYWTFSbnB4VU9jbXEyTjMxUVppWjdZTU0wVVREWmotaFFXRElzcUVEUlRnVWJRSWZjZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-cma-nomination-i-knew-it-i-knew-you-1235624103/
-
-## CMA Awards 2026 Nominations Announced
-
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: The nominations for the 2026 CMA Awards have been revealed, showcasing the year's top country music talents. Fans can check out the full list of nominees on Good Morning America's website.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeUlSQmRDZGpMQnFDOWFWSXlIMzdNRzhoSFU2VGtiaW5jcnl5QURONGdJNVlsZldabElIdWVzMjUzZmppUEtwM1JJQVlaYWVIT3hKcHM1TUtaNWhnTTAwQzRyZGRsVVdoQmtpMTd1a25mNEc3M2tuSHNnT3ZCMFIyNlhZTWFNYXI5MW96cTR5anNBMmp1UUZxUGZQN21yNHNVajltZFZTclFQSkxGNVdRcEZVWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] E! Online — https://news.google.com/rss/articles/CBMilwFBVV95cUxNWU82cHl3SkpGMVNpeFV1U3YxSlk4S3BnejFmbTBWc283QjNKYjZPWWNySE5jRFMxWHNfTDVPREhmcFI5OXI3Q1MxeFZFMnFBV3A5Z3B1TG5ZNEZNQVMzd2UyUzJkMHRieHpFejhHcXEtZ2lvcFlkYXY3dWZTcGZMMm5ZeWcyZDBFakVmaGczZUdaX1lFaFVj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPY3NKVmFBTFU5aldTc0x5czdTdEFDcGwxR194M0V1bl9KaEZOc0pla3pkOU5uMEF6c1RJb0czdW1rdmFOclJ0Z2RlaFhqa1cydlIwS2UwLThVNlJiSW5SSmJtM2xZbzYtOUFDUkUwR0RQM2JaMk9hTGE2dzBFR0N4NW52VzUzazZoTE1B?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] goodmorningamerica.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPY3NKVmFBTFU5aldTc0x5czdTdEFDcGwxR194M0V1bl9KaEZOc0pla3pkOU5uMEF6c1RJb0czdW1rdmFOclJ0Z2RlaFhqa1cydlIwS2UwLThVNlJiSW5SSmJtM2xZbzYtOUFDUkUwR0RQM2JaMk9hTGE2dzBFR0N4NW52VzUzazZoTE1B0gGQAUFVX3lxTFBJUUNvb1FYdjlzQ2lsREthakNrOXZKTzVYazBHZ3hSUmZFcWxrZThHTEM4VGZJX0pJS3ZyNC1YVDRVQWVqLUo2cjZCaXFIdDVYaHNLeFJVQUZzazlKcHRpRGRXRFRMX1VmWjBsZ3kzaEJZaDFFT0JOSUJQNVE2LWljWnhERl9MaV8yR3BzeExPQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOd2VTYUdfRDFTTWZYOHg1TkVxc2QxcloyQWhVYzBRX1ZDaGNJQkxmOExVUVVfalY1MGxLWmF5N3dEUmUydUV0YlVSbU9SWkpDMkQwcHE5dWdySnk1UEV2RzVYTXJ1ajRITlYzU3ZWRVBwT3RQXzJuX1RjQkEzMTIybQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSjZaZmlrWXE4cGtmLWMyVVVBaXh4WFYyUGxSZzdNUm1jMTdHbDh3dGpvRWVvNXVIQUVWN0pTSkFGRHplTmM3d0NJem5HZnBqSmp0eGI5Z0dtUk1aTUtXQkMxZnRMNlVSM29zU2t2c0RENThjX2U1ekFPcmlzQkMwcGFoVjlWblEweUJ0MU1DbTlfcENNczlWeVl1c1R0NHowLTAxcG0xbjBLU3VhY09iR2p2M3pqRUp3SmVkNnhwUERTUk42S285MlFKMFlvMlk0WllmNDg5MA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] whiskeyriff.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxQNVpGaU52UG10cEktRHMxX19DZnV1YmdPekFWWDlFd01wRVhhT2dxcjlTYnpZVF9mY2gyZTZKM09pODJGeGl5dmRIeUsxSW4ybExESzZWQVZXaHkxa0pzei1SZUtfUERac0MwV3U1MVc0QU5wQzVmaVFTZEd0ZWowNm0weWpEOTFJaE1wUDQwQU5rYW1RU1AxdGFfdmo2RGFEb0plMXJwZkUwUnctNUVqTXVoVTY3VlVCc0NmNV9GcXgwZlhXYWhV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend 2026 CMA Awards Amid Snubs and Surprises
-
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has confirmed her attendance at the 2026 CMA Awards, where she is mentioned alongside artists like Morgan Wallen and Riley Green in discussions about nominations and surprises. The event highlights Ella Langley leading the nominations with a notable song by Swift from 'Toy Story'.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMilgFBVV95cUxORlNObDJOWEhQMnQxdXktUGFydkR2SkhtcGxpNkhyMXY4NFBzNGZZRzlSRm1FQnBZb1hzVTNnSDZWbkYyYzM1UXZ1YUJVNDAtdE5NMlVKbU5qVzJUbmJtYm9PbFVCdmtkaldJU3B2cEJTX2lNUWpPekN5bjl2QmxPc2pHbXRfbi1hcUhCakdiN3Frc2toX2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Nominated at CMA Awards for First Time in Four Years
-
-- first seen: 2026-09-10 19:37 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift is back as a nominee at the CMA Awards after a four-year hiatus, recognized for her song featured in 'Toy Story.' This year's nominations are led by Ella Langley with nine nominations.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/2026-cma-awards-nominations-list-1237073443/
-
-## New Insect Species Named After Taylor Swift by Scientist
-
-- first seen: 2026-09-10 19:37 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A scientist from the University of California Riverside has named a newly discovered insect species after Taylor Swift. This recognition highlights the influence of the pop star in various fields, including science.
-- sources:
-  - [unverified] 6abc Philadelphia — https://news.google.com/rss/articles/CBMisAFBVV95cUxPem11VjhzQm1GRzNuOTdQUXV0MkhrVjZzaGlvUkY4ZGtPX2d2YWtrREw2SEstQU9DY3JJVVpKQWFyNHByTU5GNGM3UGJ1U3FFQjNvc0JoQmRWQVQ4MFFmbkExYVlZRWZ4bjkzZ01YM1RkNFNDWWpVbWV4VGQ2N2tzVkxoMzN4TVk4eTU2Z1pDbE1Va1lYLUtsVWN1cjhNT0xEbHgyeERIQ0ppd3ZlcEtiVtIBtgFBVV95cUxPeEhSYjRJdGhzQTRab1plQTdBc3VsaU1WQjg3TVI3X1ByOUVFLU1KZjZLM2lncDFsQ193WDE2aXRobmt6TGx3dTZOX25uTWJoSlRrUUgtaVBFeHd5NzN6Z3FIQUFPS0p0LUNpeWVBVFk5ZExjckwwX2RpUnJzZGpJcWJtcWJEWGhJUnRIWmdvSnBFalBzUUMzNnRFNWlBTWhWcDlBN1RJNWl0dDZ4cXFsZ1JFZkhkUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Wendy the Dog Makes Fashion Week Debut with Taylor Swift and Travis Kelce
-
-- first seen: 2026-09-10 19:37 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's dog, Wendy, made a debut during New York Fashion Week at the Tommy Hilfiger show. The appearance highlights the couple's presence in the fashion scene.
-- sources:
-  - [unverified] E! Online — https://news.google.com/rss/articles/CBMirAFBVV95cUxQcFFIQkhjYjNSYUJUblhTRVhjTi1zSUFYUG5qOWxGRkY5VkdqaGdXSVpzSURkbFcwQmpPclhEV25BamRCeENqVG96VWlUeGhjQ3FQZlhZR01PYzJ1ck5LVHEwT2xzSTNwMEVCUF85bDN1SWs2dHRaMGVwcEZGQUt6NnBfY3lHeWhKY0Jmd3BMT25sajhPWWwyMDlkNTFCSV8zOGdCemdKSDlUODhv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Rhode Island Homeowners Take Action Against 'Taylor Swift Tax'
-
-- first seen: 2026-09-10 19:37 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Rhode Island homeowners are filing lawsuits in response to the so-called 'Taylor Swift Tax', aiming to challenge tax implications related to the singer's activities in the state.
-- sources:
-  - [unverified] Americans for Tax Reform — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdzJnYXZaLUxNMjhnQ25iMGxmemdZeWVwTzRqZGV2WmpoVVVxOUJmVjA4N0t4RDAwS0pmQVpvdl8zN3JlVEFRZzEzVDNSay1zRlduX2RnODFacmlzZFFDYVdQNnZzRHU1a192XzlYX3VsN3luVkRCUldSbWV2M3N2TlQ2NUx5M2JVUE9SRF9oWUdnS3IyRDh5amFXRjlULWllRnVqdXJ3eExmUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Personal Announcement Before NFL Game
-
-- first seen: 2026-09-10 19:37 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift made a personal announcement prior to the Chiefs-Broncos NFL game, although details of the announcement were not disclosed. The event highlights her continuous public presence and engagement with NFL events.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPQ0ZXMnFVbElpUUg2bFJIOGhaajNldWE1cXNqUlNTajdpY0NwSzRQcnZRbjhUUlZmVWdGSmJSUTZPbFZ2NnBLZk44d0ljV0RDRFNvQkFYNWJwa3Z2amR1a2NIWW52U0JFdDhzbHRlLVNYWEVza2oydVVjbVo4WjcxdFhxMlpBVEF2WHhxczE4RjN3LTE1ekxXdXp0UWNMdXk2WHpSUVBaWHFOc0hHTWc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdlNFeUhCRU5TNDlFMlV6UzZiRlpwQUtwU0RvRjh1TnRHMEhrMnYzUGFGdkdGSzMzcG1LcWJ4dGRrVnlKQ2pWVDhFMGJDdXBUc3oyeTI0Mkctd2RXZmhKSlNMSGJUSkF4YTNrOTQwcVhCZ0pXMklSTE5YRExzVkZ5cGlyTEFSUHkwN3ZkQ2h6MFBxSGxuYnZpUktWM0VKY29mcjVNb0tkNHZLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
