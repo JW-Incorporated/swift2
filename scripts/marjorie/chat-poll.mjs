@@ -26,7 +26,7 @@ import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  BOTS, CLAIM, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, MAX_PER_CHANNEL, REPLIED, SNOWFLAKE, STALE_CLAIM_MS, WINDOW_MS,
+  BOTS, CLAIM, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, REPLIED, SNOWFLAKE, STALE_CLAIM_MS, WINDOW_MS,
   buildContext, createdSince, dispatchArgs, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
