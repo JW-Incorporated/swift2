@@ -48,7 +48,7 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 | M0 · Design ✓ 09-12 (#4184, #4183, #4185) | **Opus** (`/model opus`), Fable read-only review | HA #66 filed | 2–3h | `docs/specs/marjorie-overhaul/*.md`, charter amendment PR, decisions |
 | M1 · Comms ✓ 09-12 | **Sonnet**, up to 4 executors | M0 merged, HA #66 done, PR #4047 reconciled first (`waves/m1-comms.md` Step 0) | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel — social-poster's own alert deferred to PR #4202/HA #68 (social-posting-freeze CI gate, human-only) |
 | M2 · Watchdog handling ✓ 09-12 (#4216, #4217, #4221, #4224, #4225) | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
-| M3 · Submissions triage | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
+| M3 · Submissions triage ✓ 09-13 (#4228, #4229, #4237, #4238) | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
 | M4 · Tree/Marjorie loop | **Opus** (touches Tree's prompts) | Tree R2 reported (2026-09-21), M1 + M2 merged | half day | L1 spec, brief sections both ways, ask→issue mechanics |
 | MR1–MR2 · Rechecks | **Opus** routine | dates in `checkpoints.json` | 20 min | comment on #4180 + PR |
 
@@ -104,9 +104,35 @@ actually restrict tool availability, or only preapprove?), **#4219**
 aggregate alert), **#4226** (a failed upstream `gh issue view` looks
 identical to a genuinely empty ledger).
 
-**M3 done:** a synthetic feedback issue was classified and dispatched with
-acceptance criteria; a second one needing a founder was posted in-channel
-with a recommendation; nothing was auto-closed.
+**M3 done ✓ 09-13 (#4228, #4229, #4237, #4238).** Proven with three real
+synthetic `[Feedback]` issues, not just code review: a live
+`routine-marjorie-triage.yml` dispatch (run `34735870892`) classified a bug
+report (#4233) and filed a build-desk issue with acceptance criteria and
+the verbatim quote (#4236); classified a pricing request as needs-founder
+(#4234, `founder-decision` label, audit comment + handoff message); closed
+a `<script>alert(1)</script>` submission as spam with a comment (#4235,
+the only class auto-closed, per spec). All three synthetic originals and
+the filed build-desk issue were closed afterward as test fixtures — see
+#4180 closeout comment.
+**Caveat, not silently closed:** the first live run exposed a real bug the
+code review missed — the needs-founder → Discord handoff never actually
+fired. `pendingFounderIssues`'s trust check used `viewerDidAuthor`, which
+is relative to whichever credential runs the query; the `run` job's agent
+comments (authored as `claude`) and the `deliver` job's read of them
+(under `secrets.GITHUB_TOKEN`) are different credentials in different
+jobs, so it was always `false` — confirmed live on #4234 before the fix.
+Fixed in #4238 (two Codex rounds: round 1 caught the original bug, the
+first fix attempt introduced a second one — reusing the `pending` marker's
+trust allowlist for the `posted` marker, which `deliver` never authors as
+`claude`, would have reposted every needs-founder handoff to Discord on
+every sweep forever; round 2 confirmed the corrected asymmetric check).
+Re-ran the live dispatch (run `34736610727`) after the fix: `deliver`
+posted to `#longlive-marjorie` for real (`delivered: discord`, message id
+`1548542716592521289`). Four non-blocking follow-ups filed from residual
+Codex findings, none touching the core five-class path: #4230 (comment-
+list truncation in override discovery), #4231 (override-boundary edge
+case), #4232 (reconciliation one-way ratchet), #4239 (the `deliver` job's
+50-issue cap on open `founder-decision` issues).
 
 **M4 done:** one Monday cycle where Tree asked for something and Marjorie's
 next brief carried the issue number, and vice versa.
