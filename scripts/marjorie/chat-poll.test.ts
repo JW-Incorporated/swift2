@@ -47,10 +47,10 @@ const sleepImpl = vi.fn().mockResolvedValue(undefined);
 const founders = new Set([JOEY]);
 const onlyMarjorie = (wf: string) => wf === 'routine-marjorie-chat.yml';
 function baseRoutes(marjMessages: unknown[], threadMessages: unknown[] = []) {
-  const exact = (where: string, messages: unknown[]) => Object.fromEntries(messages.map((message) => {
-    const item = message as { id: string };
-    return [`GET ${DISCORD_API}/channels/${where}/messages/${item.id}`, res(200, item)];
-  }));
+  const exact = (where: string, messages: unknown[]) => Object.fromEntries((messages as Array<{ id: string }>).flatMap((item) => [
+    [`GET ${DISCORD_API}/channels/${where}/messages/${item.id}`, res(200, item)],
+    [`GET ${DISCORD_API}/channels/${where}/messages?after=${item.id}&limit=100`, res(200, (messages as Array<{ id: string }>).filter((m) => BigInt(m.id) > BigInt(item.id)))],
+  ]));
   return {
     [`GET ${HOOK}`]: res(200, { guild_id: GUILD, channel_id: TREE }),
     [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'longlive-marjorie' }, { id: TREE, name: 'longlive-tree' }]),

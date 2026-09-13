@@ -1,0 +1,212 @@
+# Marjorie — chat (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
+# dispatch-only: bot-chat-poll.yml dispatches one run per founder message in
+# #longlive-marjorie after claiming it with 👀. It has no schedule of its own,
+# which is why check-routine-workflows.mjs needs this header to say so.
+#
+# Four jobs, secrets split by environment so the agent never holds one:
+#   context (social)  reads the message and its conversation with the bot
+#                     token, starts the reply thread for a top-level message,
+#                     and stops a duplicate run (message already ✅/❌). Its
+#                     outputs (reply thread, message link) outlive artifacts.
+#   run (template)    Opus reads .scratch/chat-context.json, acts inside the
+#                     authority list in its prompt, and saves its reply under
+#                     .scratch/out/. No Discord secret is passed to it.
+#   post (ops)        posts the reply, when one was saved, through
+#                     DISCORD_MARJORIE_WEBHOOK_URL, which exists only in `ops`.
+#                     It never posts [chat failed].
+#   finish (social)   reads Discord (scripts/marjorie/lib/chat-delivery.mjs):
+#                     ✅ for a reply; otherwise one bot-token `[chat failed]`
+#                     notice (unless one is already there), then ❌; then the
+#                     `💬 chat:` turn-log comment on the day's brief issue.
+# `run` and `post` run only on a run's first attempt (github.run_attempt), so
+# "Re-run failed jobs" never repeats Marjorie's actions or a post: a re-run
+# only lets `finish` settle what Discord already shows.
+# Every secret-holding job checks out ref main and runs only repo code; the
+# agent's reply reaches them as an artifact read as text, and `finish`
+# deletes both artifacts (public repo — they hold founder messages). `force_fail` skips
+# the agent: the failure smoke path in the spec's acceptance criteria.
+#
+# `run-name` must stay `Marjorie chat · <message id>` — chat-poll.mjs finds a
+# claimed message's run by it (lib/chat-inbox.mjs runTitle; asserted by
+# chat-workflows.test.ts). The concurrency group is per message: a duplicate
+# dispatch waits for the first run, then its context job sees ✅/❌ and stops.
+#
+# `checkout_token_secret: SOCIAL_POSTER_PAT` + `expose_dispatch_token: true`,
+# as in routine-marjorie-ops.yml: she opens PRs against branch-protected main
+# (closing a human action on a founder's word) and re-dispatches routines. No
+# Write/Edit/Task in allowed_tools; she saves her reply with
+# `node scripts/marjorie/chat-post.mjs save`.
+name: routine-marjorie-chat
+run-name: "Marjorie chat · ${{ inputs.message_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      message_id:
+        description: "Discord id of the founder's message"
+        required: true
+        type: string
+      channel_id:
+        description: "#longlive-marjorie's channel id"
+        required: true
+        type: string
+      thread_id:
+        description: "Thread the message is in; empty for a top-level message"
+        required: false
+        type: string
+        default: ""
+      force_fail:
+        description: "Smoke path: skip the agent, so the run posts [chat failed] and reacts ❌"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write # gh workflow run from the agent, via GH_DISPATCH_TOKEN (#4223)
+  id-token: write # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
+
+concurrency:
+  group: marjorie-chat-${{ inputs.message_id }}
+  cancel-in-progress: false
+
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      skip: ${{ steps.thread.outputs.skip }}
+      reply_thread_id: ${{ steps.thread.outputs.reply_thread_id }}
+      message_url: ${{ steps.thread.outputs.message_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Read the message and its conversation
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          MESSAGE_ID: ${{ inputs.message_id }}
+          CHANNEL_ID: ${{ inputs.channel_id }}
+          THREAD_ID: ${{ inputs.thread_id }}
+        run: node scripts/marjorie/chat-poll.mjs context --bot marjorie --channel-id "$CHANNEL_ID" --message-id "$MESSAGE_ID" --thread-id "$THREAD_ID" --out .scratch/chat-context.json
+      - name: Start the reply thread, or stop a duplicate run
+        id: thread
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: node scripts/marjorie/chat-post.mjs thread --context .scratch/chat-context.json
+      - uses: actions/upload-artifact@v4
+        if: steps.thread.outputs.skip != 'true'
+        with:
+          name: chat-context
+          path: .scratch/chat-context.json
+          retention-days: 1
+
+  run:
+    needs: context
+    if: github.run_attempt == '1' && needs.context.outputs.skip != 'true' && !inputs.force_fail
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Marjorie — chat"
+      prompt_file: docs/agents/runner-prompts/marjorie-chat.md
+      model: claude-opus-5
+      allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
+      timeout_minutes: 15
+      max_turns: 25
+      checkout_token_secret: SOCIAL_POSTER_PAT
+      expose_dispatch_token: true # #4223: GH_DISPATCH_TOKEN for `gh workflow run` only; comments stay claude[bot]
+      pre_run_artifact: chat-context
+      post_run_artifact: chat-reply
+      concurrency_key: ${{ inputs.message_id }}
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  post:
+    needs: [context, run]
+    if: always() && github.run_attempt == '1' && needs.context.result == 'success' && needs.context.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    environment: ops
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      result: ${{ steps.post.outputs.result }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Fetch the reply (absent when the agent was skipped or saved none)
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: chat-reply
+          path: .scratch/out
+      - name: Post the reply, when there is one
+        id: post
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
+          MESSAGE_URL: ${{ needs.context.outputs.message_url }}
+        run: node scripts/marjorie/chat-post.mjs post --bot marjorie --reply-dir .scratch/out --thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL"
+
+  finish:
+    needs: [context, run, post]
+    if: always() && needs.context.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      actions: write # delete this run's chat artifacts
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Fetch the reply summary
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: chat-reply
+          path: .scratch/out
+      - name: React ✅ or ❌ and write the turn log
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          MESSAGE_ID: ${{ inputs.message_id }}
+          CHANNEL_ID: ${{ inputs.channel_id }}
+          THREAD_ID: ${{ inputs.thread_id }}
+          REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
+          MESSAGE_URL: ${{ needs.context.outputs.message_url }}
+          POST_RESULT: ${{ needs.post.outputs.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/marjorie/chat-post.mjs finish --bot marjorie --message-id "$MESSAGE_ID" --channel-id "$CHANNEL_ID" --source-thread-id "$THREAD_ID" --reply-thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL" --post-result "$POST_RESULT" --reply-dir .scratch/out --run-url "$RUN_URL"
+
+      # This repo is public, and a public run's artifacts are downloadable by
+      # any signed-in GitHub user. The context and reply carry founder
+      # messages, so they go the moment the run is done (1-day retention is
+      # the backstop).
+      - name: Delete this run's chat artifacts
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          for ID in $(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID/artifacts" --jq '.artifacts[] | select(.name == "chat-context" or .name == "chat-reply") | .id'); do
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" || echo "::warning::could not delete artifact $ID"
+          done

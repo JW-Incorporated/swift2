@@ -7,6 +7,80 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-13 — Founders talk to Marjorie and Tree in Discord; Tree may answer in threads (M5)
+
+**Decision:** A founder message in `#longlive-marjorie` or `#longlive-tree`,
+top level or in a thread, gets an in-thread answer from a per-message Opus
+routine (`routine-marjorie-chat.yml` / `routine-tree-chat.yml`).
+`bot-chat-poll.yml` claims each message with the bot's 👀 before
+dispatching. The routine's plain jobs post the reply through the channel's
+webhook and react ✅, or post one `[chat failed]` notice and react ❌.
+Marjorie acts before she answers, inside a fixed list: she closes a human
+action by PR when a founder names it done, closes what her charter already
+lets her close, files `marjorie-filed` issues and dispatches routines. Tree is
+read-mostly. A plan change becomes a proposal comment on the latest plan PR.
+Tree's charter line "never post, never reply" becomes "never posts to social
+platforms and never approves; answers founder questions in `#longlive-tree`
+threads through the chat routine". Spec:
+`docs/specs/marjorie-overhaul/m5-chat.md`.
+
+**Why:** Joey, 2026-09-13: "I want to be able to talk to both of them in
+Discord today … Marjorie has to have power." His reply to that morning's
+brief was a Discord reply, not a thread, and reached no one. A relay onto an
+issue that someone reads the next morning is not a conversation.
+
+**How it is bounded:**
+- *Cost.* The chat poll and the brief-reply relay share one job, which runs
+  every 5 minutes; Joey accepted the fold in chat. Actions minutes on this
+  public repository are not billed: swift2's ~9,000 September minutes netted
+  $0, all discounted. The org's $10/month Actions hard stop draws only on
+  the private repositories. It matters here only if swift2 goes private
+  again, and then the cadence should drop. A chat reply costs one Opus
+  session of at most 25 turns (plan usage) plus roughly 8–12 unbilled
+  Actions minutes.
+- *Exactly once.* A 👀 is never removed and a claimed message is never
+  dispatched twice. The agent and the webhook post run only on a run's first
+  attempt, so a re-run can only settle. Before anything is sent, one shared
+  check (`scripts/marjorie/lib/chat-delivery.mjs`) reads what Discord already
+  shows: a reply, a notice or a reaction. The poll uses the same check to
+  settle a claim still open after 45 minutes.
+- *Secrets.* The bot token and webhooks exist only in plain `run:` jobs
+  under `environment: social`/`ops` that check out `main`.
+  `chat-workflows.test.ts` fails if one reaches the agent job.
+- *Approval surface.* Approvals stay the founder's reactions on Tree's own
+  drafts. A chat reply has its `ref:`-shaped lines defused and never touches
+  `social/queue/`.
+- *Kill switch.* Repo variable `BOT_CHAT_ENABLED=false`.
+
+**Founder calls (Joey, in chat, 2026-09-13: "I agree. Do it."):**
+1. The chat routines' authority is enforced by prompt, tool grants and
+   PR-diff review, not by locked-down tools. The ops and triage routines
+   already run under that boundary. Hardening is tracked in #4271.
+2. This repo is public. While a chat run is in flight (normally about ten
+   minutes, with one-day retention as the backstop), any signed-in GitHub
+   user can download its context artifact: the founder message and recent
+   history. Nothing the chat routines write to GitHub quotes founder text.
+
+**Alternatives considered:**
+- *A 15-minute poll:* built first, on the belief that every poll fire drew on
+  the $10 hard stop. Corrected the same day, once the billing data showed this
+  public repo's minutes net $0. A 15-minute poll plus a routine's start-up
+  can also miss the 15-minute reply target.
+- *A Gateway bot on Hermes' VM for instant replies:* deferred. It crosses the
+  2026-09-12 channel-ownership decision and needs the VM.
+- *Removing the 👀 claim after a failed dispatch, then reconciling against
+  GitHub run history:* rejected in Codex review. Either could strand a message
+  or answer it twice.
+- *A hidden HTML-comment reply marker:* rejected, because Discord shows it.
+- *An extra settlement-gate job:* rejected. It adds a job to every chat run,
+  and first-attempt gating does the same with none.
+
+**Approved by:** reversible, so the AI's call under CLAUDE.md's
+reversibility line. Joey confirmed the cadence fold and the two calls above
+in chat on 2026-09-13. Epic #4180; the poll PR is #4270.
+
+---
+
 ## 2026-09-12 — A charter PR merges on green CI; only *Marjorie* may not edit a charter
 
 **Decision (Joey, in chat, 2026-09-12):** "No PR ever needs me — I've been

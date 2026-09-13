@@ -12,10 +12,8 @@ one covers only the conversational loop. Epic #4180.
   Within about fifteen minutes Marjorie replies **in the same thread** (a
   top-level message gets a thread started for it) and marks your message
   👀 when she picks it up and ✅ when her reply is posted. The delay is a
-  15-minute poll plus a routine's start-up; the reply says nothing about
-  being late. *(Amended at build, 2026-09-13: the design said a 5-minute
-  poll, but the org's Actions budget is a $10/month hard stop and every
-  poll bills a minute — see Mechanics 1 and 7.)*
+  5-minute poll plus a routine's start-up; the reply says nothing about
+  being late.
 - The same in `#longlive-tree` gets Tree. Tree's replies are conversation
   only; approvals stay reactions on Tree's own posts, exactly as before, and
   a reply from Tree is never an approval, a post, or a caption change.
@@ -65,8 +63,12 @@ one covers only the conversational loop. Epic #4180.
   without breaking every existing caller.)*
 - **Reply** = one Markdown file the agent writes to
   `.scratch/out/chat-reply.md` (the template uploads `.scratch/out/`)
-  (≤1800 chars; the workflow truncates with "…" and a link to the run when
-  longer). Posted by a `run:` step through the channel's existing webhook
+  (≤1800 chars; the workflow truncates with "…" when longer). *(Amended at
+  build: no link to the run — the run's artifacts are deleted; mentions are
+  neutralized and `ref:`-shaped lines defused BEFORE the cap, so what is
+  checked is what is sent, always as one Discord message. Codex review of
+  the routines PR found expansion after the cap could split a Tree reply and
+  start the second message on a forged approval ref.)* Posted by a `run:` step through the channel's existing webhook
   (`DISCORD_MARJORIE_WEBHOOK_URL` / `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`)
   with `thread_id`. Webhooks cannot create threads, so a top-level founder
   message is answered by first creating a thread on it with the bot token
@@ -78,13 +80,15 @@ one covers only the conversational loop. Epic #4180.
   Discord refuses the thread, the reply posts at channel top level with a
   link to the founder's message and the run logs a warning.)*
 - **Turn log**: each reply run appends one line to the day's brief issue
-  (`founders-brief`) as a comment `💬 chat: <channel> — <first 80 chars> →
-  <what was done>`, ending in a `<!-- chat-id: <message id> -->` marker, so
-  the next morning's brief and MR2 can count them.
+  (`founders-brief`) as a comment `💬 chat: <channel> → <what was done>`,
+  ending in a `<!-- chat-id: <message id> -->` marker, so the next morning's
+  brief and MR2 can count them. *(Amended at build: no founder text — this
+  repo is public, and a turn log is permanent. The design had the first 80
+  characters. The agent's summary is told never to quote the founder.)*
 
 ## Mechanics
 
-1. **`bot-chat-poll.yml`** — cron `3,18,33,48 * * * *` plus
+1. **`bot-chat-poll.yml`** — cron `*/5 * * * *` plus
    `workflow_dispatch` (a `dry_run` input claims and dispatches nothing).
    One job, `run:` steps only, environment `social` (owns
    `DISCORD_BOT_TOKEN`), permissions `actions: write` and `issues: write`.
@@ -105,12 +109,19 @@ one covers only the conversational loop. Epic #4180.
    that message (`--created >=<timestamp>`, limit 200); a list error or a full
    200-result page makes that claim inconclusive and fails the poll. Every
    matching `run-name` is inspected, and any queued or running match vetoes
-   settlement. With a complete list and no active match, the poll re-fetches
-   the Discord message and stops if ✅ or ❌ arrived since the channel scan.
-   Otherwise it bot-posts a referenced `[chat failed] … please send it again`
-   line, then adds ❌ as the settlement lock. A refused notice leaves no ❌,
-   so the next poll retries it; a successful notice is its own idempotency
-   marker, so a refused or interrupted ❌ is retried without reposting. A place
+   settlement. With a complete list and no active match, the poll reads what
+   Discord shows through `lib/chat-delivery.mjs`, the check the routines'
+   `finish` also uses. It stops if ✅ or ❌ arrived since the channel scan;
+   adds ✅ when a reply is already there (delivered, but its ✅ failed); adds
+   ❌ alone when a referenced notice is already there. Otherwise it bot-posts
+   a referenced `[chat failed] … please send it again` line, then adds ❌ as
+   the settlement lock. A failed read sends nothing and fails the poll. A
+   refused notice leaves no ❌, so the next poll retries it; a successful
+   notice is its own idempotency marker, so a refused or interrupted ❌ is
+   retried without reposting. A reply is a webhook post under the bot's name
+   in the thread started on the message, in the message's own thread before
+   the next human message, or at top level opening `↪ <message link>` — no
+   hidden marker, since Discord shows `<!-- -->` as text. A place
    the poll cannot read, a missing channel, or a founder message with a blank
    body (no Message Content intent) fails the run, so watchdog sees it.
    `GITHUB_TOKEN` may dispatch
@@ -119,12 +130,11 @@ one covers only the conversational loop. Epic #4180.
    fetch/backoff and `isRootOrWebhookMessage` moved from `reply-poll.mjs` to
    `scripts/marjorie/lib/discord-bot.mjs`, and both scripts import them.
    The channels are found by name in the guild the Tree webhook names.
-   *(Amended at build: the cadence is the reply poller's existing slots, and
-   its relay runs as this job's second step, because the org's Actions budget
-   is a $10/month hard stop that August came within $1 of. Every fire bills
-   at least a minute, so every 5 minutes would add ~8,600 minutes a month
-   and could stop every workflow in the org. Folding the two polls adds no
-   fires. Going faster is a founder spend call, then a one-line cron change.)*
+   *(Amended at build: the reply relay runs as this job's second step, so
+   there is one Discord poll job, not two. A 15-minute cadence was built first
+   on the belief that each fire drew on the org's $10/month Actions hard
+   stop; billing data showed this public repo's minutes net $0, so the spec's
+   5 minutes stands.)*
 2. **`routine-marjorie-chat.yml` / `routine-tree-chat.yml`** — callers of
    `routine-template.yml`, `workflow_dispatch` only, model `claude-opus-5`,
    `max_turns: 25`, `timeout_minutes: 15`. Jobs: `context` (`social`:
@@ -152,13 +162,22 @@ one covers only the conversational loop. Epic #4180.
    file; empty or missing → post `[chat failed] <run url>` and react ❌;
    otherwise post via webhook, react ✅, append the turn-log comment.
    *(Amended at build: two jobs for Marjorie — `post` under `ops` posts the
-   reply or the `[chat failed]` line through her webhook; `finish` under
-   `social` reacts ✅/❌, posts `[chat failed]` with the bot token if `post`
-   itself died, and writes the turn log. Tree's webhook is a repo secret, so
-   its `post` and `finish` share one `social` job. The routine posts before its
-   terminal reaction; the poll's orphan settlement likewise posts its
-   bot-referenced marker before ❌, with Mechanics 1 providing the retry rule.
-   Dispatching with
+   reply, if one was saved, through her webhook; `finish` under `social`
+   settles. Tree's webhook is a repo secret, so its post and finish steps
+   share one `social` job. `post` never sends `[chat failed]`: a webhook
+   cannot reply to a message, so the poll could not dedup it. `finish` reads
+   Discord first (`lib/chat-delivery.mjs`, as in Mechanics 1). A failed read
+   sends nothing and fails the job; a message with ✅/❌ is left alone; a
+   delivered reply gets ✅; an existing referenced notice gets ❌ alone;
+   otherwise it bot-posts the referenced `[chat failed] <run url> — please
+   send it again` line, then ❌, and a refused notice leaves no ❌. The agent
+   job and the post step run only when `github.run_attempt` is 1, so
+   "re-run failed jobs" never repeats an agent's actions or a post; a re-run
+   can only settle. Every guard takes its ids from the dispatch inputs and
+   the `context` job's outputs, which survive a re-run; artifacts may not.
+   The turn-log comment is written only by the run that placed ✅/❌, and a
+   failed one is a warning, not a failed job. These came from Codex's two
+   reviews of the routines PR. Dispatching with
    `force_fail: true` skips the agent job, which is the failure smoke path.)* The bot token and webhooks never enter the agent's
    environment (`docs/agents/marjorie.md` invariant; `reply-poll.mjs:1-6`).
 4. **Marjorie's authority in chat** (prompt, enforced by the PR diff and
@@ -170,7 +189,12 @@ one covers only the conversational loop. Epic #4180.
    Closing a human action = a PR that removes the entry (v2 format, the
    `human-actions` skill), which auto-merges on green.
 5. **Tree's authority in chat**: read everything; write only PR comments on
-   the open plan PR and comments on `tree-filed` issues. Charter amendment
+   the latest plan PR and comments on `tree-filed` issues. *(Amended at
+   build: "latest" means open or not. No plan PR has been opened yet, and
+   Monday's step 0 reads `head:tree/plan/ --state all --limit 1`. Tree's
+   agent job holds no PAT, dispatch token or git. Any reply line shaped like
+   an approval prompt's `ref:` line is defused, so the approval poller can
+   never read a chat reply as a prompt.)* Charter amendment
    in `docs/agents/tree.md`: "never post, never reply" becomes "never posts
    to social platforms and never approves; answers founder questions in
    `#longlive-tree` threads through the chat routine." Merges on green like
@@ -184,9 +208,9 @@ one covers only the conversational loop. Epic #4180.
    comments for its own `💬 chat:` line before acting.
 7. **Cost**: at most 3 messages per channel per poll, one Opus turn each,
    25 turns; a busy hour is ≤24 routine runs, a normal day a handful. Opus
-   draws on plan usage, not dollars (`docs/decisions.md` #838). GitHub Actions
-   minutes are dollars: each chat run is four short jobs plus the agent job,
-   roughly 8–12 billed minutes, against the org's $10/month hard stop. Kill switch: repo variable
+   draws on plan usage, not dollars (`docs/decisions.md` #838). Each chat run
+   is three or four short jobs plus the agent job, roughly 8–12 Actions
+   minutes, which this public repo is not billed for. Kill switch: repo variable
    `BOT_CHAT_ENABLED=false` makes the poll job exit 0 before reading.
 
 ## Acceptance criteria
@@ -217,8 +241,21 @@ one covers only the conversational loop. Epic #4180.
   `routine-tree-chat.yml`; `scripts/marjorie/chat-poll.mjs` + `.test.ts`;
   `scripts/marjorie/chat-post.mjs` + `.test.ts`;
   `docs/agents/runner-prompts/marjorie-chat.md`, `tree-chat.md`.
+  *(Added at build: `scripts/marjorie/lib/discord-bot.mjs` (the bot-token
+  REST helper moved out of `reply-poll.mjs`), `lib/chat-inbox.mjs` (the
+  poll's pure half), `scripts/marjorie/ha-close.mjs` + test (a
+  deterministic human-action close — the agent has no Write tool),
+  `scripts/marjorie/chat-workflows.test.ts`, `scripts/marjorie/lib/chat-delivery.mjs`
+  + `chat-delivery.test.ts` (the shared "already answered?" check). The agent
+  saves its reply with `chat-post.mjs save`. `finish` deletes the run's chat
+  artifacts: this repo is public, and they hold founder messages.)*
 - Edited: `.github/workflows/routine-template.yml` (optional artifact
-  pre-step), `docs/agents/marjorie.md`, `docs/agents/tree.md`,
+  pre-step; added at build: `post_run_artifact`, `concurrency_key`),
+  `marjorie-reply-poll.yml` and `watchdog.yml` (added at build),
+  `scripts/check-routine-workflows.mjs` (dispatch-only routines, added at
+  build), `scripts/marjorie/lib/discord.mjs` (`username` option),
+  `docs/agents/runner-prompts/marjorie-brief.md` (a relay already answered
+  in chat is not answered again), `docs/agents/marjorie.md`, `docs/agents/tree.md`,
   `docs/decisions.md`, `MAP.md`, `HUMAN-ACTIONS.md` (#69 amended),
   `docs/plans/marjorie-overhaul/PLAN.md`, `checkpoints.json` (MR2 counts
   chat turns).
@@ -229,8 +266,17 @@ one covers only the conversational loop. Epic #4180.
   role is a one-line change to the filter.
 - **Latency.** A Gateway bot on Hermes' VM would make replies near-instant
   but crosses the channel-ownership decision of 2026-09-12 and needs the VM;
-  revisit only if the 10-minute loop feels too slow after a week.
+  revisit only if the poll-plus-routine loop feels too slow after a week.
+- **Tool grants versus authority — decided** (Joey, 2026-09-13, in chat).
+  `Bash(gh:*)`/`Bash(node:*)` and Marjorie's PAT can technically do more than
+  the prompts allow. Accepted for M5: prompt + tool grants + PR-diff review,
+  the M2/M3 boundary. Hardening to trusted helpers is #4271.
+- **Founder text in a run's artifacts — decided** (Joey, 2026-09-13, in
+  chat). Any signed-in GitHub user can download a chat run's context (the
+  message and up to 15 messages of history) while the run is in flight,
+  normally ~10 minutes, with one-day retention as the backstop. Accepted.
+  Nothing the chat routines write to GitHub quotes founder text: the prompts
+  link to the message instead, and the turn log's summary is told never to.
 - **Reactions permission.** 👀/✅/❌ need "Add Reactions" for the bot on
-  both channels; if Joey grants only View + History, the build falls back to
-  a `chat-claimed` comment marker on the brief issue and the spec is
-  amended. HA #69 now asks for all four permissions on both channels.
+  both channels; HA #69 asked for it and was closed done on 2026-09-13.
+  Unproven until the first live claim.
