@@ -49,7 +49,7 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 | M1 · Comms ✓ 09-12 | **Sonnet**, up to 4 executors | M0 merged, HA #66 done, PR #4047 reconciled first (`waves/m1-comms.md` Step 0) | 1 day | Discord delivery module, rebuilt brief, email retired, alerts in-channel — social-poster's own alert deferred to PR #4202/HA #68 (social-posting-freeze CI gate, human-only) |
 | M2 · Watchdog handling ✓ 09-12 (#4216, #4217, #4221, #4224, #4225) | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
 | M3 · Submissions triage ✓ 09-13 (#4228, #4229, #4237, #4238) | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
-| M4 · Tree/Marjorie loop | **Opus** (touches Tree's prompts) | M1 + M2 + M3 merged (R2 wait waived 09-13) | half day | L1 spec, brief sections both ways, ask→issue mechanics |
+| M4 · Tree/Marjorie loop ✓ 09-13 (#4250; Tree-side brief proof at the 09-14 Monday run, MR2 checks) | **Opus** (touches Tree's prompts) | M1 + M2 + M3 merged (R2 wait waived 09-13) | half day | L1 spec, brief sections both ways, ask→issue mechanics |
 | MR1–MR2 · Rechecks | **Opus** routine | dates in `checkpoints.json` | 20 min | comment on #4180 + PR |
 
 M2 and M3 are independent; run in either order, never in one checkout.
@@ -135,13 +135,26 @@ case), #4232 (reconciliation one-way ratchet), #4239 (the `deliver` job's
 50-issue cap on open `founder-decision` issues).
 
 **M4 done:** one Monday cycle where Tree asked for something and Marjorie's
-next brief carried the issue number, and vice versa.
+next brief carried the issue number, and vice versa. Built 2026-09-13
+(#4250, spec `docs/specs/marjorie-overhaul/l1-loop.md`). Two things are
+proven live on 09-13: the smoke run filed one synthetic ask each way, and
+Marjorie's agent answered and closed Tree's ask. The run also caught a
+filing-idempotency bug: GitHub's list endpoints lag a fresh issue by
+seconds, so back-to-back passes can double-file (#4253, #4259). #4255 (REST
+lookup) didn't close it. #4261 adds best-effort guards and a smoke test that
+asserts idempotency at production's timescale. Strict claim-based
+idempotency is follow-up #4260 (evidence on #4180). Both briefs carrying the other bot's
+issue number first happen at the 2026-09-14 runs (Tree 10:00 UTC,
+Marjorie 12:00 UTC). MR1 (2026-09-19) now carries an explicit check for
+that cycle, and MR2 re-checks it on 10-03.
 
 ## Why M4 waits for Tree R2
 
 Tree's plan is measuring its first closed-loop week (R2, 2026-09-21). M4
 edits Tree's Monday prompt. Changing the instrument mid-measurement makes
-R2 unreadable. M4 starts the day after R2 reports.
+R2 unreadable. M4 starts the day after R2 reports. **Waived by Joey on
+2026-09-13**, and M4 shipped the same day. R2 will measure a week that
+already has the loop in place, which is noted on #4117.
 
 ## Observation checkpoints (automated)
 
