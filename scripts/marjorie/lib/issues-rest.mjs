@@ -9,9 +9,17 @@
 // themselves, and `labels=a,b` ANDs.
 //
 // Rows come back in `gh --json` shape so every caller's matching code is
-// unchanged. Goes through `gh api`, so it needs the gh CLI — present on
-// every Actions runner these routines use.
+// unchanged. `api(path)` returns parsed JSON; callers pass `ghApi` from
+// scripts/lib/gh.mjs, which works with or without the gh CLI.
 import { URLSearchParams } from 'node:url';
+import { gh as ghRun, ghApi } from '../../lib/gh.mjs';
+
+/** Production reads through ghApi (works with or without the gh CLI); an
+ * injected test `gh` is adapted so its fake keeps answering `gh api <path>`. */
+export function apiFor(gh) {
+  if (gh === ghRun) return ghApi;
+  return async (path) => JSON.parse((await gh(['api', path.startsWith('/') ? path.slice(1) : path])).stdout || '[]');
+}
 
 export function toGhShape(issue) {
   return {
@@ -28,14 +36,13 @@ export function toGhShape(issue) {
 }
 
 /** Newest first, pull requests dropped, at most `limit` rows. */
-export async function listIssuesByLabels(gh, { repo, labels, state = 'open', limit = 200 }) {
+export async function listIssuesByLabels(api, { repo, labels, state = 'open', limit = 200 }) {
   const rows = [];
   for (let page = 1; rows.length < limit; page += 1) {
     const query = new URLSearchParams({
       labels: labels.join(','), state, sort: 'created', direction: 'desc', per_page: '100', page: String(page),
     });
-    const { stdout } = await gh(['api', `repos/${repo}/issues?${query}`]);
-    const batch = JSON.parse(stdout || '[]');
+    const batch = (await api(`/repos/${repo}/issues?${query}`)) || [];
     rows.push(...batch.filter((i) => !i.pull_request));
     if (batch.length < 100) break;
   }

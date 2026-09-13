@@ -8,7 +8,7 @@
 // plain `run:` step on the workflow token. Never an agent judging a marker.
 import { createHash } from 'node:crypto';
 import { gh as ghRun } from '../../lib/gh.mjs';
-import { listIssuesByLabels } from './issues-rest.mjs';
+import { apiFor, listIssuesByLabels } from './issues-rest.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 const DAY_MS = 86_400_000;
@@ -202,7 +202,7 @@ export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = R
   // `gh issue list` — that reads the search index, which missed a 1 s-old
   // filing live and let a duplicate through (#4253).
   const rows = await withTimeout(
-    listIssuesByLabels(gh, { repo, labels: [side.filedLabel, side.deskLabel], state: 'all' }),
+    listIssuesByLabels(apiFor(gh), { repo, labels: [side.filedLabel, side.deskLabel], state: 'all' }),
     timeoutMs, 'gh api issues',
   );
   const existing = findFiled(rows, key);
@@ -229,7 +229,6 @@ export function rewriteForTreeLine(body, filing) {
   return lines.join('\n');
 }
 
-export const INCOMING_JSON_FIELDS = 'number,title,url,body,author,labels,state,createdAt,closedAt';
 
 /** Loop asks addressed to `bot` ('tree' | 'marjorie'), oldest first: open
  * ones, plus ones closed within `closedWithinDays` when that is > 0. Only
@@ -250,7 +249,7 @@ export function selectAsksFor(bot, issues, { now = Date.now(), closedWithinDays 
 export async function fetchAsksFor(bot, { repo = REPO, gh = ghRun, state = 'open', timeoutMs = 30_000 } = {}) {
   const side = ADDRESSED_TO[bot];
   return withTimeout(
-    listIssuesByLabels(gh, { repo, labels: [side.filedLabel, side.deskLabel], state }),
+    listIssuesByLabels(apiFor(gh), { repo, labels: [side.filedLabel, side.deskLabel], state }),
     timeoutMs, 'gh api issues',
   );
 }
