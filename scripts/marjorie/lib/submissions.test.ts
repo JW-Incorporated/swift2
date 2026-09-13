@@ -1,10 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import {
   sourceOf,
   selectUntriagedSubmissions,
   renderFounderMarker,
   pendingFounderIssues,
+  countLabelSince,
 } from './submissions.mjs';
 
 describe('sourceOf', () => {
@@ -54,6 +55,27 @@ describe('selectUntriagedSubmissions', () => {
     const result = selectUntriagedSubmissions([intake, link]);
     expect(result.find((i) => i.number === 2)?.source).toBe('intake');
     expect(result.find((i) => i.number === 3)?.source).toBe('link-submission');
+  });
+});
+
+describe('countLabelSince', () => {
+  const now = Date.parse('2026-09-12T12:00:00Z');
+  const withinWindow = new Date(now - 60_000).toISOString();
+
+  it('counts an issue created within the window that has no marjorie-triaged label', async () => {
+    const gh = vi.fn().mockResolvedValue({
+      stdout: JSON.stringify([{ createdAt: withinWindow, labels: [] }]),
+    });
+    const count = await countLabelSince('owner/repo', 'feedback', now - 86_400_000, { gh });
+    expect(count).toBe(1);
+  });
+
+  it('excludes an otherwise-identical issue already carrying marjorie-triaged', async () => {
+    const gh = vi.fn().mockResolvedValue({
+      stdout: JSON.stringify([{ createdAt: withinWindow, labels: [{ name: 'marjorie-triaged' }] }]),
+    });
+    const count = await countLabelSince('owner/repo', 'feedback', now - 86_400_000, { gh });
+    expect(count).toBe(0);
   });
 });
 

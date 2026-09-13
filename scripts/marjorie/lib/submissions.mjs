@@ -28,13 +28,18 @@ export const SUBMISSION_LABELS = ['user-feedback', 'feedback', 'intake', 'link-s
 
 // `--state all`, not `--state open`-only: an issue opened and closed inside
 // the 24h window should still count as "came in" (c2-brief.md's Data table).
-async function countLabelSince(repo, label, sinceMs) {
-  const { stdout } = await ghRun([
+export async function countLabelSince(repo, label, sinceMs, { gh = ghRun } = {}) {
+  const { stdout } = await gh([
     'issue', 'list', '--repo', repo, '--label', label, '--state', 'all',
-    '--limit', '200', '--json', 'createdAt',
+    '--limit', '200', '--json', 'createdAt,labels',
   ]);
   const rows = JSON.parse(stdout || '[]');
-  return rows.filter((i) => new Date(i.createdAt).getTime() > sinceMs).length;
+  // A `marjorie-triaged` issue is already handled, not "new" — exclude it so
+  // this line reports still-new, not-yet-triaged inbound only.
+  return rows.filter((i) => {
+    if (new Date(i.createdAt).getTime() <= sinceMs) return false;
+    return !(i.labels || []).some((l) => l.name === 'marjorie-triaged');
+  }).length;
 }
 
 /**
