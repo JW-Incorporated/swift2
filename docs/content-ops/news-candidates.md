@@ -27,6 +27,46 @@ so far".
 
 Stories: 53
 
+## NFL Stars in Relationships with Celebrities
+
+- first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A listicle features nine NFL players who are currently dating or married to various celebrities, highlighting their romantic connections.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMieEFVX3lxTE9BejlqQ25ZMGktb0dMNThBaWpmUXVxWGRoc2JVSmtobEh6NzROeldYZXFpa1FUTDJRUzRBZkV3cTNOSVFGOTRJRmhvZHF3QVNXTDNLdjBiM3EyTEJFaEQ3bHRtT3RnUm5tRWNlZjdrdXBsaTB1TjFQdA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Darcie Haven Discusses Vulnerability and Community in Haveners
+
+- first seen: 2026-09-13 13:47 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Darcie Haven shares her thoughts on vulnerability and her journey with the Haveners in a recent interview with Futuremag Music. She explores the themes of connection and identity within her music and community.
+- sources:
+  - [unverified] Futuremag Music — https://news.google.com/rss/articles/CBMiswFBVV95cUxPczdSU3JJbkJycXJ4TFE0UnktVGZXNnRjOV93aEM1eUEweUhWZE9XTnpQckNmbmU1eTJQdkttU2xMVjF4c2c1Y1VwTVMzNW5lT3hJR0JfRVU3Q0dwc1dIOHZSUW1FdW1jNXlXS2pYcmE0RjJKaDJxbUgwT05zNlF0dWFkd3AzQTV0Yk5oMVZRa1JaWEdVQlFVbkZua3o4NE1wYldDQmRvMThxZEQ2bnIxT2Y3UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares What Tops Winning a Super Bowl
+
+- first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce states that there is one experience that surpasses winning a Super Bowl with the Chiefs, calling it 'the best night of my life.'
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPWkNYbTc5cFlDUTE0X0FxSno3cC1VVlJGc2QyR0ViVTVmVl9DOU9lZFZ1d0dCcm8xc05iQlRMLXRzNjBPSHZxbm1DUVFzUFczX19GU3NuUUhmNWozSUlZQ0xZcXN0OFVndUtOTjdLUjlSeG5tcXNHdFNPTGRXcUlKdnJJTVN5Q2VXQ0Q0b2FSYlR0NUJRU0RfX2JmMnNxRElQRUo4WTBtMWRIUFM3VTY3WTdFMXM2SlZfOGJuQU5oN1d2NVVvMm84ZnE0U0ZoLWxQcFFYMjN2aDZzRVF0YV9TOFhGSTNkTGlCelRSTjcyMzJac2piYlHSAfYBQVVfeXFMUF9wY09SWWVjYU94Unh4bkFqSDI0dzZ0RHNrc3E4N09XN2trTHZWblJCUUVKbDJ0VEZOaVBCSThHS2lxVy1tMVEtUWh2VnhmRWkzTk8zYWRuVndVRllpUkY1Z1hpYm9Hb2xyQnlDaVRWMDFGODRrSWRZckxsWFFOcjViYTJmTWJna2hxTmpZX2g4NU94dzFWRmtmdjVZT0V3c0cwMkhyejhYZUREazFGSjRlOGF2Y0ZDckxLN1duckNOTk1vVFAzcWxoNWpMRWdSdElwR0pLT2F5VzlBTnB6WTZ4a0x0UENLaVptSV9zX2plNjRRQzFn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Calls Taylor Swift Wedding the Best Night of His Life
+
+- first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared his sentiments about his wedding to Taylor Swift, calling it the best night of his life. The statement highlights the emotional significance of their union.
+- sources:
+  - [unverified] 997wpro.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPenVnbmFTZjBWZ3hHYmt0cUM4YThDZlFESVNrV2oxNnh5bHI4LU5Yc0QyeHV2QzVhV25QOW5BMW1VcG5HYWVNYmFacGg0NTJlMDBJNHNEVi1qUkY3eXZMdVQ2M0hhSm9hTWNsSzdwT3ZXY25lTEZ3cHM1RVRwel9sNTlaMmdqTmhmOGpYM3BKMVh2aDFGZmxsTXZQWDdlZHNaaG5MbEtRdWU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Experimenting with Taylor Swift's Viral Gold Glitter Freckles
+
+- first seen: 2026-09-13 13:47 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A review of trying out the gold glitter freckles inspired by Taylor Swift, which became popular online. The author shares their experience and thoughts on this beauty trend.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi2AFBVV95cUxPaXZWb01yOWw5eFd2NkxhaFNKWTFhcno3cHNBVDR0LUVmempBZFMzT0gxRWtSaXhNaVRSeWZlRk8ybTBWcjR6dVpUZnJqdjhiZWM3Yk9jcTIyQWFGM1VjMi1lMjMxSTV6Y3JSX3hnb2VNYnc1cUZhN0N4ZXQwaE5Mck5VbUVHU0pmVU03OWlxSnRsZkVHbDU4Y3lsQmk5dTRfZE5ZaTk3WlY0WFNxTFVxaDNOa2prZllwSmUzX3VNYlVSQ1N1SkRNVklFTTJRN1VoU0F5cFBnMWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Patrick Mahomes Seen Dancing at Kelce-Swift Wedding
 
 - first seen: 2026-09-13 06:04 UTC | category: sighting | importance: 5
@@ -435,47 +475,3 @@ Stories: 53
 - sources:
   - [unverified] heavy.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxPQ0ZXMnFVbElpUUg2bFJIOGhaajNldWE1cXNqUlNTajdpY0NwSzRQcnZRbjhUUlZmVWdGSmJSUTZPbFZ2NnBLZk44d0ljV0RDRFNvQkFYNWJwa3Z2amR1a2NIWW52U0JFdDhzbHRlLVNYWEVza2oydVVjbVo4WjcxdFhxMlpBVEF2WHhxczE4RjN3LTE1ekxXdXp0UWNMdXk2WHpSUVBaWHFOc0hHTWc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNdlNFeUhCRU5TNDlFMlV6UzZiRlpwQUtwU0RvRjh1TnRHMEhrMnYzUGFGdkdGSzMzcG1LcWJ4dGRrVnlKQ2pWVDhFMGJDdXBUc3oyeTI0Mkctd2RXZmhKSlNMSGJUSkF4YTNrOTQwcVhCZ0pXMklSTE5YRExzVkZ5cGlyTEFSUHkwN3ZkQ2h6MFBxSGxuYnZpUktWM0VKY29mcjVNb0tkNHZLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Bug Genus Named After Taylor Swift
-
-- first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A newly discovered genus of bugs has been named in honor of Taylor Swift, as reported by USA Today. This recognition highlights the cultural impact and influence of the artist in unexpected fields.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiygFBVV95cUxNeTFVZjZaX3hBTlgwWmM0clp3SjhiQkM4RGx1YXIxd192cHRnV19rdWpUcFVVMWJ0bGdCQm1MY1dxaDVDXzFLMFlUcWQtWUdtR3U1SXR3NWRfY2ptaUtDcE4zWXhzOUVJNUJFajBYazdtQ2Y1MVJSMFgwVUlmQ1FMbmRYTmE2UEZIT1BxMTBxQUdSM3MzR05rMzBFNEtmNXFXOVBBbEdHdlQ5ZUZ6ZUlYX05ReEFUSEJHQm8wOFd2RFpMY0xRX2kyY0pR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Insect Species Named After Taylor Swift
-
-- first seen: 2026-09-10 13:32 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Four new species of blonde insects have been named 'Swiftiephylus' in honor of Taylor Swift. This unique tribute highlights the impact of her influence beyond music and into the realm of scientific naming.
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxORzNUOGNLSUY4Wl9zVlkzel92TmZGSGtpaFlFWGZ1Rk9pQjVzSC1LeTFfSDN6SjFhSzlNZ3E1bklEdUptaEhTOHVwZ0VaQnhaVTg5bk9CTFU4OVY2TzZtbk1LVEk3MEVKalpsVGJEb2JsbG1TRTRFd21ORHlpaV9tcTRSTzdubm1BbkoxVS15YlhiR1JsUGU4WlI0Wk1DRHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Insect Named After Taylor Swift: Swiftiephylus
-
-- first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new insect species has been named 'Swiftiephylus' in honor of Taylor Swift, marking a unique recognition of her legacy in the scientific community.
-- sources:
-  - [unverified] Metro.Style — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNQTI3amVKVkJwVkFwVlkwY2FvVDl5NlRxWFA2azQzYzVBZTZocEljMFVSSjJ6azdfWFU2MGNfV0YxOUFQTHhvejM5cmV5Szl0X3pJZ2JCbkNHOGliVF9Qc0diNHV1MWpMRGg3NDR2THdMVTJuajJsNTYwdGZWdmtjMXRkcVByYlJvYVpRc2ZrWEFERXE5UEpabWVGbEtLRU1jRzFxUnp3VW93NVhndldaVXpsTkJpbUdHUVJpMlV1el8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Rhode Island Implements 'Taylor Swift Tax' on Vacation Homes
-
-- first seen: 2026-09-10 13:32 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Rhode Island has introduced a 'Taylor Swift tax' targeting vacation homes to generate funds for affordable housing initiatives. This measure aims to address the state's housing crisis by leveraging the popularity of Taylor Swift.
-- sources:
-  - [unverified] The Christian Science Monitor — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPcHdUUGxYSUZub3BLeVBQd3dMWThrNXN1ajRPMnU4ZnBObksyM24wa2h4WXhuYUpsWFRmZm05QnM2V092anVWUUhWaEdoWFdjNzEwcU9aWTJ5NDlPRnV3RzdwVk5YNnBMSlRHR015TldMTkE1LVhyWmRHaDNmSlhqcG9UYzdJQWVO0gGiAUFVX3lxTE5tWnNkSnFrd185V0dJMzB0aUxYX1pyT0NpRFBaanBfTmpIbVZiSV9tVlNjZVkxanU3c1ZUdnlzZ0MwZTRGVXNGclhFMnpmU3k1YUZxZHFGdDZBc0F6Yk9pVU9YdFhDejZTbTUza3JZUjNTLTNFTndpYzZhczl2ZnZDVTJ6TXd5VVBnR3ppOTV0bXlFOEJlcGVFeWlUSFVTZDhNUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift reportedly remains silent on Travis Kelce situation
-
-- first seen: 2026-09-10 13:32 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift has been reported to avoid complaining about her situation with Travis Kelce, despite feeling frustration. This comes amid ongoing public interest in their relationship.
-- sources:
-  - [unverified] ew.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxOUkNXZ0xnQ3Z1cmkzQXZMUlNKQmE5WnBjOWV0STViUVMtZW9RNHJxTHFXTzJ1YlRzUjd6VUtBa0J6YVkyRUdvT3lzdDN3XzBQNDlYLWsxNHZIYkNyaldQWDBmcGFVcVdiSW9DQ1JiWUEzMmhiZmFOeWwwUG55dU1fS3JMX1Y0TG00cHJnZ1AzX01ROHp5MG5RbkttS3ZQQ0k?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPVGw4VEswSzNwTWdkSjVEdGdHTG96QmoxS0gwNHRqYUJTZmFnTlhLSmJ5T002NkFVN0JxdjkzNkZyTEhoNWZuYUVSa2czUVFabG5NRUdKeTVmQm5vRkdLZGhENUlxQTV4ZGU0WjJGTnRSeWhzeC1UaDFaYVpEOXlwY0U2OTJvalljdDZhNDVqWnIwWlI0cWduYTd3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQM3VnekRGeDM2ZXdiOGd1ZTdNelhicmVveDFtWlp1RERkU3JWbUNmWGswY0xSWDRoQ3IxVmxVcUNxT0pSdE9wMWd3QXRWMmlUd2J3WHR3YldLTDYyVWgxZkh5MkV6RTdtVnAtYy1FXzk0U3lWMTRTVXNSOUY5Zi1WV1ZZTUVYblhCdUh6amRZXy11TWtTWjZRMDRSTDRRaldibEZmaVdhQkxLOGZIa2FaOFp3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPTTJGWWRaS0ZzdzRfaUo4aV9mUl9EbzduQXpTbWtTa3BqNG5VSGVvYXdHMkhoZlotZDFVOENwVk9uX1gtMGk2M3psVDBuazNZa3NoV2NsbmdJX01pdG1Gb201TDEzdWoyOXNsTGpoUHpqU2Y5aDBsdzY0NVdtVDkzenMtdkRXNFlPUDJOZGJqOXphempSdVZVRV9pVUFyTVNLVllBSUQxSlJJUjJxMk94dQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNRXkxNHN0aW5rTklUMG1pRks1VXB4Z3czend0X1pkS1VvWFlJQmdYQmtfLUc4WVQ0aHE5V0VtU25PTzBIWFVqbXVTQ0EtN2pCY3ZES1Mwa0dTdzhCeEMzbkUxX2VXV2V5YXl3cmhuaF9qenljOWNsTjV1azdua290Rl9nbEUxTWR6UGZHT1M3QnhKb2J2Tm5RVFpNTHhNaFhvU0hXTUd0cWVyX3hDNi1R?oc=5&hl=en-US&gl=US&ceid=US:en
