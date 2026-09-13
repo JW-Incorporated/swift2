@@ -8,8 +8,9 @@
 //            Each is claimed with 👀 BEFORE its chat routine is dispatched.
 //            Claims are never removed or re-dispatched. Once a claim is at
 //            least 45 minutes old, every matching run is an active-run veto;
-//            a complete run query plus a fresh Discord read lets the poll post
-//            one referenced `[chat failed]` marker, then settle with ❌.
+//            a complete run query plus lib/chat-delivery.mjs's Discord read
+//            settles it: ✅ for a reply already there, ❌ for a notice already
+//            there, else one referenced `[chat failed]` notice, then ❌.
 //   context  the chat routines' first job. Writes one message's context JSON
 //            (the message, what it replies to, the thread root, the last 15
 //            messages) for the agent to read from `.scratch/`.
@@ -24,7 +25,8 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
-import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
+import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
+import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
   BOTS, CLAIM, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, REPLIED, SNOWFLAKE, STALE_CLAIM_MS, WINDOW_MS,
   buildContext, createdSince, dispatchArgs, findRuns, founderIds, messageTime, selectInbox,
@@ -103,72 +105,55 @@ export function listRuns(execImpl, repo, workflow, createdAfter) {
     return null;
   }
 }
-function failureBody(item, run) {
-  const detail = run?.url ? `${run.url} — ` : '— ';
-  return { content: `${FAILURE_PREFIX} ${detail}please send it again`, allowed_mentions: { parse: [] }, message_reference: { message_id: item.messageId, fail_if_not_exists: false } };
-}
-async function postFailure(item, run, token, opts) {
+/** One claim, from what Discord shows now (the same check as the routines' finish). Returns failures. */
+async function settle({ bot, item, run, guildId, token, opts }) {
   const where = item.threadId || item.channelId;
-  return discordRequest('POST', `${DISCORD_API}/channels/${where}/messages`, token, { ...opts, body: failureBody(item, run) });
-}
-async function reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, now }) {
-  let failures = 0;
-  const marked = claimed.filter((item) => item.notified);
-  for (const item of marked) {
-    if (dryRun) {
-      console.log(`dry-run: would finish ❌ for notified ${bot} message ${item.messageId}`);
-      continue;
-    }
-    const where = item.threadId || item.channelId;
-    const current = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${item.messageId}`, token, opts);
-    if (!current.ok) {
-      failures += 1;
-      console.log(`::error::chat-poll: could not re-read notified ${item.messageId} (HTTP ${current.status})`);
-    } else if (hasOwnReaction(current.data, CLAIM) && !hasOwnReaction(current.data, REPLIED) && !hasOwnReaction(current.data, FAILED)) {
-      const settled = await discordRequest('PUT', reactionUrl(where, item.messageId, FAILED), token, opts);
-      if (!settled.ok) {
-        failures += 1;
-        console.log(`::error::chat-poll: could not finish ${FAILED} for notified ${item.messageId} (HTTP ${settled.status})`);
-      }
+  const messageUrl = `https://discord.com/channels/${guildId}/${where}/${item.messageId}`;
+  const found = await readDeliveryState({ bot, messageId: item.messageId, channelId: item.channelId, sourceThreadId: item.threadId, messageUrl, token, ...opts });
+  if (!found.ok) {
+    console.log(`::error::chat-poll: ${found.detail} — ${item.messageId} left unsettled; nothing sent`);
+    return 1;
+  }
+  if (found.state === 'settled') return 0;
+  // The channel scan already saw a notice; never post a second one.
+  const state = found.state === 'open' && item.notified ? 'notified' : found.state;
+  if (state === 'open') {
+    const posted = await postFailure({ where, messageId: item.messageId, runUrl: run?.url || '', token, ...opts });
+    if (!posted.ok) {
+      console.log(`::error::chat-poll: ${FAILURE_PREFIX} post for ${item.messageId} refused (HTTP ${posted.status}); leaving it unsettled for retry`);
+      return 1;
     }
   }
-  const pending = claimed.filter((item) => !item.notified && now - Date.parse(item.timestamp) >= STALE_CLAIM_MS);
-  if (!pending.length) return { failures };
-  for (const item of pending) {
-    const where = item.threadId || item.channelId;
-    const listed = listRuns(execImpl, repo, cfg.workflow, item.timestamp);
-    if (!listed) {
-      failures += 1;
-      continue;
+  const emoji = state === 'replied' ? REPLIED : FAILED;
+  const settled = await discordRequest('PUT', reactionUrl(where, item.messageId, emoji), token, opts);
+  console.log(`${bot} message ${item.messageId}: ${state}${settled.ok ? `, marked ${emoji}` : `; ${emoji} refused (HTTP ${settled.status}), retried next poll without a second notice`}`);
+  return settled.ok ? 0 : 1;
+}
+async function reconcile({ bot, cfg, claimed, repo, guildId, token, dryRun, execImpl, opts, now }) {
+  let failures = 0;
+  for (const item of claimed) {
+    let run = null;
+    if (!item.notified) {
+      if (now - Date.parse(item.timestamp) < STALE_CLAIM_MS) continue;
+      const listed = listRuns(execImpl, repo, cfg.workflow, item.timestamp);
+      if (!listed) {
+        failures += 1;
+        continue;
+      }
+      if (!listed.complete) {
+        failures += 1;
+        console.log(`::error::chat-poll: ${cfg.workflow} run list hit ${RUN_LIMIT} for ${item.messageId}; claim is inconclusive`);
+        continue;
+      }
+      const matches = findRuns(listed.runs, bot, item.messageId);
+      if (matches.some((candidate) => candidate.status !== 'completed')) continue;
+      run = matches.find((candidate) => candidate.url) || null;
     }
-    if (!listed.complete) {
-      failures += 1;
-      console.log(`::error::chat-poll: ${cfg.workflow} run list hit ${RUN_LIMIT} for ${item.messageId}; claim is inconclusive`);
-      continue;
-    }
-    const matches = findRuns(listed.runs, bot, item.messageId);
-    if (matches.some((run) => run.status !== 'completed')) continue;
-    const run = matches.find((candidate) => candidate.url) || null;
     if (dryRun) {
-      console.log(`dry-run: would settle stale ${bot} claim ${item.messageId} as failed`);
+      console.log(`dry-run: would settle ${item.notified ? 'notified' : 'stale'} ${bot} claim ${item.messageId}`);
       continue;
     }
-    const current = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${item.messageId}`, token, opts);
-    if (!current.ok) {
-      failures += 1;
-      console.log(`::error::chat-poll: could not re-read ${item.messageId} before settle (HTTP ${current.status})`);
-      continue;
-    }
-    if (!hasOwnReaction(current.data, CLAIM) || hasOwnReaction(current.data, REPLIED) || hasOwnReaction(current.data, FAILED)) continue;
-    const posted = await postFailure(item, run, token, opts);
-    if (!posted.ok) {
-      failures += 1;
-      console.log(`::error::chat-poll: [chat failed] post for ${item.messageId} refused (HTTP ${posted.status}); leaving it unsettled for retry`);
-      continue;
-    }
-    const settled = await discordRequest('PUT', reactionUrl(where, item.messageId, FAILED), token, opts);
-    if (!settled.ok) failures += 1;
-    console.log(`${bot} message ${item.messageId}: posted [chat failed]${settled.ok ? ` and marked ${FAILED}` : `; ${FAILED} refused (HTTP ${settled.status}), marker prevents a duplicate notice`}`);
+    failures += await settle({ bot, item, run, guildId, token, opts });
   }
   return { failures };
 }
@@ -219,7 +204,7 @@ export async function poll({
       failures += 1;
       console.log(`::error::chat-poll: ${bot}: ${empty.length} founder message(s) read with a blank body — the bot likely lacks the Message Content intent`);
     }
-    const settled = await reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, now });
+    const settled = await reconcile({ bot, cfg, claimed, repo, guildId, token, dryRun, execImpl, opts, now });
     failures += settled.failures;
     const fresh = picked;
     console.log(`${bot}: ${fresh.length} new, ${claimed.length} earlier claim(s) checked, from ${sources.length} place(s)`);
