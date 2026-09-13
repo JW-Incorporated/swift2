@@ -116,41 +116,54 @@ export function renderFounderMarker(state) {
   return `<!-- marjorie-triage-founder:${state} -->`;
 }
 
-// Trusted login(s) for the `run` job's own agent comments, checked by
-// `pendingFounderIssues` below. NOT `viewerDidAuthor`: that field is relative
-// to whichever credential is running the CURRENT query, and the `deliver`
-// job (a plain job authenticated as `secrets.GITHUB_TOKEN`) reads comments
-// the `run` job's Claude-Code-Action credential posted — a different
-// identity, in a different job, in the same workflow run. `viewerDidAuthor`
-// is therefore always `false` there, even for the routine's own comments
-// (confirmed live, M3 proof run on #4234: both of the routine's own
-// comments came back `viewerDidAuthor: false` under a third credential).
-// `alert-router.mjs`'s header warns against hardcoding identity strings —
-// that lesson is about comparing strings ACROSS API surfaces that spell the
-// same identity differently (GraphQL's `viewer.login` vs REST's comment
-// `author.login`). Here there is exactly one surface (`gh issue view --json
-// comments`, `.author.login`) used consistently by both the `pending-
-// founder` CLI call and the `deliver` job's own extraction step, so an
-// allowlist of the login(s) actually observed on that one surface carries
-// none of that inconsistency risk.
+// Trust check for the `pending` marker, written by the `run` job's agent
+// (authored as `claude` via the Claude Code Action's own credential). NOT
+// `viewerDidAuthor`: that field is relative to whichever credential is
+// running the CURRENT query, and the `deliver` job (authenticated as
+// `secrets.GITHUB_TOKEN`) reads a comment a DIFFERENT job's credential
+// posted. `viewerDidAuthor` is therefore always `false` for this marker
+// when checked from `deliver` (confirmed live, M3 proof run on #4234: both
+// of the routine's own comments came back `viewerDidAuthor: false` under a
+// third credential). `alert-router.mjs`'s header warns against hardcoding
+// identity strings — that lesson is about comparing strings ACROSS API
+// surfaces that spell the same identity differently (GraphQL's
+// `viewer.login` vs REST's comment `author.login`). Here there is exactly
+// one surface (`gh issue view --json comments`, `.author.login`) used
+// consistently by both the `pending-founder` CLI call and the `deliver`
+// job's own extraction step, so an allowlist of the login(s) actually
+// observed on that one surface carries none of that inconsistency risk.
 const TRUSTED_TRIAGE_LOGINS = ['claude', 'claude[bot]'];
 
-function isTrustedAuthor(comment) {
+function isPendingAuthor(comment) {
   return TRUSTED_TRIAGE_LOGINS.includes(comment?.author?.login);
+}
+
+// Trust check for the `posted` marker — the INVERSE situation from pending.
+// `deliver` both WRITES this marker and, on every later run, READS it back
+// to decide "already posted" — always from within a `deliver`-job query, so
+// the credential is consistently `secrets.GITHUB_TOKEN` across every check.
+// `viewerDidAuthor` is exactly right here (Codex review, PR #4238, finding
+// 1: reusing `isPendingAuthor`'s `claude`/`claude[bot]` allowlist for the
+// `posted` marker is wrong — `deliver` never authors as `claude`, so a real
+// `posted` marker would never be recognized as trusted, and the same
+// needs-founder issue would be re-posted to Discord every single sweep).
+function isPostedAuthor(comment) {
+  return comment?.viewerDidAuthor === true;
 }
 
 /**
  * Issue numbers from a `gh issue view --json number,comments`-shaped result
- * (`[{number, comments: [{body, author: {login}}]}]`) whose comments contain
- * a `pending` founder-handoff marker with no `posted` marker after it. Pure
- * — no network call. Mirrors alert-router.mjs's `deriveHandledState` in
- * spirit (derive state from marker text in comments, never track it
- * elsewhere) but not in mechanism — see `isTrustedAuthor` above for why.
- * This repo is PUBLIC: a marker is honored only on a comment from a trusted
- * login — a forged `pending` comment from someone else must never get its
- * body relayed to the founders' Discord as if Marjorie wrote it, and a
- * forged `posted` comment must never suppress a real handoff (Codex review,
- * PR #4229, finding 1).
+ * (comments carrying both `author.login` and `viewerDidAuthor`) whose
+ * comments contain a `pending` founder-handoff marker with no `posted`
+ * marker after it. Pure — no network call. Mirrors alert-router.mjs's
+ * `deriveHandledState` in spirit (derive state from marker text in
+ * comments, never track it elsewhere) but not in mechanism — see
+ * `isPendingAuthor`/`isPostedAuthor` above for why each marker needs its
+ * own trust check. This repo is PUBLIC: a marker is honored only on a
+ * comment from its trusted source — a forged `pending` comment from
+ * someone else must never get its body relayed to the founders' Discord as
+ * if Marjorie wrote it, and a forged `posted` comment must never suppress a
+ * real handoff (Codex review, PR #4229, finding 1).
  */
 export function pendingFounderIssues(issuesWithComments) {
   const pendingMarker = renderFounderMarker('pending');
@@ -161,12 +174,12 @@ export function pendingFounderIssues(issuesWithComments) {
     let pendingIdx = -1;
     for (let i = 0; i < comments.length; i += 1) {
       const c = comments[i];
-      if (isTrustedAuthor(c) && String(c?.body || '').includes(pendingMarker)) pendingIdx = i;
+      if (isPendingAuthor(c) && String(c?.body || '').includes(pendingMarker)) pendingIdx = i;
     }
     if (pendingIdx === -1) continue;
     const postedAfter = comments
       .slice(pendingIdx + 1)
-      .some((c) => isTrustedAuthor(c) && String(c?.body || '').includes(postedMarker));
+      .some((c) => isPostedAuthor(c) && String(c?.body || '').includes(postedMarker));
     if (!postedAfter) out.push(issue.number);
   }
   return out;
