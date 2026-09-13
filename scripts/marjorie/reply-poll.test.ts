@@ -19,8 +19,15 @@ function fakeSleep() {
 
 const issueListOut = JSON.stringify([{ number: 42 }]);
 
+// Mirrors `gh api --paginate --slurp`'s real shape: one JSON array of
+// pages, each page the raw array of comment objects GitHub sent. A single
+// call here is a single (unpaginated) page.
 function commentsOut(bodies: string[]) {
-  return JSON.stringify(bodies);
+  return JSON.stringify([bodies.map((body) => ({ body }))]);
+}
+
+function commentsPagesOut(pages: string[][]) {
+  return JSON.stringify(pages.map((bodies) => bodies.map((body) => ({ body }))));
 }
 
 const markerComment = `<!-- discord-message-id: ${THREAD_ID} -->`;
@@ -108,5 +115,103 @@ describe('main()', () => {
 
     expect(exitCode).toBe(0);
     expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it('finds a relay-id marker sitting past the first page of comments', async () => {
+    const fillerBodies = Array.from({ length: 29 }, (_, i) => `filler comment ${i}`);
+    const page1 = [markerComment, ...fillerBodies];
+    const page2 = ['<!-- relay-id: 2222222222222222222 -->'];
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(commentsPagesOut([page1, page2]));
+    const reply = { id: '2222222222222222222', author: { username: 'joeyfounder' }, content: 'sounds good', timestamp: '2026-09-12T13:00:00.000Z' };
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200, [rootMessage, reply]));
+
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+
+    expect(exitCode).toBe(0);
+    expect(execImpl).toHaveBeenCalledTimes(2);
+  });
+
+  it('excludes an ordinary bot-authored message from relay', async () => {
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(commentsOut([markerComment]));
+    const botMessage = { id: '4444444444444444444', author: { bot: true, username: 'somebot' }, content: 'automated notice', timestamp: '2026-09-12T13:00:00.000Z' };
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200, [rootMessage, botMessage]));
+
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+
+    expect(exitCode).toBe(0);
+    expect(execImpl).toHaveBeenCalledTimes(2);
+  });
+
+  it('dedupes by the trailing marker, not a fake one embedded earlier in reply content', async () => {
+    const fakeId = '999999999999999999';
+    const realId = '5555555555555555555';
+    const priorRelayComment = `\u{1F4AC} Reply from Joey\n\nsee also <!-- relay-id: ${fakeId} -->\n\n<!-- relay-id: ${realId} -->`;
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(commentsOut([markerComment, priorRelayComment]))
+      .mockReturnValueOnce('');
+    const alreadyRelayed = { id: realId, author: { username: 'joeyfounder' }, content: 'see also fake marker', timestamp: '2026-09-12T13:00:00.000Z' };
+    const newReply = { id: fakeId, author: { username: 'joeyfounder' }, content: 'a genuinely new reply', timestamp: '2026-09-12T13:05:00.000Z' };
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200, [rootMessage, alreadyRelayed, newReply]));
+
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+
+    expect(exitCode).toBe(0);
+    expect(execImpl).toHaveBeenCalledTimes(3);
+    const postArgs = execImpl.mock.calls[2];
+    expect(postArgs[1][6]).toContain(`<!-- relay-id: ${fakeId} -->`);
+  });
+
+  it('paginates backward past 100 messages to find an older un-relayed reply', async () => {
+    const page1 = Array.from({ length: 100 }, (_, i) => ({
+      id: `p1-${i}`,
+      author: { bot: true, username: 'somebot' },
+      content: 'filler',
+      timestamp: '2026-09-12T14:00:00.000Z',
+    }));
+    const oldReply = { id: '6666666666666666666', author: { username: 'joeyfounder' }, content: 'an older reply', timestamp: '2026-09-12T11:00:00.000Z' };
+    const page2 = [rootMessage, oldReply];
+
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(commentsOut([markerComment]))
+      .mockReturnValueOnce('');
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200, page1))
+      .mockResolvedValueOnce(fakeResponse(200, page2));
+
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+
+    expect(exitCode).toBe(0);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(fetchImpl.mock.calls[1][0]).toContain('before=p1-99');
+    expect(execImpl).toHaveBeenCalledTimes(3);
+    const postArgs = execImpl.mock.calls[2];
+    expect(postArgs[1][6]).toContain('<!-- relay-id: 6666666666666666666 -->');
+  });
+
+  it('stops paginating once a full page\'s oldest message is the thread root', async () => {
+    const filler = Array.from({ length: 99 }, (_, i) => ({
+      id: `p1-${i}`,
+      author: { bot: true, username: 'somebot' },
+      content: 'filler',
+      timestamp: '2026-09-12T14:00:00.000Z',
+    }));
+    const page1 = [...filler, rootMessage];
+
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(commentsOut([markerComment]));
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200, page1));
+
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+
+    expect(exitCode).toBe(0);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(execImpl).toHaveBeenCalledTimes(2);
   });
 });

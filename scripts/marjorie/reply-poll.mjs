@@ -94,13 +94,27 @@ function findBriefIssue(execImpl, repo) {
   return issues[0] || null;
 }
 
+// `--jq '[.[].body]'` only ever saw page 1 (30 comments) — `--paginate`
+// doesn't compose with an array-wrapping `--jq` filter (each page would
+// print its own `[...]`, not one flattened array), and the line-per-body
+// alternative (`--jq '.[].body'`) breaks on any comment whose body itself
+// contains a newline (every comment this poller posts does). Instead,
+// `--slurp` with no `--jq` at all returns one JSON array of pages, each
+// page the raw array of comment objects GitHub sent — flattened and
+// mapped to `.body` here, so embedded newlines in a comment never get
+// mistaken for a record boundary.
 function issueCommentBodies(execImpl, repo, issueNumber) {
-  const out = gh(execImpl, ['api', `repos/${repo}/issues/${issueNumber}/comments`, '--jq', '[.[].body]']);
-  return JSON.parse(out);
+  const out = gh(execImpl, ['api', `repos/${repo}/issues/${issueNumber}/comments`, '--paginate', '--slurp']);
+  return JSON.parse(out).flat().map((comment) => comment.body);
 }
 
 function extractDiscordMessageId(commentBodies) {
   for (const body of commentBodies) {
+    // Posted only by `routine-marjorie-brief.yml`'s `deliver` job (environment-
+    // scoped, not agent-writable), and always before any founder reply can
+    // exist on this issue (the thread doesn't exist until that job creates
+    // it) — so a first-match-anywhere scan can't collide with attacker-
+    // controlled content the way `alreadyRelayedIds` below could. Left as-is.
     const m = /<!--\s*discord-message-id:\s*(\d+)\s*-->/.exec(body || '');
     if (m) return m[1];
   }
@@ -110,10 +124,41 @@ function extractDiscordMessageId(commentBodies) {
 function alreadyRelayedIds(commentBodies) {
   const ids = new Set();
   for (const body of commentBodies) {
-    const m = /<!--\s*relay-id:\s*(\d+)\s*-->/.exec(body || '');
+    // Only the comment's own trailing line can carry a trustworthy marker —
+    // `reply.content` is untrusted Discord text inserted BEFORE the real
+    // marker this poller appends last, so a reply that itself contains
+    // marker-shaped text must never be allowed to shadow the real one.
+    const lastLine = (body || '').trimEnd().split('\n').at(-1) || '';
+    const m = /^<!--\s*relay-id:\s*(\d+)\s*-->$/.exec(lastLine);
     if (m) ids.add(m[1]);
   }
   return ids;
+}
+
+/**
+ * Discord returns newest-first, capped at `limit=100` per call — a thread
+ * with more than 100 messages since the last poll would silently lose the
+ * older, un-relayed ones without this. Pages backward via `before=<oldest
+ * message id in the last page>` until a page comes back under 100 (the
+ * whole thread has now been walked) or the oldest message in a page is
+ * already known — the root itself, or an id already carrying a relay-id
+ * marker — meaning everything further back has already been seen/relayed
+ * and there's nothing left worth another request for.
+ */
+async function fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl, relayed }) {
+  const first = await discordGet(`${DISCORD_API}/channels/${threadId}/messages?limit=100`, token, { fetchImpl, sleepImpl });
+  if (!first) return null;
+
+  const byId = new Map(first.map((m) => [m.id, m]));
+  let page = first;
+  while (page.length === 100) {
+    const oldest = page[page.length - 1];
+    if (oldest.id === threadId || relayed.has(String(oldest.id))) break;
+    page = await discordGet(`${DISCORD_API}/channels/${threadId}/messages?limit=100&before=${oldest.id}`, token, { fetchImpl, sleepImpl });
+    if (!page) break;
+    for (const m of page) byId.set(m.id, m);
+  }
+  return [...byId.values()];
 }
 
 function authorName(author) {
@@ -122,9 +167,11 @@ function authorName(author) {
 
 // The thread root is Marjorie's own webhook post: its id equals the
 // thread id, and/or it carries a `webhook_id` field. Either signal alone
-// is enough to exclude it; anything else in the thread is a human reply.
+// is enough to exclude it. An ordinary bot account (no `webhook_id`) is
+// excluded too — only a human founder's message should ever be relayed as
+// a founder reply.
 function isRootOrWebhookMessage(message, threadId) {
-  return message.id === threadId || Boolean(message.webhook_id);
+  return message.id === threadId || Boolean(message.webhook_id) || Boolean(message.author?.bot);
 }
 
 /**
@@ -155,9 +202,11 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     return 0;
   }
 
+  const relayed = alreadyRelayedIds(commentBodies);
+
   let messages;
   try {
-    messages = await discordGet(`${DISCORD_API}/channels/${threadId}/messages?limit=100`, token, { fetchImpl, sleepImpl });
+    messages = await fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl, relayed });
   } catch (err) {
     console.error(`::warning::reply-poll: could not fetch thread ${threadId} messages: ${err.message}`);
     return 0;
@@ -167,7 +216,6 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     return 0;
   }
 
-  const relayed = alreadyRelayedIds(commentBodies);
   const replies = messages
     .filter((m) => !isRootOrWebhookMessage(m, threadId))
     .filter((m) => !relayed.has(String(m.id)))

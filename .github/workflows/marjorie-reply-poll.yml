@@ -24,6 +24,10 @@ on:
 permissions:
   issues: write
 
+concurrency:
+  group: marjorie-reply-poll
+  cancel-in-progress: false
+
 jobs:
   poll:
     runs-on: ubuntu-latest
