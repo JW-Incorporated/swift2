@@ -94,54 +94,93 @@ describe('renderFounderMarker', () => {
 });
 
 describe('pendingFounderIssues', () => {
-  const own = (body: string) => ({ viewerDidAuthor: true, body });
-  const other = (body: string) => ({ viewerDidAuthor: false, body });
+  // `pending` is authored by the `run` job's agent credential (`claude`) and
+  // trusted by login, since `deliver` reads it under a DIFFERENT credential
+  // (cross-job — viewerDidAuthor can't work here, see submissions.mjs).
+  const pendingByClaude = (body: string) => ({ author: { login: 'claude' }, body });
+  const pendingForged = (body: string) => ({ author: { login: 'someone-else' }, body });
+  // `posted` is both written AND read back by `deliver` itself — same job
+  // type, same credential every time — so `viewerDidAuthor: true` is the
+  // correct, real shape `gh issue view --json comments` returns for it.
+  // Its `author.login` is realistically `github-actions`/`github-actions[bot]`,
+  // NOT `claude` — deliberately NOT in TRUSTED_TRIAGE_LOGINS, to prove the
+  // posted check doesn't (and must not) depend on that allowlist.
+  const postedByDeliver = (body: string) => ({
+    author: { login: 'github-actions' },
+    viewerDidAuthor: true,
+    body,
+  });
+  const postedForged = (body: string) => ({
+    author: { login: 'someone-else' },
+    viewerDidAuthor: false,
+    body,
+  });
 
   it('includes an issue with a pending marker and no posted marker', () => {
-    const issue = { number: 10, comments: [own(renderFounderMarker('pending'))] };
+    const issue = { number: 10, comments: [pendingByClaude(renderFounderMarker('pending'))] };
     expect(pendingFounderIssues([issue])).toEqual([10]);
   });
 
-  it('excludes an issue whose pending marker is followed by a posted marker', () => {
+  it('excludes an issue whose pending marker is followed by a real posted marker', () => {
     const issue = {
       number: 11,
-      comments: [own(renderFounderMarker('pending')), own(renderFounderMarker('posted'))],
+      comments: [pendingByClaude(renderFounderMarker('pending')), postedByDeliver(renderFounderMarker('posted'))],
     };
     expect(pendingFounderIssues([issue])).toEqual([]);
   });
 
   it('excludes an issue with no pending marker at all', () => {
-    const issue = { number: 12, comments: [own('just a regular comment')] };
+    const issue = { number: 12, comments: [pendingByClaude('just a regular comment')] };
     expect(pendingFounderIssues([issue])).toEqual([]);
   });
 
   it('only returns numbers for issues that qualify, across a mixed batch', () => {
-    const pending = { number: 13, comments: [own(renderFounderMarker('pending'))] };
+    const pending = { number: 13, comments: [pendingByClaude(renderFounderMarker('pending'))] };
     const resolved = {
       number: 14,
-      comments: [own(renderFounderMarker('pending')), own(renderFounderMarker('posted'))],
+      comments: [pendingByClaude(renderFounderMarker('pending')), postedByDeliver(renderFounderMarker('posted'))],
     };
     expect(pendingFounderIssues([pending, resolved])).toEqual([13]);
   });
 
   // This repo is PUBLIC — any GitHub account can comment on these issues, so
-  // both markers are only trustworthy on a comment the routine's own
-  // credential authored (Codex review, PR #4229, finding 1).
-  it('ignores a forged pending marker from a comment the routine did not post', () => {
-    const issue = { number: 20, comments: [other(renderFounderMarker('pending'))] };
+  // both markers are only trustworthy on a comment from their real source
+  // (Codex review, PR #4229 finding 1; PR #4238 finding 1 on why that
+  // source differs per marker).
+  it('ignores a forged pending marker from a comment the run job did not post', () => {
+    const issue = { number: 20, comments: [pendingForged(renderFounderMarker('pending'))] };
     expect(pendingFounderIssues([issue])).toEqual([]);
   });
 
-  it('does not let a forged posted marker suppress a real pending handoff', () => {
+  it('does not let a forged posted marker (viewerDidAuthor false) suppress a real pending handoff', () => {
     const issue = {
       number: 21,
-      comments: [own(renderFounderMarker('pending')), other(renderFounderMarker('posted'))],
+      comments: [pendingByClaude(renderFounderMarker('pending')), postedForged(renderFounderMarker('posted'))],
     };
     expect(pendingFounderIssues([issue])).toEqual([21]);
   });
 
-  it('ignores a marker whose viewerDidAuthor is missing entirely, not just false', () => {
+  it('ignores a pending marker whose comment has no author at all', () => {
     const issue = { number: 22, comments: [{ body: renderFounderMarker('pending') }] };
+    expect(pendingFounderIssues([issue])).toEqual([]);
+  });
+
+  it('trusts the claude[bot] login spelling for pending too (same identity, different API surface)', () => {
+    const botSpelling = (body: string) => ({ author: { login: 'claude[bot]' }, body });
+    const issue = { number: 23, comments: [botSpelling(renderFounderMarker('pending'))] };
+    expect(pendingFounderIssues([issue])).toEqual([23]);
+  });
+
+  // Codex review, PR #4238 finding 1: a naive fix reused the `pending`
+  // allowlist (`claude`/`claude[bot]`) for the `posted` check too. `deliver`
+  // never authors as `claude`, so that would make a REAL posted marker
+  // unrecognizable forever — the same needs-founder issue would be reposted
+  // to Discord on every single sweep. This is the regression test for that.
+  it('recognizes a real posted marker even though its author.login is never in the pending allowlist', () => {
+    const issue = {
+      number: 24,
+      comments: [pendingByClaude(renderFounderMarker('pending')), postedByDeliver(renderFounderMarker('posted'))],
+    };
     expect(pendingFounderIssues([issue])).toEqual([]);
   });
 });
