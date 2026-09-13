@@ -33,7 +33,7 @@ function ctxFile(dir: string, over: Record<string, unknown> = {}) {
 
 /** Unknown routes answer 200 `{ id: '5' }` — a message with no reactions. */
 function recorder(routes: Record<string, unknown> = {}) {
-  const log: Array<{ key: string; body: any }> = [];
+  const log: Array<{ key: string; body: unknown }> = [];
   const fetchImpl = vi.fn(async (url: string, init: { method?: string; body?: string } = {}) => {
     const key = `${init.method || 'GET'} ${url}`;
     log.push({ key, body: init.body ? JSON.parse(init.body) : null });
