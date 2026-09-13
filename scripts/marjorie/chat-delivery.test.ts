@@ -1,7 +1,12 @@
 // M5 chat: a failure answer goes out exactly once (lib/chat-delivery.mjs, and
 // the chat-post finish / chat-poll reconcile paths that use it). Each Codex
 // round-2 finding has a test here that replays its scenario.
+import { mkdtempSync, readFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { finish, postCmd } from './chat-post.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { classifyDelivery, failureBody, linksTo, readDeliveryState } from './lib/chat-delivery.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -11,11 +16,13 @@ import { DISCORD_API } from './lib/discord-bot.mjs';
 
 const GUILD = '900000000000000001';
 const MARJ = '900000000000000010';
+const TREE = '900000000000000020';
 const THREAD = '900000000000000030';
 const MID = '1000000000000000009';
 const URL = `https://discord.com/channels/${GUILD}/${MARJ}/${MID}`;
 const RUN = 'https://github.com/JW-Incorporated/swift2/actions/runs/1';
 const JOEY = '338508192755482626';
+const NOW = Date.parse('2026-09-13T18:00:00.000Z');
 
 function res(status: number, body: unknown = null) {
   return { ok: status >= 200 && status < 300, status, json: async () => body, text: async () => JSON.stringify(body) };
@@ -36,10 +43,18 @@ function discord(routes: Record<string, unknown>) {
     if (route instanceof Error) throw route;
     return route ?? res(404, { code: 10003 });
   });
-  return { fetchImpl, log, writes: () => log.filter((l) => !l.key.startsWith('GET ')) };
+  return { fetchImpl, log, writes: () => log.filter((l) => !l.key.startsWith('GET ')).map((l) => l.key) };
 }
 const get = (where: string, id = MID) => `GET ${DISCORD_API}/channels/${where}/messages/${id}`;
 const after = (where: string, id = MID) => `GET ${DISCORD_API}/channels/${where}/messages?after=${id}&limit=100`;
+const react = (where: string, emoji: string) => `PUT ${DISCORD_API}/channels/${where}/messages/${MID}/reactions/${encodeURIComponent(emoji)}/@me`;
+const say = (where: string) => `POST ${DISCORD_API}/channels/${where}/messages`;
+const gh = () => vi.fn((_cmd: string, args: string[]) => (args[1] === 'list' ? JSON.stringify([{ number: 42 }]) : ''));
+/** A re-run's finish: flags from inputs and context outputs only; no artifact is left. */
+const rerun = (bot: string, channel: string, over: Record<string, string> = {}) => ({
+  bot, 'message-id': MID, 'channel-id': channel, 'source-thread-id': '', 'reply-thread-id': MID, 'message-url': URL,
+  'post-result': '', 'reply-dir': join(tmpdir(), 'chat-delivery-artifacts-deleted'), 'run-url': RUN, ...over,
+});
 
 describe('isFailureNotice (shared with selectInbox)', () => {
   it('counts only a bot-token notice that replies to the message', () => {
@@ -51,7 +66,7 @@ describe('isFailureNotice (shared with selectInbox)', () => {
 
   it('selectInbox marks a claim notified by the same rule', () => {
     const claimed = founder(MID, mine('👀'));
-    const { claimed: out } = selectInbox([{ channelId: MARJ, threadId: '', messages: [notice('1000000000000000010'), claimed] }], { founders: new Set([JOEY]), now: Date.parse('2026-09-13T18:00:00.000Z') });
+    const { claimed: out } = selectInbox([{ channelId: MARJ, threadId: '', messages: [notice('1000000000000000010'), claimed] }], { founders: new Set([JOEY]), now: NOW });
     expect(out).toEqual([expect.objectContaining({ messageId: MID, notified: true })]);
   });
 });
@@ -137,5 +152,61 @@ describe('readDeliveryState', () => {
     });
     expect(await readDeliveryState({ ...args, sourceThreadId: THREAD, replyThreadId: THREAD, fetchImpl: d.fetchImpl })).toEqual({ ok: true, state: 'replied' });
     expect(d.log.map((l) => l.key)).toEqual([get(THREAD), after(THREAD), after(THREAD, '1000000000000000199')]);
+  });
+});
+
+describe('finding 1 — Tree: reply sent, ✅ failed, artifacts deleted, deliver re-run', () => {
+  it('the re-run finish sees the reply in the thread and only adds ✅ — no [chat failed] beside it', async () => {
+    const d = discord({
+      [get(TREE)]: res(200, founder(MID, mine('👀'))),
+      [after(TREE)]: res(200, []),
+      [after(MID)]: res(200, [hook('1000000000000000010', 'Tree', 'the plan is on track')]),
+      [react(TREE, '✅')]: res(204),
+    });
+    expect(await finish(rerun('tree', TREE), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+    expect(d.writes()).toEqual([react(TREE, '✅')]);
+  });
+
+  it('a failed read is not "unsettled": the re-run sends nothing, reacts nothing, logs nothing, and fails', async () => {
+    for (const broken of [{ [after(MID)]: res(500, {}) }, { [get(TREE)]: res(403, {}) }, { [after(TREE)]: new Error('ECONNRESET') }]) {
+      const d = discord({ [get(TREE)]: res(200, founder(MID, mine('👀'))), [after(TREE)]: res(200, []), ...broken });
+      const execImpl = gh();
+      expect(await finish(rerun('tree', TREE), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl })).toBe(1);
+      expect(d.writes()).toEqual([]);
+      expect(execImpl).not.toHaveBeenCalled();
+    }
+  });
+});
+
+describe('finding 2 — Marjorie: agent saved a reply then failed; post and finish ran; cleanup failed; re-run', () => {
+  it('the re-run finish on the already-✅ message does nothing at all (run and post are attempt-1 only)', async () => {
+    const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀', '✅'))) });
+    const execImpl = gh();
+    expect(await finish(rerun('marjorie', MARJ, { 'post-result': 'replied' }), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl })).toBe(0);
+    expect(d.writes()).toEqual([]);
+    expect(execImpl).not.toHaveBeenCalled();
+  });
+});
+
+describe('finding 3 — never a second failure notice', () => {
+  it('(a) post sends nothing without a reply, so the only notice is the bot one the poll can see', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'chat-delivery-'));
+    const fetchImpl = vi.fn();
+    expect(await postCmd({ bot: 'marjorie', 'reply-dir': dir, 'thread-id': MID, 'run-url': RUN }, { env: { DISCORD_MARJORIE_WEBHOOK_URL: 'https://discord.com/api/webhooks/1/x', GITHUB_OUTPUT: join(dir, 'out') }, fetchImpl, sleepImpl })).toBe(0);
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(readFileSync(join(dir, 'out'), 'utf8')).toBe('result=missing\n');
+
+    const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀'))), [after(MARJ)]: res(200, []), [say(MARJ)]: res(200, { id: '1000000000000000010' }), [react(MARJ, '❌')]: res(503, {}) });
+    expect(await finish(rerun('marjorie', MARJ, { 'post-result': 'missing' }), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(1);
+    expect(d.writes()).toEqual([say(MARJ), react(MARJ, '❌')]);
+    const sent = { id: '1000000000000000010', type: 19, author: { id: '55', bot: true }, ...(d.log.find((l) => l.key === say(MARJ))?.body as object) };
+    const { claimed } = selectInbox([{ channelId: MARJ, threadId: '', messages: [sent, founder(MID, mine('👀'))] }], { founders: new Set([JOEY]), now: NOW });
+    expect(claimed).toEqual([expect.objectContaining({ messageId: MID, notified: true })]);
+  });
+
+  it('(b) notice sent, ❌ failed, finish re-run: ❌ only, no second notice', async () => {
+    const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀'))), [after(MARJ)]: res(200, [notice('1000000000000000010')]), [react(MARJ, '❌')]: res(204) });
+    expect(await finish(rerun('marjorie', MARJ), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+    expect(d.writes()).toEqual([react(MARJ, '❌')]);
   });
 });
