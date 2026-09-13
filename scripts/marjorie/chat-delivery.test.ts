@@ -258,3 +258,15 @@ describe('finding 4 — reply sent, ✅ failed; 45 minutes later the poll reconc
     expect(unreadable).toEqual({ code: 1, writes: [], dispatched: 0 });
   });
 });
+
+describe('force_fail smoke: a settled message is never re-claimed (M5 acceptance criterion)', () => {
+  const pick = (m: Record<string, unknown>) => selectInbox([{ channelId: MARJ, threadId: '', messages: [m] }], { founders: new Set([JOEY]), now: NOW });
+  it("skips a message carrying the bot's own ❌ or ✅ even without a 👀 claim", () => {
+    for (const settled of [founder(MID, mine('❌')), founder(MID, mine('✅'))]) {
+      const { picked, claimed } = pick(settled);
+      expect(picked).toEqual([]);
+      expect(claimed).toEqual([]);
+    }
+    expect(pick(founder(MID)).picked).toHaveLength(1);
+  });
+});

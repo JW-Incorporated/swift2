@@ -111,6 +111,8 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
         messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp,
         length: String(m.content || '').length, failed, notified: notices.has(String(m.id)),
       };
+      // Settled without a claim (e.g. a force_fail smoke run): never re-claim.
+      if (!hasOwnReaction(m, CLAIM) && (failed || hasOwnReaction(m, REPLIED))) continue;
       if (hasOwnReaction(m, CLAIM)) {
         if (!hasOwnReaction(m, REPLIED) && !failed) claimed.push(item);
       } else if (hasBody(m)) {

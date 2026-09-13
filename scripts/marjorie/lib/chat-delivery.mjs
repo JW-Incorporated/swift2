@@ -36,6 +36,10 @@ function isHuman(m) {
   return !m.webhook_id && !m.author?.bot && HUMAN_TYPES.has(m.type ?? 0);
 }
 
+// Assumes only chat-post.mjs sends webhook posts under the bot's name into a
+// founder's thread; nothing else carries a correlation id. A new automation
+// that posts as Marjorie or Tree with `thread_id` would read as a reply here
+// (reviewer note on the M5 routines PR).
 export function isBotReply(m, bot) {
   return Boolean(m?.webhook_id) && m.author?.username === BOTS[bot]?.name;
 }

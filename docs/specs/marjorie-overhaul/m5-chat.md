@@ -12,10 +12,8 @@ one covers only the conversational loop. Epic #4180.
   Within about fifteen minutes Marjorie replies **in the same thread** (a
   top-level message gets a thread started for it) and marks your message
   👀 when she picks it up and ✅ when her reply is posted. The delay is a
-  15-minute poll plus a routine's start-up; the reply says nothing about
-  being late. *(Amended at build, 2026-09-13: the design said a 5-minute
-  poll, but the org's Actions budget is a $10/month hard stop and every
-  poll bills a minute — see Mechanics 1 and 7.)*
+  5-minute poll plus a routine's start-up; the reply says nothing about
+  being late.
 - The same in `#longlive-tree` gets Tree. Tree's replies are conversation
   only; approvals stay reactions on Tree's own posts, exactly as before, and
   a reply from Tree is never an approval, a post, or a caption change.
@@ -90,7 +88,7 @@ one covers only the conversational loop. Epic #4180.
 
 ## Mechanics
 
-1. **`bot-chat-poll.yml`** — cron `3,18,33,48 * * * *` plus
+1. **`bot-chat-poll.yml`** — cron `*/5 * * * *` plus
    `workflow_dispatch` (a `dry_run` input claims and dispatches nothing).
    One job, `run:` steps only, environment `social` (owns
    `DISCORD_BOT_TOKEN`), permissions `actions: write` and `issues: write`.
@@ -132,12 +130,11 @@ one covers only the conversational loop. Epic #4180.
    fetch/backoff and `isRootOrWebhookMessage` moved from `reply-poll.mjs` to
    `scripts/marjorie/lib/discord-bot.mjs`, and both scripts import them.
    The channels are found by name in the guild the Tree webhook names.
-   *(Amended at build: the cadence is the reply poller's existing slots, and
-   its relay runs as this job's second step, because the org's Actions budget
-   is a $10/month hard stop that August came within $1 of. Every fire bills
-   at least a minute, so every 5 minutes would add ~8,600 minutes a month
-   and could stop every workflow in the org. Folding the two polls adds no
-   fires. Going faster is a founder spend call, then a one-line cron change.)*
+   *(Amended at build: the reply relay runs as this job's second step, so
+   there is one Discord poll job, not two. A 15-minute cadence was built first
+   on the belief that each fire drew on the org's $10/month Actions hard
+   stop; billing data showed this public repo's minutes net $0, so the spec's
+   5 minutes stands.)*
 2. **`routine-marjorie-chat.yml` / `routine-tree-chat.yml`** — callers of
    `routine-template.yml`, `workflow_dispatch` only, model `claude-opus-5`,
    `max_turns: 25`, `timeout_minutes: 15`. Jobs: `context` (`social`:
@@ -211,9 +208,9 @@ one covers only the conversational loop. Epic #4180.
    comments for its own `💬 chat:` line before acting.
 7. **Cost**: at most 3 messages per channel per poll, one Opus turn each,
    25 turns; a busy hour is ≤24 routine runs, a normal day a handful. Opus
-   draws on plan usage, not dollars (`docs/decisions.md` #838). GitHub Actions
-   minutes are dollars: each chat run is four short jobs plus the agent job,
-   roughly 8–12 billed minutes, against the org's $10/month hard stop. Kill switch: repo variable
+   draws on plan usage, not dollars (`docs/decisions.md` #838). Each chat run
+   is three or four short jobs plus the agent job, roughly 8–12 Actions
+   minutes, which this public repo is not billed for. Kill switch: repo variable
    `BOT_CHAT_ENABLED=false` makes the poll job exit 0 before reading.
 
 ## Acceptance criteria
@@ -248,9 +245,10 @@ one covers only the conversational loop. Epic #4180.
   REST helper moved out of `reply-poll.mjs`), `lib/chat-inbox.mjs` (the
   poll's pure half), `scripts/marjorie/ha-close.mjs` + test (a
   deterministic human-action close — the agent has no Write tool),
-  `scripts/marjorie/chat-workflows.test.ts`. The agent saves its reply with
-  `chat-post.mjs save`. `finish` deletes the run's chat artifacts: this
-  repo is public, and they hold founder messages.)*
+  `scripts/marjorie/chat-workflows.test.ts`, `scripts/marjorie/lib/chat-delivery.mjs`
+  + `chat-delivery.test.ts` (the shared "already answered?" check). The agent
+  saves its reply with `chat-post.mjs save`. `finish` deletes the run's chat
+  artifacts: this repo is public, and they hold founder messages.)*
 - Edited: `.github/workflows/routine-template.yml` (optional artifact
   pre-step; added at build: `post_run_artifact`, `concurrency_key`),
   `marjorie-reply-poll.yml` and `watchdog.yml` (added at build),
@@ -268,29 +266,17 @@ one covers only the conversational loop. Epic #4180.
   role is a one-line change to the filter.
 - **Latency.** A Gateway bot on Hermes' VM would make replies near-instant
   but crosses the channel-ownership decision of 2026-09-12 and needs the VM;
-  revisit only if the 15-minute loop feels too slow after a week.
-- **Tool grants versus authority** (Codex P1 on the routines PR — surfaced,
-  not settled). `Bash(gh:*)` and `Bash(node:*)`, plus Marjorie's PAT, can
-  technically do more than the prompts allow. Enforcement is the prompt plus
-  the PR diff — the same boundary the M2 and M3 routines ship with, and what
-  Mechanics 4 specifies. A deterministic boundary — one trusted helper per
-  allowed operation, no write credential in the agent — is a fleet-wide
-  `routine-template.yml` change. Recommendation: accept it for M5 and track
-  the hardening as its own issue. Founder call.
-- **Founder text in a run's artifacts** (Codex P1 on the routines PR —
-  surfaced, not settled). A chat run's context artifact holds the message and
-  up to 15 messages of history. Any signed-in GitHub user can download it
-  until the run deletes it at its end. That is normally about ten minutes,
-  longer if the run waits in a queue; if the delete fails, one-day retention
-  is the backstop. Nothing the chat routines write to GitHub carries founder
-  text. The turn log is the agent's summary of what it did, and it is told
-  never to quote the founder — an instruction, not enforced metadata. The
-  prompts link to the message instead of quoting it in issue bodies,
-  plan-PR comments and the human-action ledger.
-  Already public and permanent today: the brief-reply relay copies founder
-  replies onto brief issues. Closing the window needs encrypted or private
-  transport. Recommendation: accept it for now. Founder call.
+  revisit only if the poll-plus-routine loop feels too slow after a week.
+- **Tool grants versus authority — decided** (Joey, 2026-09-13, in chat).
+  `Bash(gh:*)`/`Bash(node:*)` and Marjorie's PAT can technically do more than
+  the prompts allow. Accepted for M5: prompt + tool grants + PR-diff review,
+  the M2/M3 boundary. Hardening to trusted helpers is #4271.
+- **Founder text in a run's artifacts — decided** (Joey, 2026-09-13, in
+  chat). Any signed-in GitHub user can download a chat run's context (the
+  message and up to 15 messages of history) while the run is in flight,
+  normally ~10 minutes, with one-day retention as the backstop. Accepted.
+  Nothing the chat routines write to GitHub quotes founder text: the prompts
+  link to the message instead, and the turn log's summary is told never to.
 - **Reactions permission.** 👀/✅/❌ need "Add Reactions" for the bot on
-  both channels; if Joey grants only View + History, the build falls back to
-  a `chat-claimed` comment marker on the brief issue and the spec is
-  amended. HA #69 now asks for all four permissions on both channels.
+  both channels; HA #69 asked for it and was closed done on 2026-09-13.
+  Unproven until the first live claim.
