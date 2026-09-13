@@ -453,7 +453,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'No brand is documented for the shoot wardrobe — this is a real oversized plaid blazer in the same spirit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
         // Rumor Desk 2026-07-29: a clean, fully-resolved music-symbolism rumor

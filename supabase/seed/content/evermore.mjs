@@ -651,7 +651,7 @@ export default {
             isAlternative: true,
             altNote:
               'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -705,7 +705,7 @@ export default {
             kind: 'accessory',
             imageUrl: 'https://cdn.shopify.com/s/files/1/0431/9543/3119/files/115UD5-champagne-web-1_3c228763-eaf8-4906-88fc-55d817a9932b.jpg?v=1697757765',
             price: '$1,225.00',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -757,7 +757,7 @@ export default {
             matchTier: 'unscored',
             kind: 'top',
             price: '$237.00',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -866,7 +866,7 @@ export default {
             kind: 'beauty',
             isAlternative: true,
             altNote: 'No exact shade is named for this look — a real matte red lipstick matching the overlined "siren red" mouth described.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
@@ -1031,7 +1031,7 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'Her exact Spring \'21 mini is long sold out — this is a comparable current Oscar de la Renta floral-appliquéd mini dress.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-13T19:02:13.189Z'
           },
         ],
       },
