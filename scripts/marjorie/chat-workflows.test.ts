@@ -57,6 +57,28 @@ describe.each(deployed)('%s chat routine', (bot, cfg) => {
     expect(cleaner).toMatch(/if: always\(\)[\s\S]*actions\/artifacts/);
   });
 
+  it('acts and posts only on a first attempt, so a re-run can only settle (Codex R2 findings 1-2)', () => {
+    const firstAttempt = (text: string) => /^\s+if: (?:always\(\) && )?github\.run_attempt == '1' && /m.test(text);
+    expect(firstAttempt(byJob.run), 'run').toBe(true);
+    let posts = 0;
+    for (const [name, job] of Object.entries(byJob)) {
+      const [head, ...steps] = job.split('\n      - ');
+      for (const step of steps.filter((s) => /WEBHOOK_URL|chat-post\.mjs post /.test(s))) {
+        posts += 1;
+        expect(firstAttempt(head) || firstAttempt(step), `${name}: ${step.split('\n')[0]}`).toBe(true);
+      }
+    }
+    expect(posts).toBe(1);
+  });
+
+  it('takes every delivery guard from inputs and context outputs, never the context artifact', () => {
+    expect(byJob.context).toContain('message_url: ${{ steps.thread.outputs.message_url }}');
+    const delivery = Object.entries(byJob).filter(([name]) => name !== 'context' && name !== 'run').map(([, job]) => job).join('\n');
+    expect(delivery).not.toMatch(/name: chat-context|--context /);
+    expect(delivery).toMatch(/chat-post\.mjs finish [^\n]*--reply-thread-id "\$REPLY_THREAD_ID" --message-url "\$MESSAGE_URL"/);
+    expect(delivery).toMatch(/chat-post\.mjs post [^\n]*--message-url "\$MESSAGE_URL"/);
+  });
+
   it('gives Tree no push, dispatch or PAT rights (read-mostly)', () => {
     if (bot !== 'tree') return;
     expect(byJob.run).not.toMatch(/SOCIAL_POSTER_PAT|expose_dispatch_token|Bash\(git/);

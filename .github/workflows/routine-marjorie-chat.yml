@@ -6,15 +6,21 @@
 # Four jobs, secrets split by environment so the agent never holds one:
 #   context (social)  reads the message and its conversation with the bot
 #                     token, starts the reply thread for a top-level message,
-#                     and stops a duplicate run (message already ✅/❌).
+#                     and stops a duplicate run (message already ✅/❌). Its
+#                     outputs (reply thread, message link) outlive artifacts.
 #   run (template)    Opus reads .scratch/chat-context.json, acts inside the
 #                     authority list in its prompt, and saves its reply under
 #                     .scratch/out/. No Discord secret is passed to it.
-#   post (ops)        posts the reply, or `[chat failed] <run url>`, through
+#   post (ops)        posts the reply, when one was saved, through
 #                     DISCORD_MARJORIE_WEBHOOK_URL, which exists only in `ops`.
-#   finish (social)   ✅/❌ on the founder's message, `[chat failed]` with the
-#                     bot token when `post` itself died, and the `💬 chat:`
-#                     turn-log comment on the day's brief issue.
+#                     It never posts [chat failed].
+#   finish (social)   reads Discord (scripts/marjorie/lib/chat-delivery.mjs):
+#                     ✅ for a reply; otherwise one bot-token `[chat failed]`
+#                     notice (unless one is already there), then ❌; then the
+#                     `💬 chat:` turn-log comment on the day's brief issue.
+# `run` and `post` run only on a run's first attempt (github.run_attempt), so
+# "Re-run failed jobs" never repeats Marjorie's actions or a post: a re-run
+# only lets `finish` settle what Discord already shows.
 # Every secret-holding job checks out ref main and runs only repo code; the
 # agent's reply reaches them as an artifact read as text, and `finish`
 # deletes both artifacts (public repo — they hold founder messages). `force_fail` skips
@@ -76,6 +82,7 @@ jobs:
     outputs:
       skip: ${{ steps.thread.outputs.skip }}
       reply_thread_id: ${{ steps.thread.outputs.reply_thread_id }}
+      message_url: ${{ steps.thread.outputs.message_url }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -104,7 +111,7 @@ jobs:
 
   run:
     needs: context
-    if: needs.context.outputs.skip != 'true' && !inputs.force_fail
+    if: github.run_attempt == '1' && needs.context.outputs.skip != 'true' && !inputs.force_fail
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Marjorie — chat"
@@ -124,7 +131,7 @@ jobs:
 
   post:
     needs: [context, run]
-    if: always() && needs.context.result == 'success' && needs.context.outputs.skip != 'true'
+    if: always() && github.run_attempt == '1' && needs.context.result == 'success' && needs.context.outputs.skip != 'true'
     runs-on: ubuntu-latest
     environment: ops
     timeout-minutes: 5
@@ -139,23 +146,19 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - uses: actions/download-artifact@v4
-        with:
-          name: chat-context
-          path: .scratch
       - name: Fetch the reply (absent when the agent was skipped or saved none)
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: chat-reply
           path: .scratch/out
-      - name: Post the reply, or [chat failed]
+      - name: Post the reply, when there is one
         id: post
         env:
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: node scripts/marjorie/chat-post.mjs post --bot marjorie --context .scratch/chat-context.json --reply-dir .scratch/out --thread-id "$REPLY_THREAD_ID" --run-url "$RUN_URL"
+          MESSAGE_URL: ${{ needs.context.outputs.message_url }}
+        run: node scripts/marjorie/chat-post.mjs post --bot marjorie --reply-dir .scratch/out --thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL"
 
   finish:
     needs: [context, run, post]
@@ -174,12 +177,6 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Fetch the context
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: chat-context
-          path: .scratch
       - name: Fetch the reply summary
         continue-on-error: true
         uses: actions/download-artifact@v4
@@ -195,9 +192,10 @@ jobs:
           CHANNEL_ID: ${{ inputs.channel_id }}
           THREAD_ID: ${{ inputs.thread_id }}
           REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
+          MESSAGE_URL: ${{ needs.context.outputs.message_url }}
           POST_RESULT: ${{ needs.post.outputs.result }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: node scripts/marjorie/chat-post.mjs finish --bot marjorie --message-id "$MESSAGE_ID" --channel-id "$CHANNEL_ID" --source-thread-id "$THREAD_ID" --thread-id "$REPLY_THREAD_ID" --post-result "$POST_RESULT" --context .scratch/chat-context.json --reply-dir .scratch/out --run-url "$RUN_URL"
+        run: node scripts/marjorie/chat-post.mjs finish --bot marjorie --message-id "$MESSAGE_ID" --channel-id "$CHANNEL_ID" --source-thread-id "$THREAD_ID" --reply-thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL" --post-result "$POST_RESULT" --reply-dir .scratch/out --run-url "$RUN_URL"
 
       # This repo is public, and a public run's artifacts are downloadable by
       # any signed-in GitHub user. The context and reply carry founder

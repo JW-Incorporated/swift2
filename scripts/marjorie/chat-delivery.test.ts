@@ -6,11 +6,13 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
+import { poll } from './chat-poll.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
 import { finish, postCmd } from './chat-post.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { classifyDelivery, failureBody, linksTo, readDeliveryState } from './lib/chat-delivery.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { FAILURE_PREFIX, isFailureNotice, selectInbox } from './lib/chat-inbox.mjs';
+import { FAILURE_PREFIX, isFailureNotice, runTitle, selectInbox } from './lib/chat-inbox.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { DISCORD_API } from './lib/discord-bot.mjs';
 
@@ -208,5 +210,51 @@ describe('finding 3 — never a second failure notice', () => {
     const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀'))), [after(MARJ)]: res(200, [notice('1000000000000000010')]), [react(MARJ, '❌')]: res(204) });
     expect(await finish(rerun('marjorie', MARJ), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
     expect(d.writes()).toEqual([react(MARJ, '❌')]);
+  });
+});
+
+/** One real poll over #longlive-marjorie holding one stale claim (an hour old, its run finished). */
+const HOOK = 'https://discord.com/api/webhooks/1/secret-token';
+const stale = founder(MID, mine('👀'));
+async function pollWith(routes: Record<string, unknown>) {
+  const d = discord({
+    [`GET ${HOOK}`]: res(200, { guild_id: GUILD, channel_id: TREE }),
+    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'longlive-marjorie' }, { id: TREE, name: 'longlive-tree' }]),
+    [`GET ${DISCORD_API}/guilds/${GUILD}/threads/active`]: res(200, { threads: [] }),
+    [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100`]: res(200, [stale]),
+    [get(MARJ)]: res(200, stale),
+    ...routes,
+  });
+  const runs = [{ displayTitle: runTitle('marjorie', MID), status: 'completed', conclusion: 'failure', url: RUN }];
+  const execImpl = vi.fn((_cmd: string, args: string[]) => (args[0] === 'run' ? JSON.stringify(runs) : ''));
+  const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
+  const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml' });
+  return { code, writes: d.writes(), dispatched: execImpl.mock.calls.filter((c) => c[1][0] === 'workflow').length };
+}
+
+describe('finding 3 (a) at the poll — finish posted the notice, then ❌ was refused', () => {
+  it('the next poll sees the bot notice and adds ❌ only', async () => {
+    const sent = { ...notice('1000000000000000010'), ...failureBody(MID, RUN) };
+    const out = await pollWith({ [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100`]: res(200, [sent, stale]), [after(MARJ)]: res(200, [sent]), [react(MARJ, '❌')]: res(204) });
+    expect(out).toEqual({ code: 0, writes: [react(MARJ, '❌')], dispatched: 0 });
+  });
+});
+
+describe('finding 4 — reply sent, ✅ failed; 45 minutes later the poll reconciles', () => {
+  it('a reply in the thread started on the message → ✅, never [chat failed] beside it', async () => {
+    const out = await pollWith({ [after(MARJ)]: res(200, []), [after(MID)]: res(200, [hook('1000000000000000010')]), [react(MARJ, '✅')]: res(204) });
+    expect(out).toEqual({ code: 0, writes: [react(MARJ, '✅')], dispatched: 0 });
+  });
+
+  it('a top-level ↪ reply (Discord refused the thread) → ✅ as well', async () => {
+    const out = await pollWith({ [after(MARJ)]: res(200, [hook('1000000000000000010', 'Marjorie', `↪ ${URL}\nanswer`)]), [react(MARJ, '✅')]: res(204) });
+    expect(out).toEqual({ code: 0, writes: [react(MARJ, '✅')], dispatched: 0 });
+  });
+
+  it('nothing delivered → one notice then ❌; an unreadable reply thread → nothing sent and the poll fails', async () => {
+    const open = await pollWith({ [after(MARJ)]: res(200, []), [say(MARJ)]: res(200, { id: '1000000000000000010' }), [react(MARJ, '❌')]: res(204) });
+    expect(open).toEqual({ code: 0, writes: [say(MARJ), react(MARJ, '❌')], dispatched: 0 });
+    const unreadable = await pollWith({ [after(MARJ)]: res(200, []), [after(MID)]: res(502, {}) });
+    expect(unreadable).toEqual({ code: 1, writes: [], dispatched: 0 });
   });
 });
