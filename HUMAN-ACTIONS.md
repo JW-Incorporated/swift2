@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -16,18 +16,6 @@
 3. Save.
 **Worked if:** A workflow_dispatch run of marjorie-reply-poll.yml, after a founder thread reply, posts it as a comment on the founders-brief issue, not a 403/warning.
 
-## #68 🟢 [UPGRADE] Freeze, merge PR #4202 (social-poster alert reroute), unfreeze (~10 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** PR #4202 (Marjorie Overhaul C3 follow-up) reroutes social-poster.yml's failure alert through upsert-alert.sh. CI's build-full blocks it while the social posting freeze is off (RULINGS-SOCIAL A6) — routine, matches the #60/#65 precedent, not urgent.
-**Steps:**
-1. Confirm PR #4202's body shows the Marjorie C3 PR already merged to main — if not yet, wait, this isn't ready.
-2. github.com/JW-Incorporated/swift2/settings/variables/actions → SOCIAL_FREEZE → Update → value `true` → Save.
-3. On PR #4202, click "Ready for review" (it's a draft), then re-run the failed build-full check.
-4. Once green, merge PR #4202 (squash).
-5. Unfreeze once the standard post-merge conditions are met (docs/social/RULINGS-SOCIAL-2.md B4) — set SOCIAL_FREEZE back to `false` the same way as step 2.
-**Worked if:** PR #4202 is merged to main.
-
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->
 
@@ -40,17 +28,6 @@
 
 **Worked if:** a forced social-poster.yml permanent-failure run posts to #longlive-marjorie directly, with no [discord failed] email.
 
-## #64 🟡 [DECIDE] X per-post metrics need a paid API tier (~5 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** Tree Overhaul T3 (per-post engagement): X retired free per-post metric reads; every call is now metered (~$0.005/post-read). Backfilling the current posted X items would run ~$0.45 once, plus pennies/day ongoing. Spend decisions are yours, not built without one.
-
-**Steps:**
-1. Check the X Developer Portal → Products → Billing for the current pay-per-use per-post read price (confirm ~$0.005/read still holds).
-2. Decide: approve ongoing per-post X metric reads (~$0.45 backfill + pennies/day), or decline and stay Instagram-only (v1 ships either way).
-
-**Worked if:** you reply approved or declined for X per-post metric spend.
-
 ## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
 <!-- ha filed=2026-09-12 -->
 
@@ -62,18 +39,6 @@
 3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
 
 **Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
-
-## #57 🟡 [DECIDE] Stale git worktrees — 259 registered, 73 hidden inside the Projects tree (~30 min)
-<!-- ha filed=2026-09-11 kind=default -->
-
-**Why:** a research pass found `git worktree list` returns 259 registered worktrees repo-wide, and `git worktree prune --dry-run` reports 0 prunable — meaning all 259 directories still physically exist on disk. 73 of them live under `.claude/worktrees/` INSIDE `Documents\Claude\Projects\Swift2` itself, hidde
-
-**Steps:**
-1. Run `git worktree list` to review what's there.
-2. For anything safe to remove, `git worktree remove <path>` per entry (this command refuses if a checkout is dirty, so it fails safe rather than silently discarding work).
-3. Once entries are removed, `git worktree prune` to clean the registry.
-
-**Worked if:** `git worktree list` count drops substantially and disk space is reclaimed, with no lost work.
 
 ---
 
