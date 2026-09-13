@@ -3863,7 +3863,7 @@ export default {
           },
           {
             outlet: 'Taylor Swift Official Store',
-            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
+            url: 'http://web.archive.org/web/20251113230952/https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
             source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
             publisher: 'Taylor Swift Official Store',
             source_type: 'official',
