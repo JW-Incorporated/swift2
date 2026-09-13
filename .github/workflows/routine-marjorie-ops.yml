@@ -108,6 +108,7 @@ jobs:
       timeout_minutes: 30
       max_turns: 60
       checkout_token_secret: SOCIAL_POSTER_PAT
+      expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

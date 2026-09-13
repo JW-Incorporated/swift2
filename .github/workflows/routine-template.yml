@@ -75,6 +75,39 @@ on:
         required: false
         type: string
         default: ""
+      expose_dispatch_token:
+        description: |
+          Opt-in (default false). When true, exposes the job's own
+          checkout_token_secret to the agent's shell as `GH_DISPATCH_TOKEN`
+          (issue #4223: claude-code-action@v1 mints its own claude[bot]
+          GitHub App installation token via OIDC exchange for the agent's
+          normal `gh`/git identity, and that installation token does NOT
+          carry the caller workflow's own `permissions:` block — e.g.
+          `actions: write` — so a bare `gh workflow run` inside the agent
+          403s regardless of what the job declares). Deliberately does NOT
+          change the agent's default `gh`/git identity (still claude[bot],
+          via claude-code-action's own OIDC path) — only the routine's
+          prompt file opts specific commands into `GH_DISPATCH_TOKEN` by
+          prefixing them (`GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run
+          ...`), so issue/PR comments keep authoring as claude[bot] and
+          every viewerDidAuthor-based handled-marker check
+          (scripts/marjorie/lib/alert-router.mjs) keeps working unchanged
+          against historical comments — switching the agent's whole identity
+          was tried and reverted (2026-09-13 review of this same fix) because
+          it invalidates every marker posted under the old identity, risking
+          duplicate escalations/dispatches. Only meaningful when
+          checkout_token_secret is 'SOCIAL_POSTER_PAT' — the default
+          GITHUB_TOKEN path has no more Actions permissions than the
+          installation token already lacked (Codex round-2 review of #4223:
+          GH_DISPATCH_TOKEN is NOT empty in that case, it's a nonempty but
+          under-permissioned GITHUB_TOKEN, so `gh workflow run` still 403s,
+          just via a different token — not a silent no-op). Only
+          routine-marjorie-ops.yml sets this true, always paired with
+          checkout_token_secret: SOCIAL_POSTER_PAT; every other routine must
+          be unaffected.
+        required: false
+        type: boolean
+        default: false
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
@@ -155,6 +188,7 @@ jobs:
           claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}"
         env:
           GH_TOKEN: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
+          GH_DISPATCH_TOKEN: ${{ inputs.expose_dispatch_token && (inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN) || '' }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
