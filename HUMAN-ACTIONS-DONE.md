@@ -3,6 +3,9 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #68 · 2026-09-13 · done · Freeze, merge PR #4202 (social-poster alert reroute), unfreeze — "PR #4202 MERGED; SOCIAL_FREEZE verified false via gh variable list" · by agent
+- #64 · 2026-09-12 · done · X per-post metrics need a paid API tier — "closed via Discord reply" · by discord
+- #57 · 2026-09-12 · done · Stale git worktrees — 259 registered, 73 hidden inside the Projects tree — "closed via Discord reply" · by discord
 - #66 · 2026-09-12 · done · Create a Discord webhook for #longlive-marjorie and deposit it in a new `ops` environment — "closed via Discord reply" · by discord
 - #61 · 2026-09-12 · done · Set SOCIAL_FREEZE=false — Wave 3 of the Tree Overhaul is fully merged — "verified false via `gh variable list` (updated_at 2026-09-12T15:43:52Z); the Worked-if predicate is objectively met" · by owner
 - #62 · 2026-09-12 · done · File the T7/Codex SOCIAL_FREEZE workflow-wiring finding as a GitHub issue — "issue #4169 exists and is OPEN with the exact required title; the guard false-positive was worked around by filing from a body file" · by agent
