@@ -54,11 +54,23 @@ jobs:
           printf -- '**Tree**\n- For Tree: [L1 check] Tree: comment seen on this synthetic ask and close it (run %s)\n' "$RUN_ID" > /tmp/brief.md
           for pass in 1 2; do
             echo "── pass $pass"
-            node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/plan.json --pr 0 --pr-url "$RUN_URL" --out /tmp/loop.json
+            # GitHub's list endpoints (search and REST) lag a new issue by
+            # seconds (#4253, #4259); production filings are serialized and
+            # seconds-to-minutes apart, so pass 2 tests that timescale — same
+            # reason the upsert-alert mode below sleeps 45s.
+            if [ "$pass" = 2 ]; then sleep 45; fi
+            node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/plan.json --pr 0 --pr-url "$RUN_URL" --out /tmp/loop.json | tee "/tmp/pass$pass.log"
             cp /tmp/brief.md /tmp/brief-pass.md
-            node scripts/marjorie/loop-asks.mjs file-marjorie --issue 0 --issue-url "$RUN_URL" --body-file /tmp/brief-pass.md --out /tmp/brief-pass.md --no-edit
+            node scripts/marjorie/loop-asks.mjs file-marjorie --issue 0 --issue-url "$RUN_URL" --body-file /tmp/brief-pass.md --out /tmp/brief-pass.md --no-edit | tee -a "/tmp/pass$pass.log"
             cat /tmp/loop.json /tmp/brief-pass.md
           done
+          ALREADY=$(grep -c '^loop-asks: already filed #' /tmp/pass2.log || true)
+          FILED=$(grep -c '^loop-asks: filed #' /tmp/pass2.log || true)
+          if [ "$ALREADY" != "2" ] || [ "$FILED" != "0" ]; then
+            echo "::error::pass 2 idempotency check failed — already filed=$ALREADY (want 2), filed=$FILED (want 0)"
+            exit 1
+          fi
+          echo "PASS: pass 2 filed nothing new (already filed=$ALREADY, filed=$FILED)"
       - name: Synthetic watchdog-alert open+close
         if: ${{ inputs.mode == 'upsert-alert' }}
         run: |

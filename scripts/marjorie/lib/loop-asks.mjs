@@ -109,23 +109,29 @@ export function neutralizeAt(text) {
   return String(text ?? '').replace(/@(?=[A-Za-z0-9-])/g, '@\u200b');
 }
 
-/** Tree's asks from calendar.brief.json. Entries without ask text are
- * counted as `invalid`; valid ones past the cap are counted as `overCap`
- * and not filed — the brief says so rather than dropping them silently. */
+/** Tree's asks from calendar.brief.json. Invalid entries lack ask text;
+ * duplicates (same normalized text) are merged before the cap, so they
+ * never consume a slot; valid ones past the cap are `overCap`, not filed —
+ * the brief says so rather than dropping them silently. */
 export function parseTreeAsks(plan) {
   const raw = Array.isArray(plan?.needsFromMarjorie) ? plan.needsFromMarjorie : [];
   const valid = [];
+  const seen = new Set();
   let invalid = 0;
+  let duplicates = 0;
   for (const entry of raw) {
     const ask = truncate(clean(entry?.ask), MAX_ASK_CHARS);
     if (!ask) {
       invalid += 1;
       continue;
     }
+    const dedupeKey = clean(ask).toLowerCase();
+    if (seen.has(dedupeKey)) { duplicates += 1; continue; }
+    seen.add(dedupeKey);
     valid.push({ ask, why: truncate(clean(entry?.why), MAX_ASK_CHARS), contradicts: positiveInt(entry?.contradicts) });
   }
   const { max } = SIDES.tree;
-  return { asks: valid.slice(0, max), overCap: Math.max(valid.length - max, 0), invalid };
+  return { asks: valid.slice(0, max), overCap: Math.max(valid.length - max, 0), invalid, duplicates };
 }
 
 /** Marjorie's ask from the brief body's first `- For Tree:` line.

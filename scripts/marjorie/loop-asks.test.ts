@@ -96,4 +96,17 @@ describe('CLI', () => {
     log.mockRestore();
     expect(JSON.parse(readFileSync(out, 'utf8')).lines[1]).toBe('- Nothing this week.');
   });
+
+  it('file-tree merges two asks that differ only by case/whitespace and files once', async () => {
+    const planFile = path.join(dir, 'plan-dupe.json');
+    writeFileSync(planFile, JSON.stringify({ needsFromMarjorie: [{ ask: 'Fix the run' }, { ask: '  fix   the run  ' }] }));
+    const out = path.join(dir, 'loop-dupe.json');
+    const { gh, calls } = fakeGh([]);
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    await fileTree({ plan: planFile, pr: '4300', 'pr-url': 'u', out }, { gh, now: NOW });
+    log.mockRestore();
+    expect(calls.filter((c) => c[1] === 'create')).toHaveLength(1);
+    const { lines } = JSON.parse(readFileSync(out, 'utf8'));
+    expect(lines.filter((l: string) => l.startsWith('- [#'))).toHaveLength(1);
+  });
 });
