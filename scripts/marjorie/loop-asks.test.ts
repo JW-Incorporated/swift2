@@ -1,9 +1,11 @@
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { fileMarjorie, fileTree } from './loop-asks.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { fileAsk } from './lib/loop-asks.mjs';
 
 const NOW = Date.parse('2026-09-14T12:00:00Z');
 const URL_4301 = 'https://github.com/JW-Incorporated/swift2/issues/4301';
@@ -52,6 +54,38 @@ describe('CLI', () => {
     expect(code).toBe(0);
     expect(readFileSync(bodyFile, 'utf8')).toBe('**Tree**\n- For Tree: fix the /shop pair\n');
     log.mockRestore();
+  });
+
+  it('file-marjorie handles a CRLF brief: files the ask and keeps the CRLF endings (Codex round 2)', async () => {
+    const CRLF = String.fromCharCode(13, 10);
+    const bodyFile = path.join(dir, 'brief-crlf.md');
+    writeFileSync(bodyFile, ['**Tree**', '- For Tree: fix the /shop pair', '**Distance to done**', ''].join(CRLF));
+    const { gh, calls } = fakeGh([]);
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    await fileMarjorie({ issue: '4280', 'issue-url': 'u', 'body-file': bodyFile, out: bodyFile }, { gh });
+    log.mockRestore();
+    expect(calls.some((c) => c[1] === 'create')).toBe(true);
+    expect(readFileSync(bodyFile, 'utf8')).toBe(['**Tree**', `- For Tree: fix the /shop pair → [#4301](<${URL_4301}>)`, '**Distance to done**', ''].join(CRLF));
+  });
+
+  it('file-marjorie replaces the out file atomically — no temp file left behind (Codex round 2)', async () => {
+    const bodyFile = path.join(dir, 'brief-atomic.md');
+    writeFileSync(bodyFile, '**Tree**\n- For Tree: fix the /shop pair\n');
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    await fileMarjorie({ issue: '4280', 'issue-url': 'u', 'body-file': bodyFile, out: bodyFile }, { gh: fakeGh([]).gh });
+    log.mockRestore();
+    expect(readdirSync(dir).filter((f) => f.includes('.tmp-'))).toEqual([]);
+    expect(readFileSync(bodyFile, 'utf8')).toContain('→ [#4301]');
+  });
+
+  it('a settled gh call leaves no timeout timer pending (Codex round 2)', async () => {
+    vi.useFakeTimers();
+    try {
+      await fileAsk('tree', { ask: 'x', why: '', contradicts: null }, { sourceNumber: 1, sourceUrl: 'u', gh: fakeGh([]).gh });
+      expect(vi.getTimerCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('file-tree writes the brief block even when the plan file is unreadable', async () => {

@@ -7,7 +7,7 @@
 // A GitHub failure is a ::warning:: and exit 0 — a failed filing must never
 // stop a brief from going out. Only bad usage (or an unreadable input file)
 // exits non-zero, and both workflows guard that with `|| echo ::warning::`.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun } from '../lib/gh.mjs';
 import {
@@ -21,6 +21,14 @@ const USAGE =
 
 function warn(message) {
   console.log(`::warning::loop-asks: ${message}`);
+}
+
+// Temp file + rename, so `timeout 120` killing the process mid-write can
+// never leave the brief body the workflow is about to post truncated.
+function writeAtomic(file, text) {
+  const tmp = `${file}.tmp-${process.pid}`;
+  writeFileSync(tmp, text);
+  renameSync(tmp, file);
 }
 
 export function parseArgs(argv) {
@@ -80,7 +88,7 @@ export async function fileTree(flags, { gh = ghRun, now = Date.now() } = {}) {
 
   const lines = renderTreeBriefBlock({ filed, failed, overCap, incoming });
   const summary = filed.map(({ number, url, created }) => ({ number, url, created }));
-  writeFileSync(flags.out, `${JSON.stringify({ lines, filed: summary }, null, 2)}\n`);
+  writeAtomic(flags.out, `${JSON.stringify({ lines, filed: summary }, null, 2)}\n`);
   console.log(`loop-asks: tree — ${summary.filter((f) => f.created).length} filed, ${summary.filter((f) => !f.created).length} already filed, ${failed} failed, ${incoming.length} from Marjorie`);
   return 0;
 }
@@ -91,6 +99,7 @@ export async function fileMarjorie(flags, { gh = ghRun, timeoutMs } = {}) {
   const body = readFileSync(flags['body-file'], 'utf8');
   const parsed = parseMarjorieAsk(body);
   let out = body;
+  let written = false;
 
   if (!parsed.line) {
     console.log('loop-asks: no "- For Tree:" line in the brief — nothing to file.');
@@ -104,7 +113,8 @@ export async function fileMarjorie(flags, { gh = ghRun, timeoutMs } = {}) {
       console.log(`loop-asks: ${filing.created ? 'filed' : 'already filed'} #${filing.number} (Marjorie → Tree)`);
       out = rewriteForTreeLine(body, filing);
       // Written before the brief edit, so a hang there can't lose the number.
-      writeFileSync(flags.out, out);
+      writeAtomic(flags.out, out);
+      written = true;
       if (!flags['no-edit']) {
         try {
           await gh(['issue', 'edit', String(flags.issue), '--repo', repo, '--body', out]);
@@ -117,7 +127,7 @@ export async function fileMarjorie(flags, { gh = ghRun, timeoutMs } = {}) {
     }
   }
 
-  writeFileSync(flags.out, out);
+  if (!written) writeAtomic(flags.out, out);
   return 0;
 }
 

@@ -52,13 +52,21 @@ const TITLE_PREFIX_RE = /^(Tree|Marjorie) → (Tree|Marjorie): /;
  * never be mistaken for the real slot. Shared so parseMarjorieAsk and
  * rewriteForTreeLine always agree on which line that is. */
 function forTreeSlotIndex(lines) {
-  const start = lines.indexOf(TREE_HEADING);
+  const start = lines.findIndex((l) => stripCr(l) === TREE_HEADING);
   if (start === -1) return -1;
   for (let i = start + 1; i < lines.length; i += 1) {
-    if (lines[i].startsWith('**')) return -1;
-    if (FOR_TREE_RE.test(lines[i])) return i;
+    const line = stripCr(lines[i]);
+    if (line.startsWith('**')) return -1;
+    if (FOR_TREE_RE.test(line)) return i;
   }
   return -1;
+}
+
+// A brief body can arrive with CRLF endings (Codex round 2): match on the
+// line without its CR, and keep the CR when rewriting so endings don't change.
+const CR = String.fromCharCode(13);
+function stripCr(line) {
+  return line.endsWith(CR) ? line.slice(0, -1) : line;
 }
 
 /** Ask/why text is rendered into an issue body BEFORE the canonical marker
@@ -73,10 +81,13 @@ function neutralizeMarker(text) {
  * budget — `gh()` in scripts/lib/gh.mjs has no timeout on its REST fallback
  * path, so this races the call itself rather than passing one through. */
 function withTimeout(promise, ms, label) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) => setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms)),
-  ]);
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  // Cleared on settle: a pending 30 s timer would otherwise hold the process
+  // open long after a fast filing finished (Codex round 2).
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
 function clean(text) {
@@ -122,7 +133,7 @@ export function parseMarjorieAsk(body) {
   const lines = String(body ?? '').split('\n');
   const idx = forTreeSlotIndex(lines);
   if (idx === -1) return { line: null, ask: null, filed: null };
-  const line = lines[idx];
+  const line = stripCr(lines[idx]);
   const rest = line.match(FOR_TREE_RE)[1].trim();
   const filed = rest.match(FILED_RE);
   if (filed) return { line, ask: null, filed: Number(filed[1]) };
@@ -213,7 +224,7 @@ export function rewriteForTreeLine(body, filing) {
   const lines = String(body).split('\n');
   const idx = forTreeSlotIndex(lines);
   if (idx === -1) return String(body);
-  lines[idx] = `- For Tree: ${neutralizeAt(filing.ask.ask)} → [#${filing.number}](<${filing.url}>)${contradictsSuffix(filing.ask.contradicts)}`;
+  lines[idx] = `- For Tree: ${neutralizeAt(filing.ask.ask)} → [#${filing.number}](<${filing.url}>)${contradictsSuffix(filing.ask.contradicts)}${lines[idx].endsWith(CR) ? CR : ''}`;
   return lines.join('\n');
 }
 

@@ -118,7 +118,7 @@ files a new issue.
 couldn't be filed — see the send-brief log`. Marjorie's line keeps the
 unfiled ask text, so the next day's re-read still sees it. Each `gh` call is
 capped at 30 s, the step runs under `timeout 120`, and `deliver` has a
-concurrency group so two deliveries of one brief cannot both file.
+concurrency group so two deliveries of one brief cannot both file. Output files are replaced atomically, and CRLF bodies parse.
 
 **Receiving side, prompt-level (judgment).** Tree's weekly run gets a new step
 0.7: read each open `marjorie-filed` + `desk:tree` issue with its comments
