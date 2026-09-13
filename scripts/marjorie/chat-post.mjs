@@ -109,7 +109,10 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
 
 /** The text to post, and what posting it means. A reply over the cap is cut with a link to the run, which keeps the full file. */
 export function composePost({ reply, runUrl, messageUrl, threadId }) {
-  let body = String(reply || '').trim();
+  // social-approval-poll.mjs reads a message's last line against `^ref: PR #…`
+  // and `^ref: reddit · …`; a zero-width space means no chat reply line ever
+  // parses as an approval prompt's ref line.
+  let body = String(reply || '').trim().replace(/^(\s*)ref:/gim, '$1​ref:');
   const result = body ? 'replied' : 'failed-posted';
   if (!body) {
     body = `[chat failed] ${runUrl}`;

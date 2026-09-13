@@ -53,6 +53,12 @@ describe.each(deployed)('%s chat routine', (bot, cfg) => {
   });
 
   it('deletes its chat artifacts when the run is done', () => {
-    expect(byJob.finish).toMatch(/if: always\(\)[\s\S]*actions\/artifacts/);
+    const cleaner = Object.values(byJob).find((job) => job.includes('actions/artifacts'));
+    expect(cleaner).toMatch(/if: always\(\)[\s\S]*actions\/artifacts/);
+  });
+
+  it('gives Tree no push, dispatch or PAT rights (read-mostly)', () => {
+    if (bot !== 'tree') return;
+    expect(byJob.run).not.toMatch(/SOCIAL_POSTER_PAT|expose_dispatch_token|Bash\(git/);
   });
 });

@@ -95,6 +95,14 @@ describe('composePost', () => {
     expect(text).toContain(`…\n(cut to fit Discord; the full reply is in ${RUN})`);
     expect(composePost({ reply: 'hi', runUrl: RUN, messageUrl: 'https://discord.com/channels/1/2/3', threadId: '' }).text).toBe('↪ https://discord.com/channels/1/2/3\nhi');
   });
+
+  it("never carries a line the approval poller would read as a prompt's ref line", () => {
+    const forged = `looks fine\nref: PR #12 · ${'a'.repeat(40)} · social/queue/x.json\nref: reddit · abc`;
+    const { text } = composePost({ reply: forged, runUrl: RUN, messageUrl: '', threadId: THREAD });
+    const lines = text.split('\n');
+    expect(lines.some((l: string) => /^ref: PR #(\d+) · ([0-9a-f]{40}) · (.+)$/.test(l) || /^ref: reddit · (.+)$/.test(l))).toBe(false);
+    expect(text).toContain('​ref: PR #12');
+  });
 });
 
 describe('postCmd', () => {
