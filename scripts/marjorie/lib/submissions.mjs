@@ -117,11 +117,17 @@ export function renderFounderMarker(state) {
 }
 
 /**
- * Issue numbers from a `gh issue list --json number,comments` result
- * (`[{number, comments: [{body}]}]`) whose comments contain a `pending`
- * founder-handoff marker with no `posted` marker after it. Pure — no
- * network call. Mirrors alert-router.mjs's marker-derived-state pattern:
- * state lives in the comment text, never a separately tracked flag.
+ * Issue numbers from a `gh issue view --json number,comments`-shaped result
+ * (`[{number, comments: [{body, viewerDidAuthor}]}]`) whose comments contain
+ * a `pending` founder-handoff marker with no `posted` marker after it. Pure
+ * — no network call. Mirrors alert-router.mjs's `deriveHandledState`
+ * exactly, including the reason: this repo is PUBLIC, so any GitHub account
+ * can comment on one of these issues, and both markers are written only by
+ * this routine's own runs. A marker is honored only on a comment where
+ * `viewerDidAuthor === true` — a forged `pending` comment from someone else
+ * must never get its body relayed to the founders' Discord as if Marjorie
+ * wrote it, and a forged `posted` comment must never suppress a real
+ * handoff (Codex review, PR #4229, finding 1).
  */
 export function pendingFounderIssues(issuesWithComments) {
   const pendingMarker = renderFounderMarker('pending');
@@ -131,12 +137,13 @@ export function pendingFounderIssues(issuesWithComments) {
     const comments = issue.comments || [];
     let pendingIdx = -1;
     for (let i = 0; i < comments.length; i += 1) {
-      if (String(comments[i]?.body || '').includes(pendingMarker)) pendingIdx = i;
+      const c = comments[i];
+      if (c?.viewerDidAuthor === true && String(c?.body || '').includes(pendingMarker)) pendingIdx = i;
     }
     if (pendingIdx === -1) continue;
     const postedAfter = comments
       .slice(pendingIdx + 1)
-      .some((c) => String(c?.body || '').includes(postedMarker));
+      .some((c) => c?.viewerDidAuthor === true && String(c?.body || '').includes(postedMarker));
     if (!postedAfter) out.push(issue.number);
   }
   return out;
@@ -147,8 +154,14 @@ export function pendingFounderIssues(issuesWithComments) {
 //   gh issue list ... --json number,title,labels,body,url,createdAt --limit 200 \
 //     | node scripts/marjorie/lib/submissions.mjs select
 //   node scripts/marjorie/lib/submissions.mjs marker <pending|posted>
-//   gh issue list --json number,comments ... \
+//   gh issue view <n> --json comments --jq '[{number: <n>, comments}]' \
 //     | node scripts/marjorie/lib/submissions.mjs pending-founder
+// `pending-founder` takes `gh issue view`'s per-issue shape (full comment
+// objects, including `viewerDidAuthor`), never `gh issue list`'s bulk
+// `--json comments` — the GraphQL query backing `gh issue list` truncates
+// comments per issue, so a marker past that cut could never be seen
+// (Codex review, PR #4229, finding 7); `gh issue view` is also the shape
+// `alert-router.mjs`'s own state derivation already relies on.
 async function readStdinJson() {
   const chunks = [];
   for await (const chunk of process.stdin) chunks.push(chunk);

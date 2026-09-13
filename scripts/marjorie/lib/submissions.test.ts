@@ -72,30 +72,54 @@ describe('renderFounderMarker', () => {
 });
 
 describe('pendingFounderIssues', () => {
+  const own = (body: string) => ({ viewerDidAuthor: true, body });
+  const other = (body: string) => ({ viewerDidAuthor: false, body });
+
   it('includes an issue with a pending marker and no posted marker', () => {
-    const issue = { number: 10, comments: [{ body: renderFounderMarker('pending') }] };
+    const issue = { number: 10, comments: [own(renderFounderMarker('pending'))] };
     expect(pendingFounderIssues([issue])).toEqual([10]);
   });
 
   it('excludes an issue whose pending marker is followed by a posted marker', () => {
     const issue = {
       number: 11,
-      comments: [{ body: renderFounderMarker('pending') }, { body: renderFounderMarker('posted') }],
+      comments: [own(renderFounderMarker('pending')), own(renderFounderMarker('posted'))],
     };
     expect(pendingFounderIssues([issue])).toEqual([]);
   });
 
   it('excludes an issue with no pending marker at all', () => {
-    const issue = { number: 12, comments: [{ body: 'just a regular comment' }] };
+    const issue = { number: 12, comments: [own('just a regular comment')] };
     expect(pendingFounderIssues([issue])).toEqual([]);
   });
 
   it('only returns numbers for issues that qualify, across a mixed batch', () => {
-    const pending = { number: 13, comments: [{ body: renderFounderMarker('pending') }] };
+    const pending = { number: 13, comments: [own(renderFounderMarker('pending'))] };
     const resolved = {
       number: 14,
-      comments: [{ body: renderFounderMarker('pending') }, { body: renderFounderMarker('posted') }],
+      comments: [own(renderFounderMarker('pending')), own(renderFounderMarker('posted'))],
     };
     expect(pendingFounderIssues([pending, resolved])).toEqual([13]);
+  });
+
+  // This repo is PUBLIC — any GitHub account can comment on these issues, so
+  // both markers are only trustworthy on a comment the routine's own
+  // credential authored (Codex review, PR #4229, finding 1).
+  it('ignores a forged pending marker from a comment the routine did not post', () => {
+    const issue = { number: 20, comments: [other(renderFounderMarker('pending'))] };
+    expect(pendingFounderIssues([issue])).toEqual([]);
+  });
+
+  it('does not let a forged posted marker suppress a real pending handoff', () => {
+    const issue = {
+      number: 21,
+      comments: [own(renderFounderMarker('pending')), other(renderFounderMarker('posted'))],
+    };
+    expect(pendingFounderIssues([issue])).toEqual([21]);
+  });
+
+  it('ignores a marker whose viewerDidAuthor is missing entirely, not just false', () => {
+    const issue = { number: 22, comments: [{ body: renderFounderMarker('pending') }] };
+    expect(pendingFounderIssues([issue])).toEqual([]);
   });
 });
