@@ -132,21 +132,38 @@ export function renderHandledMarker({ action, date = todayLA() } = {}) {
   return `<!-- marjorie-ops-handled date=${date} action=${action} -->`;
 }
 
+/** Strips a trailing `[bot]` suffix so two GraphQL surfaces that represent
+ * the SAME GitHub App identity differently can still compare equal.
+ * Confirmed live (2026-09-13, run 34730507147): `gh api graphql -f
+ * query='{ viewer { login } }'` returned `claude[bot]` for the exact
+ * session that had earlier posted issue comments authored `claude` (no
+ * suffix) — both are the same underlying identity, just spelled
+ * differently by two different GraphQL fields. Without this, the
+ * trusted-author check would never match its own past marker, and the
+ * routine would re-post a fresh comment every single hour forever (never
+ * a duplicate PR/dispatch — the 2026-09-13 run's own good judgment
+ * avoided that — but still a violation of "one comment per alert per
+ * 24h"). */
+function stripBotSuffix(login) {
+  return String(login || '').replace(/\[bot\]$/, '');
+}
+
 /**
  * `unhandled` / `handled-awaiting-watchdog` / `escalated` from the alert
  * issue's existing comments (oldest-to-newest order does not matter — every
  * comment is scanned). `comments` is an array of `{ author, body }` — only a
- * marker whose `author` matches `trustedAuthor` is honored, and only when
- * its `action` is a recognized member of ACTIONS; everything else (a forged
- * marker from another commenter, or an unrecognized action value) is
- * silently ignored, never treated as valid-and-dated-today. `today` is
- * injectable for tests; the real caller never overrides it, matching
- * `todayLA()`'s own contract.
+ * marker whose `author` matches `trustedAuthor` (compared with any `[bot]`
+ * suffix stripped from both sides) is honored, and only when its `action`
+ * is a recognized member of ACTIONS; everything else (a forged marker from
+ * another commenter, or an unrecognized action value) is silently ignored,
+ * never treated as valid-and-dated-today. `today` is injectable for tests;
+ * the real caller never overrides it, matching `todayLA()`'s own contract.
  */
 export function deriveHandledState(comments, { today = todayLA(), trustedAuthor = DEFAULT_TRUSTED_AUTHOR } = {}) {
   let sawToday = false;
+  const trustedAuthorNormalized = stripBotSuffix(trustedAuthor);
   for (const { author, body } of comments || []) {
-    if (author !== trustedAuthor) continue;
+    if (stripBotSuffix(author) !== trustedAuthorNormalized) continue;
     const m = MARKER_RE.exec(String(body || ''));
     if (!m) continue;
     const [, date, action] = m;

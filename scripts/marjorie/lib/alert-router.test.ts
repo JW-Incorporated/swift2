@@ -106,6 +106,27 @@ describe('deriveHandledState', () => {
     ).toBe('handled-awaiting-watchdog');
   });
 
+  it('matches a comment author with a [bot] suffix against a trustedAuthor without one (Codex-adjacent live finding, 2026-09-13)', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
+    expect(
+      deriveHandledState([{ author: 'claude', body: marker }], { trustedAuthor: 'claude[bot]' }),
+    ).toBe('escalated');
+  });
+
+  it('matches a comment author without a [bot] suffix against a trustedAuthor with one, the reverse direction', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
+    expect(
+      deriveHandledState([{ author: 'claude[bot]', body: marker }], { trustedAuthor: 'claude' }),
+    ).toBe('escalated');
+  });
+
+  it('does not let [bot]-suffix stripping make two genuinely different identities match', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
+    expect(
+      deriveHandledState([{ author: 'someone-else[bot]', body: marker }], { trustedAuthor: 'claude' }),
+    ).toBe('unhandled');
+  });
+
   it('honors a custom trustedAuthor override', () => {
     const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
     expect(
