@@ -50,20 +50,28 @@ export const ACTIONS = ['redispatch', 'comment-only', 'human-action', 'build-des
  * tomorrow" actions. */
 const PERMANENT_ACTIONS = new Set(['human-action', 'build-desk-issue', 'escalate']);
 
-/** The GitHub login every Marjorie-ops comment is actually posted under.
- * `routine-marjorie-ops.yml`'s `checkout_token_secret: SOCIAL_POSTER_PAT` is
- * not a bot account — it's the owner's own fine-grained PAT (confirmed in
- * docs/decisions.md's 2026-09-11 B1 entry: "GitHub has exactly one identity
- * for the owner (`sffan15-sys`) — the same login every agent session's
- * `gh`, every content routine's PAT, and the auto-merge actor also run
- * as"), so every `gh issue comment` Marjorie posts is authored
- * `sffan15-sys`. That is also the owner's own literal human GitHub login,
- * so trusting it is coarser than "only this routine" — a marker the owner
- * types by hand is equally honored, which is correct (the owner outranks
- * the routine regardless). Kept as an overridable default rather than a
- * bare literal so a test can supply a different identity and so the
- * workflow can override it via `MARJORIE_OPS_AUTHOR` without a code change
- * if the PAT identity is ever rotated to a different account. */
+/** Fallback trusted-author identity, used only if the CLI's `state`
+ * subcommand gets neither a `[trustedAuthor]` argument nor a
+ * `MARJORIE_OPS_AUTHOR` env var. This value has already been WRONG once in
+ * production: `routine-marjorie-ops.yml`'s `checkout_token_secret:
+ * SOCIAL_POSTER_PAT` (`sffan15-sys`, the owner's own PAT per
+ * docs/decisions.md's 2026-09-11 B1 entry) governs the initial checkout,
+ * but 2026-09-13's first successful real run posted every comment as
+ * `claude` instead — `claude-code-action` authenticates its OWN `gh`/git
+ * calls under the GitHub App installation, not the checkout PAT (confirmed
+ * via `gh auth status` in that run, see build-desk issue #4223). Do not
+ * trust this constant for anything that matters; `marjorie-ops.md` now
+ * queries `gh api graphql -f query='{ viewer { login } }'` at the start of
+ * every run — GraphQL, not the REST `/user` endpoint, because `/user`
+ * doesn't support a GitHub App installation token at all (Codex review of
+ * PR #4224 caught this: a first attempt at this fix used `gh api user`,
+ * which would likely have failed outright under the identity this routine
+ * actually runs as) — and passes the real answer as `state`'s CLI arg, so
+ * this fallback is only ever reached by a caller that skips that step
+ * (e.g. a test with no better value to supply). Kept as `'sffan15-sys'`
+ * rather than updated to `'claude'` because BOTH are guesses about a
+ * runtime detail that has already changed once — changing which wrong
+ * guess is the default fixes nothing; only the live query is reliable. */
 export const DEFAULT_TRUSTED_AUTHOR = 'sffan15-sys';
 
 // One entry per static-title row of the spec's handler table. Kept as a
@@ -198,11 +206,30 @@ the number of groups you saved, and no line says \`local copy KEPT\`.`;
 // CLI wrapper (only path the routine's Bash-only tool set can use — she has
 // no way to `import` this module directly):
 //   node scripts/marjorie/lib/alert-router.mjs match "<title>"
-//   node scripts/marjorie/lib/alert-router.mjs state < comments.json   # JSON array of {author, body}
+//   node scripts/marjorie/lib/alert-router.mjs state [trustedAuthor] < comments.json   # JSON array of {author, body}
 //   node scripts/marjorie/lib/alert-router.mjs render-fb-item <number> [date]
 //   node scripts/marjorie/lib/alert-router.mjs next-ha-number
-// `state`'s trusted author defaults to DEFAULT_TRUSTED_AUTHOR; set
-// MARJORIE_OPS_AUTHOR to override it without a code change.
+//
+// `state`'s trusted-author precedence: the `[trustedAuthor]` CLI arg, then
+// `MARJORIE_OPS_AUTHOR`, then `DEFAULT_TRUSTED_AUTHOR`. The CLI arg exists
+// because DEFAULT_TRUSTED_AUTHOR is a GUESS, and a wrong one is silent and
+// severe: 2026-09-13's real first successful run posted every comment as
+// `claude` (the GitHub App installation identity `claude-code-action` runs
+// its own `gh`/git calls under — confirmed via `gh auth status` in that
+// run's own build-desk issue #4223), not `sffan15-sys` (the
+// `checkout_token_secret` PAT, which turned out to only govern the initial
+// checkout, not the agent's own tool calls) — the value this constant
+// shipped with. A wrong trusted-author means `deriveHandledState` NEVER
+// recognizes the routine's own marker, so every future sweep reads
+// `unhandled` forever and re-files a duplicate PR/comment every single
+// hour. Rather than hardcode a second guess, `marjorie-ops.md` now has the
+// routine query `gh api graphql -f query='{ viewer { login } }'` for its
+// own real identity at the start of each run (GraphQL, not the REST
+// `/user` endpoint — `/user` doesn't support a GitHub App installation
+// token, which is exactly what this routine runs as) and pass that
+// literal answer as this CLI arg — the check is then correct by
+// construction, not by prediction, regardless of how `claude-code-action`'s
+// own auth evolves in the future.
 async function main(argv = process.argv.slice(2)) {
   const [cmd, ...rest] = argv;
   if (cmd === 'match') {
@@ -214,7 +241,7 @@ async function main(argv = process.argv.slice(2)) {
     const chunks = [];
     for await (const chunk of process.stdin) chunks.push(chunk);
     const comments = JSON.parse(Buffer.concat(chunks).toString('utf8') || '[]');
-    const trustedAuthor = process.env.MARJORIE_OPS_AUTHOR || DEFAULT_TRUSTED_AUTHOR;
+    const trustedAuthor = rest[0] || process.env.MARJORIE_OPS_AUTHOR || DEFAULT_TRUSTED_AUTHOR;
     console.log(deriveHandledState(comments, { trustedAuthor }));
     return 0;
   }
