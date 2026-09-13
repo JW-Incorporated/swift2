@@ -13,6 +13,7 @@
         "watchdog.yml opened or closed at least one alert in the window and the same alert appeared in #longlive-marjorie (run log)",
         "marjorie-inbox.yml no longer exists on main",
         "The brief's waiting-on-you section lists exactly the open HUMAN-ACTIONS.md numbers on the day it ran (compare one brief to the file at that SHA)",
+        "M4 loop, first real cycle (2026-09-14): Tree's weekly-plan brief listed open marjorie-filed #4252 under 'From Marjorie' and Tree closed it with a comment citing its plan PR; Marjorie's 09-14 brief issue Tree section has 'From Tree:' and 'For Tree:' lines; any ask either bot made that week became a tree-filed / marjorie-filed issue with no duplicate (search each label for two issues sharing one loop-ask key)",
         "M2 and M3 status per #4180"
       ]
     },

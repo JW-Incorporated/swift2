@@ -142,7 +142,8 @@ Marjorie's agent answered and closed Tree's ask. The run also caught a
 search-index lookup bug (duplicate #4253), fixed by moving lookups to the
 REST issues list (evidence on #4180). Both briefs carrying the other bot's
 issue number first happen at the 2026-09-14 runs (Tree 10:00 UTC,
-Marjorie 12:00 UTC), and MR2 verifies them.
+Marjorie 12:00 UTC). MR1 (2026-09-19) now carries an explicit check for
+that cycle, and MR2 re-checks it on 10-03.
 
 ## Why M4 waits for Tree R2
 
