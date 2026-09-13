@@ -6,14 +6,15 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #69 🔴 [BLOCKING] Grant the Discord bot View Channel + Read Message History on #longlive-marjorie (~5 min)
+## #69 🔴 [BLOCKING] Grant the Discord bot four permissions on #longlive-marjorie and #longlive-tree (~5 min)
 <!-- ha filed=2026-09-12 -->
 
-**Why:** Marjorie's reply poller (`reply-poll.mjs`) cannot see `#longlive-marjorie` yet, so no founder reply ever relays to the brief issue until the Discord bot gets channel access. The whole M2 reply-relay feature is non-functional without this — the poller silently no-ops on every run.
+**Why:** Marjorie's reply poller (`reply-poll.mjs`) cannot see `#longlive-marjorie`, so your reply to the brief thread on 2026-09-13 reached nobody — the poller silently no-ops on every run. Amended 2026-09-13: the M5 chat loop (`docs/specs/marjorie-overhaul/m5-chat.md`) also needs the bot to read, react to, and reply in BOTH bot channels; nothing in M5 can be built or proven until this is done.
 **Steps:**
 1. Discord server settings -> #longlive-marjorie -> Permissions -> find the existing Marjorie/social bot role (the one used for DISCORD_BOT_TOKEN).
-2. Grant it "View Channel" and "Read Message History" on #longlive-marjorie.
-3. Save.
+2. Grant it "View Channel", "Read Message History", "Send Messages", "Send Messages in Threads", and "Add Reactions" on #longlive-marjorie.
+3. Repeat step 2 on #longlive-tree.
+4. Save, then reply `done` to this card.
 **Worked if:** A workflow_dispatch run of marjorie-reply-poll.yml, after a founder thread reply, posts it as a comment on the founders-brief issue, not a 403/warning.
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
