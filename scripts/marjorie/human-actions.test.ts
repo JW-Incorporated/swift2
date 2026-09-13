@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { tmpdir } from 'node:os';
 // @ts-expect-error — plain .mjs module, no type declarations
 import {
   parseOpenActions,
@@ -9,6 +10,7 @@ import {
   quickWins,
   parseClosedNumbers,
   nextHumanActionNumber,
+  readNextHumanActionNumber,
 } from './human-actions.mjs';
 
 const NOW = new Date('2026-09-11T12:00:00Z').getTime();
@@ -256,5 +258,18 @@ describe('nextHumanActionNumber', () => {
 
   it('starts at 1 when both files are empty', () => {
     expect(nextHumanActionNumber('', '')).toBe(1);
+  });
+});
+
+describe('readNextHumanActionNumber', () => {
+  it('treats a genuinely missing file as empty', () => {
+    expect(readNextHumanActionNumber({ repoRoot: tmpdir(), openFile: 'does-not-exist.md', doneFile: 'also-missing.md' })).toBe(1);
+  });
+
+  it('propagates a non-ENOENT read error instead of silently treating it as empty (Codex round-2, PR #4216)', () => {
+    // Passing a directory as the "file" path throws EISDIR, not ENOENT — a
+    // broad `catch {}` here previously swallowed this and returned 1 as if
+    // no items existed at all, which could hand out an already-used number.
+    expect(() => readNextHumanActionNumber({ repoRoot: tmpdir(), openFile: '.', doneFile: 'also-missing.md' })).toThrow();
   });
 });

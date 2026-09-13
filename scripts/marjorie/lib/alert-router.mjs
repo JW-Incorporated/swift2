@@ -107,7 +107,15 @@ export function matchAlertTitle(title) {
   return hit ? hit.key : null;
 }
 
-const MARKER_RE = /<!--\s*marjorie-ops-handled\s+date=(\d{4}-\d{2}-\d{2})\s+action=([a-z-]+)[^>]*-->/;
+// No `[^>]*` before the closing `-->` (2026-09-12 Codex round-2 review of
+// PR #4216): the marker `renderHandledMarker` produces never has trailing
+// content after `action=<word>`, so that gap let a malformed value like
+// `action=escalate123` truncation-match as the valid action `escalate` —
+// `[a-z-]+` captured only the letters and the permissive `[^>]*` swallowed
+// the rest before `-->`. Requiring `\s*-->` immediately after the action
+// word means anything but an exact, closed-vocabulary value now fails to
+// match at all (caught by the `if (!m) continue` below, same as no marker).
+const MARKER_RE = /<!--\s*marjorie-ops-handled\s+date=(\d{4}-\d{2}-\d{2})\s+action=([a-z-]+)\s*-->/;
 
 /** The exact marker line Marjorie's ledger comment must contain for
  * `deriveHandledState` to recognize it. `action` must be one of ACTIONS. */

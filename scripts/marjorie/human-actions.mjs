@@ -128,8 +128,13 @@ export function nextHumanActionNumber(openMarkdown, doneMarkdown, { now = Date.n
 
 /** Filesystem-reading wrapper around `nextHumanActionNumber` — the one call
  * site an agent's Bash-only CLI can actually reach (via
- * `alert-router.mjs next-ha-number`). Missing files read as empty, matching
- * `readOpenActions`'s own "no file yet" behavior. */
+ * `alert-router.mjs next-ha-number`). A genuinely missing file (`ENOENT`)
+ * reads as empty, matching `readOpenActions`'s own "no file yet" behavior —
+ * but any OTHER read failure (permissions, the path being a directory, a
+ * transient I/O error) is rethrown rather than silently treated as "no
+ * items," which would let the allocator hand out an already-used number
+ * (2026-09-12 Codex round-2 review of PR #4216: a broad `catch {}` here
+ * reproducibly returned `1` even when both paths were directories). */
 export function readNextHumanActionNumber({
   repoRoot = ROOT,
   openFile = HUMAN_ACTIONS_PATH,
@@ -139,8 +144,9 @@ export function readNextHumanActionNumber({
   const readOrEmpty = (file) => {
     try {
       return readFileSync(path.join(repoRoot, file), 'utf8');
-    } catch {
-      return '';
+    } catch (err) {
+      if (err && err.code === 'ENOENT') return '';
+      throw err;
     }
   };
   return nextHumanActionNumber(readOrEmpty(openFile), readOrEmpty(doneFile), { now });

@@ -109,6 +109,17 @@ describe('deriveHandledState', () => {
     const body = ['```', marker, '```'].join('\n');
     expect(deriveHandledState([{ author: 'random-commenter', body }], { today: '2026-09-12' })).toBe('unhandled');
   });
+
+  it('does not truncation-match a malformed action as a valid prefix (Codex round-2, PR #4216)', () => {
+    const variants = [
+      '<!-- marjorie-ops-handled date=2026-09-12 action=escalate123 -->',
+      '<!-- marjorie-ops-handled date=2026-09-12 action=escalate_fake -->',
+      '<!-- marjorie-ops-handled date=2026-09-12 action=human-action/invalid -->',
+    ];
+    for (const body of variants) {
+      expect(deriveHandledState([trusted(body)], { today: '2026-09-12' })).toBe('unhandled');
+    }
+  });
 });
 
 describe('renderFbHumanAction', () => {
