@@ -81,8 +81,21 @@ async function discordGet(url, token, { fetchImpl = fetch, sleepImpl = defaultSl
   throw lastErr;
 }
 
+// `execFileSync`'s default `maxBuffer` is 1 MiB (Node docs) — comfortably
+// enough for a single day's founders-brief issue (short-lived, closed the
+// same day the next brief opens) under normal traffic, but `--paginate
+// --slurp` (added for round-1's pagination fix) now reads the issue's
+// FULL comment history in one call, and a long reply thread plus every
+// prior day's relay-id ledger comments could exceed 1 MiB (2026-09-12
+// Codex round-2 review of PR #4217, reproduced with 300 comments of 4,000
+// chars each). Raised, not eliminated — a truly unbounded history would
+// still need incremental/streamed reads, but this issue's lifetime is
+// bounded to ~1 day by design, so a generous static ceiling is the
+// pragmatic fix here.
+const GH_MAX_BUFFER = 20 * 1024 * 1024;
+
 function gh(execImpl, args) {
-  return execImpl('gh', args, { encoding: 'utf8' });
+  return execImpl('gh', args, { encoding: 'utf8', maxBuffer: GH_MAX_BUFFER });
 }
 
 function findBriefIssue(execImpl, repo) {
@@ -140,20 +153,33 @@ function alreadyRelayedIds(commentBodies) {
  * with more than 100 messages since the last poll would silently lose the
  * older, un-relayed ones without this. Pages backward via `before=<oldest
  * message id in the last page>` until a page comes back under 100 (the
- * whole thread has now been walked) or the oldest message in a page is
- * already known — the root itself, or an id already carrying a relay-id
- * marker — meaning everything further back has already been seen/relayed
- * and there's nothing left worth another request for.
+ * whole thread has now been walked) or the thread ROOT itself appears in
+ * the page.
+ *
+ * Only the root ends pagination early (2026-09-12 Codex round-2 review of
+ * PR #4217) — an earlier version also stopped as soon as the single oldest
+ * message in a page was already relayed, as a performance shortcut. That's
+ * unsafe: two Discord messages can share a timestamp, and this module's
+ * own `.sort()` on the reply list orders by timestamp, not id, so a
+ * same-millisecond pair can land with the already-relayed one sorted as
+ * "oldest" in a page while a still-unrelayed one sits right next to it —
+ * stopping there would bury that unrelayed neighbor forever once enough
+ * newer messages accumulate. The root, by contrast, is a fixed point every
+ * pagination walk is guaranteed to reach (or run out of pages before
+ * reaching, which also terminates the loop via `page.length === 100`
+ * going false), so checking only for it can't introduce this hole and
+ * can't loop forever either. The brief issue this polls is short-lived by
+ * design (closed the same day the next brief opens), so walking all the
+ * way to the root each time a page fills is an acceptable cost.
  */
-async function fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl, relayed }) {
+async function fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl }) {
   const first = await discordGet(`${DISCORD_API}/channels/${threadId}/messages?limit=100`, token, { fetchImpl, sleepImpl });
   if (!first) return null;
 
   const byId = new Map(first.map((m) => [m.id, m]));
   let page = first;
-  while (page.length === 100) {
+  while (page.length === 100 && !page.some((m) => m.id === threadId)) {
     const oldest = page[page.length - 1];
-    if (oldest.id === threadId || relayed.has(String(oldest.id))) break;
     page = await discordGet(`${DISCORD_API}/channels/${threadId}/messages?limit=100&before=${oldest.id}`, token, { fetchImpl, sleepImpl });
     if (!page) break;
     for (const m of page) byId.set(m.id, m);
@@ -202,11 +228,9 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     return 0;
   }
 
-  const relayed = alreadyRelayedIds(commentBodies);
-
   let messages;
   try {
-    messages = await fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl, relayed });
+    messages = await fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl });
   } catch (err) {
     console.error(`::warning::reply-poll: could not fetch thread ${threadId} messages: ${err.message}`);
     return 0;
@@ -216,6 +240,7 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     return 0;
   }
 
+  const relayed = alreadyRelayedIds(commentBodies);
   const replies = messages
     .filter((m) => !isRootOrWebhookMessage(m, threadId))
     .filter((m) => !relayed.has(String(m.id)))

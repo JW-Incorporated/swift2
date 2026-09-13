@@ -131,6 +131,13 @@ describe('main()', () => {
 
     expect(exitCode).toBe(0);
     expect(execImpl).toHaveBeenCalledTimes(2);
+    // Codex round-2 (PR #4217): this test previously only exercised the
+    // flattening/dedup logic against a pre-shaped mock, so removing the
+    // actual `--paginate --slurp` flags from the real `gh api` call would
+    // still have passed it. Assert the flags are really on the request.
+    const commentsCallArgs = execImpl.mock.calls[1][1];
+    expect(commentsCallArgs).toContain('--paginate');
+    expect(commentsCallArgs).toContain('--slurp');
   });
 
   it('excludes an ordinary bot-authored message from relay', async () => {
@@ -192,6 +199,42 @@ describe('main()', () => {
     expect(execImpl).toHaveBeenCalledTimes(3);
     const postArgs = execImpl.mock.calls[2];
     expect(postArgs[1][6]).toContain('<!-- relay-id: 6666666666666666666 -->');
+  });
+
+  it('does not stop early just because a full page\'s oldest message was already relayed (Codex round-2, PR #4217)', async () => {
+    // Simulates a same-millisecond ordering tie: the page's oldest entry
+    // is already-relayed, but an unrelayed reply still sits further back.
+    // The old stop-on-relayed-oldest shortcut would have ended pagination
+    // here, permanently burying `olderUnrelayed` once enough newer
+    // messages accumulated.
+    const alreadyRelayedOldest = { id: '7777777777777777777', author: { username: 'joeyfounder' }, content: 'already handled', timestamp: '2026-09-12T14:00:00.000Z' };
+    const page1 = [
+      ...Array.from({ length: 99 }, (_, i) => ({
+        id: `p1-${i}`,
+        author: { bot: true, username: 'somebot' },
+        content: 'filler',
+        timestamp: '2026-09-12T14:00:00.000Z',
+      })),
+      alreadyRelayedOldest,
+    ];
+    const olderUnrelayed = { id: '8888888888888888888', author: { username: 'joeyfounder' }, content: 'still not relayed', timestamp: '2026-09-12T10:00:00.000Z' };
+    const page2 = [rootMessage, olderUnrelayed];
+
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(commentsOut([markerComment, '<!-- relay-id: 7777777777777777777 -->']))
+      .mockReturnValueOnce('');
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200, page1))
+      .mockResolvedValueOnce(fakeResponse(200, page2));
+
+    const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
+
+    expect(exitCode).toBe(0);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(execImpl).toHaveBeenCalledTimes(3);
+    const postArgs = execImpl.mock.calls[2];
+    expect(postArgs[1][6]).toContain('<!-- relay-id: 8888888888888888888 -->');
   });
 
   it('stops paginating once a full page\'s oldest message is the thread root', async () => {
