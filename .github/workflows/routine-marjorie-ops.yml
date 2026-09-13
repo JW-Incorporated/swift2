@@ -44,17 +44,23 @@
 # `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
 # 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
 # ZERO durable progress against 2 simultaneously-open real alerts (#4009,
-# #4129) — confirmed via arithmetic over this prompt's own instructions
-# (DEBUG.md, local, not committed) that the minimum happy-path tool-call
-# sequence for handling both in one pass is ~29 turns with no margin for
-# any retry. 30 was also below `routine-template.yml`'s own 40-turn
-# default, which two OTHER routines in this fleet already had to raise
-# (`routine-community-answerer.yml` to 80, `routine-tree-daily-draft.yml`
-# to 50) for comparable multi-step work. See also `marjorie-ops.md`'s new
-# "work one alert at a time" instruction, added in the same fix — a busy
-# day with more open alerts than even 60 turns can finish should degrade
-# to partial-but-real progress, never the zero-progress failure this run
-# actually hit.
+# #4129). Tracing this prompt's own instructions turn by turn puts the
+# happy-path count at roughly 29-30 tool calls for handling both — a
+# plausible estimate, not a proven exact minimum (Codex review of PR
+# #4221), but consistent with 30 leaving no margin at all. 30 was also
+# below `routine-template.yml`'s own 40-turn default: `routine-tree-
+# daily-draft.yml` had already exceeded that default by 2 turns and was
+# bumped to 50, and `routine-community-answerer.yml` was bumped to 80
+# "pending actual-usage investigation" rather than a measured need — both
+# softer evidence than "needed exactly N," but both point the same
+# direction (40 runs tight for multi-step routines in this fleet; 60 is a
+# reasoned buffer, not a guarantee against every possible backlog size).
+# `marjorie-ops.md`'s new "work one alert at a time, to a REAL completion
+# (marker comment posted, not just an action taken)" instruction is the
+# more durable half of this fix — no fixed turn number survives an
+# arbitrarily bad backlog day, but finishing what you start and cleanly
+# deferring the rest degrades gracefully where the old zero-margin budget
+# failed catastrophically.
 name: routine-marjorie-ops
 
 on:

@@ -11,7 +11,18 @@ should say so in your run summary rather than silently picking one.
 **You reached this run because at least one `watchdog-alert` issue is open**
 (a `gate` job already checked this before your job even started). Your job:
 give every open alert a reply within the hour — what you checked, what you
-did, whether it needs a founder — never leave one silent.
+did, whether it needs a founder — never leave one silent. **"Within the
+hour" means within this run or the very next hourly sweep** (13 minutes
+after the following `watchdog.yml` pass, so effectively ~an hour later at
+most) — not literally every alert in THIS run if your turn budget runs out
+first. Turn budget is real and finite; see Step 0 below for exactly how
+to spend it. This is not silently overriding the spec's promise — it is
+how that promise is actually kept when more is open than one run can
+finish (2026-09-13: the alternative, trying to touch everything and
+finishing nothing, is strictly worse and is the failure this note
+responds to). Say so plainly in your run summary whenever you defer
+anything, per this file's own "if this seems to contradict the spec, say
+so" rule above.
 
 You have no `Write` or `Edit` tool. Everything you do is `gh` (issue
 comments, PRs via the CLI's file-based flags), `git`, `node` (this repo's
@@ -25,20 +36,35 @@ gh issue list --repo "$GITHUB_REPOSITORY" --label watchdog-alert --state open --
 ```
 
 **Work alerts one at a time, each to full completion, before starting the
-next.** Do not partially investigate every alert and then run out of turns
-with nothing posted anywhere — a run that fully finishes one alert (its
-ledger comment posted, or its PR opened) and leaves a second, third, etc.
+next.** "Full completion" means the ledger comment (Step 3, `action=...`
+marker) is actually posted — for the `fb-export-due` row specifically,
+that is Step 4's item 4, AFTER the PR is opened, not the PR by itself.
+`alert-router.mjs`'s `state` subcommand only recognizes the marker
+comment; a PR with no marker comment still reads as `unhandled` next
+sweep, so stopping right after opening a PR (before commenting) would
+cause a duplicate PR next hour, not a clean deferral. Do not partially
+investigate every alert and then run out of turns with nothing posted
+anywhere — a run that fully finishes one alert (marker comment posted,
+including any PR it references) and leaves a second, third, etc.
 untouched is a GOOD outcome: the untouched ones are still open, still
 labeled `watchdog-alert`, and the next hourly sweep (13 minutes after the
 next `watchdog.yml` pass) will pick them up. A run that ends with zero
 alerts fully handled is the failure this instruction exists to prevent
 (2026-09-13: the first real dispatch hit its turn limit with 2 open alerts
-and posted nothing on either). If you have multiple open alerts, handle
-`[BLOCKING]`-equivalent ones first (`prod-smoke-check-failing` always;
-otherwise lowest issue number = oldest = first), and if you sense you are
-running low on remaining turns partway through one that has NOT yet taken
-an irreversible step (no PR opened, no `gh workflow run` dispatched yet),
-stop cleanly and leave it for next hour rather than leaving it half-touched.
+and posted nothing on either).
+
+If you have multiple open alerts, handle `[BLOCKING]`-equivalent ones
+first (`prod-smoke-check-failing` always; otherwise lowest issue number =
+oldest = first). **Before taking any step that can't be cleanly undone by
+just not commenting** (opening a PR, running `gh workflow run`), make sure
+you have enough turns left to also finish that alert's marker comment
+afterward — a rough rule of thumb: don't start an alert's irreversible
+step with fewer than 5 turns remaining in your budget. If you don't have
+that margin, stop BEFORE the irreversible step and leave the alert
+untouched for next hour, rather than starting it and risking the
+duplicate-work case above. An alert you haven't touched at all is a clean
+deferral; an alert with an action taken but no marker comment is not —
+avoid the second state, not just the running-out-of-turns state.
 
 For each issue, match its title:
 
