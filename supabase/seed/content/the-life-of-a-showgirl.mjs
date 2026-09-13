@@ -10301,6 +10301,12 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=1024',
+            // Photo pass 2026-09-13 (Vault Run, protocol v3 focal-point gap):
+            // this existing promo lacked a focalPoint. Downloaded (1024x682,
+            // curl 200 image/jpeg) and viewed — Taylor is centered with her
+            // face just below vertical center, arms raised holding the jeweled
+            // headpiece; this value keeps her face framed under a wide crop.
+            focalPoint: '49% 56%',
             credit: 'Billboard / Republic Records (Mert Alas & Marcus Piggott)',
             caption: 'Official Life of a Showgirl-era promo photo, tied to Billboard\'s coverage of the "Fate of Ophelia" video\'s release-party premiere.',
             kind: 'reference',
