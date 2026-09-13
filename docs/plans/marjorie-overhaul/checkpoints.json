@@ -28,6 +28,7 @@
         "routine-marjorie-triage.yml handled at least one intake or feedback issue: either a build-desk issue with acceptance criteria or an in-channel founder question with a recommendation",
         "Nothing was auto-closed by triage without a founder or a merged fix",
         "If M4 merged: one Monday cycle produced an issue from a Tree ask and an issue from a Marjorie ask, both numbered in the next brief",
+        "M5 chat: at least one real founder message answered in-thread with ✅ in each of #longlive-marjorie and #longlive-tree since M5 merged (count the brief issues' `💬 chat:` turn-log comments and cite the run URLs); every [chat failed] notice has one ❌ and no second notice for the same message",
         "Recommend close or extend on #4180"
       ]
     }
