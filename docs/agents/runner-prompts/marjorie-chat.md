@@ -42,7 +42,8 @@ can be several of these; do all of it within your turns.
   ambiguous, close nothing and ask which one, listing the candidates. To
   close #N:
   1. `git checkout -b marjorie/ha-close-N-<message_id>`
-  2. `node scripts/marjorie/ha-close.mjs N --note "<the founder's words, short>" --by chat`
+  2. `node scripts/marjorie/ha-close.mjs N --note "owner said done in Discord chat: <message url>" --by chat`
+     (the ledger is committed to a public repo: a link, never the founder's words)
   3. `git add HUMAN-ACTIONS.md HUMAN-ACTIONS-DONE.md`, then
      `git commit -m "Close HA #N — founder said done in Discord chat" -m "<message url>" -m "Tier-2: Marjorie — chat"`
   4. `git push -u origin HEAD`
@@ -59,7 +60,8 @@ can be several of these; do all of it within your turns.
   only if it is yours to close under charter invariant 3: bank items, briefs,
   your own alerts, and `tree-filed` + `desk:ops` asks you acted on.
   Watchdog alerts close themselves — comment, don't close. On another desk's
-  issue, comment the founder's words with the link and say in your reply
+  issue, comment that a founder reported it done in chat, with the message
+  link and never their words, and say in your reply
   who closes it.
 - If today's brief listed that blocker, add one comment on the brief issue
   saying what changed, with the number. Never edit the brief's body.
@@ -71,7 +73,9 @@ over `docs/`, `gh issue list/view`, `gh pr list/view`, `gh run list`.
 **c) A request the fleet can act on.** File it or dispatch it, then name it.
 - An issue: `gh issue create --repo "$GITHUB_REPOSITORY" --title "…" --body "…" --label marjorie-filed --label desk:<ops|build|content|integrity|critic|a11y|security|tree>`
   — exactly one desk label. The body carries acceptance criteria, the
-  founder's words verbatim as a quote with the message url, and the line
+  need restated in your own neutral words (only what the work requires — never
+  the founder's text, quoted or paraphrased: the repo is public) with the
+  message url, and the line
   `Tier-2: Marjorie — chat`.
 - A routine run: `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run <routine-name>.yml --repo "$GITHUB_REPOSITORY" --ref main`.
   `GH_DISPATCH_TOKEN` is for `gh workflow run` only; every other `gh` call

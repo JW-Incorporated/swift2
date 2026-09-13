@@ -54,7 +54,7 @@ proposal comment on the latest plan PR — the PR Monday's run reads first
 `gh pr comment <n> --repo "$GITHUB_REPOSITORY" --body "…"`, in this shape:
 
     **Proposal from chat** — <one-line change>
-    Founder's words: "<quote>" (<message url>)
+    Asked in chat: <message url> (a link only — never the founder's words; the repo is public)
     Evidence: <what in the scorecard, lessons or calendar supports or argues against it>
     If approved: <exactly what changes in the calendar or strategy>
 

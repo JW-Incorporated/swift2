@@ -269,7 +269,13 @@ one covers only the conversational loop. Epic #4180.
 - **Founder text in a run's artifacts** (Codex P1 on the routines PR —
   surfaced, not settled). A chat run's context artifact holds the message and
   up to 15 messages of history. Any signed-in GitHub user can download it
-  for the roughly ten minutes the run lasts, until `finish` deletes it.
+  until the run deletes it at its end. That is normally about ten minutes,
+  longer if the run waits in a queue; if the delete fails, one-day retention
+  is the backstop. Nothing the chat routines write to GitHub carries founder
+  text. The turn log is the agent's summary of what it did, and it is told
+  never to quote the founder — an instruction, not enforced metadata. The
+  prompts link to the message instead of quoting it in issue bodies,
+  plan-PR comments and the human-action ledger.
   Already public and permanent today: the brief-reply relay copies founder
   replies onto brief issues. Closing the window needs encrypted or private
   transport. Recommendation: accept it for now. Founder call.
