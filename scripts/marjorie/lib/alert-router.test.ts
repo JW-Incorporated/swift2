@@ -103,6 +103,15 @@ describe('deriveHandledState', () => {
     expect(deriveHandledState([{ body: marker }], { today: '2026-09-12' })).toBe('unhandled');
   });
 
+  it('requires viewerDidAuthor strictly === true, not merely truthy (Codex round-3, PR #4225)', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2099-99-99' });
+    for (const truthyNonBoolean of [1, 'true', {}, []]) {
+      expect(deriveHandledState([{ viewerDidAuthor: truthyNonBoolean, body: marker }], { today: '2026-09-12' })).toBe(
+        'unhandled',
+      );
+    }
+  });
+
   it('ignores an unrecognized action value even on the routine\'s own comment, dated today', () => {
     const forged = '<!-- marjorie-ops-handled date=2026-09-12 action=nonsense-action -->';
     expect(deriveHandledState([own(forged)], { today: '2026-09-12' })).toBe('unhandled');
