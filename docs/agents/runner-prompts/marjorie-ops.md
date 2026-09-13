@@ -82,17 +82,30 @@ on an unmatched issue** — leave it alone, it is not yours.
 First, once per run (not once per alert — reuse the answer):
 
 ```
-gh api user --jq .login
+gh api graphql -f query='{ viewer { login } }' --jq .data.viewer.login
 ```
 
-This is the literal GitHub login every `gh` call you make in this run is
-authenticated as. **Do not assume it — it has been wrong before** (2026-09-13:
-the routine's `checkout_token_secret: SOCIAL_POSTER_PAT` governs the initial
-checkout, but your own `gh`/`git` calls run under `claude-code-action`'s own
-GitHub App installation, a different identity entirely — every comment that
-day posted as `claude`, not the PAT's owner login). Pass whatever this
-command actually prints, verbatim, as `state`'s first argument below — never
-hand-write it, never assume it matches a prior run.
+**Use this GraphQL query, not `gh api user`.** The REST `/user` endpoint only
+supports OAuth/PAT tokens, not a GitHub App installation token — and your own
+`gh`/`git` calls in this run authenticate as `claude-code-action`'s App
+installation, not the `checkout_token_secret` PAT (2026-09-13: every comment
+that day posted as `claude`, not the PAT owner's login — `/user` would likely
+have failed outright under this token type). The GraphQL `viewer` field works
+under an installation token, and — just as important — it's the same
+GraphQL-backed path `gh issue view --json comments` (Step 2 below) uses to
+report comment authors, so the two sides of this comparison use one
+consistent representation instead of risking a REST-vs-GraphQL spelling
+mismatch (e.g. `claude[bot]` vs `claude`) for the same underlying identity.
+
+**If this command errors or prints nothing, STOP — do not fall back to a
+guess and do not proceed with an empty identity.** Say so in your run
+summary and take no action on any alert this run (an accidental empty-string
+"trusted author" could make every comment look untrusted, or worse, could
+coincidentally match one — neither is a state to guess through). This is a
+genuine stop condition, not a routine skip.
+
+Pass whatever this command actually prints, verbatim, as `state`'s first
+argument below — never hand-write it, never assume it matches a prior run.
 
 For each alert:
 

@@ -61,13 +61,17 @@ const PERMANENT_ACTIONS = new Set(['human-action', 'build-desk-issue', 'escalate
  * calls under the GitHub App installation, not the checkout PAT (confirmed
  * via `gh auth status` in that run, see build-desk issue #4223). Do not
  * trust this constant for anything that matters; `marjorie-ops.md` now
- * asks `gh api user --jq .login` at the start of every run and passes the
- * real answer as `state`'s CLI arg, so this fallback is only ever reached
- * by a caller that skips that step (e.g. a test with no better value to
- * supply). Kept as `'sffan15-sys'` rather than updated to `'claude'`
- * because BOTH are guesses about a runtime detail that has already changed
- * once — changing which wrong guess is the default fixes nothing; only
- * the live `gh api user` query is actually reliable. */
+ * queries `gh api graphql -f query='{ viewer { login } }'` at the start of
+ * every run — GraphQL, not the REST `/user` endpoint, because `/user`
+ * doesn't support a GitHub App installation token at all (Codex review of
+ * PR #4224 caught this: a first attempt at this fix used `gh api user`,
+ * which would likely have failed outright under the identity this routine
+ * actually runs as) — and passes the real answer as `state`'s CLI arg, so
+ * this fallback is only ever reached by a caller that skips that step
+ * (e.g. a test with no better value to supply). Kept as `'sffan15-sys'`
+ * rather than updated to `'claude'` because BOTH are guesses about a
+ * runtime detail that has already changed once — changing which wrong
+ * guess is the default fixes nothing; only the live query is reliable. */
 export const DEFAULT_TRUSTED_AUTHOR = 'sffan15-sys';
 
 // One entry per static-title row of the spec's handler table. Kept as a
@@ -219,10 +223,13 @@ the number of groups you saved, and no line says \`local copy KEPT\`.`;
 // recognizes the routine's own marker, so every future sweep reads
 // `unhandled` forever and re-files a duplicate PR/comment every single
 // hour. Rather than hardcode a second guess, `marjorie-ops.md` now has the
-// routine ask `gh api user --jq .login` for its own real identity at the
-// start of each run and pass that literal answer as this CLI arg — the
-// check is then correct by construction, not by prediction, regardless of
-// how `claude-code-action`'s own auth evolves in the future.
+// routine query `gh api graphql -f query='{ viewer { login } }'` for its
+// own real identity at the start of each run (GraphQL, not the REST
+// `/user` endpoint — `/user` doesn't support a GitHub App installation
+// token, which is exactly what this routine runs as) and pass that
+// literal answer as this CLI arg — the check is then correct by
+// construction, not by prediction, regardless of how `claude-code-action`'s
+// own auth evolves in the future.
 async function main(argv = process.argv.slice(2)) {
   const [cmd, ...rest] = argv;
   if (cmd === 'match') {

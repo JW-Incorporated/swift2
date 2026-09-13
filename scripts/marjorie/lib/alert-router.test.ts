@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import {
@@ -10,6 +12,21 @@ import {
 } from './alert-router.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { FB_GROUPS_CHECKLIST } from '../../knowledge/fb-groups-checklist.mjs';
+
+const CLI_PATH = fileURLToPath(new URL('./alert-router.mjs', import.meta.url));
+
+function runStateCli(args: string[], stdinComments: unknown[], env: Record<string, string> = {}) {
+  // Explicitly clear any ambient MARJORIE_OPS_AUTHOR first — these tests
+  // assert on the CLI's own precedence logic, not on whatever happens to
+  // be set in the shell running the suite.
+  const cleanEnv = { ...process.env };
+  delete cleanEnv.MARJORIE_OPS_AUTHOR;
+  return execFileSync('node', [CLI_PATH, 'state', ...args], {
+    input: JSON.stringify(stdinComments),
+    encoding: 'utf8',
+    env: { ...cleanEnv, ...env },
+  }).trim();
+}
 
 describe('matchAlertTitle', () => {
   const cases: Array<[string, string]> = [
@@ -173,3 +190,36 @@ export lands, nobody knows whether the parser works.
 **Worked if:** step 6 ends with \`knowledge:fb-upload: N/N uploaded\` where N is
 the number of groups you saved, and no line says \`local copy KEPT\`.`;
 }
+
+// Subprocess tests against the real CLI (Codex round-2 review of PR #4224:
+// the trusted-author precedence logic in main() was previously covered
+// only indirectly, through deriveHandledState's own options — this exercises
+// the actual `node alert-router.mjs state [trustedAuthor]` dispatch, since
+// that's the only interface the routine's Bash-only tool set can reach.
+function markerComment(author: string) {
+  // `escalate` is permanent (no `today` dependency) so this test doesn't
+  // need to inject or match the real America/Los_Angeles calendar date.
+  return { author, body: renderHandledMarker({ action: 'escalate', date: '2020-01-01' }) };
+}
+
+describe('state CLI trusted-author precedence', () => {
+  it('a CLI argument is honored', () => {
+    expect(runStateCli(['right-author'], [markerComment('right-author')])).toBe('escalated');
+  });
+
+  it('falls back to MARJORIE_OPS_AUTHOR when no CLI argument is given', () => {
+    expect(runStateCli([], [markerComment('env-author')], { MARJORIE_OPS_AUTHOR: 'env-author' })).toBe('escalated');
+  });
+
+  it('a CLI argument wins over a stale MARJORIE_OPS_AUTHOR env var', () => {
+    expect(runStateCli(['right-author'], [markerComment('right-author')], { MARJORIE_OPS_AUTHOR: 'wrong-author' })).toBe('escalated');
+  });
+
+  it('falls back to DEFAULT_TRUSTED_AUTHOR when neither is given', () => {
+    expect(runStateCli([], [markerComment(DEFAULT_TRUSTED_AUTHOR)])).toBe('escalated');
+  });
+
+  it('still rejects a marker from an untrusted author even with a CLI argument set', () => {
+    expect(runStateCli(['right-author'], [markerComment('someone-else')])).toBe('unhandled');
+  });
+});
