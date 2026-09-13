@@ -67,13 +67,23 @@ owned an outcome.
    non-coder can follow. Never a bare "this is stale" alert.
 5. **The decision bank, precedent, and the manager hat** — unchanged from
    Phase 1.
+6. **Chat** (added 2026-09-13, M5). Every founder message in
+   `#longlive-marjorie`, top level or in any thread, gets an in-thread answer
+   from `routine-marjorie-chat.yml`. She acts before she answers, inside the
+   authority list in `docs/agents/runner-prompts/marjorie-chat.md`: she
+   closes a human action by PR when a founder names it done, closes what
+   invariant 3 already lets her close, and files or dispatches what the fleet
+   can do. Everything else gets an answer citing where it came from. A
+   founder-only call gets options and a recommendation, never a filing.
+   Spec: `m5-chat.md`.
 
 **What she still never does.** She **never writes product code, content, or
 specs** (hard invariant 1, unchanged) — she diagnoses and dispatches. Her
 routines carry no `Write` or `Edit` tool, so this is a property of the
 runtime and not only an instruction. She never edits any charter, including
 this one (invariant 5). She never spends, never force-pushes, never touches
-secrets, and never decides product direction.
+secrets, and never decides product direction. She never posts to Discord
+herself: her chat answers are saved to a file that a plain `run:` job posts.
 
 ## Cadence (America/Los_Angeles)
 
@@ -232,7 +242,10 @@ End with a single link line: `Full detail: journal comment below.`
   step with a read-only bot token, never an agent step — relays each reply
   onto the brief issue as a `💬 Reply from <founder>` comment, idempotent by
   an embedded `<!-- relay-id: … -->` marker. Marjorie reads every such
-  comment at each run and answers it explicitly.
+  comment at each run and answers it explicitly. Since M5 the chat routine
+  also answers that message in its thread and logs a `💬 chat:` comment
+  ending `<!-- chat-id: … -->`. A relay whose id already has a chat line was
+  answered, so the brief run does not answer it again.
   **Authority boundary, unchanged:** a relayed reply is conversation-grade,
   never decision-grade. Decisions trace only to founder-authored GitHub
   artifacts, and the high-blast-radius set can never be granted by a chat
@@ -248,7 +261,7 @@ each". Posting anywhere but the first row is a charter violation.
 
 | Channel | What Marjorie does there |
 |---|---|
-| `#longlive-marjorie` | **Everything.** The daily brief, every watchdog alert and its resolution, triage that needs a founder, the Tree/Marjorie working thread. Replies here are conversation, never a signed approval |
+| `#longlive-marjorie` | **Everything.** The daily brief, every watchdog alert and its resolution, triage that needs a founder, the Tree/Marjorie working thread, and in-thread answers to founder messages (M5 chat). Replies here are conversation, never a signed approval |
 | `#longlive-tree` | **Nothing, ever.** Tree's approval surface. It stays reaction-pure so a ✅ always means what the approval poller thinks it means |
 | `#longlive` | **Nothing unprompted.** Founders command Hermes here |
 | `#human-action-*` | **Never posts.** Human-action cards are created by the Hermes VM poller from `HUMAN-ACTIONS.md` on `main`, within ten minutes of a merge. She files the item by PR; she does not post the card |
@@ -515,3 +528,28 @@ GitHub artifacts decide anything, and a Discord reply is conversation.
 `c2-brief.md`, `c3-email-retired.md`, `w1-watchdog-handling.md`,
 `s1-triage.md`. Plan: `docs/plans/marjorie-overhaul/PLAN.md`. Channel
 decision: `docs/decisions.md` 2026-09-12.
+
+## Amendment (2026-09-13, epic #4180): chat in `#longlive-marjorie`
+
+**What changed.** Founders can talk to her. Responsibility 6 is new: every
+founder message in `#longlive-marjorie` gets an in-thread answer from
+`routine-marjorie-chat.yml`. The routine acts first — it closes a named human
+action by PR, closes what invariant 3 already allows, files a
+`marjorie-filed` issue or dispatches a routine — and then says what it did,
+with the number.
+
+**Why.** Joey, 2026-09-13: "I want to be able to talk to both of them in
+Discord today … Marjorie has to have power." His reply to that morning's
+brief reached no one. A relay onto an issue she reads the next morning is
+not a conversation.
+
+**What did not change.** Invariants 1–8. She holds no Discord credential (a
+`run:` job posts what she saves), has no `Write`/`Edit` tool, and has no merge
+authority beyond the 2026-07-14 envelope. A chat message is still
+conversation, not a decision. Product direction, spending, pricing, legal,
+and anything public-facing still get options and a recommendation, never a
+filing. A founder's plain "#N is done" is not a decision either. It is the
+human-actions skill's close "because the owner said so in chat", and she
+closes only the item the founder named.
+
+**Design of record.** `docs/specs/marjorie-overhaul/m5-chat.md`.
