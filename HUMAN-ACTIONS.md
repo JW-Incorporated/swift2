@@ -6,17 +6,6 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #71 🔴 [BLOCKING] Send two or three short Discord messages so the bot chat can be proven (~3 min)
-<!-- ha filed=2026-09-13 -->
-
-**Why:** Marjorie and Tree now answer founder messages in Discord, but only a founder's own message can prove it. Without these, Tree's replies, Marjorie closing a finished blocker, and the 15-minute reply time stay unproven, and wave M5 cannot close.
-**Steps:**
-1. In #longlive-marjorie, send: What is your job, and can you talk to Tree?
-2. In #longlive-tree, send: What is your job, and can you talk to Marjorie?
-3. Only if one really is finished: in #longlive-marjorie, send a separate message naming it, for example: HA #67 is done
-4. Reply done to this card.
-**Worked if:** Within 15 minutes each message shows 👀, a threaded reply from the bot, and a ✅.
-
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->
 
