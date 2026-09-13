@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 53
+Stories: 56
+
+## Kanye West's 2009 VMAs Speech Interruption Remembered
+
+- first seen: 2026-09-13 19:25 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The 2009 VMAs incident where Kanye West interrupted Taylor Swift’s acceptance speech is revisited, marking 17 years since the event. This moment had a lasting impact on both artists' careers.
+- sources:
+  - [unverified] VICE — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPLWpBTDUzalJvVUplUzBQWG5oM2JGNGpZaEc2U19xTWQxUmlpdjR2NXpwbFBPZDBhNTlodHA0NzJ3eUNjZThWUzVhVV9TalEteFBuTlpKVXhsZzUzc3ZrZDhKa3QyNnlvQnZyT05FdlZaRDQxWDEwTVQ0eDdHeWxNamI2X2k2WUp2ZkhFQXpwQmpheFRXR202YnlDS3E0SHVjZFYwRDhRTkI3Zm5mUjg0cHcxVzl6eGpOTU5YUGhxZDlfSDh0NGk1SGtxRHhWcXpTVXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson Seen with MGK After Visiting Taylor Swift's Apartment
+
+- first seen: 2026-09-13 19:25 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dakota Johnson was spotted in New York City with Machine Gun Kelly following a visit to Taylor Swift's apartment. The outing has caught the attention of fans and media alike.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxNemJzTU5mUjhuU1pQRDVvTllndHViRGpsOWxlcURwc28tdnFHQ0tNUzB1Y2VmWGFlVEdqUWJsUlp6ZDZjWkJNVWdMX1BTX1lVRnpCRnp1LXd6YUQxTnFMalpfUnEtdnBybzVEZWZNU2RBNVVaZmhZeEpNc2JTSTlkZWttR0txeExFWnlsUllzV0dtdXlRRzV1N3pXNVFzNU1fc0dCbC1qWVBRa0wwdG9FUEx2d3I?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson and Machine Gun Kelly Seen Together in NYC
+
+- first seen: 2026-09-13 19:25 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Dakota Johnson and Machine Gun Kelly were spotted on a date in New York City following Johnson's recent breakup. The outing has garnered attention from fans and media outlets alike.
+- sources:
+  - [unverified] Thought Catalog — https://news.google.com/rss/articles/CBMi7AFBVV95cUxQVVhnUGlTc2M3b1JiQ0IxNWthYnBaYlRPSEpJeDlwaU1ucUNGaHpPMmJjT20tRlNjSFZrcmIwLWVIMndBOXEwTkJaSUx6YlBfdXFHWVFQSmVOSHFiZmVEdWk3UFlpekpRZ2RaX0NKQWoxZ0tMa0Z4T29BVHRKSHNVcVFRLTdRc3RjZm1uaWViVi1aa2pGRnZXdUZNQkQwb1ZhS1A1d1Iycm5vX196UzdDUFh1ZHRDazZLT1BYLVFjZGtxd3plakhpbnBLMTk5LWFXTmxKSmVtVGJHRV9JZ3BsOHZXb0EtcVl1VktTbA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG1HVlVYc2x3aDZLZkJzNlVrTU0wV1o0ZjFPUGVWZ3E3cmh5QUJtdWRaa05DUkVJamktZzRyaUQwLTUxVFlXVVZEamUyVVdqakxGdmlyYy1leUN5amM1aDdRNkZVNnJrZW95eEU0TExtYS0xbVR0UFFoRXdzWkZjTXNxOTlpMnZBbU5hRTM3UnpDMzdFSHd3Nw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## NFL Stars in Relationships with Celebrities
 
@@ -83,14 +108,6 @@ Stories: 53
 - sources:
   - [unverified] ABC10 — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNM3ZJSE10eThXVHZwbHQ1LU5nM3ZOSkhORnpybVJ2SF9qTGdwdDVnQk8yaWc3VlpSVUdyQ0E1U1FPUVpUUVdFN3h0UGFqS3dPempXSmppdEh6bFV2Z2tWQy1ObmpUSEo4RjhNQVFMMzk1ZDR2VjM4b2ZNTUhHdldpT1Y3UHhlR2FIU0hKWFdpTlRHdVd2TUNGbUVXWmxINWlNRktqLXBOdnZVS0hFcFZKS3hSN3QyTXVUZ2hVS2RqOFZSaXV3ZGFOTmJLa29fbFc1ZlpkYUFuZUlGcTMyQ25FbWxCQXhvME1ha1VsbDJPYUtmcXM?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Mariska Hargitay Reflects on Taylor Swift's Wedding
-
-- first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mariska Hargitay expressed her ongoing feelings about attending Taylor Swift's impressive wedding, sharing her favorite moments from the event.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi2wFBVV95cUxOYm9kM3dyTUUtcHI0VVZEOEJFbmdoN1FFNlBGYXRUb2sycGVUMTR3MHd0OVlkdUdDd3hxWE1PUEFLcFgyLWd1M3lZMm5fQ1p1VE9CUFI5a3dTRC1mZEJoZDBVaTQ1YXV6M0xlZnF2WlhETVFySzBXRVJyYUVTdDA1bVVYYTNwOE4yRTNoa05yTkprNDdRTGltUnVTbmVSSW5Dam9IT2szV2FqMmtfT21DMlBldVNWSVQ0RFgxd0pxbklfV0NnNEpaYllTX3dBSkh0TWpGN1lsVHBrTGs?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Dakota Johnson and MGK Seen Together After Visit to Taylor Swift's Apartment
 
 - first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
@@ -98,6 +115,14 @@ Stories: 53
 - summary: Dakota Johnson and Machine Gun Kelly reportedly spent the night together following a private meetup at Taylor Swift's New York City apartment. Their relationship status remains unclear.
 - sources:
   - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMizAFBVV95cUxNbTU1dmFRUHVtRE5RWTF2QTBBT3ZLWDNJTHZfbjNmb2hHdThpX2pLaDd3WGpNOTczSTNGQVBBRWI1SFFrUzI0YWVQUmhuaVhZSHV2QnlNaG9Td1ZmNHpXUUF0aHBsTnJLckhyREZwNzczRVQ0clBSZThMLU8wTTVXRWFNUldJMW9iVmttTFNOcjd2dnc1VHBIdGkzdjN6TkExVndmWVdtdFVaYjZqNTJ5ZlF0RWtuRk9CdWRwNUNXREFiVFBMT1lOdF9sM3k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mariska Hargitay Reflects on Taylor Swift's Wedding
+
+- first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mariska Hargitay expressed her ongoing feelings about attending Taylor Swift's impressive wedding, sharing her favorite moments from the event.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi2wFBVV95cUxOYm9kM3dyTUUtcHI0VVZEOEJFbmdoN1FFNlBGYXRUb2sycGVUMTR3MHd0OVlkdUdDd3hxWE1PUEFLcFgyLWd1M3lZMm5fQ1p1VE9CUFI5a3dTRC1mZEJoZDBVaTQ1YXV6M0xlZnF2WlhETVFySzBXRVJyYUVTdDA1bVVYYTNwOE4yRTNoa05yTkprNDdRTGltUnVTbmVSSW5Dam9IT2szV2FqMmtfT21DMlBldVNWSVQ0RFgxd0pxbklfV0NnNEpaYllTX3dBSkh0TWpGN1lsVHBrTGs?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Luxury Date Night Bag Reflects Fall Fashion Trend
 
