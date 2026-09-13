@@ -98,9 +98,12 @@ on:
           duplicate escalations/dispatches. Only meaningful when
           checkout_token_secret is 'SOCIAL_POSTER_PAT' — the default
           GITHUB_TOKEN path has no more Actions permissions than the
-          installation token already lacked, so an empty/no-op
-          GH_DISPATCH_TOKEN is expected and harmless in that case. Only
-          routine-marjorie-ops.yml sets this true; every other routine must
+          installation token already lacked (Codex round-2 review of #4223:
+          GH_DISPATCH_TOKEN is NOT empty in that case, it's a nonempty but
+          under-permissioned GITHUB_TOKEN, so `gh workflow run` still 403s,
+          just via a different token — not a silent no-op). Only
+          routine-marjorie-ops.yml sets this true, always paired with
+          checkout_token_secret: SOCIAL_POSTER_PAT; every other routine must
           be unaffected.
         required: false
         type: boolean
