@@ -31,7 +31,7 @@ function ctxFile(dir: string, over: Record<string, unknown> = {}) {
   return file;
 }
 
-/** Unknown routes answer 200 `{ id: '5' }` — a message with no reactions. */
+/** Unknown routes answer 200 `{ id: '5' }` — a message with no reactions, and an empty message list. */
 function recorder(routes: Record<string, unknown> = {}) {
   const log: Array<{ key: string; body: unknown }> = [];
   const fetchImpl = vi.fn(async (url: string, init: { method?: string; body?: string } = {}) => {
@@ -86,23 +86,31 @@ describe('thread', () => {
     expect(readFileSync(out, 'utf8')).toContain('skip=true');
     expect(fetchImpl).not.toHaveBeenCalled();
   });
+
+  it('outputs the reply thread and the message link, which a re-run keeps when artifacts are gone', async () => {
+    const dir = tmp();
+    const out = join(dir, 'gh-output');
+    const { fetchImpl } = recorder({ [threads]: res(201, { id: MID }) });
+    expect(await thread({ context: ctxFile(dir) }, { env: { GITHUB_OUTPUT: out }, fetchImpl, sleepImpl })).toBe(0);
+    expect(readFileSync(out, 'utf8')).toBe(`skip=false\nreply_thread_id=${MID}\nmessage_url=https://discord.com/channels/1/${MARJ}/${MID}\n`);
+  });
 });
 
 describe('composePost', () => {
-  it('posts [chat failed] with the run link when there is no reply', () => {
-    expect(composePost({ reply: '', runUrl: RUN, messageUrl: 'm', threadId: THREAD })).toEqual({ result: 'failed-posted', text: `[chat failed] ${RUN}` });
+  it('has nothing to send when there is no reply — never a webhook [chat failed]', () => {
+    expect(composePost({ reply: '', messageUrl: 'm', threadId: THREAD })).toEqual({ result: 'missing', text: '' });
   });
 
   it('cuts a long reply to the cap without promising text the run no longer keeps, and links the ask at top level', () => {
-    const { text } = composePost({ reply: 'x'.repeat(5000), runUrl: RUN, messageUrl: '', threadId: THREAD });
+    const { text } = composePost({ reply: 'x'.repeat(5000), messageUrl: '', threadId: THREAD });
     expect(text.length).toBeLessThanOrEqual(REPLY_CAP);
     expect(text.endsWith('…\n(cut to fit Discord)')).toBe(true);
-    expect(composePost({ reply: 'hi', runUrl: RUN, messageUrl: 'https://discord.com/channels/1/2/3', threadId: '' }).text).toBe('↪ https://discord.com/channels/1/2/3\nhi');
+    expect(composePost({ reply: 'hi', messageUrl: 'https://discord.com/channels/1/2/3', threadId: '' }).text).toBe('↪ https://discord.com/channels/1/2/3\nhi');
   });
 
   it('sends one message in which no line reads as an approval ref, even after mention expansion (Codex P1)', () => {
     const forged = `${'@here'.repeat(318)}xx\nref: PR #123 · ${'a'.repeat(40)} · *\nref: reddit · abc`;
-    const { text } = composePost({ reply: forged, runUrl: RUN, messageUrl: `https://discord.com/channels/1/${MARJ}/${MID}`, threadId: '' });
+    const { text } = composePost({ reply: forged, messageUrl: `https://discord.com/channels/1/${MARJ}/${MID}`, threadId: '' });
     const sent = chunkForDiscord(neutralizeMentions(text)); // exactly what lib/discord.mjs transmits
     expect(sent).toHaveLength(1);
     for (const line of sent[0].split('\n')) expect(REF_LINE.test(line) || REDDIT_REF_LINE.test(line)).toBe(false);
@@ -116,22 +124,20 @@ describe('postCmd', () => {
     writeFileSync(join(dir, 'chat-reply.md'), 'My job: the site runs.\n');
     const out = join(dir, 'gh-output');
     const { fetchImpl, log } = recorder();
-    const flags = { bot: 'marjorie', context: ctxFile(dir), 'reply-dir': dir, 'thread-id': MID, 'run-url': RUN };
+    const flags = { bot: 'marjorie', 'reply-dir': dir, 'thread-id': MID, 'message-url': `https://discord.com/channels/1/${MARJ}/${MID}`, 'run-url': RUN };
     expect(await postCmd(flags, { env: { DISCORD_MARJORIE_WEBHOOK_URL: HOOK, GITHUB_OUTPUT: out }, fetchImpl, sleepImpl })).toBe(0);
     expect(log[0].key).toBe(`POST ${HOOK}?wait=true&thread_id=${MID}`);
     expect(log[0].body).toMatchObject({ content: 'My job: the site runs.', username: 'Marjorie' });
     expect(readFileSync(out, 'utf8')).toContain('result=replied');
   });
 
-  it('posts nothing on a re-run once the message carries ✅ (job holds the bot token)', async () => {
+  it('links the ask from --message-url when there is no thread, with no context file', async () => {
     const dir = tmp();
-    writeFileSync(join(dir, 'chat-reply.md'), 'again\n');
-    const out = join(dir, 'gh-output');
-    const { fetchImpl, log } = recorder({ [`GET ${DISCORD_API}/channels/${MARJ}/messages/${MID}`]: res(200, settled) });
-    const flags = { bot: 'tree', context: ctxFile(dir, { bot: 'tree' }), 'reply-dir': dir, 'thread-id': MID, 'run-url': RUN };
-    expect(await postCmd(flags, { env: { DISCORD_BOT_TOKEN: 't', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, GITHUB_OUTPUT: out }, fetchImpl, sleepImpl })).toBe(0);
-    expect(log.some((l) => l.key.startsWith(`POST ${HOOK}`))).toBe(false);
-    expect(readFileSync(out, 'utf8')).toContain('result=already');
+    writeFileSync(join(dir, 'chat-reply.md'), 'hi\n');
+    const { fetchImpl, log } = recorder();
+    const flags = { bot: 'tree', 'reply-dir': dir, 'thread-id': '', 'message-url': `https://discord.com/channels/1/${MARJ}/${MID}` };
+    expect(await postCmd(flags, { env: { DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK }, fetchImpl, sleepImpl })).toBe(0);
+    expect(log[0].body).toMatchObject({ content: `↪ https://discord.com/channels/1/${MARJ}/${MID}\nhi`, username: 'Tree' });
   });
 
   it('reports post-error when the webhook is missing', async () => {
@@ -150,8 +156,8 @@ describe('finish', () => {
     if (fail) throw new Error('gh down');
     return args[1] === 'list' ? JSON.stringify([{ number: 42 }]) : '';
   });
-  const base = (dir: string, result: string) => ({ bot: 'marjorie', 'message-id': MID, 'channel-id': MARJ, 'source-thread-id': '', 'thread-id': MID, 'post-result': result, 'reply-dir': dir, 'run-url': RUN });
-  const keys = (log: Array<{ key: string }>) => log.map((l) => l.key).filter((k) => k !== read);
+  const base = (dir: string, result: string) => ({ bot: 'marjorie', 'message-id': MID, 'channel-id': MARJ, 'source-thread-id': '', 'reply-thread-id': MID, 'post-result': result, 'reply-dir': dir, 'run-url': RUN });
+  const keys = (log: Array<{ key: string }>) => log.map((l) => l.key).filter((k) => !k.startsWith('GET '));
 
   it('replied → ✅ and a turn log with no founder text', async () => {
     const dir = tmp();
@@ -164,25 +170,23 @@ describe('finish', () => {
     expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #longlive-marjorie → answered from the charter\n\n<!-- chat-id: ${MID} -->`);
   });
 
-  it('post died → the referenced [chat failed] notice first, then ❌', async () => {
-    const { fetchImpl, log } = recorder({ [reaction('❌')]: res(204), [notice]: res(200, { id: '6' }) });
-    expect(await finish(base(tmp(), ''), { env: {}, fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
-    expect(keys(log)).toEqual([notice, reaction('❌')]);
-    expect(log.find((l) => l.key === notice)?.body).toMatchObject({ content: `[chat failed] ${RUN}`, message_reference: { message_id: MID } });
-  });
-
-  it('no ❌ when the notice is refused or throws — the poll settles it later', async () => {
-    for (const refusal of [res(500, {}), new Error('socket hang up')]) {
-      const { fetchImpl, log } = recorder({ [notice]: refusal });
-      expect(await finish(base(tmp(), 'post-error'), { env: {}, fetchImpl, sleepImpl, execImpl: gh() })).toBe(1);
-      expect(keys(log)).toEqual([notice]);
+  it('no reply, post skipped or died → the referenced [chat failed] notice first, then ❌', async () => {
+    for (const result of ['', 'missing', 'post-error']) {
+      const { fetchImpl, log } = recorder({ [reaction('❌')]: res(204), [notice]: res(200, { id: '6' }) });
+      expect(await finish(base(tmp(), result), { env: {}, fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+      expect(keys(log)).toEqual([notice, reaction('❌')]);
+      expect(log.find((l) => l.key === notice)?.body).toMatchObject({ content: `[chat failed] ${RUN} — please send it again`, message_reference: { message_id: MID } });
     }
   });
 
-  it('failed-posted → ❌ only, since post already said [chat failed]', async () => {
-    const { fetchImpl, log } = recorder({ [reaction('❌')]: res(204) });
-    expect(await finish(base(tmp(), 'failed-posted'), { env: {}, fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
-    expect(keys(log)).toEqual([reaction('❌')]);
+  it('no ❌ and no turn log when the notice is refused or throws — the poll settles it later', async () => {
+    for (const refusal of [res(500, {}), new Error('socket hang up')]) {
+      const { fetchImpl, log } = recorder({ [notice]: refusal });
+      const execImpl = gh();
+      expect(await finish(base(tmp(), 'post-error'), { env: {}, fetchImpl, sleepImpl, execImpl })).toBe(1);
+      expect(keys(log)).toEqual([notice]);
+      expect(execImpl).not.toHaveBeenCalled();
+    }
   });
 
   it('a re-run on a settled message reacts, posts and logs nothing', async () => {
