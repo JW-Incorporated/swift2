@@ -77,21 +77,35 @@ title isn't one of the 14 `Watchdog: ...` conditions (e.g. an issue that
 carries the `watchdog-alert` label for some other reason). **Take no action
 on an unmatched issue** — leave it alone, it is not yours.
 
-## Step 1 — check whether you already handled it today
+## Step 1 — find your own identity, then check whether you already handled it today
+
+First, once per run (not once per alert — reuse the answer):
+
+```
+gh api user --jq .login
+```
+
+This is the literal GitHub login every `gh` call you make in this run is
+authenticated as. **Do not assume it — it has been wrong before** (2026-09-13:
+the routine's `checkout_token_secret: SOCIAL_POSTER_PAT` governs the initial
+checkout, but your own `gh`/`git` calls run under `claude-code-action`'s own
+GitHub App installation, a different identity entirely — every comment that
+day posted as `claude`, not the PAT's owner login). Pass whatever this
+command actually prints, verbatim, as `state`'s first argument below — never
+hand-write it, never assume it matches a prior run.
+
+For each alert:
 
 ```
 gh issue view <number> --json comments --jq '[.comments[] | {author: .author.login, body: .body}]' \
-  | node scripts/marjorie/lib/alert-router.mjs state
+  | node scripts/marjorie/lib/alert-router.mjs state "<your login from above>"
 ```
 
-`state` only trusts a `marjorie-ops-handled` marker posted by the identity
-your own comments actually go out under — the routine's `checkout_token_secret:
-SOCIAL_POSTER_PAT` is the owner's own fine-grained PAT, not a bot account
-(docs/decisions.md's 2026-09-11 B1 entry), so every comment you post is
-authored under the owner's own GitHub login. This defaults inside
-`alert-router.mjs` (`DEFAULT_TRUSTED_AUTHOR`); you never need to pass it
-yourself. A marker from any other commenter — including one hidden inside a
-code fence — is ignored, not honored.
+`state` only trusts a `marjorie-ops-handled` marker posted by the login you
+just looked up — a marker from any other commenter, including one hidden
+inside a code fence, is ignored, not honored. (If you skip the lookup, it
+falls back to a hardcoded guess that is known to sometimes be wrong — always
+do the lookup.)
 
 Prints one of:
 
