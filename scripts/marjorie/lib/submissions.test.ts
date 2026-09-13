@@ -72,8 +72,8 @@ describe('renderFounderMarker', () => {
 });
 
 describe('pendingFounderIssues', () => {
-  const own = (body: string) => ({ viewerDidAuthor: true, body });
-  const other = (body: string) => ({ viewerDidAuthor: false, body });
+  const own = (body: string) => ({ author: { login: 'claude' }, body });
+  const other = (body: string) => ({ author: { login: 'someone-else' }, body });
 
   it('includes an issue with a pending marker and no posted marker', () => {
     const issue = { number: 10, comments: [own(renderFounderMarker('pending'))] };
@@ -118,8 +118,14 @@ describe('pendingFounderIssues', () => {
     expect(pendingFounderIssues([issue])).toEqual([21]);
   });
 
-  it('ignores a marker whose viewerDidAuthor is missing entirely, not just false', () => {
+  it('ignores a marker whose comment has no author at all', () => {
     const issue = { number: 22, comments: [{ body: renderFounderMarker('pending') }] };
     expect(pendingFounderIssues([issue])).toEqual([]);
+  });
+
+  it('trusts the claude[bot] spelling too (same identity, different API surface)', () => {
+    const botSpelling = (body: string) => ({ author: { login: 'claude[bot]' }, body });
+    const issue = { number: 23, comments: [botSpelling(renderFounderMarker('pending'))] };
+    expect(pendingFounderIssues([issue])).toEqual([23]);
   });
 });

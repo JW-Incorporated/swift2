@@ -105,8 +105,14 @@ jobs:
             if [ "$IS_PENDING" != "1" ]; then
               continue
             fi
+            # Trusted-login check, not `viewerDidAuthor`: this job reads comments the
+            # `run` job's Claude-Code-Action credential posted, under `secrets.GITHUB_TOKEN`'s
+            # own (different) identity — `viewerDidAuthor` is relative to the CURRENT
+            # credential and is always false here, even for the routine's own comments
+            # (confirmed live, M3 proof run on #4234). See submissions.mjs's
+            # `TRUSTED_TRIAGE_LOGINS` for why an allowlist is safe here specifically.
             RAW_BODY=$(echo "$COMMENTS_JSON" | jq -r --arg marker "$PENDING_MARKER" \
-              'map(select(.viewerDidAuthor == true and (.body | contains($marker)))) | last | .body')
+              'map(select((.author.login == "claude" or .author.login == "claude[bot]") and (.body | contains($marker)))) | last | .body')
             MESSAGE_FILE=$(mktemp)
             printf '%s\n' "$RAW_BODY" | grep -vFx "$PENDING_MARKER" > "$MESSAGE_FILE"
             node scripts/marjorie/post-or-mail.mjs --subject "Needs a founder — #$NUMBER" --body-file "$MESSAGE_FILE" --url "$ISSUE_URL"
