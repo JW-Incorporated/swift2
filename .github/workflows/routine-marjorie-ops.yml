@@ -40,6 +40,27 @@
 # fleet (routine-marjorie-brief.yml's `deliver` job), never in an agent job.
 # Her "post" for a handled alert is the issue comment itself (see the prompt
 # file) — `upsert-alert.sh`'s own open/close cycle is what reaches Discord.
+#
+# `max_turns: 60` / `timeout_minutes: 30` (2026-09-13, debug-protocol, was
+# 30/20): the first real dispatch hit `error_max_turns` at 31/30 turns with
+# ZERO durable progress against 2 simultaneously-open real alerts (#4009,
+# #4129). Tracing this prompt's own instructions turn by turn puts the
+# happy-path count at roughly 29-30 tool calls for handling both — a
+# plausible estimate, not a proven exact minimum (Codex review of PR
+# #4221), but consistent with 30 leaving no margin at all. 30 was also
+# below `routine-template.yml`'s own 40-turn default: `routine-tree-
+# daily-draft.yml` had already exceeded that default by 2 turns and was
+# bumped to 50, and `routine-community-answerer.yml` was bumped to 80
+# "pending actual-usage investigation" rather than a measured need — both
+# softer evidence than "needed exactly N," but both point the same
+# direction (40 runs tight for multi-step routines in this fleet; 60 is a
+# reasoned buffer, not a guarantee against every possible backlog size).
+# `marjorie-ops.md`'s new "work one alert at a time, to a REAL completion
+# (marker comment posted, not just an action taken)" instruction is the
+# more durable half of this fix — no fixed turn number survives an
+# arbitrarily bad backlog day, but finishing what you start and cleanly
+# deferring the rest degrades gracefully where the old zero-margin budget
+# failed catastrophically.
 name: routine-marjorie-ops
 
 on:
@@ -84,8 +105,8 @@ jobs:
       prompt_file: docs/agents/runner-prompts/marjorie-ops.md
       model: claude-sonnet-5
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
-      timeout_minutes: 20
-      max_turns: 30
+      timeout_minutes: 30
+      max_turns: 60
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
