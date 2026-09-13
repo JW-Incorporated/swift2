@@ -50,6 +50,7 @@ needs real run data. One fresh session per wave, paste-ready prompts in
 | M2 · Watchdog handling ✓ 09-12 (#4216, #4217, #4221, #4224, #4225) | **Sonnet**, Codex review on anything that dispatches workflows | M1 merged | 1 day | `routine-marjorie-ops.yml`, alert handlers, FB-export human action, **the reply poller** (moved from M4 — no Tree dependency) |
 | M3 · Submissions triage ✓ 09-13 (#4228, #4229, #4237, #4238) | **Sonnet** | M1 merged | 1 day | intake classifier routine, build-desk dispatch, founder branch |
 | M4 · Tree/Marjorie loop ✓ 09-13 (#4250; Tree-side brief proof at the 09-14 Monday run, MR2 checks) | **Opus** (touches Tree's prompts) | M1 + M2 + M3 merged (R2 wait waived 09-13) | half day | L1 spec, brief sections both ways, ask→issue mechanics |
+| M5 · Talk to the bots (Discord chat) | **Opus** (touches Tree's charter) | M4 merged, **HA #69 done (four bot permissions on both channels)** | half day | 5-min poll → per-message Opus routine → in-thread reply, 👀/✅/❌ reactions as state, Marjorie acts before answering, Tree answers read-mostly; spec `docs/specs/marjorie-overhaul/m5-chat.md`, prompt `waves/m5-chat.md` |
 | MR1–MR2 · Rechecks | **Opus** routine | dates in `checkpoints.json` | 20 min | comment on #4180 + PR |
 
 M2 and M3 are independent; run in either order, never in one checkout.
@@ -147,6 +148,14 @@ idempotency is follow-up #4260 (evidence on #4180). Both briefs carrying the oth
 issue number first happen at the 2026-09-14 runs (Tree 10:00 UTC,
 Marjorie 12:00 UTC). MR1 (2026-09-19) now carries an explicit check for
 that cycle, and MR2 re-checks it on 10-03.
+
+**M5 done:** both bots answered a real founder message in their channel's
+thread with a ✅ reaction within 15 minutes, each said what its job is and
+how it reaches the other (L1 issues), and Marjorie's reply to "blocker X
+is done" cites the PR or closed issue she produced — links and run URLs on
+#4180. Added 2026-09-13 on Joey's call ("talk to both of them in Discord
+today; Marjorie has to have power"); the spec was written the same day by
+the M4 review session, the build is the M5 session's.
 
 ## Why M4 waits for Tree R2
 
