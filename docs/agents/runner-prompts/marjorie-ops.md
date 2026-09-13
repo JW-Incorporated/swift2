@@ -97,16 +97,22 @@ actually running the query, never a string you have to get right. A marker
 on a comment you didn't post — including one hidden inside a code fence by
 someone else — is ignored, not honored.
 
-**Identity note (#4223, 2026-09-13):** this routine's `gh` calls now
-authenticate as `github-actions[bot]` (the workflow's own `GITHUB_TOKEN`/
-`SOCIAL_POSTER_PAT`), not `claude-code-action`'s `claude[bot]` GitHub App
-installation token — `routine-template.yml`'s `use_workflow_token` input is
-set `true` only for this routine, because that installation token does not
-carry this job's own `permissions: actions: write`, so `gh workflow run`
-403'd on every re-dispatch attempt regardless of what the workflow declared.
-Your issue/PR comments will show as `github-actions[bot]`, not `claude`.
-This changes nothing above: `viewerDidAuthor` is computed against whatever
-credential is actually running the query, so it still works unmodified.
+**Dispatch token note (#4223, 2026-09-13):** your default `gh`/git identity
+is unchanged (still `claude-code-action`'s `claude[bot]` GitHub App
+installation token) — every `viewerDidAuthor` check above still works
+unmodified against comments from before and after this change. But that
+installation token does NOT carry this job's own `permissions:
+actions: write`, so a bare `gh workflow run` 403s. Whenever this file's
+handler table says "re-dispatch" or "`gh workflow run <wf>`", run it with
+the job's own token instead:
+```
+GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run <wf> --ref main
+```
+`$GH_DISPATCH_TOKEN` is set in this job's environment for exactly this
+purpose (empty/unset in every other routine — this override is scoped to
+this file's own dispatch commands, never used for issue/PR comments, which
+must keep authenticating as `claude[bot]` by using the default `gh` with no
+`GH_TOKEN` override).
 Prints one of:
 
 - **`unhandled`** — act (Step 2 below).
