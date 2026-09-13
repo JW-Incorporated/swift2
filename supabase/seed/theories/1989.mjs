@@ -31,10 +31,11 @@ export default {
           source_title: "Taylor Swift Wears 'no its becky' T-Shirt",
           publisher: 'Time',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-08',
+          accessed_at: '2026-09-13',
           reliability_score: 4,
           excerpt: null,
-          notes: 'documents the original Tumblr post and the meme\'s spread — the meme itself is the subject here',
+          notes:
+            'documents the original 2014 Tumblr post and the meme\'s spread — the meme itself is the subject here. Answerer recheck 2026-09-13 (rumor-lifecycle staleness #3976): the meme is settled 1989-era history (Taylor wore the "no its becky" shirt in Sept 2014 and it never became official merch) — joke_meme/confirmed stays correct, so this refreshes the last-accessed date, not the claim. (Prior recheck 2026-08-08.)',
         },
         wiki('Swifties', 'Swifties', 'covers her 1989-era Tumblr fluency that made the meme land'),
       ],

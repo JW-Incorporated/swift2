@@ -12,7 +12,15 @@ const wiki = (article, title, notes) => ({
   source_title: title,
   publisher: 'Wikipedia',
   source_type: 'wiki',
-  accessed_at: '2026-08-08',
+  // Answerer recheck 2026-09-13 (rumor-lifecycle staleness #3986, #3987): the
+  // two Wikipedia-sourced eggs on this helper — "thanK you aIMee" (the KIM
+  // stylization, still an inference from typography Taylor has never confirmed;
+  // the live-tour retitle to "thank You aimEe" doesn't change the studio-title
+  // reading) and "Peter, four years later" (the Peter Pan callback across
+  // cardigan → Peter, still textual with the shared-narrator layer a fan read)
+  // are unchanged on the record. Nothing resolved or shifted, so this refreshes
+  // the last-accessed date rather than any claim. (Prior recheck 2026-08-08.)
+  accessed_at: '2026-09-13',
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
