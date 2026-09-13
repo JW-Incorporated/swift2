@@ -9,8 +9,10 @@ import { authorName, hasOwnReaction, isRootOrWebhookMessage, snowflakeMs } from 
 export const CLAIM = '👀';
 export const REPLIED = '✅';
 export const FAILED = '❌';
+export const FAILURE_PREFIX = '[chat failed]';
 export const MAX_PER_CHANNEL = 3;
 export const WINDOW_MS = 24 * 60 * 60 * 1000;
+export const STALE_CLAIM_MS = 45 * 60 * 1000;
 export const HISTORY_LIMIT = 15;
 export const SNOWFLAKE = /^\d{15,21}$/;
 const HISTORY_TEXT_CAP = 1500;
@@ -29,9 +31,9 @@ export function runTitle(bot, messageId) {
   return `${BOTS[bot].name} chat · ${messageId}`;
 }
 
-export function findRun(runs, bot, messageId) {
+export function findRuns(runs, bot, messageId) {
   const title = runTitle(bot, messageId);
-  return runs.find((r) => r.displayTitle === title) || null;
+  return runs.filter((r) => r.displayTitle === title);
 }
 
 /**
@@ -48,6 +50,16 @@ export function founderIds(raw = '') {
 
 export function messageTime(message) {
   return Date.parse(message.timestamp) || snowflakeMs(message.id);
+}
+
+/**
+ * `gh run list --created >=…` value for a message: whole seconds in UTC
+ * (Discord timestamps carry microseconds and `+00:00`, which GitHub's date
+ * qualifier may reject), a minute early so clock skew never hides a run.
+ */
+export function createdSince(timestamp) {
+  const ms = Date.parse(timestamp);
+  return Number.isFinite(ms) ? new Date(ms - 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z') : '2015-01-01T00:00:00Z';
 }
 
 export function isFounderMessage(message, { founders, sourceId, now }) {
@@ -79,11 +91,18 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
   const claimed = [];
   const empty = [];
   for (const { channelId, threadId, messages } of sources) {
+    const notices = new Set((messages || []).filter((m) =>
+      m.author?.bot && !m.webhook_id && String(m.content || '').startsWith(FAILURE_PREFIX) && m.message_reference?.message_id,
+    ).map((m) => String(m.message_reference.message_id)));
     for (const m of messages || []) {
       if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now })) continue;
-      const item = { messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp, length: String(m.content || '').length };
+      const failed = hasOwnReaction(m, FAILED);
+      const item = {
+        messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp,
+        length: String(m.content || '').length, failed, notified: notices.has(String(m.id)),
+      };
       if (hasOwnReaction(m, CLAIM)) {
-        if (!hasOwnReaction(m, REPLIED) && !hasOwnReaction(m, FAILED)) claimed.push(item);
+        if (!hasOwnReaction(m, REPLIED) && !failed) claimed.push(item);
       } else if (hasBody(m)) {
         picked.push(item);
       } else if (!m.sticker_items?.length) {

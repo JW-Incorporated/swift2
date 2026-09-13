@@ -92,21 +92,28 @@ one covers only the conversational loop. Epic #4180.
    active threads (`GET /guilds/{id}/threads/active`, filtered to the
    channel) and the channel itself, read messages newer than 24 h, keep
    founder messages without the bot's 👀, oldest first, at most 3 per
-   channel per run. For each: add 👀, then `gh workflow run
+   channel per run. Hitting the ten-page safety cap before reaching the end
+   of the 24-hour window fails the poll as incomplete coverage. For each new
+   message: add 👀, then `gh workflow run
    routine-marjorie-chat.yml` (or `routine-tree-chat.yml`) with inputs
    `message_id`, `channel_id`, `thread_id`. A refused 👀 dispatches nothing,
    and a bot whose routine file is not on `main` yet is skipped. A 👀 is
-   never removed. Each poll reconciles earlier claims that carry neither ✅
-   nor ❌ against the routine's runs, found by `run-name`. With no run at all,
-   the dispatch was lost, so the poll dispatches again. If the run finished
-   without reacting, the poll reacts ❌ and then posts `[chat failed]`, in that
-   order so a refused reaction can't repeat the line every poll. If the run is
-   queued or running, the poll leaves it alone. A place the poll cannot read,
-   a missing channel, or a founder message with a blank body (no Message
-   Content intent) fails the run, so watchdog sees it. The poll pages back
-   through a channel until it passes the 24 h window.
-   *(Codex review of the task-1 PR: removing the claim after a failed or
-   ambiguous dispatch could strand a message, or answer it twice.)* `GITHUB_TOKEN` may dispatch
+   never removed and a claimed message is never dispatched again: after an
+   ambiguous dispatch result, avoiding duplicate agent actions takes priority
+   over automatic retry. Reconciliation waits until the founder message is at
+   least 45 minutes old. For each eligible claim it lists runs created since
+   that message (`--created >=<timestamp>`, limit 200); a list error or a full
+   200-result page makes that claim inconclusive and fails the poll. Every
+   matching `run-name` is inspected, and any queued or running match vetoes
+   settlement. With a complete list and no active match, the poll re-fetches
+   the Discord message and stops if ✅ or ❌ arrived since the channel scan.
+   Otherwise it bot-posts a referenced `[chat failed] … please send it again`
+   line, then adds ❌ as the settlement lock. A refused notice leaves no ❌,
+   so the next poll retries it; a successful notice is its own idempotency
+   marker, so a refused or interrupted ❌ is retried without reposting. A place
+   the poll cannot read, a missing channel, or a founder message with a blank
+   body (no Message Content intent) fails the run, so watchdog sees it.
+   `GITHUB_TOKEN` may dispatch
    workflows when the job declares `actions: write` (the 403 in #4223 was
    the App installation token inside the agent, not this path). The Discord
    fetch/backoff and `isRootOrWebhookMessage` moved from `reply-poll.mjs` to
@@ -133,8 +140,9 @@ one covers only the conversational loop. Epic #4180.
    `Tree chat · <message id>` (`run-name`, the poll's reconcile key). Each
    chat workflow also has its own concurrency group per message, and its
    `context` job stops the run before the agent when the message already
-   carries the bot's ✅ or ❌. A duplicate dispatch therefore waits for the
-   first run, then does nothing. Prompts `docs/agents/runner-prompts/marjorie-chat.md` and
+   carries the bot's ✅ or ❌. Thus the poll's ❌ settlement lock also stops a
+   late routine before agent work, while the all-match active-run veto protects
+   a routine already past context. Prompts `docs/agents/runner-prompts/marjorie-chat.md` and
    `tree-chat.md` read the context file, load the charter, act, and write
    the reply file. Marjorie's caller uses `checkout_token_secret:
    SOCIAL_POSTER_PAT` + `expose_dispatch_token: true` so she can re-dispatch
@@ -147,7 +155,10 @@ one covers only the conversational loop. Epic #4180.
    reply or the `[chat failed]` line through her webhook; `finish` under
    `social` reacts ✅/❌, posts `[chat failed]` with the bot token if `post`
    itself died, and writes the turn log. Tree's webhook is a repo secret, so
-   its `post` and `finish` share one `social` job. Dispatching with
+   its `post` and `finish` share one `social` job. The routine posts before its
+   terminal reaction; the poll's orphan settlement likewise posts its
+   bot-referenced marker before ❌, with Mechanics 1 providing the retry rule.
+   Dispatching with
    `force_fail: true` skips the agent job, which is the failure smoke path.)* The bot token and webhooks never enter the agent's
    environment (`docs/agents/marjorie.md` invariant; `reply-poll.mjs:1-6`).
 4. **Marjorie's authority in chat** (prompt, enforced by the PR diff and

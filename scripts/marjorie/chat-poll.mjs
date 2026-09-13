@@ -5,16 +5,11 @@
 //   poll     `bot-chat-poll.yml`. Founder messages in #longlive-marjorie and
 //            #longlive-tree (and their active threads), newer than 24 h,
 //            without the bot's own 👀, oldest first, at most 3 per channel.
-//            Each is claimed with 👀 BEFORE its chat routine is dispatched:
-//            reactions are the state, so a claimed message is never picked
-//            again (GitHub list endpoints lag a fresh write by seconds, #4260
-//            — a Discord reaction does not). A 👀 is never removed. Instead
-//            each poll reconciles earlier claims that carry neither ✅ nor ❌
-//            against the routine's runs, found by `run-name`: no run → the
-//            dispatch was lost, dispatch again; a finished run → its finish
-//            job died, react ❌ and post `[chat failed]` (Codex review of this
-//            PR: removing a claim on a failed or ambiguous dispatch could
-//            strand a message or answer it twice).
+//            Each is claimed with 👀 BEFORE its chat routine is dispatched.
+//            Claims are never removed or re-dispatched. Once a claim is at
+//            least 45 minutes old, every matching run is an active-run veto;
+//            a complete run query plus a fresh Discord read lets the poll post
+//            one referenced `[chat failed]` marker, then settle with ❌.
 //   context  the chat routines' first job. Writes one message's context JSON
 //            (the message, what it replies to, the thread root, the last 15
 //            messages) for the agent to read from `.scratch/`.
@@ -29,14 +24,14 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
-import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
+import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  BOTS, CLAIM, FAILED, HISTORY_LIMIT, MAX_PER_CHANNEL, SNOWFLAKE, WINDOW_MS, buildContext, dispatchArgs, findRun, founderIds, messageTime, selectInbox,
+  BOTS, CLAIM, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, MAX_PER_CHANNEL, REPLIED, SNOWFLAKE, STALE_CLAIM_MS, WINDOW_MS,
+  buildContext, createdSince, dispatchArgs, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
-
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const MAX_PAGES = 10;
-
+const RUN_LIMIT = 200;
 /**
  * Channel ids by name within the guild. The guild comes from the Tree
  * webhook (a webhook GET needs no auth and names its guild and channel —
@@ -67,7 +62,6 @@ export async function resolveChannels({ env, token, fetchImpl, sleepImpl }) {
   }
   return { guildId, ids };
 }
-
 /** Newest-first pages of 100, walked back with `before` until a page ends past the 24 h window. */
 export async function readMessages(where, { token, now, fetchImpl, sleepImpl }) {
   const messages = [];
@@ -78,12 +72,11 @@ export async function readMessages(where, { token, now, fetchImpl, sleepImpl }) 
     const batch = Array.isArray(r.data) ? r.data : [];
     messages.push(...batch);
     const oldest = batch[batch.length - 1];
-    if (batch.length < 100 || !oldest || now - messageTime(oldest) > WINDOW_MS) break;
+    if (batch.length < 100 || !oldest || now - messageTime(oldest) > WINDOW_MS) return { ok: true, messages };
     before = oldest.id;
   }
-  return { ok: true, messages };
+  return { ok: false, status: 'page-cap', messages };
 }
-
 async function readSources({ channelId, activeThreads, token, now, fetchImpl, sleepImpl }) {
   const threads = activeThreads.filter((t) => t.parent_id === channelId && now - snowflakeMs(t.last_message_id || t.id) <= WINDOW_MS);
   const sources = [];
@@ -99,64 +92,86 @@ async function readSources({ channelId, activeThreads, token, now, fetchImpl, sl
   }
   return { sources, failed };
 }
-
-export function listRuns(execImpl, repo, workflow) {
+export function listRuns(execImpl, repo, workflow, createdAfter) {
   try {
-    const out = execImpl('gh', ['run', 'list', '--repo', repo, '--workflow', workflow, '--limit', '200', '--json', 'displayTitle,status,conclusion,url'], { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+    const out = execImpl('gh', ['run', 'list', '--repo', repo, '--workflow', workflow, '--created', `>=${createdSince(createdAfter)}`,
+      '--limit', String(RUN_LIMIT), '--json', 'displayTitle,status,conclusion,url'], { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
     const runs = JSON.parse(out);
-    return Array.isArray(runs) ? runs : null;
+    return Array.isArray(runs) ? { runs, complete: runs.length < RUN_LIMIT } : null;
   } catch (err) {
     console.log(`::error::chat-poll: gh run list for ${workflow} failed: ${err.message}`);
     return null;
   }
 }
-
-async function reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, budget }) {
-  let used = 0;
-  let failures = 0;
-  if (!claimed.length) return { used, failures };
-  const runs = listRuns(execImpl, repo, cfg.workflow);
-  if (!runs) return { used, failures: 1 };
-  for (const item of claimed) {
-    const where = item.threadId || item.channelId;
-    const run = findRun(runs, bot, item.messageId);
-    if (run && run.status !== 'completed') continue; // queued or running — its own finish job reacts
-    if (!run) {
-      if (used >= budget) continue;
-      used += 1;
-      if (dryRun) {
-        console.log(`dry-run: would re-dispatch ${bot} message ${item.messageId} (👀 but no run)`);
-        continue;
-      }
-      try {
-        execImpl('gh', dispatchArgs(repo, cfg.workflow, item), { encoding: 'utf8' });
-        console.log(`re-dispatched ${bot} message ${item.messageId}: claimed earlier, no run found`);
-      } catch (err) {
-        failures += 1;
-        console.log(`::error::chat-poll: re-dispatching ${cfg.workflow} for ${item.messageId} failed: ${err.message}`);
-      }
-      continue;
-    }
-    if (dryRun) {
-      console.log(`dry-run: would mark ${bot} message ${item.messageId} ❌ (run finished without reacting: ${run.url})`);
-      continue;
-    }
-    // ❌ first: once it lands the message leaves the claimed set, so a
-    // refused reaction can never turn into a [chat failed] line every poll.
-    const marked = await discordRequest('PUT', reactionUrl(where, item.messageId, FAILED), token, opts);
-    if (!marked.ok) {
-      failures += 1;
-      console.log(`::error::chat-poll: could not add ${FAILED} to ${item.messageId} (HTTP ${marked.status})`);
-      continue;
-    }
-    const body = { content: `[chat failed] ${run.url}`, allowed_mentions: { parse: [] }, message_reference: { message_id: item.messageId, fail_if_not_exists: false } };
-    const posted = await discordRequest('POST', `${DISCORD_API}/channels/${where}/messages`, token, { ...opts, body });
-    if (!posted.ok) failures += 1;
-    console.log(`${bot} message ${item.messageId}: run finished without a reaction — marked ${FAILED}${posted.ok ? ' and posted [chat failed]' : `, [chat failed] post refused (HTTP ${posted.status})`}`);
-  }
-  return { used, failures };
+function failureBody(item, run) {
+  const detail = run?.url ? `${run.url} — ` : '— ';
+  return { content: `${FAILURE_PREFIX} ${detail}please send it again`, allowed_mentions: { parse: [] }, message_reference: { message_id: item.messageId, fail_if_not_exists: false } };
 }
-
+async function postFailure(item, run, token, opts) {
+  const where = item.threadId || item.channelId;
+  return discordRequest('POST', `${DISCORD_API}/channels/${where}/messages`, token, { ...opts, body: failureBody(item, run) });
+}
+async function reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, now }) {
+  let failures = 0;
+  const marked = claimed.filter((item) => item.notified);
+  for (const item of marked) {
+    if (dryRun) {
+      console.log(`dry-run: would finish ❌ for notified ${bot} message ${item.messageId}`);
+      continue;
+    }
+    const where = item.threadId || item.channelId;
+    const current = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${item.messageId}`, token, opts);
+    if (!current.ok) {
+      failures += 1;
+      console.log(`::error::chat-poll: could not re-read notified ${item.messageId} (HTTP ${current.status})`);
+    } else if (hasOwnReaction(current.data, CLAIM) && !hasOwnReaction(current.data, REPLIED) && !hasOwnReaction(current.data, FAILED)) {
+      const settled = await discordRequest('PUT', reactionUrl(where, item.messageId, FAILED), token, opts);
+      if (!settled.ok) {
+        failures += 1;
+        console.log(`::error::chat-poll: could not finish ${FAILED} for notified ${item.messageId} (HTTP ${settled.status})`);
+      }
+    }
+  }
+  const pending = claimed.filter((item) => !item.notified && now - Date.parse(item.timestamp) >= STALE_CLAIM_MS);
+  if (!pending.length) return { failures };
+  for (const item of pending) {
+    const where = item.threadId || item.channelId;
+    const listed = listRuns(execImpl, repo, cfg.workflow, item.timestamp);
+    if (!listed) {
+      failures += 1;
+      continue;
+    }
+    if (!listed.complete) {
+      failures += 1;
+      console.log(`::error::chat-poll: ${cfg.workflow} run list hit ${RUN_LIMIT} for ${item.messageId}; claim is inconclusive`);
+      continue;
+    }
+    const matches = findRuns(listed.runs, bot, item.messageId);
+    if (matches.some((run) => run.status !== 'completed')) continue;
+    const run = matches.find((candidate) => candidate.url) || null;
+    if (dryRun) {
+      console.log(`dry-run: would settle stale ${bot} claim ${item.messageId} as failed`);
+      continue;
+    }
+    const current = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${item.messageId}`, token, opts);
+    if (!current.ok) {
+      failures += 1;
+      console.log(`::error::chat-poll: could not re-read ${item.messageId} before settle (HTTP ${current.status})`);
+      continue;
+    }
+    if (!hasOwnReaction(current.data, CLAIM) || hasOwnReaction(current.data, REPLIED) || hasOwnReaction(current.data, FAILED)) continue;
+    const posted = await postFailure(item, run, token, opts);
+    if (!posted.ok) {
+      failures += 1;
+      console.log(`::error::chat-poll: [chat failed] post for ${item.messageId} refused (HTTP ${posted.status}); leaving it unsettled for retry`);
+      continue;
+    }
+    const settled = await discordRequest('PUT', reactionUrl(where, item.messageId, FAILED), token, opts);
+    if (!settled.ok) failures += 1;
+    console.log(`${bot} message ${item.messageId}: posted [chat failed]${settled.ok ? ` and marked ${FAILED}` : `; ${FAILED} refused (HTTP ${settled.status}), marker prevents a duplicate notice`}`);
+  }
+  return { failures };
+}
 export async function poll({
   env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now(),
   workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)),
@@ -186,7 +201,6 @@ export async function poll({
     console.log(`::error::chat-poll: active thread list -> HTTP ${active.status}; channels only`);
   }
   const activeThreads = (active.ok && active.data?.threads) || [];
-
   for (const [bot, cfg] of Object.entries(BOTS)) {
     if (!workflowExists(cfg.workflow)) {
       console.log(`${bot}: ${cfg.workflow} is not on main yet — skipped`);
@@ -205,9 +219,9 @@ export async function poll({
       failures += 1;
       console.log(`::error::chat-poll: ${bot}: ${empty.length} founder message(s) read with a blank body — the bot likely lacks the Message Content intent`);
     }
-    const settled = await reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, budget: MAX_PER_CHANNEL });
+    const settled = await reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, now });
     failures += settled.failures;
-    const fresh = picked.slice(0, Math.max(0, MAX_PER_CHANNEL - settled.used));
+    const fresh = picked;
     console.log(`${bot}: ${fresh.length} new, ${claimed.length} earlier claim(s) checked, from ${sources.length} place(s)`);
     for (const item of fresh) {
       const where = item.threadId || item.channelId;
@@ -232,7 +246,6 @@ export async function poll({
   }
   return failures ? 1 : 0;
 }
-
 export function parseFlags(args) {
   const flags = {};
   for (let i = 0; i < args.length; i += 1) {
@@ -244,7 +257,6 @@ export function parseFlags(args) {
   }
   return flags;
 }
-
 export async function context(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
   const { bot, out } = flags;
   const channelId = flags['channel-id'] || '';
@@ -275,7 +287,6 @@ export async function context(flags, { env = process.env, fetchImpl = fetch, sle
   console.log(`context for ${bot} message ${messageId}: ${ctx.history.length} message(s) of history${ctx.top_level ? ', top level' : `, thread ${threadId}`}`);
   return 0;
 }
-
 export async function main(argv = process.argv.slice(2), deps = {}) {
   const [cmd = 'poll', ...rest] = argv;
   if (cmd === 'poll') return poll(deps);
@@ -283,7 +294,6 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   console.log('usage: chat-poll.mjs poll | context --bot <marjorie|tree> --channel-id <id> --message-id <id> [--thread-id <id>] --out <file>');
   return 2;
 }
-
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   runMain(() => main(), { name: 'chat-poll' });
 }
