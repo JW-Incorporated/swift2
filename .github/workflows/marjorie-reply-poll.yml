@@ -10,22 +10,22 @@
 # deployment-branch policy — reusing it needs no new secret, no founder
 # provisioning step, and no wider scope than a channel-read already implies.
 #
-# Cron offset (":03/18/33/48") is deliberately off the top-of-hour/half-hour
-# marks, same reasoning as `social-approval-poll.yml`'s own offset — cron is
-# best-effort under GitHub platform load, this just avoids adding to the
-# exact-top-of-hour pileup.
+# Schedule moved 2026-09-13 (M5) to `bot-chat-poll.yml`, which runs this same
+# script as its second step in the same off-the-hour slots (:03/18/33/48) — one
+# Discord poll job per fire instead of two, under the org's $10/month Actions
+# hard stop. This file stays for a manual, relay-only run.
 name: marjorie-reply-poll
 
 on:
-  schedule:
-    - cron: "3,18,33,48 * * * *"
   workflow_dispatch: {}
 
 permissions:
   issues: write
 
+# Same group as bot-chat-poll.yml: both run reply-poll.mjs, and two relays
+# reading one comment snapshot at once would post the same relay-id twice.
 concurrency:
-  group: marjorie-reply-poll
+  group: bot-chat-poll
   cancel-in-progress: false
 
 jobs:

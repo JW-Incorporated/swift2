@@ -108,6 +108,39 @@ on:
         required: false
         type: boolean
         default: false
+      pre_run_artifact:
+        description: |
+          Optional (default "" = off). Name of an artifact uploaded by an
+          EARLIER JOB OF THE SAME RUN, unpacked into `.scratch/` after checkout
+          and before the agent starts. M5 chat routines use it for the Discord
+          context their `social`-environment `run:` job fetched, so the bot
+          token never reaches this job (docs/specs/marjorie-overhaul/m5-chat.md).
+          Same-run only: a cross-run download needs `actions: read`, which a
+          reusable workflow cannot request without breaking every caller whose
+          `permissions:` block doesn't grant it.
+        required: false
+        type: string
+        default: ""
+      post_run_artifact:
+        description: |
+          Optional (default "" = off). When set, whatever the agent wrote under
+          `.scratch/out/` is uploaded as an artifact of this name after the
+          agent step (even when it failed), for a later plain `run:` job to
+          read — M5's reply file. Treat its contents as untrusted agent output.
+        required: false
+        type: string
+        default: ""
+      concurrency_key:
+        description: |
+          Optional (default "" = the group stays `routine-<routine_name>`, byte-
+          identical for every existing caller). A GitHub concurrency group keeps
+          only ONE pending run and cancels older pending ones, so a routine
+          dispatched once per event (M5: once per founder message) passes a
+          per-event key to get its own lane instead of silently losing the
+          middle of three queued events.
+        required: false
+        type: string
+        default: ""
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
@@ -140,7 +173,7 @@ jobs:
     concurrency:
       # One routine, one lane — the same routine's next scheduled fire never
       # queues behind or races a still-running prior one.
-      group: routine-${{ inputs.routine_name }}
+      group: routine-${{ inputs.routine_name }}${{ inputs.concurrency_key != '' && format('-{0}', inputs.concurrency_key) || '' }}
       cancel-in-progress: false
     steps:
       - name: Guard — CLAUDE_CODE_OAUTH_TOKEN not set yet
@@ -162,6 +195,15 @@ jobs:
         if: steps.guard.outputs.skip == 'false'
         with:
           node-version: "24"
+
+      # Both artifact steps are skipped when their input is "" — every caller
+      # before M5 passes nothing (docs/specs/marjorie-overhaul/m5-chat.md).
+      - name: Download pre-run artifact into .scratch/
+        if: steps.guard.outputs.skip == 'false' && inputs.pre_run_artifact != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.pre_run_artifact }}
+          path: .scratch
 
       - name: Load prompt file (repo file is the source of truth — no inline copy)
         id: load_prompt
@@ -192,6 +234,15 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      - name: Upload post-run artifact from .scratch/out/
+        if: always() && steps.guard.outputs.skip == 'false' && inputs.post_run_artifact != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.post_run_artifact }}
+          path: .scratch/out/
+          if-no-files-found: ignore
+          retention-days: 7
 
       # T-17 visibility gap (docs/TIER2-OPTIMIZATION.md, docs/agents/codex.md
       # invocation not required here — zero-LLM script): reads the terminal

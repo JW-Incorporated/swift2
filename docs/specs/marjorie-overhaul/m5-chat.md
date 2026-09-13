@@ -9,16 +9,19 @@ one covers only the conversational loop. Epic #4180.
 ## Behavior you will see
 
 - You write a message in `#longlive-marjorie` (top level or in any thread).
-  Within about ten minutes Marjorie replies **in the same thread** (a
+  Within about fifteen minutes Marjorie replies **in the same thread** (a
   top-level message gets a thread started for it) and marks your message
-  👀 when she picks it up and ✅ when her reply is posted. The delay is
-  GitHub Actions' floor (a 5-minute poll plus a routine's start-up), not a
-  choice; the reply says nothing about being late.
+  👀 when she picks it up and ✅ when her reply is posted. The delay is a
+  15-minute poll plus a routine's start-up; the reply says nothing about
+  being late. *(Amended at build, 2026-09-13: the design said a 5-minute
+  poll, but the org's Actions budget is a $10/month hard stop and every
+  poll bills a minute — see Mechanics 1 and 7.)*
 - The same in `#longlive-tree` gets Tree. Tree's replies are conversation
   only; approvals stay reactions on Tree's own posts, exactly as before, and
   a reply from Tree is never an approval, a post, or a caption change.
 - Marjorie **acts before she answers.** "Blocker X is already done" → she
-  closes the human action or the issue, edits the day's brief issue, and
+  closes the human action or the issue, comments on the day's brief issue
+  (amended at build: the charter forbids editing its body after posting), and
   says what she changed with the number. A question she can answer from the
   repo gets the answer with a file or issue cited. A request the fleet can
   act on becomes a GitHub issue (`marjorie-filed`, the right desk label) or
@@ -41,50 +44,105 @@ one covers only the conversational loop. Epic #4180.
 
 - **Inbox** = messages in the two channels (and their active threads) from
   a founder's Discord user id, newer than 24 h, that do not yet carry the
-  bot's own 👀 reaction. Founder ids live in a repo variable
-  `DISCORD_FOUNDER_IDS` (comma-separated); anything else is ignored.
+  bot's own 👀 reaction. Founder ids come from the repo variable
+  `DISCORD_FOUNDER_IDS` (comma-separated) when it is set, else from the two
+  founder ids already committed in `scripts/social/lib/approvers.mjs`;
+  anything else is ignored. *(Amended at build: the variable does not exist
+  and creating one is founder-only; the same ids are already in the repo.)*
 - **Reactions are the state.** 👀 = claimed by a run (added *before* the
   routine starts), ✅ = replied, ❌ = the workflow failed and posted
   `[chat failed]`. No cursor file, no issue comments as a ledger; a re-run
   can never double-reply because a claimed message is filtered out.
-- **Context handed to the routine** (one JSON file per message, written by
-  the poll job and passed as a workflow artifact): channel, thread id,
-  message id, author, text, the last 15 messages of the thread (or the
-  channel, for a top-level message) with author names, and which bot.
-- **Reply** = one Markdown file the agent writes to `.scratch/chat-reply.md`
+- **Context handed to the routine** (one JSON file per message,
+  `.scratch/chat-context.json`): channel, thread id, message id, author,
+  text, the message it replies to, the thread's root, the last 15 messages
+  of the thread (or the channel, for a top-level message) with author names,
+  and which bot. *(Amended at build: written by the chat routine's own first
+  job — `chat-poll.mjs context`, a `run:` job under `environment: social` —
+  and handed to the agent job as a same-run artifact, not by the poll. A
+  cross-run artifact download needs `actions: read` on `routine-template.yml`,
+  and a reusable workflow cannot request a permission its caller didn't grant
+  without breaking every existing caller.)*
+- **Reply** = one Markdown file the agent writes to
+  `.scratch/out/chat-reply.md` (the template uploads `.scratch/out/`)
   (≤1800 chars; the workflow truncates with "…" and a link to the run when
   longer). Posted by a `run:` step through the channel's existing webhook
   (`DISCORD_MARJORIE_WEBHOOK_URL` / `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`)
   with `thread_id`. Webhooks cannot create threads, so a top-level founder
   message is answered by first creating a thread on it with the bot token
-  (`POST /channels/{id}/messages/{id}/threads`), then posting via webhook.
+  (`POST /channels/{id}/messages/{id}/threads`; the thread takes the
+  message's id), then posting via webhook. *(Amended at build: the thread is
+  created in the `context` job, before the agent runs — Marjorie's webhook
+  lives only in `ops` and the bot token only in `social`, so no one job can
+  hold both. HA #69 granted Send Messages but not Create Public Threads; if
+  Discord refuses the thread, the reply posts at channel top level with a
+  link to the founder's message and the run logs a warning.)*
 - **Turn log**: each reply run appends one line to the day's brief issue
   (`founders-brief`) as a comment `💬 chat: <channel> — <first 80 chars> →
-  <what was done>`, so the next morning's brief and MR2 can count them.
+  <what was done>`, ending in a `<!-- chat-id: <message id> -->` marker, so
+  the next morning's brief and MR2 can count them.
 
 ## Mechanics
 
-1. **`bot-chat-poll.yml`** — cron `*/5 * * * *` plus `workflow_dispatch`.
+1. **`bot-chat-poll.yml`** — cron `3,18,33,48 * * * *` plus
+   `workflow_dispatch` (a `dry_run` input claims and dispatches nothing).
    One job, `run:` steps only, environment `social` (owns
-   `DISCORD_BOT_TOKEN`), permissions `actions: write`. Script
-   `scripts/marjorie/chat-poll.mjs`: for each channel, list active threads
-   (`GET /guilds/{id}/threads/active`, filtered to the channel) and the
-   channel itself, read messages newer than 24 h, keep founder messages
-   without the bot's 👀, oldest first, at most 3 per channel per run. For
-   each: add 👀, write the context file, `gh workflow run
+   `DISCORD_BOT_TOKEN`), permissions `actions: write` and `issues: write`.
+   Script `scripts/marjorie/chat-poll.mjs poll`: for each channel, list
+   active threads (`GET /guilds/{id}/threads/active`, filtered to the
+   channel) and the channel itself, read messages newer than 24 h, keep
+   founder messages without the bot's 👀, oldest first, at most 3 per
+   channel per run. Hitting the ten-page safety cap before reaching the end
+   of the 24-hour window fails the poll as incomplete coverage. For each new
+   message: add 👀, then `gh workflow run
    routine-marjorie-chat.yml` (or `routine-tree-chat.yml`) with inputs
-   `message_id`, `channel_id`, `thread_id` and upload the context as an
-   artifact named `chat-<message_id>`. `GITHUB_TOKEN` may dispatch
+   `message_id`, `channel_id`, `thread_id`. A refused 👀 dispatches nothing,
+   and a bot whose routine file is not on `main` yet is skipped. A 👀 is
+   never removed and a claimed message is never dispatched again: after an
+   ambiguous dispatch result, avoiding duplicate agent actions takes priority
+   over automatic retry. Reconciliation waits until the founder message is at
+   least 45 minutes old. For each eligible claim it lists runs created since
+   that message (`--created >=<timestamp>`, limit 200); a list error or a full
+   200-result page makes that claim inconclusive and fails the poll. Every
+   matching `run-name` is inspected, and any queued or running match vetoes
+   settlement. With a complete list and no active match, the poll re-fetches
+   the Discord message and stops if ✅ or ❌ arrived since the channel scan.
+   Otherwise it bot-posts a referenced `[chat failed] … please send it again`
+   line, then adds ❌ as the settlement lock. A refused notice leaves no ❌,
+   so the next poll retries it; a successful notice is its own idempotency
+   marker, so a refused or interrupted ❌ is retried without reposting. A place
+   the poll cannot read, a missing channel, or a founder message with a blank
+   body (no Message Content intent) fails the run, so watchdog sees it.
+   `GITHUB_TOKEN` may dispatch
    workflows when the job declares `actions: write` (the 403 in #4223 was
-   the App installation token inside the agent, not this path). Reuse
-   `reply-poll.mjs`'s fetch/backoff and `isRootOrWebhookMessage`.
+   the App installation token inside the agent, not this path). The Discord
+   fetch/backoff and `isRootOrWebhookMessage` moved from `reply-poll.mjs` to
+   `scripts/marjorie/lib/discord-bot.mjs`, and both scripts import them.
+   The channels are found by name in the guild the Tree webhook names.
+   *(Amended at build: the cadence is the reply poller's existing slots, and
+   its relay runs as this job's second step, because the org's Actions budget
+   is a $10/month hard stop that August came within $1 of. Every fire bills
+   at least a minute, so every 5 minutes would add ~8,600 minutes a month
+   and could stop every workflow in the org. Folding the two polls adds no
+   fires. Going faster is a founder spend call, then a one-line cron change.)*
 2. **`routine-marjorie-chat.yml` / `routine-tree-chat.yml`** — callers of
    `routine-template.yml`, `workflow_dispatch` only, model `claude-opus-5`,
-   `max_turns: 25`, `timeout_minutes: 15`, concurrency group per bot (queued,
-   never cancelled). A pre-step downloads the artifact to
-   `.scratch/chat-context.json` (the template needs a small optional
-   `pre_run_artifact` input; every existing caller passes nothing and is
-   unaffected). Prompts `docs/agents/runner-prompts/marjorie-chat.md` and
+   `max_turns: 25`, `timeout_minutes: 15`. Jobs: `context` (`social`:
+   `chat-poll.mjs context`, creates the thread for a top-level message,
+   uploads `chat-context`) → `run` (the template, `pre_run_artifact:
+   chat-context`, `post_run_artifact: chat-reply`) → post → finish (Mechanics
+   3). *(Amended at build: concurrency is per message, via the template's
+   `concurrency_key` input, not per bot. A GitHub concurrency group keeps
+   only one pending run and cancels the older pending one, so "queued, never
+   cancelled" is not available and a per-bot group would drop the middle of
+   three messages. Every existing caller passes none of the three new inputs
+   and is unaffected.)* Each run is named `Marjorie chat · <message id>` /
+   `Tree chat · <message id>` (`run-name`, the poll's reconcile key). Each
+   chat workflow also has its own concurrency group per message, and its
+   `context` job stops the run before the agent when the message already
+   carries the bot's ✅ or ❌. Thus the poll's ❌ settlement lock also stops a
+   late routine before agent work, while the all-match active-run veto protects
+   a routine already past context. Prompts `docs/agents/runner-prompts/marjorie-chat.md` and
    `tree-chat.md` read the context file, load the charter, act, and write
    the reply file. Marjorie's caller uses `checkout_token_secret:
    SOCIAL_POSTER_PAT` + `expose_dispatch_token: true` so she can re-dispatch
@@ -92,8 +150,16 @@ one covers only the conversational loop. Epic #4180.
    not (Tree dispatches nothing from chat).
 3. **Post step** (`run:`, after the agent, `if: always()`): read the reply
    file; empty or missing → post `[chat failed] <run url>` and react ❌;
-   otherwise create the thread if needed, post via webhook, react ✅, append
-   the turn-log comment. The bot token and webhooks never enter the agent's
+   otherwise post via webhook, react ✅, append the turn-log comment.
+   *(Amended at build: two jobs for Marjorie — `post` under `ops` posts the
+   reply or the `[chat failed]` line through her webhook; `finish` under
+   `social` reacts ✅/❌, posts `[chat failed]` with the bot token if `post`
+   itself died, and writes the turn log. Tree's webhook is a repo secret, so
+   its `post` and `finish` share one `social` job. The routine posts before its
+   terminal reaction; the poll's orphan settlement likewise posts its
+   bot-referenced marker before ❌, with Mechanics 1 providing the retry rule.
+   Dispatching with
+   `force_fail: true` skips the agent job, which is the failure smoke path.)* The bot token and webhooks never enter the agent's
    environment (`docs/agents/marjorie.md` invariant; `reply-poll.mjs:1-6`).
 4. **Marjorie's authority in chat** (prompt, enforced by the PR diff and
    `allowed_tools`, same as M2): `gh issue create/comment/close/edit`, label
@@ -109,14 +175,18 @@ one covers only the conversational loop. Epic #4180.
    to social platforms and never approves; answers founder questions in
    `#longlive-tree` threads through the chat routine." Merges on green like
    Marjorie's charter (#4185 rule).
-6. **Reply poller stays.** `marjorie-reply-poll.yml` keeps relaying brief-
-   thread replies to the brief issue; the chat routine reads that issue
+6. **Reply poller stays.** `reply-poll.mjs` keeps relaying brief-
+   thread replies to the brief issue (since the build it runs as
+   `bot-chat-poll.yml`'s second step; `marjorie-reply-poll.yml` is
+   dispatch-only); the chat routine reads that issue
    too, so a reply in the brief thread gets both an issue comment and an
    in-thread answer. No double action: the routine checks the issue's
    comments for its own `💬 chat:` line before acting.
 7. **Cost**: at most 3 messages per channel per poll, one Opus turn each,
-   25 turns; a busy hour is ≤36 routine runs, a normal day a handful. Plan
-   usage, not dollars (`docs/decisions.md` #838). Kill switch: repo variable
+   25 turns; a busy hour is ≤24 routine runs, a normal day a handful. Opus
+   draws on plan usage, not dollars (`docs/decisions.md` #838). GitHub Actions
+   minutes are dollars: each chat run is four short jobs plus the agent job,
+   roughly 8–12 billed minutes, against the org's $10/month hard stop. Kill switch: repo variable
    `BOT_CHAT_ENABLED=false` makes the poll job exit 0 before reading.
 
 ## Acceptance criteria
