@@ -139,8 +139,10 @@ next brief carried the issue number, and vice versa. Built 2026-09-13
 (#4250, spec `docs/specs/marjorie-overhaul/l1-loop.md`). Two things are
 proven live on 09-13: the smoke run filed one synthetic ask each way, and
 Marjorie's agent answered and closed Tree's ask. The run also caught a
-search-index lookup bug (duplicate #4253), fixed by moving lookups to the
-REST issues list (evidence on #4180). Both briefs carrying the other bot's
+filing-idempotency bug: GitHub's list endpoints lag a fresh issue by
+seconds, so back-to-back passes can double-file (#4253, #4259). Moving the
+lookup to REST (#4255) did not close it, so it is in the debug ladder
+(evidence on #4180). Both briefs carrying the other bot's
 issue number first happen at the 2026-09-14 runs (Tree 10:00 UTC,
 Marjorie 12:00 UTC). MR1 (2026-09-19) now carries an explicit check for
 that cycle, and MR2 re-checks it on 10-03.
