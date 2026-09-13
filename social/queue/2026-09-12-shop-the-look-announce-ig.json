@@ -1,0 +1,27 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "you know the exact feeling: taylor steps out in some unreal outfit, and suddenly you're 40 minutes deep reverse-image-searching a single boot. right? ok good, me too.\n\nso we finally built the thing that ends that spiral, and i'm a little obsessed with it.\n\nit's called Seen on Taylor. tap a look she actually wore and it takes you straight to where you can shop the piece — the real one, or the closest match we could track down.\n\nand because we're fans, not a shop pretending to be official: every tile literally says 'her look, not the product.' we point you at what she wore, never claim she's selling it.\n\ngo raid your favorite era's closet 🤍 📷 the eras tour, inglewood 2023 — paolo villanueva (cc by 2.0), via wikimedia commons.\n\nlonglivets.com/?mode=merch&utm_source=instagram&utm_medium=social&utm_campaign=launch",
+  "media": [
+    "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "fearless-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+  "altText": [
+    "Taylor Swift performing the Fearless set of the Eras Tour in Inglewood, 2023, in a gold fringed dress, guitar in hand."
+  ],
+  "scheduledAt": "2026-09-12T23:00:00Z",
+  "campaign": "launch:shop-the-look:announce",
+  "why": "IG sibling of the shop-the-look announce (see the X item's why for the day-0-vs-how-to decision). Long-form direct-address, different vocabulary/structure from the X post. Sourced from the live merch surface: 'Seen on Taylor' tiles are buy links labeled verbatim 'Her look, not the product'; /?mode=merch verified in deepLink.ts. No item counts asserted. Photo-only is the correct answer here (calendar): no 'Seen on Taylor' screenshot is committed under /social/library/ yet, and the cool-feature rule forbids a flat/empty screenshot — so a credited Taylor Eras-Tour photo (an actual full look, on-theme for shop-the-look) carries the tile. Era fearless per calendar's not-lover/tloas/red rule. Launch arc = share-hook exempt. Lyric-free, blocklist-safe. Re-drafted after the reaction-approval gate landed (RULINGS-SOCIAL-2 PR-D); body unchanged from the retired pre-gate draft, altText added, rescheduled.",
+  "approval": {
+    "v": 2,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-11T16:26:33.227Z",
+    "pr": 4108,
+    "message": "1547824198238339083",
+    "contentHash": "sha256:04879d219d7a9f7619656b82d42f2c9acc1d8e9b35d53815ee3df8473179926b",
+    "sig": "hmac-sha256:351985614d56183753257c9dff767719ee6e3db869369dfd4ea083dfa4b528e0"
+  }
+}
