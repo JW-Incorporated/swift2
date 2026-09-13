@@ -77,48 +77,25 @@ title isn't one of the 14 `Watchdog: ...` conditions (e.g. an issue that
 carries the `watchdog-alert` label for some other reason). **Take no action
 on an unmatched issue** — leave it alone, it is not yours.
 
-## Step 1 — find your own identity, then check whether you already handled it today
-
-First, once per run (not once per alert — reuse the answer):
+## Step 1 — check whether you already handled it today
 
 ```
-gh api graphql -f query='{ viewer { login } }' --jq .data.viewer.login
+gh issue view <number> --json comments --jq '[.comments[] | {viewerDidAuthor: .viewerDidAuthor, body: .body}]' \
+  | node scripts/marjorie/lib/alert-router.mjs state
 ```
 
-**Use this GraphQL query, not `gh api user`.** The REST `/user` endpoint only
-supports OAuth/PAT tokens, not a GitHub App installation token — and your own
-`gh`/`git` calls in this run authenticate as `claude-code-action`'s App
-installation, not the `checkout_token_secret` PAT (2026-09-13: every comment
-that day posted as `claude`, not the PAT owner's login — `/user` would likely
-have failed outright under this token type). The GraphQL `viewer` field works
-under an installation token, and — just as important — it's the same
-GraphQL-backed path `gh issue view --json comments` (Step 2 below) uses to
-report comment authors, so the two sides of this comparison use one
-consistent representation instead of risking a REST-vs-GraphQL spelling
-mismatch (e.g. `claude[bot]` vs `claude`) for the same underlying identity.
-
-**If this command errors or prints nothing, STOP — do not fall back to a
-guess and do not proceed with an empty identity.** Say so in your run
-summary and take no action on any alert this run (an accidental empty-string
-"trusted author" could make every comment look untrusted, or worse, could
-coincidentally match one — neither is a state to guess through). This is a
-genuine stop condition, not a routine skip.
-
-Pass whatever this command actually prints, verbatim, as `state`'s first
-argument below — never hand-write it, never assume it matches a prior run.
-
-For each alert:
-
-```
-gh issue view <number> --json comments --jq '[.comments[] | {author: .author.login, body: .body}]' \
-  | node scripts/marjorie/lib/alert-router.mjs state "<your login from above>"
-```
-
-`state` only trusts a `marjorie-ops-handled` marker posted by the login you
-just looked up — a marker from any other commenter, including one hidden
-inside a code fence, is ignored, not honored. (If you skip the lookup, it
-falls back to a hardcoded guess that is known to sometimes be wrong — always
-do the lookup.)
+`viewerDidAuthor` is GitHub's own field for "did the credential running this
+query post this comment" — `state` only trusts a `marjorie-ops-handled`
+marker on a comment where it's `true`. This needs no identity lookup of your
+own: two earlier designs tried to compare login STRINGS (a hardcoded guess,
+then a live-queried one) and both broke on a real run — the routine's own
+`gh`/git calls authenticate as `claude-code-action`'s GitHub App
+installation, and different GitHub API surfaces turned out to spell that
+identity differently (`claude` vs `claude[bot]`). `viewerDidAuthor` sidesteps
+that entirely: it's computed server-side against whatever credential is
+actually running the query, never a string you have to get right. A marker
+on a comment you didn't post — including one hidden inside a code fence by
+someone else — is ignored, not honored.
 
 Prints one of:
 
