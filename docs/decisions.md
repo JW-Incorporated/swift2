@@ -30,12 +30,14 @@ brief was a Discord reply, not a thread, and reached no one. A relay onto an
 issue that someone reads the next morning is not a conversation.
 
 **How it is bounded:**
-- *Actions budget.* The org's Actions budget is a $10/month hard stop
-  (August: $9.02). The poll runs in the brief-reply relay's existing
-  15-minute slots, in the same job, rather than every 5 minutes, which would
-  add about 8,600 billed minutes a month. Joey accepted the fold in chat. A
-  chat reply costs roughly 8–12 Actions minutes plus one Opus session of at
-  most 25 turns.
+- *Cost.* The chat poll and the brief-reply relay share one job, which runs
+  every 5 minutes; Joey accepted the fold in chat. Actions minutes on this
+  public repository are not billed: swift2's ~9,000 September minutes netted
+  $0, all discounted. The org's $10/month Actions hard stop draws only on
+  the private repositories. It matters here only if swift2 goes private
+  again, and then the cadence should drop. A chat reply costs one Opus
+  session of at most 25 turns (plan usage) plus roughly 8–12 unbilled
+  Actions minutes.
 - *Exactly once.* A 👀 is never removed and a claimed message is never
   dispatched twice. The agent and the webhook post run only on a run's first
   attempt, so a re-run can only settle. Before anything is sent, one shared
@@ -60,15 +62,18 @@ issue that someone reads the next morning is not a conversation.
    history. Nothing the chat routines write to GitHub quotes founder text.
 
 **Alternatives considered:**
-- *A 5-minute poll:* rejected because of the Actions hard stop.
+- *A 15-minute poll:* built first, on the belief that every poll fire drew on
+  the $10 hard stop. Corrected the same day, once the billing data showed this
+  public repo's minutes net $0. A 15-minute poll plus a routine's start-up
+  can also miss the 15-minute reply target.
 - *A Gateway bot on Hermes' VM for instant replies:* deferred. It crosses the
   2026-09-12 channel-ownership decision and needs the VM.
 - *Removing the 👀 claim after a failed dispatch, then reconciling against
   GitHub run history:* rejected in Codex review. Either could strand a message
   or answer it twice.
 - *A hidden HTML-comment reply marker:* rejected, because Discord shows it.
-- *An extra settlement-gate job:* rejected. It bills a minute per chat, and
-  first-attempt gating does the same for free.
+- *An extra settlement-gate job:* rejected. It adds a job to every chat run,
+  and first-attempt gating does the same with none.
 
 **Approved by:** reversible, so the AI's call under CLAUDE.md's
 reversibility line. Joey confirmed the cadence fold and the two calls above

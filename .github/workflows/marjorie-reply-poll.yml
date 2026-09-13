@@ -11,9 +11,8 @@
 # provisioning step, and no wider scope than a channel-read already implies.
 #
 # Schedule moved 2026-09-13 (M5) to `bot-chat-poll.yml`, which runs this same
-# script as its second step in the same off-the-hour slots (:03/18/33/48) — one
-# Discord poll job per fire instead of two, under the org's $10/month Actions
-# hard stop. This file stays for a manual, relay-only run.
+# script as its second step every 5 minutes — one Discord poll job per fire
+# instead of two. This file stays for a manual, relay-only run.
 name: marjorie-reply-poll
 
 on:

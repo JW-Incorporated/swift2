@@ -4,7 +4,7 @@
 # agent context (docs/agents/marjorie.md; reply-poll.mjs header). Checkout
 # pins `ref: main` — a secret-holding job never runs dispatch-chosen code.
 #
-# One job, two steps, one billed minute per fire:
+# One job, two steps:
 #   1. chat-poll.mjs claims founder messages in #longlive-marjorie and
 #      #longlive-tree with 👀 and dispatches routine-marjorie-chat.yml /
 #      routine-tree-chat.yml on this job's own GITHUB_TOKEN. `actions: write`
@@ -13,13 +13,15 @@
 #   2. reply-poll.mjs, the M2 brief-thread relay, unchanged — moved here from
 #      marjorie-reply-poll.yml's own schedule (that file stays, dispatch-only).
 #
-# Cadence is the reply poller's existing four slots an hour, not the spec's
-# every-5-minutes: the org's Actions budget is a $10/month hard stop
-# (`prevent_further_usage`) that August's usage came within $1 of, and every
-# fire bills at least one minute. Every 5 minutes would add ~8,600 minutes a
-# month and risk stopping every workflow in the org; folding both polls into
-# one job adds none. Going faster is a founder spend call (raise the budget),
-# then a one-line cron change here.
+# Every 5 minutes, the spec's cadence: a founder's message must be answered
+# within 15 minutes, and a routine takes ~8–10 of them. This repository is
+# public, so its Actions minutes are not billed (swift2's September usage
+# netted $0); the org's $10/month hard stop draws only on private repos. If
+# swift2 ever goes private again, revisit this cron before it becomes spend.
+# (Built at 3,18,33,48 first on the wrong belief that each fire was billed —
+# corrected 2026-09-13 from the billing data.) Cron is best-effort under
+# GitHub load; the poll claims before it dispatches, so a skipped or doubled
+# fire never answers a message twice.
 #
 # Kill switch: repo variable BOT_CHAT_ENABLED=false skips the chat step before
 # anything is read. The relay step keeps running.
@@ -27,7 +29,7 @@ name: bot-chat-poll
 
 on:
   schedule:
-    - cron: "3,18,33,48 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
