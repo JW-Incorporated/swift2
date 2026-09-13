@@ -39,7 +39,7 @@ function recorder(routes: Record<string, unknown> = {}) {
     log.push({ key, body: init.body ? JSON.parse(init.body) : null });
     const route = routes[key];
     if (route instanceof Error) throw route;
-    return route ?? res(200, { id: '5' });
+    return route ?? res(200, { id: '5', author: { id: '338508192755482626' } }); // a founder id from approvers.mjs
   });
   return { fetchImpl, log };
 }
@@ -200,6 +200,17 @@ describe('finish', () => {
   it('a failed turn log warns but does not fail the job', async () => {
     const { fetchImpl } = recorder({ [reaction('✅')]: res(204) });
     expect(await finish(base(tmp(), 'replied'), { env: {}, fetchImpl, sleepImpl, execImpl: gh(true) })).toBe(0);
+  });
+
+  it("writes nothing on a message a founder didn't write, even when context never ran (Codex P2)", async () => {
+    const strangers = [{ author: { id: '111111111111111111', username: 'stranger' } }, { author: { id: '77', username: 'Marjorie', bot: true } }, { webhook_id: '77', author: { id: '338508192755482626' } }];
+    for (const who of strangers) {
+      const { fetchImpl, log } = recorder({ [read]: res(200, { id: MID, content: 'hi', ...who }) });
+      const execImpl = gh();
+      expect(await finish(base(tmp(), ''), { env: {}, fetchImpl, sleepImpl, execImpl })).toBe(0);
+      expect(keys(log)).toEqual([]);
+      expect(execImpl).not.toHaveBeenCalled();
+    }
   });
 });
 

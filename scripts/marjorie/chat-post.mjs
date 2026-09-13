@@ -32,7 +32,7 @@ import { fileURLToPath } from 'node:url';
 import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { parseFlags } from './chat-poll.mjs';
-import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
+import { postFailure, readDeliveryState, writtenByFounder } from './lib/chat-delivery.mjs';
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
@@ -111,7 +111,8 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
     return 1;
   }
   if (ctx.already) {
-    console.log(`message ${ctx.message_id} already carries ${ctx.already === 'replied' ? REPLIED : FAILED} — duplicate run, nothing to do`);
+    const why = ctx.already === 'not-founder' ? 'is not a founder message' : `already carries ${ctx.already === 'replied' ? REPLIED : FAILED} — duplicate run`;
+    console.log(`message ${ctx.message_id} ${why}, nothing to do`);
     setOutput(env, 'skip', 'true');
     setOutput(env, 'reply_thread_id', '');
     setOutput(env, 'message_url', '');
@@ -219,6 +220,10 @@ export async function finish(flags, { env = process.env, fetchImpl = fetch, slee
   }
   if (found.state === 'settled') {
     console.log(`message ${messageId} already carries ✅/❌ — nothing to settle or log`);
+    return 0;
+  }
+  if (!writtenByFounder(found.message, env.DISCORD_FOUNDER_IDS)) {
+    console.log(`::warning::chat-post finish: message ${messageId} is not a founder's message — nothing sent, reacted or logged`);
     return 0;
   }
   const attempt = async (label, call) => {

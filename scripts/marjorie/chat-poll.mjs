@@ -267,6 +267,13 @@ export async function context(flags, { env = process.env, fetchImpl = fetch, sle
     bot, guildId: channel.data?.guild_id || '@me', channelId, threadId, message: msg.data,
     history: [...earlier, msg.data], threadRoot: root?.ok ? root.data : null,
   });
+  // allowed_bots lets any github-actions dispatch start this routine, so the
+  // routine itself answers only a founder's own message (the poll's ids).
+  const author = msg.data?.author;
+  if (msg.data?.webhook_id || author?.bot || !founderIds(env.DISCORD_FOUNDER_IDS).has(String(author?.id ?? ''))) {
+    ctx.already = 'not-founder';
+    console.log(`::warning::chat-poll context: message ${messageId} is not a founder's message — the run stops here`);
+  }
   mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
   writeFileSync(out, `${JSON.stringify(ctx, null, 2)}\n`);
   console.log(`context for ${bot} message ${messageId}: ${ctx.history.length} message(s) of history${ctx.top_level ? ', top level' : `, thread ${threadId}`}`);
