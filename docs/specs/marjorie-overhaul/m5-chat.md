@@ -111,12 +111,19 @@ one covers only the conversational loop. Epic #4180.
    that message (`--created >=<timestamp>`, limit 200); a list error or a full
    200-result page makes that claim inconclusive and fails the poll. Every
    matching `run-name` is inspected, and any queued or running match vetoes
-   settlement. With a complete list and no active match, the poll re-fetches
-   the Discord message and stops if ✅ or ❌ arrived since the channel scan.
-   Otherwise it bot-posts a referenced `[chat failed] … please send it again`
-   line, then adds ❌ as the settlement lock. A refused notice leaves no ❌,
-   so the next poll retries it; a successful notice is its own idempotency
-   marker, so a refused or interrupted ❌ is retried without reposting. A place
+   settlement. With a complete list and no active match, the poll reads what
+   Discord shows through `lib/chat-delivery.mjs`, the check the routines'
+   `finish` also uses. It stops if ✅ or ❌ arrived since the channel scan;
+   adds ✅ when a reply is already there (delivered, but its ✅ failed); adds
+   ❌ alone when a referenced notice is already there. Otherwise it bot-posts
+   a referenced `[chat failed] … please send it again` line, then adds ❌ as
+   the settlement lock. A failed read sends nothing and fails the poll. A
+   refused notice leaves no ❌, so the next poll retries it; a successful
+   notice is its own idempotency marker, so a refused or interrupted ❌ is
+   retried without reposting. A reply is a webhook post under the bot's name
+   in the thread started on the message, in the message's own thread before
+   the next human message, or at top level opening `↪ <message link>` — no
+   hidden marker, since Discord shows `<!-- -->` as text. A place
    the poll cannot read, a missing channel, or a founder message with a blank
    body (no Message Content intent) fails the run, so watchdog sees it.
    `GITHUB_TOKEN` may dispatch
@@ -158,18 +165,22 @@ one covers only the conversational loop. Epic #4180.
    file; empty or missing → post `[chat failed] <run url>` and react ❌;
    otherwise post via webhook, react ✅, append the turn-log comment.
    *(Amended at build: two jobs for Marjorie — `post` under `ops` posts the
-   reply or the `[chat failed]` line through her webhook; `finish` under
-   `social` reacts ✅/❌, posts `[chat failed]` with the bot token if `post`
-   itself died, and writes the turn log. Tree's webhook is a repo secret, so
-   its `post` and `finish` share one `social` job. The routine posts before its
-   terminal reaction; the poll's orphan settlement likewise posts its
-   bot-referenced marker before ❌, with Mechanics 1 providing the retry rule.
-   `finish` re-reads the message first and does nothing on a message that
-   already carries ✅/❌. Tree's post step makes the same check, so
-   re-running a failed job never answers twice. A failed turn-log comment is
-   a warning, not a failed job, so no one re-runs a job to fix one. These
-   came from Codex's review of the routines PR.
-   Dispatching with
+   reply, if one was saved, through her webhook; `finish` under `social`
+   settles. Tree's webhook is a repo secret, so its post and finish steps
+   share one `social` job. `post` never sends `[chat failed]`: a webhook
+   cannot reply to a message, so the poll could not dedup it. `finish` reads
+   Discord first (`lib/chat-delivery.mjs`, as in Mechanics 1). A failed read
+   sends nothing and fails the job; a message with ✅/❌ is left alone; a
+   delivered reply gets ✅; an existing referenced notice gets ❌ alone;
+   otherwise it bot-posts the referenced `[chat failed] <run url> — please
+   send it again` line, then ❌, and a refused notice leaves no ❌. The agent
+   job and the post step run only when `github.run_attempt` is 1, so
+   "re-run failed jobs" never repeats an agent's actions or a post; a re-run
+   can only settle. Every guard takes its ids from the dispatch inputs and
+   the `context` job's outputs, which survive a re-run; artifacts may not.
+   The turn-log comment is written only by the run that placed ✅/❌, and a
+   failed one is a warning, not a failed job. These came from Codex's two
+   reviews of the routines PR. Dispatching with
    `force_fail: true` skips the agent job, which is the failure smoke path.)* The bot token and webhooks never enter the agent's
    environment (`docs/agents/marjorie.md` invariant; `reply-poll.mjs:1-6`).
 4. **Marjorie's authority in chat** (prompt, enforced by the PR diff and
