@@ -12,9 +12,12 @@ export const DAY_MS = 86_400_000;
 export const SECTION_BUDGETS = {
   waitingOnYou: 7,
   sinceYesterday: 6,
-  today: 4,
-  site: 2,
-  tree: 2,
+  // L1 (docs/specs/marjorie-overhaul/l1-loop.md): Tree 2→4 for the From Tree
+  // and For Tree lines, paid for out of slack — Today renders two lines,
+  // Site one.
+  today: 3,
+  site: 1,
+  tree: 4,
   distanceToDone: 7,
 };
 

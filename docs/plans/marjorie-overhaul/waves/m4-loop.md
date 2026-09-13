@@ -1,6 +1,6 @@
 # Wave M4 — The Tree/Marjorie loop
 
-Paste everything below this line into a fresh **Opus** session (`/model opus`) in Swift2. Prerequisites: M1 and M2 merged and proven; **Tree R2 has reported on #4117 (due 2026-09-21)** — M4 edits Tree's Monday prompt and must not change the instrument mid-measurement; no Tree wave open.
+Paste everything below this line into a fresh **Opus** session (`/model opus`) in Swift2. Prerequisites: M1, M2 and M3 merged and proven (all done 09-13); no Tree wave open. **The Tree R2 wait is waived (Joey, 2026-09-13)** — the rechecks will see the loop already in place; note that on #4117 in one line when you tick M4.
 
 ---
 

@@ -345,12 +345,18 @@ so a founder can approve in seconds.
 - One comment per month on the latest `founders-brief` issue (the monthly
   review summary).
 - `founder-decision` issues when something genuinely needs a human call.
+- Comments on — and closing, once satisfied — `marjorie-filed` + `desk:tree`
+  issues, which are Marjorie's asks of Tree (L1,
+  `docs/specs/marjorie-overhaul/l1-loop.md`). Tree's own asks of Marjorie go
+  in `social/calendar.brief.json`'s `needsFromMarjorie`, and `send-brief`
+  files them, never Tree.
 - Its own PRs: branch `tree/plan/<date>` (weekly) or `tree/draft/<date>`
   (daily), label `tree`.
 
 **May not touch:** `social/posted/`, `social/failed/`, `social/metrics/`, any
 charter (including this one), `docs/marketing/social-strategy.md`, app code,
-scripts, workflows, seed content, or any other agent's issues and PRs.
+scripts, workflows, seed content, or any other agent's issues and PRs (the
+one exception: Marjorie's asks of Tree, above).
 **"Touch" means write/edit** — Tree may **run**
 `scripts/social/weekly-scorecard.mjs` (explicit carve-out, added 2026-08-23)
 since it is read-only and writes nothing; it may not run anything that writes

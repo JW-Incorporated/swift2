@@ -117,7 +117,7 @@ function buildQuestionsMessage(questions, pr, headSha) {
  * more — a planning-time overrun is a runner-prompt bug, not a reason to
  * blow the message budget.
  */
-export function buildWeeklyBrief(plan, scorecard, { headSha, pr } = {}) {
+export function buildWeeklyBrief(plan, scorecard, { headSha, pr, loopLines = [] } = {}) {
   if (!headSha) {
     throw new Error('buildWeeklyBrief: headSha is required — every brief message must carry a verifiable ref: line');
   }
@@ -128,7 +128,7 @@ export function buildWeeklyBrief(plan, scorecard, { headSha, pr } = {}) {
   const headerTitle = plan.weekOf ? `Tree's week of ${plan.weekOf}` : "Tree's week";
   const header = {
     content: withRef(
-      [`**${headerTitle}**`, '', scorecard, '', plan.whatChangedAndWhy ?? '', '', 'Proposals below are ✅/❌. Everything else here just records feedback — reply in the thread if you want to say more.'],
+      [`**${headerTitle}**`, '', scorecard, '', plan.whatChangedAndWhy ?? '', '', ...(loopLines.length > 0 ? [...loopLines, ''] : []), 'Proposals below are ✅/❌. Everything else here just records feedback — reply in the thread if you want to say more.'],
       ref(pr, headSha, 'brief'),
     ),
   };
@@ -313,6 +313,20 @@ export async function sendReplanUpdateFromPlan(plan, headerPermalink, opts = {})
   return sendReplanUpdate(summary, headerPermalink, opts);
 }
 
+/** L1 (docs/specs/marjorie-overhaul/l1-loop.md): the Needs-from-Marjorie /
+ * From-Marjorie block `scripts/marjorie/loop-asks.mjs file-tree` wrote. No
+ * flag → no block; a flag whose file never got written (that step failed) →
+ * one line saying so, never a silently missing section. */
+export async function readLoopLines(loopPath) {
+  if (!loopPath) return [];
+  try {
+    const { lines } = JSON.parse(await readFile(loopPath, 'utf-8'));
+    return Array.isArray(lines) ? lines.map(String) : [];
+  } catch {
+    return ['**Needs from Marjorie**', "- Couldn't load this week's asks — see the send-brief log."];
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const flag = (name) => {
@@ -344,7 +358,8 @@ async function main() {
   }
 
   const scorecard = renderScorecard(buildScorecard());
-  const messages = buildWeeklyBrief(plan, scorecard, { headSha, pr: { number: Number(prNumber), url: prUrl } });
+  const loopLines = await readLoopLines(flag('loop'));
+  const messages = buildWeeklyBrief(plan, scorecard, { headSha, pr: { number: Number(prNumber), url: prUrl }, loopLines });
   const result = await sendWeeklyBrief(messages);
   if (result.status === 'unconfigured') {
     console.log('weekly-brief: SOCIAL_APPROVAL_WEBHOOK_URL is not configured -- skipping (clean no-op).');

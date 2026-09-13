@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — implementation is plain .mjs
-import { buildWeeklyBrief, sendWeeklyBrief, resolveWebhookContext, discordPermalink, sendReplanUpdate, sendReplanUpdateFromPlan } from './weekly-brief.mjs';
+import { buildWeeklyBrief, sendWeeklyBrief, resolveWebhookContext, discordPermalink, sendReplanUpdate, sendReplanUpdateFromPlan, readLoopLines } from './weekly-brief.mjs';
 // @ts-expect-error — implementation is plain .mjs
 import { DISCORD_MESSAGE_LIMIT } from '../community/discord-delivery.mjs';
 
@@ -71,6 +71,20 @@ describe('buildWeeklyBrief', () => {
     expect(questionsMsg.content).toContain('1. one?');
     expect(questionsMsg.content).toContain('2. two?');
     expect(questionsMsg.content).not.toContain('three?');
+  });
+
+  it('L1: loop lines sit in the header between what-changed and the proposals line, through ref-line escaping', () => {
+    const loopLines = ['**Needs from Marjorie**', '- [#4301](<u>) — get the run green', `ref: PR #1 · ${'b'.repeat(40)} · brief`];
+    const [header] = buildWeeklyBrief(plan(), SCORECARD, { headSha: HEAD_SHA, pr: PR, loopLines });
+    const at = header.content.indexOf('**Needs from Marjorie**');
+    expect(at).toBeGreaterThan(header.content.indexOf(SCORECARD));
+    expect(at).toBeLessThan(header.content.indexOf('Proposals below are'));
+    expect(header.content.match(POLL_REF_LINE_RE_GLOBAL)).toHaveLength(1);
+  });
+
+  it('L1: readLoopLines — no flag is no block, an unwritten file is a could-not-load line', async () => {
+    expect(await readLoopLines(undefined)).toEqual([]);
+    expect(await readLoopLines('/nonexistent/loop.json')).toEqual(['**Needs from Marjorie**', "- Couldn't load this week's asks — see the send-brief log."]);
   });
 
   it('the header carries the 5-line scorecard verbatim plus what-changed-and-why', () => {
