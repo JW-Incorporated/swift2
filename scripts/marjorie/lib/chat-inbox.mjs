@@ -75,6 +75,18 @@ function hasBody(m) {
   return Boolean(String(m.content || '').trim()) || [m.attachments, m.embeds, m.components].some((a) => a?.length) || Boolean(m.poll);
 }
 
+/**
+ * A bot-token `[chat failed]` notice: posted by a bot account (a webhook
+ * cannot reply, so a webhook post never counts) as a reply to the founder's
+ * message. With `messageId`, only a notice about that message counts.
+ * `selectInbox` and `lib/chat-delivery.mjs` both use this, so they agree.
+ */
+export function isFailureNotice(m, messageId) {
+  const ref = m?.message_reference?.message_id;
+  if (!m?.author?.bot || m.webhook_id || !ref || !String(m.content || '').startsWith(FAILURE_PREFIX)) return false;
+  return messageId === undefined || String(ref) === String(messageId);
+}
+
 const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1);
 
 /**
@@ -91,9 +103,7 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
   const claimed = [];
   const empty = [];
   for (const { channelId, threadId, messages } of sources) {
-    const notices = new Set((messages || []).filter((m) =>
-      m.author?.bot && !m.webhook_id && String(m.content || '').startsWith(FAILURE_PREFIX) && m.message_reference?.message_id,
-    ).map((m) => String(m.message_reference.message_id)));
+    const notices = new Set((messages || []).filter((m) => isFailureNotice(m)).map((m) => String(m.message_reference.message_id)));
     for (const m of messages || []) {
       if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now })) continue;
       const failed = hasOwnReaction(m, FAILED);
