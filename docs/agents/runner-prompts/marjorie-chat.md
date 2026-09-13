@@ -119,6 +119,8 @@ EOF
 
 If the heredoc form is refused, pass the reply as `--text "<your reply>"`.
 Save once, at the end. Saving nothing makes the workflow post `[chat failed]`.
+The summary is posted on a public GitHub issue: say what you did, and never
+quote or paraphrase what the founder wrote.
 
 Reply rules:
 - At most 1800 characters of Discord Markdown, in words a non-coder follows.

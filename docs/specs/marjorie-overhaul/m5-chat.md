@@ -65,8 +65,12 @@ one covers only the conversational loop. Epic #4180.
   without breaking every existing caller.)*
 - **Reply** = one Markdown file the agent writes to
   `.scratch/out/chat-reply.md` (the template uploads `.scratch/out/`)
-  (≤1800 chars; the workflow truncates with "…" and a link to the run when
-  longer). Posted by a `run:` step through the channel's existing webhook
+  (≤1800 chars; the workflow truncates with "…" when longer). *(Amended at
+  build: no link to the run — the run's artifacts are deleted; mentions are
+  neutralized and `ref:`-shaped lines defused BEFORE the cap, so what is
+  checked is what is sent, always as one Discord message. Codex review of
+  the routines PR found expansion after the cap could split a Tree reply and
+  start the second message on a forged approval ref.)* Posted by a `run:` step through the channel's existing webhook
   (`DISCORD_MARJORIE_WEBHOOK_URL` / `DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`)
   with `thread_id`. Webhooks cannot create threads, so a top-level founder
   message is answered by first creating a thread on it with the bot token
@@ -78,9 +82,11 @@ one covers only the conversational loop. Epic #4180.
   Discord refuses the thread, the reply posts at channel top level with a
   link to the founder's message and the run logs a warning.)*
 - **Turn log**: each reply run appends one line to the day's brief issue
-  (`founders-brief`) as a comment `💬 chat: <channel> — <first 80 chars> →
-  <what was done>`, ending in a `<!-- chat-id: <message id> -->` marker, so
-  the next morning's brief and MR2 can count them.
+  (`founders-brief`) as a comment `💬 chat: <channel> → <what was done>`,
+  ending in a `<!-- chat-id: <message id> -->` marker, so the next morning's
+  brief and MR2 can count them. *(Amended at build: no founder text — this
+  repo is public, and a turn log is permanent. The design had the first 80
+  characters. The agent's summary is told never to quote the founder.)*
 
 ## Mechanics
 
@@ -158,6 +164,11 @@ one covers only the conversational loop. Epic #4180.
    its `post` and `finish` share one `social` job. The routine posts before its
    terminal reaction; the poll's orphan settlement likewise posts its
    bot-referenced marker before ❌, with Mechanics 1 providing the retry rule.
+   `finish` re-reads the message first and does nothing on a message that
+   already carries ✅/❌. Tree's post step makes the same check, so
+   re-running a failed job never answers twice. A failed turn-log comment is
+   a warning, not a failed job, so no one re-runs a job to fix one. These
+   came from Codex's review of the routines PR.
    Dispatching with
    `force_fail: true` skips the agent job, which is the failure smoke path.)* The bot token and webhooks never enter the agent's
    environment (`docs/agents/marjorie.md` invariant; `reply-poll.mjs:1-6`).
@@ -246,7 +257,22 @@ one covers only the conversational loop. Epic #4180.
   role is a one-line change to the filter.
 - **Latency.** A Gateway bot on Hermes' VM would make replies near-instant
   but crosses the channel-ownership decision of 2026-09-12 and needs the VM;
-  revisit only if the 10-minute loop feels too slow after a week.
+  revisit only if the 15-minute loop feels too slow after a week.
+- **Tool grants versus authority** (Codex P1 on the routines PR — surfaced,
+  not settled). `Bash(gh:*)` and `Bash(node:*)`, plus Marjorie's PAT, can
+  technically do more than the prompts allow. Enforcement is the prompt plus
+  the PR diff — the same boundary the M2 and M3 routines ship with, and what
+  Mechanics 4 specifies. A deterministic boundary — one trusted helper per
+  allowed operation, no write credential in the agent — is a fleet-wide
+  `routine-template.yml` change. Recommendation: accept it for M5 and track
+  the hardening as its own issue. Founder call.
+- **Founder text in a run's artifacts** (Codex P1 on the routines PR —
+  surfaced, not settled). A chat run's context artifact holds the message and
+  up to 15 messages of history. Any signed-in GitHub user can download it
+  for the roughly ten minutes the run lasts, until `finish` deletes it.
+  Already public and permanent today: the brief-reply relay copies founder
+  replies onto brief issues. Closing the window needs encrypted or private
+  transport. Recommendation: accept it for now. Founder call.
 - **Reactions permission.** 👀/✅/❌ need "Add Reactions" for the bot on
   both channels; if Joey grants only View + History, the build falls back to
   a `chat-claimed` comment marker on the brief issue and the spec is
