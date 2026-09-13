@@ -58,9 +58,9 @@ describe('parseTreeAsks', () => {
   });
 
   it('counts entries without ask text as invalid and ignores a missing field', () => {
-    expect(parseTreeAsks({ needsFromMarjorie: [{ why: 'no ask' }, { ask: '  ' }] })).toEqual({ asks: [], overCap: 0, invalid: 2 });
-    expect(parseTreeAsks({})).toEqual({ asks: [], overCap: 0, invalid: 0 });
-    expect(parseTreeAsks(null)).toEqual({ asks: [], overCap: 0, invalid: 0 });
+    expect(parseTreeAsks({ needsFromMarjorie: [{ why: 'no ask' }, { ask: '  ' }] })).toEqual({ asks: [], overCap: 0, invalid: 2, duplicates: 0 });
+    expect(parseTreeAsks({})).toEqual({ asks: [], overCap: 0, invalid: 0, duplicates: 0 });
+    expect(parseTreeAsks(null)).toEqual({ asks: [], overCap: 0, invalid: 0, duplicates: 0 });
   });
 
   it('drops a non-integer contradicts', () => {

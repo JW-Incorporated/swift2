@@ -88,9 +88,12 @@ jobs:
         run: |
           set -euo pipefail
           ISSUE_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founders-brief --state open --json number,body,url --limit 1)
-          echo "$ISSUE_JSON" | jq -r '.[0].body' > /tmp/brief-body.md
           ISSUE_URL=$(echo "$ISSUE_JSON" | jq -r '.[0].url')
           ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r '.[0].number')
+          # The list above is search-backed and can hand back a body from
+          # before an earlier delivery's writeback (→ [#N]), which would
+          # refile the ask; a single-issue read returns the issue itself.
+          gh issue view "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --json body --jq .body > /tmp/brief-body.md
           # L1 (docs/specs/marjorie-overhaul/l1-loop.md): file the brief's
           # `- For Tree:` ask as a `marjorie-filed` + `desk:tree` issue and
           # write its number into the line — and the issue body — before the

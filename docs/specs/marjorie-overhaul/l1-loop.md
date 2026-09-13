@@ -97,21 +97,21 @@ ask text containing an arrow still files. Asks are capped at 300 characters.
 `@login` gets a zero-width space after its `@` and `<!--` becomes `&lt;!--`, so an ask can
 neither ping anyone nor forge a marker.
 
-**Idempotency and the identity trap.** Each filing gets a key:
-`<side>-<source#>-<sha1(ask, lowercased)[0:8]>`. The source is the plan PR
-number or the brief issue number. Before filing, the step lists the most
-recent 200 issues carrying both its `*-filed` and its `desk:*` label
-(REST issues list with full bodies — not `gh issue list`, whose search index missed a 1 s-old filing live, #4253). It then matches
-the key in the body's last marker, which always comes after all content. **Trust uses the author's login, not
-`viewerDidAuthor`.** Both filers are `run:` steps on the workflow token, so
-the author is always the same absolute login, `app/github-actions` (from
-`gh --json`) or `github-actions[bot]` (from REST), whichever credential
-reads it. `viewerDidAuthor` is relative to the reader and broke M2/M3
-(#4225, #4238). Unlike M3's `pending`/`posted` pair, L1 needs no asymmetric
-trust, because writer and reader are the same credential type on both
-sides. An issue a human wrote with a copied marker never suppresses a
-filing. Re-dispatching either job refiles nothing, and a changed ask text
-files a new issue.
+**Idempotency and the identity trap.** Each filing gets a key: `<side>-<source#>-<sha1(ask,
+lowercased)[0:8]>`. The source is the plan PR number or the brief issue number. Before filing, the step lists
+the most recent 200 issues carrying both its `*-filed` and its `desk:*` label (REST issues list with full
+bodies — not `gh issue list`, whose search index missed a 1 s-old filing live, #4253). It then matches the
+key in the body's last marker, which always comes after all content. **Trust uses the author's login, not
+`viewerDidAuthor`.** Both filers are `run:` steps on the workflow token, so the author is always the same
+absolute login, `app/github-actions` (from `gh --json`) or `github-actions[bot]` (from REST), whichever
+credential reads it. `viewerDidAuthor` is relative to the reader and broke M2/M3 (#4225, #4238). Unlike M3's
+`pending`/`posted` pair, L1 needs no asymmetric trust, because writer and reader are the same credential type
+on both sides. An issue a human wrote with a copied marker never suppresses a filing. Idempotency is
+eventual, not strict: GitHub's list endpoints (search and REST) lag a new issue by seconds (#4253, #4259), so
+two filings of one ask inside that window can both create. Production filings are serialized and a
+re-delivery starts well outside it, `deliver` re-reads the brief body by exact issue number, and identical
+asks in one plan are merged before filing; strict claim-based idempotency is a tracked follow-up. A changed
+ask text files a new issue.
 
 **Filing never blocks a brief.** Every GitHub failure is logged as a
 `::warning::` and the CLI still exits 0. Tree's brief then shows `N asks

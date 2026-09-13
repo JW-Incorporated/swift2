@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { fileMarjorie, fileTree } from './loop-asks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { fileAsk } from './lib/loop-asks.mjs';
+import { fileAsk, parseTreeAsks } from './lib/loop-asks.mjs';
 
 const NOW = Date.parse('2026-09-14T12:00:00Z');
 const URL_4301 = 'https://github.com/JW-Incorporated/swift2/issues/4301';
@@ -95,5 +95,26 @@ describe('CLI', () => {
     await fileTree({ plan: path.join(dir, 'missing.json'), pr: '4300', 'pr-url': 'u', out }, { gh, now: NOW });
     log.mockRestore();
     expect(JSON.parse(readFileSync(out, 'utf8')).lines[1]).toBe('- Nothing this week.');
+  });
+
+  it('file-tree merges two asks that differ only by case/whitespace and files once', async () => {
+    const planFile = path.join(dir, 'plan-dupe.json');
+    writeFileSync(planFile, JSON.stringify({ needsFromMarjorie: [{ ask: 'Fix the run' }, { ask: '  fix   the run  ' }] }));
+    const out = path.join(dir, 'loop-dupe.json');
+    const { gh, calls } = fakeGh([]);
+    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+    await fileTree({ plan: planFile, pr: '4300', 'pr-url': 'u', out }, { gh, now: NOW });
+    const logged = log.mock.calls.flat().join('\n');
+    log.mockRestore();
+    expect(logged).toContain('::warning::loop-asks: 1 duplicate needsFromMarjorie entry merged — filed once');
+    expect(calls.filter((c) => c[1] === 'create')).toHaveLength(1);
+    const { lines } = JSON.parse(readFileSync(out, 'utf8'));
+    expect(lines.filter((l: string) => l.startsWith('- [#'))).toHaveLength(1);
+  });
+
+  it('parseTreeAsks merges duplicates before the two-ask cap, so they never use a slot', () => {
+    const r = parseTreeAsks({ needsFromMarjorie: [{ ask: 'Fix the run', why: 'first' }, { ask: ' fix  the RUN ', why: 'second' }, { ask: 'b' }] });
+    expect(r).toMatchObject({ duplicates: 1, overCap: 0, invalid: 0 });
+    expect(r.asks.map((a: { ask: string; why: string }) => `${a.ask}|${a.why}`)).toEqual(['Fix the run|first', 'b|']);
   });
 });

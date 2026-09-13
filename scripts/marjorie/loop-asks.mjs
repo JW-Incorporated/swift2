@@ -63,8 +63,9 @@ export async function fileTree(flags, { gh = ghRun, now = Date.now() } = {}) {
     warn(`could not read ${flags.plan}: ${err.message}`);
   }
 
-  const { asks, overCap, invalid } = parseTreeAsks(plan);
+  const { asks, overCap, invalid, duplicates } = parseTreeAsks(plan);
   if (invalid > 0) warn(`${invalid} needsFromMarjorie entr${invalid === 1 ? 'y has' : 'ies have'} no ask text — skipped`);
+  if (duplicates > 0) warn(`${duplicates} duplicate needsFromMarjorie entr${duplicates === 1 ? 'y' : 'ies'} merged — filed once`);
 
   const filed = [];
   let failed = 0;
