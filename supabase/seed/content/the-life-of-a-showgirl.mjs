@@ -11264,7 +11264,7 @@ export default {
             source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
             publisher: 'heavy.com',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-10',
+            accessed_at: '2026-09-13',
             reliability_score: 2,
           },
           {
@@ -11273,7 +11273,7 @@ export default {
             source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
             publisher: 'Yahoo Entertainment',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-10',
+            accessed_at: '2026-09-13',
             reliability_score: 2,
           },
         ],

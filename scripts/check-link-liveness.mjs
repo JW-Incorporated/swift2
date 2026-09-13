@@ -114,8 +114,14 @@ async function walk(dir) {
 }
 
 function extractUrls(text) {
-  const raw = text.match(/https?:\/\/[^\s"'`)\]<>]+/g) || [];
-  return raw.map((u) => u.replace(/[.,;]+$/, ''));
+  const raw = text.match(/https?:\/\/[^\s"'`\]<>]+/g) || [];
+  return raw.map((u) => {
+    u = u.replace(/[.,;]+$/, '');
+    while (u.endsWith(')') && (u.match(/\(/g) || []).length < (u.match(/\)/g) || []).length) {
+      u = u.slice(0, -1);
+    }
+    return u;
+  });
 }
 
 // AbortSignal is a Node 18+ / browser global; declare it for eslint's no-undef.

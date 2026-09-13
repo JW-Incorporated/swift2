@@ -31,7 +31,7 @@ export default {
           source_title: "Taylor Swift Wears 'no its becky' T-Shirt",
           publisher: 'Time',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-08',
+          accessed_at: '2026-09-13',
           reliability_score: 4,
           excerpt: null,
           notes: 'documents the original Tumblr post and the meme\'s spread — the meme itself is the subject here',
