@@ -111,7 +111,8 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
     return 1;
   }
   if (ctx.already) {
-    console.log(`message ${ctx.message_id} already carries ${ctx.already === 'replied' ? REPLIED : FAILED} — duplicate run, nothing to do`);
+    const why = ctx.already === 'not-founder' ? 'is not a founder message' : `already carries ${ctx.already === 'replied' ? REPLIED : FAILED} — duplicate run`;
+    console.log(`message ${ctx.message_id} ${why}, nothing to do`);
     setOutput(env, 'skip', 'true');
     setOutput(env, 'reply_thread_id', '');
     setOutput(env, 'message_url', '');

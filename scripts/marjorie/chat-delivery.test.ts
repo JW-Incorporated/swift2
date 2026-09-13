@@ -270,3 +270,22 @@ describe('force_fail smoke: a settled message is never re-claimed (M5 acceptance
     expect(pick(founder(MID)).picked).toHaveLength(1);
   });
 });
+
+describe("context stops a run on a message that is not a founder's (allowed_bots defence in depth)", () => {
+  it('marks a webhook post or a stranger not-founder, so the thread step skips the whole run', async () => {
+    // @ts-expect-error — plain .mjs module, no type declarations
+    const { context } = await import('./chat-poll.mjs');
+    // @ts-expect-error — plain .mjs module, no type declarations
+    const { thread } = await import('./chat-post.mjs');
+    const dir = mkdtempSync(join(tmpdir(), 'chat-ctx-'));
+    const out = join(dir, 'ctx.json');
+    for (const message of [hook(MID), founder(MID, { author: { id: '111111111111111111', username: 'stranger' } })]) {
+      const { fetchImpl } = discord({ [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }), [get(MARJ)]: res(200, message), [`GET ${DISCORD_API}/channels/${MARJ}/messages?before=${MID}&limit=14`]: res(200, []) });
+      expect(await context({ bot: 'marjorie', 'channel-id': MARJ, 'message-id': MID, out }, { env: { DISCORD_BOT_TOKEN: 't' }, fetchImpl, sleepImpl })).toBe(0);
+      expect(JSON.parse(readFileSync(out, 'utf8')).already).toBe('not-founder');
+      const ghOut = join(dir, `gh-output-${message.author.id}`);
+      expect(await thread({ context: out }, { env: { GITHUB_OUTPUT: ghOut }, fetchImpl, sleepImpl })).toBe(0);
+      expect(readFileSync(ghOut, 'utf8')).toContain('skip=true');
+    }
+  });
+});
