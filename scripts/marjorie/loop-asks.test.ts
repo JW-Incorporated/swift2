@@ -14,7 +14,7 @@ function fakeGh(existing: unknown[] = [], createdUrl = URL_4301) {
   const calls: string[][] = [];
   const gh = vi.fn(async (args: string[]) => {
     calls.push(args);
-    if (args[1] === 'list') return { stdout: JSON.stringify(existing) };
+    if (args[0] === 'api') return { stdout: JSON.stringify(existing) };
     if (args[1] === 'create') return { stdout: `${createdUrl}\n` };
     return { stdout: '' };
   });

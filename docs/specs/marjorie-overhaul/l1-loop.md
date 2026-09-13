@@ -101,7 +101,7 @@ neither ping anyone nor forge a marker.
 `<side>-<source#>-<sha1(ask, lowercased)[0:8]>`. The source is the plan PR
 number or the brief issue number. Before filing, the step lists the most
 recent 200 issues carrying both its `*-filed` and its `desk:*` label
-(`--state all`, full bodies, no #4230 comment truncation). It then matches
+(REST issues list with full bodies — not `gh issue list`, whose search index missed a 1 s-old filing live, #4253). It then matches
 the key in the body's last marker, which always comes after all content. **Trust uses the author's login, not
 `viewerDidAuthor`.** Both filers are `run:` steps on the workflow token, so
 the author is always the same absolute login, `app/github-actions` (from

@@ -27,7 +27,7 @@ function fakeGh(existing: unknown[] = [], createdUrl = URL_4301) {
   const calls: string[][] = [];
   const gh = vi.fn(async (args: string[]) => {
     calls.push(args);
-    if (args[1] === 'list') return { stdout: JSON.stringify(existing) };
+    if (args[0] === 'api') return { stdout: JSON.stringify(existing) };
     if (args[1] === 'create') return { stdout: `${createdUrl}\n` };
     return { stdout: '' };
   });
@@ -184,11 +184,11 @@ describe('fileAsk', () => {
     expect(create.join(' ')).toContain('--label tree-filed --label desk:ops');
   });
 
-  it('looks up existing filings by both labels with a 200-issue window', async () => {
+  it('looks up existing filings on the REST issues list by both labels (not the search index)', async () => {
     const { gh, calls } = fakeGh([]);
     await fileAsk('tree', ask, { sourceNumber: 4300, sourceUrl: 'u', gh });
-    const list = calls.find((c) => c[1] === 'list')!;
-    expect(list.join(' ')).toContain('--label tree-filed --label desk:ops --state all --limit 200');
+    const list = calls.find((c) => c[0] === 'api')!;
+    expect(list[1]).toContain('repos/JW-Incorporated/swift2/issues?labels=tree-filed%2Cdesk%3Aops&state=all');
   });
 
   it('throws when create prints no issue URL', async () => {
@@ -213,11 +213,11 @@ describe('fileAsk', () => {
 });
 
 describe('fetchAsksFor', () => {
-  it('lists by both the filed and desk labels with a 200-issue window', async () => {
+  it('lists by both the filed and desk labels on the REST issues list', async () => {
     const { gh, calls } = fakeGh([]);
     await fetchAsksFor('tree', { gh });
-    const list = calls.find((c) => c[1] === 'list')!;
-    expect(list.join(' ')).toContain('--label marjorie-filed --label desk:tree --state open --limit 200');
+    const list = calls.find((c) => c[0] === 'api')!;
+    expect(list[1]).toContain('repos/JW-Incorporated/swift2/issues?labels=marjorie-filed%2Cdesk%3Atree&state=open');
   });
 });
 
