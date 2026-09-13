@@ -8,6 +8,7 @@
 // plain `run:` step on the workflow token. Never an agent judging a marker.
 import { createHash } from 'node:crypto';
 import { gh as ghRun } from '../../lib/gh.mjs';
+import { listIssuesByLabels } from './issues-rest.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 const DAY_MS = 86_400_000;
@@ -197,14 +198,14 @@ export function renderIssue(sideName, ask, { key, sourceUrl }) {
 export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun, timeoutMs = 30_000 }) {
   const side = SIDES[sideName];
   const key = askKey(sideName, sourceNumber, ask.ask);
-  // Both labels (gh ANDs repeated --label), 200-issue window: a filed
-  // label alone can be pushed out of a 100-row window by newer build-desk
-  // issues sharing that same label.
-  const { stdout } = await withTimeout(gh([
-    'issue', 'list', '--repo', repo, '--label', side.filedLabel, '--label', side.deskLabel, '--state', 'all',
-    '--limit', '200', '--json', 'number,url,body,author',
-  ]), timeoutMs, 'gh issue list');
-  const existing = findFiled(JSON.parse(stdout || '[]'), key);
+  // Both labels, 200-issue window, and the REST issues list rather than
+  // `gh issue list` — that reads the search index, which missed a 1 s-old
+  // filing live and let a duplicate through (#4253).
+  const rows = await withTimeout(
+    listIssuesByLabels(gh, { repo, labels: [side.filedLabel, side.deskLabel], state: 'all' }),
+    timeoutMs, 'gh api issues',
+  );
+  const existing = findFiled(rows, key);
   if (existing) return { number: existing.number, url: existing.url, created: false, ask };
 
   const { title, body, labels } = renderIssue(sideName, ask, { key, sourceUrl });
@@ -248,11 +249,10 @@ export function selectAsksFor(bot, issues, { now = Date.now(), closedWithinDays 
 
 export async function fetchAsksFor(bot, { repo = REPO, gh = ghRun, state = 'open', timeoutMs = 30_000 } = {}) {
   const side = ADDRESSED_TO[bot];
-  const { stdout } = await withTimeout(gh([
-    'issue', 'list', '--repo', repo, '--label', side.filedLabel, '--label', side.deskLabel, '--state', state,
-    '--limit', '200', '--json', INCOMING_JSON_FIELDS,
-  ]), timeoutMs, 'gh issue list');
-  return JSON.parse(stdout || '[]');
+  return withTimeout(
+    listIssuesByLabels(gh, { repo, labels: [side.filedLabel, side.deskLabel], state }),
+    timeoutMs, 'gh api issues',
+  );
 }
 
 function ageDays(issue, now) {
