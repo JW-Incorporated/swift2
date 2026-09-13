@@ -6,6 +6,7 @@ import {
   renderHandledMarker,
   renderFbGroupLines,
   renderFbHumanAction,
+  DEFAULT_TRUSTED_AUTHOR,
 } from './alert-router.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { FB_GROUPS_CHECKLIST } from '../../knowledge/fb-groups-checklist.mjs';
@@ -38,28 +39,75 @@ describe('matchAlertTitle', () => {
 });
 
 describe('deriveHandledState', () => {
+  const trusted = (body: string) => ({ author: DEFAULT_TRUSTED_AUTHOR, body });
+
   it('is unhandled for a fresh alert with no ledger comment', () => {
     expect(deriveHandledState([])).toBe('unhandled');
-    expect(deriveHandledState(['just a regular comment, no marker'])).toBe('unhandled');
+    expect(deriveHandledState([trusted('just a regular comment, no marker')])).toBe('unhandled');
   });
 
   it('is handled-awaiting-watchdog when a marker dated today is present', () => {
     const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
-    expect(deriveHandledState([marker], { today: '2026-09-12' })).toBe('handled-awaiting-watchdog');
+    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('handled-awaiting-watchdog');
   });
 
   it('is escalated for an escalate marker from any past date', () => {
     const marker = renderHandledMarker({ action: 'escalate', date: '2026-08-01' });
-    expect(deriveHandledState([marker], { today: '2026-09-12' })).toBe('escalated');
+    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('escalated');
+  });
+
+  it('is escalated (permanent) for a human-action marker from a past date, not just today', () => {
+    const marker = renderHandledMarker({ action: 'human-action', date: '2026-08-01' });
+    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('escalated');
+  });
+
+  it('is escalated (permanent) for a build-desk-issue marker from a past date', () => {
+    const marker = renderHandledMarker({ action: 'build-desk-issue', date: '2026-08-01' });
+    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('escalated');
   });
 
   it('reverts to unhandled the day after a non-escalate marker', () => {
     const marker = renderHandledMarker({ action: 'comment-only', date: '2026-09-11' });
-    expect(deriveHandledState([marker], { today: '2026-09-12' })).toBe('unhandled');
+    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('unhandled');
   });
 
   it('throws on an unknown action', () => {
     expect(() => renderHandledMarker({ action: 'nonsense' })).toThrow();
+  });
+
+  it('ignores a forged marker from an untrusted commenter', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2099-99-99' });
+    expect(deriveHandledState([{ author: 'random-commenter', body: marker }], { today: '2026-09-12' })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('honors the same marker when posted by the trusted author', () => {
+    const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
+    expect(
+      deriveHandledState([{ author: DEFAULT_TRUSTED_AUTHOR, body: marker }], { today: '2026-09-12' }),
+    ).toBe('handled-awaiting-watchdog');
+  });
+
+  it('honors a custom trustedAuthor override', () => {
+    const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
+    expect(
+      deriveHandledState([{ author: 'some-other-bot', body: marker }], {
+        today: '2026-09-12',
+        trustedAuthor: 'some-other-bot',
+      }),
+    ).toBe('handled-awaiting-watchdog');
+  });
+
+  it('ignores an unrecognized action value even from the trusted author, dated today', () => {
+    const forged = '<!-- marjorie-ops-handled date=2026-09-12 action=nonsense-action -->';
+    expect(deriveHandledState([trusted(forged)], { today: '2026-09-12' })).toBe('unhandled');
+  });
+
+  it('ignores a marker hidden inside a code fence from an untrusted author', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2026-08-01' });
+    const body = ['```', marker, '```'].join('\n');
+    expect(deriveHandledState([{ author: 'random-commenter', body }], { today: '2026-09-12' })).toBe('unhandled');
   });
 });
 

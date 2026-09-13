@@ -38,9 +38,18 @@ on an unmatched issue** — leave it alone, it is not yours.
 ## Step 1 — check whether you already handled it today
 
 ```
-gh issue view <number> --json comments --jq '[.comments[].body]' \
+gh issue view <number> --json comments --jq '[.comments[] | {author: .author.login, body: .body}]' \
   | node scripts/marjorie/lib/alert-router.mjs state
 ```
+
+`state` only trusts a `marjorie-ops-handled` marker posted by the identity
+your own comments actually go out under — the routine's `checkout_token_secret:
+SOCIAL_POSTER_PAT` is the owner's own fine-grained PAT, not a bot account
+(docs/decisions.md's 2026-09-11 B1 entry), so every comment you post is
+authored under the owner's own GitHub login. This defaults inside
+`alert-router.mjs` (`DEFAULT_TRUSTED_AUTHOR`); you never need to pass it
+yourself. A marker from any other commenter — including one hidden inside a
+code fence — is ignored, not honored.
 
 Prints one of:
 
@@ -119,9 +128,16 @@ correct) — no marker needed, since the issue is closing for good.
 When this row is `unhandled`, file the next `HUMAN-ACTIONS.md` v2 item **by
 PR** (never a direct push — you are not exempt from branch protection):
 
-1. Read `HUMAN-ACTIONS.md`, find the highest `## #N` heading, use `N+1`.
-   Compute this at run time — never hard-code a number, another PR may have
-   landed since this prompt was written.
+1. Get the next number with:
+   ```
+   node scripts/marjorie/lib/alert-router.mjs next-ha-number
+   ```
+   This reads BOTH `HUMAN-ACTIONS.md` (open items) and
+   `HUMAN-ACTIONS-DONE.md` (closed items) and returns
+   `max(open ∪ closed) + 1` — never just "highest open heading + 1". Numbers
+   are never reused (CLAUDE.md), so a number already used by a now-closed
+   item must never be issued again. Compute this at run time — another PR
+   may have landed since this prompt was written.
 2. Render the item body with:
    ```
    node scripts/marjorie/lib/alert-router.mjs render-fb-item <N> <today>

@@ -15,21 +15,56 @@
 // Handled-state marker format (designed here, matched nowhere else):
 //   <!-- marjorie-ops-handled date=YYYY-MM-DD action=<ACTION> -->
 // `date` is the America/Los_Angeles calendar date (todayLA(), imported, not
-// reimplemented). Every action except `escalate` expires at the end of that
-// LA calendar day, so a still-open, still-broken alert gets re-attempted the
-// next day; `escalate` never expires, because it records a durable dispatch
-// (a linked issue/PR) rather than a daily-repeatable action.
+// reimplemented). `redispatch`/`comment-only` expire at the end of that LA
+// calendar day, so a still-open, still-broken alert gets re-attempted the
+// next day. `human-action`, `build-desk-issue`, and `escalate` never expire —
+// each records a durable, one-time dispatch (a linked issue/PR/HUMAN-ACTIONS
+// item) that stays the live answer until that linked thing closes, so
+// re-filing it daily would create a duplicate every day the condition stays
+// open (see PERMANENT_ACTIONS).
+//
+// Trust: `deriveHandledState` only honors a marker posted by
+// `trustedAuthor` (default DEFAULT_TRUSTED_AUTHOR, see below) — a marker
+// from any other commenter on the alert issue is ignored, closing the
+// forgery Codex found in PR #4216 review (any commenter could otherwise
+// post the marker text themselves, even inside a code fence, and
+// permanently suppress Marjorie). A marker whose `action` isn't in ACTIONS
+// is also ignored outright, not treated as valid-and-dated-today.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { todayLA } from './brief-sections.mjs';
 import { FB_GROUPS_CHECKLIST } from '../../knowledge/fb-groups-checklist.mjs';
 import { runMain } from '../../lib/cli.mjs';
+import { readNextHumanActionNumber } from '../human-actions.mjs';
 
 /** Closed vocabulary for the marker's `action=` field. */
 export const ACTIONS = ['redispatch', 'comment-only', 'human-action', 'build-desk-issue', 'escalate'];
 
-/** Actions that never expire — see header. */
-const PERMANENT_ACTIONS = new Set(['escalate']);
+/** Actions that never expire — see header. `human-action` and
+ * `build-desk-issue` moved here from a redispatch-only set (2026-09-12,
+ * Codex review of #4216): both create a linked, durable dispatch (a PR or
+ * issue), not a same-day retry, so treating them as daily-expiring caused
+ * the routine to re-file a second HUMAN-ACTIONS.md item or a second
+ * build-desk issue for the same still-open condition every day it stayed
+ * open. Only `redispatch`/`comment-only` are genuinely "try again
+ * tomorrow" actions. */
+const PERMANENT_ACTIONS = new Set(['human-action', 'build-desk-issue', 'escalate']);
+
+/** The GitHub login every Marjorie-ops comment is actually posted under.
+ * `routine-marjorie-ops.yml`'s `checkout_token_secret: SOCIAL_POSTER_PAT` is
+ * not a bot account — it's the owner's own fine-grained PAT (confirmed in
+ * docs/decisions.md's 2026-09-11 B1 entry: "GitHub has exactly one identity
+ * for the owner (`sffan15-sys`) — the same login every agent session's
+ * `gh`, every content routine's PAT, and the auto-merge actor also run
+ * as"), so every `gh issue comment` Marjorie posts is authored
+ * `sffan15-sys`. That is also the owner's own literal human GitHub login,
+ * so trusting it is coarser than "only this routine" — a marker the owner
+ * types by hand is equally honored, which is correct (the owner outranks
+ * the routine regardless). Kept as an overridable default rather than a
+ * bare literal so a test can supply a different identity and so the
+ * workflow can override it via `MARJORIE_OPS_AUTHOR` without a code change
+ * if the PAT identity is ever rotated to a different account. */
+export const DEFAULT_TRUSTED_AUTHOR = 'sffan15-sys';
 
 // One entry per static-title row of the spec's handler table. Kept as a
 // Map (exact string equality only) rather than a generic `{key, match}`
@@ -83,16 +118,23 @@ export function renderHandledMarker({ action, date = todayLA() } = {}) {
 
 /**
  * `unhandled` / `handled-awaiting-watchdog` / `escalated` from the alert
- * issue's existing comment bodies (oldest-to-newest order does not matter —
- * every comment is scanned). `today` is injectable for tests; the real
- * caller never overrides it, matching `todayLA()`'s own contract.
+ * issue's existing comments (oldest-to-newest order does not matter — every
+ * comment is scanned). `comments` is an array of `{ author, body }` — only a
+ * marker whose `author` matches `trustedAuthor` is honored, and only when
+ * its `action` is a recognized member of ACTIONS; everything else (a forged
+ * marker from another commenter, or an unrecognized action value) is
+ * silently ignored, never treated as valid-and-dated-today. `today` is
+ * injectable for tests; the real caller never overrides it, matching
+ * `todayLA()`'s own contract.
  */
-export function deriveHandledState(commentBodies, { today = todayLA() } = {}) {
+export function deriveHandledState(comments, { today = todayLA(), trustedAuthor = DEFAULT_TRUSTED_AUTHOR } = {}) {
   let sawToday = false;
-  for (const body of commentBodies || []) {
+  for (const { author, body } of comments || []) {
+    if (author !== trustedAuthor) continue;
     const m = MARKER_RE.exec(String(body || ''));
     if (!m) continue;
     const [, date, action] = m;
+    if (!ACTIONS.includes(action)) continue;
     if (PERMANENT_ACTIONS.has(action)) return 'escalated';
     if (date === today) sawToday = true;
   }
@@ -148,8 +190,11 @@ the number of groups you saved, and no line says \`local copy KEPT\`.`;
 // CLI wrapper (only path the routine's Bash-only tool set can use — she has
 // no way to `import` this module directly):
 //   node scripts/marjorie/lib/alert-router.mjs match "<title>"
-//   node scripts/marjorie/lib/alert-router.mjs state < comments.json   # JSON array of comment body strings
+//   node scripts/marjorie/lib/alert-router.mjs state < comments.json   # JSON array of {author, body}
 //   node scripts/marjorie/lib/alert-router.mjs render-fb-item <number> [date]
+//   node scripts/marjorie/lib/alert-router.mjs next-ha-number
+// `state`'s trusted author defaults to DEFAULT_TRUSTED_AUTHOR; set
+// MARJORIE_OPS_AUTHOR to override it without a code change.
 async function main(argv = process.argv.slice(2)) {
   const [cmd, ...rest] = argv;
   if (cmd === 'match') {
@@ -160,8 +205,9 @@ async function main(argv = process.argv.slice(2)) {
   if (cmd === 'state') {
     const chunks = [];
     for await (const chunk of process.stdin) chunks.push(chunk);
-    const commentBodies = JSON.parse(Buffer.concat(chunks).toString('utf8') || '[]');
-    console.log(deriveHandledState(commentBodies));
+    const comments = JSON.parse(Buffer.concat(chunks).toString('utf8') || '[]');
+    const trustedAuthor = process.env.MARJORIE_OPS_AUTHOR || DEFAULT_TRUSTED_AUTHOR;
+    console.log(deriveHandledState(comments, { trustedAuthor }));
     return 0;
   }
   if (cmd === 'render-fb-item') {
@@ -178,7 +224,13 @@ async function main(argv = process.argv.slice(2)) {
     console.log(todayLA());
     return 0;
   }
-  console.error('Usage: alert-router.mjs match "<title>" | state (stdin JSON) | render-fb-item <number> [date] | marker <action> [date] | today');
+  if (cmd === 'next-ha-number') {
+    console.log(readNextHumanActionNumber());
+    return 0;
+  }
+  console.error(
+    'Usage: alert-router.mjs match "<title>" | state (stdin JSON) | render-fb-item <number> [date] | marker <action> [date] | today | next-ha-number',
+  );
   return 2;
 }
 
