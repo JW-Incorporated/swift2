@@ -125,6 +125,7 @@ jobs:
       pre_run_artifact: chat-context
       post_run_artifact: chat-reply
       concurrency_key: ${{ inputs.message_id }}
+      allowed_bots: github-actions # bot-chat-poll dispatches on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

@@ -79,6 +79,16 @@ describe.each(deployed)('%s chat routine', (bot, cfg) => {
     expect(delivery).toMatch(/chat-post\.mjs post [^\n]*--message-url "\$MESSAGE_URL"/);
   });
 
+  it('lets the poll-dispatched agent run: allowed_bots names the github-actions bot and nothing wider', () => {
+    // The poll dispatches on its GITHUB_TOKEN, a bot actor; without this the
+    // agent step fails "Workflow initiated by non-human actor" (runs
+    // 34783453078 / 34783456730). Never '*' — the repo is public.
+    expect(byJob.run).toMatch(/^\s+allowed_bots: github-actions(\s|$)/m);
+    const template = read('.github/workflows/routine-template.yml');
+    expect(template).toMatch(/^\s+allowed_bots: \$\{\{ inputs\.allowed_bots \}\}$/m);
+    expect(template).toMatch(/allowed_bots:\n(?: {8}.*\n)+? {8}default: ""/);
+  });
+
   it('gives Tree no push, dispatch or PAT rights (read-mostly)', () => {
     if (bot !== 'tree') return;
     expect(byJob.run).not.toMatch(/SOCIAL_POSTER_PAT|expose_dispatch_token|Bash\(git/);

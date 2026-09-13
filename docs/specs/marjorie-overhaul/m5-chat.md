@@ -145,8 +145,12 @@ one covers only the conversational loop. Epic #4180.
    `concurrency_key` input, not per bot. A GitHub concurrency group keeps
    only one pending run and cancels the older pending one, so "queued, never
    cancelled" is not available and a per-bot group would drop the middle of
-   three messages. Every existing caller passes none of the three new inputs
-   and is unaffected.)* Each run is named `Marjorie chat · <message id>` /
+   three messages. Every existing caller passes none of the new inputs and is
+   unaffected. The poll dispatches on its `GITHUB_TOKEN`, so GitHub records a
+   bot actor, and claude-code-action refuses a bot-started run unless
+   `allowed_bots` names it. The template's fourth optional input is only set
+   by the chat routines, to `github-actions`. The first live runs failed
+   without it, 2026-09-13.)* Each run is named `Marjorie chat · <message id>` /
    `Tree chat · <message id>` (`run-name`, the poll's reconcile key). Each
    chat workflow also has its own concurrency group per message, and its
    `context` job stops the run before the agent when the message already

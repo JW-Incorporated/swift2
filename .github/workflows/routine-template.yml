@@ -141,6 +141,17 @@ on:
         required: false
         type: string
         default: ""
+      allowed_bots:
+        description: |
+          Optional (default "" = no bots, claude-code-action's own default, so
+          every existing caller is unchanged). A routine dispatched by another
+          workflow's GITHUB_TOKEN runs as the `github-actions` bot, and
+          claude-code-action refuses a bot-started run unless this names it —
+          M5's chat routines, dispatched by bot-chat-poll.yml, pass
+          `github-actions` (their first live runs failed without it, 2026-09-13).
+        required: false
+        type: string
+        default: ""
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
@@ -228,6 +239,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
           claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}"
+          allowed_bots: ${{ inputs.allowed_bots }}
         env:
           GH_TOKEN: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
           GH_DISPATCH_TOKEN: ${{ inputs.expose_dispatch_token && (inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN) || '' }}
