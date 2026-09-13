@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 53
+
+## Patrick Mahomes Seen Dancing at Kelce-Swift Wedding
+
+- first seen: 2026-09-13 06:04 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Patrick Mahomes was spotted dancing at the wedding celebration of Travis Kelce and Taylor Swift. The event attracted attention, showcasing the festivities surrounding the couple's special day.
+- sources:
+  - [unverified] News Radio 710 KEEL — https://news.google.com/rss/articles/CBMimgFBVV95cUxPVGszZEpWVFlXMWh1U09XalJpMDFJOXlhdU9VeDRyZzhSMGNFa2xGa2lpeWdrblpHVE1JSWdMUTR5WXA3Tm9hb2c3MFJGeUJBRTZhSXVOMTFIUmdwMVI2MGNPRU9lVDVwUkNWOWlJUUNtMjFuVG90STFzUlJaTG9SaTdtTjRzWC1BZFFTTG9rcUhjWWxfdVpKemxn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Attend CMA Awards After Ten-Year Absence
+
+- first seen: 2026-09-13 06:04 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to attend the CMA Awards in November, marking her first appearance at the event in ten years. This return highlights her ongoing presence in the country music scene.
+- sources:
+  - [unverified] ABC10 — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNM3ZJSE10eThXVHZwbHQ1LU5nM3ZOSkhORnpybVJ2SF9qTGdwdDVnQk8yaWc3VlpSVUdyQ0E1U1FPUVpUUVdFN3h0UGFqS3dPempXSmppdEh6bFV2Z2tWQy1ObmpUSEo4RjhNQVFMMzk1ZDR2VjM4b2ZNTUhHdldpT1Y3UHhlR2FIU0hKWFdpTlRHdVd2TUNGbUVXWmxINWlNRktqLXBOdnZVS0hFcFZKS3hSN3QyTXVUZ2hVS2RqOFZSaXV3ZGFOTmJLa29fbFc1ZlpkYUFuZUlGcTMyQ25FbWxCQXhvME1ha1VsbDJPYUtmcXM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mariska Hargitay Reflects on Taylor Swift's Wedding
+
+- first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mariska Hargitay expressed her ongoing feelings about attending Taylor Swift's impressive wedding, sharing her favorite moments from the event.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi2wFBVV95cUxOYm9kM3dyTUUtcHI0VVZEOEJFbmdoN1FFNlBGYXRUb2sycGVUMTR3MHd0OVlkdUdDd3hxWE1PUEFLcFgyLWd1M3lZMm5fQ1p1VE9CUFI5a3dTRC1mZEJoZDBVaTQ1YXV6M0xlZnF2WlhETVFySzBXRVJyYUVTdDA1bVVYYTNwOE4yRTNoa05yTkprNDdRTGltUnVTbmVSSW5Dam9IT2szV2FqMmtfT21DMlBldVNWSVQ0RFgxd0pxbklfV0NnNEpaYllTX3dBSkh0TWpGN1lsVHBrTGs?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson and MGK Seen Together After Visit to Taylor Swift's Apartment
+
+- first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dakota Johnson and Machine Gun Kelly reportedly spent the night together following a private meetup at Taylor Swift's New York City apartment. Their relationship status remains unclear.
+- sources:
+  - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMizAFBVV95cUxNbTU1dmFRUHVtRE5RWTF2QTBBT3ZLWDNJTHZfbjNmb2hHdThpX2pLaDd3WGpNOTczSTNGQVBBRWI1SFFrUzI0YWVQUmhuaVhZSHV2QnlNaG9Td1ZmNHpXUUF0aHBsTnJLckhyREZwNzczRVQ0clBSZThMLU8wTTVXRWFNUldJMW9iVmttTFNOcjd2dnc1VHBIdGkzdjN6TkExVndmWVdtdFVaYjZqNTJ5ZlF0RWtuRk9CdWRwNUNXREFiVFBMT1lOdF9sM3k?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Luxury Date Night Bag Reflects Fall Fashion Trend
 
@@ -447,84 +479,3 @@ Stories: 59
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQM3VnekRGeDM2ZXdiOGd1ZTdNelhicmVveDFtWlp1RERkU3JWbUNmWGswY0xSWDRoQ3IxVmxVcUNxT0pSdE9wMWd3QXRWMmlUd2J3WHR3YldLTDYyVWgxZkh5MkV6RTdtVnAtYy1FXzk0U3lWMTRTVXNSOUY5Zi1WV1ZZTUVYblhCdUh6amRZXy11TWtTWjZRMDRSTDRRaldibEZmaVdhQkxLOGZIa2FaOFp3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPTTJGWWRaS0ZzdzRfaUo4aV9mUl9EbzduQXpTbWtTa3BqNG5VSGVvYXdHMkhoZlotZDFVOENwVk9uX1gtMGk2M3psVDBuazNZa3NoV2NsbmdJX01pdG1Gb201TDEzdWoyOXNsTGpoUHpqU2Y5aDBsdzY0NVdtVDkzenMtdkRXNFlPUDJOZGJqOXphempSdVZVRV9pVUFyTVNLVllBSUQxSlJJUjJxMk94dQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNRXkxNHN0aW5rTklUMG1pRks1VXB4Z3czend0X1pkS1VvWFlJQmdYQmtfLUc4WVQ0aHE5V0VtU25PTzBIWFVqbXVTQ0EtN2pCY3ZES1Mwa0dTdzhCeEMzbkUxX2VXV2V5YXl3cmhuaF9qenljOWNsTjV1azdua290Rl9nbEUxTWR6UGZHT1M3QnhKb2J2Tm5RVFpNTHhNaFhvU0hXTUd0cWVyX3hDNi1R?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Study links Taylor Swift's 'Midnights' to increase in car accidents
-
-- first seen: 2026-09-10 05:55 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A study suggests that Taylor Swift's album 'Midnights' and nine other albums are associated with a 15% rise in car accidents. The findings highlight a potential correlation between music and driver safety.
-- sources:
-  - [unverified] upworthy.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPWVluVWE4RDluNG9ZNjBzVHpCQ2ZuNUFQZWhmMjNGOWp3bnUxZnhpcHg5c21LejY2c0tROTZkYVY3Y3Q4ZTVtNkRaQm9NR2d6V3VLeEZVV0UtLThMSnUzMVU2ZFBFbDJtNmdLOVZxVWtCNUNpRnBva3k5Q2RWRnhlSDFtd21IeUxac0ZYb2VaMkNqNkdnTmJLMXpWWjZmZXF0NTRGOXlHRXlYR1g4TGd0YzFpbXppVzNNSXJsbkp3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Cooper Kupp and Anna Share News About Taylor Swift and Travis Kelce
-
-- first seen: 2026-09-10 05:55 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cooper Kupp and his wife, Anna, have revealed unexpected news regarding Taylor Swift and Travis Kelce. The details surrounding this announcement were not specified in the report.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZ0tzSGM4QjdWN09DZFF1enBLejlJM0p2cFprYmZDclk2ZEp3U1QxbGRUd0ZVVk9EWmVDYnRRVmNmY3dOc25iNzRueC03SVdla0FUWDI2dkV5RXZxOHRLTGw5aWJ1cGhPTnBJbmtXT25YT0lUcU5Na1puSzQyTjVuaUE1MlhJaVU1aHRFQUhObW45Nm53anV0dm5rVEdlaVM1VS1QcVgzNFNQQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Insects Named After Taylor Swift Highlight Her Cultural Impact
-
-- first seen: 2026-09-10 05:55 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A newly discovered genus of plant-eating insects and four species have been named after Taylor Swift and her albums, marking a unique honor for the artist.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE1FcV9EaVdZUF82ZFZOZ0Fxd1Y4QmNhc19ZRnlVVXpJZnlNRk9WQkJNbF93MzYtcUF0VGk3ZFdiVFFwYmZDOW4zMVFNSTRBU2oxZTh6cE1IWnZULU9WQU1QWVQ0cDA4RVBDTjJzUWxVcldBSnZZcHIybkNyRUU5dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Unexpected Honor in Career
-
-- first seen: 2026-09-09 23:11 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been recognized with one of the most unexpected honors of her career, as reported by Cleveland.com. The specific details of the honor have not been disclosed in the announcement.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxNVDkwcGR1OHNZUDE4NEdpNWpoUkdkN2JtdnFTdUl3MGF5NVR1V3JBb3owaVM3OEJqT3Rlb3Y3OU93YXZrZGg0R2dCZFhQVXhQTVdXREJWOVAtNmwtSm5OUVdLUUJvcURUaDB1N1BXcHZ4UWZrVGFaVFZzZnl4UzVpZU16Qm12WkM2OEkwRHQ4RmMwOXphTkJnY2lzMDJUdTVKbWhLbS03OHNIOFRTWks4eFlEUDRTMmpVS3fSAc4BQVVfeXFMT0JzNzc0eHZIdHZmU0tZZUpQSTA0Tk03TjJjaHQtOGIzeXgydzhFSmxGSFE5YXdfRmxkX0pubXRqelBqeEx6OFRWLUF4S2NnTTZTZUIwemxlaDcxR2lZSndpLXJlN3dsYzJMS0VSajFCTW9QbkxidmFrQk1FMnBNelFqanZ4RjhlLVg5OGRpMW1uQjFXVUY2bEh6UEhKZnZhYlBJeEdxYmFBNUlOOGhzODJQbHBYV3lFcjAxcnBlSkV2R3dZLTVseS1aYmNlMmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Purchase $5.35M Mansion in Ohio
-
-- first seen: 2026-09-09 23:11 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have bought a mansion in Ohio for $5.35 million. This real estate acquisition highlights their relationship as they make significant investments together.
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxPNEg3cE5mRzlWeHUxT0lYb1pxdEoxYkNWZEs1aXZJNGx2bHBUVlNvZTg4RVFiNl83b0Fab1VGWHYwcmVoUXdSRy1MYmFFZy1BMmVrQVR4dGRPNHpnSlphd0RJU2lFemVrRHd0QmdqZ2dvY1ZJZTZjT0oyWmxFdDMzWVBQUm1adWloLWVFT2NLUkx1clZHWjYwT3F5bDN1YnM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Insect Genus and Species Named After Taylor Swift
-
-- first seen: 2026-09-09 23:11 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new insect genus and four species have been named in honor of Taylor Swift and her albums, as reported by Phys.org. This unique tribute highlights the impact of Swift's music on cultural and scientific recognition.
-- sources:
-  - [unverified] Phys.org — https://news.google.com/rss/articles/CBMid0FVX3lxTE9xT2dXbGFBcnlnMUU0NUcwWmxUZmduVnJjZU11cFNDYmREdDN5NzU2VjJuVlYyal94S1hncTZnUVM5YS1XSHRJcWl5RFF6UUhzZ3JtYjZrUWhab3RyTDFmcGJuaUU5NnU4SXM5bm9oNzEwdE1iMElR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## R.I. Homeowners Affected by 'Taylor Swift Tax' Analysis
-
-- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An analysis discusses the impacts of the so-called 'Taylor Swift Tax' on homeowners in Rhode Island, exploring the ongoing financial implications. This term refers to changes in housing markets possibly influenced by Taylor Swift's events.
-- sources:
-  - [unverified] Bloomberg Law News — https://news.google.com/rss/articles/CBMirAFBVV95cUxPeE43cm5TRFo1djhxQWd3M3hXdndPLUhOR0VNZWhlYllRVS1qUVNZUU9UN3hiRDVwVHVieDJuWnZaeHNQbGhkemJENVJIRWNQLTUwejJwRWhBdmNrVUo5ckNfVnltcXhQbXNlSGNYb29VcTRPVlVKVS1mWDlHTmhBS0JEY0NqeVl4QjRMTExYOHFGSzRpSVJuUjRKcE16TFpzOWo1bHBjM1htclB0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Purchases Home in Kelce Neighborhood
-
-- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reportedly expanded her real estate portfolio by purchasing a home in the Kelce neighborhood. This acquisition marks another addition to her growing collection of properties.
-- sources:
-  - [unverified] cw39.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNMms2R0w4a3FvSE9FUHVQMmprTDJGTU9seVE2UzBPQm9udnVsaXM4eHhxWVFpcUp0RHN2aVFBb194QnlxMXpMSkpZc1lNcWNJdE9KalZ4RGZ4dHlTSWZuY2NzOGN2MVZobUZQWnJHY0hXb0cxby1pcW1fd2xRSEd0WGlGeUZBY2M2SWNQaXlGTkhna2JHY3VWNjgzb3JZMWVKblppdEZyb9IBrAFBVV95cUxNT1dkSE5KRkdUcjlVUC05WE1EMWhrU2dPTnk3MmJfZnNtUWNBVVpqYVRXUi1JN012OGg1bUdBbG9rNVNGRklZR3o4bVdtTmlvWHpybzV2azNTSnBoOWc2YlU1eEFHMTZRTnhrN1BRX1k5VjdJYWNSQ255Q2Ywc0JqU3hOTVFId1poU3czNGtKQkFiZ3A4RWxWNmVXeWljWUpQSjdEZm9ORFBDYko0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Featured in Article Titled 'Is Now A Bug'
-
-- first seen: 2026-09-09 23:11 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: An article titled 'Taylor Swift Is Now A Bug' appeared on Yahoo. Details regarding the content of the article were not provided.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMidkFVX3lxTE9wV0F5LXhPQnJFMFFueWJsMzJOOFNQVzhKQlp1elEyT1U3U215MFR3dzFocGRnSmFUQ042bGlpRllXMFNaTnZ2bEZvekRJVWJ3RlB3Z1NsemQzR2hwTWtQcEJDaldLME93ZHM2cEdpTndqeThwZ3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Scientists Name Insect Genus After Taylor Swift
-
-- first seen: 2026-09-09 23:11 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: In a nod to her influence, scientists have named a new insect genus after Taylor Swift, highlighting her impact beyond music and culture. This naming reflects a fun intersection between science and popular culture.
-- sources:
-  - [unverified] KCRA — https://news.google.com/rss/articles/CBMigwFBVV95cUxQMFRneXFUc2NjeWN1SGFteFhseU5sMERobDBtQW1RQ3F4NVU1cVpqczRWbm1wNnhoOHFYMFRnSUlIVGhpNkgwS3NFSDJ6TG95T0g4SGtRS2ZsVGF1VEZPZ0pWY0R0M2tXMmlvWEdrLW9pNGlFa0lNcWFPSmRZei03RFN4OA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WPTZ — https://news.google.com/rss/articles/CBMiggFBVV95cUxQLVVGakxwNm03czZPNU5OUGEwa3F1SThlMk05Y2ljdzk5enNDZUVvV19zMUxrclluVGQ5QmNGa3E5X1QwODFWRE9aRm1aU0J2aVl3UnYtWTN4amVfOG1GZk8xNVBfVjNZTTlETmNWeEZUUDB1T193NlkwRVRKeDNWM2J3?oc=5&hl=en-US&gl=US&ceid=US:en
