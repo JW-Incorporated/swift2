@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #69 🔴 [BLOCKING] Grant the Discord bot View Channel + Read Message History on #longlive-marjorie (~5 min)
+<!-- ha filed=2026-09-12 -->
+
+**Why:** Marjorie's reply poller (`reply-poll.mjs`) cannot see `#longlive-marjorie` yet, so no founder reply ever relays to the brief issue until the Discord bot gets channel access. The whole M2 reply-relay feature is non-functional without this — the poller silently no-ops on every run.
+**Steps:**
+1. Discord server settings -> #longlive-marjorie -> Permissions -> find the existing Marjorie/social bot role (the one used for DISCORD_BOT_TOKEN).
+2. Grant it "View Channel" and "Read Message History" on #longlive-marjorie.
+3. Save.
+**Worked if:** A workflow_dispatch run of marjorie-reply-poll.yml, after a founder thread reply, posts it as a comment on the founders-brief issue, not a 403/warning.
 
 ## #68 🟢 [UPGRADE] Freeze, merge PR #4202 (social-poster alert reroute), unfreeze (~10 min)
 <!-- ha filed=2026-09-12 -->

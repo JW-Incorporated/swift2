@@ -52,8 +52,14 @@ jobs:
   # explicitly rather than trusting the triggering ref, because a job
   # holding a secret must never execute code from a dispatch-controlled or
   # agent-writable ref (same property `routine-tree-weekly-plan.yml`'s
-  # own HIGH-1 finding documents). The issue stays the source of truth —
-  # this job only reads it, never writes it.
+  # own HIGH-1 finding documents). The issue stays the source of truth for
+  # what gets posted — this job only reads the brief body from it. The one
+  # thing it writes back (M2, moved from M4) is a hidden
+  # `<!-- discord-message-id: ... -->` marker comment recording the posted
+  # message's id, once, right after a successful Discord send — that id is
+  # a Discord thread's root message id (a thread shares its id with the
+  # message it was created on), and without it persisted somewhere,
+  # `reply-poll.mjs` has no way to find the founders' reply thread.
   deliver:
     needs: run
     if: always() && needs.run.result == 'success'
@@ -62,7 +68,7 @@ jobs:
     environment: ops
     permissions:
       contents: read
-      issues: read
+      issues: write
     steps:
       - uses: actions/checkout@v7
         with:
@@ -79,4 +85,10 @@ jobs:
           ISSUE_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founders-brief --state open --json number,body,url --limit 1)
           echo "$ISSUE_JSON" | jq -r '.[0].body' > /tmp/brief-body.md
           ISSUE_URL=$(echo "$ISSUE_JSON" | jq -r '.[0].url')
-          node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file /tmp/brief-body.md --url "$ISSUE_URL"
+          ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r '.[0].number')
+          DELIVERY_OUTPUT=$(node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file /tmp/brief-body.md --url "$ISSUE_URL")
+          echo "$DELIVERY_OUTPUT"
+          MESSAGE_ID=$(echo "$DELIVERY_OUTPUT" | sed -n 's/^discord-message-id: //p')
+          if [ -n "$MESSAGE_ID" ]; then
+            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "<!-- discord-message-id: $MESSAGE_ID -->"
+          fi

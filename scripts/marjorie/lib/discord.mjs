@@ -52,11 +52,29 @@ function postChunk(chunk, { webhook, thread, fetchImpl }) {
   });
 }
 
+// Discord only returns the posted message body (including its `id`) when
+// the webhook URL carries `?wait=true` (already always the case in
+// `postUrl`) — this reads that id off a successful response without ever
+// throwing, so a body that isn't JSON or lacks `id` just yields `null`
+// rather than failing the whole post.
+async function messageIdOf(response) {
+  try {
+    const body = await response.json();
+    return body && body.id ? body.id : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Posts `text` to a Discord webhook, chunked and retried per
  * docs/specs/marjorie-overhaul/c1-delivery.md. Never throws — every
  * failure path (HTTP or network) resolves the `{ ok, chunks, delivered,
  * status, error }` shape below so the caller can decide on a mail fallback.
+ * On success, `messageId` carries the FIRST chunk's Discord message id
+ * (the id a founder would see/reply to — later chunks are continuation
+ * messages, not the thread root), or `null` if the response body didn't
+ * carry one. Existing callers that ignore `messageId` are unaffected.
  *
  * `waitImpl` exists only so tests can inject a fake timer instead of
  * actually sleeping through the retry wait, the same way `fetchImpl` lets
@@ -65,8 +83,9 @@ function postChunk(chunk, { webhook, thread, fetchImpl }) {
 export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl = defaultWait } = {}) {
   const chunks = chunkForDiscord(neutralizeMentions(text));
   let delivered = 0;
+  let messageId = null;
 
-  for (const chunk of chunks) {
+  for (const [index, chunk] of chunks.entries()) {
     let response;
     try {
       response = await postChunk(chunk, { webhook, thread, fetchImpl });
@@ -75,6 +94,7 @@ export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl 
     }
     if (response?.ok) {
       delivered += 1;
+      if (index === 0) messageId = await messageIdOf(response);
       continue;
     }
 
@@ -89,6 +109,7 @@ export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl 
     }
     if (retryResponse?.ok) {
       delivered += 1;
+      if (index === 0) messageId = await messageIdOf(retryResponse);
       continue;
     }
 
@@ -109,5 +130,5 @@ export async function post(text, { thread, webhook, fetchImpl = fetch, waitImpl 
     };
   }
 
-  return { ok: true, chunks: chunks.length, delivered, status: null, error: null };
+  return { ok: true, chunks: chunks.length, delivered, status: null, error: null, messageId };
 }
