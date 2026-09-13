@@ -10,24 +10,31 @@
 //           (social)       takes its message's id); a message already
 //                          carrying ✅/❌ is a duplicate run → skip=true
 //   post    post job       the reply, or `[chat failed] <run url>` when there
-//           (ops / social) is none, through the channel's webhook as the bot
-//   finish  finish job     ✅ or ❌ on the founder's message (the 👀 stays —
-//           (social)       it is the poll's claim), `[chat failed]` with the
-//                          bot token when `post` itself died, and the
-//                          `💬 chat:` turn-log comment on the brief issue
+//           (ops / social) is none, through the channel's webhook as the bot.
+//                          With the bot token in the job (Tree), it re-reads
+//                          the message first and posts nothing if it already
+//                          carries ✅/❌, so re-running a failed job never
+//                          answers twice
+//   finish  finish job     re-reads the message, then ✅ for a reply; for a
+//           (social)       failure, the bot-token `[chat failed]` notice (a
+//                          reply to the founder's message — the marker
+//                          chat-poll.mjs settles on) BEFORE ❌, so ❌ never
+//                          lands without one. The 👀 stays: it is the claim.
+//                          Then the `💬 chat:` turn log, which carries no
+//                          founder text — this repo is public
 import { execFileSync } from 'node:child_process';
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { neutralizeMentions } from '../community/discord-delivery.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { parseFlags } from './chat-poll.mjs';
-import { BOTS, FAILED, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
-import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from './lib/discord-bot.mjs';
+import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
+import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction, reactionUrl } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
 
 export const REPLY_CAP = 1800;
 const SUMMARY_CAP = 120;
-const TURN_TEXT_CAP = 80;
 const REPLY_FILE = 'chat-reply.md';
 const SUMMARY_FILE = 'chat-summary.txt';
 const OUT_DIR = path.join('.scratch', 'out');
@@ -38,10 +45,15 @@ function oneLine(text, cap) {
   return flat.length > cap ? `${flat.slice(0, cap - 1)}…` : flat;
 }
 
-// Turn-log text is founder- and agent-written: it must neither ping anyone
-// nor forge a marker (same rule as l1-loop.md's asks).
+// Agent-written turn-log text must neither ping anyone nor forge a marker.
 function neutralize(text) {
   return text.replace(/@/g, '@​').replace(/<!--/g, '&lt;!--');
+}
+
+// social-approval-poll.mjs reads a message's last line against `^ref: PR #…`
+// and `^ref: reddit · …`; a zero-width space means no line parses as a ref.
+function defuseRefLines(text) {
+  return text.replace(/^(\s*)ref:/gim, '$1​ref:');
 }
 
 function readText(file) {
@@ -59,6 +71,15 @@ function readJson(file) {
 function setOutput(env, key, value) {
   if (env.GITHUB_OUTPUT) appendFileSync(env.GITHUB_OUTPUT, `${key}=${value}\n`);
   console.log(`${key}=${value}`);
+}
+
+async function isSettled({ where, messageId, token, fetchImpl, sleepImpl }) {
+  try {
+    const r = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${messageId}`, token, { fetchImpl, sleepImpl });
+    return r.ok && (hasOwnReaction(r.data, REPLIED) || hasOwnReaction(r.data, FAILED));
+  } catch {
+    return false;
+  }
 }
 
 export function save(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) {
@@ -107,30 +128,42 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
   return 0;
 }
 
-/** The text to post, and what posting it means. A reply over the cap is cut with a link to the run, which keeps the full file. */
+/**
+ * The exact text to post, and what posting it means. Mentions are neutralized
+ * and `ref:` lines defused BEFORE the cap, and checked again on the final
+ * text, so what is checked is what is sent: at most REPLY_CAP plus the short
+ * top-level prefix — always one Discord message. (Codex review: expanding
+ * mentions after the cap split a reply into two messages, and the second
+ * could open on a forged `ref:` line.)
+ */
 export function composePost({ reply, runUrl, messageUrl, threadId }) {
-  // social-approval-poll.mjs reads a message's last line against `^ref: PR #…`
-  // and `^ref: reddit · …`; a zero-width space means no chat reply line ever
-  // parses as an approval prompt's ref line.
-  let body = String(reply || '').trim().replace(/^(\s*)ref:/gim, '$1​ref:');
+  let body = defuseRefLines(neutralizeMentions(String(reply || '').trim()));
   const result = body ? 'replied' : 'failed-posted';
   if (!body) {
-    body = `[chat failed] ${runUrl}`;
+    body = `${FAILURE_PREFIX} ${runUrl}`;
   } else if (body.length > REPLY_CAP) {
-    const tail = `…\n(cut to fit Discord; the full reply is in ${runUrl})`;
-    body = `${body.slice(0, Math.max(0, REPLY_CAP - tail.length)).trimEnd()}${tail}`;
+    const tail = '…\n(cut to fit Discord)';
+    body = `${body.slice(0, REPLY_CAP - tail.length).trimEnd()}${tail}`;
   }
   // No thread (Discord refused one): a webhook cannot reply, so link the ask.
-  return { result, text: threadId || !messageUrl ? body : `↪ ${messageUrl}\n${body}` };
+  return { result, text: defuseRefLines(threadId || !messageUrl ? body : `↪ ${messageUrl}\n${body}`) };
 }
 
-export async function postCmd(flags, { env = process.env, fetchImpl = fetch, waitImpl } = {}) {
+export async function postCmd(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, waitImpl } = {}) {
   const { bot } = flags;
   if (!BOTS[bot]) {
     console.log('::error::chat-post post: needs --bot marjorie|tree');
     return 2;
   }
   const ctx = readJson(flags.context) || {};
+  if (env.DISCORD_BOT_TOKEN && SNOWFLAKE.test(ctx.message_id || '') && SNOWFLAKE.test(ctx.channel_id || '')) {
+    const where = ctx.thread_id || ctx.channel_id;
+    if (await isSettled({ where, messageId: ctx.message_id, token: env.DISCORD_BOT_TOKEN, fetchImpl, sleepImpl })) {
+      console.log(`message ${ctx.message_id} already carries ✅/❌ — a re-run; nothing posted`);
+      setOutput(env, 'result', 'already');
+      return 0;
+    }
+  }
   const threadId = SNOWFLAKE.test(flags['thread-id'] || '') ? flags['thread-id'] : '';
   const reply = readText(path.join(flags['reply-dir'] || OUT_DIR, REPLY_FILE));
   const { result, text } = composePost({ reply, runUrl: flags['run-url'] || '', messageUrl: ctx.url || '', threadId });
@@ -146,15 +179,15 @@ export async function postCmd(flags, { env = process.env, fetchImpl = fetch, wai
     setOutput(env, 'result', 'post-error');
     return 1;
   }
-  console.log(`posted ${result === 'replied' ? 'the reply' : '[chat failed]'} ${threadId ? `in thread ${threadId}` : 'at channel top level'}`);
+  console.log(`posted ${result === 'replied' ? 'the reply' : FAILURE_PREFIX} ${threadId ? `in thread ${threadId}` : 'at channel top level'}`);
   setOutput(env, 'result', result);
   return 0;
 }
 
-export function turnLog({ bot, text, summary, replied, messageId }) {
-  const said = oneLine(text, TURN_TEXT_CAP) || '(message unreadable)';
-  const done = replied ? oneLine(summary, SUMMARY_CAP) || 'answered' : '[chat failed]';
-  return `💬 chat: #${BOTS[bot].channelName} — ${neutralize(said)} → ${neutralize(done)}\n\n<!-- chat-id: ${messageId} -->`;
+/** Public-issue line: what was done, never what the founder wrote. */
+export function turnLog({ bot, summary, replied, messageId }) {
+  const done = replied ? oneLine(summary, SUMMARY_CAP) || 'answered' : FAILURE_PREFIX;
+  return `💬 chat: #${BOTS[bot].channelName} → ${neutralize(done)}\n\n<!-- chat-id: ${messageId} -->`;
 }
 
 export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync } = {}) {
@@ -170,30 +203,39 @@ export async function finish(flags, { env = process.env, fetchImpl = fetch, slee
   const opts = { fetchImpl, sleepImpl };
   const where = sourceThreadId || channelId;
   const result = flags['post-result'] || '';
-  const replied = result === 'replied';
-  const runUrl = flags['run-url'] || '';
   let failures = 0;
+  const attempt = async (label, call) => {
+    try {
+      const r = await call();
+      if (!r.ok) console.log(`::error::chat-post finish: ${label} refused (HTTP ${r.status})`);
+      if (!r.ok) failures += 1;
+      return r.ok;
+    } catch (err) {
+      failures += 1;
+      console.log(`::error::chat-post finish: ${label} failed: ${err.message}`);
+      return false;
+    }
+  };
+  const react = (emoji) => attempt(`${emoji} reaction`, () => discordRequest('PUT', reactionUrl(where, messageId, emoji), token, opts));
 
-  const emoji = replied ? REPLIED : FAILED;
-  const mark = await discordRequest('PUT', reactionUrl(where, messageId, emoji), token, opts);
-  if (!mark.ok) {
-    failures += 1;
-    console.log(`::error::chat-post finish: could not react ${emoji} (HTTP ${mark.status})`);
+  if (result === 'already' || (await isSettled({ where, messageId, token, fetchImpl, sleepImpl }))) {
+    console.log(`message ${messageId} already carries ✅/❌ — nothing to settle or log`);
+    return 0;
   }
-  if (!replied && result !== 'failed-posted') {
-    // `post` never ran or its webhook refused: say so with the bot token.
-    const replyThread = SNOWFLAKE.test(flags['thread-id'] || '') ? flags['thread-id'] : '';
-    const target = replyThread || where;
-    const body = { content: `[chat failed] ${runUrl}`, allowed_mentions: { parse: [] } };
-    if (target === where) body.message_reference = { message_id: messageId, fail_if_not_exists: false };
-    const sent = await discordRequest('POST', `${DISCORD_API}/channels/${target}/messages`, token, { ...opts, body });
-    if (!sent.ok) failures += 1;
-    console.log(sent.ok ? `posted [chat failed] in ${target}` : `::error::chat-post finish: [chat failed] refused (HTTP ${sent.status})`);
+  if (result === 'replied') {
+    await react(REPLIED);
+  } else if (result === 'failed-posted') {
+    await react(FAILED);
+  } else {
+    // `post` never ran or its webhook refused: say so first, then ❌.
+    const body = { content: `${FAILURE_PREFIX} ${flags['run-url'] || ''}`.trim(), allowed_mentions: { parse: [] }, message_reference: { message_id: messageId, fail_if_not_exists: false } };
+    const noticed = await attempt(`${FAILURE_PREFIX} notice`, () => discordRequest('POST', `${DISCORD_API}/channels/${where}/messages`, token, { ...opts, body }));
+    if (noticed) await react(FAILED);
+    else console.log('no ❌ without a notice — bot-chat-poll settles this claim later');
   }
 
-  const ctx = readJson(flags.context);
   const summary = readText(path.join(flags['reply-dir'] || OUT_DIR, SUMMARY_FILE));
-  const comment = turnLog({ bot, text: ctx?.text, summary, replied, messageId });
+  const comment = turnLog({ bot, summary, replied: result === 'replied', messageId });
   const repo = env.REPO || env.GITHUB_REPOSITORY || '';
   try {
     const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
@@ -204,8 +246,8 @@ export async function finish(flags, { env = process.env, fetchImpl = fetch, slee
       console.log(`turn log → #${issues[0].number}`);
     }
   } catch (err) {
-    failures += 1;
-    console.log(`::error::chat-post finish: turn log failed: ${err.message}`);
+    // A warning, not a failure: re-running this job must never be the fix.
+    console.log(`::warning::chat-post finish: turn log failed: ${err.message}`);
   }
   return failures ? 1 : 0;
 }

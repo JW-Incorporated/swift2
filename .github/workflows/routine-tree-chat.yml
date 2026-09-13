@@ -151,6 +151,7 @@ jobs:
         continue-on-error: true
         env:
           DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }} # a re-run posts nothing once the message has ✅/❌
           REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: node scripts/marjorie/chat-post.mjs post --bot tree --context .scratch/chat-context.json --reply-dir .scratch/out --thread-id "$REPLY_THREAD_ID" --run-url "$RUN_URL"
