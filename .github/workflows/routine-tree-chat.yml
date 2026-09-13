@@ -161,6 +161,7 @@ jobs:
         if: always()
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_FOUNDER_IDS: ${{ vars.DISCORD_FOUNDER_IDS }} # finish writes nothing on a non-founder's message
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
           MESSAGE_ID: ${{ inputs.message_id }}

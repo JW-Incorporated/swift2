@@ -152,7 +152,9 @@ one covers only the conversational loop. Epic #4180.
    by the chat routines, to `github-actions`. The first live runs failed
    without it, 2026-09-13. Because that opens the agent to any
    `github-actions` dispatch, the `context` job stops the run unless the
-   message was written by a founder, using the same ids the poll uses.)* Each run is named `Marjorie chat · <message id>` /
+   message was written by a founder, using the same ids the poll uses.
+   `finish` checks the author again before it writes, so a failed `context`
+   job cannot leave a notice or a reaction on anyone else's message.)* Each run is named `Marjorie chat · <message id>` /
    `Tree chat · <message id>` (`run-name`, the poll's reconcile key). Each
    chat workflow also has its own concurrency group per message, and its
    `context` job stops the run before the agent when the message already

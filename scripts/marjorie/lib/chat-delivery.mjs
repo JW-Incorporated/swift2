@@ -20,8 +20,19 @@
 // A read that fails returns `ok: false`, and callers then send nothing. The
 // one exception is a 404 on the reply thread: it was never created, so it is
 // empty. The bot token is used only in `run:` steps and never in an agent step.
-import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, isFailureNotice } from './chat-inbox.mjs';
+import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, founderIds, isFailureNotice } from './chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction } from './discord-bot.mjs';
+
+/**
+ * True only for a message a founder typed: not a webhook post, not a bot, and
+ * authored by one of the poll's founder ids (`DISCORD_FOUNDER_IDS`, else
+ * approvers.mjs). A write path checks this even when `context` never ran
+ * (Codex review of the allowed_bots fix).
+ */
+export function writtenByFounder(message, rawFounderIds = '') {
+  const author = message?.author;
+  return Boolean(message) && !message.webhook_id && !author?.bot && founderIds(rawFounderIds).has(String(author?.id ?? ''));
+}
 
 const PAGE = 100;
 const MAX_PAGES = 10;
@@ -105,7 +116,8 @@ export async function readDeliveryState({ bot, messageId, channelId, sourceThrea
   try {
     const own = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${messageId}`, token, opts);
     if (!own.ok) return { ok: false, detail: `message ${messageId} -> HTTP ${own.status}` };
-    if (hasOwnReaction(own.data, REPLIED) || hasOwnReaction(own.data, FAILED)) return { ok: true, state: 'settled' };
+    // `message` lets a caller check who wrote it before writing anything.
+    if (hasOwnReaction(own.data, REPLIED) || hasOwnReaction(own.data, FAILED)) return { ok: true, state: 'settled', message: own.data };
     const source = await readAfter(where, messageId, { token, opts });
     if (!source.ok) return source;
     const reply = replyIn && replyIn !== where ? await readAfter(replyIn, messageId, { token, opts, missingIsEmpty: true }) : { ok: true, messages: [] };
@@ -114,7 +126,7 @@ export async function readDeliveryState({ bot, messageId, channelId, sourceThrea
       bot, messageId, message: own.data, sourceThreadId, replyThreadId: replyIn === where ? '' : replyIn, messageUrl,
       sourceMessages: source.messages, replyMessages: reply.messages,
     });
-    return { ok: true, state };
+    return { ok: true, state, message: own.data };
   } catch (err) {
     return { ok: false, detail: `Discord read failed: ${err.message}` };
   }

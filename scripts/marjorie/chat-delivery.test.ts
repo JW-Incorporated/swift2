@@ -119,13 +119,13 @@ describe('readDeliveryState', () => {
 
   it('top level with no thread output: a 404 on the would-be reply thread is empty, not a failure', async () => {
     const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀'))), [after(MARJ)]: res(200, []) });
-    expect(await readDeliveryState({ ...args, fetchImpl: d.fetchImpl })).toEqual({ ok: true, state: 'open' });
+    expect(await readDeliveryState({ ...args, fetchImpl: d.fetchImpl })).toMatchObject({ ok: true, state: 'open' });
     expect(d.log.map((l) => l.key)).toEqual([get(MARJ), after(MARJ), after(MID)]);
   });
 
   it('settled needs one read', async () => {
     const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀', '✅'))) });
-    expect(await readDeliveryState({ ...args, fetchImpl: d.fetchImpl })).toEqual({ ok: true, state: 'settled' });
+    expect(await readDeliveryState({ ...args, fetchImpl: d.fetchImpl })).toMatchObject({ ok: true, state: 'settled' });
     expect(d.log).toHaveLength(1);
   });
 
@@ -152,7 +152,7 @@ describe('readDeliveryState', () => {
       [after(THREAD)]: res(200, [...page].reverse()),
       [after(THREAD, '1000000000000000199')]: res(200, [hook('1000000000000000200')]),
     });
-    expect(await readDeliveryState({ ...args, sourceThreadId: THREAD, replyThreadId: THREAD, fetchImpl: d.fetchImpl })).toEqual({ ok: true, state: 'replied' });
+    expect(await readDeliveryState({ ...args, sourceThreadId: THREAD, replyThreadId: THREAD, fetchImpl: d.fetchImpl })).toMatchObject({ ok: true, state: 'replied' });
     expect(d.log.map((l) => l.key)).toEqual([get(THREAD), after(THREAD), after(THREAD, '1000000000000000199')]);
   });
 });
