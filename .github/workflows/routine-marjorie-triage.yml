@@ -1,0 +1,114 @@
+# Marjorie — daily submission-triage sweep (Marjorie Overhaul M3,
+# docs/specs/marjorie-overhaul/s1-triage.md). Every open `[Feedback] `/
+# `[Intake] `/`[Link submission] ` issue without `marjorie-triaged` gets read
+# and sorted into one of five classes once a day; a reconciliation pass
+# closes originals whose dispatched fix already merged.
+#
+# Cron fires after the morning brief (`routine-marjorie-brief.yml`, 12:00
+# UTC / ~6 AM PT) has already reported yesterday's counts, so a submission
+# triaged this run shows up as "triaged," not "new," starting tomorrow's
+# brief.
+#
+# No `gate` job: this is a daily batch over a low-volume stream (six
+# user-feedback issues total in the repo's history as of this change), not
+# an hourly sweep where a cheap skip-check pays for itself — unlike
+# `routine-marjorie-ops.yml`'s hourly `watchdog-alert` gate.
+#
+# DISCORD_MARJORIE_WEBHOOK_URL lives ONLY in the `deliver` job below, which
+# is a plain (non-agent) job declared directly in this caller file — never
+# in `run`, for two independent reasons, not one: (1) `run` does not pass an
+# `environment` input to `routine-template.yml` at all, and
+# `DISCORD_MARJORIE_WEBHOOK_URL` is an environment secret scoped to the
+# `ops` GitHub Environment — a job that never declares `environment: ops`
+# cannot resolve it, full stop; (2) even if it did, `run` calls
+# `routine-template.yml` as a reusable workflow via `uses:`, and a reusable
+# workflow can only read secrets its own `on.workflow_call.secrets` block
+# declares — that block does not list `DISCORD_MARJORIE_WEBHOOK_URL`, so no
+# `environment:` setting on the CALLER side could make the CALLEE see it.
+# The agent job (`run`) writes the founder-facing message TEXT as an issue
+# comment (the `pending` marker, `marjorie-triage.md`'s needs-founder
+# section); this file's `deliver` job is the only place that text ever
+# reaches Discord, mirroring `routine-marjorie-brief.yml`'s own `deliver`
+# job on both of the properties that matter: `environment: ops` is the only
+# way to see the webhook secret, and checkout pins `ref: main` explicitly
+# (never the triggering ref) because a job holding a secret must never
+# execute code from a dispatch-controlled or agent-writable ref.
+name: routine-marjorie-triage
+
+on:
+  schedule:
+    - cron: "27 16 * * *" # 09:27 PT, after the morning brief has already reported yesterday's
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  id-token: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Marjorie — submission triage"
+      prompt_file: docs/agents/runner-prompts/marjorie-triage.md
+      model: claude-sonnet-5
+      allowed_tools: "Bash,Read,Grep,Glob"
+      timeout_minutes: 25
+      max_turns: 40
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  # Reads the `pending` founder-handoff marker comments `run` left on
+  # `founder-decision` issues and posts each one's message text to Discord,
+  # then writes back a `posted` marker so the same issue is never re-posted
+  # on a later sweep (submissions.mjs's `pendingFounderIssues` is the pure
+  # function deciding which issues still need this; see its own header for
+  # why state lives in marker text, never a separately tracked flag, and why
+  # both markers are only honored on a comment this routine's own credential
+  # authored — this repo is PUBLIC).
+  #
+  # Comments are fetched per-issue via `gh issue view` (never `gh issue
+  # list`'s bulk `--json comments`, which truncates per issue) — the same
+  # shape `alert-router.mjs`'s own state derivation already relies on
+  # (Codex review, PR #4229, finding 7).
+  deliver:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ops
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Post any pending founder handoffs to Discord
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          ISSUES_JSON=$(gh issue list --repo "$GITHUB_REPOSITORY" --label founder-decision --state open --json number,url --limit 50)
+          PENDING_MARKER=$(node scripts/marjorie/lib/submissions.mjs marker pending)
+          POSTED_MARKER=$(node scripts/marjorie/lib/submissions.mjs marker posted)
+          NUMBERS=$(echo "$ISSUES_JSON" | jq -r '.[].number')
+          for NUMBER in $NUMBERS; do
+            ISSUE_URL=$(echo "$ISSUES_JSON" | jq -r --argjson n "$NUMBER" '.[] | select(.number == $n) | .url')
+            COMMENTS_JSON=$(gh issue view "$NUMBER" --repo "$GITHUB_REPOSITORY" --json comments --jq '.comments')
+            IS_PENDING=$(jq -n --argjson n "$NUMBER" --argjson c "$COMMENTS_JSON" '[{number: $n, comments: $c}]' \
+              | node scripts/marjorie/lib/submissions.mjs pending-founder | jq -r 'length')
+            if [ "$IS_PENDING" != "1" ]; then
+              continue
+            fi
+            RAW_BODY=$(echo "$COMMENTS_JSON" | jq -r --arg marker "$PENDING_MARKER" \
+              'map(select(.viewerDidAuthor == true and (.body | contains($marker)))) | last | .body')
+            MESSAGE_FILE=$(mktemp)
+            printf '%s\n' "$RAW_BODY" | grep -vFx "$PENDING_MARKER" > "$MESSAGE_FILE"
+            node scripts/marjorie/post-or-mail.mjs --subject "Needs a founder — #$NUMBER" --body-file "$MESSAGE_FILE" --url "$ISSUE_URL"
+            gh issue comment "$NUMBER" --repo "$GITHUB_REPOSITORY" --body "$POSTED_MARKER"
+          done

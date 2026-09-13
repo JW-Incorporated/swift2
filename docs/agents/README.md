@@ -109,6 +109,10 @@ To stop all autonomous activity **right now**:
 | `founders-brief` | Marjorie | The daily brief issues |
 | `watchdog-alert` | watchdog Action | A cadence failed loudly |
 | `intake` | Content desk | A real-world event dropped for authoring |
+| `spam` | Marjorie | A submission that is abuse, a test string, or empty — closed, kept searchable forever |
+| `marjorie-triaged` | Marjorie (machine-only) | Bookkeeping: this submission has been classified. Never apply or remove by hand |
+| `marjorie-filed` | Marjorie | Bookkeeping: Marjorie opened this issue by dispatching work — how "accountable for the outcome, not the ticket" is counted |
+| `link-submission` | `submit-link.ts` route (provisioned by `bootstrap-labels.mjs`) | A user-submitted link candidate, not auto-published |
 | `cie`, `cie:*` | Karen | Content-integrity findings |
 | `kevin-triage`, `kevin-radar`, `user-feedback`, `kevin-digest` | Kevin | Ticket-ops streams |
 

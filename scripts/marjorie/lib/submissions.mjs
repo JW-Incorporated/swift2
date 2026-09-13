@@ -16,7 +16,10 @@
 // `fetchContentShipped`, `assemble-brief.mjs`'s own merged24/opened24/closed24)
 // fetches broadly with `--state all` and filters `createdAt` client-side
 // against a `DAY_MS` cutoff instead — this module matches that proven shape.
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { gh as ghRun } from '../../lib/gh.mjs';
+import { runMain } from '../../lib/cli.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 const DAY_MS = 86_400_000;
@@ -53,4 +56,140 @@ export function renderSubmissionsLine(counts) {
   if (!counts) return '- Submissions in: no data fetched.';
   const parts = SUBMISSION_LABELS.map((label) => `${counts[label] ?? 0} ${label}`);
   return `- Submissions in: ${parts.join(', ')}`;
+}
+
+// Triage selection (Marjorie Overhaul M3, docs/specs/marjorie-overhaul/
+// s1-triage.md). Each of the three site routes stamps an unambiguous title
+// prefix — selection is by that prefix, `startsWith` in code, never a label
+// (the `intake` label has three unrelated producers, docs/plans/marjorie-
+// overhaul/PLAN.md M0 finding #7) and never `gh issue search` (GitHub's
+// search strips punctuation, so `"[Feedback]" in:title` would also match any
+// title merely containing the word "feedback" — the same trap
+// `scripts/watchdog/upsert-alert.sh:33-38` already documents).
+export const TITLE_PREFIXES = [
+  ['[Feedback] ', 'feedback'],
+  ['[Intake] ', 'intake'],
+  ['[Link submission] ', 'link-submission'],
+];
+
+/** The source tag for a submission title, or `null` if it matches none of
+ * the three producer prefixes. `startsWith` only — never a regex, which
+ * could match mid-string. */
+export function sourceOf(title) {
+  const t = String(title || '');
+  for (const [prefix, source] of TITLE_PREFIXES) {
+    if (t.startsWith(prefix)) return source;
+  }
+  return null;
+}
+
+/**
+ * Untriaged submissions from a `gh issue list --json number,title,labels,
+ * body,url,createdAt` result: issues whose title matches one of the three
+ * producer prefixes and which do not already carry `marjorie-triaged`, each
+ * annotated with `.source`. Pure — no network call.
+ */
+export function selectUntriagedSubmissions(issues) {
+  const out = [];
+  for (const issue of issues || []) {
+    const source = sourceOf(issue.title);
+    if (!source) continue;
+    const labels = issue.labels || [];
+    if (labels.some((l) => l.name === 'marjorie-triaged')) continue;
+    out.push({ ...issue, source });
+  }
+  return out;
+}
+
+// Founder-handoff marker comments (mirrors alert-router.mjs's
+// renderHandledMarker/deriveHandledState shape): `pending` is posted by the
+// triage routine alongside the in-channel message text; `posted` is posted
+// by routine-marjorie-triage.yml's `deliver` job once that text has actually
+// reached Discord. Never hand-write either string — always generate it here
+// so the format can never drift from what `pendingFounderIssues` parses.
+const FOUNDER_MARKER_STATES = ['pending', 'posted'];
+
+export function renderFounderMarker(state) {
+  if (!FOUNDER_MARKER_STATES.includes(state)) {
+    throw new Error(`unknown founder marker state: ${state}`);
+  }
+  return `<!-- marjorie-triage-founder:${state} -->`;
+}
+
+/**
+ * Issue numbers from a `gh issue view --json number,comments`-shaped result
+ * (`[{number, comments: [{body, viewerDidAuthor}]}]`) whose comments contain
+ * a `pending` founder-handoff marker with no `posted` marker after it. Pure
+ * — no network call. Mirrors alert-router.mjs's `deriveHandledState`
+ * exactly, including the reason: this repo is PUBLIC, so any GitHub account
+ * can comment on one of these issues, and both markers are written only by
+ * this routine's own runs. A marker is honored only on a comment where
+ * `viewerDidAuthor === true` — a forged `pending` comment from someone else
+ * must never get its body relayed to the founders' Discord as if Marjorie
+ * wrote it, and a forged `posted` comment must never suppress a real
+ * handoff (Codex review, PR #4229, finding 1).
+ */
+export function pendingFounderIssues(issuesWithComments) {
+  const pendingMarker = renderFounderMarker('pending');
+  const postedMarker = renderFounderMarker('posted');
+  const out = [];
+  for (const issue of issuesWithComments || []) {
+    const comments = issue.comments || [];
+    let pendingIdx = -1;
+    for (let i = 0; i < comments.length; i += 1) {
+      const c = comments[i];
+      if (c?.viewerDidAuthor === true && String(c?.body || '').includes(pendingMarker)) pendingIdx = i;
+    }
+    if (pendingIdx === -1) continue;
+    const postedAfter = comments
+      .slice(pendingIdx + 1)
+      .some((c) => c?.viewerDidAuthor === true && String(c?.body || '').includes(postedMarker));
+    if (!postedAfter) out.push(issue.number);
+  }
+  return out;
+}
+
+// CLI wrapper (only path the routine's Bash-only tool set can use — she has
+// no way to `import` this module directly):
+//   gh issue list ... --json number,title,labels,body,url,createdAt --limit 200 \
+//     | node scripts/marjorie/lib/submissions.mjs select
+//   node scripts/marjorie/lib/submissions.mjs marker <pending|posted>
+//   gh issue view <n> --json comments --jq '[{number: <n>, comments}]' \
+//     | node scripts/marjorie/lib/submissions.mjs pending-founder
+// `pending-founder` takes `gh issue view`'s per-issue shape (full comment
+// objects, including `viewerDidAuthor`), never `gh issue list`'s bulk
+// `--json comments` — the GraphQL query backing `gh issue list` truncates
+// comments per issue, so a marker past that cut could never be seen
+// (Codex review, PR #4229, finding 7); `gh issue view` is also the shape
+// `alert-router.mjs`'s own state derivation already relies on.
+async function readStdinJson() {
+  const chunks = [];
+  for await (const chunk of process.stdin) chunks.push(chunk);
+  return JSON.parse(Buffer.concat(chunks).toString('utf8') || '[]');
+}
+
+async function main(argv = process.argv.slice(2)) {
+  const [cmd, ...rest] = argv;
+  if (cmd === 'select') {
+    const issues = await readStdinJson();
+    console.log(JSON.stringify(selectUntriagedSubmissions(issues)));
+    return 0;
+  }
+  if (cmd === 'marker') {
+    console.log(renderFounderMarker(rest[0]));
+    return 0;
+  }
+  if (cmd === 'pending-founder') {
+    const issues = await readStdinJson();
+    console.log(JSON.stringify(pendingFounderIssues(issues)));
+    return 0;
+  }
+  console.error(
+    'Usage: submissions.mjs select (stdin JSON) | marker <pending|posted> | pending-founder (stdin JSON)',
+  );
+  return 2;
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  runMain(main, { name: 'submissions' });
 }
