@@ -231,7 +231,8 @@ jobs:
       # now built from every `routine-*.yml` file (excluding the reusable
       # `routine-template.yml` caller template, which has no schedule of its
       # own) plus explicitly `output-sampling.yml`, `plan-recheck.yml`,
-      # `fleet-telemetry-snapshot.yml`, and (issue #4131 fold-in, 2026-09-12
+      # `fleet-telemetry-snapshot.yml`, `bot-chat-poll.yml` (M5, 2026-09-13 —
+      # a poll that dies silently leaves founder messages unanswered), and (issue #4131 fold-in, 2026-09-12
       # — dropped by the rebuild above since none match `routine-*.yml`)
       # `news-worker.yml`, `social-poster.yml`, `marjorie-inbox.yml`.
       # Per-workflow maxage-hours is derived
@@ -257,6 +258,7 @@ jobs:
                    .github/workflows/plan-recheck.yml \
                    .github/workflows/plan-recheck-marjorie.yml \
                    .github/workflows/fleet-telemetry-snapshot.yml \
+                   .github/workflows/bot-chat-poll.yml \
                    .github/workflows/news-worker.yml \
                    .github/workflows/social-poster.yml; do
             [ -f "$F" ] || continue

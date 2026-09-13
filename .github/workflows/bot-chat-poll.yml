@@ -1,0 +1,78 @@
+# Bot chat poll (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
+# Plain `run:` steps only, never an agent step: DISCORD_BOT_TOKEN lives in the
+# `social` environment (main-only deployment policy) and must never reach an
+# agent context (docs/agents/marjorie.md; reply-poll.mjs header). Checkout
+# pins `ref: main` — a secret-holding job never runs dispatch-chosen code.
+#
+# One job, two steps, one billed minute per fire:
+#   1. chat-poll.mjs claims founder messages in #longlive-marjorie and
+#      #longlive-tree with 👀 and dispatches routine-marjorie-chat.yml /
+#      routine-tree-chat.yml on this job's own GITHUB_TOKEN. `actions: write`
+#      is enough from a `run:` step — the #4223 403 was the App installation
+#      token inside an agent, not this path.
+#   2. reply-poll.mjs, the M2 brief-thread relay, unchanged — moved here from
+#      marjorie-reply-poll.yml's own schedule (that file stays, dispatch-only).
+#
+# Cadence is the reply poller's existing four slots an hour, not the spec's
+# every-5-minutes: the org's Actions budget is a $10/month hard stop
+# (`prevent_further_usage`) that August's usage came within $1 of, and every
+# fire bills at least one minute. Every 5 minutes would add ~8,600 minutes a
+# month and risk stopping every workflow in the org; folding both polls into
+# one job adds none. Going faster is a founder spend call (raise the budget),
+# then a one-line cron change here.
+#
+# Kill switch: repo variable BOT_CHAT_ENABLED=false skips the chat step before
+# anything is read. The relay step keeps running.
+name: bot-chat-poll
+
+on:
+  schedule:
+    - cron: "3,18,33,48 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "List what would be claimed; add no reaction, dispatch nothing, relay nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: write # gh workflow run for the chat routines, from a run: step
+  issues: write # reply-poll.mjs relays brief-thread replies as issue comments
+
+concurrency:
+  group: bot-chat-poll
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Claim founder messages and dispatch the chat routines
+        if: vars.BOT_CHAT_ENABLED != 'false'
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          DISCORD_FOUNDER_IDS: ${{ vars.DISCORD_FOUNDER_IDS }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: node scripts/marjorie/chat-poll.mjs poll
+
+      - name: Relay founder replies to the brief issue
+        if: ${{ !cancelled() && !inputs.dry_run }}
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: node scripts/marjorie/reply-poll.mjs

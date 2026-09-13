@@ -30,56 +30,11 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { runMain } from '../lib/cli.mjs';
-
-const DISCORD_API = 'https://discord.com/api/v10';
-const DISCORD_MIN_INTERVAL_MS = 350;
-const DISCORD_MAX_ATTEMPTS = 3;
-
-function defaultSleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-let lastDiscordCallAt = 0;
-
-async function discordThrottle(sleepImpl) {
-  const wait = lastDiscordCallAt + DISCORD_MIN_INTERVAL_MS - Date.now();
-  if (wait > 0) await sleepImpl(wait);
-  lastDiscordCallAt = Date.now();
-}
-
-/**
- * GET against the Discord API with the same 429/`retry_after` handling as
- * `social-approval-poll.mjs`'s `discordGet()` (lines ~208-229) — not
- * imported from there (that file is the social poster's own 1475-line
- * module); a small duplicated retry loop here matches this repo's stated
- * policy of not extracting a shared helper until a fifth consumer appears
- * (c1-delivery.md's "No shared postToWebhook extraction this wave" note,
- * same spirit). Returns `null` on a 404 (no thread yet — the steady-state
- * case before any founder has replied) instead of throwing.
- */
-async function discordGet(url, token, { fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
-  let lastErr;
-  for (let attempt = 1; attempt <= DISCORD_MAX_ATTEMPTS; attempt += 1) {
-    await discordThrottle(sleepImpl);
-    const res = await fetchImpl(url, { headers: { Authorization: `Bot ${token}` } });
-    if (res.status === 404) return null;
-    if (res.status === 429) {
-      const body = await res.json().catch(() => ({}));
-      const retryAfterSec = typeof body.retry_after === 'number' ? body.retry_after : 1;
-      lastErr = new Error(`Discord GET ${url} -> 429 rate limited (retry_after ${retryAfterSec}s)`);
-      if (attempt < DISCORD_MAX_ATTEMPTS) {
-        await sleepImpl(retryAfterSec * 1000);
-        continue;
-      }
-      throw lastErr;
-    }
-    if (!res.ok) {
-      throw new Error(`Discord GET ${url} -> ${res.status} ${await res.text()}`);
-    }
-    return res.json();
-  }
-  throw lastErr;
-}
+// `discordGet` (null on a 404 — no thread yet, the steady state before any
+// founder replies — throws on any other non-2xx, 429/`retry_after` retry)
+// and the root/webhook filter moved to `lib/discord-bot.mjs` unchanged when
+// the M5 chat loop became their next consumers.
+import { DISCORD_API, authorName, defaultSleep, discordGet, isRootOrWebhookMessage } from './lib/discord-bot.mjs';
 
 // `execFileSync`'s default `maxBuffer` is 1 MiB (Node docs) — comfortably
 // enough for a single day's founders-brief issue (short-lived, closed the
@@ -185,19 +140,6 @@ async function fetchThreadMessages(threadId, token, { fetchImpl, sleepImpl }) {
     for (const m of page) byId.set(m.id, m);
   }
   return [...byId.values()];
-}
-
-function authorName(author) {
-  return (author && (author.global_name || author.username)) || 'a founder';
-}
-
-// The thread root is Marjorie's own webhook post: its id equals the
-// thread id, and/or it carries a `webhook_id` field. Either signal alone
-// is enough to exclude it. An ordinary bot account (no `webhook_id`) is
-// excluded too — only a human founder's message should ever be relayed as
-// a founder reply.
-function isRootOrWebhookMessage(message, threadId) {
-  return message.id === threadId || Boolean(message.webhook_id) || Boolean(message.author?.bot);
 }
 
 /**
