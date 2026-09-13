@@ -86,6 +86,9 @@ export const LABELS = [
   // session doesn't hit a "label doesn't exist" error the first time it
   // tries to apply it.
   ['marjorie-filed', '006B75', "Marjorie filed this and is accountable for the outcome, not just the ticket"],
+  ['spam', '6E6E6E', 'Abuse, a test string, or empty — closed, kept searchable (applied by Marjorie)'],
+  ['marjorie-triaged', 'BFD4F2', 'Bookkeeping: classified. Machine-only — never apply or remove by hand'],
+  ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],
 ];
 
 const invokedDirectly =
