@@ -8,23 +8,16 @@ import {
   renderHandledMarker,
   renderFbGroupLines,
   renderFbHumanAction,
-  DEFAULT_TRUSTED_AUTHOR,
 } from './alert-router.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { FB_GROUPS_CHECKLIST } from '../../knowledge/fb-groups-checklist.mjs';
 
 const CLI_PATH = fileURLToPath(new URL('./alert-router.mjs', import.meta.url));
 
-function runStateCli(args: string[], stdinComments: unknown[], env: Record<string, string> = {}) {
-  // Explicitly clear any ambient MARJORIE_OPS_AUTHOR first — these tests
-  // assert on the CLI's own precedence logic, not on whatever happens to
-  // be set in the shell running the suite.
-  const cleanEnv = { ...process.env };
-  delete cleanEnv.MARJORIE_OPS_AUTHOR;
-  return execFileSync('node', [CLI_PATH, 'state', ...args], {
+function runStateCli(stdinComments: unknown[]) {
+  return execFileSync('node', [CLI_PATH, 'state'], {
     input: JSON.stringify(stdinComments),
     encoding: 'utf8',
-    env: { ...cleanEnv, ...env },
   }).trim();
 }
 
@@ -56,96 +49,69 @@ describe('matchAlertTitle', () => {
 });
 
 describe('deriveHandledState', () => {
-  const trusted = (body: string) => ({ author: DEFAULT_TRUSTED_AUTHOR, body });
+  // 2026-09-13, third iteration: `viewerDidAuthor` (a GitHub GraphQL
+  // boolean — "did the credential running this query post this comment")
+  // replaces every earlier identity-string comparison (a hardcoded guess,
+  // then a live-queried guess, then a guess-plus-suffix-normalization —
+  // all three broke on a real run in one way or another; see the module's
+  // own header comment for the full history).
+  const own = (body: string) => ({ viewerDidAuthor: true, body });
 
   it('is unhandled for a fresh alert with no ledger comment', () => {
     expect(deriveHandledState([])).toBe('unhandled');
-    expect(deriveHandledState([trusted('just a regular comment, no marker')])).toBe('unhandled');
+    expect(deriveHandledState([own('just a regular comment, no marker')])).toBe('unhandled');
   });
 
   it('is handled-awaiting-watchdog when a marker dated today is present', () => {
     const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
-    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('handled-awaiting-watchdog');
+    expect(deriveHandledState([own(marker)], { today: '2026-09-12' })).toBe('handled-awaiting-watchdog');
   });
 
   it('is escalated for an escalate marker from any past date', () => {
     const marker = renderHandledMarker({ action: 'escalate', date: '2026-08-01' });
-    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('escalated');
+    expect(deriveHandledState([own(marker)], { today: '2026-09-12' })).toBe('escalated');
   });
 
   it('is escalated (permanent) for a human-action marker from a past date, not just today', () => {
     const marker = renderHandledMarker({ action: 'human-action', date: '2026-08-01' });
-    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('escalated');
+    expect(deriveHandledState([own(marker)], { today: '2026-09-12' })).toBe('escalated');
   });
 
   it('is escalated (permanent) for a build-desk-issue marker from a past date', () => {
     const marker = renderHandledMarker({ action: 'build-desk-issue', date: '2026-08-01' });
-    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('escalated');
+    expect(deriveHandledState([own(marker)], { today: '2026-09-12' })).toBe('escalated');
   });
 
   it('reverts to unhandled the day after a non-escalate marker', () => {
     const marker = renderHandledMarker({ action: 'comment-only', date: '2026-09-11' });
-    expect(deriveHandledState([trusted(marker)], { today: '2026-09-12' })).toBe('unhandled');
+    expect(deriveHandledState([own(marker)], { today: '2026-09-12' })).toBe('unhandled');
   });
 
   it('throws on an unknown action', () => {
     expect(() => renderHandledMarker({ action: 'nonsense' })).toThrow();
   });
 
-  it('ignores a forged marker from an untrusted commenter', () => {
+  it('ignores a forged marker from a comment the routine did not post', () => {
     const marker = renderHandledMarker({ action: 'escalate', date: '2099-99-99' });
-    expect(deriveHandledState([{ author: 'random-commenter', body: marker }], { today: '2026-09-12' })).toBe(
+    expect(deriveHandledState([{ viewerDidAuthor: false, body: marker }], { today: '2026-09-12' })).toBe(
       'unhandled',
     );
   });
 
-  it('honors the same marker when posted by the trusted author', () => {
-    const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
-    expect(
-      deriveHandledState([{ author: DEFAULT_TRUSTED_AUTHOR, body: marker }], { today: '2026-09-12' }),
-    ).toBe('handled-awaiting-watchdog');
+  it('ignores a marker whose viewerDidAuthor is missing entirely, not just false', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2099-99-99' });
+    expect(deriveHandledState([{ body: marker }], { today: '2026-09-12' })).toBe('unhandled');
   });
 
-  it('matches a comment author with a [bot] suffix against a trustedAuthor without one (Codex-adjacent live finding, 2026-09-13)', () => {
-    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
-    expect(
-      deriveHandledState([{ author: 'claude', body: marker }], { trustedAuthor: 'claude[bot]' }),
-    ).toBe('escalated');
-  });
-
-  it('matches a comment author without a [bot] suffix against a trustedAuthor with one, the reverse direction', () => {
-    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
-    expect(
-      deriveHandledState([{ author: 'claude[bot]', body: marker }], { trustedAuthor: 'claude' }),
-    ).toBe('escalated');
-  });
-
-  it('does not let [bot]-suffix stripping make two genuinely different identities match', () => {
-    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
-    expect(
-      deriveHandledState([{ author: 'someone-else[bot]', body: marker }], { trustedAuthor: 'claude' }),
-    ).toBe('unhandled');
-  });
-
-  it('honors a custom trustedAuthor override', () => {
-    const marker = renderHandledMarker({ action: 'redispatch', date: '2026-09-12' });
-    expect(
-      deriveHandledState([{ author: 'some-other-bot', body: marker }], {
-        today: '2026-09-12',
-        trustedAuthor: 'some-other-bot',
-      }),
-    ).toBe('handled-awaiting-watchdog');
-  });
-
-  it('ignores an unrecognized action value even from the trusted author, dated today', () => {
+  it('ignores an unrecognized action value even on the routine\'s own comment, dated today', () => {
     const forged = '<!-- marjorie-ops-handled date=2026-09-12 action=nonsense-action -->';
-    expect(deriveHandledState([trusted(forged)], { today: '2026-09-12' })).toBe('unhandled');
+    expect(deriveHandledState([own(forged)], { today: '2026-09-12' })).toBe('unhandled');
   });
 
-  it('ignores a marker hidden inside a code fence from an untrusted author', () => {
+  it('ignores a marker hidden inside a code fence on a comment the routine did not post', () => {
     const marker = renderHandledMarker({ action: 'escalate', date: '2026-08-01' });
     const body = ['```', marker, '```'].join('\n');
-    expect(deriveHandledState([{ author: 'random-commenter', body }], { today: '2026-09-12' })).toBe('unhandled');
+    expect(deriveHandledState([{ viewerDidAuthor: false, body }], { today: '2026-09-12' })).toBe('unhandled');
   });
 
   it('does not truncation-match a malformed action as a valid prefix (Codex round-2, PR #4216)', () => {
@@ -155,7 +121,7 @@ describe('deriveHandledState', () => {
       '<!-- marjorie-ops-handled date=2026-09-12 action=human-action/invalid -->',
     ];
     for (const body of variants) {
-      expect(deriveHandledState([trusted(body)], { today: '2026-09-12' })).toBe('unhandled');
+      expect(deriveHandledState([own(body)], { today: '2026-09-12' })).toBe('unhandled');
     }
   });
 });
@@ -212,35 +178,18 @@ export lands, nobody knows whether the parser works.
 the number of groups you saved, and no line says \`local copy KEPT\`.`;
 }
 
-// Subprocess tests against the real CLI (Codex round-2 review of PR #4224:
-// the trusted-author precedence logic in main() was previously covered
-// only indirectly, through deriveHandledState's own options — this exercises
-// the actual `node alert-router.mjs state [trustedAuthor]` dispatch, since
-// that's the only interface the routine's Bash-only tool set can reach.
-function markerComment(author: string) {
-  // `escalate` is permanent (no `today` dependency) so this test doesn't
-  // need to inject or match the real America/Los_Angeles calendar date.
-  return { author, body: renderHandledMarker({ action: 'escalate', date: '2020-01-01' }) };
-}
-
-describe('state CLI trusted-author precedence', () => {
-  it('a CLI argument is honored', () => {
-    expect(runStateCli(['right-author'], [markerComment('right-author')])).toBe('escalated');
+// Subprocess test against the real CLI — confirms `main()`'s `state`
+// dispatch actually plumbs `viewerDidAuthor` through to `deriveHandledState`
+// unchanged, since that's the only interface the routine's Bash-only tool
+// set can reach (it can't `import` this module directly).
+describe('state CLI', () => {
+  it('honors a marker on a comment the routine posted', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
+    expect(runStateCli([{ viewerDidAuthor: true, body: marker }])).toBe('escalated');
   });
 
-  it('falls back to MARJORIE_OPS_AUTHOR when no CLI argument is given', () => {
-    expect(runStateCli([], [markerComment('env-author')], { MARJORIE_OPS_AUTHOR: 'env-author' })).toBe('escalated');
-  });
-
-  it('a CLI argument wins over a stale MARJORIE_OPS_AUTHOR env var', () => {
-    expect(runStateCli(['right-author'], [markerComment('right-author')], { MARJORIE_OPS_AUTHOR: 'wrong-author' })).toBe('escalated');
-  });
-
-  it('falls back to DEFAULT_TRUSTED_AUTHOR when neither is given', () => {
-    expect(runStateCli([], [markerComment(DEFAULT_TRUSTED_AUTHOR)])).toBe('escalated');
-  });
-
-  it('still rejects a marker from an untrusted author even with a CLI argument set', () => {
-    expect(runStateCli(['right-author'], [markerComment('someone-else')])).toBe('unhandled');
+  it('ignores a marker on a comment the routine did not post', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
+    expect(runStateCli([{ viewerDidAuthor: false, body: marker }])).toBe('unhandled');
   });
 });
