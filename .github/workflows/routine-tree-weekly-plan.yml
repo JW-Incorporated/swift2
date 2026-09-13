@@ -250,7 +250,7 @@ jobs:
           PR_NUMBER: ${{ steps.find_pr.outputs.number }}
           PR_URL: ${{ steps.find_pr.outputs.url }}
         run: |
-          node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/calendar.brief.json --pr "$PR_NUMBER" --pr-url "$PR_URL" --out /tmp/loop.json \
+          timeout 120 node scripts/marjorie/loop-asks.mjs file-tree --plan /tmp/calendar.brief.json --pr "$PR_NUMBER" --pr-url "$PR_URL" --out /tmp/loop.json \
             || echo "::warning::loop-asks file-tree failed; the brief goes out with a could-not-load line instead"
 
       # mode=replan: docs/agents/runner-prompts/tree-weekly-plan.md's own

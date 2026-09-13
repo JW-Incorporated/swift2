@@ -66,6 +66,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: ops
+    # L1 fix (Codex review, MEDIUM): serializes lookup → create → writeback
+    # so two overlapping deliveries of the same brief can never both file it.
+    concurrency:
+      group: marjorie-brief-deliver
+      cancel-in-progress: false
     permissions:
       contents: read
       issues: write
@@ -93,7 +98,7 @@ jobs:
           # plain step on the workflow token; no agent judges the line.
           # Soft-fail: on any error the body file is untouched and the brief
           # still goes out.
-          node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$ISSUE_NUMBER" --issue-url "$ISSUE_URL" --body-file /tmp/brief-body.md --out /tmp/brief-body.md \
+          timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$ISSUE_NUMBER" --issue-url "$ISSUE_URL" --body-file /tmp/brief-body.md --out /tmp/brief-body.md \
             || echo "::warning::loop-asks file-marjorie failed; delivering the brief unchanged"
           DELIVERY_OUTPUT=$(node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file /tmp/brief-body.md --url "$ISSUE_URL")
           echo "$DELIVERY_OUTPUT"

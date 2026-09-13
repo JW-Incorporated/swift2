@@ -89,19 +89,20 @@ charter's "never edit the brief body after posting" still binds Marjorie.
 
 **Parsing is fixed-format.** On Tree's side the input is a JSON array: entries
 with no `ask` are skipped, and anything past two is not filed (the brief
-says so). On Marjorie's side the input is the first line matching `^- For
-Tree: (.*)$`. `—`, `-`, `none` or `nothing` mean no ask. A trailing
-`(contradicts #N)` sets `contradicts`. A line that already contains `→ #N`
-or `→ [#N]` counts as filed and is skipped. Ask text is capped at 300
-characters, and `@login` is neutralised to `@\u200blogin` so an ask never
-pings anyone.
+says so). On Marjorie's side it is the first `- For Tree:` line *inside the
+`**Tree**` section*; a quoted line elsewhere is ignored. `—`, `-`, `none` or
+`nothing` mean no ask, and a trailing `(contradicts #N)` sets `contradicts`.
+Only the exact generated suffix ` → [#N](<…/issues/N>)` counts as filed, so
+ask text containing an arrow still files. Asks are capped at 300 characters.
+`@login` gets a zero-width space after its `@` and `<!--` becomes `&lt;!--`, so an ask can
+neither ping anyone nor forge a marker.
 
 **Idempotency and the identity trap.** Each filing gets a key:
 `<side>-<source#>-<sha1(ask, lowercased)[0:8]>`. The source is the plan PR
 number or the brief issue number. Before filing, the step lists the most
-recent 100 issues under its `*-filed` label (`--state all`, bodies included
-in full; this does not hit the comment truncation from #4230) and matches
-the key in the marker. **Trust uses the author's login, not
+recent 200 issues carrying both its `*-filed` and its `desk:*` label
+(`--state all`, full bodies, no #4230 comment truncation). It then matches
+the key in the body's last marker, which always comes after all content. **Trust uses the author's login, not
 `viewerDidAuthor`.** Both filers are `run:` steps on the workflow token, so
 the author is always the same absolute login, `app/github-actions` (from
 `gh --json`) or `github-actions[bot]` (from REST), whichever credential
@@ -115,14 +116,17 @@ files a new issue.
 **Filing never blocks a brief.** Every GitHub failure is logged as a
 `::warning::` and the CLI still exits 0. Tree's brief then shows `N asks
 couldn't be filed — see the send-brief log`. Marjorie's line keeps the
-unfiled ask text, so the next day's re-read by the agent still sees it.
+unfiled ask text, so the next day's re-read still sees it. Each `gh` call is
+capped at 30 s, the step runs under `timeout 120`, and `deliver` has a
+concurrency group so two deliveries of one brief cannot both file.
 
 **Receiving side, prompt-level (judgment).** Tree's weekly run gets a new step
 0.7: read each open `marjorie-filed` + `desk:tree` issue with its comments
-(`gh issue view N --json comments`, one issue at a time, #4230). Act inside
-Tree's hard limits, which almost always means a calendar change, then
-comment what was done and close; or comment why not and leave it open.
-Marjorie's brief run gets the same step for `tree-filed` + `desk:ops`,
+(`gh issue view N --json comments`, one issue at a time, #4230). An ask
+marked `⚠️ Contradicts #N` is held untouched until a founder comments on
+either issue. Otherwise Tree acts inside its hard limits (usually a calendar
+change) and closes the ask only once its plan PR is open, citing that PR. If
+it can't act, it comments why and leaves the ask open. Marjorie's brief run gets the same step for `tree-filed` + `desk:ops`,
 inside her charter: file a human action, route a desk, or fix via PR. Both
 charters' mutation rights gain exactly that comment-and-close right on asks
 addressed to them. The filer never needs to close its own ask. One ask per
@@ -144,7 +148,9 @@ Neither bot asks for anything only a founder can decide.
    routine files under it.
 2. `lib/loop-asks.test.ts` covers all of the following: tree parsing (the
    cap, invalid entries, `contradicts`); For Tree parsing (placeholder,
-   `none`, an ask, a contradicts suffix, already-filed, a missing line); key
+   `none`, an ask, arrow text, a quoted line outside the Tree section, a
+   contradicts suffix, already-filed, a missing line); a forged marker; a
+   `gh` timeout; key
    stability; author trust (a human-authored copied marker is ignored, and
    both bot login forms are accepted); issue rendering (labels, marker,
    Tier-2 trailer, `@` neutralised); `fileAsk` finding an existing issue
@@ -155,13 +161,10 @@ Neither bot asks for anything only a founder can decide.
    the proposals line and pass through ref-line escaping. The
    assemble-brief tests confirm the Tree section's four lines survive
    `capSection`.
-4. The assembler stays at 40 lines or fewer by construction, even with every
-   section maxed. Tree goes 2→4. Today 4→3 and Site 2→1 give back pure
-   slack, since Today renders two lines and Site renders one. That alone
-   could not pay for two real extra lines, so the six section headings lose
-   the blank line the assembler added after them. The brief now matches
-   `c2-brief.md`'s "exact" template, which never had those blanks. The count
-   is 28 budgeted lines + 6 headings + 5 separators = 39.
+4. The assembler stays at 40 lines or fewer by construction with every
+   section maxed. Tree goes 2→4, Today 4→3 and Site 2→1 (both pure slack),
+   and the six headings lose their trailing blank line, matching
+   `c2-brief.md`'s exact template: 28 + 6 headings + 5 separators = 39.
 5. Both prompt edits keep the "Run discipline" block and the Tier-2 trailer
    byte-identical. The Tree prompt edit gets a Codex review.
 6. Live proof, cited on #4180: a real `tree-filed` issue and a real
@@ -189,11 +192,9 @@ Neither bot asks for anything only a founder can decide.
 
 ## Open questions
 
-- **Tree's cadence is weekly and Marjorie's is daily**, so an ask to Tree
-  waits up to 6 days. That is acceptable, because nothing Marjorie would ask
-  Tree is same-day urgent. A same-day social problem, such as a bad queued
-  post, is a founder ❌ in `#longlive-tree` rather than a loop ask. Revisit
-  at MR2 if an ask aged past its usefulness.
-- **The 100-issue lookup window** on `marjorie-filed` is shared with M3's
+- **Tree runs weekly and Marjorie daily**, so an ask to Tree can wait up to
+  6 days. A same-day social problem is a founder ❌ in `#longlive-tree`, not
+  a loop ask. Revisit at MR2 if an ask outlived its usefulness.
+- **The 200-issue lookup window** (filed label and desk label together) excludes M3's
   build-desk filings. At today's volume (<10 a week) a same-day re-dispatch
   always falls inside it. The structural cap is the same class as #4239.

@@ -35,12 +35,49 @@ const ADDRESSED_TO = { marjorie: SIDES.tree, tree: SIDES.marjorie };
 export const FILER_LOGINS = new Set(['app/github-actions', 'github-actions[bot]', 'github-actions']);
 
 export const FOR_TREE_PLACEHOLDER = '- For Tree: —';
-const FOR_TREE_RE = /^- For Tree: ?(.*)$/m;
+const TREE_HEADING = '**Tree**';
+const FOR_TREE_RE = /^- For Tree: ?(.*)$/;
 const EMPTY_ASK_RE = /^(—|-|none\.?|nothing( today)?\.?)?$/i;
 const CONTRADICTS_RE = /\s*\(contradicts #(\d+)\)\s*$/i;
-const FILED_RE = /→ \[?#(\d+)\]?/;
-const MARKER_RE = /<!-- loop-ask: ([a-z0-9-]+)(?: contradicts=(\d+))? -->/;
+// Only the exact suffix rewriteForTreeLine generates, anchored at end of
+// line — arrow text inside an ask (e.g. "#4200 → #4300") must never read as
+// already filed.
+const FILED_RE = / → \[#(\d+)\]\(<[^()<>]+\/issues\/\1>\)(?: ⚠️ contradicts #\d+ — your call)?$/;
+const MARKER_RE = /<!-- loop-ask: ([a-z0-9-]+)(?: contradicts=(\d+))? -->/g;
 const TITLE_PREFIX_RE = /^(Tree|Marjorie) → (Tree|Marjorie): /;
+
+/** The `- For Tree:` line's index, but only inside the **Tree** section (the
+ * heading until the next `**`-heading line) — a "- For Tree:" quoted
+ * elsewhere in the body (an earlier day's ask, a different section) must
+ * never be mistaken for the real slot. Shared so parseMarjorieAsk and
+ * rewriteForTreeLine always agree on which line that is. */
+function forTreeSlotIndex(lines) {
+  const start = lines.indexOf(TREE_HEADING);
+  if (start === -1) return -1;
+  for (let i = start + 1; i < lines.length; i += 1) {
+    if (lines[i].startsWith('**')) return -1;
+    if (FOR_TREE_RE.test(lines[i])) return i;
+  }
+  return -1;
+}
+
+/** Ask/why text is rendered into an issue body BEFORE the canonical marker
+ * this module appends after it — neutralizing a comment opener keeps ask
+ * text from forging an earlier `<!-- loop-ask: ... -->` that `parseMarker`
+ * could pick up instead of the real one. */
+function neutralizeMarker(text) {
+  return String(text ?? '').replace(/<!--/g, '&lt;!--');
+}
+
+/** Bounds a `gh` call so a hang can never eat a whole delivery's timeout
+ * budget — `gh()` in scripts/lib/gh.mjs has no timeout on its REST fallback
+ * path, so this races the call itself rather than passing one through. */
+function withTimeout(promise, ms, label) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms)),
+  ]);
+}
 
 function clean(text) {
   return String(text ?? '').replace(/\s+/g, ' ').trim();
@@ -82,15 +119,17 @@ export function parseTreeAsks(plan) {
 /** Marjorie's ask from the brief body's first `- For Tree:` line.
  * `filed` is set when the line was already rewritten with an issue number. */
 export function parseMarjorieAsk(body) {
-  const m = String(body ?? '').match(FOR_TREE_RE);
-  if (!m) return { line: null, ask: null, filed: null };
-  const rest = m[1].trim();
+  const lines = String(body ?? '').split('\n');
+  const idx = forTreeSlotIndex(lines);
+  if (idx === -1) return { line: null, ask: null, filed: null };
+  const line = lines[idx];
+  const rest = line.match(FOR_TREE_RE)[1].trim();
   const filed = rest.match(FILED_RE);
-  if (filed) return { line: m[0], ask: null, filed: Number(filed[1]) };
+  if (filed) return { line, ask: null, filed: Number(filed[1]) };
   const contradicts = rest.match(CONTRADICTS_RE);
   const text = truncate(clean(contradicts ? rest.slice(0, contradicts.index) : rest), MAX_ASK_CHARS);
-  if (EMPTY_ASK_RE.test(text)) return { line: m[0], ask: null, filed: null };
-  return { line: m[0], ask: { ask: text, why: '', contradicts: contradicts ? Number(contradicts[1]) : null }, filed: null };
+  if (EMPTY_ASK_RE.test(text)) return { line, ask: null, filed: null };
+  return { line, ask: { ask: text, why: '', contradicts: contradicts ? Number(contradicts[1]) : null }, filed: null };
 }
 
 /** Stable per source + ask text: a re-dispatch refiles nothing, an edited
@@ -105,7 +144,11 @@ export function renderMarker(key, contradicts) {
 }
 
 export function parseMarker(body) {
-  const m = String(body ?? '').match(MARKER_RE);
+  // The canonical marker is always rendered LAST (after all ask/why text),
+  // so the last match in the body is the real one — never the first, which
+  // ask text could forge.
+  const matches = [...String(body ?? '').matchAll(MARKER_RE)];
+  const m = matches[matches.length - 1];
   return m ? { key: m[1], contradicts: m[2] ? Number(m[2]) : null } : null;
 }
 
@@ -124,10 +167,10 @@ function contradictsSuffix(n) {
 
 export function renderIssue(sideName, ask, { key, sourceUrl }) {
   const side = SIDES[sideName];
-  const text = neutralizeAt(ask.ask);
+  const text = neutralizeMarker(neutralizeAt(ask.ask));
   const body = [
     `**${side.from} asks ${side.to}:** ${text}`,
-    ask.why ? `**Why:** ${neutralizeAt(ask.why)}` : null,
+    ask.why ? `**Why:** ${neutralizeMarker(neutralizeAt(ask.why))}` : null,
     ask.contradicts
       ? `⚠️ **Contradicts #${ask.contradicts}.** Neither bot settles this — a founder decides which one stands.`
       : null,
@@ -140,32 +183,38 @@ export function renderIssue(sideName, ask, { key, sourceUrl }) {
 }
 
 /** Files one ask, or returns the existing filing for the same key. */
-export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun }) {
+export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun, timeoutMs = 30_000 }) {
   const side = SIDES[sideName];
   const key = askKey(sideName, sourceNumber, ask.ask);
-  const { stdout } = await gh([
-    'issue', 'list', '--repo', repo, '--label', side.filedLabel, '--state', 'all',
-    '--limit', '100', '--json', 'number,url,body,author',
-  ]);
+  // Both labels (gh ANDs repeated --label), 200-issue window: a filed
+  // label alone can be pushed out of a 100-row window by newer build-desk
+  // issues sharing that same label.
+  const { stdout } = await withTimeout(gh([
+    'issue', 'list', '--repo', repo, '--label', side.filedLabel, '--label', side.deskLabel, '--state', 'all',
+    '--limit', '200', '--json', 'number,url,body,author',
+  ]), timeoutMs, 'gh issue list');
   const existing = findFiled(JSON.parse(stdout || '[]'), key);
   if (existing) return { number: existing.number, url: existing.url, created: false, ask };
 
   const { title, body, labels } = renderIssue(sideName, ask, { key, sourceUrl });
   const args = ['issue', 'create', '--repo', repo, '--title', title, '--body', body];
   for (const label of labels) args.push('--label', label);
-  const created = await gh(args);
+  const created = await withTimeout(gh(args), timeoutMs, 'gh issue create');
   const url = String(created.stdout ?? '').trim().split(/\s+/).pop() ?? '';
   const number = Number(url.match(/\/issues\/(\d+)$/)?.[1]);
   if (!number) throw new Error(`gh issue create printed no issue URL: ${created.stdout}`);
   return { number, url, created: true, ask };
 }
 
-/** `- For Tree: <ask> → [#N](<url>)`, idempotent under parseMarjorieAsk. */
+/** `- For Tree: <ask> → [#N](<url>)`, idempotent under parseMarjorieAsk.
+ * Rewrites the same section-bounded slot parseMarjorieAsk reads — never a
+ * global first match. */
 export function rewriteForTreeLine(body, filing) {
-  return String(body).replace(
-    FOR_TREE_RE,
-    () => `- For Tree: ${neutralizeAt(filing.ask.ask)} → [#${filing.number}](<${filing.url}>)${contradictsSuffix(filing.ask.contradicts)}`,
-  );
+  const lines = String(body).split('\n');
+  const idx = forTreeSlotIndex(lines);
+  if (idx === -1) return String(body);
+  lines[idx] = `- For Tree: ${neutralizeAt(filing.ask.ask)} → [#${filing.number}](<${filing.url}>)${contradictsSuffix(filing.ask.contradicts)}`;
+  return lines.join('\n');
 }
 
 export const INCOMING_JSON_FIELDS = 'number,title,url,body,author,labels,state,createdAt,closedAt';
@@ -186,12 +235,12 @@ export function selectAsksFor(bot, issues, { now = Date.now(), closedWithinDays 
     .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
 }
 
-export async function fetchAsksFor(bot, { repo = REPO, gh = ghRun, state = 'open' } = {}) {
+export async function fetchAsksFor(bot, { repo = REPO, gh = ghRun, state = 'open', timeoutMs = 30_000 } = {}) {
   const side = ADDRESSED_TO[bot];
-  const { stdout } = await gh([
-    'issue', 'list', '--repo', repo, '--label', side.filedLabel, '--state', state,
-    '--limit', '100', '--json', INCOMING_JSON_FIELDS,
-  ]);
+  const { stdout } = await withTimeout(gh([
+    'issue', 'list', '--repo', repo, '--label', side.filedLabel, '--label', side.deskLabel, '--state', state,
+    '--limit', '200', '--json', INCOMING_JSON_FIELDS,
+  ]), timeoutMs, 'gh issue list');
   return JSON.parse(stdout || '[]');
 }
 

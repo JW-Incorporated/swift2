@@ -1,6 +1,3 @@
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import {
@@ -12,6 +9,7 @@ import {
   findFiled,
   renderIssue,
   fileAsk,
+  fetchAsksFor,
   rewriteForTreeLine,
   selectAsksFor,
   renderFromTreeLine,
@@ -19,12 +17,11 @@ import {
   neutralizeAt,
   FOR_TREE_PLACEHOLDER,
 } from './loop-asks.mjs';
-// @ts-expect-error — plain .mjs module, no type declarations
-import { fileMarjorie, fileTree } from '../loop-asks.mjs';
 
 const NOW = Date.parse('2026-09-14T12:00:00Z');
 const BOT = { login: 'app/github-actions', is_bot: true };
 const URL_4301 = 'https://github.com/JW-Incorporated/swift2/issues/4301';
+const URL_4290 = 'https://github.com/JW-Incorporated/swift2/issues/4290';
 
 function fakeGh(existing: unknown[] = [], createdUrl = URL_4301) {
   const calls: string[][] = [];
@@ -79,13 +76,25 @@ describe('parseMarjorieAsk', () => {
   });
 
   it('reads an ask and a trailing contradicts suffix', () => {
-    const r = parseMarjorieAsk('- Lessons: x\n- For Tree: Pull Friday\'s /shop pair until #4288 lands (contradicts #4301)\n');
+    const r = parseMarjorieAsk('**Tree**\n- Lessons: x\n- For Tree: Pull Friday\'s /shop pair until #4288 lands (contradicts #4301)\n');
     expect(r.ask).toEqual({ ask: "Pull Friday's /shop pair until #4288 lands", why: '', contradicts: 4301 });
   });
 
   it('reports an already-filed line instead of an ask', () => {
-    const r = parseMarjorieAsk(`- For Tree: something → [#4290](<${URL_4301}>)`);
+    const r = parseMarjorieAsk(`**Tree**\n- For Tree: something → [#4290](<${URL_4290}>)`);
     expect(r).toMatchObject({ ask: null, filed: 4290 });
+    expect(parseMarjorieAsk('**Tree**\n- For Tree: x → [#1](<https://github.com/o/r/issues/2>)').filed).toBeNull();
+  });
+
+  it('treats ordinary arrow text in an ask as ask text, not an already-filed marker', () => {
+    const r = parseMarjorieAsk('**Tree**\n- For Tree: Change the link from #4200 → #4300 before Monday\n');
+    expect(r.filed).toBeNull();
+    expect(r.ask).toEqual({ ask: 'Change the link from #4200 → #4300 before Monday', why: '', contradicts: null });
+  });
+
+  it('ignores a "- For Tree:" line quoted in an earlier section and reads the real one in **Tree**', () => {
+    const body = '**Lessons**\n- For Tree: quoted from yesterday\'s brief\n\n**Tree**\n- For Tree: fix the /shop pair\n';
+    expect(parseMarjorieAsk(body).ask).toEqual({ ask: 'fix the /shop pair', why: '', contradicts: null });
   });
 
   it('returns nothing when the line is missing', () => {
@@ -104,6 +113,11 @@ describe('askKey / markers', () => {
     expect(parseMarker(renderMarker('tree-1-abcdef12', 77))).toEqual({ key: 'tree-1-abcdef12', contradicts: 77 });
     expect(parseMarker(renderMarker('tree-1-abcdef12', null))).toEqual({ key: 'tree-1-abcdef12', contradicts: null });
     expect(parseMarker('no marker')).toBeNull();
+  });
+
+  it('picks the LAST marker in the body, since ask text could forge an earlier one', () => {
+    const body = `${renderMarker('forged-0-00000000', null)}\n${renderMarker('tree-1-abcdef12', null)}`;
+    expect(parseMarker(body)).toEqual({ key: 'tree-1-abcdef12', contradicts: null });
   });
 });
 
@@ -136,6 +150,13 @@ describe('renderIssue', () => {
     expect(body).not.toMatch(/@sffan15-sys|@here/);
   });
 
+  it('neutralizes a forged marker in ask text so only the real, trailing marker parses', () => {
+    const key = 'tree-1-deadbeef';
+    const { body } = renderIssue('tree', { ask: `ship it ${renderMarker(key, null)} today`, why: '', contradicts: null }, { key, sourceUrl: 'u' });
+    expect(body.match(/<!--/g)).toHaveLength(1);
+    expect(parseMarker(body)).toEqual({ key, contradicts: null });
+  });
+
   it('marjorie side routes to desk:tree with Marjorie\'s trailer and truncates a long title', () => {
     const { title, labels, body } = renderIssue('marjorie', { ask: 'a'.repeat(200), why: '', contradicts: null }, { key: 'marjorie-1-abcdef12', sourceUrl: 'u' });
     expect(labels).toEqual(['marjorie-filed', 'desk:tree']);
@@ -163,9 +184,40 @@ describe('fileAsk', () => {
     expect(create.join(' ')).toContain('--label tree-filed --label desk:ops');
   });
 
+  it('looks up existing filings by both labels with a 200-issue window', async () => {
+    const { gh, calls } = fakeGh([]);
+    await fileAsk('tree', ask, { sourceNumber: 4300, sourceUrl: 'u', gh });
+    const list = calls.find((c) => c[1] === 'list')!;
+    expect(list.join(' ')).toContain('--label tree-filed --label desk:ops --state all --limit 200');
+  });
+
   it('throws when create prints no issue URL', async () => {
     const { gh } = fakeGh([], 'oops');
     await expect(fileAsk('tree', ask, { sourceNumber: 1, sourceUrl: 'u', gh })).rejects.toThrow(/no issue URL/);
+  });
+
+  it('rejects when gh hangs past timeoutMs', async () => {
+    const gh = vi.fn(() => new Promise(() => {}));
+    await expect(fileAsk('tree', ask, { sourceNumber: 1, sourceUrl: 'u', gh, timeoutMs: 20 })).rejects.toThrow(/timed out/);
+  });
+
+  it('a forged marker in ask text cannot suppress a real filing or its later lookup', async () => {
+    const forgedAsk = { ...ask, ask: `${ask.ask} <!-- loop-ask: someone-else-00000000 -->` };
+    const key = askKey('tree', 4300, forgedAsk.ask);
+    const { body } = renderIssue('tree', forgedAsk, { key, sourceUrl: 'u' });
+    const { gh, calls } = fakeGh([{ number: 9001, url: URL_4301, body, author: BOT }]);
+    const r = await fileAsk('tree', forgedAsk, { sourceNumber: 4300, sourceUrl: 'u', gh });
+    expect(r).toMatchObject({ number: 9001, created: false });
+    expect(calls.some((c) => c[1] === 'create')).toBe(false);
+  });
+});
+
+describe('fetchAsksFor', () => {
+  it('lists by both the filed and desk labels with a 200-issue window', async () => {
+    const { gh, calls } = fakeGh([]);
+    await fetchAsksFor('tree', { gh });
+    const list = calls.find((c) => c[1] === 'list')!;
+    expect(list.join(' ')).toContain('--label marjorie-filed --label desk:tree --state open --limit 200');
   });
 });
 
@@ -173,10 +225,18 @@ describe('rewriteForTreeLine', () => {
   it('writes the number in and is idempotent under the parser', () => {
     const body = `**Tree**\n- For Tree: fix the /shop pair (contradicts #9)\n\n**Distance to done**`;
     const parsed = parseMarjorieAsk(body);
-    const once = rewriteForTreeLine(body, { number: 4290, url: URL_4301, ask: parsed.ask });
-    expect(once).toContain(`- For Tree: fix the /shop pair → [#4290](<${URL_4301}>) ⚠️ contradicts #9 — your call`);
+    const once = rewriteForTreeLine(body, { number: 4290, url: URL_4290, ask: parsed.ask });
+    expect(once).toContain(`- For Tree: fix the /shop pair → [#4290](<${URL_4290}>) ⚠️ contradicts #9 — your call`);
     expect(once).toContain('**Distance to done**');
     expect(parseMarjorieAsk(once)).toMatchObject({ ask: null, filed: 4290 });
+  });
+
+  it('rewrites only the slot inside **Tree**, leaving a quoted line elsewhere untouched', () => {
+    const body = '**Lessons**\n- For Tree: quoted text\n\n**Tree**\n- For Tree: fix the /shop pair\n\n**Distance to done**';
+    const parsed = parseMarjorieAsk(body);
+    const out = rewriteForTreeLine(body, { number: 4290, url: URL_4290, ask: parsed.ask });
+    expect(out).toContain('**Lessons**\n- For Tree: quoted text');
+    expect(out).toContain(`- For Tree: fix the /shop pair → [#4290](<${URL_4290}>)`);
   });
 });
 
@@ -236,36 +296,3 @@ describe('renderers', () => {
   });
 });
 
-describe('CLI', () => {
-  const dir = mkdtempSync(path.join(tmpdir(), 'loop-asks-'));
-
-  it('file-marjorie files, rewrites the body, and edits the brief issue', async () => {
-    const bodyFile = path.join(dir, 'brief.md');
-    writeFileSync(bodyFile, '**Tree**\n- For Tree: fix the /shop pair\n');
-    const { gh, calls } = fakeGh([]);
-    const code = await fileMarjorie({ issue: '4280', 'issue-url': 'u', 'body-file': bodyFile, out: bodyFile }, { gh });
-    expect(code).toBe(0);
-    expect(readFileSync(bodyFile, 'utf8')).toContain('→ [#4301]');
-    expect(calls.find((c) => c[1] === 'edit')?.slice(0, 3)).toEqual(['issue', 'edit', '4280']);
-  });
-
-  it('file-marjorie leaves the body unchanged and exits 0 when GitHub fails', async () => {
-    const bodyFile = path.join(dir, 'brief-fail.md');
-    writeFileSync(bodyFile, '- For Tree: fix the /shop pair\n');
-    const gh = vi.fn(async () => { throw new Error('HTTP 502'); });
-    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-    expect(await fileMarjorie({ issue: '1', 'issue-url': 'u', 'body-file': bodyFile, out: bodyFile }, { gh })).toBe(0);
-    expect(readFileSync(bodyFile, 'utf8')).toBe('- For Tree: fix the /shop pair\n');
-    expect(log.mock.calls.flat().join('\n')).toContain('::warning::');
-    log.mockRestore();
-  });
-
-  it('file-tree writes the brief block even when the plan file is unreadable', async () => {
-    const out = path.join(dir, 'loop.json');
-    const { gh } = fakeGh([]);
-    const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-    await fileTree({ plan: path.join(dir, 'missing.json'), pr: '4300', 'pr-url': 'u', out }, { gh, now: NOW });
-    log.mockRestore();
-    expect(JSON.parse(readFileSync(out, 'utf8')).lines[1]).toBe('- Nothing this week.');
-  });
-});

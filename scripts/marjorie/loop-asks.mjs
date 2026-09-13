@@ -86,7 +86,7 @@ export async function fileTree(flags, { gh = ghRun, now = Date.now() } = {}) {
 }
 
 /** Marjorie side: file the brief's For Tree ask, write its number back. */
-export async function fileMarjorie(flags, { gh = ghRun } = {}) {
+export async function fileMarjorie(flags, { gh = ghRun, timeoutMs } = {}) {
   const repo = typeof flags.repo === 'string' ? flags.repo : REPO;
   const body = readFileSync(flags['body-file'], 'utf8');
   const parsed = parseMarjorieAsk(body);
@@ -100,9 +100,11 @@ export async function fileMarjorie(flags, { gh = ghRun } = {}) {
     console.log('loop-asks: no ask for Tree today.');
   } else {
     try {
-      const filing = await fileAsk('marjorie', parsed.ask, { sourceNumber: flags.issue, sourceUrl: flags['issue-url'], repo, gh });
+      const filing = await fileAsk('marjorie', parsed.ask, { sourceNumber: flags.issue, sourceUrl: flags['issue-url'], repo, gh, timeoutMs });
       console.log(`loop-asks: ${filing.created ? 'filed' : 'already filed'} #${filing.number} (Marjorie → Tree)`);
       out = rewriteForTreeLine(body, filing);
+      // Written before the brief edit, so a hang there can't lose the number.
+      writeFileSync(flags.out, out);
       if (!flags['no-edit']) {
         try {
           await gh(['issue', 'edit', String(flags.issue), '--repo', repo, '--body', out]);
