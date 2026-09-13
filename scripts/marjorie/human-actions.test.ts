@@ -1,6 +1,17 @@
 import { describe, expect, it } from 'vitest';
+import { tmpdir } from 'node:os';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { parseOpenActions, renderActionLine, sortForBrief, STALE_AFTER_DAYS, parseMinutes, quickWins } from './human-actions.mjs';
+import {
+  parseOpenActions,
+  renderActionLine,
+  sortForBrief,
+  STALE_AFTER_DAYS,
+  parseMinutes,
+  quickWins,
+  parseClosedNumbers,
+  nextHumanActionNumber,
+  readNextHumanActionNumber,
+} from './human-actions.mjs';
 
 const NOW = new Date('2026-09-11T12:00:00Z').getTime();
 
@@ -205,5 +216,60 @@ describe('quickWins', () => {
   it('falls back to item.title when eta is absent (v1-shaped fixtures, inline estimates)', () => {
     const items = [{ number: 1, title: 'Legacy-style title — ~6 min', tag: 'UPGRADE', ageDays: 1, eta: null }];
     expect(quickWins(items).map((i) => i.number)).toEqual([1]);
+  });
+});
+
+const DONE_DOC = [
+  '# Human actions — Swift2 — CLOSED',
+  '',
+  '<!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first. -->',
+  '',
+  '- #66 · 2026-09-12 · done · Create a Discord webhook — "closed via Discord reply" · by discord',
+  '- #61 · 2026-09-12 · done · Set SOCIAL_FREEZE=false — "verified" · by owner',
+  '',
+].join('\n');
+
+describe('parseClosedNumbers', () => {
+  it('extracts every #N from HUMAN-ACTIONS-DONE.md lines', () => {
+    expect(parseClosedNumbers(DONE_DOC)).toEqual([66, 61]);
+  });
+
+  it('returns an empty array for empty/missing content', () => {
+    expect(parseClosedNumbers('')).toEqual([]);
+    expect(parseClosedNumbers(undefined)).toEqual([]);
+  });
+});
+
+describe('nextHumanActionNumber', () => {
+  it('is max(open ∪ closed) + 1, not just the highest open number', () => {
+    // DOC's highest open item is #11, but DONE_DOC has a closed #66 — the
+    // true next number must skip past the closed one too (numbers are
+    // never reused).
+    expect(nextHumanActionNumber(DOC, DONE_DOC, { now: NOW })).toBe(67);
+  });
+
+  it('falls back to the open file alone when the done file is empty/missing', () => {
+    expect(nextHumanActionNumber(DOC, '', { now: NOW })).toBe(12);
+  });
+
+  it('falls back to the done file alone when the open file is empty', () => {
+    expect(nextHumanActionNumber('', DONE_DOC, { now: NOW })).toBe(67);
+  });
+
+  it('starts at 1 when both files are empty', () => {
+    expect(nextHumanActionNumber('', '')).toBe(1);
+  });
+});
+
+describe('readNextHumanActionNumber', () => {
+  it('treats a genuinely missing file as empty', () => {
+    expect(readNextHumanActionNumber({ repoRoot: tmpdir(), openFile: 'does-not-exist.md', doneFile: 'also-missing.md' })).toBe(1);
+  });
+
+  it('propagates a non-ENOENT read error instead of silently treating it as empty (Codex round-2, PR #4216)', () => {
+    // Passing a directory as the "file" path throws EISDIR, not ENOENT — a
+    // broad `catch {}` here previously swallowed this and returned 1 as if
+    // no items existed at all, which could hand out an already-used number.
+    expect(() => readNextHumanActionNumber({ repoRoot: tmpdir(), openFile: '.', doneFile: 'also-missing.md' })).toThrow();
   });
 });

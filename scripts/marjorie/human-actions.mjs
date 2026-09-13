@@ -7,9 +7,12 @@
 // FORMAT v2 (RULINGS-2 / ARCHITECTURE-decision.md §3, P3 migration landed
 // 2026-09-11): the file now holds ONLY open items — presence means open,
 // there is no `**Status:**` field and no `## OPEN`/`## DONE` split. Closed
-// items live one-line-each in the sibling `HUMAN-ACTIONS-DONE.md`, which
-// this module does not read (nothing here needs it — founders never open
-// it either). An item's filed date moved from a `**Filed:**` body line into
+// items live one-line-each in the sibling `HUMAN-ACTIONS-DONE.md` — the
+// brief-rendering functions below never read it (founders never open it
+// either), but `nextHumanActionNumber`/`readNextHumanActionNumber` do (added
+// 2026-09-12): this repo's "numbers never reused" convention means the true
+// next `## #N` has to be computed across both files, not just the open one.
+// An item's filed date moved from a `**Filed:**` body line into
 // a hidden `<!-- ha filed=YYYY-MM-DD ... -->` comment right under its
 // heading, and the kind vocabulary is now exactly BLOCKING / DECIDE /
 // UPGRADE (glyph follows kind, the parser ignores the glyph). An optional
@@ -23,6 +26,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const HUMAN_ACTIONS_PATH = 'HUMAN-ACTIONS.md';
+export const HUMAN_ACTIONS_DONE_PATH = 'HUMAN-ACTIONS-DONE.md';
 const DAY_MS = 86_400_000;
 
 // `## #43 🔴 [BLOCKING] Title (~15 min)` — `\S*` eats the glyph (any single
@@ -89,6 +93,63 @@ export function readOpenActions({ repoRoot = ROOT, file = HUMAN_ACTIONS_PATH, no
   } catch {
     return [];
   }
+}
+
+// `- #66 · 2026-09-12 · done · Title ... · by owner` — one line per closed
+// item (HUMAN_ACTIONS_DONE_PATH's own format, see that file's own header
+// comment); only the leading `#N` is needed here.
+const DONE_ITEM = /^-\s+#(\d+)\s*·/;
+
+/** Every item number recorded in HUMAN-ACTIONS-DONE.md (closed items),
+ * newest-first order not guaranteed to matter — every line is scanned. */
+export function parseClosedNumbers(markdown) {
+  const numbers = [];
+  for (const line of String(markdown || '').split('\n')) {
+    const m = DONE_ITEM.exec(line);
+    if (m) numbers.push(Number(m[1]));
+  }
+  return numbers;
+}
+
+/**
+ * The true next `## #N` number for a new HUMAN-ACTIONS.md item: per this
+ * repo's "numbers are never reused" convention (CLAUDE.md), that is
+ * `max(open items in HUMAN-ACTIONS.md ∪ closed items in
+ * HUMAN-ACTIONS-DONE.md) + 1`, not just the highest number in the open file
+ * — reading only the open file lets a filer reissue a number that was
+ * already used and closed. `openMarkdown`/`doneMarkdown` are the two files'
+ * raw text; pure so tests never touch the filesystem.
+ */
+export function nextHumanActionNumber(openMarkdown, doneMarkdown, { now = Date.now() } = {}) {
+  const openNumbers = parseOpenActions(openMarkdown, { now }).map((it) => it.number);
+  const closedNumbers = parseClosedNumbers(doneMarkdown);
+  return Math.max(0, ...openNumbers, ...closedNumbers) + 1;
+}
+
+/** Filesystem-reading wrapper around `nextHumanActionNumber` — the one call
+ * site an agent's Bash-only CLI can actually reach (via
+ * `alert-router.mjs next-ha-number`). A genuinely missing file (`ENOENT`)
+ * reads as empty, matching `readOpenActions`'s own "no file yet" behavior —
+ * but any OTHER read failure (permissions, the path being a directory, a
+ * transient I/O error) is rethrown rather than silently treated as "no
+ * items," which would let the allocator hand out an already-used number
+ * (2026-09-12 Codex round-2 review of PR #4216: a broad `catch {}` here
+ * reproducibly returned `1` even when both paths were directories). */
+export function readNextHumanActionNumber({
+  repoRoot = ROOT,
+  openFile = HUMAN_ACTIONS_PATH,
+  doneFile = HUMAN_ACTIONS_DONE_PATH,
+  now = Date.now(),
+} = {}) {
+  const readOrEmpty = (file) => {
+    try {
+      return readFileSync(path.join(repoRoot, file), 'utf8');
+    } catch (err) {
+      if (err && err.code === 'ENOENT') return '';
+      throw err;
+    }
+  };
+  return nextHumanActionNumber(readOrEmpty(openFile), readOrEmpty(doneFile), { now });
 }
 
 /**
