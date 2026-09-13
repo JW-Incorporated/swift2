@@ -97,6 +97,16 @@ actually running the query, never a string you have to get right. A marker
 on a comment you didn't post — including one hidden inside a code fence by
 someone else — is ignored, not honored.
 
+**Identity note (#4223, 2026-09-13):** this routine's `gh` calls now
+authenticate as `github-actions[bot]` (the workflow's own `GITHUB_TOKEN`/
+`SOCIAL_POSTER_PAT`), not `claude-code-action`'s `claude[bot]` GitHub App
+installation token — `routine-template.yml`'s `use_workflow_token` input is
+set `true` only for this routine, because that installation token does not
+carry this job's own `permissions: actions: write`, so `gh workflow run`
+403'd on every re-dispatch attempt regardless of what the workflow declared.
+Your issue/PR comments will show as `github-actions[bot]`, not `claude`.
+This changes nothing above: `viewerDidAuthor` is computed against whatever
+credential is actually running the query, so it still works unmodified.
 Prints one of:
 
 - **`unhandled`** — act (Step 2 below).

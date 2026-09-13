@@ -108,6 +108,7 @@ jobs:
       timeout_minutes: 30
       max_turns: 60
       checkout_token_secret: SOCIAL_POSTER_PAT
+      use_workflow_token: true # #4223: gh workflow run needs the job's own actions:write permission, not claude[bot]'s installation token
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

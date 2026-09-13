@@ -75,6 +75,25 @@ on:
         required: false
         type: string
         default: ""
+      use_workflow_token:
+        description: |
+          Opt-in (default false). When true, passes the job's own
+          checkout_token_secret to claude-code-action@v1's `github_token`
+          input instead of letting the action mint its own claude[bot] GitHub
+          App installation token via OIDC exchange (issue #4223: that
+          installation token does NOT carry the caller workflow's own
+          `permissions:` block — e.g. `actions: write` — so `gh workflow run`
+          inside the agent 403s regardless of what the job declares). With
+          this on, the agent's `gh` calls run as the workflow's own token
+          instead of `claude[bot]`/`claude`, so its issue/PR comments author
+          as `github-actions[bot]` too. Only routine-marjorie-ops.yml sets
+          this true; every other routine must be unaffected (default false
+          means an empty `github_token` input, which claude-code-action
+          treats as falsy and falls through to its normal OIDC token
+          exchange — verified against action.yml/src/github/token.ts).
+        required: false
+        type: boolean
+        default: false
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN:
         required: false
@@ -151,6 +170,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ inputs.use_workflow_token && (inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN) || '' }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
           claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}"
         env:
