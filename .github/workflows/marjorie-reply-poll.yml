@@ -22,8 +22,10 @@ on:
 permissions:
   issues: write
 
+# Same group as bot-chat-poll.yml: both run reply-poll.mjs, and two relays
+# reading one comment snapshot at once would post the same relay-id twice.
 concurrency:
-  group: marjorie-reply-poll
+  group: bot-chat-poll
   cancel-in-progress: false
 
 jobs:

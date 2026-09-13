@@ -94,9 +94,19 @@ one covers only the conversational loop. Epic #4180.
    founder messages without the bot's 👀, oldest first, at most 3 per
    channel per run. For each: add 👀, then `gh workflow run
    routine-marjorie-chat.yml` (or `routine-tree-chat.yml`) with inputs
-   `message_id`, `channel_id`, `thread_id`. A refused 👀 dispatches nothing;
-   a failed dispatch removes the 👀 so the next poll retries; a bot whose
-   routine file is not on `main` yet is skipped. `GITHUB_TOKEN` may dispatch
+   `message_id`, `channel_id`, `thread_id`. A refused 👀 dispatches nothing,
+   and a bot whose routine file is not on `main` yet is skipped. A 👀 is
+   never removed. Each poll reconciles earlier claims that carry neither ✅
+   nor ❌ against the routine's runs, found by `run-name`. With no run at all,
+   the dispatch was lost, so the poll dispatches again. If the run finished
+   without reacting, the poll reacts ❌ and then posts `[chat failed]`, in that
+   order so a refused reaction can't repeat the line every poll. If the run is
+   queued or running, the poll leaves it alone. A place the poll cannot read,
+   a missing channel, or a founder message with a blank body (no Message
+   Content intent) fails the run, so watchdog sees it. The poll pages back
+   through a channel until it passes the 24 h window.
+   *(Codex review of the task-1 PR: removing the claim after a failed or
+   ambiguous dispatch could strand a message, or answer it twice.)* `GITHUB_TOKEN` may dispatch
    workflows when the job declares `actions: write` (the 403 in #4223 was
    the App installation token inside the agent, not this path). The Discord
    fetch/backoff and `isRootOrWebhookMessage` moved from `reply-poll.mjs` to
@@ -119,7 +129,12 @@ one covers only the conversational loop. Epic #4180.
    only one pending run and cancels the older pending one, so "queued, never
    cancelled" is not available and a per-bot group would drop the middle of
    three messages. Every existing caller passes none of the three new inputs
-   and is unaffected.)* Prompts `docs/agents/runner-prompts/marjorie-chat.md` and
+   and is unaffected.)* Each run is named `Marjorie chat · <message id>` /
+   `Tree chat · <message id>` (`run-name`, the poll's reconcile key). Each
+   chat workflow also has its own concurrency group per message, and its
+   `context` job stops the run before the agent when the message already
+   carries the bot's ✅ or ❌. A duplicate dispatch therefore waits for the
+   first run, then does nothing. Prompts `docs/agents/runner-prompts/marjorie-chat.md` and
    `tree-chat.md` read the context file, load the charter, act, and write
    the reply file. Marjorie's caller uses `checkout_token_secret:
    SOCIAL_POSTER_PAT` + `expose_dispatch_token: true` so she can re-dispatch

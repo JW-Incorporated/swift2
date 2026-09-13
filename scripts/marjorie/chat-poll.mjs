@@ -6,94 +6,36 @@
 //            #longlive-tree (and their active threads), newer than 24 h,
 //            without the bot's own 👀, oldest first, at most 3 per channel.
 //            Each is claimed with 👀 BEFORE its chat routine is dispatched:
-//            reactions are the state, so a claimed message is filtered out
-//            and no re-run can double-reply (GitHub list endpoints lag a
-//            fresh write by seconds, #4260 — a Discord reaction does not).
-//   context  the chat routines' first job. Writes one message's context
-//            JSON (the message, what it replies to, the thread root, the
-//            last 15 messages) for the agent to read from `.scratch/`.
+//            reactions are the state, so a claimed message is never picked
+//            again (GitHub list endpoints lag a fresh write by seconds, #4260
+//            — a Discord reaction does not). A 👀 is never removed. Instead
+//            each poll reconciles earlier claims that carry neither ✅ nor ❌
+//            against the routine's runs, found by `run-name`: no run → the
+//            dispatch was lost, dispatch again; a finished run → its finish
+//            job died, react ❌ and post `[chat failed]` (Codex review of this
+//            PR: removing a claim on a failed or ambiguous dispatch could
+//            strand a message or answer it twice).
+//   context  the chat routines' first job. Writes one message's context JSON
+//            (the message, what it replies to, the thread root, the last 15
+//            messages) for the agent to read from `.scratch/`.
 //
 // A founder's Discord *reply* at top level (type 19, `message_reference`) is
 // a top-level message here — the 09-13 brief reply that reply-poll.mjs
-// missed because it only reads threads.
+// missed because it only reads threads. Anything that leaves messages unread
+// (a refused read, a missing channel, blank content) fails the run, so
+// watchdog sees a dead poll instead of a green one.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
-import { SOCIAL_APPROVERS } from '../social/lib/approvers.mjs';
+import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  DISCORD_API, authorName, defaultSleep, discordRequest, hasOwnReaction, isRootOrWebhookMessage, reactionUrl, snowflakeMs,
-} from './lib/discord-bot.mjs';
+  BOTS, CLAIM, FAILED, HISTORY_LIMIT, MAX_PER_CHANNEL, SNOWFLAKE, WINDOW_MS, buildContext, dispatchArgs, findRun, founderIds, messageTime, selectInbox,
+} from './lib/chat-inbox.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-
-export const CLAIM = '👀';
-export const MAX_PER_CHANNEL = 3;
-export const WINDOW_MS = 24 * 60 * 60 * 1000;
-export const HISTORY_LIMIT = 15;
-const HISTORY_TEXT_CAP = 1500;
-const MESSAGE_TEXT_CAP = 4000;
-// DEFAULT (0) and REPLY (19) are what a person types; pins, joins and
-// "started a thread" notices are system types and never answered.
-const HUMAN_TYPES = new Set([0, 19]);
-const SNOWFLAKE = /^\d{15,21}$/;
-
-export const BOTS = {
-  marjorie: { channelName: 'longlive-marjorie', workflow: 'routine-marjorie-chat.yml', channelEnv: 'DISCORD_MARJORIE_CHANNEL_ID' },
-  tree: { channelName: 'longlive-tree', workflow: 'routine-tree-chat.yml', channelEnv: 'DISCORD_TREE_CHANNEL_ID' },
-};
-
-/**
- * Founder Discord ids: the `DISCORD_FOUNDER_IDS` repo variable when it holds
- * any valid id, else the ids already committed in `SOCIAL_APPROVERS` (the
- * same two founders who approve social) — so the loop needs no variable to
- * exist, and opening it wider is a one-line variable change.
- */
-export function founderIds(raw = '') {
-  const fromVar = String(raw || '').split(',').map((s) => s.trim()).filter((s) => SNOWFLAKE.test(s));
-  if (fromVar.length) return new Set(fromVar);
-  return new Set(SOCIAL_APPROVERS.map((id) => String(id).replace(/^discord:/, '')).filter((s) => SNOWFLAKE.test(s)));
-}
-
-export function isInboxMessage(message, { founders, sourceId, now }) {
-  if (!message || isRootOrWebhookMessage(message, sourceId)) return false;
-  if (!founders.has(String(message.author?.id ?? ''))) return false;
-  if (!HUMAN_TYPES.has(message.type ?? 0)) return false;
-  const at = Date.parse(message.timestamp) || snowflakeMs(message.id);
-  if (now - at > WINDOW_MS) return false;
-  return !hasOwnReaction(message, CLAIM);
-}
-
-function hasText(message) {
-  return Boolean(String(message.content || '').trim()) || (message.attachments?.length ?? 0) > 0;
-}
-
-/**
- * `sources` = one entry per place a message can live: the channel itself
- * (`threadId: ''`) and each active thread under it. Returns the oldest
- * unclaimed founder messages, capped, plus founder messages whose content
- * came back empty — the signature of a bot without the Message Content
- * intent, surfaced as a warning rather than silently skipped.
- */
-export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
-  const picked = [];
-  const empty = [];
-  for (const { channelId, threadId, messages } of sources) {
-    for (const m of messages || []) {
-      if (!isInboxMessage(m, { founders, sourceId: threadId || channelId, now })) continue;
-      const item = { messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp, length: String(m.content || '').length };
-      (hasText(m) ? picked : empty).push(item);
-    }
-  }
-  picked.sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1));
-  return { picked: picked.slice(0, cap), empty };
-}
-
-export function dispatchArgs(repo, workflow, { messageId, channelId, threadId }) {
-  return ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main',
-    '-f', `message_id=${messageId}`, '-f', `channel_id=${channelId}`, '-f', `thread_id=${threadId}`];
-}
+const MAX_PAGES = 10;
 
 /**
  * Channel ids by name within the guild. The guild comes from the Tree
@@ -126,18 +68,93 @@ export async function resolveChannels({ env, token, fetchImpl, sleepImpl }) {
   return { guildId, ids };
 }
 
+/** Newest-first pages of 100, walked back with `before` until a page ends past the 24 h window. */
+export async function readMessages(where, { token, now, fetchImpl, sleepImpl }) {
+  const messages = [];
+  let before = '';
+  for (let page = 0; page < MAX_PAGES; page += 1) {
+    const r = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages?limit=100${before ? `&before=${before}` : ''}`, token, { fetchImpl, sleepImpl });
+    if (!r.ok) return { ok: false, status: r.status, messages };
+    const batch = Array.isArray(r.data) ? r.data : [];
+    messages.push(...batch);
+    const oldest = batch[batch.length - 1];
+    if (batch.length < 100 || !oldest || now - messageTime(oldest) > WINDOW_MS) break;
+    before = oldest.id;
+  }
+  return { ok: true, messages };
+}
+
 async function readSources({ channelId, activeThreads, token, now, fetchImpl, sleepImpl }) {
   const threads = activeThreads.filter((t) => t.parent_id === channelId && now - snowflakeMs(t.last_message_id || t.id) <= WINDOW_MS);
   const sources = [];
+  let failed = 0;
   for (const threadId of ['', ...threads.map((t) => t.id)]) {
-    const r = await discordRequest('GET', `${DISCORD_API}/channels/${threadId || channelId}/messages?limit=100`, token, { fetchImpl, sleepImpl });
+    const r = await readMessages(threadId || channelId, { token, now, fetchImpl, sleepImpl });
     if (!r.ok) {
-      console.log(`::warning::chat-poll: could not read ${threadId || channelId} (HTTP ${r.status})`);
+      failed += 1;
+      console.log(`::error::chat-poll: could not read ${threadId || channelId} (HTTP ${r.status})`);
       continue;
     }
-    sources.push({ channelId, threadId, messages: r.data });
+    sources.push({ channelId, threadId, messages: r.messages });
   }
-  return sources;
+  return { sources, failed };
+}
+
+export function listRuns(execImpl, repo, workflow) {
+  try {
+    const out = execImpl('gh', ['run', 'list', '--repo', repo, '--workflow', workflow, '--limit', '200', '--json', 'displayTitle,status,conclusion,url'], { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+    const runs = JSON.parse(out);
+    return Array.isArray(runs) ? runs : null;
+  } catch (err) {
+    console.log(`::error::chat-poll: gh run list for ${workflow} failed: ${err.message}`);
+    return null;
+  }
+}
+
+async function reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, budget }) {
+  let used = 0;
+  let failures = 0;
+  if (!claimed.length) return { used, failures };
+  const runs = listRuns(execImpl, repo, cfg.workflow);
+  if (!runs) return { used, failures: 1 };
+  for (const item of claimed) {
+    const where = item.threadId || item.channelId;
+    const run = findRun(runs, bot, item.messageId);
+    if (run && run.status !== 'completed') continue; // queued or running — its own finish job reacts
+    if (!run) {
+      if (used >= budget) continue;
+      used += 1;
+      if (dryRun) {
+        console.log(`dry-run: would re-dispatch ${bot} message ${item.messageId} (👀 but no run)`);
+        continue;
+      }
+      try {
+        execImpl('gh', dispatchArgs(repo, cfg.workflow, item), { encoding: 'utf8' });
+        console.log(`re-dispatched ${bot} message ${item.messageId}: claimed earlier, no run found`);
+      } catch (err) {
+        failures += 1;
+        console.log(`::error::chat-poll: re-dispatching ${cfg.workflow} for ${item.messageId} failed: ${err.message}`);
+      }
+      continue;
+    }
+    if (dryRun) {
+      console.log(`dry-run: would mark ${bot} message ${item.messageId} ❌ (run finished without reacting: ${run.url})`);
+      continue;
+    }
+    // ❌ first: once it lands the message leaves the claimed set, so a
+    // refused reaction can never turn into a [chat failed] line every poll.
+    const marked = await discordRequest('PUT', reactionUrl(where, item.messageId, FAILED), token, opts);
+    if (!marked.ok) {
+      failures += 1;
+      console.log(`::error::chat-poll: could not add ${FAILED} to ${item.messageId} (HTTP ${marked.status})`);
+      continue;
+    }
+    const body = { content: `[chat failed] ${run.url}`, allowed_mentions: { parse: [] }, message_reference: { message_id: item.messageId, fail_if_not_exists: false } };
+    const posted = await discordRequest('POST', `${DISCORD_API}/channels/${where}/messages`, token, { ...opts, body });
+    if (!posted.ok) failures += 1;
+    console.log(`${bot} message ${item.messageId}: run finished without a reaction — marked ${FAILED}${posted.ok ? ' and posted [chat failed]' : `, [chat failed] post refused (HTTP ${posted.status})`}`);
+  }
+  return { used, failures };
 }
 
 export async function poll({
@@ -162,11 +179,14 @@ export async function poll({
     console.log('::error::chat-poll: could not resolve the Discord guild — nothing polled');
     return 1;
   }
+  let failures = 0;
   const active = await discordRequest('GET', `${DISCORD_API}/guilds/${guildId}/threads/active`, token, opts);
-  if (!active.ok) console.log(`::warning::chat-poll: active thread list -> HTTP ${active.status}; channels only`);
+  if (!active.ok) {
+    failures += 1;
+    console.log(`::error::chat-poll: active thread list -> HTTP ${active.status}; channels only`);
+  }
   const activeThreads = (active.ok && active.data?.threads) || [];
 
-  let failures = 0;
   for (const [bot, cfg] of Object.entries(BOTS)) {
     if (!workflowExists(cfg.workflow)) {
       console.log(`${bot}: ${cfg.workflow} is not on main yet — skipped`);
@@ -174,16 +194,22 @@ export async function poll({
     }
     const channelId = ids[bot];
     if (!channelId) {
-      console.log(`::warning::chat-poll: #${cfg.channelName} not found in the guild — ${bot} skipped`);
+      failures += 1;
+      console.log(`::error::chat-poll: #${cfg.channelName} not found in the guild — ${bot} skipped`);
       continue;
     }
-    const sources = await readSources({ channelId, activeThreads, token, now, ...opts });
-    const { picked, empty } = selectInbox(sources, { founders, now });
+    const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });
+    failures += failed;
+    const { picked, claimed, empty } = selectInbox(sources, { founders, now });
     if (empty.length) {
-      console.log(`::warning::chat-poll: ${bot}: ${empty.length} founder message(s) read with empty content — the bot likely lacks the Message Content intent`);
+      failures += 1;
+      console.log(`::error::chat-poll: ${bot}: ${empty.length} founder message(s) read with a blank body — the bot likely lacks the Message Content intent`);
     }
-    console.log(`${bot}: ${picked.length} founder message(s) to answer (read ${sources.length} of ${1 + activeThreads.filter((t) => t.parent_id === channelId).length} place(s))`);
-    for (const item of picked) {
+    const settled = await reconcile({ bot, cfg, claimed, repo, token, dryRun, execImpl, opts, budget: MAX_PER_CHANNEL });
+    failures += settled.failures;
+    const fresh = picked.slice(0, Math.max(0, MAX_PER_CHANNEL - settled.used));
+    console.log(`${bot}: ${fresh.length} new, ${claimed.length} earlier claim(s) checked, from ${sources.length} place(s)`);
+    for (const item of fresh) {
       const where = item.threadId || item.channelId;
       if (dryRun) {
         console.log(`dry-run: would claim ${bot} message ${item.messageId} in ${where} (${item.length} chars)`);
@@ -200,51 +226,21 @@ export async function poll({
         console.log(`claimed ${bot} message ${item.messageId} → dispatched ${cfg.workflow}`);
       } catch (err) {
         failures += 1;
-        console.log(`::error::chat-poll: dispatching ${cfg.workflow} for ${item.messageId} failed: ${err.message}`);
-        const undo = await discordRequest('DELETE', reactionUrl(where, item.messageId, CLAIM), token, opts);
-        if (!undo.ok) console.log(`::warning::chat-poll: could not remove ${CLAIM} from ${item.messageId} (HTTP ${undo.status}) — it stays claimed and unanswered`);
+        console.log(`::error::chat-poll: dispatching ${cfg.workflow} for ${item.messageId} failed (${err.message}); the claim stays and the next poll reconciles it`);
       }
     }
   }
   return failures ? 1 : 0;
 }
 
-function clip(text, cap) {
-  const s = String(text || '');
-  return s.length > cap ? `${s.slice(0, cap)}…` : s;
-}
-
-function line(m) {
-  return { id: m.id, author: authorName(m.author), is_bot: Boolean(m.webhook_id || m.author?.bot), at: m.timestamp, text: clip(m.content, HISTORY_TEXT_CAP) };
-}
-
-/** The agent's whole view of the conversation. `history` is oldest → newest and ends with the message itself. */
-export function buildContext({ bot, guildId, channelId, threadId, message, history, threadRoot }) {
-  const where = threadId || channelId;
-  return {
-    bot,
-    channel_id: channelId,
-    thread_id: threadId || '',
-    top_level: !threadId,
-    message_id: message.id,
-    url: `https://discord.com/channels/${guildId}/${where}/${message.id}`,
-    author: authorName(message.author),
-    at: message.timestamp,
-    text: clip(message.content, MESSAGE_TEXT_CAP),
-    replying_to: message.referenced_message ? line(message.referenced_message) : null,
-    thread_root: threadRoot ? line(threadRoot) : null,
-    history: history.map(line),
-  };
-}
-
 export function parseFlags(args) {
   const flags = {};
   for (let i = 0; i < args.length; i += 1) {
-    if (args[i].startsWith('--')) {
-      const next = args[i + 1];
-      flags[args[i].slice(2)] = next !== undefined && !next.startsWith('--') ? next : '';
-      if (next !== undefined && !next.startsWith('--')) i += 1;
-    }
+    if (!args[i].startsWith('--')) continue;
+    const next = args[i + 1];
+    const hasValue = next !== undefined && !next.startsWith('--');
+    flags[args[i].slice(2)] = hasValue ? next : '';
+    if (hasValue) i += 1;
   }
   return flags;
 }
