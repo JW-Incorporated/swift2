@@ -159,7 +159,12 @@ one covers only the conversational loop. Epic #4180.
    Closing a human action = a PR that removes the entry (v2 format, the
    `human-actions` skill), which auto-merges on green.
 5. **Tree's authority in chat**: read everything; write only PR comments on
-   the open plan PR and comments on `tree-filed` issues. Charter amendment
+   the latest plan PR and comments on `tree-filed` issues. *(Amended at
+   build: "latest" means open or not. No plan PR has been opened yet, and
+   Monday's step 0 reads `head:tree/plan/ --state all --limit 1`. Tree's
+   agent job holds no PAT, dispatch token or git. Any reply line shaped like
+   an approval prompt's `ref:` line is defused, so the approval poller can
+   never read a chat reply as a prompt.)* Charter amendment
    in `docs/agents/tree.md`: "never post, never reply" becomes "never posts
    to social platforms and never approves; answers founder questions in
    `#longlive-tree` threads through the chat routine." Merges on green like
