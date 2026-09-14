@@ -21,18 +21,20 @@
 
 **Worked if:** https://github.com/settings/personal-access-tokens lists longlive-doorbell-dispatch with swift2 and Actions: Read and write.
 
-## #73 🔴 [BLOCKING] Limit the Doorbell bot to #longlive-marjorie and #longlive-tree (~5 min)
+## #73 🔴 [BLOCKING] Limit the Doorbell bot to #longlive-marjorie and #longlive-tree (~10 min)
 <!-- ha filed=2026-09-13 -->
 
-**Why:** The Doorbell only needs to see and react to your messages in the two bot channels. Limiting it keeps it out of every other channel and makes certain it can never post.
+**Why:** The Doorbell only needs to see and react in the two bot channels. Discord roles can only add rights, so the limits are set per channel and per category: it sees just those two channels and can never post in them.
 
 **Steps:**
-1. After #72, in Discord open Server Settings, Roles, Long Live Doorbell, Permissions. Turn View Channels off and save.
-2. Right-click #longlive-marjorie, choose Edit Channel, Permissions, click + and add the Long Live Doorbell role.
-3. For that role set ✓ on View Channel, Read Message History, Add Reactions and ✗ on Send Messages, Send Messages in Threads, Create Public Threads. Save.
-4. Repeat steps 2 and 3 for #longlive-tree.
+1. After #72, right-click #longlive-marjorie, choose Edit Channel, Permissions, Advanced permissions, click + and pick the Long Live Doorbell role.
+2. Set ✓ View Channel, Read Message History, Add Reactions and ✗ Send Messages, Send Messages in Threads, Create Public Threads, Create Private Threads. Save Changes.
+3. Repeat steps 1 and 2 for #longlive-tree.
+4. Open Server Settings, Roles, click ⋯ next to Long Live Doorbell, choose View Server As Role, note every other category or channel it shows, then exit the preview.
+5. For each one noted: right-click it, Edit Category (or Edit Channel), Permissions, + Long Live Doorbell, set ✗ View Channel, Save Changes.
+6. Leave the two bot channels out of step 5. Their own ✓ from step 2 keeps them visible.
 
-**Worked if:** Server Settings, Roles, Long Live Doorbell, View Server As Role shows only #longlive-marjorie and #longlive-tree.
+**Worked if:** View Server As Role for Long Live Doorbell shows only #longlive-marjorie and #longlive-tree.
 
 ## #72 🔴 [BLOCKING] Create the Long Live Doorbell Discord bot and save its token (~5 min)
 <!-- ha filed=2026-09-13 -->
