@@ -2,11 +2,9 @@
 
 ## Next
 
-1. All four findings from the second extra review are fixed by three fresh
-   bounded debug implementation passes. Root verification: 191 tests green,
-   lint 0 errors. DEBUG.md records reproductions and fixes. No independent
-   review has run on these changes; the explicit exceptions are exhausted.
-   Obtain an explicit further review exception before review/PR.
+1. Implementation review is CLEAN: fresh read-only gpt-5.6-sol xhigh accepted
+   4d035db4 with no findings. Joey replaced the review cap with fix/re-review
+   until clean. Implementation PR/CI is next, with CLOCK_LIVE=false.
 2. After a reviewed implementation is on main, tag doorbell-v2 and file
    the v2 update HA by PR. Stop for Joey's done before activation or proof.
 3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
@@ -64,7 +62,8 @@ Reviews:
 - Second explicitly approved extra review: REJECT at c0280d2f against main
   f22afe7d for four new findings listed in DEBUG.md. Rerun narrowing accepted.
   All four findings subsequently fixed by fresh-context debug passes; no
-  independent review of those fixes yet.
+  independent review of those fixes subsequently ACCEPTED with no findings
+  at 4d035db4 (full diff against origin/main f22afe7d).
 
 Verification:
 - 191 focused tests / 16 files passed; includes UTC-midnight markers, queued
@@ -78,7 +77,8 @@ Verification:
   plus one unloadable suite due to local dependencies/CRLF/child npx. No fixes
   outside scope. Generated web stylesheet has identical normalized blob to
   HEAD and is excluded from the clock commits.
-- No PR, live clock proof, tag or update HA. Allocator returned 76 but no
+- PR submission/auto-merge is the next action; no live clock proof, tag or
+  update HA yet. Allocator returned 76 but no
   number is reserved; allocate again after a valid build. #4290 remains open; M7 is
   not ticked complete. Doorbell evidence remains on #4180:
   https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
@@ -94,3 +94,8 @@ fail-closed flag refresh, pinned table, rate caps and watchdog.
 rerun scope versus shared-template changes. Ruling: narrow our added rerun
 promise to original run-start guard; preserve existing operator partial
 reruns. No workflow/template/L1 changes. See DEBUG.md final section.
+
+Proof preparation: gitignored .scratch/clock-proof.mjs collects run metadata
+with paginated GET-only GitHub calls; .scratch/clock-proof.smoke.mjs passed.
+No live proof run. Next noon is 2026-09-15 12:00 UTC. If over two hours away
+after the poll proof, defer its passive check per the user contract.

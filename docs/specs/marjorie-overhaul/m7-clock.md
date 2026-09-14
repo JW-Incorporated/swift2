@@ -149,7 +149,9 @@ on #4290. Historical source: DEBUG.md at commit
   workflow text dependency/force input and guard decision. Full CI gates merge;
   local tests use the prescribed scratch config, lint must have zero errors.
 - Round 1 is this design, before code; round 2 is the implementation diff.
-  A round-2 rejection stops work with DEBUG.md, never a third review.
+  Original cap: a round-2 rejection stops work with DEBUG.md. Joey explicitly
+  replaced that cap for this branch on 2026-09-14 with fix and independent
+  re-review until clean; DEBUG.md records the review history and acceptance.
 - Live acceptance: twelve consecutive poll slots in an hour, each served
   within two minutes by a key-owner dispatch or GitHub cron, no doubled clock
   dispatches; metadata/run URLs on #4180. Dry-run clock-silent body confirmed.

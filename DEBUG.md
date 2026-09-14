@@ -211,3 +211,22 @@ merge gate; these results do not replace an independent review verdict.
 No further review has run. The prior explicit review exceptions are used.
 A new exception or revised review policy is needed to review this corrected
 implementation before a PR. No PR/tag/HA/activation/live proof yet.
+
+## Clean independent review - 2026-09-14
+
+Joey explicitly replaced the exhausted cap with permission to fix and
+independently re-review until clean for this branch. A fresh read-only
+Codex gpt-5.6-sol xhigh pass reviewed 55d50700...4d035db4, including the
+latest fixes, against origin/main f22afe7d. Verdict: ACCEPT, no findings.
+
+Confirmed the LA marker boundary, serialized exact REST issue-state check,
+fatal watchdog latch, 299-line poll, two pinned empty-input rows, any-main-run
+coverage, Fable rerun boundary, authority constraints and preserved schedules.
+Read-only runtime syntax, schedule validation, whitespace and merge-tree
+checks passed. The reviewer inspected tests but did not run write-requiring
+Vitest/lint; root's 191 passing tests and zero-error lint remain the execution
+evidence. Result: .scratch/clock-review-until-clean-1.txt (gitignored).
+
+Implementation is ready for PR/CI with CLOCK_LIVE=false. This acceptance is
+not deployment or live-proof evidence. Host update HA, activation and both
+proof halves remain required before M7 is complete.
