@@ -43,9 +43,10 @@
 1. Open https://discord.com/developers/applications and click New Application.
 2. Name it Long Live Doorbell, accept the terms and click Create.
 3. In the left menu click Bot. Turn Public Bot off. Leave the Presence, Server Members and Message Content intents off. Save Changes.
-4. On the same page click Reset Token, confirm, and copy the token into your password manager as "Long Live Doorbell bot token". Paste it nowhere else.
-5. In the left menu click OAuth2, then URL Generator. Tick bot. Under Bot Permissions tick only View Channels, Read Message History and Add Reactions.
-6. Copy the Generated URL at the bottom, open it, pick the server that has #longlive-marjorie and click Authorize.
+4. If saving fails with "Private application cannot have a default authorization link": open Installation, set Install Link to None, save, then redo step 3.
+5. On the Bot page click Reset Token, confirm, and copy the token into your password manager as "Long Live Doorbell bot token". Paste it nowhere else.
+6. In the left menu click OAuth2, then URL Generator. Tick bot. Under Bot Permissions tick only View Channels, Read Message History and Add Reactions.
+7. Copy the Generated URL at the bottom, open it, pick the server that has #longlive-marjorie and click Authorize.
 
 **Worked if:** Long Live Doorbell appears in the server's member list, shown offline until it is installed on the Hermes server.
 
