@@ -56,6 +56,7 @@ jobs:
       model: claude-opus-5
       allowed_tools: "Bash,Read,Write,Edit,Glob,Grep"
       timeout_minutes: 45
+      max_turns: 80 # was the template default 40: the 09-07 run needed 48 on a shorter prompt, and the 09-14 run died at 40 mid-task (same class as #4221)
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
