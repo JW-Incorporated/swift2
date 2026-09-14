@@ -6,6 +6,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { gapVerdict, readVerdict, watchClock } from './lib/clock-watch.mjs';
 // @ts-expect-error plain mjs
 import { checkClock } from './chat-alarm.mjs';
+// @ts-expect-error plain mjs
+import { poll } from './chat-poll.mjs';
+import { baseRoutes, discord, env, sleepImpl } from './chat-poll.fixtures';
 
 const NOW = Date.parse('2026-09-14T15:00:00Z');
 const SINCE = '2026-09-14T12:00:00Z';
@@ -68,5 +71,16 @@ describe('shared clock gap verdict', () => {
     expect(logged.mock.calls.flat().join('\n')).toContain('Clock is not firing');
     expect(logged.mock.calls.flat().join('\n')).toContain('detection waits for a surviving cron');
     expect(execImpl.mock.calls.every(([, args]) => args[0] === 'api')).toBe(true);
+  });
+  it('the deployed poll path invokes the watch when live, preserves dry-run, and fails on unreadable history', async () => {
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    for (const dryRun of [false, true]) {
+      const execImpl = gh([]);
+      const { fetchImpl } = discord(baseRoutes([]));
+      expect(await poll({ env: { ...env, DRY_RUN: dryRun ? '1' : '' }, fetchImpl, sleepImpl, execImpl, now: NOW, clockLive: true, clockSince: SINCE })).toBe(0);
+      expect(execImpl.mock.calls.some(([, args]) => args[0] === 'workflow')).toBe(!dryRun);
+    }
+    const { fetchImpl } = discord(baseRoutes([]));
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl: () => { throw new Error('unreadable'); }, now: NOW, clockLive: true, clockSince: SINCE })).toBe(1);
   });
 });
