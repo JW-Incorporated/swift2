@@ -49,6 +49,7 @@ describe('the poll watches the doorbell', () => {
     expect(await poll({ env, fetchImpl, sleepImpl, execImpl: gh([], order), now: NOW, workflowExists: onlyMarjorie })).toBe(0);
     expect(order.filter(isAlarm)).toHaveLength(1);
     expect(order.find(isAlarm)).toContain('stage=doorbell-missed');
+    expect(order).toContain(claimKey);
     expect(order.indexOf(claimKey)).toBeLessThan(order.findIndex(isAlarm));
     expect(order.findIndex(isAlarm)).toBeLessThan(order.findIndex(isChat));
   });
