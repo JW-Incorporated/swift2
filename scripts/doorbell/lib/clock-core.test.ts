@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { CLOCK_LIVE } from '../../marjorie/lib/chat-inbox.mjs';
 import {
-  GIVE_UP_MS, clockDispatch, clockLiveFrom, clockTick, dueRows, matches, nextFires, parseCron, parseSchedule, readRemote, runsSinceRequest,
+  GIVE_UP_MS, clockDispatch, clockLiveFrom, clockTick, dueRows, matches, nextFires, parseCommit, parseCron, parseSchedule, policyProblems, readRemote, runsSinceRequest,
   // @ts-expect-error — plain .mjs module, no type declarations
 } from './clock-core.mjs';
 
@@ -116,6 +116,76 @@ describe('clockTick', () => {
   it('dispatches on main with every input as a string', () => {
     expect(clockDispatch(row('output-sampling.yml', '12 9 * * 1', { dry_run: false })).body).toEqual({ ref: 'main', inputs: { dry_run: 'false' } });
   });
+
+  it('reads the time again before dispatching, so a slow run list never fires past 10 minutes (Codex R1 #3)', async () => {
+    const h = harness();
+    await clockTick({ rows: [ops], handled: new Map(), now: SLOT + 5_000, currentTime: () => SLOT + 11 * 60_000, live: true, ...h });
+    expect(h.sent).toEqual([]);
+    expect(h.logs.join('\n')).toContain('gave up');
+  });
+
+  it('runs due rows side by side, so a slow one blocks no other (Codex R1 #3)', async () => {
+    const other = row('other-routine.yml', '18 * * * *');
+    let release: () => void = () => {};
+    const slow = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const sent: string[] = [];
+    const runsSince = async (workflow: string) => {
+      if (workflow === ops.workflow) await slow;
+      return { ok: true, status: 200, data: { total_count: 0 } };
+    };
+    const dispatch = async (r: { key: string }) => {
+      sent.push(r.key);
+      return { ok: true, status: 204, data: null };
+    };
+    const tick = clockTick({ rows: [ops, other], handled: new Map(), now: SLOT + 5_000, live: true, runsSince, dispatch });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(sent).toEqual([other.key]);
+    release();
+    await tick;
+    expect(sent).toEqual([other.key, ops.key]);
+  });
+
+  it('dispatches nothing once CLOCK_LIVE goes off during the tick', async () => {
+    let on = true;
+    const h = harness();
+    const runsSince = async (workflow: string, slot: number) => {
+      on = false;
+      return h.runsSince(workflow, slot);
+    };
+    await clockTick({ rows: [ops], handled: new Map(), now: SLOT + 5_000, live: () => on, runsSince, dispatch: h.dispatch, log: h.log });
+    expect(h.sent).toEqual([]);
+  });
+});
+
+describe('the policy a table from main must meet (Codex R1 #1)', () => {
+  const pinned = parseSchedule(readFileSync('scripts/doorbell/schedule.json', 'utf8'));
+  const T = at('2026-09-14T18:00:00Z');
+  const table = (rows: unknown[]) => parseSchedule({ rows });
+  const inputsOf = (workflow: string) => pinned.find((p: { workflow: string }) => p.workflow === workflow).inputs;
+
+  it('the pinned table meets it, and so does a changed cron for a pinned workflow', () => {
+    expect(policyProblems(pinned, pinned, T)).toEqual([]);
+    expect(policyProblems(table([{ workflow: 'routine-marjorie-ops.yml', cron: '48 * * * *' }]), pinned, T)).toEqual([]);
+  });
+
+  it('refuses a workflow the pinned table does not dispatch, or different inputs', () => {
+    expect(policyProblems(table([{ workflow: 'routine-marjorie-chat.yml', cron: '0 * * * *' }]), pinned, T)[0]).toContain('not in the pinned table');
+    expect(policyProblems(table([{ workflow: 'output-sampling.yml', cron: '12 9 * * 1', inputs: { dry_run: true } }]), pinned, T)[0]).toContain('inputs differ');
+  });
+
+  it('refuses a row more often than every 5 minutes, and more than 40 dispatches in an hour', () => {
+    expect(policyProblems(table([{ workflow: 'routine-marjorie-ops.yml', cron: '* * * * *' }]), pinned, T)[0]).toContain('every 5 minutes');
+    const busy = ['a11y.yml', 'cie-scan.yml', 'routine-marjorie-ops.yml', 'e2e.yml'].map((w) => ({ workflow: w, cron: '*/5 * * * *', inputs: inputsOf(w) }));
+    expect(policyProblems(table(busy), pinned, T).join(' ')).toContain('dispatches in one hour');
+  });
+
+  it("reads one commit of main's sha and date, and nothing malformed", () => {
+    expect(parseCommit({ sha: 'a'.repeat(40), commit: { committer: { date: '2026-09-14T18:00:00Z' } } })).toEqual({ sha: 'a'.repeat(40), date: T });
+    expect(parseCommit({ sha: '../x', commit: { committer: { date: '2026-09-14T18:00:00Z' } } })).toBeNull();
+    expect(parseCommit({ sha: 'a'.repeat(40) })).toBeNull();
+  });
 });
 
 describe('the table and CLOCK_LIVE', () => {
@@ -139,8 +209,10 @@ describe('the table and CLOCK_LIVE', () => {
     const inbox = readFileSync('scripts/marjorie/lib/chat-inbox.mjs', 'utf8');
     expect(clockLiveFrom(inbox)).toBe(CLOCK_LIVE);
     expect(CLOCK_LIVE).toBe(false);
-    expect(readRemote(source, inbox)).toMatchObject({ ok: true, live: false });
-    expect(readRemote(source, 'no flag here')).toMatchObject({ ok: false });
-    expect(readRemote('{', inbox)).toMatchObject({ ok: false });
+    const pinned = parseSchedule(source);
+    const T = at('2026-09-14T18:00:00Z');
+    expect(readRemote(source, inbox, pinned, T)).toMatchObject({ ok: true, live: false });
+    expect(readRemote(source, 'no flag here', pinned, T)).toMatchObject({ ok: false });
+    expect(readRemote('{', inbox, pinned, T)).toMatchObject({ ok: false });
   });
 });

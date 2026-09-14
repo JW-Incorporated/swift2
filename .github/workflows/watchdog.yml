@@ -329,8 +329,9 @@ jobs:
           for ENTRY in $WATCHED; do
             WF="${ENTRY%%:*}"
             # Scheduled or clock-dispatched (M7): GitHub drops most cron fires here.
-            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --limit 10 --json conclusion,event \
-              --jq '[.[] | select(.event == "schedule" or .event == "workflow_dispatch")][:2] | [.[].conclusion]')
+            # Main only: a dispatch on a feature branch is not production health.
+            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --branch main --limit 10 --json conclusion,event,headBranch \
+              --jq '[.[] | select(.headBranch == "main" and (.event == "schedule" or .event == "workflow_dispatch"))][:2] | [.[].conclusion]')
             COUNT=$(echo "$LAST_TWO" | jq 'length')
             FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
             ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"

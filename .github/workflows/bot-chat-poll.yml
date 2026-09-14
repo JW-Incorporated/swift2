@@ -26,6 +26,10 @@
 # Kill switch: repo variable BOT_CHAT_ENABLED=false skips the chat step before
 # anything is read. The relay step keeps running.
 name: bot-chat-poll
+# The home-server clock (M7, m7-clock.md) dispatches with clock=true, and the
+# run name says so: scripts/marjorie/lib/clock-watch.mjs tells a clock run from
+# any other by it.
+run-name: "bot-chat-poll${{ inputs.clock && ' · clock' || '' }}"
 
 on:
   schedule:
@@ -34,6 +38,10 @@ on:
     inputs:
       dry_run:
         description: "List what would be claimed; add no reaction, dispatch nothing, relay nothing"
+        type: boolean
+        default: false
+      clock:
+        description: "Set by the home-server clock, so its runs are named `bot-chat-poll · clock`"
         type: boolean
         default: false
 

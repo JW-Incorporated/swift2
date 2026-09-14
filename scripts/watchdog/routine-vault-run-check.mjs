@@ -65,10 +65,10 @@ export function evaluate({ runs, now = new Date() }) {
   const nowMs = now instanceof Date ? now.getTime() : Date.parse(now);
   // Since M7 the home-server clock starts this routine with workflow_dispatch
   // (docs/specs/marjorie-overhaul/m7-clock.md), because GitHub drops most of
-  // this repo's cron fires, so a dispatch is cadence evidence too. Any other
-  // event (a push or PR run, were one ever added) still is not.
+  // this repo's cron fires, so a dispatch on main is cadence evidence too. A
+  // dispatch on another branch, or any other event, still is not.
   const scheduled = (runs || [])
-    .filter((r) => ['schedule', 'workflow_dispatch'].includes(r.event ?? 'schedule'))
+    .filter((r) => (r.event ?? 'schedule') === 'schedule' || (r.event === 'workflow_dispatch' && (r.headBranch ?? 'main') === 'main'))
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   if (scheduled.length === 0) {
@@ -154,7 +154,7 @@ async function main() {
   const repoArgs = repo ? ['--repo', repo] : [];
 
   const { stdout } = await gh([
-    'run', 'list', ...repoArgs, '--workflow', WORKFLOW,
+    'run', 'list', ...repoArgs, '--workflow', WORKFLOW, '--branch', 'main',
     '--json', 'conclusion,createdAt,event,headBranch,url', '--limit', String(LOOKBACK * 2),
   ]);
   const runs = JSON.parse(stdout || '[]');

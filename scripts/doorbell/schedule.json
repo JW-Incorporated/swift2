@@ -5,7 +5,7 @@
     {"workflow":"appearance-discovery.yml","cron":"40 13,21 * * *","inputs":{"dry_run":false}},
     {"workflow":"auto-merge-keepup.yml","cron":"*/15 * * * *","inputs":{}},
     {"workflow":"backup-restore-drill.yml","cron":"20 6 1 * *","inputs":{"page":true}},
-    {"workflow":"bot-chat-poll.yml","cron":"*/5 * * * *","inputs":{}},
+    {"workflow":"bot-chat-poll.yml","cron":"*/5 * * * *","inputs":{"clock":true}},
     {"workflow":"cie-scan.yml","cron":"9 9 * * *","inputs":{}},
     {"workflow":"codeql.yml","cron":"27 12 * * 1","inputs":{}},
     {"workflow":"community-crawl.yml","cron":"13 7 * * *","inputs":{}},

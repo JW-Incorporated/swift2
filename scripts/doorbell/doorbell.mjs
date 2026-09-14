@@ -189,7 +189,7 @@ export async function main(argv = process.argv.slice(2), {
     if (major < 22 || !hasWebSocket) log('error: needs Node 22 or newer (global WebSocket)');
     return 1;
   }
-  const clock = createClock({ githubToken: config.githubToken, fetchImpl, log });
+  const clock = createClock({ githubToken: config.githubToken, fetchImpl, log, stateDir: env.STATE_DIRECTORY || '' });
   const doorbell = createDoorbell({ config, fetchImpl, log });
   clock.start();
   doorbell.start(WebSocketImpl);

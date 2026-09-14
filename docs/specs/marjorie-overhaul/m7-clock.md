@@ -65,12 +65,28 @@ slots. Nothing was queued, so runs are dropped, not delayed. A
     key, and keeps its last good copy when that fails. A cron edit or the
     `CLOCK_LIVE` flip therefore reaches the host by PR; code still needs a
     new tag.*
-  - *The poll counts any person-started `workflow_dispatch` of
-    `bot-chat-poll.yml` as a clock run (the key's owner is not recorded in
-    the repo), and looks back 24 hours. It raises nothing when there is none
-    in that window or `Clock is not firing` is already open
-    (`scripts/marjorie/lib/clock-watch.mjs`). The alarm's `check` ends with
-    no alert once the clock has started the poll within 20 minutes.*
+  - *The clock dispatches `bot-chat-poll.yml` with `clock=true`, so its runs
+    are named `bot-chat-poll · clock`. The poll's watch
+    (`scripts/marjorie/lib/clock-watch.mjs`) counts only those, on `main`,
+    since `CLOCK_LIVE_SINCE`: a committed ISO time the flip PR sets beside
+    `CLOCK_LIVE`. It allows 30 minutes' grace, treats no clock run at all as
+    silent, and raises nothing while `Clock is not firing` is open. The
+    alarm's `check` ends with no alert while the clock is fresh or inside
+    its grace.*
+  - *After Codex review of the clock (round 1):*
+    - *A table read from main is applied only inside the pinned policy:
+      workflows and inputs already in the pinned table, no row more often
+      than every 5 minutes, at most 40 dispatches in an hour, and at most
+      100 rows. Widening that takes a new tag.*
+    - *Both files are read at one commit of main, one refresh at a time, and
+      never at a commit older than the one already applied.*
+    - *Handled slots persist in the service's `StateDirectory`, so a restart
+      never re-fires a slot.*
+    - *Every request has a 15-second deadline, due rows run side by side,
+      and the time and `CLOCK_LIVE` are read again right before each
+      dispatch.*
+    - *The watchdog's two-failures check and the vault-run cadence check
+      read `main` only.*
   - *Schedule-gated steps changed so a clock dispatch behaves like the
     cron:*
     - *`watchdog.yml` gains a `schedule` input, its daily gates read

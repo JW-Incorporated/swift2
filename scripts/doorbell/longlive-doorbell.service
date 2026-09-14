@@ -16,6 +16,9 @@ User=longlive-doorbell
 Group=longlive-doorbell
 EnvironmentFile=/etc/longlive-doorbell.env
 WorkingDirectory=/opt/longlive-doorbell
+# The clock's record of slots already started (/var/lib/longlive-doorbell),
+# so a restart never starts the same slot twice. systemd sets STATE_DIRECTORY.
+StateDirectory=longlive-doorbell
 ExecStart=/usr/bin/node /opt/longlive-doorbell/scripts/doorbell/doorbell.mjs
 Restart=always
 RestartSec=30

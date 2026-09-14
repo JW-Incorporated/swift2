@@ -138,6 +138,13 @@ describe('evaluate', () => {
     expect(result.status).toBe('failing');
   });
 
+  it('ignores dispatches on any branch but main, as health and as failure (Codex review of the clock)', () => {
+    const masked = evaluate({ runs: [run('2026-09-12T16:00:00Z', 'success', { event: 'workflow_dispatch', headBranch: 'feature/test' }), run('2026-09-10T16:07:00Z', 'success')], now: NOW });
+    expect(masked.status).toBe('missed-schedule');
+    const noisy = evaluate({ runs: [run('2026-09-12T16:00:00Z', 'failure', { event: 'workflow_dispatch', headBranch: 'feature/test' }), run('2026-09-12T16:07:00Z', 'success')], now: NOW });
+    expect(noisy.status).toBe('healthy');
+  });
+
   it('counts a clock dispatch (workflow_dispatch) as cadence evidence since M7, but no other event', () => {
     const result = evaluate({
       runs: [

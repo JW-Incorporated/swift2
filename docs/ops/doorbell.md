@@ -25,6 +25,7 @@ cron fires.
 | Code | `/opt/longlive-doorbell`, a `--depth 1` clone of **one pinned tag** (`doorbell-v1` at install) |
 | Tokens | `/etc/longlive-doorbell.env`, mode `0640`, owner `root:longlive-doorbell`. Nowhere else: not the repo, Actions, Hermes, chat or Discord |
 | User | `longlive-doorbell`, a system user with no shell and no home |
+| State | `/var/lib/longlive-doorbell/clock-handled.json`: the clock slots already started, so a restart never starts one twice (systemd `StateDirectory`) |
 
 The env file has exactly two lines:
 
@@ -74,8 +75,8 @@ sudo systemctl restart longlive-doorbell
   on, the poll raises `Clock is not firing` after 20 minutes without a clock
   run.
 - **A restart** forgets the pending 6-minute timers; the poll's 45-minute
-  reconcile is the backstop. It does not re-fire a clock slot that already
-  has a run.
+  reconcile is the backstop. It never re-fires a clock slot: started slots
+  are saved in the state file, and any slot with a run is skipped.
 
 ## Update to a new tag
 
@@ -91,12 +92,20 @@ sudo systemctl restart longlive-doorbell
 
 Check it worked the same way as after the install (`ready` in the journal).
 
-**What does not need an update:** the clock re-reads
-`scripts/doorbell/schedule.json` and the `CLOCK_LIVE` line of
-`scripts/marjorie/lib/chat-inbox.mjs` from `main` every 10 minutes. It uses the
-public raw files and no key. So a cron change or a `CLOCK_LIVE` flip merged
-to `main` reaches the host within about 15 minutes. `DOORBELL_LIVE` is read
-only by the poll on GitHub. Code changes always need a new tag.
+**What does not need an update:** every 10 minutes the clock reads one commit
+of `main` (public, no key), and fetches `scripts/doorbell/schedule.json` and
+the `CLOCK_LIVE` line of `scripts/marjorie/lib/chat-inbox.mjs` at that commit.
+So a cron change or a `CLOCK_LIVE` flip merged to `main` reaches the host
+within about 15 minutes.
+
+It applies a table from `main` only inside the pinned policy:
+
+- workflows and inputs already in the tag's own table;
+- no row more often than every 5 minutes;
+- at most 40 dispatches in an hour.
+
+A new scheduled workflow, new inputs, or code changes need a new tag.
+`DOORBELL_LIVE` is read only by the poll on GitHub.
 
 ## Flags
 
@@ -104,8 +113,9 @@ only by the poll on GitHub. Code changes always need a new tag.
 |---|---|---|---|
 | `DOORBELL_LIVE` | `scripts/marjorie/lib/chat-inbox.mjs` | the poll | watches the doorbell and raises its alarms |
 | `CLOCK_LIVE` | the same file | the doorbell (from `main`) and the poll | the clock fires; the poll watches it |
+| `CLOCK_LIVE_SINCE` | the same file | the poll | an ISO time set in the same PR that flips `CLOCK_LIVE`; the watch ignores older runs and waits 30 minutes before its first alarm |
 
-Both are committed constants flipped by PR (`gh variable` is founder-only).
+All three are committed constants flipped by PR (`gh variable` is founder-only).
 
 ## Keys
 

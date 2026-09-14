@@ -29,6 +29,9 @@ export const ALARM_WORKFLOW = 'bot-chat-alarm.yml';
 // from main every 10 minutes, so it stays `export const CLOCK_LIVE = true|false;`
 // on one line. Flipped by PR.
 export const CLOCK_LIVE = false;
+// The flip PR also sets this to the UTC time it merges (an ISO string). The
+// poll's clock watch ignores clock runs before it and allows 30 minutes' grace.
+export const CLOCK_LIVE_SINCE = '';
 const HISTORY_TEXT_CAP = 1500;
 const MESSAGE_TEXT_CAP = 4000;
 // DEFAULT (0) and REPLY (19) are what a person types; pins, joins and

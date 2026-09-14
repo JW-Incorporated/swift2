@@ -116,8 +116,8 @@ function checkClock({ env, execImpl, now }) {
   } catch (err) {
     console.log(`::warning::chat-alarm check: the poll's runs could not be read (${err.message})`);
   }
-  if (clockState(newest, now) === 'fresh') {
-    console.log('the clock started bot-chat-poll.yml within 20 minutes — no alert');
+  if (clockState(newest, now) !== 'silent') {
+    console.log('the clock started bot-chat-poll.yml within 20 minutes, or is inside its start grace — no alert');
     output(env, 'alert', 'false');
     return 0;
   }

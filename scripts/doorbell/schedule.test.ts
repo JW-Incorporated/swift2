@@ -6,6 +6,8 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { parseSchedule } from './lib/clock-core.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { CLOCK_RUN_TITLE } from '../marjorie/lib/clock-watch.mjs';
 
 type Row = { workflow: string; cron: string; inputs: Record<string, string | boolean>; key: string };
 type Input = { required: boolean; default?: string };
@@ -66,5 +68,11 @@ describe('scripts/doorbell/schedule.json', () => {
     }
     const watchdog = read('watchdog.yml');
     expect(watchdog.match(/\(github\.event\.schedule \|\| inputs\.schedule \|\| 'manual'\) != '5 \* \* \* \*'/g)).toHaveLength(10);
+  });
+
+  it('names clock-started poll runs, so the clock watch can tell them apart (Codex R1 #6)', () => {
+    expect(rows.find((r) => r.workflow === 'bot-chat-poll.yml')?.inputs.clock).toBe(true);
+    expect(read('bot-chat-poll.yml')).toContain(`run-name: "bot-chat-poll\${{ inputs.clock && ' · clock' || '' }}"`);
+    expect(CLOCK_RUN_TITLE).toBe('bot-chat-poll · clock');
   });
 });

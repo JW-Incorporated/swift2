@@ -65,7 +65,7 @@ afterEach(() => {
 describe('check: clock-silent', () => {
   const clockRun = (minutesAgo: number) => ({
     event: 'workflow_dispatch', created_at: new Date(NOW - minutesAgo * 60_000).toISOString(),
-    html_url: `https://github.com/run/${minutesAgo}`, triggering_actor: { type: 'User' },
+    html_url: `https://github.com/run/${minutesAgo}`, display_title: 'bot-chat-poll · clock', head_branch: 'main',
   });
   async function clock(runs: unknown[]) {
     const outFile = join(mkdtempSync(join(tmpdir(), 'chat-alarm-')), 'out');
