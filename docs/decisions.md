@@ -7,6 +7,68 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-13 — The bots answer each other's asks within minutes, not on their next scheduled run (M6, L1 follow-up)
+
+**Decision (Joey, in chat, 2026-09-13: "For #2 I agree, yes to all"):** An
+L1 ask filed by one bot for the other (`tree-filed` + `desk:ops`, or
+`marjorie-filed` + `desk:tree`) immediately dispatches one bounded answer run
+of the addressee. That run reads the issue, acts inside its own charter,
+answers on the issue, and closes it once satisfied. It never files an ask.
+- **Tree answers now and acts Monday.** A calendar change still lands on
+  Monday's plan PR, so there is still one plan PR a week and the approval
+  mechanics don't change.
+- **Echo to the founder.** When the ask started from a founder's chat message
+  in `#longlive-marjorie`, one line is echoed into that Discord thread: "Tree
+  answered #N: …", with a link.
+
+Spec: `docs/specs/marjorie-overhaul/m6-live-asks.md`.
+
+**Why:** Both bots told Joey in their first live chat replies that they
+"can't talk to each other directly" (#4180, 2026-09-13). L1 had accepted that
+an ask could wait up to six days and named this revisit (`l1-loop.md`, Open
+questions). The asks themselves are filed within minutes; only the reading
+waited for each bot's next scheduled run.
+
+**How it is bounded:**
+- *Trigger.* The trusted `run:` step that files the ask then runs `gh
+  workflow run` on the workflow's own token. It does not use `on: issues`,
+  because GitHub starts no workflow from an event a `GITHUB_TOKEN` created. A
+  dispatch is push, so a stalled cron (as on 2026-09-13) never delays it.
+- *No loops.* Answer runs never call the filer. New asks still come only from
+  each bot's capped brief slot (Tree ≤2 a week, Marjorie ≤1 a day) or from a
+  founder-started chat, and each ask gets at most one answer run.
+- *Transcript.* The issue stays the permanent record, surfaced in both
+  briefs as before.
+- *Chat-originated asks.* A trusted `run:` step files them with the
+  `loop-ask` marker; the agent never does. Today a Marjorie chat run files
+  with a plain `gh issue create` and no marker, so Tree's brief cannot see the
+  ask (gap found 2026-09-13).
+- *Authority unchanged.* Tree stays read-mostly, approvals stay reactions,
+  and nothing new posts in `#longlive-tree`.
+
+**Alternatives considered:**
+- *Marjorie's chat run dispatches Tree's chat routine and relays the answer.*
+  Rejected: that is a second ask mechanism beside L1, with no durable
+  transcript.
+- *Both bots in an always-on runtime, calling each other synchronously.*
+  Rejected: Hermes' respawn-loop record shows 898 of its 1,113 crashes this
+  month came from one loop.
+- *`on: issues` triggers.* Rejected: they never fire for asks filed on
+  `GITHUB_TOKEN`.
+
+**Sequencing:** built after the 2026-09-14 Monday L1 cycle, which MR1 checks
+unmodified.
+
+**Not decided here:** the Hermes-VM relay for instant pickup of founder
+messages (a PAT and a new Discord bot app on the VM, plus a channel-rule
+amendment). Founder confirmation is pending.
+
+**Approved by:** Joey, in chat, 2026-09-13. The architecture evaluation was
+done by the architect agent, and the invocation is logged in `STATE.md`.
+Epic #4180.
+
+---
+
 ## 2026-09-13 — Founders talk to Marjorie and Tree in Discord; Tree may answer in threads (M5)
 
 **Decision:** A founder message in `#longlive-marjorie` or `#longlive-tree`,
