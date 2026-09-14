@@ -174,7 +174,12 @@ and there is still exactly one Marjorie and one Tree.
    concurrency group falls back to the stage when there is no message id.
    `routine-marjorie-ops.yml` gains `allowed_bots: github-actions`: the alarm
    starts it on `GITHUB_TOKEN`, and claude-code-action refuses a bot-started
-   run otherwise, as the chat routines found in M5.)*
+   run otherwise, as the chat routines found in M5. After Codex review: the
+   `alert` job's one step is `chat-alarm.mjs alert`, which attempts the
+   alert, the ops dispatch and the poll dispatch independently, so a failed
+   notice never skips a dispatch; and a doorbell fault's alarms share one
+   concurrency group per stage, so two can never both create its standing
+   issue.)*
 8. **Timing record.**
    - `finish` adds `replied in <n>s` (the message's snowflake time to its ✅)
      to its run log and to the metadata-only `💬 chat:` turn log.

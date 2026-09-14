@@ -15,9 +15,14 @@
 // Outputs `alert`, `title`, `body` and `dispatch_poll` (a stuck message with
 // no run at all). The body carries ids, links, run state and age, never
 // message text: this repo is public.
+//
+// `alert` is the `alert` job's one step (`ops`): open the alert through
+// upsert-alert.sh, start Marjorie's ops routine, and start the poll when asked.
+// Each is attempted whatever happened to the others; any failure fails the step.
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
@@ -114,9 +119,37 @@ export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = 
   return 0;
 }
 
+export function alert({ env = process.env, execImpl = execFileSync } = {}) {
+  const { TITLE: title = '', BODY: body = '', DISPATCH_POLL: dispatchPoll = '', REPO: repo = '' } = env;
+  if (!title || !body || !repo) {
+    console.log('::error::chat-alarm alert: needs TITLE, BODY and REPO');
+    return 2;
+  }
+  const file = path.join(env.RUNNER_TEMP || tmpdir(), 'chat-alarm.md');
+  writeFileSync(file, `${body}\n`);
+  const run = (workflow) => ['gh', ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main']];
+  const actions = [
+    ['open the alert', ['bash', ['scripts/watchdog/upsert-alert.sh', 'open', title, file]]],
+    ['start routine-marjorie-ops.yml', run('routine-marjorie-ops.yml')],
+    ...(dispatchPoll === 'true' ? [['start bot-chat-poll.yml', run('bot-chat-poll.yml')]] : []),
+  ];
+  let failed = 0;
+  for (const [label, [cmd, args]] of actions) {
+    try {
+      execImpl(cmd, args, { stdio: 'inherit' });
+      console.log(`${label}: done`);
+    } catch (err) {
+      failed += 1;
+      console.log(`::error::chat-alarm alert: could not ${label} (${err.message})`);
+    }
+  }
+  return failed ? 1 : 0;
+}
+
 export async function main(argv = process.argv.slice(2), deps = {}) {
   if (argv[0] === 'check') return check(deps);
-  console.log('usage: chat-alarm.mjs check (STAGE, BOT, MESSAGE_ID, CHANNEL_ID, THREAD_ID, DISCORD_BOT_TOKEN, GH_TOKEN, REPO from the environment)');
+  if (argv[0] === 'alert') return alert(deps);
+  console.log('usage: chat-alarm.mjs check | alert (inputs from the environment; see the header)');
   return 2;
 }
 

@@ -106,7 +106,8 @@ describe('bot-chat-alarm.yml (M7, m7-doorbell.md Mechanics 7)', () => {
     expect(text).not.toMatch(/^\s*schedule:/m);
     expect(text).toMatch(/^ {2}workflow_dispatch:/m);
     expect(text).toContain('run-name: "Chat alarm · ${{ inputs.stage }} · ${{ inputs.message_id }}"');
-    expect(text).toMatch(/^concurrency:\n {2}group: bot-chat-alarm-\$\{\{ inputs\.message_id \|\| inputs\.stage \}\}/m);
+    // Per stage for a standing alert, so two alarms never both create it (Codex R1 #1).
+    expect(text).toMatch(/^concurrency:\n {2}group: bot-chat-alarm-\$\{\{ inputs\.stage == 'stuck' && inputs\.message_id \|\| inputs\.stage \}\}/m);
     expect(text).toContain(`options: [${STAGES.join(', ')}]`);
   });
 
@@ -129,8 +130,8 @@ describe('bot-chat-alarm.yml (M7, m7-doorbell.md Mechanics 7)', () => {
 
   it('opens an alert and starts Marjorie only on a first attempt, never on a dry run', () => {
     expect(byJob.alert).toMatch(/^ {4}if: github\.run_attempt == '1' && needs\.check\.outputs\.alert == 'true' && !inputs\.dry_run$/m);
-    expect(byJob.alert).toContain('scripts/watchdog/upsert-alert.sh open "$TITLE"');
-    expect(byJob.alert).toContain('gh workflow run routine-marjorie-ops.yml');
+    expect(byJob.alert).toContain('run: node scripts/marjorie/chat-alarm.mjs alert');
+    expect(byJob.alert).not.toMatch(/set -e/);
   });
 
   it('never interpolates an expression into a script', () => {

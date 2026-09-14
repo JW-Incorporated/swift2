@@ -11,11 +11,16 @@
 #                   run with no alert. Outputs the title and a body of ids,
 #                   links, run state and age, never message text (public
 #                   repo). With `dry_run` it prints the body and stops here.
-#   alert (ops)     upsert-alert.sh open → a watchdog-alert issue, posted in
-#                   #longlive-marjorie (email only if that post fails); then
-#                   starts routine-marjorie-ops.yml so it is handled now, not
-#                   at :18, and, for a stuck message with no run at all,
-#                   bot-chat-poll.yml. First attempt only.
+#   alert (ops)     chat-alarm.mjs alert: upsert-alert.sh open → a
+#                   watchdog-alert issue, posted in #longlive-marjorie (email
+#                   only if that post fails); then starts
+#                   routine-marjorie-ops.yml so it is handled now, not at :18,
+#                   and, for a stuck message with no run at all,
+#                   bot-chat-poll.yml. Each is attempted even if another
+#                   failed. First attempt only.
+#
+# Concurrency: a stuck reply is serialized per message; a doorbell fault per
+# stage, so two alarms can never both create its standing issue.
 #
 # Titles: `Chat reply stuck · <Bot> · <message id>` (a new issue per message,
 # so it notifies) or the standing `Doorbell is not answering` / `Doorbell
@@ -60,7 +65,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: bot-chat-alarm-${{ inputs.message_id || inputs.stage }}
+  group: bot-chat-alarm-${{ inputs.stage == 'stuck' && inputs.message_id || inputs.stage }}
   cancel-in-progress: false
 
 jobs:
@@ -126,11 +131,4 @@ jobs:
           TITLE: ${{ needs.check.outputs.title }}
           BODY: ${{ needs.check.outputs.body }}
           DISPATCH_POLL: ${{ needs.check.outputs.dispatch_poll }}
-        run: |
-          set -euo pipefail
-          printf '%s\n' "$BODY" > "$RUNNER_TEMP/chat-alarm.md"
-          scripts/watchdog/upsert-alert.sh open "$TITLE" "$RUNNER_TEMP/chat-alarm.md"
-          gh workflow run routine-marjorie-ops.yml --repo "$REPO" --ref main
-          if [ "$DISPATCH_POLL" = "true" ]; then
-            gh workflow run bot-chat-poll.yml --repo "$REPO" --ref main
-          fi
+        run: node scripts/marjorie/chat-alarm.mjs alert

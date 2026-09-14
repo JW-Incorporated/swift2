@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { STAGES, alarmBody, alarmTitle, check } from './chat-alarm.mjs';
+import { STAGES, alarmBody, alarmTitle, alert, check } from './chat-alarm.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { runTitle } from './lib/chat-inbox.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -123,6 +123,56 @@ describe('check', () => {
       expect(await check({ env, fetchImpl, execImpl: gh([]), now: NOW })).toBe(2);
     }
     expect(fetchImpl).not.toHaveBeenCalled();
+  });
+});
+
+describe('alert', () => {
+  const env = (over: Record<string, string> = {}) => ({
+    TITLE: 'Doorbell is not answering', BODY: 'line one\nline two', REPO: 'JW-Incorporated/swift2', RUNNER_TEMP: mkdtempSync(join(tmpdir(), 'chat-alarm-')), ...over,
+  });
+  function exec(fails: (cmd: string, args: string[]) => boolean = () => false) {
+    const seen: string[] = [];
+    const execImpl = vi.fn((cmd: string, args: string[]) => {
+      seen.push(`${cmd} ${args.slice(0, 3).join(' ')}`);
+      if (fails(cmd, args)) throw new Error('boom');
+      return '';
+    });
+    return { seen, execImpl };
+  }
+  const OPEN = 'bash scripts/watchdog/upsert-alert.sh open Doorbell is not answering';
+  const OPS = 'gh workflow run routine-marjorie-ops.yml';
+  const POLL = 'gh workflow run bot-chat-poll.yml';
+
+  it("opens the alert with the body, then starts Marjorie's ops routine; the poll only when asked", () => {
+    const quiet = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const e = env();
+    const first = exec();
+    expect(alert({ env: e, execImpl: first.execImpl })).toBe(0);
+    expect(first.seen).toEqual([OPEN, OPS]);
+    expect(readFileSync(join(e.RUNNER_TEMP, 'chat-alarm.md'), 'utf8')).toBe('line one\nline two\n');
+    const second = exec();
+    expect(alert({ env: env({ DISPATCH_POLL: 'true' }), execImpl: second.execImpl })).toBe(0);
+    expect(second.seen).toEqual([OPEN, OPS, POLL]);
+    quiet.mockRestore();
+  });
+
+  it('a failed notice still starts both routines, and fails the step (Codex R1 #2)', () => {
+    const quiet = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const { seen, execImpl } = exec((cmd) => cmd === 'bash');
+    expect(alert({ env: env({ DISPATCH_POLL: 'true' }), execImpl })).toBe(1);
+    expect(seen).toEqual([OPEN, OPS, POLL]);
+    const ops = exec((_cmd, args) => args[2] === 'routine-marjorie-ops.yml');
+    expect(alert({ env: env({ DISPATCH_POLL: 'true' }), execImpl: ops.execImpl })).toBe(1);
+    expect(ops.seen).toEqual([OPEN, OPS, POLL]);
+    quiet.mockRestore();
+  });
+
+  it('refuses to run without a title, body and repo', () => {
+    const quiet = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const { execImpl } = exec();
+    expect(alert({ env: env({ TITLE: '' }), execImpl })).toBe(2);
+    expect(execImpl).not.toHaveBeenCalled();
+    quiet.mockRestore();
   });
 });
 
