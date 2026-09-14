@@ -103,18 +103,21 @@ on #4290. Historical source: DEBUG.md at commit
   dispatches, including forced ones. Force defaults to boolean false and only
   github.event_name == workflow_dispatch with inputs.force == true bypasses.
   Run attempt must equal 1 before considering force: a new forced dispatch
-  is allowed, but rerunning that dispatch with preserved inputs is not.
+  is allowed, but a whole-run rerun that re-executes the guard is blocked.
 - Except that main-only manual force=true dispatch, only the earliest main schedule or
   dispatch run created that UTC day proceeds (exclude itself, order by
   created_at then numeric id). This deterministic ordering covers concurrent
   ordering after serialization; earlier cancelled/failed runs still count.
-  A rerun also ends at the
-  guard. API failures or incomplete reads fail closed before the agent.
+  The guard governs run starts and reruns that re-execute the guard job.
+  Job-specific reruns of `run` or `deliver` are operator actions outside
+  this guard, unchanged from main. API failures or incomplete reads fail
+  closed before the agent.
 - Also stop when a founders-brief issue created that UTC day already has a
   discord-message-id marker in its body or comments, including closed issues.
   Read all relevant pages. Never print issue bodies/comments or founder text.
   A manual force input deliberately bypasses both checks; it is never in the
-  clock's pinned inputs. Normal retry after failure requires that override.
+  clock's pinned inputs. A new replacement run after failure requires that
+  override; job-specific retries retain the existing operator behavior.
 
 ### Shared gap watch and proof
 

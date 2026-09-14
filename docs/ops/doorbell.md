@@ -42,11 +42,13 @@ Metadata logs name the workflow, slot, attempt timestamp and acceptance
 boolean. `--check` prints the next ten pinned fires without connecting.
 
 The brief workflow serializes guard through delivery. Its guard runs before
-the agent and skips a second main run that UTC day, a rerun, or an existing
+the agent and skips a second main run that UTC day, a whole-run rerun, or an existing
 delivery marker on today's brief issue. Failed/cancelled earlier runs count.
 Only a new main-branch manual dispatch with explicit `force=true` bypasses
 duplicate checks. It intentionally permits a replacement brief. Rerunning
-that forced dispatch is still blocked before the agent.
+the whole forced workflow is blocked when the guard re-executes. Job-specific
+reruns of agent or delivery jobs can skip the guard and retain their existing
+operator behavior; this guard does not make delivery idempotent.
 
 The poll and `clock-silent` alarm use one gap verdict: two missed five-minute
 slots raise `Clock is not firing`, after a 30-minute activation grace and a

@@ -2,10 +2,12 @@
 
 ## Next
 
-1. Both round-2 findings are fixed by a fresh-context debug implementation
-   pass after the user instructed continuation. Tests pass; no new review has
-   run. Obtain an explicit exception to the exhausted two-round review limit
-   before another independent review or PR. DEBUG.md preserves the history.
+1. The explicitly approved extra Codex review rejected a partial-job-rerun
+   promise added beyond the original brief. Fable ruled to narrow the spec
+   to the first-job guard: operator job-specific reruns remain unchanged.
+   Spec and ops corrected; implementation unchanged. Obtain an explicit
+   further review exception before another independent review or PR.
+   DEBUG.md records the finding and ruling. No clean final review yet.
 2. After a reviewed implementation is on main, tag doorbell-v2 and file
    the v2 update HA by PR. Stop for Joey's done before activation or proof.
 3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
@@ -56,7 +58,10 @@ Reviews:
   implementation pass: serialized alarm closes recovered clock incidents;
   attempt-1 gate precedes force. Lifecycle and rerun regression tests pass.
 - Round 2 confirmed the substantive design fixes and accepted any-main-run
-  coverage per the user contract. No extra review rounds have run.
+  coverage per the user contract.
+- One extra review explicitly approved by Joey: REJECT for job-specific
+  reruns bypassing the first guard. Fable ruled this was an overbroad added
+  spec promise; narrowed to the original contract. No further review run.
 
 Verification:
 - 185 focused tests / 16 files passed; includes recovery and a second incident,
@@ -80,3 +85,8 @@ Verification:
 DEBUG.md at 1c9e4e4e19d38cafa69bfc7b938167310ccc9033; operative requirements
 copied into the v2 spec amendment. Rebuild uses process-start gating,
 fail-closed flag refresh, pinned table, rate caps and watchdog.
+
+2026-09-14: Fable via fresh read-only Claude CLI, escalation for first-job
+rerun scope versus shared-template changes. Ruling: narrow our added rerun
+promise to original run-start guard; preserve existing operator partial
+reruns. No workflow/template/L1 changes. See DEBUG.md final section.

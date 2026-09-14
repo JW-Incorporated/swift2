@@ -114,3 +114,30 @@ Local complete review outputs: gitignored `.scratch/clock-round1.txt` and
 `.scratch/clock-round2.txt`. Round 1 initial design rejected; corrected in
 `b325f01b` before code. Final review examined `be763fcc`. This document is the
 durable handoff; those scratch files are supplemental evidence only.
+
+## Approved extra review and architect ruling ? 2026-09-14
+
+Joey explicitly approved one extra fresh read-only Codex review. It reviewed
+59ec465c..e1941ff3 and rejected one HIGH: a job-specific rerun of agent or
+delivery can use cached guard outputs and bypass the attempt check. It
+accepted the clock incident recovery correction. No further review has run.
+
+Fable was invoked read-only through the Claude CLI for this design fork.
+Its ruling: narrow the amendment to the original first-job guard contract.
+The original brief addresses new clock/cron run starts; it does not require
+protection against operator-triggered partial job reruns. That existing
+behavior is unchanged from main. Whole-run reruns that execute the guard
+remain blocked, including forced runs. Do not add gates to the shared
+routine template, duplicate it, or change delivery or L1 code.
+
+The spec and ops text now state this boundary explicitly. Job-specific
+rerun delivery idempotency is a possible separate follow-up, not a completed
+capability or an addition to this wave. The PR description must disclose it.
+The architect ruling resolves the contract mismatch; it does not convert
+the Codex REJECT into a clean review. The approved extra review is exhausted.
+A further explicit review exception is required before a new Codex pass.
+
+Evidence: gitignored .scratch/clock-exception-review.txt and
+.scratch/fable-clock-ruling.txt. Fable produced its complete ruling, although
+the CLI exited 1 after warnings about pre-existing permission-rule syntax;
+no settings were changed and no denied file operation was attempted.
