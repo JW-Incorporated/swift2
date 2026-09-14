@@ -1,0 +1,28 @@
+# Long Live Doorbell — systemd unit for the Hermes VM host
+# (docs/ops/doorbell.md; spec docs/specs/marjorie-overhaul/m7-doorbell.md).
+# Runs outside every Hermes container, as its own unprivileged user, from a
+# pinned tag cloned into /opt/longlive-doorbell. Its two tokens come only from
+# /etc/longlive-doorbell.env (mode 0640, owner root:longlive-doorbell).
+# Install: sudo cp this file /etc/systemd/system/ && sudo systemctl daemon-reload
+#          && sudo systemctl enable --now longlive-doorbell
+[Unit]
+Description=Long Live Doorbell (founder message pickup and routine clock)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=longlive-doorbell
+Group=longlive-doorbell
+EnvironmentFile=/etc/longlive-doorbell.env
+WorkingDirectory=/opt/longlive-doorbell
+ExecStart=/usr/bin/node /opt/longlive-doorbell/scripts/doorbell/doorbell.mjs
+Restart=always
+RestartSec=30
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
