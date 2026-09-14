@@ -2,9 +2,52 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #74 🔴 [BLOCKING] Create the GitHub key the Doorbell uses to wake Marjorie and Tree (~5 min)
+<!-- ha filed=2026-09-13 -->
+
+**Why:** The Doorbell (decided 2026-09-13) starts Marjorie's or Tree's reply the moment you post. For that it needs a GitHub key that can only start Swift2's workflows and nothing else.
+
+**Steps:**
+1. Open https://github.com/settings/personal-access-tokens/new
+2. Token name: longlive-doorbell-dispatch. Expiration: Custom, one year from today. Resource owner: JW-Incorporated.
+3. Repository access: Only select repositories, then pick swift2.
+4. Under Repository permissions set Actions to Read and write. Leave every other permission at No access.
+5. Click Generate token. If GitHub asks for organization approval, approve it as the JW-Incorporated owner.
+6. Copy the token into your password manager as "Long Live Doorbell GitHub key". Never paste it into chat, Discord or a file.
+
+**Worked if:** https://github.com/settings/personal-access-tokens lists longlive-doorbell-dispatch with swift2 and Actions: Read and write.
+
+## #73 🔴 [BLOCKING] Limit the Doorbell bot to #longlive-marjorie and #longlive-tree (~5 min)
+<!-- ha filed=2026-09-13 -->
+
+**Why:** The Doorbell only needs to see and react to your messages in the two bot channels. Limiting it keeps it out of every other channel and makes certain it can never post.
+
+**Steps:**
+1. After #72, in Discord open Server Settings, Roles, Long Live Doorbell, Permissions. Turn View Channels off and save.
+2. Right-click #longlive-marjorie, choose Edit Channel, Permissions, click + and add the Long Live Doorbell role.
+3. For that role set ✓ on View Channel, Read Message History, Add Reactions and ✗ on Send Messages, Send Messages in Threads, Create Public Threads. Save.
+4. Repeat steps 2 and 3 for #longlive-tree.
+
+**Worked if:** Server Settings, Roles, Long Live Doorbell, View Server As Role shows only #longlive-marjorie and #longlive-tree.
+
+## #72 🔴 [BLOCKING] Create the Long Live Doorbell Discord bot and save its token (~5 min)
+<!-- ha filed=2026-09-13 -->
+
+**Why:** The Doorbell (decided 2026-09-13) spots your messages in the two bot channels within a second, adds 👀 and wakes Marjorie or Tree: replies in about 2.5 minutes, not 4.5. It needs its own bot that reads and reacts but never posts.
+
+**Steps:**
+1. Open https://discord.com/developers/applications and click New Application.
+2. Name it Long Live Doorbell, accept the terms and click Create.
+3. In the left menu click Bot. Turn Public Bot off. Leave the Presence, Server Members and Message Content intents off. Save Changes.
+4. On the same page click Reset Token, confirm, and copy the token into your password manager as "Long Live Doorbell bot token". Paste it nowhere else.
+5. In the left menu click OAuth2, then URL Generator. Tick bot. Under Bot Permissions tick only View Channels, Read Message History and Add Reactions.
+6. Copy the Generated URL at the bottom, open it, pick the server that has #longlive-marjorie and click Authorize.
+
+**Worked if:** Long Live Doorbell appears in the server's member list, shown offline until it is installed on the Hermes server.
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->
