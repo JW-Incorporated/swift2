@@ -2,24 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #74 🔴 [BLOCKING] Create the GitHub key the Doorbell uses to wake Marjorie and Tree (~5 min)
-<!-- ha filed=2026-09-13 -->
-
-**Why:** The Doorbell (decided 2026-09-13) starts Marjorie's or Tree's reply the moment you post. For that it needs a GitHub key that can only start Swift2's workflows and nothing else.
-
-**Steps:**
-1. Open https://github.com/settings/personal-access-tokens/new
-2. Token name: longlive-doorbell-dispatch. Expiration: Custom, one year from today. Resource owner: JW-Incorporated.
-3. Repository access: Only select repositories, then pick swift2.
-4. Under Repository permissions set Actions to Read and write. Leave every other permission at No access.
-5. Click Generate token. If GitHub asks for organization approval, approve it as the JW-Incorporated owner.
-6. Copy the token into your password manager as "Long Live Doorbell GitHub key". Never paste it into chat, Discord or a file.
-
-**Worked if:** https://github.com/settings/personal-access-tokens lists longlive-doorbell-dispatch with swift2 and Actions: Read and write.
 
 ## #73 🔴 [BLOCKING] Limit the Doorbell bot to #longlive-marjorie and #longlive-tree (~10 min)
 <!-- ha filed=2026-09-13 -->
