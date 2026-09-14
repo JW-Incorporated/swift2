@@ -2,12 +2,12 @@
 
 ## Next
 
-1. The explicitly approved extra Codex review rejected a partial-job-rerun
-   promise added beyond the original brief. Fable ruled to narrow the spec
-   to the first-job guard: operator job-specific reruns remain unchanged.
-   Spec and ops corrected; implementation unchanged. Obtain an explicit
-   further review exception before another independent review or PR.
-   DEBUG.md records the finding and ruling. No clean final review yet.
+1. STOP: the second explicitly approved extra Codex review REJECTED the full
+   branch at c0280d2f. New findings: UTC-midnight brief marker gap, queued
+   alarm duplicate race, watchdog progress on unexpected exceptions, and
+   chat-poll file length. DEBUG.md preserves details and suggested tests.
+   Fable's rerun narrowing was accepted. No fixes or further review yet;
+   both extra-review exceptions are exhausted. No PR may open as reviewed.
 2. After a reviewed implementation is on main, tag doorbell-v2 and file
    the v2 update HA by PR. Stop for Joey's done before activation or proof.
 3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
@@ -61,7 +61,10 @@ Reviews:
   coverage per the user contract.
 - One extra review explicitly approved by Joey: REJECT for job-specific
   reruns bypassing the first guard. Fable ruled this was an overbroad added
-  spec promise; narrowed to the original contract. No further review run.
+  spec promise; narrowed to the original contract.
+- Second explicitly approved extra review: REJECT at c0280d2f against main
+  f22afe7d for four new findings listed in DEBUG.md. Rerun narrowing accepted.
+  No fixes or further reviews after that result.
 
 Verification:
 - 185 focused tests / 16 files passed; includes recovery and a second incident,

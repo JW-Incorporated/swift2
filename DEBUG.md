@@ -141,3 +141,41 @@ Evidence: gitignored .scratch/clock-exception-review.txt and
 .scratch/fable-clock-ruling.txt. Fable produced its complete ruling, although
 the CLI exited 1 after warnings about pre-existing permission-rule syntax;
 no settings were changed and no denied file operation was attempted.
+
+## Second explicitly approved extra review ? 2026-09-14
+
+Joey authorized another fresh read-only Codex review. gpt-5.6-sol at xhigh
+reviewed the full merge-base diff at c0280d2f against origin/main f22afe7d.
+Verdict: REJECT. No implementation changes or further review followed.
+
+Reported findings (require fresh-context validation before implementation):
+
+1. HIGH: brief-guard.mjs:65 filters issue history since current UTC midnight.
+   At 01:00Z a prior-UTC-day delivered issue can share the current Los Angeles
+   date but be excluded by that API filter. Suggested fix: cover the LA day
+   in the query and retain local UTC-day/exact-LA-title filtering; test the
+   midnight boundary. Confirm this against the original UTC-day contract.
+2. MEDIUM: queued clock-silent runs recheck coverage but not exact open-issue
+   state under concurrency. Search-backed upsert can miss the preceding
+   issue before indexing and post a duplicate. Suggested fix: recheck the
+   paginated exact-title REST issue state inside the serialized alarm before
+   emitting open/close; test queued duplicates.
+3. MEDIUM: clock.mjs tick finally always reports progress, and loop suppresses
+   unexpected rejections. Persistent programming errors can keep feeding
+   the watchdog while preventing clock work. Suggested fix: distinguish
+   handled request failures from unexpected exceptions; do not acknowledge
+   the latter. Test injected unexpected failure without progress heartbeat.
+4. LOW: chat-poll.mjs now has 301 lines, exceeding the repository's under-300
+   rule. Suggested fix: extract a cohesive wrapper/invocation if warranted.
+
+The reviewer accepted Fable's narrowed rerun contract as matching the
+original brief. It confirmed the two rows, unchanged schedule triggers,
+any-main-run slot semantics, and no textual integration conflicts with
+fresh main. Read-only syntax checks, schedule JSON parsing and diff checks
+passed. It did not run write-requiring tests or lint. Existing 185 passing
+focused tests do not cover the three newly reported failure paths.
+
+Full local result: .scratch/clock-final-extra-review.txt. This exception is
+exhausted. No PR, tag, HA, activation, or live clock proof has been made.
+Stop checkpoint; do not claim a clean review or start another review without
+an explicit new exception.
