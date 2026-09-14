@@ -1,0 +1,49 @@
+import { describe, expect, it, vi } from 'vitest';
+// @ts-expect-error plain module
+import { createClock, parseMainLive } from './clock.mjs';
+// @ts-expect-error plain module
+import { parseSchedule } from './clock-core.mjs';
+
+const start = Date.parse('2026-09-14T18:00:00Z');
+const rows = parseSchedule({ rows: [{ workflow: 'poll.yml', cron: '*/5 * * * *', inputs: {} }] });
+const response = (body: unknown, date = new Date(start).toUTCString()) => ({ ok: true, status: 200, headers: { get: (name: string) => name === 'date' ? date : null }, text: async () => String(body), json: async () => body });
+const liveText = 'export const CLOCK_LIVE = true;\n';
+
+describe('host clock', () => {
+  it('reads only one literal live flag and fails closed on three refresh failures', async () => {
+    expect(parseMainLive(`${liveText}${liveText}`)).toBeNull();
+    const fetchImpl = vi.fn().mockResolvedValueOnce(response(liveText)).mockRejectedValue(new Error('secret details'));
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now: () => start, processStartMs: start });
+    await clock.refresh();
+    expect(clock.state().live).toBe(true);
+    await clock.refresh(); await clock.refresh(); await clock.refresh();
+    expect(clock.state()).toMatchObject({ live: false, failures: 3 });
+  });
+
+  it.each([500, 408])('records before POST and never retries after HTTP %s', async (status) => {
+    const runs = { total_count: 0, workflow_runs: [] };
+    const fetchImpl = vi.fn().mockResolvedValueOnce(response(liveText)).mockResolvedValueOnce(response(runs)).mockResolvedValue({ ok: false, status, headers: { get: () => null }, json: async () => ({}) });
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now: () => start, processStartMs: start });
+    await clock.refresh(); await clock.tick(); await clock.tick();
+    expect(fetchImpl.mock.calls.filter((call) => call[1]?.method === 'POST')).toHaveLength(1);
+  });
+
+  it('never retries an ambiguous POST timeout', async () => {
+    const runs = { total_count: 0, workflow_runs: [] };
+    const fetchImpl = vi.fn().mockResolvedValueOnce(response(liveText)).mockResolvedValueOnce(response(runs)).mockRejectedValue(new Error('timeout'));
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now: () => start, processStartMs: start });
+    await clock.refresh(); await clock.tick(); await clock.tick();
+    expect(fetchImpl.mock.calls.filter((call) => call[1]?.method === 'POST')).toHaveLength(1);
+  });
+
+  it('retries an unreadable run list without posting and pauses across backward time', async () => {
+    let time = start;
+    const fetchImpl = vi.fn().mockResolvedValueOnce(response(liveText)).mockResolvedValueOnce(response({ total_count: 1 })).mockResolvedValue(response({ total_count: 0, workflow_runs: [] }, new Date(start + 60_000).toUTCString()));
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now: () => time, processStartMs: start });
+    await clock.refresh(); await clock.tick();
+    time -= 60_000; await clock.tick();
+    expect(fetchImpl.mock.calls.filter((call) => call[1]?.method === 'POST')).toHaveLength(0);
+    time = start + 60_000; await clock.tick();
+    expect(fetchImpl.mock.calls.filter((call) => call[1]?.method === 'POST')).toHaveLength(1);
+  });
+});

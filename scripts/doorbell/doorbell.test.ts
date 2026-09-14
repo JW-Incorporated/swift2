@@ -149,6 +149,7 @@ describe('--check and the bare clone', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
     expect(WebSocketImpl).not.toHaveBeenCalled();
     expect(lines).toContain('config OK');
+    expect(lines.filter((line) => /^  20\d\d-/.test(line))).toHaveLength(10);
     expect(lines.join('\n')).not.toContain('tok-');
     expect(await main(['--check'], { env: {}, fetchImpl, WebSocketImpl, log: () => {} })).toBe(1);
     expect(await main([], { env: {}, fetchImpl, WebSocketImpl, log: () => {} })).toBe(1);
@@ -197,6 +198,8 @@ describe('--check and the bare clone', () => {
     const graph = [...visited].map((f) => relative(process.cwd(), f).replace(/\\/g, '/')).sort();
     expect(graph).toEqual([
       'scripts/doorbell/doorbell.mjs',
+      'scripts/doorbell/lib/clock-core.mjs',
+      'scripts/doorbell/lib/clock.mjs',
       'scripts/doorbell/lib/doorbell-core.mjs',
       'scripts/doorbell/lib/gateway.mjs',
       'scripts/doorbell/lib/github-rest.mjs',
