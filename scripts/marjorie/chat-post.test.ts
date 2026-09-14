@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { chunkForDiscord, neutralizeMentions } from '../community/discord-delivery.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { REPLY_CAP, composePost, finish, postCmd, save, startThread, thread, turnLog } from './chat-post.mjs';
+import { ORDINARY_WORD_CAP, REPLY_CAP, composePost, finish, postCmd, save, startThread, thread, turnLog } from './chat-post.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { DISCORD_API, snowflakeMs } from './lib/discord-bot.mjs';
 
@@ -55,6 +55,30 @@ describe('save', () => {
   it('refuses an empty reply', () => {
     const dir = tmp();
     expect(save({ dir }, { readStdin: () => '  \n' })).toBe(1);
+    expect(existsSync(join(dir, 'chat-reply.md'))).toBe(false);
+  });
+
+  it('accepts 80 ordinary words and rejects 81 without leaving stale output', () => {
+    const dir = tmp();
+    const words = (count: number) => Array(count).fill('word').join(' ');
+    expect(save({ dir, text: words(80), summary: 'old summary' })).toBe(0);
+    expect(save({ dir, text: words(81) })).toBe(1);
+    expect(existsSync(join(dir, 'chat-reply.md'))).toBe(false);
+    expect(existsSync(join(dir, 'chat-summary.txt'))).toBe(false);
+    expect(save({ dir, text: 'Short retry.' })).toBe(0);
+    expect(existsSync(join(dir, 'chat-summary.txt'))).toBe(false);
+  });
+
+  it.each(['requested', 'essential'])('accepts longer detail when the reason is %s', (detail) => {
+    const dir = tmp();
+    const text = Array(ORDINARY_WORD_CAP + 1).fill('word').join(' ');
+    expect(save({ dir, text, detail })).toBe(0);
+    expect(readFileSync(join(dir, 'chat-reply.md'), 'utf8')).toBe(`${text}\n`);
+  });
+
+  it('rejects an unknown detail reason without writing a reply', () => {
+    const dir = tmp();
+    expect(save({ dir, text: 'Short answer.', detail: 'automatic' })).toBe(1);
     expect(existsSync(join(dir, 'chat-reply.md'))).toBe(false);
   });
 });

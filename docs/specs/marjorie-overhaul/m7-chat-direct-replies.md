@@ -2,10 +2,12 @@
 
 ## Behavior
 
-Routine replies to ordinary founder messages stay concise: 2–4 short sentences,
-about 80 words by default. A founder request for detail, or action-critical
-steps and evidence, may produce a longer single reply within the existing
-1,800-character cap.
+Routine replies to ordinary founder messages stay concise: 2–4 short sentences
+and at most 80 whitespace-separated words. The save step enforces that exact
+ordinary envelope. A founder request for detail (`--detail requested`), or
+action-critical steps and evidence (`--detail essential`), may produce a longer
+single reply within the existing 1,800-character cap. No other detail reason is
+accepted.
 
 Replies preserve the place the founder chose. A top-level message receives one
 webhook reply at channel level. A message already in a Discord thread receives
