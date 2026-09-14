@@ -14,7 +14,7 @@ The spec is already written; this session builds and proves it.
 You are executing Wave M7 of the Marjorie Overhaul (`docs/plans/marjorie-overhaul/PLAN.md`, epic #4180): the doorbell, spec `docs/specs/marjorie-overhaul/m7-doorbell.md`. Read it in full first; it is the contract. If the build must deviate, amend the spec in the same PR and say why in one line.
 
 Also read:
-- `docs/specs/marjorie-overhaul/m5-chat.md` (Mechanics 1–3)
+- `docs/specs/marjorie-overhaul/m5-chat.md` (Mechanics 1–3) and `m7-clock.md` (the clock, decided 2026-09-14)
 - `scripts/marjorie/chat-poll.mjs`, `lib/chat-inbox.mjs`, `lib/chat-delivery.mjs`, `lib/discord-bot.mjs`
 - `.github/workflows/routine-marjorie-chat.yml`, `routine-tree-chat.yml`, `bot-chat-poll.yml`
 - `scripts/watchdog/upsert-alert.sh`, `.github/workflows/routine-marjorie-ops.yml`
@@ -69,7 +69,7 @@ Also read:
      - `checkpoints.json`: MR2 gains "doorbell rang for ≥1 real message in each channel", plus a 2027-08-13 key renewal check.
    - Tag the release commit (`doorbell-v1`).
    - File the install HA in v2 format, numbered with `node scripts/marjorie/lib/alert-router.mjs next-ha-number`, by PR with auto-merge. Its literal steps follow spec Mechanics 9 and pin `doorbell-v1`. Its final step: `sudo systemctl stop longlive-doorbell`, post a test message and wait for the reply, then `sudo systemctl start longlive-doorbell` (the fallback proof).
-4b. **The clock** (spec Pieces 4 and Mechanics 10; Joey's decision 2026-09-14 on #4290: "yes, let's run the clock on the server").
+4b. **The clock** (spec Pieces 4 and `docs/specs/marjorie-overhaul/m7-clock.md`; Joey's decision 2026-09-14 on #4290: "yes, let's run the clock on the server").
    - `scripts/doorbell/schedule.json` seeded from every workflow's own `cron:` (53 on 09-14), and the test that keeps them equal.
    - `scripts/doorbell/lib/clock-core.mjs`: due rows, skip when a run already exists in the window (any trigger), retry then give up at 10 minutes. The doorbell loop evaluates it once a minute; `--check` prints the next 10 fires.
    - `grep -n "event_name" .github/workflows/*.yml`: any step that treats `schedule` specially must treat a clock dispatch the same; list each change in the PR.
