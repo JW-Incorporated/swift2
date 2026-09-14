@@ -28,10 +28,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { context } from './lib/chat-context.mjs';
+import { watchClock } from './lib/clock-watch.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
+  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, CLOCK_LIVE, CLOCK_LIVE_SINCE, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
   alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
 export { context };
@@ -185,6 +186,7 @@ function raiseAlarm({ execImpl, repo, stage, bot, item }) {
 export async function poll({
   env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now(),
   workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)), doorbellLive = DOORBELL_LIVE,
+  clockLive = CLOCK_LIVE, clockSince = CLOCK_LIVE_SINCE,
 } = {}) {
   if (env.BOT_CHAT_ENABLED === 'false') {
     console.log('BOT_CHAT_ENABLED=false — chat loop is off; nothing read');
@@ -273,6 +275,7 @@ export async function poll({
       }
     }
   }
+  if (clockLive && !watchClock({ execImpl, repo, now, since: clockSince, dryRun }).ok) failures += 1;
   return failures ? 1 : 0;
 }
 export function parseFlags(args) {

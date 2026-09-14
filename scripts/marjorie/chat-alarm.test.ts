@@ -64,7 +64,7 @@ afterEach(() => {
 
 describe('alarm titles', () => {
   it('a stuck reply gets its own issue; a doorbell fault is one standing issue', () => {
-    expect(STAGES).toEqual(['stuck', 'doorbell-missed', 'doorbell-dispatch-failed']);
+    expect(STAGES).toEqual(['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent']);
     expect(alarmTitle('stuck', 'tree', MID)).toBe(`Chat reply stuck · Tree · ${MID}`);
     expect(alarmTitle('doorbell-missed', 'marjorie', MID)).toBe('Doorbell is not answering');
     expect(alarmTitle('doorbell-dispatch-failed', 'tree', MID)).toBe('Doorbell dispatch is failing');

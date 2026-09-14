@@ -28,15 +28,18 @@ import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { listRuns } from './chat-poll.mjs';
 import { readDeliveryState } from './lib/chat-delivery.mjs';
-import { BOTS, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
+import { BOTS, CLOCK_LIVE, CLOCK_LIVE_SINCE, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, snowflakeMs } from './lib/discord-bot.mjs';
 
-export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed'];
+import { CLOCK_TITLE, clockBody, readVerdict } from './lib/clock-watch.mjs';
+
+export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent'];
 // Each `alert` action is bounded inside the job's 8 minutes, so a stalled
 // Discord post or mail fallback cannot use up the dispatches' time (Codex R2).
 export const NOTICE_TIMEOUT_MS = 4 * 60_000;
 export const DISPATCH_TIMEOUT_MS = 60_000;
 const STANDING = {
+  'clock-silent': CLOCK_TITLE,
   'doorbell-missed': 'Doorbell is not answering',
   'doorbell-dispatch-failed': 'Doorbell dispatch is failing',
 };
@@ -95,8 +98,25 @@ function output(env, key, value) {
   appendFileSync(env.GITHUB_OUTPUT, `${key}<<${delimiter}\n${text}\n${delimiter}\n`);
 }
 
+export function checkClock({ env = process.env, execImpl = execFileSync, now = Date.now(), since = CLOCK_LIVE_SINCE, live = CLOCK_LIVE } = {}) {
+  const dryRun = env.DRY_RUN === 'true';
+  if (!live && !dryRun) { output(env, 'alert', 'false'); return 0; }
+  const verdict = readVerdict({ execImpl, repo: env.REPO || env.GITHUB_REPOSITORY || '', now, since });
+  if (!verdict.ok) { output(env, 'alert', 'false'); console.log('::error::clock check: run history unreadable'); return 1; }
+  output(env, 'alert', String(live && verdict.alert));
+  output(env, 'dispatch_poll', 'false');
+  if (verdict.alert || dryRun) {
+    const body = clockBody(verdict, now);
+    output(env, 'title', CLOCK_TITLE);
+    output(env, 'body', body);
+    console.log(body);
+  }
+  return 0;
+}
+
 export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now() } = {}) {
   const { STAGE: stage = '', BOT: bot = '', MESSAGE_ID: messageId = '', CHANNEL_ID: channelId = '', THREAD_ID: threadId = '' } = env;
+  if (stage === 'clock-silent') return checkClock({ env, execImpl, now });
   if (!STAGES.includes(stage) || !BOTS[bot] || !SNOWFLAKE.test(messageId) || !SNOWFLAKE.test(channelId) || (threadId && !SNOWFLAKE.test(threadId))) {
     console.log(`::error::chat-alarm check: needs STAGE (${STAGES.join(' | ')}), BOT marjorie|tree, numeric MESSAGE_ID and CHANNEL_ID, optional numeric THREAD_ID`);
     return 2;

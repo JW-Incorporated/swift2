@@ -18,6 +18,11 @@ on:
   schedule:
     - cron: "0 12 * * *" # same cadence as the claude.ai trigger (UTC)
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Run again even if this UTC day already has a brief"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -25,8 +30,38 @@ permissions:
   id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
   issues: write
 
+concurrency:
+  group: marjorie-brief-day
+  cancel-in-progress: false
+
 jobs:
+  guard:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+      issues: read
+    outputs:
+      proceed: ${{ steps.guard.outputs.proceed }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Allow only the first brief of the UTC day
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force == true && 'true' || 'false' }}
+        run: node scripts/marjorie/lib/brief-guard.mjs
+
   run:
+    needs: guard
+    if: needs.guard.outputs.proceed == 'true'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Marjorie — 6 AM Founders' Brief"

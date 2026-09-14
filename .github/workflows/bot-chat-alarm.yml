@@ -36,7 +36,7 @@ on:
         description: "Why the alarm was raised"
         required: true
         type: choice
-        options: [stuck, doorbell-missed, doorbell-dispatch-failed]
+        options: [stuck, doorbell-missed, doorbell-dispatch-failed, clock-silent]
       bot:
         description: "marjorie or tree"
         required: false
@@ -94,6 +94,7 @@ jobs:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
           STAGE: ${{ inputs.stage }}
           BOT: ${{ inputs.bot }}
           MESSAGE_ID: ${{ inputs.message_id }}
