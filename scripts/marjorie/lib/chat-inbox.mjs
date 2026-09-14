@@ -18,6 +18,12 @@ export const CLAIM_WINDOW_MS = 7 * WINDOW_MS;
 export const STALE_CLAIM_MS = 45 * 60 * 1000;
 export const HISTORY_LIMIT = 15;
 export const SNOWFLAKE = /^\d{15,21}$/;
+// M7 (m7-doorbell.md Mechanics 5): the poll watches the doorbell only once its
+// live proof is on #4180. A committed constant flipped by PR — `gh variable`
+// is founder-only.
+export const DOORBELL_LIVE = false;
+export const DOORBELL_GRACE_MS = 60 * 1000;
+export const ALARM_WORKFLOW = 'bot-chat-alarm.yml';
 const HISTORY_TEXT_CAP = 1500;
 const MESSAGE_TEXT_CAP = 4000;
 // DEFAULT (0) and REPLY (19) are what a person types; pins, joins and
@@ -119,6 +125,7 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
       const item = {
         messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp,
         length: String(m.content || '').length, failed, notified: notices.has(String(m.id)),
+        doorbell: hasOthersReaction(m, CLAIM), sticker: Boolean(m.sticker_items?.length),
       };
       // Settled without a claim (e.g. a force_fail smoke run): never re-claim.
       if (!hasOwnReaction(m, CLAIM) && (failed || hasOwnReaction(m, REPLIED))) continue;
@@ -137,6 +144,43 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
 export function dispatchArgs(repo, workflow, { messageId, channelId, threadId }) {
   return ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main',
     '-f', `message_id=${messageId}`, '-f', `channel_id=${channelId}`, '-f', `thread_id=${threadId}`];
+}
+
+/**
+ * Someone other than this bot reacted `emoji`. On a message the poll has not
+ * claimed, a 👀 like that is the doorbell's (or, rarely, a founder's own).
+ */
+export function hasOthersReaction(message, emoji) {
+  const r = Array.isArray(message?.reactions) ? message.reactions.find((x) => x?.emoji?.name === emoji) : null;
+  return Boolean(r) && Number(r.count ?? 1) > (r.me ? 1 : 0);
+}
+
+export function alarmArgs(repo, stage, { bot = '', messageId = '', channelId = '', threadId = '' } = {}) {
+  return ['workflow', 'run', ALARM_WORKFLOW, '--repo', repo, '--ref', 'main', '-f', `stage=${stage}`,
+    '-f', `bot=${bot}`, '-f', `message_id=${messageId}`, '-f', `channel_id=${channelId}`, '-f', `thread_id=${threadId}`];
+}
+
+/**
+ * m7-doorbell.md Mechanics 5, for one message the poll would claim while
+ * DOORBELL_LIVE. `runs` = this message's chat runs (only read when the
+ * doorbell's 👀 is on it). Returns one of
+ * - `{ action: 'skip', why }`: the doorbell's run is still going, or it rang
+ *   under a minute ago;
+ * - `{ action: 'claim-only', why }`: its run ended before `context` claimed
+ *   the message (cancelled, say). Claim it so the 45-minute reconcile settles
+ *   it, and never start agent work for it twice;
+ * - `{ action: 'claim', alarm }`: claim, raise `alarm` if set, then dispatch.
+ * A sticker message raises no alarm: the doorbell skips stickers by design.
+ */
+export function doorbellWatch(item, { now, runs = [] }) {
+  const young = now - messageTime(item) < DOORBELL_GRACE_MS;
+  if (item.doorbell) {
+    if (runs.some((run) => run.status !== 'completed')) return { action: 'skip', why: 'the doorbell dispatched it and its run is still going' };
+    if (runs.length) return { action: 'claim-only', why: 'its run ended before context claimed it' };
+    if (young) return { action: 'skip', why: 'the doorbell rang under a minute ago with no run yet' };
+    return { action: 'claim', alarm: 'doorbell-dispatch-failed' };
+  }
+  return { action: 'claim', alarm: young || item.sticker ? null : 'doorbell-missed' };
 }
 
 function clip(text, cap) {
