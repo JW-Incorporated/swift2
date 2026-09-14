@@ -21,7 +21,7 @@ export const SNOWFLAKE = /^\d{15,21}$/;
 // M7 (m7-doorbell.md Mechanics 5): the poll watches the doorbell only once its
 // live proof is on #4180. A committed constant flipped by PR — `gh variable`
 // is founder-only.
-export const DOORBELL_LIVE = false;
+export const DOORBELL_LIVE = true;
 export const DOORBELL_GRACE_MS = 60 * 1000;
 export const ALARM_WORKFLOW = 'bot-chat-alarm.yml';
 const HISTORY_TEXT_CAP = 1500;
