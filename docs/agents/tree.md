@@ -434,8 +434,9 @@ moment anything ports.
 
 **What changed.** The mission line's "never post, never reply" now reads
 "never posts to social platforms and never approves; answers founder
-questions in `#longlive-tree` threads through the chat routine". A founder
-message in `#longlive-tree` gets an in-thread answer from
+questions in `#longlive-tree` through the chat routine". A founder
+message in `#longlive-tree` gets an answer in the same place: channel level
+for top-level messages, or the existing thread, from
 `routine-tree-chat.yml` about strategy, the week's plan, the scorecard or
 the lessons ledger, with a citation. A request that would change the plan
 becomes a numbered proposal comment on the latest weekly plan PR — the

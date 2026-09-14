@@ -6,9 +6,9 @@
 //
 //   save    agent job      stdin (or --text) → .scratch/out/chat-reply.md,
 //                          --summary → .scratch/out/chat-summary.txt
-//   thread  context job    starts a thread on a top-level message (a thread
-//           (social)       takes its message's id); a message already
-//                          carrying ✅/❌ is a duplicate run → skip=true.
+//   thread  context job    selects the reply location; existing user threads
+//           (social)       are preserved and top-level messages stay in the channel;
+//                          a message already carrying ✅/❌ is a duplicate run → skip=true.
 //                          Outputs reply_thread_id and message_url, which
 //                          survive a re-run (artifacts may not)
 //   post    post step      the reply through the channel's webhook as the bot.
@@ -34,7 +34,7 @@ import { runMain } from '../lib/cli.mjs';
 import { parseFlags } from './chat-poll.mjs';
 import { postFailure, readDeliveryState, writtenByFounder } from './lib/chat-delivery.mjs';
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
-import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
+import { defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
 
 export const REPLY_CAP = 1800;
@@ -91,20 +91,12 @@ export function save(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) 
   return 0;
 }
 
-export function threadName(bot, text) {
-  return `${BOTS[bot].name} · ${oneLine(text, 80) || 'chat'}`.slice(0, 100);
-}
-
-export async function startThread({ ctx, token, fetchImpl = fetch, sleepImpl = defaultSleep }) {
+export async function startThread({ ctx }) {
   if (!ctx.top_level) return { threadId: ctx.thread_id, note: 'already in a thread' };
-  const body = { name: threadName(ctx.bot, ctx.text), auto_archive_duration: 1440 };
-  const r = await discordRequest('POST', `${DISCORD_API}/channels/${ctx.channel_id}/messages/${ctx.message_id}/threads`, token, { body, fetchImpl, sleepImpl });
-  if (r.ok) return { threadId: r.data?.id || ctx.message_id, note: 'thread started' };
-  if (r.status === 400 && r.data?.code === 160004) return { threadId: ctx.message_id, note: 'thread already existed' };
-  return { threadId: '', note: `thread refused (HTTP ${r.status}${r.data?.code ? `, code ${r.data.code}` : ''}) — replying at channel top level` };
+  return { threadId: '', note: 'replying at channel top level' };
 }
 
-export async function thread(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
+export async function thread(flags, { env = process.env } = {}) {
   const ctx = readJson(flags.context);
   if (!ctx || !BOTS[ctx.bot]) {
     console.log('::error::chat-post thread: unreadable --context file');
@@ -118,8 +110,8 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
     setOutput(env, 'message_url', '');
     return 0;
   }
-  const { threadId, note } = await startThread({ ctx, token: env.DISCORD_BOT_TOKEN || '', fetchImpl, sleepImpl });
-  console.log(threadId ? note : `::warning::chat-post thread: ${note}`);
+  const { threadId, note } = await startThread({ ctx });
+  console.log(note);
   setOutput(env, 'skip', 'false');
   setOutput(env, 'reply_thread_id', threadId);
   setOutput(env, 'message_url', ctx.url || '');

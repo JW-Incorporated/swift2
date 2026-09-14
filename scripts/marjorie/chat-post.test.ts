@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { chunkForDiscord, neutralizeMentions } from '../community/discord-delivery.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { REPLY_CAP, composePost, finish, postCmd, save, startThread, thread, threadName, turnLog } from './chat-post.mjs';
+import { REPLY_CAP, composePost, finish, postCmd, save, startThread, thread, turnLog } from './chat-post.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { DISCORD_API, snowflakeMs } from './lib/discord-bot.mjs';
 
@@ -61,21 +61,16 @@ describe('save', () => {
 
 describe('thread', () => {
   const ctx = { bot: 'marjorie', channel_id: MARJ, message_id: MID, top_level: true, thread_id: '', text: 'what is your job?' };
-  const threads = `POST ${DISCORD_API}/channels/${MARJ}/messages/${MID}/threads`;
-
-  it('starts a named thread on a top-level message', async () => {
-    const { fetchImpl, log } = recorder({ [threads]: res(201, { id: MID }) });
-    expect(await startThread({ ctx, token: 't', fetchImpl, sleepImpl })).toMatchObject({ threadId: MID });
-    expect(log[0].body).toEqual({ name: 'Marjorie · what is your job?', auto_archive_duration: 1440 });
-    expect(threadName('tree', 'x'.repeat(200)).length).toBeLessThanOrEqual(100);
+  it('keeps a top-level message at channel level without calling Discord', async () => {
+    const { fetchImpl } = recorder();
+    expect(await startThread({ ctx, token: 't', fetchImpl, sleepImpl })).toMatchObject({ threadId: '' });
+    expect(fetchImpl).not.toHaveBeenCalled();
   });
 
-  it('uses the thread it is in, the message id when a thread exists, and top level when refused', async () => {
+  it('uses the existing thread when the founder wrote there', async () => {
     const none = recorder();
     expect(await startThread({ ctx: { ...ctx, top_level: false, thread_id: THREAD }, token: 't', fetchImpl: none.fetchImpl, sleepImpl })).toMatchObject({ threadId: THREAD });
     expect(none.fetchImpl).not.toHaveBeenCalled();
-    expect(await startThread({ ctx, token: 't', fetchImpl: recorder({ [threads]: res(400, { code: 160004 }) }).fetchImpl, sleepImpl })).toMatchObject({ threadId: MID });
-    expect(await startThread({ ctx, token: 't', fetchImpl: recorder({ [threads]: res(403, { code: 50013 }) }).fetchImpl, sleepImpl })).toMatchObject({ threadId: '' });
   });
 
   it('marks a duplicate run skip=true without calling Discord', async () => {
@@ -87,12 +82,18 @@ describe('thread', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
-  it('outputs the reply thread and the message link, which a re-run keeps when artifacts are gone', async () => {
+  it('outputs channel level for a top-level message and preserves its link', async () => {
     const dir = tmp();
     const out = join(dir, 'gh-output');
-    const { fetchImpl } = recorder({ [threads]: res(201, { id: MID }) });
+    const { fetchImpl } = recorder();
     expect(await thread({ context: ctxFile(dir) }, { env: { GITHUB_OUTPUT: out }, fetchImpl, sleepImpl })).toBe(0);
-    expect(readFileSync(out, 'utf8')).toBe(`skip=false\nreply_thread_id=${MID}\nmessage_url=https://discord.com/channels/1/${MARJ}/${MID}\n`);
+    expect(readFileSync(out, 'utf8')).toBe(`skip=false\nreply_thread_id=\nmessage_url=https://discord.com/channels/1/${MARJ}/${MID}\n`);
+    expect(fetchImpl).not.toHaveBeenCalled();
+    writeFileSync(join(dir, 'chat-reply.md'), 'A short answer.\n');
+    const delivery = recorder();
+    expect(await postCmd({ bot: 'marjorie', 'reply-dir': dir, 'thread-id': '', 'message-url': `https://discord.com/channels/1/${MARJ}/${MID}` }, { env: { DISCORD_MARJORIE_WEBHOOK_URL: HOOK }, fetchImpl: delivery.fetchImpl, sleepImpl })).toBe(0);
+    expect(delivery.log[0].key).toBe(`POST ${HOOK}?wait=true`);
+    expect(delivery.log[0].body).toMatchObject({ content: `↪ https://discord.com/channels/1/${MARJ}/${MID}\nA short answer.` });
   });
 });
 
