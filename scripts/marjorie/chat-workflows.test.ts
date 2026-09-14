@@ -6,6 +6,8 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { BOTS, runTitle } from './lib/chat-inbox.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { STAGES } from './chat-alarm.mjs';
 
 const read = (file: string) => readFileSync(resolve(file), 'utf8').replace(/\r\n/g, '\n');
 
@@ -92,5 +94,53 @@ describe.each(deployed)('%s chat routine', (bot, cfg) => {
   it('gives Tree no push, dispatch or PAT rights (read-mostly)', () => {
     if (bot !== 'tree') return;
     expect(byJob.run).not.toMatch(/SOCIAL_POSTER_PAT|expose_dispatch_token|Bash\(git/);
+  });
+});
+
+describe('bot-chat-alarm.yml (M7, m7-doorbell.md Mechanics 7)', () => {
+  const text = read('.github/workflows/bot-chat-alarm.yml');
+  const byJob = jobs(text);
+  const steps = (job: string) => job.split('\n      - ').slice(1);
+
+  it('is dispatch-only, named by stage and message, one group per message', () => {
+    expect(text).not.toMatch(/^\s*schedule:/m);
+    expect(text).toMatch(/^ {2}workflow_dispatch:/m);
+    expect(text).toContain('run-name: "Chat alarm · ${{ inputs.stage }} · ${{ inputs.message_id }}"');
+    // Per stage for a standing alert, so two alarms never both create it (Codex R1 #1).
+    expect(text).toMatch(/^concurrency:\n {2}group: bot-chat-alarm-\$\{\{ inputs\.stage == 'stuck' && inputs\.message_id \|\| inputs\.stage \}\}/m);
+    expect(text).toContain(`options: [${STAGES.join(', ')}]`);
+  });
+
+  it('has no agent job', () => {
+    expect(text).not.toMatch(/routine-template\.yml|claude-code-action|CLAUDE_CODE_OAUTH_TOKEN/);
+    expect(Object.keys(byJob)).toEqual(['check', 'alert']);
+  });
+
+  it('holds secrets only in run: steps of social/ops jobs that check out main', () => {
+    for (const [name, job] of Object.entries(byJob)) {
+      expect(job, name).toMatch(/environment: (social|ops)\n/);
+      expect(job, name).toMatch(/ref: main\n/);
+      for (const step of steps(job).filter((s) => s.includes('secrets.'))) {
+        expect(step, `${name}: ${step.split('\n')[0]}`).toMatch(/\n {8}run: /);
+        expect(step, name).not.toMatch(/^uses:/);
+      }
+    }
+    expect(byJob.check).not.toMatch(/WEBHOOK|issues: write/);
+  });
+
+  it('opens an alert and starts Marjorie only on a first attempt, never on a dry run', () => {
+    expect(byJob.alert).toMatch(/^ {4}if: github\.run_attempt == '1' && needs\.check\.outputs\.alert == 'true' && !inputs\.dry_run$/m);
+    expect(byJob.alert).toContain('run: node scripts/marjorie/chat-alarm.mjs alert');
+    expect(byJob.alert).not.toMatch(/set -e/);
+  });
+
+  it('never interpolates an expression into a script', () => {
+    const scripts = [...text.matchAll(/\n {8}run: (\|\n(?: {10}.*\n?)+|.*)/g)].map((m) => m[1]);
+    expect(scripts.length).toBe(2);
+    for (const script of scripts) expect(script).not.toContain('${{');
+  });
+
+  it("lets the alarm's GITHUB_TOKEN dispatch start Marjorie's ops agent", () => {
+    expect(jobs(read('.github/workflows/routine-marjorie-ops.yml')).run).toMatch(/^\s+allowed_bots: github-actions(\s|$)/m);
   });
 });

@@ -7,7 +7,7 @@ import { chunkForDiscord, neutralizeMentions } from '../community/discord-delive
 // @ts-expect-error — plain .mjs module, no type declarations
 import { REPLY_CAP, composePost, finish, postCmd, save, startThread, thread, threadName, turnLog } from './chat-post.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { DISCORD_API } from './lib/discord-bot.mjs';
+import { DISCORD_API, snowflakeMs } from './lib/discord-bot.mjs';
 
 const MARJ = '900000000000000010';
 const THREAD = '900000000000000030';
@@ -168,10 +168,11 @@ describe('finish', () => {
     writeFileSync(join(dir, 'chat-summary.txt'), 'answered from the charter\n');
     const { fetchImpl, log } = recorder({ [reaction('✅')]: res(204) });
     const execImpl = gh();
-    expect(await finish(base(dir, 'replied'), { env: { REPO: 'o/r' }, fetchImpl, sleepImpl, execImpl })).toBe(0);
+    const now = () => snowflakeMs(MID) + 154_400;
+    expect(await finish(base(dir, 'replied'), { env: { REPO: 'o/r' }, fetchImpl, sleepImpl, execImpl, now })).toBe(0);
     expect(keys(log)).toEqual([reaction('✅')]);
     expect(execImpl.mock.calls[1][1].slice(0, 5)).toEqual(['issue', 'comment', '42', '--repo', 'o/r']);
-    expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #longlive-marjorie → answered from the charter\n\n<!-- chat-id: ${MID} -->`);
+    expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #longlive-marjorie → answered from the charter · replied in 154s\n\n<!-- chat-id: ${MID} -->`);
   });
 
   it('no reply, post skipped or died → the referenced [chat failed] notice first, then ❌', async () => {
@@ -225,5 +226,11 @@ describe('turnLog', () => {
     expect(line).toContain('&lt;!-- chat-id: 1 -->');
     expect(line.startsWith('💬 chat: #longlive-tree → ')).toBe(true);
     expect(line.endsWith(`<!-- chat-id: ${MID} -->`)).toBe(true);
+  });
+
+  it('records the reply time on a reply only (M7 Mechanics 8)', () => {
+    expect(turnLog({ bot: 'marjorie', summary: 'done', replied: true, messageId: MID, repliedIn: 171 })).toContain('→ done · replied in 171s\n');
+    expect(turnLog({ bot: 'marjorie', summary: 'done', replied: false, messageId: MID, repliedIn: 171 })).not.toContain('replied in');
+    expect(turnLog({ bot: 'marjorie', summary: 'done', replied: true, messageId: MID })).not.toContain('replied in');
   });
 });
