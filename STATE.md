@@ -2,9 +2,10 @@
 
 ## Next
 
-1. Finish Codex round 2 on feature/m7-clock-v2. If it rejects, write DEBUG.md
-   and stop; no third round and no PR. If clean, PR with auto-merge.
-2. After the reviewed implementation is on main, tag doorbell-v2 and file
+1. STOP: Codex round 2 rejected the build with two High findings. Read
+   DEBUG.md and take the fresh-context debug ladder. No third review, PR,
+   tag, HA filing, activation or host change from this build.
+2. After a reviewed implementation is on main, tag doorbell-v2 and file
    the v2 update HA by PR. Stop for Joey's done before activation or proof.
 3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
    proof and dry-run clock-silent alarm. Noon brief proof is passive; if noon
@@ -48,7 +49,11 @@ Reviews:
 - Actor-only coverage recommendation conflicts with the explicit brief's
   any-main-run contract. Retained that contract and documented its limitation;
   live proof separately checks the key owner. No scope expansion.
-- Round 2 pending. No extra review rounds have run.
+- Round 2: REJECT at be763fcc. Clock alerts lack a recovery path and stale
+  issues suppress future notifications; a rerun of a forced brief bypasses
+  the rerun guard. Both are recorded in DEBUG.md and remain unfixed.
+- Round 2 confirmed the substantive design fixes and accepted any-main-run
+  coverage per the user contract. No extra review rounds have run.
 
 Verification:
 - 159 focused tests / 15 files passed; includes an hour with request jitter,
@@ -56,7 +61,8 @@ Verification:
 - Lint most recently 0 errors / 5 existing warnings.
 - Local typecheck fails missing generated content and React Native/Expo/shared
   dependencies in this worktree. Full CI is the suite/merge gate.
-- No live clock proof, no tag or update HA yet. #4290 remains open; M7 is
+- No PR, live clock proof, tag or update HA. Allocator returned 76 but no
+  number is reserved; allocate again after a valid build. #4290 remains open; M7 is
   not ticked complete. Doorbell evidence remains on #4180:
   https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
 
