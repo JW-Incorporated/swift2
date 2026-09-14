@@ -7,6 +7,35 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-14 — The routines' clock runs on the home server, not on GitHub's scheduler (M7 amendment)
+
+**Decision:** The M7 doorbell process on the Hermes VM host also keeps the
+clock: it reads a committed schedule table (`scripts/doorbell/schedule.json`,
+seeded from every workflow's own `cron:`) and starts each routine on time
+with `workflow_dispatch`, skipping any slot where a run already exists. The
+GitHub `schedule:` triggers stay in every workflow as the fallback. Spec:
+`docs/specs/marjorie-overhaul/m7-doorbell.md` Pieces 4, Mechanics 10.
+
+**Why:** GitHub drops most of this repo's scheduled runs (#4290, measured
+2026-09-14): the 5-minute chat poll fired 3 times in 14 hours, the hourly
+watchdog twice in 11, and neither the Tree Monday run nor the Marjorie
+brief fired at their slots; nothing was queued, so runs are dropped, not
+delayed. Every "runs on its own" promise in both overhauls rests on that
+clock. A `workflow_dispatch` is a push and is unaffected.
+
+**Alternatives considered:**
+- *Consolidate the 53 crons into one dispatcher workflow:* fewer entries,
+  same scheduler; the one cron can be dropped too.
+- *Accept and widen the rechecks' tolerances:* documents the problem instead
+  of fixing it; a founder message could wait hours.
+- *A separate clock service:* rejected as a second process with the same
+  key on the same host; one service, one env file, one install HA.
+
+**Approved by:** Joey, in chat, 2026-09-14: "yes, let's run the clock on
+the server." Epic #4180.
+
+---
+
 ## 2026-09-13 — A doorbell on the home server picks up founder messages in seconds; the poll stays as the fallback (M7; amends the 2026-09-12 channel decision)
 
 **Decision (Joey, in chat, 2026-09-13 19:16 PDT, relay decisions 1–5 all "yes"; recorded on #4180):**
