@@ -25,7 +25,127 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 42
+Stories: 53
+
+## Taylor Swift Shares Reasons for Not Releasing Wedding Photos
+
+- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift explains her reasons for not yet sharing wedding pictures. The article discusses when fans might expect to see these images in the future.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMipgFBVV95cUxQMmN5cFdPM0tsMnhnM0xMRG9hU2F0aVp5OFJ5OHliYXplQUlYTDBvci1QT0tWeHlRTHZacV9KRmV4eGppbUhNcnhkNjlhUWpBTlpUOXdCNHgxTkRSTGZoQ1plY2Mwb2JOaFliMTRxWnlJV19hbDVQZ3QwN3JrV0xjOWRueXhTdEpZT0JPcGZ5NlA0a25qTGtuTDZENlRCb05GeHJzNE1B?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Four Bug Species Named After Taylor Swift
+
+- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent article highlights four different species of insects that have been named in honor of Taylor Swift. This recognition showcases the cultural impact of the artist in various fields beyond music.
+- sources:
+  - [unverified] Paste Magazine — https://news.google.com/rss/articles/CBMilgFBVV95cUxPNEpKS2doSDYyQlBFWE5vaVJ4T1JYeGhZVFJSeHI1NzY2aFBCVUcwOFhSTlVfUDlDXzlKVDY4bDlFU2ZCckxvZGY1Y2tzTFRORXVYU2JfVGhWM1Z3emlNYl8xRmJ1VkZ3YVduaDVUS3NZamVYVjY3SlAzOVczT2RJUWxpOURsNUZ4NkZzR1V5VVV2NDNzZWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Designer with Celebrity Fans Opens New Store in New Orleans
+
+- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A designer known for dressing celebrities like Beyoncé and Taylor Swift has opened a new store on Magazine Street in New Orleans. This marks a significant addition to the local fashion scene.
+- sources:
+  - [unverified] NOLA.com — https://news.google.com/rss/articles/CBMi7AFBVV95cUxONEduX3hFaTdRaVJQdlpoMkQ1d1NLblpvTWxadmgzb2JEcHh4cXJDcjBGM2hWSU5jTndNUFBGNW5oV3B6NGcya3hwcFlveDBtSWV6d2FEeFVaUnV1ZzVZLXE5RDY5TFpxcjlkTDZxckVYZnQ4WWJLVWJ4ejlORVVqc05MbHJEZXppTnVLOFNrZmdlVmxubzg0N3pELWlXN3NXUEVSS3FJSEhCMmg4N1pHVVNFbWZ2dDl6WVdjdklKZGZTbjJOdGpvM1NxOHdEZ04zaHlDSzFxX3hLMGpRSXVkd3dhbXlnQ3F2VDZWU9IB8gFBVV95cUxQN1owd1hLUzFNTTRsUmdJclBPYnM5LXdLVTdUYk5OdjRQMlZ4eDdvTGJneGt6SUJSbmp0WVBuNGhpbDFhcU4xWDlaR2NfTVpaUzI0QUwzcHAzQjQzNmtId2h5VTFVaDRtQkNZbDktTTg1UHNxSmo2MVE2NjhSNlBpRUtxRE94d05jeTBJRlM4VXExejhhNFNSNkJOeWhQQm5PLVNuSXZ5NkdEYmFwZC1pT2xJZGtMMEoyZE5yNjZ4NUdwZHZJc0FXRk9TV3UyYzl6aU9Ya2lJVndQdXdYV3g2UGwxaXpPeHhPT015VzlFckdiQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson and MGK's Meeting Linked to Taylor Swift
+
+- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses the meeting timeline of Dakota Johnson and MGK, suggesting Taylor Swift may be connected to their introduction. Details on their relationship dynamics and connections in the entertainment industry are explored.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMirAFBVV95cUxNNE9ZRlhTb0VjQXVMcVgwc1JlTUMyM2hkSEJuVEhrV1drSG5MUjlvWTF3dFhwV28yMjl6T0k5ZTFuQ19yV0RMb1ZIcHc0cGcyT3RQdHgwNEVDT2dUVEhYZXJMbmRUSGE5dWxJVEFqUmxoOS1HV2JMTWhCRDlFa2ZUZ3VKeXYxZHJvLVRUaktZSk1rSW9JZE1kWkZlMVpoZXl0Um96U2c3aDJFakVH?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Confirmed to Appear at CMA Awards
+
+- first seen: 2026-09-14 15:52 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been confirmed to make an appearance at the upcoming CMA Awards, according to 101.3 KFDI.
+- sources:
+  - [unverified] 101.3 KFDI — https://news.google.com/rss/articles/CBMioAFBVV95cUxOTlhHUnJZOXU4QzlEdUNfbUtYRlVRdlNKcVA2am5FRWRadlVrZUFHWVRmOTZrQ3RmOW9aQXJXcmZqSnlKLWFIT0hpcG9DOGNROHpUOGg1MmNJd2VDME14MGZZaWFwZEVRbUFTOEZ1YlNTeGJJNHlCeHJLRTlGRGpEeEtqY0FQUGNaTU5IQ3NER1FoR0RVaUVqOThqUnhYczlU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives Unexpected Career Update Before MNF Game
+
+- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received surprising career news just before the upcoming Monday Night Football game between the Chiefs and Broncos. Details regarding the nature of the news were not disclosed in the report.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPRjR5QkczUE5wSEhvQXVDVjJrOXVPcERJckQyaG50VGFieDdvbXRuTjl3X0V6N1FyUVFUcUpNR2FVY0dBSWhWVktxcUZ1dTRRY0NpT2JCdlFyT1FXTDdPRlVtYlFlclRaMTNDMk9leEFKRkZvemFpa05MRVEtNkc0aHN2OWY3emE1VDdWRlNQUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Mariska Hargitay Requests Taylor Swift Song for Photo Shoot
+
+- first seen: 2026-09-14 15:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Mariska Hargitay, the host for the 2026 Primetime Emmys, requested a Taylor Swift song to be played during a recent photo shoot. The interaction highlights the influence of Swift's music in various entertainment contexts.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOYzhqWXdWN01SbWdCb1NOMG1BS2RxMERKNEFHaXVaTmVhYlFGcThoZVZQT3l5eU0zbEo0UkwxcXo2M1ZKXzZmeHpLaDJrSUR5U0RvZm5YSXI4V3NicTMxN3VGMnRQQkhsM1JvVklvRzhIR2tLWGpQUFdxYkVYUWtrY1ZjelpCa1hpbFQ0cTBwTUlqSmkzOWk0R1AyYlZhV2ltaTdiWnlQZHVuQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Berkeley Festival Highlights Stories of Immigrants and Stunt Doubles
+
+- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new festival in Berkeley features the stories of immigrants alongside those of Taylor Swift's stunt double. The event aims to celebrate diverse narratives and community connections.
+- sources:
+  - [unverified] Berkeleyside — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPQmlkaVQ3N2lDNGd1UWZ4WEpjN1A2a0ZtTm1wNXRsNXBVREdFLWlrWmNzYXpsR185bWZndUN2NUpORkdwbXY0MHJMMTBrZXlfd1BYeDZTakRjNk9UekZZZnpWV215bGVaSVZlQlFvM0dxdUFBelp0Tkxwa0J3RTc0RlNsU3Q1b1kyckIxOEctOUQ4WWtNQzRzVGFhZ09RNzRsMFlhNzFsUDQxWUR3OHpRdHJJM3BlSlJGVHJhWnZEb0pPU0c0V0VLTDdOXzZHbU5vNFdtS1dmdWF6ekFS?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Madison Beer's Attempt to Mirror Taylor Swift's NFL Influence Faces Challenges
+
+- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Madison Beer aims to replicate Taylor Swift's impact on the NFL but faces hurdles, particularly due to the Browns' struggles. The situation highlights Beer’s aspirations in the sports and entertainment crossover.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixgFBVV95cUxQVDdOUVlQZmJfUDY1SjBNSjRHTDk2b3JLZS1zWjlnTVZNWmZySVl6ZWNWdE90c29lcl9HV19nc3dRWkNwbF9POENiRE5RUzE4SjFsZkJXTkxFVmk4cXFMM01aTVlyTXFnZU9GRnR3YnlBSGd5QzJKM1dSZldVTi0zNGFSUVBqbzY4RmpQMllJTk9ybHJ5aS1RV0VHb2g3Tjg0NXNXY2JSalBUZnFHWEoyYUlPcHNQNko3dXk5Vk1ESFJmVTZJeVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Howard Stern Discusses Taylor Swift's Wedding Plans
+
+- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Howard Stern returns to SiriusXM and shares updates, including details about Taylor Swift's wedding. The conversation touches on various topics, highlighting Swift's recent personal developments.
+- sources:
+  - [unverified] SiriusXM — https://news.google.com/rss/articles/CBMieEFVX3lxTE9lUkJsNl9rMkphOFF5T3d4UXNFNzgwV21IZ0RrQzgyWGFiQkI5Rjk4SVluWkRlVm9jTDQzaGFPVkptWDg5NnJWTVZTTVFBUWx5X2VyNlBrQktSMF9odVBWOFhCN1NGS1R4bHFSMWJXVFBrQWpCM1JnRA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift’s Top 6 Game-Day Looks for Chiefs Season Opener
+
+- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A roundup of six of Taylor Swift's best game-day outfits as the Kansas City Chiefs kick off their 2026 season. The showcase highlights her stylish choices during NFL games.
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTFBXYUVBeHh2cnppdGZxSDRMRTJzUDFKSTd5VWY0WVBnc1kxUkdoWkRkaGtKdUxqU2FLOXVTYm1KYnhRQnRyeFZaQ2VnNjRxb2RRLU5mNTN0YVNyWWY3WVdteTBkZWhaSFFrQUNB0gFrQVVfeXFMTXE1dEtVUC1RQWdzSmVxYTlQb1dEbkJYNE10NU1aQndJZ1BXSXNvSjVhTDAzMkRUUnNCZlNYcVZJbGFDVzJKd1VmMm80TVBsdzZFTGlYcHBXcHR1aXBDR2xsUVQ1azBDWDhlenM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Fails to Achieve No. 1 on Chart for First Time in Over a Decade
+
+- first seen: 2026-09-14 15:52 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has not reached a new No. 1 position on a chart for the first time in over ten years, marking a significant moment in her career.
+- sources:
+  - [unverified] forbes.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxNbW95d0RodHhPV0hGRmJBcmhaZm1lMVMwU1otNmRXUk9FRGpISzRlQmZLSnF4dzFuMFJSQWFVX2FVR0hNZTFUWEh2b1JFQkVwRzR2WFRSSUNIWlJlV0NNZEtsNVFoNHpKMFFJWTc0Q2ktRWcyR01jdVJYVjZ4OE0wdVdzSjNIT2R0UzlSc09UaEZxUENlZ0ZtOE95emd3eTZSRkNRWnVnZXFLV1BEdUZ5Z3FqU0U1TVY3N0lVLUdmSnpRT3pXRGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Upset with Nikki Glaser Regarding Wedding Comment
+
+- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A source claims that Taylor Swift is 'furious' with Nikki Glaser for revealing details about Travis Kelce's wedding. The situation highlights the tensions between Swift and Glaser.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOeXNudUdtdWhkZm1yRmRfOEV2OUplNkVjVW1GQ3hmNXdnemdPNEFEb0l5UWloZ3hEMEJBYVh2bDg3VlpoTXRJRlFTNl9FMUxTRHVWQXAtYVZkYzVwZEZSOUpaMENQM2Uxcy1kYlFVcGtKY3hDRE1iT1F0SDlBaTJiTkFxWUJseHVWT0dNMFNOTUJyOEtGbmh6UWE5Z01ud1A4bjRjQV9R?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Makeup-Free Appearance Discussed in New Article
+
+- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent article examines what Taylor Swift looks like without makeup, highlighting her natural appearance. The piece provides insights into her beauty and personal style away from the public eye.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxPUU1SVll0TDJic2dYeDZwMW9FQTljNXQ4YXVXZUtzRnRsV05OV3FwOFJiU2Z6eHdaZ2FvaGxMVjJ2dlV5cG9iSDNSQTBabC1jekVMbV9GWTRRSWdvRXBTdm1Oc3lxOVJwSGVoMF9DR2NfeEZOVU5Mb3p1QnRWTzRoSVFFSlk2RjRyUXVzc3lWaTZoNjVFRnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift honored as namesake for newly described insect species
+
+- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A newly described species of bugs has been named after Taylor Swift, highlighting her cultural impact. The naming reflects the intersection of celebrity influence and scientific recognition.
+- sources:
+  - [unverified] ehextra.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQN1lVR3JHVEYtU053SDllaDd0OVd1c3QydXdRZUVWcUtXY3p6YlNWMzlILU41RDJaeXlvVzZPNU8welYxc09zSWh3MEtBUGZBRjFERnRuSzZBVldySDk0WE5sM3lwTmh5OWh0TVNvbF9wa1I0dEpXZEdQZThPSFhKRXJDQW9zWWZNbDR3a3gxRy11eVdPN2g5RnNkOXJIdWhDTERUZktucS03YTVSUHlBVEUwLTdQd1NZSFI1UFVDUUNjX3J2ZFE4eXJtdFR6SnVOZVVVNVA5OA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dakota Johnson and Machine Gun Kelly Seen at Taylor Swift's Residence
 
@@ -275,6 +395,18 @@ Stories: 42
 - sources:
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxOdkhha0N5cGhxYTg2RjlFVkJDQUJRekkxMk9KYmlnR0tFaDdZTEN1SXlOcW9CN2h0emtlOU1MNXpESVU4NXlxalhLa0lBOWozMnM1NTMwbVEwV1U0Z3RhWWNUY2tCLWhWbGlSRk0tSkI1eDdkOERtdXRuNHlFSzdmNGpLaWlYS21VMWt2UDFQa1ZjYTB3YUE?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift to Attend CMA Awards
+
+- first seen: 2026-09-11 19:38 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift is confirmed to attend the upcoming CMA Awards, marking her return to the event. Details about her participation are yet to be revealed.
+- sources:
+  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMikAFBVV95cUxORU1oU256RzZaRTAyRzFHS2w2OVpUcVNpX05rSUh5dGYxUVVJZS1GMVRyeWNvSlpCTktYY0IyVGFmaThudTl6UlptVzJTVkR5T2d2bURGaU9BN0V6SXNUNE5WVVVhcmMyeWZERzJLajdZVnNGQWZXTHJqU05RSFFORUhpcE96WVNhRW92ckltVGU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] cw34.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOTTdOdF8wenNFbGZndWliSDJoS3AzT2RDaWtxWGZMbE9CQnBpUUNLMXVJSG1EazRlUEFJWG5WejdDbHc4cHNvR3kzcTRoTHFGT2ZMOTdET2t3TDllODNHeXA0Z1ZDanpMU2M5NTBBQ2h0NWRCcllITzJtbnVKSEZiUmkxcW1lT3pUeDJzSmRiQ1d2bmZ2YUdrdEFEa1RZREhabTZPcmZ1ZFdBb1VSTXFWbGlGaV9pWFg5N3BmRjFBVEdVRnlveUMxc0hqSFZ4OWh2NS1LYlBXRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KATU — https://news.google.com/rss/articles/CBMixwFBVV95cUxQdlpDSlFGTW5hN3ZFY2VBVDVXd2E2eFhReFRIRXE0UXNRb082VmFqNHFTbllsbWdZRER1QnBweTcySGhOSVlXX0hfb3E0Tk1iemhSb2cxVU9nR3ZRT01FUGFQdUVnS2tHb2Y1VkR0UHRBZ2h1dDgyenRhczBtOHFJcVlSTWZES3lMMHl6dTFoYW5vTHBQUmYxN01CdVNYVVRWOERkWjZKNDZQblI0dG92Mk5DZ2ZfTl9uOEpkV3c2R3VHYVhmOFhj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KOMO — https://news.google.com/rss/articles/CBMixgFBVV95cUxNWnVuNlp5b1lMZDFnTmhKVVZEaUJTTVAtOEdCSTVOdEFfcngwSnFCU19TNmxoTU91UWFBSDF1SHZfNEllM2Rpc1ZFUDhPQ0JyMVBCbmJxTkJ0eTJjUnlSQVpsbWVhakI1dmFNM2Q4RV9BUXZtTEJGc0l3ZTlZUnBqWm9tZTI0M1ROSjliYXlRV1NqRmZYQTlFUGNCSnlWQ2ZCQUk3Rkt5bXRvaS0tYzk0R0R4SWhBQS1rWEFUVHV1SmhwWVZmN1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WJAC — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOY3djenY2OFQxcGRDdHZBdENPM2FBV0ZoMkF4MFJXQkNhRDZrWGtfN1N6UW9WWUZscTJHRXlZanhzN0dIRmZQZUVYUjJ3TXlUenNveWNkVUtPWi1sYWpQVE5BbEsyWHNnT3ZCeHlxdk1wbGZfbFJSYWJQeExkbVNsbWxPby15NV92QXphNWtTQUplazl6Q0U1RTJpc2NKZGhKT3ZFaHlUbWZYZDFtbU15QXFSMkhEY1o2Rmd4V1I5bXJxV0U?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Gets Insect Named After Her
 
 - first seen: 2026-09-11 19:38 UTC | category: business | importance: 5
@@ -338,46 +470,3 @@ Stories: 42
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdnk5aGhORUtWVGNoWW9ramRsWVVubnBPS1V3Z1B4OF9YdkRjaTk2Zk5fUVhESzhLU0tra0ZXV2t2Ykg5V3g3NDFhZmdmWnU2Zktmb0Nvekp0eXJ5NDUwWERWVE1ydUdpQUJoeWV4bm1aQ1ZCaDhXYy1KZkJWZVpZN0xEc21SVGxuWVdXVFdGWHlWRnNxRmNTankxQW84R0c3R25rdHpXdC1EUXJSUUtRSUhtV3ZpanZsYWFmWk1sZHo1cnZSU2lDWnVaNFRyalVtZEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxOOEY2clRKXzlBbFpyVERDYktIZGN3c0Foc3F2ZWZ2T2I0SlpQNE9NYnRMWDUzYUNLeDBmTGN0cENhTk0wcVNyQWktTzNBWkVJeHdSM2dKSkQwcXYybENaeWRvdmJVY2NCSWttaklGN1RnMGJmUHBZOWJlQ05PY3JCOTd2V0MwSEpXQVhoR3lwbm5Ld3Byb1dRdA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxNbUt2a1B0TkVPVWpVbUtuZjdtSzlSX0steTN5b0tLNGp6M2s3b2JGZU03Vy1pak9aYy1zVTBPN2UyZW1Pb0prd0p1ZXFRazRiNU9PMGNLQXJkanpkQ3lLbWlXZFlaaDdaZXZ1VUZtZGhLQjNjUVlhblNiZ1hvbWViSTdGeWJJMnhqenc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend CMA Awards
-
-- first seen: 2026-09-11 19:38 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift is confirmed to attend the upcoming CMA Awards, marking her return to the event. Details about her participation are yet to be revealed.
-- sources:
-  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMikAFBVV95cUxORU1oU256RzZaRTAyRzFHS2w2OVpUcVNpX05rSUh5dGYxUVVJZS1GMVRyeWNvSlpCTktYY0IyVGFmaThudTl6UlptVzJTVkR5T2d2bURGaU9BN0V6SXNUNE5WVVVhcmMyeWZERzJLajdZVnNGQWZXTHJqU05RSFFORUhpcE96WVNhRW92ckltVGU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] cw34.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOTTdOdF8wenNFbGZndWliSDJoS3AzT2RDaWtxWGZMbE9CQnBpUUNLMXVJSG1EazRlUEFJWG5WejdDbHc4cHNvR3kzcTRoTHFGT2ZMOTdET2t3TDllODNHeXA0Z1ZDanpMU2M5NTBBQ2h0NWRCcllITzJtbnVKSEZiUmkxcW1lT3pUeDJzSmRiQ1d2bmZ2YUdrdEFEa1RZREhabTZPcmZ1ZFdBb1VSTXFWbGlGaV9pWFg5N3BmRjFBVEdVRnlveUMxc0hqSFZ4OWh2NS1LYlBXRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KATU — https://news.google.com/rss/articles/CBMixwFBVV95cUxQdlpDSlFGTW5hN3ZFY2VBVDVXd2E2eFhReFRIRXE0UXNRb082VmFqNHFTbllsbWdZRER1QnBweTcySGhOSVlXX0hfb3E0Tk1iemhSb2cxVU9nR3ZRT01FUGFQdUVnS2tHb2Y1VkR0UHRBZ2h1dDgyenRhczBtOHFJcVlSTWZES3lMMHl6dTFoYW5vTHBQUmYxN01CdVNYVVRWOERkWjZKNDZQblI0dG92Mk5DZ2ZfTl9uOEpkV3c2R3VHYVhmOFhj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WJAC — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOY3djenY2OFQxcGRDdHZBdENPM2FBV0ZoMkF4MFJXQkNhRDZrWGtfN1N6UW9WWUZscTJHRXlZanhzN0dIRmZQZUVYUjJ3TXlUenNveWNkVUtPWi1sYWpQVE5BbEsyWHNnT3ZCeHlxdk1wbGZfbFJSYWJQeExkbVNsbWxPby15NV92QXphNWtTQUplazl6Q0U1RTJpc2NKZGhKT3ZFaHlUbWZYZDFtbU15QXFSMkhEY1o2Rmd4V1I5bXJxV0U?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Frustrated With Travis Kelce Post-Wedding
-
-- first seen: 2026-09-11 13:30 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that Taylor Swift is feeling frustrated with Travis Kelce a few months after their wedding. The details of the situation have not been disclosed.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPVXB1d3FTVEFMZnNRbkRhaW1TeFg1Y2RYN2dmODZhQ2dXVEdLQTFNVG1IM1NPRFJkbnNJY0s0MUNPM21SVjFiWWRycTE1UnB6S2FEM2V4d3BkM204eG5kc0hSVGYtcW9nMDJQUklwRlU4TXJsRmRTT3haZ0psUG5SbEM2RkUzRFg3ZWpvYWVqeE9jc0NNakZhNElvbWgtOEN1OVZIUE9WVkdjQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Offer Insight into Their Married Life
-
-- first seen: 2026-09-11 13:30 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce share a rare look into their married life, providing fans with a glimpse of their relationship. This update comes from a report by Yahoo.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxNaTdBRmdWQmV5UGVLZmZyU1hMSS1CaEZQNU1nc3VERG1KU1ZNTDN2dUxmam5xbTJvU0tXQ3NUd3NuVl9iNkpiT25EbjczRnZtaWRxdndMSWVkalczVzFWZ1JiVjhIempNRVNhQXpKLTh5NkF3YzRfWXJoaExyTXRsV05mOS1hd2lLQTNzenJDMWg5UkluUjFGd19ES0swT1BfLVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend CMA Awards After a Decade Absence
-
-- first seen: 2026-09-11 13:30 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to attend the CMA Awards for the first time in ten years. This marks a significant return for the artist to the country music awards show.
-- sources:
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxNcUtqWHl4TzhRSnRwTjJPOTVWMk1ldnVOUkEyZTB4WnNQbHpzMXBsN0ZYUlJmX3BMeGV6bHBpc3IzSmxvZDdKTFN3ZDdJWTgtQl9HT2h6cTNKRFdFU094YmFoWWdrTE9YRDBFcVdnY3ZMQlh6cVR2VjFQWENIMVowS3VMeV9oc0dZYTBZZWNzbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Florida Orchestra to Perform Taylor Swift's Music on Saturday
-
-- first seen: 2026-09-11 13:30 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Florida Orchestra is set to perform music by Taylor Swift this Saturday, according to Creative Loafing Tampa. This event highlights the influence of Swift's songs in orchestral arrangements.
-- sources:
-  - [unverified] Creative Loafing Tampa — https://news.google.com/rss/articles/CBMinwFBVV95cUxOTk1US1R3TElPR2JlNDY2SzgtRGdFUDFpbkxkeDgxUVpqY0J3ek9kcFlFN2JZamhMT2x4d01POE5VOV9WeHZZVTdjSnRyR3o1dnprX05vNElCcW4ydWl1dGtUcl9XSTlvWGM4Sjd6SVhubWE2cGF0dEZHRmFVSmFkeEM2V1p4YWktbmFzWEh4dmVONXM0Q1N0SkJrYlotNEU?oc=5&hl=en-US&gl=US&ceid=US:en
