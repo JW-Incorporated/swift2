@@ -137,7 +137,9 @@ and there is still exactly one Marjorie and one Tree.
    repeats an alarm on the next pass. Only a run still going means the
    doorbell has the message: one that ended before `context` claimed it gets
    the poll's 👀 with no second dispatch, and the 45-minute reconcile settles
-   it. Skipped messages do not count toward the three-per-channel cap.)*
+   it. Skipped messages do not count toward the three-per-channel cap, and the
+   runs are listed once per bot per pass, however many rung messages there
+   are.)*
    *(Amended at build: a sticker message raises no alarm, because
    the doorbell skips stickers by design. A rung message whose runs cannot be
    listed completely is left for the next pass, and that pass fails. A

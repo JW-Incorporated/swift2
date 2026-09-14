@@ -126,6 +126,15 @@ describe('the poll watches the doorbell', () => {
     expect(order.filter(isAlarm)).toHaveLength(2);
   });
 
+  it('lists the runs once per pass however many rung messages it skips (Codex R2)', async () => {
+    const ids = Array.from({ length: 6 }, (_, i) => `100000000000000001${i}`);
+    const messages = ids.map((id, i) => msg(id, { ...(i < 5 ? rung() : {}), timestamp: `2026-09-13T17:0${i}:00.000Z` }));
+    const { order } = await pass(messages, { runs: ids.slice(0, 5).map((id) => runOf(id)) });
+    expect(order.filter((k) => k.startsWith('gh run list'))).toHaveLength(1);
+    expect(order.find((k) => k.startsWith('gh run list'))).toContain('>=2026-09-13T16:59:00Z'); // the oldest rung message, a minute early
+    expect(order.filter(isChat).map((k) => /message_id=(\d+)/.exec(k)?.[1])).toEqual([ids[5]]);
+  });
+
   it("an unlistable run for a rung message fails the pass and leaves the message alone", async () => {
     const order: string[] = [];
     const execImpl = vi.fn((_cmd: string, args: string[]) => {

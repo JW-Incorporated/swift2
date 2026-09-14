@@ -162,20 +162,16 @@ async function reconcile({ bot, cfg, claimed, repo, guildId, token, dryRun, exec
   }
   return { failures };
 }
-/** m7-doorbell.md Mechanics 5 with its one read: the runs of a message the doorbell rang. */
-function watchDoorbell({ bot, cfg, item, repo, execImpl, now }) {
-  let runs = [];
-  if (item.doorbell) {
-    const listed = listRuns(execImpl, repo, cfg.workflow, item.timestamp);
-    if (!listed?.complete) {
-      console.log(`::error::chat-poll: ${bot} message ${item.messageId} carries another ${CLAIM} but its runs could not be listed completely; left for the next pass`);
-      return { action: 'skip', failed: true };
-    }
-    runs = findRuns(listed.runs, bot, item.messageId);
-  }
-  const watch = doorbellWatch(item, { now, runs });
-  if (watch.action === 'skip') console.log(`${bot} message ${item.messageId}: ${watch.why} — skipped`);
-  return watch;
+// Mechanics 5's one read, once per bot per pass (Codex R2): runs since the oldest
+// rung message; null (every rung message waits) when the list failed or came back full.
+function doorbellRuns({ bot, cfg, fresh, repo, execImpl }) {
+  const rung = fresh.filter((item) => item.doorbell);
+  if (!rung.length) return [];
+  const oldest = rung.reduce((a, b) => (Date.parse(a.timestamp) <= Date.parse(b.timestamp) ? a : b));
+  const listed = listRuns(execImpl, repo, cfg.workflow, oldest.timestamp);
+  if (listed?.complete) return listed.runs;
+  console.log(`::error::chat-poll: ${bot}: ${rung.length} message(s) carry another ${CLAIM} but the runs could not be listed completely; left for the next pass`);
+  return null;
 }
 // A warning, not a failure: the message is still claimed and answered.
 function raiseAlarm({ execImpl, repo, stage, bot, item }) {
@@ -238,14 +234,17 @@ export async function poll({
     failures += settled.failures;
     const fresh = picked;
     console.log(`${bot}: ${fresh.length} new, ${claimed.length} earlier claim(s) checked, from ${sources.length} place(s)`);
+    const runs = doorbellLive ? doorbellRuns({ bot, cfg, fresh, repo, execImpl }) : [];
+    if (runs === null) failures += 1;
     let taken = 0;
     for (const item of fresh) {
       if (taken >= MAX_PER_CHANNEL) break;
       const where = item.threadId || item.channelId;
       let watch = { action: 'claim', alarm: null };
       if (doorbellLive) {
-        watch = watchDoorbell({ bot, cfg, item, repo, execImpl, now });
-        if (watch.failed) failures += 1;
+        if (item.doorbell && runs === null) continue;
+        watch = doorbellWatch(item, { now, runs: item.doorbell ? findRuns(runs, bot, item.messageId) : [] });
+        if (watch.action === 'skip') console.log(`${bot} message ${item.messageId}: ${watch.why} — skipped`);
         if (watch.action === 'skip') continue;
       }
       taken += 1;
