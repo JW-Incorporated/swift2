@@ -188,11 +188,14 @@ describe('alert', () => {
 });
 
 describe('alarmBody', () => {
-  it('never carries message text, for every stage', () => {
-    for (const stage of STAGES) {
-      const body = alarmBody({ stage, bot: 'tree', messageId: MID, channelId: MARJ, threadId: '900000000000000030', runs: [], posted: POSTED, now: NOW });
-      expect(body).toContain(`thread \`900000000000000030\``);
-      expect(body).not.toContain(FOUNDER_TEXT);
-    }
+  it.each([
+    ['stuck', `Chat reply stuck · Tree · ${MID}`],
+    ['doorbell-missed', 'Doorbell is not answering'],
+    ['doorbell-dispatch-failed', 'Doorbell dispatch is failing'],
+  ])('%s starts with its canonical title and never carries message text', (stage, title) => {
+    const body = alarmBody({ stage, bot: 'tree', messageId: MID, channelId: MARJ, threadId: '900000000000000030', runs: [], posted: POSTED, now: NOW });
+    expect(body.startsWith(`${title}\n\n`)).toBe(true);
+    expect(body).toContain(`thread \`900000000000000030\``);
+    expect(body).not.toContain(FOUNDER_TEXT);
   });
 });

@@ -66,6 +66,8 @@ export function alarmBody({ stage, bot, messageId, channelId, threadId = '', mes
     'doorbell-dispatch-failed': `The doorbell put 👀 on a founder message in #${cfg.channelName}, but no ${cfg.name} chat run existed a minute later. The poll claimed and dispatched it itself.`,
   }[stage];
   const lines = [
+    alarmTitle(stage, bot, messageId),
+    '',
     lead,
     '',
     `- stage: \`${stage}\``,
