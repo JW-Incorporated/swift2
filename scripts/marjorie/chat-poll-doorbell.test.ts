@@ -147,6 +147,20 @@ describe('the poll watches the doorbell', () => {
     expect(order.filter((k) => isChat(k) || isAlarm(k))).toEqual([]);
   });
 
+  it('a failed run list skips only the rung messages; an unrung one in the same pass is still answered', async () => {
+    const other = '1000000000000000002';
+    const order: string[] = [];
+    const execImpl = vi.fn((_cmd: string, args: string[]) => {
+      order.push(`gh ${args.join(' ')}`);
+      if (args[0] === 'run') throw new Error('gh down');
+      return '';
+    });
+    const { code } = await pass([msg(ID, rung()), msg(other, { timestamp: '2026-09-13T17:01:00.000Z' })], { execImpl });
+    expect(code).toBe(1);
+    expect(order.filter(isChat).map((k) => /message_id=(\d+)/.exec(k)?.[1])).toEqual([other]);
+    expect(order.filter(isAlarm).map((k) => /message_id=(\d+)/.exec(k)?.[1])).toEqual([other]);
+  });
+
   it('a failed alarm dispatch still answers the message', async () => {
     const order: string[] = [];
     const execImpl = vi.fn((_cmd: string, args: string[]) => {
