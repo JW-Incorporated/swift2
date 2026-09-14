@@ -2,6 +2,8 @@
 // identify, heartbeat, resume after a drop, reconnect with capped backoff.
 // Node ≥22's global WebSocket; `WebSocketImpl` and `timers` are injected so
 // `doorbell.test.ts` drives it with no network. It never logs the token.
+import { printable } from './doorbell-core.mjs';
+
 export const GATEWAY_URL = 'wss://gateway.discord.gg/?v=10&encoding=json';
 export const BACKOFF_CAP_MS = 60_000;
 // Discord says never to reconnect on these: a bad token, bad sharding, or
@@ -12,6 +14,11 @@ export const FATAL_CLOSE = new Set([4004, 4010, 4011, 4012, 4013, 4014]);
 const NO_RESUME_CLOSE = new Set([4007, 4009]);
 // Any 4000–4999 code other than 1000/1001 keeps the session resumable.
 const RECONNECT_CODE = 4000;
+// Discord's frames set these, so bound what a frame can make this process do:
+// a heartbeat between 1 s and 5 min, and a resume only to a Discord gateway host.
+const HEARTBEAT_MIN_MS = 1_000;
+const HEARTBEAT_MAX_MS = 5 * 60_000;
+const DISCORD_GATEWAY = /^wss:\/\/[a-z0-9-]+(?:\.[a-z0-9-]+)*\.discord\.gg\/?$/;
 
 export function backoffMs(attempt) {
   return Math.min(1000 * 2 ** attempt, BACKOFF_CAP_MS);
@@ -103,7 +110,7 @@ export function connectGateway({
     }
     if (p.s !== null && p.s !== undefined) seq = p.s;
     if (p.op === 10) {
-      const interval = Number(p.d?.heartbeat_interval) || 41_250;
+      const interval = Math.min(Math.max(Number(p.d?.heartbeat_interval) || 41_250, HEARTBEAT_MIN_MS), HEARTBEAT_MAX_MS);
       stopHeartbeat();
       acked = true;
       beatAfter(interval, Math.floor(interval * random()));
@@ -126,7 +133,8 @@ export function connectGateway({
     } else if (p.op === 0) {
       if (p.t === 'READY') {
         sessionId = p.d?.session_id || null;
-        resumeUrl = p.d?.resume_gateway_url || null;
+        const offered = String(p.d?.resume_gateway_url || '');
+        resumeUrl = DISCORD_GATEWAY.test(offered) ? offered : null;
         attempt = 0;
       }
       if (p.t === 'RESUMED') {
@@ -136,7 +144,7 @@ export function connectGateway({
       try {
         onDispatch(p.t, p.d);
       } catch (err) {
-        log(`gateway: ${p.t} handler failed: ${err.message}`);
+        log(`gateway: ${printable(p.t)} handler failed: ${printable(err.message)}`);
       }
     }
   }
@@ -150,7 +158,7 @@ export function connectGateway({
     try {
       socket = new WebSocketImpl(target);
     } catch (err) {
-      log(`gateway: connect failed: ${err.message}`);
+      log(`gateway: connect failed: ${printable(err.message)}`);
       retry();
       return;
     }

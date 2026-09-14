@@ -23,7 +23,7 @@ import { BOTS, CLAIM, FAILED, REPLIED } from '../marjorie/lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from '../marjorie/lib/discord-bot.mjs';
 import {
   ALARM_WORKFLOW, INTENTS, STUCK, STUCK_MS,
-  chatDispatch, createChannelMap, createSeen, parseConfig, readyLine, ringDecision, stuckDecision, stuckDispatch,
+  chatDispatch, createChannelMap, createSeen, parseConfig, printable, readyLine, ringDecision, stuckDecision, stuckDispatch,
 } from './lib/doorbell-core.mjs';
 import { connectGateway } from './lib/gateway.mjs';
 import { githubRequest } from './lib/github-rest.mjs';
@@ -94,7 +94,7 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
       channels.channel(found.data);
       decision = ringDecision(message, { channels, founders: config.founders, seen: createSeen(), now: now(), guildId: config.guildId });
       if (decision.lookup) {
-        log(`channel ${decision.lookup} has no known parent; message ${message.id} left to the poll`);
+        log(`channel ${printable(decision.lookup)} has no known parent; message ${printable(message.id)} left to the poll`);
         return;
       }
     }
@@ -105,7 +105,7 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
 
   function onDispatch(type, data) {
     if (type === 'READY') {
-      log(`gateway: connected as ${data?.user?.username || 'the doorbell bot'}`);
+      log(`gateway: connected as ${printable(data?.user?.username || 'the doorbell bot')}`);
     } else if (type === 'GUILD_CREATE') {
       channels.guild(data);
       announce();
@@ -119,7 +119,7 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
     } else if (type === 'THREAD_LIST_SYNC') {
       channels.threadListSync(data);
     } else if (type === 'MESSAGE_CREATE') {
-      onMessage(data).catch((err) => log(`message ${data?.id} failed: ${err.message}`));
+      onMessage(data).catch((err) => log(`message ${printable(data?.id)} failed: ${printable(err.message)}`));
     }
   }
 
