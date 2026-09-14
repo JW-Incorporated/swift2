@@ -175,6 +175,16 @@ bot-actor dispatch; fixed with `allowed_bots` plus a founder-only check).
   are pending.
 - **Open:** GitHub cron was stalled for most of the afternoon, so the poll was
   hand-dispatched.
+- **Reviewed 2026-09-14 (Fable, comment on #4180):** M5 stands. Codex found
+  three real defects in the merged code: in-thread reply attribution could
+  cross two quick asks, and claims older than 24 h were never reconciled
+  (both fixed in #4292 — every reply now carries a `↪ <link>` line and is
+  credited only to the message it names); a lost webhook response can send
+  a reply twice (#4291, open). The cron stall is not a one-off: GitHub drops
+  most of this repo's scheduled runs (#4290) — the 5-min poll fired 3× in
+  14 h. A clock on the Hermes host is the recommended fix, founder call.
+  Tree's first successful Monday run was 2026-09-14 (run 34839086659,
+  after #4293 raised its turn cap): asks #4296/#4297 filed, plan PR #4295.
 
 ## Why M4 waits for Tree R2
 
