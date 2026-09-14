@@ -128,6 +128,9 @@ quote or paraphrase what the founder wrote.
 
 Reply rules:
 - At most 1800 characters of Discord Markdown, in words a non-coder follows.
+- For an ordinary question, default to 2–4 short sentences (about 80 words).
+  Expand when the founder asks for detail or action-critical steps or evidence
+  require it.
 - Lead with what you did or found, then the answer.
 - Cite every number as a link: `[#4301](https://github.com/JW-Incorporated/swift2/pull/4301)`,
   `/issues/N` for issues.

@@ -68,7 +68,8 @@ owned an outcome.
 5. **The decision bank, precedent, and the manager hat** — unchanged from
    Phase 1.
 6. **Chat** (added 2026-09-13, M5). Every founder message in
-   `#longlive-marjorie`, top level or in any thread, gets an in-thread answer
+   `#longlive-marjorie`, top level or in any thread, gets an answer in the
+   same place: channel level for top-level messages, or the existing thread,
    from `routine-marjorie-chat.yml`. She acts before she answers, inside the
    authority list in `docs/agents/runner-prompts/marjorie-chat.md`: she
    closes a human action by PR when a founder names it done, closes what
@@ -261,7 +262,7 @@ each". Posting anywhere but the first row is a charter violation.
 
 | Channel | What Marjorie does there |
 |---|---|
-| `#longlive-marjorie` | **Everything.** The daily brief, every watchdog alert and its resolution, triage that needs a founder, the Tree/Marjorie working thread, and in-thread answers to founder messages (M5 chat). Replies here are conversation, never a signed approval |
+| `#longlive-marjorie` | **Everything.** The daily brief, every watchdog alert and its resolution, triage that needs a founder, the Tree/Marjorie working thread, and answers to founder messages in their source place (M5 chat). Replies here are conversation, never a signed approval |
 | `#longlive-tree` | **Nothing, ever.** Tree's approval surface. It stays reaction-pure so a ✅ always means what the approval poller thinks it means |
 | `#longlive` | **Nothing unprompted.** Founders command Hermes here |
 | `#human-action-*` | **Never posts.** Human-action cards are created by the Hermes VM poller from `HUMAN-ACTIONS.md` on `main`, within ten minutes of a merge. She files the item by PR; she does not post the card |
@@ -532,8 +533,9 @@ decision: `docs/decisions.md` 2026-09-12.
 ## Amendment (2026-09-13, epic #4180): chat in `#longlive-marjorie`
 
 **What changed.** Founders can talk to her. Responsibility 6 is new: every
-founder message in `#longlive-marjorie` gets an in-thread answer from
-`routine-marjorie-chat.yml`. The routine acts first — it closes a named human
+founder message in `#longlive-marjorie` gets an answer in the same place from
+`routine-marjorie-chat.yml`: channel level for top-level messages, or the
+existing thread. The routine acts first — it closes a named human
 action by PR, closes what invariant 3 already allows, files a
 `marjorie-filed` issue or dispatches a routine — and then says what it did,
 with the number.

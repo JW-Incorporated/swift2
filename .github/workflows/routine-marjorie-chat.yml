@@ -5,7 +5,8 @@
 #
 # Four jobs, secrets split by environment so the agent never holds one:
 #   context (social)  reads the message and its conversation with the bot
-#                     token, starts the reply thread for a top-level message,
+#                     token, selects the reply location; top-level messages
+#                     stay in the channel and existing user threads are preserved,
 #                     and stops a duplicate run (message already ✅/❌). Its
 #                     outputs (reply thread, message link) outlive artifacts.
 #   run (template)    Opus reads .scratch/chat-context.json, acts inside the
@@ -98,7 +99,7 @@ jobs:
           CHANNEL_ID: ${{ inputs.channel_id }}
           THREAD_ID: ${{ inputs.thread_id }}
         run: node scripts/marjorie/chat-poll.mjs context --bot marjorie --channel-id "$CHANNEL_ID" --message-id "$MESSAGE_ID" --thread-id "$THREAD_ID" --out .scratch/chat-context.json
-      - name: Start the reply thread, or stop a duplicate run
+      - name: Select the reply location, or stop a duplicate run
         id: thread
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
