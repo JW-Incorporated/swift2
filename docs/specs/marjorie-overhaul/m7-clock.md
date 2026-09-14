@@ -49,6 +49,41 @@ slots. Nothing was queued, so runs are dropped, not delayed. A
 - **Config.** `CLOCK_LIVE`, a committed constant beside `DOORBELL_LIVE`,
   starts `false`, flips by PR after the live proof. `--check` prints the
   table's next 10 fires.
+- *Amended at build, 2026-09-14:*
+  - *The table is one row per cron slot inside `{ "rows": [...] }`: 55 rows,
+    because `watchdog.yml` and `community-mailer.yml` carry two crons each.
+    Each row carries the inputs that make a dispatch behave like its
+    schedule firing.*
+  - *The skip window is "any run created since the slot, less 60 s", not
+    `max(slot interval, 10 min)`. The wider window lets the previous slot's
+    run of the 5-minute poll cover the next slot, so the clock would fire
+    only every other slot. A GitHub cron that fires late, after the clock's
+    run, still doubles that slot: the clock adds runs, never removes them.*
+  - *The loop lives in `lib/clock.mjs`, started by `doorbell.mjs`. The host
+    runs a pinned tag, so the clock re-reads `schedule.json` and the
+    `CLOCK_LIVE` line from main's public raw files every 10 minutes, with no
+    key, and keeps its last good copy when that fails. A cron edit or the
+    `CLOCK_LIVE` flip therefore reaches the host by PR; code still needs a
+    new tag.*
+  - *The poll counts any person-started `workflow_dispatch` of
+    `bot-chat-poll.yml` as a clock run (the key's owner is not recorded in
+    the repo), and looks back 24 hours. It raises nothing when there is none
+    in that window or `Clock is not firing` is already open
+    (`scripts/marjorie/lib/clock-watch.mjs`). The alarm's `check` ends with
+    no alert once the clock has started the poll within 20 minutes.*
+  - *Schedule-gated steps changed so a clock dispatch behaves like the
+    cron:*
+    - *`watchdog.yml` gains a `schedule` input, its daily gates read
+      `github.event.schedule || inputs.schedule`, and its two-failures check
+      counts dispatch runs;*
+    - *`backup-restore-drill.yml` gains a `page` input;*
+    - *`social-approval-notify.yml` (digest on main only) and `codeql.yml`
+      gain `workflow_dispatch`;*
+    - *`scripts/watchdog/routine-vault-run-check.mjs` counts dispatch runs as
+      cadence.*
+
+    *`community-mailer.yml` (`mode`) and the workflows whose `dry_run`
+    defaults to true need only their row's inputs.*
 
 ## Acceptance criteria
 

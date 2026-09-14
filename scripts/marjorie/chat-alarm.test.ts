@@ -62,9 +62,42 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+describe('check: clock-silent', () => {
+  const clockRun = (minutesAgo: number) => ({
+    event: 'workflow_dispatch', created_at: new Date(NOW - minutesAgo * 60_000).toISOString(),
+    html_url: `https://github.com/run/${minutesAgo}`, triggering_actor: { type: 'User' },
+  });
+  async function clock(runs: unknown[]) {
+    const outFile = join(mkdtempSync(join(tmpdir(), 'chat-alarm-')), 'out');
+    writeFileSync(outFile, '');
+    const fetchImpl = vi.fn();
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    const execImpl = vi.fn(() => JSON.stringify({ workflow_runs: runs }));
+    const code = await check({ env: { STAGE: 'clock-silent', REPO: 'JW-Incorporated/swift2', GITHUB_OUTPUT: outFile, RUN_URL: RUN }, fetchImpl, execImpl, now: NOW });
+    const text = readFileSync(outFile, 'utf8');
+    const outputs: Record<string, string> = {};
+    for (const m of text.matchAll(/^(\w+)<<(\S+)\n([\s\S]*?)\n\2$/gm)) outputs[m[1]] = m[3];
+    for (const m of text.matchAll(/^(\w+)=(.*)$/gm)) outputs[m[1]] = m[2];
+    return { code, outputs, fetchImpl };
+  }
+
+  it('opens the standing alert when the newest clock-started poll run is over 20 minutes old, with no message and no Discord read', async () => {
+    const { code, outputs, fetchImpl } = await clock([clockRun(35)]);
+    expect(code).toBe(0);
+    expect(outputs).toMatchObject({ alert: 'true', title: 'Clock is not firing', dispatch_poll: 'false' });
+    expect(outputs.body).toContain('https://github.com/run/35');
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it('ends with no alert once the clock has started the poll again', async () => {
+    expect((await clock([clockRun(3)])).outputs).toEqual({ alert: 'false' });
+  });
+});
+
 describe('alarm titles', () => {
   it('a stuck reply gets its own issue; a doorbell fault is one standing issue', () => {
-    expect(STAGES).toEqual(['stuck', 'doorbell-missed', 'doorbell-dispatch-failed']);
+    expect(STAGES).toEqual(['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent']);
+    expect(alarmTitle('clock-silent', '', '')).toBe('Clock is not firing');
     expect(alarmTitle('stuck', 'tree', MID)).toBe(`Chat reply stuck · Tree · ${MID}`);
     expect(alarmTitle('doorbell-missed', 'marjorie', MID)).toBe('Doorbell is not answering');
     expect(alarmTitle('doorbell-dispatch-failed', 'tree', MID)).toBe('Doorbell dispatch is failing');
@@ -182,7 +215,7 @@ describe('alert', () => {
 
 describe('alarmBody', () => {
   it('never carries message text, for every stage', () => {
-    for (const stage of STAGES) {
+    for (const stage of STAGES.filter((s: string) => s !== 'clock-silent')) {
       const body = alarmBody({ stage, bot: 'tree', messageId: MID, channelId: MARJ, threadId: '900000000000000030', runs: [], posted: POSTED, now: NOW });
       expect(body).toContain(`thread \`900000000000000030\``);
       expect(body).not.toContain(FOUNDER_TEXT);

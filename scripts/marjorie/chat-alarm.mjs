@@ -29,9 +29,10 @@ import { runMain } from '../lib/cli.mjs';
 import { listRuns } from './chat-poll.mjs';
 import { readDeliveryState } from './lib/chat-delivery.mjs';
 import { BOTS, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
+import { CLOCK_ALERT_TITLE, CLOCK_SILENT_MS, clockState, readClockRuns } from './lib/clock-watch.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, snowflakeMs } from './lib/discord-bot.mjs';
 
-export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed'];
+export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent'];
 // Each `alert` action is bounded inside the job's 8 minutes, so a stalled
 // Discord post or mail fallback cannot use up the dispatches' time (Codex R2).
 export const NOTICE_TIMEOUT_MS = 4 * 60_000;
@@ -39,6 +40,7 @@ export const DISPATCH_TIMEOUT_MS = 60_000;
 const STANDING = {
   'doorbell-missed': 'Doorbell is not answering',
   'doorbell-dispatch-failed': 'Doorbell dispatch is failing',
+  'clock-silent': CLOCK_ALERT_TITLE,
 };
 
 /** A stuck reply gets its own issue (it notifies); a doorbell fault is one standing issue while it lasts. */
@@ -88,8 +90,44 @@ function output(env, key, value) {
   appendFileSync(env.GITHUB_OUTPUT, `${key}<<${delimiter}\n${text}\n${delimiter}\n`);
 }
 
+export function clockBody({ newest, now, runUrl = '' }) {
+  const age = newest ? `${newest.html_url} at ${newest.created_at} (${Math.round((now - Date.parse(newest.created_at)) / 60_000)} min ago)` : 'none in the last 24 h, or the run list failed';
+  const lines = [
+    `The home-server clock has not started bot-chat-poll.yml for over ${CLOCK_SILENT_MS / 60_000} min, so the routines are back on GitHub's own cron, which drops most runs here (#4290).`,
+    '',
+    '- stage: `clock-silent`',
+    `- newest clock-started poll run: ${age}`,
+  ];
+  if (runUrl) lines.push(`- raised by: ${runUrl}`);
+  lines.push('', "Check the doorbell service on the Hermes VM host (docs/ops/doorbell.md: `journalctl -u longlive-doorbell`); an expired key shows as HTTP 401. Marjorie's sweep closes this once the clock starts the poll again.");
+  return lines.join('\n');
+}
+
+// `clock-silent` needs no message: it ends with no alert once the clock has started the poll again.
+function checkClock({ env, execImpl, now }) {
+  let newest = null;
+  try {
+    newest = readClockRuns(execImpl, env.REPO || env.GITHUB_REPOSITORY || '', now);
+  } catch (err) {
+    console.log(`::warning::chat-alarm check: the poll's runs could not be read (${err.message})`);
+  }
+  if (clockState(newest, now) === 'fresh') {
+    console.log('the clock started bot-chat-poll.yml within 20 minutes — no alert');
+    output(env, 'alert', 'false');
+    return 0;
+  }
+  const body = clockBody({ newest, now, runUrl: env.RUN_URL || '' });
+  output(env, 'alert', 'true');
+  output(env, 'title', CLOCK_ALERT_TITLE);
+  output(env, 'body', body);
+  output(env, 'dispatch_poll', 'false');
+  console.log(`alert due: ${CLOCK_ALERT_TITLE}\n\n${body}`);
+  return 0;
+}
+
 export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now() } = {}) {
   const { STAGE: stage = '', BOT: bot = '', MESSAGE_ID: messageId = '', CHANNEL_ID: channelId = '', THREAD_ID: threadId = '' } = env;
+  if (stage === 'clock-silent') return checkClock({ env, execImpl, now });
   if (!STAGES.includes(stage) || !BOTS[bot] || !SNOWFLAKE.test(messageId) || !SNOWFLAKE.test(channelId) || (threadId && !SNOWFLAKE.test(threadId))) {
     console.log(`::error::chat-alarm check: needs STAGE (${STAGES.join(' | ')}), BOT marjorie|tree, numeric MESSAGE_ID and CHANNEL_ID, optional numeric THREAD_ID`);
     return 2;

@@ -8,7 +8,7 @@ import { EYES, GUILD, MARJ, NOW, REPO, baseRoutes, discord, env, gh, mine, msg, 
 // @ts-expect-error — plain .mjs module, no type declarations
 import { context, parseFlags, poll } from './chat-poll.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { CLAIM, DOORBELL_LIVE, FAILED, REPLIED, alarmArgs, hasOthersReaction, runTitle } from './lib/chat-inbox.mjs';
+import { CLAIM, CLOCK_LIVE, DOORBELL_LIVE, FAILED, REPLIED, alarmArgs, hasOthersReaction, runTitle } from './lib/chat-inbox.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { DISCORD_API } from './lib/discord-bot.mjs';
 
@@ -21,14 +21,14 @@ const isAlarm = (k: string) => k.startsWith('gh workflow run bot-chat-alarm.yml'
 const isChat = (k: string) => k.startsWith('gh workflow run routine-marjorie-chat.yml');
 const runOf = (id: string, status = 'in_progress', conclusion = '') => ({ displayTitle: runTitle('marjorie', id), status, conclusion, url: `https://github.com/run/${id}` });
 
-type PassOptions = { runs?: unknown[]; doorbellLive?: boolean; execImpl?: unknown; extraEnv?: Record<string, string>; claim?: unknown };
-async function pass(messages: unknown | unknown[], { runs = [], doorbellLive = true, execImpl, extraEnv = {}, claim = res(204) }: PassOptions = {}) {
+type PassOptions = { runs?: unknown[]; doorbellLive?: boolean; clockLive?: boolean; execImpl?: unknown; extraEnv?: Record<string, string>; claim?: unknown };
+async function pass(messages: unknown | unknown[], { runs = [], doorbellLive = true, clockLive = false, execImpl, extraEnv = {}, claim = res(204) }: PassOptions = {}) {
   const list = (Array.isArray(messages) ? messages : [messages]) as Array<{ id: string }>;
   const order: string[] = [];
   const claims = Object.fromEntries(list.map((m) => [claimOf(m.id), claim]));
   const { fetchImpl } = discord({ ...baseRoutes(list), ...claims }, order);
   const exec = (execImpl as ReturnType<typeof gh>) || gh(runs, order);
-  const code = await poll({ env: { ...env, ...extraEnv }, fetchImpl, sleepImpl, execImpl: exec, now: NOW, workflowExists: onlyMarjorie, doorbellLive });
+  const code = await poll({ env: { ...env, ...extraEnv }, fetchImpl, sleepImpl, execImpl: exec, now: NOW, workflowExists: onlyMarjorie, doorbellLive, clockLive });
   return { code, order };
 }
 
@@ -44,6 +44,15 @@ describe('hasOthersReaction', () => {
 describe('the poll watches the doorbell', () => {
   it('ships off: DOORBELL_LIVE flips by PR after the live proof', () => {
     expect(DOORBELL_LIVE).toBe(false);
+  });
+
+  it('watches the clock only while CLOCK_LIVE, which also ships off (m7-clock.md)', async () => {
+    expect(CLOCK_LIVE).toBe(false);
+    const off = await pass([], { doorbellLive: false });
+    expect(off.order.some((k) => k.startsWith('gh api'))).toBe(false);
+    const on = await pass([], { doorbellLive: false, clockLive: true });
+    expect(on.code).toBe(0); // a broken clock read is a warning, never a failed poll
+    expect(on.order.some((k) => k.startsWith('gh api repos/JW-Incorporated/swift2/actions/workflows/bot-chat-poll.yml/runs'))).toBe(true);
   });
 
   it('while off, a message with the doorbell 👀 is claimed and dispatched exactly as in M5', async () => {

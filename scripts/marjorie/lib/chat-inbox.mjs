@@ -24,15 +24,16 @@ export const SNOWFLAKE = /^\d{15,21}$/;
 export const DOORBELL_LIVE = false;
 export const DOORBELL_GRACE_MS = 60 * 1000;
 export const ALARM_WORKFLOW = 'bot-chat-alarm.yml';
+// M7 (m7-clock.md): the home-server clock starts routines, and the poll
+// watches it, only while this is true. The doorbell re-reads this exact line
+// from main every 10 minutes, so it stays `export const CLOCK_LIVE = true|false;`
+// on one line. Flipped by PR.
+export const CLOCK_LIVE = false;
 const HISTORY_TEXT_CAP = 1500;
 const MESSAGE_TEXT_CAP = 4000;
 // DEFAULT (0) and REPLY (19) are what a person types; pins, joins and
 // "started a thread" notices are system types and never answered.
 const HUMAN_TYPES = new Set([0, 19]);
-// M7 (m7-clock.md): the home-server clock starts routines only while this is
-// true. The doorbell re-reads this exact line from main every 10 minutes, so it
-// stays `export const CLOCK_LIVE = true|false;` on one line. Flipped by PR.
-export const CLOCK_LIVE = false;
 
 export const BOTS = {
   marjorie: { name: 'Marjorie', channelName: 'longlive-marjorie', workflow: 'routine-marjorie-chat.yml', channelEnv: 'DISCORD_MARJORIE_CHANNEL_ID' },

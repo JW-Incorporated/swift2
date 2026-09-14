@@ -29,9 +29,10 @@ import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { context } from './lib/chat-context.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
+import { watchClock } from './lib/clock-watch.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
+  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, CLOCK_LIVE, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
   alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
 export { context };
@@ -184,7 +185,7 @@ function raiseAlarm({ execImpl, repo, stage, bot, item }) {
 }
 export async function poll({
   env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now(),
-  workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)), doorbellLive = DOORBELL_LIVE,
+  workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)), doorbellLive = DOORBELL_LIVE, clockLive = CLOCK_LIVE,
 } = {}) {
   if (env.BOT_CHAT_ENABLED === 'false') {
     console.log('BOT_CHAT_ENABLED=false — chat loop is off; nothing read');
@@ -224,7 +225,6 @@ export async function poll({
     }
     const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });
     failures += failed;
-    // Watching the doorbell skips messages it has, so the cap applies to claims below.
     const { picked, claimed, empty } = selectInbox(sources, { founders, now, cap: doorbellLive ? Infinity : MAX_PER_CHANNEL });
     if (empty.length) {
       failures += 1;
@@ -273,6 +273,7 @@ export async function poll({
       }
     }
   }
+  if (clockLive) watchClock({ repo, execImpl, now, dryRun });
   return failures ? 1 : 0;
 }
 export function parseFlags(args) {

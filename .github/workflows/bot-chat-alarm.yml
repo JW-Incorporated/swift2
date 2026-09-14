@@ -24,7 +24,8 @@
 #
 # Titles: `Chat reply stuck · <Bot> · <message id>` (a new issue per message,
 # so it notifies) or the standing `Doorbell is not answering` / `Doorbell
-# dispatch is failing` (one issue while it lasts). Marjorie's hourly sweep
+# dispatch is failing` / `Clock is not firing` (one issue while it lasts;
+# `clock-silent` is raised by the poll's clock watch, m7-clock.md). Marjorie's hourly sweep
 # closes each once it is resolved, as for every watchdog alert.
 name: bot-chat-alarm
 run-name: "Chat alarm · ${{ inputs.stage }} · ${{ inputs.message_id }}"
@@ -36,7 +37,7 @@ on:
         description: "Why the alarm was raised"
         required: true
         type: choice
-        options: [stuck, doorbell-missed, doorbell-dispatch-failed]
+        options: [stuck, doorbell-missed, doorbell-dispatch-failed, clock-silent]
       bot:
         description: "marjorie or tree"
         required: false
