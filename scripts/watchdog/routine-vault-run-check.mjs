@@ -13,10 +13,9 @@
 // future scheduled run and reports itself, the same shape as
 // news-worker-rotation-check.mjs / karen-post-repair-check.mjs.
 //
-// WHAT IT WATCHES, using `gh run list --workflow routine-vault-run.yml
-// --event schedule` (server-side filtered, so a burst of manual
-// workflow_dispatch runs can never displace scheduled history out of the
-// fetched window):
+// WHAT IT WATCHES, using `gh run list --workflow routine-vault-run.yml`
+// (scheduled runs and, since M7, workflow_dispatch runs — the home-server
+// clock's dispatches stand in for the cron GitHub mostly drops; m7-clock.md):
 //   1. Any of the last N *scheduled* runs failed.
 //   2. No scheduled run has started in the last ~26h (missed schedule) —
 //      the cron fires daily at 16:07 UTC (routine-vault-run.yml), so 26h
@@ -64,11 +63,12 @@ export const MISSED_SCHEDULE_HOURS = 26;
  */
 export function evaluate({ runs, now = new Date() }) {
   const nowMs = now instanceof Date ? now.getTime() : Date.parse(now);
-  // Defense in depth even though the caller fetches with --event schedule:
-  // a test or a future caller passing unfiltered runs must not silently
-  // count a workflow_dispatch run as cadence evidence.
+  // Since M7 the home-server clock starts this routine with workflow_dispatch
+  // (docs/specs/marjorie-overhaul/m7-clock.md), because GitHub drops most of
+  // this repo's cron fires, so a dispatch is cadence evidence too. Any other
+  // event (a push or PR run, were one ever added) still is not.
   const scheduled = (runs || [])
-    .filter((r) => (r.event ?? 'schedule') === 'schedule')
+    .filter((r) => ['schedule', 'workflow_dispatch'].includes(r.event ?? 'schedule'))
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   if (scheduled.length === 0) {
@@ -154,7 +154,7 @@ async function main() {
   const repoArgs = repo ? ['--repo', repo] : [];
 
   const { stdout } = await gh([
-    'run', 'list', ...repoArgs, '--workflow', WORKFLOW, '--event', 'schedule',
+    'run', 'list', ...repoArgs, '--workflow', WORKFLOW,
     '--json', 'conclusion,createdAt,event,headBranch,url', '--limit', String(LOOKBACK * 2),
   ]);
   const runs = JSON.parse(stdout || '[]');

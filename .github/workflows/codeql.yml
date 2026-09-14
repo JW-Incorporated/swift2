@@ -7,6 +7,7 @@ on:
     branches: [main]
   schedule:
     - cron: "27 12 * * 1"  # weekly Monday, offset minute
+  workflow_dispatch: # the home-server clock (M7, m7-clock.md) stands in for the cron
 jobs:
   analyze:
     name: Analyze (javascript-typescript)

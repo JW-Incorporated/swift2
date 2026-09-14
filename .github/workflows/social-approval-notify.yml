@@ -29,6 +29,9 @@ on:
     # watchdog.yml's header note) and not already used by any other
     # workflow's cron (checked against every `cron:` in .github/workflows/).
     - cron: "7 18 * * *"
+  # The home-server clock (M7) stands in for the digest cron, which GitHub
+  # mostly drops here (#4290). Only a dispatch on main runs the digest.
+  workflow_dispatch:
 
 permissions:
   pull-requests: write
@@ -155,7 +158,7 @@ jobs:
             --facebook-crosspost "${{ secrets.FB_PAGE_ID != '' }}"
 
   digest:
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

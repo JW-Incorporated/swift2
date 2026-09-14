@@ -21,7 +21,7 @@ const NOW = '2026-09-12T18:00:00Z';
 
 describe('evaluate', () => {
   it('reports no-data (an alarm, not a silent pass) when there is no scheduled run at all', () => {
-    const result = evaluate({ runs: [run('2026-09-10T00:00:00Z', 'success', { event: 'workflow_dispatch' })], now: NOW });
+    const result = evaluate({ runs: [run('2026-09-10T00:00:00Z', 'success', { event: 'pull_request' })], now: NOW });
     expect(result.status).toBe('no-data');
   });
 
@@ -138,18 +138,15 @@ describe('evaluate', () => {
     expect(result.status).toBe('failing');
   });
 
-  it('never confuses a workflow_dispatch run with a scheduled one for cadence purposes', () => {
-    // Only a workflow_dispatch success recently; the last SCHEDULED run is
-    // older than the grace window, so this must alarm on the missed
-    // schedule rather than being fooled into "healthy" by the dispatch run.
+  it('counts a clock dispatch (workflow_dispatch) as cadence evidence since M7, but no other event', () => {
     const result = evaluate({
       runs: [
-        run('2026-09-12T00:00:00Z', 'success', { event: 'workflow_dispatch' }),
-        run('2026-09-10T16:07:00Z', 'failure', { event: 'schedule' }),
+        run('2026-09-12T16:07:00Z', 'success', { event: 'workflow_dispatch' }),
+        run('2026-09-12T12:00:00Z', 'failure', { event: 'pull_request' }),
       ],
       now: NOW,
     });
-    expect(result.status).toBe('missed-schedule');
+    expect(result.status).toBe('healthy');
   });
 });
 

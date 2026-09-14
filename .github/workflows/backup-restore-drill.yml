@@ -28,7 +28,13 @@ on:
     # 06:20 UTC on the 1st. Offset off :00 — see watchdog.yml's 2026-07-18
     # header note on this repo's scheduling contention.
     - cron: '20 6 1 * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      page:
+        description: "Run as the monthly drill: under ops, paging on failure (the home-server clock sets this, M7)"
+        required: false
+        type: boolean
+        default: false
   pull_request:
     paths:
       - 'supabase/migrations/**'
@@ -56,7 +62,7 @@ jobs:
     # runs on a pull_request anyway. `|| null` (confirmed correct GitHub
     # Actions semantics for "no environment" — PR #4197 review) means only
     # the real scheduled/dispatched drill runs under `ops`.
-    environment: ${{ github.event_name == 'schedule' && 'ops' || null }}
+    environment: ${{ (github.event_name == 'schedule' || inputs.page) && 'ops' || null }}
     services:
       postgres:
         # Matches Supabase's major version. The drill exercises the same DDL
@@ -103,7 +109,7 @@ jobs:
       # condition, self-healing on recovery. Scheduled runs only: a PR-triggered
       # failure is already visible as a red check on the PR.
       - name: Page on failure
-        if: always() && github.event_name == 'schedule'
+        if: always() && (github.event_name == 'schedule' || inputs.page)
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}

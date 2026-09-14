@@ -34,12 +34,25 @@
 # alone (`if: always()`, no schedule gate) runs on every trigger, including
 # this hourly one. :05 avoids the :00/:30 cluster the header above already
 # flags as a mailer-slip risk.
+#
+# The home-server clock (M7, docs/specs/marjorie-overhaul/m7-clock.md) also
+# dispatches this workflow at both slots, with `inputs.schedule` set to the
+# cron it stands in for, because GitHub drops most of this repo's cron fires
+# (#4290). So every daily-only gate reads the slot as
+# `github.event.schedule || inputs.schedule`; a manual dispatch without the
+# input still runs everything, as before.
 name: watchdog
 on:
   schedule:
     - cron: "35 14 * * *"
     - cron: "5 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      schedule:
+        description: "Run as this cron slot (the home-server clock sets it); empty runs every check"
+        required: false
+        type: string
+        default: ""
 
 permissions:
   issues: write
@@ -65,7 +78,7 @@ jobs:
       # still run on the daily cron and on a manual workflow_dispatch.
       - name: Check today's Founders' Brief exists
         id: brief
-        if: github.event_name != 'schedule' || github.event.schedule == '35 14 * * *'
+        if: (github.event.schedule || inputs.schedule || 'manual') != '5 * * * *'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -242,7 +255,7 @@ jobs:
       # see that script's header). A workflow with no `schedule:` trigger at
       # all is skipped, same as the old per-entry `gh workflow view` guard.
       - name: Scheduled workflows healthy (cadence view)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -315,8 +328,9 @@ jobs:
           # alert in this file.
           for ENTRY in $WATCHED; do
             WF="${ENTRY%%:*}"
-            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --event schedule \
-              --limit 2 --json conclusion --jq '[.[].conclusion]')
+            # Scheduled or clock-dispatched (M7): GitHub drops most cron fires here.
+            LAST_TWO=$(gh run list --repo "$REPO" --workflow "$WF" --limit 10 --json conclusion,event \
+              --jq '[.[] | select(.event == "schedule" or .event == "workflow_dispatch")][:2] | [.[].conclusion]')
             COUNT=$(echo "$LAST_TWO" | jq 'length')
             FAILS=$(echo "$LAST_TWO" | jq '[.[] | select(. == "failure")] | length')
             ALERT_TITLE="Watchdog: ${WF} failed its last 2 scheduled runs"
@@ -419,7 +433,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          IS_DAILY_RUN: ${{ github.event_name != 'schedule' || github.event.schedule == '35 14 * * *' }}
+          IS_DAILY_RUN: ${{ (github.event.schedule || inputs.schedule || 'manual') != '5 * * * *' }}
         run: |
           set -euo pipefail
           RED_AFTER_H=6         # a PR may be open and unhealthy this long before we shout (was 24h; auto-merge-keepup.yml now prevents the staleness class that made 24h necessary)
@@ -589,7 +603,7 @@ jobs:
       # that hid a five-day Karen outage a second time. Same idiom as that
       # step already uses.
       - name: Karen filed what she found (CIE ticket-filing check)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -755,7 +769,7 @@ jobs:
       # come after Node is pinned. Same daily-only gate as those: cadence
       # questions don't need an hourly look.
       - name: Vault Run scheduled-cadence check
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -783,7 +797,7 @@ jobs:
       # Read-only against HUMAN-ACTIONS.md — never writes to it (that file's
       # entry-numbering/SKIP-is-final convention is a separate concern).
       - name: Aged [BLOCKING] human actions (RULINGS-SOCIAL A6)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -807,7 +821,7 @@ jobs:
           fi
 
       - name: Work-ownership check (zero AI)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -899,7 +913,7 @@ jobs:
       # `!cancelled()` added 2026-08-15 (P0), same reasoning as the Karen and
       # work-ownership steps above.
       - name: Content lane liveness checks
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -979,7 +993,7 @@ jobs:
       # `fb-groups-checklist.mjs` ships empty until Joey adds real groups,
       # so there is nothing yet for a real export to close.
       - name: Facebook export freshness
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -1045,7 +1059,7 @@ jobs:
       # SUPABASE_SERVICE_ROLE_KEY secrets news-worker.yml already has — no
       # new secret, no HUMAN-ACTIONS item.
       - name: Knowledge engine freshness (current tier < 24h)
-        if: (!cancelled()) && (github.event_name != 'schedule' || github.event.schedule == '35 14 * * *')
+        if: (!cancelled()) && ((github.event.schedule || inputs.schedule || 'manual') != '5 * * * *')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
