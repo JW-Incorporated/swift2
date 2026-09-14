@@ -66,7 +66,11 @@ and there is still exactly one Marjorie and one Tree.
    routine on time with `workflow_dispatch`, which is a push and unaffected
    by the throttle. The GitHub `schedule:` triggers stay in every workflow as
    the fallback; the clock adds runs, it never removes any. Mechanics and
-   acceptance: `m7-clock.md`.
+   acceptance: `m7-clock.md`. *(Amended at build: the clock failed its second
+   Codex review (branch `feature/m7-clock`, `DEBUG.md` there) and is being
+   redesigned through the debug ladder. The doorbell ships without it as
+   `doorbell-v1`; the clock follows as a later tag with its own update
+   human action.)*
 
 ## Mechanics
 
