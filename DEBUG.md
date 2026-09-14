@@ -98,3 +98,35 @@ Ladder: Codex has had both rounds → fresh-context Claude agent (design
 proposal from this file and the files above) → `architect` if it returns
 without a fix. Meanwhile the doorbell ships without the clock (tag
 `doorbell-v1` from main), and the clock follows as `doorbell-v2`.
+
+## Redesign proposed by the fresh-context agent (rung 2, 2026-09-14 07:33 PDT)
+
+It judges the clock sound only if it does less.
+
+- **(a) Reads from main.**
+  - Only the `CLOCK_LIVE` line, and only to turn the clock off:
+    `live = pinnedLive && mainLive === true`.
+  - It starts off at boot until main is read once, and an unreadable read keeps the last value.
+  - Refresh stays serialized, with no older commit applied.
+  - The table is pinned per tag; `policyProblems`, `readRemote` and `sameTable` are deleted.
+  - Residual: turning it off takes up to about 15 minutes.
+- **(b) Dedup: attempt a slot at most once, recorded before sending.**
+  - `recordAttempt` writes the ledger synchronously (fsync, rename, directory fsync) before any POST. If the write fails, nothing is sent.
+  - An attempted slot is used up whatever the result, and never retried.
+  - A slot is due only if `key@slot` is not in the ledger. A missing or corrupt state file means no slot from before boot fires.
+  - Coverage query: `branch=main&per_page=30`, filtered to `head_branch === 'main'`, event `schedule` or `workflow_dispatch`, created between slot − 60 s and slot + 10 min.
+  - A missing `workflow_runs` array, or `total_count` above the runs returned, means unreadable: no send.
+  - If the `Date` header differs from the host clock by more than 90 s, nothing is sent.
+  - Residual: a lost slot on a 5xx or a crash between record and POST (GitHub's cron covers it); a GitHub cron that fires more than 10 minutes late still doubles.
+- **(c) Rate limits.**
+  - At dispatch time, from the persisted ledger: a rolling 60-minute cap (future-dated entries count) and at least 4 minutes between a row's attempts.
+  - CI static bound: the sum of each row's minute-field size stays within the cap, and each row's minute set has a circular gap of at least 5.
+- **(d) The watch counts missed slots, not clock-named runs.**
+  - `gapVerdict` looks at the 5-minute poll slots from `max(now−60m, since+30m)` to `now−10m`. A slot is served by any main run (schedule or dispatch) in its window; two or more missed slots alert.
+  - `validSince` rejects a missing or future `CLOCK_LIVE_SINCE` (warning, no grace); CI also asserts `CLOCK_LIVE` implies a valid, non-future value.
+  - `checkClock` and `watchClock` share `readVerdict`.
+- **`github-rest.mjs`.** A non-204 response whose body fails to parse is `ok: false`; the `date` header is returned.
+- **Recommended first version (`doorbell-v2`).**
+  - Rows harmless if doubled only (the poll, watchdog, checks, reads). Social posting and backups stay on GitHub cron until each gets a guard: on `event==schedule`, exit if a main dispatch ran in the last 20 minutes.
+  - AI routines are the founder's call.
+- Next rung: `architect`.
