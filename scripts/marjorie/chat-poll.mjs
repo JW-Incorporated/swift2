@@ -28,7 +28,7 @@ import { runMain } from '../lib/cli.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  BOTS, CLAIM, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, REPLIED, SNOWFLAKE, STALE_CLAIM_MS, WINDOW_MS,
+  BOTS, CLAIM, CLAIM_WINDOW_MS, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, REPLIED, SNOWFLAKE, STALE_CLAIM_MS,
   buildContext, createdSince, dispatchArgs, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -64,7 +64,7 @@ export async function resolveChannels({ env, token, fetchImpl, sleepImpl }) {
   }
   return { guildId, ids };
 }
-/** Newest-first pages of 100, walked back with `before` until a page ends past the 24 h window. */
+/** Newest-first pages of 100, walked back with `before` until a page ends past the claim window (an old 👀 claim on a later page must still be seen). */
 export async function readMessages(where, { token, now, fetchImpl, sleepImpl }) {
   const messages = [];
   let before = '';
@@ -74,13 +74,14 @@ export async function readMessages(where, { token, now, fetchImpl, sleepImpl }) 
     const batch = Array.isArray(r.data) ? r.data : [];
     messages.push(...batch);
     const oldest = batch[batch.length - 1];
-    if (batch.length < 100 || !oldest || now - messageTime(oldest) > WINDOW_MS) return { ok: true, messages };
+    if (batch.length < 100 || !oldest || now - messageTime(oldest) > CLAIM_WINDOW_MS) return { ok: true, messages };
     before = oldest.id;
   }
   return { ok: false, status: 'page-cap', messages };
 }
 async function readSources({ channelId, activeThreads, token, now, fetchImpl, sleepImpl }) {
-  const threads = activeThreads.filter((t) => t.parent_id === channelId && now - snowflakeMs(t.last_message_id || t.id) <= WINDOW_MS);
+  // Threads stay in view for the claim window, so a stale claim there is still reconciled.
+  const threads = activeThreads.filter((t) => t.parent_id === channelId && now - snowflakeMs(t.last_message_id || t.id) <= CLAIM_WINDOW_MS);
   const sources = [];
   let failed = 0;
   for (const threadId of ['', ...threads.map((t) => t.id)]) {

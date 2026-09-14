@@ -180,6 +180,51 @@ describe('finding 1 — Tree: reply sent, ✅ failed, artifacts deleted, deliver
   });
 });
 
+describe("concurrent asks in one thread — B's agent failed while A's linked reply landed after B", () => {
+  const B = '1000000000000000010';
+  const urlOf = (id: string) => `https://discord.com/channels/${GUILD}/${THREAD}/${id}`;
+  const reactB = (emoji: string) => `PUT ${DISCORD_API}/channels/${THREAD}/messages/${B}/reactions/${encodeURIComponent(emoji)}/@me`;
+  const replyToA = hook('1000000000000000011', 'Marjorie', `↪ ${urlOf(MID)}\nanswer for A`);
+
+  it("B's finish posts [chat failed] and ❌ — A's reply is not B's; A's finish adds ✅", async () => {
+    const d = discord({
+      [get(THREAD, B)]: res(200, founder(B, mine('👀'))),
+      [after(THREAD, B)]: res(200, [replyToA]),
+      [say(THREAD)]: res(200, { id: '1000000000000000012' }),
+      [reactB('❌')]: res(204),
+    });
+    const flags = { ...rerun('marjorie', MARJ, { 'message-id': B, 'source-thread-id': THREAD, 'reply-thread-id': THREAD, 'message-url': urlOf(B) }) };
+    expect(await finish(flags, { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+    expect(d.writes()).toEqual([say(THREAD), reactB('❌')]);
+
+    const a = discord({
+      [get(THREAD)]: res(200, founder(MID, mine('👀'))),
+      [after(THREAD)]: res(200, [founder(B), replyToA]),
+      [react(THREAD, '✅')]: res(204),
+    });
+    expect(await finish(rerun('marjorie', MARJ, { 'source-thread-id': THREAD, 'reply-thread-id': THREAD, 'message-url': urlOf(MID) }), { env: {}, fetchImpl: a.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+    expect(a.writes()).toEqual([react(THREAD, '✅')]);
+  });
+});
+
+describe("root A's agent failed while follow-up B in A's reply thread was answered", () => {
+  const B = '1000000000000000010';
+  it("A's finish posts [chat failed] and ❌, not ✅", async () => {
+    const replyToB = hook('1000000000000000011', 'Marjorie', `↪ https://discord.com/channels/${GUILD}/${MID}/${B}
+answer for B`);
+    const d = discord({
+      [get(MARJ)]: res(200, founder(MID, mine('👀'))),
+      [after(MARJ)]: res(200, []),
+      [after(MID)]: res(200, [founder(B), replyToB]),
+      [say(MARJ)]: res(200, { id: '1000000000000000012' }),
+      [react(MARJ, '❌')]: res(204),
+    });
+    expect(await readDeliveryState({ bot: 'marjorie', messageId: MID, channelId: MARJ, replyThreadId: MID, messageUrl: URL, token: 't', fetchImpl: d.fetchImpl, sleepImpl })).toMatchObject({ ok: true, state: 'open' });
+    expect(await finish(rerun('marjorie', MARJ), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+    expect(d.writes()).toEqual([say(MARJ), react(MARJ, '❌')]);
+  });
+});
+
 describe('finding 2 — Marjorie: agent saved a reply then failed; post and finish ran; cleanup failed; re-run', () => {
   it('the re-run finish on the already-✅ message does nothing at all (run and post are attempt-1 only)', async () => {
     const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀', '✅'))) });

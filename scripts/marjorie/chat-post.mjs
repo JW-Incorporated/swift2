@@ -129,22 +129,23 @@ export async function thread(flags, { env = process.env, fetchImpl = fetch, slee
 /**
  * The exact text to post. Mentions are neutralized and `ref:` lines defused
  * BEFORE the cap, and checked again on the final text, so what is checked is
- * what is sent: at most REPLY_CAP plus the short top-level prefix — always one
+ * what is sent: at most REPLY_CAP plus the short `↪ <link>` prefix — always one
  * Discord message. (Codex review: expanding mentions after the cap split a
  * reply into two messages, and the second could open on a forged `ref:` line.)
  * No reply → `missing` and no text: a webhook `[chat failed]` is never sent,
  * because the poll cannot dedup against a webhook post.
  */
-export function composePost({ reply, messageUrl, threadId }) {
+export function composePost({ reply, messageUrl }) {
   let body = defuseRefLines(neutralizeMentions(String(reply || '').trim()));
   if (!body) return { result: 'missing', text: '' };
   if (body.length > REPLY_CAP) {
     const tail = '…\n(cut to fit Discord)';
     body = `${body.slice(0, REPLY_CAP - tail.length).trimEnd()}${tail}`;
   }
-  // No thread (Discord refused one): a webhook cannot reply, so link the ask.
-  // lib/chat-delivery.mjs linksTo() recognizes this first line as the reply.
-  return { result: 'replied', text: defuseRefLines(threadId || !messageUrl ? body : `↪ ${messageUrl}\n${body}`) };
+  // A webhook cannot reply, so the first line links the ask — in a thread too,
+  // because two asks in one thread can be answered out of order and
+  // lib/chat-delivery.mjs linksTo() credits a reply only to the message it names.
+  return { result: 'replied', text: defuseRefLines(messageUrl ? `↪ ${messageUrl}\n${body}` : body) };
 }
 
 export async function postCmd(flags, { env = process.env, fetchImpl = fetch, waitImpl } = {}) {
@@ -161,7 +162,7 @@ export async function postCmd(flags, { env = process.env, fetchImpl = fetch, wai
   }
   const threadId = SNOWFLAKE.test(flags['thread-id'] || '') ? flags['thread-id'] : '';
   const reply = readText(path.join(flags['reply-dir'] || OUT_DIR, REPLY_FILE));
-  const { result, text } = composePost({ reply, messageUrl: flags['message-url'] || '', threadId });
+  const { result, text } = composePost({ reply, messageUrl: flags['message-url'] || '' });
   if (result === 'missing') {
     console.log('no reply was saved — nothing posted; finish sends the one [chat failed] notice');
     setOutput(env, 'result', 'missing');

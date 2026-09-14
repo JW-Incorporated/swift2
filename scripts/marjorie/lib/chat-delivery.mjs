@@ -9,10 +9,11 @@
 //   replied   a webhook post under the bot's name that answers it:
 //             - anywhere in the reply thread started on the message
 //               (that thread's id is the message's id), or
-//             - in the message's own thread, after it and before the next
-//               human message there, or
-//             - at channel top level, starting `↪ <link to the message>`
-//               (the fallback when Discord refused a thread)
+//             - in the message's own thread or at channel top level, starting
+//               `↪ <link to the message>` (chat-post.mjs composePost writes
+//               that line on every reply), or
+//             - legacy, in the message's own thread: a reply with no link
+//               line, after it and before the next human message there
 //   notified  a bot-token `[chat failed]` notice that replies to it
 //             (lib/chat-inbox.mjs isFailureNotice, which the poll also uses)
 //   open      none of the above
@@ -47,6 +48,15 @@ function isHuman(m) {
   return !m.webhook_id && !m.author?.bot && HUMAN_TYPES.has(m.type ?? 0);
 }
 
+function firstLine(content) {
+  return String(content || '').split('\n', 1)[0].trim();
+}
+
+// A reply that names its ask is never credited to another message by position.
+function hasLinkLine(content) {
+  return LINK_LINE.test(firstLine(content));
+}
+
 // Assumes only chat-post.mjs sends webhook posts under the bot's name into a
 // founder's thread; nothing else carries a correlation id. A new automation
 // that posts as Marjorie or Tree with `thread_id` would read as a reply here
@@ -75,12 +85,17 @@ export function classifyDelivery({ bot, messageId, message, sourceThreadId = '',
   if (hasOwnReaction(message, REPLIED) || hasOwnReaction(message, FAILED)) return 'settled';
   const after = sourceMessages.filter(newer(messageId)).sort(ascending);
   const inReplyThread = String(replyThreadId) === String(messageId) ? replyMessages : [];
-  let replied = inReplyThread.some((m) => isBotReply(m, bot));
-  if (sourceThreadId) {
+  // The reply thread on a root message also holds replies to follow-ups
+  // posted in it, so a linked reply there counts only for the message it names.
+  const answers = (m) => isBotReply(m, bot) && (linksTo(m.content, messageId, messageUrl) || !hasLinkLine(m.content));
+  let replied = inReplyThread.some(answers);
+  replied ||= after.some((m) => isBotReply(m, bot) && linksTo(m.content, messageId, messageUrl));
+  if (sourceThreadId && !replied) {
+    // Positional fallback for replies posted before every reply carried a
+    // link line. Two asks in one thread answered out of order would cross
+    // here, so a reply that links any message never counts by position.
     const next = after.findIndex(isHuman);
-    replied ||= (next < 0 ? after : after.slice(0, next)).some((m) => isBotReply(m, bot));
-  } else {
-    replied ||= after.some((m) => isBotReply(m, bot) && linksTo(m.content, messageId, messageUrl));
+    replied = (next < 0 ? after : after.slice(0, next)).some((m) => isBotReply(m, bot) && !hasLinkLine(m.content));
   }
   if (replied) return 'replied';
   if ([...after, ...replyMessages].some((m) => isFailureNotice(m, messageId))) return 'notified';

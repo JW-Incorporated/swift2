@@ -179,6 +179,15 @@ describe('poll', () => {
     expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
     expect(execImpl.mock.calls[0][1]).toContain(`message_id=${older.id}`);
   });
+  it('pages past the 24 h window to find an own-👀 claim older than it', async () => {
+    const page = Array.from({ length: 100 }, (_, i) => msg(String(2000000000000000099n - BigInt(i)), { author: { id: STRANGER }, timestamp: '2026-09-12T17:54:00.000Z' }));
+    const claim = msg('1000000000000000001', { ...mine(CLAIM), timestamp: '2026-09-12T17:00:00.000Z' });
+    const routes = { ...baseRoutes(page), [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100&before=${page[99].id}`]: res(200, [claim]) };
+    const { fetchImpl } = discord(routes);
+    const execImpl = gh();
+    expect(await poll({ env: { ...env, DRY_RUN: '1' }, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(execImpl.mock.calls.some((c) => c[1][0] === 'run')).toBe(true);
+  });
   it('fails the run when a place cannot be read or a body comes back blank', async () => {
     const unreadable = { ...baseRoutes([msg('1000000000000000001')]), [`GET ${DISCORD_API}/channels/${THREAD}/messages?limit=100`]: res(403, {}) };
     expect(await poll({ env: { ...env, DRY_RUN: '1' }, ...discord(unreadable), sleepImpl, execImpl: gh(), now: NOW, workflowExists: onlyMarjorie })).toBe(1);
