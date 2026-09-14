@@ -1,70 +1,68 @@
 # STATE — session working memory
 
-## 2026-09-14 (session: Opus — M7 doorbell build; clock escalated)
+## 2026-09-14 (M7 doorbell live proof complete; clock separate)
 
-**Call:** The doorbell half of M7 is built and merged. The clock is not, and
-is being rebuilt from the architect's ruling in a fresh session.
+**Call:** M7's doorbell is live and passed its production proof. The clock is
+not implemented; its fresh build brief is
+`docs/plans/marjorie-overhaul/waves/m7-clock-v2.md`, with scope tracked on
+#4290.
 
-**Merged:**
-- #4306: the doorbell program.
-- #4308: CodeQL hardening for it.
-- #4309: `context` claims with the bot's own 👀; the poll's doorbell watch
-  behind `DOORBELL_LIVE = false`.
-- #4311: `bot-chat-alarm.yml`, `chat-alarm.mjs`, and `finish` logs `replied in <n>s`.
-- #4312: `docs/ops/doorbell.md`, MR2 doorbell check, MR3 key renewal (due 2027-08-13).
+**Landed doorbell work:**
+- #4322 preserved the verbatim founder prompt; #4325 added the word guard;
+  #4326 set `DOORBELL_LIVE = true`; #4328 corrected the alarm title.
+- The independent review of #4320's channel-level, concise replies was clean.
+- Reviews: #4325 R2 clean, #4326 R2 clean, #4328 R1 clean. No third round.
+- The host service is active, all verifier processes are stopped, and the
+  installed checkout remains pinned to `doorbell-v1`.
 
-**Released and filed:**
-- Tag `doorbell-v1` = main at #4312: the doorbell and the stuck timer, no clock.
-- Install HA #75, PR #4313 with auto-merge.
+**Live proof:**
+- Full evidence: https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
+- Tree: 67 words; reply-bot ✅ check 86.608 s; 👀 pickup ≤2.343744 s; run
+  34876298473.
+- Marjorie: 74 words; reply-bot ✅ check 127.576 s; 👀 pickup ≤1.954189 s;
+  run 34876301348.
+- No threads, duplicates, or replies from the old Hermes Tree identity.
+- Stopped-service message 1549123731408945283 at 18:24:38.895Z. After age
+  reached 60 s and cron had not run, manual fallback run 34880770758 dispatched
+  `bot-chat-poll.yml`. This proves the fallback path, not cron reliability.
+- Alarm run 34880797025 opened #4329; Discord alarm
+  1549124270041464832 appeared at 18:26:47.315Z with canonical issue title
+  `Doorbell is not answering` verified literally.
+  Chat run 34880799699 succeeded: 64 words, reply-bot ✅ check 206.064 s.
+- Final restart 18:29:34Z; message 1549125883468587179 at 18:33:11.986Z;
+  👀 ≤0.618 s; run 34881495722 succeeded; reply 1549126305558302806 at
+  18:34:52.620Z, 59 words, no new thread; reply-bot ✅ check 18:35:14.626Z,
+  bound 122.640 s.
+- Reaction timings are upper bounds, not exact event times. The host-only
+  verifier loads protected credentials internally as the service user, prints
+  metadata only, and retries transient network 503s. No token values recorded.
 
-**Reviews:**
-- #4309 and #4311 each used both Codex rounds.
-- The last finding on each was verified by a fresh-context reviewer, not a
-  third Codex round.
-- #4310 filed: `send-mail.py` SMTP has no timeout.
+**Verification:**
+- 145 focused tests with the flag on; final 21 assertion tests; later 39 alarm
+  and workflow tests. Full CI was the gate.
+- Lint: 0 errors, 5 existing warnings.
+- Local typecheck cannot resolve shared React Native/Expo dependencies.
 
-**Alarm dry runs on main (evidence on #4180):**
-- replied message → no alert: run 34855024990;
-- unreplied → stuck body: run 34855028314.
-
-**Clock (#4290):**
-- Branch `feature/m7-clock` is unmerged. Codex round 2 rejected it (3 High,
-  5 Medium).
-- Ladder: `DEBUG.md` on that branch → fresh-context redesign → architect
-  ruling, all recorded there.
-- Rebuild brief: `docs/plans/marjorie-overhaul/waves/m7-clock-v2.md`
-  (fresh session).
-- **Founder decision pending on #4290:** which routines the clock starts
-  first. A = poll, ops, watchdog (recommended); B = plus other
-  harmless-if-doubled routines; C = all 55 (rejected).
+**Closeout state:**
+- HA #75 remains open on `main`; its closure PR #4330 has auto-merge enabled.
+  Do not call it merged until its state says so.
+- #4319 is closed. Test alerts #4327 and #4329 are closed and recovered.
 
 **Next:**
-1. Joey completes HA #75.
-2. M7 live proof, doorbell half (`waves/m7-doorbell.md` task 5, minus the
-   clock):
-   - one message per channel; record 👀 time, run actor, reply time;
-   - flip `DOORBELL_LIVE` by PR;
-   - fallback proof: service stopped → poll answers and "Doorbell is not
-     answering" posts → restart.
-3. After Joey answers A/B/C, run `waves/m7-clock-v2.md` in a fresh session.
-4. Still open from before: #4291, #4271, #4260, #4223, #4169; HA #70, #67,
-   #63, #54, #49, #48, #43.
+1. Leave merge-pending HA #75 closure PR #4330 and the final-docs PR on
+   auto-merge, then hand off to the architect.
+2. Keep clock work in a separate session using `waves/m7-clock-v2.md` and the
+   current ruling on #4290.
 
 **Architect invocations:**
-- 2026-09-14 ~07:35 PDT, mandatory: debug ladder rung 3 for the M7 clock,
-  after two Codex rounds and a fresh-context redesign.
-- Ruling: sound with amendments (fail closed, process-start gating instead of
-  a ledger file, `WatchdogSec`, scope A), and rebuild in a fresh session with
-  a Codex design review before code.
+- 2026-09-14 ~07:35 PDT, mandatory M7 clock debug-ladder rung 3 after two
+  Codex rounds and a fresh-context redesign. Ruling: fail closed, use
+  process-start gating, add `WatchdogSec`, scope A, and rebuild fresh with a
+  Codex design review before code.
 
 ### Local checkout notes
 
-Local vitest cannot use the repo config (Windows EPERM symlink in
-`sync-web-react-globalSetup.ts`). In a worktree, junction `node_modules` to
-the main checkout's, then run `vitest --config .scratch/vitest.plain.config.mts`
-(a copy of `Temp\claude-worktrees\scratch-vitest.config.ts`).
-
-Branch-writing work uses a new worktree per branch under
-`Temp\claude-worktrees\`: the guard's session lock blocks branch switches
-in shared paths. The guard also text-matches forbidden commands inside
-heredoc bodies, so write such prose with the Edit tool.
+Branch worktrees live under `C:/Users/Fourtys/.codex/worktrees/`. Local vitest
+uses junctioned `node_modules` plus a plain config copied from
+`Temp/claude-worktrees/scratch-vitest.config.ts` because the repo config hits a
+Windows symlink EPERM.

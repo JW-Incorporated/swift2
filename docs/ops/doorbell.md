@@ -66,6 +66,42 @@ service user with the env file loaded:
 sudo -u longlive-doorbell bash -c 'set -a; . /etc/longlive-doorbell.env; node /opt/longlive-doorbell/scripts/doorbell/doorbell.mjs --check'
 ```
 
+The host-only verifier loads the protected credentials internally as the
+service user and prints metadata only; never copy token values into its output.
+Retry a transient network `503`. Reaction measurements are upper bounds from
+the available timestamps, not exact latency.
+
+## Live verification (2026-09-14)
+
+`DOORBELL_LIVE = true` is on `main` (#4326), the service is active, and the
+installed checkout remains pinned to `doorbell-v1`. Full evidence is on
+[#4180](https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609).
+
+- `#longlive-tree`: 67-word reply, ✅ by the reply bot, check at 86.608 s;
+  👀 pickup ≤2.343744 s; run `34876298473`.
+- `#longlive-marjorie`: 74-word reply, ✅ by the reply bot, check at 127.576 s;
+  👀 pickup ≤1.954189 s; run `34876301348`.
+- These top-level messages received no new threads, duplicate replies, or
+  replies from the old Hermes Tree identity.
+- Stopped-service fallback: message `1549123731408945283` at
+  `18:24:38.895Z`; after its age was at least 60 s, cron had not run, so the
+  measured manual fallback dispatched `bot-chat-poll.yml` (run `34880770758`).
+  This proves the poll path, not that GitHub cron is reliable.
+- Alarm run `34880797025` opened #4329 with the canonical title
+  `Doorbell is not answering`; Discord alarm message
+  `1549124270041464832` appeared at `18:26:47.315Z`. Chat run `34880799699`
+  succeeded with a 64-word reply and a reply-bot ✅ check at 206.064 s.
+- After the final restart at `18:29:34Z`, message `1549125883468587179` at
+  `18:33:11.986Z` received 👀 in ≤0.618 s. Run `34881495722` succeeded; reply
+  `1549126305558302806` arrived at `18:34:52.620Z` with 59 words, and the
+  reply-bot ✅ check at `18:35:14.626Z` bounded completion at 122.640 s.
+
+For a stopped-service test, wait until the message is at least 60 seconds old.
+If cron has not run, dispatch `gh workflow run bot-chat-poll.yml --ref main`
+and record that manual trigger. Verify the literal alarm title in Discord,
+the alert issue, and the reply's bot ✅ separately; an issue title alone is
+not proof of the Discord notification. Restart and verify 👀 within 5 seconds.
+
 ## Stop, start, restart
 
 ```
