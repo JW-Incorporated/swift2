@@ -126,6 +126,7 @@ describe('bot-chat-alarm.yml (M7, m7-doorbell.md Mechanics 7)', () => {
       }
     }
     expect(byJob.check).not.toMatch(/WEBHOOK|issues: write/);
+    expect(byJob.check).toMatch(/^ {6}issues: read$/m);
   });
 
   it('applies an alert transition only on a first attempt, never on a dry run', () => {

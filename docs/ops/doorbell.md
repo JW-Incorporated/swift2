@@ -30,7 +30,9 @@ executable authority for the workflows themselves, not for host code.
 
 At startup the clock waits for one successful main flag read. It refreshes
 every ten minutes and switches off after three failures or 30 minutes
-without a good read. The doorbell's message pickup continues independently.
+without a good read. An unexpected clock-loop error stops watchdog heartbeats
+until systemd restarts the process; handled request failures still acknowledge
+progress. The doorbell's message pickup continues independently.
 An off switch may take one refresh interval to arrive. An unreadable run
 list never authorizes a dispatch; requests have 15-second deadlines.
 
@@ -43,7 +45,8 @@ boolean. `--check` prints the next ten pinned fires without connecting.
 
 The brief workflow serializes guard through delivery. Its guard runs before
 the agent and skips a second main run that UTC day, a whole-run rerun, or an existing
-delivery marker on today's brief issue. Failed/cancelled earlier runs count.
+delivery marker on today's brief issue. The marker lookup includes the LA-dated
+issue across UTC midnight. Failed/cancelled earlier runs count.
 Only a new main-branch manual dispatch with explicit `force=true` bypasses
 duplicate checks. It intentionally permits a replacement brief. Rerunning
 the whole forced workflow is blocked when the guard re-executes. Job-specific
@@ -57,9 +60,11 @@ including cron or a manual dispatch. If both host clock and GitHub cron die,
 detection waits for a surviving cron. This is coverage monitoring; the live
 proof separately verifies dispatch actor `sffan15-sys` and timing.
 When coverage recovers and the exact standing clock issue remains open, the
-poll starts the same serialized alarm to recheck and close it through the
+poll starts the same serialized alarm to recheck coverage and exact-title REST
+issue state, then close it through the
 existing ops notifier. Recovery starts no agent work. A later failure opens
-a new incident; an unreadable history cannot close an alert.
+a new incident. Queued alarms emit no repeated transition when issue state
+already matches coverage; unreadable history or issue state cannot close an alert.
 
 The v2 update HA must be run from `/opt/longlive-doorbell`:
 

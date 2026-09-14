@@ -39,8 +39,9 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
   let tickTimer = null;
   let refreshTimer = null;
   let stopped = false;
+  let fatal = false;
   const github = (request) => githubRequest(request, githubToken, { fetchImpl });
-  const isLive = (time) => !stopped && PINNED_CLOCK_LIVE && mainLive && failures < 3 && time - lastGood < STALE_MS;
+  const isLive = (time) => !stopped && !fatal && PINNED_CLOCK_LIVE && mainLive && failures < 3 && time - lastGood < STALE_MS;
 
   async function readMain() {
     try {
@@ -66,39 +67,44 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
 
   async function runTick() {
     const time = now();
-    try {
-      if (time < lastObserved || !isLive(time)) return;
-      lastObserved = time;
-      // A backward jump is stopped above, so expired entries cannot be due again.
-      for (const key of handled) if (Number(key.split('@').at(-1)) < time - GIVE_UP_MS) handled.delete(key);
-      while (attempts.length && attempts[0].at <= time - 60 * MINUTE_MS) attempts.shift();
-      for (const { row, slot } of dueRows(rows, handled, processStartMs, time)) {
-        const response = await github(runsRequest(row.workflow, slot));
-        const sentAt = now();
-        const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, sentAt);
-        if (sentAt < lastObserved || !isLive(sentAt) || latestSlot(row.parsed, sentAt) !== slot) continue;
-        lastObserved = sentAt;
-        if (exists === null) continue;
-        if (exists) { handled.add(`${row.key}@${slot}`); continue; }
-        if (!canReserve(row, attempts, sentAt)) continue;
-        handled.add(`${row.key}@${slot}`);
-        attempts.push({ key: row.key, at: sentAt });
-        const result = await github(clockDispatch(row));
-        log(`clock: ${row.workflow} slot ${new Date(slot).toISOString()} attempted at ${new Date(sentAt).toISOString()} accepted=${result.ok}`);
-      }
-    } finally {
+    if (time < lastObserved || !isLive(time)) {
       lastObserved = Math.max(lastObserved, time);
       progress();
+      return;
     }
+    lastObserved = time;
+    // A backward jump is stopped above, so expired entries cannot be due again.
+    for (const key of handled) if (Number(key.split('@').at(-1)) < time - GIVE_UP_MS) handled.delete(key);
+    while (attempts.length && attempts[0].at <= time - 60 * MINUTE_MS) attempts.shift();
+    for (const { row, slot } of dueRows(rows, handled, processStartMs, time)) {
+      const response = await github(runsRequest(row.workflow, slot));
+      const sentAt = now();
+      const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, sentAt);
+      if (sentAt < lastObserved || !isLive(sentAt) || latestSlot(row.parsed, sentAt) !== slot) continue;
+      lastObserved = sentAt;
+      if (exists === null) continue;
+      if (exists) { handled.add(`${row.key}@${slot}`); continue; }
+      if (!canReserve(row, attempts, sentAt)) continue;
+      handled.add(`${row.key}@${slot}`);
+      attempts.push({ key: row.key, at: sentAt });
+      const result = await github(clockDispatch(row));
+      log(`clock: ${row.workflow} slot ${new Date(slot).toISOString()} attempted at ${new Date(sentAt).toISOString()} accepted=${result.ok}`);
+    }
+    lastObserved = Math.max(lastObserved, time);
+    progress();
   }
 
   function tick() {
-    tickPromise ||= runTick().catch(() => {}).finally(() => { tickPromise = null; });
+    if (fatal) return Promise.resolve();
+    tickPromise ||= runTick().catch(() => {
+      fatal = true;
+      try { log('clock: unexpected failure; watchdog progress stopped'); } catch { return; }
+    }).finally(() => { tickPromise = null; });
     return tickPromise;
   }
 
   function scheduleTick() {
-    if (stopped) return;
+    if (stopped || fatal) return;
     const time = now();
     const gaps = attempts.map((attempt) => attempt.at + MIN_GAP_MS - time).filter((delay) => delay > 0);
     // Wake at a row's gap boundary too: small request jitter must not turn a

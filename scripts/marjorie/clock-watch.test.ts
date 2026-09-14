@@ -111,6 +111,46 @@ describe('shared clock gap verdict', () => {
     apply('open');
     expect(notifications).toBe(2);
   });
+  it('a queued clock alarm rechecks paginated issue state before emitting another open', () => {
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    const unrelated = Array.from({ length: 100 }, (_, i) => ({ title: `Watchdog alert ${i}` }));
+    let open = false;
+    const execImpl = vi.fn((_cmd: string, args: string[]) => {
+      if (args.some((s) => s.includes('/runs?'))) return JSON.stringify({ total_count: 0, workflow_runs: [] });
+      if (!open) return JSON.stringify([]);
+      if (args.some((s) => s.includes('&page=1'))) return JSON.stringify(unrelated);
+      if (args.some((s) => s.includes('&page=2'))) return JSON.stringify([{ title: CLOCK_TITLE }]);
+      throw new Error('unexpected gh call');
+    });
+    const first = join(mkdtempSync(join(tmpdir(), 'clock-')), 'out');
+    const second = join(mkdtempSync(join(tmpdir(), 'clock-')), 'out');
+
+    expect(checkClock({ env: { REPO, GITHUB_OUTPUT: first }, execImpl, now: NOW, since: SINCE, live: true })).toBe(0);
+    expect(readOutputs(first)).toMatchObject({ alert: 'true', action: 'open' });
+    open = true; // The first serialized alarm completed while this one waited.
+    expect(checkClock({ env: { REPO, GITHUB_OUTPUT: second }, execImpl, now: NOW, since: SINCE, live: true })).toBe(0);
+    expect(readOutputs(second)).toMatchObject({ alert: 'true', action: '' });
+    expect(execImpl.mock.calls.some(([, args]) => args.some((s) => s.includes('page=2')))).toBe(true);
+  });
+  it('fails closed when the serialized alarm cannot read exact issue state', () => {
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    const file = join(mkdtempSync(join(tmpdir(), 'clock-')), 'out');
+    const execImpl = vi.fn((_cmd: string, args: string[]) => {
+      if (args.some((s) => s.includes('/runs?'))) return JSON.stringify({ total_count: 0, workflow_runs: [] });
+      throw new Error('private issue API error');
+    });
+
+    expect(checkClock({ env: { REPO, GITHUB_OUTPUT: file }, execImpl, now: NOW, since: SINCE, live: true })).toBe(1);
+    expect(readOutputs(file)).toMatchObject({ alert: 'false', action: '' });
+  });
+  it('keeps the disabled clock false flag without reading or transitioning state', () => {
+    const file = join(mkdtempSync(join(tmpdir(), 'clock-')), 'out');
+    const execImpl = vi.fn();
+
+    expect(checkClock({ env: { REPO, GITHUB_OUTPUT: file }, execImpl, now: NOW, since: SINCE, live: false })).toBe(0);
+    expect(readOutputs(file)).toEqual({ alert: 'false', action: '' });
+    expect(execImpl).not.toHaveBeenCalled();
+  });
   it('checkClock and the watch give the same decision for misses and grace', () => {
     vi.spyOn(console, 'log').mockImplementation(() => {});
     for (const since of [SINCE, '2026-09-14T14:40:00Z']) {
@@ -120,17 +160,20 @@ describe('shared clock gap verdict', () => {
       expect(checkClock({ env: { REPO, GITHUB_OUTPUT: file }, execImpl, now: NOW, since, live: true })).toBe(0);
       const outputs = readOutputs(file);
       expect(outputs.alert).toBe(String(expected.alert));
-      expect(outputs.action).toBe(expected.alert ? 'open' : 'close');
+      expect(outputs.action).toBe(expected.alert ? 'open' : '');
     }
   });
   it('dry-run prints the canonical body even when coverage is healthy and cannot dispatch', () => {
     const logged = vi.spyOn(console, 'log').mockImplementation(() => {});
     const execImpl = gh(runs);
-    expect(checkClock({ env: { REPO, DRY_RUN: 'true' }, execImpl, now: NOW, since: SINCE, live: true })).toBe(0);
+    const file = join(mkdtempSync(join(tmpdir(), 'clock-')), 'out');
+    expect(checkClock({ env: { REPO, DRY_RUN: 'true', GITHUB_OUTPUT: file }, execImpl, now: NOW, since: SINCE, live: true })).toBe(0);
+    expect(readOutputs(file)).toMatchObject({ alert: 'false', action: 'close', dispatch_poll: 'false' });
     expect(logged.mock.calls.flat().join('\n')).toContain('Clock is not firing');
     expect(logged.mock.calls.flat().join('\n')).toContain('Poll coverage recovered below the alert threshold on main.');
     expect(logged.mock.calls.flat().join('\n')).toContain('later coverage gap will open a new incident');
     expect(execImpl.mock.calls.every(([, args]) => args[0] === 'api')).toBe(true);
+    expect(execImpl).toHaveBeenCalledTimes(1);
   });
   it('the deployed poll path invokes the watch when live, preserves dry-run, and fails on unreadable history', async () => {
     vi.spyOn(console, 'log').mockImplementation(() => {});

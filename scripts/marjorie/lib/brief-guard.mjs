@@ -63,7 +63,8 @@ export function guard({ env = process.env, execImpl = execFileSync, log = consol
     if (!decision.proceed) return emit(decision);
     // Producer dates titles in LA; creation day also catches UTC-day copies.
     const localDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(current.created_at));
-    const issues = pages(execImpl, `repos/${repo}/issues?state=all&labels=founders-brief&since=${encodeURIComponent(`${today}T00:00:00Z`)}`);
+    // UTC midnight of the LA date precedes LA midnight by 7?8h; filter exactly below.
+    const issues = pages(execImpl, `repos/${repo}/issues?state=all&labels=founders-brief&since=${encodeURIComponent(`${localDate}T00:00:00Z`)}`);
     for (const issue of issues) {
       if (issue.pull_request) continue;
       if (!Number.isFinite(Date.parse(issue.created_at)) || !Number.isInteger(issue.number)) throw new Error('issue');

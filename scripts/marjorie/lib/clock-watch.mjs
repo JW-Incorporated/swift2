@@ -42,6 +42,21 @@ export function readVerdict({ execImpl = execFileSync, repo, now = Date.now(), s
   }
 }
 
+export function readOpenClockAlert({ execImpl = execFileSync, repo }) {
+  try {
+    if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) throw new Error('repo');
+    for (let page = 1; page <= 10; page += 1) {
+      const issues = ghJson(execImpl, `repos/${repo}/issues?state=open&labels=watchdog-alert&per_page=100&page=${page}`);
+      if (!Array.isArray(issues) || issues.some((issue) => !issue || typeof issue.title !== 'string')) throw new Error('issues');
+      if (issues.some((issue) => !issue.pull_request && issue.title === CLOCK_TITLE)) return { ok: true, open: true };
+      if (issues.length < 100) return { ok: true, open: false };
+    }
+    throw new Error('page cap');
+  } catch {
+    return { ok: false, open: false };
+  }
+}
+
 export function clockBody(verdict, now) {
   return [CLOCK_TITLE, '', `Poll coverage check: ${verdict.missed.length} five-minute slots were not served on main.`, '',
     '- stage: `clock-silent`', `- checked at: ${new Date(now).toISOString()}`,
@@ -67,27 +82,15 @@ export function watchClock({ execImpl = execFileSync, repo, now = Date.now(), si
   if (!verdict.ok) { log('::warning::clock watch: run history unreadable'); return verdict; }
   if (dryRun) { log(verdict.alert ? clockBody(verdict, now) : clockRecoveryBody(verdict, now)); return verdict; }
   try {
-    // Complete REST pages, not search indexing; never print issue content.
-    for (let page = 1; page <= 10; page += 1) {
-      const issues = ghJson(execImpl, `repos/${repo}/issues?state=open&labels=watchdog-alert&per_page=100&page=${page}`);
-      if (!Array.isArray(issues)) throw new Error('issues');
-      const open = issues.some((issue) => !issue.pull_request && issue.title === CLOCK_TITLE);
-      if (open) {
-        if (verdict.alert) return verdict;
-        execImpl('gh', ['workflow', 'run', 'bot-chat-alarm.yml', '--repo', repo, '--ref', 'main', '-f', 'stage=clock-silent'],
-          { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15_000 });
-        log('clock watch: dispatched clock-silent to close the standing alert');
-        return verdict;
-      }
-      if (issues.length < 100) {
-        if (!verdict.alert) return verdict;
-        execImpl('gh', ['workflow', 'run', 'bot-chat-alarm.yml', '--repo', repo, '--ref', 'main', '-f', 'stage=clock-silent'],
-          { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15_000 });
-        log('clock watch: dispatched clock-silent to open the standing alert');
-        return verdict;
-      }
-    }
-    throw new Error('page cap');
+    // REST issue pages are authoritative here; search indexing can lag an upsert.
+    const issue = readOpenClockAlert({ execImpl, repo });
+    if (!issue.ok) throw new Error('issues');
+    if (issue.open === verdict.alert) return verdict;
+    const action = verdict.alert ? 'open' : 'close';
+    execImpl('gh', ['workflow', 'run', 'bot-chat-alarm.yml', '--repo', repo, '--ref', 'main', '-f', 'stage=clock-silent'],
+      { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15_000 });
+    log(`clock watch: dispatched clock-silent to ${action} the standing alert`);
+    return verdict;
   } catch {
     log('::warning::clock watch: alert lookup or dispatch failed');
     return { ...verdict, ok: false };

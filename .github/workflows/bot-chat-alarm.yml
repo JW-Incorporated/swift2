@@ -19,8 +19,9 @@
 #                   bot-chat-poll.yml. Each is attempted even if another
 #                   failed. First attempt only.
 #
-# Concurrency: a stuck reply is serialized per message; a doorbell fault per
-# stage, so two alarms can never both create its standing issue.
+# Concurrency: a stuck reply is serialized per message; a standing fault per
+# stage. Each serialized clock check rereads the exact REST issue state before
+# it emits an open or close transition.
 #
 # Titles: `Chat reply stuck · <Bot> · <message id>` (a new issue per message,
 # so it notifies) or the standing `Doorbell is not answering` / `Doorbell
@@ -77,6 +78,7 @@ jobs:
     permissions:
       contents: read
       actions: read
+      issues: read
     outputs:
       alert: ${{ steps.check.outputs.alert }}
       action: ${{ steps.check.outputs.action }}

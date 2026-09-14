@@ -114,6 +114,8 @@ on #4290. Historical source: DEBUG.md at commit
   closed before the agent.
 - Also stop when a founders-brief issue created that UTC day already has a
   discord-message-id marker in its body or comments, including closed issues.
+  The issue query starts early enough to include the current LA calendar day,
+  then filters by UTC creation day or the producer's exact LA-dated title.
   Read all relevant pages. Never print issue bodies/comments or founder text.
   A manual force input deliberately bypasses both checks; it is never in the
   clock's pinned inputs. A new replacement run after failure requires that
@@ -136,7 +138,10 @@ on #4290. Historical source: DEBUG.md at commit
   waits for a surviving cron. The existing standing-alert path deduplicates
   notifications. When healthy coverage meets an open exact-title clock issue,
   the poll dispatches the same serialized clock-silent alarm. Its check rereads
-  the shared verdict; its ops job closes the standing issue through the existing
+  the shared verdict and paginated exact-title REST issue state under the
+  workflow concurrency lock. It emits an action only when these states differ,
+  so queued alarms do not repeat a transition while search indexing lags.
+  Its ops job closes the standing issue through the existing
   upsert-alert close path without starting agent work. A later gap can open a
   new incident. Unreadable history never authorizes recovery. A dry_run prints
   the alert or recovery body but posts/dispatches nothing.
@@ -158,7 +163,10 @@ on #4290. Historical source: DEBUG.md at commit
 Unit gains StartLimitIntervalSec=3600, StartLimitBurst=5, WatchdogSec=180,
 NotifyAccess=all. A bounded systemd-notify subprocess reports WATCHDOG=1 only
 after the clock loop makes progress (including a handled read failure), never
-from an independent heartbeat masking a hung loop. No extra npm dependency.
+from an independent heartbeat masking a hung loop. An unexpected tick error
+latches the clock off and suppresses subsequent heartbeats until process
+restart; handled request failures and ordinary off ticks still acknowledge
+progress. Error logging uses fixed text only. No extra npm dependency.
 The update HA names doorbell-v2 and, from /opt/longlive-doorbell, runs the
 three prescribed commands with these approved additions before restart:
 `sudo cp scripts/doorbell/longlive-doorbell.service /etc/systemd/system/longlive-doorbell.service`

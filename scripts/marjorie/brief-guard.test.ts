@@ -39,12 +39,37 @@ describe('brief first-job guard', () => {
     expect(log.mock.calls.flat().join('')).not.toContain('private fixture');
     expect(execImpl.mock.calls.some(([, args]) => args.at(-1)?.includes('state=all'))).toBe(true);
   });
-  it('fails closed on an API error or incomplete run list; force bypass is read-free', () => {
+  it('finds a prior-UTC-day marker for the current LA date without matching unrelated older issues', () => {
+    const current = { ...CURRENT, created_at: '2026-09-14T01:00:00Z' };
+    const issue = (title: string) => ({ number: 1, title, created_at: '2026-09-13T08:00:00Z', body: '<!-- discord-message-id: 123 -->' });
+    const runGuard = (issues: ReturnType<typeof issue>[]) => {
+      const execImpl = vi.fn((_cmd: string, args: string[]) => {
+        const endpoint = args.at(-1)!;
+        if (endpoint.endsWith('/runs/20')) return JSON.stringify(current);
+        if (endpoint.includes('/runs?')) return JSON.stringify({ total_count: 1, workflow_runs: [current] });
+        if (endpoint.includes('/issues?')) {
+          const since = new URL(endpoint, 'https://api.github.test/').searchParams.get('since')!;
+          return JSON.stringify(issues.filter((candidate) => Date.parse(candidate.created_at) >= Date.parse(since)));
+        }
+        return JSON.stringify([]);
+      });
+      const log = vi.fn();
+      expect(guard({ env: ENV, execImpl, log })).toBe(0);
+      return log;
+    };
+    expect(runGuard([issue("Founders' Brief \u2014 2026-09-12")])).toHaveBeenCalledWith('brief guard: first-run');
+    expect(runGuard([{ ...issue("Founders' Brief \u2014 2026-09-13"), created_at: '2026-09-13T23:59:00Z' }])).toHaveBeenCalledWith('brief guard: already-delivered');
+  });
+  it('fails closed on an API error, incomplete run list, or pagination cap; force bypass is read-free', () => {
     for (const execImpl of [() => { throw new Error('private error'); }, (_cmd: string, args: string[]) => JSON.stringify(args.at(-1)?.endsWith('/runs/20') ? CURRENT : { total_count: 101, workflow_runs: [CURRENT] })]) {
       const log = vi.fn();
       expect(guard({ env: ENV, execImpl, log })).toBe(1);
       expect(log).toHaveBeenCalledWith('brief guard: unreadable-history');
     }
+    const capped = vi.fn((_cmd: string, args: string[]) => JSON.stringify(args.at(-1)?.endsWith('/runs/20') ? CURRENT : args.at(-1)?.includes('/runs?') ? { total_count: 1, workflow_runs: [CURRENT] } : Array(100).fill({})));
+    const cappedLog = vi.fn();
+    expect(guard({ env: ENV, execImpl: capped, log: cappedLog })).toBe(1);
+    expect(cappedLog).toHaveBeenCalledWith('brief guard: unreadable-history');
     const execImpl = vi.fn();
     expect(guard({ env: { ...ENV, FORCE: 'true' }, execImpl, log: () => {} })).toBe(0);
     expect(execImpl).not.toHaveBeenCalled();

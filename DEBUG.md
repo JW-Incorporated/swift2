@@ -179,3 +179,35 @@ Full local result: .scratch/clock-final-extra-review.txt. This exception is
 exhausted. No PR, tag, HA, activation, or live clock proof has been made.
 Stop checkpoint; do not claim a clean review or start another review without
 an explicit new exception.
+
+## Fresh-context fixes after second extra review ? 2026-09-14
+
+After Joey requested completion, three bounded fresh gpt-5.6-sol debug
+implementation passes verified the reported mechanisms. These were fixes,
+not additional independent reviews. All four findings are addressed:
+
+- Brief marker: a regression reproduced the 01:00Z exclusion. Query from
+  UTC midnight of the current LA date, deliberately before LA midnight;
+  retain the existing UTC-creation-day/exact-LA-title local filter. Boundary,
+  unrelated older issue and pagination-cap cases pass. No new daily policy.
+- Queued alarm: a regression first observed the second open action. Both
+  poll and alarm now share paginated exact-title REST issue lookup. Under
+  existing workflow concurrency, the alarm emits a transition only when
+  coverage and issue state differ. Unreadable state fails closed; the check
+  job explicitly gains issues:read. Tests cover second queued alarm, issue
+  pagination, recovery/later incident, disabled flag and dry-run preview.
+- Watchdog: a regression reproduced unexpected errors reporting progress.
+  Unexpected tick errors now latch the clock off and suppress subsequent
+  ticks/heartbeats until restart, with fixed sanitized log text. Handled
+  network failures and ordinary disabled ticks still report progress.
+- chat-poll is 299 lines after removing two empty comment separator lines;
+  no behavior change and no unnecessary module extraction.
+
+Root verification: 191/191 focused tests across 16 files passed. Repository
+lint: 0 errors, 5 existing unrelated warnings. Diff whitespace check passes.
+Spec and ops now describe these corrected mechanisms. Full CI remains the
+merge gate; these results do not replace an independent review verdict.
+
+No further review has run. The prior explicit review exceptions are used.
+A new exception or revised review policy is needed to review this corrected
+implementation before a PR. No PR/tag/HA/activation/live proof yet.

@@ -1,7 +1,6 @@
 // Bot chat poll (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
 // A plain script, never an agent step — DISCORD_BOT_TOKEN must never enter an
 // agent context. Invoked only from `run:` steps under `environment: social`:
-//
 //   poll     `bot-chat-poll.yml`. Founder messages in #longlive-marjorie and
 //            #longlive-tree (and their active threads), newer than 24 h,
 //            without the bot's own 👀, oldest first, at most 3 per channel.
@@ -16,7 +15,6 @@
 //   context  the chat routines' first job (lib/chat-context.mjs): claims the
 //            message with this bot's own 👀, then writes its context JSON for
 //            the agent to read from `.scratch/`.
-//
 // A founder's Discord *reply* at top level (type 19, `message_reference`) is
 // a top-level message here — the 09-13 brief reply that reply-poll.mjs
 // missed because it only reads threads. Anything that leaves messages unread

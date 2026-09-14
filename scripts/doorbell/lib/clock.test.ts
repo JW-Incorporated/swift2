@@ -70,4 +70,52 @@ describe('host clock', () => {
     await first;
     expect(progress).toHaveBeenCalledOnce();
   });
+
+  it('keeps watchdog progress for handled network failures and a disabled clock', async () => {
+    const progress = vi.fn();
+    const networkFailure = createClock({
+      githubToken: 'x',
+      fetchImpl: vi.fn().mockResolvedValueOnce(response(liveText)).mockRejectedValueOnce(new Error('network details')),
+      rows,
+      now: () => start,
+      processStartMs: start,
+      progress,
+    });
+    await networkFailure.refresh();
+    await networkFailure.tick();
+    expect(progress).toHaveBeenCalledOnce();
+
+    const disabled = createClock({
+      githubToken: 'x',
+      fetchImpl: vi.fn().mockResolvedValue(response('export const CLOCK_LIVE = false;\n')),
+      rows,
+      now: () => start,
+      processStartMs: start,
+      progress,
+    });
+    await disabled.refresh();
+    await disabled.tick();
+    expect(progress).toHaveBeenCalledTimes(2);
+  });
+
+  it('latches an unexpected tick failure without leaking its error or resuming progress', async () => {
+    const progress = vi.fn();
+    const log = vi.fn();
+    let calls = 0;
+    const now = () => {
+      calls += 1;
+      if (calls === 2) throw new Error('secret exception details');
+      return start;
+    };
+    const fetchImpl = vi.fn().mockResolvedValue(response(liveText));
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now, processStartMs: start, progress, log });
+    await clock.refresh();
+    await clock.tick();
+    await clock.tick();
+    expect(progress).not.toHaveBeenCalled();
+    expect(log).toHaveBeenCalledOnce();
+    expect(log).toHaveBeenCalledWith('clock: unexpected failure; watchdog progress stopped');
+    expect(log.mock.calls.flat().join(' ')).not.toContain('secret exception details');
+    expect(fetchImpl).toHaveBeenCalledOnce();
+  });
 });

@@ -32,7 +32,7 @@ import { readDeliveryState } from './lib/chat-delivery.mjs';
 import { BOTS, CLOCK_LIVE, CLOCK_LIVE_SINCE, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, snowflakeMs } from './lib/discord-bot.mjs';
 
-import { CLOCK_TITLE, clockBody, clockRecoveryBody, readVerdict } from './lib/clock-watch.mjs';
+import { CLOCK_TITLE, clockBody, clockRecoveryBody, readOpenClockAlert, readVerdict } from './lib/clock-watch.mjs';
 
 export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent'];
 // Each `alert` action is bounded inside the job's 8 minutes, so a stalled
@@ -104,8 +104,14 @@ export function checkClock({ env = process.env, execImpl = execFileSync, now = D
   if (!live && !dryRun) { output(env, 'alert', 'false'); output(env, 'action', ''); return 0; }
   const verdict = readVerdict({ execImpl, repo: env.REPO || env.GITHUB_REPOSITORY || '', now, since });
   if (!verdict.ok) { output(env, 'alert', 'false'); output(env, 'action', ''); console.log('::error::clock check: run history unreadable'); return 1; }
+  let action = live ? (verdict.alert ? 'open' : 'close') : '';
+  if (live && !dryRun) {
+    const issue = readOpenClockAlert({ execImpl, repo: env.REPO || env.GITHUB_REPOSITORY || '' });
+    if (!issue.ok) { output(env, 'alert', 'false'); output(env, 'action', ''); console.log('::error::clock check: alert state unreadable'); return 1; }
+    if (issue.open === verdict.alert) action = '';
+  }
   output(env, 'alert', String(live && verdict.alert));
-  output(env, 'action', live ? (verdict.alert ? 'open' : 'close') : '');
+  output(env, 'action', action);
   output(env, 'dispatch_poll', 'false');
   if (live || dryRun) {
     const body = verdict.alert ? clockBody(verdict, now) : clockRecoveryBody(verdict, now);
