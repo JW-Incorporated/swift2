@@ -122,13 +122,18 @@ EOF
 ```
 
 If the heredoc form is refused, pass the reply as `--text "<your reply>"`.
-Save once, at the end. Saving nothing makes the workflow post `[chat failed]`.
+Ordinary replies must contain no more than 80 whitespace-separated words. If
+the founder explicitly asked for detail, add `--detail requested`; if
+action-critical steps or evidence require a longer answer, add `--detail
+essential`. Do not use `essential` automatically for routine role or status
+answers. If save rejects the reply, shorten or correct the reason and retry
+before ending. Saving nothing makes the workflow post `[chat failed]`.
 The summary is posted on a public GitHub issue: say what you did, and never
 quote or paraphrase what the founder wrote.
 
 Reply rules:
 - At most 1800 characters of Discord Markdown, in words a non-coder follows.
-- For an ordinary question, default to 2–4 short sentences (about 80 words).
+- For an ordinary question, use 2–4 short sentences and no more than 80 words.
   Expand when the founder asks for detail or action-critical steps or evidence
   require it.
 - Lead with what you did or found, then the answer.

@@ -26,7 +26,7 @@
 //                          this run placed that reaction, the `💬 chat:` turn
 //                          log, which carries no founder text (public repo)
 import { execFileSync } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { neutralizeMentions } from '../community/discord-delivery.mjs';
@@ -38,6 +38,8 @@ import { defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/di
 import { post as webhookPost } from './lib/discord.mjs';
 
 export const REPLY_CAP = 1800;
+export const ORDINARY_WORD_CAP = 80;
+const DETAIL_REASONS = new Set(['requested', 'essential']);
 const SUMMARY_CAP = 120;
 const REPLY_FILE = 'chat-reply.md';
 const SUMMARY_FILE = 'chat-summary.txt';
@@ -79,14 +81,29 @@ function setOutput(env, key, value) {
 
 export function save(flags, { readStdin = () => readFileSync(0, 'utf8') } = {}) {
   const text = String(flags.text ? flags.text : readStdin()).trim();
+  const dir = flags.dir || OUT_DIR;
+  const replyFile = path.join(dir, REPLY_FILE);
+  const summaryFile = path.join(dir, SUMMARY_FILE);
+  for (const file of [replyFile, summaryFile]) {
+    if (existsSync(file)) unlinkSync(file);
+  }
   if (!text) {
     console.log('chat-post save: the reply is empty — nothing written');
     return 1;
   }
-  const dir = flags.dir || OUT_DIR;
+  const detail = String(flags.detail || '');
+  if (detail && !DETAIL_REASONS.has(detail)) {
+    console.log('chat-post save: --detail must be requested or essential — nothing written');
+    return 1;
+  }
+  const words = text.split(/\s+/).length;
+  if (words > ORDINARY_WORD_CAP && !detail) {
+    console.log(`chat-post save: ${words} words exceeds the ordinary ${ORDINARY_WORD_CAP}-word limit; shorten and retry, or use --detail requested|essential when justified — nothing written`);
+    return 1;
+  }
   mkdirSync(dir, { recursive: true });
-  writeFileSync(path.join(dir, REPLY_FILE), `${text}\n`);
-  if (flags.summary) writeFileSync(path.join(dir, SUMMARY_FILE), `${oneLine(flags.summary, SUMMARY_CAP)}\n`);
+  writeFileSync(replyFile, `${text}\n`);
+  if (flags.summary) writeFileSync(summaryFile, `${oneLine(flags.summary, SUMMARY_CAP)}\n`);
   console.log(`chat-post save: ${text.length} chars${text.length > REPLY_CAP ? ` — over ${REPLY_CAP}, the post step will cut it` : ''}`);
   return 0;
 }
