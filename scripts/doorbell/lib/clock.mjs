@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import {
-  GIVE_UP_MS, MINUTE_MS, canReserve, clockDispatch, covered, dueRows, nextFires,
+  GIVE_UP_MS, MINUTE_MS, MIN_GAP_MS, canReserve, clockDispatch, covered, dueRows, latestSlot, nextFires,
   parseSchedule, runsRequest, scheduleProblems,
 } from './clock-core.mjs';
 import { githubRequest, REQUEST_TIMEOUT_MS } from './github-rest.mjs';
@@ -27,7 +27,7 @@ export function loadPinned() {
 }
 
 export function createClock({ githubToken, fetchImpl = fetch, timers = globalThis, now = Date.now,
-  rows = loadPinned(), processStartMs = now(), progress = () => {} }) {
+  rows = loadPinned(), processStartMs = now(), progress = () => {}, log = () => {} }) {
   const handled = new Set();
   const attempts = [];
   let mainLive = false;
@@ -40,11 +40,11 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
   let refreshTimer = null;
   let stopped = false;
   const github = (request) => githubRequest(request, githubToken, { fetchImpl });
-  const isLive = (time) => PINNED_CLOCK_LIVE && mainLive && failures < 3 && time - lastGood <= STALE_MS;
+  const isLive = (time) => !stopped && PINNED_CLOCK_LIVE && mainLive && failures < 3 && time - lastGood < STALE_MS;
 
   async function readMain() {
     try {
-      const response = await fetchImpl(LIVE_URL, { signal: globalThis.AbortSignal.timeout(REQUEST_TIMEOUT_MS), headers: { 'User-Agent': 'longlive-doorbell' } });
+      const response = await fetchImpl(LIVE_URL, { cache: 'no-store', signal: globalThis.AbortSignal.timeout(REQUEST_TIMEOUT_MS), headers: { 'User-Agent': 'longlive-doorbell' } });
       if (!response.ok) throw new Error('status');
       const live = parseMainLive(await response.text());
       if (live === null) throw new Error('flag');
@@ -69,15 +69,22 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
     try {
       if (time < lastObserved || !isLive(time)) return;
       lastObserved = time;
+      // A backward jump is stopped above, so expired entries cannot be due again.
+      for (const key of handled) if (Number(key.split('@').at(-1)) < time - GIVE_UP_MS) handled.delete(key);
+      while (attempts.length && attempts[0].at <= time - 60 * MINUTE_MS) attempts.shift();
       for (const { row, slot } of dueRows(rows, handled, processStartMs, time)) {
         const response = await github(runsRequest(row.workflow, slot));
-        const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, time);
-        if (exists === null || exists || !isLive(now()) || now() - slot > GIVE_UP_MS) continue;
         const sentAt = now();
+        const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, sentAt);
+        if (sentAt < lastObserved || !isLive(sentAt) || latestSlot(row.parsed, sentAt) !== slot) continue;
+        lastObserved = sentAt;
+        if (exists === null) continue;
+        if (exists) { handled.add(`${row.key}@${slot}`); continue; }
         if (!canReserve(row, attempts, sentAt)) continue;
         handled.add(`${row.key}@${slot}`);
         attempts.push({ key: row.key, at: sentAt });
-        await github(clockDispatch(row));
+        const result = await github(clockDispatch(row));
+        log(`clock: ${row.workflow} slot ${new Date(slot).toISOString()} attempted at ${new Date(sentAt).toISOString()} accepted=${result.ok}`);
       }
     } finally {
       lastObserved = Math.max(lastObserved, time);
@@ -92,7 +99,12 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
 
   function scheduleTick() {
     if (stopped) return;
-    tickTimer = timers.setTimeout(async () => { await tick(); scheduleTick(); }, untilTick(now()));
+    const time = now();
+    const gaps = attempts.map((attempt) => attempt.at + MIN_GAP_MS - time).filter((delay) => delay > 0);
+    // Wake at a row's gap boundary too: small request jitter must not turn a
+    // five-minute cadence into an ever-later sequence of whole-minute skips.
+    const delay = Math.min(untilTick(time), ...gaps);
+    tickTimer = timers.setTimeout(async () => { await tick(); scheduleTick(); }, delay);
   }
 
   return {

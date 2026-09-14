@@ -96,6 +96,8 @@ export function covered(response, slot, windowMs, now) {
   const runs = response.data?.workflow_runs;
   if (!response.ok || !Number.isFinite(server) || server < slot || Math.abs(server - now) > 90_000 || !Array.isArray(runs)) return null;
   if (response.data.total_count !== runs.length || runs.length === 100) return null;
+  if (runs.some((run) => !run || typeof run.head_branch !== 'string' || typeof run.event !== 'string'
+    || !Number.isFinite(Date.parse(run.created_at)))) return null;
   return runs.some((run) => run.head_branch === 'main' && ['schedule', 'workflow_dispatch'].includes(run.event)
     && Date.parse(run.created_at) >= slot && Date.parse(run.created_at) < slot + windowMs);
 }

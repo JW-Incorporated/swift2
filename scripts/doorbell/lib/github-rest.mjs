@@ -19,7 +19,7 @@ export async function githubRequest({ method = 'GET', url, body }, token, { fetc
       try { data = await res.json(); } catch { readable = false; }
     }
     return { ok: res.ok && readable, status: res.status, data, date: res.headers?.get?.('date') ?? null };
-  } catch (err) {
-    return { ok: false, status: `network error (${err.message})`, data: null };
+  } catch {
+    return { ok: false, status: 'network error', data: null };
   }
 }
