@@ -2,24 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #75 🔴 [BLOCKING] Install Long Live Doorbell on the Hermes VM host (~25 min)
-<!-- ha filed=2026-09-14 -->
-
-**Why:** M7's live proof waits on this: the doorbell picks up founder messages in seconds instead of up to 5 minutes. Guide: docs/ops/doorbell.md
-**Steps:**
-1. `node -v`; if below v22: `curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs`
-2. `sudo useradd --system --no-create-home --shell /usr/sbin/nologin longlive-doorbell`
-3. `sudo git clone --depth 1 --branch doorbell-v1 https://github.com/JW-Incorporated/swift2.git /opt/longlive-doorbell`
-4. `sudo install -m 0640 -o root -g longlive-doorbell /dev/null /etc/longlive-doorbell.env && sudo nano /etc/longlive-doorbell.env`
-5. Paste two lines from the password manager: `DOORBELL_DISCORD_TOKEN=` (HA #72), `DOORBELL_GITHUB_TOKEN=` (HA #74). Save
-6. `sudo -u longlive-doorbell bash -c 'set -a; . /etc/longlive-doorbell.env; node /opt/longlive-doorbell/scripts/doorbell/doorbell.mjs --check'` ends `config OK`
-7. `sudo cp /opt/longlive-doorbell/scripts/doorbell/longlive-doorbell.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now longlive-doorbell`
-8. `sudo systemctl stop longlive-doorbell`, post `fallback test` in #longlive-marjorie, wait for the reply, then `sudo systemctl start longlive-doorbell`
-**Worked if:** `journalctl -u longlive-doorbell -n 30` shows `ready:` with both channel names, and step 8's message got a reply with ✅
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->

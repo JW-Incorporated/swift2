@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #75 · 2026-09-14 · done · Install Long Live Doorbell on the Hermes VM host — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609" · by agent
 - #72 · 2026-09-13 · done · Create the Long Live Doorbell Discord bot and save its token — "Joey confirmed in chat 2026-09-13: Long Live Doorbell bot created, token saved" · by chat
 - #73 · 2026-09-13 · done · Limit the Doorbell bot to #longlive-marjorie and #longlive-tree — "Joey confirmed in chat 2026-09-13: Doorbell bot limited to #longlive-marjorie and #longlive-tree" · by chat
 - #74 · 2026-09-13 · done · Create the GitHub key the Doorbell uses to wake Marjorie and Tree — "Joey confirmed in chat 2026-09-13: fine-grained key longlive-doorbell-dispatch created and saved" · by chat
