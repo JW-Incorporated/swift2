@@ -34,7 +34,7 @@ import { runMain } from '../lib/cli.mjs';
 import { parseFlags } from './chat-poll.mjs';
 import { postFailure, readDeliveryState, writtenByFounder } from './lib/chat-delivery.mjs';
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, SNOWFLAKE } from './lib/chat-inbox.mjs';
-import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from './lib/discord-bot.mjs';
+import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import { post as webhookPost } from './lib/discord.mjs';
 
 export const REPLY_CAP = 1800;
@@ -179,10 +179,15 @@ export async function postCmd(flags, { env = process.env, fetchImpl = fetch, wai
   return 0;
 }
 
-/** Public-issue line: what was done, never what the founder wrote. */
-export function turnLog({ bot, summary, replied, messageId }) {
+/**
+ * Public-issue line: what was done, never what the founder wrote. A reply
+ * also records `replied in <n>s` (message to ✅), the timing M7 uses to re-set
+ * the doorbell's stuck threshold after a week (m7-doorbell.md Mechanics 8).
+ */
+export function turnLog({ bot, summary, replied, messageId, repliedIn = null }) {
   const done = replied ? oneLine(summary, SUMMARY_CAP) || 'answered' : FAILURE_PREFIX;
-  return `💬 chat: #${BOTS[bot].channelName} → ${neutralize(done)}\n\n<!-- chat-id: ${messageId} -->`;
+  const timing = replied && Number.isFinite(repliedIn) ? ` · replied in ${repliedIn}s` : '';
+  return `💬 chat: #${BOTS[bot].channelName} → ${neutralize(done)}${timing}\n\n<!-- chat-id: ${messageId} -->`;
 }
 
 function writeTurnLog({ comment, env, execImpl }) {
@@ -201,7 +206,7 @@ function writeTurnLog({ comment, env, execImpl }) {
   }
 }
 
-export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync } = {}) {
+export async function finish(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now } = {}) {
   const { bot } = flags;
   const messageId = flags['message-id'] || '';
   const channelId = flags['channel-id'] || '';
@@ -252,10 +257,12 @@ export async function finish(flags, { env = process.env, fetchImpl = fetch, slee
     else console.log('no ❌ without a notice — a re-run of this job, or bot-chat-poll, settles this claim later');
   }
   if (!reacted) return 1;
+  const repliedIn = replied ? Math.max(0, Math.round((now() - snowflakeMs(messageId)) / 1000)) : null;
+  if (replied) console.log(`replied in ${repliedIn}s`);
 
   // One turn log per message: the ✅/❌ this run just placed stops every later run.
   const summary = readText(path.join(flags['reply-dir'] || OUT_DIR, SUMMARY_FILE));
-  writeTurnLog({ comment: turnLog({ bot, summary, replied, messageId }), env, execImpl });
+  writeTurnLog({ comment: turnLog({ bot, summary, replied, messageId, repliedIn }), env, execImpl });
   return 0;
 }
 
