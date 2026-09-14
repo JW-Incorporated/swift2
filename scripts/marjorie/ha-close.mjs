@@ -20,6 +20,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const HEADING = /^##\s+#(\d+)\s/;
 const TITLE = /^##\s+#\d+\s+\S*\s*\[(?:BLOCKING|DECIDE|UPGRADE)\]\s+(.*?)(?:\s+\(~[^)]*\))?\s*$/;
 const LEDGER_LINE = /^-\s+#\d+\s*·/;
+const OPEN_COUNT = /^(>\s+\*\*)\d+( open\.\*\*)/;
 const NOTE_CAP = 200;
 
 export function laToday(now = new Date()) {
@@ -65,7 +66,9 @@ export function closeHumanAction(openMd, doneMd, { number, date, note, by = 'cha
   let end = start + 1;
   while (end < lines.length && !HEADING.test(lines[end]) && lines[end].trim() !== '---') end += 1;
   const title = (TITLE.exec(lines[start])?.[1] || lines[start].replace(/^##\s+#\d+\s*/, '')).trim();
-  const open = `${tidy([...lines.slice(0, start), ...lines.slice(end)]).join(eol)}${eol}`;
+  const kept = tidy([...lines.slice(0, start), ...lines.slice(end)]);
+  const remaining = kept.filter((l) => HEADING.test(l)).length;
+  const open = `${kept.map((l) => l.replace(OPEN_COUNT, `$1${remaining}$2`)).join(eol)}${eol}`;
 
   const doneEol = doneMd.includes('\r\n') ? '\r\n' : '\n';
   const doneLines = doneMd.split(/\r?\n/);

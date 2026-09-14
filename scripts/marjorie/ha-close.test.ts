@@ -10,6 +10,8 @@ const OPEN = [
   '',
   '<!-- ha-format: 2 -->',
   '',
+  '> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.',
+  '',
   '## #69 🔴 [BLOCKING] Grant the Discord bot permissions (~5 min)',
   '<!-- ha filed=2026-09-12 -->',
   '',
@@ -61,6 +63,12 @@ describe('closeHumanAction', () => {
     expect(r.ok).toBe(true);
     expect(r.open).not.toMatch(/---\s*\n\s*---/);
     expect(r.open).toContain('## #49');
+  });
+
+  it('recounts the header\x27s open total from the remaining items (#4279)', () => {
+    const r = closeHumanAction(OPEN, DONE, { number: 69, date: '2026-09-13', note: 'done' });
+    expect(r.open).toContain('> **3 open.** Closed items');
+    expect(r.open).not.toContain('**4 open.**');
   });
 
   it('keeps CRLF files CRLF', () => {
