@@ -4,11 +4,8 @@ Paste everything below this line into a **fresh** session in Swift2. Swift2's
 debug protocol says a stuck design is rebuilt from a clean context, not in
 the session that failed.
 
-**Before you start:**
-- the doorbell is installed (HA #75 closed);
-- Joey has answered the scope question on #4290 (options A / B / C below).
-
-If either is missing, stop and say so.
+**Before you start:** the doorbell is installed (HA #75 closed). If not, stop
+and say so. The scope is decided (below).
 
 ---
 
@@ -25,12 +22,16 @@ git show origin/feature/m7-clock:DEBUG.md
 
 Its last section, "Architect ruling", is the contract for this wave.
 
-That branch is your reference. Reuse its cron parser (`clock-core.mjs`
-`parseCron`/`matches`/`nextFires`), `schedule.json` and `schedule.test.ts`,
-and the workflow gate changes (`watchdog.yml`, `backup-restore-drill.yml`,
-`social-approval-notify.yml`, `codeql.yml`, `routine-vault-run-check.mjs`).
-Take its remote-table refresh, `policyProblems` and the handled-slot file
-only as examples of what not to do.
+That branch is your reference:
+- **Reuse:** its cron parser (`clock-core.mjs` `parseCron`/`matches`/
+  `nextFires`), and `schedule.test.ts`'s check that each table row matches its
+  workflow's own cron.
+- **Not needed now:** its 55-row `schedule.json`, and its gate changes to
+  `watchdog.yml`, `backup-restore-drill.yml`, `social-approval-notify.yml`,
+  `codeql.yml` and `routine-vault-run-check.mjs`. The scope below leaves
+  those workflows on GitHub's own schedule.
+- **What not to do:** its remote-table refresh, `policyProblems` and the
+  handled-slot file.
 
 ## Design (the architect's ruling, summarised)
 
@@ -56,12 +57,24 @@ only as examples of what not to do.
   - the dedup query uses `branch=main`, filtered in code;
   - `since` is passed in `checkClock`;
   - CI asserts `CLOCK_LIVE` implies a valid, non-future `CLOCK_LIVE_SINCE`.
-- **Scope, per Joey's answer on #4290:**
-  - **A:** `bot-chat-poll`, `routine-marjorie-ops`, `watchdog` only.
-  - **B:** A plus every other row that is harmless if doubled, as a second tag.
+- **Scope: decided by Joey on #4290 (2026-09-14).** "The clock is only for
+  time-sensitive items, like the morning brief and the responses. Other
+  routines aren't time sensitive." So the table has exactly two rows:
+  - `bot-chat-poll.yml` (`*/5 * * * *`), the responses. It is harmless if
+    it runs twice: the claims and the per-message concurrency already
+    dedupe.
+  - `routine-marjorie-brief.yml` (`0 12 * * *`), the morning brief. It is
+    **not** harmless if it runs twice. A GitHub cron that fires late, after
+    the clock's run, would start a second Opus run and post a second brief.
 
-  Social posting, backups and AI routines stay on GitHub cron until each has
-  a per-slot idempotency guard.
+  Everything else stays on GitHub's schedule, with no clock row. Adding a
+  row later is a tag, and a decision for Joey.
+- **Brief guard (required before the brief joins the table).** Add a first
+  job to `routine-marjorie-brief.yml` that ends the run before `run` starts
+  when another run of this workflow on main (schedule or dispatch) already
+  started that UTC day, or when today's `founders-brief` issue already has
+  its `discord-message-id` marker. A manual `force` dispatch input bypasses
+  it.
 
 ## Hard rules carried in
 
@@ -99,7 +112,11 @@ open a round 3.
    - the rate cap and row gap hold, and a table outside the cap fails CI;
    - the gap watch: cron-only runs raise no alert, two missed slots do, and
      no alert fires inside the grace;
-   - `checkClock` gives the same verdict as the watch.
+   - `checkClock` gives the same verdict as the watch;
+   - the table is exactly the two rows, and each matches its workflow's cron;
+   - the brief guard: a second run the same UTC day ends before the agent
+     job, and `force` bypasses it (workflow text test plus a unit test of the
+     guard's decision).
 
    Codex round 2 reviews the diff; then open the PR with auto-merge.
 3. Tag `doorbell-v2` and file the update human action by PR:
@@ -110,14 +127,17 @@ open a round 3.
    ```
 4. **Live proof** (after Joey reports the update done):
    - flip `CLOCK_LIVE` and set `CLOCK_LIVE_SINCE` by PR;
-   - watch one hour: the in-scope rows start within 2 minutes of every slot,
-     `workflow_dispatch` by the key's owner, none doubled;
+   - watch one hour: `bot-chat-poll.yml` starts within 2 minutes of each of
+     its 12 slots (`workflow_dispatch` by the key's owner, none doubled);
+   - at the next 12:00 UTC: exactly one brief run posts, and a GitHub cron
+     run that day (if one fires) ends at the guard;
    - run a `dry_run` `clock-silent` alarm;
    - put run ids on #4180, and close #4290 with the hour's run list.
 
 ## Done means
 
-- The one-hour proof is on #4180 with zero doubles, and #4290 is closed.
+- The one-hour poll proof and one on-time brief with no second copy are on
+  #4180, and #4290 is closed.
 - Unit tests are green and lint shows 0 errors.
 - Both Codex rounds are clean.
 - `MAP.md`, `docs/ops/doorbell.md` and `STATE.md` are updated.
