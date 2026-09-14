@@ -225,7 +225,7 @@ one covers only the conversational loop. Epic #4180.
    `bot-chat-poll.yml`'s second step; `marjorie-reply-poll.yml` is
    dispatch-only); the chat routine reads that issue
    too, so a reply in the brief thread gets both an issue comment and an
-   in-thread answer. No double action: the routine checks the issue's
+   answer in that thread. No double action: the routine checks the issue's
    comments for its own `💬 chat:` line before acting.
 7. **Cost**: at most 3 messages per channel per poll, one Opus turn each,
    25 turns; a busy hour is ≤24 routine runs, a normal day a handful. Opus
@@ -238,7 +238,8 @@ one covers only the conversational loop. Epic #4180.
 
 - **Live proof, both bots, cited on #4180 with message links and run URLs**:
   Joey asks each bot "what is your job?" and "can you talk to Tree /
-  Marjorie?" and gets an in-thread reply from each within 15 minutes; both
+  Marjorie?" and gets a reply from each within 15 minutes (in the channel
+  since #4320; in-thread at the 09-13 proof); both
   messages carry ✅.
 - **Power proof**: Joey tells Marjorie in chat that a listed blocker is
   done; her reply cites the PR that removes the human action (or the issue

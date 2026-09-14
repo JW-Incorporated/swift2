@@ -147,6 +147,25 @@ Epic #4180.
 
 ---
 
+## 2026-09-14 — Chat replies land in the channel, not in a new thread; short by default (#4319, #4320)
+
+**Decision (Joey, in Discord and in chat, 2026-09-14):** amends the M5 entry
+below. A founder's top-level message in `#longlive-marjorie` or
+`#longlive-tree` gets one reply in the channel; a message already in a
+thread gets its reply in that thread. The routines create no threads.
+Ordinary replies default to 2–4 sentences (about 80 words), with more only
+when asked for or essential; the 1,800-character cap stays. The old Hermes
+Tree gateway no longer answers in `#longlive-tree` (host config, not this
+repo). M6's echo line follows the same rule.
+
+**Why:** at M7's live test the bots opened a thread per question and wrote
+long answers, and Tree answered twice. Joey wants one short answer where he
+asked.
+
+**Consequence:** `chat-post.mjs thread` returns an empty id for top-level
+messages; the M5 proof text (in-thread) is historical. Spec:
+`docs/specs/marjorie-overhaul/m7-chat-direct-replies.md`.
+
 ## 2026-09-13 — Founders talk to Marjorie and Tree in Discord; Tree may answer in threads (M5)
 
 **Decision:** A founder message in `#longlive-marjorie` or `#longlive-tree`,
