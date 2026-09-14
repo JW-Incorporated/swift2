@@ -29,7 +29,18 @@
         "Nothing was auto-closed by triage without a founder or a merged fix",
         "If M4 merged: one Monday cycle produced an issue from a Tree ask and an issue from a Marjorie ask, both numbered in the next brief",
         "M5 chat: at least one real founder message answered in-thread with ✅ in each of #longlive-marjorie and #longlive-tree since M5 merged (count the brief issues' `💬 chat:` turn-log comments and cite the run URLs); every [chat failed] notice has one ❌ and no second notice for the same message",
+        "M7 doorbell: rang for at least one real founder message in each of #longlive-marjorie and #longlive-tree — the message carries 👀 from Long Live Doorbell and its chat run's triggering actor is the doorbell key's owner (event workflow_dispatch); cite the run URLs and each message-to-✅ time from the run's `replied in <n>s` line",
         "Recommend close or extend on #4180"
+      ]
+    },
+    {
+      "id": "MR3",
+      "due": "2027-08-13",
+      "status": "pending",
+      "title": "Renew the doorbell's GitHub key a month before it expires (2027-09-13)",
+      "checks": [
+        "longlive-doorbell-dispatch (fine-grained, swift2 only, Actions: Read and write) expires 2027-09-13. If it has not been renewed, file a HUMAN-ACTIONS.md item (v2) to create its replacement with the same scope, replace DOORBELL_GITHUB_TOKEN in /etc/longlive-doorbell.env on the Hermes VM host, and run sudo systemctl restart longlive-doorbell (docs/ops/doorbell.md, Keys)",
+        "After the renewal, confirm a clock-started run of bot-chat-poll.yml shows event workflow_dispatch by the key's owner within the last hour"
       ]
     }
   ]
