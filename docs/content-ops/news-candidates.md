@@ -27,14 +27,38 @@ so far".
 
 Stories: 53
 
-## Taylor Swift's Possible Presence at Chiefs-Broncos Game
+## Taylor Swift Absent from 2026 Emmys Despite Nomination
 
-- first seen: 2026-09-14 20:55 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Speculation arises about Taylor Swift potentially attending the Chiefs-Broncos game to support Travis Kelce. The report by Sports Illustrated explores the possibility of her attendance at the event.
+- first seen: 2026-09-14 23:51 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift will not attend the 2026 Emmy Awards, even though she received a nomination. The reasons for her absence have not been stated in the article.
 - sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNYkRoVjdodnVwTHpkdnZHdVh4TTJ1V0taTEp4T0RuVW9UT0dnenNZdWIyS01KYmFPamtXamowVGltRTdrLWtLOFhuNkk5V0pNWHFpN2ZMWGRwa2ZTLVZpMVNqNDhldFpfcEkzNDhudkNBM2NEb0ota0h0WmtwRldDa3ZlNm9ZYy11SG90cFYxMm5DYi16clM1T3lMZnV5RTRuLUlnQnJrQmh0N2RCUTY5TXVoUHR0QWpCenU4THBPcW5VV2U1QkpYWHk3ejl5YXF4V1hPQkprMWd3QjR4NkR4OGxzQzlDQi1TR0pUa0dB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxOMVE2TllWODRUelRaOV9FckRla041WmdhSkpXTmtLalhMbEFtMnR2aXlSRzJNR3hOaTBSNWNKckpkY25zZmExaWp3Vl9feDFIOW4xWmNnN3o4NGl3UGRxdDBXRDdSalYtYi1vQ0RGRXk4cGFvRm1JR24zZDVJeTRKTkJrbTFzTjI2RkczM29SU0hCanh4bGwyZmRYeFE1UGtxN1Fyb3RSWWwydUE5NFM3SmNuRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMimgFBVV95cUxNZVZ2N3YtUFdnTHoyNGRRczlmTi1IcllJanEzUmZEOEFjWWlPQklrWnBqekxiSTQ3c2dPcWZ0WU5Hc3B1WWctZ3RIc1laeGUxM0hvUnpQTE1tTHY3UkZlOVN6TkVURlRENzNJc1ZLb3Fjc0x0cmtUQXZ3UHZGM0FfODk3SWxSaFZDd1JRTFZBenl2SU41T2tzUHZR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Updates on Taylor Swift's Presence at Chiefs Game Tonight
+
+- first seen: 2026-09-14 23:51 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Latest updates suggest Taylor Swift may be attending the Chiefs game for Week 1. Fans are also discussing the NFL's treatment of Madison Beer during the event.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxQMGVWT25ISmc5NF80d1AzaFg3UXc5NE9UdjlHQktrTTRfWW10a0djb1FTekFPb3ZCT2RoenNVdlBHdWExSncwNFJGN0JtWFljWjRvS0FJczVxelFfVnB5Tk1XMVZvdDVyUHVvOWQtb2tpRk80VndLVFp2anNkSHNvcA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiogFBVV95cUxNYmoxaFg4c2VjS0cwd0ticzJQSUJ1MEc5VDZNbWo4Yk54T2FmTko1ZmtpWjlJOS1tYkFvTEtaaElUeVJoTlRLczY0RzB5aWotckwxMlNNV3B5U2NQN2x3c2xyb0tVQnh2cGV4dU9wSFdmaXM3QjBGTWVHWktQOFpGbVJqQVMyYVNiZ1lpUmhtMHdXdXdTeUJndG1hbEpUSmdZWEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Might Miss Chiefs vs Broncos Game Due to Rumors
+
+- first seen: 2026-09-14 23:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly considering skipping the Chiefs vs Broncos game this evening amid ongoing marriage rumors involving Travis Kelce. The situation has garnered attention following recent discussions about their relationship.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUVVyaXpsbGdDaXhVaGQyR2ZRcnZhcnEtNXdxNU83Z3pYZDFhZUFVZUVpb0RGbmFkb01RTWdPanpsYS04cGZuSVhLdjlsdWtrbkl3b0ZZenNzSkJXTjVENUtLcUlHN2I5S2xRdndkcVczZ0xCS0lrS0pSbnZ3ZzVPT2taOGdjem9GNU42cDdEQXA0RDVKRG9ZeTVqOFk0UDhzZGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Will Not Attend the 2026 Emmy Awards
+
+- first seen: 2026-09-14 23:51 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has announced that she will be skipping the 2026 Emmy Awards, although details on her reasons were not specified.
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQNUR3X1Bkbkp1bk9zM0U2VEZuZzJmZno3bTI2N3llUWtzeXRnbzd4QVdTei1PTGh1NmVWektSSzFTR2gyYURXWUhTNkxDTm9NbVNVa1VlbmJQWTg1TVZ0aUhIc3ZSaklWTkZuZ0stV1J4Wl93RHVmREZ2X01nZURMWnBHNHNTdEROU2pYYXBqY3E4aGJKR0Ywa01JUXI?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Share Different Views on Marriage After Two Months
 
@@ -51,6 +75,16 @@ Stories: 53
 - summary: An interview featuring Taylor Swift discussing her country music comeback will be broadcast on a Houston radio station. The airing of this interview is generating interest among fans and media.
 - sources:
   - [unverified] Houston Chronicle — https://news.google.com/rss/articles/CBMirgFBVV95cUxPaTBMUWJOLThCNi1YSGZ1QmhaV3dVeENCOWZQal9rSWR2dlVvYmgwbHlGZDRHd1hyNW5JV3UzSE9rME1IMW91NkZKbV8wU1Ric2l0X1NjOG1heWJTcVdqRjRuU2luVmFUbmJoLWZxbFRRUzZ5bEJTRmdRekVvUHVJOHVTX2xXUnJsZUxoREVNc3pjeUVla3htZTVMdURqQ0k1UmgtdXJEekMwUFVoX2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Possible Presence at Chiefs-Broncos Game
+
+- first seen: 2026-09-14 20:55 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Speculation arises about Taylor Swift potentially attending the Chiefs-Broncos game to support Travis Kelce. The report by Sports Illustrated explores the possibility of her attendance at the event.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNYkRoVjdodnVwTHpkdnZHdVh4TTJ1V0taTEp4T0RuVW9UT0dnenNZdWIyS01KYmFPamtXamowVGltRTdrLWtLOFhuNkk5V0pNWHFpN2ZMWGRwa2ZTLVZpMVNqNDhldFpfcEkzNDhudkNBM2NEb0ota0h0WmtwRldDa3ZlNm9ZYy11SG90cFYxMm5DYi16clM1T3lMZnV5RTRuLUlnQnJrQmh0N2RCUTY5TXVoUHR0QWpCenU4THBPcW5VV2U1QkpYWHk3ejl5YXF4V1hPQkprMWd3QjR4NkR4OGxzQzlDQi1TR0pUa0dB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxOMVE2TllWODRUelRaOV9FckRla041WmdhSkpXTmtLalhMbEFtMnR2aXlSRzJNR3hOaTBSNWNKckpkY25zZmExaWp3Vl9feDFIOW4xWmNnN3o4NGl3UGRxdDBXRDdSalYtYi1vQ0RGRXk4cGFvRm1JR24zZDVJeTRKTkJrbTFzTjI2RkczM29SU0hCanh4bGwyZmRYeFE1UGtxN1Fyb3RSWWwydUE5NFM3SmNuRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOTWpJWWw0N1lJdTh5Nk5BTE9iMFUwTjBMM3F5SFZueUFKYVNkaFJLY0cyLVNXeHZQZ1RSbFBMYUc4YTBoTnNrRkVZekNwWDRFRXdKZG5GeEJxOGFuT1FWU2xMTFZ0UGlSZW1pMkxnUXE5QU1HOEhlSExmRnVBaFZseDdfNXF1WFBLOTRVS2pEVHVKYUdVRkw1Y0tDSkZPQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Shares Thoughts on Marriage to Taylor Swift
 
@@ -76,21 +110,23 @@ Stories: 53
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNVWpaaUNmSlJRb0RMNjhvNUh3NVNaelFJVUs2aktla1lBSk1YdHRGVlBER1F4T1FUUWxoaDRKX1NSX2xHa3hObmVEelJHT0RDYVhQR1E3WlN2Vm1uZjJDaHhGVElZSE83Um9uQW5YRUI3QUdsWUt5NFQ5RW9kcGNaRlpPdmw3LXZzZTB0Zi10Nlh5TlN4R0htTFZXMUtEZW9IZlhjR1RSMWRnYS1Fb2VHaDRrQlNCVms?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Renowned Designer Bob Mackie Passes Away at 87
-
-- first seen: 2026-09-14 20:55 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Bob Mackie, the iconic designer known for his work with stars like Cher, Marilyn Monroe, and Taylor Swift, has died at the age of 87. His contributions to the fashion world have left a lasting impact on celebrity style.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNMVUyX1MwdjVRbHFISkFZYmY5anJWUjNNWjhJcHVMYlItejFuZjRCZHZwbWU1ZjJTTnExTDZYZkhpYWlhRnEtb0dKR09iRHR5VVBjSkY3WHFyRHZyUGNKOFhXcWM5Y0o1M1lEUVNnWXd3S2hxMmlKam5XWlZHMklXWE5RMmZCRkpqQUhTVTBPRDh6N2lLbW0xVHR4aU5mRVJVdW5KUjAwaU0wWkNQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Faces Decision Between Travis Kelce and Career Milestone
 
 - first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift is reportedly weighing the importance of her relationship with Travis Kelce against a significant career milestone. This decision highlights the balance between personal life and professional achievements.
 - sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOOUdJX0NuYXVNSC1pamp0ZmNIbFp6T3N6Um5HNFQ5amtMcWc5dkRRckJYVXRITGV3RG9yX19jY2l0LWN6YW9qTHltemJDNFkydFF1XzJ2VnFNeGhhWjJsdkdHZHVnckc4WkR0b2xxalN1NFA2XzVJbnlBdmJrN282NDlXV0tVd2o1blNn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQajRsbVF2aWJUa0c3ZjVQeGxmMUU4X3ZkWjVCYVlER0lHVWNGeDMyaF9wQ3VKNVdLWHJjWVl1dWJKbE1VV0RWTy1HYmluaEtnRnJNN1NVSFhvOFF3RkNSOXMzREFzOVhRQ0h5eWF1RDlDbEdkUnpkY3NpMHhuT28wenRnQ1dheEJwMU5ZYklCcU5UTjdfVWVPQlpmemx2QVRrVnlzRWxLNA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Renowned Designer Bob Mackie Passes Away at 87
+
+- first seen: 2026-09-14 20:55 UTC | category: fashion | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Bob Mackie, the iconic designer known for his work with stars like Cher, Marilyn Monroe, and Taylor Swift, has died at the age of 87. His contributions to the fashion world have left a lasting impact on celebrity style.
+- sources:
+  - [unverified] businessinsider.com — https://news.google.com/rss/articles/CBMif0FVX3lxTFAxdWpDOGlxN3l1Z3prZHlHMWRqS19YQnZMSDYwbWJsUFNlNW5mVTZJMzhMaEhJMFZLUGY4LTFrNHA5TU9YQm5tU283Nkxnc0k3OFlGMTJiZU1DWldMcjI0T1RuMTdYeUFjR0FGSUlSZ2lSUTc4Q2ppdUdvSnJNdk0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNMVUyX1MwdjVRbHFISkFZYmY5anJWUjNNWjhJcHVMYlItejFuZjRCZHZwbWU1ZjJTTnExTDZYZkhpYWlhRnEtb0dKR09iRHR5VVBjSkY3WHFyRHZyUGNKOFhXcWM5Y0o1M1lEUVNnWXd3S2hxMmlKam5XWlZHMklXWE5RMmZCRkpqQUhTVTBPRDh6N2lLbW0xVHR4aU5mRVJVdW5KUjAwaU0wWkNQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Shares Reasons for Not Releasing Wedding Photos
 
@@ -191,12 +227,14 @@ Stories: 53
 ## Taylor Swift Upset with Nikki Glaser Regarding Wedding Comment
 
 - first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: A source claims that Taylor Swift is 'furious' with Nikki Glaser for revealing details about Travis Kelce's wedding. The situation highlights the tensions between Swift and Glaser.
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQcEtzZ2RRLXFibzF3Si1MYlpPYnkyNTVFQ1JqWnVkRDN0bGlOX3hRcEM1RGdlb1BWZlpoSmhhbmV4UFRlVFZ4bUhzRTg2RDhiY1Jkc190TERIOWxKdDl1VXdYQWMya1IyS215UUxaeHh5b25tRklhWTIwMFNMZjdhbW1GMEdQT1QzN3k0MXRYNEpoaVNfc0RMbEtlX2FyS043UURmOW1OWlDSAa4BQVVfeXFMT3dCSkZyLW13NGsxNjNOaTIzMDJUR2h3Mm5GODI0YUhodF9Tb0J5UFMwdG94M1JpYnFoQzVFOUJuMTQwYUY3VmowMXpGM0xSc1NNNXE3bmdLeDNjbDlOT29SMkN0aWNtTi1mVGI0OTc2SHpqTTV4MjMtV0ZzSkRLeEN4WHNHNFdsR004b1BndWFSWnpqRUZXbXFRTlJ4UUFLZDhtQjhkc1M5WXdYNWR3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQWmhuODdENlhGSC1HRkQzdW93ei1xRFBtLVV0Vl9DcG1zVnF2bF9iNmNFUEJhcDVMQ244dDdsRUE4MjVRRXZHU0RHVE5rQ2pTcVQ0bWV3M1FtXzdqVno4TFZTbHNMd0l5clZzeTJCNzFRRW9uYk9zSjFKM0diZ2JULU5wSU5FYVlHclFicnJqYVYxaGQ5OFRuZzI4Q3k?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNd01RRnA2NW9SRG1VeG10Q2hvenpIa3JiRmUzcVNyZzVzQUlXQS1QOVQxa3RuSlFKM19fbzJuVDhaTk4tdmprd0J3eXR2MzdlN3VvOEVISzFZbndJNmgyMDlRdzRqR293MHdNRWQtSWF2UVhFY0FpN0xtUGRGV2xBWFJoT3hJTUctd2ZURGVKaEltbTUxWEtiQWo3c3dMS0FsY3otMmh6YS1QdW9hVjFZdTZjbkp6QmJV?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxObnZibFgxTHFSYXh1RUVaVHR2REdIX2s4UDFoNUlWc2k2aXd0M2hCdmxndXN3dHIzYW4xVW5iSWM5RzQzbzBWc2lYbzRkMUtua1hfTVk0VjFVV19KaFc3UUpQUTZlOWVaT3R1ZWJmN21OelhlbDZUbm5fdEh0ZENpRC0xMHNYQ2hUUGpabW81Ul9pM0pBTmtYci1nemk5cTdGcm9lVA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMingFBVV95cUxOLUNKdVp0akxSWm9aQXY3NVNNQmNCSzdtcUp5a0dMMmwwSHFWUVJUUUNvTUlfS2ktdVNKMUpNRnVWc0djRmNhZmNEU0xWWkdManVyTWczWVhCSjlpS3VoZ1FjbFZ1bVFicXEyN0FkZ3E5ZVhoeE9GejJlbE1wU1RyalUxWmMwUVBmdDJwLXE0WjB5YUdRbDdHRVBkNE15Zw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOeXNudUdtdWhkZm1yRmRfOEV2OUplNkVjVW1GQ3hmNXdnemdPNEFEb0l5UWloZ3hEMEJBYVh2bDg3VlpoTXRJRlFTNl9FMUxTRHVWQXAtYVZkYzVwZEZSOUpaMENQM2Uxcy1kYlFVcGtKY3hDRE1iT1F0SDlBaTJiTkFxWUJseHVWT0dNMFNOTUJyOEtGbmh6UWE5Z01ud1A4bjRjQV9R?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Makeup-Free Appearance Discussed in New Article
@@ -430,35 +468,3 @@ Stories: 53
 - summary: Taylor Swift has embraced a dazzling dress trend that is popular for fall weddings and holiday parties. The article provides options to achieve her look starting from $36.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiekFVX3lxTE5ITHlxVlhmMV9tUlNiQ2JlVThOdmN0NDJSNkwxbEQyTmhvYkpIeGtMc0doajd0OEFoY0d2NWxueHdlQjNZUldnZFJHRFR2Qmc3LWNXNkdQQlVidnhsZlp6RkFQTzIzOTFWX3RPblFIM1Jsai1MTnNnMnJ3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Responds to Wedding Guest's Controversial Claim
-
-- first seen: 2026-09-11 23:13 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly upset over a wedding guest's assertion that some attendees did not know the bride well, with claims that some of them had never met her. This revelation has sparked discussions about the guest list and event dynamics.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMinwFBVV95cUxNSWJWbkQ1RUUtald5VVFGb1FWLTBIRGp4RWtyR2R2dzdNRmpDRVRHSWhmblRHS084XzNOUmpiZlFwV0taMEI4SUNMVDZMNkp3b2tOcmd0elp2ZTVVYXd6NUJCUC03RzdXXy1ucWozbXMtYjZBUWRzRlJBbmI2Zm4tTkNXS2hrV0JxWGsyTTllNk9tRDJ1RnZtcHNrS3NrNnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Describes Wedding to Taylor Swift as Best Night
-
-- first seen: 2026-09-11 23:13 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has called his wedding to Taylor Swift the best night of his life, according to Extra TV. The couple's union has garnered significant public interest and highlights their relationship status.
-- sources:
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxNX1c0YkZhclFxVXlsUTFuYWs0RTF0d0s4ZnFzYXNLVHpJM3hiN0JCdkY0cng3cWJHUmVCUk84aU5JWk5LS0l3N3ZLZUowc0h5NTVCMHpJbUd5VGRKZUVYa2ZaMjRRaUZESDdhWl9lSmU5dXhXVExGRENFQ241blNNeF9FR0FaeTd4dm16TDdXd0xDQURuaXQyWWMxY00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Supports Travis Kelce's New Relationship
-
-- first seen: 2026-09-11 23:13 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has reportedly started seeing someone new, and Taylor Swift is said to support him in this decision. The news reflects ongoing developments in their personal lives.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMijAFBVV95cUxNY0w5aGZ2ajdMajY4YnBGVnFMdXBLWHM2dmhRQlF4WWNZSTB4UnNJU2V2amp2cHBwN0ktZnREU0lYbkVvVGlWam9wV0NPTzBUQ1ZybXJkNlVvdV8tVDRVcWNRV3k4aUlVaXY4ZGVYX0owc2pxdnMwUU04Xy1NcFhKWVQyMVB4aktkeC1xOQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New York Event at M.S.G. Hints at Possible Taylor Swift Appearance
-
-- first seen: 2026-09-11 23:13 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An upcoming event at Madison Square Garden in New York has sparked speculation about a potential appearance by Taylor Swift, based on various clues leading up to the date.
-- sources:
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxOdkhha0N5cGhxYTg2RjlFVkJDQUJRekkxMk9KYmlnR0tFaDdZTEN1SXlOcW9CN2h0emtlOU1MNXpESVU4NXlxalhLa0lBOWozMnM1NTMwbVEwV1U0Z3RhWWNUY2tCLWhWbGlSRk0tSkI1eDdkOERtdXRuNHlFSzdmNGpLaWlYS21VMWt2UDFQa1ZjYTB3YUE?oc=5&hl=en-US&gl=US&ceid=US:en
