@@ -58,6 +58,15 @@ and there is still exactly one Marjorie and one Tree.
    reply or a doorbell failure into a `watchdog-alert` issue through
    `scripts/watchdog/upsert-alert.sh`, the path that already reaches
    `#longlive-marjorie` and that Marjorie's hourly ops sweep already handles.
+4. **The clock** (added 2026-09-14, Joey: "yes, let's run the clock on the
+   server"; issue #4290). GitHub drops most of this repo's scheduled runs:
+   the 5-minute poll fired 3 times in 14 hours, the hourly watchdog twice in
+   11, and neither Monday routine fired on 09-14. The doorbell process also
+   keeps the clock: it reads a committed schedule table and starts each
+   routine on time with `workflow_dispatch`, which is a push and unaffected
+   by the throttle. The GitHub `schedule:` triggers stay in every workflow as
+   the fallback; the clock adds runs, it never removes any. Mechanics and
+   acceptance: `m7-clock.md`.
 
 ## Mechanics
 
@@ -238,6 +247,7 @@ and there is still exactly one Marjorie and one Tree.
 ## Files affected
 
 - **New:**
+  - the clock files: see `m7-clock.md`
   - `scripts/doorbell/doorbell.mjs`: the gateway loop, thin
   - `scripts/doorbell/lib/doorbell-core.mjs` + `.test.ts`: selection, ring,
     timer decision, config
