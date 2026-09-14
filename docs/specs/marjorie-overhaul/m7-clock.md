@@ -19,7 +19,9 @@ slots. Nothing was queued, so runs are dropped, not delayed. A
 
 This block supersedes the original Mechanics, Acceptance criteria and Files
 affected below where they conflict. Contract: `waves/m7-clock-v2.md` and the
-Architect ruling in `origin/feature/m7-clock:DEBUG.md`; scope decided on #4290.
+Architect ruling reproduced by these operative requirements; scope decided
+on #4290. Historical source: DEBUG.md at commit
+`1c9e4e4e19d38cafa69bfc7b938167310ccc9033`, not a mutable branch contract.
 
 ### Authority and activation
 
@@ -34,6 +36,11 @@ Architect ruling in `origin/feature/m7-clock:DEBUG.md`; scope decided on #4290.
   `pinnedLive && mainLive === true`: main can withhold or restore the pinned
   capability, never authorize a disabled tag or widen its table. This is the
   off-only remote constraint; it does not mean a permanent off latch.
+  Every false-to-true PR must set a new activation timestamp at the same time;
+  never reuse a pre-outage timestamp. Validate the transition against the PR
+  base when available, including freshness within 30 minutes of the activation
+  change. An off PR clears since. Subsequent CI validates a non-future
+  timestamp without imposing an ongoing freshness requirement.
 - At boot the clock is off until a successful main read. Every ten minutes,
   one serialized bounded GET reads only the literal CLOCK_LIVE export from
   the public file as text, never imports or evaluates it. The remote table
@@ -42,6 +49,8 @@ Architect ruling in `origin/feature/m7-clock:DEBUG.md`; scope decided on #4290.
   a good read; after 30 minutes without a good read it is off regardless of
   timer/request delays. No request outlives its 15-second deadline.
 - A main workflow commit can change what those two workflows execute on main.
+  Main is trusted executable authority for the dispatched Actions workflows.
+  Confinement is to filenames/cadences/inputs, NOT semantic capabilities.
   Pinning the host table does not pin workflow implementation or constrain
   the key itself, which retains Actions write. Repository review/CI protects
   that boundary. No remote code executes on the host, no key reaches Actions,
@@ -62,14 +71,16 @@ Architect ruling in `origin/feature/m7-clock:DEBUG.md`; scope decided on #4290.
 - Dedup queries include `branch=main`, and code also filters head_branch,
   schedule/workflow_dispatch events and timestamps. Require a readable array
   and complete result (no unobserved pagination); malformed, truncated or
-  unreadable data means no POST. A response Date skew above 90 seconds also
+  unreadable data means no POST. Require a valid response Date >= slot; a
+  response Date skew above 90 seconds also
   prevents dispatch. No raw response or exception text is logged.
 - For the poll, coverage uses disjoint five-minute windows [slot, slot+5m).
   The brief uses [slot, slot+10m]. Thus one poll run cannot cover two slots.
   A later GitHub cron remains possible; the brief guard prevents its second
   agent run. The poll's existing claims/concurrency make its races harmless.
 - Count attempts (including failed POSTs), in memory, in the rolling previous
-  60 minutes: at most 40, and at least five minutes between attempts for a
+  60 minutes, interval (now-60m, now]: at most 40 including the proposed
+  reservation, and at least five minutes between attempts for a
   row. Check/reserve synchronously before POST. Future timestamps continue
   to count after a backward jump. CI proves a full-cycle bound analytically:
   each row's circular minute-set gap is >=5, and the sum of minute-set sizes
@@ -84,10 +95,16 @@ Architect ruling in `origin/feature/m7-clock:DEBUG.md`; scope decided on #4290.
   no agent or production credentials, and a pure tested decision helper.
   `run` needs this job and its explicit proceed output; delivery remains
   dependent on successful `run`. Never edit the assembler or L1 files.
-- Except a manual force=true dispatch, only the earliest main schedule or
+- Workflow-level concurrency with cancel-in-progress:false serializes guard
+  through delivery, not merely the downstream jobs. Sorting run-list results
+  alone is not an atomic claim. A non-bypassable main-ref gate rejects feature
+  dispatches, including forced ones. Force defaults to boolean false and only
+  github.event_name == workflow_dispatch with inputs.force == true bypasses.
+- Except that main-only manual force=true dispatch, only the earliest main schedule or
   dispatch run created that UTC day proceeds (exclude itself, order by
   created_at then numeric id). This deterministic ordering covers concurrent
-  starts; earlier cancelled/failed runs still count. A rerun also ends at the
+  ordering after serialization; earlier cancelled/failed runs still count.
+  A rerun also ends at the
   guard. API failures or incomplete reads fail closed before the agent.
 - Also stop when a founders-brief issue created that UTC day already has a
   discord-message-id marker in its body or comments, including closed issues.
@@ -102,6 +119,9 @@ Architect ruling in `origin/feature/m7-clock:DEBUG.md`; scope decided on #4290.
   five-minute slots from max(now-60m, since+30m) through now-10m. Each main
   schedule or dispatch run serves only its containing [slot, slot+5m) window,
   regardless of actor or conclusion. Two missed slots raise clock-silent.
+  This is a coverage alarm, not proof of the dispatcher's identity: manual or
+  dry-run dispatches count too, as required by the v2 brief's any-main-run
+  rule. Live proof separately verifies the key owner and real dispatches.
   Unreadable run history is a failed check, never proof of health. Missing or
   future since gives no grace; CI rejects it whenever CLOCK_LIVE is true.
 - Alarm title and body begin `Clock is not firing`, contain metadata only,

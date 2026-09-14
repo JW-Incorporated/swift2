@@ -13,11 +13,14 @@ Format: date, decision, why, alternatives considered, who approved.
 clock table, repository and inputs. Exactly bot-chat-poll every five minutes
 and routine-marjorie-brief at 12:00 UTC; both retain GitHub schedule triggers.
 The brief first-job guard blocks a second ordinary agent run that UTC day.
-Main supplies only the literal CLOCK_LIVE gate, never executable host code
+For host configuration, main supplies only the literal CLOCK_LIVE gate, never executable host code
 or a table: effective live = pinnedLive && mainLive === true. V2 explicitly
 authorizes its two rows in the tag while main starts false; the post-update
 flag PR releases that bounded capability. A main commit can still change
 the two workflows' implementation; it cannot widen the host's dispatch list.
+Main is trusted executable authority in Actions: filename confinement does
+not confine what those privileged workflows can do. This is not a semantic
+capability boundary.
 After three failed ten-minute refreshes the host fails closed. Attempts are
 once-only, in memory, with process-start gating and rolling limits.
 
@@ -29,7 +32,8 @@ the revised unit and daemon-reload in the update HA before its restart, so
 WatchdogSec and StartLimitBurst actually take effect on the existing host.
 The key stays host-only; no approval or social behavior changes.
 
-**Decision:** The M7 doorbell process on the Hermes VM host also keeps the
+**Original decision (historical; table policy superseded by v2 above):**
+The M7 doorbell process on the Hermes VM host also keeps the
 clock: it reads a committed schedule table (`scripts/doorbell/schedule.json`,
 seeded from every workflow's own `cron:`) and starts each routine on time
 with `workflow_dispatch`, skipping any slot where a run already exists. The
