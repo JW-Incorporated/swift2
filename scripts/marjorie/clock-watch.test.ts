@@ -3,9 +3,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain mjs
-import { gapVerdict, readVerdict, watchClock } from './lib/clock-watch.mjs';
+import { CLOCK_TITLE, clockRecoveryBody, gapVerdict, readVerdict, watchClock } from './lib/clock-watch.mjs';
 // @ts-expect-error plain mjs
-import { checkClock } from './chat-alarm.mjs';
+import { alert, checkClock } from './chat-alarm.mjs';
 // @ts-expect-error plain mjs
 import { poll } from './chat-poll.mjs';
 import { baseRoutes, discord, env, sleepImpl } from './chat-poll.fixtures';
@@ -18,6 +18,13 @@ const gh = (history: unknown[], rest: unknown[] = []) => vi.fn((_cmd: string, ar
   if (args[0] === 'workflow') return '';
   return JSON.stringify(args.some((s) => s.includes('/runs?')) ? { total_count: history.length, workflow_runs: history } : rest);
 });
+function readOutputs(file: string) {
+  const text = readFileSync(file, 'utf8');
+  const outputs: Record<string, string> = {};
+  for (const m of text.matchAll(/^(\w+)<<(\S+)\n([\s\S]*?)\n\2$/gm)) outputs[m[1]] = m[3];
+  for (const m of text.matchAll(/^(\w+)=(.*)$/gm)) outputs[m[1]] = m[2];
+  return outputs;
+}
 afterEach(() => vi.restoreAllMocks());
 
 describe('shared clock gap verdict', () => {
@@ -26,7 +33,9 @@ describe('shared clock gap verdict', () => {
     expect(gapVerdict({ runs: runs.map((r) => ({ ...r, event: 'workflow_dispatch', actor: { login: 'manual' }, conclusion: 'failure' })), now: NOW, since: SINCE }).alert).toBe(false);
   });
   it('one run cannot cover two slots; two misses alert but one does not', () => {
-    expect(gapVerdict({ runs: runs.slice(1), now: NOW, since: SINCE }).alert).toBe(false);
+    const belowThreshold = gapVerdict({ runs: runs.slice(1), now: NOW, since: SINCE });
+    expect(belowThreshold.alert).toBe(false);
+    expect(clockRecoveryBody(belowThreshold, NOW)).toContain('2026-09-14T14:00:00.000Z');
     expect(gapVerdict({ runs: runs.slice(2), now: NOW, since: SINCE })).toMatchObject({ alert: true, missed: ['2026-09-14T14:00:00.000Z', '2026-09-14T14:05:00.000Z'] });
   });
   it('waits through activation grace and slot settling, and rejects invalid/future since', () => {
@@ -54,6 +63,54 @@ describe('shared clock gap verdict', () => {
       expect(read.mock.calls.some((call: unknown[]) => (call[1] as string[])?.[0] === 'workflow')).toBe(false);
     }
   });
+  it('closes a recovered standing alert and a later gap opens and notifies again', () => {
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    let history: typeof runs = [];
+    let open = false;
+    let dispatches = 0;
+    let notifications = 0;
+    const execImpl = vi.fn((_cmd: string, args: string[]) => {
+      if (args[0] === 'workflow') { dispatches += 1; return ''; }
+      if (args.some((s) => s.includes('/runs?'))) return JSON.stringify({ total_count: history.length, workflow_runs: history });
+      return JSON.stringify(open ? [{ title: CLOCK_TITLE }] : []);
+    });
+    const apply = (expected: 'open' | 'close') => {
+      const file = join(mkdtempSync(join(tmpdir(), 'clock-')), 'out');
+      expect(checkClock({ env: { REPO, GITHUB_OUTPUT: file }, execImpl, now: NOW, since: SINCE, live: true })).toBe(0);
+      const outputs = readOutputs(file);
+      expect(outputs.action).toBe(expected);
+      const transition = vi.fn((cmd: string, args: string[]) => {
+        if (cmd === 'bash') {
+          expect(args.slice(0, 4)).toEqual(['scripts/watchdog/upsert-alert.sh', expected, CLOCK_TITLE, expect.any(String)]);
+          if (expected === 'open' && !open) notifications += 1;
+          open = expected === 'open';
+        }
+        return '';
+      });
+      expect(alert({ env: { ACTION: expected, TITLE: outputs.title, BODY: outputs.body, REPO }, execImpl: transition })).toBe(0);
+      return outputs;
+    };
+
+    expect(watchClock({ execImpl, repo: REPO, now: NOW, since: SINCE, log: () => {} }).alert).toBe(true);
+    expect(dispatches).toBe(1);
+    apply('open');
+    expect(open).toBe(true);
+    expect(notifications).toBe(1);
+    watchClock({ execImpl, repo: REPO, now: NOW, since: SINCE, log: () => {} });
+    expect(dispatches).toBe(1);
+
+    history = runs;
+    expect(watchClock({ execImpl, repo: REPO, now: NOW, since: SINCE, log: () => {} }).alert).toBe(false);
+    expect(dispatches).toBe(2);
+    expect(apply('close').body).toContain('Poll coverage recovered below the alert threshold on main.');
+    expect(open).toBe(false);
+
+    history = [];
+    watchClock({ execImpl, repo: REPO, now: NOW, since: SINCE, log: () => {} });
+    expect(dispatches).toBe(3);
+    apply('open');
+    expect(notifications).toBe(2);
+  });
   it('checkClock and the watch give the same decision for misses and grace', () => {
     vi.spyOn(console, 'log').mockImplementation(() => {});
     for (const since of [SINCE, '2026-09-14T14:40:00Z']) {
@@ -61,7 +118,9 @@ describe('shared clock gap verdict', () => {
       const execImpl = gh([]);
       const expected = watchClock({ execImpl, repo: REPO, now: NOW, since, dryRun: true, log: () => {} });
       expect(checkClock({ env: { REPO, GITHUB_OUTPUT: file }, execImpl, now: NOW, since, live: true })).toBe(0);
-      expect(readFileSync(file, 'utf8')).toContain(`alert=${expected.alert}`);
+      const outputs = readOutputs(file);
+      expect(outputs.alert).toBe(String(expected.alert));
+      expect(outputs.action).toBe(expected.alert ? 'open' : 'close');
     }
   });
   it('dry-run prints the canonical body even when coverage is healthy and cannot dispatch', () => {
@@ -69,7 +128,8 @@ describe('shared clock gap verdict', () => {
     const execImpl = gh(runs);
     expect(checkClock({ env: { REPO, DRY_RUN: 'true' }, execImpl, now: NOW, since: SINCE, live: true })).toBe(0);
     expect(logged.mock.calls.flat().join('\n')).toContain('Clock is not firing');
-    expect(logged.mock.calls.flat().join('\n')).toContain('detection waits for a surviving cron');
+    expect(logged.mock.calls.flat().join('\n')).toContain('Poll coverage recovered below the alert threshold on main.');
+    expect(logged.mock.calls.flat().join('\n')).toContain('later coverage gap will open a new incident');
     expect(execImpl.mock.calls.every(([, args]) => args[0] === 'api')).toBe(true);
   });
   it('the deployed poll path invokes the watch when live, preserves dry-run, and fails on unreadable history', async () => {

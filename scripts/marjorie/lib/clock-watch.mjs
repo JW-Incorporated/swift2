@@ -53,21 +53,37 @@ export function clockBody(verdict, now) {
   ].join('\n');
 }
 
+export function clockRecoveryBody(verdict, now) {
+  return [CLOCK_TITLE, '', 'Poll coverage recovered below the alert threshold on main.', '',
+    '- stage: `clock-silent`', `- checked at: ${new Date(now).toISOString()}`,
+    `- slots checked: ${verdict.checked}`, `- missed slots: ${verdict.missed.join(', ') || 'none'}`,
+    `- activation timestamp valid: ${verdict.validSince}`, '',
+    'The standing clock alert can close. A later coverage gap will open a new incident and notify again.',
+  ].join('\n');
+}
+
 export function watchClock({ execImpl = execFileSync, repo, now = Date.now(), since, dryRun = false, log = console.log }) {
   const verdict = readVerdict({ execImpl, repo, now, since });
   if (!verdict.ok) { log('::warning::clock watch: run history unreadable'); return verdict; }
-  if (!verdict.alert) return verdict;
-  if (dryRun) { log(clockBody(verdict, now)); return verdict; }
+  if (dryRun) { log(verdict.alert ? clockBody(verdict, now) : clockRecoveryBody(verdict, now)); return verdict; }
   try {
     // Complete REST pages, not search indexing; never print issue content.
     for (let page = 1; page <= 10; page += 1) {
       const issues = ghJson(execImpl, `repos/${repo}/issues?state=open&labels=watchdog-alert&per_page=100&page=${page}`);
       if (!Array.isArray(issues)) throw new Error('issues');
-      if (issues.some((issue) => !issue.pull_request && issue.title === CLOCK_TITLE)) return verdict;
-      if (issues.length < 100) {
+      const open = issues.some((issue) => !issue.pull_request && issue.title === CLOCK_TITLE);
+      if (open) {
+        if (verdict.alert) return verdict;
         execImpl('gh', ['workflow', 'run', 'bot-chat-alarm.yml', '--repo', repo, '--ref', 'main', '-f', 'stage=clock-silent'],
           { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15_000 });
-        log('clock watch: dispatched clock-silent');
+        log('clock watch: dispatched clock-silent to close the standing alert');
+        return verdict;
+      }
+      if (issues.length < 100) {
+        if (!verdict.alert) return verdict;
+        execImpl('gh', ['workflow', 'run', 'bot-chat-alarm.yml', '--repo', repo, '--ref', 'main', '-f', 'stage=clock-silent'],
+          { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15_000 });
+        log('clock watch: dispatched clock-silent to open the standing alert');
         return verdict;
       }
     }

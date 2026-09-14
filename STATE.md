@@ -2,9 +2,10 @@
 
 ## Next
 
-1. STOP: Codex round 2 rejected the build with two High findings. Read
-   DEBUG.md and take the fresh-context debug ladder. No third review, PR,
-   tag, HA filing, activation or host change from this build.
+1. Both round-2 findings are fixed by a fresh-context debug implementation
+   pass after the user instructed continuation. Tests pass; no new review has
+   run. Obtain an explicit exception to the exhausted two-round review limit
+   before another independent review or PR. DEBUG.md preserves the history.
 2. After a reviewed implementation is on main, tag doorbell-v2 and file
    the v2 update HA by PR. Stop for Joey's done before activation or proof.
 3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
@@ -51,16 +52,23 @@ Reviews:
   live proof separately checks the key owner. No scope expansion.
 - Round 2: REJECT at be763fcc. Clock alerts lack a recovery path and stale
   issues suppress future notifications; a rerun of a forced brief bypasses
-  the rerun guard. Both are recorded in DEBUG.md and remain unfixed.
+  the rerun guard. Both were subsequently fixed by the fresh-context debug
+  implementation pass: serialized alarm closes recovered clock incidents;
+  attempt-1 gate precedes force. Lifecycle and rerun regression tests pass.
 - Round 2 confirmed the substantive design fixes and accepted any-main-run
   coverage per the user contract. No extra review rounds have run.
 
 Verification:
-- 159 focused tests / 15 files passed; includes an hour with request jitter,
+- 185 focused tests / 16 files passed; includes recovery and a second incident,
+  forced-rerun rejection, an hour with request jitter,
   poll-entrypoint watch, shared checkClock verdict, brief guard and workflow.
 - Lint most recently 0 errors / 5 existing warnings.
 - Local typecheck fails missing generated content and React Native/Expo/shared
   dependencies in this worktree. Full CI is the suite/merge gate.
+- Debug agent also ran broad scratch tests: 3,009 passed, 1 skipped, 11 failed
+  plus one unloadable suite due to local dependencies/CRLF/child npx. No fixes
+  outside scope. Generated web stylesheet has identical normalized blob to
+  HEAD and is excluded from the clock commits.
 - No PR, live clock proof, tag or update HA. Allocator returned 76 but no
   number is reserved; allocate again after a valid build. #4290 remains open; M7 is
   not ticked complete. Doorbell evidence remains on #4180:

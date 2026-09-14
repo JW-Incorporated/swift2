@@ -10,8 +10,8 @@ const day = (time) => new Date(time).toISOString().slice(0, 10);
 
 export function briefDecision({ ref, event, force = false, attempt = 1, current, runs = [], delivered = false }) {
   if (ref !== 'refs/heads/main' || !['schedule', 'workflow_dispatch'].includes(event)) return { proceed: false, reason: 'main-only' };
-  if (event === 'workflow_dispatch' && force === true) return { proceed: true, reason: 'forced' };
   if (attempt !== 1) return { proceed: false, reason: 'rerun' };
+  if (event === 'workflow_dispatch' && force === true) return { proceed: true, reason: 'forced' };
   if (!current || !/^\d+$/.test(String(current.id)) || !Number.isFinite(Date.parse(current.created_at))) return { proceed: false, reason: 'unreadable-current' };
   if (delivered) return { proceed: false, reason: 'already-delivered' };
   const at = Date.parse(current.created_at);

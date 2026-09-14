@@ -15,10 +15,11 @@ describe('brief first-job guard', () => {
     expect(briefDecision({ ...BASIC, runs: [run({ id: 21, created_at: CURRENT.created_at })] }).proceed).toBe(true);
     expect(briefDecision({ ...BASIC, runs: [run({ created_at: CURRENT.created_at })] }).proceed).toBe(false);
   });
-  it('rejects reruns and existing delivery; only boolean main manual force bypasses', () => {
+  it('rejects every rerun before allowing a new boolean main manual force', () => {
     expect(briefDecision({ ...BASIC, delivered: true }).proceed).toBe(false);
     expect(briefDecision({ ...BASIC, attempt: 2 }).proceed).toBe(false);
-    expect(briefDecision({ ...BASIC, force: true, attempt: 2, delivered: true }).proceed).toBe(true);
+    expect(briefDecision({ ...BASIC, force: true, attempt: 2, delivered: true })).toEqual({ proceed: false, reason: 'rerun' });
+    expect(briefDecision({ ...BASIC, force: true, attempt: 1, delivered: true })).toEqual({ proceed: true, reason: 'forced' });
     expect(briefDecision({ ...BASIC, force: 'true', delivered: true }).proceed).toBe(false);
     expect(briefDecision({ ...BASIC, event: 'schedule', force: true, delivered: true }).proceed).toBe(false);
     expect(briefDecision({ ...BASIC, ref: 'refs/heads/feature', force: true }).proceed).toBe(false);
@@ -46,6 +47,11 @@ describe('brief first-job guard', () => {
     }
     const execImpl = vi.fn();
     expect(guard({ env: { ...ENV, FORCE: 'true' }, execImpl, log: () => {} })).toBe(0);
+    expect(execImpl).not.toHaveBeenCalled();
+
+    const rerunLog = vi.fn();
+    expect(guard({ env: { ...ENV, FORCE: 'true', GITHUB_RUN_ATTEMPT: '2' }, execImpl, log: rerunLog })).toBe(0);
+    expect(rerunLog).toHaveBeenCalledWith('brief guard: rerun');
     expect(execImpl).not.toHaveBeenCalled();
   });
   it('workflow serializes guard through delivery, pins main and has an explicit false force default', () => {

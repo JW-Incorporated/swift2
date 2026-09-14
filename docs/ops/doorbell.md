@@ -44,8 +44,9 @@ boolean. `--check` prints the next ten pinned fires without connecting.
 The brief workflow serializes guard through delivery. Its guard runs before
 the agent and skips a second main run that UTC day, a rerun, or an existing
 delivery marker on today's brief issue. Failed/cancelled earlier runs count.
-Only a main-branch manual dispatch with explicit `force=true` bypasses these
-duplicate checks. It intentionally permits a replacement brief.
+Only a new main-branch manual dispatch with explicit `force=true` bypasses
+duplicate checks. It intentionally permits a replacement brief. Rerunning
+that forced dispatch is still blocked before the agent.
 
 The poll and `clock-silent` alarm use one gap verdict: two missed five-minute
 slots raise `Clock is not firing`, after a 30-minute activation grace and a
@@ -53,6 +54,10 @@ ten-minute allowance for runs to appear. Any main poll run serves its slot,
 including cron or a manual dispatch. If both host clock and GitHub cron die,
 detection waits for a surviving cron. This is coverage monitoring; the live
 proof separately verifies dispatch actor `sffan15-sys` and timing.
+When coverage recovers and the exact standing clock issue remains open, the
+poll starts the same serialized alarm to recheck and close it through the
+existing ops notifier. Recovery starts no agent work. A later failure opens
+a new incident; an unreadable history cannot close an alert.
 
 The v2 update HA must be run from `/opt/longlive-doorbell`:
 

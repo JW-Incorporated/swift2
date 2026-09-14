@@ -128,8 +128,10 @@ describe('bot-chat-alarm.yml (M7, m7-doorbell.md Mechanics 7)', () => {
     expect(byJob.check).not.toMatch(/WEBHOOK|issues: write/);
   });
 
-  it('opens an alert and starts Marjorie only on a first attempt, never on a dry run', () => {
-    expect(byJob.alert).toMatch(/^ {4}if: github\.run_attempt == '1' && needs\.check\.outputs\.alert == 'true' && !inputs\.dry_run$/m);
+  it('applies an alert transition only on a first attempt, never on a dry run', () => {
+    expect(byJob.check).toContain('action: ${{ steps.check.outputs.action }}');
+    expect(byJob.alert).toMatch(/^ {4}if: github\.run_attempt == '1' && needs\.check\.outputs\.action != '' && !inputs\.dry_run$/m);
+    expect(byJob.alert).toContain('ACTION: ${{ needs.check.outputs.action }}');
     expect(byJob.alert).toContain('run: node scripts/marjorie/chat-alarm.mjs alert');
     expect(byJob.alert).not.toMatch(/set -e/);
   });

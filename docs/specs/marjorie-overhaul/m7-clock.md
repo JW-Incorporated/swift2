@@ -102,6 +102,8 @@ on #4290. Historical source: DEBUG.md at commit
   alone is not an atomic claim. A non-bypassable main-ref gate rejects feature
   dispatches, including forced ones. Force defaults to boolean false and only
   github.event_name == workflow_dispatch with inputs.force == true bypasses.
+  Run attempt must equal 1 before considering force: a new forced dispatch
+  is allowed, but rerunning that dispatch with preserved inputs is not.
 - Except that main-only manual force=true dispatch, only the earliest main schedule or
   dispatch run created that UTC day proceeds (exclude itself, order by
   created_at then numeric id). This deterministic ordering covers concurrent
@@ -129,7 +131,12 @@ on #4290. Historical source: DEBUG.md at commit
 - Alarm title and body begin `Clock is not firing`, contain metadata only,
   and explain that if both host clock and GitHub cron are dead, detection
   waits for a surviving cron. The existing standing-alert path deduplicates
-  notifications. A dry_run prints the body but posts/dispatches nothing.
+  notifications. When healthy coverage meets an open exact-title clock issue,
+  the poll dispatches the same serialized clock-silent alarm. Its check rereads
+  the shared verdict; its ops job closes the standing issue through the existing
+  upsert-alert close path without starting agent work. A later gap can open a
+  new incident. Unreadable history never authorizes recovery. A dry_run prints
+  the alert or recovery body but posts/dispatches nothing.
 - Unit tests prove every mechanism listed in the v2 brief, including the
   workflow text dependency/force input and guard decision. Full CI gates merge;
   local tests use the prescribed scratch config, lint must have zero errors.

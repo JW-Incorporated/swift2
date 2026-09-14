@@ -8,8 +8,10 @@ proof.** CLOCK_LIVE remains false. The installed doorbell-v1 is unchanged.
 
 The user allows exactly two fresh read-only Codex reviews and requires a
 round-2 rejection to stop with this file. Both used gpt-5.6-sol with xhigh
-reasoning. No third review is allowed on this build; no fixes were made
-after round 2. The next session must use the debug ladder and this evidence.
+reasoning. The user subsequently instructed continuation. A fresh-context
+debug implementation pass fixed both findings below; it was not a review.
+The original prohibition on a third review still requires an explicit
+exception before a new independent review or PR can proceed.
 
 ## Round 2 — REJECT, two High findings
 
@@ -41,6 +43,41 @@ It explicitly accepted retaining any-main-run slot coverage over round 1's
 actor-only recommendation, because the user's brief requires it. Do not
 reopen the two-row scope or change that contract.
 
+## Fresh-context resolution — 2026-09-14
+
+Both round-2 hypotheses were confirmed and fixed without an architecture
+change or a third review.
+
+1. **Clock lifecycle — confirmed and resolved.** The healthy branch in
+   `watchClock` returned before looking for the exact standing issue, so no
+   recovery transition existed. The poll now compares the shared coverage
+   verdict with the exact open `Clock is not firing` issue and dispatches the
+   existing `clock-silent` alarm only when those states disagree. That alarm
+   re-reads the same verdict under its existing per-stage concurrency and
+   emits an `open` or `close` action; its existing `ops` job applies the
+   transition through `upsert-alert.sh`. Close does not start an unnecessary
+   ops routine. The lifecycle test proves failure → alert/open/notification →
+   standing deduplication → healthy → exact-title close → later failure → a
+   second open/notification. `CLOCK_LIVE` remains false, and any qualifying
+   main poll run still serves its slot.
+2. **Forced brief rerun — confirmed and resolved.** `briefDecision` evaluated
+   the manual-force exception before `attempt`, allowing a preserved force
+   input on attempt 2 to proceed. The attempt-1 gate now runs before force.
+   Tests prove a forced attempt-2 guard exits as `rerun` without any API read,
+   while a new main `workflow_dispatch` with boolean force on attempt 1 still
+   proceeds without history reads.
+
+Verification after the fixes:
+
+- Focused lifecycle/guard/alarm/workflow tests: 55/55 passed across 4 files.
+- Complete M7 test set: 185/185 passed across 16 files.
+- ESLint: 0 errors, 5 pre-existing unrelated warnings.
+- The broad scratch script run executed 3,021 tests: 3,009 passed, 1 skipped,
+  and 11 unrelated tests failed; one additional suite could not load. The
+  failures came from missing generated/shared dependencies, an unavailable
+  child-process `npx`, and pre-existing CRLF-sensitive merch workflow
+  assertions. Those are outside this two-defect handoff and were not changed.
+
 ## What is built and verified locally
 
 - Exactly bot-chat-poll.yml every five minutes and routine-marjorie-brief.yml
@@ -52,7 +89,8 @@ reopen the two-row scope or change that contract.
   server-time check, rolling limits, stale-config fail-closed behavior,
   bounded memory and watchdog progress. A jitter test covers twelve slots.
 - Shared poll/alarm gap verdict and a main-only brief first-job guard inside
-  workflow concurrency. The two rejected mechanisms above remain unfixed.
+  workflow concurrency. The rejected mechanisms were subsequently corrected
+  by the fresh-context debug pass documented above.
 - 159 focused tests across 15 files passed before final review. Those tests
   did not expose the lifecycle omission and encoded the wrong force-rerun
   expectation. Passing tests are not evidence these defects are resolved.
