@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #72 · 2026-09-13 · done · Create the Long Live Doorbell Discord bot and save its token — "Joey confirmed in chat 2026-09-13: Long Live Doorbell bot created, token saved" · by chat
+- #73 · 2026-09-13 · done · Limit the Doorbell bot to #longlive-marjorie and #longlive-tree — "Joey confirmed in chat 2026-09-13: Doorbell bot limited to #longlive-marjorie and #longlive-tree" · by chat
 - #74 · 2026-09-13 · done · Create the GitHub key the Doorbell uses to wake Marjorie and Tree — "Joey confirmed in chat 2026-09-13: fine-grained key longlive-doorbell-dispatch created and saved" · by chat
 - #71 · 2026-09-13 · done · Send two or three short Discord messages so the bot chat can be proven — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1548841758950162463" · by chat
 - #69 · 2026-09-13 · done · Grant the Discord bot four permissions on #longlive-marjorie and #longlive-tree — "owner said done in chat; reply-poll run 34774300277 read the channel without a 403" · by chat
