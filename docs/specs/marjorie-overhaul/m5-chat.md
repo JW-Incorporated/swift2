@@ -119,9 +119,13 @@ one covers only the conversational loop. Epic #4180.
    refused notice leaves no ❌, so the next poll retries it; a successful
    notice is its own idempotency marker, so a refused or interrupted ❌ is
    retried without reposting. A reply is a webhook post under the bot's name
-   in the thread started on the message, in the message's own thread before
-   the next human message, or at top level opening `↪ <message link>` — no
-   hidden marker, since Discord shows `<!-- -->` as text. A place
+   in the thread started on the message, or anywhere else opening
+   `↪ <message link>` (every reply carries that line, so two asks in one
+   thread answered out of order are never crossed; a legacy unlinked reply in
+   the message's own thread still counts before the next human message) — no
+   hidden marker, since Discord shows `<!-- -->` as text. Unfinished 👀
+   claims are collected for 7 days within the pages read, not just the 24 h
+   window, so a claim that fails near the window's edge is still settled. A place
    the poll cannot read, a missing channel, or a founder message with a blank
    body (no Message Content intent) fails the run, so watchdog sees it.
    `GITHUB_TOKEN` may dispatch

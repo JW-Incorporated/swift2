@@ -12,6 +12,9 @@ export const FAILED = '❌';
 export const FAILURE_PREFIX = '[chat failed]';
 export const MAX_PER_CHANNEL = 3;
 export const WINDOW_MS = 24 * 60 * 60 * 1000;
+// An unfinished 👀 claim outlives the fresh-message window: a message claimed
+// at 23h58m whose dispatch then failed must still be reconciled.
+export const CLAIM_WINDOW_MS = 7 * WINDOW_MS;
 export const STALE_CLAIM_MS = 45 * 60 * 1000;
 export const HISTORY_LIMIT = 15;
 export const SNOWFLAKE = /^\d{15,21}$/;
@@ -62,11 +65,11 @@ export function createdSince(timestamp) {
   return Number.isFinite(ms) ? new Date(ms - 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z') : '2015-01-01T00:00:00Z';
 }
 
-export function isFounderMessage(message, { founders, sourceId, now }) {
+export function isFounderMessage(message, { founders, sourceId, now, windowMs = WINDOW_MS }) {
   if (!message || isRootOrWebhookMessage(message, sourceId)) return false;
   if (!founders.has(String(message.author?.id ?? ''))) return false;
   if (!HUMAN_TYPES.has(message.type ?? 0)) return false;
-  return now - messageTime(message) <= WINDOW_MS;
+  return now - messageTime(message) <= windowMs;
 }
 
 // Without the Message Content intent Discord blanks content, embeds,
@@ -94,7 +97,8 @@ const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (Bi
  * (`threadId: ''`) and each active thread under it. Returns
  * - `picked`: the oldest unclaimed founder messages, capped;
  * - `claimed`: founder messages carrying the bot's 👀 but neither ✅ nor ❌ —
- *   an earlier poll's handoff the poll must reconcile against the runs;
+ *   an earlier poll's handoff the poll must reconcile against the runs, kept
+ *   for CLAIM_WINDOW_MS within the pages read, not just the fresh window;
  * - `empty`: founder messages whose body came back blank — the signature of a
  *   bot without the Message Content intent, which fails the poll run.
  */
@@ -105,7 +109,8 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
   for (const { channelId, threadId, messages } of sources) {
     const notices = new Set((messages || []).filter((m) => isFailureNotice(m)).map((m) => String(m.message_reference.message_id)));
     for (const m of messages || []) {
-      if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now })) continue;
+      const windowMs = hasOwnReaction(m, CLAIM) ? CLAIM_WINDOW_MS : WINDOW_MS;
+      if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now, windowMs })) continue;
       const failed = hasOwnReaction(m, FAILED);
       const item = {
         messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp,
