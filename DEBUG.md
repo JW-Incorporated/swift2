@@ -130,3 +130,56 @@ It judges the clock sound only if it does less.
   - Rows harmless if doubled only (the poll, watchdog, checks, reads). Social posting and backups stay on GitHub cron until each gets a guard: on `event==schedule`, exit if a main dispatch ran in the last 20 minutes.
   - AI routines are the founder's call.
 - Next rung: `architect`.
+
+## Architect ruling (rung 3, 2026-09-14 07:35 PDT)
+
+**Mostly sound.** It closes the review by shrinking authority rather than
+policing it. Amendments:
+
+- **Fail closed on an unreadable main.**
+  - Keeping the last good value lets a broken `chat-inbox.mjs` block the off
+    switch.
+  - Three consecutive failed refreshes (30 min) → the clock treats itself as
+    off until a good read.
+- **Replace the fsync ledger:** a slot is due only if `slot >= processStartMs`.
+  - `handled` stays in memory only.
+  - A crash between the POST and the memory write cannot re-fire, because the
+    slot now predates process start.
+  - No file, and no backward-jump hazard beyond the process lifetime.
+  - Attempt once; never retry the POST. The read-only run-list GET may retry
+    within 10 minutes. A crash loop fires nothing.
+- **Accept:** a rolling 60-minute cap and a per-row gap at dispatch time, in
+  memory. CI bound: ≤40 per hour and ≥5 minutes per row over the table's full
+  cycle (not sampled). Plus systemd `StartLimitBurst`.
+- **Accept the gap watch** with the caveat stated in the spec: if both the
+  clock and the cron are dead, detection waits for a surviving cron. Add
+  `WatchdogSec` to the unit.
+- **Mechanical fixes (required):**
+  - body-read failure → `ok: false`;
+  - `branch=main` in the dedup query;
+  - `since` passed in `checkClock`;
+  - CI rejects a future `CLOCK_LIVE_SINCE`.
+- **Scope (founder question):**
+  - **A (recommended):** the clock drives only `bot-chat-poll`,
+    `routine-marjorie-ops` and `watchdog`.
+  - **B:** A plus every other row harmless if doubled, in a second tag.
+  - **C:** all 55, rejected: a doubled `social-poster` run is a double post.
+
+  Social posting, backups and AI routines stay on GitHub cron until each has a
+  per-slot idempotency guard.
+- **Fresh session:** new branch `feature/m7-clock-v2` and its own worktree.
+  - Codex round 1 is a **design review of the amended spec, before code**;
+    round 2 reviews the diff; no round 3.
+  - Acceptance:
+    - a unit test per mechanism;
+    - "slot before process start is not due";
+    - "table outside the cap fails CI";
+    - one-hour live proof on the three rows, zero doubles;
+    - `docs/decisions.md` entry;
+    - `MAP.md` rows.
+  - Guards: never discard uncommitted work; `codex:rescue --background`; never
+    touch `scripts/social/**`.
+
+This branch (`feature/m7-clock`) is not merged. It is the reference for v2:
+its cron parser, schedule table and test, workflow gate changes and ops text
+are reusable.
