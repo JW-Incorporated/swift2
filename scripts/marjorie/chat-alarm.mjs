@@ -21,7 +21,7 @@
 // Each is attempted whatever happened to the others; any failure fails the step.
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { appendFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -48,10 +48,15 @@ export function alarmTitle(stage, bot, messageId) {
   return stage === 'stuck' ? `Chat reply stuck · ${BOTS[bot].name} · ${messageId}` : STANDING[stage];
 }
 
+// Only shapes this alarm expects reach the issue body and GITHUB_OUTPUT.
+const RUN_URL = /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/actions\/runs\/\d+(?:\/[\w/-]*)?$/;
+const RUN_STATE = /^[a-z_]{1,32}$/;
+
 function runLine(runs, bot, messageId) {
   if (runs === null) return 'could not be listed';
   if (!runs.length) return `none named \`${runTitle(bot, messageId)}\``;
-  return runs.map((r) => `${r.url || '(no url)'} (${[r.status, r.conclusion].filter(Boolean).join(', ')})`).join('; ');
+  const shown = (r) => `${RUN_URL.test(String(r.url)) ? r.url : '(no url)'} (${[r.status, r.conclusion].filter((s) => typeof s === 'string' && RUN_STATE.test(s)).join(', ')})`;
+  return runs.map(shown).join('; ');
 }
 
 export function alarmBody({ stage, bot, messageId, channelId, threadId = '', messageUrl = '', runs, delivery = null, posted, now, runUrl = '' }) {
@@ -138,7 +143,7 @@ export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = 
   const posted = snowflakeMs(messageId);
   const where = threadId || channelId;
   const channel = await discordRequest('GET', `${DISCORD_API}/channels/${channelId}`, token, opts).catch(() => ({ ok: false }));
-  const guildId = channel.ok ? channel.data?.guild_id : '';
+  const guildId = channel.ok && SNOWFLAKE.test(String(channel.data?.guild_id ?? '')) ? String(channel.data.guild_id) : '';
   const messageUrl = guildId ? `https://discord.com/channels/${guildId}/${where}/${messageId}` : '';
   const listed = listRuns(execImpl, repo, BOTS[bot].workflow, new Date(posted).toISOString());
   const runs = listed ? findRuns(listed.runs, bot, messageId) : null;
@@ -167,7 +172,7 @@ export function alert({ env = process.env, execImpl = execFileSync } = {}) {
     console.log('::error::chat-alarm alert: needs TITLE, BODY and REPO');
     return 2;
   }
-  const file = path.join(env.RUNNER_TEMP || tmpdir(), 'chat-alarm.md');
+  const file = path.join(mkdtempSync(path.join(env.RUNNER_TEMP || tmpdir(), 'chat-alarm-')), 'alert.md');
   writeFileSync(file, `${body}\n`);
   const run = (workflow) => ['gh', ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main'], DISPATCH_TIMEOUT_MS];
   const actions = [

@@ -130,9 +130,13 @@ describe('check', () => {
   });
 
   it('stuck with a run still going: alert with the run and its state, no poll start', async () => {
-    const { outputs } = await run('stuck', { runs: [{ displayTitle: runTitle('marjorie', MID), status: 'in_progress', url: 'https://github.com/run/1' }] });
+    const good = 'https://github.com/JW-Incorporated/swift2/actions/runs/1';
+    const { outputs } = await run('stuck', { runs: [{ displayTitle: runTitle('marjorie', MID), status: 'in_progress', url: good }] });
     expect(outputs.dispatch_poll).toBe('false');
-    expect(outputs.body).toContain('https://github.com/run/1 (in_progress)');
+    expect(outputs.body).toContain(`${good} (in_progress)`);
+    // Anything off the expected shape never reaches the body (CodeQL js/http-to-file-access).
+    const odd = await run('stuck', { runs: [{ displayTitle: runTitle('marjorie', MID), status: 'queued\nEOF', url: 'https://evil.example/x' }] });
+    expect(odd.outputs.body).toContain('chat run: (no url) ()');
   });
 
   it('stuck and Discord unreadable: alerts anyway and says so', async () => {
@@ -183,7 +187,9 @@ describe('alert', () => {
     const first = exec();
     expect(alert({ env: e, execImpl: first.execImpl })).toBe(0);
     expect(first.seen).toEqual([OPEN, OPS]);
-    expect(readFileSync(join(e.RUNNER_TEMP, 'chat-alarm.md'), 'utf8')).toBe('line one\nline two\n');
+    const bodyFile = first.execImpl.mock.calls[0][1][3];
+    expect(bodyFile.startsWith(join(e.RUNNER_TEMP, 'chat-alarm-'))).toBe(true); // a fresh private directory (CodeQL js/insecure-temporary-file)
+    expect(readFileSync(bodyFile, 'utf8')).toBe('line one\nline two\n');
     const second = exec();
     expect(alert({ env: env({ DISPATCH_POLL: 'true' }), execImpl: second.execImpl })).toBe(0);
     expect(second.seen).toEqual([OPEN, OPS, POLL]);
