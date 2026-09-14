@@ -7,6 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-14 — Marjorie drives dispatched work to done: ready-shaped tickets, the founder's yes, a 48/96-hour chase (M8)
+
+**Decision (Joey, in chat, 2026-09-14):** of two proposed designs for getting
+Marjorie's engineering dispatches built, take the first: she files into
+Kevin's existing queue, and Austin's lane picks up what Kevin greenlights;
+no direct Marjorie-to-Austin lane, no change to Austin's fence or Kevin's
+prompts. Added at Joey's numbers: an item of hers with no activity for
+**48 hours** is named on the brief's stalled line and gets one nudge; at
+**96 hours** it becomes one `[DECIDE]` human action (assign, defer or
+close), once per item, `SKIP` final. "I want PRs closed within 2 days
+max." A founder's ✅ or chat yes on one of her items becomes a
+"Plan approved" comment on the issue, which is what Kevin already reads as
+approval. Spec: `docs/specs/marjorie-overhaul/m8-drive-to-done.md`.
+
+**Why:** Marjorie can only file issues (invariant 1). Her filings already
+reach Kevin's triage by authorship, but nothing chased a ticket after
+filing, nothing relayed the founder's yes to the issue, and `desk:build`
+was a marker no routine consumed. Two Tree asks routed to the build desk on
+09-14 (#4296, #4297) would have aged silently.
+
+**Rejected:** a direct `desk:build` queue for Austin. Faster, but it
+bypasses Kevin's judgment, so Marjorie's acceptance criteria would be the
+only quality gate. Revisit if the two-day rule is not met under design 1.
+
+**Open:** Austin's allowlist excludes `scripts/**` and `.github/**`, where
+most of what Marjorie and Tree file lives; widening it is a separate
+charter decision the chase will make the case for or against.
+
 ## 2026-09-14 — The routines' clock runs on the home server, not on GitHub's scheduler (M7 amendment)
 
 **Decision:** The M7 doorbell process on the Hermes VM host also keeps the
