@@ -11,14 +11,11 @@
 //            a complete run query plus lib/chat-delivery.mjs's Discord read
 //            settles it: ✅ for a reply already there, ❌ for a notice already
 //            there, else one referenced `[chat failed]` notice, then ❌.
-//            While DOORBELL_LIVE (lib/chat-inbox.mjs) it also watches the M7
-//            doorbell (m7-doorbell.md Mechanics 5): a message carrying someone
-//            else's 👀 is left alone once its run exists, and a missed or
-//            failed ring raises bot-chat-alarm.yml before the poll claims it.
-//   context  the chat routines' first job (lib/chat-context.mjs). Claims the
-//            message with this bot's own 👀, then writes its context JSON
-//            (the message, what it replies to, the thread root, the last 15
-//            messages) for the agent to read from `.scratch/`.
+//            While DOORBELL_LIVE it also watches the M7 doorbell
+//            (m7-doorbell.md Mechanics 5; doorbellWatch in lib/chat-inbox.mjs).
+//   context  the chat routines' first job (lib/chat-context.mjs): claims the
+//            message with this bot's own 👀, then writes its context JSON for
+//            the agent to read from `.scratch/`.
 //
 // A founder's Discord *reply* at top level (type 19, `message_reference`) is
 // a top-level message here — the 09-13 brief reply that reply-poll.mjs
@@ -34,7 +31,7 @@ import { context } from './lib/chat-context.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, REPLIED, STALE_CLAIM_MS,
+  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
   alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
 export { context };
@@ -231,7 +228,8 @@ export async function poll({
     }
     const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });
     failures += failed;
-    const { picked, claimed, empty } = selectInbox(sources, { founders, now });
+    // Watching the doorbell skips messages it has, so the cap applies to claims below.
+    const { picked, claimed, empty } = selectInbox(sources, { founders, now, cap: doorbellLive ? Infinity : MAX_PER_CHANNEL });
     if (empty.length) {
       failures += 1;
       console.log(`::error::chat-poll: ${bot}: ${empty.length} founder message(s) read with a blank body — the bot likely lacks the Message Content intent`);
@@ -240,24 +238,31 @@ export async function poll({
     failures += settled.failures;
     const fresh = picked;
     console.log(`${bot}: ${fresh.length} new, ${claimed.length} earlier claim(s) checked, from ${sources.length} place(s)`);
+    let taken = 0;
     for (const item of fresh) {
+      if (taken >= MAX_PER_CHANNEL) break;
       const where = item.threadId || item.channelId;
-      let alarm = null;
+      let watch = { action: 'claim', alarm: null };
       if (doorbellLive) {
-        const watch = watchDoorbell({ bot, cfg, item, repo, execImpl, now });
+        watch = watchDoorbell({ bot, cfg, item, repo, execImpl, now });
         if (watch.failed) failures += 1;
         if (watch.action === 'skip') continue;
-        alarm = watch.alarm;
       }
+      taken += 1;
       if (dryRun) {
-        console.log(`dry-run: would ${alarm ? `raise ${alarm}, then ` : ''}claim ${bot} message ${item.messageId} in ${where} (${item.length} chars)`);
+        console.log(`dry-run: would claim ${bot} message ${item.messageId} in ${where} (${item.length} chars)${watch.alarm ? `, then raise ${watch.alarm}` : ''}${watch.action === 'claim-only' ? ', without a dispatch' : ''}`);
         continue;
       }
-      if (alarm) raiseAlarm({ execImpl, repo, stage: alarm, bot, item });
       const claim = await discordRequest('PUT', reactionUrl(where, item.messageId, CLAIM), token, opts);
       if (!claim.ok) {
         failures += 1;
         console.log(`::error::chat-poll: could not add ${CLAIM} to ${item.messageId} (HTTP ${claim.status}) — not dispatching, since an unclaimed message would be answered twice`);
+        continue;
+      }
+      // Only after a claim: an unclaimed message comes back next pass, and its alarm must not.
+      if (watch.alarm) raiseAlarm({ execImpl, repo, stage: watch.alarm, bot, item });
+      if (watch.action === 'claim-only') {
+        console.log(`claimed ${bot} message ${item.messageId} without a dispatch (${watch.why}); the 45-minute reconcile settles it`);
         continue;
       }
       try {

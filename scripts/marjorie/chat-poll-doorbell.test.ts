@@ -15,14 +15,18 @@ import { DISCORD_API } from './lib/discord-bot.mjs';
 const ID = '1000000000000000001';
 const rung = (count = 1) => ({ reactions: [{ me: false, count, emoji: { name: CLAIM } }] });
 const young = { timestamp: '2026-09-13T17:59:30.000Z' }; // 30 s before NOW
-const claimKey = `PUT ${DISCORD_API}/channels/${MARJ}/messages/${ID}/reactions/${EYES}/@me`;
+const claimOf = (id: string) => `PUT ${DISCORD_API}/channels/${MARJ}/messages/${id}/reactions/${EYES}/@me`;
+const claimKey = claimOf(ID);
 const isAlarm = (k: string) => k.startsWith('gh workflow run bot-chat-alarm.yml');
 const isChat = (k: string) => k.startsWith('gh workflow run routine-marjorie-chat.yml');
-const running = [{ displayTitle: runTitle('marjorie', ID), status: 'in_progress', url: 'https://github.com/run/1' }];
+const runOf = (id: string, status = 'in_progress', conclusion = '') => ({ displayTitle: runTitle('marjorie', id), status, conclusion, url: `https://github.com/run/${id}` });
 
-async function pass(message: unknown, { runs = [] as unknown[], doorbellLive = true, execImpl = null as unknown, extraEnv = {} } = {}) {
+type PassOptions = { runs?: unknown[]; doorbellLive?: boolean; execImpl?: unknown; extraEnv?: Record<string, string>; claim?: unknown };
+async function pass(messages: unknown | unknown[], { runs = [], doorbellLive = true, execImpl, extraEnv = {}, claim = res(204) }: PassOptions = {}) {
+  const list = (Array.isArray(messages) ? messages : [messages]) as Array<{ id: string }>;
   const order: string[] = [];
-  const { fetchImpl } = discord({ ...baseRoutes([message]), [claimKey]: res(204) }, order);
+  const claims = Object.fromEntries(list.map((m) => [claimOf(m.id), claim]));
+  const { fetchImpl } = discord({ ...baseRoutes(list), ...claims }, order);
   const exec = (execImpl as ReturnType<typeof gh>) || gh(runs, order);
   const code = await poll({ env: { ...env, ...extraEnv }, fetchImpl, sleepImpl, execImpl: exec, now: NOW, workflowExists: onlyMarjorie, doorbellLive });
   return { code, order };
@@ -50,11 +54,18 @@ describe('the poll watches the doorbell', () => {
     expect(order.filter(isChat)).toHaveLength(1);
   });
 
-  it("someone else's 👀 and a run exists: skipped — the doorbell has it and context will claim it", async () => {
-    const { code, order } = await pass(msg(ID, rung()), { runs: running });
+  it("someone else's 👀 and its run still going: skipped — the doorbell has it and context will claim it", async () => {
+    const { code, order } = await pass(msg(ID, rung()), { runs: [runOf(ID, 'queued')] });
     expect(code).toBe(0);
     expect(order.some((k) => k.startsWith('gh run list'))).toBe(true);
     expect(order.some((k) => k.startsWith('PUT '))).toBe(false);
+    expect(order.filter((k) => isChat(k) || isAlarm(k))).toEqual([]);
+  });
+
+  it("someone else's 👀 and its run ended before context claimed it: claimed with no second dispatch (Codex R1 #1)", async () => {
+    const { code, order } = await pass(msg(ID, rung()), { runs: [runOf(ID, 'completed', 'cancelled')] });
+    expect(code).toBe(0);
+    expect(order).toContain(claimKey);
     expect(order.filter((k) => isChat(k) || isAlarm(k))).toEqual([]);
   });
 
@@ -64,20 +75,21 @@ describe('the poll watches the doorbell', () => {
     expect(order.some((k) => k.startsWith('PUT ') || isChat(k) || isAlarm(k))).toBe(false);
   });
 
-  it("someone else's 👀, no run, 60 s or older: doorbell-dispatch-failed alarm, then the claim, then the dispatch", async () => {
+  it("someone else's 👀, no run, 60 s or older: the claim, then the doorbell-dispatch-failed alarm, then the dispatch", async () => {
     const { code, order } = await pass(msg(ID, rung()));
     expect(code).toBe(0);
     const alarm = order.findIndex(isAlarm);
-    expect(alarm).toBeGreaterThan(-1);
-    expect(order.indexOf(claimKey)).toBeGreaterThan(alarm);
-    expect(order.findIndex(isChat)).toBeGreaterThan(order.indexOf(claimKey));
+    expect(alarm).toBeGreaterThan(order.indexOf(claimKey));
+    expect(order.indexOf(claimKey)).toBeGreaterThan(-1);
+    expect(order.findIndex(isChat)).toBeGreaterThan(alarm);
     expect(order[alarm]).toBe(`gh ${alarmArgs(REPO, 'doorbell-dispatch-failed', { bot: 'marjorie', messageId: ID, channelId: MARJ, threadId: '' }).join(' ')}`);
   });
 
-  it('no 👀 at all, 60 s or older: doorbell-missed alarm, then the claim and dispatch', async () => {
+  it('no 👀 at all, 60 s or older: claimed, doorbell-missed raised, then dispatched', async () => {
     const { order } = await pass(msg(ID));
     expect(order.filter(isAlarm)).toHaveLength(1);
     expect(order.find(isAlarm)).toContain('stage=doorbell-missed');
+    expect(order.findIndex(isAlarm)).toBeGreaterThan(order.indexOf(claimKey));
     expect(order.findIndex(isChat)).toBeGreaterThan(order.findIndex(isAlarm));
   });
 
@@ -91,6 +103,27 @@ describe('the poll watches the doorbell', () => {
     const { order } = await pass(msg(ID, { sticker_items: [{ id: '5' }] }));
     expect(order.filter(isAlarm)).toEqual([]);
     expect(order.filter(isChat)).toHaveLength(1);
+  });
+
+  it('a refused claim raises no alarm, pass after pass (Codex R1 #2)', async () => {
+    for (let i = 0; i < 2; i += 1) {
+      const { code, order } = await pass(msg(ID), { claim: res(403, { code: 50013 }) });
+      expect(code).toBe(1);
+      expect(order.filter((k) => isAlarm(k) || isChat(k))).toEqual([]);
+    }
+  });
+
+  it('messages the doorbell has do not use up the three-per-channel cap (Codex R1 #3)', async () => {
+    const at = (minute: number) => `2026-09-13T17:0${minute}:00.000Z`;
+    const ids = ['1000000000000000001', '1000000000000000002', '1000000000000000003', '1000000000000000004', '1000000000000000005'];
+    const messages = [
+      ...ids.slice(0, 3).map((id, i) => msg(id, { ...rung(), timestamp: at(i) })),
+      msg(ids[3], { timestamp: at(3) }),
+      msg(ids[4], { timestamp: at(4) }),
+    ];
+    const { order } = await pass(messages, { runs: ids.slice(0, 3).map((id) => runOf(id)) });
+    expect(order.filter(isChat).map((k) => /message_id=(\d+)/.exec(k)?.[1])).toEqual([ids[3], ids[4]]);
+    expect(order.filter(isAlarm)).toHaveLength(2);
   });
 
   it("an unlistable run for a rung message fails the pass and leaves the message alone", async () => {
@@ -123,7 +156,7 @@ describe('the poll watches the doorbell', () => {
   });
 
   it('a ring plus a poll pass before context yields one dispatch, and context then claims it', async () => {
-    const { order } = await pass(msg(ID, rung()), { runs: running });
+    const { order } = await pass(msg(ID, rung()), { runs: [runOf(ID)] });
     expect(order.filter(isChat)).toEqual([]); // the doorbell's run is the only one
     const log: string[] = [];
     const { fetchImpl } = discord({

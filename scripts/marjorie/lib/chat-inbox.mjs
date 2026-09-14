@@ -159,14 +159,20 @@ export function alarmArgs(repo, stage, { bot = '', messageId = '', channelId = '
 /**
  * m7-doorbell.md Mechanics 5, for one message the poll would claim while
  * DOORBELL_LIVE. `runs` = this message's chat runs (only read when the
- * doorbell's 👀 is on it). Returns `{ action: 'skip', why }`, or
- * `{ action: 'claim', alarm }` with the alarm stage to raise first, if any.
+ * doorbell's 👀 is on it). Returns one of
+ * - `{ action: 'skip', why }`: the doorbell's run is still going, or it rang
+ *   under a minute ago;
+ * - `{ action: 'claim-only', why }`: its run ended before `context` claimed
+ *   the message (cancelled, say). Claim it so the 45-minute reconcile settles
+ *   it, and never start agent work for it twice;
+ * - `{ action: 'claim', alarm }`: claim, raise `alarm` if set, then dispatch.
  * A sticker message raises no alarm: the doorbell skips stickers by design.
  */
 export function doorbellWatch(item, { now, runs = [] }) {
   const young = now - messageTime(item) < DOORBELL_GRACE_MS;
   if (item.doorbell) {
-    if (runs.length) return { action: 'skip', why: 'the doorbell dispatched it; context claims it' };
+    if (runs.some((run) => run.status !== 'completed')) return { action: 'skip', why: 'the doorbell dispatched it and its run is still going' };
+    if (runs.length) return { action: 'claim-only', why: 'its run ended before context claimed it' };
     if (young) return { action: 'skip', why: 'the doorbell rang under a minute ago with no run yet' };
     return { action: 'claim', alarm: 'doorbell-dispatch-failed' };
   }
