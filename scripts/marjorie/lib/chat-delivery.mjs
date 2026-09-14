@@ -85,7 +85,10 @@ export function classifyDelivery({ bot, messageId, message, sourceThreadId = '',
   if (hasOwnReaction(message, REPLIED) || hasOwnReaction(message, FAILED)) return 'settled';
   const after = sourceMessages.filter(newer(messageId)).sort(ascending);
   const inReplyThread = String(replyThreadId) === String(messageId) ? replyMessages : [];
-  let replied = inReplyThread.some((m) => isBotReply(m, bot));
+  // The reply thread on a root message also holds replies to follow-ups
+  // posted in it, so a linked reply there counts only for the message it names.
+  const answers = (m) => isBotReply(m, bot) && (linksTo(m.content, messageId, messageUrl) || !hasLinkLine(m.content));
+  let replied = inReplyThread.some(answers);
   replied ||= after.some((m) => isBotReply(m, bot) && linksTo(m.content, messageId, messageUrl));
   if (sourceThreadId && !replied) {
     // Positional fallback for replies posted before every reply carried a

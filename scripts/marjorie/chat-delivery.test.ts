@@ -207,6 +207,24 @@ describe("concurrent asks in one thread — B's agent failed while A's linked re
   });
 });
 
+describe("root A's agent failed while follow-up B in A's reply thread was answered", () => {
+  const B = '1000000000000000010';
+  it("A's finish posts [chat failed] and ❌, not ✅", async () => {
+    const replyToB = hook('1000000000000000011', 'Marjorie', `↪ https://discord.com/channels/${GUILD}/${MID}/${B}
+answer for B`);
+    const d = discord({
+      [get(MARJ)]: res(200, founder(MID, mine('👀'))),
+      [after(MARJ)]: res(200, []),
+      [after(MID)]: res(200, [founder(B), replyToB]),
+      [say(MARJ)]: res(200, { id: '1000000000000000012' }),
+      [react(MARJ, '❌')]: res(204),
+    });
+    expect(await readDeliveryState({ bot: 'marjorie', messageId: MID, channelId: MARJ, replyThreadId: MID, messageUrl: URL, token: 't', fetchImpl: d.fetchImpl, sleepImpl })).toMatchObject({ ok: true, state: 'open' });
+    expect(await finish(rerun('marjorie', MARJ), { env: {}, fetchImpl: d.fetchImpl, sleepImpl, execImpl: gh() })).toBe(0);
+    expect(d.writes()).toEqual([say(MARJ), react(MARJ, '❌')]);
+  });
+});
+
 describe('finding 2 — Marjorie: agent saved a reply then failed; post and finish ran; cleanup failed; re-run', () => {
   it('the re-run finish on the already-✅ message does nothing at all (run and post are attempt-1 only)', async () => {
     const d = discord({ [get(MARJ)]: res(200, founder(MID, mine('👀', '✅'))) });
