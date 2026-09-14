@@ -178,7 +178,9 @@ export function alert({ env = process.env, execImpl = execFileSync } = {}) {
   let failed = 0;
   for (const [label, [cmd, args, timeout]] of actions) {
     try {
-      execImpl(cmd, args, { stdio: 'inherit', timeout, killSignal: 'SIGKILL' });
+      // The notice's output is discarded: a mail fallback orphaned by the kill
+      // would otherwise hold the step's log pipe open until the job times out.
+      execImpl(cmd, args, { stdio: cmd === 'bash' ? 'ignore' : 'inherit', timeout, killSignal: 'SIGKILL' });
       console.log(`${label}: done`);
     } catch (err) {
       failed += 1;

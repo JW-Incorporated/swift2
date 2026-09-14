@@ -190,6 +190,7 @@ describe('alert', () => {
     // A stalled notice is killed in time for both dispatches (Codex R2).
     expect(second.execImpl.mock.calls.map((call) => (call[2] as { timeout?: number } | undefined)?.timeout)).toEqual([NOTICE_TIMEOUT_MS, DISPATCH_TIMEOUT_MS, DISPATCH_TIMEOUT_MS]);
     expect(NOTICE_TIMEOUT_MS + 2 * DISPATCH_TIMEOUT_MS).toBeLessThan(8 * 60_000);
+    expect((second.execImpl.mock.calls[0][2] as { stdio?: string }).stdio).toBe('ignore');
     quiet.mockRestore();
   });
 
