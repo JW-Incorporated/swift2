@@ -25,7 +25,40 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 43
+Stories: 42
+
+## Dakota Johnson and Machine Gun Kelly Seen at Taylor Swift's Residence
+
+- first seen: 2026-09-14 06:11 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Dakota Johnson and Machine Gun Kelly were recently spotted at Taylor Swift's home, leading to speculation about their relationship status. The appearance has attracted media attention and sparked dating rumors.
+- sources:
+  - [unverified] The Times — https://news.google.com/rss/articles/CBMi2wFBVV95cUxPMFVkVUI5Q2cxbDlUdjM0ZXc4Q05mdWk2XzZualNVaVItM0pHVjFkS1pjMVlPVUdYNzlHX1I1TGJwQXlEQjBYQmFKd1lmLS05aTAwanJfWUZ2Q2RBVEFsZGxTQ1FiS01uM0ItdGtzUDlFSnlxZjkxbDhEdDl3ZzFjd01TaGd2QlBDa0FmWW0zRWZrQ1JKQk1XVWNNYWttcmJUQWZZWTJzNG9iZWdDbTF0RnphdDNNdXVBY2tOQ2xwTDFENDhHcjhkRXh2TFlrVmZ0MnhDRkxfdEtLSEk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiuAJBVV95cUxQUURLWjZ6Q2hDZGZncll5RGVGZWh4aXRiRVNWRFRETlhoWFlSMFlOTWt5NlNMZ3NPWW1zTzgzZzgyLVUwYTVaTnRJLVdITlYtVUFPeGFNbEh0OW84TDVBelZhdnBDSzlSR1lONjNiZVdxQ1d4Mk1paEY3MERoVjd2ZzdHdFUySkNXZnVsQkdfNmZrUlV6ZkJTODFaUFBkaC1sQndNLVhJdDVEaURzdWtEUDRlM25lQVZHcjI2Qm1BRjFvTFlzYmlsNFdmanFzalUyNHIzWGdhM1A3ejBpcDdESHZTZUxKZkdDZ1JzZHJXT01rcGxsc3RFTjdFai1LNXowdm5ibm1TTDJrNTdWal8zd2Rad0VVTEdWeVBQWFRVd1BYUFJFZi1EcXQzUEZ0cTRNX3ZxYkNQd1DSAb4CQVVfeXFMUEUwUDc1bEpmOGhubmVGNWdGZmFxTF9TNS1ZWDZFbXNTRkpHeVdWUXYxSjlaZFVLVTRYTm1OdUNsTi1YVEVKOFlSS01mblRWMVBlUmtkc05NWVo5SjA4X1J0Uk8tVjEzTmoyc1RIcGJURGVoVWRrNFV0dDNOZmlKaU8ydUJSMEZXVGhydVRrUnZ6UEVqdV9ydUp3MGxvV3N2ODZJR3o2NlduaUNpTHdkVmZSMm5ZYS03dUwxR0htTEVLR0tGQzhzNTFBX3hvcHd3UEFDTXRkVERDdExfdGRITlU4QTZLMkJwV3EyR1U1emV5R0NFblFNYVFRTFozUGNlM3dZQnZnOEtYd3FoS0hKcjdINGVQd1AxQ0FTc0NjeDNqaVZTUjU4UFZqblVpQWQ2LWE0eTJIblF4ckV0RVBB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Rates Her Favorite Song from 2021
+
+- first seen: 2026-09-14 06:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent article, Taylor Swift expressed that a particular song from 2021 stands out as her favorite among her music releases. She stated, 'I knew it was my favorite,' highlighting its significance to her.
+- sources:
+  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOWWVXdW5fZjhKaUdLNmV2eXBvcF9vVU5KUzFVVmVvaHZrT2dSNGg3NmZXdEZxTlpGWG1hRE1wSkxOeGZCYmhGbDgyQTdtX0NSc3FsMmRDT285TGtQU3BjejN1NVJxV25oajdfejRRUlhtcTkxX2NPbUlqLS1DSWFJNF8td1JGNHNvdmY3cTZ3NDZPTDBMd0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Unlikely Hollywood Couple Seen Together on a Date
+
+- first seen: 2026-09-14 06:11 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Hollywood couple, considered unlikely by many, was recently spotted on a date. The sighting has attracted attention in the entertainment news.
+- sources:
+  - [unverified] News.com.au — https://news.google.com/rss/articles/CBMiyAJBVV95cUxQWXlYaXdmeUdYU1NYUVRIRXJMYXpmck9EdjRqam9aVFdhcFRjOWFCU200bmxyaUNtVzBBUHU2MVpBVXdhMnZ3QmdodnBfWThoMG9xaEpBOG8ySzlyQlQwUXhJSkt1R1hETHBvVE9wcldqblZSbWN6VFRrOWtac1hOdW5SQm5IX01DZk9qMlVlZ1BrU1BaYTlxSmk5Q21jZ3F6OVZnMWZfYS1QZi1ZVVhyakVOUkFWSGlVU0FCMzhPU3dXQ01tMWxxZDZicVo4TmZ3UUs4aFhXQmtmLXpjWWVwMXN5MldaaEQ0aWZ0TnZUVHk3ZE5CTDNYUjNpODJHT3FNRlNtREkzU0FldHowYWpacjNfWW5sckZlUi10SXJHTk9uOWZYMmYxWG92V05kNVJGaGQ3YW52eWRzZ1JnNzQyejkteDkzNTNk0gHOAkFVX3lxTE96bW9FUndITEdjYUdUOW41emNSSXd0a3Q0Tm96R1RHdkhaX1oxc0ZMd3VhYVFSVTFuV244XzRwRDVEektwbmhlNjRvRnhDWTVOU0RGeXU0MENaQVhUYlFtM2pWSWhKOWY0TGsxbUNtcWlCb0MtQnZFZjhjeU5ad2o1MGU1MHROelNzQ1pPellKY2VlT2pnN1RSaXZDaC1pcDEzcmlUVl9BYW1CM013SjFnTEVQak90V2xEWGhhdG1XQkRwV3BjMTdYVXAwMVRQZDQ5cV9iVXpkVHQyUFZKSXdhS2xRYWJobFVwT2VUcTJlZFdPZ3VvbldVdFZDSHFLZ3hJeEZ0NVl2aV9hMzk3NmRja2pUVDc5Q1RFc1M5WmgwcnhCWE5jcTdOQ2ZDV1lLbDRWSk5SZDJZNjRZS25FbC1wcDl5WkNvNllxbVFvV1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Upset About Nikki Glaser's Wedding Recap
+
+- first seen: 2026-09-14 06:11 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Taylor Swift is allegedly unhappy with Nikki Glaser's recap of her wedding. The specifics of the situation have not been disclosed.
+- sources:
+  - [unverified] Cinemablend — https://news.google.com/rss/articles/CBMirAFBVV95cUxQem1YdkdLMTh0LTMtSkMwZzhRbEFvU1AxYl9kRWRvX3hGVHl1aGR5ckttakFRNmxTQmp1SENFVEF1dWowc2p3T1Z0TVB6Yy10MmlrdTF6RlFaX3d1Rm9qMVlycE9WMnVvV28wQ21DbjlXU1RhTU8wazlESFFvMnJBa3lGOHRzSXJCdENpSVVvZnFwSFdDOGx5TVcyZUxOeGRXclJCcjczcjFkdnhJ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Historic Moment at the 2009 MTV VMAs
 
@@ -348,43 +381,3 @@ Stories: 43
 - summary: The Florida Orchestra is set to perform music by Taylor Swift this Saturday, according to Creative Loafing Tampa. This event highlights the influence of Swift's songs in orchestral arrangements.
 - sources:
   - [unverified] Creative Loafing Tampa — https://news.google.com/rss/articles/CBMinwFBVV95cUxOTk1US1R3TElPR2JlNDY2SzgtRGdFUDFpbkxkeDgxUVpqY0J3ek9kcFlFN2JZamhMT2x4d01POE5VOV9WeHZZVTdjSnRyR3o1dnprX05vNElCcW4ydWl1dGtUcl9XSTlvWGM4Sjd6SVhubWE2cGF0dEZHRmFVSmFkeEM2V1p4YWktbmFzWEh4dmVONXM0Q1N0SkJrYlotNEU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Newly Identified Bugs Named After Taylor Swift
-
-- first seen: 2026-09-11 05:55 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article highlights that several newly discovered bugs have been named in honor of Taylor Swift, reflecting her cultural impact. This recognition showcases the intersection of science and popular culture.
-- sources:
-  - [unverified] NBC Los Angeles — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNOUJuVFhYLTN0ZlU3cGdOVU9aUWRQQTNTdDFHNEphUHZpbXppZkh1bzAzdkhwVDhocWhCQlVQcGtRUVZ5ekVZYUNzbWtXOURXenNkX1V1VnE3bWtlQUZ4VUtTaTNDM3JiTFRyWGdDemZQdHZpdzV2Q29Oc2pwR0JmTFdaNlZHNE5TbmMzVTVYNkR2ZEJDdWV0TVlEdTQ3c1FrY1BCRUtoSG1ReVhXNkNtSFlDSEVlNEJDYnJYdGpjdEtrVGQ4UFNUZNIB0AFBVV95cUxNNHQ5ZzB3OXNHOURuSFUyUEtnWU1mVG5oNUZLMFRZQ01uVURZcV9zMDJ5NFlUNVBDeFN2T1VhRUVTYjNIRGtfLU9vUXZfLVFRRUhIdVR5Yk9UcnVBenVjSmwzaTNBWEM4d19VemZtcXk5MWhkSnlmY0NfTlhQVmFLcnE4UjJqNHpwaFBGUWlncmZnelM1ZDBsTmJ3V19VaUNIVlYxQVJMTlh2UHhhVFM0VXlCSjJnV25fRVFsZmtNR0JNaHNzWE5LREFyMktpMHNu?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Eras Tour Dancers Share Wedding Looks
-
-- first seen: 2026-09-11 05:55 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Fourteen of the fifteen dancers from Taylor Swift's Eras Tour have shared their looks from her wedding. This showcase highlights the fashion choices made for the special occasion.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNd3FLVUJNVVo2SmhwTl9ZUFBOR1BpSTdOejI5MUdmRnVxSHY0aU5VcXFyZWVrMm5nZXNRbW9qSThfeU9Sa1NPMl93OWJiUmN4U2tjeVgyRUV6NGJsMHl5OHJLYVdWX3ZyN09rdzZYNmtIeThfSGRJek1zRTVmZHVLeXJGRjUwaUpHMHdDNWhUR3ZJRFcxdFg5QlRjYVZkWU5PUm43amQwOW9qb1pLSF9TRTc1dFdGZEg1ZG1fTHdnN1lFdjhYVGdzaFd1U1ZtaEFJU0pEV2tHMWVPLVRN?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Genus of Australian Plant Bugs Named After Taylor Swift
-
-- first seen: 2026-09-11 05:55 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A dedicated Taylor Swift fan has named a newly discovered genus of Australian plant bugs in honor of the singer, reflecting her influence and distinctive style. This creative recognition highlights the connection between art and nature.
-- sources:
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOTUVCUVplZ3J1X2ZhV1B5X05LRHlacHN6SGNXdnc0TGdOcTE1Y1ZBNFJSSTYzRlN5NWpUNEJYZGR2TW1laDg0RXlESk5Ed2w4RnY2TktzYllCZUhKemFadEQ3T2Q0eVI5XzlPZDdQZWg5MHQ5WFp2RGpBTFhndGN5bm9ybnhmTkg0RGRQT1YwVnlMVmlkRi1jMURwR2lJMFVMQkdHZ3RaOHF1cHk1ZlZBM2tuNDZhaUJTQ0tEdnU0T3NPRkhpSWwzbWNaZmlaQW03ZTJJekcyWVBHSGNfTHFB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend CMA Awards
-
-- first seen: 2026-09-11 05:55 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is confirmed to make an appearance at the upcoming CMA Awards. Fans are excited about her return to the event.
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOenVIcUlkQ3lQMTJvcmM3V05ma1VaZV8yalF4OXRubnRlU1ptLTBRSGhrLUtDX015RE80YXgxNlhjNXNkaDVyamRxMnFwaFZDeXBMbFdwanprNzRnVFBSQ2FDOTg5RFZwYnZMRE14QkloZ2gxT3hkSEhZcGU3cTR3Nl9sb002RlhP?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Perform at Upcoming CMAs
-
-- first seen: 2026-09-11 05:55 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to make a significant return to the Country Music Association Awards (CMAs). Details about her performance are anticipated by fans.
-- sources:
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMickFVX3lxTE1tdDJkQkJneEdyXzZGdHdrXzg3WTlPdG5HZ2lMenFVaW5NUnB4RzJ4QkpOMjFuRl9nUUUtSGpPY1JfZ1c4TXIwYXBTMnNGWF96LVItTUZ2dDR2N1VJalhqeHpYcmNscHdnRExEbmxWS0lqQQ?oc=5&hl=en-US&gl=US&ceid=US:en
