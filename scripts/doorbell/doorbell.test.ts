@@ -131,7 +131,10 @@ describe('the stuck alarm', () => {
     await vi.waitFor(() => expect(calls.some((c) => c.key.includes('bot-chat-alarm'))).toBe(true));
     for (const { key } of calls) {
       if (key.startsWith('GET ')) continue;
-      expect(key).toMatch(new RegExp(`^(PUT ${API}/channels/\\d+/messages/\\d+/reactions/(${enc('👀')}|${enc('⚠️')})/@me|POST ${WORKFLOWS}/[\\w.-]+/dispatches)$`));
+      const discordWrite = key.startsWith(`PUT ${API}/channels/`) && /^\d+\/messages\/\d+\/reactions\/[^/]+\/@me$/.test(key.slice(`PUT ${API}/channels/`.length));
+      const emoji = discordWrite ? key.split('/reactions/')[1].split('/')[0] : '';
+      const githubWrite = key.startsWith(`POST ${WORKFLOWS}/`) && /^[\w.-]+\/dispatches$/.test(key.slice(`POST ${WORKFLOWS}/`.length));
+      expect(githubWrite || (discordWrite && [enc('👀'), enc('⚠️')].includes(emoji)), key).toBe(true);
     }
   });
 });

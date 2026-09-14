@@ -22,6 +22,11 @@ export const SEEN_CAP = 500;
 // PUBLIC_THREAD (11), PRIVATE_THREAD (12), ANNOUNCEMENT_THREAD (10).
 const THREAD_TYPES = new Set([10, 11, 12]);
 
+/** A value from Discord or GitHub, safe for one log line: printable ASCII only, bounded. */
+export function printable(value, max = 200) {
+  return String(value ?? '').replace(/[^\x20-\x7e]/g, '?').slice(0, max);
+}
+
 /** The env file's two tokens, plus optional pins. Never returns a token in `problems`. */
 export function parseConfig(env = {}) {
   const problems = [];

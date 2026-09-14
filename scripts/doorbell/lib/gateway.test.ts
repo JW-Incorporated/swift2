@@ -60,7 +60,7 @@ describe('connectGateway', () => {
     vi.advanceTimersByTime(1);
     expect(latest().sent[1]).toEqual({ op: 1, d: null });
     latest().frame({ op: 11 });
-    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://resume.example' } });
+    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://gateway-us-east1-b.discord.gg' } });
     vi.advanceTimersByTime(1000);
     expect(latest().sent[2]).toEqual({ op: 1, d: 1 });
   });
@@ -68,12 +68,12 @@ describe('connectGateway', () => {
   it('resumes the session after a drop instead of identifying again', () => {
     const { dispatched } = start();
     latest().frame({ op: 10, d: { heartbeat_interval: 1000 } });
-    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://resume.example' } });
+    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://gateway-us-east1-b.discord.gg' } });
     latest().frame({ op: 0, t: 'MESSAGE_CREATE', s: 7, d: {} });
     latest().serverClose(1006);
     vi.advanceTimersByTime(1000);
     expect(FakeSocket.all).toHaveLength(2);
-    expect(latest().url).toBe('wss://resume.example/?v=10&encoding=json');
+    expect(latest().url).toBe('wss://gateway-us-east1-b.discord.gg/?v=10&encoding=json');
     latest().frame({ op: 10, d: { heartbeat_interval: 1000 } });
     expect(latest().sent[0]).toEqual({ op: 6, d: { token: 'discord-secret', session_id: 's1', seq: 7 } });
     expect(dispatched).toEqual(['READY', 'MESSAGE_CREATE']);
@@ -109,7 +109,7 @@ describe('connectGateway', () => {
   it('identifies afresh after a non-resumable invalid session', () => {
     start();
     latest().frame({ op: 10, d: { heartbeat_interval: 1000 } });
-    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://resume.example' } });
+    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://gateway-us-east1-b.discord.gg' } });
     latest().frame({ op: 9, d: false });
     vi.advanceTimersByTime(1000);
     expect(latest().url).toBe('wss://gateway.discord.gg/?v=10&encoding=json');
@@ -133,5 +133,34 @@ describe('connectGateway', () => {
     vi.advanceTimersByTime(120_000);
     expect(FakeSocket.all).toHaveLength(1);
     expect(FakeSocket.all[0].closedWith).toBe(1000);
+  });
+
+  it('keeps a heartbeat interval from Discord between 1 s and 5 min (CodeQL js/resource-exhaustion)', () => {
+    const fast = start();
+    const quick = latest();
+    quick.frame({ op: 10, d: { heartbeat_interval: 10 } });
+    vi.advanceTimersByTime(499);
+    expect(quick.sent).toHaveLength(1);
+    vi.advanceTimersByTime(1);
+    expect(quick.sent[1]).toEqual({ op: 1, d: null });
+    fast.gw.stop();
+    start();
+    const slow = latest();
+    slow.frame({ op: 10, d: { heartbeat_interval: 1e12 } });
+    vi.advanceTimersByTime(149_999);
+    expect(slow.sent).toHaveLength(1);
+    vi.advanceTimersByTime(1);
+    expect(slow.sent[1]).toEqual({ op: 1, d: null });
+  });
+
+  it('resumes only on a Discord gateway host; any other resume URL identifies afresh (CodeQL js/request-forgery)', () => {
+    start();
+    latest().frame({ op: 10, d: { heartbeat_interval: 1000 } });
+    latest().frame({ op: 0, t: 'READY', s: 1, d: { session_id: 's1', resume_gateway_url: 'wss://evil.example/x.discord.gg' } });
+    latest().serverClose(1006);
+    vi.advanceTimersByTime(1000);
+    expect(latest().url).toBe('wss://gateway.discord.gg/?v=10&encoding=json');
+    latest().frame({ op: 10, d: { heartbeat_interval: 1000 } });
+    expect(latest().sent[0].op).toBe(2);
   });
 });
