@@ -27,6 +27,71 @@ so far".
 
 Stories: 53
 
+## Taylor Swift's Possible Presence at Chiefs-Broncos Game
+
+- first seen: 2026-09-14 20:55 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Speculation arises about Taylor Swift potentially attending the Chiefs-Broncos game to support Travis Kelce. The report by Sports Illustrated explores the possibility of her attendance at the event.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNYkRoVjdodnVwTHpkdnZHdVh4TTJ1V0taTEp4T0RuVW9UT0dnenNZdWIyS01KYmFPamtXamowVGltRTdrLWtLOFhuNkk5V0pNWHFpN2ZMWGRwa2ZTLVZpMVNqNDhldFpfcEkzNDhudkNBM2NEb0ota0h0WmtwRldDa3ZlNm9ZYy11SG90cFYxMm5DYi16clM1T3lMZnV5RTRuLUlnQnJrQmh0N2RCUTY5TXVoUHR0QWpCenU4THBPcW5VV2U1QkpYWHk3ejl5YXF4V1hPQkprMWd3QjR4NkR4OGxzQzlDQi1TR0pUa0dB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxOMVE2TllWODRUelRaOV9FckRla041WmdhSkpXTmtLalhMbEFtMnR2aXlSRzJNR3hOaTBSNWNKckpkY25zZmExaWp3Vl9feDFIOW4xWmNnN3o4NGl3UGRxdDBXRDdSalYtYi1vQ0RGRXk4cGFvRm1JR24zZDVJeTRKTkJrbTFzTjI2RkczM29SU0hCanh4bGwyZmRYeFE1UGtxN1Fyb3RSWWwydUE5NFM3SmNuRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Share Different Views on Marriage After Two Months
+
+- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce express contrasting opinions on marriage just two months after their wedding. Their differing perspectives are highlighted following reports about their relationship.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQaVZoM2Rqb0dyODlLeU9NbTFfOUE3WkJtUDlCWDN5SWdqd2YtZk9hUlRpV18zZlJ0NEs0UGFCbEJ0MkJqMmYyZjVEY3pYX25pWkYwdnU3TG9ITm5BaFFnQkFKOXhidEtrRF9Wdkx0cnpUVXFFVE4yQXBIYlJZSVprZW1HWDFrenJzTm1NVmtoWDFIdnBfd1FoY2NCY05ncW5Da0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Upcoming Country Music Interview on Houston Radio
+
+- first seen: 2026-09-14 20:55 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An interview featuring Taylor Swift discussing her country music comeback will be broadcast on a Houston radio station. The airing of this interview is generating interest among fans and media.
+- sources:
+  - [unverified] Houston Chronicle — https://news.google.com/rss/articles/CBMirgFBVV95cUxPaTBMUWJOLThCNi1YSGZ1QmhaV3dVeENCOWZQal9rSWR2dlVvYmgwbHlGZDRHd1hyNW5JV3UzSE9rME1IMW91NkZKbV8wU1Ric2l0X1NjOG1heWJTcVdqRjRuU2luVmFUbmJoLWZxbFRRUzZ5bEJTRmdRekVvUHVJOHVTX2xXUnJsZUxoREVNc3pjeUVla3htZTVMdURqQ0k1UmgtdXJEekMwUFVoX2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Thoughts on Marriage to Taylor Swift
+
+- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: In a recent statement, Travis Kelce expressed his joy over marrying Taylor Swift, describing the experience as exceeding his dreams. The comments reflect his happiness in their relationship.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxNWDA1bWxSUUplLXVuaVZDNngwQklFZGx3RWVKbGJuN2lhS1dOblFVdmNhdVdldzVEQVNjMEtwOEFGRGhxU1FrZFQ0a2RNcFZrSHpQS04yZ212bXZtcTFub3NaOGxObWIzb1c1MzVSQXp4OW1MdjRmSlRYRzVIQlV5cnh3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Attendance at Travis Kelce's MNF Game Uncertain
+
+- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There is speculation regarding Taylor Swift's potential attendance at Travis Kelce's Monday Night Football game between the Chiefs and Broncos. The event has attracted interest due to their relationship.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxPTDZXcTRIT1BNSDNFY2lFc0FMTzREWnozeDh0TkdqOU1DWmNoZlVPTXBFRm05VGQ2UnVnR1lRc0lqY1l2RnFXZ296QlVJNTBhOEdLcER2N3BETS1jdTV6cjlrOTV1R3l1dTV6c09CRExhVHRkSmU2U2ZsRlp4OWR0UW1zM1V5Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Reveals Wedding Attire for Marriage to Taylor Swift
+
+- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has confirmed that he wore a white top hat and various other garments for his wedding to Taylor Swift. The details of his attire have been shared publicly through a report.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNVWpaaUNmSlJRb0RMNjhvNUh3NVNaelFJVUs2aktla1lBSk1YdHRGVlBER1F4T1FUUWxoaDRKX1NSX2xHa3hObmVEelJHT0RDYVhQR1E3WlN2Vm1uZjJDaHhGVElZSE83Um9uQW5YRUI3QUdsWUt5NFQ5RW9kcGNaRlpPdmw3LXZzZTB0Zi10Nlh5TlN4R0htTFZXMUtEZW9IZlhjR1RSMWRnYS1Fb2VHaDRrQlNCVms?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Renowned Designer Bob Mackie Passes Away at 87
+
+- first seen: 2026-09-14 20:55 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Bob Mackie, the iconic designer known for his work with stars like Cher, Marilyn Monroe, and Taylor Swift, has died at the age of 87. His contributions to the fashion world have left a lasting impact on celebrity style.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNMVUyX1MwdjVRbHFISkFZYmY5anJWUjNNWjhJcHVMYlItejFuZjRCZHZwbWU1ZjJTTnExTDZYZkhpYWlhRnEtb0dKR09iRHR5VVBjSkY3WHFyRHZyUGNKOFhXcWM5Y0o1M1lEUVNnWXd3S2hxMmlKam5XWlZHMklXWE5RMmZCRkpqQUhTVTBPRDh6N2lLbW0xVHR4aU5mRVJVdW5KUjAwaU0wWkNQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Faces Decision Between Travis Kelce and Career Milestone
+
+- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly weighing the importance of her relationship with Travis Kelce against a significant career milestone. This decision highlights the balance between personal life and professional achievements.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQajRsbVF2aWJUa0c3ZjVQeGxmMUU4X3ZkWjVCYVlER0lHVWNGeDMyaF9wQ3VKNVdLWHJjWVl1dWJKbE1VV0RWTy1HYmluaEtnRnJNN1NVSFhvOFF3RkNSOXMzREFzOVhRQ0h5eWF1RDlDbEdkUnpkY3NpMHhuT28wenRnQ1dheEJwMU5ZYklCcU5UTjdfVWVPQlpmemx2QVRrVnlzRWxLNA?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Shares Reasons for Not Releasing Wedding Photos
 
 - first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 6
@@ -91,14 +156,6 @@ Stories: 53
 - sources:
   - [unverified] Berkeleyside — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPQmlkaVQ3N2lDNGd1UWZ4WEpjN1A2a0ZtTm1wNXRsNXBVREdFLWlrWmNzYXpsR185bWZndUN2NUpORkdwbXY0MHJMMTBrZXlfd1BYeDZTakRjNk9UekZZZnpWV215bGVaSVZlQlFvM0dxdUFBelp0Tkxwa0J3RTc0RlNsU3Q1b1kyckIxOEctOUQ4WWtNQzRzVGFhZ09RNzRsMFlhNzFsUDQxWUR3OHpRdHJJM3BlSlJGVHJhWnZEb0pPU0c0V0VLTDdOXzZHbU5vNFdtS1dmdWF6ekFS?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Madison Beer's Attempt to Mirror Taylor Swift's NFL Influence Faces Challenges
-
-- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Madison Beer aims to replicate Taylor Swift's impact on the NFL but faces hurdles, particularly due to the Browns' struggles. The situation highlights Beer’s aspirations in the sports and entertainment crossover.
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixgFBVV95cUxQVDdOUVlQZmJfUDY1SjBNSjRHTDk2b3JLZS1zWjlnTVZNWmZySVl6ZWNWdE90c29lcl9HV19nc3dRWkNwbF9POENiRE5RUzE4SjFsZkJXTkxFVmk4cXFMM01aTVlyTXFnZU9GRnR3YnlBSGd5QzJKM1dSZldVTi0zNGFSUVBqbzY4RmpQMllJTk9ybHJ5aS1RV0VHb2g3Tjg0NXNXY2JSalBUZnFHWEoyYUlPcHNQNko3dXk5Vk1ESFJmVTZJeVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Howard Stern Discusses Taylor Swift's Wedding Plans
 
 - first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
@@ -106,14 +163,6 @@ Stories: 53
 - summary: Howard Stern returns to SiriusXM and shares updates, including details about Taylor Swift's wedding. The conversation touches on various topics, highlighting Swift's recent personal developments.
 - sources:
   - [unverified] SiriusXM — https://news.google.com/rss/articles/CBMieEFVX3lxTE9lUkJsNl9rMkphOFF5T3d4UXNFNzgwV21IZ0RrQzgyWGFiQkI5Rjk4SVluWkRlVm9jTDQzaGFPVkptWDg5NnJWTVZTTVFBUWx5X2VyNlBrQktSMF9odVBWOFhCN1NGS1R4bHFSMWJXVFBrQWpCM1JnRA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Top 6 Game-Day Looks for Chiefs Season Opener
-
-- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A roundup of six of Taylor Swift's best game-day outfits as the Kansas City Chiefs kick off their 2026 season. The showcase highlights her stylish choices during NFL games.
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTFBXYUVBeHh2cnppdGZxSDRMRTJzUDFKSTd5VWY0WVBnc1kxUkdoWkRkaGtKdUxqU2FLOXVTYm1KYnhRQnRyeFZaQ2VnNjRxb2RRLU5mNTN0YVNyWWY3WVdteTBkZWhaSFFrQUNB0gFrQVVfeXFMTXE1dEtVUC1RQWdzSmVxYTlQb1dEbkJYNE10NU1aQndJZ1BXSXNvSjVhTDAzMkRUUnNCZlNYcVZJbGFDVzJKd1VmMm80TVBsdzZFTGlYcHBXcHR1aXBDR2xsUVQ1azBDWDhlenM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Fails to Achieve No. 1 on Chart for First Time in Over a Decade
 
@@ -123,12 +172,31 @@ Stories: 53
 - sources:
   - [unverified] forbes.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxNbW95d0RodHhPV0hGRmJBcmhaZm1lMVMwU1otNmRXUk9FRGpISzRlQmZLSnF4dzFuMFJSQWFVX2FVR0hNZTFUWEh2b1JFQkVwRzR2WFRSSUNIWlJlV0NNZEtsNVFoNHpKMFFJWTc0Q2ktRWcyR01jdVJYVjZ4OE0wdVdzSjNIT2R0UzlSc09UaEZxUENlZ0ZtOE95emd3eTZSRkNRWnVnZXFLV1BEdUZ5Z3FqU0U1TVY3N0lVLUdmSnpRT3pXRGc?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift’s Top 6 Game-Day Looks for Chiefs Season Opener
+
+- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A roundup of six of Taylor Swift's best game-day outfits as the Kansas City Chiefs kick off their 2026 season. The showcase highlights her stylish choices during NFL games.
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTFBXYUVBeHh2cnppdGZxSDRMRTJzUDFKSTd5VWY0WVBnc1kxUkdoWkRkaGtKdUxqU2FLOXVTYm1KYnhRQnRyeFZaQ2VnNjRxb2RRLU5mNTN0YVNyWWY3WVdteTBkZWhaSFFrQUNB0gFrQVVfeXFMTXE1dEtVUC1RQWdzSmVxYTlQb1dEbkJYNE10NU1aQndJZ1BXSXNvSjVhTDAzMkRUUnNCZlNYcVZJbGFDVzJKd1VmMm80TVBsdzZFTGlYcHBXcHR1aXBDR2xsUVQ1azBDWDhlenM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Madison Beer's Attempt to Mirror Taylor Swift's NFL Influence Faces Challenges
+
+- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Madison Beer aims to replicate Taylor Swift's impact on the NFL but faces hurdles, particularly due to the Browns' struggles. The situation highlights Beer’s aspirations in the sports and entertainment crossover.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixgFBVV95cUxQVDdOUVlQZmJfUDY1SjBNSjRHTDk2b3JLZS1zWjlnTVZNWmZySVl6ZWNWdE90c29lcl9HV19nc3dRWkNwbF9POENiRE5RUzE4SjFsZkJXTkxFVmk4cXFMM01aTVlyTXFnZU9GRnR3YnlBSGd5QzJKM1dSZldVTi0zNGFSUVBqbzY4RmpQMllJTk9ybHJ5aS1RV0VHb2g3Tjg0NXNXY2JSalBUZnFHWEoyYUlPcHNQNko3dXk5Vk1ESFJmVTZJeVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Upset with Nikki Glaser Regarding Wedding Comment
 
 - first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 4
 - summary: A source claims that Taylor Swift is 'furious' with Nikki Glaser for revealing details about Travis Kelce's wedding. The situation highlights the tensions between Swift and Glaser.
 - sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQcEtzZ2RRLXFibzF3Si1MYlpPYnkyNTVFQ1JqWnVkRDN0bGlOX3hRcEM1RGdlb1BWZlpoSmhhbmV4UFRlVFZ4bUhzRTg2RDhiY1Jkc190TERIOWxKdDl1VXdYQWMya1IyS215UUxaeHh5b25tRklhWTIwMFNMZjdhbW1GMEdQT1QzN3k0MXRYNEpoaVNfc0RMbEtlX2FyS043UURmOW1OWlDSAa4BQVVfeXFMT3dCSkZyLW13NGsxNjNOaTIzMDJUR2h3Mm5GODI0YUhodF9Tb0J5UFMwdG94M1JpYnFoQzVFOUJuMTQwYUY3VmowMXpGM0xSc1NNNXE3bmdLeDNjbDlOT29SMkN0aWNtTi1mVGI0OTc2SHpqTTV4MjMtV0ZzSkRLeEN4WHNHNFdsR004b1BndWFSWnpqRUZXbXFRTlJ4UUFLZDhtQjhkc1M5WXdYNWR3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQWmhuODdENlhGSC1HRkQzdW93ei1xRFBtLVV0Vl9DcG1zVnF2bF9iNmNFUEJhcDVMQ244dDdsRUE4MjVRRXZHU0RHVE5rQ2pTcVQ0bWV3M1FtXzdqVno4TFZTbHNMd0l5clZzeTJCNzFRRW9uYk9zSjFKM0diZ2JULU5wSU5FYVlHclFicnJqYVYxaGQ5OFRuZzI4Q3k?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxObnZibFgxTHFSYXh1RUVaVHR2REdIX2s4UDFoNUlWc2k2aXd0M2hCdmxndXN3dHIzYW4xVW5iSWM5RzQzbzBWc2lYbzRkMUtua1hfTVk0VjFVV19KaFc3UUpQUTZlOWVaT3R1ZWJmN21OelhlbDZUbm5fdEh0ZENpRC0xMHNYQ2hUUGpabW81Ul9pM0pBTmtYci1nemk5cTdGcm9lVA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOeXNudUdtdWhkZm1yRmRfOEV2OUplNkVjVW1GQ3hmNXdnemdPNEFEb0l5UWloZ3hEMEJBYVh2bDg3VlpoTXRJRlFTNl9FMUxTRHVWQXAtYVZkYzVwZEZSOUpaMENQM2Uxcy1kYlFVcGtKY3hDRE1iT1F0SDlBaTJiTkFxWUJseHVWT0dNMFNOTUJyOEtGbmh6UWE5Z01ud1A4bjRjQV9R?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Makeup-Free Appearance Discussed in New Article
@@ -394,79 +462,3 @@ Stories: 53
 - summary: An upcoming event at Madison Square Garden in New York has sparked speculation about a potential appearance by Taylor Swift, based on various clues leading up to the date.
 - sources:
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMilgFBVV95cUxOdkhha0N5cGhxYTg2RjlFVkJDQUJRekkxMk9KYmlnR0tFaDdZTEN1SXlOcW9CN2h0emtlOU1MNXpESVU4NXlxalhLa0lBOWozMnM1NTMwbVEwV1U0Z3RhWWNUY2tCLWhWbGlSRk0tSkI1eDdkOERtdXRuNHlFSzdmNGpLaWlYS21VMWt2UDFQa1ZjYTB3YUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend CMA Awards
-
-- first seen: 2026-09-11 19:38 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift is confirmed to attend the upcoming CMA Awards, marking her return to the event. Details about her participation are yet to be revealed.
-- sources:
-  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMikAFBVV95cUxORU1oU256RzZaRTAyRzFHS2w2OVpUcVNpX05rSUh5dGYxUVVJZS1GMVRyeWNvSlpCTktYY0IyVGFmaThudTl6UlptVzJTVkR5T2d2bURGaU9BN0V6SXNUNE5WVVVhcmMyeWZERzJLajdZVnNGQWZXTHJqU05RSFFORUhpcE96WVNhRW92ckltVGU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] cw34.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOTTdOdF8wenNFbGZndWliSDJoS3AzT2RDaWtxWGZMbE9CQnBpUUNLMXVJSG1EazRlUEFJWG5WejdDbHc4cHNvR3kzcTRoTHFGT2ZMOTdET2t3TDllODNHeXA0Z1ZDanpMU2M5NTBBQ2h0NWRCcllITzJtbnVKSEZiUmkxcW1lT3pUeDJzSmRiQ1d2bmZ2YUdrdEFEa1RZREhabTZPcmZ1ZFdBb1VSTXFWbGlGaV9pWFg5N3BmRjFBVEdVRnlveUMxc0hqSFZ4OWh2NS1LYlBXRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KATU — https://news.google.com/rss/articles/CBMixwFBVV95cUxQdlpDSlFGTW5hN3ZFY2VBVDVXd2E2eFhReFRIRXE0UXNRb082VmFqNHFTbllsbWdZRER1QnBweTcySGhOSVlXX0hfb3E0Tk1iemhSb2cxVU9nR3ZRT01FUGFQdUVnS2tHb2Y1VkR0UHRBZ2h1dDgyenRhczBtOHFJcVlSTWZES3lMMHl6dTFoYW5vTHBQUmYxN01CdVNYVVRWOERkWjZKNDZQblI0dG92Mk5DZ2ZfTl9uOEpkV3c2R3VHYVhmOFhj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KOMO — https://news.google.com/rss/articles/CBMixgFBVV95cUxNWnVuNlp5b1lMZDFnTmhKVVZEaUJTTVAtOEdCSTVOdEFfcngwSnFCU19TNmxoTU91UWFBSDF1SHZfNEllM2Rpc1ZFUDhPQ0JyMVBCbmJxTkJ0eTJjUnlSQVpsbWVhakI1dmFNM2Q4RV9BUXZtTEJGc0l3ZTlZUnBqWm9tZTI0M1ROSjliYXlRV1NqRmZYQTlFUGNCSnlWQ2ZCQUk3Rkt5bXRvaS0tYzk0R0R4SWhBQS1rWEFUVHV1SmhwWVZmN1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WJAC — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOY3djenY2OFQxcGRDdHZBdENPM2FBV0ZoMkF4MFJXQkNhRDZrWGtfN1N6UW9WWUZscTJHRXlZanhzN0dIRmZQZUVYUjJ3TXlUenNveWNkVUtPWi1sYWpQVE5BbEsyWHNnT3ZCeHlxdk1wbGZfbFJSYWJQeExkbVNsbWxPby15NV92QXphNWtTQUplazl6Q0U1RTJpc2NKZGhKT3ZFaHlUbWZYZDFtbU15QXFSMkhEY1o2Rmd4V1I5bXJxV0U?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Gets Insect Named After Her
-
-- first seen: 2026-09-11 19:38 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been honored with a new insect species that bears her name, which highlights her impact beyond music. This recognition reflects her prominent cultural presence.
-- sources:
-  - [unverified] VICE — https://news.google.com/rss/articles/CBMilgFBVV95cUxOanpUMlVmWkVwblRWNUgzQkprdkhaWHJ0Z0xRUUxXMk4wdl85VlZ2U0Z0bnhUOW1ZV19SZW9lZmNRWDlMSGtoejRYb1pweDJhZHVBVXZfdW5qek0wSnNYSXFJbk1UTXhsVnhXa2xDbFFKNmtFYnNzejdhb0sxcTdFUk5WaWN0RnlPNXhnUjhYQTJTb1Ewd2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Reflects on His Marriage to Taylor Swift
-
-- first seen: 2026-09-11 19:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expressed his feelings about marrying Taylor Swift, stating it is more than he ever imagined. This reveals his deep appreciation for their relationship.
-- sources:
-  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxPVWx2ZnRSZDkya21xaUhEbTIySk5tUldtQkdXUXRLMF92ZnpJM3ZxRklHMDhQZEM0T2lDenZLb0xTNjlXTE5GeXREV3dVVXF2c09QT0FfVFFoRzlGSmVQMU1ESElNajB3aTkyNGx6UXoxbEFsRFFKc2p6bUt2MmdCUWtUYU5nT2NVd2o2eFBRN3pIVU5VT1VaS1R0ZVN1VWp0QmpFQ0UyY29tXzhr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Marriage to Taylor Swift
-
-- first seen: 2026-09-11 19:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expresses that marrying Taylor Swift exceeded his dreams, highlighting the significance of their relationship. This statement underscores the couple's commitment and emotional connection.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxNRFlSRUota3VmZERvOWQzRzFlWmZIN0NQVVlpOGxFdnA2ajUzX3lnbEd1U2FqOGxqMFJaRkMzWGZvRjQ2Zk0wNHlCOXZrNndlNVBIR0dtREVZeWppSFNvYS1DSFdXcDNWdTJrMXpUQm9MVjhTNkRLTkVYbkRwN0FjOUU1bThNZzR0cUR5aEVHNA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends the CMAs Again
-
-- first seen: 2026-09-11 19:38 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift will make another appearance at the Country Music Association Awards, generating excitement among fans and media. The event highlights her continued connection to the country music scene.
-- sources:
-  - [unverified] Bustle — https://news.google.com/rss/articles/CBMif0FVX3lxTE9WblBIdzFka3VKZllFYWRxV3lLcUJsM0tFUnNaMUdVanAwZkpEZ1MzbHJ2cGlTRnZRMTU5d01KS1JTMzMzVzlIUV9BZXhZTlFqU1ppd2x5YzhGQnNSUE13XzdmOFFMY0RjNlptYnhhUWJCYkQzVDBsM0JQT0xrbWM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Expresses Love for Taylor Swift in Interview
-
-- first seen: 2026-09-11 19:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Travis Kelce shared heartfelt sentiments about his relationship with Taylor Swift, saying it exceeds his dreams. The remarks highlight the depth of their connection to each other.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOMVFKWXgyLTA1MkVGcGY5SndwSTZHRFdPTFoxMnFRVmhQcmxyRS1zU29Xc1dVT3lXQzBDQ3hSS1VtVVFDN1p3STdBTWU0MHRhc0F1S3RaamFrSDgzY0NXNFVOVmwxWFo3azVlMXlnSGo1QTQ1WjlKYXAwODA4cG1RWTVVVUUxUXB2M0VjdTNTUTlZaUpiUFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Domhnall Gleeson Cast in Taylor Swift's Music Video
-
-- first seen: 2026-09-11 19:38 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Domhnall Gleeson revealed he was cast in Taylor Swift's music video due to a connection made with The Paper. He described the news as 'insane.'
-- sources:
-  - [unverified] NBC TV Network — https://news.google.com/rss/articles/CBMikgFBVV95cUxNUzNLWFI1ZVRVUUdVOUZNTlR6Yk9uOGstbVphOGVPNW9FaGJwX1J4d2NmYlcxTEREUFREM3JVOEpjRUZGRHBZMWVZTDdZdlhIWnR3V1owcVVOTnAtNFNwa3Z6SE10WngtakEzel9XbTk1aDJXenBKREFwczVJMUJTV21ac3RhM3N0MGhlcHg5NW11UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxORldveGdGdjkxQ19OTDFHVWVPMUhERWxTVXk4LUxoZGgyQi1OR1lKRXZtNXNLN2ZrVVhBQmlaOEhNcDFqVDh0UHktQVlGOUhaYW5Za0hmUUJXSWp3WHhTZy1KR24tenJRbnM2Ry1OYVBmM3BtM2NGSjFrNDdHeTN5aTZzLS1DX2pTeEtzYlMwLW1kM2F6NlM0Um8wNmJrdVU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Reflects on Taylor Swift Wedding as Best Night of His Life
-
-- first seen: 2026-09-11 19:38 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 8
-- summary: Travis Kelce recently expressed that his wedding to Taylor Swift was the best night of his life, sharing his thoughts in a new interview. His comments highlight the significance of the event in his personal life.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxPNV85TVFta3JfdlVtRVdmRnc2UmY0eWNMWlBsLU1vdjZDYjNZX1RBdXZKdnJsREI0V1ZKVEFTM2tIdkdPd3NRZEZ4ZE1haDB1WC1BTFhaVE80R1o0dElyelc0MWhSNE45SFV4Z1g0Q19NeUpXck1uZ1FxMmpaeW9uNklYZ3J0T2xvZTdyOElCdWdaN0xJbmQzZDZGV0JtbURwU2FZX2tDTEtZQXFrYkE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMisgFBVV95cUxPUV9NMzEzVXNTUTBGSjV0NDJmLVh1VUkzaFlrcEZnRmYtOFllbGQ0d0JSUTRxaVZyOWZBY2dxel9aWU5UNGx4bmJrZ0FrLUVZeUM5dGdCLUd1aHJNanJfZnBWdEVsTTNPTjlxQlBsYkFXcnd6SUx2SGJNQll6bm9ISzV4c2NTQ0s4ZFFBaXBvZ1FqUWF6bi1RVUl0aGFpQVVQRjBEMlJHZ191N1poNUZJQjZn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQdloxZExLbG1GNTVEMm9NYVYtWjNhaWFrWWtmbHRCR1A4c0lncHNxTG9mUG5oVHd2QjlrOF84cDk2clhsbjdERk4xQzREM0xzcExhb2s4M3o1X29qSXFvU0EwbEphZHdTd25VU0NIcm5FRlhSWUUxV0NmX184Zkk1Z21PNF9OZWFZQTFETHNSMDhlbzczZnJJaUVtV3ZDR2VJVERzVG85UVZIUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rural Radio Network — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOWlMydXo5VUxsVGQyaUlWUWJPYXg2endYc2ZJSUY1NzFSUmcwRi1HNXRZVTd6dkFNNmxRV3Rwd1h5dERRZExtUUdlbjJWa29Rd0EyMWNOVE1QVy16VGFmZWxTVlZ1Z0lZQ1hXMXo4aEdVQm9wOXhTNFdJVjRSQUJHLUhwUGR4RmM4RnRxUkF4ZElvTDk3dzVZVFV3Rk9hVFBMZ3BRSjQ2bUY5a0xXM3ZCVHdyYzRMNHhpcEtsZzhNeXlEQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRGd4T0x5NEVZeUhPTTRfSkw5dDFiRnh6SWlXZ3dTSkt4RHo5dG85LXYzYlNoQUprWUpZNWpoREtMakVQRzlHU2hEbEdUcTY0N0xiZVBvcGJaWnQxMVVudDFPNFdWMlE3T1BXSGk4NS1kZ2p4VlFWbVdIYnpfYVBzeWFqT0lqbzRlRXFhZ3d0eGhPS2RjLTdvcW1TYXJkTTExVjJxZURhRGZ6N3FvNk1hSHBMazBaWFBnWWpoY0cyeTB4Yzg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdnk5aGhORUtWVGNoWW9ramRsWVVubnBPS1V3Z1B4OF9YdkRjaTk2Zk5fUVhESzhLU0tra0ZXV2t2Ykg5V3g3NDFhZmdmWnU2Zktmb0Nvekp0eXJ5NDUwWERWVE1ydUdpQUJoeWV4bm1aQ1ZCaDhXYy1KZkJWZVpZN0xEc21SVGxuWVdXVFdGWHlWRnNxRmNTankxQW84R0c3R25rdHpXdC1EUXJSUUtRSUhtV3ZpanZsYWFmWk1sZHo1cnZSU2lDWnVaNFRyalVtZEE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxOOEY2clRKXzlBbFpyVERDYktIZGN3c0Foc3F2ZWZ2T2I0SlpQNE9NYnRMWDUzYUNLeDBmTGN0cENhTk0wcVNyQWktTzNBWkVJeHdSM2dKSkQwcXYybENaeWRvdmJVY2NCSWttaklGN1RnMGJmUHBZOWJlQ05PY3JCOTd2V0MwSEpXQVhoR3lwbm5Ld3Byb1dRdA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxNbUt2a1B0TkVPVWpVbUtuZjdtSzlSX0steTN5b0tLNGp6M2s3b2JGZU03Vy1pak9aYy1zVTBPN2UyZW1Pb0prd0p1ZXFRazRiNU9PMGNLQXJkanpkQ3lLbWlXZFlaaDdaZXZ1VUZtZGhLQjNjUVlhblNiZ1hvbWViSTdGeWJJMnhqenc?oc=5&hl=en-US&gl=US&ceid=US:en
