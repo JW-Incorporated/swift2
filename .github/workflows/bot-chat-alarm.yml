@@ -11,21 +11,23 @@
 #                   run with no alert. Outputs the title and a body of ids,
 #                   links, run state and age, never message text (public
 #                   repo). With `dry_run` it prints the body and stops here.
-#   alert (ops)     chat-alarm.mjs alert: upsert-alert.sh open → a
-#                   watchdog-alert issue, posted in #longlive-marjorie (email
-#                   only if that post fails); then starts
-#                   routine-marjorie-ops.yml so it is handled now, not at :18,
+#   alert (ops)     chat-alarm.mjs alert: upsert-alert.sh opens or closes the
+#                   watchdog-alert issue, posting the state change in
+#                   #longlive-marjorie (email only if that post fails); an
+#                   open starts routine-marjorie-ops.yml now, not at :18,
 #                   and, for a stuck message with no run at all,
 #                   bot-chat-poll.yml. Each is attempted even if another
 #                   failed. First attempt only.
 #
-# Concurrency: a stuck reply is serialized per message; a doorbell fault per
-# stage, so two alarms can never both create its standing issue.
+# Concurrency: a stuck reply is serialized per message; a standing fault per
+# stage. Each serialized clock check rereads the exact REST issue state before
+# it emits an open or close transition.
 #
 # Titles: `Chat reply stuck · <Bot> · <message id>` (a new issue per message,
 # so it notifies) or the standing `Doorbell is not answering` / `Doorbell
 # dispatch is failing` (one issue while it lasts). Marjorie's hourly sweep
-# closes each once it is resolved, as for every watchdog alert.
+# closes each once it is resolved, as for every watchdog alert. The clock
+# stage closes its own standing issue when shared poll coverage recovers.
 name: bot-chat-alarm
 run-name: "Chat alarm · ${{ inputs.stage }} · ${{ inputs.message_id }}"
 
@@ -36,7 +38,7 @@ on:
         description: "Why the alarm was raised"
         required: true
         type: choice
-        options: [stuck, doorbell-missed, doorbell-dispatch-failed]
+        options: [stuck, doorbell-missed, doorbell-dispatch-failed, clock-silent]
       bot:
         description: "marjorie or tree"
         required: false
@@ -76,8 +78,10 @@ jobs:
     permissions:
       contents: read
       actions: read
+      issues: read
     outputs:
       alert: ${{ steps.check.outputs.alert }}
+      action: ${{ steps.check.outputs.action }}
       title: ${{ steps.check.outputs.title }}
       body: ${{ steps.check.outputs.body }}
       dispatch_poll: ${{ steps.check.outputs.dispatch_poll }}
@@ -94,6 +98,7 @@ jobs:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
           STAGE: ${{ inputs.stage }}
           BOT: ${{ inputs.bot }}
           MESSAGE_ID: ${{ inputs.message_id }}
@@ -104,7 +109,7 @@ jobs:
 
   alert:
     needs: check
-    if: github.run_attempt == '1' && needs.check.outputs.alert == 'true' && !inputs.dry_run
+    if: github.run_attempt == '1' && needs.check.outputs.action != '' && !inputs.dry_run
     runs-on: ubuntu-latest
     environment: ops
     timeout-minutes: 8 # chat-alarm.mjs bounds its notice at 4 min and each dispatch at 1
@@ -119,7 +124,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Open the alert and start Marjorie's ops routine
+      - name: Apply the alert transition
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -128,6 +133,7 @@ jobs:
           # post-or-mail.mjs mails only when the Discord post fails.
           MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ACTION: ${{ needs.check.outputs.action }}
           TITLE: ${{ needs.check.outputs.title }}
           BODY: ${{ needs.check.outputs.body }}
           DISPATCH_POLL: ${{ needs.check.outputs.dispatch_poll }}

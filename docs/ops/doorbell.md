@@ -14,6 +14,84 @@ It never posts in Discord and never adds ✅ or ❌. While it is down, the
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
 follows as a later tag with its own update human action.
 
+## Clock v2 (built; installation and live proof pending)
+
+`doorbell-v2` adds exactly two pinned schedule rows: `bot-chat-poll.yml`
+every five minutes and `routine-marjorie-brief.yml` at 12:00 UTC. GitHub's
+schedule triggers remain. A new row or changed cadence requires a reviewed
+tag and a founder decision; the service never downloads a replacement table.
+
+The tag's `PINNED_CLOCK_LIVE` permits those filenames and inputs. Main's
+`CLOCK_LIVE` gates that permission and starts false, beside
+`CLOCK_LIVE_SINCE` in `scripts/marjorie/lib/chat-inbox.mjs`. After the update
+HA is done, activate by PR with a fresh UTC timestamp. Every off-to-on PR
+must refresh that timestamp; an off PR clears it. Main remains trusted
+executable authority for the workflows themselves, not for host code.
+
+At startup the clock waits for one successful main flag read. It refreshes
+every ten minutes and switches off after three failures or 30 minutes
+without a good read. An unexpected clock-loop error stops watchdog heartbeats
+until systemd restarts the process; handled request failures still acknowledge
+progress. The doorbell's message pickup continues independently.
+An off switch may take one refresh interval to arrive. An unreadable run
+list never authorizes a dispatch; requests have 15-second deadlines.
+
+Slots before process start are never caught up. A POST is attempted once,
+even on timeout or a 5xx response; a read-only GET can retry for ten minutes.
+Attempts are limited to 40 per rolling hour and five minutes per row, with
+memory-only state. A restart may lose a slot, and GitHub cron is the fallback.
+Metadata logs name the workflow, slot, attempt timestamp and acceptance
+boolean. `--check` prints the next ten pinned fires without connecting.
+
+The brief workflow serializes guard through delivery. Its guard runs before
+the agent and skips a second main run that UTC day, a whole-run rerun, or an existing
+delivery marker on today's brief issue. The marker lookup includes the LA-dated
+issue across UTC midnight. Failed/cancelled earlier runs count.
+Only a new main-branch manual dispatch with explicit `force=true` bypasses
+duplicate checks. It intentionally permits a replacement brief. Rerunning
+the whole forced workflow is blocked when the guard re-executes. Job-specific
+reruns of agent or delivery jobs can skip the guard and retain their existing
+operator behavior; this guard does not make delivery idempotent.
+
+The poll and `clock-silent` alarm use one gap verdict: two missed five-minute
+slots raise `Clock is not firing`, after a 30-minute activation grace and a
+ten-minute allowance for runs to appear. Any main poll run serves its slot,
+including cron or a manual dispatch. If both host clock and GitHub cron die,
+detection waits for a surviving cron. This is coverage monitoring; the live
+proof separately verifies dispatch actor `sffan15-sys` and timing.
+When coverage recovers and the exact standing clock issue remains open, the
+poll starts the same serialized alarm to recheck coverage and exact-title REST
+issue state, then close it through the
+existing ops notifier. Recovery starts no agent work. A later failure opens
+a new incident. Queued alarms emit no repeated transition when issue state
+already matches coverage; unreadable history or issue state cannot close an alert.
+
+The v2 update HA must be run from `/opt/longlive-doorbell`:
+
+```sh
+sudo git fetch --depth 1 origin tag doorbell-v2
+sudo git checkout -q doorbell-v2
+sudo cp scripts/doorbell/longlive-doorbell.service /etc/systemd/system/longlive-doorbell.service
+sudo systemctl daemon-reload
+sudo systemctl restart longlive-doorbell
+```
+
+The two unit-install commands were approved on 2026-09-14. They install
+`Type=notify`, `WatchdogSec=180`, `StartLimitBurst=5` and a one-hour start-limit
+window. The running Node process reports progress after clock ticks through
+`systemd-notify`; a hung loop stops watchdog signals. Five starts in an hour
+exhaust the limit; investigate first, then `sudo systemctl reset-failed
+longlive-doorbell` before restarting. Verify with `systemctl show
+longlive-doorbell -p ActiveState -p WatchdogUSec -p StartLimitBurst`.
+
+Proof order: one hour of twelve poll slots on main, dispatch actor and IDs,
+within two minutes per slot without doubled clock dispatches; then
+`gh workflow run bot-chat-alarm.yml --ref main -f stage=clock-silent -f dry_run=true`
+and confirm its canonical body. At the next 12:00 UTC, verify one brief
+delivery and any later cron stopping at the guard. If noon is more than two
+hours away, record poll evidence on #4180, put the noon check first in
+STATE.md Next, and stop. #4290 and the M7 completion tick wait for both halves.
+
 ## Where it lives
 
 | What | Where |

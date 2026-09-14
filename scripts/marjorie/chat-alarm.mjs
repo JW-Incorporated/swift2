@@ -16,9 +16,10 @@
 // no run at all). The body carries ids, links, run state and age, never
 // message text: this repo is public.
 //
-// `alert` is the `alert` job's one step (`ops`): open the alert through
-// upsert-alert.sh, start Marjorie's ops routine, and start the poll when asked.
-// Each is attempted whatever happened to the others; any failure fails the step.
+// `alert` is the `alert` job's one step (`ops`): apply the open/close transition
+// through upsert-alert.sh. Opens also start Marjorie's ops routine and start the
+// poll when asked. Each open action is attempted whatever happened to the others;
+// any failure fails the step.
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { appendFileSync, mkdtempSync, writeFileSync } from 'node:fs';
@@ -28,15 +29,18 @@ import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { listRuns } from './chat-poll.mjs';
 import { readDeliveryState } from './lib/chat-delivery.mjs';
-import { BOTS, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
+import { BOTS, CLOCK_LIVE, CLOCK_LIVE_SINCE, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, snowflakeMs } from './lib/discord-bot.mjs';
 
-export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed'];
+import { CLOCK_TITLE, clockBody, clockRecoveryBody, readOpenClockAlert, readVerdict } from './lib/clock-watch.mjs';
+
+export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent'];
 // Each `alert` action is bounded inside the job's 8 minutes, so a stalled
 // Discord post or mail fallback cannot use up the dispatches' time (Codex R2).
 export const NOTICE_TIMEOUT_MS = 4 * 60_000;
 export const DISPATCH_TIMEOUT_MS = 60_000;
 const STANDING = {
+  'clock-silent': CLOCK_TITLE,
   'doorbell-missed': 'Doorbell is not answering',
   'doorbell-dispatch-failed': 'Doorbell dispatch is failing',
 };
@@ -95,8 +99,32 @@ function output(env, key, value) {
   appendFileSync(env.GITHUB_OUTPUT, `${key}<<${delimiter}\n${text}\n${delimiter}\n`);
 }
 
+export function checkClock({ env = process.env, execImpl = execFileSync, now = Date.now(), since = CLOCK_LIVE_SINCE, live = CLOCK_LIVE } = {}) {
+  const dryRun = env.DRY_RUN === 'true';
+  if (!live && !dryRun) { output(env, 'alert', 'false'); output(env, 'action', ''); return 0; }
+  const verdict = readVerdict({ execImpl, repo: env.REPO || env.GITHUB_REPOSITORY || '', now, since });
+  if (!verdict.ok) { output(env, 'alert', 'false'); output(env, 'action', ''); console.log('::error::clock check: run history unreadable'); return 1; }
+  let action = live ? (verdict.alert ? 'open' : 'close') : '';
+  if (live && !dryRun) {
+    const issue = readOpenClockAlert({ execImpl, repo: env.REPO || env.GITHUB_REPOSITORY || '' });
+    if (!issue.ok) { output(env, 'alert', 'false'); output(env, 'action', ''); console.log('::error::clock check: alert state unreadable'); return 1; }
+    if (issue.open === verdict.alert) action = '';
+  }
+  output(env, 'alert', String(live && verdict.alert));
+  output(env, 'action', action);
+  output(env, 'dispatch_poll', 'false');
+  if (live || dryRun) {
+    const body = verdict.alert ? clockBody(verdict, now) : clockRecoveryBody(verdict, now);
+    output(env, 'title', CLOCK_TITLE);
+    output(env, 'body', body);
+    console.log(body);
+  }
+  return 0;
+}
+
 export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now() } = {}) {
   const { STAGE: stage = '', BOT: bot = '', MESSAGE_ID: messageId = '', CHANNEL_ID: channelId = '', THREAD_ID: threadId = '' } = env;
+  if (stage === 'clock-silent') return checkClock({ env, execImpl, now });
   if (!STAGES.includes(stage) || !BOTS[bot] || !SNOWFLAKE.test(messageId) || !SNOWFLAKE.test(channelId) || (threadId && !SNOWFLAKE.test(threadId))) {
     console.log(`::error::chat-alarm check: needs STAGE (${STAGES.join(' | ')}), BOT marjorie|tree, numeric MESSAGE_ID and CHANNEL_ID, optional numeric THREAD_ID`);
     return 2;
@@ -123,6 +151,7 @@ export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = 
   const title = alarmTitle(stage, bot, messageId);
   const body = alarmBody({ stage, bot, messageId, channelId, threadId, messageUrl, runs, delivery, posted, now, runUrl: env.RUN_URL || '' });
   output(env, 'alert', 'true');
+  output(env, 'action', 'open');
   output(env, 'title', title);
   output(env, 'body', body);
   output(env, 'dispatch_poll', stage === 'stuck' && Array.isArray(runs) && runs.length === 0 ? 'true' : 'false');
@@ -131,18 +160,20 @@ export async function check({ env = process.env, fetchImpl = fetch, sleepImpl = 
 }
 
 export function alert({ env = process.env, execImpl = execFileSync } = {}) {
-  const { TITLE: title = '', BODY: body = '', DISPATCH_POLL: dispatchPoll = '', REPO: repo = '' } = env;
-  if (!title || !body || !repo) {
-    console.log('::error::chat-alarm alert: needs TITLE, BODY and REPO');
+  const { ACTION: action = 'open', TITLE: title = '', BODY: body = '', DISPATCH_POLL: dispatchPoll = '', REPO: repo = '' } = env;
+  if (!['open', 'close'].includes(action) || !title || !body || !repo) {
+    console.log('::error::chat-alarm alert: needs ACTION open|close, TITLE, BODY and REPO');
     return 2;
   }
   const file = path.join(mkdtempSync(path.join(env.RUNNER_TEMP || tmpdir(), 'chat-alarm-')), 'alert.md');
   writeFileSync(file, `${body}\n`);
   const run = (workflow) => ['gh', ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main'], DISPATCH_TIMEOUT_MS];
   const actions = [
-    ['open the alert', ['bash', ['scripts/watchdog/upsert-alert.sh', 'open', title, file], NOTICE_TIMEOUT_MS]],
-    ['start routine-marjorie-ops.yml', run('routine-marjorie-ops.yml')],
-    ...(dispatchPoll === 'true' ? [['start bot-chat-poll.yml', run('bot-chat-poll.yml')]] : []),
+    [`${action} the alert`, ['bash', ['scripts/watchdog/upsert-alert.sh', action, title, file], NOTICE_TIMEOUT_MS]],
+    ...(action === 'open' ? [
+      ['start routine-marjorie-ops.yml', run('routine-marjorie-ops.yml')],
+      ...(dispatchPoll === 'true' ? [['start bot-chat-poll.yml', run('bot-chat-poll.yml')]] : []),
+    ] : []),
   ];
   let failed = 0;
   for (const [label, [cmd, args, timeout]] of actions) {

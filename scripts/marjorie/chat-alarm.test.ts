@@ -64,7 +64,7 @@ afterEach(() => {
 
 describe('alarm titles', () => {
   it('a stuck reply gets its own issue; a doorbell fault is one standing issue', () => {
-    expect(STAGES).toEqual(['stuck', 'doorbell-missed', 'doorbell-dispatch-failed']);
+    expect(STAGES).toEqual(['stuck', 'doorbell-missed', 'doorbell-dispatch-failed', 'clock-silent']);
     expect(alarmTitle('stuck', 'tree', MID)).toBe(`Chat reply stuck · Tree · ${MID}`);
     expect(alarmTitle('doorbell-missed', 'marjorie', MID)).toBe('Doorbell is not answering');
     expect(alarmTitle('doorbell-dispatch-failed', 'tree', MID)).toBe('Doorbell dispatch is failing');
@@ -145,6 +145,7 @@ describe('alert', () => {
     return { seen, execImpl };
   }
   const OPEN = 'bash scripts/watchdog/upsert-alert.sh open Doorbell is not answering';
+  const CLOSE = 'bash scripts/watchdog/upsert-alert.sh close Clock is not firing';
   const OPS = 'gh workflow run routine-marjorie-ops.yml';
   const POLL = 'gh workflow run bot-chat-poll.yml';
 
@@ -178,10 +179,19 @@ describe('alert', () => {
     quiet.mockRestore();
   });
 
+  it('closes a recovered clock alert through upsert without starting another routine', () => {
+    const quiet = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const closed = exec();
+    expect(alert({ env: env({ ACTION: 'close', TITLE: 'Clock is not firing', DISPATCH_POLL: 'true' }), execImpl: closed.execImpl })).toBe(0);
+    expect(closed.seen).toEqual([CLOSE]);
+    quiet.mockRestore();
+  });
+
   it('refuses to run without a title, body and repo', () => {
     const quiet = vi.spyOn(console, 'log').mockImplementation(() => {});
     const { execImpl } = exec();
     expect(alert({ env: env({ TITLE: '' }), execImpl })).toBe(2);
+    expect(alert({ env: env({ ACTION: 'delete' }), execImpl })).toBe(2);
     expect(execImpl).not.toHaveBeenCalled();
     quiet.mockRestore();
   });

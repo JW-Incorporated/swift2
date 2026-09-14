@@ -1,7 +1,6 @@
 // Bot chat poll (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
 // A plain script, never an agent step — DISCORD_BOT_TOKEN must never enter an
 // agent context. Invoked only from `run:` steps under `environment: social`:
-//
 //   poll     `bot-chat-poll.yml`. Founder messages in #longlive-marjorie and
 //            #longlive-tree (and their active threads), newer than 24 h,
 //            without the bot's own 👀, oldest first, at most 3 per channel.
@@ -16,7 +15,6 @@
 //   context  the chat routines' first job (lib/chat-context.mjs): claims the
 //            message with this bot's own 👀, then writes its context JSON for
 //            the agent to read from `.scratch/`.
-//
 // A founder's Discord *reply* at top level (type 19, `message_reference`) is
 // a top-level message here — the 09-13 brief reply that reply-poll.mjs
 // missed because it only reads threads. Anything that leaves messages unread
@@ -28,10 +26,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { context } from './lib/chat-context.mjs';
+import { watchClock } from './lib/clock-watch.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
+  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, CLOCK_LIVE, CLOCK_LIVE_SINCE, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
   alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
 export { context };
@@ -185,6 +184,7 @@ function raiseAlarm({ execImpl, repo, stage, bot, item }) {
 export async function poll({
   env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now(),
   workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)), doorbellLive = DOORBELL_LIVE,
+  clockLive = CLOCK_LIVE, clockSince = CLOCK_LIVE_SINCE,
 } = {}) {
   if (env.BOT_CHAT_ENABLED === 'false') {
     console.log('BOT_CHAT_ENABLED=false — chat loop is off; nothing read');
@@ -273,6 +273,7 @@ export async function poll({
       }
     }
   }
+  if (clockLive && !watchClock({ execImpl, repo, now, since: clockSince, dryRun }).ok) failures += 1;
   return failures ? 1 : 0;
 }
 export function parseFlags(args) {

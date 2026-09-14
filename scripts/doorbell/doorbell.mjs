@@ -18,6 +18,7 @@
 //   node scripts/doorbell/doorbell.mjs           run until stopped
 //   node scripts/doorbell/doorbell.mjs --check   print the config and exit; never connects
 import path from 'node:path';
+import { execFile } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { BOTS, CLAIM, FAILED, REPLIED } from '../marjorie/lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl } from '../marjorie/lib/discord-bot.mjs';
@@ -27,16 +28,21 @@ import {
 } from './lib/doorbell-core.mjs';
 import { connectGateway } from './lib/gateway.mjs';
 import { githubRequest } from './lib/github-rest.mjs';
+import { checkLines, createClock } from './lib/clock.mjs';
 
 const HOUR_MS = 60 * 60 * 1000;
 
-export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultSleep, timers = globalThis, log = console.log, now = Date.now }) {
+const systemdNotify = (state) => execFile('systemd-notify', [state], { timeout: 10_000 }, () => {});
+
+export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultSleep, timers = globalThis, log = console.log,
+  now = Date.now, processStartMs = now(), notify = systemdNotify }) {
   const channels = createChannelMap({ guildId: config.guildId });
   const seen = createSeen();
   const pending = new Map();
   let gateway = null;
   let stoppedReminder = null;
   let announced = '';
+  const clock = createClock({ githubToken: config.githubToken, fetchImpl, timers, log, now, processStartMs, progress: () => notify('WATCHDOG=1') });
 
   const discord = async (method, url) => {
     try {
@@ -127,6 +133,7 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
     channels,
     seen,
     pending,
+    clock,
     onDispatch,
     onMessage,
     start(WebSocketImpl) {
@@ -136,12 +143,15 @@ export function createDoorbell({ config, fetchImpl = fetch, sleepImpl = defaultS
           stoppedReminder = timers.setInterval(() => log(`gateway still stopped since close ${code}; fix the bot, then restart the service`), HOUR_MS);
         },
       });
+      clock.start();
+      notify('READY=1');
     },
     stop() {
       gateway?.stop();
       for (const timer of pending.values()) timers.clearTimeout(timer);
       pending.clear();
       if (stoppedReminder) timers.clearInterval(stoppedReminder);
+      clock.stop();
     },
   };
 }
@@ -155,6 +165,8 @@ function check(config, { log, major, hasWebSocket }) {
   log(`founders: ${config.founders.size} Discord id(s)`);
   for (const cfg of Object.values(BOTS)) log(`#${cfg.channelName} → ${cfg.workflow}`);
   log(`stuck alarm: ${STUCK_MS / 60_000} min → ${ALARM_WORKFLOW}`);
+  log('clock: pinned schedule (next 10 UTC fires)');
+  for (const line of checkLines()) log(`  ${line}`);
   for (const problem of config.problems) log(`problem: ${problem}`);
   const ok = config.ok && major >= 22 && hasWebSocket;
   log(ok ? 'config OK' : 'config NOT OK');
@@ -165,6 +177,7 @@ export async function main(argv = process.argv.slice(2), {
   env = process.env, fetchImpl = fetch, WebSocketImpl = globalThis.WebSocket, log = console.log,
   onSignal = (signal, handler) => process.on(signal, handler),
 } = {}) {
+  const processStartMs = Date.now();
   const config = parseConfig(env);
   const major = Number(process.versions.node.split('.')[0]);
   const hasWebSocket = typeof WebSocketImpl === 'function';
@@ -174,7 +187,7 @@ export async function main(argv = process.argv.slice(2), {
     if (major < 22 || !hasWebSocket) log('error: needs Node 22 or newer (global WebSocket)');
     return 1;
   }
-  const doorbell = createDoorbell({ config, fetchImpl, log });
+  const doorbell = createDoorbell({ config, fetchImpl, log, processStartMs });
   doorbell.start(WebSocketImpl);
   for (const signal of ['SIGTERM', 'SIGINT']) {
     onSignal(signal, () => {

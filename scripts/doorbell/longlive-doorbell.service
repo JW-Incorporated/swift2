@@ -9,9 +9,12 @@
 Description=Long Live Doorbell (founder message pickup and routine clock)
 After=network-online.target
 Wants=network-online.target
+StartLimitIntervalSec=3600
+StartLimitBurst=5
 
 [Service]
-Type=simple
+Type=notify
+NotifyAccess=all
 User=longlive-doorbell
 Group=longlive-doorbell
 EnvironmentFile=/etc/longlive-doorbell.env
@@ -19,6 +22,7 @@ WorkingDirectory=/opt/longlive-doorbell
 ExecStart=/usr/bin/node /opt/longlive-doorbell/scripts/doorbell/doorbell.mjs
 Restart=always
 RestartSec=30
+WatchdogSec=180
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
