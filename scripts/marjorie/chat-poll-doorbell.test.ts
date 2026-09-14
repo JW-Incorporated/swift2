@@ -42,8 +42,15 @@ describe('hasOthersReaction', () => {
 });
 
 describe('the poll watches the doorbell', () => {
-  it('ships off: DOORBELL_LIVE flips by PR after the live proof', () => {
-    expect(DOORBELL_LIVE).toBe(false);
+  it('ships on after the live proof and alarms for a missed message without an override', async () => {
+    expect(DOORBELL_LIVE).toBe(true);
+    const order: string[] = [];
+    const { fetchImpl } = discord({ ...baseRoutes([msg(ID)]), [claimKey]: res(204) }, order);
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl: gh([], order), now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(order.filter(isAlarm)).toHaveLength(1);
+    expect(order.find(isAlarm)).toContain('stage=doorbell-missed');
+    expect(order.indexOf(claimKey)).toBeLessThan(order.findIndex(isAlarm));
+    expect(order.findIndex(isAlarm)).toBeLessThan(order.findIndex(isChat));
   });
 
   it('while off, a message with the doorbell 👀 is claimed and dispatched exactly as in M5', async () => {

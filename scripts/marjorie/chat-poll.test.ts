@@ -84,11 +84,13 @@ describe('poll', () => {
     const execImpl = gh([], order);
     expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
     const claimTop = order.findIndex((k) => k.startsWith(`PUT ${DISCORD_API}/channels/${MARJ}/messages/${top.id}`));
-    const dispatchTop = order.findIndex((k) => k.includes(`message_id=${top.id}`));
+    const dispatchTop = order.findIndex((k) => k.includes('routine-marjorie-chat.yml') && k.includes(`message_id=${top.id}`));
     expect(claimTop).toBeGreaterThan(-1);
     expect(dispatchTop).toBeGreaterThan(claimTop);
-    expect(execImpl.mock.calls[0][1]).toEqual(dispatchArgs(REPO, 'routine-marjorie-chat.yml', { messageId: top.id, channelId: MARJ, threadId: '' }));
-    expect(execImpl.mock.calls[1][1]).toContain(`thread_id=${THREAD}`);
+    const chatCalls = execImpl.mock.calls.filter((call) => call[1].includes('routine-marjorie-chat.yml'));
+    expect(chatCalls).toHaveLength(2);
+    expect(chatCalls[0][1]).toEqual(dispatchArgs(REPO, 'routine-marjorie-chat.yml', { messageId: top.id, channelId: MARJ, threadId: '' }));
+    expect(chatCalls[1][1]).toContain(`thread_id=${THREAD}`);
     expect(order.some((k) => k.includes(`/channels/${TREE}/messages`))).toBe(false); // tree routine not deployed yet
   });
   it('keeps the claim and exits 1 when the dispatch fails', async () => {
