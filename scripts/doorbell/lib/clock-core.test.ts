@@ -15,10 +15,11 @@ describe('clock decisions', () => {
   it('fails closed on incomplete runs, feature branches and bad server time', () => {
     const run = { head_branch: 'main', event: 'schedule', created_at: new Date(at).toISOString() };
     const response = { ok: true, date: new Date(at).toUTCString(), data: { total_count: 1, workflow_runs: [run] } };
-    expect(covered(response, at, 300_000)).toBe(true);
-    expect(covered({ ...response, data: { total_count: 2, workflow_runs: [run] } }, at, 300_000)).toBeNull();
-    expect(covered({ ...response, date: new Date(at - 1).toUTCString() }, at, 300_000)).toBeNull();
-    expect(covered({ ...response, data: { total_count: 1, workflow_runs: [{ ...run, head_branch: 'feature/x' }] } }, at, 300_000)).toBe(false);
+    expect(covered(response, at, 300_000, at)).toBe(true);
+    expect(covered({ ...response, data: { total_count: 2, workflow_runs: [run] } }, at, 300_000, at)).toBeNull();
+    expect(covered({ ...response, date: new Date(at - 1).toUTCString() }, at, 300_000, at)).toBeNull();
+    expect(covered({ ...response, date: new Date(at + 91_000).toUTCString() }, at, 300_000, at)).toBeNull();
+    expect(covered({ ...response, data: { total_count: 1, workflow_runs: [{ ...run, head_branch: 'feature/x' }] } }, at, 300_000, at)).toBe(false);
   });
 
   it('enforces the rolling 40-attempt cap and five-minute row gap', () => {

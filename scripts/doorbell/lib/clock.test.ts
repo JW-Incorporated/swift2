@@ -20,6 +20,14 @@ describe('host clock', () => {
     expect(clock.state()).toMatchObject({ live: false, failures: 3 });
   });
 
+  it('turns off 30 minutes after its last good read even when refresh timers stall', async () => {
+    let time = start;
+    const clock = createClock({ githubToken: 'x', fetchImpl: vi.fn().mockResolvedValue(response(liveText)), rows, now: () => time, processStartMs: start });
+    await clock.refresh();
+    time += 30 * 60_000 + 1;
+    expect(clock.state().live).toBe(false);
+  });
+
   it.each([500, 408])('records before POST and never retries after HTTP %s', async (status) => {
     const runs = { total_count: 0, workflow_runs: [] };
     const fetchImpl = vi.fn().mockResolvedValueOnce(response(liveText)).mockResolvedValueOnce(response(runs)).mockResolvedValue({ ok: false, status, headers: { get: () => null }, json: async () => ({}) });
@@ -45,5 +53,21 @@ describe('host clock', () => {
     expect(fetchImpl.mock.calls.filter((call) => call[1]?.method === 'POST')).toHaveLength(0);
     time = start + 60_000; await clock.tick();
     expect(fetchImpl.mock.calls.filter((call) => call[1]?.method === 'POST')).toHaveLength(1);
+  });
+
+  it('signals progress only after a serialized tick finishes, including a failed run read', async () => {
+    const progress = vi.fn();
+    let release!: () => void;
+    const pending = new Promise((resolve) => { release = () => resolve(response({ total_count: 1 })); });
+    const fetchImpl = vi.fn().mockResolvedValueOnce(response(liveText)).mockReturnValueOnce(pending);
+    const clock = createClock({ githubToken: 'x', fetchImpl, rows, now: () => start, processStartMs: start, progress });
+    await clock.refresh();
+    const first = clock.tick();
+    const second = clock.tick();
+    expect(first).toBe(second);
+    expect(progress).not.toHaveBeenCalled();
+    release();
+    await first;
+    expect(progress).toHaveBeenCalledOnce();
   });
 });

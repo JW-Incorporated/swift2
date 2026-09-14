@@ -26,7 +26,7 @@ export function loadPinned() {
   return rows;
 }
 
-export function createClock({ githubToken, fetchImpl = fetch, timers = globalThis, now = Date.now, log = console.log,
+export function createClock({ githubToken, fetchImpl = fetch, timers = globalThis, now = Date.now,
   rows = loadPinned(), processStartMs = now(), progress = () => {} }) {
   const handled = new Set();
   const attempts = [];
@@ -44,7 +44,7 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
 
   async function readMain() {
     try {
-      const response = await fetchImpl(LIVE_URL, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS), headers: { 'User-Agent': 'longlive-doorbell' } });
+      const response = await fetchImpl(LIVE_URL, { signal: globalThis.AbortSignal.timeout(REQUEST_TIMEOUT_MS), headers: { 'User-Agent': 'longlive-doorbell' } });
       if (!response.ok) throw new Error('status');
       const live = parseMainLive(await response.text());
       if (live === null) throw new Error('flag');
@@ -71,7 +71,7 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
       lastObserved = time;
       for (const { row, slot } of dueRows(rows, handled, processStartMs, time)) {
         const response = await github(runsRequest(row.workflow, slot));
-        const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS);
+        const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, time);
         if (exists === null || exists || !isLive(now()) || now() - slot > GIVE_UP_MS) continue;
         const sentAt = now();
         if (!canReserve(row, attempts, sentAt)) continue;

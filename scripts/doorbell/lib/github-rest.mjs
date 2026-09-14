@@ -12,7 +12,7 @@ export async function githubRequest({ method = 'GET', url, body }, token, { fetc
   };
   if (body !== undefined) headers['content-type'] = 'application/json';
   try {
-    const res = await fetchImpl(url, { method, headers, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+    const res = await fetchImpl(url, { method, headers, body: body === undefined ? undefined : JSON.stringify(body), signal: globalThis.AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
     let data = null;
     let readable = true;
     if (res.status !== 204) {

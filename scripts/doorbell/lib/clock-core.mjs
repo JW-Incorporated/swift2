@@ -91,10 +91,10 @@ export function runsRequest(workflow, slot, repo = REPO) {
   return { method: 'GET', url: `${GITHUB_API}/repos/${repo}/actions/workflows/${encodeURIComponent(workflow)}/runs?branch=main&created=${created}&per_page=100` };
 }
 
-export function covered(response, slot, windowMs) {
+export function covered(response, slot, windowMs, now) {
   const server = Date.parse(response.date ?? '');
   const runs = response.data?.workflow_runs;
-  if (!response.ok || !Number.isFinite(server) || server < slot || server - slot > 90_000 || !Array.isArray(runs)) return null;
+  if (!response.ok || !Number.isFinite(server) || server < slot || Math.abs(server - now) > 90_000 || !Array.isArray(runs)) return null;
   if (response.data.total_count !== runs.length || runs.length === 100) return null;
   return runs.some((run) => run.head_branch === 'main' && ['schedule', 'workflow_dispatch'].includes(run.event)
     && Date.parse(run.created_at) >= slot && Date.parse(run.created_at) < slot + windowMs);
