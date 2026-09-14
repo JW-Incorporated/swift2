@@ -59,11 +59,12 @@ describe('scripts/doorbell/schedule.json', () => {
 
   it('leaves no step that treats a schedule run specially without a clock equivalent', () => {
     for (const f of files.filter((file) => crons(read(file)).length)) {
-      for (const line of read(f).split('\n').filter((l) => /github\.event_name\s*[!=]=\s*'schedule'/.test(l))) {
+      const code = read(f).split('\n').filter((l) => !/^\s*#/.test(l));
+      for (const line of code.filter((l) => /github\.event_name\s*[!=]=\s*'schedule'/.test(l))) {
         expect(line, `${f}: ${line.trim()}`).toMatch(/inputs\.|workflow_dispatch/);
       }
     }
     const watchdog = read('watchdog.yml');
-    expect(watchdog.match(/\(github\.event\.schedule \|\| inputs\.schedule \|\| 'manual'\) != '5 \* \* \* \*'/g)).toHaveLength(9);
+    expect(watchdog.match(/\(github\.event\.schedule \|\| inputs\.schedule \|\| 'manual'\) != '5 \* \* \* \*'/g)).toHaveLength(10);
   });
 });

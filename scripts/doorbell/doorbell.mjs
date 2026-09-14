@@ -14,6 +14,10 @@
 // posts, never adds ✅ or ❌, never touches a bot or webhook message, and never
 // logs a token or message text. The 5-minute poll stays the fallback.
 //
+// It also keeps the routines' clock (lib/clock.mjs, m7-clock.md): once
+// CLOCK_LIVE is on, each schedule.json slot is started with workflow_dispatch
+// on the same key, because GitHub drops most of this repo's cron fires.
+//
 // No dependencies: node: builtins and repo files only, so a bare clone runs it.
 //   node scripts/doorbell/doorbell.mjs           run until stopped
 //   node scripts/doorbell/doorbell.mjs --check   print the config and exit; never connects
@@ -25,6 +29,8 @@ import {
   ALARM_WORKFLOW, INTENTS, STUCK, STUCK_MS,
   chatDispatch, createChannelMap, createSeen, parseConfig, readyLine, ringDecision, stuckDecision, stuckDispatch,
 } from './lib/doorbell-core.mjs';
+import { createClock, loadPinned } from './lib/clock.mjs';
+import { iso, nextFires } from './lib/clock-core.mjs';
 import { connectGateway } from './lib/gateway.mjs';
 import { githubRequest } from './lib/github-rest.mjs';
 
@@ -155,8 +161,17 @@ function check(config, { log, major, hasWebSocket }) {
   log(`founders: ${config.founders.size} Discord id(s)`);
   for (const cfg of Object.values(BOTS)) log(`#${cfg.channelName} → ${cfg.workflow}`);
   log(`stuck alarm: ${STUCK_MS / 60_000} min → ${ALARM_WORKFLOW}`);
+  let clockOk = true;
+  try {
+    const pinned = loadPinned();
+    log(`clock: ${pinned.rows.length} rows, CLOCK_LIVE=${pinned.live} in this checkout (main is re-read every 10 min); next fires:`);
+    for (const fire of nextFires(pinned.rows, Date.now())) log(`  ${iso(fire.at)}  ${fire.workflow}  (${fire.cron})`);
+  } catch (err) {
+    clockOk = false;
+    log(`problem: scripts/doorbell/schedule.json: ${err.message}`);
+  }
   for (const problem of config.problems) log(`problem: ${problem}`);
-  const ok = config.ok && major >= 22 && hasWebSocket;
+  const ok = config.ok && major >= 22 && hasWebSocket && clockOk;
   log(ok ? 'config OK' : 'config NOT OK');
   return ok ? 0 : 1;
 }
@@ -174,11 +189,14 @@ export async function main(argv = process.argv.slice(2), {
     if (major < 22 || !hasWebSocket) log('error: needs Node 22 or newer (global WebSocket)');
     return 1;
   }
+  const clock = createClock({ githubToken: config.githubToken, fetchImpl, log });
   const doorbell = createDoorbell({ config, fetchImpl, log });
+  clock.start();
   doorbell.start(WebSocketImpl);
   for (const signal of ['SIGTERM', 'SIGINT']) {
     onSignal(signal, () => {
       log(`${signal}: stopping`);
+      clock.stop();
       doorbell.stop();
       process.exit(0);
     });

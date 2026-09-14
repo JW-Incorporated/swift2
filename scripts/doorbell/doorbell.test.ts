@@ -194,6 +194,8 @@ describe('--check and the bare clone', () => {
     const graph = [...visited].map((f) => relative(process.cwd(), f).replace(/\\/g, '/')).sort();
     expect(graph).toEqual([
       'scripts/doorbell/doorbell.mjs',
+      'scripts/doorbell/lib/clock-core.mjs',
+      'scripts/doorbell/lib/clock.mjs',
       'scripts/doorbell/lib/doorbell-core.mjs',
       'scripts/doorbell/lib/gateway.mjs',
       'scripts/doorbell/lib/github-rest.mjs',
