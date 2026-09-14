@@ -13,7 +13,12 @@ one covers only the conversational loop. Epic #4180.
   top-level message gets a thread started for it) and marks your message
   👀 when she picks it up and ✅ when her reply is posted. The delay is a
   5-minute poll plus a routine's start-up; the reply says nothing about
-  being late.
+  being late. *(Amended by M7, 2026-09-14: pickup now happens in seconds. The
+  Long Live Doorbell on the home server adds 👀 and starts the routine the
+  moment you post, and the routine's `context` job adds the bot's own 👀 as
+  its claim; the poll stays as the fallback and watches the doorbell. Only
+  pickup changed: this spec is still the contract for the chat loop. See
+  `m7-doorbell.md`.)*
 - The same in `#longlive-tree` gets Tree. Tree's replies are conversation
   only; approvals stay reactions on Tree's own posts, exactly as before, and
   a reply from Tree is never an approval, a post, or a caption change.
