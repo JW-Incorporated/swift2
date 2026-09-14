@@ -1,0 +1,35 @@
+{
+  "weekOf": "2026-09-14",
+  "whatChangedAndWhy": "The shop-the-look launch finally got its day-0 post out on 09-12 after two dead attempts, so the rest of that arc (how-to, example, callback) now runs 09-15/09-18/09-21 and the fortnight is built around finishing it. Two approved posts were lost to a bookkeeping bug, not to bad drafting: the 48h-after-approval sweep expired the speak-now Instagram post six hours before it was ever due to go out, and separately filed an already-published post as failed — I've re-slotted the lost speak-now beat on 09-27 and asked Marjorie to get the sweep fixed. Because the poster can only ship one beat a day, 14 days means 14 slots, and the mandatory load (a launch arc, six thread windows, two Mood beats, two weekly timeline beats) fills all 14 with no room left for heartbeat posts.",
+  "calendar": [
+    { "day": 1, "text": "09-14 Mood chip-poll A — the September Mood beat has never once drafted; two slots this month, this is the first." },
+    { "day": 2, "text": "09-15 Shop-the-look how-to — literally where to tap, because day 0 announced a surface most people still haven't found." },
+    { "day": 3, "text": "09-16 The Runway, behind-the-data — the thread's only slot this month; the launch arc ate the rest of its window, and now that shop-the-look is live it can say how many Runway looks are tappable." },
+    { "day": 4, "text": "09-17 Blank Spaces timeline, early solo years — the permanent weekly timeline beat, chapter one, confirmed-only." },
+    { "day": 5, "text": "09-18 Shop-the-look example — one real look, one real tap, the proof it works rather than the pitch." },
+    { "day": 6, "text": "09-19 Blank Spaces hero, quiz-poll — one genuinely hard either/or from the thread, because nobody new has ever been taught this lens." },
+    { "day": 7, "text": "09-20 Blank Spaces slot 2 — the results beat if 09-19 drew answers, a fresh either/or if it didn't. Window closes today." },
+    { "day": 8, "text": "09-21 Shop-the-look callback — closes the arc by inviting a reply: which era's closet would you actually raid." },
+    { "day": 9, "text": "09-22 Taylor's Version hero, origin-story — what the thread is and the one moment that made it worth building." },
+    { "day": 10, "text": "09-23 Mood chip-poll B — second and last September Mood slot, a different three starter chips from 09-14." },
+    { "day": 11, "text": "09-24 Blank Spaces timeline, Joe Jonas era — chapter two of the weekly timeline; skips forward rather than reaching if the Vault has no confirmed anchor." },
+    { "day": 12, "text": "09-25 Taylor's Version slot 2 — a different entry point into the same angle, never a retelling. Window closes today." },
+    { "day": 13, "text": "09-26 End Game hero, single-best-item — one item told whole, confirmed material only; its second slot belongs to next week's calendar." },
+    { "day": 14, "text": "09-27 Speak Now heartbeat, recovered — the post you approved on 09-11 that the 48h sweep killed before it could ship, re-minted under a new campaign value." }
+  ],
+  "proposals": [],
+  "questions": [
+    "Strategy §2 still says two campaign beats a day, but the poster hard-caps at one post per platform per day, so a fortnight is 14 slots and all 14 are spoken for by the launch arc, the thread windows, Mood and the weekly timeline — zero heartbeat posts. Last Monday's brief proposed correcting §2 down to one beat a day and got neither a ✅ nor a ❌. Do you want §2 corrected to match the poster, or the poster's cap raised to two so heartbeat posts get room back?",
+    "You've approved the last four drafts unchanged — 4 ✅, 0 ✏️, 0 ❌ — and the lessons ledger I'm supposed to distil your feedback into is still completely empty because no edit or rejection has ever landed in it. Is there one thing in the last four posts you'd actually have changed? Even a small one gives the ledger its first rule."
+  ],
+  "needsFromMarjorie": [
+    {
+      "ask": "Fix the 48h-after-approval sweep: it expires posts before their scheduled time and files already-published posts as failed",
+      "why": "All four items approved at 2026-09-11T16:26Z: 2026-09-13-speaknow-million-week-ig.json was scheduled 09-13T23:00Z and swept to social/failed/ at 09-13T16:26Z, 6h34m before it was due (#4288), while 2026-09-12-shop-the-look-announce-ig.json posted successfully at 09-13T00:38Z (platformPostId 17985710469068737) and was swept to social/failed/ anyway at 09-14T01:24Z (#4282). Both X siblings are still sitting in social/queue/, one of them already posted, so the poster isn't clearing the queue on success either."
+    },
+    {
+      "ask": "Give scripts/social/weekly-scorecard.mjs a CLI entrypoint and a distinct-opener-pattern metric",
+      "why": "My runner prompt tells me to run `node --use-env-proxy scripts/social/weekly-scorecard.mjs` for this week's numbers; the file is a pure library with no main, so it exits 0 and prints nothing, and I had to import buildScorecard inline instead. buildScorecard also returns no opener field even though strategy §3 lists distinct opener patterns as a scorecard metric, so I counted 8 across 10 posts by hand this week."
+    }
+  ]
+}
