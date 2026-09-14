@@ -32,6 +32,10 @@ import { BOTS, SNOWFLAKE, findRuns, runTitle } from './lib/chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, snowflakeMs } from './lib/discord-bot.mjs';
 
 export const STAGES = ['stuck', 'doorbell-missed', 'doorbell-dispatch-failed'];
+// Each `alert` action is bounded inside the job's 8 minutes, so a stalled
+// Discord post or mail fallback cannot use up the dispatches' time (Codex R2).
+export const NOTICE_TIMEOUT_MS = 4 * 60_000;
+export const DISPATCH_TIMEOUT_MS = 60_000;
 const STANDING = {
   'doorbell-missed': 'Doorbell is not answering',
   'doorbell-dispatch-failed': 'Doorbell dispatch is failing',
@@ -127,16 +131,16 @@ export function alert({ env = process.env, execImpl = execFileSync } = {}) {
   }
   const file = path.join(env.RUNNER_TEMP || tmpdir(), 'chat-alarm.md');
   writeFileSync(file, `${body}\n`);
-  const run = (workflow) => ['gh', ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main']];
+  const run = (workflow) => ['gh', ['workflow', 'run', workflow, '--repo', repo, '--ref', 'main'], DISPATCH_TIMEOUT_MS];
   const actions = [
-    ['open the alert', ['bash', ['scripts/watchdog/upsert-alert.sh', 'open', title, file]]],
+    ['open the alert', ['bash', ['scripts/watchdog/upsert-alert.sh', 'open', title, file], NOTICE_TIMEOUT_MS]],
     ['start routine-marjorie-ops.yml', run('routine-marjorie-ops.yml')],
     ...(dispatchPoll === 'true' ? [['start bot-chat-poll.yml', run('bot-chat-poll.yml')]] : []),
   ];
   let failed = 0;
-  for (const [label, [cmd, args]] of actions) {
+  for (const [label, [cmd, args, timeout]] of actions) {
     try {
-      execImpl(cmd, args, { stdio: 'inherit' });
+      execImpl(cmd, args, { stdio: 'inherit', timeout, killSignal: 'SIGKILL' });
       console.log(`${label}: done`);
     } catch (err) {
       failed += 1;

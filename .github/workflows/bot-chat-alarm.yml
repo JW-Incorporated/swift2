@@ -107,7 +107,7 @@ jobs:
     if: github.run_attempt == '1' && needs.check.outputs.alert == 'true' && !inputs.dry_run
     runs-on: ubuntu-latest
     environment: ops
-    timeout-minutes: 5
+    timeout-minutes: 8 # chat-alarm.mjs bounds its notice at 4 min and each dispatch at 1
     permissions:
       contents: read
       issues: write

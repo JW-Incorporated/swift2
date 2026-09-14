@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { STAGES, alarmBody, alarmTitle, alert, check } from './chat-alarm.mjs';
+import { DISPATCH_TIMEOUT_MS, NOTICE_TIMEOUT_MS, STAGES, alarmBody, alarmTitle, alert, check } from './chat-alarm.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { runTitle } from './lib/chat-inbox.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -132,7 +132,8 @@ describe('alert', () => {
   });
   function exec(fails: (cmd: string, args: string[]) => boolean = () => false) {
     const seen: string[] = [];
-    const execImpl = vi.fn((cmd: string, args: string[]) => {
+    const execImpl = vi.fn((cmd: string, args: string[], ...rest: unknown[]) => {
+      void rest;
       seen.push(`${cmd} ${args.slice(0, 3).join(' ')}`);
       if (fails(cmd, args)) throw new Error('boom');
       return '';
@@ -153,6 +154,9 @@ describe('alert', () => {
     const second = exec();
     expect(alert({ env: env({ DISPATCH_POLL: 'true' }), execImpl: second.execImpl })).toBe(0);
     expect(second.seen).toEqual([OPEN, OPS, POLL]);
+    // A stalled notice is killed in time for both dispatches (Codex R2).
+    expect(second.execImpl.mock.calls.map((call) => (call[2] as { timeout?: number } | undefined)?.timeout)).toEqual([NOTICE_TIMEOUT_MS, DISPATCH_TIMEOUT_MS, DISPATCH_TIMEOUT_MS]);
+    expect(NOTICE_TIMEOUT_MS + 2 * DISPATCH_TIMEOUT_MS).toBeLessThan(8 * 60_000);
     quiet.mockRestore();
   });
 
