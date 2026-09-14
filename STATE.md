@@ -1,68 +1,68 @@
 # STATE — session working memory
 
-## 2026-09-14 (M7 doorbell live proof complete; clock separate)
+## Next
 
-**Call:** M7's doorbell is live and passed its production proof. The clock is
-not implemented; its fresh build brief is
-`docs/plans/marjorie-overhaul/waves/m7-clock-v2.md`, with scope tracked on
-#4290.
+1. Finish Codex round 2 on feature/m7-clock-v2. If it rejects, write DEBUG.md
+   and stop; no third round and no PR. If clean, PR with auto-merge.
+2. After the reviewed implementation is on main, tag doorbell-v2 and file
+   the v2 update HA by PR. Stop for Joey's done before activation or proof.
+3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
+   proof and dry-run clock-silent alarm. Noon brief proof is passive; if noon
+   is >2h away, put its check first here and stop for the next session.
 
-**Landed doorbell work:**
-- #4322 preserved the verbatim founder prompt; #4325 added the word guard;
-  #4326 set `DOORBELL_LIVE = true`; #4328 corrected the alarm title.
-- The independent review of #4320's channel-level, concise replies was clean.
-- Reviews: #4325 R2 clean, #4326 R2 clean, #4328 R1 clean. No third round.
-- The host service is active, all verifier processes are stopped, and the
-  installed checkout remains pinned to `doorbell-v1`.
+## M7 clock v2 — 2026-09-14
 
-**Live proof:**
-- Full evidence: https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
-- Tree: 67 words; reply-bot ✅ check 86.608 s; 👀 pickup ≤2.343744 s; run
-  34876298473.
-- Marjorie: 74 words; reply-bot ✅ check 127.576 s; 👀 pickup ≤1.954189 s;
-  run 34876301348.
-- No threads, duplicates, or replies from the old Hermes Tree identity.
-- Stopped-service message 1549123731408945283 at 18:24:38.895Z. After age
-  reached 60 s and cron had not run, manual fallback run 34880770758 dispatched
-  `bot-chat-poll.yml`. This proves the fallback path, not cron reliability.
-- Alarm run 34880797025 opened #4329; Discord alarm
-  1549124270041464832 appeared at 18:26:47.315Z with canonical issue title
-  `Doorbell is not answering` verified literally.
-  Chat run 34880799699 succeeded: 64 words, reply-bot ✅ check 206.064 s.
-- Final restart 18:29:34Z; message 1549125883468587179 at 18:33:11.986Z;
-  👀 ≤0.618 s; run 34881495722 succeeded; reply 1549126305558302806 at
-  18:34:52.620Z, 59 words, no new thread; reply-bot ✅ check 18:35:14.626Z,
-  bound 122.640 s.
-- Reaction timings are upper bounds, not exact event times. The host-only
-  verifier loads protected credentials internally as the service user, prints
-  metadata only, and retries transient network 503s. No token values recorded.
+Branch/worktree: feature/m7-clock-v2 in
+C:/Users/Fourtys/.codex/worktrees/m7-clock-v2, based on main 55d50700.
+Preconditions verified: HA #75 closed on main, DOORBELL_LIVE=true.
+Installed host remains doorbell-v1 and active; no clock deployment yet.
 
-**Verification:**
-- 145 focused tests with the flag on; final 21 assertion tests; later 39 alarm
-  and workflow tests. Full CI was the gate.
-- Lint: 0 errors, 5 existing warnings.
-- Local typecheck cannot resolve shared React Native/Expo dependencies.
+Scope is exactly bot-chat-poll.yml (*/5 * * * *) and
+routine-marjorie-brief.yml (0 12 * * *). No schedule removed, no social or
+L1 files touched. Main remains trusted executable authority for Actions;
+the tag pins host code, dispatch filenames, crons and empty inputs.
 
-**Closeout state:**
-- HA #75 remains open on `main`; its closure PR #4330 has auto-merge enabled.
-  Do not call it merged until its state says so.
-- #4319 is closed. Test alerts #4327 and #4329 are closed and recovered.
+Implementation:
+- Pinned clock capability; main CLOCK_LIVE=false / CLOCK_LIVE_SINCE=''.
+- Serialized flag refresh, off at boot, fail closed at three failures or
+  thirty minutes stale. No remote table. Process-start slot gating.
+- POST attempted once, GET retries bounded, complete main-run history,
+  response Date >= slot, rolling 40/hour and five-minute per-row gap.
+- Memory bounded by expiry; backward jumps pause; timing wakes at gap
+  boundaries as well as minutes. Metadata-only dispatch logs.
+- Shared gap verdict for poll and alarm: any main run serves one slot;
+  two misses after grace raise clock-silent. Simultaneous host/cron death
+  is detected only when a surviving cron runs.
+- Brief workflow concurrency encloses guard through delivery; main-only
+  guard, explicit manual force=false default, previous runs/issue-comment
+  delivery markers prevent a second ordinary agent run that UTC day.
+- WatchdogSec=180 and StartLimitBurst=5 in revised unit. Joey explicitly
+  approved unit-copy and daemon-reload before the update HA's restart.
 
-**Next:**
-1. Leave merge-pending HA #75 closure PR #4330 and the final-docs PR on
-   auto-merge, then hand off to the architect.
-2. Keep clock work in a separate session using `waves/m7-clock-v2.md` and the
-   current ruling on #4290.
+Reviews:
+- Round 1: fresh read-only gpt-5.6-sol xhigh, output in gitignored
+  .scratch/clock-round1.txt. Initial rejection: guard atomicity, force main
+  boundary, trusted-main authority wording, server time, reactivation since,
+  any-actor coverage, contradictory old decision wording, interval endpoints.
+- Corrected design before code (b325f01b); implementation enforces the fixes.
+- Actor-only coverage recommendation conflicts with the explicit brief's
+  any-main-run contract. Retained that contract and documented its limitation;
+  live proof separately checks the key owner. No scope expansion.
+- Round 2 pending. No extra review rounds have run.
 
-**Architect invocations:**
-- 2026-09-14 ~07:35 PDT, mandatory M7 clock debug-ladder rung 3 after two
-  Codex rounds and a fresh-context redesign. Ruling: fail closed, use
-  process-start gating, add `WatchdogSec`, scope A, and rebuild fresh with a
-  Codex design review before code.
+Verification:
+- 159 focused tests / 15 files passed; includes an hour with request jitter,
+  poll-entrypoint watch, shared checkClock verdict, brief guard and workflow.
+- Lint most recently 0 errors / 5 existing warnings.
+- Local typecheck fails missing generated content and React Native/Expo/shared
+  dependencies in this worktree. Full CI is the suite/merge gate.
+- No live clock proof, no tag or update HA yet. #4290 remains open; M7 is
+  not ticked complete. Doorbell evidence remains on #4180:
+  https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
 
-### Local checkout notes
+## Architect invocations
 
-Branch worktrees live under `C:/Users/Fourtys/.codex/worktrees/`. Local vitest
-uses junctioned `node_modules` plus a plain config copied from
-`Temp/claude-worktrees/scratch-vitest.config.ts` because the repo config hits a
-Windows symlink EPERM.
+2026-09-14 ~07:35 PDT: prior clock debug ladder rung 3. Ruling retained in
+DEBUG.md at 1c9e4e4e19d38cafa69bfc7b938167310ccc9033; operative requirements
+copied into the v2 spec amendment. Rebuild uses process-start gating,
+fail-closed flag refresh, pinned table, rate caps and watchdog.

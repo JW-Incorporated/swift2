@@ -64,7 +64,9 @@ on #4290. Historical source: DEBUG.md at commit
   ledger, catch-up from before boot, or POST retry. A restart loses a slot
   rather than repeating it. A backward wall-clock jump pauses dispatch
   until the last observed time is reached.
-- Tick once per minute, serialized. A failed read-only run-list GET may be
+- Tick once per minute, serialized, with an extra wake at a row's minimum-gap
+  boundary so request jitter cannot add a whole minute to every next slot.
+  A failed read-only run-list GET may be
   tried again within ten minutes of the slot. Recheck live, slot age and
   limits immediately before sending. A newer slot of the same row supersedes
   an older pending slot; the poll never catches up two slots at once.
