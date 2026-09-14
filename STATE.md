@@ -1,56 +1,46 @@
 # STATE — session working memory
 
-## 2026-09-13 (session: Fable — M2/M3 review + repair, M4 readiness)
+## 2026-09-14 (session: Fable — M5 review, fixes, first Tree Monday cycle)
 
-**Call:** M2 and M3 both stand. Every gate re-checked from real reads
-(`gh` issue/run/PR views), not the closeout comments. Repairs below;
-nothing structural was wrong.
+**Call:** M5 stands (evidence re-read from real runs/PRs, comment on
+#4180). Three Codex defects: two fixed (#4292), one filed (#4291).
+#4279 fixed (#4289). Tree's Monday run succeeded for the first time ever
+after #4293 raised its turn cap (run 34839086659: asks #4296/#4297 filed,
+brief delivered, plan PR #4295). Local stash "stale m4-gate-waived
+leftovers" holds an obsolete M4-gate edit; drop it if nothing is missing.
 
-**Re-verified (M2):** ops routine runs hourly on cron and succeeds
-(scheduled runs 34742363728, 34756152901); it handled the new alerts
-#4243 (comment-only, correct) and #4192 (diagnosed, no redispatch needed)
-and left #4212 (mobile parity) alone — that alert is not one of the 14
-handler rows, by design. Reply poller runs on cron and no-ops until HA #69.
-**Re-verified (M3):** labels live, triage routine on daily cron 16:27 UTC
-(first scheduled run is today), both proof runs succeeded.
+**The finding that matters:** GitHub cron drops most scheduled runs on
+this repo (#4290): the 5-min chat poll fired 3× in 14 h, hourly watchdog
+2× in 11 h, Tree's 10:00Z Monday cron never fired, Marjorie's brief ran
+3 h late. Nothing queued → dropped, not delayed. Every "automated"
+promise rests on this. Recommendation on #4290: a clock service on the
+Hermes VM host beside M7's doorbell that `workflow_dispatch`es routines on
+time. **Founder decision pending** (Joey, in chat). Until then: if a
+routine's slot passes with no run, dispatch it by hand.
 
-**Repaired this session:**
-- PR #4222 (HA #70, the FB-export human action the routine filed) was
-  green, clean, and unmerged with no auto-merge — the M2 gate "exists on
-  `main`" was not actually true. Merged. HA #70 is now on `main`.
-- HA #68 closed on evidence (PR #4202 MERGED, `SOCIAL_FREEZE` = false).
-- HA #64 and #57: the owner closed them by Discord reply on 09-12, but the
-  Hermes poller's PRs #4195/#4196 conflicted and never landed. Folded both
-  closes into this session's hygiene PR; those two PRs closed.
-- Local `DEBUG.md` (M2's max-turns debug, resolved by #4221) and `PLAN.md`
-  (Tree Wave 4, done 09-12) deleted — both stale; earlier STATE notes
-  misattributed DEBUG.md to the Tree wave.
-- `waves/m4-loop.md` gained a "Carried in from M2/M3" paragraph: the
-  `tree-filed` label does not exist live, the cross-job identity trap
-  (#4225/#4238), comment truncation (#4230), allowedTools (#4218), the
-  App-token dispatch 403 (#4223), turn budgets (#4221).
-- #4223 re-diagnosed as a CODE fix, not a founder action: claude-code-action
-  mints its own App installation token (OIDC) whenever `github_token` is
-  empty, so the caller's `actions: write` never reached the agent's `gh`.
-  Fixed in PR #4244 (merged): template input `expose_dispatch_token`
-  exposes the job's own token as `GH_DISPATCH_TOKEN`, used only for
-  `gh workflow run`; the agent identity stays `claude[bot]` so marker
-  recognition is untouched (Codex round 1 caught the identity-swap
-  version). Proof run 34758238356 green, env confirmed; no live redispatch
-  observed yet because every open alert was already handled today. #4223
-  stays open until a real redispatch is seen.
+**Today's Marjorie brief (12:00Z):** watch it. If the cron drops it,
+`gh workflow run routine-marjorie-brief.yml`. Its "From Tree" line must
+carry #4296/#4297 — that completes the M4 Monday-cycle proof MR1 checks.
 
-**M4 readiness:** ready on its stated gate — Tree R2 reports 2026-09-21,
-then M4 runs on Opus. No M2/M3 defect blocks it. The runbook artifact
-(4a82c960) updated with all of the above.
+**Next waves (order):** M7 doorbell first (prompt `waves/m7-doorbell.md`;
+HA #72–#74 done, install HA to be filed by the build), then M6 live asks
+(`waves/m6-live-asks.md`, gated on today's cycle being recorded on
+#4180 — Tree half is; Marjorie half is the 12:00Z brief). If Joey says yes
+on #4290, fold the clock into M7's spec before starting it.
 
-**Open non-blocking follow-ups (unchanged):** #4218, #4219, #4226 (M2);
-#4230, #4231, #4232, #4239 (M3); #4204 (doc line); #4131 (watchdog
-WATCHED set). Founder-only: HA #69 (bot View Channel — the reply poller is
-dead until then), HA #70 (FB export).
+**Open follow-ups:** #4291 (duplicate reply on lost webhook response),
+#4271 (chat authority hardening), #4260 (L1 strict idempotency), #4223
+(waits for a real re-dispatch), #4169 (SOCIAL_FREEZE passthrough, before
+Tree Wave 5); test files `chat-delivery.test.ts`/`chat-poll.test.ts` over
+300 lines (split + MAP row). Founder-only: HA #70 (FB export), #67, #63,
+#54, #49, #48, #43.
+
+**Architect invocations:** none this session.
 
 ### Local checkout notes
 
-Local vitest cannot run (Windows EPERM symlink in
-`sync-web-react-globalSetup.ts`); CI is the real gate. Branch-writing
-agents use worktrees under `Temp\claude-worktrees\`, never this checkout.
+Local vitest cannot use the repo config (Windows EPERM symlink in
+`sync-web-react-globalSetup.ts`); `.scratch/vitest.plain.config.mts`
+(`include: scripts/**/*.test.ts`) runs the scripts suites fine. CI is
+the real gate. Branch-writing agents use worktrees under
+`Temp\claude-worktrees\`, never this checkout.
