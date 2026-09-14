@@ -3,8 +3,8 @@
 ## Behavior
 
 Routine replies to ordinary founder messages stay concise: 2–4 short sentences
-and at most 80 whitespace-separated words. The save step enforces that exact
-ordinary envelope. A founder request for detail (`--detail requested`), or
+and at most 80 whitespace-separated words. The save step enforces the word
+limit; sentence count remains prompt guidance. A founder request for detail (`--detail requested`), or
 action-critical steps and evidence (`--detail essential`), may produce a longer
 single reply within the existing 1,800-character cap. No other detail reason is
 accepted.
