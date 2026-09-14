@@ -1,0 +1,136 @@
+# No-reply alarm (Marjorie Overhaul M7, docs/specs/marjorie-overhaul/m7-doorbell.md
+# Mechanics 7). dispatch-only. Started by the doorbell's 6-minute stuck timer
+# (`stage=stuck`, on its own key) and by bot-chat-poll.yml when the doorbell
+# missed a founder message or rang one that never got a run (GITHUB_TOKEN).
+# Plain `run:` steps only, no agent job; every job checks out ref main and
+# reads its inputs through `env:`, never interpolated into a script.
+#
+#   check (social)  scripts/marjorie/chat-alarm.mjs check: re-reads Discord
+#                   with the bot token and lists the chat runs. For `stuck`, a
+#                   reply, ✅, ❌ or [chat failed] notice now present ends the
+#                   run with no alert. Outputs the title and a body of ids,
+#                   links, run state and age, never message text (public
+#                   repo). With `dry_run` it prints the body and stops here.
+#   alert (ops)     upsert-alert.sh open → a watchdog-alert issue, posted in
+#                   #longlive-marjorie (email only if that post fails); then
+#                   starts routine-marjorie-ops.yml so it is handled now, not
+#                   at :18, and, for a stuck message with no run at all,
+#                   bot-chat-poll.yml. First attempt only.
+#
+# Titles: `Chat reply stuck · <Bot> · <message id>` (a new issue per message,
+# so it notifies) or the standing `Doorbell is not answering` / `Doorbell
+# dispatch is failing` (one issue while it lasts). Marjorie's hourly sweep
+# closes each once it is resolved, as for every watchdog alert.
+name: bot-chat-alarm
+run-name: "Chat alarm · ${{ inputs.stage }} · ${{ inputs.message_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "Why the alarm was raised"
+        required: true
+        type: choice
+        options: [stuck, doorbell-missed, doorbell-dispatch-failed]
+      bot:
+        description: "marjorie or tree"
+        required: false
+        type: string
+        default: ""
+      message_id:
+        description: "Discord id of the founder's message"
+        required: false
+        type: string
+        default: ""
+      channel_id:
+        description: "The bot's channel id"
+        required: false
+        type: string
+        default: ""
+      thread_id:
+        description: "Thread the message is in; empty for a top-level message"
+        required: false
+        type: string
+        default: ""
+      dry_run:
+        description: "Print the alert body; open no alert and start nothing"
+        type: boolean
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: bot-chat-alarm-${{ inputs.message_id || inputs.stage }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      alert: ${{ steps.check.outputs.alert }}
+      title: ${{ steps.check.outputs.title }}
+      body: ${{ steps.check.outputs.body }}
+      dispatch_poll: ${{ steps.check.outputs.dispatch_poll }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Is an alert due?
+        id: check
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          STAGE: ${{ inputs.stage }}
+          BOT: ${{ inputs.bot }}
+          MESSAGE_ID: ${{ inputs.message_id }}
+          CHANNEL_ID: ${{ inputs.channel_id }}
+          THREAD_ID: ${{ inputs.thread_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/marjorie/chat-alarm.mjs check
+
+  alert:
+    needs: check
+    if: github.run_attempt == '1' && needs.check.outputs.alert == 'true' && !inputs.dry_run
+    runs-on: ubuntu-latest
+    environment: ops
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      actions: write # gh workflow run routine-marjorie-ops.yml / bot-chat-poll.yml
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Open the alert and start Marjorie's ops routine
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          # post-or-mail.mjs mails only when the Discord post fails.
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TITLE: ${{ needs.check.outputs.title }}
+          BODY: ${{ needs.check.outputs.body }}
+          DISPATCH_POLL: ${{ needs.check.outputs.dispatch_poll }}
+        run: |
+          set -euo pipefail
+          printf '%s\n' "$BODY" > "$RUNNER_TEMP/chat-alarm.md"
+          scripts/watchdog/upsert-alert.sh open "$TITLE" "$RUNNER_TEMP/chat-alarm.md"
+          gh workflow run routine-marjorie-ops.yml --repo "$REPO" --ref main
+          if [ "$DISPATCH_POLL" = "true" ]; then
+            gh workflow run bot-chat-poll.yml --repo "$REPO" --ref main
+          fi

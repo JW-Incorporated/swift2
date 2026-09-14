@@ -168,6 +168,13 @@ and there is still exactly one Marjorie and one Tree.
 
      Marjorie's hourly sweep closes the alert once it is resolved, as for
      every watchdog alert.
+
+   *(Amended at build: a `[chat failed]` notice already there also ends a
+   `stuck` check with no alert, since the founder has an answer. The
+   concurrency group falls back to the stage when there is no message id.
+   `routine-marjorie-ops.yml` gains `allowed_bots: github-actions`: the alarm
+   starts it on `GITHUB_TOKEN`, and claude-code-action refuses a bot-started
+   run otherwise, as the chat routines found in M5.)*
 8. **Timing record.**
    - `finish` adds `replied in <n>s` (the message's snowflake time to its ✅)
      to its run log and to the metadata-only `💬 chat:` turn log.
