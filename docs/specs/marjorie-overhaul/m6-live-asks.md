@@ -179,9 +179,9 @@ spec covers only how an ask gets answered quickly. Epic #4180.
 ## Open questions
 
 - **The Hermes-VM relay** for instant pickup of founder messages is not in
-  this spec. It needs Joey's decisions 1–5: a PAT and a new Discord bot app
-  on the VM, a channel-rule amendment, and an always-on dependency. It is
-  independent of M6 and composes with it.
+  this spec. Joey approved it on 2026-09-13 (decisions 1–5), and it is wave
+  M7, `m7-doorbell.md`. It is independent of M6 and composes with it: both
+  edit the chat routines, so land one build before the other.
 - **Model for Tree's answer runs.** Start on Opus with 15 turns; measure
   after two weeks, and consider Sonnet since Tree is read-mostly.
 - **Marjorie's other chat filings** (`desk:build` and the rest) are not L1

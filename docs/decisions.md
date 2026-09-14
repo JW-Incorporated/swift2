@@ -7,6 +7,55 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-13 — A doorbell on the home server picks up founder messages in seconds; the poll stays as the fallback (M7; amends the 2026-09-12 channel decision)
+
+**Decision (Joey, in chat, 2026-09-13 19:16 PDT, relay decisions 1–5 all "yes"; recorded on #4180):**
+
+1. **"Long Live Doorbell"**, a non-AI relay, runs always-on on the Hermes VM
+   host, outside Hermes' containers. It holds its own Discord bot token and
+   a fine-grained GitHub key, `longlive-doorbell-dispatch` (swift2 only,
+   Actions: Read and write), both only in a host file. When a founder writes
+   in `#longlive-marjorie` or `#longlive-tree`, it reacts 👀 and starts that
+   bot's chat routine.
+2. **This amends the 2026-09-12 channel decision.** A non-AI relay may watch
+   those two channels and add 👀 or ⚠️ to a founder's own message. It never
+   posts, never reacts ✅ or ❌, and never touches a bot or webhook message,
+   so `#longlive-tree` stays reaction-pure for approvals.
+3. **The always-on relay is accepted as the speed dependency.** The 5-minute
+   poll stays as the fallback and watches the relay.
+4. **👀 only**, no "on it" text.
+5. **A free no-reply alarm.** Joey: "if 2.5 minutes pass without a reply
+   that means something is wrong, so we should have a free method to watch
+   for that and trigger action/escalation."
+   - It is built at 6 minutes, because a normal reply takes about 2.5–3.5
+     minutes. The threshold is re-set from recorded reply times after a
+     week.
+   - A stuck reply, or a doorbell that misses or fails to dispatch, opens a
+     watchdog alert in `#longlive-marjorie` and starts Marjorie's ops
+     routine at once.
+
+**Why:** a reply took about 4.5 minutes, most of it waiting for the poll.
+Hermes answers in seconds because it keeps a live Discord connection. The
+doorbell borrows only that live ear. No AI and no GitHub key enters the
+Hermes runtime, and there is still one Marjorie and one Tree.
+
+**Alternatives considered** (architect evaluation, 2026-09-13):
+- **Hermes answers questions itself while GitHub Marjorie acts.** Rejected
+  for now: two voices, and it needs its own design. Revisit if replies
+  still feel slow after a week.
+- **Hermes becomes Marjorie and Tree.** Rejected: a GitHub key inside the
+  Hermes AI runtime, two Marjories, and the home server's crash record.
+- **A `/ask` slash command.** Rejected: founders change their habits, and
+  it still needs an always-on endpoint.
+
+**Follow-through:**
+- Spec `docs/specs/marjorie-overhaul/m7-doorbell.md`, prompt
+  `docs/plans/marjorie-overhaul/waves/m7-doorbell.md`.
+- HA #72–#74 are the founder's setup (bot, channel limits, key). The install
+  on the host is a HA filed by the build.
+
+---
+
 ## 2026-09-13 — The bots answer each other's asks within minutes, not on their next scheduled run (M6, L1 follow-up)
 
 **Decision (Joey, in chat, 2026-09-13: "For #2 I agree, yes to all"):** An
