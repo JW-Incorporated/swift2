@@ -11,9 +11,11 @@
 //            a complete run query plus lib/chat-delivery.mjs's Discord read
 //            settles it: ✅ for a reply already there, ❌ for a notice already
 //            there, else one referenced `[chat failed]` notice, then ❌.
-//   context  the chat routines' first job. Writes one message's context JSON
-//            (the message, what it replies to, the thread root, the last 15
-//            messages) for the agent to read from `.scratch/`.
+//            While DOORBELL_LIVE it also watches the M7 doorbell
+//            (m7-doorbell.md Mechanics 5; doorbellWatch in lib/chat-inbox.mjs).
+//   context  the chat routines' first job (lib/chat-context.mjs): claims the
+//            message with this bot's own 👀, then writes its context JSON for
+//            the agent to read from `.scratch/`.
 //
 // A founder's Discord *reply* at top level (type 19, `message_reference`) is
 // a top-level message here — the 09-13 brief reply that reply-poll.mjs
@@ -21,16 +23,18 @@
 // (a refused read, a missing channel, blank content) fails the run, so
 // watchdog sees a dead poll instead of a green one.
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
+import { context } from './lib/chat-context.mjs';
 import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
-  BOTS, CLAIM, CLAIM_WINDOW_MS, FAILED, FAILURE_PREFIX, HISTORY_LIMIT, REPLIED, SNOWFLAKE, STALE_CLAIM_MS,
-  buildContext, createdSince, dispatchArgs, findRuns, founderIds, messageTime, selectInbox,
+  ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
+  alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, selectInbox,
 } from './lib/chat-inbox.mjs';
+export { context };
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const MAX_PAGES = 10;
 const RUN_LIMIT = 200;
@@ -158,9 +162,29 @@ async function reconcile({ bot, cfg, claimed, repo, guildId, token, dryRun, exec
   }
   return { failures };
 }
+// Mechanics 5's one read, once per bot per pass (Codex R2): runs since the oldest
+// rung message; null (every rung message waits) when the list failed or came back full.
+function doorbellRuns({ bot, cfg, fresh, repo, execImpl }) {
+  const rung = fresh.filter((item) => item.doorbell);
+  if (!rung.length) return [];
+  const oldest = rung.reduce((a, b) => (Date.parse(a.timestamp) <= Date.parse(b.timestamp) ? a : b));
+  const listed = listRuns(execImpl, repo, cfg.workflow, oldest.timestamp);
+  if (listed?.complete) return listed.runs;
+  console.log(`::error::chat-poll: ${bot}: ${rung.length} message(s) carry another ${CLAIM} but the runs could not be listed completely; left for the next pass`);
+  return null;
+}
+// A warning, not a failure: the message is still claimed and answered.
+function raiseAlarm({ execImpl, repo, stage, bot, item }) {
+  try {
+    execImpl('gh', alarmArgs(repo, stage, { bot, ...item }), { encoding: 'utf8' });
+    console.log(`::warning::chat-poll: ${stage} on ${bot} message ${item.messageId} → dispatched ${ALARM_WORKFLOW}`);
+  } catch (err) {
+    console.log(`::warning::chat-poll: ${ALARM_WORKFLOW} (${stage}) for ${item.messageId} failed: ${err.message}`);
+  }
+}
 export async function poll({
   env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep, execImpl = execFileSync, now = Date.now(),
-  workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)),
+  workflowExists = (wf) => existsSync(path.join(ROOT, '.github', 'workflows', wf)), doorbellLive = DOORBELL_LIVE,
 } = {}) {
   if (env.BOT_CHAT_ENABLED === 'false') {
     console.log('BOT_CHAT_ENABLED=false — chat loop is off; nothing read');
@@ -200,7 +224,8 @@ export async function poll({
     }
     const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });
     failures += failed;
-    const { picked, claimed, empty } = selectInbox(sources, { founders, now });
+    // Watching the doorbell skips messages it has, so the cap applies to claims below.
+    const { picked, claimed, empty } = selectInbox(sources, { founders, now, cap: doorbellLive ? Infinity : MAX_PER_CHANNEL });
     if (empty.length) {
       failures += 1;
       console.log(`::error::chat-poll: ${bot}: ${empty.length} founder message(s) read with a blank body — the bot likely lacks the Message Content intent`);
@@ -209,16 +234,34 @@ export async function poll({
     failures += settled.failures;
     const fresh = picked;
     console.log(`${bot}: ${fresh.length} new, ${claimed.length} earlier claim(s) checked, from ${sources.length} place(s)`);
+    const runs = doorbellLive ? doorbellRuns({ bot, cfg, fresh, repo, execImpl }) : [];
+    if (runs === null) failures += 1;
+    let taken = 0;
     for (const item of fresh) {
+      if (taken >= MAX_PER_CHANNEL) break;
       const where = item.threadId || item.channelId;
+      let watch = { action: 'claim', alarm: null };
+      if (doorbellLive) {
+        if (item.doorbell && runs === null) continue;
+        watch = doorbellWatch(item, { now, runs: item.doorbell ? findRuns(runs, bot, item.messageId) : [] });
+        if (watch.action === 'skip') console.log(`${bot} message ${item.messageId}: ${watch.why} — skipped`);
+        if (watch.action === 'skip') continue;
+      }
+      taken += 1;
       if (dryRun) {
-        console.log(`dry-run: would claim ${bot} message ${item.messageId} in ${where} (${item.length} chars)`);
+        console.log(`dry-run: would claim ${bot} message ${item.messageId} in ${where} (${item.length} chars)${watch.alarm ? `, then raise ${watch.alarm}` : ''}${watch.action === 'claim-only' ? ', without a dispatch' : ''}`);
         continue;
       }
       const claim = await discordRequest('PUT', reactionUrl(where, item.messageId, CLAIM), token, opts);
       if (!claim.ok) {
         failures += 1;
         console.log(`::error::chat-poll: could not add ${CLAIM} to ${item.messageId} (HTTP ${claim.status}) — not dispatching, since an unclaimed message would be answered twice`);
+        continue;
+      }
+      // Only after a claim: an unclaimed message comes back next pass, and its alarm must not.
+      if (watch.alarm) raiseAlarm({ execImpl, repo, stage: watch.alarm, bot, item });
+      if (watch.action === 'claim-only') {
+        console.log(`claimed ${bot} message ${item.messageId} without a dispatch (${watch.why}); the 45-minute reconcile settles it`);
         continue;
       }
       try {
@@ -242,43 +285,6 @@ export function parseFlags(args) {
     if (hasValue) i += 1;
   }
   return flags;
-}
-export async function context(flags, { env = process.env, fetchImpl = fetch, sleepImpl = defaultSleep } = {}) {
-  const { bot, out } = flags;
-  const channelId = flags['channel-id'] || '';
-  const messageId = flags['message-id'] || '';
-  const threadId = flags['thread-id'] || '';
-  if (!BOTS[bot] || !SNOWFLAKE.test(channelId) || !SNOWFLAKE.test(messageId) || (threadId && !SNOWFLAKE.test(threadId)) || !out) {
-    console.log('::error::chat-poll context: needs --bot marjorie|tree, numeric --channel-id and --message-id, optional numeric --thread-id, and --out');
-    return 2;
-  }
-  const token = env.DISCORD_BOT_TOKEN || '';
-  const opts = { fetchImpl, sleepImpl };
-  const where = threadId || channelId;
-  const channel = await discordRequest('GET', `${DISCORD_API}/channels/${channelId}`, token, opts);
-  const msg = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${messageId}`, token, opts);
-  if (!msg.ok) {
-    console.log(`::error::chat-poll context: message ${messageId} unreadable (HTTP ${msg.status})`);
-    return 1;
-  }
-  const before = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages?before=${messageId}&limit=${HISTORY_LIMIT - 1}`, token, opts);
-  const earlier = before.ok && Array.isArray(before.data) ? [...before.data].reverse() : [];
-  const root = threadId ? await discordRequest('GET', `${DISCORD_API}/channels/${channelId}/messages/${threadId}`, token, opts) : null;
-  const ctx = buildContext({
-    bot, guildId: channel.data?.guild_id || '@me', channelId, threadId, message: msg.data,
-    history: [...earlier, msg.data], threadRoot: root?.ok ? root.data : null,
-  });
-  // allowed_bots lets any github-actions dispatch start this routine, so the
-  // routine itself answers only a founder's own message (the poll's ids).
-  const author = msg.data?.author;
-  if (msg.data?.webhook_id || author?.bot || !founderIds(env.DISCORD_FOUNDER_IDS).has(String(author?.id ?? ''))) {
-    ctx.already = 'not-founder';
-    console.log(`::warning::chat-poll context: message ${messageId} is not a founder's message — the run stops here`);
-  }
-  mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
-  writeFileSync(out, `${JSON.stringify(ctx, null, 2)}\n`);
-  console.log(`context for ${bot} message ${messageId}: ${ctx.history.length} message(s) of history${ctx.top_level ? ', top level' : `, thread ${threadId}`}`);
-  return 0;
 }
 export async function main(argv = process.argv.slice(2), deps = {}) {
   const [cmd = 'poll', ...rest] = argv;

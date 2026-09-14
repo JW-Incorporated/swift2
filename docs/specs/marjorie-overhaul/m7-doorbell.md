@@ -132,7 +132,20 @@ and there is still exactly one Marjorie and one Tree.
      - younger: claim and dispatch as today, with no alarm.
 
    The poll claims before the next pass, so it raises at most one alarm per
-   message.
+   message. *(Amended after Codex review of the build: the poll claims
+   first, then raises the alarm, then dispatches, so a refused claim never
+   repeats an alarm on the next pass. Only a run still going means the
+   doorbell has the message: one that ended before `context` claimed it gets
+   the poll's 👀 with no second dispatch, and the 45-minute reconcile settles
+   it. Skipped messages do not count toward the three-per-channel cap, and the
+   runs are listed once per bot per pass, however many rung messages there
+   are.)*
+   *(Amended at build: a sticker message raises no alarm, because
+   the doorbell skips stickers by design. A rung message whose runs cannot be
+   listed completely is left for the next pass, and that pass fails. A
+   founder's own 👀 on their message reads as someone else's, which costs at
+   most one `doorbell-dispatch-failed` alarm. `context` moved to
+   `lib/chat-context.mjs` to keep `chat-poll.mjs` under 300 lines.)*
 6. **The stuck alarm.**
    - The doorbell arms a 6-minute timer for each message it rings.
    - When the timer fires, it lists the users on the message's ✅ and ❌
