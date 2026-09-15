@@ -178,7 +178,7 @@ describe('mapContentItemToMoment', () => {
 describe('mapContentTrackNote', () => {
   it('maps slug/title/note/sources plus passthrough facts fields', () => {
     const trackFile = contentBundleSchemas.tracks.parse(tracksJson);
-    const note = mapContentTrackNote('folklore', trackFile.tracks[0]!);
+    const note = mapContentTrackNote('folklore', trackFile[0]!.tracks[0]!);
     expect(note.id).toBe('the-1');
     expect(note.eraSlug).toBe('folklore');
     expect(note.trackTitle).toBe('the 1');
@@ -222,7 +222,7 @@ describe('findMoment', () => {
 });
 
 describe('findTrackGuide', () => {
-  it('returns the flat tracks entry filtered to the requested era', () => {
+  it('returns the matching era from the aggregate tracks catalogue', () => {
     const notes = findTrackGuide(files, 'folklore');
     expect(notes).toHaveLength(1);
     expect(notes[0]!.trackTitle).toBe('the 1');
