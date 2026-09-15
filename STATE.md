@@ -111,4 +111,5 @@ Host evidence: https://github.com/JW-Incorporated/swift2/issues/4180#issuecommen
 Activation CI run 34921284222 exposed one more clock-off test fixture in
 chat-delivery.test.ts. Its pollWith helper now explicitly isolates the clock;
 all Marjorie test poll calls were audited. Expanded local suite: 225/225
-across 18 files. No production change in this CI fix; re-review pending.
+across 18 files. No production change in this CI fix. Fresh read-only Codex gpt-5.6-sol xhigh
+accepted 368c7ea2, no findings; pushing the fix to activation PR #4342.
