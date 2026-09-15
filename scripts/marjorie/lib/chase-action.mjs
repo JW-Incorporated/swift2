@@ -71,6 +71,9 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   const open = records(openMd, true);
   const done = records(doneMd, false);
   const wanted = targetRefs(context);
+  if (wanted.has.length === 1 && wanted.issues.length > 1) {
+    return { ok: false, reason: 'target-mismatch' };
+  }
   if (wanted.has.length > 1 || wanted.issues.length > 1) return { ok: false, reason: 'ambiguous' };
   if (wanted.has.length === 1 && wanted.issues.length === 1) {
     const named = [...open, ...done].find((item) => item.ha === wanted.has[0]);

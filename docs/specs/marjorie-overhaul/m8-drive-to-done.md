@@ -40,9 +40,10 @@ it until it is closed.
   `ready/greenlit`, filtered by his scope fence (`docs/agents/austin.md`
   §Scope: reversible, Definition of Ready, the `apps/web/**` and
   `packages/**` allowlist, ≤5 files / ≤150 lines, founder-or-desk author).
-- **Kevin moves a ticket to `ready/greenlit` on a human approval comment**
-  ("a later human comment can approve a phased plan"; invariant 7, latest
-  human comment wins).
+- **Kevin moves a ticket to `ready/greenlit` on a human approval comment.**
+  M8 adds one narrow equivalent: the exact canonical `marjorie-approval`
+  template from a typed, allowlisted workflow bot. Similar bot prose has no
+  authority, and a later real founder comment still wins.
 - **The brief already prints** `- dispatched: N open, oldest Xd (#n)` from
   open `marjorie-filed` issues (`brief-state.mjs`, `brief-sections.mjs`
   `renderDispatchedLine`).
@@ -108,8 +109,9 @@ Plan approved — ready for the build lane.
 <!-- marjorie-approval: <message id> -->
 ```
 
-Idempotent on the marker. The phrase "Plan approved" is what Kevin's triage
-reads as a human approval (his prompt step 2). She adds no label and moves
+Idempotent per Discord message id. Kevin verifies the whole three-line
+template, matching URL and marker ids, and the typed allowlisted bot author;
+the phrase "Plan approved" alone carries no authority. She adds no label and moves
 nothing herself; Kevin's next run buckets it `ready/greenlit`, Austin's next
 run claims it if it fits his fence. Her reply says so in one line with both
 routines' next scheduled times (Kevin 01:23/13:23 UTC, Austin 21:00 UTC).
@@ -189,8 +191,8 @@ for the `fresh`-only case so existing tests hold.
   what makes that visible: at 96 hours it is a founder's call to assign,
   defer or close. Widening Austin to `scripts/**` is a separate decision
   (open question 1).
-- Kevin's prompts are untouched. His triage already reads approval
-  comments.
+- Kevin's daily-desk prompt and charter receive only the narrow canonical
+  approval exception above. The separate comment radar is unchanged.
 - Nothing posts to Discord from this wave except through the brief and her
   chat replies, which already exist.
 - No new label routes work. `desk:build` remains a marker.
