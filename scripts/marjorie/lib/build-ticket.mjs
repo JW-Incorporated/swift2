@@ -2,12 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
-import { findExistingBySource } from './build-ticket-source.mjs';
+import { findExistingBySource, sourceKey, terminalSourceKey } from './build-ticket-source.mjs';
 import { linePositions, sectionBody } from './build-ticket-structure.mjs';
 const NEXT_DYNAMIC_SEGMENT =
   /^(?:\[[A-Za-z0-9_-]+\]|\[\.\.\.[A-Za-z0-9_-]+\]|\[\[\.\.\.[A-Za-z0-9_-]+\]\])$/;
 const TICKET_STRUCTURE =
-  /[\r\n]|\*\*(?:Expected|Where|Size|Acceptance criteria|Reporter said)\*\*|<!-- marjorie-build:/;
+  /[\r\n]|\*\*(?:Expected|Where|Size|Acceptance criteria|Reporter said|From (?:a site submission|watchdog alert|founder chat))\*\*|<!-- marjorie-build:/;
 export const AUSTIN_PATH_ALLOWLIST = Object.freeze(['apps/web/', 'packages/', 'docs/']);
 export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
   prefixes: [
@@ -16,9 +16,16 @@ export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
     'docs/agents/',
     'docs/proposals/',
     'docs/specs/',
+    'docs/plans/',
     'supabase/migrations/',
   ],
-  files: ['CLAUDE.md', 'docs/architecture.md', 'docs/decisions.md'],
+  files: [
+    'CLAUDE.md',
+    'docs/architecture.md',
+    'docs/cto-role.md',
+    'docs/decisions.md',
+    'docs/roadmap.md',
+  ],
   basenames: [
     'package.json',
     'package-lock.json',
@@ -46,6 +53,10 @@ function normalizedPath(value) {
   }
   if (segments.some((segment) => /[[\]]/.test(segment) && !NEXT_DYNAMIC_SEGMENT.test(segment))) {
     throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
+  }
+  const basename = segments.at(-1);
+  if (!basename?.includes('.') && !['Dockerfile', 'Makefile'].includes(basename)) {
+    throw new Error(`path must name a concrete file, not a directory: ${candidate}`);
   }
   return candidate;
 }
@@ -82,7 +93,11 @@ export function isAustinAllowedPath(value) {
   if (/(^|\/)(?:[^/]+\.config\.[^/]+|tsconfig(?:\.[^/]+)?\.json)$/i.test(candidate)) return false;
   return true;
 }
-export function sizeFromPaths(paths, estimatedLines, { needsSpec = false } = {}) {
+export function sizeFromPaths(
+  paths,
+  estimatedLines,
+  { needsSpec = false, austinScopeConfirmed = false } = {},
+) {
   const normalized = normalizePaths(paths);
   if (needsSpec) return 'large';
   const linesKnown = Number.isInteger(estimatedLines) && estimatedLines > 0;
@@ -90,6 +105,7 @@ export function sizeFromPaths(paths, estimatedLines, { needsSpec = false } = {})
     linesKnown &&
     estimatedLines <= 150 &&
     normalized.length <= 5 &&
+    austinScopeConfirmed === true &&
     normalized.every(isAustinAllowedPath)
   ) {
     return 'small';
@@ -101,10 +117,11 @@ function requiredText(value, name) {
   if (!text) throw new Error(`${name} is required`);
   return text;
 }
-function expectedText(value) {
-  const text = requiredText(value, 'Expected');
+function singleLineText(value, name) {
+  const text = requiredText(value, name);
+  if (/[\r\n]/.test(text)) throw new Error(`${name} must be one nonempty line`);
   if (TICKET_STRUCTURE.test(text)) {
-    throw new Error('Expected must be plain text without ticket structure');
+    throw new Error(`${name} must be plain text without ticket structure`);
   }
   return text;
 }
@@ -117,20 +134,22 @@ function quoteVerbatim(value) {
   return String(value)
     .replaceAll('\r\n', '\n')
     .split('\n')
-    .map((line) => (line.startsWith('@') ? `> \`${line}\`` : line ? `> ${line}` : '>'))
+    .map((line) => line.replace(/@(?=[A-Za-z0-9-])/g, '@\u200b'))
+    .map((line) => (line ? `> ${line}` : '>'))
     .join('\n');
 }
-function sizeLine(size, paths, estimatedLines) {
+function sizeLine(size, paths, estimatedLines, austinScopeConfirmed) {
   const lines = Number.isInteger(estimatedLines) && estimatedLines > 0 ? estimatedLines : 'unknown';
   const allowed = paths.every(isAustinAllowedPath) ? 'yes' : 'no';
-  return `\`${size}\` (files=${paths.length}; estimated-lines=${lines}; Austin-allowlist=${allowed})`;
+  const scope = austinScopeConfirmed === true ? 'yes' : 'no';
+  return `\`${size}\` (files=${paths.length}; estimated-lines=${lines}; Austin-allowlist=${allowed}; Austin-scope=${scope})`;
 }
 export function renderBuildTicket(input = {}) {
-  const expected = expectedText(input.expected);
-  const surface = requiredText(input.surface, 'Where.surface');
+  const expected = singleLineText(input.expected, 'Expected');
+  const surface = singleLineText(input.surface, 'Where.surface');
   const paths = normalizePaths(input.paths);
   const acceptance = (input.acceptanceCriteria || [])
-    .map((item) => String(item).trim())
+    .map((item) => singleLineText(item, 'Acceptance criterion'))
     .filter(Boolean);
   if (acceptance.length === 0) throw new Error('Acceptance criteria is required');
   const source = sourceValue(input.source);
@@ -139,23 +158,45 @@ export function renderBuildTicket(input = {}) {
       "founder's Discord words must not be copied into a public ticket; use the message link",
     );
   }
-  const size = sizeFromPaths(paths, input.estimatedLines, { needsSpec: input.needsSpec === true });
+  const austinScopeConfirmed = input.austinScopeConfirmed === true;
+  const size = sizeFromPaths(paths, input.estimatedLines, {
+    needsSpec: input.needsSpec === true,
+    austinScopeConfirmed,
+  });
   if (size === 'large')
     throw new Error('large item requires a spec and must not be filed as a build ticket');
   const sections = [
     `**Expected**\n${expected}`,
     `**Where**\nSurface: ${surface}\nFiles:\n${paths.map((p) => `- \`${p}\``).join('\n')}`,
-    `**Size**\n${sizeLine(size, paths, input.estimatedLines)}`,
+    `**Size**\n${sizeLine(size, paths, input.estimatedLines, austinScopeConfirmed)}`,
     `**Acceptance criteria**\n${acceptance.map((item) => `- [ ] ${item}`).join('\n')}`,
   ];
   const reporter = String(input.reporterSaid ?? '').trim();
   if (reporter) sections.push(`**Reporter said**\n${quoteVerbatim(reporter)}`);
   sections.push(`<!-- marjorie-build: size=${size} source=${source} -->`);
-  const sourceContext = String(input.sourceContext ?? '').trim();
+  const sourceContext = requiredText(input.sourceContext, 'sourceContext');
+  if (/[\r\n]/.test(sourceContext)) {
+    throw new Error('sourceContext must be one nonempty line');
+  }
+  const identity = sourceKey(sourceContext);
+  if (!identity) throw new Error('sourceContext needs a canonical submission number, alert URL, or chat link');
+  if (
+    (source === 'issue' && !identity.startsWith('submission:')) ||
+    (source === 'alert' && !identity.startsWith('alert:')) ||
+    (source.startsWith('chat:') && identity !== source)
+  ) {
+    throw new Error('sourceContext does not match source');
+  }
   const context = String(input.context ?? '').trim();
-  if (sourceContext) sections.push(sourceContext);
+  if (/^(?:<!-- marjorie-build:|\*\*From (?:a site submission|watchdog alert|founder chat)\*\*)/m.test(context)) {
+    throw new Error('context must not contain build-ticket marker or source lines');
+  }
   if (context) sections.push(context);
-  return `${sections.join('\n\n')}\n`;
+  sections.push(sourceContext);
+  const body = `${sections.join('\n\n')}\n`;
+  const checked = checkBuildTicket(body);
+  if (!checked.ok) throw new Error(`rendered ticket is not ready: ${checked.errors.join('; ')}`);
+  return body;
 }
 
 export function findExistingBuildTicket(items, sourceContext) {
@@ -196,14 +237,22 @@ export function checkBuildTicket(body) {
   }
   if (positions.get('**Expected**').length) {
     try {
-      expectedText(sectionBody(text, '**Expected**', ['**Where**']));
+      singleLineText(sectionBody(text, '**Expected**', ['**Where**']), 'Expected');
     } catch (error) {
       errors.push(error.message);
     }
   }
   const where = sectionBody(text, '**Where**', ['**Size**']);
-  const surface = where.match(/^Surface:\s*(.+)$/m)?.[1]?.trim();
+  const whereLines = where.split(/\r?\n/);
+  const surface = whereLines[0]?.match(/^Surface:\s*(\S.*)$/)?.[1]?.trim();
   if (positions.get('**Where**').length && !surface) errors.push('Where needs a surface');
+  if (surface) {
+    try {
+      singleLineText(surface, 'Where.surface');
+    } catch (error) {
+      errors.push(error.message);
+    }
+  }
   const paths = [...where.matchAll(/^- `([^`]+)`\s*$/gm)].map((match) => match[1]);
   if (positions.get('**Where**').length && paths.length === 0)
     errors.push('Where needs at least one concrete file path');
@@ -214,31 +263,54 @@ export function checkBuildTicket(body) {
     pathsValid = false;
     errors.push(error.message);
   }
+  if (
+    positions.get('**Where**').length &&
+    (whereLines[1] !== 'Files:' ||
+      whereLines.slice(2).some((line) => !/^- `[^`]+`\s*$/.test(line)) ||
+      whereLines.slice(2).length !== paths.length)
+  ) {
+    errors.push('Where must contain one Surface line and concrete file-path lines only');
+  }
   const acceptance = sectionBody(text, '**Acceptance criteria**', [
     '**Reporter said**',
     '<!-- marjorie-build:',
   ]);
-  if (positions.get('**Acceptance criteria**').length && !/^- \[ \] \S.+$/m.test(acceptance)) {
-    errors.push('Acceptance criteria needs at least one unchecked checkbox');
+  const acceptanceLines = acceptance.split(/\r?\n/);
+  if (
+    positions.get('**Acceptance criteria**').length &&
+    (acceptanceLines.length === 0 || acceptanceLines.some((line) => !/^- \[ \] \S.*$/.test(line)))
+  ) {
+    errors.push('Acceptance criteria must contain unchecked checkbox lines only');
+  } else if (positions.get('**Acceptance criteria**').length) {
+    for (const line of acceptanceLines) {
+      try {
+        singleLineText(line.slice('- [ ] '.length), 'Acceptance criterion');
+      } catch (error) {
+        errors.push(error.message);
+      }
+    }
   }
   if (positions.get('**Reporter said**').length) {
     const markerStart = marker?.index ?? text.length;
     const reporter = text
       .slice(positions.get('**Reporter said**')[0] + '**Reporter said**'.length, markerStart)
       .trim();
-    if (!/^>./m.test(reporter)) errors.push('Reporter said must contain a blockquote');
+    if (!reporter || reporter.split(/\r?\n/).some((line) => line !== '>' && !line.startsWith('> '))) {
+      errors.push('Reporter said must contain blockquote lines only');
+    }
   }
   const sizeBody = sectionBody(text, '**Size**', ['**Acceptance criteria**']);
   const claim = sizeBody.match(
-    /^`(small|medium)` \(files=(\d+); estimated-lines=(\d+|unknown); Austin-allowlist=(yes|no)\)$/,
+    /^`(small|medium)` \(files=(\d+); estimated-lines=(\d+|unknown); Austin-allowlist=(yes|no); Austin-scope=(yes|no)\)$/,
   );
   if (positions.get('**Size**').length && !claim) {
     errors.push('Size must use the helper-derived format');
   } else if (claim && paths.length && pathsValid) {
-    const [, claimedSize, claimedCount, rawLines, claimedAllowed] = claim;
+    const [, claimedSize, claimedCount, rawLines, claimedAllowed, claimedScope] = claim;
     const estimatedLines = rawLines === 'unknown' ? undefined : Number(rawLines);
     const actualAllowed = paths.every(isAustinAllowedPath);
-    const actualSize = sizeFromPaths(paths, estimatedLines);
+    const austinScopeConfirmed = claimedScope === 'yes';
+    const actualSize = sizeFromPaths(paths, estimatedLines, { austinScopeConfirmed });
     if (Number(claimedCount) !== paths.length) errors.push('Size file count does not match Where');
     if ((claimedAllowed === 'yes') !== actualAllowed)
       errors.push('Size allowlist result does not match Where');
@@ -249,6 +321,23 @@ export function checkBuildTicket(body) {
   if (marker?.[2]?.startsWith('chat:') && positions.get('**Reporter said**').length) {
     errors.push("founder's Discord words must not appear in a public ticket");
   }
+  const rawMarkerLines = [...text.matchAll(/^<!-- marjorie-build:.*\r?$/gm)];
+  if (rawMarkerLines.length !== markers.length) errors.push('unexpected marjorie-build marker');
+  const identity = terminalSourceKey(text);
+  if (!identity) errors.push('missing canonical source line at end of ticket');
+  if (
+    marker &&
+    identity &&
+    ((marker[2] === 'issue' && !identity.startsWith('submission:')) ||
+      (marker[2] === 'alert' && !identity.startsWith('alert:')) ||
+      (marker[2].startsWith('chat:') && marker[2] !== identity))
+  ) {
+    errors.push('canonical source line does not match marker source');
+  }
+  const rawSourceLines = text
+    .split(/\r?\n/)
+    .filter((line) => sourceKey(line));
+  if (rawSourceLines.length !== 1) errors.push('ticket must contain exactly one canonical source line');
   return { ok: errors.length === 0, errors };
 }
 async function main(argv = process.argv.slice(2)) {
@@ -263,7 +352,10 @@ async function main(argv = process.argv.slice(2)) {
   if (command === 'size' && inputPath) {
     const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
     console.log(
-      sizeFromPaths(input.paths, input.estimatedLines, { needsSpec: input.needsSpec === true }),
+      sizeFromPaths(input.paths, input.estimatedLines, {
+        needsSpec: input.needsSpec === true,
+        austinScopeConfirmed: input.austinScopeConfirmed === true,
+      }),
     );
     return 0;
   }

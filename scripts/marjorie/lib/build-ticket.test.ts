@@ -20,6 +20,7 @@ const base = {
   surface: 'web timeline',
   paths: ['apps/web/components/longlive/Timeline.tsx'],
   estimatedLines: 40,
+  austinScopeConfirmed: true,
   acceptanceCriteria: [
     'Opening the timeline renders its first card.',
     'A regression test covers the failure.',
@@ -43,6 +44,9 @@ describe('Austin allowlist and size', () => {
     'docs/agents/marjorie.md',
     'docs/specs/change.md',
     'docs/decisions.md',
+    'docs/cto-role.md',
+    'docs/roadmap.md',
+    'docs/plans/marjorie-overhaul/PLAN.md',
     'package.json',
     'packages/shared/package.json',
     'apps/web/lib/auth.ts',
@@ -67,11 +71,13 @@ describe('Austin allowlist and size', () => {
     expect(isAustinAllowedPath(candidate)).toBe(false);
   });
 
-  it('certifies small only with <=5 allowed files and a positive <=150 line estimate', () => {
-    expect(sizeFromPaths(['apps/web/a.ts'], 150)).toBe('small');
-    expect(sizeFromPaths(['apps/web/a.ts'], undefined)).toBe('medium');
-    expect(sizeFromPaths(['apps/web/a.ts'], 151)).toBe('medium');
-    expect(sizeFromPaths(['scripts/a.mjs'], 20)).toBe('medium');
+  it('certifies small only with explicit semantic confirmation, <=5 files, and <=150 lines', () => {
+    const confirmed = { austinScopeConfirmed: true };
+    expect(sizeFromPaths(['apps/web/a.ts'], 150, confirmed)).toBe('small');
+    expect(sizeFromPaths(['apps/web/a.ts'], 150)).toBe('medium');
+    expect(sizeFromPaths(['apps/web/a.ts'], undefined, confirmed)).toBe('medium');
+    expect(sizeFromPaths(['apps/web/a.ts'], 151, confirmed)).toBe('medium');
+    expect(sizeFromPaths(['scripts/a.mjs'], 20, confirmed)).toBe('medium');
     expect(
       sizeFromPaths(
         [
@@ -83,6 +89,7 @@ describe('Austin allowlist and size', () => {
           'apps/web/f.ts',
         ],
         20,
+        confirmed,
       ),
     ).toBe('medium');
   });
@@ -124,9 +131,12 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     expect(checkBuildTicket(body.replaceAll('\n', '\r\n'))).toEqual({ ok: true, errors: [] });
   });
 
-  it('quotes reporter words without turning leading mentions into pings', () => {
-    const body = renderBuildTicket({ ...base, reporterSaid: '@owner\nplease look' });
-    expect(body).toContain('> `@owner`\n> please look');
+  it('quotes reporter words and neutralizes leading and inline mentions without hiding them', () => {
+    const body = renderBuildTicket({
+      ...base,
+      reporterSaid: '@owner\nplease inspect @team and user@example.com',
+    });
+    expect(body).toContain('> @\u200bowner\n> please inspect @\u200bteam and user@\u200bexample.com');
   });
 
   it('does not mistake marker-shaped reporter text for the helper marker', () => {
@@ -168,10 +178,39 @@ describe('renderBuildTicket / checkBuildTicket', () => {
   it('keeps Expected nonempty and refuses injected ticket structure in render and check', () => {
     const injected = 'Visible behavior.\n\n**Where**\nInjected surface';
     expect(() => renderBuildTicket({ ...base, expected: injected })).toThrow(
-      'Expected must be plain text without ticket structure',
+      'Expected must be one nonempty line',
     );
     const body = renderBuildTicket(base).replace(base.expected, injected);
     expect(checkBuildTicket(body).errors).toContain('multiple section: **Where**');
+  });
+
+  it('uses a closed single-line schema and rejects raw structural spillover', () => {
+    expect(() => renderBuildTicket({ ...base, surface: 'web\nraw prose' })).toThrow(
+      'Where.surface must be one nonempty line',
+    );
+    expect(() =>
+      renderBuildTicket({ ...base, acceptanceCriteria: ['Passes.\nraw prose'] }),
+    ).toThrow('Acceptance criterion must be one nonempty line');
+    expect(() =>
+      renderBuildTicket({ ...base, context: '<!-- marjorie-build: nonsense -->' }),
+    ).toThrow('context must not contain build-ticket marker or source lines');
+
+    const body = renderBuildTicket(base);
+    const spilled = body.replace('- [ ] Opening the timeline renders its first card.', '- [ ] Passes.\nraw prose');
+    expect(checkBuildTicket(spilled).errors).toContain(
+      'Acceptance criteria must contain unchecked checkbox lines only',
+    );
+    const malformedMarker = body.replace(
+      '<!-- marjorie-build:',
+      '<!-- marjorie-build: nonsense -->\n\n<!-- marjorie-build:',
+    );
+    expect(checkBuildTicket(malformedMarker).errors).toContain('unexpected marjorie-build marker');
+  });
+
+  it('requires concrete files rather than allowing directory-shaped Where values', () => {
+    expect(() => renderBuildTicket({ ...base, paths: ['apps/web/components'] })).toThrow(
+      'path must name a concrete file, not a directory',
+    );
   });
 
   it('validates the size claim against paths and estimated lines instead of checking headings only', () => {
@@ -203,7 +242,12 @@ describe('renderBuildTicket / checkBuildTicket', () => {
   });
 
   it('allows alert tickets without a Reporter said block', () => {
-    const body = renderBuildTicket({ ...base, source: 'alert', reporterSaid: undefined });
+    const body = renderBuildTicket({
+      ...base,
+      source: 'alert',
+      sourceContext: '**From watchdog alert** — https://github.com/o/r/issues/123',
+      reporterSaid: undefined,
+    });
     expect(body).not.toContain('**Reporter said**');
     expect(checkBuildTicket(body)).toEqual({ ok: true, errors: [] });
   });
@@ -219,6 +263,25 @@ describe('findExistingBuildTicket', () => {
 
   it('finds the prior filing by exact source context', () => {
     expect(findExistingBuildTicket([filed], base.sourceContext)).toBe(filed);
+  });
+
+  it('requires one canonical source in the terminal source slot', () => {
+    expect(() => renderBuildTicket({ ...base, sourceContext: undefined })).toThrow(
+      'sourceContext is required',
+    );
+    expect(() => renderBuildTicket({ ...base, context: base.sourceContext })).toThrow(
+      'context must not contain build-ticket marker or source lines',
+    );
+    const other = '**From a site submission** — #999';
+    const contaminated = renderBuildTicket({ ...base, context: `Related: ${other}` });
+    expect(findExistingBuildTicket([{ ...filed, body: contaminated }], other)).toBeNull();
+    const displaced = renderBuildTicket(base).replace(
+      `${base.sourceContext}\n`,
+      `${base.sourceContext}\n\nordinary trailing text\n`,
+    );
+    expect(checkBuildTicket(displaced).errors).toContain(
+      'missing canonical source line at end of ticket',
+    );
   });
 
   it('does not accept the same text on an issue without marjorie-filed', () => {
@@ -277,7 +340,7 @@ describe('findExistingBuildTicket', () => {
     const banked = {
       ...filed,
       labels: [{ name: 'marjorie-filed' }, { name: 'founder-decision' }],
-      body: `${base.sourceContext}\n\nA spec is needed.`,
+      body: `A spec is needed.\n\n${base.sourceContext}\n`,
     };
     expect(findExistingBuildTicket([banked], base.sourceContext)).toBe(banked);
   });

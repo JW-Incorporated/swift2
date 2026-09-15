@@ -1,4 +1,4 @@
-function sourceKey(line) {
+export function sourceKey(line) {
   const submission = String(line).match(
     /^\*\*From a site submission\*\*\s+—\s+#([1-9]\d*)(?:[.,;:]?\s+.*|[.)]?)$/,
   );
@@ -6,7 +6,16 @@ function sourceKey(line) {
   const alert = String(line).match(
     /^\*\*From watchdog alert\*\*\s+—\s+https:\/\/github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)\/issues\/([1-9]\d*)(?:[.,;:]?\s+.*|[.)]?)$/,
   );
-  return alert ? `alert:${alert[1].toLowerCase()}/${alert[2].toLowerCase()}#${alert[3]}` : null;
+  if (alert) return `alert:${alert[1].toLowerCase()}/${alert[2].toLowerCase()}#${alert[3]}`;
+  const chat = String(line).match(
+    /^\*\*From founder chat\*\*\s+—\s+(https:\/\/\S+)$/,
+  );
+  return chat ? `chat:${chat[1]}` : null;
+}
+
+export function terminalSourceKey(body) {
+  const lines = String(body).trimEnd().split(/\r?\n/);
+  return sourceKey(lines.at(-1));
 }
 
 export function findExistingBySource(items, sourceContext, checkBody) {
@@ -15,9 +24,7 @@ export function findExistingBySource(items, sourceContext, checkBody) {
   return (
     (items || []).find((item) => {
       const labels = (item.labels || []).map((label) => label.name);
-      const sameSource = String(item.body || '')
-        .split(/\r?\n/)
-        .some((line) => sourceKey(line) === needle);
+      const sameSource = terminalSourceKey(item.body) === needle;
       const ready = labels.includes('marjorie-filed') && checkBody(item.body).ok;
       const banked = labels.includes('marjorie-filed') && labels.includes('founder-decision');
       return sameSource && (ready || banked);
