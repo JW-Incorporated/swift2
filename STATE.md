@@ -2,13 +2,14 @@
 
 ## Next
 
-1. YOU: HA #76 updates Hermes to doorbell-v2, including the revised service
-   unit and daemon reload. Stop until Joey reports done; CLOCK_LIVE=false.
-2. After done, verify installed tag/service metadata and close HA #76 by PR.
-   Activate CLOCK_LIVE=true with fresh CLOCK_LIVE_SINCE by reviewed PR.
-3. Prove one hour of poll slots and run dry-run clock-silent alarm. If noon
-   is >2h away, put the next 12:00 UTC brief check first here and stop.
-   Close #4290 and tick M7 only after both live proof halves hold.
+1. Host update completed and verified: doorbell-v2 f22adc6a, service active,
+   watchdog 3min, burst 5 at 2026-09-15T02:20:25Z. HA #76 closed in this PR.
+   Activation constants are set in this branch; main activation awaits merge.
+2. After activation is observed on main/host, prove twelve five-minute poll
+   slots (one hour), then dry-run clock-silent alarm. Record metadata on #4180.
+3. User explicitly authorized waiting through both live proofs: next brief
+   slot is 2026-09-15 12:00 UTC. Verify one delivery and same-day cron guard;
+   no premature closure of #4290 or M7 completion before both halves hold.
 
 ## M7 clock v2 — 2026-09-14
 
@@ -16,8 +17,8 @@ Branch/worktree: feature/m7-clock-v2 in
 C:/Users/Fourtys/.codex/worktrees/m7-clock-v2, based on main 55d50700.
 Preconditions verified: HA #75 closed on main, DOORBELL_LIVE=true.
 Implementation PR #4339 merged at f22adc6a. doorbell-v2 is pinned to that
-merge commit. Host update is HA #76; installation is not confirmed.
-Current docs branch: fix/clock-host-update from origin/main a508d70b.
+merge commit. Host update HA #76 is verified installed and closed in the activation PR.
+Current branch: fix/clock-live from origin/main a903e5c1.
 
 Scope is exactly bot-chat-poll.yml (*/5 * * * *) and
 routine-marjorie-brief.yml (0 12 * * *). No schedule removed, no social or
@@ -25,7 +26,8 @@ L1 files touched. Main remains trusted executable authority for Actions;
 the tag pins host code, dispatch filenames, crons and empty inputs.
 
 Implementation:
-- Pinned clock capability; main CLOCK_LIVE=false / CLOCK_LIVE_SINCE=''.
+- Activation branch CLOCK_LIVE=true / CLOCK_LIVE_SINCE=2026-09-15T02:21:13Z.
+  Main was still false at the host verification checkpoint.
 - Serialized flag refresh, off at boot, fail closed at three failures or
   thirty minutes stale. No remote table. Process-start slot gating.
 - POST attempted once, GET retries bounded, complete main-run history,
@@ -78,8 +80,8 @@ Verification:
   plus one unloadable suite due to local dependencies/CRLF/child npx. No fixes
   outside scope. Generated web stylesheet has identical normalized blob to
   HEAD and is excluded from the clock commits.
-- PR #4339 is merged. HA #76 is filed in this branch for the host update;
-  no activation or live clock proof yet. #4290 remains open; M7 is not ticked.
+- PRs #4339 and #4341 merged; tag and host update complete. HA #76 closure
+  and activation in this branch. Live proof pending; #4290 open, M7 not ticked.
   Doorbell evidence remains on #4180:
   https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
 

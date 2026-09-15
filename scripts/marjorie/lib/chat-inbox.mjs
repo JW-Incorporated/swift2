@@ -23,8 +23,8 @@ export const SNOWFLAKE = /^\d{15,21}$/;
 // is founder-only.
 export const DOORBELL_LIVE = true;
 // M7 operational clock gate; the installed tag pins its dispatch authority.
-export const CLOCK_LIVE = false;
-export const CLOCK_LIVE_SINCE = '';
+export const CLOCK_LIVE = true;
+export const CLOCK_LIVE_SINCE = '2026-09-15T02:21:13Z';
 export const DOORBELL_GRACE_MS = 60 * 1000;
 export const ALARM_WORKFLOW = 'bot-chat-alarm.yml';
 const HISTORY_TEXT_CAP = 1500;

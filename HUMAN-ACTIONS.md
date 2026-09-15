@@ -2,22 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #76 🔴 [BLOCKING] Update the Hermes doorbell to doorbell-v2 (~5 min)
-<!-- ha filed=2026-09-14 -->
-
-**Why:** M7's two-row clock is ready for installation. The live poll and noon-brief proofs wait for this update; the clock stays off until its activation PR.
-**Steps:**
-1. On the Hermes host, run `cd /opt/longlive-doorbell`.
-2. Run `sudo git fetch --depth 1 origin tag doorbell-v2`.
-3. Run `sudo git checkout -q doorbell-v2`.
-4. Run `sudo cp scripts/doorbell/longlive-doorbell.service /etc/systemd/system/longlive-doorbell.service`.
-5. Run `sudo systemctl daemon-reload`.
-6. Run `sudo systemctl restart longlive-doorbell`.
-**Worked if:** `systemctl show longlive-doorbell -p ActiveState -p WatchdogUSec -p StartLimitBurst` reports active, 3min and 5. Reply done.
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->
