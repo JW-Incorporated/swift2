@@ -40,7 +40,11 @@ function normalizedPath(value) {
   if (/^[A-Za-z]:\//.test(candidate) || candidate.startsWith('/')) {
     throw new Error(`path must be repository-relative: ${candidate}`);
   }
-  if (candidate.split('/').includes('..')) throw new Error(`path may not traverse: ${candidate}`);
+  const segments = candidate.split('/');
+  if (segments.includes('..')) throw new Error(`path may not traverse: ${candidate}`);
+  if (segments.includes('.') || segments.includes('')) {
+    throw new Error(`path must be canonical: ${candidate}`);
+  }
   if (['*', '?', '[', ']', '{', '}'].some((token) => candidate.includes(token))) {
     throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
   }
@@ -206,9 +210,11 @@ export function checkBuildTicket(body) {
   const paths = [...where.matchAll(/^- `([^`]+)`\s*$/gm)].map((match) => match[1]);
   if (text.includes('**Where**') && paths.length === 0)
     errors.push('Where needs at least one concrete file path');
+  let pathsValid = true;
   try {
     if (paths.length) normalizePaths(paths);
   } catch (error) {
+    pathsValid = false;
     errors.push(error.message);
   }
 
@@ -233,7 +239,7 @@ export function checkBuildTicket(body) {
   );
   if (text.includes('**Size**') && !claim) {
     errors.push('Size must use the helper-derived format');
-  } else if (claim && paths.length) {
+  } else if (claim && paths.length && pathsValid) {
     const [, claimedSize, claimedCount, rawLines, claimedAllowed] = claim;
     const estimatedLines = rawLines === 'unknown' ? undefined : Number(rawLines);
     const actualAllowed = paths.every(isAustinAllowedPath);

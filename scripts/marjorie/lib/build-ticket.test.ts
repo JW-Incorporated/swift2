@@ -53,6 +53,8 @@ describe('Austin allowlist and size', () => {
     'apps/web/.env.local',
     'packages/core/src/schema.ts',
     'apps/web/components',
+    'apps/web/./app/api/feedback.ts',
+    'apps/web//app/api/feedback.ts',
     '../outside.ts',
     'apps/web/**/*.tsx',
   ])('rejects an out-of-fence or vague path: %s', (candidate) => {
@@ -138,6 +140,17 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     expect(
       checkBuildTicket(body.replace('estimated-lines=40', 'estimated-lines=400')).errors,
     ).toContain('Size claim is invalid; expected medium');
+  });
+
+  it('returns check errors for a malformed path instead of throwing', () => {
+    const body = renderBuildTicket(base).replace(
+      'apps/web/components/longlive/Timeline.tsx',
+      'apps/web/./app/api/feedback.ts',
+    );
+    expect(() => checkBuildTicket(body)).not.toThrow();
+    expect(checkBuildTicket(body).errors).toContain(
+      'path must be canonical: apps/web/./app/api/feedback.ts',
+    );
   });
 
   it('refuses large tickets and public copies of founder Discord text', () => {
