@@ -3,17 +3,6 @@
 // seeds cleanly once it exists (the validator knows the slug as expected).
 // All URLs verified 2026-07-08.
 
-const wiki = (article, title, notes) => ({
-  source_url: `https://en.wikipedia.org/wiki/${article}`,
-  source_title: title,
-  publisher: 'Wikipedia',
-  source_type: 'wiki',
-  accessed_at: '2026-08-08',
-  reliability_score: 2,
-  excerpt: null,
-  notes: notes ?? null,
-});
-
 export default {
   eraSlug: 'the-life-of-a-showgirl',
   theories: [
