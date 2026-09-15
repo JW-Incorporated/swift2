@@ -44,6 +44,7 @@ jobs:
       - name: Relay founder replies to the brief issue
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_FOUNDER_IDS: ${{ vars.DISCORD_FOUNDER_IDS }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: node scripts/marjorie/reply-poll.mjs

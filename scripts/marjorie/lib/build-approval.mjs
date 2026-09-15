@@ -76,7 +76,8 @@ export function resolveChatApproval(context, issues) {
 
 export function resolveReactionApproval({ message, messageUrl, reactorIds, founderIds, issues }) {
   if (!message?.webhook_id || message?.author?.username !== 'Marjorie') return { ok: false, reason: 'not-marjorie-brief', candidates: [] };
-  if (!SNOWFLAKE.test(String(message.id || '')) || !DISCORD_URL.test(String(messageUrl || ''))) return { ok: false, reason: 'untrusted-message', candidates: [] };
+  const url = DISCORD_URL.exec(String(messageUrl || ''));
+  if (!SNOWFLAKE.test(String(message.id || '')) || !url || url[1] !== String(message.id)) return { ok: false, reason: 'untrusted-message', candidates: [] };
   if (!reactorIds.some((id) => founderIds.has(String(id)))) return { ok: false, reason: 'no-founder-reaction', candidates: [] };
   const refs = issueRefs(message.content);
   const candidates = (issues || []).filter((issue) => refs.has(Number(issue.number)) && isOpenBuildTicket(issue));
