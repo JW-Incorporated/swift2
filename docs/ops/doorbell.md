@@ -37,8 +37,8 @@ Diagnostic PR #4351 then retained a fixed provider error category. The
 instrumented recovery
 ([run 34972013723](https://github.com/JW-Incorporated/swift2/actions/runs/34972013723))
 confirmed `oauth_org_not_allowed`, with zero model tokens and skipped
-delivery. HA #77 tracks account recovery. Stop routine retries until access
-is restored. The on-time delivery proof remains unmet; #4290 and M7 stay open.
+delivery. HA #77 was subsequently closed after Joey restored access and
+bounded GitHub OAuth probe 34978823809 passed. The on-time delivery proof remains unmet; #4290 and M7 stay open.
 
 The tag's `PINNED_CLOCK_LIVE` permits those filenames and inputs. Main's
 `CLOCK_LIVE` gates that permission and starts false, beside
@@ -258,3 +258,20 @@ host never reads it.
 | `gateway: closed (4004) — not reconnecting` | bad Discord token | replace the token line, then restart |
 | `gateway: closed (4014) — not reconnecting` | an intent is disallowed | the doorbell asks only for GUILDS and GUILD_MESSAGES; check the bot's settings |
 | `… dispatch … failed (HTTP 401)` or `(HTTP 403)` | the GitHub key expired or lacks Actions write | renew the key (above) |
+
+### 2026-09-15 allowance clarification and recovery
+
+Joey confirmed the weekly allowance was exhausted, then restored Claude
+access and authorized up to $3 in basic paid testing. No credentials were
+read or rotated. Local Haiku verification reported $0.008897; GitHub OAuth
+probe 34978823809 passed at $0.025469. HA #77 is closed from that owner
+statement and verification. The earlier probe failed before inference on
+empty-tool argument serialization, fixed in #4361; it was not an auth result.
+
+Manual brief and intake runs can opt into a numeric max_budget_usd (#4360).
+The recovery plan is one $0.75 intake run, then one $1.50 brief run, checking
+actual reported usage between them. Initial intake dispatch 34978955061
+failed before inference on GitHub's string-to-number reusable-input boundary;
+that adapter requires explicit conversion before retry. Neither a probe nor an
+off-time recovery satisfies the on-time noon proof. Keep M7/M8 unticked until
+all real acceptance conditions hold. Ordinary schedules are unchanged.

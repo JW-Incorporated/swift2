@@ -2,21 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #77 🔴 [BLOCKING] Restore Claude organization access for GitHub routines (~10 min)
-<!-- ha filed=2026-09-15 -->
-
-**Why:** Marjorie's noon brief and two recovery attempts failed before model work. Run 34972013723 confirms `oauth_org_not_allowed`; delivery was skipped. This blocks M7 delivery acceptance and M8 live proofs.
-
-**Steps:**
-1. In Claude Code, use `/login` with the subscription account intended for these routines. Confirm a normal request works; if organization access is still denied, contact Anthropic support.
-2. If a replacement credential is needed, run `claude setup-token` locally, then update `CLAUDE_CODE_OAUTH_TOKEN` at https://github.com/JW-Incorporated/swift2/settings/secrets/actions .
-3. Tell Codex when access is restored. Keep the token out of chat; Codex will verify a routine run and brief delivery before closing this item.
-
-**Worked if:** a new GitHub routine run performs model work successfully and Marjorie's brief reaches Discord once.
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->

@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #77 · 2026-09-15 · done · Restore Claude organization access for GitHub routines — "Joey: 'claude is back on'; bounded GitHub OAuth probe 34978823809 passed. Basic testing authorized up to 3 USD." · by chat
 - #76 · 2026-09-14 · done · Update the Hermes doorbell to doorbell-v2 — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756" · by agent
 - #75 · 2026-09-14 · done · Install Long Live Doorbell on the Hermes VM host — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609" · by agent
 - #72 · 2026-09-13 · done · Create the Long Live Doorbell Discord bot and save its token — "Joey confirmed in chat 2026-09-13: Long Live Doorbell bot created, token saved" · by chat
