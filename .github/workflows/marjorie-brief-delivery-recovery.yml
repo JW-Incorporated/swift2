@@ -1,0 +1,57 @@
+# Manual dispatch-only recovery for delivering an existing, fully assembled founders brief.
+name: Marjorie Brief Delivery Recovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Existing founders-brief issue number
+        required: true
+        type: number
+
+concurrency:
+  group: marjorie-brief-deliver
+  cancel-in-progress: false
+
+jobs:
+  deliver:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ops
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Validate the existing brief from REST
+        id: brief
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          BODY_FILE: ${{ runner.temp }}/brief-body.md
+        run: node scripts/marjorie/brief-delivery-guard.mjs
+      - name: File the brief ask and deliver
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          ISSUE_URL: ${{ steps.brief.outputs.issue_url }}
+          BODY_FILE: ${{ runner.temp }}/brief-body.md
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$ISSUE_NUMBER" --issue-url "$ISSUE_URL" --body-file "$BODY_FILE" --out "$BODY_FILE" \
+            || echo "::warning::loop-asks file-marjorie failed; delivering the brief unchanged"
+          DELIVERY_OUTPUT=$(node scripts/marjorie/post-or-mail.mjs --subject "Founders' Brief" --body-file "$BODY_FILE" --url "$ISSUE_URL")
+          echo "$DELIVERY_OUTPUT"
+          MESSAGE_ID=$(echo "$DELIVERY_OUTPUT" | sed -n 's/^discord-message-id: //p')
+          if [ -n "$MESSAGE_ID" ]; then
+            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "<!-- discord-message-id: $MESSAGE_ID -->"
+          else
+            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body '<!-- marjorie-brief-delivery-recovery -->'
+          fi
