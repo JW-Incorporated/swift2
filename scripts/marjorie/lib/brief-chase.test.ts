@@ -46,3 +46,11 @@ it('reports held once after delivery and keeps both outcomes within the section 
 it('puts founder-blocked work in Waiting on you without mislabeling it stalled', () => {
   expect(buildWaitingOnYouLines([], [entry(10, 9, 'blocked-on-founder')])).toEqual(['- waiting on you: #10']);
 });
+
+it('renders a deferred label without inventing an HA number', () => {
+  const item = entry(12, 5, 'held');
+  Object.assign(item.chase, { held: { status: 'deferred' } });
+  const line = renderDispatchedLine([item], now);
+  expect(line).toContain('#12 (deferred) <!-- marjorie-held: issue=12 ha=0 -->');
+  expect(line).not.toContain('undefined');
+});
