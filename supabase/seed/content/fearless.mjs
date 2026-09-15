@@ -1939,6 +1939,7 @@ export default {
       snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
       hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg', credit: 'Philip Nelson, via Wikimedia Commons', caption: 'Taylor Swift at the 2009 MTV Video Music Awards, the night her Best Female Video acceptance speech was interrupted.', kind: 'primary', focalPoint: '40% 28%' }],
         sources: [
           {
             outlet: 'TIME',

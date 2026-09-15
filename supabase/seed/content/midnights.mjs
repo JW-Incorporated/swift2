@@ -218,6 +218,7 @@ export default {
       sourceUrl: 'https://variety.com/2022/film/news/taylor-swift-feature-directing-debut-searchlight-pictures-1235455606/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://variety.com/wp-content/uploads/2022/11/Taylor-Swift.jpg?w=1000&h=563&crop=1', credit: 'Getty Images, via Variety', caption: 'Taylor Swift in 2022, the year Searchlight announced that she would direct her first feature film from her own script.', kind: 'reference', focalPoint: '50% 24%' }],
         context:
           'The December 9 announcement was deliberately spare: an original script, written by Taylor, to be produced by Searchlight — the specialty studio behind Nomadland and The Shape of Water — with plot and casting kept under wraps. Searchlight presidents David Greenbaum and Matthew Greenfield called her "a once in a generation artist and storyteller," adding it was "a genuine joy and privilege to collaborate with her as she embarks on this exciting and new creative journey."\n\nThe timing made it read as a promotion, not a pivot: she came into the deal fresh off All Too Well: The Short Film, which had just won her Best Direction at the 2022 VMAs, and she had written and directed the Anti-Hero video herself weeks earlier. Directing a feature was the logical next rung on a ladder she had been climbing in public, one music video at a time.',
         sources: [
@@ -5603,6 +5604,7 @@ export default {
       sourceUrl: 'https://www.elle.com/culture/celebrities/a42071335/taylor-swift-boyfriend-joe-alwyn-cat-benjamin/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg', credit: 'TIME / photo by Inez and Vinoodh', caption: 'A later public portrait of Taylor Swift with Benjamin Button for TIME’s 2023 Person of the Year issue; used as a reference for the cat in the private 2022 Instagram Story.', kind: 'reference', focalPoint: '50% 30%' }],
         context:
           'Taylor and Alwyn were famously private about their six-year relationship; this small Instagram Story from Alwyn was treated as a notable public relationship signal during the Midnights promotional period.',
         sources: [
@@ -5622,6 +5624,7 @@ export default {
       sourceUrl: 'https://www.sunherald.com/entertainment/article269923742.html',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/2/20/PreservationHall_2008.jpg', credit: 'Infrogmation of New Orleans / Wikimedia Commons, CC BY-SA 3.0', caption: 'The entrance to Preservation Hall in New Orleans, the venue Taylor Swift and Joe Alwyn quietly visited in December 2022.', kind: 'reference', focalPoint: '50% 45%' }],
         context:
           'A rare, low-key public sighting of the couple together while Alwyn was on location shooting a film in New Orleans, just ahead of the Midnights release-anniversary press cycle.',
         sources: [
@@ -5640,6 +5643,7 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video',
       thumbnailUrl: null,
       moment: {
+        video: { youtubeId: 'h8DLofLM7No', title: 'Taylor Swift - Lavender Haze (Official Music Video)' },
         context:
           'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [
@@ -5659,6 +5663,7 @@ export default {
       sourceUrl: 'https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202297/rs_1200x1200-221007042741-1200-Taylor-Swift-Joe-Alwyn.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'Taylor Swift and Joe Alwyn in a public reference image used by E! in its report on the leather jacket she wore to the 2023 Grammys afterparty.', kind: 'reference', focalPoint: '50% 25%' }],
         context:
           'A source told Entertainment Tonight that Alwyn also attended the afterparty at Chateau Marmont with Taylor, even though he did not accompany her on the Grammys red carpet.',
         sources: [
@@ -5678,6 +5683,7 @@ export default {
       sourceUrl: 'https://extratv.com/2023/04/11/taylor-swift-steps-out-for-first-time-since-joe-alwyn-split',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024', credit: 'Kevin Mazur/Getty Images for TAS Rights Management, via Billboard', caption: 'Taylor Swift on the Eras Tour in March 2023; a public reference portrait from the weeks before her first reported outing after the Alwyn split.', kind: 'reference', focalPoint: '43% 25%' }],
         context:
           'Her first public outing after the Joe Alwyn breakup news broke on April 8, 2023.',
         sources: [
@@ -5697,6 +5703,7 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2023411/rs_1200x1200-230511174510-1200.taylor-swift-matty-healy.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'Taylor Swift and Matty Healy pictured in E! News coverage of their May 2023 New York sightings around Electric Lady Studios.', kind: 'primary', focalPoint: '50% 28%' }],
         context:
           'Part of the wave of sightings following The Sun\'s May 3, 2023 report of a budding Taylor-Healy romance and Healy\'s appearances at her Nashville Eras Tour shows.',
         sources: [
@@ -5715,6 +5722,7 @@ export default {
       sourceUrl: 'https://people.com/music/taylor-swift-matty-healy-relationship-timeline/',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg/960px-Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg', credit: 'Mats Rennstam, CC0, via Wikimedia Commons', caption: 'Matty Healy performing with The 1975 at Lollapalooza in 2023, a public reference portrait from the summer their brief rumored relationship ended.', kind: 'reference', focalPoint: '52% 20%' }],
         context:
           'Healy had appeared at Taylor\'s Nashville Eras Tour shows in early May 2023; the pair reportedly split around June 5, 2023, weeks after the romance was first reported.',
         sources: [
@@ -5734,6 +5742,7 @@ export default {
       sourceUrl: 'https://kansascity.com/news/local/article280456364.html',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg', credit: 'Accedie, CC BY-SA 4.0, via Wikimedia Commons', caption: 'Travis Kelce with the Kansas City Chiefs during the 2023 season, a public reference portrait for his August NFL Network interview.', kind: 'reference', focalPoint: '50% 22%' }],
         context:
           'First on-camera acknowledgment moment from Kelce after his July "New Heights" podcast bracelet story sparked dating rumors, weeks before Taylor\'s Sept. 24 Chiefs game appearance made the relationship public.',
         sources: [
@@ -5753,6 +5762,7 @@ export default {
       sourceUrl: 'https://www.today.com/popculture/taylor-swift-kansas-city-chiefs-game-travis-kelce-rcna117098',
       thumbnailUrl: null,
       moment: {
+        photos: [{ url: 'https://media.vanityfair.com/photos/655a2af58877a2e304c7d8ac/master/w_2560%2Cc_limit/1687516923', credit: 'Cooper Neill/Getty Images, via Vanity Fair', caption: 'Taylor Swift cheers beside Donna Kelce as the Chiefs play the Bears at Arrowhead Stadium on Sept. 24, 2023.', kind: 'primary', focalPoint: '55% 28%' }],
         context:
           'Widely regarded as the single most consequential sighting of the Midnights era.',
         sources: [
