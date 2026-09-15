@@ -2,15 +2,27 @@
 
 ## Next
 
-1. HA #77: restore Claude organization access. Instrumented run 34972013723
-   confirms oauth_org_not_allowed, zero model tokens and skipped delivery.
-   No further routine retries until access is restored. The clock itself
-   fired at 12:00:07Z in run 34966350705; its guard succeeded.
-   Do not close #4290 or tick M7: the noon delivery proof has not passed.
-2. M8 filing (#4352), approval relay (#4354), and charter/MR2 (#4349) are
-   merged. Chase and brief implementation is complete in feature/m8-brief,
-   validated and submitted through auto-merge. After HA #77, complete real filing,
-   approval and 48/96-hour chase proofs. Leave M8 unticked until they pass.
+1. Owner restored Claude access and authorized a TOTAL $3 in basic paid
+   testing. Reported spend so far: $0.034366 ($0.008897 local Haiku plus
+   $0.025469 GitHub OAuth probe 34978823809). Track serial runs in
+   .scratch/claude-test-budget.json; no speculative/full-price rerun loops.
+2. HA #77 is closed from the owner's "claude is back on" statement and the
+   successful GitHub probe. No credentials were read or rotated. The initial
+   probe 34977780686 failed before inference on an empty-tools argument;
+   #4361 fixed that serialization defect and the retry passed.
+3. Budget controls #4360 are merged. Intake triage 34978955061 failed before
+   a model job started: GitHub rejected string input '0.75' where the reusable
+   workflow expects a number. Explicit numeric conversion is being fixed in
+   both manual callers. Retry intake at 0.75 after that fix, inspect cost,
+   then run one force=true brief at 1.50. Reported spend is still $0.034366.
+4. All M8 implementation is merged (#4352, #4354, #4349, #4355). Keep M7/M8
+   and #4290 open until their real proofs pass. The clock needs a successful
+   on-time noon brief; a manual recovery cannot claim that timing proof.
+   M8 still needs the real founder approval and actual 48/96-hour lifecycle.
+5. Non-Claude checks: 653 focused tests pass; full workspace typecheck passes
+   after normal generation/dependency setup. Windows full suite: 6,421 pass,
+   14 test failures plus one failed suite tracked in real intake #4358.
+   Junction harness fix #4359 is merged. Generated outputs remain local.
 
 ## Reboot recovery - 2026-09-15
 
@@ -18,7 +30,8 @@ Diagnostic PR #4351 is merged. It retains only allowlisted error categories
 in routine-usage artifacts, never raw execution or provider text. The one
 instrumented run 34972013723 confirmed oauth_org_not_allowed (290 ms,
 zero tokens/cost). GitHub credential exchange and prompt loading passed.
-Account recovery needs the owner; this is not a demonstrated clock defect.
+The owner confirmed exhausted weekly usage, then restored Claude access
+and authorized up to $3 in basic testing. No credential defect is established.
 
 M8 ready-shaped filing #4352 is merged and labels are provisioned. A complete
 live intake selection found no untriaged submission. The live chase snapshot
