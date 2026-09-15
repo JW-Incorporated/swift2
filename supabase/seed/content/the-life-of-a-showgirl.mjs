@@ -73,7 +73,7 @@ export default {
         'An Instagram Story — "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" — confirmed Taylor will attend the 60th CMA Awards on Nov. 18, her first time at the show in ten years, following a Single of the Year nod for "I Knew It, I Knew You."',
       sourceUrl:
         'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
       moment: {
         context:
           'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.',
@@ -107,6 +107,15 @@ export default {
             reliability_score: 3,
           },
         ],
+        photos: [
+          {
+            url: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
+            credit: "Taylor Swift / Instagram, via Just Jared",
+            caption: "Taylor's September 10 Instagram Story confirms her CMA Awards return alongside the Single of the Year nomination.",
+            kind: "primary",
+            focalPoint: "50% 50%",
+          },
+        ],
       },
     },
     {
@@ -119,7 +128,7 @@ export default {
       snippet:
         'Entomologists at UC Riverside named a newly described genus of Australian plant bugs Swiftiephylus, with four species — taylorae, amator, intrepidus and poetorum — nodding to Taylor, Lover, Fearless and The Tortured Poets Department.',
       sourceUrl: 'https://news.ucr.edu/articles/2026/09/09/taylor-swift-becomes-bugs',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://news.ucr.edu/sites/default/files/2026-09/swiftiephylus-taylorae-option-1.jpeg",
       moment: {
         context:
           'In a study published Sept. 9, 2026 in the journal Insect Systematics and Evolution, UC Riverside entomologists Sarah Schroeder, a doctoral student, and Christiane Weirauch formally described a dozen Australian plant-feeding insect species and placed four of them in a new genus they named Swiftiephylus — a blend of "Swiftie," the term for Taylor\'s fans, and "-phylus," the ending common to this group of plant bugs.\n\nThe four species carry Latin forms that nod to the artist and her albums: Swiftiephylus taylorae (for Taylor herself), S. amator ("lover"), S. intrepidus ("fearless"), and S. poetorum (a wink at The Tortured Poets Department). The insects feed on Australian she-oaks and are harmless to people, animals and the trees. Schroeder said she hoped attaching Taylor\'s name would draw attention to the insects themselves, and to insect conservation more broadly.',
@@ -150,6 +159,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-15',
             reliability_score: 3,
+          },
+        ],
+        photos: [
+          {
+            url: "https://news.ucr.edu/sites/default/files/2026-09/swiftiephylus-taylorae-option-1.jpeg",
+            credit: "Sarah Schroeder / UC Riverside",
+            caption: "Swiftiephylus taylorae, one of the newly described Australian plant bugs named in tribute to Taylor.",
+            kind: "primary",
+            focalPoint: "50% 50%",
           },
         ],
       },

@@ -103,6 +103,9 @@ export const CONFIG = {
     'jj-justjaredjr-media.s3.amazonaws.com',
     'jj-justjaredjr-media.s3.us-east-1.amazonaws.com',
     'cdn01.justjared.com',
+    // Reviewed 2026-09-15: Just Jared's publisher-owned image origin and
+    // UC Riverside's official news photography (CMA announcement / plant bugs).
+    'www.justjared.com', 'news.ucr.edu',
     'a1.espncdn.com', 'img.mlbstatic.com', 'cdn.nba.com',
     'images2.minutemediacdn.com',
     'www.guinnessworldrecords.com', 'thewaltdisneycompany.com',
