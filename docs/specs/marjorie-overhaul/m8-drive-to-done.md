@@ -254,10 +254,12 @@ through mutation so queued sweeps read the preceding sweep's markers.
    session. Widening the lane to `scripts/marjorie/**` and
    `scripts/watchdog/**` (never `scripts/social/**`) is a charter change
    for Joey to call; the chase makes the cost of not doing it visible.
-2. **Kevin's cadence.** Two triage runs a day plus one Austin run means a
-   "yes" at 14:00 UTC is built no sooner than 21:00 UTC the same day, often
-   the next. Acceptable under the two-day rule; M6-style dispatch on the
-   approval comment is the upgrade if it is not.
+2. **Kevin's cadence.** The daily-desk/S3 triage runs at 15:13 UTC daily;
+   the separate comment radar runs at 01:23 and 13:23 UTC. A "yes" after
+   the daily desk waits until the next day's triage before an eligible
+   Austin claim. GitHub schedules can be delayed. This remains within the
+   two-day rule; dispatch on the approval comment is a possible later
+   upgrade. These are the existing schedules, not changes made by M8.
 
 ### Recovery review: pending work and delivered held notices
 
