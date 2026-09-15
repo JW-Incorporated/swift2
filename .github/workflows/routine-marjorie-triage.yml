@@ -39,6 +39,12 @@ on:
   schedule:
     - cron: "27 16 * * *" # 09:27 PT, after the morning brief has already reported yesterday's
   workflow_dispatch:
+    inputs:
+      max_budget_usd:
+        description: "Optional manual-run Claude budget setting; 0 keeps normal behavior"
+        required: false
+        type: number
+        default: 0
 
 permissions:
   contents: read
@@ -55,6 +61,7 @@ jobs:
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 25
       max_turns: 40
+      max_budget_usd: ${{ github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0 }}
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 

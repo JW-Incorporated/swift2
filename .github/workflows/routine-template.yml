@@ -55,6 +55,11 @@ on:
         required: false
         type: number
         default: 40
+      max_budget_usd:
+        description: "Optional Claude Code dollar ceiling; 0 preserves the existing uncapped argument list"
+        required: false
+        type: number
+        default: 0
       checkout_token_secret:
         description: |
           Which repo secret to check out with, by NAME (not value) — 'GITHUB_TOKEN'
@@ -238,7 +243,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
-          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}"
+          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
           allowed_bots: ${{ inputs.allowed_bots }}
         env:
           GH_TOKEN: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}
