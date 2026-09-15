@@ -75,3 +75,36 @@ Acceptance: an unavailable source does not trigger the orchestrator's stop-lane
 rule or strand independent intake. Validate applicable routine invariants and
 lint, then independent review. No live routine or database call is required for
 this clarification, and no live authoring success is inferred from static checks.
+
+
+## Automatic production proof, September 15
+
+The bounded manual recovery run filed two intakes but reached its testing
+budget before writing a completed receipt. It was correctly red, and no
+success receipt was invented. The subsequent normal schedule provides the
+completed execution and publication proof:
+
+- [News Triage 35011979259](https://github.com/JW-Incorporated/swift2/actions/runs/35011979259)
+  ran on `schedule` at 19:10 UTC; execution and `verify-receipt` both passed.
+  Its [current-attempt receipt](https://github.com/JW-Incorporated/swift2/issues/502#issuecomment-5686673938)
+  records 69 stories reviewed and five filed intakes (#4389-#4393), while
+  recognizing the already-filed Emmys and Chiefs items instead of duplicating them.
+- [Vault 35014985620](https://github.com/JW-Incorporated/swift2/actions/runs/35014985620)
+  ran on `schedule` at 19:40 UTC. It reported current-tier unavailable, left
+  those rows unprocessed, and authored independent GitHub intakes #4389/#4390.
+- [PR #4394](https://github.com/JW-Incorporated/swift2/pull/4394) passed required
+  CI and merged at 20:02:24 UTC as `f45fb1031561bebcda0c2544d887b805795e909a`.
+  The source intakes closed with authoring receipts.
+- [Content publication 35017198082](https://github.com/JW-Incorporated/swift2/actions/runs/35017198082)
+  passed for that exact merge. Public bundle
+  `fc639dda682719203a2355705745ea24f2fe2b16e9a3ba3ae669f7adabde058c`
+  contains `showgirl-cma-awards-2026-return` and
+  `showgirl-swiftiephylus-insect-genus`, with three source links each. Both
+  public deep links return HTTP 200. This verifies the automated intake,
+  authoring, merge, and publication chain; it is not an independent editorial
+  review of every source claim or a new browser visual check.
+
+No additional paid recovery dispatch was made for this proof. The recovery-test
+ledger remains $2.6860135. The existing scheduled Vault run separately reports
+$8.928525 of normal production usage; scheduled routines retain their established
+configuration and are not counted as manually dispatched recovery tests.

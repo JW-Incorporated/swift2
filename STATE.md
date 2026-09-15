@@ -32,13 +32,21 @@
    Vault prompt clarification #4381 merged at b1306477: unavailable database access
    must be reported without stranding independent GitHub intake. This is
    configuration hardening, not a proved cause of the old no-op runs.
-   Normal News Triage (15:40 UTC) and Vault (16:07 UTC) schedules remain;
-   no additional paid manual run is authorized within the retained margin.
+   Automatic production is now verified: scheduled News Triage 35011979259
+   passed both execution and receipt checks, recording 69 stories reviewed and
+   five new intakes in #502 comment 5686673938. Scheduled Vault 35014985620
+   authored #4389/#4390 in PR #4394, merged f45fb103 at 20:02:24Z. The run
+   explicitly reported current-tier unavailable and continued intake without
+   processing those rows. Content-publish 35017198082 succeeded; public bundle
+   fc639dda682719203a2355705745ea24f2fe2b16e9a3ba3ae669f7adabde058c
+   contains both new items. No additional manual paid run was dispatched.
 4. GitHub OAuth is restored (probe 34978823809); HA #77 closed via #4363.
    No credentials were read or rotated. All paid Claude tests are STOPPED:
    reported total $2.6860135 against the owner's $3 cap. Ledger remains in
    m7-m8-weekly-limit/.scratch/claude-test-budget.json. Budget settings can
-   overshoot after a request; preserve the remaining margin.
+   overshoot after a request; preserve the remaining margin. Existing scheduled
+   production has separate spend: Vault 35014985620 reported $8.928525; this
+   was its regular schedule, not another recovery-test dispatch.
 5. M8 implementation and repeated-sweep integration proof #4365 are merged.
    99 integration/focused tests include synthetic 49/97-hour nudge/HA/defer/
    held behavior, permitted by the spec. Real intake triage 34980285130
@@ -62,7 +70,10 @@
    away. Preserve generated local outputs. Windows full suite on the loader
    fix: 6,452 passed, nine unrelated portability failures tracked #4358/#4364;
    required Linux CI passed. Live homepage, Threads, Mood and Clownbot checks
-   passed with no console errors. Spark is unavailable; Astra/Sol/Luna used.
+   passed with no console errors. Prefer Spark for suitable bounded work when
+   available. This session's agent selector omits it; a ChatGPT-authenticated
+   CLI attempt with gpt-5.3-codex-spark was rejected as unsupported before any
+   review ran. Astra/Sol/Luna remain the usable delegation routes here.
 
 ## Reboot recovery - 2026-09-15
 
