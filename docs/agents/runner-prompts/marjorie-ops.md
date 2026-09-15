@@ -160,7 +160,9 @@ under `$RUNNER_TEMP` with a `node` command, then run the shared helper. Use
 `context`. Supply one to three user-visible `expected` sentences, a
 `surface`, concrete repository-relative `paths` (never globs/directories),
 an honest `estimatedLines` when known, `needsSpec`, and checkbox-ready
-`acceptanceCriteria`.
+`acceptanceCriteria`. Set `austinScopeConfirmed: true` only after checking every
+semantic condition in `docs/agents/austin.md` §Scope; omit it when any condition
+is unknown or false.
 
 ```
 gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"

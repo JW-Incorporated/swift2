@@ -155,6 +155,7 @@ For either build class, create a JSON draft under `$RUNNER_TEMP` using a
   "surface": "where in the product this appears",
   "paths": ["apps/web/a/concrete-starting-file.tsx"],
   "estimatedLines": 80,
+  "austinScopeConfirmed": true,
   "needsSpec": false,
   "acceptanceCriteria": ["A testable outcome", "A regression test covers it"],
   "reporterSaid": "the reporter's exact words",
@@ -167,8 +168,10 @@ For either build class, create a JSON draft under `$RUNNER_TEMP` using a
 Name concrete repository-relative starting files in `paths`, never globs or
 directories. `estimatedLines` is your honest changed-line estimate; omit it
 when unknown. Set `needsSpec` only when the work is large enough to need a
-spec. The helper computes size from those inputs against Austin's unchanged
-fence; you do not choose `small` or `medium` yourself.
+spec. Set `austinScopeConfirmed` to true only after checking every semantic
+condition in `docs/agents/austin.md` §Scope; omit it when any condition is
+unknown or false. The helper computes size from those inputs against Austin's
+unchanged fence; you do not choose `small` or `medium` yourself.
 
 Run, in order:
 
