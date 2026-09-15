@@ -6,6 +6,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import {
   findResultMessage,
+  findAssistantError,
   buildUsageRecord,
   isNearTurnLimit,
   renderSummary,
@@ -64,6 +65,38 @@ describe('buildUsageRecord', () => {
     expect(record.durationMs).toBeNull();
     expect(record.totalCostUsd).toBeNull();
     expect(record.usage).toBeNull();
+  });
+
+  it('adds only fixed diagnostic metadata for an errored result', () => {
+    const record = buildUsageRecord({
+      routineName: 'x', model: 'y', maxTurns: 10,
+      result: { is_error: true, subtype: 'success' }, assistantError: 'authentication_failed',
+    });
+    expect(record.diagnostic).toEqual({ isError: true, resultSubtype: 'success', assistantError: 'authentication_failed' });
+    expect(JSON.stringify(record)).not.toContain('secret');
+  });
+
+  it('maps unknown result subtypes to unknown', () => {
+    const record = buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: { is_error: true, subtype: 'provider-private-detail' } });
+    expect(record.diagnostic).toEqual({ isError: true, resultSubtype: 'unknown' });
+  });
+
+  it('keeps successful record shape unchanged', () => {
+    const record = buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: {} });
+    expect(record).not.toHaveProperty('diagnostic');
+  });
+});
+
+describe('findAssistantError', () => {
+  it('allows SDK error enums and maps untrusted strings to unknown', () => {
+    const errors = ['authentication_failed', 'oauth_org_not_allowed', 'billing_error', 'rate_limit', 'invalid_request', 'model_not_found', 'server_error', 'max_output_tokens', 'unknown'];
+    for (const error of errors) expect(findAssistantError([{ type: 'assistant', error }])).toBe(error);
+    expect(findAssistantError([{ type: 'assistant', message: { error: 'Bearer secret-token' } }])).toBe('unknown');
+  });
+
+  it('ignores non-assistant content and missing errors', () => {
+    expect(findAssistantError([{ type: 'result', error: 'rate_limit' }])).toBeNull();
+    expect(findAssistantError([{ type: 'assistant', message: { content: 'private text' } }])).toBeNull();
   });
 });
 
