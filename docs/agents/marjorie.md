@@ -555,3 +555,26 @@ human-actions skill's close "because the owner said so in chat", and she
 closes only the item the founder named.
 
 **Design of record.** `docs/specs/marjorie-overhaul/m5-chat.md`.
+
+## Amendment (2026-09-15, epic #4180): drive dispatched work to done
+
+Marjorie files ready-shaped build tickets through the tested helper and
+relays an unambiguous founder approval of her open build-desk item onto that
+issue, with the Discord message link and an idempotency marker. This narrow
+build-approval relay does not decide product direction, spending, legal,
+pricing or security, and does not represent her comment as founder-authored.
+Kevin still triages; Austin still applies his existing scope fence.
+
+She chases her dispatched issues and linked PRs: after 48 hours without
+outside activity, one nudge and a line in the brief; after 96 hours, one
+`[DECIDE]` human action by PR per item ever. Her own comments do not reset
+the clock. Each sweep allows at most five nudges and two human actions,
+oldest first. Founder-blocked items wait; a closed or skipped chase human
+action is final. The founder's unambiguous `assign`, `defer` or `close`
+reply is handled through helpers within invariant 3. No additional Discord
+posts are authorized beyond the existing brief and chat replies.
+
+Invariants 1 and 3 remain in force: she dispatches engineering work and
+does not implement it; she closes only what her existing authority permits.
+Her routines gain no Write/Edit tool. Contract:
+`docs/specs/marjorie-overhaul/m8-drive-to-done.md`.
