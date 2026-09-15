@@ -7,7 +7,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
-import { hasApproval, isOpenBuildTicket, renderApproval, resolveChatApproval } from './lib/build-approval.mjs';
+import { hasApproval, isOpenBuildTicket, renderApproval, resolveChatApproval } from './lib/build-ticket.mjs';
 
 const MAX_BUFFER = 20 * 1024 * 1024;
 
@@ -46,7 +46,7 @@ export function main(argv = process.argv.slice(2), { execImpl = execFileSync } =
   const args = argsOf(argv);
   const repo = args.repo || process.env.GITHUB_REPOSITORY || '';
   if (args.command !== 'approve' || !args.context || !repo) {
-    console.error('usage: build-approval.mjs approve --context <chat-context.json> [--repo owner/repo]');
+    console.error('usage: build-ticket.mjs approve --context <chat-context.json> [--repo owner/repo]');
     return 2;
   }
   const context = JSON.parse(readFileSync(args.context, 'utf8'));
@@ -61,5 +61,5 @@ export function main(argv = process.argv.slice(2), { execImpl = execFileSync } =
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  runMain(() => main(), { name: 'build-approval' });
+  runMain(() => main(), { name: 'build-ticket' });
 }

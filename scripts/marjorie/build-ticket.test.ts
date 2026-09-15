@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs module
-import { approveResolved, main } from './build-approval.mjs';
+import { approveResolved, main } from './build-ticket.mjs';
 
 const MID = '900000000000000001';
 const URL = `https://discord.com/channels/900000000000000002/900000000000000003/${MID}`;

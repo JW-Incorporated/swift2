@@ -89,11 +89,6 @@ token is not a defect.
    or **cancel** the work. **The most recent human comment wins over the original
    body.** Never apply a body's stale suggested fix when a comment has since
    corrected or retracted it, and never re-do work a comment says is already done.
-   Stream 3 has one narrow exception: the exact M8 `marjorie-approval` three-line
-   template counts as a founder approval only when the issue-comments API reports
-   its author as a typed Bot with the allowlisted Claude or GitHub Actions login.
-   The Discord URL id and marker id must match. Similar prose does not count, and
-   any later real founder comment remains authoritative, including revocation.
 8. **Any audit summary relayed to the founders states its scope in the first
    line** (e.g. "prose + sourcing only; photos not checked") — see the
    [audit-reporting scope convention](definition-of-done.md#audit-reporting-scope-convention).
@@ -327,8 +322,7 @@ digest-row state), so this is the whole of the change here.
 
 Because these tickets are where humans **discuss** (Joey signs off on a phased
 plan, changes a priority, or says "resolved" in a comment), the triage pass
-**reads each ticket's comments** (invariant 7, including its narrow verified
-M8 approval relay) and reflects the latest authoritative
+**reads each ticket's comments** (invariant 7) and reflects the latest human
 signal in the triage buckets — e.g. move a plan-approved ticket to a
 "ready/greenlit" bucket, mark a commented-resolved one for close-confirmation,
 or bump priority a comment raised. Kevin still never auto-codes; it surfaces the

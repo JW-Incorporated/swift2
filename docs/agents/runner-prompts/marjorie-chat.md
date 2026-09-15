@@ -84,7 +84,7 @@ over `docs/`, `gh issue list/view`, `gh pr list/view`, `gh run list`.
 **d) A founder approval or chase choice.** The context job already verified
 this exact Discord message's founder author. Never copy its words to GitHub.
 - For approval of one open `marjorie-filed` + `desk:build` issue, run
-  `node scripts/marjorie/build-approval.mjs approve --context .scratch/chat-context.json`.
+  `node scripts/marjorie/build-ticket.mjs approve --context .scratch/chat-context.json`.
   It accepts exactly one local issue reference from the message or what it
   replies to, and writes the canonical link-only approval once per message.
   If it refuses ambiguity, act on nothing and ask which issue. On success say
