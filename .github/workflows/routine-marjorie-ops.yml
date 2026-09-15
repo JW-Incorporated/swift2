@@ -115,7 +115,7 @@ jobs:
         run: |
           set -euo pipefail
           COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
-          CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length)')
+          CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
           if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ]; then
             echo "work=yes" >> "$GITHUB_OUTPUT"
           else

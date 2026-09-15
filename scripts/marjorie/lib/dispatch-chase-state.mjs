@@ -83,6 +83,7 @@ export async function fetchDispatchChaseState(repo = REPO, {
       throw new Error('dispatch chase: unreadable pending actions');
     }
     pendingHaPrs.push({ number: pr.number, headRef: pr.head.ref, headSha: pr.head.sha,
+      safeChaseHead: files.length === 1 && pr.head.repo?.full_name === repo && pr.base?.ref === 'main',
       body: pr.body || '', url: `https://github.com/${repo}/pull/${pr.number}`, actionsText: Buffer.from(content.content, 'base64').toString('utf8') });
   }
   const reportedHeld = [];

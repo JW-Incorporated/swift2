@@ -176,12 +176,13 @@ export function evaluateDispatchChase({
   prs = [],
   openActions = '',
   doneActions = '',
+  pendingHaPrs = [],
   now = Date.now(),
   ownAuthors = [],
 } = {}) {
   const nowMs = time(now);
   const own = new Set(ownAuthors.map((author) => String(author).toLowerCase()));
-  const chaseActions = readChaseActions(openActions, doneActions);
+  const chaseActions = readChaseActions([openActions, ...pendingHaPrs.map((pr) => pr.actionsText)].join('\n'), doneActions);
   const items = issues
     .map((issue) => {
       const linkedPrs = prs.filter((pr) => linkedIssueNumbers(pr).has(Number(issue.number)));
@@ -256,6 +257,7 @@ export function evaluateDispatchChase({
     items,
     nudges,
     humanActions,
+    pendingHumanActions: pendingHaPrs.filter((pr) => /^marjorie\/chase-ha-\d+(?:-\d+)*$/.test(pr.headRef || '')).map((pr) => pr.number),
     brief: {
       stalled: items.filter((item) => /^stale-/.test(item.verdict)),
       held: items.filter((item) => item.verdict === 'held'),

@@ -2,7 +2,6 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
-import path from 'node:path';
 import { evaluateDispatchChase, renderHumanAction } from './dispatch-chase.mjs';
 import { fetchDispatchChaseState } from './dispatch-chase-state.mjs';
 
@@ -20,9 +19,6 @@ function numbers(markdown) {
 }
 function pendingTexts(pendingHaPrs = []) {
   return pendingHaPrs.flatMap((entry) => typeof entry === 'string' ? [entry] : [entry.actionsText]);
-}
-function markerIssues(markdown) {
-  return [...String(markdown || '').matchAll(CHASE_96)].map((match) => Number(match[1]));
 }
 
 /** Allocate from main's two ledgers plus every open PR head that edits either ledger. */
@@ -51,7 +47,7 @@ export function prependHumanActions(markdown, blocks) {
   });
   if (!countFound) throw new Error('dispatch chase: human-actions count missing');
   const rest = first < 0 ? '' : `\n\n${String(markdown).slice(first)}`;
-  return `${intro.trimEnd()}\n\n${blocks.join('\n\n')}${rest}`;
+  return `${intro.trimEnd()}\n\n${[...blocks].sort((a, b) => numbers(b)[0] - numbers(a)[0]).join('\n\n')}${rest}`;
 }
 
 function branchFor(candidates) {
@@ -112,7 +108,7 @@ function chaseEntries(pendingHaPrs) {
 
 async function resumePending(repo, state, pendingHaPrs, exec) {
   const entries = chaseEntries(pendingHaPrs);
-  const conflicted = entries.some((entry) => !entry.number || !checkPendingHumanActionNumber({ number: entry.number, ...state, pendingHaPrs }).valid);
+  const conflicted = new Set(entries.map((entry) => entry.issue)).size !== entries.length || entries.some((entry) => !entry.pr.safeChaseHead || !entry.number || !checkPendingHumanActionNumber({ number: entry.number, ...state, pendingHaPrs }).valid);
   if (conflicted) return { status: 'pending-reservation-conflict' };
   for (const entry of entries) {
     const issue = state.issues.find((item) => Number(item.number) === entry.issue);
@@ -121,7 +117,7 @@ async function resumePending(repo, state, pendingHaPrs, exec) {
       await exec('gh', ['issue', 'comment', String(entry.issue), '--repo', repo, '--body', `Filed HA #${entry.number} in PR #${entry.pr.number}: ${entry.pr.url}\n${sourceMarker(entry.issue, entry.number, entry.pr.number)}`]);
   }
   for (const pr of new Map(entries.map((entry) => [entry.pr.number, entry.pr])).values())
-    await exec('gh', ['pr', 'merge', String(pr.number), '--repo', repo, '--squash', '--auto', '--delete-branch']);
+    await exec('gh', ['pr', 'merge', String(pr.number), '--repo', repo, '--squash', '--auto', '--delete-branch', '--match-head-commit', pr.headSha]);
   return { status: entries.length ? 'resumed' : 'none' };
 }
 
@@ -148,6 +144,7 @@ export async function applyDispatchChase(repo, {
   const blocks = candidates.map((item, index) => renderHumanAction({ ...item, number: start + index, now: state.now }).body);
   const pr = await createCombinedPr(repo, branch, blocks, { exec, readFileImpl, writeFileImpl });
   // The collector's ledger reads must come from main, not the just-pushed HA branch.
+  await exec('git', ['fetch', 'origin', 'main']);
   await exec('git', ['checkout', '--detach', 'origin/main']);
   const createdState = await fetchState(repo);
   const result = await resumePending(repo, createdState, createdState.pendingHaPrs || [], exec);

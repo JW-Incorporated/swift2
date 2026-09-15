@@ -43,7 +43,7 @@ describe('dispatch chase apply', () => {
       return { stdout: '' };
     };
     let written = '';
-    const pendingHaPrs = [{ number: 75, headRef: 'marjorie/chase-ha-2', url: 'https://github.com/owner/repo/pull/75', body: '<!-- marjorie-chase-pr: issues=2 -->', actionsText: '## #10 🟡 [DECIDE] #2\n<!-- marjorie-chase: 96h issue=2 -->' }];
+    const pendingHaPrs = [{ number: 75, headRef: 'marjorie/chase-ha-2', safeChaseHead: true, headSha: 'a'.repeat(40), url: 'https://github.com/owner/repo/pull/75', body: '<!-- marjorie-chase-pr: issues=2 -->', actionsText: '## #10 🟡 [DECIDE] #2\n<!-- marjorie-chase: 96h issue=2 -->' }];
     const result = await applyDispatchChase('owner/repo', {
       exec, fetchState: async () => (++fetches === 1 ? state(97) : { ...state(97), pendingHaPrs }), readFileImpl: async () => '# Human actions\n\n> **1 open.**\n\n## #9 🟡 [DECIDE] Existing',
       writeFileImpl: async (_file: string, value: string) => { written = value; },
@@ -55,12 +55,12 @@ describe('dispatch chase apply', () => {
     expect(written).toContain('## #10');
     expect(written.indexOf('## #10')).toBeLessThan(written.indexOf('## #9'));
     expect(written).toContain('> **2 open.**');
-    expect(calls).toContainEqual(['gh', 'pr', 'merge', '75', '--repo', 'owner/repo', '--squash', '--auto', '--delete-branch']);
+    expect(calls).toContainEqual(['gh', 'pr', 'merge', '75', '--repo', 'owner/repo', '--squash', '--auto', '--delete-branch', '--match-head-commit', 'a'.repeat(40)]);
     expect(calls).toContainEqual(['gh', 'issue', 'comment', '2', '--repo', 'owner/repo', '--body', expect.stringContaining('ha=10 pr=75')]);
   });
 
   it('fails closed on an existing pending reservation conflict without merging either PR', async () => {
-    const pendingHaPrs = [70, 71].map((number) => ({ number, headRef: 'marjorie/chase-ha-2', url: `https://pr/${number}`, body: '<!-- marjorie-chase-pr: issues=2 -->', actionsText: '## #10 🟡 [DECIDE] #2\n<!-- marjorie-chase: 96h issue=2 -->' }));
+    const pendingHaPrs = [70, 71].map((number) => ({ number, headRef: 'marjorie/chase-ha-2', safeChaseHead: true, headSha: 'a'.repeat(40), url: `https://pr/${number}`, body: '<!-- marjorie-chase-pr: issues=2 -->', actionsText: '## #10 🟡 [DECIDE] #2\n<!-- marjorie-chase: 96h issue=2 -->' }));
     const calls: string[][] = [];
     const result = await applyDispatchChase('owner/repo', {
       exec: async (command: string, args: string[]) => { calls.push([command, ...args]); return { stdout: '' }; },
@@ -69,4 +69,29 @@ describe('dispatch chase apply', () => {
     expect(result.status).toBe('pending-reservation-conflict');
     expect(calls.some((call) => call.slice(0, 3).join(' ') === 'gh pr merge')).toBe(false);
   });
+});
+
+it('resumes an existing PR after a crash without creating another one', async () => {
+  const calls: string[][] = [];
+  const pendingHaPrs = [{ number: 75, headRef: 'marjorie/chase-ha-2', safeChaseHead: true, headSha: 'a'.repeat(40),
+    url: 'https://github.com/owner/repo/pull/75', body: '<!-- marjorie-chase-pr: issues=2 -->',
+    actionsText: '## #10 Decision\n<!-- marjorie-chase: 96h issue=2 -->\n\n## #9 Older decision\n<!-- marjorie-chase: 96h issue=1 -->' }];
+  const result = await applyDispatchChase('owner/repo', {
+    fetchState: async () => ({ ...state(97), pendingHaPrs }),
+    exec: async (cmd: string, args: string[]) => { calls.push([cmd, ...args]); return { stdout: '' }; },
+  });
+  expect(result.status).toBe('resumed');
+  expect(calls.some((call) => call.slice(0, 3).join(' ') === 'gh pr create')).toBe(false);
+  expect(calls.filter((call) => call.slice(0, 3).join(' ') === 'gh issue comment')).toHaveLength(1);
+  expect(calls.some((call) => call.slice(0, 3).join(' ') === 'gh pr merge')).toBe(true);
+});
+it('does not merge a pending chase PR with extra files or a foreign head', async () => {
+  const calls: string[][] = [];
+  const result = await applyDispatchChase('owner/repo', {
+    fetchState: async () => ({ ...state(97), pendingHaPrs: [{ number: 75, headRef: 'marjorie/chase-ha-2', safeChaseHead: false,
+      body: '<!-- marjorie-chase-pr: issues=2 -->', actionsText: '## #10 Decision\n<!-- marjorie-chase: 96h issue=2 -->' }] }),
+    exec: async (cmd: string, args: string[]) => { calls.push([cmd, ...args]); return { stdout: '' }; },
+  });
+  expect(result.status).toBe('pending-reservation-conflict');
+  expect(calls.some((call) => call[0] === 'gh')).toBe(false);
 });

@@ -230,3 +230,10 @@ describe('evaluateDispatchChase', () => {
     expect(result.humanActions.map((action) => action.issue)).toEqual([33, 32]);
   });
 });
+
+it('reserves a pending HA and wakes a sweep to finish its source comment and merge', () => {
+  const result = evaluateDispatchChase({ issues: [], pendingHaPrs: [{ number: 90, headRef: 'marjorie/chase-ha-7',
+    actionsText: '## #81 Decision\n<!-- marjorie-chase: 96h issue=7 -->' }] });
+  expect(result.humanActions).toEqual([]);
+  expect(result.pendingHumanActions).toEqual([90]);
+});
