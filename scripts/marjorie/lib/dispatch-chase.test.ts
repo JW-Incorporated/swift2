@@ -57,6 +57,7 @@ describe('evaluateDispatchChase', () => {
     });
     expect(result.items[0].verdict).toBe('stale-96');
     expect(result.humanActions[0]).toMatchObject({ number: 81, issue: 3 });
+    expect(result.humanActions[0].body).toContain('\u{1F7E1}');
     expect(result.humanActions[0].body).toContain('<!-- marjorie-chase: 96h issue=3 -->');
     expect(result.humanActions[0].body).toContain('`assign`');
     expect(result.humanActions[0].body).toContain('`defer`');
@@ -78,6 +79,19 @@ describe('evaluateDispatchChase', () => {
     );
   });
 
+  it('resets archived status at each open human-action heading', () => {
+    const open = [
+      '## #81 [DECIDE] old item',
+      '- #81 closed',
+      '## #82 [DECIDE] #41 has had no activity for 4 days',
+      '<!-- marjorie-chase: 96h issue=41 -->',
+    ].join('\n');
+    const result = plan({ issues: [issue(41, 100)], ...actionFiles(open) });
+    expect(result.items[0].existingHumanAction).toBe(82);
+    expect(result.items[0].verdict).toBe('stale-96');
+    expect(result.humanActions).toEqual([]);
+  });
+
   it('blocks an item awaiting a founder answer or human PR review', () => {
     const question = issue(6, 100, {
       comments: [
@@ -92,6 +106,30 @@ describe('evaluateDispatchChase', () => {
     expect(
       plan({ issues: [question, issue(7, 100)], prs: [review] }).items.map((item) => item.verdict),
     ).toEqual(['blocked-on-founder', 'blocked-on-founder']);
+  });
+
+  it('does not hold ordinary questions or non-question founder mentions', () => {
+    const ordinaryQuestion = issue(61, 100, {
+      comments: [
+        {
+          author: { type: 'User', login: 'dev' },
+          createdAt: ago(100),
+          body: 'Can @builder reproduce?',
+        },
+      ],
+    });
+    const mention = issue(62, 100, {
+      comments: [
+        {
+          author: { type: 'User', login: 'dev' },
+          createdAt: ago(100),
+          body: 'Fixed founder-facing bug.',
+        },
+      ],
+    });
+    expect(plan({ issues: [ordinaryQuestion, mention] }).items.map((item) => item.verdict)).toEqual(
+      ['stale-96', 'stale-96'],
+    );
   });
 
   it('does not treat Marjorie’s comment or its matching updatedAt as activity', () => {
@@ -160,6 +198,20 @@ describe('evaluateDispatchChase', () => {
     const result = plan({ issues: [issue(12, 100)], ...actionFiles(open) });
     expect(result.items[0].existingHumanAction).toBe(82);
     expect(result.humanActions).toEqual([]);
+  });
+
+  it('caps the human-action Why and step lines and uses linked PR activity', () => {
+    const linked = pr(99, 'Closes #93', 97, { lastCommitDate: ago(97) });
+    const result = plan({
+      issues: [issue(93, 200, { title: 'x'.repeat(500), assignee: { login: 'x'.repeat(500) } })],
+      prs: [linked],
+    });
+    const lines = result.humanActions[0].body.split('\n');
+    const why = lines.find((line) => line.startsWith('**Why:** '))!.slice('**Why:** '.length);
+    const step = lines.find((line) => line.startsWith('1. Reply'))!;
+    expect(why.length).toBeLessThanOrEqual(300);
+    expect(step.length).toBeLessThanOrEqual(200);
+    expect(why).toContain(new Date(NOW - 97 * 3_600_000).toISOString().slice(0, 10));
   });
 
   it('takes the oldest work first and enforces the 5/2 sweep budget', () => {

@@ -11,11 +11,11 @@ export const MAX_HUMAN_ACTIONS = 2;
 const CHASE_48 = /<!--\s*marjorie-chase:\s*48h\s*-->/i;
 const CHASE_96 = /<!--\s*marjorie-chase:\s*96h\s+issue=(\d+)\s*-->/i;
 const CLOSES_ISSUE = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)\b/gi;
-const FOUNDER_QUESTION = /\?|\b(?:founder|joey|@sffan15-sys|please decide|can you|could you)\b/i;
+const FOUNDER_ADDRESS = /@sffan15-sys|\b(?:founder|joey)\b/i;
 
 function time(value) {
-  const parsed = new Date(value || 0).getTime();
-  return Number.isFinite(parsed) ? parsed : 0;
+  const result = new Date(value || 0).getTime();
+  return Number.isFinite(result) ? result : 0;
 }
 
 function labels(item) {
@@ -24,96 +24,77 @@ function labels(item) {
     .filter(Boolean);
 }
 
-function authorLogin(comment) {
-  return String(comment?.author?.login || comment?.author || comment?.login || '').toLowerCase();
-}
-
-function isOwnComment(comment, ownAuthors) {
-  if (comment?.viewerDidAuthor || comment?.isMarjorie) return true;
-  if (ownAuthors.has(authorLogin(comment))) return true;
-  return /<!--\s*marjorie-(?:chase|approval|ops|triage|filed)\b/i.test(String(comment?.body || ''));
-}
-
 function commentsOf(item) {
   return [...(item?.comments || []), ...(item?.reviews || [])];
+}
+
+function ownComment(comment, ownAuthors) {
+  const login = String(
+    comment?.author?.login || comment?.author || comment?.login || '',
+  ).toLowerCase();
+  return Boolean(
+    comment?.viewerDidAuthor ||
+    comment?.isMarjorie ||
+    ownAuthors.has(login) ||
+    /<!--\s*marjorie-(?:chase|approval|ops|triage|filed)\b/i.test(String(comment?.body || '')),
+  );
 }
 
 function hasMarker(item, marker) {
   return commentsOf(item).some((comment) => marker.test(String(comment.body || '')));
 }
 
-function latestOwnCommentAt(item, ownAuthors) {
-  return Math.max(
+function latestActivity(item, ownAuthors) {
+  const ownAt = Math.max(
     0,
     ...commentsOf(item)
-      .filter((comment) => isOwnComment(comment, ownAuthors))
+      .filter((comment) => ownComment(comment, ownAuthors))
       .flatMap((comment) => [
         time(comment.createdAt || comment.submittedAt),
         time(comment.updatedAt),
       ]),
   );
-}
-
-function sameInstant(a, b) {
-  return a > 0 && b > 0 && Math.abs(a - b) < 1000;
-}
-
-function latestActivity(item, ownAuthors) {
-  const ownAt = latestOwnCommentAt(item, ownAuthors);
   const activity = [time(item.createdAt)];
   const updatedAt = time(item.updatedAt);
-  if (!sameInstant(updatedAt, ownAt)) activity.push(updatedAt);
+  if (!(updatedAt && ownAt && Math.abs(updatedAt - ownAt) < 1000)) activity.push(updatedAt);
   for (const comment of commentsOf(item)) {
-    if (!isOwnComment(comment, ownAuthors)) {
+    if (!ownComment(comment, ownAuthors))
       activity.push(time(comment.createdAt || comment.submittedAt), time(comment.updatedAt));
-    }
   }
   for (const event of [
     ...(item.events || []),
     ...(item.labelEvents || []),
     ...(item.assigneeEvents || []),
-  ]) {
+  ])
     activity.push(time(event.createdAt));
-  }
   for (const commit of item.commits || [])
     activity.push(time(commit.committedDate || commit.createdAt));
   activity.push(time(item.lastCommitDate || item.lastCommit?.committedDate));
   return Math.max(...activity);
 }
 
-function linkedIssues(pr) {
-  const found = new Set();
-  for (const match of String(pr.body || '').matchAll(CLOSES_ISSUE)) found.add(Number(match[1]));
-  return found;
+function linkedIssueNumbers(pr) {
+  const numbers = new Set();
+  for (const match of String(pr.body || '').matchAll(CLOSES_ISSUE)) numbers.add(Number(match[1]));
+  return numbers;
 }
 
-function latestHumanQuestion(item, ownAuthors) {
-  const human = commentsOf(item)
-    .filter((comment) => !isOwnComment(comment, ownAuthors))
-    .filter((comment) => String(comment?.author?.type || '').toLowerCase() !== 'bot')
-    .sort((a, b) => time(b.createdAt || b.submittedAt) - time(a.createdAt || a.submittedAt))[0];
-  return Boolean(human && FOUNDER_QUESTION.test(String(human.body || '')));
-}
-
-function linkedPrs(issue, prs) {
-  return prs.filter((pr) => linkedIssues(pr).has(Number(issue.number)));
-}
-
-function hasFounderBlock(issue, prs, ownAuthors) {
-  return (
-    latestHumanQuestion(issue, ownAuthors) ||
-    prs.some(
-      (pr) => labels(pr).includes('needs-human-review') || latestHumanQuestion(pr, ownAuthors),
+function humanQuestion(item, ownAuthors) {
+  const latest = commentsOf(item)
+    .filter(
+      (comment) =>
+        !ownComment(comment, ownAuthors) &&
+        String(comment?.author?.type || '').toLowerCase() !== 'bot',
     )
-  );
+    .sort((a, b) => time(b.createdAt || b.submittedAt) - time(a.createdAt || a.submittedAt))[0];
+  const body = String(latest?.body || '');
+  return Boolean(latest && /\?/.test(body) && FOUNDER_ADDRESS.test(body));
 }
 
 function holder(issue, prs) {
   const pr = [...prs].sort((a, b) => Number(b.number) - Number(a.number))[0];
-  if (pr) {
-    const prefix = labels(pr).includes('austin-built') ? 'Austin ' : '';
-    return `${prefix}PR #${pr.number} awaiting review`;
-  }
+  if (pr)
+    return `${labels(pr).includes('austin-built') ? 'Austin ' : ''}PR #${pr.number} awaiting review`;
   const assignee = Array.isArray(issue.assignees) ? issue.assignees[0] : issue.assignee;
   const login = typeof assignee === 'string' ? assignee : assignee?.login;
   if (login) return `assignee @${login}`;
@@ -125,9 +106,8 @@ function holder(issue, prs) {
 
 function nextStep(issue, prs) {
   if (prs.length) return `merge/review #${prs[0].number}`;
-  if (!commentsOf(issue).some((comment) => /\bPlan approved\b/i.test(String(comment.body || '')))) {
+  if (!commentsOf(issue).some((comment) => /\bPlan approved\b/i.test(String(comment.body || ''))))
     return 'a founder comment "Plan approved"';
-  }
   return 'pick up or close';
 }
 
@@ -140,7 +120,10 @@ function readChaseActions(openActions, doneActions) {
     for (const line of String(markdown || '').split('\n')) {
       const header = /^##\s+#(\d+)\b/.exec(line);
       const closed = /^-\s+#(\d+)\b.*?\b(skip|done|closed)\b/i.exec(line);
-      if (header) actionNumber = Number(header[1]);
+      if (header) {
+        actionNumber = Number(header[1]);
+        status = archived ? 'closed' : 'open';
+      }
       if (closed) {
         actionNumber = Number(closed[1]);
         status = closed[2].toLowerCase();
@@ -157,33 +140,36 @@ function readChaseActions(openActions, doneActions) {
   for (const line of String(doneActions || '').split('\n')) {
     const item = /\[DECIDE\]\s+#(\d+)\s+has had no activity/i.exec(line);
     const action = /^-\s+#(\d+)\b.*?\b(skip|done|closed)\b/i.exec(line);
-    if (item && action) {
-      held.set(Number(item[1]), { number: Number(action[1]), status: action[2].toLowerCase() });
-    }
-  }
-  for (const line of String(doneActions || '').split('\n')) {
-    const item = /\[DECIDE\]\s+#(\d+)\s+has had no activity/i.exec(line);
-    const action = /^-\s+#(\d+)\s*Â·[^Â·]*Â·\s*(skip|done)\b/i.exec(line);
     if (item && action)
       held.set(Number(item[1]), { number: Number(action[1]), status: action[2].toLowerCase() });
   }
   return { active, held };
 }
 
-function humanAction({ number, issue, now, holder: currentHolder }) {
+function clip(value, max) {
+  const text = String(value || '');
+  return text.length <= max ? text : `${text.slice(0, max - 1)}\u2026`;
+}
+
+function humanAction({ number, issue, now, holder: currentHolder, activityAt }) {
   const started = new Date(issue.createdAt || now).toISOString().slice(0, 10);
-  const silentSince = new Date(latestActivity(issue, new Set())).toISOString().slice(0, 10);
+  const silentSince = new Date(activityAt || now).toISOString().slice(0, 10);
+  const why = clip(
+    `Marjorie dispatched it on ${started} (${clip(issue.title, 90)}). Nothing has moved since ${silentSince}. Holder: ${clip(currentHolder, 90)}.`,
+    300,
+  );
+  const step = clip(
+    '1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
+    200,
+  );
   return {
     number,
     issue: issue.number,
-    body: `## #${number} ðŸŸ¡ [DECIDE] #${issue.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${issue.number} -->\n\n**Why:** Marjorie dispatched it on ${started} (${issue.title}). Nothing has moved since ${silentSince}. Holder: ${currentHolder}.\n\n**Steps:**\n1. Reply in #longlive-marjorie with one word: \`assign\` (a session takes it this week), \`defer\` (she stops chasing; it stays open), or \`close\`.\n\n**Worked if:** the next brief no longer lists #${issue.number} under stalled.`,
+    body: `## #${number} \u{1F7E1} [DECIDE] #${issue.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${issue.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${issue.number} under stalled.`,
   };
 }
 
-/**
- * Pure dispatch-chase planner. It returns every item verdict plus the bounded
- * comments and HUMAN-ACTIONS.md blocks that the ops routine must write.
- */
+/** Pure planner: classifies every dispatched item and returns bounded writes. */
 export function evaluateDispatchChase({
   issues = [],
   prs = [],
@@ -197,29 +183,35 @@ export function evaluateDispatchChase({
   const chaseActions = readChaseActions(openActions, doneActions);
   const items = issues
     .map((issue) => {
-      const linked = linkedPrs(issue, prs);
-      const currentHolder = holder(issue, linked);
+      const linkedPrs = prs.filter((pr) => linkedIssueNumbers(pr).has(Number(issue.number)));
       const activityAt = Math.max(
         latestActivity(issue, own),
-        ...linked.map((pr) => latestActivity(pr, own)),
+        ...linkedPrs.map((pr) => latestActivity(pr, own)),
       );
       const silenceMs = Math.max(0, nowMs - activityAt);
       const held =
         chaseActions.held.get(Number(issue.number)) ||
         (labels(issue).includes('deferred') ? { status: 'deferred' } : null);
-      let verdict = 'fresh';
-      if (held) verdict = 'held';
-      else if (hasFounderBlock(issue, linked, own)) verdict = 'blocked-on-founder';
-      else if (silenceMs >= STALE_96_MS) verdict = 'stale-96';
-      else if (silenceMs >= STALE_48_MS) verdict = 'stale-48';
+      const blocked =
+        humanQuestion(issue, own) ||
+        linkedPrs.some((pr) => labels(pr).includes('needs-human-review') || humanQuestion(pr, own));
+      const verdict = held
+        ? 'held'
+        : blocked
+          ? 'blocked-on-founder'
+          : silenceMs >= STALE_96_MS
+            ? 'stale-96'
+            : silenceMs >= STALE_48_MS
+              ? 'stale-48'
+              : 'fresh';
       return {
         issue,
-        linkedPrs: linked,
+        linkedPrs,
         number: Number(issue.number),
         verdict,
         silenceMs,
         activityAt,
-        holder: currentHolder,
+        holder: holder(issue, linkedPrs),
         held,
         existingHumanAction: chaseActions.active.get(Number(issue.number)) || null,
       };
@@ -251,11 +243,16 @@ export function evaluateDispatchChase({
   )) {
     if (humanActions.length >= MAX_HUMAN_ACTIONS) break;
     humanActions.push(
-      humanAction({ number: nextNumber, issue: item.issue, now: nowMs, holder: item.holder }),
+      humanAction({
+        number: nextNumber,
+        issue: item.issue,
+        now: nowMs,
+        holder: item.holder,
+        activityAt: item.activityAt,
+      }),
     );
     nextNumber += 1;
   }
-
   return {
     items,
     nudges,
@@ -282,6 +279,5 @@ async function main(argv = process.argv.slice(2)) {
   return 0;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url))
   runMain(main, { name: 'dispatch-chase' });
-}
