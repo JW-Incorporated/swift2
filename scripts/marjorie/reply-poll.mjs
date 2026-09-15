@@ -31,7 +31,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { runMain } from '../lib/cli.mjs';
 import { approveResolved, listBuildTickets } from './build-ticket.mjs';
-import { renderAmbiguousApproval, renderLinkOnlyRelay, resolveReactionApproval } from './lib/build-ticket.mjs';
+import { renderAmbiguousApproval, renderLinkOnlyRelay, resolveReactionApproval } from './lib/build-approval.mjs';
 import { founderIds } from './lib/chat-inbox.mjs';
 // `discordGet` (null on a 404 — no thread yet, the steady state before any
 // founder replies — throws on any other non-2xx, 429/`retry_after` retry)

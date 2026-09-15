@@ -7,7 +7,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
-import { hasApproval, isOpenBuildTicket, renderApproval, resolveChatApproval } from './lib/build-ticket.mjs';
+import { hasApproval, isOpenBuildTicket, renderApproval, resolveChatApproval } from './lib/build-approval.mjs';
 
 const MAX_BUFFER = 20 * 1024 * 1024;
 
