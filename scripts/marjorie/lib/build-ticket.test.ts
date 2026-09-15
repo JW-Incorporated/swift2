@@ -108,6 +108,8 @@ describe('Austin allowlist and size', () => {
     expect(isAustinAllowedPath('apps/web/app/era/[[...slug]/page.tsx')).toBe(false);
     expect(isAustinAllowedPath('apps/web/app/era/[...slug]]/page.tsx')).toBe(false);
     expect(isAustinAllowedPath('apps/web/app/vault/current/[eraId]/route.ts')).toBe(false);
+    expect(isAustinAllowedPath('apps/web/lib/oauth.ts')).toBe(false);
+    expect(isAustinAllowedPath('apps/web/lib/auth-client.ts')).toBe(false);
   });
 });
 

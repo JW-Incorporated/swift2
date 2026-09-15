@@ -80,7 +80,7 @@ export function isAustinAllowedPath(value) {
   if (AUSTIN_PATH_EXCLUSIONS.prefixes.some((prefix) => candidate.startsWith(prefix))) return false;
   if (/^apps\/web\/app\/(?:.*\/)?route\.[cm]?[jt]sx?$/i.test(candidate)) return false;
   if (/(^|\/)\.env(?:\.|$)/i.test(candidate)) return false;
-  if (/(^|\/)(?:[^/]*secret[^/]*|auth(?:entication)?(?:[-_.][^/]*)?)(?:\/|\.|$)/i.test(candidate))
+  if (/(^|\/)(?:[^/]*secret[^/]*|(?:o?auth|authentication)(?:[-_.][^/]*)?)(?:\/|\.|$)/i.test(candidate))
     return false;
   if (/(^|\/)[^/]*(?:schema|migrations?)[^/]*(?:\/|$)/i.test(candidate)) return false;
   const root = AUSTIN_PATH_ALLOWLIST.find((entry) => candidate.startsWith(entry));
