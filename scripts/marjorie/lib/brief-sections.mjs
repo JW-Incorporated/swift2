@@ -141,7 +141,7 @@ export function renderDispatchedLine(dispatched, now) {
   const stalled = list.map((item) => item.chase).filter((entry) => /^stale-(48|96)$/.test(entry?.verdict || ''))
     .sort((a, b) => b.silenceMs - a.silenceMs || a.number - b.number);
   const held = list.map((item) => item.chase).filter((entry) => entry?.verdict === 'held' && !entry.heldReported);
-  const heldLine = held.length ? `- held: ${held.slice(0, 8).map((entry) => `#${entry.number} (${entry.held.number ? `HA #${entry.held.number}` : 'deferred'}) <!-- marjorie-held: issue=${entry.number} ha=${entry.held.number || 0} -->`).join(' \u00b7 ')}${held.length > 8 ? ` +${held.length - 8} more` : ''}` : '';
+  const heldLine = held.length ? `- held: ${held.slice(0, 8).map((entry) => `#${entry.number} (${entry.held.number ? `HA #${entry.held.number} ${entry.held.status === 'skip' ? 'skipped' : 'closed'}` : 'deferred'}) <!-- marjorie-held: issue=${entry.number} ha=${entry.held.number || 0} -->`).join(' \u00b7 ')}${held.length > 8 ? ` +${held.length - 8} more` : ''}` : '';
   if (!stalled.length) return [summary, heldLine].filter(Boolean).join('\n');
   const shown = stalled.slice(0, 8).map((entry) => {
     const action = entry.existingHumanAction ? `, HA #${entry.existingHumanAction}` : '';

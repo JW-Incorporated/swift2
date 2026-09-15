@@ -258,3 +258,19 @@ through mutation so queued sweeps read the preceding sweep's markers.
    "yes" at 14:00 UTC is built no sooner than 21:00 UTC the same day, often
    the next. Acceptable under the two-day rule; M6-style dispatch on the
    approval comment is the upgrade if it is not.
+
+### Recovery review: pending work and delivered held notices
+
+The shared snapshot also reads every open PR's file list and the exact head
+HUMAN-ACTIONS.md for pending ledger changes. Pending chase markers suppress
+refiling and pending numbers participate in allocation. Gate plans carry
+candidates; execution refreshes the snapshot after alert handling and files
+one combined chase HA PR. The source comment carries an own-chase marker.
+The sweep invokes this phase once, including when there are no alerts.
+
+Held notices carry an issue/HA marker and are considered reported only when
+a historical founders-brief has a Discord delivery marker. A failed delivery
+therefore does not consume the notice. Stalled and held detail have priority
+over the aggregate dispatched count within the existing section budget;
+founder-blocked issues appear in Waiting on you. This does not provide a
+global lock against unrelated manual HA writers after the final check.
