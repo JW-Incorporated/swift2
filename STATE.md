@@ -2,13 +2,35 @@
 
 ## Next
 
-1. Verify the 2026-09-15 12:00 UTC brief: one on-time key-owner dispatch,
-   one Discord delivery, and any same-day native cron ends at the guard.
-   User authorized waiting through this proof. Do not close #4290 or tick M7
-   before it passes. The one-hour poll and alarm dry-run proofs are complete.
-2. Review noon evidence, post it on #4180, close #4290 with the hour run list,
-   then update PLAN.md, MAP.md/ops as needed and STATE by PR/auto-merge.
-   Deliver the requested architect handoff prompt after actual completion.
+1. Recover the failed 2026-09-15 noon brief. Run 34966350705 started on time
+   at 12:00:07Z as sffan15-sys; guard succeeded, routine failed, delivery
+   skipped. Controlled forced replacement 34969710921 also failed. Do not
+   retry again without a diagnosis; inspect action/provider diagnostics.
+   Do not close #4290 or tick M7: the noon delivery proof has not passed.
+2. Resume M8 from feature/m8-ready-tickets and feature/m8-approval, preserving
+   their saved work. Complete implementation and real live proofs; founder
+   actions must come from the founder and cannot be synthesized.
+
+## Reboot recovery - 2026-09-15
+
+The owner authorized autonomous recovery, reversible decisions and pushes.
+The linked Long Live Bots Runbook was accessible in Chrome. The workstation
+reboot stopped the local noon monitor; its pending state is stale.
+
+Root independently checked run/step metadata at head 2e3e2977: guard job
+104371630886 succeeded; run job 104371733549 failed at the AI step; deliver
+job 104371933763 was skipped. The prompt file exists in that exact main
+tree. Checkout and prompt loading passed. An echoed shell-source error
+branch was initially misread as an emitted error; it was not executed.
+Claude initialized but returned is_error=true in 267 ms, with empty model
+usage and zero cost. Provider error detail was absent. No code defect is
+established. One force=true replacement was dispatched: 34969710921; it
+also failed. No more replacement runs are authorized by this checkpoint.
+
+Working branch: docs/m7-clock-noon-proof, isolated worktree of the same name.
+Read-only recovery evidence: .scratch/noon-recovery-check.json.
+M7 evidence investigation uses Luna; M8 recovery uses Sol. Spark is not an
+available session model. Prior poll/deployment evidence below is retained.
 
 ## M7 clock v2 checkpoint - 2026-09-15 03:55 UTC
 
