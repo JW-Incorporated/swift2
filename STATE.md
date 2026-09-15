@@ -101,3 +101,9 @@ Proof preparation: gitignored .scratch/clock-proof.mjs collects run metadata
 with paginated GET-only GitHub calls; .scratch/clock-proof.smoke.mjs passed.
 No live proof run. Next noon is 2026-09-15 12:00 UTC. If over two hours away
 after the poll proof, defer its passive check per the user contract.
+
+Activation validation: 200/200 focused tests across 17 files; simulated PR
+base transition check 3/3; lint 0 errors, 5 existing warnings. Fresh read-only
+Codex gpt-5.6-sol xhigh reviewed 037dac48 against main: ACCEPT, no findings.
+Default live-watch test passes; unrelated poll tests explicitly isolate it.
+Host evidence: https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756
