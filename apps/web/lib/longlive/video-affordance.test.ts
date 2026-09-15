@@ -390,9 +390,10 @@ describe('heroVideoFor over the real vault', () => {
   const promoted = withVideo.filter((i) => heroVideoFor(i));
 
   it('promotes the video on the pages whose hero was a still of it', () => {
-    // 11 of the 17 video-carrying moments, measured 2026-09-07. Photo
-    // Enrichment sourced frames as photos for the moments that ARE a video.
-    expect(withVideo).toHaveLength(17);
+    // 11 of the 19 video-carrying moments. Photo enrichment sourced frames
+    // for the moments whose videos are promoted as heroes; the historical
+    // media migration added official "Mean" and "Lavender Haze" embeds.
+    expect(withVideo).toHaveLength(19);
     expect(promoted).toHaveLength(11);
   });
 

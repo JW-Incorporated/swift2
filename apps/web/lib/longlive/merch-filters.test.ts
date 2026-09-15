@@ -162,8 +162,11 @@ describe('merchItemImage', () => {
     // remaining monogram->moment case is that one unfixable David Koma
     // product, which correctly falls back to its moment's real photo since
     // it's the only product in that moment.
-    expect(split).toBe(91);
-    expect(product).toBe(8);
+    // The official "Mean" and "Lavender Haze" videos now give their two
+    // moments renderable media, so their products move from product-only to
+    // the split product-and-moment composition.
+    expect(split).toBe(93);
+    expect(product).toBe(6);
     expect(moment).toBe(1);
     expect(monogram).toBe(0);
     expect(split + product + moment + monogram).toBe(100);
