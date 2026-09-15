@@ -11,7 +11,7 @@ describe('moment media publication gate', () => {
   it('matches the frozen, reviewable migration ledger exactly', () => {
     const ledger = readFileSync('docs/content/historical-media-migration-2026-09-15.md', 'utf8');
     const keys = [...ledger.matchAll(/^\| `([^`]+\.mjs#[^`]+)` \|/gm)].map((match) => match[1]);
-    expect(keys).toHaveLength(48);
+    expect(keys).toHaveLength(38);
     expect(new Set(keys)).toEqual(new Set(MEDIA_LEGACY.keys()));
   });
   it.each([

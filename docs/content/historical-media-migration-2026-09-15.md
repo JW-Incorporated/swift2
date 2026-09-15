@@ -2,20 +2,12 @@
 
 The publication gate began from commit `e3afc2b1` with 48 older moments that had no authored photo URL, thumbnail, video, or social embed. They are migration debt, not compliant examples. The active exemptions in `scripts/lib/moment-media-gate.mjs` pin both each key and the exact SHA-256 of its original item: editing an item requires adding media, and adding a new key is outside this frozen baseline. Remove a row and its code exemption when media is added.
 
+Ten Showgirl-era gaps were filled on September 15 with verified, credited photographs or official video thumbnails. The remaining migration list contains 38 items.
+
 Dates below are event dates. The source is a reference for the story; it does not satisfy the media requirement. Media relevance and rights still require editorial and visual review.
 
 | Stable key | Event date | Story source |
 |---|---:|---|
-| `the-life-of-a-showgirl.mjs#showgirl-kelce-bratenahl-home` | 2026-09-01 | [News 5 Cleveland (WEWS)](https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million) |
-| `the-life-of-a-showgirl.mjs#showgirl-ashley-taunton-donation` | 2026-08-28 | [Rolling Stone](https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/) |
-| `the-life-of-a-showgirl.mjs#i-knew-it-i-knew-you-toy-story-5-mv-debut` | 2026-08-18 | [Animation Magazine](https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/) |
-| `the-life-of-a-showgirl.mjs#showgirl-greenfield-new-girl-cameo` | 2026-08-14 | [TheWrap](https://www.thewrap.com/creative-content/tv-shows/max-greenfield-taylor-swift-new-girl-cameo/) |
-| `the-life-of-a-showgirl.mjs#showgirl-newlyweds-first-date-night-rumored` | 2026-08-09 | [heavy.com](https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/) |
-| `the-life-of-a-showgirl.mjs#showgirl-swift-music-pulled-from-trump-tiktoks` | 2026-08-07 | [Variety](https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/) |
-| `the-life-of-a-showgirl.mjs#showgirl-wedding-invite-watermark-takedown` | 2026-07-06 | [Yahoo Entertainment](https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html) |
-| `the-life-of-a-showgirl.mjs#showgirl-answer-the-call-donation` | 2026-07-02 | [TMZ](https://www.tmz.com/2026/07/02/how-taylor-swift-travis-kelce-charity-donations-are-being-used/) |
-| `the-life-of-a-showgirl.mjs#i-knew-it-i-knew-you-country-panel-close` | 2026-06-08 | [Country Insider](https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html) |
-| `the-life-of-a-showgirl.mjs#showgirl-operation-breakthrough-holiday-donation` | 2025-12-01 | [Billboard](https://www.billboard.com/music/pop/taylor-swift-operation-breakthrough-kansas-city-donation-1236147218/) |
 | `tortured-poets.mjs#a-quiet-fourth-of-july-at-montanas-yellowstone-club` | 2025-07-04 | [Page Six](https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/) |
 | `tortured-poets.mjs#a-surprise-afternoon-at-joe-dimaggio-childrens-hospital` | 2025-06-01 | [CBS News](https://www.cbsnews.com/miami/news/joe-dimaggios-south-florida-cancer-survivor-taylor-swift-visit-eras-tour/) |
 | `tortured-poets.mjs#a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen` | 2025-05-31 | [Marie Claire](https://www.marieclaire.com/fashion/taylor-swift-gucci-sequin-matching-set-selena-gomez-reunion-new-york/) |

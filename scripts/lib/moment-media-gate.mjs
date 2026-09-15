@@ -75,46 +75,6 @@ export const MEDIA_LEGACY = new Map([
     '035c387ea6da56718fb2fbc387a5be97a851aadc686c0d79f5124e1f1c0fca37',
   ],
   [
-    'the-life-of-a-showgirl.mjs#showgirl-answer-the-call-donation',
-    '06cf7facb8c2e323665ee667863656012f827ccf1b3b97d82cbe688269f241ab',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-wedding-invite-watermark-takedown',
-    '900bb01480f8a2a887239568d6281ab41382f368f8b52e6266bdb42dc5cbd08f',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-operation-breakthrough-holiday-donation',
-    '560d9248129166de82341b7aaaf732277504056e8cb5d8c47f08ec257f8f8750',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-swift-music-pulled-from-trump-tiktoks',
-    '6688d9f1615f9ebf298c8a24456e284b9662aba26bcbd8cfdcbcbeee58beaeac',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-newlyweds-first-date-night-rumored',
-    '2a54faca30b986b855d73e161875895aeaca9198f5ffc128fdd8a206834f6d04',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-greenfield-new-girl-cameo',
-    '2bac07661f14a56c61978edfa97ffa5566ab29de799f79a08746f0a1e8ccbbbe',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#i-knew-it-i-knew-you-toy-story-5-mv-debut',
-    'a462dcc3740c5d42b22f238d72751a59fcad12c00c3a0bcb84cebdae8bdb326d',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-ashley-taunton-donation',
-    'dfb0aff09b979fcc31d908f33d3ab328f075af9d208efd0034823da99506d19b',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#showgirl-kelce-bratenahl-home',
-    '55a4d066a41f99bbc3b80af16ddcc30a1ce78b8dbaec9c282635701c4421aaf5',
-  ],
-  [
-    'the-life-of-a-showgirl.mjs#i-knew-it-i-knew-you-country-panel-close',
-    'a6eeeec0bb92a9aeaff6eb2eb3ff82a8ecd2611a263dc8da00588114327952f1',
-  ],
-  [
     'tortured-poets.mjs#a-surprise-afternoon-at-joe-dimaggio-childrens-hospital',
     'eb9c24efbba2a11891a0968ae3fef3470281dc485473e81f4bda91dcd91c96ae',
   ],
