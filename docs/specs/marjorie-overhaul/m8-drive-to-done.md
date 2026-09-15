@@ -62,16 +62,29 @@ through one helper that renders the body and refuses a body that is not
 ready. Required sections, in this order:
 
 1. `**Expected**` — one to three sentences of user-visible behavior.
+   Implementation precision: sentence semantics remain prompt judgment; the
+   deterministic helper validates a nonempty plain-text section and rejects
+   injected ticket structure.
 2. `**Where**` — the surface and the files she believes change, as paths.
    She may be wrong; she must name a starting point.
 3. `**Size**` — `small` (≤5 files, ≤150 lines, inside Austin's allowlist),
    `medium` (fits a session, outside Austin's fence), or `large` (needs a
    spec). Her estimate, from the paths in **Where** against the allowlist
    in `austin.md` §Scope item 4, which the helper encodes as data.
+   Implementation precision: `small` also requires an explicit positive
+   `estimatedLines` ≤150; unknown lines are `medium`, and only an explicit
+   `needsSpec` judgment is `large`, because paths alone prove neither bound.
 4. `**Acceptance criteria**` — checkboxes.
 5. `**Reporter said**` — the verbatim quote, when there is one (never a
    founder's Discord words; the repo is public — link the message instead).
 6. The marker `<!-- marjorie-build: size=<s> source=<issue|alert|chat:link> -->`.
+
+Bounded retry idempotency uses a complete paginated REST snapshot plus the
+immutable submission number or full GitHub alert issue URL from the source line;
+dates and other surrounding text never define identity. The helper refuses a
+dedupe lookup without one of those canonical keys. A large bank item carries
+both `founder-decision` and `marjorie-filed` plus the same source line so retries
+reuse it too.
 
 Labels: `marjorie-filed`, `desk:build`, `bug` + `exp:P1|P2|P3` for bugs
 (unchanged from `s1-triage.md`), `enhancement` for requests. `small` items
