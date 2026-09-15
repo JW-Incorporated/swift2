@@ -107,3 +107,8 @@ base transition check 3/3; lint 0 errors, 5 existing warnings. Fresh read-only
 Codex gpt-5.6-sol xhigh reviewed 037dac48 against main: ACCEPT, no findings.
 Default live-watch test passes; unrelated poll tests explicitly isolate it.
 Host evidence: https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756
+
+Activation CI run 34921284222 exposed one more clock-off test fixture in
+chat-delivery.test.ts. Its pollWith helper now explicitly isolates the clock;
+all Marjorie test poll calls were audited. Expanded local suite: 225/225
+across 18 files. No production change in this CI fix; re-review pending.
