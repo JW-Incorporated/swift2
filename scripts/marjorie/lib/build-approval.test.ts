@@ -55,7 +55,7 @@ describe('approval target resolution', () => {
   });
 
   it('requires a founder reactor on one Marjorie webhook brief target', () => {
-    const message = { id: messageId, webhook_id: '9', author: { username: 'Marjorie' }, content: `- waiting #77\n- merged #4300\n- dispatched #${build.number}` };
+    const message = { id: messageId, webhook_id: '9', author: { username: 'Marjorie' }, content: `- waiting on you: #77\n- merged: #4300\n- dispatched: 1 open, oldest 1d (#${build.number})` };
     expect(resolveReactionApproval({ message, deliveredMessageId: messageId, messageUrl, reactorIds: ['7'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: true, issue: build });
     expect(resolveReactionApproval({ message, deliveredMessageId: '1549104718482116723', messageUrl, reactorIds: ['7'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: false, reason: 'not-marjorie-brief' });
     expect(resolveReactionApproval({ message, deliveredMessageId: messageId, messageUrl, reactorIds: ['8'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: false, reason: 'no-founder-reaction' });
