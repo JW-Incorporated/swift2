@@ -26,6 +26,8 @@ import { fileURLToPath } from 'node:url';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DAY_MS = 86_400_000;
 const HOUR_MS = 3_600_000;
+const LIST_LIMIT = 100;
+const WORKFLOW_RUN_PAGE_SIZE = 100;
 
 export function loadRunnerCadence(file = path.join(HERE, 'runner-cadence.json')) {
   return JSON.parse(readFileSync(file, 'utf8'));
@@ -50,7 +52,7 @@ export function unescapeAnchor(s) {
  * history to read. A runner is alive if the artifact its registry entry
  * promises has appeared inside its tolerance window.
  */
-export function checkRunners({ allPRs = [], issues = [], briefComments = [], workflowRuns = [], workflowRunTotalCount = null, cadence, now, listsCapExhausted = false }) {
+export function checkRunners({ allPRs = [], issues = [], briefComments = [], workflowRuns = null, workflowRunTotalCount = null, cadence, now, listsCapExhausted = false }) {
   const prs = allPRs; // liveness must look at MERGED PRs too — a runner whose
   // PR auto-merged within the hour is the healthiest case, and checking only
   // open PRs marked Vault Run, Content Shift and Growth "dark" on a day all
@@ -86,7 +88,6 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], wor
   // SHORTER than the fetch limit is complete, though — an empty repo is a
   // genuinely dark runner, not a short window — so the rule only kicks in
   // when the list is plausibly at its `--limit` (PER_PAGE-sized).
-  const LIST_LIMIT = 100;
   const byType = (type) => artifacts.filter((a) => a.type === type);
   const oldestSeenMs = (type) => {
     const ts = byType(type).map((a) => new Date(a.at).getTime()).filter(Number.isFinite);
@@ -94,7 +95,8 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], wor
   };
   const windowHoursFor = (kind) => {
     const type = kind === 'brief-comment' ? 'brief-comment' : kind === 'workflow-name' ? 'workflow-run' : kind.startsWith('pr') ? 'pr' : 'issue';
-    if (byType(type).length < LIST_LIMIT) return Infinity; // complete list: the window is everything
+    const sourceLimit = type === 'workflow-run' ? WORKFLOW_RUN_PAGE_SIZE : LIST_LIMIT;
+    if (byType(type).length < sourceLimit) return Infinity; // complete list: the window is everything
     const oldest = oldestSeenMs(type);
     return oldest === null ? Infinity : (nowMs - oldest) / HOUR_MS;
   };
