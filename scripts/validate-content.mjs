@@ -56,6 +56,7 @@ import {
   PROSE_REDLINE_LEGACY,
 } from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
+import { videoPresentationErrors } from './lib/video-presentation-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
 
@@ -378,31 +379,12 @@ for (const { file, data } of loaded) {
       err(
         `videoPresentationException "${videoException}" not in ${[...VIDEO_PRESENTATION_EXCEPTIONS].join('|')} — exceptions must be explicit and reviewable`,
       );
-    const canonicalYoutubeIds = (it.moment?.sources ?? [])
-      .filter(
-        (s) => s?.source_type === 'official' && /(?:youtube\.com|youtu\.be)/i.test(s?.url ?? ''),
-      )
-      .map((s) => {
-        try {
-          const url = new URL(s.url);
-          return url.hostname.endsWith('youtu.be')
-            ? url.pathname.split('/').filter(Boolean)[0]
-            : url.searchParams.get('v');
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean);
-    if (canonicalYoutubeIds.length && videoException == null) {
-      const video = it.video ?? it.moment?.video;
-      if (!video?.youtubeId)
-        err(
-          `official YouTube source ${canonicalYoutubeIds[0]} has no matching video — attach the canonical player or record videoPresentationException (unavailable|removed|rights|privacy|safety)`,
-        );
-      else if (!canonicalYoutubeIds.includes(video.youtubeId))
-        err(
-          `video.youtubeId "${video.youtubeId}" does not match the official YouTube source (${canonicalYoutubeIds.join(', ')}) — do not attach unrelated footage`,
-        );
+    for (const message of videoPresentationErrors({
+      sources: it.moment?.sources,
+      video: it.video ?? it.moment?.video,
+      videoPresentationException: videoException,
+    })) {
+      err(message);
     }
 
     // --- photo host allowlist (2026-08-24, issue #1968) --------------------
