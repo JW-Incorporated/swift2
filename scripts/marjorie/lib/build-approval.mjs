@@ -52,7 +52,7 @@ export function hasApproval(comments, messageId) {
 function issueRefs(text, repo = 'JW-Incorporated/swift2') {
   const safe = String(text || '').replace(/\bHA\s*#\s*\d+/gi, '');
   const refs = new Set();
-  for (const match of safe.matchAll(/(?:^|[\s(\[])#(\d+)(?=$|[\s\]),.;:!?])/g)) refs.add(Number(match[1]));
+  for (const match of safe.matchAll(/(?:^|[\s([])#(\d+)(?=$|[\s\]),.;:!?])/g)) refs.add(Number(match[1]));
   const escaped = repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   for (const match of safe.matchAll(new RegExp(`https://github\\.com/${escaped}/issues/(\\d+)(?=$|[\\s.,;:!?])`, 'g'))) refs.add(Number(match[1]));
   return refs;
