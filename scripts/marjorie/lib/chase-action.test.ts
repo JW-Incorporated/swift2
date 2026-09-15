@@ -17,6 +17,13 @@ describe('resolveChaseAction', () => {
     expect(resolveChaseAction({ context: { ...context, replying_to: null }, issues: [issue], openMd: two, doneMd: '' })).toMatchObject({ ok: false, reason: 'ambiguous' });
   });
 
+  it('rejects a direct issue reference that conflicts with the replied-to chase action', () => {
+    const conflicting = { ...context, text: 'assign #9999' };
+    expect(
+      resolveChaseAction({ context: conflicting, issues: [issue], openMd, doneMd: '' }),
+    ).toMatchObject({ ok: false, reason: 'target-mismatch' });
+  });
+
   it('treats a skipped chase as final and never resurrects it', () => {
     const doneMd = `- #76 · 2026-09-14 · skip · stale — "deferred" · by chat · <!-- marjorie-chase: 96h issue=4324 -->`;
     expect(resolveChaseAction({ context, issues: [issue], openMd: '', doneMd })).toMatchObject({ ok: true, noop: true, final: true, ha: 76 });

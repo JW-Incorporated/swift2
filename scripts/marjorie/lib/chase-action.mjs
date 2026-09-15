@@ -31,11 +31,14 @@ function refs(text) {
 }
 
 function targetRefs(context) {
+  const has = new Set();
+  const issues = new Set();
   for (const value of [context?.text, context?.replying_to?.text, context?.thread_root?.text]) {
     const found = refs(value);
-    if (found.has.length || found.issues.length) return found;
+    for (const number of found.has) has.add(number);
+    for (const number of found.issues) issues.add(number);
   }
-  return { has: [], issues: [] };
+  return { has: [...has], issues: [...issues] };
 }
 
 export function actionMarker({ ha, issue, action, messageId }) {
@@ -69,6 +72,12 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   const done = records(doneMd, false);
   const wanted = targetRefs(context);
   if (wanted.has.length > 1 || wanted.issues.length > 1) return { ok: false, reason: 'ambiguous' };
+  if (wanted.has.length === 1 && wanted.issues.length === 1) {
+    const named = [...open, ...done].find((item) => item.ha === wanted.has[0]);
+    if (named && named.issue !== wanted.issues[0]) {
+      return { ok: false, reason: 'target-mismatch' };
+    }
+  }
   let candidates = open;
   if (wanted.has.length) candidates = candidates.filter((item) => item.ha === wanted.has[0]);
   if (wanted.issues.length) candidates = candidates.filter((item) => item.issue === wanted.issues[0]);
