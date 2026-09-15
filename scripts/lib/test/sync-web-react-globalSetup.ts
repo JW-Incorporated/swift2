@@ -42,6 +42,10 @@ function backupPathFor(dest: string): string {
   return `${dest}.pre-render-test-harness-backup`;
 }
 
+export function directoryLinkType(platform: NodeJS.Platform = process.platform): 'junction' | 'dir' {
+  return platform === 'win32' ? 'junction' : 'dir';
+}
+
 /**
  * Swaps `node_modules/<name>` for a symlink into apps/web's copy, and
  * reports how to undo it on teardown.
@@ -80,11 +84,11 @@ function symlinkPackage(name: string): 'already-linked' | 'restore' | 'remove' |
     const backup = backupPathFor(dest);
     rmSync(backup, { recursive: true, force: true });
     renameSync(dest, backup);
-    symlinkSync(source, dest, 'dir');
+    symlinkSync(source, dest, directoryLinkType());
     return 'restore';
   }
   mkdirSync(join(repoRoot, 'node_modules'), { recursive: true });
-  symlinkSync(source, dest, 'dir');
+  symlinkSync(source, dest, directoryLinkType());
   return 'remove';
 }
 
