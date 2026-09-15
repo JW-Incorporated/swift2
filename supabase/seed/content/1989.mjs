@@ -2524,7 +2524,7 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
-        photos: [{ url: 'https://s.abcnews.com/images/Entertainment/ABC_taylor_swift_jef_140818_16x9_992.jpg?w=1600', credit: 'ABC News', caption: 'Taylor Swift during the August 2014 1989 reveal, at the start of the album’s Polaroid-framed visual era.', kind: 'reference', focalPoint: '50% 28%' }],
+        photos: [{ url: 'https://s.abcnews.com/images/Entertainment/ABC_taylor_swift_jef_140818_16x9_992.jpg?w=1600', credit: 'Big Machine Records, via ABC News', caption: 'The original Polaroid-framed 1989 cover, the central artifact of the album’s instant-photo visual language.', kind: 'primary', focalPoint: '50% 50%' }],
         sources: [
           {
             outlet: 'ABC News',
