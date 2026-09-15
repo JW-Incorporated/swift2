@@ -82,7 +82,8 @@ export async function main(argv = process.argv.slice(2), { spawnImpl = spawnSync
   // Keep failure evidence visible even when a shell captures stdout and
   // exits on this command's failure. Never print provider text or URLs.
   const numeric = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 'unknown';
-  console.error(`discord-delivery: status=${numeric(result.status)} delivered=${numeric(result.delivered)} chunks=${numeric(result.chunks)}`);
+  const cooldown = result.status === 429 ? ` retryAfterMs=${numeric(result.retryAfterMs)}` : '';
+  console.error(`discord-delivery: status=${numeric(result.status)} delivered=${numeric(result.delivered)} chunks=${numeric(result.chunks)}${cooldown}`);
 
   if (args.noMailFallback) {
     console.log('delivered: neither');
