@@ -21,26 +21,29 @@ export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
     'docs/specs/',
     'supabase/migrations/',
   ]),
-  files: Object.freeze([
-    'CLAUDE.md',
+  files: Object.freeze(['CLAUDE.md', 'docs/architecture.md', 'docs/decisions.md']),
+  basenames: Object.freeze([
     'package.json',
     'package-lock.json',
     'npm-shrinkwrap.json',
     'pnpm-lock.yaml',
     'yarn.lock',
-    'docs/architecture.md',
-    'docs/decisions.md',
   ]),
 });
 
 function normalizedPath(value) {
-  const candidate = String(value ?? '').trim().replaceAll('\\', '/').replace(/^\.\//, '');
+  const candidate = String(value ?? '')
+    .trim()
+    .replaceAll('\\', '/')
+    .replace(/^\.\//, '');
   if (!candidate) throw new Error('Where needs at least one concrete file path');
   if (/^[A-Za-z]:\//.test(candidate) || candidate.startsWith('/')) {
     throw new Error(`path must be repository-relative: ${candidate}`);
   }
   if (candidate.split('/').includes('..')) throw new Error(`path may not traverse: ${candidate}`);
-  if (/[*?\[\]{}]/.test(candidate)) throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
+  if (['*', '?', '[', ']', '{', '}'].some((token) => candidate.includes(token))) {
+    throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
+  }
   return candidate;
 }
 
@@ -58,10 +61,14 @@ export function isAustinAllowedPath(value) {
   } catch {
     return false;
   }
+  const basename = candidate.split('/').at(-1);
+  if (!basename?.includes('.')) return false;
   if (AUSTIN_PATH_EXCLUSIONS.files.includes(candidate)) return false;
+  if (AUSTIN_PATH_EXCLUSIONS.basenames.includes(basename)) return false;
   if (AUSTIN_PATH_EXCLUSIONS.prefixes.some((prefix) => candidate.startsWith(prefix))) return false;
   if (/(^|\/)\.env(?:\.|$)/i.test(candidate)) return false;
-  if (/(^|\/)(?:[^/]*secret[^/]*|auth(?:entication)?)(?:\/|\.|$)/i.test(candidate)) return false;
+  if (/(^|\/)(?:[^/]*secret[^/]*|auth(?:entication)?(?:[-_.][^/]*)?)(?:\/|\.|$)/i.test(candidate))
+    return false;
   if (/(^|\/)(?:schema|migrations?)(?:\/|\.|$)/i.test(candidate)) return false;
 
   const rule = AUSTIN_PATH_ALLOWLIST.find(({ root }) => candidate.startsWith(root));
@@ -121,14 +128,19 @@ export function renderBuildTicket(input = {}) {
   const expected = requiredText(input.expected, 'Expected');
   const surface = requiredText(input.surface, 'Where.surface');
   const paths = normalizePaths(input.paths);
-  const acceptance = (input.acceptanceCriteria || []).map((item) => String(item).trim()).filter(Boolean);
+  const acceptance = (input.acceptanceCriteria || [])
+    .map((item) => String(item).trim())
+    .filter(Boolean);
   if (acceptance.length === 0) throw new Error('Acceptance criteria is required');
   const source = sourceValue(input.source);
   if (source.startsWith('chat:') && String(input.reporterSaid ?? '').trim()) {
-    throw new Error("founder's Discord words must not be copied into a public ticket; use the message link");
+    throw new Error(
+      "founder's Discord words must not be copied into a public ticket; use the message link",
+    );
   }
   const size = sizeFromPaths(paths, input.estimatedLines, { needsSpec: input.needsSpec === true });
-  if (size === 'large') throw new Error('large item requires a spec and must not be filed as a build ticket');
+  if (size === 'large')
+    throw new Error('large item requires a spec and must not be filed as a build ticket');
 
   const sections = [
     `**Expected**\n${expected}`,
@@ -151,7 +163,9 @@ function sectionBody(body, heading, nextTokens) {
   const start = body.indexOf(heading);
   if (start < 0) return '';
   const contentStart = start + heading.length;
-  const ends = nextTokens.map((token) => body.indexOf(token, contentStart)).filter((index) => index >= 0);
+  const ends = nextTokens
+    .map((token) => body.indexOf(token, contentStart))
+    .filter((index) => index >= 0);
   const end = ends.length ? Math.min(...ends) : body.length;
   return body.slice(contentStart, end).trim();
 }
@@ -163,14 +177,23 @@ export function checkBuildTicket(body) {
   for (const heading of required) {
     if (!text.includes(heading)) errors.push(`missing section: ${heading}`);
   }
-  const marker = text.match(/<!-- marjorie-build: size=(small|medium|large) source=(issue|alert|chat:https:\/\/\S+) -->/);
+  const markers = [
+    ...text.matchAll(
+      /^<!-- marjorie-build: size=(small|medium|large) source=(issue|alert|chat:https:\/\/\S+) -->$/gm,
+    ),
+  ];
+  const marker = markers.at(-1);
   if (!marker) errors.push('missing or invalid marjorie-build marker');
+  if (markers.length > 1) errors.push('multiple marjorie-build markers');
 
   const ordered = [...required];
   if (text.includes('**Reporter said**')) ordered.push('**Reporter said**');
-  ordered.push('<!-- marjorie-build:');
   const indices = ordered.map((token) => text.indexOf(token));
-  if (indices.some((index) => index < 0) || indices.some((index, i) => i > 0 && index <= indices[i - 1])) {
+  indices.push(marker?.index ?? -1);
+  if (
+    indices.some((index) => index < 0) ||
+    indices.some((index, i) => i > 0 && index <= indices[i - 1])
+  ) {
     errors.push('sections are out of order');
   }
   if (text.includes('**Expected**') && !sectionBody(text, '**Expected**', ['**Where**'])) {
@@ -181,7 +204,8 @@ export function checkBuildTicket(body) {
   const surface = where.match(/^Surface:\s*(.+)$/m)?.[1]?.trim();
   if (text.includes('**Where**') && !surface) errors.push('Where needs a surface');
   const paths = [...where.matchAll(/^- `([^`]+)`\s*$/gm)].map((match) => match[1]);
-  if (text.includes('**Where**') && paths.length === 0) errors.push('Where needs at least one concrete file path');
+  if (text.includes('**Where**') && paths.length === 0)
+    errors.push('Where needs at least one concrete file path');
   try {
     if (paths.length) normalizePaths(paths);
   } catch (error) {
@@ -196,12 +220,17 @@ export function checkBuildTicket(body) {
     errors.push('Acceptance criteria needs at least one unchecked checkbox');
   }
   if (text.includes('**Reporter said**')) {
-    const reporter = sectionBody(text, '**Reporter said**', ['<!-- marjorie-build:']);
+    const markerStart = marker?.index ?? text.length;
+    const reporter = text
+      .slice(text.indexOf('**Reporter said**') + '**Reporter said**'.length, markerStart)
+      .trim();
     if (!/^>./m.test(reporter)) errors.push('Reporter said must contain a blockquote');
   }
 
   const sizeBody = sectionBody(text, '**Size**', ['**Acceptance criteria**']);
-  const claim = sizeBody.match(/^`(small|medium)` \(files=(\d+); estimated-lines=(\d+|unknown); Austin-allowlist=(yes|no)\)$/);
+  const claim = sizeBody.match(
+    /^`(small|medium)` \(files=(\d+); estimated-lines=(\d+|unknown); Austin-allowlist=(yes|no)\)$/,
+  );
   if (text.includes('**Size**') && !claim) {
     errors.push('Size must use the helper-derived format');
   } else if (claim && paths.length) {
@@ -210,7 +239,8 @@ export function checkBuildTicket(body) {
     const actualAllowed = paths.every(isAustinAllowedPath);
     const actualSize = sizeFromPaths(paths, estimatedLines);
     if (Number(claimedCount) !== paths.length) errors.push('Size file count does not match Where');
-    if ((claimedAllowed === 'yes') !== actualAllowed) errors.push('Size allowlist result does not match Where');
+    if ((claimedAllowed === 'yes') !== actualAllowed)
+      errors.push('Size allowlist result does not match Where');
     if (claimedSize !== actualSize) errors.push(`Size claim is invalid; expected ${actualSize}`);
   }
   if (marker?.[1] === 'large') errors.push('large item must not be filed as a build ticket');
@@ -232,7 +262,9 @@ async function main(argv = process.argv.slice(2)) {
   }
   if (command === 'size' && inputPath) {
     const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
-    console.log(sizeFromPaths(input.paths, input.estimatedLines, { needsSpec: input.needsSpec === true }));
+    console.log(
+      sizeFromPaths(input.paths, input.estimatedLines, { needsSpec: input.needsSpec === true }),
+    );
     return 0;
   }
   if (command === 'check' && inputPath) {
@@ -244,7 +276,9 @@ async function main(argv = process.argv.slice(2)) {
     for (const error of result.errors) console.error(error);
     return 1;
   }
-  console.error('Usage: build-ticket.mjs render <input.json> [output.md] | size <input.json> | check <body.md>');
+  console.error(
+    'Usage: build-ticket.mjs render <input.json> [output.md] | size <input.json> | check <body.md>',
+  );
   return 2;
 }
 

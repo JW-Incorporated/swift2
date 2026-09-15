@@ -151,6 +151,32 @@ workflow per sweep.
 | `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — Facebook has no API and forbids automated collection | **Always** — this is the canonical human action, see Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
 | `knowledge-stale` (`Watchdog: knowledge engine current-tier data is stale`) | `scripts/knowledge-freshness.mjs` exit code + the worker's last run (alert body) | Re-dispatch the knowledge worker once | A missing/expired API key | watchdog self-closes |
 
+### Build-ticket helper (every "real defect" escalation)
+
+Whenever the table says to file a build-desk issue, create a JSON draft
+under `$RUNNER_TEMP` with a `node` command, then run the shared helper. Use
+`source: "alert"`, omit `reporterSaid`, put the alert link in
+`sourceContext`, and put the observed failure plus the run/log evidence in
+`context`. Supply one to three user-visible `expected` sentences, a
+`surface`, concrete repository-relative `paths` (never globs/directories),
+an honest `estimatedLines` when known, `needsSpec`, and checkbox-ready
+`acceptanceCriteria`.
+
+```
+node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
+node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
+node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
+```
+
+If `size` prints `large`, do not file a build ticket: bank a
+`founder-decision` item naming the spec needed. If `render` or `check` fails,
+rewrite the draft and run both again — never skip the readiness gate. Only
+after `check` prints `ready` may you create the issue using that body file.
+Labels are `marjorie-filed,desk:build,bug` plus exactly one
+`exp:P1|exp:P2|exp:P3`; add `needs-triage` when `size` printed `small`.
+For the large/spec branch, name the bank item in the alert ledger and use
+`action=escalate`; it is the durable next step and must not be filed again.
+
 ## Step 3 — leave your ledger comment (every row except the two you close, and the two "nothing" rows with no human action)
 
 One issue comment, `gh issue comment <number> --body-file <file>`, containing:

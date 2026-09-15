@@ -68,6 +68,9 @@ ready. Required sections, in this order:
    `medium` (fits a session, outside Austin's fence), or `large` (needs a
    spec). Her estimate, from the paths in **Where** against the allowlist
    in `austin.md` §Scope item 4, which the helper encodes as data.
+   Implementation precision: `small` also requires an explicit positive
+   `estimatedLines` ≤150; unknown lines are `medium`, and only an explicit
+   `needsSpec` judgment is `large`, because paths alone prove neither bound.
 4. `**Acceptance criteria**` — checkboxes.
 5. `**Reporter said**` — the verbatim quote, when there is one (never a
    founder's Discord words; the repo is public — link the message instead).

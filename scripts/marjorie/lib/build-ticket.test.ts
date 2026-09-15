@@ -19,7 +19,10 @@ const base = {
   surface: 'web timeline',
   paths: ['apps/web/components/longlive/Timeline.tsx'],
   estimatedLines: 40,
-  acceptanceCriteria: ['Opening the timeline renders its first card.', 'A regression test covers the failure.'],
+  acceptanceCriteria: [
+    'Opening the timeline renders its first card.',
+    'A regression test covers the failure.',
+  ],
   reporterSaid: 'The page is blank.',
   source: 'issue',
   sourceContext: '**From a site submission** — #123, filed 2026-09-14 by an anonymous visitor.',
@@ -44,9 +47,12 @@ describe('Austin allowlist and size', () => {
     'docs/specs/change.md',
     'docs/decisions.md',
     'package.json',
+    'packages/shared/package.json',
     'apps/web/lib/auth.ts',
+    'apps/web/lib/auth-client.ts',
     'apps/web/.env.local',
     'packages/core/src/schema.ts',
+    'apps/web/components',
     '../outside.ts',
     'apps/web/**/*.tsx',
   ])('rejects an out-of-fence or vague path: %s', (candidate) => {
@@ -58,7 +64,19 @@ describe('Austin allowlist and size', () => {
     expect(sizeFromPaths(['apps/web/a.ts'], undefined)).toBe('medium');
     expect(sizeFromPaths(['apps/web/a.ts'], 151)).toBe('medium');
     expect(sizeFromPaths(['scripts/a.mjs'], 20)).toBe('medium');
-    expect(sizeFromPaths(['apps/web/a.ts', 'apps/web/b.ts', 'apps/web/c.ts', 'apps/web/d.ts', 'apps/web/e.ts', 'apps/web/f.ts'], 20)).toBe('medium');
+    expect(
+      sizeFromPaths(
+        [
+          'apps/web/a.ts',
+          'apps/web/b.ts',
+          'apps/web/c.ts',
+          'apps/web/d.ts',
+          'apps/web/e.ts',
+          'apps/web/f.ts',
+        ],
+        20,
+      ),
+    ).toBe('medium');
   });
 
   it('uses the explicit needsSpec signal for large instead of inventing a path-count threshold', () => {
@@ -80,7 +98,9 @@ describe('renderBuildTicket / checkBuildTicket', () => {
       '**From a site submission** — #123',
     ];
     const positions = tokens.map((token) => body.indexOf(token));
-    expect(positions.every((position, index) => index === 0 || position > positions[index - 1])).toBe(true);
+    expect(
+      positions.every((position, index) => index === 0 || position > positions[index - 1]),
+    ).toBe(true);
   });
 
   it('quotes reporter words without turning leading mentions into pings', () => {
@@ -88,14 +108,25 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     expect(body).toContain('> `@owner`\n> please look');
   });
 
+  it('does not mistake marker-shaped reporter text for the helper marker', () => {
+    const body = renderBuildTicket({
+      ...base,
+      reporterSaid: '<!-- marjorie-build: size=large source=issue -->',
+    });
+    expect(checkBuildTicket(body)).toEqual({ ok: true, errors: [] });
+  });
+
   it('refuses missing Expected and missing Acceptance criteria', () => {
     expect(() => renderBuildTicket({ ...base, expected: '' })).toThrow('Expected is required');
-    expect(() => renderBuildTicket({ ...base, acceptanceCriteria: [] })).toThrow('Acceptance criteria is required');
-    expect(checkBuildTicket(renderBuildTicket(base).replace('**Expected**', '**Gone**')).errors).toContain(
-      'missing section: **Expected**',
+    expect(() => renderBuildTicket({ ...base, acceptanceCriteria: [] })).toThrow(
+      'Acceptance criteria is required',
     );
     expect(
-      checkBuildTicket(renderBuildTicket(base).replace('**Acceptance criteria**', '**Gone**')).errors,
+      checkBuildTicket(renderBuildTicket(base).replace('**Expected**', '**Gone**')).errors,
+    ).toContain('missing section: **Expected**');
+    expect(
+      checkBuildTicket(renderBuildTicket(base).replace('**Acceptance criteria**', '**Gone**'))
+        .errors,
     ).toContain('missing section: **Acceptance criteria**');
   });
 
@@ -104,9 +135,9 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     expect(checkBuildTicket(body.replace('size=small', 'size=medium')).errors).toContain(
       'marker size does not match Size',
     );
-    expect(checkBuildTicket(body.replace('estimated-lines=40', 'estimated-lines=400')).errors).toContain(
-      'Size claim is invalid; expected medium',
-    );
+    expect(
+      checkBuildTicket(body.replace('estimated-lines=40', 'estimated-lines=400')).errors,
+    ).toContain('Size claim is invalid; expected medium');
   });
 
   it('refuses large tickets and public copies of founder Discord text', () => {
@@ -130,7 +161,9 @@ describe('CLI', () => {
     const output = join(dir, 'body.md');
     writeFileSync(input, JSON.stringify(base));
     execFileSync('node', [CLI, 'render', input, output]);
-    expect(readFileSync(output, 'utf8')).toContain('<!-- marjorie-build: size=small source=issue -->');
+    expect(readFileSync(output, 'utf8')).toContain(
+      '<!-- marjorie-build: size=small source=issue -->',
+    );
     expect(execFileSync('node', [CLI, 'check', output], { encoding: 'utf8' }).trim()).toBe('ready');
     expect(execFileSync('node', [CLI, 'size', input], { encoding: 'utf8' }).trim()).toBe('small');
   });
