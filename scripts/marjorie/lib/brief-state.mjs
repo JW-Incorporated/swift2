@@ -60,6 +60,7 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     dispatched,
     submissions,
     asksFromTree,
+    workflowHistory,
   ] = await Promise.all([
     // Org-wide, high-volume list: also feeds Site's Vault Run freshness
     // check via checkRunners, hence ghWithCompleteness (#3689).
@@ -72,6 +73,7 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     // L1: Tree's open asks of Marjorie. Soft — a failed read prints a line
     // saying so rather than taking the whole brief down.
     fetchAsksFor('marjorie', { repo }).catch(() => null),
+    gh(['api', `repos/${repo}/actions/runs?per_page=100`]).catch(() => null),
   ]);
 
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
@@ -83,6 +85,8 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
     submissions,
     contentShipped,
     asksFromTree,
+    workflowRuns: workflowHistory?.workflow_runs ?? null,
+    workflowRunTotalCount: workflowHistory?.total_count ?? null,
     // L1 (docs/specs/marjorie-overhaul/l1-loop.md): From Tree, then the
     // For Tree slot the agent fills and `deliver` files.
     treeLines: [
