@@ -2,28 +2,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
-export const AUSTIN_PATH_ALLOWLIST = Object.freeze([
-  Object.freeze({ root: 'apps/web/', kind: 'web source or colocated test' }),
-  Object.freeze({ root: 'packages/', kind: 'pure logic or colocated test' }),
-  Object.freeze({ root: 'docs/', kind: 'plain documentation' }),
-]);
+const NEXT_DYNAMIC_SEGMENT =
+  /^(?:\[[A-Za-z0-9_-]+\]|\[\.\.\.[A-Za-z0-9_-]+\]|\[\[\.\.\.[A-Za-z0-9_-]+\]\])$/;
+export const AUSTIN_PATH_ALLOWLIST = Object.freeze(['apps/web/', 'packages/', 'docs/']);
 export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
-  prefixes: Object.freeze([
+  prefixes: [
     '.github/',
     'apps/web/app/api/',
     'docs/agents/',
     'docs/proposals/',
     'docs/specs/',
     'supabase/migrations/',
-  ]),
-  files: Object.freeze(['CLAUDE.md', 'docs/architecture.md', 'docs/decisions.md']),
-  basenames: Object.freeze([
+  ],
+  files: ['CLAUDE.md', 'docs/architecture.md', 'docs/decisions.md'],
+  basenames: [
     'package.json',
     'package-lock.json',
     'npm-shrinkwrap.json',
     'pnpm-lock.yaml',
     'yarn.lock',
-  ]),
+  ],
 });
 function normalizedPath(value) {
   const candidate = String(value ?? '')
@@ -40,6 +38,9 @@ function normalizedPath(value) {
     throw new Error(`path must be canonical: ${candidate}`);
   }
   if (['*', '?', '{', '}'].some((token) => candidate.includes(token))) {
+    throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
+  }
+  if (segments.some((segment) => /[[\]]/.test(segment) && !NEXT_DYNAMIC_SEGMENT.test(segment))) {
     throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
   }
   return candidate;
@@ -67,9 +68,9 @@ export function isAustinAllowedPath(value) {
   if (/(^|\/)(?:[^/]*secret[^/]*|auth(?:entication)?(?:[-_.][^/]*)?)(?:\/|\.|$)/i.test(candidate))
     return false;
   if (/(^|\/)(?:schema|migrations?)(?:\/|\.|$)/i.test(candidate)) return false;
-  const rule = AUSTIN_PATH_ALLOWLIST.find(({ root }) => candidate.startsWith(root));
-  if (!rule) return false;
-  if (rule.root === 'docs/' && !candidate.endsWith('.md')) return false;
+  const root = AUSTIN_PATH_ALLOWLIST.find((entry) => candidate.startsWith(entry));
+  if (!root) return false;
+  if (root === 'docs/' && !candidate.endsWith('.md')) return false;
   return true;
 }
 export function sizeFromPaths(paths, estimatedLines, { needsSpec = false } = {}) {
@@ -93,7 +94,12 @@ function requiredText(value, name) {
 }
 function expectedText(value) {
   const text = requiredText(value, 'Expected');
-  const sentences = text.match(/[.!?]+(?:["')\]]+)?(?=\s|$)/g)?.length || 1;
+  const masked = text.replace(/\b(?:[A-Za-z]\.){2,}/g, (match) => ' '.repeat(match.length));
+  if (/[.!?](?=\p{Lu})/u.test(masked)) {
+    throw new Error('Expected must be one to three sentences');
+  }
+  const sentences = [...new Intl.Segmenter('en', { granularity: 'sentence' }).segment(masked)]
+    .length;
   if (sentences > 3) throw new Error('Expected must be one to three sentences');
   return text;
 }
@@ -152,7 +158,9 @@ export function findExistingBuildTicket(items, sourceContext) {
     (items || []).find(
       (item) =>
         (item.labels || []).some((label) => label.name === 'marjorie-filed') &&
-        String(item.body || '').includes(needle) &&
+        String(item.body || '')
+          .split(/\r?\n/)
+          .includes(needle) &&
         checkBuildTicket(item.body).ok,
     ) || null
   );

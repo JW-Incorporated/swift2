@@ -230,3 +230,52 @@ evidence. Result: .scratch/clock-review-until-clean-1.txt (gitignored).
 Implementation is ready for PR/CI with CLOCK_LIVE=false. This acceptance is
 not deployment or live-proof evidence. Host update HA, activation and both
 proof halves remain required before M7 is complete.
+
+## M8 ready-ticket final review stop - 2026-09-14
+
+Branch `feature/m8-ready-tickets` reached the maximum two adversarial Codex
+review rounds. No PR was opened. Round 2 accepted the exact-line source lookup
+that prevents alert `#12` from aliasing `#123`, but returned three Medium
+findings in the live working tree:
+
+1. The attempted Next dynamic-segment expression admits unbalanced forms such
+   as `[slug]]`, `[[...slug]`, and `[...slug]]`. Replace it with explicit
+   alternatives for `[name]`, `[...name]`, and `[[...name]]`, with regression
+   tests for the malformed forms.
+2. The allowlist changed from rule objects to strings while the existing test
+   still read `.root`. The assertion was corrected in the live working tree
+   just before the final output, but the reviewer evaluated its earlier test
+   run (35 passed, 1 failed). It has not been rerun after the stop condition.
+3. `Intl.Segmenter` handles the valid `U.S.` abbreviation case but still treats
+   `One.Two.Three.Four.` as no more than three sentences. The one-to-three
+   sentence contract needs explicit compact-punctuation handling and a
+   regression test.
+
+The uncommitted working tree contains the partial corrections and the updated
+allowlist assertion. Per the two-round cap, no further implementation, test,
+review, push, or PR action followed. Earlier committed code passed its focused
+tests, the full Marjorie test set, lint, and `check:routines`; those results do
+not certify the current uncommitted patch.
+
+### User-authorized resolution
+
+The user's final instruction overrode a rule that prevented completing
+technically reversible work. Root authorized a fresh read-only diagnosis before
+more edits, then a new independent review after a frozen green commit. The
+diagnosis confirmed both substantive parser findings and prescribed bounded
+fixes:
+
+- Dynamic route segments now accept only the three balanced Next forms
+  `[name]`, `[...name]`, and `[[...name]]`; all three malformed review examples
+  have regressions.
+- Expected text masks dotted initialisms before sentence segmentation and
+  separately rejects terminal punctuation immediately followed by an uppercase
+  letter. Tests preserve the valid `U.S.` case and reject
+  `One.Two.Three.Four.`.
+- The allowlist assertion matches its exported string-array representation.
+
+Post-fix validation: 36/36 focused build-ticket tests and 493/493 tests across
+all 26 Marjorie test files passed. ESLint reported zero errors and five existing
+unrelated warnings. `check:routines` passed all 18 workflows. The helper is 299
+lines. A fresh independent review of the frozen commit remains required before
+the task can proceed to PR.

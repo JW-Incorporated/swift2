@@ -31,11 +31,7 @@ const base = {
 
 describe('Austin allowlist and size', () => {
   it('keeps the allowlist as exported data and accepts in-fence source/test/docs paths', () => {
-    expect(AUSTIN_PATH_ALLOWLIST.map((rule: { root: string }) => rule.root)).toEqual([
-      'apps/web/',
-      'packages/',
-      'docs/',
-    ]);
+    expect(AUSTIN_PATH_ALLOWLIST).toEqual(['apps/web/', 'packages/', 'docs/']);
     expect(isAustinAllowedPath('apps/web/components/Card.tsx')).toBe(true);
     expect(isAustinAllowedPath('packages/shared/src/card.test.ts')).toBe(true);
     expect(isAustinAllowedPath('docs/runbook.md')).toBe(true);
@@ -89,6 +85,13 @@ describe('Austin allowlist and size', () => {
 
   it('allows a concrete Next dynamic-page path while keeping route handlers outside the fence', () => {
     expect(isAustinAllowedPath('apps/web/app/era/[eraId]/page.tsx')).toBe(true);
+    expect(isAustinAllowedPath('apps/web/app/era/[...slug]/page.tsx')).toBe(true);
+    expect(isAustinAllowedPath('apps/web/app/era/[[...slug]]/page.tsx')).toBe(true);
+    expect(isAustinAllowedPath('apps/web/components/[ab].tsx')).toBe(false);
+    expect(isAustinAllowedPath('apps/web/components/ab].tsx')).toBe(false);
+    expect(isAustinAllowedPath('apps/web/app/era/[slug]]/page.tsx')).toBe(false);
+    expect(isAustinAllowedPath('apps/web/app/era/[[...slug]/page.tsx')).toBe(false);
+    expect(isAustinAllowedPath('apps/web/app/era/[...slug]]/page.tsx')).toBe(false);
     expect(isAustinAllowedPath('apps/web/app/vault/current/[eraId]/route.ts')).toBe(false);
   });
 });
@@ -148,6 +151,15 @@ describe('renderBuildTicket / checkBuildTicket', () => {
       'One sentence. Two sentences. Three sentences. Four sentences.',
     );
     expect(checkBuildTicket(body).errors).toContain('Expected must be one to three sentences');
+    expect(() =>
+      renderBuildTicket({
+        ...base,
+        expected: 'The U.S. timeline opens. Cards render. Filters work.',
+      }),
+    ).not.toThrow();
+    expect(() => renderBuildTicket({ ...base, expected: 'One.Two.Three.Four.' })).toThrow(
+      'Expected must be one to three sentences',
+    );
   });
 
   it('validates the size claim against paths and estimated lines instead of checking headings only', () => {
@@ -205,6 +217,13 @@ describe('findExistingBuildTicket', () => {
     expect(
       findExistingBuildTicket([{ ...filed, body: base.sourceContext }], base.sourceContext),
     ).toBeNull();
+  });
+
+  it('matches source context as an exact line, not a substring of another issue number', () => {
+    const source12 = '**From watchdog alert** — https://github.com/o/r/issues/12';
+    const source123 = '**From watchdog alert** — https://github.com/o/r/issues/123';
+    const body = renderBuildTicket({ ...base, source: 'alert', sourceContext: source123 });
+    expect(findExistingBuildTicket([{ ...filed, body }], source12)).toBeNull();
   });
 });
 
