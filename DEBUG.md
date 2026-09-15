@@ -279,3 +279,20 @@ all 26 Marjorie test files passed. ESLint reported zero errors and five existing
 unrelated warnings. `check:routines` passed all 18 workflows. The helper is 299
 lines. A fresh independent review of the frozen commit remains required before
 the task can proceed to PR.
+
+### Fresh review finding and source-identity resolution
+
+The fresh review accepted the parser fixes but found one Medium idempotency gap:
+the first retry guard compared the full free-form source line, so a changed date
+or surrounding phrase could miss the same submission or alert. This was treated
+as a real defect. Dedupe now derives an immutable key from the positive
+submission number or the full GitHub alert issue URL, including owner and repo;
+dates and suffix text are ignored, `#12` remains distinct from `#123`, and
+malformed identities fail closed. The ops prompt prescribes the canonical alert
+line and the spec records the identity contract. Tests cover changed formatting,
+cross-repository URLs, non-positive issue numbers, and malformed input.
+
+Post-correction validation passed 38/38 focused tests and 495/495 tests across
+all 26 Marjorie files. Repository lint reported zero errors and five existing
+unrelated warnings; `check:routines` passed all 18 workflows. Another frozen
+independent review remains before PR.

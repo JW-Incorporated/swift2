@@ -155,8 +155,8 @@ workflow per sweep.
 
 Whenever the table says to file a build-desk issue, create a JSON draft
 under `$RUNNER_TEMP` with a `node` command, then run the shared helper. Use
-`source: "alert"`, omit `reporterSaid`, put the alert link in
-`sourceContext`, and put the observed failure plus the run/log evidence in
+`source: "alert"`, omit `reporterSaid`, and write `sourceContext` exactly as
+`**From watchdog alert** — <full GitHub issue URL>`. Put the observed failure plus the run/log evidence in
 `context`. Supply one to three user-visible `expected` sentences, a
 `surface`, concrete repository-relative `paths` (never globs/directories),
 an honest `estimatedLines` when known, `needsSpec`, and checkbox-ready

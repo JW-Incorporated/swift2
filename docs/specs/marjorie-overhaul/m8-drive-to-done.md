@@ -76,6 +76,10 @@ ready. Required sections, in this order:
    founder's Discord words; the repo is public — link the message instead).
 6. The marker `<!-- marjorie-build: size=<s> source=<issue|alert|chat:link> -->`.
 
+Retry idempotency uses the immutable submission number or full GitHub alert
+issue URL from the source line; dates and other surrounding text never define
+identity. The helper refuses a dedupe lookup without one of those canonical keys.
+
 Labels: `marjorie-filed`, `desk:build`, `bug` + `exp:P1|P2|P3` for bugs
 (unchanged from `s1-triage.md`), `enhancement` for requests. `small` items
 also get `needs-triage` so a `wjduvall-cmd`-authored original can never

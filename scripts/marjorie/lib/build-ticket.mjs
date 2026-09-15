@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
+import { findExistingBySource } from './build-ticket-source.mjs';
 const NEXT_DYNAMIC_SEGMENT =
   /^(?:\[[A-Za-z0-9_-]+\]|\[\.\.\.[A-Za-z0-9_-]+\]|\[\[\.\.\.[A-Za-z0-9_-]+\]\])$/;
 export const AUSTIN_PATH_ALLOWLIST = Object.freeze(['apps/web/', 'packages/', 'docs/']);
@@ -152,17 +153,12 @@ export function renderBuildTicket(input = {}) {
   if (context) sections.push(context);
   return `${sections.join('\n\n')}\n`;
 }
+
 export function findExistingBuildTicket(items, sourceContext) {
-  const needle = requiredText(sourceContext, 'sourceContext');
-  return (
-    (items || []).find(
-      (item) =>
-        (item.labels || []).some((label) => label.name === 'marjorie-filed') &&
-        String(item.body || '')
-          .split(/\r?\n/)
-          .includes(needle) &&
-        checkBuildTicket(item.body).ok,
-    ) || null
+  return findExistingBySource(
+    items,
+    requiredText(sourceContext, 'sourceContext'),
+    checkBuildTicket,
   );
 }
 function sectionBody(body, heading, nextTokens) {

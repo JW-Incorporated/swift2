@@ -225,6 +225,33 @@ describe('findExistingBuildTicket', () => {
     const body = renderBuildTicket({ ...base, source: 'alert', sourceContext: source123 });
     expect(findExistingBuildTicket([{ ...filed, body }], source12)).toBeNull();
   });
+
+  it('deduplicates immutable source identity despite changed surrounding text', () => {
+    const body = renderBuildTicket(base);
+    const retry = '**From a site submission** — #123, filed September 14.';
+    expect(findExistingBuildTicket([{ ...filed, body }], retry)).toEqual(filed);
+
+    const alert = '**From watchdog alert** — https://github.com/Org/Repo/issues/45';
+    const alertBody = renderBuildTicket({ ...base, source: 'alert', sourceContext: `${alert}.` });
+    expect(findExistingBuildTicket([{ ...filed, body: alertBody }], `${alert} retry`)).toEqual({
+      ...filed,
+      body: alertBody,
+    });
+  });
+
+  it('rejects malformed or cross-repository source identities', () => {
+    const alert = '**From watchdog alert** — https://github.com/org/repo/issues/45';
+    const body = renderBuildTicket({ ...base, source: 'alert', sourceContext: alert });
+    expect(
+      findExistingBuildTicket([{ ...filed, body }], alert.replace('/repo/', '/other/')),
+    ).toBeNull();
+    expect(() => findExistingBuildTicket([{ ...filed, body }], alert.replace('/45', '/0'))).toThrow(
+      'sourceContext needs a canonical submission number or alert URL',
+    );
+    expect(() => findExistingBuildTicket([{ ...filed, body }], 'watchdog issue 45')).toThrow(
+      'sourceContext needs a canonical submission number or alert URL',
+    );
+  });
 });
 
 describe('CLI', () => {
