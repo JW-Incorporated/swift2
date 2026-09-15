@@ -2,21 +2,41 @@
   "platform": "instagram",
   "lane": "calendar",
   "body": "i keep sending people to this and they never find it on their own, so here's exactly where to tap 🤍\n\nopen longlivets.com and hit the Merch tab — the little shopping-bag icon at the bottom. then pick any era you want.\n\nevery outfit under 'Seen on Taylor' is a real photo of her look, and tapping the tile opens the actual store in a new tab. it's labeled 'her look, not the product' so you always know exactly what you're buying.\n\nthere's also a whole 'Made by Swifties' shelf — 22 fan-made pieces from independent shops.\n\ngo open your era and find one: longlivets.com/?mode=merch&utm_source=instagram&utm_medium=social&utm_campaign=launch",
-  "media": ["/social/library/photos/taylor-1989-eras-inglewood-2023.jpg"],
+  "media": [
+    "/social/library/photos/taylor-1989-eras-inglewood-2023.jpg"
+  ],
   "mediaKind": "photo",
   "photoId": "1989-inglewood-2023",
   "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
   "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53110043448).jpg",
   "scheduledAt": "2026-09-15T23:00:00Z",
-  "altText": ["Taylor Swift performing the 1989 set of the Eras Tour in Inglewood, 2023, in a sequined bodysuit under blue stage lighting."],
+  "altText": [
+    "Taylor Swift performing the 1989 set of the Eras Tour in Inglewood, 2023, in a sequined bodysuit under blue stage lighting."
+  ],
   "campaign": "launch:shop-the-look:how-to",
   "why": "Launch arc +3 (how-to) IG sibling, 09-15 beat. Same story-unique campaign as the X sibling, same scheduledAt. Challenge hook, first five words diverged from X. Teaches the tap path: Merch tab (shopping-bag icon), pick an era, tiles open the retailer in a new tab, 'her look, not the product' label, plus the 22-item 'Made by Swifties' fan-made shelf (count verified from supabase/seed/merch/fanmade.mjs FAN_MADE.length=22). Photo-only, target era 1989 (no 'Seen on Taylor' screenshot committed). Launch post = share-hook exempt.",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 4, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
     "total": 20,
     "rationale": "Launch arc +3 how-to IG: step-by-step to the merch surface people can't find — Merch tab, tiles open the real store in a new tab, plus the 22-piece 'Made by Swifties' shelf (count verified). Mechanics all verified live; photo-only per the no-screenshot rule.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-15T17:02:41.959Z",
+    "pr": 4383,
+    "sha": "da7696c646001ae922508e82ef1dee56476a8997",
+    "message": "1549445185845465330",
+    "contentHash": "sha256:45b2e1982d60902237e709e408b831442d131431c810bde4dad75f61b2ffb673",
+    "sig": "hmac-sha256:b6e135f7b381aaead52714ee02708965ef9a22f13dcd265f639586c675602d62"
   }
 }

@@ -19,10 +19,26 @@
   "why": "The Runway behind-the-data IG sibling, 09-16 beat, same story-unique campaign + scheduledAt as X. Number hook, first five words diverged from X. Carousel: media[0] cleared folklore Taylor photo (grid tile), media[1] thread-fashion-screen.png showing The Runway lens in actual use (timeline ridge + Showgirl look card + 'Twelve wardrobes, one story' — satisfies the 'cool feature only' rule). Facts counted from runway-looks.mjs: 39 images, 15 looks, 12 eras, 2006 CMA debut look, Fearless gold fringe ('Golden Fairy Tale'), folklore 'Cottagecore Cardigan' — all verified, none estimated. No 'tappable' claim (shopTags are static chips). Thread post = share-hook exempt.",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 4, "notEmbarrassed": 4 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
     "total": 22,
     "rationale": "Runway behind-the-data: the surprise is 39 — real photographs from the 2006 CMAs to now, 15 looks, all 12 eras, zero illustrations. Counted from RUNWAY_LOOKS. Carousel puts the lens screenshot behind a folklore Taylor tile; no 'tappable' claim (shopTags are static chips).",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-15T17:02:41.959Z",
+    "pr": 4383,
+    "sha": "da7696c646001ae922508e82ef1dee56476a8997",
+    "message": "1549445189636989010",
+    "contentHash": "sha256:c1cefd6a77f5453c2229ab839995928e4f2c71b7d09846559c1c2e9469831dc6",
+    "sig": "hmac-sha256:6424f7c47b260f8ae5c6f68b6a193d046b37dd1a8a61b294ae2f2cd403ef17aa"
   }
 }
