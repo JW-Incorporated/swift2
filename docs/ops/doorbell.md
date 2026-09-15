@@ -33,7 +33,12 @@ and delivery was skipped. Checkout and prompt loading succeeded. One
 controlled `force=true` replacement
 ([run 34969710921](https://github.com/JW-Incorporated/swift2/actions/runs/34969710921))
 also failed. Do not keep dispatching replacements without a diagnosis.
-The on-time delivery proof remains unmet; #4290 and M7 stay open.
+Diagnostic PR #4351 then retained a fixed provider error category. The
+instrumented recovery
+([run 34972013723](https://github.com/JW-Incorporated/swift2/actions/runs/34972013723))
+confirmed `oauth_org_not_allowed`, with zero model tokens and skipped
+delivery. HA #77 tracks account recovery. Stop routine retries until access
+is restored. The on-time delivery proof remains unmet; #4290 and M7 stay open.
 
 The tag's `PINNED_CLOCK_LIVE` permits those filenames and inputs. Main's
 `CLOCK_LIVE` gates that permission and starts false, beside

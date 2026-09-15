@@ -344,3 +344,17 @@ LF/CRLF bodies. Validation passed 48/48 focused tests and 505/505 tests across
 all 26 Marjorie files. Repository lint reported zero errors and five existing
 unrelated warnings; `check:routines` passed all 18 workflows. A systematic
 frozen review remains.
+
+## M8 approval review exception — 2026-09-15
+
+The approval branch's two formal reviews found an authority mismatch in
+Kevin's receiver, conflicting chase references, and normal multi-reference
+brief reactions resolving too early. All were fixed. Under the user's current
+delegation of reversible technical decisions, root authorized a narrow
+review-policy exception instead of stopping with known-correctable defects.
+Kevin now accepts only the exact typed-bot template with matching Discord and
+marker ids; later direct human comments retain veto priority. Conflicting
+HA/issue references fail closed. Reactions filter production-shaped brief
+references to eligible open build tickets, remain ambiguous for multiple build
+targets, and support parenthesized and linked issue references. The final
+scoped verification accepted these paths at `7baac935`.

@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+### 2026-09-15 clarification — verified approval relay
+
+Implementation exposed a mismatch in the M8 design: Kevin accepted only direct
+human comments, while Discord approval is relayed by a bot. Under the founder's
+delegated authority for reversible M8 decisions, Kevin now accepts only the
+exact M8 three-line approval template from a typed, allowlisted Claude or
+GitHub Actions bot, with matching Discord permalink and marker ids. Similar
+prose has no authority, and a later direct founder comment still overrides it.
+This changes no product direction and grants no authority to other chat relays.
+
 ## 2026-09-14 — Marjorie drives dispatched work to done: ready-shaped tickets, the founder's yes, a 48/96-hour chase (M8)
 
 **Decision (Joey, in chat, 2026-09-14):** of two proposed designs for getting

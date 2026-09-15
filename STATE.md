@@ -2,16 +2,29 @@
 
 ## Next
 
-1. Recover the failed 2026-09-15 noon brief. Run 34966350705 started on time
-   at 12:00:07Z as sffan15-sys; guard succeeded, routine failed, delivery
-   skipped. Controlled forced replacement 34969710921 also failed. Do not
-   retry again without a diagnosis; inspect action/provider diagnostics.
+1. HA #77: restore Claude organization access. Instrumented run 34972013723
+   confirms oauth_org_not_allowed, zero model tokens and skipped delivery.
+   No further routine retries until access is restored. The clock itself
+   fired at 12:00:07Z in run 34966350705; its guard succeeded.
    Do not close #4290 or tick M7: the noon delivery proof has not passed.
 2. Resume M8 from feature/m8-ready-tickets and feature/m8-approval, preserving
    their saved work. Complete implementation and real live proofs; founder
    actions must come from the founder and cannot be synthesized.
 
 ## Reboot recovery - 2026-09-15
+
+Diagnostic PR #4351 is merged. It retains only allowlisted error categories
+in routine-usage artifacts, never raw execution or provider text. The one
+instrumented run 34972013723 confirmed oauth_org_not_allowed (290 ms,
+zero tokens/cost). GitHub credential exchange and prompt loading passed.
+Account recovery needs the owner; this is not a demonstrated clock defect.
+
+M8 ready-shaped filing #4352 is merged and labels are provisioned. A complete
+live intake selection found no untriaged submission. The live chase snapshot
+contains only #4324 (created 2026-09-14T17:10:48Z), under 48 hours old, with
+no linked open PR. Do not manufacture submissions, stale ages or founder
+approvals to make live acceptance pass. Approval and chase/brief work remain
+in progress in their isolated M8 worktrees.
 
 The owner authorized autonomous recovery, reversible decisions and pushes.
 The linked Long Live Bots Runbook was accessible in Chrome. The workstation

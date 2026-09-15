@@ -30,11 +30,14 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { runMain } from '../lib/cli.mjs';
+import { approveResolved, listBuildTickets } from './build-ticket.mjs';
+import { renderAmbiguousApproval, renderLinkOnlyRelay, resolveReactionApproval } from './lib/build-approval.mjs';
+import { founderIds } from './lib/chat-inbox.mjs';
 // `discordGet` (null on a 404 — no thread yet, the steady state before any
 // founder replies — throws on any other non-2xx, 429/`retry_after` retry)
 // and the root/webhook filter moved to `lib/discord-bot.mjs` unchanged when
 // the M5 chat loop became their next consumers.
-import { DISCORD_API, authorName, defaultSleep, discordGet, isRootOrWebhookMessage } from './lib/discord-bot.mjs';
+import { DISCORD_API, defaultSleep, discordGet, isRootOrWebhookMessage } from './lib/discord-bot.mjs';
 
 // `execFileSync`'s default `maxBuffer` is 1 MiB (Node docs) — comfortably
 // enough for a single day's founders-brief issue (short-lived, closed the
@@ -71,19 +74,21 @@ function findBriefIssue(execImpl, repo) {
 // page the raw array of comment objects GitHub sent — flattened and
 // mapped to `.body` here, so embedded newlines in a comment never get
 // mistaken for a record boundary.
-function issueCommentBodies(execImpl, repo, issueNumber) {
+function issueComments(execImpl, repo, issueNumber) {
   const out = gh(execImpl, ['api', `repos/${repo}/issues/${issueNumber}/comments`, '--paginate', '--slurp']);
-  return JSON.parse(out).flat().map((comment) => comment.body);
+  return JSON.parse(out).flat();
 }
 
-function extractDiscordMessageId(commentBodies) {
-  for (const body of commentBodies) {
+function extractDiscordMessageId(comments) {
+  for (const comment of comments) {
+    const user = comment?.user;
+    if (user?.type !== 'Bot' || !['github-actions[bot]', 'github-actions'].includes(user.login)) continue;
     // Posted only by `routine-marjorie-brief.yml`'s `deliver` job (environment-
     // scoped, not agent-writable), and always before any founder reply can
     // exist on this issue (the thread doesn't exist until that job creates
     // it) — so a first-match-anywhere scan can't collide with attacker-
     // controlled content the way `alreadyRelayedIds` below could. Left as-is.
-    const m = /<!--\s*discord-message-id:\s*(\d+)\s*-->/.exec(body || '');
+    const m = /^<!-- discord-message-id: (\d{15,21}) -->$/.exec(String(comment.body || '').trim());
     if (m) return m[1];
   }
   return null;
@@ -101,6 +106,33 @@ function alreadyRelayedIds(commentBodies) {
     if (m) ids.add(m[1]);
   }
   return ids;
+}
+
+function hasTrailingMarker(commentBodies, marker) {
+  return commentBodies.some((body) => (body || '').trimEnd().split('\n').at(-1) === marker);
+}
+
+async function applyRootApproval({ root, threadId, briefIssueNumber, comments, token, repo, execImpl, fetchImpl, sleepImpl }) {
+  const check = root?.reactions?.some((r) => r?.emoji?.name === '✅');
+  if (!check || !root.guild_id) return;
+  const users = await discordGet(`${DISCORD_API}/channels/${threadId}/messages/${threadId}/reactions/${encodeURIComponent('✅')}?limit=100`, token, { fetchImpl, sleepImpl });
+  if (!users) return;
+  const messageUrl = `https://discord.com/channels/${root.guild_id}/${threadId}/${threadId}`;
+  const issues = listBuildTickets(execImpl, repo);
+  const resolved = resolveReactionApproval({
+    message: root, messageUrl, reactorIds: users.map((user) => String(user.id)),
+    founderIds: founderIds(process.env.DISCORD_FOUNDER_IDS), issues, deliveredMessageId: threadId, repo,
+  });
+  if (resolved.ok) {
+    const result = approveResolved({ execImpl, repo, ...resolved });
+    console.log(`approval reaction ${result.duplicate ? 'already recorded on' : 'recorded on'} #${result.issueNumber}`);
+    return;
+  }
+  if (resolved.reason !== 'ambiguous') return;
+  const marker = `<!-- marjorie-approval-ambiguous: ${threadId} -->`;
+  if (hasTrailingMarker(comments.map((comment) => comment.body), marker)) return;
+  const body = renderAmbiguousApproval({ messageId: threadId, messageUrl, candidates: resolved.candidates });
+  gh(execImpl, ['issue', 'comment', String(briefIssueNumber), '--repo', repo, '--body', body]);
 }
 
 /**
@@ -163,8 +195,9 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     return 0;
   }
 
-  const commentBodies = issueCommentBodies(execImpl, repo, issue.number);
-  const threadId = extractDiscordMessageId(commentBodies);
+  const comments = issueComments(execImpl, repo, issue.number);
+  const commentBodies = comments.map((comment) => comment.body);
+  const threadId = extractDiscordMessageId(comments);
   if (!threadId) {
     console.log(`issue #${issue.number} has no discord-message-id marker yet — nothing to poll`);
     return 0;
@@ -182,6 +215,13 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     return 0;
   }
 
+  const root = messages.find((message) => String(message.id) === String(threadId));
+  try {
+    await applyRootApproval({ root, threadId, briefIssueNumber: issue.number, comments, token, repo, execImpl, fetchImpl, sleepImpl });
+  } catch (err) {
+    console.error(`::warning::reply-poll: could not process approval reaction on ${threadId}: ${err.message}`);
+  }
+
   const relayed = alreadyRelayedIds(commentBodies);
   const replies = messages
     .filter((m) => !isRootOrWebhookMessage(m, threadId))
@@ -189,10 +229,15 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
     .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   for (const reply of replies) {
-    const who = authorName(reply.author);
-    const comment = `💬 Reply from ${who}\n\n${reply.content}\n\n<!-- relay-id: ${reply.id} -->`;
+    const guildId = reply.guild_id || root?.guild_id;
+    if (!guildId) {
+      console.error(`::warning::reply-poll: message ${reply.id} has no guild id; relay deferred`);
+      continue;
+    }
+    const messageUrl = `https://discord.com/channels/${guildId}/${threadId}/${reply.id}`;
+    const comment = renderLinkOnlyRelay({ messageId: reply.id, messageUrl });
     gh(execImpl, ['issue', 'comment', String(issue.number), '--repo', repo, '--body', comment]);
-    console.log(`relayed ${who} -> issue #${issue.number}`);
+    console.log(`relayed Discord message ${reply.id} -> issue #${issue.number}`);
   }
 
   return 0;
