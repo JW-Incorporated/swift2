@@ -163,19 +163,21 @@ an honest `estimatedLines` when known, `needsSpec`, and checkbox-ready
 `acceptanceCriteria`.
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state all --limit 500 --json number,url,labels,body > "$RUNNER_TEMP/marjorie-filed.json"
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"
 node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
 node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
 ```
 
-Run `find` before every create. If it prints an issue object, an interrupted
-earlier sweep already filed this ready ticket: do not create another. Reuse
-that issue in Step 3's durable ledger comment and finish the alert's normal
-bookkeeping. Only `none` permits a create.
+Run `find` before every create. The paginated REST snapshot avoids search-index
+lag. If it prints an issue object, an interrupted earlier sweep already filed
+the ready ticket or large bank item: do not create another. Reuse that issue in
+Step 3's durable ledger comment and finish the alert's normal bookkeeping. Only
+`none` permits a create.
 If `size` prints `large`, do not file a build ticket: bank a
-`founder-decision` item naming the spec needed. If `render` or `check` fails,
+single issue labeled `founder-decision,marjorie-filed`, naming the spec needed
+and including the canonical `sourceContext` line. If `render` or `check` fails,
 rewrite the draft and run both again — never skip the readiness gate. Only
 after `check` prints `ready` may you create the issue using that body file.
 Labels are `marjorie-filed,desk:build,bug` plus exactly one

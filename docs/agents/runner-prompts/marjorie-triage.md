@@ -173,7 +173,7 @@ fence; you do not choose `small` or `medium` yourself.
 Run, in order:
 
 ```
-gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --state all --limit 500 --json number,url,labels,body > "$RUNNER_TEMP/marjorie-filed.json"
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"
 node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
 node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
@@ -182,11 +182,12 @@ node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
 
 Run `find` before every create, including a retry after an interrupted run.
 If it prints an issue object, do not create another issue: reuse that number
-and resume the original's audit comment/`marjorie-triaged` label. `find`
-only recognizes a `marjorie-filed` body that already passes this helper's
-readiness check, so a pre-M8 unready filing does not suppress a replacement.
+and resume the original's audit comment/`marjorie-triaged` label. The paginated
+REST snapshot avoids search-index lag. `find` recognizes a ready build ticket or
+a same-source large bank item; a pre-M8 unready filing suppresses neither.
 If `size` prints `large`, do not run `render` and do not file a build ticket:
-bank a `founder-decision` item naming the spec needed. If `render` or `check`
+bank one issue labeled `founder-decision,marjorie-filed`, naming the spec needed
+and including the draft's canonical `sourceContext` line. If `render` or `check`
 fails, rewrite the draft and run both again — never skip the readiness gate.
 Only after `check` prints `ready` may you pass the body file to
 `gh issue create`. The helper preserves the exact `**From a site

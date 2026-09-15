@@ -296,3 +296,32 @@ Post-correction validation passed 38/38 focused tests and 495/495 tests across
 all 26 Marjorie files. Repository lint reported zero errors and five existing
 unrelated warnings; `check:routines` passed all 18 workflows. Another frozen
 independent review remains before PR.
+
+### Subsequent frozen review and bounded fixes
+
+The next frozen review returned four Medium findings: malformed suffixes could
+alias a canonical source number; the large `founder-decision` branch was not in
+the retry guard; broad directory prefixes certified config/assets as
+Austin-small; and lowercase compact punctuation bypassed the linguistic
+sentence counter. Root also identified that the prompt's indexed, 500-item
+issue list was not a complete authoritative retry snapshot.
+
+All were handled as real contract gaps. Source parsing now requires a delimited,
+anchored positive number or GitHub issue URL. Both ready tickets and large bank
+items carry `marjorie-filed` and the canonical source line, so the same lookup
+deduplicates them. Prompts fetch every labeled issue through paginated REST,
+avoiding search lag and the 500-item cap. The Austin-small path check is
+conservative about code/test extensions and rejects public assets, config, and
+schema/migration names.
+
+Repeated linguistic edge cases also showed that sentence meaning is judgment,
+which M8 assigns to the prompt. The spec now says why: prompts retain the
+one-to-three-sentence instruction, while deterministic code enforces a nonempty
+plain-text Expected section and blocks injected ticket structure. Brittle
+sentence counting and its language-specific tests were removed. Tests now cover
+duplicate headings as the corresponding check-time structural attack.
+
+Validation after these edits passed 43/43 focused tests and 500/500 tests across
+all 26 Marjorie files. Repository lint reported zero errors and five existing
+unrelated warnings; `check:routines` passed all 18 workflows. Another frozen
+review remains before PR.

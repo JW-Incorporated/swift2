@@ -5,6 +5,8 @@ import { runMain } from '../../lib/cli.mjs';
 import { findExistingBySource } from './build-ticket-source.mjs';
 const NEXT_DYNAMIC_SEGMENT =
   /^(?:\[[A-Za-z0-9_-]+\]|\[\.\.\.[A-Za-z0-9_-]+\]|\[\[\.\.\.[A-Za-z0-9_-]+\]\])$/;
+const TICKET_STRUCTURE =
+  /[\r\n]|\*\*(?:Expected|Where|Size|Acceptance criteria|Reporter said)\*\*|<!-- marjorie-build:/;
 export const AUSTIN_PATH_ALLOWLIST = Object.freeze(['apps/web/', 'packages/', 'docs/']);
 export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
   prefixes: [
@@ -68,10 +70,14 @@ export function isAustinAllowedPath(value) {
   if (/(^|\/)\.env(?:\.|$)/i.test(candidate)) return false;
   if (/(^|\/)(?:[^/]*secret[^/]*|auth(?:entication)?(?:[-_.][^/]*)?)(?:\/|\.|$)/i.test(candidate))
     return false;
-  if (/(^|\/)(?:schema|migrations?)(?:\/|\.|$)/i.test(candidate)) return false;
+  if (/(^|\/)[^/]*(?:schema|migrations?)[^/]*(?:\/|$)/i.test(candidate)) return false;
   const root = AUSTIN_PATH_ALLOWLIST.find((entry) => candidate.startsWith(entry));
   if (!root) return false;
   if (root === 'docs/' && !candidate.endsWith('.md')) return false;
+  if (root === 'apps/web/' && candidate.startsWith('apps/web/public/')) return false;
+  if (root === 'apps/web/' && !/\.(?:[cm]?[jt]sx?|css)$/i.test(candidate)) return false;
+  if (root === 'packages/' && !/\.[cm]?[jt]sx?$/i.test(candidate)) return false;
+  if (/(^|\/)(?:[^/]+\.config\.[^/]+|tsconfig(?:\.[^/]+)?\.json)$/i.test(candidate)) return false;
   return true;
 }
 export function sizeFromPaths(paths, estimatedLines, { needsSpec = false } = {}) {
@@ -95,13 +101,9 @@ function requiredText(value, name) {
 }
 function expectedText(value) {
   const text = requiredText(value, 'Expected');
-  const masked = text.replace(/\b(?:[A-Za-z]\.){2,}/g, (match) => ' '.repeat(match.length));
-  if (/[.!?](?=\p{Lu})/u.test(masked)) {
-    throw new Error('Expected must be one to three sentences');
+  if (TICKET_STRUCTURE.test(text)) {
+    throw new Error('Expected must be plain text without ticket structure');
   }
-  const sentences = [...new Intl.Segmenter('en', { granularity: 'sentence' }).segment(masked)]
-    .length;
-  if (sentences > 3) throw new Error('Expected must be one to three sentences');
   return text;
 }
 function sourceValue(source) {
@@ -177,6 +179,7 @@ export function checkBuildTicket(body) {
   const errors = [];
   for (const heading of required) {
     if (!text.includes(heading)) errors.push(`missing section: ${heading}`);
+    if (text.split(heading).length > 2) errors.push(`multiple section: ${heading}`);
   }
   const markers = [
     ...text.matchAll(

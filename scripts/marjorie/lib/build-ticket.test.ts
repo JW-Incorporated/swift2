@@ -49,6 +49,10 @@ describe('Austin allowlist and size', () => {
     'apps/web/lib/auth-client.ts',
     'apps/web/.env.local',
     'packages/core/src/schema.ts',
+    'packages/core/src/db-schema.ts',
+    'apps/web/next.config.js',
+    'apps/web/public/image.png',
+    'packages/shared/tsconfig.json',
     'apps/web/components',
     'apps/web/app/vault/live-theories/route.ts',
     'apps/web/./app/api/feedback.ts',
@@ -142,24 +146,13 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     ).toContain('missing section: **Acceptance criteria**');
   });
 
-  it('enforces one to three Expected sentences in render and check', () => {
-    expect(() => renderBuildTicket({ ...base, expected: 'One. Two? Three! Four.' })).toThrow(
-      'Expected must be one to three sentences',
+  it('keeps Expected nonempty and refuses injected ticket structure in render and check', () => {
+    const injected = 'Visible behavior.\n\n**Where**\nInjected surface';
+    expect(() => renderBuildTicket({ ...base, expected: injected })).toThrow(
+      'Expected must be plain text without ticket structure',
     );
-    const body = renderBuildTicket(base).replace(
-      base.expected,
-      'One sentence. Two sentences. Three sentences. Four sentences.',
-    );
-    expect(checkBuildTicket(body).errors).toContain('Expected must be one to three sentences');
-    expect(() =>
-      renderBuildTicket({
-        ...base,
-        expected: 'The U.S. timeline opens. Cards render. Filters work.',
-      }),
-    ).not.toThrow();
-    expect(() => renderBuildTicket({ ...base, expected: 'One.Two.Three.Four.' })).toThrow(
-      'Expected must be one to three sentences',
-    );
+    const body = renderBuildTicket(base).replace(base.expected, injected);
+    expect(checkBuildTicket(body).errors).toContain('multiple section: **Where**');
   });
 
   it('validates the size claim against paths and estimated lines instead of checking headings only', () => {
@@ -251,6 +244,23 @@ describe('findExistingBuildTicket', () => {
     expect(() => findExistingBuildTicket([{ ...filed, body }], 'watchdog issue 45')).toThrow(
       'sourceContext needs a canonical submission number or alert URL',
     );
+    for (const malformed of ['#123abc', '#123/456', '#123-foo']) {
+      expect(() =>
+        findExistingBuildTicket([filed], `**From a site submission** — ${malformed}`),
+      ).toThrow('sourceContext needs a canonical submission number or alert URL');
+    }
+    expect(() => findExistingBuildTicket([filed], `${alert}.evil`)).toThrow(
+      'sourceContext needs a canonical submission number or alert URL',
+    );
+  });
+
+  it('deduplicates large founder-decision bank items', () => {
+    const banked = {
+      ...filed,
+      labels: [{ name: 'marjorie-filed' }, { name: 'founder-decision' }],
+      body: `${base.sourceContext}\n\nA spec is needed.`,
+    };
+    expect(findExistingBuildTicket([banked], base.sourceContext)).toBe(banked);
   });
 });
 
