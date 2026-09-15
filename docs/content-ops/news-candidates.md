@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 80
+
+## Details Revealed About Taylor Swift's Cameo in 2026 Emmys SVU Skit
+
+- first seen: 2026-09-15 23:31 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Producers discuss the behind-the-scenes details of Taylor Swift's surprise appearance during the 2026 Emmys in an SVU skit. The insights reveal how the cameo was orchestrated.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxONDNFU2JZZkNYdC1fVUNRSWsxS0ZLTm5hVVVNeXRNUHVvSGsxLTU4UXZWRlBLZlU1WWltZWpaZmNteGJqOFhKbGoxVjRhUjFfLUJoUk05dl9KdVNpTm1jcnVoWFloMkw2dnhiNFlPWGJidFVpbkVBajVobUxVaDEtLVhRUXU2eFBOb0FYTkxjdl9UX2lnWDFBcQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dolly Parton Declares Taylor Swift as Top Live Artist
+
+- first seen: 2026-09-15 23:31 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: In a recent article, Dolly Parton referred to Taylor Swift as the biggest live artist, highlighting her success in live performances. This recognition underscores Swift's impact in the music industry.
+- sources:
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMibEFVX3lxTE4wZENXWm8zbTloZlhlaU1xOTBZSXJZaVRtWE1nWGRZOHFYXzltbzhCaWxIOVZZNEw2M2t3Z2FqZjFHb1c2czVadkNYdTJNV09FVlp6UXlhaXU3RWZrT0UyaW5QOC13T2dRVkhEeA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts First Game-Day Outfit of the Season
+
+- first seen: 2026-09-15 23:31 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made her first appearance of the season in a game-day outfit, expressing support for Gigi Hadid. This outfit marks a fashionable entry into the game-day scene.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOcEFqWWY5ZWZVNi0zYUI4bWlSSy1MTnZhbVp4bVZEZUw4WGRLZFlCM3RtdVNfZXJfTXNZWDdFXzlBSEhkdFNhN0lLc2s3Y0E2Z29MMnFVcERUOWgxQlNSRUVyWnBLcUFwLVlGN0duZVBVMV9xRlNyVjcxakNvRUExZjBjM09UcmRpeFQ2SVpBVzNlcTVXTlhz?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Gingham Dress Features a Hidden Travis Kelce Detail
+
+- first seen: 2026-09-15 23:31 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recently showcased red gingham dress is noted for including a secret reference to Travis Kelce. This detail adds an intriguing element to her fashion choice.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMitwFBVV95cUxNbEZod1hoa2NOeXlyUGhoZlR0SXJRdWs5WlZvZmJSMFh0RDYwUC1vZEZPaDlpNml5SVRBY1hEcVp6LUxwRGYzMzFSeFh5U0JpTFh2WGdFbHA0UXpPTXFNSnltM1VCeTh6SlJDOEVhR0E3bUlvTG1leWxrTjVBVlJ0eGxmUEVrYUtKYlo1WVpYS0FBb3FwN2xsSDJtNDVuWEhSbkhVVE1NTS1IU3FiRmxKaXNRZ2JhUms?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Stylish Appearance at Chiefs Game After Marrying Travis Kelce
+
+- first seen: 2026-09-15 23:31 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift turned heads with her gingham outfit at her first Chiefs game since her marriage to Travis Kelce. The appearance highlights her fashion sense on a special outing.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQOGNEYmtwbFMwRFZWLXA2Yi00MUV4ZFYybDFMUmlQU1pVOTQ2eFNycFhOUGZvTWJ5bHJ2R2xVS0FYTEk3MmZQQkxoelFWRmlLSUNMVkRWSm53UXNuMnpPX1F2MEtPUkV6Y3F6eEhFcmg1UkNQdWMzU0tKbWZDZEZIMTJnZGdiLVljakc3SmJHNA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Spotted at Chiefs Game with Tom Cruise
 
@@ -175,14 +215,6 @@ Stories: 75
   - [unverified] TheWrap — https://news.google.com/rss/articles/CBMirAFBVV95cUxPZjMzTU9TZElXcFNPeGV3dUlfUl9IQTRFdU1DVG5vdkppOGhtdWxoRUptX09DM0lKUUFhNUI3OFN4NFZ0c01nLWcxc1duc01DZ1Z0bFpIWTc2MThUNW9DdVNYbXNqVEFYVExTQjJKTS1ZclR1YmE4STY0WllqQkRHbGhmVWxPQWRjUjROcEpmV3pyVXV5V21DbWpqVldkdFNEMjNlSzB1blJsUE85?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] today.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOb2psaEJiNy1FQ2Y3Y1QxZDFpakFEbmZXV0d1dzd4Q0NEOFNGWkpYeVhkYWZTZzVscGRhaGRPQmYybHBzUmdvSDA5S25QR3UxM3RRZTZ6Qjl5eHhHakVYMWdYdERKWi1mVkZIbjNJeVh4R09uX3Fqc1p4UG81TWVnQnM3Q2ZoZFNrVG1rRXVTLVF3T1lVOWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Cat Make Surprise Appearance at Emmys 2026
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, along with her cat, made an unexpected cameo at the 2026 Emmys. The moment caught the attention of fans and attendees alike during the event.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xSTEFoZHhlemJZR0FHVWlzUER0dkk2eDdwcjkxYnRRM0JVNTRhbWI3YWNMX09sdnZfZExveVRBOFFQVzFoc1piY3BJNW1SMzR6akw3YjktZTBrX3BEUDdzWVJMNkxXd0NBYzNvR2pTMkkxX3ZJU2s3ZXdPblVvYjVxT0pVcWZheC1pR2gyc1dLS0dGN3JJMkVJVDVSVVVaZXpFSVdBcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Makes Cameo in Emmys Sketch with Mariska Hargitay
 
 - first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
@@ -196,6 +228,15 @@ Stories: 75
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWEwyWWgyR0hLV01zNFRfdXRnNUN3WElIMTJXUlExRGl6WFNXVE8xWlY4VFFXWk5RWjdZc2JuUUtsN2l5a0hFUG9MdXVjenM2WU53NVUteFQ3QjkwTXZTMmIzNldYZGUzVXU2TmY2Zm9HUjNCWXZNVXI2X0hJUUJlQmhCdGdJbXRILUlfTDRRWkdTbnZidUNZSFBfc0FmS1JIdVNzbkNTSXZzQXR1YVJ1WDgxR2Y5el84THI5REhjME5mUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-emmys-law-order-mariska-hargitay-olivia-benson-1235626589/
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMijgFBVV95cUxQcVc0YVRWUDVEWVNqSFI3eUpNTEdEUkFZTzhPQVR5bXk4U0lCbjQ1X0JfcjhuOWxpdlhIc1ZxR3hHci1EUWV3dy1ON1R5b256R0hpczZGLTRnM1hKbllRVGdaSFpXRERKX252T3hPYU5PQ0k2ZlBtLVhQT2dObHpaWEh2OVY4MzhWLW1HMmF3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Cat Make Surprise Appearance at Emmys 2026
+
+- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift, along with her cat, made an unexpected cameo at the 2026 Emmys. The moment caught the attention of fans and attendees alike during the event.
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxPYkNaaXJfY0h6Wl90QUtFdUZ5a2c0a0Znd2NnV1Z4OFRscFRicEtWV0MwTlgyNEhjTzZmeHY4US14NXJGcVMxOGNDVm80dU5NU3JnVXloeEZMZkhjN19JMWpZbkxQLW0xUzh0cUwyRGVwZFp4elZwY2lrTUVfMXhvRm5Uend5M0k?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xSTEFoZHhlemJZR0FHVWlzUER0dkk2eDdwcjkxYnRRM0JVNTRhbWI3YWNMX09sdnZfZExveVRBOFFQVzFoc1piY3BJNW1SMzR6akw3YjktZTBrX3BEUDdzWVJMNkxXd0NBYzNvR2pTMkkxX3ZJU2s3ZXdPblVvYjVxT0pVcWZheC1pR2gyc1dLS0dGN3JJMkVJVDVSVVVaZXpFSVdBcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Supports Travis Kelce at Chiefs Season Opener
 
