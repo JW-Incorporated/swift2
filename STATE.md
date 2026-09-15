@@ -50,9 +50,20 @@
 5. M8 implementation and repeated-sweep integration proof #4365 are merged.
    99 integration/focused tests include synthetic 49/97-hour nudge/HA/defer/
    held behavior, permitted by the spec. Real intake triage 34980285130
-   passed, filing ready-shaped #4364 from #4358. No real canonical founder
-   chat approval or subsequent Kevin ready/greenlit evidence exists yet;
-   do not manufacture those events from delegated technical authority.
+   passed, filing ready-shaped #4364 from #4358. Joey's real Discord approval
+   was relayed exactly once by successful chat run 35021076114:
+   https://github.com/JW-Incorporated/swift2/issues/4364#issuecomment-5687793264
+   The approval comment was created at 2026-09-15T20:41:37Z. Kevin's next
+   daily-desk/S3 triage is scheduled for September 16 at 15:13Z; the separate
+   01:23/13:23 radar is not that triage. Ready/greenlit and any eligible
+   Austin claim remain unverified. Do not manufacture those events.
+   Read-only Windows task `Codex-M8-Proof-20260916` is Running/IgnoreNew,
+   collecting the September 16 15:13-18:00Z window with logon recovery.
+   Local evidence: Hermes/.codex-m8-proof-20260916. It verifies the unique
+   canonical approval, a successful scheduled Kevin run and its newest
+   bot-authored anchored ready/greenlit bucket; mere mentions do not count.
+   Eleven mocked tests passed. It neither dispatches Claude nor writes to
+   GitHub; inspect its proof before marking the milestone complete.
 6. Deterministic brief recovery is #4372, with explicit recovery journal.
    Delivery-only workflow #4371 uses no Claude. Instrumented run 34984846152
    failed with HTTP 429, zero of two chunks delivered, no delivery marker.
@@ -74,6 +85,54 @@
    available. This session's agent selector omits it; a ChatGPT-authenticated
    CLI attempt with gpt-5.3-codex-spark was rejected as unsupported before any
    review ran. Astra/Sol/Luna remain the usable delegation routes here.
+
+## Media recovery - 2026-09-15
+
+The media rule is now a publication invariant, not only a prompt instruction.
+PR #4398 (34c3550c) merged after independent review and required CI;
+content-publish 35023269788 succeeded on that exact commit. The shared raw
+moment guard runs in both content validation and writeBundle before output
+or current-pointer writes. Missing, empty, placeholder, and malformed media
+are rejected. Source links alone do not count. The routine charter's text-only
+exception was removed and the post-publication checker uses the same predicate.
+Source relevance still requires editorial and visual review.
+
+PR #4396 repaired the latest CMA and insect posts with the actual Instagram
+Story and UC Riverside insect photograph. Both sources, image contents and
+credits were checked. PR #4397 repaired slug-based deep links; desktop and
+mobile fresh loads opened the correct article. The ten Showgirl historical
+gaps were repaired in #4399 (641a62e4), removing their exact legacy exemptions.
+Twenty more historical gaps were repaired in #4400 (bcf8c86c). Its exact-commit
+content-publish run 35026076081 succeeded, including the Storage mirror.
+The final eighteen TTPD repairs merged in #4402 (0ce572f6), after all images
+were independently reviewed and incorrect captions, credits, an event date,
+and a broken URL corrected. The raw publication gate passes with zero
+historical exemptions. The original inventory's 761 rows included one
+non-published example; all 760 publishable moments are covered.
+The real builder, 164 focused tests, TypeScript, lint, and required CI passed.
+Amsterdam's old generated ID resolves to its corrected July 5 record.
+Production content-publish 35028588168 succeeded at 22:00:06Z; Vercel
+deployment 6JcFFhPvc9g12nViJgFTs7vmHBRm succeeded at 22:00:18Z.
+The public bundle is 4fa01086d459000acc5d24e4d73089f6e6b19dd3f1d661bd75e645e61fe8419f.
+A fresh audit verified all twelve era-file hashes and found zero missing-media
+moments among all 760 published moments. Live browser checks confirmed the
+old Amsterdam link and its corrected photo; Torrisi's actual 2048x1152 photo
+loaded on a 390px mobile viewport without horizontal overflow.
+Migration history: docs/content/historical-media-migration-2026-09-15.md.
+Do not add exemptions to bypass the media requirement.
+
+The September 14 Emmys thumbnail is a separate layout defect: its valid
+1280px photo was reduced to a 40px icon by the compact card tier. PR #4401
+keeps the photo full-width at 16:10 above the short title row, preserving
+ranking and image suppression. Astra accepted the diff; 142 focused tests,
+TypeScript and targeted lint passed. Root checked the final implementation
+in desktop/mobile browsers and opened the correct detail. The fix merged as
+07cfd0d6 at 21:31:52Z; Vercel production deployment
+HfQUVVp8kgcY1bC1khT6k7hh6Ca6 succeeded at 21:33:12Z. Independent fresh live
+checks measured the Emmys photo at 410.4x256.5px on desktop and
+341.6x213.5px at a 390x844 viewport, filling the button width at 16:10.
+The actual photo loaded, the article opened correctly, and mobile had no
+horizontal overflow. Content-publish 35026143357 also succeeded.
 
 ## Reboot recovery - 2026-09-15
 
