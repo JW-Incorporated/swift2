@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { deepLinkTarget, resolveVideoDeepLink } from '@swift2/experience';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
-import { getContentItem } from '../content';
+import { getContentItemByIdOrSlug } from '../content';
 import { allVideoRecordsForEra, findVideoEraId } from '../videos';
 import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
@@ -271,9 +271,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // one — pushing a back-entry here would trap the first back gesture.
     nav.suppressNavPushRef.current = true;
     if (target.kind === 'item') {
-      if (getContentItem(target.id)) {
+      const contentItem = getContentItemByIdOrSlug(target.id);
+      if (contentItem) {
         // The moment overlay reads over the era stream.
-        overlays.openItem(target.id);
+        // Published links use the stable seed slug; the overlay store uses the
+        // generated item id. Keep the original target for the video fallback.
+        overlays.openItem(contentItem.id);
       } else {
         // Not a moment id — resolve it as a video slug instead (#3312). A
         // still-unresolved id falls through to the front door, same as a bad
