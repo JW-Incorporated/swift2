@@ -273,7 +273,7 @@ async function pollWith(routes: Record<string, unknown>) {
   const runs = [{ displayTitle: runTitle('marjorie', MID), status: 'completed', conclusion: 'failure', url: RUN }];
   const execImpl = vi.fn((_cmd: string, args: string[]) => (args[0] === 'run' ? JSON.stringify(runs) : ''));
   const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
-  const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml' });
+  const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml', clockLive: false });
   return { code, writes: d.writes(), dispatched: execImpl.mock.calls.filter((c) => c[1][0] === 'workflow').length };
 }
 

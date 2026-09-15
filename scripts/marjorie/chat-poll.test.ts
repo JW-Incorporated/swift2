@@ -68,7 +68,7 @@ describe('selectInbox', () => {
 describe('poll', () => {
   it('does nothing at all when BOT_CHAT_ENABLED=false', async () => {
     const { fetchImpl } = discord({});
-    expect(await poll({ env: { ...env, BOT_CHAT_ENABLED: 'false' }, fetchImpl, sleepImpl, now: NOW })).toBe(0);
+    expect(await poll({ env: { ...env, BOT_CHAT_ENABLED: 'false' }, fetchImpl, sleepImpl, now: NOW, clockLive: false })).toBe(0);
     expect(fetchImpl).not.toHaveBeenCalled();
   });
   it('claims with 👀 before dispatching, with the thread id for a thread message', async () => {
@@ -82,7 +82,7 @@ describe('poll', () => {
     };
     const { fetchImpl } = discord(routes, order);
     const execImpl = gh([], order);
-    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
     const claimTop = order.findIndex((k) => k.startsWith(`PUT ${DISCORD_API}/channels/${MARJ}/messages/${top.id}`));
     const dispatchTop = order.findIndex((k) => k.includes('routine-marjorie-chat.yml') && k.includes(`message_id=${top.id}`));
     expect(claimTop).toBeGreaterThan(-1);
@@ -98,20 +98,20 @@ describe('poll', () => {
     const reaction = `${DISCORD_API}/channels/${MARJ}/messages/${top.id}/reactions/${EYES}/@me`;
     const { fetchImpl, log } = discord({ ...baseRoutes([top]), [`PUT ${reaction}`]: res(204) });
     const execImpl = vi.fn(() => { throw new Error('HTTP 502'); });
-    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
     expect(log.some((k) => k.startsWith('DELETE '))).toBe(false);
   });
   it('does not dispatch when the 👀 claim is refused', async () => {
     const top = msg('1000000000000000001');
     const { fetchImpl } = discord({ ...baseRoutes([top]), [`PUT ${DISCORD_API}/channels/${MARJ}/messages/${top.id}/reactions/${EYES}/@me`]: res(403, { code: 50013 }) });
     const execImpl = gh();
-    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
     expect(execImpl).not.toHaveBeenCalled();
   });
   it('dry run reacts to nothing and dispatches nothing', async () => {
     const { fetchImpl, log } = discord(baseRoutes([msg('1000000000000000001'), msg('1000000000000000002', mine(CLAIM))]));
     const execImpl = gh();
-    expect(await poll({ env: { ...env, DRY_RUN: '1' }, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(await poll({ env: { ...env, DRY_RUN: '1' }, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
     expect(log.some((k) => k.startsWith('PUT ') || k.startsWith('POST '))).toBe(false);
     expect(execImpl.mock.calls.some((c) => c[1][0] === 'workflow')).toBe(false);
   });
@@ -126,7 +126,7 @@ describe('poll', () => {
     };
     const { fetchImpl } = discord(routes);
     const execImpl = gh();
-    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
     expect(execImpl.mock.calls[0][1]).toContain(`message_id=${older.id}`);
   });
   it('pages past the 24 h window to find an own-👀 claim older than it', async () => {
@@ -135,14 +135,14 @@ describe('poll', () => {
     const routes = { ...baseRoutes(page), [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100&before=${page[99].id}`]: res(200, [claim]) };
     const { fetchImpl } = discord(routes);
     const execImpl = gh();
-    expect(await poll({ env: { ...env, DRY_RUN: '1' }, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(await poll({ env: { ...env, DRY_RUN: '1' }, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
     expect(execImpl.mock.calls.some((c) => c[1][0] === 'run')).toBe(true);
   });
   it('fails the run when a place cannot be read or a body comes back blank', async () => {
     const unreadable = { ...baseRoutes([msg('1000000000000000001')]), [`GET ${DISCORD_API}/channels/${THREAD}/messages?limit=100`]: res(403, {}) };
-    expect(await poll({ env: { ...env, DRY_RUN: '1' }, ...discord(unreadable), sleepImpl, execImpl: gh(), now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+    expect(await poll({ env: { ...env, DRY_RUN: '1' }, ...discord(unreadable), sleepImpl, execImpl: gh(), now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
     const blank = baseRoutes([msg('1000000000000000001', { content: '' })]);
-    expect(await poll({ env, ...discord(blank), sleepImpl, execImpl: gh(), now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+    expect(await poll({ env, ...discord(blank), sleepImpl, execImpl: gh(), now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
   });
   describe('reconciling earlier claims (👀, no ✅/❌)', () => {
     const claimed = msg('1000000000000000001', mine(CLAIM));
@@ -152,7 +152,7 @@ describe('poll', () => {
     it('never re-dispatches a stale claim with no matching run; it settles once as failed', async () => {
       const { fetchImpl, log } = discord({ ...baseRoutes([claimed]), [cross]: res(204), [post]: res(200, { id: '5' }) });
       const execImpl = gh([{ displayTitle: runTitle('marjorie', '1000000000000000009'), status: 'completed', url: 'u' }]);
-      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
       expect(execImpl.mock.calls.map((c) => c[1][0])).toEqual(['run']);
       expect(log.findIndex((k) => k.startsWith(post))).toBeLessThan(log.findIndex((k) => k === cross));
     });
@@ -160,14 +160,14 @@ describe('poll', () => {
       const young = msg(claimed.id, { ...mine(CLAIM), timestamp: '2026-09-13T17:30:00.000Z' });
       const { fetchImpl, log } = discord(baseRoutes([young]));
       const execImpl = gh();
-      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
       expect(execImpl).not.toHaveBeenCalled();
       expect(log.some((k) => k.startsWith('PUT ') || k.startsWith('POST '))).toBe(false);
     });
     it('checks every matching run and lets an active original veto a completed duplicate', async () => {
       const { fetchImpl, log } = discord(baseRoutes([claimed]));
       const execImpl = gh([{ displayTitle: title, status: 'completed', url: 'duplicate' }, { displayTitle: title, status: 'in_progress', url: 'original' }]);
-      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
       expect(execImpl).toHaveBeenCalledTimes(1);
       expect(log.some((k) => k.startsWith('PUT ') || k.startsWith('POST '))).toBe(false);
     });
@@ -175,27 +175,27 @@ describe('poll', () => {
       const routes = { ...baseRoutes([claimed]), [`GET ${DISCORD_API}/channels/${MARJ}/messages/${claimed.id}`]: res(200, msg(claimed.id, mine(CLAIM, REPLIED))) };
       const { fetchImpl, log } = discord(routes);
       const execImpl = gh([{ displayTitle: title, status: 'completed', conclusion: 'failure', url: 'https://github.com/run/1' }]);
-      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
       expect(log.some((k) => k.startsWith('PUT ') || k.startsWith('POST '))).toBe(false);
     });
     it('never strands a notice behind ❌ and uses the referenced marker to avoid duplicates', async () => {
       const run = [{ displayTitle: title, status: 'completed', url: 'https://github.com/run/1' }];
       const first = discord({ ...baseRoutes([claimed]), [post]: res(503, {}) });
-      expect(await poll({ env, ...first, sleepImpl, execImpl: gh(run), now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+      expect(await poll({ env, ...first, sleepImpl, execImpl: gh(run), now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
       expect(first.log.some((k) => k === cross)).toBe(false);
       const second = discord({ ...baseRoutes([claimed]), [post]: res(200, { id: 'notice' }), [cross]: res(503, {}) });
-      expect(await poll({ env, ...second, sleepImpl, execImpl: gh(run), now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+      expect(await poll({ env, ...second, sleepImpl, execImpl: gh(run), now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
       expect(second.log.filter((k) => k.startsWith(post))).toHaveLength(1);
       const notice = msg('1000000000000000002', { author: { id: '9', bot: true }, content: `${FAILURE_PREFIX} — please send it again`, message_reference: { message_id: claimed.id } });
       const third = discord({ ...baseRoutes([notice, claimed]), [cross]: res(204) });
-      expect(await poll({ env, ...third, sleepImpl, execImpl: gh(run), now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+      expect(await poll({ env, ...third, sleepImpl, execImpl: gh(run), now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
       expect(third.log.some((k) => k.startsWith(post))).toBe(false);
       expect(third.log.some((k) => k === cross)).toBe(true);
     });
     it('treats a full, date-bounded run list as inconclusive and never dispatches', async () => {
       const { fetchImpl, log } = discord(baseRoutes([claimed]));
       const execImpl = gh(Array.from({ length: 200 }, (_, i) => ({ displayTitle: `other-${i}`, status: 'completed' })));
-      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie })).toBe(1);
+      expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(1);
       expect(execImpl.mock.calls[0][1]).toContain('>=2026-09-13T16:59:00Z'); // whole seconds, a minute early
       expect(execImpl.mock.calls.map((c) => c[1][0])).toEqual(['run']);
       expect(log.some((k) => k.startsWith('PUT ') || k.startsWith('POST '))).toBe(false);

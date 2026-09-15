@@ -28,7 +28,7 @@ async function pass(messages: unknown | unknown[], { runs = [], doorbellLive = t
   const claims = Object.fromEntries(list.map((m) => [claimOf(m.id), claim]));
   const { fetchImpl } = discord({ ...baseRoutes(list), ...claims }, order);
   const exec = (execImpl as ReturnType<typeof gh>) || gh(runs, order);
-  const code = await poll({ env: { ...env, ...extraEnv }, fetchImpl, sleepImpl, execImpl: exec, now: NOW, workflowExists: onlyMarjorie, doorbellLive });
+  const code = await poll({ env: { ...env, ...extraEnv }, fetchImpl, sleepImpl, execImpl: exec, now: NOW, workflowExists: onlyMarjorie, doorbellLive, clockLive: false });
   return { code, order };
 }
 
@@ -46,7 +46,7 @@ describe('the poll watches the doorbell', () => {
     expect(DOORBELL_LIVE).toBe(true);
     const order: string[] = [];
     const { fetchImpl } = discord({ ...baseRoutes([msg(ID)]), [claimKey]: res(204) }, order);
-    expect(await poll({ env, fetchImpl, sleepImpl, execImpl: gh([], order), now: NOW, workflowExists: onlyMarjorie })).toBe(0);
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl: gh([], order), now: NOW, workflowExists: onlyMarjorie, clockLive: false })).toBe(0);
     expect(order.filter(isAlarm)).toHaveLength(1);
     expect(order.find(isAlarm)).toContain('stage=doorbell-missed');
     expect(order).toContain(claimKey);

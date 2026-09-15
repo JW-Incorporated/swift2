@@ -9,6 +9,8 @@ import { alert, checkClock } from './chat-alarm.mjs';
 // @ts-expect-error plain mjs
 import { poll } from './chat-poll.mjs';
 import { baseRoutes, discord, env, sleepImpl } from './chat-poll.fixtures';
+// @ts-expect-error plain mjs
+import { CLOCK_LIVE, CLOCK_LIVE_SINCE } from './lib/chat-inbox.mjs';
 
 const NOW = Date.parse('2026-09-14T15:00:00Z');
 const SINCE = '2026-09-14T12:00:00Z';
@@ -185,5 +187,14 @@ describe('shared clock gap verdict', () => {
     }
     const { fetchImpl } = discord(baseRoutes([]));
     expect(await poll({ env, fetchImpl, sleepImpl, execImpl: () => { throw new Error('unreadable'); }, now: NOW, clockLive: true, clockSince: SINCE })).toBe(1);
+  });
+  it('the deployed clock flag controls the default poll path', async () => {
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    const execImpl = gh([]);
+    const { fetchImpl } = discord(baseRoutes([]));
+    const now = Date.parse(CLOCK_LIVE_SINCE) + 5 * 60_000;
+
+    expect(await poll({ env, fetchImpl, sleepImpl, execImpl, now })).toBe(0);
+    expect(execImpl.mock.calls.some(([, args]) => args.some((arg) => arg.includes('bot-chat-poll.yml/runs?')))).toBe(CLOCK_LIVE);
   });
 });
