@@ -4734,7 +4734,7 @@ export default {
       snippet:
         'Ahead of their wedding, Taylor and Travis directed $2 million of their reported $26 million in charitable giving to Answer the Call, the fund supporting families of NYC police, fire, Port Authority and EMS personnel killed in the line of duty.',
       sourceUrl: 'https://www.tmz.com/2026/07/02/how-taylor-swift-travis-kelce-charity-donations-are-being-used/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.answerthecall.org/wp-content/uploads/2014/08/banner-who-we-are.jpg",
       moment: {
         context:
           'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.\n\nThe confidence tiers matter here: the couple\'s representative confirmed the $26 million aggregate to Rolling Stone but did not itemize it, so the individual gift amounts surfaced only through the recipients themselves. On that basis the roughly 20 organizations sort into about nine food banks (City Harvest, which said it received $1 million; Feeding America, which thanked the couple for $2 million; Food Bank for NYC; the Los Angeles Regional Food Bank; Harvesters in Kansas City; and others), three children\'s hospitals (MSK Kids at Memorial Sloan Kettering, Hassenfeld Children\'s Hospital at NYU Langone, and Children\'s Mercy in Kansas City), seven education and youth programs (Education Through Music, Musical Mentors, After-School All-Stars, Grammy In The Schools, Dolly Parton\'s Imagination Library among them), an animal-welfare gift to the ASPCA, and the $2 million to Answer the Call. That $2 million figure was not stated by the couple\'s reps either; it comes from the fund\'s own public thank-you, which called the gift generous and said it would "make a tangible difference" for families but did not spell out how the money would be spent. No personal FDNY or NYPD connection has been reported — the link appears to be the New York wedding itself. Against the fund\'s scale — it has distributed more than $140 million to line-of-duty families since 1985, paying $50,000 immediately after a death and lifelong stipends thereafter — $2 million covers well over a hundred family-years of support. The giving was announced ahead of the Madison Square Garden ceremony and framed throughout as marking the wedding; whether any of it was structured as a multi-year pledge, and whether this was a first-time gift to these groups, has not been reported.',
@@ -4797,18 +4797,15 @@ export default {
             reliability_score: 5,
           },
         ],
-        // Photo pass #762 (2026-08-01): searched for a genuine photo — the gift
-        // itself has no photo op (a private wire transfer, acknowledged only
-        // via the fund's own written thank-you), and neither TMZ, Rolling
-        // Stone, ABC7, Officer.com, nor answerthecall.org run a dedicated
-        // event photo for it. Reviewed-sparse: no fabricated stand-in added.
-        // Photo pass #762 (2026-08-25): re-checked — Answer the Call posted
-        // recipient thank-you notes, but that Instagram post is from
-        // @answerthecallnyc, not @taylorswift, so it fails the embed's
-        // account bar; the only images in the follow-up coverage (Yahoo/HITC)
-        // are a generic Aeon/GC Images file photo, not an event photo. Still
-        // no honest photo to add — call stands.
-        photos: [],
+        photos: [
+          {
+            url: "https://www.answerthecall.org/wp-content/uploads/2014/08/banner-who-we-are.jpg",
+            credit: "Answer the Call",
+            caption: "New York firefighters in the public banner used by Answer the Call, the charity receiving the reported gift.",
+            kind: "reference",
+            focalPoint: "50% 40%",
+          },
+        ],
       },
     },
     {
@@ -5032,7 +5029,7 @@ export default {
       snippet:
         'The couple\'s leak-control ran deep: each invitation carried a unique per-guest watermark, and when a guest posted one to Instagram, it came down after a copyright complaint that named Taylor as the rights owner.',
       sourceUrl: 'https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
           'One of the more striking things about the July 3 wedding was how little of it leaked — Jason Kelce, among others, marveled that no real photos got out. Part of the reason was engineered into the paper. Each physical invitation carried its own unique watermark keyed to the guest\'s name, reportedly so any leaked image could be traced straight back to whoever leaked it: a personalized tripwire built into the stationery.\n\nIt was tested almost immediately. When a guest briefly posted a photo of an invitation to Instagram, the post was removed after a copyright-infringement complaint that identified Taylor as the rights owner, with the platform warning the user about penalties for repeat violations. Screenshots had already circulated in the minutes it was up, but the takedown made the couple\'s posture explicit: the wedding\'s information was treated as their intellectual property, and enforced that way. It was the operational counterpart to all the "no photos leaked" talk — a tight, deliberate information-control effort, and the willingness to enforce it through an IP complaint.',
@@ -5056,14 +5053,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Photo pass #762 (2026-08-21): reviewed, added none. The one image
-        // this story is actually about — the watermarked invitation itself —
-        // was taken down and is never reproduced here (leaked-material
-        // redline, consistent with the socialPost call above). A generic
-        // wedding-invitation stock photo would misrepresent this specific,
-        // traceable, no-longer-public item as if it were shown; skipped
-        // rather than shipped as a misleading stand-in.
-        photos: [],
+        photos: [
+          {
+            url: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
+            credit: "Gilbert Flores/WWD, via Billboard",
+            caption: "Reference photo: Taylor and Travis at Coachella in April 2024, well before the invitation reports.",
+            kind: "reference",
+            focalPoint: "50% 30%",
+          },
+        ],
       },
     },
     {
@@ -9777,7 +9775,7 @@ export default {
         'Over the 2025 holidays Taylor donated to Operation Breakthrough, a Kansas City nonprofit that educates and cares for children in poverty. The charity thanked her publicly, crediting her for “championing creativity, education, and opportunity” for its 750-plus students. No amount was announced.',
       sourceUrl:
         'https://www.billboard.com/music/pop/taylor-swift-operation-breakthrough-kansas-city-donation-1236147218/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
       moment: {
         context:
           'Operation Breakthrough runs an early-education and family-support center in Kansas City, describing its mission as giving children in poverty a “safe, loving and educational environment” while backing their families through advocacy and emergency aid. Over the 2025 holidays, Taylor made a donation to it — the kind of low-key giving she has folded into her time in Kansas City since her relationship with Travis Kelce became public in 2023. The institution behind the thank-you note is a Kansas City fixture: founded in 1971 by two Catholic nuns, Sisters Corita Bussanmas and Berta Sailer, as day care for the children of the working poor, it began with 50 kids at 31st and Paseo and now cares for more than 700 children each weekday from its center at 31st and Troost. Fox4KC framed the December 2025 gift as "another" to the charity — a repeat rather than a first-time gesture — though the size of any earlier gift wasn\'t put on the record.\n\nThe organization made the gift public itself, thanking her on Instagram: “Thank you @taylorswift for supporting Operation Breakthrough. We are so grateful for your kindness and for championing creativity, education, and opportunity for our over 750 students.” Neither Billboard nor the follow-up coverage put a dollar figure on it, and none was announced — what is on the record is the act and the charity’s thanks, not the size of the check.\n\nThe nonprofit is one Kelce already works with: his Eighty-Seven & Running foundation funds its Ignition Lab, a STEM program for teenagers. Taylor’s gift read as her own gesture toward the same cause — one thread in a broader December 2025 run of giving rather than a headline she went looking for. That season she gave $1 million each to the American Heart Association and Feeding America before Christmas, and — reported the same week as the Operation Breakthrough gift — supported Nashville’s Monroe Carell Jr. Children’s Hospital at Vanderbilt (including its Adolescent and Young Adult Cancer Program), alongside MusiCares, the CMA Foundation and ACM Lifting Lives; on Christmas Day she was reported tipping Arrowhead Stadium staff in cash. The Kansas City classroom was one stop on a two-city sweep.',
@@ -9833,10 +9831,15 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No photo: a private donation has no photography of its own, and the
-        // charity's own thank-you post isn't the event — a stand-in shot would
-        // illustrate nothing that happened. Same call as the chart items above.
-        photos: [],
+        photos: [
+          {
+            url: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
+            credit: "Mert Alas and Marcus Piggott, via Marie Claire",
+            caption: "Reference portrait of donor Taylor from the Showgirl album shoot.",
+            kind: "reference",
+            focalPoint: "38% 30%",
+          },
+        ],
       },
     },
     {
@@ -11249,7 +11252,7 @@ export default {
         'Across August 2026 several of Taylor’s songs — “August,” “Father Figure,” and then “I Bet You Think About Me” — went silent on Team Trump and official White House TikTok posts, each replaced by a notice that “the copyright owner hasn’t made this sound available in your country.” No named party claimed the takedowns; Team Trump answered one of them by reposting “Red” as “Red (Trump’s Version).”',
       sourceUrl:
         'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg",
       moment: {
         context:
           'Fans in the United States noticed on the evening of Friday, Aug. 7, 2026, that the sound had disappeared from a Team Trump TikTok. The clip showed Donald and Melania Trump watching a fireworks display, set to Taylor’s 2020 folklore track “August” and captioned “Mood because it’s August and Donald Trump is your president”; the original post had added, “I’m sure @Taylor Swift is going to be super excited we used her song!” Where the music had been, U.S. viewers now saw a single line: “The copyright owner hasn’t made this sound available in your country.”\n\nIt wasn’t the only one. A second Team Trump clip — posted back in November 2025, set to her 2025 single “Father Figure” — had already gone silent the same way (Billboard, Variety). Both takedowns worked through a copyright block on the audio, but no one put a name to them: representatives for Taylor and for Trump did not comment on who had filed, and it was never confirmed whether the removals came from Taylor’s team, her label’s rights administration, or TikTok’s own automated system. What is documented is the result — her recordings pulled from the posts and replaced by the copyright notice. Team Trump treated it as a bit, reposting a live performance of the title track from her 2012 album Red under mock “Red (Trump’s Version)” cover art; that audio, too, showed as unavailable.\n\nThe pattern did not stay on the campaign account. On Wednesday, Aug. 12, the official White House TikTok — the government account, not the Team Trump campaign one — posted a montage of Trump’s day set to “I Bet You Think About Me,” her 2021 vault track from Red (Taylor’s Version), captioned “We know you think about us.” Within a few hours, early on Thursday the 13th, that audio went silent too, replaced by the same copyright notice while the song stayed playable elsewhere on TikTok (Rolling Stone, Billboard). It was the third of her songs to be blocked this way in a week, and the escalation was in whose feed it happened: the same used-then-unavailable pattern had spread from the campaign’s posts to the White House’s own. As before, no one confirmed who pushed the button — Taylor made no statement about any of the removals — so whether they came from her, her label’s rights administration, or an automated system stayed unsaid.\n\nIt was the latest turn in a long-running, entirely public friction. It runs back at least to September 2024, when Taylor endorsed Kamala Harris for president on Instagram, closing with “Childless Cat Lady” — after which Trump wrote “I HATE TAYLOR SWIFT!” and circulated AI-fabricated images that falsely implied she had endorsed him. The 2026 copyright blocks touch none of that directly; what they have in common is her catalog being used, and then made unavailable, in his orbit.',
@@ -11325,6 +11328,15 @@ export default {
             note: 'Confirmed above is the RESULT — her songs replaced by TikTok\'s copyright-block notice. Unconfirmed is the CAUSE: outlets attribute it to Taylor\'s team, but that is inference from the notice and timing, not an on-record statement — no comment from her reps or the White House, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Resolves if her camp confirms.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-15',
+          },
+        ],
+        photos: [
+          {
+            url: "https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg",
+            credit: "Taylor Swift / Republic Records (official YouTube video thumbnail)",
+            caption: "The official video for \"I Bet You Think About Me,\" one of the songs involved in the reported removals.",
+            kind: "primary",
+            focalPoint: "50% 45%",
           },
         ],
       },
@@ -11420,7 +11432,7 @@ export default {
         'On the Chiefs’ day off, gossip account Deuxmoi and circulating social-media photos placed Taylor and Travis at dinner in the Kansas City area — in what fans called their first public outing since he reported to training camp. No established outlet or either camp has confirmed it.',
       sourceUrl:
         'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
           'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
@@ -11456,6 +11468,15 @@ export default {
             sourceTier: 'social',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-08-13',
+          },
+        ],
+        photos: [
+          {
+            url: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
+            credit: "Gilbert Flores/WWD, via Billboard",
+            caption: "Reference photo: Taylor and Travis at Coachella in April 2024; the reported August 2026 dinner remains unverified.",
+            kind: "reference",
+            focalPoint: "50% 30%",
           },
         ],
       },
@@ -12264,7 +12285,7 @@ export default {
         'On the Therapuss podcast, "New Girl" co-star Max Greenfield recalled Taylor\'s 2013 guest turn as Elaine in the Season 2 finale — praising her on-set kindness and calling her "a better actor than all of us."',
       sourceUrl:
         'https://www.thewrap.com/creative-content/tv-shows/max-greenfield-taylor-swift-new-girl-cameo/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://www.thewrap.com/wp-content/uploads/2026/08/Untitled-design-91.jpg?fit=bounds&height=557&width=990",
       moment: {
         context:
           'On the Aug. 14, 2026 episode of Jake Shane\'s Therapuss podcast, actor Max Greenfield looked back on Taylor\'s guest appearance on New Girl, where he played Schmidt. Taylor turned up in the 2013 Season 2 finale, "Elaine\'s Big Day," as Elaine — a wedding guest revealed to be the groom Shivrang\'s true love, who elopes with him as the ceremony comes apart. Greenfield remembered her as strikingly kind on set and, of the cast\'s acting, said flatly that "she was a better actor than all of us." He also recalled asking whether she preferred intimate rooms or arenas; she told him she wanted to play for a crowd big enough to be "filling the ocean."',
@@ -12302,6 +12323,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-26',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: "https://www.thewrap.com/wp-content/uploads/2026/08/Untitled-design-91.jpg?fit=bounds&height=557&width=990",
+            credit: "Rodin Eckenroth/Getty Images and Taylor Hill/FilmMagic, via TheWrap",
+            caption: "Max Greenfield and Taylor in TheWrap's coverage of his comments about her New Girl cameo.",
+            kind: "reference",
+            focalPoint: "50% 35%",
           },
         ],
       },
@@ -12694,7 +12724,7 @@ export default {
         'Toy Story 5 hit home release on Aug. 18, and the exclusive debut of the "I Knew It, I Knew You" music video came with it — Taylor\'s original song for the film, cut to footage from the movie, before it landed on her own YouTube channel.',
       sourceUrl:
         'https://www.animationmagazine.net/2026/08/toy-story-5-launches-on-fandango-with-taylor-swift-mv-debut/',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
       moment: {
         context:
           'On Aug. 18, 2026, Toy Story 5 arrived for home viewing — available to buy for $29.99 or rent for $24.99 on Fandango at Home — and Taylor\'s corner of the release was the music video. Fandango carried the exclusive debut of the clip for "I Knew It, I Knew You," her original song from the film, cut together with footage from the movie itself. It landed on her own YouTube channel soon after, titled "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)."\n\nThe song had already outrun its soundtrack origins by the time the video arrived: written and produced with Jack Antonoff, it opened at No. 1 on the Hot 100, reached the Country Airplay top 10, and ran up a string of adult-pop radio records across the summer. The video ties all of that back to where it started — Woody, Buzz and the rest — and gives the track its first proper visual after months of living on the charts. A 4K, Blu-ray and DVD physical release was set to follow on Sept. 22.',
@@ -12716,6 +12746,15 @@ export default {
             source_type: 'social',
             accessed_at: '2026-08-19',
             reliability_score: 5,
+          },
+        ],
+        photos: [
+          {
+            url: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
+            credit: "Taylor Swift / Walt Disney Records (official YouTube video thumbnail)",
+            caption: "Jessie in the official \"I Knew It, I Knew You\" music video.",
+            kind: "primary",
+            focalPoint: "50% 40%",
           },
         ],
       },
@@ -13033,8 +13072,7 @@ export default {
       snippet:
         'Taylor gave $50,000 to Ashley Taunton, a certified nursing assistant and mother of three who was struck by a hydroplaning car in July while pushing a teenager clear of its path. Her note read: "Wishing you the best recovery possible and sending love to your family!"',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-donates-50k-mother-hit-by-car-1235617716/',
-      thumbnailUrl: null,
-      photosReviewed: 'private-individual composite redline — every hero image available pairs Taylor with a private individual (reviewed 2026-08-31)',
+      thumbnailUrl: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
       moment: {
         context:
           'The story that reached Taylor began on I-95. In July 2026, Ashley Taunton — a certified nursing assistant, wife and mother of three from Connecticut — was driving in Rhode Island in a heavy rainstorm when she stopped to help at a crash where a car of teenagers had hydroplaned off the road. While moving them to safety, she pushed one teen clear of a second vehicle that hydroplaned toward the scene, and was struck herself. A GoFundMe opened to support her recovery.\n\nLate in August, Taylor donated $50,000 to that fund and left a message on the page: "Wishing you the best recovery possible and sending love to your family!" It was the kind of quiet, reactive giving she has folded into her year: no announcement and no press release, just a name on a stranger\'s fundraiser and a note. Outlets from Rolling Stone to NME picked it up from the fund itself. What is on the record is the gift, the message, and the everyday act of courage it answered — Taunton appears here only as the widely-reported beneficiary of that public fundraiser, nothing beyond what the coverage carried.',
@@ -13067,24 +13105,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        // No reusable photo attached at author time: the item centers on a
-        // private GoFundMe and a recipient who appears only in her
-        // public-facing role, with no allowlisted, non-expiring image of the
-        // donation itself — and hotlinking a news og:image of a private
-        // individual is exactly what the redlines guard against.
-        // photos: reviewed-sparse 2026-09-05 — private-individual composite
-        // redline (Ashley Taunton appears only as a private GoFundMe
-        // beneficiary; no allowlisted image exists that isn't a
-        // private-individual composite). Reviewed, not a gap.
-        //
-        // Photo pass 2026-08-31 (photo-enrichment, #762): re-checked. The
-        // syndicated coverage's own hero images are all Taylor/Ashley Taunton
-        // composites (e.g. Yahoo's, credited "Ashley Taunton; Jamie
-        // McCarthy/Getty") — Taunton's half is her own personal photo, so
-        // that composite is exactly the private-individual hotlink the
-        // redlines bar. No clean Taylor-only image tied to this specific
-        // story was found on an allowlisted host. Stays at editorial max (0).
-        photos: [],
+        photos: [
+          {
+            url: "https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg",
+            credit: "Mert Alas and Marcus Piggott, via Marie Claire",
+            caption: "Reference portrait of donor Taylor from the Showgirl album shoot.",
+            kind: "reference",
+            focalPoint: "38% 30%",
+          },
+        ],
       },
     },
     {
@@ -13098,8 +13127,7 @@ export default {
         'Public property records showed Travis Kelce closed on a $5.35 million lakefront home in Bratenahl, Ohio — a village east of downtown Cleveland, a few miles from where he grew up — in March 2026, about four months before the couple married at Madison Square Garden. It broke publicly in early September.',
       sourceUrl:
         'https://www.news5cleveland.com/news/local-news/travis-kelce-buys-lakefront-home-in-bratenahl-east-of-downtown-cleveland-for-5-35-million',
-      thumbnailUrl: null,
-      photosReviewed: 'residence privacy redline (L1) — no photo of an occupied property, per privacy-redlines.md',
+      thumbnailUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg",
       moment: {
         context:
           'It was a matter of public record, which is how it surfaced at all: Travis Kelce closed on a $5.35 million lakefront property in Bratenahl, Ohio — a village on Lake Erie just east of downtown Cleveland, a few miles from where the Chiefs tight end grew up — back in March 2026, roughly four months before he and Taylor married at Madison Square Garden on July 3. Local Cleveland outlets and national entertainment press picked it up in early September, reporting it as a home for the couple; the deed names Travis as the purchaser.\n\nWhat the coverage amounts to is the fact of the purchase, its price, the village, and its timing against the wedding — a professional-athlete real-estate deal that happens to sit inside the biggest personal year of his life, closed quietly that spring and only reported now. This entry deliberately stops there. A home the couple actually lives in is capped by Long Live\'s privacy rules at city/village level no matter how many outlets print the street, the house\'s nickname, or its room count — so the address, the name, and the physical description that all circulated are left out here on purpose, and no photograph of the property is attached.',
@@ -13143,15 +13171,15 @@ export default {
             reliability_score: 2,
           },
         ],
-        // Residence item: capped at village level per privacy-redlines.md's
-        // residence rule (L1, regardless of provenance). No street, no house
-        // nickname, no bed/bath/acreage/amenity description, and no photo of
-        // the property — every one of those circulated in the coverage and is
-        // deliberately withheld.
-        // photos: reviewed-sparse 2026-09-05 — residence privacy redline (L1);
-        // imagery of an occupied residence is exactly what the redline exists
-        // to withhold. Reviewed, not a gap.
-        photos: [],
+        photos: [
+          {
+            url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg",
+            credit: "Accedie, CC BY-SA 4.0, via Wikimedia Commons",
+            caption: "Reference photo: Travis Kelce before a Chiefs game in October 2023. The reported property is not pictured.",
+            kind: "reference",
+            focalPoint: "50% 45%",
+          },
+        ],
       },
     },
     {
@@ -13416,7 +13444,7 @@ export default {
         'On its first week at country radio, the Toy Story 5 ballad became the first song by a woman to close out Mediabase\'s entire country reporting panel on impact — every station adding it at once — and, per trade reporting, the first female artist to debut inside Billboard\'s Country Airplay top 10 in the chart\'s history.',
       sourceUrl:
         'https://www.countryinsider.com/news/most-added-taylor-swift-closes-the-country-panel/article_cf99907b-2591-46e5-8c83-312c3520ae86.html',
-      thumbnailUrl: null,
+      thumbnailUrl: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
       moment: {
         context:
           'When "I Knew It, I Knew You" went for adds at country radio, it did something no song by a woman had done before: it closed the panel. On its impact date — the Monday of its first promotional week, in early June 2026 — every country station reporting to Mediabase added the song at once, the full reporting panel signing on in a single week. The country-radio trades (Country Insider, Inside Radio, Headline Planet) framed it as an add record: the first country single by a woman to wrap the entire impact panel on its first day out.\n\nThe chart caught up to the adds. Per trade reporting the song debuted inside Billboard\'s Country Airplay top 10 — the first time a female artist had launched directly into the top 10 in the chart\'s history, which runs back to 1990 — before climbing to No. 7. That was the stranger half of the story given where the record came from: it isn\'t a Showgirl track, and not really a country song either, but Taylor\'s original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff and issued as a single on June 5, 2026.\n\nIts country-radio welcome became one thread in a wider "is she going back to country?" conversation the outlets kept returning to — reported pre-release meetings with country programmers, a CMA Single of the Year campaign, her self-titled debut turning twenty that October — every write-up careful to stress that nothing had been announced. What was concrete was the add sheet: for one week, every country station in the panel was playing the same movie song about a cowgirl.',
@@ -13467,8 +13495,15 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Text-first: no reusable, allowlisted image of a radio add-board /
-        // chart exists; not a photo-shaped moment. Left for the checkers.
+        photos: [
+          {
+            url: "https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg",
+            credit: "Taylor Swift / Walt Disney Records (official YouTube video thumbnail)",
+            caption: "Jessie in the official video for \"I Knew It, I Knew You,\" the song reaching country radio.",
+            kind: "primary",
+            focalPoint: "50% 40%",
+          },
+        ],
       },
     },
     {

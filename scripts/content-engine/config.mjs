@@ -110,6 +110,8 @@ export const CONFIG = {
     'images2.minutemediacdn.com',
     'www.guinnessworldrecords.com', 'thewaltdisneycompany.com',
     'news.wwu.edu', 'wsjshop.com',
+    // Official nonprofit origin; public first-responder photo verified 2026-09-15.
+    'www.answerthecall.org',
     'cloudfront-us-east-1.images.arcpublishing.com',
     'd3i6fh83elv35t.cloudfront.net',
     'wish-media.s3.us-east-2.amazonaws.com',
