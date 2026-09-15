@@ -213,9 +213,9 @@ export function MomentCardButton({
   // the next full card read as an event by contrast.
   if (tier === 'chip') {
     return (
-      <button onClick={onOpen} className={TIER_BODY.chip}>
-        {hero && (
-          <div className="relative size-10 shrink-0 overflow-hidden rounded-md">
+      <button onClick={onOpen} className={hero ? TIER_BODY.media : TIER_BODY.chip}>
+        {hero ? (
+          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
             <Image
               src={hero.url}
               alt=""
@@ -226,14 +226,17 @@ export function MomentCardButton({
               onLoad={autoFocalPoint(hero)}
             />
           </div>
-        )}
-        <div className="min-w-0 flex-1">
-          <MomentMeta item={item} seen={seen} size="compact" />
-          <h3 className="mt-0.5 truncate font-[family-name:var(--era-font)] text-[15px] font-semibold leading-snug">
+        ) : null}
+        <div className={hero ? 'p-4' : 'min-w-0 flex-1'}>
+          <MomentMeta item={item} seen={seen} size={hero ? 'default' : 'compact'} />
+          <h3 className={cn(
+            'font-[family-name:var(--era-font)] font-semibold leading-snug',
+            hero ? 'mt-2 break-words text-lg' : 'mt-0.5 truncate text-[15px]',
+          )}>
             {item.title}
           </h3>
         </div>
-        <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
+        {!hero && <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />}
       </button>
     );
   }
