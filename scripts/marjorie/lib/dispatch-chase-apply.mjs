@@ -108,17 +108,37 @@ function chaseEntries(pendingHaPrs) {
 
 async function resumePending(repo, state, pendingHaPrs, exec) {
   const entries = chaseEntries(pendingHaPrs);
-  const conflicted = new Set(entries.map((entry) => entry.issue)).size !== entries.length || entries.some((entry) => !entry.pr.safeChaseHead || !entry.number || !checkPendingHumanActionNumber({ number: entry.number, ...state, pendingHaPrs }).valid);
-  if (conflicted) return { status: 'pending-reservation-conflict' };
+  if (entries.some((entry) => !entry.pr.safeChaseHead || !entry.number))
+    return { status: 'pending-reservation-conflict' };
+
+  const obsoletePrs = new Set();
   for (const entry of entries) {
+    if (state.issues.some((item) => Number(item.number) === entry.issue)) continue;
+    let source;
+    try {
+      source = JSON.parse(text(await exec('gh', ['api', `repos/${repo}/issues/${entry.issue}`])) || '{}');
+    } catch {
+      return { status: 'pending-source-unreadable' };
+    }
+    if (source.state !== 'closed') return { status: 'pending-source-missing' };
+    obsoletePrs.add(entry.pr.number);
+  }
+  for (const pr of pendingHaPrs.filter((item) => obsoletePrs.has(item.number)))
+    await exec('gh', ['pr', 'close', String(pr.number), '--repo', repo]);
+
+  const activePending = pendingHaPrs.filter((pr) => !obsoletePrs.has(pr.number));
+  const activeEntries = entries.filter((entry) => !obsoletePrs.has(entry.pr.number));
+  const conflicted = new Set(activeEntries.map((entry) => entry.issue)).size !== activeEntries.length || activeEntries.some((entry) =>
+    !checkPendingHumanActionNumber({ number: entry.number, ...state, pendingHaPrs: activePending }).valid);
+  if (conflicted) return { status: 'pending-reservation-conflict' };
+  for (const entry of activeEntries) {
     const issue = state.issues.find((item) => Number(item.number) === entry.issue);
-    if (!issue) return { status: 'pending-source-missing' };
     if (!sourceAlreadyMarked(entry.issue, issue.comments))
       await exec('gh', ['issue', 'comment', String(entry.issue), '--repo', repo, '--body', `Filed HA #${entry.number} in PR #${entry.pr.number}: ${entry.pr.url}\n${sourceMarker(entry.issue, entry.number, entry.pr.number)}`]);
   }
-  for (const pr of new Map(entries.map((entry) => [entry.pr.number, entry.pr])).values())
+  for (const pr of new Map(activeEntries.map((entry) => [entry.pr.number, entry.pr])).values())
     await exec('gh', ['pr', 'merge', String(pr.number), '--repo', repo, '--squash', '--auto', '--delete-branch', '--match-head-commit', pr.headSha]);
-  return { status: entries.length ? 'resumed' : 'none' };
+  return { status: activeEntries.length ? 'resumed' : obsoletePrs.size ? 'closed-obsolete' : 'none' };
 }
 
 /** Recollect after alert handlers, then perform the complete bounded chase exactly once. */

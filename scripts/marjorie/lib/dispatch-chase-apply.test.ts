@@ -95,3 +95,48 @@ it('does not merge a pending chase PR with extra files or a foreign head', async
   expect(result.status).toBe('pending-reservation-conflict');
   expect(calls.some((call) => call[0] === 'gh')).toBe(false);
 });
+
+it('closes a safe chase PR with a confirmed closed source and resumes another pending PR', async () => {
+  const calls: string[][] = [];
+  const makePending = (pr: number, issue: number, ha: number) => ({
+    number: pr, headRef: `marjorie/chase-ha-${issue}`, safeChaseHead: true, headSha: String(pr).repeat(20),
+    url: `https://github.com/owner/repo/pull/${pr}`, body: `<!-- marjorie-chase-pr: issues=${issue} -->`,
+    actionsText: `## #${ha} Decision\n<!-- marjorie-chase: 96h issue=${issue} -->`,
+  });
+  const pendingHaPrs = [makePending(75, 2, 10), makePending(76, 3, 11)];
+  const open = state(97, 3);
+  const result = await applyDispatchChase('owner/repo', {
+    fetchState: async () => ({ ...open, pendingHaPrs }),
+    exec: async (cmd: string, args: string[]) => {
+      calls.push([cmd, ...args]);
+      if (cmd === 'gh' && args[0] === 'api') return { stdout: JSON.stringify({ number: 2, state: 'closed' }) };
+      return { stdout: '' };
+    },
+  });
+  expect(result.status).toBe('resumed');
+  expect(calls).toContainEqual(['gh', 'pr', 'close', '75', '--repo', 'owner/repo']);
+  expect(calls.some((call) => call[0] === 'gh' && call[1] === 'issue' && call[3] === '2')).toBe(false);
+  expect(calls).toContainEqual(['gh', 'pr', 'merge', '76', '--repo', 'owner/repo', '--squash', '--auto', '--delete-branch', '--match-head-commit', String(76).repeat(20)]);
+});
+
+it('fails closed when an absent source is still open or unreadable', async () => {
+  const pending = { number: 75, headRef: 'marjorie/chase-ha-2', safeChaseHead: true, headSha: 'a'.repeat(40),
+    url: 'https://github.com/owner/repo/pull/75', body: '<!-- marjorie-chase-pr: issues=2 -->',
+    actionsText: '## #10 Decision\n<!-- marjorie-chase: 96h issue=2 -->' };
+  for (const apiResult of [{ stdout: JSON.stringify({ state: 'open', labels: [] }) }, new Error('unreadable')]) {
+    const calls: string[][] = [];
+    const result = await applyDispatchChase('owner/repo', {
+      fetchState: async () => ({ ...state(97, 3), pendingHaPrs: [pending] }),
+      exec: async (cmd: string, args: string[]) => {
+        calls.push([cmd, ...args]);
+        if (cmd === 'gh' && args[0] === 'api') {
+          if (apiResult instanceof Error) throw apiResult;
+          return apiResult;
+        }
+        return { stdout: '' };
+      },
+    });
+    expect(['pending-source-missing', 'pending-source-unreadable']).toContain(result.status);
+    expect(calls.some((call) => call[0] === 'gh' && call[1] === 'pr')).toBe(false);
+  }
+});
