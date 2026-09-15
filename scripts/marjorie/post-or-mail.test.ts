@@ -21,6 +21,7 @@ beforeEach(() => {
   bodyFile = path.join(dir, 'body.txt');
   writeFileSync(bodyFile, 'the brief body');
   logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+  vi.spyOn(console, 'error').mockImplementation(() => {});
 });
 
 afterEach(() => {
@@ -38,6 +39,16 @@ describe('main()', () => {
     expect(exitCode).toBe(0);
     expect(logSpy).toHaveBeenCalledWith('delivered: discord');
     expect(spawnImpl).not.toHaveBeenCalled();
+  });
+
+  it('reports only numeric transport metadata when delivery fails', async () => {
+    vi.spyOn(discordMjs, 'post').mockResolvedValue({ ...failResult,
+      chunks: 3, delivered: 1, status: 404,
+      error: 'request to https://discord.com/api/webhooks/private-token failed',
+    });
+    await main([...baseArgv(), '--no-mail-fallback']);
+    expect(console.error).toHaveBeenCalledWith('discord-delivery: status=404 delivered=1 chunks=3');
+    expect(vi.mocked(console.error).mock.calls.flat().join(' ')).not.toContain('private-token');
   });
 
   it('falls back to email and exits 0 when send-mail.py actually sends', async () => {
