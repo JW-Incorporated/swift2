@@ -54,6 +54,20 @@ from a different era's catalog.
    content; sourcing a picture for a moment YOU are authoring (step 3b) is
    yours and does not touch Kevin's lane.
 
+### Unavailable current-tier access
+
+Check source (0) first when the run has the required authorized database access.
+If that access is unavailable, report `current-tier unavailable` with a short
+access/error category in the lane's run log, never credential values or raw
+provider responses, then continue sources 1–4 in the same lane. Do not call
+the current-tier queue empty or successfully checked. Do not search credential
+files or acquire new database access to unblock this run. Leave its
+rows unprocessed for a later authorized run: do not claim a promotion or write
+`promoted_to` for any unprocessed row. An unavailable source is not a failure of
+the independent GitHub intake queue and does not trigger the orchestrator's
+stop-lane rule. Existing research, ownership, privacy and validation rules still
+apply to every item authored from the remaining queues.
+
 ## The run
 
 1. Deterministic queue check (gh only); exit fast if empty.

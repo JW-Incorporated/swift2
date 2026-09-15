@@ -52,3 +52,26 @@ Do not infer a shipped content item from a successful triage receipt.
   identical to the public website's `content/current.json`. Publication is
   current with the corpus; absence of new authored events is upstream.
 - Independent code review: root Codex accepted the six-file change.
+
+## Downstream intake resilience
+
+A follow-up configuration audit found that Content Shift's charter checks
+Supabase `current_item` before GitHub intake, while the Vault workflow forwards
+no Supabase credentials. The active Vault prompt has no archival disabled flag.
+An inaccessible first source could nevertheless end the authoring lane before
+independent intake is considered. This is resilience hardening from the file
+contract, not a demonstrated cause of a particular failed Vault run.
+
+Scope: clarify the Content Shift charter and Lane 1 prompt only. Keep current-tier
+first when accessible. When its required access is unavailable, report that
+source as unavailable using a short access/error category, never credential
+values or raw provider responses, and continue GitHub priorities in the same lane.
+Never report an empty queue or completed promotion from an inaccessible source. Leave
+its rows unprocessed for a later authorized run. Do not search credential files,
+acquire new database access or write `promoted_to` for unprocessed rows. The other
+authoring rules remain in force.
+
+Acceptance: an unavailable source does not trigger the orchestrator's stop-lane
+rule or strand independent intake. Validate applicable routine invariants and
+lint, then independent review. No live routine or database call is required for
+this clarification, and no live authoring success is inferred from static checks.

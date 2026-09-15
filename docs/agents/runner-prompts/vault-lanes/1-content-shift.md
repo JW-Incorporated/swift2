@@ -17,6 +17,15 @@ appears to point at it. Duplicate articles have shipped that way before. Read
 every comment on a ticket before acting; a later comment may correct the
 original filing.
 
+Check current-tier promotions first when authorized database access is available.
+If it is unavailable, follow the charter's "Unavailable current-tier access"
+rule: log `current-tier unavailable` with a short access/error category, never
+credential values or raw provider responses, and continue the GitHub intake
+priorities in this lane. This is a source-level skip, not a failed lane
+or an empty current-tier queue. Leave those rows unprocessed for a later
+authorized run; do not search credential files, acquire new database access, or
+claim/write promotions for unprocessed rows.
+
 ## Verify before you write, including against the ticket
 
 A ticket's own framing can be wrong. On 2026-07-20 intake #909 asserted all four
