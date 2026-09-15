@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server';
 
 import { THREADS, getEra, getThread, resolveTrackKey } from '@swift2/experience';
 import { DEFAULT_OG_COPY, renderOgCard, type OgCardCopy } from '@/lib/longlive/og-card';
-import { getContentItem } from '@/lib/longlive/content';
+import { getContentItemByIdOrSlug } from '@/lib/longlive/content';
 import '../../../lib/longlive/vault-wiring';
 
 // The "cool feature only" fix (social-strategy.md §2, PR #3922 2026-09-06):
@@ -52,7 +52,7 @@ function eraForId(id: string) {
 export function ogCopyForRequest(url: URL): OgCardCopy {
   const itemId = url.searchParams.get('item');
   if (itemId) {
-    const item = getContentItem(itemId);
+    const item = getContentItemByIdOrSlug(itemId);
     if (item) {
       const era = getEra(item.eraId);
       return { kicker: `${era.name} · ${item.dateLabel}`, title: item.title, subtitle: item.summary };

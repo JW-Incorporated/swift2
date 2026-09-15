@@ -5,7 +5,9 @@ const item = { id: 'interrupted-speech' };
 const track = { title: 'Fearless', note: 'A rushing first-love anthem.', trackNumber: 1 };
 
 vi.mock('@/components/longlive/LongLive', () => ({ LongLive: () => null }));
-vi.mock('@/lib/longlive/content', () => ({ getContentItem: (id: string) => (id === item.id ? item : undefined) }));
+vi.mock('@/lib/longlive/content', () => ({
+  getContentItemByIdOrSlug: (id: string) => (id === item.id ? item : undefined),
+}));
 
 import { generateMetadata } from './page';
 

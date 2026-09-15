@@ -71,6 +71,11 @@ export function getContentItem(id: string): ContentItem | undefined {
   return CONTENT.find((c) => c.id === id);
 }
 
+/** Resolve both legacy share ids and stable seed slugs used by published links. */
+export function getContentItemByIdOrSlug(value: string): ContentItem | undefined {
+  return getContentItem(value) ?? CONTENT.find((c) => c.slug === value);
+}
+
 // OS-024: wires this module's getContentItem into packages/experience's
 // track-guide (dossier connections resolve `moment:<id>` links) and any
 // other consumer of the injected content-item lookup — see
