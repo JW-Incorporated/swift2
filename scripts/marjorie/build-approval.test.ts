@@ -23,7 +23,7 @@ describe('approveResolved', () => {
 
   it('dedupes only the same Discord message', () => {
     const body = `Founder approved this in Discord: ${URL}\nPlan approved — ready for the build lane.\n<!-- marjorie-approval: ${MID} -->`;
-    const execImpl = vi.fn().mockReturnValueOnce(pages([{ body, user: { login: 'github-actions[bot]' } }]));
+    const execImpl = vi.fn().mockReturnValueOnce(pages([{ body, user: { login: 'github-actions[bot]', type: 'Bot' } }]));
     expect(approveResolved({ execImpl, repo: 'o/r', issue, messageId: MID, messageUrl: URL })).toMatchObject({ ok: true, duplicate: true });
     expect(execImpl).toHaveBeenCalledTimes(1);
   });
@@ -35,7 +35,7 @@ describe('CLI', () => {
     const context = join(dir, 'context.json');
     writeFileSync(context, JSON.stringify({ bot: 'marjorie', already: null, message_id: MID, url: URL, text: 'yes #44' }));
     const execImpl = vi.fn()
-      .mockReturnValueOnce(JSON.stringify([issue]))
+      .mockReturnValueOnce(JSON.stringify([[issue]]))
       .mockReturnValueOnce(pages())
       .mockReturnValueOnce('');
     expect(main(['approve', '--context', context, '--repo', 'o/r'], { execImpl })).toBe(0);

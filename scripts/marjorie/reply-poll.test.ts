@@ -24,11 +24,11 @@ const issueListOut = JSON.stringify([{ number: 42 }]);
 // pages, each page the raw array of comment objects GitHub sent. A single
 // call here is a single (unpaginated) page.
 function commentsOut(bodies: string[]) {
-  return JSON.stringify([bodies.map((body) => ({ body }))]);
+  return JSON.stringify([bodies.map((body) => ({ body, user: { login: 'github-actions[bot]', type: 'Bot' } }))]);
 }
 
 function commentsPagesOut(pages: string[][]) {
-  return JSON.stringify(pages.map((bodies) => bodies.map((body) => ({ body }))));
+  return JSON.stringify(pages.map((bodies) => bodies.map((body) => ({ body, user: { login: 'github-actions[bot]', type: 'Bot' } }))));
 }
 
 const markerComment = `<!-- discord-message-id: ${THREAD_ID} -->`;
@@ -117,6 +117,14 @@ describe('main()', () => {
     const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
 
     expect(exitCode).toBe(0);
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it('ignores a delivery marker posted by a human account', async () => {
+    const comments = JSON.stringify([[{ body: markerComment, user: { login: 'github-actions', type: 'User' } }]]);
+    const execImpl = vi.fn().mockReturnValueOnce(issueListOut).mockReturnValueOnce(comments);
+    const fetchImpl = vi.fn();
+    expect(await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl })).toBe(0);
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
@@ -267,7 +275,7 @@ describe('main()', () => {
     const ticket = { number: 77, state: 'OPEN', labels: [{ name: 'marjorie-filed' }, { name: 'desk:build' }] };
     const execImpl = vi.fn()
       .mockReturnValueOnce(issueListOut).mockReturnValueOnce(commentsOut([markerComment]))
-      .mockReturnValueOnce(JSON.stringify([ticket])).mockReturnValueOnce(commentsOut([])).mockReturnValueOnce('');
+      .mockReturnValueOnce(JSON.stringify([[ticket]])).mockReturnValueOnce(commentsOut([])).mockReturnValueOnce('');
     const fetchImpl = vi.fn()
       .mockResolvedValueOnce(fakeResponse(200, [approvalRoot]))
       .mockResolvedValueOnce(fakeResponse(200, [{ id: founder }]));
@@ -290,7 +298,7 @@ describe('main()', () => {
     const ticket = (number: number) => ({ number, state: 'OPEN', labels: [{ name: 'marjorie-filed' }, { name: 'desk:build' }] });
     const execImpl = vi.fn()
       .mockReturnValueOnce(issueListOut).mockReturnValueOnce(commentsOut([markerComment]))
-      .mockReturnValueOnce(JSON.stringify([ticket(77), ticket(78)])).mockReturnValueOnce('');
+      .mockReturnValueOnce(JSON.stringify([[ticket(77), ticket(78)]])).mockReturnValueOnce('');
     const fetchImpl = vi.fn()
       .mockResolvedValueOnce(fakeResponse(200, [approvalRoot]))
       .mockResolvedValueOnce(fakeResponse(200, [{ id: founder }]));

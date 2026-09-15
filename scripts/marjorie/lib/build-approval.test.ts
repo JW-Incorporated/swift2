@@ -19,15 +19,16 @@ describe('approval comments', () => {
   it('renders and recognizes only the exact marker, URL, template and typed author', () => {
     const body = renderApproval({ messageId, messageUrl });
     expect(body.endsWith(approvalMarker(messageId))).toBe(true);
-    expect(parseApprovalComment({ body, author: { login: 'app/claude' } })).toMatchObject({ messageId, source: 'chat' });
-    expect(parseApprovalComment({ body, author: { login: 'github-actions[bot]' } })).toMatchObject({ messageId, source: 'reaction' });
-    expect(parseApprovalComment({ body, author: { login: 'outsider' } })).toBeNull();
-    expect(parseApprovalComment({ body: `prefix\n${body}`, author: { login: 'app/claude' } })).toBeNull();
+    expect(parseApprovalComment({ body, author: { login: 'app/claude', __typename: 'Bot' } })).toMatchObject({ messageId, source: 'chat' });
+    expect(parseApprovalComment({ body, author: { login: 'github-actions[bot]', type: 'Bot' } })).toMatchObject({ messageId, source: 'reaction' });
+    expect(parseApprovalComment({ body, author: { login: 'outsider', type: 'Bot' } })).toBeNull();
+    expect(parseApprovalComment({ body, author: { login: 'claude', type: 'User' } })).toBeNull();
+    expect(parseApprovalComment({ body: `prefix\n${body}`, author: { login: 'app/claude', __typename: 'Bot' } })).toBeNull();
     expect(() => renderApproval({ messageId, messageUrl: messageUrl.replace(messageId, `${messageId}9`) })).toThrow();
   });
 
   it('deduplicates only the same Discord message id', () => {
-    const comments = [{ body: renderApproval({ messageId, messageUrl }), user: { login: 'claude[bot]' } }];
+    const comments = [{ body: renderApproval({ messageId, messageUrl }), user: { login: 'claude[bot]', type: 'Bot' } }];
     expect(hasApproval(comments, messageId)).toBe(true);
     expect(hasApproval(comments, '1549104718482116723')).toBe(false);
   });
@@ -44,6 +45,8 @@ describe('approval target resolution', () => {
     const second = { ...build, number: 4325 };
     expect(resolveChatApproval({ ...context, text: 'yes' }, [build])).toMatchObject({ ok: false, reason: 'ambiguous' });
     expect(resolveChatApproval({ ...context, text: 'yes, do #4324 and #4325' }, [build, second])).toMatchObject({ ok: false, reason: 'ambiguous', candidates: [4324, 4325] });
+    expect(resolveChatApproval({ ...context, text: 'yes #4324 and #9999' }, [build])).toMatchObject({ ok: false, reason: 'ambiguous', candidates: [4324, 9999] });
+    expect(resolveChatApproval({ ...context, text: 'yes https://github.com/other/repo/issues/4324' }, [build], { repo: 'JW-Incorporated/swift2' })).toMatchObject({ ok: false });
   });
 
   it('uses one referenced bot target when the founder reply has no number', () => {
@@ -53,8 +56,9 @@ describe('approval target resolution', () => {
 
   it('requires a founder reactor on one Marjorie webhook brief target', () => {
     const message = { id: messageId, webhook_id: '9', author: { username: 'Marjorie' }, content: `- dispatched #${build.number}` };
-    expect(resolveReactionApproval({ message, messageUrl, reactorIds: ['7'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: true, issue: build });
-    expect(resolveReactionApproval({ message, messageUrl, reactorIds: ['8'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: false, reason: 'no-founder-reaction' });
+    expect(resolveReactionApproval({ message, deliveredMessageId: messageId, messageUrl, reactorIds: ['7'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: true, issue: build });
+    expect(resolveReactionApproval({ message, deliveredMessageId: '1549104718482116723', messageUrl, reactorIds: ['7'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: false, reason: 'not-marjorie-brief' });
+    expect(resolveReactionApproval({ message, deliveredMessageId: messageId, messageUrl, reactorIds: ['8'], founderIds: new Set(['7']), issues: [build] })).toMatchObject({ ok: false, reason: 'no-founder-reaction' });
   });
 });
 

@@ -79,14 +79,16 @@ function issueComments(execImpl, repo, issueNumber) {
   return JSON.parse(out).flat();
 }
 
-function extractDiscordMessageId(commentBodies) {
-  for (const body of commentBodies) {
+function extractDiscordMessageId(comments) {
+  for (const comment of comments) {
+    const user = comment?.user;
+    if (user?.type !== 'Bot' || !['github-actions[bot]', 'github-actions'].includes(user.login)) continue;
     // Posted only by `routine-marjorie-brief.yml`'s `deliver` job (environment-
     // scoped, not agent-writable), and always before any founder reply can
     // exist on this issue (the thread doesn't exist until that job creates
     // it) — so a first-match-anywhere scan can't collide with attacker-
     // controlled content the way `alreadyRelayedIds` below could. Left as-is.
-    const m = /<!--\s*discord-message-id:\s*(\d+)\s*-->/.exec(body || '');
+    const m = /^<!-- discord-message-id: (\d{15,21}) -->$/.exec(String(comment.body || '').trim());
     if (m) return m[1];
   }
   return null;
@@ -119,7 +121,7 @@ async function applyRootApproval({ root, threadId, briefIssueNumber, comments, t
   const issues = listBuildTickets(execImpl, repo);
   const resolved = resolveReactionApproval({
     message: root, messageUrl, reactorIds: users.map((user) => String(user.id)),
-    founderIds: founderIds(process.env.DISCORD_FOUNDER_IDS), issues,
+    founderIds: founderIds(process.env.DISCORD_FOUNDER_IDS), issues, deliveredMessageId: threadId, repo,
   });
   if (resolved.ok) {
     const result = approveResolved({ execImpl, repo, ...resolved });
@@ -195,7 +197,7 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
 
   const comments = issueComments(execImpl, repo, issue.number);
   const commentBodies = comments.map((comment) => comment.body);
-  const threadId = extractDiscordMessageId(commentBodies);
+  const threadId = extractDiscordMessageId(comments);
   if (!threadId) {
     console.log(`issue #${issue.number} has no discord-message-id marker yet — nothing to poll`);
     return 0;

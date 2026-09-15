@@ -16,8 +16,8 @@ function gh(execImpl, args) {
 }
 
 export function listBuildTickets(execImpl, repo) {
-  const out = gh(execImpl, ['issue', 'list', '--repo', repo, '--state', 'open', '--label', 'marjorie-filed', '--label', 'desk:build', '--limit', '100', '--json', 'number,state,labels']);
-  return JSON.parse(out).filter(isOpenBuildTicket);
+  const out = gh(execImpl, ['api', `repos/${repo}/issues?state=open&labels=marjorie-filed%2Cdesk%3Abuild&per_page=100`, '--paginate', '--slurp']);
+  return JSON.parse(out).flat().filter((issue) => !issue.pull_request).filter(isOpenBuildTicket);
 }
 
 export function issueComments(execImpl, repo, issueNumber) {
@@ -50,7 +50,7 @@ export function main(argv = process.argv.slice(2), { execImpl = execFileSync } =
     return 2;
   }
   const context = JSON.parse(readFileSync(args.context, 'utf8'));
-  const resolved = resolveChatApproval(context, listBuildTickets(execImpl, repo));
+  const resolved = resolveChatApproval(context, listBuildTickets(execImpl, repo), { repo });
   if (!resolved.ok) {
     console.log(`approval: no action (${resolved.reason}${resolved.candidates.length ? `; candidates ${resolved.candidates.map((n) => `#${n}`).join(', ')}` : ''})`);
     return 1;
