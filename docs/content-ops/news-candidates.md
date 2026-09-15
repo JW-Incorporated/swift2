@@ -25,31 +25,56 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 69
 
-## Taylor Swift and Cat Make Surprise Appearance at Emmys 2026
+## Taylor Swift Surprises Fans with Pre-Recorded Cameo
 
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
+- first seen: 2026-09-15 14:18 UTC | category: music | importance: 6
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift, along with her cat, made an unexpected cameo at the 2026 Emmys. The moment caught the attention of fans and attendees alike during the event.
+- summary: Taylor Swift has made a surprise pre-recorded cameo, delighting fans with her unexpected appearance. Details about the project or context of the cameo have not been specified.
 - sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xSTEFoZHhlemJZR0FHVWlzUER0dkk2eDdwcjkxYnRRM0JVNTRhbWI3YWNMX09sdnZfZExveVRBOFFQVzFoc1piY3BJNW1SMzR6akw3YjktZTBrX3BEUDdzWVJMNkxXd0NBYzNvR2pTMkkxX3ZJU2s3ZXdPblVvYjVxT0pVcWZheC1pR2gyc1dLS0dGN3JJMkVJVDVSVVVaZXpFSVdBcw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] bbc.com — https://news.google.com/rss/articles/CBMiWEFVX3lxTE4tNjhSX3ZjS2dpRzFlbE4wcnVzQ2RVTVZsZDJ3WWFsLVU1dG9fMGtmNmswZjFLRFVnZTZHak9nc1I2WVItQks4bHhzX2pRbWpwNjVTT0o4aEY?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Supports Travis Kelce at Chiefs Season Opener
+## Taylor Swift and Tom Cruise Attend Chiefs Game
 
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 9
-- summary: Taylor Swift was spotted cheering for Travis Kelce and the Kansas City Chiefs during their season opener against the Denver Broncos. Her presence at the game attracted attention from fans and media alike.
+- first seen: 2026-09-15 14:18 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Tom Cruise were spotted watching the Kansas City Chiefs' season opener against the Denver Broncos. The Chiefs won the game 31-10, highlighted by Kenneth Walker's impressive performance with 173 rushing yards.
 - sources:
-  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRXJ5TGlyb053Q2tfejBlbDIxdmdJbGF0XzJxU0w5cEZ0NVIwM3Z1UFRQeWQxMGM2R21pcmYzOHZYeWRxQXBkUjY2RkVWZk81VG5rVkUya2NYRVh1ZEh1UkdQQWFCb1piQ2x6cElYWlFHdlg2cE9qblFPUFJqWGNKZWxIVXQ1NmdWYm5GUHVHTzA5aW5Tb2N3SXBZTEpYSGVqNlp2VWFoSFE0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPc1NJazdEWW1Tb3FpU3VBYUd1c09sclpfVW11V3RXbm9xTGFvVWlUTndGWmRJTXBtcndJRkVQM3dBSXEtSmNPalp1WmN1STBYNjdUVnV1ZHRPNVRIQURuUkZLOVF0TFg3b1I5ZlBlaV9VblhxdlZ2XzdZcEd3WlppdV9JeGNyb2tjMy1sa3JqMFk5NkZtY1pfdjJrVWNCalhIblZvTkRKaDFvZTFyb1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYy1xcHhEVElxd3NLRkxmT0hyaEVKS25TSUIxMnZvQ3dyVi1nSXJIN0VaNEJmYTgzdlY2dENETWttdVdmV2hYcjVEMTlYcDV4QlFDamNDa0tFcVZvWHpRbU5MZkk2TW5pczNtNjUwSzF4VHR1Nm5qZEw2XzN3T3R3T2hrbGlWTnQyN1ZoM0laNGlwT253VklHQVJQQTlGOUhFTkxxLTdUWjdmd2syVVNRVUE0aW52UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNjVuT3VScUh0X3ZTclVGakV6QmNBa0VJWnhMSTJOcWFlYlpVT1owQ2hmUXJGMXVxS2pNVDFlS0FoalVsTkJvMXA2djlQSkxhamdJbmlMTmpROXBDRjI3cTdMNEQ3VnpmT3hXV0VhMVdRNGJaVUxuOFFxX0RkZ0JyTDFVRy1rVXlJTElLMk15TDhzenBtMTZJbkFpSmprTzhLOTdJUVpocVJSOUxZWkdER01sb2lCY0J4MV9qNURQdTM4ZVp2Tll0dFRCZmc3YUU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KMBC — https://news.google.com/rss/articles/CBMiswFBVV95cUxQX1Qyano2Q2trYUM2QUNMSnlUSGJRSG5kVUw0M3RLNEN0cnhRckxyTDJ2cjc5M01Id0FicUMxaUN5RW1SbGV4RXFaZHR0cUQ3OE1ycU83ZEJvV245MUs0ZlQwYjhFUTZlTEszQ3FELWp3aldOVFY4bVFjWTIybmFEWkhFWVkzb1JYRDJyRk9kWXFKM2hBYjdjaWhkZ056Vmp4V2ozbG1vVnNWdHdHQjFsZU0yZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNV9idS1aQXIwUGp0X2lrd0RmX0JjYTJKdzFMQkJCRm8yRzZXbVdCdGVuRjJrZVU4UWpuRDdKVDJBcmNnaGZ3UFpMTWpRSlVxZDhiUmtZOVJzQmhCdlFBUndNNlM5VlNxc1E1SUZDZVJPOFg0OEVDbnlhWjZoeU9DVktmTUc5RmZhRndoc3g1c0JiOXNFRmROWXRQNWFjby1iSmYwZDVWZkNFWUlOalE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-first-chiefs-game-travis-kelce-wedding-1235626496/
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTzZvWVg3T0JxMW5lVDVwaVN2RHp5dzRYb3NEMlNqYjEwaHAtSEhaT0cxbUpySkc4Ty1YeFZYT2RVQnJTMU1STTVaVWVwS2JKWEhpaWZWMDNLOTFVWFNsQ3NUVmJLZ1dBZzRDRnZMVFJXOGFOWTQyNzdKaXpGcTJNT3ZyMG4xbl8yR2VTS05Xdk1WWTM4R0o2NE03UnFybU9uYUpXOFNiUDVGRTRwM1R3Uzc3RXhGSk1y?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQmNkcERqUEF6WWphT3VFd0J2Um9uUFdnQ2QxU1dQaF9fTU1JVWppVjE4aFBYQWMxb05XN085bXJMbzAwQWVIbUEzY2xnN0RNcU5PanlXc3ZPcU5lYUw1VGt4SE9iMmNMRHFJMDJ5SlFYa2UxSjJBWFlBajFPcnMxWTRsRmU2aVg2c2hxVVhVWFl1dWliaWk4OUo4WGJvNnd3YlE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/sport/articles/cqx2z5edy37po?at_medium=RSS&at_campaign=rss
+
+## Discover Your Taylor Swift Era with BBC Bitesize Quiz
+
+- first seen: 2026-09-15 14:18 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: BBC Bitesize has released a personality quiz that helps fans discover which Taylor Swift era reflects their personality. The quiz also explores how different historical eras have inspired Swift's music.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zc8v6rd?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift's Emmys Cameo Features Easter Eggs
+
+- first seen: 2026-09-15 14:18 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift's appearance at the Emmys includes intriguing references such as 'saccharide, Aries, from the vineyard'. The meaning behind these Easter eggs is explored in the coverage.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPZlJ0Y1loZ1E0UmxEdm8zOFRqQWI2a29wTkFLRkxMYVBTS3MyeVdsMTN2SUVnVEpOX2dNeG9BOGUwRDJZbENrNWNqMEViRDkwc1p3cnNXLURvcnY5U2thdWY4cTdiLUZwZXBhR1Zha1BEMExra0pWellWRFlBMktqbUJjbVZjQ09WR0QzRHI3LVE0WlRUWFk0eU8za0ZrdHZ3TndkajlJV0RDT3I3ZE5jTVFDMnp2bXlxMmZodmtsUkZqYnM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOUkt5TDhyVzREaEtsQ1RVM2lOZHFYQVNvVjR6S3piOHVzeWM4WmNtb052ODVrSTJLZUFhb1B6LS1DMm1hWjY3b29FZ3ZoUHdPRGhsT29sWVZHRExjZ0Z5cHM1dXFmc19tS2RfbnNxSlg4dENGWThjSTVENHZ1Ym5MQ0dfc2ZpQlAza3VXTGNnaEFEaWN4Y01DRW5WQ3ktenlmRkRDeVUtOWFwQkhZVlVETTZWa0tRc2tfb1NjYzFHN25TNmtZNWZ3UjFJLXlBZmQ1NFdRVG5HdjJYMEhjUWJJ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Surprise Pre-Recorded Cameo
+
+- first seen: 2026-09-15 14:18 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has made a surprise appearance through a pre-recorded cameo, delighting fans. Details surrounding the context of this cameo have not been disclosed.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/c6jrxjwxye9no?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift Appears at 2026 Emmys Alongside Mariska Hargitay
+
+- first seen: 2026-09-15 14:18 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a cameo appearance at the 2026 Emmys, participating in a sketch with Mariska Hargitay. The event highlights Swift's involvement in entertainment beyond music.
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMimAFBVV95cUxOTmN5Mm5MdWRpVU9YRjUwb0NSWVA0S2RoRG5vSkl3ZmxNY0FuNkhTcW9TaFV2V0I2a1VycnpoaldtRTFvOWtHT1g0TWw0YjBsVDU3QWkwSXVUZjJWQktxY3VKU2VTY1R5a0VEUTRCWFlrZzdWRHk3Y3RvakRvd1NZeTk1b2RyRWdFaDFETHhnbThBcDNaTG1aZg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Makes Cameo in Emmys Sketch with Mariska Hargitay
 
@@ -87,6 +112,33 @@ Stories: 67
   - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPQ2EweUQxUXNaNjR6LUlHYmVlU1Vyd1pYcmtPazNXdVdaTmJ2QTFaeGxNZGIyRmt6eFdLclAzT21DN1ItVk1xRGFTZFF0dnBzTDNuSkpGM3VqLWpPU3dVaWU0MXFXNzlHRG1pYzlXelZ1UGQ4Zm5iUktvb2k5RFhaZTRZT0JTdmVzZER1SWd4LWUyRWdzeklROTlQcTZHa05GMWd5a0NjNDFycW54LVowWk5ZVGthWnFZVVMyR2dENjNFVGQ5cGRwT3d4SEFGLWdVM2pIQw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TheWrap — https://news.google.com/rss/articles/CBMirAFBVV95cUxPZjMzTU9TZElXcFNPeGV3dUlfUl9IQTRFdU1DVG5vdkppOGhtdWxoRUptX09DM0lKUUFhNUI3OFN4NFZ0c01nLWcxc1duc01DZ1Z0bFpIWTc2MThUNW9DdVNYbXNqVEFYVExTQjJKTS1ZclR1YmE4STY0WllqQkRHbGhmVWxPQWRjUjROcEpmV3pyVXV5V21DbWpqVldkdFNEMjNlSzB1blJsUE85?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] today.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOb2psaEJiNy1FQ2Y3Y1QxZDFpakFEbmZXV0d1dzd4Q0NEOFNGWkpYeVhkYWZTZzVscGRhaGRPQmYybHBzUmdvSDA5S25QR3UxM3RRZTZ6Qjl5eHhHakVYMWdYdERKWi1mVkZIbjNJeVh4R09uX3Fqc1p4UG81TWVnQnM3Q2ZoZFNrVG1rRXVTLVF3T1lVOWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Cat Make Surprise Appearance at Emmys 2026
+
+- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, along with her cat, made an unexpected cameo at the 2026 Emmys. The moment caught the attention of fans and attendees alike during the event.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xSTEFoZHhlemJZR0FHVWlzUER0dkk2eDdwcjkxYnRRM0JVNTRhbWI3YWNMX09sdnZfZExveVRBOFFQVzFoc1piY3BJNW1SMzR6akw3YjktZTBrX3BEUDdzWVJMNkxXd0NBYzNvR2pTMkkxX3ZJU2s3ZXdPblVvYjVxT0pVcWZheC1pR2gyc1dLS0dGN3JJMkVJVDVSVVVaZXpFSVdBcw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Supports Travis Kelce at Chiefs Season Opener
+
+- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 12
+- summary: Taylor Swift was spotted cheering for Travis Kelce and the Kansas City Chiefs during their season opener against the Denver Broncos. Her presence at the game attracted attention from fans and media alike.
+- sources:
+  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRXJ5TGlyb053Q2tfejBlbDIxdmdJbGF0XzJxU0w5cEZ0NVIwM3Z1UFRQeWQxMGM2R21pcmYzOHZYeWRxQXBkUjY2RkVWZk81VG5rVkUya2NYRVh1ZEh1UkdQQWFCb1piQ2x6cElYWlFHdlg2cE9qblFPUFJqWGNKZWxIVXQ1NmdWYm5GUHVHTzA5aW5Tb2N3SXBZTEpYSGVqNlp2VWFoSFE0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPc1NJazdEWW1Tb3FpU3VBYUd1c09sclpfVW11V3RXbm9xTGFvVWlUTndGWmRJTXBtcndJRkVQM3dBSXEtSmNPalp1WmN1STBYNjdUVnV1ZHRPNVRIQURuUkZLOVF0TFg3b1I5ZlBlaV9VblhxdlZ2XzdZcEd3WlppdV9JeGNyb2tjMy1sa3JqMFk5NkZtY1pfdjJrVWNCalhIblZvTkRKaDFvZTFyb1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYy1xcHhEVElxd3NLRkxmT0hyaEVKS25TSUIxMnZvQ3dyVi1nSXJIN0VaNEJmYTgzdlY2dENETWttdVdmV2hYcjVEMTlYcDV4QlFDamNDa0tFcVZvWHpRbU5MZkk2TW5pczNtNjUwSzF4VHR1Nm5qZEw2XzN3T3R3T2hrbGlWTnQyN1ZoM0laNGlwT253VklHQVJQQTlGOUhFTkxxLTdUWjdmd2syVVNRVUE0aW52UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeVBUdmJxQjRkRWtjaFU0SWxtVy1Gbmk0S3owMGpudjlyRG1Ec19ZRWl2QW1KZ05yYmNnaUJGSXdUaEZRTHVRelpDeUdCM3N5eU9mZ1VVaUlvRVR5SzdKZHNvVV9hdjQ3UHdSbzloSk9TU3I4RDNBanJodWdTbGw1WVVfc0dwc3V5VHRIMTdTTjZkM2RrbndoWk1lQ0xEU3pWT3BMSlFadUVkTDF4R0VlQ2RGQdIBuAFBVV95cUxQeEwwZ3VoWUNqaVd6UC1wN0lfc1N6Z3ZlcU1XOWhUd0RITklWVGU4R3FxSFVHYkZQOUNrUVQ4Q3BjbS1ON21uRThHWjNhdThWUlRtSmRGay03V0g2VnFRS2M0QjFVWmNoNDQzRUhFTUFrUU42bVhpYVFIbktRY0lyUkoxM1JGc1BLTDZwSFdjMlIyOElyWFVNUEtfQjVpZGpHZjh4X1V6OG1XLUdZQmlQX2pXd2FSNzRW?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNjVuT3VScUh0X3ZTclVGakV6QmNBa0VJWnhMSTJOcWFlYlpVT1owQ2hmUXJGMXVxS2pNVDFlS0FoalVsTkJvMXA2djlQSkxhamdJbmlMTmpROXBDRjI3cTdMNEQ3VnpmT3hXV0VhMVdRNGJaVUxuOFFxX0RkZ0JyTDFVRy1rVXlJTElLMk15TDhzenBtMTZJbkFpSmprTzhLOTdJUVpocVJSOUxZWkdER01sb2lCY0J4MV9qNURQdTM4ZVp2Tll0dFRCZmc3YUU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KMBC — https://news.google.com/rss/articles/CBMiswFBVV95cUxQX1Qyano2Q2trYUM2QUNMSnlUSGJRSG5kVUw0M3RLNEN0cnhRckxyTDJ2cjc5M01Id0FicUMxaUN5RW1SbGV4RXFaZHR0cUQ3OE1ycU83ZEJvV245MUs0ZlQwYjhFUTZlTEszQ3FELWp3aldOVFY4bVFjWTIybmFEWkhFWVkzb1JYRDJyRk9kWXFKM2hBYjdjaWhkZ056Vmp4V2ozbG1vVnNWdHdHQjFsZU0yZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOQmtrYnZHd0RqbEVNa3A4bXRQcFQ5am9MWWJBbHBScWNoSUlEUUZYRUJEMkUxZklXYlFVUEpzNzBJQVNjT19za2dQQldLcHc1Yl9hZkx0LXJyLUZKQlZqQkp2dWJjNml2RTV6MkFlOUd0QU5QN2dJeWtIaEJGVFdmSUFIM2MwTlo2bi1kYXFSTmtaaExIWlJJTGVZMA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNV9idS1aQXIwUGp0X2lrd0RmX0JjYTJKdzFMQkJCRm8yRzZXbVdCdGVuRjJrZVU4UWpuRDdKVDJBcmNnaGZ3UFpMTWpRSlVxZDhiUmtZOVJzQmhCdlFBUndNNlM5VlNxc1E1SUZDZVJPOFg0OEVDbnlhWjZoeU9DVktmTUc5RmZhRndoc3g1c0JiOXNFRmROWXRQNWFjby1iSmYwZDVWZkNFWUlOalE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-first-chiefs-game-travis-kelce-wedding-1235626496/
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTzZvWVg3T0JxMW5lVDVwaVN2RHp5dzRYb3NEMlNqYjEwaHAtSEhaT0cxbUpySkc4Ty1YeFZYT2RVQnJTMU1STTVaVWVwS2JKWEhpaWZWMDNLOTFVWFNsQ3NUVmJLZ1dBZzRDRnZMVFJXOGFOWTQyNzdKaXpGcTJNT3ZyMG4xbl8yR2VTS05Xdk1WWTM4R0o2NE03UnFybU9uYUpXOFNiUDVGRTRwM1R3Uzc3RXhGSk1y?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQmNkcERqUEF6WWphT3VFd0J2Um9uUFdnQ2QxU1dQaF9fTU1JVWppVjE4aFBYQWMxb05XN085bXJMbzAwQWVIbUEzY2xnN0RNcU5PanlXc3ZPcU5lYUw1VGt4SE9iMmNMRHFJMDJ5SlFYa2UxSjJBWFlBajFPcnMxWTRsRmU2aVg2c2hxVVhVWFl1dWliaWk4OUo4WGJvNnd3YlE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxPRHdxOXF5Y0w1ci1kTGtsV01UT01tQzRmMnNraUl4Z0xtTDVnbmR1LTNaRHA1VTBEbTdGOEZrMWlqNjdpMHpobjhOUV90NFNGZW8wSnctLWs3OXJBandRc3N4QmxGQW5HNEZVZEJPclZNckNpdjVFTVVsWldMUmE5bzdEZ0E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Appears in Emmy Parody, Attends Chiefs Game with Tom Cruise
 
@@ -561,37 +613,3 @@ Stories: 67
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMilgFBVV95cUxPel8xZGE1UVduLURsVVJETFpkdGNRa1JiWk51WC11WmYyVWJNNzhIX2k4Q3czMVQ0NmtyMWVSZldWMWZ0ckpCaGtJSllnSVVoZjJVLWdETHRDVkdQY05JSzVna0p6WmkzUXVWbDNsT2c0cnN0bERLc3UtM1N3TzF1WUNUWHdRNjM5VVpDalNHaFlsNWlOSnc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQWG5fZ0lQV0U4c3ZuQlZpZTUySDZ2VU1URlJlbjhuV3pWaFJ0enl1MkZqc0I1RkhTcDN0dHhOR2t0UXlQdEpOaUxycWVnc2xUTW1VOHVENl9UbW9IZGFSeENNR0IzZk1aeGdaM09jOXZZTlRWR0g1ZE1yMFkwS2NPQVByT2FpZTJHalo3ZGFLRmpiYTVYQTF5MmxQZ0c4WDlMVXhsVA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Wedding Plans with Taylor Swift
-
-- first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Travis Kelce shared details regarding his forthcoming wedding to Taylor Swift, highlighting their plans together. The news provides insight into their relationship milestones.
-- sources:
-  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMi4gFBVV95cUxPMFlfckdEREVYMWZrWG5EQ290SWdBUmtxLXZnUEdJSU8wbXV5d21GNVJpXzFTcDRxY0xKUUdqQWJvNkNqNHVQSFA3b01qN0Qxbng0YmN2SklOc01Rb3hsSy1fR1I2SUlZSUc3dDdPcWZEWi1BQ2lfLU9HamM5UzBZaFpKRmgxVGVKaEZOT0dBdElvRWZ4ck5vTUNEcXJfbldVaTFfSFhvaV93cllwNXl2SGhDYVFybGhOelE4NW13dk9oRTR4QUI2MUhLZVNqZVY5VTJISm5kdkVWOTFfeWFwV1BB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPb0VXZURWM2d3RnJVRjFNcmRYb0FfVlJfTnhHenB6MXVOVlM0ejNfYldCalBteFlSM281YVlwZnlaSWZTTGNWanZJZE1VUTBCRTM3ejhHM2dLTnUtMUhyb2ROYmdqQ1dRMEVNNWNGeDFQMkhkLWtRTTJ5aFU4d0tCa2hXX1ZRWlFJRnNnU1p0cE1Nc01NdHV1eXRZYlJjWERHS01GSHRRN1lpYVRFU2NF?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMijAFBVV95cUxPU2d2Y3B4QzRJQUdHcW9RSm5oeTNpQ3F2ODRJNUdxYWw1UzZ4aXlBemR0NE02SjZaSEhlTm5wOTRHMXFmbFpUNVZoUHZFMDFaVXdOUHMzc3I4TkFSUjVONkhfdFZJVldlMXFSc1dpMTlmRXdWRXJreFJ5ZHBXcHlWRUhYTnFaZUlKUlBqRtIBiwFBVV95cUxPZ214cHphLUhXMTRPYUxUSFk0VFRHdkJpdlN4MEl2aWFXV3NtdG9NZk11dnJxRmFXUW1ib2VySjd3Szd1aTFMb3VzSkd0LTZSQTJtcEhPRUx0c3FFSXdQWnptbXNjTmh2WFJmem94MWdmYmpURE9UZlJVVnVqWjdNOW5EdHY0VDRvQkVz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Address Rumors Ahead of NFL Season
-
-- first seen: 2026-09-12 12:49 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are facing unusual rumors as the NFL season approaches. The speculation comes as both prepare for the upcoming football season.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQRUFOdHFBR28yY3BZVzBkSzREcFU1bU1qZ0xvVUdZR0RmWjF0ajhRQ1pxY3BYUl9uVHNUTEdWM1N4MjBScXgyeEtpUEJJUS1TZUpBSXhfZmdEVmltaTVIQndvc1FqNUh4WEpFMm84YllwMGxaLWJ0ZXlEdlNsbVlWeUQzZ1ZnbDBOb3VuZExzQ2pLNDdGMlJSLXR4emJBSmFnWEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Nominated for 2026 CMA Awards
-
-- first seen: 2026-09-12 12:49 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has received a nomination for the 2026 CMA Awards, marking her continued presence in the country music scene. The announcement highlights her contributions to the genre.
-- sources:
-  - [unverified] Indiana 105 — https://news.google.com/rss/articles/CBMikwFBVV95cUxPaDdvckwyRXdXWm5BU214ZDI4NXgxR0o1UFh5alYtUngxZlR2eGJHWEcwSmxoT21IWHpHTUVIbjVKUUtXdFVCY0pkUUZ0Qk5jWTJ5a3NoVmF0ekRyeUlCWjdacGhiWDYzLXB5U3RQeWZUMF91T1cwelpxQVNHb3FEU1dYb2Y2WU8zcnFGZHltWWZWbFU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Fans Honor Her by Naming New Species
-
-- first seen: 2026-09-12 12:49 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Fans of Taylor Swift are making their mark in the STEM field by naming new species after her. This trend highlights the intersection of popular culture and scientific recognition.
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMilAFBVV95cUxPRVFnZmdXNjZMRDlXRGU5VlNFSG5tU2tEWHUwT1UwUUtxNS0yLXNuVjc3UFJyRG5sVEZqSEdjV3dIZGw4QXVYQW81SDhHMFhyeEgyZHF5alk3NWJfUndFZnNTTzdsdV9vT2tXM25fVXRpT2QzbXpaTGJsUGs0bXlPNm10UTVab2U5VnFfeG1iMm4yelFO?oc=5&hl=en-US&gl=US&ceid=US:en
