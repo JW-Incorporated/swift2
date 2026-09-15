@@ -3,17 +3,6 @@
 // seeds cleanly once it exists (the validator knows the slug as expected).
 // All URLs verified 2026-07-08.
 
-const wiki = (article, title, notes) => ({
-  source_url: `https://en.wikipedia.org/wiki/${article}`,
-  source_title: title,
-  publisher: 'Wikipedia',
-  source_type: 'wiki',
-  accessed_at: '2026-08-08',
-  reliability_score: 2,
-  excerpt: null,
-  notes: notes ?? null,
-});
-
 export default {
   eraSlug: 'the-life-of-a-showgirl',
   theories: [
@@ -28,7 +17,19 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'partially_confirmed',
       relatedSlugs: ['midnights:album-color-canon'],
-      sources: [wiki('The_Life_of_a_Showgirl', 'The Life of a Showgirl', 'the orange-branded New Heights announcement is documented in the album article')],
+      sources: [
+        {
+          source_url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
+          source_title: 'The Life of a Showgirl',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-09-15',
+          reliability_score: 2,
+          excerpt: null,
+          notes:
+            'The orange-branded New Heights announcement (Aug. 2025) is documented in the album article. Confidence stays strong_fan_consensus / outcome partially_confirmed: the orange branding is fact, but how much pre-announcement orange was planted versus pattern-matched has never been itemized. Re-verified live 2026-09-15 (was accessed 2026-08-08).',
+        },
+      ],
     },
     {
       slug: 'ophelia-rewrite',
@@ -37,11 +38,33 @@ export default {
       claim:
         'The lead single "The Fate of Ophelia" flips Shakespeare: where Hamlet\'s Ophelia drowns in abandonment, the song\'s narrator is pulled out of that fate by love — a literary inversion fans and critics mapped line by line.',
       evidence:
-        'The allusion is the title; coverage of the single documented the Hamlet inversion as the song\'s central conceit, continuing the quill-pen literary streak from TTPD (Peter Pan, Cassandra, Clara Bow).',
-      confidence: 'reputable_reporting',
+        'The allusion is the title, and Taylor confirmed the conceit herself: she has said she has "this fixation on Shakespeare characters that I love and I can\'t stand to see them meet a tragic demise," and framed the song as "someone comes into your life and rescues you from the fate of being driven mad by love" — the narrator "dug me out of my grave and saved my heart from the fate of Ophelia." Critics and fans had already mapped the Hamlet inversion line by line, continuing the quill-pen literary streak from TTPD (Peter Pan, Cassandra, Clara Bow); her own explanation confirms the inversion rather than merely the imagery.',
+      confidence: 'confirmed_interview',
       outcome: 'confirmed',
       relatedSlugs: ['tortured-poets:peter-pan-throughline'],
-      sources: [wiki('The_Fate_of_Ophelia', 'The Fate of Ophelia')],
+      sources: [
+        {
+          source_url: 'https://time.com/7322789/taylor-swift-ophelia-life-of-a-showgirl/',
+          source_title: "The Meaning Behind 'Ophelia' on Taylor Swift's The Life of a Showgirl",
+          publisher: 'Time',
+          source_type: 'reputable_press',
+          accessed_at: '2026-09-15',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            'Documents Taylor\'s own explanation of the Shakespeare inversion — a love that rescues the narrator from Ophelia\'s drowning fate. Confidence raised from reputable_reporting to confirmed_interview: the inversion conceit is confirmed by the artist on the record, not just critics\' framing. Re-verified live 2026-09-15 (was Wikipedia, accessed 2026-08-08).',
+        },
+        {
+          source_url: 'https://en.wikipedia.org/wiki/The_Fate_of_Ophelia',
+          source_title: 'The Fate of Ophelia',
+          publisher: 'Wikipedia',
+          source_type: 'wiki',
+          accessed_at: '2026-09-15',
+          reliability_score: 2,
+          excerpt: null,
+          notes: null,
+        },
+      ],
     },
     {
       // Density pass for #686 (2026-08-11). TLOAS sat at a single easter egg
