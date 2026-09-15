@@ -12,14 +12,21 @@ It never posts in Discord and never adds ✅ or ❌. While it is down, the
 5-minute poll still answers.
 
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
-follows as a later tag with its own update human action.
+is installed as `doorbell-v2` after HA #76.
 
-## Clock v2 (built; installation and live proof pending)
+## Clock v2 (installed; poll proof passed, noon brief proof pending)
 
 `doorbell-v2` adds exactly two pinned schedule rows: `bot-chat-poll.yml`
 every five minutes and `routine-marjorie-brief.yml` at 12:00 UTC. GitHub's
 schedule triggers remain. A new row or changed cadence requires a reviewed
 tag and a founder decision; the service never downloads a replacement table.
+
+Installed tag: `doorbell-v2` at `f22adc6a`; activation PR #4342 sets
+`CLOCK_LIVE=true` and `CLOCK_LIVE_SINCE=2026-09-15T02:21:13Z` on main.
+The 02:50-03:50 UTC poll proof passed all twelve slots in 6-9 seconds with
+no doubles; the clock-silent dry-run passed without posting an alert.
+[Run IDs and host evidence](https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5674493098).
+The next 12:00 UTC brief proof remains pending; M7 is not complete yet.
 
 The tag's `PINNED_CLOCK_LIVE` permits those filenames and inputs. Main's
 `CLOCK_LIVE` gates that permission and starts false, beside
