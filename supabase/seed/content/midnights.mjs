@@ -5703,7 +5703,7 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing',
       thumbnailUrl: null,
       moment: {
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2023411/rs_1200x1200-230511174510-1200.taylor-swift-matty-healy.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'Taylor Swift and Matty Healy pictured in E! News coverage of their May 2023 New York sightings around Electric Lady Studios.', kind: 'primary', focalPoint: '50% 28%' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2023411/rs_1200x1200-230511174510-1200.taylor-swift-matty-healy.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'A composite of public Taylor Swift and Matty Healy portraits used by E! News in its May 2023 coverage; a reference image rather than the Electric Lady exit itself.', kind: 'reference', focalPoint: '50% 28%' }],
         context:
           'Part of the wave of sightings following The Sun\'s May 3, 2023 report of a budding Taylor-Healy romance and Healy\'s appearances at her Nashville Eras Tour shows.',
         sources: [
