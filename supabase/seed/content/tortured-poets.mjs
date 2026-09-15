@@ -6251,6 +6251,11 @@ export default {
           { outlet: 'CNN', url: 'https://www.cnn.com/2024/06/23/entertainment/taylor-swift-travis-kelce-on-stage' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-travis-kelce-have-london-date-night-after-eras-tour/' },
         ],
+        photos: [{
+          url: 'https://people.com/thmb/bb7rpEeXkPfe9bOEs4u2UEHx8qs%3D/4000x0/filters%3Ano_upscale%28%29%3Amax_bytes%28150000%29%3Astrip_icc%28%29%3Afocal%281148x482%3A1150x484%29%3Aformat%28webp%29/taylor-swift-travis-kelce-london-062424_3602-1dae1b3719184a6f8b7b31beb9cdf52c.jpg',
+          focalPoint: '52% 35%', credit: 'CH/SplashNews, via PEOPLE',
+          caption: 'Taylor Swift and Travis Kelce in London after his June 23, 2024 Eras Tour stage appearance.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6361,6 +6366,11 @@ export default {
           { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-cute-nyc-dinner-date-8727621' },
           { outlet: 'Heavy.com', url: 'https://heavy.com/entertainment/travis-kelce-paprazzi-pic' },
         ],
+        photos: [{
+          url: 'https://people.com/thmb/CoXTkMhUnemPkQoAyFciz9UWLrs%3D/1500x0/filters%3Ano_upscale%28%29%3Amax_bytes%28150000%29%3Afocal%28680x368%3A682x370%29%3Aformat%28webp%29/taylor-swift-travis-kelce-dinner-soho-tout2-101324-1763ca34174f4d25bdc875d389f38db1.jpg',
+          focalPoint: '50% 35%', credit: 'Tatiana / BACKGRID, via PEOPLE',
+          caption: 'Taylor Swift and Travis Kelce arrive at Torrisi in Soho, New York City, Oct. 12, 2024.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6380,6 +6390,11 @@ export default {
           { outlet: 'People', url: 'https://people.com/taylor-swift-serves-sexy-cheerleader-to-support-travis-kelce-chiefs-game-8715641' },
           { outlet: 'TMZ', url: 'https://tmz.com/2024/10/07/taylor-swift-arrives-travis-kelce-chiefs-monday-night-football-game' },
         ],
+        photos: [{
+          url: 'https://imagez.tmz.com/image/ae/16by9/2024/10/08/aea2a6ebf15f476b8d4083287bd61bd3_xl.jpg',
+          focalPoint: '50% 35%', credit: 'Getty Images, via TMZ',
+          caption: 'Taylor arrives in her plaid Vivienne Westwood outfit for the October 7, 2024 Chiefs game.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6418,6 +6433,11 @@ export default {
           { outlet: 'USA Today', url: 'https://www.usatoday.com/story/entertainment/music/2024/12/21/taylor-swift-chiefs-texans-game/77006838007' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-red-coat-chiefs-game-dec-21-2024-1235863757' },
         ],
+        photos: [{
+          url: 'https://www.usatoday.com/gcdn/authoring/authoring-images/2024/12/21/PNAS/77131684007-usatsi-25039857.jpg?crop=3608,2031,x0,y514&width=3200&height=1802&format=pjpg&auto=webp',
+          focalPoint: '50% 42%', credit: 'Jay Biggerstaff/Imagn Images, via USA Today',
+          caption: 'Taylor arrives at Arrowhead in a red faux-fur coat on December 21, 2024.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6437,6 +6457,11 @@ export default {
           { outlet: 'People', url: 'https://people.com/travis-kelce-taylor-swift-tell-each-other-i-love-you-after-chiefs-win-8780926' },
           { outlet: 'Us Weekly', url: 'https://www.usmagazine.com/entertainment/news/taylor-swift-kisses-and-cuddles-travis-kelce-on-field-after-chiefs-win/' },
         ],
+        photos: [{
+          url: 'https://www.usmagazine.com/wp-content/uploads/2025/01/GettyImages-2196121416-Taylor-Travis.jpg?crop=0px%2C0px%2C3933px%2C2066px&resize=1200%2C630&quality=78&strip=all',
+          focalPoint: '50% 34%', credit: 'David Eulitt/Getty Images, via Us Weekly',
+          caption: 'Taylor and Travis kiss on the field after the January 26, 2025 AFC Championship win.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6455,7 +6480,13 @@ export default {
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-cheers-travis-kelce-kansas-city-chiefs-playoff-game-8774616' },
           { outlet: 'CBS Sports', url: 'https://www.cbssports.com/nfl/news/look-taylor-swift-arrives-at-chiefs-playoff-game-as-travis-kelce-and-kansas-city-begin-quest-for-three-peat/' },
+          { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-chanel-runway-chiefs-texans-game/' },
         ],
+        photos: [{
+          url: 'https://cdn.mos.cms.futurecdn.net/oVE7GN2dHTk6LP6ftQpeB4-1920-80.jpg',
+          focalPoint: '50% 35%', credit: 'Getty Images, via Marie Claire',
+          caption: 'Taylor arrives in Chanel for the January 18, 2025 divisional playoff game.', kind: 'primary',
+        }],
       },
     },
     {
@@ -6475,6 +6506,11 @@ export default {
           { outlet: 'ABC News', url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-super-bowl-2025/story?id=118535158' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-arrives-super-bowl-2025-travis-kelce-1235260088/' },
         ],
+        photos: [{
+          url: 'https://i.abcnewsfe.com/a/2e222f6d-3238-4fb8-b81b-36379944891a/sb65-gty-gmh-250208_1739148915493_hpMain.jpg?w=1500',
+          focalPoint: '50% 42%', credit: 'Gregory Shamus/Getty Images, via ABC News',
+          caption: 'Taylor watches Super Bowl LIX with the Haim sisters and friends on February 9, 2025.', kind: 'primary',
+        }],
       },
     },
     {
