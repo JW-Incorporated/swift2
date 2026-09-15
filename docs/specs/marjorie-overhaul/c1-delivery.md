@@ -267,3 +267,12 @@ One thing genuinely outside this spec's authority: whether the founders want
 the fallback email to also fire when Discord succeeds but nobody reads the
 channel for N days. That is a product question about attention, not delivery,
 and it is not in scope for M1.
+
+
+### Recovery diagnostics
+
+A failed Discord delivery emits only numeric HTTP status, delivered chunk
+count and total chunk count to stderr. Capturing stdout in a workflow no
+longer hides those diagnostics on a nonzero exit. Provider exception text,
+webhook URLs, credentials and message bodies are never included. A partial
+send must be inspected before recovery to avoid duplicating earlier chunks.
