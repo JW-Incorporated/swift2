@@ -1,4 +1,11 @@
 const YOUTUBE_VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+export const VIDEO_PRESENTATION_EXCEPTIONS = new Set([
+  'unavailable',
+  'removed',
+  'rights',
+  'privacy',
+  'safety',
+]);
 
 export function youtubeIdFromUrl(value) {
   if (typeof value !== 'string') return null;
@@ -24,7 +31,7 @@ export function youtubeIdFromUrl(value) {
 }
 
 export function videoPresentationErrors({ sources, video, videoPresentationException }) {
-  if (videoPresentationException != null) return [];
+  if (VIDEO_PRESENTATION_EXCEPTIONS.has(videoPresentationException)) return [];
 
   const officialYoutubeIds = (sources ?? [])
     .filter((source) => source?.source_type === 'official')

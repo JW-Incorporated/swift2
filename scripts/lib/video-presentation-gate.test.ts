@@ -50,4 +50,15 @@ describe('videoPresentationErrors', () => {
       }),
     ).toEqual([]);
   });
+
+  it('does not allow an unlisted presentation exception to bypass a missing player', () => {
+    expect(
+      videoPresentationErrors({
+        sources: officialSource('https://www.youtube.com/watch?v=abcdefghijk'),
+        videoPresentationException: 'right',
+      }),
+    ).toEqual([
+      'official YouTube source abcdefghijk has no matching video — attach the canonical player or record videoPresentationException (unavailable|removed|rights|privacy|safety)',
+    ]);
+  });
 });

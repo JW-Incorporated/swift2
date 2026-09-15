@@ -56,7 +56,10 @@ import {
   PROSE_REDLINE_LEGACY,
 } from './lib/rumor-redlines.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
-import { videoPresentationErrors } from './lib/video-presentation-gate.mjs';
+import {
+  VIDEO_PRESENTATION_EXCEPTIONS,
+  videoPresentationErrors,
+} from './lib/video-presentation-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
 
@@ -136,13 +139,6 @@ const SOURCE_TYPES = new Set([
 ]);
 const MEDIA_KINDS = new Set(['oembed', 'owned', 'hotlink_legacy']);
 const MEDIA_RIGHTS = new Set(['platform_tos', 'licensed', 'hotlink_legacy']);
-const VIDEO_PRESENTATION_EXCEPTIONS = new Set([
-  'unavailable',
-  'removed',
-  'rights',
-  'privacy',
-  'safety',
-]);
 
 // Keep in sync with LensId (apps/web/lib/longlive/types.ts) and
 // VALID_THREAD_IDS (sync-longlive-content.mjs). An unknown value here is

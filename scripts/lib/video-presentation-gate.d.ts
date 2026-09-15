@@ -1,3 +1,5 @@
+export const VIDEO_PRESENTATION_EXCEPTIONS: Set<string>;
+
 export function youtubeIdFromUrl(value: unknown): string | null;
 
 export function videoPresentationErrors(input: {
