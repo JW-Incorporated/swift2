@@ -151,6 +151,40 @@ workflow per sweep.
 | `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — Facebook has no API and forbids automated collection | **Always** — this is the canonical human action, see Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
 | `knowledge-stale` (`Watchdog: knowledge engine current-tier data is stale`) | `scripts/knowledge-freshness.mjs` exit code + the worker's last run (alert body) | Re-dispatch the knowledge worker once | A missing/expired API key | watchdog self-closes |
 
+## Step 2b — chase Marjorie's dispatched work
+
+The workflow's deterministic pre-run step has already fetched a complete,
+read-only GitHub snapshot and written `.scratch/dispatch-chase-plan.json`.
+Read that file. It is produced by the pure
+`scripts/marjorie/lib/dispatch-chase.mjs` planner from complete issue/PR
+comments, commits, reviews, labels, assignees, and both human-action files;
+do not fetch a smaller replacement list and do not re-derive a clock from
+issue prose.
+
+Its output is `{items,nudges,humanActions,brief}`. `items` uses only these
+verdicts: `fresh`, `stale-48`, `stale-96`, `held`, and
+`blocked-on-founder`; they are already oldest-silence first. `nudges` contains
+`{issue,targets,body}` and `humanActions` contains `{number,issue,body}`.
+The fixed marker-bearing body and the five-nudge/two-human-action budget are
+already decided. Do not act on `fresh`, `held`, or `blocked-on-founder`, and
+do not create work beyond the listed output.
+
+For each listed nudge, write its exact `body` to a scratch body file and use
+plain `gh issue comment <issue>` or `gh pr comment <pr>` for every listed
+target. A chase marker is idempotency state: never change or hand-write it.
+For each listed human action, open a branch and PR that appends its exact
+`body` to `HUMAN-ACTIONS.md` only, then comment on its source issue with the
+PR URL. Never directly push a human action and never allocate a replacement
+number; the planner allocated it from both human-action files in the snapshot.
+Finish one listed item completely before beginning another. If the remaining
+turn budget cannot finish its PR and source comment, leave that item untouched
+for the next sweep rather than partially filing it.
+
+The `brief` field is a snapshot for the Founders' Brief: `brief.stalled` is
+the sorted stalled list and `brief.held` is the list to render once as held.
+Do not post a new Discord message from this sweep; the existing brief and chat
+delivery paths are the only allowed channels.
+
 ## Step 3 — leave your ledger comment (every row except the two you close, and the two "nothing" rows with no human action)
 
 One issue comment, `gh issue comment <number> --body-file <file>`, containing:
