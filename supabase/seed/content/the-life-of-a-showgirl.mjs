@@ -15,6 +15,53 @@
 export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
+    {
+      slug: 'showgirl-emmys-svu-sketch-2026',
+      year: 2026,
+      month: 9,
+      day: 14,
+      category: 'sighting',
+      title: 'Taylor and both Olivia Bensons crack the Emmys case',
+      snippet:
+        'Taylor plays a rookie detective alongside Mariska Hargitay in a pre-taped Emmys sketch about whether Taylor will attend the ceremony, with her cat Olivia Benson joining the investigation.',
+      sourceUrl: 'https://www.televisionacademy.com/video/svu-skit-taylor-swift-78th-emmys',
+      thumbnailUrl:
+        'https://www.thewrap.com/wp-content/uploads/2026/09/taylor-swift-mariska-hargitay-emmys.jpg',
+      moment: {
+        context:
+          'The joke turns Swiftie clue-hunting into an SVU case, with Hargitay playing her detective Olivia Benson; this is a sketch for the September 14 awards broadcast, not a guest appearance in a regular episode.',
+        sources: [
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/video/svu-skit-taylor-swift-78th-emmys',
+            source_title: 'SVU Skit: 78th Emmys',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-09-15',
+            reliability_score: 5,
+            notes: 'Official video page, published September 15, for the September 14 telecast.',
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/industry-news/awards/taylor-swift-emmys-cameo-mariska-hargitay-law-and-order-sketch/',
+            source_title: "Taylor Swift Cameos in a Meta 'SVU' Sketch With Mariska Hargitay at the Emmys",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.thewrap.com/wp-content/uploads/2026/09/taylor-swift-mariska-hargitay-emmys.jpg',
+            credit: 'NBC, via TheWrap',
+            caption: 'Mariska Hargitay, Taylor and Olivia Benson the cat in the pre-taped 2026 Emmys sketch.',
+            kind: 'primary',
+            focalPoint: '58% 42%',
+          },
+        ],
+      },
+    },
     // --- The announcement (August 2025; pre-dates the era window on purpose,
     // same convention as TTPD's Grammys-announcement item living in its own
     // era file).
