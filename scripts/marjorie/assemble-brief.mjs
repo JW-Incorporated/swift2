@@ -115,6 +115,8 @@ export function buildBrief(state, { now = state?.now ?? Date.now() } = {}) {
   const runnersResult = checkRunners({
     allPRs: state.allPRs || [], issues: [], briefComments: [],
     cadence: state.cadence || { runners: [] }, now, listsCapExhausted: state.allPRsCapExhausted,
+    workflowRuns: state.workflowRuns,
+    workflowRunTotalCount: state.workflowRunTotalCount,
   });
   const vaultRow = runnersResult.rows.find((r) => r.runner === 'Vault Run') || null;
   const siteLines = [renderSiteLine({ openAlertsNow, vaultRow, contentShipped: state.contentShipped })];
