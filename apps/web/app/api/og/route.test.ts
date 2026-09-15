@@ -3,6 +3,7 @@ import { getEra, setTracksRawProvider, trackKey } from '@swift2/experience';
 
 const item = {
   id: 'interrupted-speech',
+  slug: 'interrupted-speech-slug',
   eraId: 'fearless',
   title: 'The interrupted speech',
   dateLabel: 'September 2009',
@@ -11,7 +12,9 @@ const item = {
 const track = { title: 'Fearless', note: 'A rushing first-love anthem.', trackNumber: 1 };
 
 vi.mock('../../../lib/longlive/vault-wiring', () => ({}));
-vi.mock('@/lib/longlive/content', () => ({ getContentItem: (id: string) => (id === item.id ? item : undefined) }));
+vi.mock('@/lib/longlive/content', () => ({
+  getContentItemByIdOrSlug: (id: string) => (id === item.id || id === item.slug ? item : undefined),
+}));
 
 import { DEFAULT_OG_COPY } from '@/lib/longlive/og-card';
 import { GET, ogCopyForRequest } from './route';
@@ -29,6 +32,10 @@ describe('GET /api/og', () => {
     const res = await get('?lens=hidden-clues');
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toBe('image/png');
+  });
+
+  it('uses the same copy for a stable content slug as for its legacy id', () => {
+    expect(ogCopyForRequest(request(`item=${item.slug}`))).toMatchObject({ title: item.title });
   });
 
   it('renders a PNG for each of the six thread lenses', async () => {
