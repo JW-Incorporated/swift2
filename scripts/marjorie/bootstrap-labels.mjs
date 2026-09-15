@@ -93,6 +93,8 @@ export const LABELS = [
   ['spam', '6E6E6E', 'Abuse, a test string, or empty — closed, kept searchable (applied by Marjorie)'],
   ['marjorie-triaged', 'BFD4F2', 'Bookkeeping: classified. Machine-only — never apply or remove by hand'],
   ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],
+  ['founder-assigned', '1D76DB', 'Founder assigned this Marjorie-filed item to the next build session'],
+  ['deferred', '6E6E6E', 'Founder deferred this item; Marjorie stops chasing it while it remains open'],
 ];
 
 const invokedDirectly =

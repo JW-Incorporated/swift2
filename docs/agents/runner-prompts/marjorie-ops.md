@@ -151,6 +151,42 @@ workflow per sweep.
 | `fb-export-due` (`Watchdog: no FB group export closed in 9 days`) | The open `FB group export due` issues (`gh issue list --search`) | **Nothing** — Facebook has no API and forbids automated collection | **Always** — this is the canonical human action, see Step 4 | Closes when the export issue closes; watchdog self-closes the alert |
 | `knowledge-stale` (`Watchdog: knowledge engine current-tier data is stale`) | `scripts/knowledge-freshness.mjs` exit code + the worker's last run (alert body) | Re-dispatch the knowledge worker once | A missing/expired API key | watchdog self-closes |
 
+### Build-ticket helper (every "real defect" escalation)
+
+Whenever the table says to file a build-desk issue, create a JSON draft
+under `$RUNNER_TEMP` with a `node` command, then run the shared helper. Use
+`source: "alert"`, omit `reporterSaid`, and write `sourceContext` exactly as
+`**From watchdog alert** — <full GitHub issue URL>`. Put the observed failure plus the run/log evidence in
+`context`. Supply one to three user-visible `expected` sentences, a
+`surface`, concrete repository-relative `paths` (never globs/directories),
+an honest `estimatedLines` when known, `needsSpec`, and checkbox-ready
+`acceptanceCriteria`. Set `austinScopeConfirmed: true` only after checking every
+semantic condition in `docs/agents/austin.md` §Scope; omit it when any condition
+is unknown or false.
+
+```
+gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/issues?labels=marjorie-filed&state=all&per_page=100" --jq 'add | map(select(.pull_request == null) | {number,url:.html_url,labels,body})' > "$RUNNER_TEMP/marjorie-filed.json"
+node scripts/marjorie/lib/build-ticket.mjs find "$RUNNER_TEMP/marjorie-filed.json" "$RUNNER_TEMP/build-ticket.json"
+node scripts/marjorie/lib/build-ticket.mjs size "$RUNNER_TEMP/build-ticket.json"
+node scripts/marjorie/lib/build-ticket.mjs render "$RUNNER_TEMP/build-ticket.json" "$RUNNER_TEMP/build-ticket.md"
+node scripts/marjorie/lib/build-ticket.mjs check "$RUNNER_TEMP/build-ticket.md"
+```
+
+Run `find` before every create. The paginated REST snapshot avoids search-index
+lag. If it prints an issue object, an interrupted earlier sweep already filed
+the ready ticket or large bank item: do not create another. Reuse that issue in
+Step 3's durable ledger comment and finish the alert's normal bookkeeping. Only
+`none` permits a create.
+If `size` prints `large`, do not file a build ticket: bank a
+single issue labeled `founder-decision,marjorie-filed`, naming the spec needed
+and including the canonical `sourceContext` line. If `render` or `check` fails,
+rewrite the draft and run both again — never skip the readiness gate. Only
+after `check` prints `ready` may you create the issue using that body file.
+Labels are `marjorie-filed,desk:build,bug` plus exactly one
+`exp:P1|exp:P2|exp:P3`; add `needs-triage` when `size` printed `small`.
+For the large/spec branch, name the bank item in the alert ledger and use
+`action=escalate`; it is the durable next step and must not be filed again.
+
 ## Step 2b — chase Marjorie's dispatched work
 
 The workflow's deterministic pre-run step has already fetched a complete,

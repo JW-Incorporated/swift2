@@ -230,3 +230,117 @@ evidence. Result: .scratch/clock-review-until-clean-1.txt (gitignored).
 Implementation is ready for PR/CI with CLOCK_LIVE=false. This acceptance is
 not deployment or live-proof evidence. Host update HA, activation and both
 proof halves remain required before M7 is complete.
+
+## M8 ready-ticket final review stop - 2026-09-14
+
+Branch `feature/m8-ready-tickets` reached the maximum two adversarial Codex
+review rounds. No PR was opened. Round 2 accepted the exact-line source lookup
+that prevents alert `#12` from aliasing `#123`, but returned three Medium
+findings in the live working tree:
+
+1. The attempted Next dynamic-segment expression admits unbalanced forms such
+   as `[slug]]`, `[[...slug]`, and `[...slug]]`. Replace it with explicit
+   alternatives for `[name]`, `[...name]`, and `[[...name]]`, with regression
+   tests for the malformed forms.
+2. The allowlist changed from rule objects to strings while the existing test
+   still read `.root`. The assertion was corrected in the live working tree
+   just before the final output, but the reviewer evaluated its earlier test
+   run (35 passed, 1 failed). It has not been rerun after the stop condition.
+3. `Intl.Segmenter` handles the valid `U.S.` abbreviation case but still treats
+   `One.Two.Three.Four.` as no more than three sentences. The one-to-three
+   sentence contract needs explicit compact-punctuation handling and a
+   regression test.
+
+The uncommitted working tree contains the partial corrections and the updated
+allowlist assertion. Per the two-round cap, no further implementation, test,
+review, push, or PR action followed. Earlier committed code passed its focused
+tests, the full Marjorie test set, lint, and `check:routines`; those results do
+not certify the current uncommitted patch.
+
+### User-authorized resolution
+
+The user's final instruction overrode a rule that prevented completing
+technically reversible work. Root authorized a fresh read-only diagnosis before
+more edits, then a new independent review after a frozen green commit. The
+diagnosis confirmed both substantive parser findings and prescribed bounded
+fixes:
+
+- Dynamic route segments now accept only the three balanced Next forms
+  `[name]`, `[...name]`, and `[[...name]]`; all three malformed review examples
+  have regressions.
+- Expected text masks dotted initialisms before sentence segmentation and
+  separately rejects terminal punctuation immediately followed by an uppercase
+  letter. Tests preserve the valid `U.S.` case and reject
+  `One.Two.Three.Four.`.
+- The allowlist assertion matches its exported string-array representation.
+
+Post-fix validation: 36/36 focused build-ticket tests and 493/493 tests across
+all 26 Marjorie test files passed. ESLint reported zero errors and five existing
+unrelated warnings. `check:routines` passed all 18 workflows. The helper is 299
+lines. A fresh independent review of the frozen commit remains required before
+the task can proceed to PR.
+
+### Fresh review finding and source-identity resolution
+
+The fresh review accepted the parser fixes but found one Medium idempotency gap:
+the first retry guard compared the full free-form source line, so a changed date
+or surrounding phrase could miss the same submission or alert. This was treated
+as a real defect. Dedupe now derives an immutable key from the positive
+submission number or the full GitHub alert issue URL, including owner and repo;
+dates and suffix text are ignored, `#12` remains distinct from `#123`, and
+malformed identities fail closed. The ops prompt prescribes the canonical alert
+line and the spec records the identity contract. Tests cover changed formatting,
+cross-repository URLs, non-positive issue numbers, and malformed input.
+
+Post-correction validation passed 38/38 focused tests and 495/495 tests across
+all 26 Marjorie files. Repository lint reported zero errors and five existing
+unrelated warnings; `check:routines` passed all 18 workflows. Another frozen
+independent review remains before PR.
+
+### Subsequent frozen review and bounded fixes
+
+The next frozen review returned four Medium findings: malformed suffixes could
+alias a canonical source number; the large `founder-decision` branch was not in
+the retry guard; broad directory prefixes certified config/assets as
+Austin-small; and lowercase compact punctuation bypassed the linguistic
+sentence counter. Root also identified that the prompt's indexed, 500-item
+issue list was not a complete authoritative retry snapshot.
+
+All were handled as real contract gaps. Source parsing now requires a delimited,
+anchored positive number or GitHub issue URL. Both ready tickets and large bank
+items carry `marjorie-filed` and the canonical source line, so the same lookup
+deduplicates them. Prompts fetch every labeled issue through paginated REST,
+avoiding search lag and the 500-item cap. The Austin-small path check is
+conservative about code/test extensions and rejects public assets, config, and
+schema/migration names.
+
+Repeated linguistic edge cases also showed that sentence meaning is judgment,
+which M8 assigns to the prompt. The spec now says why: prompts retain the
+one-to-three-sentence instruction, while deterministic code enforces a nonempty
+plain-text Expected section and blocks injected ticket structure. Brittle
+sentence counting and its language-specific tests were removed. Tests now cover
+duplicate headings as the corresponding check-time structural attack.
+
+Validation after these edits passed 43/43 focused tests and 500/500 tests across
+all 26 Marjorie files. Repository lint reported zero errors and five existing
+unrelated warnings; `check:routines` passed all 18 workflows. Another frozen
+review remains before PR.
+
+### Structure-aware review correction
+
+The following frozen review accepted the source/REST/large-item corrections and
+reported two Medium gaps. Config and asset directories below allowed roots still
+qualified as Austin-small. The checker also searched heading substrings: a
+reporter's blockquoted `**Where**` could falsely fail, while a second raw
+`**Reporter said**` section was not rejected.
+
+The allowlist now excludes `config`, `configs`, `asset`, and `assets` path
+segments. Structural parsing now recognizes only unquoted full-line headings and
+raw full-line markers, counts every required and optional section, and uses those
+same positions for order and content extraction. Reporter text stays verbatim in
+blockquote lines and cannot supply or override structure. Tests cover all four
+review examples, duplicate Reporter sections, blockquoted headings/markers, and
+LF/CRLF bodies. Validation passed 48/48 focused tests and 505/505 tests across
+all 26 Marjorie files. Repository lint reported zero errors and five existing
+unrelated warnings; `check:routines` passed all 18 workflows. A systematic
+frozen review remains.
