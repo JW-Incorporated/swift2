@@ -275,3 +275,30 @@ failed before inference on GitHub's string-to-number reusable-input boundary;
 that adapter requires explicit conversion before retry. Neither a probe nor an
 off-time recovery satisfies the on-time noon proof. Keep M7/M8 unticked until
 all real acceptance conditions hold. Ordinary schedules are unchanged.
+
+
+### September 15 paid recovery validation
+
+Numeric manual budget forwarding merged in #4362. Real triage run
+34980285130 completed successfully, filed #4364 from #4358, and the new
+body passed the ready-ticket checker. Reported cost: $0.5927152; cumulative
+Claude test spend after triage: $0.6270812. Brief recovery 34980901967
+then reached its budget setting before filing or delivery: 14 turns,
+$1.3041965 reported. Total spend is $1.9312777. No paid brief retry is
+planned. One $0.75 news-triage validation is reserved under the $3 total.
+Budget enforcement occurs after a model request; reported cost can exceed
+the individual setting, so the remaining margin must be preserved.
+
+A read-only current-user Windows scheduled task,
+`Codex-M7-Noon-Proof-20260916`, captures the next noon window. Its persistent
+files are under `Hermes/.codex-noon-proof-20260916`; it starts at logon or
+11:59 UTC September 16 and was also started immediately. It never dispatches
+workflows or invokes a model. Metadata acceptance requires one productive
+owner dispatch within two minutes, one recorded delivery marker, no extra
+productive run, and an explicitly guard-only completed native cron. Missing
+cron remains pending review, not a pass. It does not independently read
+Discord or prove absence of an unmarked duplicate message.
+
+M8 permits synthetic 49/97-hour chase proofs. The repeated-sweep integration
+check in #4365 complements existing unit coverage; founder chat approval
+and Kevin's resulting classification still need their real event evidence.

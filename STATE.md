@@ -2,27 +2,43 @@
 
 ## Next
 
-1. Owner restored Claude access and authorized a TOTAL $3 in basic paid
-   testing. Reported spend so far: $0.034366 ($0.008897 local Haiku plus
-   $0.025469 GitHub OAuth probe 34978823809). Track serial runs in
-   .scratch/claude-test-budget.json; no speculative/full-price rerun loops.
-2. HA #77 is closed from the owner's "claude is back on" statement and the
-   successful GitHub probe. No credentials were read or rotated. The initial
-   probe 34977780686 failed before inference on an empty-tools argument;
-   #4361 fixed that serialization defect and the retry passed.
-3. Budget controls #4360 are merged. Intake triage 34978955061 failed before
-   a model job started: GitHub rejected string input '0.75' where the reusable
-   workflow expects a number. Explicit numeric conversion is being fixed in
-   both manual callers. Retry intake at 0.75 after that fix, inspect cost,
-   then run one force=true brief at 1.50. Reported spend is still $0.034366.
-4. All M8 implementation is merged (#4352, #4354, #4349, #4355). Keep M7/M8
-   and #4290 open until their real proofs pass. The clock needs a successful
-   on-time noon brief; a manual recovery cannot claim that timing proof.
-   M8 still needs the real founder approval and actual 48/96-hour lifecycle.
-5. Non-Claude checks: 653 focused tests pass; full workspace typecheck passes
-   after normal generation/dependency setup. Windows full suite: 6,421 pass,
-   14 test failures plus one failed suite tracked in real intake #4358.
-   Junction harness fix #4359 is merged. Generated outputs remain local.
+1. Owner delegated all technically reversible decisions while away and added
+   recovery of the longlivets.com content production pipeline to M7/M8.
+   Astra is investigating in `content-pipeline-recovery`; no extra Claude
+   tests may bypass the TOTAL $3 task budget.
+2. GitHub OAuth is restored (probe 34978823809); HA #77 closure merged in
+   #4363. No credentials were read or rotated. Numeric budget forwarding
+   is fixed by #4362 after the first triage dispatch failed before inference.
+3. Real intake triage 34980285130 PASSED: #4358 produced #4364, whose body
+   passed `node scripts/marjorie/lib/build-ticket.mjs check`. Cost $0.5927152
+   in 19 turns. Brief recovery 34980901967 reached its $1.25 budget setting
+   after 14 turns and reported $1.3041965; no issue or delivery resulted.
+   Total reported spend is $1.9312777. Astra may run ONE news-triage test
+   with a $0.75 setting after #4369 merges; no further Claude retries.
+   The budget is checked after a model request, so leave overshoot margin.
+   Root is preparing assembler-based brief recovery without Claude. Serial tests;
+   ledger in m7-m8-weekly-limit/.scratch/claude-test-budget.json.
+4. M8 implementation is merged (#4352, #4354, #4349, #4355). Additional
+   repeated-sweep integration proof #4365 is queued for auto-merge: 99 tests
+   passed, including synthetic 49/97-hour nudge/HA/defer/held behavior.
+   The spec explicitly permits synthetic chase ages; waiting for actual
+   48/96 hours is unnecessary. No real canonical founder-chat approval or
+   subsequent Kevin ready/greenlit evidence exists yet; do not invent it.
+5. M7 clock timing still requires a successful on-time noon brief and later
+   native-cron guard suppression. Manual recovery does not prove noon timing.
+   Read-only Windows task `Codex-M7-Noon-Proof-20260916` is installed and
+   running for 2026-09-16T12:00Z, deadline 13:00Z, with a logon recovery
+   trigger. Evidence directory: Hermes/.codex-noon-proof-20260916. It uses
+   no Claude calls or workflow dispatches and records GitHub delivery markers;
+   direct Discord duplicate/timestamp evidence remains a stated limitation.
+6. Non-Claude checks: 653 original focused tests and full workspace typecheck
+   pass. Windows full suite: 6,421 pass, 14 failures plus one failed suite
+   tracked in #4358/#4364. Junction harness fix #4359 merged; generated local
+   validation outputs are preserved. Live apex/www homepage HTTP 200 verified.
+   Chrome verified Threads detail, Mood song results and Clownbot render with
+   no console errors. Content publishing matches the current generated bundle;
+   Astra found the intake bridge silent despite green runs. Recovery #4369
+   replaces archival prompt instructions and requires a current run receipt.
 
 ## Reboot recovery - 2026-09-15
 
@@ -57,7 +73,7 @@ branch was initially misread as an emitted error; it was not executed.
 Claude initialized but returned is_error=true in 267 ms, with empty model
 usage and zero cost. Provider error detail was absent. No code defect is
 established. One force=true replacement was dispatched: 34969710921; it
-also failed. No more replacement runs are authorized by this checkpoint.
+also failed. That historical stop was superseded by the owner's restored-access confirmation and $3 testing authorization above.
 
 Working branch: docs/m7-clock-noon-proof, isolated worktree of the same name.
 Read-only recovery evidence: .scratch/noon-recovery-check.json.
