@@ -85,9 +85,14 @@ export function resolveReactionApproval({ message, deliveredMessageId, messageUr
   if (!SNOWFLAKE.test(String(message.id || '')) || !url || url[1] !== String(message.id)) return { ok: false, reason: 'untrusted-message', candidates: [] };
   if (!reactorIds.some((id) => founderIds.has(String(id)))) return { ok: false, reason: 'no-founder-reaction', candidates: [] };
   const refs = issueRefs(message.content, repo);
-  if (refs.size !== 1) return { ok: false, reason: 'ambiguous', candidates: [...refs].sort((a, b) => a - b) };
   const candidates = (issues || []).filter((issue) => refs.has(Number(issue.number)) && isOpenBuildTicket(issue));
-  if (candidates.length !== 1) return { ok: false, reason: 'ambiguous', candidates: candidates.map((issue) => Number(issue.number)) };
+  if (candidates.length !== 1) {
+    return {
+      ok: false,
+      reason: 'ambiguous',
+      candidates: candidates.map((issue) => Number(issue.number)).sort((a, b) => a - b),
+    };
+  }
   return { ok: true, issue: candidates[0], messageId: String(message.id), messageUrl };
 }
 
