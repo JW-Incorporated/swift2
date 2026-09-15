@@ -40,12 +40,35 @@ export function findResultMessage(executionLog) {
   return null;
 }
 
+const SDK_ERRORS = new Set([
+  'authentication_failed', 'oauth_org_not_allowed', 'billing_error',
+  'rate_limit', 'invalid_request', 'model_not_found', 'server_error',
+  'max_output_tokens', 'unknown',
+]);
+const RESULT_SUBTYPES = new Set(['success', 'error_during_execution', 'error_max_turns', 'error_max_budget_usd']);
+
+function fixedValue(value, allowed) {
+  return typeof value === 'string' && allowed.has(value) ? value : 'unknown';
+}
+
+/** Extracts only fixed SDK error metadata; arbitrary provider text is discarded. */
+export function findAssistantError(executionLog) {
+  if (!Array.isArray(executionLog)) return null;
+  for (let i = executionLog.length - 1; i >= 0; i -= 1) {
+    const entry = executionLog[i];
+    if (entry?.type !== 'assistant') continue;
+    const value = entry.error ?? entry.message?.error;
+    if (typeof value === 'string') return fixedValue(value, SDK_ERRORS);
+  }
+  return null;
+}
+
 /**
  * Builds the small JSON artifact payload from a parsed result message plus
  * the routine's static config. Exported and pure for tests.
  */
-export function buildUsageRecord({ routineName, model, maxTurns, result }) {
-  return {
+export function buildUsageRecord({ routineName, model, maxTurns, result, assistantError = null }) {
+  const record = {
     routineName,
     model,
     maxTurns,
@@ -55,6 +78,14 @@ export function buildUsageRecord({ routineName, model, maxTurns, result }) {
     usage: result.usage ?? null,
     generatedAt: new Date().toISOString(),
   };
+  if (result.is_error === true) {
+    record.diagnostic = {
+      isError: result.is_error === true,
+      resultSubtype: fixedValue(result.subtype, RESULT_SUBTYPES),
+      ...(assistantError !== null ? { assistantError: fixedValue(assistantError, SDK_ERRORS) } : {}),
+    };
+  }
+  return record;
 }
 
 /** True when `numTurns` is at or above 90% of `maxTurns` — the early-warning threshold. */
@@ -139,7 +170,7 @@ async function main() {
     return 0;
   }
 
-  const record = buildUsageRecord({ routineName, model, maxTurns, result });
+  const record = buildUsageRecord({ routineName, model, maxTurns, result, assistantError: findAssistantError(executionLog) });
   const summary = renderSummary(record);
 
   console.log(`::notice::${summary.replace(/\n/g, ' ')}`);

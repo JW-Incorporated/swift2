@@ -14,7 +14,7 @@ It never posts in Discord and never adds ✅ or ❌. While it is down, the
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
 is installed as `doorbell-v2` after HA #76.
 
-## Clock v2 (installed; poll proof passed, noon brief proof pending)
+## Clock v2 (installed; poll proof passed, noon delivery proof blocked)
 
 `doorbell-v2` adds exactly two pinned schedule rows: `bot-chat-poll.yml`
 every five minutes and `routine-marjorie-brief.yml` at 12:00 UTC. GitHub's
@@ -26,7 +26,14 @@ Installed tag: `doorbell-v2` at `f22adc6a`; activation PR #4342 sets
 The 02:50-03:50 UTC poll proof passed all twelve slots in 6-9 seconds with
 no doubles; the clock-silent dry-run passed without posting an alert.
 [Run IDs and host evidence](https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5674493098).
-The next 12:00 UTC brief proof remains pending; M7 is not complete yet.
+On 2026-09-15 the clock dispatched the brief at 12:00:07Z
+([run 34966350705](https://github.com/JW-Incorporated/swift2/actions/runs/34966350705)).
+The guard passed, but the Claude action failed before meaningful model work
+and delivery was skipped. Checkout and prompt loading succeeded. One
+controlled `force=true` replacement
+([run 34969710921](https://github.com/JW-Incorporated/swift2/actions/runs/34969710921))
+also failed. Do not keep dispatching replacements without a diagnosis.
+The on-time delivery proof remains unmet; #4290 and M7 stay open.
 
 The tag's `PINNED_CLOCK_LIVE` permits those filenames and inputs. Main's
 `CLOCK_LIVE` gates that permission and starts false, beside
