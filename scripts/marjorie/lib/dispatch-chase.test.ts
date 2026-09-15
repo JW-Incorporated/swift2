@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { evaluateDispatchChase, MAX_HUMAN_ACTIONS, MAX_NUDGES } from './dispatch-chase.mjs';
+import { evaluateDispatchChase, MAX_HUMAN_ACTIONS, MAX_NUDGES, renderHumanAction } from './dispatch-chase.mjs';
 
 const NOW = Date.parse('2026-09-15T12:00:00Z');
 const ago = (hours: number) => new Date(NOW - hours * 3_600_000).toISOString();
@@ -50,18 +50,21 @@ describe('evaluateDispatchChase', () => {
     ]);
   });
 
-  it('creates a stale-96 decision action with the M8 marker and literal choices', () => {
+  it('plans a stale-96 candidate without allocating a number or body', () => {
     const result = plan({
       issues: [issue(3, 97)],
       ...actionFiles('## #80 ðŸŸ¡ [DECIDE] Something\n<!-- ha filed=2026-09-01 -->'),
     });
     expect(result.items[0].verdict).toBe('stale-96');
-    expect(result.humanActions[0]).toMatchObject({ number: 81, issue: 3 });
-    expect(result.humanActions[0].body).toContain('\u{1F7E1}');
-    expect(result.humanActions[0].body).toContain('<!-- marjorie-chase: 96h issue=3 -->');
-    expect(result.humanActions[0].body).toContain('`assign`');
-    expect(result.humanActions[0].body).toContain('`defer`');
-    expect(result.humanActions[0].body).toContain('`close`');
+    expect(result.humanActions[0]).toMatchObject({ issue: 3, holder: 'unclaimed' });
+    expect(result.humanActions[0]).not.toHaveProperty('number');
+    expect(result.humanActions[0]).not.toHaveProperty('body');
+    const body = renderHumanAction({ number: 81, now: NOW, ...result.humanActions[0] }).body;
+    expect(body).toContain('\u{1F7E1}');
+    expect(body).toContain('<!-- marjorie-chase: 96h issue=3 -->');
+    expect(body).toContain('`assign`');
+    expect(body).toContain('`defer`');
+    expect(body).toContain('`close`');
   });
 
   it('holds a skipped or deferred chase item forever', () => {
@@ -200,18 +203,19 @@ describe('evaluateDispatchChase', () => {
     expect(result.humanActions).toEqual([]);
   });
 
-  it('caps the human-action Why and step lines and uses linked PR activity', () => {
+  it('caps the materialized human-action Why and step lines and uses linked PR activity', () => {
     const linked = pr(99, 'Closes #93', 97, { lastCommitDate: ago(97) });
     const result = plan({
       issues: [issue(93, 200, { title: 'x'.repeat(500), assignee: { login: 'x'.repeat(500) } })],
       prs: [linked],
     });
-    const lines = result.humanActions[0].body.split('\n');
+    const lines = renderHumanAction({ number: 1, now: NOW, ...result.humanActions[0] }).body.split('\n');
     const why = lines.find((line) => line.startsWith('**Why:** '))!.slice('**Why:** '.length);
     const step = lines.find((line) => line.startsWith('1. Reply'))!;
     expect(why.length).toBeLessThanOrEqual(300);
     expect(step.length).toBeLessThanOrEqual(200);
     expect(why).toContain(new Date(NOW - 97 * 3_600_000).toISOString().slice(0, 10));
+    expect(why).toContain('x'.repeat(89));
   });
 
   it('takes the oldest work first and enforces the 5/2 sweep budget', () => {

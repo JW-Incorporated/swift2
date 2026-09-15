@@ -1,6 +1,5 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { nextHumanActionNumber } from '../human-actions.mjs';
 import { runMain } from '../../lib/cli.mjs';
 
 export const STALE_48_MS = 48 * 60 * 60 * 1000;
@@ -9,7 +8,7 @@ export const MAX_NUDGES = 5;
 export const MAX_HUMAN_ACTIONS = 2;
 
 const CHASE_48 = /<!--\s*marjorie-chase:\s*48h\s*-->/i;
-const CHASE_96 = /<!--\s*marjorie-chase:\s*96h\s+issue=(\d+)\s*-->/i;
+const CHASE_96 = /<!--\s*marjorie-chase:\s*96h\s+issue=(\d+)\b[^>]*-->/i;
 const CLOSES_ISSUE = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)\b/gi;
 const FOUNDER_ADDRESS = /@sffan15-sys|\b(?:founder|joey)\b/i;
 
@@ -151,11 +150,13 @@ function clip(value, max) {
   return text.length <= max ? text : `${text.slice(0, max - 1)}\u2026`;
 }
 
-function humanAction({ number, issue, now, holder: currentHolder, activityAt }) {
-  const started = new Date(issue.createdAt || now).toISOString().slice(0, 10);
+/** Materialize a previously-planned candidate only after fresh HA allocation. */
+export function renderHumanAction({ number, issue, title, createdAt, now, holder: currentHolder, activityAt }) {
+  const source = typeof issue === 'object' ? issue : { number: issue, title, createdAt };
+  const started = new Date(source.createdAt || now).toISOString().slice(0, 10);
   const silentSince = new Date(activityAt || now).toISOString().slice(0, 10);
   const why = clip(
-    `Marjorie dispatched it on ${started} (${clip(issue.title, 90)}). Nothing has moved since ${silentSince}. Holder: ${clip(currentHolder, 90)}.`,
+    `Marjorie dispatched it on ${started} (${clip(source.title, 90)}). Nothing has moved since ${silentSince}. Holder: ${clip(currentHolder, 90)}.`,
     300,
   );
   const step = clip(
@@ -164,8 +165,8 @@ function humanAction({ number, issue, now, holder: currentHolder, activityAt }) 
   );
   return {
     number,
-    issue: issue.number,
-    body: `## #${number} \u{1F7E1} [DECIDE] #${issue.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${issue.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${issue.number} under stalled.`,
+    issue: source.number,
+    body: `## #${number} \u{1F7E1} [DECIDE] #${source.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${source.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${source.number} under stalled.`,
   };
 }
 
@@ -236,22 +237,20 @@ export function evaluateDispatchChase({
     });
   }
 
-  let nextNumber = nextHumanActionNumber(openActions, doneActions);
   const humanActions = [];
   for (const item of items.filter(
     (item) => item.verdict === 'stale-96' && !item.existingHumanAction,
   )) {
     if (humanActions.length >= MAX_HUMAN_ACTIONS) break;
-    humanActions.push(
-      humanAction({
-        number: nextNumber,
-        issue: item.issue,
-        now: nowMs,
-        holder: item.holder,
-        activityAt: item.activityAt,
-      }),
-    );
-    nextNumber += 1;
+    // Number allocation is intentionally deferred until the mutation pass.
+    // A snapshot can be stale while another HA PR is waiting to merge.
+    humanActions.push({
+      issue: item.number,
+      title: item.issue.title,
+      createdAt: item.issue.createdAt,
+      activityAt: item.activityAt,
+      holder: item.holder,
+    });
   }
   return {
     items,
