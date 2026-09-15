@@ -325,3 +325,22 @@ Validation after these edits passed 43/43 focused tests and 500/500 tests across
 all 26 Marjorie files. Repository lint reported zero errors and five existing
 unrelated warnings; `check:routines` passed all 18 workflows. Another frozen
 review remains before PR.
+
+### Structure-aware review correction
+
+The following frozen review accepted the source/REST/large-item corrections and
+reported two Medium gaps. Config and asset directories below allowed roots still
+qualified as Austin-small. The checker also searched heading substrings: a
+reporter's blockquoted `**Where**` could falsely fail, while a second raw
+`**Reporter said**` section was not rejected.
+
+The allowlist now excludes `config`, `configs`, `asset`, and `assets` path
+segments. Structural parsing now recognizes only unquoted full-line headings and
+raw full-line markers, counts every required and optional section, and uses those
+same positions for order and content extraction. Reporter text stays verbatim in
+blockquote lines and cannot supply or override structure. Tests cover all four
+review examples, duplicate Reporter sections, blockquoted headings/markers, and
+LF/CRLF bodies. Validation passed 48/48 focused tests and 505/505 tests across
+all 26 Marjorie files. Repository lint reported zero errors and five existing
+unrelated warnings; `check:routines` passed all 18 workflows. A systematic
+frozen review remains.

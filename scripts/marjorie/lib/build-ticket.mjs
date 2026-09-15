@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
 import { findExistingBySource } from './build-ticket-source.mjs';
+import { linePositions, sectionBody } from './build-ticket-structure.mjs';
 const NEXT_DYNAMIC_SEGMENT =
   /^(?:\[[A-Za-z0-9_-]+\]|\[\.\.\.[A-Za-z0-9_-]+\]|\[\[\.\.\.[A-Za-z0-9_-]+\]\])$/;
 const TICKET_STRUCTURE =
@@ -74,6 +75,7 @@ export function isAustinAllowedPath(value) {
   const root = AUSTIN_PATH_ALLOWLIST.find((entry) => candidate.startsWith(entry));
   if (!root) return false;
   if (root === 'docs/' && !candidate.endsWith('.md')) return false;
+  if (/(^|\/)(?:configs?|assets?)(?:\/|$)/i.test(candidate)) return false;
   if (root === 'apps/web/' && candidate.startsWith('apps/web/public/')) return false;
   if (root === 'apps/web/' && !/\.(?:[cm]?[jt]sx?|css)$/i.test(candidate)) return false;
   if (root === 'packages/' && !/\.[cm]?[jt]sx?$/i.test(candidate)) return false;
@@ -163,35 +165,28 @@ export function findExistingBuildTicket(items, sourceContext) {
     checkBuildTicket,
   );
 }
-function sectionBody(body, heading, nextTokens) {
-  const start = body.indexOf(heading);
-  if (start < 0) return '';
-  const contentStart = start + heading.length;
-  const ends = nextTokens
-    .map((token) => body.indexOf(token, contentStart))
-    .filter((index) => index >= 0);
-  const end = ends.length ? Math.min(...ends) : body.length;
-  return body.slice(contentStart, end).trim();
-}
 export function checkBuildTicket(body) {
   const text = String(body ?? '');
   const required = ['**Expected**', '**Where**', '**Size**', '**Acceptance criteria**'];
+  const headings = [...required, '**Reporter said**'];
+  const positions = new Map(headings.map((heading) => [heading, linePositions(text, heading)]));
   const errors = [];
   for (const heading of required) {
-    if (!text.includes(heading)) errors.push(`missing section: ${heading}`);
-    if (text.split(heading).length > 2) errors.push(`multiple section: ${heading}`);
+    if (!positions.get(heading).length) errors.push(`missing section: ${heading}`);
+  }
+  for (const heading of headings) {
+    if (positions.get(heading).length > 1) errors.push(`multiple section: ${heading}`);
   }
   const markers = [
     ...text.matchAll(
-      /^<!-- marjorie-build: size=(small|medium|large) source=(issue|alert|chat:https:\/\/\S+) -->$/gm,
+      /^<!-- marjorie-build: size=(small|medium|large) source=(issue|alert|chat:https:\/\/\S+) -->\r?$/gm,
     ),
   ];
   const marker = markers.at(-1);
   if (!marker) errors.push('missing or invalid marjorie-build marker');
   if (markers.length > 1) errors.push('multiple marjorie-build markers');
-  const ordered = [...required];
-  if (text.includes('**Reporter said**')) ordered.push('**Reporter said**');
-  const indices = ordered.map((token) => text.indexOf(token));
+  const ordered = positions.get('**Reporter said**').length ? headings : required;
+  const indices = ordered.map((token) => positions.get(token)[0] ?? -1);
   indices.push(marker?.index ?? -1);
   if (
     indices.some((index) => index < 0) ||
@@ -199,7 +194,7 @@ export function checkBuildTicket(body) {
   ) {
     errors.push('sections are out of order');
   }
-  if (text.includes('**Expected**')) {
+  if (positions.get('**Expected**').length) {
     try {
       expectedText(sectionBody(text, '**Expected**', ['**Where**']));
     } catch (error) {
@@ -208,9 +203,9 @@ export function checkBuildTicket(body) {
   }
   const where = sectionBody(text, '**Where**', ['**Size**']);
   const surface = where.match(/^Surface:\s*(.+)$/m)?.[1]?.trim();
-  if (text.includes('**Where**') && !surface) errors.push('Where needs a surface');
+  if (positions.get('**Where**').length && !surface) errors.push('Where needs a surface');
   const paths = [...where.matchAll(/^- `([^`]+)`\s*$/gm)].map((match) => match[1]);
-  if (text.includes('**Where**') && paths.length === 0)
+  if (positions.get('**Where**').length && paths.length === 0)
     errors.push('Where needs at least one concrete file path');
   let pathsValid = true;
   try {
@@ -223,13 +218,13 @@ export function checkBuildTicket(body) {
     '**Reporter said**',
     '<!-- marjorie-build:',
   ]);
-  if (text.includes('**Acceptance criteria**') && !/^- \[ \] \S.+$/m.test(acceptance)) {
+  if (positions.get('**Acceptance criteria**').length && !/^- \[ \] \S.+$/m.test(acceptance)) {
     errors.push('Acceptance criteria needs at least one unchecked checkbox');
   }
-  if (text.includes('**Reporter said**')) {
+  if (positions.get('**Reporter said**').length) {
     const markerStart = marker?.index ?? text.length;
     const reporter = text
-      .slice(text.indexOf('**Reporter said**') + '**Reporter said**'.length, markerStart)
+      .slice(positions.get('**Reporter said**')[0] + '**Reporter said**'.length, markerStart)
       .trim();
     if (!/^>./m.test(reporter)) errors.push('Reporter said must contain a blockquote');
   }
@@ -237,7 +232,7 @@ export function checkBuildTicket(body) {
   const claim = sizeBody.match(
     /^`(small|medium)` \(files=(\d+); estimated-lines=(\d+|unknown); Austin-allowlist=(yes|no)\)$/,
   );
-  if (text.includes('**Size**') && !claim) {
+  if (positions.get('**Size**').length && !claim) {
     errors.push('Size must use the helper-derived format');
   } else if (claim && paths.length && pathsValid) {
     const [, claimedSize, claimedCount, rawLines, claimedAllowed] = claim;
@@ -251,7 +246,7 @@ export function checkBuildTicket(body) {
   }
   if (marker?.[1] === 'large') errors.push('large item must not be filed as a build ticket');
   if (marker && claim && marker[1] !== claim[1]) errors.push('marker size does not match Size');
-  if (marker?.[2]?.startsWith('chat:') && text.includes('**Reporter said**')) {
+  if (marker?.[2]?.startsWith('chat:') && positions.get('**Reporter said**').length) {
     errors.push("founder's Discord words must not appear in a public ticket");
   }
   return { ok: errors.length === 0, errors };

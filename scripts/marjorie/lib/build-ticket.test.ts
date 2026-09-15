@@ -53,6 +53,10 @@ describe('Austin allowlist and size', () => {
     'apps/web/next.config.js',
     'apps/web/public/image.png',
     'packages/shared/tsconfig.json',
+    'apps/web/config/routes.ts',
+    'apps/web/assets/theme.css',
+    'packages/shared/config/runtime.ts',
+    'packages/shared/assets/icons.ts',
     'apps/web/components',
     'apps/web/app/vault/live-theories/route.ts',
     'apps/web/./app/api/feedback.ts',
@@ -117,6 +121,7 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     expect(
       positions.every((position, index) => index === 0 || position > positions[index - 1]),
     ).toBe(true);
+    expect(checkBuildTicket(body.replaceAll('\n', '\r\n'))).toEqual({ ok: true, errors: [] });
   });
 
   it('quotes reporter words without turning leading mentions into pings', () => {
@@ -130,6 +135,20 @@ describe('renderBuildTicket / checkBuildTicket', () => {
       reporterSaid: '<!-- marjorie-build: size=large source=issue -->',
     });
     expect(checkBuildTicket(body)).toEqual({ ok: true, errors: [] });
+  });
+
+  it('keeps quoted heading text verbatim while rejecting duplicate structural headings', () => {
+    const body = renderBuildTicket({
+      ...base,
+      reporterSaid: '**Where** is this broken?\n**Reporter said** literally.',
+    });
+    expect(body).toContain('> **Where** is this broken?\n> **Reporter said** literally.');
+    expect(checkBuildTicket(body)).toEqual({ ok: true, errors: [] });
+    const duplicate = body.replace(
+      '<!-- marjorie-build:',
+      '**Reporter said**\n> duplicate\n\n<!-- marjorie-build:',
+    );
+    expect(checkBuildTicket(duplicate).errors).toContain('multiple section: **Reporter said**');
   });
 
   it('refuses missing Expected and missing Acceptance criteria', () => {
