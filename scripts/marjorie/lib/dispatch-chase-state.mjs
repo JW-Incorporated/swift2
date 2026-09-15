@@ -83,7 +83,7 @@ export async function fetchDispatchChaseState(repo = REPO, {
       throw new Error('dispatch chase: unreadable pending actions');
     }
     pendingHaPrs.push({ number: pr.number, headRef: pr.head.ref, headSha: pr.head.sha,
-      body: pr.body || '', actionsText: Buffer.from(content.content, 'base64').toString('utf8') });
+      body: pr.body || '', url: `https://github.com/${repo}/pull/${pr.number}`, actionsText: Buffer.from(content.content, 'base64').toString('utf8') });
   }
   const reportedHeld = [];
   const briefs = await pages(`${base}/issues?state=all&labels=founders-brief`);
