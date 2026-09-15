@@ -1,115 +1,78 @@
-# STATE — session working memory
+# STATE - session working memory
 
 ## Next
 
-1. Host update completed and verified: doorbell-v2 f22adc6a, service active,
-   watchdog 3min, burst 5 at 2026-09-15T02:20:25Z. HA #76 closed in this PR.
-   Activation constants are set in this branch; main activation awaits merge.
-2. After activation is observed on main/host, prove twelve five-minute poll
-   slots (one hour), then dry-run clock-silent alarm. Record metadata on #4180.
-3. User explicitly authorized waiting through both live proofs: next brief
-   slot is 2026-09-15 12:00 UTC. Verify one delivery and same-day cron guard;
-   no premature closure of #4290 or M7 completion before both halves hold.
+1. Verify the 2026-09-15 12:00 UTC brief: one on-time key-owner dispatch,
+   one Discord delivery, and any same-day native cron ends at the guard.
+   User authorized waiting through this proof. Do not close #4290 or tick M7
+   before it passes. The one-hour poll and alarm dry-run proofs are complete.
+2. Review noon evidence, post it on #4180, close #4290 with the hour run list,
+   then update PLAN.md, MAP.md/ops as needed and STATE by PR/auto-merge.
+   Deliver the requested architect handoff prompt after actual completion.
 
-## M7 clock v2 — 2026-09-14
+## M7 clock v2 checkpoint - 2026-09-15 03:55 UTC
 
-Branch/worktree: feature/m7-clock-v2 in
-C:/Users/Fourtys/.codex/worktrees/m7-clock-v2, based on main 55d50700.
-Preconditions verified: HA #75 closed on main, DOORBELL_LIVE=true.
-Implementation PR #4339 merged at f22adc6a. doorbell-v2 is pinned to that
-merge commit. Host update HA #76 is verified installed and closed in the activation PR.
-Current branch: fix/clock-live from origin/main a903e5c1.
+Implementation PR #4339 merged at f22adc6a; published doorbell-v2 pins
+f22adc6a5653a631b0769bcb3391394043cdbf11. HA #76 update filed in #4341 and
+closed with activation PR #4342, merged at bd206023. DOORBELL_LIVE=true;
+CLOCK_LIVE=true; CLOCK_LIVE_SINCE=2026-09-15T02:21:13Z on main.
 
-Scope is exactly bot-chat-poll.yml (*/5 * * * *) and
-routine-marjorie-brief.yml (0 12 * * *). No schedule removed, no social or
-L1 files touched. Main remains trusted executable authority for Actions;
-the tag pins host code, dispatch filenames, crons and empty inputs.
+Host verified clean doorbell-v2 at 03:55:10Z, active/running, WatchdogUSec=3min,
+NRestarts=0, no unexpected clock failure. StartLimitBurst=5 was verified at
+installation. Host update evidence:
+https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756
 
-Implementation:
-- Activation branch CLOCK_LIVE=true / CLOCK_LIVE_SINCE=2026-09-15T02:21:13Z.
-  Main was still false at the host verification checkpoint.
-- Serialized flag refresh, off at boot, fail closed at three failures or
-  thirty minutes stale. No remote table. Process-start slot gating.
-- POST attempted once, GET retries bounded, complete main-run history,
-  response Date >= slot, rolling 40/hour and five-minute per-row gap.
-- Memory bounded by expiry; backward jumps pause; timing wakes at gap
-  boundaries as well as minutes. Metadata-only dispatch logs.
-- Shared gap verdict for poll and alarm: any main run serves one slot;
-  two misses after grace raise clock-silent. Simultaneous host/cron death
-  is detected only when a surviving cron runs.
-- Brief workflow concurrency encloses guard through delivery; main-only
-  guard, explicit manual force=false default, previous runs/issue-comment
-  delivery markers prevent a second ordinary agent run that UTC day.
-- WatchdogSec=180 and StartLimitBurst=5 in revised unit. Joey explicitly
-  approved unit-copy and daemon-reload before the update HA's restart.
+Poll proof: 02:50:00Z-03:50:00Z, 12/12 slots. Every run is main,
+workflow_dispatch by sffan15-sys, completed/success, created and started
+6-9 seconds after its slot. No gaps, duplicate dispatches, other actors,
+late/unmatched runs or cron overlaps. All twelve host POSTs accepted.
+Run IDs in slot order:
+34922682669, 34923002799, 34923302315, 34923632098, 34923949949, 34924268243,
+34924579324, 34924899689, 34925219460, 34925551062, 34925863083, 34926180107.
 
-Reviews:
-- Round 1: fresh read-only gpt-5.6-sol xhigh, output in gitignored
-  .scratch/clock-round1.txt. Initial rejection: guard atomicity, force main
-  boundary, trusted-main authority wording, server time, reactivation since,
-  any-actor coverage, contradictory old decision wording, interval endpoints.
-- Corrected design before code (b325f01b); implementation enforces the fixes.
-- Actor-only coverage recommendation conflicts with the explicit brief's
-  any-main-run contract. Retained that contract and documented its limitation;
-  live proof separately checks the key owner. No scope expansion.
-- Round 2: REJECT at be763fcc. Clock alerts lack a recovery path and stale
-  issues suppress future notifications; a rerun of a forced brief bypasses
-  the rerun guard. Both were subsequently fixed by the fresh-context debug
-  implementation pass: serialized alarm closes recovered clock incidents;
-  attempt-1 gate precedes force. Lifecycle and rerun regression tests pass.
-- Round 2 confirmed the substantive design fixes and accepted any-main-run
-  coverage per the user contract.
-- One extra review explicitly approved by Joey: REJECT for job-specific
-  reruns bypassing the first guard. Fable ruled this was an overbroad added
-  spec promise; narrowed to the original contract.
-- Second explicitly approved extra review: REJECT at c0280d2f against main
-  f22afe7d for four new findings listed in DEBUG.md. Rerun narrowing accepted.
-  All four findings subsequently fixed by fresh-context debug passes; no
-  independent review of those fixes subsequently ACCEPTED with no findings
-  at 4d035db4 (full diff against origin/main f22afe7d).
+Alarm dry-run 34926577044 succeeded: check job 104245809348 succeeded,
+alert job 104245858485 skipped. Filtered body confirms Clock is not firing,
+clock-silent, 10 checked slots, no misses and valid activation timestamp.
+Check timestamp 2026-09-15T03:51:47.006Z. Independent evidence review passed.
+Poll and alarm evidence with run URLs:
+https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5674493098
 
-Verification:
-- 191 focused tests / 16 files passed; includes UTC-midnight markers, queued
-  alarm deduplication, unexpected-error watchdog latch, recovery and a second incident,
-  forced-rerun rejection, an hour with request jitter,
-  poll-entrypoint watch, shared checkClock verdict, brief guard and workflow.
-- Lint most recently 0 errors / 5 existing warnings.
-- Local typecheck fails missing generated content and React Native/Expo/shared
-  dependencies in this worktree. Full CI is the suite/merge gate.
-- Debug agent also ran broad scratch tests: 3,009 passed, 1 skipped, 11 failed
-  plus one unloadable suite due to local dependencies/CRLF/child npx. No fixes
-  outside scope. Generated web stylesheet has identical normalized blob to
-  HEAD and is excluded from the clock commits.
-- PRs #4339 and #4341 merged; tag and host update complete. HA #76 closure
-  and activation in this branch. Live proof pending; #4290 open, M7 not ticked.
-  Doorbell evidence remains on #4180:
-  https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
+Validation: 225 focused tests across 18 files passed; simulated PR-base flag
+transition passed (3 tests); lint 0 errors, 5 existing unrelated warnings.
+Full activation CI 34922095360 and CodeQL 34922095290 passed. Initial CI
+34921284222 exposed a delivery-only fixture's implicit clock-off assumption;
+fixed with explicit isolation and a deployed-default live-watch test. All
+Marjorie test poll call sites audited. No production change for that fix.
 
-## Architect invocations
+Reviews: final full implementation ACCEPT at 4d035db4; activation ACCEPT at
+037dac48; CI-fixture fix ACCEPT at 368c7ea2, all fresh read-only gpt-5.6-sol
+xhigh. User replaced the original review cap with fix/re-review until clean.
+DEBUG.md preserves prior findings, reproductions, fixes and Fable's ruling.
 
-2026-09-14 ~07:35 PDT: prior clock debug ladder rung 3. Ruling retained in
-DEBUG.md at 1c9e4e4e19d38cafa69bfc7b938167310ccc9033; operative requirements
-copied into the v2 spec amendment. Rebuild uses process-start gating,
-fail-closed flag refresh, pinned table, rate caps and watchdog.
+Authority: exactly bot-chat-poll.yml */5 and routine-marjorie-brief.yml at
+12:00 UTC, empty inputs; native schedules preserved. Host/table pinned,
+main supplies only the operational flag. Any qualifying main run serves a
+poll slot. The brief first-job guard covers new starts and whole-run reruns
+that execute it; operator partial-job reruns retain existing behavior.
 
-2026-09-14: Fable via fresh read-only Claude CLI, escalation for first-job
-rerun scope versus shared-template changes. Ruling: narrow our added rerun
-promise to original run-start guard; preserve existing operator partial
-reruns. No workflow/template/L1 changes. See DEBUG.md final section.
+## Evidence and pending monitor
 
-Proof preparation: gitignored .scratch/clock-proof.mjs collects run metadata
-with paginated GET-only GitHub calls; .scratch/clock-proof.smoke.mjs passed.
-No live proof run. Next noon is 2026-09-15 12:00 UTC. If over two hours away
-after the poll proof, defer its passive check per the user contract.
+Working evidence/collectors are gitignored under:
+C:/Users/Fourtys/.codex/worktrees/m7-clock-activate/.scratch/
+- poll-proof-latest.json: complete hour evidence.
+- alarm-dry-run-metadata.json: verified safe filtered alarm evidence.
+- host-clock-metadata-latest.json: includes tag, commit, dirty=false and health.
+- noon-monitor.py: reviewed metadata-only monitor, no synthetic dispatch.
+- noon-monitor-status.json: pending until actual noon run and delivery.
 
-Activation validation: 200/200 focused tests across 17 files; simulated PR
-base transition check 3/3; lint 0 errors, 5 existing warnings. Fresh read-only
-Codex gpt-5.6-sol xhigh reviewed 037dac48 against main: ACCEPT, no findings.
-Default live-watch test passes; unrelated poll tests explicitly isolate it.
-Host evidence: https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756
+Monitor launch PID 7760, interpreter child 36832. It wakes at 12:00:10Z,
+checks every 60 seconds until 13:00Z, requires completed runs/metadataPass,
+then verifies Discord via GET on Hermes as the service user. Credentials
+stay on the host; only metadata is emitted. Result captured_pending_review
+requires independent evidence acceptance; it is not automatic completion.
+Its orchestration and failure handling passed independent review and
+synthetic tests. Do not launch a duplicate monitor.
 
-Activation CI run 34921284222 exposed one more clock-off test fixture in
-chat-delivery.test.ts. Its pollWith helper now explicitly isolates the clock;
-all Marjorie test poll calls were audited. Expanded local suite: 225/225
-across 18 files. No production change in this CI fix. Fresh read-only Codex gpt-5.6-sol xhigh
-accepted 368c7ea2, no findings; pushing the fix to activation PR #4342.
+Noon proof remains pending. #4290 remains open; PLAN.md M7 is not ticked.
+Doorbell half remains complete; prior evidence:
+https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
