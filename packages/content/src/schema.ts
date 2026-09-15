@@ -589,10 +589,11 @@ export type Manifest = z.infer<typeof manifestSchema>;
 export const contentBundleSchemas = {
   manifest: manifestSchema,
   content: contentBundleFileSchema,
-  tracks: tracksBundleFileSchema,
-  theories: theoriesBundleFileSchema,
-  videos: videosBundleFileSchema,
-  eraSecrets: eraSecretsBundleFileSchema,
+  // The producer writes one catalogue file containing one object per era.
+  tracks: z.array(tracksBundleFileSchema),
+  theories: z.array(theoriesBundleFileSchema),
+  videos: z.array(videosBundleFileSchema),
+  eraSecrets: z.array(eraSecretsBundleFileSchema),
   merch: merchCatalogueSchema,
   songMoods: songMoodsBundleFileSchema,
   clownbotLore: clownbotLoreBundleFileSchema,

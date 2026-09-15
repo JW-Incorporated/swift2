@@ -110,6 +110,11 @@ describe('loadBundle', () => {
     expect(result.stale).toBe(false);
     expect(result.manifest.bundleVersion).toBe(manifest.bundleVersion);
     expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
+    // The production publisher emits these catalogue files as per-era arrays.
+    // Keep the cold-load fixture wire-compatible with that public bundle.
+    for (const name of ['tracks', 'theories', 'videos', 'eraSecrets']) {
+      expect(Array.isArray(result.files[name]), `${name} should load as a catalogue array`).toBe(true);
+    }
     // current.json + manifest.json + one request per manifest file
     expect(requestLog.length).toBe(2 + Object.keys(manifest.files).length);
   });
