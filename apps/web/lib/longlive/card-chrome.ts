@@ -70,7 +70,7 @@ export const TIER_BOX: Record<CardTier, string> = {
   media: 'era-card overflow-hidden rounded-2xl border transition',
   // The breather's identity is its left accent rule rather than a full border.
   text: 'era-card rounded-2xl border-l-4 transition',
-  chip: 'era-card rounded-xl border transition',
+  chip: 'era-card overflow-hidden rounded-xl border transition',
 };
 
 /** Inline styles that belong to the box (only the breather's accent rule). */
@@ -88,7 +88,7 @@ export const TIER_BODY: Record<CardTier, string> = {
   hero: 'group block w-full text-left transition',
   media: 'group block w-full text-left transition',
   text: 'group block w-full py-4 pl-5 pr-5 text-left transition',
-  chip: 'group flex w-full items-center gap-3 px-3 py-2 text-left transition',
+  chip: 'group block w-full text-left transition',
 };
 
 /** The strip inside the box, below the button, that holds the play affordance.
