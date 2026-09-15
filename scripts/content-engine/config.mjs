@@ -112,6 +112,9 @@ export const CONFIG = {
     'news.wwu.edu', 'wsjshop.com',
     // Official nonprofit origin; public first-responder photo verified 2026-09-15.
     'www.answerthecall.org',
+    // Reviewed TTPD event images and their publisher origins, 2026-09-15.
+    'assets.vogue.com', 'atozsports.com', 'ichef.bbci.co.uk',
+    'www.usatoday.com', 'www.usmagazine.com',
     'cloudfront-us-east-1.images.arcpublishing.com',
     'd3i6fh83elv35t.cloudfront.net',
     'wish-media.s3.us-east-2.amazonaws.com',
