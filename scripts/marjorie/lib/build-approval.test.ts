@@ -70,6 +70,16 @@ describe('approval target resolution', () => {
         issues: [build, second],
       }),
     ).toMatchObject({ ok: false, reason: 'ambiguous', candidates: [4324, 4325] });
+    expect(
+      resolveReactionApproval({
+        message: { ...message, content: `- dispatched: [#${build.number}](https://github.com/JW-Incorporated/swift2/issues/${build.number}).` },
+        deliveredMessageId: messageId,
+        messageUrl,
+        reactorIds: ['7'],
+        founderIds: new Set(['7']),
+        issues: [build],
+      }),
+    ).toMatchObject({ ok: true, issue: build });
   });
 });
 
