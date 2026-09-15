@@ -1,0 +1,22 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "consider this your permission to go shopping 🤍 tap the little shopping-bag tab, open whichever era owns your heart, and see the real pieces behind her looks. every photo links straight out to where it's sold. go treat yourself.\n\nlonglivets.com/?mode=merch&utm_source=x&utm_medium=social&utm_campaign=launch",
+  "media": ["/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg"],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
+  "scheduledAt": "2026-09-15T23:00:00Z",
+  "altText": ["Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting."],
+  "campaign": "launch:shop-the-look:how-to",
+  "why": "Launch arc +3 (how-to), 09-15 calendar beat. Challenge/invitation hook, written distinct from the IG sibling (which lists the steps) to clear the cross-post-copy gate. Mechanics verified live: Merch tab with shopping-bag icon (TopBar.tsx/BottomNav.tsx), buy-link tiles open the retailer in a new tab (MerchCard.tsx target=_blank), seen-on-Taylor tiles labeled 'her look, not the product'. Photo-only (no 'Seen on Taylor' screenshot committed; X site-screen prohibited anyway). Selector-chosen credited reputation photo, distinct era from the IG 1989 tile. Avoided the raid-your-closet phrasing reserved for the 09-21 callback. Launch post = share-hook exempt.",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 4, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "total": 20,
+    "rationale": "Launch arc +3 how-to: a warm invitation to the merch surface — shopping-bag tab, open your era, every photo links out to where the piece is sold. Mechanics verified live in MerchCard.tsx/TopBar.tsx; challenge hook, photo-only per the no-screenshot rule.",
+    "rulesChecked": [],
+    "revision": 1
+  }
+}

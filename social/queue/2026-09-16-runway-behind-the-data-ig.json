@@ -1,0 +1,28 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "the number that surprised me building The Runway: 39. 🤍\n\n39 real photographs, from her very first CMA red carpet in 2006 all the way to now — pulled together into 15 signature looks across all 12 eras.\n\nnot a single illustration or mockup. every image is a credited press or tour photo, from the gold fringe of Fearless to the cottagecore cardigans of folklore.\n\nscroll her whole style evolution in one place: longlivets.com/?lens=fashion&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-folklore-eras-inglewood-2023.jpg",
+    "/social/library/thread-fashion-screen.png"
+  ],
+  "mediaKind": "photo",
+  "photoId": "folklore-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109914795).jpg",
+  "scheduledAt": "2026-09-16T23:00:00Z",
+  "altText": [
+    "Taylor Swift performing the folklore set of the Eras Tour in Inglewood, 2023, on a moss-covered cottage stage set.",
+    "A screenshot of Long Live's The Runway thread on longlivets.com, headed 'Twelve wardrobes, one story', showing a Showgirl-era look card and a colour-coded era timeline running down the right edge."
+  ],
+  "campaign": "thread:fashion:behind-the-data:2026-09-tappable",
+  "why": "The Runway behind-the-data IG sibling, 09-16 beat, same story-unique campaign + scheduledAt as X. Number hook, first five words diverged from X. Carousel: media[0] cleared folklore Taylor photo (grid tile), media[1] thread-fashion-screen.png showing The Runway lens in actual use (timeline ridge + Showgirl look card + 'Twelve wardrobes, one story' — satisfies the 'cool feature only' rule). Facts counted from runway-looks.mjs: 39 images, 15 looks, 12 eras, 2006 CMA debut look, Fearless gold fringe ('Golden Fairy Tale'), folklore 'Cottagecore Cardigan' — all verified, none estimated. No 'tappable' claim (shopTags are static chips). Thread post = share-hook exempt.",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 4, "notEmbarrassed": 4 },
+    "total": 22,
+    "rationale": "Runway behind-the-data: the surprise is 39 — real photographs from the 2006 CMAs to now, 15 looks, all 12 eras, zero illustrations. Counted from RUNWAY_LOOKS. Carousel puts the lens screenshot behind a folklore Taylor tile; no 'tappable' claim (shopTags are static chips).",
+    "rulesChecked": [],
+    "revision": 1
+  }
+}
