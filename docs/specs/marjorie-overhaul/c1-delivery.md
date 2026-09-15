@@ -101,10 +101,22 @@ Behavior, in order:
    `{ content, username: 'Marjorie', avatar_url, allowed_mentions: { parse: [] } }`.
    When `thread` is set, append `&thread_id=${thread}`.
 3. **Retry once** on a non-2xx or a thrown network error, after a 2-second
-   wait. On HTTP 429, honour `retry_after` from the response body instead of
-   the fixed wait. One retry, then give up — this is the only retry.
+   wait. On HTTP 429, use the longest valid nonnegative cooldown from the
+   JSON `retry_after`, `Retry-After` header or `X-RateLimit-Reset-After`
+   header (all seconds), rounded up to milliseconds. If no usable cooldown
+   exists or it exceeds two minutes, fail without retrying. One retry,
+   then give up — this is the only retry. Failed 429 results include
+   `retryAfterMs` (null when unavailable); the CLI prints only numeric
+   metadata, never response text, exception messages or webhook URLs.
 4. Stop at the first chunk that fails both attempts; report which chunk index
    failed so the caller's fallback carries the whole message, not a fragment.
+
+September 15 recovery: run 34984846152 returned HTTP 429 after roughly
+three seconds. The previous transport ignored headers and used a fixed
+two-second wait when the body lacked a cooldown. This is a protocol gap,
+not proof of which header that particular response carried. Header/body
+handling follows [Discord's rate-limit contract](https://docs.discord.com/developers/topics/rate-limits).
+Validation uses injected responses and waits; no live send is needed.
 
 **Reuse, do not re-implement.** `neutralizeMentions` and `chunkForDiscord`
 are imported from `scripts/community/discord-delivery.mjs`

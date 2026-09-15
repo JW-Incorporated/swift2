@@ -62,6 +62,28 @@ describe('main()', () => {
     expect(spawnImpl).toHaveBeenCalledTimes(1);
   });
 
+  it('prints the numeric 429 cooldown without provider text or URLs', async () => {
+    vi.spyOn(discordMjs, 'post').mockResolvedValue({ ...failResult,
+      status: 429, retryAfterMs: 180_000,
+      error: 'provider says retry https://discord.com/api/webhooks/private-token',
+    });
+    await main([...baseArgv(), '--no-mail-fallback']);
+    expect(console.error).toHaveBeenCalledWith(
+      'discord-delivery: status=429 delivered=0 chunks=1 retryAfterMs=180000',
+    );
+    expect(vi.mocked(console.error).mock.calls.flat().join(' ')).not.toContain('private-token');
+  });
+
+  it.each(['https://discord.com/api/webhooks/private-token', -1, Infinity, Number.NaN, null])(
+    'does not print invalid cooldown metadata %j', async (retryAfterMs) => {
+      vi.spyOn(discordMjs, 'post').mockResolvedValue({ ...failResult, status: 429, retryAfterMs });
+      await main([...baseArgv(), '--no-mail-fallback']);
+      expect(console.error).toHaveBeenCalledWith(
+        'discord-delivery: status=429 delivered=0 chunks=1 retryAfterMs=unknown',
+      );
+    },
+  );
+
   it('reports "delivered: neither" and exits non-zero when send-mail.py silently skips (unset creds)', async () => {
     vi.spyOn(discordMjs, 'post').mockResolvedValue(failResult);
     const spawnImpl = vi.fn().mockReturnValue({

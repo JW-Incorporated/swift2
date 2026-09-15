@@ -11,23 +11,36 @@
 import { neutralizeMentions, chunkForDiscord } from '../../community/discord-delivery.mjs';
 
 const RETRY_WAIT_MS = 2000;
+const MAX_RETRY_WAIT_MS = 120_000;
 
 function defaultWait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Discord's webhook rate-limit shape is a JSON body field (`retry_after`,
-// in seconds) on the 429 response itself, not a `Retry-After` header — this
-// is what distinguishes the 429 case from every other non-2xx failure this
-// function retries on a fixed wait instead.
+function cooldownSeconds(value) {
+  if (typeof value === 'string') {
+    if (!/^\d+(?:\.\d+)?$/.test(value.trim())) return null;
+    value = Number(value);
+  }
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+// Discord documents both Retry-After and retry_after, in seconds. The
+// bucket reset header can be longer; never retry before any valid hint.
 async function retryWaitMs(response) {
   if (response && response.status === 429) {
+    const cooldowns = [
+      response.headers?.get('retry-after'),
+      response.headers?.get('x-ratelimit-reset-after'),
+    ];
     try {
       const body = await response.json();
-      if (body && Number.isFinite(body.retry_after)) return body.retry_after * 1000;
+      cooldowns.push(body?.retry_after);
     } catch {
-      // Not JSON, or no usable retry_after on it — fall back to the fixed wait.
+      // Header-only rate limits need not carry a JSON body.
     }
+    const valid = cooldowns.map(cooldownSeconds).filter((value) => value !== null);
+    return valid.length ? Math.ceil(Math.max(...valid) * 1000) : null;
   }
   return RETRY_WAIT_MS;
 }
@@ -99,7 +112,18 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
       continue;
     }
 
-    await waitImpl(await retryWaitMs(response));
+    const waitMs = await retryWaitMs(response);
+    if (waitMs === null || !Number.isFinite(waitMs) || waitMs > MAX_RETRY_WAIT_MS) {
+      return {
+        ok: false,
+        chunks: chunks.length,
+        delivered,
+        status: response.status,
+        retryAfterMs: Number.isFinite(waitMs) ? waitMs : null,
+        error: 'Discord rate limit cooldown is unavailable or exceeds the retry wait limit',
+      };
+    }
+    await waitImpl(waitMs);
 
     let retryResponse;
     let retryError;
@@ -125,8 +149,11 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
       chunks: chunks.length,
       delivered,
       status: retryResponse ? retryResponse.status : null,
+      ...(retryResponse?.status === 429
+        ? { retryAfterMs: await retryWaitMs(retryResponse) }
+        : {}),
       error: retryError
-        ? `Discord delivery threw: ${retryError.message || String(retryError)}`
+        ? 'Discord delivery threw a network error'
         : `Discord delivery failed with HTTP ${retryResponse.status}`,
     };
   }
