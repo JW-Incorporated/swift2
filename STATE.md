@@ -2,21 +2,22 @@
 
 ## Next
 
-1. Implementation review is CLEAN: fresh read-only gpt-5.6-sol xhigh accepted
-   4d035db4 with no findings. Joey replaced the review cap with fix/re-review
-   until clean. Implementation PR/CI is next, with CLOCK_LIVE=false.
-2. After a reviewed implementation is on main, tag doorbell-v2 and file
-   the v2 update HA by PR. Stop for Joey's done before activation or proof.
-3. Then CLOCK_LIVE=true plus fresh CLOCK_LIVE_SINCE by PR; one-hour poll
-   proof and dry-run clock-silent alarm. Noon brief proof is passive; if noon
-   is >2h away, put its check first here and stop for the next session.
+1. YOU: HA #76 updates Hermes to doorbell-v2, including the revised service
+   unit and daemon reload. Stop until Joey reports done; CLOCK_LIVE=false.
+2. After done, verify installed tag/service metadata and close HA #76 by PR.
+   Activate CLOCK_LIVE=true with fresh CLOCK_LIVE_SINCE by reviewed PR.
+3. Prove one hour of poll slots and run dry-run clock-silent alarm. If noon
+   is >2h away, put the next 12:00 UTC brief check first here and stop.
+   Close #4290 and tick M7 only after both live proof halves hold.
 
 ## M7 clock v2 — 2026-09-14
 
 Branch/worktree: feature/m7-clock-v2 in
 C:/Users/Fourtys/.codex/worktrees/m7-clock-v2, based on main 55d50700.
 Preconditions verified: HA #75 closed on main, DOORBELL_LIVE=true.
-Installed host remains doorbell-v1 and active; no clock deployment yet.
+Implementation PR #4339 merged at f22adc6a. doorbell-v2 is pinned to that
+merge commit. Host update is HA #76; installation is not confirmed.
+Current docs branch: fix/clock-host-update from origin/main a508d70b.
 
 Scope is exactly bot-chat-poll.yml (*/5 * * * *) and
 routine-marjorie-brief.yml (0 12 * * *). No schedule removed, no social or
@@ -77,10 +78,9 @@ Verification:
   plus one unloadable suite due to local dependencies/CRLF/child npx. No fixes
   outside scope. Generated web stylesheet has identical normalized blob to
   HEAD and is excluded from the clock commits.
-- PR submission/auto-merge is the next action; no live clock proof, tag or
-  update HA yet. Allocator returned 76 but no
-  number is reserved; allocate again after a valid build. #4290 remains open; M7 is
-  not ticked complete. Doorbell evidence remains on #4180:
+- PR #4339 is merged. HA #76 is filed in this branch for the host update;
+  no activation or live clock proof yet. #4290 remains open; M7 is not ticked.
+  Doorbell evidence remains on #4180:
   https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609
 
 ## Architect invocations
