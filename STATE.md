@@ -2,43 +2,67 @@
 
 ## Next
 
-1. Owner delegated all technically reversible decisions while away and added
-   recovery of the longlivets.com content production pipeline to M7/M8.
-   Astra is investigating in `content-pipeline-recovery`; no extra Claude
-   tests may bypass the TOTAL $3 task budget.
-2. GitHub OAuth is restored (probe 34978823809); HA #77 closure merged in
-   #4363. No credentials were read or rotated. Numeric budget forwarding
-   is fixed by #4362 after the first triage dispatch failed before inference.
-3. Real intake triage 34980285130 PASSED: #4358 produced #4364, whose body
-   passed `node scripts/marjorie/lib/build-ticket.mjs check`. Cost $0.5927152
-   in 19 turns. Brief recovery 34980901967 reached its $1.25 budget setting
-   after 14 turns and reported $1.3041965; no issue or delivery resulted.
-   Total reported spend is $1.9312777. Astra may run ONE news-triage test
-   with a $0.75 setting after #4369 merges; no further Claude retries.
-   The budget is checked after a model request, so leave overshoot margin.
-   Root is preparing assembler-based brief recovery without Claude. Serial tests;
-   ledger in m7-m8-weekly-limit/.scratch/claude-test-budget.json.
-4. M8 implementation is merged (#4352, #4354, #4349, #4355). Additional
-   repeated-sweep integration proof #4365 is queued for auto-merge: 99 tests
-   passed, including synthetic 49/97-hour nudge/HA/defer/held behavior.
-   The spec explicitly permits synthetic chase ages; waiting for actual
-   48/96 hours is unnecessary. No real canonical founder-chat approval or
-   subsequent Kevin ready/greenlit evidence exists yet; do not invent it.
-5. M7 clock timing still requires a successful on-time noon brief and later
-   native-cron guard suppression. Manual recovery does not prove noon timing.
-   Read-only Windows task `Codex-M7-Noon-Proof-20260916` is installed and
-   running for 2026-09-16T12:00Z, deadline 13:00Z, with a logon recovery
-   trigger. Evidence directory: Hermes/.codex-noon-proof-20260916. It uses
-   no Claude calls or workflow dispatches and records GitHub delivery markers;
-   direct Discord duplicate/timestamp evidence remains a stated limitation.
-6. Non-Claude checks: 653 original focused tests and full workspace typecheck
-   pass. Windows full suite: 6,421 pass, 14 failures plus one failed suite
-   tracked in #4358/#4364. Junction harness fix #4359 merged; generated local
-   validation outputs are preserved. Live apex/www homepage HTTP 200 verified.
-   Chrome verified Threads detail, Mood song results and Clownbot render with
-   no console errors. Content publishing matches the current generated bundle;
-   Astra found the intake bridge silent despite green runs. Recovery #4369
-   replaces archival prompt instructions and requires a current run receipt.
+1. M7 still needs a successful on-time noon brief and later native-cron guard
+   suppression. Read-only Windows task `Codex-M7-Noon-Proof-20260916` targets
+   2026-09-16T12:00Z, deadline 13:00Z, with logon recovery. Evidence:
+   Hermes/.codex-noon-proof-20260916. Manual recovery does not prove noon.
+   Late restarts perform one historical read bounded to the deadline and
+   retain matching-target prior evidence on transient API failure.
+   GitHub delivery markers are checked; direct Discord duplicate/timestamp
+   evidence remains a stated limitation. Keep #4290/M7 open until verified.
+2. Clock drift fix #4377 is deployed as `doorbell-v3` (`7c89af5b`) on hermes
+   since 2026-09-15T14:44:01Z: clean checkout, active/running, no restarts.
+   It reuses a fresh coverage GET through a bounded physical-gap wait,
+   preventing request latency from accumulating each five-minute interval.
+   62 tests include 240 slots over 20 hours. The fresh v3 hour proof PASSED:
+   twelve owner dispatches at 14:45-15:40Z, all 6-7 seconds late, no duplicate
+   clock dispatches. One later native schedule overlapped 15:00 and is recorded
+   separately. Independent GH snapshot and collector final at 15:43:32Z agree.
+   Run IDs: https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5683283421
+   Local metadata: Hermes/.codex-clock-proof-v3/FINAL.json.
+3. Content intake recovery #4369 is merged: executable news prompt plus a
+   mandatory current-attempt receipt on #502, so silent no-work runs fail.
+   Actual run 34982116650 filed #4373/#4374, then exhausted its test budget
+   before writing a receipt; the new gate correctly failed. Do not backfill
+   a fake successful receipt. Recovered #4373 shipped in #4376; content-publish
+   34984433082 passed. Public bundle 12c867b202787e8fd9a5ff6c04a07c3c2a07771efccfcece462021e7bf273ce8
+   contains the Emmys item, verified in Chrome with loaded image and sources.
+   Aggregate bundle schema/consumer fix #4375 passed required Linux CI and
+   merged; 103 targeted tests and full workspace typecheck also passed.
+   Vault prompt clarification #4381 merged at b1306477: unavailable database access
+   must be reported without stranding independent GitHub intake. This is
+   configuration hardening, not a proved cause of the old no-op runs.
+   Normal News Triage (15:40 UTC) and Vault (16:07 UTC) schedules remain;
+   no additional paid manual run is authorized within the retained margin.
+4. GitHub OAuth is restored (probe 34978823809); HA #77 closed via #4363.
+   No credentials were read or rotated. All paid Claude tests are STOPPED:
+   reported total $2.6860135 against the owner's $3 cap. Ledger remains in
+   m7-m8-weekly-limit/.scratch/claude-test-budget.json. Budget settings can
+   overshoot after a request; preserve the remaining margin.
+5. M8 implementation and repeated-sweep integration proof #4365 are merged.
+   99 integration/focused tests include synthetic 49/97-hour nudge/HA/defer/
+   held behavior, permitted by the spec. Real intake triage 34980285130
+   passed, filing ready-shaped #4364 from #4358. No real canonical founder
+   chat approval or subsequent Kevin ready/greenlit evidence exists yet;
+   do not manufacture those events from delegated technical authority.
+6. Deterministic brief recovery is #4372, with explicit recovery journal.
+   Delivery-only workflow #4371 uses no Claude. Instrumented run 34984846152
+   failed with HTTP 429, zero of two chunks delivered, no delivery marker.
+   Bounded Retry-After fix #4379 merged at c09d3f78 (33 focused tests;
+   full lint passes; 6,490 full-suite tests pass, two unrelated Windows
+   command-launch failures). Delivery-only recovery 34986793019 PASSED: Discord delivered at
+   15:12:02Z, first message 1549437645908869251, persisted marker on #4372
+   comment 5682743990. Chrome verified both chunks and one recovered brief
+   in the loaded window. No further delivery retry is needed. Both brief
+   workflows omitted the existing email fallback variable/secret bindings;
+   fix #4380 merged at b2b1b162 after required CI passed. Email itself is
+   not live-tested.
+   Diagnose/recover using numeric metadata only. No credential defect is established by a 429.
+7. The owner delegated all technically reversible decisions and pushes while
+   away. Preserve generated local outputs. Windows full suite on the loader
+   fix: 6,452 passed, nine unrelated portability failures tracked #4358/#4364;
+   required Linux CI passed. Live homepage, Threads, Mood and Clownbot checks
+   passed with no console errors. Spark is unavailable; Astra/Sol/Luna used.
 
 ## Reboot recovery - 2026-09-15
 

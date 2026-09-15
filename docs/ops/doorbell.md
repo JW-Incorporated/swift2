@@ -12,18 +12,33 @@ It never posts in Discord and never adds ✅ or ❌. While it is down, the
 5-minute poll still answers.
 
 The routines' clock (`m7-clock.md`, #4290) is **not** in `doorbell-v1`. It
-is installed as `doorbell-v2` after HA #76.
+was introduced by `doorbell-v2` after HA #76; the current tag is `doorbell-v3`.
 
-## Clock v2 (installed; poll proof passed, noon delivery proof blocked)
+## Clock v3 (installed; noon delivery proof pending)
 
 `doorbell-v2` adds exactly two pinned schedule rows: `bot-chat-poll.yml`
 every five minutes and `routine-marjorie-brief.yml` at 12:00 UTC. GitHub's
 schedule triggers remain. A new row or changed cadence requires a reviewed
 tag and a founder decision; the service never downloads a replacement table.
 
-Installed tag: `doorbell-v2` at `f22adc6a`; activation PR #4342 sets
+Installed tag: `doorbell-v3` at `7c89af5b` (PR #4377), deployed on
+2026-09-15T14:44:01Z with a clean checkout, active service and zero restarts.
+The v3 change prevents cumulative request-latency drift: after a successful
+coverage GET, it can wait up to 15 seconds for the same row's physical
+five-minute attempt gap, then recheck slot, live state and response freshness
+before dispatch. Longer gaps still skip. Stop cancels the pending wait.
+The 62 clock tests include 240 slots with varying GET latency over 20 hours.
+The v3 hour proof passed all twelve owner dispatches at 14:45-15:40 UTC,
+with delays of 6-7 seconds and no duplicate clock dispatches. An independent
+GitHub snapshot and the read-only collector's final 15:43:32Z snapshot agree.
+[Run IDs and complete slot table](https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5683283421).
+A later native schedule overlapped the 15:00 slot. The pre-dispatch coverage
+GET cannot suppress a cron run created afterward; poll claims handle that
+existing race. This overlap is recorded separately from duplicate clock dispatches.
+
+Original activation PR #4342 sets
 `CLOCK_LIVE=true` and `CLOCK_LIVE_SINCE=2026-09-15T02:21:13Z` on main.
-The 02:50-03:50 UTC poll proof passed all twelve slots in 6-9 seconds with
+The original v2 02:50-03:50 UTC poll proof passed all twelve slots in 6-9 seconds with
 no doubles; the clock-silent dry-run passed without posting an alert.
 [Run IDs and host evidence](https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5674493098).
 On 2026-09-15 the clock dispatched the brief at 12:00:07Z
@@ -85,7 +100,7 @@ existing ops notifier. Recovery starts no agent work. A later failure opens
 a new incident. Queued alarms emit no repeated transition when issue state
 already matches coverage; unreadable history or issue state cannot close an alert.
 
-The v2 update HA must be run from `/opt/longlive-doorbell`:
+Historical v2 HA installation commands, run from `/opt/longlive-doorbell`:
 
 ```sh
 sudo git fetch --depth 1 origin tag doorbell-v2
@@ -94,6 +109,11 @@ sudo cp scripts/doorbell/longlive-doorbell.service /etc/systemd/system/longlive-
 sudo systemctl daemon-reload
 sudo systemctl restart longlive-doorbell
 ```
+
+The v3 update reused that unit, fetched the reviewed `doorbell-v3` tag,
+checked it out and restarted the service. Verify the exact tag/SHA and a
+clean checkout before restarting. Reverting the checkout to `doorbell-v2`
+and restarting is the code rollback, but restores the cumulative drift bug.
 
 The two unit-install commands were approved on 2026-09-14. They install
 `Type=notify`, `WatchdogSec=180`, `StartLimitBurst=5` and a one-hour start-limit
