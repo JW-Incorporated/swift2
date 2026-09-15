@@ -5410,6 +5410,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a second, distinct Jason Kelce photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png',
+            focalPoint: '54% 57%',
             credit: 'Wikimedia Commons / CNC33 (CC0)',
             caption: 'Jason Kelce of the Philadelphia Eagles on the sideline, 2023.',
             kind: 'reference',
@@ -5853,6 +5854,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a more recent, distinct Greta Lee photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Greta_Lee_by_Gage_Skidmore.jpg',
+            focalPoint: '50% 27%',
             credit: 'Gage Skidmore (CC BY-SA 3.0)',
             caption: 'Greta Lee speaking at San Diego Comic-Con International, July 25, 2025.',
             kind: 'reference',
@@ -9235,6 +9237,7 @@ export default {
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            focalPoint: '53% 15%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Official Life of a Showgirl-era promo photo — three of the four charting songs are from this album.',
             kind: 'reference',
@@ -10531,6 +10534,7 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            focalPoint: '53% 15%',
             credit: 'Mert Alas & Marcus Piggott, courtesy of Republic Records / Billboard',
             caption: 'Taylor Swift in a rhinestone-and-marabou showgirl look from the official Life of a Showgirl promo shoot.',
             kind: 'primary',
@@ -11511,6 +11515,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): a more recent, distinct Phil Collins photo.
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Phil_Collins%2C_2025_for_%22Eras%22.jpg',
+            focalPoint: '54% 20%',
             credit: 'Will Ireland, courtesy of Concord/Warner Music Group',
             caption: 'Phil Collins in a 2025/2026 press photo, contemporaneous with his BBC Radio 2 comments on Taylor Swift\'s "White Horse."',
             kind: 'reference',
