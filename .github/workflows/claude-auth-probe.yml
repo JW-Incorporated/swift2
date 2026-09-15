@@ -24,7 +24,10 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: Return exactly AUTH_OK and nothing else. Do not read files, use tools, or access the network.
-          claude_args: '--model claude-haiku-4-5-20251001 --max-turns 1 --max-budget-usd 0.05 --tools ""'
+          # The action's shell-quote parser drops a separate empty value. The
+          # attached form survives as one token and Claude CLI accepts it as
+          # an explicitly empty tool set.
+          claude_args: '--model claude-haiku-4-5-20251001 --max-turns 1 --max-budget-usd 0.05 --tools='
           display_report: "false"
           show_full_output: "false"
 
