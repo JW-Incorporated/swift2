@@ -97,8 +97,14 @@ export function renderHumanActionLine(item) {
   return `- #${item.number} · ${age} · ${tag}${item.title}${eta}`;
 }
 
+export function waitingChaseItems(openActions, dispatched = []) {
+  const actions = new Set(openActions.map((item) => item.number));
+  return [...new Map(dispatched.filter((item) => item.chase?.verdict === 'blocked-on-founder'
+    && !actions.has(item.chase.existingHumanAction)).map((item) => [item.number, item])).values()];
+}
+
 export function buildWaitingOnYouLines(openActions, dispatched = []) {
-  const blocked = dispatched.filter((item) => item.chase?.verdict === 'blocked-on-founder');
+  const blocked = waitingChaseItems(openActions, dispatched);
   const waiting = blocked.length ? [`- waiting on you: ${blocked.slice(0, 8).map((item) => `#${item.number}`).join(', ')}${blocked.length > 8 ? ` +${blocked.length - 8} more` : ''}`] : [];
   if (openActions.length === 0) return waiting.length ? waiting : ['- Nothing is waiting on you right now.'];
   const shown = [...waiting, ...openActions.slice(0, 5).map(renderHumanActionLine)];
