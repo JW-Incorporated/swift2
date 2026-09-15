@@ -376,3 +376,7 @@ focused verification, not a third generic review or an invented founder quote.
 The pending-source fix is delegated to Sol in a separate worktree; root fixes
 the complete brief heading and overlap count. Live OAuth and real-proof
 requirements remain unchanged. No repeated routine attempts are authorized.
+
+Scoped verification at d3cbfa44 accepted both final corrections. The complete
+Marjorie suite passed 570 tests; lint reported zero errors and five existing
+warnings; check:routines passed. Review found no regression in the two fixes.
