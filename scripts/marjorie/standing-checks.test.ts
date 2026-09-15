@@ -126,6 +126,7 @@ describe('checkRunners', () => {
       cadence: actionRunner,
       now: NOW,
       workflowRuns: null,
+      workflowRunTotalCount: 101,
     });
 
     expect(result.rows[0].status).toBe('unknown');

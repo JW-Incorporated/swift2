@@ -129,7 +129,8 @@ export function checkRunners({ allPRs = [], issues = [], briefComments = [], wor
     const windowHours = windowHoursFor(r.match.kind);
     const windowTooShort = last === null && windowHours < r.maxAgeHours;
     const partialActionsHistory = last === null && r.match.kind === 'workflow-name'
-      && Number.isFinite(workflowRunTotalCount) && workflowRunTotalCount > workflowRuns.length && windowTooShort;
+      && Array.isArray(workflowRuns) && Number.isFinite(workflowRunTotalCount)
+      && workflowRunTotalCount > workflowRuns.length && windowTooShort;
     const actionSourceUnavailable = last === null && r.match.kind === 'workflow-name' && workflowRuns === null;
     const truncatedDark = last === null && (listsCapExhausted || windowTooShort || partialActionsHistory || actionSourceUnavailable);
     rows.push({
