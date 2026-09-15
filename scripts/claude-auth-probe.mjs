@@ -12,7 +12,7 @@ export function probeVerdict(entries) {
     return { ok: false, reason: 'probe exceeded or omitted its cost metadata' };
   }
   if (String(result.result).trim() !== 'AUTH_OK') return { ok: false, reason: 'sentinel did not match' };
-  return { ok: true, reason: 'OAuth and Haiku inference succeeded within probe limits' };
+  return { ok: true, reason: 'OAuth and Haiku inference succeeded within probe limits', costUsd: result.total_cost_usd };
 }
 
 async function main(file = process.argv[2]) {
@@ -25,7 +25,7 @@ async function main(file = process.argv[2]) {
   }
   const verdict = probeVerdict(entries);
   if (!verdict.ok) throw new Error(verdict.reason);
-  console.log(`claude-auth-probe: ${verdict.reason}`);
+  console.log(`claude-auth-probe: ${verdict.reason}; cost_usd=${verdict.costUsd}`);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
