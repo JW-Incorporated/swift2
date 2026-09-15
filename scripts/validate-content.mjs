@@ -60,6 +60,7 @@ import {
   VIDEO_PRESENTATION_EXCEPTIONS,
   videoPresentationErrors,
 } from './lib/video-presentation-gate.mjs';
+import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
 
@@ -185,6 +186,12 @@ const loaded = [];
 for (const file of contentFiles) {
   const mod = await import(pathToFileURL(join(contentDir, file)).href);
   loaded.push({ file, data: mod.default });
+}
+
+for (const finding of mediaCorpusErrors(loaded)) {
+  const at = finding.file == null ? 'scripts/lib/moment-media-gate.mjs' : `${finding.file}[${finding.index}]`;
+  console.error(`ERROR ${at}: ${finding.message}`);
+  errors += 1;
 }
 
 // Every real `moment:vault-<eraId>-<slug>` id the sync script would generate

@@ -57,6 +57,7 @@ import { pathToFileURL } from 'node:url';
 import { register } from 'tsx/esm/api';
 import { ROOT, PRE_BUNDLE_SYNCS, OTHER_SYNC_TARGETS } from './lib/generated-content.mjs';
 import { runMain } from './lib/cli.mjs';
+import { assertSeedMomentMedia } from './lib/moment-media-gate.mjs';
 
 const SCHEMA_FILE = path.join(ROOT, 'packages', 'content', 'src', 'schema.ts');
 const DEFAULT_OUT_ROOT = path.join(ROOT, 'dist', 'content-bundle');
@@ -288,7 +289,15 @@ export function validateBundleEntries(entries, schema) {
  * the resolved output directory. `generatedAt` is injectable for tests that
  * need a fixed timestamp; defaults to now.
  */
-export async function writeBundle({ outRoot = DEFAULT_OUT_ROOT, generatedAt = new Date().toISOString(), resync = true } = {}) {
+export async function writeBundle({
+  outRoot = DEFAULT_OUT_ROOT,
+  generatedAt = new Date().toISOString(),
+  resync = true,
+  seedDir = path.join(ROOT, 'supabase', 'seed'),
+} = {}) {
+  // This sits before resync and every mkdir/write: both Vercel's prebuild and
+  // content-publish must fail before a new bundle or current pointer exists.
+  await assertSeedMomentMedia(seedDir);
   if (resync) resyncGeneratedIntermediates();
   const sources = await loadSources();
   const entries = assembleBundleEntries(sources);

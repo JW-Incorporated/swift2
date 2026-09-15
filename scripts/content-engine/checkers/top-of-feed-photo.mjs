@@ -17,39 +17,19 @@
 // ruling: "no photo found" is never an acceptable outcome — be smarter and
 // pull a legitimately-connected real photo instead (the venue, the radio
 // station, the subject's own official art for the same story — anything
-// honestly captioned, not necessarily a photo of the exact moment). The ONLY
-// standing exemption that survives is a genuine, deliberate PRIVACY decision
-// (a residence redline, a private-individual composite redline) — those are
-// editorial calls to withhold a photo that exists, not a failure to find one,
-// and they stay exempt. See isPrivacyExemption below: a `photosReviewed`
-// reason now only suppresses this finding when it reads as a privacy
-// decision; anything else (including "no verifiable image", "not sourced",
-// "egress-blocked") is treated as NOT reviewed and keeps failing here until a
-// real photo is added.
+// honestly captioned, not necessarily a photo of the exact moment). A safe
+// connected visual is still required when privacy rules out the obvious one.
 //
 // Scope: for each era, the N newest moments by (year, month, day) — N =
-// CONFIG.topOfFeed?.count ?? 10 — must carry a real photo OR a genuine
-// privacy-exemption `photosReviewed` reason. Anything else is a **P1**
+// CONFIG.topOfFeed?.count ?? 10 — must carry authored photo, video, or social
+// embed media. Anything else is a **P1**
 // finding, so it surfaces in the report's "Top findings" section instead of
 // being buried in the P2 photo-sparsity rollup.
 import { makeFinding } from '../lib/finding.mjs';
-import { realPhotos } from '../lib/photo-marker.mjs';
 import { CONFIG } from '../config.mjs';
+import { momentMediaErrors } from '../../lib/moment-media-gate.mjs';
 
 export const id = 'content.top-of-feed-photo';
-
-/**
- * A `photosReviewed` reason only exempts a moment from this checker when it
- * reads as a genuine PRIVACY decision (withholding a photo that exists),
- * never as "couldn't find one" (2026-09-06 policy — see header). Matches the
- * vocabulary already used across the corpus: "privacy redline",
- * "private individual"/"private-individual", and the residence-privacy
- * shorthand "L1"/"L2" used alongside "redline" in existing entries.
- */
-export function isPrivacyExemption(reason) {
-  if (typeof reason !== 'string' || !reason.trim()) return false;
-  return /privacy|private[\s-]?individual/i.test(reason);
-}
 
 /** Newest-first date key. Missing day sorts as if it were the 1st. */
 function dateKey(it) {
@@ -74,23 +54,17 @@ export async function check(items) {
     const newest = [...moments].sort((a, b) => dateKey(b) - dateKey(a)).slice(0, n);
     newest.forEach((it, i) => {
       const position = i + 1;
-      if (realPhotos(it).length > 0) return; // has a real (non-synthetic) photo
-      const reason = it.raw?.photosReviewed;
-      if (isPrivacyExemption(reason)) return; // genuine privacy decision, on record
-
-      const hadNonPrivacyReason = typeof reason === 'string' && reason.trim() && !isPrivacyExemption(reason);
+      if (momentMediaErrors(it.raw).length === 0) return;
       findings.push(
         makeFinding({
           checker: id,
           severity: 'P1',
-          title: `Newest page in ${era} has no photo (position ${position} of ${newest.length})`,
+          title: `Newest page in ${era} has no authored media (position ${position} of ${newest.length})`,
           itemRef: { type: 'moment', file: it.file, era: it.era, key: it.key, field: null },
           excerpt: it.title,
-          evidence: hadNonPrivacyReason
-            ? `This is among the ${newest.length} newest moments in ${era} (position ${position}) and carries zero real photos. Its \`photosReviewed\` reason (${JSON.stringify(reason)}) does not describe a privacy decision, so per the 2026-09-06 policy ("there's no such thing as a post without a picture") it no longer exempts this page — "couldn't find one" is not an acceptable outcome.`
-            : `This is among the ${newest.length} newest moments in ${era} (position ${position}) and carries zero real photos. The top of the feed is what a visitor sees first — every post requires a real photo (2026-09-06 policy); the only standing exemption is a genuine, recorded privacy decision.`,
+          evidence: `This is among the ${newest.length} newest moments in ${era} (position ${position}) and has no renderable authored photo, video, or social embed. Empty photo objects, era fallback art, source links, and \`photosReviewed\` notes do not satisfy the publication rule.`,
           suggestedFix:
-            "Source a real, honestly-captioned, credited photo connected to this story (the subject, the venue, the event, the era's official art) — a picture is required, full stop. The only exemption is a genuine PRIVACY decision (e.g. a residence-privacy redline or a private-individual composite redline): record that with `photosReviewed: '<reason>'` naming the privacy concern explicitly.",
+            'Add a relevant, verified photo, official YouTube video, or Instagram embed. If the obvious image creates a privacy problem, choose a safe connected public visual.',
           confidence: 0.7,
         }),
       );
@@ -99,4 +73,3 @@ export async function check(items) {
 
   return findings;
 }
-

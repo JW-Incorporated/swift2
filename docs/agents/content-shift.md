@@ -94,9 +94,15 @@ apply to every item authored from the remaining queues.
      subject, >=400px, credited. Never a watermarked `media.gettyimages.com`
      comp; never a signed/expiring CDN url (Instagram's included — embed
      those, don't hotlink).
-   - Only if nothing verifiable exists: ship the text, note it in the ledger,
-     and let the `photo-sparsity` / `social-post-missing` checkers route it to
-     Photo Enrichment. A picture is the default, the gap the exception.
+   - Every published item must include a relevant, verifiable visual in the
+     same PR: a credited photo, an official YouTube video, or a verified
+     Instagram embed. If no safe visual exists, do not publish the item yet.
+     Privacy redlines still apply; choose a connected public visual that does
+     not expose a private home, minor, or real-time location. Era fallback art
+     and source links do not satisfy this rule. `validate:content` blocks an
+     item whose authored visual is missing or malformed. The structural gate
+     cannot judge relevance by itself, so source and visually inspect the
+     image or clip before committing it.
 4. Validate: `npm run validate:content` zero errors + `node --check` per
    edited file + full test suite.
 5. **Codex review, no self-rebuttal** (same rule as Austin) — **but
