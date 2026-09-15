@@ -2,16 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../../lib/cli.mjs';
-
-// Path-shaped form of docs/agents/austin.md Scope item 4. Semantic checks
-// still belong to Kevin/Austin; this data prevents a filing from claiming
-// Austin-small when its named files are visibly outside his fence.
 export const AUSTIN_PATH_ALLOWLIST = Object.freeze([
   Object.freeze({ root: 'apps/web/', kind: 'web source or colocated test' }),
   Object.freeze({ root: 'packages/', kind: 'pure logic or colocated test' }),
   Object.freeze({ root: 'docs/', kind: 'plain documentation' }),
 ]);
-
 export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
   prefixes: Object.freeze([
     '.github/',
@@ -30,7 +25,6 @@ export const AUSTIN_PATH_EXCLUSIONS = Object.freeze({
     'yarn.lock',
   ]),
 });
-
 function normalizedPath(value) {
   const candidate = String(value ?? '')
     .trim()
@@ -45,19 +39,17 @@ function normalizedPath(value) {
   if (segments.includes('.') || segments.includes('')) {
     throw new Error(`path must be canonical: ${candidate}`);
   }
-  if (['*', '?', '[', ']', '{', '}'].some((token) => candidate.includes(token))) {
+  if (['*', '?', '{', '}'].some((token) => candidate.includes(token))) {
     throw new Error(`path must name a concrete file, not a pattern: ${candidate}`);
   }
   return candidate;
 }
-
 export function normalizePaths(paths) {
   if (!Array.isArray(paths) || paths.length === 0) {
     throw new Error('Where needs at least one concrete file path');
   }
   return [...new Set(paths.map(normalizedPath))];
 }
-
 export function isAustinAllowedPath(value) {
   let candidate;
   try {
@@ -70,23 +62,16 @@ export function isAustinAllowedPath(value) {
   if (AUSTIN_PATH_EXCLUSIONS.files.includes(candidate)) return false;
   if (AUSTIN_PATH_EXCLUSIONS.basenames.includes(basename)) return false;
   if (AUSTIN_PATH_EXCLUSIONS.prefixes.some((prefix) => candidate.startsWith(prefix))) return false;
+  if (/^apps\/web\/app\/(?:.*\/)?route\.[cm]?[jt]sx?$/i.test(candidate)) return false;
   if (/(^|\/)\.env(?:\.|$)/i.test(candidate)) return false;
   if (/(^|\/)(?:[^/]*secret[^/]*|auth(?:entication)?(?:[-_.][^/]*)?)(?:\/|\.|$)/i.test(candidate))
     return false;
   if (/(^|\/)(?:schema|migrations?)(?:\/|\.|$)/i.test(candidate)) return false;
-
   const rule = AUSTIN_PATH_ALLOWLIST.find(({ root }) => candidate.startsWith(root));
   if (!rule) return false;
   if (rule.root === 'docs/' && !candidate.endsWith('.md')) return false;
   return true;
 }
-
-/**
- * Deterministic size estimate. `small` is certified only when every named
- * path fits Austin's fence, there are at most five, and the positive line
- * estimate fits his 150-line bound. Unknown lines or any path outside the
- * fence is `medium`; `needsSpec` is the judgment signal for `large`.
- */
 export function sizeFromPaths(paths, estimatedLines, { needsSpec = false } = {}) {
   const normalized = normalizePaths(paths);
   if (needsSpec) return 'large';
@@ -101,19 +86,22 @@ export function sizeFromPaths(paths, estimatedLines, { needsSpec = false } = {})
   }
   return 'medium';
 }
-
 function requiredText(value, name) {
   const text = String(value ?? '').trim();
   if (!text) throw new Error(`${name} is required`);
   return text;
 }
-
+function expectedText(value) {
+  const text = requiredText(value, 'Expected');
+  const sentences = text.match(/[.!?]+(?:["')\]]+)?(?=\s|$)/g)?.length || 1;
+  if (sentences > 3) throw new Error('Expected must be one to three sentences');
+  return text;
+}
 function sourceValue(source) {
   const value = requiredText(source, 'source');
   if (value === 'issue' || value === 'alert' || /^chat:https:\/\/\S+$/.test(value)) return value;
   throw new Error('source must be issue, alert, or chat:<https message link>');
 }
-
 function quoteVerbatim(value) {
   return String(value)
     .replaceAll('\r\n', '\n')
@@ -121,15 +109,13 @@ function quoteVerbatim(value) {
     .map((line) => (line.startsWith('@') ? `> \`${line}\`` : line ? `> ${line}` : '>'))
     .join('\n');
 }
-
 function sizeLine(size, paths, estimatedLines) {
   const lines = Number.isInteger(estimatedLines) && estimatedLines > 0 ? estimatedLines : 'unknown';
   const allowed = paths.every(isAustinAllowedPath) ? 'yes' : 'no';
   return `\`${size}\` (files=${paths.length}; estimated-lines=${lines}; Austin-allowlist=${allowed})`;
 }
-
 export function renderBuildTicket(input = {}) {
-  const expected = requiredText(input.expected, 'Expected');
+  const expected = expectedText(input.expected);
   const surface = requiredText(input.surface, 'Where.surface');
   const paths = normalizePaths(input.paths);
   const acceptance = (input.acceptanceCriteria || [])
@@ -145,7 +131,6 @@ export function renderBuildTicket(input = {}) {
   const size = sizeFromPaths(paths, input.estimatedLines, { needsSpec: input.needsSpec === true });
   if (size === 'large')
     throw new Error('large item requires a spec and must not be filed as a build ticket');
-
   const sections = [
     `**Expected**\n${expected}`,
     `**Where**\nSurface: ${surface}\nFiles:\n${paths.map((p) => `- \`${p}\``).join('\n')}`,
@@ -155,14 +140,23 @@ export function renderBuildTicket(input = {}) {
   const reporter = String(input.reporterSaid ?? '').trim();
   if (reporter) sections.push(`**Reporter said**\n${quoteVerbatim(reporter)}`);
   sections.push(`<!-- marjorie-build: size=${size} source=${source} -->`);
-
   const sourceContext = String(input.sourceContext ?? '').trim();
   const context = String(input.context ?? '').trim();
   if (sourceContext) sections.push(sourceContext);
   if (context) sections.push(context);
   return `${sections.join('\n\n')}\n`;
 }
-
+export function findExistingBuildTicket(items, sourceContext) {
+  const needle = requiredText(sourceContext, 'sourceContext');
+  return (
+    (items || []).find(
+      (item) =>
+        (item.labels || []).some((label) => label.name === 'marjorie-filed') &&
+        String(item.body || '').includes(needle) &&
+        checkBuildTicket(item.body).ok,
+    ) || null
+  );
+}
 function sectionBody(body, heading, nextTokens) {
   const start = body.indexOf(heading);
   if (start < 0) return '';
@@ -173,7 +167,6 @@ function sectionBody(body, heading, nextTokens) {
   const end = ends.length ? Math.min(...ends) : body.length;
   return body.slice(contentStart, end).trim();
 }
-
 export function checkBuildTicket(body) {
   const text = String(body ?? '');
   const required = ['**Expected**', '**Where**', '**Size**', '**Acceptance criteria**'];
@@ -189,7 +182,6 @@ export function checkBuildTicket(body) {
   const marker = markers.at(-1);
   if (!marker) errors.push('missing or invalid marjorie-build marker');
   if (markers.length > 1) errors.push('multiple marjorie-build markers');
-
   const ordered = [...required];
   if (text.includes('**Reporter said**')) ordered.push('**Reporter said**');
   const indices = ordered.map((token) => text.indexOf(token));
@@ -200,10 +192,13 @@ export function checkBuildTicket(body) {
   ) {
     errors.push('sections are out of order');
   }
-  if (text.includes('**Expected**') && !sectionBody(text, '**Expected**', ['**Where**'])) {
-    errors.push('Expected is empty');
+  if (text.includes('**Expected**')) {
+    try {
+      expectedText(sectionBody(text, '**Expected**', ['**Where**']));
+    } catch (error) {
+      errors.push(error.message);
+    }
   }
-
   const where = sectionBody(text, '**Where**', ['**Size**']);
   const surface = where.match(/^Surface:\s*(.+)$/m)?.[1]?.trim();
   if (text.includes('**Where**') && !surface) errors.push('Where needs a surface');
@@ -217,7 +212,6 @@ export function checkBuildTicket(body) {
     pathsValid = false;
     errors.push(error.message);
   }
-
   const acceptance = sectionBody(text, '**Acceptance criteria**', [
     '**Reporter said**',
     '<!-- marjorie-build:',
@@ -232,7 +226,6 @@ export function checkBuildTicket(body) {
       .trim();
     if (!/^>./m.test(reporter)) errors.push('Reporter said must contain a blockquote');
   }
-
   const sizeBody = sectionBody(text, '**Size**', ['**Acceptance criteria**']);
   const claim = sizeBody.match(
     /^`(small|medium)` \(files=(\d+); estimated-lines=(\d+|unknown); Austin-allowlist=(yes|no)\)$/,
@@ -256,7 +249,6 @@ export function checkBuildTicket(body) {
   }
   return { ok: errors.length === 0, errors };
 }
-
 async function main(argv = process.argv.slice(2)) {
   const [command, inputPath, outputPath] = argv;
   if (command === 'render' && inputPath) {
@@ -282,12 +274,18 @@ async function main(argv = process.argv.slice(2)) {
     for (const error of result.errors) console.error(error);
     return 1;
   }
+  if (command === 'find' && inputPath && outputPath) {
+    const items = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+    const input = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+    const found = findExistingBuildTicket(items, input.sourceContext);
+    console.log(found ? JSON.stringify({ number: found.number, url: found.url }) : 'none');
+    return 0;
+  }
   console.error(
-    'Usage: build-ticket.mjs render <input.json> [output.md] | size <input.json> | check <body.md>',
+    'Usage: build-ticket.mjs render <input.json> [output.md] | size <input.json> | check <body.md> | find <issues.json> <input.json>',
   );
   return 2;
 }
-
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   runMain(main, { name: 'build-ticket' });
 }

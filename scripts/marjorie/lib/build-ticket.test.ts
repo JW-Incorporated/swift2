@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 import {
   AUSTIN_PATH_ALLOWLIST,
   checkBuildTicket,
+  findExistingBuildTicket,
   isAustinAllowedPath,
   renderBuildTicket,
   sizeFromPaths,
@@ -53,6 +54,7 @@ describe('Austin allowlist and size', () => {
     'apps/web/.env.local',
     'packages/core/src/schema.ts',
     'apps/web/components',
+    'apps/web/app/vault/live-theories/route.ts',
     'apps/web/./app/api/feedback.ts',
     'apps/web//app/api/feedback.ts',
     '../outside.ts',
@@ -83,6 +85,11 @@ describe('Austin allowlist and size', () => {
 
   it('uses the explicit needsSpec signal for large instead of inventing a path-count threshold', () => {
     expect(sizeFromPaths(['apps/web/a.ts'], 20, { needsSpec: true })).toBe('large');
+  });
+
+  it('allows a concrete Next dynamic-page path while keeping route handlers outside the fence', () => {
+    expect(isAustinAllowedPath('apps/web/app/era/[eraId]/page.tsx')).toBe(true);
+    expect(isAustinAllowedPath('apps/web/app/vault/current/[eraId]/route.ts')).toBe(false);
   });
 });
 
@@ -132,6 +139,17 @@ describe('renderBuildTicket / checkBuildTicket', () => {
     ).toContain('missing section: **Acceptance criteria**');
   });
 
+  it('enforces one to three Expected sentences in render and check', () => {
+    expect(() => renderBuildTicket({ ...base, expected: 'One. Two? Three! Four.' })).toThrow(
+      'Expected must be one to three sentences',
+    );
+    const body = renderBuildTicket(base).replace(
+      base.expected,
+      'One sentence. Two sentences. Three sentences. Four sentences.',
+    );
+    expect(checkBuildTicket(body).errors).toContain('Expected must be one to three sentences');
+  });
+
   it('validates the size claim against paths and estimated lines instead of checking headings only', () => {
     const body = renderBuildTicket(base);
     expect(checkBuildTicket(body.replace('size=small', 'size=medium')).errors).toContain(
@@ -167,6 +185,29 @@ describe('renderBuildTicket / checkBuildTicket', () => {
   });
 });
 
+describe('findExistingBuildTicket', () => {
+  const filed = {
+    number: 44,
+    url: 'https://github.com/o/r/issues/44',
+    labels: [{ name: 'marjorie-filed' }],
+    body: renderBuildTicket(base),
+  };
+
+  it('finds the prior filing by exact source context', () => {
+    expect(findExistingBuildTicket([filed], base.sourceContext)).toBe(filed);
+  });
+
+  it('does not accept the same text on an issue without marjorie-filed', () => {
+    expect(findExistingBuildTicket([{ ...filed, labels: [] }], base.sourceContext)).toBeNull();
+  });
+
+  it('does not let a pre-M8 unready filing suppress a ready-shaped replacement', () => {
+    expect(
+      findExistingBuildTicket([{ ...filed, body: base.sourceContext }], base.sourceContext),
+    ).toBeNull();
+  });
+});
+
 describe('CLI', () => {
   it('renders to a file, checks it, and reports its size', () => {
     const dir = mkdtempSync(join(tmpdir(), 'build-ticket-'));
@@ -179,6 +220,24 @@ describe('CLI', () => {
     );
     expect(execFileSync('node', [CLI, 'check', output], { encoding: 'utf8' }).trim()).toBe('ready');
     expect(execFileSync('node', [CLI, 'size', input], { encoding: 'utf8' }).trim()).toBe('small');
+    const issues = join(dir, 'issues.json');
+    writeFileSync(
+      issues,
+      JSON.stringify([
+        {
+          number: 44,
+          url: 'https://github.com/o/r/issues/44',
+          labels: [{ name: 'marjorie-filed' }],
+          body: renderBuildTicket(base),
+        },
+      ]),
+    );
+    expect(
+      JSON.parse(execFileSync('node', [CLI, 'find', issues, input], { encoding: 'utf8' })),
+    ).toEqual({
+      number: 44,
+      url: 'https://github.com/o/r/issues/44',
+    });
   });
 
   it('exits nonzero and names the missing section', () => {
