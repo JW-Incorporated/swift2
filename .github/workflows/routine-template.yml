@@ -216,7 +216,7 @@ jobs:
       # before M5 passes nothing (docs/specs/marjorie-overhaul/m5-chat.md).
       - name: Download pre-run artifact into .scratch/
         if: steps.guard.outputs.skip == 'false' && inputs.pre_run_artifact != ''
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: ${{ inputs.pre_run_artifact }}
           path: .scratch
@@ -254,7 +254,7 @@ jobs:
 
       - name: Upload post-run artifact from .scratch/out/
         if: always() && steps.guard.outputs.skip == 'false' && inputs.post_run_artifact != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ inputs.post_run_artifact }}
           path: .scratch/out/
@@ -296,7 +296,7 @@ jobs:
         if: always() && steps.guard.outputs.skip == 'false'
         continue-on-error: true
         timeout-minutes: 2
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: routine-usage
           path: routine-usage.json
