@@ -38,10 +38,20 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
   let tickPromise = null;
   let tickTimer = null;
   let refreshTimer = null;
+  let gapTimer = null;
+  let finishGapWait = null;
   let stopped = false;
   let fatal = false;
   const github = (request) => githubRequest(request, githubToken, { fetchImpl });
   const isLive = (time) => !stopped && !fatal && PINNED_CLOCK_LIVE && mainLive && failures < 3 && time - lastGood < STALE_MS;
+  const waitForGap = (delay) => new Promise((resolve) => {
+    finishGapWait = resolve;
+    gapTimer = timers.setTimeout(() => {
+      gapTimer = null;
+      finishGapWait = null;
+      resolve();
+    }, delay);
+  });
 
   async function readMain() {
     try {
@@ -78,10 +88,22 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
     while (attempts.length && attempts[0].at <= time - 60 * MINUTE_MS) attempts.shift();
     for (const { row, slot } of dueRows(rows, handled, processStartMs, time)) {
       const response = await github(runsRequest(row.workflow, slot));
-      const sentAt = now();
-      const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, sentAt);
+      let sentAt = now();
       if (sentAt < lastObserved || !isLive(sentAt) || latestSlot(row.parsed, sentAt) !== slot) continue;
       lastObserved = sentAt;
+      const previous = attempts.filter((attempt) => attempt.key === row.key).at(-1);
+      const remaining = previous ? previous.at + MIN_GAP_MS - sentAt : 0;
+      // Reuse this fresh run-list read when it finishes just before the
+      // physical attempt boundary. A second GET here makes each slot inherit
+      // the prior slot's request latency and causes unbounded clock drift.
+      if (remaining > 0) {
+        if (remaining > REQUEST_TIMEOUT_MS) continue;
+        await waitForGap(remaining);
+        sentAt = now();
+        if (sentAt < lastObserved || !isLive(sentAt) || latestSlot(row.parsed, sentAt) !== slot) continue;
+        lastObserved = sentAt;
+      }
+      const exists = covered(response, slot, row.workflow === 'bot-chat-poll.yml' ? 5 * MINUTE_MS : GIVE_UP_MS, sentAt);
       if (exists === null) continue;
       if (exists) { handled.add(`${row.key}@${slot}`); continue; }
       if (!canReserve(row, attempts, sentAt)) continue;
@@ -116,7 +138,15 @@ export function createClock({ githubToken, fetchImpl = fetch, timers = globalThi
   return {
     refresh, tick, state: () => ({ mainLive, lastGood, failures, handled, attempts, live: isLive(now()) }),
     start() { refresh(); refreshTimer = timers.setInterval(refresh, REFRESH_MS); scheduleTick(); },
-    stop() { stopped = true; if (tickTimer) timers.clearTimeout(tickTimer); if (refreshTimer) timers.clearInterval(refreshTimer); },
+    stop() {
+      stopped = true;
+      if (tickTimer) timers.clearTimeout(tickTimer);
+      if (refreshTimer) timers.clearInterval(refreshTimer);
+      if (gapTimer) timers.clearTimeout(gapTimer);
+      gapTimer = null;
+      if (finishGapWait) finishGapWait();
+      finishGapWait = null;
+    },
   };
 }
 

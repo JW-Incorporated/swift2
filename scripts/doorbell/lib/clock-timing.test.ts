@@ -10,7 +10,7 @@ const res = (body: unknown, time: number) => ({ ok: true, status: 200, headers: 
 afterEach(() => vi.useRealTimers());
 
 describe('clock dispatch boundaries', () => {
-  it('serves twelve slots under two minutes without doubling when GET latency varies', async () => {
+  it('serves hundreds of slots without accumulating varied GET latency', async () => {
     vi.useFakeTimers();
     vi.setSystemTime(START - 1_000);
     const posts: number[] = [];
@@ -19,14 +19,14 @@ describe('clock dispatch boundaries', () => {
       if (!options.method) return res('export const CLOCK_LIVE = true;', Date.now());
       if (options.method === 'POST') { posts.push(Date.now()); return { ok: true, status: 204, headers: { get: () => null } }; }
       reads += 1;
-      await new Promise((resolve) => setTimeout(resolve, reads % 2 ? 1_000 : 200));
+      await new Promise((resolve) => setTimeout(resolve, [14_000, 300, 8_000, 1_200][reads % 4]));
       return res({ total_count: 0, workflow_runs: [] }, Date.now());
     });
     const clock = createClock({ githubToken: 'fixture', fetchImpl, rows });
     clock.start();
-    await vi.advanceTimersByTimeAsync(60 * 60_000);
+    await vi.advanceTimersByTimeAsync(20 * 60 * 60_000);
     clock.stop();
-    expect(posts).toHaveLength(12);
+    expect(posts).toHaveLength(240);
     posts.forEach((at, i) => {
       expect(at - (START + i * 300_000)).toBeGreaterThanOrEqual(0);
       expect(at - (START + i * 300_000)).toBeLessThan(120_000);
@@ -50,6 +50,55 @@ describe('clock dispatch boundaries', () => {
       await pending;
       expect(fetchImpl.mock.calls.filter(([, opts]) => opts.method === 'POST')).toHaveLength(0);
     }
+  });
+
+  it('cancels a boundary wait on stop without posting the next slot', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(START);
+    const runs = { total_count: 0, workflow_runs: [] };
+    const fetchImpl = vi.fn(async (_url: string, opts: { method?: string }) => {
+      if (!opts.method) return res('export const CLOCK_LIVE = true;', Date.now());
+      if (opts.method === 'POST') return { ok: true, status: 204, headers: { get: () => null } };
+      return res(runs, Date.now());
+    });
+    const clock = createClock({ githubToken: 'fixture', fetchImpl, rows, processStartMs: START });
+    await clock.refresh();
+    vi.setSystemTime(START + 14_000);
+    await clock.tick();
+    vi.setSystemTime(START + 305_000);
+    const waiting = clock.tick();
+    await vi.advanceTimersByTimeAsync(0);
+    clock.stop();
+    await waiting;
+    expect(fetchImpl.mock.calls.filter(([, opts]) => opts.method === 'POST')).toHaveLength(1);
+  });
+
+  it.each(['coverage', 'live-off', 'backward'])('fails closed when %s changes during a boundary wait', async (change) => {
+    vi.useFakeTimers();
+    let time = START;
+    let live = true;
+    const posts: number[] = [];
+    const fetchImpl = vi.fn(async (_url: string, opts: { method?: string }) => {
+      if (!opts.method) return res(`export const CLOCK_LIVE = ${live};`, time);
+      if (opts.method === 'POST') { posts.push(time); return { ok: true, status: 204, headers: { get: () => null } }; }
+      const coveredRun = change === 'coverage' && time > START + 300_000
+        ? [{ head_branch: 'main', event: 'schedule', created_at: new Date(START + 300_000).toISOString() }]
+        : [];
+      return res({ total_count: coveredRun.length, workflow_runs: coveredRun }, time);
+    });
+    const clock = createClock({ githubToken: 'fixture', fetchImpl, rows, now: () => time, processStartMs: START });
+    await clock.refresh();
+    time = START + 14_000;
+    await clock.tick();
+    time = START + 305_000;
+    const waiting = clock.tick();
+    await vi.advanceTimersByTimeAsync(0);
+    if (change === 'live-off') { live = false; await clock.refresh(); }
+    if (change === 'backward') time = START + 304_000;
+    else time = START + 314_000;
+    await vi.advanceTimersByTimeAsync(9_000);
+    await waiting;
+    expect(posts).toHaveLength(1);
   });
 
   it('treats malformed run records as unreadable and never treats a feature run as coverage', () => {
