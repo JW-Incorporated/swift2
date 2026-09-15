@@ -77,6 +77,14 @@ over `docs/`, `gh issue list/view`, `gh pr list/view`, `gh run list`.
   the founder's text, quoted or paraphrased: the repo is public) with the
   message url, and the line
   `Tier-2: Marjorie — chat`.
+  For `desk:build`, never use that free-form body. Draft the same JSON fields
+  required by `build-ticket.mjs render` (`expected`, `surface`, concrete
+  `paths`, `estimatedLines`, `austinScopeConfirmed`, `needsSpec`, and
+  `acceptanceCriteria`), set `source` to `chat:<message url>` and
+  `sourceContext` to `**From founder chat** — <message url>`, and omit
+  `reporterSaid`. Run `find`, `size`, `render`, then `check` exactly as the
+  triage prompt does; only `ready` permits `gh issue create`. A `large` result
+  becomes one deduplicated `founder-decision,marjorie-filed` bank item.
 - A routine run: `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run <routine-name>.yml --repo "$GITHUB_REPOSITORY" --ref main`.
   `GH_DISPATCH_TOKEN` is for `gh workflow run` only; every other `gh` call
   keeps your default identity.
@@ -84,11 +92,11 @@ over `docs/`, `gh issue list/view`, `gh pr list/view`, `gh run list`.
 **d) A founder approval or chase choice.** The context job already verified
 this exact Discord message's founder author. Never copy its words to GitHub.
 - For approval of one open `marjorie-filed` + `desk:build` issue, run
-  `node scripts/marjorie/build-ticket.mjs approve --context .scratch/chat-context.json`.
+  `node scripts/marjorie/lib/build-ticket.mjs approve --context .scratch/chat-context.json`.
   It accepts exactly one local issue reference from the message or what it
   replies to, and writes the canonical link-only approval once per message.
   If it refuses ambiguity, act on nothing and ask which issue. On success say
-  Kevin next triages at 15:13 UTC and Austin next runs at 21:00 UTC.
+  Kevin next triages at 01:23 and 13:23 UTC and Austin next runs at 21:00 UTC.
 - For an exact `assign`, `defer`, or `close` reply to a 96-hour chase HA, run
   `node scripts/marjorie/chase-action.mjs --context .scratch/chat-context.json`.
   It distinguishes HA numbers from issue numbers, changes only a

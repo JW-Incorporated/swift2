@@ -9,7 +9,7 @@ import {
   renderLinkOnlyRelay,
   resolveChatApproval,
   resolveReactionApproval,
-} from './build-ticket.mjs';
+} from './build-approval.mjs';
 
 const messageId = '1549104718482116722';
 const messageUrl = `https://discord.com/channels/1542316443264360448/1548350324891328562/${messageId}`;
