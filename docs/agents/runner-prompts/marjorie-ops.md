@@ -8,8 +8,9 @@ prompt is that spec's handler table turned into instructions, not a
 paraphrase, so if anything here seems to contradict it, the spec wins and you
 should say so in your run summary rather than silently picking one.
 
-**You reached this run because at least one `watchdog-alert` issue is open**
-(a `gate` job already checked this before your job even started). Your job:
+**You reached this run because a watchdog alert or a chase action is pending.**
+The deterministic gate checked both. Handle alerts first, then run Step 2b
+exactly once for the whole sweep, even when there are zero alerts. Your job:
 give every open alert a reply within the hour — what you checked, what you
 did, whether it needs a founder — never leave one silent. **"Within the
 hour" means within this run or the very next hourly sweep** (13 minutes
@@ -228,14 +229,10 @@ PR** (never a direct push — you are not exempt from branch protection):
 
 1. Get the next number with:
    ```
-   node scripts/marjorie/lib/alert-router.mjs next-ha-number
+   node scripts/marjorie/lib/dispatch-chase-ledger.mjs allocate
    ```
-   This reads BOTH `HUMAN-ACTIONS.md` (open items) and
-   `HUMAN-ACTIONS-DONE.md` (closed items) and returns
-   `max(open ∪ closed) + 1` — never just "highest open heading + 1". Numbers
-   are never reused (CLAUDE.md), so a number already used by a now-closed
-   item must never be issued again. Compute this at run time — another PR
-   may have landed since this prompt was written.
+   This refreshes main and reserves against open, closed and every pending
+   HA PR head. Never reuse a number from a closed or pending action.
 2. Render the item body with:
    ```
    node scripts/marjorie/lib/alert-router.mjs render-fb-item <N> <today>
@@ -244,24 +241,39 @@ PR** (never a direct push — you are not exempt from branch protection):
    group lines from `scripts/knowledge/fb-groups-checklist.mjs` at filing
    time — never hand-copy a group list, a later roster change needs no spec
    or prompt edit.
-3. Open a branch. Append the rendered block to the end of
-   `HUMAN-ACTIONS.md` (append — v2 items have no required order, but
-   appending avoids merge noise with any concurrent item) by redirecting
-   step 2's own command straight to the file in ONE call — you have no
-   generic Bash, only `Bash(gh:*)`/`Bash(git:*)`/`Bash(node:*)`, so the
-   whole call must start with `node` (no `printf`/`cat`/heredoc as a
-   separate leading command, even chained with `&&` — the allowlist
-   matches the call's leading command):
+3. Open a branch from current main. Use the exported `prependHumanActions`
+   from `dispatch-chase-apply.mjs` in a `node --input-type=module` call to
+   insert the rendered block after the intro, updating the open count.
+   Commit, push and open a PR touching **only** `HUMAN-ACTIONS.md`.
+   Before arming auto-merge, validate the actual pending reservation:
    ```
-   node -e "require('fs').appendFileSync('HUMAN-ACTIONS.md', '\n' + require('child_process').execFileSync('node', ['scripts/marjorie/lib/alert-router.mjs', 'render-fb-item', '<N>', '<today>'], {encoding:'utf8'}))"
+   node scripts/marjorie/lib/dispatch-chase-ledger.mjs check <N>
    ```
-   Commit, push, open a PR touching **only** `HUMAN-ACTIONS.md`. Nothing
-   else in that PR.
+   A nonzero exit means leave the PR unmerged and report the collision.
+   Only a successful check permits `gh pr merge --squash --auto --delete-branch`.
 4. Comment on the alert issue (Step 3) with `action=human-action`, naming
    the PR.
 
 This is the one row that is *always* a human action while it stays open —
 there is no dispatch, no re-run, nothing else for you to try.
+
+## Step 2b - chase Marjorie's dispatched work (once per sweep)
+
+Run this phase exactly once after all alert handlers, even when Step 0 had
+zero alerts. The gate artifact is advisory; never execute its stale numbers
+or reproduce individual writes yourself. Invoke the deterministic helper:
+
+```
+node scripts/marjorie/lib/dispatch-chase-apply.mjs "$GITHUB_REPOSITORY"
+```
+
+It refreshes main and complete GitHub history, resumes pending chase PRs,
+applies at most five nudges and files at most two new HAs in one PR. It checks
+open, closed and pending HA numbers before arming auto-merge. A conflict or
+missing-source status means leave that PR unmerged and report the status in
+your run summary; never invent a replacement number or bypass the check.
+Finish alert branches with a clean committed tree before invoking the helper.
+No new Discord post is allowed; the existing brief reports chase outcomes.
 
 ## Cross-cutting rules
 

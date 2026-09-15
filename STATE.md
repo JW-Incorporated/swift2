@@ -7,9 +7,10 @@
    No further routine retries until access is restored. The clock itself
    fired at 12:00:07Z in run 34966350705; its guard succeeded.
    Do not close #4290 or tick M7: the noon delivery proof has not passed.
-2. Resume M8 from feature/m8-ready-tickets and feature/m8-approval, preserving
-   their saved work. Complete implementation and real live proofs; founder
-   actions must come from the founder and cannot be synthesized.
+2. M8 filing (#4352), approval relay (#4354), and charter/MR2 (#4349) are
+   merged. Chase and brief implementation is complete in feature/m8-brief,
+   validated and submitted through auto-merge. After HA #77, complete real filing,
+   approval and 48/96-hour chase proofs. Leave M8 unticked until they pass.
 
 ## Reboot recovery - 2026-09-15
 
@@ -23,8 +24,13 @@ M8 ready-shaped filing #4352 is merged and labels are provisioned. A complete
 live intake selection found no untriaged submission. The live chase snapshot
 contains only #4324 (created 2026-09-14T17:10:48Z), under 48 hours old, with
 no linked open PR. Do not manufacture submissions, stale ages or founder
-approvals to make live acceptance pass. Approval and chase/brief work remain
-in progress in their isolated M8 worktrees.
+approvals to make live acceptance pass. Approval relay #4354 is merged, including the narrow verified Kevin
+receiver amendment under the owner's delegated technical authority.
+Chase/brief passed 570 Marjorie tests, lint with zero errors (five existing
+warnings), routine invariants, and scoped independent verification of the
+final two review findings at d3cbfa44. They share a complete paginated collector, pending HA reservations,
+once-per-sweep execution and delivery-aware held notices. Synthetic timing
+is covered in tests only; the live milestone remains open.
 
 The owner authorized autonomous recovery, reversible decisions and pushes.
 The linked Long Live Bots Runbook was accessible in Chrome. The workstation

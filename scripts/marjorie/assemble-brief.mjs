@@ -52,7 +52,7 @@ import { runMain } from '../lib/cli.mjs';
 import {
   DAY_MS, SECTION_BUDGETS,
   extractOptions, extractField, todayLA, findLatestTreePR, shortTitle, capSection,
-  renderHumanActionLine, buildWaitingOnYouLines,
+  renderHumanActionLine, buildWaitingOnYouLines, waitingChaseItems,
   renderMergedLine, renderAlertsLine, renderDispatchedLine, buildSinceYesterdayLines,
   renderTodayRunsLine, renderTodayMeLine, buildTodayLines,
   renderSiteLine,
@@ -99,8 +99,8 @@ export function buildBrief(state, { now = state?.now ?? Date.now() } = {}) {
 
   // ── WAITING ON YOU ────────────────────────────────────────────────────
   const openActions = sortForBrief(state.openActions || []);
-  out.push(`**Waiting on you (${openActions.length})**`);
-  out.push(...capSection(buildWaitingOnYouLines(openActions), SECTION_BUDGETS.waitingOnYou), '');
+  out.push(`**Waiting on you (${openActions.length + waitingChaseItems(openActions, state.dispatched).length})**`);
+  out.push(...capSection(buildWaitingOnYouLines(openActions, state.dispatched), SECTION_BUDGETS.waitingOnYou), '');
 
   // ── SINCE YESTERDAY ───────────────────────────────────────────────────
   out.push('**Since yesterday**');

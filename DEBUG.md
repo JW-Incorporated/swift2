@@ -358,3 +358,25 @@ HA/issue references fail closed. Reactions filter production-shaped brief
 references to eligible open build tickets, remain ambiguous for multiple build
 targets, and support parenthesized and linked issue references. The final
 scoped verification accepted these paths at `7baac935`.
+
+## M8 chase recovery review cap - 2026-09-15
+
+Round 1 rejected pending HA duplication/allocation, repeated per-alert chase,
+own-source activity, and missing held/founder-blocked brief output. These
+were corrected; round 2 at b14e3fc6 accepted those areas but rejected:
+
+1. A confirmed closed source can leave a pending chase HA PR permanently
+   open, waking every sweep and blocking other valid pending actions.
+2. The Waiting on you heading counts HAs but not added founder-blocked work.
+
+The two-round generic review budget is exhausted. The current user explicitly
+instructed full autonomous continuation and delegated technically reversible
+decisions. ROOT uses that authority for these two scoped corrections and
+focused verification, not a third generic review or an invented founder quote.
+The pending-source fix is delegated to Sol in a separate worktree; root fixes
+the complete brief heading and overlap count. Live OAuth and real-proof
+requirements remain unchanged. No repeated routine attempts are authorized.
+
+Scoped verification at d3cbfa44 accepted both final corrections. The complete
+Marjorie suite passed 570 tests; lint reported zero errors and five existing
+warnings; check:routines passed. Review found no regression in the two fixes.

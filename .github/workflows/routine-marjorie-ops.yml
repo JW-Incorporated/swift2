@@ -75,14 +75,39 @@ permissions:
   actions: write # gh workflow run — re-dispatching a quiet routine
   id-token: write # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
 
+# Serialize snapshot through mutation so a queued sweep reads fresh markers.
+concurrency:
+  group: marjorie-ops-sweep
+  cancel-in-progress: false
+
 jobs:
   gate:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
     outputs:
       work: ${{ steps.check.outputs.work }}
     steps:
-      - name: Any open watchdog-alert issue?
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Collect complete dispatch chase snapshot and plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p .scratch
+          node scripts/marjorie/lib/dispatch-chase-state.mjs "$REPO" > .scratch/dispatch-chase-snapshot.json
+          node scripts/marjorie/lib/dispatch-chase.mjs plan < .scratch/dispatch-chase-snapshot.json > .scratch/dispatch-chase-plan.json
+      - name: Any open watchdog alert or pending chase action?
         id: check
         env:
           GH_TOKEN: ${{ github.token }}
@@ -90,11 +115,18 @@ jobs:
         run: |
           set -euo pipefail
           COUNT=$(gh issue list --repo "$REPO" --label watchdog-alert --state open --json number --jq 'length')
-          if [ "$COUNT" -gt 0 ]; then
+          CHASE=$(node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".scratch/dispatch-chase-plan.json","utf8")); console.log(p.nudges.length+p.humanActions.length+(p.pendingHumanActions?.length||0))')
+          if [ "$COUNT" -gt 0 ] || [ "$CHASE" -gt 0 ]; then
             echo "work=yes" >> "$GITHUB_OUTPUT"
           else
             echo "work=no" >> "$GITHUB_OUTPUT"
           fi
+      - uses: actions/upload-artifact@v4
+        if: steps.check.outputs.work == 'yes'
+        with:
+          name: dispatch-chase-plan
+          path: .scratch/dispatch-chase-plan.json
+          retention-days: 1
 
   run:
     needs: gate
@@ -107,6 +139,7 @@ jobs:
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
       timeout_minutes: 30
       max_turns: 60
+      pre_run_artifact: dispatch-chase-plan
       checkout_token_secret: SOCIAL_POSTER_PAT
       expose_dispatch_token: true # #4223: exposes GH_DISPATCH_TOKEN (this job's SOCIAL_POSTER_PAT) for `gh workflow run` only; agent identity/comments stay claude[bot]
       allowed_bots: github-actions # M7: bot-chat-alarm.yml starts this run on GITHUB_TOKEN; claude-code-action refuses a bot-started run otherwise
