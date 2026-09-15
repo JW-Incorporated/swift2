@@ -53,4 +53,16 @@ describe('brief delivery guard', () => {
     expect(workflow).toContain('post-or-mail.mjs');
     expect(workflow).not.toMatch(/assemble-brief|anthropic|claude/i);
   });
+
+  it.each(['routine-marjorie-brief.yml', 'marjorie-brief-delivery-recovery.yml'])('%s makes the existing mail fallback available to its delivery step', (file) => {
+    const workflow = readFileSync(`.github/workflows/${file}`, 'utf8').replace(/\r\n/g, '\n');
+    const deliverySteps = workflow.split(/^ {6}- /m).filter((step) => step.includes('node scripts/marjorie/post-or-mail.mjs'));
+    expect(deliverySteps).toHaveLength(1);
+    const [delivery] = deliverySteps;
+    const env = delivery.split(/^ {8}run:/m)[0];
+    expect(env).toMatch(/^ {8}env:\n/m);
+    expect(env).toContain('          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}\n');
+    expect(env).toContain('          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}\n');
+    expect(delivery).not.toContain('--no-mail-fallback');
+  });
 });

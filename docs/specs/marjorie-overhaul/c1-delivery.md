@@ -141,6 +141,15 @@ Calls `post()`. On `ok`, exits 0. On failure, writes
 invokes `python3 scripts/watchdog/send-mail.py <that file>` — the existing
 contract (`send-mail.py:12`, payload shape `:13`/`:77`), unchanged.
 
+The routine and recovery brief delivery steps must explicitly bind
+`MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}` and
+`GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}` in their step environment.
+Repository variables and secrets do not become process environment variables
+automatically. These bindings belong only to the trusted, main-pinned delivery
+jobs, and neither brief caller passes `--no-mail-fallback`. The workflow
+invariants in `brief-delivery-guard.test.ts` protect this wiring; they do not send
+mail or inspect credential values.
+
 **Two traps this must handle, both verified in the source:**
 
 - `send-mail.py` **exits 0 when `MARJORIE_EMAIL`/`GMAIL_APP_PASSWORD` are
