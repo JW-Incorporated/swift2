@@ -2053,6 +2053,7 @@ export default {
       snippet: "The transitional masterpiece that pointed straight at pop stardom.",
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png', credit: 'Big Machine Records', caption: 'The original cover of Red, released on Oct. 22, 2012.', kind: 'primary', focalPoint: '50% 42%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2145,6 +2146,7 @@ export default {
         "A gothic staircase entrance, a discarded pink gown, and a black-and-red reveal mark the song's first live performance.",
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       moment: {
+        photos: [{ url: 'https://townsquare.media/site/252/files/2012/11/Taylor-Swift-AMAs.jpg?a=t&format=natural&h=0&q=89&s=0&w=1200&zc=1', credit: 'Getty Images, via PopCrush', caption: 'Taylor Swift performs “I Knew You Were Trouble” for the first time at the 2012 American Music Awards.', kind: 'primary', focalPoint: '50% 28%' }],
         context:
           "Taylor performed \"I Knew You Were Trouble\" live for the first time at the 40th American Music Awards, held at the Nokia Theatre L.A. Live. She opened in a pale-pink, princess-style gown descending a staircase surrounded by black-clad dancers, then discarded the dress midway through to reveal a black-and-red corset-and-tulle look for a darker, more aggressive second half — a deliberate tonal swerve from her usual image. She also won Favorite Country Female Artist that night.",
           sources: [

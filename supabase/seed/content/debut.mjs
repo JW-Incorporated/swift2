@@ -2222,6 +2222,7 @@ export default {
       title: "Curls, sundresses and cowboy boots",
       snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG', credit: 'BHFeller / Wikimedia Commons, public domain', caption: 'Sixteen-year-old Taylor Swift in skull-print cowboy boots before singing the national anthem at Phoenix International Raceway on Nov. 12, 2006.', kind: 'primary', focalPoint: '47% 32%' }],
         sources: [
           {
             outlet: 'CBS News',

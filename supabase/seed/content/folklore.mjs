@@ -1865,6 +1865,7 @@ export default {
       milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png', credit: 'Republic Records / photo by Beth Garrabrant', caption: 'The black-and-white cover of folklore, released with the surprise album on July 24, 2020.', kind: 'primary', focalPoint: '50% 42%' }],
         sources: [
           {
             outlet: 'The Recording Academy',

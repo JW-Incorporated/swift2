@@ -1902,6 +1902,7 @@ export default {
       title: "The ballgown tour",
       snippet: "Sweeping purple gowns turn every show into a fairy tale.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg', credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons', caption: 'A later live reference to the Speak Now ballgown aesthetic during the Eras Tour’s lilac-gown set.', kind: 'reference', focalPoint: '59% 51%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -1939,6 +1940,7 @@ export default {
       snippet:
         "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
+        video: { youtubeId: 'jYa1eI1hpDE', title: 'Taylor Swift - Mean' },
         sources: [
           {
             outlet: 'CBS News',

@@ -2424,6 +2424,7 @@ export default {
       milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png', credit: 'Big Machine Records', caption: 'The original 2014 cover of 1989, the album that marked Taylor Swift’s full pop reinvention.', kind: 'primary', focalPoint: '50% 38%' }],
         sources: [
           {
             outlet: 'CBS News',
@@ -2523,6 +2524,7 @@ export default {
       title: "Polaroids and pastel",
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
+        photos: [{ url: 'https://s.abcnews.com/images/Entertainment/ABC_taylor_swift_jef_140818_16x9_992.jpg?w=1600', credit: 'Big Machine Records, via ABC News', caption: 'The original Polaroid-framed 1989 cover, the central artifact of the album’s instant-photo visual language.', kind: 'primary', focalPoint: '50% 50%' }],
         sources: [
           {
             outlet: 'ABC News',
@@ -2593,6 +2595,7 @@ export default {
       title: "The “squad” era",
       snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
       moment: {
+        photos: [{ url: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1', credit: 'Getty Images, via The Hollywood Reporter', caption: 'Taylor Swift arrives at the 2015 VMAs with members of the friend group the press had dubbed her “squad.”', kind: 'primary', focalPoint: '50% 25%' }],
         sources: [
           {
             outlet: 'Slate',

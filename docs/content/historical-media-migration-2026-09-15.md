@@ -2,7 +2,7 @@
 
 The publication gate began from commit `e3afc2b1` with 48 older moments that had no authored photo URL, thumbnail, video, or social embed. They are migration debt, not compliant examples. The active exemptions in `scripts/lib/moment-media-gate.mjs` pin both each key and the exact SHA-256 of its original item: editing an item requires adding media, and adding a new key is outside this frozen baseline. Remove a row and its code exemption when media is added.
 
-Ten Showgirl-era gaps were filled on September 15 with verified, credited photographs or official video thumbnails. The remaining migration list contains 38 items.
+Thirty gaps were filled on September 15 with verified, credited photographs or official videos: ten Showgirl-era items and twenty older historical moments. The remaining migration list contains 18 items.
 
 Dates below are event dates. The source is a reference for the story; it does not satisfy the media requirement. Media relevance and rights still require editorial and visual review.
 
@@ -26,23 +26,3 @@ Dates below are event dates. The source is a reference for the story; it does no
 | `tortured-poets.mjs#travis-bikes-around-amsterdam-before-the-show` | 2024-07-06 | [Yahoo Entertainment](https://www.yahoo.com/entertainment/travis-kelce-rides-bike-amsterdam-181438609.html) |
 | `tortured-poets.mjs#a-surprise-eras-tour-stage-debut-in-a-tuxedo-and-top-hat` | 2024-06-23 | [CNN](https://www.cnn.com/2024/06/23/entertainment/taylor-swift-travis-kelce-on-stage) |
 | `tortured-poets.mjs#instagram-official-a-backstage-selfie-at-wembley` | 2024-06-21 | [People](https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987) |
-| `midnights.mjs#sitting-with-donna-kelce-as-the-relationship-goes-public` | 2023-09-24 | [TODAY.com](https://www.today.com/popculture/taylor-swift-kansas-city-chiefs-game-travis-kelce-rcna117098) |
-| `midnights.mjs#travis-kelce-laughs-off-dating-rumors-on-nfl-network` | 2023-08-02 | [The Kansas City Star](https://kansascity.com/news/local/article280456364.html) |
-| `midnights.mjs#a-quiet-split-from-matty-healy-after-a-brief-romance` | 2023-06-05 | [People](https://people.com/music/taylor-swift-matty-healy-relationship-timeline/) |
-| `midnights.mjs#leaving-electric-lady-studios-with-matty-healy-and-a-star-st` | 2023-05-16 | [E! Online](https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing) |
-| `midnights.mjs#first-outing-since-the-joe-alwyn-split-dinner-with-the-anton` | 2023-04-11 | [Extra](https://extratv.com/2023/04/11/taylor-swift-steps-out-for-first-time-since-joe-alwyn-split) |
-| `midnights.mjs#a-borrowed-joe-alwyn-jacket-at-the-grammys-afterparty` | 2023-02-05 | [People](https://people.com/style/taylor-swift-wears-joe-alwyn-jacket-to-grammys-afterparty/) |
-| `midnights.mjs#a-zodiac-easter-egg-for-joe-alwyn-in-the-lavender-haze-video` | 2023-01-27 | [E! Online](https://www.eonline.com/news/1362894/taylor-swift-fans-spot-joe-alwyn-easter-egg-in-lavender-haze-video) |
-| `midnights.mjs#an-unrecognized-night-at-preservation-hall-in-new-orleans` | 2022-12-10 | [Sun Herald (McClatchy wire)](https://www.sunherald.com/entertainment/article269923742.html) |
-| `midnights.mjs#the-next-project-is-a-movie-searchlight-signs-her-to-direct` | 2022-12-09 | [Variety](https://variety.com/2022/film/news/taylor-swift-feature-directing-debut-searchlight-pictures-1235455606/) |
-| `midnights.mjs#joe-alwyn-gives-a-rare-glimpse-into-life-with-taylors-cat-be` | 2022-11-25 | [ELLE](https://www.elle.com/culture/celebrities/a42071335/taylor-swift-boyfriend-joe-alwyn-cat-benjamin/) |
-| `folklore.mjs#folklore-album` | 2020-07-24 | [The Recording Academy](https://www.grammy.com/news/taylor-swift-announces-new-surprise-album-folklore-featuring-bon-iver-nationals-aaron/) |
-| `1989.mjs#1989-squad` | 2015-01-01 | [Slate (Lexicon Valley)](https://slate.com/human-interest/2015/07/taylor-swift-waka-flocka-and-squadgoals-how-squad-went-from-underdogs-to-queen-bees.html) |
-| `1989.mjs#1989-polaroids` | 2014-11-01 | [ABC News](https://abcnews.com/Entertainment/meaning-cover-taylor-swifts-album-1989/story?id=25028609) |
-| `1989.mjs#1989-album` | 2014-10-27 | [CBS News](https://www.cbsnews.com/texas/news/new-taylor-swift-album-coming-in-october) |
-| `red.mjs#red-snl` | 2012-11-18 | [Wikipedia](https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble) |
-| `red.mjs#red-album` | 2012-10-22 | [CBS News](https://www.cbsnews.com/news/taylor-swift-sells-12-million-copies-of-red/) |
-| `speak-now.mjs#speak-now-mean` | 2011-03-14 | [CBS News](https://www.cbsnews.com/news/taylor-swifts-mean-takes-aim-at-her-critics/) |
-| `speak-now.mjs#speak-now-ballgowns` | 2011-02-01 | [CBS News / 60 Minutes](https://www.cbsnews.com/news/behind-the-scenes-at-a-taylor-swift-concert/) |
-| `fearless.mjs#fearless-vmas` | 2009-09-13 | [TIME](https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html) |
-| `debut.mjs#debut-cowboy-boots` | 2007-04-01 | [CBS News](https://www.cbsnews.com/newyork/news/taylor-swifts-fashion-evolution/) |
