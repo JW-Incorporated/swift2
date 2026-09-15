@@ -65,6 +65,7 @@ export function closeHumanAction(openMd, doneMd, { number, date, note, by = 'cha
   if (start === -1) return { ok: false, reason: `#${number} is not open in ${HUMAN_ACTIONS_PATH}` };
   let end = start + 1;
   while (end < lines.length && !HEADING.test(lines[end]) && lines[end].trim() !== '---') end += 1;
+  const chase = lines.slice(start, end).find((line) => /^<!-- marjorie-chase: 96h issue=\d+ -->$/.test(line.trim()))?.trim() || '';
   const title = (TITLE.exec(lines[start])?.[1] || lines[start].replace(/^##\s+#\d+\s*/, '')).trim();
   const kept = tidy([...lines.slice(0, start), ...lines.slice(end)]);
   const remaining = kept.filter((l) => HEADING.test(l)).length;
@@ -72,7 +73,7 @@ export function closeHumanAction(openMd, doneMd, { number, date, note, by = 'cha
 
   const doneEol = doneMd.includes('\r\n') ? '\r\n' : '\n';
   const doneLines = doneMd.split(/\r?\n/);
-  const entry = `- #${number} · ${date} · ${outcome} · ${title} — "${why}" · by ${cleanNote(by) || 'chat'}`;
+  const entry = `- #${number} · ${date} · ${outcome} · ${title} — "${why}" · by ${cleanNote(by) || 'chat'}${chase ? ` · ${chase}` : ''}`;
   const first = doneLines.findIndex((l) => LEDGER_LINE.test(l));
   if (first === -1) {
     while (doneLines.length && doneLines[doneLines.length - 1].trim() === '') doneLines.pop();

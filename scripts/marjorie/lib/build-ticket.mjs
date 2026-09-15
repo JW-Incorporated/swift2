@@ -342,6 +342,10 @@ export function checkBuildTicket(body) {
 }
 async function main(argv = process.argv.slice(2)) {
   const [command, inputPath, outputPath] = argv;
+  if (command === 'approve') {
+    const { main: approve } = await import('../build-ticket.mjs');
+    return approve(argv);
+  }
   if (command === 'render' && inputPath) {
     const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
     const rendered = renderBuildTicket(input);
@@ -376,7 +380,7 @@ async function main(argv = process.argv.slice(2)) {
     return 0;
   }
   console.error(
-    'Usage: build-ticket.mjs render <input.json> [output.md] | size <input.json> | check <body.md> | find <issues.json> <input.json>',
+    'Usage: build-ticket.mjs render <input.json> [output.md] | size <input.json> | check <body.md> | find <issues.json> <input.json> | approve --context <chat-context.json>',
   );
   return 2;
 }

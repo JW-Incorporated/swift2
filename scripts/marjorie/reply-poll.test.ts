@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { main } from './reply-poll.mjs';
 
 const THREAD_ID = '1111111111111111111';
+const GUILD_ID = '1111111111111111112';
 
 function fakeResponse(status: number, body: unknown = []) {
   return {
@@ -23,15 +24,15 @@ const issueListOut = JSON.stringify([{ number: 42 }]);
 // pages, each page the raw array of comment objects GitHub sent. A single
 // call here is a single (unpaginated) page.
 function commentsOut(bodies: string[]) {
-  return JSON.stringify([bodies.map((body) => ({ body }))]);
+  return JSON.stringify([bodies.map((body) => ({ body, user: { login: 'github-actions[bot]', type: 'Bot' } }))]);
 }
 
 function commentsPagesOut(pages: string[][]) {
-  return JSON.stringify(pages.map((bodies) => bodies.map((body) => ({ body }))));
+  return JSON.stringify(pages.map((bodies) => bodies.map((body) => ({ body, user: { login: 'github-actions[bot]', type: 'Bot' } }))));
 }
 
 const markerComment = `<!-- discord-message-id: ${THREAD_ID} -->`;
-const rootMessage = { id: THREAD_ID, webhook_id: '999', content: 'the brief', timestamp: '2026-09-12T12:00:00.000Z' };
+const rootMessage = { id: THREAD_ID, guild_id: GUILD_ID, webhook_id: '999', author: { username: 'Marjorie' }, content: 'the brief', timestamp: '2026-09-12T12:00:00.000Z' };
 
 describe('main()', () => {
   it('excludes the thread root/webhook message and relays a new reply', async () => {
@@ -48,8 +49,10 @@ describe('main()', () => {
     expect(execImpl).toHaveBeenCalledTimes(3);
     const postArgs = execImpl.mock.calls[2];
     expect(postArgs[0]).toBe('gh');
-    expect(postArgs[1]).toEqual(['issue', 'comment', '42', '--repo', 'JW-Incorporated/swift2', '--body', expect.stringContaining('💬 Reply from Joey')]);
+    expect(postArgs[1]).toEqual(['issue', 'comment', '42', '--repo', 'JW-Incorporated/swift2', '--body', expect.stringContaining(`https://discord.com/channels/${GUILD_ID}/${THREAD_ID}/2222222222222222222`)]);
     expect(postArgs[1][6]).toContain('<!-- relay-id: 2222222222222222222 -->');
+    expect(postArgs[1][6]).not.toContain('sounds good');
+    expect(postArgs[1][6]).not.toContain('Joey');
   });
 
   it('does not re-post a reply whose relay-id marker already exists as a comment', async () => {
@@ -114,6 +117,14 @@ describe('main()', () => {
     const exitCode = await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl });
 
     expect(exitCode).toBe(0);
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
+  it('ignores a delivery marker posted by a human account', async () => {
+    const comments = JSON.stringify([[{ body: markerComment, user: { login: 'github-actions', type: 'User' } }]]);
+    const execImpl = vi.fn().mockReturnValueOnce(issueListOut).mockReturnValueOnce(comments);
+    const fetchImpl = vi.fn();
+    expect(await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl })).toBe(0);
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
@@ -256,5 +267,50 @@ describe('main()', () => {
     expect(exitCode).toBe(0);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(execImpl).toHaveBeenCalledTimes(2);
+  });
+
+  it('turns a founder check reaction on a one-ticket brief into one canonical approval', async () => {
+    const founder = '900000000000000001';
+    const approvalRoot = { ...rootMessage, content: 'Build candidate: #77', reactions: [{ emoji: { name: '✅' }, count: 1 }] };
+    const ticket = { number: 77, state: 'OPEN', labels: [{ name: 'marjorie-filed' }, { name: 'desk:build' }] };
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut).mockReturnValueOnce(commentsOut([markerComment]))
+      .mockReturnValueOnce(JSON.stringify([[ticket]])).mockReturnValueOnce(commentsOut([])).mockReturnValueOnce('');
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200, [approvalRoot]))
+      .mockResolvedValueOnce(fakeResponse(200, [{ id: founder }]));
+    const before = process.env.DISCORD_FOUNDER_IDS;
+    process.env.DISCORD_FOUNDER_IDS = founder;
+    try {
+      expect(await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl, repo: 'o/r' })).toBe(0);
+    } finally {
+      if (before === undefined) delete process.env.DISCORD_FOUNDER_IDS;
+      else process.env.DISCORD_FOUNDER_IDS = before;
+    }
+    const body = execImpl.mock.calls[4][1][6];
+    expect(body).toContain(`<!-- marjorie-approval: ${THREAD_ID} -->`);
+    expect(body).not.toContain('Build candidate');
+  });
+
+  it('records an ambiguous founder reaction on the brief without Discord writes', async () => {
+    const founder = '900000000000000001';
+    const approvalRoot = { ...rootMessage, content: '#77 and #78', reactions: [{ emoji: { name: '✅' }, count: 1 }] };
+    const ticket = (number: number) => ({ number, state: 'OPEN', labels: [{ name: 'marjorie-filed' }, { name: 'desk:build' }] });
+    const execImpl = vi.fn()
+      .mockReturnValueOnce(issueListOut).mockReturnValueOnce(commentsOut([markerComment]))
+      .mockReturnValueOnce(JSON.stringify([[ticket(77), ticket(78)]])).mockReturnValueOnce('');
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200, [approvalRoot]))
+      .mockResolvedValueOnce(fakeResponse(200, [{ id: founder }]));
+    const before = process.env.DISCORD_FOUNDER_IDS;
+    process.env.DISCORD_FOUNDER_IDS = founder;
+    try {
+      expect(await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl, repo: 'o/r' })).toBe(0);
+    } finally {
+      if (before === undefined) delete process.env.DISCORD_FOUNDER_IDS;
+      else process.env.DISCORD_FOUNDER_IDS = before;
+    }
+    expect(execImpl.mock.calls[3][1][6]).toContain(`<!-- marjorie-approval-ambiguous: ${THREAD_ID} -->`);
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
   });
 });
