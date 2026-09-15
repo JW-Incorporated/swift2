@@ -8,8 +8,9 @@ prompt is that spec's handler table turned into instructions, not a
 paraphrase, so if anything here seems to contradict it, the spec wins and you
 should say so in your run summary rather than silently picking one.
 
-**You reached this run because at least one `watchdog-alert` issue is open**
-(a `gate` job already checked this before your job even started). Your job:
+**You reached this run because a watchdog alert or a chase action is pending.**
+The deterministic gate checked both. Handle alerts first, then run Step 2b
+exactly once for the whole sweep, even when there are zero alerts. Your job:
 give every open alert a reply within the hour — what you checked, what you
 did, whether it needs a founder — never leave one silent. **"Within the
 hour" means within this run or the very next hourly sweep** (13 minutes
@@ -187,40 +188,6 @@ Labels are `marjorie-filed,desk:build,bug` plus exactly one
 For the large/spec branch, name the bank item in the alert ledger and use
 `action=escalate`; it is the durable next step and must not be filed again.
 
-## Step 2b — chase Marjorie's dispatched work
-
-The workflow's deterministic pre-run step has already fetched a complete,
-read-only GitHub snapshot and written `.scratch/dispatch-chase-plan.json`.
-Read that file. It is produced by the pure
-`scripts/marjorie/lib/dispatch-chase.mjs` planner from complete issue/PR
-comments, commits, reviews, labels, assignees, and both human-action files;
-do not fetch a smaller replacement list and do not re-derive a clock from
-issue prose.
-
-Its output is `{items,nudges,humanActions,brief}`. `items` uses only these
-verdicts: `fresh`, `stale-48`, `stale-96`, `held`, and
-`blocked-on-founder`; they are already oldest-silence first. `nudges` contains
-`{issue,targets,body}` and `humanActions` contains `{number,issue,body}`.
-The fixed marker-bearing body and the five-nudge/two-human-action budget are
-already decided. Do not act on `fresh`, `held`, or `blocked-on-founder`, and
-do not create work beyond the listed output.
-
-For each listed nudge, write its exact `body` to a scratch body file and use
-plain `gh issue comment <issue>` or `gh pr comment <pr>` for every listed
-target. A chase marker is idempotency state: never change or hand-write it.
-For each listed human action, open a branch and PR that appends its exact
-`body` to `HUMAN-ACTIONS.md` only, then comment on its source issue with the
-PR URL. Never directly push a human action and never allocate a replacement
-number; the planner allocated it from both human-action files in the snapshot.
-Finish one listed item completely before beginning another. If the remaining
-turn budget cannot finish its PR and source comment, leave that item untouched
-for the next sweep rather than partially filing it.
-
-The `brief` field is a snapshot for the Founders' Brief: `brief.stalled` is
-the sorted stalled list and `brief.held` is the list to render once as held.
-Do not post a new Discord message from this sweep; the existing brief and chat
-delivery paths are the only allowed channels.
-
 ## Step 3 — leave your ledger comment (every row except the two you close, and the two "nothing" rows with no human action)
 
 One issue comment, `gh issue comment <number> --body-file <file>`, containing:
@@ -296,6 +263,43 @@ PR** (never a direct push — you are not exempt from branch protection):
 
 This is the one row that is *always* a human action while it stays open —
 there is no dispatch, no re-run, nothing else for you to try.
+
+## Step 2b — chase Marjorie's dispatched work (once per sweep)
+
+This phase runs after all alert handling (Steps 1–4), never inside the
+per-alert loop. Run it once even when Step 0 found no alerts.
+
+The workflow's deterministic pre-run step has already fetched a complete,
+read-only GitHub snapshot and written `.scratch/dispatch-chase-plan.json`.
+Read that file. It is produced by the pure
+`scripts/marjorie/lib/dispatch-chase.mjs` planner from complete issue/PR
+comments, commits, reviews, labels, assignees, and both human-action files;
+do not fetch a smaller replacement list and do not re-derive a clock from
+issue prose.
+
+Its output is `{items,nudges,humanActions,brief}`. `items` uses only these
+verdicts: `fresh`, `stale-48`, `stale-96`, `held`, and
+`blocked-on-founder`; they are already oldest-silence first. `nudges` contains
+`{issue,targets,body}` and `humanActions` contains `{number,issue,body}`.
+The fixed marker-bearing body and the five-nudge/two-human-action budget are
+already decided. Do not act on `fresh`, `held`, or `blocked-on-founder`, and
+do not create work beyond the listed output.
+
+For each listed nudge, write its exact `body` to a scratch body file and use
+plain `gh issue comment <issue>` or `gh pr comment <pr>` for every listed
+target. A chase marker is idempotency state: never change or hand-write it.
+For each listed human action, open a branch and PR that appends its exact
+`body` to `HUMAN-ACTIONS.md` only, then comment on its source issue with the
+PR URL. Never directly push a human action and never allocate a replacement
+number; the planner allocated it from both human-action files in the snapshot.
+Finish one listed item completely before beginning another. If the remaining
+turn budget cannot finish its PR and source comment, leave that item untouched
+for the next sweep rather than partially filing it.
+
+The `brief` field is a snapshot for the Founders' Brief: `brief.stalled` is
+the sorted stalled list and `brief.held` is the list to render once as held.
+Do not post a new Discord message from this sweep; the existing brief and chat
+delivery paths are the only allowed channels.
 
 ## Cross-cutting rules
 

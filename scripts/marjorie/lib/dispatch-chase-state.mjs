@@ -72,8 +72,33 @@ export async function fetchDispatchChaseState(repo = REPO, {
     for (const row of rows) result.push(await history(row, isPR));
     return result;
   }
+  const pendingHaPrs = [];
+  for (const pr of rawPRs) {
+    const files = await pages(`${base}/pulls/${pr.number}/files`);
+    if (!files.some((file) => file.filename === 'HUMAN-ACTIONS.md')) continue;
+    if (!/^[a-f0-9]{40}$/i.test(pr.head?.sha || '')) throw new Error('dispatch chase: invalid pending head');
+    const response = await ghImpl(['api', `${base}/contents/HUMAN-ACTIONS.md?ref=${pr.head.sha}`]);
+    const content = JSON.parse(response.stdout);
+    if (response.capExhausted || content.encoding !== 'base64' || typeof content.content !== 'string') {
+      throw new Error('dispatch chase: unreadable pending actions');
+    }
+    pendingHaPrs.push({ number: pr.number, headRef: pr.head.ref, headSha: pr.head.sha,
+      body: pr.body || '', actionsText: Buffer.from(content.content, 'base64').toString('utf8') });
+  }
+  const reportedHeld = [];
+  const briefs = await pages(`${base}/issues?state=all&labels=founders-brief`);
+  for (const brief of briefs.filter((row) => !row.pull_request)) {
+    const markers = [...String(brief.body || '').matchAll(/<!--\s*marjorie-held:\s*issue=(\d+)\s+ha=(\d+)\s*-->/g)];
+    if (!markers.length) continue;
+    const delivered = /<!--\s*discord-message-id:\s*\d+\s*-->/;
+    const comments = delivered.test(brief.body) ? [] : await pages(`${base}/issues/${brief.number}/comments`);
+    if (comments.some((row) => typeof row.body !== 'string')) throw new Error('dispatch chase: unreadable delivery');
+    if (delivered.test(brief.body) || comments.some((row) => delivered.test(row.body))) {
+      reportedHeld.push(...markers.map((match) => ({ issue: Number(match[1]), ha: Number(match[2]) })));
+    }
+  }
   const [fullIssues, fullPRs] = await Promise.all([enrich(issues, false), enrich(prs, true)]);
-  return { issues: fullIssues, prs: fullPRs, openActions, doneActions, now };
+  return { issues: fullIssues, prs: fullPRs, openActions, doneActions, pendingHaPrs, reportedHeld, now };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

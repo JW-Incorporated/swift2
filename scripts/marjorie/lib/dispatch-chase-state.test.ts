@@ -11,7 +11,7 @@ describe('dispatch chase snapshot', () => {
     const ghImpl = async (args: string[]) => {
       const endpoint = args[1]; calls.push(endpoint);
       let rows: unknown[] = [];
-      if (endpoint.includes('/issues?')) rows = [row(7)];
+      if (endpoint.includes('labels=marjorie-filed')) rows = [row(7)];
       else if (endpoint.includes('/pulls?')) rows = [{ ...row(20), body: 'Closes #7' }, { ...row(21), body: 'Fixes #999' }];
       else if (endpoint.includes('/issues/7/comments')) rows = endpoint.endsWith('page=1')
         ? Array.from({ length: 100 }, () => ({ body: 'outside activity', created_at: at, user: { login: 'builder', type: 'User' } }))
@@ -28,7 +28,7 @@ describe('dispatch chase snapshot', () => {
     expect(state.prs.map((p: { number: number }) => p.number)).toEqual([20]);
     expect(state.prs[0].commits).toEqual([{ committedDate: at }]);
     expect(state.prs[0].reviews[0].author.login).toBe('reviewer');
-    expect(calls.some((call) => call.includes('/21/'))).toBe(false);
+    expect(calls.filter((call) => call.includes('/21/'))).toEqual(['repos/owner/repo/pulls/21/files?per_page=100&page=1']);
     expect(state.openActions).toBe('open actions');
     expect(state.doneActions).toBe('done actions');
     expect(state.now).toBe(123);
@@ -45,4 +45,23 @@ describe('dispatch chase snapshot', () => {
       ghImpl: async () => ({ stdout: '[]' }), readFileImpl: async () => { throw new Error('unavailable'); },
     })).rejects.toThrow('unavailable');
   });
+});
+
+it('reserves pending HA head numbers and only remembers delivered held notices', async () => {
+  const ghImpl = async (args: string[]) => {
+    const endpoint = args[1];
+    let rows: unknown = [];
+    if (endpoint.includes('/pulls?')) rows = [{ ...row(30), head: { sha: 'a'.repeat(40), ref: 'ha' } }];
+    else if (endpoint.includes('/pulls/30/files')) rows = [{ filename: 'HUMAN-ACTIONS.md' }];
+    else if (endpoint.includes('/contents/')) rows = { encoding: 'base64', content: Buffer.from('## #81 Pending').toString('base64') };
+    else if (endpoint.includes('labels=founders-brief')) rows = [
+      { ...row(40), body: '<!-- marjorie-held: issue=7 ha=80 -->' },
+      { ...row(41), body: '<!-- marjorie-held: issue=8 ha=82 -->' },
+    ];
+    else if (endpoint.includes('/issues/40/comments')) rows = [{ body: '<!-- discord-message-id: 123 -->' }];
+    return { stdout: JSON.stringify(rows) };
+  };
+  const state = await fetchDispatchChaseState('owner/repo', { ghImpl, readFileImpl: files });
+  expect(state.pendingHaPrs[0]).toMatchObject({ number: 30, actionsText: '## #81 Pending', headSha: 'a'.repeat(40) });
+  expect(state.reportedHeld).toEqual([{ issue: 7, ha: 80 }]);
 });

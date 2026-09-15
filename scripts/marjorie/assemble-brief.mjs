@@ -100,7 +100,7 @@ export function buildBrief(state, { now = state?.now ?? Date.now() } = {}) {
   // ── WAITING ON YOU ────────────────────────────────────────────────────
   const openActions = sortForBrief(state.openActions || []);
   out.push(`**Waiting on you (${openActions.length})**`);
-  out.push(...capSection(buildWaitingOnYouLines(openActions), SECTION_BUDGETS.waitingOnYou), '');
+  out.push(...capSection(buildWaitingOnYouLines(openActions, state.dispatched), SECTION_BUDGETS.waitingOnYou), '');
 
   // ── SINCE YESTERDAY ───────────────────────────────────────────────────
   out.push('**Since yesterday**');

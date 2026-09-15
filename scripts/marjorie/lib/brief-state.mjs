@@ -80,7 +80,7 @@ export async function fetchState(repo = REPO, { now = Date.now() } = {}) {
 
   const contentShipped = await fetchContentShipped(repo, new Date(now - DAY_MS).toISOString()).catch(() => []);
   const chase = evaluateDispatchChase(dispatchSnapshot);
-  const dispatched = chase.items.map((entry) => ({ ...entry.issue, chase: entry }));
+  const dispatched = chase.items.map((entry) => ({ ...entry.issue, chase: { ...entry, heldReported: dispatchSnapshot.reportedHeld.some((report) => report.issue === entry.number && report.ha === (entry.held?.number || 0)) } }));
 
   return {
     allPRs, allPRsCapExhausted,

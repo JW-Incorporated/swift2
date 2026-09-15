@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { renderDispatchedLine, buildSinceYesterdayLines, DAY_MS } from './brief-sections.mjs';
+import { renderDispatchedLine, buildSinceYesterdayLines, buildWaitingOnYouLines, capSection, DAY_MS } from './brief-sections.mjs';
 
 const now = Date.parse('2026-09-15T12:00:00Z');
 const entry = (number: number, days: number, verdict = 'stale-48') => ({
   number, createdAt: new Date(now - 10 * DAY_MS).toISOString(),
-  chase: { number, verdict, silenceMs: days * DAY_MS, holder: 'unclaimed', existingHumanAction: null },
+  chase: { number, verdict, silenceMs: days * DAY_MS, holder: 'unclaimed', existingHumanAction: null, held: { number: 80 }, heldReported: false },
 });
 
 describe('brief dispatch chase', () => {
@@ -32,4 +32,17 @@ describe('brief dispatch chase', () => {
     expect(lines.some((line: string) => line.startsWith('- stalled 2d+:'))).toBe(true);
     expect(lines.every((line: string) => !line.includes('\n'))).toBe(true);
   });
+});
+
+it('reports held once after delivery and keeps both outcomes within the section cap', () => {
+  const held = entry(9, 9, 'held');
+  const state = { dispatched: [entry(7, 3), held], alerts: [], submissions: {}, allPRs: [{ number: 90, headRefName: 'tree/plan/day', state: 'OPEN' }] };
+  const lines = capSection(buildSinceYesterdayLines(state, { merged24: [] }, now), 6);
+  expect(lines.join('\n')).toContain('<!-- marjorie-held: issue=9 ha=80 -->');
+  expect(lines.join('\n')).toContain('- stalled 2d+:');
+  held.chase.heldReported = true;
+  expect(renderDispatchedLine([held], now)).not.toContain('- held:');
+});
+it('puts founder-blocked work in Waiting on you without mislabeling it stalled', () => {
+  expect(buildWaitingOnYouLines([], [entry(10, 9, 'blocked-on-founder')])).toEqual(['- waiting on you: #10']);
 });
