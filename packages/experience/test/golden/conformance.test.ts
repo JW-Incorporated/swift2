@@ -129,25 +129,29 @@ describe('OS-026 core conformance suite', () => {
     }
     content = [...contentByEra.values()].flatMap((f) => f.items);
 
-    const tracksFile = loaded.files.tracks as { eraId: EraId; tracks: TrackNote[] };
-    setTracksRawProvider({ [tracksFile.eraId]: tracksFile.tracks });
+    const trackFiles = loaded.files.tracks as { eraId: EraId; tracks: TrackNote[] }[];
+    const tracksByEra = Object.fromEntries(trackFiles.map((file) => [file.eraId, file.tracks]));
+    setTracksRawProvider(tracksByEra);
 
-    const theoriesFile = loaded.files.theories as { eraId: EraId; theories: TheoryNote[] };
-    setTheoriesRawProvider(() => ({ [theoriesFile.eraId]: theoriesFile.theories }));
+    const theoryFiles = loaded.files.theories as { eraId: EraId; theories: TheoryNote[] }[];
+    setTheoriesRawProvider(() => Object.fromEntries(theoryFiles.map((file) => [file.eraId, file.theories])));
 
-    const eraSecretsFile = loaded.files.eraSecrets as { eraId: EraId; secrets: EraSecret[] };
-    setEraSecretsRawProvider(() => ({ [eraSecretsFile.eraId]: eraSecretsFile.secrets }));
+    const eraSecretFiles = loaded.files.eraSecrets as { eraId: EraId; secrets: EraSecret[] }[];
+    setEraSecretsRawProvider(() => Object.fromEntries(eraSecretFiles.map((file) => [file.eraId, file.secrets])));
 
     setThreadContentProvider(() => content);
     setContentItemLookup((id) => content.find((c) => c.id === id));
     setSongTargetResolver((relatedId) => {
       if (!relatedId.startsWith('song:')) return null;
       const slug = relatedId.slice('song:'.length);
-      const track = tracksFile.tracks.find((t) => t.slug === slug);
-      return track ? { eraId: tracksFile.eraId, track } : null;
+      for (const file of trackFiles) {
+        const track = file.tracks.find((candidate) => candidate.slug === slug);
+        if (track) return { eraId: file.eraId, track };
+      }
+      return null;
     });
 
-    videos = (loaded.files.videos as { videos: VideoNote[] }).videos;
+    videos = (loaded.files.videos as { videos: VideoNote[] }[]).flatMap((file) => file.videos);
     void eras;
   });
 

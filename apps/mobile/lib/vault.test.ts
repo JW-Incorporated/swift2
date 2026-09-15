@@ -56,7 +56,7 @@ const files: Record<string, unknown> = vi.hoisted(() => ({
       },
     ],
   },
-  tracks: { eraId: 'folklore', tracks: [{ trackNumber: 1, title: 'the 1', note: 'note' }] },
+  tracks: [{ eraId: 'folklore', tracks: [{ trackNumber: 1, title: 'the 1', note: 'note' }] }],
 }));
 
 const loadBundle = vi.hoisted(() =>
