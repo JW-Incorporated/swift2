@@ -169,6 +169,20 @@ is stale; otherwise it becomes the `stalled 2d+:` list above, sorted by age,
 max 8 items then `+K more`. `renderDispatchedLine` keeps its current output
 for the `fresh`-only case so existing tests hold.
 
+Implementation wiring: `dispatch-chase-state.mjs` collects one complete,
+paginated REST snapshot of issues, linked open PRs, comments, reviews,
+commits and label/assignee events, plus both human-action files. An unreadable
+or truncated source fails the snapshot; it cannot authorize a chase. The
+brief uses the same snapshot and verdict helper as the hourly sweep. The
+existing dispatched count is retained, with the stalled line added only
+when needed and counted separately toward the section's line budget.
+
+The ops workflow prepares the snapshot and plan in plain `run:` steps and
+passes the plan through its existing pre-run artifact mechanism. The agent
+does not spend turns collecting it. Its gate opens for either watchdog
+alerts or planned chase actions; workflow concurrency serializes snapshot
+through mutation so queued sweeps read the preceding sweep's markers.
+
 ### 5. What does not change
 
 - Austin's fence and allowlist (`docs/agents/austin.md`) are untouched. An
@@ -208,6 +222,8 @@ for the `fresh`-only case so existing tests hold.
 
 - New: `scripts/marjorie/lib/build-ticket.mjs` (+ test),
   `scripts/marjorie/lib/dispatch-chase.mjs` (+ test).
+- Shared snapshot: `scripts/marjorie/lib/dispatch-chase-state.mjs` (+ test);
+  `.github/workflows/routine-marjorie-ops.yml` prepares the plan artifact.
 - Edited: `docs/agents/runner-prompts/marjorie-triage.md` (file through the
   helper), `marjorie-ops.md` (step 2b), `marjorie-chat.md` (§2, the yes and
   the `assign|defer|close` words), `brief-state.mjs`, `brief-sections.mjs`

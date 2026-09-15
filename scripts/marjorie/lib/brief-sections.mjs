@@ -135,7 +135,16 @@ export function renderDispatchedLine(dispatched, now) {
   if (list.length === 0) return null;
   const oldest = [...list].sort((x, y) => new Date(x.createdAt).getTime() - new Date(y.createdAt).getTime())[0];
   const ageDays = Math.floor((now - new Date(oldest.createdAt).getTime()) / DAY_MS);
-  return `- dispatched: ${list.length} open, oldest ${ageDays}d (#${oldest.number})`;
+  const summary = `- dispatched: ${list.length} open, oldest ${ageDays}d (#${oldest.number})`;
+  const stalled = list.map((item) => item.chase).filter((entry) => /^stale-(48|96)$/.test(entry?.verdict || ''))
+    .sort((a, b) => b.silenceMs - a.silenceMs || a.number - b.number);
+  if (!stalled.length) return summary;
+  const shown = stalled.slice(0, 8).map((entry) => {
+    const action = entry.existingHumanAction ? `, HA #${entry.existingHumanAction}` : '';
+    return `#${entry.number} (${Math.floor(entry.silenceMs / DAY_MS)}d, ${entry.holder}${action})`;
+  });
+  if (stalled.length > 8) shown.push(`+${stalled.length - 8} more`);
+  return `${summary}\n- stalled 2d+: ${shown.join(' · ')}`;
 }
 
 export function buildSinceYesterdayLines(state, a, now) {
@@ -145,7 +154,7 @@ export function buildSinceYesterdayLines(state, a, now) {
     renderSubmissionsLine(state.submissions),
   ];
   const dispatched = renderDispatchedLine(state.dispatched, now);
-  if (dispatched) lines.push(dispatched);
+  if (dispatched) lines.push(...dispatched.split('\n'));
   const treePR = findLatestTreePR(state.allPRs);
   if (treePR && String(treePR.state).toUpperCase() === 'OPEN') {
     lines.push(`- Tree's plan PR #${treePR.number} is up for your ✅ in #longlive-tree`);
