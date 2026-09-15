@@ -74,7 +74,7 @@ jobs:
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
       timeout_minutes: 40
-      max_budget_usd: ${{ github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0 }}
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

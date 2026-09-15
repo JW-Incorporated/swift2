@@ -61,7 +61,7 @@ jobs:
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 25
       max_turns: 40
-      max_budget_usd: ${{ github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0 }}
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
