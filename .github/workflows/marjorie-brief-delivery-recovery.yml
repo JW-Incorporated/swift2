@@ -43,6 +43,8 @@ jobs:
           ISSUE_URL: ${{ steps.brief.outputs.issue_url }}
           BODY_FILE: ${{ runner.temp }}/brief-body.md
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           set -euo pipefail
           timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$ISSUE_NUMBER" --issue-url "$ISSUE_URL" --body-file "$BODY_FILE" --out "$BODY_FILE" \
