@@ -62,6 +62,98 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-cma-awards-2026-return',
+      year: 2026,
+      month: 9,
+      day: 10,
+      category: 'music',
+      title: "\"I haven't yee'd my last haw\": Taylor confirms a CMA Awards return after a decade away",
+      snippet:
+        'An Instagram Story — "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" — confirmed Taylor will attend the 60th CMA Awards on Nov. 18, her first time at the show in ten years, following a Single of the Year nod for "I Knew It, I Knew You."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+            source_title:
+              "Taylor Swift to Attend CMA Awards for First Time in 10 Years After 'I Knew It, I Knew You' Nomination",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/10/taylor-swift-confirms-2026-cma-awards-appearance-after-10-year-absence/',
+            source_title: 'Taylor Swift Confirms 2026 CMA Awards Appearance After 10-Year Absence',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Express Tribune',
+            url: 'https://tribune.com.pk/story/2628769/taylor-swift-confirms-2026-cma-awards-return-after-10-year-absence',
+            source_title: 'Taylor Swift confirms 2026 CMA Awards return after 10-year absence',
+            publisher: 'The Express Tribune',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-swiftiephylus-insect-genus',
+      year: 2026,
+      month: 9,
+      day: 9,
+      category: 'business',
+      title: 'Swiftiephylus: UC Riverside names a new insect genus — and four species — after Taylor',
+      snippet:
+        'Entomologists at UC Riverside named a newly described genus of Australian plant bugs Swiftiephylus, with four species — taylorae, amator, intrepidus and poetorum — nodding to Taylor, Lover, Fearless and The Tortured Poets Department.',
+      sourceUrl: 'https://news.ucr.edu/articles/2026/09/09/taylor-swift-becomes-bugs',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In a study published Sept. 9, 2026 in the journal Insect Systematics and Evolution, UC Riverside entomologists Sarah Schroeder, a doctoral student, and Christiane Weirauch formally described a dozen Australian plant-feeding insect species and placed four of them in a new genus they named Swiftiephylus — a blend of "Swiftie," the term for Taylor\'s fans, and "-phylus," the ending common to this group of plant bugs.\n\nThe four species carry Latin forms that nod to the artist and her albums: Swiftiephylus taylorae (for Taylor herself), S. amator ("lover"), S. intrepidus ("fearless"), and S. poetorum (a wink at The Tortured Poets Department). The insects feed on Australian she-oaks and are harmless to people, animals and the trees. Schroeder said she hoped attaching Taylor\'s name would draw attention to the insects themselves, and to insect conservation more broadly.',
+        sources: [
+          {
+            outlet: 'UCR News',
+            url: 'https://news.ucr.edu/articles/2026/09/09/taylor-swift-becomes-bugs',
+            source_title: 'Taylor Swift becomes bugs',
+            publisher: 'UC Riverside',
+            source_type: 'official',
+            accessed_at: '2026-09-15',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Phys.org',
+            url: 'https://phys.org/news/2026-09-insect-genus-species-taylor-swift.html',
+            source_title: 'New insect genus and four species named for Taylor Swift and her albums',
+            publisher: 'Phys.org',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Vice',
+            url: 'https://www.vice.com/en/article/taylor-swift-officially-has-her-own-insect-named-after-her/',
+            source_title: 'Taylor Swift Officially Has Her Own Insect Named After Her',
+            publisher: 'Vice',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-15',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     // --- The announcement (August 2025; pre-dates the era window on purpose,
     // same convention as TTPD's Grammys-announcement item living in its own
     // era file).
