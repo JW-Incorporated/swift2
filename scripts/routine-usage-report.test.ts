@@ -85,6 +85,16 @@ describe('buildUsageRecord', () => {
     const record = buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: {} });
     expect(record).not.toHaveProperty('diagnostic');
   });
+
+  it('does not add diagnostics to a successful result with an assistant error', () => {
+    const record = buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: {}, assistantError: 'rate_limit' });
+    expect(record).not.toHaveProperty('diagnostic');
+  });
+
+  it('sanitizes assistant errors at the output boundary', () => {
+    const record = buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: { is_error: true }, assistantError: 'secret-token' });
+    expect(record.diagnostic).toEqual({ isError: true, resultSubtype: 'unknown', assistantError: 'unknown' });
+  });
 });
 
 describe('findAssistantError', () => {

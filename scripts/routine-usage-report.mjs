@@ -78,11 +78,11 @@ export function buildUsageRecord({ routineName, model, maxTurns, result, assista
     usage: result.usage ?? null,
     generatedAt: new Date().toISOString(),
   };
-  if (result.is_error === true || assistantError !== null) {
+  if (result.is_error === true) {
     record.diagnostic = {
       isError: result.is_error === true,
       resultSubtype: fixedValue(result.subtype, RESULT_SUBTYPES),
-      ...(assistantError !== null ? { assistantError } : {}),
+      ...(assistantError !== null ? { assistantError: fixedValue(assistantError, SDK_ERRORS) } : {}),
     };
   }
   return record;
