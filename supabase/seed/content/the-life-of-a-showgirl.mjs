@@ -13646,6 +13646,138 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-i-knew-it-country-radio-no1',
+      year: 2026,
+      month: 9,
+      day: 6,
+      category: 'music',
+      title: 'Taylor tops country radio again with "I Knew It, I Knew You" — her first No. 1 there in more than a decade',
+      snippet:
+        '"I Knew It, I Knew You," her Jack Antonoff-produced Toy Story 5 song, reached No. 1 on Mediabase\'s country-radio panel for the week ending Sept. 6, 2026 — the most-played song on country radio in the country that week, and her first time atop that panel since her early-2010s country run.',
+      sourceUrl:
+        'https://headlineplanet.com/home/2026/09/06/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-country-radio/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
+      moment: {
+        context:
+          'Nearly two decades after country radio launched her, Taylor was back at the top of it. "I Knew It, I Knew You" — the song she wrote and produced with Jack Antonoff for Disney and Pixar\'s Toy Story 5, released June 5, 2026 — reached No. 1 on Mediabase\'s country-radio singles chart for the tracking week ending Sept. 6, 2026, ranking as the single most-played song on the Mediabase country panel that week. It was her first time leading country radio in more than a decade, a return to the format that made her before pop did.\n\nThe path there was already historic on the chart\'s own terms. When it arrived, "I Knew It, I Knew You" debuted at No. 8 on Billboard\'s Country Airplay chart — the first song by a female artist ever to debut inside that chart\'s top 10, and her own first Country Airplay top-10 entry since "Red" back in December 2013, the gap that makes "more than a decade" literal rather than a flourish. On Hot Country Songs, the genre chart that folds streaming and sales in with radio, it went all the way to No. 1, her 10th chart-topper there.\n\nThe one wrinkle worth stating plainly is which "country No. 1" this is, because the panels don\'t all agree. Mediabase ranks by raw spins, and by spins it was the week\'s most-played country song. Billboard\'s Country Airplay chart ranks the same radio universe by audience impressions instead, and by that measure it finished the week second — behind Luke Combs\' "Be By You" — so on Billboard\'s airplay chart it was kept just short of the top, which is the near-miss some chart columnists led with. Both are true at once: No. 1 for spins, runner-up for impressions, the same song on two rulers. The much-syndicated radio-wire framing that called it her "14th career" or "13th solo" country No. 1 is a count this page can\'t independently stand behind against the chart record, so it is left out; what is solid is the Mediabase No. 1, the record-setting top-10 Country Airplay debut, and the Hot Country Songs No. 1.',
+        sources: [
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/09/06/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-country-radio/',
+            source_title: 'Taylor Swift\'s "I Knew It, I Knew You" Officially Reaches #1 At Country Radio',
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 3,
+            notes:
+              'Mediabase country panel No. 1 for the week ending Sept. 6, 2026; most-played, second for audience impressions behind Luke Combs\' "Be By You."',
+          },
+          {
+            outlet: '99.5 QYK (Cumulus, wire-syndicated)',
+            url: 'https://995qyk.com/2026/09/09/taylor-swift-returns-to-country-radio-no-1-after-13-years/',
+            source_title: 'Taylor Swift Returns to Country Radio No. 1 After 13 Years',
+            publisher: 'Cumulus Media (Jennifer Eggleston, syndicated)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 2,
+            notes:
+              'One wire piece republished verbatim across dozens of Cumulus country stations — corroborates the country-radio No. 1 framing, not independent sourcing; its "13th solo / 14th career country No. 1" counts are not used here.',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Knew_It,_I_Knew_You',
+            source_title: 'I Knew It, I Knew You',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-09-16',
+            reliability_score: 3,
+            notes:
+              'Chart record: Country Airplay top-10 debut at No. 8 (first female to debut in the top 10; first Country Airplay top 10 since "Red," Dec. 2013), Hot Country Songs No. 1 (her 10th), writers/producers, Toy Story 5, June 5, 2026 release.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Reference photo: Taylor performing on the Eras Tour at BC Place, Vancouver, Dec. 2024 — not the country-radio chart week itself.',
+            kind: 'reference',
+            focalPoint: '50% 32%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      year: 2026,
+      month: 9,
+      day: 14,
+      category: 'sighting',
+      title: 'Taylor returns to Arrowhead for the Chiefs\' season opener — with Tom Cruise in the suite',
+      snippet:
+        'In her first Chiefs game since marrying Travis Kelce in July, Taylor watched Kansas City open the 2026 season with a 31-10 Monday-night win over the Denver Broncos on Sept. 14 — seated in the suite beside a surprise guest, Tom Cruise.',
+      sourceUrl:
+        'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-nfl-game-2026-week-1-rcna597796',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+      moment: {
+        context:
+          'It was her first time back at Arrowhead as a wife. Taylor attended the Kansas City Chiefs\' 2026 season opener on Monday, Sept. 14, her first Chiefs game since she and Travis Kelce married at Madison Square Garden that July, and the cameras found her in the suite next to a face nobody had penciled in: Tom Cruise. The two were shown hugging and high-fiving as Kansas City scored, the kind of incidental double-take — the biggest pop star in the world and one of the last true movie stars sharing a football suite — that traveled faster than the game did.\n\nThe game itself gave the home crowd plenty to celebrate. The Chiefs handled the Broncos 31-10 in the primetime window that closed Week 1, an emphatic answer to a rocky prior season, with Patrick Mahomes back on the field in his return from a torn ACL. Kelce\'s wife in the stands, his quarterback healthy again, an AFC West rival dispatched by three scores — for a franchise coming off its first missed playoffs since 2014, it was the reset it wanted.\n\nThe Vault keeps this to what the coverage documents: the confirmed sighting, the company, and the score. The full guest list circulating around the suite and any read on why Cruise was there are left to the outlets that reported them; nothing here dresses the appearance up beyond her being present, at that game, on that night.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-nfl-game-2026-week-1-rcna597796',
+            source_title: 'Taylor Swift and Tom Cruise Attend Chiefs-Broncos Game',
+            publisher: 'TODAY (NBCUniversal)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+            notes:
+              'Confirms Taylor attended with Tom Cruise, her first game since the July MSG wedding; "The two hugged and high-fived when the Chiefs scored."',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-tom-cruise-chiefs-broncos-game-travis-kelce-1236340177/',
+            source_title: 'Taylor Swift Cheers On Husband Travis Kelce at Chiefs\' Home Opener Against Broncos, With Tom Cruise by Her Side',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/game/_/gameId/401872931/broncos-chiefs',
+            source_title: 'Chiefs 31-10 Broncos (Sep 14, 2026) Final Score',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+            notes: 'Final score 31-10 Chiefs; Mahomes\' return from a torn ACL.',
+          },
+          {
+            outlet: 'BBC Sport',
+            url: 'https://www.bbc.co.uk/sport/articles/cqx2z5edy37po',
+            source_title: 'Taylor Swift attends Chiefs season opener',
+            publisher: 'BBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'Paolo Villanueva, Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'Reference photo: Taylor on the Eras Tour in London, Aug. 2024 — not the Sept. 14, 2026 game.',
+            kind: 'reference',
+            focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
