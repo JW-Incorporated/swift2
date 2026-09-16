@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 94
+
+## Fans Decode Hidden Message from Taylor Swift's Emmys Appearance
+
+- first seen: 2026-09-16 23:38 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Fans of Taylor Swift are actively trying to interpret a possible hidden message from her recent Emmys appearance, showcasing their dedication and interest in her public appearances.
+- sources:
+  - [unverified] PennLive.com — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNbURfMmNCeDIxNkd1d0IzV3h2VkZHekphQnMtZ205MzR4QTYySEtqMUllQnJvSjhUSEF0S29pVWZldldYeWtMMjdQaFFiTTcwTzZGUmtHWkdNMWVhOHN3c1VVcTlxblFCT18xZzR6bXBweEViY3E3VXo0TElGVUdoZ3lsUVpuT3U5UW5TY29tdkt6cGN2cG1JOHM3cG56ajNsWjR5SDBMaXotTUMtdjR5S0tjcVJvSWVjc01wR1NmelpjbjRmUDhKZkI2QTItTk11QTNLR1pBY1JwRGYt0gHwAUFVX3lxTFBWS2N1TVA0cmMtMVdfV2NIalpKbFpRYlpoLXVRRlY2Qm85alQ0TnlJbDRfMlM5MTBPNEZtYnR3alhIaEVfWUxiX0E5WkVjeHNZRW5yTGVkam4zcHFMUl9NazhzQUdsQTZxM04yVFpsS2lTVWZGVlhJUUhLbFpVbC15NUdpNzJGZUtpTHlnU1NVNlhvNEZoeHotMlliUDBqQS11dllVUjRkWWxxRFF4WnFDU2h0Z0JWVlR0by1yLXFFMGtiTWl5Z3JBZTAyWnlQSWJhTW5rbTJjQjdUTWpaTlFfanNhUFpDaE5kR042QzloUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Addresses Drama Involving Ed Sheeran and Macklemore
+
+- first seen: 2026-09-16 23:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has provided her response regarding the recent drama involving her friends Ed Sheeran and Macklemore. Details about the situation and her comments have emerged in a StyleCaster article.
+- sources:
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMioAFBVV95cUxOdnVORC1QTHVOMTUza0k0UFZjZURFUVpFQU1yMlNuVFZ6cjFScDRRTnVOYkljUXFyT3hxWnhDYmdFMDFVQ0JTNUowckNoRGdvdERzUDA2UnZ6cGZVSHhLMzN5VWd4LWNHY1U4Y0hMWnVmU01PTzRWMXY0ajdvcG5MRkFUdmU5SjBRY1pBREJoVmUwZ3NGMkhjZXBZQ3JOMzQ5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Music Videos Now Accessible on Spotify
+
+- first seen: 2026-09-16 23:38 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Spotify has announced that Taylor Swift's music videos are now available for streaming on their platform, expanding the accessibility of her visual content to fans.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOQWhZdUM5Q0w2VFlxeXNzWi05MEVDMlpaN0JodWd5dzA1ZXBVTTU5UEdhaG9JZ1BKeGV2dlBuWXlhYUVGd2RMRllFcXJMU1dmTjdyb2NManBFTVU5WHpJeFowR3lJR2N4M2tDWm9PNG93VTlKRVh2N2tuWWRnOTZaaGMydnljb2YwTk1lb3hEN3BXVmFaZzdQbzdhdjE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Pat McAfee shares experience sitting with Taylor Swift and Tom Cruise at NFL game
+
+- first seen: 2026-09-16 23:38 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Pat McAfee discusses his experience attending an NFL game alongside Taylor Swift and Tom Cruise, who were there to support Travis Kelce. Swift opted for a casual appearance, skipping the Emmys for the event.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMipAFBVV95cUxPc0tJX3lJN2NUUm0tMFRuYkhHbFRyRGg1Q0VoNEVBU19HMkJ0X2xBMlFrcDUzWXgtRmp0VVFCVFJGcFBZLWxjSDB3Tm5WcUtfZG1mWHVtYkVNejRLVjlLRmo1c2VOV2ZjaVh3N0x4SGxHWnhEN0U4czN2b1ZlcTR2YWRianNxSm84UUZvVWRkQzlseDFtZnBFR3NEMUcwSm1QUzFLRA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Debuts Stunning Short Straight Haircut
 
@@ -208,7 +240,7 @@ Stories: 91
 ## Taylor Swift and Travis Kelce Take Steps to Protect Privacy in New Ohio Mansion
 
 - first seen: 2026-09-16 05:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift and Travis Kelce are reportedly implementing measures to maintain their privacy in their new mansion in Ohio, aiming to keep nosy neighbors at bay.
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxQdTlYWlNuQ1Z5OTdYUk1OWVNaNVowZUVlcnFQOUdUT2wxT1RjZWZLLWNHMjVTSEF5WHBPYXBPTHFTZGVEaVctNGFaM0VpSlN5N3ZhZzFLYlJhQV9MaXlua1JxZ2ZKd25DUVdJdUxQT2NpMzB2UWRTZGNjMHlkOTFBUXl4VUpuODA?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -217,6 +249,7 @@ Stories: 91
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQYUJacUI2UlF6Skx5azI4YlJwSkxVYjNfem5Jdmx3TGV1OTNYeFZkYWtEQVFadnpGdFhaaXZkbU9lNldDMU5zVWI3eDlYSmMyVlpiQU1xdVlPeTkzY2tkXzdMRWI5X05LRm5Ob2VlOWdudWxwS2x5eWpGLTRydURPZzN1RG5RdmJvOERCVHdNcWd1TzJhYmZKU1htaTVodw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOSU9jMkUtS1ZwMkJsOElYSThTNnhEVzBGNU9HdG44Z2otUFl6LWxaSFdja3BYSFdsendDZ2tmWEZoSDhSQXBhenI3UklaZGlBaVFlMEtQX2RpRTRDalVYa2IxaFZob01TQlBJWXhZMVprNU5NTndJX2Zsb1lSeGd2VVFTYU9qSDhxY1JMNHJsNGozWXZKRmdoOGx5eWVlYS1QeEJMYUZ3T054aWJKbWhXa0ctYS0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqANBVV95cUxPOVNUczlxTnEtaElIMXdMOS15X0VYZkhNbTJXcXBXTmhQd204LVU3UlNEM3BpNmJkSDFsQ2Z1Z21ZT0hpLXFYQjlFR0tncTNLQXc2R3cxQTRsaHpkR3E3c3VXcFY5S3ZyRTQ0Rm4wRHBSbVQzeklJbmtGSDgwRG5HcmdKbzF5X2FJMFFZemtfX2pLV0VxQ0VOamhCdGpaNk9xbkJXUGxWeERuSWd5SzZWN1RPUG5pUE1tRWNEdTJCWjAxbXNZQVUzZ1BtX0thM1VfTzVPSWljLWppa0JMVFBMZUdFcFJZY2pZRzdETFhIYlJpTGlVQVlVQjIzdHBIVEtpTG9SeFo2RGJrTUdlczluM0VqUnFzc0tYaFVNQ01UaHJGU3hncHcybUlCMUM3cWo4bFh6cjFTNmM2M3RCUEJ1N2pHTTRjOUw4QlZXaDZrZm9JTlVSeWxFV3hTN042UnpGXzlLdng3X05nbEhNS2t6V2lMLURVTmxEY2pjWWFqeUJZVVNpZjBBR2prUmhJUS1kRVZ6eTFTb2t1RUlEeVphb25RNXpXWEhB0gGuA0FVX3lxTFBKQnV2WFlzb2FxRnlOYk5VOWo5R3E2bUp4YjBsZVpXVXRwN21mNHJnNF9ZaHBCTUs5UWl1Wi05TjhBLTlqdlE3UlFydkdIZWRFSFk5b0RqODNIcERnQ3NKcXhPdldGMVprdk5TelM1NkNMQjJSSVdaWTlXcWRFZDk0czRFalBkY0FWZFY3NmdVR05XdGZRbGFBV2ZJUHNyUWFDNXhLb2ZLQUtHVHI4ZldDZWNNSVBGdUNtaUx4WFY5LXZKdDA2MVhzQV92WGliaFJEQzRrTk51b3NBQl9DRjVUMVIwNGdHdkNKZzV1RkQ3RkRRdnprSXREempKVDQwTkdtd1ZDdTdacjg5OGk3UDdFQVlaMW9fX0RpbUZuUl85NGljUDJuUWFTeGhqVlh1bnpqc3ZBYVpPZmhuUTJyWjY2UURwZ1I4VnI3aU5QcXdqVzFfUEZuSk5KZ0paYTVhQzAxTldRWFJRb2VtMjR1aHNPUGNSa2RhZFJZZmNBRDVvMURDNDVkUnJRdGI1ZHZTOXAyVVc0eW92ZnAzOUhia2dxVUpHOWRfSHZMSUZKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQYmJhMnpqYzlBVXNrRnpMekZCai1QaWlnOUJYaDh0RWtidEQ1MlM5RzRHQTJ3OGNkMVRnekFUbXo3MVoxOEZPbmZaT3VtZEJvOEdCaHFqbTVoR01qUDczTXRSWkFUN3pGYzkxOEp3QzAtS0loaU1RWWZWM1JzTHpuSE1DSzlGUHVPWV8xNU5VdUZNT3NJMGxkYXhGQzhtZlozRVY4cWdzX1RsSXZ2OUVuYnhaSFZYcTZselJrcVQwcFFaWlJoU0Y4btIBxwFBVV95cUxNSkI4RjhTSnhHalhwa2V6b0FpbzJJWndjbURzVEJtUm5pNTNDV0lDM3luRTNiQzFCSDVCdy1YSEExVWdPMUZHWHJTT1Q3RkFzTmhwNkJycWlLTVBEanlUUlFiUkozRjBwVTF2ODF6Vk1WXzYwT2VaNHA3ODFYRjRTb00wMzZQZWdUdEViTEdsRE9lYmdzUTdHc2N5Vm1PTHpUbGVyNnpmRGtXSXNxWk80OUpIQnBSNGtvQXNkUEM1S0ljT0lhYjVj?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Details Revealed About Taylor Swift's Cameo in 2026 Emmys SVU Skit
 
@@ -795,11 +828,3 @@ Stories: 91
 - summary: Reports suggest that Taylor Swift is allegedly unhappy with Nikki Glaser's recap of her wedding. The specifics of the situation have not been disclosed.
 - sources:
   - [unverified] Cinemablend — https://news.google.com/rss/articles/CBMirAFBVV95cUxQem1YdkdLMTh0LTMtSkMwZzhRbEFvU1AxYl9kRWRvX3hGVHl1aGR5ckttakFRNmxTQmp1SENFVEF1dWowc2p3T1Z0TVB6Yy10MmlrdTF6RlFaX3d1Rm9qMVlycE9WMnVvV28wQ21DbjlXU1RhTU8wazlESFFvMnJBa3lGOHRzSXJCdENpSVVvZnFwSFdDOGx5TVcyZUxOeGRXclJCcjczcjFkdnhJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Historic Moment at the 2009 MTV VMAs
-
-- first seen: 2026-09-13 23:06 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The article recalls Taylor Swift's significant achievement at the 2009 MTV VMAs, marking a pivotal moment in her career and the award show's history.
-- sources:
-  - [unverified] americansongwriter.com — https://news.google.com/rss/articles/CBMi5wFBVV95cUxQWDFaenJzYXFlM2FuMm1yb0czSFJGczNuUDlTc2otS3hib3d3V0hDdE5Pa3NtRC13R2I3Tms2eW02YmhZUVpQM2FsWlNaRjhSWUZuMThpdUp5UmlGRnB4U2xNTHB3djBULXc2QUc5M2NnS2tFOFRWT3JBeERCMEs1ZjdaQy1PaG5uYTZSU2lYejhXTDBZVUJlYXVrMjVLUjFNOTl5QVVtQTRfLXllVm1yM1l6SU5JVjViVE15Z2kwcVJ1UC1tNXNoZUtVZjdtaG92eTNqUmJOUWhkQzZORmM5bm5lT0RLeWs?oc=5&hl=en-US&gl=US&ceid=US:en
