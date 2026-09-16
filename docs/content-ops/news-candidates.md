@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 83
+
+## Taylor Swift Did Not Attend the Emmys
+
+- first seen: 2026-09-16 05:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Washington Post reports on Taylor Swift's decision to skip the Emmy Awards. The reasons behind her absence are discussed in the article.
+- sources:
+  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMilAFBVV95cUxOd0hMeEFYYUNobTZkTlJ0dmFUNkJYRmVKMzJWRG84M2NsZ1JtbDFmU2VkbzlJcnZGTUZOc1djXzRtRmQ0WDMyeGJtUzNaYXYyMHZTNlg0dTNqVjNOcUdkQXBzQVVHV1lSdDdvSjVQbU9CcGlNcVpmR253QWFCMVZGaS1FQ3F1WExnazdUejYtRS1QRG5p?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Emmys Remarks Spark Fan Theories
+
+- first seen: 2026-09-16 05:57 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's comments during the Emmys have sparked theories among fans, who believe they may contain hidden meanings or 'Easter eggs.' Swifties are analyzing her words for clues regarding her music or upcoming projects.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxNQVdwa2huX2NIdEs5WlVhNFVGZUpxWXVtYVk1c2tWUkM3LVNPQjRRZ21JczlsM1Bpc250OGh6RXU5VVRFT3hOTDVoTHRwRTQxdktuZUs4eE1rOWNucDFQREFXTUZQU0VWRTJWcEluOXJ0dEhRS0ZnbzRPcVBta2U2bnA4NVB6eG5UcWNqTnl6MVZtak5ZSXpKWg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Take Steps to Protect Privacy in New Ohio Mansion
+
+- first seen: 2026-09-16 05:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly implementing measures to maintain their privacy in their new mansion in Ohio, aiming to keep nosy neighbors at bay.
+- sources:
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOSU9jMkUtS1ZwMkJsOElYSThTNnhEVzBGNU9HdG44Z2otUFl6LWxaSFdja3BYSFdsendDZ2tmWEZoSDhSQXBhenI3UklaZGlBaVFlMEtQX2RpRTRDalVYa2IxaFZob01TQlBJWXhZMVprNU5NTndJX2Zsb1lSeGd2VVFTYU9qSDhxY1JMNHJsNGozWXZKRmdoOGx5eWVlYS1QeEJMYUZ3T054aWJKbWhXa0ctYS0?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Details Revealed About Taylor Swift's Cameo in 2026 Emmys SVU Skit
 
@@ -163,15 +187,6 @@ Stories: 80
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zc8v6rd?at_medium=RSS&at_campaign=rss
 
-## Taylor Swift's Emmys Cameo Features Easter Eggs
-
-- first seen: 2026-09-15 14:18 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift's appearance at the Emmys includes intriguing references such as 'saccharide, Aries, from the vineyard'. The meaning behind these Easter eggs is explored in the coverage.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPZlJ0Y1loZ1E0UmxEdm8zOFRqQWI2a29wTkFLRkxMYVBTS3MyeVdsMTN2SUVnVEpOX2dNeG9BOGUwRDJZbENrNWNqMEViRDkwc1p3cnNXLURvcnY5U2thdWY4cTdiLUZwZXBhR1Zha1BEMExra0pWellWRFlBMktqbUJjbVZjQ09WR0QzRHI3LVE0WlRUWFk0eU8za0ZrdHZ3TndkajlJV0RDT3I3ZE5jTVFDMnp2bXlxMmZodmtsUkZqYnM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOUkt5TDhyVzREaEtsQ1RVM2lOZHFYQVNvVjR6S3piOHVzeWM4WmNtb052ODVrSTJLZUFhb1B6LS1DMm1hWjY3b29FZ3ZoUHdPRGhsT29sWVZHRExjZ0Z5cHM1dXFmc19tS2RfbnNxSlg4dENGWThjSTVENHZ1Ym5MQ0dfc2ZpQlAza3VXTGNnaEFEaWN4Y01DRW5WQ3ktenlmRkRDeVUtOWFwQkhZVlVETTZWa0tRc2tfb1NjYzFHN25TNmtZNWZ3UjFJLXlBZmQ1NFdRVG5HdjJYMEhjUWJJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Makes Surprise Pre-Recorded Cameo
 
 - first seen: 2026-09-15 14:18 UTC | category: music | importance: 5
@@ -179,6 +194,16 @@ Stories: 80
 - summary: Taylor Swift has made a surprise appearance through a pre-recorded cameo, delighting fans. Details surrounding the context of this cameo have not been disclosed.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/c6jrxjwxye9no?at_medium=RSS&at_campaign=rss
+
+## Taylor Swift's Emmys Cameo Features Easter Eggs
+
+- first seen: 2026-09-15 14:18 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift's appearance at the Emmys includes intriguing references such as 'saccharide, Aries, from the vineyard'. The meaning behind these Easter eggs is explored in the coverage.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPZlJ0Y1loZ1E0UmxEdm8zOFRqQWI2a29wTkFLRkxMYVBTS3MyeVdsMTN2SUVnVEpOX2dNeG9BOGUwRDJZbENrNWNqMEViRDkwc1p3cnNXLURvcnY5U2thdWY4cTdiLUZwZXBhR1Zha1BEMExra0pWellWRFlBMktqbUJjbVZjQ09WR0QzRHI3LVE0WlRUWFk0eU8za0ZrdHZ3TndkajlJV0RDT3I3ZE5jTVFDMnp2bXlxMmZodmtsUkZqYnM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxNRFFuck0wcVVhaWI5MEpyUU9MWDk3MXRack1PM1g4SjZzVVo0cjQ5VXhhWkF6RHpmMXN1M3pYQVdTNzJTWjhsU3pnRXBLNDUyUUlzbzZ5TmNSNmMzejlvY0c3Z2Y0RGsxSzNQeVVSMzhHRk9ld25QTnhnMTRCWi1GUC03ZkdEbU1HUExVTF92MFhLQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3wFBVV95cUxOUkt5TDhyVzREaEtsQ1RVM2lOZHFYQVNvVjR6S3piOHVzeWM4WmNtb052ODVrSTJLZUFhb1B6LS1DMm1hWjY3b29FZ3ZoUHdPRGhsT29sWVZHRExjZ0Z5cHM1dXFmc19tS2RfbnNxSlg4dENGWThjSTVENHZ1Ym5MQ0dfc2ZpQlAza3VXTGNnaEFEaWN4Y01DRW5WQ3ktenlmRkRDeVUtOWFwQkhZVlVETTZWa0tRc2tfb1NjYzFHN25TNmtZNWZ3UjFJLXlBZmQ1NFdRVG5HdjJYMEhjUWJJ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Appears at 2026 Emmys Alongside Mariska Hargitay
 
@@ -215,20 +240,6 @@ Stories: 80
   - [unverified] TheWrap — https://news.google.com/rss/articles/CBMirAFBVV95cUxPZjMzTU9TZElXcFNPeGV3dUlfUl9IQTRFdU1DVG5vdkppOGhtdWxoRUptX09DM0lKUUFhNUI3OFN4NFZ0c01nLWcxc1duc01DZ1Z0bFpIWTc2MThUNW9DdVNYbXNqVEFYVExTQjJKTS1ZclR1YmE4STY0WllqQkRHbGhmVWxPQWRjUjROcEpmV3pyVXV5V21DbWpqVldkdFNEMjNlSzB1blJsUE85?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] today.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOb2psaEJiNy1FQ2Y3Y1QxZDFpakFEbmZXV0d1dzd4Q0NEOFNGWkpYeVhkYWZTZzVscGRhaGRPQmYybHBzUmdvSDA5S25QR3UxM3RRZTZ6Qjl5eHhHakVYMWdYdERKWi1mVkZIbjNJeVh4R09uX3Fqc1p4UG81TWVnQnM3Q2ZoZFNrVG1rRXVTLVF3T1lVOWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Makes Cameo in Emmys Sketch with Mariska Hargitay
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Taylor Swift appeared in a pre-taped sketch for the 2026 Emmys alongside host Mariska Hargitay. The sketch encourages Hargitay's colleagues to 'think like Swifties' as part of the comedic setup.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-emmys-law-order-mariska-hargitay-sketch-1237103067/
-  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNOWlkSXFXSjMyUV9pRWV6eVpDb1dqc1hSV0w4WmNXTWJLVUpaOTMzSU01WWwwUVJrc245VFlwaXc1dGhtcC1fYm5KTGJncnhVZU96LTQ3MVVXUnY5dFRRdUozVjlCMjc0VmFVanJTMEhDU3lMTUdKa3lzdkQzOU8wdWloOUdTTkNnVDJUWGhYeTNDMm91ZmxlLWhfUkRTb3QzMGUyclJYU2lnUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivAFBVV95cUxQSU9mT1M2UjBPSlpyaEE3X051eTMxaVlrUk1XVV9lbThOcnNGdzY4YW9LcGN2NzBmQ3FDRXUxMDNOVnN2bnJtNE0wZ1VHbVpzYVhuQjhBOThtc2l0azJxYVRKN252TWlvSnl3My1TSlVtblRRb2daV3lwNlJGVUpLS09Ib2hDX3ZSWmRSOHhldXl4QjZIXzFaNy1lVUN5b2xsSVRrOWlWekg4elNJYU1lcEpzUkt3VHlZcmtTUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/15/style/taylor-swift-emmys-skit-svu-easter-eggs.html
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWEwyWWgyR0hLV01zNFRfdXRnNUN3WElIMTJXUlExRGl6WFNXVE8xWlY4VFFXWk5RWjdZc2JuUUtsN2l5a0hFUG9MdXVjenM2WU53NVUteFQ3QjkwTXZTMmIzNldYZGUzVXU2TmY2Zm9HUjNCWXZNVXI2X0hJUUJlQmhCdGdJbXRILUlfTDRRWkdTbnZidUNZSFBfc0FmS1JIdVNzbkNTSXZzQXR1YVJ1WDgxR2Y5el84THI5REhjME5mUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-emmys-law-order-mariska-hargitay-olivia-benson-1235626589/
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMijgFBVV95cUxQcVc0YVRWUDVEWVNqSFI3eUpNTEdEUkFZTzhPQVR5bXk4U0lCbjQ1X0JfcjhuOWxpdlhIc1ZxR3hHci1EUWV3dy1ON1R5b256R0hpczZGLTRnM1hKbllRVGdaSFpXRERKX252T3hPYU5PQ0k2ZlBtLVhQT2dObHpaWEh2OVY4MzhWLW1HMmF3?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Cat Make Surprise Appearance at Emmys 2026
 
 - first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
@@ -258,6 +269,22 @@ Stories: 80
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTzZvWVg3T0JxMW5lVDVwaVN2RHp5dzRYb3NEMlNqYjEwaHAtSEhaT0cxbUpySkc4Ty1YeFZYT2RVQnJTMU1STTVaVWVwS2JKWEhpaWZWMDNLOTFVWFNsQ3NUVmJLZ1dBZzRDRnZMVFJXOGFOWTQyNzdKaXpGcTJNT3ZyMG4xbl8yR2VTS05Xdk1WWTM4R0o2NE03UnFybU9uYUpXOFNiUDVGRTRwM1R3Uzc3RXhGSk1y?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQmNkcERqUEF6WWphT3VFd0J2Um9uUFdnQ2QxU1dQaF9fTU1JVWppVjE4aFBYQWMxb05XN085bXJMbzAwQWVIbUEzY2xnN0RNcU5PanlXc3ZPcU5lYUw1VGt4SE9iMmNMRHFJMDJ5SlFYa2UxSjJBWFlBajFPcnMxWTRsRmU2aVg2c2hxVVhVWFl1dWliaWk4OUo4WGJvNnd3YlE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxPRHdxOXF5Y0w1ci1kTGtsV01UT01tQzRmMnNraUl4Z0xtTDVnbmR1LTNaRHA1VTBEbTdGOEZrMWlqNjdpMHpobjhOUV90NFNGZW8wSnctLWs3OXJBandRc3N4QmxGQW5HNEZVZEJPclZNckNpdjVFTVVsWldMUmE5bzdEZ0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Cameo in Emmys Sketch with Mariska Hargitay
+
+- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 9
+- summary: Taylor Swift appeared in a pre-taped sketch for the 2026 Emmys alongside host Mariska Hargitay. The sketch encourages Hargitay's colleagues to 'think like Swifties' as part of the comedic setup.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-emmys-law-order-mariska-hargitay-sketch-1237103067/
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNWIxYklHa09nbExWNTJzbzJIcUM4ZWxxRWZQV2R4QjdWYnpBMzV2dVVrbWdPbHFjSG5sVG5CeThpTC1weTJ2aDVuUFpjQjBER01oQTQ2NVhqbW1NOGh2c1RBZ3pveXdURk1maWtmajlnelpnVndRX3pEcURSSTFUbEZLZUJIN2ZYRjNCcjRhdFVtREhINGU5eVAzajVhSjVMLTVzOElGaFNOaFVJWEE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNOWlkSXFXSjMyUV9pRWV6eVpDb1dqc1hSV0w4WmNXTWJLVUpaOTMzSU01WWwwUVJrc245VFlwaXc1dGhtcC1fYm5KTGJncnhVZU96LTQ3MVVXUnY5dFRRdUozVjlCMjc0VmFVanJTMEhDU3lMTUdKa3lzdkQzOU8wdWloOUdTTkNnVDJUWGhYeTNDMm91ZmxlLWhfUkRTb3QzMGUyclJYU2lnUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivAFBVV95cUxQSU9mT1M2UjBPSlpyaEE3X051eTMxaVlrUk1XVV9lbThOcnNGdzY4YW9LcGN2NzBmQ3FDRXUxMDNOVnN2bnJtNE0wZ1VHbVpzYVhuQjhBOThtc2l0azJxYVRKN252TWlvSnl3My1TSlVtblRRb2daV3lwNlJGVUpLS09Ib2hDX3ZSWmRSOHhldXl4QjZIXzFaNy1lVUN5b2xsSVRrOWlWekg4elNJYU1lcEpzUkt3VHlZcmtTUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/15/style/taylor-swift-emmys-skit-svu-easter-eggs.html
+  - [unverified] PureWow — https://news.google.com/rss/articles/CBMigAFBVV95cUxNWGQ5Wm5zRldtdnQ2Y3Z0MEE5ZHNNYWdYTW9xRHE0dzUtaEt0c1dtZXZOSDBieGJDNlY3Z0owSkl2ZUNzdkhkV1M4U1NFUjZ2dVk2UFNaNWhxVmQzU21WSXU3WW9CSUdpTENiWXpQdl83UXVUUGFrMHBfS0FFVlhlaw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWEwyWWgyR0hLV01zNFRfdXRnNUN3WElIMTJXUlExRGl6WFNXVE8xWlY4VFFXWk5RWjdZc2JuUUtsN2l5a0hFUG9MdXVjenM2WU53NVUteFQ3QjkwTXZTMmIzNldYZGUzVXU2TmY2Zm9HUjNCWXZNVXI2X0hJUUJlQmhCdGdJbXRILUlfTDRRWkdTbnZidUNZSFBfc0FmS1JIdVNzbkNTSXZzQXR1YVJ1WDgxR2Y5el84THI5REhjME5mUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-emmys-law-order-mariska-hargitay-olivia-benson-1235626589/
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMijgFBVV95cUxQcVc0YVRWUDVEWVNqSFI3eUpNTEdEUkFZTzhPQVR5bXk4U0lCbjQ1X0JfcjhuOWxpdlhIc1ZxR3hHci1EUWV3dy1ON1R5b256R0hpczZGLTRnM1hKbllRVGdaSFpXRERKX252T3hPYU5PQ0k2ZlBtLVhQT2dObHpaWEh2OVY4MzhWLW1HMmF3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Appears in Emmy Parody, Attends Chiefs Game with Tom Cruise
 
