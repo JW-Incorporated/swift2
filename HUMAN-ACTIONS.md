@@ -2,9 +2,22 @@
 
 <!-- ha-format: 2 -->
 
-> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #78 🔴 [BLOCKING] Add Actions read/write to SOCIAL_POSTER_PAT (~5 min)
+<!-- ha filed=2026-09-16 -->
+
+**Why:** SOCIAL_POSTER_PAT (fine-grained, repo-scoped, currently Contents+PRs read/write) 403s on `gh workflow run`/the dispatches API — confirmed twice (#4223, #4388). Every watchdog handler whose fix is "re-dispatch" (plan-recheck, tree-weekly-plan, vault-run, karen-nightly, output-sampling) is a silent no-op; several have been failing unattended for days (#4411, #4336, #4192, #4129).
+
+**Steps:**
+1. As sffan15-sys, go to github.com/settings/personal-access-tokens.
+2. Open the fine-grained token used for SOCIAL_POSTER_PAT (repo: JW-Incorporated/swift2).
+3. Edit permissions → set repository permission "Actions" to Read and write → save.
+4. If GitHub issues a new token value instead of an in-place edit, update the secret: repo Settings → Secrets and variables → Actions → SOCIAL_POSTER_PAT → paste the new value.
+
+**Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
 
 ## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
 <!-- ha filed=2026-09-12 -->
