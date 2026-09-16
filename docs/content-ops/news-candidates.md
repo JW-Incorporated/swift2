@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Exploring Rare Sports Moments Featuring Taylor Swift and Kanye West
+
+- first seen: 2026-09-16 14:10 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article examines the rarity of positive interactions between the Jets and Giants, referencing Taylor Swift and Kanye West in the context. It highlights the unique moments in sports culture.
+- sources:
+  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNT1ZnNGphRG15QlZ3ZUdCcVF2NU5kX3VuUHNGeE5YZ3JycHNxMFVSLU9vNEYwZDgtVVUzcFhFbXE0MThxN0x3Y3EyckNJcGpYejNabUNLVDJ0RnR5NXRvQUE1ZEhIdDZKcEJYdDFwMlpKcGpaZjFfbHdSdFpZYXpWYV9qTC01SGlxQWFFUWJ6c25UOEdkX2ptTktPYUNjUWVnbEJsWWhMbkE2T0NjTE0wNW51NmlncEI0bGlZ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Details About Taylor Swift and Travis's Wedding Revealed
+
+- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The article discusses Taylor Swift and Travis's wedding, highlighting elements such as the designer dress and notable attendees like Adam Sandler. Insights into the event's arrangements are provided, showcasing the couple's celebration of their relationship.
+- sources:
+  - [unverified] bbc.co.uk — https://news.google.com/rss/articles/CBMiXEFVX3lxTE1LZU9fRnJjWUtvd3NXYm55TFYtME1JLVdCamE4WEdGTHhJVEtKS0k2T3JxckViRmhkN0RIaW02SXdWZ21nUzFESHEtRXpvN2lQcUNrMnNGRDRSMjFj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Secret Appearance at the Emmys and Gift to Cast Revealed
+
+- first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a surprise appearance at the Emmys, where she gifted the cast of a show. Details about her appearance and the nature of the gift have emerged in an exclusive report.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMimgFBVV95cUxOR1RqZFBRNGU4QnFKTnpaRE1SQ3RqTm9tTFkwLUJDWVlJUUFZUFNwRnVpR21yWHloWmcxcGsxckh3VUNLZ3Nvb203LVMwNWlpNXVDZXBtOUw0Ymt0QmlFT0hkTE42bGhoaF9ld2o3Z0dMRmZkVGhYYVYzUmljTUtneXYyTlluTWF6UDRzRmtnVFdJSG96WjM4Tkd3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Spotted with Tom Cruise Amid NFL Coverage
+
+- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: After Travis Kelce's historic game, Taylor Swift was seen with Tom Cruise, highlighting their friendship. Meanwhile, Swift expressed frustration at NFL cameras focusing on her during the broadcast.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNb0I2NmtpQjVzOWdoWEF4VHh1V3YzMkRPa19PZXdVVTlia3RJZ2NvMkwwVzhwek02SHBjd3JrNGRJY0puUFNGZUQxcEl1NDN4UlhNTFY0NDdHUXJFNGh5OTBfbE0zbUhPVGVnX0JwZkh2VkFrWFdPYVVjUTd3a05HRW1lSnNYWmN5UEpEY0hKcDMtT3Vib1ZoejhNZ0xxb2ZKQm5BNA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Features in Emmys SVU Sketch
+
+- first seen: 2026-09-16 14:10 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made an appearance in a sketch during the Emmys, where she included hidden Easter eggs for fans. This playful inclusion has attracted attention and adds a fun element to her participation in the awards.
+- sources:
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUHJoMXF5cWhURjNjalZmYXF2a0lmVVplUlZDc2FOLUpkSmxrNHdkWUZYQW1SWHp5WkNXRm0xTnF5cFR5T0dlc3pXc2ZDV2hVdXFJODM3YjZsenRORzZEb2szYXNRMGNEajc3MFpPeVFNRFVpQVY1bENrTmNDQ1VubXo1OFRWZkVzY3RsSHFqMDFlbkptLS1ERXNtTVg1Rzdxanc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Surprises Young Fan at Kansas City Chiefs Game
+
+- first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During a Kansas City Chiefs game, Taylor Swift had a special moment with a young fan, creating a memorable experience for them. The interaction was highlighted as a 'once in a lifetime' occasion.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNRDRLTW5VRVREUUFKZEFURXUzaTJOTTlwSGdJMGxIM0xyXzF2akFPM3hhNk1uNXU3dHBaMl85Z2p4ekpqLUp4Qm45MlFWak0waUhOZkIyVkwxQTBCTUgzVWcyYmdwaGtadklhTnBzZm1FWmR4ZDNPNzJEaEFjS3NEakdTTzFNMTJp?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Swift and Kelce Emphasize Privacy at New Ohio Home
+
+- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly taking extreme measures to ensure their privacy in their new home in Ohio. The couple's efforts are highlighted in a recent article by the Cincinnati Enquirer.
+- sources:
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMizwFBVV95cUxPWU93NjZiVzJqSDEtZjFlRGhCaUlDNm8wcVNfeXA2WU5tWTFqNjRuN2VLUHhZLXgwREl4a0xyMktaanBnaHNROXlnbVlBSTJ0NFhac2huYVhQb1RBODJ2MS1zQXR2VjdtUXBEODk0VFZPQXhlLWotNkZUS3RzblZwQmdXdjg0V1pMaVVBd1R3MGhRb2UzWlFQeXhzOXp1MnhUdUJOM19ZN0VVeFhRRjBJb2FmbDM1MDhOalYteklEc2tlSjFMV0JMQjVHcnNMMHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jason Kelce’s Daughters Have Sweet Nickname for Taylor Swift
+
+- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce's daughters affectionately called Taylor Swift a special name when they first met her, highlighting their warm interaction. This moment reflects the charming relationship Swift shares with fans and their families.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQcWM4cU84RkRXRUl1TUpfYkRtNFVPdExSRFVGWnVRdURsOTdGdWNMRWNvOERfc1p0ZXNkaVRYYjNjWkxTTlBuT05rNVc5UnBZdGh4YnZpUWFiMEphcVM3MWJCc3pGUjZsRDlLenBrSmVDRVhQSFpoM3Nwb1ZwYXRsUXU4Q0EzSVBXTjRhUXAwbVNmVTQ1UTl3NTBuZnVZUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Celebrates with Hollywood Superstar
+
+- first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted celebrating alongside a notable Hollywood superstar, as reported by Cleveland.com. The details surrounding the celebration remain undisclosed in the article.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPcmYyNm44T3JTdUZObFdlMEdRMTVXVUl2RWZGZFRJXzJXai1udzh6ZzJKUGg1SDhsLUVTUWV4bnRFR1pfZi03MDBpXzZBWEJjMUJkak5zNFRCeTFOSFNBNFI1NnJzTEFxOWVRYTRQRzlZWnU0MTZtV1Qza3BzX3Z0eV9LZWUzSW0xbUJBUm5Fc3RmaTZUSzEtM1VIQ29hWWxzTnd5YXpYeWRiVHlkWG1B0gHDAUFVX3lxTE4xN2sxMEJBN1NlbzU2ckd0Njl2YkJXQXdkbWhCY2tZZktjejNkMFMzZExUSWRWd2RISXNxckpoV0lQNlpmYnR1dlFRb3ZvODRPd0UwaVhJQlZSMEk2Q19WTFY2QkZnUTNoMmRtd1J2bVA3dXRpcl9uRDBiRGkyc3BHVUlZYXgxQ0txcVVjZjJHX1JIR1Awdk0zaHdQQmh5X0RhTDctZXJKVkdpdFBsODFOREwyeEZJVmw2QkY0cTFOcExjSQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Discussion Surrounds Taylor Swift's Possible Pregnancy
+
+- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Speculation about Taylor Swift's potential pregnancy has sparked conversations among fans and media, raising interest in her personal life. The topic reflects the public's curiosity about her relationships and future plans.
+- sources:
+  - [unverified] MyStateline — https://news.google.com/rss/articles/CBMinAFBVV95cUxPbTVmaDhLaXdhNFdCSEkzNEJZdWpqTTFiMFZROWlvTzNWVTJ4OWQyUk9ZLS1ab1lob2ZleEs4WGdhSC01YkZWWmN5SVJic0xILUF4c09FX1BhVHpvcFRtWTZ2d1I0YmpWRFEya253RUhaYzg2WDlWamVLQlVSVmk2bFI5OXhBaV8tM3VrbFByZUh0NlZKV2lqQjBlZkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Did Not Attend the Emmys
 
@@ -249,27 +329,6 @@ Stories: 83
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxPYkNaaXJfY0h6Wl90QUtFdUZ5a2c0a0Znd2NnV1Z4OFRscFRicEtWV0MwTlgyNEhjTzZmeHY4US14NXJGcVMxOGNDVm80dU5NU3JnVXloeEZMZkhjN19JMWpZbkxQLW0xUzh0cUwyRGVwZFp4elZwY2lrTUVfMXhvRm5Uend5M0k?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xSTEFoZHhlemJZR0FHVWlzUER0dkk2eDdwcjkxYnRRM0JVNTRhbWI3YWNMX09sdnZfZExveVRBOFFQVzFoc1piY3BJNW1SMzR6akw3YjktZTBrX3BEUDdzWVJMNkxXd0NBYzNvR2pTMkkxX3ZJU2s3ZXdPblVvYjVxT0pVcWZheC1pR2gyc1dLS0dGN3JJMkVJVDVSVVVaZXpFSVdBcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Supports Travis Kelce at Chiefs Season Opener
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 14
-- summary: Taylor Swift was spotted cheering for Travis Kelce and the Kansas City Chiefs during their season opener against the Denver Broncos. Her presence at the game attracted attention from fans and media alike.
-- sources:
-  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRXJ5TGlyb053Q2tfejBlbDIxdmdJbGF0XzJxU0w5cEZ0NVIwM3Z1UFRQeWQxMGM2R21pcmYzOHZYeWRxQXBkUjY2RkVWZk81VG5rVkUya2NYRVh1ZEh1UkdQQWFCb1piQ2x6cElYWlFHdlg2cE9qblFPUFJqWGNKZWxIVXQ1NmdWYm5GUHVHTzA5aW5Tb2N3SXBZTEpYSGVqNlp2VWFoSFE0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPc1NJazdEWW1Tb3FpU3VBYUd1c09sclpfVW11V3RXbm9xTGFvVWlUTndGWmRJTXBtcndJRkVQM3dBSXEtSmNPalp1WmN1STBYNjdUVnV1ZHRPNVRIQURuUkZLOVF0TFg3b1I5ZlBlaV9VblhxdlZ2XzdZcEd3WlppdV9JeGNyb2tjMy1sa3JqMFk5NkZtY1pfdjJrVWNCalhIblZvTkRKaDFvZTFyb1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYy1xcHhEVElxd3NLRkxmT0hyaEVKS25TSUIxMnZvQ3dyVi1nSXJIN0VaNEJmYTgzdlY2dENETWttdVdmV2hYcjVEMTlYcDV4QlFDamNDa0tFcVZvWHpRbU5MZkk2TW5pczNtNjUwSzF4VHR1Nm5qZEw2XzN3T3R3T2hrbGlWTnQyN1ZoM0laNGlwT253VklHQVJQQTlGOUhFTkxxLTdUWjdmd2syVVNRVUE0aW52UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixAFBVV95cUxOWW1FMFpsdENrYm84WkdKbHFzTHNsTm5zS3JSNEtNTDZ4clI4ZXQ3WnFqWHhCOGwwNG81amd3ZkNFbG9Vc3g2VG1MYlpxcjk5ZHoxLUhocnFLNFlxaFJFRVlDZnhvUml5NXE2UmZtdElrbWc5U0EyejA3aE5fUldKYXJvZk1vMThPVm40emk1MllJNS1QZl85alNlYlpVLUYxcnJrUkY5TXFmWFpyNmtLTTNMbHdRN190ckFqMmdXRGhENl9i0gHKAUFVX3lxTE1lc3E3VE1GWnp6elQ0TTRwVzB2My0yd1lOcURINmNielh0Z2o2YWJIYk50c0xDajlYV0dTYzZUaHNKNHY1ckt3U09rRzVJdXJIWU9WeDFTemdTQWktZmhkdnFMTURzSzNMeHZuM2YtS3V2M2diaXNUeXFJNjA1cmctcW9tazhKQ0R3UDNPMlU0UDk4bGhhT003VDN3eXRHM19wYUdiMjRkTDR6dHN2clhCYWNSVVdxaGhaYk1fOXpDa3hEd19MTzBSRnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeVBUdmJxQjRkRWtjaFU0SWxtVy1Gbmk0S3owMGpudjlyRG1Ec19ZRWl2QW1KZ05yYmNnaUJGSXdUaEZRTHVRelpDeUdCM3N5eU9mZ1VVaUlvRVR5SzdKZHNvVV9hdjQ3UHdSbzloSk9TU3I4RDNBanJodWdTbGw1WVVfc0dwc3V5VHRIMTdTTjZkM2RrbndoWk1lQ0xEU3pWT3BMSlFadUVkTDF4R0VlQ2RGQdIBuAFBVV95cUxQeEwwZ3VoWUNqaVd6UC1wN0lfc1N6Z3ZlcU1XOWhUd0RITklWVGU4R3FxSFVHYkZQOUNrUVQ4Q3BjbS1ON21uRThHWjNhdThWUlRtSmRGay03V0g2VnFRS2M0QjFVWmNoNDQzRUhFTUFrUU42bVhpYVFIbktRY0lyUkoxM1JGc1BLTDZwSFdjMlIyOElyWFVNUEtfQjVpZGpHZjh4X1V6OG1XLUdZQmlQX2pXd2FSNzRW?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNjVuT3VScUh0X3ZTclVGakV6QmNBa0VJWnhMSTJOcWFlYlpVT1owQ2hmUXJGMXVxS2pNVDFlS0FoalVsTkJvMXA2djlQSkxhamdJbmlMTmpROXBDRjI3cTdMNEQ3VnpmT3hXV0VhMVdRNGJaVUxuOFFxX0RkZ0JyTDFVRy1rVXlJTElLMk15TDhzenBtMTZJbkFpSmprTzhLOTdJUVpocVJSOUxZWkdER01sb2lCY0J4MV9qNURQdTM4ZVp2Tll0dFRCZmc3YUU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KMBC — https://news.google.com/rss/articles/CBMiswFBVV95cUxQX1Qyano2Q2trYUM2QUNMSnlUSGJRSG5kVUw0M3RLNEN0cnhRckxyTDJ2cjc5M01Id0FicUMxaUN5RW1SbGV4RXFaZHR0cUQ3OE1ycU83ZEJvV245MUs0ZlQwYjhFUTZlTEszQ3FELWp3aldOVFY4bVFjWTIybmFEWkhFWVkzb1JYRDJyRk9kWXFKM2hBYjdjaWhkZ056Vmp4V2ozbG1vVnNWdHdHQjFsZU0yZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMizAFBVV95cUxPV2V4d1VVd1hKczNRTFR0eEt2TF9xV0I3UGN4LXoteEdqcE5tZHdzTFI4UmJSMnlSQUE5QkhDdms2Y2VrVEJqRmpON190WHVmM2U4YUh2UVVRZVNqMUtPYV9TSkw3OUJra1FSRkVJUE1SQzU1dGVMQlZkMWR4ZEhIdG50cnp0MHFYNFd3Q0t6cDl3dlhGcFV6em84ZDF2RU9PWHRkWmdtclhYWk5mdXVrWnpMeWxZM2NCWWQxOTFZNmlYVkpIWi1hWVBFaDg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOQmtrYnZHd0RqbEVNa3A4bXRQcFQ5am9MWWJBbHBScWNoSUlEUUZYRUJEMkUxZklXYlFVUEpzNzBJQVNjT19za2dQQldLcHc1Yl9hZkx0LXJyLUZKQlZqQkp2dWJjNml2RTV6MkFlOUd0QU5QN2dJeWtIaEJGVFdmSUFIM2MwTlo2bi1kYXFSTmtaaExIWlJJTGVZMA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNV9idS1aQXIwUGp0X2lrd0RmX0JjYTJKdzFMQkJCRm8yRzZXbVdCdGVuRjJrZVU4UWpuRDdKVDJBcmNnaGZ3UFpMTWpRSlVxZDhiUmtZOVJzQmhCdlFBUndNNlM5VlNxc1E1SUZDZVJPOFg0OEVDbnlhWjZoeU9DVktmTUc5RmZhRndoc3g1c0JiOXNFRmROWXRQNWFjby1iSmYwZDVWZkNFWUlOalE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-first-chiefs-game-travis-kelce-wedding-1235626496/
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTzZvWVg3T0JxMW5lVDVwaVN2RHp5dzRYb3NEMlNqYjEwaHAtSEhaT0cxbUpySkc4Ty1YeFZYT2RVQnJTMU1STTVaVWVwS2JKWEhpaWZWMDNLOTFVWFNsQ3NUVmJLZ1dBZzRDRnZMVFJXOGFOWTQyNzdKaXpGcTJNT3ZyMG4xbl8yR2VTS05Xdk1WWTM4R0o2NE03UnFybU9uYUpXOFNiUDVGRTRwM1R3Uzc3RXhGSk1y?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQmNkcERqUEF6WWphT3VFd0J2Um9uUFdnQ2QxU1dQaF9fTU1JVWppVjE4aFBYQWMxb05XN085bXJMbzAwQWVIbUEzY2xnN0RNcU5PanlXc3ZPcU5lYUw1VGt4SE9iMmNMRHFJMDJ5SlFYa2UxSjJBWFlBajFPcnMxWTRsRmU2aVg2c2hxVVhVWFl1dWliaWk4OUo4WGJvNnd3YlE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxPRHdxOXF5Y0w1ci1kTGtsV01UT01tQzRmMnNraUl4Z0xtTDVnbmR1LTNaRHA1VTBEbTdGOEZrMWlqNjdpMHpobjhOUV90NFNGZW8wSnctLWs3OXJBandRc3N4QmxGQW5HNEZVZEJPclZNckNpdjVFTVVsWldMUmE5bzdEZ0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Makes Cameo in Emmys Sketch with Mariska Hargitay
 
 - first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
@@ -285,6 +344,28 @@ Stories: 83
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWEwyWWgyR0hLV01zNFRfdXRnNUN3WElIMTJXUlExRGl6WFNXVE8xWlY4VFFXWk5RWjdZc2JuUUtsN2l5a0hFUG9MdXVjenM2WU53NVUteFQ3QjkwTXZTMmIzNldYZGUzVXU2TmY2Zm9HUjNCWXZNVXI2X0hJUUJlQmhCdGdJbXRILUlfTDRRWkdTbnZidUNZSFBfc0FmS1JIdVNzbkNTSXZzQXR1YVJ1WDgxR2Y5el84THI5REhjME5mUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-emmys-law-order-mariska-hargitay-olivia-benson-1235626589/
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMijgFBVV95cUxQcVc0YVRWUDVEWVNqSFI3eUpNTEdEUkFZTzhPQVR5bXk4U0lCbjQ1X0JfcjhuOWxpdlhIc1ZxR3hHci1EUWV3dy1ON1R5b256R0hpczZGLTRnM1hKbllRVGdaSFpXRERKX252T3hPYU5PQ0k2ZlBtLVhQT2dObHpaWEh2OVY4MzhWLW1HMmF3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Supports Travis Kelce at Chiefs Season Opener
+
+- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 15
+- summary: Taylor Swift was spotted cheering for Travis Kelce and the Kansas City Chiefs during their season opener against the Denver Broncos. Her presence at the game attracted attention from fans and media alike.
+- sources:
+  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRXJ5TGlyb053Q2tfejBlbDIxdmdJbGF0XzJxU0w5cEZ0NVIwM3Z1UFRQeWQxMGM2R21pcmYzOHZYeWRxQXBkUjY2RkVWZk81VG5rVkUya2NYRVh1ZEh1UkdQQWFCb1piQ2x6cElYWlFHdlg2cE9qblFPUFJqWGNKZWxIVXQ1NmdWYm5GUHVHTzA5aW5Tb2N3SXBZTEpYSGVqNlp2VWFoSFE0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPc1NJazdEWW1Tb3FpU3VBYUd1c09sclpfVW11V3RXbm9xTGFvVWlUTndGWmRJTXBtcndJRkVQM3dBSXEtSmNPalp1WmN1STBYNjdUVnV1ZHRPNVRIQURuUkZLOVF0TFg3b1I5ZlBlaV9VblhxdlZ2XzdZcEd3WlppdV9JeGNyb2tjMy1sa3JqMFk5NkZtY1pfdjJrVWNCalhIblZvTkRKaDFvZTFyb1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMijgFBVV95cUxNYkU4XzBtbEFxUFN0WkN0eS1OTFFnVGZzUDVCXzNEOEZWOTdJa0Q3d21LT2JybXp0Z1FVOEpwRWFjWmZpa21Jb2hpenJzVF9iekk0VHU1bEZvUDBuTjBuTXg0QTdRNGVHMUdDNXp6MXoxTC1zeHVUUlJEWGozQngxSU5SSFk1cUpESUpKMmNB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYy1xcHhEVElxd3NLRkxmT0hyaEVKS25TSUIxMnZvQ3dyVi1nSXJIN0VaNEJmYTgzdlY2dENETWttdVdmV2hYcjVEMTlYcDV4QlFDamNDa0tFcVZvWHpRbU5MZkk2TW5pczNtNjUwSzF4VHR1Nm5qZEw2XzN3T3R3T2hrbGlWTnQyN1ZoM0laNGlwT253VklHQVJQQTlGOUhFTkxxLTdUWjdmd2syVVNRVUE0aW52UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixAFBVV95cUxOWW1FMFpsdENrYm84WkdKbHFzTHNsTm5zS3JSNEtNTDZ4clI4ZXQ3WnFqWHhCOGwwNG81amd3ZkNFbG9Vc3g2VG1MYlpxcjk5ZHoxLUhocnFLNFlxaFJFRVlDZnhvUml5NXE2UmZtdElrbWc5U0EyejA3aE5fUldKYXJvZk1vMThPVm40emk1MllJNS1QZl85alNlYlpVLUYxcnJrUkY5TXFmWFpyNmtLTTNMbHdRN190ckFqMmdXRGhENl9i0gHKAUFVX3lxTE1lc3E3VE1GWnp6elQ0TTRwVzB2My0yd1lOcURINmNielh0Z2o2YWJIYk50c0xDajlYV0dTYzZUaHNKNHY1ckt3U09rRzVJdXJIWU9WeDFTemdTQWktZmhkdnFMTURzSzNMeHZuM2YtS3V2M2diaXNUeXFJNjA1cmctcW9tazhKQ0R3UDNPMlU0UDk4bGhhT003VDN3eXRHM19wYUdiMjRkTDR6dHN2clhCYWNSVVdxaGhaYk1fOXpDa3hEd19MTzBSRnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeVBUdmJxQjRkRWtjaFU0SWxtVy1Gbmk0S3owMGpudjlyRG1Ec19ZRWl2QW1KZ05yYmNnaUJGSXdUaEZRTHVRelpDeUdCM3N5eU9mZ1VVaUlvRVR5SzdKZHNvVV9hdjQ3UHdSbzloSk9TU3I4RDNBanJodWdTbGw1WVVfc0dwc3V5VHRIMTdTTjZkM2RrbndoWk1lQ0xEU3pWT3BMSlFadUVkTDF4R0VlQ2RGQdIBuAFBVV95cUxQeEwwZ3VoWUNqaVd6UC1wN0lfc1N6Z3ZlcU1XOWhUd0RITklWVGU4R3FxSFVHYkZQOUNrUVQ4Q3BjbS1ON21uRThHWjNhdThWUlRtSmRGay03V0g2VnFRS2M0QjFVWmNoNDQzRUhFTUFrUU42bVhpYVFIbktRY0lyUkoxM1JGc1BLTDZwSFdjMlIyOElyWFVNUEtfQjVpZGpHZjh4X1V6OG1XLUdZQmlQX2pXd2FSNzRW?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNjVuT3VScUh0X3ZTclVGakV6QmNBa0VJWnhMSTJOcWFlYlpVT1owQ2hmUXJGMXVxS2pNVDFlS0FoalVsTkJvMXA2djlQSkxhamdJbmlMTmpROXBDRjI3cTdMNEQ3VnpmT3hXV0VhMVdRNGJaVUxuOFFxX0RkZ0JyTDFVRy1rVXlJTElLMk15TDhzenBtMTZJbkFpSmprTzhLOTdJUVpocVJSOUxZWkdER01sb2lCY0J4MV9qNURQdTM4ZVp2Tll0dFRCZmc3YUU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KMBC — https://news.google.com/rss/articles/CBMiswFBVV95cUxQX1Qyano2Q2trYUM2QUNMSnlUSGJRSG5kVUw0M3RLNEN0cnhRckxyTDJ2cjc5M01Id0FicUMxaUN5RW1SbGV4RXFaZHR0cUQ3OE1ycU83ZEJvV245MUs0ZlQwYjhFUTZlTEszQ3FELWp3aldOVFY4bVFjWTIybmFEWkhFWVkzb1JYRDJyRk9kWXFKM2hBYjdjaWhkZ056Vmp4V2ozbG1vVnNWdHdHQjFsZU0yZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMizAFBVV95cUxPV2V4d1VVd1hKczNRTFR0eEt2TF9xV0I3UGN4LXoteEdqcE5tZHdzTFI4UmJSMnlSQUE5QkhDdms2Y2VrVEJqRmpON190WHVmM2U4YUh2UVVRZVNqMUtPYV9TSkw3OUJra1FSRkVJUE1SQzU1dGVMQlZkMWR4ZEhIdG50cnp0MHFYNFd3Q0t6cDl3dlhGcFV6em84ZDF2RU9PWHRkWmdtclhYWk5mdXVrWnpMeWxZM2NCWWQxOTFZNmlYVkpIWi1hWVBFaDg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOQmtrYnZHd0RqbEVNa3A4bXRQcFQ5am9MWWJBbHBScWNoSUlEUUZYRUJEMkUxZklXYlFVUEpzNzBJQVNjT19za2dQQldLcHc1Yl9hZkx0LXJyLUZKQlZqQkp2dWJjNml2RTV6MkFlOUd0QU5QN2dJeWtIaEJGVFdmSUFIM2MwTlo2bi1kYXFSTmtaaExIWlJJTGVZMA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNV9idS1aQXIwUGp0X2lrd0RmX0JjYTJKdzFMQkJCRm8yRzZXbVdCdGVuRjJrZVU4UWpuRDdKVDJBcmNnaGZ3UFpMTWpRSlVxZDhiUmtZOVJzQmhCdlFBUndNNlM5VlNxc1E1SUZDZVJPOFg0OEVDbnlhWjZoeU9DVktmTUc5RmZhRndoc3g1c0JiOXNFRmROWXRQNWFjby1iSmYwZDVWZkNFWUlOalE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-first-chiefs-game-travis-kelce-wedding-1235626496/
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTzZvWVg3T0JxMW5lVDVwaVN2RHp5dzRYb3NEMlNqYjEwaHAtSEhaT0cxbUpySkc4Ty1YeFZYT2RVQnJTMU1STTVaVWVwS2JKWEhpaWZWMDNLOTFVWFNsQ3NUVmJLZ1dBZzRDRnZMVFJXOGFOWTQyNzdKaXpGcTJNT3ZyMG4xbl8yR2VTS05Xdk1WWTM4R0o2NE03UnFybU9uYUpXOFNiUDVGRTRwM1R3Uzc3RXhGSk1y?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQmNkcERqUEF6WWphT3VFd0J2Um9uUFdnQ2QxU1dQaF9fTU1JVWppVjE4aFBYQWMxb05XN085bXJMbzAwQWVIbUEzY2xnN0RNcU5PanlXc3ZPcU5lYUw1VGt4SE9iMmNMRHFJMDJ5SlFYa2UxSjJBWFlBajFPcnMxWTRsRmU2aVg2c2hxVVhVWFl1dWliaWk4OUo4WGJvNnd3YlE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxPRHdxOXF5Y0w1ci1kTGtsV01UT01tQzRmMnNraUl4Z0xtTDVnbmR1LTNaRHA1VTBEbTdGOEZrMWlqNjdpMHpobjhOUV90NFNGZW8wSnctLWs3OXJBandRc3N4QmxGQW5HNEZVZEJPclZNckNpdjVFTVVsWldMUmE5bzdEZ0E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Appears in Emmy Parody, Attends Chiefs Game with Tom Cruise
 
@@ -661,76 +742,3 @@ Stories: 83
 - sources:
   - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcWtiY2c0YmhXNVlvY21ud3FDQXVnRE5vR25aMlJudlprZEFLRDRrWmQzcnY3c3JKX0FMbFZ4b19wMGVXeDJZRmF0VndUb2cxWWVwU1VVTmZhbmFxTm1Ha2RBdkljb3RXWDBmVWphX0JEQjZUTnFxVmp3OXN5T3RUQ3BkV0sxMFdaSE1xV0JrLXhKUkktZjJwbmthbGU4cnRTbFl3Z2V3cW5nb2sxZW0zWnVJTXRIWFk5ZVl1TTFB?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] VICE — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPLWpBTDUzalJvVUplUzBQWG5oM2JGNGpZaEc2U19xTWQxUmlpdjR2NXpwbFBPZDBhNTlodHA0NzJ3eUNjZThWUzVhVV9TalEteFBuTlpKVXhsZzUzc3ZrZDhKa3QyNnlvQnZyT05FdlZaRDQxWDEwTVQ0eDdHeWxNamI2X2k2WUp2ZkhFQXpwQmpheFRXR202YnlDS3E0SHVjZFYwRDhRTkI3Zm5mUjg0cHcxVzl6eGpOTU5YUGhxZDlfSDh0NGk1SGtxRHhWcXpTVXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## NFL Stars in Relationships with Celebrities
-
-- first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A listicle features nine NFL players who are currently dating or married to various celebrities, highlighting their romantic connections.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMieEFVX3lxTE9BejlqQ25ZMGktb0dMNThBaWpmUXVxWGRoc2JVSmtobEh6NzROeldYZXFpa1FUTDJRUzRBZkV3cTNOSVFGOTRJRmhvZHF3QVNXTDNLdjBiM3EyTEJFaEQ3bHRtT3RnUm5tRWNlZjdrdXBsaTB1TjFQdA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Darcie Haven Discusses Vulnerability and Community in Haveners
-
-- first seen: 2026-09-13 13:47 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Darcie Haven shares her thoughts on vulnerability and her journey with the Haveners in a recent interview with Futuremag Music. She explores the themes of connection and identity within her music and community.
-- sources:
-  - [unverified] Futuremag Music — https://news.google.com/rss/articles/CBMiswFBVV95cUxPczdSU3JJbkJycXJ4TFE0UnktVGZXNnRjOV93aEM1eUEweUhWZE9XTnpQckNmbmU1eTJQdkttU2xMVjF4c2c1Y1VwTVMzNW5lT3hJR0JfRVU3Q0dwc1dIOHZSUW1FdW1jNXlXS2pYcmE0RjJKaDJxbUgwT05zNlF0dWFkd3AzQTV0Yk5oMVZRa1JaWEdVQlFVbkZua3o4NE1wYldDQmRvMThxZEQ2bnIxT2Y3UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares What Tops Winning a Super Bowl
-
-- first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce states that there is one experience that surpasses winning a Super Bowl with the Chiefs, calling it 'the best night of my life.'
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNRFpqNEg4ZUxsYlJEdDBqZ3EwTnhVbUhmQUNrRTktMm1NVWFzcmdCM0l0SE9TRTZqZFNFczFMRVdlZThDRGlTWjZ2YWFiRXdySDBMZzZoXy0tWEF4Um0tNnJURkhQcXNkWDgxMmoxSUJNYTNaMV9YNGF6MXpubGpjVHoyVkJQblVsYkczNEc5TXR0U2ZtT1BmdkZFa19NU0lGenVBYUN4YmxqbUFzNGxLZ29JbHFxUGM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi9gFBVV95cUxPWkNYbTc5cFlDUTE0X0FxSno3cC1VVlJGc2QyR0ViVTVmVl9DOU9lZFZ1d0dCcm8xc05iQlRMLXRzNjBPSHZxbm1DUVFzUFczX19GU3NuUUhmNWozSUlZQ0xZcXN0OFVndUtOTjdLUjlSeG5tcXNHdFNPTGRXcUlKdnJJTVN5Q2VXQ0Q0b2FSYlR0NUJRU0RfX2JmMnNxRElQRUo4WTBtMWRIUFM3VTY3WTdFMXM2SlZfOGJuQU5oN1d2NVVvMm84ZnE0U0ZoLWxQcFFYMjN2aDZzRVF0YV9TOFhGSTNkTGlCelRSTjcyMzJac2piYlHSAfYBQVVfeXFMUF9wY09SWWVjYU94Unh4bkFqSDI0dzZ0RHNrc3E4N09XN2trTHZWblJCUUVKbDJ0VEZOaVBCSThHS2lxVy1tMVEtUWh2VnhmRWkzTk8zYWRuVndVRllpUkY1Z1hpYm9Hb2xyQnlDaVRWMDFGODRrSWRZckxsWFFOcjViYTJmTWJna2hxTmpZX2g4NU94dzFWRmtmdjVZT0V3c0cwMkhyejhYZUREazFGSjRlOGF2Y0ZDckxLN1duckNOTk1vVFAzcWxoNWpMRWdSdElwR0pLT2F5VzlBTnB6WTZ4a0x0UENLaVptSV9zX2plNjRRQzFn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Calls Taylor Swift Wedding the Best Night of His Life
-
-- first seen: 2026-09-13 13:47 UTC | category: relationship | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared his sentiments about his wedding to Taylor Swift, calling it the best night of his life. The statement highlights the emotional significance of their union.
-- sources:
-  - [unverified] 997wpro.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPenVnbmFTZjBWZ3hHYmt0cUM4YThDZlFESVNrV2oxNnh5bHI4LU5Yc0QyeHV2QzVhV25QOW5BMW1VcG5HYWVNYmFacGg0NTJlMDBJNHNEVi1qUkY3eXZMdVQ2M0hhSm9hTWNsSzdwT3ZXY25lTEZ3cHM1RVRwel9sNTlaMmdqTmhmOGpYM3BKMVh2aDFGZmxsTXZQWDdlZHNaaG5MbEtRdWU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Experimenting with Taylor Swift's Viral Gold Glitter Freckles
-
-- first seen: 2026-09-13 13:47 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A review of trying out the gold glitter freckles inspired by Taylor Swift, which became popular online. The author shares their experience and thoughts on this beauty trend.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi2AFBVV95cUxPaXZWb01yOWw5eFd2NkxhaFNKWTFhcno3cHNBVDR0LUVmempBZFMzT0gxRWtSaXhNaVRSeWZlRk8ybTBWcjR6dVpUZnJqdjhiZWM3Yk9jcTIyQWFGM1VjMi1lMjMxSTV6Y3JSX3hnb2VNYnc1cUZhN0N4ZXQwaE5Mck5VbUVHU0pmVU03OWlxSnRsZkVHbDU4Y3lsQmk5dTRfZE5ZaTk3WlY0WFNxTFVxaDNOa2prZllwSmUzX3VNYlVSQ1N1SkRNVklFTTJRN1VoU0F5cFBnMWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Patrick Mahomes Seen Dancing at Kelce-Swift Wedding
-
-- first seen: 2026-09-13 06:04 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Patrick Mahomes was spotted dancing at the wedding celebration of Travis Kelce and Taylor Swift. The event attracted attention, showcasing the festivities surrounding the couple's special day.
-- sources:
-  - [unverified] News Radio 710 KEEL — https://news.google.com/rss/articles/CBMimgFBVV95cUxPVGszZEpWVFlXMWh1U09XalJpMDFJOXlhdU9VeDRyZzhSMGNFa2xGa2lpeWdrblpHVE1JSWdMUTR5WXA3Tm9hb2c3MFJGeUJBRTZhSXVOMTFIUmdwMVI2MGNPRU9lVDVwUkNWOWlJUUNtMjFuVG90STFzUlJaTG9SaTdtTjRzWC1BZFFTTG9rcUhjWWxfdVpKemxn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Attend CMA Awards After Ten-Year Absence
-
-- first seen: 2026-09-13 06:04 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to attend the CMA Awards in November, marking her first appearance at the event in ten years. This return highlights her ongoing presence in the country music scene.
-- sources:
-  - [unverified] ABC10 — https://news.google.com/rss/articles/CBMi8wFBVV95cUxNM3ZJSE10eThXVHZwbHQ1LU5nM3ZOSkhORnpybVJ2SF9qTGdwdDVnQk8yaWc3VlpSVUdyQ0E1U1FPUVpUUVdFN3h0UGFqS3dPempXSmppdEh6bFV2Z2tWQy1ObmpUSEo4RjhNQVFMMzk1ZDR2VjM4b2ZNTUhHdldpT1Y3UHhlR2FIU0hKWFdpTlRHdVd2TUNGbUVXWmxINWlNRktqLXBOdnZVS0hFcFZKS3hSN3QyTXVUZ2hVS2RqOFZSaXV3ZGFOTmJLa29fbFc1ZlpkYUFuZUlGcTMyQ25FbWxCQXhvME1ha1VsbDJPYUtmcXM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson and MGK Seen Together After Visit to Taylor Swift's Apartment
-
-- first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dakota Johnson and Machine Gun Kelly reportedly spent the night together following a private meetup at Taylor Swift's New York City apartment. Their relationship status remains unclear.
-- sources:
-  - [unverified] deuxmoi.world — https://news.google.com/rss/articles/CBMizAFBVV95cUxNbTU1dmFRUHVtRE5RWTF2QTBBT3ZLWDNJTHZfbjNmb2hHdThpX2pLaDd3WGpNOTczSTNGQVBBRWI1SFFrUzI0YWVQUmhuaVhZSHV2QnlNaG9Td1ZmNHpXUUF0aHBsTnJLckhyREZwNzczRVQ0clBSZThMLU8wTTVXRWFNUldJMW9iVmttTFNOcjd2dnc1VHBIdGkzdjN6TkExVndmWVdtdFVaYjZqNTJ5ZlF0RWtuRk9CdWRwNUNXREFiVFBMT1lOdF9sM3k?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mariska Hargitay Reflects on Taylor Swift's Wedding
-
-- first seen: 2026-09-13 06:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mariska Hargitay expressed her ongoing feelings about attending Taylor Swift's impressive wedding, sharing her favorite moments from the event.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi2wFBVV95cUxOYm9kM3dyTUUtcHI0VVZEOEJFbmdoN1FFNlBGYXRUb2sycGVUMTR3MHd0OVlkdUdDd3hxWE1PUEFLcFgyLWd1M3lZMm5fQ1p1VE9CUFI5a3dTRC1mZEJoZDBVaTQ1YXV6M0xlZnF2WlhETVFySzBXRVJyYUVTdDA1bVVYYTNwOE4yRTNoa05yTkprNDdRTGltUnVTbmVSSW5Dam9IT2szV2FqMmtfT21DMlBldVNWSVQ0RFgxd0pxbklfV0NnNEpaYllTX3dBSkh0TWpGN1lsVHBrTGs?oc=5&hl=en-US&gl=US&ceid=US:en
