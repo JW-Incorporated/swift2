@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 91
+
+## Taylor Swift Debuts Stunning Short Straight Haircut
+
+- first seen: 2026-09-16 20:04 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases a new shorter hairstyle that complements her face shape beautifully, moving away from her iconic curls. The change has garnered attention for its stylish appeal.
+- sources:
+  - [unverified] glam.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPNnBXWVZacDZTSktQZjZ2RklLSDRfTkE5enlqQ2dMVUZIY0JrLXVDSUhYd1JFZXRqVDJ3WFhpRXY4XzB2M1ZSdUUtWjZSblNQRllrVmFaRnJZeVRUT1dJOE9WNDlYTnRZWTJtczlybGNiU21sRnJWeHkwZThtcldLVDBqYWdsdzhxODlWNjdRZTY0TkZvd3VlN05tX0NpRl9KdTJHWEtNRTY4T2xTM0lR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Attends Chiefs Game to Support Husband Travis Kelce
+
+- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showed her support for her husband, Travis Kelce, at a Chiefs game, as noted by Pat McAfee. She was seen in a star-studded suite alongside celebrities including Tom Cruise and Gigi Hadid.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQLUtjZkNPYjNoSHN4bmt1aG1MUVhMSFdwR1NfcjlFR0laVC1tbFczc2xMb083a2FlYjZEVVhfUElnY184UEtDOXdBUGdZWnNoRmFvV0p5dldSODdCNUJoMjVYcTdhb001M0M4N2hqNzlwRWN3YzR5cXB1NTBQQWZkSG14RmdibjB0Qy0zYVZWWWxZYk5VXzl0QVRjQldlSXZVN2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Nieces Call Her Special Name Upon Meeting
+
+- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's nieces expressed their excitement when they met her for the first time, calling her by a special name. The moment highlights the personal side of Swift's relationships with her family.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQVWc1Z3luSXdZQnZvbjBzYU1jejhGakJVZ3FONy1lckRDaFFORGRBNkx4dGpubjNNc2g4VzBpYzR3YlU5QXFqUUt4YS12eGdCWnkzX2xsRlN3NEM1bGRVTlloMGhBVDlCMFJqc1RoZ3BxclNFY0poQkNZYUFKSHhqdl8yUlNSZzBQODhEVldBVWoycmFPR25B?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Jason Kelce's Kids' Taylor Swift Nickname
+
+- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared that Jason Kelce's children had to unlearn a nickname related to Taylor Swift. This revelation highlights the intertwined lives of celebrities and their families.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOaDU0UklRQjlTSTl1VS1IVS1pc3p4ZXZ2SnBYMW1oYk4ydm84N0kzdFBHNGo2NEhjc0lidlEzR1JSdGQydWpvZy1OYVVrVnVUclBQSkFLQkZIWGxNeVo3MGJBdTliZzYwTElHb0xNaGQyY2ZhYVRfdkJ1LXhJeWNjNWxZX0k2Y19PSTV2Ul9UQXlMLUpKdENtM1RkaDhhZmFrVjZ6SS05Uzg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Former Eras Tour Dancer Reflects on DWTS Journey for Season 35
+
+- first seen: 2026-09-16 20:04 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Jan Ravnik, a former backup dancer for Taylor Swift, shares his transition to a pro on 'Dancing With the Stars' and the lessons learned from season 34 that he will apply in the new season with Tatyana Ali.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-features/jan-ravnik-dancing-stars-season-35-pro-swifties-tatyana-ali-1236703222/
+
+## Taylor Swift's Official Music Videos Available on Spotify
+
+- first seen: 2026-09-16 20:04 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's official music videos have been made available on Spotify. This addition expands the platform's offerings for fans of the artist.
+- sources:
+  - [unverified] Spotify — For the Record — https://news.google.com/rss/articles/CBMiigFBVV95cUxOZ2QtODQ3SVRaTzR0YlF2Q2JvRXRES0hfQk15NnE4OF9ua2xHXzc2X0pRT0VUTDdwMS1Rekx4amRZenIwOVg2aWQxU0gydFpoRWw2c0lsVTMxSjVabUlhZ0hRbkt6QmdoRnQ0dEdhdy14QW9pdjBLNGxfQUxDNUU5N2tqbWRNa2F3dlE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce's Ohio Mansion Plans Denied
+
+- first seen: 2026-09-16 20:04 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The building plans for a mansion in Ohio proposed by Taylor Swift and Travis Kelce have been rejected, according to TMZ.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikgFBVV95cUxQb1d6Sm0yOUxJSXRQZjAycFowUnIzcXZSS2d0ZjlWRUdXU1ViZ1gxZFRlUnYtVXpnQnFHcTg2MVdXOXFtUkxDX2pyNHlaMi1aeS1GSXNGTkVab3RMTC16ZmVINGhlMHViSkx1djA2RUE1ZlEtRXViMy1rZzRsZ2xOZE05TXhRcU41eFRxNDRQZk9wZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Address Public Attention
+
+- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce express their desire for privacy amidst public scrutiny. They emphasize the importance of respecting their personal space.
+- sources:
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMikwFBVV95cUxNY2diRmZlTDhRaEFzVVQwTWhIZzFLU3l2Tkd5SVF6Uk1FLVNia0RCdlRuUWNyajhKQk1YVDFmSFhsU1E0T1JxY2I3aHpZb2ZRWUxjVUs1ekZHYUdFQmRYdnZJQ0I1MnhhTEhRbnhsM2ZLaTdhSTdpQUNMQllLS2E4SFRGaDNFRWpESGlOWWJCbEd4QWM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Enhance Security at $5 Million Ohio Home
+
+- first seen: 2026-09-16 20:04 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have increased security measures at their newly purchased $5 million home in Ohio. The property features a high-tech warning system to ensure their safety.
+- sources:
+  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOMnNCTUMtZno1aVJxS3BKUUdyVVg2RV9jbVJLT19LRENTU2V6b0wzeDNFNGdsWGNfaHJPQ19YVjgyemVQdmFsbXRlT1RZRHczSl91NkxDMmpaSW5aY1o5Y2xqNXdMOUkybWx4V1pzV25YeW12OHNLUVI2cVFmcjlGU1gxc1lTOGlCd0t0R2xlVHh3bzd4MEU5QkZlV1V5bFJ4X0NyQUNB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Complete Music Video Collection Now on Spotify
+
+- first seen: 2026-09-16 20:04 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: All of Taylor Swift's music videos, from her debut 'Tim McGraw' to recent 'Opalite', are now accessible on Spotify for fans to enjoy.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMioAFBVV95cUxOemwtMmI4U291WS1BZGhWa3dMNDBFclFnWTVPRGV6UFFmcjVIU1ZWb3Y5bTNPdnp0MzkzOHluV3dQN01IWnB2eFlJZk1qSEJzcE5tRmhHTm80VDFFeXQtTkxYanM0MEUxdGUwRFFVWWprTGU2X2lvWG9meVFXOWJQaFhKY3lab29wNlkxVm4wUmxzcHZGNm14VW05XzlVdkdr?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Exploring Rare Sports Moments Featuring Taylor Swift and Kanye West
 
@@ -59,14 +139,6 @@ Stories: 84
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNb0I2NmtpQjVzOWdoWEF4VHh1V3YzMkRPa19PZXdVVTlia3RJZ2NvMkwwVzhwek02SHBjd3JrNGRJY0puUFNGZUQxcEl1NDN4UlhNTFY0NDdHUXJFNGh5OTBfbE0zbUhPVGVnX0JwZkh2VkFrWFdPYVVjUTd3a05HRW1lSnNYWmN5UEpEY0hKcDMtT3Vib1ZoejhNZ0xxb2ZKQm5BNA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Features in Emmys SVU Sketch
-
-- first seen: 2026-09-16 14:10 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made an appearance in a sketch during the Emmys, where she included hidden Easter eggs for fans. This playful inclusion has attracted attention and adds a fun element to her participation in the awards.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUHJoMXF5cWhURjNjalZmYXF2a0lmVVplUlZDc2FOLUpkSmxrNHdkWUZYQW1SWHp5WkNXRm0xTnF5cFR5T0dlc3pXc2ZDV2hVdXFJODM3YjZsenRORzZEb2szYXNRMGNEajc3MFpPeVFNRFVpQVY1bENrTmNDQ1VubXo1OFRWZkVzY3RsSHFqMDFlbkptLS1ERXNtTVg1Rzdxanc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Surprises Young Fan at Kansas City Chiefs Game
 
 - first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 5
@@ -74,14 +146,6 @@ Stories: 84
 - summary: During a Kansas City Chiefs game, Taylor Swift had a special moment with a young fan, creating a memorable experience for them. The interaction was highlighted as a 'once in a lifetime' occasion.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNRDRLTW5VRVREUUFKZEFURXUzaTJOTTlwSGdJMGxIM0xyXzF2akFPM3hhNk1uNXU3dHBaMl85Z2p4ekpqLUp4Qm45MlFWak0waUhOZkIyVkwxQTBCTUgzVWcyYmdwaGtadklhTnBzZm1FWmR4ZDNPNzJEaEFjS3NEakdTTzFNMTJp?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Swift and Kelce Emphasize Privacy at New Ohio Home
-
-- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly taking extreme measures to ensure their privacy in their new home in Ohio. The couple's efforts are highlighted in a recent article by the Cincinnati Enquirer.
-- sources:
-  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMizwFBVV95cUxPWU93NjZiVzJqSDEtZjFlRGhCaUlDNm8wcVNfeXA2WU5tWTFqNjRuN2VLUHhZLXgwREl4a0xyMktaanBnaHNROXlnbVlBSTJ0NFhac2huYVhQb1RBODJ2MS1zQXR2VjdtUXBEODk0VFZPQXhlLWotNkZUS3RzblZwQmdXdjg0V1pMaVVBd1R3MGhRb2UzWlFQeXhzOXp1MnhUdUJOM19ZN0VVeFhRRjBJb2FmbDM1MDhOalYteklEc2tlSjFMV0JMQjVHcnNMMHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Kelce’s Daughters Have Sweet Nickname for Taylor Swift
 
@@ -107,6 +171,24 @@ Stories: 84
 - sources:
   - [unverified] MyStateline — https://news.google.com/rss/articles/CBMinAFBVV95cUxPbTVmaDhLaXdhNFdCSEkzNEJZdWpqTTFiMFZROWlvTzNWVTJ4OWQyUk9ZLS1ab1lob2ZleEs4WGdhSC01YkZWWmN5SVJic0xILUF4c09FX1BhVHpvcFRtWTZ2d1I0YmpWRFEya253RUhaYzg2WDlWamVLQlVSVmk2bFI5OXhBaV8tM3VrbFByZUh0NlZKV2lqQjBlZkE?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Swift and Kelce Emphasize Privacy at New Ohio Home
+
+- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce are reportedly taking extreme measures to ensure their privacy in their new home in Ohio. The couple's efforts are highlighted in a recent article by the Cincinnati Enquirer.
+- sources:
+  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi0wFBVV95cUxQRmI0Njg4R0wwQ0dBWU1KaXRwQTVSY3h4S2tJS2NvaTBndDQzZ2lEbUFHckNkSmVILUppbjBjREFvZmxxWU5PTml4aTZVSHVHcXg1R1RvWUZQTC00ZmZXWEVRMGtEdUQ2T2pzcjB1ZXFhTHRJaGJDU0R6M3hScWFDYXR6UzU5X3BjVmhMLWJudEVxcUY0XzJXUmtQYmM5MERjMjZIYW5SaWVaX0JOd245SGtTS185dkNIUHZUTXNKdHp1Ylh0ZUhlYmt6YVRLb3A0LTJj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMizwFBVV95cUxPWU93NjZiVzJqSDEtZjFlRGhCaUlDNm8wcVNfeXA2WU5tWTFqNjRuN2VLUHhZLXgwREl4a0xyMktaanBnaHNROXlnbVlBSTJ0NFhac2huYVhQb1RBODJ2MS1zQXR2VjdtUXBEODk0VFZPQXhlLWotNkZUS3RzblZwQmdXdjg0V1pMaVVBd1R3MGhRb2UzWlFQeXhzOXp1MnhUdUJOM19ZN0VVeFhRRjBJb2FmbDM1MDhOalYteklEc2tlSjFMV0JMQjVHcnNMMHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Features in Emmys SVU Sketch
+
+- first seen: 2026-09-16 14:10 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift made an appearance in a sketch during the Emmys, where she included hidden Easter eggs for fans. This playful inclusion has attracted attention and adds a fun element to her participation in the awards.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipAFBVV95cUxQdGEtTnFhLUh1TDV6bHVxVE40YVlzQzN3UlI4VDN6c0QzampJa1VYbWdTNkVLOWtnb3BHdl85bmV0LUlfbkZhOFl3RE1GTC1STmNpQTdEYllyWE1JV3NqOGdKVXZtaktxRXZkVlE4MDM0YTZRbVR2ZzJxcHZScGEwZ2RMaG5UVE5Ja3RaWFFHdEZiNHpRZmlMNldPUktiX1NEa25yTA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUHJoMXF5cWhURjNjalZmYXF2a0lmVVplUlZDc2FOLUpkSmxrNHdkWUZYQW1SWHp5WkNXRm0xTnF5cFR5T0dlc3pXc2ZDV2hVdXFJODM3YjZsenRORzZEb2szYXNRMGNEajc3MFpPeVFNRFVpQVY1bENrTmNDQ1VubXo1OFRWZkVzY3RsSHFqMDFlbkptLS1ERXNtTVg1Rzdxanc?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Did Not Attend the Emmys
 
 - first seen: 2026-09-16 05:57 UTC | category: business | importance: 5
@@ -126,10 +208,15 @@ Stories: 84
 ## Taylor Swift and Travis Kelce Take Steps to Protect Privacy in New Ohio Mansion
 
 - first seen: 2026-09-16 05:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift and Travis Kelce are reportedly implementing measures to maintain their privacy in their new mansion in Ohio, aiming to keep nosy neighbors at bay.
 - sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxQdTlYWlNuQ1Z5OTdYUk1OWVNaNVowZUVlcnFQOUdUT2wxT1RjZWZLLWNHMjVTSEF5WHBPYXBPTHFTZGVEaVctNGFaM0VpSlN5N3ZhZzFLYlJhQV9MaXlua1JxZ2ZKd25DUVdJdUxQT2NpMzB2UWRTZGNjMHlkOTFBUXl4VUpuODA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMisAFBVV95cUxPZHpVVXZxMHE0TWhydkV5aEprYVBQN3ZwSC1ySnd6Nms4YllnTzc1WkluYl9CSC13YWR3LTdCU1RiTjhzT1A2cXNZdXRpNnVoV29VMnNOMUdkeFozMkhndkN3bHI3VW5ZYmpETndvNXRucjlhdkhpdlJFekVyNV9renVDWlkxLTdPbHIxdGw2a3BhYUs3RGc1LVJJZXBsMV9SdWc2dl81aVctSW9TcTJVTtIBtgFBVV95cUxOeWhJRGJDOHJFQ2JkZWwxYnFvX3NNanR5RUFrZGp5QTk2WkQ1cXpGb3ZtUXlpM2VFdGZ0bUtPMzVtUkU4a3laVWRaUmtIeTNURHhvWE1fUXp1OVNYWlR5R0hmTWlsUmxCUVRqWUQ3RFlOME0wMmhZQUVsQ0hjUjlzN0VxOHJDeGZfNjVOTmVtSHpqVDRIVGxwQnFoMkVKNlVxSkJJb2dFZ2luNEtranlXMWlTM1Q0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMitwFBVV95cUxQWWFWeEx2ekQtWG42SG41ZFJlMDVneWNjSmt2Wi02eDR6d0Y1azAtWGxvZ2c2TlEza0VnYVNvdDhZbE92UTJBZ2xWZG1WeHdDQnFoMXlPUTZyMUROMFY5RUNCd1pob1pzcEJfWnk4alpMVWY2Mnk5YnU4dWtKZm16cTJRWTNHZndfMl8xckMwa2ZkLWVBekRyeFctSHYxaUx5QXlHNEowRkRGbVc2cHZCcmlHTEtSRXc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQYUJacUI2UlF6Skx5azI4YlJwSkxVYjNfem5Jdmx3TGV1OTNYeFZkYWtEQVFadnpGdFhaaXZkbU9lNldDMU5zVWI3eDlYSmMyVlpiQU1xdVlPeTkzY2tkXzdMRWI5X05LRm5Ob2VlOWdudWxwS2x5eWpGLTRydURPZzN1RG5RdmJvOERCVHdNcWd1TzJhYmZKU1htaTVodw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOSU9jMkUtS1ZwMkJsOElYSThTNnhEVzBGNU9HdG44Z2otUFl6LWxaSFdja3BYSFdsendDZ2tmWEZoSDhSQXBhenI3UklaZGlBaVFlMEtQX2RpRTRDalVYa2IxaFZob01TQlBJWXhZMVprNU5NTndJX2Zsb1lSeGd2VVFTYU9qSDhxY1JMNHJsNGozWXZKRmdoOGx5eWVlYS1QeEJMYUZ3T054aWJKbWhXa0ctYS0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqANBVV95cUxPOVNUczlxTnEtaElIMXdMOS15X0VYZkhNbTJXcXBXTmhQd204LVU3UlNEM3BpNmJkSDFsQ2Z1Z21ZT0hpLXFYQjlFR0tncTNLQXc2R3cxQTRsaHpkR3E3c3VXcFY5S3ZyRTQ0Rm4wRHBSbVQzeklJbmtGSDgwRG5HcmdKbzF5X2FJMFFZemtfX2pLV0VxQ0VOamhCdGpaNk9xbkJXUGxWeERuSWd5SzZWN1RPUG5pUE1tRWNEdTJCWjAxbXNZQVUzZ1BtX0thM1VfTzVPSWljLWppa0JMVFBMZUdFcFJZY2pZRzdETFhIYlJpTGlVQVlVQjIzdHBIVEtpTG9SeFo2RGJrTUdlczluM0VqUnFzc0tYaFVNQ01UaHJGU3hncHcybUlCMUM3cWo4bFh6cjFTNmM2M3RCUEJ1N2pHTTRjOUw4QlZXaDZrZm9JTlVSeWxFV3hTN042UnpGXzlLdng3X05nbEhNS2t6V2lMLURVTmxEY2pjWWFqeUJZVVNpZjBBR2prUmhJUS1kRVZ6eTFTb2t1RUlEeVphb25RNXpXWEhB0gGuA0FVX3lxTFBKQnV2WFlzb2FxRnlOYk5VOWo5R3E2bUp4YjBsZVpXVXRwN21mNHJnNF9ZaHBCTUs5UWl1Wi05TjhBLTlqdlE3UlFydkdIZWRFSFk5b0RqODNIcERnQ3NKcXhPdldGMVprdk5TelM1NkNMQjJSSVdaWTlXcWRFZDk0czRFalBkY0FWZFY3NmdVR05XdGZRbGFBV2ZJUHNyUWFDNXhLb2ZLQUtHVHI4ZldDZWNNSVBGdUNtaUx4WFY5LXZKdDA2MVhzQV92WGliaFJEQzRrTk51b3NBQl9DRjVUMVIwNGdHdkNKZzV1RkQ3RkRRdnprSXREempKVDQwTkdtd1ZDdTdacjg5OGk3UDdFQVlaMW9fX0RpbUZuUl85NGljUDJuUWFTeGhqVlh1bnpqc3ZBYVpPZmhuUTJyWjY2UURwZ1I4VnI3aU5QcXdqVzFfUEZuSk5KZ0paYTVhQzAxTldRWFJRb2VtMjR1aHNPUGNSa2RhZFJZZmNBRDVvMURDNDVkUnJRdGI1ZHZTOXAyVVc0eW92ZnAzOUhia2dxVUpHOWRfSHZMSUZKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Details Revealed About Taylor Swift's Cameo in 2026 Emmys SVU Skit
 
@@ -219,14 +306,6 @@ Stories: 84
 - sources:
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-features/emmys-2026-taylor-swift-mariska-hargitay-1236701852/
 
-## Emmy Producers Discuss Taylor Swift's Involvement with the Show
-
-- first seen: 2026-09-15 20:13 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Emmy executive producers revealed that Mariska Hargitay's friendship with Taylor Swift led to her involvement in the Emmys. They shared insights on the ideas Swift contributed to the telecast and mentioned the show's runtime issues.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-emmy-producers-show-behind-the-scenes-mariska-1236862920/
-
 ## 2026 Emmys Features Taylor Swift in 'SVU' Sketch
 
 - first seen: 2026-09-15 20:13 UTC | category: business | importance: 6
@@ -242,6 +321,15 @@ Stories: 84
 - summary: A new species of bug, named Swiftiephylus, has been discovered in Australia, honoring Taylor Swift. This naming highlights the cultural impact of the pop star.
 - sources:
   - [unverified] Science News — https://news.google.com/rss/articles/CBMifEFVX3lxTE1PdHRZejVrN1RoTHg0Zml0LWp6WXFKTmwxamRZVWExT0drYU5ObFRNQ0h1NjlQQ3E5SkV4Y2YwM0lDVy13ZlFpWE96bUE3YUJYalZPYm12Qk9BbWtuNjJheEFpSE15UVMxZE9rT2dMVzh0TDdmczVVajZwbzk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Emmy Producers Discuss Taylor Swift's Involvement with the Show
+
+- first seen: 2026-09-15 20:13 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Emmy executive producers revealed that Mariska Hargitay's friendship with Taylor Swift led to her involvement in the Emmys. They shared insights on the ideas Swift contributed to the telecast and mentioned the show's runtime issues.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipgFBVV95cUxOc2NEekt6X09ja2lva1JsaXp1RzluNkVjSUlSQVd2Vlp5ZjJUaV9fSXBvalI0dU1lXzBheFU1Q196NElUSm92ZGhfdXl5R3BpbXhtUUVpLXdDclF5TW95N0RLaTNyN0I0SHRIdEl1V3QxLXpkVzA4ZjdyTGYtYkdWVWtPMXBKMTExWkZ4NjFxMEJPZkgzUFhDWUVDOUduQW5Tbkh0bXJR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-emmy-producers-show-behind-the-scenes-mariska-1236862920/
 
 ## Taylor Swift Surprises Fans with Pre-Recorded Cameo
 
@@ -715,30 +803,3 @@ Stories: 84
 - summary: The article recalls Taylor Swift's significant achievement at the 2009 MTV VMAs, marking a pivotal moment in her career and the award show's history.
 - sources:
   - [unverified] americansongwriter.com — https://news.google.com/rss/articles/CBMi5wFBVV95cUxQWDFaenJzYXFlM2FuMm1yb0czSFJGczNuUDlTc2otS3hib3d3V0hDdE5Pa3NtRC13R2I3Tms2eW02YmhZUVpQM2FsWlNaRjhSWUZuMThpdUp5UmlGRnB4U2xNTHB3djBULXc2QUc5M2NnS2tFOFRWT3JBeERCMEs1ZjdaQy1PaG5uYTZSU2lYejhXTDBZVUJlYXVrMjVLUjFNOTl5QVVtQTRfLXllVm1yM1l6SU5JVjViVE15Z2kwcVJ1UC1tNXNoZUtVZjdtaG92eTNqUmJOUWhkQzZORmM5bm5lT0RLeWs?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson Seen with MGK After Visiting Taylor Swift's Apartment
-
-- first seen: 2026-09-13 19:25 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Dakota Johnson was spotted in New York City with Machine Gun Kelly following a visit to Taylor Swift's apartment. The outing has caught the attention of fans and media alike.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxNemJzTU5mUjhuU1pQRDVvTllndHViRGpsOWxlcURwc28tdnFHQ0tNUzB1Y2VmWGFlVEdqUWJsUlp6ZDZjWkJNVWdMX1BTX1lVRnpCRnp1LXd6YUQxTnFMalpfUnEtdnBybzVEZWZNU2RBNVVaZmhZeEpNc2JTSTlkZWttR0txeExFWnlsUllzV0dtdXlRRzV1N3pXNVFzNU1fc0dCbC1qWVBRa0wwdG9FUEx2d3I?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPSEhpTVlWcVNoME5BQXprY2dXMFhoQVNwVTdvczdVRUFxbFl0M1R5SkpfcEtqcEhTbmVXcUIwVEloLWVaR0tmajNrRzZtWFZRQ2Jfd195NzBaYm1KRlpyY05BMFJEUkk1YzlFbFVnODJiSkY3bkxWeFlhX3VLZ1Y5djFzcml6dmp1UVNzVTJkN3kxX2RpQzlZU1NtNXRKZ3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson and Machine Gun Kelly Seen Together in NYC
-
-- first seen: 2026-09-13 19:25 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Dakota Johnson and Machine Gun Kelly were spotted on a date in New York City following Johnson's recent breakup. The outing has garnered attention from fans and media outlets alike.
-- sources:
-  - [unverified] Thought Catalog — https://news.google.com/rss/articles/CBMi7AFBVV95cUxQVVhnUGlTc2M3b1JiQ0IxNWthYnBaYlRPSEpJeDlwaU1ucUNGaHpPMmJjT20tRlNjSFZrcmIwLWVIMndBOXEwTkJaSUx6YlBfdXFHWVFQSmVOSHFiZmVEdWk3UFlpekpRZ2RaX0NKQWoxZ0tMa0Z4T29BVHRKSHNVcVFRLTdRc3RjZm1uaWViVi1aa2pGRnZXdUZNQkQwb1ZhS1A1d1Iycm5vX196UzdDUFh1ZHRDazZLT1BYLVFjZGtxd3plakhpbnBLMTk5LWFXTmxKSmVtVGJHRV9JZ3BsOHZXb0EtcVl1VktTbA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG1HVlVYc2x3aDZLZkJzNlVrTU0wV1o0ZjFPUGVWZ3E3cmh5QUJtdWRaa05DUkVJamktZzRyaUQwLTUxVFlXVVZEamUyVVdqakxGdmlyYy1leUN5amM1aDdRNkZVNnJrZW95eEU0TExtYS0xbVR0UFFoRXdzWkZjTXNxOTlpMnZBbU5hRTM3UnpDMzdFSHd3Nw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kanye West's 2009 VMAs Speech Interruption Remembered
-
-- first seen: 2026-09-13 19:25 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: The 2009 VMAs incident where Kanye West interrupted Taylor Swift’s acceptance speech is revisited, marking 17 years since the event. This moment had a lasting impact on both artists' careers.
-- sources:
-  - [unverified] Men's Journal — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcWtiY2c0YmhXNVlvY21ud3FDQXVnRE5vR25aMlJudlprZEFLRDRrWmQzcnY3c3JKX0FMbFZ4b19wMGVXeDJZRmF0VndUb2cxWWVwU1VVTmZhbmFxTm1Ha2RBdkljb3RXWDBmVWphX0JEQjZUTnFxVmp3OXN5T3RUQ3BkV0sxMFdaSE1xV0JrLXhKUkktZjJwbmthbGU4cnRTbFl3Z2V3cW5nb2sxZW0zWnVJTXRIWFk5ZVl1TTFB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] VICE — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPLWpBTDUzalJvVUplUzBQWG5oM2JGNGpZaEc2U19xTWQxUmlpdjR2NXpwbFBPZDBhNTlodHA0NzJ3eUNjZThWUzVhVV9TalEteFBuTlpKVXhsZzUzc3ZrZDhKa3QyNnlvQnZyT05FdlZaRDQxWDEwTVQ0eDdHeWxNamI2X2k2WUp2ZkhFQXpwQmpheFRXR202YnlDS3E0SHVjZFYwRDhRTkI3Zm5mUjg0cHcxVzl6eGpOTU5YUGhxZDlfSDh0NGk1SGtxRHhWcXpTVXc?oc=5&hl=en-US&gl=US&ceid=US:en
