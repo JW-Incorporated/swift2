@@ -5469,7 +5469,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
+          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe groom\'s half of that Dior commission stayed unspecified until September 14, 2026, when Travis Kelce confirmed his own look in an ESPN interview with Chris Berman ahead of the Chiefs\' season opener: a large white top hat as part of his custom Christian Dior Haute Couture, "Oh yeah! I had the full gamut, man," finished — per the same coverage — with Christian Louboutin shoes. Both ceremony looks were the same Anderson-designed Dior couture.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -5489,6 +5489,20 @@ export default {
             source_type: 'interview',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          {
+            // Added 2026-09-17 (intake #4413): Kelce's own on-record confirmation
+            // of the groom's look — a white top hat as part of the same custom
+            // Dior couture — given to ESPN's Chris Berman on Sept 14, 2026 ahead
+            // of the Chiefs' opener. Yahoo Entertainment carries the quote and
+            // credits Page Six as the original source.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-wore-white-214105057.html',
+            source_title: 'Travis Kelce reveals he wore a white top hat at his wedding to Taylor Swift',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
           },
           {
             // USA Today reporting Anderson's on-record quotes (Edward Segarra,
@@ -13774,6 +13788,90 @@ export default {
               'Reference photo: Taylor on the Eras Tour in London, Aug. 2024 — not the Sept. 14, 2026 game.',
             kind: 'reference',
             focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-all-music-videos-on-spotify-2026',
+      year: 2026,
+      month: 9,
+      day: 16,
+      category: 'release',
+      title: 'All 58 of Taylor\'s music videos land on Spotify, Eras play/pause animations restored',
+      snippet:
+        'On September 16, 2026 Spotify made Taylor\'s full run of 58 official music videos — "Tim McGraw" through the Showgirl-era clips — available in-app for Premium subscribers, and switched the custom Eras-themed play/pause button animations back on across her catalog.',
+      sourceUrl:
+        'https://newsroom.spotify.com/2026-09-16/taylor-swift-music-videos-catalog-spotify/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+      moment: {
+        context:
+          'Spotify announced on September 16, 2026 that Taylor\'s complete catalog of 58 official music videos is now available to watch inside the app for Premium subscribers, spanning her whole run from 2006\'s "Tim McGraw" to the newest Showgirl-era clips. The rollout closes a brief gap earlier in the year when a handful of recent videos — "Opalite" among them — went up on YouTube first and skipped Spotify for a couple of days.\n\nAlongside the videos, Spotify restored the custom Eras-themed play/pause button animations across her catalog — the small per-album flourishes that light up the player when a song is paused and resumed. Spotify framed the move in its own newsroom post; Billboard and Music Business Worldwide covered it the same week, both noting the videos are a Premium-tier feature rather than something free listeners can watch.',
+        sources: [
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2026-09-16/taylor-swift-music-videos-catalog-spotify/',
+            source_title: 'Taylor Swift\'s Music Video Catalog Comes to Spotify',
+            publisher: 'Spotify',
+            source_type: 'official',
+            accessed_at: '2026-09-17',
+            reliability_score: 5,
+            notes:
+              'Spotify\'s own primary announcement: all 58 official music videos available to Premium subscribers and Eras-themed play/pause animations restored, published September 16, 2026.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-music-videos-all-now-on-spotify-1236341630/',
+            source_title: 'All of Taylor Swift\'s Music Videos Are Now on Spotify',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage corroborating the rollout and the Premium-only availability (behind a paywall; corroborated against multiple trade reports the same week).',
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/all-58-taylor-swift-music-videos-land-on-spotify-seven-months-after-opalite-skipped-youtube-for-two-days/',
+            source_title: 'All 58 Taylor Swift music videos land on Spotify',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes:
+              'Trade-press coverage confirming the 58 count and situating it against the earlier "Opalite" YouTube-first window.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-luminate-trust-the-fans-vinyl-2026',
+      year: 2026,
+      month: 9,
+      day: 4,
+      category: 'business',
+      title: 'Luminate\'s "trust the fans" report: Showgirl is 2025\'s top-selling US vinyl',
+      snippet:
+        'A Luminate Intelligence report reported September 4, 2026 lays out Taylor\'s physical-sales strategy — album-to-date physical figures of 3.3M for Midnights, 3.7M for The Tortured Poets Department and 4.1M for The Life of a Showgirl — and ties the 11 Showgirl vinyl variants to its run as the best-selling vinyl release in the US in 2025.',
+      sourceUrl:
+        'https://www.yahoo.com/entertainment/music/articles/luminate-report-taylor-swift-fans-105828417.html',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          'A Luminate Intelligence report — Luminate is the industry data firm behind the official US sales and streaming counts — characterized Taylor\'s approach to physical formats as "trust the fans," and the numbers it cited make the case. Album-to-date physical sales it reported run 3.3 million for Midnights, 3.7 million for The Tortured Poets Department and 4.1 million for The Life of a Showgirl: each album outselling the last on physical alone, in an era when physical is a rounding error for most artists.\n\nThe Showgirl figure was built on a deliberate variant strategy. The report counted 11 separate vinyl editions of the album released between August and November 2025 — a completist chasing every one would have spent more than $330 before tax — and that breadth pushed The Life of a Showgirl to the top-selling vinyl release in the United States for all of 2025. Yahoo Entertainment reported the findings.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/luminate-report-taylor-swift-fans-105828417.html',
+            source_title: 'Luminate report: Taylor Swift fans drive millions in physical album sales',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Reports Luminate Intelligence\'s "trust the fans" analysis: physical album-to-date sales (Midnights 3.3M, TTPD 3.7M, Showgirl 4.1M), 11 Showgirl vinyl editions Aug–Nov 2025 (>$330 for a completist), Showgirl the top-selling US vinyl release of 2025.',
           },
         ],
       },
