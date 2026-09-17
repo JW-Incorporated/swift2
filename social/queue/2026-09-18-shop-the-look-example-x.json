@@ -28,5 +28,15 @@
     "rationale": "A one-breath proof of the merch surface — the fan pain-point, the exact willow-era Jennifer Behr piece it links to, the honest disclaimer, structurally unlike its IG sibling. Photo is a credited on-brand Taylor tour tile rather than the look itself, so it earns its place loosely.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-17T15:44:45.554Z",
+    "pr": 4424,
+    "sha": "87f76d33c7e4413af920d9fcdc242cb842ac808a",
+    "message": "1550170492189810749",
+    "contentHash": "sha256:fb70f53a83a40ed0def28fb2a965631830365a3da655d8441afbe9c4852cf5aa",
+    "sig": "hmac-sha256:c3118acd644573e960c5cc132a6b2ce40e2f917635dded6b3d23a719956dee54"
   }
 }

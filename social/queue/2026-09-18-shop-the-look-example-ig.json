@@ -28,5 +28,15 @@
     "rationale": "The strongest proof the merch surface works — one real look, the exact tiara it links to, and the honest 'her look, not the product' line, all sourced from the vault. Gushy fan voice with a checkable willow-video detail; the evermore tour tile is on-era but not the look itself.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-17T15:44:45.554Z",
+    "pr": 4424,
+    "sha": "87f76d33c7e4413af920d9fcdc242cb842ac808a",
+    "message": "1550170488897020126",
+    "contentHash": "sha256:c5178db2482dc2170c066c6ca2a272b3a09767ccfd2f1475b09a1ef81fe0dfde",
+    "sig": "hmac-sha256:2b9ae92178ca8ffe1cfed2bd930c65a57c5027e9353dd58e29fec3d3ef538615"
   }
 }

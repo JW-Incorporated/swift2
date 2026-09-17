@@ -28,5 +28,15 @@
     "rationale": "Tight X open for the timeline series — a prologue frame and a 'receipts only, no speculation' promise that states the confirmed-only premise in one breath, structurally unlike its IG sibling. Photo is a credited on-era Taylor tour shot rather than a debut artifact, so it earns its place loosely.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-17T15:44:45.554Z",
+    "pr": 4424,
+    "sha": "87f76d33c7e4413af920d9fcdc242cb842ac808a",
+    "message": "1550170485986168986",
+    "contentHash": "sha256:d85912d14a3781932fe7516bb409d7e56d985992eb9938c20b6b1e9733e6d0c0",
+    "sig": "hmac-sha256:e2d28150ed5511effaade6657e35d741802c1aa977a26c09acb208878161c164"
   }
 }
