@@ -27,6 +27,38 @@ so far".
 
 Stories: 100
 
+## Brad Pitt Reflects on Dance Floor Incident at Taylor Swift's Wedding
+
+- first seen: 2026-09-17 14:16 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent appearance, Brad Pitt discussed a mishap he experienced on the dance floor during Taylor Swift's wedding, noting the unexpected duration of his stay at the event.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbExSYlE4VHJTdnVPdlY3eExucDE4b2Y3X2dxYTB4S2R1QnRZZDNZRHlLNDZEZmhvVnF2ellOeDlxS3NCcDJRMFhhcXhBTENJajhFOVNCdmsxc3gwdC1aemRHWUpMcFhpbl9pWGt6QU0tcHNDVFh6U3lBRnIzVm5EMmhweEpMY1hmcWR0d3dON0dWVENJaWxPaFVibzdtYzdG?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift tribute featured in capital region events
+
+- first seen: 2026-09-17 14:16 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Taylor Swift tribute is highlighted among seven activities recommended in the capital region, alongside Theatre Week. The tribute offers Swift fans a chance to celebrate her music in the local area.
+- sources:
+  - [unverified] The Baltimore Banner — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQYnM5b3ZzYjVYek0xZnVSclpnWTI3M1FLOWxOTF92THplWXNnWmM5ZjdxcEt2TWV4V2o5dzV1Q1RjQzdnUjJQNTdlY19RRktqclZITGdKdW8yZXVhem1INVZBeVhSWGtOckNHSldSb2ZDaEY3N3hILTZBV2tsMGhOVzZuZ0VaZ09WbmZWSlNkVlJpX1Zka0RQOEtYSWdlUzd3Yl9ORHpORFZoSXdldjZFSTQ1dnZGRkI0dEk3eFZYVnNab3lVWkp6QS1DMENjRVVDbGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## All 58 Taylor Swift Music Videos Now Available on Spotify
+
+- first seen: 2026-09-17 14:16 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: All 58 of Taylor Swift's music videos are now available on Spotify, following a seven-month gap since 'Opalite' briefly skipped YouTube. This expansion enhances her visibility on the platform.
+- sources:
+  - [unverified] Music Business Worldwide — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOdVMzYlMtbTRxX0RSOTlia0FDbUVTTFM4QnhoekhKX3VaQ25VODV6N3pQS2pTYk1VQU5Hem9vUlRWQ0YxMTFLeURjQXdJOUdwRWMxd3hvWmt4NjJCWE9UaHAxbTc3QlVxeUg1OUZsQUJEcWpLdWxtb0xFakp5VXowSXI0UjljVTlUaTUwYXFFTWVIeUE4UnBmcWxvUE1MMDE3b3J0QlMxSW10YjFtRHNKRXJXWXNBUnNfQ1lBWUtibm9MOFhvV3Zld2twNUQzYk9UdEJRNS01TDdJUS1r?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Role as 'Aunt Tay' to Kelce Daughters Described
+
+- first seen: 2026-09-17 14:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's relationship with Jason and Kylie Kelce's daughters is examined, noting that she wasn't always referred to as 'Aunt Tay'.
+- sources:
+  - [unverified] Momtastic — https://news.google.com/rss/articles/CBMimwFBVV95cUxQdnk4YmxDM0NoSExQZ1c2cGpqYVVyUE9SRi1xM013NUNnQkJpSXBzNms5SC1KNFAxSjgzOG4zTll3dWNUb2pmQWJpRzYzY09KSG9TRXYzMndVUkpleUstclpPd1N4eWh2M0dDY09tTFgxWFJVTzdSRGNwbjZoVVVBY1hfUnhkUFppRGJ3QXlaRWl1X3JIOUhQd2x5MNIBoAFBVV95cUxOYjBuRU5mbWU0WjhNc1ROcFJpdEV5VHJwclp4S3RtZVpaQ2FHR01ZYVIzczJ0S1dId1BEMWMxNndDb0N5QmFnWkg0dHI2ZXJ5ZEV1MGRXMXA3RU1GVUthQmd3Z2hLSTJ6S1otQnhRVlNWblJJX0pjLWJLb3hqRXZOY3BSV3hNRXpwV0t2M0dHaElMT2d0cy1zR012bmwtTWRV?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift's Absence Noted at 2026 Emmys
 
 - first seen: 2026-09-17 06:06 UTC | category: sighting | importance: 5
@@ -43,14 +75,6 @@ Stories: 100
 - sources:
   - [unverified] New York Post — https://news.google.com/rss/articles/CBMingFBVV95cUxPX0paMUhoVkdybTliZ3dBYXN5R19GUnhyTXdnSTJvenJtRmZhTjc4dC0zNjVBQl9rWXdnck1CRzVjVVlwMngzcG5DMV9tNElUSGJ5ck1sX2ZocVgyd012eGZxTWNIUENwcnBCSHppZDc0NnZtNUNOUS1YaVhzZDFHWEM5WTh6d1QyQnpXS1ZaMkNwUkJ4aGFqU292RUVaZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift's 'SVU' Cameo Sparks Decoding Among Fans
-
-- first seen: 2026-09-17 06:06 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's recent cameo in 'SVU' has generated excitement among fans, leading to widespread speculation and decoding of clues despite her absence from the Emmys. Swifties are actively discussing the implications of her appearance.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOSzYwZV93SmFjY2hZRndfQzA0b0dnVUVEU1JxdlZ2U1l3NERrUGdmUkdKUGlRV1E3czFnVmZGQUhaUjVXYmFmLWY2X3dfdkptaE8zVXdkd2k0eVYyWTA3Njd5VGhPLTd2N1l5TzdORmZTS1JEc0xZaXVOOTlFTUkxRjdYWHVnMklSSjk1VXpJMTUzSjJzZGRvNW5xSGRNOWN5VzQ2OXpJSmN6MFAzeWZTSUtfVFQyenM3UHV3R0xhUzlIanNFYkZiN0t5cnpyTjhoN3lzSzRSQWthMi1ka200YVg1ZFJIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift reportedly speaks out on Meghan Markle comparison
 
 - first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
@@ -59,14 +83,6 @@ Stories: 100
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQemhseVVKb29sYTZIZmtBYkVEM1dXT3FxRW9XTjRpZWc0MVBFOHFCaUdlYmdrRjltcU9PTFg2VnVxQ1daTmdYT21hUXlYZVdzTjBlaG1VeWlydjlxc1lYQTRfWkViZk5Qa01tQzVNU0JaWEthYXE0RjQ5MzcwVENud0p1MlBRY1JF?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
-
-- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Psychedelic Pop Artist Peter Max Passes Away at 88
 
 - first seen: 2026-09-17 06:06 UTC | category: business | importance: 5
@@ -74,6 +90,25 @@ Stories: 100
 - summary: Peter Max, the renowned New York artist celebrated for his vibrant psychedelic art from the 1960s, has died at the age of 88. His work included iconic posters and portraits that captured the spirit of the era.
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-news/peter-max-psychedelic-pop-artist-dead-obituary-1235628135/
+
+## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
+
+- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WCVB — https://news.google.com/rss/articles/CBMiekFVX3lxTE9nekl1bVZSSzJPSHlESVBJVm4yM1pqdE9KdE1sclZpemFob1BSUDBVek1WakNqUWFTd2FOR21EWC1rMldTNlhzZHJtbENITEVlMmZZNEFXLVBBOWhGQ0xvSm1Ja24zM0V3WTZaUmZvT25XX01ReWVmdFlB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdTNqZXZLS2Q4bTUwRXZiNDdJUm13c3VqdTFyQkthMVVCWllDOHMxMzlOSkpaUWdLMGM2Yy1RVDZ4Q3hXdzlRMVVmNTNHRFBZV0pEbHpCV3F0emJZRE9tejMyOTd0N05IeVZJVWpwOXU2WEZmYnloVDZKR3FVX0pZaUZ1MG1TTGVTNmRTQURmaDZSM0pRaHJBMUZOX05WeDNE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOZTF5SVBTUVRJS25fLUR1UW1ia2pJYjZDVFZjM3J5WmtOanBWU3VyX0hBaFN6WXhYNWZZamx1SkN0QmdPX1J2WkVSV2daTTNrVWVaSDhqaUZnaVZnVlBwcC1WMFVQam1jMG8yXzZIYklHZm1xYjlaYi1sbGliM2pTVlRRcHVpaUx4WVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'SVU' Cameo Sparks Decoding Among Fans
+
+- first seen: 2026-09-17 06:06 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recent cameo in 'SVU' has generated excitement among fans, leading to widespread speculation and decoding of clues despite her absence from the Emmys. Swifties are actively discussing the implications of her appearance.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOSzYwZV93SmFjY2hZRndfQzA0b0dnVUVEU1JxdlZ2U1l3NERrUGdmUkdKUGlRV1E3czFnVmZGQUhaUjVXYmFmLWY2X3dfdkptaE8zVXdkd2k0eVYyWTA3Njd5VGhPLTd2N1l5TzdORmZTS1JEc0xZaXVOOTlFTUkxRjdYWHVnMklSSjk1VXpJMTUzSjJzZGRvNW5xSGRNOWN5VzQ2OXpJSmN6MFAzeWZTSUtfVFQyenM3UHV3R0xhUzlIanNFYkZiN0t5cnpyTjhoN3lzSzRSQWthMi1ka200YVg1ZFJIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Fans Decode Hidden Message from Taylor Swift's Emmys Appearance
 
@@ -844,36 +879,3 @@ Stories: 100
 - summary: A newly described species of bugs has been named after Taylor Swift, highlighting her cultural impact. The naming reflects the intersection of celebrity influence and scientific recognition.
 - sources:
   - [unverified] ehextra.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQN1lVR3JHVEYtU053SDllaDd0OVd1c3QydXdRZUVWcUtXY3p6YlNWMzlILU41RDJaeXlvVzZPNU8welYxc09zSWh3MEtBUGZBRjFERnRuSzZBVldySDk0WE5sM3lwTmh5OWh0TVNvbF9wa1I0dEpXZEdQZThPSFhKRXJDQW9zWWZNbDR3a3gxRy11eVdPN2g5RnNkOXJIdWhDTERUZktucS03YTVSUHlBVEUwLTdQd1NZSFI1UFVDUUNjX3J2ZFE4eXJtdFR6SnVOZVVVNVA5OA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson and Machine Gun Kelly Seen at Taylor Swift's Residence
-
-- first seen: 2026-09-14 06:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Dakota Johnson and Machine Gun Kelly were recently spotted at Taylor Swift's home, leading to speculation about their relationship status. The appearance has attracted media attention and sparked dating rumors.
-- sources:
-  - [unverified] The Times — https://news.google.com/rss/articles/CBMi2wFBVV95cUxPMFVkVUI5Q2cxbDlUdjM0ZXc4Q05mdWk2XzZualNVaVItM0pHVjFkS1pjMVlPVUdYNzlHX1I1TGJwQXlEQjBYQmFKd1lmLS05aTAwanJfWUZ2Q2RBVEFsZGxTQ1FiS01uM0ItdGtzUDlFSnlxZjkxbDhEdDl3ZzFjd01TaGd2QlBDa0FmWW0zRWZrQ1JKQk1XVWNNYWttcmJUQWZZWTJzNG9iZWdDbTF0RnphdDNNdXVBY2tOQ2xwTDFENDhHcjhkRXh2TFlrVmZ0MnhDRkxfdEtLSEk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiuAJBVV95cUxQUURLWjZ6Q2hDZGZncll5RGVGZWh4aXRiRVNWRFRETlhoWFlSMFlOTWt5NlNMZ3NPWW1zTzgzZzgyLVUwYTVaTnRJLVdITlYtVUFPeGFNbEh0OW84TDVBelZhdnBDSzlSR1lONjNiZVdxQ1d4Mk1paEY3MERoVjd2ZzdHdFUySkNXZnVsQkdfNmZrUlV6ZkJTODFaUFBkaC1sQndNLVhJdDVEaURzdWtEUDRlM25lQVZHcjI2Qm1BRjFvTFlzYmlsNFdmanFzalUyNHIzWGdhM1A3ejBpcDdESHZTZUxKZkdDZ1JzZHJXT01rcGxsc3RFTjdFai1LNXowdm5ibm1TTDJrNTdWal8zd2Rad0VVTEdWeVBQWFRVd1BYUFJFZi1EcXQzUEZ0cTRNX3ZxYkNQd1DSAb4CQVVfeXFMUEUwUDc1bEpmOGhubmVGNWdGZmFxTF9TNS1ZWDZFbXNTRkpHeVdWUXYxSjlaZFVLVTRYTm1OdUNsTi1YVEVKOFlSS01mblRWMVBlUmtkc05NWVo5SjA4X1J0Uk8tVjEzTmoyc1RIcGJURGVoVWRrNFV0dDNOZmlKaU8ydUJSMEZXVGhydVRrUnZ6UEVqdV9ydUp3MGxvV3N2ODZJR3o2NlduaUNpTHdkVmZSMm5ZYS03dUwxR0htTEVLR0tGQzhzNTFBX3hvcHd3UEFDTXRkVERDdExfdGRITlU4QTZLMkJwV3EyR1U1emV5R0NFblFNYVFRTFozUGNlM3dZQnZnOEtYd3FoS0hKcjdINGVQd1AxQ0FTc0NjeDNqaVZTUjU4UFZqblVpQWQ2LWE0eTJIblF4ckV0RVBB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Rates Her Favorite Song from 2021
-
-- first seen: 2026-09-14 06:11 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent article, Taylor Swift expressed that a particular song from 2021 stands out as her favorite among her music releases. She stated, 'I knew it was my favorite,' highlighting its significance to her.
-- sources:
-  - [unverified] thelist.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOWWVXdW5fZjhKaUdLNmV2eXBvcF9vVU5KUzFVVmVvaHZrT2dSNGg3NmZXdEZxTlpGWG1hRE1wSkxOeGZCYmhGbDgyQTdtX0NSc3FsMmRDT285TGtQU3BjejN1NVJxV25oajdfejRRUlhtcTkxX2NPbUlqLS1DSWFJNF8td1JGNHNvdmY3cTZ3NDZPTDBMd0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Unlikely Hollywood Couple Seen Together on a Date
-
-- first seen: 2026-09-14 06:11 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Hollywood couple, considered unlikely by many, was recently spotted on a date. The sighting has attracted attention in the entertainment news.
-- sources:
-  - [unverified] News.com.au — https://news.google.com/rss/articles/CBMiyAJBVV95cUxQWXlYaXdmeUdYU1NYUVRIRXJMYXpmck9EdjRqam9aVFdhcFRjOWFCU200bmxyaUNtVzBBUHU2MVpBVXdhMnZ3QmdodnBfWThoMG9xaEpBOG8ySzlyQlQwUXhJSkt1R1hETHBvVE9wcldqblZSbWN6VFRrOWtac1hOdW5SQm5IX01DZk9qMlVlZ1BrU1BaYTlxSmk5Q21jZ3F6OVZnMWZfYS1QZi1ZVVhyakVOUkFWSGlVU0FCMzhPU3dXQ01tMWxxZDZicVo4TmZ3UUs4aFhXQmtmLXpjWWVwMXN5MldaaEQ0aWZ0TnZUVHk3ZE5CTDNYUjNpODJHT3FNRlNtREkzU0FldHowYWpacjNfWW5sckZlUi10SXJHTk9uOWZYMmYxWG92V05kNVJGaGQ3YW52eWRzZ1JnNzQyejkteDkzNTNk0gHOAkFVX3lxTE96bW9FUndITEdjYUdUOW41emNSSXd0a3Q0Tm96R1RHdkhaX1oxc0ZMd3VhYVFSVTFuV244XzRwRDVEektwbmhlNjRvRnhDWTVOU0RGeXU0MENaQVhUYlFtM2pWSWhKOWY0TGsxbUNtcWlCb0MtQnZFZjhjeU5ad2o1MGU1MHROelNzQ1pPellKY2VlT2pnN1RSaXZDaC1pcDEzcmlUVl9BYW1CM013SjFnTEVQak90V2xEWGhhdG1XQkRwV3BjMTdYVXAwMVRQZDQ5cV9iVXpkVHQyUFZKSXdhS2xRYWJobFVwT2VUcTJlZFdPZ3VvbldVdFZDSHFLZ3hJeEZ0NVl2aV9hMzk3NmRja2pUVDc5Q1RFc1M5WmgwcnhCWE5jcTdOQ2ZDV1lLbDRWSk5SZDJZNjRZS25FbC1wcDl5WkNvNllxbVFvV1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Upset About Nikki Glaser's Wedding Recap
-
-- first seen: 2026-09-14 06:11 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest that Taylor Swift is allegedly unhappy with Nikki Glaser's recap of her wedding. The specifics of the situation have not been disclosed.
-- sources:
-  - [unverified] Cinemablend — https://news.google.com/rss/articles/CBMirAFBVV95cUxQem1YdkdLMTh0LTMtSkMwZzhRbEFvU1AxYl9kRWRvX3hGVHl1aGR5ckttakFRNmxTQmp1SENFVEF1dWowc2p3T1Z0TVB6Yy10MmlrdTF6RlFaX3d1Rm9qMVlycE9WMnVvV28wQ21DbjlXU1RhTU8wazlESFFvMnJBa3lGOHRzSXJCdENpSVVvZnFwSFdDOGx5TVcyZUxOeGRXclJCcjczcjFkdnhJ?oc=5&hl=en-US&gl=US&ceid=US:en
