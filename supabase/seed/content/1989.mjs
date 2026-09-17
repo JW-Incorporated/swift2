@@ -634,12 +634,13 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
-      // annual Rhode Island tradition and the year it moved to Turks and
-      // Caicos — now interlink.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the annual Rhode Island tradition, the year
+      // it moved to Turks and Caicos, and the quiet Yellowstone Club Fourth.
       relatedIds: [
         'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2016,
       month: 7,

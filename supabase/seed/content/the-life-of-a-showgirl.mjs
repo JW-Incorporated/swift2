@@ -5469,7 +5469,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
+          'Taylor, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Taylor changed into a second gown for the reception, per Harper\'s Bazaar — the house wasn\'t named.\n\nThe groom\'s half of that Dior commission stayed unspecified until September 14, 2026, when Travis Kelce confirmed his own look in an ESPN interview with Chris Berman ahead of the Chiefs\' season opener: a large white top hat as part of his custom Christian Dior Haute Couture, "Oh yeah! I had the full gamut, man," finished — per the same coverage — with Christian Louboutin shoes. Both ceremony looks were the same Anderson-designed Dior couture.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Taylor "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -5489,6 +5489,20 @@ export default {
             source_type: 'interview',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          {
+            // Added 2026-09-17 (intake #4413): Kelce's own on-record confirmation
+            // of the groom's look — a white top hat as part of the same custom
+            // Dior couture — given to ESPN's Chris Berman on Sept 14, 2026 ahead
+            // of the Chiefs' opener. Yahoo Entertainment carries the quote and
+            // credits Page Six as the original source.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-wore-white-214105057.html',
+            source_title: 'Travis Kelce reveals he wore a white top hat at his wedding to Taylor Swift',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
           },
           {
             // USA Today reporting Anderson's on-record quotes (Edward Segarra,
@@ -13642,6 +13656,244 @@ export default {
             caption: 'An AMC Theatres location — the chain behind the new Leawood Films distribution venture.',
             kind: 'reference',
             focalPoint: '48% 45%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-i-knew-it-country-radio-no1',
+      year: 2026,
+      month: 9,
+      day: 6,
+      category: 'music',
+      title: 'Taylor tops country radio again with "I Knew It, I Knew You" — her first No. 1 there in more than a decade',
+      snippet:
+        '"I Knew It, I Knew You," her Jack Antonoff-produced Toy Story 5 song, reached No. 1 on Mediabase\'s country-radio panel for the week ending Sept. 6, 2026 — the most-played song on country radio in the country that week, and her first time atop that panel since her early-2010s country run.',
+      sourceUrl:
+        'https://headlineplanet.com/home/2026/09/06/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-country-radio/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
+      moment: {
+        context:
+          'Nearly two decades after country radio launched her, Taylor was back at the top of it. "I Knew It, I Knew You" — the song she wrote and produced with Jack Antonoff for Disney and Pixar\'s Toy Story 5, released June 5, 2026 — reached No. 1 on Mediabase\'s country-radio singles chart for the tracking week ending Sept. 6, 2026, ranking as the single most-played song on the Mediabase country panel that week. It was her first time leading country radio in more than a decade, a return to the format that made her before pop did.\n\nThe path there was already historic on the chart\'s own terms. When it arrived, "I Knew It, I Knew You" debuted at No. 8 on Billboard\'s Country Airplay chart — the first song by a female artist ever to debut inside that chart\'s top 10, and her own first Country Airplay top-10 entry since "Red" back in December 2013, the gap that makes "more than a decade" literal rather than a flourish. On Hot Country Songs, the genre chart that folds streaming and sales in with radio, it went all the way to No. 1, her 10th chart-topper there.\n\nThe one wrinkle worth stating plainly is which "country No. 1" this is, because the panels don\'t all agree. Mediabase ranks by raw spins, and by spins it was the week\'s most-played country song. By audience impressions — the other ruler, the one Billboard\'s Country Airplay chart uses on that same radio universe — it finished the week second, behind Luke Combs\' "Be By You," kept just short of the top; that near-miss is the one some chart columnists led with. Both are true at once: No. 1 for spins, runner-up for impressions, the same song on two rulers. The much-syndicated radio-wire framing that called it her "14th career" or "13th solo" country No. 1 is a count this page can\'t independently stand behind against the chart record, so it is left out; what is solid is the Mediabase No. 1, the record-setting top-10 Country Airplay debut, and the Hot Country Songs No. 1.',
+        sources: [
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2026/09/06/taylor-swifts-i-knew-it-i-knew-you-officially-reaches-1-at-country-radio/',
+            source_title: 'Taylor Swift\'s "I Knew It, I Knew You" Officially Reaches #1 At Country Radio',
+            publisher: 'Headline Planet',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 3,
+            notes:
+              'Mediabase country panel No. 1 for the week ending Sept. 6, 2026; most-played, second for audience impressions behind Luke Combs\' "Be By You."',
+          },
+          {
+            outlet: '99.5 QYK (Cumulus, wire-syndicated)',
+            url: 'https://995qyk.com/2026/09/09/taylor-swift-returns-to-country-radio-no-1-after-13-years/',
+            source_title: 'Taylor Swift Returns to Country Radio No. 1 After 13 Years',
+            publisher: 'Cumulus Media (Jennifer Eggleston, syndicated)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 2,
+            notes:
+              'One wire piece republished verbatim across dozens of Cumulus country stations — corroborates the country-radio No. 1 framing, not independent sourcing; its "13th solo / 14th career country No. 1" counts are not used here.',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Knew_It,_I_Knew_You',
+            source_title: 'I Knew It, I Knew You',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-09-16',
+            reliability_score: 3,
+            notes:
+              'Chart record: Country Airplay top-10 debut at No. 8 (first female to debut in the top 10; first Country Airplay top 10 since "Red," Dec. 2013), Hot Country Songs No. 1 (her 10th), writers/producers, Toy Story 5, June 5, 2026 release.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Reference photo: Taylor performing on the Eras Tour at BC Place, Vancouver, Dec. 2024 — not the country-radio chart week itself.',
+            kind: 'reference',
+            focalPoint: '50% 32%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      year: 2026,
+      month: 9,
+      day: 14,
+      category: 'sighting',
+      title: 'Taylor returns to Arrowhead for the Chiefs\' season opener — with Tom Cruise in the suite',
+      snippet:
+        'In her first Chiefs game since marrying Travis Kelce in July, Taylor watched Kansas City open the 2026 season with a 31-10 Monday-night win over the Denver Broncos on Sept. 14 — seated in the suite beside a surprise guest, Tom Cruise.',
+      sourceUrl:
+        'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-nfl-game-2026-week-1-rcna597796',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+      moment: {
+        context:
+          'It was her first time back at Arrowhead as a wife. Taylor attended the Kansas City Chiefs\' 2026 season opener on Monday, Sept. 14, her first Chiefs game since she and Travis Kelce married at Madison Square Garden that July, and the cameras found her in the suite next to a face nobody had penciled in: Tom Cruise. The two were shown hugging and high-fiving as Kansas City scored, the kind of incidental double-take — the biggest pop star in the world and one of the last true movie stars sharing a football suite — that traveled faster than the game did.\n\nThe game itself gave the home crowd plenty to celebrate. The Chiefs handled the Broncos 31-10 in the primetime window that closed Week 1, an emphatic answer to a rocky prior season, with Patrick Mahomes back on the field in his return from a torn ACL. Kelce\'s wife in the stands, his quarterback healthy again, an AFC West rival dispatched by three scores — for a franchise coming off its first missed playoffs since 2014, it was the reset it wanted.\n\nThe Vault keeps this to what the coverage documents: the confirmed sighting, the company, and the score. The full guest list circulating around the suite and any read on why Cruise was there are left to the outlets that reported them; nothing here dresses the appearance up beyond her being present, at that game, on that night.',
+        sources: [
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-nfl-game-2026-week-1-rcna597796',
+            source_title: 'Taylor Swift and Tom Cruise Attend Chiefs-Broncos Game',
+            publisher: 'TODAY (NBCUniversal)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+            notes:
+              'Confirms Taylor attended with Tom Cruise, her first game since the July MSG wedding; "The two hugged and high-fived when the Chiefs scored."',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-tom-cruise-chiefs-broncos-game-travis-kelce-1236340177/',
+            source_title: 'Taylor Swift Cheers On Husband Travis Kelce at Chiefs\' Home Opener Against Broncos, With Tom Cruise by Her Side',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/game/_/gameId/401872931/broncos-chiefs',
+            source_title: 'Chiefs 31-10 Broncos (Sep 14, 2026) Final Score',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+            notes: 'Final score 31-10 Chiefs; Mahomes\' return from a torn ACL.',
+          },
+          {
+            outlet: 'BBC Sport',
+            url: 'https://www.bbc.co.uk/sport/articles/cqx2z5edy37po',
+            source_title: 'Taylor Swift attends Chiefs season opener',
+            publisher: 'BBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-16',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'Paolo Villanueva, Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'Reference photo: Taylor on the Eras Tour in London, Aug. 2024 — not the Sept. 14, 2026 game.',
+            kind: 'reference',
+            focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-all-music-videos-on-spotify-2026',
+      year: 2026,
+      month: 9,
+      day: 16,
+      category: 'release',
+      title: 'All 58 of Taylor\'s music videos land on Spotify, Eras play/pause animations restored',
+      snippet:
+        'On September 16, 2026 Spotify made Taylor\'s full run of 58 official music videos — "Tim McGraw" through the Showgirl-era clips — available in-app for Premium subscribers, and switched the custom Eras-themed play/pause button animations back on across her catalog.',
+      sourceUrl:
+        'https://newsroom.spotify.com/2026-09-16/taylor-swift-music-videos-catalog-spotify/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+      moment: {
+        context:
+          'Spotify announced on September 16, 2026 that Taylor\'s complete catalog of 58 official music videos is now available to watch inside the app for Premium subscribers, spanning her whole run from 2006\'s "Tim McGraw" to the newest Showgirl-era clips. The rollout closes a brief gap earlier in the year when a handful of recent videos — "Opalite" among them — went up on YouTube first and skipped Spotify for a couple of days.\n\nAlongside the videos, Spotify restored the custom Eras-themed play/pause button animations across her catalog — the small per-album flourishes that light up the player when a song is paused and resumed. Spotify framed the move in its own newsroom post; Billboard and Music Business Worldwide covered it the same week, both noting the videos are a Premium-tier feature rather than something free listeners can watch.',
+        sources: [
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2026-09-16/taylor-swift-music-videos-catalog-spotify/',
+            source_title: 'Taylor Swift\'s Music Video Catalog Comes to Spotify',
+            publisher: 'Spotify',
+            source_type: 'official',
+            accessed_at: '2026-09-17',
+            reliability_score: 5,
+            notes:
+              'Spotify\'s own primary announcement: all 58 official music videos available to Premium subscribers and Eras-themed play/pause animations restored, published September 16, 2026.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-music-videos-all-now-on-spotify-1236341630/',
+            source_title: 'All of Taylor Swift\'s Music Videos Are Now on Spotify',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage corroborating the rollout and the Premium-only availability (behind a paywall; corroborated against multiple trade reports the same week).',
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/all-58-taylor-swift-music-videos-land-on-spotify-seven-months-after-opalite-skipped-youtube-for-two-days/',
+            source_title: 'All 58 Taylor Swift music videos land on Spotify',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes:
+              'Trade-press coverage confirming the 58 count and situating it against the earlier "Opalite" YouTube-first window.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-luminate-trust-the-fans-vinyl-2026',
+      year: 2026,
+      month: 9,
+      day: 4,
+      category: 'business',
+      title: 'Luminate\'s "trust the fans" report: Showgirl is 2025\'s top-selling US vinyl',
+      snippet:
+        'A Luminate Intelligence report reported September 4, 2026 lays out Taylor\'s physical-sales strategy — album-to-date physical figures of 3.3M for Midnights, 3.7M for The Tortured Poets Department and 4.1M for The Life of a Showgirl — and ties the 11 Showgirl vinyl variants to its run as the best-selling vinyl release in the US in 2025.',
+      sourceUrl:
+        'https://www.yahoo.com/entertainment/music/articles/luminate-report-taylor-swift-fans-105828417.html',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          'A Luminate Intelligence report — Luminate is the industry data firm behind the official US sales and streaming counts — characterized Taylor\'s approach to physical formats as "trust the fans," and the numbers it cited make the case. Album-to-date physical sales it reported run 3.3 million for Midnights, 3.7 million for The Tortured Poets Department and 4.1 million for The Life of a Showgirl: each album outselling the last on physical alone, in an era when physical is a rounding error for most artists. Yahoo Entertainment reported those album-to-date figures and the "trust the fans" framing.\n\nThe Showgirl figure was built on a deliberate variant strategy: the report counted 11 separate vinyl editions of the album released between August and November 2025, and a completist chasing every one would have spent more than $330 before tax. That breadth carried through to Luminate\'s year-end accounting, where — as Billboard and Variety both reported — The Life of a Showgirl finished 2025 as the top-selling album in the United States and helped push US vinyl to its 19th straight year of growth, the year\'s top vinyl release.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/luminate-report-taylor-swift-fans-105828417.html',
+            source_title: 'Luminate report: Taylor Swift fans drive millions in physical album sales',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Reports Luminate Intelligence\'s "trust the fans" analysis: physical album-to-date sales (Midnights 3.3M, TTPD 3.7M, Showgirl 4.1M), 11 Showgirl vinyl editions Aug–Nov 2025 (>$330 for a completist).',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of Luminate\'s 2025 year-end report naming The Life of a Showgirl the top-selling album of 2025 in the US.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vinyl-sales-rose-19th-consecutive-year-2025-luminate-year-end-report-1236630636/',
+            source_title: 'Led by Taylor Swift, U.S. Vinyl Sales Rose for 19th Consecutive Year in 2025: Luminate Year-End Report',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of Luminate\'s 2025 year-end vinyl data — US vinyl up for a 19th straight year, led by Taylor Swift, with Showgirl the year\'s top vinyl release.',
           },
         ],
       },

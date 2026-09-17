@@ -963,10 +963,12 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster.
       relatedIds: [
         'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
         // Cross-link (Stage 3, 2026-08-10): the low-key London pub date, same
         // tour break.
         'moment:vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh',

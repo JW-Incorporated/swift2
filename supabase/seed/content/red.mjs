@@ -2369,10 +2369,13 @@ export default {
     // and an airport look. Every photo URL hotlinked to the outlet's own CDN
     // and checked for a 2xx image response before being added.
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the squad beach-house years and the later
+      // quieter holidays.
       relatedIds: [
         'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2014,
       month: 7,
