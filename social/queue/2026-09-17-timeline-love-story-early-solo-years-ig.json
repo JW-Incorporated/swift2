@@ -1,0 +1,32 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "This is Taylor in 2007, right at the very start of it all. A guitar, curls for days, and a debut album she'd written as a teenager — full of songs about heartbreaks the world had never heard of yet 🥹\n\nThis is exactly where Blank Spaces begins. Not with a famous name, but with a small-town kid writing about her own crushes, years before any of the relationships you already know. Our timeline is confirmed-only: it maps who she actually wrote about and when, sourced every step, no rumors and no guessing.\n\nIt's the quietest chapter of the whole story and honestly my favorite. Start right here at the beginning and watch it grow up alongside her →\n\nPhoto: Taylor in 2007 — Brian Cantoni (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/taylor-debut-2007-acoustic.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-acoustic-2007",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+  "altText": [
+    "Taylor Swift in 2007, seated with an acoustic guitar, long curly blonde hair, smiling at the camera."
+  ],
+  "scheduledAt": "2026-09-17T23:00:00Z",
+  "campaign": "timeline:love-story:early-solo-years:2026-09-17",
+  "why": "2026-09-17 Beat B, Blank Spaces relationship timeline week 1 (permanent weekly minimum, strategy §1(c)). This is the SERIES INTRO chapter: it deliberately opens BEFORE the first documented relationship (Joe Jonas, 2008-07 per supabase/seed/lenses/relationships.mjs — that is 09-24's chapter) and establishes the lens's confirmed-only chronology without naming or asserting any relationship, so the blocklist is respected in full (no unconfirmed relationship, no rumor frame, no private individuals, no minors). Real anchors only: her self-titled debut written as a teenager, the 2007 photo as the artifact. Hook: the artifact (opens with what the image is — the 2007 photo). Media: debut-acoustic-2007, a genuine early-solo-years photograph (not a tour tile) that IS the argument here; photo-only per calendar so 09-19's Blank Spaces hero can use the lens screenshot without repeating a carousel asset. Long-form IG sibling, vocabulary/structure diverged from the X post (checker <80%). Timeline is neither heartbeat nor mood, so the mandatory share-hook does not apply; a natural 'start at the beginning' invitation is included. Standard sentence capitalization per strategy §Voice (2026-09-10, Joey). Lyric-free. rulesChecked [] (lessons ledger has no active rules).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 4,
+      "mediaEarnsItsPlace": 5,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "Opens Blank Spaces the right way — a real 2007 photo and a confirmed-only promise, before any name, so the whole series starts honest. Warm fan-first voice with a genuine early-career artifact carrying the post.",
+    "rulesChecked": [],
+    "revision": 1
+  }
+}
