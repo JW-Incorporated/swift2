@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 84
+
+## Jason Kelce's Daughters Have Adorable Reaction Meeting Taylor Swift
+
+- first seen: 2026-09-17 23:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce shared that his daughters were excited and couldn't stop calling Taylor Swift a specific name when they first met her. Their reaction highlights the impact Swift has on her young fans.
+- sources:
+  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdFpoYXdienNBbmZiZU93NG01a2tGRUQtVmZub3BFcGxnQlNUN296RkpBTEcxMTFYYV9VNnFpejYxejF6YkZOYzRTanRUdVZKcnZjN1FPcC00ZnRpZnR1eVM3ZGdHX29sOG93SEhiendacFR3QXZzSFotczllQjJoN29ibnhYVXRoZ25kak40eU1fZUczemk5RERyQWd0Y3N2b21yVjBsQ3NFUlp1XzY0SQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring What Taylor Swift Would Be Called If She Were an Aunt
+
+- first seen: 2026-09-17 23:32 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: A humorous article contemplates the names or titles one might use for Taylor Swift if she were their aunt. The piece invites readers to think about the personal connection to the famous singer in a light-hearted way.
+- sources:
+  - [unverified] MyStateline — https://news.google.com/rss/articles/CBMioAFBVV95cUxNNFNyQ1VGS0xiZTRfVThYMG1MU0Q3dXk1VGR0RXQ4UUZOT0dFOTZQM2x3dXgxSkk2anZOOG1rVTNEY05hVzZ5NzEwLWU2R3ZiT3pDNExMTHp5aEp2NlZSOE0yQ0xkOWFPZy1rZVIzODJ5WmxydXZXb21hTUdvTzhNUWhQX2Y5NmxSRF8ySUV4WC1USDhTNFVDVWVtQ2pEWHpE0gGmAUFVX3lxTFAyd2RhOVp5RmdfeDZjQ3FfV0tLVVAzNnNqVG5ma0VpSlZJdUQ4cmY1dm40Q1FoVVZHaW5CMGtNMU1KWFQwRWZoS2IxbFBJQUtEYW1MeGtwWUtRVzZOcHZSTGIzTS1TT09LcUNzWnczdTZOQVRhZGhCalRsSU1BeS1mUTZrVlBCanZlOTZXX1JkUkhaOThtR2tFcG04Q1V5Z2tEUm5ha3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Listed Among Billionaires Excluded from Forbes 400
+
+- first seen: 2026-09-17 23:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, along with Oprah Winfrey and Sam Altman, is among a record 590 U.S. billionaires who did not make it onto the Forbes 400 list. This highlights changing wealth dynamics as Africa’s once-poorest billionaire approaches a net worth of $2 billion.
+- sources:
+  - [unverified] Business Insider Africa — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOdzYxcGVkU1ZaYlNHZUNoRzVnVWdxRWpnZEQyR2lOT2pUMEJoNUp6UWRmNDR3aWMxQ1dacFAyckQzM1UwbzYxZkpkTnJpVXFuR0xLVG5tbEZfTkpYcmdEOEJfMlR1Z3RqWDhQRzlmVEhmRDVoamgydlJmYVYzaHp2WXFFN1BjUENHOE9IYzNvaTFhcWNjZnFLQmItRGQybUtGOFo2bEMtTURVVXpTUl9GOGV6V29pT1p3WWNSTTNSYzNRT05QY1dXdVlHME00YURLMWFLc2UzYw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Corey Cott Shares Story About Cookies Baked by Taylor Swift
 
@@ -720,71 +744,3 @@ Stories: 89
 - summary: Taylor Swift has announced that she will be skipping the 2026 Emmy Awards, although details on her reasons were not specified.
 - sources:
   - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQNUR3X1Bkbkp1bk9zM0U2VEZuZzJmZno3bTI2N3llUWtzeXRnbzd4QVdTei1PTGh1NmVWektSSzFTR2gyYURXWUhTNkxDTm9NbVNVa1VlbmJQWTg1TVZ0aUhIc3ZSaklWTkZuZ0stV1J4Wl93RHVmREZ2X01nZURMWnBHNHNTdEROU2pYYXBqY3E4aGJKR0Ywa01JUXI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Share Different Views on Marriage After Two Months
-
-- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce express contrasting opinions on marriage just two months after their wedding. Their differing perspectives are highlighted following reports about their relationship.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQaVZoM2Rqb0dyODlLeU9NbTFfOUE3WkJtUDlCWDN5SWdqd2YtZk9hUlRpV18zZlJ0NEs0UGFCbEJ0MkJqMmYyZjVEY3pYX25pWkYwdnU3TG9ITm5BaFFnQkFKOXhidEtrRF9Wdkx0cnpUVXFFVE4yQXBIYlJZSVprZW1HWDFrenJzTm1NVmtoWDFIdnBfd1FoY2NCY05ncW5Da0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Upcoming Country Music Interview on Houston Radio
-
-- first seen: 2026-09-14 20:55 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: An interview featuring Taylor Swift discussing her country music comeback will be broadcast on a Houston radio station. The airing of this interview is generating interest among fans and media.
-- sources:
-  - [unverified] Houston Chronicle — https://news.google.com/rss/articles/CBMirgFBVV95cUxPaTBMUWJOLThCNi1YSGZ1QmhaV3dVeENCOWZQal9rSWR2dlVvYmgwbHlGZDRHd1hyNW5JV3UzSE9rME1IMW91NkZKbV8wU1Ric2l0X1NjOG1heWJTcVdqRjRuU2luVmFUbmJoLWZxbFRRUzZ5bEJTRmdRekVvUHVJOHVTX2xXUnJsZUxoREVNc3pjeUVla3htZTVMdURqQ0k1UmgtdXJEekMwUFVoX2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Possible Presence at Chiefs-Broncos Game
-
-- first seen: 2026-09-14 20:55 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Speculation arises about Taylor Swift potentially attending the Chiefs-Broncos game to support Travis Kelce. The report by Sports Illustrated explores the possibility of her attendance at the event.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMi7gFBVV95cUxNYkRoVjdodnVwTHpkdnZHdVh4TTJ1V0taTEp4T0RuVW9UT0dnenNZdWIyS01KYmFPamtXamowVGltRTdrLWtLOFhuNkk5V0pNWHFpN2ZMWGRwa2ZTLVZpMVNqNDhldFpfcEkzNDhudkNBM2NEb0ota0h0WmtwRldDa3ZlNm9ZYy11SG90cFYxMm5DYi16clM1T3lMZnV5RTRuLUlnQnJrQmh0N2RCUTY5TXVoUHR0QWpCenU4THBPcW5VV2U1QkpYWHk3ejl5YXF4V1hPQkprMWd3QjR4NkR4OGxzQzlDQi1TR0pUa0dB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiswFBVV95cUxOMVE2TllWODRUelRaOV9FckRla041WmdhSkpXTmtLalhMbEFtMnR2aXlSRzJNR3hOaTBSNWNKckpkY25zZmExaWp3Vl9feDFIOW4xWmNnN3o4NGl3UGRxdDBXRDdSalYtYi1vQ0RGRXk4cGFvRm1JR24zZDVJeTRKTkJrbTFzTjI2RkczM29SU0hCanh4bGwyZmRYeFE1UGtxN1Fyb3RSWWwydUE5NFM3SmNuRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxOTWpJWWw0N1lJdTh5Nk5BTE9iMFUwTjBMM3F5SFZueUFKYVNkaFJLY0cyLVNXeHZQZ1RSbFBMYUc4YTBoTnNrRkVZekNwWDRFRXdKZG5GeEJxOGFuT1FWU2xMTFZ0UGlSZW1pMkxnUXE5QU1HOEhlSExmRnVBaFZseDdfNXF1WFBLOTRVS2pEVHVKYUdVRkw1Y0tDSkZPQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Thoughts on Marriage to Taylor Swift
-
-- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: In a recent statement, Travis Kelce expressed his joy over marrying Taylor Swift, describing the experience as exceeding his dreams. The comments reflect his happiness in their relationship.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMiggFBVV95cUxNWDA1bWxSUUplLXVuaVZDNngwQklFZGx3RWVKbGJuN2lhS1dOblFVdmNhdVdldzVEQVNjMEtwOEFGRGhxU1FrZFQ0a2RNcFZrSHpQS04yZ212bXZtcTFub3NaOGxObWIzb1c1MzVSQXp4OW1MdjRmSlRYRzVIQlV5cnh3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Attendance at Travis Kelce's MNF Game Uncertain
-
-- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: There is speculation regarding Taylor Swift's potential attendance at Travis Kelce's Monday Night Football game between the Chiefs and Broncos. The event has attracted interest due to their relationship.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihgFBVV95cUxPTDZXcTRIT1BNSDNFY2lFc0FMTzREWnozeDh0TkdqOU1DWmNoZlVPTXBFRm05VGQ2UnVnR1lRc0lqY1l2RnFXZ296QlVJNTBhOEdLcER2N3BETS1jdTV6cjlrOTV1R3l1dTV6c09CRExhVHRkSmU2U2ZsRlp4OWR0UW1zM1V5Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Reveals Wedding Attire for Marriage to Taylor Swift
-
-- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has confirmed that he wore a white top hat and various other garments for his wedding to Taylor Swift. The details of his attire have been shared publicly through a report.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNVWpaaUNmSlJRb0RMNjhvNUh3NVNaelFJVUs2aktla1lBSk1YdHRGVlBER1F4T1FUUWxoaDRKX1NSX2xHa3hObmVEelJHT0RDYVhQR1E3WlN2Vm1uZjJDaHhGVElZSE83Um9uQW5YRUI3QUdsWUt5NFQ5RW9kcGNaRlpPdmw3LXZzZTB0Zi10Nlh5TlN4R0htTFZXMUtEZW9IZlhjR1RSMWRnYS1Fb2VHaDRrQlNCVms?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Faces Decision Between Travis Kelce and Career Milestone
-
-- first seen: 2026-09-14 20:55 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is reportedly weighing the importance of her relationship with Travis Kelce against a significant career milestone. This decision highlights the balance between personal life and professional achievements.
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOOUdJX0NuYXVNSC1pamp0ZmNIbFp6T3N6Um5HNFQ5amtMcWc5dkRRckJYVXRITGV3RG9yX19jY2l0LWN6YW9qTHltemJDNFkydFF1XzJ2VnFNeGhhWjJsdkdHZHVnckc4WkR0b2xxalN1NFA2XzVJbnlBdmJrN282NDlXV0tVd2o1blNn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQajRsbVF2aWJUa0c3ZjVQeGxmMUU4X3ZkWjVCYVlER0lHVWNGeDMyaF9wQ3VKNVdLWHJjWVl1dWJKbE1VV0RWTy1HYmluaEtnRnJNN1NVSFhvOFF3RkNSOXMzREFzOVhRQ0h5eWF1RDlDbEdkUnpkY3NpMHhuT28wenRnQ1dheEJwMU5ZYklCcU5UTjdfVWVPQlpmemx2QVRrVnlzRWxLNA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Renowned Designer Bob Mackie Passes Away at 87
-
-- first seen: 2026-09-14 20:55 UTC | category: fashion | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Bob Mackie, the iconic designer known for his work with stars like Cher, Marilyn Monroe, and Taylor Swift, has died at the age of 87. His contributions to the fashion world have left a lasting impact on celebrity style.
-- sources:
-  - [unverified] businessinsider.com — https://news.google.com/rss/articles/CBMif0FVX3lxTFAxdWpDOGlxN3l1Z3prZHlHMWRqS19YQnZMSDYwbWJsUFNlNW5mVTZJMzhMaEhJMFZLUGY4LTFrNHA5TU9YQm5tU283Nkxnc0k3OFlGMTJiZU1DWldMcjI0T1RuMTdYeUFjR0FGSUlSZ2lSUTc4Q2ppdUdvSnJNdk0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNMVUyX1MwdjVRbHFISkFZYmY5anJWUjNNWjhJcHVMYlItejFuZjRCZHZwbWU1ZjJTTnExTDZYZkhpYWlhRnEtb0dKR09iRHR5VVBjSkY3WHFyRHZyUGNKOFhXcWM5Y0o1M1lEUVNnWXd3S2hxMmlKam5XWlZHMklXWE5RMmZCRkpqQUhTVTBPRDh6N2lLbW0xVHR4aU5mRVJVdW5KUjAwaU0wWkNQ?oc=5&hl=en-US&gl=US&ceid=US:en
