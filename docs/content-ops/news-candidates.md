@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 100
+
+## Taylor Swift's Absence Noted at 2026 Emmys
+
+- first seen: 2026-09-17 06:06 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was not in attendance at the 2026 Emmys, as highlighted by Vogue. The article discusses her absence during the event.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMWhXUjhWY2dCZ21TbjhES2tqNko4d2FqZVNtQXJjdFotNE96NzZfRVpNTm4zaWNrU3VpSkJUZnRRcUJCcEJFS0JFZEsyS3BESlZZNnBSQnJCSy1uVXA5Y3g5X29OTHRvUG5FRFBndVFKSkNTZHN6djhKYllvVlVENUNISQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kamala Harris’ Campaign Accused of Misleading Tactics Involving Taylor Swift
+
+- first seen: 2026-09-17 06:06 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A New York Post article discusses allegations against Kamala Harris’ campaign for falsely referencing Taylor Swift and others to draw crowds. The claims suggest attempts to capitalize on the popularity of these artists.
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMingFBVV95cUxPX0paMUhoVkdybTliZ3dBYXN5R19GUnhyTXdnSTJvenJtRmZhTjc4dC0zNjVBQl9rWXdnck1CRzVjVVlwMngzcG5DMV9tNElUSGJ5ck1sX2ZocVgyd012eGZxTWNIUENwcnBCSHppZDc0NnZtNUNOUS1YaVhzZDFHWEM5WTh6d1QyQnpXS1ZaMkNwUkJ4aGFqU292RUVaZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'SVU' Cameo Sparks Decoding Among Fans
+
+- first seen: 2026-09-17 06:06 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recent cameo in 'SVU' has generated excitement among fans, leading to widespread speculation and decoding of clues despite her absence from the Emmys. Swifties are actively discussing the implications of her appearance.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOSzYwZV93SmFjY2hZRndfQzA0b0dnVUVEU1JxdlZ2U1l3NERrUGdmUkdKUGlRV1E3czFnVmZGQUhaUjVXYmFmLWY2X3dfdkptaE8zVXdkd2k0eVYyWTA3Njd5VGhPLTd2N1l5TzdORmZTS1JEc0xZaXVOOTlFTUkxRjdYWHVnMklSSjk1VXpJMTUzSjJzZGRvNW5xSGRNOWN5VzQ2OXpJSmN6MFAzeWZTSUtfVFQyenM3UHV3R0xhUzlIanNFYkZiN0t5cnpyTjhoN3lzSzRSQWthMi1ka200YVg1ZFJIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift reportedly speaks out on Meghan Markle comparison
+
+- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: According to a source, Taylor Swift has described comparisons to Meghan Markle as 'absolutely mortifying'.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQemhseVVKb29sYTZIZmtBYkVEM1dXT3FxRW9XTjRpZWc0MVBFOHFCaUdlYmdrRjltcU9PTFg2VnVxQ1daTmdYT21hUXlYZVdzTjBlaG1VeWlydjlxc1lYQTRfWkViZk5Qa01tQzVNU0JaWEthYXE0RjQ5MzcwVENud0p1MlBRY1JF?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
+
+- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Psychedelic Pop Artist Peter Max Passes Away at 88
+
+- first seen: 2026-09-17 06:06 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Peter Max, the renowned New York artist celebrated for his vibrant psychedelic art from the 1960s, has died at the age of 88. His work included iconic posters and portraits that captured the spirit of the era.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-news/peter-max-psychedelic-pop-artist-dead-obituary-1235628135/
 
 ## Fans Decode Hidden Message from Taylor Swift's Emmys Appearance
 
@@ -240,13 +288,14 @@ Stories: 94
 ## Taylor Swift and Travis Kelce Take Steps to Protect Privacy in New Ohio Mansion
 
 - first seen: 2026-09-16 05:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift and Travis Kelce are reportedly implementing measures to maintain their privacy in their new mansion in Ohio, aiming to keep nosy neighbors at bay.
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxQdTlYWlNuQ1Z5OTdYUk1OWVNaNVowZUVlcnFQOUdUT2wxT1RjZWZLLWNHMjVTSEF5WHBPYXBPTHFTZGVEaVctNGFaM0VpSlN5N3ZhZzFLYlJhQV9MaXlua1JxZ2ZKd25DUVdJdUxQT2NpMzB2UWRTZGNjMHlkOTFBUXl4VUpuODA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMisAFBVV95cUxPZHpVVXZxMHE0TWhydkV5aEprYVBQN3ZwSC1ySnd6Nms4YllnTzc1WkluYl9CSC13YWR3LTdCU1RiTjhzT1A2cXNZdXRpNnVoV29VMnNOMUdkeFozMkhndkN3bHI3VW5ZYmpETndvNXRucjlhdkhpdlJFekVyNV9renVDWlkxLTdPbHIxdGw2a3BhYUs3RGc1LVJJZXBsMV9SdWc2dl81aVctSW9TcTJVTtIBtgFBVV95cUxOeWhJRGJDOHJFQ2JkZWwxYnFvX3NNanR5RUFrZGp5QTk2WkQ1cXpGb3ZtUXlpM2VFdGZ0bUtPMzVtUkU4a3laVWRaUmtIeTNURHhvWE1fUXp1OVNYWlR5R0hmTWlsUmxCUVRqWUQ3RFlOME0wMmhZQUVsQ0hjUjlzN0VxOHJDeGZfNjVOTmVtSHpqVDRIVGxwQnFoMkVKNlVxSkJJb2dFZ2luNEtranlXMWlTM1Q0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMitwFBVV95cUxQWWFWeEx2ekQtWG42SG41ZFJlMDVneWNjSmt2Wi02eDR6d0Y1azAtWGxvZ2c2TlEza0VnYVNvdDhZbE92UTJBZ2xWZG1WeHdDQnFoMXlPUTZyMUROMFY5RUNCd1pob1pzcEJfWnk4alpMVWY2Mnk5YnU4dWtKZm16cTJRWTNHZndfMl8xckMwa2ZkLWVBekRyeFctSHYxaUx5QXlHNEowRkRGbVc2cHZCcmlHTEtSRXc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQYUJacUI2UlF6Skx5azI4YlJwSkxVYjNfem5Jdmx3TGV1OTNYeFZkYWtEQVFadnpGdFhaaXZkbU9lNldDMU5zVWI3eDlYSmMyVlpiQU1xdVlPeTkzY2tkXzdMRWI5X05LRm5Ob2VlOWdudWxwS2x5eWpGLTRydURPZzN1RG5RdmJvOERCVHdNcWd1TzJhYmZKU1htaTVodw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQZE4zbUxJRXdXTTRnQk9OS2wzTkFsTG1KUFYxdXh6OWRTS2JZU0wwN0RrYzE5TUs0ei1Bc0xQUUo3OXdMdThmUG45WXpZZFAyVlpUSFQxRDhUeWNnYnBqSld4NzlKd2tHLXY5QlVTLURMaUtDVFd4eVNpdnhPSm1wZjFRWnNkcUE3ZERHZzR4Q09nYVZMNWZHX1JtTDZrekVpQlp1aXVEbURKZDZxd0gzMWZhYncxTEZwTFdJSGNidDZkS0k?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOSU9jMkUtS1ZwMkJsOElYSThTNnhEVzBGNU9HdG44Z2otUFl6LWxaSFdja3BYSFdsendDZ2tmWEZoSDhSQXBhenI3UklaZGlBaVFlMEtQX2RpRTRDalVYa2IxaFZob01TQlBJWXhZMVprNU5NTndJX2Zsb1lSeGd2VVFTYU9qSDhxY1JMNHJsNGozWXZKRmdoOGx5eWVlYS1QeEJMYUZ3T054aWJKbWhXa0ctYS0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqANBVV95cUxPOVNUczlxTnEtaElIMXdMOS15X0VYZkhNbTJXcXBXTmhQd204LVU3UlNEM3BpNmJkSDFsQ2Z1Z21ZT0hpLXFYQjlFR0tncTNLQXc2R3cxQTRsaHpkR3E3c3VXcFY5S3ZyRTQ0Rm4wRHBSbVQzeklJbmtGSDgwRG5HcmdKbzF5X2FJMFFZemtfX2pLV0VxQ0VOamhCdGpaNk9xbkJXUGxWeERuSWd5SzZWN1RPUG5pUE1tRWNEdTJCWjAxbXNZQVUzZ1BtX0thM1VfTzVPSWljLWppa0JMVFBMZUdFcFJZY2pZRzdETFhIYlJpTGlVQVlVQjIzdHBIVEtpTG9SeFo2RGJrTUdlczluM0VqUnFzc0tYaFVNQ01UaHJGU3hncHcybUlCMUM3cWo4bFh6cjFTNmM2M3RCUEJ1N2pHTTRjOUw4QlZXaDZrZm9JTlVSeWxFV3hTN042UnpGXzlLdng3X05nbEhNS2t6V2lMLURVTmxEY2pjWWFqeUJZVVNpZjBBR2prUmhJUS1kRVZ6eTFTb2t1RUlEeVphb25RNXpXWEhB0gGuA0FVX3lxTFBKQnV2WFlzb2FxRnlOYk5VOWo5R3E2bUp4YjBsZVpXVXRwN21mNHJnNF9ZaHBCTUs5UWl1Wi05TjhBLTlqdlE3UlFydkdIZWRFSFk5b0RqODNIcERnQ3NKcXhPdldGMVprdk5TelM1NkNMQjJSSVdaWTlXcWRFZDk0czRFalBkY0FWZFY3NmdVR05XdGZRbGFBV2ZJUHNyUWFDNXhLb2ZLQUtHVHI4ZldDZWNNSVBGdUNtaUx4WFY5LXZKdDA2MVhzQV92WGliaFJEQzRrTk51b3NBQl9DRjVUMVIwNGdHdkNKZzV1RkQ3RkRRdnprSXREempKVDQwTkdtd1ZDdTdacjg5OGk3UDdFQVlaMW9fX0RpbUZuUl85NGljUDJuUWFTeGhqVlh1bnpqc3ZBYVpPZmhuUTJyWjY2UURwZ1I4VnI3aU5QcXdqVzFfUEZuSk5KZ0paYTVhQzAxTldRWFJRb2VtMjR1aHNPUGNSa2RhZFJZZmNBRDVvMURDNDVkUnJRdGI1ZHZTOXAyVVc0eW92ZnAzOUhia2dxVUpHOWRfSHZMSUZKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQYmJhMnpqYzlBVXNrRnpMekZCai1QaWlnOUJYaDh0RWtidEQ1MlM5RzRHQTJ3OGNkMVRnekFUbXo3MVoxOEZPbmZaT3VtZEJvOEdCaHFqbTVoR01qUDczTXRSWkFUN3pGYzkxOEp3QzAtS0loaU1RWWZWM1JzTHpuSE1DSzlGUHVPWV8xNU5VdUZNT3NJMGxkYXhGQzhtZlozRVY4cWdzX1RsSXZ2OUVuYnhaSFZYcTZselJrcVQwcFFaWlJoU0Y4btIBxwFBVV95cUxNSkI4RjhTSnhHalhwa2V6b0FpbzJJWndjbURzVEJtUm5pNTNDV0lDM3luRTNiQzFCSDVCdy1YSEExVWdPMUZHWHJTT1Q3RkFzTmhwNkJycWlLTVBEanlUUlFiUkozRjBwVTF2ODF6Vk1WXzYwT2VaNHA3ODFYRjRTb00wMzZQZWdUdEViTEdsRE9lYmdzUTdHc2N5Vm1PTHpUbGVyNnpmRGtXSXNxWk80OUpIQnBSNGtvQXNkUEM1S0ljT0lhYjVj?oc=5&hl=en-US&gl=US&ceid=US:en
