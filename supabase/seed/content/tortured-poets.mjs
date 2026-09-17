@@ -6671,11 +6671,28 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Reported days after the holiday weekend, this getaway was framed by insiders as "a turning point" in their relationship ahead of Kelce\'s 2025 NFL season.',
+          'Reported days after the holiday weekend, the couple spent it at the members-only Yellowstone Club in Big Sky, Montana — a break from the Rhode Island Fourth of July gathering Taylor had hosted for years. The coverage was tabloid-led: Page Six and Cosmopolitan framed the low-key trip as a grounding "turning point" ahead of Kelce\'s 2025 NFL season. No first-party account of the weekend has surfaced, so every detail here rests on that secondhand reporting rather than anything the couple said.',
         sources: [
-          { outlet: 'Billboard / Yahoo', url: 'https://www.yahoo.com/entertainment/taylor-swift-travis-kelce-dance-102901229.html' },
-          { outlet: 'Page Six', url: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/' },
-          { outlet: 'Cosmopolitan', url: 'https://www.cosmopolitan.com/entertainment/celebs/a65363853/taylor-swift-travis-kelce-fourth-of-july-2025-yellowstone/' },
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/',
+            source_title: 'Taylor Swift and Travis Kelce spent Fourth of July in Montana',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes: 'Tabloid-tier; reports the Yellowstone Club (Big Sky, Montana) weekend and the break from her usual Rhode Island Fourth of July. No first-party confirmation.',
+          },
+          {
+            outlet: 'Cosmopolitan',
+            url: 'https://www.cosmopolitan.com/entertainment/celebs/a65363853/taylor-swift-travis-kelce-fourth-of-july-2025-yellowstone/',
+            source_title: 'Taylor Swift and Travis Kelce spent the Fourth of July at the Yellowstone Club',
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes: 'Entertainment coverage corroborating the Yellowstone Club weekend; not a first-party account. (Replaces a prior Yahoo/Billboard link that resolved to an unrelated article.)',
+          },
         ],
         photos: [{
           url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024',
@@ -6691,15 +6708,34 @@ export default {
       category: 'sighting',
       title: 'First public outing since the engagement, at a college football game',
       snippet:
-        'Two days after announcing their engagement, Taylor and Kelce were spotted publicly together for the first time as an engaged couple, attending a Cincinnati vs. Nebraska game with the Mahomeses — Taylor wearing her ring in public for the first time.',
-      sourceUrl: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party',
+        'Two days after announcing their engagement, Taylor and Travis Kelce appeared together publicly for the first time as an engaged couple — at Cincinnati\'s Thursday-night college-football opener against Nebraska at Arrowhead Stadium, her engagement ring visible in public for the first time.',
+      sourceUrl: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599',
       thumbnailUrl: null,
       moment: {
         context:
-          'This marked the couple\'s first public appearance since their Aug. 26 engagement announcement.',
+          'Two days after the August 26, 2025 engagement announcement — a five-photo joint Instagram post — Taylor and Travis Kelce turned up together at Arrowhead Stadium for Cincinnati\'s Thursday-night college-football opener against Nebraska, their first public appearance as an engaged couple. The setting was personal for Kelce: he played tight end for the Cincinnati Bearcats in college, and per the Associated Press he was down on the field during warmups before joining Taylor in the stands. Also there, per the AP, were his brother Jason Kelce — the retired center and his "New Heights" co-host — and Chiefs safety Bryan Cook. The night doubled as the first public sighting of Taylor\'s engagement ring.',
         sources: [
-          { outlet: 'Page Six', url: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party' },
-          { outlet: 'AP News', url: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599' },
+          {
+            outlet: 'Associated Press',
+            url: 'https://apnews.com/article/travis-kelce-taylor-swift-nebraska-cincinnati-375c6f216299538c774b937b77869599',
+            source_title: 'Travis Kelce and Taylor Swift attend Cincinnati-Nebraska game after their engagement',
+            publisher: 'Associated Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 5,
+            notes:
+              'AP wire: first public appearance as an engaged couple at the Cincinnati-Nebraska opener; Kelce (a former Cincinnati Bearcat) on the field during warmups; Jason Kelce and Chiefs safety Bryan Cook also present; engagement announced two days earlier via a five-photo joint Instagram post.',
+          },
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2025/08/30/celebrity-news/newly-engaged-taylor-swift-surfaces-in-nashville-for-brittany-mahomes-30th-birthday-party',
+            source_title: 'Newly engaged Taylor Swift surfaces in Nashville for Brittany Mahomes\' 30th birthday party',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 3,
+            notes: 'Tabloid-tier; covers the separate Nashville outing two days later, kept out of the AP-sourced game narrative above.',
+          },
         ],
         // Photo backfill (t_23e4b90b, 2026-09-06): AP's own game photo,
         // HTTP-verified, downloaded and vision-confirmed this session.
