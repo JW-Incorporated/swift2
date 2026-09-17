@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 100
+Stories: 89
+
+## Corey Cott Shares Story About Cookies Baked by Taylor Swift
+
+- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Corey Cott from SVU talks about the cookies that Taylor Swift baked for him and how he utilized them. The interaction highlights a friendly connection between the two.
+- sources:
+  - [unverified] NBC TV Network — https://news.google.com/rss/articles/CBMidkFVX3lxTE9qX2NIVTRzRnZFWS1wbGRNRklyUWIyZXVGQUYwbTZGdjd6dmVabWdwTVlOV1I1c0puZE9lb3FuWEpwVzBxSlhnMFFUWDluTV9SRVZRbVI5TXY3c215SUdwWnhLV2x2ZFdvdjQweDdNemNBaXh2SFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Address Privacy Near Ohio Mansion
+
+- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce respond to concerns about privacy regarding their new Ohio mansion, emphasizing the importance of security. The property was purchased for $5.3 million.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaGxaU05OZDVtY0s0T1doRno5cFhEVUZUSnlHNVAyZzJsZHRFczJuclZHLW1yUGhaNnJ6VzdIaFJGNG03UGZoT2Y1c2xqYVNGSGIzQ3JXMHVtTGhaemtiTEd3U0pndjI5ZUZ3bXBIMGFCQUZLY2hrSS04cVZ0SGh1WnhVWjE4bGxGYU9iRFI3TkQ0V2dwZ2d5bnpMdUV3eWJNVVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Colin Kaepernick's Mom Suggests He Date Taylor Swift
+
+- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Colin Kaepernick revealed that his mother believes he should date Taylor Swift, expressing that they would be a perfect match. This statement has drawn attention to potential connections between the two public figures.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxOMWYzR0ttdk5hc2h6MURXMDFBTzdSanVvZWNud00tdzNrQ3JudGNHMVpyWkhlU3dMcjUxNmg0ZDg1SlNHOWw5M1J0Zlh0SlJrX2pCQ3VNa1B5NnN2V2NuMWdIUDhaOGcyQXFUQW8ySC1lemlWUFJ6eGt3Q0dDdE5sT2FwYTRQN2w1cEQtZXlCRXNoZDY3VEhxZkNlcWhBNlJneEdnWlYtYTI2TzBEMGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Spotted on Date Night
+
+- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new unseen photo captures Taylor Swift and Travis Kelce during a date night. The image highlights the couple enjoying their time together.
+- sources:
+  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxNeUEzeHd1NEEyZ3NsWHBFWGx2ZnFkUVBJZTZ4OG85czRrZkZqc0FoSWl6Z1JPRi13a0hGNndDQjRwWGpJbU5aZHlGOHZGX3IyUXJEdGpWUTM4VlBROTJyMU01TDc3NGQyQkl2Uks1NlNyZTd6Qzl4SVV0UExyM0pUMnlIc1ozUUFPbzVTZzdvZURKRHZ6TXRIMzFTYVN4VE5QV0lFVDduX3VCektYWHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Brad Pitt Reflects on Dance Floor Incident at Taylor Swift's Wedding
 
@@ -91,17 +123,6 @@ Stories: 100
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-news/peter-max-psychedelic-pop-artist-dead-obituary-1235628135/
 
-## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
-
-- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WCVB — https://news.google.com/rss/articles/CBMiekFVX3lxTE9nekl1bVZSSzJPSHlESVBJVm4yM1pqdE9KdE1sclZpemFob1BSUDBVek1WakNqUWFTd2FOR21EWC1rMldTNlhzZHJtbENITEVlMmZZNEFXLVBBOWhGQ0xvSm1Ja24zM0V3WTZaUmZvT25XX01ReWVmdFlB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdTNqZXZLS2Q4bTUwRXZiNDdJUm13c3VqdTFyQkthMVVCWllDOHMxMzlOSkpaUWdLMGM2Yy1RVDZ4Q3hXdzlRMVVmNTNHRFBZV0pEbHpCV3F0emJZRE9tejMyOTd0N05IeVZJVWpwOXU2WEZmYnloVDZKR3FVX0pZaUZ1MG1TTGVTNmRTQURmaDZSM0pRaHJBMUZOX05WeDNE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOZTF5SVBTUVRJS25fLUR1UW1ia2pJYjZDVFZjM3J5WmtOanBWU3VyX0hBaFN6WXhYNWZZamx1SkN0QmdPX1J2WkVSV2daTTNrVWVaSDhqaUZnaVZnVlBwcC1WMFVQam1jMG8yXzZIYklHZm1xYjlaYi1sbGliM2pTVlRRcHVpaUx4WVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's 'SVU' Cameo Sparks Decoding Among Fans
 
 - first seen: 2026-09-17 06:06 UTC | category: music | importance: 6
@@ -109,6 +130,19 @@ Stories: 100
 - summary: Taylor Swift's recent cameo in 'SVU' has generated excitement among fans, leading to widespread speculation and decoding of clues despite her absence from the Emmys. Swifties are actively discussing the implications of her appearance.
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOSzYwZV93SmFjY2hZRndfQzA0b0dnVUVEU1JxdlZ2U1l3NERrUGdmUkdKUGlRV1E3czFnVmZGQUhaUjVXYmFmLWY2X3dfdkptaE8zVXdkd2k0eVYyWTA3Njd5VGhPLTd2N1l5TzdORmZTS1JEc0xZaXVOOTlFTUkxRjdYWHVnMklSSjk1VXpJMTUzSjJzZGRvNW5xSGRNOWN5VzQ2OXpJSmN6MFAzeWZTSUtfVFQyenM3UHV3R0xhUzlIanNFYkZiN0t5cnpyTjhoN3lzSzRSQWthMi1ka200YVg1ZFJIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
+
+- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 6
+- summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Syracuse.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxPNklrN2NuVXRfRnlxMmdDcUg5eG4tN1cxTjdmUEp2ckV2RUhlSk0zNmg2SEdZdlBxUllWc1M1OFotOVZqbU5fM3MteWhacWs3U25rbUxnWW83WlhUVGdDTlloZ2tlQTFXU2I3TGZqUDNKcjBwY2hMaDBJZEJ1UDRVVUxNdGxyN1c3R3QzTFZPN3BwV1pGM20yYjZ1TnJyYXhUTkVyTE5OZ2t0azl0dEVuWW16YkpzdXJhaGdvVHlqTFdldVM1QkE2bWFURU1ZYW9O0gHkAUFVX3lxTFBNSW9KbE5oMjFQVkZJcEo3ZENTa2JObFJzWUIwZU9MdzN6MzFLQzFOOUFxOFZ2Nm5xVzFIMldFdldEUUlGSVlZYkNxblUtbjZxLXg2UER6aDBTMHRTMjFQc1BiTGJkcWYzTjM4ZlV3OENGWnlYTWZPTi1oenllekRhSjd0RUhXOEFocGc2NWVnaUtWc3U4XzNTNW5vcEpnYW81TGVjeHpKTWpVaC1fREVheXFLa2RlYUlZdkIzX0RIckdGRFdYdFhnMC1uS1dVR3FvOGNuNmp6QmxURl80Wkl4WmE1Qg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQQm13YWEwbVA4eGdkMHhETERSSWNSb1lDaW5abFdhdl9URDcyRjVZQU8xRF9PaVZfVUY4bTY5SFE2ZVV1TWtCYnlJZjZMb3o1TW5LdGZNQzloQUJQczNHcDgyZHNWaFc0M2dfZlJxRDN2MXUtLWRJcmo2aDJZRXNVc0NTSmtoNE5abWdyYnlwSnRPbVp0bE9CejFWMDJBN2dMWEJaUmE2Unc5UFRJN2M2bEpvVklEUzQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WCVB — https://news.google.com/rss/articles/CBMiekFVX3lxTE9nekl1bVZSSzJPSHlESVBJVm4yM1pqdE9KdE1sclZpemFob1BSUDBVek1WakNqUWFTd2FOR21EWC1rMldTNlhzZHJtbENITEVlMmZZNEFXLVBBOWhGQ0xvSm1Ja24zM0V3WTZaUmZvT25XX01ReWVmdFlB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdTNqZXZLS2Q4bTUwRXZiNDdJUm13c3VqdTFyQkthMVVCWllDOHMxMzlOSkpaUWdLMGM2Yy1RVDZ4Q3hXdzlRMVVmNTNHRFBZV0pEbHpCV3F0emJZRE9tejMyOTd0N05IeVZJVWpwOXU2WEZmYnloVDZKR3FVX0pZaUZ1MG1TTGVTNmRTQURmaDZSM0pRaHJBMUZOX05WeDNE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOZTF5SVBTUVRJS25fLUR1UW1ia2pJYjZDVFZjM3J5WmtOanBWU3VyX0hBaFN6WXhYNWZZamx1SkN0QmdPX1J2WkVSV2daTTNrVWVaSDhqaUZnaVZnVlBwcC1WMFVQam1jMG8yXzZIYklHZm1xYjlaYi1sbGliM2pTVlRRcHVpaUx4WVE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Fans Decode Hidden Message from Taylor Swift's Emmys Appearance
 
@@ -754,128 +788,3 @@ Stories: 100
 - sources:
   - [unverified] businessinsider.com — https://news.google.com/rss/articles/CBMif0FVX3lxTFAxdWpDOGlxN3l1Z3prZHlHMWRqS19YQnZMSDYwbWJsUFNlNW5mVTZJMzhMaEhJMFZLUGY4LTFrNHA5TU9YQm5tU283Nkxnc0k3OFlGMTJiZU1DWldMcjI0T1RuMTdYeUFjR0FGSUlSZ2lSUTc4Q2ppdUdvSnJNdk0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNMVUyX1MwdjVRbHFISkFZYmY5anJWUjNNWjhJcHVMYlItejFuZjRCZHZwbWU1ZjJTTnExTDZYZkhpYWlhRnEtb0dKR09iRHR5VVBjSkY3WHFyRHZyUGNKOFhXcWM5Y0o1M1lEUVNnWXd3S2hxMmlKam5XWlZHMklXWE5RMmZCRkpqQUhTVTBPRDh6N2lLbW0xVHR4aU5mRVJVdW5KUjAwaU0wWkNQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Reasons for Not Releasing Wedding Photos
-
-- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift explains her reasons for not yet sharing wedding pictures. The article discusses when fans might expect to see these images in the future.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMipgFBVV95cUxQMmN5cFdPM0tsMnhnM0xMRG9hU2F0aVp5OFJ5OHliYXplQUlYTDBvci1QT0tWeHlRTHZacV9KRmV4eGppbUhNcnhkNjlhUWpBTlpUOXdCNHgxTkRSTGZoQ1plY2Mwb2JOaFliMTRxWnlJV19hbDVQZ3QwN3JrV0xjOWRueXhTdEpZT0JPcGZ5NlA0a25qTGtuTDZENlRCb05GeHJzNE1B?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Four Bug Species Named After Taylor Swift
-
-- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article highlights four different species of insects that have been named in honor of Taylor Swift. This recognition showcases the cultural impact of the artist in various fields beyond music.
-- sources:
-  - [unverified] Paste Magazine — https://news.google.com/rss/articles/CBMilgFBVV95cUxPNEpKS2doSDYyQlBFWE5vaVJ4T1JYeGhZVFJSeHI1NzY2aFBCVUcwOFhSTlVfUDlDXzlKVDY4bDlFU2ZCckxvZGY1Y2tzTFRORXVYU2JfVGhWM1Z3emlNYl8xRmJ1VkZ3YVduaDVUS3NZamVYVjY3SlAzOVczT2RJUWxpOURsNUZ4NkZzR1V5VVV2NDNzZWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Designer with Celebrity Fans Opens New Store in New Orleans
-
-- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A designer known for dressing celebrities like Beyoncé and Taylor Swift has opened a new store on Magazine Street in New Orleans. This marks a significant addition to the local fashion scene.
-- sources:
-  - [unverified] NOLA.com — https://news.google.com/rss/articles/CBMi7AFBVV95cUxONEduX3hFaTdRaVJQdlpoMkQ1d1NLblpvTWxadmgzb2JEcHh4cXJDcjBGM2hWSU5jTndNUFBGNW5oV3B6NGcya3hwcFlveDBtSWV6d2FEeFVaUnV1ZzVZLXE5RDY5TFpxcjlkTDZxckVYZnQ4WWJLVWJ4ejlORVVqc05MbHJEZXppTnVLOFNrZmdlVmxubzg0N3pELWlXN3NXUEVSS3FJSEhCMmg4N1pHVVNFbWZ2dDl6WVdjdklKZGZTbjJOdGpvM1NxOHdEZ04zaHlDSzFxX3hLMGpRSXVkd3dhbXlnQ3F2VDZWU9IB8gFBVV95cUxQN1owd1hLUzFNTTRsUmdJclBPYnM5LXdLVTdUYk5OdjRQMlZ4eDdvTGJneGt6SUJSbmp0WVBuNGhpbDFhcU4xWDlaR2NfTVpaUzI0QUwzcHAzQjQzNmtId2h5VTFVaDRtQkNZbDktTTg1UHNxSmo2MVE2NjhSNlBpRUtxRE94d05jeTBJRlM4VXExejhhNFNSNkJOeWhQQm5PLVNuSXZ5NkdEYmFwZC1pT2xJZGtMMEoyZE5yNjZ4NUdwZHZJc0FXRk9TV3UyYzl6aU9Ya2lJVndQdXdYV3g2UGwxaXpPeHhPT015VzlFckdiQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson and MGK's Meeting Linked to Taylor Swift
-
-- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article discusses the meeting timeline of Dakota Johnson and MGK, suggesting Taylor Swift may be connected to their introduction. Details on their relationship dynamics and connections in the entertainment industry are explored.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMirAFBVV95cUxNNE9ZRlhTb0VjQXVMcVgwc1JlTUMyM2hkSEJuVEhrV1drSG5MUjlvWTF3dFhwV28yMjl6T0k5ZTFuQ19yV0RMb1ZIcHc0cGcyT3RQdHgwNEVDT2dUVEhYZXJMbmRUSGE5dWxJVEFqUmxoOS1HV2JMTWhCRDlFa2ZUZ3VKeXYxZHJvLVRUaktZSk1rSW9JZE1kWkZlMVpoZXl0Um96U2c3aDJFakVH?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Confirmed to Appear at CMA Awards
-
-- first seen: 2026-09-14 15:52 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been confirmed to make an appearance at the upcoming CMA Awards, according to 101.3 KFDI.
-- sources:
-  - [unverified] 101.3 KFDI — https://news.google.com/rss/articles/CBMioAFBVV95cUxOTlhHUnJZOXU4QzlEdUNfbUtYRlVRdlNKcVA2am5FRWRadlVrZUFHWVRmOTZrQ3RmOW9aQXJXcmZqSnlKLWFIT0hpcG9DOGNROHpUOGg1MmNJd2VDME14MGZZaWFwZEVRbUFTOEZ1YlNTeGJJNHlCeHJLRTlGRGpEeEtqY0FQUGNaTU5IQ3NER1FoR0RVaUVqOThqUnhYczlU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Unexpected Career Update Before MNF Game
-
-- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has received surprising career news just before the upcoming Monday Night Football game between the Chiefs and Broncos. Details regarding the nature of the news were not disclosed in the report.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPRjR5QkczUE5wSEhvQXVDVjJrOXVPcERJckQyaG50VGFieDdvbXRuTjl3X0V6N1FyUVFUcUpNR2FVY0dBSWhWVktxcUZ1dTRRY0NpT2JCdlFyT1FXTDdPRlVtYlFlclRaMTNDMk9leEFKRkZvemFpa05MRVEtNkc0aHN2OWY3emE1VDdWRlNQUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Mariska Hargitay Requests Taylor Swift Song for Photo Shoot
-
-- first seen: 2026-09-14 15:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mariska Hargitay, the host for the 2026 Primetime Emmys, requested a Taylor Swift song to be played during a recent photo shoot. The interaction highlights the influence of Swift's music in various entertainment contexts.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOYzhqWXdWN01SbWdCb1NOMG1BS2RxMERKNEFHaXVaTmVhYlFGcThoZVZQT3l5eU0zbEo0UkwxcXo2M1ZKXzZmeHpLaDJrSUR5U0RvZm5YSXI4V3NicTMxN3VGMnRQQkhsM1JvVklvRzhIR2tLWGpQUFdxYkVYUWtrY1ZjelpCa1hpbFQ0cTBwTUlqSmkzOWk0R1AyYlZhV2ltaTdiWnlQZHVuQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Berkeley Festival Highlights Stories of Immigrants and Stunt Doubles
-
-- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new festival in Berkeley features the stories of immigrants alongside those of Taylor Swift's stunt double. The event aims to celebrate diverse narratives and community connections.
-- sources:
-  - [unverified] Berkeleyside — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPQmlkaVQ3N2lDNGd1UWZ4WEpjN1A2a0ZtTm1wNXRsNXBVREdFLWlrWmNzYXpsR185bWZndUN2NUpORkdwbXY0MHJMMTBrZXlfd1BYeDZTakRjNk9UekZZZnpWV215bGVaSVZlQlFvM0dxdUFBelp0Tkxwa0J3RTc0RlNsU3Q1b1kyckIxOEctOUQ4WWtNQzRzVGFhZ09RNzRsMFlhNzFsUDQxWUR3OHpRdHJJM3BlSlJGVHJhWnZEb0pPU0c0V0VLTDdOXzZHbU5vNFdtS1dmdWF6ekFS?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Howard Stern Discusses Taylor Swift's Wedding Plans
-
-- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Howard Stern returns to SiriusXM and shares updates, including details about Taylor Swift's wedding. The conversation touches on various topics, highlighting Swift's recent personal developments.
-- sources:
-  - [unverified] SiriusXM — https://news.google.com/rss/articles/CBMieEFVX3lxTE9lUkJsNl9rMkphOFF5T3d4UXNFNzgwV21IZ0RrQzgyWGFiQkI5Rjk4SVluWkRlVm9jTDQzaGFPVkptWDg5NnJWTVZTTVFBUWx5X2VyNlBrQktSMF9odVBWOFhCN1NGS1R4bHFSMWJXVFBrQWpCM1JnRA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Fails to Achieve No. 1 on Chart for First Time in Over a Decade
-
-- first seen: 2026-09-14 15:52 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has not reached a new No. 1 position on a chart for the first time in over ten years, marking a significant moment in her career.
-- sources:
-  - [unverified] forbes.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxNbW95d0RodHhPV0hGRmJBcmhaZm1lMVMwU1otNmRXUk9FRGpISzRlQmZLSnF4dzFuMFJSQWFVX2FVR0hNZTFUWEh2b1JFQkVwRzR2WFRSSUNIWlJlV0NNZEtsNVFoNHpKMFFJWTc0Q2ktRWcyR01jdVJYVjZ4OE0wdVdzSjNIT2R0UzlSc09UaEZxUENlZ0ZtOE95emd3eTZSRkNRWnVnZXFLV1BEdUZ5Z3FqU0U1TVY3N0lVLUdmSnpRT3pXRGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift’s Top 6 Game-Day Looks for Chiefs Season Opener
-
-- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A roundup of six of Taylor Swift's best game-day outfits as the Kansas City Chiefs kick off their 2026 season. The showcase highlights her stylish choices during NFL games.
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTFBXYUVBeHh2cnppdGZxSDRMRTJzUDFKSTd5VWY0WVBnc1kxUkdoWkRkaGtKdUxqU2FLOXVTYm1KYnhRQnRyeFZaQ2VnNjRxb2RRLU5mNTN0YVNyWWY3WVdteTBkZWhaSFFrQUNB0gFrQVVfeXFMTXE1dEtVUC1RQWdzSmVxYTlQb1dEbkJYNE10NU1aQndJZ1BXSXNvSjVhTDAzMkRUUnNCZlNYcVZJbGFDVzJKd1VmMm80TVBsdzZFTGlYcHBXcHR1aXBDR2xsUVQ1azBDWDhlenM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Madison Beer's Attempt to Mirror Taylor Swift's NFL Influence Faces Challenges
-
-- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Madison Beer aims to replicate Taylor Swift's impact on the NFL but faces hurdles, particularly due to the Browns' struggles. The situation highlights Beer’s aspirations in the sports and entertainment crossover.
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixgFBVV95cUxQVDdOUVlQZmJfUDY1SjBNSjRHTDk2b3JLZS1zWjlnTVZNWmZySVl6ZWNWdE90c29lcl9HV19nc3dRWkNwbF9POENiRE5RUzE4SjFsZkJXTkxFVmk4cXFMM01aTVlyTXFnZU9GRnR3YnlBSGd5QzJKM1dSZldVTi0zNGFSUVBqbzY4RmpQMllJTk9ybHJ5aS1RV0VHb2g3Tjg0NXNXY2JSalBUZnFHWEoyYUlPcHNQNko3dXk5Vk1ESFJmVTZJeVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Upset with Nikki Glaser Regarding Wedding Comment
-
-- first seen: 2026-09-14 15:52 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: A source claims that Taylor Swift is 'furious' with Nikki Glaser for revealing details about Travis Kelce's wedding. The situation highlights the tensions between Swift and Glaser.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQcEtzZ2RRLXFibzF3Si1MYlpPYnkyNTVFQ1JqWnVkRDN0bGlOX3hRcEM1RGdlb1BWZlpoSmhhbmV4UFRlVFZ4bUhzRTg2RDhiY1Jkc190TERIOWxKdDl1VXdYQWMya1IyS215UUxaeHh5b25tRklhWTIwMFNMZjdhbW1GMEdQT1QzN3k0MXRYNEpoaVNfc0RMbEtlX2FyS043UURmOW1OWlDSAa4BQVVfeXFMT3dCSkZyLW13NGsxNjNOaTIzMDJUR2h3Mm5GODI0YUhodF9Tb0J5UFMwdG94M1JpYnFoQzVFOUJuMTQwYUY3VmowMXpGM0xSc1NNNXE3bmdLeDNjbDlOT29SMkN0aWNtTi1mVGI0OTc2SHpqTTV4MjMtV0ZzSkRLeEN4WHNHNFdsR004b1BndWFSWnpqRUZXbXFRTlJ4UUFLZDhtQjhkc1M5WXdYNWR3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQWmhuODdENlhGSC1HRkQzdW93ei1xRFBtLVV0Vl9DcG1zVnF2bF9iNmNFUEJhcDVMQ244dDdsRUE4MjVRRXZHU0RHVE5rQ2pTcVQ0bWV3M1FtXzdqVno4TFZTbHNMd0l5clZzeTJCNzFRRW9uYk9zSjFKM0diZ2JULU5wSU5FYVlHclFicnJqYVYxaGQ5OFRuZzI4Q3k?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNd01RRnA2NW9SRG1VeG10Q2hvenpIa3JiRmUzcVNyZzVzQUlXQS1QOVQxa3RuSlFKM19fbzJuVDhaTk4tdmprd0J3eXR2MzdlN3VvOEVISzFZbndJNmgyMDlRdzRqR293MHdNRWQtSWF2UVhFY0FpN0xtUGRGV2xBWFJoT3hJTUctd2ZURGVKaEltbTUxWEtiQWo3c3dMS0FsY3otMmh6YS1QdW9hVjFZdTZjbkp6QmJV?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxObnZibFgxTHFSYXh1RUVaVHR2REdIX2s4UDFoNUlWc2k2aXd0M2hCdmxndXN3dHIzYW4xVW5iSWM5RzQzbzBWc2lYbzRkMUtua1hfTVk0VjFVV19KaFc3UUpQUTZlOWVaT3R1ZWJmN21OelhlbDZUbm5fdEh0ZENpRC0xMHNYQ2hUUGpabW81Ul9pM0pBTmtYci1nemk5cTdGcm9lVA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMingFBVV95cUxOLUNKdVp0akxSWm9aQXY3NVNNQmNCSzdtcUp5a0dMMmwwSHFWUVJUUUNvTUlfS2ktdVNKMUpNRnVWc0djRmNhZmNEU0xWWkdManVyTWczWVhCSjlpS3VoZ1FjbFZ1bVFicXEyN0FkZ3E5ZVhoeE9GejJlbE1wU1RyalUxWmMwUVBmdDJwLXE0WjB5YUdRbDdHRVBkNE15Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOeXNudUdtdWhkZm1yRmRfOEV2OUplNkVjVW1GQ3hmNXdnemdPNEFEb0l5UWloZ3hEMEJBYVh2bDg3VlpoTXRJRlFTNl9FMUxTRHVWQXAtYVZkYzVwZEZSOUpaMENQM2Uxcy1kYlFVcGtKY3hDRE1iT1F0SDlBaTJiTkFxWUJseHVWT0dNMFNOTUJyOEtGbmh6UWE5Z01ud1A4bjRjQV9R?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Makeup-Free Appearance Discussed in New Article
-
-- first seen: 2026-09-14 15:52 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article examines what Taylor Swift looks like without makeup, highlighting her natural appearance. The piece provides insights into her beauty and personal style away from the public eye.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxPUU1SVll0TDJic2dYeDZwMW9FQTljNXQ4YXVXZUtzRnRsV05OV3FwOFJiU2Z6eHdaZ2FvaGxMVjJ2dlV5cG9iSDNSQTBabC1jekVMbV9GWTRRSWdvRXBTdm1Oc3lxOVJwSGVoMF9DR2NfeEZOVU5Mb3p1QnRWTzRoSVFFSlk2RjRyUXVzc3lWaTZoNjVFRnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift honored as namesake for newly described insect species
-
-- first seen: 2026-09-14 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A newly described species of bugs has been named after Taylor Swift, highlighting her cultural impact. The naming reflects the intersection of celebrity influence and scientific recognition.
-- sources:
-  - [unverified] ehextra.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQN1lVR3JHVEYtU053SDllaDd0OVd1c3QydXdRZUVWcUtXY3p6YlNWMzlILU41RDJaeXlvVzZPNU8welYxc09zSWh3MEtBUGZBRjFERnRuSzZBVldySDk0WE5sM3lwTmh5OWh0TVNvbF9wa1I0dEpXZEdQZThPSFhKRXJDQW9zWWZNbDR3a3gxRy11eVdPN2g5RnNkOXJIdWhDTERUZktucS03YTVSUHlBVEUwLTdQd1NZSFI1UFVDUUNjX3J2ZFE4eXJtdFR6SnVOZVVVNVA5OA?oc=5&hl=en-US&gl=US&ceid=US:en
