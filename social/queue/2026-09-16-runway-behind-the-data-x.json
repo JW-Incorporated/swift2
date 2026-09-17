@@ -1,0 +1,42 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "15 looks. all 12 eras. 39 real red-carpet and tour photographs, every single one credited to the photographer who shot it. that's The Runway, and building it made me fall for her style evolution all over again 🤍\n\nlonglivets.com/?lens=fashion&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-evermore-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "evermore-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons (cropped by Musicharts)",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109915048)_(cropped).jpg",
+  "scheduledAt": "2026-09-16T23:00:00Z",
+  "altText": [
+    "Taylor Swift performing the evermore set of the Eras Tour in Inglewood, 2023, in a cardigan-style stage costume with a wooded cabin backdrop."
+  ],
+  "campaign": "thread:fashion:behind-the-data:2026-09-tappable",
+  "why": "The Runway's only September slot (behind-the-data), window-bound to 09-16. The number hook. Counts verified from supabase/seed/lenses/runway-looks.mjs: 15 looks, 12 distinct eras, 39 total images, all credited (Getty/Kevin Mazur/press). DROPPED the calendar's 'how many looks are tappable now' angle: it does not hold — RUNWAY_LOOKS.shopTags render as static descriptor chips, not tap-to-shop links (verified RunwayThread.tsx:129-136). Flagged for Tree in the PR body. Thread post = share-hook exempt. Selector-chosen credited evermore photo (X site-screen prohibited).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Runway behind-the-data: 15 looks across all 12 eras, 39 credited real photographs, no mockups — counted from RUNWAY_LOOKS, not estimated. Dropped the calendar's 'tappable looks' angle: Runway shopTags are static chips, not shop links (RunwayThread.tsx).",
+    "rulesChecked": [],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-15T17:02:41.959Z",
+    "pr": 4383,
+    "sha": "da7696c646001ae922508e82ef1dee56476a8997",
+    "message": "1549445190685691995",
+    "contentHash": "sha256:ac6ead1e6a6db262b52a37876fcf320edfb42bf66639ad9a88d2f7ab1a741fef",
+    "sig": "hmac-sha256:dc2e5da450b0e540ec4ddae6faf3629ba124ee0cad81ec0680a75e46f2f6eded"
+  }
+}

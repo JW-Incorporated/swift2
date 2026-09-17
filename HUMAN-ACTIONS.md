@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -79,25 +79,6 @@ the mailer si
 there is at least one drafted lead, and its `Posted`/`Skip` links record the
 chosen outc
 
-## #48 🟢 [UPGRADE] Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) (~5 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** the release train ran for real on 2026-09-08 (EAS run
-`01a08457`): iOS build 10 and Android build 7 were both built on EAS from
-`main` 0b8ca769 (the native overhaul), iOS was submitted to TestFlight,
-and `submit_android` failed because there is no Play service-account key
-on EAS (#46). So Android's
-
-**Steps:**
-1. Download the bundle (EAS artifact for build 7, commit 0b8ca769):
-2. Play Console → LongLive → **Test and release → Internal testing →
-3. **Next → Save and publish** (internal track; no Google review).
-
-**Worked if:** Internal testing shows `1.0.0 (7)` as the latest release
-and a tester on the "Jess and Joey" or "Joey" list (both are ticked and
-saved — verified 2026-09-07) sees the website inside the app after
-upda
-
 ## #43 🔴 [BLOCKING] OS-004 — Push credentials on EAS (One Source, Three Surfaces plan) (~15 min)
 <!-- ha filed=2026-09-11 -->
 
@@ -106,10 +87,19 @@ card OS-004 (Phase 0). iOS and Android push don't actually deliver yet.
 This needs interactive credential upload only you can do — Apple/Google
 account access, not code.
 
-**Progress (2026-09-12):** Firebase project `longlive-9d2a9` created and
-`google-services.json` wired into the Android build; the server now sends
-through the Expo Push API, so no FCM/Apple secret goes on Vercel. Full
-detail: `SETUP_NOTIFICATIONS.md` items 2–6.
+**Progress (2026-09-16): steps 1-3 are done — only step 4 is left.**
+Firebase project `longlive-9d2a9` created and `google-services.json` wired
+into the Android build; the server sends through the Expo Push API, so no
+FCM/Apple secret goes on Vercel (`SETUP_NOTIFICATIONS.md` items 2–6).
+Steps 1 and 2 are verified against EAS itself rather than a checkbox: the
+FCM V1 key (`firebase-adminsdk-fbsvc@longlive-9d2a9`) and the APNs key
+`QKTVXX9XY2` are both on the `ai.jwlabs.longlive` credentials, uploaded
+2026-09-12. Step 3 shipped too — Android `1.0.0 (13)` carries
+`google-services.json` and is live on the Play internal track, and iOS build
+10 already contained `expo-notifications` (which is why 09-12 gave iOS an
+OTA update instead of a rebuild). Production Vercel has
+`SUPABASE_SERVICE_ROLE_KEY` — `/api/devices/<id>/prefs` answers 404, not the
+503 it returned on 09-05 — so a real device can persist its push token.
 
 **Steps:**
 1. Upload the FCM V1 service-account JSON to EAS

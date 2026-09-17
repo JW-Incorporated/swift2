@@ -169,3 +169,12 @@ store build is a new build from the reverted commit — through the train.
 - Adding a native dependency or config plugin in a PR without expecting a
   store build: the train will build both platforms, which is correct, but
   users only get the change after store review — say so in the PR body.
+- Adding `"web"` to `app.json`'s `platforms` (or removing the array) without
+  also adding `react-native-web` and `react-dom`. `publish_update_both` runs
+  `eas update` with no `platform` param, so Expo exports every platform the
+  config lists; a listed-but-uninstalled web target fails the export with
+  "It looks like you're trying to use web support but don't have the required
+  dependencies installed" and no OTA update reaches either phone. This broke
+  every both-platform update from 2026-09-14 to 2026-09-16 (EAS run
+  34986002764) while single-platform updates kept working, because those jobs
+  do pass `platform`. `apps/mobile/app-config.test.ts` guards it now.

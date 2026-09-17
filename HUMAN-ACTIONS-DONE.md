@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #48 · 2026-09-16 · done · Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — "Play internal testing serves 1.0.0 (13), status completed; uploaded bundle sha256 matches the local EAS artifact exactly. PLAY_SERVICE_ACCOUNT_JSON is now set, so the train submits itself." · by owner
 - #77 · 2026-09-15 · done · Restore Claude organization access for GitHub routines — "Joey: 'claude is back on'; bounded GitHub OAuth probe 34978823809 passed. Basic testing authorized up to 3 USD." · by chat
 - #76 · 2026-09-14 · done · Update the Hermes doorbell to doorbell-v2 — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756" · by agent
 - #75 · 2026-09-14 · done · Install Long Live Doorbell on the Hermes VM host — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5668808609" · by agent
