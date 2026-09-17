@@ -3910,6 +3910,7 @@ export default {
         photos: [
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
+            focalPoint: '64% 32%',
             credit: 'Charly Triballeau/AFP via Getty Images',
             caption:
               'The jumbotron outside Madison Square Garden reading "JUST&T MARRIED!" as fans stop to photograph it, the Empire State Building behind.',
@@ -7971,6 +7972,7 @@ export default {
         photos: [
           {
             url: 'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
+            focalPoint: '38% 18%',
             credit: 'Kylie Cooper/Reuters, via PBS NewsHour',
             caption: 'On the carpet at the 55th Songwriters Hall of Fame Induction and Awards Gala in New York, June 11, 2026.',
             kind: 'primary',
