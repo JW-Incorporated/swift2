@@ -66,9 +66,29 @@ jobs:
     environment: social
     timeout-minutes: 15
     steps:
+      # ROOT CAUSE (2026-09-17, kanban t_cb04208d): without an explicit
+      # `token:` here, actions/checkout configures `git push` to
+      # authenticate with the default GITHUB_TOKEN — a DIFFERENT
+      # credential than the SOCIAL_POSTER_PAT this job already hands to
+      # `gh` via GH_TOKEN below. social-approval-poll.mjs's own `git push
+      # origin HEAD:<branch>` (the stamp commit) therefore pushed with the
+      # default token every run. GitHub never fires a workflow run for a
+      # push authenticated by the built-in GITHUB_TOKEN (loop-prevention,
+      # documented in Actions' own docs and in this repo's `build` check
+      # header comments) — so the required `build` check never appeared on
+      # the stamped commit, and the branch-protection ruleset then refused
+      # every `gh pr merge --match-head-commit` with "Required status
+      # check 'build' is expected." Every approved Trees post from
+      # 2026-09-12 onward sat stamped-but-unmerged for exactly this
+      # reason: five days of approved posts never reached IG/X. Matching
+      # every other branch-protected-main writer in this repo (social-
+      # poster.yml's setup-repo action, every routine-*.yml via
+      # routine-template.yml's checkout_token_secret), the checkout must
+      # use the real-user PAT so its own pushes actually trigger CI.
       - uses: actions/checkout@v7
         with:
           ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
 
       - uses: actions/setup-node@v5
         with:
