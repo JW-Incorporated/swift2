@@ -1,0 +1,42 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "That ivory gown from the willow video — the one half the fandom swore was a secret wedding dress the second it dropped 😭 (Zimmermann said it was actually inspired by lucky charms and fortune-telling, for the record.)\n\nHere's what Seen on Taylor does with a look like that: tap it, and it sends you straight to the exact Jennifer Behr 'Priscilla' tiara she wore with it — a real piece you can actually find, not a guess. The gown itself sold out ages ago, but the crown lives on.\n\nAnd because we're fans, not a shop pretending to be official, every tile says the same thing: her look, not the product. We just point you to what she wore 🤍\n\nOpen your favorite era and find one →\n\nPhoto: the evermore set, Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?mode=merch&utm_source=instagram&utm_medium=social&utm_campaign=launch",
+  "media": [
+    "/social/library/photos/taylor-evermore-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "evermore-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons (cropped by Musicharts)",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109915048)_(cropped).jpg",
+  "altText": [
+    "Taylor Swift performing the evermore set of the Eras Tour in Inglewood, 2023, in a cardigan-style stage costume with a wooded cabin backdrop."
+  ],
+  "scheduledAt": "2026-09-18T23:00:00Z",
+  "campaign": "launch:shop-the-look:example",
+  "why": "2026-09-18 Beat B, launch arc +6 (example) for shop-the-look. Job per calendar: one REAL result the surface produced — a single look, the piece, where the tap takes you. Sourced verbatim from supabase/seed/content/evermore.mjs (the willow-video ivory Zimmermann 'Charm Star' gown, Dec 2020; fans read it as bridal, Zimmermann said it was inspired by 'lucky charms and fortune telling'; she wore the Jennifer Behr Priscilla tiara with it). The tappable product is that Priscilla tiara — the shop-pass note records the gown sold out everywhere while the tiara is a live product whose retailer page names this exact willow appearance, so the caption is accurate that the tap lands on the tiara, not the gown. Disclaimer 'her look, not the product' verbatim; no official-status claim. Link /?mode=merch (verified real in deepLink.ts). Media: evermore tour photo per calendar's target era (the look is evermore-era; no willow-look photo exists in the library and no 'Seen on Taylor' screenshot is committed, so photo-only is correct); photoEra left unset per schema for a launch/merch post. Hook: the artifact — opens with the look; first five words diverge from 09-17's artifact opener. Launch-arc = share-hook exempt. Long-form, vocabulary diverged from the X sibling (checker <80%). Standard sentence capitalization. Lyric-free. rulesChecked [].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 23,
+    "rationale": "The strongest proof the merch surface works — one real look, the exact tiara it links to, and the honest 'her look, not the product' line, all sourced from the vault. Gushy fan voice with a checkable willow-video detail; the evermore tour tile is on-era but not the look itself.",
+    "rulesChecked": [],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-17T15:44:45.554Z",
+    "pr": 4424,
+    "sha": "87f76d33c7e4413af920d9fcdc242cb842ac808a",
+    "message": "1550170488897020126",
+    "contentHash": "sha256:c5178db2482dc2170c066c6ca2a272b3a09767ccfd2f1475b09a1ef81fe0dfde",
+    "sig": "hmac-sha256:2b9ae92178ca8ffe1cfed2bd930c65a57c5027e9353dd58e29fec3d3ef538615"
+  }
+}
