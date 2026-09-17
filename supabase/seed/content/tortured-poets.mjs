@@ -5851,7 +5851,6 @@ export default {
         photos: [
           {
             url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
-            focalPoint: '53% 43%',
             credit: 'via @taylorswift/Instagram (ABC News)',
             caption:
               'The proposal, from the couple\'s official announcement post: Kelce and Taylor beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.',

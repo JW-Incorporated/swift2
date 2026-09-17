@@ -3910,7 +3910,6 @@ export default {
         photos: [
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
-            focalPoint: '64% 32%',
             credit: 'Charly Triballeau/AFP via Getty Images',
             caption:
               'The jumbotron outside Madison Square Garden reading "JUST&T MARRIED!" as fans stop to photograph it, the Empire State Building behind.',
@@ -7972,7 +7971,6 @@ export default {
         photos: [
           {
             url: 'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
-            focalPoint: '38% 18%',
             credit: 'Kylie Cooper/Reuters, via PBS NewsHour',
             caption: 'On the carpet at the 55th Songwriters Hall of Fame Induction and Awards Gala in New York, June 11, 2026.',
             kind: 'primary',
@@ -13862,7 +13860,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
       moment: {
         context:
-          'A Luminate Intelligence report — Luminate is the industry data firm behind the official US sales and streaming counts — characterized Taylor\'s approach to physical formats as "trust the fans," and the numbers it cited make the case. Album-to-date physical sales it reported run 3.3 million for Midnights, 3.7 million for The Tortured Poets Department and 4.1 million for The Life of a Showgirl: each album outselling the last on physical alone, in an era when physical is a rounding error for most artists.\n\nThe Showgirl figure was built on a deliberate variant strategy. The report counted 11 separate vinyl editions of the album released between August and November 2025 — a completist chasing every one would have spent more than $330 before tax — and that breadth pushed The Life of a Showgirl to the top-selling vinyl release in the United States for all of 2025. Yahoo Entertainment reported the findings.',
+          'A Luminate Intelligence report — Luminate is the industry data firm behind the official US sales and streaming counts — characterized Taylor\'s approach to physical formats as "trust the fans," and the numbers it cited make the case. Album-to-date physical sales it reported run 3.3 million for Midnights, 3.7 million for The Tortured Poets Department and 4.1 million for The Life of a Showgirl: each album outselling the last on physical alone, in an era when physical is a rounding error for most artists. Yahoo Entertainment reported those album-to-date figures and the "trust the fans" framing.\n\nThe Showgirl figure was built on a deliberate variant strategy: the report counted 11 separate vinyl editions of the album released between August and November 2025, and a completist chasing every one would have spent more than $330 before tax. That breadth carried through to Luminate\'s year-end accounting, where — as Billboard and Variety both reported — The Life of a Showgirl finished 2025 as the top-selling album in the United States and helped push US vinyl to its 19th straight year of growth, the year\'s top vinyl release.',
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -13873,7 +13871,29 @@ export default {
             accessed_at: '2026-09-17',
             reliability_score: 4,
             notes:
-              'Reports Luminate Intelligence\'s "trust the fans" analysis: physical album-to-date sales (Midnights 3.3M, TTPD 3.7M, Showgirl 4.1M), 11 Showgirl vinyl editions Aug–Nov 2025 (>$330 for a completist), Showgirl the top-selling US vinyl release of 2025.',
+              'Reports Luminate Intelligence\'s "trust the fans" analysis: physical album-to-date sales (Midnights 3.3M, TTPD 3.7M, Showgirl 4.1M), 11 Showgirl vinyl editions Aug–Nov 2025 (>$330 for a completist).',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of Luminate\'s 2025 year-end report naming The Life of a Showgirl the top-selling album of 2025 in the US.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vinyl-sales-rose-19th-consecutive-year-2025-luminate-year-end-report-1236630636/',
+            source_title: 'Led by Taylor Swift, U.S. Vinyl Sales Rose for 19th Consecutive Year in 2025: Luminate Year-End Report',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-17',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of Luminate\'s 2025 year-end vinyl data — US vinyl up for a 19th straight year, led by Taylor Swift, with Showgirl the year\'s top vinyl release.',
           },
         ],
       },

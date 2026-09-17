@@ -634,25 +634,19 @@ export default {
       },
     },
     {
-      // Cross-link (Stage 3, 2026-08-06): the "Fourth of July" cluster — the
-      // annual Rhode Island tradition and the year it moved to Turks and
-      // Caicos — now interlink.
+      // Cross-link (Stage 3, 2026-08-06; TTPD Fourth added 2026-09-17): the
+      // "Fourth of July" cluster — the annual Rhode Island tradition, the year
+      // it moved to Turks and Caicos, and the quiet Yellowstone Club Fourth.
       relatedIds: [
         'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
         'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
       ],
       year: 2016,
       month: 7,
       day: 3,
       category: 'sighting',
       title: 'A Fourth of July beach walk in Rhode Island',
-      // Cross-link (crosslink-opportunity, 2026-09-17): the recurring Fourth of
-      // July tradition across eras.
-      relatedIds: [
-        'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
-        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
-        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
-      ],
       snippet: "Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group.",
       sourceUrl: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201663/rs_634x1024-160703191428-634.Taylor-Swift-Tom-Hiddleston-4th-of-july.tt.070316.jpg',
