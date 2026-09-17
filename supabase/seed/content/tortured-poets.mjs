@@ -6658,6 +6658,13 @@ export default {
       day: 4,
       category: 'relationship',
       title: 'A quiet Fourth of July at Montana\'s Yellowstone Club',
+      // Cross-link (crosslink-opportunity, 2026-09-17): the recurring Fourth of
+      // July tradition across eras.
+      relatedIds: [
+        'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+      ],
       snippet:
         'Skipping her traditional Rhode Island bash for a second year, Taylor and Kelce spent the July 4th weekend low-key at the exclusive Yellowstone Club resort in Big Sky, Montana.',
       sourceUrl: 'https://pagesix.com/2025/07/09/celebrity-news/taylor-swift-and-travis-kelce-spent-fourth-of-july-in-montana/',

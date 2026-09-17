@@ -2378,6 +2378,14 @@ export default {
       month: 7,
       category: 'sighting',
       title: 'A rain-soaked Fourth of July family portrait in Rhode Island',
+      // Cross-link (crosslink-opportunity, 2026-09-17): the recurring Fourth of
+      // July tradition across eras — the squad beach-house years and the later
+      // quieter holidays.
+      relatedIds: [
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-reputation-a-rare-fourth-of-july-just-the-two-of-them-in-turks-and-caic',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
+      ],
       snippet:
         "Emma Stone, Lena Dunham, and a Slip 'N Slide built to fight the rain — the first of what became an annual squad tradition at her Rhode Island beach house.",
       sourceUrl: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',

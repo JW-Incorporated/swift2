@@ -976,6 +976,13 @@ export default {
       day: 4,
       category: 'sighting',
       title: 'A rare Fourth of July, just the two of them, in Turks and Caicos',
+      // Cross-link (crosslink-opportunity, 2026-09-17): the recurring Fourth of
+      // July tradition across eras.
+      relatedIds: [
+        'moment:vault-red-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island',
+        'moment:vault-1989-a-fourth-of-july-beach-walk-in-rhode-island',
+        'moment:vault-ttpd-a-quiet-fourth-of-july-at-montanas-yellowstone-club',
+      ],
       snippet:
         'No star-studded Rhode Island party this year — instead, Taylor and Joe Alwyn were photographed hand in hand on a beach in Turks and Caicos over the holiday weekend, swimming and snorkeling during a tour break.',
       sourceUrl: 'https://www.eonline.com/news/950442/taylor-swift-and-joe-alwyn-hold-hands-in-turks-and-caicos',
