@@ -1,0 +1,42 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Ever lose an hour hunting down one thing Taylor wore? We built the fix. That willow-era Jennifer Behr headpiece now sits behind a single credited retailer link — real match, no detective work. Her look, not the product 🤍\n\nlonglivets.com/?mode=merch&utm_source=x&utm_medium=social&utm_campaign=launch",
+  "media": [
+    "/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
+  "altText": [
+    "Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting."
+  ],
+  "scheduledAt": "2026-09-18T23:00:00Z",
+  "campaign": "launch:shop-the-look:example",
+  "why": "X sibling of the 09-18 shop-the-look example (see the IG item's why for the willow-look / Jennifer Behr Priscilla tiara sourcing from evermore.mjs: the gown sold out, the tiara/headpiece is the live tappable piece). Written first as its own post: the problem, the fix, the one real piece, the disclaimer, the link. Disclaimer 'her look, not the product' verbatim; /?mode=merch verified. Re-angled after two cross-post-copy fails (93% then 85%): the X now leads on the fan pain-point ('lose an hour hunting') and drops the IG's shared phrases (Seen on Taylor / tap / tiara / wore) for near-disjoint vocabulary, clearing the <80% gate; first five words diverge from both the IG sibling and 09-17's X, and 'Ever lose' is not the banned 'ever wonder' opener. Media: credited Taylor photo, a different era from the IG evermore tile (reputation, an unused-preferred era this fortnight); X site-screens prohibited; photoEra unset (launch). Weighted length under 270. Launch-arc = share-hook exempt. Lyric-free. rulesChecked [].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "A one-breath proof of the merch surface — the fan pain-point, the exact willow-era Jennifer Behr piece it links to, the honest disclaimer, structurally unlike its IG sibling. Photo is a credited on-brand Taylor tour tile rather than the look itself, so it earns its place loosely.",
+    "rulesChecked": [],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-17T15:44:45.554Z",
+    "pr": 4424,
+    "sha": "87f76d33c7e4413af920d9fcdc242cb842ac808a",
+    "message": "1550170492189810749",
+    "contentHash": "sha256:fb70f53a83a40ed0def28fb2a965631830365a3da655d8441afbe9c4852cf5aa",
+    "sig": "hmac-sha256:c3118acd644573e960c5cc132a6b2ce40e2f917635dded6b3d23a719956dee54"
+  }
+}
