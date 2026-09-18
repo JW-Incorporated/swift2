@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 85
+
+## Tom Cruise Speaks on Taylor Swift Football Photos
+
+- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tom Cruise has addressed the inquiries surrounding the Taylor Swift football photos that became a topic of discussion. His comments provide clarity on his connection to the viral images.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaExZMjhhTzBReVpsRHpGYjY4LVB5SC13Nm5kZTRPcy1qZVpaSThBeEtld3cyaWlxdlVDSEItalpXNFZ4YUl4UVlGbDE4TmtCM2NuRUFBajFWaVBMQlFPOTVNY1RlYVJsNldvMUU5N29xWlVGUDZoZzNuZEtiQlg4TVdfWHVJUldQcHE2YXBFZW81bG44X0lmaXFMOWVnRlhwRlpwVk5xTHM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson and MGK Reportedly Spending Time Together
+
+- first seen: 2026-09-18 05:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An exclusive source reports that Dakota Johnson and Machine Gun Kelly are spending time together. Details about the nature of their relationship have not been disclosed.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPV1p4b2tqRk5mMXphQ2tvUklSd1IxSHVqVEd0RzVCV0I2RU85UkJXaG9XemFGR2xXakN6dWJtSEtMZnN1cTBWVmg2MFAzZjFCOG1FQ0lKeXdyUVhqamVUYVdFeVRoVS0xYkRnR1BMYVZ5Y2VMQlBXLWhFZklocWxjVHVPS3VDZ2dlT1dQSlNzYmlReS1IQ1BfU0tn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring the Friendship Between Tom Cruise and Taylor Swift
+
+- first seen: 2026-09-18 05:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A look into the connection between Tom Cruise and Taylor Swift, detailing how the two know each other and potential collaborative projects.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinwFBVV95cUxQdnZ4S015WGlndEV2OVM1cUdIMGhCR00xZ3ZWYWVFSjN3YlR2LUNFbThScWpVemZHZ1VESGQwd2dsajRFQk9QZU1QYTFkQVFoMVp0NGJsNzBTR3dBcmpCeHlsV3dOcmw0bHNBQnBJV0x0VnAtaUc5TVhMMnlRcUVkQmZnZ1VwTFdpSEU0WkN3ZVRZMEJwc29BdUI3akNEdE0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Affordable LBD for Date Night with Travis Kelce
+
+- first seen: 2026-09-18 05:52 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen wearing a surprisingly affordable little black dress during a romantic date night with Travis Kelce. The outfit choice has garnered attention for its blend of style and accessibility.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxQMmFDaVRMYWNoR1RaYVJXcjFKWTdsSDVaU3ZCaXhEYjdFVXRSSDFhRzN0YUFCTnJTOEcxZ2tUcGZwenhsVmNOeWZ1T3pVczBhVDdGTC1JeGo5NHZQRERuSldlY2ZheGUzT3NpaTJ6cGRfSVJOc0JucEt6bkNkSUZCcFRUckRuUHpzOHowbFRDSjJOV2ZXM3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
+
+- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tom Cruise shared insights about his conversation with Taylor Swift during the recent Chiefs game. Their interaction has garnered attention from fans and media alike.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdG5KeGxzay1GX3FSSmI1OWl1N3h0aXdwQkctMHdBOXhxRi04a3ROQV9kdTlYbzJOaEplbWN5bW1Oa1FKWEM5dlYxbGZVSDZoTzdoaGJzMHpvY0ZHYndVYjluclktaGFjeTNSN1JhVzJXcjZja2ZUWWpvZmIyOHRCVW84dGlDcExWblB3ZDNiekJxdEo0d0Z5OV85ZEk2bW9LT05tV21laE4?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Kelce's Daughters Have Adorable Reaction Meeting Taylor Swift
 
@@ -83,14 +123,6 @@ Stories: 84
 - sources:
   - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxNeUEzeHd1NEEyZ3NsWHBFWGx2ZnFkUVBJZTZ4OG85czRrZkZqc0FoSWl6Z1JPRi13a0hGNndDQjRwWGpJbU5aZHlGOHZGX3IyUXJEdGpWUTM4VlBROTJyMU01TDc3NGQyQkl2Uks1NlNyZTd6Qzl4SVV0UExyM0pUMnlIc1ozUUFPbzVTZzdvZURKRHZ6TXRIMzFTYVN4VE5QV0lFVDduX3VCektYWHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Brad Pitt Reflects on Dance Floor Incident at Taylor Swift's Wedding
-
-- first seen: 2026-09-17 14:16 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent appearance, Brad Pitt discussed a mishap he experienced on the dance floor during Taylor Swift's wedding, noting the unexpected duration of his stay at the event.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbExSYlE4VHJTdnVPdlY3eExucDE4b2Y3X2dxYTB4S2R1QnRZZDNZRHlLNDZEZmhvVnF2ellOeDlxS3NCcDJRMFhhcXhBTENJajhFOVNCdmsxc3gwdC1aemRHWUpMcFhpbl9pWGt6QU0tcHNDVFh6U3lBRnIzVm5EMmhweEpMY1hmcWR0d3dON0dWVENJaWxPaFVibzdtYzdG?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift tribute featured in capital region events
 
 - first seen: 2026-09-17 14:16 UTC | category: music | importance: 5
@@ -106,6 +138,15 @@ Stories: 84
 - summary: All 58 of Taylor Swift's music videos are now available on Spotify, following a seven-month gap since 'Opalite' briefly skipped YouTube. This expansion enhances her visibility on the platform.
 - sources:
   - [unverified] Music Business Worldwide — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOdVMzYlMtbTRxX0RSOTlia0FDbUVTTFM4QnhoekhKX3VaQ25VODV6N3pQS2pTYk1VQU5Hem9vUlRWQ0YxMTFLeURjQXdJOUdwRWMxd3hvWmt4NjJCWE9UaHAxbTc3QlVxeUg1OUZsQUJEcWpLdWxtb0xFakp5VXowSXI0UjljVTlUaTUwYXFFTWVIeUE4UnBmcWxvUE1MMDE3b3J0QlMxSW10YjFtRHNKRXJXWXNBUnNfQ1lBWUtibm9MOFhvV3Zld2twNUQzYk9UdEJRNS01TDdJUS1r?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Brad Pitt Reflects on Dance Floor Incident at Taylor Swift's Wedding
+
+- first seen: 2026-09-17 14:16 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: In a recent appearance, Brad Pitt discussed a mishap he experienced on the dance floor during Taylor Swift's wedding, noting the unexpected duration of his stay at the event.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxOakJmVGRoQkRGcEMtR19ZR05wX2FabEFJNWt3Zkprb0xWbU1Dak9odFZCQjdlXzJzckhjMmEyWU1xanF0cjE2REVkX2Y4bl84WEdNVmxueXJaclM4VndhaXdSb25udFQ4QzQ3OFh2eDhTTnBCUGtOalVqWGtSbWMyaWtEeDdrNExZMlJveXNWQXlnWENvZ25ueU5hWkNTNS1ZWFFFb2RHalg3MHhRQkxTMnV0VUxXeUpmU3c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbExSYlE4VHJTdnVPdlY3eExucDE4b2Y3X2dxYTB4S2R1QnRZZDNZRHlLNDZEZmhvVnF2ellOeDlxS3NCcDJRMFhhcXhBTENJajhFOVNCdmsxc3gwdC1aemRHWUpMcFhpbl9pWGt6QU0tcHNDVFh6U3lBRnIzVm5EMmhweEpMY1hmcWR0d3dON0dWVENJaWxPaFVibzdtYzdG?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Role as 'Aunt Tay' to Kelce Daughters Described
 
@@ -158,11 +199,13 @@ Stories: 84
 ## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
 
 - first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcnBrTFMxYW9zUjlVWlBvQ3A0c3BQbWg5VEVYR01IeW53Z0t5ZWs2X1JfZ0xwS1N6X3lfUUVjY0VDaEdVQktEejl0THVxWDNXQzRDMjdDczdrdE1QcUVaSDBINjFjR2UxWWZZNkFXOTVtZGRPbHpIbEpkSTNTNjA1UFphU1RXS3VVYmpmUDNqSXJ1Xy1FTkFnZ09idXpoUGFkMk9rYWg5TmcyUm1PM3FSN2FzMnFpc2dJSkdRbGpn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Syracuse.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxPNklrN2NuVXRfRnlxMmdDcUg5eG4tN1cxTjdmUEp2ckV2RUhlSk0zNmg2SEdZdlBxUllWc1M1OFotOVZqbU5fM3MteWhacWs3U25rbUxnWW83WlhUVGdDTlloZ2tlQTFXU2I3TGZqUDNKcjBwY2hMaDBJZEJ1UDRVVUxNdGxyN1c3R3QzTFZPN3BwV1pGM20yYjZ1TnJyYXhUTkVyTE5OZ2t0azl0dEVuWW16YkpzdXJhaGdvVHlqTFdldVM1QkE2bWFURU1ZYW9O0gHkAUFVX3lxTFBNSW9KbE5oMjFQVkZJcEo3ZENTa2JObFJzWUIwZU9MdzN6MzFLQzFOOUFxOFZ2Nm5xVzFIMldFdldEUUlGSVlZYkNxblUtbjZxLXg2UER6aDBTMHRTMjFQc1BiTGJkcWYzTjM4ZlV3OENGWnlYTWZPTi1oenllekRhSjd0RUhXOEFocGc2NWVnaUtWc3U4XzNTNW5vcEpnYW81TGVjeHpKTWpVaC1fREVheXFLa2RlYUlZdkIzX0RIckdGRFdYdFhnMC1uS1dVR3FvOGNuNmp6QmxURl80Wkl4WmE1Qg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipAFBVV95cUxPaFR5Ui0wbVNqUXpBY0l1amhJT0gwOEdST3ppSlFDT0N3SG9SQmZnYnNXcDBBTEI0SWxsclp0QlNXdFRRZTRTTFJidVRUV1lsYlJqRGRGd2tSWDhiU2tadmppMXNyX3JPUDFHUjRDYUVEVGduWlRGaWJYRGlBVnVEcVF6MHRlOUhab0V6RXVFRW9DeEdIWGNaWTZkbmRsMWNSY2V3Rg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQQm13YWEwbVA4eGdkMHhETERSSWNSb1lDaW5abFdhdl9URDcyRjVZQU8xRF9PaVZfVUY4bTY5SFE2ZVV1TWtCYnlJZjZMb3o1TW5LdGZNQzloQUJQczNHcDgyZHNWaFc0M2dfZlJxRDN2MXUtLWRJcmo2aDJZRXNVc0NTSmtoNE5abWdyYnlwSnRPbVp0bE9CejFWMDJBN2dMWEJaUmE2Unc5UFRJN2M2bEpvVklEUzQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WCVB — https://news.google.com/rss/articles/CBMiekFVX3lxTE9nekl1bVZSSzJPSHlESVBJVm4yM1pqdE9KdE1sclZpemFob1BSUDBVek1WakNqUWFTd2FOR21EWC1rMldTNlhzZHJtbENITEVlMmZZNEFXLVBBOWhGQ0xvSm1Ja24zM0V3WTZaUmZvT25XX01ReWVmdFlB?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdTNqZXZLS2Q4bTUwRXZiNDdJUm13c3VqdTFyQkthMVVCWllDOHMxMzlOSkpaUWdLMGM2Yy1RVDZ4Q3hXdzlRMVVmNTNHRFBZV0pEbHpCV3F0emJZRE9tejMyOTd0N05IeVZJVWpwOXU2WEZmYnloVDZKR3FVX0pZaUZ1MG1TTGVTNmRTQURmaDZSM0pRaHJBMUZOX05WeDNE?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -711,36 +754,3 @@ Stories: 84
 - sources:
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMitgFBVV95cUxOYXVtRzBiVko3T2dQWEMwNFNWOEVUNGFWNkpfVzg3LXdfck54V3lTOFY4ZkMzN2VLZlNRWk9hRzVwbGJvUm84LTZ2V1RWMXR5MWUzNElUMUNfUzRSenJNR1JheUpIdENZY2lNZmhmSmxzcTJHWXo3bzNaUFlUT2hXTHdXMEJEbl8yeEJ2d1ktMnB5UWQxNWxaTlV4TnpHdGxYN2ZGdWY5ZG5oLUVucEM0NUI5QktSZw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-surprise-cameo-emmys-segment-mariska-hargitay-1236701444/
-
-## Taylor Swift Absent from 2026 Emmys Despite Nomination
-
-- first seen: 2026-09-14 23:51 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift will not attend the 2026 Emmy Awards, even though she received a nomination. The reasons for her absence have not been stated in the article.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMimgFBVV95cUxNZVZ2N3YtUFdnTHoyNGRRczlmTi1IcllJanEzUmZEOEFjWWlPQklrWnBqekxiSTQ3c2dPcWZ0WU5Hc3B1WWctZ3RIc1laeGUxM0hvUnpQTE1tTHY3UkZlOVN6TkVURlRENzNJc1ZLb3Fjc0x0cmtUQXZ3UHZGM0FfODk3SWxSaFZDd1JRTFZBenl2SU41T2tzUHZR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Updates on Taylor Swift's Presence at Chiefs Game Tonight
-
-- first seen: 2026-09-14 23:51 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Latest updates suggest Taylor Swift may be attending the Chiefs game for Week 1. Fans are also discussing the NFL's treatment of Madison Beer during the event.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxQMGVWT25ISmc5NF80d1AzaFg3UXc5NE9UdjlHQktrTTRfWW10a0djb1FTekFPb3ZCT2RoenNVdlBHdWExSncwNFJGN0JtWFljWjRvS0FJczVxelFfVnB5Tk1XMVZvdDVyUHVvOWQtb2tpRk80VndLVFp2anNkSHNvcA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiogFBVV95cUxNYmoxaFg4c2VjS0cwd0ticzJQSUJ1MEc5VDZNbWo4Yk54T2FmTko1ZmtpWjlJOS1tYkFvTEtaaElUeVJoTlRLczY0RzB5aWotckwxMlNNV3B5U2NQN2x3c2xyb0tVQnh2cGV4dU9wSFdmaXM3QjBGTWVHWktQOFpGbVJqQVMyYVNiZ1lpUmhtMHdXdXdTeUJndG1hbEpUSmdZWEE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Might Miss Chiefs vs Broncos Game Due to Rumors
-
-- first seen: 2026-09-14 23:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly considering skipping the Chiefs vs Broncos game this evening amid ongoing marriage rumors involving Travis Kelce. The situation has garnered attention following recent discussions about their relationship.
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUVVyaXpsbGdDaXhVaGQyR2ZRcnZhcnEtNXdxNU83Z3pYZDFhZUFVZUVpb0RGbmFkb01RTWdPanpsYS04cGZuSVhLdjlsdWtrbkl3b0ZZenNzSkJXTjVENUtLcUlHN2I5S2xRdndkcVczZ0xCS0lrS0pSbnZ3ZzVPT2taOGdjem9GNU42cDdEQXA0RDVKRG9ZeTVqOFk0UDhzZGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Will Not Attend the 2026 Emmy Awards
-
-- first seen: 2026-09-14 23:51 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has announced that she will be skipping the 2026 Emmy Awards, although details on her reasons were not specified.
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQNUR3X1Bkbkp1bk9zM0U2VEZuZzJmZno3bTI2N3llUWtzeXRnbzd4QVdTei1PTGh1NmVWektSSzFTR2gyYURXWUhTNkxDTm9NbVNVa1VlbmJQWTg1TVZ0aUhIc3ZSaklWTkZuZ0stV1J4Wl93RHVmREZ2X01nZURMWnBHNHNTdEROU2pYYXBqY3E4aGJKR0Ywa01JUXI?oc=5&hl=en-US&gl=US&ceid=US:en
