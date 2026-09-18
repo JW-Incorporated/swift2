@@ -197,8 +197,6 @@ async function verifyLoggedIn(page) {
         'form[data-testid="royal_login_form"]',
         'input[name="email"][type="email"]',
         '[data-testid="checkpoint_title"]',
-        'text=/Enter your (login code|password to continue)/i',
-        'text=/Confirm your identity/i',
       ].join(', '),
     )
     .first()
@@ -206,7 +204,14 @@ async function verifyLoggedIn(page) {
     .catch((err) => {
       throw new Error(`could not determine Facebook login state (page evaluation failed): ${err.message}`);
     });
-  if (blockingStateVisible) {
+  const identityWallVisible = blockingStateVisible
+    ? false // already caught by the structural selectors above; skip the extra text scan
+    : await page
+        .getByText(/Enter your (login code|password to continue)|Confirm your identity/i)
+        .first()
+        .isVisible()
+        .catch(() => false);
+  if (blockingStateVisible || identityWallVisible) {
     throw new Error(
       'Facebook is showing a login form, checkpoint, or identity-confirmation wall in this Chrome ' +
         'profile — this script never logs in or clears a checkpoint itself. Open this profile in a ' +
@@ -239,11 +244,23 @@ async function expandSeeMore(page) {
   const MAX_EXPANSIONS = 60;
   for (let i = 0; i < MAX_EXPANSIONS; i += 1) {
     const clicked = await page.evaluate(() => {
-      const candidates = Array.from(document.querySelectorAll('div[role="button"], span[role="button"]'));
-      const seeMore = candidates.find((el) => /see more/i.test(el.textContent || ''));
-      if (!seeMore) return false;
-      seeMore.click();
-      return true;
+      // Scope to actual post content (article-like containers), not the
+      // whole page — Facebook's sidebar/chrome has its own "See more"-
+      // labeled controls (e.g. "See more about this group") that are not
+      // post text and must never be clicked here.
+      const postContainers = Array.from(
+        document.querySelectorAll('[role="article"], [data-testid*="post"]'),
+      );
+      for (const container of postContainers) {
+        const button = Array.from(container.querySelectorAll('div[role="button"], span[role="button"]')).find(
+          (el) => /^see more$/i.test((el.textContent || '').trim()),
+        );
+        if (button) {
+          button.click();
+          return true;
+        }
+      }
+      return false;
     });
     if (!clicked) break;
     await pace();
@@ -276,11 +293,16 @@ async function scrollUntilWeekBoundary(page) {
       if (nodes.length === 0) return null;
       const utimes = nodes.map((n) => Number(n.getAttribute('data-utime'))).filter(Boolean);
       if (utimes.length === 0) return null;
-      utimes.sort((a, b) => a - b);
-      // Median of the last 5 timestamps seen: robust to a single pinned
-      // outlier without needing to identify which node is pinned.
-      const tail = utimes.slice(-5);
-      return tail[Math.floor(tail.length / 2)] * 1000;
+      // Take the LAST 5 posts in DOM order (bottom of the currently-loaded
+      // feed, i.e. the most recently appended by scrolling) BEFORE sorting
+      // — sorting first would pick the 5 chronologically newest timestamps
+      // anywhere on the page, which is not the same thing when a pinned
+      // post sits at the top. Only after isolating "the posts we just
+      // scrolled to" do we sort those few and take the median, so one
+      // outlier among them still can't dominate.
+      const tailInDomOrder = utimes.slice(-5);
+      const sortedTail = [...tailInDomOrder].sort((a, b) => a - b);
+      return sortedTail[Math.floor(sortedTail.length / 2)] * 1000;
     });
     if (oldestVisibleTimestamp && Date.now() - oldestVisibleTimestamp > SEVEN_DAYS_MS) {
       return { reason: 'week-boundary-reached', rounds: round + 1 };
