@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #79 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-09-18 -->
+<!-- marjorie-chase: 96h issue=4324 -->
+
+**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-14. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4324 under stalled.
 
 ## #78 🔴 [BLOCKING] Add Actions read/write to SOCIAL_POSTER_PAT (~5 min)
 <!-- ha filed=2026-09-16 -->
