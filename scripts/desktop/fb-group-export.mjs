@@ -11,14 +11,40 @@
 //   headless/service-account session. If Chrome isn't already logged into
 //   Facebook in the given profile, this script does not attempt to log in —
 //   it will simply hit a login wall and fail loudly (see verifyLoggedIn).
+// - **No headless option.** The decision this script implements is scoped
+//   to a normal, visible, human-usable browser window — the same reasoning
+//   the home-relay skill gives for randomized pacing (defeating rate
+//   heuristics is not the same as defeating headless/automation-framework
+//   fingerprinting) applies doubly to headless mode, which is itself a
+//   detectable automation signal. There is deliberately no CLI flag for
+//   this; it always launches headed.
+// - **Known caveat, read before relying on this in a real weekly run:**
+//   Chrome 136+ blocks CDP-based automation (which `launchPersistentContext`
+//   uses under the hood) from attaching to the *default* User Data
+//   directory for security reasons. The practical workaround Playwright
+//   itself documents is pointing `--profile-dir` at a **copy** of the real
+//   profile directory (so the copy still carries the real, already-logged-in
+//   Facebook session cookies) rather than the live one Chrome uses day to
+//   day, or using a dedicated Chrome profile Joey stays logged into
+//   specifically for this script. See the Setup section below — this is a
+//   one-time decision Joey makes once, not something this script can detect
+//   or work around automatically. If `launchPersistentContext` refuses to
+//   start against a given directory, that is very likely why; it is not
+//   this script silently failing.
 // - It replaces only the mechanical part of Joey's existing weekly habit:
-//   open group -> sort New -> scroll ~7 days -> Ctrl+S "Webpage, Complete".
-//   Same account, same groups (scripts/knowledge/fb-groups-checklist.mjs —
-//   reused, not duplicated), same weekly cadence.
-// - It paces every scroll/click with a freshly randomized delay (3-15s,
-//   see randomDelayMs) — never a fixed interval, never back-to-back calls —
-//   mirroring the home-relay skill's pacing convention but slowed down for
-//   "reading a feed" rather than firing one HTTP GET.
+//   open group -> sort New -> scroll ~7 days, expanding "See more" on long
+//   posts -> Ctrl+S "Webpage, Complete". Same account, same groups
+//   (scripts/knowledge/fb-groups-checklist.mjs — reused, not duplicated),
+//   same weekly cadence.
+// - It paces every scroll/click/expand with a freshly randomized delay
+//   (3-15s, see randomDelayMs) — never a fixed interval, never back-to-back
+//   calls — mirroring the home-relay skill's pacing convention but slowed
+//   down for "reading a feed" rather than firing one HTTP GET. Pacing
+//   defeats simple rate heuristics; it does not defeat detection generally
+//   (see docs/decisions.md's 2026-08-11 entry, which this script's own
+//   decision explicitly does not disclaim) — the residual account-
+//   enforcement risk is real and is Joey's to accept for his own account,
+//   not eliminated by pacing alone.
 // - Output feeds the EXISTING pipeline unchanged: it writes the same
 //   `fb-<slug>-<date>.html` files knowledge-fb-export-reminder.mjs already
 //   tells Joey to produce by hand, to the same --out-dir (default matches
@@ -27,9 +53,12 @@
 //   and scripts/community/fb-export-ingest.mjs, run exactly as documented in
 //   the weekly reminder issue, unchanged.
 // - No Graph API, no crawling of groups outside the checklist Joey himself
-//   maintains (i.e. groups he is not already a personal member of), no
-//   anti-detect/evasion tooling, no automated posting/commenting — only
-//   reading and saving pages Joey's own account can already see.
+//   maintains, and never a `candidate: true` (unconfirmed-membership) row —
+//   confirming membership by dropping `candidate` from a checklist entry is
+//   the only way to make a group eligible, for both the default group list
+//   AND an explicit `--group` selection. No anti-detect/evasion tooling, no
+//   automated posting/commenting — only reading and saving pages Joey's own
+//   confirmed-member account can already see.
 //
 // Setup (one-time, on the desktop — NOT this sandbox):
 //   1. `npm install` in a clone of this repo on the desktop (or just
@@ -38,40 +67,44 @@
 //   2. `npx playwright install chromium` (downloads the browser Playwright
 //      drives; still points at Joey's real Chrome *profile data*, not a
 //      separate throwaway browser install).
-//   3. Find Joey's real Chrome profile directory (Windows default:
-//      `%LOCALAPPDATA%\Google\Chrome\User Data`) and confirm Facebook is
-//      logged in there in a normal Chrome window first.
-//   4. Close all Chrome windows before running this script — Chrome will
-//      not let Playwright open the same profile directory while a normal
-//      Chrome instance already has it open.
+//   3. Because Chrome 136+ won't let Playwright attach to the live default
+//      profile directory (see the caveat above), make a dedicated copy:
+//      close Chrome, copy `%LOCALAPPDATA%\Google\Chrome\User Data` to e.g.
+//      `%LOCALAPPDATA%\fb-export-chrome-profile`, then point --profile-dir
+//      at the copy. Open that copy once in a normal Chrome window
+//      (`chrome.exe --user-data-dir="...\fb-export-chrome-profile"`) and
+//      confirm Facebook is logged in there — this is a one-time setup step,
+//      not something re-done every run.
+//   4. Close all Chrome windows using that profile copy before running this
+//      script — Chrome will not let Playwright open a profile directory
+//      that's already open elsewhere.
 //   5. Run once by hand to confirm it works:
-//        node scripts/desktop/fb-group-export.mjs --profile-dir "C:\Users\Joey\AppData\Local\Google\Chrome\User Data" --profile-name "Default"
-//   6. Schedule weekly (Windows Task Scheduler, "Run whether logged on or
-//      not" is NOT viable here since it needs the real profile + a visible
-//      browser window is not required but Chrome must not be already
-//      running under that profile) — same "ask for a scheduled task"
-//      pattern as the home-relay skill's persistence section.
+//        node scripts/desktop/fb-group-export.mjs --profile-dir "C:\Users\Joey\AppData\Local\fb-export-chrome-profile" --profile-name "Default"
+//   6. Schedule weekly (Windows Task Scheduler) once step 5 is confirmed
+//      working — same "ask for a scheduled task" pattern as the home-relay
+//      skill's persistence section. The profile copy will drift out of
+//      sync with the live one over time (cookies rotate); if the login
+//      check below starts failing, refresh the copy from a freshly
+//      logged-in live profile.
 //
 // Usage:
 //   node scripts/desktop/fb-group-export.mjs \
-//     --profile-dir "<path to Chrome User Data>" \
+//     --profile-dir "<path to a dedicated Chrome profile copy>" \
 //     [--profile-name Default] \
 //     [--out-dir ~/Downloads] \
-//     [--group <slug>]            # repeatable; default: every non-candidate
-//                                   group in fb-groups-checklist.mjs
-//     [--headless=false]          # default false — a visible window is
-//                                   easier to babysit/debug; Facebook is
-//                                   more likely to flag a headless launch
+//     [--group <slug>]            # repeatable; default: every confirmed
+//                                   (non-candidate) group in
+//                                   fb-groups-checklist.mjs. A `candidate`
+//                                   row is never eligible, explicit or not.
 //     [--dry-run]                 # navigate + scroll, but don't overwrite
 //                                   any saved file
 //
 // This file is intentionally dependency-light (Playwright only) so it can
 // run standalone on the desktop without pulling in the rest of this
-// monorepo's build. It re-exports the FB_GROUPS_CHECKLIST import path as a
-// relative one so it still resolves correctly if this script is copied out
-// of a full repo checkout, but prefers running from within the repo so the
-// checklist never drifts out of sync with the one CI/the weekly reminder
-// issue use.
+// monorepo's build. It imports FB_GROUPS_CHECKLIST via a relative path so
+// it still resolves correctly when run from within a full repo checkout —
+// keeping the checklist the single source of truth the weekly reminder
+// issue also reads from, rather than a duplicated list that can drift.
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -84,6 +117,7 @@ const FACEBOOK_BASE = 'https://www.facebook.com/groups';
 const MIN_DELAY_MS = 3000;
 const MAX_DELAY_MS = 15000;
 const SCROLL_ROUNDS_MAX = 40; // hard ceiling so a stuck feed can't loop forever
+const STALL_ROUNDS_LIMIT = 3; // consecutive no-growth scrolls before giving up (lets lazy-load catch up)
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
 /** Randomized 3-15s pacing delay, freshly drawn every call (never fixed/cached). */
@@ -106,7 +140,6 @@ export function parseArgs(argv) {
     profileName: 'Default',
     outDir: path.join(os.homedir(), 'Downloads'),
     groups: [],
-    headless: false,
     dryRun: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
@@ -123,10 +156,6 @@ export function parseArgs(argv) {
     } else if (arg === '--group') {
       flags.groups.push(argv[i + 1]);
       i += 1;
-    } else if (arg === '--headless=false') {
-      flags.headless = false;
-    } else if (arg === '--headless=true' || arg === '--headless') {
-      flags.headless = true;
     } else if (arg === '--dry-run') {
       flags.dryRun = true;
     }
@@ -135,12 +164,17 @@ export function parseArgs(argv) {
 }
 
 /** Resolves which checklist groups to export: explicit --group list, or
- * every checklist entry that isn't still a `candidate` (unconfirmed) row. */
+ * every checklist entry that isn't still a `candidate` (unconfirmed) row.
+ * A `candidate: true` row is NEVER eligible — not even via an explicit
+ * --group — because it means nobody has confirmed Joey is actually a
+ * member; confirming membership means removing `candidate` from the
+ * checklist entry itself, not passing a flag here. */
 export function resolveGroups(flags, checklist = FB_GROUPS_CHECKLIST) {
+  const confirmed = checklist.filter((g) => !g.candidate);
   if (flags.groups.length > 0) {
-    return checklist.filter((g) => flags.groups.includes(g.slug));
+    return confirmed.filter((g) => flags.groups.includes(g.slug));
   }
-  return checklist.filter((g) => !g.candidate);
+  return confirmed;
 }
 
 export function outputFilePath(outDir, slug, date = new Date()) {
@@ -148,46 +182,116 @@ export function outputFilePath(outDir, slug, date = new Date()) {
   return path.join(outDir, `fb-${slug}-${iso}.html`);
 }
 
-/** Facebook shows a login form (or a "log in to see more" wall) when the
- * profile is not actually logged in. Fail loudly and immediately rather
- * than silently saving a useless login-wall page — this script never
- * attempts to authenticate itself. */
+/** Facebook shows a login form, a checkpoint/two-factor interstitial, or a
+ * "log in to see more" wall when the profile is not actually usable right
+ * now. This must return an affirmative "yes, this looks like a real,
+ * logged-in group feed" rather than merely "no login form was found" —
+ * failing open on a thrown/ambiguous check is exactly how a hidden
+ * interstitial would silently produce a garbage export. This script never
+ * attempts to authenticate or dismiss a checkpoint itself; any of these
+ * states is a hard stop. */
 async function verifyLoggedIn(page) {
-  const loginFormVisible = await page
-    .locator('form[data-testid="royal_login_form"], input[name="email"]')
+  const blockingStateVisible = await page
+    .locator(
+      [
+        'form[data-testid="royal_login_form"]',
+        'input[name="email"][type="email"]',
+        '[data-testid="checkpoint_title"]',
+        'text=/Enter your (login code|password to continue)/i',
+        'text=/Confirm your identity/i',
+      ].join(', '),
+    )
+    .first()
+    .isVisible()
+    .catch((err) => {
+      throw new Error(`could not determine Facebook login state (page evaluation failed): ${err.message}`);
+    });
+  if (blockingStateVisible) {
+    throw new Error(
+      'Facebook is showing a login form, checkpoint, or identity-confirmation wall in this Chrome ' +
+        'profile — this script never logs in or clears a checkpoint itself. Open this profile in a ' +
+        'normal Chrome window, resolve it there, then re-run.',
+    );
+  }
+  // Affirmative check: the feed itself must actually be present, not just
+  // "no known blocking element was found" (which a markup change or an
+  // unrecognized interstitial would also satisfy).
+  const feedVisible = await page
+    .locator('[role="feed"], [role="main"] [role="article"]')
     .first()
     .isVisible()
     .catch(() => false);
-  if (loginFormVisible) {
+  if (!feedVisible) {
     throw new Error(
-      'Facebook is showing a login form in this Chrome profile — this script never logs in ' +
-        'itself. Open this profile in a normal Chrome window, log into Facebook, then re-run.',
+      'Facebook group feed did not render as expected (no [role="feed"]/[role="article"] found) — ' +
+        'refusing to export what may be a login wall, checkpoint, or empty/broken page in an ' +
+        'unrecognized shape. Check the profile in a normal Chrome window.',
     );
   }
 }
 
-/** Scrolls the group feed until posts are older than 7 days or a scroll
- * stops producing new content, pacing every scroll with a random delay. */
+/** Expands every collapsed "See more" post so its full text is present in
+ * the saved HTML (the manual procedure step this replaces does this too —
+ * skipping it would silently truncate posts the parser and redline screen
+ * both need the full text of). Paced per-click, capped so a feed with an
+ * unexpectedly large number of collapsed posts can't run indefinitely. */
+async function expandSeeMore(page) {
+  const MAX_EXPANSIONS = 60;
+  for (let i = 0; i < MAX_EXPANSIONS; i += 1) {
+    const clicked = await page.evaluate(() => {
+      const candidates = Array.from(document.querySelectorAll('div[role="button"], span[role="button"]'));
+      const seeMore = candidates.find((el) => /see more/i.test(el.textContent || ''));
+      if (!seeMore) return false;
+      seeMore.click();
+      return true;
+    });
+    if (!clicked) break;
+    await pace();
+  }
+}
+
+/** Scrolls the group feed until posts are older than 7 days, or the feed
+ * stops growing across several consecutive scrolls (lazy-load can take
+ * more than one round to append new content, so a single unchanged height
+ * reading is not itself proof of exhaustion), pacing every scroll with a
+ * random delay. */
 async function scrollUntilWeekBoundary(page) {
   let previousHeight = 0;
+  let stallRounds = 0;
   for (let round = 0; round < SCROLL_ROUNDS_MAX; round += 1) {
-    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 1.5));
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await pace();
+    await expandSeeMore(page);
     const height = await page.evaluate(() => document.body.scrollHeight);
     const oldestVisibleTimestamp = await page.evaluate(() => {
       // Facebook renders an abbr[data-utime] (unix seconds) on post timestamps
       // in the classic markup; fall back gracefully if the markup differs —
-      // the scroll-round cap is the real backstop either way.
+      // the scroll-round cap is the real backstop either way. A pinned post
+      // can carry an old timestamp while genuinely new posts sit below it,
+      // so this takes the NEWEST-of-the-last-few rather than the single
+      // oldest node on the page, to avoid a pinned post falsely ending the
+      // scroll early; still conservative because the round cap and the
+      // stall-detection below are the actual backstops.
       const nodes = Array.from(document.querySelectorAll('abbr[data-utime]'));
       if (nodes.length === 0) return null;
       const utimes = nodes.map((n) => Number(n.getAttribute('data-utime'))).filter(Boolean);
-      return utimes.length ? Math.min(...utimes) * 1000 : null;
+      if (utimes.length === 0) return null;
+      utimes.sort((a, b) => a - b);
+      // Median of the last 5 timestamps seen: robust to a single pinned
+      // outlier without needing to identify which node is pinned.
+      const tail = utimes.slice(-5);
+      return tail[Math.floor(tail.length / 2)] * 1000;
     });
     if (oldestVisibleTimestamp && Date.now() - oldestVisibleTimestamp > SEVEN_DAYS_MS) {
       return { reason: 'week-boundary-reached', rounds: round + 1 };
     }
     if (height === previousHeight) {
-      return { reason: 'feed-stopped-growing', rounds: round + 1 };
+      stallRounds += 1;
+      if (stallRounds >= STALL_ROUNDS_LIMIT) {
+        return { reason: 'feed-stopped-growing', rounds: round + 1 };
+      }
+    } else {
+      stallRounds = 0;
     }
     previousHeight = height;
   }
@@ -195,9 +299,10 @@ async function scrollUntilWeekBoundary(page) {
 }
 
 /** Exports one group: navigate, sort by New activity, scroll to the week
- * boundary, save the fully-rendered HTML. Returns a result summary; never
- * throws for a single group's failure so one bad group doesn't abort the
- * rest of the weekly run (the caller collects per-group outcomes). */
+ * boundary (expanding "See more" posts along the way), save the fully-
+ * rendered HTML. Returns a result summary; never throws for a single
+ * group's failure so one bad group doesn't abort the rest of the weekly
+ * run (the caller collects per-group outcomes). */
 export async function exportGroup(page, group, { outDir, dryRun }) {
   const url = `${FACEBOOK_BASE}/${group.groupId}/?sorting_setting=CHRONOLOGICAL`;
   await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -220,8 +325,8 @@ async function main() {
   const flags = parseArgs(process.argv.slice(2));
   if (!flags.profileDir) {
     console.error(
-      'fb-group-export: --profile-dir "<path to Chrome User Data>" is required. See the header ' +
-        'comment in this file for setup steps.',
+      'fb-group-export: --profile-dir "<path to a dedicated Chrome profile copy>" is required. See ' +
+        'the header comment in this file for setup steps.',
     );
     return 1;
   }
@@ -229,8 +334,10 @@ async function main() {
   const targets = resolveGroups(flags);
   if (targets.length === 0) {
     console.error(
-      'fb-group-export: no groups to export (checklist empty, or all remaining rows are ' +
-        'unconfirmed `candidate: true` — confirm membership in scripts/knowledge/fb-groups-checklist.mjs first).',
+      'fb-group-export: no confirmed groups to export (checklist empty, or every remaining row is ' +
+        'still `candidate: true` — confirm membership by removing `candidate` in ' +
+        'scripts/knowledge/fb-groups-checklist.mjs first; a candidate row is never eligible here, ' +
+        'even via an explicit --group).',
     );
     return 1;
   }
@@ -240,8 +347,12 @@ async function main() {
   // job that touches scripts/**.
   const { chromium } = await import('playwright');
 
+  // Always headed — see the header comment's "No headless option" note.
+  // Chrome 136+ also refuses CDP attach to a LIVE default profile
+  // directory; --profile-dir is expected to point at a dedicated copy
+  // (see Setup step 3), not the profile Chrome uses day to day.
   const context = await chromium.launchPersistentContext(flags.profileDir, {
-    headless: flags.headless,
+    headless: false,
     channel: 'chrome',
     args: [`--profile-directory=${flags.profileName}`],
   });
@@ -274,7 +385,8 @@ async function main() {
   if (!flags.dryRun && okCount > 0) {
     console.log(
       `Next: npm run knowledge:fb-upload -- ${flags.outDir}/fb-*.html   ` +
-        '(then run fb-export-ingest.mjs per group as documented in the weekly reminder issue).',
+        '(uploads then deletes the local copies — run fb-export-ingest.mjs per group BEFORE ' +
+        'upload if you want a local dry-run check first, since upload removes the source file).',
     );
   }
   return okCount === results.length ? 0 : 1;

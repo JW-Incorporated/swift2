@@ -7,11 +7,10 @@ import {
 } from './fb-group-export.mjs';
 
 describe('parseArgs', () => {
-  it('defaults out-dir to the home Downloads folder and headless to false', () => {
+  it('defaults out-dir to the home Downloads folder', () => {
     const flags = parseArgs(['--profile-dir', 'C:\\profile']);
     expect(flags.profileDir).toBe('C:\\profile');
     expect(flags.profileName).toBe('Default');
-    expect(flags.headless).toBe(false);
     expect(flags.dryRun).toBe(false);
     expect(flags.outDir).toMatch(/Downloads$/);
   });
@@ -21,10 +20,14 @@ describe('parseArgs', () => {
     expect(flags.groups).toEqual(['a', 'b']);
   });
 
-  it('parses --headless=true and --dry-run', () => {
-    const flags = parseArgs(['--headless=true', '--dry-run']);
-    expect(flags.headless).toBe(true);
+  it('parses --dry-run', () => {
+    const flags = parseArgs(['--dry-run']);
     expect(flags.dryRun).toBe(true);
+  });
+
+  it('has no headless flag at all -- always launches headed, by design', () => {
+    const flags = parseArgs(['--headless', '--headless=true']);
+    expect(flags).not.toHaveProperty('headless');
   });
 });
 
@@ -41,10 +44,22 @@ describe('resolveGroups', () => {
     expect(groups.map((g) => g.slug)).toEqual(['confirmed-a', 'confirmed-b']);
   });
 
-  it('an explicit --group list overrides the candidate filter', () => {
+  it('an explicit --group for a confirmed row selects it', () => {
+    const flags = parseArgs(['--group', 'confirmed-b']);
+    const groups = resolveGroups(flags, checklist);
+    expect(groups.map((g) => g.slug)).toEqual(['confirmed-b']);
+  });
+
+  it('a candidate row is NEVER eligible, even via an explicit --group', () => {
     const flags = parseArgs(['--group', 'candidate-c']);
     const groups = resolveGroups(flags, checklist);
-    expect(groups.map((g) => g.slug)).toEqual(['candidate-c']);
+    expect(groups).toEqual([]);
+  });
+
+  it('mixed explicit selection silently drops the candidate entry, keeps the confirmed one', () => {
+    const flags = parseArgs(['--group', 'candidate-c', '--group', 'confirmed-a']);
+    const groups = resolveGroups(flags, checklist);
+    expect(groups.map((g) => g.slug)).toEqual(['confirmed-a']);
   });
 });
 
@@ -68,5 +83,17 @@ describe('randomDelayMs', () => {
     const samples = new Set();
     for (let i = 0; i < 50; i += 1) samples.add(randomDelayMs());
     expect(samples.size).toBeGreaterThan(1);
+  });
+
+  it('hits both boundary endpoints deterministically under a stubbed RNG', () => {
+    const originalRandom = Math.random;
+    try {
+      Math.random = () => 0;
+      expect(randomDelayMs()).toBe(3000);
+      Math.random = () => 1 - Number.EPSILON;
+      expect(randomDelayMs()).toBe(15000);
+    } finally {
+      Math.random = originalRandom;
+    }
   });
 });

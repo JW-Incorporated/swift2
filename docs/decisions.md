@@ -21,10 +21,15 @@ exactly this case:
   reachable from this sandbox or `computer_use`.
 - It replaces only the **mechanical scrolling/saving step** Joey was already
   doing by hand every week (open group, sort New, scroll ~7 days, Ctrl+S).
-  It does not add reach, frequency, or account risk beyond what Joey's own
-  manual weekly habit already carried — same account, same groups, same
-  weekly cadence, same "logged-in human member reading what they can already
-  see" shape.
+  It does not add **reach or frequency** beyond what Joey's own manual
+  weekly habit already carried — same account, same groups, same weekly
+  cadence, same "logged-in human member reading what they can already see"
+  shape. It does, however, carry a residual **account-enforcement risk a
+  manual click does not**: Meta's detection stack can flag an automated
+  driver (Selenium/Playwright fingerprinting, not just request timing) even
+  at human pace, a risk the 2026-08-11 entry already named for a crawler
+  generally and explicitly did not consider solved by pacing alone. That
+  risk is accepted below, not waved away.
 - Paced human-like: randomized delay between every scroll/click action
   (reusing the `home-relay` skill's precedent of "freshly randomized every
   single call," widened here to a slower range — 3–15s — appropriate to
