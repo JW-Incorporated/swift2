@@ -13898,6 +13898,121 @@ export default {
         ],
       },
     },
+    {
+      slug: 'showgirl-forbes-400-2026-missed-cut',
+      year: 2026,
+      month: 9,
+      day: 17,
+      category: 'business',
+      title: 'Taylor is among a record 590 US billionaires too "poor" for the 2026 Forbes 400',
+      snippet:
+        'Forbes\' 2026 Forbes 400 pushed the cutoff to join the 400 richest Americans up to $4.4 billion, and a record 590 US billionaires fell below it — Taylor among them, alongside Oprah Winfrey and Sam Altman — even though every one of them is still a billionaire.',
+      sourceUrl:
+        'https://www.forbes.com/sites/kirkogunrinde/2026/09/17/a-record-590-us-billionaires-arent-rich-enough-to-make-the-forbes-400-list/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          'The headline reads like a demotion and isn\'t one. When Forbes published its 2026 Forbes 400 — the annual ranking of the 400 richest Americans — the price of admission had climbed to $4.4 billion, up $600 million from a year earlier, and a record 590 US billionaires landed below that line. Taylor was one of them, named in Forbes\' own writeup next to Oprah Winfrey and OpenAI\'s Sam Altman: all billionaires, none of them rich enough this year to crack the top 400.\n\nThe bar moved, not Taylor. Forbes still pegs her fortune at around $2 billion, and she has been a billionaire since October 2023 — the first musician to reach ten figures primarily on the strength of her own songs and performances rather than an outside business, powered by the Eras Tour\'s record gross and the value of her re-recorded catalog. What changed is the top of the list: Forbes tied the higher cutoff to the AI and data-center boom and a stock market near record highs lifting the very largest fortunes, so the 400 now hold a combined $8 trillion, up from $6.6 trillion the year before. Being a billionaire simply buys less standing at the summit than it did a year ago.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/kirkogunrinde/2026/09/17/a-record-590-us-billionaires-arent-rich-enough-to-make-the-forbes-400-list/',
+            source_title: 'Oprah Winfrey, Taylor Swift, Sam Altman: The Billionaires Too Poor To Make The 2026 Forbes 400 List',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 5,
+            notes:
+              'Forbes\' own list coverage: 2026 Forbes 400 cutoff at $4.4B (up $600M), a record 590 US billionaires below it, Taylor (est. ~$2B) named alongside Oprah Winfrey and Sam Altman.',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/chasewithorn/2026/09/15/the-2026-forbes-400-list-of-wealthiest-americans-facts-and-figures/',
+            source_title: 'The 2026 Forbes 400 List Of Wealthiest Americans: Facts And Figures',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 5,
+            notes:
+              'Forbes\' facts-and-figures companion: the 400 worth a combined $8 trillion (up from $6.6T), the $4.4B minimum, and the AI/data-center boom behind the higher threshold.',
+          },
+          {
+            outlet: 'Yahoo Finance',
+            url: 'https://finance.yahoo.com/markets/stocks/articles/richest-americans-today-forbes-drops-221105964.html',
+            source_title: 'Who are the richest Americans today? Forbes drops 2026 ranking',
+            publisher: 'Yahoo Finance',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 4,
+            notes:
+              'Independent (non-Forbes) corroboration of the framework: confirms the "unprecedented $4.4 billion" minimum and that a record 590 American billionaires were "too poor" to make the 2026 Forbes 400. Does not itself name Taylor — her specific inclusion is carried by the primary Forbes piece above.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
+            caption:
+              'Reference photo: Taylor at the 2019 iHeartRadio Music Awards — not tied to the Sept. 2026 Forbes list.',
+            kind: 'reference',
+            focalPoint: '50% 25%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-brad-pitt-wedding-dance-floor',
+      year: 2026,
+      month: 9,
+      day: 16,
+      category: 'relationship',
+      title: 'Brad Pitt on losing Ines de Ramon "in the melee" at Taylor and Travis\'s wedding',
+      snippet:
+        'At the Sept. 16 Nashville premiere of his film "Heart of the Beast," Brad Pitt — a guest at Taylor and Travis Kelce\'s July 3 Madison Square Garden wedding — told Entertainment Tonight he briefly lost girlfriend Ines de Ramon "on the dance floor" during a reception he put at 10 to 12 hours, calling it "the wedding of the century."',
+      sourceUrl:
+        'https://www.justjared.com/2026/09/17/brad-pitt-lost-ines-de-ramon-taylor-swift-travis-kelce-wedding/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+      moment: {
+        context:
+          'Working the red carpet at the Nashville premiere of his film "Heart of the Beast" on Sept. 16, 2026, Brad Pitt gave Entertainment Tonight a guest\'s-eye postcard from the July 3 wedding at Madison Square Garden. He and girlfriend Ines de Ramon were there, and somewhere in a reception that big he lost track of her: "It was big, and yeah, at one point, I lost her in the melee, on the dance floor," he said, adding that they found each other again "not long" after — in a room where, as he told it, "there\'s always someone to go, \'She went that way.\'"\n\nPitt put the celebration at roughly "10 hours, maybe 12," called it "such an amazing night" and reached for the same superlative a lot of guests have: "the wedding of the century." The Vault keeps this to what Pitt himself said — his own vantage on his own evening — and leaves out the framings some coverage bolted on around it. It sits alongside the other guest accounts already on the record (Jonathan Thomas\'s podcast recollection, best man Jason Kelce\'s), adding one more sightline onto a night that produced no official photos rather than any new claim about the couple.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/17/brad-pitt-lost-ines-de-ramon-taylor-swift-travis-kelce-wedding/',
+            source_title: 'Brad Pitt Lost Girlfriend Ines de Ramon at Taylor Swift & Travis Kelce\'s Wedding',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 3,
+            notes:
+              'Quotes Pitt\'s ET interview at the Sept. 16 "Heart of the Beast" Nashville premiere: attended July 3 MSG wedding with Ines de Ramon, "lost her in the melee, on the dance floor," reunited "not long" after, ~10–12 hours, "the wedding of the century."',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/brad-pitt-shares-funny-moment-134556843.html',
+            source_title: 'Brad Pitt Shares Funny Moment From Taylor Swift and Travis Kelce\'s Wedding',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 4,
+            notes:
+              'Independent coverage of the same ET remarks corroborating the dance-floor anecdote, the 10–12 hour estimate and the "wedding of the century" quote.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+            credit: 'iHeartRadioCA / Wikimedia Commons, CC BY 3.0',
+            caption:
+              'Reference photo: Taylor at the 2023 MTV VMAs — no official photos of the July 3 wedding were released.',
+            kind: 'reference',
+            focalPoint: '50% 20%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
