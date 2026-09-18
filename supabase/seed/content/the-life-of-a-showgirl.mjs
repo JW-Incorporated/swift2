@@ -13937,6 +13937,17 @@ export default {
             notes:
               'Forbes\' facts-and-figures companion: the 400 worth a combined $8 trillion (up from $6.6T), the $4.4B minimum, and the AI/data-center boom behind the higher threshold.',
           },
+          {
+            outlet: 'Yahoo Finance',
+            url: 'https://finance.yahoo.com/markets/stocks/articles/richest-americans-today-forbes-drops-221105964.html',
+            source_title: 'Who are the richest Americans today? Forbes drops 2026 ranking',
+            publisher: 'Yahoo Finance',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-18',
+            reliability_score: 4,
+            notes:
+              'Independent (non-Forbes) corroboration of the framework: confirms the "unprecedented $4.4 billion" minimum and that a record 590 American billionaires were "too poor" to make the 2026 Forbes 400. Does not itself name Taylor — her specific inclusion is carried by the primary Forbes piece above.',
+          },
         ],
         photos: [
           {
