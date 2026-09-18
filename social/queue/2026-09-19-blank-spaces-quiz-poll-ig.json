@@ -30,5 +30,15 @@
     "rationale": "Executes the Blank Spaces hero quiz-poll with a genuinely hard, purely-musical either/or from the thread's own data — Dear John vs the 10-minute All Too Well, both confirmed. Gushy fan voice, a real tag hook, and a carousel whose slide 2 is the love-story lens in use behind the era-matched Speak Now tile.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-18T19:55:48.951Z",
+    "pr": 4439,
+    "sha": "17b409c7fdfe7ef6d6a9c57a9e91146e70eaf48f",
+    "message": "1550522589011648602",
+    "contentHash": "sha256:29ebb59f63fb113be66fd47284bd44ed2059556f18077fee2daac4c75ffb7921",
+    "sig": "hmac-sha256:5b23df9de13005384a19fc718047566348e997a8e636e0aeacc93299f454953c"
   }
 }

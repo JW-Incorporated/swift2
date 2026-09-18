@@ -28,5 +28,15 @@
     "rationale": "A one-breath X version of the Blank Spaces poll — the two named songs, a real 'pick one and defend it' challenge, structurally unlike its IG sibling and under the weighted length cap. The credited folklore tour tile is on-brand but not the songs' own era, so it earns its place loosely.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-18T19:55:48.951Z",
+    "pr": 4439,
+    "sha": "17b409c7fdfe7ef6d6a9c57a9e91146e70eaf48f",
+    "message": "1550522591117054054",
+    "contentHash": "sha256:5892cfdecc9b3a54da87126a6a6100d11ef4e063dfe43ed4e319082043a30dbd",
+    "sig": "hmac-sha256:6191d182a56f3cfcb06f67f689120edb7c46d9c2196d268467c29e89f8bf6d9f"
   }
 }
