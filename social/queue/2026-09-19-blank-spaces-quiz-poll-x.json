@@ -1,0 +1,32 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Two of her most devastating breakup tracks, one impossible call — \"Dear John\" vs \"All Too Well (10 Minute Version)\". No fence-sitting: commit to one and defend it in the replies. Every era's heartbreak song lives in Blank Spaces →\n\nlonglivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-folklore-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "folklore-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109914795).jpg",
+  "altText": [
+    "Taylor Swift performing the folklore set of the Eras Tour in Inglewood, 2023, on a moss-covered cottage stage set."
+  ],
+  "scheduledAt": "2026-09-19T23:00:00Z",
+  "campaign": "thread:love-story:quiz-poll:2026-09-hero",
+  "why": "X sibling of the 09-19 Blank Spaces hero quiz-poll (see the IG item's why for the Dear John / All Too Well (10 Minute Version) sourcing from relationships.mjs). Written first as its own post: one idea (pick one of the two songs, defend it), the link. Deliberately near-disjoint vocabulary from the IG body outside the two shared song titles and the thread name, to clear the <80% cross-post-copy coefficient (the smaller X body is what makes that coefficient spike, so it drops the IG's shared words — pick/both/wrecked/scarf/stadium/short film/tag). Hook: the challenge, structurally unlike the IG post. Media: selector-preferred credited Taylor photo in an era unused this fortnight (folklore), a different era from the IG speak-now tile and no era twice inside a 4-day span; X site-screens prohibited; photoEra unset (post spans eras, thread:love-story not a themed prefix). Weighted length under 270 (autolinked URL counts 23). Thread post = share-hook exempt. First five words diverge from the IG sibling and from 09-17's love-story X. Lyric-free. rulesChecked [].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "A one-breath X version of the Blank Spaces poll — the two named songs, a real 'pick one and defend it' challenge, structurally unlike its IG sibling and under the weighted length cap. The credited folklore tour tile is on-brand but not the songs' own era, so it earns its place loosely.",
+    "rulesChecked": [],
+    "revision": 1
+  }
+}

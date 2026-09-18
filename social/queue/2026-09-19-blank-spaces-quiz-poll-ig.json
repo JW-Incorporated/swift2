@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "Pick one, and you're not allowed to say both 😭\n\nTwo songs. Both take a real heartbreak and turn it into a whole short film:\n\n\"Dear John\" — seven minutes of the quietest, most surgical hurt she's ever put on a record.\n\n\"All Too Well (10 Minute Version)\" — ten minutes, the scarf, an entire stadium screaming every line back at her.\n\nWhich one actually leaves you more wrecked? I need a real answer, not a diplomatic one — drop it below and tag the friend who'll fight you on it 🤍\n\nThey both live in Blank Spaces, our thread mapping every era's heartbreak song in one place. Go open it, then come argue:\n\nPhoto: Taylor on the Speak Now set of the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg",
+    "/social/library/thread-love-story-screen.png"
+  ],
+  "mediaKind": "photo",
+  "photoId": "speaknow-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+  "altText": [
+    "Taylor Swift performing the Speak Now set of the Eras Tour in Inglewood, 2023, in a purple ball gown under matching stage lighting.",
+    "A screenshot of the Blank Spaces thread on Long Live, showing Taylor's relationship-era heartbreak songs laid out along a career-spanning timeline."
+  ],
+  "scheduledAt": "2026-09-19T23:00:00Z",
+  "campaign": "thread:love-story:quiz-poll:2026-09-hero",
+  "why": "2026-09-19 Beat B, Blank Spaces hero slot 1 of 2 (window 09-16->20), angle quiz-poll. Job per calendar: pose one genuinely hard either/or FROM the thread and let people answer; thread is the byline, named once near the end with the link. Kept the poll on the ART, not on private individuals: two confirmed, on-record heartbreak songs both surfaced by the love-story thread — 'Dear John' and 'All Too Well (10 Minute Version)'. Sourced from supabase/seed/lenses/relationships.mjs (Dear John under rel-mayer; All Too Well 10 Minute Version under rel-gyllenhaal, noted there as 'the definitive artifact'); the 7-minute Dear John / 10-minute ATW / scarf details are settled public fact. No relationship-existence speculation, no rumor frame, blocklist clear. Hook: the challenge ('Pick one, and you're not allowed to say both'). Media: speak-now cleared photo tile (photoId speaknow-inglewood-2023, calendar's target era, matches library) as media[0]; thread-love-story-screen.png as carousel slide 2 (only media[0] is prefix-checked; -intro.png stays out per calendar; screen shows the lens in actual use). photoEra left unset: thread:love-story is not a THEMED_CAMPAIGN_PREFIXES family and the post spans eras rather than being about speak-now. Link /?lens=love-story (verified real in deepLink.ts/lenses). Thread post = share-hook exempt, but a genuine tag/reply hook fits a poll honestly so it carries one. First five words diverge from the X sibling and from 09-17's love-story pair. Standard sentence capitalization; lyric-free. rulesChecked [].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "Executes the Blank Spaces hero quiz-poll with a genuinely hard, purely-musical either/or from the thread's own data — Dear John vs the 10-minute All Too Well, both confirmed. Gushy fan voice, a real tag hook, and a carousel whose slide 2 is the love-story lens in use behind the era-matched Speak Now tile.",
+    "rulesChecked": [],
+    "revision": 1
+  }
+}
