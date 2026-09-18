@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 71
 
-## Tom Cruise Speaks on Taylor Swift Football Photos
+## Taylor Swift Spoofs 'SVU' at 2026 Emmys
 
-- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
+- first seen: 2026-09-18 13:34 UTC | category: music | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Tom Cruise has addressed the inquiries surrounding the Taylor Swift football photos that became a topic of discussion. His comments provide clarity on his connection to the viral images.
+- summary: At the 2026 Emmys, Taylor Swift made headlines by spoofing 'SVU' during the ceremony, which also saw 'Widow's Bay' winning big and Mariska Hargitay receiving acclaim.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaExZMjhhTzBReVpsRHpGYjY4LVB5SC13Nm5kZTRPcy1qZVpaSThBeEtld3cyaWlxdlVDSEItalpXNFZ4YUl4UVlGbDE4TmtCM2NuRUFBajFWaVBMQlFPOTVNY1RlYVJsNldvMUU5N29xWlVGUDZoZzNuZEtiQlg4TVdfWHVJUldQcHE2YXBFZW81bG44X0lmaXFMOWVnRlhwRlpwVk5xTHM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi-wFBVV95cUxOOXYzeWIxNW5EdndPNDZUUXhidE5EWUxFYkdDdG5KRTlMNVZqVzhPdDAyTWJDUjVvTXFVb1N1cng5Tk05LXQ1NHI3dTNlQ0I1V3VqVnU5alpWdVhiaUZNZmRzRXktdmgwSW05ZDFrd05YV3RMcjdHMEo0S2RoeHZIMEtVZFhKenk2LW12bW9MMDVWLTRQcmJTVWpmRk9HMnVNZHFxQVctTmgtTWpYNUhfa0J5a293c1pyam1iZDlzSl9tdDlBR0c3YWpVYXB6TzJkaGMxRGZaU29SdjlBX3NKeGw4X2VUMFZJVEpDMEJhbjF6LTN5VzlRaXh5OA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Shares Surprising Moment with Wife Taylor Swift
+
+- first seen: 2026-09-18 13:34 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce recounts a surprising interaction with his wife, Taylor Swift, reflecting on her reaction during a moment of confusion.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeElDZmtOOTBRTXoyODl0aUxNejhIcldRelhraGRMLWRVc3d2c2RYRE1UUTFpNkZOOURLcEFlUVZuTnZiMGJXTXdHTVBiQnVNcHQ3TjFyVlVtVDZaSzd3bVl6akZnMWJHRVB3RE42LTNVdDJIbVRvNG1jbmJIem5NcHlvS2ZGRzJtQl9HMmNETlRyelFZZDRTczU2d1AySkh2ZXc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dakota Johnson and MGK Reportedly Spending Time Together
 
@@ -59,13 +67,29 @@ Stories: 85
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxQMmFDaVRMYWNoR1RaYVJXcjFKWTdsSDVaU3ZCaXhEYjdFVXRSSDFhRzN0YUFCTnJTOEcxZ2tUcGZwenhsVmNOeWZ1T3pVczBhVDdGTC1JeGo5NHZQRERuSldlY2ZheGUzT3NpaTJ6cGRfSVJOc0JucEt6bkNkSUZCcFRUckRuUHpzOHowbFRDSjJOV2ZXM3c?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Tom Cruise Speaks on Taylor Swift Football Photos
+
+- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Tom Cruise has addressed the inquiries surrounding the Taylor Swift football photos that became a topic of discussion. His comments provide clarity on his connection to the viral images.
+- sources:
+  - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWGt3TW5BZ3lkVVNYSHBQeDdOTlZxakk1Z3R2VHVRcHhJRkVKMFJjS1RFZ3dpU2pSSE95S093aUxscTZ0YjNyMUhYR1JJUVExeTZySjZPdHprcnNncFhXUXlYU3Z1Mi1URC05UE9FNWJ6T1hvUEEyRXBlZE1LQUJvNUZ5ZmpwNEdjaGNLYkxxV2IxWXlwNnNyMEdLSkNWXzFPSkZqNEJqSlFDR2ZuTjJ5OHZIbzFJU1VKNS1KZUJkSzdiTnVTZllHcHZTa25aU1VSbjJuNmc4ekhEVHpt0gHkAUFVX3lxTE52OEVHcnhjRTg1RzMzNW5FWmlDTW9SbjQwUXVyNmNfUkM0NWRuckVtZVRTa080NzZsbnRQQjNKbmhvRDdRQl8zSVRJS2pyQmxfcDRDQkEyZjhZWXVGczZpYjRKRGx2UTZiU3haYWc2emdpV245bEx3eGRtZnZveWZ5U3FKcnNaaFlTeU5oUWJpSm9OZ1lUWXpGb2JLcG9Ha3hHZkRabUFMUTBMTnI2anlJam1kcGpDY3ZXLXlZUmVMc0lUSVhDeF9kb3g1aVMzV0I1TnVkUUg1SnBuMFAzSzU3U0ZOUg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMixAFBVV95cUxQQlZacHpqMW5NTU16TG9mTzNjcWlNaG85dUtYTk1odktxTlp6WGhWeXRkMlJ1LVhWRExYWWtFMjQ2SVlaTU1wMWh0VGtEUDhabUtDV3J4WkdmVkxvTUdsU3luWktVWFVhUy1mLVA3WnBWb0F4ZmFJWlg5OTJ5UjJGZ2wzZHp1andpN2dzc0t5Q3U0c01EZWU3UlFGWnVZdHdnamFzUnJ2RlZDSVZjQkxQLWpXSWM2N2JBQWJDZUdxcmpOM0h1?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaExZMjhhTzBReVpsRHpGYjY4LVB5SC13Nm5kZTRPcy1qZVpaSThBeEtld3cyaWlxdlVDSEItalpXNFZ4YUl4UVlGbDE4TmtCM2NuRUFBajFWaVBMQlFPOTVNY1RlYVJsNldvMUU5N29xWlVGUDZoZzNuZEtiQlg4TVdfWHVJUldQcHE2YXBFZW81bG44X0lmaXFMOWVnRlhwRlpwVk5xTHM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifEFVX3lxTE9KcTNMRW9FWUUxV0lKZjhJeWhveGhuTjZsNDVmN2c1YTBmamVCbDFlWFRyUnZxdG1KUDFKMnpyYVhNeXotLWhMdVJGYndXOGJuTEM0ei16cGdaUENtTDJrLVZrb0lJdEQzODRjLWxqZVE5eHIzN1g5SDRYLUk?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
 
 - first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 6
 - summary: Tom Cruise shared insights about his conversation with Taylor Swift during the recent Chiefs game. Their interaction has garnered attention from fans and media alike.
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdG5KeGxzay1GX3FSSmI1OWl1N3h0aXdwQkctMHdBOXhxRi04a3ROQV9kdTlYbzJOaEplbWN5bW1Oa1FKWEM5dlYxbGZVSDZoTzdoaGJzMHpvY0ZHYndVYjluclktaGFjeTNSN1JhVzJXcjZja2ZUWWpvZmIyOHRCVW84dGlDcExWblB3ZDNiekJxdEo0d0Z5OV85ZEk2bW9LT05tV21laE4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxPdzYxZGJMaXNyR2F1eGlLOEstQmNMa3NLNnVES3JYazZqS2JnRE5qc1NyQTVHbDhKT2JzM0ZBdGdQcVBzVWJJa0thS1lsemFjcWxmdVRzVWdoTnpBYXBfZkg0VjNON2U0VTVYTUhUMWExQmRwNENJSGN0YU9mZTFLSnFiMmg2UlpVODFTc1RXM291VTZhWGt4NjZIX2d0NEpmMTRra2x2Y3pHajYtSjRzLWI4QlBwSHdmcW5xWFpaMjE0d1NiOUVTZjRMUlc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPRHJWbUJaTDFDX09mNlFwVzdnbWV3b0g3eW5PQTNuQnZJQ1hHaUt0YVdOcTE4M005cm5qbGhvOU9weDZOeVgxR3FnZnB0Mk9jR0Z5V0drUHh0R3lKdVVsUEkta2EwcnBvQy1VVUxwcGFaV2dVOFZid2kzTmoxNnZfcndmRXFobTBpR04yM1ZrMVotc0RFNUVjS2dxcVkzQlZUR24zRUJYSnd1SndHWnFIWlhrbHN3dkhkOHJSejdwel8?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQTHlzbEM2U0V5Vkt4UVJEWWtjWFA3YXlMU0ZTRzdISVhHRmRYTEtaUDI1RlJEM1g4OTlXWVdIQ2ZCemxMUkRDUHpDR2tLZkFjRWEtRFhoa0FfeWNnVDFSOE4yejVfS0VjcHZGbkNKQjRTWjRVV0tNaUt5WVFuQ25vdkdYTE1fN0lnTy1CVWZIT0Fqd1lrNDJTNHlyUmt2UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/
 
 ## Jason Kelce's Daughters Have Adorable Reaction Meeting Taylor Swift
 
@@ -199,9 +223,10 @@ Stories: 85
 ## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
 
 - first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
 - sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOb19lcmNZYTd5MFJqNFJjQ3dHT0w3SWtCSm9GS3Z0eVF4V3lZNVBJQWJQR0JzSTJOWDk5cEwzaGFlVG90MTZ2MzdLLTdkWkViLU1XQ1MxM0hKZVduMEtwQ2tRSzF0ZFJ6bVJFeFpvX1NtQmpITWh0MWNPOW1Sc1FqZkJ0MkpkMXhJamlMWEZRTXhjUdIBkgFBVV95cUxNU0U0T0FjUzZEd016OWdLcTlqUVRiREI3Z3MzU2puTlZodE85b2VMVHRLSnFDNFVSN1RBZi16QzI4WVRyNVNEdi1FZWZpZWN0ZTFlQi1wdzU1WUdfdDAyeUNWck1vYXV1V2RFNTliYkFTZDBrcW1WSEdkeGlkWVhKSnE3cjBvWW05VHdiMTBrcnpLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcnBrTFMxYW9zUjlVWlBvQ3A0c3BQbWg5VEVYR01IeW53Z0t5ZWs2X1JfZ0xwS1N6X3lfUUVjY0VDaEdVQktEejl0THVxWDNXQzRDMjdDczdrdE1QcUVaSDBINjFjR2UxWWZZNkFXOTVtZGRPbHpIbEpkSTNTNjA1UFphU1RXS3VVYmpmUDNqSXJ1Xy1FTkFnZ09idXpoUGFkMk9rYWg5TmcyUm1PM3FSN2FzMnFpc2dJSkdRbGpn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Syracuse.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxPNklrN2NuVXRfRnlxMmdDcUg5eG4tN1cxTjdmUEp2ckV2RUhlSk0zNmg2SEdZdlBxUllWc1M1OFotOVZqbU5fM3MteWhacWs3U25rbUxnWW83WlhUVGdDTlloZ2tlQTFXU2I3TGZqUDNKcjBwY2hMaDBJZEJ1UDRVVUxNdGxyN1c3R3QzTFZPN3BwV1pGM20yYjZ1TnJyYXhUTkVyTE5OZ2t0azl0dEVuWW16YkpzdXJhaGdvVHlqTFdldVM1QkE2bWFURU1ZYW9O0gHkAUFVX3lxTFBNSW9KbE5oMjFQVkZJcEo3ZENTa2JObFJzWUIwZU9MdzN6MzFLQzFOOUFxOFZ2Nm5xVzFIMldFdldEUUlGSVlZYkNxblUtbjZxLXg2UER6aDBTMHRTMjFQc1BiTGJkcWYzTjM4ZlV3OENGWnlYTWZPTi1oenllekRhSjd0RUhXOEFocGc2NWVnaUtWc3U4XzNTNW5vcEpnYW81TGVjeHpKTWpVaC1fREVheXFLa2RlYUlZdkIzX0RIckdGRFdYdFhnMC1uS1dVR3FvOGNuNmp6QmxURl80Wkl4WmE1Qg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -598,159 +623,3 @@ Stories: 85
 - summary: Taylor Swift made a cameo appearance at the 2026 Emmys, participating in a sketch with Mariska Hargitay. The event highlights Swift's involvement in entertainment beyond music.
 - sources:
   - [unverified] Deadline — https://news.google.com/rss/articles/CBMimAFBVV95cUxOTmN5Mm5MdWRpVU9YRjUwb0NSWVA0S2RoRG5vSkl3ZmxNY0FuNkhTcW9TaFV2V0I2a1VycnpoaldtRTFvOWtHT1g0TWw0YjBsVDU3QWkwSXVUZjJWQktxY3VKU2VTY1R5a0VEUTRCWFlrZzdWRHk3Y3RvakRvd1NZeTk1b2RyRWdFaDFETHhnbThBcDNaTG1aZg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Surprise Guest Appearance on SVU During Emmys
-
-- first seen: 2026-09-15 06:08 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise guest appearance on 'Law & Order: SVU' during the Emmys, which added an unexpected twist to the event. Additionally, fans speculate she may have dropped a new Easter egg during her appearance.
-- sources:
-  - [unverified] NBC TV Network — https://news.google.com/rss/articles/CBMibkFVX3lxTE1heXVwVHd5cWxieVRfVTFkaWh1UXRiSDNnZzU2NkRwNW50c3dfa2hFLWlNLWdBWmw1VzUtdUZ6bnBlN2R1ZnJzVHJTbGZROTRqRm5hUllsWWJGUHVjcURUcUNURnd4WnJyYXlnWGt3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Absent from 2026 Emmys, Reasons Explored
-
-- first seen: 2026-09-15 06:08 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article examines the reasons behind Taylor Swift's absence from the 2026 Emmys. The discussion focuses on her commitments and priorities outside of the award event.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMijwFBVV95cUxPblVXMnFNN3FSaFNWOFVhdnlXdHhoVnlCY1NuSnZOZWxNQzJVakoxR2g2V0hwT1ZyRklBcUk0bEM1QjBwekRvRWxEWTd1R2RROVZWQllfZkEyTk9jbldzZFNONmFLNlJHeS1MZW5JSVo4dXlaaExLYnRLRzhyR1JmY20zZ3ZWVTlkcF8yUk42Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Cameo in SVU Sketch at the Emmys
-
-- first seen: 2026-09-15 06:08 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift appeared in a sketch with Mariska Hargitay during the Emmys, showcasing her comedic side. The segment was well-received by the audience.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/emmys-review-broadcast-2026-ceremony-nbc-1237102392/
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxPQ2EweUQxUXNaNjR6LUlHYmVlU1Vyd1pYcmtPazNXdVdaTmJ2QTFaeGxNZGIyRmt6eFdLclAzT21DN1ItVk1xRGFTZFF0dnBzTDNuSkpGM3VqLWpPU3dVaWU0MXFXNzlHRG1pYzlXelZ1UGQ4Zm5iUktvb2k5RFhaZTRZT0JTdmVzZER1SWd4LWUyRWdzeklROTlQcTZHa05GMWd5a0NjNDFycW54LVowWk5ZVGthWnFZVVMyR2dENjNFVGQ5cGRwT3d4SEFGLWdVM2pIQw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMirAFBVV95cUxPZjMzTU9TZElXcFNPeGV3dUlfUl9IQTRFdU1DVG5vdkppOGhtdWxoRUptX09DM0lKUUFhNUI3OFN4NFZ0c01nLWcxc1duc01DZ1Z0bFpIWTc2MThUNW9DdVNYbXNqVEFYVExTQjJKTS1ZclR1YmE4STY0WllqQkRHbGhmVWxPQWRjUjROcEpmV3pyVXV5V21DbWpqVldkdFNEMjNlSzB1blJsUE85?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] today.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOb2psaEJiNy1FQ2Y3Y1QxZDFpakFEbmZXV0d1dzd4Q0NEOFNGWkpYeVhkYWZTZzVscGRhaGRPQmYybHBzUmdvSDA5S25QR3UxM3RRZTZ6Qjl5eHhHakVYMWdYdERKWi1mVkZIbjNJeVh4R09uX3Fqc1p4UG81TWVnQnM3Q2ZoZFNrVG1rRXVTLVF3T1lVOWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Cat Make Surprise Appearance at Emmys 2026
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift, along with her cat, made an unexpected cameo at the 2026 Emmys. The moment caught the attention of fans and attendees alike during the event.
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxPYkNaaXJfY0h6Wl90QUtFdUZ5a2c0a0Znd2NnV1Z4OFRscFRicEtWV0MwTlgyNEhjTzZmeHY4US14NXJGcVMxOGNDVm80dU5NU3JnVXloeEZMZkhjN19JMWpZbkxQLW0xUzh0cUwyRGVwZFp4elZwY2lrTUVfMXhvRm5Uend5M0k?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xSTEFoZHhlemJZR0FHVWlzUER0dkk2eDdwcjkxYnRRM0JVNTRhbWI3YWNMX09sdnZfZExveVRBOFFQVzFoc1piY3BJNW1SMzR6akw3YjktZTBrX3BEUDdzWVJMNkxXd0NBYzNvR2pTMkkxX3ZJU2s3ZXdPblVvYjVxT0pVcWZheC1pR2gyc1dLS0dGN3JJMkVJVDVSVVVaZXpFSVdBcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Cameo in Emmys Sketch with Mariska Hargitay
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 9
-- summary: Taylor Swift appeared in a pre-taped sketch for the 2026 Emmys alongside host Mariska Hargitay. The sketch encourages Hargitay's colleagues to 'think like Swifties' as part of the comedic setup.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-emmys-law-order-mariska-hargitay-sketch-1237103067/
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNWIxYklHa09nbExWNTJzbzJIcUM4ZWxxRWZQV2R4QjdWYnpBMzV2dVVrbWdPbHFjSG5sVG5CeThpTC1weTJ2aDVuUFpjQjBER01oQTQ2NVhqbW1NOGh2c1RBZ3pveXdURk1maWtmajlnelpnVndRX3pEcURSSTFUbEZLZUJIN2ZYRjNCcjRhdFVtREhINGU5eVAzajVhSjVMLTVzOElGaFNOaFVJWEE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNOWlkSXFXSjMyUV9pRWV6eVpDb1dqc1hSV0w4WmNXTWJLVUpaOTMzSU01WWwwUVJrc245VFlwaXc1dGhtcC1fYm5KTGJncnhVZU96LTQ3MVVXUnY5dFRRdUozVjlCMjc0VmFVanJTMEhDU3lMTUdKa3lzdkQzOU8wdWloOUdTTkNnVDJUWGhYeTNDMm91ZmxlLWhfUkRTb3QzMGUyclJYU2lnUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivAFBVV95cUxQSU9mT1M2UjBPSlpyaEE3X051eTMxaVlrUk1XVV9lbThOcnNGdzY4YW9LcGN2NzBmQ3FDRXUxMDNOVnN2bnJtNE0wZ1VHbVpzYVhuQjhBOThtc2l0azJxYVRKN252TWlvSnl3My1TSlVtblRRb2daV3lwNlJGVUpLS09Ib2hDX3ZSWmRSOHhldXl4QjZIXzFaNy1lVUN5b2xsSVRrOWlWekg4elNJYU1lcEpzUkt3VHlZcmtTUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/15/style/taylor-swift-emmys-skit-svu-easter-eggs.html
-  - [unverified] PureWow — https://news.google.com/rss/articles/CBMigAFBVV95cUxNWGQ5Wm5zRldtdnQ2Y3Z0MEE5ZHNNYWdYTW9xRHE0dzUtaEt0c1dtZXZOSDBieGJDNlY3Z0owSkl2ZUNzdkhkV1M4U1NFUjZ2dVk2UFNaNWhxVmQzU21WSXU3WW9CSUdpTENiWXpQdl83UXVUUGFrMHBfS0FFVlhlaw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWEwyWWgyR0hLV01zNFRfdXRnNUN3WElIMTJXUlExRGl6WFNXVE8xWlY4VFFXWk5RWjdZc2JuUUtsN2l5a0hFUG9MdXVjenM2WU53NVUteFQ3QjkwTXZTMmIzNldYZGUzVXU2TmY2Zm9HUjNCWXZNVXI2X0hJUUJlQmhCdGdJbXRILUlfTDRRWkdTbnZidUNZSFBfc0FmS1JIdVNzbkNTSXZzQXR1YVJ1WDgxR2Y5el84THI5REhjME5mUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-emmys-law-order-mariska-hargitay-olivia-benson-1235626589/
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMijgFBVV95cUxQcVc0YVRWUDVEWVNqSFI3eUpNTEdEUkFZTzhPQVR5bXk4U0lCbjQ1X0JfcjhuOWxpdlhIc1ZxR3hHci1EUWV3dy1ON1R5b256R0hpczZGLTRnM1hKbllRVGdaSFpXRERKX252T3hPYU5PQ0k2ZlBtLVhQT2dObHpaWEh2OVY4MzhWLW1HMmF3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Supports Travis Kelce at Chiefs Season Opener
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 15
-- summary: Taylor Swift was spotted cheering for Travis Kelce and the Kansas City Chiefs during their season opener against the Denver Broncos. Her presence at the game attracted attention from fans and media alike.
-- sources:
-  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRXJ5TGlyb053Q2tfejBlbDIxdmdJbGF0XzJxU0w5cEZ0NVIwM3Z1UFRQeWQxMGM2R21pcmYzOHZYeWRxQXBkUjY2RkVWZk81VG5rVkUya2NYRVh1ZEh1UkdQQWFCb1piQ2x6cElYWlFHdlg2cE9qblFPUFJqWGNKZWxIVXQ1NmdWYm5GUHVHTzA5aW5Tb2N3SXBZTEpYSGVqNlp2VWFoSFE0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxPc1NJazdEWW1Tb3FpU3VBYUd1c09sclpfVW11V3RXbm9xTGFvVWlUTndGWmRJTXBtcndJRkVQM3dBSXEtSmNPalp1WmN1STBYNjdUVnV1ZHRPNVRIQURuUkZLOVF0TFg3b1I5ZlBlaV9VblhxdlZ2XzdZcEd3WlppdV9JeGNyb2tjMy1sa3JqMFk5NkZtY1pfdjJrVWNCalhIblZvTkRKaDFvZTFyb1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMijgFBVV95cUxNYkU4XzBtbEFxUFN0WkN0eS1OTFFnVGZzUDVCXzNEOEZWOTdJa0Q3d21LT2JybXp0Z1FVOEpwRWFjWmZpa21Jb2hpenJzVF9iekk0VHU1bEZvUDBuTjBuTXg0QTdRNGVHMUdDNXp6MXoxTC1zeHVUUlJEWGozQngxSU5SSFk1cUpESUpKMmNB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitgFBVV95cUxQYy1xcHhEVElxd3NLRkxmT0hyaEVKS25TSUIxMnZvQ3dyVi1nSXJIN0VaNEJmYTgzdlY2dENETWttdVdmV2hYcjVEMTlYcDV4QlFDamNDa0tFcVZvWHpRbU5MZkk2TW5pczNtNjUwSzF4VHR1Nm5qZEw2XzN3T3R3T2hrbGlWTnQyN1ZoM0laNGlwT253VklHQVJQQTlGOUhFTkxxLTdUWjdmd2syVVNRVUE0aW52UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMixAFBVV95cUxOWW1FMFpsdENrYm84WkdKbHFzTHNsTm5zS3JSNEtNTDZ4clI4ZXQ3WnFqWHhCOGwwNG81amd3ZkNFbG9Vc3g2VG1MYlpxcjk5ZHoxLUhocnFLNFlxaFJFRVlDZnhvUml5NXE2UmZtdElrbWc5U0EyejA3aE5fUldKYXJvZk1vMThPVm40emk1MllJNS1QZl85alNlYlpVLUYxcnJrUkY5TXFmWFpyNmtLTTNMbHdRN190ckFqMmdXRGhENl9i0gHKAUFVX3lxTE1lc3E3VE1GWnp6elQ0TTRwVzB2My0yd1lOcURINmNielh0Z2o2YWJIYk50c0xDajlYV0dTYzZUaHNKNHY1ckt3U09rRzVJdXJIWU9WeDFTemdTQWktZmhkdnFMTURzSzNMeHZuM2YtS3V2M2diaXNUeXFJNjA1cmctcW9tazhKQ0R3UDNPMlU0UDk4bGhhT003VDN3eXRHM19wYUdiMjRkTDR6dHN2clhCYWNSVVdxaGhaYk1fOXpDa3hEd19MTzBSRnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Good Morning America — https://news.google.com/rss/articles/CBMiswFBVV95cUxPeVBUdmJxQjRkRWtjaFU0SWxtVy1Gbmk0S3owMGpudjlyRG1Ec19ZRWl2QW1KZ05yYmNnaUJGSXdUaEZRTHVRelpDeUdCM3N5eU9mZ1VVaUlvRVR5SzdKZHNvVV9hdjQ3UHdSbzloSk9TU3I4RDNBanJodWdTbGw1WVVfc0dwc3V5VHRIMTdTTjZkM2RrbndoWk1lQ0xEU3pWT3BMSlFadUVkTDF4R0VlQ2RGQdIBuAFBVV95cUxQeEwwZ3VoWUNqaVd6UC1wN0lfc1N6Z3ZlcU1XOWhUd0RITklWVGU4R3FxSFVHYkZQOUNrUVQ4Q3BjbS1ON21uRThHWjNhdThWUlRtSmRGay03V0g2VnFRS2M0QjFVWmNoNDQzRUhFTUFrUU42bVhpYVFIbktRY0lyUkoxM1JGc1BLTDZwSFdjMlIyOElyWFVNUEtfQjVpZGpHZjh4X1V6OG1XLUdZQmlQX2pXd2FSNzRW?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMizwFBVV95cUxPNjVuT3VScUh0X3ZTclVGakV6QmNBa0VJWnhMSTJOcWFlYlpVT1owQ2hmUXJGMXVxS2pNVDFlS0FoalVsTkJvMXA2djlQSkxhamdJbmlMTmpROXBDRjI3cTdMNEQ3VnpmT3hXV0VhMVdRNGJaVUxuOFFxX0RkZ0JyTDFVRy1rVXlJTElLMk15TDhzenBtMTZJbkFpSmprTzhLOTdJUVpocVJSOUxZWkdER01sb2lCY0J4MV9qNURQdTM4ZVp2Tll0dFRCZmc3YUU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KMBC — https://news.google.com/rss/articles/CBMiswFBVV95cUxQX1Qyano2Q2trYUM2QUNMSnlUSGJRSG5kVUw0M3RLNEN0cnhRckxyTDJ2cjc5M01Id0FicUMxaUN5RW1SbGV4RXFaZHR0cUQ3OE1ycU83ZEJvV245MUs0ZlQwYjhFUTZlTEszQ3FELWp3aldOVFY4bVFjWTIybmFEWkhFWVkzb1JYRDJyRk9kWXFKM2hBYjdjaWhkZ056Vmp4V2ozbG1vVnNWdHdHQjFsZU0yZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMizAFBVV95cUxPV2V4d1VVd1hKczNRTFR0eEt2TF9xV0I3UGN4LXoteEdqcE5tZHdzTFI4UmJSMnlSQUE5QkhDdms2Y2VrVEJqRmpON190WHVmM2U4YUh2UVVRZVNqMUtPYV9TSkw3OUJra1FSRkVJUE1SQzU1dGVMQlZkMWR4ZEhIdG50cnp0MHFYNFd3Q0t6cDl3dlhGcFV6em84ZDF2RU9PWHRkWmdtclhYWk5mdXVrWnpMeWxZM2NCWWQxOTFZNmlYVkpIWi1hWVBFaDg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxOQmtrYnZHd0RqbEVNa3A4bXRQcFQ5am9MWWJBbHBScWNoSUlEUUZYRUJEMkUxZklXYlFVUEpzNzBJQVNjT19za2dQQldLcHc1Yl9hZkx0LXJyLUZKQlZqQkp2dWJjNml2RTV6MkFlOUd0QU5QN2dJeWtIaEJGVFdmSUFIM2MwTlo2bi1kYXFSTmtaaExIWlJJTGVZMA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMirgFBVV95cUxQNV9idS1aQXIwUGp0X2lrd0RmX0JjYTJKdzFMQkJCRm8yRzZXbVdCdGVuRjJrZVU4UWpuRDdKVDJBcmNnaGZ3UFpMTWpRSlVxZDhiUmtZOVJzQmhCdlFBUndNNlM5VlNxc1E1SUZDZVJPOFg0OEVDbnlhWjZoeU9DVktmTUc5RmZhRndoc3g1c0JiOXNFRmROWXRQNWFjby1iSmYwZDVWZkNFWUlOalE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-first-chiefs-game-travis-kelce-wedding-1235626496/
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTzZvWVg3T0JxMW5lVDVwaVN2RHp5dzRYb3NEMlNqYjEwaHAtSEhaT0cxbUpySkc4Ty1YeFZYT2RVQnJTMU1STTVaVWVwS2JKWEhpaWZWMDNLOTFVWFNsQ3NUVmJLZ1dBZzRDRnZMVFJXOGFOWTQyNzdKaXpGcTJNT3ZyMG4xbl8yR2VTS05Xdk1WWTM4R0o2NE03UnFybU9uYUpXOFNiUDVGRTRwM1R3Uzc3RXhGSk1y?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQmNkcERqUEF6WWphT3VFd0J2Um9uUFdnQ2QxU1dQaF9fTU1JVWppVjE4aFBYQWMxb05XN085bXJMbzAwQWVIbUEzY2xnN0RNcU5PanlXc3ZPcU5lYUw1VGt4SE9iMmNMRHFJMDJ5SlFYa2UxSjJBWFlBajFPcnMxWTRsRmU2aVg2c2hxVVhVWFl1dWliaWk4OUo4WGJvNnd3YlE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihAFBVV95cUxPRHdxOXF5Y0w1ci1kTGtsV01UT01tQzRmMnNraUl4Z0xtTDVnbmR1LTNaRHA1VTBEbTdGOEZrMWlqNjdpMHpobjhOUV90NFNGZW8wSnctLWs3OXJBandRc3N4QmxGQW5HNEZVZEJPclZNckNpdjVFTVVsWldMUmE5bzdEZ0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Appears in Emmy Parody, Attends Chiefs Game with Tom Cruise
-
-- first seen: 2026-09-15 06:08 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift surprised audiences with a parody at the Emmys but chose to skip the event to attend a Chiefs game with Tom Cruise.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiogFBVV95cUxNMzFBV1hxN1J1eWVfeXV5dVRfS0NhaUh5ZmN4YTg5SUFmR19BS2U2bDdSVjg5ODlYZURUdzM2UTJ4dGwtdnhNdHFGdG9YMkZ1NVkydWRHb0NSeWRuU0xzWHFjd1EwNmJLdXY1dmJ5MUM3cEZDRUktNm1EWEpzRkRyaElEem5CWFhSUFpRMmNfeEpQcFA0Y25obGEwNnd6T05rLVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-emmys-svu-parody-chiefs-game-tom-cruise-1236861124/
-
-## Taylor Swift Addresses Absence from Emmys and Shares Cryptic Message
-
-- first seen: 2026-09-15 06:08 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has provided an explanation for her absence from the Emmys while also revealing a cryptic message. Details on the message and the context of her absence are included in the report.
-- sources:
-  - [unverified] KTLA — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOMkhXZEk3YVFqRGh4TVh1TWtuOHB0RnhyMHM4dTZCNnZoSFRFa0RqYzdBTXFMTmhld0VSeVhGTGY0R2dQZGU0R09BOVRfQkk2eTM4ZURwc1lORTM3dUhSNTVQdUFXTGROM3BENDVKOHhQVHdDYUhfNHhIdGdJVFFGQlE1dGoweUlod1RXelZVcXZoWFlJTDBiVlpiQ0JxUExCUEhqYmVfNnBqRTDSAbABQVVfeXFMT2dVcm5iNlJnRE9yUlVhU0N4cWhxUlBoZjdMUGNXQkQyZ2I4WWtMTVktRGxNTGxYME5PazI3RmRiOWZQN2FhUjF6dXdFbExEY2pTNTJYZjJ3ZXRaUEdMbjVKTEdGTG5Vcm9wWlhFMEhXaXMxQ19CRDJwSjFORkt6Zm5JOGhIVHpRTkFxeFVRYzd2NHFQTG1yU0xjcDE1c2ZqRmt2TjN2eW5CaEtHNnY1NEo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Emmys Skit Features Mysterious Message, Fans React
-
-- first seen: 2026-09-15 06:08 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In her recent Emmys skit, Taylor Swift included a mysterious message that has caught the attention of fans. The details of the message and its significance remain unclear, prompting various interpretations among viewers.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiogFBVV95cUxQd2IzbGRWcEVZOHFabW5WODNxMGtBVmdVZC0wNDhubjhiLWo4NGxUbnlBZ1dHX2ZMUVZPZzZXRW4zT09DeTJibnR6b2RFdkVROUhyeTlwYm9YQ2cwSnpxcGw2Ml9rUmFHU002V0lGQjFzLU1Bd09DY2M0S05Ba1FzMTNDVHhjNmdPNTZjbXhTWUdWSWdBZjRpaEVrYk1IYkpfUXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Upset with Wedding Guest Linked to Travis Kelce
-
-- first seen: 2026-09-15 06:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that Taylor Swift is 'livid' at a wedding guest who previously collaborated with Travis Kelce. The incident has drawn attention but details remain unclear.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPdGdOVkZHUmtWX1BoTnRvb0JkU2FOOEtmbzVqbzJuZzhHYzFWR0QxTHp1YllRYW9xSXpvWmRNVEkwbUlqZ3NmM2ZqNGRvbmdLS0hLNnJpTGlmZ1I4RlJSTDhhamRNN3ZkQjMzUEtWelhtQ3VuMVc0WjFjaTgxSmZRQ0lDTHFxb0l2X1RQWVk1ZjJaejFxdFZDTVJoUUdqX2JzazEtdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Featured in SVU Parody at 2026 Emmys
-
-- first seen: 2026-09-15 06:08 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: At the 78th Primetime Emmy Awards, Taylor Swift made an appearance in an SVU parody. Additionally, Noah Kahan performed a cover of 'Bridge Over Troubled Water' during the ceremony, showcasing a connection between television and the music world.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2511424/emmys-2026-taylor-swift-appears-in-svu-parody-noah-kahan-covers-bridge-over-troubled-water/news/
-
-## Emmys 2026 Highlights Female Hosting Achievement
-
-- first seen: 2026-09-15 06:08 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The 2026 Emmys featured Mariska Hargitay as the first female host in 15 years, showcasing her charm and confidence. Her numerous wardrobe changes were notable during the ceremony.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/emmys-highlights-recap-2026-best-worst-moments-1237102732/
-
-## Taylor Swift Wears Guest in Residence Micro Minidress
-
-- first seen: 2026-09-15 06:08 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a micro minidress from Guest in Residence, which featured a high cut. The dress highlights her fashion choices and was reported by Yahoo.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxORjljbGM3TTlqVzVfLWstaTM1c0dmNnNHY0JONHVGcUZJZlduT3JEQ3JsbnBoX0o2bkhMaERoUTdkNm5YNTh5RWpnV1JrX0V3MDdzd1lDR3FHZ1pZVDhrYnVvRWM4RG5fdjJRRk1CR1F3a0p3UW80a1UzS0JtTFdZWmo4dEdIdVZ4TlpFRGQxeGxnTVlLUkxKOFpXd1RyTFlLazAxR1ZwYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Supports Travis Kelce at Chiefs’ Opener with Tom Cruise
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted at the Chiefs’ home opener against the Broncos, where she cheered on her husband, Travis Kelce. Actor Tom Cruise joined her for the event.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipwFBVV95cUxQcm5zZTZBb2xCeDZGSTJBQk9ha1FieU1oWjVwdVJMTFhRa0VUSDI1emZmbG9iU2xnVWh1Z3BaNTcwVC02MTRtUmpwb1pMNUVpTTFPZmNvTzR2QndvMHpZYlY5aXF5Mzl3YU9YT1laSlM4cGNMRndmOEFZak12dmoxdThWZUY3UGxBY25YTmlkUG1WdmgwUjhXZHk2YzQwbjZ6ODdOQVJFbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Cameo in 2026 Emmys Skit with Mariska Hargitay
-
-- first seen: 2026-09-15 06:08 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At the 2026 Emmys, Taylor Swift made a surprise appearance in a sketch alongside host Mariska Hargitay, contributing to the event's most memorable moments. This cameo adds to her repertoire of pop culture appearances.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOQzRQZzF6NjBPQ245enRYVXRhZEUyQ2N6RGpIXzFhV3o0QUQyUDlndzBWZk1vZnR4NzNkRjFtSmdDMVpYR09fcjFVOXBGMXJIeVlmZXVVSVJ6OUc4X0lERG55OUVPazdoS3lDNEROSHNvRUh0ck82Y2VSbEp5WmFTMGFxbGhRRkpCY043NEs4TQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Appears in 'SVU' Emmys Sketch with Mariska Hargitay
-
-- first seen: 2026-09-15 06:08 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift made a surprise cameo in a pre-taped segment for the Emmys featuring Mariska Hargitay as Olivia Benson in 'Law & Order: Special Victims Unit.'
-- sources:
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMitgFBVV95cUxOYXVtRzBiVko3T2dQWEMwNFNWOEVUNGFWNkpfVzg3LXdfck54V3lTOFY4ZkMzN2VLZlNRWk9hRzVwbGJvUm84LTZ2V1RWMXR5MWUzNElUMUNfUzRSenJNR1JheUpIdENZY2lNZmhmSmxzcTJHWXo3bzNaUFlUT2hXTHdXMEJEbl8yeEJ2d1ktMnB5UWQxNWxaTlV4TnpHdGxYN2ZGdWY5ZG5oLUVucEM0NUI5QktSZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-surprise-cameo-emmys-segment-mariska-hargitay-1236701444/
