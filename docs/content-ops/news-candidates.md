@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 67
+
+## Taylor Swift Remains Silent on Ed Sheeran's Recent Controversy
+
+- first seen: 2026-09-18 23:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has not commented on the backlash her friend Ed Sheeran is facing regarding Macklemore's 'Free Palestine' concert. The situation has drawn attention in the media.
+- sources:
+  - [unverified] foxnews.com — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNUTlHUDhQbm15TmEtZFBEOFR2OEtOdHB1d2FNVklSSk9CWjMtYm1MVjFTQ1VIYVl1OWQxeWNOcFhWQ0JBYnAySlpPYkNKcHE0RVllUXhmTnh3TVA5aS1TdFZmdlhXS3diaU5XemV4di01X3J5TzZWQzM3bkRHV3VKNUYyWkUyV1NObGdmYldHeUZrRUp0ck5uNUwtRjNZeERWMU9feEl6aU5YejM5UGQtQ3RRSmRkRVVPQzAxSHpxWXrSAcYBQVVfeXFMT1dOb3E5VVFrVlFzaUVHdHVpbGl5YzQwVFg0b1BfV1VhZWRhNDRfY0xoZ0QzWUJvLWtCY05mWEl0T3RzNVVVVFlLVkNfSXgyb3d4QWQ4UVF0TjlzSUszYVVEUllrRFl5MXhPM09XR0gzdUxmOVc4WDlRWUJkNEthR0haVFoxTlpTa3JjWHBqVHYyV0IxUFF2WV82c3RkNTVOemR0OWhxdFlfeFJLNVlCREZSRkZWalNXSlhrWlRWZkdIamNBS1hn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Tom Cruise's Affection for Taylor Swift Highlighted by Vogue
+
+- first seen: 2026-09-18 23:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Vogue discusses Tom Cruise's admiration for Taylor Swift, emphasizing his public display of support for her. The article captures the positive sentiments shared by the actor towards the singer.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMigAFBVV95cUxNZFJkcVgxNUFHUkFwZmZZUW52NUJyWHM4bEhQLU01WnNBb2FxWmVFamFmUEU4ZGJzWXU5aWE0ZU9SbDZ4UHRUNjF5aW41a3dmVU9ZLVNWNUQxaHpKM3hTUVhKUFZkUUtMYWQ4UE5mcVR1R0dVanJBNm1DdHNKeDl2Tg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Fan Discovers Anagram in Taylor Swift's Emmys Code
 
@@ -155,9 +171,10 @@ Stories: 74
 ## Tom Cruise Speaks on Taylor Swift Football Photos
 
 - first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Tom Cruise has addressed the inquiries surrounding the Taylor Swift football photos that became a topic of discussion. His comments provide clarity on his connection to the viral images.
 - sources:
+  - [unverified] Gossip Time | Allie Jones — https://news.google.com/rss/articles/CBMifEFVX3lxTE5XZWhwb2tzWTV0MGg0SHRmeWlwWXFzNWlTN1MzZ1RWU2s5SFdNWUo5Z3phUF9wajJ3XzZOa2FiSGpNdG96Q05ySTFDYkVKWTJCLWw1SHNQQmNKWGcyNTRueEdrQ3BLRUVUZTN0YURzUEd2dU9MM09STGRDTmg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC 6 South Florida — https://news.google.com/rss/articles/CBMi2AFBVV95cUxQcm1hWHFNQURIQUNPNms4UEJGd2tmVWFDQkFKZzV2eFNLVzYtMHBBMXgxWmNiVTZ2NWxMNXhGVnltUmJ3aXNIT0Jvb2Nhb3VfSHVod29UYXZOSUlpOHJEQXhCMTV5M0RmclNIUURaNGhSZ19Yd29kN1l0NVlxWms5RU9HdVc2QTh2bW13dVVmTWJRZFdHdDNleWFhV0N6WXNKb2VZcGE5MW1VQ0xSbWJycmRtem9SUURIU1lxQW9uQmtmVHBpaGVJcFZveWpRZTFEMWU5UndNek_SAeABQVVfeXFMTndncFREWFd1ZVNGbWVXVVAyRDQ4TG11ak5XcjFwUktJZllBX0tPZVNKN2pwemU4dGlDZmJPUTBaSVhOTUhSc0dZbVlvMllvNnV5ZF9hbjh3RUx4UXlGblhzbkJBNjhES3RVRUQzMXJlQWNFOTZmNkNFaDFOQ2tKYzIwb2V3RzRFdXNBVUJldlpaTERpM1BwRkM3WXAwcVo2OER2eU9FUkJub3QyY1YxWVp3NE5LQmlIVVpRbDk1WGJPa1ZqczNtdHZ4R3h4WU5ETlhiTGJlVHpJblNpOGRBOVA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWGt3TW5BZ3lkVVNYSHBQeDdOTlZxakk1Z3R2VHVRcHhJRkVKMFJjS1RFZ3dpU2pSSE95S093aUxscTZ0YjNyMUhYR1JJUVExeTZySjZPdHprcnNncFhXUXlYU3Z1Mi1URC05UE9FNWJ6T1hvUEEyRXBlZE1LQUJvNUZ5ZmpwNEdjaGNLYkxxV2IxWXlwNnNyMEdLSkNWXzFPSkZqNEJqSlFDR2ZuTjJ5OHZIbzFJU1VKNS1KZUJkSzdiTnVTZllHcHZTa25aU1VSbjJuNmc4ekhEVHpt0gHkAUFVX3lxTE52OEVHcnhjRTg1RzMzNW5FWmlDTW9SbjQwUXVyNmNfUkM0NWRuckVtZVRTa080NzZsbnRQQjNKbmhvRDdRQl8zSVRJS2pyQmxfcDRDQkEyZjhZWXVGczZpYjRKRGx2UTZiU3haYWc2emdpV245bEx3eGRtZnZveWZ5U3FKcnNaaFlTeU5oUWJpSm9OZ1lUWXpGb2JLcG9Ha3hHZkRabUFMUTBMTnI2anlJam1kcGpDY3ZXLXlZUmVMc0lUSVhDeF9kb3g1aVMzV0I1TnVkUUg1SnBuMFAzSzU3U0ZOUg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC New York — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOYnp6WmNLR2FuQUVVRXNZZ1o1WDNNN19URVFKcWlkY3dXVTBfRzB6M3hPdXFhZUhJNWxieFZNVElxX2s1ZWxkTlZ6RU5wQ2t2Q090Q2o2Mk1xOHVmWXZtTTZxQXpOdUM3bzhNV2J5SVhEWUN0b296M3BQVXpObUJXVDFSdnJpTGdYUWt4Ujh6akRKMlBVNkVoS2hYbUszMVVZNnRIc1Y3cDZZUG5VT1pPbzVWQWtNODhW0gHAAUFVX3lxTFBDYkpoMVluLUlFQ18tdm5vaFVFMzB1bU9GdGlOUWdLM3dZQnV3bnVDbTc2X182VDBvTkNaTlV0VGs5VndiMjd3aFNodGVOYXN2WndsYmxyLTJsNkNkUUhXWHBkTVZEdW1Md2g1NEdEZW02WlJnUFdIZTR4X2U3VVYyZWdISFpwWjFnam5lbG9KckNoT1p6U2daeEVRbE1ZNUY4S2h5NFp4ZE9YY2hhb2JpY0txX1pHaUVHWlYtYTZuNA?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -186,10 +203,11 @@ Stories: 74
 ## Taylor Swift Listed Among Billionaires Excluded from Forbes 400
 
 - first seen: 2026-09-17 23:32 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift, along with Oprah Winfrey and Sam Altman, is among a record 590 U.S. billionaires who did not make it onto the Forbes 400 list. This highlights changing wealth dynamics as Africa’s once-poorest billionaire approaches a net worth of $2 billion.
 - sources:
   - [unverified] Business Insider Africa — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOdzYxcGVkU1ZaYlNHZUNoRzVnVWdxRWpnZEQyR2lOT2pUMEJoNUp6UWRmNDR3aWMxQ1dacFAyckQzM1UwbzYxZkpkTnJpVXFuR0xLVG5tbEZfTkpYcmdEOEJfMlR1Z3RqWDhQRzlmVEhmRDVoamgydlJmYVYzaHp2WXFFN1BjUENHOE9IYzNvaTFhcWNjZnFLQmItRGQybUtGOFo2bEMtTURVVXpTUl9GOGV6V29pT1p3WWNSTTNSYzNRT05QY1dXdVlHME00YURLMWFLc2UzYw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQNldXMUs3RkVRRUFieWluM2tGSHJmdVhQV3VPajcwdWRoMGUtT2kyVlFlOUJNdXlfVVZoYm5xUXlyZVNmSlpVLU5IMnpIZ3YtTE1yb09TNEx2TkFVWmdKbWNSeld1Wnd5cTE1REtYZElMNV9lMlQyVVViTVZnTG92eF9JU1I0MUstek1VUmlOUEdDejA0Y3FrMEdXOVl0WnRKUF9DWUQwcTMweE1kWUtvWDdITGdFRHlTaTkzQ2lSRVktRmlYN1RoMQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Corey Cott Shares Story About Cookies Baked by Taylor Swift
 
@@ -299,9 +317,10 @@ Stories: 74
 ## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
 
 - first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
 - sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlhTZkpLS0RlYlhXcE4tY0UwR0QxRHREdWhoMlVOWFZRVDR5OWdxc2JOOW9Yd29EcWtfMmdrd0s3b0d4b0hVbVJ2eWwyT1lfeGtsbWFMV3VNNWI0LUltZFo5SzJMX3phRmZac0RMajlYcWJ0dFRFSW5RTk9kQVQ2QTFta3dVY3I3aU9hcDh5anAxYVZUUFFLNy1aWFBuckVTZ2QxMUd4Mk4zRXdiX0E?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOb19lcmNZYTd5MFJqNFJjQ3dHT0w3SWtCSm9GS3Z0eVF4V3lZNVBJQWJQR0JzSTJOWDk5cEwzaGFlVG90MTZ2MzdLLTdkWkViLU1XQ1MxM0hKZVduMEtwQ2tRSzF0ZFJ6bVJFeFpvX1NtQmpITWh0MWNPOW1Sc1FqZkJ0MkpkMXhJamlMWEZRTXhjUdIBkgFBVV95cUxNU0U0T0FjUzZEd016OWdLcTlqUVRiREI3Z3MzU2puTlZodE85b2VMVHRLSnFDNFVSN1RBZi16QzI4WVRyNVNEdi1FZWZpZWN0ZTFlQi1wdzU1WUdfdDAyeUNWck1vYXV1V2RFNTliYkFTZDBrcW1WSEdkeGlkWVhKSnE3cjBvWW05VHdiMTBrcnpLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcnBrTFMxYW9zUjlVWlBvQ3A0c3BQbWg5VEVYR01IeW53Z0t5ZWs2X1JfZ0xwS1N6X3lfUUVjY0VDaEdVQktEejl0THVxWDNXQzRDMjdDczdrdE1QcUVaSDBINjFjR2UxWWZZNkFXOTVtZGRPbHpIbEpkSTNTNjA1UFphU1RXS3VVYmpmUDNqSXJ1Xy1FTkFnZ09idXpoUGFkMk9rYWg5TmcyUm1PM3FSN2FzMnFpc2dJSkdRbGpn?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -576,76 +595,3 @@ Stories: 74
 - summary: Taylor Swift turned heads with her gingham outfit at her first Chiefs game since her marriage to Travis Kelce. The appearance highlights her fashion sense on a special outing.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQOGNEYmtwbFMwRFZWLXA2Yi00MUV4ZFYybDFMUmlQU1pVOTQ2eFNycFhOUGZvTWJ5bHJ2R2xVS0FYTEk3MmZQQkxoelFWRmlLSUNMVkRWSm53UXNuMnpPX1F2MEtPUkV6Y3F6eEhFcmg1UkNQdWMzU0tKbWZDZEZIMTJnZGdiLVljakc3SmJHNA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Spotted at Chiefs Game with Tom Cruise
-
-- first seen: 2026-09-15 20:13 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen attending a Kansas City Chiefs game alongside actor Tom Cruise, attracting attention from fans and media.
-- sources:
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNOGNjQnVfM0tmMVljaHoyV0dZUGNlbkJhS1NWZGFOVElxbEdxT2pEaTNpNWxoWVJDaUtPcUtfaVBKLVJIdlpaOGxOVF91UFBuRy1ZdnJhLTVncU54dHY2THhYUEdFckN3LUhQdWFDWV9OMUt2MmdpdFg5anVnWkRsbTBUQXJON3pzQ3VUZWhqUnk0aU45ZVBNNTJSYUhNWWNZS0E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Reaction Captured During Broncos-Chiefs Game
-
-- first seen: 2026-09-15 20:13 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was shown on ESPN reacting passionately while watching the Broncos-Chiefs game, prompting discussions about her comments at the time. This moment highlights her enthusiasm as a sports fan.
-- sources:
-  - [unverified] si.com — https://news.google.com/rss/articles/CBMihwFBVV95cUxQV1N4cUpvN2dtWXNuWFVPWTVYWVNINW5ZZEV3dGNpNldvSGlobTlya0RiQ0lZYkhzYjVxdHJCVG4xeWdsNXR5cWhLcjNqdVhsUGRCdTBSczZFZ2lIQUlMeUdzb2J3MVNrQ1kzY0VQNDVKZXduekw0TGtRYlNXNjZjQ0Z3cXpvcTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Chiefs Game in Fall-Themed Dress
-
-- first seen: 2026-09-15 20:13 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted at the Chiefs game last night, wearing a dress that reflected a major fall aesthetic.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMic0FVX3lxTE5pX3dlVFQ4eHhYeGJMVmlDa1NGQVY5Z2dqNDlVT0ZlUGl5aVJwY1NKb00zS3RQMnJHbTdHbU9vMm9yOURPaXRyWFF1bHRoQkl1d095MFhIY01qN1AzZUpwX1Y4RjN5VkxiTnA3cHl5RWVtcHM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Football Season in Gingham Mini Dress
-
-- first seen: 2026-09-15 20:13 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a fashion statement by showing up for the start of football season in a gingham mini dress by Guest in Residence. The appearance highlights her influence in both music and fashion.
-- sources:
-  - [unverified] Town & Country Magazine — https://news.google.com/rss/articles/CBMiswFBVV95cUxPVVVjRkRab1FGZklJRjZHRFBuWjIzSkFlcHh2c0lmd1ozNW9pbnhGS0EzeHpKSHlkZzFkRHhCbVViRFFVY2ZfN0dNNTdwS2VtREdxbTZXcW9ZS0dpV0ZWVXhoYzREcmxGZ0ZOQnN2Yl9GdndYNVk5akdtUUNYTEVYQXVkellRQTc4UXo4N1c2b2l6VHlIY0YxOGJiSzdxQ1hFTmZTUFdvVkctNGpUVE1SeEZ0QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts New Rose Lipstick in Photos
-
-- first seen: 2026-09-15 20:13 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift reveals her new rose lipstick in a recent feature by Allure, showcasing her latest beauty choice. The photos highlight the striking new lipstick that Swift has chosen.
-- sources:
-  - [unverified] Allure — https://news.google.com/rss/articles/CBMiZkFVX3lxTE1PS1IzMEtjTS0zWHpSeEJNcktJVFI2N1pKSFJjSm5LUENIQ1VfaC1jd1RfNUd3UGlGVUd2MnRSZTlncW5JS0lRYmRoSDBXNnRyeGZZdmdDaXNnMzF4VE9ySldCbDA5Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emmy Producers Discuss Taylor Swift's Surprise Cameo
-
-- first seen: 2026-09-15 20:13 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Producers Jesse Collins, Jeannae Rouzan-Clay, and Dionne Harmon shared insights with THR about how they organized Taylor Swift's unexpected appearance in a sketch featuring 'SVU' host Mariska Hargitay at the Emmys.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-features/emmys-2026-taylor-swift-mariska-hargitay-1236701852/
-
-## 2026 Emmys Features Taylor Swift in 'SVU' Sketch
-
-- first seen: 2026-09-15 20:13 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Producers of the 2026 Emmys discuss the incorporation of a skit featuring Taylor Swift alongside Mariska Hargitay. The event also addresses Swift's absence from the ceremony.
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMipwFBVV95cUxNVWQyU090M2txbmpzZ3k1dERxRnBYZWE4TmJuSVgtT1hHdFZqbC14VmNBYXFqNFZHLWp0Vk56ajc0TFNmOS12UDZJb0xZUzZNV3pPbnZ4bHF0M0I3c0lqWG1LZTRKTDJiWklFbk1ZTnZkTjh1dWdKaVFpU2ZsV3BlY1J6eFVUcWlOTnc0WHVvMExHMEdVQU5RU296eWlVSFBCWEVTY1VQRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Australian Bug Named After Taylor Swift
-
-- first seen: 2026-09-15 20:13 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new species of bug, named Swiftiephylus, has been discovered in Australia, honoring Taylor Swift. This naming highlights the cultural impact of the pop star.
-- sources:
-  - [unverified] Science News — https://news.google.com/rss/articles/CBMifEFVX3lxTE1PdHRZejVrN1RoTHg0Zml0LWp6WXFKTmwxamRZVWExT0drYU5ObFRNQ0h1NjlQQ3E5SkV4Y2YwM0lDVy13ZlFpWE96bUE3YUJYalZPYm12Qk9BbWtuNjJheEFpSE15UVMxZE9rT2dMVzh0TDdmczVVajZwbzk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Emmy Producers Discuss Taylor Swift's Involvement with the Show
-
-- first seen: 2026-09-15 20:13 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Emmy executive producers revealed that Mariska Hargitay's friendship with Taylor Swift led to her involvement in the Emmys. They shared insights on the ideas Swift contributed to the telecast and mentioned the show's runtime issues.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipgFBVV95cUxOc2NEekt6X09ja2lva1JsaXp1RzluNkVjSUlSQVd2Vlp5ZjJUaV9fSXBvalI0dU1lXzBheFU1Q196NElUSm92ZGhfdXl5R3BpbXhtUUVpLXdDclF5TW95N0RLaTNyN0I0SHRIdEl1V3QxLXpkVzA4ZjdyTGYtYkdWVWtPMXBKMTExWkZ4NjFxMEJPZkgzUFhDWUVDOUduQW5Tbkh0bXJR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-emmy-producers-show-behind-the-scenes-mariska-1236862920/
