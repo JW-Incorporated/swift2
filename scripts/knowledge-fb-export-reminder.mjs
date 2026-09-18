@@ -32,7 +32,20 @@ export function issueTitle(weekLabel) {
 
 export function issueBody(groups) {
   const lines = [
-    '@sffan15-sys — this week\'s Facebook groups export (proposal §4.7 / PLAN.md Stage 6). ~30 minutes, once a week, in a normal logged-in browser — never a bot (Facebook has no API for groups you don\'t administer and prohibits automated collection; this is you, manually, saving pages you can already see).',
+    '@sffan15-sys — this week\'s Facebook groups export (proposal §4.7 / PLAN.md Stage 6).',
+    '',
+    '**Automated path is now available** (kanban t_5cb288d0, docs/decisions.md ' +
+      '2026-09-18): `npm run knowledge:fb-group-export` drives your own already-logged-in ' +
+      'Chrome profile on your own desktop to do the scrolling/saving for you, paced human-like. ' +
+      'See `scripts/desktop/fb-group-export.mjs`\'s header comment for one-time setup (Playwright ' +
+      'install + pointing it at your Chrome profile). Once it runs cleanly for you, this issue ' +
+      'becomes "run one command and check the output" instead of the manual steps below.',
+    '',
+    'Manual fallback (if the automated script fails, or before you\'ve set it up): ~30 minutes, ' +
+      'once a week, in a normal logged-in browser — never a bot (Facebook has no API for groups ' +
+      'you don\'t administer and prohibits automated collection at scale; this is you, manually, ' +
+      'saving pages you can already see, or the paced desktop script doing the same thing on your ' +
+      'own machine under your own session).',
     '',
   ];
   if (groups.length === 0) {
