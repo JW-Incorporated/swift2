@@ -7,6 +7,67 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-18 — Supersedes 2026-08-11 §1 in part: Joey's own desktop, own logged-in session, human-paced automation of the weekly FB-group export is allowed
+
+**Decision (Joey, dashboard, 2026-09-18: "This is fine. Go!"; kanban card
+t_5cb288d0).** The 2026-08-11 entry above ("We do not build a bot that reads
+Facebook groups — by any means") is **partially superseded**, narrowly, for
+exactly this case:
+
+- The automation runs **only** on Joey's own personal desktop PC (the same
+  machine as the `home-relay` Tailscale relay, `100.74.255.21`), driving
+  **his own already-logged-in** Chrome/Facebook session — never a service
+  account, never a burner, never a headless/cloud runner, never anything
+  reachable from this sandbox or `computer_use`.
+- It replaces only the **mechanical scrolling/saving step** Joey was already
+  doing by hand every week (open group, sort New, scroll ~7 days, Ctrl+S).
+  It does not add **reach or frequency** beyond what Joey's own manual
+  weekly habit already carried — same account, same groups, same weekly
+  cadence, same "logged-in human member reading what they can already see"
+  shape. It does, however, carry a residual **account-enforcement risk a
+  manual click does not**: Meta's detection stack can flag an automated
+  driver (Selenium/Playwright fingerprinting, not just request timing) even
+  at human pace, a risk the 2026-08-11 entry already named for a crawler
+  generally and explicitly did not consider solved by pacing alone. That
+  risk is accepted below, not waved away.
+- Paced human-like: randomized delay between every scroll/click action
+  (reusing the `home-relay` skill's precedent of "freshly randomized every
+  single call," widened here to a slower range — 3–15s — appropriate to
+  reading a feed rather than firing an HTTP GET), never a fixed interval,
+  never batched.
+- Everything downstream of the captured HTML is **unchanged and still
+  governed by the 2026-08-11 entry in full**: `fb-export-ingest.mjs`'s
+  redline screening, hashed authors, leads-only (never a source), no member
+  names/photos/quotes ever entering the repo or a GitHub issue, no
+  auto-publish. This decision touches only *how the HTML gets captured*, not
+  what happens to it afterward.
+
+**What is explicitly NOT superseded (still refused, per 2026-08-11):** no
+Graph API use (still doesn't exist for groups), no crawling of groups Joey
+is not already a personal member of, no anti-detect browsers/residential
+proxy evasion program, no burner accounts, no automated *posting/commenting*
+into groups, and no change to the privacy/redline/leads-only rules governing
+what may ship. The account-enforcement risk this entry accepts is bounded to
+"Meta could still act on a script it detects even at human pace" — the same
+residual risk 2026-08-11 flagged for a crawler generally; Joey has weighed
+that against ~30 min/week of his own time and chosen to accept it for his
+own account, not to hand the choice to an agent to weigh on his behalf.
+
+**Why now, not a reflex reversal:** the request in HUMAN-ACTIONS #70 was
+Joey (not an agent) explicitly rejecting the manual-forever framing and
+asking for the tool to do the physical clicking on his own machine, under
+his own session — a materially narrower ask than "build a bot that reads
+Facebook groups," which is why the classifying Fable ruling
+(`fr-20260913-t5cb288d0-01`) required a written human confirmation before
+any implementation could proceed, and why that confirmation is recorded
+here rather than only in a card comment.
+
+**Approved by:** Joey (dashboard, 2026-09-18). Mirrors the format and
+narrow-scope precedent of the home-relay "Scheduled/bulk automation is now
+allowed" supersession (2026-09-06).
+
+---
+
 ### 2026-09-15 clarification — verified approval relay
 
 Implementation exposed a mismatch in the M8 design: Kevin accepted only direct
