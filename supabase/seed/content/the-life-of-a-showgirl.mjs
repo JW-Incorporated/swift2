@@ -12466,6 +12466,103 @@ export default {
       },
     },
     {
+      // Authored 2026-09-19 from intake #4459 (Vault Run, Content Shift lane).
+      // Chart/professional milestone; Billboard is the chart authority, meeting
+      // the >=1-source bar. Kept DISTINCT from the Adult Pop Airplay record
+      // above: this is the REGULAR Pop Airplay chart (both happen to be a "16th
+      // No. 1," a coincidence the sibling entries already flag), so the prose
+      // names the chart explicitly. Two facts verified before writing: her
+      // record-extending 16th Pop Airplay No. 1 (she set the mark at 15 with
+      // "Opalite," cited above and in the top-10 item), and the 52-weeks-at-No.1
+      // record passing Katy Perry's 47. The song is the Toy Story 5 original,
+      // not a Showgirl track (same correction as #909/#1133). Dated to Sept. 18,
+      // when the Billboard chart-beat piece broke, not the post-dated Sept. 26
+      // chart, so it sorts to when the news landed rather than into the future.
+      // billboard.com is bot-gated in the run environment, so the primary is
+      // cited by URL and corroborated via the Yahoo syndication of the same
+      // Gary Trust chart-beat piece, which loaded and confirmed every figure.
+      // Clean on the privacy redlines: her own chart record, no third parties,
+      // no location or private-life detail.
+      slug: 'i-knew-it-i-knew-you-pop-airplay-record',
+      // Cross-link: the same song's sibling chart-milestone and Oscar pages.
+      relatedIds: [
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      year: 2026,
+      month: 9,
+      day: 18,
+      category: 'music',
+      title: '“I Knew It, I Knew You” tops Pop Airplay — a record-extending 16th No. 1',
+      snippet:
+        'On the Pop Airplay chart dated Sept. 26, 2026, Taylor\'s Toy Story 5 song reaches No. 1 — her record-extending 16th leader on the tally, the most in the chart\'s history, and enough to push her past Katy Perry for the most weeks ever spent at No. 1 there.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-pop-airplay-chart-1236343347/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard\'s Pop Airplay chart tracks spins at mainstream pop radio, and it is the format Taylor has led longer than anyone. On the ranking dated Sept. 26, 2026, "I Knew It, I Knew You" reached No. 1 — her 16th leader on the chart, extending the all-time record for the most Pop Airplay No. 1s that she already held. She had set the mark at fifteen with "Opalite" on the chart dated Feb. 28, 2026; her Toy Story 5 song made it sixteen seven months later.\n\nThe milestone carried a second record underneath it. Across all of her Pop Airplay leaders, the No. 1 lifted her career total to 52 weeks spent atop the chart — passing Katy Perry\'s 47 for the most weeks at No. 1 in the tally\'s history. And it was the regular Pop Airplay chart\'s turn at last: the same song had already broken the separate Adult Pop Airplay record weeks earlier (where its 16th No. 1 surpassed Maroon 5) and topped the all-format Radio Songs chart, and back in July it had climbed to No. 9 here — her 29th Pop Airplay top 10, one shy of Rihanna\'s record. Now it finished the climb at the top of the same list.\n\nThe song keeps outrunning its origin. "I Knew It, I Knew You" is not a Showgirl track but her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff — a movie song for Jessie the cowgirl that has led Country Airplay, debuted atop the Hot 100, and now extended a pop-radio record she has been building for close to two decades.',
+        sources: [
+          {
+            // Primary: Billboard's chart-beat write-up of the Sept. 26 Pop
+            // Airplay chart (Gary Trust). billboard.com is bot-gated in the run
+            // environment (a tollbit paywall redirect), so it could not be
+            // loaded directly; every figure here was confirmed against the
+            // Yahoo syndication of this same piece (below), which did load.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-pop-airplay-chart-1236343347/',
+            source_title: "Taylor Swift Extends Her Record for Most Pop Airplay No. 1s With 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
+            reliability_score: 5,
+          },
+          {
+            // Accessible corroboration: Yahoo Entertainment's syndication of the
+            // same Billboard chart-beat piece, byline Gary Trust, published
+            // Sept. 18, 2026. Loaded directly and confirmed the chart name, the
+            // Sept. 26 dated ranking, the record-extending 16th No. 1, and the
+            // 52-weeks-at-No.1 record over Katy Perry's 47.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-extends-her-record-162207864.html',
+            source_title: 'Taylor Swift Extends Her Record for Most Pop Airplay No. 1s',
+            publisher: 'Yahoo (syndicating Billboard)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
+            reliability_score: 4,
+          },
+          {
+            // The underlying Billboard Pop Airplay chart dated 2026-09-26, cited
+            // to the dated ranking rather than the live URL, which rolls over
+            // weekly and stops showing this week's ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/pop-songs/',
+            source_title: 'Pop Airplay — chart dated Sept. 26, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-09-19',
+            reliability_score: 5,
+          },
+        ],
+        // Visual (charter step 3b): the official "I Knew It, I Knew You" music
+        // video thumbnail — the same asset the sibling chart moments carry,
+        // curl-verified HTTP 200 image/jpeg and vision-confirmed as Jessie the
+        // cowgirl, the character the song is written for. A chart week has no
+        // photography of its own; the official MV frame is the connected visual.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that became her record-extending 16th Pop Airplay No. 1.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-08-17 from intake #2208 (Content Shift).
       // Verify-before-write (charter rule 4) corrected the ticket: it framed
       // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
@@ -12574,14 +12671,14 @@ export default {
       day: 18,
       category: 'music',
       significance: 'notable',
-      title: 'Nine VMA nods — and "The Fate of Ophelia" up for Video of the Year',
+      title: 'VMA nods rise to eleven — and "The Fate of Ophelia" up for Video of the Year',
       snippet:
-        'The 2026 MTV VMA nominations dropped and Taylor pulled nine — second only to Madonna\'s eleven — led by a Video of the Year run for the self-directed "Fate of Ophelia." Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
+        'The 2026 MTV VMA nominations gave Taylor nine at the Aug. 18 announcement — led by a Video of the Year run for the self-directed "Fate of Ophelia" — and a later social-categories round lifted her total for the year to eleven. Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
       sourceUrl: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
       thumbnailUrl: null,
       moment: {
         context:
-          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.',
+          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.\n\nA month after that first haul, the count grew. On Sept. 18, MTV opened its fan-voted "social" categories for 2026 and Taylor picked up two more nominations — The Life of a Showgirl in the album race and her Toy Story 5 single "I Knew It, I Knew You" up for Song of the Summer — lifting her total for the year to eleven, per Yahoo Entertainment. The additions don\'t move the night\'s headline stakes: the win that would pass Beyoncé still waits on the Sept. 27 ceremony.',
         sources: [
           {
             outlet: 'AP News',
@@ -12599,6 +12696,21 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+          {
+            // Sept. 18 social-categories update (intake #4460, Vault Run). Yahoo
+            // Entertainment's tally, loaded directly this run, confirms the two
+            // added nominations and the rise to eleven. MTV/Billboard carry the
+            // authoritative social-categories list, but billboard.com was
+            // bot-gated this run, so the loaded Yahoo piece is cited for the
+            // update rather than a list URL that could not be verified here.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-receives-major-career-063441793.html',
+            source_title: "Taylor Swift's 2026 VMA nomination count rises to 11 with two social-category nods",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
             reliability_score: 4,
           },
         ],
