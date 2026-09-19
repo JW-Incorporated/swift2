@@ -25,7 +25,64 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 63
+
+## Travis Kelce Discusses Wedding to Taylor Swift on 'New Heights'
+
+- first seen: 2026-09-19 16:25 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared his reflections on his wedding to Taylor Swift during an episode of 'New Heights,' highlighting a particular moment he wishes he could relive.
+- sources:
+  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMi8gFBVV95cUxQUjBlR1Y2bzlfNUdBTm5teGUyX2tGenZPdmdjeW5Dbk1xYjcyVUJDSVJhRHFsTlJ6TC1Wdk1yaWg4MTZvSTdLblF2UUM1OUFTTVBmbndyd1BNcktHNno4SjZxckJtU3JwYnZDU1B1Rm1ndTNCcTFuRnV5RmNuSEJ1ZU1DUXVGRElKLVVDZEpQVmJQOG9SZnliS3VpQ0I0dlg0MGl3d0RtS0RtY0VqMHpYUURiWFEzcy1JSWg5R3U2WFM2cVRIN2pZdnUwbDluVllQVVpvT3hIcWJHZWJON0FVamZqNmc5b1lMR0dHc3doVjU0dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Anne Hathaway Sports Popular Shirt Trending in Hollywood
+
+- first seen: 2026-09-19 16:25 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Anne Hathaway was spotted wearing a shirt that has gained popularity among various celebrities in Hollywood. This versatile piece is deemed suitable for any season by fashion experts.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxORG42c09xdHJWUGs1bU9WOHU2Q2YyanlHc01YTU5jOXU4X3VXbE9IOHlMNjQ1QmM0TGZUT2pDYTBOTFFtMU9XaDFyMzV3YW9qZkJycVFweU5PaW5ZbDJRNUtBMEpUYThRX0V4RU9oNkN6QkJHelczSG5lazZaNkdyXzVLWklLVUo1aWc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Stylish LBD for Date Night
+
+- first seen: 2026-09-19 16:25 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased a little black dress during a recent date night, highlighting fashion choices for early fall. The outfit received attention for its trendy and versatile appeal.
+- sources:
+  - [unverified] Miami Herald — https://news.google.com/rss/articles/CBMib0FVX3lxTE5vMndQaE8wM3c0dGdyLUNUWjlTeXVUaS1oaFBkMW5mejd2cThxbzNXTHlmS0dKOE1yVDl5Smw5eUszS1hIQ3NXN2FQYUpHRUo5bEJua1ZTYy1VY3JFWHhYYVkzSVhkMlJsZXptZEFGMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Featured in Emmys Coverage
+
+- first seen: 2026-09-19 16:25 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A new weekend read highlights Taylor Swift's cameo at the Emmys among other stories. The piece compiles various interesting narratives from the past week, focusing on events like the Emmys and notable figures in the entertainment industry.
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMijgFBVV95cUxNNkEyYXIwQ3ItMG15M0picWhzM00wXy1LYWhtV01UMlpJZzRaNGFsQUJ6WkM5anVLVUU3WFlkSjJsYnF4V25mWE5FWG00UDQxMlNwc3MtaExuOWhPYldTZmNiMHpZXzByWS1hOUNXd3hVWGhnUmVSRmUxenQ3OWp5VjFMU20wSnNCR1M1cWJn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/weekend-read-resident-evil-taylor-swift-emmys-misty-green/
+
+## Taylor Swift's Unique Ingredient in Chocolate Chip Cookie Recipe Revealed
+
+- first seen: 2026-09-19 16:25 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Allrecipes features Taylor Swift’s chocolate chip cookie recipe, highlighting an unexpected ingredient. The recipe adds a twist to the classic treat, showcasing Swift's culinary creativity.
+- sources:
+  - [unverified] Allrecipes — https://news.google.com/rss/articles/CBMidEFVX3lxTE5xRGJBMVd6LWdPalZZdWh2MHI2ZGduRExiRWZXRUZ0dmtTeEVMWHNNVDJLQzBjRGdxdHFPT3pld3J2RjlySWZ5am9RZDE5WmxMRjRVdnVGaWExaERSWDNOTjQxM0lyLV9JUjdSQ2xGQTBwXzc5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Helping Tom Cruise Find Love
+
+- first seen: 2026-09-19 16:25 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly on a mission to help actor Tom Cruise find the right partner to fall in love with. This initiative has sparked discussions in the media about her involvement in his personal life.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPM1lNUEpwYUJLZjhiZUhGa3M5U2ExRDlzT0ZIY2VFM3lqR191YnRleWZRbW9UbEJkT1JScmstZTBkTXFzR1VYV3BTWGNmMy11LTJLMHJxNjdEX05xRUhDX0k0T3V1ZndvRDFHcWJ3NWV4OTliSEh4WUdyNmg2ZE8yZ3dMWTFoSnJIckkxNW1qb1BZczVrZmdrY3VYMm1JUFBxRl9VMWpydVk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Tom Cruise Praises Taylor Swift's Football Knowledge at Chiefs Game
+
+- first seen: 2026-09-19 16:25 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At a recent Chiefs game, Tom Cruise commented that Taylor Swift was 'schooling him' on football. The remark highlights their interaction during the event.
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMiyAFBVV95cUxPUFF5amZORWFYRDFBM3hEM1BCR0YxQzBfMjB2SGlVQ0VwSUl4SW9HamE0OUdGTXhvaVhad3FOaXdEQmRSbDdOV054Uy1EWjdGNWR6dlpYdklqWkdFZmpIc2NiNGQ1OE1KVVVTNjBBSGFjRHdKYXh3dWNSc0Vwdzk3VmQzZExHcGtPZUlaLTdZOGExOUJIYWNtRFh4d0lnbzIyenBTVzVTaWxJUXpxT3JNdW96Y0FBdWNITzBPZ1Z6RmNkOENHQXplYg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift receives significant career news before Chiefs game
 
@@ -204,14 +261,6 @@ Stories: 66
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinwFBVV95cUxQdnZ4S015WGlndEV2OVM1cUdIMGhCR00xZ3ZWYWVFSjN3YlR2LUNFbThScWpVemZHZ1VESGQwd2dsajRFQk9QZU1QYTFkQVFoMVp0NGJsNzBTR3dBcmpCeHlsV3dOcmw0bHNBQnBJV0x0VnAtaUc5TVhMMnlRcUVkQmZnZ1VwTFdpSEU0WkN3ZVRZMEJwc29BdUI3akNEdE0?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Wears Affordable LBD for Date Night with Travis Kelce
-
-- first seen: 2026-09-18 05:52 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen wearing a surprisingly affordable little black dress during a romantic date night with Travis Kelce. The outfit choice has garnered attention for its blend of style and accessibility.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxQMmFDaVRMYWNoR1RaYVJXcjFKWTdsSDVaU3ZCaXhEYjdFVXRSSDFhRzN0YUFCTnJTOEcxZ2tUcGZwenhsVmNOeWZ1T3pVczBhVDdGTC1JeGo5NHZQRERuSldlY2ZheGUzT3NpaTJ6cGRfSVJOc0JucEt6bkNkSUZCcFRUckRuUHpzOHowbFRDSjJOV2ZXM3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
 
 - first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
@@ -242,6 +291,15 @@ Stories: 66
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTmQ4X1A0d2ZyclJlM0FNTWx5cFViYTZmdG5CQlBsZFBIZFhyTkp4Q0Q0SlBqM2FsVHJyY0tBNmM4NjRoeDRvNUZnam5ZU1JPUHVabnBGYkg5ZUxUaXBXbTNOQzFWTFY5Q3RBMk1EYWpjMU4yMngyUC01amF5WkVWQU5LZjNmVVNHc2phYXJXaXdmZXpDSFo2RFppVVhwcnBGRHBHNEpHQzZ2aFliTHMzRENzcVhRNTUtVGtSTm11X3V0Qm5feFRPYWVaZl8?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaExZMjhhTzBReVpsRHpGYjY4LVB5SC13Nm5kZTRPcy1qZVpaSThBeEtld3cyaWlxdlVDSEItalpXNFZ4YUl4UVlGbDE4TmtCM2NuRUFBajFWaVBMQlFPOTVNY1RlYVJsNldvMUU5N29xWlVGUDZoZzNuZEtiQlg4TVdfWHVJUldQcHE2YXBFZW81bG44X0lmaXFMOWVnRlhwRlpwVk5xTHM?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifEFVX3lxTE9KcTNMRW9FWUUxV0lKZjhJeWhveGhuTjZsNDVmN2c1YTBmamVCbDFlWFRyUnZxdG1KUDFKMnpyYVhNeXotLWhMdVJGYndXOGJuTEM0ei16cGdaUENtTDJrLVZrb0lJdEQzODRjLWxqZVE5eHIzN1g5SDRYLUk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Affordable LBD for Date Night with Travis Kelce
+
+- first seen: 2026-09-18 05:52 UTC | category: fashion | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift was seen wearing a surprisingly affordable little black dress during a romantic date night with Travis Kelce. The outfit choice has garnered attention for its blend of style and accessibility.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxQMmFDaVRMYWNoR1RaYVJXcjFKWTdsSDVaU3ZCaXhEYjdFVXRSSDFhRzN0YUFCTnJTOEcxZ2tUcGZwenhsVmNOeWZ1T3pVczBhVDdGTC1JeGo5NHZQRERuSldlY2ZheGUzT3NpaTJ6cGRfSVJOc0JucEt6bkNkSUZCcFRUckRuUHpzOHowbFRDSjJOV2ZXM3c?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPeVI1cDFXeWtRVnpvNWw5cUJhbFVOOUc3VEM3VXNIeGZwWU1zQXphM2ZsX01samZSc3NkRHM1NHBXUDFOYXNTaEZqY1BGS1lQdDNpYkN2MUU2czd6bGlhUFBRamRsQm16TWJCZWt5N0M0ZmNtdmpoVFdRMlVLeHNCRUx0QlZXV0p6ZjZEbHUyM1BORXljQ2Mzb05kOGFIbWZyZkRmcy1DdmFGRmJudkdldFp3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Kelce's Daughters Have Adorable Reaction Meeting Taylor Swift
 
@@ -502,85 +560,3 @@ Stories: 66
 - summary: All of Taylor Swift's music videos, from her debut 'Tim McGraw' to recent 'Opalite', are now accessible on Spotify for fans to enjoy.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMioAFBVV95cUxOemwtMmI4U291WS1BZGhWa3dMNDBFclFnWTVPRGV6UFFmcjVIU1ZWb3Y5bTNPdnp0MzkzOHluV3dQN01IWnB2eFlJZk1qSEJzcE5tRmhHTm80VDFFeXQtTkxYanM0MEUxdGUwRFFVWWprTGU2X2lvWG9meVFXOWJQaFhKY3lab29wNlkxVm4wUmxzcHZGNm14VW05XzlVdkdr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring Rare Sports Moments Featuring Taylor Swift and Kanye West
-
-- first seen: 2026-09-16 14:10 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article examines the rarity of positive interactions between the Jets and Giants, referencing Taylor Swift and Kanye West in the context. It highlights the unique moments in sports culture.
-- sources:
-  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNT1ZnNGphRG15QlZ3ZUdCcVF2NU5kX3VuUHNGeE5YZ3JycHNxMFVSLU9vNEYwZDgtVVUzcFhFbXE0MThxN0x3Y3EyckNJcGpYejNabUNLVDJ0RnR5NXRvQUE1ZEhIdDZKcEJYdDFwMlpKcGpaZjFfbHdSdFpZYXpWYV9qTC01SGlxQWFFUWJ6c25UOEdkX2ptTktPYUNjUWVnbEJsWWhMbkE2T0NjTE0wNW51NmlncEI0bGlZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Details About Taylor Swift and Travis's Wedding Revealed
-
-- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The article discusses Taylor Swift and Travis's wedding, highlighting elements such as the designer dress and notable attendees like Adam Sandler. Insights into the event's arrangements are provided, showcasing the couple's celebration of their relationship.
-- sources:
-  - [unverified] bbc.co.uk — https://news.google.com/rss/articles/CBMiXEFVX3lxTE1LZU9fRnJjWUtvd3NXYm55TFYtME1JLVdCamE4WEdGTHhJVEtKS0k2T3JxckViRmhkN0RIaW02SXdWZ21nUzFESHEtRXpvN2lQcUNrMnNGRDRSMjFj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Secret Appearance at the Emmys and Gift to Cast Revealed
-
-- first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise appearance at the Emmys, where she gifted the cast of a show. Details about her appearance and the nature of the gift have emerged in an exclusive report.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMimgFBVV95cUxOR1RqZFBRNGU4QnFKTnpaRE1SQ3RqTm9tTFkwLUJDWVlJUUFZUFNwRnVpR21yWHloWmcxcGsxckh3VUNLZ3Nvb203LVMwNWlpNXVDZXBtOUw0Ymt0QmlFT0hkTE42bGhoaF9ld2o3Z0dMRmZkVGhYYVYzUmljTUtneXYyTlluTWF6UDRzRmtnVFdJSG96WjM4Tkd3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Spotted with Tom Cruise Amid NFL Coverage
-
-- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: After Travis Kelce's historic game, Taylor Swift was seen with Tom Cruise, highlighting their friendship. Meanwhile, Swift expressed frustration at NFL cameras focusing on her during the broadcast.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNb0I2NmtpQjVzOWdoWEF4VHh1V3YzMkRPa19PZXdVVTlia3RJZ2NvMkwwVzhwek02SHBjd3JrNGRJY0puUFNGZUQxcEl1NDN4UlhNTFY0NDdHUXJFNGh5OTBfbE0zbUhPVGVnX0JwZkh2VkFrWFdPYVVjUTd3a05HRW1lSnNYWmN5UEpEY0hKcDMtT3Vib1ZoejhNZ0xxb2ZKQm5BNA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Surprises Young Fan at Kansas City Chiefs Game
-
-- first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During a Kansas City Chiefs game, Taylor Swift had a special moment with a young fan, creating a memorable experience for them. The interaction was highlighted as a 'once in a lifetime' occasion.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNRDRLTW5VRVREUUFKZEFURXUzaTJOTTlwSGdJMGxIM0xyXzF2akFPM3hhNk1uNXU3dHBaMl85Z2p4ekpqLUp4Qm45MlFWak0waUhOZkIyVkwxQTBCTUgzVWcyYmdwaGtadklhTnBzZm1FWmR4ZDNPNzJEaEFjS3NEakdTTzFNMTJp?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jason Kelce’s Daughters Have Sweet Nickname for Taylor Swift
-
-- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce's daughters affectionately called Taylor Swift a special name when they first met her, highlighting their warm interaction. This moment reflects the charming relationship Swift shares with fans and their families.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQcWM4cU84RkRXRUl1TUpfYkRtNFVPdExSRFVGWnVRdURsOTdGdWNMRWNvOERfc1p0ZXNkaVRYYjNjWkxTTlBuT05rNVc5UnBZdGh4YnZpUWFiMEphcVM3MWJCc3pGUjZsRDlLenBrSmVDRVhQSFpoM3Nwb1ZwYXRsUXU4Q0EzSVBXTjRhUXAwbVNmVTQ1UTl3NTBuZnVZUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Celebrates with Hollywood Superstar
-
-- first seen: 2026-09-16 14:10 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted celebrating alongside a notable Hollywood superstar, as reported by Cleveland.com. The details surrounding the celebration remain undisclosed in the article.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPcmYyNm44T3JTdUZObFdlMEdRMTVXVUl2RWZGZFRJXzJXai1udzh6ZzJKUGg1SDhsLUVTUWV4bnRFR1pfZi03MDBpXzZBWEJjMUJkak5zNFRCeTFOSFNBNFI1NnJzTEFxOWVRYTRQRzlZWnU0MTZtV1Qza3BzX3Z0eV9LZWUzSW0xbUJBUm5Fc3RmaTZUSzEtM1VIQ29hWWxzTnd5YXpYeWRiVHlkWG1B0gHDAUFVX3lxTE4xN2sxMEJBN1NlbzU2ckd0Njl2YkJXQXdkbWhCY2tZZktjejNkMFMzZExUSWRWd2RISXNxckpoV0lQNlpmYnR1dlFRb3ZvODRPd0UwaVhJQlZSMEk2Q19WTFY2QkZnUTNoMmRtd1J2bVA3dXRpcl9uRDBiRGkyc3BHVUlZYXgxQ0txcVVjZjJHX1JIR1Awdk0zaHdQQmh5X0RhTDctZXJKVkdpdFBsODFOREwyeEZJVmw2QkY0cTFOcExjSQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discussion Surrounds Taylor Swift's Possible Pregnancy
-
-- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Speculation about Taylor Swift's potential pregnancy has sparked conversations among fans and media, raising interest in her personal life. The topic reflects the public's curiosity about her relationships and future plans.
-- sources:
-  - [unverified] MyStateline — https://news.google.com/rss/articles/CBMinAFBVV95cUxPbTVmaDhLaXdhNFdCSEkzNEJZdWpqTTFiMFZROWlvTzNWVTJ4OWQyUk9ZLS1ab1lob2ZleEs4WGdhSC01YkZWWmN5SVJic0xILUF4c09FX1BhVHpvcFRtWTZ2d1I0YmpWRFEya253RUhaYzg2WDlWamVLQlVSVmk2bFI5OXhBaV8tM3VrbFByZUh0NlZKV2lqQjBlZkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Swift and Kelce Emphasize Privacy at New Ohio Home
-
-- first seen: 2026-09-16 14:10 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce are reportedly taking extreme measures to ensure their privacy in their new home in Ohio. The couple's efforts are highlighted in a recent article by the Cincinnati Enquirer.
-- sources:
-  - [unverified] Akron Beacon Journal — https://news.google.com/rss/articles/CBMi0wFBVV95cUxQRmI0Njg4R0wwQ0dBWU1KaXRwQTVSY3h4S2tJS2NvaTBndDQzZ2lEbUFHckNkSmVILUppbjBjREFvZmxxWU5PTml4aTZVSHVHcXg1R1RvWUZQTC00ZmZXWEVRMGtEdUQ2T2pzcjB1ZXFhTHRJaGJDU0R6M3hScWFDYXR6UzU5X3BjVmhMLWJudEVxcUY0XzJXUmtQYmM5MERjMjZIYW5SaWVaX0JOd245SGtTS185dkNIUHZUTXNKdHp1Ylh0ZUhlYmt6YVRLb3A0LTJj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMizwFBVV95cUxPWU93NjZiVzJqSDEtZjFlRGhCaUlDNm8wcVNfeXA2WU5tWTFqNjRuN2VLUHhZLXgwREl4a0xyMktaanBnaHNROXlnbVlBSTJ0NFhac2huYVhQb1RBODJ2MS1zQXR2VjdtUXBEODk0VFZPQXhlLWotNkZUS3RzblZwQmdXdjg0V1pMaVVBd1R3MGhRb2UzWlFQeXhzOXp1MnhUdUJOM19ZN0VVeFhRRjBJb2FmbDM1MDhOalYteklEc2tlSjFMV0JMQjVHcnNMMHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Features in Emmys SVU Sketch
-
-- first seen: 2026-09-16 14:10 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift made an appearance in a sketch during the Emmys, where she included hidden Easter eggs for fans. This playful inclusion has attracted attention and adds a fun element to her participation in the awards.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMipAFBVV95cUxQdGEtTnFhLUh1TDV6bHVxVE40YVlzQzN3UlI4VDN6c0QzampJa1VYbWdTNkVLOWtnb3BHdl85bmV0LUlfbkZhOFl3RE1GTC1STmNpQTdEYllyWE1JV3NqOGdKVXZtaktxRXZkVlE4MDM0YTZRbVR2ZzJxcHZScGEwZ2RMaG5UVE5Ja3RaWFFHdEZiNHpRZmlMNldPUktiX1NEa25yTA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUHJoMXF5cWhURjNjalZmYXF2a0lmVVplUlZDc2FOLUpkSmxrNHdkWUZYQW1SWHp5WkNXRm0xTnF5cFR5T0dlc3pXc2ZDV2hVdXFJODM3YjZsenRORzZEb2szYXNRMGNEajc3MFpPeVFNRFVpQVY1bENrTmNDQ1VubXo1OFRWZkVzY3RsSHFqMDFlbkptLS1ERXNtTVg1Rzdxanc?oc=5&hl=en-US&gl=US&ceid=US:en
