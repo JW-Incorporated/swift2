@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 63
+
+## Understanding Taylor Swift's Emmys Easter Eggs
+
+- first seen: 2026-09-19 05:48 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article explores the significance of Easter eggs in Taylor Swift's Emmy appearances and their potential meanings. It also addresses other related TV questions regarding the artist.
+- sources:
+  - [unverified] TVLine — https://news.google.com/rss/articles/CBMivwFBVV95cUxQY1lSZmNrVWhxQnltNWhfQ3VBazNjalMwTXIwdmJSeThTdE5QbzdzM1MxUHNkejJXZUZrUVlmMVBsQ3pNenZ1cWdGSC0xS2drRzlkX2hNczEtU0RMQWFReDhKMkFNZFZ3ZHIyWGhzMHRqU3VUbGJaNC1pcDNYOG1KT3dFOGlXTE9JM1JFemNJZzBsZVRrUjRrXzgwQUV3azVqNWI4UEFKN0xOTllNZm91TEd5OUNmbFlJbTV5aHJGVQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Remains Silent on Ed Sheeran's Recent Controversy
 
@@ -171,9 +179,10 @@ Stories: 67
 ## Tom Cruise Speaks on Taylor Swift Football Photos
 
 - first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Tom Cruise has addressed the inquiries surrounding the Taylor Swift football photos that became a topic of discussion. His comments provide clarity on his connection to the viral images.
 - sources:
+  - [unverified] CBS Sports — https://news.google.com/rss/articles/CBMidEFVX3lxTE5PQWdCN1l4VXVTQlRkSzZUYXlIbVkyc25ZV19RQUQ5d0haRHBRUklfN0VsZHcxUTZKamE0aU9NeGlheGlkejM4UUpPUDA1YThETUFrTEgxVGpybThaV2xzSGJ3T3dxbTI0WVBmRXFZSTN3aFo0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Gossip Time | Allie Jones — https://news.google.com/rss/articles/CBMifEFVX3lxTE5XZWhwb2tzWTV0MGg0SHRmeWlwWXFzNWlTN1MzZ1RWU2s5SFdNWUo5Z3phUF9wajJ3XzZOa2FiSGpNdG96Q05ySTFDYkVKWTJCLWw1SHNQQmNKWGcyNTRueEdrQ3BLRUVUZTN0YURzUEd2dU9MM09STGRDTmg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC 6 South Florida — https://news.google.com/rss/articles/CBMi2AFBVV95cUxQcm1hWHFNQURIQUNPNms4UEJGd2tmVWFDQkFKZzV2eFNLVzYtMHBBMXgxWmNiVTZ2NWxMNXhGVnltUmJ3aXNIT0Jvb2Nhb3VfSHVod29UYXZOSUlpOHJEQXhCMTV5M0RmclNIUURaNGhSZ19Yd29kN1l0NVlxWms5RU9HdVc2QTh2bW13dVVmTWJRZFdHdDNleWFhV0N6WXNKb2VZcGE5MW1VQ0xSbWJycmRtem9SUURIU1lxQW9uQmtmVHBpaGVJcFZveWpRZTFEMWU5UndNek_SAeABQVVfeXFMTndncFREWFd1ZVNGbWVXVVAyRDQ4TG11ak5XcjFwUktJZllBX0tPZVNKN2pwemU4dGlDZmJPUTBaSVhOTUhSc0dZbVlvMllvNnV5ZF9hbjh3RUx4UXlGblhzbkJBNjhES3RVRUQzMXJlQWNFOTZmNkNFaDFOQ2tKYzIwb2V3RzRFdXNBVUJldlpaTERpM1BwRkM3WXAwcVo2OER2eU9FUkJub3QyY1YxWVp3NE5LQmlIVVpRbDk1WGJPa1ZqczNtdHZ4R3h4WU5ETlhiTGJlVHpJblNpOGRBOVA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWGt3TW5BZ3lkVVNYSHBQeDdOTlZxakk1Z3R2VHVRcHhJRkVKMFJjS1RFZ3dpU2pSSE95S093aUxscTZ0YjNyMUhYR1JJUVExeTZySjZPdHprcnNncFhXUXlYU3Z1Mi1URC05UE9FNWJ6T1hvUEEyRXBlZE1LQUJvNUZ5ZmpwNEdjaGNLYkxxV2IxWXlwNnNyMEdLSkNWXzFPSkZqNEJqSlFDR2ZuTjJ5OHZIbzFJU1VKNS1KZUJkSzdiTnVTZllHcHZTa25aU1VSbjJuNmc4ekhEVHpt0gHkAUFVX3lxTE52OEVHcnhjRTg1RzMzNW5FWmlDTW9SbjQwUXVyNmNfUkM0NWRuckVtZVRTa080NzZsbnRQQjNKbmhvRDdRQl8zSVRJS2pyQmxfcDRDQkEyZjhZWXVGczZpYjRKRGx2UTZiU3haYWc2emdpV245bEx3eGRtZnZveWZ5U3FKcnNaaFlTeU5oUWJpSm9OZ1lUWXpGb2JLcG9Ha3hHZkRabUFMUTBMTnI2anlJam1kcGpDY3ZXLXlZUmVMc0lUSVhDeF9kb3g1aVMzV0I1TnVkUUg1SnBuMFAzSzU3U0ZOUg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -317,11 +326,12 @@ Stories: 67
 ## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
 
 - first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 10
+- verification_status: corroborated | source_count: 11
 - summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlhTZkpLS0RlYlhXcE4tY0UwR0QxRHREdWhoMlVOWFZRVDR5OWdxc2JOOW9Yd29EcWtfMmdrd0s3b0d4b0hVbVJ2eWwyT1lfeGtsbWFMV3VNNWI0LUltZFo5SzJMX3phRmZac0RMajlYcWJ0dFRFSW5RTk9kQVQ2QTFta3dVY3I3aU9hcDh5anAxYVZUUFFLNy1aWFBuckVTZ2QxMUd4Mk4zRXdiX0E?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOb19lcmNZYTd5MFJqNFJjQ3dHT0w3SWtCSm9GS3Z0eVF4V3lZNVBJQWJQR0JzSTJOWDk5cEwzaGFlVG90MTZ2MzdLLTdkWkViLU1XQ1MxM0hKZVduMEtwQ2tRSzF0ZFJ6bVJFeFpvX1NtQmpITWh0MWNPOW1Sc1FqZkJ0MkpkMXhJamlMWEZRTXhjUdIBkgFBVV95cUxNU0U0T0FjUzZEd016OWdLcTlqUVRiREI3Z3MzU2puTlZodE85b2VMVHRLSnFDNFVSN1RBZi16QzI4WVRyNVNEdi1FZWZpZWN0ZTFlQi1wdzU1WUdfdDAyeUNWck1vYXV1V2RFNTliYkFTZDBrcW1WSEdkeGlkWVhKSnE3cjBvWW05VHdiMTBrcnpLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NewsNation — https://news.google.com/rss/articles/CBMipwFBVV95cUxQT3VTcDA2Tzd5eHNQLXVvbElsWjRwUnhxMDd6QzRkNE5uMm5odS02bWFqeHdWYnIwMEtZYjlxbHV3eGVpeThlaTByM3VpNklvZklmYkc3OTJoSzNBTHJNZHNPR3J0dmpEdUtxaE9GazNRal9EeHVOdGpORGE2bnZsVGxUemxjVk1lU0NsR2tCeWNlX18wUzZzOXk4cHpkZERXY3V2NjFmb9IBrAFBVV95cUxPcTJYanhXYTNGY2dXN2FnUmtrQUFfS1k5YmRaYXRRMlpVM2tfd2czNVAxbDFkVURmcXRfSkloUUJWdV96S2N1SHV0bUFXRmNlN1dwYUlxSDBXRmQyV2dBOVN2SHF0QnJLcC1URkI1S3FQVGRkcThYNWg5dTFtRW5hd285dkZ2ekgyTGJYNktrZzIyN2Ezd1dndU53ZGQydGJGME1qOExHU0k4UzUz?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcnBrTFMxYW9zUjlVWlBvQ3A0c3BQbWg5VEVYR01IeW53Z0t5ZWs2X1JfZ0xwS1N6X3lfUUVjY0VDaEdVQktEejl0THVxWDNXQzRDMjdDczdrdE1QcUVaSDBINjFjR2UxWWZZNkFXOTVtZGRPbHpIbEpkSTNTNjA1UFphU1RXS3VVYmpmUDNqSXJ1Xy1FTkFnZ09idXpoUGFkMk9rYWg5TmcyUm1PM3FSN2FzMnFpc2dJSkdRbGpn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Syracuse.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxPNklrN2NuVXRfRnlxMmdDcUg5eG4tN1cxTjdmUEp2ckV2RUhlSk0zNmg2SEdZdlBxUllWc1M1OFotOVZqbU5fM3MteWhacWs3U25rbUxnWW83WlhUVGdDTlloZ2tlQTFXU2I3TGZqUDNKcjBwY2hMaDBJZEJ1UDRVVUxNdGxyN1c3R3QzTFZPN3BwV1pGM20yYjZ1TnJyYXhUTkVyTE5OZ2t0azl0dEVuWW16YkpzdXJhaGdvVHlqTFdldVM1QkE2bWFURU1ZYW9O0gHkAUFVX3lxTFBNSW9KbE5oMjFQVkZJcEo3ZENTa2JObFJzWUIwZU9MdzN6MzFLQzFOOUFxOFZ2Nm5xVzFIMldFdldEUUlGSVlZYkNxblUtbjZxLXg2UER6aDBTMHRTMjFQc1BiTGJkcWYzTjM4ZlV3OENGWnlYTWZPTi1oenllekRhSjd0RUhXOEFocGc2NWVnaUtWc3U4XzNTNW5vcEpnYW81TGVjeHpKTWpVaC1fREVheXFLa2RlYUlZdkIzX0RIckdGRFdYdFhnMC1uS1dVR3FvOGNuNmp6QmxURl80Wkl4WmE1Qg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -555,43 +565,3 @@ Stories: 67
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOSU9jMkUtS1ZwMkJsOElYSThTNnhEVzBGNU9HdG44Z2otUFl6LWxaSFdja3BYSFdsendDZ2tmWEZoSDhSQXBhenI3UklaZGlBaVFlMEtQX2RpRTRDalVYa2IxaFZob01TQlBJWXhZMVprNU5NTndJX2Zsb1lSeGd2VVFTYU9qSDhxY1JMNHJsNGozWXZKRmdoOGx5eWVlYS1QeEJMYUZ3T054aWJKbWhXa0ctYS0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqANBVV95cUxPOVNUczlxTnEtaElIMXdMOS15X0VYZkhNbTJXcXBXTmhQd204LVU3UlNEM3BpNmJkSDFsQ2Z1Z21ZT0hpLXFYQjlFR0tncTNLQXc2R3cxQTRsaHpkR3E3c3VXcFY5S3ZyRTQ0Rm4wRHBSbVQzeklJbmtGSDgwRG5HcmdKbzF5X2FJMFFZemtfX2pLV0VxQ0VOamhCdGpaNk9xbkJXUGxWeERuSWd5SzZWN1RPUG5pUE1tRWNEdTJCWjAxbXNZQVUzZ1BtX0thM1VfTzVPSWljLWppa0JMVFBMZUdFcFJZY2pZRzdETFhIYlJpTGlVQVlVQjIzdHBIVEtpTG9SeFo2RGJrTUdlczluM0VqUnFzc0tYaFVNQ01UaHJGU3hncHcybUlCMUM3cWo4bFh6cjFTNmM2M3RCUEJ1N2pHTTRjOUw4QlZXaDZrZm9JTlVSeWxFV3hTN042UnpGXzlLdng3X05nbEhNS2t6V2lMLURVTmxEY2pjWWFqeUJZVVNpZjBBR2prUmhJUS1kRVZ6eTFTb2t1RUlEeVphb25RNXpXWEhB0gGuA0FVX3lxTFBKQnV2WFlzb2FxRnlOYk5VOWo5R3E2bUp4YjBsZVpXVXRwN21mNHJnNF9ZaHBCTUs5UWl1Wi05TjhBLTlqdlE3UlFydkdIZWRFSFk5b0RqODNIcERnQ3NKcXhPdldGMVprdk5TelM1NkNMQjJSSVdaWTlXcWRFZDk0czRFalBkY0FWZFY3NmdVR05XdGZRbGFBV2ZJUHNyUWFDNXhLb2ZLQUtHVHI4ZldDZWNNSVBGdUNtaUx4WFY5LXZKdDA2MVhzQV92WGliaFJEQzRrTk51b3NBQl9DRjVUMVIwNGdHdkNKZzV1RkQ3RkRRdnprSXREempKVDQwTkdtd1ZDdTdacjg5OGk3UDdFQVlaMW9fX0RpbUZuUl85NGljUDJuUWFTeGhqVlh1bnpqc3ZBYVpPZmhuUTJyWjY2UURwZ1I4VnI3aU5QcXdqVzFfUEZuSk5KZ0paYTVhQzAxTldRWFJRb2VtMjR1aHNPUGNSa2RhZFJZZmNBRDVvMURDNDVkUnJRdGI1ZHZTOXAyVVc0eW92ZnAzOUhia2dxVUpHOWRfSHZMSUZKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQYmJhMnpqYzlBVXNrRnpMekZCai1QaWlnOUJYaDh0RWtidEQ1MlM5RzRHQTJ3OGNkMVRnekFUbXo3MVoxOEZPbmZaT3VtZEJvOEdCaHFqbTVoR01qUDczTXRSWkFUN3pGYzkxOEp3QzAtS0loaU1RWWZWM1JzTHpuSE1DSzlGUHVPWV8xNU5VdUZNT3NJMGxkYXhGQzhtZlozRVY4cWdzX1RsSXZ2OUVuYnhaSFZYcTZselJrcVQwcFFaWlJoU0Y4btIBxwFBVV95cUxNSkI4RjhTSnhHalhwa2V6b0FpbzJJWndjbURzVEJtUm5pNTNDV0lDM3luRTNiQzFCSDVCdy1YSEExVWdPMUZHWHJTT1Q3RkFzTmhwNkJycWlLTVBEanlUUlFiUkozRjBwVTF2ODF6Vk1WXzYwT2VaNHA3ODFYRjRTb00wMzZQZWdUdEViTEdsRE9lYmdzUTdHc2N5Vm1PTHpUbGVyNnpmRGtXSXNxWk80OUpIQnBSNGtvQXNkUEM1S0ljT0lhYjVj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Details Revealed About Taylor Swift's Cameo in 2026 Emmys SVU Skit
-
-- first seen: 2026-09-15 23:31 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Producers discuss the behind-the-scenes details of Taylor Swift's surprise appearance during the 2026 Emmys in an SVU skit. The insights reveal how the cameo was orchestrated.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxONDNFU2JZZkNYdC1fVUNRSWsxS0ZLTm5hVVVNeXRNUHVvSGsxLTU4UXZWRlBLZlU1WWltZWpaZmNteGJqOFhKbGoxVjRhUjFfLUJoUk05dl9KdVNpTm1jcnVoWFloMkw2dnhiNFlPWGJidFVpbkVBajVobUxVaDEtLVhRUXU2eFBOb0FYTkxjdl9UX2lnWDFBcQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dolly Parton Declares Taylor Swift as Top Live Artist
-
-- first seen: 2026-09-15 23:31 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: In a recent article, Dolly Parton referred to Taylor Swift as the biggest live artist, highlighting her success in live performances. This recognition underscores Swift's impact in the music industry.
-- sources:
-  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMibEFVX3lxTE4wZENXWm8zbTloZlhlaU1xOTBZSXJZaVRtWE1nWGRZOHFYXzltbzhCaWxIOVZZNEw2M2t3Z2FqZjFHb1c2czVadkNYdTJNV09FVlp6UXlhaXU3RWZrT0UyaW5QOC13T2dRVkhEeA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts First Game-Day Outfit of the Season
-
-- first seen: 2026-09-15 23:31 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made her first appearance of the season in a game-day outfit, expressing support for Gigi Hadid. This outfit marks a fashionable entry into the game-day scene.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOcEFqWWY5ZWZVNi0zYUI4bWlSSy1MTnZhbVp4bVZEZUw4WGRLZFlCM3RtdVNfZXJfTXNZWDdFXzlBSEhkdFNhN0lLc2s3Y0E2Z29MMnFVcERUOWgxQlNSRUVyWnBLcUFwLVlGN0duZVBVMV9xRlNyVjcxakNvRUExZjBjM09UcmRpeFQ2SVpBVzNlcTVXTlhz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Gingham Dress Features a Hidden Travis Kelce Detail
-
-- first seen: 2026-09-15 23:31 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's recently showcased red gingham dress is noted for including a secret reference to Travis Kelce. This detail adds an intriguing element to her fashion choice.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMitwFBVV95cUxNbEZod1hoa2NOeXlyUGhoZlR0SXJRdWs5WlZvZmJSMFh0RDYwUC1vZEZPaDlpNml5SVRBY1hEcVp6LUxwRGYzMzFSeFh5U0JpTFh2WGdFbHA0UXpPTXFNSnltM1VCeTh6SlJDOEVhR0E3bUlvTG1leWxrTjVBVlJ0eGxmUEVrYUtKYlo1WVpYS0FBb3FwN2xsSDJtNDVuWEhSbkhVVE1NTS1IU3FiRmxKaXNRZ2JhUms?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Stylish Appearance at Chiefs Game After Marrying Travis Kelce
-
-- first seen: 2026-09-15 23:31 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift turned heads with her gingham outfit at her first Chiefs game since her marriage to Travis Kelce. The appearance highlights her fashion sense on a special outing.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQOGNEYmtwbFMwRFZWLXA2Yi00MUV4ZFYybDFMUmlQU1pVOTQ2eFNycFhOUGZvTWJ5bHJ2R2xVS0FYTEk3MmZQQkxoelFWRmlLSUNMVkRWSm53UXNuMnpPX1F2MEtPUkV6Y3F6eEhFcmg1UkNQdWMzU0tKbWZDZEZIMTJnZGdiLVljakc3SmJHNA?oc=5&hl=en-US&gl=US&ceid=US:en
