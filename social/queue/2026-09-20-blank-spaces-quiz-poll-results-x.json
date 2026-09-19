@@ -28,5 +28,15 @@
     "rationale": "A one-breath X take on the slot-2 poll — the two named 1989 songs, a real 'settle it' either/or, structurally unlike its IG sibling and under the weighted length cap. The credited Red-era tile is the era the Harry Styles chapter actually happened in, so it earns its place though loosely.",
     "rulesChecked": [],
     "revision": 2
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-19T16:31:54.245Z",
+    "pr": 4455,
+    "sha": "d7b14a90760ed75abb186fc29077c22724552a0d",
+    "message": "1550875542021218320",
+    "contentHash": "sha256:a17b8444533479c9bbbc3f75772409a790c03fd5c87d196fa4ad1deee3146323",
+    "sig": "hmac-sha256:cf198ad1aa629bb077fba944bcd6794fcb1489561ab9d37f1d473800b1155145"
   }
 }
