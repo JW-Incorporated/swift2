@@ -1,0 +1,32 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Barely a month together at the turn of 2013, and it handed 1989 a whole fistful of hits. Time to settle it: is \"Style\" the peak, or does \"Out of the Woods\" take the crown? No cop-out picks. The receipts are all in Blank Spaces →\n\nlonglivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-red-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "red-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_10.jpg",
+  "altText": [
+    "Taylor Swift performing the Red set of the Eras Tour in Inglewood, 2023, in a fringed red dress under warm stage lighting."
+  ],
+  "scheduledAt": "2026-09-20T23:00:00Z",
+  "campaign": "thread:love-story:quiz-poll:2026-09-results",
+  "why": "X sibling of the 09-20 Blank Spaces slot-2 quiz-poll (see the IG item's why for the rel-styles / 1989 sourcing from relationships.mjs). Written first as its own post: one either/or (Style vs Out of the Woods), the link. Rewritten once to clear the cross-post-copy coefficient (the first pass was 83% similar): this version reframes with near-disjoint vocabulary from the IG body — 'barely a month together', 'turn of 2013', 'handed 1989 a fistful of hits', 'settle it', 'peak', 'crown', 'cop-out picks', 'receipts' — keeping only the unavoidable shared surface (the two song titles, '1989', 'Blank Spaces'). Hook: the contradiction, structurally unlike the IG post. Media: credited Red-era tour tile (red-inglewood-2023) — different era from the IG 1989 tile, no era twice inside a 4-day span, lover avoided, and thematically the era the relationship actually happened in; X site-screens prohibited. photoEra unset (post spans eras; thread:love-story not a themed prefix). Weighted length under 270 (autolinked URL counts 23). Thread post = share-hook exempt. First five words diverge from the IG sibling and from 09-17's love-story X. Lyric-free. rulesChecked [] (lessons ledger has no active rules).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "A one-breath X take on the slot-2 poll — the two named 1989 songs, a real 'settle it' either/or, structurally unlike its IG sibling and under the weighted length cap. The credited Red-era tile is the era the Harry Styles chapter actually happened in, so it earns its place though loosely.",
+    "rulesChecked": [],
+    "revision": 2
+  }
+}
