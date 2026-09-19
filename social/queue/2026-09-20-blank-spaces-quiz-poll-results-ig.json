@@ -1,0 +1,42 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "Five weeks. That's the whole Harry Styles chapter — December 2012 to January 7, 2013.\n\nAnd those five weeks somehow gave us three of 1989's shiniest songs: \"Style,\" \"Out of the Woods,\" and \"I Know Places.\" The shortest romance on her whole map, and it fed an entire era 😭\n\nSo here's the impossible one: \"Style\" or \"Out of the Woods\"? The one that struts, or the one that can't catch its breath? Pick ONE and defend it below — and tag the friend who's about to pick wrong 🤍\n\nEvery relationship-to-song map like this lives in Blank Spaces, our thread tracing which chapter each song came out of.\n\nPhoto: Taylor on the 1989 set of the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-1989-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "1989-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53110043448).jpg",
+  "altText": [
+    "Taylor Swift performing the 1989 set of the Eras Tour in Inglewood, 2023, in a sequined bodysuit under blue stage lighting."
+  ],
+  "scheduledAt": "2026-09-20T23:00:00Z",
+  "campaign": "thread:love-story:quiz-poll:2026-09-results",
+  "why": "2026-09-20 Beat B, Blank Spaces slot 2 of 2 (window closes today), angle quiz-poll. 09-19's poll has not posted yet (scheduled tonight) and drew no answers, so per calendar this is a DIFFERENT either/or entirely, never a restatement of Dear John vs All Too Well. Hook: the contradiction (the calendar's assigned shape for this slot) — the shortest relationship on the whole timeline produced the biggest lyrical footprint. Sourced from supabase/seed/lenses/relationships.mjs rel-styles: Harry Styles, start 2012-12-01 end 2013-01-07 (~5 weeks), songs Style / Out of the Woods / I Know Places, all 1989 tracks fed by that relationship — settled public fact, cited to a Hollywood Life timeline in the seed. Confirmed public relationship history, no rumor frame, no speculation, blocklist clear. Thread post = share-hook exempt, but a real tag/reply hook fits a poll honestly so it carries one. Media: 1989 cleared photo tile (photoId 1989-inglewood-2023) — era-matched to the songs, an unused/preferred era this fortnight, no era twice inside a 4-day span (09-16 evermore, 09-17 debut/fearless, 09-18 evermore/reputation, 09-19 speak-now/folklore), lover avoided; photo-only per calendar. photoEra left unset: thread:love-story is not a THEMED_CAMPAIGN_PREFIXES family and the post spans eras (a Red-era relationship whose songs landed on 1989), same call as the 09-19 love-story pair. Link /?lens=love-story with standard UTM. First five words diverge from the X sibling, from 09-19's love-story pair, and from every burned opener. Standard sentence capitalization; lyric-free. rulesChecked [] (lessons ledger has no active rules).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "Executes the Blank Spaces slot-2 quiz-poll with a fresh, purely-musical either/or built on a real contradiction — a five-week romance (Dec 2012 to Jan 7 2013) that fed three of 1989's best, all confirmed. Gushy fan voice, an honest tag/defend hook, and an era-matched credited 1989 tile.",
+    "rulesChecked": [],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-19T16:31:54.245Z",
+    "pr": 4455,
+    "sha": "d7b14a90760ed75abb186fc29077c22724552a0d",
+    "message": "1550875539974266914",
+    "contentHash": "sha256:b60fe313b9f95c5d0a40a762a535e0032891349b8acbe1e1dd1794cd6ebd1df0",
+    "sig": "hmac-sha256:902b07ade1188784f9aca3bfa8662054f10937d21f7b2acea8b4152b1846d060"
+  }
+}
