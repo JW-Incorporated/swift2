@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 66
+
+## Taylor Swift receives significant career news before Chiefs game
+
+- first seen: 2026-09-19 13:05 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received important career news ahead of the Chiefs vs Colts game as she prepares for her return to Arrowhead Stadium. Details on the career news were not disclosed.
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxOMGQ4N2Yza3pMOEQtUC0yX3d1ZzNDUUZuUTl1OWRDcU5vN2NtVlZJcU9ub05aTE8yay12UVpkdWFLdWJlaE9ES2s1bGk5SklUbE50R3FncnRLSDNveXl0Z1JxZG1RSTk2M1I1SUZBQU5ieFNWc2tJcW4zdVNnaHk3VzR6NUE2ZkRYbDdfLUNPczdwWXY4LWlDY3V2Z0NnVzFOZEg1TndWQ3o3X0I3YW4waUx1a2FyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Man Jailed for Producing Counterfeit Vinyl Records Including Taylor Swift's
+
+- first seen: 2026-09-19 13:05 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Rehan Ahmed, who ran a fraudulent vinyl operation in the UK, was sentenced to jail after being found guilty of producing counterfeit records, including those of major artists like Taylor Swift. His business, which began in 2017, was revealed to be based on deception.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/19/fake-vinyl-empire-sheds-light-industrial-scale-fraud
+
+## Maryland Embraces Taylor Swift Tribute Bands
+
+- first seen: 2026-09-19 13:05 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Maryland is experiencing a rise in popularity of Taylor Swift tribute bands, showcasing the artist's influence in the area. These tribute acts celebrate her music and connect fans through live performances.
+- sources:
+  - [unverified] The Baltimore Banner — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTF9TMmJhUTNYUzk5enN0eU1nRTFmSTRRbkRlaDd5M1VGb1VpMnozY2gzdlVQbW15TW5XRnVISU90WjVhZ29BTFYwQzBRY1dobG1RRTJ4NFFUUGR3V2hGbHMwSG95cjh0NzM5Uk4yU1dhTnhJNUdUb2ZORDk0MGlhOHh6RzJ2ZG4tUldyQndDblJEYUFXM0wtLXU2TWd0MzA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Joe Alwyn and Mary Beth Barone Seen Together in NYC
+
+- first seen: 2026-09-19 13:05 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Joe Alwyn and Mary Beth Barone were spotted out together in New York City, as reported by E! News.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSHlsYU1fUmtJa1psTmdZX0FUb21JSXpNZWJoVHRabHpQbTBjRmpkRjFsd0gxY3AydXRSUExFSjl5Z3c4MHVqVTNKWU5hVERSaWJITW85MnU0aTNUMzNyUXJnTERkSWpMTWZQdFozamZBS00zREEyQTN4SWNZc3pVd05IT3luTVE3SnFmekdLcnJWVkp1M2lacmpqV3I?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Impact of Taylor Swift's Chiefs Appearances on NFL Broadcasts
+
+- first seen: 2026-09-19 13:05 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the influence of Taylor Swift's attendance at Chiefs games on NFL broadcasts and fan culture. It highlights the changes in viewership and the overall atmosphere surrounding the games.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQS00zVHZGM3hCWVVfM0dwOTZOMU5aUXgtYlZZeFFLR1N2RGR3dXdXNklRcjBfVjB1SUoxOUNPXzkwMWRXSjd4MmJCV0dNLTljMEl0djB0OFVacXRDdmY0OGRpeTl1TE1XQXZnNDZBQjNQeEg1eXNETGRMbW9zRWotekRURVU0ZG44dGo0QU54YVBPQW00MWRYSVhrWF90a0U3TS0tcWEwbE5LWS05MTBkY2E3QWtNakNvUW9j0gHPAUFVX3lxTFBueVlGcWphSVhhOFpRSEpYa1NDVlRQNzY4VGdFV2tOVzVRXzRqOHpXcXNlQThqRXQ2U1N1Y1BORFFIUmNGM0h3dW1iSWhIbzVpUHV4YjBIbzQ5VzRhUkkwMVFPZ2M3WGVtUmUxZ0NnaXNRbVRDbERTMHJvQU85MnI4MEhWTXJEb3R6XzNvUlJCWUFXYmt4VVI3QndQSXdtWjU5NU5ISWx2UlZobUVXOXh6NS01V1BtRGhqaWxkRVJkREdvRFNqOWY1aTdNVkhhdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Joe Alwyn Seen with Comedian Mary Beth Barone in NYC
+
+- first seen: 2026-09-19 13:05 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Joe Alwyn, who was previously in a relationship with Taylor Swift, was spotted in New York City with comedian Mary Beth Barone. The sighting has garnered attention due to Alwyn's past connection with Swift.
+- sources:
+  - [unverified] tmz.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1DWkR5bGJQOGI5TGVKbVloUjNsaU13NzRhQVZfX0VzOENfMlNtNDM5VW0xOTRqMU5uQnJMeVFram5hSTdNNW9ER00xZGJ3Rnk1dy1BV0tOYXdjOGlQM3h6NTN6aXJVeEFNV1FhS01kSlJOQ2c3Q2ZLbV9mTQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Understanding Taylor Swift's Emmys Easter Eggs
 
@@ -58,14 +106,6 @@ Stories: 63
 - summary: A fan has deciphered Taylor Swift's Emmys code, revealing that it is an anagram that hints at the release date of her next album. The discovery has generated excitement among her fanbase as they analyze the clues.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOSms1SmphYUxOWXk4RVdZWnJadDlRbmtDZU9JaEV6TmdxQ2hKeW1faWlRcmJJaENIQlNveld6VXhaXzNLLXZNLUc5OXR3d1VyYXNXQm9ZMkVsMkM2Y19mWVFsTDVxNjJVdGJnTlJWcTMyV3Z4N3lVRmNCd2w0WnV1XzNpQkVTVWRCRHN0MEVhSEFBN3FIREpnQmJSLXVRQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Colin Kaepernick's Wife Responds to His Taylor Swift Comments
-
-- first seen: 2026-09-18 19:34 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Colin Kaepernick's wife expresses her feelings about his recent comments regarding Taylor Swift, implying that his remarks may have caused issues.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxNNGl6OXNoLXptRmljdXp1MXZ3STEzYWF2MlVVYUFwOGlYZlFuUXVtbERQRTZDSG1ST3lyMWhNWFdpdzVEVktkUnNkdVZHYW1TanNvWGNHUlRpTGxBSTcxM1hZWWMwNHNDX3NPQkRpbmxZZnRzTTJ1aE9SekpsQ2cwRGZpbnc5ZFNBanc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Praises Taylor Swift's Football Knowledge
 
@@ -118,10 +158,19 @@ Stories: 63
 ## Taylor Swift Advocates for the Black Dress Trend
 
 - first seen: 2026-09-18 19:34 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In a recent feature, ELLE highlights Taylor Swift's support for the classic black dress style. The article discusses how her fashion choices continue to influence trends in the industry.
 - sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE50RWVsRFMxQ0p2RkJ0OURSeExuLXBBTDBkVFpXWGlTa0dKYTFtc0g5Y0pybUhtMS01ZHB5elhRUEs4UFZDRFlJSHVwdkRQQndtZUZqU2dYUjRTVFlFRlp1N1NmWjdfYlhqVmFWT0lkUzc2Q0hyVTJGNnhHdw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdzBEdTgzMmhzMV9LZ0ZHRXRPQ0Q3SFRXYjFicWJpLUVsbmRPMV9xaDJsaGotcURDbGVlVGlNUUhkcmdpSWZ1X3JFVFVIVG0xREQ3TmRfNTlXYmFRUGVabFdpeGN1d0FYWnV3U0VyQjV5MFoyN1VoR2hjMDVZSEU4RG1HQUVXUTYzZTVMVDZFdndIbWVnUndINER2UzdNTXlP?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Colin Kaepernick's Wife Responds to His Taylor Swift Comments
+
+- first seen: 2026-09-18 19:34 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Colin Kaepernick's wife expresses her feelings about his recent comments regarding Taylor Swift, implying that his remarks may have caused issues.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxNNGl6OXNoLXptRmljdXp1MXZ3STEzYWF2MlVVYUFwOGlYZlFuUXVtbERQRTZDSG1ST3lyMWhNWFdpdzVEVktkUnNkdVZHYW1TanNvWGNHUlRpTGxBSTcxM1hZWWMwNHNDX3NPQkRpbmxZZnRzTTJ1aE9SekpsQ2cwRGZpbnc5ZFNBanc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Spoofs 'SVU' at 2026 Emmys
 
@@ -166,7 +215,7 @@ Stories: 63
 ## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
 
 - first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Tom Cruise shared insights about his conversation with Taylor Swift during the recent Chiefs game. Their interaction has garnered attention from fans and media alike.
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdG5KeGxzay1GX3FSSmI1OWl1N3h0aXdwQkctMHdBOXhxRi04a3ROQV9kdTlYbzJOaEplbWN5bW1Oa1FKWEM5dlYxbGZVSDZoTzdoaGJzMHpvY0ZHYndVYjluclktaGFjeTNSN1JhVzJXcjZja2ZUWWpvZmIyOHRCVW84dGlDcExWblB3ZDNiekJxdEo0d0Z5OV85ZEk2bW9LT05tV21laE4?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -175,6 +224,7 @@ Stories: 63
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQTHlzbEM2U0V5Vkt4UVJEWWtjWFA3YXlMU0ZTRzdISVhHRmRYTEtaUDI1RlJEM1g4OTlXWVdIQ2ZCemxMUkRDUHpDR2tLZkFjRWEtRFhoa0FfeWNnVDFSOE4yejVfS0VjcHZGbkNKQjRTWjRVV0tNaUt5WVFuQ25vdkdYTE1fN0lnTy1CVWZIT0Fqd1lrNDJTNHlyUmt2UQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNelRRSnhXXzM3NFd1d25GWTZQc2xyOTJWSldkNW5nbTdvdG16VHFwZEhuUkFkeXZ1ZjBMakRwS19Idnl5TmlMUmpaS3dIV2pUdWtLQjg4X1hwaEFVYm1SNENvUTVoNEtSZ2lJdDlJX0I5ZTltVTRsS3JHdThCcnhNcUE3ZjJMTXZrc1Q3Y21nSVNvT2FVUHhzeEtReGFIRHM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Tom Cruise Speaks on Taylor Swift Football Photos
 
@@ -534,34 +584,3 @@ Stories: 63
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMipAFBVV95cUxQdGEtTnFhLUh1TDV6bHVxVE40YVlzQzN3UlI4VDN6c0QzampJa1VYbWdTNkVLOWtnb3BHdl85bmV0LUlfbkZhOFl3RE1GTC1STmNpQTdEYllyWE1JV3NqOGdKVXZtaktxRXZkVlE4MDM0YTZRbVR2ZzJxcHZScGEwZ2RMaG5UVE5Ja3RaWFFHdEZiNHpRZmlMNldPUktiX1NEa25yTA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUHJoMXF5cWhURjNjalZmYXF2a0lmVVplUlZDc2FOLUpkSmxrNHdkWUZYQW1SWHp5WkNXRm0xTnF5cFR5T0dlc3pXc2ZDV2hVdXFJODM3YjZsenRORzZEb2szYXNRMGNEajc3MFpPeVFNRFVpQVY1bENrTmNDQ1VubXo1OFRWZkVzY3RsSHFqMDFlbkptLS1ERXNtTVg1Rzdxanc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Did Not Attend the Emmys
-
-- first seen: 2026-09-16 05:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Washington Post reports on Taylor Swift's decision to skip the Emmy Awards. The reasons behind her absence are discussed in the article.
-- sources:
-  - [unverified] The Washington Post — https://news.google.com/rss/articles/CBMilAFBVV95cUxOd0hMeEFYYUNobTZkTlJ0dmFUNkJYRmVKMzJWRG84M2NsZ1JtbDFmU2VkbzlJcnZGTUZOc1djXzRtRmQ0WDMyeGJtUzNaYXYyMHZTNlg0dTNqVjNOcUdkQXBzQVVHV1lSdDdvSjVQbU9CcGlNcVpmR253QWFCMVZGaS1FQ3F1WExnazdUejYtRS1QRG5p?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Emmys Remarks Spark Fan Theories
-
-- first seen: 2026-09-16 05:57 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's comments during the Emmys have sparked theories among fans, who believe they may contain hidden meanings or 'Easter eggs.' Swifties are analyzing her words for clues regarding her music or upcoming projects.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxNQVdwa2huX2NIdEs5WlVhNFVGZUpxWXVtYVk1c2tWUkM3LVNPQjRRZ21JczlsM1Bpc250OGh6RXU5VVRFT3hOTDVoTHRwRTQxdktuZUs4eE1rOWNucDFQREFXTUZQU0VWRTJWcEluOXJ0dEhRS0ZnbzRPcVBta2U2bnA4NVB6eG5UcWNqTnl6MVZtak5ZSXpKWg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Take Steps to Protect Privacy in New Ohio Mansion
-
-- first seen: 2026-09-16 05:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 8
-- summary: Taylor Swift and Travis Kelce are reportedly implementing measures to maintain their privacy in their new mansion in Ohio, aiming to keep nosy neighbors at bay.
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMihwFBVV95cUxQdTlYWlNuQ1Z5OTdYUk1OWVNaNVowZUVlcnFQOUdUT2wxT1RjZWZLLWNHMjVTSEF5WHBPYXBPTHFTZGVEaVctNGFaM0VpSlN5N3ZhZzFLYlJhQV9MaXlua1JxZ2ZKd25DUVdJdUxQT2NpMzB2UWRTZGNjMHlkOTFBUXl4VUpuODA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMisAFBVV95cUxPZHpVVXZxMHE0TWhydkV5aEprYVBQN3ZwSC1ySnd6Nms4YllnTzc1WkluYl9CSC13YWR3LTdCU1RiTjhzT1A2cXNZdXRpNnVoV29VMnNOMUdkeFozMkhndkN3bHI3VW5ZYmpETndvNXRucjlhdkhpdlJFekVyNV9renVDWlkxLTdPbHIxdGw2a3BhYUs3RGc1LVJJZXBsMV9SdWc2dl81aVctSW9TcTJVTtIBtgFBVV95cUxOeWhJRGJDOHJFQ2JkZWwxYnFvX3NNanR5RUFrZGp5QTk2WkQ1cXpGb3ZtUXlpM2VFdGZ0bUtPMzVtUkU4a3laVWRaUmtIeTNURHhvWE1fUXp1OVNYWlR5R0hmTWlsUmxCUVRqWUQ3RFlOME0wMmhZQUVsQ0hjUjlzN0VxOHJDeGZfNjVOTmVtSHpqVDRIVGxwQnFoMkVKNlVxSkJJb2dFZ2luNEtranlXMWlTM1Q0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMitwFBVV95cUxQWWFWeEx2ekQtWG42SG41ZFJlMDVneWNjSmt2Wi02eDR6d0Y1azAtWGxvZ2c2TlEza0VnYVNvdDhZbE92UTJBZ2xWZG1WeHdDQnFoMXlPUTZyMUROMFY5RUNCd1pob1pzcEJfWnk4alpMVWY2Mnk5YnU4dWtKZm16cTJRWTNHZndfMl8xckMwa2ZkLWVBekRyeFctSHYxaUx5QXlHNEowRkRGbVc2cHZCcmlHTEtSRXc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQYUJacUI2UlF6Skx5azI4YlJwSkxVYjNfem5Jdmx3TGV1OTNYeFZkYWtEQVFadnpGdFhaaXZkbU9lNldDMU5zVWI3eDlYSmMyVlpiQU1xdVlPeTkzY2tkXzdMRWI5X05LRm5Ob2VlOWdudWxwS2x5eWpGLTRydURPZzN1RG5RdmJvOERCVHdNcWd1TzJhYmZKU1htaTVodw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Nine.com.au — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQZE4zbUxJRXdXTTRnQk9OS2wzTkFsTG1KUFYxdXh6OWRTS2JZU0wwN0RrYzE5TUs0ei1Bc0xQUUo3OXdMdThmUG45WXpZZFAyVlpUSFQxRDhUeWNnYnBqSld4NzlKd2tHLXY5QlVTLURMaUtDVFd4eVNpdnhPSm1wZjFRWnNkcUE3ZERHZzR4Q09nYVZMNWZHX1JtTDZrekVpQlp1aXVEbURKZDZxd0gzMWZhYncxTEZwTFdJSGNidDZkS0k?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOSU9jMkUtS1ZwMkJsOElYSThTNnhEVzBGNU9HdG44Z2otUFl6LWxaSFdja3BYSFdsendDZ2tmWEZoSDhSQXBhenI3UklaZGlBaVFlMEtQX2RpRTRDalVYa2IxaFZob01TQlBJWXhZMVprNU5NTndJX2Zsb1lSeGd2VVFTYU9qSDhxY1JMNHJsNGozWXZKRmdoOGx5eWVlYS1QeEJMYUZ3T054aWJKbWhXa0ctYS0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqANBVV95cUxPOVNUczlxTnEtaElIMXdMOS15X0VYZkhNbTJXcXBXTmhQd204LVU3UlNEM3BpNmJkSDFsQ2Z1Z21ZT0hpLXFYQjlFR0tncTNLQXc2R3cxQTRsaHpkR3E3c3VXcFY5S3ZyRTQ0Rm4wRHBSbVQzeklJbmtGSDgwRG5HcmdKbzF5X2FJMFFZemtfX2pLV0VxQ0VOamhCdGpaNk9xbkJXUGxWeERuSWd5SzZWN1RPUG5pUE1tRWNEdTJCWjAxbXNZQVUzZ1BtX0thM1VfTzVPSWljLWppa0JMVFBMZUdFcFJZY2pZRzdETFhIYlJpTGlVQVlVQjIzdHBIVEtpTG9SeFo2RGJrTUdlczluM0VqUnFzc0tYaFVNQ01UaHJGU3hncHcybUlCMUM3cWo4bFh6cjFTNmM2M3RCUEJ1N2pHTTRjOUw4QlZXaDZrZm9JTlVSeWxFV3hTN042UnpGXzlLdng3X05nbEhNS2t6V2lMLURVTmxEY2pjWWFqeUJZVVNpZjBBR2prUmhJUS1kRVZ6eTFTb2t1RUlEeVphb25RNXpXWEhB0gGuA0FVX3lxTFBKQnV2WFlzb2FxRnlOYk5VOWo5R3E2bUp4YjBsZVpXVXRwN21mNHJnNF9ZaHBCTUs5UWl1Wi05TjhBLTlqdlE3UlFydkdIZWRFSFk5b0RqODNIcERnQ3NKcXhPdldGMVprdk5TelM1NkNMQjJSSVdaWTlXcWRFZDk0czRFalBkY0FWZFY3NmdVR05XdGZRbGFBV2ZJUHNyUWFDNXhLb2ZLQUtHVHI4ZldDZWNNSVBGdUNtaUx4WFY5LXZKdDA2MVhzQV92WGliaFJEQzRrTk51b3NBQl9DRjVUMVIwNGdHdkNKZzV1RkQ3RkRRdnprSXREempKVDQwTkdtd1ZDdTdacjg5OGk3UDdFQVlaMW9fX0RpbUZuUl85NGljUDJuUWFTeGhqVlh1bnpqc3ZBYVpPZmhuUTJyWjY2UURwZ1I4VnI3aU5QcXdqVzFfUEZuSk5KZ0paYTVhQzAxTldRWFJRb2VtMjR1aHNPUGNSa2RhZFJZZmNBRDVvMURDNDVkUnJRdGI1ZHZTOXAyVVc0eW92ZnAzOUhia2dxVUpHOWRfSHZMSUZKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQYmJhMnpqYzlBVXNrRnpMekZCai1QaWlnOUJYaDh0RWtidEQ1MlM5RzRHQTJ3OGNkMVRnekFUbXo3MVoxOEZPbmZaT3VtZEJvOEdCaHFqbTVoR01qUDczTXRSWkFUN3pGYzkxOEp3QzAtS0loaU1RWWZWM1JzTHpuSE1DSzlGUHVPWV8xNU5VdUZNT3NJMGxkYXhGQzhtZlozRVY4cWdzX1RsSXZ2OUVuYnhaSFZYcTZselJrcVQwcFFaWlJoU0Y4btIBxwFBVV95cUxNSkI4RjhTSnhHalhwa2V6b0FpbzJJWndjbURzVEJtUm5pNTNDV0lDM3luRTNiQzFCSDVCdy1YSEExVWdPMUZHWHJTT1Q3RkFzTmhwNkJycWlLTVBEanlUUlFiUkozRjBwVTF2ODF6Vk1WXzYwT2VaNHA3ODFYRjRTb00wMzZQZWdUdEViTEdsRE9lYmdzUTdHc2N5Vm1PTHpUbGVyNnpmRGtXSXNxWk80OUpIQnBSNGtvQXNkUEM1S0ljT0lhYjVj?oc=5&hl=en-US&gl=US&ceid=US:en
