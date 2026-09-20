@@ -12563,6 +12563,92 @@ export default {
       },
     },
     {
+      // Authored 2026-09-20 from intake #4476 (Vault Run, Content Shift lane).
+      // Public-media moment: a movie star recounting, on network TV and a
+      // podcast, a conversation at a public NFL game. No privacy redline — the
+      // only location is Arrowhead (a public stadium, already reported), the
+      // statements are all on-the-record primary-source appearances, and there
+      // is no home, minor, or private-life detail. The central claim ("Taylor
+      // schooling him on football") is confirmed by the primary artifact
+      // itself: The Tonight Show's own official YouTube clip, whose title reads
+      // "Tom Cruise Says Taylor Swift Was Schooling Him at Chiefs Game"
+      // (oEmbed-verified author_name "The Tonight Show Starring Jimmy Fallon").
+      // The Rolling Stone and Variety write-ups are both bot-gated in the run
+      // environment (tollbit redirect) so they are cited by URL; the official
+      // clip is the loadable primary. Placed in the-life-of-a-showgirl by the
+      // event's real-world date (Sept 2026), per the era-by-date rule.
+      slug: 'tom-cruise-taylor-swift-schooling-football',
+      relatedIds: [],
+      year: 2026,
+      month: 9,
+      day: 18,
+      category: 'relationship',
+      title: 'Tom Cruise says Taylor was "schooling" him on football at the Chiefs opener',
+      snippet:
+        'On The Tonight Show, and again on Travis Kelce\'s New Heights podcast, Tom Cruise recounts sitting next to Taylor at the Chiefs\' Sept. 14 season opener and getting "schooled" on football — calling her a genius with a sharp sense of humor, two years into her football education.',
+      sourceUrl:
+        'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Tom Cruise spent a good chunk of his Tonight Show visit talking about someone other than himself: the friend who out-explained him on football from the next seat over. He and Taylor had both turned up for the Chiefs\' Monday-night season opener on Sept. 14 — a 31–10 win over the Broncos at Arrowhead — and by the time Cruise sat down with Jimmy Fallon that Thursday, the story he wanted to tell was that Taylor had spent the game "schooling me on football." He called her a genius and a brilliant writer with a great sense of humor, and passed along a detail she had given him about her early days as a fan: that Travis Kelce had been "so patient" fielding her first football questions.\n\nThe thread picked up again the next night. Cruise turned up as a guest on Kelce\'s own New Heights podcast on Sept. 18, and Kelce filled in the beginner-era picture from his side — joking about how far Taylor had come from the days when, as he put it, "we were basically out there boxing each other on the field. Like, sweetie, what the heck?" Two seasons into being a fixture in the stands, the woman once being coached through the basics is now the one doing the coaching, and one of the most famous movie stars alive walked away from a football game as the student.\n\nIt is a small, warm footnote to a stretch of the year that keeps generating them — no announcement, no chart, just a public figure going out of his way, twice, to vouch for how quickly she learns.',
+        sources: [
+          {
+            // Primary, loadable: The Tonight Show's OWN official YouTube clip of
+            // the segment. oEmbed-verified — author_name "The Tonight Show
+            // Starring Jimmy Fallon", title "Tom Cruise Says Taylor Swift Was
+            // Schooling Him at Chiefs Game, Talks Wild Digger Transformation".
+            // The official title alone confirms the headline claim.
+            outlet: 'The Tonight Show Starring Jimmy Fallon',
+            url: 'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
+            source_title: 'Tom Cruise Says Taylor Swift Was Schooling Him at Chiefs Game',
+            publisher: 'The Tonight Show Starring Jimmy Fallon (NBC)',
+            source_type: 'official',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+          {
+            // Rolling Stone's write-up of the Tonight Show interview. Bot-gated
+            // in the run environment (tollbit 307 redirect), so cited by URL and
+            // corroborated against the official clip above.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/',
+            source_title: 'Tom Cruise Says Taylor Swift Was "Schooling" Him on Football at Chiefs Game',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+          {
+            // Variety's coverage of the same interview. Also bot-gated (tollbit
+            // redirect); cited by URL.
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/',
+            source_title: 'Tom Cruise Says Taylor Swift Was "Schooling" Him on Football',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+        ],
+        // Visual (charter step 3b): The Tonight Show's official YouTube clip
+        // thumbnail — curl-verified HTTP 200 image/jpeg (~218KB maxres) and
+        // vision-confirmed as Tom Cruise on the Tonight Show set under the
+        // "TOM CRUISE" lower-third. The clip is the primary artifact; its
+        // thumbnail is the connected official visual.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ZLXL1L0TfsI/maxresdefault.jpg',
+            focalPoint: '55% 30%',
+            credit: 'The Tonight Show Starring Jimmy Fallon / NBC (official YouTube clip thumbnail)',
+            caption:
+              'Tom Cruise on The Tonight Show, where he described Taylor "schooling" him on football at the Chiefs\' season opener.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-08-17 from intake #2208 (Content Shift).
       // Verify-before-write (charter rule 4) corrected the ticket: it framed
       // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
