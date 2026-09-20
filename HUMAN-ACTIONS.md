@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #81 🟡 [DECIDE] PR #4220 (social-poster branch) has been red for 7 days (~2 min)
+<!-- ha filed=2026-09-20 -->
+
+**Why:** PR #4220 (`social-poster/state-20260913003919`) has been open and failing `build`/`build-full` since 2026-09-13 — 7 days, past the escalation threshold (issue #4243). Root cause, confirmed across daily checks: `check:no-downgrade` fails against a lockfile now stale vs main; no agent is coming back to fix an old queue-state snapshot branch.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `rebase` (an agent rebases PR #4220 onto main and re-pushes) or `close` (abandon this snapshot branch).
+
+**Worked if:** PR #4220 is merged or closed, and issue #4243 stops listing it.
 
 ## #80 🟡 [DECIDE] #4364 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-09-19 -->
