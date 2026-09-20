@@ -12645,6 +12645,22 @@ export default {
               'Tom Cruise on The Tonight Show, where he described Taylor "schooling" him on football at the Chiefs\' season opener.',
             kind: 'primary',
           },
+          {
+            // Photo Enrichment lane (Vault Run, 2026-09-20): second visual for
+            // the moment's New Heights half. Official New Heights episode 202
+            // thumbnail — oEmbed-verified author_name "New Heights", title "Tom
+            // Cruise on Digger, Experiencing Arrowhead, Importance of Film &
+            // Getting Above the Clouds | 202"; curl-verified HTTP 200 image/jpeg
+            // (~271KB maxres) and vision-confirmed as Travis Kelce, Tom Cruise
+            // and Jason Kelce under a "THE TOM CRUISE EPISODE" title card.
+            // Public podcast, official channel, no privacy concern.
+            url: 'https://i.ytimg.com/vi/0jDt1S9htv0/maxresdefault.jpg',
+            focalPoint: '50% 38%',
+            credit: 'New Heights (official YouTube episode thumbnail)',
+            caption:
+              'Tom Cruise with Travis and Jason Kelce on New Heights (episode 202), where Kelce recalled Taylor\'s early football-learning days.',
+            kind: 'archival',
+          },
         ],
       },
     },
