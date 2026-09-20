@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 56
+Stories: 57
+
+## Updates on Taylor Swift's appearance at Chiefs game Week 2
+
+- first seen: 2026-09-20 23:12 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The latest updates regarding Taylor Swift's attendance at the Chiefs game in Week 2 are being reported by various sources. Fans are eagerly seeking confirmation of her presence at the event.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUlZCM01kaU5DX2xrVEtNZVR5R215Q004WWVSbnRoQktzMzBma0pLdVBFaFVuY2tLTUUtRjZpdEl6QWh6NFE4OVMwMGZ3NnJTWUlHZ1o3NEswMnRmalJ1VmlsX3NqTDdJVUhhTUlLYnpLOTMxVU5HTTdGV1kxRnEtY1JuQnlqcTdRLVdPdlRlWlc2Y0dyTjJ1ZjRMZE5PazZFdHRYZHlheXg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jodi Picoult Discusses Taylor Swift at Carroll Festival
+
+- first seen: 2026-09-20 23:12 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At the Carroll festival, author Jodi Picoult shared her thoughts on Taylor Swift and Lindsay Clancy, highlighting intriguing connections between the two. The discussion drew attention from attendees interested in both figures.
+- sources:
+  - [unverified] Baltimore Sun — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQbFo5NGNVNkFNNzZmX2lHdEM0TE8zaGFmYjBiTEU4QlJiek1xTFZtVGg0NUYxQWlrS0wxMklWOTgtS0hQMTV6dnpfajczaTVLNjNrOUtZWlZpYkxwck1GOGVpdVJkanZFTHc0N2VYSkVsUGRmUExfRkdLQ1lndGZsWk9CVktLSklxN3BXWF9hZlJuMUNTdElfc3BTaHlTeXVOT19ybHpQVVRES3M?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Nikki Glaser Features in NBC's Taylor Swift Chiefs Video for Sunday Night Football
+
+- first seen: 2026-09-20 23:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nikki Glaser stars in an NBC video featuring Taylor Swift, promoting Sunday Night Football with the Kansas City Chiefs. The collaboration underscores Taylor Swift's influence in popular culture and sports.
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNSkM1OXpDT2VZeF9kUFlMamw5UDFzSGJOUHdodTUyMzY4Q1Fqd2NUeXdzcFB2cWY4RC1GaDRhdkN6Y3JOMUJseTZBTExxZ2hEWUJlOUFDZ2JkVUZzS1FtckxnVG0xaHE0bUJHajhqRGlLVHdQbjBITUFvTzZYVTB5Y2dpN3JObm00SU1VUjBuN0FuQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Joe Alwyn Seen With Two Famous Women, Romance Rumors Arise
+
+- first seen: 2026-09-20 23:12 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Joe Alwyn, who previously dated Taylor Swift, has ignited romance rumors after being spotted with two different famous women within a few days. This development has attracted attention from fans and media alike.
+- sources:
+  - [unverified] Charlotte Observer — https://news.google.com/rss/articles/CBMieEFVX3lxTE1wU21VT3dCbGttZDRzaXF2aDc5VEQ3aEoxR2RnMERreU04SU00MmM0VnRNOGxQTFpyX3E5OXBDS0dFQ3dIcE45MHh2S3c3Y2xza04xQXdsTDRNQWZOclVRX09EQi1MZ2hjd0hUVGt6SXQtWk90dkNnRg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Viewing Information for Colts vs. Chiefs featuring Taylor Swift Details
+
+- first seen: 2026-09-20 23:12 UTC | category: business | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: The article provides details on how to watch the upcoming Colts vs. Chiefs game, along with insights into Taylor Swift's involvement. It includes important timing information for fans.
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMingFBVV95cUxOY2Q1aFVZTDMwZnB0bk05bi15c1p4NXZKX0ZKMnphc25iNHR1bFQ5ZmRJOWQ4QmVxY0dnYnpaVVFibDdXUUotdVJ1b1hsdTJaamlSS2VEOHFRODcwb0RfQUhzXzhMeUg3MGdKQThfZFBpcG1zUXNsWXBpMlJHTFFUdUcyZW5qRWJkSWJLeTYxNkJFLXgzTTZyeFJlbFA0dw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Attend Patrick Mahomes' Birthday Party
 
@@ -161,11 +201,14 @@ Stories: 56
 ## Travis Kelce and Taylor Swift Attend Patrick Mahomes' Party
 
 - first seen: 2026-09-20 06:09 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce and Taylor Swift were spotted together at a party hosted by Patrick Mahomes, drawing attention as they arrived. The event highlighted their friendship and social circles in a prominent setting.
 - sources:
   - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOZXBBb0JJQl9UemE4OEpIUkVmalNEcGxqR2xHRHE5UkhWT0VtcmtMWGJJQ0RPR09EelNpTUFmUDBrMWRteXlHOGdKYU1VTWpVU3lDVkJCSG9Qa0NEY2VNaks1bkZrOC1lYkJfT1dlX2VzOENBWUQ1bEczVTZQOTAtMEFwUWxCMFBaUDg5ZFM5STNGVzJ6eGw2cHVjMTFReER6M3JVNGRKMTlZQ3drR3dYZ0MwM3U?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivwFBVV95cUxPNURsMVpyclJPeHdKZ2xRWXlNRy1ydVBlaXRMOTRwelU0RmtRcFFuc0kyNkZtLUloMjRxZWdhVHAxS3JkVXl2UndqamFQSy1yVVVWTHpFMGIzeWlTNlg3X1Q2UmtnOGQwZTFtVFR6a2FmOUREcVNndWlVNkwyTG9mX2dKajFHQ1Rvck1lenBXd1pRbEdZdDdha2dzM2FkaHFwVUF5NnBacjFxNC10TmNrNW5mQTdUNkRkMU5GNnlEcw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUHNCTHRGZFVJQUxJdTlXcjBUWXNSQ3JkZjBHLXRtY2N3cmpiYk5qcHhTM3NqMTdTT1lEYnJfU2J2YWZnYkJFcm50S2g1QW1Fc1dWTUlJVDNkTXRTcFFNdHRJN2JkMWFuaHIxajlGdENubllsU0JTaVlGQml3VEo0MDJGS3JwX0pOZ01DRDh2RGRNM1BUNmVyZW8yY1VjczJ4NjU3WFJiWQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWHUwcUpfOVJKSEdycTF3R09BSEtKc3c3VjlNaDRDbTZZTHNCX3ZIc2h2VVpscU5ZNW95aFNIaTNsbzZ2dVotbjYzbFZ4c2JnQ0pCaGRaVXFyanlFVXJPUGpzVHFTR2FNakV5NHJURno0OGV5OXpDVjFocUE5OTZQemFaaGRvNXM4RGZyd016YWlOcWVDT0piUmVHZ25wNVRBNG5n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMinwFBVV95cUxQd0JzeXF6RTM3dmNPUGxrRG43VXNGVElvaXF1bkQ1UnAzVWRreWhfd2hlakNmRko2VnBHVVZrcWM5VVctMTdlRjlUWWVpU2sxZC1Dd0o3cXZOZkc1YnVWQlcwTHQ1NUJxZ0hHZUFOTExkUXIzazZtdzhYcTNZWTVyaS0zbDYtTG9vY255Qm9Pb1JUWkRvaEJETENBU25RZEHSAZ4BQVVfeXFMUGNUOG14Q2tEUWdtZ3BzSXQ5MmYwQkhPSTFYeUs3aEdwRkYzVEsxUHQxLVRmMVF6VGJ3YUVyQUpod00xSllTMWszRWRSMWM5aUMyUVFmXzJzS1UzeU10SGFNSFZTLTFoWWt5a1JTNnZLMGtsWjc4b3E5YldoX1RQS2g4WURjclFPUUJlWnF2dUhlRnNqM2lrVXUxRDF4eGc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Discusses Wedding to Taylor Swift on 'New Heights'
 
@@ -467,35 +510,3 @@ Stories: 56
 - sources:
   - [unverified] Business Insider Africa — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOdzYxcGVkU1ZaYlNHZUNoRzVnVWdxRWpnZEQyR2lOT2pUMEJoNUp6UWRmNDR3aWMxQ1dacFAyckQzM1UwbzYxZkpkTnJpVXFuR0xLVG5tbEZfTkpYcmdEOEJfMlR1Z3RqWDhQRzlmVEhmRDVoamgydlJmYVYzaHp2WXFFN1BjUENHOE9IYzNvaTFhcWNjZnFLQmItRGQybUtGOFo2bEMtTURVVXpTUl9GOGV6V29pT1p3WWNSTTNSYzNRT05QY1dXdVlHME00YURLMWFLc2UzYw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQNldXMUs3RkVRRUFieWluM2tGSHJmdVhQV3VPajcwdWRoMGUtT2kyVlFlOUJNdXlfVVZoYm5xUXlyZVNmSlpVLU5IMnpIZ3YtTE1yb09TNEx2TkFVWmdKbWNSeld1Wnd5cTE1REtYZElMNV9lMlQyVVViTVZnTG92eF9JU1I0MUstek1VUmlOUEdDejA0Y3FrMEdXOVl0WnRKUF9DWUQwcTMweE1kWUtvWDdITGdFRHlTaTkzQ2lSRVktRmlYN1RoMQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Corey Cott Shares Story About Cookies Baked by Taylor Swift
-
-- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Corey Cott from SVU talks about the cookies that Taylor Swift baked for him and how he utilized them. The interaction highlights a friendly connection between the two.
-- sources:
-  - [unverified] NBC TV Network — https://news.google.com/rss/articles/CBMidkFVX3lxTE9qX2NIVTRzRnZFWS1wbGRNRklyUWIyZXVGQUYwbTZGdjd6dmVabWdwTVlOV1I1c0puZE9lb3FuWEpwVzBxSlhnMFFUWDluTV9SRVZRbVI5TXY3c215SUdwWnhLV2x2ZFdvdjQweDdNemNBaXh2SFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Address Privacy Near Ohio Mansion
-
-- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce respond to concerns about privacy regarding their new Ohio mansion, emphasizing the importance of security. The property was purchased for $5.3 million.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOaGxaU05OZDVtY0s0T1doRno5cFhEVUZUSnlHNVAyZzJsZHRFczJuclZHLW1yUGhaNnJ6VzdIaFJGNG03UGZoT2Y1c2xqYVNGSGIzQ3JXMHVtTGhaemtiTEd3U0pndjI5ZUZ3bXBIMGFCQUZLY2hrSS04cVZ0SGh1WnhVWjE4bGxGYU9iRFI3TkQ0V2dwZ2d5bnpMdUV3eWJNVVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Colin Kaepernick's Mom Suggests He Date Taylor Swift
-
-- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Colin Kaepernick revealed that his mother believes he should date Taylor Swift, expressing that they would be a perfect match. This statement has drawn attention to potential connections between the two public figures.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxOMWYzR0ttdk5hc2h6MURXMDFBTzdSanVvZWNud00tdzNrQ3JudGNHMVpyWkhlU3dMcjUxNmg0ZDg1SlNHOWw5M1J0Zlh0SlJrX2pCQ3VNa1B5NnN2V2NuMWdIUDhaOGcyQXFUQW8ySC1lemlWUFJ6eGt3Q0dDdE5sT2FwYTRQN2w1cEQtZXlCRXNoZDY3VEhxZkNlcWhBNlJneEdnWlYtYTI2TzBEMGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotted on Date Night
-
-- first seen: 2026-09-17 20:16 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new unseen photo captures Taylor Swift and Travis Kelce during a date night. The image highlights the couple enjoying their time together.
-- sources:
-  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxNeUEzeHd1NEEyZ3NsWHBFWGx2ZnFkUVBJZTZ4OG85czRrZkZqc0FoSWl6Z1JPRi13a0hGNndDQjRwWGpJbU5aZHlGOHZGX3IyUXJEdGpWUTM4VlBROTJyMU01TDc3NGQyQkl2Uks1NlNyZTd6Qzl4SVV0UExyM0pUMnlIc1ozUUFPbzVTZzdvZURKRHZ6TXRIMzFTYVN4VE5QV0lFVDduX3VCektYWHc?oc=5&hl=en-US&gl=US&ceid=US:en
