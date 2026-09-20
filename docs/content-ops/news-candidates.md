@@ -25,7 +25,121 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 46
+Stories: 56
+
+## Taylor Swift and Travis Kelce Attend Patrick Mahomes' Birthday Party
+
+- first seen: 2026-09-20 19:24 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted together at a birthday party for NFL star Patrick Mahomes. The event showcased the couple's continued public appearances together.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTUQ1M3JmZWgxb0lUOGVmeDdQVjFnMzZ1MWJ0M2tyX1MxaE02eTI1SjNlbkEyWnJLa1Y0NWUwdmVvblRIYXQ4NjNlWWxfeFR1a3M4UzRrZjNUbzlTMlpscmEyZnRIc3NwVW9pTjhfZEh2QUU3REFKcm9SeTdJOUNqZ0xDSTNlMVFlb1VaNzhfNTRQbFEtUmc5NldMQTlnMDg0MVR6ODN2VjVFQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Secrets on Law & Order Appearance
+
+- first seen: 2026-09-20 19:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In her recent appearance on Law & Order, Taylor Swift unexpectedly shared tips about sourdough, which surprised fans and viewers alike. Kelli Giddish, her co-star, played a key role in the discussion surrounding this culinary topic.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxQWVhUa2hjXzRXNW16N05RYkpDbWF4eUhSWWp4NzY5Y2tLTkJMNTZ0ci02LWRMMGk0TlpZWG5VOG5JcUJpMjB6TENNQmxkVFJDUW5xZ0lodkZ5cjRrdTc3d2ZGMnlfOVBvMnhNQmdPNWxJTWpGZVp4ai1Uc0JQb3p3R3ZjMzlXR0NBZWRKQjlWSUhyb1VWY1FUWjB3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Little Black Dress for Dinner Date with Travis Kelce
+
+- first seen: 2026-09-20 19:24 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift opted for a classic little black dress during her dinner date with Travis Kelce. The choice highlights her fashion sense in a casual setting.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMitwFBVV95cUxQTzVWU2JVLWpsVFAtcWhQZUlMWU81dTlDLWVSYnNwUThWWVBCVXQyMklBdkRxZ1RQbUJPMm43RGgwZ18yZHRXWExQMV81RlV1eEJvWk9YWUU1bUtlYXBJR0xkczZmUVUxV2hKVkprQ2pxbVJEbWh1a3JUS3VLNlVvM3FCMVZJcWxOS1hrVEs3bDNKUndZWHBaYmZ2eUZFYV9hLXA0UWZ3V09LVEtnQU9WVWNCM1VJT1U?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Joe Alwyn and Sarah Pidgeon Spark Romance Speculation
+
+- first seen: 2026-09-20 19:24 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Rumors of a potential romance between Joe Alwyn and Sarah Pidgeon have resurfaced as they were seen coordinating together. This renewed interest comes after Alwyn's previous relationship with Taylor Swift.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNNG55VzhpR3pXQlA5VG04VXdtdjVjejVPb0RUYXRJY0lPTjc5YmNZdTdRSkRNYUhEaUZQLVVoM0lIMFRnNzduSWJsLWJmV1V2LXBILTdwZVV3b1VfM0NsdDQ2VDY0WktLNURIOTNxYkdheUhfOWg0XzNOcHYxVkRZazlhTUZOcWI0dmNITjNmU0hCQXlnUUJKUml1cmkzVkR5?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring Taylor Swift Among NFL's Notable WAGs
+
+- first seen: 2026-09-20 19:24 UTC | category: fashion | importance: 4
+- verification_status: corroborated | source_count: 2
+- summary: The article discusses the term WAGs and includes Taylor Swift as a notable figure among NFL's most recognized partners, examining her place in the context of celebrity culture. The piece highlights her presence in the realm of sports alongside other famous personalities.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMimgFBVV95cUxQZW16aFh5ZjI1b2tJNE4tZVFYcFZ4MlcyWjJxejFPd2NfLXNVbE5LMDFVVU1wU0xRVGM1ZnhiYk5ZeUQzUm41OGNKS3owRjQ1REIyemdZbXdmaUg4TmVyYl9lUS00bU90bVFVdGZUWXhnWmUtYjRPMzNnU290NnRlUW42NEtleFhMNWNORmxjRzBWUzhHNVlURVVB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/lists/nfl-20-hottest-wags-taylor-swift-madison-beer-normani-olivia-ponton/
+
+## Taylor Swift Tribute Featured at Lodi Grape Festival
+
+- first seen: 2026-09-20 19:24 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Lodi Grape Festival included a carnival and a tribute to Taylor Swift, celebrating her music among festival activities.
+- sources:
+  - [unverified] Stocktonia — https://news.google.com/rss/articles/CBMisAFBVV95cUxQRHBsUThQTGNoU3NSWWJFeWE2Vk4zWEoxRzl4bWxaQng5UERDZ1FrTEY3MnUxTldpQktlbjhvMkt2MjZocWhSUnIzRkR3QUozN1h5VDY2V3habDhJWFlGSlZ0SUcyQnNwb2V3bW5EdFZpNVM5bk1Jbjk4ckJvMlpaakx6VTR5SnBTVEJlSUhQR0ZBSWhIT0kzLV9fc1pkOE5WTU5LdGhmbDhMUm0tbmtXSw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Mariska Hargitay Redefine Age-Gap Friendships
+
+- first seen: 2026-09-20 19:24 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Mariska Hargitay are challenging societal norms surrounding age-gap friendships, showcasing their bond in the public eye. Their friendship emphasizes that age should not dictate personal connections.
+- sources:
+  - [unverified] women.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQclY5Qlk3THQ2RXNRdkRsR3VYZ0U1ZjNpNk1SU2FLRHRwNGFaaDZoUFNfajhmZVU4WXlUUGRvcUVqWkhNenQzUU9hTUgwbHpOT3AwS3hvdi1hN2VNaXd6LTZFX1dicjYtdWxVRWxkZ0FxYkJ4X3pzUHk3VXRPYWJuTlV5d3h3RFRmZ2JGSk0yUUdSM2Ntb0JBVTE1aWcwNGVxUjZLdWgtYW16d28?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Dine Together in Kansas City
+
+- first seen: 2026-09-20 13:34 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted enjoying a dinner date at Kelce's restaurant in Kansas City. The sighting highlights their relationship in a casual setting.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTFB5SUtTMzVTeGtmRlhUell1V1VyamtYNWZVS1NZLVc1ODRnSWgxU1ZWX2lya3JoVVZ2d2NrUVBqTWRvUVFVZGt6dWpZcjdxeEpRT1JQMURfcEdzeTVOeVlXV3VLWDc2S3RZcU90c0QwTlVaXzRoU0FLQTJVaWdyZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Strapless LBD on Date Night with Travis Kelce
+
+- first seen: 2026-09-20 13:34 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a sleek strapless little black dress during a cozy date night with Travis Kelce. The outfit showcases her stylish fashion sense in a relaxed setting.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQdDNmWWJJNi1iTlg4MDgtT1Bvdzl2cWlQLXlWcWszdDRDenRDQ1kxeGZVV0lVLU01eTdlbTA3aXlwUXVybEtNQVpuY1FTMmZHSWVYdFppSi1MclJ5Sk9jUUFibzNDZy00cmpJa3gtMmg2dGwyQmFUX1UzSEotREZVOEdNMXB6VG1LT0pr?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Attend Birthday Celebration Together
+
+- first seen: 2026-09-20 13:34 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen holding hands at Patrick Mahomes' birthday celebration, indicating a public display of affection. This outing comes amidst ongoing speculation about their relationship status.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQSnM2QUtwazFnUzF4NDZ5R2VITjlRQ1VfY2N2aVF3Wl9ubWhhNWhDREVMWFBBUVR0NE9VaTJlbjFUc3E0bDltR3FlWnlKVktXb2lJdXRwUldqeUZSR1ZkYzA4YXdsb0xiSHk2cUpQNDNvQ0RYRExSUTNQVU03MlplWV9XcFFiTEc0TFBGQS03cG5fM0wxM3JaMjlEby1oTm1uZkVKRC1JSnZjMXVzWWZ0anRJb3FGYnpGcjBJ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Featured in Weekly Celebrity Outfit Roundup
+
+- first seen: 2026-09-20 13:34 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's outfit is highlighted in a weekly roundup of favorite celebrity looks, showcasing her dazzling dress. The feature is part of a larger collection that includes other celebrities' styles.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTFAwSXpvVDd1d29hc2FQVnBsUUhKSGZSRmt0S1N6cVhuSERZWDBTSzlza3pleGVfZzY5TEdNejJXVnNVWUNnQjBpWktLVk91bTYwNjdlSm5lVlZSWHNCVGFENzFKYjhqX3RjbFhJbk1KejA5Y2RX?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Gen Z Embraces Whimsymaxxing with Crystals and Sparkles
+
+- first seen: 2026-09-20 13:34 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Gen Z is embracing a trend called 'whimsymaxxing' that incorporates crystals, gems, and sparkles into everyday life to add joy. This fashion movement highlights the resurgence of bedazzling among younger generations.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/20/style/bedazzle-rhinestones-gems-whimsy.html
+
+## Photos of Taylor Swift and Travis Kelce at Sports Games
+
+- first seen: 2026-09-20 13:34 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Gallery features Taylor Swift and Travis Kelce attending various sports games together. The images highlight their public appearances and shared moments at sporting events.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5nZGtIZFFRM29jRVJ3UDN2dlJlc21CaE9NRDhQaVFKR3ZfY1g3cUUzSXg2dXMzNVFIUFVITzdQSmtfU3MySHlzNUZRc3BYVmpGTzJfVE9Fdm9xcGZfbEV6d21kNkVCTmVOV3ZqM29OajdrOGxqR1N4T3R1cGhwUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNQ2lGSWd1OE5fdGNJWVBKc04wbURIOWdpR1pIaTBVYVBTTG82QTJQU1ItekJaX2RDLWZ2WGJBaXJnTV9scnktTUZydUdJZWtnQktINEpyT0s3TmdSc2pTT2VMdzJMeGwyZWtMWGl3bzhvZWJXaUhyVkxScmc4OVphNzhpN0VaV0REeXo5Zm5OaWp6TXdmYi1McW5Zcw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Emmys Appearance Fuels Speculation on Debut Album
+
+- first seen: 2026-09-20 13:34 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's cameo at the Emmys has rekindled speculation about her debut album, prompting a look back at her fashion from 2006 and 2007. The appearance has sparked discussions among fans and media about potential new music.
+- sources:
+  - [unverified] WWD — https://news.google.com/rss/articles/CBMirwFBVV95cUxPMVJUSGo1WFdrb0stbWlrVlV6ZFVuMFpGb01OMktScE9rNldDNU1fNE1mNi02b1dZM1N5aC1Ka3Fla045cjFuRFd3dEZiQV9YTVBwbGg4M1ZieEU2VHluQzY5ZUJGM19oanZZLVhkRUd4TzY4ajd4Y1M5eUJHbHpLc3JhSEZsaWJUUWgtcVlNQ1Q0aW5kc1NuSG0zWEhsY19felFnOVhQbzBpaF95LUZr?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'I Knew You Were Trouble' Released as a New Single
 
@@ -47,9 +161,10 @@ Stories: 46
 ## Travis Kelce and Taylor Swift Attend Patrick Mahomes' Party
 
 - first seen: 2026-09-20 06:09 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Travis Kelce and Taylor Swift were spotted together at a party hosted by Patrick Mahomes, drawing attention as they arrived. The event highlighted their friendship and social circles in a prominent setting.
 - sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOZXBBb0JJQl9UemE4OEpIUkVmalNEcGxqR2xHRHE5UkhWT0VtcmtMWGJJQ0RPR09EelNpTUFmUDBrMWRteXlHOGdKYU1VTWpVU3lDVkJCSG9Qa0NEY2VNaks1bkZrOC1lYkJfT1dlX2VzOENBWUQ1bEczVTZQOTAtMEFwUWxCMFBaUDg5ZFM5STNGVzJ6eGw2cHVjMTFReER6M3JVNGRKMTlZQ3drR3dYZ0MwM3U?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWHUwcUpfOVJKSEdycTF3R09BSEtKc3c3VjlNaDRDbTZZTHNCX3ZIc2h2VVpscU5ZNW95aFNIaTNsbzZ2dVotbjYzbFZ4c2JnQ0pCaGRaVXFyanlFVXJPUGpzVHFTR2FNakV5NHJURno0OGV5OXpDVjFocUE5OTZQemFaaGRvNXM4RGZyd016YWlOcWVDT0piUmVHZ25wNVRBNG5n?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Discusses Wedding to Taylor Swift on 'New Heights'
@@ -384,36 +499,3 @@ Stories: 46
 - summary: A new unseen photo captures Taylor Swift and Travis Kelce during a date night. The image highlights the couple enjoying their time together.
 - sources:
   - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxNeUEzeHd1NEEyZ3NsWHBFWGx2ZnFkUVBJZTZ4OG85czRrZkZqc0FoSWl6Z1JPRi13a0hGNndDQjRwWGpJbU5aZHlGOHZGX3IyUXJEdGpWUTM4VlBROTJyMU01TDc3NGQyQkl2Uks1NlNyZTd6Qzl4SVV0UExyM0pUMnlIc1ozUUFPbzVTZzdvZURKRHZ6TXRIMzFTYVN4VE5QV0lFVDduX3VCektYWHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift tribute featured in capital region events
-
-- first seen: 2026-09-17 14:16 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Taylor Swift tribute is highlighted among seven activities recommended in the capital region, alongside Theatre Week. The tribute offers Swift fans a chance to celebrate her music in the local area.
-- sources:
-  - [unverified] The Baltimore Banner — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQYnM5b3ZzYjVYek0xZnVSclpnWTI3M1FLOWxOTF92THplWXNnWmM5ZjdxcEt2TWV4V2o5dzV1Q1RjQzdnUjJQNTdlY19RRktqclZITGdKdW8yZXVhem1INVZBeVhSWGtOckNHSldSb2ZDaEY3N3hILTZBV2tsMGhOVzZuZ0VaZ09WbmZWSlNkVlJpX1Zka0RQOEtYSWdlUzd3Yl9ORHpORFZoSXdldjZFSTQ1dnZGRkI0dEk3eFZYVnNab3lVWkp6QS1DMENjRVVDbGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## All 58 Taylor Swift Music Videos Now Available on Spotify
-
-- first seen: 2026-09-17 14:16 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: All 58 of Taylor Swift's music videos are now available on Spotify, following a seven-month gap since 'Opalite' briefly skipped YouTube. This expansion enhances her visibility on the platform.
-- sources:
-  - [unverified] Music Business Worldwide — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOdVMzYlMtbTRxX0RSOTlia0FDbUVTTFM4QnhoekhKX3VaQ25VODV6N3pQS2pTYk1VQU5Hem9vUlRWQ0YxMTFLeURjQXdJOUdwRWMxd3hvWmt4NjJCWE9UaHAxbTc3QlVxeUg1OUZsQUJEcWpLdWxtb0xFakp5VXowSXI0UjljVTlUaTUwYXFFTWVIeUE4UnBmcWxvUE1MMDE3b3J0QlMxSW10YjFtRHNKRXJXWXNBUnNfQ1lBWUtibm9MOFhvV3Zld2twNUQzYk9UdEJRNS01TDdJUS1r?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Brad Pitt Reflects on Dance Floor Incident at Taylor Swift's Wedding
-
-- first seen: 2026-09-17 14:16 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: In a recent appearance, Brad Pitt discussed a mishap he experienced on the dance floor during Taylor Swift's wedding, noting the unexpected duration of his stay at the event.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxOakJmVGRoQkRGcEMtR19ZR05wX2FabEFJNWt3Zkprb0xWbU1Dak9odFZCQjdlXzJzckhjMmEyWU1xanF0cjE2REVkX2Y4bl84WEdNVmxueXJaclM4VndhaXdSb25udFQ4QzQ3OFh2eDhTTnBCUGtOalVqWGtSbWMyaWtEeDdrNExZMlJveXNWQXlnWENvZ25ueU5hWkNTNS1ZWFFFb2RHalg3MHhRQkxTMnV0VUxXeUpmU3c?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbExSYlE4VHJTdnVPdlY3eExucDE4b2Y3X2dxYTB4S2R1QnRZZDNZRHlLNDZEZmhvVnF2ellOeDlxS3NCcDJRMFhhcXhBTENJajhFOVNCdmsxc3gwdC1aemRHWUpMcFhpbl9pWGt6QU0tcHNDVFh6U3lBRnIzVm5EMmhweEpMY1hmcWR0d3dON0dWVENJaWxPaFVibzdtYzdG?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Role as 'Aunt Tay' to Kelce Daughters Described
-
-- first seen: 2026-09-17 14:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's relationship with Jason and Kylie Kelce's daughters is examined, noting that she wasn't always referred to as 'Aunt Tay'.
-- sources:
-  - [unverified] Momtastic — https://news.google.com/rss/articles/CBMimwFBVV95cUxQdnk4YmxDM0NoSExQZ1c2cGpqYVVyUE9SRi1xM013NUNnQkJpSXBzNms5SC1KNFAxSjgzOG4zTll3dWNUb2pmQWJpRzYzY09KSG9TRXYzMndVUkpleUstclpPd1N4eWh2M0dDY09tTFgxWFJVTzdSRGNwbjZoVVVBY1hfUnhkUFppRGJ3QXlaRWl1X3JIOUhQd2x5MNIBoAFBVV95cUxOYjBuRU5mbWU0WjhNc1ROcFJpdEV5VHJwclp4S3RtZVpaQ2FHR01ZYVIzczJ0S1dId1BEMWMxNndDb0N5QmFnWkg0dHI2ZXJ5ZEV1MGRXMXA3RU1GVUthQmd3Z2hLSTJ6S1otQnhRVlNWblJJX0pjLWJLb3hqRXZOY3BSV3hNRXpwV0t2M0dHaElMT2d0cy1zR012bmwtTWRV?oc=5&hl=en-US&gl=US&ceid=US:en
