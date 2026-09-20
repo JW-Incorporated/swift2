@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 46
+
+## Taylor Swift's 'I Knew You Were Trouble' Released as a New Single
+
+- first seen: 2026-09-20 06:09 UTC | category: release | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift's hit song 'I Knew You Were Trouble,' which has garnered 542 million views, has now been released as a new single. This re-release highlights the enduring popularity of the track.
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9vbURJWHlxaHY1NXF2S0lsQlgxUVZhTExnWXFVOWhobTY4VjlKbmo0ZWE3RkN5N01CTmRuOVVUOU9pdVhQZ0JDYjFzZDhHQkxVQXd2allJcmw5NTI0b2o2bHk0R1RKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMifEFVX3lxTE81X3VUeVpRdjA3THoxYmRkc0xDb1NZVDUzaU1Xc1Q0OUU0NElaRjR3c0o5ZGx2WnlFNWNmeTFVYjNfc2ZjUHNSSXU4MHV0MTBnT2xSOEdwMi11aklKR2Q2LTJ5ZmhDWGxxTnhHWmpfWDdXQl9kQWpuSjJKMXc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Red' Released as Standalone Single with 260 Million Views
+
+- first seen: 2026-09-20 06:09 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's song 'Red' has been released as a standalone single and has garnered 260 million views on YouTube. This milestone highlights the song's popularity and Swift's ongoing impact in the music industry.
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9ra2ZoRFRLUVM0eXpEbGdPLXJRTFJrN0tYM0d0c0ZzMzNXM0t6UGF0V3pad0xNRG9INlhzY2RTRVNwLWZ3UTZCNlo0QmhRTmt0OVlRZmdVNW84OUFvQTQ2TGhCN1dtdUk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Attend Patrick Mahomes' Party
+
+- first seen: 2026-09-20 06:09 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift were spotted together at a party hosted by Patrick Mahomes, drawing attention as they arrived. The event highlighted their friendship and social circles in a prominent setting.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWHUwcUpfOVJKSEdycTF3R09BSEtKc3c3VjlNaDRDbTZZTHNCX3ZIc2h2VVpscU5ZNW95aFNIaTNsbzZ2dVotbjYzbFZ4c2JnQ0pCaGRaVXFyanlFVXJPUGpzVHFTR2FNakV5NHJURno0OGV5OXpDVjFocUE5OTZQemFaaGRvNXM4RGZyd016YWlOcWVDT0piUmVHZ25wNVRBNG5n?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Discusses Wedding to Taylor Swift on 'New Heights'
 
@@ -261,20 +286,6 @@ Stories: 63
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinwFBVV95cUxQdnZ4S015WGlndEV2OVM1cUdIMGhCR00xZ3ZWYWVFSjN3YlR2LUNFbThScWpVemZHZ1VESGQwd2dsajRFQk9QZU1QYTFkQVFoMVp0NGJsNzBTR3dBcmpCeHlsV3dOcmw0bHNBQnBJV0x0VnAtaUc5TVhMMnlRcUVkQmZnZ1VwTFdpSEU0WkN3ZVRZMEJwc29BdUI3akNEdE0?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
-
-- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Tom Cruise shared insights about his conversation with Taylor Swift during the recent Chiefs game. Their interaction has garnered attention from fans and media alike.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdG5KeGxzay1GX3FSSmI1OWl1N3h0aXdwQkctMHdBOXhxRi04a3ROQV9kdTlYbzJOaEplbWN5bW1Oa1FKWEM5dlYxbGZVSDZoTzdoaGJzMHpvY0ZHYndVYjluclktaGFjeTNSN1JhVzJXcjZja2ZUWWpvZmIyOHRCVW84dGlDcExWblB3ZDNiekJxdEo0d0Z5OV85ZEk2bW9LT05tV21laE4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxPdzYxZGJMaXNyR2F1eGlLOEstQmNMa3NLNnVES3JYazZqS2JnRE5qc1NyQTVHbDhKT2JzM0ZBdGdQcVBzVWJJa0thS1lsemFjcWxmdVRzVWdoTnpBYXBfZkg0VjNON2U0VTVYTUhUMWExQmRwNENJSGN0YU9mZTFLSnFiMmg2UlpVODFTc1RXM291VTZhWGt4NjZIX2d0NEpmMTRra2x2Y3pHajYtSjRzLWI4QlBwSHdmcW5xWFpaMjE0d1NiOUVTZjRMUlc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPRHJWbUJaTDFDX09mNlFwVzdnbWV3b0g3eW5PQTNuQnZJQ1hHaUt0YVdOcTE4M005cm5qbGhvOU9weDZOeVgxR3FnZnB0Mk9jR0Z5V0drUHh0R3lKdVVsUEkta2EwcnBvQy1VVUxwcGFaV2dVOFZid2kzTmoxNnZfcndmRXFobTBpR04yM1ZrMVotc0RFNUVjS2dxcVkzQlZUR24zRUJYSnd1SndHWnFIWlhrbHN3dkhkOHJSejdwel8?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQTHlzbEM2U0V5Vkt4UVJEWWtjWFA3YXlMU0ZTRzdISVhHRmRYTEtaUDI1RlJEM1g4OTlXWVdIQ2ZCemxMUkRDUHpDR2tLZkFjRWEtRFhoa0FfeWNnVDFSOE4yejVfS0VjcHZGbkNKQjRTWjRVV0tNaUt5WVFuQ25vdkdYTE1fN0lnTy1CVWZIT0Fqd1lrNDJTNHlyUmt2UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNelRRSnhXXzM3NFd1d25GWTZQc2xyOTJWSldkNW5nbTdvdG16VHFwZEhuUkFkeXZ1ZjBMakRwS19Idnl5TmlMUmpaS3dIV2pUdWtLQjg4X1hwaEFVYm1SNENvUTVoNEtSZ2lJdDlJX0I5ZTltVTRsS3JHdThCcnhNcUE3ZjJMTXZrc1Q3Y21nSVNvT2FVUHhzeEtReGFIRHM?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Wears Affordable LBD for Date Night with Travis Kelce
 
 - first seen: 2026-09-18 05:52 UTC | category: fashion | importance: 7
@@ -301,6 +312,21 @@ Stories: 63
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTmQ4X1A0d2ZyclJlM0FNTWx5cFViYTZmdG5CQlBsZFBIZFhyTkp4Q0Q0SlBqM2FsVHJyY0tBNmM4NjRoeDRvNUZnam5ZU1JPUHVabnBGYkg5ZUxUaXBXbTNOQzFWTFY5Q3RBMk1EYWpjMU4yMngyUC01amF5WkVWQU5LZjNmVVNHc2phYXJXaXdmZXpDSFo2RFppVVhwcnBGRHBHNEpHQzZ2aFliTHMzRENzcVhRNTUtVGtSTm11X3V0Qm5feFRPYWVaZl8?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaExZMjhhTzBReVpsRHpGYjY4LVB5SC13Nm5kZTRPcy1qZVpaSThBeEtld3cyaWlxdlVDSEItalpXNFZ4YUl4UVlGbDE4TmtCM2NuRUFBajFWaVBMQlFPOTVNY1RlYVJsNldvMUU5N29xWlVGUDZoZzNuZEtiQlg4TVdfWHVJUldQcHE2YXBFZW81bG44X0lmaXFMOWVnRlhwRlpwVk5xTHM?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifEFVX3lxTE9KcTNMRW9FWUUxV0lKZjhJeWhveGhuTjZsNDVmN2c1YTBmamVCbDFlWFRyUnZxdG1KUDFKMnpyYVhNeXotLWhMdVJGYndXOGJuTEM0ei16cGdaUENtTDJrLVZrb0lJdEQzODRjLWxqZVE5eHIzN1g5SDRYLUk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
+
+- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 8
+- summary: Tom Cruise shared insights about his conversation with Taylor Swift during the recent Chiefs game. Their interaction has garnered attention from fans and media alike.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdG5KeGxzay1GX3FSSmI1OWl1N3h0aXdwQkctMHdBOXhxRi04a3ROQV9kdTlYbzJOaEplbWN5bW1Oa1FKWEM5dlYxbGZVSDZoTzdoaGJzMHpvY0ZHYndVYjluclktaGFjeTNSN1JhVzJXcjZja2ZUWWpvZmIyOHRCVW84dGlDcExWblB3ZDNiekJxdEo0d0Z5OV85ZEk2bW9LT05tV21laE4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxPdzYxZGJMaXNyR2F1eGlLOEstQmNMa3NLNnVES3JYazZqS2JnRE5qc1NyQTVHbDhKT2JzM0ZBdGdQcVBzVWJJa0thS1lsemFjcWxmdVRzVWdoTnpBYXBfZkg0VjNON2U0VTVYTUhUMWExQmRwNENJSGN0YU9mZTFLSnFiMmg2UlpVODFTc1RXM291VTZhWGt4NjZIX2d0NEpmMTRra2x2Y3pHajYtSjRzLWI4QlBwSHdmcW5xWFpaMjE0d1NiOUVTZjRMUlc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPRHJWbUJaTDFDX09mNlFwVzdnbWV3b0g3eW5PQTNuQnZJQ1hHaUt0YVdOcTE4M005cm5qbGhvOU9weDZOeVgxR3FnZnB0Mk9jR0Z5V0drUHh0R3lKdVVsUEkta2EwcnBvQy1VVUxwcGFaV2dVOFZid2kzTmoxNnZfcndmRXFobTBpR04yM1ZrMVotc0RFNUVjS2dxcVkzQlZUR24zRUJYSnd1SndHWnFIWlhrbHN3dkhkOHJSejdwel8?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQTHlzbEM2U0V5Vkt4UVJEWWtjWFA3YXlMU0ZTRzdISVhHRmRYTEtaUDI1RlJEM1g4OTlXWVdIQ2ZCemxMUkRDUHpDR2tLZkFjRWEtRFhoa0FfeWNnVDFSOE4yejVfS0VjcHZGbkNKQjRTWjRVV0tNaUt5WVFuQ25vdkdYTE1fN0lnTy1CVWZIT0Fqd1lrNDJTNHlyUmt2UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxPY0JtdDlObTV4UXhXTnZCOGhLSUlfaE9uUDd1N3Q2SHdyMVo0ejFPNXFaY3p6STRwTWxNQVhrOWl5TnlqZjNFeVljWjBENVBPSzVpVlRraVNjRzU5ZE5fWEIzVlNRenNDYTlfUVd0czY0UW9XLWNGQm1ZWnJXQmpXamo1ZEpPMUxOSUVTbGk1UDhrcHZEcDNORjRWRm0yc3hrZkRGZ3ZIRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNelRRSnhXXzM3NFd1d25GWTZQc2xyOTJWSldkNW5nbTdvdG16VHFwZEhuUkFkeXZ1ZjBMakRwS19Idnl5TmlMUmpaS3dIV2pUdWtLQjg4X1hwaEFVYm1SNENvUTVoNEtSZ2lJdDlJX0I5ZTltVTRsS3JHdThCcnhNcUE3ZjJMTXZrc1Q3Y21nSVNvT2FVUHhzeEtReGFIRHM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jason Kelce's Daughters Have Adorable Reaction Meeting Taylor Swift
 
@@ -391,173 +417,3 @@ Stories: 63
 - summary: Taylor Swift's relationship with Jason and Kylie Kelce's daughters is examined, noting that she wasn't always referred to as 'Aunt Tay'.
 - sources:
   - [unverified] Momtastic — https://news.google.com/rss/articles/CBMimwFBVV95cUxQdnk4YmxDM0NoSExQZ1c2cGpqYVVyUE9SRi1xM013NUNnQkJpSXBzNms5SC1KNFAxSjgzOG4zTll3dWNUb2pmQWJpRzYzY09KSG9TRXYzMndVUkpleUstclpPd1N4eWh2M0dDY09tTFgxWFJVTzdSRGNwbjZoVVVBY1hfUnhkUFppRGJ3QXlaRWl1X3JIOUhQd2x5MNIBoAFBVV95cUxOYjBuRU5mbWU0WjhNc1ROcFJpdEV5VHJwclp4S3RtZVpaQ2FHR01ZYVIzczJ0S1dId1BEMWMxNndDb0N5QmFnWkg0dHI2ZXJ5ZEV1MGRXMXA3RU1GVUthQmd3Z2hLSTJ6S1otQnhRVlNWblJJX0pjLWJLb3hqRXZOY3BSV3hNRXpwV0t2M0dHaElMT2d0cy1zR012bmwtTWRV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Absence Noted at 2026 Emmys
-
-- first seen: 2026-09-17 06:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was not in attendance at the 2026 Emmys, as highlighted by Vogue. The article discusses her absence during the event.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMigwFBVV95cUxPMWhXUjhWY2dCZ21TbjhES2tqNko4d2FqZVNtQXJjdFotNE96NzZfRVpNTm4zaWNrU3VpSkJUZnRRcUJCcEJFS0JFZEsyS3BESlZZNnBSQnJCSy1uVXA5Y3g5X29OTHRvUG5FRFBndVFKSkNTZHN6djhKYllvVlVENUNISQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kamala Harris’ Campaign Accused of Misleading Tactics Involving Taylor Swift
-
-- first seen: 2026-09-17 06:06 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A New York Post article discusses allegations against Kamala Harris’ campaign for falsely referencing Taylor Swift and others to draw crowds. The claims suggest attempts to capitalize on the popularity of these artists.
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMingFBVV95cUxPX0paMUhoVkdybTliZ3dBYXN5R19GUnhyTXdnSTJvenJtRmZhTjc4dC0zNjVBQl9rWXdnck1CRzVjVVlwMngzcG5DMV9tNElUSGJ5ck1sX2ZocVgyd012eGZxTWNIUENwcnBCSHppZDc0NnZtNUNOUS1YaVhzZDFHWEM5WTh6d1QyQnpXS1ZaMkNwUkJ4aGFqU292RUVaZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift reportedly speaks out on Meghan Markle comparison
-
-- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: According to a source, Taylor Swift has described comparisons to Meghan Markle as 'absolutely mortifying'.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQemhseVVKb29sYTZIZmtBYkVEM1dXT3FxRW9XTjRpZWc0MVBFOHFCaUdlYmdrRjltcU9PTFg2VnVxQ1daTmdYT21hUXlYZVdzTjBlaG1VeWlydjlxc1lYQTRfWkViZk5Qa01tQzVNU0JaWEthYXE0RjQ5MzcwVENud0p1MlBRY1JF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Psychedelic Pop Artist Peter Max Passes Away at 88
-
-- first seen: 2026-09-17 06:06 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Peter Max, the renowned New York artist celebrated for his vibrant psychedelic art from the 1960s, has died at the age of 88. His work included iconic posters and portraits that captured the spirit of the era.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/culture/culture-news/peter-max-psychedelic-pop-artist-dead-obituary-1235628135/
-
-## Taylor Swift's 'SVU' Cameo Sparks Decoding Among Fans
-
-- first seen: 2026-09-17 06:06 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's recent cameo in 'SVU' has generated excitement among fans, leading to widespread speculation and decoding of clues despite her absence from the Emmys. Swifties are actively discussing the implications of her appearance.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOSzYwZV93SmFjY2hZRndfQzA0b0dnVUVEU1JxdlZ2U1l3NERrUGdmUkdKUGlRV1E3czFnVmZGQUhaUjVXYmFmLWY2X3dfdkptaE8zVXdkd2k0eVYyWTA3Njd5VGhPLTd2N1l5TzdORmZTS1JEc0xZaXVOOTlFTUkxRjdYWHVnMklSSjk1VXpJMTUzSjJzZGRvNW5xSGRNOWN5VzQ2OXpJSmN6MFAzeWZTSUtfVFQyenM3UHV3R0xhUzlIanNFYkZiN0t5cnpyTjhoN3lzSzRSQWthMi1ka200YVg1ZFJIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Increase Security at Ohio Mansion
-
-- first seen: 2026-09-17 06:06 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 11
-- summary: Taylor Swift and Travis Kelce are reportedly facing challenges as they work to enhance security measures at their mansion in Ohio. The couple is navigating obstacles in ensuring their safety.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlhTZkpLS0RlYlhXcE4tY0UwR0QxRHREdWhoMlVOWFZRVDR5OWdxc2JOOW9Yd29EcWtfMmdrd0s3b0d4b0hVbVJ2eWwyT1lfeGtsbWFMV3VNNWI0LUltZFo5SzJMX3phRmZac0RMajlYcWJ0dFRFSW5RTk9kQVQ2QTFta3dVY3I3aU9hcDh5anAxYVZUUFFLNy1aWFBuckVTZ2QxMUd4Mk4zRXdiX0E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxOb19lcmNZYTd5MFJqNFJjQ3dHT0w3SWtCSm9GS3Z0eVF4V3lZNVBJQWJQR0JzSTJOWDk5cEwzaGFlVG90MTZ2MzdLLTdkWkViLU1XQ1MxM0hKZVduMEtwQ2tRSzF0ZFJ6bVJFeFpvX1NtQmpITWh0MWNPOW1Sc1FqZkJ0MkpkMXhJamlMWEZRTXhjUdIBkgFBVV95cUxNU0U0T0FjUzZEd016OWdLcTlqUVRiREI3Z3MzU2puTlZodE85b2VMVHRLSnFDNFVSN1RBZi16QzI4WVRyNVNEdi1FZWZpZWN0ZTFlQi1wdzU1WUdfdDAyeUNWck1vYXV1V2RFNTliYkFTZDBrcW1WSEdkeGlkWVhKSnE3cjBvWW05VHdiMTBrcnpLUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NewsNation — https://news.google.com/rss/articles/CBMipwFBVV95cUxQT3VTcDA2Tzd5eHNQLXVvbElsWjRwUnhxMDd6QzRkNE5uMm5odS02bWFqeHdWYnIwMEtZYjlxbHV3eGVpeThlaTByM3VpNklvZklmYkc3OTJoSzNBTHJNZHNPR3J0dmpEdUtxaE9GazNRal9EeHVOdGpORGE2bnZsVGxUemxjVk1lU0NsR2tCeWNlX18wUzZzOXk4cHpkZERXY3V2NjFmb9IBrAFBVV95cUxPcTJYanhXYTNGY2dXN2FnUmtrQUFfS1k5YmRaYXRRMlpVM2tfd2czNVAxbDFkVURmcXRfSkloUUJWdV96S2N1SHV0bUFXRmNlN1dwYUlxSDBXRmQyV2dBOVN2SHF0QnJLcC1URkI1S3FQVGRkcThYNWg5dTFtRW5hd285dkZ2ekgyTGJYNktrZzIyN2Ezd1dndU53ZGQydGJGME1qOExHU0k4UzUz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirgFBVV95cUxQQlU5WXkxSTJCVjlpUlc2aUYyUWFoV0xaTXdoVUJNTlg2RjBDOExYRWxjdTdyQkJkOGpxdUdrZ3JsTGRRSThuZDJxWWlqdER6MVJXNWhhbF9oTDVQTTdrNkQ0Z1FhZkZjSWJXQXFjTk85c2tfelRzdzNVVVNyMTVFSXhLRXZtSFRLS3paMGYtNzZxd2RXUkp5dmxiT29FaU9Ea09ONUQ3NVBoZ3hzRVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPcnBrTFMxYW9zUjlVWlBvQ3A0c3BQbWg5VEVYR01IeW53Z0t5ZWs2X1JfZ0xwS1N6X3lfUUVjY0VDaEdVQktEejl0THVxWDNXQzRDMjdDczdrdE1QcUVaSDBINjFjR2UxWWZZNkFXOTVtZGRPbHpIbEpkSTNTNjA1UFphU1RXS3VVYmpmUDNqSXJ1Xy1FTkFnZ09idXpoUGFkMk9rYWg5TmcyUm1PM3FSN2FzMnFpc2dJSkdRbGpn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Syracuse.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxPNklrN2NuVXRfRnlxMmdDcUg5eG4tN1cxTjdmUEp2ckV2RUhlSk0zNmg2SEdZdlBxUllWc1M1OFotOVZqbU5fM3MteWhacWs3U25rbUxnWW83WlhUVGdDTlloZ2tlQTFXU2I3TGZqUDNKcjBwY2hMaDBJZEJ1UDRVVUxNdGxyN1c3R3QzTFZPN3BwV1pGM20yYjZ1TnJyYXhUTkVyTE5OZ2t0azl0dEVuWW16YkpzdXJhaGdvVHlqTFdldVM1QkE2bWFURU1ZYW9O0gHkAUFVX3lxTFBNSW9KbE5oMjFQVkZJcEo3ZENTa2JObFJzWUIwZU9MdzN6MzFLQzFOOUFxOFZ2Nm5xVzFIMldFdldEUUlGSVlZYkNxblUtbjZxLXg2UER6aDBTMHRTMjFQc1BiTGJkcWYzTjM4ZlV3OENGWnlYTWZPTi1oenllekRhSjd0RUhXOEFocGc2NWVnaUtWc3U4XzNTNW5vcEpnYW81TGVjeHpKTWpVaC1fREVheXFLa2RlYUlZdkIzX0RIckdGRFdYdFhnMC1uS1dVR3FvOGNuNmp6QmxURl80Wkl4WmE1Qg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMipAFBVV95cUxPaFR5Ui0wbVNqUXpBY0l1amhJT0gwOEdST3ppSlFDT0N3SG9SQmZnYnNXcDBBTEI0SWxsclp0QlNXdFRRZTRTTFJidVRUV1lsYlJqRGRGd2tSWDhiU2tadmppMXNyX3JPUDFHUjRDYUVEVGduWlRGaWJYRGlBVnVEcVF6MHRlOUhab0V6RXVFRW9DeEdIWGNaWTZkbmRsMWNSY2V3Rg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQQm13YWEwbVA4eGdkMHhETERSSWNSb1lDaW5abFdhdl9URDcyRjVZQU8xRF9PaVZfVUY4bTY5SFE2ZVV1TWtCYnlJZjZMb3o1TW5LdGZNQzloQUJQczNHcDgyZHNWaFc0M2dfZlJxRDN2MXUtLWRJcmo2aDJZRXNVc0NTSmtoNE5abWdyYnlwSnRPbVp0bE9CejFWMDJBN2dMWEJaUmE2Unc5UFRJN2M2bEpvVklEUzQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WCVB — https://news.google.com/rss/articles/CBMiekFVX3lxTE9nekl1bVZSSzJPSHlESVBJVm4yM1pqdE9KdE1sclZpemFob1BSUDBVek1WakNqUWFTd2FOR21EWC1rMldTNlhzZHJtbENITEVlMmZZNEFXLVBBOWhGQ0xvSm1Ja24zM0V3WTZaUmZvT25XX01ReWVmdFlB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdTNqZXZLS2Q4bTUwRXZiNDdJUm13c3VqdTFyQkthMVVCWllDOHMxMzlOSkpaUWdLMGM2Yy1RVDZ4Q3hXdzlRMVVmNTNHRFBZV0pEbHpCV3F0emJZRE9tejMyOTd0N05IeVZJVWpwOXU2WEZmYnloVDZKR3FVX0pZaUZ1MG1TTGVTNmRTQURmaDZSM0pRaHJBMUZOX05WeDNE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOZTF5SVBTUVRJS25fLUR1UW1ia2pJYjZDVFZjM3J5WmtOanBWU3VyX0hBaFN6WXhYNWZZamx1SkN0QmdPX1J2WkVSV2daTTNrVWVaSDhqaUZnaVZnVlBwcC1WMFVQam1jMG8yXzZIYklHZm1xYjlaYi1sbGliM2pTVlRRcHVpaUx4WVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fans Decode Hidden Message from Taylor Swift's Emmys Appearance
-
-- first seen: 2026-09-16 23:38 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Fans of Taylor Swift are actively trying to interpret a possible hidden message from her recent Emmys appearance, showcasing their dedication and interest in her public appearances.
-- sources:
-  - [unverified] PennLive.com — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNbURfMmNCeDIxNkd1d0IzV3h2VkZHekphQnMtZ205MzR4QTYySEtqMUllQnJvSjhUSEF0S29pVWZldldYeWtMMjdQaFFiTTcwTzZGUmtHWkdNMWVhOHN3c1VVcTlxblFCT18xZzR6bXBweEViY3E3VXo0TElGVUdoZ3lsUVpuT3U5UW5TY29tdkt6cGN2cG1JOHM3cG56ajNsWjR5SDBMaXotTUMtdjR5S0tjcVJvSWVjc01wR1NmelpjbjRmUDhKZkI2QTItTk11QTNLR1pBY1JwRGYt0gHwAUFVX3lxTFBWS2N1TVA0cmMtMVdfV2NIalpKbFpRYlpoLXVRRlY2Qm85alQ0TnlJbDRfMlM5MTBPNEZtYnR3alhIaEVfWUxiX0E5WkVjeHNZRW5yTGVkam4zcHFMUl9NazhzQUdsQTZxM04yVFpsS2lTVWZGVlhJUUhLbFpVbC15NUdpNzJGZUtpTHlnU1NVNlhvNEZoeHotMlliUDBqQS11dllVUjRkWWxxRFF4WnFDU2h0Z0JWVlR0by1yLXFFMGtiTWl5Z3JBZTAyWnlQSWJhTW5rbTJjQjdUTWpaTlFfanNhUFpDaE5kR042QzloUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Addresses Drama Involving Ed Sheeran and Macklemore
-
-- first seen: 2026-09-16 23:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has provided her response regarding the recent drama involving her friends Ed Sheeran and Macklemore. Details about the situation and her comments have emerged in a StyleCaster article.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMioAFBVV95cUxOdnVORC1QTHVOMTUza0k0UFZjZURFUVpFQU1yMlNuVFZ6cjFScDRRTnVOYkljUXFyT3hxWnhDYmdFMDFVQ0JTNUowckNoRGdvdERzUDA2UnZ6cGZVSHhLMzN5VWd4LWNHY1U4Y0hMWnVmU01PTzRWMXY0ajdvcG5MRkFUdmU5SjBRY1pBREJoVmUwZ3NGMkhjZXBZQ3JOMzQ5?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Music Videos Now Accessible on Spotify
-
-- first seen: 2026-09-16 23:38 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Spotify has announced that Taylor Swift's music videos are now available for streaming on their platform, expanding the accessibility of her visual content to fans.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOQWhZdUM5Q0w2VFlxeXNzWi05MEVDMlpaN0JodWd5dzA1ZXBVTTU5UEdhaG9JZ1BKeGV2dlBuWXlhYUVGd2RMRllFcXJMU1dmTjdyb2NManBFTVU5WHpJeFowR3lJR2N4M2tDWm9PNG93VTlKRVh2N2tuWWRnOTZaaGMydnljb2YwTk1lb3hEN3BXVmFaZzdQbzdhdjE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Pat McAfee shares experience sitting with Taylor Swift and Tom Cruise at NFL game
-
-- first seen: 2026-09-16 23:38 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Pat McAfee discusses his experience attending an NFL game alongside Taylor Swift and Tom Cruise, who were there to support Travis Kelce. Swift opted for a casual appearance, skipping the Emmys for the event.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMipAFBVV95cUxPc0tJX3lJN2NUUm0tMFRuYkhHbFRyRGg1Q0VoNEVBU19HMkJ0X2xBMlFrcDUzWXgtRmp0VVFCVFJGcFBZLWxjSDB3Tm5WcUtfZG1mWHVtYkVNejRLVjlLRmo1c2VOV2ZjaVh3N0x4SGxHWnhEN0U4czN2b1ZlcTR2YWRianNxSm84UUZvVWRkQzlseDFtZnBFR3NEMUcwSm1QUzFLRA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts Stunning Short Straight Haircut
-
-- first seen: 2026-09-16 20:04 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases a new shorter hairstyle that complements her face shape beautifully, moving away from her iconic curls. The change has garnered attention for its stylish appeal.
-- sources:
-  - [unverified] glam.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxPNnBXWVZacDZTSktQZjZ2RklLSDRfTkE5enlqQ2dMVUZIY0JrLXVDSUhYd1JFZXRqVDJ3WFhpRXY4XzB2M1ZSdUUtWjZSblNQRllrVmFaRnJZeVRUT1dJOE9WNDlYTnRZWTJtczlybGNiU21sRnJWeHkwZThtcldLVDBqYWdsdzhxODlWNjdRZTY0TkZvd3VlN05tX0NpRl9KdTJHWEtNRTY4T2xTM0lR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Chiefs Game to Support Husband Travis Kelce
-
-- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showed her support for her husband, Travis Kelce, at a Chiefs game, as noted by Pat McAfee. She was seen in a star-studded suite alongside celebrities including Tom Cruise and Gigi Hadid.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQLUtjZkNPYjNoSHN4bmt1aG1MUVhMSFdwR1NfcjlFR0laVC1tbFczc2xMb083a2FlYjZEVVhfUElnY184UEtDOXdBUGdZWnNoRmFvV0p5dldSODdCNUJoMjVYcTdhb001M0M4N2hqNzlwRWN3YzR5cXB1NTBQQWZkSG14RmdibjB0Qy0zYVZWWWxZYk5VXzl0QVRjQldlSXZVN2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Nieces Call Her Special Name Upon Meeting
-
-- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's nieces expressed their excitement when they met her for the first time, calling her by a special name. The moment highlights the personal side of Swift's relationships with her family.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQVWc1Z3luSXdZQnZvbjBzYU1jejhGakJVZ3FONy1lckRDaFFORGRBNkx4dGpubjNNc2g4VzBpYzR3YlU5QXFqUUt4YS12eGdCWnkzX2xsRlN3NEM1bGRVTlloMGhBVDlCMFJqc1RoZ3BxclNFY0poQkNZYUFKSHhqdl8yUlNSZzBQODhEVldBVWoycmFPR25B?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Jason Kelce's Kids' Taylor Swift Nickname
-
-- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared that Jason Kelce's children had to unlearn a nickname related to Taylor Swift. This revelation highlights the intertwined lives of celebrities and their families.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOaDU0UklRQjlTSTl1VS1IVS1pc3p4ZXZ2SnBYMW1oYk4ydm84N0kzdFBHNGo2NEhjc0lidlEzR1JSdGQydWpvZy1OYVVrVnVUclBQSkFLQkZIWGxNeVo3MGJBdTliZzYwTElHb0xNaGQyY2ZhYVRfdkJ1LXhJeWNjNWxZX0k2Y19PSTV2Ul9UQXlMLUpKdENtM1RkaDhhZmFrVjZ6SS05Uzg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Former Eras Tour Dancer Reflects on DWTS Journey for Season 35
-
-- first seen: 2026-09-16 20:04 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Jan Ravnik, a former backup dancer for Taylor Swift, shares his transition to a pro on 'Dancing With the Stars' and the lessons learned from season 34 that he will apply in the new season with Tatyana Ali.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-features/jan-ravnik-dancing-stars-season-35-pro-swifties-tatyana-ali-1236703222/
-
-## Taylor Swift's Official Music Videos Available on Spotify
-
-- first seen: 2026-09-16 20:04 UTC | category: release | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's official music videos have been made available on Spotify. This addition expands the platform's offerings for fans of the artist.
-- sources:
-  - [unverified] Spotify — For the Record — https://news.google.com/rss/articles/CBMiigFBVV95cUxOZ2QtODQ3SVRaTzR0YlF2Q2JvRXRES0hfQk15NnE4OF9ua2xHXzc2X0pRT0VUTDdwMS1Rekx4amRZenIwOVg2aWQxU0gydFpoRWw2c0lsVTMxSjVabUlhZ0hRbkt6QmdoRnQ0dEdhdy14QW9pdjBLNGxfQUxDNUU5N2tqbWRNa2F3dlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce's Ohio Mansion Plans Denied
-
-- first seen: 2026-09-16 20:04 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The building plans for a mansion in Ohio proposed by Taylor Swift and Travis Kelce have been rejected, according to TMZ.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMikgFBVV95cUxQb1d6Sm0yOUxJSXRQZjAycFowUnIzcXZSS2d0ZjlWRUdXU1ViZ1gxZFRlUnYtVXpnQnFHcTg2MVdXOXFtUkxDX2pyNHlaMi1aeS1GSXNGTkVab3RMTC16ZmVINGhlMHViSkx1djA2RUE1ZlEtRXViMy1rZzRsZ2xOZE05TXhRcU41eFRxNDRQZk9wZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Address Public Attention
-
-- first seen: 2026-09-16 20:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce express their desire for privacy amidst public scrutiny. They emphasize the importance of respecting their personal space.
-- sources:
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMikwFBVV95cUxNY2diRmZlTDhRaEFzVVQwTWhIZzFLU3l2Tkd5SVF6Uk1FLVNia0RCdlRuUWNyajhKQk1YVDFmSFhsU1E0T1JxY2I3aHpZb2ZRWUxjVUs1ekZHYUdFQmRYdnZJQ0I1MnhhTEhRbnhsM2ZLaTdhSTdpQUNMQllLS2E4SFRGaDNFRWpESGlOWWJCbEd4QWM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Enhance Security at $5 Million Ohio Home
-
-- first seen: 2026-09-16 20:04 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have increased security measures at their newly purchased $5 million home in Ohio. The property features a high-tech warning system to ensure their safety.
-- sources:
-  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOMnNCTUMtZno1aVJxS3BKUUdyVVg2RV9jbVJLT19LRENTU2V6b0wzeDNFNGdsWGNfaHJPQ19YVjgyemVQdmFsbXRlT1RZRHczSl91NkxDMmpaSW5aY1o5Y2xqNXdMOUkybWx4V1pzV25YeW12OHNLUVI2cVFmcjlGU1gxc1lTOGlCd0t0R2xlVHh3bzd4MEU5QkZlV1V5bFJ4X0NyQUNB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Complete Music Video Collection Now on Spotify
-
-- first seen: 2026-09-16 20:04 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: All of Taylor Swift's music videos, from her debut 'Tim McGraw' to recent 'Opalite', are now accessible on Spotify for fans to enjoy.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMioAFBVV95cUxOemwtMmI4U291WS1BZGhWa3dMNDBFclFnWTVPRGV6UFFmcjVIU1ZWb3Y5bTNPdnp0MzkzOHluV3dQN01IWnB2eFlJZk1qSEJzcE5tRmhHTm80VDFFeXQtTkxYanM0MEUxdGUwRFFVWWprTGU2X2lvWG9meVFXOWJQaFhKY3lab29wNlkxVm4wUmxzcHZGNm14VW05XzlVdkdr?oc=5&hl=en-US&gl=US&ceid=US:en
