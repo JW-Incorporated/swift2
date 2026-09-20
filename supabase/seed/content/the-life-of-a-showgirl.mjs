@@ -5789,23 +5789,14 @@ export default {
             focalPoint: '50% 25%',
           },
         ],
-        products: [
-          {
-            brand: 'David Koma',
-            item: 'Crystal Embroidered Neckline and Strap Mini Dress',
-            retailer: 'davidkoma.com',
-            url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
-            // Lyst listing (davidkoma.com own PDP is JS-rendered), curl-verified
-            // 200 image/jpeg.
-            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/forwardforward/70f8b4ea/967x1450/david-koma-Black-Silver-Crystal-Embroidered-Strap-Mini-Dress.jpeg',
-            matchTier: 'unscored',
-            kind: 'dress',
-            price: '$1,200.00',
-            inStock: false,
-            verifiedAt: '2026-08-30T19:22:10.691Z',
-          },
-        ],
+        // Stylist MAINTAIN (Vault Run, 2026-09-20): the David Koma "Crystal
+        // Embroidered Neckline and Strap Mini Dress" PDP
+        // (davidkoma.com/.../crystal-embroidered-neckline-and-strap-mini-dress-black-silver)
+        // now returns HTTP 404 — the seasonal PDP was pulled since the
+        // 2026-08-30 verify. Removed the dead product link rather than leave a
+        // 404 live (a dead commercial link is worse than none); the moment's
+        // prose still names the garment. Re-sources if a live PDP reappears.
+        products: [],
       },
     },
     // Intake #1859 (2026-08-09, Content Shift): E! News color moment — Greta
@@ -8611,22 +8602,14 @@ export default {
         // unstated), the Larkspur & Hawk "Posy" earrings (one-of-a-kind + noted
         // sold out — the site's only Posy listing is a DIFFERENT unique pair),
         // and the Crap Eyewear sunglasses (exact model unidentified).
-        products: [
-          {
-            brand: 'Markarian',
-            item: 'Laila Floral Beaded Organza Strapless Gown',
-            retailer: 'markarian-nyc.com',
-            url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
-            matchTier: 'unscored',
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0024/7195/2443/files/MS2620AD1029_OFW_1.jpg?v=1757606125',
-            price: '$7,895.00',
-            inStock: false,
-            isAlternative: true,
-            altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        // Stylist MAINTAIN (Vault Run, 2026-09-20): the Markarian "Laila" PDP
+        // (markarian-nyc.com/products/laila-white-floral-beaded-organza-...) now
+        // returns HTTP 404 — this was already only an alternative-color stand-in
+        // for the past-season pink gown she wore, and that white-organza listing
+        // has since come off the brand site too. Removed the dead link rather
+        // than leave a 404 live; the moment's prose still names the Markarian
+        // "Laila." Re-sources if a live PDP reappears.
+        products: [],
       },
     },
     {
