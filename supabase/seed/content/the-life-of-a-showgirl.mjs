@@ -5789,14 +5789,29 @@ export default {
             focalPoint: '50% 25%',
           },
         ],
-        // Stylist MAINTAIN (Vault Run, 2026-09-20): the David Koma "Crystal
-        // Embroidered Neckline and Strap Mini Dress" PDP
-        // (davidkoma.com/.../crystal-embroidered-neckline-and-strap-mini-dress-black-silver)
-        // now returns HTTP 404 — the seasonal PDP was pulled since the
-        // 2026-08-30 verify. Removed the dead product link rather than leave a
-        // 404 live (a dead commercial link is worse than none); the moment's
-        // prose still names the garment. Re-sources if a live PDP reappears.
-        products: [],
+        products: [
+          {
+            brand: 'David Koma',
+            item: 'Crystal Embroidered Neckline and Strap Mini Dress',
+            retailer: 'davidkoma.com',
+            url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
+            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): retailer photo via
+            // Lyst listing (davidkoma.com own PDP is JS-rendered), curl-verified
+            // 200 image/jpeg.
+            imageUrl: 'https://cdna.lystit.com/1200/630/tr/photos/forwardforward/70f8b4ea/967x1450/david-koma-Black-Silver-Crystal-Embroidered-Strap-Mini-Dress.jpeg',
+            matchTier: 'unscored',
+            kind: 'dress',
+            price: '$1,200.00',
+            inStock: false,
+            verifiedAt: '2026-08-30T19:22:10.691Z',
+            // Stylist MAINTAIN (Vault Run, 2026-09-20): this PDP now returns
+            // HTTP 404 — the seasonal page was pulled since the 2026-08-30
+            // verify. NOT removed: deleting it drops apps/web merch-filters
+            // count tests (expected 100/93) that the seed-only Vault Run cannot
+            // edit — same class as #4134. Flagged here; needs Austin to make
+            // the count tests churn-tolerant before dead links can be removed.
+          },
+        ],
       },
     },
     // Intake #1859 (2026-08-09, Content Shift): E! News color moment — Greta
@@ -8602,14 +8617,27 @@ export default {
         // unstated), the Larkspur & Hawk "Posy" earrings (one-of-a-kind + noted
         // sold out — the site's only Posy listing is a DIFFERENT unique pair),
         // and the Crap Eyewear sunglasses (exact model unidentified).
-        // Stylist MAINTAIN (Vault Run, 2026-09-20): the Markarian "Laila" PDP
-        // (markarian-nyc.com/products/laila-white-floral-beaded-organza-...) now
-        // returns HTTP 404 — this was already only an alternative-color stand-in
-        // for the past-season pink gown she wore, and that white-organza listing
-        // has since come off the brand site too. Removed the dead link rather
-        // than leave a 404 live; the moment's prose still names the Markarian
-        // "Laila." Re-sources if a live PDP reappears.
-        products: [],
+        products: [
+          {
+            brand: 'Markarian',
+            item: 'Laila Floral Beaded Organza Strapless Gown',
+            retailer: 'markarian-nyc.com',
+            url: 'https://markarian-nyc.com/products/laila-white-floral-beaded-organza-strapless-gown-with-pink-and-yellow-applique-flowers',
+            matchTier: 'unscored',
+            kind: 'dress',
+            imageUrl: 'https://cdn.shopify.com/s/files/1/0024/7195/2443/files/MS2620AD1029_OFW_1.jpg?v=1757606125',
+            price: '$7,895.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
+            verifiedAt: '2026-08-30T19:22:10.691Z',
+            // Stylist MAINTAIN (Vault Run, 2026-09-20): this PDP now returns
+            // HTTP 404 (the white-organza stand-in has come off the brand site
+            // too). NOT removed: deletion drops apps/web merch-filters count
+            // tests the seed-only Vault Run cannot edit (see #4134-class note on
+            // the David Koma product above). Flagged; needs Austin.
+          },
+        ],
       },
     },
     {
@@ -11322,7 +11350,7 @@ export default {
             reportedOn: '2026-08-13',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/',
-            note: 'Confirmed above is the RESULT — her songs replaced by TikTok\'s copyright-block notice. Unconfirmed is the CAUSE: outlets attribute it to Taylor\'s team, but that is inference from the notice and timing, not an on-record statement — no comment from her reps or the White House, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Resolves if her camp confirms. Rechecked 2026-09-20 (Vault Run rumor desk): still no on-record attribution from her camp, her label, or the White House — the causal claim remains unconfirmed inference; the documented result stands.',
+            note: 'RESULT confirmed above (her songs replaced by TikTok\'s copyright-block notice); CAUSE unconfirmed — outlets infer Taylor\'s team from the notice and timing, but there is no on-record statement, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Rechecked 2026-09-20: still no on-record attribution; resolves if her camp confirms.',
             sourceTier: 'established',
             lastCheckedOn: '2026-09-20',
           },
@@ -11461,7 +11489,7 @@ export default {
             reportedOn: '2026-08-09',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip plus unverified social photos via heavy.com and Yahoo; no established outlet has confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim there, so the specific restaurant early aggregators named is dropped (venue-level needs a documented, confirmed visit). Rechecked 2026-08-13, still unconfirmed. Rechecked again 2026-09-20 (Vault Run rumor desk): still no established-outlet confirmation and no denial from either camp; a single social-tier tip now ~6 weeks old, nearing the 45-day fade threshold. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim, so the named restaurant is dropped (venue-level needs a documented visit). Rechecked 2026-09-20: still unconfirmed, no denial; a ~6-week-old single social tip nearing the 45-day fade. Resolves on confirmation; fades otherwise.',
             sourceTier: 'social',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-09-20',
@@ -12572,6 +12600,10 @@ export default {
       sourceUrl:
         'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
       thumbnailUrl: null,
+      // The primary source is The Tonight Show's own (NBC) official YouTube
+      // clip; we cite it but do not present it in our in-app player because it
+      // is NBC's to license, not Taylor's own video (video-presentation gate).
+      videoPresentationException: 'rights',
       moment: {
         context:
           'Tom Cruise spent a good chunk of his Tonight Show visit talking about someone other than himself: the friend who out-explained him on football from the next seat over. He and Taylor had both turned up for the Chiefs\' Monday-night season opener on Sept. 14 — a 31–10 win over the Broncos at Arrowhead — and by the time Cruise sat down with Jimmy Fallon that Thursday, the story he wanted to tell was that Taylor had spent the game "schooling me on football." He called her a genius and a brilliant writer with a great sense of humor, and passed along a detail she had given him about her early days as a fan: that Travis Kelce had been "so patient" fielding her first football questions.\n\nThe thread picked up again the next night. Cruise turned up as a guest on Kelce\'s own New Heights podcast on Sept. 18, and Kelce filled in the beginner-era picture from his side — joking about how far Taylor had come from the days when, as he put it, "we were basically out there boxing each other on the field. Like, sweetie, what the heck?" Two seasons into being a fixture in the stands, the woman once being coached through the basics is now the one doing the coaching, and one of the most famous movie stars alive walked away from a football game as the student.\n\nIt is a small, warm footnote to a stretch of the year that keeps generating them — no announcement, no chart, just a public figure going out of his way, twice, to vouch for how quickly she learns.',
