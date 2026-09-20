@@ -28,5 +28,15 @@
     "rationale": "Closes the arc on the exact fan use-case it was built for — the doom-hunt for one thing she wore — then hands the mic back: 'whose era-closet are you raiding first?'. Gushy first-person voice, the verified 'her look, not the product' promise, and an iconic Fearless outfit tile that earns the raid-the-closet ask.",
     "rulesChecked": [],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-20T21:53:30.339Z",
+    "pr": 4471,
+    "sha": "e21148ac4229f0828fdc18b2ffd141944c2f8d4f",
+    "message": "1551333340961841153",
+    "contentHash": "sha256:2a698e711011a805f85eeca90f3eb15855496f91361868016df6d7a74461d827",
+    "sig": "hmac-sha256:402c2cce763022cbfad013f0f45c49935e1ca01eb934013c0be6c2973cd36c00"
   }
 }
