@@ -3863,12 +3863,13 @@ export default {
           },
           {
             outlet: 'Taylor Swift Official Store',
-            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
+            url: 'https://web.archive.org/web/20251113230952/https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
             source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
             publisher: 'Taylor Swift Official Store',
             source_type: 'official',
-            accessed_at: '2026-07-24',
+            accessed_at: '2026-09-20',
             reliability_score: 5,
+            notes: 'Live store page discontinued (404); citing the 2025-11-13 Wayback Machine snapshot of the same official product page, re-verified HTTP 200 on 2026-09-20 (#3995).',
           },
         ],
         // Real-photo pass (2026-07-09): album artwork (the tracklist being
