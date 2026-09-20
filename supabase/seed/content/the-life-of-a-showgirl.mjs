@@ -5804,6 +5804,12 @@ export default {
             price: '$1,200.00',
             inStock: false,
             verifiedAt: '2026-08-30T19:22:10.691Z',
+            // Stylist MAINTAIN (Vault Run, 2026-09-20): this PDP now returns
+            // HTTP 404 — the seasonal page was pulled since the 2026-08-30
+            // verify. NOT removed: deleting it drops apps/web merch-filters
+            // count tests (expected 100/93) that the seed-only Vault Run cannot
+            // edit — same class as #4134. Flagged here; needs Austin to make
+            // the count tests churn-tolerant before dead links can be removed.
           },
         ],
       },
@@ -8624,7 +8630,12 @@ export default {
             inStock: false,
             isAlternative: true,
             altNote: 'The pink floral-brocade "Laila" she wore (~$4,115) is past-season, off the brand site. This is the same Markarian "Laila" style in white beaded organza, what it lists now — different color, sold out.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-08-30T19:22:10.691Z',
+            // Stylist MAINTAIN (Vault Run, 2026-09-20): this PDP now returns
+            // HTTP 404 (the white-organza stand-in has come off the brand site
+            // too). NOT removed: deletion drops apps/web merch-filters count
+            // tests the seed-only Vault Run cannot edit (see #4134-class note on
+            // the David Koma product above). Flagged; needs Austin.
           },
         ],
       },
@@ -11339,9 +11350,9 @@ export default {
             reportedOn: '2026-08-13',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/',
-            note: 'Confirmed above is the RESULT — her songs replaced by TikTok\'s copyright-block notice. Unconfirmed is the CAUSE: outlets attribute it to Taylor\'s team, but that is inference from the notice and timing, not an on-record statement — no comment from her reps or the White House, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Resolves if her camp confirms.',
+            note: 'RESULT confirmed above (her songs replaced by TikTok\'s copyright-block notice); CAUSE unconfirmed — outlets infer Taylor\'s team from the notice and timing, but there is no on-record statement, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Rechecked 2026-09-20: still no on-record attribution; resolves if her camp confirms.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-15',
+            lastCheckedOn: '2026-09-20',
           },
         ],
         photos: [
@@ -11478,10 +11489,10 @@ export default {
             reportedOn: '2026-08-09',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip plus unverified social photos via heavy.com and Yahoo; no established outlet has confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim there, so the specific restaurant early aggregators named is dropped (venue-level needs a documented, confirmed visit). Rechecked 2026-08-13, still unconfirmed. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim, so the named restaurant is dropped (venue-level needs a documented visit). Rechecked 2026-09-20: still unconfirmed, no denial; a ~6-week-old single social tip nearing the 45-day fade. Resolves on confirmation; fades otherwise.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-13',
+            lastCheckedOn: '2026-09-20',
           },
         ],
         photos: [
@@ -12466,6 +12477,209 @@ export default {
       },
     },
     {
+      // Authored 2026-09-19 from intake #4459 (Vault Run, Content Shift lane).
+      // Chart/professional milestone; Billboard is the chart authority, meeting
+      // the >=1-source bar. Kept DISTINCT from the Adult Pop Airplay record
+      // above: this is the REGULAR Pop Airplay chart (both happen to be a "16th
+      // No. 1," a coincidence the sibling entries already flag), so the prose
+      // names the chart explicitly. Two facts verified before writing: her
+      // record-extending 16th Pop Airplay No. 1 (she set the mark at 15 with
+      // "Opalite," cited above and in the top-10 item), and the 52-weeks-at-No.1
+      // record passing Katy Perry's 47. The song is the Toy Story 5 original,
+      // not a Showgirl track (same correction as #909/#1133). Dated to Sept. 18,
+      // when the Billboard chart-beat piece broke, not the post-dated Sept. 26
+      // chart, so it sorts to when the news landed rather than into the future.
+      // billboard.com is bot-gated in the run environment, so the primary is
+      // cited by URL and corroborated via the Yahoo syndication of the same
+      // Gary Trust chart-beat piece, which loaded and confirmed every figure.
+      // Clean on the privacy redlines: her own chart record, no third parties,
+      // no location or private-life detail.
+      slug: 'i-knew-it-i-knew-you-pop-airplay-record',
+      // Cross-link: the same song's sibling chart-milestone and Oscar pages.
+      relatedIds: [
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
+      year: 2026,
+      month: 9,
+      day: 18,
+      category: 'music',
+      title: '“I Knew It, I Knew You” tops Pop Airplay — a record-extending 16th No. 1',
+      snippet:
+        'On the Pop Airplay chart dated Sept. 26, 2026, Taylor\'s Toy Story 5 song reaches No. 1 — her record-extending 16th leader on the tally, the most in the chart\'s history, and enough to push her past Katy Perry for the most weeks ever spent at No. 1 there.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-pop-airplay-chart-1236343347/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Pop Airplay chart tracks spins at mainstream pop radio, and it is the format Taylor has led longer than anyone. On the ranking dated Sept. 26, 2026, "I Knew It, I Knew You" reached No. 1 — her 16th leader on the chart, extending the all-time record for the most Pop Airplay No. 1s that she already held. She had set the mark at fifteen with "Opalite" on the chart dated Feb. 28, 2026; her Toy Story 5 song made it sixteen seven months later.\n\nThe milestone carried a second record underneath it. Across all of her Pop Airplay leaders, the No. 1 lifted her career total to 52 weeks spent atop the chart — passing Katy Perry\'s 47 for the most weeks at No. 1 in the tally\'s history. And it was the regular Pop Airplay chart\'s turn at last: the same song had already broken the separate Adult Pop Airplay record weeks earlier (where its 16th No. 1 surpassed Maroon 5) and topped the all-format Radio Songs chart, and back in July it had climbed to No. 9 here — her 29th Pop Airplay top 10, one shy of Rihanna\'s record. Now it finished the climb at the top of the same list.\n\nThe song keeps outrunning its origin. "I Knew It, I Knew You" is not a Showgirl track but her original for the Toy Story 5 soundtrack, written and produced with Jack Antonoff — a movie song for Jessie the cowgirl that has led Country Airplay, debuted atop the Hot 100, and now extended a pop-radio record she has been building for close to two decades.',
+        sources: [
+          {
+            // Primary: Billboard's chart-beat write-up of the Sept. 26 Pop
+            // Airplay chart (Gary Trust). billboard.com is bot-gated in the run
+            // environment (a tollbit paywall redirect), so it could not be
+            // loaded directly; every figure here was confirmed against the
+            // Yahoo syndication of this same piece (below), which did load.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-number-1-pop-airplay-chart-1236343347/',
+            source_title: "Taylor Swift Extends Her Record for Most Pop Airplay No. 1s With 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
+            reliability_score: 5,
+          },
+          {
+            // Accessible corroboration: Yahoo Entertainment's syndication of the
+            // same Billboard chart-beat piece, byline Gary Trust, published
+            // Sept. 18, 2026. Loaded directly and confirmed the chart name, the
+            // Sept. 26 dated ranking, the record-extending 16th No. 1, and the
+            // 52-weeks-at-No.1 record over Katy Perry's 47.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-extends-her-record-162207864.html',
+            source_title: 'Taylor Swift Extends Her Record for Most Pop Airplay No. 1s',
+            publisher: 'Yahoo (syndicating Billboard)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
+            reliability_score: 4,
+          },
+          {
+            // The underlying Billboard Pop Airplay chart dated 2026-09-26, cited
+            // to the dated ranking rather than the live URL, which rolls over
+            // weekly and stops showing this week's ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/pop-songs/',
+            source_title: 'Pop Airplay — chart dated Sept. 26, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-09-19',
+            reliability_score: 5,
+          },
+        ],
+        // Visual (charter step 3b): the official "I Knew It, I Knew You" music
+        // video thumbnail — the same asset the sibling chart moments carry,
+        // curl-verified HTTP 200 image/jpeg and vision-confirmed as Jessie the
+        // cowgirl, the character the song is written for. A chart week has no
+        // photography of its own; the official MV frame is the connected visual.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            focalPoint: '50% 32%',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'A frame from the official "I Knew It, I Knew You" video — the Toy Story 5 song that became her record-extending 16th Pop Airplay No. 1.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-09-20 from intake #4476 (Vault Run, Content Shift lane).
+      // Public-media moment: a movie star recounting, on network TV and a
+      // podcast, a conversation at a public NFL game. No privacy redline — the
+      // only location is Arrowhead (a public stadium, already reported), the
+      // statements are all on-the-record primary-source appearances, and there
+      // is no home, minor, or private-life detail. The central claim ("Taylor
+      // schooling him on football") is confirmed by the primary artifact
+      // itself: The Tonight Show's own official YouTube clip, whose title reads
+      // "Tom Cruise Says Taylor Swift Was Schooling Him at Chiefs Game"
+      // (oEmbed-verified author_name "The Tonight Show Starring Jimmy Fallon").
+      // The Rolling Stone and Variety write-ups are both bot-gated in the run
+      // environment (tollbit redirect) so they are cited by URL; the official
+      // clip is the loadable primary. Placed in the-life-of-a-showgirl by the
+      // event's real-world date (Sept 2026), per the era-by-date rule.
+      slug: 'tom-cruise-taylor-swift-schooling-football',
+      relatedIds: [],
+      year: 2026,
+      month: 9,
+      day: 18,
+      category: 'relationship',
+      title: 'Tom Cruise says Taylor was "schooling" him on football at the Chiefs opener',
+      snippet:
+        'On The Tonight Show, and again on Travis Kelce\'s New Heights podcast, Tom Cruise recounts sitting next to Taylor at the Chiefs\' Sept. 14 season opener and getting "schooled" on football — calling her a genius with a sharp sense of humor, two years into her football education.',
+      sourceUrl:
+        'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
+      thumbnailUrl: null,
+      // The primary source is The Tonight Show's own (NBC) official YouTube
+      // clip; we cite it but do not present it in our in-app player because it
+      // is NBC's to license, not Taylor's own video (video-presentation gate).
+      videoPresentationException: 'rights',
+      moment: {
+        context:
+          'Tom Cruise spent a good chunk of his Tonight Show visit talking about someone other than himself: the friend who out-explained him on football from the next seat over. He and Taylor had both turned up for the Chiefs\' Monday-night season opener on Sept. 14 — a 31–10 win over the Broncos at Arrowhead — and by the time Cruise sat down with Jimmy Fallon that Thursday, the story he wanted to tell was that Taylor had spent the game "schooling me on football." He called her a genius and a brilliant writer with a great sense of humor, and passed along a detail she had given him about her early days as a fan: that Travis Kelce had been "so patient" fielding her first football questions.\n\nThe thread picked up again the next night. Cruise turned up as a guest on Kelce\'s own New Heights podcast on Sept. 18, and Kelce filled in the beginner-era picture from his side — joking about how far Taylor had come from the days when, as he put it, "we were basically out there boxing each other on the field. Like, sweetie, what the heck?" Two seasons into being a fixture in the stands, the woman once being coached through the basics is now the one doing the coaching, and one of the most famous movie stars alive walked away from a football game as the student.\n\nIt is a small, warm footnote to a stretch of the year that keeps generating them — no announcement, no chart, just a public figure going out of his way, twice, to vouch for how quickly she learns.',
+        sources: [
+          {
+            // Primary, loadable: The Tonight Show's OWN official YouTube clip of
+            // the segment. oEmbed-verified — author_name "The Tonight Show
+            // Starring Jimmy Fallon", title "Tom Cruise Says Taylor Swift Was
+            // Schooling Him at Chiefs Game, Talks Wild Digger Transformation".
+            // The official title alone confirms the headline claim.
+            outlet: 'The Tonight Show Starring Jimmy Fallon',
+            url: 'https://www.youtube.com/watch?v=ZLXL1L0TfsI',
+            source_title: 'Tom Cruise Says Taylor Swift Was Schooling Him at Chiefs Game',
+            publisher: 'The Tonight Show Starring Jimmy Fallon (NBC)',
+            source_type: 'official',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+          {
+            // Rolling Stone's write-up of the Tonight Show interview. Bot-gated
+            // in the run environment (tollbit 307 redirect), so cited by URL and
+            // corroborated against the official clip above.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/',
+            source_title: 'Tom Cruise Says Taylor Swift Was "Schooling" Him on Football at Chiefs Game',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+          {
+            // Variety's coverage of the same interview. Also bot-gated (tollbit
+            // redirect); cited by URL.
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/',
+            source_title: 'Tom Cruise Says Taylor Swift Was "Schooling" Him on Football',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-20',
+            reliability_score: 5,
+          },
+        ],
+        // Visual (charter step 3b): The Tonight Show's official YouTube clip
+        // thumbnail — curl-verified HTTP 200 image/jpeg (~218KB maxres) and
+        // vision-confirmed as Tom Cruise on the Tonight Show set under the
+        // "TOM CRUISE" lower-third. The clip is the primary artifact; its
+        // thumbnail is the connected official visual.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ZLXL1L0TfsI/maxresdefault.jpg',
+            focalPoint: '55% 30%',
+            credit: 'The Tonight Show Starring Jimmy Fallon / NBC (official YouTube clip thumbnail)',
+            caption:
+              'Tom Cruise on The Tonight Show, where he described Taylor "schooling" him on football at the Chiefs\' season opener.',
+            kind: 'primary',
+          },
+          {
+            // Photo Enrichment lane (Vault Run, 2026-09-20): second visual for
+            // the moment's New Heights half. Official New Heights episode 202
+            // thumbnail — oEmbed-verified author_name "New Heights", title "Tom
+            // Cruise on Digger, Experiencing Arrowhead, Importance of Film &
+            // Getting Above the Clouds | 202"; curl-verified HTTP 200 image/jpeg
+            // (~271KB maxres) and vision-confirmed as Travis Kelce, Tom Cruise
+            // and Jason Kelce under a "THE TOM CRUISE EPISODE" title card.
+            // Public podcast, official channel, no privacy concern.
+            url: 'https://i.ytimg.com/vi/0jDt1S9htv0/maxresdefault.jpg',
+            focalPoint: '50% 38%',
+            credit: 'New Heights (official YouTube episode thumbnail)',
+            caption:
+              'Tom Cruise with Travis and Jason Kelce on New Heights (episode 202), where Kelce recalled Taylor\'s early football-learning days.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-08-17 from intake #2208 (Content Shift).
       // Verify-before-write (charter rule 4) corrected the ticket: it framed
       // this as "Saturday, Aug 16," but Aug 16 2026 is a Sunday — Aug 15 was
@@ -12574,14 +12788,14 @@ export default {
       day: 18,
       category: 'music',
       significance: 'notable',
-      title: 'Nine VMA nods — and "The Fate of Ophelia" up for Video of the Year',
+      title: 'VMA nods rise to eleven — and "The Fate of Ophelia" up for Video of the Year',
       snippet:
-        'The 2026 MTV VMA nominations dropped and Taylor pulled nine — second only to Madonna\'s eleven — led by a Video of the Year run for the self-directed "Fate of Ophelia." Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
+        'The 2026 MTV VMA nominations gave Taylor nine at the Aug. 18 announcement — led by a Video of the Year run for the self-directed "Fate of Ophelia" — and a later social-categories round lifted her total for the year to eleven. Win even one on Sept. 27 and she passes Beyoncé to stand alone as the most-awarded artist in VMA history.',
       sourceUrl: 'https://apnews.com/article/2026-mtv-vma-nominations-e9ac1be3adfd613c3bc348e83543832e',
       thumbnailUrl: null,
       moment: {
         context:
-          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.',
+          'MTV unveiled the 2026 Video Music Awards nominations on Aug. 18, and Taylor came away with nine — the year\'s second-biggest haul behind Madonna\'s eleven, with Ariana Grande and Sabrina Carpenter a step back at seven apiece. Most of Taylor\'s nods ride on "The Fate of Ophelia," the lead single she wrote and directed herself: it\'s up for Video of the Year — the night\'s marquee prize, against Madonna, Ariana Grande, Bruno Mars, Sabrina Carpenter and GENER8ION — and its craft is recognized clear across the board, with Best Direction, Best Art Direction, Best Cinematography, Best Editing, Best Choreography and Best Visual Effects all in the mix. Taylor herself is up for Artist of the Year, and the album\'s pop reach lands a Best Pop nod too.\n\nThe bigger stakes sit behind the trophy count. Taylor and Beyoncé go into the night tied atop VMA history at 30 wins each; if Taylor takes home even a single award on Sept. 27, she passes Beyoncé to become the most-awarded artist the show has ever had. That\'s a conditional, not a lock — the nominations are the fact, the record waits on the ceremony. The 2026 VMAs air live on CBS on Sunday, Sept. 27 at 7:30 p.m. ET from the Peacock Theater in Los Angeles.\n\nA month after that first haul, the count grew. On Sept. 18, MTV opened its fan-voted "social" categories for 2026 and Taylor picked up two more nominations — The Life of a Showgirl in the album race and her Toy Story 5 single "I Knew It, I Knew You" up for Song of the Summer — lifting her total for the year to eleven, per Yahoo Entertainment. The additions don\'t move the night\'s headline stakes: the win that would pass Beyoncé still waits on the Sept. 27 ceremony.',
         sources: [
           {
             outlet: 'AP News',
@@ -12599,6 +12813,21 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-08-18',
+            reliability_score: 4,
+          },
+          {
+            // Sept. 18 social-categories update (intake #4460, Vault Run). Yahoo
+            // Entertainment's tally, loaded directly this run, confirms the two
+            // added nominations and the rise to eleven. MTV/Billboard carry the
+            // authoritative social-categories list, but billboard.com was
+            // bot-gated this run, so the loaded Yahoo piece is cited for the
+            // update rather than a list URL that could not be verified here.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-receives-major-career-063441793.html',
+            source_title: "Taylor Swift's 2026 VMA nomination count rises to 11 with two social-category nods",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-19',
             reliability_score: 4,
           },
         ],

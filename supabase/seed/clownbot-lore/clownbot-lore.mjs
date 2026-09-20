@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-18',
+  updatedOn: '2026-09-20',
   items: [
     {
       id: 'masters-buyback',
@@ -71,7 +71,7 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      lastCheckedOn: '2026-09-18',
+      lastCheckedOn: '2026-09-20',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -151,7 +151,7 @@ export default {
       id: 'swifties-against-ai',
       status: 'reported',
       date: '2025-10-09',
-      lastCheckedOn: '2026-09-18',
+      lastCheckedOn: '2026-09-20',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -179,7 +179,7 @@ export default {
       id: 'green-ts-next-era',
       status: 'reported',
       date: '2026-08-20',
-      lastCheckedOn: '2026-09-18',
+      lastCheckedOn: '2026-09-20',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -206,7 +206,7 @@ export default {
       id: 'ts13-lilac-cipher',
       status: 'reported',
       date: '2026-08-21',
-      lastCheckedOn: '2026-09-18',
+      lastCheckedOn: '2026-09-20',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -229,7 +229,7 @@ export default {
       id: 'writing-new-music-post-wedding',
       status: 'reported',
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-18',
+      lastCheckedOn: '2026-09-20',
       headline: 'Reportedly "writing new music" and "incredibly inspired" since the wedding',
       detail:
         'A Page Six insider said Taylor has been "pouring herself into writing new music" and is "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." Reported across outlets, all tracing to that single Page Six sourcing; Taylor and her team have announced no album, title, or timeline. Status stays `reported`, not `confirmed` — an unnamed-insider report is not an announcement.',
@@ -350,6 +350,30 @@ export default {
         on: '2026-09-02',
       },
       tags: ['relationship', 'confirmed', 'easter-eggs'],
+    },
+    {
+      id: 'cma-return-2026',
+      status: 'confirmed',
+      date: '2026-09-10',
+      lastCheckedOn: '2026-09-20',
+      headline: 'Going back to the CMAs — "I haven\'t yee\'d my last haw"',
+      detail:
+        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year.',
+      sources: [
+        {
+          name: 'Variety',
+          url: 'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
+        },
+        {
+          name: 'Just Jared',
+          url: 'https://www.justjared.com/2026/09/10/taylor-swift-confirms-2026-cma-awards-appearance-after-10-year-absence/',
+        },
+      ],
+      prompts: [
+        'A pop superstar wins her way back to country radio on a Pixar soundtrack single and now RSVPs to the CMAs after ten years gone. Decode it: one-off victory lap, or the front edge of a real country re-entry? Commit.',
+        'Rank "I haven\'t yee\'d my last haw" against her other one-line era-teasers. Is it a throwaway caption or a planted flag?',
+      ],
+      tags: ['tloas', 'country', 'awards'],
     },
   ],
 };
