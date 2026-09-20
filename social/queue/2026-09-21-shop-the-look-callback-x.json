@@ -1,0 +1,32 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Be honest with me: if you could raid one era's closet, whose are you walking off with? We built Seen on Taylor for exactly that itch — every tile links to the actual thing, credited. Her look, not the product 🤍\n\nlonglivets.com/?mode=merch&utm_source=x&utm_medium=social&utm_campaign=launch",
+  "media": [
+    "/social/library/photos/taylor-debut-2007-acoustic.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-acoustic-2007",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+  "altText": [
+    "Taylor Swift in 2007, seated with an acoustic guitar, long curly blonde hair, smiling at the camera."
+  ],
+  "scheduledAt": "2026-09-21T23:00:00Z",
+  "campaign": "launch:shop-the-look:callback",
+  "why": "X sibling of the 09-21 launch arc +9 (callback, closes the shop-the-look arc). Job per calendar: tie the surface to a fan use-case and INVITE A REPLY — 'which era's closet would you actually raid?'. Written first as its own post: the reply-bait question, the one-line what-it-is, the link. Facts asserted are only the shipped, verified ones (same as the 09-12/09-15/09-18 arc): the 'Seen on Taylor' surface exists, each tile links out to the real credited retailer piece, and the verbatim on-tile disclaimer 'Her look, not the product' (confirmed in apps/web/components/longlive/merch/MerchCard.tsx:181/212). No item/era COUNT asserted — the code comment says 156 shopTheLook items while the calendar ledger says 100, so I deliberately did not claim a number. Link /?mode=merch verified real (packages/experience/src/deepLink.ts). Hook: the honest question — the LITERAL phrases 'an honest question'/'genuine question' are burned in the ledger, so this uses 'Be honest with me:' instead. Media: credited debut 2007 acoustic Taylor photo (debut-acoustic-2007) — a real photo, the era furthest from last use (debut last used 09-17) and clean of the 09-18→21 four-day span; a different era from the IG fearless tile; X site-screens prohibited. photoEra unset: launch/merch is a cross-era, non-themed campaign family (not in THEMED_CAMPAIGN_PREFIXES). Weighted length ~236 (autolinked URL counts 23), under the 270 target. Launch-arc = share-hook exempt, but the reply invitation is the beat's whole point. First five words diverge from the IG sibling and from every recent/burned opener. Standard sentence capitalization (strategy §Voice, 2026-09-10). Lyric-free, blocklist-safe. rulesChecked [] (lessons ledger has no active rules).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Closes the shop-the-look arc with a reply-bait question — which era's closet you'd raid — plus the verified 'Her look, not the product' disclaimer and the real tap-to-retailer mechanic, no unverified counts. One-breath X post, unlike its long IG sibling; credited debut-era Taylor tile earns its place loosely.",
+    "rulesChecked": [],
+    "revision": 1
+  }
+}
