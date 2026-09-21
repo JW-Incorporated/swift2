@@ -266,9 +266,16 @@ export default {
         'https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
+      // Cross-link (Vault Run, Answerer lane, 2026-09-21 — CIE
+      // content.depth-deficit #1719): to the 1989-era moment that is the snake's
+      // origin, so the tour's reclamation connects back to the 2016 insult it
+      // answers. Same verified ID the Kanye VMAs moment already links to.
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
       moment: {
         context:
-          "\"You might be wondering why there are so many snakes everywhere,\" she told the opening-night crowd in Glendale, before explaining that \"a couple of years ago, someone called me a snake on social media and it caught on,\" and that she went through \"some really low times\" because of it.\n\nThe serpents were everywhere by design — coiling across the video screens, in her jewelry and costumes, and as set pieces flanking the stages — and the nightly speech reframed them in real time: name-calling \"doesn't have to defeat you. It can strengthen you instead.\"",
+          "\"You might be wondering why there are so many snakes everywhere,\" she told the opening-night crowd in Glendale, before explaining that \"a couple of years ago, someone called me a snake on social media and it caught on,\" and that she went through \"some really low times\" because of it.\n\nThe serpents were everywhere by design — coiling across the video screens, in her jewelry and costumes, and as set pieces flanking the stages — and the nightly speech reframed them in real time: name-calling \"doesn't have to defeat you. It can strengthen you instead.\"\n\nThe insult had a specific origin. In July 2016, after Kim Kardashian posted clips of a phone call about Kanye West's \"Famous,\" #TaylorSwiftIsASnake trended and fans buried her posts under snake emojis — the symbol that came to stand for the villain the internet had decided she was. Rather than answer it in interviews, she went silent, wiped her social feeds in August 2017, and let three cryptic clips of a computer-generated serpent tease the album before \"Look What You Made Me Do\" arrived built around the same reclaimed motif. By opening night in Glendale the taunt had become the tour's set design: the thing once used to brand her was now the language she used to tell the story back.",
         sources: [
           {
             outlet: 'iHeartRadio',
@@ -277,6 +284,28 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
+          },
+          {
+            // Added 2026-09-21 (Answerer depth pass): the snake's 2016 origin and
+            // its full reclamation arc — the KK "Famous" clips, the emoji pile-on,
+            // and the reputation rollout that turned the insult into the era's motif.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-the-snake-history-kim-kanye-instagram-7934297/',
+            source_title: 'Taylor Swift and the Snake: A History',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+          },
+          {
+            // Corroborates the opening-night speech reframing the KK feud, Glendale.
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/taylor-swift-kim-kardashian-snakes-917739',
+            source_title: "Taylor Swift Snakes Explained: Singer Hints at Kim Kardashian Feud During 'Reputation' Tour",
+            publisher: 'Newsweek',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 3,
           },
         ],
         // T-img pass (2026-07-10): dropped the Getaway Car performance photo
