@@ -25,15 +25,89 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 57
+Stories: 59
 
-## Updates on Taylor Swift's appearance at Chiefs game Week 2
+## Taylor Swift sports Erin Andrews Chiefs tank top at recent game
 
-- first seen: 2026-09-20 23:12 UTC | category: sighting | importance: 5
+- first seen: 2026-09-21 06:15 UTC | category: fashion | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: The latest updates regarding Taylor Swift's attendance at the Chiefs game in Week 2 are being reported by various sources. Fans are eagerly seeking confirmation of her presence at the event.
+- summary: Taylor Swift was spotted wearing a $40 Erin Andrews Chiefs tank top at a game on September 20. The article includes a shopping link for fans interested in the outfit.
 - sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUlZCM01kaU5DX2xrVEtNZVR5R215Q004WWVSbnRoQktzMzBma0pLdVBFaFVuY2tLTUUtRjZpdEl6QWh6NFE4OVMwMGZ3NnJTWUlHZ1o3NEswMnRmalJ1VmlsX3NqTDdJVUhhTUlLYnpLOTMxVU5HTTdGV1kxRnEtY1JuQnlqcTdRLVdPdlRlWlc2Y0dyTjJ1ZjRMZE5PazZFdHRYZHlheXg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiywFBVV95cUxOYzlsVUhZbTVrTTJmNnN4dFlzN3RBTmh0d2l2ZHBTb1otUGw1bzVWeVBIRHk3WGctX0x5VURNcUstME50cnF4ZmVYb040Q0ZkamVZLXJURnMwX2hzUWdkRU5JUlZxRVV5UHlCRmVWVnlVel9JOHJQTlRyV2NEbldqemN5NWdFbXlsMlBhb09paUZyZ21zS255cUVERkkwZnItTWhHQzdPOWtiVE12ZlpPWkN6ZG9NZ0N5NUV3d3FsazVzZ2pQZUVHRnphQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Calls Travis Kelce Her Husband After His Touchdown
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: During a recent game, Taylor Swift pointed to her wedding ring after Travis Kelce scored his first touchdown of the season, referring to him as her husband. This moment highlights their relationship in the public eye.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiugFBVV95cUxPaFNzNXdYcW5EMlhFOE5Mam95Z3JWOEppbmRzbG1yV3Y1WGxfbmQxSWp6b0RCT05IbE9BWFZpZFc0T0xoamZKMWN6Y1NncG5DSkVLSHhmV3dKR0NCWDU3Zm1JcEZhdE5jYVloZjgzT0pDeFNLdnhSbUFrWHN4UjJ3WlNSM1JCS2xMT3dVMFgyQmwwWUNmX29NaHBKUjlCWjczcDljNDVqWWhNN3d5MmdqR3pGb09NbFdhZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMivAFBVV95cUxNcXJQbWJ6UVFBZjdjRTZSSFRtaFdodlJHT3NqMnZldElraEp5NDFHcVNtRFNPN0ZVeDlZRW1BSUo1Y1F0THg0QUpIRHA4YWpxOTdwaHF3SktsQzVKcllMY2ZfemJpd2dlMGJKZWR3V3RPZFVXQU1xME9oYnhTLXY0VXZOYk5IbnhHN2FyNkoyX2Jud055TXh0OVpQbl9GRFBESVRwcVlYeHUwM0o4UXN3cVpWTHZLdEJsRjh3Rw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQi1wMEhJSFRKMkFXUU1QZExoVXFXQkl0NDBBcXZXZDZCRWd2TmZiSTFLZjlnSzVWNVRnWkw3M1lyQVQwd1NSQkd1aEtBQThiakhCZXIyeW14V0VQNktJY0ZNTmtrdVlfOTdzZFgzSnI1ODcySG9ma0lrTDk5aldsZzM0TW5BdFVDZzlNaUxURC1GcmtIVGdMc2kxZXhDVWNsU0pNWDJURDRZblZmdGcyUGhJV1dnSVFLQTZHZzlYRjI2YVhBd0E1LXREaUwtbm1veXVVdUR3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seen in $40 Tank Top from Erin Andrews’ Clothing Line
+
+- first seen: 2026-09-21 06:15 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a $40 tank top from her friend Erin Andrews' clothing line while attending a Chiefs game to support Travis Kelce.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNUFRueTZoZ0tObExQdXZPQ2FnNjBEVUlybUdOaVBXRzNaVXhhd3hXcU1yQ2hIQ0xlaG5ZUGk0bHpYN21MQjJlTnBpR28tREpPQjJ4c3doMjVULTdOaGlYQWJkN09vaE5tQkJfWDJBLVFxU2tXNUtoZDRRWHM5S0FXYUlrdWhrOVVUY0JncHhkeVBKUFR3eDFReUZZeGJVUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Wedding Band During Chiefs Game Celebration
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: After the Chiefs-Colts game, Taylor Swift was spotted revealing her wedding band, which has attracted attention from fans and media alike. This moment follows her recent public appearances with Travis Kelce.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiswFBVV95cUxQbWFGUFpSNzdPMmRwcnhLRE84clZjOHBxdlA2X1NEZ2xWU2V2Z3pJSVJHS0ExLWRDNFBsQWszQ2ZBd0JxcGRIc1pWbWxIN0JKN2lIM3FhTmo5QXVYMU9KVTNaRzdkcEtydUcwaXRpcC01dlB6bWhZZUNzZEx6YlY4bGhiVy1GQVlHblFVTVh3Y0t2b19ZUFJrNDJZTGVEZ0ttckdPcmQ0WFUya3M5MFhNeGZuYw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Supports Travis Kelce at NFL Game Again
+
+- first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted cheering for her husband, Travis Kelce, during his second consecutive NFL game. The event marks another appearance of the couple in a public setting.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNMnNZVnlGYmx0b3k2Z1pXNWhBbHBsdWtrb1RJNjcxUmxaY1oxZUw2TF93LUtnaDg1bzNTYl9tc2R2S0ZOSU9DdHpNLXVrVENNSkZXWjljOWttd3QwYm1IbDZrUlk3Q2VVb25jbGpkSG1zSF9tQ0Mzb3VTTTFmbDdrU0VULUdfQmZwZG51ZHR5Qk9odTZtczBXQXZWR01CZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Wedding Ring After Kelce's Touchdown
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: After Travis Kelce scored his first touchdown of the season, Taylor Swift was seen pointing to her wedding ring, drawing attention to the moment.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcG1jR1V3VHFJRW1mNkRrSUFpTnJWMm5KWG1RdUNNZFR2VU9wd013dkRjOXB0WW1WX0FpcHpzOFBlYzNnRndKOXpKRUp3WEhLdHR0X1paVEgydVMxeFNRSXBmWk5hSVFMRVpScFVBRU5WSnEwTFdFWmJhTURwbTBDVEc2SU1NZC1QQmpzRy1wcXpNVWtyTzB0TjBKeXBLajVM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Spotting Before Game
+
+- first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce were seen together prior to the Chiefs vs. Colts game, sparking conversations among fans. Their public appearance has gathered significant attention from the media and supporters alike.
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMivgFBVV95cUxPa1hhZnlaYW5LOTZnN2dfNTR0UUtxb0NobEN4aUh6NHliVENxMzBrNmp2dHB6U2c1VkhBUjg0cEdPcGNRNWRVSjhUYThIbzNjUkVDMTB6dWFxUkZJdUVlY0JZMXZQeHpkLVpNX1g2NHY4ZVZLdVlVS2tIaF9uUC1PbXJtWm1mVXFhSUMtdVhuOVBRekMteW84WlVSbGlKbVJHb0RpSFJsanhwMDNMZVVjYnlzQlJvR2M5NUd0Tk5R?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seen Wearing Wedding Ring During Game
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen wearing a wedding ring following Travis Kelce's touchdown at a recent game. The sighting has sparked interest among fans and media.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixwFBVV95cUxQM1ZHaVNMZXVFS1JGVWszdmQtVlMteENEZzhSZGt6d3B6ZURES3NIYXJSN1ZKNGJ5dm13TVY0b0k2Qk15WWhqQkNJQnZFMm5vZEZrZjg3TEUzUFM2YkpQR3pDeVZWSDNxbGprU1diMnhxQTk0QnpjWWpwTmJmQkoyVEZkSjU5WHF5VVN0bmhDaV9EdHpFd0hjdnYxNS1UZmNRVlEtV0RrLWNySHdmXzBaS0cxQ0c1NzZtb18yOF9FSzR5UnlzWHYw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Attends Chiefs-Colts Sunday Night Football Game at Arrowhead
+
+- first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted at Arrowhead Stadium for the Sunday Night Football game between the Chiefs and the Colts. Her appearance continues to draw attention from fans and the media.
+- sources:
+  - [unverified] KMBC — https://news.google.com/rss/articles/CBMihgFBVV95cUxOX1YzQTctMWlEanJFeXhVZDVkTU5FYTZlMFEtNktVdzZIb1ZEOWktNjJaZHZGNkFrVUVLM1V2bDRZaGJ2WlRpWkZURUxLWFh4T1AyNUxQRTU3TUl3V3o2bFdERGg0cGVnMDQzclFXNkx1RGxFRC1zcV9pRlAyTTA5UUVPOGRHdw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jodi Picoult Discusses Taylor Swift at Carroll Festival
 
@@ -51,14 +125,6 @@ Stories: 57
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNSkM1OXpDT2VZeF9kUFlMamw5UDFzSGJOUHdodTUyMzY4Q1Fqd2NUeXdzcFB2cWY4RC1GaDRhdkN6Y3JOMUJseTZBTExxZ2hEWUJlOUFDZ2JkVUZzS1FtckxnVG0xaHE0bUJHajhqRGlLVHdQbjBITUFvTzZYVTB5Y2dpN3JObm00SU1VUjBuN0FuQQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Joe Alwyn Seen With Two Famous Women, Romance Rumors Arise
-
-- first seen: 2026-09-20 23:12 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Joe Alwyn, who previously dated Taylor Swift, has ignited romance rumors after being spotted with two different famous women within a few days. This development has attracted attention from fans and media alike.
-- sources:
-  - [unverified] Charlotte Observer — https://news.google.com/rss/articles/CBMieEFVX3lxTE1wU21VT3dCbGttZDRzaXF2aDc5VEQ3aEoxR2RnMERreU04SU00MmM0VnRNOGxQTFpyX3E5OXBDS0dFQ3dIcE45MHh2S3c3Y2xza04xQXdsTDRNQWZOclVRX09EQi1MZ2hjd0hUVGt6SXQtWk90dkNnRg?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Viewing Information for Colts vs. Chiefs featuring Taylor Swift Details
 
 - first seen: 2026-09-20 23:12 UTC | category: business | importance: 4
@@ -66,6 +132,24 @@ Stories: 57
 - summary: The article provides details on how to watch the upcoming Colts vs. Chiefs game, along with insights into Taylor Swift's involvement. It includes important timing information for fans.
 - sources:
   - [unverified] New York Post — https://news.google.com/rss/articles/CBMingFBVV95cUxOY2Q1aFVZTDMwZnB0bk05bi15c1p4NXZKX0ZKMnphc25iNHR1bFQ5ZmRJOWQ4QmVxY0dnYnpaVVFibDdXUUotdVJ1b1hsdTJaamlSS2VEOHFRODcwb0RfQUhzXzhMeUg3MGdKQThfZFBpcG1zUXNsWXBpMlJHTFFUdUcyZW5qRWJkSWJLeTYxNkJFLXgzTTZyeFJlbFA0dw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Updates on Taylor Swift's appearance at Chiefs game Week 2
+
+- first seen: 2026-09-20 23:12 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: The latest updates regarding Taylor Swift's attendance at the Chiefs game in Week 2 are being reported by various sources. Fans are eagerly seeking confirmation of her presence at the event.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUlZCM01kaU5DX2xrVEtNZVR5R215Q004WWVSbnRoQktzMzBma0pLdVBFaFVuY2tLTUUtRjZpdEl6QWh6NFE4OVMwMGZ3NnJTWUlHZ1o3NEswMnRmalJ1VmlsX3NqTDdJVUhhTUlLYnpLOTMxVU5HTTdGV1kxRnEtY1JuQnlqcTdRLVdPdlRlWlc2Y0dyTjJ1ZjRMZE5PazZFdHRYZHlheXg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQd25jT3ZKT2VCdjJPNzVTeDdQeUZzNjdFd1A0UVVXdGxqOWZqTWFPWkdfdHZvc3lQZGdzVzNRSjNOdGRjMXMtSF9YcDM1V2pnZzlXVmhNUTczUG9KVkNxRl81bmdvN0hqSnZheTh4enZMbHlOUzFRQXBSU3NLX0V5cnBfT0pSRVJ5X2ZUcF8xVzVSTDI3TU1rRGZYODV1NGxHZ2VuNQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Joe Alwyn Seen With Two Famous Women, Romance Rumors Arise
+
+- first seen: 2026-09-20 23:12 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Joe Alwyn, who previously dated Taylor Swift, has ignited romance rumors after being spotted with two different famous women within a few days. This development has attracted attention from fans and media alike.
+- sources:
+  - [unverified] Charlotte Observer — https://news.google.com/rss/articles/CBMieEFVX3lxTE1wU21VT3dCbGttZDRzaXF2aDc5VEQ3aEoxR2RnMERreU04SU00MmM0VnRNOGxQTFpyX3E5OXBDS0dFQ3dIcE45MHh2S3c3Y2xza04xQXdsTDRNQWZOclVRX09EQi1MZ2hjd0hUVGt6SXQtWk90dkNnRg?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The State — https://news.google.com/rss/articles/CBMibEFVX3lxTFBWVmZYS3BQZkFBczFmVy00WFZKamJMWUQ3Z2R5N2p2Z2FuZVdTVjJoRGp0X01ZOXpkSHlJbENNb3pfYzVTbFp2RVR0WHRtNzF6TjRFMllJZ2JNeVZqQ0lKRlZBMDVfbDB2bVpWNQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Travis Kelce Attend Patrick Mahomes' Birthday Party
 
@@ -427,86 +511,3 @@ Stories: 57
 - summary: Travis Kelce recounts a surprising interaction with his wife, Taylor Swift, reflecting on her reaction during a moment of confusion.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeElDZmtOOTBRTXoyODl0aUxNejhIcldRelhraGRMLWRVc3d2c2RYRE1UUTFpNkZOOURLcEFlUVZuTnZiMGJXTXdHTVBiQnVNcHQ3TjFyVlVtVDZaSzd3bVl6akZnMWJHRVB3RE42LTNVdDJIbVRvNG1jbmJIem5NcHlvS2ZGRzJtQl9HMmNETlRyelFZZDRTczU2d1AySkh2ZXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson and MGK Reportedly Spending Time Together
-
-- first seen: 2026-09-18 05:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An exclusive source reports that Dakota Johnson and Machine Gun Kelly are spending time together. Details about the nature of their relationship have not been disclosed.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxPV1p4b2tqRk5mMXphQ2tvUklSd1IxSHVqVEd0RzVCV0I2RU85UkJXaG9XemFGR2xXakN6dWJtSEtMZnN1cTBWVmg2MFAzZjFCOG1FQ0lKeXdyUVhqamVUYVdFeVRoVS0xYkRnR1BMYVZ5Y2VMQlBXLWhFZklocWxjVHVPS3VDZ2dlT1dQSlNzYmlReS1IQ1BfU0tn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring the Friendship Between Tom Cruise and Taylor Swift
-
-- first seen: 2026-09-18 05:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A look into the connection between Tom Cruise and Taylor Swift, detailing how the two know each other and potential collaborative projects.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinwFBVV95cUxQdnZ4S015WGlndEV2OVM1cUdIMGhCR00xZ3ZWYWVFSjN3YlR2LUNFbThScWpVemZHZ1VESGQwd2dsajRFQk9QZU1QYTFkQVFoMVp0NGJsNzBTR3dBcmpCeHlsV3dOcmw0bHNBQnBJV0x0VnAtaUc5TVhMMnlRcUVkQmZnZ1VwTFdpSEU0WkN3ZVRZMEJwc29BdUI3akNEdE0?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Affordable LBD for Date Night with Travis Kelce
-
-- first seen: 2026-09-18 05:52 UTC | category: fashion | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift was seen wearing a surprisingly affordable little black dress during a romantic date night with Travis Kelce. The outfit choice has garnered attention for its blend of style and accessibility.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxQMmFDaVRMYWNoR1RaYVJXcjFKWTdsSDVaU3ZCaXhEYjdFVXRSSDFhRzN0YUFCTnJTOEcxZ2tUcGZwenhsVmNOeWZ1T3pVczBhVDdGTC1JeGo5NHZQRERuSldlY2ZheGUzT3NpaTJ6cGRfSVJOc0JucEt6bkNkSUZCcFRUckRuUHpzOHowbFRDSjJOV2ZXM3c?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisgFBVV95cUxPeVI1cDFXeWtRVnpvNWw5cUJhbFVOOUc3VEM3VXNIeGZwWU1zQXphM2ZsX01samZSc3NkRHM1NHBXUDFOYXNTaEZqY1BGS1lQdDNpYkN2MUU2czd6bGlhUFBRamRsQm16TWJCZWt5N0M0ZmNtdmpoVFdRMlVLeHNCRUx0QlZXV0p6ZjZEbHUyM1BORXljQ2Mzb05kOGFIbWZyZkRmcy1DdmFGRmJudkdldFp3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tom Cruise Speaks on Taylor Swift Football Photos
-
-- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 11
-- summary: Tom Cruise has addressed the inquiries surrounding the Taylor Swift football photos that became a topic of discussion. His comments provide clarity on his connection to the viral images.
-- sources:
-  - [unverified] CBS Sports — https://news.google.com/rss/articles/CBMidEFVX3lxTE5PQWdCN1l4VXVTQlRkSzZUYXlIbVkyc25ZV19RQUQ5d0haRHBRUklfN0VsZHcxUTZKamE0aU9NeGlheGlkejM4UUpPUDA1YThETUFrTEgxVGpybThaV2xzSGJ3T3dxbTI0WVBmRXFZSTN3aFo0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Gossip Time | Allie Jones — https://news.google.com/rss/articles/CBMifEFVX3lxTE5XZWhwb2tzWTV0MGg0SHRmeWlwWXFzNWlTN1MzZ1RWU2s5SFdNWUo5Z3phUF9wajJ3XzZOa2FiSGpNdG96Q05ySTFDYkVKWTJCLWw1SHNQQmNKWGcyNTRueEdrQ3BLRUVUZTN0YURzUEd2dU9MM09STGRDTmg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NBC 6 South Florida — https://news.google.com/rss/articles/CBMi2AFBVV95cUxQcm1hWHFNQURIQUNPNms4UEJGd2tmVWFDQkFKZzV2eFNLVzYtMHBBMXgxWmNiVTZ2NWxMNXhGVnltUmJ3aXNIT0Jvb2Nhb3VfSHVod29UYXZOSUlpOHJEQXhCMTV5M0RmclNIUURaNGhSZ19Yd29kN1l0NVlxWms5RU9HdVc2QTh2bW13dVVmTWJRZFdHdDNleWFhV0N6WXNKb2VZcGE5MW1VQ0xSbWJycmRtem9SUURIU1lxQW9uQmtmVHBpaGVJcFZveWpRZTFEMWU5UndNek_SAeABQVVfeXFMTndncFREWFd1ZVNGbWVXVVAyRDQ4TG11ak5XcjFwUktJZllBX0tPZVNKN2pwemU4dGlDZmJPUTBaSVhOTUhSc0dZbVlvMllvNnV5ZF9hbjh3RUx4UXlGblhzbkJBNjhES3RVRUQzMXJlQWNFOTZmNkNFaDFOQ2tKYzIwb2V3RzRFdXNBVUJldlpaTERpM1BwRkM3WXAwcVo2OER2eU9FUkJub3QyY1YxWVp3NE5LQmlIVVpRbDk1WGJPa1ZqczNtdHZ4R3h4WU5ETlhiTGJlVHpJblNpOGRBOVA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NBC 7 San Diego — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWGt3TW5BZ3lkVVNYSHBQeDdOTlZxakk1Z3R2VHVRcHhJRkVKMFJjS1RFZ3dpU2pSSE95S093aUxscTZ0YjNyMUhYR1JJUVExeTZySjZPdHprcnNncFhXUXlYU3Z1Mi1URC05UE9FNWJ6T1hvUEEyRXBlZE1LQUJvNUZ5ZmpwNEdjaGNLYkxxV2IxWXlwNnNyMEdLSkNWXzFPSkZqNEJqSlFDR2ZuTjJ5OHZIbzFJU1VKNS1KZUJkSzdiTnVTZllHcHZTa25aU1VSbjJuNmc4ekhEVHpt0gHkAUFVX3lxTE52OEVHcnhjRTg1RzMzNW5FWmlDTW9SbjQwUXVyNmNfUkM0NWRuckVtZVRTa080NzZsbnRQQjNKbmhvRDdRQl8zSVRJS2pyQmxfcDRDQkEyZjhZWXVGczZpYjRKRGx2UTZiU3haYWc2emdpV245bEx3eGRtZnZveWZ5U3FKcnNaaFlTeU5oUWJpSm9OZ1lUWXpGb2JLcG9Ha3hHZkRabUFMUTBMTnI2anlJam1kcGpDY3ZXLXlZUmVMc0lUSVhDeF9kb3g1aVMzV0I1TnVkUUg1SnBuMFAzSzU3U0ZOUg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOYnp6WmNLR2FuQUVVRXNZZ1o1WDNNN19URVFKcWlkY3dXVTBfRzB6M3hPdXFhZUhJNWxieFZNVElxX2s1ZWxkTlZ6RU5wQ2t2Q090Q2o2Mk1xOHVmWXZtTTZxQXpOdUM3bzhNV2J5SVhEWUN0b296M3BQVXpObUJXVDFSdnJpTGdYUWt4Ujh6akRKMlBVNkVoS2hYbUszMVVZNnRIc1Y3cDZZUG5VT1pPbzVWQWtNODhW0gHAAUFVX3lxTFBDYkpoMVluLUlFQ18tdm5vaFVFMzB1bU9GdGlOUWdLM3dZQnV3bnVDbTc2X182VDBvTkNaTlV0VGs5VndiMjd3aFNodGVOYXN2WndsYmxyLTJsNkNkUUhXWHBkTVZEdW1Md2g1NEdEZW02WlJnUFdIZTR4X2U3VVYyZWdISFpwWjFnam5lbG9KckNoT1p6U2daeEVRbE1ZNUY4S2h5NFp4ZE9YY2hhb2JpY0txX1pHaUVHWlYtYTZuNA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMilAFBVV95cUxNUjg2NE16NHJDUVJLZEZoZFJDSFN1WlBPQkhkUEIycGNBbUY2LVdVelQyb1FuZ29qYmhaVUloc0hQSi1MZXVsNllUMXZGSTJZN3lJYkw1NktQRGpUOG00aTVyaTMzM2ZtMVZFTVBfUFUtczRFRHpNSzZxY3g3N1UwLV9vUlUwVG1UV09TR3RBMnBjNWt2?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMixAFBVV95cUxQQlZacHpqMW5NTU16TG9mTzNjcWlNaG85dUtYTk1odktxTlp6WGhWeXRkMlJ1LVhWRExYWWtFMjQ2SVlaTU1wMWh0VGtEUDhabUtDV3J4WkdmVkxvTUdsU3luWktVWFVhUy1mLVA3WnBWb0F4ZmFJWlg5OTJ5UjJGZ2wzZHp1andpN2dzc0t5Q3U0c01EZWU3UlFGWnVZdHdnamFzUnJ2RlZDSVZjQkxQLWpXSWM2N2JBQWJDZUdxcmpOM0h1?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxOWERmS2ZhQk1CQ1BZUnVHZ0ZJRGE1NVE0N2dzbV81aThmQjk5RGRsdXVud2VFSXhWeUlTWHVVVnVyWnBwcVJGOUJDSDloYW1UeEMxSG1pYTZXbWJYSXRTaEgwX3JXSEdvbnBSMEtFUjBaU09kS1hZZE5FVWpueVZ5YVRCTUVKMWdHME9DeU1VaGUxR3J4RjBqNzd1SlpsRGI3dkZzeHdn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMizAFBVV95cUxPTmQ4X1A0d2ZyclJlM0FNTWx5cFViYTZmdG5CQlBsZFBIZFhyTkp4Q0Q0SlBqM2FsVHJyY0tBNmM4NjRoeDRvNUZnam5ZU1JPUHVabnBGYkg5ZUxUaXBXbTNOQzFWTFY5Q3RBMk1EYWpjMU4yMngyUC01amF5WkVWQU5LZjNmVVNHc2phYXJXaXdmZXpDSFo2RFppVVhwcnBGRHBHNEpHQzZ2aFliTHMzRENzcVhRNTUtVGtSTm11X3V0Qm5feFRPYWVaZl8?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPaExZMjhhTzBReVpsRHpGYjY4LVB5SC13Nm5kZTRPcy1qZVpaSThBeEtld3cyaWlxdlVDSEItalpXNFZ4YUl4UVlGbDE4TmtCM2NuRUFBajFWaVBMQlFPOTVNY1RlYVJsNldvMUU5N29xWlVGUDZoZzNuZEtiQlg4TVdfWHVJUldQcHE2YXBFZW81bG44X0lmaXFMOWVnRlhwRlpwVk5xTHM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifEFVX3lxTE9KcTNMRW9FWUUxV0lKZjhJeWhveGhuTjZsNDVmN2c1YTBmamVCbDFlWFRyUnZxdG1KUDFKMnpyYVhNeXotLWhMdVJGYndXOGJuTEM0ei16cGdaUENtTDJrLVZrb0lJdEQzODRjLWxqZVE5eHIzN1g5SDRYLUk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tom Cruise Discusses Conversation with Taylor Swift at Chiefs Game
-
-- first seen: 2026-09-18 05:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 8
-- summary: Tom Cruise shared insights about his conversation with Taylor Swift during the recent Chiefs game. Their interaction has garnered attention from fans and media alike.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdG5KeGxzay1GX3FSSmI1OWl1N3h0aXdwQkctMHdBOXhxRi04a3ROQV9kdTlYbzJOaEplbWN5bW1Oa1FKWEM5dlYxbGZVSDZoTzdoaGJzMHpvY0ZHYndVYjluclktaGFjeTNSN1JhVzJXcjZja2ZUWWpvZmIyOHRCVW84dGlDcExWblB3ZDNiekJxdEo0d0Z5OV85ZEk2bW9LT05tV21laE4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxPdzYxZGJMaXNyR2F1eGlLOEstQmNMa3NLNnVES3JYazZqS2JnRE5qc1NyQTVHbDhKT2JzM0ZBdGdQcVBzVWJJa0thS1lsemFjcWxmdVRzVWdoTnpBYXBfZkg0VjNON2U0VTVYTUhUMWExQmRwNENJSGN0YU9mZTFLSnFiMmg2UlpVODFTc1RXM291VTZhWGt4NjZIX2d0NEpmMTRra2x2Y3pHajYtSjRzLWI4QlBwSHdmcW5xWFpaMjE0d1NiOUVTZjRMUlc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiwAFBVV95cUxPRHJWbUJaTDFDX09mNlFwVzdnbWV3b0g3eW5PQTNuQnZJQ1hHaUt0YVdOcTE4M005cm5qbGhvOU9weDZOeVgxR3FnZnB0Mk9jR0Z5V0drUHh0R3lKdVVsUEkta2EwcnBvQy1VVUxwcGFaV2dVOFZid2kzTmoxNnZfcndmRXFobTBpR04yM1ZrMVotc0RFNUVjS2dxcVkzQlZUR24zRUJYSnd1SndHWnFIWlhrbHN3dkhkOHJSejdwel8?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/tom-cruise-taylor-swift-chiefs-game-tonight-show-interview-1235628674/
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQTHlzbEM2U0V5Vkt4UVJEWWtjWFA3YXlMU0ZTRzdISVhHRmRYTEtaUDI1RlJEM1g4OTlXWVdIQ2ZCemxMUkRDUHpDR2tLZkFjRWEtRFhoa0FfeWNnVDFSOE4yejVfS0VjcHZGbkNKQjRTWjRVV0tNaUt5WVFuQ25vdkdYTE1fN0lnTy1CVWZIT0Fqd1lrNDJTNHlyUmt2UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxPY0JtdDlObTV4UXhXTnZCOGhLSUlfaE9uUDd1N3Q2SHdyMVo0ejFPNXFaY3p6STRwTWxNQVhrOWl5TnlqZjNFeVljWjBENVBPSzVpVlRraVNjRzU5ZE5fWEIzVlNRenNDYTlfUVd0czY0UW9XLWNGQm1ZWnJXQmpXamo1ZEpPMUxOSUVTbGk1UDhrcHZEcDNORjRWRm0yc3hrZkRGZ3ZIRQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/tom-cruise-taylor-swift-schooling-me-football-chiefs-game-1236866585/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxNelRRSnhXXzM3NFd1d25GWTZQc2xyOTJWSldkNW5nbTdvdG16VHFwZEhuUkFkeXZ1ZjBMakRwS19Idnl5TmlMUmpaS3dIV2pUdWtLQjg4X1hwaEFVYm1SNENvUTVoNEtSZ2lJdDlJX0I5ZTltVTRsS3JHdThCcnhNcUE3ZjJMTXZrc1Q3Y21nSVNvT2FVUHhzeEtReGFIRHM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jason Kelce's Daughters Have Adorable Reaction Meeting Taylor Swift
-
-- first seen: 2026-09-17 23:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce shared that his daughters were excited and couldn't stop calling Taylor Swift a specific name when they first met her. Their reaction highlights the impact Swift has on her young fans.
-- sources:
-  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxPdFpoYXdienNBbmZiZU93NG01a2tGRUQtVmZub3BFcGxnQlNUN296RkpBTEcxMTFYYV9VNnFpejYxejF6YkZOYzRTanRUdVZKcnZjN1FPcC00ZnRpZnR1eVM3ZGdHX29sOG93SEhiendacFR3QXZzSFotczllQjJoN29ibnhYVXRoZ25kak40eU1fZUczemk5RERyQWd0Y3N2b21yVjBsQ3NFUlp1XzY0SQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring What Taylor Swift Would Be Called If She Were an Aunt
-
-- first seen: 2026-09-17 23:32 UTC | category: music | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: A humorous article contemplates the names or titles one might use for Taylor Swift if she were their aunt. The piece invites readers to think about the personal connection to the famous singer in a light-hearted way.
-- sources:
-  - [unverified] MyStateline — https://news.google.com/rss/articles/CBMioAFBVV95cUxNNFNyQ1VGS0xiZTRfVThYMG1MU0Q3dXk1VGR0RXQ4UUZOT0dFOTZQM2x3dXgxSkk2anZOOG1rVTNEY05hVzZ5NzEwLWU2R3ZiT3pDNExMTHp5aEp2NlZSOE0yQ0xkOWFPZy1rZVIzODJ5WmxydXZXb21hTUdvTzhNUWhQX2Y5NmxSRF8ySUV4WC1USDhTNFVDVWVtQ2pEWHpE0gGmAUFVX3lxTFAyd2RhOVp5RmdfeDZjQ3FfV0tLVVAzNnNqVG5ma0VpSlZJdUQ4cmY1dm40Q1FoVVZHaW5CMGtNMU1KWFQwRWZoS2IxbFBJQUtEYW1MeGtwWUtRVzZOcHZSTGIzTS1TT09LcUNzWnczdTZOQVRhZGhCalRsSU1BeS1mUTZrVlBCanZlOTZXX1JkUkhaOThtR2tFcG04Q1V5Z2tEUm5ha3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Listed Among Billionaires Excluded from Forbes 400
-
-- first seen: 2026-09-17 23:32 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift, along with Oprah Winfrey and Sam Altman, is among a record 590 U.S. billionaires who did not make it onto the Forbes 400 list. This highlights changing wealth dynamics as Africa’s once-poorest billionaire approaches a net worth of $2 billion.
-- sources:
-  - [unverified] Business Insider Africa — https://news.google.com/rss/articles/CBMi1wFBVV95cUxOdzYxcGVkU1ZaYlNHZUNoRzVnVWdxRWpnZEQyR2lOT2pUMEJoNUp6UWRmNDR3aWMxQ1dacFAyckQzM1UwbzYxZkpkTnJpVXFuR0xLVG5tbEZfTkpYcmdEOEJfMlR1Z3RqWDhQRzlmVEhmRDVoamgydlJmYVYzaHp2WXFFN1BjUENHOE9IYzNvaTFhcWNjZnFLQmItRGQybUtGOFo2bEMtTURVVXpTUl9GOGV6V29pT1p3WWNSTTNSYzNRT05QY1dXdVlHME00YURLMWFLc2UzYw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQNldXMUs3RkVRRUFieWluM2tGSHJmdVhQV3VPajcwdWRoMGUtT2kyVlFlOUJNdXlfVVZoYm5xUXlyZVNmSlpVLU5IMnpIZ3YtTE1yb09TNEx2TkFVWmdKbWNSeld1Wnd5cTE1REtYZElMNV9lMlQyVVViTVZnTG92eF9JU1I0MUstek1VUmlOUEdDejA0Y3FrMEdXOVl0WnRKUF9DWUQwcTMweE1kWUtvWDdITGdFRHlTaTkzQ2lSRVktRmlYN1RoMQ?oc=5&hl=en-US&gl=US&ceid=US:en
