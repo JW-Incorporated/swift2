@@ -2214,7 +2214,7 @@ export default {
       snippet:
         'A married woman drawn into a secret affair that creeps from winter into spring like ivy — and the one song Taylor later named as her flagship "Quill" lyric, the most literary pen she owns.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(album)',
-      thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/9nIOx-ezlzA/maxresdefault.jpg',
       moment: {
         context:
           'Track 10, and the record at its most literary: a married woman pulled into a clandestine affair that spreads from winter into spring the way ivy winds and tightens around whatever it climbs. Taylor wrote it with Aaron Dessner and Jack Antonoff, Dessner producing the folk arrangement of guitar, faint sleigh bells and banjo. Slate\'s track-by-track called it "overrun with metaphors but mostly in an enticing, thematically fitting way" — "good Swiftian dark-fairytale grist" whose tangle of images conceals "the secret… an engaged woman being drawn into a clandestine affair."\n\nIt is also the song Taylor points to when she explains her own craft. Accepting the NSAI Songwriter-Artist of the Decade honor in 2022, she sorted her lyrics into "Quill," "Fountain Pen" and "Glitter Gel Pen" pens — and named "ivy" as her flagship "Quill" lyric, the antiquated, literary register she reaches for least often and loves most. On evermore it is the purest example of that pen on the whole record.',
@@ -2250,15 +2250,26 @@ export default {
         // Photo pass (2026-08-01, #762/#1141): official "ivy" lyric-video
         // still. oEmbed-verified the video (9nIOx-ezlzA) is titled "Taylor
         // Swift - ivy (Official Lyric Video)" on the @TaylorSwift channel;
-        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
-        // downloaded and vision-confirmed (foggy moss-roofed cottage).
+        // i.ytimg.com is YouTube's own CDN.
+        // Photo pass (Vault Run, 2026-09-21, #1721/#1715): upgraded the still
+        // from 480x360 hqdefault to 1280x720 maxresdefault (curl 200 image/jpeg,
+        // downloaded and vision-confirmed the same foggy-cottage frame), and
+        // added a license-verified Commons portrait of Aaron Dessner — the named
+        // co-writer/producer — as collaborator context (precedent: mad woman).
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/9nIOx-ezlzA/hqdefault.jpg',
-            focalPoint: '44% 58%',
+            url: 'https://i.ytimg.com/vi/9nIOx-ezlzA/maxresdefault.jpg',
+            focalPoint: '40% 60%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "ivy" lyric video — a moss-roofed cottage in the fog, via the video\'s YouTube thumbnail.',
             kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg/960px-Aaron_Dessner_%28March_25%2C_2016%29.jpg',
+            focalPoint: '48% 28%',
+            credit: 'Bruce Baker, CC BY 2.0, via Wikimedia Commons',
+            caption: 'Aaron Dessner, who co-wrote and produced "ivy" — the guitar, sleigh-bell and banjo arrangement behind Taylor\'s flagship "Quill" lyric.',
+            kind: 'reference',
           },
         ],
       },
@@ -2273,7 +2284,7 @@ export default {
       snippet:
         'The hometown girl who left for Hollywood, sung by the lover who stayed — the same character as "\'tis the damn season," told from the other side. The album\'s plainest act of tenderness.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Dorothea_(song)',
-      thumbnailUrl: 'https://i.ytimg.com/vi/zI4DS5GmQWE/hqdefault.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/zI4DS5GmQWE/maxresdefault.jpg',
       moment: {
         context:
           'Track 8, and the answer to a question the album asks earlier: who is Dorothea? She is the hometown girl who left Tupelo, Mississippi for Hollywood and never quite came back, and this song is sung by the one who stayed — happy for her success, certain he\'d always take her call. It is the same character and the same small town as "\'tis the damn season," which Taylor wrote from Dorothea\'s own point of view; together the two tracks tell one story from both ends. She wrote it with Aaron Dessner, who produced it and felt it carried folklore\'s world forward into evermore.\n\nSlate heard "a welcome lack of fuss," Taylor reaching for "her old high-school-romance-songs vocal tone to reminisce," and critics warmed to it fast — "luminous" is the word The Guardian\'s Alexis Petridis reached for on the melody. After the murder ballads and divorce songs elsewhere on the record, dorothea is its plainest act of tenderness: a love that asks for nothing back.',
@@ -2300,15 +2311,26 @@ export default {
         // Photo pass (2026-08-01, #762/#1141): official "dorothea" lyric-video
         // still. oEmbed-verified the video (zI4DS5GmQWE) is titled "Taylor
         // Swift - dorothea (Official Lyric Video)" on the @TaylorSwift channel;
-        // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 480x360,
-        // downloaded and vision-confirmed (prairie field at golden hour).
+        // i.ytimg.com is YouTube's own CDN.
+        // Photo pass (Vault Run, 2026-09-21, #1721/#1715): upgraded the still
+        // from 480x360 hqdefault to 1280x720 maxresdefault (curl 200 image/jpeg,
+        // downloaded and vision-confirmed the same golden-hour prairie frame),
+        // and added a license-verified Commons portrait of Aaron Dessner — the
+        // named co-writer/producer — as collaborator context.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/zI4DS5GmQWE/hqdefault.jpg',
-            focalPoint: '50% 48%',
+            url: 'https://i.ytimg.com/vi/zI4DS5GmQWE/maxresdefault.jpg',
+            focalPoint: '50% 45%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "dorothea" lyric video — a prairie at golden hour, via the video\'s YouTube thumbnail.',
             kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg/960px-Aaron_Dessner_%28March_25%2C_2016%29.jpg',
+            focalPoint: '48% 28%',
+            credit: 'Bruce Baker, CC BY 2.0, via Wikimedia Commons',
+            caption: 'Aaron Dessner, who wrote "dorothea" with Taylor and produced it — carrying folklore\'s world forward into evermore.',
+            kind: 'reference',
           },
         ],
       },
