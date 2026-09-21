@@ -920,6 +920,13 @@ export default {
       snippet: 'Reconnecting through mutual friend Jack Antonoff weeks after the Alwyn breakup — studio nights, a Nashville Eras Tour stop, then over by early June.',
       sourceUrl: 'https://www.etonline.com/taylor-swift-and-matty-healys-relationship-timeline-a-look-back-at-their-short-lived-romance-223746',
       thumbnailUrl: null,
+      // Cross-link (Vault Run, Cross-Link lane, 2026-09-21 — CIE
+      // content.crosslink-opportunity): the three-part Matty Healy arc —
+      // the rumored month, the Electric Lady sighting, and the split.
+      relatedIds: [
+        'moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st',
+        'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance',
+      ],
       moment: {
         context:
           'Never confirmed on the record by either party — but the history ran back nearly a decade. They met at a 1975 show in Los Angeles in November 2014 and exchanged numbers, Healy spent 2015–16 alternately stoking and batting down romance rumors, and in September 2022 he revealed the band had recorded a Midnights collaboration with Taylor that didn\'t make the album.\n\nIn January 2023 she surprise-joined the 1975 onstage in London to debut "Anti-Hero" live; by May, weeks after the Alwyn split, he was at her Nashville Eras Tour shows and sources had them reconnecting through Jack Antonoff. By early June it was done — "they are both extremely busy and realized they\'re not really compatible," one source said — though a year later, fans combed The Tortured Poets Department for songs they read as being about him.',
@@ -5702,6 +5709,13 @@ export default {
         'Taylor and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Taylor in an NYU sweatshirt and black skirt.',
       sourceUrl: 'https://www.eonline.com/news/1374508/you-wont-calm-down-over-taylor-swift-and-matty-healys-latest-nyc-outing',
       thumbnailUrl: null,
+      // Cross-link (Vault Run, Cross-Link lane, 2026-09-21 — CIE
+      // content.crosslink-opportunity): the Matty Healy arc — the rumored
+      // month it followed and the split that ended it.
+      relatedIds: [
+        'moment:vault-midnights-a-brief-rumored-month-with-matty-healy',
+        'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance',
+      ],
       moment: {
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2023411/rs_1200x1200-230511174510-1200.taylor-swift-matty-healy.jpg?crop=1200%3A1200%3Bcenter%2Ctop&fit=around%7C1200%3A1200&output-quality=90', credit: 'Getty Images, via E! News', caption: 'A composite of public Taylor Swift and Matty Healy portraits used by E! News in its May 2023 coverage; a reference image rather than the Electric Lady exit itself.', kind: 'reference', focalPoint: '50% 28%' }],
         context:
@@ -5721,6 +5735,13 @@ export default {
         'People confirmed Taylor and Matty Healy had broken up in early June 2023, ending weeks of dating speculation that began in May — a source said "she had fun with him" but the relationship was short-lived.',
       sourceUrl: 'https://people.com/music/taylor-swift-matty-healy-relationship-timeline/',
       thumbnailUrl: null,
+      // Cross-link (Vault Run, Cross-Link lane, 2026-09-21 — CIE
+      // content.crosslink-opportunity): closes the Matty Healy arc — back to
+      // the rumored month and the Electric Lady sighting.
+      relatedIds: [
+        'moment:vault-midnights-a-brief-rumored-month-with-matty-healy',
+        'moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st',
+      ],
       moment: {
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg/960px-Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg', credit: 'Mats Rennstam, CC0, via Wikimedia Commons', caption: 'Matty Healy performing with The 1975 at Lollapalooza in 2023, a public reference portrait from the summer their brief rumored relationship ended.', kind: 'reference', focalPoint: '52% 20%' }],
         context:
