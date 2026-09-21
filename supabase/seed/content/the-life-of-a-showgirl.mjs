@@ -63,6 +63,95 @@ export default {
       },
     },
     {
+      // Authored by the Vault Run Content Shift lane, 2026-09-21 (intake #4500).
+      // Distinct from the Nov. 23, 2025 Colts sighting (slug
+      // 'showgirl-colts-game-sighting') — that was the prior season's Week 12
+      // game; this is the 2026 Week 2 Sunday-nighter.
+      slug: 'chiefs-colts-2026-husband-touchdown',
+      year: 2026,
+      month: 9,
+      day: 20,
+      category: 'sighting',
+      title: '"That\'s my husband": a wedding-ring salute for Kelce\'s first TD of 2026',
+      snippet:
+        'At the Chiefs\' Sept. 20 Sunday Night Football win over the Colts, Taylor answered Travis Kelce\'s first touchdown of the season by pointing to her wedding ring and shouting "That\'s my husband!" from the Arrowhead suite.',
+      sourceUrl:
+        'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-points-to-wedding-ring-in-priceless-celebration-of-travis-kelce-touchdown',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/20260920/c1abbc69-bed6-4bf4-9add-d500856497f5_1789954088.jpg',
+      moment: {
+        context:
+          'The Chiefs\' Sept. 20, 2026 Sunday Night Football date at Arrowhead against the Indianapolis Colts handed the cameras the reaction of the night. In the first quarter Patrick Mahomes found Travis Kelce on a short 13-yard strike for Kelce\'s first touchdown of the 2026 season, and up in the Kelce suite Taylor — in a red Kansas City Chiefs tank top and denim — jumped to her feet, raised her left hand, pointed straight at her wedding ring and shouted, "That\'s my husband!" The NFL ran the clip on its own channels captioned "a proud wife after @tkelce\'s TD."\n\nIt was her second Chiefs game since she and Kelce married at Madison Square Garden on July 3, 2026, and she watched this one from the family box alongside her parents, Scott and Andrea Swift, and Kelce\'s mother, Donna Kelce. Kelce finished with nine catches for 101 yards and the score; the Chiefs edged the Colts 33-30 in overtime to move to 2-0. After a 2025 season she spent largely off-broadcast — slipping into Arrowhead unphotographed for weeks at a time — the ring-flash celebration was the opposite instinct, the most-watched wife in football making sure the label was unmistakable.',
+        sources: [
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-points-to-wedding-ring-in-priceless-celebration-of-travis-kelce-touchdown',
+            source_title: "Taylor Swift Points to Wedding Ring in Priceless Celebration of Travis Kelce Touchdown",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/',
+            source_title: "Taylor Swift Reacts to Travis Kelce's First Touchdown Celebration",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is bot-gated in the run environment (a tollbit paywall redirect), so the article could not be loaded directly; the ring gesture and "that\'s my husband" quote were confirmed against SI, TMZ and Yahoo, which did load.',
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/09/21/taylor-swift-celebrates-travis-kelce-touchdown/',
+            source_title: "Taylor Swift Flashes Wedding Ring After Travis Kelce Scores Touchdown: Video",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 3,
+          },
+          {
+            // Primary game facts: 13-yard Mahomes-to-Kelce TD, 33-30 OT final.
+            outlet: 'Chiefs.com',
+            url: 'https://www.chiefs.com/video/travis-kelce-touchdown-patrick-mahomes-completes-a-13-yard-touchdown-pass-to-travis-kelce',
+            source_title: 'Patrick Mahomes Completes a 13-yard Touchdown Pass to Travis Kelce',
+            publisher: 'Kansas City Chiefs',
+            source_type: 'official',
+            accessed_at: '2026-09-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/recap?gameId=401872945',
+            source_title: 'Chiefs 33-30 Colts (Sep 20, 2026) Game Recap',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-21',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            // E! Online's lead image for this exact game (URL folder dated
+            // 20260920): Taylor in a red Kansas City Chiefs tank in the suite,
+            // matching the reported outfit. curl-verified HTTP 200 image/jpeg,
+            // 1200x1200, downloaded and vision-confirmed 2026-09-21. Host is
+            // E!'s own reusable CDN (akns-images.eonline.com), not a watermarked
+            // getty comp and not a signed/expiring url. The ring-flash beat
+            // itself aired live on the SNF broadcast; this suite still is the
+            // safe published visual for it.
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20260920/c1abbc69-bed6-4bf4-9add-d500856497f5_1789954088.jpg',
+            credit: 'Getty Images, via E! Online',
+            caption: 'Taylor in a Kansas City Chiefs tank in the Arrowhead suite for the Sept. 20, 2026 Chiefs-Colts win — the night she flashed her wedding ring for Kelce\'s first touchdown of the season.',
+            kind: 'primary',
+            focalPoint: '52% 24%',
+          },
+        ],
+      },
+    },
+    {
       slug: 'showgirl-cma-awards-2026-return',
       year: 2026,
       month: 9,
