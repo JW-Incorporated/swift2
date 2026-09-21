@@ -1,0 +1,32 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "You can sing every 'Taylor's Version' by heart — but do you know the order she won them back in? Our new thread walks the whole reclaim, album by album, landing on the May 2025 day she finally owned all six masters 🤍\n\nlonglivets.com/?lens=taylors-version&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-lover-eras-minneapolis-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "lover-minneapolis-2023",
+  "mediaCredit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_4.jpg",
+  "altText": [
+    "Taylor Swift performing the Lover set of the Eras Tour in Minneapolis, 2023, under pastel pink and blue stage lighting."
+  ],
+  "scheduledAt": "2026-09-22T23:00:00Z",
+  "campaign": "thread:taylors-version:origin-story:2026-09-hero",
+  "why": "X sibling of the 09-22 Taylor's Version thread hero. Hook: direct address (calendar's assigned X hook) — a 'do you know the order' challenge, written as its own post, one idea, >20% divergent from the IG. Same story-unique campaign + scheduledAt as the IG. Facts sourced identically (rerecords.mjs / threads.mjs): the reclaim order, the May 2025 buyback = all six owned. NOTE ON MEDIA: this X carries a photo ONLY because check-drafts.mjs hard-requires X media (2026-09-10) — text-only X, which the calendar and strategy §2 rung 3 and active lesson L001 all prefer here, is checker-blocked (see the #3733 escalation this run). Photo = lover-minneapolis-2023: the ONLY other 7-day-clear credited entry besides the IG's tile (last library use 09-09 per calendar), a distinct photoId from the IG (L001: no same-photo-across-a-pair). It is a decorative tour tile, not the argument — hence mediaEarnsItsPlace 3. photoEra unset (cross-era thread, non-themed family). No era-relevance claim on the photo.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Direct-address challenge: you can sing every Taylor's Version, but do you know the order she won them back in? Points to the new thread that walks the whole reclaim album by album, landing on the May 2025 day she owned all six masters. Sourced to rerecords.mjs/threads.mjs.",
+    "rulesChecked": ["L001"],
+    "revision": 1
+  }
+}
