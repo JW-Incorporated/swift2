@@ -1,35 +1,43 @@
 {
-  "weekOf": "2026-09-14",
-  "whatChangedAndWhy": "The shop-the-look launch finally got its day-0 post out on 09-12 after two dead attempts, so the rest of that arc (how-to, example, callback) now runs 09-15/09-18/09-21 and the fortnight is built around finishing it. Two approved posts were lost to a bookkeeping bug, not to bad drafting: the 48h-after-approval sweep expired the speak-now Instagram post six hours before it was ever due to go out, and separately filed an already-published post as failed — I've re-slotted the lost speak-now beat on 09-27 and asked Marjorie to get the sweep fixed. Because the poster can only ship one beat a day, 14 days means 14 slots, and the mandatory load (a launch arc, six thread windows, two Mood beats, two weekly timeline beats) fills all 14 with no room left for heartbeat posts.",
+  "weekOf": "2026-09-21",
+  "whatChangedAndWhy": "You rejected a draft for the first time — \"we've used this image before\" — and you were right: we own 10 photographs, nine of them from the same 2023 Inglewood show, against 14 photo slots a week. So X goes text-only by default this fortnight (strategy already allows it, rung 3), which cuts photo demand to 7 a week and is the only arrangement where no photo repeats inside 7 days. That rejection also became L001, the first rule in the lessons ledger, which had been empty since it was built. Openers are healthy again at 14 distinct across 14 posts, but the 48h approval sweep ate another approved post (the Runway thread's only September slot), so Runway ends the month 0 of 2.",
   "calendar": [
-    { "day": 1, "text": "09-14 Mood chip-poll A — the September Mood beat has never once drafted; two slots this month, this is the first." },
-    { "day": 2, "text": "09-15 Shop-the-look how-to — literally where to tap, because day 0 announced a surface most people still haven't found." },
-    { "day": 3, "text": "09-16 The Runway, behind-the-data — the thread's only slot this month; the launch arc ate the rest of its window, and now that shop-the-look is live it can say how many Runway looks are tappable." },
-    { "day": 4, "text": "09-17 Blank Spaces timeline, early solo years — the permanent weekly timeline beat, chapter one, confirmed-only." },
-    { "day": 5, "text": "09-18 Shop-the-look example — one real look, one real tap, the proof it works rather than the pitch." },
-    { "day": 6, "text": "09-19 Blank Spaces hero, quiz-poll — one genuinely hard either/or from the thread, because nobody new has ever been taught this lens." },
-    { "day": 7, "text": "09-20 Blank Spaces slot 2 — the results beat if 09-19 drew answers, a fresh either/or if it didn't. Window closes today." },
-    { "day": 8, "text": "09-21 Shop-the-look callback — closes the arc by inviting a reply: which era's closet would you actually raid." },
-    { "day": 9, "text": "09-22 Taylor's Version hero, origin-story — what the thread is and the one moment that made it worth building." },
-    { "day": 10, "text": "09-23 Mood chip-poll B — second and last September Mood slot, a different three starter chips from 09-14." },
-    { "day": 11, "text": "09-24 Blank Spaces timeline, Joe Jonas era — chapter two of the weekly timeline; skips forward rather than reaching if the Vault has no confirmed anchor." },
-    { "day": 12, "text": "09-25 Taylor's Version slot 2 — a different entry point into the same angle, never a retelling. Window closes today." },
-    { "day": 13, "text": "09-26 End Game hero, single-best-item — one item told whole, confirmed material only; its second slot belongs to next week's calendar." },
-    { "day": 14, "text": "09-27 Speak Now heartbeat, recovered — the post you approved on 09-11 that the 48h sweep killed before it could ship, re-minted under a new campaign value." }
+    { "day": 1, "text": "09-21 — Shop-the-look callback, X half only, text-only. The IG half is already approved and waiting in PR #4471; its X sibling is the one you rejected, so it gets re-drafted without a photo." },
+    { "day": 2, "text": "09-22 — Taylor's Version thread hero, origin-story angle. A Lover-era photo on purpose: the re-recording story starts in that era, so the tile and the subject actually line up." },
+    { "day": 3, "text": "09-23 — Mood, September's last chance. Mood has never shipped a single post and it was one of the three gaps this desk exists to close; if this slot goes empty, that's two months at zero." },
+    { "day": 4, "text": "09-24 — Blank Spaces timeline, the Joe Jonas chapter. Confirmed public history only; if the Vault has no confirmed anchor, the drafter skips forward rather than reaching." },
+    { "day": 5, "text": "09-25 — Taylor's Version slot 2, a different way into the same angle. Window closes today, so it drops rather than slides." },
+    { "day": 6, "text": "09-26 — End Game thread hero. The lens closest to the blocklist, so settled public fact only, nothing else." },
+    { "day": 7, "text": "09-27 — The Speak Now post that died in the sweep on 09-13, rebuilt under a fresh campaign value. The only heartbeat slot in the fortnight." },
+    { "day": 8, "text": "09-28 — Community Engine launch arc, day 0. Gated: the drafter opens the live site and confirms the Clownbot theory chip and the Clue Web live board both render before a word is written." },
+    { "day": 9, "text": "09-29 — End Game slot 2, a different item told whole. Window closes 09-30." },
+    { "day": 10, "text": "09-30 — Blank Spaces timeline, next chapter. Same confirmed-only bar, and the drafter records which chapter it landed on so the next calendar can continue the sequence." },
+    { "day": 11, "text": "10-01 — Community Engine +3, the how-to. Literally where to tap, for someone who has never found it." },
+    { "day": 12, "text": "10-02 — The Decode thread hero, October's angle (find-it challenge). New cycle month starts here." },
+    { "day": 13, "text": "10-03 — Mood again, October's format: the real songs it gave back. Mood wins this slot over the launch arc's example beat, because the arc can slide and Mood has already waited two months." },
+    { "day": 14, "text": "10-04 — The Decode slot 2, answering 10-02's challenge or posing a new one. Window closes 10-05." }
   ],
-  "proposals": [],
+  "proposals": [
+    {
+      "title": "Write a hard photo-repeat floor into strategy §2's media ladder: no photograph twice inside 7 days, and X drops to text-only rather than repeat a tile",
+      "evidence": "Your own rejection on 2026-09-21: \"Not approved. we've used this image before\" — the first ❌ in the ledger. It was unavoidable under the current rules: social/photo-library.json holds 10 photographs and the calendar consumes 14 photo slots a week, so every photo was shipping roughly every ten days and several shipped twice inside one week. Nine of the ten are from the same 2023 Inglewood Eras Tour night. Strategy §2 already permits text-only X posts (rung 3) and §3 already excludes them from the media-mix target, but nothing anywhere forbids a repeat, so nothing stopped it.",
+      "cost": "X posts lose their images. Images do lift X engagement, and we have no reach data to measure how much we'd give up. Against that: 7 photo slots a week against 10 photographs is the only arrangement where nothing repeats inside a week, and the grid — the thing you judge this account by — is Instagram, which keeps every photo it has.",
+      "onApprove": "Next Monday's run opens tree/strategy/2026-W39-1 as its own PR adding the repeat floor and the text-only fallback to §2, quoting this proposal and your ✅. A human merges it. I've already planned this fortnight that way, so approval just makes it permanent rather than a calendar note.",
+      "onReject": "X keeps carrying photos, and I plan around repeats instead — which in practice means accepting a repeat roughly every ten days and telling you in the brief each time it happens, rather than you finding it in a draft."
+    }
+  ],
   "questions": [
-    "Strategy §2 still says two campaign beats a day, but the poster hard-caps at one post per platform per day, so a fortnight is 14 slots and all 14 are spoken for by the launch arc, the thread windows, Mood and the weekly timeline — zero heartbeat posts. Last Monday's brief proposed correcting §2 down to one beat a day and got neither a ✅ nor a ❌. Do you want §2 corrected to match the poster, or the poster's cap raised to two so heartbeat posts get room back?",
-    "You've approved the last four drafts unchanged — 4 ✅, 0 ✏️, 0 ❌ — and the lessons ledger I'm supposed to distil your feedback into is still completely empty because no edit or rejection has ever landed in it. Is there one thing in the last four posts you'd actually have changed? Even a small one gives the ledger its first rule."
+    "Four weeks of founder-task issues (#3990, #4294) are open with zero of the tasks ticked — including the week I cut it to a single four-minute ask. In the same week you answered 14 post approvals and 12 Reddit prompts in Discord, median under five hours. The GitHub issue clearly isn't where you work and Discord clearly is. Do you want the weekly reach task moved into #longlive-tree as a prompt you can answer like the others, and the founder-task issue retired?",
+    "Is the Android app live in the Play Store — yes or no? It's been open four runs. HUMAN-ACTIONS #17 calls the device test \"the only thing left before Play Store\" while PR #3534 calls it \"the shipped Android app\", and I'm barred from planning a single post about it until someone confirms. A yes is the biggest launch story we have available; a no and I stop asking."
   ],
   "needsFromMarjorie": [
     {
-      "ask": "Fix the 48h-after-approval sweep: it expires posts before their scheduled time and files already-published posts as failed",
-      "why": "All four items approved at 2026-09-11T16:26Z: 2026-09-13-speaknow-million-week-ig.json was scheduled 09-13T23:00Z and swept to social/failed/ at 09-13T16:26Z, 6h34m before it was due (#4288), while 2026-09-12-shop-the-look-announce-ig.json posted successfully at 09-13T00:38Z (platformPostId 17985710469068737) and was swept to social/failed/ anyway at 09-14T01:24Z (#4282). Both X siblings are still sitting in social/queue/, one of them already posted, so the poster isn't clearing the queue on success either."
+      "ask": "Grow social/photo-library.json well past 10 credited photographs, and past a single 2023 concert",
+      "why": "The library holds 10 entries, 9 of them from the same Inglewood 2023 Eras Tour night, against 14 photo slots a week — every entry shipped inside the last 14 days except one. Joey rejected the 2026-09-21 shop-the-look callback with \"we've used this image before\" (social/feedback/2026-W38.jsonl), which is the first draft rejection this account has ever had. Tree cannot write this file. The rights posture is already settled (docs/decisions.md 2026-08-12: rehost with credit, unrestricted), and supabase/seed/content/** moment.photos plus apps/web/lib/longlive/lenses.ts already hold 1,000+ credited candidates to draw from."
     },
     {
-      "ask": "Give scripts/social/weekly-scorecard.mjs a CLI entrypoint and a distinct-opener-pattern metric",
-      "why": "My runner prompt tells me to run `node --use-env-proxy scripts/social/weekly-scorecard.mjs` for this week's numbers; the file is a pure library with no main, so it exits 0 and prints nothing, and I had to import buildScorecard inline instead. buildScorecard also returns no opener field even though strategy §3 lists distinct opener patterns as a scorecard metric, so I counted 8 across 10 posts by hand this week."
+      "ask": "Unstick Tree's daily-draft PR #4471 — an already-approved Instagram post is stranded in it",
+      "why": "PR #4471 holds social/queue/2026-09-21-shop-the-look-callback-ig.json, founder-approved on 2026-09-21, but the PR is still open and unmerged because its X sibling was rejected in the same batch. The approval poll only stamps and merges an open PR, so the approved half is sitting there un-shipped and will hit the 48h sweep. Related and still open from last week: #4296 (the sweep itself, which has now cost a second post — the Runway thread's only September slot) and #4220 (the social-poster queue-state PR, red since 09-13, HA #81)."
     }
   ]
 }
