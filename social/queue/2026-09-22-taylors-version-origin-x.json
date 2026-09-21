@@ -26,7 +26,19 @@
     },
     "total": 20,
     "rationale": "Direct-address challenge: you can sing every Taylor's Version, but do you know the order she won them back in? Points to the new thread that walks the whole reclaim album by album, landing on the May 2025 day she owned all six masters. Sourced to rerecords.mjs/threads.mjs.",
-    "rulesChecked": ["L001"],
+    "rulesChecked": [
+      "L001"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-21T20:30:44.335Z",
+    "pr": 4496,
+    "sha": "ff89c549165b04d7b639cf7a484220fee238d243",
+    "message": "1551643845790277764",
+    "contentHash": "sha256:83b54dd581d461bebe5b9b031d32eb11ef74e7e9ee49591d6d6438ba37e8cdff",
+    "sig": "hmac-sha256:7b7c24377a9330c71ae63f32e360b5401c5693b04e14ee4945f5f78fb41eec23"
   }
 }

@@ -28,7 +28,19 @@
     },
     "total": 24,
     "rationale": "Taylor's Version origin-story hero: the May 2025 moment she finally owned all six masters, then the album-by-album reclaim — Fearless (6 vault), Red's nine incl. the No. 1 ten-minute All Too Well, Speak Now, 1989. Slide 2 is the real thread tracker: 6 of 6 owned, 4 of 6 re-recorded. Sourced to threads/rerecords.mjs.",
-    "rulesChecked": ["L001"],
+    "rulesChecked": [
+      "L001"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-21T20:30:44.335Z",
+    "pr": 4496,
+    "sha": "ff89c549165b04d7b639cf7a484220fee238d243",
+    "message": "1551643844758610000",
+    "contentHash": "sha256:88a59d98e92cced4e97bbae5af07bd87ae51a05120ba9a754071d8e2f5a95c87",
+    "sig": "hmac-sha256:e52ea9ecf99d549897bc7ff50c54562f24adb6a61dfb907e50c6ff15ce4b50f0"
   }
 }
