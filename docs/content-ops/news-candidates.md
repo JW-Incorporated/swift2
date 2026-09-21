@@ -25,7 +25,91 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 67
+
+## Vinyl Forger Profit From Selling Fake Taylor Swift Records
+
+- first seen: 2026-09-21 15:52 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A vinyl forger reportedly made a profit of £2.7 million from selling counterfeit records of Taylor Swift and Ed Sheeran. This incident highlights ongoing issues with counterfeit music merchandise in the industry.
+- sources:
+  - [unverified] The Independent — https://news.google.com/rss/articles/CBMisgFBVV95cUxOeDc3ZjR4X3RUZzlEbTJSdHFxX21wVXl3YkhfRndIMGYycmhHYnlGcHJHWnJha2VCQzJuY1k5RE1pQWllZERERkp2Q0tFc2xGLWJPQ2EzSG9MTjd1aDdKMGVRSURjS0NKa09TeHpTNXE3RVFoZ0RqSWVoY3IzdURzTDJvWGVuT292dGdSUEdCb1daN3Vqajc5VWZ4Um9zSWtNbFZMNnlfMkQ3TnpEeDQzZXh3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift captivates audience with reaction during Chiefs play
+
+- first seen: 2026-09-21 15:52 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: During a recent Chiefs game, Taylor Swift's enthusiastic reaction to a key play garnered significant attention, overshadowing other moments of the event. Fans and media outlets highlighted her response as a memorable part of the game experience.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxOS0VfdHlucDMzWGsxTlpNVTluX2htZVA4MXFqZ0dTdW4yVGN1SVoxZkNPMDZKbjBkbjdGWFpYUDVMN0R1X0U2S0FuMlE4TFA3czVWQ0lZNzdhVHJmVGFQNTJHZS01M3l2VUV0cWViN1ZfeWpSYkFkcTZZRlRRMkpMQ0FRVFFYX2VWcFkyZlRJLXF3empoUjNmYnhBZlpTR0VrRzlxQnh5ejdITGVmNzF3MDcwaVhnZ9IBygFBVV95cUxPTG96Mk5QZF96dVktem9va21BT2NoQU1jRDVERVktazlIWS1KcERlR242OFdrZmVjSEpnbkRYN2xmUU1aelpJOWRmaVRPMW1XRHlIei1qdkwtZTB6MkhvQnhXaDBUb3NJNFFIWFRfX1NiYndUbE9VaTI1ZWlENUVITmpuZi1NLVduZ1RaeC1XbEtaMFJjNmx1UUJrYWgxeTNNcDJSSVVJRHZGeTQ1RUR6dDRzWmFabjlaMG9yZmROd3dJaWZyVWhFX3Rn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Voice Actor Performs Taylor Swift's Song as Disney Characters
+
+- first seen: 2026-09-21 15:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A voice actor has created a unique performance by singing Taylor Swift's song 'I Knew It, I Knew You' while embodying 28 different Disney characters. This creative mashup showcases the versatility of the voice actor and highlights Swift's music in a fun way.
+- sources:
+  - [unverified] Laughing Squid — https://news.google.com/rss/articles/CBMic0FVX3lxTFBabFFrMjBJcmhvdG95N1hheFVnYWlhakF5eWNqQ0N6XzdRQkZmbjFoQlFrRWF4QklfUHgyTlo3NThKMEdHT1ZWTkl5RlRSeUFPUl9YMFRteHl0M0NjTUN5cjdoWGJQZjIxWTRtblpLX01IMTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Approach to Managing Fame Revealed
+
+- first seen: 2026-09-21 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses Taylor Swift's consistent method of handling the pressures of fame with a simple two-sentence script. This strategy emphasizes her approach to maintaining composure amid public scrutiny.
+- sources:
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQdFBMamwtQlZIdnVOYTZRdGNjbnkwNDZXczZUS3dUMElSbEJKYmo0OFNURFRtYVJYRmdaNWJrSWg4U1dRVGI3SkxLazNuWU9PV2hmdElKbG11TUhoQThWQlV0ZWJBdkU5UTZnRVFabmh0bjA4T3NoLUF4eXg0VXRldk5iZWtNOU9EMEpZNXNOdm5QMWl0Z3BBeWVsdmZCM1NUNlN1Y080SDZVelVKR3BCWjVUWE04ajhRbUdnVk8yblZkZTlmRjRORk12UmZZWnBaTU1NS2RiblpxandablZyOFIyd0dFS0dVd3o0SWRHMFlhSGUxWDlFR3pNZUw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Details on Taylor Swift's Debut TV Confirmations and Theories
+
+- first seen: 2026-09-21 15:52 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The article discusses what is known about Taylor Swift's Debut TV, including various sources and theories surrounding it. It also highlights confirmed information from Swift herself.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQOVd1YlF0a2hZSGdUc09pTmdYdVZfWG5rcW15NURUS1Q2a24zUmVpTUJyLUptYV9hZm5MUlpUN0pCVE94T3BiZ2lIdlhsNFZTOXRqM3Y3UkIxTTg3ekczNEw0dkFLVFl5R2pVOWpRQlpmWWFOdzg2c2l5WXNkMEl5UE9TSks4ZUxOcllEV1ltMUVRZERsbHpNWXN0NEk4c00?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Oprah Winfrey Omitted from Forbes 400 List
+
+- first seen: 2026-09-21 15:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Oprah Winfrey have not made it onto the Forbes 400 list, indicating they fall below the wealth benchmark for inclusion. The reason cited is their current financial standing, described humorously as ‘too poor’ for the list.
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMipgFBVV95cUxNOEJSZHhCbVBzX1JGZU9rLUFVQV94X3NHMThKRFBKTmx3VWdQR2U1a2xEWl84RmljOTlZbC1oSjdES3pDaGRKREZzcnZTX0RXUjNmMHd4TUFyZlNaUVhVX1pPX3hZeG1Tak4ydG1VZURxTmp5Wmx1VlVGNUhGRTZmNnc4WUZReXJvb0RFajI3WDBiV3o1Rkg5SG5fMXRSM0pmaEoxSmpn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seen Celebrating Travis Kelce's Touchdown at SNF
+
+- first seen: 2026-09-21 15:52 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift was spotted celebrating after Travis Kelce scored a touchdown during Sunday Night Football. The event was covered by WDAM-TV.
+- sources:
+  - [unverified] KWQC — https://news.google.com/rss/articles/CBMiigFBVV95cUxObV9pVE41MHd6QThzWXFQdjRGeDNBWllCWk93THNBZkIxSUtMRzdBM2tBWVUwazN6a3ROZDFqSS1ma3hITjFBUVYzekRNbVpYY0NZYjQ1MmQ3c2I3XzR3c3pmOEgxdUoyWnM4M09uWEl2ai1yRkUzdnhzNWQtSlFMODhvWjYxU0JmNnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WBKO — https://news.google.com/rss/articles/CBMiigFBVV95cUxOSm81czJRMUktWlhGekI1dmlDQ0VJQ0I1S0IwSTBkdE4wWHdFT2NrcE5nUEdpVV92cXZ3UzlMaUpsYXNIRFNnRGVMWjN1dVdKTUdxZXo1eGdFbklTdG9FTFJJNVB4eHFlb3Foc2FLdkxmUy1GSkhST3Q3a3QxcVdQTTh1Y05NREhRblE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WDAM-TV — https://news.google.com/rss/articles/CBMiigFBVV95cUxPQWZPdjBfYm9nM1JjWGVuSEZLazNxNW0xdDFqSUV4RVBWWFduRzhuUFJMMFBvSktwaE5TZzNWSXJnYlVPWTlia0dDRXh3am81M2p3R3dNbjFiWkU1NWV2a0cwUEZaRkNrRTFjemQtcm5KbnJURWZLXzNtVHVwT3AwVzlQUXMtZEoxNUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WKYT — https://news.google.com/rss/articles/CBMiigFBVV95cUxOMTVHRGRvZlFwdk8zSXQ3WGVUMjlSeTMzam4xRXBPc2o5djRxbnNRS0tQVm84NUxadEhHRFVoVW5SRkVFV1VOa0w4WUtTV3drTGVUQkFmelRtMGhMQnVZVjVvbzhqYUpoaGxOQ0xaYlR6Vm9ZRnBSM3ZGV2FZQW4xOGxUOWhfM2M0THc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WLBT — https://news.google.com/rss/articles/CBMiigFBVV95cUxPLVFQZWxGczYtdXRUTTE1SkpYSG5McFh1U1lQbE1lcmdld192UTNuV3EtdWVnaWFoRDVoVWg5WUlnQnc2TG8tbENEMENaQS0tODhQM0R3LS1JUDNPTWdPTHlKTmQ5eTlpdWZkd1dVYmhMdjFQVE9GckYxYmJJWnppbnJLbmIzTWt3Z3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Supports Partner During Sunday Night Football
+
+- first seen: 2026-09-21 15:52 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased her support for her partner during the Sunday Night Football, embracing the role of a WAG (Wives and Girlfriends). Her enthusiastic display included a notable comment, emphasizing her connection to him.
+- sources:
+  - [unverified] WFSB — https://news.google.com/rss/articles/CBMimwFBVV95cUxOYXl6cVh2Y2tPV25hMjZ3b3laamVPbkcySjItLWFXTzBkRzRkTlVoR0tYWGNxSHBneXc0VnlmSVg5TVdMUkZ5YllMUFJsV2R5d2IzWDYyX1RJck01bm1QZEhCdGFRTXo0OTc5OV9qTWxDX1pOTEM5bXJfY2g3OTFmeEVTUUV2Q2RUUlFObDFoLTdiR0hmTWcxOEE3TdIBrwFBVV95cUxNV0t6UXZScFE5S2p4cGo4dW45QzZObUR2VklydDJQWVU4NXZibk5hQUNSc2RxQ1F4MDItVDRQVTlRR1IxN3hCN0xVREFabDFHQ2ZJM2wtbS1Fak16TXFtaFhxZHJ2QkUwUnBDTDlFcktWY2tEbW9DR0ZvZDJTSXd6by1RbUlaMVZmbm93cTllYXNoSER6dkxuMzhqb1R4YTAtX1hHWm1XNTNGZFJjOVkw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Displays Ring After Travis Kelce's Touchdown
+
+- first seen: 2026-09-21 15:52 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A video shows Taylor Swift flashing a ring following Travis Kelce's touchdown in a recent game. The moment has garnered attention online, highlighting their public relationship.
+- sources:
+  - [unverified] TMZ — https://news.google.com/rss/articles/CBMihAFBVV95cUxQblJJRUhscldVSHlRSElQR2JpWE9uOTdKb0VvRnJaRVNjTEdlT0sxU3QyY1E1ZjZjNG5RdklCWTZJdkJ2c3NSMGQ5NnBZRXBZXzliS1ZJNXl1MUwxU0Q1UFZYa2x2aGRMMkFEcExFWW8yc3RPS2x4cFJMZHJsY2xaalhvOVY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Seen in Wedding Dress in New York
+
+- first seen: 2026-09-21 15:52 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted in a wedding dress during a lively summer in New York, which included various events. The summer was characterized by numerous spectacles and activities throughout the city.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/21/nyregion/new-york-summer.html
 
 ## Taylor Swift sports Erin Andrews Chiefs tank top at recent game
 
@@ -34,16 +118,6 @@ Stories: 59
 - summary: Taylor Swift was spotted wearing a $40 Erin Andrews Chiefs tank top at a game on September 20. The article includes a shopping link for fans interested in the outfit.
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiywFBVV95cUxOYzlsVUhZbTVrTTJmNnN4dFlzN3RBTmh0d2l2ZHBTb1otUGw1bzVWeVBIRHk3WGctX0x5VURNcUstME50cnF4ZmVYb040Q0ZkamVZLXJURnMwX2hzUWdkRU5JUlZxRVV5UHlCRmVWVnlVel9JOHJQTlRyV2NEbldqemN5NWdFbXlsMlBhb09paUZyZ21zS255cUVERkkwZnItTWhHQzdPOWtiVE12ZlpPWkN6ZG9NZ0N5NUV3d3FsazVzZ2pQZUVHRnphQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Calls Travis Kelce Her Husband After His Touchdown
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: During a recent game, Taylor Swift pointed to her wedding ring after Travis Kelce scored his first touchdown of the season, referring to him as her husband. This moment highlights their relationship in the public eye.
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiugFBVV95cUxPaFNzNXdYcW5EMlhFOE5Mam95Z3JWOEppbmRzbG1yV3Y1WGxfbmQxSWp6b0RCT05IbE9BWFZpZFc0T0xoamZKMWN6Y1NncG5DSkVLSHhmV3dKR0NCWDU3Zm1JcEZhdE5jYVloZjgzT0pDeFNLdnhSbUFrWHN4UjJ3WlNSM1JCS2xMT3dVMFgyQmwwWUNmX29NaHBKUjlCWjczcDljNDVqWWhNN3d5MmdqR3pGb09NbFdhZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMivAFBVV95cUxNcXJQbWJ6UVFBZjdjRTZSSFRtaFdodlJHT3NqMnZldElraEp5NDFHcVNtRFNPN0ZVeDlZRW1BSUo1Y1F0THg0QUpIRHA4YWpxOTdwaHF3SktsQzVKcllMY2ZfemJpd2dlMGJKZWR3V3RPZFVXQU1xME9oYnhTLXY0VXZOYk5IbnhHN2FyNkoyX2Jud055TXh0OVpQbl9GRFBESVRwcVlYeHUwM0o4UXN3cVpWTHZLdEJsRjh3Rw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQi1wMEhJSFRKMkFXUU1QZExoVXFXQkl0NDBBcXZXZDZCRWd2TmZiSTFLZjlnSzVWNVRnWkw3M1lyQVQwd1NSQkd1aEtBQThiakhCZXIyeW14V0VQNktJY0ZNTmtrdVlfOTdzZFgzSnI1ODcySG9ma0lrTDk5aldsZzM0TW5BdFVDZzlNaUxURC1GcmtIVGdMc2kxZXhDVWNsU0pNWDJURDRZblZmdGcyUGhJV1dnSVFLQTZHZzlYRjI2YVhBd0E1LXREaUwtbm1veXVVdUR3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Seen in $40 Tank Top from Erin Andrews’ Clothing Line
 
@@ -60,14 +134,6 @@ Stories: 59
 - summary: After the Chiefs-Colts game, Taylor Swift was spotted revealing her wedding band, which has attracted attention from fans and media alike. This moment follows her recent public appearances with Travis Kelce.
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMiswFBVV95cUxQbWFGUFpSNzdPMmRwcnhLRE84clZjOHBxdlA2X1NEZ2xWU2V2Z3pJSVJHS0ExLWRDNFBsQWszQ2ZBd0JxcGRIc1pWbWxIN0JKN2lIM3FhTmo5QXVYMU9KVTNaRzdkcEtydUcwaXRpcC01dlB6bWhZZUNzZEx6YlY4bGhiVy1GQVlHblFVTVh3Y0t2b19ZUFJrNDJZTGVEZ0ttckdPcmQ0WFUya3M5MFhNeGZuYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Supports Travis Kelce at NFL Game Again
 
@@ -93,14 +159,6 @@ Stories: 59
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMivgFBVV95cUxPa1hhZnlaYW5LOTZnN2dfNTR0UUtxb0NobEN4aUh6NHliVENxMzBrNmp2dHB6U2c1VkhBUjg0cEdPcGNRNWRVSjhUYThIbzNjUkVDMTB6dWFxUkZJdUVlY0JZMXZQeHpkLVpNX1g2NHY4ZVZLdVlVS2tIaF9uUC1PbXJtWm1mVXFhSUMtdVhuOVBRekMteW84WlVSbGlKbVJHb0RpSFJsanhwMDNMZVVjYnlzQlJvR2M5NUd0Tk5R?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Seen Wearing Wedding Ring During Game
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen wearing a wedding ring following Travis Kelce's touchdown at a recent game. The sighting has sparked interest among fans and media.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixwFBVV95cUxQM1ZHaVNMZXVFS1JGVWszdmQtVlMteENEZzhSZGt6d3B6ZURES3NIYXJSN1ZKNGJ5dm13TVY0b0k2Qk15WWhqQkNJQnZFMm5vZEZrZjg3TEUzUFM2YkpQR3pDeVZWSDNxbGprU1diMnhxQTk0QnpjWWpwTmJmQkoyVEZkSjU5WHF5VVN0bmhDaV9EdHpFd0hjdnYxNS1UZmNRVlEtV0RrLWNySHdmXzBaS0cxQ0c1NzZtb18yOF9FSzR5UnlzWHYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Attends Chiefs-Colts Sunday Night Football Game at Arrowhead
 
 - first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 5
@@ -108,6 +166,36 @@ Stories: 59
 - summary: Taylor Swift was spotted at Arrowhead Stadium for the Sunday Night Football game between the Chiefs and the Colts. Her appearance continues to draw attention from fans and the media.
 - sources:
   - [unverified] KMBC — https://news.google.com/rss/articles/CBMihgFBVV95cUxOX1YzQTctMWlEanJFeXhVZDVkTU5FYTZlMFEtNktVdzZIb1ZEOWktNjJaZHZGNkFrVUVLM1V2bDRZaGJ2WlRpWkZURUxLWFh4T1AyNUxQRTU3TUl3V3o2bFdERGg0cGVnMDQzclFXNkx1RGxFRC1zcV9pRlAyTTA5UUVPOGRHdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Calls Travis Kelce Her Husband After His Touchdown
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 5
+- summary: During a recent game, Taylor Swift pointed to her wedding ring after Travis Kelce scored his first touchdown of the season, referring to him as her husband. This moment highlights their relationship in the public eye.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxNbEF6WnVzazNndXBEdHJsdWtESmFmN3NLeWpRVEsyVGtFVDhXaGU1LW91VExMRFhyM0pTVklrV01IVkRfbWdaR01CRXlHT1NEZUpZQ3h3Sm1GYk91cTNTdGJyMnhPWUdPd3ZETlcwOVk5N2tBeDB4a2JFdGU1MVBaNzFhMngxcHJRMkR0d3V4Y3Q2b0d3TXR6U29obHlYVG5VbHlNNDZVY1VxYnBCTGc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiugFBVV95cUxPaFNzNXdYcW5EMlhFOE5Mam95Z3JWOEppbmRzbG1yV3Y1WGxfbmQxSWp6b0RCT05IbE9BWFZpZFc0T0xoamZKMWN6Y1NncG5DSkVLSHhmV3dKR0NCWDU3Zm1JcEZhdE5jYVloZjgzT0pDeFNLdnhSbUFrWHN4UjJ3WlNSM1JCS2xMT3dVMFgyQmwwWUNmX29NaHBKUjlCWjczcDljNDVqWWhNN3d5MmdqR3pGb09NbFdhZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMivAFBVV95cUxNcXJQbWJ6UVFBZjdjRTZSSFRtaFdodlJHT3NqMnZldElraEp5NDFHcVNtRFNPN0ZVeDlZRW1BSUo1Y1F0THg0QUpIRHA4YWpxOTdwaHF3SktsQzVKcllMY2ZfemJpd2dlMGJKZWR3V3RPZFVXQU1xME9oYnhTLXY0VXZOYk5IbnhHN2FyNkoyX2Jud055TXh0OVpQbl9GRFBESVRwcVlYeHUwM0o4UXN3cVpWTHZLdEJsRjh3Rw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQi1wMEhJSFRKMkFXUU1QZExoVXFXQkl0NDBBcXZXZDZCRWd2TmZiSTFLZjlnSzVWNVRnWkw3M1lyQVQwd1NSQkd1aEtBQThiakhCZXIyeW14V0VQNktJY0ZNTmtrdVlfOTdzZFgzSnI1ODcySG9ma0lrTDk5aldsZzM0TW5BdFVDZzlNaUxURC1GcmtIVGdMc2kxZXhDVWNsU0pNWDJURDRZblZmdGcyUGhJV1dnSVFLQTZHZzlYRjI2YVhBd0E1LXREaUwtbm1veXVVdUR3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Sky Sports — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNX000WlJUNnJkSlltZXZkUmh0LUQ5WEE1SEYxVmlPZ0dvLVE0RTdzb3FnbWd6MF9RNmdWMWxtazBKYXM2RUc5LUdUMDRyR2FWaDh1dUlKSUN1UV9JdTZpQzhjT0VTZlhfdkR3UURabHZkQVUtRDY0b0hQR3BiS25YVlFvN3ZVeElqSFNfQ0wtS2pJOGZVZHduWmctOXR6RHcxRGVlWkZiRWtPTndiT05obUZQbVJSTWdzZDNrdFJ5bXZBVVlidGlPUmlycTN2RHhDX0VPTFBTS1R0QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxPX1pIRDRGaVZ3dzYxVGtRTkdVblItM05WbWtwdEFxMm13NVlWNHp4bFp2M2Itcy15WVEzQ3RmUjhaNGdLNGZYU2QtbndhakpsdEpfN25IQV9tWENsWkpoYVpUdUphMzdQeDFHWU12M2VVYjV2XzRVNzVjQmoxZnVVNVdfa1RYREtBdVhoWlo2Ym5CblptVW5BOWdrM3lKWmZWem83U2ptR3BOUkxVT0p6WFVzYW1ldw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
+
+## Taylor Swift Seen Wearing Wedding Ring During Game
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen wearing a wedding ring following Travis Kelce's touchdown at a recent game. The sighting has sparked interest among fans and media.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixwFBVV95cUxQM1ZHaVNMZXVFS1JGVWszdmQtVlMteENEZzhSZGt6d3B6ZURES3NIYXJSN1ZKNGJ5dm13TVY0b0k2Qk15WWhqQkNJQnZFMm5vZEZrZjg3TEUzUFM2YkpQR3pDeVZWSDNxbGprU1diMnhxQTk0QnpjWWpwTmJmQkoyVEZkSjU5WHF5VVN0bmhDaV9EdHpFd0hjdnYxNS1UZmNRVlEtV0RrLWNySHdmXzBaS0cxQ0c1NzZtb18yOF9FSzR5UnlzWHYw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jodi Picoult Discusses Taylor Swift at Carroll Festival
 
@@ -495,19 +583,3 @@ Stories: 59
 - summary: Colin Kaepernick's wife expresses her feelings about his recent comments regarding Taylor Swift, implying that his remarks may have caused issues.
 - sources:
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxNNGl6OXNoLXptRmljdXp1MXZ3STEzYWF2MlVVYUFwOGlYZlFuUXVtbERQRTZDSG1ST3lyMWhNWFdpdzVEVktkUnNkdVZHYW1TanNvWGNHUlRpTGxBSTcxM1hZWWMwNHNDX3NPQkRpbmxZZnRzTTJ1aE9SekpsQ2cwRGZpbnc5ZFNBanc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Spoofs 'SVU' at 2026 Emmys
-
-- first seen: 2026-09-18 13:34 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At the 2026 Emmys, Taylor Swift made headlines by spoofing 'SVU' during the ceremony, which also saw 'Widow's Bay' winning big and Mariska Hargitay receiving acclaim.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi-wFBVV95cUxOOXYzeWIxNW5EdndPNDZUUXhidE5EWUxFYkdDdG5KRTlMNVZqVzhPdDAyTWJDUjVvTXFVb1N1cng5Tk05LXQ1NHI3dTNlQ0I1V3VqVnU5alpWdVhiaUZNZmRzRXktdmgwSW05ZDFrd05YV3RMcjdHMEo0S2RoeHZIMEtVZFhKenk2LW12bW9MMDVWLTRQcmJTVWpmRk9HMnVNZHFxQVctTmgtTWpYNUhfa0J5a293c1pyam1iZDlzSl9tdDlBR0c3YWpVYXB6TzJkaGMxRGZaU29SdjlBX3NKeGw4X2VUMFZJVEpDMEJhbjF6LTN5VzlRaXh5OA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Surprising Moment with Wife Taylor Swift
-
-- first seen: 2026-09-18 13:34 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce recounts a surprising interaction with his wife, Taylor Swift, reflecting on her reaction during a moment of confusion.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNeElDZmtOOTBRTXoyODl0aUxNejhIcldRelhraGRMLWRVc3d2c2RYRE1UUTFpNkZOOURLcEFlUVZuTnZiMGJXTXdHTVBiQnVNcHQ3TjFyVlVtVDZaSzd3bVl6akZnMWJHRVB3RE42LTNVdDJIbVRvNG1jbmJIem5NcHlvS2ZGRzJtQl9HMmNETlRyelFZZDRTczU2d1AySkh2ZXc?oc=5&hl=en-US&gl=US&ceid=US:en
