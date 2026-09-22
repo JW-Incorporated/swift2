@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 73
+
+## Discussion on the Changing Nature of Fandoms
+
+- first seen: 2026-09-22 06:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article reflects on the current state of fandoms, suggesting they have lost their fun aspect. It examines various reasons behind this shift in fan culture.
+- sources:
+  - [unverified] thepostathens.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxPOUpMSEw0RzgtMUYwRUJHaEFicks3ZGdFMHJmNmNjU2xFY1NKNmhHeTR2a0VYQWNzZTFITFdGR1BTME5zVGZMc2NNN0twcGZrMi1scUhRUlhLUGtJYkhDQU1UeFJzUUs3a0ljanBlS0xWcHM3Y2YtT2lXcGk5NG43aHQtcF9Zam81QUdmUUZIeloxSVNRX2Ezay1KY1hzdkxKTXVuUlhjbDVwRWIzbGYzX0g4V0xjQUk?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to be Honored at MTV Video Music Awards 2026
+
+- first seen: 2026-09-22 06:07 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to receive an honor at the 2026 MTV Video Music Awards. Details regarding the awards show and the significance of the event are highlighted.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMioAFBVV95cUxQVnRPYXRKNXRWU0dMREdGcll3SURBZEJsVnZiY3FUUjYwNjZyeDkyVklHZjJRa0ZDRTBIYUNLdHQwWTFJYVZRSXZ6cFQzRko0UENJa0lycC1PbkR4RXNMUTJBRHBVcko4MnpCOHd1LWctU3FFVVZmRVlYRU12S1BoZGFtckRxRjhHazBqdkh6cHpadEFlRlNjc0c5cm8xRkI00gGmAUFVX3lxTE5pZTdVb1B1NU9teFRuQWRSLS0xTmlLblM2Y0NBVENCTXlJSHRRVHZJTEdWYlczcHJjUl9Cd3V4bm4zWEZPaFE4UjhhRGc4Qk9rY2tYZS02WVM0TVB2TS1MZlc1MzFNZmJkRktHajBnd2tFVjU5cUVuYlpyd1lIdG9xZ05VVWNHMF8ySDBvU2tQSkdLaHhXRmd5Rk9CMk9KTU1lZGFwV0E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Supports Erin Andrews' Business Event Successfully
+
+- first seen: 2026-09-22 06:07 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's involvement in an event on Sunday night reportedly provided a significant boost to Erin Andrews' business, highlighting the impact of celebrity endorsement.
+- sources:
+  - [unverified] Fresno Bee — https://news.google.com/rss/articles/CBMiZEFVX3lxTE43Wm9yc0xkQ2QtTFVyaHk4VlRfcDVBdk04dmZsRi1rUUdnc0gya2ppZ2g2T1Q3bGlFZzc3bEFFRnNCTC1yTGdKWWV2NDdmOGZ0T0xaaW5FUU41a2dnMnc1dXRZaGc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Andy Reid Credits Taylor Swift for Travis Kelce's Strong Start
+
+- first seen: 2026-09-22 06:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Chiefs coach Andy Reid suggests that Taylor Swift has positively influenced Travis Kelce's performance in the first two weeks of the season. Kelce also praises Swift's appearance during her cameo on Law & Order: SVU.
+- sources:
+  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMivwFBVV95cUxOSklwV1NGRlZFTVg5MEVDVnVOYzBvYWthbWxrZkdQSGROeFEwS3VPYk1YdmljdFpqb0lONDduTmpwSGJKYU9FcHR5dU5WSmZrQUdEOGZqZGZaN2s2Wk1oeG0wbl85VWFkM3hZRGNvMFlRdE12ZDhLY3pWdTQ4WVJweU5KM3cySS1sZjNQVkNmb2lFdWFCdFdBZmMwbVd3Y0FDVHFNd2VnQ3czbF9UTDBzdU5WLUt5bDZUa0NjNkRkcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Praises Taylor Swift's Unexpected Look
 
@@ -251,14 +283,6 @@ Stories: 70
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMiswFBVV95cUxQbWFGUFpSNzdPMmRwcnhLRE84clZjOHBxdlA2X1NEZ2xWU2V2Z3pJSVJHS0ExLWRDNFBsQWszQ2ZBd0JxcGRIc1pWbWxIN0JKN2lIM3FhTmo5QXVYMU9KVTNaRzdkcEtydUcwaXRpcC01dlB6bWhZZUNzZEx6YlY4bGhiVy1GQVlHblFVTVh3Y0t2b19ZUFJrNDJZTGVEZ0ttckdPcmQ0WFUya3M5MFhNeGZuYw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Shows Wedding Ring After Kelce's Touchdown
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: After Travis Kelce scored his first touchdown of the season, Taylor Swift was seen pointing to her wedding ring, drawing attention to the moment.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcG1jR1V3VHFJRW1mNkRrSUFpTnJWMm5KWG1RdUNNZFR2VU9wd013dkRjOXB0WW1WX0FpcHpzOFBlYzNnRndKOXpKRUp3WEhLdHR0X1paVEgydVMxeFNRSXBmWk5hSVFMRVpScFVBRU5WSnEwTFdFWmJhTURwbTBDVEc2SU1NZC1QQmpzRy1wcXpNVWtyTzB0TjBKeXBLajVM?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift and Travis Kelce Spotting Before Game
 
 - first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 6
@@ -313,14 +337,23 @@ Stories: 70
 ## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
 
 - first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
 - sources:
   - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOX2xEeFA4dWlXcXhsUDBjMU15eGdDR2pGWWM0UFNIUlQwZV9mYUdJM1JueDZoT256cFJfeDVubkFpSm5OdU5RVnQzN1NtTW9jcm1SU0lTWEtFNmlUQ0V5cjRzcHdKMmhLQnFBUkQyM2RldUpubXlETTNSUGhJemtLT1N1T0NPS2FNd0dwdlI2QmFsZWRESHZucmFCTjZOLUF4NVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxPX1pIRDRGaVZ3dzYxVGtRTkdVblItM05WbWtwdEFxMm13NVlWNHp4bFp2M2Itcy15WVEzQ3RmUjhaNGdLNGZYU2QtbndhakpsdEpfN25IQV9tWENsWkpoYVpUdUphMzdQeDFHWU12M2VVYjV2XzRVNzVjQmoxZnVVNVdfa1RYREtBdVhoWlo2Ym5CblptVW5BOWdrM3lKWmZWem83U2ptR3BOUkxVT0p6WFVzYW1ldw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirAFBVV95cUxQRWRMaFdieC1ncnVHN182Mk5KNGtXeTd3eGdWdnRHSnAwcV9LMW9xaEM2NWZ1aWJ6V2F3Wkp0SEdHTWw0SG9jWlRURjZSYnFENGkxSmJmUG9aWC1EX19rQi1qemJfNXdpM3RqeVd4M1BST09kdU92NS13RnIyU3l1T3p0NXBleWNuSmt0OGNGMDZDUXlYb3NKSDFLTlI5S01GcWZMV25reGZrZENk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmpCMVEtQjBKdDFUR0otZ05LNTBiRl82WEFBWjB5cTdpYTdOWE5pNnNoVGVXSFRua3ExNjN5U25QWHZreFU5Q3djaWdSZFh3RDJyYkQtd25LdnYtcVN5ZURNZTF0TUFSRHJuRjNTdjBNcmNneGwyUzh1Mi05WnZXVXRNblc2QTRuNGxHRFFyRUZWMGoyVkdmTXNSbGszUHp6YVhBa0x3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Wedding Ring After Kelce's Touchdown
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: After Travis Kelce scored his first touchdown of the season, Taylor Swift was seen pointing to her wedding ring, drawing attention to the moment.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcG1jR1V3VHFJRW1mNkRrSUFpTnJWMm5KWG1RdUNNZFR2VU9wd013dkRjOXB0WW1WX0FpcHpzOFBlYzNnRndKOXpKRUp3WEhLdHR0X1paVEgydVMxeFNRSXBmWk5hSVFMRVpScFVBRU5WSnEwTFdFWmJhTURwbTBDVEc2SU1NZC1QQmpzRy1wcXpNVWtyTzB0TjBKeXBLajVM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jodi Picoult Discusses Taylor Swift at Carroll Festival
 
@@ -611,11 +644,3 @@ Stories: 70
 - summary: Joe Alwyn, who was previously in a relationship with Taylor Swift, was spotted in New York City with comedian Mary Beth Barone. The sighting has garnered attention due to Alwyn's past connection with Swift.
 - sources:
   - [unverified] tmz.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1DWkR5bGJQOGI5TGVKbVloUjNsaU13NzRhQVZfX0VzOENfMlNtNDM5VW0xOTRqMU5uQnJMeVFram5hSTdNNW9ER00xZGJ3Rnk1dy1BV0tOYXdjOGlQM3h6NTN6aXJVeEFNV1FhS01kSlJOQ2c3Q2ZLbV9mTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Understanding Taylor Swift's Emmys Easter Eggs
-
-- first seen: 2026-09-19 05:48 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article explores the significance of Easter eggs in Taylor Swift's Emmy appearances and their potential meanings. It also addresses other related TV questions regarding the artist.
-- sources:
-  - [unverified] TVLine — https://news.google.com/rss/articles/CBMivwFBVV95cUxQY1lSZmNrVWhxQnltNWhfQ3VBazNjalMwTXIwdmJSeThTdE5QbzdzM1MxUHNkejJXZUZrUVlmMVBsQ3pNenZ1cWdGSC0xS2drRzlkX2hNczEtU0RMQWFReDhKMkFNZFZ3ZHIyWGhzMHRqU3VUbGJaNC1pcDNYOG1KT3dFOGlXTE9JM1JFemNJZzBsZVRrUjRrXzgwQUV3azVqNWI4UEFKN0xOTllNZm91TEd5OUNmbFlJbTV5aHJGVQ?oc=5&hl=en-US&gl=US&ceid=US:en
