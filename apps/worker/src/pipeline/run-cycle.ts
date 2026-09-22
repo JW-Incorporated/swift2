@@ -55,6 +55,7 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
       deferred: 0,
       theoriesUpserted: 0,
       abandonedTheories: 0,
+      countdownsResolved: 0,
       errors: [],
     },
     errors,

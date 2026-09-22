@@ -32,6 +32,51 @@ export function outletFor(item: CurrentItem): string | undefined {
 }
 
 /**
+ * Whether `item` is a currently-live, still-open countdown — the plain
+ * computed predicate t_09dc269f's approved design specifies instead of a
+ * separately stored "is pinned" flag: `countdownTargetAt` set, in the
+ * future (within `graceMs` grace past the deadline, so the banner doesn't
+ * flicker off the instant the clock ticks past zero and before the
+ * resolution sweep catches up), and `countdownResolvedAt` still unset.
+ */
+const DEFAULT_COUNTDOWN_GRACE_MS = 15 * 60 * 1000; // 15 minutes
+
+export function isLiveCountdown(
+  item: CurrentItem,
+  nowMs: number,
+  graceMs: number = DEFAULT_COUNTDOWN_GRACE_MS,
+): boolean {
+  if (!item.countdownTargetAt || item.countdownResolvedAt) return false;
+  const targetMs = Date.parse(item.countdownTargetAt);
+  if (Number.isNaN(targetMs)) return false;
+  return targetMs > nowMs - graceMs;
+}
+
+/**
+ * The single banner-slot winner among every live countdown in `items`, or
+ * undefined when none qualify. Same tie-break philosophy as
+ * `era-feed.ts`'s `entryTiebreakId` (t_09dc269f's approved design §4):
+ * soonest `countdownTargetAt` wins (most time-sensitive first), ties broken
+ * by the stable `id` so the pick is deterministic across renders/refetches.
+ * Never returns more than one item — the banner slot is never stacked and
+ * never deadlocked.
+ */
+export function pickCountdownBannerItem(
+  items: readonly CurrentItem[],
+  nowMs: number,
+  graceMs?: number,
+): CurrentItem | undefined {
+  const live = items.filter((item) => isLiveCountdown(item, nowMs, graceMs));
+  if (live.length === 0) return undefined;
+  return live.reduce((soonest, candidate) => {
+    const soonestMs = Date.parse(soonest.countdownTargetAt!);
+    const candidateMs = Date.parse(candidate.countdownTargetAt!);
+    if (candidateMs !== soonestMs) return candidateMs < soonestMs ? candidate : soonest;
+    return candidate.id.localeCompare(soonest.id) < 0 ? candidate : soonest;
+  });
+}
+
+/**
  * Honest status language for `CurrentItemDetail`'s mandatory rumor banner —
  * a distinct vocabulary from `RumorStatus` (MomentDetail.tsx) and
  * `TheoryOutcome` (vault-types.ts); PLAN.md Stage 5 ground truth warns

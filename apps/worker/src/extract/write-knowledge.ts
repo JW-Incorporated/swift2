@@ -160,6 +160,7 @@ export async function writeCurrentItem(
   eraId: string,
   item: ExtractedCurrentItem,
   sources: readonly ClusterSource[],
+  countdownTargetAt?: string,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -189,6 +190,7 @@ export async function writeCurrentItem(
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
     redline_ok: screen.ok,
+    countdown_target_at: countdownTargetAt ?? null,
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);

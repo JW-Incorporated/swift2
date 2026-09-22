@@ -257,6 +257,8 @@ describe('getRecentItems', () => {
       expires_at: '2099-01-01T00:00:00.000Z',
       updated_at: '2026-08-23T00:00:00.000Z',
       redline_ok: true,
+      countdown_target_at: null,
+      countdown_resolved_at: null,
       ...overrides,
     };
   }
