@@ -14331,6 +14331,86 @@ export default {
         ],
       },
     },
+    {
+      // Companion piece to the same-day countdown-reveal post (t_10b41f23):
+      // fan-theory/community-reaction coverage of the Sept. 22, 2026
+      // taylorswift.com countdown, filed while the countdown was still
+      // running/just resolving. Framed explicitly as "what fans think it
+      // means," never as confirmed fact—confidence is sub-'confirmed' on
+      // purpose so the UI renders the mandatory Rumor/Reported banner
+      // (docs/content-ops/intake.md's rumor-pipeline bar: "is this a claim
+      // we can later adjudicate, from someone we can name?"—yes, this is
+      // an attributed, dated report of what fans were saying, not our own
+      // speculation).
+      slug: 'countdown-000-bio-fan-theories-2026-09-22',
+      year: 2026,
+      month: 9,
+      day: 22,
+      category: 'release',
+      confidence: 'plausible',
+      title: "Swifties theorize: what fans think today's website countdown means",
+      snippet:
+        "A \"sh0w business f0r y0u\" Instagram bio swap and a new taylorswift.com countdown ending 2 p.m. ET sent fan communities into overdrive—theories ranged from a Debut (Taylor's Version) tease to a Showgirl deluxe/encore to a VMA Artist Director Honors moment.",
+      sourceUrl:
+        'https://www.cosmopolitan.com/entertainment/music/a73835889/taylor-swift-instagram-bio-change-000-debutation-theories/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+      moment: {
+        context:
+          "On Sept. 22, 2026, Taylor swapped every \"o\" for a \"0\" in her Instagram and X bios—\"And, baby, that's sh0w business f0r y0u\"—across both her own account and Taylor Nation, then launched a new countdown on her official website set to expire at 2 p.m. ET. Cosmopolitan and Just Jared both covered the bio change same-day and cataloged the leading reads circulating among fans: the triple zero as angel-number \"000\" (fresh start/new beginnings), a nod to the Debut-album/Reputation \"fresh start\" arc, a possible new label or Taylor Swift (Taylor's Version) rollout, and 0:00-military-time readings pointing either to a midnight drop or a callback to how Midnights itself was announced at the 2022 VMAs.\n\nOn r/TaylorSwift's running September theory megathread, the discussion in the countdown's final minutes leaned hard toward Showgirl-adjacent outcomes rather than an entirely new era: fans traded predictions of a Life of a Showgirl deluxe or \"encore\" edition, a new music video, or a box set tied to the Eras Tour concert films, alongside jokes about a merch drop and the site crashing under load (an outcome several posters called before it happened, based on past countdown days). A vocal minority argued for a bigger swing—a full TS13 era teased through the same misdirection playbook the \"orange era\" clues used before The Life of a Showgirl was confirmed. Billboard's coverage tied the timing to Taylor's Emmys \"Read My Letter\" Easter egg and the newly visible, still-locked third page in that section, which other outlets (Just Jared, Zap Gossip) have separately linked to Debut (Taylor's Version) speculation and a rumored Nov. 10 date. None of this is confirmed—Taylor and her team had not addressed the bio change or the countdown's purpose as of this writing, and every reading here is fans/press pattern-matching on past rollouts, not an official statement.",
+        sources: [
+          {
+            outlet: 'Cosmopolitan',
+            url: 'https://www.cosmopolitan.com/entertainment/music/a73835889/taylor-swift-instagram-bio-change-000-debutation-theories/',
+            source_title: "Taylor Swift's \"000\" Instagram Bio Fuels 'Debutation' Theories",
+            publisher: 'Cosmopolitan',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 3,
+            notes:
+              "Reports the Instagram/X bio swap to \"sh0w business f0r y0u\", the same-day website countdown ending 2 p.m. ET, and catalogs the \"000\"/angel-number, fresh-start, new-label and midnight/VMA-callback fan reads.",
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://justjared.com/2026/09/22/taylor-swift-changes-instagram-bio-fans-debate-000-theories-what-could-it-mean',
+            source_title: 'Taylor Swift Changes Instagram Bio, Fans Debate 000 Theories: What Could It Mean?',
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 3,
+            notes: "Independent same-day corroboration of the exact bio text and the \"three zeros\" framing fans immediately seized on.",
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.com/music/music-news/taylor-swift-countdown-clock-website-clues-1236344546',
+            source_title: "Taylor Swift Updates Website With New Countdown After Dropping Cryptic '0' Clues",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+            notes:
+              "Corroborates the countdown and ties fan theories to both the Showgirl-deluxe reading and the Debut (Taylor's Version) 20th-anniversary reading, including the \"0:00 = clock reset\" fan quote.",
+          },
+          {
+            outlet: 'Reddit—r/TaylorSwift Theory Megathread: September 2026',
+            url: 'https://www.reddit.com/r/TaylorSwift/comments/1w44ay0/theory_megathread_september_2026/',
+            source_title: 'Theory Megathread: September 2026',
+            source_type: 'social',
+            notes:
+              "Primary fan-community source for the specific predictions cited above (Showgirl deluxe/encore, concert-film box set, TS13 minority view, site-crash jokes)—read live during the countdown's final minutes via the thread's own top-level comments; cited as evidence the discussion happened, never as confirmation of any theory itself.",
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
+            caption: 'Reference photo—not tied to the Sept. 22, 2026 bio change or countdown.',
+            kind: 'reference',
+            focalPoint: '50% 25%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
