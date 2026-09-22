@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { CurrentItem } from '@swift2/shared';
-import { currentFeedEntries, outletFor, summarizeCurrentActivity } from './current-feed';
+import {
+  currentFeedEntries,
+  isLiveCountdown,
+  outletFor,
+  pickCountdownBannerItem,
+  summarizeCurrentActivity,
+} from './current-feed';
 
 const ERA_START = '2026-01-01';
 const ERA_END = '2026-12-31';
@@ -80,5 +86,110 @@ describe('summarizeCurrentActivity', () => {
     expect(summary).not.toBeNull();
     expect(summary?.updatedLabel).toBe('3 hours ago');
     expect(summary?.newThisWeek).toBe(2);
+  });
+});
+
+describe('isLiveCountdown', () => {
+  const NOW = Date.parse('2026-09-22T18:00:00.000Z');
+
+  it('is false when countdownTargetAt is unset', () => {
+    const item = currentItem({ id: 'ci1', observedOn: '2026-09-22' });
+    expect(isLiveCountdown(item, NOW)).toBe(false);
+  });
+
+  it('is true when the target is in the future', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-09-22',
+      countdownTargetAt: '2026-09-22T20:00:00.000Z',
+    });
+    expect(isLiveCountdown(item, NOW)).toBe(true);
+  });
+
+  it('is false once countdownResolvedAt is set, even if the target is future', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-09-22',
+      countdownTargetAt: '2026-09-22T20:00:00.000Z',
+      countdownResolvedAt: '2026-09-22T17:00:00.000Z',
+    });
+    expect(isLiveCountdown(item, NOW)).toBe(false);
+  });
+
+  it('stays true briefly past the target, within the grace window', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-09-22',
+      countdownTargetAt: '2026-09-22T17:55:00.000Z', // 5 minutes ago
+    });
+    expect(isLiveCountdown(item, NOW)).toBe(true); // default grace is 15 minutes
+  });
+
+  it('goes false once past the grace window', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-09-22',
+      countdownTargetAt: '2026-09-22T17:00:00.000Z', // 1 hour ago
+    });
+    expect(isLiveCountdown(item, NOW)).toBe(false);
+  });
+
+  it('is false for an unparseable countdownTargetAt', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-09-22',
+      countdownTargetAt: 'not-a-date',
+    });
+    expect(isLiveCountdown(item, NOW)).toBe(false);
+  });
+});
+
+describe('pickCountdownBannerItem', () => {
+  const NOW = Date.parse('2026-09-22T18:00:00.000Z');
+
+  it('is undefined when nothing qualifies', () => {
+    const items = [currentItem({ id: 'ci1', observedOn: '2026-09-22' })];
+    expect(pickCountdownBannerItem(items, NOW)).toBeUndefined();
+  });
+
+  it('picks the single live countdown', () => {
+    const items = [
+      currentItem({ id: 'ci1', observedOn: '2026-09-22', countdownTargetAt: '2026-09-22T20:00:00.000Z' }),
+    ];
+    expect(pickCountdownBannerItem(items, NOW)?.id).toBe('ci1');
+  });
+
+  it('NEVER STACKS: picks exactly one item, the SOONEST deadline, when two countdowns overlap', () => {
+    const items = [
+      currentItem({ id: 'ci-later', observedOn: '2026-09-22', countdownTargetAt: '2026-09-23T00:00:00.000Z' }),
+      currentItem({ id: 'ci-sooner', observedOn: '2026-09-22', countdownTargetAt: '2026-09-22T19:00:00.000Z' }),
+    ];
+    const winner = pickCountdownBannerItem(items, NOW);
+    expect(winner?.id).toBe('ci-sooner');
+  });
+
+  it('NEVER DEADLOCKS: breaks an exact tie on the stable id, deterministically', () => {
+    const sameTarget = '2026-09-22T20:00:00.000Z';
+    const itemsAsc = [
+      currentItem({ id: 'ci-b', observedOn: '2026-09-22', countdownTargetAt: sameTarget }),
+      currentItem({ id: 'ci-a', observedOn: '2026-09-22', countdownTargetAt: sameTarget }),
+    ];
+    const itemsReversed = [...itemsAsc].reverse();
+    // Same winner regardless of input order — id 'ci-a' sorts first.
+    expect(pickCountdownBannerItem(itemsAsc, NOW)?.id).toBe('ci-a');
+    expect(pickCountdownBannerItem(itemsReversed, NOW)?.id).toBe('ci-a');
+  });
+
+  it('ignores a resolved countdown even if its target is still in the future', () => {
+    const items = [
+      currentItem({
+        id: 'ci-resolved',
+        observedOn: '2026-09-22',
+        countdownTargetAt: '2026-09-22T20:00:00.000Z',
+        countdownResolvedAt: '2026-09-22T17:00:00.000Z',
+      }),
+      currentItem({ id: 'ci-live', observedOn: '2026-09-22', countdownTargetAt: '2026-09-23T00:00:00.000Z' }),
+    ];
+    expect(pickCountdownBannerItem(items, NOW)?.id).toBe('ci-live');
   });
 });

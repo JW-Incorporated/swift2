@@ -54,6 +54,7 @@ export const SOURCE_TYPES = [
   'reddit_rss',
   'tumblr',
   'gnews',
+  'site_diff',
 ] as const;
 export type SourceType = (typeof SOURCE_TYPES)[number];
 
@@ -90,6 +91,17 @@ export interface NormalizedNewsItem {
   publisher?: string;
   /** Publisher's own domain as reported by the feed, e.g. https://www.forbes.com. */
   publisherUrl?: string;
+  /**
+   * ISO 8601 timestamp of a countdown/reveal target the source deterministically
+   * parsed off the page itself (site-diff adapter only — proposal comment on
+   * t_09dc269f §1: "a visible timer element / `data-countdown` attribute /
+   * epoch-timestamp target"). Undefined for every other adapter and for a
+   * site-diff item that isn't a countdown. Carried through ingest onto
+   * `news_raw_item.countdown_target_at`, never re-derived by the LLM extract
+   * stage (run-cycle.ts's existing `'resolvedTier' in item` pattern for
+   * passing adapter-only fields through untouched).
+   */
+  countdownTargetAt?: string;
 }
 
 /**

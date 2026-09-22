@@ -4,6 +4,7 @@ import { blueskyAdapter } from './bluesky';
 import { redditRssAdapter } from './reddit-rss';
 import { tumblrAdapter } from './tumblr';
 import { gnewsAdapter } from './gnews';
+import { siteDiffAdapter } from './site-diff';
 
 /** source_type -> adapter. Google News search-query URLs are RSS feeds. */
 const ADAPTER_REGISTRY: Record<string, SourceAdapter> = {
@@ -13,6 +14,7 @@ const ADAPTER_REGISTRY: Record<string, SourceAdapter> = {
   reddit_rss: redditRssAdapter,
   tumblr: tumblrAdapter,
   gnews: gnewsAdapter,
+  site_diff: siteDiffAdapter,
 };
 
 export function getAdapter(sourceType: string): SourceAdapter | undefined {

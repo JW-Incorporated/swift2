@@ -7,11 +7,13 @@ const mocks = vi.hoisted(() => ({
   extractWithLLM: vi.fn(),
   fetchPostComments: vi.fn(),
   refreshSymbolActivity: vi.fn(),
+  resolveVanishedCountdowns: vi.fn(),
   supabaseExtractUsageDb: vi.fn(),
 }));
 
 vi.mock('./haiku-client', () => ({ extractWithLLM: mocks.extractWithLLM }));
 vi.mock('../sources/reddit-rss', () => ({ fetchPostComments: mocks.fetchPostComments }));
+vi.mock('../sources/site-diff', () => ({ resolveVanishedCountdowns: mocks.resolveVanishedCountdowns }));
 vi.mock('./usage-store', () => ({
   ExtractUsageStore: { create: mocks.createUsage },
   supabaseExtractUsageDb: mocks.supabaseExtractUsageDb,
@@ -66,6 +68,7 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.extractWithLLM.mockReset().mockResolvedValue({ kind: 'skip', redlineFlags: [] });
     mocks.fetchPostComments.mockReset();
     mocks.refreshSymbolActivity.mockReset().mockResolvedValue(undefined);
+    mocks.resolveVanishedCountdowns.mockReset().mockResolvedValue(0);
     mocks.supabaseExtractUsageDb.mockReset().mockReturnValue({});
   });
 
