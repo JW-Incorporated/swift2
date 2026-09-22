@@ -2984,6 +2984,21 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
+        // Photo enrichment (Vault Run, 2026-09-22, top-of-feed-photo #3898):
+        // page was photoless. Official "Begin Again" music-video still — the
+        // Paris rooftop / Eiffel Tower scene in the lilac dress — video id
+        // cMPEd8m79Hw oEmbed-verified to @TaylorSwift; maxresdefault 404s so the
+        // hqdefault (480x360) is used per the vault's existing official-still
+        // pattern, downloaded and vision-confirmed as the exact MV scene.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/cMPEd8m79Hw/hqdefault.jpg',
+            focalPoint: '48% 30%',
+            credit: 'Taylor Swift / Big Machine Records (official "Begin Again" music video, YouTube)',
+            caption: 'A frame from the Paris-set "Begin Again" music video — the soft, hopeful single that closed out the Red rollout.',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],
