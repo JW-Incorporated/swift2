@@ -169,6 +169,18 @@ That is the single biggest remaining lever — the `ignoreCommand` here cannot
 help with a branch whose commits DO touch real files but which nobody will
 ever open a PR for.
 
+**Verified on a real deployment** (preview `swift2-eknyk7jq2`, 2026-09-22):
+the ignore step runs in Vercel's own clone and resolves a diff there —
+`Running "node ../../scripts/vercel-ignore-build.mjs"` →
+`[vercel-ignore-build] BUILD: 4 of 5 changed paths can affect the deployment`
+— then the new install command runs. On that preview `/` returned 200,
+`/privacy` 200, `/content/current.json` 200 and `/api/og` a 44 KB PNG. That
+last one is the proof that `--omit=dev` must stay off: `/api/og` renders
+through `satori` + `@resvg/resvg-js`, both root devDependencies. (The two
+device/notification routes answer 503 there because preview has no
+`SUPABASE_SERVICE_ROLE_KEY` — their documented unconfigured path, unchanged
+by any of this.) A `--depth 1` clone was checked separately and fails open.
+
 ## After it's live
 
 - Open the URL — you should see the eras with per-era theming.
