@@ -106,7 +106,8 @@ async function main() {
 
   const merged = [...inventory.photos];
   for (const candidate of toImport) {
-    const { sourceUrl, ...entry } = candidate; // sourceUrl is fetch-only plumbing, never stored in the inventory
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- sourceUrl is fetch-only plumbing, never stored in the inventory
+    const { sourceUrl, ...entry } = candidate;
     const existing = merged.findIndex((photo) => photo.id === entry.id || photo.mediaPath === entry.mediaPath);
     if (existing === -1) merged.push(entry);
     else merged[existing] = entry;
