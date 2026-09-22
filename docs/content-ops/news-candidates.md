@@ -27,6 +27,55 @@ so far".
 
 Stories: 73
 
+## Homeowners File Lawsuit Against Rhode Island's 'Taylor Swift Tax'
+
+- first seen: 2026-09-22 14:00 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A group of 40 homeowners has initiated a lawsuit to prevent the implementation of Rhode Island's tax, dubbed the 'Taylor Swift tax.' The lawsuit raises concerns over the tax's impact on local property owners.
+- sources:
+  - [unverified] providencejournal.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxPbFQwYjB1aDNab2JmclQzNzFpaFBzdUVVMGVjblp5bmM3U0RFQ1NSX1JBMURySkRnQXg0bnlUTi1PRjMtSXpTamdZYXl0Um43YzJSNkllS2hyTDVzenY2VkEyOWJWa0Q1NkMtRmRpN3hpcjBWWHlqZVUzRE1NM3V4TlI2eWwxTTZWemhUb3FBX3prSUl0TUM1LWcwUGdVVjQweEpPeUlVS2h5VTVWLVMteFZ1cW15RlBNYjZ0NkdMZ0gxQVZNM0ZhcFBtNktBWDFxY0xxRUZZdDFyc2VSNUpQMU9jZ2xSZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Make History at 2026 MTV VMA
+
+- first seen: 2026-09-22 14:00 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to make history at the upcoming 2026 MTV Video Music Awards. A guide to the event provides insights into what to expect.
+- sources:
+  - [unverified] Fox 59 — https://news.google.com/rss/articles/CBMirwFBVV95cUxPUjllQXZSelZ4TFplR3N6WjAzdzUzNE4zUmVGd2lqU2x0VXA4RWI3bE9mZEoyM0pnSFd1cm94aUVKQlNJZnF0bm9xZFBRdXVnLTE4cnZIY1g0MUd5V3I1R2J1WHVBckpHeWpIbmxxbEpiS2FuVUxWN25PRTllaGRna2w4cmdyZWd0bHA0T3FXVDFNS2tlWVVGdlJmQ2Y0bjBXSm9ETm55MkZKdUJmWm9r0gG0AUFVX3lxTE9TR3JjYllyUThlWS1HSFNUMlBaSmlpOVpZRXN6cW9EeTI0MU9GUzZlMGh3eXR1dWROSEVpeFNPTmpWQjVOdEppMjY5Y2E2Rl9Md3dJd3FKRWYtUFRsQ1JEaEFES2pKR3VvTF9xTUxSMzZWOUtycDVZN1pqZGhjaVZlZnhZMXpOWThhM25WaTU2MWNXYkxlWkFNaXFoQmM1Z29ZRlVfbTl0elBydjhfQWRoR0taWA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Adds Third Page to Letter, Speculation on TV Debut
+
+- first seen: 2026-09-22 14:00 UTC | category: release | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has added a third page to her public letter, leading to speculation about a potential television debut announcement. The content of the new page remains unclear, fueling curiosity among fans.
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNWkNrcE91LXNGcFY5d2xLb0pZVUhqczVNb2loanRodjgxbVFGMFZoQmlrV0xZdEhfcmg0d2pra19SX2JMVENPNWRqU2pHVDZ1TzFUX0RPcEo5dk1lTjBBLWFNSm5rVHNLdjZhMU5hTDdnTkxPOEdtMUQ2Uy1hOXpfYVI5VV85SGY2THI2OVI1U0JKM3Y2Y3FWLTZET1pfc21wbWc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxQdHptWXE1dEFDUHQ2SmtldVM1NHozTTQ1ZWlMc08zSE5ZakFHWnZsLTFPc1VmZ3NiTFEtS0dVVlZHT0pzZWdpRV9raEtyUmd3VmhPSEo0dlRlRmw2TTlXand0OXdtS0xQbkY0NXFPLWJEOUVxaFVPSHVvVDdvZlVPZEYtdTY3eXlSakhzbXQwUzBFbWF5R1FWR2d3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Cheers for Travis Kelce After Touchdown
+
+- first seen: 2026-09-22 14:00 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed excitement after Travis Kelce scored a touchdown during a recent NFL game, leading to various reactions from NFL fans. The moment highlights her support for Kelce in the public eye.
+- sources:
+  - [unverified] vice.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxPN1pObnExeXR2N1NZb3JiMExPLTFHUC1SbjBYemx5ZmdGZ3hWSE00dDZRTzZXMnlKRnpma2FZeVo1UlNDazVLMHNPTC14a1ZOenNTZVNVUFZaRzFuV3FxaHVaUHo3UE1peGVPeFhMMFRRM1pORnJYVTlrYVV3RXZGaHp2alFnUWlPTUM2MmpYZnhvOFdISGNHVExJNm1rMkpqY3lhVF9wbHI4UFE4cm51cnM3a2dETTNDb1o4NkpIMGN1YUhuZ1MyQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans Discover Locked Webpage Amid Re-Recording Speculation
+
+- first seen: 2026-09-22 14:00 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift fans have identified a locked webpage, fueling speculation about her upcoming debut re-recording. The find has generated discussion among fans regarding potential new music releases.
+- sources:
+  - [unverified] Contactmusic.com — https://news.google.com/rss/articles/CBMiyAFBVV95cUxPTHJxWjcyZTY2RXU0bVN6MFpxLVVKZkVqRnFpUnZLTFpZazd4WDVjdmJCcG9tclhQbEVfUXZaWVdYQW5VcnIxaHducWJhc3ZnLV9qX1VQVHJnUS16Mi1JcGF1TkZjQ0JULWtCVE1iY1BkQU9SdXVkQm5XbGF4bW5JMEtQZW1ZbUUxTTVUTVBVNzlwenNqNkhhRzRpSTlRRGRsMnB3aUhhVk1jSkVpZEhnUFNFZDlRWDNvcXY5QkJsMkpMUDFRX1hKbg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's name associated with 10th-tier team goal, not the artist
+
+- first seen: 2026-09-22 14:00 UTC | category: business | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: A 10th-tier team has recently scored a goal, but the player is not the famous pop superstar Taylor Swift. The news highlights the name coincidence rather than an involvement of the musician herself.
+- sources:
+  - [unverified] ESPN — https://news.google.com/rss/articles/CBMisAFBVV95cUxQUU1uOFVycE5tOVYwQnRLVkhCZTE0UVl6RjlUQmVqeVUzQ1lMOXpPUWF1MklzVHhJMDVIZzZRcDVnMmlGbndCWUVXWDhHQzZodmNIUDlESmJiUlZLMlBfd1JDbzZPUmJ6OXloSTB1WEI4ZmRqdXNaR0JBcmstNXFlMGczRURqUjlYNzFhZmctQjcxZ1ZrSzRJNFZKNnJmaUZGX3JQbHp6ZjFfdXpKemx5eQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Discussion on the Changing Nature of Fandoms
 
 - first seen: 2026-09-22 06:07 UTC | category: music | importance: 5
@@ -596,51 +645,3 @@ Stories: 73
 - summary: At a recent Chiefs game, Tom Cruise commented that Taylor Swift was 'schooling him' on football. The remark highlights their interaction during the event.
 - sources:
   - [unverified] HOLA — https://news.google.com/rss/articles/CBMiyAFBVV95cUxPUFF5amZORWFYRDFBM3hEM1BCR0YxQzBfMjB2SGlVQ0VwSUl4SW9HamE0OUdGTXhvaVhad3FOaXdEQmRSbDdOV054Uy1EWjdGNWR6dlpYdklqWkdFZmpIc2NiNGQ1OE1KVVVTNjBBSGFjRHdKYXh3dWNSc0Vwdzk3VmQzZExHcGtPZUlaLTdZOGExOUJIYWNtRFh4d0lnbzIyenBTVzVTaWxJUXpxT3JNdW96Y0FBdWNITzBPZ1Z6RmNkOENHQXplYg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift receives significant career news before Chiefs game
-
-- first seen: 2026-09-19 13:05 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has received important career news ahead of the Chiefs vs Colts game as she prepares for her return to Arrowhead Stadium. Details on the career news were not disclosed.
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxOMGQ4N2Yza3pMOEQtUC0yX3d1ZzNDUUZuUTl1OWRDcU5vN2NtVlZJcU9ub05aTE8yay12UVpkdWFLdWJlaE9ES2s1bGk5SklUbE50R3FncnRLSDNveXl0Z1JxZG1RSTk2M1I1SUZBQU5ieFNWc2tJcW4zdVNnaHk3VzR6NUE2ZkRYbDdfLUNPczdwWXY4LWlDY3V2Z0NnVzFOZEg1TndWQ3o3X0I3YW4waUx1a2FyUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Man Jailed for Producing Counterfeit Vinyl Records Including Taylor Swift's
-
-- first seen: 2026-09-19 13:05 UTC | category: business | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Rehan Ahmed, who ran a fraudulent vinyl operation in the UK, was sentenced to jail after being found guilty of producing counterfeit records, including those of major artists like Taylor Swift. His business, which began in 2017, was revealed to be based on deception.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/19/fake-vinyl-empire-sheds-light-industrial-scale-fraud
-
-## Maryland Embraces Taylor Swift Tribute Bands
-
-- first seen: 2026-09-19 13:05 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Maryland is experiencing a rise in popularity of Taylor Swift tribute bands, showcasing the artist's influence in the area. These tribute acts celebrate her music and connect fans through live performances.
-- sources:
-  - [unverified] The Baltimore Banner — https://news.google.com/rss/articles/CBMinwFBVV95cUxNTF9TMmJhUTNYUzk5enN0eU1nRTFmSTRRbkRlaDd5M1VGb1VpMnozY2gzdlVQbW15TW5XRnVISU90WjVhZ29BTFYwQzBRY1dobG1RRTJ4NFFUUGR3V2hGbHMwSG95cjh0NzM5Uk4yU1dhTnhJNUdUb2ZORDk0MGlhOHh6RzJ2ZG4tUldyQndDblJEYUFXM0wtLXU2TWd0MzA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Joe Alwyn and Mary Beth Barone Seen Together in NYC
-
-- first seen: 2026-09-19 13:05 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Joe Alwyn and Mary Beth Barone were spotted out together in New York City, as reported by E! News.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSHlsYU1fUmtJa1psTmdZX0FUb21JSXpNZWJoVHRabHpQbTBjRmpkRjFsd0gxY3AydXRSUExFSjl5Z3c4MHVqVTNKWU5hVERSaWJITW85MnU0aTNUMzNyUXJnTERkSWpMTWZQdFozamZBS00zREEyQTN4SWNZc3pVd05IT3luTVE3SnFmekdLcnJWVkp1M2lacmpqV3I?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Impact of Taylor Swift's Chiefs Appearances on NFL Broadcasts
-
-- first seen: 2026-09-19 13:05 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: An article discusses the influence of Taylor Swift's attendance at Chiefs games on NFL broadcasts and fan culture. It highlights the changes in viewership and the overall atmosphere surrounding the games.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQS00zVHZGM3hCWVVfM0dwOTZOMU5aUXgtYlZZeFFLR1N2RGR3dXdXNklRcjBfVjB1SUoxOUNPXzkwMWRXSjd4MmJCV0dNLTljMEl0djB0OFVacXRDdmY0OGRpeTl1TE1XQXZnNDZBQjNQeEg1eXNETGRMbW9zRWotekRURVU0ZG44dGo0QU54YVBPQW00MWRYSVhrWF90a0U3TS0tcWEwbE5LWS05MTBkY2E3QWtNakNvUW9j0gHPAUFVX3lxTFBueVlGcWphSVhhOFpRSEpYa1NDVlRQNzY4VGdFV2tOVzVRXzRqOHpXcXNlQThqRXQ2U1N1Y1BORFFIUmNGM0h3dW1iSWhIbzVpUHV4YjBIbzQ5VzRhUkkwMVFPZ2M3WGVtUmUxZ0NnaXNRbVRDbERTMHJvQU85MnI4MEhWTXJEb3R6XzNvUlJCWUFXYmt4VVI3QndQSXdtWjU5NU5ISWx2UlZobUVXOXh6NS01V1BtRGhqaWxkRVJkREdvRFNqOWY1aTdNVkhhdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Joe Alwyn Seen with Comedian Mary Beth Barone in NYC
-
-- first seen: 2026-09-19 13:05 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Joe Alwyn, who was previously in a relationship with Taylor Swift, was spotted in New York City with comedian Mary Beth Barone. The sighting has garnered attention due to Alwyn's past connection with Swift.
-- sources:
-  - [unverified] tmz.com — https://news.google.com/rss/articles/CBMie0FVX3lxTE1DWkR5bGJQOGI5TGVKbVloUjNsaU13NzRhQVZfX0VzOENfMlNtNDM5VW0xOTRqMU5uQnJMeVFram5hSTdNNW9ER00xZGJ3Rnk1dy1BV0tOYXdjOGlQM3h6NTN6aXJVeEFNV1FhS01kSlJOQ2c3Q2ZLbV9mTQ?oc=5&hl=en-US&gl=US&ceid=US:en
