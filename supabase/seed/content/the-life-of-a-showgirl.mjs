@@ -11578,7 +11578,7 @@ export default {
             reportedOn: '2026-08-09',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim, so the named restaurant is dropped (venue-level needs a documented visit). Rechecked 2026-09-22: still unconfirmed, no denial (day 44, nearing the 45-day fade). NOTE per the debunk-rigor rule: the separately CONFIRMED 1587 Prime date night of ~Sept. 14–17, 2026 (around the Chiefs opener) is a DIFFERENT, later outing and does not corroborate this Aug. 9 training-camp-era tip. Resolves on confirmation; fades next check if nothing surfaces.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened per the matrix. Rechecked 2026-09-22: still unconfirmed, no denial (day 44, near the 45-day fade). The separately confirmed ~Sept 14–17 1587 Prime date night is a distinct, later event and does not corroborate this Aug 9 tip; fades next check if nothing surfaces.',
             sourceTier: 'social',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-09-22',
