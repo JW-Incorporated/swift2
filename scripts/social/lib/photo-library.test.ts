@@ -64,6 +64,13 @@ describe('photo-library', () => {
     expect(validatePhotoEntry({ ...library[0], tags: undefined })).toEqual([]);
   });
 
+  it('accepts optional venue/date fields and rejects malformed ones', () => {
+    expect(validatePhotoEntry({ ...library[0], venue: 'Inglewood, CA', date: '2023-08-04' })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], venue: '' })).toContain('venue, if present, must be a non-blank string');
+    expect(validatePhotoEntry({ ...library[0], date: 'not-a-date' })).toContain('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
+    expect(validatePhotoEntry({ ...library[0], venue: undefined, date: undefined })).toEqual([]);
+  });
+
   it('does not deadlock after all five sources have been used: it selects the least-recently-used credited photo', () => {
     const history = [
       { photoId: 'lover-minneapolis', postedAt: '2026-09-01T23:00:00Z' },
