@@ -58,6 +58,7 @@
     "theory:weaving-intake": "node scripts/community/song-weaving-intake.mjs",
     "merch:revenue": "node scripts/merch-engine/revenue-report.mjs",
     "knowledge:fb-upload": "node --env-file=apps/worker/.env scripts/knowledge-fb-upload.mjs",
+    "knowledge:fb-group-export": "node scripts/desktop/fb-group-export.mjs",
     "knowledge:freshness": "node scripts/knowledge-freshness.mjs",
     "clown:eval": "tsx scripts/knowledge-engine/clown-eval.mjs",
     "depth:months": "node scripts/depth-rows-per-month.mjs",
