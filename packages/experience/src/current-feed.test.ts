@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import type { CurrentItem } from '@swift2/shared';
+import type { CurrentItem, LiveTheory } from '@swift2/shared';
 import {
   currentFeedEntries,
+  isBigTheory,
   isLiveCountdown,
   outletFor,
+  pickBannerCandidate,
   pickCountdownBannerItem,
   summarizeCurrentActivity,
 } from './current-feed';
@@ -191,5 +193,92 @@ describe('pickCountdownBannerItem', () => {
       currentItem({ id: 'ci-live', observedOn: '2026-09-22', countdownTargetAt: '2026-09-23T00:00:00.000Z' }),
     ];
     expect(pickCountdownBannerItem(items, NOW)?.id).toBe('ci-live');
+  });
+});
+
+const liveTheory = (overrides: Partial<LiveTheory> & { id: string }): LiveTheory => ({
+  name: 'Fans think the vault track is a duet',
+  claim: 'A specific claim the fandom is theorizing about.',
+  firstSeenOn: '2026-09-20',
+  lastSeenOn: '2026-09-22',
+  origin: 'fan',
+  status: 'rumor',
+  outcome: 'pending',
+  evidenceIds: [],
+  symbols: [],
+  heat: 1,
+  expiresAt: '2026-12-31T00:00:00.000Z',
+  ...overrides,
+});
+
+describe('isBigTheory', () => {
+  it('is false below the heat threshold', () => {
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 2.9 }))).toBe(false);
+  });
+
+  it('is true at or above the heat threshold with a live status', () => {
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 3 }))).toBe(true);
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 3, status: 'reported' }))).toBe(true);
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 3, status: 'confirmed' }))).toBe(true);
+  });
+
+  it('is false once debunked or faded, however high the heat', () => {
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 100, status: 'debunked' }))).toBe(false);
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 100, status: 'faded' }))).toBe(false);
+  });
+
+  it('accepts a custom heat threshold override', () => {
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 5 }), 10)).toBe(false);
+    expect(isBigTheory(liveTheory({ id: 'lt1', heat: 10 }), 10)).toBe(true);
+  });
+});
+
+describe('pickBannerCandidate', () => {
+  const NOW = Date.parse('2026-09-22T18:00:00.000Z');
+
+  it('is undefined when neither a countdown nor a big theory qualifies', () => {
+    const items = [currentItem({ id: 'ci1', observedOn: '2026-09-22' })];
+    const theories = [liveTheory({ id: 'lt1', heat: 1 })];
+    expect(pickBannerCandidate(items, theories, NOW)).toBeUndefined();
+  });
+
+  it('picks the big theory when no countdown is live', () => {
+    const items = [currentItem({ id: 'ci1', observedOn: '2026-09-22' })];
+    const theories = [liveTheory({ id: 'lt1', heat: 5 })];
+    const candidate = pickBannerCandidate(items, theories, NOW);
+    expect(candidate).toEqual({ kind: 'theory', theory: theories[0] });
+  });
+
+  it('a live countdown ALWAYS wins the slot over a big theory (deadline-driven beats non-deadline)', () => {
+    const items = [
+      currentItem({ id: 'ci1', observedOn: '2026-09-22', countdownTargetAt: '2026-09-22T20:00:00.000Z' }),
+    ];
+    const theories = [liveTheory({ id: 'lt1', heat: 999 })];
+    const candidate = pickBannerCandidate(items, theories, NOW);
+    expect(candidate).toEqual({ kind: 'countdown', item: items[0] });
+  });
+
+  it('NEVER STACKS: among multiple big theories, picks exactly one — the hottest', () => {
+    const theories = [
+      liveTheory({ id: 'lt-cooler', heat: 4 }),
+      liveTheory({ id: 'lt-hotter', heat: 9 }),
+    ];
+    const candidate = pickBannerCandidate([], theories, NOW);
+    expect(candidate?.kind).toBe('theory');
+    expect(candidate?.kind === 'theory' ? candidate.theory.id : null).toBe('lt-hotter');
+  });
+
+  it('NEVER DEADLOCKS: breaks an exact heat tie on the stable theory id, deterministically', () => {
+    const theoriesAsc = [liveTheory({ id: 'lt-b', heat: 5 }), liveTheory({ id: 'lt-a', heat: 5 })];
+    const theoriesReversed = [...theoriesAsc].reverse();
+    const winnerAsc = pickBannerCandidate([], theoriesAsc, NOW);
+    const winnerReversed = pickBannerCandidate([], theoriesReversed, NOW);
+    expect(winnerAsc?.kind === 'theory' ? winnerAsc.theory.id : null).toBe('lt-a');
+    expect(winnerReversed?.kind === 'theory' ? winnerReversed.theory.id : null).toBe('lt-a');
+  });
+
+  it('never picks a debunked/faded theory even at very high heat', () => {
+    const theories = [liveTheory({ id: 'lt1', heat: 999, status: 'debunked' })];
+    expect(pickBannerCandidate([], theories, NOW)).toBeUndefined();
   });
 });
