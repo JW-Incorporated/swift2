@@ -191,6 +191,70 @@ describe('upsertTheoryCandidate', () => {
     expect(updatedRow?.sample_urls).toEqual(['u1', 'u2', 'u3']);
   });
 
+  it('unions numeric_signals with the existing row rather than overwriting them', async () => {
+    let updatedRow: Record<string, unknown> | undefined;
+    const db = fakeDb(() => {
+      const c = chain({ data: null, error: null }) as Record<string, unknown>;
+      c.maybeSingle = () =>
+        Promise.resolve({
+          data: {
+            id: 'cand-existing',
+            mention_count: 1,
+            peak_score: 5,
+            communities: ['TaylorSwift'],
+            sample_urls: [],
+            numeric_signals: [12],
+          },
+          error: null,
+        });
+      c.update = (row: Record<string, unknown>) => {
+        updatedRow = row;
+        return chain({ error: null });
+      };
+      return c;
+    });
+    // A second mention of the same theory_key extracts a DIFFERENT numeric
+    // signal — regression guard: the prior mention's [12] must not be lost.
+    await upsertTheoryCandidate(
+      db,
+      { ...baseTheory, numericSignals: [5] },
+      { community: 'TaylorSwift', score: 1, today: '2026-09-07' },
+    );
+    expect(updatedRow?.numeric_signals).toEqual(expect.arrayContaining([12, 5]));
+    expect((updatedRow?.numeric_signals as number[]).length).toBe(2);
+  });
+
+  it('preserves existing numeric_signals when a later mention has none', async () => {
+    let updatedRow: Record<string, unknown> | undefined;
+    const db = fakeDb(() => {
+      const c = chain({ data: null, error: null }) as Record<string, unknown>;
+      c.maybeSingle = () =>
+        Promise.resolve({
+          data: {
+            id: 'cand-existing',
+            mention_count: 1,
+            peak_score: 5,
+            communities: ['TaylorSwift'],
+            sample_urls: [],
+            numeric_signals: [12],
+          },
+          error: null,
+        });
+      c.update = (row: Record<string, unknown>) => {
+        updatedRow = row;
+        return chain({ error: null });
+      };
+      return c;
+    });
+    // baseTheory carries no numericSignals at all — the common case.
+    await upsertTheoryCandidate(db, baseTheory, {
+      community: 'TaylorSwift',
+      score: 1,
+      today: '2026-09-07',
+    });
+    expect(updatedRow?.numeric_signals).toEqual([12]);
+  });
+
   it('throws on an insert failure', async () => {
     const db = fakeDb(() => {
       const c = chain({ data: null, error: null }) as Record<string, unknown>;

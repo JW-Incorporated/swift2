@@ -82,13 +82,14 @@ function strArray(value: unknown, itemMax = 80, arrayMax = 20): string[] {
 }
 
 /** Same clamp discipline as strArray, but for `numeric_signals` — filters
- * to finite numbers only (never NaN/Infinity from a malformed model
- * response) and caps the array length so a runaway response can't bloat
- * the stored row. */
+ * to finite INTEGERS only (the DB column is `int[]`; a non-integer finite
+ * number like 12.5 would otherwise pass this filter and throw at the
+ * Postgres insert/update, silently killing the candidate write) and caps
+ * the array length so a runaway response can't bloat the stored row. */
 function numArray(value: unknown, arrayMax = 20): number[] {
   if (!Array.isArray(value)) return [];
   return value
-    .filter((v): v is number => typeof v === 'number' && Number.isFinite(v))
+    .filter((v): v is number => typeof v === 'number' && Number.isInteger(v))
     .slice(0, arrayMax);
 }
 

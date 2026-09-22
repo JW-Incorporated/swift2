@@ -107,7 +107,9 @@ export async function upsertTheoryCandidate(
         peak_score: Math.max(row.peak_score, ctx.score),
         communities,
         sample_urls: sampleUrls,
-        numeric_signals: theory.numericSignals ?? row.numeric_signals ?? [],
+        numeric_signals: [
+          ...new Set([...(row.numeric_signals ?? []), ...(theory.numericSignals ?? [])]),
+        ],
         updated_at: new Date().toISOString(),
       })
       .eq('id', row.id);
