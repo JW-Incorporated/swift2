@@ -28,6 +28,7 @@ interface CandidateDbRow {
   theory_key: string;
   mechanism: string | null;
   symbols: string[];
+  numeric_signals: number[] | null;
   track_slug: string | null;
   predicts: string | null;
   predicted_date: string | null;
@@ -54,6 +55,7 @@ function toCandidateRow(r: CandidateDbRow): FanTheoryCandidateRow {
     name: r.claim,
     mechanism: r.mechanism,
     symbols: r.symbols,
+    numericSignals: r.numeric_signals ?? undefined,
     trackSlug: r.track_slug,
     predicts: r.predicts,
     predictedDate: r.predicted_date,
@@ -171,7 +173,7 @@ export async function runTheoryPromotePass(db: SupabaseClient): Promise<PromoteP
   const { data: candidateRows, error: candidateError } = await db
     .from('fan_theory_candidate')
     .select(
-      'id, claim, theory_key, mechanism, symbols, track_slug, predicts, predicted_date, evidence_summary, mention_count, peak_score, communities, stance, sample_urls',
+      'id, claim, theory_key, mechanism, symbols, numeric_signals, track_slug, predicts, predicted_date, evidence_summary, mention_count, peak_score, communities, stance, sample_urls',
     )
     .eq('status', 'candidate');
   if (candidateError) {

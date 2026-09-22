@@ -81,6 +81,17 @@ function strArray(value: unknown, itemMax = 80, arrayMax = 20): string[] {
     .slice(0, arrayMax);
 }
 
+/** Same clamp discipline as strArray, but for `numeric_signals` — filters
+ * to finite numbers only (never NaN/Infinity from a malformed model
+ * response) and caps the array length so a runaway response can't bloat
+ * the stored row. */
+function numArray(value: unknown, arrayMax = 20): number[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((v): v is number => typeof v === 'number' && Number.isFinite(v))
+    .slice(0, arrayMax);
+}
+
 function isIsoDate(value: unknown): value is string {
   return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
@@ -118,6 +129,9 @@ function sanitizeTheory(value: unknown): ExtractedFanTheory | undefined {
     theoryKey,
     ...(mechanism ? { mechanism } : {}),
     symbols: strArray(p.symbols),
+    ...(numArray(p.numeric_signals).length > 0
+      ? { numericSignals: numArray(p.numeric_signals) }
+      : {}),
     ...(trackSlug ? { trackSlug } : {}),
     ...(predicts ? { predicts } : {}),
     ...(predictedDate ? { predictedDate } : {}),
