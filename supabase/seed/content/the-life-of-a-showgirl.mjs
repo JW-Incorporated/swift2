@@ -11578,10 +11578,10 @@ export default {
             reportedOn: '2026-08-09',
             status: 'unconfirmed',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Coarsened to region — the matrix caps a speculative claim, so the named restaurant is dropped (venue-level needs a documented visit). Rechecked 2026-09-20: still unconfirmed, no denial; a ~6-week-old single social tip nearing the 45-day fade. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened per the matrix. Rechecked 2026-09-22: still unconfirmed, no denial (day 44, near the 45-day fade). The separately confirmed ~Sept 14–17 1587 Prime date night is a distinct, later event and does not corroborate this Aug 9 tip; fades next check if nothing surfaces.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-09-20',
+            lastCheckedOn: '2026-09-22',
           },
         ],
         photos: [

@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-20',
+  updatedOn: '2026-09-22',
   items: [
     {
       id: 'masters-buyback',
@@ -71,7 +71,11 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      lastCheckedOn: '2026-09-20',
+      // Rechecked 2026-09-22 (Vault Run): the 22 Sept countdown that briefly
+      // reignited the Debut-TV read resolved into a NEW single, "Patient Zero"
+      // — not a re-record. The longest-running open question stays open;
+      // neither reputation TV nor debut TV has been released or dated.
+      lastCheckedOn: '2026-09-22',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -374,6 +378,30 @@ export default {
         'Rank "I haven\'t yee\'d my last haw" against her other one-line era-teasers. Is it a throwaway caption or a planted flag?',
       ],
       tags: ['tloas', 'country', 'awards'],
+    },
+    {
+      id: 'patient-zero-single',
+      status: 'confirmed',
+      date: '2026-09-22',
+      lastCheckedOn: '2026-09-22',
+      headline: '"Patient Zero" — a brand-new single, out September 25',
+      detail:
+        'The countdown clock that had the fandom spiraling over a Debut (Taylor\'s Version) tease resolved on 22 September 2026 into something else entirely: a brand-new single. After her Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u" — the O\'s in "show" and "for" swapped for zeroes — Taylor posted that "Patient Zero" arrives Friday, 25 September, with a 24-hour pre-order window for three collector\'s-edition CDs (standard, acoustic, and piano). It is her first new single since the Toy Story 5 song "I Knew It, I Knew You," and it lands days before she receives the inaugural Artist Director Honor at the 27 September MTV VMAs.',
+      sources: [
+        {
+          name: 'Consequence',
+          url: 'https://consequence.net/2026/09/taylor-swift-announces-patient-zero-new-single-due-friday',
+        },
+        {
+          name: 'The Independent',
+          url: 'https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-new-song-patient-zero-b3054479.html',
+        },
+      ],
+      prompts: [
+        'A countdown clock everyone read as a Debut TV tease resolves into a brand-new single instead. Decode it: was the re-record read ever plausible, or did the "sh0w business" zeroes always point somewhere else?',
+        'Three CD editions, 24 hours only. Rank the odds this is a one-off drop versus the front edge of a full TS13 rollout. Commit to a number.',
+      ],
+      tags: ['tloas', 'release', 'new-music'],
     },
   ],
 };
