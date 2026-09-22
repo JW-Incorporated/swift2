@@ -7,6 +7,41 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+### 2026-09-22 — concert photo sourcing at scale: no credit/permission gate on ingestion (kanban t_e1d26de7)
+
+**Decision (Joey, explicit, on record):** expand the social photo pool with
+fan-taken concert photos sourced at scale from public posts, WITHOUT
+requiring a credit/permission-request workflow before ingestion. Joey was
+told plainly that fan photos remain copyrighted by the photographer even
+when posted publicly, and that operating an ingestion pipeline at scale
+without a license/permission/credit gate creates real legal exposure —
+DMCA takedowns, cease-and-desist risk, and rightsholder/agency scanning
+targeting Longlivets.com/JW Labs specifically. Joey chose to proceed
+anyway, prioritizing maximum photo volume across every concert/era over
+that risk.
+
+**Why:** Tree/social flagged the pool as small and concentrated on one
+concert (confirmed: `social/photo-library.json` had 10 entries, 8 of them
+from a single Inglewood 2023 show). The original card asked for a
+licensed/credited/UGC-consent sourcing design; Joey overrode that
+requirement mid-task.
+
+**Scope of this decision:** covers photo *ingestion* only — sourcing and
+adding photos to `social/photo-library.json`/the library directory without
+a rights-check step. Does not change anything about the *posting* pipeline
+(`post-queue.mjs`, approval gates, pairing rules) or grant any new access
+to secrets/credentials/spend. `mediaCredit`/`mediaSource` fields remain
+required per the existing queue schema (data-quality fields, not a
+permission gate) — the change is that ingestion no longer requires an
+opt-in/license/permission-request step before a photo enters the pool.
+
+**Alternatives considered:** (a) official/press-accredited + licensed wire
+sources only, (b) credit-and-permission-request workflow for fan photos,
+(c) opt-in fan-submission/UGC intake. All three were the original card's
+recommended path; Joey rejected all three in favor of unrestricted volume.
+
+**Approved by:** Joey, in chat, mid-task on kanban t_e1d26de7, 2026-09-22.
+
 ### 2026-09-15 clarification — verified approval relay
 
 Implementation exposed a mismatch in the M8 design: Kevin accepted only direct

@@ -70,7 +70,8 @@
     "social:capture": "node scripts/social/capture-screens.mjs",
     "social:seed-library": "tsx scripts/social/seed-library.mjs",
     "social:select-photo": "node scripts/social/select-photo.mjs",
-    "social:import-photo-library": "node scripts/social/import-photo-library.mjs"
+    "social:import-photo-library": "node scripts/social/import-photo-library.mjs",
+    "social:photo-coverage": "node scripts/social/photo-coverage.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -38,6 +38,20 @@ export function validatePhotoEntry(entry) {
       findings.push('tags entries must be non-blank strings');
     }
   }
+  // `venue`/`date` (kanban t_e1d26de7, 2026-09-22 — pool-expansion pipeline,
+  // per-concert coverage): optional per-photo identifiers of the specific
+  // show a photo came from, so `photo-coverage.mjs` can report concentration
+  // by concert rather than only by era. Kept optional and loosely typed —
+  // older/era-only entries (the original 10) remain valid without them.
+  if (entry.venue !== undefined && (typeof entry.venue !== 'string' || entry.venue.trim() === '')) {
+    findings.push('venue, if present, must be a non-blank string');
+  }
+  if (entry.date !== undefined) {
+    const dateMs = new Date(entry.date).getTime();
+    if (typeof entry.date !== 'string' || !Number.isFinite(dateMs)) {
+      findings.push('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
+    }
+  }
   return findings;
 }
 
