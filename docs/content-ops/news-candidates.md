@@ -25,7 +25,113 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 80
+
+## Taylor Swift to Make History at 2026 MTV VMAs
+
+- first seen: 2026-09-22 23:35 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The 2026 MTV VMAs will feature Madonna returning to the stage after 23 years and Taylor Swift is set to make history during the awards show. Details about the event are highlighted in the announcement.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogJBVV95cUxQR3ZtSDA0Qm5td2dIakVtWV9HaG1RU3lGd2hEUEthUlA3RGJWSmZhVnB0TXMwLWdDX2ltVVpVWGV0d05SUUJuU0doS1FMdEszZEZSMlA5aVlqOVF1SjNMdnVzOFlUZkFYc2h2VWlwc3R3Z1pqLXdSZG9yZ29CR0lyUUZPcUNJYU83cDlrNkk2U1pkbzNBbWdLbHYzdERKcHNNZmRRcThua1hJempLakl0VXE1MFJnQWVXOTdDdExaQm1uWmZYVl9HRHZrLVlfb2xTT2dZcllIckxUd2VMRGNRTk5JZTVteGxQTFdoTl9QR1RYZmtuSHhYdjUxc0NHVzR6RUpOQmNYZ1g2V1ZFOUtuMWNnbll5bUtkQmRGLTExVjYtQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts Backless Look with Surprise Announcement
+
+- first seen: 2026-09-22 23:35 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased a striking backless outfit while making a significant surprise announcement. Her new look indicates a shift from her typical glam style, signaling potential upcoming projects or events.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdGVzdW5xM1FBS2ZTelJTMHh1SFRfNHBrWGhIcFJMZVNRczg0bWdhcTZoSFZsNXhGQmU0R2FWOWU1Mk15NmFRUnp5MEF6NGE2TnZ6Yjh0eW1vdVdXcC1SaUxpaldBWHA3aDZrRFoxNzJjY2RrY0pXSTFOSW5yTFh5WWNlbVc3ZmliYzRWeFJEdTcwZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Sparks Fan Excitement with Countdown Announcement
+
+- first seen: 2026-09-22 20:10 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 0
+- summary: A mysterious countdown associated with Taylor Swift has stirred significant excitement among her fans, leading to various discussions and speculations regarding its purpose. The buzz surrounding this countdown highlights Swift's influence and engagement with her audience.
+- sources: _none recorded_
+
+## Taylor Swift Makes Announcement
+
+- first seen: 2026-09-22 20:10 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift has made a widely anticipated announcement, generating significant interest among fans and media. Details about the announcement have not been disclosed in the snippet.
+- sources: _none recorded_
+
+## Taylor Swift announces new single titled 'Patient Zero'
+
+- first seen: 2026-09-22 20:10 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has officially announced the release of her new single called 'Patient Zero'. This news comes from FOX 29 Philadelphia.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMirAFBVV95cUxOXy1PRFZQY29MRXBfWUpDUlpHTlQ5RFBrNTBPNTR1RHc2VElfeDBMMjFBVmtIMnF4UUJLYV9BRHRaTXNleDQ2aWxzbEd4NTZVYnZDeGZTc3lPZXdBRnktaV9DQ0x3ZG8tcnpITG9sblkyRXVxZExqLVdmTGROTlJwTHU4ZWRLc2M0NTA0WnBaaWhnS24tUVRlV1hTTWhSQTdVR1VlUnFkOG4wYXE4?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves Historic Milestone at MTV VMAs
+
+- first seen: 2026-09-22 20:10 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift has reached a significant milestone at the MTV Video Music Awards, marking a new first in the event's history. This achievement showcases her ongoing influence and success in the music industry.
+- sources: _none recorded_
+
+## Detroit Woman Loses $212K in Taylor Swift Ticket Scam
+
+- first seen: 2026-09-22 20:10 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 0
+- summary: A woman from Metro Detroit encountered a significant financial loss of $212,000 after being scammed while trying to purchase tickets for a Taylor Swift event, as reported by The Detroit News.
+- sources: _none recorded_
+
+## Taylor Swift Launches New Countdown on Website Following '0' Clues
+
+- first seen: 2026-09-22 20:10 UTC | category: release | importance: 5
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift has updated her website with a new countdown after sharing cryptic clues involving the number '0'. Fans are speculating about what the countdown could signify, but no specific details have been released yet.
+- sources: _none recorded_
+
+## Chiefs Coach Links Taylor Swift to Travis Kelce's Performance
+
+- first seen: 2026-09-22 20:10 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 0
+- summary: Kansas City Chiefs coach attributes some of Travis Kelce's success to Taylor Swift's influence. Swift has been seen frequently at Chiefs games, suggesting her support may be impacting his performance on the field.
+- sources: _none recorded_
+
+## Taylor Swift Announces Release Date Following Countdown
+
+- first seen: 2026-09-22 20:10 UTC | category: release | importance: 7
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift has revealed a release date for an upcoming project after initiating a cryptic countdown. Details about the project remain limited.
+- sources: _none recorded_
+
+## Fans React to Taylor Swift's Cryptic Countdown and Clues
+
+- first seen: 2026-09-22 20:10 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift's recent cryptic countdown and clues have left fans intrigued and speculating about potential upcoming announcements or releases. The buzz among her fanbase continues to grow as they analyze the hints provided.
+- sources: _none recorded_
+
+## Kam Saunders Hints at Potential News Related to Taylor Swift
+
+- first seen: 2026-09-22 20:10 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 0
+- summary: Kam Saunders, a dancer for Taylor Swift and UMKC graduate, may have hinted at upcoming news regarding the artist. Details about the news remain unclear.
+- sources: _none recorded_
+
+## Taylor Swift Makes Surprise Announcement to Fans
+
+- first seen: 2026-09-22 20:10 UTC | category: release | importance: 7
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift reveals a surprise announcement to her fans, expressing her excitement about sharing it. Details of the announcement have not been disclosed in the snippet.
+- sources: _none recorded_
+
+## Taylor Swift to Release New Single ‘Patient Zero’ This Week
+
+- first seen: 2026-09-22 20:10 UTC | category: release | importance: 8
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift has announced the upcoming release of her new single titled ‘Patient Zero,’ set to debut this week. This announcement comes as fans eagerly anticipate new music from the artist.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiowFBVV95cUxQbGYxQkZIQWVsb1ZBTHZkOVpPS0pGcl9zWEN3TFRwWE91cjRnZjZEMUZnOFR6UmdZMW9pc3RoTWF4Nkt5dkNqNDJGSDJpTTQxV0E4aUdzNkd1WVozX0N4SWRoY0h5bkhXOTFYanZVYjQ5X1kzS1MwZ0JRMV9jRXZScFNfM1h3QllYZ1VNbnk4bXlXN1V5bjZLVlI1dVlKdS1YaXVF?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxNZ1ltOERlMUxnUzVfcmNZdnpGR2R4N1JoNHNyZVhfbFpNNV9oXzEzbk5DNm5tYU5Ib3A4bDRjbnZYTTFtdGxKSXV6RWZRYnUxeU5aLWxDS3lBREFFSU1FdzNKMjRiVEtwSmE5bDBFQVlhaUZXNFgxdjgxSlhPVmdDRXZ3U2dsR1ljWkQ0X2VWS24?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMivAFBVV95cUxNaDd5Wnh3UG12RmNTZldSa2RVVFdWck9zMHE4eWN4SndFSjc3Ykw2V0dXRnFRY0ExM2tKRlBTYXV2X0ZXaGlKa0ZXeEltcTV3YVY1YVpjV0ZQenlRTmtRMUYxNEJmUE0zOU0zd0RqMDZHQTRJbk1hb0NUVlJLdWtESWQ1Wk5SUm5FRGZUR2pndnEwaG5zT0M5TFNzR3FneUE1QTVVYS1aTjFTYmRsUjhFeHFRdHlnaE5aR0NzSQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMEpYbFU2dmR1VFRPb1hZanNPZzFGb2lXNXBXUkJxM05Ya3psbGtXZlhrNzZidmkzaWpmS0RITXpvOGt6STF5TEZ0VE1wNXhLMGc1MDJJd2FFRjF1aDJkR3IxSUo3LXRmeDlEcTRUcEhrV0V3Q0lpcTg1S1o1bThYZGg5ZXowSHVGMlhwUloweFo0TURoTFZFbjY4aHA1b1lXeHpWM0sza3ZVUks3WHBj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMigAFBVV95cUxORXRqTno1VlRSWjNxU0ItT3RES3E3UDF1eU12Y2VtNVBYakdGU3VLVkJNWFZMVkVhdDJEUk5ENUR5Wk9LVjd2Zm0wNTdtSHJxUnNLWnFvWlNMckQxOHYxaldSYTh4ZWJUOEpRYjdsN2lqWlpfM2xHTjdYTHlsQWpUcA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Homeowners File Lawsuit Against Rhode Island's 'Taylor Swift Tax'
 
@@ -588,60 +694,3 @@ Stories: 73
   - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUHNCTHRGZFVJQUxJdTlXcjBUWXNSQ3JkZjBHLXRtY2N3cmpiYk5qcHhTM3NqMTdTT1lEYnJfU2J2YWZnYkJFcm50S2g1QW1Fc1dWTUlJVDNkTXRTcFFNdHRJN2JkMWFuaHIxajlGdENubllsU0JTaVlGQml3VEo0MDJGS3JwX0pOZ01DRDh2RGRNM1BUNmVyZW8yY1VjczJ4NjU3WFJiWQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWHUwcUpfOVJKSEdycTF3R09BSEtKc3c3VjlNaDRDbTZZTHNCX3ZIc2h2VVpscU5ZNW95aFNIaTNsbzZ2dVotbjYzbFZ4c2JnQ0pCaGRaVXFyanlFVXJPUGpzVHFTR2FNakV5NHJURno0OGV5OXpDVjFocUE5OTZQemFaaGRvNXM4RGZyd016YWlOcWVDT0piUmVHZ25wNVRBNG5n?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMinwFBVV95cUxQd0JzeXF6RTM3dmNPUGxrRG43VXNGVElvaXF1bkQ1UnAzVWRreWhfd2hlakNmRko2VnBHVVZrcWM5VVctMTdlRjlUWWVpU2sxZC1Dd0o3cXZOZkc1YnVWQlcwTHQ1NUJxZ0hHZUFOTExkUXIzazZtdzhYcTNZWTVyaS0zbDYtTG9vY255Qm9Pb1JUWkRvaEJETENBU25RZEHSAZ4BQVVfeXFMUGNUOG14Q2tEUWdtZ3BzSXQ5MmYwQkhPSTFYeUs3aEdwRkYzVEsxUHQxLVRmMVF6VGJ3YUVyQUpod00xSllTMWszRWRSMWM5aUMyUVFmXzJzS1UzeU10SGFNSFZTLTFoWWt5a1JTNnZLMGtsWjc4b3E5YldoX1RQS2g4WURjclFPUUJlWnF2dUhlRnNqM2lrVXUxRDF4eGc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Wedding to Taylor Swift on 'New Heights'
-
-- first seen: 2026-09-19 16:25 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared his reflections on his wedding to Taylor Swift during an episode of 'New Heights,' highlighting a particular moment he wishes he could relive.
-- sources:
-  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMi8gFBVV95cUxQUjBlR1Y2bzlfNUdBTm5teGUyX2tGenZPdmdjeW5Dbk1xYjcyVUJDSVJhRHFsTlJ6TC1Wdk1yaWg4MTZvSTdLblF2UUM1OUFTTVBmbndyd1BNcktHNno4SjZxckJtU3JwYnZDU1B1Rm1ndTNCcTFuRnV5RmNuSEJ1ZU1DUXVGRElKLVVDZEpQVmJQOG9SZnliS3VpQ0I0dlg0MGl3d0RtS0RtY0VqMHpYUURiWFEzcy1JSWg5R3U2WFM2cVRIN2pZdnUwbDluVllQVVpvT3hIcWJHZWJON0FVamZqNmc5b1lMR0dHc3doVjU0dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Anne Hathaway Sports Popular Shirt Trending in Hollywood
-
-- first seen: 2026-09-19 16:25 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Anne Hathaway was spotted wearing a shirt that has gained popularity among various celebrities in Hollywood. This versatile piece is deemed suitable for any season by fashion experts.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiigFBVV95cUxORG42c09xdHJWUGs1bU9WOHU2Q2YyanlHc01YTU5jOXU4X3VXbE9IOHlMNjQ1QmM0TGZUT2pDYTBOTFFtMU9XaDFyMzV3YW9qZkJycVFweU5PaW5ZbDJRNUtBMEpUYThRX0V4RU9oNkN6QkJHelczSG5lazZaNkdyXzVLWklLVUo1aWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Stylish LBD for Date Night
-
-- first seen: 2026-09-19 16:25 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased a little black dress during a recent date night, highlighting fashion choices for early fall. The outfit received attention for its trendy and versatile appeal.
-- sources:
-  - [unverified] Miami Herald — https://news.google.com/rss/articles/CBMib0FVX3lxTE5vMndQaE8wM3c0dGdyLUNUWjlTeXVUaS1oaFBkMW5mejd2cThxbzNXTHlmS0dKOE1yVDl5Smw5eUszS1hIQ3NXN2FQYUpHRUo5bEJua1ZTYy1VY3JFWHhYYVkzSVhkMlJsZXptZEFGMA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Featured in Emmys Coverage
-
-- first seen: 2026-09-19 16:25 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A new weekend read highlights Taylor Swift's cameo at the Emmys among other stories. The piece compiles various interesting narratives from the past week, focusing on events like the Emmys and notable figures in the entertainment industry.
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMijgFBVV95cUxNNkEyYXIwQ3ItMG15M0picWhzM00wXy1LYWhtV01UMlpJZzRaNGFsQUJ6WkM5anVLVUU3WFlkSjJsYnF4V25mWE5FWG00UDQxMlNwc3MtaExuOWhPYldTZmNiMHpZXzByWS1hOUNXd3hVWGhnUmVSRmUxenQ3OWp5VjFMU20wSnNCR1M1cWJn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/weekend-read-resident-evil-taylor-swift-emmys-misty-green/
-
-## Taylor Swift's Unique Ingredient in Chocolate Chip Cookie Recipe Revealed
-
-- first seen: 2026-09-19 16:25 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Allrecipes features Taylor Swift’s chocolate chip cookie recipe, highlighting an unexpected ingredient. The recipe adds a twist to the classic treat, showcasing Swift's culinary creativity.
-- sources:
-  - [unverified] Allrecipes — https://news.google.com/rss/articles/CBMidEFVX3lxTE5xRGJBMVd6LWdPalZZdWh2MHI2ZGduRExiRWZXRUZ0dmtTeEVMWHNNVDJLQzBjRGdxdHFPT3pld3J2RjlySWZ5am9RZDE5WmxMRjRVdnVGaWExaERSWDNOTjQxM0lyLV9JUjdSQ2xGQTBwXzc5?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Helping Tom Cruise Find Love
-
-- first seen: 2026-09-19 16:25 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly on a mission to help actor Tom Cruise find the right partner to fall in love with. This initiative has sparked discussions in the media about her involvement in his personal life.
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPM1lNUEpwYUJLZjhiZUhGa3M5U2ExRDlzT0ZIY2VFM3lqR191YnRleWZRbW9UbEJkT1JScmstZTBkTXFzR1VYV3BTWGNmMy11LTJLMHJxNjdEX05xRUhDX0k0T3V1ZndvRDFHcWJ3NWV4OTliSEh4WUdyNmg2ZE8yZ3dMWTFoSnJIckkxNW1qb1BZczVrZmdrY3VYMm1JUFBxRl9VMWpydVk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Tom Cruise Praises Taylor Swift's Football Knowledge at Chiefs Game
-
-- first seen: 2026-09-19 16:25 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At a recent Chiefs game, Tom Cruise commented that Taylor Swift was 'schooling him' on football. The remark highlights their interaction during the event.
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMiyAFBVV95cUxPUFF5amZORWFYRDFBM3hEM1BCR0YxQzBfMjB2SGlVQ0VwSUl4SW9HamE0OUdGTXhvaVhad3FOaXdEQmRSbDdOV054Uy1EWjdGNWR6dlpYdklqWkdFZmpIc2NiNGQ1OE1KVVVTNjBBSGFjRHdKYXh3dWNSc0Vwdzk3VmQzZExHcGtPZUlaLTdZOGExOUJIYWNtRFh4d0lnbzIyenBTVzVTaWxJUXpxT3JNdW96Y0FBdWNITzBPZ1Z6RmNkOENHQXplYg?oc=5&hl=en-US&gl=US&ceid=US:en
