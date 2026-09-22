@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #82 🔴 [BLOCKING] GH_DISPATCH_TOKEN can't dispatch workflows (~10 min)
+<!-- ha filed=2026-09-22 -->
+
+**Why:** Marjorie's hourly watchdog-ops sweep uses the `GH_DISPATCH_TOKEN` secret to re-dispatch quiet or failing scheduled workflows (7 of the 14 alert types rely on it). Re-dispatching `plan-recheck.yml` today failed with HTTP 403 "Resource not accessible by personal access token" — the token can't trigger a workflow run at all, so every re-dispatch action in that sweep is currently a no-op.
+
+**Steps:**
+1. Open the repo's Settings → Secrets and variables → Actions and find the token behind the `GH_DISPATCH_TOKEN` secret.
+2. If it's a fine-grained token, give it "Actions: Read and write" permission for this repo; if it's a classic token, give it the `workflow` scope.
+3. Save the updated token as the `GH_DISPATCH_TOKEN` secret value.
+
+**Worked if:** the next hourly Marjorie ops sweep can run `gh workflow run` without a 403 (visible in that run's log).
 
 ## #81 🟡 [DECIDE] PR #4220 (social-poster branch) has been red for 7 days (~2 min)
 <!-- ha filed=2026-09-20 -->
