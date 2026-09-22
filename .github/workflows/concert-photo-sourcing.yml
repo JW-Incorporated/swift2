@@ -1,0 +1,101 @@
+# Concert photo sourcing — recurring cadence (kanban t_a66e5eb2, follow-up to
+# t_e1d26de7/PR #4522). Same shape as community-crawl.yml: kill-switch OFF by
+# default (a deliberate, separate founder action to enable), home-relay
+# pacing already enforced inside source-reddit-photos.mjs itself (mandatory
+# randomized 1-11s delay per relay request — see that script's header),
+# never retry-storms a 429.
+#
+# Pipeline: source-reddit-photos.mjs discovers candidates -> the EXISTING
+# import-photo-library.mjs --fetch --write lands them in the library (no new
+# ingestion path) -> photo-coverage.mjs reports the resulting spread as a
+# workflow log line for founders to skim.
+#
+# CONCERT_PHOTO_SOURCING_ENABLED defaults to unset/false, checked first,
+# before any network call — same posture as COMMUNITY_CRAWL_ENABLED.
+name: concert-photo-sourcing
+
+on:
+  schedule:
+    - cron: "40 8 * * 1" # weekly, avoids this repo's :00/:05/:10/:30 clusters and community-crawl's 07:13 slot
+  workflow_dispatch:
+    inputs:
+      limit_per_sub:
+        description: 'Override candidates fetched per subreddit for this manual run'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: concert-photo-sourcing
+  cancel-in-progress: false
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # Kill-switch check FIRST, before checkout/install/any network call —
+      # same posture as community-crawl.yml's own gate.
+      - name: Kill-switch check
+        id: enabled
+        env:
+          SOURCING_ENABLED: ${{ vars.CONCERT_PHOTO_SOURCING_ENABLED }}
+        run: |
+          if [ -n "${SOURCING_ENABLED:-}" ] && [ "$SOURCING_ENABLED" != "false" ] && [ "$SOURCING_ENABLED" != "0" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "CONCERT_PHOTO_SOURCING_ENABLED is not \"true\" (repo variable) — kill switch OFF, skipping this run entirely." \
+              "Set it in Settings -> Variables -> Actions to turn this on."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - uses: actions/setup-node@v7
+        if: steps.enabled.outputs.enabled == 'true'
+        with:
+          node-version: "24"
+
+      - run: npm ci --ignore-scripts
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - name: Source candidate photos from Reddit
+        if: steps.enabled.outputs.enabled == 'true'
+        env:
+          HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
+        run: |
+          node scripts/social/source-reddit-photos.mjs \
+            --output .artifacts/concert-photo-candidates.json \
+            --limit-per-sub "${{ inputs.limit_per_sub || '25' }}"
+
+      - name: Import candidates into the photo library
+        if: steps.enabled.outputs.enabled == 'true'
+        run: |
+          node scripts/social/import-photo-library.mjs \
+            --input .artifacts/concert-photo-candidates.json \
+            --fetch --write
+
+      - name: Report coverage
+        if: steps.enabled.outputs.enabled == 'true'
+        run: node scripts/social/photo-coverage.mjs
+
+      - name: Open gated photo-library update
+        if: steps.enabled.outputs.enabled == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: |
+            social/photo-library.json
+            apps/web/public/social/library/photos/**
+          branch: social/concert-photo-sourcing
+          commit-message: 'social: import sourced concert photos (concert-photo-sourcing)'
+          title: 'social: import sourced concert photos'
+          body: |
+            Automated concert-photo-sourcing run. Sourced from public
+            concert-photo subreddits per kanban t_a66e5eb2 (founder decision
+            D1=B, docs/decisions.md 2026-09-22 — no credit/permission gate on
+            ingestion). Never touches the live posting pipeline.
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
