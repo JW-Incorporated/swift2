@@ -14469,6 +14469,129 @@ export default {
         // file (e.g. 'showgirl-announced-on-new-heights').
       },
     },
+    {
+      slug: 'vma-2026-artist-director-honor',
+      year: 2026,
+      month: 9,
+      day: 22,
+      category: 'music',
+      significance: 'notable',
+      title: 'MTV creates a new VMA honor — the Artist Director award — and names Taylor its first recipient',
+      snippet:
+        'MTV announced that Taylor will be the inaugural recipient of the Artist Director Honor at the 2026 Video Music Awards on Sept. 27, a new award recognizing a directorial voice built across her own music videos — the artist with more Best Direction Moonmen than anyone.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-mtv-vmas-2026-inaugural-artist-director-award-1236871205/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'MTV announced that Taylor will receive the first-ever Artist Director Honor at the 2026 Video Music Awards, a newly created award the network describes as celebrating a sustained, influential body of work from an artist who has pushed creative boundaries and developed a clear directorial voice. She is the inaugural recipient — the award did not exist before her — and it lands on a résumé that already leads the category it honors: Taylor has won Best Direction four times, for "The Man," "All Too Well: The Short Film," "Anti-Hero" and "Fortnight," more Best Direction Moonmen than any other artist in VMA history.\\n\\nThe honor is separate from the competitive races, where Taylor goes into the night with eleven nominations, led by a Video of the Year run and six craft nods for the self-directed "The Fate of Ophelia" (see the nominations entry). The 2026 VMAs air live on Sunday, Sept. 27 from the Peacock Theater in Los Angeles — broadcast on CBS with an MTV simulcast, and hosted by Snoop Dogg. (The venue is the Peacock Theater; do not read that as the streaming service.) An honorary award is a different thing from the Moonmen counted in the all-time win tally, so this recognition sits alongside, not inside, the record chase that the competitive categories carry on Sept. 27.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-mtv-vmas-2026-inaugural-artist-director-award-1236871205/',
+            source_title: 'Taylor Swift to Receive Inaugural Artist-Director Award at 2026 MTV VMAs',
+            publisher: 'Variety',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-artist-director-honors-2026-mtv-vmas-1235629611/',
+            source_title: 'Taylor Swift to Receive Artist Director Honors at 2026 MTV VMAs',
+            publisher: 'Rolling Stone',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/2026-vmas-taylor-swift-artist-director-honors-1236706910/',
+            source_title: '2026 VMAs: Taylor Swift to Receive Artist Director Honors',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'trade_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+        ],
+        // The honor recognizes her self-directed music-video work, so a frame
+        // from "The Fate of Ophelia" — the self-directed 2026 video up for
+        // Video of the Year and six craft VMAs — is the apt visual. Same
+        // official upload (id ko70cExuzZM) verified elsewhere in this file;
+        // maxresdefault re-verified this run: HTTP 200, image/jpeg, 1280x720.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "The Fate of Ophelia" music video thumbnail, YouTube)',
+            caption:
+              'A frame from the self-directed "The Fate of Ophelia" — the kind of directorial work the new Artist Director Honor recognizes.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-rhode-island-taylor-swift-tax-lawsuit',
+      year: 2026,
+      month: 8,
+      day: 20,
+      category: 'business',
+      significance: 'notable',
+      title: 'More than 40 homeowners sue over the “Taylor Swift tax” — the surtax named for her Watch Hill estate',
+      snippet:
+        'A group of more than 40 Rhode Island second-home owners filed a constitutional challenge in Newport County Superior Court to the state’s new surtax on high-value vacation homes — the levy the press nicknamed the “Taylor Swift tax” for her Watch Hill estate. Taylor is not a party to the suit.',
+      sourceUrl:
+        'https://news.bloombergtax.com/daily-tax-report/taylor-swift-tax-draws-first-suit-from-rhode-island-homeowners',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The surtax that took effect on July 1, 2026 has drawn its first court challenge. In mid-August 2026, more than 40 Rhode Island homeowners — owners of second homes assessed above $1 million — filed suit in Newport County Superior Court through the law firm Hinckley Allen, asking the court to strike down the levy the press had already nicknamed the "Taylor Swift tax." The name comes from her Watch Hill estate, the most famous property the surtax reaches; Taylor herself is not a plaintiff and not a defendant, and the suit is not about her.\\n\\nThe tax adds $5 for every $1,000 of assessed value above $1 million on non-owner-occupied homes, with the revenue earmarked for the state\'s Low-Income Housing Tax Credit Fund. The homeowners\' core argument is a "no taxation without representation" one: most of the people who owe it are out-of-state residents who cannot vote in Rhode Island, and the plaintiffs contend the levy singles them out unconstitutionally and bears no reasonable relationship to its stated housing purpose. The filing itself is the news here — a documented legal challenge — not any claim about Taylor, whose only connection is that a state tax bill ended up carrying her name in headlines.',
+        sources: [
+          {
+            outlet: 'Bloomberg Tax',
+            url: 'https://news.bloombergtax.com/daily-tax-report/taylor-swift-tax-draws-first-suit-from-rhode-island-homeowners',
+            source_title: "'Taylor Swift Tax' Draws Suit From Rhode Island Homeowners",
+            publisher: 'Bloomberg Tax',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Providence Business News',
+            url: 'https://pbn.com/lawsuit-challenges-rhode-islands-taylor-swift-tax/',
+            source_title: "Lawsuit challenges Rhode Island's 'Taylor Swift Tax'",
+            publisher: 'Providence Business News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'GoLocalProv',
+            url: 'https://www.golocalprov.com/news/40-plus-rhode-island-homeowners-file-challenge-to-taylor-swift-tax',
+            source_title: "40 Plus Rhode Island Homeowners File Challenge to 'Taylor Swift' Tax",
+            publisher: 'GoLocalProv',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 3,
+          },
+        ],
+        // Privacy: this item is about a tax and a lawsuit, never her home. No
+        // property imagery is used — the visual is a neutral, reusable portrait.
+        // upload.wikimedia.org file re-verified this run: HTTP 200, image/jpeg,
+        // 840x1229. License CC BY 3.0, credit iHeartRadioCA.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_2024_%28cropped%29.jpg',
+            credit: 'iHeartRadioCA, CC BY 3.0, via Wikimedia Commons',
+            caption:
+              'Taylor Swift in 2024. The Rhode Island surtax that reaches her Watch Hill estate carries her name only by nickname; she is not a party to the homeowners\' suit.',
+            kind: 'reference',
+            focalPoint: '50% 30%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
