@@ -1,0 +1,46 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "Okay the moment that still undoes me: in May 2025, after six years of fighting, Taylor finally owned all six of her masters. Every album. Hers 🤍\n\nThat's the whole reason we built the Taylor's Version thread — it follows the re-recording campaign album by album, the way she reclaimed her life's work one vault at a time.\n\nFearless came back first in 2021 with six vault tracks. Then Red, with nine — including the ten-minute 'All Too Well' that debuted at No. 1. Speak Now, announced mid-show on the Eras Tour. 1989, called out from the SoFi stage.\n\nFour re-recorded, all six owned, two still to come — and watching the timeline fill in, in order, is the best kind of receipts.\n\nPhoto: Taylor on the Eras Tour, Minneapolis 2023 — Michael Hicks (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?lens=taylors-version&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-lover-eras-minneapolis-act5-2023.jpg",
+    "/social/library/thread-taylors-version-screen.png"
+  ],
+  "mediaKind": "photo",
+  "photoId": "lover-minneapolis-act5-2023",
+  "mediaCredit": "Michael Hicks (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Minneapolis,_MN_-_Lover_act_-_5.jpg",
+  "altText": [
+    "Taylor Swift performing the Lover set of the Eras Tour in Minneapolis, 2023, mid-stride across the stage with pastel lighting.",
+    "A screenshot of the Taylor's Version thread on the Long Live site, titled 'Owning the masters', showing a re-recording timeline with status chips reading '6 of 6 owned' and '4 of 6 re-recorded'."
+  ],
+  "scheduledAt": "2026-09-22T23:00:00Z",
+  "campaign": "thread:taylors-version:origin-story:2026-09-hero",
+  "why": "09-22 Taylor's Version thread hero, origin-story angle (window 09-21->25, slot 1 of 2). The 'one moment that made it worth building': May 2025, she owned all six masters again after the 2019 sale. Facts sourced to supabase/seed/lenses/threads.mjs (title 'Taylor's Version'/'Owning the masters', the 'reclaims her life's work one vault at a time' copy) and rerecords.mjs: Fearless TV 2021 = 6 vault tracks; Red TV = 9 vault tracks incl. All Too Well (10 Min) debuting No.1; Speak Now TV announced mid-Eras-Tour 2023; 1989 TV announced from the final SoFi show; debut + reputation still have no TV (2 to come); May 2025 Shamrock buyback = all six owned. Slide 2 = thread-taylors-version-screen.png (free/unburned), which shows the lens IN USE with the real '6 of 6 owned / 4 of 6 re-recorded' tracker — cool-feature-only satisfied. Media[0] = lover-minneapolis-act5-2023 tile: 7-day-clear (last posted 09-08, 14d ago), distinct photoId from the X sibling. DROPPED the calendar's claim that 'the re-recording story begins in the Lover era' — repo data contradicts it (masters sale June 2019 predates Lover era start 2019-08-23; Fearless TV announced Feb 2021, after Lover; eras.ts:187 calls Lover 'the first album she owned outright', i.e. OUTSIDE the reclaim story). So the photo is credited plainly as a tour photo with NO era-relevance claim (calendar's own photo-availability note permits this). photoEra unset: thread:taylors-version is a cross-era, non-themed family. Thread post = share-hook exempt. Standard sentence capitalization (strategy Voice 2026-09-10).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "Taylor's Version origin-story hero: the May 2025 moment she finally owned all six masters, then the album-by-album reclaim — Fearless (6 vault), Red's nine incl. the No. 1 ten-minute All Too Well, Speak Now, 1989. Slide 2 is the real thread tracker: 6 of 6 owned, 4 of 6 re-recorded. Sourced to threads/rerecords.mjs.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-21T20:30:44.335Z",
+    "pr": 4496,
+    "sha": "ff89c549165b04d7b639cf7a484220fee238d243",
+    "message": "1551643844758610000",
+    "contentHash": "sha256:88a59d98e92cced4e97bbae5af07bd87ae51a05120ba9a754071d8e2f5a95c87",
+    "sig": "hmac-sha256:e52ea9ecf99d549897bc7ff50c54562f24adb6a61dfb907e50c6ff15ce4b50f0"
+  }
+}

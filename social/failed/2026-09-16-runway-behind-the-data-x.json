@@ -38,5 +38,7 @@
     "message": "1549445190685691995",
     "contentHash": "sha256:ac6ead1e6a6db262b52a37876fcf320edfb42bf66639ad9a88d2f7ab1a741fef",
     "sig": "hmac-sha256:dc2e5da450b0e540ec4ddae6faf3629ba124ee0cad81ec0680a75e46f2f6eded"
-  }
+  },
+  "failureReason": "Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md's 48h rule).",
+  "lastAttemptAt": "2026-09-22T01:27:53.627Z"
 }
