@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #82 🟢 [UPGRADE] Turn on the recurring concert-photo sourcing crawl (~2 min)
+<!-- ha filed=2026-09-22 -->
+
+**Why:** kanban t_a66e5eb2 shipped a Reddit concert-photo sourcing adapter (PR #4529) that already ran once manually and grew the photo library from 10 to 31 entries. The recurring GitHub Actions workflow (`concert-photo-sourcing.yml`) ships with its kill switch OFF by default, same convention as `community-crawl.yml` — it needs a deliberate repo variable flip to run on its own weekly schedule going forward.
+
+**Steps:**
+1. Go to github.com/JW-Incorporated/swift2 → Settings → Secrets and variables → Actions → Variables tab.
+2. Click "New repository variable."
+3. Name: `CONCERT_PHOTO_SOURCING_ENABLED`, Value: `true`, then Save.
+
+**Worked if:** the `concert-photo-sourcing` workflow's next Monday 08:40 UTC run shows "enabled=true" in its log instead of skipping.
 
 ## #81 🟡 [DECIDE] PR #4220 (social-poster branch) has been red for 7 days (~2 min)
 <!-- ha filed=2026-09-20 -->
