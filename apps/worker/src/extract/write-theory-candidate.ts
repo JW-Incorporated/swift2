@@ -56,6 +56,7 @@ interface ExistingCandidateRow {
   peak_score: number;
   communities: string[];
   sample_urls: unknown;
+  numeric_signals: number[] | null;
 }
 
 export interface UpsertTheoryCandidateResult {
@@ -80,7 +81,7 @@ export async function upsertTheoryCandidate(
 
   const { data: existing, error: selectError } = await db
     .from('fan_theory_candidate')
-    .select('id, mention_count, peak_score, communities, sample_urls')
+    .select('id, mention_count, peak_score, communities, sample_urls, numeric_signals')
     .eq('theory_key', theory.theoryKey)
     .maybeSingle();
   if (selectError) throw new Error(`fan_theory_candidate select failed: ${selectError.message}`);
@@ -106,6 +107,9 @@ export async function upsertTheoryCandidate(
         peak_score: Math.max(row.peak_score, ctx.score),
         communities,
         sample_urls: sampleUrls,
+        numeric_signals: [
+          ...new Set([...(row.numeric_signals ?? []), ...(theory.numericSignals ?? [])]),
+        ],
         updated_at: new Date().toISOString(),
       })
       .eq('id', row.id);
@@ -133,6 +137,7 @@ export async function upsertTheoryCandidate(
       status: 'candidate',
       redline_ok: true, // theoryCandidatePassesScreen already gated this call, same posture as upsertLiveTheory's insert branch
       sample_urls: sampleUrl ? [sampleUrl] : [],
+      numeric_signals: theory.numericSignals ?? [],
     })
     .select('id')
     .single();

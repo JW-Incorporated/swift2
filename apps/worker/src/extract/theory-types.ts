@@ -51,6 +51,13 @@ export interface ExtractedFanTheory {
   /** Same vocabulary as egg_ledger.mechanism (number, color, wardrobe, caption, lyric_callback, ...). */
   mechanism?: string;
   symbols: string[];
+  /** Numbers the fan discussion itself points to (a repeated punctuation
+   * count, an album/track ordinal, a date part) — distinct from `symbols`
+   * (lexicon-key strings like "13"/"snake"): this is raw numeric evidence
+   * the deterministic catalog-fact scorer (./symbol-match.ts) checks
+   * against ./catalog-facts.ts, never symbol-lexicon-constrained the way
+   * `symbols` is. Optional/omitted when the discussion cites no number. */
+  numericSignals?: number[];
   trackSlug?: string;
   predicts?: FanTheoryPredicts;
   /** ISO date (YYYY-MM-DD). */
