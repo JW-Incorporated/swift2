@@ -14411,6 +14411,64 @@ export default {
         ],
       },
     },
+    {
+      slug: 'patient-zero-single-announced',
+      year: 2026,
+      month: 9,
+      day: 22,
+      category: 'release',
+      title: 'Taylor announces "Patient Zero," a new single out September 25 — CDs live for 24 hours only',
+      snippet:
+        'A countdown clock on her website ended, then an Instagram post: Taylor\'s new single "Patient Zero" arrives Friday, Sept. 25, with a 24-hour pre-order window for three collector\'s-edition CDs. It is her first new single since Toy Story 5\'s "I Knew It, I Knew You," and lands days before she receives the first-ever Artist Director Honor at the 2026 MTV VMAs.',
+      sourceUrl: 'https://www.instagram.com/p/DdmVHc2R30b/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Earlier on Sept. 22, 2026, Taylor\'s Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u. \u2764\ufe0f\u200d\ud83d\udd25" — the letter O in "show" and "for" swapped for zeroes — and a countdown clock appeared on her website. When the countdown ended that afternoon, she posted the reveal directly: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours," alongside a photo of her in a black turtleneck.\\n\\nThree CD editions went up for pre-order on her store for the 24-hour window: a standard double-sided-cover CD, an acoustic version, and a piano version. It is her first new single since "I Knew It, I Knew You," her Toy Story 5 contribution from earlier in 2026, and her first release of any kind since The Life of a Showgirl (Oct. 3, 2025). The timing lines up with two other things on her calendar: she receives the inaugural Artist Director Honor at the 2026 MTV VMAs this Sunday, Sept. 27, and the reveal follows a cryptic Emmys sketch appearance earlier in September where she told host Mariska Hargitay to look for clues "hiding in plain sight" and rattled off phrases fans immediately flagged as Easter eggs: "Saccharide. Aries. From the vineyard. North or south."\\n\\nThe zero motif carried across platforms: fans also noticed Spotify added album-specific play/pause animations across her catalog that day (sparkles for The Life of a Showgirl, floating hearts for Lover), read by some as part of the same rollout.',
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'DdmVHc2R30b',
+          label:
+            'The reveal post: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours."',
+          postedOn: '2026-09-22',
+        },
+        sources: [
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2026/09/taylor-swift-announces-patient-zero-new-single-due-friday',
+            source_title: 'Taylor Swift Announces "Patient Zero," New Single Due Friday',
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Independent',
+            url: 'https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-new-song-patient-zero-b3054479.html',
+            source_title: "Taylor Swift announces new single 'Patient Zero'",
+            publisher: 'The Independent',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-announces-single-patient-180930000.html',
+            source_title: "Taylor Swift Announces New Single 'Patient Zero' as She Teases Collector's Edition CDs",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-22',
+            reliability_score: 4,
+            notes:
+              'confirms the Instagram caption verbatim, the three CD editions, the Spotify play/pause animations, the "sh0w business f0r y0u" bio change with zeroes replacing O, and the Sept. 27 VMAs Artist Director Honor.',
+          },
+        ],
+        // No standalone photo needed beyond the embedded Instagram post itself
+        // (step 3b) — the socialPost above IS the visual for this moment,
+        // per the same convention as other announcement-post moments in this
+        // file (e.g. 'showgirl-announced-on-new-heights').
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
