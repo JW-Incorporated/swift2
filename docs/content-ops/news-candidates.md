@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
+
+## Taylor Swift Wins MTV New Artist Director Award
+
+- first seen: 2026-09-23 23:38 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been awarded MTV's new artist director award, recognizing her influence in music and artistry.
+- sources:
+  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQUDJ4N0dSeUstUUpiR28xNXROdDNVVExOLUF6b0E4cGFWQXE5OXpwazJ4OTlQb1BQRE91WWFITDA0dHpJSXR1UzA1cDlmRE9DNl9fUzlOYUEta0JaWVhpdzZrNDVBVy1LRzd3VEdteHM4a3pUX3dmWjU4Rk05OXNrSzZlVXNETlgyWnJvMkFmVzRpREl1algtZzY1Mm1ZeXFLWlJid3pQcUhOZzg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Comments on Taylor Swift's Touchdown Response
+
+- first seen: 2026-09-23 23:38 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce addresses Taylor Swift's viral reaction during a Chiefs game where she referred to him as 'That’s My Husband.' He emphasizes his intention to make her proud.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNaExqV3JyOGVhMm1GSExqZ09SSWFXWjQ5cUdweVR0OUJfUUw3NVlGczlmVnR4TVhOMG5WMFU0RFNiWTdUZE1yWHJIQVhFQzRxMTlWUGc4RG9WQWFpWXlSZjNXSTIyZlcwWWFDQVB1YzVEUGF2d0wwcEFJZGRXYm83X1F0Ym53dk9peDdRSXNzTzJMQk9LLWxkM0htV2dvVTU1R2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Poised to Make VMA History with New Honors
+
+- first seen: 2026-09-23 23:38 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to become the most awarded artist in VMA history with the new Artist Director Honors, surpassing Beyoncé. This recognition highlights her significant contributions to the music industry.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAJBVV95cUxPZnNZZ2wtRF94MHVOb2hXTW9SLTVoWTZYNWk5akIwbFRPNEZxVmktNkkyQTE3SU83bTlYcVlxd0ItTjFUZXM4dDJiTldPZnZWOTdMYm9vUzRsRF96b1pQSkZUSmdjdXk1RGtsU05MTS1XN2FacldsNEV1MWFndk1YUlJmell2dzljT1NfM2RMLWlYbDhQSFczU1RnVkJKZWxBMk9YbTdMQnJOUGtudXRDaERjNkhuSzBSQXp5dnhXcGMyTVc2N1ZPeUZybm5kUEZ2eHRfcmExU25tTHpoUDFYSWZXeW5STklueENvYWZEVll6ZklpaGJaYXFPc3RDRDdZcVdRLS1Mc1lseDZmWHkydw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Sports Unique Tassel Look and Controversial Shoes
+
+- first seen: 2026-09-23 23:38 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a minimalistic tassel-covered outfit paired with shoes that have sparked mixed reactions among fans. This bold fashion choice has attracted media attention and commentary.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQR1NsQUZsR1cxaDJJY3JzM3gxeC1HeFNwSWcwdWFrODJMWFg0Znh5bDlDd3YzQk9rVjhEU040UHlPT0FreG1WQTBEWlc3a1V3TEE3enpMcXA5OFMyWU9QSnN0ckl1TlUxdzB4VlhHRnBtdDI0VDFscnVsZUthN0RwbmtDTk15LU9FUzFR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift announces new song titled 'Cleveland!'
 
@@ -43,22 +75,6 @@ Stories: 83
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxPVHU4TGx4LWRHQV9wNk5qUHViTWhpYVJGc3FURE4xbTdDMFIzdnFZcTlFVnJZRExQVEJMNjlLYlZTdnE3dUxqVmtWMXpYY2tBWG14T0tnb0t3eC12OWFIR1oyZXoyVmpuS09kRko5T1JEX1hQTlpucUg1NmJPeUJmREdLTEVaMUlFSTJfTjdVbUhDNkU3UmsyejlyZnVzSDA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift's new song 'Cleveland!' may reference Ohio
-
-- first seen: 2026-09-23 20:17 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's latest song titled 'Cleveland!' has sparked discussions about a potential shoutout to Ohio. Details surrounding the song and its implications for the state are being explored.
-- sources:
-  - [unverified] The Columbus Dispatch — https://news.google.com/rss/articles/CBMi6AFBVV95cUxQZTlNNUtsSGM2ODlmb1haaFFUcEFkeFNQUkM0Q3gyQnp5TG5ubmp5dENNZEdDcmdIQi1mN2dYY0t1TTVhQW9zc1ExOUZKZEhoZTRoemJTY3RhTXdZQ05GMUJFZVJUODdhN0t6NzQyYkIxSjJJRjBMdF9pWUNDMWoxZTVrR2R5QUx0ZzBEcEhjSmdjVVI1LVlDOFo2WmtWR0N0UG9KcU9rQ3k4QmVxRFdUY0VoMUVpY1BkN3ozVW55T1ZTTDNhSFA5WjRmaEF5aTJMV21CbHM4VHFwRVladHJ3c2czLW0yTHhw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Announces Release of New Song 'Cleveland!'
-
-- first seen: 2026-09-23 20:17 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has announced that she will be releasing a new song titled 'Cleveland!'. Further details about the song have yet to be revealed.
-- sources:
-  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMib0FVX3lxTFA4NkVFeFppUTBMVkJxZnMzNGsydkJSbGxRaDJpb0FuZm9DazAwbzRpbXFQU2tRdllGMEhERll2ZjZQODMzYmNUemtyWXBMQTBSS1BBb0dLYmZ1SUQyZzFVZHhEcTJVU1A0Z3ExbV9DWdIBdEFVX3lxTE91OUc5X2xZVFBsUnZkdUVOcDhwRzVreVJFeUpMbk5UZTA5Y2dMdGcwQlo1RWV1WTZySER5b0pzb0VTVWFILWgxUllBdERmOS12WXFHZ0ZZOHFPaVZza2JyVF9kbjBGQnJXVnNJdWUzSWw4ZVpK?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift to release four new songs including 'Patient Zero'
 
 - first seen: 2026-09-23 20:17 UTC | category: release | importance: 8
@@ -67,13 +83,23 @@ Stories: 83
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPUHFuMWhYdTl4NXQyeDdJaWVCZWpFNDQ5M3dDQnBxLVY3RmVXWVFPNk5BNlRiREhNVlZpcUZJSDlLNlRuLVJwbWc0a2o1TW9XM0x1OTRBM2xNc2hpVmd0alViSDI3UlJ1Uk4zSUlJV3ZFQnJzNEFtUlozNFBGQ0wySTNkQXhOSzFZRlcwelFRVGdOeHduNXlJaXZkVTNPUdIBowFBVV95cUxQTks5cHpHYkp4LUItR2ZBZkkyZm1RcVdhajhuQkFhWU9BQnNsSE9ZZFJVaU55eUFXam91MS1NVk55akxBWjVKNXVPck9ucF9VRXhvWk81ZlY1SkZsYk5tSkNGMXNDb24tSnVJa1JnS0tBWXNKYk5MWThxOU5tdmFQQ1dFR2dwUll6VWpPQ2NmSHNaMjljamJaWlVCdnFBZjBod0dJ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift to Release Three New Songs This Friday
+## Taylor Swift's new song 'Cleveland!' may reference Ohio
 
-- first seen: 2026-09-23 14:13 UTC | category: release | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has announced the release of three new tracks this Friday as part of the expanded album 'The Life of a Showgirl: The Encore,' featuring the previously announced song 'Patient Zero.'
+- first seen: 2026-09-23 20:17 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift's latest song titled 'Cleveland!' has sparked discussions about a potential shoutout to Ohio. Details surrounding the song and its implications for the state are being explored.
 - sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/
+  - [unverified] Nerdist — https://news.google.com/rss/articles/CBMisgFBVV95cUxPaDB2QkxJVnBCR3BtOVRQQXF0VTdJTkNQZFMxX21IMDVJZ3BZS0ktMlFtRnNJYVBoUzktaUtpM3dNOE9xLUx2LWZTSFUyaEdpWTM2Zll2aEF4SWJ4LWhnM0NCb3BuYlRzdWRXNzdoQzN2MWpxOElHbjJSZW5CLU43QkpoUjJCWHZ4S1dGVEVSaVBPZTlqN2tHellCRWN0Tncyb3UzWEFZN1Zld0djX0NzOUd3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Columbus Dispatch — https://news.google.com/rss/articles/CBMi6AFBVV95cUxQZTlNNUtsSGM2ODlmb1haaFFUcEFkeFNQUkM0Q3gyQnp5TG5ubmp5dENNZEdDcmdIQi1mN2dYY0t1TTVhQW9zc1ExOUZKZEhoZTRoemJTY3RhTXdZQ05GMUJFZVJUODdhN0t6NzQyYkIxSjJJRjBMdF9pWUNDMWoxZTVrR2R5QUx0ZzBEcEhjSmdjVVI1LVlDOFo2WmtWR0N0UG9KcU9rQ3k4QmVxRFdUY0VoMUVpY1BkN3ozVW55T1ZTTDNhSFA5WjRmaEF5aTJMV21CbHM4VHFwRVladHJ3c2czLW0yTHhw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Announces Release of New Song 'Cleveland!'
+
+- first seen: 2026-09-23 20:17 UTC | category: release | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has announced that she will be releasing a new song titled 'Cleveland!'. Further details about the song have yet to be revealed.
+- sources:
+  - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMjVHMWVVQ0dqbWdLSmVHNkpWNWdTRXBGQmRkZWNxbUtURlJqRjhfa05WeldxYUJxYWNVM0dTOXFibm41azkwSzhtWmZyQ05nYy1xak1lRmFuUlFlaEtkRWhydFdDanp4aXo2VlF6V2ZLZzlpOHpUb3FyRE1sbzlxWDZyYjQ4Ymgwc0paUDBDVjdIVk5Rbm1QYlgzSERGcEtDOVR6VURwdC0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMib0FVX3lxTFA4NkVFeFppUTBMVkJxZnMzNGsydkJSbGxRaDJpb0FuZm9DazAwbzRpbXFQU2tRdllGMEhERll2ZjZQODMzYmNUemtyWXBMQTBSS1BBb0dLYmZ1SUQyZzFVZHhEcTJVU1A0Z3ExbV9DWdIBdEFVX3lxTE91OUc5X2xZVFBsUnZkdUVOcDhwRzVreVJFeUpMbk5UZTA5Y2dMdGcwQlo1RWV1WTZySER5b0pzb0VTVWFILWgxUllBdERmOS12WXFHZ0ZZOHFPaVZza2JyVF9kbjBGQnJXVnNJdWUzSWw4ZVpK?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Patient 0 Cover Faces Photoshop Controversy
 
@@ -156,6 +182,15 @@ Stories: 83
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi-wFBVV95cUxPVVJSelhVbU5wWDRXUHVBc0l1dmZMakJ0QWdMRTlhcFVXaVVBSG1HYTZZYVdkUmxBVGdfX0xjMWRlVFFocUJaUmZQN1dkby10dGltOW1ZcGpfajZzcGRxSld0WmVyV2ZIUDRFQ2ZfcFd4WExzU1BJU0hxREtaeTh4Tkd6bG9GLUkyTWFyaGs2dzhqMnByOUJxOUlFOGNldEREY0xfS0p6Nlo0eXIwYXRIUXVETFFkazVyS1BEaFRMVEhPaHpmU2dRd0ZaOUk3WDM2NW13TDF1YzRTM1JsOUhRTnlzR1lWN3NWcFBqdjBQM29XNTVNUHkwSzE1QQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwJBVV95cUxPZGhUV3ZodmVDT3pIQ2pFN04ydDZ4QnNrcTEtWm5yX3lnUDFmNmE4OWZuVFhDMEVWY1YtbktnekNnbGtYZXpIMzY2R21sbXc2a1VkQWZwdi10VWs3R1ZSVnFwZGhxbk5sSjBjdGNvNG1QZEFDRzRCcFkyREdkWUJsdkdzVXNQQm16bGF5SnE5Z24zYmRvZ1hLTVN2ZERFTnlPWFVzRWhSUFRWdFFFcENxLXQ1MDVrOVhhM2M0VWJ2azh1UGZ4a1k4bXAyZ0h3ZjJfMGdDU3V6VkhpYVRQbk9zcHIzZm85Uk9laVd5TmZZTEUweWtJT2stc1ZJWUxEN2N6bVhXRDc3V3FjdG12ZHkzYVdKYlhzMk0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNSlVUcnUtaUczT05fUlVFNkIyeXp2Y2pMc0VvOWU1cUdkeHQ0d3EwdlA1UnloX2dtdTloY1VqUXo3T3JOd3B5eVc2R0Z6NDhWa2U2UkpZRnQzSFZoWkROUlJZd1RNS1VFVjNLVFIzWnF2VmM2VUZ3N2hoNE40ak85NmtjakgwRV9tMDN2UGJPT1cwMXFCVTB1QkhxU1AyWHRmTThQMmNFOXlCNU5WN0hCTEN5dDZoOEZhYTBCV3kyWlBQbVFic2JPNVlMN0kxWXczMnBDbUk0TE50cjR1WXpSTXFPOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Release Three New Songs This Friday
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has announced the release of three new tracks this Friday as part of the expanded album 'The Life of a Showgirl: The Encore,' featuring the previously announced song 'Patient Zero.'
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMikwFBVV95cUxOS2NsUXdRRi1yQ25TTk9Ob2Q2cDhqTldUMG9CM0t2UHNfX0VLRVE3Uzhmd2N1dHhuOTVYNWdTNzRuZHE1bERZLXk5Yk9MU1lNTXE4QkVnMjFlTGpTeHVTaGFGa05YMWRVVXd2T2k3YnVkRlh6R0JnQ29RTXZ6REVzamt3QVpYX1hGNmFBeUd2a09lWlk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/
 
 ## Speculation on L.A. Times Influence on Taylor Swift's New Single
 
@@ -692,45 +727,3 @@ Stories: 83
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirAFBVV95cUxQRWRMaFdieC1ncnVHN182Mk5KNGtXeTd3eGdWdnRHSnAwcV9LMW9xaEM2NWZ1aWJ6V2F3Wkp0SEdHTWw0SG9jWlRURjZSYnFENGkxSmJmUG9aWC1EX19rQi1qemJfNXdpM3RqeVd4M1BST09kdU92NS13RnIyU3l1T3p0NXBleWNuSmt0OGNGMDZDUXlYb3NKSDFLTlI5S01GcWZMV25reGZrZENk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmpCMVEtQjBKdDFUR0otZ05LNTBiRl82WEFBWjB5cTdpYTdOWE5pNnNoVGVXSFRua3ExNjN5U25QWHZreFU5Q3djaWdSZFh3RDJyYkQtd25LdnYtcVN5ZURNZTF0TUFSRHJuRjNTdjBNcmNneGwyUzh1Mi05WnZXVXRNblc2QTRuNGxHRFFyRUZWMGoyVkdmTXNSbGszUHp6YVhBa0x3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Jodi Picoult Discusses Taylor Swift at Carroll Festival
-
-- first seen: 2026-09-20 23:12 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At the Carroll festival, author Jodi Picoult shared her thoughts on Taylor Swift and Lindsay Clancy, highlighting intriguing connections between the two. The discussion drew attention from attendees interested in both figures.
-- sources:
-  - [unverified] Baltimore Sun — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQbFo5NGNVNkFNNzZmX2lHdEM0TE8zaGFmYjBiTEU4QlJiek1xTFZtVGg0NUYxQWlrS0wxMklWOTgtS0hQMTV6dnpfajczaTVLNjNrOUtZWlZpYkxwck1GOGVpdVJkanZFTHc0N2VYSkVsUGRmUExfRkdLQ1lndGZsWk9CVktLSklxN3BXWF9hZlJuMUNTdElfc3BTaHlTeXVOT19ybHpQVVRES3M?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Nikki Glaser Features in NBC's Taylor Swift Chiefs Video for Sunday Night Football
-
-- first seen: 2026-09-20 23:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nikki Glaser stars in an NBC video featuring Taylor Swift, promoting Sunday Night Football with the Kansas City Chiefs. The collaboration underscores Taylor Swift's influence in popular culture and sports.
-- sources:
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxNSkM1OXpDT2VZeF9kUFlMamw5UDFzSGJOUHdodTUyMzY4Q1Fqd2NUeXdzcFB2cWY4RC1GaDRhdkN6Y3JOMUJseTZBTExxZ2hEWUJlOUFDZ2JkVUZzS1FtckxnVG0xaHE0bUJHajhqRGlLVHdQbjBITUFvTzZYVTB5Y2dpN3JObm00SU1VUjBuN0FuQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Viewing Information for Colts vs. Chiefs featuring Taylor Swift Details
-
-- first seen: 2026-09-20 23:12 UTC | category: business | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: The article provides details on how to watch the upcoming Colts vs. Chiefs game, along with insights into Taylor Swift's involvement. It includes important timing information for fans.
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMingFBVV95cUxOY2Q1aFVZTDMwZnB0bk05bi15c1p4NXZKX0ZKMnphc25iNHR1bFQ5ZmRJOWQ4QmVxY0dnYnpaVVFibDdXUUotdVJ1b1hsdTJaamlSS2VEOHFRODcwb0RfQUhzXzhMeUg3MGdKQThfZFBpcG1zUXNsWXBpMlJHTFFUdUcyZW5qRWJkSWJLeTYxNkJFLXgzTTZyeFJlbFA0dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Updates on Taylor Swift's appearance at Chiefs game Week 2
-
-- first seen: 2026-09-20 23:12 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The latest updates regarding Taylor Swift's attendance at the Chiefs game in Week 2 are being reported by various sources. Fans are eagerly seeking confirmation of her presence at the event.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUlZCM01kaU5DX2xrVEtNZVR5R215Q004WWVSbnRoQktzMzBma0pLdVBFaFVuY2tLTUUtRjZpdEl6QWh6NFE4OVMwMGZ3NnJTWUlHZ1o3NEswMnRmalJ1VmlsX3NqTDdJVUhhTUlLYnpLOTMxVU5HTTdGV1kxRnEtY1JuQnlqcTdRLVdPdlRlWlc2Y0dyTjJ1ZjRMZE5PazZFdHRYZHlheXg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQd25jT3ZKT2VCdjJPNzVTeDdQeUZzNjdFd1A0UVVXdGxqOWZqTWFPWkdfdHZvc3lQZGdzVzNRSjNOdGRjMXMtSF9YcDM1V2pnZzlXVmhNUTczUG9KVkNxRl81bmdvN0hqSnZheTh4enZMbHlOUzFRQXBSU3NLX0V5cnBfT0pSRVJ5X2ZUcF8xVzVSTDI3TU1rRGZYODV1NGxHZ2VuNQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Joe Alwyn Seen With Two Famous Women, Romance Rumors Arise
-
-- first seen: 2026-09-20 23:12 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Joe Alwyn, who previously dated Taylor Swift, has ignited romance rumors after being spotted with two different famous women within a few days. This development has attracted attention from fans and media alike.
-- sources:
-  - [unverified] Charlotte Observer — https://news.google.com/rss/articles/CBMieEFVX3lxTE1wU21VT3dCbGttZDRzaXF2aDc5VEQ3aEoxR2RnMERreU04SU00MmM0VnRNOGxQTFpyX3E5OXBDS0dFQ3dIcE45MHh2S3c3Y2xza04xQXdsTDRNQWZOclVRX09EQi1MZ2hjd0hUVGt6SXQtWk90dkNnRg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The State — https://news.google.com/rss/articles/CBMibEFVX3lxTFBWVmZYS3BQZkFBczFmVy00WFZKamJMWUQ3Z2R5N2p2Z2FuZVdTVjJoRGp0X01ZOXpkSHlJbENNb3pfYzVTbFp2RVR0WHRtNzF6TjRFMllJZ2JNeVZqQ0lKRlZBMDVfbDB2bVpWNQ?oc=5&hl=en-US&gl=US&ceid=US:en
