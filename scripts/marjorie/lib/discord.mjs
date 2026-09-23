@@ -53,14 +53,14 @@ function postUrl(webhook, thread) {
 // One attempt at posting a single chunk. A non-2xx HTTP response is a
 // normal returned Response, not a throw — only a network-level failure
 // (DNS, refused connection, etc.) rejects, which the caller catches.
-function postChunk(chunk, { webhook, thread, username, fetchImpl }) {
+function postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions = { parse: [] } }) {
   return fetchImpl(postUrl(webhook, thread), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       content: chunk,
       username,
-      allowed_mentions: { parse: [] },
+      allowed_mentions: allowedMentions,
     }),
   });
 }
@@ -92,17 +92,32 @@ async function messageIdOf(response) {
  * `waitImpl` exists only so tests can inject a fake timer instead of
  * actually sleeping through the retry wait, the same way `fetchImpl` lets
  * them inject a fake network — it defaults to a real `setTimeout` wait.
+ *
+ * `mentionUserIds` (t_85667a3c): opt-in, defaults to `[]` so every existing
+ * caller keeps today's behavior of `allowed_mentions: { parse: [] }` (no
+ * ping ever fires, even if the text happens to contain `<@id>`-shaped
+ * text — the untrusted-content callers like community prompts need that).
+ * When a caller passes real Discord user ids here, ONLY those exact ids
+ * are allowlisted to ping (`allowed_mentions: { parse: [], users: [...] }`
+ * — never the blanket `parse: ['users']`, which would let ANY `<@id>`
+ * embedded in `text` ping whoever that id happens to be). This is what
+ * makes a real founder @-mention possible at all: `parse: []` alone
+ * suppresses the ping notification even when the text is literally
+ * `<@338508192755482626>` — Discord still renders the mention link but
+ * never notifies.
  */
 // `username` defaults to Marjorie; M5's Tree chat replies pass 'Tree'.
-export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait } = {}) {
+export async function post(text, { thread, webhook, username = 'Marjorie', fetchImpl = fetch, waitImpl = defaultWait, mentionUserIds = [] } = {}) {
   const chunks = chunkForDiscord(neutralizeMentions(text));
+  const allowedMentions =
+    mentionUserIds.length > 0 ? { parse: [], users: mentionUserIds } : { parse: [] };
   let delivered = 0;
   let messageId = null;
 
   for (const [index, chunk] of chunks.entries()) {
     let response;
     try {
-      response = await postChunk(chunk, { webhook, thread, username, fetchImpl });
+      response = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions });
     } catch {
       response = undefined;
     }
@@ -128,7 +143,7 @@ export async function post(text, { thread, webhook, username = 'Marjorie', fetch
     let retryResponse;
     let retryError;
     try {
-      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl });
+      retryResponse = await postChunk(chunk, { webhook, thread, username, fetchImpl, allowedMentions });
     } catch (err) {
       retryError = err;
     }

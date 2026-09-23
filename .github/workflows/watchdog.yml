@@ -210,6 +210,49 @@ jobs:
           scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           exit 1
 
+      # Vercel production deploy failure check (t_85667a3c, 2026-09-23).
+      # WHY: the "Prod smoke check" above only catches an outage AFTER it
+      # has already reached the live site, and the daily maintenance
+      # snapshot (scripts/ops/collect-maintenance.mjs, folded into the
+      # Founders' Brief) only asks Vercel's own deployment API once a day.
+      # The 2026-09-23 incident (PR #4534's production deploy failed at
+      # e17860a76 and nobody knew for hours, t_3dab9cf8) fell exactly in
+      # the gap between those two: the site was still serving the PREVIOUS
+      # good build (so the smoke check saw nothing wrong) while main sat
+      # ahead of what was actually live, undetected until the next day's
+      # brief. This step asks Vercel directly, hourly (same `if: always()`
+      # ungating as the smoke check above, for the same reason: an
+      # unrelated earlier failure must not skip it), and is the one check
+      # in this file that pings with a real Discord @-mention
+      # (ALERT_MENTION_FOUNDER=1) rather than only a GitHub issue + email —
+      # see scripts/watchdog/upsert-alert.sh and
+      # scripts/marjorie/post-or-mail.mjs's --mention-founder for why a
+      # plain issue mention of a bot identity does not reach the founder.
+      - name: Vercel production deploy check (real-time, @-mentions on failure)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          ALERT_TITLE="Watchdog: Vercel production deploy failed"
+          # See the work-ownership step below for why STATUS is captured
+          # this way rather than a bare `cmd; STATUS=$?` under errexit.
+          STATUS=0
+          node scripts/watchdog/vercel-deploy-check.mjs --alert-body /tmp/alert-body.md || STATUS=$?
+          if [ "$STATUS" -eq 0 ]; then
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vercel-deploy-check OK"
+          else
+            ALERT_MENTION_FOUNDER=1 scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+            echo "vercel-deploy-check ALARM (see /tmp/alert-body.md)"
+          fi
+
       # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
       # red-looped hourly for a full day — every run crashing in ~1s on unset
       # SUPABASE_* secrets — and nothing surfaced it, so the intake queue
