@@ -2,13 +2,17 @@
   "platform": "x",
   "lane": "calendar",
   "body": "Okay be honest — which one is you today? crying in the car, cinematically. feral about a bridge. winning, quietly. tap the one that fits and Mood hands you the Taylor song for it. then tag whoever's the other one 🤍\n\nlonglivets.com/?mode=mood&utm_source=x&utm_medium=social&utm_campaign=mood",
-  "media": ["/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg"],
+  "media": [
+    "/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg"
+  ],
   "mediaKind": "photo",
   "photoId": "reputation-inglewood-2023",
   "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
   "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
   "scheduledAt": "2026-09-23T23:00:00Z",
-  "altText": ["Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting."],
+  "altText": [
+    "Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting."
+  ],
   "campaign": "mood:chip-poll:2026-09-b",
   "why": "Sept slot 2 of 2 for Mood (mood:chip-poll), the calendar's last September chance for a feature Long Live has never once posted about. Direct-address hook, three starter chips quoted verbatim from apps/web/lib/longlive/mood-starters.ts, share hook invites a tag. Link /?mode=mood verified against packages/experience/src/deepLink.ts (MODE_VALUES includes 'mood'). Media: reputation-inglewood-2023 (a scored-era Taylor photo — deliberately NOT an unscored era like evermore/Midnights/TTPD/TLOAS, so the tile can't imply Mood returns songs it doesn't score; last used 09-19, among the least-recently-used), distinct from the IG sibling's folklore tile per L001. NOTE: the calendar planned X as text-only, but check-drafts.mjs requires credited X media (2026-09-10) — a planning bug flagged in the PR body. photoEra unset: Mood is cross-era/non-themed, and the caption claims no reputation-era relevance for the photo.",
   "critique": {
@@ -22,7 +26,19 @@
     },
     "total": 20,
     "rationale": "September's last Mood chance, and Mood has never shipped a post — this puts the site's most distinctive feature up as a 'which one is you' poll with three real starter chips quoted verbatim from mood-starters.ts, and a share hook that invites a tag. Scored-era photo so the tile implies nothing false.",
-    "rulesChecked": ["L001"],
+    "rulesChecked": [
+      "L001"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-23T18:58:19.063Z",
+    "pr": 4544,
+    "sha": "11ede68b664cb7e52664fda400e75025d65198c9",
+    "message": "1552343493341352059",
+    "contentHash": "sha256:e275c305e8a775c13c61cf7bedf4c61115873dbb2e3f639acd2accb0ee3c2d7b",
+    "sig": "hmac-sha256:8b4d0bb96eba20928034059f0b83ed6c5c6a422adeaa32512b63d47baa694b37"
   }
 }
