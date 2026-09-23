@@ -1,0 +1,28 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Three months, summer to fall of 2008 — that's the whole Joe Jonas chapter, start to finish. Short as it was, it still handed Fearless 'Forever & Always' and a story Taylor kept revisiting for years. Live now in Blank Spaces →\n\nlonglivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=timeline",
+  "media": ["/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg"],
+  "mediaKind": "photo",
+  "photoId": "fearless-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+  "scheduledAt": "2026-09-24T23:00:00Z",
+  "altText": ["Taylor Swift performing the Fearless set of the Eras Tour in Inglewood, 2023, in a gold fringed dress, guitar in hand."],
+  "campaign": "timeline:love-story:joe-jonas-era:2026-09-24",
+  "why": "X sibling of the 09-24 Blank Spaces timeline beat. Number hook = the duration (three months), deliberately a DIFFERENT number from the IG sibling's lead (27 seconds), with near-disjoint vocabulary — this run's first X draft was rewritten after check-drafts flagged it 89% similar to the IG (the short number-led X was a word-subset of the long IG narrative); it now drops the 27-second/Ellen/record cluster entirely so it clears the <80% cross-post-copy gate. Confirmed-only, blocklist-safe (see IG why). All claims sourced to relationships.mjs:17-37 (rel-jonas, Jul-Oct 2008, 'Forever & Always' confirmed link) and debut.mjs:786-808. Media: fearless-inglewood-2023 (era-right — the post is about Fearless; last used 09-18, the least-recently-used tile alongside debut), distinct from the IG sibling's debut photo per L001. NOTE: the calendar's 'X is text-only' plan for this fortnight is a planning bug — check-drafts.mjs (media rule, 2026-09-10) hard-fails a text-only X draft, so every recently-shipped X post (09-17/09-20/09-22) actually carried a photo; flagged in the PR body for the Monday replan. photoEra unset (cross-era chapter, timeline not a THEMED_CAMPAIGN_PREFIX), consistent with 09-17's fearless X tile.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "The weekly Blank Spaces timeline reaches Joe Jonas, 2008: three months, summer to fall, that still gave Fearless 'Forever & Always.' Duration-number hook, distinct vocabulary from the IG sibling, confirmed-only and sourced to relationships.mjs + debut.mjs. Era-right Fearless photo.",
+    "rulesChecked": ["L001"],
+    "revision": 2
+  }
+}
