@@ -30,6 +30,12 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
    schedule fire, or a manual dispatch with no `mode`/`mode=plan`), this is
    a normal Monday run — continue with step 0.7.
 
+0.6. **Check social event-mode, before planning anything** (t_4ebbe8ba, implementing t_60c73aaa's approved design). Run `node scripts/social/event-status.mjs` (read-only — same knowledge-client/anon-key path the website's own pin banner reads, and the EXACT `pickBannerCandidate` tie-break, never a re-derived one). Its JSON output tells you whether a live countdown or big theory is active right now:
+   - `mode: "normal"` — nothing live. Plan the 14-day calendar as usual (steps 1-9 below), no special handling.
+   - `mode: "event"`, `windingDown: false` — a live event is active. When you write the calendar in step 6, reserve `reservedBeats` of each event day's 2 daily beats for explicit event coverage instead of improvising day-of: `blendTier: "near"` (`reservedBeats: 2`) means BOTH of that day's beats go to the event (countdown reminders, day-of hype, clue recaps) for as long as `mode` stays `"event"`; `blendTier: "far"` (`reservedBeats: 1`) means only one beat does, with the other staying normal rotation. A `kind: "countdown"` event can reach `near`; a `kind: "theory"` event never does (Founder D1=A — a theory has no hard deadline and may never resolve, so it never gets the aggressive near-event treatment a countdown gets). Name the reserved beats explicitly in the calendar (e.g. "Day 3, Beat A — RESERVED: countdown coverage, see event-status") so the daily draft run (step 5 of `tree-daily-draft.md`) knows to fill them from the event, not its own judgment.
+   - `mode: "event"`, `windingDown: true` — the event resolved (or a theory faded/was debunked) within the last 24-48h (Founder D2=A). Reserve exactly 1 beat/day for recap/reaction content (the reveal itself, fan reaction, "what we got right") — never full event-mode, never an abrupt cut back to normal rotation.
+   State which of the three states you're in, and why, in this week's PR body (the "This fortnight" section already covers "what changed since last week" — a mode transition belongs there).
+
 0.7. **Answer Marjorie's asks of you — normal Monday runs only; a `mode=replan` run skips this** (L1,
    `docs/specs/marjorie-overhaul/l1-loop.md`). Marjorie, the site-ops
    manager, can ask you for one thing a day in her brief; each ask is an
