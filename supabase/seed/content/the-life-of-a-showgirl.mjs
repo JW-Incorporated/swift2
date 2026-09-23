@@ -13126,7 +13126,7 @@ export default {
             source_title: 'Taylor Swift Keeps Low Profile for Night Out with Dakota Johnson at L.A. Hotspot (Report)',
             publisher: 'Just Jared',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
+            accessed_at: '2026-09-23',
             reliability_score: 2,
           },
           {
@@ -13135,7 +13135,7 @@ export default {
             source_title: 'Taylor Swift Enjoys Girls’ Night Out With Dakota Johnson in L.A., a Month After Travis Kelce Wedding',
             publisher: 'InStyle',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-24',
+            accessed_at: '2026-09-23',
             reliability_score: 2,
           },
         ],
@@ -13147,10 +13147,10 @@ export default {
             reportedOn: '2026-08-21',
             status: 'unconfirmed',
             url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
-            note: 'Deuxmoi blind item, re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Coarsened to region per the matrix; the members’-club venue named in the reports is dropped and the tip’s security detail omitted per the redlines. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi blind item re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Region-coarsened; venue and security detail dropped per redlines. Rechecked 2026-09-23: still unconfirmed (day 33) — a new Deuxmoi photo of a car entering the garage shows neither woman. Fades otherwise.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-08-24',
+            lastCheckedOn: '2026-09-23',
           },
         ],
         // Photo pass #762 (2026-08-30): no photo of the rumored night exists —
@@ -14427,9 +14427,9 @@ export default {
       // (same mechanism as showgirl-announced-on-new-heights, msg-wedding,
       // harris-endorsement-cat-lady) — an existing override, not a new one.
       significance: 'defining',
-      title: 'Taylor announces "Patient Zero," a new single out September 25 — CDs live for 24 hours only',
+      title: 'Taylor announces "The Life of a Showgirl: The Encore" — four new songs, led by "Patient Zero," out September 25',
       snippet:
-        'A countdown clock on her website ended, then an Instagram post: Taylor\'s new single "Patient Zero" arrives Friday, Sept. 25, with a 24-hour pre-order window for three collector\'s-edition CDs. It is her first new single since Toy Story 5\'s "I Knew It, I Knew You," and lands days before she receives the first-ever Artist Director Honor at the 2026 MTV VMAs.',
+        'A countdown clock and a "sh0w business f0r y0u" bio swap teased a single, "Patient Zero" — then Taylor revealed the bigger picture: "The Life of a Showgirl: The Encore," an expanded edition adding four new songs (Patient Zero, Pink Clouding, Cleveland!, Babylon), out Friday, Sept. 25. She wrote them in Sweden with Max Martin and Shellback while celebrating the album\'s record first week.',
       sourceUrl: 'https://www.instagram.com/p/DdmVHc2R30b/',
       thumbnailUrl: null,
       moment: {
@@ -14454,7 +14454,7 @@ export default {
           },
         ],
         context:
-          'Earlier on Sept. 22, 2026, Taylor\'s Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u. \u2764\ufe0f\u200d\ud83d\udd25" — the letter O in "show" and "for" swapped for zeroes — and a countdown clock appeared on her website. When the countdown ended that afternoon, she posted the reveal directly: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours," alongside a photo of her in a black turtleneck.\\n\\nThree CD editions went up for pre-order on her store for the 24-hour window: a standard double-sided-cover CD, an acoustic version, and a piano version. It is her first new single since "I Knew It, I Knew You," her Toy Story 5 contribution from earlier in 2026, and her first release of any kind since The Life of a Showgirl (Oct. 3, 2025). The timing lines up with two other things on her calendar: she receives the inaugural Artist Director Honor at the 2026 MTV VMAs this Sunday, Sept. 27, and the reveal follows a cryptic Emmys sketch appearance earlier in September where she told host Mariska Hargitay to look for clues "hiding in plain sight" and rattled off phrases fans immediately flagged as Easter eggs: "Saccharide. Aries. From the vineyard. North or south."\\n\\nThe zero motif carried across platforms: fans also noticed Spotify added album-specific play/pause animations across her catalog that day (sparkles for The Life of a Showgirl, floating hearts for Lover), read by some as part of the same rollout.',
+          'Earlier on Sept. 22, 2026, Taylor\'s Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u. \u2764\ufe0f\u200d\ud83d\udd25" — the letter O in "show" and "for" swapped for zeroes — and a countdown clock appeared on her website. When the countdown ended that afternoon, she posted the reveal directly: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours," alongside a photo of her in a black turtleneck.\\n\\nThree CD editions went up for pre-order on her store for the 24-hour window: a standard double-sided-cover CD, an acoustic version, and a piano version. It is her first new single since "I Knew It, I Knew You," her Toy Story 5 contribution from earlier in 2026, and her first release of any kind since The Life of a Showgirl (Oct. 3, 2025). The timing lines up with two other things on her calendar: she receives the inaugural Artist Director Honor at the 2026 MTV VMAs this Sunday, Sept. 27, and the reveal follows a cryptic Emmys sketch appearance earlier in September where she told host Mariska Hargitay to look for clues "hiding in plain sight" and rattled off phrases fans immediately flagged as Easter eggs: "Saccharide. Aries. From the vineyard. North or south."\\n\\nThe zero motif carried across platforms: fans also noticed Spotify added album-specific play/pause animations across her catalog that day (sparkles for The Life of a Showgirl, floating hearts for Lover), read by some as part of the same rollout.\\n\\nThe next day, Sept. 23, Taylor gave it a name and a shape: "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album that adds four brand-new songs — "Patient Zero," "Pink Clouding," "Cleveland!" and "Babylon." She framed the release as a thank-you for the record-setting first week the original album posted, and said the new tracks were not leftovers from the Showgirl sessions but material she wrote afterward, during a celebratory trip to Sweden with her longtime collaborators Max Martin and Shellback. The Encore lands Friday, Sept. 25 — the same weekend she receives the inaugural Artist Director Honor at the 2026 MTV VMAs.',
         socialPost: {
           platform: 'instagram',
           shortcode: 'DdmVHc2R30b',
@@ -14491,6 +14491,37 @@ export default {
             reliability_score: 4,
             notes:
               'confirms the Instagram caption verbatim, the three CD editions, the Spotify play/pause animations, the "sh0w business f0r y0u" bio change with zeroes replacing O, and the Sept. 27 VMAs Artist Director Honor.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-life-of-a-showgirl-the-encore-4-new-songs-1236708341/',
+            source_title: 'Taylor Swift Announces Life of a Showgirl: The Encore With 4 New Songs',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-23',
+            reliability_score: 4,
+            notes:
+              'confirms the Sept. 23 "The Life of a Showgirl: The Encore" reveal and all four new song titles — "Patient Zero," "Pink Clouding," "Cleveland!" and "Babylon."',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-reveals-life-of-showgirl-encore-new-songs-1236872982/',
+            source_title: 'Taylor Swift Announces ‘The Life of a Showgirl: The Encore’ Album With Four New Songs',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-23',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/',
+            source_title: 'Taylor Swift Reveals ‘The Life Of A Showgirl: The Encore’ With Four New Songs',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-23',
+            reliability_score: 4,
+            notes:
+              'quotes Taylor\'s Instagram announcement directly and reports the Sweden writing trip with Max Martin and Shellback framed as a thank-you for the album\'s record first week.',
           },
         ],
       },
