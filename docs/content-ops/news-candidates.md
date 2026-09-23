@@ -25,7 +25,90 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
+
+## Taylor Swift Reveals New Single 'Patient Zero' Amid Cover Art Backlash
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift has announced the release of her new single titled 'Patient Zero'. The announcement has been met with backlash regarding the cover art for the song.
+- sources:
+  - [unverified] Euronews.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPQ1ZiOFNXMmlYcGh3WU5kZ3VqVkJKSVp5YmJNbkJjMDcwbGJDRHFza1A5R3VPV3ZjQ0p6R3Y5dVZoTnJoVXVhOVJLcXBqODN4YjlId3RTT19TdzI4TUc0bWRNMHl4WkVqU3VjY1BZT2c0N01tTkRCTG1rNk52NHhEVjUtb3FERWt2TEI3cm01dDRWZl9wNzFIUTBXdWRiU1F4Ukw1UGR6eFdMOXBKdjM4MXRWWTRmZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMirAFBVV95cUxNeG1hNTVBaURqU1BCWnJOZkVUbUlRa29TVHNTNmRvN0N5VTE2MWtGbU4zcHZuRjRCelpuV0lYaUhmRWstVEpfQ05vR2tvU1JqbVg4QVE5Y1pIUjRlamQwQkxCXzlmVVVXTE1qNE1SNE95dndaV2x0akJQYnppRFhQaHlabnZidlBxUzlrVVppekdvQnlhT1VRREtMZ1h0enhGa1UzdVB0dG9PWDhE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPak9UUWhBeUxueUhidlRpTUMtazJ6a2dkV2pIQWJrVGVIeHlxS3dBd0FMTEtFNzZJallYSHY1aXZLNVlDVHRkOGxsaThUcmotd0ppUlF0cFVHaHd4eWNUTDdlakFjM3k4SkNHMFBybWRvbUxFNGw1dngxT2N5MDZUS3BtTjdDOUxqcFE3VWdFOFBOLUtvcWRQYmpYUno4Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Release Three New Songs This Friday
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has announced the release of three new tracks this Friday as part of the expanded album 'The Life of a Showgirl: The Encore,' featuring the previously announced song 'Patient Zero.'
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/
+
+## Taylor Swift's Patient 0 Cover Faces Photoshop Controversy
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The newly released cover for Taylor Swift's Patient 0 has come under scrutiny, with accusations of a Photoshop mishap gaining attention online. Fans and critics alike are discussing the impact of the edits on the overall aesthetic of the artwork.
+- sources:
+  - [unverified] creativebloq.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQUlhXb1p1SzF3bmZVZWpYR2NIUU1fTEFGRHNMcFlQb3oyUjF3NlNXMnZ2M2JoWVdVQURCNGtCQVB5bzIwQ0pYNUp3ZDVjdjB0VFZsaDY2SkNFODJwUU5pYmhya2I3YUptWHlxWjBZaTA1dTR5MHpWdk56eEE0Y2RkaWNMVVZwbUJfS0h6dDZiUFpNaHl3RVd2OG16a21lakJzNi1HTGtB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reveals 'Life of a Showgirl: The Encore' with 4 New Songs
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has announced the release of 'Life of a Showgirl: The Encore,' which features four new songs. This new project continues to showcase her musical evolution.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiowFBVV95cUxPMi1KNHpZNWFPdThwdndQYmZXdXdsbmN0aDZBRE9LTXhfdnhCOHZ3QmJZc3NKTVBVcHc2U09RNXFlbnZOZ3V4bWlfMk9QRmVuUXZqM3BVS3RLNEVuRHFobEhDV3RtWUZ1SXVHUGdHS200MkpKU3U1dENJcXA5eGFQbVV4Mk10SFhKTmRTWW0wUUFJV0RpS0RDMFhtMXBPeGVqdXFn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Announces The Life of a Showgirl: The Encore
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 7
+- verification_status: corroborated | source_count: 10
+- summary: Taylor Swift has officially announced her new project titled The Life of a Showgirl: The Encore, according to Pitchfork.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxORE1QVzZQMmM0T1RFLVhLNHU1Y2VLWjNqSEVhZEh3Y2JkNGlpOENRX2s1djI1aDgtNGg4dVlVVzcyaDB5dFJSSHdTWDIxdDhaNWpVWl9qWkswMUdoZVhFOFYxVUx0OHhqZS1PeGFXcjA0REcwT0pJZmdtRnVBVWRYVWpidlJ6N3ItOGVwckh0eHBpT0pIUGVWVm9wMl93dUZNeVJpUk00TjZxZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPdThRM1JXdlBVZE9Qak1scUc0QjlMZDlQbEpDeV8zWFRKelJ4ZWJKX2xjN3BRdjhBM1drdzU4bHJzQXlQMUdNWkNudGFmNGFhOVFMdWNmR0NCaVlmM2prT3ZUa192OWNydkVjLTRYSFFIZ3hUcElqTUY2NDRGbmtONjQ3QWx5WFowRWtkbFpibDRrQnhrNzFBcENxUUtWdnpPY0ZEa2tabFBNNzYtbmplZ2ZVNnJXaXZXMzFxeTNVcVdhNkU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/23/arts/music/taylor-swift-life-of-a-showgirl-encore.html
+  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMijgFBVV95cUxPTldjRHBHeVZzc0pGQ0ZxaDVLR2hZUVFzb0l2eV9HU1EzeTVaRWNFY0RxLVVVeWhZc2xZU1EyYURnZlJDUUM2RjMyTkhETEZXOGt2SGRLOW5mUkhwYVZUcU0zd3BHbk9tcnFtcC0xYUsyUHJjbDJBYkNEVWVJeExvSC13TVdmaWZwY010SU5n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNjJsNDZzaW1jRGZCWGQ3WWRBRnhPbS1YSVc5c2stdkJYOUNzc0p2bjBPM2I1T3V4MmRvaG9qUzNvd29RZk1sWG45MGFhNVVVS1dWZjZCeEYwNFdzZUtqUl9nQkpTLUphYkg0RXBCT2RXV1VYNWpSdmNQYnNYSkdkQ2hGXzUyTXpkMXBfcTV2a2p2eFV3M2x0T2tySDJ1dThETTE5bUhueTJudw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-the-life-of-a-showgirl-deluxe-album-1235630197/
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-life-of-a-showgirl-the-encore-4-new-songs-1236708341/
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMikwFBVV95cUxOWkdudUhydWxBR2ZNTkVZZkduUnA2WG5XYWctQ3VaalNadHRlV3luLXFhU2J2Q1hKd1hxVXUxN3cxX0RsZFpERTRjR0J4NmpabkJRd0tXVkdLdDVpWXNUVUJHQVY5WmsyUkVodVJpcjF0bnJ1WDlreTFMMG50Zk9hT1JacDVIN2lFSTd4b3pXRk85azQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipAFBVV95cUxQSmJKcU4ta1RkN1JySmx2TUFhc0N4X1VvYW12Ykp3UjZFampyMVFMRHJmRlZ6N0lWVDlOeHRobGtmZ3RhcUJHQ1hGZW11ZFREQk1wWHdCMmx4SmdZTHNHenhOckt3NHVMM0R1TDlxWmxjZmpvcDFfOC00Y19fLW5LQW4tVmV4OVBBVy1fMUp5UjdfTTI2VGtjUnFtYjNGVXlPMjkxeA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-reveals-life-of-showgirl-encore-new-songs-1236872982/
+
+## Travis Kelce Reacts to Taylor Swift’s Emmys Skit
+
+- first seen: 2026-09-23 14:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared his reaction to Taylor Swift's NSFW-themed skit at the Emmys, which was inspired by SVU. The details of his reaction highlight a playful interaction between the two.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMioAFBVV95cUxQMnFvZTFXNlkwOV8wZlU4QlhfeWh5bWtxS05iUVpqUzU3cmVVS0h5SVZ5ejdGamlYMU5QRFR1ZkV0RFlOSmIyZUlDMV9IODBEanZKbnVtTFVJN1RIQk41NFRHQjJ1em55Q21OUHZyeG10aXlXTjFkLWJOclJzN2h4ZXRtNV9FYmNiSjd0TTFsZlIzREctdjhZeURmdllHNlFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Couple Loses $4.6M to Fraudulent Agent in Taylor Swift Ticket Scheme
+
+- first seen: 2026-09-23 14:13 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A couple was defrauded by a fake child modeling agent who misused $4.6 million intended for Taylor Swift tickets. The incident highlights issues of fraud in the concert ticket market.
+- sources:
+  - [unverified] Detroit Free Press — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQd01rWVJWdmVBNFV4Y0FGYWEybkg2RFVJcUVoN2h3Nk1DVHBNemNlV1lmWGRNcGRJS2tmV2NBd1ZrbmhvX0tXTWRyVGplYmNqRDdjRFhyQ2Y1bXBrdFV4QlIxWExUUW5oTEhNWWthMGRLV1RKc1FsUTNubVdaYWNnMXkzNzFQMlQ2MW9sV2o4WnAyX0VNdDJiS25Sby1qRVNQbFNJdDZkU2VSZGhjR3o1OHlDV3hMSWdsZ0JuNlZzSTc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Bill Simmons Critiques Taylor Swift's Celebrations with Chiefs
+
+- first seen: 2026-09-23 14:13 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Bill Simmons comments on Taylor Swift's celebrations at Kansas City Chiefs games, describing them as 'obnoxious' and suggesting she is 'pushing it'. The article also references Travis Kelce's proud reaction to Swift's support during the games.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMijwFBVV95cUxQbWcxc3lrWXQ4RlNmRFYzQkhaNzhBMG1HLWFqSl9uRXJVNzlDSmpIY0xRbXFIUWVQcGhHTjlRZ04zQWcwRjF6R3dHY2lpeWVEVGNTLTFKZ1RNd0NUMWh3alpnVndzV3RxcW1nVmUzVmhMNkdKc2FIVU50UUNzUHFvMjBaTmxoS0p6ZGFISk9uNA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Photographer Sentenced for $4.6 Million Child Modeling Fraud
+
+- first seen: 2026-09-23 14:13 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Michigan photographer has been sentenced after defrauding a family out of $4.6 million in a child modeling scheme. The case highlights issues within the modeling industry and the risks associated with scams targeting families.
+- sources:
+  - [unverified] nypost.com — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPTVlMTl9XLS1scUg2VEl6VlJJZHFLeVVOVUxJaGZfdklqWGxUYW9IdlpsZ2RCTi1SbXpMNUktbnZYYThxak5McVhLZ04xeUgydFZRUGlTYmgtSldZRlZKUDhqdVc4aW1XV2VNMy1ENTRLalhNeXhUd0VHUmVnSkcxVU04WkZwdUxFU1BkQVBCMUVGdFZtWlU0Wm5MVmdRSTNrMGl1WFViWUF1dEZtT3cwZjhTdy0yVFctbGlzUWJ5SFRXeFl4OTRWa2Z5N002bnhEdU52NmJNMnFIMEIx?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Speculation on L.A. Times Influence on Taylor Swift's New Single
 
@@ -551,12 +634,13 @@ Stories: 86
 ## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
 
 - first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
 - sources:
   - [unverified] apnews.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOdVpaNEszSzJHRjFVdWR0eWJObFZVSDR0dDhtRVJEUGs4MWR1b3JRUExuZUNoSHZUMVlBUjVtM1pIV1pLX1J1Slp1NG4zbU1DT3FaVHFMMS1GMTBxN2dCX0VyRm1ETWhWdUNzbi1SR05fSXliVnQweHY1Y1hZMmgyTDctekl6cHpRNXNidHAta2plSDJ6MjdUWA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOX2xEeFA4dWlXcXhsUDBjMU15eGdDR2pGWWM0UFNIUlQwZV9mYUdJM1JueDZoT256cFJfeDVubkFpSm5OdU5RVnQzN1NtTW9jcm1SU0lTWEtFNmlUQ0V5cjRzcHdKMmhLQnFBUkQyM2RldUpubXlETTNSUGhJemtLT1N1T0NPS2FNd0dwdlI2QmFsZWRESHZucmFCTjZOLUF4NVE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] goodmorningamerica.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPQktBemRSVnV0a2g0dE9OcnJkN3VzcjVxdzc5d1hvY2ViY3JLYU1FYUZQS2g1SHZIRGthOU1MVWl6X3NWQUpmQ3JMNjVMOGxISmlfeVlpVzF0c0JGYVBXam43Ti1tOTZmTVlsMm1kdVFlSldvUno4d0NpOHJrT2NVRTZweS01MDlObDZLTVpDNlp1cWxoNU53TnJ6R051NWFhQ1E0eERMYlZGRkXSAbABQVVfeXFMTXJ2a0xtaEhZd3pwekVDQlROQ0c4amtEM2x5RmJ5YS1LRjRWZHV0Y0F3V0wyRWFoS0l2dGVKVzNCSVhWOTIta2xxME5YQ2pnSDVZc1RDbVNvT0FEQUktY2R2WjZlTkJGeFhNaVhhcnRjeE1mcldSb3drSjVneWo3MU9Bb2pjNHY5TVk3MFNEVmxiSHV5YXFtSFlBdHBxODc3Wkl2OGhsWjZzVTlUWmtmdEs?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxPX1pIRDRGaVZ3dzYxVGtRTkdVblItM05WbWtwdEFxMm13NVlWNHp4bFp2M2Itcy15WVEzQ3RmUjhaNGdLNGZYU2QtbndhakpsdEpfN25IQV9tWENsWkpoYVpUdUphMzdQeDFHWU12M2VVYjV2XzRVNzVjQmoxZnVVNVdfa1RYREtBdVhoWlo2Ym5CblptVW5BOWdrM3lKWmZWem83U2ptR3BOUkxVT0p6WFVzYW1ldw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirAFBVV95cUxQRWRMaFdieC1ncnVHN182Mk5KNGtXeTd3eGdWdnRHSnAwcV9LMW9xaEM2NWZ1aWJ6V2F3Wkp0SEdHTWw0SG9jWlRURjZSYnFENGkxSmJmUG9aWC1EX19rQi1qemJfNXdpM3RqeVd4M1BST09kdU92NS13RnIyU3l1T3p0NXBleWNuSmt0OGNGMDZDUXlYb3NKSDFLTlI5S01GcWZMV25reGZrZENk?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -660,89 +744,3 @@ Stories: 86
 - summary: Taylor Swift and Mariska Hargitay are challenging societal norms surrounding age-gap friendships, showcasing their bond in the public eye. Their friendship emphasizes that age should not dictate personal connections.
 - sources:
   - [unverified] women.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQclY5Qlk3THQ2RXNRdkRsR3VYZ0U1ZjNpNk1SU2FLRHRwNGFaaDZoUFNfajhmZVU4WXlUUGRvcUVqWkhNenQzUU9hTUgwbHpOT3AwS3hvdi1hN2VNaXd6LTZFX1dicjYtdWxVRWxkZ0FxYkJ4X3pzUHk3VXRPYWJuTlV5d3h3RFRmZ2JGSk0yUUdSM2Ntb0JBVTE1aWcwNGVxUjZLdWgtYW16d28?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Dine Together in Kansas City
-
-- first seen: 2026-09-20 13:34 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted enjoying a dinner date at Kelce's restaurant in Kansas City. The sighting highlights their relationship in a casual setting.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTFB5SUtTMzVTeGtmRlhUell1V1VyamtYNWZVS1NZLVc1ODRnSWgxU1ZWX2lya3JoVVZ2d2NrUVBqTWRvUVFVZGt6dWpZcjdxeEpRT1JQMURfcEdzeTVOeVlXV3VLWDc2S3RZcU90c0QwTlVaXzRoU0FLQTJVaWdyZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Strapless LBD on Date Night with Travis Kelce
-
-- first seen: 2026-09-20 13:34 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a sleek strapless little black dress during a cozy date night with Travis Kelce. The outfit showcases her stylish fashion sense in a relaxed setting.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQdDNmWWJJNi1iTlg4MDgtT1Bvdzl2cWlQLXlWcWszdDRDenRDQ1kxeGZVV0lVLU01eTdlbTA3aXlwUXVybEtNQVpuY1FTMmZHSWVYdFppSi1MclJ5Sk9jUUFibzNDZy00cmpJa3gtMmg2dGwyQmFUX1UzSEotREZVOEdNMXB6VG1LT0pr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Attend Birthday Celebration Together
-
-- first seen: 2026-09-20 13:34 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen holding hands at Patrick Mahomes' birthday celebration, indicating a public display of affection. This outing comes amidst ongoing speculation about their relationship status.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQSnM2QUtwazFnUzF4NDZ5R2VITjlRQ1VfY2N2aVF3Wl9ubWhhNWhDREVMWFBBUVR0NE9VaTJlbjFUc3E0bDltR3FlWnlKVktXb2lJdXRwUldqeUZSR1ZkYzA4YXdsb0xiSHk2cUpQNDNvQ0RYRExSUTNQVU03MlplWV9XcFFiTEc0TFBGQS03cG5fM0wxM3JaMjlEby1oTm1uZkVKRC1JSnZjMXVzWWZ0anRJb3FGYnpGcjBJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Featured in Weekly Celebrity Outfit Roundup
-
-- first seen: 2026-09-20 13:34 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's outfit is highlighted in a weekly roundup of favorite celebrity looks, showcasing her dazzling dress. The feature is part of a larger collection that includes other celebrities' styles.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMidEFVX3lxTFAwSXpvVDd1d29hc2FQVnBsUUhKSGZSRmt0S1N6cVhuSERZWDBTSzlza3pleGVfZzY5TEdNejJXVnNVWUNnQjBpWktLVk91bTYwNjdlSm5lVlZSWHNCVGFENzFKYjhqX3RjbFhJbk1KejA5Y2RX?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Gen Z Embraces Whimsymaxxing with Crystals and Sparkles
-
-- first seen: 2026-09-20 13:34 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Gen Z is embracing a trend called 'whimsymaxxing' that incorporates crystals, gems, and sparkles into everyday life to add joy. This fashion movement highlights the resurgence of bedazzling among younger generations.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/20/style/bedazzle-rhinestones-gems-whimsy.html
-
-## Photos of Taylor Swift and Travis Kelce at Sports Games
-
-- first seen: 2026-09-20 13:34 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Gallery features Taylor Swift and Travis Kelce attending various sports games together. The images highlight their public appearances and shared moments at sporting events.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE5nZGtIZFFRM29jRVJ3UDN2dlJlc21CaE9NRDhQaVFKR3ZfY1g3cUUzSXg2dXMzNVFIUFVITzdQSmtfU3MySHlzNUZRc3BYVmpGTzJfVE9Fdm9xcGZfbEV6d21kNkVCTmVOV3ZqM29OajdrOGxqR1N4T3R1cGhwUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxNQ2lGSWd1OE5fdGNJWVBKc04wbURIOWdpR1pIaTBVYVBTTG82QTJQU1ItekJaX2RDLWZ2WGJBaXJnTV9scnktTUZydUdJZWtnQktINEpyT0s3TmdSc2pTT2VMdzJMeGwyZWtMWGl3bzhvZWJXaUhyVkxScmc4OVphNzhpN0VaV0REeXo5Zm5OaWp6TXdmYi1McW5Zcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Emmys Appearance Fuels Speculation on Debut Album
-
-- first seen: 2026-09-20 13:34 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's cameo at the Emmys has rekindled speculation about her debut album, prompting a look back at her fashion from 2006 and 2007. The appearance has sparked discussions among fans and media about potential new music.
-- sources:
-  - [unverified] WWD — https://news.google.com/rss/articles/CBMirwFBVV95cUxPMVJUSGo1WFdrb0stbWlrVlV6ZFVuMFpGb01OMktScE9rNldDNU1fNE1mNi02b1dZM1N5aC1Ka3Fla045cjFuRFd3dEZiQV9YTVBwbGg4M1ZieEU2VHluQzY5ZUJGM19oanZZLVhkRUd4TzY4ajd4Y1M5eUJHbHpLc3JhSEZsaWJUUWgtcVlNQ1Q0aW5kc1NuSG0zWEhsY19felFnOVhQbzBpaF95LUZr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'I Knew You Were Trouble' Released as a New Single
-
-- first seen: 2026-09-20 06:09 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift's hit song 'I Knew You Were Trouble,' which has garnered 542 million views, has now been released as a new single. This re-release highlights the enduring popularity of the track.
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9vbURJWHlxaHY1NXF2S0lsQlgxUVZhTExnWXFVOWhobTY4VjlKbmo0ZWE3RkN5N01CTmRuOVVUOU9pdVhQZ0JDYjFzZDhHQkxVQXd2allJcmw5NTI0b2o2bHk0R1RKMEE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMifEFVX3lxTE81X3VUeVpRdjA3THoxYmRkc0xDb1NZVDUzaU1Xc1Q0OUU0NElaRjR3c0o5ZGx2WnlFNWNmeTFVYjNfc2ZjUHNSSXU4MHV0MTBnT2xSOEdwMi11aklKR2Q2LTJ5ZmhDWGxxTnhHWmpfWDdXQl9kQWpuSjJKMXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Red' Released as Standalone Single with 260 Million Views
-
-- first seen: 2026-09-20 06:09 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's song 'Red' has been released as a standalone single and has garnered 260 million views on YouTube. This milestone highlights the song's popularity and Swift's ongoing impact in the music industry.
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9ra2ZoRFRLUVM0eXpEbGdPLXJRTFJrN0tYM0d0c0ZzMzNXM0t6UGF0V3pad0xNRG9INlhzY2RTRVNwLWZ3UTZCNlo0QmhRTmt0OVlRZmdVNW84OUFvQTQ2TGhCN1dtdUk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce and Taylor Swift Attend Patrick Mahomes' Party
-
-- first seen: 2026-09-20 06:09 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Travis Kelce and Taylor Swift were spotted together at a party hosted by Patrick Mahomes, drawing attention as they arrived. The event highlighted their friendship and social circles in a prominent setting.
-- sources:
-  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxOZXBBb0JJQl9UemE4OEpIUkVmalNEcGxqR2xHRHE5UkhWT0VtcmtMWGJJQ0RPR09EelNpTUFmUDBrMWRteXlHOGdKYU1VTWpVU3lDVkJCSG9Qa0NEY2VNaks1bkZrOC1lYkJfT1dlX2VzOENBWUQ1bEczVTZQOTAtMEFwUWxCMFBaUDg5ZFM5STNGVzJ6eGw2cHVjMTFReER6M3JVNGRKMTlZQ3drR3dYZ0MwM3U?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivwFBVV95cUxPNURsMVpyclJPeHdKZ2xRWXlNRy1ydVBlaXRMOTRwelU0RmtRcFFuc0kyNkZtLUloMjRxZWdhVHAxS3JkVXl2UndqamFQSy1yVVVWTHpFMGIzeWlTNlg3X1Q2UmtnOGQwZTFtVFR6a2FmOUREcVNndWlVNkwyTG9mX2dKajFHQ1Rvck1lenBXd1pRbEdZdDdha2dzM2FkaHFwVUF5NnBacjFxNC10TmNrNW5mQTdUNkRkMU5GNnlEcw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUHNCTHRGZFVJQUxJdTlXcjBUWXNSQ3JkZjBHLXRtY2N3cmpiYk5qcHhTM3NqMTdTT1lEYnJfU2J2YWZnYkJFcm50S2g1QW1Fc1dWTUlJVDNkTXRTcFFNdHRJN2JkMWFuaHIxajlGdENubllsU0JTaVlGQml3VEo0MDJGS3JwX0pOZ01DRDh2RGRNM1BUNmVyZW8yY1VjczJ4NjU3WFJiWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPWHUwcUpfOVJKSEdycTF3R09BSEtKc3c3VjlNaDRDbTZZTHNCX3ZIc2h2VVpscU5ZNW95aFNIaTNsbzZ2dVotbjYzbFZ4c2JnQ0pCaGRaVXFyanlFVXJPUGpzVHFTR2FNakV5NHJURno0OGV5OXpDVjFocUE5OTZQemFaaGRvNXM4RGZyd016YWlOcWVDT0piUmVHZ25wNVRBNG5n?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMinwFBVV95cUxQd0JzeXF6RTM3dmNPUGxrRG43VXNGVElvaXF1bkQ1UnAzVWRreWhfd2hlakNmRko2VnBHVVZrcWM5VVctMTdlRjlUWWVpU2sxZC1Dd0o3cXZOZkc1YnVWQlcwTHQ1NUJxZ0hHZUFOTExkUXIzazZtdzhYcTNZWTVyaS0zbDYtTG9vY255Qm9Pb1JUWkRvaEJETENBU25RZEHSAZ4BQVVfeXFMUGNUOG14Q2tEUWdtZ3BzSXQ5MmYwQkhPSTFYeUs3aEdwRkYzVEsxUHQxLVRmMVF6VGJ3YUVyQUpod00xSllTMWszRWRSMWM5aUMyUVFmXzJzS1UzeU10SGFNSFZTLTFoWWt5a1JTNnZLMGtsWjc4b3E5YldoX1RQS2g4WURjclFPUUJlWnF2dUhlRnNqM2lrVXUxRDF4eGc?oc=5&hl=en-US&gl=US&ceid=US:en
