@@ -13147,7 +13147,7 @@ export default {
             reportedOn: '2026-08-21',
             status: 'unconfirmed',
             url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
-            note: 'Deuxmoi blind item, re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Coarsened to region per the matrix; the members’-club venue named in the reports is dropped and the tip’s security detail omitted per the redlines. Rechecked 2026-09-23: still unconfirmed, no denial (day 33). Deuxmoi has since circulated a photo of a car pulling into the venue’s private garage, but it shows neither woman and adds no confirmation; kept unconfirmed. Resolves on confirmation; fades otherwise.',
+            note: 'Deuxmoi blind item re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Region-coarsened; venue and security detail dropped per redlines. Rechecked 2026-09-23: still unconfirmed (day 33) — a new Deuxmoi photo of a car entering the garage shows neither woman. Fades otherwise.',
             sourceTier: 'social',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-09-23',
@@ -14429,7 +14429,7 @@ export default {
       significance: 'defining',
       title: 'Taylor announces "The Life of a Showgirl: The Encore" — four new songs, led by "Patient Zero," out September 25',
       snippet:
-        'A countdown clock and a "sh0w business f0r y0u" bio swap first teased a single, "Patient Zero" — then Taylor revealed the bigger picture: "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album adding four new songs ("Patient Zero," "Pink Clouding," "Cleveland!" and "Babylon"), out Friday, Sept. 25. She said she wrote them celebrating the album\'s record-setting first week with Max Martin and Shellback in Sweden.',
+        'A countdown clock and a "sh0w business f0r y0u" bio swap teased a single, "Patient Zero" — then Taylor revealed the bigger picture: "The Life of a Showgirl: The Encore," an expanded edition adding four new songs (Patient Zero, Pink Clouding, Cleveland!, Babylon), out Friday, Sept. 25. She wrote them in Sweden with Max Martin and Shellback while celebrating the album\'s record first week.',
       sourceUrl: 'https://www.instagram.com/p/DdmVHc2R30b/',
       thumbnailUrl: null,
       moment: {
