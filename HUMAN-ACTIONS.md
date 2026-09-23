@@ -2,9 +2,32 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #83 🟡 [UPGRADE] Give the swift2 board a Vercel API token, so build failures don't need a re-deploy gamble to diagnose (~5 min)
+<!-- ha filed=2026-09-23 -->
+
+**Why:** Production deploy for swift2-web failed on main @ e17860a76 (PR #4534,
+Sept 23 2026 ~02:16 UTC, t_3dab9cf8). Investigated thoroughly: the PR's files
+aren't imported anywhere in the web build, the local build succeeds cleanly
+on both Node 20 and the project's required Node 24, and GitHub Actions' own
+build checks passed on this exact commit — everything points to a
+Vercel-side issue, not a code defect, but there is no way to prove it or see
+the real error without reading Vercel's own build log
+(`npx vercel inspect <deployment-id> --logs`), and that command needs a
+token. This will recur on the next real build failure too.
+
+**Steps:**
+1. Vercel dashboard → swift2-web project → Settings → Tokens → Create Token
+   (project-scoped is fine, no need for full account access).
+2. `gh secret set VERCEL_TOKEN --repo JW-Incorporated/swift2` with the value
+   (or tell the on-duty agent the token directly and it will store it).
+
+**Worked if:** the next Vercel build failure can be diagnosed with
+`curl -H "Authorization: Bearer $VERCEL_TOKEN" https://api.vercel.com/v13/deployments/<id>/events`
+instead of guessing from a git diff.
 
 ## #82 🔴 [BLOCKING] GH_DISPATCH_TOKEN can't dispatch workflows (~10 min)
 <!-- ha filed=2026-09-22 -->
