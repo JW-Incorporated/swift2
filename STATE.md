@@ -2,7 +2,25 @@
 
 ## Next
 
-1. M7 still needs a successful on-time noon brief and later native-cron guard
+1. Vercel production build failure on main @ e17860a76 (PR #4534, t_3dab9cf8):
+   investigated and could not find a code defect. PR #4534 touched only
+   scripts/social/**, .github/workflows/social-event-status.yml, and
+   social/state/event-status.json — none of these are imported anywhere in
+   apps/web or packages/* (confirmed by grep), and the one function they call
+   (pickBannerCandidate in packages/experience/src/current-feed.ts) is
+   itself unchanged by this PR. `npm run build --workspace @swift2/web`
+   succeeds cleanly with a clean install on both Node 20.20.2 and Node
+   24.11.0 (matching package.json's `engines.node: "24.x"`), with
+   VERCEL=1 VERCEL_ENV=production set. GitHub Actions' own build/build-full
+   checks passed on this exact commit. The prior commit (71f155bdf)
+   deployed to Vercel successfully. No VERCEL_TOKEN is available in this
+   environment to read the actual Vercel build log
+   (`npx vercel inspect dpl_5WZZG6Up3cqffFLbDopvfDQ5ZPFR --logs` needs one) —
+   asked the operators for one via HUMAN-ACTIONS.md. This commit
+   (documentation-only) re-triggers a fresh Vercel production deploy to
+   confirm whether the prior failure was transient; check the new commit's
+   "Vercel" GitHub status.
+2. M7 still needs a successful on-time noon brief and later native-cron guard
    suppression. Read-only Windows task `Codex-M7-Noon-Proof-20260916` targets
    2026-09-16T12:00Z, deadline 13:00Z, with logon recovery. Evidence:
    Hermes/.codex-noon-proof-20260916. Manual recovery does not prove noon.
