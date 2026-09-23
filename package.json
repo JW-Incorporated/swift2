@@ -79,18 +79,18 @@
     "@fontsource/playfair-display": "^5.3.0",
     "@playwright/test": "^1.63.0",
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^26.5.1",
+    "@types/node": "^26.6.1",
     "@types/pg": "^8.23.1",
     "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.10.0",
     "pg": "^8.23.0",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.8",
     "satori": "^0.33.4",
     "sharp": "^0.35.4",
     "tsx": "^4.23.13",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.0",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.1"
   },
   "overrides": {
     "uuid": "^11.1.1"
