@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 86
+
+## Speculation on L.A. Times Influence on Taylor Swift's New Single
+
+- first seen: 2026-09-23 05:54 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from the Los Angeles Times raises questions about whether it inspired Taylor Swift's latest single. The connection between the two has not been confirmed.
+- sources:
+  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMivwFBVV95cUxOQkZCZkQ4N3FNdlhmZTM5YUxOZHRtdXlMX256ZjJMcnlUMnVNZkt4cmplbjlOdDhlT3ZlSXlxa0F3S2V5TVFocmhwamt6QkpYNDVrUHpIN1VEdFpzbURPRFhoYWZSLWRYMHFxZWthbmVlak9zVTFGbXlCR0MwdGpGQk8xM1ZEZmExRU9lSHE5eEo5Z0ZxMFFRcTdEeTBCMEw3aTNmS0ppdVVZdTItSUZkQWJ5SlBBYkJBMjZNWEFTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Replaces Engagement Ring After Surprise Announcement
+
+- first seen: 2026-09-23 05:54 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has replaced her 10-carat diamond engagement ring with a new design following a recent surprise announcement. Details about the announcement or the new ring have not been disclosed.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxPUFlFVGtzYjQ0ellFdDhJbUZod2tfZmNnQU5MSUVvZEM1RkZkcTNwN1QtMkZseVgxbTA5Nm5VeDM2aUViMEJZcS1sVkU3b3Bfam5fT1N6RWlteVdpRVg2cVZTMnFqUXhDbUdISXdvN1pQckUyQktIak4zQnNOUGNxdm9mQnBXNnJFNHYwZWZtYmhMZHhP?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Support for Ed Sheeran and Travis Kelce Reported
+
+- first seen: 2026-09-23 05:54 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report discusses Taylor Swift's stance on not intervening to help Ed Sheeran while also mentioning Travis Kelce's recent record achievement.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxQRjJoQXRhaS1fcmJwem5jU09hR3k5M3dFcmhEM0hhY2ZUZUEtLWFadVVJbjFNVE5PdzBGOURrem5EZ2ZBZmUtdDhkQUhKc3NRUnVZdFMxQWJIWVAySVJ0bktsaG5HbkVhdHE3V2NlajZxMFZONWNLdjJfTUV6WkdoQ09CcHFNdXdXMnFLdk9OZWloNHNlQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Faces Criticism for Editing Error
+
+- first seen: 2026-09-23 05:54 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is facing backlash from fans for what they are calling a 'horrendous' editing fail in a recent photo. The incident has sparked discussions online about the expectations of celebrity image editing.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQYWs5Q19IR0FCYm53U0VWNXRNMHI5VW9BU0FndGdDd3hMYlZkS015Z2tsYmRFOVkxVXFBR2xhUzJTdlFCMkViQUxiV0F3ZnFZZm45dWczWDA3X3JKekJpUXlGVnJReE5DZTIxUm5rMHdMMXFnLThxanpoOXAtOVZNZUd1OWczSW1LOHR0M3pzSHdNaXZVdU9TaGZRa1lXMGtqcDRHSA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Newest Release Not Wedding Photos
+
+- first seen: 2026-09-23 05:54 UTC | category: release | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's most recent release has sparked speculation, but it has been confirmed that it does not include any wedding photos. Fans are eager to see what the release entails.
+- sources:
+  - [unverified] washingtonpost.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPR09KX25KTFE3Y0MtVFFoNHlxYVljWVc2TTNESVJBNk0zZ28xcGdmS2Q1OVRDSGp3OFN4S3BDTTktUC1RUHdrTmhWX1ZCWmF5cUg4TktFc0lsNWZHd1A1MUNtdVEwdlRHcFFkZ2ZscFBTRFR6Y0lrOXBveW5yWlZVTi1oSVZrQ3NBeURhQmwzd0FkZVZxVlUzVXBmaEZ0THNlT1pGRjhpd1ctMmFEMHR2YWt2eEFIX3hlbG5Rbkl3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Stuns in Lace-Trimmed Black Dress While Teasing New Music
+
+- first seen: 2026-09-23 05:54 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a lace-trimmed little black dress as she hinted at new music for the first time in several months. This sighting captures both her fashion sense and the excitement surrounding her upcoming music release.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPbTMtSTk3V3V2WmpkUjUyXzctU3hhWnU1azE3QVRGM3ktNTRDeWJOTXBzdFhFV1lsc3l0ZWNid0w1M2JxMko3YUlZU1d5elJ0eTdXVGNkbXhGbm13c3hEVUVVdTBhZnBObnJSYlpiZE9uYlNpakRLTi1Rc1NTT293bVZxQkZqYUdjZFJkdVpoS1MyU1NmQ2ZYM3RLSlJWWjNCejNOMnp3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Make History at 2026 MTV VMAs
 
@@ -60,9 +108,10 @@ Stories: 80
 ## Taylor Swift announces new single titled 'Patient Zero'
 
 - first seen: 2026-09-22 20:10 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift has officially announced the release of her new single called 'Patient Zero'. This news comes from FOX 29 Philadelphia.
 - sources:
+  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi2gFBVV95cUxPS3NHUllmelg0UTYyZThOZWw4Q2Uyb21ibDBPSkdpWTNrQkxVUzFWMXFsNW1mMXk5b0gwcUdTYXpHSlVhS045eTJYSWdsOEpSbW13QkVoQ01ScE1MNFNzRzZDbFN4NW9CY0FqZTQtTklSc0w4Q05leDJuTG1fVVQ5NXZPN2pacnIyTTdXZHlaMzdSY29UQjV1UUJNcXNhRHdNb3dfVF9pQVluNE1MZHpaVEZuSGlNYUZLTXI1a0lmZHp1dVN1TzdJWmRPeWxVZks5WE1nWVh0UG5ydw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMirAFBVV95cUxOXy1PRFZQY29MRXBfWUpDUlpHTlQ5RFBrNTBPNTR1RHc2VElfeDBMMjFBVmtIMnF4UUJLYV9BRHRaTXNleDQ2aWxzbEd4NTZVYnZDeGZTc3lPZXdBRnktaV9DQ0x3ZG8tcnpITG9sblkyRXVxZExqLVdmTGROTlJwTHU4ZWRLc2M0NTA0WnBaaWhnS24tUVRlV1hTTWhSQTdVR1VlUnFkOG4wYXE4?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Achieves Historic Milestone at MTV VMAs
@@ -86,25 +135,11 @@ Stories: 80
 - summary: Taylor Swift has updated her website with a new countdown after sharing cryptic clues involving the number '0'. Fans are speculating about what the countdown could signify, but no specific details have been released yet.
 - sources: _none recorded_
 
-## Chiefs Coach Links Taylor Swift to Travis Kelce's Performance
-
-- first seen: 2026-09-22 20:10 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 0
-- summary: Kansas City Chiefs coach attributes some of Travis Kelce's success to Taylor Swift's influence. Swift has been seen frequently at Chiefs games, suggesting her support may be impacting his performance on the field.
-- sources: _none recorded_
-
 ## Taylor Swift Announces Release Date Following Countdown
 
 - first seen: 2026-09-22 20:10 UTC | category: release | importance: 7
 - verification_status: single_source | source_count: 0
 - summary: Taylor Swift has revealed a release date for an upcoming project after initiating a cryptic countdown. Details about the project remain limited.
-- sources: _none recorded_
-
-## Fans React to Taylor Swift's Cryptic Countdown and Clues
-
-- first seen: 2026-09-22 20:10 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift's recent cryptic countdown and clues have left fans intrigued and speculating about potential upcoming announcements or releases. The buzz among her fanbase continues to grow as they analyze the hints provided.
 - sources: _none recorded_
 
 ## Kam Saunders Hints at Potential News Related to Taylor Swift
@@ -132,6 +167,22 @@ Stories: 80
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMivAFBVV95cUxNaDd5Wnh3UG12RmNTZldSa2RVVFdWck9zMHE4eWN4SndFSjc3Ykw2V0dXRnFRY0ExM2tKRlBTYXV2X0ZXaGlKa0ZXeEltcTV3YVY1YVpjV0ZQenlRTmtRMUYxNEJmUE0zOU0zd0RqMDZHQTRJbk1hb0NUVlJLdWtESWQ1Wk5SUm5FRGZUR2pndnEwaG5zT0M5TFNzR3FneUE1QTVVYS1aTjFTYmRsUjhFeHFRdHlnaE5aR0NzSQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxOMEpYbFU2dmR1VFRPb1hZanNPZzFGb2lXNXBXUkJxM05Ya3psbGtXZlhrNzZidmkzaWpmS0RITXpvOGt6STF5TEZ0VE1wNXhLMGc1MDJJd2FFRjF1aDJkR3IxSUo3LXRmeDlEcTRUcEhrV0V3Q0lpcTg1S1o1bThYZGg5ZXowSHVGMlhwUloweFo0TURoTFZFbjY4aHA1b1lXeHpWM0sza3ZVUks3WHBj?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMigAFBVV95cUxORXRqTno1VlRSWjNxU0ItT3RES3E3UDF1eU12Y2VtNVBYakdGU3VLVkJNWFZMVkVhdDJEUk5ENUR5Wk9LVjd2Zm0wNTdtSHJxUnNLWnFvWlNMckQxOHYxaldSYTh4ZWJUOEpRYjdsN2lqWlpfM2xHTjdYTHlsQWpUcA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans React to Taylor Swift's Cryptic Countdown and Clues
+
+- first seen: 2026-09-22 20:10 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recent cryptic countdown and clues have left fans intrigued and speculating about potential upcoming announcements or releases. The buzz among her fanbase continues to grow as they analyze the hints provided.
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMirAFBVV95cUxQU3Y1eDA2ZklqbHQ5SjhEa3E2M0s0R1ZZVnphelJFY0I1cVQ5N1QtTmRQXzJpUlNKUUk5OVcxNHA4akNOSDdkRnlEbXpkUkpoY2trNmRvSzRELUVpYWlYNTlGbmlWbGdZSGNTTGMzYUZGMzVpWG1QSUJ4WFFlYjdlbjRMa3ZXXzZYM3p6RkI3TmI5QzRoODZxVWJfRXBJa01yY1R4US1LSzFETnZU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Chiefs Coach Links Taylor Swift to Travis Kelce's Performance
+
+- first seen: 2026-09-22 20:10 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Kansas City Chiefs coach attributes some of Travis Kelce's success to Taylor Swift's influence. Swift has been seen frequently at Chiefs games, suggesting her support may be impacting his performance on the field.
+- sources:
+  - [unverified] architecturaldigest.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxOTEZyeVdEVlRVYlJNYTVreDRONTlJLWZId1BPNUZHNzYyY01Bd1hsNXNDbXpMdGlZd3hJRkZWMXNhR3FJOWg5V2t2TWpsUlV3T2dWOUs1QkQ2aVNySXlMWFp5MHZReHgyWEhkcHk2SkRxTDdPUmFuQlF0Z3Y1LXJzZG1TMktiYkdyS3k5WDFzb0UwdWdZUUpTUHRGelhJS29ZTUpHNWdQRERPME9aemNpSTNxUGpRT1ZweHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Homeowners File Lawsuit Against Rhode Island's 'Taylor Swift Tax'
 
@@ -489,19 +540,6 @@ Stories: 80
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMixwFBVV95cUxQM1ZHaVNMZXVFS1JGVWszdmQtVlMteENEZzhSZGt6d3B6ZURES3NIYXJSN1ZKNGJ5dm13TVY0b0k2Qk15WWhqQkNJQnZFMm5vZEZrZjg3TEUzUFM2YkpQR3pDeVZWSDNxbGprU1diMnhxQTk0QnpjWWpwTmJmQkoyVEZkSjU5WHF5VVN0bmhDaV9EdHpFd0hjdnYxNS1UZmNRVlEtV0RrLWNySHdmXzBaS0cxQ0c1NzZtb18yOF9FSzR5UnlzWHYw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
-- sources:
-  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOX2xEeFA4dWlXcXhsUDBjMU15eGdDR2pGWWM0UFNIUlQwZV9mYUdJM1JueDZoT256cFJfeDVubkFpSm5OdU5RVnQzN1NtTW9jcm1SU0lTWEtFNmlUQ0V5cjRzcHdKMmhLQnFBUkQyM2RldUpubXlETTNSUGhJemtLT1N1T0NPS2FNd0dwdlI2QmFsZWRESHZucmFCTjZOLUF4NVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxPX1pIRDRGaVZ3dzYxVGtRTkdVblItM05WbWtwdEFxMm13NVlWNHp4bFp2M2Itcy15WVEzQ3RmUjhaNGdLNGZYU2QtbndhakpsdEpfN25IQV9tWENsWkpoYVpUdUphMzdQeDFHWU12M2VVYjV2XzRVNzVjQmoxZnVVNVdfa1RYREtBdVhoWlo2Ym5CblptVW5BOWdrM3lKWmZWem83U2ptR3BOUkxVT0p6WFVzYW1ldw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirAFBVV95cUxQRWRMaFdieC1ncnVHN182Mk5KNGtXeTd3eGdWdnRHSnAwcV9LMW9xaEM2NWZ1aWJ6V2F3Wkp0SEdHTWw0SG9jWlRURjZSYnFENGkxSmJmUG9aWC1EX19rQi1qemJfNXdpM3RqeVd4M1BST09kdU92NS13RnIyU3l1T3p0NXBleWNuSmt0OGNGMDZDUXlYb3NKSDFLTlI5S01GcWZMV25reGZrZENk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmpCMVEtQjBKdDFUR0otZ05LNTBiRl82WEFBWjB5cTdpYTdOWE5pNnNoVGVXSFRua3ExNjN5U25QWHZreFU5Q3djaWdSZFh3RDJyYkQtd25LdnYtcVN5ZURNZTF0TUFSRHJuRjNTdjBNcmNneGwyUzh1Mi05WnZXVXRNblc2QTRuNGxHRFFyRUZWMGoyVkdmTXNSbGszUHp6YVhBa0x3?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Shows Wedding Ring After Kelce's Touchdown
 
 - first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
@@ -509,6 +547,20 @@ Stories: 80
 - summary: After Travis Kelce scored his first touchdown of the season, Taylor Swift was seen pointing to her wedding ring, drawing attention to the moment.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcG1jR1V3VHFJRW1mNkRrSUFpTnJWMm5KWG1RdUNNZFR2VU9wd013dkRjOXB0WW1WX0FpcHpzOFBlYzNnRndKOXpKRUp3WEhLdHR0X1paVEgydVMxeFNRSXBmWk5hSVFMRVpScFVBRU5WSnEwTFdFWmJhTURwbTBDVEc2SU1NZC1QQmpzRy1wcXpNVWtyTzB0TjBKeXBLajVM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
+
+- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 7
+- summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
+- sources:
+  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOdVpaNEszSzJHRjFVdWR0eWJObFZVSDR0dDhtRVJEUGs4MWR1b3JRUExuZUNoSHZUMVlBUjVtM1pIV1pLX1J1Slp1NG4zbU1DT3FaVHFMMS1GMTBxN2dCX0VyRm1ETWhWdUNzbi1SR05fSXliVnQweHY1Y1hZMmgyTDctekl6cHpRNXNidHAta2plSDJ6MjdUWA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOX2xEeFA4dWlXcXhsUDBjMU15eGdDR2pGWWM0UFNIUlQwZV9mYUdJM1JueDZoT256cFJfeDVubkFpSm5OdU5RVnQzN1NtTW9jcm1SU0lTWEtFNmlUQ0V5cjRzcHdKMmhLQnFBUkQyM2RldUpubXlETTNSUGhJemtLT1N1T0NPS2FNd0dwdlI2QmFsZWRESHZucmFCTjZOLUF4NVE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxPX1pIRDRGaVZ3dzYxVGtRTkdVblItM05WbWtwdEFxMm13NVlWNHp4bFp2M2Itcy15WVEzQ3RmUjhaNGdLNGZYU2QtbndhakpsdEpfN25IQV9tWENsWkpoYVpUdUphMzdQeDFHWU12M2VVYjV2XzRVNzVjQmoxZnVVNVdfa1RYREtBdVhoWlo2Ym5CblptVW5BOWdrM3lKWmZWem83U2ptR3BOUkxVT0p6WFVzYW1ldw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirAFBVV95cUxQRWRMaFdieC1ncnVHN182Mk5KNGtXeTd3eGdWdnRHSnAwcV9LMW9xaEM2NWZ1aWJ6V2F3Wkp0SEdHTWw0SG9jWlRURjZSYnFENGkxSmJmUG9aWC1EX19rQi1qemJfNXdpM3RqeVd4M1BST09kdU92NS13RnIyU3l1T3p0NXBleWNuSmt0OGNGMDZDUXlYb3NKSDFLTlI5S01GcWZMV25reGZrZENk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmpCMVEtQjBKdDFUR0otZ05LNTBiRl82WEFBWjB5cTdpYTdOWE5pNnNoVGVXSFRua3ExNjN5U25QWHZreFU5Q3djaWdSZFh3RDJyYkQtd25LdnYtcVN5ZURNZTF0TUFSRHJuRjNTdjBNcmNneGwyUzh1Mi05WnZXVXRNblc2QTRuNGxHRFFyRUZWMGoyVkdmTXNSbGszUHp6YVhBa0x3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jodi Picoult Discusses Taylor Swift at Carroll Festival
 
