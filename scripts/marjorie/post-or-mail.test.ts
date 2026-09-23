@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -106,5 +106,51 @@ describe('main()', () => {
     expect(exitCode).toBe(0);
     expect(logSpy).toHaveBeenCalledWith('delivered: neither');
     expect(spawnImpl).not.toHaveBeenCalled();
+  });
+
+  // t_85667a3c: a fresh-context review caught that an earlier revision
+  // passed mentionUserIds to post() without ever writing a matching
+  // `<@id>` mention token into the posted text — allowed_mentions is a
+  // FILTER over mentions already present in content, not an injector, so
+  // that revision pinged nobody despite claiming to. These tests assert
+  // the actual text handed to post(), not just exit codes.
+  describe('--mention-founder', () => {
+    const FOUNDER_MENTION = '<@338508192755482626>';
+
+    it('prepends the founder mention token to the Discord-bound text when set', async () => {
+      const postSpy = vi.spyOn(discordMjs, 'post').mockResolvedValue(okResult);
+
+      await main([...baseArgv(), '--mention-founder']);
+
+      expect(postSpy).toHaveBeenCalledTimes(1);
+      const [discordText, opts] = postSpy.mock.calls[0];
+      expect(discordText.startsWith(FOUNDER_MENTION)).toBe(true);
+      expect(discordText).toContain('the brief body');
+      expect(opts.mentionUserIds).toEqual(['338508192755482626']);
+    });
+
+    it('does NOT prepend a mention or set mentionUserIds when the flag is absent (no regression for existing callers)', async () => {
+      const postSpy = vi.spyOn(discordMjs, 'post').mockResolvedValue(okResult);
+
+      await main(baseArgv());
+
+      expect(postSpy).toHaveBeenCalledTimes(1);
+      const [discordText, opts] = postSpy.mock.calls[0];
+      expect(discordText).toBe('the brief body');
+      expect(opts.mentionUserIds).toEqual([]);
+    });
+
+    it('never leaks the raw Discord mention token into the mail fallback body', async () => {
+      vi.spyOn(discordMjs, 'post').mockResolvedValue(failResult);
+      const spawnImpl = vi.fn().mockReturnValue({ status: 0, stdout: 'Mailed [[discord failed] Test subject] To sffan15@gmail.com\n' });
+
+      await main([...baseArgv(), '--mention-founder'], { spawnImpl });
+
+      expect(spawnImpl).toHaveBeenCalledTimes(1);
+      const payloadPath = spawnImpl.mock.calls[0][1][1];
+      const payload = JSON.parse(readFileSync(payloadPath, 'utf8'));
+      expect(payload.body).toBe('the brief body');
+      expect(payload.body).not.toContain(FOUNDER_MENTION);
+    });
   });
 });

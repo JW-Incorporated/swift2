@@ -188,4 +188,47 @@ describe('post()', () => {
     expect(waitImpl).toHaveBeenCalledExactlyOnceWith(2000);
     expect(JSON.stringify(result)).not.toContain(FAKE_WEBHOOK);
   });
+
+  // t_85667a3c: mentionUserIds is what makes a real founder @-mention
+  // possible at all — a fresh-context review (Claude, cross-check of the
+  // Codex-review contract) caught that an earlier revision set
+  // allowed_mentions.users without ever putting a matching `<@id>` token
+  // into `content`, which posts silently: Discord's allowed_mentions is
+  // only a FILTER over mentions already in the text, never an injector.
+  // These tests assert the actual outgoing payload, not just the return
+  // value, so that regression cannot recur silently.
+  it('defaults to allowed_mentions: {parse: []} when mentionUserIds is omitted (no behavior change for existing callers)', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
+    await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl });
+    expect(bodyOf(fetchImpl.mock.calls[0]).allowed_mentions).toEqual({ parse: [] });
+  });
+
+  it('sets allowed_mentions.users to exactly the given ids when mentionUserIds is passed', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
+    await post('<@338508192755482626> production deploy failed', {
+      webhook: FAKE_WEBHOOK,
+      fetchImpl,
+      mentionUserIds: ['338508192755482626'],
+    });
+    expect(bodyOf(fetchImpl.mock.calls[0]).allowed_mentions).toEqual({
+      parse: [],
+      users: ['338508192755482626'],
+    });
+  });
+
+  it('does NOT allowlist a user id that is passed but never appears as a mention token in content', async () => {
+    // allowed_mentions.users is a strict allowlist FILTER, not an
+    // injector — Discord will not ping unless `<@id>` is present in the
+    // posted content. This test documents that contract so a future
+    // caller cannot reintroduce the exact bug this task's review caught
+    // (mentionUserIds set, but nothing ever wrote `<@id>` into the text).
+    const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
+    await post('production deploy failed', {
+      webhook: FAKE_WEBHOOK,
+      fetchImpl,
+      mentionUserIds: ['338508192755482626'],
+    });
+    const sentContent = bodyOf(fetchImpl.mock.calls[0]).content;
+    expect(sentContent).not.toContain('<@338508192755482626>');
+  });
 });
