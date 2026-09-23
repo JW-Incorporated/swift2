@@ -14417,12 +14417,42 @@ export default {
       month: 9,
       day: 22,
       category: 'release',
+      // Priority fix (2026-09-23, founder escalation): this is breaking news —
+      // a new single announcement, her first release since The Life of a
+      // Showgirl — and the same-day alphabetical tiebreak (era-feed.ts's
+      // entryTiebreakId) was sorting it below two lower-priority same-day
+      // items (a routine award-honor mention and an unconfirmed fan-theory
+      // roundup). `significance: 'defining'` forces the hero-tier/top-of-feed
+      // placement feed-tiers.ts already gives real career-defining moments
+      // (same mechanism as showgirl-announced-on-new-heights, msg-wedding,
+      // harris-endorsement-cat-lady) — an existing override, not a new one.
+      significance: 'defining',
       title: 'Taylor announces "Patient Zero," a new single out September 25 — CDs live for 24 hours only',
       snippet:
         'A countdown clock on her website ended, then an Instagram post: Taylor\'s new single "Patient Zero" arrives Friday, Sept. 25, with a 24-hour pre-order window for three collector\'s-edition CDs. It is her first new single since Toy Story 5\'s "I Knew It, I Knew You," and lands days before she receives the first-ever Artist Director Honor at the 2026 MTV VMAs.',
       sourceUrl: 'https://www.instagram.com/p/DdmVHc2R30b/',
       thumbnailUrl: null,
       moment: {
+        // Real-photo fix (2026-09-23, founder escalation): the socialPost
+        // embed below is not a feed-card thumbnail (MomentCardButton.tsx only
+        // reads `images` via hasRealPrimaryImage/primaryImageRef), so this
+        // page rendered the generic era-art placeholder on every card/list
+        // view despite "showing" the announcement post in its detail view.
+        // Added a real, verified photo (HTTP 200, image/jpeg, vision-
+        // confirmed as Taylor Swift) from ABC News's coverage of this exact
+        // story, credited to AP per their caption — same convention as
+        // harris-endorsement-cat-lady (a contextual photo tied to the story,
+        // not necessarily the exact announcement frame, since Instagram CDN
+        // urls are signed/expiring and not on the image-host allowlist).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/93847b71-3ff8-4e39-ba66-9f2ef300b367/taylor-swift-ap-gmh-260922_1790100809103_hpMain.jpg?w=750',
+            credit: 'Natacha Pisarenko/AP Photo (via ABC News)',
+            caption: 'Taylor Swift, whose Sept. 22, 2026 Instagram post announced the new single "Patient Zero."',
+            kind: 'primary',
+            focalPoint: '55% 35%',
+          },
+        ],
         context:
           'Earlier on Sept. 22, 2026, Taylor\'s Instagram bio quietly changed to "And, baby, that\'s sh0w business f0r y0u. \u2764\ufe0f\u200d\ud83d\udd25" — the letter O in "show" and "for" swapped for zeroes — and a countdown clock appeared on her website. When the countdown ended that afternoon, she posted the reveal directly: "I\'ve been impatiently waiting to tell you that my brand new single \'Patient Zero\' will be out on September 25 (!!!!!!!!!!!!) and it\'s available to pre-order now on my website for 24 hours," alongside a photo of her in a black turtleneck.\\n\\nThree CD editions went up for pre-order on her store for the 24-hour window: a standard double-sided-cover CD, an acoustic version, and a piano version. It is her first new single since "I Knew It, I Knew You," her Toy Story 5 contribution from earlier in 2026, and her first release of any kind since The Life of a Showgirl (Oct. 3, 2025). The timing lines up with two other things on her calendar: she receives the inaugural Artist Director Honor at the 2026 MTV VMAs this Sunday, Sept. 27, and the reveal follows a cryptic Emmys sketch appearance earlier in September where she told host Mariska Hargitay to look for clues "hiding in plain sight" and rattled off phrases fans immediately flagged as Easter eggs: "Saccharide. Aries. From the vineyard. North or south."\\n\\nThe zero motif carried across platforms: fans also noticed Spotify added album-specific play/pause animations across her catalog that day (sparkles for The Life of a Showgirl, floating hearts for Lover), read by some as part of the same rollout.',
         socialPost: {
@@ -14463,10 +14493,6 @@ export default {
               'confirms the Instagram caption verbatim, the three CD editions, the Spotify play/pause animations, the "sh0w business f0r y0u" bio change with zeroes replacing O, and the Sept. 27 VMAs Artist Director Honor.',
           },
         ],
-        // No standalone photo needed beyond the embedded Instagram post itself
-        // (step 3b) — the socialPost above IS the visual for this moment,
-        // per the same convention as other announcement-post moments in this
-        // file (e.g. 'showgirl-announced-on-new-heights').
       },
     },
     {
