@@ -223,6 +223,32 @@ describe('mergeEraFeed', () => {
     expect(mergeEraFeed([], [])).toEqual([]);
   });
 
+  // 2026-09-23 founder escalation: a same-day `significance: 'defining'`
+  // moment must win the tiebreak over routine same-day entries, not lose it
+  // to an alphabetical id accident (the bug that sank the real Patient Zero
+  // announcement behind two routine same-day items).
+  it('breaks a same-day tie in favor of significance: defining over a routine entry', () => {
+    // Alphabetically 'a-routine-item' already sorts before 'z-defining-item',
+    // so this proves significance — not id — decides the winner.
+    const routineFirstId = { ...moment('a-routine-item', '2019-08-26', []) };
+    const definingLastId = {
+      ...moment('z-defining-item', '2019-08-26', []),
+      significance: 'defining',
+    } as ContentItem;
+    const entries = mergeEraFeed([routineFirstId, definingLastId], []);
+    expect(entryIds(entries)).toEqual(['z-defining-item', 'a-routine-item']);
+  });
+
+  it('ranks significance: notable above an unset routine entry on a same-day tie', () => {
+    const routine = { ...moment('a-routine-item', '2019-08-26', []) };
+    const notable = {
+      ...moment('z-notable-item', '2019-08-26', []),
+      significance: 'notable',
+    } as ContentItem;
+    const entries = mergeEraFeed([routine, notable], []);
+    expect(entryIds(entries)).toEqual(['z-notable-item', 'a-routine-item']);
+  });
+
   // Anchoring — see anchor-date.ts / § Plan amendments. Undated video records
   // used to sort to the absolute end of the feed; now each gets a real anchor
   // (resolveAnchor) and sorts chronologically like everything else.

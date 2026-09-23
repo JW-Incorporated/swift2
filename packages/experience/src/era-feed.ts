@@ -210,8 +210,28 @@ export function mergeEraFeed<V extends VideoNote>(
     if (a.anchor.sortDate !== b.anchor.sortDate) {
       return b.anchor.sortDate.localeCompare(a.anchor.sortDate);
     }
+    const rankDiff = significanceRank(a) - significanceRank(b);
+    if (rankDiff !== 0) return rankDiff;
     return entryTiebreakId(a).localeCompare(entryTiebreakId(b));
   });
+}
+
+/**
+ * Same-day tiebreak priority: `significance: 'defining'` (2026-09-23,
+ * founder escalation) — breaking news like a single announcement must never
+ * lose a same-day tie to a routine item purely because of an alphabetical
+ * id accident, which is what happened to the Patient Zero announcement
+ * (sorted below a routine award-honor mention and an unconfirmed theory
+ * roundup, all dated the same day). `significance` was already an editorial
+ * override for CARD SIZE (`feed-tiers.ts`'s hero forcing) — this extends the
+ * same signal to ORDER, since a "hero" card that isn't near the top of the
+ * feed defeats the point. Only `moment` entries carry `significance`; video/
+ * doorway entries rank as routine (2), same as an unset moment. */
+function significanceRank<V extends VideoNote>(entry: EraFeedEntry<V>): number {
+  if (entry.kind !== 'moment') return 2;
+  if (entry.item.significance === 'defining') return 0;
+  if (entry.item.significance === 'notable') return 1;
+  return 2;
 }
 
 /** The stable id an entry sorts on when two anchors tie — see `mergeEraFeed`.
