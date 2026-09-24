@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "The Joe Jonas summer is one of my favorite chapters to explain to new fans 🤍 It's 2008, Taylor's 18 and deep in the making of Fearless, and for about three months she and Joe are one of the most talked-about young couples going.\n\nThen it ends — famously, in a phone call clocked at 27 seconds. But she doesn't bury it: 'Forever & Always' lands on Fearless as the song everyone reads as her reply, and the heartbreak becomes part of the record instead of a secret.\n\nThat's exactly what Blank Spaces is for — not gossip, but a confirmed, sourced map of who she actually wrote about and when. This is the chapter right after her early solo years: the first famous name on the timeline.\n\nPhoto: Taylor on the Fearless set of the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "fearless-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+  "altText": [
+    "Taylor Swift performing the Fearless set of the Eras Tour in Inglewood, 2023, in a gold fringed dress, guitar in hand."
+  ],
+  "scheduledAt": "2026-09-24T23:00:00Z",
+  "campaign": "timeline:love-story:joe-jonas-era:2026-09-24",
+  "why": "2026-09-24 Beat B, Blank Spaces relationship timeline, week of 09-21 (permanent weekly minimum, strategy §1(c)). Advances the chronology one chapter from 09-17's early-solo-years intro to the FIRST documented relationship: Joe Jonas, summer 2008 (2008-07-01 to 2008-10-15 per supabase/seed/lenses/relationships.mjs rel-jonas). Confirmed public relationship history — the strategy explicitly permits Joe Jonas as 'confirmed public relationship history'; nothing here is rumor-stage, no private individual, no minors (both were adults), no blocklist topic. Sourced facts only: the 27-second breakup phone call (relationships.mjs note + comment: 'ended in a 27-second phone call, later confirmed by Swift on The Ellen DeGeneres Show'); 'Forever & Always' as the 'publicly understood direct response song' on Fearless (framed as 'the song everyone reads as her reply', matching the source's 'publicly understood' hedge, not asserted as her stated intent). Did NOT claim it was a last-minute Fearless addition (not in the Vault). Media: fearless-inglewood-2023, a credited Taylor photo that era-matches this Fearless-era chapter (the album this romance fueled) — chosen over the calendar's debut assignment because the era match strengthens mediaEarnsItsPlace; last library use 09-17, exactly 7 days clear (L001). photoEra unset (timeline:love-story is a cross-era, non-THEMED family). Timeline is neither heartbeat nor mood, so the mandatory share-hook does not apply; a natural fan-teaching frame is used instead. Standard sentence capitalization (strategy Voice, 2026-09-10). Lyric-free. rulesChecked [L001].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "Blank Spaces advances to its first named chapter — the 2008 Joe Jonas summer, the 27-second breakup call, and 'Forever & Always' on Fearless — kept confirmed-only and framed as a sourced map, not gossip. The Fearless-set tour photo era-matches the album this romance fueled. Sourced to relationships.mjs.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}
