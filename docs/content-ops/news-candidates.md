@@ -25,7 +25,37 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 79
+
+## CBS Mornings Teases Taylor Swift Segment, Sparks Fan Excitement
+
+- first seen: 2026-09-24 14:10 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 15
+- summary: CBS Mornings has released a teaser involving Taylor Swift that has generated significant excitement among her fans. The segment, dubbed 'Patient Zero,' has caught the attention of the Swiftie community.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdVdyVndnZkVOaXBiV2VlS3p1cGtVT3dPVU15VVpkOHZhSV9PNlZ3c0ZkSDNtalg2NlJhVnRmSTdBZ3AwbmJld1Y2OFdnNlZZRE5VZy1qcF9sRUlzVnBBNGVRNXFlNUVwTGp4a2tzeVAwVUQ3ckc4a2NiUHdHb05UUjN3bkxyWXc5OHpmbF9jQ1p1WGphR2FOZjU1VkhicmlEaU0wakt2bWpvQjFjZHFV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] CBS News — https://news.google.com/rss/articles/CBMioAFBVV95cUxNakM3Wk9JVnpEZ1M0VXBrYzZzMUludy1QX0traW5ZWU9pMGtOaGg5NVE4TWlKWVU1MDZIQlFjOXd5a252bDFtMjBGN1hPRktwOVo5b1AtcEIwQUtUWjNhLXNUQkV3LXBkQklhcGJBbTNNeTZ3bnZYeDBBTXV0WG5pbWRFUlY5Q1NGNWhNS3pyUDJSVW5oZ1hOV1A0ZmNFZ1pz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQYm1FVXQyYUw5dllUaDhwS1VaeW82RGtqR3Z0cE96cHRkb1dudXJsVlQ2RzFPT0hFM1FlLWZoR3p2cDYwWUdFWi1tQXNDampTWkoyaGdwdmRHOWlVcEdpVEJsNHRWNTN3ZmE2VVd5WnFGejQ4MFBkSGIzOUlDOVBFSk0zdFMyU3oxYnBaWTZuMTlHT0VTckRQSWVpeFFPd0E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMihAFBVV95cUxOc1VmQ1ZKNXZQMVJTdGtlMGRqNFc1OGlWX3dzbUtBN29sNTFtSDFNMTFwQjZYaTVBdmJheGViWExXMnpuMVp2SXR6Q2lIM1dSR0xPNmd1TFhHZ2xXVmhnb0dQMFJUUmJ1bk9ydDZ5QXMwdUU3WHh0Zm5ST0VWQ05mRHRFU3M?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/
+  - [unverified] kctv5.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOdHQyeXFIQkhZWlRMVks0TmJrRlFEdVAyX3FTZmxvU3MtYlpZV2RpYU5CcUxWX1QxaXVwWWNaM3J3SkUtZmV4Q2tZVExwQWJBWjdwU0NBaU1tNi10cnhpd21QNDhqQUw1WllrZWl3QTA5U0dndDZDQ0hCY042WDRNRmdrck1QNnN3TnJJNUFtSGFIR3Mtbjlj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Mix93.3 — https://news.google.com/rss/articles/CBMiakFVX3lxTE9pYVQzUU84RmxTWjRfMF8zbzNadGhQVWZsSnNNWlNXaDRDcWRISFU4OFZseEtvaWx3OF82UjloQzdYZk9Hc1Q5S1QxWldjRDNqcTJPZmJXSWlWTnV0Slp1Tm5tTzZNODMtdUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxORm9rc25tcFdqSWxwenY0YWNNazVsTzd3blJFS1BCOEZEdFJ5d2wxXzJNbzcyQ3paS01wNy1LVG5UcFNHdmZhc3FYZ1NJUTRYTFhNbjR3VWRUUG9UQ2lYc3hDOUpvRlZWM1JhZHZSdTRfdl9kY0ZQVUhLNGZ4UmdVVy1tN2ZOY0xHenFjRHVPUUF0bGJaaDd2VkhRR0ZBZ1pHbi1DamxfSk4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-1235630867/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYnZqQkNiMDRweDBTcjhIVUJEYjlVMkgtU2FHbFpZdHZPZlVhNC1GUUc5ZHV6RlUyQWJKLXZlRUw3VlhOSHFacms3NmNDZzBCRWRrdmdidV9pUllkc19WVjZHendKRjJ6dmYzd2FkZGljeFNUZS1MZlh1ZTBRMWxLdGxSc2dwWG9GWm0zR2VaLTZZeXlfNDhKZ0otcjl4T2Zp?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-patient-zero-video-vmas-1236709245/
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOalNNWnVSeFFsMk53SktnZjZkOXF5bDA2X2l6UDlCYUlIYTRkcUU3SnZhcVJIRjlqR2EwZGhkSTM0TDBuSi1VdHpDSXZJemI0NXZielN0MDdGbXJ2aXFicGdUUDdiZVdodWJhN0pnUHk4aFlhQ2MxQUcyVjVlVE04akJvRWY4M1V1WS1fSV8wdE5GQ1RpQUl2ejh0S01oUkJrTjhZc2xlY08?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMitAFBVV95cUxNN3RjcGdxcjFZM0duM0hjellDNVlPSTV3S1NYYU0tZUs3V1lfZU5IaUNDM0U3ODN0blBYd0JlQzRqbzhqTkw4NWNWeW5LWjVSd0htU0FuTlRQelkxOVRRSlUwZWlkTy1fX1oyM1B4UWZ1NHo1TUF0NHlOM3dJcjdiS2F4ZFlxTUVWUXo1WEtjTWZqUEtkYUU1TGY3bzNlNUlvVWhtd3JzenNZQ21WZU5NNkNiQ00?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-music-video-dakota-johnson-colin-farrell-1236874206/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOanl2NFB4ME1IRjYwdHRWb2FRQVB0TExVeWloVWZOTWI1U2ktQ3pWaHhPWmdtd0ltdzRwaGdZckpDWGJmaDdHOFZ5TTB6Y3N6R2k0Qnp3TllZR1N5ekpYMzBtc05qWlZzb1VCQU9jM2tVWmpuQmZYcnd2S1ZFeFdmTThnTTNwdFM3SFFhTlJ2dE5sbG8wYnNLekxwcXJjMDJK?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift iPhone Colour Theory Gains Serious Attention
+
+- first seen: 2026-09-24 14:10 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The concept of the Taylor Swift iPhone colour theory has moved beyond mere jest, receiving serious acknowledgment in the media. This discussion reflects on its significance in her fan culture and branding.
+- sources:
+  - [unverified] Creative Bloq — https://news.google.com/rss/articles/CBMitwFBVV95cUxNSlZOWXpsQlZjNFlLeUFnZU00RnQ5TDVLcTBhVVpIMnB2YUFlU0RhV3dyUlNkYUhjYld5OXY5R2NoS19LUDdTSF95VGZCUGRRWF96SEtWXzlFaEVaaXF6YTNPN0JsaEJFNnZqcy1qM0JmUExYeXg5UHZPY1VZQmpuUS1QWTVpSDZHMDJFMWI1cG4yZjZyenJranh4WTQxcHp4LVpiLUttUEtkNDN2S3ljbHVBSXI5ejQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wears Nicholas Jebran Micro Minidress
 
@@ -670,101 +700,3 @@ Stories: 87
 - summary: Taylor Swift was spotted in a wedding dress during a lively summer in New York, which included various events. The summer was characterized by numerous spectacles and activities throughout the city.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/21/nyregion/new-york-summer.html
-
-## Taylor Swift sports Erin Andrews Chiefs tank top at recent game
-
-- first seen: 2026-09-21 06:15 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a $40 Erin Andrews Chiefs tank top at a game on September 20. The article includes a shopping link for fans interested in the outfit.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiywFBVV95cUxOYzlsVUhZbTVrTTJmNnN4dFlzN3RBTmh0d2l2ZHBTb1otUGw1bzVWeVBIRHk3WGctX0x5VURNcUstME50cnF4ZmVYb040Q0ZkamVZLXJURnMwX2hzUWdkRU5JUlZxRVV5UHlCRmVWVnlVel9JOHJQTlRyV2NEbldqemN5NWdFbXlsMlBhb09paUZyZ21zS255cUVERkkwZnItTWhHQzdPOWtiVE12ZlpPWkN6ZG9NZ0N5NUV3d3FsazVzZ2pQZUVHRnphQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seen in $40 Tank Top from Erin Andrews’ Clothing Line
-
-- first seen: 2026-09-21 06:15 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a $40 tank top from her friend Erin Andrews' clothing line while attending a Chiefs game to support Travis Kelce.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNUFRueTZoZ0tObExQdXZPQ2FnNjBEVUlybUdOaVBXRzNaVXhhd3hXcU1yQ2hIQ0xlaG5ZUGk0bHpYN21MQjJlTnBpR28tREpPQjJ4c3doMjVULTdOaGlYQWJkN09vaE5tQkJfWDJBLVFxU2tXNUtoZDRRWHM5S0FXYUlrdWhrOVVUY0JncHhkeVBKUFR3eDFReUZZeGJVUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Wedding Band During Chiefs Game Celebration
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: After the Chiefs-Colts game, Taylor Swift was spotted revealing her wedding band, which has attracted attention from fans and media alike. This moment follows her recent public appearances with Travis Kelce.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiswFBVV95cUxQbWFGUFpSNzdPMmRwcnhLRE84clZjOHBxdlA2X1NEZ2xWU2V2Z3pJSVJHS0ExLWRDNFBsQWszQ2ZBd0JxcGRIc1pWbWxIN0JKN2lIM3FhTmo5QXVYMU9KVTNaRzdkcEtydUcwaXRpcC01dlB6bWhZZUNzZEx6YlY4bGhiVy1GQVlHblFVTVh3Y0t2b19ZUFJrNDJZTGVEZ0ttckdPcmQ0WFUya3M5MFhNeGZuYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Spotting Before Game
-
-- first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were seen together prior to the Chiefs vs. Colts game, sparking conversations among fans. Their public appearance has gathered significant attention from the media and supporters alike.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMivgFBVV95cUxPa1hhZnlaYW5LOTZnN2dfNTR0UUtxb0NobEN4aUh6NHliVENxMzBrNmp2dHB6U2c1VkhBUjg0cEdPcGNRNWRVSjhUYThIbzNjUkVDMTB6dWFxUkZJdUVlY0JZMXZQeHpkLVpNX1g2NHY4ZVZLdVlVS2tIaF9uUC1PbXJtWm1mVXFhSUMtdVhuOVBRekMteW84WlVSbGlKbVJHb0RpSFJsanhwMDNMZVVjYnlzQlJvR2M5NUd0Tk5R?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Attends Chiefs-Colts Sunday Night Football Game at Arrowhead
-
-- first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted at Arrowhead Stadium for the Sunday Night Football game between the Chiefs and the Colts. Her appearance continues to draw attention from fans and the media.
-- sources:
-  - [unverified] KMBC — https://news.google.com/rss/articles/CBMihgFBVV95cUxOX1YzQTctMWlEanJFeXhVZDVkTU5FYTZlMFEtNktVdzZIb1ZEOWktNjJaZHZGNkFrVUVLM1V2bDRZaGJ2WlRpWkZURUxLWFh4T1AyNUxQRTU3TUl3V3o2bFdERGg0cGVnMDQzclFXNkx1RGxFRC1zcV9pRlAyTTA5UUVPOGRHdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Supports Travis Kelce at NFL Game Again
-
-- first seen: 2026-09-21 06:15 UTC | category: sighting | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift was spotted cheering for her husband, Travis Kelce, during his second consecutive NFL game. The event marks another appearance of the couple in a public setting.
-- sources:
-  - [unverified] NBC TV Network — https://news.google.com/rss/articles/CBMijAFBVV95cUxPSkdpUDAtY3hGRC1PaWxfS1FTQmQwVWpnc183NE5PdHZhSTFxcHFxeDJIR3Y5U2sxVS1fZ3Q0cmREV3FkLVpiazZNQnNXSThiRG1MNnA3MzQwNDA4dmZndkprMzFmTkZ0Q1VfdU55N3dwZ1RGbWk0SFhJLXBQZE1HRzQ1SGx4WGpIYWp4QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMingFBVV95cUxNMnNZVnlGYmx0b3k2Z1pXNWhBbHBsdWtrb1RJNjcxUmxaY1oxZUw2TF93LUtnaDg1bzNTYl9tc2R2S0ZOSU9DdHpNLXVrVENNSkZXWjljOWttd3QwYm1IbDZrUlk3Q2VVb25jbGpkSG1zSF9tQ0Mzb3VTTTFmbDdrU0VULUdfQmZwZG51ZHR5Qk9odTZtczBXQXZWR01CZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Calls Travis Kelce Her Husband After His Touchdown
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 11
-- summary: During a recent game, Taylor Swift pointed to her wedding ring after Travis Kelce scored his first touchdown of the season, referring to him as her husband. This moment highlights their relationship in the public eye.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxNbEF6WnVzazNndXBEdHJsdWtESmFmN3NLeWpRVEsyVGtFVDhXaGU1LW91VExMRFhyM0pTVklrV01IVkRfbWdaR01CRXlHT1NEZUpZQ3h3Sm1GYk91cTNTdGJyMnhPWUdPd3ZETlcwOVk5N2tBeDB4a2JFdGU1MVBaNzFhMngxcHJRMkR0d3V4Y3Q2b0d3TXR6U29obHlYVG5VbHlNNDZVY1VxYnBCTGc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMiugFBVV95cUxPaFNzNXdYcW5EMlhFOE5Mam95Z3JWOEppbmRzbG1yV3Y1WGxfbmQxSWp6b0RCT05IbE9BWFZpZFc0T0xoamZKMWN6Y1NncG5DSkVLSHhmV3dKR0NCWDU3Zm1JcEZhdE5jYVloZjgzT0pDeFNLdnhSbUFrWHN4UjJ3WlNSM1JCS2xMT3dVMFgyQmwwWUNmX29NaHBKUjlCWjczcDljNDVqWWhNN3d5MmdqR3pGb09NbFdhZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMihAFBVV95cUxNbjR0UHI5djZzdTFxSGhuM0FDeUV1eVgzdk11LTRwN3ZPTDhybTRjUmxpck9QT0U4eGgzUWtDTDdxbWJDTW9aNTcwYkEwUzU3dFhsMExiRkVqZnN1RV9JV1M2WGFTLTE4RGg3Q1VCMGFkckstRHhob3lRRE1aa3VNcW15UVDSAYQBQVVfeXFMUE54ZUVKcUx5OHhnQ2pIZmdEYUxsZUR3SnJMOUs2MGpHY0J5N3MyYUs0XzlQTW1CbnQzLWphOVIzRzJVaDdWakxyRXJYcTVmY3ZZOEpIRWRLYzdIX3V3X29Nb0UxNmJWVFhuQXJONkdUREc3eWxkaUI3bm5MenAzUjZSdDVC?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMivAFBVV95cUxNcXJQbWJ6UVFBZjdjRTZSSFRtaFdodlJHT3NqMnZldElraEp5NDFHcVNtRFNPN0ZVeDlZRW1BSUo1Y1F0THg0QUpIRHA4YWpxOTdwaHF3SktsQzVKcllMY2ZfemJpd2dlMGJKZWR3V3RPZFVXQU1xME9oYnhTLXY0VXZOYk5IbnhHN2FyNkoyX2Jud055TXh0OVpQbl9GRFBESVRwcVlYeHUwM0o4UXN3cVpWTHZLdEJsRjh3Rw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQi1wMEhJSFRKMkFXUU1QZExoVXFXQkl0NDBBcXZXZDZCRWd2TmZiSTFLZjlnSzVWNVRnWkw3M1lyQVQwd1NSQkd1aEtBQThiakhCZXIyeW14V0VQNktJY0ZNTmtrdVlfOTdzZFgzSnI1ODcySG9ma0lrTDk5aldsZzM0TW5BdFVDZzlNaUxURC1GcmtIVGdMc2kxZXhDVWNsU0pNWDJURDRZblZmdGcyUGhJV1dnSVFLQTZHZzlYRjI2YVhBd0E1LXREaUwtbm1veXVVdUR3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQVTd3d29ZMjJpRWNxZVdWbTRISEpCNWpkYk9iSTlvejEyaUxLNy03TnU2NTFwVk9nTEp2SW1VYjJCeGE5elN5dS1RRmQ2VXYxZzJ5SGcxSEZvQjlUN0hPTVFnRjBuaHNNS1BxWEpDZE53TnBVOXdfV3pUUHQyOHMtMEFKbHQxbDRaVzg0TXJ6STR5SU1sQi1RQzRPZ2lYOFJTa3pRVVY0WnpnOUk3bGY5NjFYMF9Odml3a0hXUGdNaUtuZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Sky Sports — https://news.google.com/rss/articles/CBMi2gFBVV95cUxNX000WlJUNnJkSlltZXZkUmh0LUQ5WEE1SEYxVmlPZ0dvLVE0RTdzb3FnbWd6MF9RNmdWMWxtazBKYXM2RUc5LUdUMDRyR2FWaDh1dUlKSUN1UV9JdTZpQzhjT0VTZlhfdkR3UURabHZkQVUtRDY0b0hQR3BiS25YVlFvN3ZVeElqSFNfQ0wtS2pJOGZVZHduWmctOXR6RHcxRGVlWkZiRWtPTndiT05obUZQbVJSTWdzZDNrdFJ5bXZBVVlidGlPUmlycTN2RHhDX0VPTFBTS1R0QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMirgFBVV95cUxOU1JEdWUxOUQ0OUxOdm1Nc2IycUVIa0tnZ3h6Qy0ydkRwM3NpZTRQVTJMUlprc3RLa1FiMl95RXZkNmhvRXhHbUNONDhmTUtMeDRKbWdIMUlDRmJQTTJoVmdkUkFrR2ZfZElRZmpVTEcwaWlCVndGZmxxVlRvOER1bzZSelc1eVRmTEZfMEh0a1VsSy1vVUFrS1JaWG96OWRodHotNzlsOTFmb0tfZlE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMihgFBVV95cUxOa2V0MVdMRnlwTGp4VnNsRFhIbjJ6YXFaRFdZOVdsdDB1aWRtcjdVMGYxTEtTZlpLRWU2WnY2ek1FVGpYTHB3cFRzUVJiV1U3QkJaMEwwZTktYkUxZUZjNDNHLW5JOUxETnFOOWRaZGVVSUF2aUs5TFliM3FnNnFhbHRTTmNDUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WWD — https://news.google.com/rss/articles/CBMirAFBVV95cUxQemI1bU9udnJIM1B4S2x4Yy1rRnR6TUNPckRLTC1mcklRWXFkSnRuZHdjSzA3Wm5xZGthWEdyZS1hSndQTE5kVzdwemw5UFktLW9McWQxUnZNNFhwVEZVTFBQX2hRNkhRZllqSnhCQ2tLTmtvdHhCUTFDc0U1QlhBenBXTGJsRlk0SDIxSXdFMmJlNDJ0Ym9fR21sd010dHItZXNrWDIxVFZwbWZP?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-chiefs-game-outfit-sold-out-graphic-tank-1239250847/
-
-## Taylor Swift Seen Wearing Wedding Ring During Game
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen wearing a wedding ring following Travis Kelce's touchdown at a recent game. The sighting has sparked interest among fans and media.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMixwFBVV95cUxQM1ZHaVNMZXVFS1JGVWszdmQtVlMteENEZzhSZGt6d3B6ZURES3NIYXJSN1ZKNGJ5dm13TVY0b0k2Qk15WWhqQkNJQnZFMm5vZEZrZjg3TEUzUFM2YkpQR3pDeVZWSDNxbGprU1diMnhxQTk0QnpjWWpwTmJmQkoyVEZkSjU5WHF5VVN0bmhDaV9EdHpFd0hjdnYxNS1UZmNRVlEtV0RrLWNySHdmXzBaS0cxQ0c1NzZtb18yOF9FSzR5UnlzWHYw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shows Wedding Ring After Kelce's Touchdown
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: After Travis Kelce scored his first touchdown of the season, Taylor Swift was seen pointing to her wedding ring, drawing attention to the moment.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNcG1jR1V3VHFJRW1mNkRrSUFpTnJWMm5KWG1RdUNNZFR2VU9wd013dkRjOXB0WW1WX0FpcHpzOFBlYzNnRndKOXpKRUp3WEhLdHR0X1paVEgydVMxeFNRSXBmWk5hSVFMRVpScFVBRU5WSnEwTFdFWmJhTURwbTBDVEc2SU1NZC1QQmpzRy1wcXpNVWtyTzB0TjBKeXBLajVM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Celebrates Travis Kelce's Touchdown by Showing Off Her Ring
-
-- first seen: 2026-09-21 06:15 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 8
-- summary: Taylor Swift publicly expressed her excitement during a game as she showcased her ring while cheering for Travis Kelce after he scored a touchdown.
-- sources:
-  - [unverified] apnews.com — https://news.google.com/rss/articles/CBMimAFBVV95cUxOdVpaNEszSzJHRjFVdWR0eWJObFZVSDR0dDhtRVJEUGs4MWR1b3JRUExuZUNoSHZUMVlBUjVtM1pIV1pLX1J1Slp1NG4zbU1DT3FaVHFMMS1GMTBxN2dCX0VyRm1ETWhWdUNzbi1SR05fSXliVnQweHY1Y1hZMmgyTDctekl6cHpRNXNidHAta2plSDJ6MjdUWA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] billboard.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxOX2xEeFA4dWlXcXhsUDBjMU15eGdDR2pGWWM0UFNIUlQwZV9mYUdJM1JueDZoT256cFJfeDVubkFpSm5OdU5RVnQzN1NtTW9jcm1SU0lTWEtFNmlUQ0V5cjRzcHdKMmhLQnFBUkQyM2RldUpubXlETTNSUGhJemtLT1N1T0NPS2FNd0dwdlI2QmFsZWRESHZucmFCTjZOLUF4NVE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMivAFBVV95cUxOVF9CeW1DRWs2VThFSUVGOUJkNGhWTks3ckhnS3dyUk5ZaHBCV2xpR1REYWRLN2YydWZNSEo4SGxZcU8xUmktMjVPcm5mQmxPOXN6RU1ZaUt4SVZ3QVBuTl9SalozemItYTZPVVFtdWRPNGVqMDRnUndacW1YeElXSHhYeE9yQ3JUa2lHQkhvcnVyMGRDSjRtQUhqbFVmMm5KMHI0c0hfbkxZRW9SMmtoWlEycW53ejYwVy1EeA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] goodmorningamerica.com — https://news.google.com/rss/articles/CBMiqwFBVV95cUxPQktBemRSVnV0a2g0dE9OcnJkN3VzcjVxdzc5d1hvY2ViY3JLYU1FYUZQS2g1SHZIRGthOU1MVWl6X3NWQUpmQ3JMNjVMOGxISmlfeVlpVzF0c0JGYVBXam43Ti1tOTZmTVlsMm1kdVFlSldvUno4d0NpOHJrT2NVRTZweS01MDlObDZLTVpDNlp1cWxoNU53TnJ6R051NWFhQ1E0eERMYlZGRkXSAbABQVVfeXFMTXJ2a0xtaEhZd3pwekVDQlROQ0c4amtEM2x5RmJ5YS1LRjRWZHV0Y0F3V0wyRWFoS0l2dGVKVzNCSVhWOTIta2xxME5YQ2pnSDVZc1RDbVNvT0FEQUktY2R2WjZlTkJGeFhNaVhhcnRjeE1mcldSb3drSjVneWo3MU9Bb2pjNHY5TVk3MFNEVmxiSHV5YXFtSFlBdHBxODc3Wkl2OGhsWjZzVTlUWmtmdEs?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxPX1pIRDRGaVZ3dzYxVGtRTkdVblItM05WbWtwdEFxMm13NVlWNHp4bFp2M2Itcy15WVEzQ3RmUjhaNGdLNGZYU2QtbndhakpsdEpfN25IQV9tWENsWkpoYVpUdUphMzdQeDFHWU12M2VVYjV2XzRVNzVjQmoxZnVVNVdfa1RYREtBdVhoWlo2Ym5CblptVW5BOWdrM3lKWmZWem83U2ptR3BOUkxVT0p6WFVzYW1ldw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-first-touchdown-celebration-nfl-1235629448/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMirAFBVV95cUxQRWRMaFdieC1ncnVHN182Mk5KNGtXeTd3eGdWdnRHSnAwcV9LMW9xaEM2NWZ1aWJ6V2F3Wkp0SEdHTWw0SG9jWlRURjZSYnFENGkxSmJmUG9aWC1EX19rQi1qemJfNXdpM3RqeVd4M1BST09kdU92NS13RnIyU3l1T3p0NXBleWNuSmt0OGNGMDZDUXlYb3NKSDFLTlI5S01GcWZMV25reGZrZENk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmpCMVEtQjBKdDFUR0otZ05LNTBiRl82WEFBWjB5cTdpYTdOWE5pNnNoVGVXSFRua3ExNjN5U25QWHZreFU5Q3djaWdSZFh3RDJyYkQtd25LdnYtcVN5ZURNZTF0TUFSRHJuRjNTdjBNcmNneGwyUzh1Mi05WnZXVXRNblc2QTRuNGxHRFFyRUZWMGoyVkdmTXNSbGszUHp6YVhBa0x3?oc=5&hl=en-US&gl=US&ceid=US:en
