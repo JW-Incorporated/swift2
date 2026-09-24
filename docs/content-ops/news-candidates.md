@@ -25,29 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 68
 
-## CBS Mornings Teases Taylor Swift Segment, Sparks Fan Excitement
+## Taylor Swift Featured in Northeast Ohio News Quiz
 
-- first seen: 2026-09-24 14:10 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 15
-- summary: CBS Mornings has released a teaser involving Taylor Swift that has generated significant excitement among her fans. The segment, dubbed 'Patient Zero,' has caught the attention of the Swiftie community.
+- first seen: 2026-09-24 23:51 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A quiz featured on Cleveland.com discusses why Taylor Swift is currently a topic of interest in Northeast Ohio. The content raises questions about her influence and recent activities.
 - sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdVdyVndnZkVOaXBiV2VlS3p1cGtVT3dPVU15VVpkOHZhSV9PNlZ3c0ZkSDNtalg2NlJhVnRmSTdBZ3AwbmJld1Y2OFdnNlZZRE5VZy1qcF9sRUlzVnBBNGVRNXFlNUVwTGp4a2tzeVAwVUQ3ckc4a2NiUHdHb05UUjN3bkxyWXc5OHpmbF9jQ1p1WGphR2FOZjU1VkhicmlEaU0wakt2bWpvQjFjZHFV?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] CBS News — https://news.google.com/rss/articles/CBMioAFBVV95cUxNakM3Wk9JVnpEZ1M0VXBrYzZzMUludy1QX0traW5ZWU9pMGtOaGg5NVE4TWlKWVU1MDZIQlFjOXd5a252bDFtMjBGN1hPRktwOVo5b1AtcEIwQUtUWjNhLXNUQkV3LXBkQklhcGJBbTNNeTZ3bnZYeDBBTXV0WG5pbWRFUlY5Q1NGNWhNS3pyUDJSVW5oZ1hOV1A0ZmNFZ1pz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQYm1FVXQyYUw5dllUaDhwS1VaeW82RGtqR3Z0cE96cHRkb1dudXJsVlQ2RzFPT0hFM1FlLWZoR3p2cDYwWUdFWi1tQXNDampTWkoyaGdwdmRHOWlVcEdpVEJsNHRWNTN3ZmE2VVd5WnFGejQ4MFBkSGIzOUlDOVBFSk0zdFMyU3oxYnBaWTZuMTlHT0VTckRQSWVpeFFPd0E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMihAFBVV95cUxOc1VmQ1ZKNXZQMVJTdGtlMGRqNFc1OGlWX3dzbUtBN29sNTFtSDFNMTFwQjZYaTVBdmJheGViWExXMnpuMVp2SXR6Q2lIM1dSR0xPNmd1TFhHZ2xXVmhnb0dQMFJUUmJ1bk9ydDZ5QXMwdUU3WHh0Zm5ST0VWQ05mRHRFU3M?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/
-  - [unverified] kctv5.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOdHQyeXFIQkhZWlRMVks0TmJrRlFEdVAyX3FTZmxvU3MtYlpZV2RpYU5CcUxWX1QxaXVwWWNaM3J3SkUtZmV4Q2tZVExwQWJBWjdwU0NBaU1tNi10cnhpd21QNDhqQUw1WllrZWl3QTA5U0dndDZDQ0hCY042WDRNRmdrck1QNnN3TnJJNUFtSGFIR3Mtbjlj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Mix93.3 — https://news.google.com/rss/articles/CBMiakFVX3lxTE9pYVQzUU84RmxTWjRfMF8zbzNadGhQVWZsSnNNWlNXaDRDcWRISFU4OFZseEtvaWx3OF82UjloQzdYZk9Hc1Q5S1QxWldjRDNqcTJPZmJXSWlWTnV0Slp1Tm5tTzZNODMtdUE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxORm9rc25tcFdqSWxwenY0YWNNazVsTzd3blJFS1BCOEZEdFJ5d2wxXzJNbzcyQ3paS01wNy1LVG5UcFNHdmZhc3FYZ1NJUTRYTFhNbjR3VWRUUG9UQ2lYc3hDOUpvRlZWM1JhZHZSdTRfdl9kY0ZQVUhLNGZ4UmdVVy1tN2ZOY0xHenFjRHVPUUF0bGJaaDd2VkhRR0ZBZ1pHbi1DamxfSk4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-1235630867/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYnZqQkNiMDRweDBTcjhIVUJEYjlVMkgtU2FHbFpZdHZPZlVhNC1GUUc5ZHV6RlUyQWJKLXZlRUw3VlhOSHFacms3NmNDZzBCRWRrdmdidV9pUllkc19WVjZHendKRjJ6dmYzd2FkZGljeFNUZS1MZlh1ZTBRMWxLdGxSc2dwWG9GWm0zR2VaLTZZeXlfNDhKZ0otcjl4T2Zp?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-patient-zero-video-vmas-1236709245/
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOalNNWnVSeFFsMk53SktnZjZkOXF5bDA2X2l6UDlCYUlIYTRkcUU3SnZhcVJIRjlqR2EwZGhkSTM0TDBuSi1VdHpDSXZJemI0NXZielN0MDdGbXJ2aXFicGdUUDdiZVdodWJhN0pnUHk4aFlhQ2MxQUcyVjVlVE04akJvRWY4M1V1WS1fSV8wdE5GQ1RpQUl2ejh0S01oUkJrTjhZc2xlY08?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMitAFBVV95cUxNN3RjcGdxcjFZM0duM0hjellDNVlPSTV3S1NYYU0tZUs3V1lfZU5IaUNDM0U3ODN0blBYd0JlQzRqbzhqTkw4NWNWeW5LWjVSd0htU0FuTlRQelkxOVRRSlUwZWlkTy1fX1oyM1B4UWZ1NHo1TUF0NHlOM3dJcjdiS2F4ZFlxTUVWUXo1WEtjTWZqUEtkYUU1TGY3bzNlNUlvVWhtd3JzenNZQ21WZU5NNkNiQ00?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-music-video-dakota-johnson-colin-farrell-1236874206/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOanl2NFB4ME1IRjYwdHRWb2FRQVB0TExVeWloVWZOTWI1U2ktQ3pWaHhPWmdtd0ltdzRwaGdZckpDWGJmaDdHOFZ5TTB6Y3N6R2k0Qnp3TllZR1N5ekpYMzBtc05qWlZzb1VCQU9jM2tVWmpuQmZYcnd2S1ZFeFdmTThnTTNwdFM3SFFhTlJ2dE5sbG8wYnNLekxwcXJjMDJK?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxNZFJaVVh5VXpkWTNZR0NyMHA5bm1zN2d6RXdUNWNBRXBxc25UZHhFQTI2YzdJMUJ5YXBCWWlGRXYtR2s0QlMwUjUxWXFHbzBxbWx2VnpEUnBzY2ZjMGdpSUJwdUZJcHpKMlBQR04yYUw2QUZaWGs5Y3ZjUW1BUGgtNTBkT2N0XzBwX3RsbmNSVXh6Rm8zV2RMbkk0M21mRXVyNk9SbmlnOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's New Single 'Patient Zero' May Sample HADESTOWN
+
+- first seen: 2026-09-24 23:51 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report suggests that Taylor Swift might be sampling music from HADESTOWN in her upcoming single titled 'Patient Zero'. Details on the track and its musical influences are currently being discussed.
+- sources:
+  - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMisgFBVV95cUxNZXhqS25sMVdiTTkwU094ZlEzdkt5RXNHM0pJVVR0eXFibTFLZGE2XzZJbDAwRWF0eVU4bXdQc0N1WFdCcFl3SEJCSTAtRFNzZmFrV1VOZWJKSDBmUWtaeGlrR19WUExMd21Tc003WWNVaS1zT0tZYW5vcDAwdENSRHVaS1FfYkVCR19zOVVoTVJ0VGM4RFhndFBlZmRtdVBqMDlWU2tTQ2tlMHd5dkVWSVJR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Impact on NFL Ratings and MTV Awards Examined
+
+- first seen: 2026-09-24 23:51 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A recent Bloomberg report highlights how Taylor Swift's influence contributed to increased NFL ratings. The article also discusses the implications of her presence at the MTV Awards for her overall popularity.
+- sources:
+  - [unverified] Bloomberg.com — https://news.google.com/rss/articles/CBMisgFBVV95cUxQSDRtVGFXVmVZcnNWSzdvUTRTTlJBdVdBc1F3bHRzNS1xQ2VrM2dRT0xrbU9RRHBGaDZCQ3Vld1o0QU9pVWFOMGZlRmJFUW5KVmVyVmtuUzgzcFg0YUdhTEplTEFsRDhDNE5TclE4UG1KOU4ya1FrdTlVU05oVlBmamRVQnlLcTJkUzZVM0pDZ2pLTjBRZlgzZ2hqUUVuNEFDam1mbVJFc0R1NzZZNS0wYXpR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Featured in Harper's BAZAAR for Cat-Eye Look
+
+- first seen: 2026-09-24 23:51 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is highlighted in Harper's BAZAAR for her take on the cat-eye makeup trend. The article showcases her unique style and influence on contemporary beauty.
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMikAFBVV95cUxNRXhlY1o2X3NwVVc2ZkJZQnlXaS1xZlNtUGpCb3NKZkM4Zkh0YWNaalowbGRxYjdRMmxaZTBkd3EyTllfXzg3R2RFeFpFX0JNenRXQTNYa1kzdnlzUW9OWlZnT1pib25lanNkaEhicExGZTBYWUxZOVk3ZDNMRzN4dVYtUFEtWlhvWGs1cXo4M3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans speculate 'Pink Clouding' as potential Ariana Grande collaboration
+
+- first seen: 2026-09-24 23:51 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift fans are expressing excitement about the possibility of a collaboration titled 'Pink Clouding' with Ariana Grande. This speculation has generated considerable interest among Swifties looking forward to new music.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQTkdYbmZYdklNYXd4SHhIdXJ1NEJVTWZjVENVZFNjcHdmemxOOXhDZEhicGR5SnlJNXc5cFRjOGFRWHdZR3o4bUxlX0lMN0xwRlZBNEhmWDA5X3NIRk13NW14V0lUa2htRnMtbm1kd0RFdU5QbWFMc3hjcmlncElCdWFaTFF0RGdPbTBtNk5jdGZ5MjRRWDFqZ1NkQWRpc3JYdnQ3bmtuVXJ3VmtNY1FPNjg4aUR6NkRx?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Dakota Johnson Celebrate Decade-Long Friendship
+
+- first seen: 2026-09-24 23:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report highlights the strong friendship between Taylor Swift and Dakota Johnson that has lasted for over ten years. The article provides an inside look at their bond and moments shared throughout the years.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQNlkzZnJlazA0UnptbXBXTjBFLVJOQmpBM2l1RzlnZ00tVnNNRTA4V2ljQkd1LWl0RnJXc2tyeGhaeElIYzQ5SThYU2VYbGN1ejRvQi1UbGtzYThpWHJ1ZDE5TkdMdUc0dktFcGpRR085Sk8tckNwOHJxeU1rM2lpVmFSMzBzUUxWSnpz?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Career Update Following NFL Highlights
+
+- first seen: 2026-09-24 23:51 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has announced news related to her career in conjunction with Travis Kelce's recent achievement in the NFL. The announcement highlights her ongoing activities amid current sports events.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVEFfT00wOEZGMTV1UF9Cc01uc1ExYUZSQnYxdy1yNHFyY3dlcFBzVENIa1Q1OUoxUU85OXRGeEVCMzF5ZUlfc2RkTFBSSnE5RWtCdTlWa2x6d1JFSXJzZWFCV3hNaktkMTJCODNhTVE5UXQ3akc5N3VIdkZobjR1WGtic3RHaWQzQzc0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## 'The Graham Norton Show' Renewed for Two Years by BBC America and AMC
+
+- first seen: 2026-09-24 23:51 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: BBC America and AMC Streamers have announced a two-year pickup for 'The Graham Norton Show'. The popular talk show continues its run on these platforms, ensuring more episodes for fans.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaEVENFVjUGpWNnlIcFhfRW9COGloNTB1Sk9YcENDWTc4UVlvZ3F5eS12R012c01xT0QzUW5HNlAwR3YyUWQxTGNQMEs1N01FYWloQXhORW95QktqTXJxZkoyZkNLcXcwYjVaOV9neTlkNUlocHczMXNtQUpja1hQUUFMbkFxaEcyRVU1M20zZkJ2UUQ2SElTVkJjZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## MTV VMAs Producer Teases Highlights Including Taylor Swift's Honor
+
+- first seen: 2026-09-24 20:26 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Van Toffler previews the upcoming MTV VMAs, mentioning anticipated tributes to Dolly Parton and George Michael, as well as a significant honor for Taylor Swift and recognition for Nirvana.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/mtv-vmas-preview-performances-tributes-1236708957/
+
+## Speculation Rises Over Altered Artwork for Taylor Swift's Single
+
+- first seen: 2026-09-24 20:26 UTC | category: release | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Social media users are reacting to claims that the cover artwork for Taylor Swift's new single "Patient Zero" may have been edited using Photoshop or AI tools. Discussions focus on whether the artist approved the modifications.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/z2v7dnb?at_medium=RSS&at_campaign=rss
 
 ## Taylor Swift iPhone Colour Theory Gains Serious Attention
 
@@ -56,6 +114,34 @@ Stories: 79
 - summary: The concept of the Taylor Swift iPhone colour theory has moved beyond mere jest, receiving serious acknowledgment in the media. This discussion reflects on its significance in her fan culture and branding.
 - sources:
   - [unverified] Creative Bloq — https://news.google.com/rss/articles/CBMitwFBVV95cUxNSlZOWXpsQlZjNFlLeUFnZU00RnQ5TDVLcTBhVVpIMnB2YUFlU0RhV3dyUlNkYUhjYld5OXY5R2NoS19LUDdTSF95VGZCUGRRWF96SEtWXzlFaEVaaXF6YTNPN0JsaEJFNnZqcy1qM0JmUExYeXg5UHZPY1VZQmpuUS1QWTVpSDZHMDJFMWI1cG4yZjZyenJranh4WTQxcHp4LVpiLUttUEtkNDN2S3ljbHVBSXI5ejQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## CBS Mornings Teases Taylor Swift Segment, Sparks Fan Excitement
+
+- first seen: 2026-09-24 14:10 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 21
+- summary: CBS Mornings has released a teaser involving Taylor Swift that has generated significant excitement among her fans. The segment, dubbed 'Patient Zero,' has caught the attention of the Swiftie community.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdVdyVndnZkVOaXBiV2VlS3p1cGtVT3dPVU15VVpkOHZhSV9PNlZ3c0ZkSDNtalg2NlJhVnRmSTdBZ3AwbmJld1Y2OFdnNlZZRE5VZy1qcF9sRUlzVnBBNGVRNXFlNUVwTGp4a2tzeVAwVUQ3ckc4a2NiUHdHb05UUjN3bkxyWXc5OHpmbF9jQ1p1WGphR2FOZjU1VkhicmlEaU0wakt2bWpvQjFjZHFV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] CBS News — https://news.google.com/rss/articles/CBMioAFBVV95cUxNakM3Wk9JVnpEZ1M0VXBrYzZzMUludy1QX0traW5ZWU9pMGtOaGg5NVE4TWlKWVU1MDZIQlFjOXd5a252bDFtMjBGN1hPRktwOVo5b1AtcEIwQUtUWjNhLXNUQkV3LXBkQklhcGJBbTNNeTZ3bnZYeDBBTXV0WG5pbWRFUlY5Q1NGNWhNS3pyUDJSVW5oZ1hOV1A0ZmNFZ1pz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQYm1FVXQyYUw5dllUaDhwS1VaeW82RGtqR3Z0cE96cHRkb1dudXJsVlQ2RzFPT0hFM1FlLWZoR3p2cDYwWUdFWi1tQXNDampTWkoyaGdwdmRHOWlVcEdpVEJsNHRWNTN3ZmE2VVd5WnFGejQ4MFBkSGIzOUlDOVBFSk0zdFMyU3oxYnBaWTZuMTlHT0VTckRQSWVpeFFPd0E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMihAFBVV95cUxOc1VmQ1ZKNXZQMVJTdGtlMGRqNFc1OGlWX3dzbUtBN29sNTFtSDFNMTFwQjZYaTVBdmJheGViWExXMnpuMVp2SXR6Q2lIM1dSR0xPNmd1TFhHZ2xXVmhnb0dQMFJUUmJ1bk9ydDZ5QXMwdUU3WHh0Zm5ST0VWQ05mRHRFU3M?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMipwFBVV95cUxNbmVtSC1BSnF5U0dpTV84RnU2UHI4WklSUkJkZFJTSUdjTG0zb19vN0tfTDNwaXNVbG00WDBhM3N3dzFqd3VHY0FiWTdyQ0ViSFhKY1ZvS3U4WHVKT3Rqc1lpRmJmRkI3V05JbVcyQ0V2ZmFicnRNT2FEemc3cGlZM2U5aFVZRGphSkdFbGNzVHlIaENoNjE1NlR2eHptRUdrMWdWdVFTMA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxNSG8telA1ZGxCVHIzRVpzT1EwOWFQN2txY0R6dHdrdS1xUzVYQmRfRFZnOElLdDN3RmxkbHpaVUwxZ0F3R1Z2MHpaMTlFUEVjN3FBZjFWbmlmVnZUTlg2STF2Z0k4WUtGN2tzWnRlUFlRM1RSaks3RzQzQl8wZ2xxc0tBRmxkRGFhOWZqMkxvejF4aWk1MEpVbVlpNHo?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] kctv5.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOdHQyeXFIQkhZWlRMVks0TmJrRlFEdVAyX3FTZmxvU3MtYlpZV2RpYU5CcUxWX1QxaXVwWWNaM3J3SkUtZmV4Q2tZVExwQWJBWjdwU0NBaU1tNi10cnhpd21QNDhqQUw1WllrZWl3QTA5U0dndDZDQ0hCY042WDRNRmdrck1QNnN3TnJJNUFtSGFIR3Mtbjlj?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Mix93.3 — https://news.google.com/rss/articles/CBMiakFVX3lxTE9pYVQzUU84RmxTWjRfMF8zbzNadGhQVWZsSnNNWlNXaDRDcWRISFU4OFZseEtvaWx3OF82UjloQzdYZk9Hc1Q5S1QxWldjRDNqcTJPZmJXSWlWTnV0Slp1Tm5tTzZNODMtdUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/24/arts/music/taylor-swift-patient-zero-origin.html
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMizAFBVV95cUxPcmx1Q3lxWTFubVZoT3B1X3RJQnN0Q1Z1eGk0OV94V0ExbmpCeEhvVTgtY1c1WlZ4RkdmcGExNldQcGdLWWJKeDBRdkhKYTdqWUpEWmxUbEotRzUxR2tUXzJrWUN0RnFCSnBjNW0zYUN4d0dhYmJwRkxFUl9pNS00SUljbkdlQzRxdEVGR2p3VGZRSTE0ejlRVy1PS2lDRVZSV2JPelUtNlRuaEtUamdiQzZhUG5qRnFhXzBQc0M4SC1xYkhScGtiYXVoUDM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxQMHI4QV9lZW82VUlLbktocVNEYldMU0c3a2dxMnNidjVpd0FFNUxKeGtwNzQ2R3lxM2R3UWNDUGZLa0FRR29qOFI2MGZFMlZ6R0JKb3pZMGZFZWptOWpaQnVtbHVZak94azVRMjZXUFlwdzZtZUxDSDJMWWhYY1FyNW9n?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxORm9rc25tcFdqSWxwenY0YWNNazVsTzd3blJFS1BCOEZEdFJ5d2wxXzJNbzcyQ3paS01wNy1LVG5UcFNHdmZhc3FYZ1NJUTRYTFhNbjR3VWRUUG9UQ2lYc3hDOUpvRlZWM1JhZHZSdTRfdl9kY0ZQVUhLNGZ4UmdVVy1tN2ZOY0xHenFjRHVPUUF0bGJaaDd2VkhRR0ZBZ1pHbi1DamxfSk4?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-1235630867/
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYnZqQkNiMDRweDBTcjhIVUJEYjlVMkgtU2FHbFpZdHZPZlVhNC1GUUc5ZHV6RlUyQWJKLXZlRUw3VlhOSHFacms3NmNDZzBCRWRrdmdidV9pUllkc19WVjZHendKRjJ6dmYzd2FkZGljeFNUZS1MZlh1ZTBRMWxLdGxSc2dwWG9GWm0zR2VaLTZZeXlfNDhKZ0otcjl4T2Zp?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-patient-zero-video-vmas-1236709245/
+  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOalNNWnVSeFFsMk53SktnZjZkOXF5bDA2X2l6UDlCYUlIYTRkcUU3SnZhcVJIRjlqR2EwZGhkSTM0TDBuSi1VdHpDSXZJemI0NXZielN0MDdGbXJ2aXFicGdUUDdiZVdodWJhN0pnUHk4aFlhQ2MxQUcyVjVlVE04akJvRWY4M1V1WS1fSV8wdE5GQ1RpQUl2ejh0S01oUkJrTjhZc2xlY08?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQa3FyV0t6YlRTdWMzUnVYUGIyS1lVYjNya2RGQ1ozZ29nOW9qVW9MeGVaN3lMYnZFaGpmM2FBVkVUamRqZ2htc0lRUDlPSm9GeXdxUzdHQlRuQ1VEZko1OWJLX1dXc2YtQkdrLS1UTURDTlBPNWJndkhmSmV0RmZqVFpsZUlXcm93dkJSLUp1d01Zc1dhb3lZRDA4NG9hQU1IbUtnM0dyYTZ6bDFobnE0NG5pbi1wdV8zQ0x0RXpSbUxjRnFGQXV5Y1pCOWI5eFVz?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMitAFBVV95cUxNN3RjcGdxcjFZM0duM0hjellDNVlPSTV3S1NYYU0tZUs3V1lfZU5IaUNDM0U3ODN0blBYd0JlQzRqbzhqTkw4NWNWeW5LWjVSd0htU0FuTlRQelkxOVRRSlUwZWlkTy1fX1oyM1B4UWZ1NHo1TUF0NHlOM3dJcjdiS2F4ZFlxTUVWUXo1WEtjTWZqUEtkYUU1TGY3bzNlNUlvVWhtd3JzenNZQ21WZU5NNkNiQ00?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-music-video-dakota-johnson-colin-farrell-1236874206/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOanl2NFB4ME1IRjYwdHRWb2FRQVB0TExVeWloVWZOTWI1U2ktQ3pWaHhPWmdtd0ltdzRwaGdZckpDWGJmaDdHOFZ5TTB6Y3N6R2k0Qnp3TllZR1N5ekpYMzBtc05qWlZzb1VCQU9jM2tVWmpuQmZYcnd2S1ZFeFdmTThnTTNwdFM3SFFhTlJ2dE5sbG8wYnNLekxwcXJjMDJK?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wears Nicholas Jebran Micro Minidress
 
@@ -145,14 +231,6 @@ Stories: 79
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxPVHU4TGx4LWRHQV9wNk5qUHViTWhpYVJGc3FURE4xbTdDMFIzdnFZcTlFVnJZRExQVEJMNjlLYlZTdnE3dUxqVmtWMXpYY2tBWG14T0tnb0t3eC12OWFIR1oyZXoyVmpuS09kRko5T1JEX1hQTlpucUg1NmJPeUJmREdLTEVaMUlFSTJfTjdVbUhDNkU3UmsyejlyZnVzSDA?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift to release four new songs including 'Patient Zero'
-
-- first seen: 2026-09-23 20:17 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has officially announced the release of four new songs, one of which is titled 'Patient Zero'. This news was reported by ABC News.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPUHFuMWhYdTl4NXQyeDdJaWVCZWpFNDQ5M3dDQnBxLVY3RmVXWVFPNk5BNlRiREhNVlZpcUZJSDlLNlRuLVJwbWc0a2o1TW9XM0x1OTRBM2xNc2hpVmd0alViSDI3UlJ1Uk4zSUlJV3ZFQnJzNEFtUlozNFBGQ0wySTNkQXhOSzFZRlcwelFRVGdOeHduNXlJaXZkVTNPUdIBowFBVV95cUxQTks5cHpHYkp4LUItR2ZBZkkyZm1RcVdhajhuQkFhWU9BQnNsSE9ZZFJVaU55eUFXam91MS1NVk55akxBWjVKNXVPck9ucF9VRXhvWk81ZlY1SkZsYk5tSkNGMXNDb24tSnVJa1JnS0tBWXNKYk5MWThxOU5tdmFQQ1dFR2dwUll6VWpPQ2NmSHNaMjljamJaWlVCdnFBZjBod0dJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's new song 'Cleveland!' may reference Ohio
 
 - first seen: 2026-09-23 20:17 UTC | category: music | importance: 7
@@ -170,6 +248,14 @@ Stories: 79
 - sources:
   - [unverified] Cleveland 19 News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMjVHMWVVQ0dqbWdLSmVHNkpWNWdTRXBGQmRkZWNxbUtURlJqRjhfa05WeldxYUJxYWNVM0dTOXFibm41azkwSzhtWmZyQ05nYy1xak1lRmFuUlFlaEtkRWhydFdDanp4aXo2VlF6V2ZLZzlpOHpUb3FyRE1sbzlxWDZyYjQ4Ymgwc0paUDBDVjdIVk5Rbm1QYlgzSERGcEtDOVR6VURwdC0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMib0FVX3lxTFA4NkVFeFppUTBMVkJxZnMzNGsydkJSbGxRaDJpb0FuZm9DazAwbzRpbXFQU2tRdllGMEhERll2ZjZQODMzYmNUemtyWXBMQTBSS1BBb0dLYmZ1SUQyZzFVZHhEcTJVU1A0Z3ExbV9DWdIBdEFVX3lxTE91OUc5X2xZVFBsUnZkdUVOcDhwRzVreVJFeUpMbk5UZTA5Y2dMdGcwQlo1RWV1WTZySER5b0pzb0VTVWFILWgxUllBdERmOS12WXFHZ0ZZOHFPaVZza2JyVF9kbjBGQnJXVnNJdWUzSWw4ZVpK?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to release four new songs including 'Patient Zero'
+
+- first seen: 2026-09-23 20:17 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has officially announced the release of four new songs, one of which is titled 'Patient Zero'. This news was reported by ABC News.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://news.google.com/rss/articles/CBMingFBVV95cUxPUHFuMWhYdTl4NXQyeDdJaWVCZWpFNDQ5M3dDQnBxLVY3RmVXWVFPNk5BNlRiREhNVlZpcUZJSDlLNlRuLVJwbWc0a2o1TW9XM0x1OTRBM2xNc2hpVmd0alViSDI3UlJ1Uk4zSUlJV3ZFQnJzNEFtUlozNFBGQ0wySTNkQXhOSzFZRlcwelFRVGdOeHduNXlJaXZkVTNPUdIBowFBVV95cUxQTks5cHpHYkp4LUItR2ZBZkkyZm1RcVdhajhuQkFhWU9BQnNsSE9ZZFJVaU55eUFXam91MS1NVk55akxBWjVKNXVPck9ucF9VRXhvWk81ZlY1SkZsYk5tSkNGMXNDb24tSnVJa1JnS0tBWXNKYk5MWThxOU5tdmFQQ1dFR2dwUll6VWpPQ2NmSHNaMjljamJaWlVCdnFBZjBod0dJ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Patient 0 Cover Faces Photoshop Controversy
 
@@ -242,7 +328,7 @@ Stories: 79
 ## Taylor Swift Announces The Life of a Showgirl: The Encore
 
 - first seen: 2026-09-23 14:13 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 17
+- verification_status: corroborated | source_count: 18
 - summary: Taylor Swift has officially announced her new project titled The Life of a Showgirl: The Encore, according to Pitchfork.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxORE1QVzZQMmM0T1RFLVhLNHU1Y2VLWjNqSEVhZEh3Y2JkNGlpOENRX2s1djI1aDgtNGg4dVlVVzcyaDB5dFJSSHdTWDIxdDhaNWpVWl9qWkswMUdoZVhFOFYxVUx0OHhqZS1PeGFXcjA0REcwT0pJZmdtRnVBVWRYVWpidlJ6N3ItOGVwckh0eHBpT0pIUGVWVm9wMl93dUZNeVJpUk00TjZxZw?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -250,6 +336,7 @@ Stories: 79
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirwFBVV95cUxOZ0ZobEdwYzA0Zi1UMVY1aWV2dWVhT0ZoNVJGUlNjZkVISDMwdWstV0hXWFZDQVZ6bHFQRnFmeXBJaFlpVmhxMzFLSVB2ZDk3YkZaLTRvN2xmc21rVjI2UUZINUJPcV9VRnU2alI3bzhUVTZqTE4wWXQ1dU1fLTBNTl9NX3NQa3lLSThoZWZJcWV3cFRURUhRVTZDc3g4OFRsUUNFTjd3TUhPYnA4X3I0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMisAFBVV95cUxOSHpDSlY4dl9PaFA5dVI1YXhiLXdQc2lTbjlndjB0bEQxT1pOZ2pVcmtBZzZEY21jNmZ3NWtSZDljTUExbVRTN3ZuUHA4ZnJoUnZRc08xY2QzUWUyWFItdGx4Z3ktcWxyNnpRSHBkaUIxZGxSWXpnVkFuamQ0Wkx6TDFYSTQyeDA2QnFUeHlyWDgzcWRJVFdkN2ZMS3BIdVB6MUtLRUZVc0F6VVpDdGFQeg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/23/arts/music/taylor-swift-life-of-a-showgirl-encore.html
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQVWsxc2hTR2hsT21XaExJYW5ERkt5UTMtMlp3ZGNvMTFkemgzMFVIZGs1RUYwSndKUXZDQUtpbTVuQjY0RUNweVd0VHFFb3ZKZWQ3OXBZMVlZR20waDU4UXlwQi1zaGJIZjZnT0RLSk5OY3lVM2xLNDdkZ1RHc0ZlNTY2TkR0TUpYRlEtYTRmb29RSEFWLS0xUXhMOFlLWXR0aFpnVTZkZkRGYlJ0LTNQYjJlTW9aTWxvSjlF?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxNdnZReW1uVGFwU1VnT3RvdE9RT01pNGVzbFR1bG4tQWdJSHRESDVUQnZDSTYzNHMwRWZGQnplUzl5M0ZBYVVIc3YySzJaOXdjNTkyY1lpd1FTSndoMlRxeVB5MHpjNklUcV9GNVZhLWZ2YzFWZU13Q29iSF9lTE03bnhENHdscm95SHJCV0FDQVRPeDlGYnEzQlQ2d1cxNWx0Y2sxbG5MNTZZQ1NxWUVIZjlGZHBiUFNzUWNUZmc0eFJiOWplY0I0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMijgFBVV95cUxPTldjRHBHeVZzc0pGQ0ZxaDVLR2hZUVFzb0l2eV9HU1EzeTVaRWNFY0RxLVVVeWhZc2xZU1EyYURnZlJDUUM2RjMyTkhETEZXOGt2SGRLOW5mUkhwYVZUcU0zd3BHbk9tcnFtcC0xYUsyUHJjbDJBYkNEVWVJeExvSC13TVdmaWZwY010SU5n?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNjJsNDZzaW1jRGZCWGQ3WWRBRnhPbS1YSVc5c2stdkJYOUNzc0p2bjBPM2I1T3V4MmRvaG9qUzNvd29RZk1sWG45MGFhNVVVS1dWZjZCeEYwNFdzZUtqUl9nQkpTLUphYkg0RXBCT2RXV1VYNWpSdmNQYnNYSkdkQ2hGXzUyTXpkMXBfcTV2a2p2eFV3M2x0T2tySDJ1dThETTE5bUhueTJudw?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -415,10 +502,11 @@ Stories: 79
 ## Chiefs Coach Links Taylor Swift to Travis Kelce's Performance
 
 - first seen: 2026-09-22 20:10 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Kansas City Chiefs coach attributes some of Travis Kelce's success to Taylor Swift's influence. Swift has been seen frequently at Chiefs games, suggesting her support may be impacting his performance on the field.
 - sources:
   - [unverified] architecturaldigest.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxOTEZyeVdEVlRVYlJNYTVreDRONTlJLWZId1BPNUZHNzYyY01Bd1hsNXNDbXpMdGlZd3hJRkZWMXNhR3FJOWg5V2t2TWpsUlV3T2dWOUs1QkQ2aVNySXlMWFp5MHZReHgyWEhkcHk2SkRxTDdPUmFuQlF0Z3Y1LXJzZG1TMktiYkdyS3k5WDFzb0UwdWdZUUpTUHRGelhJS29ZTUpHNWdQRERPME9aemNpSTNxUGpRT1ZweHc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] FOX4KC.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxPcnA2UGtIMmNFY1V0VlBSQTBiMUtHWVVacGtTN3M5SE9vOHNvNkxiLUk2Mk5RaFp2cmg1NENRbVpEWVdzTXJndUpna01BZWRCUVlSZ19pTmFDSHE0ZllJdXZkYUZmS3NiYTNaWXlCNC1Fc2VHS3l0LTJJRlpkZGpnSExadFo3VVlrVUUtSjkzQ2NNbDdvUGc2d3VCaDF6MFZUWmZFVdIBqgFBVV95cUxPSENsajhCaFRfdFhqejFWNnJGa0xxbFl5SDlFWW4xdXY2aFUxeGpGVzlIWWh0LWRkYUxkOThMbUxYajBYNVZRcEw1QUV6eExUT1loWGF0LWdXUjhlR3M4WEhFOUVsRmJhVGhQaEEwSXdZMWZJclowLWc1U2xHQWthSUNuV28xcVRsWHU5YVB5RjdmeVN0SFZCMjVxWUtobFJTTTg4WmNlUVZUZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Homeowners File Lawsuit Against Rhode Island's 'Taylor Swift Tax'
 
@@ -525,178 +613,3 @@ Stories: 79
 - sources:
   - [unverified] Deadline — https://news.google.com/rss/articles/CBMihwFBVV95cUxNVlZxb0hXRW55SFBIU1pQbkFrNmI1RkRRcFlmS3NjN3U2WWtqb2ZUVkZBSS02dnBsVVdrOEp5Tmw4TlRfSXpPV2xpaUd2Rnd2eEJJOUY0aFBTMERUdTVGaTg5WjFZVFBwb2twRUpvcHpXdHFoOWU2dVZibXZzMmttZVlyVmR0YjQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-vma-artist-director-honors-1237109638/
-
-## BuzzFeed Presents Quiz for Taylor Swift Fans
-
-- first seen: 2026-09-21 21:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: BuzzFeed has released a quiz designed to test the knowledge of Taylor Swift fans, indicating that even casual fans can participate. The quiz aims to challenge dedicated followers while still being accessible to part-time enthusiasts.
-- sources:
-  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMid0FVX3lxTE0yZjFTdDFyY1pWR2F0czI3OUhLcEpzcVhteDhOdWRLQ1o1c21iSmJFcHN0NGRzazdDdVRmVXR4YnlNbmpJLXZpN18wQXhLXzF4d3UyZDF2NHlRQ1RnS1ZzYTVMNktvak04Z3JvX1lzS191NUdGTFBr?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Commends Taylor Swift's Appearance in SVU Cameo
-
-- first seen: 2026-09-21 21:01 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has expressed admiration for Taylor Swift's 'hot' look in her cameo on Law & Order: SVU, stating that there isn't much she can't do. His comments highlight the versatility of Swift as an artist and public figure.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNblR0aDVCbTgwSi1mZ0JpWVdmNmh3ZXZtLVl5UDNEMU1lbTE1SUxVNHdDc3IzUUdZRElFNTdTV0Ztb0ZQUzVKX2s3a1d3WGRXRTB3UzZ3T3VuR3Yzem0tTGYxUkFPaExIWEVudmNXQ0k1bUx4Q293WURFTGtpeWRMN3FZdWVLTy05U2VhNHlFdHlGaTU2cmZTMU8wdy1KWUpO?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Man Sentenced for Selling Counterfeit Vinyl Records of Taylor Swift and Rihanna
-
-- first seen: 2026-09-21 21:01 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A man has been jailed after selling counterfeit vinyl records, including those of Taylor Swift and Rihanna, worth $3.6 million. The court has taken a strong stance against the sale of counterfeit music merchandise.
-- sources:
-  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMiogFBVV95cUxPbGc0SGNXazRzeWw5dDU4aDkydjhySmVELTF6RmtocmEwU21tZmJfOWxlZXBYM2VaaWZkdGVrTVAyUGlYN1padkN2cGQzY3NXTGZwYW5BXzBfRTROdTNSbVRZcUJqaUhSR29BdEJOblhSX0VFSkxnZF95VUlhSVVTajlBVXlwWXY4cHF5QjhRb08zUm52QlVWeWo3Nl9QMzN4TWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Inaugural MTV VMA Artist Director Award
-
-- first seen: 2026-09-21 21:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been honored as the inaugural recipient of the MTV Video Music Awards Artist Director award, recognizing her contributions to the music industry.
-- sources:
-  - [unverified] MusicRow.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxQYllSQUcwSEVXODVlTHJOMlRKdjhPUjB5NmhDRFlvdUVmT0VGbEl3dUw5a2U4NUdmVXlRRmhGLXUxU0tOeVJxTmtKREJqNENJelJ6ODNCY3A0ZW5FdktNM19Ecl9SVW1oX3Z2Ukw0NFR1VDBPY2psYUtFT3g4SXVQTDFoNGJEXzBob3IzRE5hZkJjaFQxQ0JZ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## VMAs Launch New Award Honoring Taylor Swift
-
-- first seen: 2026-09-21 21:01 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: The MTV Video Music Awards have announced the creation of a new award specifically for Taylor Swift, recognizing her significant impact on the show over the years. This decision highlights Swift's enduring popularity and her memorable appearances at the ceremony.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2512121/vmas-introduce-new-award-for-taylor-swift/news/
-
-## Taylor Swift's Game-Day Style with Kansas City Chiefs Tank Tops
-
-- first seen: 2026-09-21 21:01 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new article highlights five Kansas City Chiefs tank tops inspired by Taylor Swift's game-day fashion. The piece offers fans ideas for replicating her look during NFL games.
-- sources:
-  - [unverified] Sports Illustrated Lifestyle — https://news.google.com/rss/articles/CBMimwFBVV95cUxQMmgtV0hOS2FUOXFGenpnNXdrWUtTLTJMTE41N3J2ckVzcV8xdFNXaG1Ea3MwZUt0UTJIUFpNQ1BfdnNPNi15SzVrbjIzdlRBb1JLU0hSUFlldlFEX0tZYVlKSTd6Q0J0Nmpwa2NZR2lBUWd2N3BrMWRDVExqTUZ4QUpyN2x6ZXJ0YWRCZkg2UlJCM19JZHREV2lxaw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to be Honored with MTV VMA Artist Director Award
-
-- first seen: 2026-09-21 21:01 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift will receive the inaugural Artist Director Honors at the MTV VMAs, recognizing her impactful contributions to music video artistry and visual storytelling.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2026-vmas-taylor-swift-artist-director-honors-1236706910/
-
-## Taylor Swift and Ed Sheeran's Friendship Status Clarified
-
-- first seen: 2026-09-21 21:01 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The article discusses the current status of Taylor Swift and Ed Sheeran's friendship following her recent experiences that led her to be more cautious. Insights from StyleCaster indicate a positive resolution in their relationship after past events.
-- sources:
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMVhtbVJ2R1A2Y2k3Nnpfa1pXdE51Q2ZKSmhaRWNZcHZZX3RRRGdjU3cwU0Z2STNZbTZIbjBfRnl1ak1YbmlXWkdGRWlESk5xalotenhpUUZMVWhBc2Y3d1NsVUlSWG9nM2Y2b0VRc3VKandkOEpRYXlEcWdUSm1LOERmdUNCMlFFcXZ3Uzd1QVR0S01hVDlwM1JsLWRmTzgxVDROM1JmaDE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Receive Inaugural Artist-Director Award at 2026 MTV VMAs
-
-- first seen: 2026-09-21 21:01 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has been announced as the recipient of the inaugural Artist-Director Award at the 2026 MTV VMAs. This honor recognizes her contributions to both music and directing.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPVWRNS2dhU0dDd3MyeEFCWTMzczc0SmcwZFk2TlZuMGZwbVJmSkM5TjYxM2hEc3RpMWN6Q3MxdHJMUEJ1Y2paUktyM3Z2QTRVclNXbk9EUUk1TkVfbXBZaU9udXAxZjhfX2FkM2J1MTBoZUFfQ3AtMVZmdEJraXVKVXVKdjg2WjlodWRFUk05aUloUVlGb2JTTnVJLVlDWng5RnQzbWZpYTFoZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-mtv-vmas-2026-inaugural-artist-director-award-1236871205/
-
-## Taylor Swift Wears Affordable Chiefs Game-Day Tank Top
-
-- first seen: 2026-09-21 21:01 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted in an affordable tank top while attending a Chiefs game, which references a well-known friend. Her fashion choice highlights her style while supporting her team.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOdF9XMlZJeVhxR0hxc0FhY2pmcjNzV1NGbm44ejhIcV9mWjl6bEdMMnZ0VGhLSHQ5MkdDTVFyaUllVGVnMFFiWmZNc2tIRjB2MERaeng2dnozZlFrMlM3Wmx3TXV0bnlSMkI4aXI5N2Rzak5SRE1qU2pCVDR0XzhHaU9aS2RUNEJWblN2Y19nb1YwaVpD?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Be Honored at 2026 MTV VMAs
-
-- first seen: 2026-09-21 21:01 UTC | category: business | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift will receive the inaugural Artist Director Honors at the 2026 MTV VMAs, recognizing artists with a sustained and influential body of work. This award celebrates those who have pushed creative boundaries in their directorial approach.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-artist-director-honors-2026-mtv-vmas-1235629611/
-
-## Vinyl Forger Profit From Selling Fake Taylor Swift Records
-
-- first seen: 2026-09-21 15:52 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A vinyl forger reportedly made a profit of £2.7 million from selling counterfeit records of Taylor Swift and Ed Sheeran. This incident highlights ongoing issues with counterfeit music merchandise in the industry.
-- sources:
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMisgFBVV95cUxOeDc3ZjR4X3RUZzlEbTJSdHFxX21wVXl3YkhfRndIMGYycmhHYnlGcHJHWnJha2VCQzJuY1k5RE1pQWllZERERkp2Q0tFc2xGLWJPQ2EzSG9MTjd1aDdKMGVRSURjS0NKa09TeHpTNXE3RVFoZ0RqSWVoY3IzdURzTDJvWGVuT292dGdSUEdCb1daN3Vqajc5VWZ4Um9zSWtNbFZMNnlfMkQ3TnpEeDQzZXh3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift captivates audience with reaction during Chiefs play
-
-- first seen: 2026-09-21 15:52 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: During a recent Chiefs game, Taylor Swift's enthusiastic reaction to a key play garnered significant attention, overshadowing other moments of the event. Fans and media outlets highlighted her response as a memorable part of the game experience.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxOS0VfdHlucDMzWGsxTlpNVTluX2htZVA4MXFqZ0dTdW4yVGN1SVoxZkNPMDZKbjBkbjdGWFpYUDVMN0R1X0U2S0FuMlE4TFA3czVWQ0lZNzdhVHJmVGFQNTJHZS01M3l2VUV0cWViN1ZfeWpSYkFkcTZZRlRRMkpMQ0FRVFFYX2VWcFkyZlRJLXF3empoUjNmYnhBZlpTR0VrRzlxQnh5ejdITGVmNzF3MDcwaVhnZ9IBygFBVV95cUxPTG96Mk5QZF96dVktem9va21BT2NoQU1jRDVERVktazlIWS1KcERlR242OFdrZmVjSEpnbkRYN2xmUU1aelpJOWRmaVRPMW1XRHlIei1qdkwtZTB6MkhvQnhXaDBUb3NJNFFIWFRfX1NiYndUbE9VaTI1ZWlENUVITmpuZi1NLVduZ1RaeC1XbEtaMFJjNmx1UUJrYWgxeTNNcDJSSVVJRHZGeTQ1RUR6dDRzWmFabjlaMG9yZmROd3dJaWZyVWhFX3Rn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Voice Actor Performs Taylor Swift's Song as Disney Characters
-
-- first seen: 2026-09-21 15:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A voice actor has created a unique performance by singing Taylor Swift's song 'I Knew It, I Knew You' while embodying 28 different Disney characters. This creative mashup showcases the versatility of the voice actor and highlights Swift's music in a fun way.
-- sources:
-  - [unverified] Laughing Squid — https://news.google.com/rss/articles/CBMic0FVX3lxTFBabFFrMjBJcmhvdG95N1hheFVnYWlhakF5eWNqQ0N6XzdRQkZmbjFoQlFrRWF4QklfUHgyTlo3NThKMEdHT1ZWTkl5RlRSeUFPUl9YMFRteHl0M0NjTUN5cjdoWGJQZjIxWTRtblpLX01IMTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Approach to Managing Fame Revealed
-
-- first seen: 2026-09-21 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses Taylor Swift's consistent method of handling the pressures of fame with a simple two-sentence script. This strategy emphasizes her approach to maintaining composure amid public scrutiny.
-- sources:
-  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMi_AFBVV95cUxQdFBMamwtQlZIdnVOYTZRdGNjbnkwNDZXczZUS3dUMElSbEJKYmo0OFNURFRtYVJYRmdaNWJrSWg4U1dRVGI3SkxLazNuWU9PV2hmdElKbG11TUhoQThWQlV0ZWJBdkU5UTZnRVFabmh0bjA4T3NoLUF4eXg0VXRldk5iZWtNOU9EMEpZNXNOdm5QMWl0Z3BBeWVsdmZCM1NUNlN1Y080SDZVelVKR3BCWjVUWE04ajhRbUdnVk8yblZkZTlmRjRORk12UmZZWnBaTU1NS2RiblpxandablZyOFIyd0dFS0dVd3o0SWRHMFlhSGUxWDlFR3pNZUw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Details on Taylor Swift's Debut TV Confirmations and Theories
-
-- first seen: 2026-09-21 15:52 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The article discusses what is known about Taylor Swift's Debut TV, including various sources and theories surrounding it. It also highlights confirmed information from Swift herself.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQOVd1YlF0a2hZSGdUc09pTmdYdVZfWG5rcW15NURUS1Q2a24zUmVpTUJyLUptYV9hZm5MUlpUN0pCVE94T3BiZ2lIdlhsNFZTOXRqM3Y3UkIxTTg3ekczNEw0dkFLVFl5R2pVOWpRQlpmWWFOdzg2c2l5WXNkMEl5UE9TSks4ZUxOcllEV1ltMUVRZERsbHpNWXN0NEk4c00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Oprah Winfrey Omitted from Forbes 400 List
-
-- first seen: 2026-09-21 15:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Oprah Winfrey have not made it onto the Forbes 400 list, indicating they fall below the wealth benchmark for inclusion. The reason cited is their current financial standing, described humorously as ‘too poor’ for the list.
-- sources:
-  - [unverified] Complex — https://news.google.com/rss/articles/CBMipgFBVV95cUxNOEJSZHhCbVBzX1JGZU9rLUFVQV94X3NHMThKRFBKTmx3VWdQR2U1a2xEWl84RmljOTlZbC1oSjdES3pDaGRKREZzcnZTX0RXUjNmMHd4TUFyZlNaUVhVX1pPX3hZeG1Tak4ydG1VZURxTmp5Wmx1VlVGNUhGRTZmNnc4WUZReXJvb0RFajI3WDBiV3o1Rkg5SG5fMXRSM0pmaEoxSmpn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seen Celebrating Travis Kelce's Touchdown at SNF
-
-- first seen: 2026-09-21 15:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift was spotted celebrating after Travis Kelce scored a touchdown during Sunday Night Football. The event was covered by WDAM-TV.
-- sources:
-  - [unverified] KWQC — https://news.google.com/rss/articles/CBMiigFBVV95cUxObV9pVE41MHd6QThzWXFQdjRGeDNBWllCWk93THNBZkIxSUtMRzdBM2tBWVUwazN6a3ROZDFqSS1ma3hITjFBUVYzekRNbVpYY0NZYjQ1MmQ3c2I3XzR3c3pmOEgxdUoyWnM4M09uWEl2ai1yRkUzdnhzNWQtSlFMODhvWjYxU0JmNnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WBKO — https://news.google.com/rss/articles/CBMiigFBVV95cUxOSm81czJRMUktWlhGekI1dmlDQ0VJQ0I1S0IwSTBkdE4wWHdFT2NrcE5nUEdpVV92cXZ3UzlMaUpsYXNIRFNnRGVMWjN1dVdKTUdxZXo1eGdFbklTdG9FTFJJNVB4eHFlb3Foc2FLdkxmUy1GSkhST3Q3a3QxcVdQTTh1Y05NREhRblE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WDAM-TV — https://news.google.com/rss/articles/CBMiigFBVV95cUxPQWZPdjBfYm9nM1JjWGVuSEZLazNxNW0xdDFqSUV4RVBWWFduRzhuUFJMMFBvSktwaE5TZzNWSXJnYlVPWTlia0dDRXh3am81M2p3R3dNbjFiWkU1NWV2a0cwUEZaRkNrRTFjemQtcm5KbnJURWZLXzNtVHVwT3AwVzlQUXMtZEoxNUE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WKYT — https://news.google.com/rss/articles/CBMiigFBVV95cUxOMTVHRGRvZlFwdk8zSXQ3WGVUMjlSeTMzam4xRXBPc2o5djRxbnNRS0tQVm84NUxadEhHRFVoVW5SRkVFV1VOa0w4WUtTV3drTGVUQkFmelRtMGhMQnVZVjVvbzhqYUpoaGxOQ0xaYlR6Vm9ZRnBSM3ZGV2FZQW4xOGxUOWhfM2M0THc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WLBT — https://news.google.com/rss/articles/CBMiigFBVV95cUxPLVFQZWxGczYtdXRUTTE1SkpYSG5McFh1U1lQbE1lcmdld192UTNuV3EtdWVnaWFoRDVoVWg5WUlnQnc2TG8tbENEMENaQS0tODhQM0R3LS1JUDNPTWdPTHlKTmQ5eTlpdWZkd1dVYmhMdjFQVE9GckYxYmJJWnppbnJLbmIzTWt3Z3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Supports Partner During Sunday Night Football
-
-- first seen: 2026-09-21 15:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift showcased her support for her partner during the Sunday Night Football, embracing the role of a WAG (Wives and Girlfriends). Her enthusiastic display included a notable comment, emphasizing her connection to him.
-- sources:
-  - [unverified] kctv5.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxNcXhXZFdBeWVKT25VRlBuY0g1Z05NdHFjM1VURWc3TERiNXRiM3ZySlNrM3paNmdvTW1lV1NUZ0lzOXN1U1ZSRUdiUjg4QnVwVlYteUx5MFNDNmVMZGQ4emJSNktBVWloanRGazBUeDMwMWRfRUVwek1wVVlUMndKZUl2QXAzTC1QWHhGM1Naa1hqUF9hRmJZQTRVQkbSAbABQVVfeXFMTlFRa2RBLXBaUVk3T0pEaWhIMWxmRXBYVGVEaFNWTE04MkJIcFBfS0RKbGVmaDZaUk4wOEdKTE1GeEVFc0tTaWVQODBHdXNsaTU5bUd6Mk5CRUlUNEk4T1Bldl9CR2Vhbk00Yks2SWVTaUg1X3ItalREc1lMTEtKMDB5Z284TkcwNldMWUVrd0tuMFJQdnlEVVNCUVBsOWM3ZFJyd2NaaXY5OTZ2YXBVSW4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WABI — https://news.google.com/rss/articles/CBMimgFBVV95cUxQVmtOQXFMeWZydlBwQTl6WVQydm9jSVcyU3luSzFwUWpabnlha21FR052YUtoem5peUtEZkRaT1Qzejg4NTJ1eFUtS2trZ0paY3M4cmQ4Sk5LbnhpQ1libHN4MzJleUhPa1EzV1R0V1BHNEJnWFlMQ3A1MGNDWXladWtiU1VQSWFmTWhDNndtY19XM3ZDOFI1TU1B0gGuAUFVX3lxTE1NLVA4bnNSaDZ1aW1RTjdKMWh1b2tQOHZtUDFDTlBGaGVkamhKNmtSdnBfa25SeU5DV1dDc3RyWndJQjFBSzNuZ0xtZW1WdG81MXJtNlJNZDVHV0xFSFdLMTd0cU9FUHlYYmlwWTByOGVONEU3cDlDVVJOTlpLV3RDMm0yRUlJLXFoT1FMWEQxcTRQNjNncU5DWnlxTjJ3NmN2Vkx6SmVTWDU3RGJXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WFSB — https://news.google.com/rss/articles/CBMimwFBVV95cUxOYXl6cVh2Y2tPV25hMjZ3b3laamVPbkcySjItLWFXTzBkRzRkTlVoR0tYWGNxSHBneXc0VnlmSVg5TVdMUkZ5YllMUFJsV2R5d2IzWDYyX1RJck01bm1QZEhCdGFRTXo0OTc5OV9qTWxDX1pOTEM5bXJfY2g3OTFmeEVTUUV2Q2RUUlFObDFoLTdiR0hmTWcxOEE3TdIBrwFBVV95cUxNV0t6UXZScFE5S2p4cGo4dW45QzZObUR2VklydDJQWVU4NXZibk5hQUNSc2RxQ1F4MDItVDRQVTlRR1IxN3hCN0xVREFabDFHQ2ZJM2wtbS1Fak16TXFtaFhxZHJ2QkUwUnBDTDlFcktWY2tEbW9DR0ZvZDJTSXd6by1RbUlaMVZmbm93cTllYXNoSER6dkxuMzhqb1R4YTAtX1hHWm1XNTNGZFJjOVkw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Displays Ring After Travis Kelce's Touchdown
-
-- first seen: 2026-09-21 15:52 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A video shows Taylor Swift flashing a ring following Travis Kelce's touchdown in a recent game. The moment has garnered attention online, highlighting their public relationship.
-- sources:
-  - [unverified] TMZ — https://news.google.com/rss/articles/CBMihAFBVV95cUxQblJJRUhscldVSHlRSElQR2JpWE9uOTdKb0VvRnJaRVNjTEdlT0sxU3QyY1E1ZjZjNG5RdklCWTZJdkJ2c3NSMGQ5NnBZRXBZXzliS1ZJNXl1MUwxU0Q1UFZYa2x2aGRMMkFEcExFWW8yc3RPS2x4cFJMZHJsY2xaalhvOVY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Seen in Wedding Dress in New York
-
-- first seen: 2026-09-21 15:52 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted in a wedding dress during a lively summer in New York, which included various events. The summer was characterized by numerous spectacles and activities throughout the city.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/21/nyregion/new-york-summer.html
