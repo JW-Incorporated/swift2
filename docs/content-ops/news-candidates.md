@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 87
+
+## Taylor Swift Wears Nicholas Jebran Micro Minidress
+
+- first seen: 2026-09-24 06:08 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted in a striking micro minidress by designer Nicholas Jebran, showcasing a bold fashion choice. The outfit drew attention for its daring length, emphasizing her contemporary style.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPeEdLRmpxU2REOWRSQUVnV00yZVdLRm1XVzdfWnRjTVhXcXNJRGtUNmFCbEJWY2ppV2RxS2pQNnRtMTVWSHJ6ZWlxMnQ0bXNDOVg3cmVVMkY1YWs0Wm80b3VtWV9GcG4tcW9rcG8zanhJSzd2bWQwTE9NNDVIZWQwM2dORGRzV1d4WjhqYVNBd3pUc0lncGlrdlk1R3huaEkzYktrOEFHMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Upcoming Single Could Mark a Career Milestone
+
+- first seen: 2026-09-24 06:08 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Forbes highlights that Taylor Swift's forthcoming single has the potential to achieve a significant career milestone for the artist. This development may contribute to her ongoing legacy in the music industry.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMirgFBVV95cUxNMlBzYmZScmJ3OUhIU3RrUEMwRUlGMjBYVG1HVXV6ZmktLVQ2MmVxZzA5R3B3NmNqdGdMU2c3WldIdjJ6T2hCU2ZIbUlOaDMtdmhQTW4tdDNocmVWalU0eEFaRDlyQndYNnctVWlzSkZlQTZqRHVJUGtFLW1HQmtaWGVVOC1BZ3o0SW5VbEw4LVI2WHFPMWFDYUZsdmJuX0xTUUV3OGVwYzdzbHY3TkE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Discusses Wedding to Taylor Swift: 'Best Night of My Life'
+
+- first seen: 2026-09-24 06:08 UTC | category: relationship | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared initial details about his wedding to Taylor Swift, describing it as 'the best night of my life'.
+- sources:
+  - [unverified] BBC — https://news.google.com/rss/articles/CBMiXEFVX3lxTE5TdFlTMWxmMnNSY3cxRXc5YUNCV3pDemdiNTd0djh3eUZ3TXNtc1JTb0ROSG5BV0dyUGNqNElodTYzYnhHVnMxMzlTTmQtS0xCQlNWQjN5SzMtZFVi?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Cryptic Announcement Following New Album Reveal
+
+- first seen: 2026-09-24 06:08 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made a mysterious announcement that has caught the attention of fans after the reveal of her new album. Details about the content of the announcement remain unclear.
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNV0hUSVptNFNSdlRsVmZ2WXQ0VEpMM1FBY1VvZTlQWHdpYnM0Qk5fQ0F4aXExWkxQMnJOcEFlRzZXc0dzMUhHQkJ2ZDkzSkRXVmFzWkpWUUhYVW9MLVZpSVB6elFLbEpkRkhPZTRfMEQ2S2gtYjNkamJrcDRNRWNwemxXQUxBWFloNGN4M1RVNmY3Y09wQ3Q4cDQwYmZiUjJj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Announces New Song Titled 'Cleveland'
+
+- first seen: 2026-09-24 06:08 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has announced the release of a new song called 'Cleveland,' as reported by Cleveland Magazine.
+- sources:
+  - [unverified] Cleveland Magazine — https://news.google.com/rss/articles/CBMimAFBVV95cUxQTkZCMDBuNUt3dFVkRTV2azU1MnlkakdscHlYdm9FMnl0S1NVNUhDWjRJQkFyZDRXeFNveVFwczBWdlZ3NVlGMWFZZ2ZtamdxTWpVaFlISHRSc3R4cXRSMmJjZnBEUm1hMVdQOWs5VWlMZnpPbGw5WGJ0UXRpUjdWellXeHdhZGJ6UXNQa0JOUlNGRWsxMHIzeg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Wins MTV New Artist Director Award
 
@@ -160,14 +200,24 @@ Stories: 82
   - [unverified] Slate Magazine — https://news.google.com/rss/articles/CBMilAFBVV95cUxPM2l0YlM0TlF1TThqZGt0dHAzUUI3OHBhZFN0MF9aTXVLN29vNE9NMzUzWFBaTUVMVjB1NjNGUmRLQWtSRVFyVjVtaGItTDdLMXVTMmpicE1Ta1gyVkN2TmVJSE9maHc0bHYxTkFWcUFTa0tWd01iZlNpY3JISXVFU2JNci1xWFZ4SzA4S2tWMTdOUEd1?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPak9UUWhBeUxueUhidlRpTUMtazJ6a2dkV2pIQWJrVGVIeHlxS3dBd0FMTEtFNzZJallYSHY1aXZLNVlDVHRkOGxsaThUcmotd0ppUlF0cFVHaHd4eWNUTDdlakFjM3k4SkNHMFBybWRvbUxFNGw1dngxT2N5MDZUS3BtTjdDOUxqcFE3VWdFOFBOLUtvcWRQYmpYUno4Zw?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift to Release Three New Songs This Friday
+
+- first seen: 2026-09-23 14:13 UTC | category: release | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has announced the release of three new tracks this Friday as part of the expanded album 'The Life of a Showgirl: The Encore,' featuring the previously announced song 'Patient Zero.'
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMikwFBVV95cUxOS2NsUXdRRi1yQ25TTk9Ob2Q2cDhqTldUMG9CM0t2UHNfX0VLRVE3Uzhmd2N1dHhuOTVYNWdTNzRuZHE1bERZLXk5Yk9MU1lNTXE4QkVnMjFlTGpTeHVTaGFGa05YMWRVVXd2T2k3YnVkRlh6R0JnQ29RTXZ6REVzamt3QVpYX1hGNmFBeUd2a09lWlk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/
+
 ## Taylor Swift Announces The Life of a Showgirl: The Encore
 
 - first seen: 2026-09-23 14:13 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 16
+- verification_status: corroborated | source_count: 17
 - summary: Taylor Swift has officially announced her new project titled The Life of a Showgirl: The Encore, according to Pitchfork.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqgFBVV95cUxORE1QVzZQMmM0T1RFLVhLNHU1Y2VLWjNqSEVhZEh3Y2JkNGlpOENRX2s1djI1aDgtNGg4dVlVVzcyaDB5dFJSSHdTWDIxdDhaNWpVWl9qWkswMUdoZVhFOFYxVUx0OHhqZS1PeGFXcjA0REcwT0pJZmdtRnVBVWRYVWpidlJ6N3ItOGVwckh0eHBpT0pIUGVWVm9wMl93dUZNeVJpUk00TjZxZw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMiwwFBVV95cUxPdThRM1JXdlBVZE9Qak1scUc0QjlMZDlQbEpDeV8zWFRKelJ4ZWJKX2xjN3BRdjhBM1drdzU4bHJzQXlQMUdNWkNudGFmNGFhOVFMdWNmR0NCaVlmM2prT3ZUa192OWNydkVjLTRYSFFIZ3hUcElqTUY2NDRGbmtONjQ3QWx5WFowRWtkbFpibDRrQnhrNzFBcENxUUtWdnpPY0ZEa2tabFBNNzYtbmplZ2ZVNnJXaXZXMzFxeTNVcVdhNkU?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirwFBVV95cUxOZ0ZobEdwYzA0Zi1UMVY1aWV2dWVhT0ZoNVJGUlNjZkVISDMwdWstV0hXWFZDQVZ6bHFQRnFmeXBJaFlpVmhxMzFLSVB2ZDk3YkZaLTRvN2xmc21rVjI2UUZINUJPcV9VRnU2alI3bzhUVTZqTE4wWXQ1dU1fLTBNTl9NX3NQa3lLSThoZWZJcWV3cFRURUhRVTZDc3g4OFRsUUNFTjd3TUhPYnA4X3I0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Fox News — https://news.google.com/rss/articles/CBMisAFBVV95cUxOSHpDSlY4dl9PaFA5dVI1YXhiLXdQc2lTbjlndjB0bEQxT1pOZ2pVcmtBZzZEY21jNmZ3NWtSZDljTUExbVRTN3ZuUHA4ZnJoUnZRc08xY2QzUWUyWFItdGx4Z3ktcWxyNnpRSHBkaUIxZGxSWXpnVkFuamQ0Wkx6TDFYSTQyeDA2QnFUeHlyWDgzcWRJVFdkN2ZMS3BIdVB6MUtLRUZVc0F6VVpDdGFQeg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/23/arts/music/taylor-swift-life-of-a-showgirl-encore.html
   - [unverified] People.com — https://news.google.com/rss/articles/CBMixwFBVV95cUxNdnZReW1uVGFwU1VnT3RvdE9RT01pNGVzbFR1bG4tQWdJSHRESDVUQnZDSTYzNHMwRWZGQnplUzl5M0ZBYVVIc3YySzJaOXdjNTkyY1lpd1FTSndoMlRxeVB5MHpjNklUcV9GNVZhLWZ2YzFWZU13Q29iSF9lTE03bnhENHdscm95SHJCV0FDQVRPeDlGYnEzQlQ2d1cxNWx0Y2sxbG5MNTZZQ1NxWUVIZjlGZHBiUFNzUWNUZmc0eFJiOWplY0I0?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -182,15 +232,6 @@ Stories: 82
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi-wFBVV95cUxPVVJSelhVbU5wWDRXUHVBc0l1dmZMakJ0QWdMRTlhcFVXaVVBSG1HYTZZYVdkUmxBVGdfX0xjMWRlVFFocUJaUmZQN1dkby10dGltOW1ZcGpfajZzcGRxSld0WmVyV2ZIUDRFQ2ZfcFd4WExzU1BJU0hxREtaeTh4Tkd6bG9GLUkyTWFyaGs2dzhqMnByOUJxOUlFOGNldEREY0xfS0p6Nlo0eXIwYXRIUXVETFFkazVyS1BEaFRMVEhPaHpmU2dRd0ZaOUk3WDM2NW13TDF1YzRTM1JsOUhRTnlzR1lWN3NWcFBqdjBQM29XNTVNUHkwSzE1QQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwJBVV95cUxPZGhUV3ZodmVDT3pIQ2pFN04ydDZ4QnNrcTEtWm5yX3lnUDFmNmE4OWZuVFhDMEVWY1YtbktnekNnbGtYZXpIMzY2R21sbXc2a1VkQWZwdi10VWs3R1ZSVnFwZGhxbk5sSjBjdGNvNG1QZEFDRzRCcFkyREdkWUJsdkdzVXNQQm16bGF5SnE5Z24zYmRvZ1hLTVN2ZERFTnlPWFVzRWhSUFRWdFFFcENxLXQ1MDVrOVhhM2M0VWJ2azh1UGZ4a1k4bXAyZ0h3ZjJfMGdDU3V6VkhpYVRQbk9zcHIzZm85Uk9laVd5TmZZTEUweWtJT2stc1ZJWUxEN2N6bVhXRDc3V3FjdG12ZHkzYVdKYlhzMk0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNSlVUcnUtaUczT05fUlVFNkIyeXp2Y2pMc0VvOWU1cUdkeHQ0d3EwdlA1UnloX2dtdTloY1VqUXo3T3JOd3B5eVc2R0Z6NDhWa2U2UkpZRnQzSFZoWkROUlJZd1RNS1VFVjNLVFIzWnF2VmM2VUZ3N2hoNE40ak85NmtjakgwRV9tMDN2UGJPT1cwMXFCVTB1QkhxU1AyWHRmTThQMmNFOXlCNU5WN0hCTEN5dDZoOEZhYTBCV3kyWlBQbVFic2JPNVlMN0kxWXczMnBDbUk0TE50cjR1WXpSTXFPOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Release Three New Songs This Friday
-
-- first seen: 2026-09-23 14:13 UTC | category: release | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has announced the release of three new tracks this Friday as part of the expanded album 'The Life of a Showgirl: The Encore,' featuring the previously announced song 'Patient Zero.'
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMikwFBVV95cUxOS2NsUXdRRi1yQ25TTk9Ob2Q2cDhqTldUMG9CM0t2UHNfX0VLRVE3Uzhmd2N1dHhuOTVYNWdTNzRuZHE1bERZLXk5Yk9MU1lNTXE4QkVnMjFlTGpTeHVTaGFGa05YMWRVVXd2T2k3YnVkRlh6R0JnQ29RTXZ6REVzamt3QVpYX1hGNmFBeUd2a09lWlk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/
 
 ## Speculation on L.A. Times Influence on Taylor Swift's New Single
 
