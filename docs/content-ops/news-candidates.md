@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 79
+
+## Tom Hiddleston Discusses Taylor Swift and Heartbreak in GQ Interview
+
+- first seen: 2026-09-25 23:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview with GQ, Tom Hiddleston talks about his past relationship with Taylor Swift and reflects on themes of heartbreak. The conversation also touches on his memorable fashion choices.
+- sources:
+  - [unverified] gq.com — https://news.google.com/rss/articles/CBMiY0FVX3lxTE0ySFdIanB3dG1vZDh5VWR2eEdMWXE1Yzg3Njl4NUN1c3RxMGxMbE9MdkQ4RC1LTHJULW5vSnRmcEVVTUx6d04zM3FtNy1ibVJpQkhxcE1jc0ZWNE9seFZyOXFRUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Entertainment Weekly Ranks Taylor Swift Albums from Worst to Best
+
+- first seen: 2026-09-25 23:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Entertainment Weekly has published a ranking of every Taylor Swift album from worst to best, providing insights into her discography.
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiZkFVX3lxTE5xNGVXeUpWZnk2YVBEdXhsNmVlbkxZaEZxNU1sakJQaE80Nll2enpoUVNFZGFxaDlJUTZaa282aWpjbEJzaHUzMFd1V1o4Ui1HSWxOUTZQcEw0VGNWUHJPUWsyb1EwZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## New York Castle Linked to Taylor Swift to Be Auctioned
+
+- first seen: 2026-09-25 23:56 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A sprawling castle in New York with a connection to Taylor Swift is set to be auctioned. Photos of the property accompany the announcement of the auction.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMixwFBVV95cUxNRG5VZVlEanA0NExfNkxocVJSSmtJa0QtLWJXekFyZTROSW9vbFNWVHVvcXY5RWlKUEc2Nk1pek42VHNhOURyaVBMNFg5U281M192TXBqcUpEX3dYZ3RuWms3X19vcEh3VS1BQTRPUjMycmk3d1VSRDNaRnFsYWZtZUYwTzVZcmJvRkRIZk5tdldwTER6ZEd3bzFWaVhta0Z4Nl9WcngwMVhybk83Qmp3M3NVWVI4eWhGM3dXOWNaZ25mLWsxX3U4?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Sets Two Spotify Records for Most-Streamed Female Artist
+
+- first seen: 2026-09-25 23:56 UTC | category: music | importance: 9
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has achieved two Spotify records for 2026, notably becoming the most-streamed female artist in a single day. This milestone follows the release of her new album, 'The Life of a Showgirl: Encore,' which includes the record-breaking lead single 'Patient Zero.'
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-breaks-spotify-records-most-streamed-female-1236876086/
+
+## Eras Tour Dancer Jan Ravnik Becomes First-Time Homeowner
+
+- first seen: 2026-09-25 23:56 UTC | category: tour | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: Jan Ravnik, a dancer from Taylor Swift's Eras Tour and a contestant on 'DWTS', shares his experience as a first-time homeowner. He describes the process as somewhat challenging.
+- sources:
+  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxNTkpWMDF1bEhGZmxTSXc4b2hZdW0xMTNaYjUzWUphcXFUTTB5Xzh2U2ZESU54Y1BrbkpKTzA2eGg0cHJra01QLXBfeUJWSzRVUkprcXZYS1hrWnlHTHlBMmhzUUc0aVFEOF9CVU1aZlBlNlRuV0pnV1lFSDlLQ0tCTFFXRjAtRGhwdzNoMk10Q1Y3NHVLRmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Tour Dancer Jan Ravnik Celebrates Homeownership After 10 Years in the U.S.
+
+- first seen: 2026-09-25 23:56 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jan Ravnik, a dancer on Taylor Swift's tour, shares an emotional post about becoming a homeowner a decade after moving to the U.S. His journey highlights personal growth and achievement.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPVVlYVTk1RllnVWw0SVlJYlZoMWNhT2ZobjFuTVA1SWtqRzhzZ3V3Z0ppd3ZZenJSdGZKcGtfX1hxbGxiU3Bndk5uZWdDanVPWkp6ZjRnMjBRdlQ5bFFoUTROVEdkbmtDOHZSQVlWaEVwSzJ2ZkpWYUhtQzE1Uk0teVlKZmlsN1FwSnFSYjBVc19ZUXYxeE50RmhKd2lNcTZzS25sQmlQRkVfSm1TU3RWT3R5U0hJbXZkcWhySlh3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Encore' Receives Mixed Reviews
+
+- first seen: 2026-09-25 23:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reviews for Taylor Swift's 'Encore' have been released, and the feedback appears to be largely negative. Fans and critics alike are weighing in on the new release with various opinions.
+- sources:
+  - [unverified] Her Campus — https://news.google.com/rss/articles/CBMilgFBVV95cUxNM21wMzYyZ0xFZXNDczRoYWhrZFJYRmFzeEw4TUxrUWJKLUJ6em5SOW51YjY5anYyTmdpZ2RwVWFBY05DWUlEcXJldjdBTzVQclFwMnRtRjRoT2k2dnc2QjJtSUt4azN4UlJVRUhYb1VHcWc2QUwyenEzZXlhQ1VNczdRRHg2NHJyZmpnYUktaWsySW8wUkE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## CNN Explores Emotions of Billionaires Including Taylor Swift
+
+- first seen: 2026-09-25 23:56 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: CNN examines whether billionaires such as Taylor Swift are capable of genuine emotions, delving into perceptions and society's views on wealthy individuals' emotional experiences.
+- sources:
+  - [unverified] CNN — https://news.google.com/rss/articles/CBMihAFBVV95cUxNZG5zZFpRejZTUko2Tm1RckZpTmVfQVlCUWI3b0xRXzh6UjJ4TGlzcmJ0NTY5UUNwd1A5aFZrdGdFSmFkaFBhWlpROGxnN05fTVgzZFZYWFlCZHJuOHVpSTJhR2NYc0dPZWNzc09kcWVtZmhpNmt5RDlhLUs5ZzlwWGhRYjM?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's New Song About Travis Kelce Analyzed
 
@@ -87,9 +151,11 @@ Stories: 73
 ## Todd Rundgren Critiques Taylor Swift's Songwriting
 
 - first seen: 2026-09-25 20:26 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Todd Rundgren has publicly criticized Taylor Swift, stating that she has 'ruined music' and is 'not a great songwriter.' This follows his previous controversial remarks about the music industry.
 - sources:
+  - [unverified] consequence.net — https://news.google.com/rss/articles/CBMifEFVX3lxTE0zeEZVbFdmSXdIbFNldkFWdFBrTkN4LTZxNHlnTzJBN2tsRktHckY2S0lpOFYtWkUtWjEtUXdQd2FnbFg5bVFTTVNhRnhFN2EzVElmb20tU25pTDRtX3ZCdXZlcWxXWXdURDk4VkRJMTZIb2I1ZVkzV2ZiNFk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Stereogum — https://news.google.com/rss/articles/CBMipAFBVV95cUxQOW14aHRXM3RNZGh5MmZEeWdwUFlwd1JWbS1QV3VDdzMzMHdxdjJXWkRzVlFEci1Md1dWYXMxdGo5RmVNNk90N1BNd3BSVzFhX0pMUzZQdXh3bWhCeUdvNUZWTTZGX0RuZlY1WEItOEh1X2N5V0I2TTkyZy0zNXE2SEg0X0wwaDFtc1BKVnFRd0lzS3lvTVh0VHh3elk4UlpmZE14RA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2512629/todd-rundgren-says-taylor-swift-ruined-music-not-a-great-songwriter/news/
 
 ## Review: Taylor Swift's Encore Performance Critiqued
@@ -208,7 +274,7 @@ Stories: 73
 ## Taylor Swift Unveils Four New Songs from The Life of a Showgirl: The Encore
 
 - first seen: 2026-09-25 06:08 UTC | category: release | importance: 8
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift has released four new songs featured on her project, The Life of a Showgirl: The Encore. Fans can now stream the latest additions to her music catalog.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaWJrcGhLcnZfQnFoMFlxUk1Fd3BLcnM5eXpuTkNGYlB2czBHS1o4cTdIaUdZeThhSGJBNVdWektDSk11NC1CajVUN25rSUhwNHJCZmhSZndKelVEc2FCMGk1RzZ5akdna2pZWXRMWnRtZlQwMzl5SGFmRERNV2N2YnFvdTd0LXRRa2IyWUpPUk9YNEE5UDNzdEVTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -217,6 +283,7 @@ Stories: 73
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swifts-the-life-of-a-showgirl-the-encore-breakdown-1235631726/
   - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOZ2QwVlFsS1B6ekdqdnFzWUh4b2R1cm5BOXdhNkJ2eUs4TnNRcTVBdTliVFpwaWtBbTNvWENvellDYmJtYnBCcEVLT1NrdENiaUZjUXJVcDgwd0xqc2xtNV9oQTZNQnlvVGZIYWkwSUx5T0ZZNG5ON0g0V3BZdmZIWVFsVlJLWE0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/25/taylor-swift-the-life-of-a-showgirl-the-encore-review
+  - [unverified] theguardian.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZ2JrNTh1UjFRdC01YWpMU19kT29fanY1eVNkV20xLUJhQ2ZwV1h6UEtoLU1XdGtDMmxUdmpZLWhBMXRrMTNoZ3N6RUI4eWt4LWpzOW4ta09vQW9KSXYxdktPTThLbzJNOXJPRkFCRS0zZ0NQTlJGbDZOVm5OTjgxeTV4Qkk1eFJqYlIxaUpzWWNFVzhhanpJUDIxSEw2M1pr?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxObnRZNXFCR09jOHkxcFBtdXNRcl9OSTNVbkNkeUU2cHFTREFlRk02MDc3NWxOYjl6THFUd3NfcHgwQTRzU0djRnVXeUhfVl80cHphWTRCRVcyZElKRmowV1dtaVFxcmRPbjZoeWJMVnVhaVduWnZNMml4NG1XZFBPdFhoUXlrOVNiWGxkbWUteGd1ZEtUTHBuZWU5WF9UaXhx?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-review-life-showgirl-encore-new-tracks-1236875342/
   - [unverified] WUSA9 — https://news.google.com/rss/articles/CBMi3gFBVV95cUxQQ1REbE9vcVYxal9VWTM3UDVEcVRwbHBYMVFNZmM5NGhaTTdHcEVZOXlRUmtobE5FOEdUZnRfYW1fLXFrM19UTlZYUzBSaUxBQVJWUWFva2Z0X21Od1NlX2tLTVBuU1BRS3NULS1RVzV3MWFicG93amlJSmxBb0IyZ0JFUXVPWWpIa20wVmlBR1ZtV0dQSWhRVU9LYnNCZHFYeTFJMmZFZmVDMmlhR3lVcGpMYmNFQ2pIV2FpUkx1ZHV2QmNVUVdzR0ZpSDJBN1ZaaXdfa3c2MExhbk5tV1E?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -224,11 +291,12 @@ Stories: 73
 ## Taylor Swift Releases New Song 'Patient Zero' Addressing Toxic Relationships
 
 - first seen: 2026-09-25 06:08 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift has unveiled her latest song titled 'Patient Zero,' which serves as a stark warning about toxic exes. The track highlights themes of challenging relationships.
 - sources:
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxQRk4wY2pQMVRscUZxd3g4dFRlM0pjV2t0TUUwTldybklqVmF5ZGdvZjFnbzBRSG5jalhUSVc1UDdNT2hfTlBVZjVMa3hrQU9KTGJWN0dpQjlZQi13dGFSLVpaOVliTE1VbUljMEp0ejJpdHFyTkYxQzJnZWZYZjZtZzhWRTM5R1hoelRoQUdEZnJabkQ4NTYzajlaVFlBaEJHMk04?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxORUdSYkJVY2p6Q3Y3UXMzUWc4SS15N2x0ZFFvaENtcWVMSXQ2NlpEOFJQdVdPcWpoN1gtTG9jWTMzcW5iMzJ3QzVEbEVtZTdKQlY4VHptaXhhTTZ5YUtFZGhrTV9OaWowUEk3WWJJQTZGa3haMDMtYnA2V3k1TTJlUFBEaldQb2FWM2szR3Buc0VIdDlsSmc0UEp1aEl3a3dwUUh0UmpuV2JmMG1lTUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMivAFBVV95cUxQcThUSkhsc25WZXdYbmcyTTdCY2oyTkt5RmNWVGVkTW11bFY0YWV1SzN6RXdlVThqSllzcWV0UTBDWTlCczctSk9Kakt0Y1NvalM3UUlBalpyd09IYUZweHdlc09FYVJRZnZLUzk4eG1TQmNLR2RSZElRRHUwQnA4QWZrdjJXOUZQQndsSkdXZlAtRUhtMVltNWxfRVdWZEV2LWdJSWxmZXFwYnNWc21Pa1g5VHBfVlloNkktbg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] people.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxOR0hfR3hCNTdyZEYxcUFCNUJIVmhRSEMxVHVyeU16U0daOU9MZkR1MzgteHBSOWQ4V3ItVHVFVHFCc19iMXRBUzF1ZzRtR0VfYmVabWthcGxIRUVYZ2FOYjRFN25ZaWppS1pzNDV2cTdOTkJ4NzdjWGJyZkZuczlXbFhYaV9RaEZCNWp3dFNhRXBvTDRkRk9hOVBid1kzVVZEcVRha0Z3d3pDSDV0VW1IMlFGNA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNdXNQTG14UnYycVAyMlFwNHRMZVBGckdpczIycjh5WThLWjI4VExfNDN2X3Y0WkZOVDRVUmJLZTJfeWJKQV9hMFBvX2ZUNE1sV1FrMXZCWkp1TVdBeWhJdzZxcUhtSk9IcEhMNWJzc2JKYUZicFpSanhtZUhBbjFDTUFGOXdrN3FFMEQwZHROZllwZk1kTnBCUTgwM01lY0ExV3RMbklqVGNyVmNYV1Mw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOM1dOUVB2RnRkSDZGNHBWdWhTaEJ2eXlaOEVzSGRGNkRMcUhtYk1WVENIYUhLRE5ULU1YWGRhY00wd3JhTHhqdGFYcFZlYWRKSkpXY0Q4VW9jdzRUQnA4X2ZubDByTzFmZW44cGZrR25lQVlZYWtRR2MtbzhWU3czbHkxMHRSZmFWZzBxQkdJWTFCUW42?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -662,19 +730,3 @@ Stories: 73
 - summary: Taylor Swift was spotted wearing a lace-trimmed little black dress as she hinted at new music for the first time in several months. This sighting captures both her fashion sense and the excitement surrounding her upcoming music release.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPbTMtSTk3V3V2WmpkUjUyXzctU3hhWnU1azE3QVRGM3ktNTRDeWJOTXBzdFhFV1lsc3l0ZWNid0w1M2JxMko3YUlZU1d5elJ0eTdXVGNkbXhGbm13c3hEVUVVdTBhZnBObnJSYlpiZE9uYlNpakRLTi1Rc1NTT293bVZxQkZqYUdjZFJkdVpoS1MyU1NmQ2ZYM3RLSlJWWjNCejNOMnp3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Make History at 2026 MTV VMAs
-
-- first seen: 2026-09-22 23:35 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The 2026 MTV VMAs will feature Madonna returning to the stage after 23 years and Taylor Swift is set to make history during the awards show. Details about the event are highlighted in the announcement.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogJBVV95cUxQR3ZtSDA0Qm5td2dIakVtWV9HaG1RU3lGd2hEUEthUlA3RGJWSmZhVnB0TXMwLWdDX2ltVVpVWGV0d05SUUJuU0doS1FMdEszZEZSMlA5aVlqOVF1SjNMdnVzOFlUZkFYc2h2VWlwc3R3Z1pqLXdSZG9yZ29CR0lyUUZPcUNJYU83cDlrNkk2U1pkbzNBbWdLbHYzdERKcHNNZmRRcThua1hJempLakl0VXE1MFJnQWVXOTdDdExaQm1uWmZYVl9HRHZrLVlfb2xTT2dZcllIckxUd2VMRGNRTk5JZTVteGxQTFdoTl9QR1RYZmtuSHhYdjUxc0NHVzR6RUpOQmNYZ1g2V1ZFOUtuMWNnbll5bUtkQmRGLTExVjYtQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts Backless Look with Surprise Announcement
-
-- first seen: 2026-09-22 23:35 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased a striking backless outfit while making a significant surprise announcement. Her new look indicates a shift from her typical glam style, signaling potential upcoming projects or events.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikgFBVV95cUxQdGVzdW5xM1FBS2ZTelJTMHh1SFRfNHBrWGhIcFJMZVNRczg0bWdhcTZoSFZsNXhGQmU0R2FWOWU1Mk15NmFRUnp5MEF6NGE2TnZ6Yjh0eW1vdVdXcC1SaUxpaldBWHA3aDZrRFoxNzJjY2RrY0pXSTFOSW5yTFh5WWNlbVc3ZmliYzRWeFJEdTcwZw?oc=5&hl=en-US&gl=US&ceid=US:en
