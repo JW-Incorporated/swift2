@@ -45,8 +45,11 @@ import {
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
+import { isLegalPageUrl, legalPageUrl, type LegalPageId } from './lib/legal-links';
+import { openSettingsEntry } from './lib/settings-entry';
+import { visibleScreen } from './lib/visible-screen';
 import { ensureTrackGuideWired, loadTrackGuide } from './lib/track-guide-data';
-import { SITE_URL, SiteShell, type NativeBridgeMessage } from './components/SiteShell';
+import { SITE_URL, type NativeBridgeMessage } from './components/SiteShell';
 import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
 import { NotificationInboxScreen } from './components/NotificationInboxScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
@@ -59,30 +62,8 @@ import { SongScreen } from './components/SongScreen';
 import { MomentSheet } from './components/MomentSheet';
 import { ClownChatScreen } from './components/ClownChatScreen';
 import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
-
-/**
- * OS-039: the only three routes the WebView is still allowed to show —
- * static legal text with no native screen and no plan to ever get one.
- * Matched on pathname alone (query/hash ignored) against `SITE_URL`'s own
- * host, same host-matching posture `destinationFor` (@swift2/shared) uses,
- * so a non-longlivets.com URL is never mistaken for a legal page.
- */
-const LEGAL_PATHS = new Set(['/privacy', '/terms', '/support']);
-
-function isLegalPageUrl(rawUrl: string, siteUrl: string): boolean {
-  try {
-    const site = new URL(siteUrl);
-    const siteHosts = new Set(
-      site.hostname.startsWith('www.')
-        ? [site.hostname, site.hostname.slice('www.'.length)]
-        : [site.hostname, `www.${site.hostname}`],
-    );
-    const u = new URL(rawUrl);
-    return siteHosts.has(u.hostname) && LEGAL_PATHS.has(u.pathname);
-  } catch {
-    return false;
-  }
-}
+import { HomeTopBar } from './components/HomeTopBar';
+import { LegalPageScreen } from './components/LegalPageScreen';
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -104,6 +85,9 @@ export default function App() {
   // screen state below takes priority in the render tree).
   const [activeTab, setActiveTab] = useState<HomeTab>('era');
   const [legalUrl, setLegalUrl] = useState<string | null>(null);
+  // Where a legal page's Done button returns to: Settings when it was opened
+  // from Settings → About, otherwise the home tab that was already active.
+  const [legalReturnTo, setLegalReturnTo] = useState<'settings' | null>(null);
   // Notifications Phase 1 (spec §8): the bell is reachable from every screen
   // → Notification Settings. App.tsx renders one screen at a time, so the
   // native screens are full-bleed overlays toggled by local state.
@@ -162,6 +146,7 @@ export default function App() {
     setTrackGuideRoute(null);
     setMomentItemId(null);
     setLegalUrl(null);
+    setLegalReturnTo(null);
     if (screen === 'settings') {
       setNotificationSettingsOpen(true);
     } else if (
@@ -221,6 +206,7 @@ export default function App() {
     setOnboardingOpen(false);
     setTrackGuideRoute(null);
     setMomentItemId(null);
+    setLegalReturnTo(null);
     if (isLegalPageUrl(url, SITE_URL)) {
       setLegalUrl(url);
     } else {
@@ -272,28 +258,46 @@ export default function App() {
     return () => sub.remove();
   }, [navigate]);
 
+  // The one "open settings" gate (lib/settings-entry.ts): onboarding the
+  // first time so push permission is actually offered, settings after that.
+  // Used by HomeTopBar's Settings button — the native home's only entry to
+  // settings/inbox/onboarding since OS-039 retired the site's in-page bell —
+  // and by the legacy web bridge below.
+  const openSettings = useCallback(() => {
+    void openSettingsEntry({
+      hasOnboardingBeenOffered,
+      openSettings: () => openNativeScreen('settings'),
+      openOnboarding: () => setOnboardingOpen(true),
+    });
+  }, [openNativeScreen]);
+
   // OS-002/OS-030: the in-page bell (site's own top bar, shown only when
   // `isInApp()`) posts one of these instead of the app rendering its own
-  // floating bell overlay. Mirrors the onboarding-gate logic the removed
-  // overlay used to run on press. Routes through openNativeScreen (the same
-  // native-screen opener navigate() uses) rather than raw setState so this
-  // stays the single place screen-opening logic lives.
+  // floating bell overlay. Routes through openNativeScreen / openSettings so
+  // screen-opening logic lives in one place.
   const handleBridgeMessage = useCallback(
     (message: NativeBridgeMessage) => {
-      if (message.type === 'openInbox') {
-        openNativeScreen('inbox');
-        return;
-      }
-      // openNotificationSettings
-      hasOnboardingBeenOffered()
-        .then((offered) => {
-          if (offered) openNativeScreen('settings');
-          else setOnboardingOpen(true);
-        })
-        .catch(() => openNativeScreen('settings'));
+      if (message.type === 'openInbox') openNativeScreen('inbox');
+      else openSettings();
     },
-    [openNativeScreen],
+    [openNativeScreen, openSettings],
   );
+
+  // App Store 5.1.1(i)/5.1.2(i): Settings → About and the Clownbot AI
+  // disclosure open the legal pages through the same `openWebUrl` path.
+  const openLegalPage = useCallback(
+    (page: LegalPageId, returnTo: 'settings' | null) => {
+      openWebUrl(legalPageUrl(page, SITE_URL));
+      setLegalReturnTo(returnTo);
+    },
+    [openWebUrl],
+  );
+
+  const closeLegalPage = useCallback(() => {
+    setLegalUrl(null);
+    setLegalReturnTo(null);
+    if (legalReturnTo === 'settings') setNotificationSettingsOpen(true);
+  }, [legalReturnTo]);
 
   // OS-033: a moment id from anywhere in the native tree (era-stream cards,
   // a song dossier's "Keep exploring" connection) funnels through the same
@@ -305,22 +309,32 @@ export default function App() {
     [navigate],
   );
 
+  const screen = visibleScreen({
+    settingsOpen: notificationSettingsOpen,
+    inboxOpen,
+    trackGuideScreen: trackGuideRoute?.screen ?? null,
+    momentOpen: Boolean(momentItemId),
+    onboardingOpen,
+    legalOpen: Boolean(legalUrl),
+  });
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <SafeAreaView style={styles.fill}>
           <StatusBar style="light" />
-          {notificationSettingsOpen ? (
-            <NotificationSettingsScreen
-              onClose={() => setNotificationSettingsOpen(false)}
-              onOpenInbox={() => setInboxOpen(true)}
-            />
-          ) : inboxOpen ? (
+          {screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
               onOpenItem={(event) => navigate(event.deepLink)}
             />
-          ) : trackGuideRoute?.screen === 'track-guide' ? (
+          ) : screen === 'settings' ? (
+            <NotificationSettingsScreen
+              onClose={() => setNotificationSettingsOpen(false)}
+              onOpenInbox={() => setInboxOpen(true)}
+              onOpenLegalPage={(page) => openLegalPage(page, 'settings')}
+            />
+          ) : screen === 'track-guide' && trackGuideRoute?.screen === 'track-guide' ? (
             <TrackGuideScreen
               eraId={trackGuideRoute.eraId}
               tracks={trackGuideTracks}
@@ -328,7 +342,7 @@ export default function App() {
                 setTrackGuideRoute({ screen: 'song', eraId: trackGuideRoute.eraId, track })
               }
             />
-          ) : trackGuideRoute?.screen === 'song' ? (
+          ) : screen === 'song' && trackGuideRoute?.screen === 'song' ? (
             <SongScreen
               eraId={trackGuideRoute.eraId}
               track={trackGuideRoute.track}
@@ -339,25 +353,31 @@ export default function App() {
               // no-op OS-035 left here pending this card.
               onOpenMoment={openMoment}
             />
-          ) : momentItemId ? (
+          ) : screen === 'moment' && momentItemId ? (
             <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
-          ) : onboardingOpen ? (
+          ) : screen === 'onboarding' ? (
             <OnboardingScreen
-              onDone={(outcome) => {
+              onDone={() => {
                 setOnboardingOpen(false);
                 markOnboardingOffered().catch(() => {
                   /* best-effort — a re-offer on the next bell tap is harmless */
                 });
-                if (outcome.kind === 'customize') openNativeScreen('settings');
+                // Onboarding is only ever shown by the settings gate, so the
+                // user asked for Settings: land there whichever way they
+                // finished (a preset already applied its prefs + fired the
+                // OS permission dialog; Customize skips straight to it).
+                openNativeScreen('settings');
               }}
             />
-          ) : legalUrl ? (
+          ) : screen === 'legal' && legalUrl ? (
             // OS-039: the WebView's LAST remaining job — one of the three
             // legal pages. No native-capable-link interception here (a
             // legal page has no in-page links back into the app's own
             // native-capable routes worth intercepting); `navigate` still
             // handles the rare in-page link to another part of the site.
-            <SiteShell
+            // LegalPageScreen adds the Done button back out.
+            <LegalPageScreen
+              onClose={closeLegalPage}
               url={legalUrl}
               onBridgeMessage={handleBridgeMessage}
               isNativeCapableUrl={isNativeCapableUrl}
@@ -365,13 +385,17 @@ export default function App() {
             />
           ) : (
             <View style={styles.fill}>
+              <HomeTopBar onOpenSettings={openSettings} />
               <View style={styles.fill}>
                 {activeTab === 'era' ? (
                   <EraStreamScreen onOpenItem={openMoment} />
                 ) : activeTab === 'threads' ? (
                   <ThreadsScreen />
                 ) : activeTab === 'clownbot' ? (
-                  <ClownChatScreen onClose={() => setActiveTab('era')} />
+                  <ClownChatScreen
+                    onClose={() => setActiveTab('era')}
+                    onOpenPrivacyPolicy={() => openLegalPage('privacy', null)}
+                  />
                 ) : activeTab === 'community' ? (
                   <CommunityScreen />
                 ) : (
