@@ -497,3 +497,16 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `social/metrics/posts/<YYYY-MM>/<postId>.json` | Wave 4 T3: per-post Instagram engagement (`like_count`/`comments_count` off the IG media node, `postId` = `platformPostId` from `social/posted/`), written/refreshed daily by `growth-snapshot.mjs` for every Instagram post still inside its 30-day window. IG-only v1 — no `impressions`/`reach`/`saved`/`shares`, no X per-post reads (`HUMAN-ACTIONS.md` #63/#64) |
 | `scripts/social/lib/post-metrics.mjs` | Wave 4 T3: `selectInstagramPostsForMetrics`/`buildPostMetricRecord` (the write side growth-snapshot.mjs calls) + `aggregateEngagement`/`renderEngagement` (campaign- and pillar-via-`pillarOf`-grouped engagement, wired into `weekly-scorecard.mjs`'s scorecard); tests in `post-metrics.test.ts` |
 | `docs/specs/marjorie-overhaul/m7-chat-direct-replies.md` | M7 chat reply behavior: concise ordinary answers, channel-level delivery for top-level messages, existing-thread delivery when the founder chose a thread, and no thread deletion |
+
+## Mobile settings entry + legal links (2026-09-25, App Store 5.1.1/5.1.2)
+
+OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix, no fingerprint change.
+
+| Path | What |
+|---|---|
+| `apps/mobile/components/HomeTopBar.tsx` | Persistent top bar above the five tabs; its Settings button runs the onboarding-then-settings gate |
+| `apps/mobile/components/SettingsAboutSection.tsx` | Settings → About: Privacy Policy / Terms of Use / Support rows + UNOFFICIAL line |
+| `apps/mobile/components/LegalPageScreen.tsx` | Legal WebView wrapped with a Done button + Android back, so a legal page is never a dead end |
+| `apps/mobile/lib/legal-links.ts` (+ test) | `LEGAL_PAGES`, `legalPageUrl`, `isLegalPageUrl` (moved from App.tsx), `CLOWNBOT_AI_DISCLOSURE` |
+| `apps/mobile/lib/settings-entry.ts` (+ test) | `openSettingsEntry`: onboarding first time, settings after (shared by HomeTopBar and the web bridge) |
+| `apps/mobile/lib/visible-screen.ts` (+ test) | Which overlay App.tsx renders; inbox sits above settings so Settings → Inbox works |
