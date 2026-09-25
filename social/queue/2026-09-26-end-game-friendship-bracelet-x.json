@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "the Taylor story i tell everyone: an NFL tight end beaded his number onto a bracelet, meant to slip it to her at a Kansas City Eras night, and lost his nerve. then he admitted it on air — and that flustered confession is where End Game starts:\n\nlonglivets.com/?lens=the-proposal&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-debut-2007-acoustic.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-acoustic-2007",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+  "altText": [
+    "Taylor Swift in 2007, seated with an acoustic guitar, long curly blonde hair, smiling at the camera."
+  ],
+  "scheduledAt": "2026-09-26T23:00:00Z",
+  "campaign": "thread:the-proposal:single-best-item:2026-09-hero",
+  "why": "X sibling of the 09-26 End Game thread hero. Hook: the artifact (calendar's assigned X hook) — opens on the bracelet with his number, written as its own post in fully distinct wording from the IG (rewritten once after check-drafts flagged 83% cross-post similarity on the first pass; now well under the 80% gate). Same story-unique campaign + scheduledAt as the IG. Facts sourced identically (relationships.mjs rel-kelce + the item card in the IG's slide-2 screenshot): the bracelet with his number, made for a Kansas City / Arrowhead Eras Tour stop, never delivered; his 2023 New Heights podcast admission. Kelce is an NFL tight end (Kansas City Chiefs; Arrowhead is in Kansas City) — accurate, not embellished. Confirmed public relationship history; no wedding angle. NOTE ON MEDIA: this X carries a photo ONLY because check-drafts.mjs hard-requires X media (lines 577-579, 2026-09-10) — text-only X, which the calendar planned and L001's escape hatch prefers here, is checker-blocked (the standing #3733 conflict, surfaced again in the PR body). Photo = debut-acoustic-2007: L001-clear from social/posted/ (last posted 09-17, 9d) and a distinct photoId from the IG's fearless tile (L001: never the same photo across a pair). Decorative tour tile, not the argument — hence mediaEarnsItsPlace 3. photoEra unset (cross-era thread, not a themed family; no era-relevance claim on the photo).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "X sibling of the End Game origin beat: a tight end beaded his number onto a bracelet for a Kansas City Eras night, lost his nerve, admitted it on air — and that's where End Game starts. Written as its own tweet, distinct from the IG; debut tour photo attached only because the checker requires X media.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}

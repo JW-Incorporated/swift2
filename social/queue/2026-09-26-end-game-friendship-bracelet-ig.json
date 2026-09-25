@@ -1,0 +1,36 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "okay the detail that lives in my head rent-free 🥹 before Travis Kelce had even met Taylor, he made a friendship bracelet with his number on it to give her at her Arrowhead Eras Tour stop.\n\nhe worked up the nerve — and then never got the chance to hand it over. so he said it out loud on his New Heights podcast on July 26, 2023: \"I was a little butthurt I didn't get to meet her.\"\n\nthat half-joking confession on a mic is the whole reason we built End Game — the thread that walks every sourced, dated step of them, from a bracelet he couldn't deliver to the first game to the ring. the receipts start with a guy being brave on a podcast.\n\nPhoto: Taylor on the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?lens=the-proposal&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg",
+    "/social/library/thread-the-proposal-screen.png"
+  ],
+  "mediaKind": "photo",
+  "photoId": "fearless-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+  "altText": [
+    "Taylor Swift performing the Fearless set of the Eras Tour in Inglewood, 2023, in a gold fringed dress, guitar in hand.",
+    "A screenshot of the End Game thread on the Long Live site, kicker 'It started with him asking', showing a dated item card labelled 'MIDNIGHTS · July 26, 2023 · Source: Billboard' titled 'The friendship bracelet Travis couldn't deliver', with the quote 'I was a little butthurt I didn't get to meet her.'"
+  ],
+  "scheduledAt": "2026-09-26T23:00:00Z",
+  "campaign": "thread:the-proposal:single-best-item:2026-09-hero",
+  "why": "09-26 End Game thread hero, single-best-item angle (window 09-26->30, slot 1 of 2), drafted from the calendar. The 'one item told whole': the friendship bracelet Travis Kelce made with his number on it for Taylor's Arrowhead Eras Tour stop and never got to hand over, which he confessed on his New Heights podcast on July 26, 2023 ('I was a little butthurt I didn't get to meet her'). Facts sourced to supabase/seed/lenses/relationships.mjs (rel-kelce: 'Kelce publicly invited Swift via his New Heights podcast in July 2023 after a friendship-bracelet mishap at an Eras Tour show'; Billboard timeline cited there) AND to the exact item card visible in slide 2's screenshot ('MIDNIGHTS · July 26, 2023 · Source: Billboard', title 'The friendship bracelet Travis couldn't deliver', quote verbatim). Confirmed public relationship history only — no wedding/engagement angle used (deliberately, since outlets tied this week's Showgirl release to the wedding and the 09-24 run steered clear of it too); this is the origin item, the lightest and most joyful. Slide 2 = thread-the-proposal-screen.png: verified by viewing it, it shows the End Game lens IN ACTUAL USE with a real dated/sourced item card (cool-feature-only satisfied, calendar-listed free/unburned). Media[0] = fearless-inglewood-2023 tile: L001 re-derived from social/posted/ (fearless last posted 09-13, 13d clear) rather than the calendar's stale evermore assignment, because the mid-week Showgirl event (see PR body) displaced the 09-25 vault beat and #4556's likely-to-approve 09-25 release post uses evermore — avoiding evermore reduces the most-likely repeat. The Eras Tour photo genuinely connects (the bracelet was made FOR an Eras Tour show), credited plainly, no era-relevance claim beyond that. photoEra unset: thread:the-proposal spans midnights/ttpd/tloas (no credited photo exists for any of those eras) and is not a THEMED_CAMPAIGN_PREFIXES family, so no era binding is required. Thread post = share-hook exempt (strategy 2026-09-01). Standard sentence capitalization (strategy Voice 2026-09-10). Hook: the artifact (opens on the bracelet).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "End Game single-best-item: before they met, Travis made a friendship bracelet with his number for Taylor's Arrowhead Eras Tour stop, never handed it over, and said so on his July 26 2023 podcast. Slide 2 shows that exact thread card; sourced to relationships.mjs/Billboard.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}
