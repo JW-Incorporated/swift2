@@ -16,6 +16,17 @@ prefix `NP-` (native parity); `OS-` ids refer to the ratified spec.
 > screens that shipped in one day and the 20k-line web experience they stand in
 > for, plus the navigation, theming, deep-link and quality work that makes the
 > app pass App Review 4.2 / Play WebView policy on its merits.
+>
+> **Re-checked at `9bc40534` (PR #4570, iOS build 14 / Android build 15).**
+> #4570 added `HomeTopBar` (a "⚙ Settings" pill above the tabs), a Settings
+> "About" section with Privacy/Terms/Support, `LegalPageScreen` (WebView + Done),
+> a Clownbot AI disclosure and the Settings → Inbox fix (`lib/visible-screen.ts`).
+> Two founder requirements were added on 2026-09-25 and are now first-class in
+> this plan: **(1) the app must look like the website, rebuilt natively** —
+> §4.11 visual-fidelity contract, §4.12 native-vs-web decision table, gate
+> NP-Q01 fails on visible divergence; **(2) era content does not load on
+> device** — root cause in §1.3 X0, fixed by Phase P (P0, gates the next store
+> submission).
 
 ---
 
@@ -39,21 +50,22 @@ decided by gate NP-Q10 (§6) using the criteria written there; the default
 recommendation is **keep** (static legal copy, `apps/web/lib/longlive/legal.ts`
 is 821 lines of counsel-reviewed text, zero product value in re-rendering it).
 
-### 1.3 Where the native app is today (audit 2026-09-25, HEAD `bf902812`)
+### 1.3 Where the native app is today (audit 2026-09-25 at `bf902812`, re-checked at `9bc40534`)
 
 Cross-cutting defects, each of which blocks a real user before any per-screen
 parity matters:
 
 | # | Defect | Where |
 | --- | --- | --- |
-| X1 | **No back stack.** Navigation is a nested ternary over `useState` booleans. `SongScreen` and `TrackGuideScreen` have no close prop; iOS users are stranded, Android hardware back exits the app (the only `BackHandler` is inside `SiteShell.tsx:115-125`). | `apps/mobile/App.tsx:99-131, 308-387` |
-| X2 | **Settings / Inbox / Onboarding are unreachable.** No bell in any native chrome; `openNotificationSettings` only arrives over the WebView bridge, which no longer shows the site. `requestPushRegistration()` has one caller (`OnboardingScreen.tsx:44`), so **new installs are never asked for push permission**. | `App.tsx:281-296`, `EraStreamScreen.tsx:60-81` |
-| X3 | Settings → "Inbox" does nothing: `onOpenInbox` sets `inboxOpen` but leaves `notificationSettingsOpen` true, and the ternary checks settings first. | `App.tsx:313-322` |
+| **X0** | **Era content does not load on device — every era shows "Couldn't load this era: No crypto.subtle available in this runtime…".** Root cause: `packages/content/src/hash.ts:9-12` verifies each bundle file's sha256 with WebCrypto `globalThis.crypto.subtle.digest` and throws when it is absent. Hermes (RN 0.86.2) has no WebCrypto; Expo SDK 57's runtime polyfills (`expo/src/winter/*`: `TextDecoder`, `URL`, `fetch`, `FormData`…) add no `crypto.subtle`; neither `expo-crypto` nor `expo-standard-web-crypto` is installed (`apps/mobile/package.json`). `load.ts:331` awaits `createHash` for every file, so `loadBundle` rejects before any file is stored — it is not a `TransportError`, so the last-good fallback never engages (`load.ts:25-27`). Every bundle consumer fails the same way: `era-stream-data.ts`, `threads-data.ts`, `merch-data.ts`, `search-data.ts`, `track-guide-data.ts`. **Evidence (2026-09-25):** production `current.json` → `0dd12fc3…`, `manifest.json` (21 files, schemaVersion 1) and `eras/folklore.json` (94,076 bytes, sha256 `da9189a5…`) all match, so the server side is healthy; running `loadBundle({ baseUrl: 'https://www.longlivets.com/content' })` under node succeeds (`source=network`, 21 files, 35 folklore items) and, with `crypto.subtle` removed to mimic Hermes, fails with exactly the on-device message. `apps/mobile/lib/device-id.ts:16-19` already carries a "Hermes crypto global isn't present" fallback — the same knowledge never reached the loader. **Fix is JS-only (pure-JS SHA-256 fallback in `hash.ts`) → ships by OTA through `publish_update_both`; no store build.** The stores will reject an app whose main tab shows an error on every section, so Phase P gates the next submission. | `packages/content/src/hash.ts:9-12`, `load.ts:327-343`; `apps/mobile/components/EraSection.tsx:31-41, 70-74` |
+| X1 | **No back stack.** Navigation is a nested ternary over `useState` booleans (`visibleScreen()` orders the overlays since #4570). `SongScreen` and `TrackGuideScreen` have no close prop; iOS users are stranded, Android hardware back exits the app (the only `BackHandler`s are inside `SiteShell.tsx:115-125` and `LegalPageScreen.tsx:17-24`). | `apps/mobile/App.tsx:86-131, 312-411`; `lib/visible-screen.ts` |
+| X2 | **Settings reachable only through a generic pill; no bell; onboarding gated behind it.** #4570 added `HomeTopBar` ("Long Live" + "⚙ Settings" pill, `HomeTopBar.tsx:9-27`) above the tabs, routed through `lib/settings-entry.ts` (onboarding first, then settings). That makes Settings/Inbox/Onboarding reachable, but it is a new UI the website does not have — the web's pattern is the `TopBar` bell (`apps/web/components/longlive/TopBar.tsx:120-133`). `requestPushRegistration()` still has one caller (`OnboardingScreen.tsx:44`); a user who never taps the pill is never asked for push permission. | `App.tsx:266-273, 388`; `components/HomeTopBar.tsx` |
+| X3 | ~~Settings → "Inbox" does nothing~~ — **fixed in #4570** (`lib/visible-screen.ts` puts inbox above settings). Kept for the record; NP-A07 replaces the whole mechanism with a stack. | `lib/visible-screen.ts:24-31` |
 | X4 | **Kill-switch flags are inert.** A flag set `false` makes `resolve()` return `{web}` and `openWebUrl` sends every non-legal URL to the Eras tab — the D3 WebView fallback no longer exists. Flags are compile-time (`createNavigate` gets no `getFlags`). | `App.tsx:218-234`, `lib/routes.ts:114-125` |
 | X5 | **Web share links land on the front door.** `destinationFor` handles `?screen=`/`?mode=threads\|community\|merch`/`?item=` only; `?song=`, `?guide=`, `?theories=`, `?lens=`, `?era=`, `?mode=mood\|clownbot`, `?current=<x>`, `#merch-new-drops` all degrade to the Eras tab. | `packages/shared/src/notification-deep-links.ts:151-202` |
 | X6 | **Deep links only work from push taps.** `app.json` declares `scheme: "longlive"` but nothing reads `Linking.getInitialURL` or listens for `url`; no universal links (`associatedDomains` / `intentFilters`). | `App.tsx:259-273`, `app.json:7` |
 | X7 | Opening a moment/song/guide unmounts the tab tree; the era stream refetches and lands at the top on return. | `App.tsx:342-383` |
-| X8 | **Era re-skin is partial.** `lib/theme.ts` is a static copy of the default (TTPD) palette; only `EraSection` background/hero text and `MomentSheet` bg/ink/accent read `era.theme`. 68 hard-coded hex literals across Settings (26), Inbox (11), Onboarding (10), SiteShell (9), CadencePills (5), dead code (7). No fonts, gradients, haptics, `expo-image`. | `apps/mobile/lib/theme.ts:11-21` |
+| X8 | **Era re-skin is partial; the app does not look like the site.** `lib/theme.ts` is a static copy of the default (TTPD) palette; only `EraSection` background/hero text and `MomentSheet` bg/ink/accent read `era.theme`. 75 hard-coded hex literals across Settings (26), Inbox (11), Onboarding (10), SiteShell (9), CadencePills (5), SettingsAboutSection (5, #4570), LegalPageScreen (2, #4570), dead code (7). No web fonts (Playfair/Inter/Special Elite/Dancing Script/Bodoni), no gradients, no haptics, no `expo-image`; cards, chrome and spacing are ad hoc rather than the web's `.era-card`/`.era-chip`/`.era-icon-btn` vocabulary (`apps/web/app/globals.css:177-299`). | `apps/mobile/lib/theme.ts:11-21`; `components/HomeTopBar.tsx:30-49` |
 | X9 | Taps that do nothing although the target exists: doorways (`EraSection.tsx:129-134`), thread moments (`ThreadsScreen.tsx:150`), search hit on an era (`EraStreamScreen.tsx:45`). Track guide has **no UI entry point** (no `TrackGuideBar`). | — |
 | X10 | `OnboardingScreen.tsx:58` renders the literal text `—`. | — |
 
@@ -124,10 +136,11 @@ components in `apps/web/components/longlive/**` (W/) and `apps/web/lib/longlive/
 | Search (`SearchOverlay.tsx`, `search.ts`) | 441 + 181 | `SearchScreen.tsx` 156: eras + moments only, Eras tab only | partial | all doc types, grouped, every tab | OS-038 | NP-H05 |
 | Share (`share-*.ts`, `share-copy.ts`, toast) | 204 | per-screen ad hoc, one hard-coded URL | partial | one helper, every screen | OS-038 | NP-H07 |
 | Feedback (`FeedbackButton.tsx`) | 330 | 165, Eras tab only, static location | partial | global, rich location | OS-038 | NP-H06 |
-| Notification settings (`WebNotificationSettings`) | 293 | `NotificationSettingsScreen.tsx` 478 — **ahead of web** | native (unreachable, X2) | reachable, tokens, `Switch` | Notifications spec | NP-A05, C03, H09 |
-| Notification inbox | none on web | 153, unreachable (X2/X3) | native (unreachable) | reachable | Notifications spec | NP-A08, H09 |
-| Onboarding / push permission | none on web | 117, unreachable, `—` bug | native (unreachable) | reachable at first bell tap, "Not now" | Notifications spec | NP-H09 |
-| Privacy / Terms / Support | 3 routes | `SiteShell` WebView, no native link to them | WebView | WebView (gate NP-Q10) with native entry from Settings | OS-039 | NP-H08, Q10 |
+| **Home top bar (#4570 `HomeTopBar.tsx`, 49)** | web has no such bar — the `TopBar` bell is the entry (`TopBar.tsx:120-133`) | "Long Live" wordmark + "⚙ Settings" outlined pill in the default palette | native, **off-web** | **removed**; its job moves into the web-pattern `TopBar` (wordmark → home, era label, bell, search, share); `lib/settings-entry.ts` gate is kept and called by the bell | — | NP-C03 |
+| Notification settings (`WebNotificationSettings`) + About section (#4570 `SettingsAboutSection.tsx`) | 293 | `NotificationSettingsScreen.tsx` 478 — **ahead of web**; About rows use 5 hex literals | native (reachable via the pill since #4570) | reachable from the bell, tokens, `Switch`, About restyled to the web's settings-row vocabulary | Notifications spec | NP-A05, C03, H09 |
+| Notification inbox | none on web | 153, reachable Settings → Inbox since #4570 | native | tokens, labels, read state | Notifications spec | NP-A05, A08, H09 |
+| Onboarding / push permission | none on web | 117, reachable via the pill gate since #4570, `—` bug | native | reachable at first bell tap, "Not now" | Notifications spec | NP-A05, H09 |
+| Privacy / Terms / Support (host: #4570 `LegalPageScreen.tsx`, 53) | 3 routes; web footer links | `LegalPageScreen` = WebView + "Done" row in hex colours; also opened from the Clownbot AI disclosure (`ClownChatScreen.tsx:263`) | WebView | WebView (gate NP-Q10) hosted in `WebScreen` with the web-pattern `OverlayNav` header (wordmark, title, 44 px close) | OS-039 | NP-A09, H08, Q10 |
 | Route flags / kill switch (`lib/routes.ts`) | — | compile-time constants, fallback broken (X4) | partial | remote JSON, WebView fallback restored | OS-030 | NP-A09 |
 | Deep links (scheme, universal links, `destinationFor`) | `deepLink.ts` | push-tap only (X5, X6) | partial | every web param + backend URL + OS links | OS-003, OS-030 | NP-A08, B01–B03 |
 | Internal notifications dashboard (`/internal/notifications`) | 195 | — | n/a | never native (ops page) | — | — |
@@ -176,7 +189,8 @@ review." Bump `apps/mobile/app.json` `version` to `1.1.0` in that PR.
 
 | Phase | Milestone (shippable state) | Ships by |
 | --- | --- | --- |
-| **A — Foundation** | Real navigation with back everywhere; every existing screen reachable (bell, TrackGuideBar comes in C06); per-era theme provider; no hex literals; remote flags with WebView fallback; component test harness; dead code gone; fonts/gradients/haptics available | one store build (integration branch `feat/np-native-batch`) |
+| **P — Era content unblock (P0, first)** | Every era's content loads on real iOS and Android builds; a regression test pins the Hermes runtime contract; a smoke script proves the production bundle loads without WebCrypto. **Gates the next store submission** — reviewers will reject an app whose main tab errors on every section. | **OTA** (JS-only fix in `packages/content`) |
+| **A — Foundation** | Real navigation with back everywhere; every existing screen reachable (bell, TrackGuideBar comes in C06); per-era theme provider fed by the shared token pipeline; no hex literals; remote flags with WebView fallback; component test harness; dead code gone; fonts/gradients/haptics available | one store build (integration branch `feat/np-native-batch`) |
 | **B — Deep-link contract** | Every URL the web can share and every URL the backend emits opens the right native screen; scheme + universal links work; web itself honours `?current=`/`#merch-new-drops` | OTA (+ web deploy) |
 | **C — Era stream (front door)** | Stream at parity: chrome, selector, filters, section, cards, video, clusters, live layer, scrubber, progress | OTA, card by card |
 | **D — Moment detail** | `MomentDetail` parity as a modal | OTA |
@@ -188,16 +202,23 @@ review." Bump `apps/mobile/app.json` `version` to `1.1.0` in that PR.
 | **Q — Quality gates** | ten pass/fail gates (§6) | — |
 
 **Store-review-critical subset (P0)** if Joey wants the fastest defensible
-4.2 story: all of A, B01, C01–C08, C13, D00–D02, E01–E02, F01, G01, H01, H03,
-H05, H09, I02, then gates Q01–Q10. Everything else is parity polish that can
-follow by OTA after submission.
+4.2 story: **Phase P first (P01–P03, before anything else)**, then all of A,
+A12, B01, C01–C08, C13, D00–D02, E01–E02, F01, G01, H01, H03, H05, H09, I02,
+then gates Q01–Q10. Everything else is parity polish that can follow by OTA
+after submission.
 
 ### 3.3 Dependency graph
 
 ```mermaid
 flowchart LR
+  subgraph P[Phase P · P0 · OTA]
+    P01[P01 pure-JS sha256 fallback + Hermes contract test] --> P02[P02 loader diagnostics + smoke script] --> P03[P03 verify every era on real builds]
+  end
+  P03 --> Q08[Q08 store-review readiness]
   subgraph A[Phase A · store build]
     A01[A01 native batch] --> A02[A02 fonts]
+    A06 --> A12[A12 token pipeline: spacing/type/radii/motion]
+    A12 --> A04
     A01 --> A07[A07 navigator skeleton] --> A08[A08 wire screens + linking]
     A04[A04 theme provider] --> A05[A05 hex guard + settings/inbox/onboarding]
     A04 --> A06[A06 vault/merch palettes to tokens]
@@ -304,6 +325,16 @@ Test ids: `testID="ll-<screen>-<element>"`.
   in `eras.ts`). Card NP-A06 moves `VAULT_THEME`, `MERCH_THEME`, `accentFgFor`
   from `apps/web/lib/longlive/theme.ts:17-49,76-78` into tokens so both
   renderers import them.
+- **One pipeline, two outputs (the design-token contract):**
+  `packages/experience/src/tokens.ts` → `scripts/generate-design-tokens.mjs` →
+  `apps/web/app/tokens.generated.css` (web, checked by `check:generated`) and,
+  on native, the same module imported directly by `useTheme()`. OS-031 built
+  this for colours only; NP-A12 extends `tokens.ts` with `SPACING`, `TYPE`
+  (size/line-height/weight/tracking), `RADII`, `MOTION` (durations/easings)
+  and `CHROME` (top-bar height, tab-bar height, hit target 44), emits them as
+  `--ll-*` CSS variables, and snapshot-tests that the web's `globals.css`
+  component classes (`.era-card`, `.era-chip`, `.era-icon-btn`, `.ll-filter-chip`)
+  resolve to those values. Native never declares a scale of its own.
 - **Provider:** `lib/theme/ThemeProvider.tsx` exposes
   `useTheme(): { colors: Palette; font: FontFamily; radii; spacing; type }`.
   `Palette` mirrors `EraTheme` (`bg, surface, surface2, ink, inkSoft, line,
@@ -405,7 +436,11 @@ cd apps/mobile && npx expo export --platform ios && npx expo export --platform a
 ```
 plus: no new hex literal (`no-hex-literals.test.ts` green), iOS + Android
 screenshots in the PR, docs touched in the same PR when behaviour changed
-(`MAP.md` for new files, `docs/architecture.md` §mobile for structure).
+(`MAP.md` for new files, `docs/architecture.md` §mobile for structure), and —
+for every card that renders something — **the §4.11 side-by-side pair**: the
+native screenshot next to the web reference component the card names, at the
+§4.11 device sizes, with the §4.11 checklist ticked in the PR body. A card
+whose pair shows a visible divergence is not done.
 
 ### 4.9 Fingerprint check (referenced as "§4.9")
 
@@ -424,9 +459,95 @@ Steps · Start when · Done when · Out of scope. Target diff ≤ 400 lines
 excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 (Phase A native cards: branch from and PR into `feat/np-native-batch`).
 
+### 4.11 Visual fidelity contract — "mimic the website, natively"
+
+The target look **is** longlivets.com: its layout, typography, era theming,
+cards, scrubber, bottom nav and spacing, rebuilt with native components. This
+is measurable, not a vibe:
+
+- **Reference capture.** Web: Playwright `mobile-chrome` project
+  (`playwright.config.ts`) against `https://www.longlivets.com` at **390×844**
+  (iPhone-class) and **412×915** (Pixel-class), plus the URL of the state
+  (`?item=`, `?song=`, `?lens=`, `?mode=`). Native: iOS simulator **iPhone 15
+  (393×852 @3x)** and Android emulator **Pixel 8 (412×915 @2.625x)**, same
+  state reached through the app. Store both in the PR (`docs/audits/` for gates).
+- **Checklist (every pair, every card):** ① same block order top-to-bottom;
+  ② same type hierarchy — family per `EraTheme.font`, sizes within ±1 pt at
+  1× (web `rem` → pt at 16), weights equal; ③ palette — `bg`, `surface`,
+  `ink`, `accent` sampled hex within ΔE ≤ 3 of the web pair (`STATUS_TOKENS`
+  mixes computed via `mix()`); ④ spacing — paddings/gaps within ±2 pt of the
+  web's; radii equal; ⑤ same iconography meaning and placement (glyph set may
+  differ: `@expo/vector-icons` Feather vs lucide); ⑥ same copy, same casing
+  (Definition of Done §8: era/album capitalisation exactly as Taylor writes
+  it); ⑦ same imagery treatment (focal crop, gradient scrim, 16:9 posters,
+  16:10 compact photo frames); ⑧ same empty/loading/error copy.
+- **What may differ (see §4.12):** transitions, gesture affordances, system
+  chrome (status bar, home indicator, keyboard), sheet presentation, scroll
+  physics, haptics, and the bottom nav's *component* (native `bottom-tabs`)
+  as long as its *look* (labels + icons, era tint, height) matches `BottomNav`.
+- **Enforcement:** the §4.8 pair per card; gate NP-Q01 across all 12 eras and
+  every surface; `no-hex-literals.test.ts` and NP-A12's token snapshot keep
+  drift out structurally.
+
+### 4.12 When "native to iOS/Android" and "mimic the web" conflict
+
+Rule of thumb: **the web wins everything the user sees at rest; the platform
+wins everything the user feels.** Specific calls (all reversible; recorded
+here so cards do not re-litigate them):
+
+| Area | Decision | Why |
+| --- | --- | --- |
+| Back navigation | **Native wins.** iOS swipe-back and Android hardware/gesture back through react-navigation; no in-content "← All threads"-style buttons unless the web has them too (it does in threads detail — keep both). | The web fakes this with `history.pushState`; native has the real thing. |
+| Top bar | **Web look.** `TopBar` (wordmark, era label + Now pulse, bell, search, share) rendered by us, not a UIKit/Material app bar; no iOS large titles. `HomeTopBar` from #4570 is removed. | The header *is* the product's brand surface on web. |
+| Bottom tab bar | **Web look on a native component.** `@react-navigation/bottom-tabs` with a custom `tabBar` that mirrors `BottomNav` (six labelled tabs with icons, era tint, hides while typing, safe-area padded). | Native gets state restoration and a11y; the user sees the web bar. |
+| Overlays (moment, track guide, song, search, selector) | **Native presentation, web content.** iOS `formSheet`/`modal` with grabber and swipe-down, Android full-screen `card` with hardware back; inside, the web's layout and chrome (`OverlayNav`/close 44 px top-right). | The web uses fixed-position dialogs; a sheet is the platform's equivalent. |
+| Scrubber and rails | **Web look, native feel.** Same rail/pill/ridge visuals; drag via gesture-handler on the UI thread; subtle haptic at milestones (web has none — additive). | Fidelity where seen, platform where touched. |
+| Typography | **Web families and sizes**, native dynamic-type scaling capped at 1.6× (`maxFontSizeMultiplier`). | Accessibility must not break the layout; capping is the compromise. |
+| Motion | **Web durations/easings from `MOTION` tokens**, honouring the platform reduce-motion setting. | Same feel across surfaces; system preference wins. |
+| System UI | **Native.** Status bar tinted to the era `bg`; safe areas; keyboard avoidance; share sheet (`Share.share`); external links open the system browser via `Linking` (no in-app browser dependency). | Platform conventions users expect. |
+| Error/empty/offline copy | **Web copy** in native components. | One voice. |
+| Legal pages | WebView inside `WebScreen` with the web-pattern `OverlayNav` header (gate Q10). | Static counsel text; the header keeps it inside the brand. |
+| Anything not listed | Web look; if it cannot be reproduced with RN primitives, file a card that adds the token/primitive rather than improvising. | Prevents a third visual vocabulary. |
+
 ---
 
 ## 5. Task cards
+
+### Phase P — Era content unblock (P0; run before everything else; OTA)
+
+> Root cause and evidence: §1.3 X0. All three cards are JS-only (`packages/content`
+> + `apps/mobile` diagnostics) and ship as one OTA update group through the
+> train. **No store submission until P03 is green.**
+
+#### NP-P01 · Pure-JS SHA-256 fallback in `packages/content` + Hermes runtime-contract test · S · OTA · **P0**
+**Goal.** `loadBundle` verifies file integrity on runtimes without WebCrypto (Hermes), so every era's content loads on device.
+**Touches.** `packages/content/src/hash.ts` (keep `crypto.subtle` when present; otherwise a dependency-free SHA-256 over the UTF-8 bytes — ~60 lines, FIPS 180-4 straight port; export `sha256Hex(bytes: Uint8Array)`), `packages/content/src/hash.test.ts` (new: for every file in `src/fixtures/bundle/**` and the two production samples recorded in this card's PR, the pure-JS digest equals `node:crypto`'s; plus a test that deletes `globalThis.crypto.subtle` and `loadBundle`s the fixture bundle through an in-memory `fetchImpl` — the exact reproduction from §1.3 X0), `packages/content/src/load.test.ts` (one case: integrity still fails loudly on a tampered file under the fallback), `packages/content/README.md` or the ADR note in `docs/decisions.md` 2026-09-05 "content bundle is an artifact" (one line: WebCrypto optional).
+**Depends on.** —
+**Context.** `packages/content/src/hash.ts` (whole, 21 lines); `packages/content/src/load.ts:20-30, 320-345`; `packages/content/src/load.test.ts:1-40` (fixture + `fetchImpl` pattern to copy); `apps/mobile/lib/device-id.ts:12-22` (the existing "crypto global may be absent" precedent).
+**Steps.** Implement fallback; tests; run `npx vitest run packages/content` — the no-subtle case must fail before the fix and pass after (commit the failing test first so the PR shows red → green).
+**Start when.** Nothing pending. Branch `fix/np-p01-bundle-hash-hermes` off `main`.
+**Done when.** `npx vitest run packages/content` green incl. the no-subtle case; §4.9 fingerprint hash **equal** to main (JS-only); `npm run typecheck` exit 0; PR body says "JS-only → OTA".
+**Out of scope.** Installing `expo-crypto` (native → store build; rejected for this fix); changing the manifest format.
+
+#### NP-P02 · Loader diagnostics, retry, and a production smoke script · S · OTA · **P0**
+**Goal.** When the bundle cannot load, the app says why in one line and offers Retry; engineering can prove "the production bundle loads on a Hermes-like runtime" from CI without a device.
+**Touches.** `scripts/mobile/check-bundle-load.mjs` (new: fetches `current.json` → manifest → every file from `https://www.longlivets.com/content` through `packages/content`'s `loadBundle` with `globalThis.crypto.subtle` deleted, prints per-file OK/FAIL and item counts per era, exit 1 on any failure; `--base-url` flag), `package.json` (`check:bundle-load`), `.github/workflows/mobile-parity.yml` (run the script after `check-parity.mjs`; failure → the existing DIVERGED/UNCHECKED alert path with a third title "Mobile: content bundle does not load"), `apps/mobile/components/EraSection.tsx:66-76` (error state → short copy "Couldn't load this era." + **Retry** button + the raw message in `accessibilityHint`/dev-only text), `apps/mobile/lib/era-stream-data.ts` (`loadEraStream` clears the module-level memo on failure so Retry refetches), `docs/mobile-release.md` (one paragraph: the bundle-load check and what to do when it fails).
+**Depends on.** NP-P01.
+**Context.** `packages/content/src/load.ts:65-87, 212-230` (options/result); `scripts/mobile/check-parity.mjs` (exit-code and alert conventions); `.github/workflows/mobile-parity.yml`; `apps/mobile/components/EraSection.tsx:20-45, 66-76`.
+**Steps.** Script first (it must fail on `main` before P01 and pass after — attach both outputs to the PR); CI step; UI retry.
+**Start when.** P01 merged.
+**Done when.** `node scripts/mobile/check-bundle-load.mjs` exit 0 against production, printing 12 eras with item counts > 0; workflow run green; §4.8 typecheck/export; Retry path exercised in a dev build with airplane mode toggled (screenshots: error → retry → content).
+**Out of scope.** Offline-first UX beyond the loader's existing last-good fallback (gate Q05).
+
+#### NP-P03 · Verify every era renders on real iOS and Android builds · S · OTA (verification)
+**Goal.** Objective proof the fix reached users' runtime, not just node.
+**Touches.** `docs/audits/2026-<date>-native-era-content.md` (new: 12 eras × 2 platforms table with screenshots or a checklist row per era, `eas update:view` group id, build numbers), `HUMAN-ACTIONS.md` (only if a founder's device is the only real device available — otherwise none).
+**Depends on.** NP-P01, NP-P02 merged and published by the train (`publish_update_both`).
+**Context.** `docs/mobile-release.md:16-31` (how the OTA reaches devices), `:116-127` (`eas workflow:runs`, `eas update:view`); `apps/mobile/components/EraStreamScreen.tsx:29` (`INITIAL_ERA_COUNT = 3` — until NP-C01 lands, reach older eras via `?era=`-free means: use the Threads tab and Search to open moments from each era, and note that the stream itself shows only three eras; record this limitation in the audit).
+**Steps.** Install the store/TestFlight build (14 / 15) on a physical iPhone and a physical Android phone; cold start; confirm the OTA group is applied (`expo-updates` `Updates.updateId` shown in Settings › About — add that line if missing, S); walk every era's content (stream sections for the three newest; Search → a moment per remaining era); airplane mode → relaunch → content still renders from last-good.
+**Start when.** The train's run for P02 shows `publish_update_both` succeeded.
+**Done when.** Audit doc committed with all 24 cells green; `node scripts/mobile/check-bundle-load.mjs` exit 0 the same day; `node scripts/mobile/check-parity.mjs` exit 0. **This is the gate for the next store submission** (and a precondition of NP-Q08).
+**Out of scope.** Any UI change.
 
 ### Phase A — Foundation (one store build; integration branch `feat/np-native-batch`)
 
@@ -469,8 +590,8 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 #### NP-A04 · Theme provider, palettes, spacing/type scales · M · OTA
 **Goal.** One `useTheme()` every screen reads; era palettes come from `ERAS[i].theme`.
 **Touches.** `apps/mobile/lib/theme/era-theme.ts` (new: `Palette`, `paletteFromEraTheme(t: EraTheme): Palette`, `DEFAULT_PALETTE` from `ERA_TOKENS`), `lib/theme/ThemeProvider.tsx` (new: `ThemeProvider`, `ThemeScope`, `useTheme`), `lib/theme/mix.ts` (new: `mix(hex, pct)` → rgba), `lib/theme/scales.ts` (new: `SPACING`, `TYPE`, `RADII`), `lib/theme/motion.ts` (new: `useReducedMotion`), `lib/theme.ts` (re-export shim, `@deprecated`; deleted in NP-A05), tests `era-theme.test.ts`, `mix.test.ts`, `apps/mobile/App.tsx` (wrap in provider).
-**Depends on.** NP-A02 (fonts map) — start in parallel, wire fonts last.
-**Context.** `apps/mobile/lib/theme.ts:1-60`; `packages/experience/src/tokens.ts:19-63`; `packages/experience/src/eras.ts:10-60, 342-352`; `apps/web/lib/longlive/theme.ts:55-96` (`eraStyle`/`themeStyle` — the contract mirrored); `apps/web/app/globals.css:59-66, 215-222`.
+**Depends on.** NP-A02 (fonts map) — start in parallel, wire fonts last; NP-A12 (scales come from tokens — until it lands, `scales.ts` may hold the measured values with a `TODO(NP-A12)`).
+**Context.** `apps/mobile/lib/theme.ts:1-60`; `packages/experience/src/tokens.ts:19-63`; `packages/experience/src/eras.ts:10-60, 342-352`; `apps/web/lib/longlive/theme.ts:55-96` (`eraStyle`/`themeStyle` — the contract mirrored); `apps/web/app/globals.css:59-66, 215-222`; §4.11–4.12 of this plan.
 **Steps.**
 1. `paletteFromEraTheme` maps every `EraTheme` key 1:1; `accentFg` defaults to `#000` (web `--era-accent-fg`); `accentText` falls back to `accent`.
 2. `ThemeProvider` holds `{ palette, font }`; `ThemeScope` overrides a subtree; `useTheme()` returns `{ colors, font, fontFamily: FONT_FAMILY[font], spacing, type, radii }`.
@@ -485,7 +606,7 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 **Touches.** `apps/mobile/lib/theme/no-hex-literals.test.ts` (new: globs `apps/mobile/{components,screens,navigation}/**/*.tsx`, fails on `/#[0-9a-fA-F]{3,8}\b/` outside `lib/theme/**`, allowlist `lib/theme/hex-allowlist.json`), `components/NotificationSettingsScreen.tsx`, `components/NotificationInboxScreen.tsx`, `components/OnboardingScreen.tsx`, `components/CadencePills.tsx`, delete `lib/theme.ts` shim.
 **Depends on.** NP-A04.
 **Context.** the four components (whole); `lib/theme/ThemeProvider.tsx`; `apps/web/components/longlive/WebNotificationSettings.tsx:36-62` (cadence visual reference).
-**Steps.** Replace literals with palette keys; Settings custom toggle (`NotificationSettingsScreen.tsx:176-187`) → RN `Switch` with palette `trackColor`; fix `OnboardingScreen.tsx:58` `—` → `—`; allowlist only the files this card does not touch (SiteShell, EraSection, MomentSheet, …).
+**Steps.** Replace literals with palette keys; Settings custom toggle (`NotificationSettingsScreen.tsx:176-187`) → RN `Switch` with palette `trackColor`; fix `OnboardingScreen.tsx:58` `—` → `—`; also migrate #4570's `components/SettingsAboutSection.tsx` (5 literals) and `components/LegalPageScreen.tsx` (2) and restyle the About rows to the web's settings-row vocabulary (`apps/web/components/longlive/WebNotificationSettings.tsx` group title / row metrics); allowlist only the files this card does not touch (SiteShell, EraSection, MomentSheet, HomeTopBar — deleted by C03, …).
 **Start when.** A04 merged.
 **Done when.** §4.8; guard green with allowlist ≤ 6 entries; Settings + Onboarding screenshots, both platforms.
 **Out of scope.** Reachability (A08/H09); remaining allowlisted files (their own cards remove themselves).
@@ -504,7 +625,7 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 **Goal.** `App.tsx` renders `<RootNavigator/>`; current tabs live in `bottom-tabs`; every current overlay is a typed stack route; hardware/gesture back works.
 **Touches.** `apps/mobile/navigation/{RootNavigator.tsx,TabsNavigator.tsx,types.ts}` (new), `apps/mobile/App.tsx` (providers + navigator; keep `registerDevice`/`registerNotificationActions` effects), `apps/mobile/components/BottomTabBar.tsx` (becomes the `tabBar` renderer, icons from `@expo/vector-icons`), `components/TrackGuideScreen.tsx` + `components/SongScreen.tsx` (gain `onClose`), `apps/mobile/__tests__/navigation.test.tsx` (if A10 landed).
 **Depends on.** NP-A01.
-**Context.** `apps/mobile/App.tsx` (whole); `components/BottomTabBar.tsx` (whole); `apps/web/components/longlive/BottomNav.tsx:27-34, 105-133` (icons, order); `apps/web/lib/longlive/bottom-nav-layout.ts` (icon-only threshold 7).
+**Context.** `apps/mobile/App.tsx` (whole, 416 lines at `9bc40534`: state `:86-131`, `openNativeScreen :142`, `openWebUrl :203`, `navigate :218`, notification listener `:254`, `openSettings :266`, `openLegalPage/closeLegalPage :288-300`, render tree `:312-411`); `lib/visible-screen.ts` (the overlay order you are replacing with a stack); `components/BottomTabBar.tsx` (whole); `components/HomeTopBar.tsx` + `components/LegalPageScreen.tsx` (#4570 — keep mounted until C03/A09 replace them); `apps/web/components/longlive/BottomNav.tsx:27-34, 105-133` (icons, order); `apps/web/lib/longlive/bottom-nav-layout.ts` (icon-only threshold 7).
 **Steps.**
 1. `types.ts`: `RootStackParamList = { Tabs: NavigatorScreenParams<TabParamList>; Moment: { itemId: string }; TrackGuide: { eraId: EraId }; Song: { eraId: EraId; trackKey: string }; Settings: undefined; Inbox: undefined; Onboarding: undefined; Web: { url: string }; Search: undefined }`; `TabParamList = { Eras: { eraId?: EraId } | undefined; Threads: { lensId?: string } | undefined; Clownbot: { mode?: 'clown' | 'mood' } | undefined; Community: undefined; Merch: { section?: string } | undefined }`.
 2. Root stack: `Tabs` (`headerShown:false`), `Moment` + `Search` `presentation:'modal'`, `Onboarding` `presentation:'formSheet'`, rest `card`; all `headerShown:false` (screens own chrome, as on web).
@@ -518,7 +639,7 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 **Goal.** One `navigate(url)` feeds react-navigation; push taps, `longlive://…`, universal links and cold-start URLs open the right stack; Settings → Inbox works.
 **Touches.** `apps/mobile/navigation/linking.ts` (new), `apps/mobile/lib/routes.ts` (add `stateForResolution(res)` + screen-id → route-name map), `lib/routes.test.ts`, `App.tsx` (notification response → `navigationRef`), `lib/navigation/use-back-guard.ts` (new), `components/NotificationSettingsScreen.tsx` (`onOpenInbox` → `navigation.navigate('Inbox')`), `docs/architecture.md` §mobile.
 **Depends on.** NP-A07.
-**Context.** `apps/mobile/lib/routes.ts:163-227`; pre-A07 `App.tsx:149-237, 259-273` (behaviour to preserve — read from `git show main:apps/mobile/App.tsx`); `packages/shared/src/notification-deep-links.ts:94-133`; react-navigation docs for `linking.getStateFromPath`, `getInitialURL`, `subscribe`.
+**Context.** `apps/mobile/lib/routes.ts:163-227`; pre-A07 `App.tsx` at `9bc40534` `:142-262` (`openNativeScreen`, `openWebUrl`, `navigate`, notification listener — behaviour to preserve; read via `git show 9bc40534:apps/mobile/App.tsx`); `packages/shared/src/notification-deep-links.ts:94-133`; react-navigation docs for `linking.getStateFromPath`, `getInitialURL`, `subscribe`.
 **Steps.**
 1. `prefixes = ['longlive://', 'https://www.longlivets.com', 'https://longlivets.com']`.
 2. `getStateFromPath(path)` → `resolve(new URL(path, SITE_URL).href, SITE_URL, getFlags())` → `stateForResolution`: `{web}` → `Web` if `isLegalPageUrl` else `Tabs/Eras` (A09 restores the WebView fallback); `{native}` → `{ routes: [{ name:'Tabs', state }, { name:'Song', params }] }` so back returns to Tabs.
@@ -532,7 +653,7 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 
 #### NP-A09 · Remote route flags + restore the WebView fallback · M · OTA
 **Goal.** A screen can be kill-switched without a rebuild or OTA, and a switched-off route falls back to the WebView as D3 promised.
-**Touches.** `apps/mobile/lib/route-flags.ts` (new: `loadRouteFlags()` fetches `${SITE_URL}/mobile/route-flags.json`, 24 h `expo-file-system` cache, `DEFAULT_ROUTE_FLAGS` fallback; sync `getFlags()`), `packages/shared/src/route-flag-keys.ts` (new: `ROUTE_FLAG_KEYS` const list), `apps/web/public/mobile/route-flags.json` (new, all `true`), `apps/web/lib/longlive/route-flags.test.ts` (new: file keys equal `ROUTE_FLAG_KEYS`), `apps/mobile/lib/routes.ts` (flagged-off native-capable URL → `{ web: <url the site renders> }`: settings/inbox → `/settings/notifications`, others → the original URL), `apps/mobile/navigation/linking.ts` (`{web}` → `Web` screen), `apps/mobile/screens/WebScreen.tsx` (new SiteShell host), `lib/routes.test.ts`, `docs/architecture.md`.
+**Touches.** `apps/mobile/lib/route-flags.ts` (new: `loadRouteFlags()` fetches `${SITE_URL}/mobile/route-flags.json`, 24 h `expo-file-system` cache, `DEFAULT_ROUTE_FLAGS` fallback; sync `getFlags()`), `packages/shared/src/route-flag-keys.ts` (new: `ROUTE_FLAG_KEYS` const list), `apps/web/public/mobile/route-flags.json` (new, all `true`), `apps/web/lib/longlive/route-flags.test.ts` (new: file keys equal `ROUTE_FLAG_KEYS`), `apps/mobile/lib/routes.ts` (flagged-off native-capable URL → `{ web: <url the site renders> }`: settings/inbox → `/settings/notifications`, others → the original URL), `apps/mobile/navigation/linking.ts` (`{web}` → `Web` screen), `apps/mobile/screens/WebScreen.tsx` (new SiteShell host, replaces #4570's `components/LegalPageScreen.tsx` — its "Done" row becomes the web-pattern `OverlayNav` header from E01 or, until E01 lands, a 44 px close button styled from tokens; `lib/legal-links.ts` stays), `lib/routes.test.ts`, `docs/architecture.md`.
 **Depends on.** NP-A08.
 **Context.** `apps/mobile/lib/routes.ts:63-125, 170-191`; `components/SiteShell.tsx:80-130`; spec §4 D3.
 **Steps.** Loader at app start (non-blocking) and on foreground; `createNavigate(…, getFlags)`; fallback mapping; tests: flag off → `{web}` with a site-handled URL; flag on → native; loader tolerates network errors.
@@ -559,6 +680,16 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 **Start when.** Nothing pending.
 **Done when.** §4.8; the grep returns nothing; `npx vitest run apps/mobile` green.
 **Out of scope.** A new scrubber (C12/C13).
+
+#### NP-A12 · Extend the shared token pipeline: spacing, type, radii, motion, chrome · M · OTA (web refactor, no pixel change)
+**Goal.** The scales native screens use are the web's, generated from one source, so "looks like the website" is structural rather than eyeballed.
+**Touches.** `packages/experience/src/tokens.ts` (add `SPACING` {1:4,2:8,3:12,4:16,6:24,8:32,12:48}, `TYPE` {xs:12/16, sm:14/20, base:16/24, lg:18/28, xl:22/28, 2xl:28/34, 3xl:36/40 + weights 400/600/700/800 + tracking values used by `.era-chip`/eyebrows}, `RADII` {sm:8, md:12, lg:16, pill:999}, `MOTION` {eraShell:700ms, detailEnter:320ms, eraEnter:40ms stagger, easings}, `CHROME` {topBar:56, tabBar:56, hitTarget:44, filterBar:44}; measure each value from `apps/web/app/globals.css` and the Tailwind classes the reference components use — record the source class next to each token), `scripts/generate-design-tokens.mjs` (emit `--ll-space-*`, `--ll-text-*`, `--ll-radius-*`, `--ll-motion-*`, `--ll-chrome-*`), `apps/web/app/tokens.generated.css` (regenerated), `apps/web/app/globals.css:59-66, 101-175, 177-299` (component classes reference the new variables where they currently hard-code the same numbers — values must not change), `packages/experience/src/tokens.test.ts` (snapshot + a test that parses `globals.css` and asserts the listed classes use `var(--ll-…)` for duration/radius/padding), `apps/mobile/lib/theme/scales.ts` (from A04: becomes a re-export of the tokens, no local numbers).
+**Depends on.** NP-A06 (tokens file already touched), NP-A04 (consumer).
+**Context.** `packages/experience/src/tokens.ts` (whole); `scripts/generate-design-tokens.mjs` (whole); `apps/web/app/globals.css:59-66, 97-99, 101-175, 177-299`; `apps/web/app/tokens.generated.css:1-12` (header/format); `apps/web/components/longlive/{TopBar,BottomNav,MomentCardButton,FilterBar}.tsx` (the Tailwind classes to measure).
+**Steps.** Measure → tokens → generator → CSS classes reference variables → snapshot; browser check that `npm run build` output is visually unchanged (Playwright screenshot of `/` at 390×844 before/after, pixel diff ≤ 0.1 %).
+**Start when.** A06 merged.
+**Done when.** `npx vitest run packages/experience/src/tokens apps/web` green; `npm run check:generated` green; `npm run typecheck --workspace=@swift2/web` exit 0; before/after screenshot diff attached; native `scales.ts` contains no literal numbers.
+**Out of scope.** Changing any web value; native screens (they consume via A04).
 
 ### Phase B — Deep-link contract completion
 
@@ -616,12 +747,12 @@ excluding generated snapshots, fonts and lockfile. Branch `feat/np-<id>`
 
 #### NP-C03 · TopBar parity (wordmark, era menu, bell, search, share) on every tab · M · OTA
 **Goal.** One `TopBar` component matching the web's mobile TopBar: wordmark → home, context label ("Era: <short>" with the "Now" pulse on the current era; "Thread: <title>"; mode name), bell, search, share (per-mode target, disabled when none).
-**Touches.** `apps/mobile/components/chrome/TopBar.tsx` (new), `components/chrome/NowPulse.tsx` (new, reanimated loop, off under reduce-motion), `apps/mobile/lib/share.ts` (new: `shareTarget(mode, ctx)` over `topbarShareTarget` + `buildShareUrl`; `share(target)` via RN `Share.share` with clipboard fallback), each tab screen mounts `<TopBar/>`, `screens/EraStreamScreen.tsx` (remove the inline bar `:60-81`), `__tests__/TopBar.test.tsx`.
+**Touches.** `apps/mobile/components/chrome/TopBar.tsx` (new), `components/chrome/NowPulse.tsx` (new, reanimated loop, off under reduce-motion), `apps/mobile/lib/share.ts` (new: `shareTarget(mode, ctx)` over `topbarShareTarget` + `buildShareUrl`; `share(target)` via RN `Share.share` with clipboard fallback), each tab screen mounts `<TopBar/>`, `screens/EraStreamScreen.tsx` (remove the inline bar `:60-81`), **delete `components/HomeTopBar.tsx` (#4570) and its mount in the tabs layout** — the bell replaces the "⚙ Settings" pill and calls the same `lib/settings-entry.ts` `openSettingsEntry` gate, `__tests__/TopBar.test.tsx`.
 **Depends on.** NP-A08 (bell → `Onboarding`/`Settings` gate).
-**Context.** `apps/web/components/longlive/TopBar.tsx:47, 64-98, 120-160` (label, bell, share disabled state), `topbarLayout.ts`; `packages/experience/src/share-copy.ts:190-230`; `apps/mobile/lib/onboarding-state.ts`; pre-A07 `App.tsx:281-296` (onboarding gate logic).
-**Steps.** Build; bell: `hasOnboardingBeenOffered()` ? `Settings` : `Onboarding`; search → `Search` modal; era label → `EraSelector` (C04; until then no-op with `disabled`); icons `@expo/vector-icons` Feather (`bell`, `search`, `share`); labels + roles per §4.7.
+**Context.** `apps/web/components/longlive/TopBar.tsx:47, 64-98, 120-160` (label, bell, share disabled state), `topbarLayout.ts`; `packages/experience/src/share-copy.ts:190-230`; `apps/mobile/lib/settings-entry.ts` (whole, 25 lines — reuse, do not reimplement); `apps/mobile/components/HomeTopBar.tsx` (whole — what is being replaced); `App.tsx:266-273` (current `openSettings`).
+**Steps.** Build; bell → `openSettingsEntry({ hasOnboardingBeenOffered, openSettings: () => navigate('Settings'), openOnboarding: () => navigate('Onboarding') })`; search → `Search` modal; era label → `EraSelector` (C04; until then no-op with `disabled`); icons `@expo/vector-icons` Feather (`bell`, `search`, `share`); labels + roles per §4.7; height/padding from `CHROME`/`SPACING` tokens (A12).
 **Start when.** A08 merged.
-**Done when.** §4.8; render test: label text for an era prop and a thread prop; share disabled on Clownbot/Mood (web parity: share disabled there); device: bell opens Onboarding on a fresh install and Settings after; screenshots on Eras and Threads.
+**Done when.** §4.8 incl. the §4.11 pair against `TopBar.tsx` on Eras and Threads; render test: label text for an era prop and a thread prop; share disabled on Clownbot/Mood (web parity); `grep -rn HomeTopBar apps/mobile` empty; device: bell opens Onboarding on a fresh install and Settings after.
 **Out of scope.** Scrubber host (C13 adds it into TopBar).
 
 #### NP-C04 · Era selector sheet · S · OTA
@@ -1113,8 +1244,8 @@ existing audit convention) with the pass/fail table below filled in.
 #### NP-Q01 · Visual parity review per era
 **Prereq.** Phases C, D, E; NP-A02.
 **Method.** For each of the 12 eras, capture web (mobile-chrome Playwright project, 390×844) and native (iOS + Android) screenshots of: era hero, a hero-tier card, a chip card, moment detail top, track guide top, song top. Place side by side in the audit doc.
-**Pass.** For every era: palette keys match (`bg`, `ink`, `accent` sampled hex within ΔE ≤ 3 of web); title font family matches `EraTheme.font`; block order identical; no native screen shows the default TTPD palette for a non-TTPD era. Threads uses `VAULT_THEME`, Merch `MERCH_THEME`, Clownbot `CLOWN_TOKENS`.
-**Fail.** Any era or surface off-palette, off-font, or out of order.
+**Pass.** For every era and every pair, the full §4.11 checklist ①–⑧ holds: palette keys match (`bg`, `ink`, `accent` sampled hex within ΔE ≤ 3 of web); title font family matches `EraTheme.font` and sizes are within ±1 pt; spacing within ±2 pt, radii equal; block order identical; same copy and casing; same imagery treatment; no native screen shows the default TTPD palette for a non-TTPD era; no UI element exists natively that the web lacks (e.g. a settings pill) unless §4.12 lists it. Threads uses `VAULT_THEME`, Merch `MERCH_THEME`, Clownbot `CLOWN_TOKENS`. The report includes the contact sheet of all pairs.
+**Fail.** Any pair with a visible divergence on any checklist item — one fix card per finding, gate re-run until zero.
 
 #### NP-Q02 · Navigation and deep-link audit
 **Prereq.** Phases A, B, all screens.
@@ -1153,7 +1284,7 @@ existing audit convention) with the pass/fail table below filled in.
 **Fail.** Any one-platform feature, inset bug, or parity code.
 
 #### NP-Q08 · Store-review readiness (Apple 4.2, Play policies)
-**Prereq.** All P0 cards; NP-I02.
+**Prereq.** **NP-P03 green (every era's content renders on real builds — an app whose main tab errors is rejected before anything else is examined)**; all P0 cards; NP-I02.
 **Method.** Walk the app as a reviewer: fresh install, no network permissions prompt until value moment, every tab, deep link from a test push, legal pages. Fill a checklist against App Store Review Guidelines 4.2 (minimum functionality), 4.2.2 (not just a repackaged website), 5.1.1 (permission prompts explain purpose), 2.1 (no crashes), 2.3.7/5.2.1 (unofficial disclaimer present), and Play: WebView/Affiliate spam policy ("apps whose primary purpose is to drive affiliate traffic" — Merch is one of six tabs), Data safety form matches `privacy-and-data-safety.md`.
 **Pass.** WebView appears only for legal pages (verified by grep of `SiteShell` usages = `WebScreen` only, plus runtime walk); every tab has native interaction the website cannot offer identically (push, haptics, native share, gestures — list them in the report); permission prompt only after onboarding preset; UNOFFICIAL disclaimer visible in Settings › About and on the store listing; store screenshots are native captures; Data safety answers derived from the regenerated inventory doc; zero crashes in a 15-minute exploratory session on each platform.
 **Fail.** Any reviewer-visible WebView outside legal pages; any mismatch between the privacy doc and app behaviour; a crash.
@@ -1185,7 +1316,10 @@ existing audit convention) with the pass/fail table below filled in.
 
 | Risk | Mitigation |
 | --- | --- |
-| **Phase A store build restarts App Review** while the current build (13/vc14) is in review or freshly approved. | Batch every native change into the one `feat/np-native-batch` PR; land it on Joey's timing (Q1 below). Everything else is OTA. |
+| **Store rejection while era content fails to load** (X0). Builds 14/15 currently show an error under every era; a reviewer sees it in the first ten seconds. | Phase P is first in the order and JS-only, so the fix reaches installed builds by OTA within one train run; NP-P03 is a hard gate before any submission; `check:bundle-load` runs every 6 h afterwards. |
+| The pure-JS SHA-256 is slow on low-end Android for the largest era file (`content:tloas`, ~720 KB). | Hash all files concurrently; measure in NP-P03 (target < 400 ms total on a Pixel 6a class device); if missed, hash lazily per era file instead of the whole bundle up front (loader already keys files individually). |
+| **Phase A store build restarts App Review** while the current build (14/vc15) is in review or freshly approved. | Batch every native change into the one `feat/np-native-batch` PR; land it on Joey's timing (Q1 below). Everything else is OTA. |
+| "Looks like the website" drifts into "looks like an iOS app" card by card. | §4.11 pair on every rendering card's DONE; §4.12 decision table settles the recurring conflicts; A12 makes scales structural; Q01 fails on any divergence. |
 | `jest-expo` in a hoisted monorepo with three React copies (see `vitest.config.ts` comments) may not transform cleanly. | NP-A10 is time-boxed to one session with a recorded fallback (device screenshots per card, gate Q06 requires resolution before sign-off). |
 | react-navigation migration regresses push/deep-link handling that works today. | NP-A08 keeps the pre-A07 behaviour list from `App.tsx` as its test table; gate Q09 re-runs HA #43 step 4. |
 | Scrubber performance on Android (`FlatList` + per-frame `scrollToOffset`). | Math on the UI thread via reanimated shared values; gate Q03 thresholds; fallback: commit scroll every 2nd frame. |
@@ -1206,15 +1340,19 @@ existing audit convention) with the pass/fail table below filled in.
 6. **Route flags hosting.** A static JSON on longlivets.com (`/mobile/route-flags.json`, edited by PR) — acceptable, or do you want a dashboard? Default: JSON.
 7. **Thread hero photo licences.** Are the licensed hero images cleared for in-app (not just web) display with the same credit line? If not, F01 ships without hero art for those threads.
 8. **Native-only extras.** Keep or drop: (a) the era-album Spotify embed on every moment (web has none); (b) richer notification settings (snooze, daily cap, quiet hours — web lacks them). Default: drop (a) for parity, keep (b).
-9. **P0 vs full parity.** Is the goal "defensible for review by a date" (ship P0 subset in §3.2, rest by OTA after) or "full parity before submission"? The plan supports either; the P0 subset is ~35 cards.
+9. **P0 vs full parity.** Is the goal "defensible for review by a date" (ship P0 subset in §3.2, rest by OTA after) or "full parity before submission"? The plan supports either; the P0 subset is ~40 cards.
+10. **Remove the #4570 "⚙ Settings" pill.** Plan default: yes — NP-C03 replaces `HomeTopBar` with the web's `TopBar` (wordmark, era label, bell, search, share) and the bell opens the same onboarding/settings gate. Confirm you are happy to lose the explicit "Settings" label in favour of the web's bell.
+11. **Hold the next store submission until NP-P03 is green?** Plan default: yes — the era-content failure is reviewer-visible on every section of the main tab.
 
 ### 7.3 Suggested execution order and parallel lanes
 
-Card counts: Phase A 11 · B 3 · C 15 · D 6 · E 2 · F 16 · G 3 · H 9 · I 3 · Q 10 = **78 cards**.
+Card counts: Phase P 3 · A 12 · B 3 · C 15 · D 6 · E 2 · F 16 · G 3 · H 9 · I 3 · Q 10 = **82 cards**.
 
 ```
+Day 0-2  P01 → P02 → P03  (one lane, nothing else merges to apps/mobile or packages/content until P02 is on the train;
+         P03 runs as soon as `publish_update_both` lands; the next store submission waits for P03)
 Week 1   Lane 1 (integration branch): A01 → A02 → A07 → A08 → A09        (store build at end)
-         Lane 2: A04 → A05 ; A06 ; A11 ; A03 ; A10 ; C12 ; D00 ; F12a       (all independent, OTA/refactor)
+         Lane 2: A06 → A12 → A04 → A05 ; A11 ; A03 ; A10 ; C12 ; D00 ; F12a  (all independent, OTA/refactor)
 Week 2   Lane 1: B01 → B02, B03 ; C01 → C02 → C03 → C04
          Lane 2: C07 → C08 → C09 ; C15 ; E01 (after C08)
          Lane 3: G01 → G02 ; H01 → H02 ; H06 ; H07 (after C03, B01)
