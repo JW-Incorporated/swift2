@@ -1,0 +1,44 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Pick your fighter: feral about a bridge, plotting something in a ball gown, or winning, quietly. Whichever one is you today, tap Mood and let it pull the Taylor songs that match — then tag the friend who's clearly one of the other two 🤍 longlivets.com/?mode=mood&utm_source=x&utm_medium=social&utm_campaign=mood",
+  "media": [
+    "/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
+  "altText": [
+    "Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting."
+  ],
+  "scheduledAt": "2026-09-23T23:00:00Z",
+  "campaign": "mood:chip-poll:2026-09-b",
+  "why": "X sibling of the 09-23 Mood beat. Same story-unique campaign + scheduledAt as the IG. Hook: direct address ('pick your fighter'), written as its own compact poll, >20% divergent from the IG (different framing/verbs; only the three verbatim chips are shared, which the calendar requires on both). Chips quoted VERBATIM from mood-starters.ts, all scored-era-safe; no returned songs asserted (chip-poll). Share hook (required on mood): tag-a-friend, grounded. Deep link /?mode=mood verified in code (deepLink.ts:34); caption also says 'tap Mood'. Weighted length ~258 (<270 target), URL counted as 23. PHOTO NOTE: this X carries a photo ONLY because check-drafts.mjs:577 hard-requires X media (2026-09-10) — text-only X, which the calendar/strategy rung 3/L001 all prefer here, is checker-blocked (#3733). Photo = reputation-inglewood-2023: decorative tour tile, NOT the argument (hence mediaEarnsItsPlace 3), distinct photoId from the IG's debut (L001 pair rule), and the freshest-available besides it (5d) — every library photo is now within 6 days, see the IG why for the forced-reuse rationale. photoEra unset (mood non-themed), no era-relevance claim.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Compact 'pick your fighter' poll on the same three real Mood chips, direct-address, with a genuine tag-a-friend share hook. Drives taps to Mood (the never-shipped feature) via the /?mode=mood deep link; the photo is a decorative reputation-era tile because X now hard-requires media.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-22T16:48:42.737Z",
+    "pr": 4513,
+    "sha": "85975d0f2421c7a4468f93e9f1543ca4886c0e55",
+    "message": "1551981744146874459",
+    "contentHash": "sha256:1ada49b0694a47c98cb01faf50c799d4976354c35be664c5d0b5638c64e7d837",
+    "sig": "hmac-sha256:7e0aedc9fa6feb190d809f510154948c2b9baeec12291338dbdcafe0fab78c1c"
+  }
+}
