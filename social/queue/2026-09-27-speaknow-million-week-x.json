@@ -1,0 +1,35 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "Zero co-writers isn't how you break a sales record — but Speak Now did it anyway: 1,047,000 copies in week one, the first million-copy opening since Tha Carter III, all 14 standard tracks written alone. Tag whoever counted her out 🤍\n\nlonglivets.com/?era=speak-now&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "speaknow-inglewood-2023",
+  "photoEra": "speak-now",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+  "altText": [
+    "Taylor Swift performing the Speak Now set of the Eras Tour in Inglewood, 2023, in a purple ball gown under matching stage lighting."
+  ],
+  "scheduledAt": "2026-09-27T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:speak-now-million-week-2026-09-27",
+  "why": "09-27 heartbeat:era-deep-cut beat (calendar), the calendar's second attempt at the Speak Now million-week story after both prior approved pairs (2026-09-11 and 2026-09-13) were swept to social/failed/ by the 48h queue-clearing incident (#4296/#4220) without ever posting — a poster infra failure, not a content rejection. New story-unique campaign value (…-2026-09-27, distinct from the failed …-2010), so no duplicate-skip. X sibling, written distinctly from the IG (>20% divergent). Hook shape = the contradiction (calendar's assigned X hook): an album with zero co-writers breaking a sales record. Deliberately NOT reopened with the failed X's first line ('1,047,000 copies in seven days'). Facts sourced to the Vault: 1,047,000 week-one copies + 'first album since Lil Wayne's Tha Carter III to cross a million in its opening week' from 'Speak Now sells over a million copies in a single week' (supabase/seed/content/speak-now.mjs:16-40, cited to Billboard/Grammy.com/The Boot); the 'written entirely alone' claim from the separate Vault item scoping solo authorship to the 14 standard-edition tracks (the deluxe 'If This Was a Movie' is a Martin Johnson co-write) — hence the 'all 14 standard tracks' qualifier the calendar requires. No invented figures. Share hook ('Tag whoever counted her out') grounded in the real no-co-writers/doubted-her detail (heartbeat share-design pass). MEDIA + L001 DEADLOCK (flagged for founder/weekly plan): this beat is a themed era-deep-cut, so queue-schema.mjs hard-requires a speak-now-tagged photo on BOTH siblings, and only speaknow-inglewood-2023 carries that tag; check-drafts.mjs also hard-requires X to carry media (text-only X is checker-blocked since 2026-09-10). L001's escape (drop the X sibling to text-only, or use a different photoId per half) is therefore STRUCTURALLY IMPOSSIBLE for a single-photo era — the two hard gates force the same photoId onto both halves. Shipping the same era-matched tile on both siblings is exactly what the founder-approved 2026-09-13 pair did; the real fix is more speak-now inventory or a single-photo-era carve-out to L001, neither of which this run can make. speaknow-inglewood-2023 last posted 09-19 (8-day gap ≥ 7, clear on recency). Lyric-free, blocklist-safe.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "The contradiction that an album with zero co-writers broke a sales record: 1,047,000 copies in week one, the first million-copy opening since Tha Carter III, all 14 standard tracks written alone. Sourced to speak-now.mjs; share hook tags whoever counted her out.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}
