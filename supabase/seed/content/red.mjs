@@ -2984,23 +2984,6 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
-        // Photo pass (Vault Run 2026-09-26, Photo Enrichment lane; ticket #3898
-        // flagged this as a top-of-feed zero-photo page): the page already
-        // carries the official "Begin Again" video. maxresdefault 404s on this
-        // older upload, so the 640x480 sddefault frame is used — curl-verified
-        // 200 image/jpeg, downloaded and viewed (Taylor on a Paris rooftop with
-        // the Eiffel Tower behind her, the video's signature shot). Video id
-        // cMPEd8m79Hw oEmbed-verified against the @TaylorSwift channel.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/cMPEd8m79Hw/sddefault.jpg',
-            focalPoint: '62% 28%',
-            credit: 'Big Machine Records, via YouTube/TaylorSwift (official “Begin Again” music video)',
-            caption:
-              'Taylor on a Paris rooftop, the Eiffel Tower behind her, in the official “Begin Again” music video.',
-            kind: 'primary',
-          },
-        ],
       },
     },
   ],

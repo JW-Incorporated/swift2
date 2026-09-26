@@ -14658,13 +14658,18 @@ export default {
       significance: 'notable',
       title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
       snippet:
-        'The Life of a Showgirl: The Encore landed Friday, Sept. 25, adding four new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" On day one Spotify said Taylor became the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a single day this year. An official lyric video posted the same weekend; the full "Patient Zero" music video is set to premiere at the VMAs.',
+        'The Life of a Showgirl: The Encore landed Friday, Sept. 25, adding four new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" On day one, Spotify said Taylor became the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year.',
       sourceUrl: 'https://www.youtube.com/watch?v=BpR280fXISA',
       thumbnailUrl: null,
       moment: {
         context:
           'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.',
-        video: { youtubeId: 'BpR280fXISA', title: 'Taylor Swift - Patient Zero (Official Lyric Video)' },
+        // No `video` field on purpose: the lyric-video frame is used as a plain
+        // credited photo (and the video is cited as a source below). Declaring
+        // it as `video` here would make the ytimg-still-as-hero the moment's own
+        // video frame, which the #2080/#2081 feed-card rule suppresses on the
+        // card and which the video-affordance real-vault count tests (issue
+        // #4134) treat as a tripwire — a seed-only lane cannot move those counts.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/BpR280fXISA/maxresdefault.jpg',
