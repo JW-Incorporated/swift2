@@ -14649,6 +14649,148 @@ export default {
         ],
       },
     },
+    {
+      slug: 'patient-zero-released-spotify-records',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'music',
+      significance: 'notable',
+      title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
+      snippet:
+        'The Life of a Showgirl: The Encore landed Friday, Sept. 25, adding four new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" On day one, Spotify said Taylor became the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year.',
+      sourceUrl: 'https://www.youtube.com/watch?v=BpR280fXISA',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.',
+        // No `video` field on purpose: the lyric-video frame is used as a plain
+        // credited photo (and the video is cited as a source below). Declaring
+        // it as `video` here would make the ytimg-still-as-hero the moment's own
+        // video frame, which the #2080/#2081 feed-card rule suppresses on the
+        // card and which the video-affordance real-vault count tests (issue
+        // #4134) treat as a tripwire — a seed-only lane cannot move those counts.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/BpR280fXISA/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: sparkle-lettered "PATIENT ZER(TAYLOR SWIFT)" title card
+            // on a bare wall — the official lyric-video card. oEmbed verified:
+            // author_name "Taylor Swift", author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" lyric video, YouTube)',
+            caption:
+              'The official lyric video for "Patient Zero," posted to Taylor\'s YouTube the weekend The Life of a Showgirl: The Encore arrived.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-breaks-spotify-records-most-streamed-female-1236876086/',
+            source_title: 'Taylor Swift Breaks Two Spotify Records for 2026, Including Most-Streamed Female Artist in a Day',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-spotify-record-single-day-patient-zero-1236348113/',
+            source_title: 'Taylor Swift Sets 2026 Single-Day Spotify Record, Thanks to "The Life of a Showgirl: The Encore"',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Irish News',
+            url: 'https://www.irishnews.com/entertainment/taylor-swift-breaks-spotify-2026-record-as-most-streamed-female-artist-in-a-day-S6IQNR5GHNN5XHO7UHS2G536HQ/',
+            source_title: 'Taylor Swift breaks Spotify 2026 record as most-streamed female artist in a day',
+            publisher: 'The Irish News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 3,
+            notes:
+              'confirms both 2026 Spotify records and the four Encore songs — Patient Zero, Pink Clouding, Babylon, Cleveland! — with no stream counts given.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/',
+            source_title: "Taylor Swift's 'Patient Zero' Music Video To Debut At VMAs",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+            notes:
+              'source for the full music video — directed by Taylor, featuring Colin Farrell and Dakota Johnson — premiering during the 2026 MTV VMAs on Sept. 27. The lyric video (this entry\'s visual) is separate and already live.',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'oheka-castle-blank-space-auction-2026',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'business',
+      title: 'The "Blank Space" castle heads to auction — Oheka Castle goes up for sale Oct. 27',
+      snippet:
+        'Oheka Castle — the French Renaissance château on Long Island where Taylor filmed the "Blank Space" video — is headed to public auction on Oct. 27, 2026, part of a Chapter 11 bankruptcy. Built in 1919 for financier Otto Kahn and long a hotel and event venue, the 127-room estate is often called the second-largest private residence ever built in America.',
+      sourceUrl:
+        'https://www.forbes.com/sites/maryroeloffs/2026/09/25/sprawling-new-york-castle-with-a-taylor-swift-connection-headed-to-auction/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Oheka Castle, the 1919 Gold Coast estate in Huntington, New York that doubled as the palace in Taylor\'s 2014 "Blank Space" video, is going up for public auction on Oct. 27, 2026, Forbes and Long Island outlets reported. The sale is part of the property\'s Chapter 11 bankruptcy; per Forbes the lot — offered through Concierge Auctions with Adam Modlin of The Modlin Group — carries no minimum starting bid and includes an adjacent 5.13-acre parcel already approved by the Town of Huntington for 95 luxury condominiums.\n\nThe château is a landmark independent of any pop-music connection: built for financier and arts patron Otto Kahn by the architects Delano & Aldrich, it spans roughly 112,895 square feet across 23 acres, runs to 127 rooms in French Renaissance style, and is frequently cited as the second-largest private residence ever built in the United States. It has spent its modern life as a hotel and event venue, and is one of the estates said to have helped inspire Fitzgerald\'s "The Great Gatsby."\n\nFor Swifties the hook is narrower: this is the palace of "Blank Space," the 1989 single whose video turned a lavish estate into a stage for the song\'s over-the-top romance-and-revenge story. Forbes led its auction coverage with exactly that connection, noting the video "brought another wave of attention to the castle." This entry lives in the current era because that is when the auction news broke — the "Blank Space" tie belongs to 1989, but the event being recorded is the September 2026 sale announcement.',
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/OHEKA_CASTLE_exterior_view_2.jpg/1280px-OHEKA_CASTLE_exterior_view_2.jpg',
+            // upload.wikimedia.org (allowlisted host). 1280px thumbnail
+            // curl-verified 200 image/jpeg, downloaded and viewed: the French
+            // Renaissance château and its terrace/arcade, matching the subject.
+            // Commons file OHEKA_CASTLE_exterior_view_2.jpg, License CC BY-SA 4.0,
+            // author OhekaCastleNY.
+            focalPoint: '50% 42%',
+            credit: 'OhekaCastleNY, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Oheka Castle in Huntington, New York — the Long Island château used in Taylor\'s 2014 "Blank Space" video, headed to public auction on Oct. 27, 2026.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/maryroeloffs/2026/09/25/sprawling-new-york-castle-with-a-taylor-swift-connection-headed-to-auction/',
+            source_title: "New York Castle From Taylor Swift's 'Blank Space' Music Video Headed To Auction",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 4,
+            notes:
+              'source for the Oct. 27 Concierge Auctions/Modlin Group sale, no starting bid, the adjacent 5.13-acre parcel approved for 95 condos, the estate specs (112,895 sq ft, 23 acres, 127 rooms, second-largest US private residence), and the "Blank Space" connection.',
+          },
+          {
+            outlet: 'LongIsland.com',
+            url: 'https://www.longisland.com/articles/09-26-26/oheka-castle-is-headed-to-public-auction-oct-27.html',
+            source_title: 'Oheka Castle is Headed to Public Auction Oct. 27',
+            publisher: 'LongIsland.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Long Island Guide',
+            url: 'https://www.longislandguide.com/2026/09/20/oheka-castle-headed-to-auction-as-historic-long-island-estate-faces-change-in-ownership/',
+            source_title: 'Oheka Castle Headed to Auction as Bankruptcy Expected to Bring Change in Ownership to Historic Long Island Estate',
+            publisher: 'Long Island Guide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-26',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS

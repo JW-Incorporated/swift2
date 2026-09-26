@@ -95,11 +95,11 @@ export default {
           source_title: 'Taylor Swift Speaks Out About Believing Sexual Assault Victims on Anniversary of Her Trial Verdict',
           publisher: 'Time',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-26',
           reliability_score: 4,
           excerpt: null,
           notes:
-            'Anchors the underlying facts: the $1 verdict and the fans-holding-dollar-bills anniversary. Re-checked 2026-08-24; it does not confirm the music-video interpretation.',
+            'Anchors the underlying facts: the symbolic $1 verdict (jury sided in her favor) and the fans-holding-dollar-bills anniversary. Re-verified live 2026-09-26 (was 2026-08-24); it does not confirm the music-video interpretation, so confidence stays strong_fan_consensus / outcome pending.',
         },
       ],
     },
@@ -210,11 +210,11 @@ export default {
           source_title: "What Does Taylor Swift's 'Reputation' Album Cover Art Mean?",
           publisher: 'Bustle',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-26',
           reliability_score: 3,
           excerpt: null,
           notes:
-            'Re-checked 2026-08-24: confirms that the newsprint repeats "Taylor Swift," but explicitly frames reclaiming or mocking the press as interpretation, not official intent.',
+            'Re-verified live 2026-09-26 (was 2026-08-24): confirms the cover mimics newspaper print with "Taylor Swift" repeated, framed as reclaiming her narrative — reclaiming/mocking the press stays interpretation, not official intent, so confidence stays reputable_reporting.',
         },
         {
           source_url: 'https://www.papermag.com/taylor-swifts-new-album-cover-for-reputation-is-headline-making',
