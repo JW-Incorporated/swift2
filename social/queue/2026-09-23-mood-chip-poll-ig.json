@@ -1,0 +1,44 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "Tell me your whole vibe in three words and Mood finds your Taylor song. it's the most us thing on the whole site and i cannot stop playing with it 🤍\n\nthree of my favorites to try:\n— crying in the car, cinematically\n— feral about a bridge\n— winning, quietly\n\ntap the one that's you today and it pulls the song that fits, right away — no login, nothing you type is saved.\n\nso which one is you? tag the friend who's the total opposite and make them tell on themselves too.\n\nPhoto: Taylor on the folklore set, Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?mode=mood&utm_source=instagram&utm_medium=social&utm_campaign=mood",
+  "media": [
+    "/social/library/photos/taylor-folklore-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "folklore-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_(53109914795).jpg",
+  "scheduledAt": "2026-09-23T23:00:00Z",
+  "altText": [
+    "Taylor Swift performing the folklore set of the Eras Tour in Inglewood, 2023, on a moss-covered cottage stage set."
+  ],
+  "campaign": "mood:chip-poll:2026-09-b",
+  "why": "IG sibling of the Sept slot-2-of-2 Mood beat. Same three chips as the X post, quoted verbatim from mood-starters.ts, but a distinct opener (direct address, first five words differ from the X sibling) and IG-length breathing room. The calendar assigned mood-feature.png to slide 2 only if it shows Mood mid-use — but that asset is a designed typography card ('Tell it how you feel'), not the feature in actual use, so it fails the 'cool feature only' rule and there is no slide 2 (photo-only). Media: folklore-inglewood-2023, a scored-era Taylor photo (folklore IS scored, so the tile cannot imply Mood returns unscored-era songs) whose cozy/introspective look suits a mood poll; distinct from the X sibling's reputation tile per L001. photoEra intentionally unset (Mood is cross-era/non-themed) and the caption claims no folklore-era relevance for the photo. All 10 library photos shipped within the last 5 days, so this reuse (last used 09-20) is a diversity warning, not a hard fail — unavoidable with a 10-photo library now that both platforms need a distinct tile. Share hook required (mood) and present.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "September's last Mood slot and Mood has never shipped once — the site's most distinctive feature finally gets a hero post with three real chips and a genuine tag hook. Scored-era folklore photo so the tile implies nothing false; photo-only because our only Mood screenshot is a typography card, not the feature in use.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-23T18:58:19.063Z",
+    "pr": 4544,
+    "sha": "11ede68b664cb7e52664fda400e75025d65198c9",
+    "message": "1552343491731005453",
+    "contentHash": "sha256:481928d0ceea0a84243ed167b4159ce8121bc2a66dcfd0a1e876979b78c295d0",
+    "sig": "hmac-sha256:ba37742b71c32f10f9e275fba514690cae6b6555969f31183e046bf1a6fb1085"
+  }
+}
