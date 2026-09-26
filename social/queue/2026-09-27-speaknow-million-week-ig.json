@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "I will never get over this one 🤍\n\nSpeak Now is the only album Taylor has ever written completely alone — all 14 standard-edition tracks, no co-writers, no one to split the credit with.\n\nAnd it didn't just hold up, it broke things: 1,047,000 copies sold in its first week. The first album since Lil Wayne's Tha Carter III to cross a million in a single opening week — and only the fourth time any woman had ever done it, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed writing it entirely alone as 'a mic drop against critics.'\n\nAn album she wrote by herself, outselling everyone who doubted she could. Tag whoever counted her out back then — they know now.\n\n📷 Speak Now set, the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?era=speak-now&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-speaknow-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "speaknow-inglewood-2023",
+  "photoEra": "speak-now",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109973243).jpg",
+  "altText": [
+    "Taylor Swift performing the Speak Now set of the Eras Tour in Inglewood, 2023, in a purple ball gown under matching stage lighting."
+  ],
+  "scheduledAt": "2026-09-27T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:speak-now-million-week-2026-09-27",
+  "why": "IG sibling of the 09-27 heartbeat:era-deep-cut Speak Now beat (calendar's second attempt after the 09-11/09-13 approved pairs were swept unposted by the 48h incident #4296/#4220 — infra, not a content ❌). Long-form, gush-first (feeling then the concrete facts), lexically and structurally >20% diverged from the X sibling. Hook shape = the contradiction (an album she wrote alone outselling everyone who doubted her). Opener deliberately NOT the failed IG's first line ('ok i genuinely can't stop thinking about this one'). Facts sourced to the Vault: 1,047,000 week-one copies, 'first album since Lil Wayne's Tha Carter III to cross a million in its opening week', and the fourth-woman-ever detail (after Britney Spears, Whitney Houston, Norah Jones) all from 'Speak Now sells over a million copies in a single week' (supabase/seed/content/speak-now.mjs:16-40, cited to Billboard/Grammy.com/The Boot); the 'written entirely alone' + Grammy.com 'mic drop against critics' framing from the separate Vault item scoping solo authorship to the 14 standard-edition tracks (deluxe 'If This Was a Movie' = Martin Johnson co-write) — hence the 'all 14 standard-edition tracks' qualifier the calendar requires. Nothing invented. Share hook ('Tag whoever counted her out back then') grounded in the same no-co-writers/doubted-her detail. Standard sentence capitalization per the 2026-09-10 voice rule. MEDIA + L001 DEADLOCK (flagged for founder/weekly plan): themed era-deep-cut hard-requires a speak-now-tagged photo on both siblings and only speaknow-inglewood-2023 carries that tag; X media is also hard-required (text-only X blocked), so L001's per-half-distinct-photo / drop-to-text-only escape is structurally impossible for a single-photo era. Both halves therefore carry the same era-matched tile, as the founder-approved 09-13 pair did; the real fix is more speak-now inventory or a single-photo-era L001 carve-out. Photo last posted 09-19 (8d gap, clear on recency). photoEra=speak-now, era-matched. Lyric-free, blocklist-safe.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 24,
+    "rationale": "Gush-first fan reaction, then the numbers: Speak Now is the only album Taylor wrote entirely alone (14 standard tracks), and it still opened to 1,047,000 copies — the first million-copy week since Tha Carter III, fourth woman ever. Sourced to speak-now.mjs; share hook grounded in the wrote-alone detail.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}
