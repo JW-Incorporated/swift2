@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "27 seconds — that's how long the phone call was that ended Taylor and Joe Jonas's summer 2008 romance. She answered it on Fearless with 'Forever & Always' 🤍 Every era she actually wrote about, mapped and sourced:\n\nlonglivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/taylor-debut-2007-acoustic.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-acoustic-2007",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(2007)_retouched.jpg",
+  "altText": [
+    "Taylor Swift in 2007, seated with an acoustic guitar, long curly blonde hair, smiling at the camera."
+  ],
+  "scheduledAt": "2026-09-24T23:00:00Z",
+  "campaign": "timeline:love-story:joe-jonas-era:2026-09-24",
+  "why": "X sibling of the 09-24 Blank Spaces timeline beat (see the IG item's why for the confirmed-only, blocklist-safe sourcing). Written first as its own post: one idea (the 27-second phone call, the Fearless answer), the link, structurally unlike the IG. Hook: the number (calendar's assigned X hook) — leads on '27 seconds'. Same story-unique campaign + scheduledAt as the IG. Facts sourced identically to relationships.mjs rel-jonas. MEDIA NOTE: this X carries a photo ONLY because check-drafts.mjs hard-requires media on X (checkMedia, lines 577-579) — text-only X, which the calendar's 09-24 slot and strategy §2 rung 3 both prefer, is checker-blocked (the #3733 conflict, unchanged this run). Photo = debut-acoustic-2007, a 7-day-clear credited entry (last library use 09-17) and a DISTINCT photoId from the IG's fearless tile (L001: never the same photo across a pair). It's a decorative tour-era portrait, not the argument, and no era-relevance is claimed — hence mediaEarnsItsPlace 3. photoEra unset (cross-era timeline, non-themed family). Weighted length under 270. Lyric-free. rulesChecked [L001].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Number-hook X for the timeline beat: 27 seconds, the phone call that ended the 2008 Joe Jonas summer, answered on Fearless with 'Forever & Always'. Structurally unlike its IG sibling, confirmed-only, points to the sourced love-story map. Photo is a credited early-era portrait carrying the required X media.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}

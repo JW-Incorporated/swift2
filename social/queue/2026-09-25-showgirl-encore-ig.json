@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "IT'S HERE 🩷 Today Taylor didn't just drop a new single — she opened a whole new door. 'Patient Zero' is out as a single, and it turns out to be the lead of something bigger: The Life of a Showgirl: The Encore.\n\nThe Encore expands last year's album with four new tracks — 'Patient Zero,' 'Cleveland!,' 'Pink Clouding' and 'Babylon' — landing as tracks 13 through 16. She teased the whole thing for two weeks by swapping every O in her bios for a zero, and the group chats have not recovered since.\n\nWe already keep the entire Showgirl era mapped on the site — the announcement, a song-by-song guide, every milestone with a citation — and today it got four brand-new chapters to grow into.\n\nWhich of the four are you playing first? Tag the friend you're already texting about it 🩷\n\nPhoto: Taylor on the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons (cropped by Musicharts).\n\nlonglivets.com/?era=tloas&utm_source=instagram&utm_medium=social&utm_campaign=era-tloas-encore",
+  "media": [
+    "/social/library/photos/taylor-evermore-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "evermore-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons (cropped by Musicharts)",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Evermore_Era_Set_(53109915048)_(cropped).jpg",
+  "altText": [
+    "Taylor Swift performing the evermore set of the Eras Tour in Inglewood, 2023, in a cardigan-style stage costume with a wooded cabin backdrop."
+  ],
+  "scheduledAt": "2026-09-25T23:00:00Z",
+  "campaign": "heartbeat:on-this-day:showgirl-encore-patient-zero-2026-09-25",
+  "why": "EVENT WEIGHTING of the 09-25 evening beat, per tree-daily-draft.md step 4.5 (a confirmed major event that went live mid-week, after the 09-21 weekly plan and with NO calendar reservation, on tomorrow's unfilled beat; near-event = same-day release). This DISPLACES the calendar's planned 09-25 Taylor's Version vault beat (thread:taylors-version:origin-story:2026-09-vault); that thread window closes 09-25 so it drops rather than slides, and Taylor's Version ends September at 1 of 2 (09-22 hero shipped). Flagged prominently in the PR body. Facts are CONFIRMED across multiple major outlets (Variety, Deadline, ABC News, NBC, Today, Yahoo, 2026-09-22/23): Taylor announced a new single 'Patient Zero' out 2026-09-25, and 'The Life of a Showgirl: The Encore', an expanded edition of the 2025 album The Life of a Showgirl adding four new tracks — 'Patient Zero', 'Cleveland!', 'Pink Clouding', 'Babylon' as tracks 13-16 — also out 09-25; teased for ~two weeks with zeroes replacing every O in her bios. This is a creative rollout, squarely blocklist-safe (no personal-life topic; the wedding/Kelce angle some outlets used is deliberately avoided). No reception/chart/lyric claims (the release hasn't happened at draft time). Deep link /?era=tloas — the site's real 12th era (supabase/seed/content/the-life-of-a-showgirl.mjs; the era id used by the 08-30 posted item), which houses the Showgirl announcement, song guide and milestones; no Vault item exists yet for today's release, so the era stream is the honest landing (not an /?item= link). Family heartbeat:on-this-day (today's-news post; a metrics bucket, story-unique value). Share-hook required for heartbeat and included: 'which of the four... tag the friend you're already texting'. Media: evermore-inglewood-2023 — NO credited photo exists for the TLOAS/Showgirl era (calendar photo-availability note), so a 7-day-clear credited tour photo (last use 09-18) carries the required IG media with NO era-relevance claim (credit line names only 'the Eras Tour', not the evermore set, per the 09-22 precedent); distinct photoId from the X sibling (L001). photoEra unset (heartbeat:on-this-day is not a THEMED family). Standard sentence capitalization. Lyric-free. rulesChecked [L001].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 23,
+    "rationale": "Release-day coverage of Taylor's confirmed 09-25 drop — 'Patient Zero' plus the four-track Life of a Showgirl: The Encore — warm and fan-first, with a real tag hook and a link to our Showgirl era. The tour photo is decorative (no Showgirl photo exists), but timeliness carries it. Sourced to major outlets.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}

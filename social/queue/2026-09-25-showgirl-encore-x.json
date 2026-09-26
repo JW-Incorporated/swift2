@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "So THAT'S what the zeroes were about 🩷 Taylor spent two weeks turning every O in her bios into a 0 — and today it paid off: 'Patient Zero,' a brand-new single, plus three more songs on The Life of a Showgirl: The Encore. Step into the era:\n\nlonglivets.com/?era=tloas&utm_source=x&utm_medium=social&utm_campaign=era-tloas-encore",
+  "media": [
+    "/social/library/photos/taylor-reputation-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109646914).jpg",
+  "altText": [
+    "Taylor Swift performing the reputation set of the Eras Tour in Inglewood, 2023, in a black snake-motif costume under dark green stage lighting."
+  ],
+  "scheduledAt": "2026-09-25T23:00:00Z",
+  "campaign": "heartbeat:on-this-day:showgirl-encore-patient-zero-2026-09-25",
+  "why": "X sibling of the 09-25 event-weighting beat (see the IG item's why for the full step-4.5 rationale, multi-outlet sourcing, displacement of the Taylor's Version vault beat, and blocklist-safety). Written first as its own post and deliberately leads on a DIFFERENT angle from the IG — the payoff of the two-week zeroes-for-O's easter egg — naming 'Patient Zero' + 'three more songs' rather than re-listing all four titles, so it clears the cross-post-copy gate (<80%; the first draft was 86% and was rewritten). Same story-unique campaign + scheduledAt as the IG. Facts CONFIRMED across major outlets: single 'Patient Zero' + the four-track The Life of a Showgirl: The Encore, out 2026-09-25, teased ~two weeks with zeroes-for-O's. No reception/chart/lyric claims. Deep link /?era=tloas (the site's real Showgirl era). Media: reputation-inglewood-2023, a 7-day-clear credited photo (last use 09-18), DISTINCT from the IG's evermore tile (L001), carrying the required X media with no era-relevance claim (no TLOAS-era photo exists) — hence mediaEarnsItsPlace 3. photoEra unset. Weighted length under 270. Lyric-free. rulesChecked [L001].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Release-day X: the two weeks of zeroes-for-O's finally pay off — 'Patient Zero' as a single plus three more songs on The Life of a Showgirl: The Encore, out today. Leads on the easter-egg reveal so it reads distinct from its IG sibling, and points to our Showgirl era. Tour photo carries the required X media.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  }
+}
