@@ -1,0 +1,42 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "Confession: I have lost entire evenings trying to hunt down one single thing Taylor wore in a photo. The coat. The boots. That one ring. 😭\n\nSeen on Taylor is the thing I wish I'd had the whole time — open any era, find a look you love, and tap it to go straight to where the real piece is sold. An actual match, not a guessing game.\n\nAnd because we're fans, not a shop playing dress-up as something official, every tile says the same honest line: her look, not the product. We're just pointing.\n\nOkay, now I need to know — whose era-closet are you raiding first? Tell me in the comments, be specific, no wrong answers 🤍\n\nPhoto: Taylor on the Fearless set of the Eras Tour, Inglewood 2023 — Paolo Villanueva (CC BY 2.0), via Wikimedia Commons.\n\nlonglivets.com/?mode=merch&utm_source=instagram&utm_medium=social&utm_campaign=launch",
+  "media": [
+    "/social/library/photos/taylor-fearless-eras-inglewood-2023.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "fearless-inglewood-2023",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Fearless_Set_Era_(53109821975).jpg",
+  "altText": [
+    "Taylor Swift performing the Fearless set of the Eras Tour in Inglewood, 2023, in a gold fringed dress, guitar in hand."
+  ],
+  "scheduledAt": "2026-09-21T23:00:00Z",
+  "campaign": "launch:shop-the-look:callback",
+  "why": "IG sibling of the 09-21 launch arc +9 (callback, closes the shop-the-look arc). Job per calendar: tie the surface to a fan use-case and invite a reply — 'which era's closet would you actually raid?'. Long-form, breathes: the fan pain-point (losing hours hunting down one thing she wore), what Seen on Taylor does about it, the honest 'we're fans not a shop pretending to be official' framing, then the reply invitation. Facts are only the verified shipped ones: the surface exists, each tile links out to the real credited retailer piece, verbatim disclaimer 'her look, not the product' (MerchCard.tsx:181/212), and you can open any era (EraSpine era filter, MerchStyleSection.tsx). No item/era COUNT asserted — code comment says 156 shopTheLook items vs the ledger's 100, so no number is claimed. Link /?mode=merch verified (deepLink.ts). Hook: the honest question (avoids the burned literal 'an honest question'/'genuine question'). Media: fearless tour photo tile (fearless-inglewood-2023) — a real credited iconic OUTFIT photo that reinforces the raid-the-closet ask; the era furthest from last use (fearless last used 09-17), clean of the 09-18→21 four-day span, a different era from the X debut tile, lover avoided; photo-only per calendar (no 'Seen on Taylor' screenshot committed). photoEra unset: launch/merch is a cross-era non-themed family. Vocabulary/structure diverged from the X sibling to clear the <80% cross-post-copy gate; first five words diverge from the X sibling and from every burned/recent opener. Standard sentence capitalization (strategy §Voice, 2026-09-10; 'her look, not the product' kept inline lowercase as a woven quoted label, matching the shipped 09-12/09-18 arc posts). Launch-arc = share-hook exempt, but the reply ask is the beat's point. Lyric-free, blocklist-safe. rulesChecked [] (lessons ledger has no active rules).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 23,
+    "rationale": "Closes the arc on the exact fan use-case it was built for — the doom-hunt for one thing she wore — then hands the mic back: 'whose era-closet are you raiding first?'. Gushy first-person voice, the verified 'her look, not the product' promise, and an iconic Fearless outfit tile that earns the raid-the-closet ask.",
+    "rulesChecked": [],
+    "revision": 1
+  },
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-09-20T21:53:30.339Z",
+    "pr": 4471,
+    "sha": "e21148ac4229f0828fdc18b2ffd141944c2f8d4f",
+    "message": "1551333340961841153",
+    "contentHash": "sha256:2a698e711011a805f85eeca90f3eb15855496f91361868016df6d7a74461d827",
+    "sig": "hmac-sha256:402c2cce763022cbfad013f0f45c49935e1ca01eb934013c0be6c2973cd36c00"
+  }
+}
