@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 81
+
+## Joe Elliott Discusses Duet with Taylor Swift and Lyric Change
+
+- first seen: 2026-09-26 06:07 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Joe Elliott of Def Leppard comments on collaborating with Taylor Swift for a duet on a rock classic, mentioning a lyric they changed at Swift's request due to it being too risqué.
+- sources:
+  - [unverified] Louder — https://news.google.com/rss/articles/CBMimgFBVV95cUxQODFNcEIwQTdOcjRfeXJuS1ZKR0NVa1NEcG9vS0hTUEV2LTQ0TExQZm5yaTZkdEpXTUxuZzRUQkk0Q3JhRk5wenVyc2pRUnAtUTdnbGdJcnB5SmNQUzV1dmVMYk12T2hnNkM3cVZiTGpmMHNxeWZWeVBfbVcyVk5aUmZyc2pETmhESkl0RnVkczh5WVd6TzVKQ3Jn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Requests Dismissal of Trademark Lawsuit Over 'Life of a Showgirl'
+
+- first seen: 2026-09-26 06:07 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has filed to dismiss the trademark lawsuit regarding 'Life of a Showgirl' after the USPTO noted potential confusion with existing trademarks. The case highlights ongoing legal challenges in the entertainment industry.
+- sources:
+  - [unverified] Law Commentary — https://news.google.com/rss/articles/CBMipwFBVV95cUxPVEFHVXNlRERpQXprSkQ1Y0NFUXdiQW9kRnVBNzV6T1llY3hyRmpzVVhFd2o2UmZGXzZHemtWdjIzTndRTTZRSkF1RXNpX0F5aWxfX3lkbUJsQXpiZXVJT244REVUekVrc3VvNVozaVdaUUoxYl9xcXNCYVFGV3Zsc0VTTWNKOFg1UlhaeGxqaEN1M084Z3ZYYWJQcHpDaF9zVm9mZjVxRQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring Songs Taylor Swift May Have Written About Various People
+
+- first seen: 2026-09-26 06:07 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the various individuals Taylor Swift may have drawn inspiration from for her songs, including their reactions and comments. The piece provides insights into her songwriting process and the connections to those mentioned.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxPcndnNTU1MzM2ampPYnMyNkxPWlEtdnFXUkliU2JEdFE0Qmg3MkhaRUJqeFRieUM3UHA1QklFNUN0Snd2ZEpMVXYxUW1Yc1puWURkRzBoYUZNemxsLW13bkNMZXlfX3I5Tl9yUWNSakdLZG95YkQ3dDcxTm5oOU1MRGlFOFg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reveals Travis Kelce Footage in New 'Cleveland!' Lyric Video
+
+- first seen: 2026-09-26 06:07 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has released previously unseen home footage of Travis Kelce in her new lyric video for 'Cleveland!'. The video showcases clips that fans have not seen before, adding a personal touch to the song.
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxON29saGFad0RrazFkZ29ETjgtbXpCMnZpNVhiaWtGeFdPcEc1T0pkUUx0dkMwaElLTndlaFZMZHVELWxKUTVIMzFCVERUY2dwRnRQWlJkRm4zNi1LMTNUZXgxcFNtME40R0l6YmNudllxTl9Mc3pqbzUyM09TRS1RakVXbnI4VURBVzNjaDZxaXE1Z9IBkgFBVV95cUxPdTQtRVUxVkN4Y194dDE4M1BBM0xRRmhxZU9xU0NsalJVUnpFZ1NDTVJrQ1pYb1lZT3VlV1JyUmVVYVJveVIzUGZ4clhTbUdPWm9lNFNhYmMtSWl2X2ZEcEItSjZ1SE8yVTV0a25abXVvX1VoQ3lDLTEwODNBNk5ZTldlVmp5STk4elhaM3lnaU5OZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivgFBVV95cUxPc2poMXRSWG01OHFfQXd4Tmc2ZXluS0Z4NDN3c3pVQ19XSjZHckNiQ29IQWpQM3hSS0VocFZxX0ZCa00yZE0wc1psRXo1Vkh1d0MxdXl6NlNZTWoybldnSzFXOVRsanF4RGxUX051blVGcXIxQ19yYmI0Zzc3SUwxYWxZODBoWHhhMnB4aU5zcGc2NVF0dmtMS0M4SkRtaF9DWW5VUUE1a1MyV2ZmQlF1UVY1dFBXeWM4QVhCRnBn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Achieves Spotify Record with New Release
+
+- first seen: 2026-09-26 06:07 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has set a single-day Spotify record for 2026, attributed to her latest release, 'The Life of a Showgirl: The Encore,' according to Billboard.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMioAFBVV95cUxPbmZ2RUNtVEcyYmlWMUpCVU5lZFpCUzNDZlJhcVZsVEVic3NBcXVLRVdnYm9VM2NZc1lab2VDZFZPWS1IeGtsS3lBa3pDRFpScUhHaG5RRWlia1Nlb1BmVkNucEVFZHE0VUhfMGFsUTFxUkRSdzk4OXdTdU5xSW11dGdoZE1JbzhCekxfQVdxN3RjWTJtdXNPdlZPNFhxNGR2?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Significance of the Number 13 Explored
+
+- first seen: 2026-09-26 06:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Vulture highlights the importance of the number 13 in relation to Taylor Swift this week.
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMikAFBVV95cUxQbW5kTDhvRVBKRExiNHNjeS1MNXhreU92b3NWVGhEMVI1bi1KdFZYNGo3Vmhid1VZdDZjRWdzS2UweHdIZGJSNktOamJiQjduT1BhbXpPN1JST1ptNU4zNHdyUEowU3pQeGV6Q1JSOFJsY25rdXppQVhvOGx1TDgwNjBZNm56dmRqUTZWV0MwRzE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Features Personal Footage in New Lyric Video
+
+- first seen: 2026-09-26 06:07 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares personal footage from her visit to Cleveland with husband Travis Kelce in her latest lyric video, showcasing intimate moments. This release highlights her creative approach to connecting with fans.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxPdlpqSHZZTk1xRDJSbEE0M1l0M1BmMTFSX2d3czlPeVhFOWJyR2RxeHhSVF9SUk5UaUZ0Q3JoU2E0QzBGbktldzEwMkd4WEFNREZvQXBheU9jTGFJaHBCV29kYmRYTjlnMmdBUVY5N0I5NDd1NGM4cDF5T2hwNkVoMGJxcmdsVTJDNWt3OGJDVTNsU2hTNUlELUFkOC1McXYtQzJ5Wkt6dzUzVHAyaHNhMjJMRm9LZ2l2c0RTSWZnUEhuNEFlOGIwaHM5WkdGbW9k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Travis Kelce Shared a Glimpse of Their Road Trip
+
+- first seen: 2026-09-26 06:07 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce provided a rare look into their road trip to Cleveland. The moment was shared in a recent E! News article.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMipwFBVV95cUxQNFVQSks3SExleFBpNnBENTZXX3FIVGstZ2J1YnJhRG9OOFhISWR4S0FiZ0JHMWJvRlo0MTRwLWRydThmQnpNRzZIZzRZRVkxaVpWb0pHMmEwX2pVTkxsTF81Ty13U0E4RXowbWhiUVg3QVlBQWxteWt4S1c3akNmWTdoTXREVFFjWWNERDhFc1AwZzBZSXRzeWlMU3Y1QnJQRTVLZmhuYw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Tom Hiddleston Discusses Taylor Swift and Heartbreak in GQ Interview
 
@@ -50,14 +115,6 @@ Stories: 79
 - summary: A sprawling castle in New York with a connection to Taylor Swift is set to be auctioned. Photos of the property accompany the announcement of the auction.
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMixwFBVV95cUxNRG5VZVlEanA0NExfNkxocVJSSmtJa0QtLWJXekFyZTROSW9vbFNWVHVvcXY5RWlKUEc2Nk1pek42VHNhOURyaVBMNFg5U281M192TXBqcUpEX3dYZ3RuWms3X19vcEh3VS1BQTRPUjMycmk3d1VSRDNaRnFsYWZtZUYwTzVZcmJvRkRIZk5tdldwTER6ZEd3bzFWaVhta0Z4Nl9WcngwMVhybk83Qmp3M3NVWVI4eWhGM3dXOWNaZ25mLWsxX3U4?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Sets Two Spotify Records for Most-Streamed Female Artist
-
-- first seen: 2026-09-25 23:56 UTC | category: music | importance: 9
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has achieved two Spotify records for 2026, notably becoming the most-streamed female artist in a single day. This milestone follows the release of her new album, 'The Life of a Showgirl: Encore,' which includes the record-breaking lead single 'Patient Zero.'
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-breaks-spotify-records-most-streamed-female-1236876086/
 
 ## Eras Tour Dancer Jan Ravnik Becomes First-Time Homeowner
 
@@ -90,6 +147,15 @@ Stories: 79
 - summary: CNN examines whether billionaires such as Taylor Swift are capable of genuine emotions, delving into perceptions and society's views on wealthy individuals' emotional experiences.
 - sources:
   - [unverified] CNN — https://news.google.com/rss/articles/CBMihAFBVV95cUxNZG5zZFpRejZTUko2Tm1RckZpTmVfQVlCUWI3b0xRXzh6UjJ4TGlzcmJ0NTY5UUNwd1A5aFZrdGdFSmFkaFBhWlpROGxnN05fTVgzZFZYWFlCZHJuOHVpSTJhR2NYc0dPZWNzc09kcWVtZmhpNmt5RDlhLUs5ZzlwWGhRYjM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Sets Two Spotify Records for Most-Streamed Female Artist
+
+- first seen: 2026-09-25 23:56 UTC | category: music | importance: 9
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has achieved two Spotify records for 2026, notably becoming the most-streamed female artist in a single day. This milestone follows the release of her new album, 'The Life of a Showgirl: Encore,' which includes the record-breaking lead single 'Patient Zero.'
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipwFBVV95cUxNUTNnRUo5QUdxNU1ubXpWbWhIaGJsNWY0aTkwVU1VVEZnSXMyT2V4RDBvc19aejc5Wk5Bbk9rTm5YME1Xcl9EeHg5ZlZEVTk4UlNGTEJ3Y0xOdkhnby1GQlJiWW1NQUM5eVBlZGc0d2l3OVBRMGxTN1AyUTk4aG1aaS00TXhBV2k4bzNwdlRZWS1LMEdXY3A3RUNMUGZKZHRKQ25scnowcw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-breaks-spotify-records-most-streamed-female-1236876086/
 
 ## Taylor Swift's New Song About Travis Kelce Analyzed
 
@@ -291,9 +357,10 @@ Stories: 79
 ## Taylor Swift Releases New Song 'Patient Zero' Addressing Toxic Relationships
 
 - first seen: 2026-09-25 06:08 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift has unveiled her latest song titled 'Patient Zero,' which serves as a stark warning about toxic exes. The track highlights themes of challenging relationships.
 - sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimgFBVV95cUxNWWE1VDE1dXpXOHBHMXJvVDJ5Mkx6WEJ2Y3N4bjd1aWRlQmV4MWk5aHNSaWVKRUZ4TG44TWR3MzlmNEFneUdRc1dpdkdRWldEM0pURm1HWWFCWXl3eUlQaEtBbVdCZzN3Tk5ITzg1bkdKZHgxbkhqNldtTGNOOE04ZlBBNlRZeHFjQUNONWROajd6cFpWMEdsSlBn?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiowFBVV95cUxQRk4wY2pQMVRscUZxd3g4dFRlM0pjV2t0TUUwTldybklqVmF5ZGdvZjFnbzBRSG5jalhUSVc1UDdNT2hfTlBVZjVMa3hrQU9KTGJWN0dpQjlZQi13dGFSLVpaOVliTE1VbUljMEp0ejJpdHFyTkYxQzJnZWZYZjZtZzhWRTM5R1hoelRoQUdEZnJabkQ4NTYzajlaVFlBaEJHMk04?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMirgFBVV95cUxORUdSYkJVY2p6Q3Y3UXMzUWc4SS15N2x0ZFFvaENtcWVMSXQ2NlpEOFJQdVdPcWpoN1gtTG9jWTMzcW5iMzJ3QzVEbEVtZTdKQlY4VHptaXhhTTZ5YUtFZGhrTV9OaWowUEk3WWJJQTZGa3haMDMtYnA2V3k1TTJlUFBEaldQb2FWM2szR3Buc0VIdDlsSmc0UEp1aEl3a3dwUUh0UmpuV2JmMG1lTUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMivAFBVV95cUxQcThUSkhsc25WZXdYbmcyTTdCY2oyTkt5RmNWVGVkTW11bFY0YWV1SzN6RXdlVThqSllzcWV0UTBDWTlCczctSk9Kakt0Y1NvalM3UUlBalpyd09IYUZweHdlc09FYVJRZnZLUzk4eG1TQmNLR2RSZElRRHUwQnA4QWZrdjJXOUZQQndsSkdXZlAtRUhtMVltNWxfRVdWZEV2LWdJSWxmZXFwYnNWc21Pa1g5VHBfVlloNkktbg?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -682,51 +749,3 @@ Stories: 79
   - [unverified] WKYC — https://news.google.com/rss/articles/CBMi-wFBVV95cUxPVVJSelhVbU5wWDRXUHVBc0l1dmZMakJ0QWdMRTlhcFVXaVVBSG1HYTZZYVdkUmxBVGdfX0xjMWRlVFFocUJaUmZQN1dkby10dGltOW1ZcGpfajZzcGRxSld0WmVyV2ZIUDRFQ2ZfcFd4WExzU1BJU0hxREtaeTh4Tkd6bG9GLUkyTWFyaGs2dzhqMnByOUJxOUlFOGNldEREY0xfS0p6Nlo0eXIwYXRIUXVETFFkazVyS1BEaFRMVEhPaHpmU2dRd0ZaOUk3WDM2NW13TDF1YzRTM1JsOUhRTnlzR1lWN3NWcFBqdjBQM29XNTVNUHkwSzE1QQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwJBVV95cUxPZGhUV3ZodmVDT3pIQ2pFN04ydDZ4QnNrcTEtWm5yX3lnUDFmNmE4OWZuVFhDMEVWY1YtbktnekNnbGtYZXpIMzY2R21sbXc2a1VkQWZwdi10VWs3R1ZSVnFwZGhxbk5sSjBjdGNvNG1QZEFDRzRCcFkyREdkWUJsdkdzVXNQQm16bGF5SnE5Z24zYmRvZ1hLTVN2ZERFTnlPWFVzRWhSUFRWdFFFcENxLXQ1MDVrOVhhM2M0VWJ2azh1UGZ4a1k4bXAyZ0h3ZjJfMGdDU3V6VkhpYVRQbk9zcHIzZm85Uk9laVd5TmZZTEUweWtJT2stc1ZJWUxEN2N6bVhXRDc3V3FjdG12ZHkzYVdKYlhzMk0?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNSlVUcnUtaUczT05fUlVFNkIyeXp2Y2pMc0VvOWU1cUdkeHQ0d3EwdlA1UnloX2dtdTloY1VqUXo3T3JOd3B5eVc2R0Z6NDhWa2U2UkpZRnQzSFZoWkROUlJZd1RNS1VFVjNLVFIzWnF2VmM2VUZ3N2hoNE40ak85NmtjakgwRV9tMDN2UGJPT1cwMXFCVTB1QkhxU1AyWHRmTThQMmNFOXlCNU5WN0hCTEN5dDZoOEZhYTBCV3kyWlBQbVFic2JPNVlMN0kxWXczMnBDbUk0TE50cjR1WXpSTXFPOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Speculation on L.A. Times Influence on Taylor Swift's New Single
-
-- first seen: 2026-09-23 05:54 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from the Los Angeles Times raises questions about whether it inspired Taylor Swift's latest single. The connection between the two has not been confirmed.
-- sources:
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMivwFBVV95cUxOQkZCZkQ4N3FNdlhmZTM5YUxOZHRtdXlMX256ZjJMcnlUMnVNZkt4cmplbjlOdDhlT3ZlSXlxa0F3S2V5TVFocmhwamt6QkpYNDVrUHpIN1VEdFpzbURPRFhoYWZSLWRYMHFxZWthbmVlak9zVTFGbXlCR0MwdGpGQk8xM1ZEZmExRU9lSHE5eEo5Z0ZxMFFRcTdEeTBCMEw3aTNmS0ppdVVZdTItSUZkQWJ5SlBBYkJBMjZNWEFTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Replaces Engagement Ring After Surprise Announcement
-
-- first seen: 2026-09-23 05:54 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has replaced her 10-carat diamond engagement ring with a new design following a recent surprise announcement. Details about the announcement or the new ring have not been disclosed.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxPUFlFVGtzYjQ0ellFdDhJbUZod2tfZmNnQU5MSUVvZEM1RkZkcTNwN1QtMkZseVgxbTA5Nm5VeDM2aUViMEJZcS1sVkU3b3Bfam5fT1N6RWlteVdpRVg2cVZTMnFqUXhDbUdISXdvN1pQckUyQktIak4zQnNOUGNxdm9mQnBXNnJFNHYwZWZtYmhMZHhP?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Support for Ed Sheeran and Travis Kelce Reported
-
-- first seen: 2026-09-23 05:54 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report discusses Taylor Swift's stance on not intervening to help Ed Sheeran while also mentioning Travis Kelce's recent record achievement.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilgFBVV95cUxQRjJoQXRhaS1fcmJwem5jU09hR3k5M3dFcmhEM0hhY2ZUZUEtLWFadVVJbjFNVE5PdzBGOURrem5EZ2ZBZmUtdDhkQUhKc3NRUnVZdFMxQWJIWVAySVJ0bktsaG5HbkVhdHE3V2NlajZxMFZONWNLdjJfTUV6WkdoQ09CcHFNdXdXMnFLdk9OZWloNHNlQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Faces Criticism for Editing Error
-
-- first seen: 2026-09-23 05:54 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is facing backlash from fans for what they are calling a 'horrendous' editing fail in a recent photo. The incident has sparked discussions online about the expectations of celebrity image editing.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQYWs5Q19IR0FCYm53U0VWNXRNMHI5VW9BU0FndGdDd3hMYlZkS015Z2tsYmRFOVkxVXFBR2xhUzJTdlFCMkViQUxiV0F3ZnFZZm45dWczWDA3X3JKekJpUXlGVnJReE5DZTIxUm5rMHdMMXFnLThxanpoOXAtOVZNZUd1OWczSW1LOHR0M3pzSHdNaXZVdU9TaGZRa1lXMGtqcDRHSA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Newest Release Not Wedding Photos
-
-- first seen: 2026-09-23 05:54 UTC | category: release | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's most recent release has sparked speculation, but it has been confirmed that it does not include any wedding photos. Fans are eager to see what the release entails.
-- sources:
-  - [unverified] washingtonpost.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxPR09KX25KTFE3Y0MtVFFoNHlxYVljWVc2TTNESVJBNk0zZ28xcGdmS2Q1OVRDSGp3OFN4S3BDTTktUC1RUHdrTmhWX1ZCWmF5cUg4TktFc0lsNWZHd1A1MUNtdVEwdlRHcFFkZ2ZscFBTRFR6Y0lrOXBveW5yWlZVTi1oSVZrQ3NBeURhQmwzd0FkZVZxVlUzVXBmaEZ0THNlT1pGRjhpd1ctMmFEMHR2YWt2eEFIX3hlbG5Rbkl3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Stuns in Lace-Trimmed Black Dress While Teasing New Music
-
-- first seen: 2026-09-23 05:54 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a lace-trimmed little black dress as she hinted at new music for the first time in several months. This sighting captures both her fashion sense and the excitement surrounding her upcoming music release.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxPbTMtSTk3V3V2WmpkUjUyXzctU3hhWnU1azE3QVRGM3ktNTRDeWJOTXBzdFhFV1lsc3l0ZWNid0w1M2JxMko3YUlZU1d5elJ0eTdXVGNkbXhGbm13c3hEVUVVdTBhZnBObnJSYlpiZE9uYlNpakRLTi1Rc1NTT293bVZxQkZqYUdjZFJkdVpoS1MyU1NmQ2ZYM3RLSlJWWjNCejNOMnp3?oc=5&hl=en-US&gl=US&ceid=US:en
