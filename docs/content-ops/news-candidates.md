@@ -25,7 +25,34 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 84
+
+## Taylor Swift releases 'Sparks Fly' as a standalone single with 108 million views
+
+- first seen: 2026-09-26 13:44 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released 'Sparks Fly' as a standalone single, amassing 108 million views. This marks a significant moment in her music career.
+- sources:
+  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMia0FVX3lxTE5xSndaOVJWNS1YN2Y0alBFRkpLUU1WS0RuWE5idFVXSUtVaWFOWjhGMS1uWlpuZEx6R0xubTdnNG0zMmxoRzZiY2RkdDJzYTJjLTdyWFRDdjJuclJOVXZveVlmeGpKY1pqMUVz?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Among Artists Highlighted in New Song List
+
+- first seen: 2026-09-26 13:44 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: A new article features Taylor Swift alongside Madonna, Charli XCX, and U2, discussing their latest music and influences. The piece provides a diverse selection of tracks to listen to.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-spotify-patient-zero-1237114438/
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/26/arts/music/patient-zero-taylor-swift-madonna-playlist.html
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMimAFBVV95cUxOcjJaYnZWdmxQMjhiZDJOd1RVRVI1Z2ZBQmxPd2FQR3hLc2ctellGNVVVSjdlTmRybXA4WHBwRDJ6N1BFQXFjOVQ0TkZGV1FZSU5EVUFWbV9zVkVnUXhEWHlrMElGS0x2UHhZUE9qeU5MdV9HM3p0WlpXQUYwN2wyVGpEaUh0dWFvckViNENBZTkyZlhhOG9PaQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMigAFBVV95cUxPWjEzUXFzVHk3bkh3SFlLUjRsTFo2eUlQejVKa1c3ZFlGUWF0M3JqRlNJbS1oREhWU2JPUjY2RWs3OG1SSmZmcjQ2N3lJREVWdmNBWGpXVEFlU1BLbU5TSFRuelN6Z2cyaUI5cFM4dXRNOWg4RmZaMmlZTTNMWTRKcA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Ranking of Taylor Swift’s new 'Encore' songs by Los Angeles Times
+
+- first seen: 2026-09-26 13:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Los Angeles Times presents a ranking of Taylor Swift’s new 'Encore' songs, analyzing each track from worst to best. This evaluation offers insights into her latest musical releases.
+- sources:
+  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQU0FGbmVSMndrb1BnM2x0b1BhWE44VjhPckVOOWN0ZGptX1F6NHlpNDNpSUw1TzNkZTVOdkkyMnViS3I4MHFfYXlnaWlfM2dBUDAwVllkSmJXb2tjZ0hnWEpXWlRqcmE0dDFBTmkxM3M3aml4ZW5famJvQTBXRDZ4R0hfX1hMU3czcUVzZWVaUDd0S0l3aHhOTG9xaVJjOWRDVG55OWFUTlJJekJ3c0tBczJlS2RqOXEyMEk5VF9QLUJFaFF6amtMSg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Joe Elliott Discusses Duet with Taylor Swift and Lyric Change
 
@@ -337,23 +364,6 @@ Stories: 81
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMiekFVX3lxTFBIaThCNUloVDNrSGhqR0kwWHhkaU41Y0h5Z3ZJVFdOYVlKQ01RQWs0TzFsTENNa3IybFN4R1NSMjdrTUZ4WDJsXzliS1VTdDFCenBpN3dzMmk4WkI4OTF0cFdGQ3lsYjA5SjdwS1c3TXJ1YTdja05SMkh3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] E! News — https://news.google.com/rss/articles/CBMirgFBVV95cUxPQm91bVp4c1htWndMVFcwY09YN3FPODBveWgta0Y4cnFRbmJIRm00OWI3ZE9pNGdEa05oSl83SUh6VHU0cmh2Tk5fbE13MGpfeF9OZ1JvNG1XNUloOHF1dGIxeEZGTnJsMDNqc1RXbVFRZTRhVkxSdWJoN1dyc0JneVY1dGU2VnNBRnFPdjdDWG1JU2VLZ0tfeHdBakpmTU1aa0lxLWd4Y3hlU0FlZHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Unveils Four New Songs from The Life of a Showgirl: The Encore
-
-- first seen: 2026-09-25 06:08 UTC | category: release | importance: 8
-- verification_status: corroborated | source_count: 10
-- summary: Taylor Swift has released four new songs featured on her project, The Life of a Showgirl: The Encore. Fans can now stream the latest additions to her music catalog.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaWJrcGhLcnZfQnFoMFlxUk1Fd3BLcnM5eXpuTkNGYlB2czBHS1o4cTdIaUdZeThhSGJBNVdWektDSk11NC1CajVUN25rSUhwNHJCZmhSZndKelVEc2FCMGk1RzZ5akdna2pZWXRMWnRtZlQwMzl5SGFmRERNV2N2YnFvdTd0LXRRa2IyWUpPUk9YNEE5UDNzdEVTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMihAFBVV95cUxOMTB2TF9KbllqckVScU9RREk2OGJISXlIc24xZFBac2xyUmpBZE11eHpMb0hDLVVITDRxazNSMWxuUnJDUzZSQXVPMWNkdkdpRGg3REN5eTBRN0ZOdnFvRzZESE9EV1NOM1BSbE10RTVha0M5SkVFQnBrTzM0bU5JcWRkNDQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMic0FVX3lxTE1IUlBxTDVvUHpiQ245eTlfdEp5aTVGWV9oNzFPcEIwZGNJMnFhSlF6UG9vTGpPZDRHMS15My1fUHRuWHlnN1NGbzBoTlZkNmdCVEVhMEJ3SkRUUmxTRFpVS01xMDZ0aVFFV3dkaUFMWjB2ek0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swifts-the-life-of-a-showgirl-the-encore-breakdown-1235631726/
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOZ2QwVlFsS1B6ekdqdnFzWUh4b2R1cm5BOXdhNkJ2eUs4TnNRcTVBdTliVFpwaWtBbTNvWENvellDYmJtYnBCcEVLT1NrdENiaUZjUXJVcDgwd0xqc2xtNV9oQTZNQnlvVGZIYWkwSUx5T0ZZNG5ON0g0V3BZdmZIWVFsVlJLWE0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/25/taylor-swift-the-life-of-a-showgirl-the-encore-review
-  - [unverified] theguardian.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZ2JrNTh1UjFRdC01YWpMU19kT29fanY1eVNkV20xLUJhQ2ZwV1h6UEtoLU1XdGtDMmxUdmpZLWhBMXRrMTNoZ3N6RUI4eWt4LWpzOW4ta09vQW9KSXYxdktPTThLbzJNOXJPRkFCRS0zZ0NQTlJGbDZOVm5OTjgxeTV4Qkk1eFJqYlIxaUpzWWNFVzhhanpJUDIxSEw2M1pr?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxObnRZNXFCR09jOHkxcFBtdXNRcl9OSTNVbkNkeUU2cHFTREFlRk02MDc3NWxOYjl6THFUd3NfcHgwQTRzU0djRnVXeUhfVl80cHphWTRCRVcyZElKRmowV1dtaVFxcmRPbjZoeWJMVnVhaVduWnZNMml4NG1XZFBPdFhoUXlrOVNiWGxkbWUteGd1ZEtUTHBuZWU5WF9UaXhx?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-review-life-showgirl-encore-new-tracks-1236875342/
-  - [unverified] WUSA9 — https://news.google.com/rss/articles/CBMi3gFBVV95cUxQQ1REbE9vcVYxal9VWTM3UDVEcVRwbHBYMVFNZmM5NGhaTTdHcEVZOXlRUmtobE5FOEdUZnRfYW1fLXFrM19UTlZYUzBSaUxBQVJWUWFva2Z0X21Od1NlX2tLTVBuU1BRS3NULS1RVzV3MWFicG93amlJSmxBb0IyZ0JFUXVPWWpIa20wVmlBR1ZtV0dQSWhRVU9LYnNCZHFYeTFJMmZFZmVDMmlhR3lVcGpMYmNFQ2pIV2FpUkx1ZHV2QmNVUVdzR0ZpSDJBN1ZaaXdfa3c2MExhbk5tV1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Releases New Song 'Patient Zero' Addressing Toxic Relationships
 
 - first seen: 2026-09-25 06:08 UTC | category: music | importance: 7
@@ -367,6 +377,24 @@ Stories: 81
   - [unverified] people.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxOR0hfR3hCNTdyZEYxcUFCNUJIVmhRSEMxVHVyeU16U0daOU9MZkR1MzgteHBSOWQ4V3ItVHVFVHFCc19iMXRBUzF1ZzRtR0VfYmVabWthcGxIRUVYZ2FOYjRFN25ZaWppS1pzNDV2cTdOTkJ4NzdjWGJyZkZuczlXbFhYaV9RaEZCNWp3dFNhRXBvTDRkRk9hOVBid1kzVVZEcVRha0Z3d3pDSDV0VW1IMlFGNA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNdXNQTG14UnYycVAyMlFwNHRMZVBGckdpczIycjh5WThLWjI4VExfNDN2X3Y0WkZOVDRVUmJLZTJfeWJKQV9hMFBvX2ZUNE1sV1FrMXZCWkp1TVdBeWhJdzZxcUhtSk9IcEhMNWJzc2JKYUZicFpSanhtZUhBbjFDTUFGOXdrN3FFMEQwZHROZllwZk1kTnBCUTgwM01lY0ExV3RMbklqVGNyVmNYV1Mw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOM1dOUVB2RnRkSDZGNHBWdWhTaEJ2eXlaOEVzSGRGNkRMcUhtYk1WVENIYUhLRE5ULU1YWGRhY00wd3JhTHhqdGFYcFZlYWRKSkpXY0Q4VW9jdzRUQnA4X2ZubDByTzFmZW44cGZrR25lQVlZYWtRR2MtbzhWU3czbHkxMHRSZmFWZzBxQkdJWTFCUW42?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Unveils Four New Songs from The Life of a Showgirl: The Encore
+
+- first seen: 2026-09-25 06:08 UTC | category: release | importance: 8
+- verification_status: corroborated | source_count: 11
+- summary: Taylor Swift has released four new songs featured on her project, The Life of a Showgirl: The Encore. Fans can now stream the latest additions to her music catalog.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaWJrcGhLcnZfQnFoMFlxUk1Fd3BLcnM5eXpuTkNGYlB2czBHS1o4cTdIaUdZeThhSGJBNVdWektDSk11NC1CajVUN25rSUhwNHJCZmhSZndKelVEc2FCMGk1RzZ5akdna2pZWXRMWnRtZlQwMzl5SGFmRERNV2N2YnFvdTd0LXRRa2IyWUpPUk9YNEE5UDNzdEVTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMihAFBVV95cUxOMTB2TF9KbllqckVScU9RREk2OGJISXlIc24xZFBac2xyUmpBZE11eHpMb0hDLVVITDRxazNSMWxuUnJDUzZSQXVPMWNkdkdpRGg3REN5eTBRN0ZOdnFvRzZESE9EV1NOM1BSbE10RTVha0M5SkVFQnBrTzM0bU5JcWRkNDQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Exclaim! — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZ1hCUXkwSEphVmRTZEpqNEVZSHFyNUp4WEFSbFo2bUdWS1lYeUxfbkEwMjZPV0VQcmZlTWk4Y2ptNnNMVW1Ha29tb1A2NTRCUDU5Skh2VjR6czhadURxNVZmT1JKUkRYd0RHTlFlU1JpRW9NLW5xcmNraDdsNGlyS0hCamV0SHVTTUNJZnVyejFiVkpBcEcyTEdXdjc4N1lCSFZST1JjcTFYbnhqdndOODljTHpmOGVmcHk1ZC0yVU1ra2g1Sm40bTl3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMic0FVX3lxTE1IUlBxTDVvUHpiQ245eTlfdEp5aTVGWV9oNzFPcEIwZGNJMnFhSlF6UG9vTGpPZDRHMS15My1fUHRuWHlnN1NGbzBoTlZkNmdCVEVhMEJ3SkRUUmxTRFpVS01xMDZ0aVFFV3dkaUFMWjB2ek0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swifts-the-life-of-a-showgirl-the-encore-breakdown-1235631726/
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOZ2QwVlFsS1B6ekdqdnFzWUh4b2R1cm5BOXdhNkJ2eUs4TnNRcTVBdTliVFpwaWtBbTNvWENvellDYmJtYnBCcEVLT1NrdENiaUZjUXJVcDgwd0xqc2xtNV9oQTZNQnlvVGZIYWkwSUx5T0ZZNG5ON0g0V3BZdmZIWVFsVlJLWE0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/25/taylor-swift-the-life-of-a-showgirl-the-encore-review
+  - [unverified] theguardian.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZ2JrNTh1UjFRdC01YWpMU19kT29fanY1eVNkV20xLUJhQ2ZwV1h6UEtoLU1XdGtDMmxUdmpZLWhBMXRrMTNoZ3N6RUI4eWt4LWpzOW4ta09vQW9KSXYxdktPTThLbzJNOXJPRkFCRS0zZ0NQTlJGbDZOVm5OTjgxeTV4Qkk1eFJqYlIxaUpzWWNFVzhhanpJUDIxSEw2M1pr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxObnRZNXFCR09jOHkxcFBtdXNRcl9OSTNVbkNkeUU2cHFTREFlRk02MDc3NWxOYjl6THFUd3NfcHgwQTRzU0djRnVXeUhfVl80cHphWTRCRVcyZElKRmowV1dtaVFxcmRPbjZoeWJMVnVhaVduWnZNMml4NG1XZFBPdFhoUXlrOVNiWGxkbWUteGd1ZEtUTHBuZWU5WF9UaXhx?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-review-life-showgirl-encore-new-tracks-1236875342/
+  - [unverified] WUSA9 — https://news.google.com/rss/articles/CBMi3gFBVV95cUxQQ1REbE9vcVYxal9VWTM3UDVEcVRwbHBYMVFNZmM5NGhaTTdHcEVZOXlRUmtobE5FOEdUZnRfYW1fLXFrM19UTlZYUzBSaUxBQVJWUWFva2Z0X21Od1NlX2tLTVBuU1BRS3NULS1RVzV3MWFicG93amlJSmxBb0IyZ0JFUXVPWWpIa20wVmlBR1ZtV0dQSWhRVU9LYnNCZHFYeTFJMmZFZmVDMmlhR3lVcGpMYmNFQ2pIV2FpUkx1ZHV2QmNVUVdzR0ZpSDJBN1ZaaXdfa3c2MExhbk5tV1E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's 'Babylon' Lyrics Explore Cautionary Themes
 
