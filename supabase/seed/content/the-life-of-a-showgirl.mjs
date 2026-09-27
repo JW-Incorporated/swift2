@@ -14791,6 +14791,80 @@ export default {
         ],
       },
     },
+    {
+      slug: 'cleveland-lyric-video-kelce-road-trip',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'relationship',
+      significance: 'notable',
+      title: '"Cleveland!" gets a lyric video — home footage from a road trip through Travis\'s hometown',
+      snippet:
+        'Alongside "Cleveland!," one of the four new songs on The Life of a Showgirl: The Encore, Taylor posted a lyric video built from never-before-seen personal footage of a road trip she took with Travis Kelce through his hometown of Cleveland Heights, Ohio — Kelce driving and grinning, Taylor filming from the passenger seat, the tree-lined streets he grew up on, and a closing image of a woman in a white dress on roller skates marked with 13 hearts.',
+      sourceUrl: 'https://www.youtube.com/watch?v=jfVVXYTZykw',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.',
+        // No `video` field on purpose (same reasoning as
+        // 'patient-zero-released-spotify-records' above): the official lyric-video
+        // frame is used as a plain credited photo and the video is cited as a
+        // source. Declaring `video` here would make the ytimg still the moment's
+        // own video frame, which the #2080/#2081 feed-card rule suppresses and
+        // the video-affordance real-vault count tests (#4134) treat as a
+        // tripwire a seed-only lane cannot move.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/jfVVXYTZykw/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: an aerial shot of a tree-lined Cleveland Heights
+            // neighborhood with the beaded title word "CLEVELAND" across it — the
+            // official lyric-video card. oEmbed verified: author_name "Taylor
+            // Swift", author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Cleveland!" lyric video, YouTube)',
+            caption:
+              'The official lyric video for "Cleveland!," posted to Taylor\'s YouTube the day The Life of a Showgirl: The Encore arrived.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1436476/taylor-swift-shares-travis-kelce-road-trip-in-cleveland-lyric-video',
+            source_title: 'Taylor Swift Shares Travis Kelce Road Trip in Cleveland! Lyric Video',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-27',
+            reliability_score: 4,
+            notes:
+              'source for the road-trip footage — Kelce driving in a blue striped shirt/black cap/gold chain, the freeway sign, Taylor in the passenger seat, the shopping strip and neighborhood, and the return to Cleveland Heights High School.',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/26/taylor-swift-shares-never-before-seen-footage-with-travis-kelce-in-cleveland-lyric-video-watch-now/',
+            source_title: "Taylor Swift Shares Never-Before-Seen Footage with Travis Kelce in 'Cleveland!' Lyric Video",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-27',
+            reliability_score: 3,
+            notes:
+              'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
+          },
+          {
+            outlet: 'Taylor Swift (YouTube)',
+            url: 'https://www.youtube.com/watch?v=jfVVXYTZykw',
+            source_title: 'Taylor Swift - Cleveland! (Official Lyric Video)',
+            publisher: 'YouTube',
+            source_type: 'official',
+            accessed_at: '2026-09-27',
+            reliability_score: 5,
+            notes:
+              'the primary artifact — official lyric video on Taylor\'s own channel (oEmbed author "Taylor Swift", youtube.com/@TaylorSwift). Its title card is this entry\'s visual.',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
