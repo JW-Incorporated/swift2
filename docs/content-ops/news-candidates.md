@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 73
+
+## Taylor Swift Makes History at MTV VMAs
+
+- first seen: 2026-09-27 06:34 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is making headlines at the MTV VMAs, where she is set to make history alongside Madonna, who leads in nominations. The event is a significant moment for fans and artists alike.
+- sources:
+  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMipAFBVV95cUxPQWV2Y2lrcm9PYXFxSDk1WXlWWWRwZVlFbTRXUW01OWpwOFBqV2lFTUFHMEhjUEVObmZab3JmUHNSemFidXYtVHY0enlGVkpLbk9ySHBoYzBKYmNmdHd0ek8wX2x0TmZzMXVodmVTX0tjUnRCTkxiSnA4TzQ0TjhhdDVkcndROXRBeWVfRE5VcWw0bHVINFY5Y1NjdGlIX213WU9hUA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Speculation About Taylor Swift's Potential 2026 VMAs Performance
+
+- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Todd Rundgren Links Taylor Swift's Work to 90s Video Games
+
+- first seen: 2026-09-27 06:34 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Musician Todd Rundgren comments on Taylor Swift's music, claiming it is linked to the video games of the 1990s. This opinion piece from VICE discusses the connection he sees between her artistry and that era of gaming.
+- sources:
+  - [unverified] VICE — https://news.google.com/rss/articles/CBMi0wFBVV95cUxNcGExbi16MVVOSGxUSWFFRDd1bC1uLVdrekpFbGd3cTVzbnZuTm1pNWJ3VElBZjdRSnZ5Qko5elpmT00tWS00dGd0UGdlZXdtNzIzakQ2NTRtc096d0hSRTE4dU5SeUhRbmVxREVMRkZLMnBKSkhCUGlHVHkwLVhWY2QtZkYya2RPby1JYkROc2NRNF90bnIzRE5ybkNMaDB4dWdNWFRQYXp1QWV4ZE1IV1A3bnBKWjFCRUd4T0pYVWh2RU1WN3VLSXJPdy1xWGxqLV9F?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Releases 'Encore' for 'Showgirl' Album
+
+- first seen: 2026-09-27 06:34 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released a new song titled 'Encore', which is part of her successful album 'Showgirl'. This addition highlights her continued musical creativity and engagement with her fanbase.
+- sources:
+  - [unverified] Reuters — https://news.google.com/rss/articles/CBMirwFBVV95cUxQYkVzMjEzd1kxSnVONWppLS1UYXVFZE9NVEgxVW5FWHhQV0Z6cDlrQWRGXzZudmZMWTI5R2NiODNkbkJsem1fdVVIT0ZZdllhYkliVG5GRXpzSkxvOHJPTWdLM1U1R3lTSVJ6THJnWXBrUWhUSmhKS2gzTEFoRnR0bGRwU3d1dkdFZlVwc0VsWUI3LUdWdEtEendYc1NvblZJNlZGYndPUlBpN0VsNDlv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Jalen Brunson Jokes About Swift-Kelce Wedding on 'SNL'
+
+- first seen: 2026-09-27 06:34 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During his hosting duties on 'SNL', Jalen Brunson made a humorous remark regarding the wedding of Taylor Swift and Travis Kelce. The joke was featured in a segment highlighting pop culture events.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPSWdPYjJjNUV5X2RDSDBaaThzVHNsNHVFeUhNeGpZY0F4NmpfQmhibzZuc0FLLW9oV0NqR1FxOXNucm93QlNnVzVDVWxhUlc5ZVVDd3NScVQ4Uk9jblAtVkhKd3M4NWRtWlAtek15d3Ezcno4T3dfd25xZ2ozNzV5VzBVbWRpTDJ2M0dCalBGQ3ZvLWJTUnlqZ2NnZTREVDAxaTVQcTZpTWsxSTRXTzFobnNiOEZaTVhZand1UlR0TktWaGdYNTBjekUzOUtRYmd5dWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Fans Speculate Taylor Swift's 'Pink Clouding' May Apologize to an Ex
 
@@ -102,11 +142,12 @@ Stories: 77
 ## Taylor Swift Among Artists Highlighted in New Song List
 
 - first seen: 2026-09-26 13:44 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: A new article features Taylor Swift alongside Madonna, Charli XCX, and U2, discussing their latest music and influences. The piece provides a diverse selection of tracks to listen to.
 - sources:
   - [unverified] Deadline — https://news.google.com/rss/articles/CBMif0FVX3lxTE0zbUJiRS11X3QtTm1Dc1piMUNQUko1bXNEOUhadUQzWGNIWDZ4c0xxNDEyUGFRWG1NSWs3NlVhSmhVVWJRWHhPN1FYSFJnVll1c0plWFkyazRZWTlKUlhVZDJvR1ZyZnFFSm9EVm9ZYTkxTVE5c3hHR0o1aGh0YVk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-spotify-patient-zero-1237114438/
+  - [unverified] IndieWire — https://news.google.com/rss/articles/CBMimAFBVV95cUxPbHVkd1Q0ZjhkR1Yxa3BpUWhCNmVxaURUYXRSbDd1RGFGemRxMHBsR2FocDRYOFBRSVlySVVoMXZqU1hwNnNXaVZuOWFhdF9HMUExQmJ1aDhuUXRHN1ZYLUdmZi1FUmdVTzNWQkNOOE9YOTZ4R2s1NDBJSzR3d3prYUxvaktDNFppRkl2eUtwNjBENkVtcE9XbQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/26/arts/music/patient-zero-taylor-swift-madonna-playlist.html
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMimAFBVV95cUxOcjJaYnZWdmxQMjhiZDJOd1RVRVI1Z2ZBQmxPd2FQR3hLc2ctellGNVVVSjdlTmRybXA4WHBwRDJ6N1BFQXFjOVQ0TkZGV1FZSU5EVUFWbV9zVkVnUXhEWHlrMElGS0x2UHhZUE9qeU5MdV9HM3p0WlpXQUYwN2wyVGpEaUh0dWFvckViNENBZTkyZlhhOG9PaQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMigAFBVV95cUxPWjEzUXFzVHk3bkh3SFlLUjRsTFo2eUlQejVKa1c3ZFlGUWF0M3JqRlNJbS1oREhWU2JPUjY2RWs3OG1SSmZmcjQ2N3lJREVWdmNBWGpXVEFlU1BLbU5TSFRuelN6Z2cyaUI5cFM4dXRNOWg4RmZaMmlZTTNMWTRKcA?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -629,76 +670,3 @@ Stories: 77
   - [unverified] Variety — https://news.google.com/rss/articles/CBMitAFBVV95cUxNN3RjcGdxcjFZM0duM0hjellDNVlPSTV3S1NYYU0tZUs3V1lfZU5IaUNDM0U3ODN0blBYd0JlQzRqbzhqTkw4NWNWeW5LWjVSd0htU0FuTlRQelkxOVRRSlUwZWlkTy1fX1oyM1B4UWZ1NHo1TUF0NHlOM3dJcjdiS2F4ZFlxTUVWUXo1WEtjTWZqUEtkYUU1TGY3bzNlNUlvVWhtd3JzenNZQ21WZU5NNkNiQ00?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-music-video-dakota-johnson-colin-farrell-1236874206/
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOanl2NFB4ME1IRjYwdHRWb2FRQVB0TExVeWloVWZOTWI1U2ktQ3pWaHhPWmdtd0ltdzRwaGdZckpDWGJmaDdHOFZ5TTB6Y3N6R2k0Qnp3TllZR1N5ekpYMzBtc05qWlZzb1VCQU9jM2tVWmpuQmZYcnd2S1ZFeFdmTThnTTNwdFM3SFFhTlJ2dE5sbG8wYnNLekxwcXJjMDJK?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Nicholas Jebran Micro Minidress
-
-- first seen: 2026-09-24 06:08 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted in a striking micro minidress by designer Nicholas Jebran, showcasing a bold fashion choice. The outfit drew attention for its daring length, emphasizing her contemporary style.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPeEdLRmpxU2REOWRSQUVnV00yZVdLRm1XVzdfWnRjTVhXcXNJRGtUNmFCbEJWY2ppV2RxS2pQNnRtMTVWSHJ6ZWlxMnQ0bXNDOVg3cmVVMkY1YWs0Wm80b3VtWV9GcG4tcW9rcG8zanhJSzd2bWQwTE9NNDVIZWQwM2dORGRzV1d4WjhqYVNBd3pUc0lncGlrdlk1R3huaEkzYktrOEFHMA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Upcoming Single Could Mark a Career Milestone
-
-- first seen: 2026-09-24 06:08 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Forbes highlights that Taylor Swift's forthcoming single has the potential to achieve a significant career milestone for the artist. This development may contribute to her ongoing legacy in the music industry.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMirgFBVV95cUxNMlBzYmZScmJ3OUhIU3RrUEMwRUlGMjBYVG1HVXV6ZmktLVQ2MmVxZzA5R3B3NmNqdGdMU2c3WldIdjJ6T2hCU2ZIbUlOaDMtdmhQTW4tdDNocmVWalU0eEFaRDlyQndYNnctVWlzSkZlQTZqRHVJUGtFLW1HQmtaWGVVOC1BZ3o0SW5VbEw4LVI2WHFPMWFDYUZsdmJuX0xTUUV3OGVwYzdzbHY3TkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Wedding to Taylor Swift: 'Best Night of My Life'
-
-- first seen: 2026-09-24 06:08 UTC | category: relationship | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has shared initial details about his wedding to Taylor Swift, describing it as 'the best night of my life'.
-- sources:
-  - [unverified] BBC — https://news.google.com/rss/articles/CBMiXEFVX3lxTE5TdFlTMWxmMnNSY3cxRXc5YUNCV3pDemdiNTd0djh3eUZ3TXNtc1JTb0ROSG5BV0dyUGNqNElodTYzYnhHVnMxMzlTTmQtS0xCQlNWQjN5SzMtZFVi?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Cryptic Announcement Following New Album Reveal
-
-- first seen: 2026-09-24 06:08 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a mysterious announcement that has caught the attention of fans after the reveal of her new album. Details about the content of the announcement remain unclear.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxNV0hUSVptNFNSdlRsVmZ2WXQ0VEpMM1FBY1VvZTlQWHdpYnM0Qk5fQ0F4aXExWkxQMnJOcEFlRzZXc0dzMUhHQkJ2ZDkzSkRXVmFzWkpWUUhYVW9MLVZpSVB6elFLbEpkRkhPZTRfMEQ2S2gtYjNkamJrcDRNRWNwemxXQUxBWFloNGN4M1RVNmY3Y09wQ3Q4cDQwYmZiUjJj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Announces New Song Titled 'Cleveland'
-
-- first seen: 2026-09-24 06:08 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has announced the release of a new song called 'Cleveland,' as reported by Cleveland Magazine.
-- sources:
-  - [unverified] Cleveland Magazine — https://news.google.com/rss/articles/CBMimAFBVV95cUxQTkZCMDBuNUt3dFVkRTV2azU1MnlkakdscHlYdm9FMnl0S1NVNUhDWjRJQkFyZDRXeFNveVFwczBWdlZ3NVlGMWFZZ2ZtamdxTWpVaFlISHRSc3R4cXRSMmJjZnBEUm1hMVdQOWs5VWlMZnpPbGw5WGJ0UXRpUjdWellXeHdhZGJ6UXNQa0JOUlNGRWsxMHIzeg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wins MTV New Artist Director Award
-
-- first seen: 2026-09-23 23:38 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been awarded MTV's new artist director award, recognizing her influence in music and artistry.
-- sources:
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQUDJ4N0dSeUstUUpiR28xNXROdDNVVExOLUF6b0E4cGFWQXE5OXpwazJ4OTlQb1BQRE91WWFITDA0dHpJSXR1UzA1cDlmRE9DNl9fUzlOYUEta0JaWVhpdzZrNDVBVy1LRzd3VEdteHM4a3pUX3dmWjU4Rk05OXNrSzZlVXNETlgyWnJvMkFmVzRpREl1algtZzY1Mm1ZeXFLWlJid3pQcUhOZzg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Comments on Taylor Swift's Touchdown Response
-
-- first seen: 2026-09-23 23:38 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce addresses Taylor Swift's viral reaction during a Chiefs game where she referred to him as 'That’s My Husband.' He emphasizes his intention to make her proud.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMizwFBVV95cUxQQWRId1JNNy1VZmpLTHpYWEdiYUNBN0Ewd0xaaEpXc0hqc01wZWg3cmY2Z3V3b2gtRm5XUFJteW9hbnJaZUl6UGt6OENpV1QwNFhDWF9NUlRObUF0cnJlRTNYV3ppakp3Z1k1RkZFdjJKZXBqckZHa1RGUlNUYUlJTHdWOFE4cHllbUt1dmJMR0piekl3Rm1LZUJ2YUxEeHdoX2Yza2FPdjN2NUVfa3FpX0lWa0hfaXl0WEtVcnlseWxwc3VvT1lUU24tSVIwdzg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxNaExqV3JyOGVhMm1GSExqZ09SSWFXWjQ5cUdweVR0OUJfUUw3NVlGczlmVnR4TVhOMG5WMFU0RFNiWTdUZE1yWHJIQVhFQzRxMTlWUGc4RG9WQWFpWXlSZjNXSTIyZlcwWWFDQVB1YzVEUGF2d0wwcEFJZGRXYm83X1F0Ym53dk9peDdRSXNzTzJMQk9LLWxkM0htV2dvVTU1R2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Poised to Make VMA History with New Honors
-
-- first seen: 2026-09-23 23:38 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to become the most awarded artist in VMA history with the new Artist Director Honors, surpassing Beyoncé. This recognition highlights her significant contributions to the music industry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAJBVV95cUxPZnNZZ2wtRF94MHVOb2hXTW9SLTVoWTZYNWk5akIwbFRPNEZxVmktNkkyQTE3SU83bTlYcVlxd0ItTjFUZXM4dDJiTldPZnZWOTdMYm9vUzRsRF96b1pQSkZUSmdjdXk1RGtsU05MTS1XN2FacldsNEV1MWFndk1YUlJmell2dzljT1NfM2RMLWlYbDhQSFczU1RnVkJKZWxBMk9YbTdMQnJOUGtudXRDaERjNkhuSzBSQXp5dnhXcGMyTVc2N1ZPeUZybm5kUEZ2eHRfcmExU25tTHpoUDFYSWZXeW5STklueENvYWZEVll6ZklpaGJaYXFPc3RDRDdZcVdRLS1Mc1lseDZmWHkydw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Sports Unique Tassel Look and Controversial Shoes
-
-- first seen: 2026-09-23 23:38 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a minimalistic tassel-covered outfit paired with shoes that have sparked mixed reactions among fans. This bold fashion choice has attracted media attention and commentary.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQR1NsQUZsR1cxaDJJY3JzM3gxeC1HeFNwSWcwdWFrODJMWFg0Znh5bDlDd3YzQk9rVjhEU040UHlPT0FreG1WQTBEWlc3a1V3TEE3enpMcXA5OFMyWU9QSnN0ckl1TlUxdzB4VlhHRnBtdDI0VDFscnVsZUthN0RwbmtDTk15LU9FUzFR?oc=5&hl=en-US&gl=US&ceid=US:en
