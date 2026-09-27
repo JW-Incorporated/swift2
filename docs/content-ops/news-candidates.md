@@ -25,15 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 82
 
-## Celebrities Who Cameo in Taylor Swift's Music Videos
+## Taylor Swift to Premiere New Music Video at 2026 MTV VMAs
 
-- first seen: 2026-09-27 14:40 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A roundup of various celebrities who have appeared in music videos created by Taylor Swift over the years, highlighting their memorable cameos.
+- first seen: 2026-09-27 20:07 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: The 2026 MTV Video Music Awards will feature the world premiere of a new music video by Taylor Swift, alongside a lineup that includes Madonna and Kacey Musgraves. The awards are set to air live on Sunday, September 27.
 - sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE55Mk1RbDkzYk5GdThURUp3T0hqcUJKR0lBYlBNYzdUR25CWjdYWExFWnppVlZZS2JJQ2twS01UOVlqRHgtNmtVOFhpYVpsZnBpQk1wcWY4MkNRUS1DQ2ViczNfckZDdlE3SFVTZVRsWGtLWE05MFZqdDdEQXpGUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/shopping/news/how-to-stream-vmas-live-online-free-1236876095/
+
+## Taylor Swift's VMAs Appearance Precedes 'Patient Zero' Music Video
+
+- first seen: 2026-09-27 20:07 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a special appearance at the VMAs, coinciding with the upcoming release of her music video for 'Patient Zero.' The event highlights her ongoing engagement with fans and the music industry.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMioAFBVV95cUxQV00xa2FCX3o5X2YyTGtkdXh2MFZNUUt1THNRVFpDbEN4YkdEc0pJZ0hQUE10Q0ZkVXdzNDBKbmt5VzJrSzh3YW5HRDcwZG5MTV90enBrSVlUSFNnaFlLXzFjQXduRmJmMXN6WHpCY1h5VEh0MXVGczh1R2VxNTVYbHh4bFZuNkpQSXkxcFUxVzd1alprZ0xtWnBoRk1vVzlv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce to Miss 2026 VMAs with Taylor Swift
+
+- first seen: 2026-09-27 20:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce will not be attending the 2026 VMAs alongside Taylor Swift, as stated in the article from eonline.com. The reasons for his absence were not specified in the snippet provided.
+- sources:
+  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOWEpZNl9lU2ZJQ1J3N0stUUt5eTlmbE5BWl91ZVNxMWt6RXVjOG1SYy1vNVdsUnl1eFA5Vjh1Rm0xZWFzM25rZnh2V1BsSXRvVWk2aWVjakVHRWdXaGFPZWdFOTV5aWx0ZE1lMjRxZmVIZTNTVXFMbmdTVm5zbXBEZkVlclIwSTE2ZDdJMk1pM1FPeXBYV1hRWDM0SnZ5dGxo?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## The Wizard of Rock Would Like a Word - Vulture Analysis
+
+- first seen: 2026-09-27 20:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Vulture discusses the influence of The Wizard of Rock, highlighting themes relevant to Taylor Swift's musical journey.
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiekFVX3lxTE96a3NxalM0b3M4aHBWRjMwcWFtRXAzVGNPRm8yY044NUttOHdDSlVzVy1fWm5WRGV6bnU2OEE5T05kMy1DN00zLUp5ZXhWV0ZVQkhUNWxVeV9zTjBFMHZ6SmtzcmtVSWhsa3RhbkZwdUlydU1vNjV1eDRR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Will Not Attend VMAs 2026 with Taylor Swift
+
+- first seen: 2026-09-27 20:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce will not be accompanying Taylor Swift to the 2026 VMAs where she will be honored. Details on the reason for his absence have not been disclosed.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOTFo4R0wyX1EzblVZMjFCTExtZkFWZjEwT0wyYUpMeTR2YTBKOWl4Z3hGblJFeE5yc3NPSkNXTUYyR1pZOEd3Qzl0c2J3RVZzN3hYd2w3d2NRSXdLVlNWOVBNWkdTWEZ3VDNLLURMaDFsLU1oZ184Z2dGTm5KblI4ZEtqR1c0SC10a29ncE1xWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Upcoming Appearances: Chiefs Game or VMAs 2026?
+
+- first seen: 2026-09-27 20:07 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's potential attendance at either a Chiefs game or the 2026 VMAs is generating interest, as speculation continues about her upcoming public appearances.
+- sources:
+  - [unverified] justjared.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPdWNudVRoMWtjQzBHSFVrNGVXZDdMN1F1RWQzODJXS083VTdiOXh4dGlGSEY1MmZQUTI0NHY1Qmd1UVRrNXZQN0F5NWpLcnNBUDItV3BoYUJCNnhnWHM4NF81dHdQcTNlaE9OQWFOVVNtMkNWRUZ5TVFhbWlxVm45MlBSOFRYMmRkaHRfWFJJcWNodUFLR25aTWN2b2h3ZTVTTVBjdFloOEVPT0NZVmJ1SW1WQVZ1dmh6?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Breaks Record on Pop Radio with New Hit
 
@@ -43,13 +83,22 @@ Stories: 76
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMitAFBVV95cUxQVVpibFlmU2ZXU0Y3UFdiRlNmS2NSbHhUMzRpZ3dRMnZDTmcwQ0NJWHFqeDE1eHp4YXdDeGF6eTdpb0xEbjFNbldKbXJfbzRCZE1mNUJ1aWg0MVZfRnlmNzY1NV9fTTNqcHFuSW0xZ2pXQU5paDU1RjZGbF9DZ3h2RHBrR19JR08tbE1tRnJjdHRmRzNRZGZ4NEpSdFRDdTA5eThZc1R6bGtvSGxqMndfVzRZdTg?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Celebrities Who Cameo in Taylor Swift's Music Videos
+
+- first seen: 2026-09-27 14:40 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A roundup of various celebrities who have appeared in music videos created by Taylor Swift over the years, highlighting their memorable cameos.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE55Mk1RbDkzYk5GdThURUp3T0hqcUJKR0lBYlBNYzdUR25CWjdYWExFWnppVlZZS2JJQ2twS01UOVlqRHgtNmtVOFhpYVpsZnBpQk1wcWY4MkNRUS1DQ2ViczNfckZDdlE3SFVTZVRsWGtLWE05MFZqdDdEQXpGUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift's 'Patient Zero' Music Video Premiere Time Announced
 
 - first seen: 2026-09-27 14:40 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The premiere time for Taylor Swift's 'Patient Zero' music video has been confirmed in relation to the upcoming 2026 MTV VMAs broadcast.
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxNc3lBa0JMU2t6eE51ZWQxY3dKeXl2eXFVbG91b1dmdk5ldk9YU181RHhVczlqNEI4VHNDWnZ3bTFCZTNISDNINkV5OWdJY1JVWDRGcEtGVWd2VXpwZ2djRWQxdTFIR1BoZGt6NTRScWJOektsZndycjk5SUNlZHVsOFc0VFFEUy16TzV1M2JjWFVWM2NOdlF1ZXpmVlQ0YWFUTWppVVBvS1AxSk8yaG5kZE9B?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi8wFBVV95cUxQa1Bvai1TUnd4bTBnT0k1WTRXeDFsM3VPNDZwcmVLZVlXQzZJMUtQaXZkVVVrcUNzNm5GSzhITThSaVZpSEN0SjdiMEdoWjF3TWtLYjJ6dnIwdTNyRnE3M2JnTG5JaVEwYmRBRUlod2F2UVEtRTlIaHR6cjhESWZNWlRka2FHRDIySXE5SzZrRUwxN3l0Y21SUFZKYjAyQ0lDZUQ0RFBJUGh5MTNkSjFfUEN3OXJ3aTJ5WTR6Y0d2bU5ZU1RMRHE0QXZtN3RVdUhDY3RIMmpFWE1FVWhJWjZTZ1lNUGtfTmNWSTM4VURvUkZTMjA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Legendary Artist Criticizes Taylor Swift's Impact on Music
 
@@ -62,9 +111,11 @@ Stories: 76
 ## Taylor Swift's Possible Attendance at Dolphins vs Chiefs Game
 
 - first seen: 2026-09-27 14:40 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: There is speculation about Taylor Swift attending the Dolphins vs Chiefs game today to see Travis Kelce. The news has generated buzz among fans and media.
 - sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdmhPVUtFQ3hYbi1TcVEtUkx0QW5qVlhjWGFBZGRzTFFXZ0pQTzBjVDgyTnBNZ1hZR0xoNFRKb2w5QkRtUGEtMWs1MGlHVThaT29pamQxSDNoZl9jU0ZnMERfTEFCdWc0YWdQNzRvWUJEX0ZJNnlKVzMyZUV6LWZFTTVqRV9BMWd1LVllU2syZ0dab2Z5QXN5TS1SMHFrM3otbVhnekxnNEl1bWVoV09QWlBpVWx2OV9yT2EtS0VoQVFKZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Palm Beach Post — https://news.google.com/rss/articles/CBMi8AFBVV95cUxQUXFxUFI0Njk0UmFvVEdoT2c3djRIVURsTGUzenctSU5ETVVBYjlwOWxydkZjaGdEYmZZQWM3X1RyMjZNbUt0UGhDNXNrZldwUGx1bTBmN09ySWx0YldjblBMOTVDcnpzLURyQ1EwUmtIbGxlRGdzZGh0aEc3aV9CSFpqT3hpRVFhQ1lfVUVhOFVRZ20tTnN1b1lVbWVFLVpfVzg2eHVCblhMTi1rdl9oend0MV9RSDdQTDhNUWlpbG5ZOEktSkNvaEZvbmZlZ0Q1c0wwYXIxSWdzYUhsd1d5bnFXd3VMTEhCaUhrTUdGS2U?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxPZGtXUm0yU2Z6R0drLWQ5MTQ4R0t4Y3d1UUw4QzV2LXlpTTRpeHhPcHNvVG1RNTduaGtuMTFCSi1jY1c3VVotbzZvbE95T290ZU5yVEZUR1lnMHF0UzlNc0dpMnl3Sm5PVXdQanlZMlo4YzZ3amZfNm43cFBKNWhpX1V2TUpMbVE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Todd Rundgren Links Taylor Swift's Work to 90s Video Games
@@ -91,15 +142,6 @@ Stories: 76
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPSWdPYjJjNUV5X2RDSDBaaThzVHNsNHVFeUhNeGpZY0F4NmpfQmhibzZuc0FLLW9oV0NqR1FxOXNucm93QlNnVzVDVWxhUlc5ZVVDd3NScVQ4Uk9jblAtVkhKd3M4NWRtWlAtek15d3Ezcno4T3dfd25xZ2ozNzV5VzBVbWRpTDJ2M0dCalBGQ3ZvLWJTUnlqZ2NnZTREVDAxaTVQcTZpTWsxSTRXTzFobnNiOEZaTVhZand1UlR0TktWaGdYNTBjekUzOUtRYmd5dWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Speculation About Taylor Swift's Potential 2026 VMAs Performance
-
-- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
-- sources:
-  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPcDduVUR5Y25IeDFmTE56ekgzcHFWMFhSQnpuTDdrdGI1M2MxdENsSml5clZiUUVQNmtSU3kyaFRQcGQ3eF9hek41RmkxMU56MlI2bExXTkMyVTR0MV9yM2Y2MGFuTXFVY1dYTFpOOVNXcE9JdjdmTWxoU2NwNldnUzRWRDZMQlkwaURlbWxzMDBkU0lEOVpJQVIweDRoZnp6dFBSa1FvN1YycXNCNWU2V0hfUzNEdmxUMzFr?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Makes History at MTV VMAs
 
 - first seen: 2026-09-27 06:34 UTC | category: music | importance: 6
@@ -108,6 +150,16 @@ Stories: 76
 - sources:
   - [unverified] AP News — https://news.google.com/rss/articles/CBMimgFBVV95cUxNc29LNjU2WGtLN0FVSWF3c01hQmw0M013X0V1U2N3TjNZQTVwdkVlMDh3bkgwQng2T3FRMFFkblFRNnktMjFwZ2VBbnd2SjR2TTBIN0tNUkVBempHWk5TN3lvYlN5OGNRNjUxaktuU1hQUnExeW5hbk5YaEVVU1lRcEQ3UFRTOE5xRmxjV2diSGtPTXBXdDdMWmln?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMipAFBVV95cUxPQWV2Y2lrcm9PYXFxSDk1WXlWWWRwZVlFbTRXUW01OWpwOFBqV2lFTUFHMEhjUEVObmZab3JmUHNSemFidXYtVHY0enlGVkpLbk9ySHBoYzBKYmNmdHd0ek8wX2x0TmZzMXVodmVTX0tjUnRCTkxiSnA4TzQ0TjhhdDVkcndROXRBeWVfRE5VcWw0bHVINFY5Y1NjdGlIX213WU9hUA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Speculation About Taylor Swift's Potential 2026 VMAs Performance
+
+- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
+- sources:
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPcDduVUR5Y25IeDFmTE56ekgzcHFWMFhSQnpuTDdrdGI1M2MxdENsSml5clZiUUVQNmtSU3kyaFRQcGQ3eF9hek41RmkxMU56MlI2bExXTkMyVTR0MV9yM2Y2MGFuTXFVY1dYTFpOOVNXcE9JdjdmTWxoU2NwNldnUzRWRDZMQlkwaURlbWxzMDBkU0lEOVpJQVIweDRoZnp6dFBSa1FvN1YycXNCNWU2V0hfUzNEdmxUMzFr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQQkJtOWY5dWNIQlBZSm1adFJVR0FyUzdDaVpTdWlueG0xYV9OSjBQWjZtQ2ZaQjl4ejExU1NoeGNlTTZfY3JobmdzOXpaeTE3WEUxaHBkTEJmYVRGeWhfU3h1aWdoQk1VMWxWVHdaR0ZWRTNtM2x5TF84YzVtMng5VmJMejd5d3lHb1lQRmFDNmtDTXh4WXdSaTRwXzBZZENTdDVxWDJmb05DVkdPejM1QkRENVdRQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Fans Speculate Taylor Swift's 'Pink Clouding' May Apologize to an Ex
 
