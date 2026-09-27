@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 85
+
+## Taylor Swift's VMAs Dress Blends Business Casual with Greek Goddess Style
+
+- first seen: 2026-09-27 23:47 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At the VMAs, Taylor Swift showcased a dress that combines elements of business casual with a Greek goddess aesthetic. The unique style choice has drawn attention from fashion commentators.
+- sources:
+  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQOHo1VWZuVGZaUmM3WVI0bWJKMEx1dnZzMW9JM1gyRGJNeTRVbHJ0cDlmaloyUVpkYjBRVm5xSzh4X2VZX1BnZ2RVN2U5VUFmTnZWMlRYcldYSWpvRkZ2Mi1jZ1BRV2EwX3RpWHRWNy1pdDNyeEdTUG1vVzlla2liOWZDUGx0YmhzdjFqQm5uS0N1TU96S2luam1tQnY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes History at the VMAs and Surprises Fans
+
+- first seen: 2026-09-27 23:47 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Before the VMAs officially start, Taylor Swift achieves a historic milestone and surprises her fans with new content. The details of the surprise and the significance of the achievement are highlighted.
+- sources:
+  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMivwFBVV95cUxNUVU3ZDlZNlc2RHdYSDNnWE94R2E3cDN1ZjBzSmMxZmgzMHlwUTNjRXlZelJ1LVYzZnFZZTI4TWhHdXVpdzA5a1k4S2hpUGVuXzdTVF9DR1BKRmg5bzgxMjN3VEJESVBGdFRsaF9HM24wTklicTAtYUlGREdZMzhMUzM1WjVMMnhzZGl5czVjMEFJY2p5SFNSRXFSMDNoWlo2WG5FT2trdUUxS2dTYWN4QmFoREppT1hnTmVYR1VSVQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives Disappointing News Ahead of Chiefs-Dolphins Game
+
+- first seen: 2026-09-27 23:47 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reportedly received disappointing news just before the Chiefs-Dolphins game. The details of the news have not been disclosed in the source article.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxNMDdwWGZtbkl1eDM2OFJ2bGdlNDQyS094ZFp0eG1Vcnl6TVRaRjFwbGpTYk1yWlRmTmhjOWRKTktucnNMaGJ6ZXlkWkpQTnFhQXVxU2RJZS1zZ0ZpZTVoaFNKaThYRXNPWEk5a3BKUXFwLXBuWDVsNWNwYjRUeDlZNjhBczZYWlpNZVVTQTV3b1NWTW5lN2pKUFhLbkRRYUpNa0dVMEZ4Yw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Sheer Corset Top and Silver Skirt at 2026 VMAs
+
+- first seen: 2026-09-27 23:47 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At the 2026 VMAs, Taylor Swift made a fashion statement in a sheer corset top paired with a silver skirt. The look drew significant attention as she graced the event.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxOYy13NWdOdVZlRE9TQjBlSUdsSlBFY1BtQTV3QnlmS0dsSV9Ia08tQm5HMkp3NGgzZDc0eWdJQ2d1OVFyVjA1Z1ZvWnl4VjFteC04UzZqN2tScFl5NDRRd1FfVFNtTlZOLVBiTXJHSkoxQnZ5MjV2bENUaFNuWmlCbzNZTmw3ZG4xQmtuaXlBTUtEdVJFbWk4ekdNNnc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift to Make a Statement at the 2026 VMAs
+
+- first seen: 2026-09-27 23:47 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to make an impression with her fashion choices at the 2026 VMAs, according to Vogue. Her outfit is expected to be noteworthy and significant at the event.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMicEFVX3lxTFAwUnFsSVlrV0R0YWhvaHBpcTduY1FoSnBERFhfd0ktNlBZeTlyWjliT1pmMEhkbjJ5dEwwNVoxVTl6S2M5NEZzM0I1SGJEMC00S091cG5SdS0tMi1tcEc3WkV3OWV4VVRuRXRMTGVpUWY?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift to Premiere New Music Video at 2026 MTV VMAs
 
@@ -94,10 +134,11 @@ Stories: 82
 ## Taylor Swift's 'Patient Zero' Music Video Premiere Time Announced
 
 - first seen: 2026-09-27 14:40 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: The premiere time for Taylor Swift's 'Patient Zero' music video has been confirmed in relation to the upcoming 2026 MTV VMAs broadcast.
 - sources:
   - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxNc3lBa0JMU2t6eE51ZWQxY3dKeXl2eXFVbG91b1dmdk5ldk9YU181RHhVczlqNEI4VHNDWnZ3bTFCZTNISDNINkV5OWdJY1JVWDRGcEtGVWd2VXpwZ2djRWQxdTFIR1BoZGt6NTRScWJOektsZndycjk5SUNlZHVsOFc0VFFEUy16TzV1M2JjWFVWM2NOdlF1ZXpmVlQ0YWFUTWppVVBvS1AxSk8yaG5kZE9B?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/2026-vmas-winners-list-1235631232/
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi8wFBVV95cUxQa1Bvai1TUnd4bTBnT0k1WTRXeDFsM3VPNDZwcmVLZVlXQzZJMUtQaXZkVVVrcUNzNm5GSzhITThSaVZpSEN0SjdiMEdoWjF3TWtLYjJ6dnIwdTNyRnE3M2JnTG5JaVEwYmRBRUlod2F2UVEtRTlIaHR6cjhESWZNWlRka2FHRDIySXE5SzZrRUwxN3l0Y21SUFZKYjAyQ0lDZUQ0RFBJUGh5MTNkSjFfUEN3OXJ3aTJ5WTR6Y0d2bU5ZU1RMRHE0QXZtN3RVdUhDY3RIMmpFWE1FVWhJWjZTZ1lNUGtfTmNWSTM4VURvUkZTMjA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Legendary Artist Criticizes Taylor Swift's Impact on Music
@@ -111,12 +152,33 @@ Stories: 82
 ## Taylor Swift's Possible Attendance at Dolphins vs Chiefs Game
 
 - first seen: 2026-09-27 14:40 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: There is speculation about Taylor Swift attending the Dolphins vs Chiefs game today to see Travis Kelce. The news has generated buzz among fans and media.
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdmhPVUtFQ3hYbi1TcVEtUkx0QW5qVlhjWGFBZGRzTFFXZ0pQTzBjVDgyTnBNZ1hZR0xoNFRKb2w5QkRtUGEtMWs1MGlHVThaT29pamQxSDNoZl9jU0ZnMERfTEFCdWc0YWdQNzRvWUJEX0ZJNnlKVzMyZUV6LWZFTTVqRV9BMWd1LVllU2syZ0dab2Z5QXN5TS1SMHFrM3otbVhnekxnNEl1bWVoV09QWlBpVWx2OV9yT2EtS0VoQVFKZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOelRQNnc2cFBtdW5TM09NLWZ3NTMxQkRQcnc0RFk2TF85dDhDdkIwSUw0akVlNHdWdEdIblQ4aVNza0wxaVVyb285ZDZmRGI5aE1XM1FIZzkxaXVqV1N3VU1pM0tFNEN4aS1JTEluVDN6bFl6NXVzTFN0RlZELUNrX2lVdHJOLXl0bjdmX1BUMzlCWjBZX3BnWkxBQk1vWTFwMlI5ZUgwcDhUbUdDV1hheHFMTG9VM2V5ejg5eE0xTUVVWVk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Palm Beach Post — https://news.google.com/rss/articles/CBMi8AFBVV95cUxQUXFxUFI0Njk0UmFvVEdoT2c3djRIVURsTGUzenctSU5ETVVBYjlwOWxydkZjaGdEYmZZQWM3X1RyMjZNbUt0UGhDNXNrZldwUGx1bTBmN09ySWx0YldjblBMOTVDcnpzLURyQ1EwUmtIbGxlRGdzZGh0aEc3aV9CSFpqT3hpRVFhQ1lfVUVhOFVRZ20tTnN1b1lVbWVFLVpfVzg2eHVCblhMTi1rdl9oend0MV9RSDdQTDhNUWlpbG5ZOEktSkNvaEZvbmZlZ0Q1c0wwYXIxSWdzYUhsd1d5bnFXd3VMTEhCaUhrTUdGS2U?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxPZGtXUm0yU2Z6R0drLWQ5MTQ4R0t4Y3d1UUw4QzV2LXlpTTRpeHhPcHNvVG1RNTduaGtuMTFCSi1jY1c3VVotbzZvbE95T290ZU5yVEZUR1lnMHF0UzlNc0dpMnl3Sm5PVXdQanlZMlo4YzZ3amZfNm43cFBKNWhpX1V2TUpMbVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes History at MTV VMAs
+
+- first seen: 2026-09-27 06:34 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift is making headlines at the MTV VMAs, where she is set to make history alongside Madonna, who leads in nominations. The event is a significant moment for fans and artists alike.
+- sources:
+  - [unverified] AP News — https://news.google.com/rss/articles/CBMimgFBVV95cUxNc29LNjU2WGtLN0FVSWF3c01hQmw0M013X0V1U2N3TjNZQTVwdkVlMDh3bkgwQng2T3FRMFFkblFRNnktMjFwZ2VBbnd2SjR2TTBIN0tNUkVBempHWk5TN3lvYlN5OGNRNjUxaktuU1hQUnExeW5hbk5YaEVVU1lRcEQ3UFRTOE5xRmxjV2diSGtPTXBXdDdMWmln?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Durango Herald — https://news.google.com/rss/articles/CBMi6AFBVV95cUxPX2x6ckdSeGhrRWdxYmhUcTE1TV9XM2tOVEljNFdVdGtLaDBkWHd0ZFJJX2htNHNyUHdRNEllUVI3REVkZUVqUEswVEo3VFkxVDBIMkJOeEZ5ZGVXOTd5UVM4M3prTVFWeFk2MHVSU1ljTDVfM2JWYXNlZ0RkWkhPZnJjZUZxQ2lXc2lraFp6WGxUT2NER2VRU2ZvTTl3eGllejFLcGpTUDU0VkZxSzVpVzJodUtfdFpJVlFnakJJM3h5RWlHaFBlTWF1U25EVmtuX2V3RUp3SjlNajBsRnd4MGhNcDRzSkhV?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMipAFBVV95cUxPQWV2Y2lrcm9PYXFxSDk1WXlWWWRwZVlFbTRXUW01OWpwOFBqV2lFTUFHMEhjUEVObmZab3JmUHNSemFidXYtVHY0enlGVkpLbk9ySHBoYzBKYmNmdHd0ek8wX2x0TmZzMXVodmVTX0tjUnRCTkxiSnA4TzQ0TjhhdDVkcndROXRBeWVfRE5VcWw0bHVINFY5Y1NjdGlIX213WU9hUA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Speculation About Taylor Swift's Potential 2026 VMAs Performance
+
+- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
+- sources:
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPcDduVUR5Y25IeDFmTE56ekgzcHFWMFhSQnpuTDdrdGI1M2MxdENsSml5clZiUUVQNmtSU3kyaFRQcGQ3eF9hek41RmkxMU56MlI2bExXTkMyVTR0MV9yM2Y2MGFuTXFVY1dYTFpOOVNXcE9JdjdmTWxoU2NwNldnUzRWRDZMQlkwaURlbWxzMDBkU0lEOVpJQVIweDRoZnp6dFBSa1FvN1YycXNCNWU2V0hfUzNEdmxUMzFr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQQkJtOWY5dWNIQlBZSm1adFJVR0FyUzdDaVpTdWlueG0xYV9OSjBQWjZtQ2ZaQjl4ejExU1NoeGNlTTZfY3JobmdzOXpaeTE3WEUxaHBkTEJmYVRGeWhfU3h1aWdoQk1VMWxWVHdaR0ZWRTNtM2x5TF84YzVtMng5VmJMejd5d3lHb1lQRmFDNmtDTXh4WXdSaTRwXzBZZENTdDVxWDJmb05DVkdPejM1QkRENVdRQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Todd Rundgren Links Taylor Swift's Work to 90s Video Games
 
@@ -141,25 +203,6 @@ Stories: 82
 - summary: During his hosting duties on 'SNL', Jalen Brunson made a humorous remark regarding the wedding of Taylor Swift and Travis Kelce. The joke was featured in a segment highlighting pop culture events.
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPSWdPYjJjNUV5X2RDSDBaaThzVHNsNHVFeUhNeGpZY0F4NmpfQmhibzZuc0FLLW9oV0NqR1FxOXNucm93QlNnVzVDVWxhUlc5ZVVDd3NScVQ4Uk9jblAtVkhKd3M4NWRtWlAtek15d3Ezcno4T3dfd25xZ2ozNzV5VzBVbWRpTDJ2M0dCalBGQ3ZvLWJTUnlqZ2NnZTREVDAxaTVQcTZpTWsxSTRXTzFobnNiOEZaTVhZand1UlR0TktWaGdYNTBjekUzOUtRYmd5dWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes History at MTV VMAs
-
-- first seen: 2026-09-27 06:34 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is making headlines at the MTV VMAs, where she is set to make history alongside Madonna, who leads in nominations. The event is a significant moment for fans and artists alike.
-- sources:
-  - [unverified] AP News — https://news.google.com/rss/articles/CBMimgFBVV95cUxNc29LNjU2WGtLN0FVSWF3c01hQmw0M013X0V1U2N3TjNZQTVwdkVlMDh3bkgwQng2T3FRMFFkblFRNnktMjFwZ2VBbnd2SjR2TTBIN0tNUkVBempHWk5TN3lvYlN5OGNRNjUxaktuU1hQUnExeW5hbk5YaEVVU1lRcEQ3UFRTOE5xRmxjV2diSGtPTXBXdDdMWmln?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMipAFBVV95cUxPQWV2Y2lrcm9PYXFxSDk1WXlWWWRwZVlFbTRXUW01OWpwOFBqV2lFTUFHMEhjUEVObmZab3JmUHNSemFidXYtVHY0enlGVkpLbk9ySHBoYzBKYmNmdHd0ek8wX2x0TmZzMXVodmVTX0tjUnRCTkxiSnA4TzQ0TjhhdDVkcndROXRBeWVfRE5VcWw0bHVINFY5Y1NjdGlIX213WU9hUA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Speculation About Taylor Swift's Potential 2026 VMAs Performance
-
-- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
-- sources:
-  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPcDduVUR5Y25IeDFmTE56ekgzcHFWMFhSQnpuTDdrdGI1M2MxdENsSml5clZiUUVQNmtSU3kyaFRQcGQ3eF9hek41RmkxMU56MlI2bExXTkMyVTR0MV9yM2Y2MGFuTXFVY1dYTFpOOVNXcE9JdjdmTWxoU2NwNldnUzRWRDZMQlkwaURlbWxzMDBkU0lEOVpJQVIweDRoZnp6dFBSa1FvN1YycXNCNWU2V0hfUzNEdmxUMzFr?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitwFBVV95cUxQQkJtOWY5dWNIQlBZSm1adFJVR0FyUzdDaVpTdWlueG0xYV9OSjBQWjZtQ2ZaQjl4ejExU1NoeGNlTTZfY3JobmdzOXpaeTE3WEUxaHBkTEJmYVRGeWhfU3h1aWdoQk1VMWxWVHdaR0ZWRTNtM2x5TF84YzVtMng5VmJMejd5d3lHb1lQRmFDNmtDTXh4WXdSaTRwXzBZZENTdDVxWDJmb05DVkdPejM1QkRENVdRQ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Fans Speculate Taylor Swift's 'Pink Clouding' May Apologize to an Ex
 
@@ -526,6 +569,24 @@ Stories: 82
 - sources:
   - [unverified] Slate Magazine — https://news.google.com/rss/articles/CBMipgFBVV95cUxQZUc3bWdaQkl1NlRrSHh6eDdfMEFlNHM5T0FMa3dTeFhwWGVOS1dvdkZZY0NHTFF5LW4xRzlobjFsQ2ZnbnRCVEdwVFVxblZ0aUJkcGFWWXAwRFNzNmMzRVp3LXF2ZGFZUDBzNTU0Nmt3U1dMaEFUYXE0Tk1JYzNUQUg1UFVxMjNBY0MyWFlMdnlUanNqQzhwY1NMaW5wbm1hUWZfWUt3?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Unveils Four New Songs from The Life of a Showgirl: The Encore
+
+- first seen: 2026-09-25 06:08 UTC | category: release | importance: 8
+- verification_status: corroborated | source_count: 11
+- summary: Taylor Swift has released four new songs featured on her project, The Life of a Showgirl: The Encore. Fans can now stream the latest additions to her music catalog.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaWJrcGhLcnZfQnFoMFlxUk1Fd3BLcnM5eXpuTkNGYlB2czBHS1o4cTdIaUdZeThhSGJBNVdWektDSk11NC1CajVUN25rSUhwNHJCZmhSZndKelVEc2FCMGk1RzZ5akdna2pZWXRMWnRtZlQwMzl5SGFmRERNV2N2YnFvdTd0LXRRa2IyWUpPUk9YNEE5UDNzdEVTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMihAFBVV95cUxOMTB2TF9KbllqckVScU9RREk2OGJISXlIc24xZFBac2xyUmpBZE11eHpMb0hDLVVITDRxazNSMWxuUnJDUzZSQXVPMWNkdkdpRGg3REN5eTBRN0ZOdnFvRzZESE9EV1NOM1BSbE10RTVha0M5SkVFQnBrTzM0bU5JcWRkNDQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Exclaim! — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZ1hCUXkwSEphVmRTZEpqNEVZSHFyNUp4WEFSbFo2bUdWS1lYeUxfbkEwMjZPV0VQcmZlTWk4Y2ptNnNMVW1Ha29tb1A2NTRCUDU5Skh2VjR6czhadURxNVZmT1JKUkRYd0RHTlFlU1JpRW9NLW5xcmNraDdsNGlyS0hCamV0SHVTTUNJZnVyejFiVkpBcEcyTEdXdjc4N1lCSFZST1JjcTFYbnhqdndOODljTHpmOGVmcHk1ZC0yVU1ra2g1Sm40bTl3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMic0FVX3lxTE1IUlBxTDVvUHpiQ245eTlfdEp5aTVGWV9oNzFPcEIwZGNJMnFhSlF6UG9vTGpPZDRHMS15My1fUHRuWHlnN1NGbzBoTlZkNmdCVEVhMEJ3SkRUUmxTRFpVS01xMDZ0aVFFV3dkaUFMWjB2ek0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swifts-the-life-of-a-showgirl-the-encore-breakdown-1235631726/
+  - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOZ2QwVlFsS1B6ekdqdnFzWUh4b2R1cm5BOXdhNkJ2eUs4TnNRcTVBdTliVFpwaWtBbTNvWENvellDYmJtYnBCcEVLT1NrdENiaUZjUXJVcDgwd0xqc2xtNV9oQTZNQnlvVGZIYWkwSUx5T0ZZNG5ON0g0V3BZdmZIWVFsVlJLWE0?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/25/taylor-swift-the-life-of-a-showgirl-the-encore-review
+  - [unverified] theguardian.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZ2JrNTh1UjFRdC01YWpMU19kT29fanY1eVNkV20xLUJhQ2ZwV1h6UEtoLU1XdGtDMmxUdmpZLWhBMXRrMTNoZ3N6RUI4eWt4LWpzOW4ta09vQW9KSXYxdktPTThLbzJNOXJPRkFCRS0zZ0NQTlJGbDZOVm5OTjgxeTV4Qkk1eFJqYlIxaUpzWWNFVzhhanpJUDIxSEw2M1pr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxObnRZNXFCR09jOHkxcFBtdXNRcl9OSTNVbkNkeUU2cHFTREFlRk02MDc3NWxOYjl6THFUd3NfcHgwQTRzU0djRnVXeUhfVl80cHphWTRCRVcyZElKRmowV1dtaVFxcmRPbjZoeWJMVnVhaVduWnZNMml4NG1XZFBPdFhoUXlrOVNiWGxkbWUteGd1ZEtUTHBuZWU5WF9UaXhx?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-review-life-showgirl-encore-new-tracks-1236875342/
+  - [unverified] WUSA9 — https://news.google.com/rss/articles/CBMi3gFBVV95cUxQQ1REbE9vcVYxal9VWTM3UDVEcVRwbHBYMVFNZmM5NGhaTTdHcEVZOXlRUmtobE5FOEdUZnRfYW1fLXFrM19UTlZYUzBSaUxBQVJWUWFva2Z0X21Od1NlX2tLTVBuU1BRS3NULS1RVzV3MWFicG93amlJSmxBb0IyZ0JFUXVPWWpIa20wVmlBR1ZtV0dQSWhRVU9LYnNCZHFYeTFJMmZFZmVDMmlhR3lVcGpMYmNFQ2pIV2FpUkx1ZHV2QmNVUVdzR0ZpSDJBN1ZaaXdfa3c2MExhbk5tV1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Taylor Swift Drops The Life Of A Showgirl: The Encore Featuring Four New Tracks
 
 - first seen: 2026-09-25 06:08 UTC | category: release | importance: 8
@@ -564,24 +625,6 @@ Stories: 82
   - [unverified] people.com — https://news.google.com/rss/articles/CBMiswFBVV95cUxOR0hfR3hCNTdyZEYxcUFCNUJIVmhRSEMxVHVyeU16U0daOU9MZkR1MzgteHBSOWQ4V3ItVHVFVHFCc19iMXRBUzF1ZzRtR0VfYmVabWthcGxIRUVYZ2FOYjRFN25ZaWppS1pzNDV2cTdOTkJ4NzdjWGJyZkZuczlXbFhYaV9RaEZCNWp3dFNhRXBvTDRkRk9hOVBid1kzVVZEcVRha0Z3d3pDSDV0VW1IMlFGNA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMirwFBVV95cUxNdXNQTG14UnYycVAyMlFwNHRMZVBGckdpczIycjh5WThLWjI4VExfNDN2X3Y0WkZOVDRVUmJLZTJfeWJKQV9hMFBvX2ZUNE1sV1FrMXZCWkp1TVdBeWhJdzZxcUhtSk9IcEhMNWJzc2JKYUZicFpSanhtZUhBbjFDTUFGOXdrN3FFMEQwZHROZllwZk1kTnBCUTgwM01lY0ExV3RMbklqVGNyVmNYV1Mw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxOM1dOUVB2RnRkSDZGNHBWdWhTaEJ2eXlaOEVzSGRGNkRMcUhtYk1WVENIYUhLRE5ULU1YWGRhY00wd3JhTHhqdGFYcFZlYWRKSkpXY0Q4VW9jdzRUQnA4X2ZubDByTzFmZW44cGZrR25lQVlZYWtRR2MtbzhWU3czbHkxMHRSZmFWZzBxQkdJWTFCUW42?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Unveils Four New Songs from The Life of a Showgirl: The Encore
-
-- first seen: 2026-09-25 06:08 UTC | category: release | importance: 8
-- verification_status: corroborated | source_count: 11
-- summary: Taylor Swift has released four new songs featured on her project, The Life of a Showgirl: The Encore. Fans can now stream the latest additions to her music catalog.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaWJrcGhLcnZfQnFoMFlxUk1Fd3BLcnM5eXpuTkNGYlB2czBHS1o4cTdIaUdZeThhSGJBNVdWektDSk11NC1CajVUN25rSUhwNHJCZmhSZndKelVEc2FCMGk1RzZ5akdna2pZWXRMWnRtZlQwMzl5SGFmRERNV2N2YnFvdTd0LXRRa2IyWUpPUk9YNEE5UDNzdEVTWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Consequence of Sound — https://news.google.com/rss/articles/CBMihAFBVV95cUxOMTB2TF9KbllqckVScU9RREk2OGJISXlIc24xZFBac2xyUmpBZE11eHpMb0hDLVVITDRxazNSMWxuUnJDUzZSQXVPMWNkdkdpRGg3REN5eTBRN0ZOdnFvRzZESE9EV1NOM1BSbE10RTVha0M5SkVFQnBrTzM0bU5JcWRkNDQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Exclaim! — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZ1hCUXkwSEphVmRTZEpqNEVZSHFyNUp4WEFSbFo2bUdWS1lYeUxfbkEwMjZPV0VQcmZlTWk4Y2ptNnNMVW1Ha29tb1A2NTRCUDU5Skh2VjR6czhadURxNVZmT1JKUkRYd0RHTlFlU1JpRW9NLW5xcmNraDdsNGlyS0hCamV0SHVTTUNJZnVyejFiVkpBcEcyTEdXdjc4N1lCSFZST1JjcTFYbnhqdndOODljTHpmOGVmcHk1ZC0yVU1ra2g1Sm40bTl3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMic0FVX3lxTE1IUlBxTDVvUHpiQ245eTlfdEp5aTVGWV9oNzFPcEIwZGNJMnFhSlF6UG9vTGpPZDRHMS15My1fUHRuWHlnN1NGbzBoTlZkNmdCVEVhMEJ3SkRUUmxTRFpVS01xMDZ0aVFFV3dkaUFMWjB2ek0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swifts-the-life-of-a-showgirl-the-encore-breakdown-1235631726/
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMihwFBVV95cUxOZ2QwVlFsS1B6ekdqdnFzWUh4b2R1cm5BOXdhNkJ2eUs4TnNRcTVBdTliVFpwaWtBbTNvWENvellDYmJtYnBCcEVLT1NrdENiaUZjUXJVcDgwd0xqc2xtNV9oQTZNQnlvVGZIYWkwSUx5T0ZZNG5ON0g0V3BZdmZIWVFsVlJLWE0?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/25/taylor-swift-the-life-of-a-showgirl-the-encore-review
-  - [unverified] theguardian.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZ2JrNTh1UjFRdC01YWpMU19kT29fanY1eVNkV20xLUJhQ2ZwV1h6UEtoLU1XdGtDMmxUdmpZLWhBMXRrMTNoZ3N6RUI4eWt4LWpzOW4ta09vQW9KSXYxdktPTThLbzJNOXJPRkFCRS0zZ0NQTlJGbDZOVm5OTjgxeTV4Qkk1eFJqYlIxaUpzWWNFVzhhanpJUDIxSEw2M1pr?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxObnRZNXFCR09jOHkxcFBtdXNRcl9OSTNVbkNkeUU2cHFTREFlRk02MDc3NWxOYjl6THFUd3NfcHgwQTRzU0djRnVXeUhfVl80cHphWTRCRVcyZElKRmowV1dtaVFxcmRPbjZoeWJMVnVhaVduWnZNMml4NG1XZFBPdFhoUXlrOVNiWGxkbWUteGd1ZEtUTHBuZWU5WF9UaXhx?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-review-life-showgirl-encore-new-tracks-1236875342/
-  - [unverified] WUSA9 — https://news.google.com/rss/articles/CBMi3gFBVV95cUxQQ1REbE9vcVYxal9VWTM3UDVEcVRwbHBYMVFNZmM5NGhaTTdHcEVZOXlRUmtobE5FOEdUZnRfYW1fLXFrM19UTlZYUzBSaUxBQVJWUWFva2Z0X21Od1NlX2tLTVBuU1BRS3NULS1RVzV3MWFicG93amlJSmxBb0IyZ0JFUXVPWWpIa20wVmlBR1ZtV0dQSWhRVU9LYnNCZHFYeTFJMmZFZmVDMmlhR3lVcGpMYmNFQ2pIV2FpUkx1ZHV2QmNVUVdzR0ZpSDJBN1ZaaXdfa3c2MExhbk5tV1E?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Releases New Song 'Patient Zero'
 
@@ -711,19 +754,3 @@ Stories: 82
 - summary: BBC America and AMC Streamers have announced a two-year pickup for 'The Graham Norton Show'. The popular talk show continues its run on these platforms, ensuring more episodes for fans.
 - sources:
   - [unverified] Variety — https://news.google.com/rss/articles/CBMimwFBVV95cUxOaEVENFVjUGpWNnlIcFhfRW9COGloNTB1Sk9YcENDWTc4UVlvZ3F5eS12R012c01xT0QzUW5HNlAwR3YyUWQxTGNQMEs1N01FYWloQXhORW95QktqTXJxZkoyZkNLcXcwYjVaOV9neTlkNUlocHczMXNtQUpja1hQUUFMbkFxaEcyRVU1M20zZkJ2UUQ2SElTVkJjZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## MTV VMAs Producer Teases Highlights Including Taylor Swift's Honor
-
-- first seen: 2026-09-24 20:26 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Van Toffler previews the upcoming MTV VMAs, mentioning anticipated tributes to Dolly Parton and George Michael, as well as a significant honor for Taylor Swift and recognition for Nirvana.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/mtv-vmas-preview-performances-tributes-1236708957/
-
-## Speculation Rises Over Altered Artwork for Taylor Swift's Single
-
-- first seen: 2026-09-24 20:26 UTC | category: release | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Social media users are reacting to claims that the cover artwork for Taylor Swift's new single "Patient Zero" may have been edited using Photoshop or AI tools. Discussions focus on whether the artist approved the modifications.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/z2v7dnb?at_medium=RSS&at_campaign=rss
