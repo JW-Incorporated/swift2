@@ -11549,7 +11549,7 @@ export default {
       thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
-          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
+          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. As of late September 2026 it has faded: no named outlet or either camp ever verified the Aug. 9 dinner, and it went quiet rather than resolving. (Their confirmed Kansas City date nights came later and separately — the Sept. 14 season opener and Patrick Mahomes’ Sept. 18 birthday dinner, both at Kelce’s 1587 Prime — and neither corroborates this earlier tip.)',
         sources: [
           {
             outlet: 'heavy.com',
@@ -11557,7 +11557,7 @@ export default {
             source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
             publisher: 'heavy.com',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-10',
+            accessed_at: '2026-09-27',
             reliability_score: 2,
           },
           {
@@ -11576,12 +11576,12 @@ export default {
               'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner in the Kansas City area on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
             reportedBy: 'Deuxmoi / heavy.com',
             reportedOn: '2026-08-09',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened per the matrix. Rechecked 2026-09-22: still unconfirmed, no denial (day 44, near the 45-day fade). The separately confirmed ~Sept 14–17 1587 Prime date night is a distinct, later event and does not corroborate this Aug 9 tip; fades next check if nothing surfaces.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened per the matrix. Faded 2026-09-27: reported Aug 9, rechecked 09-22 (day 44) and again 09-27 (day 49, past the 45-day quiet window) — still no confirmation and no denial, retired to `faded` rather than left implying it is still live. The separately confirmed mid-September 1587 Prime date nights (Sept 14 season opener and Sept 18 Mahomes birthday) are distinct, later events and never corroborated this Aug 9 tip.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-09-22',
+            lastCheckedOn: '2026-09-27',
           },
         ],
         photos: [
