@@ -25,23 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 76
 
-## Taylor Swift Makes History at MTV VMAs
+## Celebrities Who Cameo in Taylor Swift's Music Videos
 
-- first seen: 2026-09-27 06:34 UTC | category: music | importance: 6
+- first seen: 2026-09-27 14:40 UTC | category: music | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift is making headlines at the MTV VMAs, where she is set to make history alongside Madonna, who leads in nominations. The event is a significant moment for fans and artists alike.
+- summary: A roundup of various celebrities who have appeared in music videos created by Taylor Swift over the years, highlighting their memorable cameos.
 - sources:
-  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMipAFBVV95cUxPQWV2Y2lrcm9PYXFxSDk1WXlWWWRwZVlFbTRXUW01OWpwOFBqV2lFTUFHMEhjUEVObmZab3JmUHNSemFidXYtVHY0enlGVkpLbk9ySHBoYzBKYmNmdHd0ek8wX2x0TmZzMXVodmVTX0tjUnRCTkxiSnA4TzQ0TjhhdDVkcndROXRBeWVfRE5VcWw0bHVINFY5Y1NjdGlIX213WU9hUA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE55Mk1RbDkzYk5GdThURUp3T0hqcUJKR0lBYlBNYzdUR25CWjdYWExFWnppVlZZS2JJQ2twS01UOVlqRHgtNmtVOFhpYVpsZnBpQk1wcWY4MkNRUS1DQ2ViczNfckZDdlE3SFVTZVRsWGtLWE05MFZqdDdEQXpGUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Speculation About Taylor Swift's Potential 2026 VMAs Performance
+## Taylor Swift Breaks Record on Pop Radio with New Hit
 
-- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
+- first seen: 2026-09-27 14:40 UTC | category: music | importance: 8
 - verification_status: rumor | source_count: 1
-- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
+- summary: Taylor Swift has achieved another milestone by extending her record on pop radio with her latest hit. This impressive accomplishment reflects her continued success and popularity in the music industry.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMitAFBVV95cUxQVVpibFlmU2ZXU0Y3UFdiRlNmS2NSbHhUMzRpZ3dRMnZDTmcwQ0NJWHFqeDE1eHp4YXdDeGF6eTdpb0xEbjFNbldKbXJfbzRCZE1mNUJ1aWg0MVZfRnlmNzY1NV9fTTNqcHFuSW0xZ2pXQU5paDU1RjZGbF9DZ3h2RHBrR19JR08tbE1tRnJjdHRmRzNRZGZ4NEpSdFRDdTA5eThZc1R6bGtvSGxqMndfVzRZdTg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Patient Zero' Music Video Premiere Time Announced
+
+- first seen: 2026-09-27 14:40 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The premiere time for Taylor Swift's 'Patient Zero' music video has been confirmed in relation to the upcoming 2026 MTV VMAs broadcast.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxNc3lBa0JMU2t6eE51ZWQxY3dKeXl2eXFVbG91b1dmdk5ldk9YU181RHhVczlqNEI4VHNDWnZ3bTFCZTNISDNINkV5OWdJY1JVWDRGcEtGVWd2VXpwZ2djRWQxdTFIR1BoZGt6NTRScWJOektsZndycjk5SUNlZHVsOFc0VFFEUy16TzV1M2JjWFVWM2NOdlF1ZXpmVlQ0YWFUTWppVVBvS1AxSk8yaG5kZE9B?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Legendary Artist Criticizes Taylor Swift's Impact on Music
+
+- first seen: 2026-09-27 14:40 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A legendary artist has expressed strong criticism of Taylor Swift, stating that she has 'ruined music.' The comments have sparked discussions among fans and critics alike.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQTncxY0JrZDRSN3YtbmxBa3RDX1prQVF1QWlaRUhoNGhrNEladmM1OHFBcDhzTVhJUlVBRTV4eVVkaUFVRUY0SEc2TDF6VENFSi1EZFJISjQ5WXBIOVVsTXd4ZEZWYWx1QnlIZUJQQjdGbHRDX2F4d1BPWDlnN3BoSk56NGI3SmhqS2FWM2dMckg1Z3VIWUxOeVA1dVJRMlpD?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Possible Attendance at Dolphins vs Chiefs Game
+
+- first seen: 2026-09-27 14:40 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There is speculation about Taylor Swift attending the Dolphins vs Chiefs game today to see Travis Kelce. The news has generated buzz among fans and media.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxPZGtXUm0yU2Z6R0drLWQ5MTQ4R0t4Y3d1UUw4QzV2LXlpTTRpeHhPcHNvVG1RNTduaGtuMTFCSi1jY1c3VVotbzZvbE95T290ZU5yVEZUR1lnMHF0UzlNc0dpMnl3Sm5PVXdQanlZMlo4YzZ3amZfNm43cFBKNWhpX1V2TUpMbVE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Todd Rundgren Links Taylor Swift's Work to 90s Video Games
 
@@ -67,13 +91,32 @@ Stories: 73
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0gFBVV95cUxPSWdPYjJjNUV5X2RDSDBaaThzVHNsNHVFeUhNeGpZY0F4NmpfQmhibzZuc0FLLW9oV0NqR1FxOXNucm93QlNnVzVDVWxhUlc5ZVVDd3NScVQ4Uk9jblAtVkhKd3M4NWRtWlAtek15d3Ezcno4T3dfd25xZ2ozNzV5VzBVbWRpTDJ2M0dCalBGQ3ZvLWJTUnlqZ2NnZTREVDAxaTVQcTZpTWsxSTRXTzFobnNiOEZaTVhZand1UlR0TktWaGdYNTBjekUzOUtRYmd5dWc?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Speculation About Taylor Swift's Potential 2026 VMAs Performance
+
+- first seen: 2026-09-27 06:34 UTC | category: tour | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Discussion arises regarding the possibility of Taylor Swift performing at the 2026 VMAs, although no official announcement has been made. Fans are curious about future appearances in major events.
+- sources:
+  - [unverified] Cincinnati Enquirer — https://news.google.com/rss/articles/CBMiuwFBVV95cUxPcDduVUR5Y25IeDFmTE56ekgzcHFWMFhSQnpuTDdrdGI1M2MxdENsSml5clZiUUVQNmtSU3kyaFRQcGQ3eF9hek41RmkxMU56MlI2bExXTkMyVTR0MV9yM2Y2MGFuTXFVY1dYTFpOOVNXcE9JdjdmTWxoU2NwNldnUzRWRDZMQlkwaURlbWxzMDBkU0lEOVpJQVIweDRoZnp6dFBSa1FvN1YycXNCNWU2V0hfUzNEdmxUMzFr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOSHdoSDBPMXc0T1RKV0tZLWJNYnBrdzRSVmJ2a05ILXlneVJWdmxncDR0ZTZXalVldzZVdkdmV2xTbmlBd3AtTU9vUm9zRU1IeDZlZUpYVDQ2bk9PbHJjcTBxRkNuaVBQZm5nSWpnaGNNVDhDcno0Z0dNQ3V1bkhRdW92eE5YbWx3U2RTWnl6MFVJTmJNUE1fNlFHbjlsMmFT?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes History at MTV VMAs
+
+- first seen: 2026-09-27 06:34 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is making headlines at the MTV VMAs, where she is set to make history alongside Madonna, who leads in nominations. The event is a significant moment for fans and artists alike.
+- sources:
+  - [unverified] AP News — https://news.google.com/rss/articles/CBMimgFBVV95cUxNc29LNjU2WGtLN0FVSWF3c01hQmw0M013X0V1U2N3TjNZQTVwdkVlMDh3bkgwQng2T3FRMFFkblFRNnktMjFwZ2VBbnd2SjR2TTBIN0tNUkVBempHWk5TN3lvYlN5OGNRNjUxaktuU1hQUnExeW5hbk5YaEVVU1lRcEQ3UFRTOE5xRmxjV2diSGtPTXBXdDdMWmln?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Boston Globe — https://news.google.com/rss/articles/CBMipAFBVV95cUxPQWV2Y2lrcm9PYXFxSDk1WXlWWWRwZVlFbTRXUW01OWpwOFBqV2lFTUFHMEhjUEVObmZab3JmUHNSemFidXYtVHY0enlGVkpLbk9ySHBoYzBKYmNmdHd0ek8wX2x0TmZzMXVodmVTX0tjUnRCTkxiSnA4TzQ0TjhhdDVkcndROXRBeWVfRE5VcWw0bHVINFY5Y1NjdGlIX213WU9hUA?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Fans Speculate Taylor Swift's 'Pink Clouding' May Apologize to an Ex
 
 - first seen: 2026-09-26 23:34 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: A recent article discusses fans' theories surrounding Taylor Swift's song 'Pink Clouding,' suggesting it may serve as an apology to a former boyfriend. The speculation highlights the connection between her lyrics and past relationships.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMikwFBVV95cUxNYTNHY2Z5UDdOUlNsLTBvblhxd1lHRjI0Y2s1YW9QOHdLRXR1NG5weXBRMkdsYzg5a3k3akFOYlJieG9UQXVSUHZ6S0pWbUE1Yk14QW9QZjZha1RNNG1SNXlWTnNnZXI3b3lyY29BcHNSNWVpNzZucWlLYTFrLW90SXFhS0N5UWUtTDN1OFVEUkM2bDA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxQc2FCanJGVHBYZThSSndBZno1RWUtT0FaT2ZLZlBJTXJCTWFNZVFXLTdFaXVBQUtnRkxwb3pLbTc3bEFXYkx5aFFzSDZ2VUhuNG01QWluMUdya1UyZ2QyS2h0azRUU2N0cDVTOGN5WUI4NVJ6dUNORzVCa2k4d2d5YVYwNlp6RVJEV0NJbDNhNHB2eFNtSjgtcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Shows Off Stunning Short Haircut After Wedding
 
@@ -632,41 +675,3 @@ Stories: 73
 - summary: Social media users are reacting to claims that the cover artwork for Taylor Swift's new single "Patient Zero" may have been edited using Photoshop or AI tools. Discussions focus on whether the artist approved the modifications.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/z2v7dnb?at_medium=RSS&at_campaign=rss
-
-## Taylor Swift iPhone Colour Theory Gains Serious Attention
-
-- first seen: 2026-09-24 14:10 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The concept of the Taylor Swift iPhone colour theory has moved beyond mere jest, receiving serious acknowledgment in the media. This discussion reflects on its significance in her fan culture and branding.
-- sources:
-  - [unverified] Creative Bloq — https://news.google.com/rss/articles/CBMitwFBVV95cUxNSlZOWXpsQlZjNFlLeUFnZU00RnQ5TDVLcTBhVVpIMnB2YUFlU0RhV3dyUlNkYUhjYld5OXY5R2NoS19LUDdTSF95VGZCUGRRWF96SEtWXzlFaEVaaXF6YTNPN0JsaEJFNnZqcy1qM0JmUExYeXg5UHZPY1VZQmpuUS1QWTVpSDZHMDJFMWI1cG4yZjZyenJranh4WTQxcHp4LVpiLUttUEtkNDN2S3ljbHVBSXI5ejQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## CBS Mornings Teases Taylor Swift Segment, Sparks Fan Excitement
-
-- first seen: 2026-09-24 14:10 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 23
-- summary: CBS Mornings has released a teaser involving Taylor Swift that has generated significant excitement among her fans. The segment, dubbed 'Patient Zero,' has caught the attention of the Swiftie community.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxQdVdyVndnZkVOaXBiV2VlS3p1cGtVT3dPVU15VVpkOHZhSV9PNlZ3c0ZkSDNtalg2NlJhVnRmSTdBZ3AwbmJld1Y2OFdnNlZZRE5VZy1qcF9sRUlzVnBBNGVRNXFlNUVwTGp4a2tzeVAwVUQ3ckc4a2NiUHdHb05UUjN3bkxyWXc5OHpmbF9jQ1p1WGphR2FOZjU1VkhicmlEaU0wakt2bWpvQjFjZHFV?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] CBS News — https://news.google.com/rss/articles/CBMioAFBVV95cUxNakM3Wk9JVnpEZ1M0VXBrYzZzMUludy1QX0traW5ZWU9pMGtOaGg5NVE4TWlKWVU1MDZIQlFjOXd5a252bDFtMjBGN1hPRktwOVo5b1AtcEIwQUtUWjNhLXNUQkV3LXBkQklhcGJBbTNNeTZ3bnZYeDBBTXV0WG5pbWRFUlY5Q1NGNWhNS3pyUDJSVW5oZ1hOV1A0ZmNFZ1pz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQYm1FVXQyYUw5dllUaDhwS1VaeW82RGtqR3Z0cE96cHRkb1dudXJsVlQ2RzFPT0hFM1FlLWZoR3p2cDYwWUdFWi1tQXNDampTWkoyaGdwdmRHOWlVcEdpVEJsNHRWNTN3ZmE2VVd5WnFGejQ4MFBkSGIzOUlDOVBFSk0zdFMyU3oxYnBaWTZuMTlHT0VTckRQSWVpeFFPd0E?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMihAFBVV95cUxOc1VmQ1ZKNXZQMVJTdGtlMGRqNFc1OGlWX3dzbUtBN29sNTFtSDFNMTFwQjZYaTVBdmJheGViWExXMnpuMVp2SXR6Q2lIM1dSR0xPNmd1TFhHZ2xXVmhnb0dQMFJUUmJ1bk9ydDZ5QXMwdUU3WHh0Zm5ST0VWQ05mRHRFU3M?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMipwFBVV95cUxNbmVtSC1BSnF5U0dpTV84RnU2UHI4WklSUkJkZFJTSUdjTG0zb19vN0tfTDNwaXNVbG00WDBhM3N3dzFqd3VHY0FiWTdyQ0ViSFhKY1ZvS3U4WHVKT3Rqc1lpRmJmRkI3V05JbVcyQ0V2ZmFicnRNT2FEemc3cGlZM2U5aFVZRGphSkdFbGNzVHlIaENoNjE1NlR2eHptRUdrMWdWdVFTMA?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxNSG8telA1ZGxCVHIzRVpzT1EwOWFQN2txY0R6dHdrdS1xUzVYQmRfRFZnOElLdDN3RmxkbHpaVUwxZ0F3R1Z2MHpaMTlFUEVjN3FBZjFWbmlmVnZUTlg2STF2Z0k4WUtGN2tzWnRlUFlRM1RSaks3RzQzQl8wZ2xxc0tBRmxkRGFhOWZqMkxvejF4aWk1MEpVbVlpNHo?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxQbUJBQmtYSW0tNXcybzg5a1FfcDc5MTAxRzh2VmVYNnRyVDhRYjJyWGpleW54WXNBTkQxRUpEbmtDbWd2MzZvdEJVX1R3bkd3MlJudTZqcmpTa3lMZmNfU3lxcFYzODBHd2ozYU80T05BSHYxSmw2dDdVNnRYWHZ6dnlCOXhpcUUxNWdQZF9DRS0ybFNteDlORDhaVS1FZWRQQ1JPNi1vU2JvWmFjbGo1bjhfZ1g?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] kctv5.com — https://news.google.com/rss/articles/CBMilwFBVV95cUxOdHQyeXFIQkhZWlRMVks0TmJrRlFEdVAyX3FTZmxvU3MtYlpZV2RpYU5CcUxWX1QxaXVwWWNaM3J3SkUtZmV4Q2tZVExwQWJBWjdwU0NBaU1tNi10cnhpd21QNDhqQUw1WllrZWl3QTA5U0dndDZDQ0hCY042WDRNRmdrck1QNnN3TnJJNUFtSGFIR3Mtbjlj?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Mix93.3 — https://news.google.com/rss/articles/CBMiakFVX3lxTE9pYVQzUU84RmxTWjRfMF8zbzNadGhQVWZsSnNNWlNXaDRDcWRISFU4OFZseEtvaWx3OF82UjloQzdYZk9Hc1Q5S1QxWldjRDNqcTJPZmJXSWlWTnV0Slp1Tm5tTzZNODMtdUE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/24/arts/music/taylor-swift-patient-zero-origin.html
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMizAFBVV95cUxPcmx1Q3lxWTFubVZoT3B1X3RJQnN0Q1Z1eGk0OV94V0ExbmpCeEhvVTgtY1c1WlZ4RkdmcGExNldQcGdLWWJKeDBRdkhKYTdqWUpEWmxUbEotRzUxR2tUXzJrWUN0RnFCSnBjNW0zYUN4d0dhYmJwRkxFUl9pNS00SUljbkdlQzRxdEVGR2p3VGZRSTE0ejlRVy1PS2lDRVZSV2JPelUtNlRuaEtUamdiQzZhUG5qRnFhXzBQc0M4SC1xYkhScGtiYXVoUDM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] people.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxQMHI4QV9lZW82VUlLbktocVNEYldMU0c3a2dxMnNidjVpd0FFNUxKeGtwNzQ2R3lxM2R3UWNDUGZLa0FRR29qOFI2MGZFMlZ6R0JKb3pZMGZFZWptOWpaQnVtbHVZak94azVRMjZXUFlwdzZtZUxDSDJMWWhYY1FyNW9n?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxORm9rc25tcFdqSWxwenY0YWNNazVsTzd3blJFS1BCOEZEdFJ5d2wxXzJNbzcyQ3paS01wNy1LVG5UcFNHdmZhc3FYZ1NJUTRYTFhNbjR3VWRUUG9UQ2lYc3hDOUpvRlZWM1JhZHZSdTRfdl9kY0ZQVUhLNGZ4UmdVVy1tN2ZOY0xHenFjRHVPUUF0bGJaaDd2VkhRR0ZBZ1pHbi1DamxfSk4?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-1235630867/
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMioAFBVV95cUxPYnZqQkNiMDRweDBTcjhIVUJEYjlVMkgtU2FHbFpZdHZPZlVhNC1GUUc5ZHV6RlUyQWJKLXZlRUw3VlhOSHFacms3NmNDZzBCRWRrdmdidV9pUllkc19WVjZHendKRjJ6dmYzd2FkZGljeFNUZS1MZlh1ZTBRMWxLdGxSc2dwWG9GWm0zR2VaLTZZeXlfNDhKZ0otcjl4T2Zp?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-patient-zero-video-vmas-1236709245/
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQUWVSNC1TX2M4OEE0emE5VmY1NkttbmRyNUFwOFN6c3g4MlB6QzZab3dCMXVwVmNZQld2WHphRjVkYnJfUjZBOVAyVWowQjdoOGlIVkUxZ2NlLUNsWXFXeFJvN3RmMUlrX2dPY1dXTzdZSmk4WS1FWEUweTB5UUY4dS1TRDZxWHJNb193?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] TODAY.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOalNNWnVSeFFsMk53SktnZjZkOXF5bDA2X2l6UDlCYUlIYTRkcUU3SnZhcVJIRjlqR2EwZGhkSTM0TDBuSi1VdHpDSXZJemI0NXZielN0MDdGbXJ2aXFicGdUUDdiZVdodWJhN0pnUHk4aFlhQ2MxQUcyVjVlVE04akJvRWY4M1V1WS1fSV8wdE5GQ1RpQUl2ejh0S01oUkJrTjhZc2xlY08?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi0AFBVV95cUxQa3FyV0t6YlRTdWMzUnVYUGIyS1lVYjNya2RGQ1ozZ29nOW9qVW9MeGVaN3lMYnZFaGpmM2FBVkVUamRqZ2htc0lRUDlPSm9GeXdxUzdHQlRuQ1VEZko1OWJLX1dXc2YtQkdrLS1UTURDTlBPNWJndkhmSmV0RmZqVFpsZUlXcm93dkJSLUp1d01Zc1dhb3lZRDA4NG9hQU1IbUtnM0dyYTZ6bDFobnE0NG5pbi1wdV8zQ0x0RXpSbUxjRnFGQXV5Y1pCOWI5eFVz?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMitAFBVV95cUxNN3RjcGdxcjFZM0duM0hjellDNVlPSTV3S1NYYU0tZUs3V1lfZU5IaUNDM0U3ODN0blBYd0JlQzRqbzhqTkw4NWNWeW5LWjVSd0htU0FuTlRQelkxOVRRSlUwZWlkTy1fX1oyM1B4UWZ1NHo1TUF0NHlOM3dJcjdiS2F4ZFlxTUVWUXo1WEtjTWZqUEtkYUU1TGY3bzNlNUlvVWhtd3JzenNZQ21WZU5NNkNiQ00?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-patient-zero-music-video-dakota-johnson-colin-farrell-1236874206/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOanl2NFB4ME1IRjYwdHRWb2FRQVB0TExVeWloVWZOTWI1U2ktQ3pWaHhPWmdtd0ltdzRwaGdZckpDWGJmaDdHOFZ5TTB6Y3N6R2k0Qnp3TllZR1N5ekpYMzBtc05qWlZzb1VCQU9jM2tVWmpuQmZYcnd2S1ZFeFdmTThnTTNwdFM3SFFhTlJ2dE5sbG8wYnNLekxwcXJjMDJK?oc=5&hl=en-US&gl=US&ceid=US:en
