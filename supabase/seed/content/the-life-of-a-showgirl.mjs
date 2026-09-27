@@ -3694,7 +3694,7 @@ export default {
             source_title: "There's New Evidence That Taylor Swift's Next Album, aka TS13, Is Incoming",
             publisher: 'Cosmopolitan',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
+            accessed_at: '2026-09-27',
             reliability_score: 3,
           },
           {
@@ -3703,7 +3703,7 @@ export default {
             source_title: 'A Source Speaks on Taylor Swift\'s Album Plans',
             publisher: 'Us Weekly',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
+            accessed_at: '2026-09-27',
             reliability_score: 3,
           },
           {
@@ -3712,7 +3712,7 @@ export default {
             source_title: 'Every Clue Taylor Swift\'s 13th Album Could Be Coming',
             publisher: 'Elite Daily',
             source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
+            accessed_at: '2026-09-27',
             reliability_score: 2,
           },
           {
@@ -3727,7 +3727,11 @@ export default {
             // speculation (see the new rumor entry below) confirms no album 13
             // or re-record has been announced, so the banner stays and this
             // records that someone looked.
-            accessed_at: '2026-08-25',
+            // Kevin (S1) re-check 2026-09-27 (rumor-lifecycle staleness #4552):
+            // re-verified again — still no album No. 13 announced, titled, or
+            // dated, so confidence stays 'reputable_reporting' and this
+            // refreshes the last-accessed date to record the re-check.
+            accessed_at: '2026-09-27',
             reliability_score: 4,
           },
         ],

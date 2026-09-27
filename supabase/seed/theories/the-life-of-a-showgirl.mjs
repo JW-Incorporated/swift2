@@ -332,7 +332,13 @@ export default {
             "Taylor Swift Fuels Album Theories as Empire State Building Flashes Green 'TS' Logo and Asks 'WhaTS Happening?'",
           publisher: 'IBTimes UK',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          // Kevin (S1) re-check 2026-09-27 (rumor-lifecycle staleness #4541):
+          // re-verified the claim's status — the green ESB / "TS" logo hunt is
+          // still unresolved fan decoding with nothing officially linking the
+          // display to a confirmed project, so confidence stays 'plausible'/
+          // 'pending' and this refreshes the last-accessed date to record the
+          // re-check.
+          accessed_at: '2026-09-27',
           reliability_score: 3,
           excerpt: null,
           notes:
@@ -345,7 +351,7 @@ export default {
             'Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories',
           publisher: 'Contactmusic',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-27',
           reliability_score: 3,
           excerpt: null,
           notes:
@@ -357,7 +363,7 @@ export default {
             'Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories',
           publisher: 'Yahoo News UK',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-27',
           reliability_score: 3,
           excerpt: null,
           notes: 'Third independent outlet carrying the same reporting, including the "not everything is an Easter egg" counter-take.',
