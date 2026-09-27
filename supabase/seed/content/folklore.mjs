@@ -619,7 +619,7 @@ export default {
             price: '$34.58',
             isAlternative: true,
             altNote: 'Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },

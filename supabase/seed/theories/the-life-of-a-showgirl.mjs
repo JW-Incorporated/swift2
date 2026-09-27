@@ -332,11 +332,11 @@ export default {
             "Taylor Swift Fuels Album Theories as Empire State Building Flashes Green 'TS' Logo and Asks 'WhaTS Happening?'",
           publisher: 'IBTimes UK',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-27',
           reliability_score: 3,
           excerpt: null,
           notes:
-            'Anchors the documented facts: the ESB green display and its official X "WhaTS happening?" post, Aug 20 2026. Verified via web search this session (direct outlet fetch egress-blocked).',
+            'Anchors the documented facts: the ESB green display and its official X "WhaTS happening?" post, Aug 20 2026. Verified via web search this session (direct outlet fetch egress-blocked). Re-verified 2026-09-27 (was 2026-08-24): five-plus weeks on, still no official statement ties the green display to any project, so this stays plausible/pending — the debut-anniversary hunt kept building without an announcement or a debunk.',
         },
         {
           source_url:
@@ -345,11 +345,11 @@ export default {
             'Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories',
           publisher: 'Contactmusic',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-27',
           reliability_score: 3,
           excerpt: null,
           notes:
-            'Independent corroboration of the green ESB + multi-city "TS" logo sightings and the split fan reads (debut vs. reputation). Verified via web search this session.',
+            'Independent corroboration of the green ESB + multi-city "TS" logo sightings and the split fan reads (debut vs. reputation). Verified via web search this session; re-verified 2026-09-27.',
         },
         {
           source_url: 'https://uk.news.yahoo.com/empire-state-building-goes-green-090000104.html',
@@ -357,10 +357,10 @@ export default {
             'Empire State Building goes green as mysterious TS symbols spark Taylor Swift fan theories',
           publisher: 'Yahoo News UK',
           source_type: 'reputable_press',
-          accessed_at: '2026-08-24',
+          accessed_at: '2026-09-27',
           reliability_score: 3,
           excerpt: null,
-          notes: 'Third independent outlet carrying the same reporting, including the "not everything is an Easter egg" counter-take.',
+          notes: 'Third independent outlet carrying the same reporting, including the "not everything is an Easter egg" counter-take. Re-verified 2026-09-27.',
         },
       ],
     },

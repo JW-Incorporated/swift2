@@ -656,7 +656,7 @@ export default {
             price: '$105.00',
             isAlternative: true,
             altNote: 'The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1274,7 +1274,7 @@ export default {
             price: '$798.00',
             isAlternative: true,
             altNote: 'Her exact Oscar de la Renta gown is discontinued -- this is a current blue floral brocade ball gown in the same full-skirted silhouette, without the original\'s cutouts.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1734,7 +1734,7 @@ export default {
             price: '$298.00',
             isAlternative: false,
             altNote: 'The exact AREA Crystal Slit Jean named in the look, currently marked down -- sourcing the jeans only (corset, jacket, boots, and jewelry not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1852,7 +1852,7 @@ export default {
             price: '$27.98',
             isAlternative: true,
             altNote: 'The custom Versace stage bodysuit was never sold at retail -- this pink rhinestone fishnet mini offers a similar color and sparkle, as a dress rather than a bodysuit.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
@@ -1903,7 +1903,7 @@ export default {
             price: '$698.00',
             isAlternative: true,
             altNote: 'The custom Cavalli stage dress was never sold at retail -- this gold-silver ombre sequin fringe dress recreates its shimmer and movement (boots not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },

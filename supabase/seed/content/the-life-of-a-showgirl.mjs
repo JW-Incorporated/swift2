@@ -11549,7 +11549,7 @@ export default {
       thumbnailUrl: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-and-Travis-Kelce-coachella-2024-billboard-1548.jpg?w=1024",
       moment: {
         context:
-          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. If a named outlet or either camp verifies it, the Rumor Desk can promote it; if it stays a single social tip, it fades.',
+          'About a month after their Madison Square Garden wedding, and with the Chiefs off on Sunday, Taylor and Travis were reportedly out to dinner on Saturday, Aug. 9, 2026, somewhere in the Kansas City area — where Kelce openly lives and trains. Fans framed it as the couple’s first public sighting since Kelce reported to Chiefs training camp.\n\nThe honest status is thin. The report traces to the gossip account Deuxmoi plus unverified photos circulating on social media — one said to show Taylor seated in a booth — aggregated up by outlets including heavy.com and Yahoo. No established outlet has independently confirmed the dinner, and neither Taylor nor Kelce has addressed it. It is the kind of low-stakes, easy-to-believe item that fits everything already known — the couple are newly married and Kelce plays and trains in Kansas City — without any of that adding up to confirmation. As of late September 2026 it has faded: no named outlet or either camp ever verified the Aug. 9 dinner, and it went quiet rather than resolving. (Their confirmed Kansas City date nights came later and separately — the Sept. 14 season opener and Patrick Mahomes’ Sept. 18 birthday dinner, both at Kelce’s 1587 Prime — and neither corroborates this earlier tip.)',
         sources: [
           {
             outlet: 'heavy.com',
@@ -11557,7 +11557,7 @@ export default {
             source_title: 'Travis Kelce, Taylor Swift Make First Appearance Since Training Camp',
             publisher: 'heavy.com',
             source_type: 'reputable_press',
-            accessed_at: '2026-08-10',
+            accessed_at: '2026-09-27',
             reliability_score: 2,
           },
           {
@@ -11576,12 +11576,12 @@ export default {
               'Gossip account Deuxmoi and unverified social-media photos placed Taylor and Travis at dinner in the Kansas City area on Saturday, Aug. 9, 2026, in what fans called their first public outing since Kelce reported to Chiefs training camp.',
             reportedBy: 'Deuxmoi / heavy.com',
             reportedOn: '2026-08-09',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened per the matrix. Rechecked 2026-09-22: still unconfirmed, no denial (day 44, near the 45-day fade). The separately confirmed ~Sept 14–17 1587 Prime date night is a distinct, later event and does not corroborate this Aug 9 tip; fades next check if nothing surfaces.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened. Faded 2026-09-27: reported Aug 9, rechecked 09-22 and 09-27 (day 49, past the 45-day quiet window) — still no confirmation or denial. The separately confirmed mid-September 1587 Prime date nights are distinct, later events that never corroborated this tip.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-09-22',
+            lastCheckedOn: '2026-09-27',
           },
         ],
         photos: [
@@ -14787,6 +14787,69 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-26',
             reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'cleveland-lyric-video-kelce-road-trip',
+      year: 2026,
+      month: 9,
+      day: 25,
+      category: 'relationship',
+      significance: 'notable',
+      title: '"Cleveland!" gets a lyric video — home footage from a road trip through Travis\'s hometown',
+      snippet:
+        'Alongside "Cleveland!," one of four new songs on The Life of a Showgirl: The Encore, Taylor posted a lyric video built from never-before-seen home footage of the road trip she and Travis Kelce took through his Cleveland Heights, Ohio hometown — Kelce at the wheel, Taylor filming from the passenger seat, and a closing shot of a white dress and roller skates marked with 13 hearts.',
+      sourceUrl: 'https://www.youtube.com/watch?v=jfVVXYTZykw',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.',
+        // No `video` field on purpose (same reasoning as
+        // 'patient-zero-released-spotify-records' above): the official lyric-video
+        // frame is used as a plain credited photo and the video is cited as a
+        // source. Declaring `video` here would make the ytimg still the moment's
+        // own video frame, which the #2080/#2081 feed-card rule suppresses and
+        // the video-affordance real-vault count tests (#4134) treat as a
+        // tripwire a seed-only lane cannot move.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/jfVVXYTZykw/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: an aerial shot of a tree-lined Cleveland Heights
+            // neighborhood with the beaded title word "CLEVELAND" across it — the
+            // official lyric-video card. oEmbed verified: author_name "Taylor
+            // Swift", author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Cleveland!" lyric video, YouTube)',
+            caption:
+              'The official lyric video for "Cleveland!," posted to Taylor\'s YouTube the day The Life of a Showgirl: The Encore arrived.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1436476/taylor-swift-shares-travis-kelce-road-trip-in-cleveland-lyric-video',
+            source_title: 'Taylor Swift Shares Travis Kelce Road Trip in Cleveland! Lyric Video',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-27',
+            reliability_score: 4,
+            notes:
+              'source for the road-trip footage — Kelce driving in a blue striped shirt/black cap/gold chain, the freeway sign, Taylor in the passenger seat, the shopping strip and neighborhood, and the return to Cleveland Heights High School.',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/09/26/taylor-swift-shares-never-before-seen-footage-with-travis-kelce-in-cleveland-lyric-video-watch-now/',
+            source_title: "Taylor Swift Shares Never-Before-Seen Footage with Travis Kelce in 'Cleveland!' Lyric Video",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-27',
+            reliability_score: 3,
+            notes:
+              'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
           },
         ],
       },
