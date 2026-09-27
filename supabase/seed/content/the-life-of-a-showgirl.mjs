@@ -11578,7 +11578,7 @@ export default {
             reportedOn: '2026-08-09',
             status: 'faded',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-make-first-appearance-training-camp/',
-            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened per the matrix. Faded 2026-09-27: reported Aug 9, rechecked 09-22 (day 44) and again 09-27 (day 49, past the 45-day quiet window) — still no confirmation and no denial, retired to `faded` rather than left implying it is still live. The separately confirmed mid-September 1587 Prime date nights (Sept 14 season opener and Sept 18 Mahomes birthday) are distinct, later events and never corroborated this Aug 9 tip.',
+            note: 'Deuxmoi tip + unverified social photos via heavy.com/Yahoo; no established outlet confirmed it (social tier). Region-coarsened. Faded 2026-09-27: reported Aug 9, rechecked 09-22 and 09-27 (day 49, past the 45-day quiet window) — still no confirmation or denial. The separately confirmed mid-September 1587 Prime date nights are distinct, later events that never corroborated this tip.',
             sourceTier: 'social',
             locationSpecificity: 'region',
             lastCheckedOn: '2026-09-27',
@@ -14800,7 +14800,7 @@ export default {
       significance: 'notable',
       title: '"Cleveland!" gets a lyric video — home footage from a road trip through Travis\'s hometown',
       snippet:
-        'Alongside "Cleveland!," one of the four new songs on The Life of a Showgirl: The Encore, Taylor posted a lyric video built from never-before-seen personal footage of a road trip she took with Travis Kelce through his hometown of Cleveland Heights, Ohio — Kelce driving and grinning, Taylor filming from the passenger seat, the tree-lined streets he grew up on, and a closing image of a woman in a white dress on roller skates marked with 13 hearts.',
+        'Alongside "Cleveland!," one of four new songs on The Life of a Showgirl: The Encore, Taylor posted a lyric video built from never-before-seen home footage of the road trip she and Travis Kelce took through his Cleveland Heights, Ohio hometown — Kelce at the wheel, Taylor filming from the passenger seat, and a closing shot of a white dress and roller skates marked with 13 hearts.',
       sourceUrl: 'https://www.youtube.com/watch?v=jfVVXYTZykw',
       thumbnailUrl: null,
       moment: {
@@ -14850,17 +14850,6 @@ export default {
             reliability_score: 3,
             notes:
               'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
-          },
-          {
-            outlet: 'Taylor Swift (YouTube)',
-            url: 'https://www.youtube.com/watch?v=jfVVXYTZykw',
-            source_title: 'Taylor Swift - Cleveland! (Official Lyric Video)',
-            publisher: 'YouTube',
-            source_type: 'official',
-            accessed_at: '2026-09-27',
-            reliability_score: 5,
-            notes:
-              'the primary artifact — official lyric video on Taylor\'s own channel (oEmbed author "Taylor Swift", youtube.com/@TaylorSwift). Its title card is this entry\'s visual.',
           },
         ],
       },
