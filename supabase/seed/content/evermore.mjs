@@ -1083,7 +1083,7 @@ export default {
             price: '$1,350.00',
             isAlternative: true,
             altNote: 'Her exact purple suit was custom — this is Etro\'s current velvet blazer (shown styled as a pantsuit), in blue rather than purple.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+            verifiedAt: '2026-09-27T00:00:00.000Z'
           },
         ],
       },
