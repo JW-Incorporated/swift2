@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted. Every entry also carries an \"alt\" accessibility description (docs/social/RULINGS-SOCIAL.md A3/B2), written ONCE here and reviewed in this file's own PR \u2014 a draft's altText[] must copy it verbatim (see scripts/social/select-photo.mjs's output and lib/queue-schema.mjs's validatePhotoInventoryBinding) rather than retyping it per post, so attribution and description cannot drift apart.",
+  "policy": "Every entry has a local publishable media path, an exact source URL, and a truthful credit. The selector chooses the least-used entry and then the longest-unseen entry; recency is a diversity preference, never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted. Every entry also carries an \"alt\" accessibility description (docs/social/RULINGS-SOCIAL.md A3/B2), written ONCE here and reviewed in this file's own PR — a draft's altText[] must copy it verbatim (see scripts/social/select-photo.mjs's output and lib/queue-schema.mjs's validatePhotoInventoryBinding) rather than retyping it per post, so attribution and description cannot drift apart.",
   "photos": [
     {
       "id": "1989-inglewood-2023",
@@ -127,7 +127,7 @@
       "mediaPath": "/social/library/photos/reddit-erastour-1q6jwfl.jpg",
       "credit": "u/Sensitive-Archer3010 via r/erastour",
       "source": "https://www.reddit.com/r/erastour/comments/1q6jwfl/taylors_perfume_from_episodes_56/",
-      "alt": "Fan photo from the Eras Tour, shared on r/erastour: Taylor\u2019s perfume from episodes 5/6",
+      "alt": "Fan photo from the Eras Tour, shared on r/erastour: Taylor’s perfume from episodes 5/6",
       "tags": [
         "fan-photo",
         "eras-tour"
@@ -160,7 +160,7 @@
       "mediaPath": "/social/library/photos/reddit-taylorswiftpictures-1nz3wbn.gif",
       "credit": "u/unknown via r/TaylorSwiftPictures",
       "source": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1nz3wbn/the_life_of_a_showgirl/",
-      "alt": "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: The Life of a Showgirl\ud83e\udde1",
+      "alt": "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: The Life of a Showgirl🧡",
       "tags": [
         "fan-photo",
         "eras-tour"
@@ -215,7 +215,7 @@
       "mediaPath": "/social/library/photos/reddit-taylorswiftpictures-1pm1yly.jpg",
       "credit": "u/unknown via r/TaylorSwiftPictures",
       "source": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pm1yly/happy_birthday/",
-      "alt": "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Happy Birthday \ud83c\udf82",
+      "alt": "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Happy Birthday 🎂",
       "tags": [
         "fan-photo",
         "eras-tour"
@@ -248,7 +248,7 @@
       "mediaPath": "/social/library/photos/reddit-taylorswiftpictures-1pxtr93.jpg",
       "credit": "u/unknown via r/TaylorSwiftPictures",
       "source": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pxtr93/taylors_workout/",
-      "alt": "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor\u2019s Workout",
+      "alt": "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor’s Workout",
       "tags": [
         "fan-photo",
         "eras-tour"
