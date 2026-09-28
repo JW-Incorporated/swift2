@@ -83,6 +83,16 @@ async function main() {
       });
       if (!res.ok) throw new Error(`${candidate.id}: failed to fetch ${candidate.sourceUrl}: ${res.status} ${res.statusText}`);
       const buf = Buffer.from(await res.arrayBuffer());
+      // 2026-09-28: a 62MB GIF got sourced and shipped once with no size
+      // check at all (repo push warned it exceeded GitHub's own recommended
+      // 50MB limit) — cap ingestion at a sane social-media size so a single
+      // oversized source never bloats the repo or slows the site.
+      const MAX_PHOTO_BYTES = 15 * 1024 * 1024; // 15 MB
+      if (buf.byteLength > MAX_PHOTO_BYTES) {
+        throw new Error(
+          `${candidate.id}: fetched image is ${(buf.byteLength / 1024 / 1024).toFixed(1)}MB, over the ${MAX_PHOTO_BYTES / 1024 / 1024}MB import cap (${candidate.sourceUrl}) — skip this candidate.`,
+        );
+      }
       const hash = createHash('sha256').update(buf).digest('hex');
       if (seenHashes.has(hash)) {
         skippedDuplicates.push({ id: candidate.id, duplicateOf: seenHashes.get(hash) });
