@@ -33,15 +33,15 @@ retired, not deleted.
 -->
 
 
-### L001 — Never repeat a photograph across a sibling pair or inside 7 days
+### L001 — Never re-use a photograph that has already shipped
 
 - **Status:** active
 - **First seen:** 2026-09-21 (PR #4471)
-- **Times fired:** 1
-- **Last fired:** 2026-09-21 (PR #4471)
-- **Evidence:** [#4471 ❌](https://github.com/JW-Incorporated/swift2/pull/4471)
-- **Codify:** —
+- **Times fired:** 4
+- **Last fired:** 2026-09-28 (PR #4556)
+- **Evidence:** [#4471 ❌](https://github.com/JW-Incorporated/swift2/pull/4471), [#4513 ❌](https://github.com/JW-Incorporated/swift2/pull/4513), [#4544 ❌](https://github.com/JW-Incorporated/swift2/pull/4544), [#4556 ❌](https://github.com/JW-Incorporated/swift2/pull/4556)
+- **Codify:** #4601
 
-**You said:** "Not approved. we've used this image before"
+**You said:** "The reason for all the "no's" on all of these posts is teh same: Re-used picture. All re-used pictures will be rejected. We need new pictures."
 
-**So I:** Run `npm run social:select-photo` per ITEM, not per beat, and never put the same `photoId` on both halves of an IG/X pair. Before writing either half, check the last 7 days of `social/posted/` and `social/queue/` for that `photoId`; if any less-recently-used entry in `social/photo-library.json` is free, take it instead. When every entry has shipped inside 7 days, drop the X sibling to text-only (strategy §2 rung 3) rather than repeating a tile, and say which repeat you avoided in the item's `why`.
+**So I:** Never ship a `photoId` that already appears in `social/posted/` or `social/queue/`. Before writing any `mediaKind: "photo"` item, build the set of every `photoId` that has ever shipped or is already queued and treat it as **ineligible**, not merely deprioritised — this is stricter than the 7-day window this rule first carried, because the founder has now rejected on it four times and the last time in absolute terms. Pick a never-used entry from `social/photo-library.json` (`npm run social:select-photo` per ITEM, not per beat), never put the same `photoId` on both halves of an IG/X pair, and when no unused entry is left drop the X sibling to text-only (strategy §2 rung 3) and leave the Instagram slot empty rather than repeating a tile. Name the repeat you avoided in the item's `why`.
