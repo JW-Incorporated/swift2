@@ -14854,6 +14854,118 @@ export default {
         ],
       },
     },
+    {
+      // The Sept. 27 ceremony is the OUTCOME of the pre-show entries above —
+      // 'vma-2026-artist-director-honor' (the Sept. 22 announcement of the
+      // honor) and 'patient-zero-released-spotify-records' (which flagged the
+      // full "Patient Zero" video as "set to premiere" at the VMAs). This is a
+      // new wavetop for the night itself, not a duplicate of either.
+      slug: 'showgirl-vmas-2026-ceremony',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      significance: 'notable',
+      title: 'Most decorated in VMAs history: Taylor sweeps the night, dedicates Video of the Year to Dolly Parton',
+      snippet:
+        'At the 2026 MTV VMAs, Taylor accepted the inaugural Artist Director Honors, won Best Direction for "Opalite" and Video of the Year for "The Fate of Ophelia," and left the most-decorated artist in the show\'s history — past Beyoncé. She dedicated Video of the Year to "the ultimate showgirl," the late Dolly Parton, and premiered the self-directed "Patient Zero" video.',
+      sourceUrl:
+        'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2026 MTV Video Music Awards, held Sunday, Sept. 27 at the Peacock Theater in Los Angeles and hosted by Snoop Dogg, turned into a record-setting night for Taylor. She accepted the inaugural Artist Director Honors — the award MTV created for her and announced five days earlier — presented on stage by Dakota Johnson, then won Best Direction for "Opalite" and, in the night\'s marquee category, Video of the Year for the self-directed "The Fate of Ophelia."\n\nThe two competitive Moon Persons lifted her career total to 32, moving her past Beyoncé (30) as the most-awarded artist the show has ever had; counted with the honorary Artist Director trophy, she left the Peacock Theater with 33 VMAs, more than anyone in the ceremony\'s history. Madonna led the field on the night with a haul that included Artist of the Year.\n\nAccepting Video of the Year, Taylor turned the moment into a tribute. She dedicated the award to "the ultimate showgirl," the late Dolly Parton — who had died the month before — praising the vividness of her storytelling: "Every single song that she wrote, her storytelling was so vivid and so rich... I think we were all very lucky to share this planet with Dolly Parton for a time." Kacey Musgraves paid her own tribute to Parton during the broadcast.\n\nThe night also delivered the visual the Encore rollout had been building toward: the full "Patient Zero" music video, which Taylor directed with cinematography by Emmanuel Lubezki, had its world premiere during the show. The star-filled cut features Dakota Johnson and Colin Farrell, with a cameo from Cara Delevingne as the "other woman" and a black-tie-party appearance by Rams quarterback Matthew Stafford and his wife, Kelly.',
+        // Fresh, unused stage photo of this exact moment — the Artist Director
+        // Honors acceptance — on NBC News's own reusable Cloudinary CDN
+        // (media-cldnry.s-nbcnews.com, on CONFIG.hostAllowlist). curl-verified
+        // HTTP 200 image/jpeg, 1500x1000, 138KB, downloaded and vision-confirmed:
+        // Taylor at the podium holding a Moon Person in a black halter and silver
+        // sequin skirt in front of the red "ARTIST DIRECTOR" screen. Photographer
+        // credit and caption pulled from the NBC article: Kevin Winter/Getty
+        // Images, "Taylor Swift accepts the Artist Director Honors." Not a
+        // watermarked getty comp, no signed/expiring token on the URL.
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/taylor-swift-vmas-lc-260927-7156aa.jpg',
+            credit: 'Kevin Winter/Getty Images, via NBC News',
+            caption:
+              'Taylor accepts the inaugural Artist Director Honors at the 2026 MTV VMAs on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'primary',
+            focalPoint: '50% 28%',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+            source_title:
+              'Taylor Swift surpasses Beyoncé to become most decorated solo artist in MTV VMAs history',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 5,
+            notes:
+              'Primary source for the most-decorated record (past Beyoncé, 30 to 33), the Sept. 27 Peacock Theater ceremony, the "Patient Zero" premiere, and the Emmanuel Lubezki cinematography credit.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/2026-vmas-highlights-madonna-taylor-swift/',
+            source_title:
+              'Madonna wins 2026 MTV VMAs Artist of the Year, Taylor Swift accepts Artist Director Honor',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'Confirms the Artist Director Honors acceptance, Madonna as Artist of the Year, and the Kacey Musgraves tribute to Dolly Parton.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-extends-record-mtv-vmas-win-1236713296/',
+            source_title: 'Taylor Swift Wins Video of the Year at 2026 MTV VMAs, Extends Her Record',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'hollywoodreporter.com is bot-gated in the run environment (a tollbit 402 redirect), so the page could not be loaded directly; the Video of the Year win and the record were confirmed against NBC News and CBS News, which did load.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-dolly-parton-vmas-video-of-the-year-ophelia-1235631582/',
+            source_title:
+              'Taylor Swift Pays Tribute to Dolly Parton While Accepting Video of the Year Award at 2026 VMAs',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is bot-gated (tollbit 402) in the run environment; the Dolly Parton dedication and "ultimate showgirl" quote were confirmed against NBC News and CBS News.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vmas-patient-zero-music-video-premiere-1236876944/',
+            source_title: "Taylor Swift Premieres Star-Filled 'Patient Zero' Music Video at VMAs",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes:
+              'variety.com is bot-gated (tollbit 402) in the run environment; the "Patient Zero" premiere and the Dakota Johnson / Colin Farrell / Cara Delevingne casting were confirmed against NBC News and E! News.',
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo',
+            source_title: "Matthew Stafford makes cameo in Taylor Swift's 'Patient Zero' music video",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-28',
+            reliability_score: 4,
+            notes: 'Source for the Matthew Stafford (and wife Kelly) black-tie-party cameo in the "Patient Zero" video.',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
