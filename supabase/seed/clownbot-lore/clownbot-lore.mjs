@@ -36,16 +36,16 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-26',
+  updatedOn: '2026-09-28',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
       status: 'confirmed',
       date: '2026-09-25',
-      lastCheckedOn: '2026-09-26',
+      lastCheckedOn: '2026-09-28',
       headline: '"The Life of a Showgirl: The Encore" — four new songs, led by "Patient Zero"',
       detail:
-        'On 25 Sept 2026 Taylor released "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album adding four brand-new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" — which she said she wrote afterward in Sweden with Max Martin and Shellback. Spotify said the drop made her the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year. An official lyric video is out; the full "Patient Zero" video, directed by Taylor with Colin Farrell and Dakota Johnson, is set to premiere at the VMAs.',
+        'On 25 Sept 2026 Taylor released "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album adding four brand-new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" — which she said she wrote afterward in Sweden with Max Martin and Shellback. Spotify said the drop made her the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year. An official lyric video is out, and the full "Patient Zero" video, directed by Taylor with cinematography by Emmanuel Lubezki, premiered at the VMAs on 27 Sept 2026 — a star-filled cut with Dakota Johnson, Colin Farrell, a Cara Delevingne cameo and a Matthew Stafford cameo.',
       sources: [
         {
           name: 'Variety',
@@ -65,6 +65,34 @@ export default {
         'Encore, not TS13. Put a number on the odds this expansion is the last new music before a genuinely new era.',
       ],
       tags: ['tloas', 'release', 'patient-zero'],
+    },
+    {
+      id: 'vmas-2026-record-night',
+      status: 'confirmed',
+      date: '2026-09-27',
+      lastCheckedOn: '2026-09-28',
+      headline: 'Most decorated in VMAs history — and a Dolly Parton dedication',
+      detail:
+        'At the 2026 MTV VMAs on 27 Sept (Peacock Theater, Los Angeles, hosted by Snoop Dogg), Taylor accepted the inaugural Artist Director Honors (presented by Dakota Johnson), won Best Direction for "Opalite," and won Video of the Year for the self-directed "The Fate of Ophelia." The two competitive Moon Persons pushed her career total to 32 — past Beyoncé\'s 30 — and, counting the honorary award, she left with 33 VMAs, the most of any artist in the show\'s history. Accepting Video of the Year she dedicated it to "the ultimate showgirl," the late Dolly Parton. The full "Patient Zero" music video premiered during the broadcast.',
+      sources: [
+        {
+          name: 'NBC News',
+          url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-mtv-vmas-2026-breaks-beyonce-tie-debuts-patient-zero-rcna600112',
+        },
+        {
+          name: 'CBS News',
+          url: 'https://www.cbsnews.com/news/2026-vmas-highlights-madonna-taylor-swift/',
+        },
+        {
+          name: 'The Hollywood Reporter',
+          url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-extends-record-mtv-vmas-win-1236713296/',
+        },
+      ],
+      prompts: [
+        'She dedicated Video of the Year to Dolly Parton, "the ultimate showgirl." Weigh it: genuine lineage, or a showgirl-era callback too neat to be an accident? Pick one.',
+        '33 VMAs and counting. Put a number on whether anyone catches her this decade.',
+      ],
+      tags: ['tloas', 'vmas', 'awards', 'patient-zero'],
     },
     {
       id: 'masters-buyback',
