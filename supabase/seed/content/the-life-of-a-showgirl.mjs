@@ -12871,6 +12871,8 @@ export default {
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
         'moment:vault-tloas-andrew-lloyd-webber-hears-his-own-ophelia-in-the-fate-of-oph',
+        // Added 2026-09-28 (Cross-Link lane): the Sept. 27 ceremony these nods paid off in.
+        'moment:vault-tloas-most-decorated-in-vmas-history-taylor-sweeps-the-night-dedic',
       ],
       year: 2026,
       month: 8,
@@ -14533,6 +14535,11 @@ export default {
       day: 22,
       category: 'music',
       significance: 'notable',
+      // Cross-link (Cross-Link lane, 2026-09-28): the ceremony where she
+      // accepted this honor on stage.
+      relatedIds: [
+        'moment:vault-tloas-most-decorated-in-vmas-history-taylor-sweeps-the-night-dedic',
+      ],
       title: 'MTV creates a new VMA honor — the Artist Director award — and names Taylor its first recipient',
       snippet:
         'MTV announced that Taylor will be the inaugural recipient of the Artist Director Honor at the 2026 Video Music Awards on Sept. 27, a new award recognizing a directorial voice built across her own music videos — the artist with more Best Direction Moonmen than anyone.',
@@ -14656,6 +14663,11 @@ export default {
       day: 25,
       category: 'music',
       significance: 'notable',
+      // Cross-link (Cross-Link lane, 2026-09-28): the VMAs ceremony where the
+      // full "Patient Zero" video (flagged here as "set to premiere") debuted.
+      relatedIds: [
+        'moment:vault-tloas-most-decorated-in-vmas-history-taylor-sweeps-the-night-dedic',
+      ],
       title: '"Patient Zero" arrives with "The Encore" — and sets two Spotify 2026 records on day one',
       snippet:
         'The Life of a Showgirl: The Encore landed Friday, Sept. 25, adding four new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" On day one, Spotify said Taylor became the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year.',
@@ -14866,6 +14878,15 @@ export default {
       day: 27,
       category: 'music',
       significance: 'notable',
+      // Cross-links (Cross-Link lane, 2026-09-28): the ceremony is the outcome
+      // of the pre-show entries — the Artist Director Honor announcement, the
+      // nominations, and the Encore/Patient Zero release whose video premiered
+      // here.
+      relatedIds: [
+        'moment:vault-tloas-mtv-creates-a-new-vma-honor-the-artist-director-award-and-na',
+        'moment:vault-tloas-vma-nods-rise-to-eleven-and-the-fate-of-ophelia-up-for-video',
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+      ],
       title: 'Most decorated in VMAs history: Taylor sweeps the night, dedicates Video of the Year to Dolly Parton',
       snippet:
         'At the 2026 MTV VMAs, Taylor accepted the inaugural Artist Director Honors, won Best Direction for "Opalite" and Video of the Year for "The Fate of Ophelia," and left the most-decorated artist in the show\'s history — past Beyoncé. She dedicated Video of the Year to "the ultimate showgirl," the late Dolly Parton, and premiered the self-directed "Patient Zero" video.',
