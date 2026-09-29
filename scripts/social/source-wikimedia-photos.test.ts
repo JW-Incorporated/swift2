@@ -3,6 +3,7 @@ import {
   isAcceptedLicense,
   guessEraTag,
   candidateId,
+  stripHtmlTags,
   buildCandidate,
   searchCommons,
   fetchImageInfo,
@@ -49,6 +50,20 @@ describe('candidateId', () => {
   it('is deterministic and namespaced', () => {
     expect(candidateId(12345)).toBe('wikimedia-12345');
     expect(candidateId(12345)).toBe(candidateId(12345));
+  });
+});
+
+describe('stripHtmlTags', () => {
+  it('strips a simple tag', () => {
+    expect(stripHtmlTags('<i>Jane Photographer</i>')).toBe('Jane Photographer');
+  });
+
+  it('fully removes nested/overlapping tags a single regex pass would miss (CodeQL finding, PR #4613)', () => {
+    // A single `.replace(/<[^>]+>/g, '')` pass on this leaves "<script>alert(1)"
+    // behind, because the inner "<script>" only becomes a matchable tag
+    // after the outer "<<" .. ">" pair is stripped first.
+    expect(stripHtmlTags('<<script>alert(1)</script>>')).not.toContain('<script>');
+    expect(stripHtmlTags('<<script>alert(1)</script>>')).toBe('alert(1)>');
   });
 });
 

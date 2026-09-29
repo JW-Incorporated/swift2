@@ -94,6 +94,24 @@ export function candidateId(pageId) {
   return `wikimedia-${pageId}`;
 }
 
+// Strips HTML tags from Commons metadata text (e.g. Artist/ImageDescription
+// can contain italic/link markup). A single regex pass can be bypassed by
+// nested/malformed markup (e.g. "<<script>alert(1)</script>" leaves
+// "<script>alert(1)" behind after one pass) — loop until a pass makes no
+// further change, which fully removes any nested/overlapping tag structure.
+// CodeQL flagged the original single-pass version as a potential HTML
+// injection vector (PR #4613 review) — this text is stored as photo
+// credit/alt metadata that later renders on the public site.
+export function stripHtmlTags(text) {
+  let previous;
+  let current = text;
+  do {
+    previous = current;
+    current = previous.replace(/<[^>]*>/g, '');
+  } while (current !== previous);
+  return current;
+}
+
 /**
  * Builds one candidate object in `import-photo-library.mjs --fetch`'s exact
  * expected shape from a Commons `imageinfo` page result. Returns `null` when
@@ -109,8 +127,8 @@ export function buildCandidate(page) {
   const licenseShortName = meta.LicenseShortName?.value ?? licenseSlug;
 
   const id = candidateId(page.pageid);
-  const artist = (meta.Artist?.value ?? 'Unknown').replace(/<[^>]+>/g, '').trim() || 'Unknown';
-  const description = (meta.ImageDescription?.value ?? page.title ?? '').replace(/<[^>]+>/g, '').trim();
+  const artist = stripHtmlTags(meta.Artist?.value ?? 'Unknown').trim() || 'Unknown';
+  const description = stripHtmlTags(meta.ImageDescription?.value ?? page.title ?? '').trim();
   const ext = extFromTitle(page.title);
   const eraTag = guessEraTag(`${page.title} ${description}`);
   const tags = ['fan-photo', 'eras-tour'];
