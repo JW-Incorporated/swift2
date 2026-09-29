@@ -73,6 +73,8 @@ describe('guessEraTag', () => {
     expect(guessEraTag('reputation stadium tour throwback')).toBe('reputation');
     expect(guessEraTag('folklore cardigan moment')).toBe('folklore');
     expect(guessEraTag('1989 era look tonight')).toBe('1989');
+    expect(guessEraTag('red era look tonight')).toBe('red');
+    expect(guessEraTag('lover era fest outfit')).toBe('lover');
   });
 
   it('returns null rather than guessing when no era keyword matches', () => {
@@ -82,6 +84,11 @@ describe('guessEraTag', () => {
   it('never fires on partial/adjacent-word false positives ("red carpet", "lover boy")', () => {
     expect(guessEraTag('Taylor on the red carpet tonight')).toBeNull();
     expect(guessEraTag("her lover boy energy")).toBeNull();
+  });
+
+  it('never fires on plain uses of the words "red"/"lover" with no era qualifier (review finding, PR #4613)', () => {
+    expect(guessEraTag('Taylor wearing a red dress last night')).toBeNull();
+    expect(guessEraTag('a true lover of music tonight')).toBeNull();
   });
 
   it('every hint has a non-empty era slug and a real regex', () => {
