@@ -14527,58 +14527,6 @@ export default {
       },
     },
     {
-      slug: 'showgirl-encore-release-day',
-      year: 2026,
-      month: 9,
-      day: 25,
-      category: 'release',
-      significance: 'notable',
-      title: '"The Life of a Showgirl: The Encore" arrives — four new songs, from "Cleveland!" to "Babylon"',
-      snippet:
-        'Two days after naming it, Taylor released "The Life of a Showgirl: The Encore" on Sept. 25 — the 2025 album expanded with four new Max Martin/Shellback songs written after the fact in Sweden: "Patient Zero," "Cleveland!," "Pink Clouding" and "Babylon." Reviews split.',
-      sourceUrl: 'https://consequence.net/2026/09/taylor-swift-the-life-of-a-showgirl-the-encore-review/',
-      thumbnailUrl: null,
-      moment: {
-        // oEmbed-verified 2026-09-29: youtube.com/oembed for jfVVXYTZykw
-        // returns author_name "Taylor Swift" / author_url @TaylorSwift and
-        // title "Taylor Swift - Cleveland! (Official Lyric Video)". A new,
-        // never-shipped visual — the announcement moment
-        // (patient-zero-single-announced) used the ABC/AP photo, and the
-        // Patient Zero music video is its own moment (intake #4567), so
-        // neither is reused here (L001, #4601).
-        video: {
-          youtubeId: 'jfVVXYTZykw',
-          title: 'Taylor Swift - Cleveland! (Official Lyric Video)',
-        },
-        context:
-          'The Encore landed Friday, Sept. 25, 2026, two days after Taylor gave the expanded edition its name. It left the original 12-track The Life of a Showgirl intact and added four songs written after that album was already out — during a celebratory trip to Sweden with her longtime collaborators Max Martin and Shellback, not pulled from the original sessions. "I hope you love them," she wrote, "because they were born out of pure gratitude for your exuberance for and celebration of the album we made."\\n\\nThe four: "Patient Zero," the pre-released lead single; "Cleveland!," a shout to her husband Travis Kelce\'s home region (its official lyric video is embedded here); "Pink Clouding," a synth-leaning cut; and "Babylon." Coverage read "Cleveland!" as an open love song to Kelce that also waves off critics, and "Patient Zero" as addressed to an ex\'s new partner, built around a spoken-word bridge.\\n\\nReviews were mixed to cool. Consequence\'s Cassidy Sollazzo called the set underwhelming — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted toward "a predictable, bordering-on-bland caricature." The release still arrived on a high-visibility weekend: two days later she collected the inaugural Artist Director Honor at the 2026 MTV VMAs, where the "Patient Zero" music video premiered.',
-        sources: [
-          {
-            outlet: 'Consequence',
-            url: 'https://consequence.net/2026/09/taylor-swift-the-life-of-a-showgirl-the-encore-review/',
-            source_title: "Taylor Swift's The Life of a Showgirl: The Encore Doubles Down",
-            publisher: 'Consequence',
-            source_type: 'reputable_press',
-            accessed_at: '2026-09-29',
-            reliability_score: 4,
-            notes:
-              "Release-day review; source for the mixed-to-cool reception, the quoted verdict, and the per-song reads (\"Cleveland!\" as a Kelce love song, \"Patient Zero\" as addressed to an ex's new partner with a spoken-word bridge).",
-          },
-          {
-            outlet: 'NME',
-            url: 'https://www.nme.com/news/music/taylor-swift-announces-the-life-of-a-showgirl-the-encore-featuring-four-new-songs-3970442',
-            source_title: 'Taylor Swift announces ‘The Life Of A Showgirl: The Encore’',
-            publisher: 'NME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-09-29',
-            reliability_score: 4,
-            notes:
-              "Confirms the Sept. 25 release date, the Sweden writing trip with Max Martin and Shellback framed as gratitude, and Taylor's announcement quote (\"born out of pure gratitude for your exuberance...\").",
-          },
-        ],
-      },
-    },
-    {
       slug: 'vma-2026-artist-director-honor',
       year: 2026,
       month: 9,
@@ -14715,7 +14663,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.',
+          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.\n\nThe critics were cooler than the counters. Reviewing the four new tracks for Consequence, Cassidy Sollazzo landed on a shrug — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted into "a predictable, bordering-on-bland caricature." The split is the story of the weekend: a record-setting single day on Spotify and a lukewarm critical reception, arriving together.',
         // No `video` field on purpose: the lyric-video frame is used as a plain
         // credited photo (and the video is cited as a source below). Declaring
         // it as `video` here would make the ytimg-still-as-hero the moment's own
@@ -14776,6 +14724,17 @@ export default {
             reliability_score: 4,
             notes:
               'source for the full music video — directed by Taylor, featuring Colin Farrell and Dakota Johnson — premiering during the 2026 MTV VMAs on Sept. 27. The lyric video (this entry\'s visual) is separate and already live.',
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2026/09/taylor-swift-the-life-of-a-showgirl-the-encore-review/',
+            source_title: "Taylor Swift's The Life of a Showgirl: The Encore Doubles Down",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-29',
+            reliability_score: 4,
+            notes:
+              'Release-day review of the four new tracks; source for the mixed-to-cool critical reception and the quoted verdict ("the encore sounds a lot like the show we just sat through" / "a predictable, bordering-on-bland caricature").',
           },
         ],
       },
