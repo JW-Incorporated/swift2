@@ -68,6 +68,12 @@ import { topPosts } from '../lib/reddit-rss.mjs';
 // also mixes in a huge volume of non-photo discussion/news; its RSS top feed
 // would need heavy filtering for low yield). erastour and
 // TaylorSwiftPictures are both fan-photo-first communities.
+// Expanded 2026-09-29 (founder directive: "30 isn't enough, 3000 is enough" —
+// per-era photo starvation was forcing single-photo eras to repeat on every
+// themed post). r/TaylorSwift was previously excluded for low fan-photo
+// yield relative to noise; kept excluded here for the same reason — the
+// real fix for volume is more/better SOURCES (see sourceWikimediaCommons
+// below), not lowering this subreddit filter's quality bar.
 export const CONCERT_PHOTO_SUBREDDITS = ['erastour', 'TaylorSwiftPictures'];
 
 export const DEFAULT_LIMIT_PER_SUB = 25;
@@ -89,6 +95,38 @@ const NON_CONCERT_TITLE_RE =
 // inclusion (concert-photo-first subreddits are the real filter) — used only
 // to boost confidence when tagging `tags: ['fan-photo']` vs leaving it bare.
 const CONCERT_SIGNAL_RE = /\b(eras tour|concert|show|stage|live|tour stop|night \d+)\b/i;
+
+// Era-tag inference (2026-09-29, founder directive: fix per-era photo
+// starvation). A conservative, explicit keyword list per era slug (matching
+// `supabase/seed/eras-data.mjs`'s canonical slugs) — a title must contain an
+// unambiguous album/tour-name signal to earn an era tag. NEVER inferred from
+// outfit color, venue, or any other indirect signal: a wrong era tag is
+// worse than no era tag at all (an off-era photo would ship on a themed
+// post — the exact failure `select-photo.mjs --era`'s hard-fail-closed
+// filter exists to prevent). When no pattern matches, the photo keeps only
+// the generic `fan-photo`/`eras-tour` tags, same as before this change.
+export const ERA_KEYWORD_HINTS = [
+  { era: 'debut', re: /\b(debut era|taylor swift \(album\)|self[- ]titled album)\b/i },
+  { era: 'fearless', re: /\bfearless\b/i },
+  { era: 'speak-now', re: /\bspeak now\b/i },
+  { era: 'red', re: /\bred\b(?!\s*carpet)/i },
+  { era: '1989', re: /\b1989\b/i },
+  { era: 'reputation', re: /\breputation\b/i },
+  { era: 'lover', re: /\blover\b(?!\s*(boy|girl))/i },
+  { era: 'folklore', re: /\bfolklore\b/i },
+  { era: 'evermore', re: /\bevermore\b/i },
+  { era: 'midnights', re: /\bmidnights?\b/i },
+  { era: 'tortured-poets', re: /\b(tortured poets|ttpd)\b/i },
+  { era: 'the-life-of-a-showgirl', re: /\b(life of a showgirl|tloas|showgirl)\b/i },
+];
+
+/** Best-effort era slug from a post title's explicit album/tour-name mention. */
+export function guessEraTag(title) {
+  for (const hint of ERA_KEYWORD_HINTS) {
+    if (hint.re.test(title ?? '')) return hint.era;
+  }
+  return null;
+}
 
 // Known Eras Tour venue/date pairs a post title might explicitly name.
 // Deliberately a small, reviewable, EXPLICIT list, never a free-text date
@@ -230,6 +268,8 @@ export function buildCandidate(subreddit, post) {
   const { venue, date } = guessVenueDate(post.title);
   const tags = ['fan-photo', 'eras-tour'];
   if (CONCERT_SIGNAL_RE.test(post.title ?? '')) tags.push('concert');
+  const eraTag = guessEraTag(post.title);
+  if (eraTag) tags.push(eraTag);
   return {
     id,
     mediaPath: `/social/library/photos/${id}.${ext}`,
