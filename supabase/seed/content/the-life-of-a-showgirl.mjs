@@ -14904,6 +14904,22 @@ export default {
             kind: 'primary',
             focalPoint: '50% 28%',
           },
+          {
+            // Second, distinct frame from the same NBC News coverage: a press-line
+            // portrait at the 2026 VMAs (not the podium acceptance above). NBC's
+            // own reusable Cloudinary CDN (media-cldnry.s-nbcnews.com, allowlisted).
+            // curl-verified HTTP 200 image/jpeg, 1667x2500, ~279KB, downloaded and
+            // vision-confirmed: Taylor in a black halter dress with bangs against
+            // the blue VMAs step-and-repeat. Credit maps in the article HTML to
+            // Frazer Harrison/Getty Images (the podium frame is Kevin Winter);
+            // caption from NBC's schema. Not a watermarked getty comp; no signed URL.
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/260927-mtv-vma-taylor-swift-ww-1707-b09bea.jpg',
+            focalPoint: '42% 24%',
+            credit: 'Frazer Harrison/Getty Images, via NBC News',
+            caption:
+              'Taylor at the 2026 MTV VMAs at the Peacock Theater in Los Angeles on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'archival',
+          },
         ],
         sources: [
           {
