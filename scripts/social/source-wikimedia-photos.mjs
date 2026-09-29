@@ -34,6 +34,7 @@
 
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { URLSearchParams } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 
 const API_BASE = 'https://commons.wikimedia.org/w/api.php';
