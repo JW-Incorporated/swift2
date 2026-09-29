@@ -14663,7 +14663,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.',
+          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.\n\nThe critics were cooler than the counters. Reviewing the four new tracks for Consequence, Cassidy Sollazzo landed on a shrug — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted into "a predictable, bordering-on-bland caricature." The split is the story of the weekend: a record-setting single day on Spotify and a lukewarm critical reception, arriving together.',
         // No `video` field on purpose: the lyric-video frame is used as a plain
         // credited photo (and the video is cited as a source below). Declaring
         // it as `video` here would make the ytimg-still-as-hero the moment's own
@@ -14724,6 +14724,17 @@ export default {
             reliability_score: 4,
             notes:
               'source for the full music video — directed by Taylor, featuring Colin Farrell and Dakota Johnson — premiering during the 2026 MTV VMAs on Sept. 27. The lyric video (this entry\'s visual) is separate and already live.',
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2026/09/taylor-swift-the-life-of-a-showgirl-the-encore-review/',
+            source_title: "Taylor Swift's The Life of a Showgirl: The Encore Doubles Down",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-09-29',
+            reliability_score: 4,
+            notes:
+              'Release-day review of the four new tracks; source for the mixed-to-cool critical reception and the quoted verdict ("the encore sounds a lot like the show we just sat through" / "a predictable, bordering-on-bland caricature").',
           },
         ],
       },
@@ -14892,6 +14903,22 @@ export default {
               'Taylor accepts the inaugural Artist Director Honors at the 2026 MTV VMAs on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
             kind: 'primary',
             focalPoint: '50% 28%',
+          },
+          {
+            // Second, distinct frame from the same NBC News coverage: a press-line
+            // portrait at the 2026 VMAs (not the podium acceptance above). NBC's
+            // own reusable Cloudinary CDN (media-cldnry.s-nbcnews.com, allowlisted).
+            // curl-verified HTTP 200 image/jpeg, 1667x2500, ~279KB, downloaded and
+            // vision-confirmed: Taylor in a black halter dress with bangs against
+            // the blue VMAs step-and-repeat. Credit maps in the article HTML to
+            // Frazer Harrison/Getty Images (the podium frame is Kevin Winter);
+            // caption from NBC's schema. Not a watermarked getty comp; no signed URL.
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/260927-mtv-vma-taylor-swift-ww-1707-b09bea.jpg',
+            focalPoint: '42% 24%',
+            credit: 'Frazer Harrison/Getty Images, via NBC News',
+            caption:
+              'Taylor at the 2026 MTV VMAs at the Peacock Theater in Los Angeles on Sept. 27 — the night she became the most-decorated artist in the show\'s history.',
+            kind: 'archival',
           },
         ],
         sources: [
