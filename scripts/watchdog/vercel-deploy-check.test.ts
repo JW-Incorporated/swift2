@@ -69,6 +69,51 @@ describe('evaluate', () => {
     expect(out.status).toBe('confirmed-failure');
   });
 
+  it('treats a legitimate Vercel auto-skip (CANCELED + "not affected") as confirmed-ok, not a failure', () => {
+    // swift2#4616 (2026-09-29): PR #4615 was a data-only commit that didn't
+    // touch the built app; Vercel's own "skip unaffected projects" monorepo
+    // feature correctly canceled the build rather than running it, and the
+    // watchdog paged a founder over nothing. errorMessage is the tell.
+    const latest = latestProductionDeploys([
+      dep({ readyState: 'CANCELED', errorMessage: 'The Deployment has been canceled because this project was not affected' }),
+    ]);
+    const out = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(out.status).toBe('confirmed-ok');
+    expect(out.reason).toMatch(/auto-skipped/);
+  });
+
+  it('is case-insensitive matching the auto-skip errorMessage', () => {
+    const latest = latestProductionDeploys([
+      dep({ readyState: 'CANCELED', errorMessage: 'Canceled: Not Affected by this change' }),
+    ]);
+    const out = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(out.status).toBe('confirmed-ok');
+  });
+
+  it('still alarms on a CANCELED deploy with no errorMessage at all (genuine cancel/abort)', () => {
+    const latest = latestProductionDeploys([dep({ readyState: 'CANCELED', errorMessage: null })]);
+    const out = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(out.status).toBe('confirmed-failure');
+  });
+
+  it('still alarms on a CANCELED deploy with an unrelated errorMessage (build timeout etc)', () => {
+    const latest = latestProductionDeploys([
+      dep({ readyState: 'CANCELED', errorMessage: 'Canceled: build exceeded the 45 minute limit' }),
+    ]);
+    const out = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(out.status).toBe('confirmed-failure');
+  });
+
+  it('does not treat a "not affected" errorMessage as a skip unless the state is CANCELED', () => {
+    // Sanity guard: the discriminator is state AND message together, never
+    // the message alone, in case an unrelated field ever echoes similar text.
+    const latest = latestProductionDeploys([
+      dep({ readyState: 'ERROR', errorMessage: 'not affected' }),
+    ]);
+    const out = evaluate({ latest, watchProject: 'swift2-web' });
+    expect(out.status).toBe('confirmed-failure');
+  });
+
   it('is confirmed-ok when the latest deploy is READY, even if an older one failed', () => {
     const latest = latestProductionDeploys([
       dep({ readyState: 'ERROR', createdAt: Date.parse('2026-09-23T01:00:00.000Z') }),

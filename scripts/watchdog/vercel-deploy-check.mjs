@@ -30,6 +30,22 @@
 // needed, and `upsert-alert.sh` already only notifies on a state CHANGE,
 // so a standing-green recheck never re-pings either.
 //
+// AUTO-SKIP FALSE POSITIVE (swift2#4616, 2026-09-29). Vercel's own
+// "skip unaffected projects" monorepo feature (enableAffectedProjectsDeployments)
+// reports a deployment it decided NOT to build as readyState CANCELED —
+// the exact same state this file already treats as a real failure. The
+// tell is `errorMessage`: a genuine failed/aborted build never carries the
+// string "not affected"; only this specific auto-skip path does (Vercel's
+// own GitHub commit-status description for the same case reads literally
+// "Skipped - Not affected"). Confirmed 2026-09-29: PR #4615 was a
+// data-only commit (social/feedback/*.jsonl) that doesn't touch the built
+// app; Vercel correctly skipped rebuilding swift2-web for it, and this
+// check paged a founder over nothing. A skip is not "main ahead of what's
+// live" — production is still serving the last REAL deploy, unaffected —
+// so it must resolve as confirmed-ok, not confirmed-failure. Matching on
+// `errorMessage` (not just readyState) keeps a genuinely canceled/aborted
+// build (no such message, or a different one) alarming exactly as before.
+//
 // SCOPE (named plainly, not guessed): only Vercel deploy failures are
 // covered here. Two sibling failure classes the task named as
 // "content is stuck and nobody would notice" are explicitly OUT of this
@@ -83,6 +99,7 @@ export function latestProductionDeploys(deployments) {
         createdAt: new Date(createdMs).toISOString(),
         url: d.url ? `https://${d.url}` : null,
         uid: d.uid ?? d.id ?? null,
+        errorMessage: d.errorMessage ?? null,
       });
     }
   }
@@ -90,6 +107,23 @@ export function latestProductionDeploys(deployments) {
 }
 
 const FAILING_STATES = new Set(['ERROR', 'CANCELED']);
+
+// Vercel's own "skip unaffected projects" monorepo feature (project setting
+// enableAffectedProjectsDeployments) legitimately auto-cancels a build for a
+// commit that doesn't touch this project's build inputs, and reports it with
+// readyState CANCELED — indistinguishable from a real cancel/abort by state
+// alone. Its errorMessage is the one reliable discriminator (confirmed
+// 2026-09-29 against Vercel's own GitHub commit-status description for the
+// same deployment, which reads literally "Skipped - Not affected"). Matched
+// case-insensitively and substring-only, since Vercel does not document this
+// string as a stable API contract — a punctuation/casing tweak on their end
+// must not silently start alarming again.
+const AUTO_SKIP_ERROR_PATTERN = /not affected/i;
+
+function isLegitimateAutoSkip(deploy) {
+  return deploy.state === 'CANCELED' && AUTO_SKIP_ERROR_PATTERN.test(deploy.errorMessage ?? '');
+}
+
 
 /**
  * Evaluate the alarm state for one watched project. Pure — takes the
@@ -115,6 +149,13 @@ export function evaluate({ latest, watchProject = WATCHED_PROJECT, fetchOk = tru
     };
   }
   if (FAILING_STATES.has(deploy.state)) {
+    if (isLegitimateAutoSkip(deploy)) {
+      return {
+        status: 'confirmed-ok',
+        reason: `The latest production deployment for "${watchProject}" (${deploy.uid ?? 'unknown id'}, created ${deploy.createdAt}) was auto-skipped by Vercel with **CANCELED**/"${deploy.errorMessage}" — this is Vercel's own "skip unaffected projects" monorepo optimization for a commit that doesn't touch this project's build inputs, not a real failure. Production is still on last-known-good code.`,
+        deploy,
+      };
+    }
     return {
       status: 'confirmed-failure',
       reason: `The latest production deployment for "${watchProject}" (${deploy.uid ?? 'unknown id'}, created ${deploy.createdAt}) has state **${deploy.state}**. main is ahead of what is actually live on longlivets.com.`,
