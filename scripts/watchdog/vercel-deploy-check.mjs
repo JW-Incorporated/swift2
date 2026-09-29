@@ -44,13 +44,35 @@
 //     is a Hermes-side system with no presence in this repo at all; a
 //     Swift2 PR cannot reach into it. Out of scope for this change.
 //
+// LEGITIMATE AUTO-SKIP vs REAL FAILURE (issue #4616, 2026-09-29 false
+// alarm). Vercel reports readyState CANCELED for two very different
+// situations:
+//   1. A genuinely aborted/failed build (what this check exists to catch).
+//   2. Vercel's own "Ignored Build Step" auto-skip, when the commit only
+//      touches paths outside the app's build inputs (e.g. a data file
+//      under social/feedback/). That is Vercel correctly deciding no
+//      rebuild was needed — the site is NOT stale, nothing failed.
+// The Vercel `GET /v7/deployments` payload alone does not cleanly
+// distinguish these two (both are readyState CANCELED with no separate
+// flag). The reliable signal is the GitHub Deployments status API for the
+// SAME COMMIT: Vercel posts a commit status with `description: "Skipped -
+// Not affected"` for case 2, and nothing resembling that for case 1. So a
+// CANCELED deploy only clears the alarm when this cross-check POSITIVELY
+// confirms the skip via GitHub's API for that exact commit — see
+// `isLegitimateSkipStatus` / `applySkipOverride` below. Consistent with
+// "null never renders as green": if the commit sha is missing, the GitHub
+// API call fails, or no skip-shaped status is found, the CANCELED stays a
+// confirmed-failure and still alarms. ERROR is never eligible for this
+// override — an ERROR is never a legitimate auto-skip.
+//
 // Usage: node --use-env-proxy scripts/watchdog/vercel-deploy-check.mjs \
 //          --alert-body /tmp/alert-body.md
-// Exit: 0 = latest production deploy for the watched project is READY —
-//           caller closes the alert.
-//       1 = latest production deploy is ERROR/CANCELED, OR no VERCEL_TOKEN
-//           / the Vercel API could not be reached — caller opens the
-//           alert. Per the same invariant `ops/lib/maintenance.mjs`
+// Exit: 0 = latest production deploy for the watched project is READY, or
+//           a CANCELED deploy was positively confirmed as Vercel's own
+//           legitimate "not affected" auto-skip — caller closes the alert.
+//       1 = latest production deploy is a real ERROR/CANCELED failure, OR
+//           no VERCEL_TOKEN / the Vercel API could not be reached — caller
+//           opens the alert. Per the same invariant `ops/lib/maintenance.mjs`
 //           documents ("null never renders as green"), an unconfirmed
 //           state is treated as alarm-worthy, not silently clear, so a
 //           revoked/expired token cannot make this check go dark the way
@@ -83,6 +105,11 @@ export function latestProductionDeploys(deployments) {
         createdAt: new Date(createdMs).toISOString(),
         url: d.url ? `https://${d.url}` : null,
         uid: d.uid ?? d.id ?? null,
+        // Needed to cross-check a CANCELED deploy against the GitHub
+        // Deployments status API for the same commit (see
+        // `isLegitimateSkipStatus` / `applySkipOverride` below). Vercel's
+        // deployments payload carries this under `meta.githubCommitSha`.
+        commitSha: d.meta?.githubCommitSha ?? null,
       });
     }
   }
@@ -90,11 +117,17 @@ export function latestProductionDeploys(deployments) {
 }
 
 const FAILING_STATES = new Set(['ERROR', 'CANCELED']);
+// Only CANCELED is ever eligible for the legitimate-auto-skip override —
+// an ERROR is never Vercel's own "not affected" skip, so it always alarms
+// regardless of any cross-check result.
+const SKIP_ELIGIBLE_STATES = new Set(['CANCELED']);
 
 /**
  * Evaluate the alarm state for one watched project. Pure — takes the
  * already-reduced `latestProductionDeploys()` output (or null on a fetch
- * failure) so it is unit-testable without `fetch`.
+ * failure) so it is unit-testable without `fetch`. Does NOT itself decide
+ * the legitimate-auto-skip override (see `applySkipOverride`); a CANCELED
+ * deploy is always `confirmed-failure` at this stage.
  */
 export function evaluate({ latest, watchProject = WATCHED_PROJECT, fetchOk = true }) {
   if (!fetchOk) {
@@ -128,6 +161,60 @@ export function evaluate({ latest, watchProject = WATCHED_PROJECT, fetchOk = tru
   };
 }
 
+/**
+ * Does one GitHub commit-status entry (from
+ * `GET /repos/{owner}/{repo}/commits/{sha}/status`) look like Vercel's own
+ * "Ignored Build Step" auto-skip, rather than a real failure? Pure,
+ * unit-testable without any network access.
+ *
+ * Confirmed shape from issue #4616's false alarm (dpl_ApJCx54DfzffC9jSQi3vSYwcXKvW,
+ * sha ce7f39e0): `{ context: "Vercel", state: "success", description: "Skipped - Not affected" }`.
+ * Matched loosely (case-insensitive "skip" in the description, from the
+ * Vercel context) rather than on the exact string, since Vercel's own
+ * wording for this case is not a documented, stable contract — but the
+ * match still requires the Vercel context, so an unrelated status with the
+ * word "skip" in it elsewhere cannot false-positive this into a clear.
+ */
+export function isLegitimateSkipStatus(status) {
+  if (!status || typeof status !== 'object') return false;
+  if (String(status.context ?? '').toLowerCase() !== 'vercel') return false;
+  return /skip/i.test(String(status.description ?? ''));
+}
+
+/**
+ * Given the initial `evaluate()` result and the outcome of the GitHub
+ * commit-status cross-check, decide whether a CANCELED "confirmed-failure"
+ * should be downgraded to a non-alarming `confirmed-skipped`. Pure —
+ * takes `skipConfirmed` as a plain boolean/undefined so it is fully
+ * unit-testable without any network access.
+ *
+ * `skipConfirmed`:
+ *   - `true`  — the GitHub API returned a status matching
+ *               `isLegitimateSkipStatus` for this deploy's commit sha.
+ *   - `false` — the GitHub API was reachable and answered, but no matching
+ *               status was found (a real cancel/abort).
+ *   - `undefined` — the cross-check could not run at all (no commit sha on
+ *               the deploy, or the GitHub API call itself failed).
+ * Only `true` clears the alarm. Both `false` and `undefined` leave the
+ * original `confirmed-failure` in place — "null never renders as green"
+ * applies to this cross-check exactly as it does to the primary Vercel
+ * fetch: an unconfirmable skip must alarm, not silently clear.
+ */
+export function applySkipOverride(result, skipConfirmed) {
+  if (result.status !== 'confirmed-failure') return result;
+  if (!SKIP_ELIGIBLE_STATES.has(result.deploy?.state)) return result;
+  if (skipConfirmed !== true) return result;
+  return {
+    status: 'confirmed-skipped',
+    reason:
+      `The latest production deployment for "${result.deploy.project}" (${result.deploy.uid ?? 'unknown id'}, created ${result.deploy.createdAt}) ` +
+      `has state **CANCELED**, but GitHub's own commit status for that deploy's commit (${result.deploy.commitSha}) confirms this was Vercel's ` +
+      `legitimate "not affected" auto-skip (a commit that doesn't touch the app's build inputs), not a real aborted build. ` +
+      `Production is on last-known-good code.`,
+    deploy: result.deploy,
+  };
+}
+
 async function fetchDeployments() {
   const token = process.env.VERCEL_TOKEN;
   if (!token) return { ok: false, deployments: null };
@@ -154,11 +241,52 @@ async function fetchDeployments() {
   }
 }
 
+/**
+ * Cross-check a single commit against GitHub's combined commit-status API
+ * to see whether Vercel's own status for it looks like a legitimate
+ * "not affected" auto-skip. Returns `true`/`false` when the GitHub API
+ * answered, or `undefined` if the call could not be made/completed at all
+ * (missing token, network failure, non-2xx response) — see
+ * `applySkipOverride`'s header for why `undefined` must NOT be treated the
+ * same as `false` by the caller (both currently alarm, but they are
+ * different failure shapes and are kept distinct for observability).
+ */
+async function fetchSkipConfirmation(sha) {
+  if (!sha) return undefined;
+  const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+  const repo = process.env.GITHUB_REPOSITORY;
+  if (!token || !repo) return undefined;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/commits/${sha}/status`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+      },
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      console.error(`vercel-deploy-check: GitHub commit-status lookup failed: HTTP ${res.status}`);
+      return undefined;
+    }
+    const body = await res.json();
+    const statuses = Array.isArray(body?.statuses) ? body.statuses : [];
+    return statuses.some(isLegitimateSkipStatus);
+  } catch (err) {
+    console.error(`vercel-deploy-check: GitHub commit-status lookup failed: ${err.message ?? err}`);
+    return undefined;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function renderBody(result, watchProject) {
   const heading = {
     'confirmed-failure': `The last production deploy for **${watchProject}** FAILED.`,
     unknown: `The Vercel production-deploy check could not confirm the deploy state for **${watchProject}**.`,
     'confirmed-ok': `Production deploys for **${watchProject}** are healthy.`,
+    'confirmed-skipped': `Production deploys for **${watchProject}** are healthy (last deploy was a legitimate Vercel auto-skip).`,
   }[result.status];
   const lines = [heading, '', result.reason];
   if (result.deploy?.url) lines.push('', `Failed deployment: https://${result.deploy.uid ? `vercel.com/deployments/${result.deploy.uid}` : result.deploy.url}`);
@@ -179,13 +307,24 @@ async function main() {
 
   const { ok, deployments } = await fetchDeployments();
   const latest = ok ? latestProductionDeploys(deployments) : null;
-  const result = evaluate({ latest, fetchOk: ok });
+  let result = evaluate({ latest, fetchOk: ok });
+
+  // Only ever attempt the skip cross-check for a CANCELED deploy that is
+  // currently a confirmed-failure — an ERROR, an unknown, or an already-ok
+  // result never needs it (see applySkipOverride's own eligibility guard,
+  // duplicated here as an early-out so a healthy run never makes an extra
+  // GitHub API call).
+  if (result.status === 'confirmed-failure' && result.deploy?.state === 'CANCELED') {
+    const skipConfirmed = await fetchSkipConfirmation(result.deploy.commitSha);
+    result = applySkipOverride(result, skipConfirmed);
+  }
+
   console.log(`vercel-deploy-check: ${result.status} — ${result.reason}`);
 
   const alertFile = arg('--alert-body');
   if (alertFile) writeFileSync(alertFile, renderBody(result, WATCHED_PROJECT));
 
-  return result.status === 'confirmed-ok' ? 0 : 1;
+  return result.status === 'confirmed-ok' || result.status === 'confirmed-skipped' ? 0 : 1;
 }
 
 const invokedDirectly =
