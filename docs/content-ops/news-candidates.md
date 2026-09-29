@@ -25,7 +25,48 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 93
+
+## Close-Up Photos of Taylor Swift’s Wedding Band Released
+
+- first seen: 2026-09-29 21:22 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Close-up photos of Taylor Swift's wedding band have been released, attracting attention from jewelers regarding its design. The details in the images provide insights into the craftsmanship and style of the band.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMisgFBVV95cUxOMW9SYzAxYnU3d0tWbUhZeS1vNnUtbUJJcHdlczB2b2lGZEJ0VWpPU1AwNzRTTTdtOUJhaTMzZ0FlWjJyTlFlNkJha0EycG5RWlNtSDF3eVl3eG1LQWg4TENjT3p1eEZNSWFXMWk1cVo2MU5Cam5lMTJqNlkyWFh6bW9SNkVZbVRTOC1iS3NPS1VPclZnTkNNb25FSUQydjVOMk9KWG5veHhHYkVWdm1fNUd3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Graham Norton Comments on Taylor Swift's 'Opalite' Theory
+
+- first seen: 2026-09-29 21:22 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Graham Norton discusses the recently speculated 'Opalite' theory related to Taylor Swift, stating his views on the matter. The comments focus on the ongoing discussions surrounding Taylor's work.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPc204cVczYjFOYTBrbnRqMXdvOTR2UHBCaVg2b01LX3phYl9PZWQ4SmFCeC1fTTV4RjVUT25EVy1Sa0JSRlVLTG5Oa2RjYWpnS05abjFlV0FiR1FLYl9DVmxhYlVPNnE4RDE5dFU2TU5aNDB4TUJHWnVLSVN4TVlrVWpDWTMxRWRHTWk3VC1QdTl5Q2VjdDViZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Former Mansion in Beverly Hills Listed for $8 Million
+
+- first seen: 2026-09-29 21:22 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's former Beverly Hills mansion, where she wrote her album '1989', is now on the market for $8 million. This property is notable for its connection to the artist's successful music career.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQYUw1bzEyaFZHSnBTeGVERjNzUUd6dXA4Tks0eFIzbndVdWpBMURxTlVVNW1RaTVYc0Q1YzBHeWFheHd3M0VuNFZsUXVrZnMxQUpJLS1LaW1vNDUxNW1Mdk4tWkJLUFNQcFJIVS0tazdwZ1ByeUtCcU41YmJJcDF4Vno5VThPNGtDTDNGaUhQbjlFQXRkZTUtTHBJekNOd3BUU3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Graham Norton Addresses ‘Opalite’ Video Timing Rumors
+
+- first seen: 2026-09-29 21:22 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Graham Norton has refuted claims that Taylor Swift’s ‘Opalite’ video was filmed prior to her appearance on his show. He clarified the timeline surrounding the video’s production.
+- sources:
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMipAFBVV95cUxNOEZNZDJKZUFNcEdxdWQxbWdHRWUzMmp2RFV4b2RUQjhBTk5Db2hoTWFxQ1l5Rk91MENHdWFZeThNcGJMZnZlVEtoZlk5WEh0UzRQejR6aHJNQXRKZGNJNTlXUUJOakJpRkhjNXRIV3FId09jMVBuX3ZlYUZmSGdiaGJ2UndGWmljVVdmci1xR1Y4MVNkNkdWY0pBcVVlY3hZZ0llaw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/global/graham-norton-opalite-taylor-swift-conspiracy-theory-1236878178/
+
+## Travis Kelce Reacts to Taylor Swift's New Music Video
+
+- first seen: 2026-09-29 21:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has provided a one-word reaction to Taylor Swift's recently released music video, highlighting his thoughts on her latest work.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNbUFUbjV6dV92SHJXbUhxVjR1MVhVYlBqUmdqN3BTaVVNcXZsOFVHblZPZndDUTVseUJVQ2xmeU9PVklOYWNsanh0ZnhTY0l2SjZoYlBLU3lzbVdOckZQRWprOHZCY184T1ZwN0RRYnZ3TkF5Q2ZoV2VKRXFSeDZsSjBQSVJYcUdVUC02dXhLOUZxd3ZVRmFF?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Appears in Strapless Bridal Gown in Photo
 
@@ -164,23 +205,6 @@ Stories: 88
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxPNTIyeE5ObnZDREYxTlM4MmlORkhZWTNuenZrTi10TTNMbjB6ZzEwcU1qazBIU05sZVFrTThKRDd4T2ZXTTdrbWwxNXVzVDNlNXgyS0hRVFBOTVgxWjNkNWlyV09PUEZSZWgxcmZXM1BQRm9wTldYSjNieVpmaTBwZlh4UXdPMzgwal9DbklDQTBZN2g2NGpWUEt6aDU2LWJYLTM3YmRjVHZIZVROdUNB?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Matthew Stafford and Kelly Stafford Appear in Taylor Swift’s ‘Patient Zero’ Video
-
-- first seen: 2026-09-29 06:50 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Matthew Stafford and his wife Kelly made a surprise appearance in Taylor Swift's music video for 'Patient Zero.' This unexpected cameo adds a new element to the visual representation of the song.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQMkt0RzR5eXNIVzB4T3VZaDV0ZXNwWURqZk5lRVhTSFNiTHNIV05GTG5RbHlpdlVmR0ptMWM0X3BCZE5MVV93S2JTZERXQUhELVpXRHAwd1lqNkRVeHJScmhlTDhQNkVjOFNSOTBFMGJXZjZfcTQxdHlNSjYybDVBaGtXX0RHSk9uN242WU5VQi1FVU9PQXJ2N05xYURsdDlqRXZnZA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Critiques Taylor Swift's Impact on Music
-
-- first seen: 2026-09-29 06:50 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Todd Rundgren has publicly criticized Taylor Swift, claiming she has negatively affected the music industry and referring to her as 'the apotheosis of mediocrity.' His comments have sparked discussions among fans and critics.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMihwFBVV95cUxPXzJMMkZZMXJWdTRZUDZpQ0hDT084NzRzSXhsTm5QQ1lwWWd1a0ZhTVhVcDN4V04zOGZOblR2ZXN0eG5HdnE3RUZFcUVad0U3YTlFaHZGQTF6YmRaUVFKeTZGcUlMMVZ5aFlVNy1tWEU3ZUJvYktZZVRQREVLMGhZQzA0YldIRXM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/todd-rundgren-slams-taylor-swift-1236877824/
-
 ## Taylor Swift Supports Bebe Rexha Amid Grammy Dress Controversy
 
 - first seen: 2026-09-29 06:50 UTC | category: fashion | importance: 5
@@ -205,6 +229,26 @@ Stories: 88
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cwm2qm5554n4o?at_medium=RSS&at_campaign=rss
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPWFk5bmhQWGNqZlJGSEFyRmZmOGxSclZSWDkwb1loZXVGS1NVLTV5Wm95c1Z5OVpFMmxFZG5tLXNSMW9nSzVadnBlV0k4bWtIaEZaaEtjYk9PZEYzUjBtMVNhZW9XZnRrTGw1NEZpODhjZHdjODJtWXdnQWZZTHR1dHZFdUcycnVOUzUzSmZyQ25PUXJTNFlRR25ic254S29zVEE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Todd Rundgren Critiques Taylor Swift's Impact on Music
+
+- first seen: 2026-09-29 06:50 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Todd Rundgren has publicly criticized Taylor Swift, claiming she has negatively affected the music industry and referring to her as 'the apotheosis of mediocrity.' His comments have sparked discussions among fans and critics.
+- sources:
+  - [unverified] HuffPost — https://news.google.com/rss/articles/CBMingFBVV95cUxQUW1ORXpUcjI1TmxlODZBdVZQZHlYWlFZV0d1Zk04dy1hVUpMQVdjZVZrR3lCS1NUTDIzcHNYNWd1Q1l4cF9sMk5PSlhvV29kX2N2ME1QNXpGaUpDNndEYjJ3MTBGQ0R4WGVwWTNwZ1JuNkozVGhtSVloYVJ2Q0dDLXlVdDktQ2J5LXllZ3hkdU5FUUkxVGFqRkFaSVpYZ9IBowFBVV95cUxORnlKcm5TQ1kxTzUtT2F3WHBjckVQTzR4VUxhMkgxeV9CTzN1RElpQ2FjdnM2Mm1tN1lFbHVZcVNkRVB0bENMbWJaUXdUZVY3VmF5a21xUC1EVG0xdk1fUGtNUUdKZnpXTlFoOUxDM1AxcGdhMlN2VlFtWVBsbXE0QnJ3anF4U3gwUmNqSkxMcFFFT2xJM3lqQWZ6TnoxQ3J5OWlN?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMihwFBVV95cUxPXzJMMkZZMXJWdTRZUDZpQ0hDT084NzRzSXhsTm5QQ1lwWWd1a0ZhTVhVcDN4V04zOGZOblR2ZXN0eG5HdnE3RUZFcUVad0U3YTlFaHZGQTF6YmRaUVFKeTZGcUlMMVZ5aFlVNy1tWEU3ZUJvYktZZVRQREVLMGhZQzA0YldIRXM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/todd-rundgren-slams-taylor-swift-1236877824/
+
+## Matthew Stafford and Kelly Stafford Appear in Taylor Swift’s ‘Patient Zero’ Video
+
+- first seen: 2026-09-29 06:50 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Matthew Stafford and his wife Kelly made a surprise appearance in Taylor Swift's music video for 'Patient Zero.' This unexpected cameo adds a new element to the visual representation of the song.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxPdUFOTDFidXVCbVlLYnJDYnFCWGNWQy1fSFpSYTB2eWZOWjhsUEgwbGMzQmFYVE1KbnBnMXpoMk16cmRYTFQ4OFRvZUplUjRxakd2UnBQUFpPS002RGdoSkdnWml5cXdySUhkZ0NoWC1ZX21ZZjV3RmVuMm9JSi11bWpieFNBYzRlVVpPaHk2ZUFoVWZFckk0SE45N1RZR240UkhLUFlFQVZZLUJrYzNqSGNScnZrUURGOFhJQXZQUHNXbUF2d0E?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] SiriusXM — https://news.google.com/rss/articles/CBMifEFVX3lxTE16MXE2dUp0dEN0R292a2VMdDN1UnZOUW9xTzNKRWJMREt1WEJ3MmtybDJ2a0FuQ0FPUXZxVWVrR3VBV1dGakZJOGJRQnkzamtFTmNIX0tSX2J6NmZydUVJS0xNc3RWSHFQX2o3TjRtam1nSTRiX0tGWHFQdkQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQMkt0RzR5eXNIVzB4T3VZaDV0ZXNwWURqZk5lRVhTSFNiTHNIV05GTG5RbHlpdlVmR0ptMWM0X3BCZE5MVV93S2JTZERXQUhELVpXRHAwd1lqNkRVeHJScmhlTDhQNkVjOFNSOTBFMGJXZjZfcTQxdHlNSjYybDVBaGtXX0RHSk9uN242WU5VQi1FVU9PQXJ2N05xYURsdDlqRXZnZA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jalen Brunson Mentions Taylor Swift-Kelce Wedding Venue on SNL
 
