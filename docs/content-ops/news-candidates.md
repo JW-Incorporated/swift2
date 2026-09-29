@@ -25,7 +25,120 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 88
+
+## Taylor Swift Appears in Strapless Bridal Gown in Photo
+
+- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been spotted wearing a strapless bridal gown in a new photo, prompting interest in the identity of the groom alongside her.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxNNm01aG1VeXR6N2I5NncyX05vWVQ5QVFXZlFVd1dSbEdoLVVBWVNMY0x3OTNHek9ncm5JZndnLUVKQVVoM2hYdnlnQXROeGt3MVlIS2RvZkNTNzdCV0g5UXpfNUpCQlJNMHN1eTF6YTNENnBNcmE0YjJkdU5JU1JDek1rYTA5Q2RXVXZzZmxn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Rock and Roll Hall of Famer Criticizes Taylor Swift's Impact on Music
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Rock and Roll Hall of Famer has publicly stated that Taylor Swift has 'ruined music'. This comment has sparked conversations about her influence in the music industry.
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMieEFVX3lxTE9sUy1xZDhYOVV5TjVqT3p4S2M0RlpRZE84aVVkeWhjOHJQOE1zZENrX0hITHZSdEFkYW5JZTlIZnU3bGowX1RmWlRZbl9Jb0t0UmY5UkdqQndKU1VSTDdSdnU2QkJuUnFhNDh1U3VTaDMtcnJJMXkzdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Matthew Stafford Appears in New Taylor Swift Music Video
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Former UGA quarterback Matthew Stafford makes a cameo appearance in Taylor Swift's latest music video, as reported by The Atlanta Journal-Constitution.
+- sources:
+  - [unverified] The Atlanta Journal-Constitution — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTkpkLVdQMVdVYXdNTEFRanNid3BTZXBGdXFOTno1UGhtdHJqVHlOZUpCbHFVY1dHTUZrREt1UHJOak10SDJGb1o3S0NjcE9kc2FvRjg5SVc0UUpTNWx6TzJ3RXhKY3RRcUNUVDhiUGYwajM5S2FpWTNTU3VLYVljVEJrOU5BVGlYSjk3b0hMX0ZWYzM1WEdFZE9uWk1qRmItb3c2QUE0UmNwZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Beverly Hills Home Listed for $8 Million
+
+- first seen: 2026-09-29 15:44 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Beverly Hills home previously owned by Taylor Swift, where she wrote her '1989' album, is now on the market for $8 million.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiogFBVV95cUxNWVowOHZiOW04bkdpOXk0b0NJWUJ2d1JrSWFvNVdkOUE2dGswTU90LUlWUm1BbkgxVWJ5V29EMXRmbkJSSzZEMm9oMHRMYW5BY1kzT184cUtNMmZ1ZWhmSk5ENlBUTzdwLW42cFFadS1tSjJZd19zWDlVOTNYYmFBRG1GQXppQndqV3Q5eTBJVXNaam9MeXlyek9JbGVOQmhIZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Red Carpet Outfits at MTV VMAs
+
+- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: A look back at Taylor Swift's red carpet fashion throughout the years as she breaks the record for most-awarded artist in MTV VMA history at the 2026 ceremony.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-mtv-vmas-red-carpet-outfits-through-the-years-1236608424/
+
+## Eras Tour Dancers Wear Black Tie Attire at Taylor Swift's Wedding
+
+- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Eras Tour dancers attended her wedding, opting for elegant black tie outfits instead of their usual stage costumes. Their fashion choices were highlighted in a detailed overview.
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4gFBVV95cUxOTEdZWE5JQnV0ZVloX2RvWndsUmtwT09BeVFGSUpuOHNOd1VTckhVTElCMzRfeFE2MERtRVFIbHptWWoydE1VckRqaWZZa3VjRHJtNEMwQnItTkhLUEV0NEd1SUNTa2MtMVNzcFpwSWtBQmRJRHR2eFFHTTRIQ0FwT1Fzd1MzRFBEaWhoTVp4T1dLd0k1X0tnR0NfVFZUREU2Y0lpUEhVS3hGRTV0Z2JjaVRkaEZ4M3RBUFFrUlFuNTVnYWRDS0NudXdfTndBcGwyNUdfLWpvdmVGS0lQaThpVVZn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Taylor's Version' Sparks Sociological Interest
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is once again trending, with discussions surrounding her 'Taylor's Version' albums prompting sociological inquiries into the reasons behind her popularity. This phenomenon is explored in a recent USA Today article.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi4wFBVV95cUxONzlRWHd1WVBRdEJSRHBFRV9wWDd0LXEweVZWYm9GNHc3c3BiLTA4MFNRSTNjMXJtR2ZEUXlXRHZqeHJhRmd1ZDEzTFJhQVEyM0lQTmlhLXBqb3JvdlhKNTc4VXM3cFVTUEQ5VzdKNEpJX3VfU2FnOGNsSzVVaC0yZjBuRGxOYzBDMVlKM0xPZ3I0QTZZRHo2cThEUmdOdGdETXdSNWNidmxoZzl6YmVRM1M4UURMYWp4Wjk5aW9kTFJ6V3U4ampSaWhhbGlLX0RPakZMekV0a2NiX19WOVJOaHNIdw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Skips Thanking Travis Kelce at VMAs Amid Recent Wedding Attention
+
+- first seen: 2026-09-29 15:44 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift did not thank Travis Kelce during her VMAs speech to prevent fatigue from the intense media coverage surrounding their recent wedding.
+- sources:
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOaEhXUWRhVnhRWjgzZ0VWLVRWdzQxWlVobU50Z09wTmQ2TXVScHhHY2s1eG9xUlFubTZkRi1oQkYtQ1ZHSnRRUmF3eThaejJWcUlCUXY5SUt3WDRCN3BXUml3TmlrOXkwUm5IRzF6dFJVdTZDZTFlRG9JdXBVWWxpbzFsaUt3WkRJSkVDWTY3eHZoTG8zRVE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Wedding Ring Highlighted at the VMAs
+
+- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: High-quality images of Taylor Swift's wedding ring were featured during the VMAs, capturing attention. The coverage by Cosmopolitan showcases the jewelry's details and its significance at the event.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcHVhNThkaEV6QjVqbnJQZTM3MUNnX1lUVjdwTHI5NnIteWx2d0R6TTZXb3VpYmNVUHZoZDdCOVVJMGl0aVI5cWdBWkJKRjg4MllnZ1dhLXAtT2ExQU5SYldhbUJTc09meFNfaUxhQzcwODFnZUNaRVUzMUVpZ0Fjd1ZNZ0kyaktMRUVzdjZ5NG5jcld1bzFzcWZuZVY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Unveils Song Featuring Cleveland in Deluxe Edition
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has included a song referencing Cleveland in her deluxe edition of The Life of a Showgirl. The article discusses other notable songs that celebrate the city by various artists.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMikAFBVV95cUxQeTZScHptNVctNHVrOTVPWlgzd0V6UTJORWdUSGJuSlE0OV9nUlgzR0JpdkR5eVVfU0llTWJBZ1FUWFZ4MHluTm9kYlpmWFV3WmE5eFQxUDk5LUVkdHpqSXFzOE1UVVRIWHpfS0ZqcmxWRTNPV1QtOHJ5a0hGNkNFamtDUEFhUXh3cnRuMFJuak8?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-lists/cleveland-songs-taylor-swift-1235633235/
+
+## Taylor Swift's VMAs Performance Sparks Debate on Music Video Relevance
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Cinematographer Melissa Cofie discusses the evolving purpose of music videos in the age of platforms like TikTok, following Taylor Swift's impactful performance at the VMAs.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cm750pyz5r0eo?at_medium=RSS&at_campaign=rss
+
+## Critique of Taylor Swift's Evolving Audience and Music Style
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article from The Atlantic discusses the perceived shift in Taylor Swift's music as her audience matures. It explores the dynamics between her artistic evolution and the changing demographics of her fanbase.
+- sources:
+  - [unverified] The Atlantic — https://news.google.com/rss/articles/CBMiigFBVV95cUxPYXdFZWkzdjFMMjE3M2F3anlHaEhvdXAteVh3SUkzaHZxcXBNSnpHUTZfd0RxbjZ1Nzl6UVBZWXFWWmpHemkyRUdNSm1JR0h3d2pqT3FUbFBkZUdKQjJ5T3I5VDNCbmVvZXpWSVBxdlhVSFV6RTdXTHptQmRvUmNlSnVObXotbzBfbFE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Discussion Surrounds Taylor Swift's 'The Encore'
+
+- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Bustle discusses the heightened attention surrounding Taylor Swift's project, 'The Encore.' The piece suggests that the public response may be excessive in relation to the work.
+- sources:
+  - [unverified] Bustle — https://news.google.com/rss/articles/CBMijAFBVV95cUxOYVdDTm5TMXlRTGU4cHo1MklGaDZHOGs0VDBha2VISnhKTVBJTTF3TS1aWHU0ZWZlYkw0WXlYSS1MTTRrb1VJa1F1WnhXRXItZEpkWThobW55QnpCZEpiMXotZW44b1NPQXMxVEU5b3AtN0ttZU9ZSWQyb3FiRllUaEQxekIwWU9Pc2VZUg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Dakota Johnson Enjoy Moment at VMAs
+
+- first seen: 2026-09-29 15:44 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Dakota Johnson were seen lipsyncing together during the VMAs, highlighting a fun moment that took place off-camera. The event hosted several other unseen interactions that showcased the atmosphere of the night.
+- sources:
+  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMirgFBVV95cUxNT0MzVE5jLWthMWpjQkpvcm5IUGNZcFBxRXVDM3VkaFlGSDRYRVZSSnRtZXZ4VDE5RkVXU3lpamdKSTA3a1ZSbXRGM1N3b1RRZlR6YnRlSGQtNi1vUFBrSmVUVWVRVGdZZGxMQlp1QS1ib3BtdVZ3VVM4eGRxRWg1TW9qVG1MN2dGdjJDTlBGVlhkU0tWX0xvMHRKVnU0bjVuamt3MEdQd29mbzlqbXc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Comments on Taylor Swift's VMAs Appearance Amid Marriage Reports
 
@@ -34,14 +147,6 @@ Stories: 77
 - summary: Travis Kelce has addressed Taylor Swift attending the VMAs solo, following claims of her frustration within their marriage. The situation has drawn attention amidst ongoing rumors regarding their relationship.
 - sources:
   - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipwFBVV95cUxOXzVUaTktVkJ1eGJQdEk2TlNfR0czem92VEluTmNjQU1IVEZka2hyLUJySEkzSDI0OTdINWtXZFE2Q3VPMDJMak9CVmMzLURvVlJEZksyM2FVaEFYb2hEdWkzNTc5S1d2SHB1TWVUYnp4OFlIOXNhNjJveWRKXy1sWWEzZTFxTVVyNlVTOElMM3VzaUpRVVZXWVYzRVJJd0dtanJnSGJJbw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Dakota Johnson Questions If Taylor Swift Will Release Wedding Photos
-
-- first seen: 2026-09-29 06:50 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dakota Johnson expressed uncertainty about whether Taylor Swift will share any wedding photos. The comments were made in a recent interview, reflecting on the private nature of Swift's personal life.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPWFk5bmhQWGNqZlJGSEFyRmZmOGxSclZSWDkwb1loZXVGS1NVLTV5Wm95c1Z5OVpFMmxFZG5tLXNSMW9nSzVadnBlV0k4bWtIaEZaaEtjYk9PZEYzUjBtMVNhZW9XZnRrTGw1NEZpODhjZHdjODJtWXdnQWZZTHR1dHZFdUcycnVOUzUzSmZyQ25PUXJTNFlRR25ic254S29zVEE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Pitchfork Reviews Taylor Swift's Album 'The Life of a Showgirl: The Encore'
 
@@ -91,6 +196,15 @@ Stories: 77
 - summary: At the 2026 VMAs, Taylor Swift attracted attention with her eye-catching diamond rings, becoming a highlight of the event. The jewelry showcased her distinct fashion sense and style.
 - sources:
   - [unverified] Town & Country Magazine — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQNGlGRmdrY1Q0NVNSNmpDRl9kNEZDZDNUem9qaTF4TEVrQ2g1V1JEMzdnQU5fTTZiTjRmYkQzUWNLZU1pRTVkY3dLWEFuQTk1OVYzX0VOdFdkQ3VMMUhrODA0SXFYWmx3cGE1dEQ0alpydVpySnNvdzc0NTdCOFcxcEY1ZVhid0dBVUx6bTVycEMtYmZVOFBMVkZ3NUhfX3N2MmIzQ3lGMXJXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson Questions If Taylor Swift Will Release Wedding Photos
+
+- first seen: 2026-09-29 06:50 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Dakota Johnson expressed uncertainty about whether Taylor Swift will share any wedding photos. The comments were made in a recent interview, reflecting on the private nature of Swift's personal life.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/cwm2qm5554n4o?at_medium=RSS&at_campaign=rss
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPWFk5bmhQWGNqZlJGSEFyRmZmOGxSclZSWDkwb1loZXVGS1NVLTV5Wm95c1Z5OVpFMmxFZG5tLXNSMW9nSzVadnBlV0k4bWtIaEZaaEtjYk9PZEYzUjBtMVNhZW9XZnRrTGw1NEZpODhjZHdjODJtWXdnQWZZTHR1dHZFdUcycnVOUzUzSmZyQ25PUXJTNFlRR25ic254S29zVEE?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Jalen Brunson Mentions Taylor Swift-Kelce Wedding Venue on SNL
 
@@ -165,14 +279,6 @@ Stories: 77
 - sources:
   - [unverified] guitarplayer.com — https://news.google.com/rss/articles/CBMiywFBVV95cUxQQzFPUXhJS3NFcm1jMGZBV3AxOW1TY0J0VFM3SVBpcXktcnVEdjMtYjFiUndXTVoxY3VjRXZxTm12V3pwYnpGTkRtYmJMb0xnS2VsclB0QXRVR3MzdWZGRzlVbXBuQkpZel9lNWx1VVI0dzVqdHMxZTJMZXFNa2kyNC1Sa1hZalc3UkI4WGpIRFZzLVE2RzQ0VEdRZEdqZV9oel9pWGo0elVXTjllSmV5bG0wam5QOHlUVG1Tbl95S3o5dGl2UW45RzdNUQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Debuts 'Patient Zero' Music Video at VMAs
-
-- first seen: 2026-09-28 17:37 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: At the VMAs, Taylor Swift premiered her new music video for 'Patient Zero', showcasing her latest artistic work.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMixwFBVV95cUxOVTNuUDYxT3JGYXdrUktRb29uM2tlemhPQ2UybDNfYzdfZzg3M1NNbWZtbDZGMEhabFRvWEVjbEJYUkxkcWNBTllqY3Y5N0RJenRRanNCTkk1b2dsTWd0ZFlIUUx1Q3QwQjVxUUtJVUVHQnpNbGRrcExobEl6N1FJWk5Qb0FxUldnU0FMaHc4NUx2a3RpYVBhLWl0bkFaenNkUEpqN2Jxd3RzTi0tZmp1c1hlR1gxQUlLbEV6Rm44dnpEZ1F3UGFR?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Omits Travis Kelce in VMAs Speech
 
 - first seen: 2026-09-28 17:37 UTC | category: relationship | importance: 5
@@ -180,6 +286,15 @@ Stories: 77
 - summary: During her acceptance speech at the VMAs, Taylor Swift did not mention her husband, Travis Kelce. This detail has garnered attention from media outlets.
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiowFBVV95cUxQczVUaF9PWXpiNHFUdk8zeDJ0RVFvdURkbGRwc25mX3B6eDFseVRvYXVTa180bzBiSl92bXB0Q0Z4LW1aSnlwZnNNZHgwUzVYWVpDYW1JQzhVZ28tQVhwQVpiNFBqUmxta3JYc3BCeTN3UUp3NVRfWHFYcHd6RmZaQ3JWZjYyMnExTFh3TGRqRGNtY2VSRUxqSWkxbzc3V3AzOGhR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts 'Patient Zero' Music Video at VMAs
+
+- first seen: 2026-09-28 17:37 UTC | category: release | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: At the VMAs, Taylor Swift premiered her new music video for 'Patient Zero', showcasing her latest artistic work.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxQRFc4cXBnTmFidXRvdE1GOElZRE85UnhhQXZHYWxxNWN3dWt6WUZDV3M0ZUE1RWZBWUR2UXYzanYzQzQtY3RBVFFQdDlyZlhiYk1pQWU5cldFekRpYTNvd0NMNWlwWDZEUVVNaUtMQnJiYVZVZGFTbVZjSzB2UGV2andRSkc4SldNLXVZVnNjOUJzMS03N1B2eFN3aVBnS0FQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMixwFBVV95cUxOVTNuUDYxT3JGYXdrUktRb29uM2tlemhPQ2UybDNfYzdfZzg3M1NNbWZtbDZGMEhabFRvWEVjbEJYUkxkcWNBTllqY3Y5N0RJenRRanNCTkk1b2dsTWd0ZFlIUUx1Q3QwQjVxUUtJVUVHQnpNbGRrcExobEl6N1FJWk5Qb0FxUldnU0FMaHc4NUx2a3RpYVBhLWl0bkFaenNkUEpqN2Jxd3RzTi0tZmp1c1hlR1gxQUlLbEV6Rm44dnpEZ1F3UGFR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Details About Travis Kelce Wedding Revealed by Taylor Swift's Close Friend
 
@@ -408,7 +523,7 @@ Stories: 77
 ## Taylor Swift Attends MTV VMAs 2026 Red Carpet with Other Stars
 
 - first seen: 2026-09-28 06:46 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 18
+- verification_status: corroborated | source_count: 19
 - summary: The MTV Video Music Awards 2026 took place at the Peacock Theater in Los Angeles, featuring various artists, including Taylor Swift on the red carpet. The event was hosted by Snoop Dogg and highlighted music video achievements from the past year.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/ckvgy6j4594yo?at_medium=RSS&at_campaign=rss
@@ -429,6 +544,7 @@ Stories: 77
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/28/mtv-vmas-2026-taylor-swift-madonna-win-video-music-awards-sienna-spiro-lisa
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxPajRxWWRncWRod0xDOFhyN29DdVUxUHJxQkJJcUZOdnFhMU42cWczb0RqOVNlM09SUkJTajFDdDlVSF9DMVhFdEdDTGRMRVppSUlKSjRwNTgxLTdIOUpmUzlmLTFmQUxnNFJ6R3N4WlMwVW9lQ0dPNmVuRFgxYXdGMVpSSW1SZHNHT3BlTnVITHlBUDF2Sm4zNl9fSndjOHotazI0RXRjZ2RsVk0telBpSG5MMmtVOGFocFE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-mtv-vmas-artist-director-patient-zero-1236713216/
+  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMimgJBVV95cUxOdFU2Y0huYTVyZGlwVF9wazA0dlJvREF3dzRZdzJOemxJUzVSbkZlQzlad3VrTGdsTUllNXUtdjA4RlVpaTVVTGpCNHI4RGY4ZUtNdzZ4R3E5SWUtaGxwbTluaWtsWmI5RE9tZUxWRWh3THRZcmYyYTJBTGxOSEFjSzdPWmZKRkJNSjJ2Nm82VmxDbWx1cFpWYmh0SlpzX0J6YkxBUzFMbW5kaFlRVG1yUEd3MEliMDdRUkFmdmMzZ1plS2lVdV9GZjBOS2JISmpiUEM0ejdsalFhcHN0NVBUQ2lFUE45UVlDRG9ab3FubGlSdC1FZXhzUUtZbmg1MTA2MGdhVUszb3ZJLXdtbGJiLVNaVDZZYmdjcnc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's VMAs Dress Blends Business Casual with Greek Goddess Style
 
@@ -665,32 +781,3 @@ Stories: 77
 - summary: Never-before-seen footage shows Taylor Swift in bridal white alongside Travis Kelce during a road trip to Cleveland. The sighting offers a glimpse into their relationship as they explore the city together.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxQV1ZQQU1vMGdRLXBka2tLTEh2cWxETmNIWHBKNkVrWnNLcXNpM1ZzWE9VRkdOMmVYam5WYzA3STVBbm5VZWs4dlJWQkExZDhuNFRYRFA4Ulctd2l3VjIyQm9PdGFicnJmQV9GSGpTaVVMaENENnlQcjhwb0JOV2VtNWVlRENScFdLazlGekJFNFlDampsQ1FERGh1OA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift releases 'Sparks Fly' as a standalone single with 108 million views
-
-- first seen: 2026-09-26 13:44 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released 'Sparks Fly' as a standalone single, amassing 108 million views. This marks a significant moment in her music career.
-- sources:
-  - [unverified] Martin Cid Magazine — https://news.google.com/rss/articles/CBMia0FVX3lxTE5xSndaOVJWNS1YN2Y0alBFRkpLUU1WS0RuWE5idFVXSUtVaWFOWjhGMS1uWlpuZEx6R0xubTdnNG0zMmxoRzZiY2RkdDJzYTJjLTdyWFRDdjJuclJOVXZveVlmeGpKY1pqMUVz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ranking of Taylor Swift’s new 'Encore' songs by Los Angeles Times
-
-- first seen: 2026-09-26 13:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Los Angeles Times presents a ranking of Taylor Swift’s new 'Encore' songs, analyzing each track from worst to best. This evaluation offers insights into her latest musical releases.
-- sources:
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQU0FGbmVSMndrb1BnM2x0b1BhWE44VjhPckVOOWN0ZGptX1F6NHlpNDNpSUw1TzNkZTVOdkkyMnViS3I4MHFfYXlnaWlfM2dBUDAwVllkSmJXb2tjZ0hnWEpXWlRqcmE0dDFBTmkxM3M3aml4ZW5famJvQTBXRDZ4R0hfX1hMU3czcUVzZWVaUDd0S0l3aHhOTG9xaVJjOWRDVG55OWFUTlJJekJ3c0tBczJlS2RqOXEyMEk5VF9QLUJFaFF6amtMSg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Among Artists Highlighted in New Song List
-
-- first seen: 2026-09-26 13:44 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: A new article features Taylor Swift alongside Madonna, Charli XCX, and U2, discussing their latest music and influences. The piece provides a diverse selection of tracks to listen to.
-- sources:
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMif0FVX3lxTE0zbUJiRS11X3QtTm1Dc1piMUNQUko1bXNEOUhadUQzWGNIWDZ4c0xxNDEyUGFRWG1NSWs3NlVhSmhVVWJRWHhPN1FYSFJnVll1c0plWFkyazRZWTlKUlhVZDJvR1ZyZnFFSm9EVm9ZYTkxTVE5c3hHR0o1aGh0YVk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/09/taylor-swift-spotify-patient-zero-1237114438/
-  - [unverified] IndieWire — https://news.google.com/rss/articles/CBMimAFBVV95cUxPbHVkd1Q0ZjhkR1Yxa3BpUWhCNmVxaURUYXRSbDd1RGFGemRxMHBsR2FocDRYOFBRSVlySVVoMXZqU1hwNnNXaVZuOWFhdF9HMUExQmJ1aDhuUXRHN1ZYLUdmZi1FUmdVTzNWQkNOOE9YOTZ4R2s1NDBJSzR3d3prYUxvaktDNFppRkl2eUtwNjBENkVtcE9XbQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/26/arts/music/patient-zero-taylor-swift-madonna-playlist.html
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMimAFBVV95cUxOcjJaYnZWdmxQMjhiZDJOd1RVRVI1Z2ZBQmxPd2FQR3hLc2ctellGNVVVSjdlTmRybXA4WHBwRDJ6N1BFQXFjOVQ0TkZGV1FZSU5EVUFWbV9zVkVnUXhEWHlrMElGS0x2UHhZUE9qeU5MdV9HM3p0WlpXQUYwN2wyVGpEaUh0dWFvckViNENBZTkyZlhhOG9PaQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMigAFBVV95cUxPWjEzUXFzVHk3bkh3SFlLUjRsTFo2eUlQejVKa1c3ZFlGUWF0M3JqRlNJbS1oREhWU2JPUjY2RWs3OG1SSmZmcjQ2N3lJREVWdmNBWGpXVEFlU1BLbU5TSFRuelN6Z2cyaUI5cFM4dXRNOWg4RmZaMmlZTTNMWTRKcA?oc=5&hl=en-US&gl=US&ceid=US:en
