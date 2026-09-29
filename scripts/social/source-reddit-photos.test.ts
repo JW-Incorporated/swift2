@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   looksLikeNonConcertContent,
   guessVenueDate,
+  guessEraTag,
   candidateId,
   isDirectImageUrl,
   buildCandidate,
@@ -9,6 +10,7 @@ import {
   dedupeById,
   probeHomeRelay,
   TOUR_DATE_HINTS,
+  ERA_KEYWORD_HINTS,
 } from './source-reddit-photos.mjs';
 
 describe('looksLikeNonConcertContent', () => {
@@ -66,6 +68,37 @@ describe('isDirectImageUrl', () => {
   });
 });
 
+describe('guessEraTag', () => {
+  it('matches an unambiguous album/tour-name mention', () => {
+    expect(guessEraTag('reputation stadium tour throwback')).toBe('reputation');
+    expect(guessEraTag('folklore cardigan moment')).toBe('folklore');
+    expect(guessEraTag('1989 era look tonight')).toBe('1989');
+    expect(guessEraTag('red era look tonight')).toBe('red');
+    expect(guessEraTag('lover era fest outfit')).toBe('lover');
+  });
+
+  it('returns null rather than guessing when no era keyword matches', () => {
+    expect(guessEraTag('My favorite shot from the show last night')).toBeNull();
+  });
+
+  it('never fires on partial/adjacent-word false positives ("red carpet", "lover boy")', () => {
+    expect(guessEraTag('Taylor on the red carpet tonight')).toBeNull();
+    expect(guessEraTag("her lover boy energy")).toBeNull();
+  });
+
+  it('never fires on plain uses of the words "red"/"lover" with no era qualifier (review finding, PR #4613)', () => {
+    expect(guessEraTag('Taylor wearing a red dress last night')).toBeNull();
+    expect(guessEraTag('a true lover of music tonight')).toBeNull();
+  });
+
+  it('every hint has a non-empty era slug and a real regex', () => {
+    for (const hint of ERA_KEYWORD_HINTS) {
+      expect(hint.era).toBeTruthy();
+      expect(hint.re).toBeInstanceOf(RegExp);
+    }
+  });
+});
+
 describe('buildCandidate', () => {
   const post = {
     id: 'abc123',
@@ -89,6 +122,11 @@ describe('buildCandidate', () => {
     expect(candidate.date).toBe('2023-08-05');
     expect(candidate.tags).toContain('fan-photo');
     expect(candidate.tags).toContain('concert');
+  });
+
+  it('tags an unambiguous era mention in the title', () => {
+    const candidate = buildCandidate('erastour', { ...post, title: 'reputation era look at the eras tour tonight' });
+    expect(candidate.tags).toContain('reputation');
   });
 
   it('omits venue/date when no hint matches, rather than guessing', () => {
