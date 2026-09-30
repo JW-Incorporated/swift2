@@ -69,8 +69,13 @@ export async function ingestOne(
   { groupSlug, filePath, exportedAt, dryRun = false },
   exec = execFileAsync,
 ) {
+  // Ingest imports the TypeScript parser, so the child needs the tsx loader (plain node
+  // fails with ERR_MODULE_NOT_FOUND, as the npm scripts did before they moved to tsx).
+  // --env-file-if-exists: a --dry-run needs no keys and must work without the dotenv file.
   const args = [
-    '--env-file=apps/worker/.env',
+    '--import',
+    'tsx',
+    '--env-file-if-exists=apps/worker/.env',
     'scripts/community/fb-export-ingest.mjs',
     '--group',
     groupSlug,

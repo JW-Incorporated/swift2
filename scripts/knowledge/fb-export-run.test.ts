@@ -127,7 +127,9 @@ describe('Facebook export gate', () => {
       counts: { postsKept: 3, screenedOut: 1, leads: 2, shopLinks: 1 },
     });
     expect(exec.mock.calls[0][1]).toEqual([
-      '--env-file=apps/worker/.env',
+      '--import',
+      'tsx',
+      '--env-file-if-exists=apps/worker/.env',
       'scripts/community/fb-export-ingest.mjs',
       '--group',
       'group-a',
