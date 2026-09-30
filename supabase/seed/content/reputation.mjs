@@ -2318,26 +2318,7 @@ export default {
             caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
           },
         ],
-        products: [
-          {
-            brand: 'Wrangler',
-            item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
-            retailer: 'jacksonswestern.com',
-            url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): the jacksonswestern.com
-            // PDP is now 404 (delisted); this is the same real Wrangler x Lainey
-            // Wilson Rainbow Bandana Western Snap Shirt product photo from another
-            // in-stock retailer, curl-verified 200 image/png.
-            imageUrl: 'https://bootjack.com/cdn/shop/files/SHIRTLONGG-2024-10-31T142255.702.png?v=1730406459',
-            matchTier: 'unscored',
-            kind: 'top',
-            price: '$55.00',
-            inStock: false,
-            verifiedAt: '2026-08-30T19:22:10.691Z',
-            isAlternative: true,
-            altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
-          },
-        ],
+        products: [],
       },
     },
     {

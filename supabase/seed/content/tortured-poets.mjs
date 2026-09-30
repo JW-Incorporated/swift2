@@ -6051,24 +6051,7 @@ export default {
             focalPoint: '48% 35%',
           },
         ],
-        products: [
-          {
-            brand: 'M. Pope and Co',
-            item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
-            retailer: 'mpopeandco.com',
-            url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
-            // Photo pass (t_fa7bfb57 round 3, 2026-08-31): mpopeandco.com does not
-            // resolve; same real ring (M. Pope & Co estate jewelry) sourced from
-            // the jeweler's own shop platform, curl-verified 200 image/jpeg.
-            imageUrl: 'https://cdn.shoplightspeed.com/shops/641941/files/75979408/14k-yellow-gold-vintage-old-mine-cut-diamond-ring.jpg',
-            matchTier: 'unscored',
-            kind: 'jewelry',
-            price: '$3,250.00',
-            isAlternative: true,
-            altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        products: [],
       },
     },
     // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
