@@ -71,7 +71,7 @@ export default {
           notes: 'carries her "get in front of a large group of people" quote; dates the 76ers anthem to April 5, 2002, before 20,754 fans',
         },
         {
-          source_url: 'https://www.foxsports.com/stories/nba/watch-12-year-old-taylor-swift-sing-impressive-anthem-before-76ers-game',
+          source_url: 'https://amp.foxsports.com/stories/nba/watch-12-year-old-taylor-swift-sing-impressive-anthem-before-76ers-game',
           source_title: 'Watch 12-year-old Taylor Swift sing impressive anthem before 76ers game',
           publisher: 'FOX Sports',
           source_type: 'reputable_press',

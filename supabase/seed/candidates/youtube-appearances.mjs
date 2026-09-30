@@ -154,7 +154,7 @@ export default {
     {
       title: "Performs 'Back to December' at the 2010 American Music Awards",
       date: '2010-11-21',
-      youtubeUrl: 'https://www.youtube.com/watch?v=792hPowNKDw',
+      youtubeUrl: 'https://www.youtube.com/watch?v=L8-HPbEemcY',
       channel: 'Fan/archive upload (manifest)',
       type: 'award_performance',
       venue: '2010 American Music Awards',
@@ -326,7 +326,7 @@ export default {
     {
       title: 'Full interview on Jimmy Kimmel Live!',
       date: '2020-12-14',
-      youtubeUrl: 'https://youtu.be/qOX0FK1DW5U',
+      youtubeUrl: 'https://www.youtube.com/watch?v=ionfV_r8s40',
       channel: 'Jimmy Kimmel Live! (official)',
       type: 'talk_show',
       venue: 'Jimmy Kimmel Live!',

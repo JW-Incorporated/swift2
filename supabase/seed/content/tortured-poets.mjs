@@ -1228,10 +1228,10 @@ export default {
             notes: 'Nov 23 teary closing speech after "Champagne Problems"',
           },
           {
-            outlet: 'People / AOL',
-            url: 'https://www.aol.com/taylor-swift-brings-gracie-abrams-155125685.html',
+            outlet: 'People / Yahoo',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-brings-gracie-abrams-155125919.html',
             source_title: "Taylor Swift Brings Out Gracie Abrams for Mashup of 'Us' and 'Out of the Woods'",
-            publisher: 'People / AOL',
+            publisher: 'People / Yahoo',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
@@ -3718,7 +3718,7 @@ export default {
           },
           {
             outlet: 'City of Edinburgh Council',
-            url: 'https://www.edinburgh.gov.uk/news/article/13996/-sparks-fly-as-edinburgh-welcomes-taylor-swift-with-civic-gift',
+            url: 'https://web.archive.org/web/20251109003736/https://www.edinburgh.gov.uk/news/article/13996/-sparks-fly-as-edinburgh-welcomes-taylor-swift-with-civic-gift',
             source_title: "'Sparks Fly' as Edinburgh welcomes Taylor Swift with civic gift",
             publisher: 'City of Edinburgh Council',
             source_type: 'official',
@@ -5636,13 +5636,13 @@ export default {
       title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
       snippet:
         'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
-      sourceUrl: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html',
+      sourceUrl: 'https://www.aol.com/articles/only-30-albums-women-certified-202930610.html',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
       moment: {
         context:
           'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Taylor\'s second Diamond album after Fearless (certified in December 2017).\n\nThe company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece.',
         sources: [
-          { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
+          { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930610.html' },
           { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
         ],
         // Photo-enrichment pass (2026-07-18, #762): added GabboT's Ford Field shot of the
@@ -5830,10 +5830,10 @@ export default {
             reliability_score: 3,
           },
           {
-            outlet: 'AOL',
-            url: 'https://www.aol.com/taylor-swift-travis-kelce-engagement-205620651.html',
+            outlet: 'Yahoo',
+            url: 'https://ca.news.yahoo.com/taylor-swift-travis-kelce-engagement-205620651.html',
             source_title: 'Kansas City florist analyzes Taylor Swift and Travis Kelce dreamy proposal flowers',
-            publisher: 'AOL',
+            publisher: 'Yahoo',
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
             reliability_score: 3,
@@ -6412,7 +6412,7 @@ export default {
           'Date night during the Chiefs\' bye week, ahead of the Eras Tour\'s Miami resumption.',
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-and-travis-kelce-cute-nyc-dinner-date-8727621' },
-          { outlet: 'Heavy.com', url: 'https://heavy.com/entertainment/travis-kelce-paprazzi-pic' },
+          { outlet: 'Heavy.com', url: 'https://web.archive.org/web/20241114021212/https://heavy.com/entertainment/travis-kelce-paprazzi-pic' },
           { outlet: 'TMZ', url: 'https://www.tmz.com/2024/10/13/taylor-swift-travis-kelce-dinner-date-nyc/' },
         ],
         photos: [{
