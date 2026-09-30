@@ -46,7 +46,7 @@ import {
 import { loadMomentById } from '../lib/era-stream-data';
 import { eraColors } from '../lib/theme';
 
-/** Mirrors `MomentDetail.tsx`'s CONFIDENCE_BANNER — same copy, native chrome. */
+/** Mirrors `MomentRumors.tsx`'s CONFIDENCE_BANNER — same copy, native chrome. */
 const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> = {
   reputable_reporting: {
     label: 'Reported — not confirmed',

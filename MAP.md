@@ -129,6 +129,12 @@ read once on mount (`deepLink.ts`) and never written back.
 | `components/longlive/CurrentItemDetail.tsx` | Live item's detail overlay — mandatory dashed rumor banner + "Help us verify" (POSTs `/api/intake`). State owned locally by `EraSection`, not the shared store |
 | `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |
 | `components/longlive/MomentCardButton.tsx` | Moment card body per tier (hero/media/chip/text) + `MomentMeta`/`TagRow` |
+| `components/longlive/MomentDetail.tsx` | The moment sheet (full-screen dialog): lifecycle (scroll lock, focus trap, Escape, back-swipe, visited), hero/gallery/lightbox image derivation, article body. Split (R20, was 1,205 lines) into the files below — none over 300 |
+| `components/longlive/MomentHero.tsx` | Hero slot — photo or the moment's own footage (`heroVideoFor`) — plus the one set of home/favorite/share/close controls |
+| `components/longlive/MomentLightbox.tsx` | Inline `MomentFigure`, `ImageKindBadge`/`IMAGE_KIND_NOTE` stand-in labelling, `isRemoteUrl`, and the portaled full-screen `MomentLightbox` viewer |
+| `components/longlive/MomentRumors.tsx` | `ConfidenceBanner` (sub-confirmed banner) + `RumorSection` ("What's rumored"). Copy mirrored by `apps/mobile/components/MomentSheet.tsx` |
+| `components/longlive/MomentSources.tsx` | `MomentSources` citation footnote (+ embedded YouTube citations) and `ShopTheLook` |
+| `components/longlive/MomentLinks.tsx` | Hidden clue + Clue Web trail CTA, `FollowThreadsRow`, `RelatedMomentsRail` ("Keep reading") |
 | `components/longlive/VideoMomentCard.tsx` | Full-width video-record card (kind: `'video'`) |
 | `components/longlive/DoorwayCard.tsx` | Thread/egg doorway cards — same silhouette as a moment card (P3 step 15) |
 | `components/longlive/EraThreadsPivot.tsx` | The "Threads running through {era}" strip below the feed |

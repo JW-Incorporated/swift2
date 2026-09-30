@@ -12,7 +12,10 @@ const componentSource = (relPath: string) =>
 describe('ImageRef cover crops respect authored focal points (#746)', () => {
   it.each([
     ['./MomentCardButton.tsx', 3],
-    ['./MomentDetail.tsx', 3],
+    // MomentDetail's three crops live in its R20 split files.
+    ['./MomentHero.tsx', 1],
+    ['./MomentLightbox.tsx', 1],
+    ['./MomentLinks.tsx', 1],
     ['./FromTheEras.tsx', 1],
     ['./proposal/ProposalThread.tsx', 1],
     ['./runway/RunwayThread.tsx', 2],
