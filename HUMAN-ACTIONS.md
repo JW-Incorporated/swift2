@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -109,40 +109,6 @@ group Joey has not joined may report `not-member`).
 4. If GitHub issues a new token value instead of an in-place edit, update the secret: repo Settings → Secrets and variables → Actions → SOCIAL_POSTER_PAT → paste the new value.
 
 **Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
-
-## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
-
-**Steps:**
-1. Meta App Dashboard → App Review → Permissions and Features → add instagram_manage_insights.
-2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
-3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
-
-**Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
-
----
-
-## #49 🔴 [BLOCKING] Add the shared Community Tasks acknowledgement secret (~5 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** the daily Community Tasks workflow is otherwise fully
-configured and its scheduled runs are healthy, but it safely refuses to send
-an email until it can create secure one-click `Posted` and `Skip` links. The
-same value must be available to both the GitHub mailer and the Vercel website:
-the mailer si
-
-**Steps:**
-1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
-2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
-3. In the Vercel project that serves `longlivets.com`, open **Settings →
-4. In GitHub, open **Actions → community-mailer → Run workflow**, select
-
-**Worked if:** a manual `daily` run no longer logs
-`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
-there is at least one drafted lead, and its `Posted`/`Skip` links record the
-chosen outc
 
 ## #70 🟡 [DECIDE] Confirm the first automated Facebook export (~5 min)
 <!-- ha filed=2026-09-12 -->
