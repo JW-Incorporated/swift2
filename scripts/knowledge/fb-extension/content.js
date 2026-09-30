@@ -19,6 +19,9 @@
   const HEARTBEAT_MS = 30_000;
   const SHELL_WAIT_MS = 20_000;
   const EXPAND_WAIT_MS = 500;
+  const COMMENTS_MAX_MS = 15 * 60_000;
+  const COMMENTS_RESERVE_MS = 60_000;
+  const DEFAULT_WALL_MS = 20 * 60_000; // stopDecision's default wallBudgetMs
 
   function statusBox(doc) {
     let box = null;
@@ -65,6 +68,14 @@
     };
   }
 
+  // Comments run AFTER the feed harvest, inside the same group wall budget: the launcher kills
+  // Chrome at Σ budgets + 10 min, so a group must never overrun its own budget. Cap = min(15 min,
+  // remaining budget − 60 s); ≤ 0 → skip comments entirely (comments.js treats 0 as "default").
+  function commentsBudgetMs(job, elapsedMs) {
+    const wallBudgetMs = Number.isFinite(job.wallBudgetMs) ? job.wallBudgetMs : DEFAULT_WALL_MS;
+    return Math.max(0, Math.min(COMMENTS_MAX_MS, wallBudgetMs - elapsedMs - COMMENTS_RESERVE_MS));
+  }
+
   async function collectCommentsSafely(units, options) {
     if (typeof LLFB.collectComments !== 'function') return { comments: [] };
     try {
@@ -102,7 +113,12 @@
     let stagnantScrolls = 0;
     let scrollCount = 0;
     const stopHeartbeat = env.every(
-      () => env.heartbeat({ slug: job.slug, scrolls: scrollCount, slotCount: harvest.maxPosinset }),
+      () =>
+        env.heartbeat({
+          slug: job.slug,
+          scrolls: scrollCount,
+          slotCount: LLFB.harvestSlotCount(harvest),
+        }),
       HEARTBEAT_MS,
     );
 
@@ -130,7 +146,7 @@
         const elapsedMs = env.clock() - startedAtMs;
         const decision = LLFB.tickDecision({
           units: harvest.units,
-          slotCount: harvest.maxPosinset,
+          slotCount: LLFB.harvestSlotCount(harvest),
           now,
           stagnantScrolls,
           scrollCount,
@@ -140,7 +156,7 @@
         });
         render([
           `LL export — ${job.label ?? job.slug}`,
-          `feed slots loaded: ${harvest.maxPosinset}`,
+          `feed slots loaded: ${LLFB.harvestSlotCount(harvest)}`,
           `posts kept: ${harvest.units.length}`,
           `scroll steps: ${scrollCount}   time: ${Math.round(elapsedMs / 1000)}s`,
         ]);
@@ -156,9 +172,13 @@
           });
           let comments = [];
           let message;
-          if (decision.status === 'collected' && units.length) {
+          const commentsMaxMs = commentsBudgetMs(job, env.clock() - startedAtMs);
+          if (decision.status === 'collected' && units.length && commentsMaxMs > 0) {
             render([`LL export — ${job.label ?? job.slug}`, `comments for ${units.length} posts…`]);
-            ({ comments, message } = await collectCommentsSafely(units, job.comments));
+            ({ comments, message } = await collectCommentsSafely(units, {
+              ...job.comments,
+              maxMs: commentsMaxMs,
+            }));
           }
           render([
             `LL export — ${job.label ?? job.slug}`,
@@ -189,6 +209,7 @@
   }
 
   LLFB.runJob = runJob;
+  LLFB.commentsBudgetMs = commentsBudgetMs;
 
   // ---- bootstrap (only inside a real extension) -----------------------------------------------
 
