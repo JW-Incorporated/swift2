@@ -26,9 +26,11 @@ function collectorPage({ acting = false } = {}) {
       { name: 'c_user', value: '123', domain: '.facebook.com' },
       ...(acting ? [{ name: 'i_user', value: '987', domain: '.facebook.com' }] : []),
     ]),
-    $$eval: vi.fn(async (_selector: string, _fn: unknown, source?: string, flags?: string) => {
-      if (source === undefined) return acting ? ['Long Live'] : ['Account controls'];
-      return false;
+    $$eval: vi.fn(async () => (acting ? ['Long Live'] : ['Account controls'])),
+    // No control ever matches: every switch strategy finds nothing to click.
+    evaluateHandle: vi.fn(async () => ({ asElement: () => null, dispose: async () => {} })),
+    deleteCookie: vi.fn(async ({ name }: { name: string }) => {
+      if (name === 'i_user') acting = false;
     }),
   };
   return { page, groupVisits };
@@ -222,11 +224,31 @@ describe('Facebook collector boundaries', () => {
         outputDir: 'unused',
         browserFactory: vi.fn().mockResolvedValue(browser) as never,
         profileOptions: { sleep: vi.fn(), random: () => 0 },
+        readAs: 'page',
       }),
     ).resolves.toEqual({
       results: [{ slug: 'profile', status: 'wrong-profile' }],
       actingPageId: null,
     });
+    expect(fake.groupVisits).toEqual([]);
+  });
+
+  it('personal mode drops a lingering acting-Page cookie before reading groups', async () => {
+    const fake = collectorPage({ acting: true });
+    const browser = {
+      pages: vi.fn().mockResolvedValue([fake.page]),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+    const result = await collectAll({
+      groups: groups as never,
+      outputDir: 'unused',
+      browserFactory: vi.fn().mockResolvedValue(browser) as never,
+      probeProfile: true,
+      readAs: 'personal',
+      profileOptions: { log: vi.fn() },
+    });
+    expect(fake.page.deleteCookie).toHaveBeenCalledWith({ name: 'i_user', domain: '.facebook.com' });
+    expect(result).toEqual({ results: [], actingPageId: null });
     expect(fake.groupVisits).toEqual([]);
   });
 
@@ -241,6 +263,7 @@ describe('Facebook collector boundaries', () => {
       outputDir: 'unused',
       browserFactory: vi.fn().mockResolvedValue(browser) as never,
       probeProfile: true,
+      readAs: 'page',
       profileOptions: { log: vi.fn(), sleep: vi.fn() },
     });
     expect(result).toEqual({ results: [], actingPageId: '987' });

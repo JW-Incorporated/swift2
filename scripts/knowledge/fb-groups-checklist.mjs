@@ -17,6 +17,12 @@ export const FB_ACTING_PAGE = {
   name: 'Long Live',
 };
 
+// Which profile reads the groups. 'personal' (Joey's own profile) since the
+// 2026-09-30 live run: these groups do not allow Pages ("This group doesn't
+// allow Pages to join") and the Vault is invisible to the Long Live Page, so
+// the Page cannot read them. 'page' switches into FB_ACTING_PAGE instead.
+export const FB_READ_AS = 'personal';
+
 export const FB_GROUPS_CHECKLIST = [
   {
     slug: 'taylor-swifts-vault',
@@ -42,16 +48,7 @@ export const FB_GROUPS_CHECKLIST = [
     groupId: '557483725146375',
     candidate: true,
   },
-  {
-    slug: 'taylor-swift-swifties',
-    label: 'Taylor Swift Swifties',
-    groupId: '264466934870157',
-    candidate: true,
-  },
-  {
-    slug: 'friendship-bracelets-buy-sell-trade',
-    label: 'Friendship Bracelets Buy/Sell/Trade',
-    groupId: '1220925938596348',
-    candidate: true,
-  },
+  // Removed 2026-09-30: 'taylor-swift-swifties' (264466934870157) and
+  // 'friendship-bracelets-buy-sell-trade' (1220925938596348) — desk-research IDs
+  // that resolve to "This content isn't available" for every profile (Joey confirmed).
 ];

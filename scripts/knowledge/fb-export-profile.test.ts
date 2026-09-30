@@ -28,20 +28,29 @@ function profilePage({ acting = false, strategy = 'none' } = {}) {
       { name: 'c_user', value: '123', domain: '.facebook.com' },
       ...(iUser ? [{ name: 'i_user', value: iUser, domain: '.facebook.com' }] : []),
     ]),
-    $$eval: vi.fn(async (_selector: string, _fn: unknown, source?: string, flags?: string) => {
-      if (source === undefined) return controls.map((control) => control.name);
+    $$eval: vi.fn(async () => controls.map((control) => control.name)),
+    // Mirrors the real code path: find in page, then a puppeteer (real mouse) click.
+    evaluateHandle: vi.fn(async (_fn: unknown, source: string, flags: string) => {
       const matcher = new RegExp(source, flags);
       const control = controls.find((candidate) => matcher.test(candidate.name));
-      if (!control) return false;
-      clicks.push(control.name);
-      if (control.name === 'Account controls' && strategy === 'b') {
-        controls = [{ name: 'See all profiles' }];
-      } else if (control.name === 'See all profiles') {
-        controls = [{ name: 'Long Live', click: setActing }];
-      } else {
-        control.click?.();
-      }
-      return true;
+      const element = control
+        ? {
+            click: async () => {
+              clicks.push(control.name);
+              if (control.name === 'Account controls' && strategy === 'b') {
+                controls = [{ name: 'See all profiles' }];
+              } else if (control.name === 'Account controls' && strategy === 'b-direct') {
+                controls = [{ name: 'Switch to Long Live', click: setActing }];
+              } else if (control.name === 'See all profiles') {
+                controls = [{ name: 'Long Live', click: setActing }];
+              } else {
+                control.click?.();
+              }
+            },
+            dispose: async () => {},
+          }
+        : null;
+      return { asElement: () => element, dispose: async () => {} };
     }),
   };
   return { page, clicks };
@@ -81,5 +90,17 @@ describe('Facebook acting Page switch', () => {
       }),
     ).resolves.toEqual({ status: 'ready', actingPageId: '987' });
     expect(fake.clicks).toEqual(['Account controls', 'See all profiles', 'Long Live']);
+  });
+
+  it('uses the account menu\'s direct "Switch to <Page>" entry (live layout 2026-09-30)', async () => {
+    const fake = profilePage({ strategy: 'b-direct' });
+    await expect(
+      ensureActingAsPage(fake.page as never, {
+        actingPage: { name: 'Long Live' },
+        sleep: vi.fn(),
+        random: () => 0,
+      }),
+    ).resolves.toEqual({ status: 'ready', actingPageId: '987' });
+    expect(fake.clicks).toEqual(['Account controls', 'Switch to Long Live']);
   });
 });

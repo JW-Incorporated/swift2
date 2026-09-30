@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-/* global document, location, window */
+/* global document, window */
 import { execFile } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
-import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
+import { FB_GROUPS_CHECKLIST, FB_READ_AS } from './fb-groups-checklist.mjs';
 import { launchCollectorBrowser } from './fb-export-browser.mjs';
-import { ensureActingAsPage } from './fb-export-profile.mjs';
+import { ensureActingAsPage, ensurePersonalProfile } from './fb-export-profile.mjs';
 export { chromeExecutable, collectorLaunchOptions } from './fb-export-browser.mjs';
 export { ensureActingAsPage } from './fb-export-profile.mjs';
 import {
@@ -82,7 +82,8 @@ async function waitForSession(
     if (status === 'ready' || status === 'checkpoint') return status;
     if (Date.now() >= deadline) return 'login-failed';
     await sleep(Math.min(pollIntervalMs, Math.max(0, deadline - Date.now())));
-  } while (true);
+  } while (Date.now() <= deadline);
+  return 'login-failed';
 }
 
 async function automatedLoginOnce(page, passwordReader) {
@@ -195,6 +196,17 @@ export async function collectGroup(page, group, options = {}) {
   const random = options.random ?? Math.random;
   const url = `https://www.facebook.com/groups/${group.groupId}?sorting_setting=CHRONOLOGICAL`;
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+  // Live 2026-09-30: at domcontentloaded the group shell has no feed, join button or
+  // "isn't available" text yet, so an unavailable group was misread as an empty feed.
+  // Wait for one of the three to render before classifying.
+  await page
+    .waitForFunction?.(
+      () =>
+        document.querySelector('[role="feed"], [role="article"]') ||
+        /this content isn['’]t available|join group/i.test(document.body?.innerText ?? ''),
+      { timeout: 20_000 },
+    )
+    ?.catch(() => {});
 
   let classification = await inspectPage(page);
   if (classification === 'login') return { slug: group.slug, status: 'login-failed' };
@@ -242,11 +254,12 @@ export async function collectAll({
   sessionOptions = {},
   profileOptions = {},
   probeProfile = false,
+  readAs = FB_READ_AS,
 } = {}) {
   const browser = await browserFactory();
   const page = (await browser.pages())[0] ?? (await browser.newPage());
   const results = [];
-  let discoveredActingPageId = null;
+  let discoveredActingPageId;
   try {
     const session = await establishSession(page, {
       ...sessionOptions,
@@ -256,7 +269,8 @@ export async function collectAll({
       results.push({ slug: groups[0]?.slug ?? 'profile', status: session });
       return { results, actingPageId: null };
     }
-    const profile = await ensureActingAsPage(page, { ...profileOptions, probe: probeProfile });
+    const ensureProfile = readAs === 'page' ? ensureActingAsPage : ensurePersonalProfile;
+    const profile = await ensureProfile(page, { ...profileOptions, probe: probeProfile });
     discoveredActingPageId = profile.actingPageId;
     if (profile.status !== 'ready')
       return {
