@@ -4,8 +4,11 @@ import { execFile } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
-import puppeteer from 'puppeteer-core';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
+import { launchCollectorBrowser } from './fb-export-browser.mjs';
+import { ensureActingAsPage } from './fb-export-profile.mjs';
+export { chromeExecutable, collectorLaunchOptions } from './fb-export-browser.mjs';
+export { ensureActingAsPage } from './fb-export-profile.mjs';
 import {
   classifyPage,
   exportFileName,
@@ -16,11 +19,6 @@ import {
 
 const execFileAsync = promisify(execFile);
 const ROOT = process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb');
-
-export function chromeExecutable(env = process.env) {
-  const roots = [env.PROGRAMFILES, env['PROGRAMFILES(X86)'], env.LOCALAPPDATA].filter(Boolean);
-  return roots.map((root) => join(root, 'Google', 'Chrome', 'Application', 'chrome.exe'));
-}
 
 export async function readDpapiPassword({ exec = execFileAsync, root = ROOT } = {}) {
   if (!root) throw new Error('LOCALAPPDATA is unavailable');
@@ -236,48 +234,36 @@ export async function collectGroup(page, group, options = {}) {
   }
 }
 
-export async function launchCollectorBrowser({
-  executablePath,
-  profileDir = join(ROOT, 'chrome-profile'),
-} = {}) {
-  const candidates = executablePath ? [executablePath] : chromeExecutable();
-  const { existsSync } = await import('node:fs');
-  const chrome = candidates.find(existsSync);
-  if (!chrome) throw new Error('Google Chrome executable was not found');
-  await mkdir(profileDir, { recursive: true });
-  return puppeteer.launch(collectorLaunchOptions(chrome, profileDir));
-}
-
-export function collectorLaunchOptions(executablePath, profileDir) {
-  return {
-    executablePath,
-    userDataDir: profileDir,
-    headless: false,
-    defaultViewport: null,
-    ignoreDefaultArgs: ['--enable-automation'],
-    args: ['--disable-blink-features=AutomationControlled'],
-  };
-}
-
 export async function collectAll({
   groups = FB_GROUPS_CHECKLIST,
   outputDir,
   browserFactory = launchCollectorBrowser,
   interactiveSetup = false,
   sessionOptions = {},
+  profileOptions = {},
+  probeProfile = false,
 } = {}) {
   const browser = await browserFactory();
   const page = (await browser.pages())[0] ?? (await browser.newPage());
   const results = [];
+  let discoveredActingPageId = null;
   try {
     const session = await establishSession(page, {
       ...sessionOptions,
       interactiveSetup,
     });
     if (session !== 'ready') {
-      if (groups[0]) results.push({ slug: groups[0].slug, status: session });
-      return results;
+      results.push({ slug: groups[0]?.slug ?? 'profile', status: session });
+      return { results, actingPageId: null };
     }
+    const profile = await ensureActingAsPage(page, { ...profileOptions, probe: probeProfile });
+    discoveredActingPageId = profile.actingPageId;
+    if (profile.status !== 'ready')
+      return {
+        results: [{ slug: 'profile', status: 'wrong-profile' }],
+        actingPageId: profile.actingPageId,
+      };
+    if (probeProfile) return { results: [], actingPageId: profile.actingPageId };
     for (const group of groups) {
       try {
         const result = await collectGroup(page, group, { outputDir });
@@ -296,5 +282,5 @@ export async function collectAll({
   } finally {
     await browser.close();
   }
-  return results;
+  return { results, actingPageId: discoveredActingPageId };
 }

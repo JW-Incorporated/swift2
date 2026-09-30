@@ -13,6 +13,10 @@
 // Joey is actually a member — the weekly reminder issue flags these rows so
 // he can confirm membership or delete the line before the first real export.
 // Drop `candidate` (or set it `false`) once membership is confirmed.
+export const FB_ACTING_PAGE = {
+  name: 'Long Live',
+};
+
 export const FB_GROUPS_CHECKLIST = [
   {
     slug: 'taylor-swifts-vault',

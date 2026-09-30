@@ -82,11 +82,12 @@ export async function writeLedger(path, ledger) {
   await rename(temp, path);
 }
 
-export function runSummary(results) {
-  const counts = { done: 0, 'not-member': 0, failed: 0 };
+export function runSummary(results, actingPageId = null) {
+  const counts = { done: 0, 'not-member': 0, unavailable: 0, failed: 0 };
   for (const result of results) {
     if (['uploaded', 'already-done', 'validated'].includes(result.status)) counts.done += 1;
     else if (result.status === 'not-member') counts['not-member'] += 1;
+    else if (result.status === 'unavailable') counts.unavailable += 1;
     else counts.failed += 1;
   }
   const details = results.map(
@@ -94,7 +95,8 @@ export function runSummary(results) {
       `- ${r.slug}: ${r.status}${r.postCount ? ` (${r.postCount} posts)` : ''}${r.reason ? ` — ${r.reason}` : ''}`,
   );
   return [
-    `Facebook export: ${counts.done} done, ${counts['not-member']} not joined, ${counts.failed} failed.`,
+    `Facebook export: ${counts.done} done, ${counts['not-member']} not joined, ${counts.unavailable} unavailable, ${counts.failed} failed.`,
+    ...(actingPageId ? [`Acting Page i_user: ${actingPageId}.`] : []),
     ...details,
   ].join('\n');
 }
@@ -125,6 +127,7 @@ async function reportIssue(issue, body, { close = false, ghImpl = gh } = {}) {
 
 export async function runExport(options = {}) {
   const dryRun = options.dryRun ?? false;
+  const probeProfile = options.probeProfile ?? false;
   const now = options.now ?? new Date();
   const root =
     options.root ?? (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb'));
@@ -135,36 +138,52 @@ export async function runExport(options = {}) {
   const ledger = await (options.readLedger ?? readLedger)(ledgerPath);
   ledger.groups ??= {};
   const persistLedger = () =>
-    (options.writeLedger ?? writeLedger)(ledgerPath, { week: weekLabel, groups: ledger.groups });
+    (options.writeLedger ?? writeLedger)(ledgerPath, {
+      week: weekLabel,
+      ...(ledger.actingPageId ? { actingPageId: ledger.actingPageId } : {}),
+      groups: ledger.groups,
+    });
   const complete = dryRun
     ? new Set()
     : new Set(
         Object.entries(ledger.groups)
-          .filter(([, row]) => ['uploaded', 'not-member'].includes(row.status))
+          .filter(([, row]) => ['uploaded', 'not-member', 'unavailable'].includes(row.status))
           .map(([slug]) => slug),
       );
   const pending = (options.groups ?? FB_GROUPS_CHECKLIST).filter(
     (group) => !complete.has(group.slug),
   );
-  const collected = pending.length
+  const collection = pending.length || probeProfile
     ? await (options.collect ?? collectAll)({
-        groups: pending,
+        groups: probeProfile ? [] : pending,
         outputDir,
         interactiveSetup: dryRun,
+        probeProfile,
       })
-    : [];
+    : { results: [], actingPageId: ledger.actingPageId ?? null };
+  const collected = Array.isArray(collection) ? collection : collection.results;
+  const actingPageId = Array.isArray(collection) ? null : collection.actingPageId;
+  if (actingPageId) ledger.actingPageId = actingPageId;
+  if (probeProfile) {
+    const results = collected.length ? collected : [{ slug: 'profile', status: 'validated' }];
+    return {
+      ok: collected.length === 0,
+      results,
+      summary: runSummary(results, actingPageId),
+    };
+  }
   const results = [...complete].map((slug) => ({ slug, status: 'already-done' }));
 
   for (const item of collected) {
     const group = pending.find((candidate) => candidate.slug === item.slug);
-    if (['login-failed', 'checkpoint'].includes(item.status)) {
+    if (['login-failed', 'checkpoint', 'wrong-profile'].includes(item.status)) {
       results.push(item);
       break;
     }
-    if (item.status === 'not-member') {
+    if (['not-member', 'unavailable'].includes(item.status)) {
       results.push(item);
       if (!dryRun) {
-        ledger.groups[item.slug] = { status: 'not-member', at: now.toISOString() };
+        ledger.groups[item.slug] = { status: item.status, at: now.toISOString() };
         await persistLedger();
       }
       continue;
@@ -197,8 +216,9 @@ export async function runExport(options = {}) {
       await persistLedger();
     }
   }
+  const globalAbort = results.some((row) => row.status === 'wrong-profile');
   const represented = new Set(results.map((row) => row.slug));
-  for (const group of pending) {
+  for (const group of globalAbort ? [] : pending) {
     if (!represented.has(group.slug))
       results.push({
         slug: group.slug,
@@ -210,24 +230,28 @@ export async function runExport(options = {}) {
   if (dryRun)
     return {
       ok: results.every(
-        (row) => !['failed', 'login-failed', 'checkpoint'].includes(row.status),
+        (row) => !['failed', 'login-failed', 'checkpoint', 'wrong-profile'].includes(row.status),
       ),
       results,
-      summary: runSummary(results),
+      summary: runSummary(results, actingPageId),
     };
   await persistLedger();
   const failed = results.some((row) =>
-    ['failed', 'login-failed', 'checkpoint'].includes(row.status),
+    ['failed', 'login-failed', 'checkpoint', 'wrong-profile'].includes(row.status),
   );
   const issue = await (options.findIssue ?? findWeeklyIssue)(weekLabel);
-  const summary = runSummary(results);
+  const summary = runSummary(results, actingPageId);
   await (options.reportIssue ?? reportIssue)(issue, summary, { close: !failed });
   return { ok: !failed && Boolean(issue), results, summary, issue };
 }
 
 async function main() {
-  const dryRun = process.argv.slice(2).includes('--dry-run');
-  const result = await runExport({ dryRun });
+  const args = process.argv.slice(2);
+  const dryRun = args.includes('--dry-run');
+  const probeProfile = args.includes('--probe-profile');
+  if (probeProfile && !dryRun)
+    throw new Error('--probe-profile requires --dry-run so it cannot collect or upload groups');
+  const result = await runExport({ dryRun, probeProfile });
   console.log(result.summary);
   if (!result.ok) return 1;
 }

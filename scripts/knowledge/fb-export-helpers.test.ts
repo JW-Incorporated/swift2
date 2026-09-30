@@ -52,6 +52,11 @@ describe('Facebook export pure helpers', () => {
     expect(classifyPage({ url: 'https://facebook.com/login' })).toBe('login');
   });
 
+  it('classifies unavailable content separately from parser-ready pages', () => {
+    expect(classifyPage({ text: "This content isn't available right now" })).toBe('unavailable');
+    expect(classifyPage({ text: 'This content isn’t available' })).toBe('unavailable');
+  });
+
   it('uses Sunday as the same-week ledger key', () => {
     expect(weekOf(new Date('2026-10-03T12:00:00'))).toBe('2026-09-27');
   });

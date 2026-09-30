@@ -12,6 +12,28 @@ const groups = [
   { slug: 'group-b', groupId: '456' },
 ];
 
+function collectorPage({ acting = false } = {}) {
+  let url = 'https://www.facebook.com/';
+  const groupVisits: string[] = [];
+  const page = {
+    goto: vi.fn(async (next: string) => {
+      url = next;
+      if (next.includes('/groups/')) groupVisits.push(next);
+    }),
+    url: () => url,
+    evaluate: vi.fn(async () => ({ text: '', hasPassword: false, hasJoinGroup: false })),
+    cookies: vi.fn(async () => [
+      { name: 'c_user', value: '123', domain: '.facebook.com' },
+      ...(acting ? [{ name: 'i_user', value: '987', domain: '.facebook.com' }] : []),
+    ]),
+    $$eval: vi.fn(async (_selector: string, _fn: unknown, source?: string, flags?: string) => {
+      if (source === undefined) return acting ? ['Long Live'] : ['Account controls'];
+      return false;
+    }),
+  };
+  return { page, groupVisits };
+}
+
 function loginPage() {
   let url = 'https://www.facebook.com/login';
   let hasPassword = true;
@@ -78,6 +100,23 @@ describe('Facebook collector boundaries', () => {
     expect(result).toEqual({ slug: 'group-a', status: 'not-member' });
   });
 
+  it("classifies Facebook's unavailable-content page without trying to parse it", async () => {
+    const page = {
+      goto: vi.fn(),
+      url: () => 'https://www.facebook.com/groups/123',
+      evaluate: vi.fn(async () => ({
+        text: "This content isn't available right now",
+        hasPassword: false,
+        hasJoinGroup: false,
+      })),
+    };
+    await expect(
+      collectGroup(page as never, { slug: 'group-a', groupId: '123' } as never, {
+        outputDir: 'unused',
+      }),
+    ).resolves.toEqual({ slug: 'group-a', status: 'unavailable' });
+  });
+
   it('reads DPAPI through PowerShell stdout without putting the password in arguments', async () => {
     const exec = vi.fn().mockResolvedValue({ stdout: 'not-a-real-password' });
     const value = await readDpapiPassword({ exec, root: 'C:\\safe' });
@@ -132,7 +171,10 @@ describe('Facebook collector boundaries', () => {
       browserFactory: vi.fn().mockResolvedValue(browser) as never,
       sessionOptions: { passwordReader },
     });
-    expect(result).toEqual([{ slug: 'group-a', status: 'checkpoint' }]);
+    expect(result).toEqual({
+      results: [{ slug: 'group-a', status: 'checkpoint' }],
+      actingPageId: null,
+    });
     expect(passwordReader).toHaveBeenCalledOnce();
     expect(fake.passwordInput.type).toHaveBeenCalledOnce();
     expect(fake.page.goto).toHaveBeenCalledTimes(1);
@@ -152,7 +194,10 @@ describe('Facebook collector boundaries', () => {
       browserFactory: vi.fn().mockResolvedValue(browser) as never,
       sessionOptions: { passwordReader, automatedTimeoutMs: 0 },
     });
-    expect(result).toEqual([{ slug: 'group-a', status: 'login-failed' }]);
+    expect(result).toEqual({
+      results: [{ slug: 'group-a', status: 'login-failed' }],
+      actingPageId: null,
+    });
     expect(passwordReader).toHaveBeenCalledOnce();
     expect(fake.page.goto).toHaveBeenCalledTimes(1);
   });
@@ -163,5 +208,42 @@ describe('Facebook collector boundaries', () => {
       ignoreDefaultArgs: ['--enable-automation'],
       args: ['--disable-blink-features=AutomationControlled'],
     });
+  });
+
+  it('aborts every group when all Page-switch strategies fail', async () => {
+    const fake = collectorPage();
+    const browser = {
+      pages: vi.fn().mockResolvedValue([fake.page]),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+    await expect(
+      collectAll({
+        groups: groups as never,
+        outputDir: 'unused',
+        browserFactory: vi.fn().mockResolvedValue(browser) as never,
+        profileOptions: { sleep: vi.fn(), random: () => 0 },
+      }),
+    ).resolves.toEqual({
+      results: [{ slug: 'profile', status: 'wrong-profile' }],
+      actingPageId: null,
+    });
+    expect(fake.groupVisits).toEqual([]);
+  });
+
+  it('probe mode checks the profile and never visits a group', async () => {
+    const fake = collectorPage({ acting: true });
+    const browser = {
+      pages: vi.fn().mockResolvedValue([fake.page]),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+    const result = await collectAll({
+      groups: groups as never,
+      outputDir: 'unused',
+      browserFactory: vi.fn().mockResolvedValue(browser) as never,
+      probeProfile: true,
+      profileOptions: { log: vi.fn(), sleep: vi.fn() },
+    });
+    expect(result).toEqual({ results: [], actingPageId: '987' });
+    expect(fake.groupVisits).toEqual([]);
   });
 });

@@ -60,6 +60,7 @@
     "knowledge:fb-upload": "node --env-file=apps/worker/.env scripts/knowledge-fb-upload.mjs",
     "knowledge:fb-export": "tsx scripts/knowledge/fb-export-run.mjs",
     "knowledge:fb-export:dry": "tsx scripts/knowledge/fb-export-run.mjs --dry-run",
+    "knowledge:fb-export:probe": "tsx scripts/knowledge/fb-export-run.mjs --dry-run --probe-profile",
     "knowledge:fb-schedule": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/knowledge/fb-export-task.ps1",
     "knowledge:freshness": "node scripts/knowledge-freshness.mjs",
     "clown:eval": "tsx scripts/knowledge-engine/clown-eval.mjs",

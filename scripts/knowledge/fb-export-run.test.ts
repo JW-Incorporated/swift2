@@ -74,6 +74,9 @@ describe('Facebook export orchestration', () => {
     expect(packageJson.scripts['knowledge:fb-export:dry']).toBe(
       'tsx scripts/knowledge/fb-export-run.mjs --dry-run',
     );
+    expect(packageJson.scripts['knowledge:fb-export:probe']).toBe(
+      'tsx scripts/knowledge/fb-export-run.mjs --dry-run --probe-profile',
+    );
   });
 
   it('uploads, records, comments, and closes only a complete real run', async () => {
@@ -146,5 +149,49 @@ describe('Facebook export orchestration', () => {
     expect(reportIssue).toHaveBeenCalledWith(70, expect.stringContaining('checkpoint'), {
       close: false,
     });
+  });
+
+  it('reports a wrong-profile abort and never gates or uploads a group', async () => {
+    const gate = vi.fn();
+    const upload = vi.fn();
+    const reportIssue = vi.fn();
+    const result = await runExport({
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      writeLedger: vi.fn(),
+      collect: vi.fn().mockResolvedValue({
+        results: [{ slug: 'profile', status: 'wrong-profile' }],
+        actingPageId: null,
+      }),
+      gate,
+      upload,
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue,
+    });
+    expect(result.ok).toBe(false);
+    expect(result.results).toEqual([{ slug: 'profile', status: 'wrong-profile' }]);
+    expect(gate).not.toHaveBeenCalled();
+    expect(upload).not.toHaveBeenCalled();
+    expect(reportIssue).toHaveBeenCalledWith(70, expect.stringContaining('wrong-profile'), {
+      close: false,
+    });
+  });
+
+  it('probe mode calls only the profile collector and reports the discovered i_user', async () => {
+    const collect = vi.fn().mockResolvedValue({ results: [], actingPageId: '987' });
+    const result = await runExport({
+      dryRun: true,
+      probeProfile: true,
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      collect,
+    });
+    expect(collect).toHaveBeenCalledWith(
+      expect.objectContaining({ groups: [], probeProfile: true }),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.summary).toContain('Acting Page i_user: 987.');
   });
 });
