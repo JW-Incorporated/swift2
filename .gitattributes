@@ -1,3 +1,10 @@
+# Default: every text file checks out LF on every platform (#4364). Byte/hash
+# fixtures (packages/content/src/fixtures/bundle/**, golden snapshots) and
+# workflow/source-text tests are LF-authored; core.autocrlf=true on Windows
+# would otherwise inflate byte counts and break sha256 checks. Blobs are
+# already LF, so this changes Windows checkouts only, not history.
+* text=auto eol=lf
+
 # Keep .mjs checkouts LF everywhere: vitest (esbuild) fails to parse CRLF
 # .mjs files on Windows ("SyntaxError: Invalid or unexpected token" when a
 # test imports a sync script), which core.autocrlf=true would otherwise

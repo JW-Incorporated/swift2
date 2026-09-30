@@ -177,7 +177,7 @@ describe('Awin directory join-recommendation list', () => {
     const workflow = readFileSync(
       '.github/workflows/merch-awin-directory-recommendations.yml',
       'utf8',
-    );
+    ).replace(/\r\n/g, '\n');
     const collector = readFileSync('scripts/merch-engine/awin-directory-recommendations.mjs', 'utf8');
 
     expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:/m);

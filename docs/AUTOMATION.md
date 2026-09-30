@@ -182,7 +182,7 @@ call a model are separate **manually confirmed** workflows.
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
-| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | header — Facebook has no API for non-administered groups, so this stays a human task |
+| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue; Joey's Windows task performs the deterministic export at Sun 18:00 local (`docs/decisions.md`, 2026-09-30) |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The retired Routine Auditor's invariant work is now covered by CI's `npm run check:routines`. |
 
 ### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
@@ -220,8 +220,14 @@ See that doc for the exact metrics/queries and a flagged gap: no UTM
 parameters are appended to drafted links today, so link-CTR cannot be
 measured from click data until that's added.
 
-`fb-export-ingest` (script, not its own cron — run by the Answerer desk or
-`workflow_dispatch` after a weekly Facebook export lands) and
+The local `knowledge:fb-export` command collects and parser-gates weekly
+Facebook HTML, uploads passing files, and closes the reminder issue; its
+Windows task is installed with `knowledge:fb-schedule`, and
+`knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
+DPAPI credential, run ledgers, screenshots, and the persistent Chrome profile
+all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo. `fb-export-ingest`
+(script, not its own cron — run by the Answerer desk or `workflow_dispatch`
+after a weekly Facebook export lands) and
 `theory-resolve` (folds into the existing nightly `sync:content` job as
 its final step — `scripts/community/theory-resolve.mjs`, matches
 `fan_theory_candidate.predicts`/`predicted_date` against Vault moments by

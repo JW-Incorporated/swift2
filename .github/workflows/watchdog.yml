@@ -1014,8 +1014,8 @@ jobs:
 
       # Facebook export freshness (proposal §4.7, PLAN.md Stage 6).
       # fb-export-reminder.yml files a fresh "FB group export due — week of
-      # <date>" issue every Sunday; Joey closes it once he's run
-      # `npm run knowledge:fb-upload`. STALE_DAYS=9 mirrors the Karen
+      # <date>" issue every Sunday; the local Windows collector closes it
+      # after a fully successful run. STALE_DAYS=9 mirrors the Karen
       # staleness check above: 7-day cadence + a 2-day buffer, without
       # tolerating a second consecutive miss going unnoticed. Skipped
       # entirely (not an alarm) while HUMAN-ACTIONS.md #16 is still open —
@@ -1066,7 +1066,7 @@ jobs:
           AGE_DAYS=$(( ( $(date -u +%s) - $(date -u -d "$CLOSED_AT" +%s) ) / 86400 ))
 
           if [ "$AGE_DAYS" -gt "$STALE_DAYS" ]; then
-            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The weekly export task (proposal §4.7) may have stalled — \`npm run knowledge:fb-upload\` is the last step once this week's pages are saved." > /tmp/alert-body.md
+            echo "@sffan15-sys — the last \"FB group export due\" issue closed ${AGE_DAYS} days ago (expected within ${STALE_DAYS}). The local weekly collector (proposal §4.7; decision 2026-09-30) may have stalled — run \`npm run knowledge:fb-export\` to see and report its safe status." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
             echo "FB export ALARM (${AGE_DAYS}d since last close)"
           else

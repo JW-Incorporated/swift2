@@ -7,6 +7,46 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-30 — Automate the weekly Facebook groups export with a local persistent browser profile
+
+**Decision (Joey, explicit, in session):** automate HUMAN-ACTIONS #70 from
+Joey's personal Facebook account. Joey accepts Meta Terms-of-Service and
+account-flag risk. The deterministic collector may read a password that Joey
+stores himself with Windows DPAPI at
+`%LOCALAPPDATA%\longlive-fb\fb-cred.xml`, keep it only in memory, and type it
+into Facebook's login form when re-authentication is required. It must never
+log, persist, include in an error or command line, or disclose that password to
+Quen or any other LLM. A checkpoint, two-factor prompt, or CAPTCHA always stops
+the run; the automation never attempts to solve one.
+
+**Browser attachment finding:** both Quen profiles configure
+`chrome-devtools-mcp` without `--browserUrl`, `--autoConnect`, or
+`--user-data-dir` (`%LOCALAPPDATA%\quen\home\settings.json:33-39` and
+`home-guard\settings.json:50-56`); `config.json` contains no browser setting.
+That MCP therefore launches Chrome through a pipe with its own persistent
+`~/.cache/chrome-devtools-mcp/chrome-profile`, rather than attaching to Joey's
+already-running default Chrome profile. Its pipe endpoint is not available to
+an independent scheduled process, and Chrome 136+ does not honor remote
+debugging on the default profile. The collector will use the same
+persistent-profile mechanism in a dedicated
+`%LOCALAPPDATA%\longlive-fb\chrome-profile`. Joey signs into that visible
+profile once; subsequent weekly runs reuse its session and may use the DPAPI
+credential for an ordinary login wall.
+
+**Why:** the weekly manual export is already overdue and recurring. A local,
+deterministic browser collector can perform the mechanical work without giving
+credentials or private group content to an LLM. A separate profile avoids
+contending with Joey's everyday Chrome and makes unattended scheduled launches
+possible.
+
+**Alternatives considered:** attaching to everyday Chrome was rejected because
+it is not running with an independently discoverable debugging endpoint;
+reusing Quen's exact profile was rejected because Quen owns that browser over a
+private pipe and Chrome prevents concurrent profile launches; continuing the
+manual export was superseded by Joey's explicit automation decision.
+
+**Approved by:** Joey, in chat, 2026-09-30.
+
 ### 2026-09-22 — concert photo sourcing at scale: no credit/permission gate on ingestion (kanban t_e1d26de7)
 
 **Decision (Joey, explicit, on record):** expand the social photo pool with
