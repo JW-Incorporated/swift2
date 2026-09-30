@@ -2,7 +2,15 @@ import { describe, expect, it, vi } from 'vitest';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { gateExport, runExport, runSummary, uploadOne, uploadSucceeded } from './fb-export-run.mjs';
+import {
+  gateExport,
+  ingestOne,
+  parseIngestSummary,
+  runExport,
+  runSummary,
+  uploadOne,
+  uploadSucceeded,
+} from './fb-export-run.mjs';
 
 const group = { slug: 'group-a', label: 'Group A', groupId: '123' };
 
@@ -24,10 +32,35 @@ describe('Facebook export gate', () => {
     expect(
       await gateExport({ status: 'collected', ageRuleMet: false } as never, group as never),
     ).toEqual({ ok: false, reason: 'seven-day age rule not met' });
-    expect(await gateExport({ status: 'scroll-cap' } as never, group as never)).toEqual({
-      ok: false,
-      reason: 'scroll-cap',
-    });
+    expect(
+      await gateExport(
+        {
+          status: 'collected',
+          partial: true,
+          ageRuleMet: false,
+          filePath: 'export.html',
+        } as never,
+        group as never,
+        {
+          copy: vi.fn(),
+          read: vi.fn().mockResolvedValue(
+            '<div role="article"><a aria-label="Person">Person</a><p>Post</p></div>',
+          ),
+          remove: vi.fn().mockResolvedValue(undefined),
+        },
+      ),
+    ).toMatchObject({ ok: true, partial: true });
+    expect(
+      await gateExport(
+        { status: 'collected', ageRuleMet: true, filePath: 'empty.html' } as never,
+        group as never,
+        {
+          copy: vi.fn(),
+          read: vi.fn().mockResolvedValue('<html><body></body></html>'),
+          remove: vi.fn().mockResolvedValue(undefined),
+        },
+      ),
+    ).toEqual({ ok: false, reason: 'real parser kept 0 posts' });
   });
 
   it('rejects a low harvest when the feed exposed more than 20 positions', async () => {
@@ -58,7 +91,52 @@ describe('Facebook export gate', () => {
           stopReason: 'seven-days',
         },
       ]),
-    ).toContain('group-a: validated (42 posts, stop: age)');
+    ).toContain('group-a: validated (42 posts, stop: age, covered unknown)');
+  });
+
+  it('reports coverage and explicitly lists partial groups', () => {
+    const summary = runSummary([
+      {
+        slug: 'group-a',
+        status: 'validated',
+        postCount: 412,
+        stopReason: 'scroll-cap',
+        coverageAgeMs: 2 * 86_400_000,
+        partial: true,
+      },
+    ]);
+    expect(summary).toContain(
+      'group-a: validated (412 posts, stop: scroll-cap, covered ~2d)',
+    );
+    expect(summary).toContain('Partial groups: group-a.');
+  });
+
+  it('spawns ingest with the collection time and parses dry-run counts', async () => {
+    const exec = vi.fn().mockResolvedValue({
+      stdout:
+        'fb-export-ingest: a.html — 3 post(s) kept, 1 screened out, 2 lead(s), 1 shop-link candidate(s)\n',
+    });
+    const exportedAt = new Date('2026-09-30T19:13:00.000Z');
+    await expect(
+      ingestOne(
+        { groupSlug: 'group-a', filePath: 'a.html', exportedAt, dryRun: true },
+        exec,
+      ),
+    ).resolves.toEqual({
+      ok: true,
+      counts: { postsKept: 3, screenedOut: 1, leads: 2, shopLinks: 1 },
+    });
+    expect(exec.mock.calls[0][1]).toEqual([
+      '--env-file=apps/worker/.env',
+      'scripts/community/fb-export-ingest.mjs',
+      '--group',
+      'group-a',
+      '--exported-at',
+      '2026-09-30T19:13:00.000Z',
+      '--dry-run',
+      'a.html',
+    ]);
+    expect(parseIngestSummary('unrecognized')).toBeNull();
   });
 
   it('requires the exact successful uploader trailer and no KEPT marker', () => {
@@ -113,6 +191,11 @@ describe('Facebook export orchestration', () => {
   it('uploads, records, comments, and closes only a complete real run', async () => {
     const writeLedger = vi.fn();
     const reportIssue = vi.fn();
+    const ingest = vi.fn().mockResolvedValue({
+      ok: true,
+      counts: { postsKept: 3, screenedOut: 0, leads: 3, shopLinks: 0 },
+    });
+    const upload = vi.fn().mockResolvedValue({ ok: true });
     const result = await runExport({
       now: new Date('2026-09-30T12:00:00'),
       root: 'C:\\outside-repo',
@@ -125,11 +208,13 @@ describe('Facebook export orchestration', () => {
           { slug: 'group-a', status: 'collected', filePath: 'a.html', ageRuleMet: true },
         ]),
       gate: vi.fn().mockResolvedValue({ ok: true, postCount: 3, filePath: 'a.html' }),
-      upload: vi.fn().mockResolvedValue({ ok: true }),
+      ingest,
+      upload,
       findIssue: vi.fn().mockResolvedValue(70),
       reportIssue,
     });
     expect(result.ok).toBe(true);
+    expect(ingest.mock.invocationCallOrder[0]).toBeLessThan(upload.mock.invocationCallOrder[0]);
     expect(writeLedger).toHaveBeenCalled();
     expect(reportIssue).toHaveBeenCalledWith(70, expect.stringContaining('group-a: uploaded'), {
       close: true,
@@ -151,15 +236,66 @@ describe('Facebook export orchestration', () => {
           { slug: 'group-a', status: 'collected', filePath: 'a.html', ageRuleMet: true },
         ]),
       gate: vi.fn().mockResolvedValue({ ok: true, postCount: 2, filePath: 'a.html' }),
+      ingest: vi.fn().mockResolvedValue({
+        ok: true,
+        counts: { postsKept: 2, screenedOut: 0, leads: 2, shopLinks: 0 },
+      }),
       upload,
       writeLedger,
       findIssue,
     });
     expect(result.ok).toBe(true);
     expect(result.results[0].status).toBe('validated');
+    expect(result.summary).toContain('ingest: 2 kept/2 leads/0 shop');
     expect(upload).not.toHaveBeenCalled();
     expect(writeLedger).not.toHaveBeenCalled();
     expect(findIssue).not.toHaveBeenCalled();
+  });
+
+  it('keeps the file out of upload when ingest fails', async () => {
+    const upload = vi.fn();
+    const result = await runExport({
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      writeLedger: vi.fn(),
+      collect: vi
+        .fn()
+        .mockResolvedValue([
+          { slug: 'group-a', status: 'collected', filePath: 'a.html', ageRuleMet: true },
+        ]),
+      gate: vi.fn().mockResolvedValue({ ok: true, postCount: 2, filePath: 'a.html' }),
+      ingest: vi.fn().mockResolvedValue({ ok: false, reason: 'ingest' }),
+      upload,
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue: vi.fn(),
+    });
+    expect(result.ok).toBe(false);
+    expect(result.results[0]).toMatchObject({ status: 'failed', reason: 'ingest' });
+    expect(upload).not.toHaveBeenCalled();
+  });
+
+  it('treats no recent posts as successful and closes the weekly issue', async () => {
+    const reportIssue = vi.fn();
+    const result = await runExport({
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      writeLedger: vi.fn(),
+      collect: vi.fn().mockResolvedValue([
+        {
+          slug: 'group-a',
+          status: 'no-recent-posts',
+          stopReason: 'seven-days',
+          coverageAgeMs: 42 * 86_400_000,
+        },
+      ]),
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue,
+    });
+    expect(result.ok).toBe(true);
+    expect(result.summary).toContain('group-a: no-recent-posts (0 posts, stop: age, covered ~42d)');
+    expect(reportIssue).toHaveBeenCalledWith(70, expect.any(String), { close: true });
   });
 
   it('reports failure and leaves the issue open', async () => {

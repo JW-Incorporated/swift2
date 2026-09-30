@@ -1,4 +1,5 @@
-/* global document, window */
+/* global document, Node, window */
+import { relativeAgeMs } from './fb-export-helpers.mjs';
 
 function escapeHtml(value) {
   return String(value)
@@ -12,6 +13,10 @@ export function neutralizeArticleRoles(html) {
   return html.replace(/\brole\s*=\s*(["'])article\1/gi, 'data-fb-role="comment-article"');
 }
 
+export function firstOwnTimestamp(values, now = new Date()) {
+  return values.find((value) => relativeAgeMs(value, now) !== null) ?? null;
+}
+
 export function mergeHarvest(state, snapshot) {
   const units = new Map(state.units.map((unit) => [unit.key, unit]));
   let nextSyntheticPosition = state.nextSyntheticPosition;
@@ -21,15 +26,21 @@ export function mergeHarvest(state, snapshot) {
     const key = capture.position ? `pos:${capture.position}` : `direct:${capture.identity}`;
     const previous = units.get(key);
     const position = capture.position ?? previous?.position ?? nextSyntheticPosition++;
-    const timestamps = [...new Set([...(previous?.timestamps ?? []), ...capture.timestamps])];
+    const ownTimestamp = previous?.ownTimestamp ?? capture.ownTimestamp ?? capture.timestamps?.[0] ?? null;
     const candidate = {
       key,
       position,
       html: neutralizeArticleRoles(capture.html),
-      timestamps,
+      ownTimestamp,
+      ignoreForAge: previous?.ignoreForAge || capture.ignoreForAge || false,
     };
     if (!previous || candidate.html.length > previous.html.length) units.set(key, candidate);
-    else units.set(key, { ...previous, timestamps });
+    else
+      units.set(key, {
+        ...previous,
+        ownTimestamp,
+        ignoreForAge: previous.ignoreForAge || capture.ignoreForAge || false,
+      });
   }
 
   return {
@@ -71,7 +82,7 @@ export async function expandVisibleUnits(page) {
 }
 
 export async function captureVisibleUnits(page) {
-  return page.evaluate(() => {
+  const snapshot = await page.evaluate(() => {
     const visible = (element) => {
       const rect = element.getBoundingClientRect();
       return rect.bottom >= 0 && rect.top <= window.innerHeight;
@@ -93,9 +104,15 @@ export async function captureVisibleUnits(page) {
         ? unit
         : unit.querySelector('[role="article"]');
       const timestampRoot = primaryArticle ?? unit;
-      const timestamps = [...timestampRoot.querySelectorAll('abbr, time, a[aria-label]')]
+      const messageRoot = timestampRoot.querySelector(
+        '[data-ad-preview="message"], [data-ad-comet-preview="message"]',
+      );
+      const timestampValues = [...timestampRoot.querySelectorAll('abbr, time, a[aria-label]')]
         .filter(
-          (element) => !primaryArticle || element.closest('[role="article"]') === primaryArticle,
+          (element) =>
+            (!primaryArticle || element.closest('[role="article"]') === primaryArticle) &&
+            (!messageRoot ||
+              Boolean(element.compareDocumentPosition(messageRoot) & Node.DOCUMENT_POSITION_FOLLOWING)),
         )
         .map(
           (element) =>
@@ -105,6 +122,12 @@ export async function captureVisibleUnits(page) {
             element.textContent,
         )
         .filter(Boolean);
+      const markers = [...unit.querySelectorAll('[aria-label], [role="heading"], strong')].map(
+        (element) => element.getAttribute('aria-label') || element.textContent || '',
+      );
+      const ignoreForAge = markers.some((value) =>
+        /^(?:pinned|featured|announcement)(?: post)?$/i.test(value.trim()),
+      );
       const position = Number(unit.getAttribute('aria-posinset')) || null;
       return {
         position,
@@ -114,9 +137,18 @@ export async function captureVisibleUnits(page) {
         textLength: text.length,
         hasAuthor: Boolean(author),
         html: unit.outerHTML,
-        timestamps,
+        timestampValues,
+        ignoreForAge,
       };
     });
     return { units, maxPosinset };
   });
+  return {
+    ...snapshot,
+    units: snapshot.units.map(({ timestampValues, ...unit }) => ({
+      ...unit,
+      ownTimestamp:
+        unit.ownTimestamp ?? firstOwnTimestamp(timestampValues ?? unit.timestamps ?? []),
+    })),
+  };
 }

@@ -1,4 +1,4 @@
-const DAY_MS = 86_400_000;
+export const DAY_MS = 86_400_000;
 
 export function exportFileName(slug, dateLabel) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('invalid group slug');
@@ -46,11 +46,39 @@ export function oldestVisibleAge(values, now = new Date()) {
   return ages.length ? Math.max(...ages) : null;
 }
 
-export function stopDecision({ oldestAgeMs, stagnantScrolls, scrollCount, scrollCap = 60 }) {
+export function unitAgeMs(unit, now = new Date()) {
+  return relativeAgeMs(unit.ownTimestamp ?? unit.timestamps?.[0], now);
+}
+
+export function oldestHarvestAge(units, now = new Date(), { ignorePinned = false } = {}) {
+  const ages = units
+    .filter((unit) => !ignorePinned || !unit.ignoreForAge)
+    .map((unit) => unitAgeMs(unit, now))
+    .filter(Number.isFinite);
+  return ages.length ? Math.max(...ages) : null;
+}
+
+export function recentHarvestUnits(units, now = new Date()) {
+  return units.filter((unit) => {
+    const age = unitAgeMs(unit, now);
+    return age === null || age <= 7 * DAY_MS;
+  });
+}
+
+export function stopDecision({
+  oldestAgeMs,
+  stagnantScrolls,
+  scrollCount,
+  elapsedMs = 0,
+  scrollCap = 250,
+  wallBudgetMs = 20 * 60_000,
+}) {
   if (oldestAgeMs !== null && oldestAgeMs > 7 * DAY_MS)
     return { stop: true, reason: 'seven-days', ageRuleMet: true };
   if (stagnantScrolls >= 3) return { stop: true, reason: 'feed-end', ageRuleMet: true };
   if (scrollCount >= scrollCap) return { stop: true, reason: 'scroll-cap', ageRuleMet: false };
+  if (elapsedMs >= wallBudgetMs)
+    return { stop: true, reason: 'wall-budget', ageRuleMet: false };
   return { stop: false, reason: null, ageRuleMet: false };
 }
 

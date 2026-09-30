@@ -23,7 +23,8 @@ export async function gateExport(
   if (result.harvestedCount < 5 && result.slotCount > 20)
     return { ok: false, reason: 'low harvest' };
   if (result.status !== 'collected') return { ok: false, reason: result.status };
-  if (!result.ageRuleMet) return { ok: false, reason: 'seven-day age rule not met' };
+  if (!result.ageRuleMet && !result.partial)
+    return { ok: false, reason: 'seven-day age rule not met' };
   const copyPath = `${result.filePath}.gate-copy.html`;
   try {
     await copy(result.filePath, copyPath);
@@ -39,12 +40,55 @@ export async function gateExport(
       postCount: parsed.fanSignal.volume,
       harvestedCount: result.harvestedCount,
       stopReason: result.stopReason,
+      coverageAgeMs: result.coverageAgeMs,
+      partial: result.partial,
+      collectedAt: result.collectedAt,
       filePath: result.filePath,
     };
   } catch (error) {
     return { ok: false, reason: `parser gate failed: ${error.message}` };
   } finally {
     await remove(copyPath, { force: true }).catch(() => undefined);
+  }
+}
+
+export function parseIngestSummary(stdout) {
+  const match = String(stdout).match(
+    /(\d+) post\(s\) kept, (\d+) screened out, (\d+) lead\(s\), (\d+) shop-link candidate\(s\)/,
+  );
+  if (!match) return null;
+  return {
+    postsKept: Number(match[1]),
+    screenedOut: Number(match[2]),
+    leads: Number(match[3]),
+    shopLinks: Number(match[4]),
+  };
+}
+
+export async function ingestOne(
+  { groupSlug, filePath, exportedAt, dryRun = false },
+  exec = execFileAsync,
+) {
+  const args = [
+    '--env-file=apps/worker/.env',
+    'scripts/community/fb-export-ingest.mjs',
+    '--group',
+    groupSlug,
+    '--exported-at',
+    exportedAt.toISOString(),
+    ...(dryRun ? ['--dry-run'] : []),
+    filePath,
+  ];
+  try {
+    const { stdout } = await exec(process.execPath, args, {
+      cwd: REPO_ROOT,
+      windowsHide: true,
+      maxBuffer: 4 * 1024 * 1024,
+    });
+    const counts = parseIngestSummary(stdout);
+    return counts ? { ok: true, counts } : { ok: false, reason: 'ingest output was not recognized' };
+  } catch {
+    return { ok: false, reason: 'ingest' };
   }
 }
 
@@ -93,24 +137,44 @@ export async function writeLedger(path, ledger) {
 export function runSummary(results, actingPageId = null) {
   const counts = { done: 0, 'not-member': 0, unavailable: 0, failed: 0 };
   for (const result of results) {
-    if (['uploaded', 'already-done', 'validated'].includes(result.status)) counts.done += 1;
+    if (
+      ['uploaded', 'already-done', 'validated', 'no-recent-posts'].includes(result.status)
+    )
+      counts.done += 1;
     else if (result.status === 'not-member') counts['not-member'] += 1;
     else if (result.status === 'unavailable') counts.unavailable += 1;
     else counts.failed += 1;
   }
   const details = results.map((r) => {
-    const count = r.harvestedCount ?? r.postCount;
+    const count = r.postCount ?? (r.status === 'no-recent-posts' ? 0 : r.harvestedCount);
     const stop = r.stopReason === 'seven-days' ? 'age' : r.stopReason;
-    const detail = [count !== undefined ? `${count} posts` : null, stop ? `stop: ${stop}` : null]
+    const ingest = r.ingestCounts
+      ? `ingest: ${r.ingestCounts.postsKept} kept/${r.ingestCounts.leads} leads/${r.ingestCounts.shopLinks} shop`
+      : null;
+    const detail = [
+      count !== undefined ? `${count} posts` : null,
+      stop ? `stop: ${stop}` : null,
+      `covered ${formatCoverage(r.coverageAgeMs)}`,
+      ingest,
+    ]
       .filter(Boolean)
       .join(', ');
     return `- ${r.slug}: ${r.status}${detail ? ` (${detail})` : ''}${r.reason ? ` — ${r.reason}` : ''}`;
   });
+  const partial = results.filter((row) => row.partial).map((row) => row.slug);
   return [
     `Facebook export: ${counts.done} done, ${counts['not-member']} not joined, ${counts.unavailable} unavailable, ${counts.failed} failed.`,
     ...(actingPageId ? [`Acting Page i_user: ${actingPageId}.`] : []),
     ...details,
+    ...(partial.length ? [`Partial groups: ${partial.join(', ')}.`] : []),
   ].join('\n');
+}
+
+export function formatCoverage(ageMs) {
+  if (!Number.isFinite(ageMs)) return 'unknown';
+  if (ageMs >= 86_400_000) return `~${Math.max(1, Math.floor(ageMs / 86_400_000))}d`;
+  if (ageMs >= 3_600_000) return `~${Math.max(1, Math.floor(ageMs / 3_600_000))}h`;
+  return `~${Math.max(0, Math.floor(ageMs / 60_000))}m`;
 }
 
 async function findWeeklyIssue(weekLabel, ghImpl = gh) {
@@ -155,13 +219,12 @@ export async function runExport(options = {}) {
       ...(ledger.actingPageId ? { actingPageId: ledger.actingPageId } : {}),
       groups: ledger.groups,
     });
-  const complete = dryRun
-    ? new Set()
-    : new Set(
-        Object.entries(ledger.groups)
-          .filter(([, row]) => ['uploaded', 'not-member', 'unavailable'].includes(row.status))
-          .map(([slug]) => slug),
+  const completedEntries = dryRun
+    ? []
+    : Object.entries(ledger.groups).filter(([, row]) =>
+        ['uploaded', 'not-member', 'unavailable', 'no-recent-posts'].includes(row.status),
       );
+  const complete = new Set(completedEntries.map(([slug]) => slug));
   const pending = (options.groups ?? FB_GROUPS_CHECKLIST).filter(
     (group) => !complete.has(group.slug),
   );
@@ -184,7 +247,14 @@ export async function runExport(options = {}) {
       summary: runSummary(results, actingPageId),
     };
   }
-  const results = [...complete].map((slug) => ({ slug, status: 'already-done' }));
+  const results = completedEntries.map(([slug, row]) => ({
+    slug,
+    status: 'already-done',
+    postCount: row.postCount,
+    stopReason: row.stopReason,
+    coverageAgeMs: row.coverageAgeMs,
+    partial: row.partial,
+  }));
 
   for (const item of collected) {
     const group = pending.find((candidate) => candidate.slug === item.slug);
@@ -200,6 +270,21 @@ export async function runExport(options = {}) {
       }
       continue;
     }
+    if (item.status === 'no-recent-posts') {
+      results.push(item);
+      if (!dryRun) {
+        ledger.groups[item.slug] = {
+          status: item.status,
+          postCount: 0,
+          stopReason: item.stopReason,
+          coverageAgeMs: item.coverageAgeMs,
+          partial: item.partial,
+          at: now.toISOString(),
+        };
+        await persistLedger();
+      }
+      continue;
+    }
     const gate = await (options.gate ?? gateExport)(item, group);
     if (!gate.ok) {
       results.push({
@@ -208,12 +293,32 @@ export async function runExport(options = {}) {
         reason: gate.reason,
         harvestedCount: item.harvestedCount,
         stopReason: item.stopReason,
+        coverageAgeMs: item.coverageAgeMs,
+        partial: item.partial,
       });
       if (item.status === 'selector-failure') {
         console.error(
           `Repair prompt: quen -p "Inspect Facebook selector drift for ${item.slug} using ${item.diagnostic?.dumpPath}; do not read or request credentials."`,
         );
       }
+      continue;
+    }
+    const ingested = await (options.ingest ?? ingestOne)({
+      groupSlug: item.slug,
+      filePath: gate.filePath,
+      exportedAt: gate.collectedAt ? new Date(gate.collectedAt) : now,
+      dryRun,
+    });
+    if (!ingested.ok) {
+      results.push({
+        slug: item.slug,
+        status: 'failed',
+        reason: 'ingest',
+        postCount: gate.postCount,
+        stopReason: gate.stopReason,
+        coverageAgeMs: gate.coverageAgeMs,
+        partial: gate.partial,
+      });
       continue;
     }
     if (dryRun) {
@@ -223,6 +328,9 @@ export async function runExport(options = {}) {
         postCount: gate.postCount,
         harvestedCount: gate.harvestedCount,
         stopReason: gate.stopReason,
+        coverageAgeMs: gate.coverageAgeMs,
+        partial: gate.partial,
+        ingestCounts: ingested.counts,
       });
       continue;
     }
@@ -234,6 +342,9 @@ export async function runExport(options = {}) {
           postCount: gate.postCount,
           harvestedCount: gate.harvestedCount,
           stopReason: gate.stopReason,
+          coverageAgeMs: gate.coverageAgeMs,
+          partial: gate.partial,
+          ingestCounts: ingested.counts,
         }
       : { slug: item.slug, status: 'failed', reason: uploaded.reason };
     results.push(final);
@@ -241,6 +352,9 @@ export async function runExport(options = {}) {
       ledger.groups[item.slug] = {
         status: 'uploaded',
         postCount: gate.postCount,
+        stopReason: gate.stopReason,
+        coverageAgeMs: gate.coverageAgeMs,
+        partial: gate.partial,
         at: now.toISOString(),
       };
       await persistLedger();

@@ -221,13 +221,14 @@ parameters are appended to drafted links today, so link-CTR cannot be
 measured from click data until that's added.
 
 The local `knowledge:fb-export` command collects and parser-gates weekly
-Facebook HTML, uploads passing files, and closes the reminder issue; its
+Facebook HTML, ingests each passing file before upload, uploads it, and closes
+the reminder issue; its
 Windows task is installed with `knowledge:fb-schedule`, and
 `knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
 DPAPI credential, run ledgers, screenshots, and the persistent Chrome profile
 all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo. `fb-export-ingest`
-(script, not its own cron — run by the Answerer desk or `workflow_dispatch`
-after a weekly Facebook export lands) and
+(script, not its own cron — invoked by the local export runner before upload)
+and
 `theory-resolve` (folds into the existing nightly `sync:content` job as
 its final step — `scripts/community/theory-resolve.mjs`, matches
 `fan_theory_candidate.predicts`/`predicted_date` against Vault moments by

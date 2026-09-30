@@ -19,7 +19,8 @@ import {
   classifyPage,
   exportFileName,
   localDate,
-  oldestVisibleAge,
+  oldestHarvestAge,
+  recentHarvestUnits,
   stopDecision,
 } from './fb-export-helpers.mjs';
 
@@ -168,6 +169,8 @@ export async function collectGroup(page, group, options = {}) {
   const outputDir = options.outputDir;
   const sleep = options.sleep ?? ((ms) => new Promise((resolve) => setTimeout(resolve, ms)));
   const random = options.random ?? Math.random;
+  const clock = options.clock ?? Date.now;
+  const startedAtMs = clock();
   const url = `https://www.facebook.com/groups/${group.groupId}?sorting_setting=CHRONOLOGICAL`;
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
   // Live 2026-09-30: at domcontentloaded the group shell has no feed, join button or
@@ -202,32 +205,51 @@ export async function collectGroup(page, group, options = {}) {
     stagnantScrolls = madeProgress ? 0 : stagnantScrolls + 1;
     previousHarvestCount = harvest.units.length;
     previousMaxPosinset = Math.max(previousMaxPosinset, snapshot.maxPosinset);
-    const oldestAgeMs = oldestVisibleAge(
-      harvest.units.flatMap((unit) => unit.timestamps),
-      now,
-    );
+    const oldestAgeMs = oldestHarvestAge(harvest.units, now, { ignorePinned: true });
     const decision = stopDecision({
       oldestAgeMs,
       stagnantScrolls,
       scrollCount,
+      elapsedMs: clock() - startedAtMs,
       scrollCap: options.scrollCap,
+      wallBudgetMs: options.wallBudgetMs,
     });
     if (decision.stop) {
+      const coverageAgeMs = oldestHarvestAge(harvest.units, now);
+      const recentUnits = recentHarvestUnits(harvest.units, now);
+      if (harvest.units.length > 0 && recentUnits.length === 0) {
+        return {
+          slug: group.slug,
+          status: 'no-recent-posts',
+          ageRuleMet: decision.ageRuleMet,
+          stopReason: decision.reason,
+          harvestedCount: harvest.units.length,
+          recentCount: 0,
+          slotCount: harvest.maxPosinset,
+          coverageAgeMs,
+          partial: ['scroll-cap', 'wall-budget'].includes(decision.reason),
+          collectedAt: now.toISOString(),
+        };
+      }
       const filePath = join(outputDir, exportFileName(group.slug, localDate(now)));
       await mkdir(outputDir, { recursive: true });
       await writeFile(
         filePath,
-        buildHarvestedHtml(`${group.label} Facebook export`, harvest.units),
+        buildHarvestedHtml(`${group.label} Facebook export`, recentUnits),
         'utf8',
       );
       return {
         slug: group.slug,
-        status: decision.reason === 'scroll-cap' ? 'scroll-cap' : 'collected',
+        status: 'collected',
         filePath,
         ageRuleMet: decision.ageRuleMet,
         stopReason: decision.reason,
         harvestedCount: harvest.units.length,
+        recentCount: recentUnits.length,
         slotCount: harvest.maxPosinset,
+        coverageAgeMs,
+        partial: ['scroll-cap', 'wall-budget'].includes(decision.reason),
+        collectedAt: now.toISOString(),
       };
     }
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
@@ -244,6 +266,7 @@ export async function collectAll({
   profileOptions = {},
   probeProfile = false,
   readAs = FB_READ_AS,
+  groupOptions = {},
 } = {}) {
   const browser = await browserFactory();
   const page = (await browser.pages())[0] ?? (await browser.newPage());
@@ -269,7 +292,7 @@ export async function collectAll({
     if (probeProfile) return { results: [], actingPageId: profile.actingPageId };
     for (const group of groups) {
       try {
-        const result = await collectGroup(page, group, { outputDir });
+        const result = await collectGroup(page, group, { outputDir, ...groupOptions });
         results.push(result);
         if (['checkpoint', 'login-failed'].includes(result.status)) break;
       } catch (error) {

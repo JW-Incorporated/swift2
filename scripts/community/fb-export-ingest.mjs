@@ -86,8 +86,14 @@ export function resolveGroupName(slug, { groupNameOverride, checklist = FB_GROUP
   return groupNameOverride || checklist.find((g) => g.slug === slug)?.label || slug;
 }
 
-function parseArgs(argv) {
-  const flags = { dryRun: false, group: null, maxLeadsPerGroup: DEFAULT_MAX_LEADS_PER_GROUP, files: [] };
+export function parseArgs(argv) {
+  const flags = {
+    dryRun: false,
+    group: null,
+    exportedAt: null,
+    maxLeadsPerGroup: DEFAULT_MAX_LEADS_PER_GROUP,
+    files: [],
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--dry-run') {
@@ -97,6 +103,9 @@ function parseArgs(argv) {
       i += 1;
     } else if (arg === '--max-leads-per-group') {
       flags.maxLeadsPerGroup = Number(argv[i + 1]) || DEFAULT_MAX_LEADS_PER_GROUP;
+      i += 1;
+    } else if (arg === '--exported-at') {
+      flags.exportedAt = argv[i + 1] ?? null;
       i += 1;
     } else if (arg === '--shop-links-out') {
       flags.shopLinksOut = argv[i + 1] ?? null;
@@ -255,11 +264,16 @@ async function writeResult(supabase, result) {
 async function main() {
   const flags = parseArgs(process.argv.slice(2));
   if (!flags.group) {
-    console.error('fb-export-ingest: usage: --group <slug> [--group-name "Human Name"] [--dry-run] [--max-leads-per-group N] <file.html> [more files...]');
+    console.error('fb-export-ingest: usage: --group <slug> [--group-name "Human Name"] [--exported-at ISO] [--dry-run] [--max-leads-per-group N] <file.html> [more files...]');
     return 1;
   }
   if (flags.files.length === 0) {
     console.error('fb-export-ingest: no export files given.');
+    return 1;
+  }
+  const exportedAt = flags.exportedAt ? new Date(flags.exportedAt) : new Date();
+  if (Number.isNaN(exportedAt.getTime())) {
+    console.error('fb-export-ingest: --exported-at must be a valid ISO timestamp.');
     return 1;
   }
 
@@ -285,7 +299,7 @@ async function main() {
     const result = buildIngestResult(html, {
       groupSlug: flags.group,
       groupName,
-      exportedAt: new Date(),
+      exportedAt,
       maxLeadsPerGroup: flags.maxLeadsPerGroup,
     });
     allShopLinks.push(...result.shopLinks);

@@ -4,8 +4,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parseFacebookExport } from '../../apps/worker/src/sources/facebook-groups-parser';
 import { collectGroup } from './fb-export-collect.mjs';
+import { firstOwnTimestamp } from './fb-export-harvest.mjs';
 
 describe('Facebook virtualized feed harvest', () => {
+  it('uses the first readable top-level timestamp value', () => {
+    expect(firstOwnTimestamp(['Fan Name', '2 h', '6 weeks'])).toBe('2 h');
+  });
   it('retains scrolled-away units and emits one parser article per post', async () => {
     const directory = await mkdtemp(join(tmpdir(), 'fb-harvest-test-'));
     const unit = (position: number, age = '1 h') => ({
@@ -63,12 +67,53 @@ describe('Facebook virtualized feed harvest', () => {
       if (!('filePath' in result)) throw new Error('collector did not produce a file');
       const html = await readFile(result.filePath, 'utf8');
       expect(html).toMatch(/^<!doctype html>\n<html><head><meta charset="utf-8">/);
-      expect(html.match(/role="article"/g)).toHaveLength(6);
-      expect(html.match(/data-fb-role="comment-article"/g)).toHaveLength(12);
+      expect(html.match(/role="article"/g)).toHaveLength(5);
+      expect(html.match(/data-fb-role="comment-article"/g)).toHaveLength(10);
       expect(html).toContain('Album discussion 1');
-      expect(parseFacebookExport(html, { groupSlug: 'group-a' }).volume).toBe(6);
+      expect(html).not.toContain('Album discussion 6');
+      expect(parseFacebookExport(html, { groupSlug: 'group-a' }).volume).toBe(5);
     } finally {
       await rm(directory, { recursive: true, force: true });
     }
+  });
+
+  it('reports no-recent-posts when every harvested unit is outside seven days', async () => {
+    const snapshot = {
+      units: [
+        {
+          position: 1,
+          identity: 'old-post',
+          textLength: 20,
+          hasAuthor: true,
+          html: '<div role="article"><a aria-label="Fan">Fan</a><p>Old post</p></div>',
+          ownTimestamp: '6 weeks',
+        },
+      ],
+      maxPosinset: 1,
+    };
+    const page = {
+      goto: vi.fn(),
+      waitForFunction: vi.fn().mockResolvedValue(undefined),
+      url: () => 'https://www.facebook.com/groups/123',
+      evaluate: vi.fn(async (callback: () => unknown) => {
+        const source = callback.toString();
+        if (source.includes('hasPassword'))
+          return { text: '', hasPassword: false, hasJoinGroup: false };
+        if (source.includes('maxPosinset')) return snapshot;
+        return source.includes('count += 1') ? 0 : undefined;
+      }),
+    };
+    await expect(
+      collectGroup(
+        page as never,
+        { slug: 'group-a', label: 'Group A', groupId: '123' } as never,
+        { outputDir: 'unused', sleep: vi.fn() },
+      ),
+    ).resolves.toMatchObject({
+      status: 'no-recent-posts',
+      harvestedCount: 1,
+      recentCount: 0,
+      stopReason: 'seven-days',
+    });
   });
 });

@@ -3,6 +3,8 @@ import {
   classifyPage,
   exportFileName,
   oldestVisibleAge,
+  oldestHarvestAge,
+  recentHarvestUnits,
   relativeAgeMs,
   stopDecision,
   weekOf,
@@ -35,11 +37,25 @@ describe('Facebook export pure helpers', () => {
       reason: 'feed-end',
       ageRuleMet: true,
     });
-    expect(stopDecision({ oldestAgeMs: null, stagnantScrolls: 0, scrollCount: 60 })).toEqual({
+    expect(stopDecision({ oldestAgeMs: null, stagnantScrolls: 0, scrollCount: 250 })).toEqual({
       stop: true,
       reason: 'scroll-cap',
       ageRuleMet: false,
     });
+    expect(
+      stopDecision({ oldestAgeMs: null, stagnantScrolls: 0, scrollCount: 2, elapsedMs: 1_200_000 }),
+    ).toEqual({ stop: true, reason: 'wall-budget', ageRuleMet: false });
+  });
+
+  it('uses own post timestamps, ignores pinned units for stopping, and filters old posts', () => {
+    const units = [
+      { ownTimestamp: '2 d', ignoreForAge: false },
+      { ownTimestamp: '6 weeks', ignoreForAge: true },
+      { ownTimestamp: null, ignoreForAge: false },
+    ];
+    expect(oldestHarvestAge(units, now, { ignorePinned: true })).toBe(2 * 86_400_000);
+    expect(oldestHarvestAge(units, now)).toBe(42 * 86_400_000);
+    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[2]]);
   });
 
   it('classifies safety stops before ordinary login or membership states', () => {
