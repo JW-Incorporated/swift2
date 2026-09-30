@@ -14,7 +14,14 @@ import { localDate, weekOf } from './fb-export-helpers.mjs';
 
 const execFileAsync = promisify(execFile);
 // Statuses that stop the whole run (Facebook is blocking or limiting this browser).
-const STOP_STATUSES = ['login', 'login-failed', 'checkpoint', 'captcha', 'wrong-profile', 'stunted'];
+const STOP_STATUSES = [
+  'login',
+  'login-failed',
+  'checkpoint',
+  'captcha',
+  'wrong-profile',
+  'stunted',
+];
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..');
 
 export async function gateExport(
@@ -93,7 +100,9 @@ export async function ingestOne(
       maxBuffer: 4 * 1024 * 1024,
     });
     const counts = parseIngestSummary(stdout);
-    return counts ? { ok: true, counts } : { ok: false, reason: 'ingest output was not recognized' };
+    return counts
+      ? { ok: true, counts }
+      : { ok: false, reason: 'ingest output was not recognized' };
   } catch {
     return { ok: false, reason: 'ingest' };
   }
@@ -144,9 +153,7 @@ export async function writeLedger(path, ledger) {
 export function runSummary(results, actingPageId = null) {
   const counts = { done: 0, 'not-member': 0, unavailable: 0, failed: 0 };
   for (const result of results) {
-    if (
-      ['uploaded', 'already-done', 'validated', 'no-recent-posts'].includes(result.status)
-    )
+    if (['uploaded', 'already-done', 'validated', 'no-recent-posts'].includes(result.status))
       counts.done += 1;
     else if (result.status === 'not-member') counts['not-member'] += 1;
     else if (result.status === 'unavailable') counts.unavailable += 1;
@@ -175,7 +182,9 @@ export function runSummary(results, actingPageId = null) {
     ...(actingPageId ? [`Acting Page i_user: ${actingPageId}.`] : []),
     ...details,
     ...(stunted
-      ? ['Feed stunted: Facebook is limiting this browser; stopped. Remaining groups were not collected.']
+      ? [
+          'Feed stunted: Facebook is limiting this browser; stopped. Remaining groups were not collected.',
+        ]
       : []),
     ...(partial.length ? [`Partial groups: ${partial.join(', ')}.`] : []),
   ].join('\n');
@@ -376,9 +385,7 @@ export async function runExport(options = {}) {
 
   if (dryRun)
     return {
-      ok: results.every(
-        (row) => !['failed', ...STOP_STATUSES].includes(row.status),
-      ),
+      ok: results.every((row) => !['failed', ...STOP_STATUSES].includes(row.status)),
       results,
       summary: runSummary(results, actingPageId),
     };

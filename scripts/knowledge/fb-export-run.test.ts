@@ -43,9 +43,11 @@ describe('Facebook export gate', () => {
         group as never,
         {
           copy: vi.fn(),
-          read: vi.fn().mockResolvedValue(
-            '<div role="article"><a aria-label="Person">Person</a><p>Post</p></div>',
-          ),
+          read: vi
+            .fn()
+            .mockResolvedValue(
+              '<div role="article"><a aria-label="Person">Person</a><p>Post</p></div>',
+            ),
           remove: vi.fn().mockResolvedValue(undefined),
         },
       ),
@@ -105,9 +107,7 @@ describe('Facebook export gate', () => {
         partial: true,
       },
     ]);
-    expect(summary).toContain(
-      'group-a: validated (412 posts, stop: scroll-cap, covered ~2d)',
-    );
+    expect(summary).toContain('group-a: validated (412 posts, stop: scroll-cap, covered ~2d)');
     expect(summary).toContain('Partial groups: group-a.');
   });
 
@@ -118,10 +118,7 @@ describe('Facebook export gate', () => {
     });
     const exportedAt = new Date('2026-09-30T19:13:00.000Z');
     await expect(
-      ingestOne(
-        { groupSlug: 'group-a', filePath: 'a.html', exportedAt, dryRun: true },
-        exec,
-      ),
+      ingestOne({ groupSlug: 'group-a', filePath: 'a.html', exportedAt, dryRun: true }, exec),
     ).resolves.toEqual({
       ok: true,
       counts: { postsKept: 3, screenedOut: 1, leads: 2, shopLinks: 1 },
