@@ -225,8 +225,29 @@ Facebook HTML, ingests each passing file before upload, uploads it, and closes
 the reminder issue; its
 Windows task is installed with `knowledge:fb-schedule`, and
 `knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
-DPAPI credential, run ledgers, screenshots, and the persistent Chrome profile
-all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo. `fb-export-ingest`
+run ledgers, private comment files, and the persistent Chrome profile
+all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
+
+Facebook export runbook (extension collector, 2026-09-30). The run starts a
+local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
+debugging port) in the dedicated profile
+`%LOCALAPPDATA%\longlive-fb\chrome-profile`; the unpacked extension in
+`scripts/knowledge/fb-extension` walks the groups and posts results back.
+One-time setup: in that profile open `chrome://extensions`, enable Developer
+mode, and Load unpacked from `<Projects/Swift2>/scripts/knowledge/fb-extension`
+(Chrome 137+ ignores `--load-extension`, so this cannot be automated). The
+profile must stay logged in to Facebook as the owner: there is no automatic
+login any more (the DPAPI login path was removed), so if it logs out, sign in
+by hand in that profile. Stop statuses: `login` (logged out, sign in),
+`checkpoint` / `captcha` (clear the Facebook prompt by hand), `wrong-profile`
+(the profile is not the expected account), `stunted` (feed stayed at 3 or fewer
+slots after 20 scrolls: Facebook is limiting this browser; stopped, retry
+later), and `run-wall-budget` (total wall time, sum of group budgets + 10 min,
+ran out; unfinished groups are marked failed). All of these stop or fail the
+run and leave the weekly issue open. Group budgets: taylor-swifts-vault 75 min,
+others 20 min; the scheduled task limit is 3 h. Comments are collected
+privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
+never in the repo and never uploaded. `fb-export-ingest`
 (script, not its own cron — invoked by the local export runner before upload)
 and
 `theory-resolve` (folds into the existing nightly `sync:content` job as

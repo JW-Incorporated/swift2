@@ -28,24 +28,28 @@ export const FB_GROUPS_CHECKLIST = [
     slug: 'taylor-swifts-vault',
     label: "Taylor Swift's Vault",
     groupId: '2254218764714763',
+    wallBudgetMs: 75 * 60_000,
     candidate: true,
   },
   {
     slug: 'friendship-bracelet-making-trading',
     label: 'Friendship Bracelet Making and Trading',
     groupId: '959997728506267',
+    wallBudgetMs: 20 * 60_000,
     candidate: true,
   },
   {
     slug: 'swiftie-super-worldwide-bracelet-trade',
     label: 'Swiftie Super Worldwide Friendship Bracelet Trade',
     groupId: '1404884973507150',
+    wallBudgetMs: 20 * 60_000,
     candidate: true,
   },
   {
     slug: 'kulto-ni-taylor-swift',
     label: 'Kulto ni TAYLOR SWIFT',
     groupId: '557483725146375',
+    wallBudgetMs: 20 * 60_000,
     candidate: true,
   },
   // Removed 2026-09-30: 'taylor-swift-swifties' (264466934870157) and

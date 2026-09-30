@@ -1,0 +1,113 @@
+import { describe, expect, it, vi } from 'vitest';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { extensionCollect, launchPlainChrome } from './fb-export-launch.mjs';
+
+const fakeSpawn = () => {
+  const calls: { cmd: string; args: string[] }[] = [];
+  const spawn = vi.fn((cmd: string, args: string[]) => {
+    calls.push({ cmd, args });
+    return { pid: 4242, unref: vi.fn(), on: vi.fn() };
+  });
+  return { spawn, calls };
+};
+
+describe('launchPlainChrome', () => {
+  it('starts plain Chrome with no debugging port, pipe or extension flag', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-launch-'));
+    try {
+      const { spawn, calls } = fakeSpawn();
+      const chrome = await launchPlainChrome({
+        url: 'http://127.0.0.1:5555/start#tok',
+        profileDir: dir,
+        spawn: spawn as never,
+        chromeExecutable: 'C:\fake\chrome.exe',
+      });
+      const args = calls[0].args;
+      expect(args).toContain(`--user-data-dir=${dir}`);
+      expect(args).toContain('--new-window');
+      expect(args).toContain('--no-first-run');
+      expect(args).toContain('http://127.0.0.1:5555/start#tok');
+      expect(args.join(' ')).not.toMatch(/remote-debugging|load-extension/);
+      expect(chrome.pid).toBe(4242);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('close() taskkills the process tree on win32', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-launch-'));
+    try {
+      const { spawn, calls } = fakeSpawn();
+      const chrome = await launchPlainChrome({
+        url: 'http://127.0.0.1:1/start',
+        profileDir: dir,
+        spawn: spawn as never,
+        chromeExecutable: 'x',
+        platform: 'win32',
+      });
+      await chrome.close();
+      expect(calls[1]).toEqual({ cmd: 'taskkill', args: ['/PID', '4242', '/T', '/F'] });
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('extensionCollect', () => {
+  const groups = [
+    { slug: 'a', label: 'A', groupId: '1', wallBudgetMs: 20 * 60_000 },
+    { slug: 'b', label: 'B', groupId: '2', wallBudgetMs: 75 * 60_000 },
+  ];
+
+  it('runs receiver then Chrome, returns receiver results and closes both', async () => {
+    const results = [{ slug: 'a', status: 'collected' }];
+    const receiver = {
+      url: 'http://127.0.0.1:9/start',
+      done: Promise.resolve(results),
+      close: vi.fn(),
+    };
+    const startReceiver = vi.fn().mockResolvedValue(receiver);
+    const chrome = { pid: 1, close: vi.fn() };
+    const launch = vi.fn().mockResolvedValue(chrome);
+    const out = await extensionCollect({
+      groups,
+      root: 'r',
+      outputDir: 'o',
+      week: 'w',
+      startReceiver,
+      launch,
+      token: 'tok',
+    });
+    expect(startReceiver).toHaveBeenCalledWith(expect.objectContaining({ token: 'tok', groups }));
+    expect(launch).toHaveBeenCalledWith({ url: receiver.url });
+    expect(out).toEqual({ results, actingPageId: null });
+    expect(chrome.close).toHaveBeenCalled();
+    expect(receiver.close).toHaveBeenCalled();
+  });
+
+  it('marks unfinished groups failed on the total wall budget (sum + 10 min)', async () => {
+    const receiver = { url: 'u', done: new Promise(() => {}), close: vi.fn() };
+    const chrome = { pid: 1, close: vi.fn() };
+    let delay = 0;
+    const out = await extensionCollect({
+      groups,
+      startReceiver: vi.fn().mockResolvedValue(receiver),
+      launch: vi.fn().mockResolvedValue(chrome),
+      setTimer: ((fn: () => void, ms: number) => {
+        delay = ms;
+        fn();
+        return 0;
+      }) as never,
+      clearTimer: vi.fn() as never,
+    });
+    expect(delay).toBe((20 + 75 + 10) * 60_000);
+    expect(out.results).toEqual([
+      { slug: 'a', status: 'failed', reason: 'run-wall-budget' },
+      { slug: 'b', status: 'failed', reason: 'run-wall-budget' },
+    ]);
+    expect(chrome.close).toHaveBeenCalled();
+    expect(receiver.close).toHaveBeenCalled();
+  });
+});
