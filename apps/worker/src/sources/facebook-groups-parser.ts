@@ -1,15 +1,14 @@
 // Facebook groups parser — turns a saved "Webpage, Complete" HTML export
 // (proposal §4.7, PLAN.md Stage 6) into one `fan_signal`-shaped draft row.
-// Pure/offline: no network, no Facebook access of any kind (Facebook has no
-// API for groups an account doesn't administer and prohibits *automated*
-// collection — this only ever processes a file Joey saved by hand in a
-// normal logged-in browser, per that section's rule).
+// Pure/offline: no network or Facebook access of any kind. Since the
+// 2026-09-30 owner decision, a deterministic local browser collector saves
+// the file from Joey's personal account; this parser still only receives the
+// saved HTML and never receives a credential or live browser handle.
 //
 // HONEST LIMITATION, read before trusting this against a real export:
 // Facebook's saved-HTML structure was NOT available to verify this against
 // — no Facebook account/group export exists in this build environment, and
-// creating one is outside what an agent may do unattended (CLAUDE.md
-// Decision Authority: no signing up for services). `extractPostsFromHtml`
+// the automation has not completed its first real run. `extractPostsFromHtml`
 // targets `role="article"` post containers and `aria-label` profile links —
 // both long-standing Facebook accessibility attributes, chosen because
 // they're far more stable across Facebook's markup changes than its

@@ -49,28 +49,29 @@ describe('issueBody', () => {
     expect(body).not.toMatch(/confirmed <slug>/);
   });
 
-  it('mentions the owner and references the upload command', () => {
+  it('mentions the owner and references the automated commands', () => {
     const body = issueBody([]);
     expect(body).toMatch(/@sffan15-sys/);
-    expect(body).toMatch(/npm run knowledge:fb-upload/);
+    expect(body).toMatch(/npm run knowledge:fb-export/);
+    expect(body).toMatch(/npm run knowledge:fb-export:dry/);
   });
 
   it('names the private drop location (facebook-exports bucket, never the repo)', () => {
     const body = issueBody([]);
-    expect(body).toMatch(/private `facebook-exports` Supabase Storage bucket/);
-    expect(body).toMatch(/never the public repo/);
+    expect(body).toMatch(/private `facebook-exports` bucket/);
+    expect(body).toMatch(/failed files stay local/);
   });
 
-  it('includes the fb-export-ingest step referencing card P1-3', () => {
+  it('describes deterministic collection and safe stop conditions', () => {
     const body = issueBody([]);
-    expect(body).toMatch(/node scripts\/community\/fb-export-ingest\.mjs --group/);
-    expect(body).toMatch(/--dry-run/);
-    expect(body).toMatch(/P1-3/);
+    expect(body).toMatch(/Sunday 18:00 local time/);
+    expect(body).toMatch(/checkpoint, 2FA, CAPTCHA/);
+    expect(body).toMatch(/no AI/);
   });
 
-  it('includes the first-real-export calibration checklist referencing HUMAN-ACTIONS.md #16', () => {
+  it('includes the first-real-export calibration checklist referencing HUMAN-ACTIONS.md #70', () => {
     const body = issueBody([]);
-    expect(body).toMatch(/one-time calibration \(HUMAN-ACTIONS\.md #16\)/);
+    expect(body).toMatch(/one-time calibration \(HUMAN-ACTIONS\.md #70\)/);
     expect(body).toMatch(/0 posts kept on a group you know was active/);
     expect(body).toMatch(/parser is calibrated/);
   });
