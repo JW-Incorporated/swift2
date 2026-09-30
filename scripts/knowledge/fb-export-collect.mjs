@@ -56,26 +56,40 @@ async function inspectPage(page) {
   return classifyPage({ url: page.url(), ...state });
 }
 
-async function loginOnce(page, passwordReader, { interactiveSetup = false } = {}) {
+async function facebookSessionCookie(page) {
+  const cookies = await page.cookies('https://www.facebook.com/');
+  return cookies.some(
+    (cookie) => cookie.name === 'c_user' && /(^|\.)facebook\.com$/i.test(cookie.domain),
+  );
+}
+
+async function sessionStatus(page) {
+  const classification = await inspectPage(page);
+  if (classification === 'checkpoint' || classification === 'captcha') return 'checkpoint';
+  if (classification === 'login') return 'login-failed';
+  return (await facebookSessionCookie(page)) ? 'ready' : 'login-failed';
+}
+
+async function waitForSession(
+  page,
+  {
+    timeoutMs,
+    pollIntervalMs = 1_000,
+    sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+  },
+) {
+  const deadline = Date.now() + timeoutMs;
+  do {
+    const status = await sessionStatus(page);
+    if (status === 'ready' || status === 'checkpoint') return status;
+    if (Date.now() >= deadline) return 'login-failed';
+    await sleep(Math.min(pollIntervalMs, Math.max(0, deadline - Date.now())));
+  } while (true);
+}
+
+async function automatedLoginOnce(page, passwordReader) {
   const passwordInput = await page.$('input[type="password"], input[name="pass"]');
   if (!passwordInput) return false;
-  const identity = await page
-    .$eval('input[name="email"]', (el) => el.value)
-    .catch(() => 'saved-account');
-  if (!identity && interactiveSetup) {
-    console.log(
-      'Facebook profile setup: sign in manually in the visible Chrome window; waiting up to 5 minutes.',
-    );
-    await page.waitForFunction(
-      () =>
-        !document.querySelector('input[type="password"], input[name="pass"]') &&
-        !location.pathname.startsWith('/login'),
-      { timeout: 300_000 },
-    );
-    return true;
-  }
-  if (!identity)
-    throw new Error('Login needs Joey to select/save his account in the automation profile once');
   const password = await passwordReader();
   try {
     await passwordInput.type(password, { delay: 35 });
@@ -89,6 +103,42 @@ async function loginOnce(page, passwordReader, { interactiveSetup = false } = {}
     submit.click(),
   ]);
   return true;
+}
+
+export async function establishSession(page, options = {}) {
+  await page.goto('https://www.facebook.com/', {
+    waitUntil: 'domcontentloaded',
+    timeout: 60_000,
+  });
+  const initialStatus = await sessionStatus(page);
+  if (initialStatus === 'ready' || initialStatus === 'checkpoint') return initialStatus;
+
+  const passwordInput = await page.$('input[type="password"], input[name="pass"]');
+  const identity = passwordInput
+    ? await page.$eval('input[name="email"]', (el) => el.value).catch(() => 'saved-account')
+    : '';
+  if (options.interactiveSetup && !identity) {
+    console.log(
+      'Facebook profile setup: sign in manually in the visible Chrome window; waiting up to 5 minutes.',
+    );
+    return waitForSession(page, {
+      timeoutMs: options.interactiveTimeoutMs ?? 300_000,
+      pollIntervalMs: options.pollIntervalMs,
+      sleep: options.sleep,
+    });
+  }
+  if (!passwordInput || !identity) return 'login-failed';
+
+  try {
+    await automatedLoginOnce(page, options.passwordReader ?? readDpapiPassword);
+  } catch {
+    return 'login-failed';
+  }
+  return waitForSession(page, {
+    timeoutMs: options.automatedTimeoutMs ?? 45_000,
+    pollIntervalMs: options.pollIntervalMs,
+    sleep: options.sleep,
+  });
 }
 
 async function clickSeeMore(page) {
@@ -149,15 +199,8 @@ export async function collectGroup(page, group, options = {}) {
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
 
   let classification = await inspectPage(page);
-  if (classification === 'login') {
-    await loginOnce(page, options.passwordReader ?? readDpapiPassword, {
-      interactiveSetup: options.interactiveSetup,
-    });
-    if (!page.url().includes(`/groups/${group.groupId}`)) {
-      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
-    }
-    classification = await inspectPage(page);
-  }
+  if (classification === 'login') return { slug: group.slug, status: 'login-failed' };
+  if (classification === 'captcha') classification = 'checkpoint';
   if (classification !== 'ready') return { slug: group.slug, status: classification };
 
   let previousHeight = 0;
@@ -202,12 +245,18 @@ export async function launchCollectorBrowser({
   const chrome = candidates.find(existsSync);
   if (!chrome) throw new Error('Google Chrome executable was not found');
   await mkdir(profileDir, { recursive: true });
-  return puppeteer.launch({
-    executablePath: chrome,
+  return puppeteer.launch(collectorLaunchOptions(chrome, profileDir));
+}
+
+export function collectorLaunchOptions(executablePath, profileDir) {
+  return {
+    executablePath,
     userDataDir: profileDir,
     headless: false,
     defaultViewport: null,
-  });
+    ignoreDefaultArgs: ['--enable-automation'],
+    args: ['--disable-blink-features=AutomationControlled'],
+  };
 }
 
 export async function collectAll({
@@ -215,16 +264,25 @@ export async function collectAll({
   outputDir,
   browserFactory = launchCollectorBrowser,
   interactiveSetup = false,
+  sessionOptions = {},
 } = {}) {
   const browser = await browserFactory();
   const page = (await browser.pages())[0] ?? (await browser.newPage());
   const results = [];
   try {
+    const session = await establishSession(page, {
+      ...sessionOptions,
+      interactiveSetup,
+    });
+    if (session !== 'ready') {
+      if (groups[0]) results.push({ slug: groups[0].slug, status: session });
+      return results;
+    }
     for (const group of groups) {
       try {
-        const result = await collectGroup(page, group, { outputDir, interactiveSetup });
+        const result = await collectGroup(page, group, { outputDir });
         results.push(result);
-        if (['checkpoint', 'captcha'].includes(result.status)) break;
+        if (['checkpoint', 'login-failed'].includes(result.status)) break;
       } catch (error) {
         const diagnostic = await writeDiagnostic(page, outputDir, group.slug);
         results.push({

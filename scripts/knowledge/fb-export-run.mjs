@@ -157,6 +157,10 @@ export async function runExport(options = {}) {
 
   for (const item of collected) {
     const group = pending.find((candidate) => candidate.slug === item.slug);
+    if (['login-failed', 'checkpoint'].includes(item.status)) {
+      results.push(item);
+      break;
+    }
     if (item.status === 'not-member') {
       results.push(item);
       if (!dryRun) {
@@ -205,12 +209,16 @@ export async function runExport(options = {}) {
 
   if (dryRun)
     return {
-      ok: results.every((row) => row.status !== 'failed'),
+      ok: results.every(
+        (row) => !['failed', 'login-failed', 'checkpoint'].includes(row.status),
+      ),
       results,
       summary: runSummary(results),
     };
   await persistLedger();
-  const failed = results.some((row) => row.status === 'failed');
+  const failed = results.some((row) =>
+    ['failed', 'login-failed', 'checkpoint'].includes(row.status),
+  );
   const issue = await (options.findIssue ?? findWeeklyIssue)(weekLabel);
   const summary = runSummary(results);
   await (options.reportIssue ?? reportIssue)(issue, summary, { close: !failed });

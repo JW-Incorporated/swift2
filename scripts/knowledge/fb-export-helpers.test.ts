@@ -46,6 +46,7 @@ describe('Facebook export pure helpers', () => {
     expect(classifyPage({ url: 'https://facebook.com/checkpoint', hasPassword: true })).toBe(
       'checkpoint',
     );
+    expect(classifyPage({ url: 'https://facebook.com/two_step_verification' })).toBe('checkpoint');
     expect(classifyPage({ text: 'Complete this CAPTCHA', hasJoinGroup: true })).toBe('captcha');
     expect(classifyPage({ hasJoinGroup: true })).toBe('not-member');
     expect(classifyPage({ url: 'https://facebook.com/login' })).toBe('login');

@@ -56,7 +56,8 @@ export function stopDecision({ oldestAgeMs, stagnantScrolls, scrollCount, scroll
 
 export function classifyPage({ url = '', text = '', hasPassword = false, hasJoinGroup = false }) {
   const haystack = `${url}\n${text}`;
-  if (/checkpoint|two.factor|2fa|approvals_code/i.test(haystack)) return 'checkpoint';
+  if (/checkpoint|two[._ -]?step|two[._ -]?factor|2fa|approvals_code/i.test(haystack))
+    return 'checkpoint';
   if (/captcha|security check|required to confirm/i.test(haystack)) return 'captcha';
   if (hasJoinGroup) return 'not-member';
   if (hasPassword || /facebook\.com\/login/i.test(url)) return 'login';

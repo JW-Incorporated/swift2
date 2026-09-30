@@ -66,6 +66,16 @@ describe('Facebook export gate', () => {
 });
 
 describe('Facebook export orchestration', () => {
+  it('runs the export dependency chain through tsx', async () => {
+    const packageJson = JSON.parse(await readFile('package.json', 'utf8'));
+    expect(packageJson.scripts['knowledge:fb-export']).toBe(
+      'tsx scripts/knowledge/fb-export-run.mjs',
+    );
+    expect(packageJson.scripts['knowledge:fb-export:dry']).toBe(
+      'tsx scripts/knowledge/fb-export-run.mjs --dry-run',
+    );
+  });
+
   it('uploads, records, comments, and closes only a complete real run', async () => {
     const writeLedger = vi.fn();
     const reportIssue = vi.fn();
@@ -131,6 +141,8 @@ describe('Facebook export orchestration', () => {
       reportIssue,
     });
     expect(result.ok).toBe(false);
+    expect(result.results[0]).toEqual({ slug: 'group-a', status: 'checkpoint' });
+    expect(result.results).toHaveLength(1);
     expect(reportIssue).toHaveBeenCalledWith(70, expect.stringContaining('checkpoint'), {
       close: false,
     });
