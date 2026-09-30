@@ -167,7 +167,7 @@ export function buildShopUrl(listing: ShopListing, context?: ShopLinkContext): s
  * Whether buildShopUrl returns an affiliate (commission-earning) link for
  * this product. Always false while the seam is inert. The UI already renders
  * SHOP_DISCLOSURE next to any shop block containing an isAffiliate product
- * (see ShopTheLook in MomentDetail), so the affiliate flip is genuinely a
+ * (see ShopTheLook in MomentSources.tsx), so the affiliate flip is genuinely a
  * one-FILE change: update buildShopUrl + this predicate together and the
  * FTC disclosure appears with no UI edits.
  */

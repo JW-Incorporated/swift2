@@ -44,6 +44,9 @@ describe('#657 MomentDetail sheet is a real focus-trapped dialog', () => {
   });
 
   it('the nested photo lightbox is also trapped', () => {
+    // The lightbox lives in its own file since the R20 split.
+    const src = read('./MomentLightbox.tsx');
+    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
     // The lightbox's opening tag carries a JS comment with a literal
     // `<img>` in its prose, which defeats a generic "scan to the next `>`"
     // tag-boundary parse — slice to the next unambiguous anchor (its

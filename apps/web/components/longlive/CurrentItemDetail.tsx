@@ -14,9 +14,9 @@ import { useAppActions } from '@/lib/longlive/store';
 /**
  * The current-era live item's detail overlay (PLAN.md Stage 5). A lighter
  * sibling of `MomentDetail.tsx`, reusing its dashed-rumor visual language
- * (border-2 border-dashed, era-accent, AlertTriangle banner — see that
- * file's `ConfidenceBanner`/`RumorSection`) rather than the component
- * itself: `MomentDetail.tsx` is 1000+ lines of `ContentItem`-specific
+ * (border-2 border-dashed, era-accent, AlertTriangle banner — see
+ * `MomentRumors.tsx`'s `ConfidenceBanner`/`RumorSection`) rather than the component
+ * itself: the `MomentDetail.tsx` family is 1000+ lines of `ContentItem`-specific
  * rendering (photo galleries, motif trails, track guides…) none of which a
  * `current_item` has, and forking it on a second, incompatible data shape
  * would be exactly the "touch Vault rendering" this stage's brief rules

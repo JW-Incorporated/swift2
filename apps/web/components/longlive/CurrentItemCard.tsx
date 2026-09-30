@@ -11,7 +11,7 @@ import { outletFor } from '@swift2/experience';
  * `era-card` silhouette as `DoorwayCard.tsx` (one `<button>` body, no nested
  * interactive elements, `md:col-span-2`) so a live update reads as part of
  * the timeline rather than an ad — but with the dashed-unconfirmed border
- * `MomentDetail.tsx`'s `RumorSection`/`ConfidenceBanner` use for anything
+ * `MomentRumors.tsx`'s `RumorSection`/`ConfidenceBanner` use for anything
  * not yet confirmed, since every current_item is provisional by definition
  * (it hasn't been promoted into the Vault yet).
  *
