@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -40,41 +40,6 @@
 
 **Worked if:** the next brief no longer lists #4559 under stalled.
 
-## #84 🟢 [UPGRADE] Turn on the recurring concert-photo sourcing crawl (~2 min)
-<!-- ha filed=2026-09-22 -->
-
-**Why:** kanban t_a66e5eb2 shipped a Reddit concert-photo sourcing adapter (PR #4529) that already ran once manually and grew the photo library from 10 to 31 entries. The recurring GitHub Actions workflow (`concert-photo-sourcing.yml`) ships with its kill switch OFF by default, same convention as `community-crawl.yml` — it needs a deliberate repo variable flip to run on its own weekly schedule going forward.
-
-**Steps:**
-1. Go to github.com/JW-Incorporated/swift2 → Settings → Secrets and variables → Actions → Variables tab.
-2. Click "New repository variable."
-3. Name: `CONCERT_PHOTO_SOURCING_ENABLED`, Value: `true`, then Save.
-
-**Worked if:** the `concert-photo-sourcing` workflow's next Monday 08:40 UTC run shows "enabled=true" in its log instead of skipping.
-
-## #83 🟡 [UPGRADE] Give the swift2 board a Vercel API token, so build failures don't need a re-deploy gamble to diagnose (~5 min)
-<!-- ha filed=2026-09-23 -->
-
-**Why:** Production deploy for swift2-web failed on main @ e17860a76 (PR #4534,
-Sept 23 2026 ~02:16 UTC, t_3dab9cf8). Investigated thoroughly: the PR's files
-aren't imported anywhere in the web build, the local build succeeds cleanly
-on both Node 20 and the project's required Node 24, and GitHub Actions' own
-build checks passed on this exact commit — everything points to a
-Vercel-side issue, not a code defect, but there is no way to prove it or see
-the real error without reading Vercel's own build log
-(`npx vercel inspect <deployment-id> --logs`), and that command needs a
-token. This will recur on the next real build failure too.
-
-**Steps:**
-1. Vercel dashboard → swift2-web project → Settings → Tokens → Create Token
-   (project-scoped is fine, no need for full account access).
-2. `gh secret set VERCEL_TOKEN --repo JW-Incorporated/swift2` with the value
-   (or tell the on-duty agent the token directly and it will store it).
-
-**Worked if:** the next Vercel build failure can be diagnosed with
-`curl -H "Authorization: Bearer $VERCEL_TOKEN" https://api.vercel.com/v13/deployments/<id>/events`
-instead of guessing from a git diff.
-
 ## #82 🔴 [BLOCKING] GH_DISPATCH_TOKEN can't dispatch workflows (~10 min)
 <!-- ha filed=2026-09-22 -->
 
@@ -86,16 +51,6 @@ instead of guessing from a git diff.
 3. Save the updated token as the `GH_DISPATCH_TOKEN` secret value.
 
 **Worked if:** the next hourly Marjorie ops sweep can run `gh workflow run` without a 403 (visible in that run's log).
-
-## #81 🟡 [DECIDE] PR #4220 (social-poster branch) has been red for 7 days (~2 min)
-<!-- ha filed=2026-09-20 -->
-
-**Why:** PR #4220 (`social-poster/state-20260913003919`) has been open and failing `build`/`build-full` since 2026-09-13 — 7 days, past the escalation threshold (issue #4243). Root cause, confirmed across daily checks: `check:no-downgrade` fails against a lockfile now stale vs main; no agent is coming back to fix an old queue-state snapshot branch.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `rebase` (an agent rebases PR #4220 onto main and re-pushes) or `close` (abandon this snapshot branch).
-
-**Worked if:** PR #4220 is merged or closed, and issue #4243 stops listing it.
 
 ## #80 🟡 [DECIDE] #4364 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-09-19 -->
@@ -155,20 +110,6 @@ instead of guessing from a git diff.
 3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
 
 **Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
-
----
-
-## #54 🔴 [BLOCKING] Turn on Code Scanning and set CODE_SCANNING_ENABLED (closes P5) (~5 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** Paul Blart's CodeQL scanning (`codeql.yml`, lines 1–33) is ready to detect security and quality issues, but it only runs when the `CODE_SCANNING_ENABLED` repository variable is set to `true`. Until that flag is set, the workflow skips silently (see line 18 of `codeql.yml`), so no findings are ever c
-
-**Steps:**
-1. In `JW-Incorporated/swift2` repo on GitHub, open **Settings → Code security and analysis → Code scanning → Set up → Default** to enable GitHub Advanced Security's Code Scanning for this repo (founder-
-2. In the same Settings area, open **Secrets and variables → Actions → Variables → New repository variable**: name it `CODE_SCANNING_ENABLED`, set its value to `true`, and save. (This step requires repo
-3. No code changes needed — `codeql.yml` already checks this variable correctly (line 18: `if: vars.CODE_SCANNING_ENABLED == 'true'`).
-
-**Worked if:** a manually dispatched `codeql.yml` run from the Actions tab shows the **Analyze** job running (not skipped) and Security → Code scanning alerts begin to populate with real findings.
 
 ---
 

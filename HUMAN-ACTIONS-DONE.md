@@ -3,6 +3,10 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #84 · 2026-09-30 · done · Turn on the recurring concert-photo sourcing crawl — "Joey asked agent to close verified-done items 2026-09-30; CONCERT_PHOTO_SOURCING_ENABLED=true (set 2026-09-22); scheduled run 2026-09-28 succeeded" · by agent
+- #83 · 2026-09-30 · done · Give the swift2 board a Vercel API token — "Joey asked agent to close verified-done items 2026-09-30; gh secret list shows VERCEL_TOKEN (set 2026-09-23)" · by agent
+- #81 · 2026-09-30 · done · PR #4220 (social-poster branch) red for 7 days — "Joey asked agent to close verified-done items 2026-09-30; PR #4220 CLOSED 2026-09-25, not merged" · by agent
+- #54 · 2026-09-30 · done · Turn on Code Scanning and set CODE_SCANNING_ENABLED — "Joey asked agent to close verified-done items 2026-09-30; default-setup configured, CODE_SCANNING_ENABLED=true, codeql.yml push run 2026-09-25 succeeded, alerts populated" · by agent
 - #48 · 2026-09-16 · done · Put the website-shell build on the Play internal track now (Android testers still get the Aug 30 native app) — "Play internal testing serves 1.0.0 (13), status completed; uploaded bundle sha256 matches the local EAS artifact exactly. PLAY_SERVICE_ACCOUNT_JSON is now set, so the train submits itself." · by owner
 - #77 · 2026-09-15 · done · Restore Claude organization access for GitHub routines — "Joey: 'claude is back on'; bounded GitHub OAuth probe 34978823809 passed. Basic testing authorized up to 3 USD." · by chat
 - #76 · 2026-09-14 · done · Update the Hermes doorbell to doorbell-v2 — "https://github.com/JW-Incorporated/swift2/issues/4180#issuecomment-5673685756" · by agent
