@@ -1,8 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 import { extensionCollect, launchPlainChrome } from './fb-export-launch.mjs';
+import { startReceiver } from './fb-export-receiver.mjs';
 
 const fakeSpawn = () => {
   const calls: { cmd: string; args: string[] }[] = [];
@@ -109,5 +110,63 @@ describe('extensionCollect', () => {
     ]);
     expect(chrome.close).toHaveBeenCalled();
     expect(receiver.close).toHaveBeenCalled();
+  });
+});
+
+describe('extensionCollect with the real receiver', () => {
+  it('keeps the group reported before the wall budget and fails the rest', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-wall-'));
+    const token = 'b'.repeat(64);
+    const groups = [
+      { slug: 'one', label: 'One', groupId: '1', wallBudgetMs: 50 },
+      { slug: 'two', label: 'Two', groupId: '2', wallBudgetMs: 50 },
+      { slug: 'three', label: 'Three', groupId: '3', wallBudgetMs: 50 },
+    ];
+    const chrome = { pid: 1, close: vi.fn() };
+    const launch = vi.fn(async ({ url }: { url: string }) => {
+      const base = new URL(url).origin;
+      const headers = { 'x-llfb-token': token, 'content-type': 'application/json' };
+      void (async () => {
+        const first = await (await fetch(`${base}/next`, { headers })).json();
+        await fetch(`${base}/result`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            v: 1,
+            slug: first.slug,
+            status: 'collected',
+            stopReason: 'feed-end',
+            units: [{ html: '<div>synthetic post</div>', position: 0 }],
+            coverage: { ageRuleMet: true, harvestedCount: 1, slotCount: 1, partial: false },
+          }),
+        });
+        await fetch(`${base}/next`, { headers }); // group two handed out, never reported
+      })().catch(() => undefined);
+      return chrome;
+    });
+    try {
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver,
+        launch,
+        token,
+        runSlackMs: 300,
+      });
+      expect(out.results.map((r: { slug: string; status: string }) => [r.slug, r.status])).toEqual([
+        ['one', 'collected'],
+        ['two', 'failed'],
+        ['three', 'failed'],
+      ]);
+      expect(out.results[1]).toMatchObject({ reason: 'run-wall-budget' });
+      expect(out.results[2]).toMatchObject({ reason: 'run-wall-budget' });
+      const collected = out.results[0] as { filePath: string };
+      expect(await readdir(dir)).toContain(basename(collected.filePath));
+      expect(chrome.close).toHaveBeenCalled();
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

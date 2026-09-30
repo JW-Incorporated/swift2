@@ -294,6 +294,14 @@ export async function startReceiver({
     port,
     url: `http://127.0.0.1:${port}/start#${token}`,
     done,
+    // Results gathered so far, in group order; a group handed out but not reported is failed.
+    partialResults() {
+      const out = ordered();
+      if (current && !out.some((r) => r.slug === current.slug)) {
+        out.push({ slug: current.slug, status: 'failed', reason: 'run-wall-budget' });
+      }
+      return groups.map((g) => out.find((r) => r.slug === g.slug)).filter(Boolean);
+    },
     close() {
       if (closed) return Promise.resolve();
       closed = true;

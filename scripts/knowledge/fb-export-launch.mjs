@@ -73,9 +73,10 @@ export async function extensionCollect({
   token = randomBytes(32).toString('hex'),
   setTimer = setTimeout,
   clearTimer = clearTimeout,
+  runSlackMs = RUN_SLACK_MS,
 } = {}) {
   const start = startReceiver ?? (await import('./fb-export-receiver.mjs')).startReceiver;
-  const totalMs = groups.reduce((sum, g) => sum + (g.wallBudgetMs ?? 20 * 60_000), 0) + RUN_SLACK_MS;
+  const totalMs = groups.reduce((sum, g) => sum + (g.wallBudgetMs ?? 20 * 60_000), 0) + runSlackMs;
   const receiver = await start({ groups, token, root, outputDir, now, week });
   let chrome;
   let timer;
