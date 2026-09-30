@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -86,20 +86,6 @@
 4. If GitHub issues a new token value instead of an in-place edit, update the secret: repo Settings → Secrets and variables → Actions → SOCIAL_POSTER_PAT → paste the new value.
 
 **Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
-
-## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
-
-**Steps:**
-1. Meta App Dashboard → App Review → Permissions and Features → add instagram_manage_insights.
-2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
-3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
-
-**Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
-
----
 
 ## #49 🔴 [BLOCKING] Add the shared Community Tasks acknowledgement secret (~5 min)
 <!-- ha filed=2026-09-11 -->
