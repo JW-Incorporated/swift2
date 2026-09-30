@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #43 · 2026-09-30 · done · OS-004 — Push credentials on EAS — "Joey said in chat 2026-09-30: close 43" · by chat
 - #67 · 2026-09-30 · done · Add DISCORD_MARJORIE_WEBHOOK_URL to the social environment — "Joey confirmed in chat 2026-09-30: secret added on social env (page shows it updated now); close 67" · by chat
 - #84 · 2026-09-30 · done · Turn on the recurring concert-photo sourcing crawl — "Joey asked agent to close verified-done items 2026-09-30; CONCERT_PHOTO_SOURCING_ENABLED=true (set 2026-09-22); scheduled run 2026-09-28 succeeded" · by agent
 - #83 · 2026-09-30 · done · Give the swift2 board a Vercel API token — "Joey asked agent to close verified-done items 2026-09-30; gh secret list shows VERCEL_TOKEN (set 2026-09-23)" · by agent
