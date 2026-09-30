@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const src = readFileSync(join(__dirname, 'CurrentItemDetail.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, 'CurrentItemDetail.tsx'), 'utf8').replace(/\r\n/g, '\n');
 
 describe('CurrentItemDetail — home navigation', () => {
   it('closes the local live-item overlay before returning home', () => {

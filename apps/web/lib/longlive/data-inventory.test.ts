@@ -80,7 +80,7 @@ describe('data inventory — drives the mobile data-safety doc', () => {
     // `npm run privacy:mobile-doc`, this fails — same idiom as
     // check-affiliate-coverage-in-sync.mjs / check-generated-in-sync.mjs.
     const path = new URL('../../../../' + DOC_FILE, import.meta.url);
-    const committed = readFileSync(path, 'utf8');
+    const committed = readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
     const regenerated = withRegeneratedBlock(committed);
     expect(regenerated).toBe(committed);
   });
