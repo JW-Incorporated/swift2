@@ -326,8 +326,54 @@
     return { reactions, commentCount };
   }
 
+  // Comments are PRIVATE (PLAN schema v1): they may only leave the page through comments.js into
+  // the local private store, never inside the uploaded unit HTML. The CDP harvester captured the
+  // unit's full outerHTML, which carries every rendered comment/reply subtree. The extension
+  // serializes a sanitized clone instead. DOM GUESS (like the rest of this file): comments and
+  // replies are role=article elements nested inside the post's own article (aria-label
+  // "Comment by …" / "Reply by …"); the composer is a textbox/contenteditable/form; the comment
+  // list controls are buttons like "View more comments" / "Most relevant".
+  const COMMENT_LABEL = /^(?:comment|reply) by\b/i;
+  const COMPOSER_LABEL = /^(?:write a (?:public )?(?:comment|reply)|comment as|reply as)\b/i;
+  const COMMENT_LIST_CONTROL =
+    /^(?:(?:view|see|hide)\s+(?:more|all|previous|\d[\d.,]*\s*[km]?\s+(?:more\s+)?)?\s*(?:comments?|repl(?:y|ies))\b|most relevant|newest|all comments|\d[\d.,]*\s*[km]?\s+repl(?:y|ies)$)/i;
+  const COMPOSER_SELECTOR =
+    'form, [contenteditable="true"], [role="textbox"], textarea, input[type="text"], [role="combobox"]';
+
+  function sanitizeUnitElement(unit) {
+    const clone = unit.cloneNode(true);
+    const primary = clone.matches?.('[role="article"]')
+      ? clone
+      : clone.querySelector('[role="article"]');
+    const doomed = new Set();
+    // Every role=article other than the post's own (the first, outermost one) is a comment/reply.
+    for (const article of clone.querySelectorAll('[role="article"]'))
+      if (article !== primary) doomed.add(article);
+    for (const element of clone.querySelectorAll('[aria-label]')) {
+      const label = (element.getAttribute('aria-label') || '').trim();
+      if (element !== primary && COMMENT_LABEL.test(label)) doomed.add(element);
+      if (COMPOSER_LABEL.test(label)) doomed.add(element);
+    }
+    for (const element of clone.querySelectorAll(COMPOSER_SELECTOR)) doomed.add(element);
+    for (const control of clone.querySelectorAll('button, [role="button"]')) {
+      const name = (control.getAttribute('aria-label') || control.textContent || '')
+        .replace(/\u00a0/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (COMMENT_LIST_CONTROL.test(name)) doomed.add(control);
+    }
+    for (const element of doomed)
+      if (element !== clone && !(primary && element.contains(primary))) element.remove();
+    // Comment lists wrap each comment in <ul><li>; drop the now-empty scaffolding too.
+    for (const list of clone.querySelectorAll('ul, ol'))
+      if (!(list.textContent ?? '').trim()) list.remove();
+    return clone.outerHTML;
+  }
+
   // Port of captureVisibleUnits: the page.evaluate body plus the ownTimestamp post-processing.
-  // Extension addition per unit: reactions, commentCount.
+  // Extension additions per unit: reactions, commentCount, and `html` is the sanitized clone
+  // (sanitizeUnitElement) instead of the raw outerHTML. Every other field is computed exactly as
+  // the original did, from the live element.
   function captureVisibleUnits(doc, win) {
     const visible = visibleIn(win);
     const feed = doc.querySelector('[role="feed"]');
@@ -382,7 +428,7 @@
           `${author?.getAttribute('aria-label') ?? ''}|${text.slice(0, 160)}`,
         textLength: text.length,
         hasAuthor: Boolean(author),
-        html: unit.outerHTML,
+        html: sanitizeUnitElement(unit),
         ignoreForAge,
         ownTimestamp: firstOwnTimestamp(timestampValues),
         reactions,
@@ -447,6 +493,13 @@
     return original || !nearBottom || scrollHeight > previousScrollHeight;
   }
 
+  // Feed slots seen so far. aria-posinset is the primary signal, but when Facebook omits it the
+  // capture falls back to the feed's children and maxPosinset stays 0 — so the number of distinct
+  // merged units counts too. Without this a posinset-less feed read as "stunted" after 20 scrolls.
+  function harvestSlotCount(harvest) {
+    return Math.max(Number(harvest?.maxPosinset) || 0, harvest?.units?.length ?? 0);
+  }
+
   // One tick's stop decision: stopDecision plus the stunted-feed rule (slot count still ≤ 3 after
   // 20 scrolls — the CDP symptom). While the feed shows ≤ 3 slots a feed-end stop is suppressed
   // until the stunted check can fire; the seven-days rule, scroll cap and wall budget still apply.
@@ -491,7 +544,7 @@
       coverage: {
         harvestedCount: harvest.units.length,
         recentCount: recent.length,
-        slotCount: harvest.maxPosinset,
+        slotCount: harvestSlotCount(harvest),
         coverageAgeMs: harvestCoverageAge(harvest.units, now, stopReason),
         partial: ['scroll-cap', 'wall-budget'].includes(stopReason),
         ageRuleMet: Boolean(ageRuleMet),
@@ -527,6 +580,8 @@
     emptyHarvest,
     expandVisibleUnits,
     captureVisibleUnits,
+    sanitizeUnitElement,
+    harvestSlotCount,
     parseCount,
     extractEngagement,
     inspectPage,

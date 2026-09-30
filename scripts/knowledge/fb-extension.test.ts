@@ -8,7 +8,10 @@ import * as harvest from './fb-export-harvest.mjs';
 import * as helpers from './fb-export-helpers.mjs';
 
 // Synthetic fixtures only — no real Facebook post or comment text.
-const DIR = join(dirname(fileURLToPath(import.meta.url)), 'fb-extension');
+// LLFB_EXT_DIR lets a reviewer point the suite at an older copy of the extension to prove a
+// regression test fails on the pre-fix code.
+const DIR =
+  process.env.LLFB_EXT_DIR || join(dirname(fileURLToPath(import.meta.url)), 'fb-extension');
 const DAY = 86_400_000;
 const NOW = new Date('2026-09-30T12:00:00Z');
 
@@ -238,11 +241,15 @@ describe('harvest-core DOM ports match the page.evaluate originals', () => {
     const core = loadCore();
     const original = await harvest.captureVisibleUnits(page as never);
     const ported = plain(core.captureVisibleUnits(dom.window.document, dom.window));
+    // html differs on purpose: the extension serializes a comment-free clone (see the
+    // "comment subtrees never leave the page" tests); every other field must match.
     const strip = (s: Any) => ({
       ...s,
-      units: s.units.map(withoutEngagement),
+      units: s.units.map((u: Any) => ({ ...withoutEngagement(u), html: undefined })),
     });
-    expect(strip(ported)).toEqual(plain(original));
+    expect(strip(ported)).toEqual(strip(plain(original)));
+    expect(ported.units[1].html).toBe((original as Any).units[1].html); // no comments → unchanged
+    expect(ported.units[0].html).not.toContain('99 comments');
     expect(ported.maxPosinset).toBe(4);
     expect(ported.units[0].ownTimestamp).toBe('2 h');
     expect(ported.units[1].ignoreForAge).toBe(true);
@@ -437,7 +444,9 @@ describe('content.js runJob against a synthetic group page', () => {
         'reactions',
       ].sort(),
     );
-    expect(seen).toEqual([{ keys: ['pos:1', 'pos:2'], options: job.comments }]);
+    expect(seen).toEqual([
+      { keys: ['pos:1', 'pos:2'], options: { ...job.comments, maxMs: 15 * 60_000 } },
+    ]);
     expect(result.comments).toHaveLength(1);
     expect(beats[0]).toMatchObject({ slug: 'group-a' });
   });
@@ -463,5 +472,299 @@ describe('content.js runJob against a synthetic group page', () => {
     expect(result).toMatchObject({ status: 'collected', stopReason: 'feed-end', comments: [] });
     expect(result.message).toMatch(/comments failed/);
     expect(result.coverage.recentCount).toBe(4);
+  });
+
+  const oldFeed = [post(1, '1 h'), post(2, '2 d'), post(3, '8 d'), post(4, '9 d'), post(5, '10 d')];
+
+  it('caps comments at the remaining group wall budget minus 60 s', async () => {
+    const { LLFB, env } = makeEnv(`<body><div role="feed">${oldFeed.join('')}</div></body>`);
+    const seen: Any[] = [];
+    LLFB.collectComments = async (_units: Any[], options: Any) => {
+      seen.push(options);
+      return [];
+    };
+    // 15 of 20 minutes already spent on the feed → 5 min left → comments get 4 min.
+    const result = plain(await LLFB.runJob({ ...job, startedAtMs: -15 * 60_000 }, env));
+    expect(result.status).toBe('collected');
+    expect(seen).toHaveLength(1);
+    expect(seen[0].maxMs).toBe(4 * 60_000);
+    expect(seen[0].topN).toBe(20);
+  });
+
+  it('skips comments when less than 60 s of the group wall budget is left', async () => {
+    const { LLFB, env } = makeEnv(`<body><div role="feed">${oldFeed.join('')}</div></body>`);
+    let calls = 0;
+    LLFB.collectComments = async () => {
+      calls += 1;
+      return [];
+    };
+    const result = plain(await LLFB.runJob({ ...job, startedAtMs: -(19 * 60_000 + 30_000) }, env));
+    expect(result).toMatchObject({ status: 'collected', stopReason: 'seven-days', comments: [] });
+    expect(calls).toBe(0);
+    expect(LLFB.commentsBudgetMs({ wallBudgetMs: 20 * 60_000 }, 0)).toBe(15 * 60_000);
+    expect(LLFB.commentsBudgetMs({ wallBudgetMs: 75 * 60_000 }, 70 * 60_000)).toBe(4 * 60_000);
+    expect(LLFB.commentsBudgetMs({ wallBudgetMs: 20 * 60_000 }, 19.5 * 60_000)).toBe(0);
+  });
+
+  it('a feed without aria-posinset counts merged units as slots (not stunted)', async () => {
+    const children = [1, 2, 3, 4, 5, 6]
+      .map(
+        (n) =>
+          `<div><div role="article"><a aria-label="Fan ${n}">Fan</a>` +
+          `<a href="/groups/1/posts/${n}/">${n} h</a><p>Synthetic ${n}</p></div></div>`,
+      )
+      .join('\n'); // separated, or the page text reads "…2Fan3…" and trips the 2fa check
+    const { LLFB, env } = makeEnv(`<body><div role="feed">${children}</div></body>`);
+    const result = plain(await LLFB.runJob(job, env));
+    expect(result).toMatchObject({ status: 'collected', stopReason: 'feed-end' });
+    expect(result.coverage.slotCount).toBe(6);
+    expect(result.coverage.scrolls).toBeLessThan(20);
+    expect(LLFB.harvestSlotCount({ maxPosinset: 0, units: [1, 2, 3, 4] })).toBe(4);
+    expect(LLFB.harvestSlotCount({ maxPosinset: 9, units: [1] })).toBe(9);
+  });
+});
+
+// A post with a rendered comment thread, a reply, the comment composer and the comment-list
+// controls. Every string here is synthetic.
+const THREAD_HTML = `<!doctype html><html><body><div role="feed">
+  <div aria-posinset="1"><div role="article">
+    <a aria-label="Fan Poster" href="/u/1">Fan Poster</a>
+    <a href="https://www.facebook.com/groups/1/posts/555/"><span>3 h</span></a>
+    <div data-ad-preview="message">Synthetic post body about the eras setlist</div>
+    <span>All reactions:14</span><span>2 comments</span>
+    <div role="button">Most relevant</div>
+    <ul>
+      <li><div role="article" aria-label="Comment by Synthetic Commenter 2 hours ago">
+        <a href="/groups/1/posts/555/?comment_id=900">Synthetic Commenter</a>
+        <div dir="auto">SYNTHETIC-COMMENT-TEXT alpha</div>
+        <ul><li><div role="article" aria-label="Reply by Synthetic Replier 1 hour ago">
+          <div dir="auto">SYNTHETIC-REPLY-TEXT beta</div>
+        </div></li></ul>
+      </div></li>
+    </ul>
+    <div role="button">View more comments</div>
+    <div role="button">View 3 replies</div>
+    <form><div contenteditable="true" role="textbox" aria-label="Write a comment…">SYNTHETIC-DRAFT</div></form>
+  </div></div>
+</div></body></html>`;
+
+describe('comment subtrees never leave the page', () => {
+  it('sanitized unit html passes the real parser and carries no comment text', async () => {
+    const { buildHarvestedHtml } = await import('./fb-export-harvest.mjs');
+    const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
+    const dom = new JSDOM(THREAD_HTML);
+    const core = loadCore();
+    const snapshot = core.captureVisibleUnits(dom.window.document, dom.window);
+    const merged = core.mergeHarvest(core.emptyHarvest(), snapshot);
+    const { units } = plain(
+      core.buildCoverage({
+        harvest: merged,
+        now: NOW,
+        stopReason: 'feed-end',
+        ageRuleMet: true,
+        scrolls: 1,
+        wallMs: 1,
+      }),
+    );
+    expect(units).toHaveLength(1);
+    const html = buildHarvestedHtml('Synthetic group', units);
+    for (const leaked of [
+      'SYNTHETIC-COMMENT-TEXT',
+      'SYNTHETIC-REPLY-TEXT',
+      'SYNTHETIC-DRAFT',
+      'Synthetic Commenter',
+      'Synthetic Replier',
+      'comment_id=',
+      'View more comments',
+      'Most relevant',
+      'View 3 replies',
+    ])
+      expect(html).not.toContain(leaked);
+    // Post body, author, timestamp, permalink and the engagement labels survive.
+    for (const kept of [
+      'Synthetic post body about the eras setlist',
+      'aria-label="Fan Poster"',
+      '3 h',
+      'https://www.facebook.com/groups/1/posts/555/',
+      '2 comments',
+    ])
+      expect(html).toContain(kept);
+    const parsed = buildIngestResult(html, {
+      groupSlug: 'synthetic-group',
+      groupName: 'Synthetic group',
+      exportedAt: NOW,
+    });
+    expect(parsed.fanSignal.volume).toBe(1);
+    expect(units[0]).toMatchObject({ ownTimestamp: '3 h', reactions: 14, commentCount: 2 });
+    // The live page itself is untouched (the clone is what gets serialized).
+    expect(dom.window.document.body.innerHTML).toContain('SYNTHETIC-COMMENT-TEXT');
+  });
+});
+
+// ---- background.js: durable delivery across a service-worker restart ----------------------
+
+type Call = { method: string; path: string; body?: Any };
+
+function fakeChrome(store: Record<string, Any>) {
+  const listeners: { message?: Any; updated?: Any } = {};
+  const tabUpdates: Any[] = [];
+  const chrome = {
+    storage: {
+      session: {
+        get: async (key: string) =>
+          key in store ? { [key]: JSON.parse(JSON.stringify(store[key])) } : {},
+        set: async (items: Record<string, Any>) => {
+          for (const [k, v] of Object.entries(items)) store[k] = JSON.parse(JSON.stringify(v));
+        },
+      },
+    },
+    runtime: {
+      getManifest: () => ({ version: '9.9.9' }),
+      onMessage: { addListener: (fn: Any) => (listeners.message = fn) },
+    },
+    tabs: {
+      update: async (tabId: number, props: Any) => void tabUpdates.push({ tabId, ...props }),
+      onUpdated: { addListener: (fn: Any) => (listeners.updated = fn) },
+    },
+  };
+  return { chrome, listeners, tabUpdates };
+}
+
+// Boots one service-worker instance over a shared session store. `respond` decides each
+// receiver answer; returning null leaves the request hanging (the worker dies mid-request).
+function bootWorker(
+  store: Record<string, Any>,
+  respond: (call: Call) => { status: number; json?: Any } | null,
+) {
+  const calls: Call[] = [];
+  const delays: number[] = [];
+  const { chrome, listeners, tabUpdates } = fakeChrome(store);
+  const fetch = async (url: string, init: Any) => {
+    const call: Call = {
+      method: init.method,
+      path: new URL(url).pathname,
+      body: init.body ? JSON.parse(init.body) : undefined,
+    };
+    calls.push(call);
+    const answer = respond(call);
+    if (!answer) return new Promise(() => {});
+    return {
+      status: answer.status,
+      ok: answer.status >= 200 && answer.status < 300,
+      json: async () => answer.json ?? {},
+    };
+  };
+  const context: Any = vm.createContext({
+    chrome,
+    fetch,
+    console: { warn: () => {}, log: () => {} },
+    URL,
+    setTimeout: (fn: () => void, ms: number) => {
+      delays.push(ms);
+      return setTimeout(fn, 0);
+    },
+  });
+  context.importScripts = (file: string) =>
+    vm.runInContext(readFileSync(join(DIR, file), 'utf8'), context, { filename: file });
+  vm.runInContext(readFileSync(join(DIR, 'background.js'), 'utf8'), context, {
+    filename: 'background.js',
+  });
+  const send = (message: Any, sender: Any) =>
+    new Promise<Any>((resolve) => {
+      const async = listeners.message(message, sender, resolve);
+      if (!async) resolve(undefined);
+    });
+  const settle = async () => {
+    for (let i = 0; i < 50; i += 1) await new Promise((r) => setTimeout(r, 0));
+  };
+  return { calls, delays, tabUpdates, send, settle, ready: context.LLFB?.backgroundReady };
+}
+
+describe('background.js outbox survives a worker restart', () => {
+  const TOKEN = 'ab'.repeat(16);
+  const startSender = { url: 'http://127.0.0.1:4567/start', tab: { id: 7 } };
+  const groupSender = { tab: { id: 7 } };
+  const groupJob = {
+    done: false,
+    slug: 'group-a',
+    url: 'https://www.facebook.com/groups/1',
+    wallBudgetMs: 20 * 60_000,
+  };
+  const result = { v: 1, slug: 'group-a', status: 'collected', units: [], comments: [] };
+
+  async function startAndDispatch(store: Record<string, Any>, resultAnswer: () => Any) {
+    const worker = bootWorker(store, (call) => {
+      if (call.path === '/next') return { status: 200, json: groupJob };
+      if (call.path === '/result') return resultAnswer();
+      return { status: 200, json: { ok: true } };
+    });
+    expect(
+      await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender),
+    ).toEqual({ ok: true });
+    await worker.settle(); // (lets the pre-fix, un-awaited nextJob() reach the same point)
+    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url }]);
+    expect((await worker.send({ type: 'llfb-ready' }, groupSender)).job.slug).toBe('group-a');
+    return worker;
+  }
+
+  it('re-sends the persisted result after a restart between harvest and ack', async () => {
+    const store: Record<string, Any> = {};
+    // Worker 1 dies while POST /result is in flight.
+    const first = await startAndDispatch(store, () => null);
+    void first.send({ type: 'llfb-result', result }, groupSender);
+    await first.settle();
+    expect(first.calls.filter((c) => c.path === '/result')).toHaveLength(1);
+    expect(store.llfb.outbox).toMatchObject({ phase: 'deliver' });
+    expect(store.llfb.outbox.pendingResult).toMatchObject({ slug: 'group-a', extVersion: '9.9.9' });
+
+    // Worker 2 boots on the same session storage and resumes the delivery.
+    const second = bootWorker(store, (call) =>
+      call.path === '/next' ? { status: 200, json: { done: true } } : { status: 200, json: {} },
+    );
+    await second.ready;
+    await second.settle();
+    expect(second.calls.map((c) => `${c.method} ${c.path}`)).toEqual([
+      'POST /result',
+      'GET /next',
+      'POST /finished',
+    ]);
+    expect(second.calls[0].body).toMatchObject({ slug: 'group-a', status: 'collected' });
+    expect(store.llfb).toMatchObject({ outbox: null, phase: 'done', finished: true });
+  });
+
+  it('counts a 409 duplicate as delivered and backs off on transient failures', async () => {
+    const store: Record<string, Any> = {};
+    const first = await startAndDispatch(store, () => null);
+    void first.send({ type: 'llfb-result', result }, groupSender);
+    await first.settle();
+    let resultPosts = 0;
+    const second = bootWorker(store, (call) => {
+      if (call.path === '/result') {
+        resultPosts += 1;
+        return { status: resultPosts === 1 ? 500 : 409 };
+      }
+      return call.path === '/next'
+        ? { status: 200, json: { done: true } }
+        : { status: 200, json: {} };
+    });
+    await second.ready;
+    await second.settle();
+    expect(resultPosts).toBe(2);
+    expect(second.delays).toContain(1_000);
+    expect(store.llfb).toMatchObject({ outbox: null, finished: true });
+  });
+
+  it('answers llfb-result only after the receiver acknowledged it', async () => {
+    const store: Record<string, Any> = {};
+    const order: string[] = [];
+    const worker = await startAndDispatch(store, () => {
+      order.push('ack');
+      return { status: 200, json: { ok: true } };
+    });
+    const response = await worker.send({ type: 'llfb-result', result }, groupSender);
+    order.push('response');
+    expect(response).toEqual({ ok: true });
+    expect(order).toEqual(['ack', 'response']);
+    expect(store.llfb.outbox).toBeNull();
   });
 });
