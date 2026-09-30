@@ -185,9 +185,7 @@ describe('Facebook export orchestration', () => {
     expect(packageJson.scripts['knowledge:fb-export:dry']).toBe(
       'tsx scripts/knowledge/fb-export-run.mjs --dry-run',
     );
-    expect(packageJson.scripts['knowledge:fb-export:probe']).toBe(
-      'tsx scripts/knowledge/fb-export-run.mjs --dry-run --probe-profile',
-    );
+    expect(packageJson.scripts['knowledge:fb-export:probe']).toBeUndefined();
   });
 
   it('uploads, records, comments, and closes only a complete real run', async () => {
@@ -347,20 +345,25 @@ describe('Facebook export orchestration', () => {
     });
   });
 
-  it('probe mode calls only the profile collector and reports the discovered i_user', async () => {
-    const collect = vi.fn().mockResolvedValue({ results: [], actingPageId: '987' });
+  it('stops the run on a stunted feed, skips later groups and says why', async () => {
+    const gate = vi.fn();
     const result = await runExport({
-      dryRun: true,
-      probeProfile: true,
-      root: 'C:\\outside-repo',
-      groups: [group],
+      root: 'C:\outside-repo',
+      groups: [group, { ...group, slug: 'group-b' }],
       readLedger: vi.fn().mockResolvedValue({ groups: {} }),
-      collect,
+      writeLedger: vi.fn(),
+      collect: vi.fn().mockResolvedValue({
+        results: [{ slug: 'group-a', status: 'stunted' }],
+        actingPageId: null,
+      }),
+      gate,
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue: vi.fn(),
     });
-    expect(collect).toHaveBeenCalledWith(
-      expect.objectContaining({ groups: [], probeProfile: true }),
-    );
-    expect(result.ok).toBe(true);
-    expect(result.summary).toContain('Acting Page i_user: 987.');
+    expect(result.ok).toBe(false);
+    expect(gate).not.toHaveBeenCalled();
+    expect(result.summary).toContain('Feed stunted');
+    expect(result.summary).toContain('Facebook is limiting this browser; stopped');
+    expect(result.results.find((r) => r.slug === 'group-b')?.status).toBe('failed');
   });
 });

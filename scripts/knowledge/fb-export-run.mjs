@@ -9,10 +9,12 @@ import { buildIngestResult } from '../community/fb-export-ingest.mjs';
 import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
-import { collectAll } from './fb-export-collect.mjs';
+import { extensionCollect } from './fb-export-launch.mjs';
 import { localDate, weekOf } from './fb-export-helpers.mjs';
 
 const execFileAsync = promisify(execFile);
+// Statuses that stop the whole run (Facebook is blocking or limiting this browser).
+const STOP_STATUSES = ['login', 'login-failed', 'checkpoint', 'captcha', 'wrong-profile', 'stunted'];
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..');
 
 export async function gateExport(
@@ -166,11 +168,15 @@ export function runSummary(results, actingPageId = null) {
       .join(', ');
     return `- ${r.slug}: ${r.status}${detail ? ` (${detail})` : ''}${r.reason ? ` — ${r.reason}` : ''}`;
   });
+  const stunted = results.some((row) => row.status === 'stunted');
   const partial = results.filter((row) => row.partial).map((row) => row.slug);
   return [
     `Facebook export: ${counts.done} done, ${counts['not-member']} not joined, ${counts.unavailable} unavailable, ${counts.failed} failed.`,
     ...(actingPageId ? [`Acting Page i_user: ${actingPageId}.`] : []),
     ...details,
+    ...(stunted
+      ? ['Feed stunted: Facebook is limiting this browser; stopped. Remaining groups were not collected.']
+      : []),
     ...(partial.length ? [`Partial groups: ${partial.join(', ')}.`] : []),
   ].join('\n');
 }
@@ -208,7 +214,6 @@ async function reportIssue(issue, body, { close = false, ghImpl = gh } = {}) {
 
 export async function runExport(options = {}) {
   const dryRun = options.dryRun ?? false;
-  const probeProfile = options.probeProfile ?? false;
   const now = options.now ?? new Date();
   const root =
     options.root ?? (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb'));
@@ -233,25 +238,18 @@ export async function runExport(options = {}) {
   const pending = (options.groups ?? FB_GROUPS_CHECKLIST).filter(
     (group) => !complete.has(group.slug),
   );
-  const collection = pending.length || probeProfile
-    ? await (options.collect ?? collectAll)({
-        groups: probeProfile ? [] : pending,
+  const collection = pending.length
+    ? await (options.collect ?? extensionCollect)({
+        groups: pending,
+        root,
         outputDir,
-        interactiveSetup: dryRun,
-        probeProfile,
+        now,
+        week: weekLabel,
       })
     : { results: [], actingPageId: ledger.actingPageId ?? null };
   const collected = Array.isArray(collection) ? collection : collection.results;
   const actingPageId = Array.isArray(collection) ? null : collection.actingPageId;
   if (actingPageId) ledger.actingPageId = actingPageId;
-  if (probeProfile) {
-    const results = collected.length ? collected : [{ slug: 'profile', status: 'validated' }];
-    return {
-      ok: collected.length === 0,
-      results,
-      summary: runSummary(results, actingPageId),
-    };
-  }
   const results = completedEntries.map(([slug, row]) => ({
     slug,
     status: 'already-done',
@@ -263,7 +261,7 @@ export async function runExport(options = {}) {
 
   for (const item of collected) {
     const group = pending.find((candidate) => candidate.slug === item.slug);
-    if (['login-failed', 'checkpoint', 'wrong-profile'].includes(item.status)) {
+    if (STOP_STATUSES.includes(item.status)) {
       results.push(item);
       break;
     }
@@ -379,15 +377,13 @@ export async function runExport(options = {}) {
   if (dryRun)
     return {
       ok: results.every(
-        (row) => !['failed', 'login-failed', 'checkpoint', 'wrong-profile'].includes(row.status),
+        (row) => !['failed', ...STOP_STATUSES].includes(row.status),
       ),
       results,
       summary: runSummary(results, actingPageId),
     };
   await persistLedger();
-  const failed = results.some((row) =>
-    ['failed', 'login-failed', 'checkpoint', 'wrong-profile'].includes(row.status),
-  );
+  const failed = results.some((row) => ['failed', ...STOP_STATUSES].includes(row.status));
   const issue = await (options.findIssue ?? findWeeklyIssue)(weekLabel);
   const summary = runSummary(results, actingPageId);
   await (options.reportIssue ?? reportIssue)(issue, summary, { close: !failed });
@@ -397,10 +393,7 @@ export async function runExport(options = {}) {
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
-  const probeProfile = args.includes('--probe-profile');
-  if (probeProfile && !dryRun)
-    throw new Error('--probe-profile requires --dry-run so it cannot collect or upload groups');
-  const result = await runExport({ dryRun, probeProfile });
+  const result = await runExport({ dryRun });
   console.log(result.summary);
   if (!result.ok) return 1;
 }
