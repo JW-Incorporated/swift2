@@ -258,7 +258,7 @@ describe('fb export receiver', () => {
     const first = await call(r, 'POST', '/result', collected('group-a'));
     expect(first.status).toBe(503);
     expect(await first.json()).toMatchObject({ retry: true });
-    expect(r.partialResults()).toEqual([]);
+    expect(r.partialResults()[0]).toMatchObject({ status: 'failed', reason: 'run-wall-budget' });
     const again = await (await call(r, 'GET', '/next')).json();
     expect(again).toMatchObject({ slug: 'group-a' });
     expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(200);
