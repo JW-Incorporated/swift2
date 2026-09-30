@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 describe('E3 manually confirmed authoring workflow', () => {
-  const workflow = readFileSync(resolve('.github/workflows/merch-audit-authoring.yml'), 'utf8');
+  const workflow = readFileSync(resolve('.github/workflows/merch-audit-authoring.yml'), 'utf8').replace(/\r\n/g, '\n');
   // Isolate the `author:` job's own text (up to the next top-level job
   // key) so the "stays artifact-only" assertion below judges ONLY that
   // job — the separate `apply-demotions:` job legitimately commits and
