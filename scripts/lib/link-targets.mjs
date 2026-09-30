@@ -22,7 +22,7 @@ const IMG_HOST = /^(?:i\.ytimg\.com|upload\.wikimedia\.org|cdn\.shopify\.com|i\.
 const IMG_PATH = /\/(?:thmb|wp-content\/uploads|api\/img)\//i;
 // Endpoints, XML namespaces, example hosts and our own API routes: real URLs,
 // but not links a visitor follows.
-const NON_LINK_HOST = /^(?:api\.|.+\.api\.|schema\.org$|(?:www\.)?w3\.org$|example\.(?:com|org)$|localhost|127\.|exp\.host$|u\.expo\.dev$|nextjs\.org$|vercel\.|va\.vercel|openapi\.vercel|challenges\.cloudflare|.+\.supabase\.co$|swift2-web|(?:www.)?longlivets.com$|lookaside\.instagram\.com$|www\.youtube-nocookie\.com$)/i;
+const NON_LINK_HOST = /^(?:api\.|.+\.api\.|schema\.org$|(?:www\.)?w3\.org$|example\.(?:com|org)$|localhost|127\.|exp\.host$|u\.expo\.dev$|nextjs\.org$|vercel\.|va\.vercel|openapi\.vercel|challenges\.cloudflare|.+\.supabase\.co$|swift2-web|(?:www\.)?longlivets\.com$|lookaside\.instagram\.com$|www\.youtube-nocookie\.com$)/i;
 const NON_LINK_URL = /\/api\/|\/oembed\b|\/rss\/articles\/|\/feed(?:s)?\/|[?&]$|=$|\/(?:ID|XXXXXXXXXXX)$|\$\{|\{|…|\.\.\./;
 const SCAN_ROOTS = { app: ['apps/web', 'apps/mobile', 'apps/worker', 'packages'] };
 const SKIP_DIRS = new Set(['node_modules', '.git', '.next', '.expo', 'dist', 'build', 'public', 'fixtures', 'generated']);
