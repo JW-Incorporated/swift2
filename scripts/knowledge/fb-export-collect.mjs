@@ -253,8 +253,23 @@ export async function collectGroup(page, group, options = {}) {
         collectedAt: now.toISOString(),
       };
     }
-    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await humanScroll(page, { sleep, random });
     await sleep(2_000 + Math.floor(random() * 3_001));
+  }
+}
+
+// Live 2026-09-30: jumping straight to the bottom (window.scrollTo(scrollHeight)) is not how
+// a person scrolls and stopped loading the feed. Scroll in several wheel steps with jitter;
+// fall back to small in-page scrollBy steps if the input channel is unavailable.
+export async function humanScroll(page, { sleep, random = Math.random, steps = 4 } = {}) {
+  for (let step = 0; step < steps; step += 1) {
+    const deltaY = 350 + Math.floor(random() * 350);
+    try {
+      await page.mouse.wheel({ deltaY });
+    } catch {
+      await page.evaluate((dy) => window.scrollBy({ top: dy, behavior: 'smooth' }), deltaY);
+    }
+    await sleep(400 + Math.floor(random() * 900));
   }
 }
 
