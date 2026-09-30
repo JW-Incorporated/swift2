@@ -23,7 +23,7 @@ describe('launchPlainChrome', () => {
         url: 'http://127.0.0.1:5555/start#tok',
         profileDir: dir,
         spawn: spawn as never,
-        chromeExecutable: 'C:\fake\chrome.exe',
+        chromeExecutable: 'C:/fake/chrome.exe',
       });
       const args = calls[0].args;
       expect(args).toContain(`--user-data-dir=${dir}`);

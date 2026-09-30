@@ -348,7 +348,7 @@ describe('Facebook export orchestration', () => {
   it('stops the run on a stunted feed, skips later groups and says why', async () => {
     const gate = vi.fn();
     const result = await runExport({
-      root: 'C:\outside-repo',
+      root: 'C:/outside-repo',
       groups: [group, { ...group, slug: 'group-b' }],
       readLedger: vi.fn().mockResolvedValue({ groups: {} }),
       writeLedger: vi.fn(),
