@@ -91,6 +91,8 @@ async function readJson(req) {
   }
 }
 
+const MAX_STORE_ATTEMPTS = 3;
+
 export async function startReceiver({
   groups,
   token,
@@ -109,6 +111,7 @@ export async function startReceiver({
     storeComments ?? (async (args) => (await import('./fb-comments.mjs')).storeComments(args));
 
   const results = [];
+  const storeFailures = new Map();
   let cursor = 0;
   let current = null; // group handed out, awaiting its result
   let stopped = false;
@@ -252,6 +255,13 @@ export async function startReceiver({
           });
           commentLine = ` comment-posts=${stored?.posts ?? 0} comments=${stored?.comments ?? 0} replies=${stored?.replies ?? 0}`;
         } catch {
+          const attempts = (storeFailures.get(group.slug) ?? 0) + 1;
+          storeFailures.set(group.slug, attempts);
+          if (attempts < MAX_STORE_ATTEMPTS) {
+            log(`fb-receiver ${group.slug}: comments=store-failed attempt=${attempts} retry`);
+            return send(503, { error: 'comments store failed', retry: true });
+          }
+          result = { slug: group.slug, status: 'failed', reason: 'comments-store-failed' };
           commentLine = ' comments=store-failed';
         }
       }

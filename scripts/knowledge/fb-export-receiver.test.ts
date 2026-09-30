@@ -248,6 +248,38 @@ describe('fb export receiver', () => {
     expect(res.status).toBe(413);
   }, 30_000);
 
+  it('answers 503 retry and keeps the group current when the comment store fails', async () => {
+    const storeComments = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('disk'))
+      .mockResolvedValue({ path: 'p', posts: 1, comments: 2, replies: 1 });
+    const { r } = await setup({ storeComments });
+    await call(r, 'GET', '/next');
+    const first = await call(r, 'POST', '/result', collected('group-a'));
+    expect(first.status).toBe(503);
+    expect(await first.json()).toMatchObject({ retry: true });
+    expect(r.partialResults()).toEqual([]);
+    const again = await (await call(r, 'GET', '/next')).json();
+    expect(again).toMatchObject({ slug: 'group-a' });
+    expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ slug: 'group-a', status: 'collected' });
+  });
+
+  it('records comments-store-failed and answers 200 after 3 failed store attempts', async () => {
+    const storeComments = vi.fn().mockRejectedValue(new Error('disk'));
+    const { r } = await setup({ storeComments });
+    await call(r, 'GET', '/next');
+    expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(503);
+    expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(503);
+    expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({
+      slug: 'group-a',
+      status: 'failed',
+      reason: 'comments-store-failed',
+    });
+    expect(await (await call(r, 'GET', '/next')).json()).toMatchObject({ slug: 'group-b' });
+  });
+
   it('close() is idempotent', async () => {
     const { r } = await setup();
     await r.close();
