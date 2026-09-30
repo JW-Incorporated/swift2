@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **8 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -86,26 +86,6 @@
 4. If GitHub issues a new token value instead of an in-place edit, update the secret: repo Settings → Secrets and variables → Actions → SOCIAL_POSTER_PAT → paste the new value.
 
 **Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
-
-## #49 🔴 [BLOCKING] Add the shared Community Tasks acknowledgement secret (~5 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** the daily Community Tasks workflow is otherwise fully
-configured and its scheduled runs are healthy, but it safely refuses to send
-an email until it can create secure one-click `Posted` and `Skip` links. The
-same value must be available to both the GitHub mailer and the Vercel website:
-the mailer si
-
-**Steps:**
-1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
-2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
-3. In the Vercel project that serves `longlivets.com`, open **Settings →
-4. In GitHub, open **Actions → community-mailer → Run workflow**, select
-
-**Worked if:** a manual `daily` run no longer logs
-`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
-there is at least one drafted lead, and its `Posted`/`Skip` links record the
-chosen outc
 
 ## #70 🟡 [DECIDE] Save this week's Facebook group pages and upload them (~30 min)
 <!-- ha filed=2026-09-12 -->
