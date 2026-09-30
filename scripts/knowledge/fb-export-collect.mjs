@@ -6,6 +6,12 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { FB_GROUPS_CHECKLIST, FB_READ_AS } from './fb-groups-checklist.mjs';
 import { launchCollectorBrowser } from './fb-export-browser.mjs';
+import {
+  buildHarvestedHtml,
+  captureVisibleUnits,
+  expandVisibleUnits,
+  mergeHarvest,
+} from './fb-export-harvest.mjs';
 import { ensureActingAsPage, ensurePersonalProfile } from './fb-export-profile.mjs';
 export { chromeExecutable, collectorLaunchOptions } from './fb-export-browser.mjs';
 export { ensureActingAsPage } from './fb-export-profile.mjs';
@@ -140,38 +146,6 @@ export async function establishSession(page, options = {}) {
   });
 }
 
-async function clickSeeMore(page) {
-  return page.evaluate(() => {
-    let count = 0;
-    for (const article of document.querySelectorAll('[role="article"]')) {
-      for (const control of article.querySelectorAll('button, [role="button"]')) {
-        const name = (control.getAttribute('aria-label') || control.textContent || '').trim();
-        if (/^See more$/i.test(name)) {
-          control.click();
-          count += 1;
-        }
-      }
-    }
-    return count;
-  });
-}
-
-async function visibleTimes(page) {
-  return page.evaluate(() =>
-    [...document.querySelectorAll('[role="article"]')].flatMap((article) =>
-      [...article.querySelectorAll('abbr, time, a[aria-label]')]
-        .map(
-          (el) =>
-            el.getAttribute('datetime') ||
-            el.getAttribute('title') ||
-            el.getAttribute('aria-label') ||
-            el.textContent,
-        )
-        .filter(Boolean),
-    ),
-  );
-}
-
 export async function writeDiagnostic(page, directory, slug) {
   await mkdir(directory, { recursive: true });
   const screenshotPath = join(directory, `${slug}-selector-failure.png`);
@@ -213,11 +187,25 @@ export async function collectGroup(page, group, options = {}) {
   if (classification === 'captcha') classification = 'checkpoint';
   if (classification !== 'ready') return { slug: group.slug, status: classification };
 
-  let previousHeight = 0;
+  let harvest = { units: [], nextSyntheticPosition: 1, maxPosinset: 0 };
+  let previousHarvestCount = 0;
+  let previousMaxPosinset = 0;
   let stagnantScrolls = 0;
   for (let scrollCount = 0; ; scrollCount += 1) {
-    await clickSeeMore(page);
-    const oldestAgeMs = oldestVisibleAge(await visibleTimes(page), now);
+    const expanded = await expandVisibleUnits(page);
+    if (expanded) await sleep(options.expandWaitMs ?? 500);
+    const snapshot = await captureVisibleUnits(page);
+    harvest = mergeHarvest(harvest, snapshot);
+    const madeProgress = snapshot.maxPosinset
+      ? snapshot.maxPosinset > previousMaxPosinset
+      : harvest.units.length > previousHarvestCount;
+    stagnantScrolls = madeProgress ? 0 : stagnantScrolls + 1;
+    previousHarvestCount = harvest.units.length;
+    previousMaxPosinset = Math.max(previousMaxPosinset, snapshot.maxPosinset);
+    const oldestAgeMs = oldestVisibleAge(
+      harvest.units.flatMap((unit) => unit.timestamps),
+      now,
+    );
     const decision = stopDecision({
       oldestAgeMs,
       stagnantScrolls,
@@ -225,22 +213,23 @@ export async function collectGroup(page, group, options = {}) {
       scrollCap: options.scrollCap,
     });
     if (decision.stop) {
-      if (!decision.ageRuleMet)
-        return { slug: group.slug, status: 'scroll-cap', ageRuleMet: false };
       const filePath = join(outputDir, exportFileName(group.slug, localDate(now)));
       await mkdir(outputDir, { recursive: true });
-      await writeFile(filePath, await page.content(), 'utf8');
+      await writeFile(
+        filePath,
+        buildHarvestedHtml(`${group.label} Facebook export`, harvest.units),
+        'utf8',
+      );
       return {
         slug: group.slug,
-        status: 'collected',
+        status: decision.reason === 'scroll-cap' ? 'scroll-cap' : 'collected',
         filePath,
-        ageRuleMet: true,
+        ageRuleMet: decision.ageRuleMet,
         stopReason: decision.reason,
+        harvestedCount: harvest.units.length,
+        slotCount: harvest.maxPosinset,
       };
     }
-    const height = await page.evaluate(() => document.documentElement.scrollHeight);
-    stagnantScrolls = height === previousHeight ? stagnantScrolls + 1 : 0;
-    previousHeight = height;
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await sleep(2_000 + Math.floor(random() * 3_001));
   }

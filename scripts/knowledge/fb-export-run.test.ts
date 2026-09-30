@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { gateExport, runExport, uploadOne, uploadSucceeded } from './fb-export-run.mjs';
+import { gateExport, runExport, runSummary, uploadOne, uploadSucceeded } from './fb-export-run.mjs';
 
 const group = { slug: 'group-a', label: 'Group A', groupId: '123' };
 
@@ -28,6 +28,37 @@ describe('Facebook export gate', () => {
       ok: false,
       reason: 'scroll-cap',
     });
+  });
+
+  it('rejects a low harvest when the feed exposed more than 20 positions', async () => {
+    const copy = vi.fn();
+    await expect(
+      gateExport(
+        {
+          status: 'collected',
+          ageRuleMet: true,
+          harvestedCount: 4,
+          slotCount: 49,
+          filePath: 'export.html',
+        } as never,
+        group as never,
+        { copy } as never,
+      ),
+    ).resolves.toEqual({ ok: false, reason: 'low harvest' });
+    expect(copy).not.toHaveBeenCalled();
+  });
+
+  it('reports harvested posts and the normalized stop reason', () => {
+    expect(
+      runSummary([
+        {
+          slug: 'group-a',
+          status: 'validated',
+          harvestedCount: 42,
+          stopReason: 'seven-days',
+        },
+      ]),
+    ).toContain('group-a: validated (42 posts, stop: age)');
   });
 
   it('requires the exact successful uploader trailer and no KEPT marker', () => {

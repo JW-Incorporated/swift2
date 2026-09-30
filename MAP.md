@@ -346,6 +346,7 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 | Path | What |
 |---|---|
 | `scripts/knowledge/fb-export-collect.mjs` | Visible Puppeteer collector using a dedicated persistent Chrome profile, DPAPI password read, safety-stop classification, bounded scrolling, accessible selectors, and selector-failure diagnostics |
+| `scripts/knowledge/fb-export-harvest.mjs` | Captures and merges virtualized Facebook feed units during scrolling, neutralizes nested article roles, and builds parser-safe HTML exports |
 | `scripts/knowledge/fb-export-browser.mjs` | Finds and launches the dedicated visible Chrome/Puppeteer profile without automation markers |
 | `scripts/knowledge/fb-export-profile.mjs` | Verifies the Facebook `i_user` acting identity, performs the one bounded Long Live Page-switch attempt, and emits safe profile-probe diagnostics |
 | `scripts/knowledge/fb-export-helpers.mjs` | Pure filename/date, relative-age, stopping, and page-classification rules |

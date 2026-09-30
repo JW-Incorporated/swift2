@@ -20,6 +20,8 @@ export async function gateExport(
   group,
   { read = readFile, copy = copyFile, remove = rm } = {},
 ) {
+  if (result.harvestedCount < 5 && result.slotCount > 20)
+    return { ok: false, reason: 'low harvest' };
   if (result.status !== 'collected') return { ok: false, reason: result.status };
   if (!result.ageRuleMet) return { ok: false, reason: 'seven-day age rule not met' };
   const copyPath = `${result.filePath}.gate-copy.html`;
@@ -32,7 +34,13 @@ export async function gateExport(
       exportedAt: new Date(),
     });
     if (parsed.fanSignal.volume < 1) return { ok: false, reason: 'real parser kept 0 posts' };
-    return { ok: true, postCount: parsed.fanSignal.volume, filePath: result.filePath };
+    return {
+      ok: true,
+      postCount: parsed.fanSignal.volume,
+      harvestedCount: result.harvestedCount,
+      stopReason: result.stopReason,
+      filePath: result.filePath,
+    };
   } catch (error) {
     return { ok: false, reason: `parser gate failed: ${error.message}` };
   } finally {
@@ -90,10 +98,14 @@ export function runSummary(results, actingPageId = null) {
     else if (result.status === 'unavailable') counts.unavailable += 1;
     else counts.failed += 1;
   }
-  const details = results.map(
-    (r) =>
-      `- ${r.slug}: ${r.status}${r.postCount ? ` (${r.postCount} posts)` : ''}${r.reason ? ` — ${r.reason}` : ''}`,
-  );
+  const details = results.map((r) => {
+    const count = r.harvestedCount ?? r.postCount;
+    const stop = r.stopReason === 'seven-days' ? 'age' : r.stopReason;
+    const detail = [count !== undefined ? `${count} posts` : null, stop ? `stop: ${stop}` : null]
+      .filter(Boolean)
+      .join(', ');
+    return `- ${r.slug}: ${r.status}${detail ? ` (${detail})` : ''}${r.reason ? ` — ${r.reason}` : ''}`;
+  });
   return [
     `Facebook export: ${counts.done} done, ${counts['not-member']} not joined, ${counts.unavailable} unavailable, ${counts.failed} failed.`,
     ...(actingPageId ? [`Acting Page i_user: ${actingPageId}.`] : []),
@@ -190,7 +202,13 @@ export async function runExport(options = {}) {
     }
     const gate = await (options.gate ?? gateExport)(item, group);
     if (!gate.ok) {
-      results.push({ slug: item.slug, status: 'failed', reason: gate.reason });
+      results.push({
+        slug: item.slug,
+        status: 'failed',
+        reason: gate.reason,
+        harvestedCount: item.harvestedCount,
+        stopReason: item.stopReason,
+      });
       if (item.status === 'selector-failure') {
         console.error(
           `Repair prompt: quen -p "Inspect Facebook selector drift for ${item.slug} using ${item.diagnostic?.dumpPath}; do not read or request credentials."`,
@@ -199,12 +217,24 @@ export async function runExport(options = {}) {
       continue;
     }
     if (dryRun) {
-      results.push({ slug: item.slug, status: 'validated', postCount: gate.postCount });
+      results.push({
+        slug: item.slug,
+        status: 'validated',
+        postCount: gate.postCount,
+        harvestedCount: gate.harvestedCount,
+        stopReason: gate.stopReason,
+      });
       continue;
     }
     const uploaded = await (options.upload ?? uploadOne)(gate.filePath);
     const final = uploaded.ok
-      ? { slug: item.slug, status: 'uploaded', postCount: gate.postCount }
+      ? {
+          slug: item.slug,
+          status: 'uploaded',
+          postCount: gate.postCount,
+          harvestedCount: gate.harvestedCount,
+          stopReason: gate.stopReason,
+        }
       : { slug: item.slug, status: 'failed', reason: uploaded.reason };
     results.push(final);
     if (uploaded.ok) {
