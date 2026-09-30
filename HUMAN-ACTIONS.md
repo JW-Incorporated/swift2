@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **15 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #87 🟡 [DECIDE] Ownership backlog stuck 7+ days — accept it or get it routed (~5 min)
+<!-- ha filed=2026-09-30 -->
+
+**Why:** Issue #4546 has flagged the same "abandoned"/"ambiguous" backlog (9 abandoned + 1 ambiguous issue, budget 0) every day since 2026-09-23 with no automated fix — only a policy call can stop the daily alert.
+**Steps:**
+1. Open github.com/JW-Incorporated/swift2/issues/4546 and read the latest breach list.
+2. Decide: raise the budget in `.github/work-ownership-budget.json` to accept the backlog, or ask for the listed issues to be routed/worked.
+3. Comment your decision on issue #4546.
+**Worked if:** a founder comment on #4546 records either an accepted new budget or a routing decision.
 
 ## #86 🔴 [BLOCKING] SOCIAL_POSTER_PAT can't trigger GitHub Actions — Marjorie's routine re-runs 403 (~10 min)
 <!-- ha filed=2026-09-29 -->
