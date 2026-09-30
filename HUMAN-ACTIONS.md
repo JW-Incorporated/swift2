@@ -6,6 +6,29 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
+## #88 🔴 [BLOCKING] Store Facebook login and schedule the weekly export (~5 min)
+<!-- ha filed=2026-09-30 -->
+
+**Why:** The weekly Facebook group export is now deterministic local automation
+(`docs/decisions.md`, 2026-09-30), but only Joey can store his personal login
+with Windows DPAPI and register the task in his logged-in Windows session.
+The credential stays user-scoped outside the repo; checkpoints, 2FA, and
+CAPTCHA still stop for Joey.
+**Steps:**
+1. In PowerShell, run
+   `New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\longlive-fb" | Out-Null`
+   and then run exactly
+   `Get-Credential | Export-Clixml "$env:LOCALAPPDATA\longlive-fb\fb-cred.xml"`.
+   Enter the username and password for Joey's personal Facebook account.
+2. In this project folder, run `npm run knowledge:fb-schedule`.
+3. Run `npm run knowledge:fb-export:dry` once. In the visible dedicated Chrome
+   window, sign into Facebook if asked; complete any checkpoint/2FA/CAPTCHA
+   yourself, then rerun the dry run.
+**Worked if:** Windows Task Scheduler shows `Long Live Weekly Facebook Export`
+for Sunday 6:00 PM with “run as soon as possible after a missed start” and
+wake enabled, and the dry run reports every joined group as `validated` (a
+group Joey has not joined may report `not-member`).
+
 ## #87 🟡 [DECIDE] Ownership backlog stuck 7+ days — accept it or get it routed (~5 min)
 <!-- ha filed=2026-09-30 -->
 
@@ -87,73 +110,20 @@
 
 **Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
 
-## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
+## #70 🟡 [DECIDE] Confirm the first automated Facebook export (~5 min)
 <!-- ha filed=2026-09-12 -->
 
-**Why:** T3 v1 ships Instagram like_count/comments_count only. reach/saved/shares need the instagram_manage_insights scope, which the current IG_ACCESS_TOKEN (instagram_basic, instagram_content_publish, pages_read_engagement, business_management, pages_show_list, pages_manage_posts) doesn't carry.
-
+**Why:** The fan-signal engine reads what Swifties are saying in six Facebook
+groups. Joey approved deterministic collection from his personal account and
+accepted the account risk (`docs/decisions.md`, 2026-09-30), so this is now
+automated. This existing action remains open only until the first successful
+run proves the previously unverified parser against a real export.
 **Steps:**
-1. Meta App Dashboard → App Review → Permissions and Features → add instagram_manage_insights.
-2. Regenerate the long-lived Graph API token for the same app/IG account with the new scope included.
-3. `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` with the regenerated token.
-
-**Worked if:** a real `GET /{ig-media-id}?fields=reach,saved,shares` call returns values instead of a `(#10)` permission error.
-
----
-
-## #49 🔴 [BLOCKING] Add the shared Community Tasks acknowledgement secret (~5 min)
-<!-- ha filed=2026-09-11 -->
-
-**Why:** the daily Community Tasks workflow is otherwise fully
-configured and its scheduled runs are healthy, but it safely refuses to send
-an email until it can create secure one-click `Posted` and `Skip` links. The
-same value must be available to both the GitHub mailer and the Vercel website:
-the mailer si
-
-**Steps:**
-1. On your own machine, open a terminal and run `openssl rand -hex 32`. Copy
-2. In `JW-Incorporated/swift2`, open **Settings → Secrets and variables →
-3. In the Vercel project that serves `longlivets.com`, open **Settings →
-4. In GitHub, open **Actions → community-mailer → Run workflow**, select
-
-**Worked if:** a manual `daily` run no longer logs
-`COMMUNITY_ACK_SECRET unset`, the normal Community Tasks email arrives when
-there is at least one drafted lead, and its `Posted`/`Skip` links record the
-chosen outc
-
-## #70 🟡 [DECIDE] Save this week's Facebook group pages and upload them (~30 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** The fan-signal engine reads what Swifties are actually saying in six
-Facebook groups. Facebook has no API for groups you don't run and forbids
-automated collection, so this is the one step a person has to do. Nothing has
-been exported yet — the watchdog has been flagging it since 2026-09-07
-(issue #4009) and two weekly reminders are open (#3911, #3536). Until one
-export lands, nobody knows whether the parser works.
-**Steps:**
-1. In a normal logged-in browser (never a bot), open each group below in turn.
-   All six were found by desk research and **nobody has confirmed you are a
-   member** — if you are not in one, skip it and say which in your reply:
-   - Taylor Swift's Vault → `taylor-swifts-vault`
-   - Friendship Bracelet Making and Trading → `friendship-bracelet-making-trading`
-   - Swiftie Super Worldwide Friendship Bracelet Trade → `swiftie-super-worldwide-bracelet-trade`
-   - Kulto ni TAYLOR SWIFT → `kulto-ni-taylor-swift`
-   - Taylor Swift Swifties → `taylor-swift-swifties`
-   - Friendship Bracelets Buy/Sell/Trade → `friendship-bracelets-buy-sell-trade`
-2. In the group, sort posts by **New activity** (not Top).
-3. Scroll down until the posts you can see are older than 7 days. Click
-   "See more" on any long post so its full text is on screen. Do not open
-   comment threads one by one.
-4. Press `Ctrl+S` (Windows) or `Cmd+S` (Mac). In the save dialog choose
-   **"Webpage, Complete"**. Name the file exactly
-   `fb-<slug>-<YYYY-MM-DD>.html` using the slug from step 1 and today's date —
-   for example `fb-taylor-swifts-vault-2026-09-14.html`. Save to Downloads.
-5. Repeat steps 2-4 for each group you are a member of.
-6. Open a terminal in the project folder and run, exactly:
-   `npm run knowledge:fb-upload -- ~/Downloads/fb-*.html`
-   It prints one line per file. Each says either `uploaded, local copy
-   deleted` or gives a reason and `local copy KEPT`. A kept file was not
-   uploaded — re-run that one file by name.
-7. Close the open reminder issues #3911 and #3536.
-**Worked if:** step 6 ends with `knowledge:fb-upload: N/N uploaded` where N is
-the number of groups you saved, and no line says `local copy KEPT`.
+1. Complete #88 to store the DPAPI credential and register the Sunday task.
+2. Let `npm run knowledge:fb-export` finish once, or run it yourself after a
+   successful dry run. Do not solve a checkpoint, 2FA prompt, or CAPTCHA with
+   automation; complete it in the visible browser and rerun.
+3. Confirm the weekly `FB group export due — week of ...` issue closed with a
+   comment listing uploaded/not-member counts.
+**Worked if:** the weekly issue is closed, every joined group says `uploaded`,
+no group says `failed`, and this #70 action can then be closed.

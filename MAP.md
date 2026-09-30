@@ -341,6 +341,16 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 - `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
 - `docs/ops/community-merch-submissions.md` — Joey-facing setup: Apps Script, Resend domain, `vercel env add`.
 
+## Local Facebook export automation (2026-09-30)
+
+| Path | What |
+|---|---|
+| `scripts/knowledge/fb-export-collect.mjs` | Visible Puppeteer collector using a dedicated persistent Chrome profile, DPAPI password read, safety-stop classification, bounded scrolling, accessible selectors, and selector-failure diagnostics |
+| `scripts/knowledge/fb-export-helpers.mjs` | Pure filename/date, relative-age, stopping, and page-classification rules |
+| `scripts/knowledge/fb-export-run.mjs` | Weekly idempotent orchestration: collect → real-parser copy gate → confirmed upload → reminder issue comment/close; `--dry-run` stops before upload/GitHub |
+| `scripts/knowledge/fb-export-task.ps1` | Registers the Sunday 18:00 local Windows task with start-after-miss and wake enabled |
+| `%LOCALAPPDATA%\longlive-fb` | **Outside repo:** DPAPI credential, Chrome profile, dated raw exports/diagnostics, and weekly completion ledgers |
+
 ## Notifications Phase 4 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
 
 Fun notifications: `lyric_of_day`, `on_this_day`, and the `countdowns`

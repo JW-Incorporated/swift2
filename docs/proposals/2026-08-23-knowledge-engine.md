@@ -388,7 +388,7 @@ via layers 1–3. Then delete the `google_news` source row.
 | `site-diff` | `taylorswift.com` + store: HTML diff every run (new SKUs, countdowns, hidden strings — a classic egg surface) | free | official | 2 |
 | `reddit-rss` | `r/TaylorSwift`, `r/SwiftlyNeutral`, `r/GaylorSwift`, `r/TaylorSwiftBookClub`, `r/TSwiftEasterEggs`-style theory subs via `/new/.rss` + `/top/.rss?t=day`, 1 request per feed per run, descriptive `User-Agent` | free, **interim only** — see §4.4 | fan | **1 (now)** |
 | `reddit` | OAuth Data API listings (same subs, comments on top threads too) | Data API agreement — meeting this week | fan | replaces `reddit-rss` the day it's approved |
-| `facebook-groups` | weekly manual export by Joey, parsed by the engine | none (manual) | fan / unverified | 1 — see §4.7 |
+| `facebook-groups` | weekly local browser export from Joey's account, parsed by the engine | deterministic Windows task | fan / unverified | 1 — see §4.7 and decision 2026-09-30 |
 | TikTok | — | no compliant route | — | never |
 
 Store per item: title, snippet ≤2,000 chars, permalink, published_at,
@@ -459,31 +459,31 @@ over cap → cluster deferred to next run, counted in the run summary.
   own rule). Expired rows leave `knowledge_doc`; the tables keep them 1y
   for the eval set.
 
-### 4.7 Facebook groups — the weekly manual export (Joey's task)
+### 4.7 Facebook groups — weekly local export automation
 
-Facebook has no API for groups you don't administer and prohibits
-*automated* collection; a member saving pages they can already see is
-manual use. So this stays human, once a week, ~30 minutes, and the engine
-does the rest. **Raw exports never touch the repo — it is public.** They go
-to a private Supabase Storage bucket and are deleted after parsing.
+**Updated 2026-09-30:** Joey approved deterministic collection from his
+personal Facebook account and accepted Meta ToS/account-flag risk; see the
+2026-09-30 entry in `docs/decisions.md`. The saved-file format and private
+storage path below remain, but `npm run knowledge:fb-export` now performs the
+browser collection, parser gate, upload, and issue close from a dedicated
+persistent Chrome profile. It stops for checkpoint/2FA/CAPTCHA. The older
+manual instructions are superseded. **Raw exports never touch the repo — it
+is public.** They go to a private Supabase Storage bucket and the uploader
+deletes each local file only after confirmed success.
 
 **Reminder:** `.github/workflows/fb-export-reminder.yml` opens/updates one
 issue every Sunday 09:00 PT titled "FB group export due — week of <date>"
 with the checklist below, assigned to Joey; `watchdog.yml` alerts if no
-export has landed in 9 days. It shows up in Marjorie's brief under
-"Waiting on you" automatically.
+export has landed in 9 days.
 
-**The task (per group, in a normal logged-in browser — never a bot):**
-1. Open the group → sort posts by **New activity** (not Top).
-2. Scroll until the posts are older than 7 days. Expand "See more" on
-   anything long; don't open comments individually.
-3. `Ctrl/Cmd+S` → "Webpage, Complete" → name it
-   `fb-<group-slug>-<YYYY-MM-DD>.html` (slug from the checklist).
-4. Repeat for each group on the checklist (start with 3–5; the checklist is
-   the list).
-5. Run `npm run knowledge:fb-upload -- ~/Downloads/fb-*.html` — uploads to
-   the private bucket, prints one line per file, deletes the local copies.
-6. Tick the checklist; close the issue. Done.
+**The task:** Windows runs `npm run knowledge:fb-export` Sunday at 18:00
+local time. Per group, it requests chronological sorting, expands visible
+“See more” controls, scrolls with 2–5 second jitter until it sees a post at
+least seven days old or the feed ends, then writes
+`fb-<group-slug>-<YYYY-MM-DD>.html` outside the repo. A copy must produce at
+least one kept post through the real parser before upload. A DPAPI-backed
+ordinary re-login is allowed; checkpoint, 2FA, and CAPTCHA stop the run.
+`npm run knowledge:fb-export:dry` performs collection and validation only.
 
 **What the engine does with it (next 4h run):** parses post text +
 reaction/comment counts from the saved HTML, hashes author names, drops
@@ -491,7 +491,7 @@ anything under the redline, clusters with the rest of the week's fan
 sources, and writes `fan_signal` rows with `platform:'facebook'`,
 `community:'facebook:<group-slug>'`, `sample_urls: []` (private groups have
 no public permalink to cite), `source_tier:'unverified'`. Never a quote,
-never a name, never the raw file kept past parsing. Because it's weekly,
+never a name. Because it's weekly,
 FB signals carry a 7-day `window_*` and feed `heat` at lower weight than
 daily sources so a week-old spike doesn't read as today's.
 

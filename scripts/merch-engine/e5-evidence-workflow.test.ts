@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 describe('E5 manual evidence workflow', () => {
   it('keeps Etsy evidence collection manual, secret-bound, and artifact-only', () => {
-    const workflow = readFileSync(resolve('.github/workflows/merch-e5-evidence.yml'), 'utf8');
+    const workflow = readFileSync(resolve('.github/workflows/merch-e5-evidence.yml'), 'utf8').replace(/\r\n/g, '\n');
 
     expect(workflow).toMatch(/^on:\n\x20{2}workflow_dispatch:/m);
     expect(workflow).not.toMatch(/^\x20{2}(push|schedule):/m);
