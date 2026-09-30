@@ -25,7 +25,80 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 91
+
+## VMAs Records Set by Madonna and Taylor Swift in 2026
+
+- first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Billboard reports on the records set by Madonna and Taylor Swift during the 2026 VMAs. Both artists achieved significant wins at the event, showcasing their impact in the music industry.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMie0FVX3lxTE54Q0Z3QzIwb2R3SnNOZ3pmZmV4Q3pzSDBlLVBycWw2bFozcDkzaThldUw0cEllWUVjWmRVdWwwd1V3bG1SR1ZROGlRaVdHZmZnc0NMZHRjZTFKajVpZlhINlhaT2pXU2Y0Skw1RHJLQ3I1SW1zUlBYeTFMSQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Website Features New 'Cat Collection' Section
+
+- first seen: 2026-09-30 21:24 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's official website has been updated to include a new section labeled 'Cat Collection,' details about which remain unclear. The addition has sparked curiosity among fans and observers alike.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMipwFBVV95cUxPcDVGbkwzZlFqV2N0U09hcURBUkxST3JJUzlTcEU2VldZTlQ5ekJoM0JXbTZZemhxRHFFVmk4azI0eVV5RXBILUFXU2VCdUhMMjNfLWxTdnRqOXdYQU1JTXQzU2JiMXhyVm56TlZNTUdOek1pZk53LTVJUnVZdUR6aDJfOEN3cC1XU0hLTjJ6eWtldW5zWDlzR1dKZlpySU9kQjU2OG5Eaw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Former Home Listed for $8 Million
+
+- first seen: 2026-09-30 21:24 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A former home of Taylor Swift, where she is said to have written her album '1989,' has been listed for sale at $8 million. The Beverly Hills property is attracting attention in the real estate market.
+- sources:
+  - [unverified] ELLE Decor — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOWDJFY09PcHkxVGFTMlRRdVhiQ21YSW1KSlZqTUZKTmEwMW5uZEphaDVOWU9qMmJaUFNlZ2tSZ2FPaHFGdzBZYlBHa3lwSTdlcUZVeGY3N2hhTXNDZXdqbnVyclVlWjF3Y3M3Y2lhR0NFMEhlS0N6U2dvU19xNGFlb0tEUEkyVTBMb0RWOWg3OU1fTlBsc1BVZXpsMmpJOThIaFNBMVdNbk8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Inquiry About Taylor Swift's Song 'Babylon' and Long Island Town Connection
+
+- first seen: 2026-09-30 21:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Newsday explores the question of whether Taylor Swift's song 'Babylon' is inspired by or named after the Long Island town of Babylon. The article delves into the connection between the song and the location.
+- sources:
+  - [unverified] Newsday — https://news.google.com/rss/articles/CBMifkFVX3lxTFBnX0VlMDVJdGc4UjRMMUlzVW5EWWNmNXQxYmpmWGVaS0FEcHVVaGQ4S0JqbkJKTXhPY2I3aktja01hQmxEQWZEQ2p3VTFma3dLMExVZjBQOEV2S0YyU3h6dXh2RUV1NzJ6TTFmRENSVE14YjZJeW1sRG1uVVo2Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Releases Four-Song Extension of 2025 Album
+
+- first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has released 'The Life of a Showgirl: The Encore,' a four-song extension of her 2025 album. Critic Jon Caramanica discusses the standout track 'Babylon' and its place within her current musical era.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/podcasts/100000011183423/is-taylor-swift-in-a-holding-pattern.html
+  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMinAFBVV95cUxNdzVJZDltcDJ5dU41emRmNVZhSlVFaXJtd0RmUjhqUzR0dk9xblJmT3Q1VEZ3ZEJidG9HRXZvNFVCdXN3SWR6S0gtbmsyUTMySVZLNE1sSnpKYVJCM3IwdGV0d3NIQl9Oc0xiRWJvS2tlYUtTcXo2TVZxcHZDNWJxZnRHUTZhZ0d3bVAyVlp2eVJMSWVtbEpPNDc3VDY?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Responds to Taylor Swift's 'Cleveland!' as Fans React
+
+- first seen: 2026-09-30 21:24 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared his thoughts on Taylor Swift's recent mention of 'Cleveland!' which has garnered mixed reactions from fans. The situation comes alongside local news regarding privacy measures for Kelce and Swift's home.
+- sources:
+  - [unverified] KBOI — https://news.google.com/rss/articles/CBMiugFBVV95cUxQNklkQ1FOREJ0c1JuZWZ2ZHd5aXE1bVlVbHBJTGR0OUVHdF9ERnp4YjFkelF5SDdtWjN1VTlQTjZ1S05hb1lScUxTN2JLNWFCQ3JtTUlMQV9PczJxLTM2a0NXeFAwanZUaFNZN0cxQWxIMmpOUlZET3pUYzBTOWNjZ0RXemRNRDZrM0dEd2l3V2ZjQ01oWEdZeEZaMWdieVdRbFp3Qm96UW9NdllPVVJRcEZ6UDBVS2YyWlE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans Speculate About Taylor Swift's Potential Lost Album Linked to 'Karma' Theory
+
+- first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Speculation among fans suggests that Taylor Swift may be preparing to release a lost album, with discussions revolving around the 'Karma' theory gaining traction online. This topic has generated significant interest and conversation within the fan community.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNZW1nQUNBVmtHNnBBV0FuWHRQc1hmVkJUNzFyQlp4Q2JTYTBWLWFMR3REZ1A4aUNvekYtQ19mcGdrZkl0RVRpZGJoS2ZSNjQ4SjY0MkdVc3AtUnNneWtIZk5xQjVFZHNfUm40WU96d200ZkNSblRVTnlqT2RyNWhUdDlGN2lNSzBTdUVtR25IdThWR3hOSUpodGR3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Rock and Roll Hall of Famer Criticizes Taylor Swift's Music
+
+- first seen: 2026-09-30 21:24 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Rock and Roll Hall of Famer has publicly criticized Taylor Swift, labeling her music as 'mediocre' and claiming she has 'ruined music.'
+- sources:
+  - [unverified] pennlive.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxQam8tRVhYWkRmLUtNZTdVUWtfY1I5akNSbzhsTElXd01RZGhST3poNVE3eHpMWXRyZnY3M2RjelA0dFBwTWdJbFpCS3VCNkZxWG5mVDI5R0NiMmJ6b25Ib1V1T0d1MUg2RUxMbjRyVzdCSW95Y3EtNlVqanoyQjNURXBwNlZiNHhONFdBaGZrYUNSeUZkV1JLcVZKSWxGSVoyVGF6TjRWVTBzZFZHSUpiQU85YWVmdUF4TUdyTnN1ejZVSzVDTUHSAdoBQVVfeXFMT1BmeDh0UkpiOXVOV25zRjZ0VDZIc1M0a0l0QmNNOF9OX0xPTWVJTUhIMExwX2NiRV9yaVp4LV9MWTNYM3NOZFFUcWJBd19JeU9uWjBweDA0MUJab2Z2VE5VSWJXT1FiVjJjYVlXak1wUU5adWx4TmVqdFpzc2ZpazNJdVpJQXZkN1ZSa1F5ZS1TeUtOR0NuZ1laaUkyQ0lXZk1XSXlmRkVrZF9XaE1Ta2ozVlBLRlNGT0k3ZXMtamw2bEtKTjNlc1NWbS1rUHQ3NmZWRUxidDBaWkE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring the Lifecycle of Girl Groups in Pop Music
+
+- first seen: 2026-09-30 21:24 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The article discusses the temporary nature of girl groups in the pop music scene, illustrating the inevitable challenges they face leading to dissolution. It reflects on the common underestimation of these challenges until they become apparent.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513117/adelas-american-dreampop/columns/chained-to-the-rhythm/
 
 ## Taylor Swift Holds No. 1 on Top Movie Songs Chart
 
@@ -667,9 +740,10 @@ Stories: 88
 ## Taylor Swift Attends MTV VMAs 2026 Red Carpet with Other Stars
 
 - first seen: 2026-09-28 06:46 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 20
+- verification_status: corroborated | source_count: 22
 - summary: The MTV Video Music Awards 2026 took place at the Peacock Theater in Los Angeles, featuring various artists, including Taylor Swift on the red carpet. The event was hosted by Snoop Dogg and highlighted music video achievements from the past year.
 - sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxOQ0YxWFFLY1RjUTFXenFyeHF1c2RRU2syMXV2ZEZOQVVEZ2x1X2RVd3R5ckZJcDZVTVBZSmxPQnVCWDloVVJCUDBhWEVBbGpYX1YyS3R3TUJQQzQ4NmdzZUhnYmZETEJtWVEyNTlCaE5RaWFoOWItV3VrcFp2bDlDenBLU0s?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] BBC — https://news.google.com/rss/articles/CBMiW0FVX3lxTE9tMndhLWRRQXJUQjVDUWJYbk90NWtkUjByQktiSlM5NjZ6SFBfb0RVTnRwbG92T1VSQUlBRGk0ZV85OXo0RG1FaGdnOWdVQ3RrakVmMnZrLU40RUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/ckvgy6j4594yo?at_medium=RSS&at_campaign=rss
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMisAFBVV95cUxQOWtRV2lCdkhBQ3Q3VG1SbmFWX2NKcGhmbldRWjM4M0VTSlZSRXp4aXczU1lfV1FIVGctR1NQaTVDeUgwcHRQRURtTVlPM2NzQmNHaFk4SExnRnVNT25KZUF1LU9tSWZLNWJWRnJXYlRUZGRDOVdWWFBodXlkbkFQbElsNzAwVFBjMnp2ekFFYllzc3hlVTJnZVI0S25QQlhZNFhXNTAwVlpIbDNSM21tMw?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -689,6 +763,7 @@ Stories: 88
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/28/mtv-vmas-2026-taylor-swift-madonna-win-video-music-awards-sienna-spiro-lisa
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxPajRxWWRncWRod0xDOFhyN29DdVUxUHJxQkJJcUZOdnFhMU42cWczb0RqOVNlM09SUkJTajFDdDlVSF9DMVhFdEdDTGRMRVppSUlKSjRwNTgxLTdIOUpmUzlmLTFmQUxnNFJ6R3N4WlMwVW9lQ0dPNmVuRFgxYXdGMVpSSW1SZHNHT3BlTnVITHlBUDF2Sm4zNl9fSndjOHotazI0RXRjZ2RsVk0telBpSG5MMmtVOGFocFE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-mtv-vmas-artist-director-patient-zero-1236713216/
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOM0dvS1JHc0ZQc3hCRUhIWUpHblVOalFkNlk5X0VESF9KMW1BNFdBRDJ5TFhfeTQyU0UydDJ6UzQzZGlxNnp2S3J2ZlJlUEtLd2VxUlBnb0V6b3Zxa25jYWZqZXM4aEkzRjlvRUpTNVdJQlJKelJsR1dGSC15bll4a1kxTVp0QU1ZU2NoRHV6Y0xJSXllMUF0LTZjWHk0Tk5TSVRWbFI1cFUxZTNxV21JU1RCQ0tVZmU1WGN6SkFReUR4WUgybnJMb1pDNDEydWJPZUdodlEwb3hoYmNRUHRfOVVfNWh5YVl5QVg0SzhkWmg3WUcy?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMimgJBVV95cUxOdFU2Y0huYTVyZGlwVF9wazA0dlJvREF3dzRZdzJOemxJUzVSbkZlQzlad3VrTGdsTUllNXUtdjA4RlVpaTVVTGpCNHI4RGY4ZUtNdzZ4R3E5SWUtaGxwbTluaWtsWmI5RE9tZUxWRWh3THRZcmYyYTJBTGxOSEFjSzdPWmZKRkJNSjJ2Nm82VmxDbWx1cFpWYmh0SlpzX0J6YkxBUzFMbW5kaFlRVG1yUEd3MEliMDdRUkFmdmMzZ1plS2lVdV9GZjBOS2JISmpiUEM0ejdsalFhcHN0NVBUQ2lFUE45UVlDRG9ab3FubGlSdC1FZXhzUUtZbmg1MTA2MGdhVUszb3ZJLXdtbGJiLVNaVDZZYmdjcnc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's VMAs Dress Blends Business Casual with Greek Goddess Style
@@ -730,51 +805,3 @@ Stories: 88
 - summary: Taylor Swift is set to make an impression with her fashion choices at the 2026 VMAs, according to Vogue. Her outfit is expected to be noteworthy and significant at the event.
 - sources:
   - [unverified] Vogue — https://news.google.com/rss/articles/CBMicEFVX3lxTFAwUnFsSVlrV0R0YWhvaHBpcTduY1FoSnBERFhfd0ktNlBZeTlyWjliT1pmMEhkbjJ5dEwwNVoxVTl6S2M5NEZzM0I1SGJEMC00S091cG5SdS0tMi1tcEc3WkV3OWV4VVRuRXRMTGVpUWY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Premiere New Music Video at 2026 MTV VMAs
-
-- first seen: 2026-09-27 20:07 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: The 2026 MTV Video Music Awards will feature the world premiere of a new music video by Taylor Swift, alongside a lineup that includes Madonna and Kacey Musgraves. The awards are set to air live on Sunday, September 27.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/shopping/news/how-to-stream-vmas-live-online-free-1236876095/
-
-## Taylor Swift's VMAs Appearance Precedes 'Patient Zero' Music Video
-
-- first seen: 2026-09-27 20:07 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a special appearance at the VMAs, coinciding with the upcoming release of her music video for 'Patient Zero.' The event highlights her ongoing engagement with fans and the music industry.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMioAFBVV95cUxQV00xa2FCX3o5X2YyTGtkdXh2MFZNUUt1THNRVFpDbEN4YkdEc0pJZ0hQUE10Q0ZkVXdzNDBKbmt5VzJrSzh3YW5HRDcwZG5MTV90enBrSVlUSFNnaFlLXzFjQXduRmJmMXN6WHpCY1h5VEh0MXVGczh1R2VxNTVYbHh4bFZuNkpQSXkxcFUxVzd1alprZ0xtWnBoRk1vVzlv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce to Miss 2026 VMAs with Taylor Swift
-
-- first seen: 2026-09-27 20:07 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce will not be attending the 2026 VMAs alongside Taylor Swift, as stated in the article from eonline.com. The reasons for his absence were not specified in the snippet provided.
-- sources:
-  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxOWEpZNl9lU2ZJQ1J3N0stUUt5eTlmbE5BWl91ZVNxMWt6RXVjOG1SYy1vNVdsUnl1eFA5Vjh1Rm0xZWFzM25rZnh2V1BsSXRvVWk2aWVjakVHRWdXaGFPZWdFOTV5aWx0ZE1lMjRxZmVIZTNTVXFMbmdTVm5zbXBEZkVlclIwSTE2ZDdJMk1pM1FPeXBYV1hRWDM0SnZ5dGxo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## The Wizard of Rock Would Like a Word - Vulture Analysis
-
-- first seen: 2026-09-27 20:07 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Vulture discusses the influence of The Wizard of Rock, highlighting themes relevant to Taylor Swift's musical journey.
-- sources:
-  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiekFVX3lxTE96a3NxalM0b3M4aHBWRjMwcWFtRXAzVGNPRm8yY044NUttOHdDSlVzVy1fWm5WRGV6bnU2OEE5T05kMy1DN00zLUp5ZXhWV0ZVQkhUNWxVeV9zTjBFMHZ6SmtzcmtVSWhsa3RhbkZwdUlydU1vNjV1eDRR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Will Not Attend VMAs 2026 with Taylor Swift
-
-- first seen: 2026-09-27 20:07 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce will not be accompanying Taylor Swift to the 2026 VMAs where she will be honored. Details on the reason for his absence have not been disclosed.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxOTFo4R0wyX1EzblVZMjFCTExtZkFWZjEwT0wyYUpMeTR2YTBKOWl4Z3hGblJFeE5yc3NPSkNXTUYyR1pZOEd3Qzl0c2J3RVZzN3hYd2w3d2NRSXdLVlNWOVBNWkdTWEZ3VDNLLURMaDFsLU1oZ184Z2dGTm5KblI4ZEtqR1c0SC10a29ncE1xWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Upcoming Appearances: Chiefs Game or VMAs 2026?
-
-- first seen: 2026-09-27 20:07 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's potential attendance at either a Chiefs game or the 2026 VMAs is generating interest, as speculation continues about her upcoming public appearances.
-- sources:
-  - [unverified] justjared.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPdWNudVRoMWtjQzBHSFVrNGVXZDdMN1F1RWQzODJXS083VTdiOXh4dGlGSEY1MmZQUTI0NHY1Qmd1UVRrNXZQN0F5NWpLcnNBUDItV3BoYUJCNnhnWHM4NF81dHdQcTNlaE9OQWFOVVNtMkNWRUZ5TVFhbWlxVm45MlBSOFRYMmRkaHRfWFJJcWNodUFLR25aTWN2b2h3ZTVTTVBjdFloOEVPT0NZVmJ1SW1WQVZ1dmh6?oc=5&hl=en-US&gl=US&ceid=US:en
