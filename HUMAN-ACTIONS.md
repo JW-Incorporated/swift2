@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -86,18 +86,6 @@
 4. If GitHub issues a new token value instead of an in-place edit, update the secret: repo Settings → Secrets and variables → Actions → SOCIAL_POSTER_PAT → paste the new value.
 
 **Worked if:** a re-run of `routine-marjorie-ops.yml` (or a manual `gh workflow run` under this PAT) dispatches a workflow without a 403.
-
-## #67 🟢 [UPGRADE] Add DISCORD_MARJORIE_WEBHOOK_URL to the `social` environment too (~5 min)
-<!-- ha filed=2026-09-12 -->
-
-**Why:** Marjorie Overhaul C3: social-posters permanent-post-failure alert now routes through upsert-alert.sh, but its post job runs under environment: social, not ops -- the #longlive-marjorie webhook already deposited in ops (HA #66) is invisible there, so this alert falls back to email instead of Discord.
-
-**Steps:**
-1. In JW-Incorporated/swift2, open Settings -> Environments -> social -> Environment secrets -> Add secret.
-2. Name it DISCORD_MARJORIE_WEBHOOK_URL, value = the same webhook URL already stored on the ops environment (HA #66).
-3. Save.
-
-**Worked if:** a forced social-poster.yml permanent-failure run posts to #longlive-marjorie directly, with no [discord failed] email.
 
 ## #63 🟢 [UPGRADE] Add instagram_manage_insights scope so reach/saved/shares can be built next (~15 min)
 <!-- ha filed=2026-09-12 -->
