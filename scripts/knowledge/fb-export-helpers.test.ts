@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest';
 import {
   classifyPage,
   exportFileName,
+  harvestCoverageAge,
   oldestVisibleAge,
   oldestHarvestAge,
   recentHarvestUnits,
   relativeAgeMs,
   stopDecision,
+  trailingOldBoundary,
   weekOf,
 } from './fb-export-helpers.mjs';
 
@@ -25,37 +27,83 @@ describe('Facebook export pure helpers', () => {
     expect(relativeAgeMs('3 h', now)).toBe(3 * 3_600_000);
     expect(relativeAgeMs('8 d', now)).toBe(8 * 86_400_000);
     expect(relativeAgeMs('2 weeks', now)).toBe(14 * 86_400_000);
+    expect(relativeAgeMs('October 13', now)).toBeNull();
+    expect(relativeAgeMs('October 24', now)).toBeNull();
+    expect(relativeAgeMs('August 18, 2014', now)).toBeGreaterThan(4_000 * 86_400_000);
     expect(oldestVisibleAge(['2 h', '8 d', '3 d'], now)).toBe(8 * 86_400_000);
   });
 
   it('stops safely for seven days, feed end, and the hard cap', () => {
-    expect(
-      stopDecision({ oldestAgeMs: 7 * 86_400_000 + 1, stagnantScrolls: 0, scrollCount: 2 }),
-    ).toEqual({ stop: true, reason: 'seven-days', ageRuleMet: true });
-    expect(stopDecision({ oldestAgeMs: null, stagnantScrolls: 3, scrollCount: 2 })).toEqual({
+    expect(stopDecision({ ageStopMet: true, stagnantScrolls: 0, scrollCount: 2 })).toEqual({
+      stop: true,
+      reason: 'seven-days',
+      ageRuleMet: true,
+    });
+    expect(stopDecision({ stagnantScrolls: 3, scrollCount: 2 })).toEqual({
       stop: true,
       reason: 'feed-end',
       ageRuleMet: true,
     });
-    expect(stopDecision({ oldestAgeMs: null, stagnantScrolls: 0, scrollCount: 250 })).toEqual({
+    expect(stopDecision({ stagnantScrolls: 0, scrollCount: 250 })).toEqual({
       stop: true,
       reason: 'scroll-cap',
       ageRuleMet: false,
     });
-    expect(
-      stopDecision({ oldestAgeMs: null, stagnantScrolls: 0, scrollCount: 2, elapsedMs: 1_200_000 }),
-    ).toEqual({ stop: true, reason: 'wall-budget', ageRuleMet: false });
+    expect(stopDecision({ stagnantScrolls: 0, scrollCount: 2, elapsedMs: 1_200_000 })).toEqual({
+      stop: true,
+      reason: 'wall-budget',
+      ageRuleMet: false,
+    });
   });
 
-  it('uses own post timestamps, ignores pinned units for stopping, and filters old posts', () => {
+  it('keeps an isolated mid-feed date outlier and excludes it from coverage', () => {
     const units = [
-      { ownTimestamp: '2 d', ignoreForAge: false },
-      { ownTimestamp: '6 weeks', ignoreForAge: true },
-      { ownTimestamp: null, ignoreForAge: false },
+      { position: 1, ownTimestamp: '3 h', ignoreForAge: false },
+      { position: 2, ownTimestamp: 'August 18, 2014', ignoreForAge: false },
+      { position: 3, ownTimestamp: '3 h', ignoreForAge: false },
+    ];
+    expect(trailingOldBoundary(units, now)).toBeNull();
+    expect(recentHarvestUnits(units, now)).toEqual(units);
+    expect(harvestCoverageAge(units, now, 'wall-budget')).toBe(3 * 3_600_000);
+  });
+
+  it('ignores a future month-day when calculating capped coverage', () => {
+    const units = [
+      { position: 1, ownTimestamp: '2 h', ignoreForAge: false },
+      { position: 2, ownTimestamp: 'October 24', ignoreForAge: false },
+      { position: 3, ownTimestamp: '4 h', ignoreForAge: false },
+    ];
+    expect(trailingOldBoundary(units, now)).toBeNull();
+    expect(harvestCoverageAge(units, now, 'scroll-cap')).toBe(4 * 3_600_000);
+  });
+
+  it('stops on three trailing readable old units and excludes only that tail', () => {
+    const units = [
+      { position: 1, ownTimestamp: '2 h', ignoreForAge: false },
+      { position: 2, ownTimestamp: 'August 18, 2014', ignoreForAge: false },
+      { position: 3, ownTimestamp: '4 h', ignoreForAge: false },
+      { position: 4, ownTimestamp: '8 d', ignoreForAge: false },
+      { position: 5, ownTimestamp: null, ignoreForAge: false },
+      { position: 6, ownTimestamp: '9 d', ignoreForAge: false },
+      { position: 7, ownTimestamp: '10 d', ignoreForAge: false },
+    ];
+    expect(trailingOldBoundary(units, now)).toEqual({
+      boundaryIndex: 3,
+      coverageAgeMs: 8 * 86_400_000,
+    });
+    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[1], units[2], units[4]]);
+    expect(harvestCoverageAge(units, now, 'seven-days')).toBe(8 * 86_400_000);
+  });
+
+  it('ignores pinned units for the stop boundary without changing legacy age inspection', () => {
+    const units = [
+      { position: 1, ownTimestamp: '2 d', ignoreForAge: false },
+      { position: 2, ownTimestamp: '6 weeks', ignoreForAge: true },
+      { position: 3, ownTimestamp: null, ignoreForAge: false },
     ];
     expect(oldestHarvestAge(units, now, { ignorePinned: true })).toBe(2 * 86_400_000);
     expect(oldestHarvestAge(units, now)).toBe(42 * 86_400_000);
-    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[2]]);
+    expect(trailingOldBoundary(units, now)).toBeNull();
   });
 
   it('classifies safety stops before ordinary login or membership states', () => {

@@ -18,10 +18,11 @@ export { ensureActingAsPage } from './fb-export-profile.mjs';
 import {
   classifyPage,
   exportFileName,
+  harvestCoverageAge,
   localDate,
-  oldestHarvestAge,
   recentHarvestUnits,
   stopDecision,
+  trailingOldBoundary,
 } from './fb-export-helpers.mjs';
 
 const execFileAsync = promisify(execFile);
@@ -205,9 +206,9 @@ export async function collectGroup(page, group, options = {}) {
     stagnantScrolls = madeProgress ? 0 : stagnantScrolls + 1;
     previousHarvestCount = harvest.units.length;
     previousMaxPosinset = Math.max(previousMaxPosinset, snapshot.maxPosinset);
-    const oldestAgeMs = oldestHarvestAge(harvest.units, now, { ignorePinned: true });
+    const ageBoundary = trailingOldBoundary(harvest.units, now);
     const decision = stopDecision({
-      oldestAgeMs,
+      ageStopMet: Boolean(ageBoundary),
       stagnantScrolls,
       scrollCount,
       elapsedMs: clock() - startedAtMs,
@@ -215,8 +216,8 @@ export async function collectGroup(page, group, options = {}) {
       wallBudgetMs: options.wallBudgetMs,
     });
     if (decision.stop) {
-      const coverageAgeMs = oldestHarvestAge(harvest.units, now);
       const recentUnits = recentHarvestUnits(harvest.units, now);
+      const coverageAgeMs = harvestCoverageAge(harvest.units, now, decision.reason);
       if (harvest.units.length > 0 && recentUnits.length === 0) {
         return {
           slug: group.slug,

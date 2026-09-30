@@ -26,7 +26,11 @@ export function mergeHarvest(state, snapshot) {
     const key = capture.position ? `pos:${capture.position}` : `direct:${capture.identity}`;
     const previous = units.get(key);
     const position = capture.position ?? previous?.position ?? nextSyntheticPosition++;
-    const ownTimestamp = previous?.ownTimestamp ?? capture.ownTimestamp ?? capture.timestamps?.[0] ?? null;
+    const ownTimestamp =
+      previous?.ownTimestamp ??
+      capture.ownTimestamp ??
+      firstOwnTimestamp(capture.timestamps ?? []) ??
+      null;
     const candidate = {
       key,
       position,
@@ -107,20 +111,24 @@ export async function captureVisibleUnits(page) {
       const messageRoot = timestampRoot.querySelector(
         '[data-ad-preview="message"], [data-ad-comet-preview="message"]',
       );
-      const timestampValues = [...timestampRoot.querySelectorAll('abbr, time, a[aria-label]')]
+      const timestampValues = [
+        ...(permalink ? [permalink] : []),
+        ...timestampRoot.querySelectorAll('abbr, time'),
+      ]
         .filter(
           (element) =>
             (!primaryArticle || element.closest('[role="article"]') === primaryArticle) &&
             (!messageRoot ||
-              Boolean(element.compareDocumentPosition(messageRoot) & Node.DOCUMENT_POSITION_FOLLOWING)),
+              Boolean(
+                element.compareDocumentPosition(messageRoot) & Node.DOCUMENT_POSITION_FOLLOWING,
+              )),
         )
-        .map(
-          (element) =>
-            element.getAttribute('datetime') ||
-            element.getAttribute('title') ||
-            element.getAttribute('aria-label') ||
-            element.textContent,
-        )
+        .flatMap((element) => [
+          element.getAttribute('datetime'),
+          element.getAttribute('title'),
+          element.getAttribute('aria-label'),
+          element.textContent,
+        ])
         .filter(Boolean);
       const markers = [...unit.querySelectorAll('[aria-label], [role="heading"], strong')].map(
         (element) => element.getAttribute('aria-label') || element.textContent || '',

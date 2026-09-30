@@ -1,4 +1,22 @@
 export const DAY_MS = 86_400_000;
+export const AGE_STOP_COUNT = 3;
+
+const MONTHS = new Map(
+  [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+  ].map((month, index) => [month, index]),
+);
 
 export function exportFileName(slug, dateLabel) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('invalid group slug');
@@ -26,9 +44,9 @@ export function relativeAgeMs(value, now = new Date()) {
     .replace(/\u00a0/g, ' ');
   if (!text) return null;
   if (/^(?:just now|now)$/i.test(text)) return 0;
-  if (/^yesterday/i.test(text)) return DAY_MS;
+  if (/^yesterday(?: at \d{1,2}:\d{2}(?: [ap]m)?)?$/i.test(text)) return DAY_MS;
   const relative = text.match(
-    /^(\d+)\s*(m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks)\b/i,
+    /^(\d+)\s*(m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks)(?:\s+ago)?$/i,
   );
   if (relative) {
     const amount = Number(relative[1]);
@@ -37,7 +55,35 @@ export function relativeAgeMs(value, now = new Date()) {
       unit === 'm' ? 60_000 : unit === 'h' ? 3_600_000 : unit === 'd' ? DAY_MS : 7 * DAY_MS;
     return amount * multiplier;
   }
-  const absolute = new Date(text.replace(/ at /i, ' '));
+  const monthDay = text.match(
+    /^(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:,?\s+(\d{4}))?(?:\s+at\s+(\d{1,2}):(\d{2})(?:\s*([ap]m))?)?$/i,
+  );
+  if (monthDay) {
+    const [, monthName, dayText, yearText, hourText, minuteText, meridiem] = monthDay;
+    let hour = Number(hourText ?? 0);
+    if (meridiem) {
+      hour %= 12;
+      if (meridiem.toLowerCase() === 'pm') hour += 12;
+    }
+    const year = Number(yearText ?? now.getFullYear());
+    const absolute = new Date(
+      year,
+      MONTHS.get(monthName.toLowerCase()),
+      Number(dayText),
+      hour,
+      Number(minuteText ?? 0),
+    );
+    if (
+      absolute.getFullYear() !== year ||
+      absolute.getMonth() !== MONTHS.get(monthName.toLowerCase()) ||
+      absolute.getDate() !== Number(dayText) ||
+      (!yearText && absolute.getTime() > now.getTime())
+    )
+      return null;
+    return Math.max(0, now.getTime() - absolute.getTime());
+  }
+  if (!/^\d{4}-\d{2}-\d{2}(?:[T ][0-9:.+-]+(?:Z)?)?$/.test(text)) return null;
+  const absolute = new Date(text);
   return Number.isNaN(absolute.getTime()) ? null : Math.max(0, now.getTime() - absolute.getTime());
 }
 
@@ -58,27 +104,72 @@ export function oldestHarvestAge(units, now = new Date(), { ignorePinned = false
   return ages.length ? Math.max(...ages) : null;
 }
 
+function unitsInFeedOrder(units) {
+  return [...units].sort((left, right) => left.position - right.position);
+}
+
+export function trailingOldBoundary(units, now = new Date(), count = AGE_STOP_COUNT) {
+  const ordered = unitsInFeedOrder(units);
+  const trailingOld = [];
+  let boundaryIndex = ordered.length;
+  for (let index = ordered.length - 1; index >= 0; index -= 1) {
+    const unit = ordered[index];
+    if (unit.ignoreForAge) continue;
+    const ageMs = unitAgeMs(unit, now);
+    if (ageMs === null) continue;
+    if (ageMs <= 7 * DAY_MS) break;
+    trailingOld.unshift({ index, ageMs });
+    boundaryIndex = index;
+  }
+  if (trailingOld.length < count) return null;
+  const stopUnits = trailingOld.slice(-count);
+  return {
+    boundaryIndex,
+    coverageAgeMs: Math.min(...stopUnits.map(({ ageMs }) => ageMs)),
+  };
+}
+
 export function recentHarvestUnits(units, now = new Date()) {
-  return units.filter((unit) => {
-    const age = unitAgeMs(unit, now);
-    return age === null || age <= 7 * DAY_MS;
-  });
+  const ordered = unitsInFeedOrder(units);
+  const boundary = trailingOldBoundary(ordered, now);
+  if (!boundary) return ordered;
+  return ordered.filter(
+    (unit, index) =>
+      index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
+  );
+}
+
+function median(values) {
+  const sorted = [...values].sort((left, right) => left - right);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+export function harvestCoverageAge(units, now = new Date(), stopReason = null) {
+  const boundary = trailingOldBoundary(units, now);
+  if (stopReason === 'seven-days' && boundary) return boundary.coverageAgeMs;
+  const ages = recentHarvestUnits(units, now)
+    .map((unit) => unitAgeMs(unit, now))
+    .filter(Number.isFinite);
+  if (!ages.length) return null;
+  const comparison = ages.slice(-20);
+  const outlierLimit = 2 * median(comparison);
+  const inliers = ages.filter((ageMs) => ageMs <= outlierLimit);
+  return inliers.length ? Math.max(...inliers) : null;
 }
 
 export function stopDecision({
-  oldestAgeMs,
+  ageStopMet = false,
   stagnantScrolls,
   scrollCount,
   elapsedMs = 0,
   scrollCap = 250,
   wallBudgetMs = 20 * 60_000,
 }) {
-  if (oldestAgeMs !== null && oldestAgeMs > 7 * DAY_MS)
-    return { stop: true, reason: 'seven-days', ageRuleMet: true };
+  if (ageStopMet) return { stop: true, reason: 'seven-days', ageRuleMet: true };
   if (stagnantScrolls >= 3) return { stop: true, reason: 'feed-end', ageRuleMet: true };
   if (scrollCount >= scrollCap) return { stop: true, reason: 'scroll-cap', ageRuleMet: false };
-  if (elapsedMs >= wallBudgetMs)
-    return { stop: true, reason: 'wall-budget', ageRuleMet: false };
+  if (elapsedMs >= wallBudgetMs) return { stop: true, reason: 'wall-budget', ageRuleMet: false };
   return { stop: false, reason: null, ageRuleMet: false };
 }
 
