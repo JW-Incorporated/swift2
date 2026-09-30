@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Long Live FB export",
+  "version": "1.0.0",
+  "description": "Weekly Long Live export of the owner's Facebook group feeds. Read-only; acts only when the local fb-export run hands this tab a job.",
+  "minimum_chrome_version": "116",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/groups/*"],
+      "js": ["harvest-core.js", "comments.js", "content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["http://127.0.0.1/start*"],
+      "js": ["harvest-core.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
