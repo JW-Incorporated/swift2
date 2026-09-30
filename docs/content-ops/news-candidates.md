@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 88
+
+## Taylor Swift Holds No. 1 on Top Movie Songs Chart
+
+- first seen: 2026-09-30 15:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift maintains her position at No. 1 on the Top Movie Songs chart ahead of competition from the 'Spider-Man' franchise. The achievement underscores her ongoing impact in the music industry.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxNVlNPNldBU096RkhZLXFnNHlJeFozNDBwZXBuWXhRWHZIdU4zOU1MamU4SG1IUjNvNWpTbDVNR1A0clZlRHpCSEp3a0xjcmJObklQeHFTcDF3ZFBNbnNWcVFXUkFiRGk3ZHhRSHg3Y0ZrZFE3UXBwc0E0NmU2NzNJX2dnd0hRUTZicGl6UzV0SHlWcWFYcjJSVFNnZHg5amlJREkxNjcwVlFLbV85ZWt3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Prepares for Wedding and Honeymoon
+
+- first seen: 2026-09-30 15:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce is getting into shape for his wedding and has also started a late-career honeymoon. This marks a new chapter in his personal life as he balances his professional commitments with personal milestones.
+- sources:
+  - [unverified] wsj.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNNEdCamd1NXUxd01sNHlhNEFzcHExcU1FNURlbzFfMW5VaWJ0Z0E5ZUJTQXdZYmZBV3k0VkRfUTV5UGlhOFFYelhFWG11ZTNYT2JmZ1lKVnNJT3lLRW1UOFNxSHlPaW9VQlZqOEdWRGpFRFZNTDhuSlBJSVZTZTI5QU9Ub2tTVmRv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Todd Rundgren Critiques Taylor Swift's Impact on Music
+
+- first seen: 2026-09-30 15:53 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Rocker Todd Rundgren has publicly stated that Taylor Swift has ‘ruined music,’ expressing his critique of her influence in the industry. The comments were reported by the South China Morning Post.
+- sources:
+  - [unverified] South China Morning Post — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQYXMxR1Ezb0JwaXpONlVWd2lwcmZwUXJEblBuU25HQ0JkSzJjX2ZiWFpKSzRJbUpzOXZnbUp0Wm9SbTE1RHlQOFZPeFBqb18yZVZaS0tmNXpVT3N2T0FhcEgtdkYxUnJkcVhCRlRkWXNOSEtZLTFmNGpXMTFIWGY2RThBM2FJaEVEa200QWI5alFHZ0pUcG9mQXoxajY1M0YxNFpSWUtaNUNobFJvcUpCbENxLVRUc0RKakJtWVZuaDcxMjRzQzlmWjl5aG1FUWlFanl4M25BdkVhQdIB2gFBVV95cUxQdkVjZmtzempuVHZKZ3p3QXdMWHRkSk81RWozSlVjN2lJc01VZF9vQUNERmxSVW8wQ2h4a0xRbm1OWUJPYWxXWWxzc0VGSHVRZmZtaXIyOWI3QnFQaVZMc3VuZ0twUzROdHJONHpqTE1TSmV5cHZJdDFwV3M4LWFEVXhkbUNDd2tkNlo5X1cybl92a2JQclRScU1fanQxMFA4U092UXBJdUFURlhjVXB3WWUtbXZQT0MwSHZUSWZqLUZwZWpJWndkMTRhQzVsSndYSTVFeXFneF9vUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kelce Brothers Share Their Thoughts on Taylor Swift's 'Cleveland!'
+
+- first seen: 2026-09-30 15:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis and Jason Kelce express their opinions about Taylor Swift's song 'Cleveland!' in a recent discussion.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOLTZrcVVPVTM3NXUyVXlsOUlZY2NGSXNSQTlJWGwwMEdRc2lBUlNWVnZFY3djcmJxdVgwc3pQVFNDTnFMdGswRjJRc29QSG9BX05PdDlra3VxWGNIaFN2T2NJWGFJSVlGSFBuRnRBaXd6S1lHcnRjTXk2ZEFzZllZdlYxcjYyM0htN2F0blJwd2tENGhWb3h5MjRKMnhNbHFKYnVkZDN4Yk5QUml1d2t6ZWUzOFBmREdWODQ5STdaQjdYZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Attacker Loses Privacy Case Against Disney Over Swift Concert Incident
+
+- first seen: 2026-09-30 15:53 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A would-be attacker at a Taylor Swift concert has lost a privacy lawsuit against Disney, the parent company of the venue. The case highlights legal challenges related to privacy rights in high-profile events.
+- sources:
+  - [unverified] Reuters — https://news.google.com/rss/articles/CBMitAFBVV95cUxPY3RKWE4yZWU0YXZnU3p0RXQyOVNMRmg0NVoxQTltaUxUYVJ0SUYtV3NyTk03NHdwVGhPN3JMWkoyRXdEZnhnWGxZb0xQRVhaOElGOElYdnUwODJlTDZLZGxZZUhKVW1TRGR4TjBFR2N6bVB1Y0prMF84YzNZQTRaaGdyMDBNR2RwVkg4TmhZR1YyV2lCM3Uzd25VWHJMUjhuS2ZxRzhJUjEwZUFlZXhBa1g0bmw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Praises Taylor Swift's 'Cleveland!' Song
+
+- first seen: 2026-09-30 15:53 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce expresses appreciation for Taylor Swift's song 'Cleveland!', calling it a banger. The song highlights his home city and has received positive attention.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOd1Q1STdfejc5N2owbHhjTi1UTDdBREItY1NyVGw2ZHFGX0JpMFpuck1YdXl1cGJFYnNYY2VBUVhwVjdDeHk2T0NkZ0FSRFhUVHRKN1RtWXRTYUN4Q1F2clI4RjI2eW1YNTc0VFdVZl9KNVdycEZ3ZFoxdFJiT1JaeGJlUWY2M1Vnay1RTzdHTWpUVkVsalJjellQVzhZNmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Kelce Brothers React to Taylor Swift's New Song 'Cleveland!'
+
+- first seen: 2026-09-30 15:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis and Jason Kelce share their thoughts on Taylor Swift's latest song 'Cleveland!', with Travis calling it a 'banger' inspired by his hometown. The Kelce brothers express their enthusiasm for Swift's work.
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNeVJ4eHhBWk5zS2lhYkY0NU5tMFpBOEJ1aUdqZ2Q3Yl82MmRteUIwbV9nUHBGMmIteVZoVzE3Y1M5dGVXX28xX2pid29XQlpDN0VUS0pDNmpfekpzbnhmb2xPQXdNYVNmTHBMZUZPZnVENWJLZVlQRGJCQlI5SjBfMm96QWpodG1BS3kzSy14dHpaZWNpTlVLZzRwT2ZXQ0c2bWNiMQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Todd Rundgren Critiques Taylor Swift's Impact on Music
 
@@ -216,11 +272,12 @@ Stories: 86
 ## Rock and Roll Hall of Famer Criticizes Taylor Swift's Impact on Music
 
 - first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: A Rock and Roll Hall of Famer has publicly stated that Taylor Swift has 'ruined music'. This comment has sparked conversations about her influence in the music industry.
 - sources:
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMieEFVX3lxTE9sUy1xZDhYOVV5TjVqT3p4S2M0RlpRZE84aVVkeWhjOHJQOE1zZENrX0hITHZSdEFkYW5JZTlIZnU3bGowX1RmWlRZbl9Jb0t0UmY5UkdqQndKU1VSTDdSdnU2QkJuUnFhNDh1U3VTaDMtcnJJMXkzdw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Independent — https://news.google.com/rss/articles/CBMiswFBVV95cUxQeW43SXV0d19FbDB1WkdRSlZvLWtEZm9CSENBbFkwZGVvcnpzMDdJRUM5TXdJNkxKTTQxeEw5RzBlX1hlcEJxYkJtWnIxVTlkSXkzZTBxTlFaRklNSUgzZm95YWg3QlN4NXg1T1pqOW16LUFrSmh0Q0JVNGFGUUsyYWNyYlh2TnA3TXJTS2RWcC0tZGJwTXdGc04wS1lCYkRuMXVUQzRXM0FscWJaeFEweU9sTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] the-independent.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxNcjFjRWFWTkM0QWNQQTJTdVR0ZFcxMkp6a2hXNE1kNVg5Xzd2ZHRvcHlZQy1BXzZUQTZyMlgtTEkyVUMxWkRRajR4VWc0RGhXcWNLZ05fZS1FcG9IV0doVFpVRXJMTExKX3dNaUR4VGZ2YkpHY1piRnBzMUZyTDU3eDZuRWozdjhFM0stN0o3ZnVmVDMzaUVuY1lNSUgxX0N1bDVYN1V6blRyMWJmNDk2UTBKUlM2dw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Travis Kelce Comments on Taylor Swift's VMAs Appearance Amid Marriage Reports
 
@@ -610,9 +667,10 @@ Stories: 86
 ## Taylor Swift Attends MTV VMAs 2026 Red Carpet with Other Stars
 
 - first seen: 2026-09-28 06:46 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 19
+- verification_status: corroborated | source_count: 20
 - summary: The MTV Video Music Awards 2026 took place at the Peacock Theater in Los Angeles, featuring various artists, including Taylor Swift on the red carpet. The event was hosted by Snoop Dogg and highlighted music video achievements from the past year.
 - sources:
+  - [unverified] BBC — https://news.google.com/rss/articles/CBMiW0FVX3lxTE9tMndhLWRRQXJUQjVDUWJYbk90NWtkUjByQktiSlM5NjZ6SFBfb0RVTnRwbG92T1VSQUlBRGk0ZV85OXo0RG1FaGdnOWdVQ3RrakVmMnZrLU40RUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/ckvgy6j4594yo?at_medium=RSS&at_campaign=rss
   - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMisAFBVV95cUxQOWtRV2lCdkhBQ3Q3VG1SbmFWX2NKcGhmbldRWjM4M0VTSlZSRXp4aXczU1lfV1FIVGctR1NQaTVDeUgwcHRQRURtTVlPM2NzQmNHaFk4SExnRnVNT25KZUF1LU9tSWZLNWJWRnJXYlRUZGRDOVdWWFBodXlkbkFQbElsNzAwVFBjMnp2ekFFYllzc3hlVTJnZVI0S25QQlhZNFhXNTAwVlpIbDNSM21tMw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Deadline — https://news.google.com/rss/articles/CBMimwFBVV95cUxOcFY0TWxZaW9tcFBvSkxyY2lpSXRWYlhVcVFHT2JORmtrbldKekpSWkI2RVhkVnhCaXphSGVHRHdGdDhrcGluSDVlVS1jdU5fUkcyUmczTUVPME1fcjJJWDNWWkVMV0VkdUVjSHJ4UTQzOEZsTXBhT0l2Q0pFdWw4dGZCamZ2THJjdGJnWGFNM2pLb21qZTU3MUViWQ?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -720,49 +778,3 @@ Stories: 86
 - summary: Taylor Swift's potential attendance at either a Chiefs game or the 2026 VMAs is generating interest, as speculation continues about her upcoming public appearances.
 - sources:
   - [unverified] justjared.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPdWNudVRoMWtjQzBHSFVrNGVXZDdMN1F1RWQzODJXS083VTdiOXh4dGlGSEY1MmZQUTI0NHY1Qmd1UVRrNXZQN0F5NWpLcnNBUDItV3BoYUJCNnhnWHM4NF81dHdQcTNlaE9OQWFOVVNtMkNWRUZ5TVFhbWlxVm45MlBSOFRYMmRkaHRfWFJJcWNodUFLR25aTWN2b2h3ZTVTTVBjdFloOEVPT0NZVmJ1SW1WQVZ1dmh6?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Breaks Record on Pop Radio with New Hit
-
-- first seen: 2026-09-27 14:40 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved another milestone by extending her record on pop radio with her latest hit. This impressive accomplishment reflects her continued success and popularity in the music industry.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMitAFBVV95cUxQVVpibFlmU2ZXU0Y3UFdiRlNmS2NSbHhUMzRpZ3dRMnZDTmcwQ0NJWHFqeDE1eHp4YXdDeGF6eTdpb0xEbjFNbldKbXJfbzRCZE1mNUJ1aWg0MVZfRnlmNzY1NV9fTTNqcHFuSW0xZ2pXQU5paDU1RjZGbF9DZ3h2RHBrR19JR08tbE1tRnJjdHRmRzNRZGZ4NEpSdFRDdTA5eThZc1R6bGtvSGxqMndfVzRZdTg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Celebrities Who Cameo in Taylor Swift's Music Videos
-
-- first seen: 2026-09-27 14:40 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A roundup of various celebrities who have appeared in music videos created by Taylor Swift over the years, highlighting their memorable cameos.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMifkFVX3lxTE55Mk1RbDkzYk5GdThURUp3T0hqcUJKR0lBYlBNYzdUR25CWjdYWExFWnppVlZZS2JJQ2twS01UOVlqRHgtNmtVOFhpYVpsZnBpQk1wcWY4MkNRUS1DQ2ViczNfckZDdlE3SFVTZVRsWGtLWE05MFZqdDdEQXpGUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Patient Zero' Music Video Premiere Time Announced
-
-- first seen: 2026-09-27 14:40 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 4
-- summary: The premiere time for Taylor Swift's 'Patient Zero' music video has been confirmed in relation to the upcoming 2026 MTV VMAs broadcast.
-- sources:
-  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMisgFBVV95cUxNc3lBa0JMU2t6eE51ZWQxY3dKeXl2eXFVbG91b1dmdk5ldk9YU181RHhVczlqNEI4VHNDWnZ3bTFCZTNISDNINkV5OWdJY1JVWDRGcEtGVWd2VXpwZ2djRWQxdTFIR1BoZGt6NTRScWJOektsZndycjk5SUNlZHVsOFc0VFFEUy16TzV1M2JjWFVWM2NOdlF1ZXpmVlQ0YWFUTWppVVBvS1AxSk8yaG5kZE9B?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/2026-vmas-winners-list-1235631232/
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-makeup-mtv-vmas-2026-1239282835/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi8wFBVV95cUxQa1Bvai1TUnd4bTBnT0k1WTRXeDFsM3VPNDZwcmVLZVlXQzZJMUtQaXZkVVVrcUNzNm5GSzhITThSaVZpSEN0SjdiMEdoWjF3TWtLYjJ6dnIwdTNyRnE3M2JnTG5JaVEwYmRBRUlod2F2UVEtRTlIaHR6cjhESWZNWlRka2FHRDIySXE5SzZrRUwxN3l0Y21SUFZKYjAyQ0lDZUQ0RFBJUGh5MTNkSjFfUEN3OXJ3aTJ5WTR6Y0d2bU5ZU1RMRHE0QXZtN3RVdUhDY3RIMmpFWE1FVWhJWjZTZ1lNUGtfTmNWSTM4VURvUkZTMjA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Legendary Artist Criticizes Taylor Swift's Impact on Music
-
-- first seen: 2026-09-27 14:40 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A legendary artist has expressed strong criticism of Taylor Swift, stating that she has 'ruined music.' The comments have sparked discussions among fans and critics alike.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxQTncxY0JrZDRSN3YtbmxBa3RDX1prQVF1QWlaRUhoNGhrNEladmM1OHFBcDhzTVhJUlVBRTV4eVVkaUFVRUY0SEc2TDF6VENFSi1EZFJISjQ5WXBIOVVsTXd4ZEZWYWx1QnlIZUJQQjdGbHRDX2F4d1BPWDlnN3BoSk56NGI3SmhqS2FWM2dMckg1Z3VIWUxOeVA1dVJRMlpD?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Possible Attendance at Dolphins vs Chiefs Game
-
-- first seen: 2026-09-27 14:40 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: There is speculation about Taylor Swift attending the Dolphins vs Chiefs game today to see Travis Kelce. The news has generated buzz among fans and media.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdmhPVUtFQ3hYbi1TcVEtUkx0QW5qVlhjWGFBZGRzTFFXZ0pQTzBjVDgyTnBNZ1hZR0xoNFRKb2w5QkRtUGEtMWs1MGlHVThaT29pamQxSDNoZl9jU0ZnMERfTEFCdWc0YWdQNzRvWUJEX0ZJNnlKVzMyZUV6LWZFTTVqRV9BMWd1LVllU2syZ0dab2Z5QXN5TS1SMHFrM3otbVhnekxnNEl1bWVoV09QWlBpVWx2OV9yT2EtS0VoQVFKZw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOelRQNnc2cFBtdW5TM09NLWZ3NTMxQkRQcnc0RFk2TF85dDhDdkIwSUw0akVlNHdWdEdIblQ4aVNza0wxaVVyb285ZDZmRGI5aE1XM1FIZzkxaXVqV1N3VU1pM0tFNEN4aS1JTEluVDN6bFl6NXVzTFN0RlZELUNrX2lVdHJOLXl0bjdmX1BUMzlCWjBZX3BnWkxBQk1vWTFwMlI5ZUgwcDhUbUdDV1hheHFMTG9VM2V5ejg5eE0xTUVVWVk?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Palm Beach Post — https://news.google.com/rss/articles/CBMi8AFBVV95cUxQUXFxUFI0Njk0UmFvVEdoT2c3djRIVURsTGUzenctSU5ETVVBYjlwOWxydkZjaGdEYmZZQWM3X1RyMjZNbUt0UGhDNXNrZldwUGx1bTBmN09ySWx0YldjblBMOTVDcnpzLURyQ1EwUmtIbGxlRGdzZGh0aEc3aV9CSFpqT3hpRVFhQ1lfVUVhOFVRZ20tTnN1b1lVbWVFLVpfVzg2eHVCblhMTi1rdl9oend0MV9RSDdQTDhNUWlpbG5ZOEktSkNvaEZvbmZlZ0Q1c0wwYXIxSWdzYUhsd1d5bnFXd3VMTEhCaUhrTUdGS2U?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxPZGtXUm0yU2Z6R0drLWQ5MTQ4R0t4Y3d1UUw4QzV2LXlpTTRpeHhPcHNvVG1RNTduaGtuMTFCSi1jY1c3VVotbzZvbE95T290ZU5yVEZUR1lnMHF0UzlNc0dpMnl3Sm5PVXdQanlZMlo4YzZ3amZfNm43cFBKNWhpX1V2TUpMbVE?oc=5&hl=en-US&gl=US&ceid=US:en
