@@ -971,8 +971,8 @@ export default {
           notes: 'Sheffield naming it and "Is It Over Now?" the vault highlights, on its "acerbic wit"',
         },
         {
-          source_url: 'https://www.nme.com/reviews/album/taylor-swift-1989-taylors-version-review-3527096',
-          source_title: "Taylor Swift – '1989 (Taylor's Version)' review",
+          source_url: 'https://www.nme.com/reviews/album/taylor-swift-1989-taylors-version-review-lyrics-tracklist-3522001',
+          source_title: "Taylor Swift - '1989 (Taylor's Version)' review: still her best album",
           publisher: 'NME',
           source_type: 'reputable_press',
           accessed_at: '2026-07-24',

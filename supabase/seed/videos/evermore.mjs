@@ -156,9 +156,9 @@ export default {
       sources: [
         wiki('I_Bet_You_Think_About_Me', 'I Bet You Think About Me'),
         press(
-          'https://www.teenvogue.com/story/taylor-swift-i-bet-you-think-about-me-music-video-blake-lively',
-          "Taylor Swift to Release 'I Bet You Think About Me' Music Video Directed By Blake Lively",
-          'Teen Vogue',
+          'https://www.nbcnews.com/pop-culture/pop-culture-news/miles-teller-stars-taylor-swifts-new-music-video-directed-blake-lively-rcna5586',
+          "Miles Teller stars in Taylor Swift's new music video directed by Blake Lively",
+          'NBC News',
           "supports Blake Lively's directorial debut and the music-video rollout",
         ),
       ],
