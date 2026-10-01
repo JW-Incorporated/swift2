@@ -64,6 +64,44 @@ describe('launchPlainChrome', () => {
   });
 });
 
+describe('launchPlainChrome close() is platform-explicit and once-only', () => {
+  const launched = (platform: string) =>
+    launchPlainChrome({
+      url: 'http://127.0.0.1:1/start',
+      profileDir: tmpdir(),
+      spawn: fakeSpawn().spawn as never,
+      chromeExecutable: 'x',
+      platform: platform as never,
+    });
+
+  it('on linux signals the pid directly, and only on the first close()', async () => {
+    const kill = vi.spyOn(process, 'kill').mockImplementation((() => true) as never);
+    try {
+      const chrome = await launched('linux');
+      await chrome.close();
+      await chrome.close();
+      expect(kill).toHaveBeenCalledTimes(1);
+      expect(kill).toHaveBeenCalledWith(4242);
+    } finally {
+      kill.mockRestore();
+    }
+  });
+
+  it('on win32 taskkills once even when close() is called twice', async () => {
+    const { spawn, calls } = fakeSpawn();
+    const chrome = await launchPlainChrome({
+      url: 'http://127.0.0.1:1/start',
+      profileDir: tmpdir(),
+      spawn: spawn as never,
+      chromeExecutable: 'x',
+      platform: 'win32',
+    });
+    await chrome.close();
+    await chrome.close();
+    expect(calls.filter((c) => c.cmd === 'taskkill')).toHaveLength(1);
+  });
+});
+
 describe('chromeProfileInUse', () => {
   it('is false without a lockfile, false for a stale one, true when it cannot be opened', () => {
     const close = vi.fn();
@@ -227,7 +265,8 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
       coverage: { ageRuleMet: true, harvestedCount: 1, slotCount: 1, partial: false },
       commentCoverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
     });
-  // The fake extension: takes groups until /next says done; `hang` makes it freeze on one slug.
+  // The fake extension: takes groups until /next says done; `hang` makes it lose its tab on one slug
+  // (/tab-lost, deterministic: no wall-clock watchdog is involved, so slow CI cannot flake).
   const drive = async (base: string, hang?: string) => {
     for (;;) {
       const res = await fetch(`${base}/next`, { headers });
@@ -237,7 +276,14 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
         await fetch(`${base}/finished`, { method: 'POST', headers, body: '{}' });
         return;
       }
-      if (job.slug === hang) return; // renderer froze: no result, no heartbeat
+      if (job.slug === hang) {
+        await fetch(`${base}/tab-lost`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ slug: job.slug, reason: 'tab-closed' }),
+        });
+        return;
+      }
       await fetch(`${base}/result`, { method: 'POST', headers, body: collectedBody(job.slug) });
     }
   };
@@ -264,7 +310,7 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
         now: new Date('2026-09-30T12:00:00Z'),
         week: '2026-09-27',
         startReceiver: ((args: Record<string, unknown>) =>
-          startReceiver({ ...args, stallMs: 150, log: () => {} } as never)) as never,
+          startReceiver({ ...args, stallMs: 60_000, log: () => {} } as never)) as never,
         launch,
         token,
         profileDir: dir,
@@ -275,7 +321,7 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
         ['two', 'collected'],
         ['three', 'collected'],
       ]);
-      expect(out.results[0]).toMatchObject({ reason: 'stalled' });
+      expect(out.results[0]).toMatchObject({ reason: 'tab-closed' });
       expect(launches).toBe(2);
       expect(calls.map((c) => c.cmd)).toEqual(['chrome.exe', 'taskkill', 'chrome.exe', 'taskkill']);
     } finally {
@@ -295,7 +341,7 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
         now: new Date('2026-09-30T12:00:00Z'),
         week: '2026-09-27',
         startReceiver: ((args: Record<string, unknown>) =>
-          startReceiver({ ...args, stallMs: 150, log: () => {} } as never)) as never,
+          startReceiver({ ...args, stallMs: 60_000, log: () => {} } as never)) as never,
         launch: async ({ url }: { url: string }) => {
           launches += 1;
           void drive(new URL(url).origin, launches === 1 ? 'one' : undefined).catch(
@@ -344,7 +390,7 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
         now: new Date('2026-09-30T12:00:00Z'),
         week: '2026-09-27',
         startReceiver: ((args: Record<string, unknown>) =>
-          startReceiver({ ...args, stallMs: 150, log: () => {} } as never)) as never,
+          startReceiver({ ...args, stallMs: 60_000, log: () => {} } as never)) as never,
         launch,
         token,
         profileDir: dir,
@@ -360,7 +406,7 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
       });
       expect(launch).toHaveBeenCalledTimes(1);
       expect(out.results).toEqual([
-        { slug: 'one', status: 'failed', reason: 'stalled' },
+        { slug: 'one', status: 'failed', reason: 'tab-closed' },
         { slug: 'two', status: 'failed', reason: 'chrome-relaunch-failed' },
         { slug: 'three', status: 'failed', reason: 'chrome-relaunch-failed' },
       ]);

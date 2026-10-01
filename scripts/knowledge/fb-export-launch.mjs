@@ -79,11 +79,14 @@ export async function launchPlainChrome({
   });
   child.unref?.();
   child.on?.('error', () => undefined);
-  const pid = child.pid;
+  let livePid = child.pid;
   return {
-    pid,
+    pid: child.pid,
     async close() {
-      if (!pid) return;
+      if (!livePid) return;
+      // Once only: a second close() must never signal a pid the OS may have reused.
+      const pid = livePid;
+      livePid = null;
       try {
         if (platform === 'win32') {
           const killer = spawn('taskkill', ['/PID', String(pid), '/T', '/F'], {
