@@ -138,6 +138,8 @@ on:
       # lands without a founder merge; posts still need the founder ✅.
       - "social/calendar.md"
       - "social/lessons.md"
+      - "docs/marketing/social-strategy.md"
+      - "social/strategy-params.json"
       - "docs/audits/**"
       - "docs/ops/MERCH-REVENUE.json"
       - "apps/web/public/social/**"

@@ -78,7 +78,15 @@ function isThemedCampaign(campaign) {
  * (scripts/appearance-discovery/lib/social-draft.mjs) now sources a real
  * credited photo from social/photo-library.json for BOTH platforms instead
  * of shipping a rehosted thumbnail X-only. */
-export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art'];
+export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'card'];
+
+/** `mediaKind: "card"` — a site-rendered share-card PNG (the live
+ * /api/share-card route) committed under CARD_PREFIX. Credit is always the
+ * product, never a photographer. */
+export const CARD_PREFIX = '/social/library/cards/';
+export const CARD_CREDIT = 'Long Live';
+export const CARD_URL_PREFIX = 'https://www.longlivets.com/api/share-card';
+export const EXPERIMENT_LIMITS = { hypothesis: 300, variant: 100, metric: 100 };
 
 /**
  * Per-platform hard limits, enforced by the platform, not by taste.
@@ -587,6 +595,19 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
       'mediaSource: required when mediaKind is "photo" — the credit must be auditable back to where the photo came from. (Mirrors check-drafts; this gate exists for items that arrive via a path the draft checker never saw.)',
     );
   }
+  if (item.mediaKind === 'card') {
+    if (item.mediaCredit !== CARD_CREDIT) {
+      findings.push(`mediaCredit: must be exactly ${JSON.stringify(CARD_CREDIT)} when mediaKind is "card".`);
+    }
+    if (typeof item.cardUrl !== 'string' || !item.cardUrl.startsWith(CARD_URL_PREFIX)) {
+      findings.push(`cardUrl: required when mediaKind is "card" — must start with ${CARD_URL_PREFIX} (the route the PNG was rendered from).`);
+    }
+    for (const p of paths) {
+      if (typeof p === 'string' && (!p.startsWith(CARD_PREFIX) || !p.toLowerCase().endsWith('.png') || p.includes('..'))) {
+        findings.push(`media: mediaKind "card" path ${JSON.stringify(p)} must be a committed .png under ${CARD_PREFIX}.`);
+      }
+    }
+  }
   // A QUEUE item carrying media must declare what that media is — the
   // undeclared default is how the Taylor-free grid happened. Applies to the
   // queue only (validate-queue.mjs targets social/queue/); historical
@@ -674,6 +695,22 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
     findings.push(
       `singlePlatformReason: must be a written reason of ${SINGLE_PLATFORM_REASON_MIN}-${SINGLE_PLATFORM_REASON_MAX} characters (${JSON.stringify(item.singlePlatformReason)}).`,
     );
+  }
+
+  // Optional A/B bookkeeping the strategy bots attach to a draft.
+  if (item.experiment !== undefined) {
+    const exp = item.experiment;
+    if (exp === null || typeof exp !== 'object' || Array.isArray(exp)) {
+      findings.push('experiment: must be an object { hypothesis, variant, metric } when present.');
+    } else {
+      for (const [field, max] of Object.entries(EXPERIMENT_LIMITS)) {
+        if (typeof exp[field] !== 'string' || exp[field].trim() === '') {
+          findings.push(`experiment.${field}: required, must be a non-empty string.`);
+        } else if (exp[field].length > max) {
+          findings.push(`experiment.${field}: ${exp[field].length} characters exceeds the ${max}-character limit.`);
+        }
+      }
+    }
   }
 
   return findings;

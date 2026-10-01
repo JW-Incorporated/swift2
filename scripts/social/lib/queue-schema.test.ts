@@ -624,6 +624,69 @@ ${url}`;
     });
   });
 
+  describe('mediaKind "card" (site-rendered share card)', () => {
+    const card = {
+      ...validIg,
+      media: ['/social/library/cards/era-lover-2026-10-01.png'],
+      altText: ['A Long Live share card for the Lover era.'],
+      mediaKind: 'card',
+      mediaCredit: 'Long Live',
+      cardUrl: 'https://www.longlivets.com/api/share-card?era=lover',
+    };
+
+    it('accepts a well-formed card on Instagram and X', () => {
+      expect(validateQueueItem(card)).toEqual([]);
+      expect(validateQueueItem({ ...card, platform: 'x' })).toEqual([]);
+    });
+
+    it('requires the exact "Long Live" credit and a share-card cardUrl', () => {
+      expect(findingFor({ ...card, mediaCredit: undefined }, 'mediaCredit')).toBeDefined();
+      expect(findingFor({ ...card, mediaCredit: 'Someone Else' }, 'mediaCredit')).toBeDefined();
+      expect(findingFor({ ...card, cardUrl: undefined }, 'cardUrl')).toBeDefined();
+      expect(findingFor({ ...card, cardUrl: 'https://evil.example/api/share-card' }, 'cardUrl')).toBeDefined();
+    });
+
+    it('binds media to a .png under /social/library/cards/', () => {
+      expect(findingFor({ ...card, media: ['/social/library/photos/x.png'] }, 'must be a committed .png')).toBeDefined();
+      expect(findingFor({ ...card, media: ['/social/library/cards/x.jpg'] }, 'must be a committed .png')).toBeDefined();
+      expect(findingFor({ ...card, media: ['/social/library/cards/../x.png'] }, 'must be a committed .png')).toBeDefined();
+    });
+
+    it('still enforces media, altText and platform limits', () => {
+      expect(findingFor({ ...card, media: [], altText: undefined }, 'media:')).toBeDefined();
+      expect(findingFor({ ...card, altText: undefined }, 'altText:')).toBeDefined();
+      expect(findingFor({ ...card, body: 'x'.repeat(2201) }, 'body:')).toBeDefined();
+    });
+
+    it('leaves existing kinds unchanged', () => {
+      expect(validateQueueItem(validX)).toEqual([]);
+      expect(validateQueueItem(validIg)).toEqual([]);
+      expect(findingFor({ ...validX, mediaKind: 'video-thumb' }, 'mediaKind')).toBeDefined();
+      expect(findingFor({ ...validX, mediaCredit: undefined }, 'mediaCredit')).toBeDefined();
+    });
+  });
+
+  describe('experiment (optional A/B bookkeeping)', () => {
+    const experiment = { hypothesis: 'Cards outperform photos on saves.', variant: 'card-v1', metric: 'saves' };
+
+    it('accepts a valid experiment and its absence', () => {
+      expect(validateQueueItem({ ...validX, experiment })).toEqual([]);
+      expect(validateQueueItem(validX)).toEqual([]);
+    });
+
+    it('rejects a non-object, missing, empty or over-long field', () => {
+      expect(findingFor({ ...validX, experiment: 'x' }, 'experiment:')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: null }, 'experiment:')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: [] }, 'experiment:')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: { ...experiment, metric: undefined } }, 'experiment.metric')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: { ...experiment, variant: ' ' } }, 'experiment.variant')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: { ...experiment, hypothesis: 'h'.repeat(301) } }, 'experiment.hypothesis')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: { ...experiment, variant: 'v'.repeat(101) } }, 'experiment.variant')).toBeDefined();
+      expect(findingFor({ ...validX, experiment: { ...experiment, metric: 'm'.repeat(101) } }, 'experiment.metric')).toBeDefined();
+      expect(validateQueueItem({ ...validX, experiment: { hypothesis: 'h'.repeat(300), variant: 'v'.repeat(100), metric: 'm'.repeat(100) } })).toEqual([]);
+    });
+  });
+
   it('reports every problem at once rather than the first', () => {
     const findings = validateQueueItem({ platform: 'tiktok', body: '', scheduledAt: 'soon', media: 'x' });
     expect(findings.length).toBeGreaterThanOrEqual(4);
