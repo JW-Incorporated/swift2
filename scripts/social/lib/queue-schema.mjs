@@ -26,6 +26,7 @@ import { weightedTweetLength } from './x-length.mjs';
 import { MAX_X_IMAGES } from './platforms.mjs';
 import { SOCIAL_APPROVERS } from './approvers.mjs';
 import { approvalStatus } from './queue.mjs';
+import { creditsMatch } from './photo-library.mjs';
 
 /** Platforms the poster can actually publish to (post-queue.mjs's postOne). */
 export const PLATFORMS = ['x', 'instagram'];
@@ -177,7 +178,7 @@ export function validatePhotoInventoryBinding(item, photoLibrary) {
   }
   const photo = photoLibrary.find((entry) => entry.id === item.photoId);
   if (!photo) return [`photoId: ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
-  if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || item.mediaCredit !== photo.credit || item.mediaSource !== photo.source) {
+  if (photoTiles.length !== 1 || photoTiles[0] !== photo.mediaPath || !creditsMatch(item.mediaCredit, photo.credit) || item.mediaSource !== photo.source) {
     return ['photoId: must use its inventory media path, exact credit, and exact source so attribution cannot drift.'];
   }
   // Alt text for the library tile is WRITTEN ONCE on the photo entry itself
@@ -563,9 +564,10 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
   // --- mediaKind + photo provenance (2026-08-12, the Taylor-photo standard) --
   // Three declared kinds (see social/README.md's mediaKind section):
   //   "photo"       — a real photograph of Taylor Swift, rehosted from a
-  //                   sourced corpus entry. REQUIRES `mediaCredit` (the
-  //                   photographer/agency line that ships with the post) and
-  //                   should carry `mediaSource` (where it came from).
+  //                   sourced corpus entry. `mediaCredit` (the
+  //                   photographer line that ships with the post) is set when
+  //                   the photographer is known and omitted when not (owner,
+  //                   2026-10-01); REQUIRES `mediaSource` (where it came from).
   //   "site-screen" — a screenshot of the product itself (feature launches).
   //   "era-art"     — the legacy generic era tile. Still schema-valid so old
   //                   records parse, but check-drafts.mjs HARD-FAILS any new
@@ -585,11 +587,6 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {
       findings.push(`${field}: must be a non-empty string when present.`);
     }
-  }
-  if (item.mediaKind === 'photo' && (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '')) {
-    findings.push(
-      'mediaCredit: required when mediaKind is "photo" — a real photograph of Taylor ships with its photographer/agency credit, always (docs/decisions.md 2026-07-09 media policy).',
-    );
   }
   if (item.mediaKind === 'photo' && (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '')) {
     findings.push(
