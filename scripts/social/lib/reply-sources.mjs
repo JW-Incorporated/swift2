@@ -129,7 +129,36 @@ export function makeGraph({
     return out;
   }
 
-  return { get, list, cache, budget };
+  /**
+   * The PAGE access token for `pageId`, from `/{page-id}?fields=access_token`
+   * with the user token — Page-scoped reads (Page posts/comments, IG DMs) are
+   * served with it, and a user token alone is rejected there ("Invalid OAuth
+   * 2.0 Access Token"). Costs one Graph call, cached for the run; resolves null
+   * when the exchange fails or yields nothing new (callers fall back to the user
+   * token). Only a rate limit rethrows.
+   */
+  function pageTokenFor(pageId) {
+    if (!pageId) return Promise.resolve(null);
+    const key = `page-token:${pageId}`;
+    if (!cache.has(key)) {
+      cache.set(
+        key,
+        get(pageId, { fields: 'access_token' }).then(
+          (res) => (res?.access_token && res.access_token !== token ? res.access_token : null),
+          (err) => {
+            if (err instanceof RateLimitError) throw err;
+            return null;
+          },
+        ),
+      );
+    }
+    return cache.get(key);
+  }
+
+  /** A graph on another token that shares this one's fetch, version and call budget. */
+  const withToken = (otherToken) => makeGraph({ token: otherToken, fetchImpl, version, budget });
+
+  return { get, list, cache, budget, pageTokenFor, withToken };
 }
 
 /** Our own IG username, fetched at most once per run (shared by comments + tags). */
@@ -255,8 +284,11 @@ export async function collectFacebookComments(
   graph,
   { pageId, now = Date.now(), onWarn = () => {}, max = MAX_FB_POSTS, days = FB_POST_DAYS },
 ) {
+  const pageToken = await graph.pageTokenFor(pageId);
+  if (!pageToken) onWarn('Page access token unavailable — reading Page comments with the user token');
+  const pageGraph = pageToken ? graph.withToken(pageToken) : graph;
   const posts = await recentPosts(
-    graph,
+    pageGraph,
     `${pageId}/posts`,
     { fields: 'id,message,permalink_url,created_time', limit: String(max) },
     { now, max, days, timeKey: 'created_time' },
@@ -264,7 +296,7 @@ export async function collectFacebookComments(
   const items = [];
   for (const post of posts) {
     try {
-      const comments = await graph.list(
+      const comments = await pageGraph.list(
         `${post.id}/comments`,
         {
           filter: 'stream',

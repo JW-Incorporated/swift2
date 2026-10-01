@@ -139,6 +139,56 @@ describe('collectors', () => {
     expect(items.map((i: { id: string }) => i.id)).toEqual(['fb-comment:f1', 'fb-comment:f3']);
     expect(items[1]).toMatchObject({ username: 'someone', permalink: 'https://www.facebook.com/p1' });
   });
+
+  describe('FB comments Page token', () => {
+    const PAGE_TOKEN = 'PAGE-TOKEN-456';
+    const used = (fetchImpl: ReturnType<typeof fakeFetch>) =>
+      fetchImpl.mock.calls.map(([u]) => `${new URL(u as string).pathname.replace('/v25.0/', '')}:${new URL(u as string).searchParams.get('access_token')}`);
+    const pageRoutes = (tokenGate: string | null) => {
+      const gate = (body: unknown) => (url: URL) =>
+        tokenGate && url.searchParams.get('access_token') !== tokenGate ? { __status: 400 } : body;
+      return {
+        page1: (url: URL) => (url.searchParams.get('fields') === 'access_token' ? { access_token: PAGE_TOKEN } : {}),
+        'page1/posts': gate({ data: [{ id: 'page1_p1', message: 'New post', created_time: hoursAgo(6) }] }),
+        'page1_p1/comments': gate({ data: [{ id: 'f1', message: 'nice', from: { id: 'u1', name: 'Fan One' }, created_time: hoursAgo(2) }] }),
+      };
+    };
+
+    it('exchanges the user token for a Page token and reads posts + comments with it', async () => {
+      const fetchImpl = fakeFetch(pageRoutes(PAGE_TOKEN));
+      const graph = makeGraph({ token: TOKEN, fetchImpl });
+      const items = await collectFacebookComments(graph, { pageId: 'page1', now: NOW });
+      expect(items.map((i: { id: string }) => i.id)).toEqual(['fb-comment:f1']);
+      expect(used(fetchImpl)).toEqual([`page1:${TOKEN}`, `page1/posts:${PAGE_TOKEN}`, `page1_p1/comments:${PAGE_TOKEN}`]);
+      expect(graph.budget.used).toBe(3);
+    });
+
+    it('exchanges once per run even when DMs and comments both need it', async () => {
+      const fetchImpl = fakeFetch(pageRoutes(null));
+      const graph = makeGraph({ token: TOKEN, fetchImpl });
+      await graph.pageTokenFor('page1');
+      await collectFacebookComments(graph, { pageId: 'page1', now: NOW });
+      expect(used(fetchImpl).filter((u) => u.startsWith('page1:'))).toHaveLength(1);
+    });
+
+    it('falls back to the user token with a scrubbed warning when the exchange is rejected', async () => {
+      const fetchImpl = fakeFetch({ ...pageRoutes(null), page1: { __status: 400 } });
+      const warn = vi.fn();
+      const items = await collectFacebookComments(makeGraph({ token: TOKEN, fetchImpl }), { pageId: 'page1', now: NOW, onWarn: warn });
+      expect(items).toHaveLength(1);
+      expect(used(fetchImpl)).toContain(`page1/posts:${TOKEN}`);
+      expect(warn).toHaveBeenCalledTimes(1);
+      expect(JSON.stringify(warn.mock.calls)).not.toContain(TOKEN);
+    });
+
+    it('surfaces an invalid-token failure from the Page read with the token scrubbed', async () => {
+      const fetchImpl = fakeFetch({ ...pageRoutes(null), page1: { __status: 400 }, 'page1/posts': { __status: 400 } });
+      const err = await collectFacebookComments(makeGraph({ token: TOKEN, fetchImpl }), { pageId: 'page1', now: NOW }).catch((e: Error) => e);
+      expect(err).toBeInstanceOf(Error);
+      expect((err as Error).message).toContain('Graph HTTP 400');
+      expect((err as Error).message).not.toContain(TOKEN);
+    });
+  });
 });
 
 describe('planNotifications + ledger', () => {
