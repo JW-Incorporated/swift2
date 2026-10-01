@@ -1,8 +1,8 @@
 // OS-036 — native Clownbot API client. Mirrors `apps/web/lib/longlive/
 // clown-stream.ts` + the `fetch('/api/clown', ...)` call in
 // `apps/web/components/longlive/ClownChat.tsx`, ported to a cross-origin
-// call against the deployed API (same `apiBaseUrl()` fallback pattern
-// `push-registration.ts`/`prefs-client.ts` use) and to a bearer-token
+// call against the deployed API (host decided in
+// `api-base.ts`) and to a bearer-token
 // identity instead of a same-origin cookie (see `clown-session-store.ts`'s
 // header for why).
 //
@@ -14,13 +14,8 @@
 // against @swift2/shared/@swift2/experience or its own copy, never a
 // cross-app import). Keep this shape in sync BY HAND if the server's
 // `ClownAnswer` contract changes.
+import { apiBaseUrl } from './api-base';
 import { getStoredClownSessionToken, setStoredClownSessionToken } from './clown-session-store';
-
-function apiBaseUrl(): string {
-  return (
-    process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://swift2-web-nine.vercel.app'
-  ).replace(/\/$/, '');
-}
 
 export interface ClownTurn {
   role: 'user' | 'assistant';

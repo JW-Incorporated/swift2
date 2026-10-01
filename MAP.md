@@ -317,6 +317,7 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 | `packages/shared/src/notifications-types.ts` | Portable category catalogue (spec §4, minus Fun categories — Phase 4), `DeviceRegistrationInput` |
 | `packages/core/src/devices.ts` | `upsertDevice()` — the one write path, service-role only, called from the register route |
 | `apps/web/app/api/devices/register/route.ts` (+ `.test.ts`) | `POST /api/devices/register` — upsert-by-`device_id`, same call for first registration and token refresh |
+| `apps/mobile/lib/api-base.ts` (+ test) | `apiBaseUrl()` / `DEFAULT_API_BASE_URL` — the one place the mobile API host is decided (`EXPO_PUBLIC_API_BASE_URL` override) |
 | `apps/mobile/lib/device-id.ts` | Anonymous `device_id` generation + SecureStore persistence (spec §2) |
 | `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
 | `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |

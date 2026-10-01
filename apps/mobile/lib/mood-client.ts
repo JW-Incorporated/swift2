@@ -1,7 +1,7 @@
 // OS-036 — native mood chat API client. Mirrors the `fetch('/api/mood', ...)`
 // call in `apps/web/components/longlive/MoodChat.tsx`, ported to a
-// cross-origin call against the deployed API (same `apiBaseUrl()` fallback
-// pattern every other mobile client module uses).
+// cross-origin call against the deployed API (host decided in
+// `api-base.ts`).
 //
 // The response shape is a deliberate, minimal COPY of the web's `Result`
 // union (`MoodChat.tsx`) — not an import, same architecture.md boundary
@@ -10,12 +10,7 @@
 // since it's pure, framework-free domain data — only the chat-shaped
 // wrapper around it is duplicated here.
 import type { MoodMatch } from '@swift2/experience';
-
-function apiBaseUrl(): string {
-  return (
-    process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://swift2-web-nine.vercel.app'
-  ).replace(/\/$/, '');
-}
+import { apiBaseUrl } from './api-base';
 
 export type MoodResult =
   | { kind: 'crisis'; message: string[] }

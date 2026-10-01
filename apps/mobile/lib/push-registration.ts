@@ -11,18 +11,9 @@ import Constants from 'expo-constants';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import type { DevicePlatform } from '@swift2/shared';
+import { apiBaseUrl } from './api-base';
 import { getOrCreateDeviceId } from './device-id';
 import { registerNotificationChannels } from './notification-channels';
-
-function apiBaseUrl(): string {
-  // Same fallback-base pattern apps/web/lib/vault.ts uses for its own
-  // preview fallback — the mobile app talks to the deployed API for the
-  // registration endpoint (there's no local backend to point at from a
-  // device/emulator). Overridable for local dev against `next dev`.
-  return (
-    process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://swift2-web-nine.vercel.app'
-  ).replace(/\/$/, '');
-}
 
 function currentPlatform(): DevicePlatform {
   if (Platform.OS === 'ios') return 'ios';

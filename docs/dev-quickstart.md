@@ -31,6 +31,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 | `apps/web/.env.local` | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (or `…_PUBLISHABLE_KEY`) | web reader (public RLS read) |
 | `apps/worker/.env` | `SUPABASE_DB_URL` (full Postgres connection string) | `db:migrate` + seeds (`pg` direct, bypasses RLS to write) |
 | `apps/mobile/.env` | `EXPO_PUBLIC_CONTENT_BASE_URL` (optional) | mobile app content bundle override (see `apps/mobile/.env.example`; OS-015 — the app no longer reads Supabase directly) |
+| `apps/mobile/.env` | `EXPO_PUBLIC_API_BASE_URL` (optional) | mobile API host; default `https://www.longlivets.com` (`apps/mobile/lib/api-base.ts`). Set only to point a dev build at `next dev` or a preview; production must leave it unset |
 
 ## Commands (from repo root)
 
