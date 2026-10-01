@@ -4,6 +4,7 @@ import {
   MY_ERAS_MAX,
   parseBucketParam,
   parseShareCardSize,
+  shareCardPath,
   type ShareCardSize,
 } from './share-card-params';
 
@@ -17,6 +18,8 @@ import {
 export type ShareCardSpec =
   | {
       kind: 'moment';
+      /** Canonical id (a slug in the request resolves to this). */
+      itemId: string;
       era: Era;
       dateLabel: string;
       title: string;
@@ -71,6 +74,7 @@ function momentSpec(raw: string): ShareCardSpec | undefined {
   const unconfirmed = item.confidence !== undefined && isSubConfirmed(item.confidence);
   return {
     kind: 'moment',
+    itemId: item.id,
     era,
     dateLabel: item.dateLabel,
     title: truncate(item.title, TITLE_MAX),
@@ -120,4 +124,31 @@ export function parseShareCardRequest(url: URL): ShareCardRequest {
     spec = undefined;
   }
   return { spec: spec ?? defaultSpec(), size };
+}
+
+/**
+ * The one URL a given card is served from. The route 308s every other query
+ * (extra keys, a slug instead of the id, conflicting item+era, invalid ids,
+ * unbucketed counts) here, so the CDN only ever renders canonical URLs and an
+ * attacker cannot mint cache entries by decorating the query string.
+ */
+export function canonicalShareCardPath({ spec, size }: ShareCardRequest): string {
+  switch (spec.kind) {
+    case 'moment':
+      return shareCardPath({ item: spec.itemId }, size);
+    case 'era':
+      return shareCardPath({ era: spec.era.id }, size);
+    case 'myEras':
+      return shareCardPath(
+        {
+          eras: spec.eras.map((e) => e.id),
+          moments: spec.moments,
+          eggs: spec.eggs,
+          favorites: spec.favorites,
+        },
+        size,
+      );
+    default:
+      return shareCardPath({}, size);
+  }
 }

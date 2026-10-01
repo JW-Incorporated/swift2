@@ -90,11 +90,58 @@ function downloadFile(file: File): void {
   window.setTimeout(() => URL.revokeObjectURL(href), 10_000);
 }
 
+// Card PNGs fetched ahead of the tap. iOS Safari only honours navigator.share
+// inside the click's transient activation, which a fetch + blob round trip
+// can outlive — so the menu prefetches when it opens and the tap finds a
+// ready File. A small FIFO bound keeps memory modest (a card is ~300 KB).
+const MAX_PREFETCHED = 6;
+const readyCards = new Map<string, File>();
+const pendingCards = new Map<string, Promise<File | null>>();
+
+async function fetchCardFile(path: string, size: ShareCardSize): Promise<File | null> {
+  try {
+    const res = await fetch(path);
+    if (!res.ok) return null;
+    return new File([await res.blob()], `long-live-${size}.png`, { type: 'image/png' });
+  } catch {
+    return null;
+  }
+}
+
+/** Start (or reuse) the fetch for a card so a later share tap needs no await. */
+export function prefetchShareCard(
+  source: ShareCardSource,
+  size: ShareCardSize,
+): Promise<File | null> {
+  const path = shareCardPath(source, size);
+  const ready = readyCards.get(path);
+  if (ready) return Promise.resolve(ready);
+  const pending = pendingCards.get(path);
+  if (pending) return pending;
+  const started = fetchCardFile(path, size).then((file) => {
+    pendingCards.delete(path);
+    if (file) {
+      readyCards.set(path, file);
+      if (readyCards.size > MAX_PREFETCHED) readyCards.delete(readyCards.keys().next().value!);
+    }
+    return file;
+  });
+  pendingCards.set(path, started);
+  return started;
+}
+
+/** Test seam: forget every prefetched card. */
+export function clearPrefetchedShareCards(): void {
+  readyCards.clear();
+  pendingCards.clear();
+}
+
 /**
- * "Share as image": fetch the deterministic card for `source` and hand the PNG
- * to the native share sheet (or save it). The caption + deep link come from
- * the same payload a plain link share would use, so the image always points
- * back at the page it was made from.
+ * "Share as image": hand the deterministic card for `source` to the native
+ * share sheet (or save it). The caption + deep link come from the same payload
+ * a plain link share would use, so the image always points back at the page it
+ * was made from. When the card was prefetched, no `await` runs before
+ * `navigator.share`, so the call happens synchronously inside the tap.
  */
 export async function shareCardImage(
   target: ShareTarget,
@@ -102,14 +149,9 @@ export async function shareCardImage(
   size: ShareCardSize,
 ): Promise<ImageShareResult | 'error'> {
   const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname);
-  let file: File;
-  try {
-    const res = await fetch(shareCardPath(source, size));
-    if (!res.ok) return 'error';
-    file = new File([await res.blob()], `long-live-${size}.png`, { type: 'image/png' });
-  } catch {
-    return 'error';
-  }
+  const file =
+    readyCards.get(shareCardPath(source, size)) ?? (await prefetchShareCard(source, size));
+  if (!file) return 'error';
   // Native file sharing only on touch devices: desktop Chromium reports
   // canShare({files}) too, but opens an OS share dialog where a saved PNG is
   // what people expect.

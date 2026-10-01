@@ -28,14 +28,26 @@ vi.mock('@/lib/longlive/content', () => ({
 
 import { buildShareCardTree, SHARE_CARD_CACHE_CONTROL } from '@/lib/longlive/share-card';
 import { SHARE_CARD_WATERMARK, STORY_SAFE_Y } from '@/lib/longlive/share-card-frame';
-import { leadSentences, parseShareCardRequest } from '@/lib/longlive/share-card-spec';
+import {
+  canonicalShareCardPath,
+  leadSentences,
+  parseShareCardRequest,
+} from '@/lib/longlive/share-card-spec';
 import { GET } from './route';
 
 const parse = (qs: string) =>
   parseShareCardRequest(new URL(`https://www.longlivets.com/api/share-card${qs}`));
 
+function raw(qs: string): Response {
+  return GET(new Request(`http://localhost/api/share-card${qs}`) as never);
+}
+
+/** Like a browser: follow the route's 308 to the canonical URL, once. */
 function get(qs: string): Promise<Response> {
-  return Promise.resolve(GET(new Request(`http://localhost/api/share-card${qs}`) as never));
+  const res = raw(qs);
+  if (res.status !== 308) return Promise.resolve(res);
+  const location = new URL(res.headers.get('location')!);
+  return get(location.search);
 }
 
 async function pngSize(res: Response): Promise<{ width: number; height: number; bytes: number }> {
@@ -135,6 +147,82 @@ describe('GET /api/share-card', { timeout: 60_000 }, () => {
   it('sets CDN cache headers on every render, including the fallback', async () => {
     for (const qs of ['?item=interrupted-speech', '?item=nope', '']) {
       expect((await get(qs)).headers.get('cache-control')).toBe(SHARE_CARD_CACHE_CONTROL);
+    }
+  });
+});
+
+describe('canonical redirects', () => {
+  const canonicalOf = (qs: string) => canonicalShareCardPath(parse(qs));
+  const location = (qs: string) => {
+    const res = raw(qs);
+    expect(res.status, qs).toBe(308);
+    const url = new URL(res.headers.get('location')!);
+    return url.pathname + url.search;
+  };
+
+  it('serves the canonical URL directly with no redirect', async () => {
+    for (const qs of [
+      '?item=interrupted-speech&size=portrait',
+      '?era=red&size=story',
+      '?eras=red%2Clover&m=25&e=0&f=1&size=portrait',
+      '?size=portrait',
+    ]) {
+      expect(canonicalOf(qs), qs).toBe(`/api/share-card${qs}`);
+      expect(raw(qs).status, qs).toBe(200);
+    }
+  });
+
+  it('308s extra keys to the canonical URL', () => {
+    expect(location('?item=interrupted-speech&size=portrait&utm=1&cb=abc')).toBe(
+      '/api/share-card?item=interrupted-speech&size=portrait',
+    );
+  });
+
+  it('308s a missing size, a slug, and unbucketed counts', () => {
+    expect(location('?item=interrupted-speech')).toBe(
+      '/api/share-card?item=interrupted-speech&size=portrait',
+    );
+    expect(location(`?item=${confirmed.slug}&size=story`)).toBe(
+      '/api/share-card?item=interrupted-speech&size=story',
+    );
+    expect(location('?eras=red&m=37&e=999999&f=2&size=portrait')).toBe(
+      '/api/share-card?eras=red&m=25&e=1000&f=1&size=portrait',
+    );
+  });
+
+  it('308s a deduped, allowlisted, capped era list', () => {
+    expect(location('?eras=red,bogus,red,lover,1989,debut&m=1&e=1&f=1&size=story')).toBe(
+      '/api/share-card?eras=red%2Clover%2C1989&m=1&e=1&f=1&size=story',
+    );
+  });
+
+  it('308s conflicting item + era to the item card', () => {
+    expect(location('?item=interrupted-speech&era=red&size=portrait')).toBe(
+      '/api/share-card?item=interrupted-speech&size=portrait',
+    );
+  });
+
+  it('308s invalid ids to the canonical default card, which then renders', async () => {
+    for (const qs of [
+      '?item=nope&size=story',
+      '?era=constructor&size=story',
+      '?eras=zz&size=story',
+      '?size=story&x=1',
+    ]) {
+      expect(location(qs), qs).toBe('/api/share-card?size=story');
+    }
+    expect(raw('?size=story').status).toBe(200);
+  });
+
+  it('cannot loop: every redirect target is itself canonical', () => {
+    for (const qs of [
+      '?item=nope',
+      '?eras=red,red&m=7',
+      `?item=${'x'.repeat(300)}&era=red`,
+      '?a=1&b=2',
+    ]) {
+      const target = new URL(raw(qs).headers.get('location')!);
+      expect(raw(target.search).status, qs).toBe(200);
     }
   });
 });

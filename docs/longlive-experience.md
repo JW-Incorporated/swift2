@@ -502,6 +502,14 @@ Rules that must survive edits:
   ("Debunked" for `disproven`), mirroring the feed card.
 - **Watermark** "Fan-made · longlivets.com" sits inside the story safe zone
   (`STORY_SAFE_Y` = 270px top and bottom; all content shares that inset).
+- **Canonical URLs only:** any query that is not exactly
+  `canonicalShareCardPath` for the card it resolves to (extra keys, slug
+  instead of id, conflicting item+era, invalid ids, unbucketed counts, missing
+  size) gets a 308 to the canonical URL — invalid input to the canonical
+  default card — so the CDN never renders a decorated URL.
+- **Prefetch:** `ShareImageMenu` prefetches both sizes when it opens
+  (`prefetchShareCard`), so the tap calls `navigator.share` with a ready File
+  and no `await` first (iOS Safari drops transient activation otherwise).
 - **Caching:** `Cache-Control: public, max-age=3600, s-maxage=86400,
   stale-while-revalidate=604800` on every render including the fallback.
 - **Fonts** are vendored in `lib/longlive/share-fonts/` and listed in

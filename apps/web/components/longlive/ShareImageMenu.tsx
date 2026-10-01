@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ImageDown } from 'lucide-react';
 import type { ShareTarget } from '@swift2/experience';
-import { shareCardImage } from '@/lib/longlive/share-payload';
+import { prefetchShareCard, shareCardImage } from '@/lib/longlive/share-payload';
 import type { ShareCardSize, ShareCardSource } from '@/lib/longlive/share-card-params';
 
 const CHOICES: { size: ShareCardSize; label: string; hint: string }[] = [
@@ -79,6 +79,7 @@ export function ShareImageMenu({
 
   const toggle = () => {
     setPhase({ kind: 'idle' });
+    if (!open) for (const c of CHOICES) void prefetchShareCard(source, c.size);
     setOpen((v) => !v);
   };
 
