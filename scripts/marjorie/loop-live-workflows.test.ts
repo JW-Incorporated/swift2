@@ -54,11 +54,22 @@ describe.each(RESPONSES)('$file', ({ file, prompt, trailer, queue }) => {
   it('keeps one lane and never cancels a running response', () => {
     expect(text).toMatch(/concurrency:\n {2}group: [\w-]+\n {2}cancel-in-progress: false/);
   });
-  it('hands help asks to the shared filer with the dispatched ask as parent (depth guard)', () => {
+  it('hands help asks to the shared filer in response mode (each ask names its parent; none means no dispatch)', () => {
     const asks = job(text, 'asks');
     expect(asks).toContain('uses: ./.github/workflows/loop-file-asks.yml');
-    expect(asks).toContain('parent: ${{ inputs.issue_number }}');
+    expect(asks).toContain('response: true');
     expect(asks).toMatch(/actions: write/);
+  });
+  it('cannot fetch issues or comments itself: gh is limited to named verbs and the prompt says everything is in the queue file', () => {
+    const tools = /allowed_tools: "([^"]+)"/.exec(job(text, 'run'))![1].split(',');
+    expect(tools).not.toContain('Bash(gh:*)');
+    for (const verb of ['issue view', 'issue list', 'pr view']) expect(tools).not.toContain(`Bash(gh ${verb}:*)`);
+    for (const t of tools.filter((x) => x.startsWith('Bash(gh '))) expect(t).toMatch(/^Bash\(gh (issue (comment|edit|close|create)|pr (create|list)|api):\*\)$/);
+    const p = read(`docs/agents/runner-prompts/${prompt}`);
+    expect(p).toContain('Never fetch an issue or its comments yourself');
+    expect(p).toContain('.scratch/ask-queue.json');
+    expect(p).not.toMatch(/gh issue view <|--json body,comments/);
+    expect(p).not.toContain('held: true');
   });
   it('has a prompt with the Disposition vocabulary, the run discipline block and the Tier-2 trailer', () => {
     const p = read(`docs/agents/runner-prompts/${prompt}`);

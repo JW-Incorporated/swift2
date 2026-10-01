@@ -58,7 +58,8 @@ export async function propagateDecision({ openMd, number, title, choice, outcome
   try {
     refs = issueRefs(blockOf(openMd, number), { repo });
     for (const ref of refs) {
-      const comments = JSON.parse(String(run('gh', ['api', `repos/${repo}/issues/${ref}/comments?per_page=100`])).trim() || '[]');
+      // Every page: a busy ticket's marker may sit past the first 100 comments.
+      const comments = JSON.parse(String(run('gh', ['api', '--paginate', '--slurp', `repos/${repo}/issues/${ref}/comments?per_page=100`])).trim() || '[]').flat();
       if (comments.some((c) => BOT_LOGINS.has(c?.user?.login) && String(c.body ?? '').includes(marker(number)))) continue;
       run('gh', ['issue', 'comment', String(ref), '--repo', repo, '--body', renderDecisionComment({ number, title, choice, outcome, url })]);
       posted.push(ref);

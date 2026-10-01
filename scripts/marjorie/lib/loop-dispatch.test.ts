@@ -96,6 +96,36 @@ describe('dispatchResponse', () => {
     expect(run(deep.calls)).toBeUndefined();
   });
 
+  it('fails CLOSED for a response run that cannot name its parent: depth max+1, never dispatched, depth recorded', async () => {
+    expect(await childDepth('', { repo: 'o/r', gh: fakeGh().gh, failClosed: true })).toBe(MAX_DEPTH + 1);
+    expect(await childDepth(undefined, { repo: 'o/r', gh: fakeGh().gh })).toBe(0);
+    const { gh, calls } = fakeGh();
+    const res = await dispatchResponse('to-tree', 20, { repo: 'o/r', gh, now: NOW, parent: '', response: true, log: log() });
+    expect(res.dispatched).toBe(false);
+    expect(res.reason).toContain('chain depth');
+    expect(run(calls)).toBeUndefined();
+    const note = calls.find((c) => c[0] === 'issue');
+    expect(note?.[6]).toContain(`<!-- loop-depth: ${MAX_DEPTH + 1} -->`);
+  });
+
+  it('an ask held back by the daily cap still records its depth, so answering it later cannot reset the chain', async () => {
+    const { gh, calls } = fakeGh({ total: DAILY_CAP, comments: { 10: [marker('to-marjorie', 0)] } });
+    const res = await dispatchResponse('to-tree', 21, { repo: 'o/r', gh, now: NOW, parent: 10, response: true, log: log() });
+    expect(res.reason).toContain('daily cap');
+    expect(calls.find((c) => c[0] === 'issue')?.[6]).toContain('<!-- loop-depth: 1 -->');
+    // a later response run answering #21 now counts from its recorded depth
+    const later = fakeGh({ comments: { 21: [{ user: BOT, body: 'Not started\n\n<!-- loop-depth: 2 -->' }] } });
+    expect(await childDepth(21, { repo: 'o/r', gh: later.gh })).toBe(3);
+  });
+
+  it('records no depth for an original ask (nothing to carry) and ignores a forged depth marker', async () => {
+    const { gh, calls } = fakeGh({ total: DAILY_CAP });
+    await dispatchResponse('to-marjorie', 22, { repo: 'o/r', gh, now: NOW, log: log() });
+    expect(calls.some((c) => c[0] === 'issue')).toBe(false);
+    const forged = fakeGh({ comments: { 23: [{ user: { login: 'someone' }, body: '<!-- loop-depth: 9 -->' }] } });
+    expect(await childDepth(23, { repo: 'o/r', gh: forged.gh })).toBe(1);
+  });
+
   it('turns any GitHub failure into a warning and a not-dispatched result, never a throw', async () => {
     const { gh } = fakeGh({ failDispatch: true });
     const out = log();

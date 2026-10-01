@@ -54,7 +54,11 @@ function env(threadComments: Record<number, unknown[]> = {}) {
   const run = vi.fn((cmd: string, args: string[]) => {
     calls.push([cmd, ...args]);
     if (cmd === 'gh' && args[0] === 'pr' && args[1] === 'create') return 'https://github.com/o/r/pull/501\n';
-    if (cmd === 'gh' && args[0] === 'api') return JSON.stringify(threadComments[Number(/issues\/(\d+)\/comments/.exec(args[1])?.[1])] || []);
+    if (cmd === 'gh' && args[0] === 'api') {
+      const n = Number(/issues\/(\d+)\/comments/.exec(args.at(-1) as string)?.[1]);
+      // --paginate --slurp is an array of pages; the marker sits on the SECOND page here
+      return JSON.stringify([[], threadComments[n] || []]);
+    }
     return '';
   });
   const reply = async (t: string) => { replies.push(t); };

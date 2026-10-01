@@ -8,7 +8,8 @@
 # filings written by this identity, and an issue made with GITHUB_TOKEN fires
 # no `issues` event — so scripts/marjorie/loop-live.mjs dispatches explicitly
 # (`actions: write`), behind the loop guards in lib/loop-dispatch.mjs: creation
-# only, one dispatch per issue, a daily cap per direction, a depth cap. The
+# only, one dispatch per issue, a daily cap per direction, a depth cap (a
+# response run's asks each name their parent; one with none is not dispatched). The
 # checkout pins `ref: main` and the saved files are read as DATA only. A
 # failure is a warning — it must never turn the calling routine red.
 name: loop-file-asks
@@ -24,11 +25,11 @@ on:
         description: "Who is asking: tree (asks Marjorie) or marjorie (asks Tree)"
         required: true
         type: string
-      parent:
-        description: "Issue number of the ask this run is responding to, when it is a response run (depth guard); empty otherwise"
+      response:
+        description: "True for a response routine's run: each saved ask names its own parent (--parent at save time) and an ask with none is filed but never dispatched (the depth guard fails closed)"
         required: false
-        type: string
-        default: ""
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -56,10 +57,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SIDE: ${{ inputs.side }}
-          PARENT: ${{ inputs.parent }}
+          RESPONSE: ${{ inputs.response }}
           SOURCE: ${{ github.run_id }}
           SOURCE_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -uo pipefail
-          timeout 180 node scripts/marjorie/loop-live.mjs file-help --side "$SIDE" --dir .scratch/out --source "$SOURCE" --source-url "$SOURCE_URL" --parent "$PARENT" --dispatch \
+          RESPONSE_ARG=""
+          if [ "$RESPONSE" = "true" ]; then RESPONSE_ARG="--response"; fi
+          timeout 180 node scripts/marjorie/loop-live.mjs file-help --side "$SIDE" --dir .scratch/out --source "$SOURCE" --source-url "$SOURCE_URL" $RESPONSE_ARG --dispatch \
             || echo "::warning::loop-live file-help failed for $SIDE"

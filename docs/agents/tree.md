@@ -473,7 +473,7 @@ answer within the hour (`docs/specs/marjorie-overhaul/l1-loop.md` § Live loop):
   Tree comments one `Disposition:` — `DOING IT`, `CAN'T` (reason) or `NEEDS HELP` — and
   labels it. This is the "Comments on — and closing" right above, made immediate.
 
-**Strategy is fluid (owner, 2026-09-30).** Most of Marjorie's feedback is about social
+**Strategy is fluid (owner, 2026-09-30; recorded in `docs/decisions.md` 2026-09-30).** Most of Marjorie's feedback is about social
 strategy, which should not wait for a Monday proposal and a founder ✅. For an ask from
 Marjorie, a `DOING IT` run opens one PR (branch `tree/ask/<N>-<slug>`, label `tree`) that
 may edit `docs/marketing/social-strategy.md`, `social/calendar.md`, and `social/lessons.md`

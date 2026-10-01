@@ -63,6 +63,21 @@ describe('file-help', () => {
     expect(calls.find((c) => c[0] === 'issue' && c[1] === 'comment')?.[6]).toContain('depth=1');
   });
 
+  it('response mode: each ask carries its own parent for the depth; one with none is filed but never dispatched', async () => {
+    const d = mkdtempSync(path.join(dir, 'r-'));
+    writeFileSync(path.join(d, 'for-tree-1.json'), JSON.stringify({ ask: 'answers item 77', parent: 77 }));
+    writeFileSync(path.join(d, 'for-tree-2.json'), JSON.stringify({ ask: 'answers nothing in particular' }));
+    const { gh, calls } = fakeGh({ comments: { 77: [{ user: BOT, body: '<!-- loop-dispatched: to-marjorie depth=0 -->' }] }, newNumber: 4500 });
+    const log = quiet();
+    await fileHelp({ side: 'marjorie', dir: d, source: '9', 'source-url': 'u', dispatch: true, response: true, parent: '12' }, { gh, now: NOW });
+    log.mockRestore();
+    expect(calls.filter((c) => c[1] === 'create')).toHaveLength(2);
+    expect(calls.filter((c) => c[0] === 'workflow')).toHaveLength(1);
+    const bodies = calls.filter((c) => c[0] === 'issue' && c[1] === 'comment').map((c) => c[6]);
+    expect(bodies.some((b) => b.includes('loop-dispatched: to-tree depth=1'))).toBe(true);
+    expect(bodies.some((b) => b.includes('<!-- loop-depth: 3 -->'))).toBe(true);
+  });
+
   it('files without dispatching unless asked', async () => {
     const d = mkdtempSync(path.join(dir, 'c-'));
     save(path.relative(dir, path.join(d, 'for-marjorie-1.json')), { ask: 'x need' });
@@ -189,6 +204,15 @@ describe('save-help', () => {
     expect(JSON.parse(readFileSync(path.join(d, 'for-marjorie-1.json'), 'utf8'))).toEqual({ ask: 'need photos', why: 'dry' });
     expect(JSON.parse(readFileSync(path.join(d, 'for-marjorie-2.json'), 'utf8')).ask).toBe('second');
     expect(() => readFileSync(path.join(d, 'for-marjorie-3.json'), 'utf8')).toThrow();
+  });
+  it('records the parent the ask answers, only when it is a real issue number', () => {
+    const d = mkdtempSync(path.join(dir, 'p-'));
+    const log = quiet();
+    saveHelp({ side: 'marjorie', ask: 'a', parent: '77', dir: d });
+    saveHelp({ side: 'marjorie', ask: 'b', parent: 'not-a-number', dir: d });
+    log.mockRestore();
+    expect(JSON.parse(readFileSync(path.join(d, 'for-tree-1.json'), 'utf8')).parent).toBe(77);
+    expect(JSON.parse(readFileSync(path.join(d, 'for-tree-2.json'), 'utf8')).parent).toBeUndefined();
   });
   it('Marjorie’s side writes for-tree files that file-help reads back', async () => {
     const d = mkdtempSync(path.join(dir, 't-'));

@@ -1,12 +1,15 @@
 // CLI for the live Tree/Marjorie loop (W7, docs/specs/marjorie-overhaul/l1-loop.md
 // § Live loop). Always a plain `run:` step on the workflow token, never an agent:
 //
-//   node scripts/marjorie/loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <issue>] [--dispatch]
+//   node scripts/marjorie/loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <issue>] [--response] [--dispatch]
 //   node scripts/marjorie/loop-live.mjs pending --for marjorie|tree --out <json> [--issue <N>] [--limit <N>]
-//   node scripts/marjorie/loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--dir <dir>]
+//   node scripts/marjorie/loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]
 //
 // `save-help` is how an agent with no Write tool saves a help ask: it writes the
-// next `for-*-N.json` (at most two) and never touches GitHub.
+// next `for-*-N.json` (at most two) and never touches GitHub. A response run
+// passes `--parent <the ask it answers>`; `file-help --response` takes each
+// ask's depth from that parent and, with none, files the ask but never
+// dispatches it (fail closed — lib/loop-dispatch.mjs).
 //
 // `file-help` reads the asks an agent saved as `<dir>/for-marjorie-*.json`
 // (side tree) or `<dir>/for-tree-*.json` (side marjorie) — `{ask, why?}` each —
@@ -24,9 +27,9 @@ import { buildQueue, ensureLoopLabels, helpBudget } from './lib/loop-queue.mjs';
 import { parseArgs } from './loop-asks.mjs';
 
 const USAGE =
-  'usage: loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <N>] [--dispatch]\n' +
+  'usage: loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <N>] [--response] [--dispatch]\n' +
   '       loop-live.mjs pending --for marjorie|tree --out <json> [--issue <N>] [--limit <N>]\n' +
-  '       loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--dir <dir>]';
+  '       loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]';
 const DIRECTION = { tree: 'to-marjorie', marjorie: 'to-tree' };
 const warn = (message) => console.log(`::warning::loop-live: ${message}`);
 
@@ -70,7 +73,8 @@ export function saveHelp(flags) {
     return 0;
   }
   const file = path.join(dir, `${savedPrefix(flags.side)}${taken + 1}.json`);
-  writeFileSync(file, `${JSON.stringify({ ask, why: typeof flags.why === 'string' ? flags.why : '' })}\n`);
+  const parent = Number.isInteger(Number(flags.parent)) && Number(flags.parent) > 0 ? Number(flags.parent) : undefined;
+  writeFileSync(file, `${JSON.stringify({ ask, why: typeof flags.why === 'string' ? flags.why : '', parent })}\n`);
   console.log(`loop-live: saved ${file} — a plain job files it after this run.`);
   return 0;
 }
@@ -79,7 +83,16 @@ export async function fileHelp(flags, { gh = ghRun, now = Date.now() } = {}) {
   const side = flags.side;
   if (side !== 'tree' && side !== 'marjorie') throw new Error(`--side must be tree or marjorie\n${USAGE}`);
   const repo = typeof flags.repo === 'string' ? flags.repo : REPO;
-  const { asks } = parseTreeAsks({ needsFromMarjorie: readSaved(flags.dir, side) });
+  // One entry at a time so each ask keeps its own parent (parseTreeAsks drops it).
+  const seen = new Set();
+  const asks = [];
+  for (const entry of readSaved(flags.dir, side)) {
+    const [ask] = parseTreeAsks({ needsFromMarjorie: [entry] }).asks;
+    const key = ask?.ask.toLowerCase();
+    if (!ask || seen.has(key)) continue;
+    seen.add(key);
+    asks.push({ ...ask, parent: Number(entry.parent) > 0 ? Number(entry.parent) : null });
+  }
   if (asks.length === 0) {
     console.log(`loop-live: no help ask saved by ${side}.`);
     return 0;
@@ -99,7 +112,7 @@ export async function fileHelp(flags, { gh = ghRun, now = Date.now() } = {}) {
       const filing = await fileAsk(side, ask, { sourceNumber: flags.source, sourceUrl: flags['source-url'], repo, gh });
       console.log(`loop-live: ${filing.created ? 'filed' : 'already filed'} #${filing.number} (${side} → ${side === 'tree' ? 'Marjorie' : 'Tree'})`);
       if (flags.dispatch && filing.created) {
-        await dispatchResponse(DIRECTION[side], filing.number, { repo, gh, now, parent: flags.parent });
+        await dispatchResponse(DIRECTION[side], filing.number, { repo, gh, now, parent: flags.response ? ask.parent : ask.parent || flags.parent, response: Boolean(flags.response) });
       }
     } catch (err) {
       warn(`filing a ${side} help ask failed: ${err.message}`);

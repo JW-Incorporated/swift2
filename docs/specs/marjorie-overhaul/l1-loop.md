@@ -257,13 +257,23 @@ the plain `asks` job with `parent` set to the ask it answered.
    the target workflow — durable with no ledger file. Separately, a bot may file at most 2
    (Tree) or 4 (Marjorie) new help asks a day, never one already open under the same text.
 4. *Depth cap.* An ask filed from a response run carries its parent's depth + 1 and is not
-   dispatched past depth 2, which bounds a Marjorie → Tree → Marjorie chain. An undispatched
-   ask is still filed and shows in both briefs.
+   dispatched past depth 2, which bounds a Marjorie → Tree → Marjorie chain. Each saved ask
+   names the queue item it answers (`--parent`); a response run's ask with no parent fails
+   closed (depth 3, never dispatched), so a manual or backlog run cannot reset the chain. An
+   undispatched ask records its depth (`<!-- loop-depth: N -->`), is still filed, and shows in
+   both briefs.
 5. *Bounded cost.* Each response run answers at most four asks (Tree: two), costs at most $4 (Marjorie)
    or $5 (Tree), and skips the agent entirely when the queue is empty.
 
 A dispatch failure never loses the filing: it is a `::warning::` and the daily brief or
 Monday plan answers the ask instead.
+
+**Prompt-injection boundary.** The repo is public, so a response run never reads an issue
+or comment itself: `loop-live.mjs pending` writes the queue file with each bot-filed ask's
+body, its depth, the open weekly plan (only if a trusted identity wrote it) and the comments
+of trusted authors only (workflow and Claude identities, the owner's own account), and the
+run's `gh` access is limited to comment/edit/close/create so it cannot fetch more. Asks that
+contradict another open ask are left out of the queue before the limit.
 
 **Decisions become action.** When the owner replies `decide #N <choice>` on the status
 page, `lib/decision-propagate.mjs` comments the decision on every issue and PR the item
