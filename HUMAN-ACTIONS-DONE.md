@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
+- #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
 - #86 · 2026-10-01 · done · SOCIAL_POSTER_PAT can't trigger GitHub Actions — "Joey regenerated swift2-social-poster (Actions: Read and write) and saved SOCIAL_POSTER_PAT 2026-10-01 ~16:00Z; pat-dispatch-health run 36889926352 dispatched run 36889947595 with the PAT" · by chat
 - #82 · 2026-10-01 · done · GH_DISPATCH_TOKEN can't dispatch workflows — "GH_DISPATCH_TOKEN is SOCIAL_POSTER_PAT (routine-template.yml); fixed by #86's token, proven by run 36889947595" · by chat
 - #78 · 2026-10-01 · done · Add Actions read/write to SOCIAL_POSTER_PAT — "same fix as #86; proven by pat-dispatch-health run 36889947595" · by chat
