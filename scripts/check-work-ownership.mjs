@@ -84,7 +84,7 @@ export const HUMAN_DESKS = new Set(['desk:founder', UNOWNED_LABEL]);
  */
 export const EXEMPT = {
   'founders-brief': 'One issue per day, closed by the next brief — a publication, not a task.',
-  'status-page': 'The single pinned status page, rewritten in place every 3h (marjorie-status.yml) — a publication, not a task.',
+  'status-page': 'The single pinned status page, rewritten in place every hour (marjorie-status.yml) — a publication, not a task.',
   'watchdog-alert': 'Persistent per-condition alert; staying open IS the mechanism (scripts/watchdog/upsert-alert.sh).',
   'routine-audit': 'The single evolving Routine Audit issue (docs/agents/routine-invariants.md).',
   'kevin-triage': "Kevin's triage digest — a queue view, not an item in the queue.",

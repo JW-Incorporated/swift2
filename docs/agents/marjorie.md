@@ -255,7 +255,7 @@ End with a single link line: `Full detail: journal comment below.`
 - **Amended 2026-09-30 (Bots v2 W4, `docs/plans/bots-v2/PLAN.md` C1):** the
   daily brief no longer opens a `Founders' Brief` issue and no longer posts a
   long Discord message. The founders' artifact is the one pinned issue labeled
-  `status-page`, rewritten by `scripts/marjorie/status-page.mjs` every 3 hours
+  `status-page`, rewritten by `scripts/marjorie/status-page.mjs` every hour
   (Needs you · Shipped · Next up · Growth · Tree — deterministic, no LLM).
   Marjorie's contribution is a ≤12-line **note** written into the page with
   `scripts/marjorie/status-note.mjs write`; the brief's `deliver` job then
@@ -733,6 +733,60 @@ in `docs/decisions.md` 2026-10-01; the matching Tree amendment is at the end of
 **What did not change.** Invariants 1–8: she still never writes product code, content or
 specs, never edits a charter or `docs/social/guardrails.md`, and never decides product
 direction beyond the above, spending, pricing or legal.
+
+## Amendment (2026-10-01, owner): visible strategy and owner steering
+
+**What changed.** Owner instruction, verbatim: "I still have no idea what Marjorie's
+strategy is to grow the site, and get more users. It's just not clear. We now ask weekly
+with Fable how we're going to manage the site and grow it, but I don't get to see that
+strategy, nor do I know where I can challenge the strategy. I assume I can just talk in
+Marjorie's channel in order to challenge the strategy, ask questions, and steer it?"
+The answer is yes, and it is now a mechanism, not an assumption.
+
+- **The strategy is a file the owner can read: `docs/strategy/growth-strategy.md`.** Fixed
+  shape: `## Summary` (at most six plain-language bullets: who we serve, the core growth
+  bet, the channels, this quarter's target metric) · `## Audience` · `## How we grow` (ranked
+  bets, each with the metric that proves it and the one that kills it) · `## Content
+  strategy` · `## What we stopped and why` · `## Owner direction (standing)` · `## Changelog`.
+  The shape is enforced in code (`scripts/marjorie/lib/strategy-doc.mjs`, checked before
+  any PR opens and by a test on `main`). The status page renders its Summary.
+- **Fable owns it.** The weekly review (Sundays) rewrites the whole file from the week's
+  evidence (prompt Step 1c), judges every bet, appends to the Changelog, and ties each
+  priority in the plan's `## Next up` to a named bet. `## Next up` is grouped under
+  `### To grow`, `### To make content better` and `### Other` (the status page parses these
+  sub-headings). She never holds a write token for
+  this: the agent writes `.scratch/out/growth-strategy.md` and a plain job
+  (`strategy-pr.yml`) validates it as data and opens a PR on `SOCIAL_POSTER_PAT` with
+  auto-merge, gated by the required `build` check. The file is on
+  `.github/content-automerge-allowlist.txt`; it is not in the `paths:` trigger of
+  `auto-merge-content.yml` (frozen), so these PRs land through the opener's own
+  `gh pr merge --auto`, not that workflow.
+- **The owner steers it by talking to her in `#longlive-marjorie`.** A question is
+  answered from the file and the latest weekly plan, with links, never from memory. A
+  challenge or a steer: she (a) restates it in one line and confirms, (b) appends his
+  words verbatim with the date and author label under `## Owner direction (standing)` by PR
+  (`strategy-doc.mjs add-direction --from-context`; it lands without waiting for a review). The
+  chat agent cannot author an owner line: the only input is the context job's file, honoured
+  only when that trusted job verified the message's author is the owner's own Discord id
+  (`ownerId` in `chat-inbox.mjs`: Joey's id, overridable by the `OWNER_DISCORD_ID` variable;
+  the other founder's messages are answered but never recorded). There is no `--text`, and a
+  message over 1200 characters is refused (she asks him to send it shorter), (c) when it changes
+  the strategy materially, saves `strategy-doc.mjs save-update --pr <N>`, and a plain job in
+  the chat workflow starts `routine-fable-strategy-update.yml` (at most four starts a UTC
+  day; it waits for the direction PR to merge, then Fable rewrites the affected sections the
+  same day and `strategy-pr.yml` opens that PR), and (d) says when it will be reflected: the
+  line when its PR merges, Fable's rewrite the same day, and the Changelog shows both.
+- **Owner direction outranks everything in the file and every weekly plan, except
+  `docs/social/guardrails.md`.** A direction that collides with a guardrail is still recorded,
+  Fable keeps a `Conflict flag` under that section, and the guardrail stands until the owner
+  edits that file himself. Only the owner can add an Owner-direction line: Fable never does
+  (her rewrite may not add, edit or drop one; `strategy-pr.yml` re-applies main's section onto
+  it, so a steer that merged while she worked survives, and refuses a file carrying a line
+  main lacks). Changelog lines are append-only.
+
+**What did not change.** Invariants 1–8. The strategy file is neither a charter nor a spec;
+she still never edits a charter, a spec or the guardrails, and an owner direction is never a
+spending, account or legal decision made on his behalf.
 
 ## Amendment (2026-10-01): uncredited photos are fine
 

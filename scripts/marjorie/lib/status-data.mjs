@@ -5,6 +5,11 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { listIssuesByLabels } from './issues-rest.mjs';
+import { fetchFeedback, fetchPrFiles } from './status-fans-data.mjs';
+import { readRecap } from './status-fans.mjs';
+import { readPingState } from './status-ping.mjs';
+import { readStrategy, strategyChangedAt } from './status-strategy.mjs';
+import { readTraffic } from './status-traffic.mjs';
 import { toPr, SHIPPED_WINDOW_DAYS } from './status-shipped.mjs';
 
 const DAY_MS = 86_400_000;
@@ -79,6 +84,11 @@ export async function gatherStatusData({ api, repo, root, now, existingBody = ''
     soft('open PRs', () => fetchOpenPrs(api, repo), []),
     soft('weekly plan', () => fetchPlan(api, repo), null),
   ]);
+  const [prFiles, feedback, strategyDate] = await Promise.all([
+    soft('changed files of merged PRs', () => fetchPrFiles(api, repo, mergedPrs, now), new Map()),
+    soft('user feedback', () => fetchFeedback(api, repo, now), null),
+    soft('strategy date', () => strategyChangedAt(api, repo), ''),
+  ]);
   const haMarkdown = await soft('HUMAN-ACTIONS.md', async () => readFileSync(path.join(root, 'HUMAN-ACTIONS.md'), 'utf8'), '');
   const { latest, prior } = await soft('growth metrics', async () => readMetrics(root), { latest: null, prior: null });
   const posted = await soft('published posts', async () => readPosted(root, now), []);
@@ -87,5 +97,7 @@ export async function gatherStatusData({ api, repo, root, now, existingBody = ''
     haMarkdown, mergedPrs, openPrs, plan, posted, metricsLatest: latest, metricsPrior: prior,
     draftPrs: openPrs.filter((pr) => pr.labels.includes('social-draft')),
     note: preserved.note, ping: preserved.ping, held: preserved.held, warnings,
+    prFiles, feedback, strategy: { bullets: readStrategy(root), changedAt: strategyDate },
+    traffic: readTraffic(existingBody), recap: readRecap(existingBody), pingState: readPingState(existingBody),
   };
 }

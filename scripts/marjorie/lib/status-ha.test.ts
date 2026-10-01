@@ -104,7 +104,7 @@ describe('renderNeedsYou', () => {
     expect(out).toContain(`https://github.com/${REPO}/blob/main/HUMAN-ACTIONS.md#88--blocking-store-the-login-5-min`);
   });
   it('shows done syntax for non-decisions and decide syntax with options and criteria for decisions', () => {
-    expect(out).toContain('Reply `done #88` when finished.');
+    expect(out).toContain('Reply `done #88` when finished, or `skip #88 <why>`.');
     expect(out).toContain('- `accept` — raise the budget and stop the alert');
     expect(out).toContain('How to decide:\n- Read #4546 and check whether any listed issue is live work.');
     expect(out).toContain('Reply: `decide #87 accept`');
@@ -115,11 +115,18 @@ describe('renderNeedsYou', () => {
     expect(sortNeedsYou(items).map((i: { number: number }) => i.number)).toEqual([88, 70, 85, 87]);
     expect(out).toContain('waiting 19d');
   });
-  it('marks an item whose closing PR is already open', () => {
-    const pending = renderNeedsYou(items, { repo: REPO, now: NOW, pendingClose: new Map([[88, { number: 9, url: 'https://x/9' }]]) });
-    expect(pending).toContain('⏳ Closing now — [PR #9](https://x/9)');
+  it('lists an answered item under Closing, with the owner\'s answer and the PR, instead of as waiting', () => {
+    const waiting = items.filter((i: { number: number }) => i.number !== 88);
+    const closing = [{ number: 88, title: 'Store the login', summary: 'closed: wrong `question`', pr: { number: 9, url: 'https://x/9' } }];
+    const out2 = renderNeedsYou(waiting, { repo: REPO, now: NOW, closing });
+    expect(out2).toContain('✅ **Closing — merging now**\n- #88 — Store the login · your answer: closed: wrong \'question\' · [PR #9](https://x/9)');
+    expect(out2).not.toContain('**#88 —');
+    expect(out2).not.toContain('Reply `done #88`');
   });
-  it('says so when nothing is open', () => {
+  it('says so when nothing is open, and still shows what is closing', () => {
     expect(renderNeedsYou([], { repo: REPO })).toContain('Nothing waiting on you');
+    const out3 = renderNeedsYou([], { repo: REPO, closing: [{ number: 85, title: 'T', summary: '', pr: { number: 9, url: 'https://x/9' } }] });
+    expect(out3).toContain('Nothing waiting on you');
+    expect(out3).toContain('- #85 — T · [PR #9](https://x/9)');
   });
 });

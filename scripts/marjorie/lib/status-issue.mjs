@@ -11,8 +11,8 @@ import { NOTE_PLACEHOLDER } from './status-sections.mjs';
 
 export const STATUS_LABEL = 'status-page';
 export const STATUS_TITLE = '📋 Long Live — Status';
-const NOTE_BLOCK = /(<!-- marjorie-note:start date=)\S+( -->\n)[\s\S]*?(\n<!-- marjorie-note:end -->)/;
-const PING_LINE = /\n*<!-- marjorie-ping date=\S+(?: msg=\d+)? -->\s*$/;
+const NOTE_BLOCK = /(<!-- marjorie-note:start date=)\S+( --!?>\n)[\s\S]*?(\n<!-- marjorie-note:end --!?>)/;
+const PING_LINE = /\n*<!-- marjorie-ping date=\S+(?: msg=\d+)? --!?>\s*$/;
 
 /** The canonical (oldest) open status issue, or null. */
 export async function findStatusIssue(api, repo) {

@@ -49,6 +49,9 @@ export function toPr(row) {
     mergedAt: row.merged_at || null,
     updatedAt: row.updated_at || null,
     draft: Boolean(row.draft),
+    body: String(row.body || ''),
+    // A PR from a fork (or a deleted fork) is a stranger's: never trusted as one of ours.
+    fork: row.head?.repo === null || Boolean(row.head?.repo && row.base?.repo && row.head.repo.full_name !== row.base.repo.full_name),
   };
 }
 
@@ -67,8 +70,8 @@ const plain = (title) => {
   return clean.length > TITLE_CAP ? `${clean.slice(0, TITLE_CAP - 1).trimEnd()}…` : clean;
 };
 
-export function renderShipped(shipped, { hidden = 0, maxLines = 60 } = {}) {
-  const out = [`## 🚢 Shipped (last ${SHIPPED_WINDOW_DAYS} days)`];
+export function renderShipped(shipped, { hidden = 0, maxLines = 60, heading = `## 🚢 Shipped (last ${SHIPPED_WINDOW_DAYS} days)`, collapse = false } = {}) {
+  const out = [heading];
   if (!shipped.length) return [...out, '', '_Nothing merged in the window._'].join('\n');
   let lines = 0;
   let day = '';
@@ -84,5 +87,7 @@ export function renderShipped(shipped, { hidden = 0, maxLines = 60 } = {}) {
   if (trimmed) notes.push(`${trimmed} older not shown`);
   if (hidden) notes.push(`${hidden} housekeeping PRs filtered`);
   if (notes.length) out.push('', `_${notes.join(' · ')}_`);
-  return out.join('\n');
+  if (!collapse) return out.join('\n');
+  const [head, ...rest] = out;
+  return [head, '', '<details>', `<summary>${shipped.length} merged — tap to expand</summary>`, ...rest, '', '</details>'].join('\n');
 }

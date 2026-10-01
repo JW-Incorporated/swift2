@@ -109,6 +109,22 @@ ref: PR #4544 · ${'a'.repeat(40)} · brief` });
       });
     });
   });
+  describe('replies to the status change ping are chat asks (the reply-poll relay is retired)', () => {
+    const PING_ID = '1000000000000000200';
+    const ping = () => msg(PING_ID, { author: { id: '9', bot: true }, webhook_id: '9', content: '📋 Status updated — +1 needs you · 2 closed — https://github.com/o/r/issues/4' });
+    it('picks a reply to the ping, in the window or via the embedded referenced_message', () => {
+      const reply = (extra: Record<string, unknown> = {}) => msg('1000000000000000201', { type: 19, message_reference: { message_id: PING_ID }, ...extra });
+      expect(ids(pick([ping(), reply()]).picked)).toEqual(['1000000000000000201']);
+      expect(ids(pick([reply({ referenced_message: ping() })]).picked)).toEqual(['1000000000000000201']);
+    });
+    it('picks a message in a thread started from the ping', () => {
+      const { picked } = selectInbox(
+        [{ channelId: MARJ, threadId: '', messages: [{ ...ping(), id: THREAD }] }, { channelId: MARJ, threadId: THREAD, messages: [msg('1000000000000000202')] }],
+        { founders, now: NOW },
+      );
+      expect(ids(picked)).toEqual(['1000000000000000202']);
+    });
+  });
   it('treats a top-level Discord reply (type 19) as a top-level message', () => {
     const { picked } = pick([msg('1000000000000000001', { type: 19, message_reference: { message_id: '1548716528432713729' } })]);
     expect(picked).toEqual([expect.objectContaining({ messageId: '1000000000000000001', threadId: '' })]);
@@ -268,9 +284,8 @@ describe('poll', () => {
     expect(result.messages).toHaveLength(1000);
   });
   it('keeps both relay entry points in one concurrency group', () => {
-    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: false/;
+    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: true/;
     expect(readFileSync('.github/workflows/bot-chat-poll.yml', 'utf8')).toMatch(group);
-    expect(readFileSync('.github/workflows/marjorie-reply-poll.yml', 'utf8')).toMatch(group);
   });
 });
 describe('context', () => {
@@ -305,6 +320,30 @@ describe('context', () => {
     expect(ctx).toMatchObject({ top_level: false, thread_id: THREAD, url: `https://discord.com/channels/${GUILD}/${THREAD}/${message.id}` });
     expect(ctx.thread_root).toMatchObject({ text: "Founders' Brief" });
     expect(ctx.already).toBe('replied'); // a duplicate run's context job stops here
+  });
+  describe('owner verification (growth-strategy steering)', () => {
+    const OTHER_FOUNDER = '1421545239650238555';
+    const ownerOf = async (author: string, extraEnv: Record<string, string> = {}) => {
+      const message = msg('1000000000000000009', { author: { id: author, global_name: 'Someone' }, content: 'focus on Reddit' });
+      const { fetchImpl } = discord({
+        [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages/${message.id}`]: res(200, message),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages?before=${message.id}&limit=14`]: res(200, []),
+      });
+      const file = out();
+      await context(parseFlags(['--bot', 'marjorie', '--channel-id', MARJ, '--message-id', message.id, '--out', file]), { env: { ...env, ...extraEnv }, fetchImpl, sleepImpl });
+      return JSON.parse(readFileSync(file, 'utf8')).owner;
+    };
+    it("verifies only Joey's id as the owner by default", async () => {
+      expect(await ownerOf(JOEY)).toEqual({ configured: true, verified: true });
+    });
+    it('does not verify the other founder, whose messages are answered but never recorded', async () => {
+      expect(await ownerOf(OTHER_FOUNDER)).toEqual({ configured: true, verified: false });
+    });
+    it('honours an OWNER_DISCORD_ID override, and a malformed one verifies nobody', async () => {
+      expect(await ownerOf(OTHER_FOUNDER, { OWNER_DISCORD_ID: OTHER_FOUNDER })).toEqual({ configured: true, verified: true });
+      expect(await ownerOf(JOEY, { OWNER_DISCORD_ID: 'not-an-id' })).toEqual({ configured: false, verified: false });
+    });
   });
   it('refuses non-numeric ids', async () => {
     expect(await context(parseFlags(['--bot', 'marjorie', '--channel-id', '../x', '--message-id', '1', '--out', out()]), { env })).toBe(2);

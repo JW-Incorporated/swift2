@@ -1,0 +1,44 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "wake up folklore, go to bed full 1989 — some days are just like that. it's the whole reason Mood exists: tell it how you feel, get the Taylor era that fits right now. which are you today? tap Mood on longlivets.com and tag your opposite 💛",
+  "media": [
+    "/social/library/photos/taylor-1989-inglewood-2023-2-ig191.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "1989-inglewood-2023-2-ig191",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
+  "scheduledAt": "2026-10-03T23:00:00Z",
+  "altText": [
+    "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage."
+  ],
+  "campaign": "mood:era-match:redraft-4675:2026-10-03",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 3,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 18,
+    "rationale": "Re-covers the founder-✅'d Mood subject from ask #4675 with fresh copy and a never-used credited Taylor photo; mood-swing hook (folklore→1989) promotes Mood with a real tag-your-opposite ask. Not fact-based by nature, so 'specific' rides the feature behavior and era examples.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "Ask #4675 re-draft (due 2026-10-04): re-covers the 09-23 Mood subject founder-✅'d in retired PR #4544 (never posted), fresh, riding the 10-03 slot. New opener; Mood has no deep link → 'tap Mood on longlivets.com'. Photo: 1989 Eras Tour Wikimedia pick taylor-1989-inglewood-2023-2-ig191 (viewed, Taylor in frame) — the handed eventPhoto and the 10-02 beat photo both FAILED the Taylor-in-frame test (perfume bottles / a fan bracelet), so used a verified era photo; photoEra unset (Mood is cross-era). Same photo both halves per W8.",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-01T16:21:53.518Z",
+    "pr": 4704,
+    "sha": "54f86655798aef961d8443b5d362ca3b28092fc3",
+    "message": "1555245515250077821",
+    "contentHash": "sha256:7b4998c901083a85b41de63f4354cde537b7294975eda075e255d49d340e0edc",
+    "sig": "hmac-sha256:5c1edb959d9f53bae9c23d27643996bc04da8253b5dbc7ccdfc0fa85aa384a08"
+  }
+}

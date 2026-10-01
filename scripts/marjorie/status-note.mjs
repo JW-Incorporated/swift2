@@ -4,6 +4,7 @@
 // touches it.
 //
 //   node scripts/marjorie/status-note.mjs write --body-file <md> [--date YYYY-MM-DD]   replace Marjorie's note
+//   node scripts/marjorie/status-note.mjs write-recap --body-file <md>                  replace the fan-view recap (3-5 plain bullets)
 //   node scripts/marjorie/status-note.mjs extract --out <md>                           save the current note; prints the issue url
 //   node scripts/marjorie/status-note.mjs stamp-ping --message-id <id> [--date ...]    record today's Discord ping
 //   node scripts/marjorie/status-note.mjs stamp-held                                    record the chase's held items (page section + markers)
@@ -16,6 +17,7 @@ import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun, ghApi } from '../lib/gh.mjs';
 import { laToday } from './ha-close.mjs';
 import { ensureStatusIssue, findStatusIssue, replaceNote, stampPing, updateBody } from './lib/status-issue.mjs';
+import { readRecap, replaceRecap, sanitizeRecap } from './lib/status-fans.mjs';
 import { readPreserved } from './lib/status-render.mjs';
 import { evaluateDispatchChase } from './lib/dispatch-chase.mjs';
 import { fetchDispatchChaseState } from './lib/dispatch-chase-state.mjs';
@@ -59,6 +61,18 @@ export async function main(argv = process.argv.slice(2), {
     log(`status note: written to #${issue.number} for ${date}`);
     return 0;
   }
+  if (command === 'write-recap') {
+    if (!flags['body-file']) throw new Error('write-recap needs --body-file');
+    const text = read(flags['body-file'], 'utf8');
+    const want = sanitizeRecap(text);
+    const issue = await editBody({
+      api, gh, repo,
+      edit: (body) => replaceRecap(body, text),
+      hasEdit: (body) => readRecap(body) === want,
+    });
+    log(`status note: fan recap written to #${issue.number}`);
+    return 0;
+  }
   if (command === 'stamp-ping') {
     const msg = flags['message-id'] || '';
     const issue = await editBody({
@@ -97,7 +111,7 @@ export async function main(argv = process.argv.slice(2), {
     log(`status-issue: ${issue.number} ${issue.url}`);
     return 0;
   }
-  throw new Error('usage: status-note.mjs write|extract|stamp-ping|stamp-held|url|today');
+  throw new Error('usage: status-note.mjs write|write-recap|extract|stamp-ping|stamp-held|url|today');
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

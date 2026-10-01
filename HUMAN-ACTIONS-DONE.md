@@ -4,8 +4,11 @@
      Full bodies are in git history. Numbers here are never reused. -->
 
 - #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
-- #91 · 2026-10-01 · done · May Tree post site-made share cards in the feed? — "Joey said done in chat 2026-10-01" · by chat
 - #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
+- #86 · 2026-10-01 · done · SOCIAL_POSTER_PAT can't trigger GitHub Actions — "Joey regenerated swift2-social-poster (Actions: Read and write) and saved SOCIAL_POSTER_PAT 2026-10-01 ~16:00Z; pat-dispatch-health run 36889926352 dispatched run 36889947595 with the PAT" · by chat
+- #82 · 2026-10-01 · done · GH_DISPATCH_TOKEN can't dispatch workflows — "GH_DISPATCH_TOKEN is SOCIAL_POSTER_PAT (routine-template.yml); fixed by #86's token, proven by run 36889947595" · by chat
+- #78 · 2026-10-01 · done · Add Actions read/write to SOCIAL_POSTER_PAT — "same fix as #86; proven by pat-dispatch-health run 36889947595" · by chat
+- #91 · 2026-10-01 · skip · May Tree post site-made share cards in the feed? — "Joey in chat 2026-10-01: wrong question for the founder — what Tree posts is Marjorie's and Tree's strategy call (Fable rules on taste); shipped as #4696" · by chat
 - #87 · 2026-10-01 · done · Ownership backlog stuck 7+ days — accept it or get it routed — "Joey asked agent 2026-10-01 to close verified-done items; founder decision comment on #4546, budget raised via merged PR #4631" · by agent
 - #85 · 2026-10-01 · done · #4559 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4559 (2026-09-30), issue closed" · by agent · <!-- marjorie-chase: 96h issue=4559 -->
 - #79 · 2026-10-01 · done · #4324 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4324 (comment 2026-09-30)" · by agent · <!-- marjorie-chase: 96h issue=4324 -->

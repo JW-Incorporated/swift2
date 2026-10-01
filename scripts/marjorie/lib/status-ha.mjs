@@ -9,7 +9,9 @@
 //   Decide: `accept` — raise the budget; `route` — send it to a desk.
 // (or the older "reply with one word: `a`, `b`, or `c`"). An item with no such
 // line accepts any short reply as its decision.
-export const HA_HEADING = /^##\s+#(\d+)\s+(\S*)\s*\[(BLOCKING|DECIDE|UPGRADE)\]\s+(.*?)(?:\s+\(~([^)]*)\))?\s*$/;
+import { neutralizeHtmlComments } from './html-safe.mjs';
+
+export const HA_HEADING =/^##\s+#(\d+)\s+(\S*)\s*\[(BLOCKING|DECIDE|UPGRADE)\]\s+(.*?)(?:\s+\(~([^)]*)\))?\s*$/;
 const FIELD = /^\*\*([A-Za-z ]+):\*\*\s*(.*)$/;
 const STEP_START = /^\s*(?:\d+[.)]|[-*])\s+/;
 const OPTION_STEP = /^(?:decide|choose|options?)\s*:|one word/i;
@@ -111,11 +113,11 @@ export function sortNeedsYou(items) {
   return [...items].sort((a, b) => rank[a.tag] - rank[b.tag] || String(a.filed).localeCompare(String(b.filed)) || a.number - b.number);
 }
 
-/** `pendingClose` maps HA number to the open PR closing it ({ number, url }). */
-export function renderNeedsYou(items, { repo, now = Date.now(), pendingClose = new Map() } = {}) {
+/** `closing` lists items the owner already answered whose close PR has not landed yet: { number, title, summary, pr: { number, url } }. */
+export function renderNeedsYou(items, { repo, now = Date.now(), closing = [] } = {}) {
   const base = `https://github.com/${repo}/blob/main/HUMAN-ACTIONS.md`;
   const out = ['## 🙋 Needs you'];
-  if (!items.length) return [...out, '', '_Nothing waiting on you._'].join('\n');
+  if (!items.length) out.push('', '_Nothing waiting on you._');
   for (const it of sortNeedsYou(items)) {
     const age = ageText(it.filed, now);
     const meta = [it.eta, age && `waiting ${age}`].filter(Boolean).join(' · ');
@@ -123,8 +125,6 @@ export function renderNeedsYou(items, { repo, now = Date.now(), pendingClose = n
     const why = it.tag === 'DECIDE' ? it.whyFull : it.why;
     if (why) out.push(why);
     out.push(`📖 [Full instructions](${base}#${it.anchor})`);
-    const pending = pendingClose.get(it.number);
-    if (pending) out.push(`⏳ Closing now — [PR #${pending.number}](${pending.url})`);
     if (it.tag === 'DECIDE') {
       if (it.criteria.length) {
         out.push('How to decide:');
@@ -134,10 +134,16 @@ export function renderNeedsYou(items, { repo, now = Date.now(), pendingClose = n
         out.push('Options:');
         for (const o of it.options) out.push(`- \`${o.choice}\`${o.text ? ` — ${o.text}` : ''}`);
       }
-      out.push(`💬 Reply: \`decide #${it.number} ${it.options[0]?.choice ?? '<your choice>'}\``);
+      out.push(`💬 Reply: \`decide #${it.number} ${it.options[0]?.choice ?? '<your choice>'}\` — or your own words, or \`close #${it.number} <why>\` if it's the wrong question.`);
     } else {
-      out.push(`💬 Reply \`done #${it.number}\` when finished.`);
+      out.push(`💬 Reply \`done #${it.number}\` when finished, or \`skip #${it.number} <why>\`.`);
     }
+  }
+  if (closing.length) {
+    out.push('', '✅ **Closing — merging now**');
+    // The summary is the owner's own words carried through a PR body: no markers, backticks or live mentions.
+    const safe = (s) => neutralizeHtmlComments(s).replace(/`/g, "'").replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
+    for (const c of closing) out.push(`- #${c.number} — ${c.title}${c.summary ? ` · your answer: ${safe(c.summary)}` : ''} · [PR #${c.pr.number}](${c.pr.url})`);
   }
   return out.join('\n');
 }

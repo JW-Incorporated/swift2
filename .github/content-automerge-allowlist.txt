@@ -147,6 +147,13 @@ social/calendar.md
 social/lessons.md
 social/strategy-params.json
 docs/marketing/social-strategy.md
+# The living growth strategy: Marjorie's weekly Fable review rewrites it by PR and
+# the owner steers it through her chat (docs/agents/marjorie.md). Its shape and the
+# append-only Owner direction section are enforced in code, not by review
+# (scripts/marjorie/lib/strategy-doc.mjs, strategy-doc.test.ts). It is NOT in the
+# `paths:` trigger of auto-merge-content.yml (frozen), so these PRs land through
+# the opener's own `gh pr merge --auto`, gated by the same required `build` check.
+docs/strategy/growth-strategy.md
 
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/
