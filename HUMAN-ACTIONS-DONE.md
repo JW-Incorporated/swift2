@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #90 · 2026-10-01 · done · Unfreeze social posting once PR #4660 has merged — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5931982869 — owner said done" · by status page
 - #80 · 2026-09-30 · done · #4364 has had no activity for 4 days — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5925822083 — owner decided 'close'" · by status page · <!-- marjorie-chase: 96h issue=4364 -->
 - #49 · 2026-09-30 · done · Add the shared Community Tasks acknowledgement secret — "Joey said in chat 2026-09-30: close 49; GH secret set, Vercel Production+Preview set and redeployed, manual daily mailer run 36739720371 logged no COMMUNITY_ACK_SECRET unset" · by chat
 - #63 · 2026-09-30 · done · Add instagram_manage_insights scope — "Joey saved regenerated IG_ACCESS_TOKEN (with instagram_manage_insights + instagram_manage_comments) and said close after check; growth-snapshot run 36739561217 succeeded on new token (IG followers + 10 post-metric reads); insights call itself not exercised" · by chat
