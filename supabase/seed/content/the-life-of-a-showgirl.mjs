@@ -14417,6 +14417,12 @@ export default {
     },
     {
       slug: 'patient-zero-single-announced',
+      // Cross-link cluster (2026-10-01, crosslink-opportunity #crosslink): the
+      // Patient Zero arc — announcement → release → music-video premiere.
+      relatedIds: [
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+        'moment:vault-tloas-the-patient-zero-video-premieres-at-the-vmas-self-directed-s',
+      ],
       year: 2026,
       month: 9,
       day: 22,
@@ -14655,6 +14661,12 @@ export default {
     },
     {
       slug: 'patient-zero-released-spotify-records',
+      // Cross-link cluster (2026-10-01, crosslink-opportunity): the Patient Zero
+      // arc — announcement → release → music-video premiere.
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-the-patient-zero-video-premieres-at-the-vmas-self-directed-s',
+      ],
       year: 2026,
       month: 9,
       day: 25,
@@ -14752,6 +14764,12 @@ export default {
       // carry: the Lubezki cinematography, the Farrell/Johnson/Delevingne/
       // Stafford cast, and the ghost storyline.
       slug: 'patient-zero-music-video-vmas-premiere',
+      // Cross-link cluster (2026-10-01, crosslink-opportunity): the Patient Zero
+      // arc — announcement → release → music-video premiere.
+      relatedIds: [
+        'moment:vault-tloas-taylor-announces-the-life-of-a-showgirl-the-encore-four-new-',
+        'moment:vault-tloas-patient-zero-arrives-with-the-encore-and-sets-two-spotify-20',
+      ],
       year: 2026,
       month: 9,
       day: 27,
