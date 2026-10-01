@@ -281,7 +281,8 @@ export async function runExport(options = {}) {
   const complete = new Set(completedEntries.map(([slug]) => slug));
   // Codex round 5 #2: a group whose ingest already ran this week is ledgered 'ingested' before
   // its upload. A retry never ingests it again (duplicate fan_signal rows): it uploads the kept
-  // file directly, or re-collects only when that file is gone — and still skips ingest.
+  // file directly. If that file is gone it is NOT re-collected (a fresh collection is a different
+  // dataset from the one ingested): the group fails 'ingested-file-missing' and the issue stays open.
   const fileExists =
     options.fileExists ??
     ((path) =>
@@ -296,10 +297,12 @@ export async function runExport(options = {}) {
   );
   const uploadOnly = [];
   const pending = [];
+  const missingIngested = [];
   for (const group of allGroups) {
     const row = ingestedRow(group.slug);
-    if (row?.filePath && (await fileExists(row.filePath))) uploadOnly.push(group);
-    else pending.push(group);
+    if (!row) pending.push(group);
+    else if (row.filePath && (await fileExists(row.filePath))) uploadOnly.push(group);
+    else missingIngested.push(group);
   }
   const collection = pending.length
     ? await (options.collect ?? extensionCollect)({
@@ -352,6 +355,8 @@ export async function runExport(options = {}) {
       await persistLedger();
     }
   };
+  for (const group of missingIngested)
+    results.push({ slug: group.slug, status: 'failed', reason: 'ingested-file-missing' });
   for (const group of uploadOnly) {
     const row = ledger.groups[group.slug];
     await uploadAndRecord(group.slug, row);
@@ -418,15 +423,12 @@ export async function runExport(options = {}) {
       }
       continue;
     }
-    const priorIngest = ingestedRow(item.slug);
-    const ingested = priorIngest
-      ? { ok: true, counts: priorIngest.ingestCounts }
-      : await (options.ingest ?? ingestOne)({
-          groupSlug: item.slug,
-          filePath: gate.filePath,
-          exportedAt: gate.collectedAt ? new Date(gate.collectedAt) : now,
-          dryRun,
-        });
+    const ingested = await (options.ingest ?? ingestOne)({
+      groupSlug: item.slug,
+      filePath: gate.filePath,
+      exportedAt: gate.collectedAt ? new Date(gate.collectedAt) : now,
+      dryRun,
+    });
     if (!ingested.ok) {
       results.push({
         slug: item.slug,
@@ -464,7 +466,7 @@ export async function runExport(options = {}) {
       partial: gate.partial,
       ingestCounts: ingested.counts,
       filePath: gate.filePath,
-      at: priorIngest?.at ?? now.toISOString(),
+      at: now.toISOString(),
     };
     await persistLedger();
     await uploadAndRecord(item.slug, ledger.groups[item.slug], commentFields(item));

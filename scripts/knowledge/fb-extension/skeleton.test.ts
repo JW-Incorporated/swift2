@@ -127,12 +127,54 @@ describe('skeleton redaction', () => {
     expect(LLFB.redactLabel('View 3 more replies')).toBe('view 9 more replies');
     expect(LLFB.redactLabel('Tingnan ang 5 pang komento')).toBe('tingnan ang 9 w komento');
     expect(LLFB.redactLabel('Write a public comment…')).toBe('write a public comment…');
-    expect(LLFB.redactLabel("Maria's photo · 2h")).toBe('w photo · 9h');
-    expect(LLFB.redactLabel('José María 你好 ❤️')).toBe('w w w ❤️');
+    expect(LLFB.redactLabel("Maria's photo · 2h")).toBe('w photo w 9h');
+    expect(LLFB.redactLabel('José María 你好 ❤️')).toBe('w w w w');
     expect(LLFB.redactLabel('')).toBe('');
     // Idempotent: a shape is its own shape (what the checker relies on).
-    for (const label of ['comment by w w 9 hrs ago', 'all reactions: 9,999', 'w photo · 9h'])
+    for (const label of ['comment by w w 9 hrs ago', 'all reactions: 9,999', 'w photo w 9h'])
       expect(LLFB.redactLabel(label)).toBe(label);
+  });
+
+  it('emoji and punctuation never survive a label shape (round 6 #2)', () => {
+    for (const label of ['😀 Maria', '😀', '❤️', '😀Maria', 'Maria😀', '!!!', '··', '(😀)'])
+      expect(LLFB.redactLabel(label), label).not.toMatch(/\p{Extended_Pictographic}|·|Maria/iu);
+    expect(LLFB.redactLabel('😀 Maria')).toBe('w w');
+    expect(LLFB.isRedactedLabel('w 😀')).toBe(false);
+    expect(LLFB.isRedactedLabel('😀')).toBe(false);
+    expect(LLFB.isRedactedLabel('w w')).toBe(true);
+    const node = (label: string) => ({
+      key: 'pos:1',
+      diagnosis: {},
+      labels: [],
+      dataAttributes: [],
+      tree: { tag: 'div', attrs: { 'aria-label': label }, n: 0 },
+    });
+    expect(LLFB.isRedactedSkeleton(node('😀 Maria')).ok).toBe(false);
+    expect(LLFB.isRedactedSkeleton(node('w w')).ok).toBe(true);
+  });
+
+  it('structural attribute values are an explicit (attribute, value) allowlist (round 6 #1)', () => {
+    const a = (name: string, value: string) => LLFB.redactAttribute(name, value);
+    expect(a('data-ad-rendering-role', 'story_message')).toBe('story_message');
+    expect(a('data-ad-rendering-role', 'Maria_Santos')).toBe('-');
+    expect(a('data-ad-preview', 'message')).toBe('message');
+    expect(a('data-ad-preview', 'Maria Santos')).toBe('-');
+    expect(a('data-ad-anything', 'maria')).toBe('-');
+    expect(a('data-testid', 'maria_santos')).toBe('-');
+    expect(a('data-pagelet', 'Maria')).toBe('-');
+    expect(a('dir', 'ltr')).toBe('ltr');
+    expect(a('dir', 'maria')).toBe('-');
+    expect(a('type', 'maria')).toBe('-');
+    expect(a('tabindex', '-1')).toBe('-1');
+    expect(a('tabindex', 'maria')).toBe('-');
+    expect(a('aria-posinset', '12')).toBe('12');
+    expect(a('aria-posinset', 'Maria')).toBe('-');
+    const check = (name: string, value: string) => LLFB.isRedactedAttribute(name, value);
+    expect(check('data-ad-rendering-role', 'maria_santos')).toBe(false);
+    expect(check('data-testid', 'maria')).toBe(false);
+    expect(check('data-pagelet', 'maria')).toBe(false);
+    expect(check('data-ad-rendering-role', 'story_message')).toBe(true);
+    expect(check('data-testid', '-')).toBe(true);
   });
 
   it('href shapes: known path words, every id → :id, query keys only, no hash, no host', () => {
@@ -255,7 +297,7 @@ describe('skeleton redaction', () => {
         inRegion: true,
       },
     ]);
-    expect(dropped.dataAttributes[0].attrs).toEqual({ 'data-pagelet': 'FeedUnit_x' });
+    expect(dropped.dataAttributes[0].attrs).toEqual({ 'data-pagelet': '-' });
     expect(kept.tree).toMatchObject({
       tag: 'div',
       attrs: { 'aria-posinset': '1' },

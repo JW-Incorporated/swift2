@@ -46,19 +46,40 @@
   const ELEMENT_NODE = 1;
   const TEXT_NODE = 3;
 
-  // Attributes whose VALUE is structural (never text a member wrote).
-  const KEEP_VALUE = new Set([
-    'role',
-    'data-ad-rendering-role',
-    'data-pagelet',
-    'aria-posinset',
-    'aria-setsize',
-    'dir',
-    'tabindex',
-    'type',
-    'data-testid',
-  ]);
-  const KEEP_VALUE_SHAPE = /^[\w .:/-]{0,60}$/;
+  // Attributes whose VALUE is structural (never text a member wrote): an explicit allowlist of
+  // (attribute, value) pairs. Every other value of these attributes is recorded as '-'.
+  const VALUE_ALLOW = {
+    'data-ad-rendering-role': new Set([
+      'story_message',
+      'profile_name',
+      'like_button',
+      'comment_button',
+      'share_button',
+      'meta',
+      'title',
+      'description',
+    ]),
+    'data-ad-preview': new Set(['message']),
+    'data-ad-comet-preview': new Set(['message']),
+    dir: new Set(['ltr', 'rtl', 'auto']),
+    type: new Set(['button', 'submit', 'text', 'checkbox', 'radio', 'search', 'reset']),
+  };
+  const DIGIT_VALUE_ATTRS = {
+    tabindex: /^-?\d{1,3}$/,
+    'aria-posinset': /^\d{1,6}$/,
+    'aria-setsize': /^\d{1,6}$/,
+  };
+  const isStructuralAttr = (key) =>
+    Object.hasOwn(VALUE_ALLOW, key) ||
+    Object.hasOwn(DIGIT_VALUE_ATTRS, key) ||
+    key.startsWith('data-ad-') ||
+    key === 'data-pagelet' ||
+    key === 'data-testid';
+  const isAllowedStructural = (key, text) => {
+    if (Object.hasOwn(VALUE_ALLOW, key)) return VALUE_ALLOW[key].has(text);
+    if (Object.hasOwn(DIGIT_VALUE_ATTRS, key)) return DIGIT_VALUE_ATTRS[key].test(text);
+    return false;
+  };
   // Enum-valued attributes: kept only when the value is from the enum.
   const KEEP_ENUM = new Set([
     'aria-hidden',
@@ -323,11 +344,11 @@
   // One whitespace-separated token of a label → its shape. Numbers keep their punctuation with
   // every digit → '9' ("1,204" → "9,999", "1.2K" → "9.9k", "3:15" → "9:99"); a number with a
   // unit suffix keeps the unit when it is a known word ("2h" → "9h", "15m" → "99m"); words in
-  // WORDS survive; everything else is 'w'. Leading/trailing punctuation (≤ 2 chars) is kept.
+  // WORDS survive; everything else (punctuation-only tokens and emoji included) is 'w'. Leading/trailing ASCII punctuation (≤ 2 chars) is kept.
   function redactToken(token) {
     const lower = token.toLowerCase();
-    if (/^[^\p{L}\p{N}]+$/u.test(lower)) return lower.length <= 2 ? lower : 'w';
-    const match = /^([^\p{L}\p{N}]{0,2})(.*?)([^\p{L}\p{N}]{0,2})$/su.exec(lower);
+    if (/^[^\p{L}\p{N}]+$/u.test(lower)) return 'w';
+    const match = /^([!-/:-@[-`{-~‘’“”–—…]{0,2})(.*?)([!-/:-@[-`{-~‘’“”–—…]{0,2})$/su.exec(lower);
     const lead = match ? match[1] : '';
     const core = match ? match[2] : lower;
     const trail = match ? match[3] : '';
@@ -377,8 +398,7 @@
     const key = String(name).toLowerCase();
     const text = String(value ?? '');
     if (DROPPED.has(key) || key.startsWith('on')) return undefined;
-    if (KEEP_VALUE.has(key) || key.startsWith('data-ad-'))
-      return KEEP_VALUE_SHAPE.test(text) ? text : '-';
+    if (isStructuralAttr(key)) return isAllowedStructural(key, text) ? text : '-';
     if (HREF_ATTRS.has(key)) return redactHref(text);
     if (SHAPE_ATTRS.has(key)) return redactLabel(text);
     if (KEEP_ENUM.has(key) && ENUM_VALUE.test(text.trim())) return text.trim().toLowerCase();
@@ -646,7 +666,7 @@
     if (typeof value !== 'string') return false;
     if (DROPPED.has(key) || key.startsWith('on') || key === 'role') return false;
     if (value === '-') return true;
-    if (KEEP_VALUE.has(key) || key.startsWith('data-ad-')) return KEEP_VALUE_SHAPE.test(value);
+    if (isStructuralAttr(key)) return isAllowedStructural(key, value);
     if (HREF_ATTRS.has(key)) return isRedactedHref(value);
     if (SHAPE_ATTRS.has(key)) return isRedactedLabel(value);
     if (KEEP_ENUM.has(key)) return ENUM_VALUE.test(value);

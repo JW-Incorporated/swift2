@@ -375,30 +375,34 @@ describe('Facebook export orchestration', () => {
       expect(ledger.get().groups['group-a'].status).toBe('uploaded');
     });
 
-    it('re-collects when the ingested file is gone but still skips ingest', async () => {
+    it('does not re-collect when the ingested file is gone: fails ingested-file-missing', async () => {
       const ledger = shared();
       await run(ledger, {
         ingest: vi.fn().mockResolvedValue({ ok: true, counts }),
         upload: vi.fn().mockResolvedValue({ ok: false, reason: 'upload command failed' }),
       });
       const ingest2 = vi.fn();
-      const upload2 = vi.fn().mockResolvedValue({ ok: true });
-      const collect2 = vi
-        .fn()
-        .mockResolvedValue([
-          { slug: 'group-a', status: 'collected', filePath: 'b.html', ageRuleMet: true },
-        ]);
+      const upload2 = vi.fn();
+      const collect2 = vi.fn();
+      const reportIssue = vi.fn();
       const second = await run(ledger, {
         ingest: ingest2,
         upload: upload2,
         collect: collect2,
-        gate: vi.fn().mockResolvedValue({ ok: true, postCount: 2, filePath: 'b.html' }),
+        reportIssue,
         fileExists: vi.fn().mockResolvedValue(false),
       });
-      expect(collect2).toHaveBeenCalledTimes(1);
+      expect(collect2).not.toHaveBeenCalled();
       expect(ingest2).not.toHaveBeenCalled();
-      expect(upload2).toHaveBeenCalledWith('b.html');
-      expect(second.ok).toBe(true);
+      expect(upload2).not.toHaveBeenCalled();
+      expect(second.ok).toBe(false);
+      expect(second.results[0]).toMatchObject({
+        slug: 'group-a',
+        status: 'failed',
+        reason: 'ingested-file-missing',
+      });
+      expect(reportIssue).toHaveBeenCalledWith(70, expect.anything(), { close: false });
+      expect(ledger.get().groups['group-a'].status).toBe('ingested');
     });
 
     it('a dry run never ledgers ingested', async () => {
