@@ -129,14 +129,23 @@ export function trailingOldBoundary(units, now = new Date(), count = AGE_STOP_CO
   };
 }
 
+function isOld(ageMs) {
+  return ageMs !== null && ageMs > 7 * DAY_MS;
+}
+
+// Two independent rules (Codex round 3 #6): the three-trailing-old-posts boundary decides where
+// the feed STOPS; whatever it says, a non-pinned unit with a readable timestamp older than seven
+// days is never part of the output. (Mirrored in fb-extension/harvest-core.js.)
 export function recentHarvestUnits(units, now = new Date()) {
   const ordered = unitsInFeedOrder(units);
   const boundary = trailingOldBoundary(ordered, now);
-  if (!boundary) return ordered;
-  return ordered.filter(
-    (unit, index) =>
-      index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
-  );
+  const beforeBoundary = boundary
+    ? ordered.filter(
+        (unit, index) =>
+          index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
+      )
+    : ordered;
+  return beforeBoundary.filter((unit) => unit.ignoreForAge || !isOld(unitAgeMs(unit, now)));
 }
 
 function median(values) {

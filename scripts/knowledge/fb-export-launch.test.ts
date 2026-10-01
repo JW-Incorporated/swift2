@@ -138,6 +138,7 @@ describe('extensionCollect with the real receiver', () => {
             stopReason: 'feed-end',
             units: [{ html: '<div>synthetic post</div>', position: 0 }],
             coverage: { ageRuleMet: true, harvestedCount: 1, slotCount: 1, partial: false },
+            commentCoverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
           }),
         });
         await fetch(`${base}/next`, { headers }); // group two handed out, never reported

@@ -276,15 +276,32 @@ async function finishJob(result) {
   return { ok: true };
 }
 
+// Codex round 3 #4: the token the /start page hands over is validated against the receiver
+// (GET /hello with that token → {ok:true, runId}) BEFORE it replaces any session state. A token
+// the receiver refuses, or a port nothing answers on, never overwrites a live session.
 async function onStart(message, sender) {
   const match = START_URL.exec(String(sender.url ?? sender.tab?.url ?? ''));
   if (!match || !sender.tab) return { ok: false };
   // Only the port this /start page was served from — never one the message merely claims.
   if (!Number.isInteger(message.port) || message.port !== Number(match[1])) return { ok: false };
   if (!/^[0-9a-f]{32,128}$/i.test(String(message.token))) return { ok: false };
+  const candidate = { port: message.port, token: message.token };
+  let hello;
+  try {
+    hello = await api(candidate, 'GET', '/hello');
+  } catch (error) {
+    console.warn('[llfb] /start refused: /hello failed', String(error?.message ?? error));
+    return { ok: false };
+  }
+  if (hello?.ok !== true || typeof hello.runId !== 'string' || !hello.runId) return { ok: false };
+  const live = await loadState();
+  if (live && !live.finished && live.phase !== 'done' && live.runId === hello.runId) {
+    await advance(); // the same run's start page reloaded: keep its state, nudge it along
+    return { ok: true };
+  }
   await saveState({
-    port: message.port,
-    token: message.token,
+    ...candidate,
+    runId: hello.runId,
     tabId: sender.tab.id,
     job: null,
     outbox: null,
@@ -295,10 +312,34 @@ async function onStart(message, sender) {
   return { ok: true };
 }
 
+const senderUrl = (sender) => String(sender?.url ?? sender?.tab?.url ?? '');
+
+// Tab ↔ group binding (Codex round 3 #3): a message counts for the job only when it comes from
+// the job's tab AND a page whose group segment is the job's group. A page on another group (a
+// redirect, a navigation) gets no job; the job is reported failed{redirected} (or the challenge
+// status its URL names) so the run moves on instead of harvesting the wrong group.
+function boundToJob(state, sender) {
+  return (
+    Boolean(state?.job) &&
+    sender.tab?.id === state.tabId &&
+    globalThis.LLFB.groupMatches(senderUrl(sender), state.job)
+  );
+}
+
+async function reportOffGroup(job, url) {
+  const status = globalThis.LLFB.classifyPage({ url });
+  const result = failedResult(job, 'redirected');
+  return finishJob(status === 'ready' ? result : { ...result, status });
+}
+
 async function onReady(sender) {
   const state = await loadState();
   const job = state?.job;
   if (!job || sender.tab?.id !== state.tabId) return { job: null };
+  if (!boundToJob(state, sender)) {
+    await reportOffGroup(job, senderUrl(sender));
+    return { job: null };
+  }
   // A full page reload mid-harvest re-dispatches the job; the wall budget still counts from the
   // first dispatch (startedAtMs).
   const startedAtMs = job.startedAtMs ?? Date.now();
@@ -310,7 +351,7 @@ async function onReady(sender) {
 
 async function onHeartbeat(message, sender) {
   const state = await loadState();
-  if (!state?.job || sender.tab?.id !== state.tabId) return { ok: false };
+  if (!boundToJob(state, sender)) return { ok: false };
   await api(state, 'POST', '/heartbeat', {
     slug: state.job.slug,
     scrolls: message.scrolls,
@@ -328,7 +369,7 @@ async function onResult(message, sender) {
     const taken = state.outbox?.pendingResult?.slug ?? state.lastDelivered;
     return { ok: typeof slug === 'string' && slug === taken };
   }
-  if (slug !== state.job.slug) return { ok: false };
+  if (slug !== state.job.slug || !boundToJob(state, sender)) return { ok: false };
   return finishJob(message.result);
 }
 
@@ -355,23 +396,20 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 // The group URL can redirect off /groups/ (login wall, checkpoint), where the content script does
-// not run. Report that as the job's status instead of waiting for the receiver's stall watchdog.
+// not run, or onto ANOTHER group (Codex round 3 #3). Report that as the job's status instead of
+// waiting for the receiver's stall watchdog.
 chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
   if (info.status !== 'complete') return;
   const state = await loadState();
   if (!state?.job || state.job.dispatched || tabId !== state.tabId) return;
   const url = String(tab.url ?? '');
-  if (GROUP_URL.test(url)) return;
+  if (GROUP_URL.test(url) && globalThis.LLFB.groupMatches(url, state.job)) return;
   const slug = state.job.slug;
   setTimeout(() => {
     serialized(async () => {
       const latest = await loadState();
       if (!latest?.job || latest.job.dispatched || latest.job.slug !== slug) return;
-      const status = globalThis.LLFB.classifyPage({ url });
-      const host = url.replace(/[?#].*$/, '');
-      if (status === 'ready')
-        await finishJob(failedResult(latest.job, `landed off-group: ${host}`));
-      else await finishJob({ ...failedResult(latest.job, `redirected: ${host}`), status });
+      await reportOffGroup(latest.job, url);
     }).catch((error) => console.warn('[llfb] off-group report failed', String(error?.message)));
   }, OFF_GROUP_GRACE_MS);
 });

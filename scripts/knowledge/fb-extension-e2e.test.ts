@@ -60,9 +60,11 @@ function sizeOf(store: Record<string, string>) {
 
 type Feed = { initial: string[]; more: string[] };
 
+// A post needs Facebook's story-message container: the uploaded html is built positively from it.
 const post = (position: number, age: string, filler = '') =>
   `<div aria-posinset="${position}"><div role="article"><a aria-label="Fan ${position}">Fan</a>` +
-  `<a href="/groups/1234/posts/${position}/">${age}</a><p>Synthetic post ${position} ${filler}</p>` +
+  `<a href="/groups/1234/posts/${position}/">${age}</a>` +
+  `<div data-ad-preview="message">Synthetic post ${position} ${filler}</div>` +
   `</div></div>`;
 
 function createBrowser({ feed, idleKill = false }: { feed: () => Feed; idleKill?: boolean }) {
@@ -351,10 +353,14 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     const { results, browser, log } = await run({ feed, stallMs: 1_000 });
     expect(log).not.toContain('fb-receiver vault: stalled');
     expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 44 }]);
+    expect(browser.fetches[0]).toBe('GET /hello'); // the /start token is validated first
     expect(browser.fetches).toContain('POST /heartbeat');
     expect(browser.fetches.filter((f) => f === 'POST /result')).toHaveLength(1);
     expect(browser.fetches.at(-1)).toBe('POST /finished');
     expect(browser.messages.slice(0, 2)).toEqual(['llfb-start', 'llfb-ready']);
+    expect(results).toMatchObject([
+      { commentCoverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 } },
+    ]);
   }, 30_000);
 
   it('survives Chrome stopping the idle worker before every event', async () => {

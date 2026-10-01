@@ -78,25 +78,43 @@
     return Math.max(0, Math.min(COMMENTS_MAX_MS, wallBudgetMs - elapsedMs - COMMENTS_RESERVE_MS));
   }
 
-  // comments.js returns {comments, coverage:{eligible, processed, failed, timedOut}}; an older
-  // copy returns a bare array (no coverage → commentCoverage null).
+  const COVERAGE_KEYS = ['eligible', 'processed', 'failed', 'timedOut'];
+  const isCount = (value) => Number.isInteger(value) && value >= 0;
+
+  // comments.js returns {comments, coverage:{eligible, processed, failed, timedOut}}. Codex round
+  // 3 #5: commentCoverage is never null for a harvested group — a missing collector, a collector
+  // that returns no usable coverage (an older bare-array build) or one that throws produces an
+  // explicit {error} coverage, which the receiver turns into a failed group.
   async function collectCommentsSafely(units, options) {
-    if (typeof LLFB.collectComments !== 'function') return { comments: [], commentCoverage: null };
+    if (typeof LLFB.collectComments !== 'function')
+      return { comments: [], commentCoverage: { error: 'comment collector missing' } };
     try {
       const out = await LLFB.collectComments(units, options);
-      if (Array.isArray(out)) return { comments: out, commentCoverage: null };
       const coverage = out?.coverage;
+      if (
+        !coverage ||
+        typeof coverage !== 'object' ||
+        !COVERAGE_KEYS.every((k) => isCount(coverage[k]))
+      )
+        return {
+          comments: [],
+          commentCoverage: { error: 'comment collector returned no coverage' },
+        };
       return {
-        comments: Array.isArray(out?.comments) ? out.comments : [],
-        commentCoverage: coverage && typeof coverage === 'object' ? { ...coverage } : null,
+        comments: Array.isArray(out.comments) ? out.comments : [],
+        commentCoverage: Object.fromEntries(COVERAGE_KEYS.map((k) => [k, coverage[k]])),
       };
     } catch (error) {
-      return {
-        comments: [],
-        commentCoverage: null,
-        message: `comments failed: ${String(error?.message ?? error)}`,
-      };
+      const message = `comments failed: ${String(error?.message ?? error)}`.slice(0, 300);
+      return { comments: [], commentCoverage: { error: message }, message };
     }
+  }
+
+  // The posts comments.js would select (commentCount > 0, top N) — reported as timed out when the
+  // group wall budget leaves no room for comment collection at all.
+  function eligibleCommentPosts(units, topN) {
+    const limit = Number.isFinite(topN) ? Math.max(0, topN) : 20;
+    return Math.min(limit, units.filter((unit) => Number(unit.commentCount) > 0).length);
   }
 
   // profileCheck (harvest-core) → {status: 'ok'|'unverified'|'wrong-profile', profileVerified}.
@@ -129,17 +147,30 @@
     const collectedAt = () => env.now().toISOString();
 
     render([`LL export — ${job.label ?? job.slug}`, 'waiting for the group page…']);
+    // Tab ↔ group binding (Codex round 3 #3), re-checked on the page itself: this page must be
+    // the job's group, or nothing of it is read.
+    if (typeof LLFB.groupMatches === 'function' && !LLFB.groupMatches(env.url, job)) {
+      render([`LL export — ${job.label ?? job.slug}`, 'STOP: not the job’s group page']);
+      return baseResult(job, 'failed', { message: 'redirected', collectedAt: collectedAt() });
+    }
     await waitForShell(env);
 
-    const classification = LLFB.inspectPage(env.doc, env.url);
-    if (classification !== 'ready') {
-      render([`LL export — ${job.label ?? job.slug}`, `STOP: ${classification}`]);
-      return baseResult(job, classification, { collectedAt: collectedAt() });
-    }
+    // Profile first (Codex round 3 #2): a Page session that lands on "join group" / "isn't
+    // available" is wrong-profile, not a membership fact; and a not-member / unavailable result
+    // carries whether the profile was verified, so an unverified one is never ledgered as a skip.
     const { wrongProfile, profileVerified } = checkProfile(job, env);
-    if (wrongProfile) {
+    const classification = LLFB.inspectPage(env.doc, env.url);
+    const challenge = ['login', 'checkpoint', 'captcha'].includes(classification);
+    if (wrongProfile && !challenge) {
       render([`LL export — ${job.label ?? job.slug}`, 'STOP: wrong-profile']);
       return baseResult(job, 'wrong-profile', { collectedAt: collectedAt() });
+    }
+    if (classification !== 'ready') {
+      render([`LL export — ${job.label ?? job.slug}`, `STOP: ${classification}`]);
+      return baseResult(job, classification, {
+        coverage: { profileVerified },
+        collectedAt: collectedAt(),
+      });
     }
 
     let harvest = LLFB.emptyHarvest();
@@ -211,12 +242,23 @@
           let commentCoverage = null;
           let message;
           const commentsMaxMs = commentsBudgetMs(job, env.clock() - startedAtMs);
-          if (decision.status === 'collected' && units.length && commentsMaxMs > 0) {
-            render([`LL export — ${job.label ?? job.slug}`, `comments for ${units.length} posts…`]);
-            ({ comments, commentCoverage, message } = await collectCommentsSafely(units, {
-              ...job.comments,
-              maxMs: commentsMaxMs,
-            }));
+          if (decision.status === 'collected' && units.length) {
+            if (commentsMaxMs > 0) {
+              render([
+                `LL export — ${job.label ?? job.slug}`,
+                `comments for ${units.length} posts…`,
+              ]);
+              ({ comments, commentCoverage, message } = await collectCommentsSafely(units, {
+                ...job.comments,
+                maxMs: commentsMaxMs,
+              }));
+            } else {
+              // No budget left for comments: every eligible post counts as timed out, so the
+              // receiver fails the group instead of recording it complete without its comments.
+              const eligible = eligibleCommentPosts(units, job.comments?.topN);
+              commentCoverage = { eligible, processed: 0, failed: 0, timedOut: eligible };
+              if (eligible) message = 'comments skipped: group wall budget exhausted';
+            }
           }
           render([
             `LL export — ${job.label ?? job.slug}`,

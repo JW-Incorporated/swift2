@@ -119,14 +119,23 @@
     };
   }
 
+  function isOld(ageMs) {
+    return ageMs !== null && ageMs > 7 * DAY_MS;
+  }
+
+  // Two independent rules (Codex round 3 #6): the three-trailing-old-posts boundary decides where
+  // the feed STOPS, and — whatever the boundary says — a non-pinned unit with a readable timestamp
+  // older than seven days never leaves the page.
   function recentHarvestUnits(units, now = new Date()) {
     const ordered = unitsInFeedOrder(units);
     const boundary = trailingOldBoundary(ordered, now);
-    if (!boundary) return ordered;
-    return ordered.filter(
-      (unit, index) =>
-        index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
-    );
+    const beforeBoundary = boundary
+      ? ordered.filter(
+          (unit, index) =>
+            index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
+        )
+      : ordered;
+    return beforeBoundary.filter((unit) => unit.ignoreForAge || !isOld(unitAgeMs(unit, now)));
   }
 
   function median(values) {
@@ -303,17 +312,20 @@
   ];
   const COMMENT_PATTERN = new RegExp(`^${COUNT}\\s+comments?$`, 'i');
 
-  // Best-effort engagement numbers from a unit's own (non-comment) DOM. DOM GUESS: Facebook
-  // renders "All reactions:" + a count, "<n> reactions" or "<n> comments" as short labels; none
-  // of this is verified against the live DOM. Unknown → null, never 0.
-  function extractEngagement(unit, primaryArticle) {
+  // Best-effort engagement numbers from the unit's POST REGION (postRegion: the post's own article,
+  // before the first comment marker). DOM GUESS: Facebook renders "All reactions:" + a count,
+  // "<n> reactions" or "<n> comments" as short labels; none of this is verified against the live
+  // DOM. Unknown → null, never 0.
+  // Also returns `countElement`, the first element a count was read from: the reaction / comment
+  // bar, which Facebook renders between the post's attachments and its comments — buildPostHtml
+  // uses it as the positive lower bound for post media.
+  function extractEngagement(unit, region = postRegion(unit)) {
     let reactions = null;
     let commentCount = null;
-    const own = (element) =>
-      !primaryArticle || element.closest('[role="article"]') === primaryArticle;
+    let countElement = null;
     for (const element of unit.querySelectorAll('[aria-label], span, a, div[role="button"]')) {
       if (reactions !== null && commentCount !== null) break;
-      if (!own(element)) continue;
+      if (!region.inRegion(element)) continue;
       const labels = [element.getAttribute('aria-label'), element.textContent]
         .filter(Boolean)
         .map((value) =>
@@ -329,48 +341,68 @@
             const match = label.match(pattern);
             if (match) {
               reactions = parseCount(match[1]);
+              countElement ??= element;
               break;
             }
           }
         }
         if (commentCount === null) {
           const match = label.match(COMMENT_PATTERN);
-          if (match) commentCount = parseCount(match[1]);
+          if (match) {
+            commentCount = parseCount(match[1]);
+            countElement ??= element;
+          }
         }
       }
     }
-    return { reactions, commentCount };
+    return { reactions, commentCount, countElement };
   }
 
   // Comments are PRIVATE (PLAN schema v1): they may only leave the page through comments.js into
   // the local private store, never inside the uploaded unit HTML. The CDP harvester captured the
-  // unit's full outerHTML, which carries every rendered comment/reply subtree. The extension
-  // serializes a sanitized clone instead. DOM GUESS (like the rest of this file): comments and
-  // replies are role=article elements nested inside the post's own article (aria-label
-  // "Comment by …" / "Reply by …"); the composer is a textbox/contenteditable/form; the comment
-  // list controls are buttons like "View more comments" / "Most relevant".
+  // unit's full outerHTML, which carries every rendered comment/reply subtree.
+  //
+  // Codex rounds 2 #1 / 3 #1: stripping comments out of that outerHTML is a denylist, fail-open by
+  // construction — a comment Facebook renders in a shape the strip does not know reaches the
+  // upload. So the uploaded html is now built POSITIVELY (buildPostHtml): only elements that are
+  // identified as the post's own go in, in a fixed order, and nothing else is ever copied:
+  //   1. the author header: the first own `a[aria-label]` before the message
+  //   2. the permalink + the own `abbr`/`time` elements before the message (the timestamps)
+  //   3. the message body: Facebook's story-message container (MESSAGE_SELECTOR), cloned whole
+  //   4. own media (`img`/`video` src + alt) after the message
+  //   5. the reaction / comment COUNT labels, re-emitted as "<n> reactions" / "<n> comments" from
+  //      the numbers extractEngagement read (the exact form the real parser's regexes consume)
+  // "Own" = inside the post's own article and BEFORE the first comment marker (postRegion). A unit
+  // with no message container in that region has no established post/comment boundary: its html
+  // is dropped (null) and buildCoverage counts it in coverage.sanitizeDropped.
+  //
+  // What the uploader needs (apps/worker/src/sources/facebook-groups-parser.ts, via
+  // scripts/community/fb-export-ingest.mjs): one role=article block per post (buildHarvestedHtml
+  // adds it), the first aria-label as the author, the stripped text (redline screen + lead
+  // excerpt), "<n> reactions" and "<n> comments". comments.js additionally reads the permalink
+  // href out of unit.html (postUrlFromUnit).
+  //
+  // DOM GUESS (like the rest of this file): comments and replies are role=article elements nested
+  // inside the post's own article (aria-label "Comment by …" / "Reply by …"); the composer is a
+  // textbox/contenteditable/form; the comment list controls are buttons like "View more comments";
+  // the Like / Comment / Share row sits between the post and its comments.
   const COMMENT_LABEL = /^(?:comment|reply) by\b/i;
   const COMPOSER_LABEL = /^(?:write a (?:public )?(?:comment|reply)|comment as|reply as)\b/i;
   const COMMENT_LIST_CONTROL =
     /^(?:(?:view|see|hide)\s+(?:more|all|previous|\d[\d.,]*\s*[km]?\s+(?:more\s+)?)?\s*(?:comments?|repl(?:y|ies))\b|most relevant|newest|all comments|\d[\d.,]*\s*[km]?\s+repl(?:y|ies)$)/i;
   const COMPOSER_SELECTOR =
     'form, [contenteditable="true"], [role="textbox"], textarea, input[type="text"], [role="combobox"]';
-
-  //
-  // Codex round 2 #1: that label pass alone is a denylist (fail-open). So, in order:
-  //  1. STRUCTURAL CUT — find the post's action toolbar and remove it and everything after it
-  //     within the unit (comments render below the toolbar). See findActionToolbar.
-  //  2. The nested-article / label / composer removal below, as a second pass.
-  //  3. FAIL-CLOSED residual check — if the clone still holds a comment permalink
-  //     (comment_id= / reply_comment_id=) or any aria-label starting "Comment"/"Reply", return
-  //     null: the unit's html is dropped (never uploaded) and buildCoverage counts it in
-  //     coverage.sanitizeDropped.
+  const MESSAGE_SELECTOR =
+    '[data-ad-preview="message"], [data-ad-comet-preview="message"], ' +
+    '[data-ad-rendering-role="story_message"]';
+  const PERMALINK_SELECTOR = 'a[href*="/posts/"], a[href*="story_fbid"], a[href*="permalink"]';
   const CONTROL_SELECTOR = 'button, [role="button"]';
   const TOOLBAR_LIKE = /^(?:like|react)$/i;
   const TOOLBAR_COMMENT = /^(?:comment|leave a comment|write a comment)$/i;
   const TOOLBAR_MAX_TEXT = 120;
   const RESIDUAL_LINK = 'a[href*="comment_id="]'; // also matches reply_comment_id=
   const RESIDUAL_LABEL = /^(?:comment|reply)/i;
+  const NEVER_COPIED = 'script, style, iframe, noscript, template, object, embed';
 
   const squash = (value) =>
     String(value ?? '')
@@ -421,50 +453,138 @@
     );
   }
 
-  // Remove `node` and every following sibling of it and of each ancestor up to `container`.
-  function cutFrom(node, container) {
-    for (let current = node; current && current !== container; current = current.parentNode)
-      while (current.nextSibling) current.nextSibling.remove();
-    node.remove();
+  // `b` follows `a` in document order (descendants of `a` count as following).
+  function follows(a, b) {
+    return Boolean(a.compareDocumentPosition(b) & DOCUMENT_POSITION_FOLLOWING);
   }
 
-  function hasCommentResidue(clone) {
-    if (clone.querySelector(RESIDUAL_LINK)) return true;
-    return [clone, ...clone.querySelectorAll('[aria-label]')].some((el) =>
-      RESIDUAL_LABEL.test((el.getAttribute('aria-label') || '').trim()),
+  // Everything that marks the COMMENT side of a unit, earliest in document order wins: a nested
+  // role=article, a comment permalink, a composer, a "Comment by"/"Reply by" or composer label, a
+  // comment-list control, the action toolbar. Read-only: works on the live element.
+  function firstCommentMarker(scope, primary) {
+    const markers = [];
+    for (const el of scope.querySelectorAll('[role="article"]'))
+      if (el !== primary) markers.push(el);
+    for (const el of scope.querySelectorAll(`${RESIDUAL_LINK}, ${COMPOSER_SELECTOR}`))
+      markers.push(el);
+    for (const el of scope.querySelectorAll('[aria-label]')) {
+      const label = (el.getAttribute('aria-label') || '').trim();
+      if ((el !== primary && COMMENT_LABEL.test(label)) || COMPOSER_LABEL.test(label))
+        markers.push(el);
+    }
+    for (const el of scope.querySelectorAll(CONTROL_SELECTOR))
+      if (COMMENT_LIST_CONTROL.test(controlName(el))) markers.push(el);
+    const toolbar = findActionToolbar(scope, primary);
+    if (toolbar) markers.push(toolbar);
+    if (!markers.length) return null;
+    return markers.reduce((first, next) => (follows(first, next) ? first : next));
+  }
+
+  // The post's own region: the post article (the unit itself or its first role=article), minus
+  // everything from the first comment marker on. `inRegion(el)` is the single ownership test every
+  // positive copy below uses.
+  function postRegion(unit) {
+    const primary = unit.matches('[role="article"]')
+      ? unit
+      : unit.querySelector('[role="article"]');
+    const scope = primary ?? unit;
+    const cut = firstCommentMarker(scope, primary);
+    const inRegion = (el) =>
+      el.closest('[role="article"]') === primary &&
+      !(cut && (el === cut || cut.contains(el) || follows(cut, el)));
+    return { primary, scope, cut, inRegion };
+  }
+
+  function copyAttributes(from, to, names) {
+    for (const name of names) {
+      const value = from.getAttribute(name);
+      if (value) to.setAttribute(name, value);
+    }
+  }
+
+  // Positive build of the uploaded html (see the block comment above). Returns the html string, or
+  // null when the post/comment boundary cannot be established for this unit.
+  function buildPostHtml(unit, region = postRegion(unit)) {
+    const message = [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion);
+    if (!message) return null;
+    const body = message.cloneNode(true);
+    if (body.querySelector(`[role="article"], ${RESIDUAL_LINK}, ${COMPOSER_SELECTOR}`)) return null;
+    if (
+      [body, ...body.querySelectorAll('[aria-label]')].some((el) =>
+        RESIDUAL_LABEL.test((el.getAttribute('aria-label') || '').trim()),
+      )
+    )
+      return null;
+    for (const el of body.querySelectorAll(NEVER_COPIED)) el.remove();
+
+    const doc = unit.ownerDocument;
+    const out = doc.createElement('div');
+    out.setAttribute('data-llfb-post', '');
+    const part = (name) => {
+      const el = doc.createElement('div');
+      el.setAttribute('data-llfb-part', name);
+      out.appendChild(el);
+      return el;
+    };
+    const beforeMessage = (el) => region.inRegion(el) && follows(el, message);
+
+    const author = [...region.scope.querySelectorAll('a[aria-label]')].find(beforeMessage);
+    if (author) {
+      const a = doc.createElement('a');
+      copyAttributes(author, a, ['aria-label', 'href']);
+      a.textContent = squash(author.textContent);
+      part('author').appendChild(a);
+    }
+
+    const time = part('time');
+    const permalink = [...region.scope.querySelectorAll(PERMALINK_SELECTOR)].find(
+      (el) => region.inRegion(el) && !/comment_id=/i.test(el.getAttribute('href') || ''),
     );
+    if (permalink) {
+      const a = doc.createElement('a');
+      copyAttributes(permalink, a, ['href', 'aria-label', 'title']);
+      a.textContent = squash(permalink.textContent);
+      time.appendChild(a);
+    }
+    for (const el of region.scope.querySelectorAll('abbr, time')) {
+      if (!beforeMessage(el)) continue;
+      const t = doc.createElement(el.tagName.toLowerCase());
+      copyAttributes(el, t, ['title', 'datetime', 'aria-label']);
+      t.textContent = squash(el.textContent);
+      time.appendChild(t);
+    }
+
+    part('message').appendChild(body);
+
+    // Post media is positively bounded on both sides: after the message, before the reaction /
+    // comment count bar. Without a count bar nothing outside the message is media.
+    const { reactions, commentCount, countElement } = extractEngagement(unit, region);
+    const media = part('media');
+    if (countElement)
+      for (const el of region.scope.querySelectorAll('img[src], video[src]')) {
+        if (!region.inRegion(el) || message.contains(el)) continue;
+        if (!follows(message, el) || !follows(el, countElement)) continue;
+        const m = doc.createElement(el.tagName.toLowerCase());
+        copyAttributes(el, m, ['src', 'alt']);
+        media.appendChild(m);
+      }
+
+    const engagement = part('engagement');
+    for (const [count, noun] of [
+      [reactions, 'reactions'],
+      [commentCount, 'comments'],
+    ]) {
+      if (count === null) continue;
+      const span = doc.createElement('span');
+      span.textContent = `${count} ${noun}`;
+      engagement.appendChild(span);
+    }
+    return out.outerHTML;
   }
 
+  // Kept under the name content.js / the tests call: the unit's uploadable html, or null.
   function sanitizeUnitElement(unit) {
-    const clone = unit.cloneNode(true);
-    const primary = clone.matches?.('[role="article"]')
-      ? clone
-      : clone.querySelector('[role="article"]');
-    const toolbar = findActionToolbar(clone, primary);
-    if (toolbar) cutFrom(toolbar, clone);
-    const doomed = new Set();
-    // Every role=article other than the post's own (the first, outermost one) is a comment/reply.
-    for (const article of clone.querySelectorAll('[role="article"]'))
-      if (article !== primary) doomed.add(article);
-    for (const element of clone.querySelectorAll('[aria-label]')) {
-      const label = (element.getAttribute('aria-label') || '').trim();
-      if (element !== primary && COMMENT_LABEL.test(label)) doomed.add(element);
-      if (COMPOSER_LABEL.test(label)) doomed.add(element);
-    }
-    for (const element of clone.querySelectorAll(COMPOSER_SELECTOR)) doomed.add(element);
-    for (const control of clone.querySelectorAll('button, [role="button"]')) {
-      const name = (control.getAttribute('aria-label') || control.textContent || '')
-        .replace(/\u00a0/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      if (COMMENT_LIST_CONTROL.test(name)) doomed.add(control);
-    }
-    for (const element of doomed)
-      if (element !== clone && !(primary && element.contains(primary))) element.remove();
-    // Comment lists wrap each comment in <ul><li>; drop the now-empty scaffolding too.
-    for (const list of clone.querySelectorAll('ul, ol'))
-      if (!(list.textContent ?? '').trim()) list.remove();
-    return hasCommentResidue(clone) ? null : clone.outerHTML;
+    return buildPostHtml(unit);
   }
 
   // Port of captureVisibleUnits: the page.evaluate body plus the ownTimestamp post-processing.
@@ -517,7 +637,8 @@
         /^(?:pinned|featured|announcement)(?: post)?$/i.test(value.trim()),
       );
       const position = Number(unit.getAttribute('aria-posinset')) || null;
-      const { reactions, commentCount } = extractEngagement(unit, primaryArticle);
+      const region = postRegion(unit);
+      const { reactions, commentCount } = extractEngagement(unit, region);
       return {
         position,
         identity:
@@ -525,7 +646,7 @@
           `${author?.getAttribute('aria-label') ?? ''}|${text.slice(0, 160)}`,
         textLength: text.length,
         hasAuthor: Boolean(author),
-        html: sanitizeUnitElement(unit),
+        html: buildPostHtml(unit, region),
         ignoreForAge,
         ownTimestamp: firstOwnTimestamp(timestampValues),
         reactions,
@@ -587,13 +708,26 @@
   //  - neither → 'unverified'. CHOICE: unverified does NOT stop the run — the account control is a
   //    DOM guess, and an unverifiable guess must not block every weekly run; the result carries
   //    coverage.profileVerified=false and the receiver records it.
+  //
+  // Codex round 3 #2: a Page other than the configured one used to read as personal. Now ANY
+  // acting-as-a-Page signal is 'page' — the configured Page's name/id in the account control, or
+  // acting-as-a-Page wording anywhere in the banner (PAGE_ACTOR_SIGNAL, DOM GUESS: "Your Page",
+  // "acting as", the profile-switch bar's "Switch now" / "Switch back"). While reading as personal
+  // every Page signal is wrong-profile, whichever Page it is. The receiver / runner additionally
+  // refuse to ledger a not-member / unavailable result from an unverified profile.
+  const PAGE_ACTOR_SIGNAL = /\b(?:your page|acting as|switch now|switch back)\b/i;
+
   function actorSignal(doc, actingPage) {
     const banner = doc?.querySelector?.('[role="banner"]');
     if (!banner) return null;
+    const bannerLabels = [...banner.querySelectorAll('[aria-label]')].map((el) =>
+      (el.getAttribute('aria-label') || '').trim(),
+    );
+    const pageWordingInBanner = bannerLabels.some((label) => PAGE_ACTOR_SIGNAL.test(label));
     const control = [...banner.querySelectorAll('[aria-label]')].find((el) =>
       /^(?:your profile|account)\b/i.test((el.getAttribute('aria-label') || '').trim()),
     );
-    if (!control) return null;
+    if (!control) return pageWordingInBanner ? 'page' : null;
     const parts = [control, ...control.querySelectorAll('*')].flatMap((el) => [
       el.getAttribute('aria-label') || '',
       el.getAttribute('href') || '',
@@ -609,7 +743,8 @@
         (name && part.trim().toLowerCase() === name) ||
         (id && new RegExp(`[=/]${id.replace(/[^\w-]/g, '\\$&')}(?:\\D|$)`).test(part)),
     );
-    return namesPage ? 'page' : 'personal';
+    const pageWording = pageWordingInBanner || parts.some((part) => PAGE_ACTOR_SIGNAL.test(part));
+    return namesPage || pageWording ? 'page' : 'personal';
   }
 
   function profileCheck({ doc, cookie = '', readAs = 'personal', actingPage = null } = {}) {
@@ -731,7 +866,47 @@
     return { top, pauseMs };
   }
 
+  // Tab ↔ group binding (Codex round 3 #3). The group segment of a facebook.com group URL,
+  // normalized (decoded, lower-cased); null for anything else.
+  function groupSegment(url) {
+    const match = /^https:\/\/www\.facebook\.com\/groups\/([^/?#]+)/i.exec(String(url ?? ''));
+    if (!match) return null;
+    let segment = match[1];
+    try {
+      segment = decodeURIComponent(segment);
+    } catch {
+      // keep the raw segment
+    }
+    segment = segment.trim().toLowerCase();
+    return segment && !/^\.+$/.test(segment) ? segment : null;
+  }
+
+  // Does the page at `url` belong to `job`'s group? Only an exact match of the page's group
+  // segment with the job's groupId, the job url's own segment or a configured alias (vanity
+  // name) counts; a redirect to another group, a vanity Facebook chose on its own, or any
+  // non-group page is a mismatch — reported as failed{redirected}, never harvested.
+  function groupMatches(url, job) {
+    const page = groupSegment(url);
+    if (!page) return false;
+    const wanted = [
+      job?.groupId,
+      groupSegment(job?.url),
+      ...(Array.isArray(job?.aliases) ? job.aliases : []),
+    ]
+      .map((value) =>
+        String(value ?? '')
+          .trim()
+          .toLowerCase(),
+      )
+      .filter(Boolean);
+    return wanted.includes(page);
+  }
+
   Object.assign(LLFB, {
+    groupSegment,
+    groupMatches,
+    postRegion,
+    buildPostHtml,
     DAY_MS,
     AGE_STOP_COUNT,
     STUNTED_SCROLLS,

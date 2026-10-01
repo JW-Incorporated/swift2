@@ -89,6 +89,7 @@ const collected = (slug: string, units = [unit(1, 'Synthetic album discussion al
     profileVerified: true,
     sanitizeDropped: 0,
   },
+  commentCoverage: { eligible: 1, processed: 1, failed: 0, timedOut: 0 },
   collectedAt: NOW.toISOString(),
 });
 const withCommentCoverage = (
@@ -105,9 +106,20 @@ describe('fb export receiver', () => {
     expect(await page.text()).not.toContain(TOKEN);
   });
 
+  it('GET /hello answers {ok, runId} only to the token (the /start validation)', async () => {
+    const { r } = await setup();
+    const hello = await (await call(r, 'GET', '/hello')).json();
+    expect(hello).toEqual({ ok: true, runId: expect.stringMatching(/^[0-9a-f]{16}$/) });
+    expect((await (await call(r, 'GET', '/hello')).json()).runId).toBe(hello.runId);
+    expect(hello.runId).not.toBe(TOKEN.slice(0, 16));
+    // No side effects: the first group is still unassigned.
+    expect((await (await call(r, 'GET', '/next')).json()).slug).toBe('group-a');
+  });
+
   it('rejects missing and wrong tokens with 403 on every API route', async () => {
     const { r } = await setup();
     for (const [m, p] of [
+      ['GET', '/hello'],
       ['GET', '/next'],
       ['POST', '/result'],
       ['POST', '/heartbeat'],
@@ -132,6 +144,7 @@ describe('fb export receiver', () => {
       comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
       readAs: 'personal',
       actingPage: { name: 'Long Live' },
+      aliases: [],
     });
     expect(
       await (
@@ -169,7 +182,8 @@ describe('fb export receiver', () => {
       collectedAt: NOW.toISOString(),
       profileVerified: true,
       sanitizeDropped: 0,
-      commentCoverage: null,
+      commentCoverage: { eligible: 1, processed: 1, failed: 0, timedOut: 0 },
+      commentCounts: { posts: 1, comments: 2, replies: 1 },
     });
     expect(await readFile(results[0].filePath, 'utf8')).toContain('data-posinset="1"');
     for (let i = 0; i < 2; i += 1) {
@@ -210,13 +224,86 @@ describe('fb export receiver', () => {
   it('maps non-stopping statuses and zero units, and continues', async () => {
     const { r } = await setup();
     await call(r, 'GET', '/next');
-    await call(r, 'POST', '/result', { v: 1, slug: 'group-a', status: 'not-member' });
+    await call(r, 'POST', '/result', {
+      v: 1,
+      slug: 'group-a',
+      status: 'not-member',
+      coverage: { profileVerified: true },
+    });
     expect((await (await call(r, 'GET', '/next')).json()).slug).toBe('group-b');
     await call(r, 'POST', '/result', collected('group-b', []));
     await call(r, 'POST', '/finished', {});
     const res = await r.done;
-    expect(res[0]).toEqual({ slug: 'group-a', status: 'not-member' });
+    expect(res[0]).toEqual({ slug: 'group-a', status: 'not-member', profileVerified: true });
     expect(res[1]).toMatchObject({ slug: 'group-b', status: 'no-recent-posts', harvestedCount: 0 });
+  });
+
+  // Codex round 3 #2: a not-member / unavailable verdict from an unverified profile is a failure,
+  // never a skip the runner may ledger.
+  it('records not-member / unavailable from an unverified profile as failed', async () => {
+    const { r, log } = await setup({ groups: [...groups, { slug: 'group-c', groupId: '3' }] });
+    const bodies = [
+      { v: 1, slug: 'group-a', status: 'not-member' },
+      { v: 1, slug: 'group-b', status: 'unavailable', coverage: { profileVerified: false } },
+      { v: 1, slug: 'group-c', status: 'unavailable', coverage: {} },
+    ];
+    for (const body of bodies) {
+      await call(r, 'GET', '/next');
+      expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    }
+    expect(r.partialResults()).toEqual([
+      {
+        slug: 'group-a',
+        status: 'failed',
+        reason: 'unverified-profile-skip',
+        skipStatus: 'not-member',
+        profileVerified: false,
+      },
+      {
+        slug: 'group-b',
+        status: 'failed',
+        reason: 'unverified-profile-skip',
+        skipStatus: 'unavailable',
+        profileVerified: false,
+      },
+      {
+        slug: 'group-c',
+        status: 'failed',
+        reason: 'unverified-profile-skip',
+        skipStatus: 'unavailable',
+        profileVerified: false,
+      },
+    ]);
+    expect(log.mock.calls.map((c) => c[0]).join('\n')).toContain(
+      'group-a: failed unverified-profile-skip',
+    );
+    expect(
+      (await call(r, 'POST', '/result', { v: 1, slug: 'x', status: 'not-member', coverage: 'yes' }))
+        .status,
+    ).toBe(400);
+  });
+
+  // Codex round 3 #1: a group whose post/comment boundary failed for at least as many recent
+  // posts as were kept is not recorded complete.
+  it('fails the group when sanitizing dropped at least as many posts as it kept', async () => {
+    const { r, outputDir } = await setup();
+    await call(r, 'GET', '/next');
+    const body = collected('group-a');
+    body.coverage = { ...body.coverage, recentCount: 2, sanitizeDropped: 1 };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0]).toEqual({
+      slug: 'group-a',
+      status: 'failed',
+      reason: 'sanitize-dropped',
+      sanitizeDropped: 1,
+      keptCount: 1,
+    });
+    expect(await readdir(outputDir)).toEqual([]);
+    const all = collected('group-b', []);
+    all.coverage = { ...all.coverage, recentCount: 3, sanitizeDropped: 3 };
+    await call(r, 'GET', '/next');
+    expect((await call(r, 'POST', '/result', all)).status).toBe(200);
+    expect(r.partialResults()[1]).toMatchObject({ status: 'failed', reason: 'sanitize-dropped' });
   });
 
   it('rejects invalid schema (400), unexpected slug and duplicates (409)', async () => {
@@ -291,8 +378,8 @@ describe('fb export receiver', () => {
     expect(await (await call(r, 'GET', '/next')).json()).toMatchObject({ slug: 'group-b' });
   });
 
-  // Codex round 2 #6: comment collection outcomes are no longer silent.
-  it('fails the group when ≥ 3 comment posts were eligible and none was processed', async () => {
+  // Codex round 2 #6 / round 3 #5: comment collection outcomes are never silent.
+  it('fails the group when comment posts were eligible and none was processed', async () => {
     const { r, storeComments, outputDir, log } = await setup();
     await call(r, 'GET', '/next');
     const body = withCommentCoverage(collected('group-a'), {
@@ -313,7 +400,7 @@ describe('fb export receiver', () => {
     // Not a run-stopping status: the next group is still handed out.
     expect(await (await call(r, 'GET', '/next')).json()).toMatchObject({ slug: 'group-b' });
     expect(log.mock.calls.map((c) => c[0]).join('\n')).toContain(
-      'group-a: failed comment-eligible=3 processed=0 failed=2 timed-out=1',
+      'group-a: failed comments-collection-failed comment-eligible=3 processed=0 failed=2 timed-out=1',
     );
   });
 
@@ -321,7 +408,8 @@ describe('fb export receiver', () => {
     const { r, log } = await setup();
     await call(r, 'GET', '/next');
     const cc = { eligible: 5, processed: 3, failed: 1, timedOut: 1 };
-    const body = withCommentCoverage(collected('group-a'), cc);
+    const units = [1, 2, 3].map((n) => unit(n, `Synthetic thread ${n}`));
+    const body = withCommentCoverage(collected('group-a', units), cc);
     body.coverage = { ...body.coverage, profileVerified: false, sanitizeDropped: 2 };
     expect((await call(r, 'POST', '/result', body)).status).toBe(200);
     expect(r.partialResults()[0]).toMatchObject({
@@ -336,14 +424,64 @@ describe('fb export receiver', () => {
     expect(logged).toContain('profile=unverified sanitize-dropped=2');
   });
 
-  it('two eligible posts with none processed is not systematic: still collected', async () => {
+  // Codex round 3 #5: eligible > 0 && processed === 0 fails the group whatever the count.
+  it('one or two eligible posts with none processed also fail the group', async () => {
     const { r } = await setup();
-    await call(r, 'GET', '/next');
-    const cc = { eligible: 2, processed: 0, failed: 2, timedOut: 0 };
-    expect(
-      (await call(r, 'POST', '/result', withCommentCoverage(collected('group-a'), cc))).status,
-    ).toBe(200);
-    expect(r.partialResults()[0]).toMatchObject({ status: 'collected', commentCoverage: cc });
+    for (const [slug, cc] of [
+      ['group-a', { eligible: 2, processed: 0, failed: 2, timedOut: 0 }],
+      ['group-b', { eligible: 1, processed: 0, failed: 0, timedOut: 1 }],
+    ] as const) {
+      await call(r, 'GET', '/next');
+      expect(
+        (await call(r, 'POST', '/result', withCommentCoverage(collected(slug), cc))).status,
+      ).toBe(200);
+    }
+    expect(r.partialResults().map((x) => [x.status, x.reason])).toEqual([
+      ['failed', 'comments-collection-failed'],
+      ['failed', 'comments-collection-failed'],
+    ]);
+  });
+
+  it('an explicit collector error, or no coverage with harvested posts, fails the group', async () => {
+    const { r, log, storeComments, outputDir } = await setup({
+      groups: [...groups, { slug: 'group-c', groupId: '3' }],
+    });
+    const bodies = [
+      withCommentCoverage(collected('group-a'), { error: 'comment collector missing' } as never),
+      withCommentCoverage(collected('group-b'), null),
+      { ...collected('group-c'), commentCoverage: undefined },
+    ];
+    for (const body of bodies) {
+      await call(r, 'GET', '/next');
+      expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    }
+    expect(r.partialResults()).toEqual([
+      {
+        slug: 'group-a',
+        status: 'failed',
+        reason: 'comments-collection-failed',
+        commentCoverage: { error: 'comment collector missing' },
+      },
+      {
+        slug: 'group-b',
+        status: 'failed',
+        reason: 'comments-coverage-missing',
+        commentCoverage: null,
+      },
+      {
+        slug: 'group-c',
+        status: 'failed',
+        reason: 'comments-coverage-missing',
+        commentCoverage: null,
+      },
+    ]);
+    expect(storeComments).not.toHaveBeenCalled();
+    expect(await readdir(outputDir)).toEqual([]);
+    const logged = log.mock.calls.map((c) => c[0]).join('\n');
+    expect(logged).toContain(
+      'group-a: failed comments-collection-failed comment-error="comment collector missing"',
+    );
+    expect(logged).toContain('group-b: failed comments-coverage-missing');
   });
 
   it('validates commentCoverage, profileVerified and sanitizeDropped', async () => {
@@ -354,13 +492,15 @@ describe('fb export receiver', () => {
       withCommentCoverage(base, { eligible: 3, processed: 0, failed: 0 }),
       withCommentCoverage(base, { eligible: -1, processed: 0, failed: 0, timedOut: 0 }),
       withCommentCoverage(base, { eligible: 1, processed: 1.5, failed: 0, timedOut: 0 }),
+      withCommentCoverage(base, { error: '' } as never),
+      withCommentCoverage(base, { error: 5 } as never),
       { ...base, commentCoverage: 'x' },
       { ...base, coverage: { ...base.coverage, profileVerified: 'yes' } },
       { ...base, coverage: { ...base.coverage, sanitizeDropped: -1 } },
     ])
       expect((await call(r, 'POST', '/result', bad)).status, JSON.stringify(bad)).toBe(400);
-    expect((await call(r, 'POST', '/result', withCommentCoverage(base, null))).status).toBe(200);
-    expect(r.partialResults()[0]).toMatchObject({ profileVerified: true, commentCoverage: null });
+    expect((await call(r, 'POST', '/result', base)).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ status: 'collected', profileVerified: true });
   });
 
   it('records a missing profileVerified as null (unknown), never as verified', async () => {

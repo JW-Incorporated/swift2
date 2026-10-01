@@ -170,6 +170,7 @@ export function runSummary(results, actingPageId = null) {
       stop ? `stop: ${stop}` : null,
       `covered ${formatCoverage(r.coverageAgeMs)}`,
       ingest,
+      formatComments(r),
     ]
       .filter(Boolean)
       .join(', ');
@@ -188,6 +189,22 @@ export function runSummary(results, actingPageId = null) {
       : []),
     ...(partial.length ? [`Partial groups: ${partial.join(', ')}.`] : []),
   ].join('\n');
+}
+
+// Comment outcome, COUNTS ONLY (comments are private): what was stored and how collection went.
+export function formatComments(r) {
+  const cc = r.commentCoverage;
+  const stored = r.commentCounts;
+  if (!cc && !stored) return null;
+  const parts = [];
+  if (stored)
+    parts.push(`${stored.comments} comments + ${stored.replies} replies on ${stored.posts} posts`);
+  if (cc && typeof cc.error === 'string') parts.push(`collection error: ${cc.error.slice(0, 120)}`);
+  else if (cc)
+    parts.push(
+      `${cc.processed}/${cc.eligible} posts read, ${cc.failed} failed, ${cc.timedOut} timed out`,
+    );
+  return `comments: ${parts.join('; ')}`;
 }
 
 export function formatCoverage(ageMs) {
@@ -268,6 +285,10 @@ export async function runExport(options = {}) {
     partial: row.partial,
   }));
 
+  const commentFields = (item) => ({
+    ...(item.commentCoverage ? { commentCoverage: item.commentCoverage } : {}),
+    ...(item.commentCounts ? { commentCounts: item.commentCounts } : {}),
+  });
   for (const item of collected) {
     const group = pending.find((candidate) => candidate.slug === item.slug);
     if (STOP_STATUSES.includes(item.status)) {
@@ -275,6 +296,18 @@ export async function runExport(options = {}) {
       break;
     }
     if (['not-member', 'unavailable'].includes(item.status)) {
+      // Codex round 3 #2: a not-member / unavailable verdict is only a skip when the profile that
+      // saw it was positively verified. Otherwise it is a failure: never ledgered, never closes
+      // the weekly issue. (The receiver already maps these; this is the runner's own gate.)
+      if (item.profileVerified !== true) {
+        results.push({
+          slug: item.slug,
+          status: 'failed',
+          reason: 'unverified-profile-skip',
+          skipStatus: item.status,
+        });
+        continue;
+      }
       results.push(item);
       if (!dryRun) {
         ledger.groups[item.slug] = { status: item.status, at: now.toISOString() };
@@ -307,6 +340,7 @@ export async function runExport(options = {}) {
         stopReason: item.stopReason,
         coverageAgeMs: item.coverageAgeMs,
         partial: item.partial,
+        ...commentFields(item),
       });
       if (item.status === 'selector-failure') {
         console.error(
@@ -330,6 +364,7 @@ export async function runExport(options = {}) {
         stopReason: gate.stopReason,
         coverageAgeMs: gate.coverageAgeMs,
         partial: gate.partial,
+        ...commentFields(item),
       });
       continue;
     }
@@ -343,6 +378,7 @@ export async function runExport(options = {}) {
         coverageAgeMs: gate.coverageAgeMs,
         partial: gate.partial,
         ingestCounts: ingested.counts,
+        ...commentFields(item),
       });
       continue;
     }
@@ -357,8 +393,9 @@ export async function runExport(options = {}) {
           coverageAgeMs: gate.coverageAgeMs,
           partial: gate.partial,
           ingestCounts: ingested.counts,
+          ...commentFields(item),
         }
-      : { slug: item.slug, status: 'failed', reason: uploaded.reason };
+      : { slug: item.slug, status: 'failed', reason: uploaded.reason, ...commentFields(item) };
     results.push(final);
     if (uploaded.ok) {
       ledger.groups[item.slug] = {

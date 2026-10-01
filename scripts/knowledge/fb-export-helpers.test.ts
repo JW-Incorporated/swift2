@@ -56,15 +56,30 @@ describe('Facebook export pure helpers', () => {
     });
   });
 
-  it('keeps an isolated mid-feed date outlier and excludes it from coverage', () => {
+  it('drops an isolated mid-feed old unit from the output without stopping the feed', () => {
     const units = [
       { position: 1, ownTimestamp: '3 h', ignoreForAge: false },
       { position: 2, ownTimestamp: 'August 18, 2014', ignoreForAge: false },
       { position: 3, ownTimestamp: '3 h', ignoreForAge: false },
     ];
     expect(trailingOldBoundary(units, now)).toBeNull();
-    expect(recentHarvestUnits(units, now)).toEqual(units);
+    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[2]]);
     expect(harvestCoverageAge(units, now, 'wall-budget')).toBe(3 * 3_600_000);
+  });
+
+  // Codex round 3 #6: fewer than three trailing old posts do not stop the feed, but a known old
+  // post still never reaches the output. Pinned units and unreadable timestamps are kept.
+  it('filters every known non-pinned unit older than seven days, boundary or not', () => {
+    const units = [
+      { position: 1, ownTimestamp: '1 h', ignoreForAge: false },
+      { position: 2, ownTimestamp: '30 d', ignoreForAge: true },
+      { position: 3, ownTimestamp: null, ignoreForAge: false },
+      { position: 4, ownTimestamp: '9 d', ignoreForAge: false },
+      { position: 5, ownTimestamp: '8 d', ignoreForAge: false },
+    ];
+    expect(trailingOldBoundary(units, now)).toBeNull();
+    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[1], units[2]]);
+    expect(recentHarvestUnits([units[0], units[3]], now)).toEqual([units[0]]);
   });
 
   it('ignores a future month-day when calculating capped coverage', () => {
@@ -91,7 +106,8 @@ describe('Facebook export pure helpers', () => {
       boundaryIndex: 3,
       coverageAgeMs: 8 * 86_400_000,
     });
-    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[1], units[2], units[4]]);
+    // units[1] is readable and old: excluded by the independent age filter, not the boundary.
+    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[2], units[4]]);
     expect(harvestCoverageAge(units, now, 'seven-days')).toBe(8 * 86_400_000);
   });
 

@@ -3,6 +3,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
+  formatComments,
   gateExport,
   ingestOne,
   parseIngestSummary,
@@ -109,6 +110,37 @@ describe('Facebook export gate', () => {
     ]);
     expect(summary).toContain('group-a: validated (412 posts, stop: scroll-cap, covered ~2d)');
     expect(summary).toContain('Partial groups: group-a.');
+  });
+
+  // Codex round 3 #5: the summary carries comment outcomes — counts only, never a comment.
+  it('reports comment counts and collection outcomes, counts only', () => {
+    const row = {
+      slug: 'group-a',
+      status: 'uploaded',
+      postCount: 3,
+      stopReason: 'seven-days',
+      commentCounts: { posts: 2, comments: 12, replies: 4 },
+      commentCoverage: { eligible: 3, processed: 2, failed: 1, timedOut: 0 },
+    };
+    expect(runSummary([row])).toContain(
+      'comments: 12 comments + 4 replies on 2 posts; 2/3 posts read, 1 failed, 0 timed out',
+    );
+    expect(formatComments({ commentCoverage: { error: 'comment collector missing' } })).toBe(
+      'comments: collection error: comment collector missing',
+    );
+    expect(formatComments({})).toBeNull();
+    expect(
+      runSummary([
+        {
+          slug: 'group-a',
+          status: 'failed',
+          reason: 'comments-collection-failed',
+          commentCoverage: { eligible: 2, processed: 0, failed: 2, timedOut: 0 },
+        },
+      ]),
+    ).toContain(
+      'group-a: failed (covered unknown, comments: 0/2 posts read, 2 failed, 0 timed out) — comments-collection-failed',
+    );
   });
 
   it('spawns ingest with the collection time and parses dry-run counts', async () => {
@@ -270,6 +302,56 @@ describe('Facebook export orchestration', () => {
     expect(result.ok).toBe(false);
     expect(result.results[0]).toMatchObject({ status: 'failed', reason: 'ingest' });
     expect(upload).not.toHaveBeenCalled();
+  });
+
+  // Codex round 3 #2: not-member / unavailable are skips only from a verified profile.
+  it('never ledgers an unverified not-member / unavailable skip nor closes the issue on it', async () => {
+    const writeLedger = vi.fn();
+    const reportIssue = vi.fn();
+    const groups = [group, { ...group, slug: 'group-b' }, { ...group, slug: 'group-c' }];
+    const result = await runExport({
+      now: new Date('2026-09-30T12:00:00'),
+      root: 'C:\\outside-repo',
+      groups,
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      writeLedger,
+      collect: vi.fn().mockResolvedValue([
+        { slug: 'group-a', status: 'not-member' },
+        { slug: 'group-b', status: 'unavailable', profileVerified: false },
+        { slug: 'group-c', status: 'not-member', profileVerified: true },
+      ]),
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue,
+    });
+    expect(result.ok).toBe(false);
+    expect(result.results).toEqual([
+      {
+        slug: 'group-a',
+        status: 'failed',
+        reason: 'unverified-profile-skip',
+        skipStatus: 'not-member',
+      },
+      {
+        slug: 'group-b',
+        status: 'failed',
+        reason: 'unverified-profile-skip',
+        skipStatus: 'unavailable',
+      },
+      { slug: 'group-c', status: 'not-member', profileVerified: true },
+    ]);
+    const ledgers = writeLedger.mock.calls.map((c) => c[1].groups);
+    expect(ledgers.at(-1)).toEqual({ 'group-c': { status: 'not-member', at: expect.any(String) } });
+    expect(ledgers.every((g) => !('group-a' in g) && !('group-b' in g))).toBe(true);
+    expect(reportIssue).toHaveBeenCalledWith(
+      70,
+      expect.stringContaining('unverified-profile-skip'),
+      {
+        close: false,
+      },
+    );
+    expect(result.summary).toContain(
+      'Facebook export: 0 done, 1 not joined, 0 unavailable, 2 failed.',
+    );
   });
 
   it('treats no recent posts as successful and closes the weekly issue', async () => {
