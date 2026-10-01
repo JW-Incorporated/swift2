@@ -46,14 +46,33 @@
 //     per group, so `update:view <group> --json` supplies the per-platform
 //     detail the publish fold needs.
 //
+//   5. MAIN_AHEAD     — neither a platform's latest publish nor its latest
+//                       finished store build contains the newest mobile-
+//                       relevant main commit, and that commit is more than
+//                       --main-ahead-hours old (production lags main; see
+//                       scripts/mobile/lib/main-ahead.mjs). Alone it exits 3.
+//
 // Usage (from apps/mobile, EXPO_TOKEN or an `eas login` session present):
 //   node ../../scripts/mobile/check-parity.mjs [--json] [--lag-hours 48]
-// Exit code 0 = in parity, 1 = diverged, 2 = could not check.
+//     [--main-ahead-hours 6] [--main-ref origin/main]
+// Exit code 0 = in parity, 1 = diverged, 2 = could not check,
+// 3 = only MAIN_AHEAD (production behind main; any other finding wins → 1).
 //
 // Exports the pure core for scripts/mobile/check-parity.test.ts; importing
 // this file runs nothing.
 import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
+import {
+  DEFAULT_MAIN_AHEAD_HOURS,
+  DEFAULT_MAIN_REF,
+  evaluateMainAhead,
+  exitCodeFor,
+  readGitState,
+} from './lib/main-ahead.mjs';
+
+export { evaluateMainAhead, exitCodeFor, readGitState };
 
 export const DEFAULT_LAG_HOURS = 48;
 // How many of the newest update groups to fetch per-platform detail for. One
@@ -401,8 +420,35 @@ export function formatSummary(summary) {
     lines.push('Update  none published');
   }
   for (const f of summary.findings) lines.push(`✖ ${f.code}: ${f.detail}`);
-  lines.push(summary.findings.length ? 'DIVERGED' : 'IN PARITY');
+  const code = exitCodeFor(summary.findings);
+  lines.push(code === 1 ? 'DIVERGED' : code === 3 ? 'BEHIND MAIN' : 'IN PARITY');
   return lines;
+}
+
+/**
+ * Per-platform commits for MAIN_AHEAD: the newest publish that reached the
+ * platform, and its latest finished store build.
+ */
+export function platformCommits(builds, updateRows) {
+  const cohorts = buildPublishCohorts(collectGroups(updateRows));
+  return [
+    ['ios', 'IOS'],
+    ['android', 'ANDROID'],
+  ].map(([name, buildPlatform]) => ({
+    name,
+    publishCommit: latestCohortFor(cohorts, name)?.commit,
+    buildCommit: latestFinishedBuild(builds, buildPlatform)?.gitCommitHash,
+  }));
+}
+
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+
+function runGit(args) {
+  return execFileSync('git', args, {
+    cwd: REPO_ROOT,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
 }
 
 /**
@@ -440,9 +486,35 @@ async function main(argv) {
   }
 
   const summary = evaluateParity({ ...state, lagHours });
+
+  const flag = (name, fallback) => {
+    const i = argv.indexOf(name);
+    return i >= 0 ? argv[i + 1] : fallback;
+  };
+  const mainRef = flag('--main-ref', DEFAULT_MAIN_REF);
+  const thresholdHours = Number(flag('--main-ahead-hours', DEFAULT_MAIN_AHEAD_HOURS));
+  if (!Number.isFinite(thresholdHours) || thresholdHours < 0) {
+    console.error('--main-ahead-hours must be a non-negative number');
+    return 2;
+  }
+  try {
+    const platforms = platformCommits(state.builds, state.updateRows);
+    const git = readGitState(runGit, {
+      mainRef,
+      commits: platforms.flatMap((p) => [p.publishCommit, p.buildCommit]),
+    });
+    summary.findings.push(...evaluateMainAhead({ ...git, platforms, thresholdHours }));
+    summary.ok = summary.findings.length === 0;
+  } catch (err) {
+    const msg = `could not read git state: ${err instanceof Error ? err.message : String(err)}`;
+    if (asJson) console.log(JSON.stringify({ ok: false, checkable: false, error: msg }));
+    else console.error(msg);
+    return 2;
+  }
+
   if (asJson) console.log(JSON.stringify(summary, null, 2));
   else for (const line of formatSummary(summary)) console.log(line);
-  return summary.findings.length ? 1 : 0;
+  return exitCodeFor(summary.findings);
 }
 
 // Only run when executed directly, never on import (tests import the pure

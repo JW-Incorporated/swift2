@@ -76,6 +76,7 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/karen-post-repair-check.mjs` | Self-limiting: Karen ran after the repair? Auto-closes 2026-08-22 |
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
+| `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
 **Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
@@ -565,6 +566,15 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/legal-links.ts` (+ test) | `LEGAL_PAGES`, `legalPageUrl`, `isLegalPageUrl` (moved from App.tsx), `CLOWNBOT_AI_DISCLOSURE` |
 | `apps/mobile/lib/settings-entry.ts` (+ test) | `openSettingsEntry`: onboarding first time, settings after (shared by HomeTopBar and the web bridge) |
 | `apps/mobile/lib/visible-screen.ts` (+ test) | Which overlay App.tsx renders; inbox sits above settings so Settings → Inbox works |
+| `docs/mobile-parity.md` | Web↔native parity inventory: every `apps/web` page route, `?mode=`/`?item=`/etc. query surface and `ShellDestination` kind with its native status (`native screen` / `web-only` / `N/A`) |
+| `scripts/mobile/parity-inventory.test.ts` | Fails when a web page route or `ShellDestination` kind has no row in `docs/mobile-parity.md`, or a row's status is invalid |
+
+## Mobile OTA rollback (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `.github/workflows/mobile-rollback.yml` | `workflow_dispatch` one-click OTA rollback (`mode=list` / `republish` per-platform groups); shares the `mobile-release` concurrency group |
+| `scripts/mobile/rollback-workflow.test.ts` | YAML invariants for it: dispatch-only, pinned eas-cli, no `inputs.` interpolation in `run:`, serialised with the train |
 
 ## Social reply notifier (2026-10-01)
 
@@ -577,3 +587,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `scripts/social/reply-ledger.sh` | `fetch`/`push` of `reply-ledger.json` on the dedicated `social-reply-ledger` branch (plumbing only; creates the branch before anything is sent) |
 | `.github/workflows/social-reply-notifier.yml` | Every 30 min (`:13/:43`), <= 30 Graph calls per run, `environment: social`, `contents: write` only; kill switch `REPLY_NOTIFIER_ENABLED=false`. See `docs/social/pipeline.md` › Reply notifier |
 | `scripts/social/reply-notifier.test.ts`, `reply-dms.test.ts`, `social-reply-notifier-workflow.test.ts` | Mocked-Graph tests (pagination, dedupe, first-run seeding, injection, per-source failure, DM scope) + workflow invariants |
+
+## Content loader forward compatibility (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `packages/content/src/forward-compat.ts` (+ test) | `pruneUnknownEnumValues`: drops unknown enum/literal values (array element, nearest enclosing array element, or whole file) for `loadBundle({ unknownEnumPolicy: 'drop' })`; any other zod issue stays a failure. Policy: `docs/decisions.md` 2026-10-01 |

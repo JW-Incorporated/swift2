@@ -4,12 +4,16 @@ import {
   buildRuntimeVersion,
   cohortRuntimeFor,
   collectGroups,
+  evaluateMainAhead,
   evaluateParity,
+  exitCodeFor,
   formatSummary,
   latestCohortFor,
   latestFinishedBuild,
   normalizePlatforms,
+  platformCommits,
   publishKey,
+  readGitState,
   updateListRows,
 } from './check-parity.mjs';
 
@@ -361,5 +365,166 @@ describe('evaluateParity — the real failure modes still fire', () => {
     });
     expect(summary.findings.map((f) => f.code)).toEqual(['NO_BUILD']);
     expect(formatSummary(summary)).toContain('Update  none published');
+  });
+});
+
+describe('evaluateMainAhead', () => {
+  const HEAD = 'aaaaaaaa11111111111111111111111111111111';
+  const OLD = 'bbbbbbbb22222222222222222222222222222222';
+  const NEW = 'cccccccc33333333333333333333333333333333';
+  const NOW = Date.parse('2026-10-01T12:00:00.000Z');
+  const OLD_HEAD_TIME = '2026-10-01T02:00:00.000Z'; // 10h old
+  const FRESH_HEAD_TIME = '2026-10-01T10:00:00.000Z'; // 2h old
+  const run = (over: Record<string, unknown>) =>
+    evaluateMainAhead({
+      mainHead: HEAD,
+      mainHeadTime: OLD_HEAD_TIME,
+      platforms: [
+        { name: 'ios', publishCommit: OLD, buildCommit: OLD },
+        { name: 'android', publishCommit: OLD, buildCommit: OLD },
+      ],
+      ancestry: { [OLD]: false, [NEW]: true },
+      now: NOW,
+      thresholdHours: 6,
+      ...over,
+    });
+
+  it('is caught up via the latest publish', () => {
+    const platforms = [
+      { name: 'ios', publishCommit: NEW, buildCommit: OLD },
+      { name: 'android', publishCommit: NEW, buildCommit: OLD },
+    ];
+    expect(run({ platforms })).toEqual([]);
+  });
+
+  it('is caught up via the latest finished build', () => {
+    const platforms = [
+      { name: 'ios', publishCommit: OLD, buildCommit: NEW },
+      { name: 'android', publishCommit: undefined, buildCommit: NEW },
+    ];
+    expect(run({ platforms })).toEqual([]);
+  });
+
+  it('stays quiet when behind but under the threshold', () => {
+    expect(run({ mainHeadTime: FRESH_HEAD_TIME })).toEqual([]);
+  });
+
+  it('fires when neither platform is caught up and the head is over the threshold', () => {
+    const findings = run({});
+    expect(findings).toHaveLength(1);
+    expect(findings[0].code).toBe('MAIN_AHEAD');
+    expect(findings[0].detail).toContain('ios and android');
+    expect(findings[0].detail).toContain('aaaaaaaa');
+    expect(findings[0].detail).toContain('10h');
+  });
+
+  it('names only the platform that is behind', () => {
+    const platforms = [
+      { name: 'ios', publishCommit: NEW, buildCommit: OLD },
+      { name: 'android', publishCommit: OLD, buildCommit: OLD },
+    ];
+    const findings = run({ platforms });
+    expect(findings).toHaveLength(1);
+    expect(findings[0].detail).toMatch(/^android not carrying/);
+  });
+
+  it('is silent when main has no mobile-relevant commit', () => {
+    expect(run({ mainHead: null, mainHeadTime: null })).toEqual([]);
+  });
+});
+
+describe('readGitState', () => {
+  const HEAD = 'aaaaaaaa11111111111111111111111111111111';
+  const exit = (status: number, stderr = '') =>
+    Object.assign(new Error('git failed'), { status, stderr });
+
+  it('parses %H<TAB>%cI and answers ancestry from exit codes', () => {
+    const calls: string[][] = [];
+    const run = (args: string[]) => {
+      calls.push(args);
+      if (args[0] === 'log') return `${HEAD}\t2026-10-01T02:00:00+00:00\n`;
+      if (args[2] === HEAD && args[3] === 'yes') return '';
+      throw exit(1);
+    };
+    const state = readGitState(run, {
+      mainRef: 'origin/main',
+      commits: ['yes', 'no', undefined, 'yes'],
+    });
+    expect(state).toEqual({
+      mainHead: HEAD,
+      mainHeadTime: '2026-10-01T02:00:00+00:00',
+      ancestry: { yes: true, no: false },
+    });
+    expect(calls[0]).toEqual([
+      'log',
+      '-1',
+      '--format=%H%x09%cI',
+      'origin/main',
+      '--',
+      'apps/mobile',
+      'packages',
+      'package-lock.json',
+      ':(exclude)**/*.md',
+    ]);
+    expect(calls[1]).toEqual(['merge-base', '--is-ancestor', HEAD, 'yes']);
+  });
+
+  it('returns a null head when no mobile-relevant commit exists', () => {
+    expect(readGitState(() => '\n', { commits: ['x'] })).toEqual({
+      mainHead: null,
+      mainHeadTime: null,
+      ancestry: {},
+    });
+  });
+
+  it('treats a commit git says is unknown as not contained', () => {
+    const run = (args: string[]) => {
+      if (args[0] === 'log') return `${HEAD}\t2026-10-01T02:00:00+00:00`;
+      throw exit(128, 'fatal: Not a valid commit name deadbeef');
+    };
+    expect(readGitState(run, { commits: ['deadbeef'] }).ancestry).toEqual({ deadbeef: false });
+  });
+
+  it('propagates real git errors', () => {
+    const run = (args: string[]) => {
+      if (args[0] === 'log') return `${HEAD}\t2026-10-01T02:00:00+00:00`;
+      throw exit(128, 'fatal: not a git repository');
+    };
+    expect(() => readGitState(run, { commits: ['x'] })).toThrow('git failed');
+    const failLog = () => {
+      throw exit(128, 'fatal: bad revision');
+    };
+    expect(() => readGitState(failLog, { commits: [] })).toThrow('git failed');
+  });
+});
+
+describe('exit-code precedence', () => {
+  const ahead = { code: 'MAIN_AHEAD', detail: 'x' };
+  it('is 0 when clean, 3 for MAIN_AHEAD alone, 1 when any other finding is present', () => {
+    expect(exitCodeFor([])).toBe(0);
+    expect(exitCodeFor([ahead])).toBe(3);
+    expect(exitCodeFor([{ code: 'BUILD_LAG', detail: 'y' }])).toBe(1);
+    expect(exitCodeFor([ahead, { code: 'SPLIT_UPDATE', detail: 'y' }])).toBe(1);
+  });
+
+  it('labels the summary by that precedence', () => {
+    const base = evaluateParity({
+      builds: LIVE_BUILDS,
+      updateRows: LIVE_UPDATE_ROWS,
+      now: Date.parse('2026-09-30T20:00:00.000Z'),
+    });
+    expect(formatSummary({ ...base, findings: [ahead] }).at(-1)).toBe('BEHIND MAIN');
+    expect(
+      formatSummary({ ...base, findings: [ahead, { code: 'VERSION_SKEW', detail: 'y' }] }).at(-1),
+    ).toBe('DIVERGED');
+  });
+});
+
+describe('platformCommits', () => {
+  it('pairs each platform with its latest publish commit and finished build commit', () => {
+    const platforms = platformCommits(LIVE_BUILDS, LIVE_UPDATE_ROWS);
+    expect(platforms.map((p) => p.name)).toEqual(['ios', 'android']);
+    expect(platforms[0].buildCommit).toBe('9bc40534a7194fe0f95f0dcc0c7f6c026ee086f5');
+    expect(platforms[0].publishCommit).toBe(COMMIT);
   });
 });

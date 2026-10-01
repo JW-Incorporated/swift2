@@ -76,6 +76,9 @@ jobs:
       # typecheck/test run before `build` does. (npm ci itself is already
       # covered by setup-repo's npm-ci: 'true' above.)
       - run: npm run sync:content
+      # The mobile apps load this bundle at runtime; build it twice and
+      # require identical hashes (OS-011) on every PR, not just on publish.
+      - run: npm run check:content-bundle
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
@@ -207,6 +210,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run validate:content
+      # Content-only PRs are exactly the ones that change the mobile bundle,
+      # so they must build it too (build-full gets this after sync:content).
+      - run: npm run check:content-bundle
       - run: npm run validate:social
       - run: npm run check:generated
       - name: Voice gate on changed content

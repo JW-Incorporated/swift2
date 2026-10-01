@@ -7,6 +7,25 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — The mobile content loader is forward-compatible: unknown enum values dropped, unknown entries skipped, broken data served last-good
+
+**Decision.** `packages/content`'s `loadBundle` gains two opt-in options; defaults stay strict (web and every existing caller unchanged).
+- `unknownEnumPolicy: 'drop'` — a zod `invalid_value` issue (an enum/literal value this build doesn't know, e.g. a new era id) removes the smallest thing containing it: the primitive array element, else the nearest enclosing array element, else the whole file (listed in `skipped`). Re-parsed up to 5 passes; any other issue code still throws `BundleIntegrityError`. Manifest entries with no schema in this build are skipped (listed in `skipped`) instead of throwing.
+- `dataErrorFallback: 'last-good'` — a data error (`SchemaVersionMismatchError`, malformed JSON, `BundleIntegrityError`, a manifest/pointer failing its schema) serves the cached last-good bundle with `source: 'last-good-after-data-error'`, `stale: true`, and the error on `dataError`, instead of throwing. With no last-good cached it still throws. The mobile app pairs this with a once-per-process OTA self-heal (check → fetch → reload) so an app whose JS is too old fixes itself on the next update.
+- The mobile app opts into both; web never calls `loadBundle` and stays strict at build time (`check:content-bundle` in CI).
+
+**What this does NOT change.** `apps/mobile/app.json`'s `updates` settings stay at their defaults deliberately: editing app.json changes the runtime fingerprint, forces store builds and strands that commit's JS from existing installs. The N-1 `schemaVersion` window, bundle-as-artifact, and the fingerprint runtime policy are unchanged.
+
+**Known limits (accepted).** Pruning repairs only what zod flags: a kept item that references a dropped item/era by id now dangles, so mobile consumers must tolerate missing ids. A pruned load never keeps an ETag (else a 304 would serve the pruned files to a self-healed newer build), so an app stuck on old JS re-downloads the whole bundle each launch until it updates. A last-good record outside the current build's N-1 window is never served — the data error is rethrown.
+
+**Consequence for content authors.** Adding an era (or any enum value) is only safe for app runtimes that already received this loader change. Runtimes older than it still hard-fail on an unknown value — for them a new era still needs the old rule (ship the app change first, then publish content).
+
+**Why.** `eraIdSchema` is a closed enum and the loader rejected any unknown value or manifest entry, so a single new era published from the web side broke every installed app's content load until a new OTA landed — and the web side ships content far more often than the app ships JS (architect review 2026-10-01, top gap #1).
+
+**Alternatives considered.** Open the enum to `z.string()` (rejected: loses build-time typo protection on web and in seeds). Bump `schemaVersion` on every enum addition (rejected: N-1 only buys one cycle, and a new era is not a breaking shape change). Turn on `updates.checkAutomatically`/fallback settings in app.json (rejected: fingerprint change, see above).
+
+**Approved by.** The owner's architecture-hardening brief (2026-10-01), executed autonomously under the reversibility rule.
+
 ## 2026-10-01 — Replies in #longlive-marjorie are chat; the reply-poll relay to the status issue is retired
 
 **Decision.** A reply in #longlive-marjorie — including a reply to the "📋 Status updated" change ping — is an ordinary message to Marjorie's chat routine (`bot-chat-poll` claims it, `routine-marjorie-chat` answers). That channel is the owner's steering channel. `reply-poll.mjs` (which relayed replies in the daily brief's Discord thread onto the status issue as link-only comments), its manual `marjorie-reply-poll.yml` workflow, and the relay step in `bot-chat-poll.yml` are removed. `chat-inbox.selectInbox` only skips replies to approval/community posts (`ref:` last line); a reply to the ping is picked, and a test pins that.

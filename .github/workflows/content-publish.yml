@@ -18,6 +18,10 @@ name: content-publish
 # Rollback: repoint current.json (both destinations) at a still-present
 # older <bundleVersion>/ — see docs/deploy.md. This workflow never deletes an
 # older bundleVersion from Storage.
+#
+# Content rollback in practice: revert the content PR on `main` (the next
+# publish rebuilds the bundle from the reverted seed), or use the owner's
+# Vercel Instant Rollback — which ALSO reverts web code, not just content.
 on:
   push:
     branches: [main]
