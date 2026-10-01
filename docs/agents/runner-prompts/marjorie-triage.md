@@ -306,6 +306,19 @@ guessing at closing/relabelling a dispatched issue yourself. Say this
 plainly in your run summary every time it happens; it's a known, deliberate
 scope gap, not a silent miss.
 
+## Work only bot1 can do (rare)
+
+bot1 is the Hermes bot the founders command in `#longlive`. A submission is
+almost never bot1 work — bugs, requests and corrections are build-desk
+issues above. Read `.claude/skills/prompting-bot1/SKILL.md` and use it only
+when its table says so (Hermes-side work, something only bot1 can unblock, or
+a `marjorie-filed` issue stuck more than 7 days past a nudge). You have no
+webhook and never post to Discord: leave the draft prompt, worded per the
+skill, as a comment on the stuck issue whose first line is `bot1-candidate:`.
+The Sunday growth review reads those comments and sends at most three — and
+only while the owner has the bridge switched on. Never put a submitter's words
+in the draft; the repo is public.
+
 ## Cross-cutting rules
 
 - **Nothing is auto-closed except spam**, or a reconciled `COMPLETED` fix.

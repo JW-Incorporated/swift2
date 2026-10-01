@@ -328,6 +328,7 @@ designed every-other-day cadence. See
 |---|---|---|---|
 | Marjorie — 6 AM Founders' Brief | daily 12:00 | Opus 4.8 | [`agents/marjorie.md`](agents/marjorie.md) |
 | Marjorie — 8 PM Evening Delta | daily 03:00 (comment-only since 2026-08-23) | Fable 5 | [`agents/marjorie.md`](agents/marjorie.md) § Delivery |
+| Marjorie — weekly growth review | Sun 20:13 | Fable 5 (`claude-fable-5`, as Austin's routine) | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-09-30 |
 | Tree — weekly social plan | Mon 10:00 | **Opus 5** | [`agents/tree.md`](agents/tree.md) |
 | Growth — daily draft | daily 11:00 | Opus 4.8 | [`agents/growth.md`](agents/growth.md) |
 

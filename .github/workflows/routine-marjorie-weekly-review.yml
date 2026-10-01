@@ -1,0 +1,113 @@
+# Marjorie — weekly growth review (bots-v2 W5, docs/plans/bots-v2/PLAN.md).
+# Sundays 20:13 UTC, ~14 hours before Tree's Monday 10:00 UTC plan
+# (routine-tree-weekly-plan.yml), so the review's feedback and the week's
+# priorities are on GitHub before Tree plans. A Fable-model agent answers six
+# questions about the business with evidence from
+# scripts/marjorie/growth-data.mjs, sets the week as a `weekly-plan` issue,
+# files deduped work issues (cap 6) through the normal funnel, and writes
+# strategy asks for Tree and drafts for bot1.
+#
+# Model: claude-fable-5 — the ID routine-austin-build.yml runs daily and
+# successfully (six consecutive green scheduled runs checked 2026-09-30).
+# `claude-fable-5-1` is the newer ID named in docs/decisions.md; it is not
+# proven in any routine here, so this routine matches the working one. Bump it
+# in one line once another routine has run green on it.
+#
+# Allowed tools carry no Write/Edit (charter: Marjorie never writes product
+# code, content or specs) and no Task (invariant 4). The agent holds no Discord
+# credential: the two plain jobs below do the sending — `file-tree-feedback`
+# files Marjorie's asks of Tree as the workflow token (loop-asks.mjs only
+# recognises filings by that identity), and `bot1` calls the bridge, which is
+# a green no-op until the owner turns it on.
+name: routine-marjorie-weekly-review
+
+on:
+  schedule:
+    - cron: "13 20 * * 0"
+  workflow_dispatch:
+    inputs:
+      max_budget_usd:
+        description: "Optional manual-run Claude budget setting; 0 keeps normal behavior"
+        required: false
+        type: number
+        default: 0
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  id-token: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Marjorie — weekly growth review"
+      prompt_file: docs/agents/runner-prompts/marjorie-weekly-review.md
+      model: claude-fable-5
+      allowed_tools: "Bash,Read,Grep,Glob"
+      timeout_minutes: 45
+      max_turns: 80
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
+      post_run_artifact: marjorie-weekly-review-out
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  # The agent wrote `.scratch/out/for-tree-{1,2}.md`; each holds a `**Tree**`
+  # heading and one `- For Tree:` line (loop-asks.mjs file-marjorie's input).
+  # Plain job on the workflow token, checkout pinned to main, files read as
+  # data. `--no-edit`: the plan issue body is never rewritten. A filing
+  # failure is a warning — it must not turn the review red.
+  file-tree-feedback:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Download the agent's output files (same run)
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: marjorie-weekly-review-out
+          path: .scratch/out
+      - name: File Marjorie's asks of Tree (data only)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          shopt -s nullglob
+          files=(.scratch/out/for-tree-[12].md)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No asks for Tree this week."
+            exit 0
+          fi
+          PLAN=$(gh api "repos/$GITHUB_REPOSITORY/issues?labels=weekly-plan&state=open&per_page=1" --jq '.[0] | "\(.number) \(.html_url)"' || true)
+          NUM=${PLAN%% *}
+          URL=${PLAN#* }
+          if [ -z "$NUM" ] || [ "$NUM" = "null" ]; then
+            echo "::warning::no open weekly-plan issue found; Tree asks not filed"
+            exit 0
+          fi
+          for f in "${files[@]}"; do
+            timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$NUM" --issue-url "$URL" --body-file "$f" --out "$f.out" --no-edit \
+              || echo "::warning::loop-asks file-marjorie failed for $f"
+          done
+
+  bot1:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/marjorie-bot1-bridge.yml
+    with:
+      artifact: marjorie-weekly-review-out
+    permissions:
+      contents: read
+      issues: write

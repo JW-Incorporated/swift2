@@ -1,0 +1,173 @@
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { describe, expect, it, vi } from 'vitest';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { collect, parseArgs, readJsonTree } from './growth-data.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { followerDeltas, postsSummary, weekWindow, trafficSection, contentSummary } from './lib/growth-data.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { keywordsOf, textMatches, timeSensitiveCoverage, treeAsksSummary } from './lib/growth-coverage.mjs';
+
+const NOW = Date.parse('2026-09-30T12:00:00Z');
+const win = weekWindow(undefined, NOW);
+const H = 3_600_000;
+const iso = (ms: number) => new Date(ms).toISOString();
+
+describe('weekWindow', () => {
+  it('is 7 days ending now, or the end of --week-ending', () => {
+    expect(win.endMs - win.startMs).toBe(7 * 24 * H);
+    expect(weekWindow('2026-09-27', NOW).end).toBe('2026-09-27T23:59:59.999Z');
+    expect(() => weekWindow('nope', NOW)).toThrow(/bad --week-ending/);
+  });
+});
+
+describe('followerDeltas', () => {
+  const snap = (date: string, x: number | null, instagram: number | null) => ({ date, followers: { x, instagram, facebook: 10 } });
+  it('deltas per platform against the newest snapshot at or before the window start', () => {
+    const out = followerDeltas([snap('2026-09-22', 1, 3), snap('2026-09-30', 2, 7)], win);
+    expect(out.partial).toBe(false);
+    expect(out.platforms.x).toEqual({ start: 1, end: 2, delta: 1 });
+    expect(out.platforms.instagram.delta).toBe(4);
+    expect(out.platforms.facebook.delta).toBe(0);
+  });
+  it('flags a young series as partial and uses the oldest in-window snapshot', () => {
+    const out = followerDeltas([snap('2026-09-27', 1, 3), snap('2026-09-30', 1, 5)], win);
+    expect(out.partial).toBe(true);
+    expect(out.startDate).toBe('2026-09-27');
+    expect(out.platforms.instagram.delta).toBe(2);
+  });
+  it('null, never 0, when a platform is missing or there is one snapshot', () => {
+    expect(followerDeltas([snap('2026-09-22', null, 3), snap('2026-09-30', 2, 5)], win).platforms.x.delta).toBeNull();
+    expect(followerDeltas([snap('2026-09-30', 2, 5)], win).platforms.instagram.delta).toBeNull();
+    expect(followerDeltas([], win).endDate).toBeNull();
+  });
+});
+
+describe('postsSummary', () => {
+  const post = (platform: string, ago: number, extra = {}) => ({ platform, postedAt: iso(NOW - ago * H), campaign: `c-${ago}`, ...extra });
+  it('counts this week vs the week before and sums engagement', () => {
+    const posted = [post('x', 10), post('instagram', 30), post('x', 24 * 8)];
+    const metrics = [{ platform: 'instagram', campaign: 'c-30', postedAt: posted[1].postedAt, like_count: 4, comments_count: 1 }];
+    const out = postsSummary(posted, metrics, win);
+    expect(out.thisWeek.total).toBe(2);
+    expect(out.previousWeek.total).toBe(1);
+    expect(out.items).toHaveLength(2);
+    expect(out.engagement).toMatchObject({ measuredPosts: 1, likes: 4, comments: 1, top: { campaign: 'c-30' } });
+  });
+  it('an empty week is zeros, not an error', () => {
+    const out = postsSummary([], [], win);
+    expect(out.thisWeek.total).toBe(0);
+    expect(out.engagement.top).toBeNull();
+  });
+});
+
+describe('time-sensitive coverage', () => {
+  const issue = (number: number, title: string, createdAgoH: number, extra = {}) => ({ number, title, state: 'OPEN', createdAt: iso(NOW - createdAgoH * H), closedAt: null, ...extra });
+  it('extracts quoted phrases first, proper nouns otherwise, never "Taylor Swift"', () => {
+    expect(keywordsOf("intake: Taylor Swift's 'Patient Zero' single cover art draws backlash")).toEqual({ mode: 'phrase', words: ['patient zero'] });
+    const w = keywordsOf('intake: Taylor Swift extends VMAs record, dedicates Video of the Year');
+    expect(w.mode).toBe('words');
+    expect(w.words).toContain('vmas');
+    expect(w.words).not.toContain('taylor');
+    expect(textMatches('Patient Zero is out', { mode: 'phrase', words: ['patient zero'] })).toBe(true);
+    expect(textMatches('only vmas here', w)).toBe(false);
+  });
+  it('classifies covered / site-only / social-only / pending / late / missed', () => {
+    const issues = [
+      issue(1, "intake: 'Alpha Song' drops", 100, { state: 'CLOSED', closedAt: iso(NOW - 90 * H) }),
+      issue(2, "intake: 'Beta Song' drops", 100, { state: 'CLOSED', closedAt: iso(NOW - 90 * H) }),
+      issue(3, "intake: 'Gamma Song' drops", 100),
+      issue(4, "intake: 'Delta Song' drops", 10),
+      issue(5, "intake: 'Epsilon Song' drops", 120),
+      issue(6, "intake: 'Zeta Song' drops", 120, { state: 'CLOSED', closedAt: iso(NOW - 10 * H) }),
+      issue(8, "intake: 'Iota Song' drops", 100),
+      { number: 7, title: 'codify: not an event', state: 'OPEN', createdAt: iso(NOW - 5 * H) },
+    ];
+    const posted = [
+      { platform: 'x', postedAt: iso(NOW - 80 * H), body: 'alpha song is here', campaign: 'a' },
+      { platform: 'x', postedAt: iso(NOW - 60 * H), body: 'gamma song is here', campaign: 'g' },
+      { platform: 'x', postedAt: iso(NOW - 20 * H), body: 'epsilon song, late', campaign: 'e' },
+      { platform: 'x', postedAt: iso(NOW - 40 * H), body: 'iota song, late', campaign: 'i' },
+    ];
+    const out = timeSensitiveCoverage(issues, posted, win);
+    const status = Object.fromEntries(out.items.map((e: { number: number; status: string }) => [e.number, e.status]));
+    expect(status).toEqual({ 1: 'covered', 2: 'site-only', 3: 'social-only', 4: 'pending', 5: 'late', 6: 'late', 8: 'late' });
+    expect(out.items.find((e: { number: number }) => e.number === 7)).toBeUndefined();
+    expect(out.coverageHours).toBe(48);
+  });
+  it('carries over still-open events from the prior week but not closed ones', () => {
+    const old = (n: number, state: string) => issue(n, `intake: 'Old ${n}' news`, 24 * 9, { state });
+    const out = timeSensitiveCoverage([old(1, 'OPEN'), old(2, 'CLOSED')], [], win);
+    expect(out.items.map((e: { number: number }) => e.number)).toEqual([1]);
+    expect(out.items[0]).toMatchObject({ carriedOver: true, status: 'missed' });
+  });
+});
+
+describe('treeAsksSummary', () => {
+  const ask = (number: number, ageDays: number, state = 'OPEN', closedAgoH?: number) => ({
+    number, title: `Tree → Marjorie: ask ${number}`, state, labels: [{ name: 'desk:ops' }, { name: 'tree-filed' }],
+    createdAt: iso(NOW - ageDays * 24 * H), closedAt: closedAgoH ? iso(NOW - closedAgoH * H) : null,
+  });
+  it('reports open asks oldest-first with age, plus opened/closed this week', () => {
+    const out = treeAsksSummary({ treeFiled: [ask(3, 1), ask(1, 16), ask(2, 20, 'CLOSED', 5)], marjorieFiledForTree: [] }, win);
+    expect(out.fromTree).toMatchObject({ open: 2, oldestOpenDays: 16, openedInWindow: 1, closedInWindow: 1 });
+    expect(out.fromTree.items.map((i: { number: number }) => i.number)).toEqual([1, 3]);
+    expect(out.fromTree.items[0].title).toBe('ask 1');
+    expect(out.toTree).toMatchObject({ open: 0, oldestOpenDays: null });
+  });
+});
+
+describe('traffic', () => {
+  it('is null with a reason — never an estimate', () => {
+    const t = trafficSection();
+    expect(t.traffic).toBeNull();
+    expect(t.trafficNote).toMatch(/No read-only site-traffic source/);
+  });
+});
+
+describe('contentSummary', () => {
+  it('maps merged content PRs to eras', () => {
+    const erasTouched = (files: string[]) => ({ eras: files.some((f) => f.includes('folklore')) ? ['folklore'] : [], unmapped: [] });
+    const out = contentSummary([{ pr: { number: 9, title: 'vault: x', mergedAt: 'm' }, files: ['supabase/seed/content/folklore.mjs'] }], erasTouched);
+    expect(out).toEqual({ mergedContentPRs: 1, items: [{ number: 9, title: 'vault: x', mergedAt: 'm', eras: ['folklore'], files: 1 }] });
+  });
+});
+
+describe('collect + CLI helpers', () => {
+  function fixtureRoot() {
+    const root = mkdtempSync(path.join(tmpdir(), 'growth-data-'));
+    for (const d of ['social/metrics/posts/2026-09', 'social/posted', 'social/state']) mkdirSync(path.join(root, d), { recursive: true });
+    writeFileSync(path.join(root, 'social/metrics/2026-09-22.json'), JSON.stringify({ date: '2026-09-22', followers: { x: 0, instagram: 3, facebook: 10 } }));
+    writeFileSync(path.join(root, 'social/metrics/2026-09-30.json'), JSON.stringify({ date: '2026-09-30', followers: { x: 0, instagram: 4, facebook: 10 } }));
+    writeFileSync(path.join(root, 'social/metrics/posts/2026-09/1.json'), JSON.stringify({ postId: '1', platform: 'instagram', postedAt: iso(NOW - 5 * H), like_count: 2, comments_count: 0 }));
+    writeFileSync(path.join(root, 'social/metrics/posts/2026-09/bad.json'), '{not json');
+    writeFileSync(path.join(root, 'social/posted/a.json'), JSON.stringify({ platform: 'instagram', postedAt: iso(NOW - 5 * H), campaign: 'c', body: 'hi' }));
+    writeFileSync(path.join(root, 'social/state/event-status.json'), JSON.stringify({ mode: 'normal' }));
+    return root;
+  }
+
+  it('assembles every section offline with --no-gh and says GitHub was skipped', async () => {
+    const out = await collect({ root: fixtureRoot(), nowMs: NOW, noGh: true });
+    expect(out.followers.platforms.instagram.delta).toBe(1);
+    expect(out.posts.thisWeek.total).toBe(1);
+    expect(out.posts.engagement.likes).toBe(2);
+    expect(out.eventStatus).toEqual({ mode: 'normal' });
+    expect(out.traffic).toBeNull();
+    expect(out.warnings.join(' ')).toMatch(/--no-gh/);
+  });
+
+  it('a GitHub outage in one section becomes a warning, not a crash', async () => {
+    const gh = vi.fn(async () => { throw new Error('HTTP 502'); });
+    const fetchContent = vi.fn(async () => { throw new Error('gh pr list failed'); });
+    const out = await collect({ root: fixtureRoot(), nowMs: NOW, gh, fetchContent });
+    expect(out.timeSensitive.events).toBe(0);
+    expect(out.warnings.filter((w: string) => /HTTP 502|gh pr list failed/.test(w)).length).toBeGreaterThanOrEqual(3);
+    expect(out.followers.platforms.instagram.end).toBe(4);
+  });
+
+  it('reads json recursively and skips unreadable files; parses flags', () => {
+    expect(readJsonTree(path.join(fixtureRoot(), 'social/metrics')).length).toBe(3);
+    expect(parseArgs(['--week-ending', '2026-09-27', '--no-gh'])).toEqual({ 'week-ending': '2026-09-27', 'no-gh': true });
+  });
+});
