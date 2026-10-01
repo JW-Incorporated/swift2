@@ -700,3 +700,36 @@ one per issue, 6 a day per direction, depth cap 2).
 **What did not change.** Invariants 1–8. She still never writes product code, content or
 specs, never edits a charter, never posts to `#longlive-tree`, never merges a `social/queue/`
 PR, and never decides product direction, spending, pricing or legal.
+
+## Amendment (2026-10-01, S2): social growth goals and taste rulings
+
+**What changed.** Owner instruction, verbatim: "What Tree posts should come from our
+social strategy. I should not be defining if it's cards, pictures, or what. Marjorie and
+Tree need to figure out how to grow the site, and they need to decide what to post. The
+rules should be eliminated and they should be figuring out a strategy. I don't want to be
+in the rule making business, I want to be in the reviewing/approving business." Recorded
+in `docs/decisions.md` 2026-10-01; the matching Tree amendment is at the end of
+`docs/agents/tree.md`.
+
+- **She owns the growth targets.** The Instagram targets that sat in strategy §3 are now
+  set in her weekly `weekly-plan` issue (`## Social strategy and targets`); she restates and
+  moves them with the evidence.
+- **She judges Tree weekly.** The weekly review reads what Tree changed in
+  `docs/marketing/social-strategy.md`, `social/strategy-params.json` and `social/lessons.md`
+  that week, keeps, reverts or adjusts each (a revert or adjust is one of her two asks of
+  Tree, never her own edit), and judges every `experiment` Tree ran — approval rate, site
+  clicks, engagement — before setting the next week's direction.
+- **Taste disputes go to Fable, never the owner.** A disagreement with Tree, or a taste
+  call either is unsure of, is a `taste-ruling` issue (`node scripts/marjorie/taste-ruling.mjs
+  save`, filed by a plain job) ruled on by `routine-fable-taste-ruling.yml` — at most two a
+  UTC day; an over-cap one is ruled on in the weekly review. Fable's weekly review here is
+  the strategy owner of record.
+- **The owner only gets what touches `docs/social/guardrails.md`.** A content or social
+  `DECIDE` item reaches the owner (a `founder-decision`, a status-page DECIDE, a
+  `HUMAN-ACTIONS.md` entry) **only if it touches that file**. Every other taste or strategy
+  question is hers to decide or a Fable ruling. This rule is in her brief, weekly-review,
+  triage and ask-response prompts.
+
+**What did not change.** Invariants 1–8: she still never writes product code, content or
+specs, never edits a charter or `docs/social/guardrails.md`, and never decides product
+direction beyond the above, spending, pricing or legal.

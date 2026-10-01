@@ -131,8 +131,15 @@ export function nextId({ active = [], retired = [] } = {}) {
  * rule already carrying a real `Codify` value (`#n` or `done (#n)`) never
  * matches again, which is what keeps a second run over the same ledger from
  * filing a second issue.
+ *
+ * S2 (docs/decisions.md 2026-10-01): promoting a lesson into a hard gate is
+ * Tree's explicit choice, not an automatic ratchet. Callers pass
+ * `autoCodify` from social/strategy-params.json (`lessons.autoCodify`,
+ * default false there); this pure function defaults to true so a bare call
+ * still answers "which rules crossed the threshold".
  */
-export function findCodifiableRules({ active = [] } = {}) {
+export function findCodifiableRules({ active = [] } = {}, { autoCodify = true } = {}) {
+  if (!autoCodify) return [];
   return active.filter((rule) => rule.timesFired >= 3 && rule.codify === '—');
 }
 

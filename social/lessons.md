@@ -26,10 +26,11 @@ One `###` block per rule, newest first, active rules above a trailing
 
 **So I:** <the operative rule, one or two sentences a drafter can act on>
 
-Tree reads every `active` rule before drafting (`tree-daily-draft.md`); a
-rule fired 3 times with `Codify: —` gets a `codify:` issue filed against it
-automatically; a rule quiet for 8 consecutive weeks across ≥10 briefs is
-retired, not deleted.
+Tree reads every `active` rule before drafting (`tree-daily-draft.md`). Turning a
+rule into a hard gate is Tree's explicit choice (S2, 2026-10-01): a rule fired 3
+times with `Codify: —` gets a `codify:` issue filed only while
+`social/strategy-params.json` has `lessons.autoCodify: true` (it ships `false`);
+a rule quiet for 8 consecutive weeks across ≥10 briefs is retired, not deleted.
 -->
 
 

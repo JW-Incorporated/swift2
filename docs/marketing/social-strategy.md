@@ -1,8 +1,10 @@
 # Long Live — social operating strategy
 
-**Version 1 — 2026-08-11. Owner: Tree (`docs/agents/tree.md`), the standing
-social-media manager. Founders steer; Joey has final say on anything
-product-facing.**
+**Version 1 — 2026-08-11; ownership revised 2026-10-01. Owner: Tree
+(`docs/agents/tree.md`), the standing social-media manager, for execution and
+format; Marjorie owns the growth goals. The founder-owned limits are
+`docs/social/guardrails.md` and nothing else — everything in this file is
+Tree's to change, by PR with a written reason and evidence.**
 
 This file **supersedes `docs/marketing/growth-plan.md` §4-6 as the posting
 strategy.** Growth-plan keeps everything else and stays live: §0 mental model,
@@ -14,7 +16,7 @@ Who does what, in one line each:
 
 - **Tree** plans (this strategy → `social/calendar.md`, one weekly run) and
   drafts what the calendar says into `social/queue/` (a second, daily run).
-- **`social-poster.yml`** ships it every 30 min. No human in the path.
+- **`social-poster.yml`** ships it every 30 min, once the owner's ✅ stamp is on it.
 - **Tree's charter** (`docs/agents/tree.md`) owns listening, metrics,
   and the six hard rails — including the `SOCIAL_FREEZE` crisis stop.
 
@@ -502,8 +504,9 @@ the code is what actually ships and this file is the bug.
    `social/queue/` at all — the run logs a loud, non-fatal `draftFailures`
    entry and simply produces no post for that video, same shape as any other
    staging failure. This stays inside the fast lane's existing auto-posting
-   flow: the lane still ships with **no human review step** (Joey's ruling,
-   same task — the lane does not become review-first/draft-only), the gate
+   flow: the lane still ships with **no human review step of its own** (Joey's
+   ruling, same task — the lane does not become review-first/draft-only; the
+   owner's ✅ on the approval post gates it like every post), the gate
    is just now a real content check instead of a shape check. Every other
    sourcing path (Content Shift, Growth, Tree — the slower, already-judged
    lanes) is unaffected; a human already looks at those before they land.
@@ -544,29 +547,19 @@ the code is what actually ships and this file is the bug.
 and the checker rejects it outright, declared or not — on 2026-08-06 all 17
 posted IG items were era tiles, and the "declared fallback" loophole is how
 they kept shipping.
-**Designed cards** (`render-card.mjs`) are retired from the feed for the same
-reason: a typography tile is still not a picture of Taylor. The script stays
-for possible non-feed uses; re-admitting cards to the feed is a founder call.
-The card redline survives the retirement, wherever a card is ever rendered:
-**cards never reproduce lyrics** — titles, dates, numbers, and sourced quotes
-only, the same no-lyrics line the Mood starter chips hold (docs/decisions.md
-2026-07-09 lyrics entry).
+**Designed cards** (`mediaKind: "card"`) are a sanctioned image source, and
+format choice — photo, card, screenshot or text — is Tree's, judged on what the
+numbers say. A card is a committed PNG saved from the site's own
+`/api/share-card` render (`scripts/social/fetch-share-card.mjs`), recorded as
+`cardUrl`, credited "Long Live". The card redline holds wherever a card is rendered:
+the no-lyrics redline is a founder guardrail — `docs/social/guardrails.md`.
 
 **Instagram media is required. X images work** (up to 4, via the v1.1 media
 endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
 story; the 280-char budget is for words, `mediaCredit` carries the credit when
 the body can't.
 
-**Rights posture** (decision entries 2026-07-09 and 2026-08-12; the
-2026-08-11 entry's *ladder* is superseded, its rights bars are not): hosting real
-internet photos is unrestricted — embed, hotlink, or rehost, press/agency all
-fine — **with credit, always**, as a knowing accepted risk;
-takedown-on-request without argument. The hard bars: **no AI-generated
-images, ever**, and any reference/comparable stand-in must be visibly labeled
-as such (never passed off as Taylor). No watermarked images, no fan edits
-without the creator's permission. Clickability is priority #1 — a
-rights-clean but boring tile is the failure mode we corrected, not the safe
-default.
+**Rights posture** is a founder guardrail — see `docs/social/guardrails.md` (credit always, takedown on request, no AI images of Taylor, no watermarked or uncredited fan edits). Clickability is priority #1 — a rights-clean but boring tile is the failure mode we corrected, not the safe default.
 
 ### Voice
 
@@ -583,30 +576,9 @@ start, per `era-capitalization.mjs` — that is brand-name styling, not
 register, and is unaffected by this change (Joey, 2026-09-10 — "why aren't we
 capitalizing the first letter in a sentence? drives me nuts"; supersedes the
 lowercase-everything register call from 2026-08-25 below). Fan-made is implicit in the
-bio, never claimed as official. The `#36`/Clownbot blocklist (health, pregnancy,
-sexuality, family/minors, legal wrongdoing, private individuals,
-relationship-existence speculation) applies to every draft, and nothing is ever
-invented — no stat, quote, or trend without a Vault item or a verifiable source
-behind it.
+bio, never claimed as official. The sensitive-topic blocklist and the no-fabrication rule are founder guardrails — `docs/social/guardrails.md`.
 
-**Major personal-life events — confirmed-only carve-out (Joey, 2026-09-01,
-`D1=A`).** The blocklist above still bars searching for, drafting, or posting
-any pregnancy or relationship-existence *speculation* — that stays absolute,
-zero exceptions, same as every other rumor-stage topic on this list. The one
-change: once a major personal-life event (pregnancy, engagement, marriage, and
-comparable milestones) is **confirmed** — by Taylor or her team directly, or
-independently reported as settled fact by two major outlets — it is no longer
-"speculation" and social may cover it like any other confirmed public news
-event (the same treatment a Grammy win or a tour date gets): warm, factual,
-sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
-treatment the way an album rollout does — that framing is reserved for
-product launches and creative rollouts, not a person's private life. Until
-confirmation, silence; the moment it's confirmed, normal coverage. This
-carve-out is social-caption policy only (this file, `docs/agents/tree.md`,
-`docs/agents/runner-prompts/tree-daily-draft.md`) — it does not touch the
-site's Vault/editorial pipeline or the Clownbot safety gate, which remain
-governed by their own docs and are outside Tree's mutation
-rights.
+**Major personal-life events — confirmed-only carve-out:** a founder guardrail, in full in `docs/social/guardrails.md` (guardrail 4).
 
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
 GUSH. Every caption is first-person fan reaction first, fact second: lead with
@@ -657,7 +629,13 @@ IG posts by reach/saves, pasted from IG Insights. 2 minutes, and it is the only
 per-post engagement signal that exists. Tree names those 3 in its next monthly
 review and says what they had in common.
 
-### Targets — reset for reality (revised 2026-09-01 — tied to mechanisms, not hopes)
+### Targets — Marjorie's (moved to her weekly plan 2026-10-01)
+
+Growth targets are Marjorie's: she sets them in the weekly `weekly-plan` issue
+(`docs/agents/runner-prompts/marjorie-weekly-review.md`), judges Tree's
+experiments against them, and changes them as the evidence moves. The table is
+the last baseline Tree and she inherited (revised 2026-09-01 — tied to
+mechanisms, not hopes); it is history once her plan restates a number.
 
 **Why these changed:** the previous targets were floors for an account running growth-plan §6's outward-engagement engine (daily human engagement hour, following relevant accounts, Reddit non-promo participation). That engine has not been running — near-zero traction to date is a symptom of that gap, not of calendar quality. Targets below stay the same numbers but now name the mechanism each one depends on, so a miss tells us *what* to fix, not just *that* something's wrong.
 
@@ -687,8 +665,12 @@ Last Tree run of each month, appended to `social/calendar.md` under
    a hook shape, or a slot time. Not "keep improving".
 4. Rotation state advanced: next month's thread angles, next mood format, the
    next launch arc from the backlog.
-5. Anything that needs a founder decision goes to a `founder-decision` issue —
-   never decided quietly inside the calendar.
+5. Anything that touches `docs/social/guardrails.md` goes to the owner as a
+   `founder-decision` issue — never decided quietly inside the calendar.
+   Everything else is decided here by Tree; a taste dispute with Marjorie goes
+   to a Fable ruling (`taste-ruling` issue), not to the owner.
 
-A change to *this file* is a founder-approved PR. Tree may propose one in its
-review; it may not edit strategy into existence on its own.
+*This file* is Tree's. A change to it is a PR with a written reason and the
+evidence (a scorecard number, a lesson, an experiment result); Tree reports it
+in the weekly plan, and Marjorie's weekly review keeps, reverts or adjusts it.
+It lands without a founder merge.

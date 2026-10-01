@@ -74,7 +74,7 @@ requirement below.
 | **bug** | describes behavior that is wrong AND carries enough to act: a surface, a reproduction, or a clear expectation (`location` from `/api/feedback` usually supplies the surface) | file a build-desk issue (below); comment on the original naming class/evidence and linking it; `marjorie-triaged`; leave original **open** |
 | **content correction** | asserts a fact on the site is wrong | same shape as bug, aimed at content; must cite both what the site says today and what the submitter claims; you do not judge which is right |
 | **request** | asks for something that does not exist | issue labelled `enhancement`+`marjorie-filed`, your one-paragraph UX recommendation; `marjorie-triaged` on original |
-| **needs-founder** | product-direction, legal/safety, money, or a bug whose fix is a product decision | `founder-decision`+`marjorie-triaged` on original; in-channel message (below) |
+| **needs-founder** | product-direction, legal/safety, money, or a bug whose fix is a product decision. A content or social DECIDE item qualifies ONLY if it touches `docs/social/guardrails.md` — otherwise decide it, or save a `taste-ruling` question for Fable (`node scripts/marjorie/taste-ruling.mjs save --side marjorie --question "<≤300 chars>" --context "<evidence>"`); never a founder-decision, status-page DECIDE or `HUMAN-ACTIONS.md` item | `founder-decision`+`marjorie-triaged` on original; in-channel message (below) |
 
 A submission that **looks like** a bug but lacks a surface/repro/expectation
 is not spam — see "bug, unactionable" below.

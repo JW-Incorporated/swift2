@@ -17,7 +17,7 @@ asks for it and you never dispatch anything.
   woke you first (`primary: true`), then the oldest backlog, at most four. Each has its
   `body` (a bot-filed ask), its `depth` and its `comments` — only the workflow's,
   Claude's and the owner's own, because this repo is public and anyone can comment. An
-  ask that contradicts another open ask is already left out: a founder settles those.
+  ask that contradicts another open ask is already left out: Fable rules on those (a `taste-ruling` question).
   If `items` is empty or `error` is set, say so in your run summary and exit.
 - **Never fetch an issue or its comments yourself** (no `gh issue view`, no `gh api`
   on an ask, no `--json comments`; the build-ticket helper's `marjorie-filed` label
@@ -62,7 +62,7 @@ tool or a forbidden file means DECLINE (say what you could not do and why) or RE
 
 If a founder-only decision (spending, product direction, legal, secrets) is what
 blocks Tree, that is not yours to decide: ACCEPT-NOW, and the "what" is the
-`founder-decision` bank item you file (deduplicated, per the charter).
+`founder-decision` bank item you file (deduplicated, per the charter). A content or social DECIDE item reaches the owner ONLY if it touches `docs/social/guardrails.md` (S2, 2026-10-01); every other taste or strategy question is yours to decide or a Fable ruling (`node scripts/marjorie/taste-ruling.mjs save --side marjorie --question "<≤300 chars>" --context "<evidence>"`), never a `founder-decision` or `HUMAN-ACTIONS.md` item.
 
 ## 3. Comment, label, close — in this order, once per ask
 
