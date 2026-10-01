@@ -16,6 +16,63 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-01 (Vault Run, Content Shift lane) from intake #4560.
+      // On-the-record interview quotes about a public topic (handling online
+      // criticism) — no privacy redline. Extends the sombr friendship already
+      // on this page (the June 2026 Songwriters Hall of Fame tribute),
+      // authored as its own dated Sept. 2026 moment per the era-by-date rule
+      // rather than folded into that June entry.
+      slug: 'showgirl-sombr-taylor-advice-hate-comments',
+      year: 2026,
+      month: 9,
+      day: 23,
+      category: 'music',
+      title: 'Taylor’s advice to sombr on hate comments: “a privilege to be receiving these”',
+      snippet:
+        'Asked by Elle for the best advice he had ever gotten, the 21-year-old sombr — the singer Taylor hand-picked to cover her songs at her Songwriters Hall of Fame induction — went straight to “the person I look up to most” and her counsel on online hate: if it ever stops, maybe you have slipped from your peak.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/sombr-taylor-swift-advice-dealing-with-hate-1236345453/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Asked by Elle (published Sept. 23, 2026) for the best advice he had ever been given, the 21-year-old singer-songwriter sombr went straight to Taylor: “The person I look up to most has given me. The amazing pop star.” Her counsel was about living with online hate as his profile climbed — reframe it as a scoreboard rather than a wound. In his telling, the lesson ran: “if these hate comments go away, maybe you’re not at your peak anymore. I think it’s a privilege to be receiving these and rise above it.”\n\nHe added that time had changed how he answers critics at all. A younger sombr, thrust into the spotlight as a teenager, once felt the pull to defend himself; he said he “wouldn’t respond now,” having learned that reacting tends to make things worse.\n\nThe exchange is the latest beat in a friendship that started the way many of his heroes’ do — Taylor praised him in an interview, he sent a thank-you note, and she wrote back with a letter and a necklace. At her June 2026 Songwriters Hall of Fame induction she had asked the then-20-year-old to open her segment with covers of “Cardigan” and “Dear John” in place of a performance of her own, calling him “the future.” The advice on hate reads as an extension of that mentorship: a veteran of nearly two decades of public scrutiny handing a rising artist a way to carry it.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/sombr-taylor-swift-advice-dealing-with-hate-1236345453/',
+            source_title: 'Sombr Talks Taylor Swift & Her Advice on Dealing With Hate',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Contactmusic',
+            url: 'https://www.contactmusic.com/story/467/3613951/sombr-reveals-the-invaluable-advice-taylor-swift-gave-him',
+            source_title: 'Sombr reveals the invaluable advice Taylor Swift gave him',
+            publisher: 'Contactmusic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+          },
+        ],
+        // Visual (charter step 3b): sombr performing in London, 2025 (the artist
+        // the moment is about). Wikimedia Commons, curl-verified HTTP 200
+        // image/jpeg at 2336x3000, downloaded and vision-confirmed as sombr
+        // (curly hair, the signature “S” wrist tattoo). CC BY 2.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Sombr%2C_Islington_Academy%2C_London_%28cropped%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Drew de F Fawkes, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'sombr performing in London in 2025 — the rising singer-songwriter Taylor has mentored since praising him in an interview.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
       slug: 'showgirl-emmys-svu-sketch-2026',
       year: 2026,
       month: 9,
