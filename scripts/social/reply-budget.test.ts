@@ -22,7 +22,7 @@ function makeWorld(opts: Opts = {}) {
   const media = Array.from({ length: 25 }, (_, i) => ({ id: `m${i}`, caption: `post ${i}`, permalink: `https://www.instagram.com/p/P${i}/`, timestamp: hoursAgo(5 + i), created_time: hoursAgo(5 + i) }));
   const comments = (prefix: string) => Array.from({ length: 60 }, (_, i) => ({ id: `${prefix}${i}`, text: `hi ${i}`, message: `hi ${i}`, username: `u${i}`, from: { id: `u${i}`, name: `U${i}` }, timestamp: hoursAgo(1), created_time: hoursAgo(1), replies: { data: [{ id: `${prefix}r${i}`, text: 'r', username: 'z', timestamp: hoursAgo(1) }], paging: { next: `${GRAPH}/x/replies?access_token=${TOKEN}` } } }));
   const fetchImpl = vi.fn(async (input: string, init?: { body?: string; signal?: unknown }) => {
-    if (input.startsWith('https://discord.test')) {
+    if (new URL(input).hostname === 'discord.test') {
       discordN += 1;
       const content = String(JSON.parse(init?.body ?? '{}').content);
       const verdict = opts.discord?.(discordN, JSON.parse(init?.body ?? '{}')) ?? { ok: true, status: 200 };

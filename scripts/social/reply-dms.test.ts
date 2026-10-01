@@ -16,7 +16,7 @@ type Reply = { status?: number; code?: number; message?: string; body?: unknown 
 /** Routes are keyed `<token-kind>:<graph path>`; falls back to `*:<path>`. */
 function fakeFetch(routes: Record<string, Reply>, sent: Array<Record<string, unknown>> = []) {
   return vi.fn(async (input: string, init?: { body?: string }) => {
-    if (input.startsWith('https://discord.test')) {
+    if (new URL(input).hostname === 'discord.test') {
       sent.push(JSON.parse(init?.body ?? '{}'));
       return { ok: true, status: 200, json: async () => ({}) };
     }

@@ -26,7 +26,7 @@ const GRAPH = 'https://graph.facebook.com/v25.0';
 type Route = (url: URL) => unknown;
 function fakeFetch(routes: Record<string, Route | unknown>, sent: Array<Record<string, unknown>> = []) {
   return vi.fn(async (input: string, init?: { body?: string }) => {
-    if (input.startsWith('https://discord.test')) {
+    if (new URL(input).hostname === 'discord.test') {
       sent.push(JSON.parse(init?.body ?? '{}'));
       return { ok: true, status: 200, json: async () => ({}) };
     }
@@ -271,7 +271,7 @@ describe('runNotifier', () => {
     const file = setup({ version: 1, seeded: { ig_comments: 'x', ig_mentions: 'x', fb_comments: 'x' }, seen: {} });
     const base = fakeFetch(igRoutes([c('n1', 2)]));
     const fetchImpl = vi.fn(async (u: string, i?: { body?: string }) =>
-      u.startsWith('https://discord.test') ? { ok: false, status: 500, json: async () => ({}) } : base(u, i));
+      new URL(u).hostname === 'discord.test' ? { ok: false, status: 500, json: async () => ({}) } : base(u, i));
     const warn = vi.fn();
     expect(await runNotifier(baseEnv(file), { fetchImpl, now: NOW, log: vi.fn(), warn })).toBe(1);
     expect(JSON.parse(readFileSync(file, 'utf8')).seen).toEqual({});
