@@ -8,10 +8,24 @@
 // SOCIAL_APPROVAL_KEY / DISCORD_BOT_TOKEN are only ever readable from a
 // main-only workflow run).
 //
+// Approval model v2 (Bots v2 W2, owner 2026-09-30 — docs/decisions.md): the
+// brief is ONE message per POST (approval-prompt.mjs), whose ref line names
+// every file in the post (`a.json,b.json` — both halves of an IG+X pair).
+// groupTargets (lib/feedback.mjs) fans that one message out to each file's
+// target, so the owner's ✅ approves both halves (one signed stamp per file),
+// and ANY owner reply to it — message_reference or thread — rejects both
+// halves with the reply text as the reason (a bare ❌ rejects too, reason
+// "none given", never nudged). The poll then marks the post ❌ itself
+// (lib/reject-confirm.mjs). The `*` header target below is LEGACY: no header
+// message is posted any more, but open PRs briefed before this change still
+// carry old-format header + per-draft messages, which must keep working until
+// they retire (48h) — delete the header paths once none are open.
+//
 // Required env:
-//   DISCORD_BOT_TOKEN          read-only bot token (View Channel + Read
-//                              Message History only — no write scope exists
-//                              for this bot at all, by design).
+//   DISCORD_BOT_TOKEN          bot token — read-only by design (View Channel +
+//                              Read Message History). Add Reactions is the ONE
+//                              write scope wanted, for the ❌ confirmation; without
+//                              it the poll falls back to a webhook message.
 //   SOCIAL_APPROVAL_WEBHOOK_URL  the same webhook approval-prompt.mjs posts
 //                              the brief through — used only to resolve the
 //                              channel id and to post nudges/notices, never
@@ -65,6 +79,7 @@ import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
 import { approvalStatus } from './lib/queue.mjs';
 import { isQueueJson, makeGitState, parseJson, short, stampHealth } from './lib/stamp-health.mjs';
+import { confirmRejection } from './lib/reject-confirm.mjs';
 import { stampFiles } from './stamp-approval.mjs';
 import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
 
@@ -235,12 +250,13 @@ function webhookIdFromUrl(webhookUrl) {
   return m[1];
 }
 
-async function resolveChannelId(webhookUrl) {
-  // GET /webhooks/{id}/{token} needs no bot auth at all.
+async function resolveWebhookTarget(webhookUrl) {
+  // GET /webhooks/{id}/{token} needs no bot auth at all. `guild_id` rides
+  // along for the rejection-confirmation fallback's jump link.
   const res = await fetch(webhookUrl.replace(/\/$/, ''));
   if (!res.ok) throw new Error(`could not resolve webhook -> channel (${res.status})`);
   const data = await res.json();
-  return data.channel_id;
+  return { channelId: data.channel_id, guildId: data.guild_id };
 }
 
 async function fetchReactors(channelId, messageId, emoji, token, opts) {
@@ -425,7 +441,8 @@ async function postToChannel(fetchImpl, webhookUrl, content) {
     await fetchImpl(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content }),
+      // flags 4 = SUPPRESS_EMBEDS: no link previews on any Tree notice (Bots v2 C6).
+      body: JSON.stringify({ content, flags: 4 }),
     });
   } catch {
     // best-effort notice; callers already log the load-bearing ::error::/::warning::
@@ -900,7 +917,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   const statusOptions = { approvers: SOCIAL_APPROVERS, key: approvalKey }; // approvalStatus WITH the key — this is the one caller that must verify signatures
 
   const webhookId = webhookIdFromUrl(webhookUrl);
-  const channelId = await resolveChannelId(webhookUrl);
+  const { channelId, guildId } = await resolveWebhookTarget(webhookUrl);
 
   // The workflow checks the runner out at `ref: main`, but a queue file
   // being stamped/rejected/edited lives on the PR's own (unmerged) branch —
@@ -915,6 +932,16 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   }
 
   const messages = await discordGet(`${DISCORD_API}/channels/${channelId}/messages?limit=100`, botToken, discordOpts);
+
+  // Bots v2 W2: a reply-rejection is confirmed by marking the post ❌ (once per
+  // post per run; confirmRejection is itself idempotent across runs).
+  const confirmedRejections = new Set();
+  async function confirmReject(classifiedTarget) {
+    const messageId = classifiedTarget.replyId ? classifiedTarget.anchors?.[0]?.messageId : null;
+    if (!messageId || confirmedRejections.has(messageId)) return;
+    confirmedRejections.add(messageId);
+    await confirmRejection({ messageId, channelId, guildId, botToken, webhookUrl, webhookId, fetchImpl, messages });
+  }
 
   const candidates = messages.filter((m) => String(m.webhook_id) === String(webhookId));
   for (const m of candidates) {
@@ -1028,13 +1055,13 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
             failed = true;
             break;
           }
-          entries.push({ message: ref.message, sha: ref.sha, reactions, replies: repliesByParent.get(ref.message.id) ?? [] });
+          entries.push({ message: ref.message, sha: ref.sha, multi: ref.multi === true, reactions, replies: repliesByParent.get(ref.message.id) ?? [] });
         }
         if (failed) {
           unresolved.add(key);
           continue;
         }
-        classified.set(key, classifyTarget(entries, { kind: key === '*' ? 'pr' : 'draft' }));
+        classified.set(key, classifyTarget(entries, { kind: key === '*' ? 'pr' : 'post' }));
       }
       const headerUnresolved = unresolved.has('*');
       const header = classified.get('*') ?? null;
@@ -1081,11 +1108,13 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         if (prView.state === 'CLOSED' && header?.action === 'reject') {
           prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
           prLedgerRows.push(...perDraftRejectRows(pr, header, prQueueFiles, gitState, prView.headRefOid, runResolvedAt));
+          await confirmReject(header); // a retry (429/5xx) of the ❌ must not die with the PR (idempotent)
         }
         for (const [key, c] of classified) {
           if (key === '*' || c.action !== 'reject') continue;
           if (gitState.show(prView.headRefOid, key) !== null) continue; // still there at the PR's final head — this ❌ was never acted on
           prLedgerRows.push(rejectRow(pr, key, c, itemAtAnchors(gitState, c.anchors, key), runResolvedAt));
+          await confirmReject(c); // same: the post's ❌ confirmation retries after the PR closes too
         }
         continue;
       }
@@ -1093,7 +1122,8 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       // Reject path, header: requires a reason by construction —
       // classifyTarget only ever yields 'reject' with a qualifying reply.
       if (header?.action === 'reject') {
-        execGh(['pr', 'close', String(pr), '--repo', repo, '--comment', `reject: founder reacted ❌ on the brief — ${header.reason}`]);
+        execGh(['pr', 'close', String(pr), '--repo', repo, '--comment', `reject: founder rejected the brief — ${header.reason}`]);
+        await confirmReject(header);
         prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
         // Round 2 LOW: guarded the same way the CLOSED-path's identical
         // call is above — one flaky `gh pr view` must not abort the whole
@@ -1155,6 +1185,11 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         headSha = execGit(['rev-parse', 'HEAD']);
         rejectedThisRun.set(key, item);
         execGh(['pr', 'comment', String(pr), '--repo', repo, '--body', `reject: ${key} — ${c.reason}`]);
+      }
+      // Both halves of a rejected post are gone (or already were, on a retry
+      // run) — now mark the post itself ❌ so the owner sees it was acted on.
+      for (const [key, c] of classified) {
+        if (key !== '*' && c.action === 'reject') await confirmReject(c);
       }
 
       // Edits: the founder's caption replaces `body`, provenance travels in

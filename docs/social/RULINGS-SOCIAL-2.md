@@ -31,6 +31,15 @@ job, `social-approval-poll.mjs`, only ever stamps and merges an OPEN PR).
 identity → not-in-approvers → contentHash mismatch → signature. Supersedes
 A2's merge-keyed stamp.
 
+> **Amended 2026-09-30 (owner, Bots v2 W2 — `docs/decisions.md`).** The
+> approval message is now ONE per post (an IG+X pair or a lone item), not a
+> header plus one per draft; its `ref:` line names every file in the post and
+> the owner's ✅ stamps each (same owner-id check, same HMAC). **Rejection
+> semantics changed:** any owner reply to the post (or its thread) rejects the
+> whole post with the reply as the reason — no ❌ needed — and a bare ❌ rejects
+> with reason "none given" (no nudge); the poll marks the post ❌ itself.
+> This replaces S3's "❌ needs a reply, a reply alone does nothing".
+
 ## B2 — No guard fence against an agent's `gh pr merge` on a social-draft PR
 
 Ruled against adding a `.claude/hooks/guard.sh` deny rule for `gh pr merge`

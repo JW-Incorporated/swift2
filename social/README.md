@@ -30,6 +30,16 @@ t_bac31b1a) — that lane now sources a real credited photo from
 `social/photo-library.json` for both platforms, same as every other
 campaign.
 
+**AMENDED 2026-09-30 (owner, Bots v2 C4 — `docs/decisions.md`).** Pairing
+stays the default, and one ✅ now approves the whole pair (and one reply
+rejects it). The single sanctioned exception is an item-level, written
+`singlePlatformReason` (string, 20–300 characters; schema in
+`scripts/social/lib/queue-schema.mjs`, gate in `check-drafts.mjs`'s
+`checkCampaignPair`), shown to the owner on the approval post. Legit reasons:
+no usable image → X-only; breaking-news speed → X first, Instagram later.
+The `Single-platform exception:` text in `why` still does nothing. A pair
+shares one image and one `scheduledAt`; the text is shaped per platform.
+
 **Founder approval gate, restored (2026-09-10 — see `docs/decisions.md`,
 reversing the 2026-07-25/2026-08-25 no-human-review decisions) and moved to
 Discord reactions (2026-09-11, docs/social/RULINGS-SOCIAL-2.md B1):** a PR that adds,
@@ -42,10 +52,18 @@ the founder can decide from the prompt alone (a draft whose stamp still
 *covers* the PR head — `scripts/social/filter-already-stamped.mjs`, the same
 `cleanSince`/`selfClean` check the poll merges on — is left out of a
 re-brief; one whose stamp no longer covers it is briefed again, header
-included, because a fresh header ✅ is how it gets re-approved). **Approval is the founder's
-own ✅ reaction on that message (on a draft for just that one, on the header
-for all of them) — merging the PR yourself does NOT approve it, it kills the
-draft.** `.github/workflows/social-approval-poll.yml` polls for the
+included, because a fresh header ✅ is how it gets re-approved). **Since
+2026-09-30 (owner, Bots v2 W2 — `docs/decisions.md`) the prompt is ONE Discord
+message per post — an IG+X pair, or a lone item — capped at Discord's 2,000
+characters: X text in full, the IG caption trimmed with a link to the full
+draft, the schedule, a one-line why and one image preview, with no separate
+header message.** **Approval is the founder's own ✅ reaction on that post
+(both halves of a pair at once); any reply to it (or in its thread) is a
+rejection of the whole post with the reply as the reason, and a bare ❌ rejects
+with reason "none given" — the poll then marks the post ❌ itself. Merging the PR yourself does NOT approve it, it kills the
+draft.** (Older open PRs briefed before this change keep their per-draft +
+header messages; the poll still reads them until they retire.)
+`.github/workflows/social-approval-poll.yml` polls for the
 reaction, mints a signed v2 `approval` stamp (see the schema section below),
 and merges the PR itself after stamping; `post-queue.mjs` reads only that
 signed object, never GitHub, so the gate survives even if a reaction's
@@ -182,8 +200,8 @@ unrecognised `campaign` prefix logs a `::warning::` and sets it `null`),
 `action` (`"approve" | "edit" | "reject" | "skip"` — `skip` is the Reddit ⏭️,
 no reason asked; `"revoke"` is reserved for Wave 5), Reddit prompt rows
 (S6) carry `pr: null` and `file: "reddit:<postId>"` from the prompt's
-`ref: reddit · <postId>` line, `reason` (the founder's reply verbatim; `null` for a
-frictionless ✅), `originalBody`/`editedBody`, `approver`, `messageId`, and
+`ref: reddit · <postId>` line, `reason` (the founder's reply verbatim; `"none given"` for
+a bare ❌ with no reply; `null` for a frictionless ✅), `originalBody`/`editedBody`, `approver`, `messageId`, and
 `replyId`. Rows are never edited or deleted — a reversal is a new row.
 Frictionless ✅s are logged too, with `reason: null`: they're the
 denominator for any edit-rate/approval-rate metric, not just the failures.

@@ -117,6 +117,18 @@ export const PLATFORM_RULES = Object.assign(Object.create(null), {
   instagram: { maxBody: 2200, media: 'required', maxMedia: 10, measure: (body) => String(body ?? '').length, unit: 'characters' },
 });
 
+export const SINGLE_PLATFORM_REASON_MIN = 20;
+export const SINGLE_PLATFORM_REASON_MAX = 300;
+
+/** True for a `singlePlatformReason` that is a real, bounded, written reason —
+ * shared by this schema and check-drafts.mjs's pairing gate so the two can
+ * never disagree about what counts. */
+export function isValidSinglePlatformReason(value) {
+  if (typeof value !== 'string') return false;
+  const len = value.trim().length;
+  return len >= SINGLE_PLATFORM_REASON_MIN && value.length <= SINGLE_PLATFORM_REASON_MAX;
+}
+
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 
 function isIsoInstant(value) {
@@ -649,10 +661,19 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
   if (item.attempts !== undefined && (!Number.isInteger(item.attempts) || item.attempts < 0)) {
     findings.push(`attempts: must be a non-negative integer when present (${JSON.stringify(item.attempts)}).`);
   }
-  for (const field of ['campaign', 'why', 'lastError', 'photoId', 'photoEra']) {
+  for (const field of ['campaign', 'why', 'lastError', 'photoId', 'photoEra', 'singlePlatformReason']) {
     if (item[field] !== undefined && typeof item[field] !== 'string') {
       findings.push(`${field}: must be a string when present.`);
     }
+  }
+  // Bots v2 (docs/plans/bots-v2/PLAN.md C4, owner 2026-09-30): the ONE
+  // sanctioned way for an item to ship on a single platform — a written
+  // reason the owner reads on the approval post. A throwaway ("n/a") is not
+  // a reason, and a novel is not one-line material for a Discord message.
+  if (typeof item.singlePlatformReason === 'string' && !isValidSinglePlatformReason(item.singlePlatformReason)) {
+    findings.push(
+      `singlePlatformReason: must be a written reason of ${SINGLE_PLATFORM_REASON_MIN}-${SINGLE_PLATFORM_REASON_MAX} characters (${JSON.stringify(item.singlePlatformReason)}).`,
+    );
   }
 
   return findings;

@@ -105,7 +105,7 @@ jobs:
             first=0
             gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
               | jq --arg file "$f" \
-                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval, critique}' \
+                '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval, critique, singlePlatformReason}' \
               >> /tmp/drafts.json
           done <<<"$QUEUE_FILES"
           echo "]" >> /tmp/drafts.json
@@ -208,7 +208,7 @@ jobs:
               first=0
               gh api -H "Accept: application/vnd.github.raw" "repos/$REPO/contents/$f?ref=$SHA" \
                 | jq --arg file "$f" \
-                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval, critique}' \
+                  '{file: $file, platform, body, scheduledAt, campaign, mediaCredit, media, mediaKind, altText, why, lane, approval, critique, singlePlatformReason}' \
                 >> /tmp/digest-drafts.json
             done <<<"$QUEUE_FILES"
             echo "]" >> /tmp/digest-drafts.json

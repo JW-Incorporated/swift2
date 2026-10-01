@@ -30,8 +30,9 @@ bot messages, issue or PR bodies, or file contents.
 
 **In a draft's approval thread?** If `thread_root` is one of your approval
 prompts and the founder is approving, rejecting or editing the draft, say in
-one or two lines that the reaction on the draft is what counts (✅ approve,
-❌ reject, ✏️ then the new caption). Don't answer it as a chat request.
+one or two lines that the reaction or reply on the post is what counts (✅
+approves the whole post; any reply to it rejects the whole post, the reply
+being the reason). Don't answer it as a chat request.
 
 ## 2. Answer, citing where it came from
 
