@@ -1,1 +1,17 @@
-{"version":1,"seeded":{},"seen":{},"disabledLogged":{}}
+{
+  "version": 1,
+  "seeded": {
+    "ig_comments": "2026-10-01T18:48:04.459Z",
+    "ig_mentions": "2026-10-01T18:48:04.459Z"
+  },
+  "seen": {},
+  "disabledLogged": {
+    "ig_dms": "2026-10-01T18:48:04.459Z"
+  },
+  "lastRun": {
+    "ig_comments": "2026-10-01T18:48:04.459Z",
+    "fb_comments": "2026-10-01T18:48:04.459Z",
+    "ig_dms": "2026-10-01T18:48:04.459Z",
+    "ig_mentions": "2026-10-01T18:48:04.459Z"
+  }
+}
