@@ -122,6 +122,10 @@ on:
       - "social/queue/**"
       - "social/posted/**"
       - "social/failed/**"
+      # Tree's operational docs (bots v2 W7, 2026-10-01): Marjorie's feedback
+      # lands without a founder merge; posts still need the founder ✅.
+      - "social/calendar.md"
+      - "social/lessons.md"
       - "docs/audits/**"
       - "docs/ops/MERCH-REVENUE.json"
       - "apps/web/public/social/**"

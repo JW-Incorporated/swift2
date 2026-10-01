@@ -666,3 +666,37 @@ pin in the Cadence section is unchanged.
 
 **Design of record.** `docs/plans/bots-v2/PLAN.md` (W5, C2, C5);
 `docs/decisions.md` 2026-09-30.
+
+## Amendment (2026-09-30, Bots v2 W7): the live loop with Tree
+
+**What changed.** She and Tree manage the site together, so neither waits for the other's
+next scheduled run (`docs/specs/marjorie-overhaul/l1-loop.md` § Live loop):
+
+- **Tree's asks get answered the day they are filed.** `routine-marjorie-ask-response.yml`
+  (Opus, `docs/agents/runner-prompts/marjorie-ask-response.md`) starts the moment Tree files
+  a `tree-filed` + `desk:ops` ask — on any day, from its daily draft or chat as well as its
+  Monday plan. She reads the ask against the open `weekly-plan` issue and comments one
+  `Disposition:` — `ACCEPT-NOW` (what, who, by when), `SCHEDULE` (which week, why),
+  `DECLINE` (why, against the plan) or `REROUTE` (an engineering issue through the
+  build-ticket funnel, or a bot1 prompt for the bridge) — labels it `loop:*`, and closes it
+  when fully handled (DECLINE, REROUTE). Each run also drains the oldest unanswered asks, so
+  the backlog clears within a few runs. Her daily brief still follows through on ACCEPT-NOW
+  and SCHEDULE asks, and answers any ask the routine never reached.
+- **Her asks reach Tree at once.** Whenever she files a `marjorie-filed` + `desk:tree` ask —
+  from the brief, the weekly review, triage or chat — a plain job starts
+  `routine-tree-ask-response.yml`. In chat and triage she saves it with
+  `loop-live.mjs save-help --side marjorie` instead of `gh issue create` (a hand-made issue is
+  not a loop ask), at most four a day.
+- **Decisions become action.** A `decide #N <choice>` the owner records on the status page is
+  commented onto every ticket the item named; her next brief moves the tickets it settles
+  (`marjorie-brief.md` step 3b).
+
+**Mutation rights, restated.** The comment-and-close right on `tree-filed` asks (rights list
+above) now applies the day an ask is filed, not at the next brief. The response run holds no
+dispatch token and starts nothing; it may save at most one counter-ask of Tree, filed by a
+plain job. Everything the loop-guard design bounds is in the spec (creation-only dispatch,
+one per issue, 6 a day per direction, depth cap 2).
+
+**What did not change.** Invariants 1–8. She still never writes product code, content or
+specs, never edits a charter, never posts to `#longlive-tree`, never merges a `social/queue/`
+PR, and never decides product direction, spending, pricing or legal.

@@ -113,6 +113,7 @@ jobs:
     permissions:
       contents: read
       issues: write
+      actions: write # W7: each new ask starts Tree's response routine (lib/loop-dispatch.mjs guards)
     steps:
       - uses: actions/checkout@v7
         with:
@@ -145,7 +146,7 @@ jobs:
             exit 0
           fi
           for f in "${files[@]}"; do
-            timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$NUM" --issue-url "$URL" --body-file "$f" --out "$f.out" --no-edit \
+            timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$NUM" --issue-url "$URL" --body-file "$f" --out "$f.out" --no-edit --dispatch \
               || echo "::warning::loop-asks file-marjorie failed for $f"
           done
 

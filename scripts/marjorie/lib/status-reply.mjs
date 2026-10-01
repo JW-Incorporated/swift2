@@ -8,6 +8,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { closeHumanAction, laToday } from '../ha-close.mjs';
 import { HUMAN_ACTIONS_DONE_PATH, HUMAN_ACTIONS_PATH } from '../human-actions.mjs';
+import { propagateDecision } from './decision-propagate.mjs';
 import { parseHaEntries } from './status-ha.mjs';
 import { STATUS_LABEL } from './status-issue.mjs';
 
@@ -135,6 +136,9 @@ export async function handleComment({ event, root, run, reply, now = new Date(),
       merge = 'auto-merge was refused — merge it by hand';
     }
     await reply(`✅ ${cmd.kind === 'decide' ? `Decision recorded on #${cmd.number}: \`${mentionSafe(verdict.choice)}\`${verdict.outcome === 'skip' ? ' (closed as skipped)' : ''}` :`#${cmd.number} marked done`}. Closing PR: ${prUrl} (${merge}). This page updates when it lands.`);
+    // The item's text names the tickets the answer is about and is about to leave the
+    // file: pass the decision on to each of them now (best effort, never throws).
+    if (cmd.kind === 'decide') await propagateDecision({ openMd, number: cmd.number, title: item.title, choice: verdict.choice, outcome: verdict.outcome, url: comment.html_url, repo, run, log });
     return { acted: true, number: cmd.number, prUrl };
   } catch (err) {
     log(`status reply: closing #${cmd.number} failed: ${String(err?.message || err).split('\n')[0].slice(0, 200)}`);
