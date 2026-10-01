@@ -18,7 +18,6 @@
 // resolved moment connection still just renders a label in the "Keep
 // exploring" list; tapping it is a documented no-op (see SongScreen.tsx),
 // matching OS-032's `handleOpenItem` no-op precedent.
-import { loadBundle } from '@swift2/content';
 import type { ContentBundleFile, TracksBundleFile } from '@swift2/content';
 import {
   setContentItemLookup,
@@ -28,19 +27,17 @@ import {
   type EraId,
   type TrackNote,
 } from '@swift2/experience';
-import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
-
-const storage = expoFileSystemStorageAdapter();
+import { loadContentBundle } from './content-bundle';
 
 async function ensureBundle() {
-  return loadBundle({ baseUrl: contentBaseUrl(), storage });
+  return loadContentBundle();
 }
 
 /** Every `content:<eraId>` manifest entry's `items` — mirrors `era-stream-data.ts`'s `itemsForEra`, but flattened across every era since a track's "Keep exploring" moment connection can point at any album's content, not just its own. */
 function allContentItems(files: Record<string, unknown>): ContentItem[] {
   return Object.entries(files)
     .filter(([name]) => name.startsWith('content:'))
-    .flatMap(([, value]) => (value as ContentBundleFile).items);
+    .flatMap(([, value]) => (value as ContentBundleFile | undefined)?.items ?? []);
 }
 
 let tracksWired = false;

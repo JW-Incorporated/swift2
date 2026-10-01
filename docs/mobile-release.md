@@ -126,6 +126,22 @@ Or Actions → **Mobile release train** → Run workflow. Never run
 cases below; if you must, do both platforms in the same sitting and run the
 parity script before you stop.
 
+## Adding an era/enum/catalogue
+
+Policy: `docs/decisions.md` 2026-10-01. Mobile loads content through
+`apps/mobile/lib/content-bundle.ts`, which drops unknown enum values, skips
+manifest entries it has no schema for, serves last-good on a data error, and
+self-heals via an OTA update (check, fetch, reload, once per launch).
+
+- Installed runtimes that include this change degrade gracefully: a new era or
+  enum value is pruned and a new catalogue is skipped until the app updates.
+- Runtimes older than this change still hard-fail on an unknown value. For
+  them, ship the app/schema change (OTA) first and publish the content only
+  after it has reached production.
+- `packages/experience/src/era-ids-sync.test.ts` enforces `ERAS` ↔
+  `eraIdSchema`: a new era needs both edits.
+- Never remove an enum value that live content still uses.
+
 ## Version numbers
 
 - `apps/mobile/app.json` `version` is the marketing version, shared by both
