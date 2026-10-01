@@ -195,7 +195,7 @@ describe('collectComments (live driver against a synthetic DOM)', () => {
       { key: 'pos:3', position: 3, html: '', reactions: 99, commentCount: 0 },
       { key: 'pos:7', position: 7, html: '', reactions: 1, commentCount: 1 },
     ];
-    const out = await LLFB.collectComments(units, {
+    const { comments: out, coverage } = await LLFB.collectComments(units, {
       topN: 20,
       maxPerPost: 50,
       pacingMs: [2000, 5000],
@@ -226,26 +226,40 @@ describe('collectComments (live driver against a synthetic DOM)', () => {
     ]);
     expect(forbidden).toEqual([]);
     expect(sleeps.filter((ms) => ms === 3500).length).toBeGreaterThanOrEqual(3);
+    // Codex round 2 #6: failures are counted, not swallowed. pos:3 has no comments (not
+    // eligible); pos:2's click throws and pos:7 is not on the page → failed.
+    expect(coverage).toEqual({ eligible: 3, processed: 1, failed: 2, timedOut: 0 });
   });
 
   it('never throws and stops at the time cap', async () => {
     setupFeed();
     let t = 0;
-    const out = await LLFB.collectComments(
-      [{ key: 'pos:1', position: 1, html: '', reactions: 1, commentCount: 2 }],
-      {
-        maxMs: 1000,
-        pacingMs: [2000, 2000],
-        sleep: async (ms: number) => {
-          t += ms;
-        },
-        now: () => t,
+    const units = [
+      { key: 'pos:1', position: 1, html: '', reactions: 1, commentCount: 2 },
+      { key: 'pos:2', position: 2, html: '', reactions: 1, commentCount: 5 },
+    ];
+    const out = await LLFB.collectComments(units, {
+      maxMs: 1000,
+      pacingMs: [2000, 2000],
+      sleep: async (ms: number) => {
+        t += ms;
       },
-    );
-    expect(out).toEqual([]);
-    await expect(LLFB.collectComments(undefined, undefined)).resolves.toEqual([]);
+      now: () => t,
+    });
+    // pos:2 scores first and runs past the 1 s cap mid-post; pos:1 is never attempted.
+    expect(out).toEqual({
+      comments: [],
+      coverage: { eligible: 2, processed: 0, failed: 0, timedOut: 2 },
+    });
+    await expect(LLFB.collectComments(undefined, undefined)).resolves.toEqual({
+      comments: [],
+      coverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
+    });
     await expect(
       LLFB.collectComments([{ key: 'pos:1', commentCount: 1 }], { document: {} }),
-    ).resolves.toEqual([]);
+    ).resolves.toEqual({
+      comments: [],
+      coverage: { eligible: 1, processed: 0, failed: 1, timedOut: 0 },
+    });
   });
 });

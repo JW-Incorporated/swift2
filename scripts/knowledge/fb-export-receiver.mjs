@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { timingSafeEqual } from 'node:crypto';
 import { buildHarvestedHtml } from './fb-export-harvest.mjs';
 import { exportFileName, localDate, recentHarvestUnits, weekOf } from './fb-export-helpers.mjs';
+import { FB_ACTING_PAGE, FB_READ_AS } from './fb-groups-checklist.mjs';
 
 // Local receiver for the FB-export Chrome extension (PLAN.md schema v1). Binds 127.0.0.1 only,
 // every API request needs X-LLFB-Token. Never logs bodies, html or comment text.
@@ -42,6 +43,18 @@ class HttpError extends Error {
 
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+const isCount = (v) => Number.isInteger(v) && v >= 0;
+const COMMENT_COVERAGE_KEYS = ['eligible', 'processed', 'failed', 'timedOut'];
+// Comment collection is "systematically broken" (Codex round 2 #6) when at least this many posts
+// were eligible and not one was processed: the group fails (issue stays open). Anything less is a
+// partial failure: the group is still collected and the counts ride along in the result.
+const COMMENT_SYSTEMATIC_MIN = 3;
+
+function validCommentCoverage(cc) {
+  if (cc == null) return true;
+  if (!isObj(cc) || !COMMENT_COVERAGE_KEYS.every((k) => isCount(cc[k]))) return false;
+  return cc.processed + cc.failed + cc.timedOut <= cc.eligible;
+}
 
 export function validateResult(body) {
   if (!isObj(body) || body.v !== 1) return 'schema version';
@@ -55,7 +68,11 @@ export function validateResult(body) {
       if (u.ownTimestamp != null && typeof u.ownTimestamp !== 'string') return 'unit timestamp';
     }
     if (!isObj(body.coverage)) return 'coverage';
+    const { profileVerified, sanitizeDropped } = body.coverage;
+    if (profileVerified != null && typeof profileVerified !== 'boolean') return 'profileVerified';
+    if (sanitizeDropped != null && !isCount(sanitizeDropped)) return 'sanitizeDropped';
     if (body.comments != null && !Array.isArray(body.comments)) return 'comments';
+    if (!validCommentCoverage(body.commentCoverage)) return 'commentCoverage';
   }
   return null;
 }
@@ -104,6 +121,8 @@ export async function startReceiver({
   stallMs = 300_000,
   host = '127.0.0.1',
   log = (line) => console.log(line),
+  readAs = FB_READ_AS,
+  actingPage = FB_ACTING_PAGE,
 } = {}) {
   if (!token || typeof token !== 'string') throw new Error('token required');
   const clock = () => (typeof now === 'function' ? now() : now);
@@ -154,6 +173,9 @@ export async function startReceiver({
     wallBudgetMs: g.wallBudgetMs ?? DEFAULT_WALL_BUDGET_MS,
     maxScrolls: 250,
     comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
+    // For the extension's positive profile check (harvest-core profileCheck).
+    readAs,
+    actingPage: { ...actingPage },
   });
 
   async function toResult(body, group) {
@@ -179,6 +201,14 @@ export async function startReceiver({
         break;
     }
     const cov = body.coverage;
+    const commentCoverage = body.commentCoverage ?? null;
+    if (
+      commentCoverage &&
+      commentCoverage.eligible >= COMMENT_SYSTEMATIC_MIN &&
+      commentCoverage.processed === 0
+    ) {
+      return { slug, status: 'failed', reason: 'comments-collection-failed', commentCoverage };
+    }
     const at = clock();
     const units = body.units;
     const recent = recentHarvestUnits(units, at);
@@ -191,6 +221,10 @@ export async function startReceiver({
       coverageAgeMs: isNum(cov.coverageAgeMs) ? cov.coverageAgeMs : null,
       partial: Boolean(cov.partial),
       collectedAt: body.collectedAt ?? at.toISOString(),
+      // null = the extension did not say (older build): unknown, never "verified".
+      profileVerified: typeof cov.profileVerified === 'boolean' ? cov.profileVerified : null,
+      sanitizeDropped: isCount(cov.sanitizeDropped) ? cov.sanitizeDropped : 0,
+      commentCoverage,
     };
     if (units.length === 0 || recent.length === 0) {
       return { slug, status: 'no-recent-posts', ...base };
@@ -270,9 +304,15 @@ export async function startReceiver({
       if (STOP_STATUSES.has(body.status)) stopped = true;
       const counts =
         result.status === 'collected'
-          ? ` harvested=${result.harvestedCount} recent=${result.recentCount} slots=${result.slotCount}`
+          ? ` harvested=${result.harvestedCount} recent=${result.recentCount} slots=${result.slotCount}` +
+            ` profile=${result.profileVerified === true ? 'verified' : 'unverified'}` +
+            ` sanitize-dropped=${result.sanitizeDropped}`
           : '';
-      log(`fb-receiver ${group.slug}: ${result.status}${counts}${commentLine}`);
+      const cc = result.commentCoverage;
+      const ccLine = cc
+        ? ` comment-eligible=${cc.eligible} processed=${cc.processed} failed=${cc.failed} timed-out=${cc.timedOut}`
+        : '';
+      log(`fb-receiver ${group.slug}: ${result.status}${counts}${ccLine}${commentLine}`);
       return send(200, { ok: true });
     }
     if (req.method === 'POST' && url.pathname === '/finished') {

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { startReceiver } from './fb-export-receiver.mjs';
@@ -86,9 +86,15 @@ const collected = (slug: string, units = [unit(1, 'Synthetic album discussion al
     ageRuleMet: true,
     scrolls: 5,
     wallMs: 1000,
+    profileVerified: true,
+    sanitizeDropped: 0,
   },
   collectedAt: NOW.toISOString(),
 });
+const withCommentCoverage = (
+  body: ReturnType<typeof collected>,
+  commentCoverage: Record<string, number> | null,
+) => ({ ...body, commentCoverage });
 
 describe('fb export receiver', () => {
   it('binds 127.0.0.1, returns a url with the token in the hash, serves /start without a token and without embedding it', async () => {
@@ -124,6 +130,8 @@ describe('fb export receiver', () => {
       wallBudgetMs: 20 * 60_000,
       maxScrolls: 250,
       comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
+      readAs: 'personal',
+      actingPage: { name: 'Long Live' },
     });
     expect(
       await (
@@ -159,6 +167,9 @@ describe('fb export receiver', () => {
       coverageAgeMs: 8 * 86_400_000,
       partial: false,
       collectedAt: NOW.toISOString(),
+      profileVerified: true,
+      sanitizeDropped: 0,
+      commentCoverage: null,
     });
     expect(await readFile(results[0].filePath, 'utf8')).toContain('data-posinset="1"');
     for (let i = 0; i < 2; i += 1) {
@@ -278,6 +289,89 @@ describe('fb export receiver', () => {
       reason: 'comments-store-failed',
     });
     expect(await (await call(r, 'GET', '/next')).json()).toMatchObject({ slug: 'group-b' });
+  });
+
+  // Codex round 2 #6: comment collection outcomes are no longer silent.
+  it('fails the group when ≥ 3 comment posts were eligible and none was processed', async () => {
+    const { r, storeComments, outputDir, log } = await setup();
+    await call(r, 'GET', '/next');
+    const body = withCommentCoverage(collected('group-a'), {
+      eligible: 3,
+      processed: 0,
+      failed: 2,
+      timedOut: 1,
+    });
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0]).toEqual({
+      slug: 'group-a',
+      status: 'failed',
+      reason: 'comments-collection-failed',
+      commentCoverage: { eligible: 3, processed: 0, failed: 2, timedOut: 1 },
+    });
+    expect(storeComments).not.toHaveBeenCalled();
+    expect(await readdir(outputDir)).toEqual([]);
+    // Not a run-stopping status: the next group is still handed out.
+    expect(await (await call(r, 'GET', '/next')).json()).toMatchObject({ slug: 'group-b' });
+    expect(log.mock.calls.map((c) => c[0]).join('\n')).toContain(
+      'group-a: failed comment-eligible=3 processed=0 failed=2 timed-out=1',
+    );
+  });
+
+  it('keeps a group with partial comment failures collected and carries the counts', async () => {
+    const { r, log } = await setup();
+    await call(r, 'GET', '/next');
+    const cc = { eligible: 5, processed: 3, failed: 1, timedOut: 1 };
+    const body = withCommentCoverage(collected('group-a'), cc);
+    body.coverage = { ...body.coverage, profileVerified: false, sanitizeDropped: 2 };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({
+      slug: 'group-a',
+      status: 'collected',
+      commentCoverage: cc,
+      profileVerified: false,
+      sanitizeDropped: 2,
+    });
+    const logged = log.mock.calls.map((c) => c[0]).join('\n');
+    expect(logged).toContain('comment-eligible=5 processed=3 failed=1 timed-out=1');
+    expect(logged).toContain('profile=unverified sanitize-dropped=2');
+  });
+
+  it('two eligible posts with none processed is not systematic: still collected', async () => {
+    const { r } = await setup();
+    await call(r, 'GET', '/next');
+    const cc = { eligible: 2, processed: 0, failed: 2, timedOut: 0 };
+    expect(
+      (await call(r, 'POST', '/result', withCommentCoverage(collected('group-a'), cc))).status,
+    ).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ status: 'collected', commentCoverage: cc });
+  });
+
+  it('validates commentCoverage, profileVerified and sanitizeDropped', async () => {
+    const { r } = await setup();
+    await call(r, 'GET', '/next');
+    const base = collected('group-a');
+    for (const bad of [
+      withCommentCoverage(base, { eligible: 3, processed: 0, failed: 0 }),
+      withCommentCoverage(base, { eligible: -1, processed: 0, failed: 0, timedOut: 0 }),
+      withCommentCoverage(base, { eligible: 1, processed: 1.5, failed: 0, timedOut: 0 }),
+      { ...base, commentCoverage: 'x' },
+      { ...base, coverage: { ...base.coverage, profileVerified: 'yes' } },
+      { ...base, coverage: { ...base.coverage, sanitizeDropped: -1 } },
+    ])
+      expect((await call(r, 'POST', '/result', bad)).status, JSON.stringify(bad)).toBe(400);
+    expect((await call(r, 'POST', '/result', withCommentCoverage(base, null))).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ profileVerified: true, commentCoverage: null });
+  });
+
+  it('records a missing profileVerified as null (unknown), never as verified', async () => {
+    const { r } = await setup();
+    await call(r, 'GET', '/next');
+    const body = collected('group-a');
+    const coverage: Record<string, unknown> = { ...body.coverage };
+    delete coverage.profileVerified;
+    delete coverage.sanitizeDropped;
+    expect((await call(r, 'POST', '/result', { ...body, coverage })).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ profileVerified: null, sanitizeDropped: 0 });
   });
 
   it('close() is idempotent', async () => {

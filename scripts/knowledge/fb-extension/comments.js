@@ -444,14 +444,26 @@
 
   // units: merged harvest units; opts: {topN, maxPerPost, pacingMs, maxMs}.
   // Test hooks: opts.document, opts.sleep, opts.random, opts.now.
-  // Never throws; returns [{postKey, postUrl, comments}].
+  // Never throws; returns {comments: [{postKey, postUrl, comments}], coverage}. coverage counts the
+  // eligible posts (top-N with commentCount > 0) and how each ended: processed (opened and read,
+  // even if it held no comments), failed (post not found on the page or the driver threw) or
+  // timedOut (the time cap hit during it, or it was never reached). The four always add up:
+  // eligible = processed + failed + timedOut. The receiver fails the group when comments were
+  // systematically broken (Codex round 2 #6: failures used to be swallowed into []).
   async function collectComments(units, options) {
     const results = [];
+    const coverage = { eligible: 0, processed: 0, failed: 0, timedOut: 0 };
+    let unaccounted = 'failed'; // how posts never attempted are counted
     try {
       const opts = { ...DEFAULTS, ...(options || {}) };
       opts.maxPerPost = Math.max(0, Number(opts.maxPerPost) || 0);
+      const selected = selectTopUnits(units, opts.topN);
+      coverage.eligible = selected.length;
       const doc = opts.document || globalThis.document;
-      if (!doc) return results;
+      if (!doc) {
+        coverage.failed = selected.length;
+        return { comments: results, coverage };
+      }
       const now = typeof opts.now === 'function' ? opts.now : () => Date.now();
       const ctx = {
         doc,
@@ -461,19 +473,27 @@
         now,
         deadline: now() + Math.max(0, Number(opts.maxMs) || DEFAULTS.maxMs),
       };
-      for (const unit of selectTopUnits(units, opts.topN)) {
-        if (now() >= ctx.deadline) break;
+      for (const unit of selected) {
+        if (now() >= ctx.deadline) {
+          unaccounted = 'timedOut';
+          break;
+        }
         try {
           const result = await collectForPost(unit, ctx);
+          if (!result) coverage.failed += 1;
+          else if (now() >= ctx.deadline) coverage.timedOut += 1;
+          else coverage.processed += 1;
           if (result && result.comments.length) results.push(result);
         } catch {
-          // per-post failure: skip this post, keep going
+          coverage.failed += 1; // per-post failure: counted, keep going
         }
       }
     } catch {
-      // never throw to the harvester
+      // never throw to the harvester; posts never attempted are counted as failed below
     }
-    return results;
+    const accounted = coverage.processed + coverage.failed + coverage.timedOut;
+    coverage[unaccounted] += Math.max(0, coverage.eligible - accounted);
+    return { comments: results, coverage };
   }
 
   Object.assign(LLFB, {

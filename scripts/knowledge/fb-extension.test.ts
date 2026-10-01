@@ -145,11 +145,12 @@ describe('harvest-core pure ports match the originals', () => {
       expect(plain(core.stopDecision(input))).toEqual(helpers.stopDecision(input));
   });
 
-  it('classifyPage agrees', () => {
+  // Deliberate divergence (Codex round 2 #3): the extension no longer reads challenge words from
+  // page text — see "classifyPage: challenge only from the URL or dedicated challenge UI".
+  it('classifyPage agrees on URL, join, password and unavailable inputs', () => {
     const cases = [
       { url: 'https://www.facebook.com/checkpoint/123' },
-      { text: 'Enter the two-factor code' },
-      { text: 'Please complete the security check' },
+      { url: 'https://www.facebook.com/two_step_verification/two_factor/' },
       { text: 'This content isn’t available right now' },
       { hasJoinGroup: true },
       { hasPassword: true },
@@ -291,8 +292,9 @@ describe('extension-only rules', () => {
     expect(core.detectWrongProfile({ cookie: 'c_user=1; i_user=42', readAs: 'personal' })).toBe(
       true,
     );
-    expect(core.detectWrongProfile({ cookie: 'c_user=1' })).toBe(false);
-    expect(core.detectWrongProfile({ cookie: 'i_user=42', readAs: 'page' })).toBeNull();
+    // A missing i_user cookie proves nothing (it may be HttpOnly): unverified, never "personal".
+    expect(core.detectWrongProfile({ cookie: 'c_user=1' })).toBeNull();
+    expect(core.detectWrongProfile({ cookie: 'i_user=42', readAs: 'page' })).toBe(false);
   });
 
   it('tickDecision: stunted after 20 scrolls with ≤ 3 slots, feed-end suppressed before', () => {
@@ -598,6 +600,195 @@ describe('comment subtrees never leave the page', () => {
     expect(units[0]).toMatchObject({ ownTimestamp: '3 h', reactions: 14, commentCount: 2 });
     // The live page itself is untouched (the clone is what gets serialized).
     expect(dom.window.document.body.innerHTML).toContain('SYNTHETIC-COMMENT-TEXT');
+  });
+
+  // Codex round 2 #1: a comment rendered as plain divs (no nested role=article, no "Comment by"
+  // label) after the post's action toolbar must still never reach the uploaded html.
+  const toolbarPost = (labels: string[], tail: string) =>
+    `<!doctype html><html><body><div role="feed"><div aria-posinset="1"><div role="article">
+    <a aria-label="Fan Poster" href="/u/1">Fan Poster</a>
+    <a href="https://www.facebook.com/groups/1/posts/556/"><span>3 h</span></a>
+    <div data-ad-preview="message">Synthetic post body about the surprise songs</div>
+    <div><span>All reactions:5</span><span>4 comments</span></div>
+    <div class="bar">${labels
+      .map((l) => `<div><div role="button" aria-label="${l}"><span>${l}</span></div></div>`)
+      .join('')}</div>
+    ${tail}
+  </div></div></div></body></html>`;
+  const plainComment =
+    '<div><div><a href="/u/9">Synthetic Plain Commenter</a>' +
+    '<div dir="auto">SYNTHETIC-PLAIN-COMMENT gamma</div>' +
+    '<div><div role="button">Like</div><div role="button">Reply</div></div></div></div>';
+
+  async function sanitizedRun(html: string) {
+    const dom = new JSDOM(html);
+    const core = loadCore();
+    const snapshot = core.captureVisibleUnits(dom.window.document, dom.window);
+    const merged = core.mergeHarvest(core.emptyHarvest(), snapshot);
+    return plain(
+      core.buildCoverage({
+        harvest: merged,
+        now: NOW,
+        stopReason: 'feed-end',
+        ageRuleMet: true,
+        scrolls: 1,
+        wallMs: 1,
+      }),
+    );
+  }
+
+  for (const [name, labels] of [
+    ['English labels', ['Like', 'Comment', 'Share']],
+    ['structure only (non-English labels)', ['Gefällt mir', 'Kommentieren', 'Teilen']],
+  ] as const)
+    it(`cuts everything after the action toolbar: ${name}`, async () => {
+      const { buildHarvestedHtml } = await import('./fb-export-harvest.mjs');
+      const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
+      const { units, coverage } = await sanitizedRun(toolbarPost([...labels], plainComment));
+      expect(units).toHaveLength(1);
+      const html = buildHarvestedHtml('Synthetic group', units);
+      expect(html).not.toContain('SYNTHETIC-PLAIN-COMMENT');
+      expect(html).not.toContain('Synthetic Plain Commenter');
+      expect(html).toContain('Synthetic post body about the surprise songs');
+      expect(html).toContain('4 comments');
+      expect(coverage.sanitizeDropped).toBe(0);
+      const parsed = buildIngestResult(html, {
+        groupSlug: 'synthetic-group',
+        groupName: 'Synthetic group',
+        exportedAt: NOW,
+      });
+      expect(parsed.fanSignal.volume).toBe(1);
+    });
+
+  it('fails closed: residual comment links or Comment/Reply labels drop the unit html', async () => {
+    const core = loadCore();
+    const residues = [
+      // no toolbar at all, comment permalink in a plain div
+      '<div><a href="/groups/1/posts/556/?comment_id=901">x</a><div>SYNTHETIC-RESIDUE</div></div>',
+      '<div><a href="/groups/1/posts/556/?reply_comment_id=902">x</a></div>',
+      '<div aria-label="Comment from a synthetic fan"><div>SYNTHETIC-RESIDUE</div></div>',
+      '<div aria-label="Reply from a synthetic fan"><div>SYNTHETIC-RESIDUE</div></div>',
+    ];
+    for (const residue of residues) {
+      const html =
+        '<!doctype html><html><body><div role="feed"><div aria-posinset="1"><div role="article">' +
+        '<a aria-label="Fan Poster" href="/u/1">Fan Poster</a>' +
+        '<a href="https://www.facebook.com/groups/1/posts/556/"><span>3 h</span></a>' +
+        `<div data-ad-preview="message">Synthetic body</div>${residue}</div></div></div></body></html>`;
+      const dom = new JSDOM(html);
+      const unitEl = dom.window.document.querySelector('[aria-posinset]');
+      expect(core.sanitizeUnitElement(unitEl), residue).toBeNull();
+      const { units, coverage } = await sanitizedRun(html);
+      expect(units, residue).toHaveLength(0);
+      expect(coverage).toMatchObject({ recentCount: 1, sanitizeDropped: 1 });
+    }
+  });
+});
+
+describe('classifyPage: challenge only from the URL or dedicated challenge UI', () => {
+  const core = loadCore();
+  const feedPage = (postText: string, extra = '') =>
+    new JSDOM(
+      `<body>${extra}<div role="feed"><div aria-posinset="1"><div role="article">` +
+        `<a aria-label="Fan">Fan</a><p>${postText}</p></div></div></div></body>`,
+    ).window.document;
+  const groupUrl = 'https://www.facebook.com/groups/1?sorting_setting=CHRONOLOGICAL';
+
+  it('a rendered feed is ready whatever its post text says (Codex round 2 #3)', () => {
+    for (const text of [
+      'I got a captcha and a 2FA prompt while buying tickets',
+      'Two-factor auth and a security check, required to confirm my email',
+      'Shared post: This content isn’t available right now',
+    ])
+      expect(core.inspectPage(feedPage(text), groupUrl), text).toBe('ready');
+  });
+
+  it('still stops on challenge URLs, challenge UI, login and join-group', () => {
+    expect(core.inspectPage(feedPage('x'), 'https://www.facebook.com/checkpoint/1')).toBe(
+      'checkpoint',
+    );
+    expect(
+      core.inspectPage(feedPage('x'), 'https://www.facebook.com/two_step_verification/x'),
+    ).toBe('checkpoint');
+    expect(core.inspectPage(feedPage('x'), 'https://www.facebook.com/login/?next=g')).toBe('login');
+    const bare = (body: string) => new JSDOM(`<body>${body}</body>`).window.document;
+    expect(
+      core.inspectPage(bare('<iframe src="https://www.fbsbx.com/captcha/x"></iframe>'), groupUrl),
+    ).toBe('captcha');
+    expect(
+      core.inspectPage(
+        bare('<form action="/checkpoint/?next"><input name="approvals_code"></form>'),
+        groupUrl,
+      ),
+    ).toBe('checkpoint');
+    expect(core.inspectPage(bare('<input type="password" name="pass">'), groupUrl)).toBe('login');
+    expect(core.inspectPage(bare('<p>This content isn’t available</p>'), groupUrl)).toBe(
+      'unavailable',
+    );
+    // No feed + challenge words in plain text only → not a challenge (no URL, no challenge UI).
+    expect(core.inspectPage(bare('<p>Enter the 2FA code from captcha</p>'), groupUrl)).toBe(
+      'ready',
+    );
+    expect(core.inspectPage(feedPage('x', '<div role="button">Join group</div>'), groupUrl)).toBe(
+      'not-member',
+    );
+  });
+});
+
+describe('profile verification is positive, absence is unverified', () => {
+  const core = loadCore();
+  const banner = (inner: string) =>
+    new JSDOM(`<body><div role="banner">${inner}</div><div role="feed"></div></body>`).window
+      .document;
+  const actingPage = { name: 'Synthetic Page', id: '4242' };
+
+  it('personal actor in the top bar → ok; Page actor or readable i_user → wrong-profile', () => {
+    const personal = banner(
+      '<div role="button" aria-label="Your profile"><svg aria-label="Synthetic Person" role="img"></svg></div>',
+    );
+    const asPage = banner(
+      '<div role="button" aria-label="Your profile"><svg aria-label="Synthetic Page" role="img"></svg></div>',
+    );
+    const asPageById = banner(
+      '<a aria-label="Your profile" href="/profile.php?id=4242"><span>p</span></a>',
+    );
+    const check = (doc: Any, cookie = '', readAs = 'personal') =>
+      plain(core.profileCheck({ doc, cookie, readAs, actingPage }));
+    expect(check(personal)).toEqual({ status: 'ok', profileVerified: true });
+    expect(check(asPage)).toEqual({ status: 'wrong-profile', profileVerified: false });
+    expect(check(asPageById)).toEqual({ status: 'wrong-profile', profileVerified: false });
+    expect(check(personal, 'i_user=4242')).toEqual({
+      status: 'wrong-profile',
+      profileVerified: false,
+    });
+    expect(check(asPage, '', 'page')).toEqual({ status: 'ok', profileVerified: true });
+    expect(check(personal, '', 'page')).toEqual({
+      status: 'wrong-profile',
+      profileVerified: false,
+    });
+  });
+
+  it('no actor signal → unverified (keep going, coverage.profileVerified false)', () => {
+    const none = new JSDOM('<body><div role="feed"></div></body>').window.document;
+    expect(plain(core.profileCheck({ doc: none, cookie: 'c_user=1', actingPage }))).toEqual({
+      status: 'unverified',
+      profileVerified: false,
+    });
+    expect(core.detectWrongProfile({ doc: none, cookie: 'c_user=1', actingPage })).toBeNull();
+    const cov = (extra: Any) =>
+      plain(
+        core.buildCoverage({
+          harvest: core.emptyHarvest(),
+          now: NOW,
+          stopReason: 'feed-end',
+          ageRuleMet: true,
+          scrolls: 0,
+          wallMs: 0,
+          ...extra,
+        }),
+      ).coverage;
+    expect(cov({}).profileVerified).toBe(false);
+    expect(cov({ profileVerified: true }).profileVerified).toBe(true);
   });
 });
 

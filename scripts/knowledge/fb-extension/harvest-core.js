@@ -163,14 +163,28 @@
     return { stop: false, reason: null, ageRuleMet: false };
   }
 
-  function classifyPage({ url = '', text = '', hasPassword = false, hasJoinGroup = false }) {
-    const haystack = `${url}\n${text}`;
-    if (/checkpoint|two[._ -]?step|two[._ -]?factor|2fa|approvals_code/i.test(haystack))
+  // Extension rule (Codex round 2 #3 — deliberately diverges from the CDP original, which scanned
+  // all page text): checkpoint/captcha/login come ONLY from the URL or from dedicated challenge UI
+  // (`challenge`, found by inspectPage), never from text, because members' posts can say "2FA" or
+  // "captcha". A page with a rendered group feed (`hasFeed`) is ready whatever its post text says;
+  // the "isn't available" text is only read when there is no feed (shared posts in a feed say it).
+  function classifyPage({
+    url = '',
+    text = '',
+    hasPassword = false,
+    hasJoinGroup = false,
+    hasFeed = false,
+    challenge = null,
+  }) {
+    if (/\/checkpoint(?:[/?#]|$)|two_step_verification|two[._-]?factor|approvals_code/i.test(url))
       return 'checkpoint';
-    if (/captcha|security check|required to confirm/i.test(haystack)) return 'captcha';
-    if (/this content isn['’]t available/i.test(haystack)) return 'unavailable';
+    if (/captcha/i.test(url)) return 'captcha';
+    if (/facebook\.com\/login(?:[/.?#]|$)/i.test(url)) return 'login';
+    if (challenge === 'captcha' || challenge === 'checkpoint') return challenge;
     if (hasJoinGroup) return 'not-member';
-    if (hasPassword || /facebook\.com\/login/i.test(url)) return 'login';
+    if (hasPassword) return 'login';
+    if (hasFeed) return 'ready';
+    if (/this content isn['’]t available/i.test(text)) return 'unavailable';
     return 'ready';
   }
 
@@ -213,13 +227,15 @@
       const candidate = {
         key,
         position,
-        html: neutralizeArticleRoles(capture.html),
+        // null = sanitizeUnitElement dropped it (comment residue); a clean capture always wins.
+        html: typeof capture.html === 'string' ? neutralizeArticleRoles(capture.html) : null,
         ownTimestamp,
         ignoreForAge: previous?.ignoreForAge || capture.ignoreForAge || false,
         reactions,
         commentCount,
       };
-      if (!previous || candidate.html.length > previous.html.length) units.set(key, candidate);
+      if (!previous || (candidate.html?.length ?? -1) > (previous.html?.length ?? -1))
+        units.set(key, candidate);
       else
         units.set(key, {
           ...previous,
@@ -340,11 +356,92 @@
   const COMPOSER_SELECTOR =
     'form, [contenteditable="true"], [role="textbox"], textarea, input[type="text"], [role="combobox"]';
 
+  //
+  // Codex round 2 #1: that label pass alone is a denylist (fail-open). So, in order:
+  //  1. STRUCTURAL CUT — find the post's action toolbar and remove it and everything after it
+  //     within the unit (comments render below the toolbar). See findActionToolbar.
+  //  2. The nested-article / label / composer removal below, as a second pass.
+  //  3. FAIL-CLOSED residual check — if the clone still holds a comment permalink
+  //     (comment_id= / reply_comment_id=) or any aria-label starting "Comment"/"Reply", return
+  //     null: the unit's html is dropped (never uploaded) and buildCoverage counts it in
+  //     coverage.sanitizeDropped.
+  const CONTROL_SELECTOR = 'button, [role="button"]';
+  const TOOLBAR_LIKE = /^(?:like|react)$/i;
+  const TOOLBAR_COMMENT = /^(?:comment|leave a comment|write a comment)$/i;
+  const TOOLBAR_MAX_TEXT = 120;
+  const RESIDUAL_LINK = 'a[href*="comment_id="]'; // also matches reply_comment_id=
+  const RESIDUAL_LABEL = /^(?:comment|reply)/i;
+
+  const squash = (value) =>
+    String(value ?? '')
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  const controlName = (el) => squash(el.getAttribute('aria-label') || el.textContent);
+
+  // DOM GUESS, two detectors, earliest in document order wins:
+  //  - structural (language-neutral): an element owned by the post (not inside a nested
+  //    role=article) with 3–6 element children where EVERY child is or holds a button /
+  //    role=button and carries ≤ 40 chars of text — the Like / Comment / Share (/ Send) row.
+  //  - labelled (English): the nearest ancestor of the first own "Like" control that also holds
+  //    an own "Comment" control.
+  // Either candidate must carry ≤ 120 chars of text so a match can never swallow the post body.
+  function findActionToolbar(clone, primary) {
+    const own = (el) => !primary || el.closest('[role="article"]') === primary;
+    const small = (el) => squash(el.textContent).length <= TOOLBAR_MAX_TEXT;
+    const holdsControl = (el) => el.matches(CONTROL_SELECTOR) || el.querySelector(CONTROL_SELECTOR);
+    const candidates = [];
+
+    const structural = [...clone.querySelectorAll('*')].find((el) => {
+      if (!own(el) || el === primary) return false;
+      const children = [...el.children];
+      return (
+        children.length >= 3 &&
+        children.length <= 6 &&
+        small(el) &&
+        children.every((child) => holdsControl(child) && squash(child.textContent).length <= 40)
+      );
+    });
+    if (structural) candidates.push(structural);
+
+    const controls = [...clone.querySelectorAll(CONTROL_SELECTOR)].filter(own);
+    const like = controls.find((el) => TOOLBAR_LIKE.test(controlName(el)));
+    if (like) {
+      for (let node = like.parentElement; node && node !== clone; node = node.parentElement) {
+        if (node === primary || !small(node)) break;
+        if (controls.some((el) => node.contains(el) && TOOLBAR_COMMENT.test(controlName(el)))) {
+          candidates.push(node);
+          break;
+        }
+      }
+    }
+    if (!candidates.length) return null;
+    return candidates.reduce((first, next) =>
+      first.compareDocumentPosition(next) & DOCUMENT_POSITION_FOLLOWING ? first : next,
+    );
+  }
+
+  // Remove `node` and every following sibling of it and of each ancestor up to `container`.
+  function cutFrom(node, container) {
+    for (let current = node; current && current !== container; current = current.parentNode)
+      while (current.nextSibling) current.nextSibling.remove();
+    node.remove();
+  }
+
+  function hasCommentResidue(clone) {
+    if (clone.querySelector(RESIDUAL_LINK)) return true;
+    return [clone, ...clone.querySelectorAll('[aria-label]')].some((el) =>
+      RESIDUAL_LABEL.test((el.getAttribute('aria-label') || '').trim()),
+    );
+  }
+
   function sanitizeUnitElement(unit) {
     const clone = unit.cloneNode(true);
     const primary = clone.matches?.('[role="article"]')
       ? clone
       : clone.querySelector('[role="article"]');
+    const toolbar = findActionToolbar(clone, primary);
+    if (toolbar) cutFrom(toolbar, clone);
     const doomed = new Set();
     // Every role=article other than the post's own (the first, outermost one) is a comment/reply.
     for (const article of clone.querySelectorAll('[role="article"]'))
@@ -367,7 +464,7 @@
     // Comment lists wrap each comment in <ul><li>; drop the now-empty scaffolding too.
     for (const list of clone.querySelectorAll('ul, ol'))
       if (!(list.textContent ?? '').trim()) list.remove();
-    return clone.outerHTML;
+    return hasCommentResidue(clone) ? null : clone.outerHTML;
   }
 
   // Port of captureVisibleUnits: the page.evaluate body plus the ownTimestamp post-processing.
@@ -440,7 +537,22 @@
 
   // ---- extension-only helpers -----------------------------------------------------------------
 
-  // Same inputs the CDP collector's inspectPage() gathered.
+  // Dedicated challenge UI only (DOM GUESS, structural — no page text): a captcha iframe/widget or
+  // a checkpoint / two-factor form. Returns 'captcha' | 'checkpoint' | null.
+  const CAPTCHA_UI =
+    'iframe[src*="captcha" i], iframe[title*="captcha" i], [id*="captcha" i], ' +
+    '[name*="captcha" i], .g-recaptcha, [data-sitekey]';
+  const CHECKPOINT_UI =
+    'form[action*="checkpoint"], form[action*="two_step_verification"], ' +
+    'input[name="approvals_code"], [autocomplete="one-time-code"]';
+  function challengeUi(doc) {
+    if (doc.querySelector(CAPTCHA_UI)) return 'captcha';
+    if (doc.querySelector(CHECKPOINT_UI)) return 'checkpoint';
+    return null;
+  }
+
+  // Same inputs the CDP collector's inspectPage() gathered, plus the structural signals classifyPage
+  // now relies on (rendered feed, challenge UI). Page text is only used for "isn't available".
   function inspectPage(doc, url) {
     const elements = [...doc.querySelectorAll('button, [role="button"], input')];
     const name = (el) =>
@@ -450,6 +562,8 @@
       text: (doc.body?.innerText ?? doc.body?.textContent ?? '').slice(0, 50_000),
       hasPassword: Boolean(doc.querySelector('input[type="password"], input[name="pass"]')),
       hasJoinGroup: elements.some((el) => /^Join group$/i.test(name(el).trim())),
+      hasFeed: Boolean(doc.querySelector('[role="feed"], [aria-posinset]')),
+      challenge: challengeUi(doc),
     });
   }
 
@@ -463,14 +577,56 @@
     );
   }
 
-  // DOM GUESS: Facebook keeps the acting Page id in the i_user cookie (fb-export-profile.mjs reads
-  // it over CDP). If that cookie is readable from the page and we are meant to read as the personal
-  // profile, we are acting as a Page → wrong-profile. A missing cookie proves nothing (it may be
-  // HttpOnly), so readAs 'page' cannot be verified here and is reported as not detected (null).
-  function detectWrongProfile({ cookie = '', readAs = 'personal' } = {}) {
-    const actingAsPage = /(?:^|;\s*)i_user=\d+/.test(String(cookie));
-    if (readAs === 'page') return null;
-    return actingAsPage;
+  // Who is the page acting as? (Codex round 2 #3: a missing i_user cookie used to count as
+  // "personal verified".) Positive signals only:
+  //  - Page: the i_user cookie is readable (Facebook sets it while acting as a Page; it may also be
+  //    HttpOnly, so its absence proves nothing), or the top-bar account control
+  //    ([role="banner"] element whose aria-label starts "Your profile" / "Account") names the
+  //    acting Page (actingPage.name, FB_ACTING_PAGE in fb-groups-checklist.mjs) or links to its id.
+  //  - personal: that account control is present and names/links to neither.
+  //  - neither → 'unverified'. CHOICE: unverified does NOT stop the run — the account control is a
+  //    DOM guess, and an unverifiable guess must not block every weekly run; the result carries
+  //    coverage.profileVerified=false and the receiver records it.
+  function actorSignal(doc, actingPage) {
+    const banner = doc?.querySelector?.('[role="banner"]');
+    if (!banner) return null;
+    const control = [...banner.querySelectorAll('[aria-label]')].find((el) =>
+      /^(?:your profile|account)\b/i.test((el.getAttribute('aria-label') || '').trim()),
+    );
+    if (!control) return null;
+    const parts = [control, ...control.querySelectorAll('*')].flatMap((el) => [
+      el.getAttribute('aria-label') || '',
+      el.getAttribute('href') || '',
+      el.getAttribute('xlink:href') || '',
+    ]);
+    parts.push(control.textContent || '');
+    const name = String(actingPage?.name ?? '')
+      .trim()
+      .toLowerCase();
+    const id = String(actingPage?.id ?? '').trim();
+    const namesPage = parts.some(
+      (part) =>
+        (name && part.trim().toLowerCase() === name) ||
+        (id && new RegExp(`[=/]${id.replace(/[^\w.-]/g, '\\$&')}(?:\\D|$)`).test(part)),
+    );
+    return namesPage ? 'page' : 'personal';
+  }
+
+  function profileCheck({ doc, cookie = '', readAs = 'personal', actingPage = null } = {}) {
+    const iUser = /(?:^|;\s*)i_user=\d+/.test(String(cookie));
+    const actor = iUser ? 'page' : actorSignal(doc, actingPage);
+    if (!actor) return { status: 'unverified', profileVerified: false };
+    const wanted = readAs === 'page' ? 'page' : 'personal';
+    return actor === wanted
+      ? { status: 'ok', profileVerified: true }
+      : { status: 'wrong-profile', profileVerified: false };
+  }
+
+  // Kept for content.js: true = wrong profile, false = verified, null = unverified. `doc` defaults
+  // to the content script's own document.
+  function detectWrongProfile({ cookie = '', readAs = 'personal', doc, actingPage = null } = {}) {
+    const { status } = profileCheck({ doc: doc ?? root.document, cookie, readAs, actingPage });
+    return status === 'unverified' ? null : status === 'wrong-profile';
   }
 
   // Stagnation for a human-paced tick. The CDP loop counted a scroll as stagnant when no new
@@ -528,11 +684,22 @@
     return { ...decision, status: decision.stop ? 'collected' : null };
   }
 
-  // Units + coverage block for POST /result (schema v1). Only recent units leave the page.
-  function buildCoverage({ harvest, now, stopReason, ageRuleMet, scrolls, wallMs }) {
+  // Units + coverage block for POST /result (schema v1). Only recent units leave the page, and
+  // only those whose html survived sanitizing; the rest are counted in coverage.sanitizeDropped.
+  // profileVerified is profileCheck's verdict; anything but an explicit true reports false.
+  function buildCoverage({
+    harvest,
+    now,
+    stopReason,
+    ageRuleMet,
+    scrolls,
+    wallMs,
+    profileVerified = false,
+  }) {
     const recent = recentHarvestUnits(harvest.units, now);
+    const clean = recent.filter((unit) => typeof unit.html === 'string');
     return {
-      units: recent.map((unit) => ({
+      units: clean.map((unit) => ({
         key: unit.key,
         position: unit.position,
         html: unit.html,
@@ -550,6 +717,8 @@
         ageRuleMet: Boolean(ageRuleMet),
         scrolls,
         wallMs,
+        sanitizeDropped: recent.length - clean.length,
+        profileVerified: profileVerified === true,
       },
     };
   }
@@ -587,6 +756,9 @@
     inspectPage,
     shellReady,
     detectWrongProfile,
+    profileCheck,
+    challengeUi,
+    findActionToolbar,
     madeProgress,
     tickDecision,
     buildCoverage,
