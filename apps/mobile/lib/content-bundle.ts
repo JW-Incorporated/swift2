@@ -10,7 +10,7 @@ const storage = expoFileSystemStorageAdapter();
 export interface UpdatesLike {
   isEnabled: boolean;
   checkForUpdateAsync(): Promise<{ isAvailable: boolean }>;
-  fetchUpdateAsync(): Promise<unknown>;
+  fetchUpdateAsync(): Promise<{ isNew: boolean }>;
   reloadAsync(): Promise<unknown>;
 }
 
@@ -37,7 +37,10 @@ export async function selfHealOnce(): Promise<void> {
     if (!Updates.isEnabled) return;
     const check = await Updates.checkForUpdateAsync();
     if (!check.isAvailable) return;
-    await Updates.fetchUpdateAsync();
+    // Only a genuinely new update may reload: reloading into the same JS
+    // would degrade again on next launch and loop.
+    const fetched = await Updates.fetchUpdateAsync();
+    if (!fetched.isNew) return;
     await Updates.reloadAsync();
   } catch {
     // Self-heal is best-effort; the app keeps running on what it has.

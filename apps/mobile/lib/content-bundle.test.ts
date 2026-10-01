@@ -38,7 +38,7 @@ function fakeUpdates(overrides: Partial<UpdatesLike> = {}) {
     }),
     fetchUpdateAsync: vi.fn(async () => {
       calls.push('fetch');
-      return {};
+      return { isNew: true };
     }),
     reloadAsync: vi.fn(async () => {
       calls.push('reload');
@@ -136,6 +136,16 @@ describe('selfHealOnce', () => {
     setUpdatesForTests(fake.updates);
     await selfHealOnce();
     expect(fake.updates.fetchUpdateAsync).not.toHaveBeenCalled();
+    expect(fake.updates.reloadAsync).not.toHaveBeenCalled();
+  });
+
+  it('does not reload when the fetched update is not new (no reload loop)', async () => {
+    fake = fakeUpdates({
+      fetchUpdateAsync: vi.fn(async () => ({ isNew: false })),
+    });
+    setUpdatesForTests(fake.updates);
+    await selfHealOnce();
+    expect(fake.updates.fetchUpdateAsync).toHaveBeenCalledTimes(1);
     expect(fake.updates.reloadAsync).not.toHaveBeenCalled();
   });
 

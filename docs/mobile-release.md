@@ -131,7 +131,10 @@ parity script before you stop.
 Policy: `docs/decisions.md` 2026-10-01. Mobile loads content through
 `apps/mobile/lib/content-bundle.ts`, which drops unknown enum values, skips
 manifest entries it has no schema for, serves last-good on a data error, and
-self-heals via an OTA update (check, fetch, reload, once per launch).
+self-heals via an OTA update (check, fetch, reload, once per launch). It
+reloads only when the fetched update is genuinely new, so it can't loop. Cost:
+while the published bundle has something the running JS can't read, each
+launch re-downloads the bundle and does one update check.
 
 - Installed runtimes that include this change degrade gracefully: a new era or
   enum value is pruned and a new catalogue is skipped until the app updates.
