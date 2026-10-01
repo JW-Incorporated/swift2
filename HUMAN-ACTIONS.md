@@ -2,22 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #95 🟢 [UPGRADE] Save the refreshed Instagram token so DMs and FB comments reach Discord (~5 min)
-<!-- ha filed=2026-10-01 -->
-
-**Why:** #92 was closed but IG_ACCESS_TOKEN still dates from 09-30, so the reply notifier logs
-"DMs disabled: missing scope" and FB comments need pages_read_user_content (added to the app 10-01).
-**Steps:**
-1. Open https://developers.facebook.com/tools/explorer/ and pick app `Long Live Poster`.
-2. Keep every current permission; add `instagram_manage_messages` and `pages_read_user_content`.
-3. Generate Access Token, approve the Long Live Page and Instagram account.
-4. ⓘ next to the token → Open in Access Token Tool → Extend Access Token; copy it.
-5. https://github.com/JW-Incorporated/swift2/settings/secrets/actions → IG_ACCESS_TOKEN → ✏️ → paste → Update secret.
-**Worked if:** the next social-reply-notifier run log has no `missing scope` and no `pages_read_user_content` error.
 
 ## #93 🟢 [UPGRADE] Check the app's API address isn't overridden in Expo (~2 min)
 <!-- ha filed=2026-10-01 -->
