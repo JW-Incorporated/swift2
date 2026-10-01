@@ -7,7 +7,7 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "tabs"],
+  "permissions": ["alarms", "storage", "tabs"],
   "host_permissions": ["http://127.0.0.1/*"],
   "content_scripts": [
     {

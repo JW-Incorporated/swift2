@@ -22,6 +22,7 @@
   const COMMENTS_MAX_MS = 15 * 60_000;
   const COMMENTS_RESERVE_MS = 60_000;
   const DEFAULT_WALL_MS = 20 * 60_000; // stopDecision's default wallBudgetMs
+  const RESULT_RETRY_MS = [0, 5_000, 10_000, 20_000, 30_000, 60_000, 60_000, 60_000];
 
   function statusBox(doc) {
     let box = null;
@@ -63,6 +64,7 @@
       stopReason: null,
       units: [],
       comments: [],
+      commentCoverage: null,
       coverage: null,
       ...extra,
     };
@@ -76,14 +78,47 @@
     return Math.max(0, Math.min(COMMENTS_MAX_MS, wallBudgetMs - elapsedMs - COMMENTS_RESERVE_MS));
   }
 
+  // comments.js returns {comments, coverage:{eligible, processed, failed, timedOut}}; an older
+  // copy returns a bare array (no coverage → commentCoverage null).
   async function collectCommentsSafely(units, options) {
-    if (typeof LLFB.collectComments !== 'function') return { comments: [] };
+    if (typeof LLFB.collectComments !== 'function') return { comments: [], commentCoverage: null };
     try {
-      const comments = await LLFB.collectComments(units, options);
-      return { comments: Array.isArray(comments) ? comments : [] };
+      const out = await LLFB.collectComments(units, options);
+      if (Array.isArray(out)) return { comments: out, commentCoverage: null };
+      const coverage = out?.coverage;
+      return {
+        comments: Array.isArray(out?.comments) ? out.comments : [],
+        commentCoverage: coverage && typeof coverage === 'object' ? { ...coverage } : null,
+      };
     } catch (error) {
-      return { comments: [], message: `comments failed: ${String(error?.message ?? error)}` };
+      return {
+        comments: [],
+        commentCoverage: null,
+        message: `comments failed: ${String(error?.message ?? error)}`,
+      };
     }
+  }
+
+  // profileCheck (harvest-core) → {status: 'ok'|'unverified'|'wrong-profile', profileVerified}.
+  // Only 'wrong-profile' stops the group. An older harvest-core without it: the i_user cookie
+  // check, never verified.
+  function checkProfile(job, env) {
+    if (typeof LLFB.profileCheck === 'function') {
+      const verdict = LLFB.profileCheck({
+        doc: env.doc,
+        cookie: env.cookie,
+        readAs: job.readAs,
+        actingPage: job.actingPage,
+      });
+      return {
+        wrongProfile: verdict?.status === 'wrong-profile',
+        profileVerified: verdict?.profileVerified === true,
+      };
+    }
+    return {
+      wrongProfile: LLFB.detectWrongProfile({ cookie: env.cookie, readAs: job.readAs }) === true,
+      profileVerified: false,
+    };
   }
 
   // env: { doc, win, url, cookie, sleep, random, clock, now, render, heartbeat, every }
@@ -101,7 +136,8 @@
       render([`LL export — ${job.label ?? job.slug}`, `STOP: ${classification}`]);
       return baseResult(job, classification, { collectedAt: collectedAt() });
     }
-    if (LLFB.detectWrongProfile({ cookie: env.cookie, readAs: job.readAs }) === true) {
+    const { wrongProfile, profileVerified } = checkProfile(job, env);
+    if (wrongProfile) {
       render([`LL export — ${job.label ?? job.slug}`, 'STOP: wrong-profile']);
       return baseResult(job, 'wrong-profile', { collectedAt: collectedAt() });
     }
@@ -169,13 +205,15 @@
             ageRuleMet: decision.ageRuleMet,
             scrolls: scrollCount,
             wallMs: elapsedMs,
+            profileVerified,
           });
           let comments = [];
+          let commentCoverage = null;
           let message;
           const commentsMaxMs = commentsBudgetMs(job, env.clock() - startedAtMs);
           if (decision.status === 'collected' && units.length && commentsMaxMs > 0) {
             render([`LL export — ${job.label ?? job.slug}`, `comments for ${units.length} posts…`]);
-            ({ comments, message } = await collectCommentsSafely(units, {
+            ({ comments, commentCoverage, message } = await collectCommentsSafely(units, {
               ...job.comments,
               maxMs: commentsMaxMs,
             }));
@@ -189,7 +227,8 @@
             ...(message ? { message } : {}),
             units,
             comments,
-            coverage: { ...coverage, wallMs: env.clock() - startedAtMs },
+            commentCoverage,
+            coverage: { ...coverage, profileVerified, wallMs: env.clock() - startedAtMs },
             collectedAt: collectedAt(),
           });
         }
@@ -270,6 +309,13 @@
       },
     };
     const result = await runJob(job, env);
-    await send({ type: 'llfb-result', result });
+    // This page holds the result until the background acknowledges it ({ok:true}: persisted or
+    // delivered). No answer (the worker was stopped mid-delivery) or {ok:false} → send it again.
+    for (const delayMs of RESULT_RETRY_MS) {
+      if (delayMs) await env.sleep(delayMs);
+      const response = await send({ type: 'llfb-result', result });
+      if (response?.ok === true) return;
+    }
+    env.render([`LL export — ${job.label ?? job.slug}`, 'could not hand the result back']);
   });
 })(globalThis);
