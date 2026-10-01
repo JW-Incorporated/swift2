@@ -25,7 +25,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -45,6 +45,7 @@ import {
   type ScreenId,
 } from './lib/routes';
 import { loadAppConfig, routeFlagsFrom } from './lib/app-config';
+import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
@@ -67,6 +68,7 @@ import { ClownChatScreen } from './components/ClownChatScreen';
 import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
+import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -224,10 +226,19 @@ export default function App() {
   const [routeFlags, setRouteFlags] = useState<RouteFlags>(DEFAULT_ROUTE_FLAGS);
   const routeFlagsRef = useRef(routeFlags);
   routeFlagsRef.current = routeFlags;
+  const [updateRequired, setUpdateRequired] = useState(false);
   useEffect(() => {
     let cancelled = false;
     loadAppConfig().then((config) => {
-      if (!cancelled) setRouteFlags(routeFlagsFrom(config));
+      if (cancelled) return;
+      setRouteFlags(routeFlagsFrom(config));
+      setUpdateRequired(
+        isUpdateRequired({
+          platform: Platform.OS,
+          nativeBuild: currentNativeBuild(),
+          minNativeBuild: config.minNativeBuild,
+        }),
+      );
     });
     return () => {
       cancelled = true;
@@ -346,7 +357,9 @@ export default function App() {
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <SafeAreaView style={styles.fill}>
           <StatusBar style="light" />
-          {screen === 'inbox' ? (
+          {updateRequired ? (
+            <UpdateRequiredScreen />
+          ) : screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
               onOpenItem={(event) => navigate(event.deepLink)}
