@@ -9,7 +9,7 @@
 // is exactly the "re-used picture" the owner rejected). The model could only
 // find the truth by diffing every open PR, a turn-burning loop. Here the
 // ledger is posted + queued + open-PR drafts, and the pick is handed over.
-import { validatePhotoEntry } from './photo-library.mjs';
+import { canonicalPhotoId, validatePhotoEntry } from './photo-library.mjs';
 
 /** Tags that describe a venue/format/year rather than an era. */
 const NON_ERA_TAGS = new Set(['eras-tour', 'fan-photo', 'concert', 'inglewood', 'minneapolis', 'arlington', 'acoustic', '2007', '2009']);
@@ -21,11 +21,19 @@ export function eraTagsOf(entry) {
   return (Array.isArray(entry?.tags) ? entry.tags : []).filter((tag) => !NON_ERA_TAGS.has(tag));
 }
 
-/** The library id a queue/posted item is bound to, by `photoId` or by its media path. */
+/**
+ * The library id a queue/posted item is bound to, by `photoId` or by its media path.
+ * An Instagram-ready variant resolves to its ORIGINAL's id (make-ig-variants.mjs):
+ * the two are one photograph, so using either counts as using both (L001).
+ */
 export function photoIdOf(item, library) {
-  if (typeof item?.photoId === 'string' && item.photoId.trim()) return item.photoId.trim();
+  if (typeof item?.photoId === 'string' && item.photoId.trim()) {
+    const id = item.photoId.trim();
+    return canonicalPhotoId(library.find((entry) => entry.id === id)) ?? id;
+  }
   const media = Array.isArray(item?.media) ? item.media : [];
-  return library.find((entry) => media.includes(entry.mediaPath))?.id ?? null;
+  const entry = library.find((e) => media.includes(e.mediaPath));
+  return entry ? canonicalPhotoId(entry) : null;
 }
 
 /**
@@ -46,12 +54,15 @@ export function buildPhotoLedger(library, { posted = [], queue = [], openDrafts 
     }
   }
   const valid = library.filter((entry) => validatePhotoEntry(entry).length === 0);
-  const unused = valid.filter((entry) => !used.has(entry.id));
+  const unused = valid.filter((entry) => !used.has(canonicalPhotoId(entry)));
   const eligible = igUsable ? unused.filter((entry) => igUsable.has(entry.id)) : unused;
-  return { used, eligible, total: valid.length, igBlockedUnused: unused.length - eligible.length };
+  // An original outside the IG window whose variant is drawable is not blocked — the variant stands in for it.
+  const hasDrawableVariant = (entry) => eligible.some((e) => e.variantOf === entry.id);
+  const igBlockedUnused = unused.filter((entry) => !eligible.includes(entry) && !hasDrawableVariant(entry)).length;
+  return { used, eligible, total: valid.filter((entry) => !entry.variantOf).length, igBlockedUnused, byId: new Map(library.map((entry) => [entry.id, entry])) };
 }
 
-const toPick = (entry) => ({
+const toPick = (entry, byId) => ({
   photoId: entry.id,
   media: [entry.mediaPath],
   mediaCredit: entry.credit,
@@ -59,6 +70,8 @@ const toPick = (entry) => ({
   altText: [entry.alt],
   creditWeak: WEAK_CREDIT_RE.test(entry.credit),
   eraTags: eraTagsOf(entry),
+  // An IG-ready variant: the pair may share it, or the X half may use the original (X has no aspect gate).
+  ...(entry.variantOf ? { variantOf: entry.variantOf, ...(byId?.get(entry.variantOf) ? { xOriginal: { photoId: entry.variantOf, media: [byId.get(entry.variantOf).mediaPath] } } : {}) } : {}),
 });
 
 /**
@@ -86,9 +99,11 @@ export function assignBeatPhotos(beats, ledger) {
   const taken = new Set();
   return beats.map((beat) => {
     const pool = ledger.eligible.filter((entry) => !taken.has(entry.id));
-    const [best] = rankForBeat(pool, beat.hintId);
+    // A hint naming an out-of-window original applies to its IG-ready variant (the original is never drawable).
+    const hintId = beat.hintId ? (pool.find((entry) => entry.id === beat.hintId || entry.variantOf === beat.hintId)?.id ?? beat.hintId) : undefined;
+    const [best] = rankForBeat(pool, hintId);
     if (best) taken.add(best.id);
-    return { date: beat.date, photo: best ? toPick(best) : null, ...(beat.hintId && best?.id === beat.hintId ? { fromCalendar: true } : {}) };
+    return { date: beat.date, photo: best ? toPick(best, ledger.byId) : null, ...(hintId && best?.id === hintId ? { fromCalendar: true } : {}) };
   });
 }
 
@@ -103,10 +118,10 @@ export function eraAvailability(library, ledger, assignedIds = []) {
   for (const entry of library) for (const tag of eraTagsOf(entry)) eras.set(tag, true);
   const out = {};
   for (const tag of [...eras.keys()].sort()) {
-    const all = library.filter((entry) => eraTagsOf(entry).includes(tag));
+    const all = library.filter((entry) => !entry.variantOf && eraTagsOf(entry).includes(tag));
     const free = ledger.eligible.filter((entry) => eraTagsOf(entry).includes(tag) && !assignedIds.includes(entry.id));
     const [next] = rankForBeat(free);
-    out[tag] = { total: all.length, unused: free.length, exhausted: free.length === 0, next: next ? toPick(next) : null };
+    out[tag] = { total: all.length, unused: free.length, exhausted: free.length === 0, next: next ? toPick(next, ledger.byId) : null };
   }
   return out;
 }

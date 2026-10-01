@@ -63,7 +63,9 @@ const history = [...(await readJsonDir(path.join(ROOT, 'social', 'posted'))), ..
 // Every pair needs an Instagram half and Instagram rejects images outside 0.8-1.91 (photo-dimensions.mjs),
 // so a photo outside that window is never offered — 34 of 54 were, on 2026-09-30.
 const { usable } = await igUsablePhotos(inventory.photos, path.join(ROOT, 'apps', 'web', 'public'));
-const selected = selectSocialPhoto(inventory.photos.filter((photo) => usable.has(photo.id)), history, era ? { requiredTags: [era] } : undefined);
+// An original outside the window is represented by its IG-ready variant (make-ig-variants.mjs); the pair is
+// one photo for reuse, so `allPhotos` lets the history of either half count against both.
+const selected = selectSocialPhoto(inventory.photos.filter((photo) => usable.has(photo.id)), history, { allPhotos: inventory.photos, ...(era ? { requiredTags: [era] } : {}) });
 if (!selected) {
   throw new Error(
     era
@@ -84,11 +86,20 @@ if (strict && selected.reused) {
 // altText[0] (docs/social/RULINGS-SOCIAL.md A3/B2) — copy this verbatim into the
 // draft; validatePhotoInventoryBinding requires it to match the library
 // entry's `alt` exactly, so retyping it is how drift happens.
+// A variant (IG-ready padded copy) names its original: the X half may bind to that instead (X has no aspect gate).
+const original = selected.variantOf ? inventory.photos.find((photo) => photo.id === selected.variantOf) : null;
 console.log(
   JSON.stringify(
-    era
-      ? { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, altText: [selected.alt], photoEra: era, reused: selected.reused }
-      : { photoId: selected.id, media: [selected.mediaPath], mediaCredit: selected.credit, mediaSource: selected.source, altText: [selected.alt], reused: selected.reused },
+    {
+      photoId: selected.id,
+      media: [selected.mediaPath],
+      mediaCredit: selected.credit,
+      mediaSource: selected.source,
+      altText: [selected.alt],
+      ...(era ? { photoEra: era } : {}),
+      reused: selected.reused,
+      ...(original ? { variantOf: original.id, xOriginal: { photoId: original.id, media: [original.mediaPath] } } : {}),
+    },
     null,
     2,
   ),

@@ -114,3 +114,36 @@ describe('text-only X is the single-platform case, not a loophole', () => {
     expect(withReason.some((f) => f.includes('require at least one credited image'))).toBe(false);
   });
 });
+
+describe('Instagram-ready variants (Bots v2 W10) pass the real checker', () => {
+  const bind = (id: string) => {
+    const p = library.find((e: { id: string }) => e.id === id);
+    return { media: [p.mediaPath], photoId: p.id, photoEra: 'speak-now', mediaCredit: p.credit, mediaSource: p.source, altText: [p.alt] };
+  };
+  it('an IG half on the padded variant, and an X half on the original, have no hard findings', async () => {
+    const { ig, x, posted } = await pairFromPrecompute();
+    const igItem = { ...ig, ...bind('speaknow-inglewood-2023-2-ig45') };
+    const xItem = { ...x, ...bind('speaknow-inglewood-2023-2') };
+    const allQueue = [{ file: 'a-ig.json', data: igItem }, { file: 'a-x.json', data: xItem }];
+    for (const target of allQueue) {
+      const findings = await checkDraft(target, { allQueue, allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+      expect(hard(findings), target.file).toEqual([]);
+    }
+  });
+  it('the original itself is still refused for Instagram (outside the aspect window)', async () => {
+    const { ig, posted } = await pairFromPrecompute();
+    const target = { file: 'a-ig.json', data: { ...ig, ...bind('speaknow-inglewood-2023-2') } };
+    const findings = await checkDraft(target, { allQueue: [target], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+    expect(findings.join('\n')).toMatch(/outside Instagram's accepted/);
+  });
+  it('path-based warnings treat original and variant as one photo (recent IG history and queue-vs-queue)', async () => {
+    const { ig, posted } = await pairFromPrecompute();
+    const original = bind('speaknow-inglewood-2023-2');
+    const target = { file: 'a-ig.json', data: { ...ig, ...bind('speaknow-inglewood-2023-2-ig45') } };
+    const otherQueued = { file: 'other.json', data: { ...ig, ...original, campaign: 'mood:other' } };
+    const recent = [{ ...ig, ...original, campaign: 'mood:older', platform: 'instagram' }];
+    const findings = (await checkDraft(target, { allQueue: [target, otherQueued], allPosted: posted, openerContext: [], recentIg: recent, activeLessonIds: ['L001'] })).join('\n');
+    expect(findings).toMatch(/used in recent Instagram history/);
+    expect(findings).toMatch(/also scheduled in other\.json/);
+  });
+});
