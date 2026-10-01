@@ -8257,3 +8257,7 @@ checkpoint. **Comments** are collected but private and local (per #4649): stored
 only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 **Trade-off:** the extension must be loaded by hand once (Chrome 137+ ignores
 `--load-extension`) and the profile must stay logged in.
+
+## 2026-10-01 — auto-merge-content disarms only the auto-merge it armed (#4680)
+
+`auto-merge-content.yml` used to run `--disable-auto` on every non-`enabled` verdict, stranding agent PRs that set `gh pr merge --auto` themselves. It now stamps an `automerge:content` label before arming and disarms (and unlabels) only when that label is present; `social-draft` PRs, `social-poster/state-*` branches and the social-draft decline verdict keep the always-disarm behaviour. Tested in `scripts/automerge-own-arm.test.ts`.
