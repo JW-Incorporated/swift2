@@ -240,6 +240,24 @@ directory and never a manifest entry: installed apps hard-fail on unknown
 manifest entries. Unknown keys in it are ignored by older apps, so a newer
 config is safe to publish.
 
+## Forcing an update (dormant)
+
+The app carries an update-required gate that is **inert**: `minNativeBuild` is
+absent from `config/mobile/app-config.json`, so nothing is ever blocked. When
+set, an app whose native build number is below the platform's minimum shows a
+full-screen "please update" message with a store button instead of the app. An
+unknown build number or a missing key never blocks.
+
+**Rule: setting `minNativeBuild` for either platform requires its own
+`docs/decisions.md` entry, and both store builds at or above that number must
+already be live in the App Store and Play Store.** Otherwise users are locked
+out of an app with nothing to update to.
+
+To set it: add `"minNativeBuild": { "ios": <n>, "android": <n> }` to
+`config/mobile/app-config.json` in a PR (either key may be omitted), merge, and
+the web build publishes it like the kill switch above. Apps apply it on the next
+launch. To lift it, remove the key and merge.
+
 ## Things that would silently break the invariant (don't)
 
 - Running `eas build` from a machine with a fingerprint that differs from
