@@ -33,10 +33,15 @@ jobs:
       # happened.
       DIVERGED_TITLE: 'Mobile parity: iOS and Android have diverged'
       UNCHECKED_TITLE: 'Mobile parity: check could not run'
+      # BEHIND = parity holds but production lags main (exit 3, MAIN_AHEAD).
+      BEHIND_TITLE: 'Mobile release: production is behind main'
       REPO: ${{ github.repository }}
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          # MAIN_AHEAD needs real ancestry (git merge-base --is-ancestor).
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -78,8 +83,27 @@ jobs:
           # The check ran, so any earlier "could not run" alert is stale.
           echo "Parity check ran on $(date -u +'%Y-%m-%d %H:%M UTC') (result: diverged — see the \"$DIVERGED_TITLE\" issue)." > /tmp/recovered.md
           scripts/watchdog/upsert-alert.sh close "$UNCHECKED_TITLE" /tmp/recovered.md
+      - name: Raise or refresh the "behind main" alert
+        if: steps.parity.outputs.code == '3'
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+        run: |
+          {
+            echo "@sffan15-sys @wjduvall-cmd — iOS and Android agree with each other, but production is behind main (parity check exit 3)."
+            echo
+            echo '```'
+            cat /tmp/parity.txt
+            echo '```'
+            echo
+            echo "Runbook: docs/mobile-release.md → \"When the parity check fails\"."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$BEHIND_TITLE" /tmp/alert-body.md
+          # The check ran, so any earlier "could not run" alert is stale.
+          echo "Parity check ran on $(date -u +'%Y-%m-%d %H:%M UTC') (result: behind main — see the \"$BEHIND_TITLE\" issue)." > /tmp/recovered.md
+          scripts/watchdog/upsert-alert.sh close "$UNCHECKED_TITLE" /tmp/recovered.md
+          scripts/watchdog/upsert-alert.sh close "$DIVERGED_TITLE" /tmp/recovered.md
       - name: Raise or refresh the "could not run" alert
-        if: steps.parity.outputs.code != '0' && steps.parity.outputs.code != '1'
+        if: steps.parity.outputs.code != '0' && steps.parity.outputs.code != '1' && steps.parity.outputs.code != '3'
         env:
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
         run: |
@@ -93,7 +117,7 @@ jobs:
             echo "Usual cause: \`EXPO_TOKEN\` missing or expired → HUMAN-ACTIONS.md #44. Runbook: docs/mobile-release.md → \"When the parity check fails\"."
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh open "$UNCHECKED_TITLE" /tmp/alert-body.md
-      - name: Close both alerts if recovered
+      - name: Close all alerts if recovered
         if: steps.parity.outputs.code == '0'
         env:
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
@@ -107,6 +131,7 @@ jobs:
           } > /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh close "$DIVERGED_TITLE" /tmp/alert-body.md
           scripts/watchdog/upsert-alert.sh close "$UNCHECKED_TITLE" /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh close "$BEHIND_TITLE" /tmp/alert-body.md
       - name: Fail the run when diverged
         if: steps.parity.outputs.code != '0'
         run: exit 1

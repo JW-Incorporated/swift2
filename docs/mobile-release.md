@@ -155,7 +155,7 @@ launch re-downloads the bundle and does one update check.
 
 ## When the parity check fails
 
-Two alert issues exist, because they mean different things:
+Three alert issues exist, because they mean different things:
 
 - **"Mobile parity: iOS and Android have diverged"** — the check ran and
   found a real difference (exit 1). Engineering fixes it with the table
@@ -163,6 +163,16 @@ Two alert issues exist, because they mean different things:
 - **"Mobile parity: check could not run"** — the check itself failed (exit
   2), so nothing is currently verifying parity. Not evidence of a
   divergence. Usual cause: `EXPO_TOKEN` missing/expired → HUMAN-ACTIONS #44.
+- **"Mobile release: production is behind main"** — iOS and Android agree
+  with each other, but production lags `main` (exit 3, `MAIN_AHEAD`). The
+  check takes the newest `main` commit touching `apps/mobile`, `packages` or
+  `package-lock.json` (markdown excluded) and asks, per platform, whether the
+  latest publish or the latest finished store build contains it (`git
+  merge-base --is-ancestor`). A platform containing it via neither, with the
+  commit older than `--main-ahead-hours` (default 6), raises the alert. Flags:
+  `--main-ahead-hours <n>`, `--main-ref <ref>` (default `origin/main`). The
+  workflow checks out with `fetch-depth: 0` for the ancestry queries. Any
+  other finding wins: exit 1 beats exit 3. Exit 0 closes all three alerts.
 
 Each carries the script output. By code:
 
@@ -172,11 +182,35 @@ Each carries the script output. By code:
 | `SPLIT_UPDATE` | the last update group covers one platform | re-run the train (`eas workflow:run …`) from `main`; it publishes one group to both |
 | `VERSION_SKEW` | store builds disagree on `version` | a build ran outside the train; run the train with `force_store_build=true` |
 | `BUILD_LAG` | one platform's latest build is >48h older and from a different commit | check the train run for a failed build/submit job (`eas workflow:runs`), fix, re-run |
+| `MAIN_AHEAD` (exit 3) | production carries neither a publish nor a store build containing the newest mobile-relevant `main` commit, older than 6h | check the train run for that commit (`eas workflow:runs`); re-run the train from `main` |
 | exit 2 | check could not run | usually `EXPO_TOKEN` missing or expired → HUMAN-ACTIONS #48 |
 
-Rolling back JS on both platforms: `eas update:republish --branch production
---group <previous-group-id>` (one command, both platforms). Rolling back a
-store build is a new build from the reverted commit — through the train.
+Rolling back a store build is a new build from the reverted commit — through
+the train. Rolling back JS: see the next section.
+
+## Rolling back an OTA
+
+**When:** a JS-only (OTA) release broke the app and you want the previous
+JS on users' phones without waiting for a new train. This is the only
+sanctioned rollback path — do not run `eas update:republish` by hand.
+
+1. Actions → **Mobile OTA rollback** → Run workflow with `mode=list`. The log
+   prints recent update groups on the `production` branch. One publish is
+   **two groups** (one iOS, one Android); pick the last good group for each.
+2. Run the workflow again with `mode=republish`, `ios_group` and
+   `android_group` both set (optionally `message`). Roll back **both**
+   platforms or parity breaks; the job warns if only one is given and
+   rejects ids that aren't 36-char UUIDs.
+3. What it does: `eas update:republish` re-points `production` at the older
+   group as a **new** update. Installs pick it up on their next launch (the
+   usual two-launch OTA delay).
+
+The workflow shares the `mobile-release` concurrency group with the train, so
+it queues behind a running release instead of racing it.
+
+**Limit:** a fingerprint (native) change cannot be rolled back by OTA — those
+users are on a new store build with a different `runtimeVersion`. Revert the
+commit and ship a new build through the train.
 
 ## Things that would silently break the invariant (don't)
 

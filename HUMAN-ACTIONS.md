@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #93 🟢 [UPGRADE] Check the app's API address isn't overridden in Expo (~2 min)
+<!-- ha filed=2026-10-01 -->
+
+**Why:** The app now calls https://www.longlivets.com by default. If Expo's production env still sets EXPO_PUBLIC_API_BASE_URL to the old swift2-web-nine.vercel.app address, the next build keeps using the old one.
+**Steps:**
+1. Open https://expo.dev → project Long Live → Environment variables → filter `production`.
+2. Look for `EXPO_PUBLIC_API_BASE_URL`. If absent, you're done.
+3. If present with any value other than `https://www.longlivets.com`, delete it (or set it to `https://www.longlivets.com`).
+**Worked if:** Production lists no `EXPO_PUBLIC_API_BASE_URL`, or it equals `https://www.longlivets.com`.
 
 ## #88 🔴 [BLOCKING] Finish the weekly Facebook export setup (~5 min)
 <!-- ha filed=2026-09-30 -->

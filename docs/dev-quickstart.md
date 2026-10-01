@@ -31,6 +31,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 | `apps/web/.env.local` | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (or `…_PUBLISHABLE_KEY`) | web reader (public RLS read) |
 | `apps/worker/.env` | `SUPABASE_DB_URL` (full Postgres connection string) | `db:migrate` + seeds (`pg` direct, bypasses RLS to write) |
 | `apps/mobile/.env` | `EXPO_PUBLIC_CONTENT_BASE_URL` (optional) | mobile app content bundle override (see `apps/mobile/.env.example`; OS-015 — the app no longer reads Supabase directly) |
+| `apps/mobile/.env` | `EXPO_PUBLIC_API_BASE_URL` (optional) | mobile API host; default `https://www.longlivets.com` (`apps/mobile/lib/api-base.ts`). Set only to point a dev build at `next dev` or a preview; production must leave it unset |
 
 ## Commands (from repo root)
 
@@ -44,6 +45,9 @@ npm run build --workspace @swift2/web
 **CI gates — safe, no prod (these must pass; CI runs them):**
 ```
 npm run validate:content # seed content vs DB constraints (category/month/length/era)
+npm run check:content-bundle # builds the mobile content bundle twice: schema-validates every
+                             # entry and fails on any hash drift. Runs in BOTH CI jobs, so a
+                             # content-only PR can't ship a bundle the installed apps reject.
 npm run check:budget:seed # Tier 0 payload budget from seed files (≤2 MB gz / ≤10 MB parsed)
 npm run check:budget:bundle # apps/web shipped client bundle (.next/static): ≤8 MB. Detection
                              # only, no auto-remediation. Current build is ~4.9 MB (2026-09-04);

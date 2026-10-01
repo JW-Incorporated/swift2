@@ -1,6 +1,7 @@
 // Notifications Phase 3 (NOTIFICATIONS_SPEC.md §8) — mobile client for the
-// global in-app inbox. Same `apiBaseUrl()` fallback pattern prefs-client.ts
-// uses.
+// global in-app inbox. API host comes from `api-base.ts`.
+import { apiBaseUrl } from './api-base';
+
 export interface InboxEvent {
   id: string;
   category: string;
@@ -19,13 +20,6 @@ interface InboxEventApiRow {
   body: string;
   deep_link: string;
   available_at: string;
-}
-
-function apiBaseUrl(): string {
-  return (process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://swift2-web-nine.vercel.app').replace(
-    /\/$/,
-    '',
-  );
 }
 
 /** Fetches the global inbox feed — every notification-worthy event
