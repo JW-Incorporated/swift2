@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -108,17 +108,6 @@ group Joey has not joined may report `not-member`).
 3. Save the updated token as the `GH_DISPATCH_TOKEN` secret value.
 
 **Worked if:** the next hourly Marjorie ops sweep can run `gh workflow run` without a 403 (visible in that run's log).
-
-## #80 🟡 [DECIDE] #4364 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-19 -->
-<!-- marjorie-chase: 96h issue=4364 -->
-
-**Why:** Marjorie dispatched it on 2026-09-15 (Windows full-suite validation fails on checkout line endings and command resolution). Nothing has moved since 2026-09-15. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4364 under stalled.
 
 ## #79 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
 <!-- ha filed=2026-09-18 -->
