@@ -478,6 +478,55 @@ heavy-heartbreak intro.
 
 ---
 
+### 7a. Share cards (W9, Bots v2)
+
+`GET /api/share-card` renders a branded PNG a fan can post: **Format A** a
+moment (`?item=<id or slug>`: date, title, lead sentences of the summary),
+**Format B** "My Eras" (`?eras=<id,id,id>&m=&e=&f=`: top three eras plus
+bucketed moment/egg/saved counts), and an era card (`?era=<id>`, used by the
+era hero's "Share as image"). `size=portrait` is 1080×1350, `size=story`
+1080×1920; unknown sizes fall back to portrait. Palette and heading family
+come from each era's `theme` (`eras.ts`) — `/api/og` and its single hard-coded
+palette are a separate renderer and stay untouched.
+
+Rules that must survive edits:
+
+- **The query only selects, never supplies text.** Era and item ids are
+  allowlist lookups (inherited names like `constructor` resolve to nothing),
+  counts snap down to `COUNT_BUCKETS` (`share-card-params.ts`) so a hostile
+  `?m=` cannot mint cache keys, and anything invalid renders the default
+  brand card with a 200 — never a 500. No LLM, no DB, no network.
+- **Legal:** no Taylor photos, album art, lyrics (`era.lyric` is never drawn),
+  official logos or typography — our own type and era-inspired gradients only.
+- **Honesty:** a sub-confirmed moment is always stamped "Unconfirmed"
+  ("Debunked" for `disproven`), mirroring the feed card.
+- **Watermark** "Fan-made · longlivets.com" sits inside the story safe zone
+  (`STORY_SAFE_Y` = 270px top and bottom; all content shares that inset).
+- **Canonical URLs only:** any query that is not exactly
+  `canonicalShareCardPath` for the card it resolves to (extra keys, slug
+  instead of id, conflicting item+era, invalid ids, unbucketed counts, missing
+  size) gets a 308 to the canonical URL — invalid input to the canonical
+  default card — so the CDN never renders a decorated URL.
+- **Prefetch:** `ShareImageMenu` prefetches both sizes when it opens
+  (`prefetchShareCard`), so the tap calls `navigator.share` with a ready File
+  and no `await` first (iOS Safari drops transient activation otherwise).
+- **Caching:** `Cache-Control: public, max-age=3600, s-maxage=86400,
+  stale-while-revalidate=604800` on every render including the fallback.
+- **Fonts** are vendored in `lib/longlive/share-fonts/` and listed in
+  `next.config.mjs` `outputFileTracingIncludes`; ImageResponse needs raw
+  woff/ttf/otf bytes and a 500 KB bundle ceiling (we ship ~150 KB).
+- **Share UI:** `ShareImageMenu` (Story / Post) fetches the PNG and calls
+  `triggerImageShare`: native `navigator.share({files})` on touch devices
+  that `canShare` files (the link rides in `text`, never `url`, or some
+  targets drop the file), otherwise a download. Desktop always downloads.
+  "Your Long Live" (`YourLongLiveCard`, top of `EraSelector`) appears once
+  `ll-progress-v1` has ≥1 item; only top eras and bucketed counts leave the
+  device, and its share link deep-links to the top era (`?era=`).
+- The era card's fonts: serif/script → Playfair Display, sans → Inter 800,
+  mono → tracked uppercase Inter (the site's script/mono faces are not vendored).
+
+---
+
 ### Casual-language guardrails
 
 Mood's keyword fallback recognizes the issue-named casual register (including
