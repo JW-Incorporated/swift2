@@ -7,7 +7,8 @@
 // Endpoint: GET /{ig-business-account-id}/conversations?platform=instagram
 // with messages{id,from,message,created_time}. Instagram messaging under the
 // Facebook-login flow is normally read with the PAGE access token of the linked
-// Page, so the collector first asks `/{page-id}?fields=access_token` for it and
+// Page, so the collector first asks `/{page-id}?fields=access_token` for it (shared
+// with the FB comments source, one call per run) and
 // tries (page token, user token) x (IG account id, Page id) until one answers.
 // If every attempt fails and any failure was a permission error, the source is
 // disabled for a missing scope; a plain failure is an ordinary source failure.
@@ -24,26 +25,16 @@ export class SourceDisabledError extends Error {
   }
 }
 
-async function pageAccessToken(userGraph, pageId, token) {
-  if (!pageId) return null;
-  try {
-    const res = await userGraph.get(pageId, { fields: 'access_token' });
-    return res?.access_token && res.access_token !== token ? res.access_token : null;
-  } catch (err) {
-    if (err instanceof RateLimitError) throw err;
-    return null;
-  }
-}
-
 export async function collectInstagramDms({
   igUserId,
   pageId,
   token,
   fetchImpl = fetch,
   budget,
+  graph: userGraph = makeGraph({ token, fetchImpl, budget }),
   onWarn = () => {},
 }) {
-  const pageToken = await pageAccessToken(makeGraph({ token, fetchImpl, budget }), pageId, token);
+  const pageToken = await userGraph.pageTokenFor(pageId);
   const tokens = [pageToken, token].filter(Boolean);
   const owners = [igUserId, pageId].filter(Boolean);
   const params = {
@@ -55,7 +46,7 @@ export async function collectInstagramDms({
   let permissionDenied = false;
   let lastError = null;
   for (const useToken of tokens) {
-    const graph = makeGraph({ token: useToken, fetchImpl, budget });
+    const graph = useToken === token ? userGraph : userGraph.withToken(useToken);
     for (const owner of owners) {
       try {
         conversations = await graph.list(`${owner}/conversations`, params, { maxPages: 1 });

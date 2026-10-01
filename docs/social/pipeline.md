@@ -178,12 +178,12 @@ posting path (it imports only `GRAPH_VERSION` from `lib/platforms.mjs`).
 | IG comments + replies | `/{ig}/media` (last 10 posts / 14 days) → `/{media}/comments?fields=…,replies{…}` | `instagram_manage_comments` |
 | IG mentions / tags | `/{ig}/tags` (once an hour) | `instagram_basic` |
 | IG DMs | `/{ig}/conversations?platform=instagram` (Page token from `/{page}?fields=access_token`, user token as fallback) | `instagram_manage_messages` |
-| FB Page comments | `/{page}/posts` (last 10 posts) → `/{post}/comments?filter=stream` | `pages_read_engagement` |
+| FB Page comments | `/{page}/posts` (last 10 posts) → `/{post}/comments?filter=stream` (Page token from `/{page}?fields=access_token`, shared with DMs, one call per run; user token as fallback) | `pages_read_engagement` |
 
 **Rate budget.** `IG_ACCESS_TOKEN` is shared with the live poster and Graph
 allows roughly 200 calls an hour per user, so the notifier stays at 60 or fewer
 an hour: a run makes at most 30 Graph calls (typically ~27: own username 1, IG
-media 1 + 10 comment reads, FB posts 1 + 10 comment reads, DMs 2-3), one page per
+media 1 + 10 comment reads, Page token 1, FB posts 1 + 10 comment reads, DMs 1-2), one page per
 list, and mentions poll only once an hour (`lastRun` in the ledger; a DM source
 disabled for a missing scope also retries hourly). Any Graph rate-limit answer
 (error codes 4, 17, 32, 613, or HTTP 429) or an exhausted budget aborts every

@@ -85,7 +85,7 @@ export async function collectAll(
       source: 'ig_dms',
       id: ig,
       hourly: dmsDisabled,
-      run: (o) => collectInstagramDms({ igUserId: ig, pageId: page, token, fetchImpl, budget, ...o }),
+      run: (o) => collectInstagramDms({ igUserId: ig, pageId: page, token, fetchImpl, budget, graph, ...o }),
     },
     { source: 'ig_mentions', id: ig, hourly: true, run: (o) => collectInstagramMentions(graph, { igUserId: ig, ...o }) },
   ];
