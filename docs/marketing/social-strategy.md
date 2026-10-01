@@ -470,19 +470,20 @@ the byline.
 `scripts/social/lib/queue-schema.mjs` knows the `photo` / `site-screen`
 values, and `scripts/social/check-drafts.mjs` rejects undeclared media and era
 tiles outright — `photo` is path-bound to `/social/library/photos/` and
-requires `mediaCredit` + `mediaSource`, so a screenshot cannot be laundered as
-a credited photograph and a real photograph cannot ship uncredited. This
+requires `mediaSource` (and `mediaCredit` whenever the photographer is known), so
+a screenshot cannot be laundered as a photograph. This
 section describes that gate; it is not the gate. Where the two ever disagree,
 the code is what actually ships and this file is the bug.
 
 1. **A real photograph of Taylor** — `mediaKind: "photo"`. THE default for
-   every post. Source it from the repo's own credited corpus —
+   every post. Source it from the repo's own corpus —
    `supabase/seed/content/**` `moment.photos` (1,000+ entries, url + credit)
    and `apps/web/lib/longlive/lenses.ts` (per-era Getty/Wikimedia with
    captions) — rehost it under `apps/web/public/social/library/photos/`
-   (≤1.5MB), record `mediaCredit` + `mediaSource` on the queue item, and put
-   the credit line in the caption whenever the platform's length budget
-   allows. Verify the download is the real image (view it — a CDN can serve a
+   (≤1.5MB), record `mediaSource` on the queue item (plus `mediaCredit` when the
+   photographer is known — an unknown photographer means no `mediaCredit` and no
+   credit line, never "unknown"; owner, 2026-10-01), and put a known credit line
+   in the caption whenever the platform's length budget allows. Verify the download is the real image (view it — a CDN can serve a
    placeholder to curl), and that Taylor is actually in the frame.
 
    **Real content verification, not just path/credit (2026-08-31, Joey —
@@ -556,10 +557,10 @@ the no-lyrics redline is a founder guardrail — `docs/social/guardrails.md`.
 
 **Instagram media is required. X images work** (up to 4, via the v1.1 media
 endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
-story; the 280-char budget is for words, `mediaCredit` carries the credit when
+story; the 280-char budget is for words, `mediaCredit` carries a known credit when
 the body can't.
 
-**Rights posture** is a founder guardrail — see `docs/social/guardrails.md` (credit always, takedown on request, no AI images of Taylor, no watermarked or uncredited fan edits). Clickability is priority #1 — a rights-clean but boring tile is the failure mode we corrected, not the safe default.
+**Rights posture** is a founder guardrail — see `docs/social/guardrails.md` (credit the photographer when known and post with no credit line when not — owner, 2026-10-01; takedown on request; no AI images of Taylor; no watermarked images; no fan edits without the creator's permission). Clickability is priority #1 — a rights-clean but boring tile is the failure mode we corrected, not the safe default.
 
 ### Voice
 

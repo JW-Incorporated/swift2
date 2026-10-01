@@ -211,7 +211,7 @@ duplicate the report.
    different from their IG sibling. Media follows the 2026-08-12 Taylor-photo
    standard (defined in strategy §2; `social/README.md` `mediaKind` is its
    field schema): every slot names either a real
-   credited photograph of Taylor from the repo corpus (`mediaKind: "photo"`,
+   photograph of Taylor from the repo corpus (credited when the photographer is known) (`mediaKind: "photo"`,
    the default) or — only for a product-surface subject — a committed
    `/social/library/` screenshot (`mediaKind: "site-screen"`, ideally as a
    carousel behind a photo tile) or a designed card (`mediaKind: "card"`, a
@@ -299,7 +299,7 @@ duplicate the report.
   and may be covered like any other real event — factual, warm, no special
   rumor-tracker treatment.
 - No engagement bait, no follow/unfollow churn, no bought followers, no
-  reposting others' edits/media without credit and permission.
+  reposting others' edits without the creator's permission. Photos: credit the photographer whenever known; when unknown, post with no credit line (never print "unknown") — owner, 2026-10-01.
 
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
@@ -412,8 +412,7 @@ outside its rights and the PR must wait for a human.
 
 Score one sampled `social/queue/` draft or `social/calendar.md` plan PR 1–3, one
 evidence sentence. **3** — every entry passes `check-drafts.mjs` (no banned or
-reused openers, X structurally unlike its IG sibling), media is a credited Taylor
-photo or a committed site screenshot, nothing unshipped teased. **2** — on-strategy
+reused openers, X structurally unlike its IG sibling), media is a Taylor photo (credited when the photographer is known) or a committed site screenshot, nothing unshipped teased. **2** — on-strategy
 but a gate near-missed or a slot's purpose unstated. **1** — posted or self-merged,
 an unsupported format planned, or `social-strategy.md` edited directly.
 
@@ -528,3 +527,23 @@ in `docs/decisions.md` 2026-10-01.
 
 **What did not change.** Hard invariant 1 (Tree never posts, never writes approvals or the
 posting path) and invariants 5-12. The owner's ✅ on every post is guardrail 1.
+
+## Amendment (2026-10-01): uncredited photos are fine; grow the photo library
+
+**What changed.** Owner, in chat: "I'm ok with uncredited photos. If we know who took the photo, we should always give them credit, but if we don't that's fine too, just post it… We must prioritize getting more photos and uncredited photos are going to be the bulk of our content." Recorded in `docs/decisions.md` 2026-10-01;
+the rule is `docs/social/guardrails.md` row 2.
+
+- **Credit the photographer whenever known; when unknown, post with no credit line.** A
+  photo whose library credit is empty/`unknown`/`u/unknown via …` ships with no
+  `mediaCredit` on the queue item and no credit line in the caption — never the word
+  "unknown". A known credit still goes in the caption (always Instagram; X when length
+  allows) and must match the library entry. `mediaSource` stays required, and takedown on
+  request is honoured without argument.
+- **Photo-library growth is a standing priority.** Uncredited fan and concert photos are
+  welcome. Every weekly plan and any PR that finds a beat or era with no never-used photo
+  left says so, so the library gets fed. "Uncredited photos are unusable / get the credits
+  first" (the 2026-09-28 calendar note, Marjorie's #4604 priority) is withdrawn.
+
+**What did not change.** Takedown on request, no lyrics in cards, no AI images of Taylor,
+no watermarked images, no fan edits without the creator's permission, `card` credit
+exactly `"Long Live"`.

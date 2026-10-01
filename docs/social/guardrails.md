@@ -6,7 +6,9 @@ Marjorie may not edit this file** — a change to it is the owner's, by PR.
 Added 2026-10-01 (owner instruction, `docs/decisions.md` 2026-10-01): the owner
 is in the reviewing/approving business, not the rule-making business.
 **Signed off by the owner in chat 2026-10-01** (rows 1–5 as written; row 6
-reworded at his request).
+reworded at his request). **Row 2 reworded by the owner in chat 2026-10-01**
+(uncredited photos are fine — see the normative text below; edited here on his
+explicit instruction, `docs/decisions.md` 2026-10-01).
 
 **Everything not listed here is Tree's and Marjorie's to decide** — format
 (photo, card, screenshot, text), cadence, hooks, pillars, experiments, targets,
@@ -18,7 +20,7 @@ Marjorie owns growth goals; **Fable rules** on any taste dispute between them
 | # | Guardrail | Where it is enforced |
 |---|---|---|
 | 1 | **Founder ✅ before anything posts** (HMAC-signed stamp); `SOCIAL_FREEZE`; the poster's per-run caps | `scripts/social/lib/approvers.mjs`, `stamp-approval.mjs`, `social-approval-poll.mjs`, `scripts/automerge-social-approval-gate.mjs`, `lib/queue.mjs`, `post-queue.mjs` |
-| 2 | **Rights.** A credit on every photo; takedown on request, no argument; no watermarked or uncredited fan edits; no lyrics in cards | credit/source: `check-drafts.mjs` `checkMedia` + `lib/queue-schema.mjs` (hard-coded, not in `strategy-params.json`); no-lyrics: the approval post and the owner's ✅ (not machine-checkable) |
+| 2 | **Rights.** Credit the photographer whenever we know who they are; when we don't, the photo may post with no credit line; takedown on request, no argument; no watermarked images and no fan edits without the creator's permission; no lyrics in cards | known credit bound to the library entry, `mediaSource` required: `check-drafts.mjs` `checkMedia` + `lib/queue-schema.mjs` (hard-coded, not in `strategy-params.json`); no-lyrics: the approval post and the owner's ✅ (not machine-checkable) |
 | 3 | **No AI-generated images of Taylor** | `check-drafts.mjs` media-kind/inventory gate (`era-art`/uncleared images rejected); owner ✅ |
 | 4 | **Sensitive personal-life topics are confirmed-only**; no fabricated facts; never speak as Taylor; always labelled fan-made | the normative text below (moved here from the strategy doc, which Tree can edit); `check-drafts.mjs` voice rules; owner ✅ |
 | 5 | **Platform limits.** X 280 weighted characters; Instagram needs an image in its aspect window; a story-unique `campaign` on every item; no Reels/video (not automatable) | `check-drafts.mjs` `checkLength`/`checkMedia`/`checkCampaignPair`, `lib/queue-schema.mjs`, `lib/platforms.mjs` |
@@ -41,7 +43,13 @@ Tree's prompts point to this section.
 **Rights posture** (decision entries 2026-07-09 and 2026-08-12; the
 2026-08-11 entry's *ladder* is superseded, its rights bars are not): hosting real
 internet photos is unrestricted — embed, hotlink, or rehost, press/agency all
-fine — **with credit, always**, as a knowing accepted risk;
+fine — as a knowing accepted risk. **Credit the photographer whenever we know
+who took the photo; when we don't, the photo may post with no credit line**
+(owner, chat, 2026-10-01: "I'm ok with uncredited photos. If we know who took
+the photo, we should always give them credit, but if we don't that's fine too,
+just post it… We must prioritize getting more photos and uncredited photos are
+going to be the bulk of our content"). A missing credit is never printed as
+"unknown" or "u/unknown" — the caption simply has no credit line;
 takedown-on-request without argument. The hard bars: **no AI-generated
 images, ever**, and any reference/comparable stand-in must be visibly labeled
 as such (never passed off as Taylor). No watermarked images, no fan edits
