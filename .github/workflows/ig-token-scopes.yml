@@ -1,0 +1,38 @@
+# Read-only check that IG_ACCESS_TOKEN still carries every permission the social
+# pipeline needs (posting, insights, comments, DMs, Page comments). Asks Meta
+# `GET /me/permissions` — nothing is posted. Red = the token was regenerated
+# without a scope or expired; fix by refreshing it (see docs/social/pipeline.md).
+name: IG token scopes
+
+on:
+  schedule:
+    - cron: "23 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check granted permissions
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$IG_ACCESS_TOKEN" ]; then echo "::error::IG_ACCESS_TOKEN is empty"; exit 1; fi
+          body=$(curl -sS -G "https://graph.facebook.com/v25.0/me/permissions" --data-urlencode "access_token=$IG_ACCESS_TOKEN")
+          granted=$(printf '%s' "$body" | jq -r '[.data[]? | select(.status=="granted") | .permission] | join(" ")')
+          if [ -z "$granted" ]; then
+            echo "::error::Meta rejected the token: $(printf '%s' "$body" | jq -c '.error | {code, type, message}' 2>/dev/null)"
+            exit 1
+          fi
+          echo "granted: $granted"
+          missing=""
+          for p in instagram_basic instagram_content_publish instagram_manage_comments instagram_manage_insights instagram_manage_messages pages_show_list pages_read_engagement pages_read_user_content pages_manage_posts; do
+            case " $granted " in *" $p "*) ;; *) missing="$missing $p" ;; esac
+          done
+          if [ -n "$missing" ]; then echo "::error::IG_ACCESS_TOKEN is missing:$missing"; exit 1; fi
+          echo "IG_ACCESS_TOKEN has every required permission."
