@@ -49,6 +49,21 @@ export function findRuns(runs, bot, messageId) {
 }
 
 /**
+ * The owner's Discord id: the one founder who makes decisions (Joey; CLAUDE.md: the other founder takes
+ * none). Owner direction in the growth strategy counts only from this id, never from "any founder".
+ * SOCIAL_APPROVERS holds both founders and cannot separate them, so this is its own constant (the id
+ * Joey's chat fixtures and docs/social/RULINGS-SOCIAL-2.md list first), overridable by the
+ * `OWNER_DISCORD_ID` repo variable. A set but invalid override yields '' (no owner: nothing is recorded),
+ * never a fall back to a founder.
+ */
+export const OWNER_DISCORD_ID = '338508192755482626';
+export function ownerId(raw = '') {
+  const v = String(raw || '').trim();
+  if (!v) return OWNER_DISCORD_ID;
+  return SNOWFLAKE.test(v) ? v : '';
+}
+
+/**
  * Founder Discord ids: the `DISCORD_FOUNDER_IDS` repo variable when it holds
  * any valid id, else the ids already committed in `SOCIAL_APPROVERS` (the
  * same two founders who approve social) — so the loop needs no variable to

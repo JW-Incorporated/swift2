@@ -9,13 +9,10 @@
 // is exactly the "re-used picture" the owner rejected). The model could only
 // find the truth by diffing every open PR, a turn-burning loop. Here the
 // ledger is posted + queued + open-PR drafts, and the pick is handed over.
-import { canonicalPhotoId, validatePhotoEntry } from './photo-library.mjs';
+import { canonicalPhotoId, isUnknownCredit, validatePhotoEntry } from './photo-library.mjs';
 
 /** Tags that describe a venue/format/year rather than an era. */
 const NON_ERA_TAGS = new Set(['eras-tour', 'fan-photo', 'concert', 'inglewood', 'minneapolis', 'arlington', 'acoustic', '2007', '2009']);
-
-/** A credit that names no real uploader is not a credit (calendar, 2026-09-28; rights are the owner's call, #4607). */
-export const WEAK_CREDIT_RE = /\bunknown\b/i;
 
 export function eraTagsOf(entry) {
   return (Array.isArray(entry?.tags) ? entry.tags : []).filter((tag) => !NON_ERA_TAGS.has(tag));
@@ -65,25 +62,22 @@ export function buildPhotoLedger(library, { posted = [], queue = [], openDrafts 
 const toPick = (entry, byId) => ({
   photoId: entry.id,
   media: [entry.mediaPath],
-  mediaCredit: entry.credit,
+  ...(isUnknownCredit(entry.credit) ? {} : { mediaCredit: entry.credit }),
   mediaSource: entry.source,
   altText: [entry.alt],
-  creditWeak: WEAK_CREDIT_RE.test(entry.credit),
   eraTags: eraTagsOf(entry),
   // An IG-ready variant: the pair may share it, or the X half may use the original (X has no aspect gate).
   ...(entry.variantOf ? { variantOf: entry.variantOf, ...(byId?.get(entry.variantOf) ? { xOriginal: { photoId: entry.variantOf, media: [byId.get(entry.variantOf).mediaPath] } } : {}) } : {}),
 });
 
 /**
- * Best-first order for an unconstrained (non-themed) beat: a real credit
- * before a weak one (the charter's no-uncredited-media boundary outranks a
- * calendar hint), then the calendar's own hint, then a photo with NO era tag
+ * Best-first order for an unconstrained (non-themed) beat: the calendar's own
+ * hint (a missing credit never ranks a photo down — owner rule 2026-10-01), then a photo with NO era tag
  * (era-tagged photos are the scarce ones themed beats need), then stable id.
  */
 function rankForBeat(entries, hintId) {
   return [...entries].sort(
     (a, b) =>
-      Number(WEAK_CREDIT_RE.test(a.credit)) - Number(WEAK_CREDIT_RE.test(b.credit)) ||
       Number(b.id === hintId) - Number(a.id === hintId) ||
       eraTagsOf(a).length - eraTagsOf(b).length ||
       a.id.localeCompare(b.id),

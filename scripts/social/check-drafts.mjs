@@ -57,8 +57,8 @@
 //                     posted Instagram items. THE TAYLOR-PHOTO STANDARD
 //                     (2026-08-12): generic era tiles are banned outright,
 //                     and every draft with media must declare mediaKind —
-//                     "photo" (a real credited photograph of Taylor, with
-//                     mediaCredit + mediaSource) or "site-screen" (a
+//                     "photo" (a real photograph of Taylor, with mediaSource and,
+//                     when the photographer is known, mediaCredit) or "site-screen" (a
 //                     deliberate product screenshot under /social/library/).
 //
 // Usage:
@@ -91,7 +91,7 @@ import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
-import { samePhotoPaths } from './lib/photo-library.mjs';
+import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
 import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
 import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
@@ -100,7 +100,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 // S2 (docs/decisions.md 2026-10-01): the TASTE thresholds below — media kinds,
 // photo reuse, pairing default, opener/hook windows, photo mix, screenshot
 // rules — are Tree's, in social/strategy-params.json (safe defaults when the
-// file is missing). The GUARDRAIL checks (credit/rights, X length limit,
+// file is missing). The GUARDRAIL checks (rights/takedown source, X length limit,
 // Instagram image + aspect rules, story-unique campaign) stay hard-coded here
 // and have no parameter. See docs/social/guardrails.md.
 const PARAMS = loadStrategyParams(ROOT);
@@ -570,7 +570,7 @@ function checkInventoryPhotoBinding(item, tile) {
   }
   const selectedPhoto = PHOTO_LIBRARY_BY_ID.get(item.photoId);
   if (!selectedPhoto) return [`media: photoId ${JSON.stringify(item.photoId)} is not in social/photo-library.json.`];
-  if (selectedPhoto.mediaPath !== tile || selectedPhoto.credit !== item.mediaCredit || selectedPhoto.source !== item.mediaSource) {
+  if (selectedPhoto.mediaPath !== tile || !creditsMatch(item.mediaCredit, selectedPhoto.credit) || selectedPhoto.source !== item.mediaSource) {
     return [`media: photoId ${JSON.stringify(item.photoId)} must use its inventory media path, exact credit, and exact source so attribution cannot drift.`];
   }
   // photoEra (2026-09-10, kanban t_75ec7106 — the 2026-09-09 reputation/snake
@@ -754,9 +754,6 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
         `media: launch-campaign site-screen carousel's grid tile "${grid}" must live under ${PHOTO_PREFIX} — a real credited Taylor photo, not the screenshot.`,
       );
     }
-    if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
-      findings.push('media: launch-campaign site-screen carousel requires `mediaCredit` for its Taylor-photo grid tile.');
-    }
     if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
       findings.push('media: launch-campaign site-screen carousel requires `mediaSource` for its Taylor-photo grid tile.');
     }
@@ -777,11 +774,10 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
           `media: mediaKind "photo" tile "${tile}" must live under ${PHOTO_PREFIX} — the rehosted, credited Taylor-photo corpus. A screenshot or other asset cannot be declared a photo.`,
         );
       }
-      if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() === '') {
-        findings.push('media: mediaKind "photo" requires `mediaCredit` — a real photograph of Taylor always ships with its photographer/agency credit.');
-      }
+      // mediaCredit is optional (owner, chat, 2026-10-01): credit the photographer whenever known,
+      // omit it when unknown. A credit that IS present is bound to the library entry above.
       if (typeof item.mediaSource !== 'string' || item.mediaSource.trim() === '') {
-        findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so the credit is auditable.');
+        findings.push('media: mediaKind "photo" requires `mediaSource` — record where the photo came from so any takedown request can be honoured.');
       }
       // #3584 (Fable ruling, 2026-09-05): a rehosted YouTube/broadcaster
       // thumbnail is NOT a "photo" — see the VIDEO_THUMBNAIL_CREDIT_RE /
@@ -816,7 +812,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
       );
     } else {
       findings.push(
-        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real credited photograph of Taylor, with mediaCredit + mediaSource) "site-screen" (deliberate product screenshot) or "card" (a committed render from /api/share-card). Undeclared media is how the account drifted to a Taylor-free grid.`,
+        `media: draft has media but no declared \`mediaKind\` (got ${JSON.stringify(item.mediaKind)}) — declare "photo" (real photograph of Taylor, with mediaSource, and mediaCredit when the photographer is known) "site-screen" (deliberate product screenshot) or "card" (a committed render from /api/share-card). Undeclared media is how the account drifted to a Taylor-free grid.`,
       );
     }
     const mix = photoMixWarning(item, recentIgPosted, params);

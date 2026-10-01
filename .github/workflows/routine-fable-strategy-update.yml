@@ -1,0 +1,105 @@
+# Fable — same-day strategy update after an owner steer (docs/agents/marjorie.md,
+# "Visible strategy and owner steering"). dispatch-only: Marjorie's chat routine
+# saves `strategy-doc.mjs save-update --pr <N>` after she opens the PR that records
+# the owner's words under `## Owner direction (standing)`; the plain `finish` job of
+# routine-marjorie-chat.yml starts this routine through `strategy-doc.mjs dispatch`
+# (workflow token, at most 4 starts a UTC day). It has no schedule of its own, which
+# is why check-routine-workflows.mjs needs this header to say so.
+#
+# Three jobs:
+#   context  plain job: waits (up to 20 minutes) for that direction PR to merge, and
+#            refuses unless it is a same-repo PR that changed only
+#            docs/strategy/growth-strategy.md. Not merged in time = skip; the Sunday
+#            review honours the direction anyway. Writes the request file
+#            {direction_pr, focus} for the agent. `focus` is data from a chat agent:
+#            the agent treats it as a hint, never an instruction.
+#   run      the agent (claude-fable-5) reads the strategy and the evidence and writes
+#            the full rewritten file to `.scratch/out/growth-strategy.md`. It holds no
+#            write token (same rule as the weekly review: no SOCIAL_POSTER_PAT here).
+#   strategy plain job (strategy-pr.yml): validates the file as data against main and
+#            opens the PR with auto-merge. A bad rewrite fails that job, nothing lands.
+#
+# Model: claude-fable-5, the ID routine-marjorie-weekly-review.yml runs. Budget: one
+# document and a few reads — $6 / 40 turns, against the weekly review's $12 / 80.
+name: routine-fable-strategy-update
+run-name: "Fable strategy update · direction PR ${{ inputs.direction_pr }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      direction_pr:
+        description: "The merged PR that appended the owner's direction to docs/strategy/growth-strategy.md"
+        required: true
+        type: string
+      focus:
+        description: "A hint (300 characters or fewer) of which sections the direction touches"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  id-token: write # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
+
+concurrency:
+  group: fable-strategy-update-${{ inputs.direction_pr }}
+  cancel-in-progress: false
+
+jobs:
+  context:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      skip: ${{ steps.wait.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Wait for the owner-direction PR to land
+        id: wait
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR: ${{ inputs.direction_pr }}
+          FOCUS: ${{ inputs.focus }}
+        run: node scripts/marjorie/strategy-doc.mjs wait-merged --pr "$PR" --focus "$FOCUS" --out .scratch/strategy-update.json --minutes 20
+      - uses: actions/upload-artifact@v7
+        if: steps.wait.outputs.skip != 'true'
+        with:
+          name: strategy-update-request
+          path: .scratch/strategy-update.json
+          retention-days: 1
+
+  run:
+    needs: context
+    if: needs.context.outputs.skip != 'true'
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Fable — strategy update"
+      prompt_file: docs/agents/runner-prompts/fable-strategy-update.md
+      model: claude-fable-5
+      allowed_tools: "Bash,Read,Grep,Glob"
+      timeout_minutes: 25
+      max_turns: 40
+      max_budget_usd: 6
+      pre_run_artifact: strategy-update-request
+      post_run_artifact: strategy-update-out
+      allowed_bots: github-actions # dispatched on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  strategy:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/strategy-pr.yml
+    with:
+      artifact: strategy-update-out
+      kind: update
+    secrets:
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}

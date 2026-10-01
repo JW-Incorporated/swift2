@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Prints the next credited social photo without mutating the queue or posting.
+// Prints the next never-used social photo without mutating the queue or posting.
 // Growth/Tree can run this before authoring a paired draft; the JSON output is
-// ready to copy into media[0], mediaCredit, mediaSource, and photoId.
+// ready to copy into media[0], mediaCredit (only when the photographer is known — omitted
+// otherwise, owner rule 2026-10-01), mediaSource, and photoId.
 //
 // --era <tag> (2026-09-10, kanban t_75ec7106): when the draft has a target
 // era/theme (the campaign or lens/egg node already names it — see
@@ -16,7 +17,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { igUsablePhotos } from './lib/photo-dimensions.mjs';
-import { selectSocialPhoto, validatePhotoEntry } from './lib/photo-library.mjs';
+import { isUnknownCredit, selectSocialPhoto, validatePhotoEntry } from './lib/photo-library.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
@@ -69,17 +70,17 @@ const selected = selectSocialPhoto(inventory.photos.filter((photo) => usable.has
 if (!selected) {
   throw new Error(
     era
-      ? `No credited photo tagged "${era}" is available in social/photo-library.json. This is a hard block, not a ` +
+      ? `No photo tagged "${era}" is available in social/photo-library.json. This is a hard block, not a ` +
         `fallback-to-another-era situation — add a "${era}"-tagged photo via ` +
         '`npm run social:import-photo-library` before drafting this post (social/README.md).'
-      : 'No credited photo is available in social/photo-library.json.',
+      : 'No photo is available in social/photo-library.json.',
   );
 }
 // --strict (L001): never hand back a photo that has already shipped or is queued — an exhausted pool is
 // an error, and the beat is deferred rather than drafted with a repeat.
 if (strict && selected.reused) {
   throw new Error(
-    `No never-used credited photo${era ? ` tagged "${era}"` : ''} is left (the least-used candidate, ${selected.id}, has already shipped or is queued). ` +
+    `No never-used photo${era ? ` tagged "${era}"` : ''} is left (the least-used candidate, ${selected.id}, has already shipped or is queued). ` +
       'Per L001 do NOT draft this beat with a repeat — defer it and say so in the PR body; more photos are the owner rights call (#4607).',
   );
 }
@@ -93,7 +94,7 @@ console.log(
     {
       photoId: selected.id,
       media: [selected.mediaPath],
-      mediaCredit: selected.credit,
+      ...(isUnknownCredit(selected.credit) ? {} : { mediaCredit: selected.credit }),
       mediaSource: selected.source,
       altText: [selected.alt],
       ...(era ? { photoEra: era } : {}),

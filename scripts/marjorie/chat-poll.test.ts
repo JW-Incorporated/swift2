@@ -284,7 +284,7 @@ describe('poll', () => {
     expect(result.messages).toHaveLength(1000);
   });
   it('keeps both relay entry points in one concurrency group', () => {
-    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: false/;
+    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: true/;
     expect(readFileSync('.github/workflows/bot-chat-poll.yml', 'utf8')).toMatch(group);
   });
 });
@@ -320,6 +320,30 @@ describe('context', () => {
     expect(ctx).toMatchObject({ top_level: false, thread_id: THREAD, url: `https://discord.com/channels/${GUILD}/${THREAD}/${message.id}` });
     expect(ctx.thread_root).toMatchObject({ text: "Founders' Brief" });
     expect(ctx.already).toBe('replied'); // a duplicate run's context job stops here
+  });
+  describe('owner verification (growth-strategy steering)', () => {
+    const OTHER_FOUNDER = '1421545239650238555';
+    const ownerOf = async (author: string, extraEnv: Record<string, string> = {}) => {
+      const message = msg('1000000000000000009', { author: { id: author, global_name: 'Someone' }, content: 'focus on Reddit' });
+      const { fetchImpl } = discord({
+        [`GET ${DISCORD_API}/channels/${MARJ}`]: res(200, { id: MARJ, guild_id: GUILD }),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages/${message.id}`]: res(200, message),
+        [`GET ${DISCORD_API}/channels/${MARJ}/messages?before=${message.id}&limit=14`]: res(200, []),
+      });
+      const file = out();
+      await context(parseFlags(['--bot', 'marjorie', '--channel-id', MARJ, '--message-id', message.id, '--out', file]), { env: { ...env, ...extraEnv }, fetchImpl, sleepImpl });
+      return JSON.parse(readFileSync(file, 'utf8')).owner;
+    };
+    it("verifies only Joey's id as the owner by default", async () => {
+      expect(await ownerOf(JOEY)).toEqual({ configured: true, verified: true });
+    });
+    it('does not verify the other founder, whose messages are answered but never recorded', async () => {
+      expect(await ownerOf(OTHER_FOUNDER)).toEqual({ configured: true, verified: false });
+    });
+    it('honours an OWNER_DISCORD_ID override, and a malformed one verifies nobody', async () => {
+      expect(await ownerOf(OTHER_FOUNDER, { OWNER_DISCORD_ID: OTHER_FOUNDER })).toEqual({ configured: true, verified: true });
+      expect(await ownerOf(JOEY, { OWNER_DISCORD_ID: 'not-an-id' })).toEqual({ configured: false, verified: false });
+    });
   });
   it('refuses non-numeric ids', async () => {
     expect(await context(parseFlags(['--bot', 'marjorie', '--channel-id', '../x', '--message-id', '1', '--out', out()]), { env })).toBe(2);

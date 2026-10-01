@@ -1,0 +1,58 @@
+# Opens the PR for a rewrite of docs/strategy/growth-strategy.md (the living growth
+# strategy; docs/agents/marjorie.md, "Visible strategy and owner steering").
+# Called by routine-marjorie-weekly-review.yml (Fable's Sunday rewrite) and
+# routine-fable-strategy-update.yml (the same-day rewrite after an owner steer).
+#
+# The agent never holds a write token: it writes `.scratch/out/growth-strategy.md`
+# and this plain job, on `SOCIAL_POSTER_PAT` (a PR from the workflow token would not
+# trigger the required `build` check, so it could never merge), validates the file
+# as DATA with scripts/marjorie/strategy-doc.mjs open-pr: it first re-applies main's
+# current Owner direction section onto the rewrite (a steer can merge while Fable works)
+# and refuses a file carrying an owner line main lacks; then the seven headings in order,
+# a Summary of at most six bullets, an Owner direction section equal to main's, and every
+# previous Changelog line still present. A bad rewrite fails this job (the run goes red; watchdog sees
+# it) and nothing is pushed. A good one becomes a PR with auto-merge set, gated by CI.
+# The checkout pins `ref: main`: a secret-holding job never runs dispatch-chosen code.
+name: strategy-pr
+
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        description: "Name of the same-run artifact holding .scratch/out/growth-strategy.md"
+        required: true
+        type: string
+      kind:
+        description: "weekly (the Sunday review) or update (after an owner steer)"
+        required: true
+        type: string
+    secrets:
+      SOCIAL_POSTER_PAT:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  open:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Download the agent's strategy rewrite (same run)
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact }}
+          path: .scratch/out
+      - name: Validate it and open the PR
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          KIND: ${{ inputs.kind }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: timeout 240 node scripts/marjorie/strategy-doc.mjs open-pr --file .scratch/out/growth-strategy.md --kind "$KIND" --run-url "$RUN_URL"
