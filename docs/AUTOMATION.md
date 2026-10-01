@@ -245,7 +245,7 @@ slots after 20 scrolls: Facebook is limiting this browser; stopped, retry
 later), and `run-wall-budget` (total wall time, sum of group budgets + 10 min,
 ran out; unfinished groups are marked failed). All of these stop or fail the
 run and leave the weekly issue open. Group budgets: taylor-swifts-vault 75 min,
-others 20 min; the scheduled task limit is 3 h. Comments are collected
+others 20 min; the scheduled task limit is 5 h. Comments are collected
 privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
 never in the repo and never uploaded. `fb-export-ingest`
 (script, not its own cron — invoked by the local export runner before upload)
