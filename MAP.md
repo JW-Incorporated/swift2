@@ -600,3 +600,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/app-config.ts` (+ test) | `loadAppConfig()` (network, 3s timeout -> last-good -> defaults, never throws) + `routeFlagsFrom()`; App.tsx applies the result to `resolve`/`createNavigate` |
 | `apps/mobile/lib/content-bundle.ts` (+ test) | `loadContentBundle()`: the one mobile bundle loader (shared storage, `unknownEnumPolicy: 'drop'`, `dataErrorFallback: 'last-good'`) + once-per-process OTA `selfHealOnce()`. All six `*-data.ts`/`vault.ts` callers use it |
 | `packages/experience/src/era-ids-sync.test.ts` | Asserts `ERAS` ids equal `eraIdSchema.options`; see `docs/mobile-release.md` "Adding an era/enum/catalogue" |
+
+## CI concurrency (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `scripts/ci-concurrency.test.ts` | Pins `ci.yml`'s concurrency: `main` pushes grouped per commit (a shared group silently dropped queued runs when merges clustered), PRs per-ref with cancel-in-progress |

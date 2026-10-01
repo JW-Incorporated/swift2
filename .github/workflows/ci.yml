@@ -17,8 +17,14 @@ permissions:
 # nobody will merge. `main` is deliberately NOT cancellable — it is the deploy
 # gate and the only place a semantic conflict between two separately-green PRs
 # shows up, which matters at this repo's merge rate.
+#
+# So `main` pushes get one group PER COMMIT. A shared `main` group was not
+# enough: even with cancel-in-progress false, GitHub keeps only one PENDING run
+# per group and cancels it when a newer one queues, so clustered merges
+# silently skipped CI on the middle commits (2026-10-01: #4731/#4732 runs
+# cancelled with zero jobs). The repo is public, so the extra runs are free.
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
