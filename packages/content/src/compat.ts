@@ -54,8 +54,7 @@ export function computeMinSupportedSchemaVersion(currentSchemaVersion: number): 
 }
 
 /** The floor for this package's actual `CURRENT_SCHEMA_VERSION`. */
-export const MIN_SUPPORTED_SCHEMA_VERSION =
-  computeMinSupportedSchemaVersion(CURRENT_SCHEMA_VERSION);
+export const MIN_SUPPORTED_SCHEMA_VERSION = computeMinSupportedSchemaVersion(CURRENT_SCHEMA_VERSION);
 
 /**
  * `true` iff a bundle published at `schemaVersion` is one this loader must

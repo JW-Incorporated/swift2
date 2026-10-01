@@ -16,6 +16,8 @@ Format: date, decision, why, alternatives considered, who approved.
 
 **What this does NOT change.** `apps/mobile/app.json`'s `updates` settings stay at their defaults deliberately: editing app.json changes the runtime fingerprint, forces store builds and strands that commit's JS from existing installs. The N-1 `schemaVersion` window, bundle-as-artifact, and the fingerprint runtime policy are unchanged.
 
+**Known limits (accepted).** Pruning repairs only what zod flags: a kept item that references a dropped item/era by id now dangles, so mobile consumers must tolerate missing ids. A pruned load never keeps an ETag (else a 304 would serve the pruned files to a self-healed newer build), so an app stuck on old JS re-downloads the whole bundle each launch until it updates. A last-good record outside the current build's N-1 window is never served — the data error is rethrown.
+
 **Consequence for content authors.** Adding an era (or any enum value) is only safe for app runtimes that already received this loader change. Runtimes older than it still hard-fail on an unknown value — for them a new era still needs the old rule (ship the app change first, then publish content).
 
 **Why.** `eraIdSchema` is a closed enum and the loader rejected any unknown value or manifest entry, so a single new era published from the web side broke every installed app's content load until a new OTA landed — and the web side ships content far more often than the app ships JS (architect review 2026-10-01, top gap #1).

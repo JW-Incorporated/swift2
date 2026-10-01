@@ -45,8 +45,12 @@ import { z } from 'zod';
 import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
 import { MemoryStorageAdapter, type StorageAdapter } from './cache';
 import { createHash } from './hash';
-import { assertSchemaVersionSupported, CURRENT_SCHEMA_VERSION } from './compat';
-import { pruneUnknownEnumValues } from './forward-compat';
+import {
+  assertSchemaVersionSupported,
+  CURRENT_SCHEMA_VERSION,
+  isSchemaVersionSupported,
+} from './compat';
+import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
 
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
@@ -257,15 +261,55 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
       options.storage ?? new MemoryStorageAdapter(),
       options.baseUrl,
     );
-    if (!lastGood) throw err;
+    const readable = lastGood && revalidateLastGood(lastGood, options);
+    if (!readable) throw err;
     return {
       manifest: lastGood.manifest,
-      files: lastGood.files,
+      files: readable.files,
       source: 'last-good-after-data-error',
       stale: true,
       dataError: err,
+      ...(readable.skipped.length ? { skipped: readable.skipped } : {}),
     };
   }
+}
+
+/**
+ * The cache outlives OTA updates, so a last-good record may have been written
+ * by a different JS build. Re-check it against THIS build (schema window and
+ * every file, same rules as a network load) before serving it; null = unusable.
+ */
+function revalidateLastGood(
+  record: CachedBundleRecord,
+  options: LoadBundleOptions,
+): { files: BundleFiles; skipped: string[] } | null {
+  const schemaVersion = options.schemaVersion ?? SUPPORTED_SCHEMA_VERSION;
+  if (!isSchemaVersionSupported(record.manifest?.schemaVersion, schemaVersion)) return null;
+  if (!record.files || typeof record.files !== 'object') return null;
+  const dropUnknown = options.unknownEnumPolicy === 'drop';
+  const files: BundleFiles = {};
+  const skipped: string[] = [];
+  for (const [name, value] of Object.entries(record.files)) {
+    const schema = lookupSchema(name);
+    if (!schema) {
+      if (!dropUnknown) return null;
+      skipped.push(name);
+      continue;
+    }
+    const result = validateEntry(schema, value, dropUnknown);
+    if (result.kind === 'invalid') return null;
+    if (result.kind === 'drop-file') skipped.push(name);
+    else files[name] = result.data;
+  }
+  return { files, skipped };
+}
+
+/** Parse one entry against `schema`; under `dropUnknown`, prune unknown enum values first. Mutates `value`. */
+function validateEntry(schema: z.ZodTypeAny, value: unknown, dropUnknown: boolean): PruneResult {
+  const parsed = schema.safeParse(value);
+  if (parsed.success) return { kind: 'ok', data: parsed.data, removed: 0 };
+  if (!dropUnknown) return { kind: 'invalid', issues: parsed.error.issues };
+  return pruneUnknownEnumValues(schema, value);
 }
 
 async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
@@ -403,27 +447,20 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
         );
       }
       const schema = schemaForManifestEntry(name);
-      const parsed = schema.safeParse(JSON.parse(text));
-      if (parsed.success) {
-        files[name] = parsed.data;
-        continue;
-      }
-      if (!dropUnknown) {
-        throw new BundleIntegrityError(
-          name,
-          `schema validation failed: ${JSON.stringify(parsed.error.issues)}`,
-        );
-      }
-      const result = pruneUnknownEnumValues(schema, JSON.parse(text));
+      const result = validateEntry(schema, JSON.parse(text), dropUnknown);
       if (result.kind === 'invalid') {
         throw new BundleIntegrityError(
           name,
           `schema validation failed: ${JSON.stringify(result.issues)}`,
         );
       }
-      pruned = true;
-      if (result.kind === 'drop-file') skipped.push(name);
-      else files[name] = result.data;
+      if (result.kind === 'drop-file') {
+        pruned = true;
+        skipped.push(name);
+      } else {
+        if (result.removed > 0) pruned = true;
+        files[name] = result.data;
+      }
     }
   } catch (err) {
     return fallbackOrRethrow(
@@ -438,8 +475,11 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
   // A pruned load never stores the ETag: once a newer build (that knows the
   // new values) is running, a 304 must not keep serving the pruned files.
+  // An empty value also clears an ETag a fuller, earlier load of this
+  // bundleVersion stored (storeGet treats '' as absent).
   const partial = pruned || skipped.length > 0;
-  if (manifestEtagToStore && !partial) await storeSet(storage, etagKey, manifestEtagToStore);
+  if (partial) await storeSet(storage, etagKey, '');
+  else if (manifestEtagToStore) await storeSet(storage, etagKey, manifestEtagToStore);
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
 
