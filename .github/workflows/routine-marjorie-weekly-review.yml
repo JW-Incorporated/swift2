@@ -5,7 +5,10 @@
 # questions about the business with evidence from
 # scripts/marjorie/growth-data.mjs, sets the week as a `weekly-plan` issue,
 # files deduped work issues (cap 6) through the normal funnel, and writes
-# strategy asks for Tree and drafts for bot1.
+# strategy asks for Tree and drafts for bot1. It also rewrites the living growth
+# strategy (docs/strategy/growth-strategy.md, the file the owner reads and steers):
+# the agent writes the file into its output artifact and the `strategy` job below
+# turns it into an auto-merging PR.
 #
 # Model: claude-fable-5 — the ID routine-austin-build.yml runs daily and
 # successfully (six consecutive green scheduled runs checked 2026-09-30).
@@ -93,7 +96,7 @@ jobs:
       model: claude-fable-5
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 45
-      max_turns: 80
+      max_turns: 90
       max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd > 0 && inputs.max_budget_usd || 12)) }}
       pre_run_artifact: marjorie-growth-data
       post_run_artifact: marjorie-weekly-review-out
@@ -174,3 +177,19 @@ jobs:
       contents: read
       issues: write
       actions: write
+
+  # Fable's weekly rewrite of docs/strategy/growth-strategy.md (Step 1c of the
+  # prompt). The agent wrote `.scratch/out/growth-strategy.md` into the same
+  # artifact; strategy-pr.yml validates it as data (headings, a Summary of at most
+  # six bullets, every Owner direction and Changelog line preserved) and opens the
+  # PR on SOCIAL_POSTER_PAT with auto-merge. The agent never holds that token. A
+  # missing or invalid file turns this job red — the owner reads that file.
+  strategy:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/strategy-pr.yml
+    with:
+      artifact: marjorie-weekly-review-out
+      kind: weekly
+    secrets:
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
