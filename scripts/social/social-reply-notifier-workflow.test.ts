@@ -10,8 +10,8 @@ const script = readFileSync(join(ROOT, 'scripts', 'social', 'reply-ledger.sh'), 
 const code = wf.split('\n').filter((l) => !l.trimStart().startsWith('#')).join('\n');
 
 describe('social-reply-notifier.yml', () => {
-  it('runs every 15 minutes at an off-cluster minute, with dispatch + a concurrency group', () => {
-    expect(code).toMatch(/cron: "11,26,41,56 \* \* \* \*"/);
+  it('runs every 30 minutes at an off-cluster minute, with dispatch + a concurrency group', () => {
+    expect(code).toMatch(/cron: "13,43 \* \* \* \*"/);
     expect(code).toContain('workflow_dispatch:');
     expect(code).toMatch(/concurrency:\s+group: social-reply-notifier\s+cancel-in-progress: false/);
   });

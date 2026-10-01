@@ -570,5 +570,5 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `scripts/social/lib/reply-dms.mjs` | IG DM collector (`instagram_manage_messages`; page-token then user-token attempts) and `SourceDisabledError` for a missing scope |
 | `scripts/social/lib/reply-notify.mjs` | Ledger (`seeded`/`seen`/`disabledLogged`), `planNotifications` (first-run 24h rule, 7-day stale rule), `sanitizeUserText`/`formatItem`, `postDiscord` ("Tree · Replies") |
 | `scripts/social/reply-ledger.sh` | `fetch`/`push` of `reply-ledger.json` on the dedicated `social-reply-ledger` branch (plumbing only; creates the branch before anything is sent) |
-| `.github/workflows/social-reply-notifier.yml` | Every 15 min (`:11/:26/:41/:56`), `environment: social`, `contents: write` only; kill switch `REPLY_NOTIFIER_ENABLED=false`. See `docs/social/pipeline.md` › Reply notifier |
+| `.github/workflows/social-reply-notifier.yml` | Every 30 min (`:13/:43`), <= 30 Graph calls per run, `environment: social`, `contents: write` only; kill switch `REPLY_NOTIFIER_ENABLED=false`. See `docs/social/pipeline.md` › Reply notifier |
 | `scripts/social/reply-notifier.test.ts`, `reply-dms.test.ts`, `social-reply-notifier-workflow.test.ts` | Mocked-Graph tests (pagination, dedupe, first-run seeding, injection, per-source failure, DM scope) + workflow invariants |

@@ -166,8 +166,8 @@ founder ✅ gate as every other post.
 ## Reply notifier (2026-10-01)
 
 The owner answers replies himself (`docs/social/guardrails.md` row 6), so
-something has to tell him they exist. `social-reply-notifier.yml` runs every 15
-minutes (`:11/:26/:41/:56`), reads our accounts through the Graph API, and posts
+something has to tell him they exist. `social-reply-notifier.yml` runs every 30
+minutes (`:13/:43`), reads our accounts through the Graph API, and posts
 one short Discord message per new item to #longlive-tree as "Tree · Replies"
 (`flags: 4`, `allowed_mentions: {parse: []}`). It is read-only toward the
 platforms — it never replies, likes, hides or posts — and sits entirely off the
@@ -175,10 +175,19 @@ posting path (it imports only `GRAPH_VERSION` from `lib/platforms.mjs`).
 
 | Source | Graph call | Scope |
 |---|---|---|
-| IG comments + replies | `/{ig}/media` (last 30 posts / 30 days) → `/{media}/comments?fields=…,replies{…}` | `instagram_manage_comments` |
-| IG mentions / tags | `/{ig}/tags` | `instagram_basic` |
+| IG comments + replies | `/{ig}/media` (last 10 posts / 14 days) → `/{media}/comments?fields=…,replies{…}` | `instagram_manage_comments` |
+| IG mentions / tags | `/{ig}/tags` (once an hour) | `instagram_basic` |
 | IG DMs | `/{ig}/conversations?platform=instagram` (Page token from `/{page}?fields=access_token`, user token as fallback) | `instagram_manage_messages` |
-| FB Page comments | `/{page}/posts` (30 / 30 days) → `/{post}/comments?filter=stream` | `pages_read_engagement` |
+| FB Page comments | `/{page}/posts` (last 10 posts) → `/{post}/comments?filter=stream` | `pages_read_engagement` |
+
+**Rate budget.** `IG_ACCESS_TOKEN` is shared with the live poster and Graph
+allows roughly 200 calls an hour per user, so the notifier stays at 60 or fewer
+an hour: a run makes at most 30 Graph calls (typically ~27: own username 1, IG
+media 1 + 10 comment reads, FB posts 1 + 10 comment reads, DMs 2-3), one page per
+list, and mentions poll only once an hour (`lastRun` in the ledger; a DM source
+disabled for a missing scope also retries hourly). Any Graph rate-limit answer
+(error codes 4, 17, 32, 613, or HTTP 429) or an exhausted budget aborts every
+remaining Graph call that run with a warning. Every request has a 20s timeout.
 
 Our own account's comments are skipped (by username on IG, by `from.id` on FB).
 
@@ -193,7 +202,9 @@ messages quote at most 200 characters and link to the Instagram inbox
 then the permalink; `📣` for mentions, `✉️ New IG DM from @user: "<≤200 chars>"`
 for DMs. User text is flattened to one line, markdown and `<@…>` syntax is
 escaped, and `@everyone`/`@here`/role pings are neutralised
-(`lib/reply-notify.mjs` `sanitizeUserText`). At most 15 messages go out per run;
+(`lib/reply-notify.mjs` `sanitizeUserText`); bare URLs in comment text are
+wrapped in `<>` so they do not autolink, and a user named `everyone`/`here`
+is shown without the `@`. At most 15 messages go out per run;
 the rest wait (they stay unseen) behind a `+N more` line and post on the next
 run. IG comment links use the `…/p/<code>/c/<id>/` deep-link form and fall back
 to nothing if the media permalink is missing.
@@ -209,8 +220,11 @@ switching this on never floods the channel. Afterwards any unseen item notifies,
 except one older than 7 days (recorded silently — which also makes pruning
 entries older than 180 days safe). A source that failed or warned is not marked
 seeded and is retried. A Discord failure leaves the item unseen and the run
-exits 1; if the final ledger push fails after messages went out, the next run
-can repeat them (at-least-once beats a missed reply).
+exits 1 — except a Discord 4xx about that one message (not 401/403/404/429),
+which marks it seen and moves on so one bad message never blocks the queue. The
+ledger file is rewritten after every message, so a crash mid-run cannot resend
+what already went out; if the final ledger push fails after messages went out,
+the next run can repeat them (at-least-once beats a missed reply).
 
 **Operating it.** Kill switch: repo variable `REPLY_NOTIFIER_ENABLED=false`.
 `workflow_dispatch` with `dry_run` prints what would be sent and writes

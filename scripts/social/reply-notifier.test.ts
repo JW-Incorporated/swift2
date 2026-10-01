@@ -86,7 +86,7 @@ describe('collectors', () => {
     expect(fetchImpl.mock.calls.some(([u]) => String(u).includes('m-old'))).toBe(false);
   });
 
-  it('follows nested replies pagination', async () => {
+  it('reads only the replies embedded with a comment — no per-thread continuation call', async () => {
     const fetchImpl = fakeFetch({
       ig1: { username: 'longlivets' },
       'ig1/media': { data: [media.data[0]] },
@@ -94,7 +94,8 @@ describe('collectors', () => {
       'c1/replies': { data: [{ id: 'r9', text: 'b', username: 'f3', timestamp: hoursAgo(1) }] },
     });
     const items = await collectInstagramComments(makeGraph({ token: TOKEN, fetchImpl }), { igUserId: 'ig1', now: NOW });
-    expect(items.map((i: { id: string }) => i.id)).toEqual(['ig-comment:c1', 'ig-comment:r1', 'ig-comment:r9']);
+    expect(items.map((i: { id: string }) => i.id)).toEqual(['ig-comment:c1', 'ig-comment:r1']);
+    expect(fetchImpl.mock.calls.some(([u]) => String(u).includes('/c1/replies'))).toBe(false);
   });
 
   it('one media failing warns and the rest still collect', async () => {
@@ -176,7 +177,8 @@ describe('message formatting + injection', () => {
     const out = sanitizeUserText(nasty);
     expect(out).not.toMatch(/@everyone|@here|<@&/);
     expect(out).not.toContain('\n');
-    expect(out).not.toMatch(/(?<!\\)[*_`<>#[\]]/);
+    expect(out).toContain('<http://e.vil>');
+    expect(out.replace(/<https?:\/\/[^\s<>]+>/g, '')).not.toMatch(/(?<!\\)[*_`<>#[\]]/);
   });
 
   it('builds the spec format, clips the comment, stays under 2000 chars', () => {

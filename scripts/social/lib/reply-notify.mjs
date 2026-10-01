@@ -4,7 +4,7 @@
 //
 // Ledger (reply-ledger.json on the dedicated `social-reply-ledger` branch):
 //   { version: 1, seeded: { <source>: <iso> }, seen: { <item id>: <iso> },
-//     disabledLogged: { <source>: <iso> } }
+//     disabledLogged: { <source>: <iso> }, lastRun: { <source>: <iso> } }
 // `seeded[source]` is set once a source has been read cleanly. Until then that
 // source is on its FIRST run: only items from the last 24h notify, everything
 // older is recorded silently, so turning the notifier on never floods the
@@ -12,7 +12,8 @@
 // STALE_DAYS, which is recorded silently too (that bound is also what makes
 // pruning `seen` after PRUNE_DAYS safe — a pruned id can never resurface).
 // `disabledLogged[source]` throttles the "source disabled" log line to once a
-// day (the DM source is disabled until the token carries its scope).
+// day (the DM source is disabled until the token carries its scope);
+// `lastRun[source]` lets the notifier poll its hourly sources once an hour.
 import {
   DISCORD_MESSAGE_LIMIT,
   DISCORD_SUPPRESS_EMBEDS,
@@ -31,7 +32,7 @@ const HOUR_MS = 3_600_000;
 const DAY_MS = 86_400_000;
 
 export function emptyLedger() {
-  return { version: 1, seeded: {}, seen: {}, disabledLogged: {} };
+  return { version: 1, seeded: {}, seen: {}, disabledLogged: {}, lastRun: {} };
 }
 
 export function parseLedger(text) {
@@ -45,6 +46,7 @@ export function parseLedger(text) {
     seeded: { ...(data.seeded ?? {}) },
     seen: { ...data.seen },
     disabledLogged: { ...(data.disabledLogged ?? {}) },
+    lastRun: { ...(data.lastRun ?? {}) },
   };
 }
 
@@ -55,8 +57,8 @@ export function serializeLedger(ledger, now = Date.now()) {
       .filter(([, at]) => !(Date.parse(at) < cutoff))
       .sort(([a], [b]) => (a < b ? -1 : 1)),
   );
-  const disabledLogged = ledger.disabledLogged ?? {};
-  return `${JSON.stringify({ version: 1, seeded: ledger.seeded, seen, disabledLogged }, null, 2)}\n`;
+  const { seeded, disabledLogged = {}, lastRun = {} } = ledger;
+  return `${JSON.stringify({ version: 1, seeded, seen, disabledLogged, lastRun }, null, 2)}\n`;
 }
 
 /**
@@ -98,6 +100,8 @@ const MARKDOWN_SPECIALS = /[\\`*_~|>#[\]()<]/g;
  * headers/quotes/code fences), control + zero-width characters dropped,
  * markdown and `<@id>`/`<#id>`/`<:emoji:>` syntax escaped, @everyone/@here/
  * role pings neutralised (allowed_mentions: parse [] is the second layer).
+ * Bare http(s) URLs are wrapped in `<>` so Discord neither autolinks them into
+ * a preview nor lets markdown reach inside them.
  */
 export function sanitizeUserText(text, max = COMMENT_MAX) {
   let flat = String(text ?? '')
@@ -105,7 +109,20 @@ export function sanitizeUserText(text, max = COMMENT_MAX) {
     .replace(/\s+/g, ' ')
     .trim();
   if (flat.length > max) flat = `${flat.slice(0, max - 1)}…`;
-  return neutralizeMentions(flat.replace(MARKDOWN_SPECIALS, '\\$&'));
+  const escape = (part) => part.replace(MARKDOWN_SPECIALS, '\\$&');
+  let out = '';
+  let last = 0;
+  for (const match of flat.matchAll(/https?:\/\/[^\s<>]+/gi)) {
+    const [, core, tail] = /^(.*?)([.,;:!?)\]'"]*)$/.exec(match[0]);
+    out += `${escape(flat.slice(last, match.index))}<${core}>${escape(tail)}`;
+    last = match.index + match[0].length;
+  }
+  return neutralizeMentions(out + escape(flat.slice(last)));
+}
+
+/** `@name`, except for names that would read as a mass ping when prefixed. */
+function handle(name) {
+  return /^(everyone|here)$/i.test(name.trim()) ? name : `@${name}`;
 }
 
 function safeLink(url) {
@@ -131,7 +148,7 @@ export function formatItem(item) {
     const headline = (HEADLINES[item.kind] ?? HEADLINES.ig_comment)(parts);
     const quoted = parts.comment ? `: "${parts.comment}"` : '';
     const link = safeLink(item.permalink);
-    const who = isDm ? ` from @${parts.user}` : ` — @${parts.user}`;
+    const who = isDm ? ` from ${handle(parts.user)}` : ` — ${handle(parts.user)}`;
     return `${headline}${who}${quoted}${link ? `\n${link}` : ''}`;
   };
   let message = build(COMMENT_MAX);
@@ -143,11 +160,22 @@ export function moreLine(remaining) {
   return `➕ +${remaining} more new ${remaining === 1 ? 'item' : 'items'} waiting — they post on the next run.`;
 }
 
+/**
+ * Whether a failed send is about THIS message (a 4xx other than auth/not-found/
+ * rate-limit): retrying it can never succeed, so the notifier skips it instead
+ * of blocking the queue. 401/403/404 mean the webhook itself is wrong — those
+ * (and 429/5xx/network) stop the run so the problem is loud.
+ */
+export function isPoisonMessageStatus(status) {
+  return status >= 400 && status < 500 && ![401, 403, 404, 429].includes(status);
+}
+
 /** One webhook post. Returns { ok, status }; retries once on a 429. Never throws. */
 export async function postDiscord(content, { webhook, fetchImpl = fetch }) {
   const send = () =>
     fetchImpl(webhook, {
       method: 'POST',
+      signal: globalThis.AbortSignal.timeout(15_000),
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         content,

@@ -15,11 +15,35 @@
 import { URLSearchParams } from 'node:url';
 import { GRAPH_VERSION } from './platforms.mjs';
 
-export const MAX_RECENT_POSTS = 30;
-export const RECENT_POST_DAYS = 30;
-const MAX_PAGES = 4;
+// Rate budget. The IG token is shared with the live poster and Graph allows
+// roughly 200 calls/hour/user, so this notifier stays at <= 60/hour: it runs
+// every 30 minutes with a hard cap of MAX_CALLS_PER_RUN (30) Graph calls per
+// run (typical run: ~27 — see docs/social/pipeline.md › Reply notifier).
+export const MAX_CALLS_PER_RUN = 30;
+export const MAX_IG_POSTS = 10;
+export const IG_POST_DAYS = 14;
+export const MAX_FB_POSTS = 10;
+export const FB_POST_DAYS = 30;
+const MAX_PAGES = 2;
 const COMMENT_PAGE_LIMIT = 50;
+const REQUEST_TIMEOUT_MS = 20_000;
 const DAY_MS = 86_400_000;
+
+/** Graph rate limiting or an exhausted call budget: the run stops making Graph calls. */
+export class RateLimitError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'RateLimitError';
+  }
+}
+
+export function isRateLimitError(err) {
+  return err?.status === 429 || [4, 17, 32, 613].includes(Number(err?.graphCode));
+}
+
+export function newBudget(max = MAX_CALLS_PER_RUN) {
+  return { max, used: 0, aborted: false };
+}
 
 export function scrub(message, token) {
   let out = String(message ?? '');
@@ -36,13 +60,25 @@ export function isPermissionError(err) {
   );
 }
 
-export function makeGraph({ token, fetchImpl = fetch, version = GRAPH_VERSION }) {
+export function makeGraph({
+  token,
+  fetchImpl = fetch,
+  version = GRAPH_VERSION,
+  budget = newBudget(),
+}) {
   const root = `https://graph.facebook.com/${version}`;
+  const cache = new Map();
 
   async function request(url) {
+    if (budget.aborted) throw new RateLimitError('Graph calls aborted earlier this run');
+    if (budget.used >= budget.max) {
+      budget.aborted = true;
+      throw new RateLimitError(`per-run Graph call budget (${budget.max}) exhausted`);
+    }
+    budget.used += 1;
     let res;
     try {
-      res = await fetchImpl(url);
+      res = await fetchImpl(url, { signal: globalThis.AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
     } catch (err) {
       // eslint-disable-next-line preserve-caught-error -- the cause can carry the request URL (and so the token)
       throw new Error(`Graph request failed: ${scrub(err?.message ?? err, token)}`);
@@ -55,10 +91,16 @@ export function makeGraph({ token, fetchImpl = fetch, version = GRAPH_VERSION })
     }
     if (!res.ok) {
       const detail = body?.error?.message ?? 'no error detail';
-      throw Object.assign(new Error(`Graph HTTP ${res.status}: ${scrub(detail, token)}`), {
+      const failure = Object.assign(new Error(`Graph HTTP ${res.status}: ${scrub(detail, token)}`), {
+        status: res.status,
         graphCode: body?.error?.code ?? null,
         graphDetail: scrub(detail, token),
       });
+      if (isRateLimitError(failure)) {
+        budget.aborted = true;
+        throw new RateLimitError(failure.message);
+      }
+      throw failure;
     }
     return body ?? {};
   }
@@ -87,19 +129,25 @@ export function makeGraph({ token, fetchImpl = fetch, version = GRAPH_VERSION })
     return out;
   }
 
-  /** Continue a nested edge (e.g. `replies`) from the body Graph embedded. */
-  async function continueEdge(edge, { maxPages = MAX_PAGES } = {}) {
-    const out = Array.isArray(edge?.data) ? [...edge.data] : [];
-    let url = edge?.paging?.next ?? null;
-    for (let page = 1; page < maxPages && url; page += 1) {
-      const body = await request(url);
-      out.push(...(Array.isArray(body.data) ? body.data : []));
-      url = body.paging?.next ?? null;
-    }
-    return out;
-  }
+  return { get, list, cache, budget };
+}
 
-  return { get, list, continueEdge };
+/** Our own IG username, fetched at most once per run (shared by comments + tags). */
+function ownUsernameOf(graph, igUserId, onWarn, label) {
+  if (!graph.cache.has('ig-username')) {
+    graph.cache.set(
+      'ig-username',
+      graph.get(igUserId, { fields: 'username' }).then(
+        (own) => String(own?.username ?? '').toLowerCase(),
+        (err) => {
+          if (err instanceof RateLimitError) throw err;
+          onWarn(`IG own username unavailable${label}: ${err.message}`);
+          return '';
+        },
+      ),
+    );
+  }
+  return graph.cache.get('ig-username');
 }
 
 function snippet(text, max = 60) {
@@ -119,7 +167,7 @@ async function recentPosts(graph, pathPart, params, { now, max, days, timeKey })
     const last = items[items.length - 1];
     return items.length >= max || !inWindow(last?.[timeKey], now, days);
   };
-  const posts = await graph.list(pathPart, params, { stop: old });
+  const posts = await graph.list(pathPart, params, { stop: old, maxPages: 1 });
   return posts.filter((p) => inWindow(p[timeKey], now, days)).slice(0, max);
 }
 
@@ -131,13 +179,9 @@ function igCommentLink(mediaPermalink, commentId, parentId) {
 
 export async function collectInstagramComments(
   graph,
-  { igUserId, now = Date.now(), onWarn = () => {}, max = MAX_RECENT_POSTS, days = RECENT_POST_DAYS },
+  { igUserId, now = Date.now(), onWarn = () => {}, max = MAX_IG_POSTS, days = IG_POST_DAYS },
 ) {
-  const own = await graph.get(igUserId, { fields: 'username' }).catch((err) => {
-    onWarn(`IG own username unavailable (our own replies may be reported): ${err.message}`);
-    return {};
-  });
-  const ownUsername = String(own?.username ?? '').toLowerCase();
+  const ownUsername = await ownUsernameOf(graph, igUserId, onWarn, ' (our own replies may be reported)');
   const media = await recentPosts(
     graph,
     `${igUserId}/media`,
@@ -147,10 +191,14 @@ export async function collectInstagramComments(
   const items = [];
   for (const post of media) {
     try {
-      const comments = await graph.list(`${post.id}/comments`, {
-        fields: 'id,text,username,timestamp,replies{id,text,username,timestamp}',
-        limit: String(COMMENT_PAGE_LIMIT),
-      });
+      const comments = await graph.list(
+        `${post.id}/comments`,
+        {
+          fields: 'id,text,username,timestamp,replies{id,text,username,timestamp}',
+          limit: String(COMMENT_PAGE_LIMIT),
+        },
+        { maxPages: 1 },
+      );
       for (const comment of comments) {
         const push = (c, parentId) => {
           if (!c?.id || (ownUsername && String(c.username ?? '').toLowerCase() === ownUsername)) return;
@@ -166,9 +214,12 @@ export async function collectInstagramComments(
           });
         };
         push(comment, null);
-        for (const reply of await graph.continueEdge(comment.replies)) push(reply, comment.id);
+        // Only the replies Graph embeds with the comment (its first page): a
+        // continuation call per busy thread would blow the per-run call budget.
+        for (const reply of comment.replies?.data ?? []) push(reply, comment.id);
       }
     } catch (err) {
+      if (err instanceof RateLimitError) throw err;
       onWarn(`IG comments for media ${post.id} failed: ${err.message}`);
     }
   }
@@ -177,17 +228,13 @@ export async function collectInstagramComments(
 
 export async function collectInstagramMentions(
   graph,
-  { igUserId, now = Date.now(), onWarn = () => {}, days = RECENT_POST_DAYS },
+  { igUserId, now = Date.now(), onWarn = () => {}, days = IG_POST_DAYS },
 ) {
-  const own = await graph.get(igUserId, { fields: 'username' }).catch((err) => {
-    onWarn(`IG own username unavailable for mentions: ${err.message}`);
-    return {};
-  });
-  const ownUsername = String(own?.username ?? '').toLowerCase();
+  const ownUsername = await ownUsernameOf(graph, igUserId, onWarn, ' for mentions');
   const tagged = await graph.list(
     `${igUserId}/tags`,
     { fields: 'id,caption,username,permalink,timestamp', limit: '25' },
-    { maxPages: 2 },
+    { maxPages: 1 },
   );
   return tagged
     .filter((t) => t?.id && inWindow(t.timestamp, now, days))
@@ -206,23 +253,27 @@ export async function collectInstagramMentions(
 
 export async function collectFacebookComments(
   graph,
-  { pageId, now = Date.now(), onWarn = () => {}, max = MAX_RECENT_POSTS, days = RECENT_POST_DAYS },
+  { pageId, now = Date.now(), onWarn = () => {}, max = MAX_FB_POSTS, days = FB_POST_DAYS },
 ) {
   const posts = await recentPosts(
     graph,
     `${pageId}/posts`,
-    { fields: 'id,message,permalink_url,created_time', limit: '25' },
+    { fields: 'id,message,permalink_url,created_time', limit: String(max) },
     { now, max, days, timeKey: 'created_time' },
   );
   const items = [];
   for (const post of posts) {
     try {
-      const comments = await graph.list(`${post.id}/comments`, {
-        filter: 'stream',
-        order: 'reverse_chronological',
-        fields: 'id,message,from{id,name},created_time,permalink_url',
-        limit: String(COMMENT_PAGE_LIMIT),
-      });
+      const comments = await graph.list(
+        `${post.id}/comments`,
+        {
+          filter: 'stream',
+          order: 'reverse_chronological',
+          fields: 'id,message,from{id,name},created_time,permalink_url',
+          limit: String(COMMENT_PAGE_LIMIT),
+        },
+        { maxPages: 1 },
+      );
       for (const c of comments) {
         if (!c?.id || (c.from?.id && String(c.from.id) === String(pageId))) continue;
         items.push({
@@ -237,6 +288,7 @@ export async function collectFacebookComments(
         });
       }
     } catch (err) {
+      if (err instanceof RateLimitError) throw err;
       onWarn(`FB comments for post ${post.id} failed: ${err.message}`);
     }
   }

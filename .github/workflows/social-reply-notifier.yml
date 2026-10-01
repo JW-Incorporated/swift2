@@ -22,7 +22,8 @@
 # push fails after messages went out, the next run may repeat them
 # (at-least-once; a missed notification would be worse).
 #
-# Cadence: every 15 minutes at :11/:26/:41/:56 — off the repo's :00/:05/:10/
+# Cadence: every 30 minutes at :13/:43 (Graph budget: <= 60 calls/hour on the
+# token shared with the poster) — off the repo's :00/:05/:10/
 # :23/:30/:40 contention cluster (watchdog.yml header). This repository is
 # public, so its Actions minutes are not billed. Kill switch: repo variable
 # REPLY_NOTIFIER_ENABLED=false skips the job. `dry_run` prints the messages and
@@ -31,7 +32,7 @@ name: social-reply-notifier
 
 on:
   schedule:
-    - cron: "11,26,41,56 * * * *"
+    - cron: "13,43 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:

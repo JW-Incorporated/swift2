@@ -11,7 +11,7 @@
 // tries (page token, user token) x (IG account id, Page id) until one answers.
 // If every attempt fails and any failure was a permission error, the source is
 // disabled for a missing scope; a plain failure is an ordinary source failure.
-import { isPermissionError, makeGraph } from './reply-sources.mjs';
+import { RateLimitError, isPermissionError, makeGraph } from './reply-sources.mjs';
 
 export const IG_INBOX_URL = 'https://www.instagram.com/direct/inbox/';
 const MESSAGES_PER_CONVERSATION = 10;
@@ -29,7 +29,8 @@ async function pageAccessToken(userGraph, pageId, token) {
   try {
     const res = await userGraph.get(pageId, { fields: 'access_token' });
     return res?.access_token && res.access_token !== token ? res.access_token : null;
-  } catch {
+  } catch (err) {
+    if (err instanceof RateLimitError) throw err;
     return null;
   }
 }
@@ -39,9 +40,10 @@ export async function collectInstagramDms({
   pageId,
   token,
   fetchImpl = fetch,
+  budget,
   onWarn = () => {},
 }) {
-  const pageToken = await pageAccessToken(makeGraph({ token, fetchImpl }), pageId, token);
+  const pageToken = await pageAccessToken(makeGraph({ token, fetchImpl, budget }), pageId, token);
   const tokens = [pageToken, token].filter(Boolean);
   const owners = [igUserId, pageId].filter(Boolean);
   const params = {
@@ -53,12 +55,13 @@ export async function collectInstagramDms({
   let permissionDenied = false;
   let lastError = null;
   for (const useToken of tokens) {
-    const graph = makeGraph({ token: useToken, fetchImpl });
+    const graph = makeGraph({ token: useToken, fetchImpl, budget });
     for (const owner of owners) {
       try {
-        conversations = await graph.list(`${owner}/conversations`, params, { maxPages: 2 });
+        conversations = await graph.list(`${owner}/conversations`, params, { maxPages: 1 });
         break;
       } catch (err) {
+        if (err instanceof RateLimitError) throw err;
         lastError = err;
         if (isPermissionError(err)) permissionDenied = true;
       }
