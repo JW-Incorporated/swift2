@@ -184,7 +184,11 @@ export function runSummary(results, actingPageId = null) {
     ]
       .filter(Boolean)
       .join(', ');
-    return `- ${r.slug}: ${r.status}${detail ? ` (${detail})` : ''}${r.reason ? ` — ${r.reason}` : ''}`;
+    const line = `- ${r.slug}: ${r.status}${detail ? ` (${detail})` : ''}${r.reason ? ` — ${r.reason}` : ''}`;
+    return r.commentsFailed
+      ? `${line}
+  comments: FAILED (${r.commentsFailed}) — posts uploaded; comments need a selector fix (run knowledge:fb-export:capture)`
+      : line;
   });
   const stunted = results.some((row) => row.status === 'stunted');
   const tabHidden = results.filter((row) => row.reason === 'tab-hidden').map((row) => row.slug);
@@ -333,6 +337,7 @@ export async function runExport(options = {}) {
   const commentFields = (item) => ({
     ...(item.commentCoverage ? { commentCoverage: item.commentCoverage } : {}),
     ...(item.commentCounts ? { commentCounts: item.commentCounts } : {}),
+    ...(item.commentsFailed ? { commentsFailed: item.commentsFailed } : {}),
   });
   // Upload an already-ingested file; ledger 'uploaded' only on an exact confirmation.
   const uploadAndRecord = async (slug, fields, extra = {}) => {
