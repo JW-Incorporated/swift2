@@ -14,7 +14,7 @@ export const EGG_NODES = [
     x: 10,
     y: 15,
     confirmed: true,
-    sources: [{ name: 'MTV News', url: 'https://www.mtv.com/news/1628121/taylor-swift-explains-why-13-is-her-lucky-number/' }],
+    sources: [{ name: 'Fox News', url: 'https://www.foxnews.com/entertainment/how-taylor-swifts-lucky-number-13-connects-her-travis-kelce-super-bowl' }],
   },
   {
     id: 'egg-capitals-debut',
@@ -26,7 +26,7 @@ export const EGG_NODES = [
     x: 12,
     y: 75,
     confirmed: true,
-    sources: [{ name: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-liner-notes-secret-messages-decoded/' }],
+    sources: [{ name: 'Yahoo Entertainment', url: 'https://www.yahoo.com/entertainment/history-taylor-swifts-easter-eggs-211032571.html' }],
   },
   {
     id: 'egg-capitals-fearless',
@@ -38,7 +38,7 @@ export const EGG_NODES = [
     x: 22,
     y: 75,
     confirmed: true,
-    sources: [{ name: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-liner-notes-secret-messages-decoded/' }],
+    sources: [{ name: 'Yahoo Entertainment', url: 'https://www.yahoo.com/entertainment/history-taylor-swifts-easter-eggs-211032571.html' }],
   },
   {
     id: 'egg-clock-lastkiss',
@@ -50,7 +50,7 @@ export const EGG_NODES = [
     x: 32,
     y: 45,
     confirmed: true,
-    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/taylor-swift-best-songs-1234731317/' }],
+    sources: [{ name: 'Genius (lyrics)', url: 'https://genius.com/Taylor-swift-last-kiss-lyrics' }],
   },
   {
     id: 'egg-red-burning',
@@ -74,7 +74,7 @@ export const EGG_NODES = [
     x: 48,
     y: 15,
     confirmed: true,
-    sources: [{ name: 'Time', url: 'https://time.com/3103444/taylor-swift-1989-instagram-clues/' }],
+    sources: [{ name: 'Wikipedia: 1989 (album)', url: 'https://en.wikipedia.org/wiki/1989_(album)' }],
   },
   {
     id: 'egg-karma-album-theory',
@@ -86,7 +86,7 @@ export const EGG_NODES = [
     x: 52,
     y: 90,
     confirmed: false,
-    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-features/taylor-swift-karma-scrapped-album-theory-explained-1234614742/' }],
+    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-features/taylor-swift-karma-lost-album-real-1234598609/' }],
   },
   {
     id: 'egg-snake-instagram',
@@ -110,7 +110,7 @@ export const EGG_NODES = [
     x: 58,
     y: 55,
     confirmed: true,
-    sources: [{ name: 'Vogue', url: 'https://www.vogue.com/article/taylor-swift-look-what-you-made-me-do-music-video-hidden-meanings' }],
+    sources: [{ name: 'ABC News', url: 'https://abcnews.com/Entertainment/taylor-swifts-made-noticed-video/story?id=49471975' }],
   },
   {
     id: 'egg-snake-me-mv',
@@ -122,7 +122,7 @@ export const EGG_NODES = [
     x: 64,
     y: 55,
     confirmed: true,
-    sources: [{ name: 'Entertainment Weekly', url: 'https://ew.com/music/2019/04/26/taylor-swift-me-music-video-easter-eggs/' }],
+    sources: [{ name: 'E! News', url: 'https://www.eonline.com/news/1035688/taylor-swift-s-me-music-video-all-the-hidden-easter-eggs-and-symbolism' }],
   },
   {
     id: 'egg-color-daylight',
@@ -146,7 +146,7 @@ export const EGG_NODES = [
     x: 66,
     y: 45,
     confirmed: true,
-    sources: [{ name: 'People', url: 'https://people.com/music/taylor-swift-lover-music-video-easter-eggs-breakdown/' }],
+    sources: [{ name: 'E! News', url: 'https://www.eonline.com/news/1344281/taylor-swift-approves-of-this-theory-about-her-10-albums' }],
   },
   {
     id: 'egg-man-graffiti',
@@ -158,7 +158,7 @@ export const EGG_NODES = [
     x: 68,
     y: 65,
     confirmed: true,
-    sources: [{ name: 'BBC', url: 'https://www.bbc.com/news/entertainment-arts-51664182' }],
+    sources: [{ name: 'HuffPost UK', url: 'https://www.huffingtonpost.co.uk/entry/taylor-swift-the-man-music-video-scooter-braun_uk_5e57bb7dc5b66622ed77b40f' }],
   },
   {
     id: 'egg-cabin-folklore',
@@ -170,7 +170,7 @@ export const EGG_NODES = [
     x: 70,
     y: 45,
     confirmed: true,
-    sources: [{ name: 'Vulture', url: 'https://www.vulture.com/2020/11/taylor-swift-folklore-the-long-pond-studio-sessions-review.html' }],
+    sources: [{ name: 'Wikipedia: Folklore (album)', url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)' }],
   },
   {
     id: 'egg-string-willow',
@@ -182,7 +182,7 @@ export const EGG_NODES = [
     x: 72,
     y: 30,
     confirmed: true,
-    sources: [{ name: "Harper's Bazaar", url: 'https://www.harpersbazaar.com/culture/art-books-music/a34938637/taylor-swift-willow-music-video-easter-eggs/' }],
+    sources: [{ name: "Nicki Swift", url: 'https://www.nickiswift.com/293860/hidden-details-in-taylor-swifts-new-willow-music-video/' }],
   },
   {
     id: 'egg-fearless-tv-scramble',
@@ -194,7 +194,7 @@ export const EGG_NODES = [
     x: 74,
     y: 65,
     confirmed: true,
-    sources: [{ name: 'Good Morning America', url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-re-recorded-fearless-album-drops-75825227' }],
+    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-fearless-re-recording-1126895/' }],
   },
   {
     id: 'egg-red-tv-rings',
@@ -206,7 +206,7 @@ export const EGG_NODES = [
     x: 76,
     y: 67,
     confirmed: true,
-    sources: [{ name: 'Variety', url: 'https://variety.com/2021/music/news/taylor-swift-red-taylors-version-release-date-1235000109/' }],
+    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-red-taylors-version-1186388/' }],
   },
   {
     id: 'egg-bejeweled-elevator',
@@ -218,7 +218,7 @@ export const EGG_NODES = [
     x: 78,
     y: 62,
     confirmed: true,
-    sources: [{ name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-bejeweled-music-video-easter-eggs' }],
+    sources: [{ name: 'Distractify', url: 'https://www.distractify.com/p/bejeweled-music-video-easter-eggs' }],
   },
   {
     id: 'egg-rep-tv-clue-bejeweled',
@@ -230,7 +230,7 @@ export const EGG_NODES = [
     x: 82,
     y: 72,
     confirmed: false,
-    sources: [{ name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-bejeweled-music-video-easter-eggs' }],
+    sources: [{ name: 'Distractify', url: 'https://www.distractify.com/p/bejeweled-music-video-easter-eggs' }],
   },
   {
     id: 'egg-13-tracks-midnights',
@@ -242,7 +242,7 @@ export const EGG_NODES = [
     x: 80,
     y: 15,
     confirmed: true,
-    sources: [{ name: 'Pitchfork', url: 'https://pitchfork.com/news/taylor-swift-reveals-all-midnights-track-names/' }],
+    sources: [{ name: 'NME', url: 'https://www.nme.com/news/music/taylor-swift-midnights-album-tracklist-3314098' }],
   },
   {
     id: 'egg-midnights-vinyl-clock',
@@ -254,7 +254,7 @@ export const EGG_NODES = [
     x: 84,
     y: 22,
     confirmed: true,
-    sources: [{ name: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-vinyl-back-covers-clock-1235140134/' }],
+    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-elevates-midnights-artwork-clock-1234594274/' }],
   },
   {
     id: 'egg-speaknow-tv-nashville',
@@ -266,7 +266,7 @@ export const EGG_NODES = [
     x: 86,
     y: 60,
     confirmed: true,
-    sources: [{ name: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-announces-speak-now-taylors-version-eras-tour-nashville-1234730248/' }],
+    sources: [{ name: 'Variety', url: 'https://variety.com/2023/music/news/taylor-swift-speak-now-taylors-version-announced-during-concert-nashville-nissan-stadium-1235605123/' }],
   },
   {
     id: 'egg-1989-tv-la',
@@ -278,7 +278,7 @@ export const EGG_NODES = [
     x: 88,
     y: 66,
     confirmed: true,
-    sources: [{ name: 'Los Angeles Times', url: 'https://www.latimes.com/entertainment-arts/music/story/2023-08-09/taylor-swift-1989-taylors-version-eras-tour-sofi-stadium' }],
+    sources: [{ name: 'Variety', url: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/' }],
   },
   {
     id: 'egg-eras-burning-house',
@@ -302,7 +302,7 @@ export const EGG_NODES = [
     x: 88,
     y: 82,
     confirmed: false,
-    sources: [{ name: 'Cosmopolitan', url: 'https://www.cosmopolitan.com/entertainment/music/a60538356/taylor-swift-two-fingers-clue-meaning/' }],
+    sources: [{ name: 'UNILAD', url: 'https://www.unilad.com/music/news/taylor-swift-the-tortured-poets-department-double-album-clues-020335-20240419' }],
   },
   {
     id: 'egg-ttpd-timetable-clock',
@@ -314,7 +314,7 @@ export const EGG_NODES = [
     x: 90,
     y: 80,
     confirmed: true,
-    sources: [{ name: 'USA Today', url: 'https://www.usatoday.com/story/entertainment/music/2024/04/16/taylor-swift-ttpd-release-timetable/73347101007/' }],
+    sources: [{ name: 'Capital FM', url: 'https://www.capitalfm.com/news/music/taylor-swift-the-tortured-poets-department-timetable-clock/' }],
   },
   {
     id: 'egg-ttpd-anthology-drop',
@@ -326,7 +326,7 @@ export const EGG_NODES = [
     x: 93,
     y: 82,
     confirmed: true,
-    sources: [{ name: 'Variety', url: 'https://variety.com/2024/music/news/taylor-swift-secret-double-album-tortured-poets-department-anthology-1235975618/' }],
+    sources: [{ name: 'Variety', url: 'https://variety.com/2024/music/news/taylor-swift-surprise-songs-double-album-tortured-poets-department-1235976191/' }],
   },
   {
     id: 'egg-wood-track-tloas',

@@ -953,6 +953,9 @@ Four site-maintenance additions, designed in
 - **Karen** (extended) — nightly now also runs `scripts/check-link-liveness.mjs`
   to sweep **every** source URL (not just images), suggesting archive.org/Wayback
   snapshots for dead links.
+  Since #4324 the same script covers every link class (sources, shop/product,
+  community, app) and also runs as the deterministic nightly `link-sweep.yml`
+  Action, which fails on any dead link.
 - **Nils** (extended) — daily walk now also judges **SEO/discoverability**
   (metadata / Open Graph / JSON-LD / sitemap), and its live-site target moved off
   the internal `swift2-ten` alias to the public domain **www.longlivets.com**
