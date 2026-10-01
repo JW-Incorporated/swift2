@@ -5,6 +5,8 @@
 Marjorie may not edit this file** — a change to it is the owner's, by PR.
 Added 2026-10-01 (owner instruction, `docs/decisions.md` 2026-10-01): the owner
 is in the reviewing/approving business, not the rule-making business.
+**Signed off by the owner in chat 2026-10-01** (rows 1–5 as written; row 6
+reworded at his request).
 
 **Everything not listed here is Tree's and Marjorie's to decide** — format
 (photo, card, screenshot, text), cadence, hooks, pillars, experiments, targets,
@@ -20,7 +22,7 @@ Marjorie owns growth goals; **Fable rules** on any taste dispute between them
 | 3 | **No AI-generated images of Taylor** | `check-drafts.mjs` media-kind/inventory gate (`era-art`/uncleared images rejected); owner ✅ |
 | 4 | **Sensitive personal-life topics are confirmed-only**; no fabricated facts; never speak as Taylor; always labelled fan-made | the normative text below (moved here from the strategy doc, which Tree can edit); `check-drafts.mjs` voice rules; owner ✅ |
 | 5 | **Platform limits.** X 280 weighted characters; Instagram needs an image in its aspect window; a story-unique `campaign` on every item; no Reels/video (not automatable) | `check-drafts.mjs` `checkLength`/`checkMedia`/`checkCampaignPair`, `lib/queue-schema.mjs`, `lib/platforms.mjs` |
-| 6 | **Replies and DMs stay human.** No new channel, account, payment or spend without the owner. Never tease an unshipped feature | `docs/agents/tree.md` rails; `scripts/check-routine-workflows.mjs`; owner ✅ |
+| 6 | **Replies and DMs are human — for now.** The owner answers every reply and DM himself and must be notified of each one. Automated replies to real people are expected once the account is big enough; switching them on is an owner decision, not a ban. No new channel, account, payment or spend without the owner (paid X API metrics declined 2026-10-01). Never tease an unshipped feature | `docs/agents/tree.md` rails; `scripts/check-routine-workflows.mjs`; owner ✅ |
 
 Guardrail checks live in code and have **no parameter**: `social/strategy-params.json`
 holds taste thresholds only and cannot switch any row above off.

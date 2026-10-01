@@ -59,8 +59,11 @@ call" line in strategy §2. **Not superseded:** the owner's ✅ on every post
 (`RULINGS-SOCIAL-2.md` B1), lesson L001's content (now a parameter Tree may tune), and every
 guardrail above.
 
-**Guardrails pending sign-off.** The six-row list is the Opus review's carve-out and is
-written as the owner listed it; the owner's sign-off on the exact wording is outstanding.
+**Guardrails signed off (owner, chat, 2026-10-01).** Rows 1–5 approved as written,
+conditional on the improved approval flow (#4660: one message per post, one ✅ for IG+X,
+reply = reject). Row 6 reworded at his request: replies/DMs are human *for now* and he
+must be notified of every one; automated replies are a future owner decision, not a
+ban. Paid X API metrics: declined.
 
 **Reversible by** reverting the S2 PR; the allowlist lines, `NEVER_ALLOWLIST` entry and
 params file are independent one-line changes.
