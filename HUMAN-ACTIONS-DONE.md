@@ -3,6 +3,9 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #87 · 2026-10-01 · done · Ownership backlog stuck 7+ days — accept it or get it routed — "Joey asked agent 2026-10-01 to close verified-done items; founder decision comment on #4546, budget raised via merged PR #4631" · by agent
+- #85 · 2026-10-01 · done · #4559 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4559 (2026-09-30), issue closed" · by agent · <!-- marjorie-chase: 96h issue=4559 -->
+- #79 · 2026-10-01 · done · #4324 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4324 (comment 2026-09-30)" · by agent · <!-- marjorie-chase: 96h issue=4324 -->
 - #90 · 2026-10-01 · done · Unfreeze social posting once PR #4660 has merged — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5931982869 — owner said done" · by status page
 - #80 · 2026-09-30 · done · #4364 has had no activity for 4 days — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5925822083 — owner decided 'close'" · by status page · <!-- marjorie-chase: 96h issue=4364 -->
 - #49 · 2026-09-30 · done · Add the shared Community Tasks acknowledgement secret — "Joey said in chat 2026-09-30: close 49; GH secret set, Vercel Production+Preview set and redeployed, manual daily mailer run 36739720371 logged no COMMUNITY_ACK_SECRET unset" · by chat
