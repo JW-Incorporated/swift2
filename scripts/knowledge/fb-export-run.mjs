@@ -33,6 +33,8 @@ const STOP_STATUSES = [
   'stunted',
 ];
 const REPO_ROOT = resolve(import.meta.dirname, '..', '..');
+// How the ingest child loads the worker env file; the preflight reuses the exact same arg.
+const INGEST_ENV_ARG = '--env-file-if-exists=apps/worker/.env';
 
 export async function gateExport(
   result,
@@ -94,7 +96,7 @@ export async function ingestOne(
   const args = [
     '--import',
     'tsx',
-    '--env-file-if-exists=apps/worker/.env',
+    INGEST_ENV_ARG,
     'scripts/community/fb-export-ingest.mjs',
     '--group',
     groupSlug,
@@ -113,8 +115,53 @@ export async function ingestOne(
     return counts
       ? { ok: true, counts }
       : { ok: false, reason: 'ingest output was not recognized' };
+  } catch (error) {
+    return { ok: false, reason: failureReason(error, 'ingest') };
+  }
+}
+
+// The child's last non-empty stderr line (<=200 chars), secrets redacted, so a failed child
+// reports WHY instead of a bare stage name.
+export function failureReason(error, fallback) {
+  const last = String(error?.stderr ?? '')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .at(-1);
+  return last ? redactReason(last).slice(0, 200) : fallback;
+}
+
+export function redactReason(text) {
+  return String(text)
+    .replace(/[a-z][a-z0-9+.-]*:\/\/[^\s/@]*:[^\s/@]*@\S+/gi, '[redacted-url]')
+    .replace(/\beyJ[\w-]{10,}(?:\.[\w-]+){0,2}/g, '[redacted]')
+    .replace(/\b(?:sb_secret_|sk-|ghp_|github_pat_|xox[a-z]-)[\w-]+/gi, '[redacted]')
+    .replace(
+      /((?:key|token|secret|password|passwd|authorization|bearer)\w*\s*[=:]\s*)\S+/gi,
+      '$1[redacted]',
+    )
+    .replace(/\b[A-Za-z0-9_-]{32,}\b/g, '[redacted]');
+}
+
+const REQUIRED_ENV_KEYS = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
+export const ENV_MISSING_SUMMARY =
+  'Worker env is missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY — see HUMAN-ACTIONS #88';
+
+// Loads the worker env file exactly as the ingest child does; prints only true/false per key.
+export async function checkWorkerEnv(exec = execFileAsync) {
+  const script = `console.log(JSON.stringify(Object.fromEntries(${JSON.stringify(
+    REQUIRED_ENV_KEYS,
+  )}.map((k) => [k, Boolean(process.env[k])]))))`;
+  try {
+    const { stdout } = await exec(process.execPath, [INGEST_ENV_ARG, '-e', script], {
+      cwd: REPO_ROOT,
+      windowsHide: true,
+      maxBuffer: 64 * 1024,
+    });
+    const flags = JSON.parse(String(stdout).trim().split('\n').at(-1));
+    return { ok: REQUIRED_ENV_KEYS.every((k) => flags[k] === true) };
   } catch {
-    return { ok: false, reason: 'ingest' };
+    return { ok: false };
   }
 }
 
@@ -135,10 +182,11 @@ export async function uploadOne(filePath, exec = execFileAsync) {
     if (!uploadSucceeded(stdout)) return { ok: false, reason: 'upload confirmation was not exact' };
     await rm(filePath, { force: true });
     return { ok: true };
-  } catch {
+  } catch (error) {
+    const detail = failureReason(error, '');
     return {
       ok: false,
-      reason: 'upload command failed; local export was kept',
+      reason: `upload command failed; local export was kept${detail ? ` (${detail})` : ''}`,
     };
   } finally {
     await rm(uploadDir, { recursive: true, force: true });
@@ -313,6 +361,10 @@ export async function runExport(options = {}) {
     else if (row.filePath && (await fileExists(row.filePath))) uploadOnly.push(group);
     else missingIngested.push(group);
   }
+  if (!dryRun && pending.length) {
+    const env = await (options.checkEnv ?? checkWorkerEnv)();
+    if (!env.ok) return { ok: false, results: [], summary: ENV_MISSING_SUMMARY, envMissing: true };
+  }
   const collection = pending.length
     ? await (options.collect ?? extensionCollect)({
         groups: pending,
@@ -443,7 +495,7 @@ export async function runExport(options = {}) {
       results.push({
         slug: item.slug,
         status: 'failed',
-        reason: 'ingest',
+        reason: ingested.reason || 'ingest',
         postCount: gate.postCount,
         stopReason: gate.stopReason,
         coverageAgeMs: gate.coverageAgeMs,

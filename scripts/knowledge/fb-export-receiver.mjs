@@ -244,7 +244,7 @@ export async function startReceiver({
       ? Math.min(g.wallBudgetMs ?? CAPTURE_WALL_BUDGET_MS, CAPTURE_WALL_BUDGET_MS)
       : (g.wallBudgetMs ?? DEFAULT_WALL_BUDGET_MS),
     ...(capture ? { capture: true } : {}),
-    maxScrolls: 250,
+    maxScrolls: 2000,
     comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
     // For the extension's positive profile check (harvest-core profileCheck).
     readAs,
