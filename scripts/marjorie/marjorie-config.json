@@ -1,6 +1,6 @@
 {
   "bot1Bridge": {
-    "enabled": false,
+    "enabled": true,
     "maxPromptsPerDay": 3,
     "channelId": "1542573676073848862",
     "trackingIssue": null

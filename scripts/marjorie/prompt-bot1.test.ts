@@ -36,9 +36,9 @@ function config(over = {}) {
 }
 
 describe('committed config', () => {
-  it('ships OFF with a limit of 3', () => {
+  it('is ON (Hermes#1 allowlist live 2026-10-01) with a limit of 3', () => {
     const cfg = loadConfig(path.join(__dirname, 'marjorie-config.json'));
-    expect(cfg).toMatchObject({ enabled: false, maxPromptsPerDay: 3 });
+    expect(cfg).toMatchObject({ enabled: true, maxPromptsPerDay: 3 });
   });
   it('only literal true enables; a missing file or garbage limit stays safe, and the limit never exceeds 3', () => {
     const dir = mkdtempSync(path.join(tmpdir(), 'bot1-cfg-'));
@@ -198,6 +198,6 @@ describe('send (CLI path)', () => {
   it('rejects bad usage and parses flags', async () => {
     await expect(send({}, {})).rejects.toThrow(/usage/);
     expect(parseArgs(['send', '--file', 'p.md', '--dry-run'])).toEqual({ command: 'send', flags: { file: 'p.md', 'dry-run': true } });
-    expect(readFileSync(path.join(__dirname, 'marjorie-config.json'), 'utf8')).toContain('"enabled": false');
+    expect(readFileSync(path.join(__dirname, 'marjorie-config.json'), 'utf8')).toContain('"enabled": true');
   });
 });
