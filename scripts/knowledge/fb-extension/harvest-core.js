@@ -313,24 +313,58 @@
   const COUNT = String.raw`(\d[\d,]*(?:\.\d+)?\s*[KkMm]?)`;
   const REACTION_PATTERNS = [
     new RegExp(`^All reactions:?\\s*${COUNT}$`, 'i'),
-    new RegExp(`^${COUNT}\\s+reactions?$`, 'i'),
+    // "14 reactions", and the live 2026-09-30 label "14 reactions; see who reacted to this".
+    new RegExp(`^${COUNT}\\s+reactions?(?:$|[;:,.])`, 'i'),
   ];
   const COMMENT_PATTERN = new RegExp(`^${COUNT}\\s+comments?$`, 'i');
+  const BARE_COUNT = new RegExp(`^${COUNT}$`);
+  // Per-reaction breakdown in the "See who reacted to this" toolbar: "Love: 12 people".
+  const BREAKDOWN_PATTERN = new RegExp(`^[\\p{L}]{2,20}:\\s*${COUNT}\\s+\\S+$`, 'iu');
 
-  // Best-effort engagement numbers from the unit's POST REGION (postRegion: the post's own article,
-  // before the first comment marker). DOM GUESS: Facebook renders "All reactions:" + a count,
-  // "<n> reactions" or "<n> comments" as short labels; none of this is verified against the live
-  // DOM. Unknown → null, never 0.
-  // Also returns `countElement`, the first element a count was read from: the reaction / comment
-  // bar, which Facebook renders between the post's attachments and its comments — buildPostHtml
-  // uses it as the positive lower bound for post media.
+  // The count rendered inside an action button (live shape 2026-09-30: the Like button holds the
+  // reaction count, the Comment button the comment count, next to the icon). null = no number.
+  function buttonCount(button) {
+    if (!button) return null;
+    const walker = button.ownerDocument.createTreeWalker(button, 4 /* SHOW_TEXT */);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      const text = squash(node.nodeValue);
+      if (BARE_COUNT.test(text)) return parseCount(text);
+    }
+    return null;
+  }
+
+  // Engagement numbers from the unit's post region plus its action row (the row holds the counts
+  // in the live shape, and it is the region's end anchor). Read in this order:
+  //  1. the counts inside the Like / Comment buttons (anchored by data-ad-rendering-role); a
+  //     Comment button that shows no number is a CONFIRMED zero (the live feed omits the count
+  //     for posts nobody commented on), never "unknown";
+  //  2. label / text shapes: "All reactions: 14", "14 reactions[; see who reacted…]", "14 comments";
+  //  3. the per-reaction breakdown ("Love: 12 people" + "Like: 2 people") summed.
+  // Unknown → null. Also returns `countElement`, the first element a count was read from —
+  // buildPostHtml uses it as a positive lower bound for post media.
   function extractEngagement(unit, region = postRegion(unit)) {
     let reactions = null;
     let commentCount = null;
     let countElement = null;
+    const own = (el) =>
+      region.inRegion(el) || (region.footer && region.footer.contains(el) && region.inPost(el));
+
+    const likeButton = ownedButton(region, LIKE_MARKER);
+    const commentButton = ownedButton(region, COMMENT_MARKER);
+    if (likeButton) {
+      reactions = buttonCount(likeButton);
+      if (reactions !== null) countElement = likeButton;
+    }
+    if (commentButton) {
+      commentCount = buttonCount(commentButton) ?? 0;
+      countElement ??= commentButton;
+    }
+    if (reactions === null && likeButton && !region.scope.querySelector(REACTIONS_TOOLBAR))
+      reactions = 0;
+
     for (const element of unit.querySelectorAll('[aria-label], span, a, div[role="button"]')) {
       if (reactions !== null && commentCount !== null) break;
-      if (!region.inRegion(element)) continue;
+      if (!own(element)) continue;
       const labels = [element.getAttribute('aria-label'), element.textContent]
         .filter(Boolean)
         .map((value) =>
@@ -360,7 +394,33 @@
         }
       }
     }
+    if (reactions === null) {
+      let sum = 0;
+      let seen = 0;
+      for (const toolbar of region.scope.querySelectorAll(REACTIONS_TOOLBAR)) {
+        if (!own(toolbar)) continue;
+        for (const el of toolbar.querySelectorAll('[aria-label]')) {
+          const match = squash(el.getAttribute('aria-label')).match(BREAKDOWN_PATTERN);
+          const count = match ? parseCount(match[1]) : null;
+          if (count === null) continue;
+          sum += count;
+          seen += 1;
+          countElement ??= el;
+        }
+      }
+      if (seen) reactions = sum;
+    }
     return { reactions, commentCount, countElement };
+  }
+
+  // The closest button around an action-row marker (data-ad-rendering-role="like_button" /
+  // "comment_button" / "share_button"), when it is the post's own (not a comment's).
+  function ownedButton(region, selector) {
+    for (const marker of region.scope.querySelectorAll(selector)) {
+      if (!region.inPost(marker)) continue;
+      return marker.closest(CONTROL_SELECTOR) ?? marker;
+    }
+    return null;
   }
 
   // Comments are PRIVATE (PLAN schema v1): they may only leave the page through comments.js into
@@ -409,6 +469,34 @@
   const RESIDUAL_LABEL = /^(?:comment|reply)/i;
   const NEVER_COPIED = 'script, style, iframe, noscript, template, object, embed';
 
+  // Live feed shape, read from the 2026-09-30 DOM skeletons (117 units, 8 groups; structure
+  // only, no text): the post card is NOT a role=article any more — every role=article inside a
+  // feed unit is a comment. Facebook's own data-ad-rendering-role markers are the stable anchors:
+  //   profile_name (author header) → story_message / data-ad-preview (text body, absent on
+  //   photo / video / shared-only posts) → attachments (a[href^="/photo/"] img, video, reel) →
+  //   meta > title / description (link / share preview) → the ACTION ROW: Like button (holding
+  //   the reaction count) + like_button, Comment button ("Leave a comment", holding the comment
+  //   count) + comment_button, Share + share_button, the "See who reacted to this" toolbar →
+  //   comment articles ("Comment by …") → the composer form.
+  // Post permalinks are lazy (href="/" until hovered) and there are no abbr/time elements; the
+  // timestamp is an `a` whose aria-label is the full date and whose text is the short age.
+  const LIKE_MARKER = '[data-ad-rendering-role="like_button"]';
+  const COMMENT_MARKER = '[data-ad-rendering-role="comment_button"]';
+  const SHARE_MARKER = '[data-ad-rendering-role="share_button"]';
+  const PROFILE_NAME_SELECTOR = '[data-ad-rendering-role="profile_name"]';
+  const META_SELECTOR = '[data-ad-rendering-role="meta"]';
+  const META_TEXT_SELECTOR =
+    '[data-ad-rendering-role="title"], [data-ad-rendering-role="description"]';
+  const REACTIONS_TOOLBAR = '[role="toolbar"], [aria-label*="who reacted" i]';
+  // Anchors that mark an element as the POST's (never a comment's); order = preference.
+  const POST_ANCHOR_SELECTOR = `${MESSAGE_SELECTOR}, ${PROFILE_NAME_SELECTOR}, ${LIKE_MARKER}, ${COMMENT_MARKER}`;
+  const ACTIONS_BUTTON = /^actions for this post\b/i;
+  const DATE_LABEL =
+    /^(?:[\p{L}]+,\s*)?(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:,\s*\d{4})?(?:\s+at\s+\d{1,2}:\d{2}\s*(?:[AaPp][Mm])?)?$/u;
+  const WEEKDAY_PREFIX = /^[\p{L}]+,\s*/u;
+  const SHORT_AGE =
+    /^(?:\d{1,3}\s?(?:m|h|d|w|min|mins|hr|hrs|hour|hours|day|days|week|weeks)(?:\s+ago)?|just now|now|yesterday(?: at \d{1,2}:\d{2}(?: [ap]m)?)?)$/i;
+
   const squash = (value) =>
     String(value ?? '')
       .replace(/\u00a0/g, ' ')
@@ -423,8 +511,20 @@
   //  - labelled (English): the nearest ancestor of the first own "Like" control that also holds
   //    an own "Comment" control.
   // Either candidate must carry ≤ 120 chars of text so a match can never swallow the post body.
-  function findActionToolbar(clone, primary) {
-    const own = (el) => !primary || el.closest('[role="article"]') === primary;
+  // The POSITIVE action row (live shape): the nearest ancestor of the post's own like_button
+  // marker that also holds the comment_button or share_button marker. null when absent.
+  function findActionRow(scope, primary) {
+    const own = (el) => el.closest('[role="article"]') === primary;
+    const like = [...scope.querySelectorAll(LIKE_MARKER)].find(own);
+    if (!like) return null;
+    for (let node = like.parentElement; node && node !== scope; node = node.parentElement)
+      if (node.querySelector(`${COMMENT_MARKER}, ${SHARE_MARKER}`)) return node;
+    return null;
+  }
+
+  function findActionToolbar(clone, primary, actionRow = findActionRow(clone, primary)) {
+    if (actionRow) return actionRow; // the anchored row beats every heuristic
+    const own = (el) => el.closest('[role="article"]') === primary;
     const small = (el) => squash(el.textContent).length <= TOOLBAR_MAX_TEXT;
     const holdsControl = (el) => el.matches(CONTROL_SELECTOR) || el.querySelector(CONTROL_SELECTOR);
     const candidates = [];
@@ -466,7 +566,7 @@
   // Everything that marks the COMMENT side of a unit, earliest in document order wins: a nested
   // role=article, a comment permalink, a composer, a "Comment by"/"Reply by" or composer label, a
   // comment-list control, the action toolbar. Read-only: works on the live element.
-  function firstCommentMarker(scope, primary) {
+  function firstCommentMarker(scope, primary, actionRow = null) {
     const markers = [];
     for (const el of scope.querySelectorAll('[role="article"]'))
       if (el !== primary) markers.push(el);
@@ -479,16 +579,29 @@
     }
     for (const el of scope.querySelectorAll(CONTROL_SELECTOR))
       if (COMMENT_LIST_CONTROL.test(controlName(el))) markers.push(el);
-    const toolbar = findActionToolbar(scope, primary);
+    const toolbar = findActionToolbar(scope, primary, actionRow);
     if (toolbar) markers.push(toolbar);
     if (!markers.length) return null;
     return markers.reduce((first, next) => (follows(first, next) ? first : next));
   }
 
+  // The post's primary article: the unit when it is one; else the first article holding a post
+  // anchor (legacy shape: the post article with comments nested inside it); else, when the unit
+  // carries post anchors outside any article (live shape), none — every article is a comment.
+  // A unit with no anchors at all keeps the legacy reading (its first article is the post).
+  function postPrimary(unit) {
+    if (unit.matches('[role="article"]')) return unit;
+    const articles = [...unit.querySelectorAll('[role="article"]')];
+    const anchored = articles.find((article) => article.querySelector(POST_ANCHOR_SELECTOR));
+    if (anchored) return anchored;
+    return unit.querySelector(POST_ANCHOR_SELECTOR) ? null : (articles[0] ?? null);
+  }
+
   // Which detector produced a comment marker (capture mode records it per unit — a diagnosis,
   // never a behaviour change). Same tests as firstCommentMarker, in its priority order.
-  function markerKind(el, primary) {
+  function markerKind(el, primary, actionRow = null) {
     if (!el) return null;
+    if (actionRow && el === actionRow) return 'action-row';
     if (el !== primary && el.matches('[role="article"]')) return 'nested-article';
     if (el.matches(RESIDUAL_LINK)) return 'comment-link';
     if (el.matches(COMPOSER_SELECTOR)) return 'composer';
@@ -503,26 +616,117 @@
   // The post's own region: the post article (the unit itself or its first role=article), minus
   // everything from the first comment marker on. `inRegion(el)` is the single ownership test every
   // positive copy below uses.
+  // `inPost(el)`: owned by the post, not by a comment article (true on both sides of the cut);
+  // `inRegion(el)`: inPost AND before the cut. `footer` is the action row (or the heuristic
+  // toolbar) — the post's own end anchor, where the live shape keeps the counts.
   function postRegion(unit) {
-    const primary = unit.matches('[role="article"]')
-      ? unit
-      : unit.querySelector('[role="article"]');
+    const primary = postPrimary(unit);
     const scope = primary ?? unit;
-    const cut = firstCommentMarker(scope, primary);
+    const inPost = (el) => el.closest('[role="article"]') === primary;
+    const actionRow = findActionRow(scope, primary);
+    const cut = firstCommentMarker(scope, primary, actionRow);
+    const cutKind = markerKind(cut, primary, actionRow);
+    const footer = actionRow ?? (cutKind === 'toolbar' ? cut : null);
     const inRegion = (el) =>
-      el.closest('[role="article"]') === primary &&
-      !(cut && (el === cut || cut.contains(el) || follows(cut, el)));
-    return { primary, scope, cut, cutKind: markerKind(cut, primary), inRegion };
+      inPost(el) && !(cut && (el === cut || cut.contains(el) || follows(cut, el)));
+    return { primary, scope, cut, cutKind, actionRow, footer, inPost, inRegion };
+  }
+
+  // The post's author: the profile_name block's link (live shape), else the first own
+  // `a[aria-label]` before `before` (legacy). {el, name, href} or null. `name` may be '' when
+  // the block is present but its text is not (the anchor still bounds the post).
+  function findAuthor(region, before) {
+    const profileName = [...region.scope.querySelectorAll(PROFILE_NAME_SELECTOR)].find(
+      region.inRegion,
+    );
+    if (profileName) {
+      const link = [...profileName.querySelectorAll('a')].find((a) => squash(a.textContent));
+      return {
+        el: link ?? profileName,
+        name: squash((link ?? profileName).textContent).slice(0, 80),
+        href: link?.getAttribute('href') ?? null,
+      };
+    }
+    const link = [...region.scope.querySelectorAll('a[aria-label]')].find(
+      (el) => region.inRegion(el) && (!before || follows(el, before)),
+    );
+    return link
+      ? {
+          el: link,
+          name: squash(link.getAttribute('aria-label')).slice(0, 80),
+          href: link.getAttribute('href'),
+          legacy: true,
+        }
+      : null;
+  }
+
+  // The post's own timestamp links (live shape): an `a` in the region, before `before`, whose
+  // aria-label is a full date or whose short text is a relative age ("2h", "3 d", "just now").
+  function timestampLinks(region, before) {
+    return [...region.scope.querySelectorAll('a')].filter((a) => {
+      if (!region.inRegion(a) || (before && !follows(a, before))) return false;
+      const text = squash(a.textContent);
+      return (
+        DATE_LABEL.test(squash(a.getAttribute('aria-label'))) ||
+        (text.length <= 16 && SHORT_AGE.test(text))
+      );
+    });
+  }
+
+  // Timestamp candidate strings in the order firstOwnTimestamp tries them: the permalink's
+  // attributes (legacy), each date link's label (weekday stripped — relativeAgeMs reads
+  // "September 30, 2026 at 3:15 PM") then its short text, then abbr/time (legacy).
+  function timestampValues(region, permalink, before) {
+    const attrs = (el) => [
+      el.getAttribute('datetime'),
+      el.getAttribute('title'),
+      el.getAttribute('aria-label'),
+      el.textContent,
+    ];
+    const abbrs = [...region.scope.querySelectorAll('abbr, time')].filter(
+      (el) => region.inRegion(el) && (!before || follows(el, before)),
+    );
+    return [
+      ...(permalink ? attrs(permalink) : []),
+      ...timestampLinks(region, before).flatMap((a) => [
+        squash(a.getAttribute('aria-label')).replace(WEEKDAY_PREFIX, ''),
+        a.textContent,
+      ]),
+      ...abbrs.flatMap(attrs),
+    ].filter(Boolean);
+  }
+
+  function holdsResidue(clone) {
+    return (
+      Boolean(clone.querySelector(`[role="article"], ${RESIDUAL_LINK}, ${COMPOSER_SELECTOR}`)) ||
+      [clone, ...clone.querySelectorAll('[aria-label]')].some((el) =>
+        RESIDUAL_LABEL.test((el.getAttribute('aria-label') || '').trim()),
+      )
+    );
   }
 
   // The verdict buildPostHtml is built on: the post's message container inside the post region
   // and, when the unit is dropped, the reason code. Capture mode (skeleton.js) records the reason
   // per unit so the live markup can be read without any post text leaving the page.
-  //   ok | no-message-container | message-holds-article | message-holds-comment-link-or-composer
-  //   | message-holds-comment-label
+  //   ok | ok-no-message | no-message-container | message-outside-region | message-holds-article
+  //   | message-holds-comment-link-or-composer | message-holds-comment-label
+  // ok-no-message: a photo / video / shared-only post. It is kept only when the post side of
+  // the unit holds NO message container at all (one outside the region means the boundary is
+  // wrong, not that the post is textless → message-outside-region, dropped) AND the post is
+  // positively bounded on both sides — an author anchor in the region and the action row (or
+  // toolbar) after it. Without all three there is no established post/comment boundary.
   function postMessageVerdict(unit, region = postRegion(unit)) {
-    const message = [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion);
-    if (!message) return { message: null, body: null, reason: 'no-message-container' };
+    const messages = [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].filter(region.inPost);
+    const message = messages.find(region.inRegion);
+    if (!message) {
+      if (messages.length) return { message: null, body: null, reason: 'message-outside-region' };
+      const anchored = Boolean(findAuthor(region, null)) && Boolean(region.footer);
+      return {
+        message: null,
+        body: null,
+        reason: anchored ? 'ok-no-message' : 'no-message-container',
+      };
+    }
     const body = message.cloneNode(true);
     if (body.querySelector('[role="article"]'))
       return { message, body: null, reason: 'message-holds-article' };
@@ -537,6 +741,11 @@
     return { message, body, reason: 'ok' };
   }
 
+  const lastInDocumentOrder = (elements) =>
+    elements.filter(Boolean).reduce((last, next) => (!last || follows(last, next) ? next : last), null);
+  const firstInDocumentOrder = (elements) =>
+    elements.filter(Boolean).reduce((first, next) => (!first || follows(next, first) ? next : first), null);
+
   function copyAttributes(from, to, names) {
     for (const name of names) {
       const value = from.getAttribute(name);
@@ -548,8 +757,8 @@
   // null when the post/comment boundary cannot be established for this unit.
   function buildPostHtml(unit, region = postRegion(unit)) {
     const { message, body, reason } = postMessageVerdict(unit, region);
-    if (reason !== 'ok') return null;
-    for (const el of body.querySelectorAll(NEVER_COPIED)) el.remove();
+    if (!/^ok/.test(reason)) return null;
+    if (body) for (const el of body.querySelectorAll(NEVER_COPIED)) el.remove();
 
     const doc = unit.ownerDocument;
     const out = doc.createElement('div');
@@ -560,13 +769,14 @@
       out.appendChild(el);
       return el;
     };
-    const beforeMessage = (el) => region.inRegion(el) && follows(el, message);
+    const beforeMessage = (el) => region.inRegion(el) && (!message || follows(el, message));
 
-    const author = [...region.scope.querySelectorAll('a[aria-label]')].find(beforeMessage);
-    if (author) {
+    const author = findAuthor(region, message);
+    if (author?.name) {
       const a = doc.createElement('a');
-      copyAttributes(author, a, ['aria-label', 'href']);
-      a.textContent = squash(author.textContent);
+      a.setAttribute('aria-label', author.name);
+      if (author.href) a.setAttribute('href', author.href);
+      a.textContent = author.legacy ? squash(author.el.textContent) : author.name;
       part('author').appendChild(a);
     }
 
@@ -580,6 +790,13 @@
       a.textContent = squash(permalink.textContent);
       time.appendChild(a);
     }
+    const dateLinks = timestampLinks(region, message).filter((a) => a !== permalink);
+    for (const el of dateLinks) {
+      const a = doc.createElement('a');
+      copyAttributes(el, a, ['href', 'aria-label', 'title']);
+      a.textContent = squash(el.textContent);
+      time.appendChild(a);
+    }
     for (const el of region.scope.querySelectorAll('abbr, time')) {
       if (!beforeMessage(el)) continue;
       const t = doc.createElement(el.tagName.toLowerCase());
@@ -588,16 +805,47 @@
       time.appendChild(t);
     }
 
-    part('message').appendChild(body);
+    if (body) part('message').appendChild(body);
 
-    // Post media is positively bounded on both sides: after the message, before the reaction /
-    // comment count bar. Without a count bar nothing outside the message is media.
+    // Where the header ends: the message; without one, the last header landmark (the post's
+    // "Actions for this post" button, the author block, the timestamp links).
+    const actionsButton = [...region.scope.querySelectorAll(CONTROL_SELECTOR)].find(
+      (el) => region.inRegion(el) && ACTIONS_BUTTON.test(controlName(el)),
+    );
+    const headerEnd =
+      message ?? lastInDocumentOrder([actionsButton, author?.el, permalink, ...dateLinks]);
+
+    // Attachment preview (link / share card): Facebook's meta > title / description texts only,
+    // after the header, and only when the block holds no comment residue (else fail closed).
+    const meta = [...region.scope.querySelectorAll(META_SELECTOR)].find(
+      (el) => region.inRegion(el) && !message?.contains(el) && (!headerEnd || follows(headerEnd, el)),
+    );
+    if (meta) {
+      const clone = meta.cloneNode(true);
+      if (holdsResidue(clone)) return null;
+      const attachment = part('attachment');
+      for (const el of clone.querySelectorAll(META_TEXT_SELECTOR)) {
+        const text = squash(el.textContent);
+        if (!text) continue;
+        const span = doc.createElement('span');
+        span.setAttribute('data-llfb-meta', el.getAttribute('data-ad-rendering-role'));
+        span.textContent = text;
+        attachment.appendChild(span);
+      }
+    }
+
+    // Post media is positively bounded on both sides: after the header (the message when there
+    // is one), before the earliest of the count element / the action row / the cut. Without any
+    // lower bound nothing outside the message is media. Reaction icons (role=presentation, the
+    // reactions toolbar) are never media.
     const { reactions, commentCount, countElement } = extractEngagement(unit, region);
     const media = part('media');
-    if (countElement)
+    const mediaEnd = firstInDocumentOrder([countElement, region.actionRow, region.cut]);
+    if (mediaEnd && headerEnd)
       for (const el of region.scope.querySelectorAll('img[src], video[src]')) {
-        if (!region.inRegion(el) || message.contains(el)) continue;
-        if (!follows(message, el) || !follows(el, countElement)) continue;
+        if (!region.inRegion(el) || message?.contains(el)) continue;
+        if (!follows(headerEnd, el) || !follows(el, mediaEnd)) continue;
+        if (el.getAttribute('role') === 'presentation' || el.closest(REACTIONS_TOOLBAR)) continue;
         const m = doc.createElement(el.tagName.toLowerCase());
         copyAttributes(el, m, ['src', 'alt']);
         media.appendChild(m);
@@ -640,30 +888,12 @@
       const permalink = unit.querySelector(
         'a[href*="/posts/"], a[href*="story_fbid"], a[href*="permalink"]',
       );
-      const primaryArticle = unit.matches('[role="article"]')
-        ? unit
-        : unit.querySelector('[role="article"]');
-      const timestampRoot = primaryArticle ?? unit;
-      const messageRoot = timestampRoot.querySelector(
-        '[data-ad-preview="message"], [data-ad-comet-preview="message"]',
-      );
-      const timestampValues = [
-        ...(permalink ? [permalink] : []),
-        ...timestampRoot.querySelectorAll('abbr, time'),
-      ]
-        .filter(
-          (element) =>
-            (!primaryArticle || element.closest('[role="article"]') === primaryArticle) &&
-            (!messageRoot ||
-              Boolean(element.compareDocumentPosition(messageRoot) & DOCUMENT_POSITION_FOLLOWING)),
-        )
-        .flatMap((element) => [
-          element.getAttribute('datetime'),
-          element.getAttribute('title'),
-          element.getAttribute('aria-label'),
-          element.textContent,
-        ])
-        .filter(Boolean);
+      // Timestamps: the permalink and own abbr/time before the message (the CDP original), plus
+      // the live shape's date links (timestampValues). The post region decides "own".
+      const region = postRegion(unit);
+      const messageRoot =
+        [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion) ?? null;
+      const values = timestampValues(region, permalink, messageRoot);
       const markers = [...unit.querySelectorAll('[aria-label], [role="heading"], strong')].map(
         (element) => element.getAttribute('aria-label') || element.textContent || '',
       );
@@ -671,7 +901,6 @@
         /^(?:pinned|featured|announcement)(?: post)?$/i.test(value.trim()),
       );
       const position = Number(unit.getAttribute('aria-posinset')) || null;
-      const region = postRegion(unit);
       const { reactions, commentCount } = extractEngagement(unit, region);
       return {
         position,
@@ -682,7 +911,7 @@
         hasAuthor: Boolean(author),
         html: buildPostHtml(unit, region),
         ignoreForAge,
-        ownTimestamp: firstOwnTimestamp(timestampValues),
+        ownTimestamp: firstOwnTimestamp(values),
         reactions,
         commentCount,
       };
@@ -987,8 +1216,14 @@
     groupSegment,
     groupMatches,
     postRegion,
+    postPrimary,
     postMessageVerdict,
     markerKind,
+    findActionRow,
+    findAuthor,
+    timestampLinks,
+    timestampValues,
+    buttonCount,
     buildPostHtml,
     MESSAGE_SELECTOR,
     PERMALINK_SELECTOR,

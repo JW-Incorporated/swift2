@@ -1058,6 +1058,262 @@ describe('comment subtrees never leave the page', () => {
   });
 });
 
+// The live feed shape, read from the 2026-09-30 DOM skeletons (structure only — every string
+// here is synthetic): the post is NOT a role=article; Facebook's data-ad-rendering-role markers
+// anchor it (profile_name → story_message → attachments → meta → the action row holding the
+// counts inside the Like / Comment / Share buttons → the reactions toolbar); comments are
+// role=article siblings after the row; the permalink is lazily "/"; the timestamp is an `a`
+// with a full-date aria-label and a short-age text.
+describe('live feed shape (2026-09-30): no post article, anchored action row', () => {
+  type Live = {
+    position?: number;
+    message?: string | null;
+    photo?: boolean;
+    meta?: boolean;
+    likes?: string | null;
+    comments?: string[];
+    commentCount?: string | null;
+    toolbar?: boolean;
+    toolbarLabel?: string;
+    translated?: boolean;
+    actionRow?: boolean;
+    after?: string;
+  };
+  const liveUnit = ({
+    position = 1,
+    message = 'Synthetic body about the eras setlist',
+    photo = false,
+    meta = false,
+    likes = '14',
+    comments = [],
+    commentCount,
+    toolbar = true,
+    toolbarLabel = 'See who reacted to this',
+    translated = false,
+    actionRow = true,
+    after = '',
+  }: Live) => {
+    const count = (n: string | null) =>
+      n == null
+        ? ''
+        : `<div><span>${translated ? `<font><font>${n}</font></font>` : n}</span></div>`;
+    const cc =
+      commentCount === undefined ? (comments.length ? String(comments.length) : null) : commentCount;
+    return `<div aria-posinset="${position}">
+      <div><div role="button">Reaction A</div><div role="button">Reaction B</div><div role="button">Reaction C</div></div>
+      <div>
+        <a href="/groups/1/user/222/?__cft__[0]=x"><object><a aria-label="Fan Poster, View story" href="/stories/1/2/?view_single=1"><svg role="img"></svg></a></object></a>
+        <div data-ad-rendering-role="profile_name"><a href="/groups/1/user/222/?__cft__[0]=x"><b><span>Fan Poster</span></b></a><span> · </span><a role="link" aria-label="Admin, view badge">Admin</a></div>
+        <span><a href="/?__cft__[0]=x" aria-label="Tuesday, September 29, 2026 at 3:15 PM"><span>2h</span></a></span>
+        <div role="button" aria-label="Actions for this post by Fan Poster"><svg></svg></div>
+      </div>
+      ${
+        message === null
+          ? ''
+          : `<div data-ad-rendering-role="story_message"><div data-ad-comet-preview="message" data-ad-preview="message" dir="auto"><div dir="auto">${message}</div></div></div>`
+      }
+      ${photo ? '<a href="/photo/?fbid=1&set=gm.2"><img src="https://cdn.example/post.jpg" alt="May be an image of text"></a>' : ''}
+      ${
+        meta
+          ? '<a href="/?__cft__[0]=x"><div data-ad-rendering-role="meta"><span data-ad-rendering-role="title">Synthetic link title</span><span data-ad-rendering-role="description">Synthetic link description</span></div></a>'
+          : ''
+      }
+      ${
+        actionRow
+          ? `<div><div>
+        <div><div role="button" aria-label="Like" tabindex="0"><div><div><span><i></i></span><div data-ad-rendering-role="like_button"></div></div>${count(likes)}</div><div role="none"></div></div><div role="button" aria-label="React"><svg aria-hidden="true"></svg></div></div>
+        <div><div role="button" aria-label="Leave a comment" tabindex="0"><div><div><i></i><div data-ad-rendering-role="comment_button"></div></div>${count(cc)}</div></div></div>
+        <div><div role="button" aria-label="Send this to friends or post it on your profile." tabindex="0"><div><div><i></i><div data-ad-rendering-role="share_button"></div></div>${count('1')}</div></div></div>
+        ${
+          toolbar
+            ? `<div><span role="toolbar" aria-label="${toolbarLabel}"><span><span><div role="button" aria-label="Love: 12 people"><img role="presentation" src="https://cdn.example/love.png"></div></span><span><div role="button" aria-label="Like: 2 people"><img role="presentation" src="https://cdn.example/like.png"></div></span></span></span></div>`
+            : ''
+        }
+      </div></div>`
+          : ''
+      }
+      ${comments
+        .map(
+          (text, i) =>
+            `<div role="article" aria-label="Comment by Synthetic Commenter ${i + 1} 2 hours ago"><a href="/groups/1/user/33${i}/">Synthetic Commenter ${i + 1}</a><div dir="auto">${text}</div><a href="/groups/1/posts/555/?comment_id=90${i}" aria-label="Tuesday, September 29, 2026 at 4:00 PM"><span>1h</span></a><div role="button" aria-label="Like">Like</div><span role="toolbar" aria-label="See who reacted to this"></span></div>`,
+        )
+        .join('')}
+      ${comments.length ? '<form role="presentation"><div contenteditable="true" role="textbox" aria-label="Write a comment…">SYNTHETIC-DRAFT</div></form>' : ''}
+      ${after}
+    </div>`;
+  };
+  const feedOf = (...units: string[]) =>
+    `<!doctype html><html><body><div role="feed">${units.join('')}</div></body></html>`;
+  const NEVER_IN_HTML = [
+    'SYNTHETIC-COMMENT-TEXT',
+    'Synthetic Commenter',
+    'comment_id',
+    'SYNTHETIC-DRAFT',
+    'Leave a comment',
+    'who reacted',
+    'Reaction A',
+    'Admin',
+    'love.png',
+  ];
+
+  async function liveRun(html: string) {
+    const core = loadCore();
+    const dom = new JSDOM(html);
+    const snapshot = core.captureVisibleUnits(dom.window.document, dom.window);
+    const merged = core.mergeHarvest(core.emptyHarvest(), snapshot);
+    const { units, coverage } = plain(
+      core.buildCoverage({
+        harvest: merged,
+        now: NOW,
+        stopReason: 'feed-end',
+        ageRuleMet: true,
+        scrolls: 1,
+        wallMs: 1,
+      }),
+    );
+    const { buildHarvestedHtml } = await import('./fb-export-harvest.mjs');
+    return { core, units, coverage, html: buildHarvestedHtml('Synthetic group', units) };
+  }
+
+  it('a text post with comments is kept: counts from the action buttons, no comment text, parser-ready', async () => {
+    const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
+    const { core, units, coverage, html } = await liveRun(
+      feedOf(liveUnit({ comments: ['SYNTHETIC-COMMENT-TEXT alpha', 'SYNTHETIC-COMMENT-TEXT beta'] })),
+    );
+    expect(coverage.sanitizeDropped).toBe(0);
+    expect(units).toHaveLength(1);
+    expect(units[0]).toMatchObject({ reactions: 14, commentCount: 2 });
+    const ageMs = core.relativeAgeMs(units[0].ownTimestamp, NOW);
+    expect(ageMs).toBeGreaterThan(0);
+    expect(ageMs).toBeLessThan(3 * DAY);
+    for (const kept of [
+      'Synthetic body about the eras setlist',
+      'aria-label="Fan Poster"',
+      '>2h<',
+      'September 29, 2026 at 3:15 PM',
+      '14 reactions',
+      '2 comments',
+    ])
+      expect(html, kept).toContain(kept);
+    for (const leaked of NEVER_IN_HTML) expect(html, leaked).not.toContain(leaked);
+    const parsed = buildIngestResult(html, {
+      groupSlug: 'synthetic-group',
+      groupName: 'Synthetic group',
+      exportedAt: NOW,
+    });
+    expect(parsed.fanSignal.volume).toBe(1);
+  });
+
+  it('a photo-only post (no message) is kept when anchored: media + attachment meta, confirmed zero comments', async () => {
+    const { core, units, coverage, html } = await liveRun(
+      feedOf(liveUnit({ message: null, photo: true, meta: true, likes: '3' })),
+    );
+    expect(coverage.sanitizeDropped).toBe(0);
+    expect(units[0]).toMatchObject({ reactions: 3, commentCount: 0 });
+    const unitEl = new JSDOM(feedOf(liveUnit({ message: null, photo: true, meta: true })))
+      .window.document.querySelector('[aria-posinset]');
+    expect(core.postMessageVerdict(unitEl).reason).toBe('ok-no-message');
+    for (const kept of [
+      'https://cdn.example/post.jpg',
+      'May be an image of text',
+      'Synthetic link title',
+      'Synthetic link description',
+      '3 reactions',
+      '0 comments',
+      'aria-label="Fan Poster"',
+    ])
+      expect(html, kept).toContain(kept);
+    expect(html).not.toContain('data-llfb-part="message"');
+    for (const leaked of NEVER_IN_HTML) expect(html, leaked).not.toContain(leaked);
+  });
+
+  it('reads counts wrapped by Chrome’s translator (<font><font>12</font></font>)', async () => {
+    const { units } = await liveRun(
+      feedOf(liveUnit({ translated: true, likes: '1.2K', comments: ['SYNTHETIC-COMMENT-TEXT'] })),
+    );
+    expect(units[0]).toMatchObject({ reactions: 1200, commentCount: 1 });
+  });
+
+  it('reactions fall back to the "N reactions; see who reacted" label, then the breakdown sum, then zero', async () => {
+    const core = loadCore();
+    const read = (html: string) =>
+      plain(
+        core.extractEngagement(new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]')),
+      );
+    expect(
+      read(liveUnit({ likes: null, toolbarLabel: '14 reactions; see who reacted to this' })),
+    ).toMatchObject({ reactions: 14, commentCount: 0 });
+    expect(read(liveUnit({ likes: null }))).toMatchObject({ reactions: 14, commentCount: 0 });
+    expect(read(liveUnit({ likes: null, toolbar: false }))).toMatchObject({
+      reactions: 0,
+      commentCount: 0,
+    });
+    // An explicit comment count beats the visible thread length; no number = confirmed zero.
+    expect(read(liveUnit({ commentCount: '37', comments: ['x'] })).commentCount).toBe(37);
+    expect(read(liveUnit({ commentCount: null })).commentCount).toBe(0);
+  });
+
+  it('comments.js: a confirmed zero is ineligible, an unknown count stays eligible', () => {
+    const core = loadCore({ LLFB: {} }, ['harvest-core.js', 'comments.js']);
+    const units = [
+      { key: 'pos:1', reactions: 9, commentCount: 0 },
+      { key: 'pos:2', reactions: 1, commentCount: null },
+      { key: 'pos:3', reactions: 1, commentCount: 2 },
+    ];
+    expect(core.selectTopUnits(units, 20).map((u: Any) => u.key)).toEqual(['pos:3', 'pos:2']);
+    expect(core.commentCountStats(units, 20)).toEqual({
+      eligible: 2,
+      knownPositiveEligible: 1,
+      countUnknown: 1,
+      unitsSent: 3,
+    });
+  });
+
+  it('still fails closed: no end anchor, or a message container outside the region', async () => {
+    const core = loadCore();
+    const verdict = (html: string) =>
+      core.postMessageVerdict(new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'))
+        .reason;
+    const unitOf = (html: string) =>
+      core.sanitizeUnitElement(new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'));
+    // No message and no action row / toolbar: nothing bounds the post below.
+    expect(verdict(liveUnit({ message: null, actionRow: false }))).toBe('no-message-container');
+    expect(unitOf(liveUnit({ message: null, actionRow: false }))).toBeNull();
+    // A message container after the action row (or after a comment) is not the post's: the
+    // boundary is wrong, so the unit is dropped rather than uploaded without its text.
+    const stray =
+      '<div data-ad-rendering-role="story_message"><div data-ad-preview="message">SYNTHETIC-RESIDUE</div></div>';
+    expect(verdict(liveUnit({ message: null, after: stray }))).toBe('message-outside-region');
+    expect(unitOf(liveUnit({ message: null, after: stray }))).toBeNull();
+    expect(verdict(liveUnit({ message: null, comments: ['c'], after: stray }))).toBe(
+      'message-outside-region',
+    );
+    // The post's own message container survives a stray one after the row (first in region).
+    const html = unitOf(liveUnit({ after: stray }));
+    expect(html).toContain('Synthetic body about the eras setlist');
+    expect(html).not.toContain('SYNTHETIC-RESIDUE');
+    const { coverage } = await liveRun(feedOf(liveUnit({ message: null, after: stray })));
+    expect(coverage.sanitizeDropped).toBe(1);
+  });
+
+  it('a feed of mixed shapes resolves every unit and keeps units apart', async () => {
+    const { units, html } = await liveRun(
+      feedOf(
+        liveUnit({ position: 1, comments: ['SYNTHETIC-COMMENT-TEXT one'] }),
+        liveUnit({ position: 2, message: null, photo: true, likes: null, toolbar: false }),
+        liveUnit({ position: 3, message: 'Synthetic shared caption', meta: true, comments: ['SYNTHETIC-COMMENT-TEXT two', 'SYNTHETIC-COMMENT-TEXT three'] }),
+      ),
+    );
+    expect(units.map((u: Any) => [u.key, u.reactions, u.commentCount])).toEqual([
+      ['pos:1', 14, 1],
+      ['pos:2', 0, 0],
+      ['pos:3', 14, 2],
+    ]);
+    expect(html.match(/role="article"/g)).toHaveLength(3);
+    for (const leaked of NEVER_IN_HTML) expect(html, leaked).not.toContain(leaked);
+  });
+});
+
 describe('tab ↔ group binding helpers', () => {
   const core = loadCore();
 

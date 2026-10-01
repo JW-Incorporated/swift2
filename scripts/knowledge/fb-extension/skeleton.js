@@ -529,6 +529,7 @@
       articleCount: unitEl.querySelectorAll('[role="article"]').length,
       cutKind: region.cutKind ?? null,
       cutPath: region.cut ? pathTo(unitEl, region.cut) : null,
+      actionRowPath: region.actionRow ? pathTo(unitEl, region.actionRow) : null,
       message: verdict.reason,
       messagePath: verdict.message ? pathTo(unitEl, verdict.message) : null,
       messageSelectorHitsAnywhere: unitEl.querySelectorAll(LLFB.MESSAGE_SELECTOR).length,
@@ -539,7 +540,7 @@
       hasAuthorLabel: Boolean(unitEl.querySelector('a[aria-label]')),
       hasPermalink: Boolean(unitEl.querySelector(LLFB.PERMALINK_SELECTOR)),
       dirAutoCount: unitEl.querySelectorAll('[dir="auto"]').length,
-      kept: verdict.reason === 'ok',
+      kept: /^ok/.test(verdict.reason),
     };
   }
 
@@ -712,6 +713,7 @@
     'primaryArticlePath',
     'cutKind',
     'cutPath',
+    'actionRowPath',
     'message',
     'messagePath',
     'countPath',

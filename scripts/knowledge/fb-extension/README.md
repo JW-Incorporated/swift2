@@ -41,14 +41,26 @@ restarts.
   collector's rules (seven-days, feed-end, scroll cap, wall budget) plus **stunted** (≤ 3 feed
   slots after 20 scrolls). Then `LLFB.collectComments` (from `comments.js`). A small status box
   shows progress.
-- **Uploaded html is built positively** (`buildPostHtml`): author link, permalink + timestamps,
-  the post's message container (`[data-ad-preview="message"]` / `[data-ad-comet-preview=
-  "message"]` / `[data-ad-rendering-role="story_message"]`), post-owned media after it, and
-  the reaction / comment counts re-emitted as `<n> reactions` / `<n> comments`. Nothing else is
-  ever copied, so a comment can only leak if Facebook put it inside the message container — and
-  a message container holding any comment marker, or sitting after one, drops the unit
-  (`coverage.sanitizeDropped`). A unit without a message container is dropped too. The receiver
-  fails the group when it dropped at least as many posts as it kept.
+- **Uploaded html is built positively** (`buildPostHtml`), on the live feed shape read from the
+  2026-09-30 DOM skeletons: the post card is **not** a `role=article` any more — every article
+  inside a feed unit is a comment — so the post is anchored by Facebook's own
+  `data-ad-rendering-role` markers: `profile_name` (author) → `story_message` /
+  `[data-ad-preview="message"]` (body; absent on photo / video / shared-only posts) → attachments
+  → `meta` (`title` / `description` of a link / share card) → the **action row** (Like button
+  with the reaction count inside it + `like_button`, "Leave a comment" with the comment count +
+  `comment_button`, Share + `share_button`, the "See who reacted" toolbar) → comment articles →
+  the composer. Copied, in order: author (`profile_name`'s link, else the first own
+  `a[aria-label]`), timestamps (permalink if any, the date-labelled link — `aria-label` "Tuesday,
+  September 30, 2026 at 3:15 PM", text "2h" — and `abbr`/`time`), the message container clone,
+  the `meta` title/description texts, post media between the header and the action row / count
+  element, and `<n> reactions` / `<n> comments`. Nothing else is ever copied. Fail-closed rules:
+  a message container holding any comment marker drops the unit; a post with no message is kept
+  **only** when the post side holds no message container at all AND it is bounded by an author
+  anchor and the action row / toolbar (`ok-no-message`) — a message outside the region
+  (`message-outside-region`) or no end anchor (`no-message-container`) drops it
+  (`coverage.sanitizeDropped`). The receiver fails the group when it dropped at least as many
+  posts as it kept. The legacy shape (post article with comments nested inside) still works: the
+  primary article is the first one holding a post anchor.
 - Only recent units leave the page: the three-trailing-old-posts rule decides where the feed
   stops, and independently every non-pinned unit with a readable timestamp older than seven days
   is filtered out (`recentHarvestUnits`, also re-applied by the receiver).
@@ -99,7 +111,15 @@ proves no synthetic sentence, name, id or link survives a skeleton.
   unavailable verdict from an unverified profile is recorded `failed{unverified-profile-skip}` —
   never ledgered as a skip, never closes the weekly issue. A collected group from an unverified
   profile is still uploaded (owner choice, 2026-09-30: unverified must not stop every run).
-- `reactions` / `commentCount` per post are best-effort label matches (`null` when unknown).
+- `reactions` / `commentCount` per post (`extractEngagement`): the numbers inside the Like /
+  "Leave a comment" buttons first (also through Chrome's translator `<font>` wrappers); a Comment
+  button that shows no number is a **confirmed 0** (the live feed omits it when nobody
+  commented — 97/97 units with a thread showed one, none without), so comments.js skips the post;
+  reactions fall back to "N reactions; see who reacted…" / "All reactions: N", then the summed
+  per-reaction breakdown ("Love: 12 people"), else 0 when there is no reactions toolbar;
+  otherwise `null` (unknown).
+- Shared posts: the sharer's own caption is the message; the inner (shared) post's text is not
+  copied, only the `meta` title/description of the card when Facebook renders one.
 - A service-worker restart is harmless (state is in session storage); a full page reload mid-group
   restarts that group's scroll, with the wall budget still counted from the first start.
 - `chrome.storage.session` holds at most 10 MiB, so a large result (full post HTML + comments) is

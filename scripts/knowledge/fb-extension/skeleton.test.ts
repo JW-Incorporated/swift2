@@ -89,13 +89,18 @@ const keptPost = (position: number) => `
     </div>
   </div>`;
 
-// A "dropped" post: same chrome, no message container (the live-feed shape of the dry run).
+// A "dropped" post: same chrome, but no message container AND no action row / toolbar, so the
+// post has no established boundary (a message-less post is kept only when positively bounded).
 const droppedPost = (position: number) =>
   keptPost(position)
     .replace('data-ad-preview="message" data-ad-comet-preview="message" ', '')
     .replace(
       'role="article" aria-labelledby',
       'role="article" data-pagelet="FeedUnit_x" aria-labelledby',
+    )
+    .replace(
+      '<div><div role="button" aria-label="Like">Like</div><div role="button">Comment</div><div role="button">Share</div></div>',
+      '',
     );
 
 const feed = (html: string) => {
@@ -216,9 +221,12 @@ describe('skeleton redaction', () => {
       messageSelectorHitsAnywhere: 0,
       primaryArticlePath: 'div[article]',
       articleCount: 2,
-      cutKind: 'toolbar',
+      cutKind: 'nested-article',
+      cutPath: 'div[article]>div[article]',
+      actionRowPath: null,
     });
     expect(kept.diagnosis.cutPath).toBe('div[article]>div');
+    expect(kept.diagnosis.actionRowPath).toBeNull();
     expect(kept.labels.map((l: Any) => l.label ?? l.text)).toEqual(
       expect.arrayContaining([
         'w w',
