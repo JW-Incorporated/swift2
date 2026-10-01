@@ -308,6 +308,109 @@ describe('Facebook export orchestration', () => {
     expect(upload).not.toHaveBeenCalled();
   });
 
+  // Codex round 5 #2: ingest is ledgered before upload, so a failed upload never re-ingests.
+  describe('ingest-then-upload retry', () => {
+    const counts = { postsKept: 2, screenedOut: 0, leads: 2, shopLinks: 0 };
+    const shared = () => {
+      let stored: unknown = { groups: {} };
+      return {
+        readLedger: vi.fn(async () => JSON.parse(JSON.stringify(stored))),
+        writeLedger: vi.fn(async (_path: string, value: unknown) => {
+          stored = JSON.parse(JSON.stringify(value));
+        }),
+        get: () => stored as { groups: Record<string, Record<string, unknown>> },
+      };
+    };
+    const run = (
+      ledger: ReturnType<typeof shared>,
+      over: Record<string, unknown>,
+    ): ReturnType<typeof runExport> =>
+      runExport({
+        now: new Date('2026-09-30T12:00:00'),
+        root: 'C:\\outside-repo',
+        groups: [group],
+        readLedger: ledger.readLedger,
+        writeLedger: ledger.writeLedger,
+        collect: vi
+          .fn()
+          .mockResolvedValue([
+            { slug: 'group-a', status: 'collected', filePath: 'a.html', ageRuleMet: true },
+          ]),
+        gate: vi.fn().mockResolvedValue({ ok: true, postCount: 2, filePath: 'a.html' }),
+        findIssue: vi.fn().mockResolvedValue(70),
+        reportIssue: vi.fn(),
+        ...over,
+      });
+
+    it('a retry after an upload failure uploads the kept file without ingesting again', async () => {
+      const ledger = shared();
+      const ingest1 = vi.fn().mockResolvedValue({ ok: true, counts });
+      const first = await run(ledger, {
+        ingest: ingest1,
+        upload: vi.fn().mockResolvedValue({ ok: false, reason: 'upload command failed' }),
+      });
+      expect(first.ok).toBe(false);
+      expect(ingest1).toHaveBeenCalledTimes(1);
+      expect(ledger.get().groups['group-a']).toMatchObject({
+        status: 'ingested',
+        filePath: 'a.html',
+        ingestCounts: counts,
+      });
+
+      const ingest2 = vi.fn().mockResolvedValue({ ok: true, counts });
+      const upload2 = vi.fn().mockResolvedValue({ ok: true });
+      const collect2 = vi.fn();
+      const second = await run(ledger, {
+        ingest: ingest2,
+        upload: upload2,
+        collect: collect2,
+        fileExists: vi.fn().mockResolvedValue(true),
+      });
+      expect(ingest2).not.toHaveBeenCalled();
+      expect(collect2).not.toHaveBeenCalled();
+      expect(upload2).toHaveBeenCalledWith('a.html');
+      expect(second.ok).toBe(true);
+      expect(second.results[0]).toMatchObject({ slug: 'group-a', status: 'uploaded' });
+      expect(ledger.get().groups['group-a'].status).toBe('uploaded');
+    });
+
+    it('re-collects when the ingested file is gone but still skips ingest', async () => {
+      const ledger = shared();
+      await run(ledger, {
+        ingest: vi.fn().mockResolvedValue({ ok: true, counts }),
+        upload: vi.fn().mockResolvedValue({ ok: false, reason: 'upload command failed' }),
+      });
+      const ingest2 = vi.fn();
+      const upload2 = vi.fn().mockResolvedValue({ ok: true });
+      const collect2 = vi
+        .fn()
+        .mockResolvedValue([
+          { slug: 'group-a', status: 'collected', filePath: 'b.html', ageRuleMet: true },
+        ]);
+      const second = await run(ledger, {
+        ingest: ingest2,
+        upload: upload2,
+        collect: collect2,
+        gate: vi.fn().mockResolvedValue({ ok: true, postCount: 2, filePath: 'b.html' }),
+        fileExists: vi.fn().mockResolvedValue(false),
+      });
+      expect(collect2).toHaveBeenCalledTimes(1);
+      expect(ingest2).not.toHaveBeenCalled();
+      expect(upload2).toHaveBeenCalledWith('b.html');
+      expect(second.ok).toBe(true);
+    });
+
+    it('a dry run never ledgers ingested', async () => {
+      const ledger = shared();
+      await run(ledger, {
+        dryRun: true,
+        ingest: vi.fn().mockResolvedValue({ ok: true, counts }),
+        upload: vi.fn(),
+      });
+      expect(ledger.writeLedger).not.toHaveBeenCalled();
+    });
+  });
+
   // Codex round 3 #2: not-member / unavailable are skips only from a verified profile.
   it('never ledgers an unverified not-member / unavailable skip nor closes the issue on it', async () => {
     const writeLedger = vi.fn();

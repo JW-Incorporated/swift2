@@ -61,10 +61,13 @@ function sizeOf(store: Record<string, string>) {
 type Feed = { initial: string[]; more: string[] };
 
 // A post needs Facebook's story-message container: the uploaded html is built positively from it.
+// Each carries a CONFIRMED "0 comments" bar: an absent count is unknown, so it would be eligible
+// for comment collection (Codex round 5 #1) and fail the group when no comments come back.
 const post = (position: number, age: string, filler = '') =>
   `<div aria-posinset="${position}"><div role="article"><a aria-label="Fan ${position}">Fan</a>` +
   `<a href="/groups/1234/posts/${position}/">${age}</a>` +
   `<div data-ad-preview="message">Synthetic post ${position} ${filler}</div>` +
+  `<span>0 comments</span>` +
   `</div></div>`;
 
 function createBrowser({

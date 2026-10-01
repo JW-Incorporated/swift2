@@ -1,5 +1,14 @@
 #!/usr/bin/env node
-import { copyFile, mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import {
+  access,
+  copyFile,
+  mkdir,
+  mkdtemp,
+  readFile,
+  rename,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { basename, join, resolve } from 'node:path';
@@ -263,9 +272,28 @@ export async function runExport(options = {}) {
         ['uploaded', 'not-member', 'unavailable', 'no-recent-posts'].includes(row.status),
       );
   const complete = new Set(completedEntries.map(([slug]) => slug));
-  const pending = (options.groups ?? FB_GROUPS_CHECKLIST).filter(
+  // Codex round 5 #2: a group whose ingest already ran this week is ledgered 'ingested' before
+  // its upload. A retry never ingests it again (duplicate fan_signal rows): it uploads the kept
+  // file directly, or re-collects only when that file is gone — and still skips ingest.
+  const fileExists =
+    options.fileExists ??
+    ((path) =>
+      access(path).then(
+        () => true,
+        () => false,
+      ));
+  const ingestedRow = (slug) =>
+    !dryRun && ledger.groups[slug]?.status === 'ingested' ? ledger.groups[slug] : null;
+  const allGroups = (options.groups ?? FB_GROUPS_CHECKLIST).filter(
     (group) => !complete.has(group.slug),
   );
+  const uploadOnly = [];
+  const pending = [];
+  for (const group of allGroups) {
+    const row = ingestedRow(group.slug);
+    if (row?.filePath && (await fileExists(row.filePath))) uploadOnly.push(group);
+    else pending.push(group);
+  }
   const collection = pending.length
     ? await (options.collect ?? extensionCollect)({
         groups: pending,
@@ -291,6 +319,36 @@ export async function runExport(options = {}) {
     ...(item.commentCoverage ? { commentCoverage: item.commentCoverage } : {}),
     ...(item.commentCounts ? { commentCounts: item.commentCounts } : {}),
   });
+  // Upload an already-ingested file; ledger 'uploaded' only on an exact confirmation.
+  const uploadAndRecord = async (slug, fields, extra = {}) => {
+    const uploaded = await (options.upload ?? uploadOne)(fields.filePath);
+    const summaryFields = {
+      postCount: fields.postCount,
+      stopReason: fields.stopReason,
+      coverageAgeMs: fields.coverageAgeMs,
+      partial: fields.partial,
+    };
+    results.push(
+      uploaded.ok
+        ? {
+            slug,
+            status: 'uploaded',
+            ...summaryFields,
+            harvestedCount: fields.harvestedCount,
+            ingestCounts: fields.ingestCounts,
+            ...extra,
+          }
+        : { slug, status: 'failed', reason: uploaded.reason, ...extra },
+    );
+    if (uploaded.ok) {
+      ledger.groups[slug] = { status: 'uploaded', ...summaryFields, at: now.toISOString() };
+      await persistLedger();
+    }
+  };
+  for (const group of uploadOnly) {
+    const row = ledger.groups[group.slug];
+    await uploadAndRecord(group.slug, row);
+  }
   for (const item of collected) {
     const group = pending.find((candidate) => candidate.slug === item.slug);
     if (STOP_STATUSES.includes(item.status)) {
@@ -351,12 +409,15 @@ export async function runExport(options = {}) {
       }
       continue;
     }
-    const ingested = await (options.ingest ?? ingestOne)({
-      groupSlug: item.slug,
-      filePath: gate.filePath,
-      exportedAt: gate.collectedAt ? new Date(gate.collectedAt) : now,
-      dryRun,
-    });
+    const priorIngest = ingestedRow(item.slug);
+    const ingested = priorIngest
+      ? { ok: true, counts: priorIngest.ingestCounts }
+      : await (options.ingest ?? ingestOne)({
+          groupSlug: item.slug,
+          filePath: gate.filePath,
+          exportedAt: gate.collectedAt ? new Date(gate.collectedAt) : now,
+          dryRun,
+        });
     if (!ingested.ok) {
       results.push({
         slug: item.slug,
@@ -384,32 +445,20 @@ export async function runExport(options = {}) {
       });
       continue;
     }
-    const uploaded = await (options.upload ?? uploadOne)(gate.filePath);
-    const final = uploaded.ok
-      ? {
-          slug: item.slug,
-          status: 'uploaded',
-          postCount: gate.postCount,
-          harvestedCount: gate.harvestedCount,
-          stopReason: gate.stopReason,
-          coverageAgeMs: gate.coverageAgeMs,
-          partial: gate.partial,
-          ingestCounts: ingested.counts,
-          ...commentFields(item),
-        }
-      : { slug: item.slug, status: 'failed', reason: uploaded.reason, ...commentFields(item) };
-    results.push(final);
-    if (uploaded.ok) {
-      ledger.groups[item.slug] = {
-        status: 'uploaded',
-        postCount: gate.postCount,
-        stopReason: gate.stopReason,
-        coverageAgeMs: gate.coverageAgeMs,
-        partial: gate.partial,
-        at: now.toISOString(),
-      };
-      await persistLedger();
-    }
+    // Ledger the ingest BEFORE uploading, so an upload failure or crash never re-ingests.
+    ledger.groups[item.slug] = {
+      status: 'ingested',
+      postCount: gate.postCount,
+      harvestedCount: gate.harvestedCount,
+      stopReason: gate.stopReason,
+      coverageAgeMs: gate.coverageAgeMs,
+      partial: gate.partial,
+      ingestCounts: ingested.counts,
+      filePath: gate.filePath,
+      at: priorIngest?.at ?? now.toISOString(),
+    };
+    await persistLedger();
+    await uploadAndRecord(item.slug, ledger.groups[item.slug], commentFields(item));
   }
   const globalAbort = results.some((row) => row.status === 'wrong-profile');
   const represented = new Set(results.map((row) => row.slug));

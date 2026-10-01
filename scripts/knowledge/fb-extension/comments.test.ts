@@ -77,6 +77,49 @@ describe('comment parsing helpers', () => {
     expect(LLFB.selectTopUnits(null, 5)).toEqual([]);
   });
 
+  it('treats a null commentCount as unknown, not zero: eligible after known counts (Codex round 5 #1)', () => {
+    const units = [
+      { key: 'zero', reactions: 500, commentCount: 0 },
+      { key: 'null-lo', reactions: 3, commentCount: null },
+      { key: 'known', reactions: 1, commentCount: 1 },
+      { key: 'null-hi', reactions: 90, commentCount: null },
+      { key: 'undef', reactions: 10 },
+    ];
+    expect(LLFB.selectTopUnits(units, 20).map((u: { key: string }) => u.key)).toEqual([
+      'known',
+      'null-hi',
+      'undef',
+      'null-lo',
+    ]);
+    expect(LLFB.selectTopUnits(units, 2).map((u: { key: string }) => u.key)).toEqual([
+      'known',
+      'null-hi',
+    ]);
+  });
+
+  it('fails the group loudly when both count and comment selectors drift (Codex round 5 #1)', async () => {
+    document.body.innerHTML = `<div role="feed">
+      <div aria-posinset="1" id="p1"><a href="/groups/1/posts/11/">t</a>
+        <div class="drifted">Synthetic unrecognised comment block</div></div>
+      <div aria-posinset="2" id="p2"><a href="/groups/1/posts/22/">t</a></div>
+    </div>`;
+    let t = 0;
+    const out = await LLFB.collectComments(
+      [
+        { key: 'pos:1', position: 1, html: '', reactions: 4, commentCount: null },
+        { key: 'pos:2', position: 2, html: '', reactions: 2, commentCount: null },
+      ],
+      {
+        pacingMs: [0, 0],
+        sleep: async (ms: number) => {
+          t += ms;
+        },
+        now: () => t,
+      },
+    );
+    expect(out.coverage).toEqual({ eligible: 2, processed: 0, failed: 2, timedOut: 0 });
+  });
+
   it('extracts comments with first-level replies, ids, reactions and dedupe', () => {
     const root = document.createElement('div');
     root.innerHTML = `

@@ -157,13 +157,36 @@
     return Math.max(0, reactions) + Math.max(0, comments);
   }
 
-  // Top N units by reactions + commentCount; units with no comments skipped.
+  // A unit's comment count is UNKNOWN (null) when the count selector found nothing — e.g.
+  // selector drift — and that is not the same as a confirmed zero (Codex round 5 #1).
+  function knownCommentCount(unit) {
+    const raw = unit?.commentCount;
+    if (raw === null || raw === undefined || raw === '') return null;
+    const count = Number(raw);
+    return Number.isFinite(count) ? count : null;
+  }
+
+  // Top N units. Eligible: a known commentCount > 0, or an unknown (null) count; a CONFIRMED 0
+  // stays ineligible. Known counts rank first by reactions + commentCount, then unknown counts
+  // by reactions. An unknown-count post that yields zero comments counts as failed downstream,
+  // so if both selectors drift the group fails loudly instead of passing with no comments.
   function selectTopUnits(units, topN = DEFAULTS.topN) {
     const list = Array.isArray(units) ? units : [];
+    const reactionsOf = (unit) => Math.max(0, Number(unit?.reactions) || 0);
     return list
-      .map((unit, index) => ({ unit, index }))
-      .filter(({ unit }) => unit && typeof unit.key === 'string' && Number(unit.commentCount) > 0)
-      .sort((a, b) => unitScore(b.unit) - unitScore(a.unit) || a.index - b.index)
+      .map((unit, index) => ({ unit, index, count: knownCommentCount(unit) }))
+      .filter(
+        ({ unit, count }) => unit && typeof unit.key === 'string' && (count === null || count > 0),
+      )
+      .sort((a, b) => {
+        const aKnown = a.count !== null;
+        const bKnown = b.count !== null;
+        if (aKnown !== bKnown) return aKnown ? -1 : 1;
+        const diff = aKnown
+          ? unitScore(b.unit) - unitScore(a.unit)
+          : reactionsOf(b.unit) - reactionsOf(a.unit);
+        return diff || a.index - b.index;
+      })
       .slice(0, Math.max(0, Number(topN) || 0))
       .map(({ unit }) => unit);
   }
@@ -445,7 +468,7 @@
   // units: merged harvest units; opts: {topN, maxPerPost, pacingMs, maxMs}.
   // Test hooks: opts.document, opts.sleep, opts.random, opts.now.
   // Never throws; returns {comments: [{postKey, postUrl, comments}], coverage}. coverage counts the
-  // eligible posts (top-N with commentCount > 0) and how each ended: processed (opened and at
+  // eligible posts (top-N with commentCount > 0 or unknown) and how each ended: processed (opened and at
   // least one comment read), failed (post not found on the page, the driver threw, or it
   // yielded zero comments despite commentCount > 0 — selector drift) or
   // timedOut (the time cap hit during it, or it was never reached). The four always add up:
