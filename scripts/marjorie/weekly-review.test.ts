@@ -187,8 +187,8 @@ describe('charter, decision log and skill', () => {
     expect(brief).toContain('the company\'s goal is GROWTH');
     expect(brief).not.toContain("the company's goal is LAUNCH. docs/launch-readiness.md is the gate tracker — the org exists");
   });
-  it('the bridge ships off and the skill covers when/how/what-not/examples', () => {
-    expect(JSON.parse(read('scripts/marjorie/marjorie-config.json')).bot1Bridge.enabled).toBe(false);
+  it('the bridge is on (Hermes#1 live 2026-10-01) and the skill covers when/how/what-not/examples', () => {
+    expect(JSON.parse(read('scripts/marjorie/marjorie-config.json')).bot1Bridge.enabled).toBe(true);
     for (const section of ['## When to prompt bot1', '## How to write the prompt', '**Do not ask for:**', '## What to expect', '## Examples']) expect(skill).toContain(section);
     expect(skill).toMatch(/one outcome/i);
     expect(skill).toMatch(/Done when/);
