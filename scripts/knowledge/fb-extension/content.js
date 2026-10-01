@@ -258,7 +258,9 @@
           `feed slots loaded: ${LLFB.harvestSlotCount(harvest)}`,
           `posts kept: ${harvest.units.length}`,
           ...(capture
-            ? [`skeletons: ${captureState.dropped?.length ?? 0} dropped, ${captureState.kept?.length ?? 0} kept`]
+            ? [
+                `skeletons: ${captureState.dropped?.length ?? 0} dropped, ${captureState.kept?.length ?? 0} kept`,
+              ]
             : []),
           `scroll steps: ${scrollCount}   time: ${Math.round(elapsedMs / 1000)}s`,
         ]);

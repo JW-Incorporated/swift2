@@ -302,7 +302,12 @@ export async function startReceiver({
     if (!skeletons && body.status === 'collected')
       return { slug, status: 'failed', reason: 'capture-unsupported' };
     if (skeletons && skeletons.length > CAPTURE_MAX_SKELETONS)
-      return { slug, status: 'failed', reason: 'capture-too-many', skeletonCount: skeletons.length };
+      return {
+        slug,
+        status: 'failed',
+        reason: 'capture-too-many',
+        skeletonCount: skeletons.length,
+      };
     const cov = isObj(body.coverage) ? body.coverage : {};
     const counts = {
       skeletonCount: skeletons?.length ?? 0,

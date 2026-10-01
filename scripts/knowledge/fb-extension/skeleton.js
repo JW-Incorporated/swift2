@@ -315,7 +315,8 @@
   const NBSP = String.fromCharCode(0xa0);
   const squash = (value) =>
     String(value ?? '')
-      .split(NBSP).join(' ')
+      .split(NBSP)
+      .join(' ')
       .replace(/\s+/g, ' ')
       .trim();
 
@@ -562,7 +563,12 @@
   // same ≤ 300-chars-without-author skip as mergeHarvest) is diagnosed and pooled — units
   // buildPostHtml DROPS first (up to maxDropped), kept ones up to maxKept. `full` once both pools
   // hold what pickSkeletons needs.
-  function captureVisibleSkeletons(doc, win, state, { maxDropped = MAX_DROPPED, maxKept = MAX_KEPT } = {}) {
+  function captureVisibleSkeletons(
+    doc,
+    win,
+    state,
+    { maxDropped = MAX_DROPPED, maxKept = MAX_KEPT } = {},
+  ) {
     state.seen ??= new WeakSet();
     state.seenKeys ??= new Set();
     state.dropped ??= [];
@@ -596,7 +602,8 @@
       dropped: state.dropped.length,
       kept: state.kept.length,
       inspected: state.inspected,
-      full: state.dropped.length >= maxDropped && state.kept.length >= Math.min(maxKept, PICK_MIN_KEPT),
+      full:
+        state.dropped.length >= maxDropped && state.kept.length >= Math.min(maxKept, PICK_MIN_KEPT),
     };
   }
 
@@ -678,7 +685,8 @@
     return null;
   }
 
-  const PATH_SHAPE = /^(?:…>)?[a-z][a-z0-9-]*(?:\[[a-z]{1,40}\])?(?:>[a-z][a-z0-9-]*(?:\[[a-z]{1,40}\])?)*$|^\.?$/;
+  const PATH_SHAPE =
+    /^(?:…>)?[a-z][a-z0-9-]*(?:\[[a-z]{1,40}\])?(?:>[a-z][a-z0-9-]*(?:\[[a-z]{1,40}\])?)*$|^\.?$/;
 
   function checkSamples(list, kind) {
     if (!Array.isArray(list)) return `${kind}:list`;

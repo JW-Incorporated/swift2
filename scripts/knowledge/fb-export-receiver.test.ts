@@ -651,7 +651,12 @@ describe('fb export receiver — capture mode (DOM skeletons)', () => {
           attrs: { 'aria-labelledby': '-' },
           n: 2,
           children: [
-            { tag: 'a', attrs: { href: '/groups/:id/posts/:id/?comment_id', 'aria-label': '9h' }, n: 1, children: [{ text: 'T', len: 2 }] },
+            {
+              tag: 'a',
+              attrs: { href: '/groups/:id/posts/:id/?comment_id', 'aria-label': '9h' },
+              n: 1,
+              children: [{ text: 'T', len: 2 }],
+            },
             { text: 'T', len: 57 },
           ],
         },

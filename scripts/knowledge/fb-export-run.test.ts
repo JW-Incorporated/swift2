@@ -598,11 +598,15 @@ describe('Facebook DOM capture (--capture)', () => {
     });
     expect(collect).toHaveBeenCalledTimes(1);
     const args = collect.mock.calls[0][0];
-    expect(args.groups.map((g: { slug: string; wallBudgetMs: number }) => [g.slug, g.wallBudgetMs])).toEqual([
+    expect(
+      args.groups.map((g: { slug: string; wallBudgetMs: number }) => [g.slug, g.wallBudgetMs]),
+    ).toEqual([
       ['group-a', 180_000],
       ['group-b', 180_000],
     ]);
-    expect(args.outputDir.replace(/\\/g, '/')).toMatch(/^C:\/outside-repo\/debug\/\d{4}-\d{2}-\d{2}$/);
+    expect(args.outputDir.replace(/\\/g, '/')).toMatch(
+      /^C:\/outside-repo\/debug\/\d{4}-\d{2}-\d{2}$/,
+    );
     expect(result.ok).toBe(true);
     expect(result.summary).toContain('Facebook DOM capture: 2/2 groups captured.');
     expect(result.summary).toContain('nothing was ingested, uploaded or ledgered');

@@ -513,7 +513,11 @@ export async function runCapture(options = {}) {
   const represented = new Set(results.map((row) => row.slug));
   for (const group of groups)
     if (!represented.has(group.slug))
-      results.push({ slug: group.slug, status: 'failed', reason: 'collection aborted before this group' });
+      results.push({
+        slug: group.slug,
+        status: 'failed',
+        reason: 'collection aborted before this group',
+      });
   const captured = results.filter((row) => row.status === 'captured' && row.skeletonCount > 0);
   const lines = results.map((row) => {
     if (row.status === 'captured')

@@ -57,7 +57,8 @@ const SENSITIVE = [
 const authorHref = '/groups/987654321/user/1122334455/?__cft__[0]=AbCdEf&__tn__=-UC';
 const permalink = '/groups/987654321/posts/5566778899/?__cft__[0]=AbCdEf&__tn__=%2CO%2CP-R';
 const commentLink = `${permalink}&comment_id=99887766&reply_comment_id=4455`;
-const message = 'I finally got tickets to the Eras Tour in Manila, so excited!!! Call 0917 123 4567';
+const message =
+  'I finally got tickets to the Eras Tour in Manila, so excited!!! Call 0917 123 4567';
 const tagalog = 'Hinahanap ko ang kaibigan ko sa Manila';
 const commentText = 'Congrats Maria! See you there, email me at maria.santos@example.com';
 
@@ -142,9 +143,7 @@ describe('skeleton redaction', () => {
       '/:id/posts/:id',
     );
     expect(LLFB.redactHref('/photo/?fbid=123&set=gm.456')).toBe('/photo/?fbid&set');
-    expect(LLFB.redactHref('/l.php?u=https%3A%2F%2Fexample.com%2Fsecret&h=AT0')).toBe(
-      '/l.php?u&h',
-    );
+    expect(LLFB.redactHref('/l.php?u=https%3A%2F%2Fexample.com%2Fsecret&h=AT0')).toBe('/l.php?u&h');
     expect(LLFB.redactHref('https://tickets.example.com/order/ABC123?user=maria')).toBe('ext');
     expect(LLFB.redactHref('mailto:maria.santos@example.com')).toBe('ext');
     expect(LLFB.redactHref('#')).toBe('/');
@@ -286,7 +285,7 @@ describe('skeleton redaction', () => {
       ok: false,
       reason: 'tree:attr:aria-label',
     });
-    expect(tamper((c) => (c.tree.children[0].children.push({ text: 'Hello', len: 5 })))).toEqual({
+    expect(tamper((c) => c.tree.children[0].children.push({ text: 'Hello', len: 5 }))).toEqual({
       ok: false,
       reason: 'tree:text',
     });
@@ -295,7 +294,10 @@ describe('skeleton redaction', () => {
       reason: 'tree:attr:href',
     });
     expect(tamper((c) => (c.tree.attrs.class = 'x1n2onr6'))).toMatchObject({ ok: false });
-    expect(tamper((c) => (c.labels[0].label = 'Maria'))).toEqual({ ok: false, reason: 'labels:label' });
+    expect(tamper((c) => (c.labels[0].label = 'Maria'))).toEqual({
+      ok: false,
+      reason: 'labels:label',
+    });
     expect(tamper((c) => (c.diagnosis.note = 'Maria said hi'))).toEqual({
       ok: false,
       reason: 'diagnosis:note',
