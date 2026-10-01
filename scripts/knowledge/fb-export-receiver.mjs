@@ -266,7 +266,10 @@ export async function startReceiver({
     if (req.method === 'POST' && url.pathname === '/result') {
       const body = await readJson(req);
       const problem = validateResult(body);
-      if (problem) return send(400, { error: `invalid: ${problem}` });
+      if (problem) {
+        log(`fb-receiver ${current?.slug ?? '?'}: rejected result (${problem})`);
+        return send(400, { error: `invalid: ${problem}` });
+      }
       if (!current || current.slug !== body.slug || results.some((r) => r.slug === body.slug)) {
         return send(409, { error: 'unexpected slug' });
       }
