@@ -23,9 +23,10 @@ permissions:
 
 # Same group as bot-chat-poll.yml: both run reply-poll.mjs, and two relays
 # reading one comment snapshot at once would post the same relay-id twice.
+# `cancel-in-progress: true` for the reason given in bot-chat-poll.yml.
 concurrency:
   group: bot-chat-poll
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   poll:

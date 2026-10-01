@@ -121,7 +121,7 @@ jobs:
       model: claude-opus-5
       allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob"
       timeout_minutes: 15
-      max_turns: 25
+      max_turns: 35 # 25 ended the 2026-09-29 run (36509831016) in error_max_turns; strategy steering adds ~10 turns
       checkout_token_secret: SOCIAL_POSTER_PAT
       expose_dispatch_token: true # #4223: GH_DISPATCH_TOKEN for `gh workflow run` only; comments stay claude[bot]
       pre_run_artifact: chat-context
@@ -211,6 +211,19 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: timeout 180 node scripts/marjorie/loop-live.mjs file-help --side marjorie --dir .scratch/out --source "$GITHUB_RUN_ID" --source-url "$RUN_URL" --dispatch
+
+      # Owner steering (docs/agents/marjorie.md, "Visible strategy and owner steering"):
+      # a strategy update saved with `strategy-doc.mjs save-update` starts Fable's
+      # same-day rewrite of docs/strategy/growth-strategy.md here, on the workflow
+      # token (the agent holds no dispatch right for it). Capped at 4 starts a UTC
+      # day. Soft-fail: it must never turn a chat run red.
+      - name: Start Fable's strategy update, when one was saved
+        if: always() && github.run_attempt == '1' && needs.context.result == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: timeout 180 node scripts/marjorie/strategy-doc.mjs dispatch --dir .scratch/out
 
       # This repo is public, and a public run's artifacts are downloadable by
       # any signed-in GitHub user. The context and reply carry founder

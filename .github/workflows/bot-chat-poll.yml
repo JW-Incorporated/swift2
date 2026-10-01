@@ -42,9 +42,15 @@ permissions:
   actions: write # gh workflow run for the chat routines, from a run: step
   issues: write # reply-poll.mjs relays brief-thread replies as issue comments
 
+# `cancel-in-progress: true` (2026-10-01): with `false`, run 35225911621 (2026-09-17,
+# stuck "waiting" on the `social` environment) held this group for two weeks, every
+# later run sat `pending` and was replaced by the next dispatch, and the poll never ran
+# again. A new run now cancels a stuck or in-flight one. One poll is still the only one
+# running, the 👀 claim and the 45-minute reconcile in chat-poll.mjs cover a poll cut
+# short, and the relay is idempotent on its relay-id marker.
 concurrency:
   group: bot-chat-poll
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   poll:

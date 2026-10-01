@@ -268,7 +268,7 @@ describe('poll', () => {
     expect(result.messages).toHaveLength(1000);
   });
   it('keeps both relay entry points in one concurrency group', () => {
-    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: false/;
+    const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: true/;
     expect(readFileSync('.github/workflows/bot-chat-poll.yml', 'utf8')).toMatch(group);
     expect(readFileSync('.github/workflows/marjorie-reply-poll.yml', 'utf8')).toMatch(group);
   });
