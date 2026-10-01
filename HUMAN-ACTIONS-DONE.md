@@ -3,6 +3,9 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
+- #91 · 2026-10-01 · done · May Tree post site-made share cards in the feed? — "Joey said done in chat 2026-10-01" · by chat
+- #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
 - #87 · 2026-10-01 · done · Ownership backlog stuck 7+ days — accept it or get it routed — "Joey asked agent 2026-10-01 to close verified-done items; founder decision comment on #4546, budget raised via merged PR #4631" · by agent
 - #85 · 2026-10-01 · done · #4559 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4559 (2026-09-30), issue closed" · by agent · <!-- marjorie-chase: 96h issue=4559 -->
 - #79 · 2026-10-01 · done · #4324 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4324 (comment 2026-09-30)" · by agent · <!-- marjorie-chase: 96h issue=4324 -->
