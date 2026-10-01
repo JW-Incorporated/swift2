@@ -7,6 +7,19 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — API version header and a dormant update-required gate
+
+**Decision.**
+- `API_VERSION` (`packages/shared/src/api/version.ts`, currently `1`) names the /api wire contract; bump it only on a breaking change to a shape in `packages/shared/src/api` (additive changes don't bump). `apps/web/proxy.ts` sends it as `x-api-version` on every `/api/*` response.
+- The mobile app ships an update-required gate (`apps/mobile/lib/update-required.ts`, `components/UpdateRequiredScreen.tsx`) driven by the optional `minNativeBuild: { ios?, android? }` in `config/mobile/app-config.json`. It ships **inert**: the key is absent, so no one is ever blocked. Unknown build number, missing key or unknown platform never blocks.
+- **Rule: setting `minNativeBuild` for either platform requires its own `docs/decisions.md` entry, and both store builds at or above that number must already be live in the App Store and Play Store.**
+
+**Why.** If a breaking API or native change ever needs old native builds retired, the app needs an in-app signal to ask for an update, and that signal has to exist in builds already installed. Shipping it dormant now means we never have to guess later.
+
+**Alternatives considered.** Force updates through store-side mechanisms only (rejected: no in-app signal, installed apps would just break).
+
+**Approved by.** The owner's architecture-hardening brief (2026-10-01), executed autonomously under the reversibility rule.
+
 ## 2026-10-01 — The mobile content loader is forward-compatible: unknown enum values dropped, unknown entries skipped, broken data served last-good
 
 **Decision.** `packages/content`'s `loadBundle` gains two opt-in options; defaults stay strict (web and every existing caller unchanged).
