@@ -65,10 +65,52 @@ export async function fetchSubAbout(
 export function imageCommentsLabel(state) {
   if (state === 'image') return 'image comments allowed';
   if (state === 'text_only') return 'text-only sub (no image in comments)';
-  return 'image comments unverified (look for the image icon in the comment box)';
+  return "🖼️ image replies unverified — if there's no image button, post the text";
 }
 
 /** Delivery order: image-capable first, then unknown, then text-only. */
 export function eligibilityRank(state) {
   return state === 'image' ? 0 : state === 'unknown' ? 1 : 2;
+}
+
+// ---- per-sub cache (table awareness_sub_cache) ----------------------------
+// A successful about.json reading is cached for a week so later runs never
+// re-fetch it; a blocked request is remembered for half a day (sub '*blocked*')
+// so a bot-blocked CI run does not spend a request on it every time.
+export const CACHE_TTL_MS = 7 * 24 * 3_600_000;
+export const BLOCKED_TTL_MS = 12 * 3_600_000;
+export const BLOCKED_KEY = '*blocked*';
+
+const fresh = (row, ttl, now) => row && now.getTime() - Date.parse(row.fetched_at) < ttl;
+
+/** Map of sub -> cache row; empty when the table is missing or unreadable. */
+export async function loadAboutCache(supabase) {
+  const { data, error } = await supabase
+    .from('awareness_sub_cache')
+    .select('sub, image_comments, over18, fetched_at');
+  if (error) return new Map();
+  return new Map((data ?? []).map((row) => [row.sub, row]));
+}
+
+/** The cached reading for a sub, or null when absent or stale. */
+export function cachedAbout(cache, subreddit, now = new Date()) {
+  const row = cache.get(subreddit);
+  return fresh(row, CACHE_TTL_MS, now)
+    ? { imageComments: row.image_comments, over18: row.over18 === true }
+    : null;
+}
+
+export const aboutBlockedRecently = (cache, now = new Date()) =>
+  Boolean(fresh(cache.get(BLOCKED_KEY), BLOCKED_TTL_MS, now));
+
+/** Best-effort write; a failed cache write never fails the run. */
+export async function saveAbout(supabase, subreddit, about, now = new Date()) {
+  const blocked = Boolean(about.error);
+  const row = {
+    sub: blocked ? BLOCKED_KEY : subreddit,
+    image_comments: blocked ? 'unknown' : about.imageComments,
+    over18: blocked ? false : about.over18 === true,
+    fetched_at: now.toISOString(),
+  };
+  await supabase.from('awareness_sub_cache').upsert(row, { onConflict: 'sub' });
 }

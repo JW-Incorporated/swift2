@@ -3,9 +3,10 @@
   "defaults": {
     "maxAgeHours": 48,
     "perSubScanCapPerRun": 2,
-    "perSubDailyCandidateCap": 4,
     "perSubDailyDeliveryCap": 3,
-    "feedLimit": 25
+    "feedLimit": 25,
+    "feedRequestsPerRun": 6,
+    "pacingMs": 6000
   },
   "excluded": [
     {
@@ -16,7 +17,10 @@
       "name": "YouBelongWithMemes",
       "why": "Meme-only culture: an unprompted site screenshot under a meme reads as an ad, and threads rarely match a discussion type."
     },
-    { "name": "TaylorSwiftMerch", "why": "Trading/merch sub, not a discussion fit." },
+    {
+      "name": "TaylorSwiftMerch",
+      "why": "Trading/merch sub, not a discussion fit."
+    },
     {
       "name": "TaylorSwiftLyrics",
       "why": "Lyric threads only; guardrail 2 keeps lyrics off our cards and replies."
@@ -29,7 +33,9 @@
       "imageComments": null,
       "verified": true,
       "selfPromoNote": "No self-promo; a link is a ban risk (docs/community/watchlist.md). Image-only reply with no link and no site name in the text.",
-      "notes": "Main hub (~3.8M). Highest volume; era rankings, anniversaries, news reactions. Megathreads are buried, skip them."
+      "notes": "Main hub (~3.8M). Highest volume; era rankings, anniversaries, news reactions. Megathreads are buried, skip them.",
+      "always": true,
+      "dailyCap": 4
     },
     {
       "name": "swifties",
@@ -37,7 +43,9 @@
       "imageComments": null,
       "verified": true,
       "selfPromoNote": "Assume standard Reddit 9:1 norm; no link, no pitch.",
-      "notes": "Fan hub, chattier than r/TaylorSwift; good for nostalgia and 'which era' threads."
+      "notes": "Fan hub, chattier than r/TaylorSwift; good for nostalgia and 'which era' threads.",
+      "always": true,
+      "dailyCap": 4
     },
     {
       "name": "SwiftlyNeutral",
@@ -88,5 +96,14 @@
       "selfPromoNote": "Unknown; assume no promo.",
       "notes": "Eras Tour memories and nostalgia threads. Named from memory; confirm it is active before relying on it."
     }
-  ]
+  ],
+  "search": {
+    "queries": [
+      "\"taylor swift\"",
+      "\"taylor swift\" (era OR album OR theory OR anniversary)",
+      "swifties OR \"eras tour\" OR \"life of a showgirl\""
+    ],
+    "blockSubs": ["Fauxmoi", "TaylorSwiftCringe", "Celebs", "popculturechat_nsfw"],
+    "_comment": "Reddit-wide search RSS (search.rss?q=...&sort=new&t=day) finds Taylor threads outside the fan subs: r/popculturechat, r/AskReddit, r/Music and so on. Results use the strict Taylor-name filter, the same thread filters and caps; unknown subs are image-unverified. blockSubs are never touched (gossip/hostile); NSFW names are always blocked."
+  }
 }

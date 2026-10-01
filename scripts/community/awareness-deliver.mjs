@@ -17,7 +17,7 @@ import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
 import { postBatchHeader } from './discord-delivery.mjs';
 import { buildAckUrl } from './mailer.mjs';
-import { loadConfig, awarenessEnabled, utcDayStart } from './awareness-scan.mjs';
+import { awarenessEnabled, dailyCapFor, loadConfig, utcDayStart } from './awareness-scan.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
 import { eligibilityRank } from './awareness-eligibility.mjs';
 import {
@@ -36,8 +36,9 @@ import {
   selectBatch,
 } from './awareness-message.mjs';
 
-export const BATCH_CAP = 7; // three batches a day reach 20, above the owner's 10+ target
-export const DAILY_CAP = 20;
+export const BATCH_CAP = 5; // eight batches a day, 15 a day in all: above the owner's 10+ target
+export const DAILY_CAP = 15;
+const UNKNOWN_SUB_RULE = 'Not one of our listed subs: read its rules first. Picture only, no link.';
 const MAX_LEAD_AGE_HOURS = 48;
 
 /** Keeps a validated image_ref, or replaces a bad one with the deterministic pick for the title. */
@@ -120,19 +121,22 @@ export async function runDelivery({
 } = {}) {
   const { defaults, subs } = config;
   const tiers = new Map(subs.map((sub) => [sub.name, sub]));
-  const cap = defaults.perSubDailyDeliveryCap ?? 3;
+  const capFor = (community) => dailyCapFor(tiers.get(community), defaults);
   const leads = await fetchDraftedAwareness(supabase, now);
   const today = await fetchDeliveredToday(supabase, now);
-  const perSubRemaining = { default: cap };
+  const perSubRemaining = { default: capFor(null) };
   for (const lead of leads)
-    perSubRemaining[lead.community] = Math.max(0, cap - (today.perSub[lead.community] ?? 0));
+    perSubRemaining[lead.community] = Math.max(
+      0,
+      capFor(lead.community) - (today.perSub[lead.community] ?? 0),
+    );
   const batch = selectBatch(leads, {
     perSubRemaining,
     deliveredToday: today.total,
     batchCap: BATCH_CAP,
     dailyCap: DAILY_CAP,
     rank: eligibilityRank,
-    tierOf: (lead) => tiers.get(lead.community)?.tier ?? 3,
+    tierOf: (lead) => tiers.get(lead.community)?.tier ?? 1, // a sub found by search is a target too
   });
   if (batch.length === 0)
     return { drafted: leads.length, batch: 0, delivered: [], failed: [], totalToday: today.total };
@@ -161,7 +165,7 @@ export async function runDelivery({
         : null;
       const content = buildAwarenessMessage(
         { ...lead, image_ref: imageRef },
-        { postedUrl, skipUrl, rule: tiers.get(lead.community)?.selfPromoNote ?? null },
+        { postedUrl, skipUrl, rule: tiers.get(lead.community)?.selfPromoNote ?? UNKNOWN_SUB_RULE },
       );
       prepared.push({ lead, imageRef, content, png: cards.get(imageRef).png });
     } catch (err) {

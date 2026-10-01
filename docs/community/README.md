@@ -56,12 +56,12 @@ threads, picks the picture, drafts a short reply and posts the lot to the same
 Discord channel under **Tree · Awareness replies**. **You post every reply
 yourself** (guardrail 6); nothing posts automatically.
 
-Three times a day (batches around 14:45, 19:45 and 00:45 UTC) a header reads
+Every 3 hours (a batch about 45 minutes past 00, 03, 06 ... 21 UTC, when there is something to send) a header reads
 **🎯 Awareness replies — N today** (N counts today's total, including that
 batch), then one message per opportunity:
 
 ```
-🎯 Awareness reply · r/<sub> · image comments allowed
+🎯 Awareness reply · r/<sub> · image comments allowed (or: 🖼️ image replies unverified — if there's no image button, post the text)
 <thread title>  +  <thread link>
 Why: one line on why a picture fits
 Image: attached card (era:folklore). Post it with the reply, no link.
@@ -77,24 +77,32 @@ the hook. If someone asks, that is the moment to talk about the site.
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
 
-1. `community-awareness-scan` reads `scripts/community/awareness-subs.json`
-   (the subs, a note on each one's self-promo rule, and the caps), scans each
-   sub's hot and new feeds, and keeps titles that fit a picture: era
+1. `community-awareness-scan` (every 3 hours, 6 Reddit requests a run with
+   exponential backoff, skipped on 429, optional `HOME_RELAY_URL` fallback)
+   reads `scripts/community/awareness-subs.json` (the subs, a note on each
+   one's self-promo rule, and the caps): r/TaylorSwift and r/swifties every run,
+   the other subs and Reddit-wide search RSS in rotation. Search finds Taylor
+   threads outside the fan subs (r/popculturechat, r/AskReddit, r/Music ...),
+   the best targets; those use a strict Taylor-name filter and a block list.
+   It keeps titles that fit a picture: era
    rankings/debates, timeline questions, Easter-egg/theory threads, nostalgia
    and anniversary threads, news reactions. It skips threads older than 48
    hours, megathreads, crafts and fan art, redline and personal-life topics
    (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
-   run, 4 candidates per sub per day, 8 per run. Recent screened Facebook
+   run, a day budget of cap+1 candidates per sub, 6 per run. Recent screened Facebook
    export leads are adopted as awareness rows too.
-2. `routine-awareness-answerer` writes the words only. A script
+2. `routine-awareness-answerer` is ONE Claude run per batch (not per lead; at
+   most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
+   waiting. It writes the words only. A script
    (`awareness-draft.mjs`) does every read and write: it screens, checks the
    picture id exists, and rejects a reply with a link, a domain, "check out",
    an em dash or more than 300 characters.
-3. `community-awareness-deliver` sends at most 7 per batch, 3 per sub per day
-   and 20 per day, image-capable subs first. A sub that cannot take image
-   comments is labelled **text-only sub** and sent last.
+3. `community-awareness-deliver` sends at most 5 per batch, 3 per sub per day
+   (4 for r/TaylorSwift and r/swifties) and 15 per day, image-capable subs
+   first, unverified next, **text-only sub** last. An unverified sub is never
+   dropped: the label tells you to post the text if there is no image button.
 
-**Image comments per sub.** The scan reads each sub's public `about.json`
+**Image comments per sub.** The scan reads one sub's public `about.json` per run, caches a good reading for a week (and a blocked attempt for 12 hours) in `awareness_sub_cache`,
 (`comment_contribution_settings.allowed_media_types`; `static` means still
 images). Reddit blocks that request from CI and from the build environment
 (HTTP 403, 2026-10-01), so today every sub reads "image comments unverified

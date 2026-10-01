@@ -127,5 +127,11 @@ describe('committed sub list', () => {
     }
     for (const excluded of config.excluded) expect(names).not.toContain(excluded.name);
     expect(config.defaults.perSubDailyDeliveryCap).toBeLessThanOrEqual(3);
+    expect(config.defaults.feedRequestsPerRun).toBeLessThanOrEqual(6);
+    const big = config.subs.filter((s: { always?: boolean }) => s.always);
+    expect(big.map((s: { name: string }) => s.name)).toEqual(['TaylorSwift', 'swifties']);
+    for (const s of config.subs) expect(s.dailyCap ?? 3).toBeLessThanOrEqual(4);
+    expect(config.search.queries.length).toBeGreaterThanOrEqual(2);
+    expect(config.search.queries[0]).toContain('taylor swift');
   });
 });

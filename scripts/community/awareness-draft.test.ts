@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
-import { buildDraftPatch, lintReply, lintWhy, pickForDrafting } from './awareness-draft.mjs';
+import {
+  buildDraftPatch,
+  countNewLeads,
+  lintReply,
+  lintWhy,
+  pickForDrafting,
+} from './awareness-draft.mjs';
 
 const catalog = {
   eras: [{ id: 'folklore', name: 'folklore' }],
@@ -89,5 +95,23 @@ describe('pickForDrafting', () => {
     const picked = pickForDrafting(leads, tiers, { limit: 8, perSub: 3 });
     expect(picked.map((l: { id: string }) => l.id)).toEqual(['a1', 'a2', 'a3', 'b1']);
     expect(pickForDrafting(leads, tiers, { limit: 2, perSub: 3 })).toHaveLength(2);
+  });
+});
+
+describe('countNewLeads (the routine gate)', () => {
+  it('returns the number of waiting awareness leads, and 0 on a query error', async () => {
+    const chain = (result: unknown) => {
+      const b: Record<string, unknown> = {
+        select: () => b,
+        eq: () => b,
+        gte: () => Promise.resolve(result),
+      };
+      return b;
+    };
+    expect(await countNewLeads({ from: () => chain({ count: 4, error: null }) })).toBe(4);
+    expect(await countNewLeads({ from: () => chain({ count: null, error: null }) })).toBe(0);
+    expect(await countNewLeads({ from: () => chain({ count: 9, error: { message: 'x' } }) })).toBe(
+      0,
+    );
   });
 });

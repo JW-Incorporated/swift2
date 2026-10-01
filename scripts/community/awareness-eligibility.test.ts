@@ -2,11 +2,16 @@ import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
+  BLOCKED_KEY,
+  aboutBlockedRecently,
+  cachedAbout,
   eligibilityRank,
   fetchSubAbout,
   imageCommentsLabel,
+  loadAboutCache,
   parseAbout,
   resolveImageComments,
+  saveAbout,
 } from './awareness-eligibility.mjs';
 
 const about = (data: Record<string, unknown>) => ({ kind: 't5', data });
@@ -98,5 +103,62 @@ describe('about.json image-comment eligibility', () => {
     expect(
       ['text_only', 'unknown', 'image'].sort((a, b) => eligibilityRank(a) - eligibilityRank(b)),
     ).toEqual(['image', 'unknown', 'text_only']);
+  });
+});
+
+describe('about.json cache', () => {
+  const now = new Date('2026-10-01T12:00:00Z');
+  const row = (sub: string, hoursOld: number, imageComments = 'image') => ({
+    sub,
+    image_comments: imageComments,
+    over18: false,
+    fetched_at: new Date(now.getTime() - hoursOld * 3_600_000).toISOString(),
+  });
+
+  it('serves a reading for a week, then asks again', () => {
+    const cache = new Map([
+      ['A', row('A', 24 * 6)],
+      ['B', row('B', 24 * 8)],
+    ]);
+    expect(cachedAbout(cache, 'A', now)).toEqual({ imageComments: 'image', over18: false });
+    expect(cachedAbout(cache, 'B', now)).toBeNull();
+    expect(cachedAbout(cache, 'C', now)).toBeNull();
+  });
+
+  it('remembers a block for half a day', () => {
+    expect(
+      aboutBlockedRecently(new Map([[BLOCKED_KEY, row(BLOCKED_KEY, 11, 'unknown')]]), now),
+    ).toBe(true);
+    expect(
+      aboutBlockedRecently(new Map([[BLOCKED_KEY, row(BLOCKED_KEY, 13, 'unknown')]]), now),
+    ).toBe(false);
+    expect(aboutBlockedRecently(new Map(), now)).toBe(false);
+  });
+
+  it('saves a good reading under the sub and a blocked one under the blocked key', async () => {
+    const upsert = vi.fn(async () => ({ error: null }));
+    const db = { from: () => ({ upsert }) };
+    await saveAbout(db, 'TaylorSwift', { imageComments: 'image', over18: false }, now);
+    await saveAbout(
+      db,
+      'TaylorSwift',
+      { imageComments: 'unknown', over18: false, error: 'HTTP 403' },
+      now,
+    );
+    expect(upsert.mock.calls[0][0]).toMatchObject({ sub: 'TaylorSwift', image_comments: 'image' });
+    expect(upsert.mock.calls[1][0]).toMatchObject({ sub: BLOCKED_KEY, image_comments: 'unknown' });
+  });
+
+  it('reads an unreadable cache table as empty', async () => {
+    const db = {
+      from: () => ({ select: async () => ({ data: null, error: { message: 'no table' } }) }),
+    };
+    expect((await loadAboutCache(db)).size).toBe(0);
+  });
+
+  it('labels an unverified sub with the post-the-text fallback', () => {
+    expect(imageCommentsLabel('unknown')).toBe(
+      "🖼️ image replies unverified — if there's no image button, post the text",
+    );
   });
 });

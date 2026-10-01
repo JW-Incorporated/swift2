@@ -1,7 +1,9 @@
 # Awareness image-reply lane, step 3 of 3 — delivery. Runs after each
-# routine-awareness-answerer run that succeeds (three a day), picks a batch of
-# drafted awareness leads under the caps (<=7 a batch, <=3 per sub a day,
-# <=20 a day), and posts one Discord message per lead to the social channel
+# routine-awareness-answerer run that succeeds (every 3 hours; a run the gate
+# skips because nothing is waiting also counts as success), picks a batch of
+# drafted awareness leads under the caps (<=5 a batch, <=3 per sub a day (4 for
+# r/TaylorSwift and r/swifties),
+# <=15 a day), and posts one Discord message per lead to the social channel
 # with the share-card PNG ATTACHED (multipart upload), plus the signed
 # Posted/Skip links. Zero-LLM. The owner posts every reply himself.
 #

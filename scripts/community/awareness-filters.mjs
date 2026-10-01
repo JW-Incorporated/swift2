@@ -54,6 +54,10 @@ const PERSONAL_LIFE_RE =
 const TAYLOR_RE =
   /\b(taylor|swift|swifties?|eras?|folklore|evermore|midnights|reputation|lover|fearless|speak now|red|1989|ttpd|tortured poets|showgirl|debut)\b/i;
 
+/** Search results come from any sub, so only an unambiguous Taylor reference counts (not "red", "lover", "era"). */
+const TAYLOR_STRICT_RE =
+  /\b(taylor swift|taylor's|swifties?|eras tour|tloas|ttpd|tortured poets|life of a showgirl|folklore|evermore|midnights)\b/i;
+
 /** Hours since an ISO timestamp; Infinity when unparseable (so it is dropped). */
 export function threadAgeHours(createdAt, now = new Date()) {
   const t = Date.parse(createdAt ?? '');
@@ -102,7 +106,10 @@ export function evaluateThread(
   if (NOT_DISCUSSION_RE.test(post.title)) return { ok: false, reason: 'not-discussion' };
   const sensitive = sensitiveReason(post.title);
   if (sensitive) return { ok: false, reason: sensitive };
-  if (sub?.requireTaylor && !TAYLOR_RE.test(post.title)) return { ok: false, reason: 'off-topic' };
+  if (sub?.requireTaylor) {
+    const re = sub.requireTaylor === 'strict' ? TAYLOR_STRICT_RE : TAYLOR_RE;
+    if (!re.test(post.title)) return { ok: false, reason: 'off-topic' };
+  }
   const types = classifyThreadTypes(post.title);
   if (types.length === 0) return { ok: false, reason: 'no-fit' };
   return { ok: true, types, ageHours };

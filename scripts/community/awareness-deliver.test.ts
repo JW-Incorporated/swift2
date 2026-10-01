@@ -224,3 +224,69 @@ describe('runDelivery', () => {
     expect(updates).toEqual([]);
   });
 });
+
+describe('runDelivery caps and unlisted subs', () => {
+  const bigConfig = {
+    defaults: { perSubDailyDeliveryCap: 3 },
+    subs: [{ name: 'TaylorSwift', tier: 1, dailyCap: 4 }],
+  };
+
+  it('lets r/TaylorSwift reach 4 a day while other subs stay at 3', async () => {
+    const { fetchImpl } = discord();
+    const drafted = [
+      ...[1, 2, 3, 4, 5].map((n) => lead(n, 'TaylorSwift')),
+      ...[6, 7, 8, 9].map((n) => lead(n, 'popculturechat')),
+    ];
+    const result = await runDelivery({
+      supabase: fakeSupabase({ drafted }),
+      webhook: 'h',
+      catalog,
+      config: bigConfig,
+      fetchImpl: fetchImpl as never,
+      postHeader: async () => true,
+    });
+    const byCommunity = (name: string) =>
+      result.delivered.filter((d: { leadId: string }) => {
+        const n = Number(d.leadId.split('-')[1]);
+        return drafted.find((l) => l.id === `lead-${n}`)?.community === name;
+      }).length;
+    expect(byCommunity('TaylorSwift')).toBe(4);
+    expect(byCommunity('popculturechat')).toBe(1); // batch cap of 5 reached
+    expect(result.delivered).toHaveLength(5);
+  });
+
+  it('caps the whole day at 15 and sends an unlisted sub with a read-the-rules note and unverified label', async () => {
+    const { fetchImpl, calls } = discord();
+    const full = fakeSupabase({
+      drafted: [lead(1, 'AskReddit', { image_comments: 'unknown' })],
+      deliveredToday: Array.from({ length: DAILY_CAP }, (_, i) => ({ community: `X${i}` })),
+    });
+    const none = await runDelivery({
+      supabase: full,
+      webhook: 'h',
+      catalog,
+      config: bigConfig,
+      fetchImpl: fetchImpl as never,
+      postHeader: async () => true,
+    });
+    expect(none.batch).toBe(0);
+    const ok = await runDelivery({
+      supabase: fakeSupabase({ drafted: [lead(1, 'AskReddit', { image_comments: 'unknown' })] }),
+      webhook: 'h',
+      catalog,
+      config: bigConfig,
+      fetchImpl: fetchImpl as never,
+      postHeader: async () => true,
+    });
+    expect(ok.delivered).toHaveLength(1);
+    const content = String(
+      JSON.parse(String((calls[0].body as FormData).get('payload_json'))).content,
+    );
+    expect(content).toContain('Sub rule: Not one of our listed subs');
+    expect(content).toContain(
+      "image replies unverified — if there's no image button, post the text",
+    );
+    expect(DAILY_CAP).toBe(15);
+    expect(BATCH_CAP).toBe(5);
+  });
+});

@@ -21,7 +21,7 @@ import { AWARENESS_KIND } from './awareness-filters.mjs';
 import { loadConfig } from './awareness-scan.mjs';
 import { loadCatalog, mentionedEra, suggestMoments, validateImageRef } from './awareness-image.mjs';
 
-export const DEFAULT_LIST_LIMIT = 8;
+export const DEFAULT_LIST_LIMIT = 6;
 export const PER_SUB_PER_RUN = 3;
 export const MAX_REPLY_CHARS = 300;
 export const MIN_REPLY_CHARS = 8;
@@ -97,6 +97,18 @@ export function pickForDrafting(
   return out;
 }
 
+/** Awareness leads still waiting for a draft (<=48h old); 0 when the table is not migrated yet. */
+export async function countNewLeads(supabase, now = new Date()) {
+  const since = new Date(now.getTime() - MAX_LEAD_AGE_HOURS * 3_600_000).toISOString();
+  const { count, error } = await supabase
+    .from('engagement_lead')
+    .select('id', { count: 'exact', head: true })
+    .eq('kind', AWARENESS_KIND)
+    .eq('status', 'new')
+    .gte('created_at', since);
+  return error ? 0 : (count ?? 0);
+}
+
 async function listLeads(supabase, catalog, limit) {
   const since = new Date(Date.now() - MAX_LEAD_AGE_HOURS * 3_600_000).toISOString();
   const { data, error } = await supabase
@@ -141,6 +153,11 @@ function flag(args, name) {
 async function main() {
   const [command, ...args] = process.argv.slice(2);
   const supabase = serviceClient();
+  if (command === 'count') {
+    // Cheap gate for the routine workflow: no new leads, no Claude run.
+    console.log(supabase ? await countNewLeads(supabase) : 0);
+    return 0;
+  }
   if (!supabase) {
     console.error('awareness-draft: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY unset.');
     return 1;
@@ -205,7 +222,7 @@ async function main() {
     return 0;
   }
   console.error(
-    'usage: awareness-draft.mjs list [--limit N] | write <id> --draft "<text>" --why "<line>" [--image-ref <ref>] | skip <id>',
+    'usage: awareness-draft.mjs list [--limit N] | count | write <id> --draft "<text>" --why "<line>" [--image-ref <ref>] | skip <id>',
   );
   return 1;
 }

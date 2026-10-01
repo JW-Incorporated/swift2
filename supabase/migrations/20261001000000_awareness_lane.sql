@@ -25,3 +25,15 @@ alter table public.engagement_lead
 create index if not exists engagement_lead_awareness_idx
   on public.engagement_lead (status, created_at desc)
   where kind = 'awareness_reply';
+
+-- Per-sub cache of the about.json image-comment reading (`comment_contribution_
+-- settings.allowed_media_types`), so a successful read is never repeated for a
+-- week. Sub '*blocked*' records "Reddit bot-blocked about.json" for half a day.
+-- Service-role only, like every Community Engine table.
+create table if not exists public.awareness_sub_cache (
+  sub            text primary key,
+  image_comments text not null check (image_comments in ('image', 'text_only', 'unknown')),
+  over18         boolean not null default false,
+  fetched_at     timestamptz not null default now()
+);
+alter table public.awareness_sub_cache enable row level security;

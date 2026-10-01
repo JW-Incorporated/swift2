@@ -1,47 +1,65 @@
 #!/usr/bin/env node
 // Awareness image-reply lane — discovery (owner direction 2026-10-01,
-// docs/strategy/growth-strategy.md bet 2). Zero-LLM. Reads the committed sub
-// list (awareness-subs.json), pulls each sub's hot + new RSS feeds through
-// the shared reddit-rss adapter, applies the discovery filters
-// (awareness-filters.mjs), checks whether the sub allows image comments
-// (awareness-eligibility.mjs), picks a deterministic site visual
-// (awareness-image.mjs) and inserts `engagement_lead(kind='awareness_reply',
-// status='new')` rows. The awareness answerer routine then writes the reply
-// text; awareness-deliver.mjs sends it to Discord. The OWNER posts — nothing
-// here (or anywhere in this lane) calls a Reddit/Facebook write API.
+// docs/strategy/growth-strategy.md bet 2). Zero-LLM. Runs every 3 hours with
+// a small Reddit request budget (awareness-fetch.mjs): the two big fan subs
+// every run plus a rotating window of the other subs and of Reddit-wide
+// search RSS (awareness-sources.mjs), which finds Taylor threads outside the
+// fan subs. Titles go through the discovery filters (awareness-filters.mjs),
+// each sub's image-comment support comes from a cached about.json reading
+// (awareness-eligibility.mjs), a site card is picked (awareness-image.mjs),
+// and `engagement_lead(kind='awareness_reply', status='new')` rows are
+// inserted. The awareness answerer routine then writes the reply text;
+// awareness-deliver.mjs sends it to Discord. The OWNER posts — nothing here
+// (or anywhere in this lane) calls a Reddit/Facebook write API.
 //
 // Facebook: the weekly export ingest (fb-export-ingest.mjs) lands
-// `hot_thread` leads with platform='facebook'; this script adopts the recent
-// screened ones as awareness rows (image support unknown) without touching
-// the exporter.
+// `hot_thread` leads with platform='facebook'; this script adopts the fitting
+// ones as awareness rows (awareness-facebook.mjs) without touching the exporter.
 //
 // Kill switch: repo VARIABLE `AWARENESS_LANE_ENABLED=false` stops the lane
-// (workflow checks it first; re-checked here). Unset means ON — the owner
-// asked for this lane.
+// (workflow checks it first; re-checked here). Unset means ON.
 //
-//   npx tsx scripts/community/awareness-scan.mjs [--dry-run]   # dry-run: no DB, prints per-sub volume
+//   npx tsx scripts/community/awareness-scan.mjs [--dry-run]   # dry-run: no DB writes
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fetchSubredditPosts } from '../lib/reddit-rss.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
-import { isSchemaPending, runMain } from '../lib/cli.mjs';
+import { runMain } from '../lib/cli.mjs';
 import { fetchKnownThreadIds, insertLeads } from './scan.mjs';
+import { applyCandidateCaps, evaluateThread, scoreCandidate } from './awareness-filters.mjs';
 import {
-  AWARENESS_KIND,
-  applyCandidateCaps,
-  evaluateThread,
-  scoreCandidate,
-} from './awareness-filters.mjs';
-import { fetchSubAbout, resolveImageComments } from './awareness-eligibility.mjs';
+  aboutBlockedRecently,
+  cachedAbout,
+  fetchSubAbout,
+  loadAboutCache,
+  resolveImageComments,
+  saveAbout,
+} from './awareness-eligibility.mjs';
+import { buildAwarenessRow, fetchTodaysCandidateCounts } from './awareness-rows.mjs';
 import { adoptFacebookLeads } from './awareness-facebook.mjs';
+import { createFeedFetcher } from './awareness-fetch.mjs';
 import { loadCatalog, pickImageRef } from './awareness-image.mjs';
+import {
+  buildSources,
+  communityFromPermalink,
+  dayIndexOf,
+  isBlockedSub,
+  pickSources,
+  searchFeedUrl,
+  slotOf,
+  sortFor,
+  subFeedUrl,
+} from './awareness-sources.mjs';
 
 const CONFIG_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), 'awareness-subs.json');
-export const RUN_CAP = 8;
-// Reddit answers anonymous feed requests with 429 after only a few in quick succession
-// (seen 2026-10-01), so every request in a run is spaced out; a 429 is never retried.
-export const PACING_MS = 6000;
+export {
+  buildAwarenessRow,
+  contextFor,
+  fetchTodaysCandidateCounts,
+  utcDayStart,
+} from './awareness-rows.mjs';
+export const RUN_CAP = 6;
+export const DEFAULT_DAILY_CAP = 3;
 
 export function awarenessEnabled(env = process.env) {
   return env.AWARENESS_LANE_ENABLED !== 'false' && env.AWARENESS_LANE_ENABLED !== '0';
@@ -49,101 +67,46 @@ export function awarenessEnabled(env = process.env) {
 
 export function loadConfig(file = CONFIG_PATH) {
   const config = JSON.parse(readFileSync(file, 'utf8'));
-  return { defaults: config.defaults ?? {}, subs: config.subs ?? [] };
-}
-
-export function utcDayStart(now = new Date()) {
-  return new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
-  ).toISOString();
-}
-
-export function contextFor(subreddit, types, ageHours, rank) {
-  return `Awareness candidate in r/${subreddit} (${types.join('/')}), about ${Math.round(ageHours)}h old, feed rank ${rank} (title-only scan, no bodies stored).`;
-}
-
-export function buildAwarenessRow({ subreddit, post, types, ageHours, imageRef, imageComments }) {
   return {
-    platform: 'reddit',
-    community: subreddit,
-    kind: AWARENESS_KIND,
-    thread_id: post.id,
-    url: post.permalink,
-    title: post.title,
-    context: contextFor(subreddit, types, ageHours, post.rank),
-    matched_doc_ids: [],
-    status: 'new',
-    redline_ok: true, // screenTopic ran on the title in evaluateThread
-    image_ref: imageRef,
-    image_comments: imageComments,
-    thread_type: types[0],
+    defaults: config.defaults ?? {},
+    subs: config.subs ?? [],
+    excluded: config.excluded ?? [],
+    search: config.search ?? {},
   };
 }
 
-/** Per-sub candidates created so far today (UTC), from existing awareness rows. */
-export async function fetchTodaysCandidateCounts(supabase, now = new Date()) {
-  const { data, error } = await supabase
-    .from('engagement_lead')
-    .select('community')
-    .eq('kind', AWARENESS_KIND)
-    .eq('platform', 'reddit')
-    .gte('created_at', utcDayStart(now));
-  if (error) {
-    if (isSchemaPending(error)) return {};
-    throw error;
-  }
-  const counts = {};
-  for (const row of data ?? []) counts[row.community] = (counts[row.community] ?? 0) + 1;
-  return counts;
+/** A sub's own daily delivery cap (4 for the two big fan subs), else the default. */
+export function dailyCapFor(sub, defaults) {
+  return sub?.dailyCap ?? defaults?.perSubDailyDeliveryCap ?? DEFAULT_DAILY_CAP;
 }
 
-/** Scans one sub: both feeds, merged by id (best rank wins), filtered. Never throws on an HTTP failure. */
-export async function scanSub(
-  sub,
-  defaults,
-  { fetchImpl, now, catalog, warn = console.warn, sleep = async () => {} },
-) {
-  const limit = defaults.feedLimit ?? 25;
-  const stats = { fetched: 0, rateLimited: 0, rejected: {} };
-  const byId = new Map();
-  for (const sort of ['hot', 'new']) {
-    try {
-      const { posts, status } = await fetchSubredditPosts(sub.name, { sort, limit, fetchImpl });
-      if (status === 429) stats.rateLimited += 1;
-      for (const post of posts) {
-        const prior = byId.get(post.id);
-        if (!prior || post.rank < prior.rank) byId.set(post.id, post);
-      }
-    } catch (error) {
-      warn(
-        `awareness-scan: r/${sub.name} ${sort} feed failed (${error?.status ?? error?.message ?? error}).`,
-      );
+/** Groups fetched posts by the community they belong to, dropping blocked/NSFW subs; best feed rank wins per id. */
+export function groupByCommunity(fetched, config) {
+  const groups = new Map();
+  for (const { source, posts } of fetched) {
+    for (const post of posts) {
+      const name = source.kind === 'sub' ? source.sub.name : communityFromPermalink(post.permalink);
+      if (!name || isBlockedSub(name, config)) continue;
+      const group = groups.get(name) ?? new Map();
+      const prior = group.get(post.id);
+      if (!prior || post.rank < prior.rank) group.set(post.id, post);
+      groups.set(name, group);
     }
-    await sleep(PACING_MS);
   }
-  stats.fetched = byId.size;
-  const candidates = [];
-  for (const post of byId.values()) {
-    const verdict = evaluateThread(post, sub, { now, maxAgeHours: defaults.maxAgeHours });
-    if (!verdict.ok) {
-      stats.rejected[verdict.reason] = (stats.rejected[verdict.reason] ?? 0) + 1;
-      continue;
-    }
-    const score = scoreCandidate(
-      { types: verdict.types, rank: post.rank, ageHours: verdict.ageHours },
-      sub,
-    );
-    const { ref } = pickImageRef(post.title, catalog);
-    candidates.push({
-      subreddit: sub.name,
-      post,
-      types: verdict.types,
-      ageHours: verdict.ageHours,
-      imageRef: ref,
-      score,
-    });
-  }
-  return { candidates, stats };
+  return groups;
+}
+
+/** Resolves a community's image-comment state: cache first, at most one live about.json read per run. */
+async function aboutFor(name, configured, ctx) {
+  const cached = cachedAbout(ctx.cache, name, ctx.now);
+  if (cached) return cached;
+  if (!configured || ctx.aboutSpent || aboutBlockedRecently(ctx.cache, ctx.now))
+    return { imageComments: 'unknown', over18: false };
+  ctx.aboutSpent = true;
+  await ctx.sleep(ctx.pacingMs);
+  const live = await ctx.fetchAbout(name, { fetchImpl: ctx.fetchImpl });
+  if (ctx.supabase && !ctx.dryRun) await saveAbout(ctx.supabase, name, live, ctx.now);
+  return live;
 }
 
 export async function runAwarenessScan({
@@ -153,55 +116,92 @@ export async function runAwarenessScan({
   fetchImpl,
   fetchAbout = fetchSubAbout,
   now = new Date(),
-  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
-  warn = console.warn,
+  sleep = (ms) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    }),
+  random = Math.random,
+  relayUrl = null,
   dryRun = false,
 } = {}) {
-  const { defaults, subs } = config;
+  const { defaults } = config;
+  const budget = defaults.feedRequestsPerRun ?? 6;
+  const pacingMs = defaults.pacingMs ?? 6000;
+  const slot = slotOf(now);
+  const fetcher = createFeedFetcher({ budget, pacingMs, relayUrl, fetchImpl, sleep, random });
+  const sources = pickSources(buildSources(config), { slot, dayIndex: dayIndexOf(now), budget });
+  const fetched = [];
+  const perSource = [];
+  for (const [index, source] of sources.entries()) {
+    const limit = defaults.feedLimit ?? 25;
+    const url =
+      source.kind === 'sub'
+        ? subFeedUrl(source.sub.name, sortFor(slot, index), limit)
+        : searchFeedUrl(source.query, limit);
+    const res = await fetcher.get(url, source.id);
+    fetched.push({ source, posts: res.posts });
+    perSource.push({
+      source: source.id,
+      status: res.status,
+      posts: res.posts.length,
+      via: res.via ?? null,
+      skipped: res.skipped === true,
+    });
+  }
+
   const known = supabase ? await fetchKnownThreadIds(supabase) : new Set();
   const today = supabase ? await fetchTodaysCandidateCounts(supabase, now) : {};
-  const remainingToday = {};
+  const ctx = {
+    cache: supabase ? await loadAboutCache(supabase) : new Map(),
+    now,
+    sleep,
+    pacingMs,
+    fetchAbout,
+    fetchImpl,
+    supabase,
+    dryRun,
+    aboutSpent: false,
+  };
+  const byName = new Map(config.subs.map((sub) => [sub.name, sub]));
   const all = [];
+  const remainingToday = {};
   const perSub = [];
-  let aboutBlocked = false; // a 403 on about.json is a bot block, not a per-sub answer: stop asking this run
-  for (const sub of subs) {
-    let about = { imageComments: 'unknown', over18: false };
-    if (!aboutBlocked) {
-      about = await fetchAbout(sub.name, { fetchImpl });
-      aboutBlocked = String(about.error ?? '').includes('403');
-      await sleep(PACING_MS);
-    }
+  for (const [name, group] of groupByCommunity(fetched, config)) {
+    const configured = byName.get(name);
+    const sub = configured ?? { name, tier: 1, requireTaylor: 'strict' };
+    const about = await aboutFor(name, Boolean(configured), ctx);
     if (about.over18) {
-      perSub.push({ subreddit: sub.name, skipped: 'over18' });
+      perSub.push({ subreddit: name, skipped: 'over18' });
       continue;
     }
     const imageComments = resolveImageComments(sub, about);
-    const { candidates, stats } = await scanSub(sub, defaults, {
-      fetchImpl,
-      now,
-      catalog,
-      warn,
-      sleep,
-    });
-    await sleep(PACING_MS);
-    remainingToday[sub.name] = Math.max(
-      0,
-      (defaults.perSubDailyCandidateCap ?? 4) - (today[sub.name] ?? 0),
-    );
-    const fresh = candidates
-      .filter((c) => !known.has(c.post.id))
-      .map((c) => ({ ...c, imageComments }));
-    all.push(...fresh);
-    perSub.push({
-      subreddit: sub.name,
-      imageComments,
-      fetched: stats.fetched,
-      rateLimited: stats.rateLimited,
-      passed: candidates.length,
-      unseen: fresh.length,
-      rejected: stats.rejected,
-    });
+    const rejected = {};
+    let passed = 0;
+    for (const post of group.values()) {
+      const verdict = evaluateThread(post, sub, { now, maxAgeHours: defaults.maxAgeHours });
+      if (!verdict.ok) {
+        rejected[verdict.reason] = (rejected[verdict.reason] ?? 0) + 1;
+        continue;
+      }
+      passed += 1;
+      if (known.has(post.id)) continue;
+      all.push({
+        subreddit: name,
+        post,
+        types: verdict.types,
+        ageHours: verdict.ageHours,
+        imageRef: pickImageRef(post.title, catalog).ref,
+        imageComments,
+        score: scoreCandidate(
+          { types: verdict.types, rank: post.rank, ageHours: verdict.ageHours },
+          sub,
+        ),
+      });
+    }
+    remainingToday[name] = Math.max(0, dailyCapFor(configured, defaults) + 1 - (today[name] ?? 0));
+    perSub.push({ subreddit: name, imageComments, fetched: group.size, passed, rejected });
   }
+
   const kept = applyCandidateCaps(all, {
     perSubScanCap: defaults.perSubScanCapPerRun ?? 2,
     remainingToday,
@@ -225,7 +225,9 @@ export async function runAwarenessScan({
       (await insertLeads(supabase, facebookRows)).inserted;
   }
   return {
+    perSource,
     perSub,
+    requests: fetcher.stats(),
     candidates: all.length,
     kept: rows.length,
     facebook: facebookRows.length,
@@ -249,10 +251,16 @@ async function main() {
     );
     return 0;
   }
-  const result = await runAwarenessScan({ supabase, catalog: await loadCatalog(), dryRun });
+  const result = await runAwarenessScan({
+    supabase,
+    catalog: await loadCatalog(),
+    relayUrl: process.env.HOME_RELAY_URL || null,
+    dryRun,
+  });
   console.log(
-    `awareness-scan: ${result.candidates} candidate(s) passed filters, ${result.kept} kept under caps, ${result.facebook} Facebook adopted, ${result.inserted} inserted${dryRun ? ' (dry-run: nothing written)' : ''}.`,
+    `awareness-scan: ${result.candidates} candidate(s) passed filters, ${result.kept} kept under caps, ${result.facebook} Facebook adopted, ${result.inserted} inserted${dryRun ? ' (dry-run: nothing written)' : ''}. Requests: ${JSON.stringify(result.requests)}`,
   );
+  for (const s of result.perSource) console.log(`  source ${JSON.stringify(s)}`);
   for (const s of result.perSub) console.log(`  r/${s.subreddit}: ${JSON.stringify(s)}`);
   return 0;
 }
