@@ -34,21 +34,11 @@ unlimited fresh images, but you earlier retired text cards from the feed
 
 **Why:** The first real run failed at ingest: apps/worker's env file lacks the Supabase keys, so nothing uploads. The task also needs re-registering with the 5 h limit and the extension reloaded. The stored DPAPI Facebook password is no longer used.
 **Steps:**
-1. Supabase dashboard → Project Settings → API: copy Project URL and service_role key. Open apps/worker's env file in Notepad, add `SUPABASE_URL=<url>` and `SUPABASE_SERVICE_ROLE_KEY=<key>`. Never paste values in chat.
+1. Supabase → Project Settings → API: copy Project URL and service_role key into apps/worker's env file as `SUPABASE_URL=<url>` and `SUPABASE_SERVICE_ROLE_KEY=<key>`. Never paste values in chat.
 2. In the Swift2 folder run `npm run knowledge:fb-schedule`.
-3. In the Long Live Chrome profile: chrome://extensions → remove Long Live → Load unpacked → `C:\Users\Fourtys\Documents\Claude\Projects\Swift2\scripts\knowledge\fb-extension`. Then close that Chrome fully (tray → Exit).
+3. Long Live Chrome profile: chrome://extensions → remove Long Live → Load unpacked → `C:\Users\Fourtys\Documents\Claude\Projects\Swift2\scripts\knowledge\fb-extension`; then tray → Exit.
 4. Optional: delete `%LOCALAPPDATA%\longlive-fb\fb-cred.xml`.
 **Worked if:** `npm run knowledge:fb-export` finishes with N/N uploaded and no KEPT line.
-
-## #87 🟡 [DECIDE] Ownership backlog stuck 7+ days — accept it or get it routed (~5 min)
-<!-- ha filed=2026-09-30 -->
-
-**Why:** Issue #4546 has flagged the same "abandoned"/"ambiguous" backlog (9 abandoned + 1 ambiguous issue, budget 0) every day since 2026-09-23 with no automated fix — only a policy call can stop the daily alert.
-**Steps:**
-1. Open github.com/JW-Incorporated/swift2/issues/4546 and read the latest breach list.
-2. Decide: raise the budget in `.github/work-ownership-budget.json` to accept the backlog, or ask for the listed issues to be routed/worked.
-3. Comment your decision on issue #4546.
-**Worked if:** a founder comment on #4546 records either an accepted new budget or a routing decision.
 
 ## #86 🔴 [BLOCKING] SOCIAL_POSTER_PAT can't trigger GitHub Actions — Marjorie's routine re-runs 403 (~10 min)
 <!-- ha filed=2026-09-29 -->
@@ -63,22 +53,10 @@ unlimited fresh images, but you earlier retired text cards from the feed
 
 **Worked if:** the next Marjorie ops sweep that tries to re-dispatch a quiet routine reports success instead of a 403 error.
 
-## #85 🟡 [DECIDE] #4559 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-28 -->
-<!-- marjorie-chase: 96h issue=4559 -->
-
-**Why:** Marjorie dispatched it on 2026-09-24 (plan-recheck-marjorie.yml: max_turns=40 too low, fails last 2 scheduled runs despite succ…). Nothing has moved since 2026-09-24. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4559 under stalled.
-
 ## #82 🔴 [BLOCKING] GH_DISPATCH_TOKEN can't dispatch workflows (~10 min)
 <!-- ha filed=2026-09-22 -->
 
-**Why:** Marjorie's hourly watchdog-ops sweep uses the `GH_DISPATCH_TOKEN` secret to re-dispatch quiet or failing scheduled workflows (7 of the 14 alert types rely on it). Re-dispatching `plan-recheck.yml` today failed with HTTP 403 "Resource not accessible by personal access token" — the token can't trigger a workflow run at all, so every re-dispatch action in that sweep is currently a no-op.
-
+**Why:** Marjorie's hourly ops sweep uses GH_DISPATCH_TOKEN to re-dispatch quiet or failing workflows (7 of 14 alert types). Re-dispatching plan-recheck.yml failed with HTTP 403 "Resource not accessible by personal access token", so every re-dispatch in that sweep is a no-op.
 **Steps:**
 1. Open the repo's Settings → Secrets and variables → Actions and find the token behind the `GH_DISPATCH_TOKEN` secret.
 2. If it's a fine-grained token, give it "Actions: Read and write" permission for this repo; if it's a classic token, give it the `workflow` scope.
@@ -86,22 +64,10 @@ unlimited fresh images, but you earlier retired text cards from the feed
 
 **Worked if:** the next hourly Marjorie ops sweep can run `gh workflow run` without a 403 (visible in that run's log).
 
-## #79 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-18 -->
-<!-- marjorie-chase: 96h issue=4324 -->
-
-**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-14. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4324 under stalled.
-
 ## #78 🔴 [BLOCKING] Add Actions read/write to SOCIAL_POSTER_PAT (~5 min)
 <!-- ha filed=2026-09-16 -->
 
-**Why:** SOCIAL_POSTER_PAT (fine-grained, repo-scoped, currently Contents+PRs read/write) 403s on `gh workflow run`/the dispatches API — confirmed twice (#4223, #4388). Every watchdog handler whose fix is "re-dispatch" (plan-recheck, tree-weekly-plan, vault-run, karen-nightly, output-sampling) is a silent no-op; several have been failing unattended for days (#4411, #4336, #4192, #4129).
-
+**Why:** SOCIAL_POSTER_PAT (fine-grained, Contents+PRs read/write) 403s on `gh workflow run` (#4223, #4388). Every watchdog fix that re-dispatches (plan-recheck, tree-weekly-plan, vault-run, karen-nightly, output-sampling) is a silent no-op; several have failed for days (#4411, #4336).
 **Steps:**
 1. As sffan15-sys, go to github.com/settings/personal-access-tokens.
 2. Open the fine-grained token used for SOCIAL_POSTER_PAT (repo: JW-Incorporated/swift2).
@@ -113,11 +79,7 @@ unlimited fresh images, but you earlier retired text cards from the feed
 ## #70 🟡 [DECIDE] Confirm the first automated Facebook export (~5 min)
 <!-- ha filed=2026-09-12 -->
 
-**Why:** The fan-signal engine reads what Swifties are saying in six Facebook
-groups. Joey approved deterministic collection from his personal account and
-accepted the account risk (`docs/decisions.md`, 2026-09-30), so this is now
-automated. This existing action remains open only until the first successful
-run proves the previously unverified parser against a real export.
+**Why:** The fan-signal engine reads six Facebook groups. Joey approved automated collection from his account and accepted the risk (docs/decisions.md, 2026-09-30). This stays open only until the first successful run proves the parser on a real export.
 **Steps:**
 1. Complete #88 (worker Supabase keys, Sunday task, reload the extension).
 2. Let `npm run knowledge:fb-export` finish once, or run it yourself after a
