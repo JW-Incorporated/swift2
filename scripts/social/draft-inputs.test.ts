@@ -1,6 +1,6 @@
 // Bots v2 W8: the deterministic pre-compute Tree's daily run reads instead of searching.
 import { describe, expect, it } from 'vitest';
-import { BACKLOG_SKIP_AT, activeRules, buildDraftInputs, filledBeats, parseCalendarBeats, parsePhotoHints, recentRejections, summarizeInputs, uncoveredEvents } from './lib/draft-inputs.mjs';
+import { BACKLOG_SKIP_AT, activeRules, buildDraftInputs, filledBeats, parseCalendarBeats, parsePhotoHints, parseRedraftNotes, recentRejections, summarizeInputs, uncoveredEvents } from './lib/draft-inputs.mjs';
 import { assignBeatPhotos, buildPhotoLedger, eraAvailability, eraTagsOf, photoIdOf } from './lib/photo-ledger.mjs';
 
 const photo = (id: string, tags: string[] = ['eras-tour'], credit = 'Real Person (CC BY 2.0)') => ({
@@ -167,5 +167,27 @@ describe('buildDraftInputs', () => {
     const out = summarizeInputs(inputs);
     expect(out).toContain('NO never-used photo left');
     expect(out).toContain('! x was unreadable');
+  });
+
+  it('hands the model a re-draft request left in the calendar, whichever day section it sits in', () => {
+    const calendarMd = `${CALENDAR}\n> RE-DRAFT ask #4675 by 2026-10-03: the 09-23 Mood pair and the 09-24 timeline\n`;
+    const inputs = buildDraftInputs({ ...base, calendarMd });
+    expect(inputs.redrafts).toEqual([{ ask: 4675, by: '2026-10-03', items: 'the 09-23 Mood pair and the 09-24 timeline', alreadyDrafted: false }]);
+    expect(summarizeInputs(inputs)).toContain('re-draft ask #4675 by 2026-10-03');
+  });
+});
+
+describe('re-draft notes', () => {
+  const md = ['## 2026-10-02 (Fri) — x', '- **RE-DRAFT ask #11 by 2026-10-05: Mood pair**', 'RE-DRAFT ask #12 by 2026-09-30: stale one', 'RE-DRAFT ask 13: no deadline', 'prose about a re-draft ask #14 by 2026-10-05: mid-line'].join('\n');
+
+  it('reads the fixed one-line syntax and drops past-deadline and malformed lines', () => {
+    expect(parseRedraftNotes(md, '2026-10-01')).toEqual([{ ask: 11, by: '2026-10-05', items: 'Mood pair', alreadyDrafted: false }]);
+    expect(parseRedraftNotes(undefined, '2026-10-01')).toEqual([]);
+  });
+
+  it('marks a request drafted once an item names its ask in why', () => {
+    const social = [entry('q', { why: 'Re-draft for ask #11 (Mood).' }), entry('r', { why: 'ask #110 is another' })];
+    expect(parseRedraftNotes(md, '2026-10-01', social)[0].alreadyDrafted).toBe(true);
+    expect(parseRedraftNotes(md, '2026-10-01', [entry('r', { why: 'ask #110 is another' })])[0].alreadyDrafted).toBe(false);
   });
 });

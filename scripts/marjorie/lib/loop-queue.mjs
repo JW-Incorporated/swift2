@@ -15,7 +15,7 @@
 // issues or comments itself. A stranger's comment on a public issue never
 // reaches the agent.
 import { gh as ghRun } from '../../lib/gh.mjs';
-import { REPO, askKey, fetchAsksFor, parseMarker, selectAsksFor } from './loop-asks.mjs';
+import { FILER_LOGINS, REPO, askKey, fetchAsksFor, parseMarker, selectAsksFor } from './loop-asks.mjs';
 import { apiFor, listIssuesByLabels } from './issues-rest.mjs';
 import { markedDepth, utcDay } from './loop-dispatch.mjs';
 
@@ -32,7 +32,9 @@ export const LOOP_LABELS = [
 ];
 // How many NEW help asks each side may file per UTC day (Monday's plan asks count too).
 export const HELP_DAILY_CAP = { tree: 2, marjorie: 4 };
-const RESPONDER_LOGINS = new Set(['claude', 'claude[bot]']);
+export const RESPONDER_LOGINS = new Set(['claude', 'claude[bot]']);
+/** The post-run guard's fallback comment carries this; only the workflow identity's copy counts as an answer. */
+export const FALLBACK_MARKER = '<!-- loop-fallback-disposition -->';
 const BOT_LOGINS = new Set(['github-actions[bot]', 'github-actions', 'app/github-actions', 'claude', 'claude[bot]']);
 const OWNER_LOGIN = 'sffan15-sys';
 const OWNER_ASSOCIATIONS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
@@ -44,12 +46,21 @@ const DISPOSITION_RE = /^\s*\**Disposition:\**\s*(ACCEPT-NOW|SCHEDULE|DECLINE|RE
 const BODY_CAP = 1200;
 const DAY_MS = 86_400_000;
 
-/** The responder's latest Disposition, or null. `bot` is who is responding. */
+/**
+ * The responder's latest Disposition, or null. `bot` is who is responding. The
+ * workflow's own fallback comment (lib/loop-fallback.mjs, marker-bearing, workflow
+ * identity only) counts as `NEEDS HELP`, so an ask the agent dropped leaves the queue.
+ */
 export function parseDisposition(comments, bot) {
   const allowed = new Set(DISPOSITIONS[bot].map((d) => d.replace(/['’]/g, '')));
   let found = null;
   for (const c of comments || []) {
-    if (!RESPONDER_LOGINS.has(c?.user?.login ?? c?.author?.login)) continue;
+    const login = c?.user?.login ?? c?.author?.login;
+    if (FILER_LOGINS.has(login) && String(c.body ?? '').includes(FALLBACK_MARKER)) {
+      found = { disposition: 'NEEDS HELP', commentId: c.id ?? null, fallback: true };
+      continue;
+    }
+    if (!RESPONDER_LOGINS.has(login)) continue;
     const word = DISPOSITION_RE.exec(String(c.body ?? ''))?.[1]?.toUpperCase().replace(/['’]/g, '');
     if (word && allowed.has(word)) found = { disposition: word, commentId: c.id ?? null };
   }

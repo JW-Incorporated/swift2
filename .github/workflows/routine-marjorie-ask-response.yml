@@ -87,8 +87,8 @@ jobs:
       routine_name: "Marjorie — ask response"
       prompt_file: docs/agents/runner-prompts/marjorie-ask-response.md
       model: claude-opus-5
-      # gh limited to the verbs the prompt uses, so the agent cannot fetch an issue or its comments itself: everything it may read is in the queue file (lib/loop-queue.mjs trusts only workflow/Claude/owner comments). `gh api` stays for the build-ticket helper's label listing only. The open weekly plan is in the queue file too.
-      allowed_tools: "Bash(gh issue comment:*),Bash(gh issue edit:*),Bash(gh issue close:*),Bash(gh issue create:*),Bash(gh api:*),Bash(node:*),Read,Grep,Glob,Write"
+      # Space-free scoped form like the other routines: routine-template.yml interpolates this unquoted into claude_args, so a space would split a rule into separate tokens (check-routine-workflows.mjs fails on one). The prompt forbids fetching issues or comments (`gh api` is for the build-ticket helper's label listing only); the queue file (lib/loop-queue.mjs trusts only workflow/Claude/owner comments) and the open weekly plan in it are everything it should read.
+      allowed_tools: "Bash(gh:*),Bash(node:*),Read,Grep,Glob,Write"
       timeout_minutes: 30
       max_turns: 60
       max_budget_usd: 6
@@ -97,6 +97,33 @@ jobs:
       allowed_bots: github-actions # dispatched on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  guard:
+    # Deterministic, no agent: an ask still without a `Disposition:` comment after the run (a denied tool, a timeout, a silent exit) gets a fallback NEEDS HELP and loop:needs-help (scripts/marjorie/lib/loop-fallback.mjs), so no ask is ever silently dropped. Runs even when the routine failed or was cancelled.
+    needs: [context, run]
+    if: always() && needs.context.result == 'success' && needs.context.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Download the queue the run was given
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: marjorie-ask-queue
+          path: .scratch
+      - name: Answer any ask the run left without a Disposition
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/marjorie/loop-live.mjs guard-dispositions --for marjorie --queue .scratch/ask-queue.json
 
   asks:
     needs: run

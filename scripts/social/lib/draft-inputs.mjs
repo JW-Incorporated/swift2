@@ -36,6 +36,26 @@ export function parseCalendarBeats(markdown, days) {
   });
 }
 
+/**
+ * Re-draft requests Tree left in social/calendar.md while answering a Marjorie ask
+ * (docs/agents/runner-prompts/tree-ask-response.md): one line per ask, anywhere in the
+ * file, `RE-DRAFT ask #<N> by <YYYY-MM-DD>: <items to draft again>` (a leading `> `,
+ * `- ` or bold is fine). Read here, not from the day sections, so a long section's
+ * truncation can never hide one. Past its `by` day a request is dropped; one whose
+ * ask is already named (`ask #<N>`) in a held or posted item's `why` is marked drafted.
+ */
+export function parseRedraftNotes(markdown, today, social = []) {
+  const notes = [];
+  for (const line of String(markdown ?? '').split('\n')) {
+    const m = /^\s*(?:[>*-]\s*)*\**RE-DRAFT\**\s+ask\s+#(\d+)\s+by\s+(\d{4}-\d{2}-\d{2})\s*:\s*(.+?)\s*\**\s*$/i.exec(line);
+    if (!m || m[2] < today) continue;
+    const ask = Number(m[1]);
+    const named = new RegExp(`ask #${ask}\\b`, 'i');
+    notes.push({ ask, by: m[2], items: m[3].slice(0, 400), alreadyDrafted: social.some(({ data }) => named.test(String(data?.why ?? ''))) });
+  }
+  return notes;
+}
+
 /** The calendar's `| MM-DD | \`photoId\` | …` assignment table → Map<MM-DD, photoId> (a hint, never a command). */
 export function parsePhotoHints(markdown) {
   const hints = new Map();
@@ -130,6 +150,7 @@ export function buildDraftInputs(d) {
     budget: { maxToolCalls: 30, maxNewItems: 4, note: 'Every fact below was computed before you started — do not re-derive it. Open the PR as soon as the checker passes; the listening scan comes AFTER the PR.' },
     backlog: { heldItems: backlog, skipCalendarDrafting: backlog >= BACKLOG_SKIP_AT, skipAt: BACKLOG_SKIP_AT },
     beats: outBeats,
+    redrafts: parseRedraftNotes(d.calendarMd, today, social),
     eventPhoto,
     photos: {
       library: ledger.total,
@@ -153,6 +174,7 @@ export function summarizeInputs(inputs) {
   return [
     `tree-inputs ${inputs.today}: held ${inputs.backlog.heldItems}/${inputs.backlog.skipAt}${inputs.backlog.skipCalendarDrafting ? ' (calendar drafting skipped)' : ''}`,
     ...inputs.beats.map((b) => `  ${beatLine(b)}`),
+    ...inputs.redrafts.map((r) => `  re-draft ask #${r.ask} by ${r.by}: ${r.alreadyDrafted ? 'already drafted' : r.items.slice(0, 80)}`),
     `  photos: ${inputs.photos.neverUsed}/${inputs.photos.library} drawable (never used AND Instagram-sized; ${inputs.photos.neverUsedButNotInstagramSized} more never-used are outside IG's 0.8-1.91 aspect window); held by open PRs: ${inputs.photos.heldInOpenPrs.join(', ') || 'none'}; era-exhausted: ${exhausted.join(', ') || 'none'}`,
     `  rules: ${inputs.rules.map((r) => r.id).join(', ') || 'none'} · recent rejections: ${inputs.rejections.length} · uncovered events: ${inputs.events.uncovered.length} · open intents: ${inputs.inbox.length}`,
     ...inputs.warnings.map((w) => `  ! ${w}`),
