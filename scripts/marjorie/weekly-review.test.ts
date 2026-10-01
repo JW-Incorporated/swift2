@@ -223,6 +223,11 @@ describe('triage bot1 sender, cadence entries and the human action', () => {
   });
   it('files the bridge human action in format v2 with the literal secret name and the Hermes tracking link', () => {
     const ha = read('HUMAN-ACTIONS.md');
+    if (!ha.includes('## #89 ')) {
+      // Closed: the item moves to the ledger (format v2), so assert it landed there instead.
+      expect(read('HUMAN-ACTIONS-DONE.md')).toMatch(/^- #89 · \d{4}-\d{2}-\d{2} · (done|skip) · /m);
+      return;
+    }
     const entry = ha.slice(ha.indexOf('## #89 '), ha.indexOf('## #88 '));
     expect(entry).toMatch(/^## #89 🟢 \[UPGRADE\] /);
     for (const literal of ['DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL', '`ops`', 'https://github.com/JW-Incorporated/Hermes/issues/1', 'bot1Bridge.enabled', '`Marjorie`']) expect(entry).toContain(literal);
