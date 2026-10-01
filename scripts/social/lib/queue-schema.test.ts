@@ -652,6 +652,31 @@ ${url}`;
       expect(findingFor({ ...card, media: ['/social/library/cards/../x.png'] }, 'must be a committed .png')).toBeDefined();
     });
 
+    it('accepts the bare share-card URL and rejects lookalike hosts/paths', () => {
+      expect(validateQueueItem({ ...card, cardUrl: 'https://www.longlivets.com/api/share-card' })).toEqual([]);
+      expect(findingFor({ ...card, cardUrl: 'https://www.longlivets.com/api/share-card.evil.com' }, 'cardUrl')).toBeDefined();
+      expect(findingFor({ ...card, cardUrl: 'https://www.longlivets.com/api/share-cardX?era=lover' }, 'cardUrl')).toBeDefined();
+      expect(findingFor({ ...card, cardUrl: 'https://www.longlivets.com/api/share-card/x' }, 'cardUrl')).toBeDefined();
+    });
+
+    it('rejects %, backslash, double-slash and unusual characters in card paths', () => {
+      for (const p of [
+        '/social/library/cards/a%2e.png',
+        '/social/library/cards/a\\b.png',
+        '/social/library/cards//a.png',
+        '/social/library/cards/sub/a.png',
+        '/social/library/cards/a b.png',
+        '/social/library/cards/a.PNG',
+      ]) {
+        expect(findingFor({ ...card, media: [p] }, 'must be a committed .png')).toBeDefined();
+      }
+    });
+
+    it('requires at least one media path for a card on any platform', () => {
+      expect(findingFor({ ...card, media: [], altText: undefined }, 'requires at least one media path')).toBeDefined();
+      expect(findingFor({ ...card, platform: 'x', media: [], altText: undefined }, 'requires at least one media path')).toBeDefined();
+    });
+
     it('still enforces media, altText and platform limits', () => {
       expect(findingFor({ ...card, media: [], altText: undefined }, 'media:')).toBeDefined();
       expect(findingFor({ ...card, altText: undefined }, 'altText:')).toBeDefined();

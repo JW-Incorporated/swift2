@@ -84,7 +84,8 @@ export const MEDIA_KINDS = ['photo', 'site-screen', 'era-art', 'card'];
  * /api/share-card route) committed under CARD_PREFIX. Credit is always the
  * product, never a photographer. */
 export const CARD_PREFIX = '/social/library/cards/';
-export const CARD_CREDIT = 'Long Live';
+const CARD_PATH_RE = /^\/social\/library\/cards\/[A-Za-z0-9_.-]+\.png$/;
+export const CARD_CREDIT ='Long Live';
 export const CARD_URL_PREFIX = 'https://www.longlivets.com/api/share-card';
 export const EXPERIMENT_LIMITS = { hypothesis: 300, variant: 100, metric: 100 };
 
@@ -599,12 +600,19 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
     if (item.mediaCredit !== CARD_CREDIT) {
       findings.push(`mediaCredit: must be exactly ${JSON.stringify(CARD_CREDIT)} when mediaKind is "card".`);
     }
-    if (typeof item.cardUrl !== 'string' || !item.cardUrl.startsWith(CARD_URL_PREFIX)) {
-      findings.push(`cardUrl: required when mediaKind is "card" — must start with ${CARD_URL_PREFIX} (the route the PNG was rendered from).`);
+    if (
+      typeof item.cardUrl !== 'string' ||
+      !item.cardUrl.startsWith(CARD_URL_PREFIX) ||
+      !(item.cardUrl.length === CARD_URL_PREFIX.length || item.cardUrl[CARD_URL_PREFIX.length] === '?')
+    ) {
+      findings.push(`cardUrl: required when mediaKind is "card" — must be exactly ${CARD_URL_PREFIX}, optionally followed by a "?query" (the route the PNG was rendered from).`);
+    }
+    if (paths.length === 0) {
+      findings.push('media: mediaKind "card" requires at least one media path.');
     }
     for (const p of paths) {
-      if (typeof p === 'string' && (!p.startsWith(CARD_PREFIX) || !p.toLowerCase().endsWith('.png') || p.includes('..'))) {
-        findings.push(`media: mediaKind "card" path ${JSON.stringify(p)} must be a committed .png under ${CARD_PREFIX}.`);
+      if (typeof p === 'string' && (/[%\\]|\/\//.test(p) || !CARD_PATH_RE.test(p))) {
+        findings.push(`media: mediaKind "card" path ${JSON.stringify(p)} must be a committed .png under ${CARD_PREFIX} (letters, digits, "_", ".", "-" only).`);
       }
     }
   }
