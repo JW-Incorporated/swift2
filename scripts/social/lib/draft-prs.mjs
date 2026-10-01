@@ -15,17 +15,27 @@ function parse(text, fallback) {
   }
 }
 
+const FIELDS = 'number,createdAt,headRefOid,labels,files,statusCheckRollup,state';
+
+const toDraftPr = (pr) => ({
+  number: pr.number,
+  createdAt: pr.createdAt,
+  headRefOid: pr.headRefOid,
+  state: pr.state ?? 'OPEN',
+  labels: (pr.labels ?? []).map((l) => l.name),
+  queuePaths: (pr.files ?? []).map((f) => f.path).filter((p) => QUEUE_PATH_RE.test(p)),
+  failingChecks: (pr.statusCheckRollup ?? []).filter((c) => (c.conclusion ?? c.state) === 'FAILURE').map((c) => c.name ?? c.context),
+});
+
 /** Open social-draft PRs with their changed files and head commit. */
 export function listOpenDraftPrs(runGh) {
-  const prs = parse(runGh(['pr', 'list', '--label', DRAFT_LABEL, '--state', 'open', '--limit', '60', '--json', 'number,createdAt,headRefOid,labels,files,statusCheckRollup']), []);
-  return prs.map((pr) => ({
-    number: pr.number,
-    createdAt: pr.createdAt,
-    headRefOid: pr.headRefOid,
-    labels: (pr.labels ?? []).map((l) => l.name),
-    queuePaths: (pr.files ?? []).map((f) => f.path).filter((p) => QUEUE_PATH_RE.test(p)),
-    failingChecks: (pr.statusCheckRollup ?? []).filter((c) => (c.conclusion ?? c.state) === 'FAILURE').map((c) => c.name ?? c.context),
-  }));
+  return parse(runGh(['pr', 'list', '--label', DRAFT_LABEL, '--state', 'open', '--limit', '60', '--json', FIELDS]), []).map(toDraftPr);
+}
+
+/** One PR re-read fresh (labels, head, files, checks); null when it is gone, closed or unreadable. */
+export function readDraftPr(runGh, number) {
+  const pr = parse(runGh(['pr', 'view', String(number), '--json', FIELDS]), null);
+  return pr && pr.state === 'OPEN' ? toDraftPr(pr) : null;
 }
 
 /** Parsed queue items of one PR, read at its head commit; `data: null` when unreadable. */

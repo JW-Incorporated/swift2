@@ -15,12 +15,41 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { listOpenDraftPrs, readPrQueueItems } from './lib/draft-prs.mjs';
-import { DISPATCH_LABEL, EVENT_DAILY_CAP, pickEvents } from './lib/event-dispatch.mjs';
+import { DISPATCH_LABEL, EVENT_DAILY_CAP, fromRestIssue, pickEvents } from './lib/event-dispatch.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const EVENT_WORKFLOW = 'routine-tree-event-draft.yml';
 const gh = (args) => execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024, timeout: 60_000 });
+
+const firstLine = (err) => String(err?.message ?? err).split('\n')[0];
+
+/**
+ * Labels (dedupe marker first), then dispatches, each pick. One pick's failure —
+ * including a failed rollback of its label — never aborts the rest.
+ */
+export function dispatchPicks(run, picks, { dryRun = false, log = console.log } = {}) {
+  for (const pick of picks) {
+    log(`  dispatch #${pick.number}: ${pick.title.slice(0, 100)}`);
+    if (dryRun) continue;
+    try {
+      run(['label', 'create', DISPATCH_LABEL, '--color', 'ededed', '--description', 'Machine-only: a same-day Tree event draft was dispatched for this intake issue']);
+    } catch {
+      /* already exists */
+    }
+    try {
+      run(['issue', 'edit', String(pick.number), '--add-label', DISPATCH_LABEL]);
+      run(['workflow', 'run', EVENT_WORKFLOW, '--ref', 'main', '-f', `issue=${pick.number}`]);
+    } catch (err) {
+      try {
+        run(['issue', 'edit', String(pick.number), '--remove-label', DISPATCH_LABEL]);
+        log(`::warning::dispatch-event-drafts: dispatching ${EVENT_WORKFLOW} for #${pick.number} failed — label removed so the next scan retries (${firstLine(err)})`);
+      } catch (rollbackErr) {
+        log(`::warning::dispatch-event-drafts: #${pick.number} failed (${firstLine(err)}) and its label could not be removed (${firstLine(rollbackErr)}) — it stays marked and is not retried; remaining picks continue`);
+      }
+    }
+  }
+}
 
 async function main() {
   const dryRun = process.argv.includes('--dry-run');
@@ -28,8 +57,8 @@ async function main() {
   const today = new Date(nowMs).toISOString().slice(0, 10);
   const repo = process.env.GITHUB_REPOSITORY || JSON.parse(gh(['repo', 'view', '--json', 'nameWithOwner'])).nameWithOwner;
 
-  const issues = JSON.parse(gh(['issue', 'list', '--label', 'intake', '--state', 'open', '--limit', '50', '--json', 'number,title,createdAt,labels']))
-    .map((i) => ({ ...i, labels: (i.labels ?? []).map((l) => l.name) }));
+  // REST, not `gh issue list`: only REST carries author_association, which the trust check needs.
+  const issues = JSON.parse(gh(['api', `repos/${repo}/issues?labels=intake&state=open&per_page=50`])).map(fromRestIssue).filter(Boolean);
   const dispatchedToday = JSON.parse(gh(['issue', 'list', '--label', DISPATCH_LABEL, '--state', 'all', '--search', `updated:>=${today}`, '--limit', '20', '--json', 'number'])).length;
   const social = path.join(ROOT, 'social');
   const drafts = listOpenDraftPrs(gh).flatMap((pr) => readPrQueueItems(gh, repo, pr)).filter((i) => i.data);
@@ -40,22 +69,7 @@ async function main() {
   const old = skipped.filter((s) => s.why.startsWith('older than'));
   if (old.length) console.log(`  ${old.length} older intake issue(s) outside the window`);
   for (const s of skipped.filter((x) => !x.why.startsWith('older than'))) console.log(`  skip #${s.number}: ${s.why}`);
-  for (const pick of picks) {
-    console.log(`  dispatch #${pick.number}: ${pick.title.slice(0, 100)}`);
-    if (dryRun) continue;
-    try {
-      gh(['label', 'create', DISPATCH_LABEL, '--color', 'ededed', '--description', 'Machine-only: a same-day Tree event draft was dispatched for this intake issue']);
-    } catch {
-      /* already exists */
-    }
-    gh(['issue', 'edit', String(pick.number), '--add-label', DISPATCH_LABEL]);
-    try {
-      gh(['workflow', 'run', EVENT_WORKFLOW, '--ref', 'main', '-f', `issue=${pick.number}`]);
-    } catch (err) {
-      gh(['issue', 'edit', String(pick.number), '--remove-label', DISPATCH_LABEL]);
-      console.log(`::warning::dispatch-event-drafts: dispatching ${EVENT_WORKFLOW} for #${pick.number} failed — label removed so the next scan retries (${String(err.message).split('\n')[0]})`);
-    }
-  }
+  dispatchPicks(gh, picks, { dryRun });
   return 0;
 }
 

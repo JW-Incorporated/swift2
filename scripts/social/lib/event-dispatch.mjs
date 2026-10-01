@@ -21,6 +21,28 @@ const SENSITIVE_RE = /\b(lawsuits?|sues?|sued|court|trial|attack(?:er|ed)?|arres
 // A genuinely time-boxed fan event: a release, a premiere, an announcement, a win.
 const TIMELY_RE = /\b(releas\w*|drops?|dropped|premier\w*|announc\w*|tour|album|single|video|vmas?|grammys?|awards?|wins?|won|record|chart\w*|tickets?|trailer|teaser|performs?|surprise|livestream|countdown)\b/i;
 
+// Who may trigger an Opus run. The intake issue form (.github/ISSUE_TEMPLATE/intake.yml)
+// auto-labels `intake` for ANY GitHub user, so label + title prove nothing: the body is
+// attacker-controlled text an agent would read, and a stranger could burn the daily cap.
+// Only repo insiders, or the news desk's own identity (it files as claude[bot] — verified
+// 2026-10-01: 48 of the 60 newest intake issues; the other 12 are the owner, a MEMBER), qualify.
+export const TRUSTED_ASSOCIATIONS = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+export const TRUSTED_LOGINS = ['claude[bot]', 'github-actions[bot]'];
+
+export function isTrustedAuthor(issue) {
+  return TRUSTED_LOGINS.includes(issue?.author) || TRUSTED_ASSOCIATIONS.includes(issue?.authorAssociation);
+}
+
+/** A REST `issues` row (`gh api repos/:r/issues`) in the shape pickEvents reads; null for a pull request. */
+export function fromRestIssue(row) {
+  if (!row || row.pull_request) return null;
+  return {
+    number: row.number, title: row.title, createdAt: row.created_at,
+    labels: (row.labels ?? []).map((l) => (typeof l === 'string' ? l : l.name)),
+    author: row.user?.login ?? null, authorAssociation: row.author_association ?? null,
+  };
+}
+
 /** `{ ok: true }` or `{ ok: false, why }` for one intake title. */
 export function judgeTitle(title) {
   if (!/^intake:/i.test(title ?? '')) return { ok: false, why: 'not an intake: issue' };
@@ -40,6 +62,7 @@ export function pickEvents({ issues, socialItems, nowMs, dispatchedToday = 0, ca
   const eligible = [];
   for (const issue of issues ?? []) {
     const skip = (why) => skipped.push({ number: issue.number, why });
+    if (!isTrustedAuthor(issue)) { skip('author is not the news desk or a repo insider'); continue; }
     if ((issue.labels ?? []).includes(DISPATCH_LABEL)) { skip('already dispatched'); continue; }
     if (!(Date.parse(issue.createdAt) >= nowMs - windowHours * 3_600_000)) { skip(`older than ${windowHours}h`); continue; }
     const verdict = judgeTitle(issue.title);

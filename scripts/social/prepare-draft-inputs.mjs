@@ -20,6 +20,7 @@ import { runMain } from '../lib/cli.mjs';
 import { runEventStatusCli } from './check-event-transition.mjs';
 import { buildDraftInputs, summarizeInputs } from './lib/draft-inputs.mjs';
 import { listOpenDraftPrs, readPrQueueItems } from './lib/draft-prs.mjs';
+import { fromRestIssue, isTrustedAuthor } from './lib/event-dispatch.mjs';
 import { readIntents } from './lib/inbox.mjs';
 import { igUsablePhotos } from './lib/photo-dimensions.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
@@ -42,7 +43,8 @@ export function collectGithub(runGh, { nowMs, repo, warnings }) {
   const openDrafts = guard('open social-draft PRs', () => listOpenDraftPrs(runGh).flatMap((pr) => readPrQueueItems(runGh, repo, pr).filter((i) => i.data)), []);
   const since = new Date(nowMs - 14 * DAY_MS).toISOString().slice(0, 10);
   const closedPrs = guard('closed social-draft PRs', () => JSON.parse(runGh(['pr', 'list', '--state', 'closed', '--label', 'social-draft', '--search', `is:unmerged closed:>=${since}`, '--limit', '30', '--json', 'number,closedAt,comments'])), []);
-  const intakeIssues = guard('intake issues', () => JSON.parse(runGh(['issue', 'list', '--label', 'intake', '--state', 'open', '--limit', '40', '--json', 'number,title,createdAt'])), []);
+  // Titles reach the model, and the intake form auto-labels for ANY user — keep only the news desk and repo insiders.
+  const intakeIssues = guard('intake issues', () => JSON.parse(runGh(['api', `repos/${repo}/issues?labels=intake&state=open&per_page=40`])).map(fromRestIssue).filter((i) => i && isTrustedAuthor(i)), []);
   return { openDrafts, closedPrs, intakeIssues };
 }
 

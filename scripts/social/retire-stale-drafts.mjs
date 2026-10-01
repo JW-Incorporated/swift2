@@ -14,7 +14,7 @@
 //   node scripts/social/retire-stale-drafts.mjs --apply    # closes them (the daily-draft workflow only)
 import { execFileSync } from 'node:child_process';
 import { runMain } from '../lib/cli.mjs';
-import { STALE_DRAFT_HOURS, listOpenDraftPrs, readPrQueueItems, staleReason } from './lib/draft-prs.mjs';
+import { STALE_DRAFT_HOURS, listOpenDraftPrs, readDraftPr, readPrQueueItems, staleReason } from './lib/draft-prs.mjs';
 
 export const MAX_RETIRED_PER_RUN = 12;
 export const RETIRED_PREFIX = 'retired:';
@@ -33,8 +33,19 @@ export function sweep(runGh, { repo, nowMs, apply = false, hours = STALE_DRAFT_H
       continue;
     }
     const retire = decisions.filter((d) => d.retire).length < MAX_RETIRED_PER_RUN;
+    if (retire && apply) {
+      // The list is minutes old: re-read the PR and re-decide from fresh labels, head and stamps, so an
+      // approval stamped (or a hold added) since the list is never closed over. A Discord ✅ the poll has
+      // not stamped yet is not knowable here (the workflow holds no bot token); the stamp is what counts.
+      const fresh = readDraftPr(runGh, pr.number);
+      const again = fresh ? staleReason(fresh, readPrQueueItems(runGh, repo, fresh), nowMs, hours) : null;
+      if (!again) {
+        decisions.push({ pr: pr.number, retire: false, changed: true });
+        continue;
+      }
+      runGh(['pr', 'close', String(pr.number), '--comment', retiredComment(again)]);
+    }
     decisions.push({ pr: pr.number, retire, reason, createdAt: pr.createdAt });
-    if (retire && apply) runGh(['pr', 'close', String(pr.number), '--comment', retiredComment(reason)]);
   }
   return decisions;
 }

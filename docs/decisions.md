@@ -73,7 +73,7 @@ Bots v2 W8 brief; none of it touches a posting-path file).**
   `routine-tree-event-draft.yml` for an open `intake:` issue from the last 24h
   that no social item covers and that reads as a time-boxed event (release,
   premiere, announcement, win) and not a blocklist topic: at most two a day,
-  deduped by a `tree-event-dispatched` label put on BEFORE the dispatch. The
+  deduped by a `tree-event-dispatched` label put on BEFORE the dispatch. Only issues filed by the news desk (`claude[bot]`) or a repo insider (OWNER/MEMBER/COLLABORATOR) count: the intake form auto-labels `intake` for any GitHub user, so an outsider could otherwise trigger an agent run on attacker-written text and burn the cap. The stale sweep re-reads each PR just before closing it. The
   event run is a 30-turn, one-pair job (or a one-line decline on the issue); its
   PR waits for the owner's ✅ like every draft. Back-tested on 40 intake issues
   from 09-15 to 09-30: 19 would have dispatched (about one a day), including
