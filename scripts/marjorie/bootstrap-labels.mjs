@@ -5,6 +5,7 @@
 // this once:  node --use-env-proxy scripts/marjorie/bootstrap-labels.mjs
 import { gh } from '../lib/gh.mjs';
 import { LOOP_LABELS } from './lib/loop-queue.mjs';
+import { TASTE_LABELS } from './lib/taste-ruling.mjs';
 
 // The `desk:*` routing taxonomy (2026-08-11). EXACTLY ONE of these on an open
 // issue is what "routed" means — see scripts/check-work-ownership.mjs and
@@ -103,6 +104,7 @@ export const LABELS = [
   ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
   // Bots v2 W7: how a response routine disposed of a loop ask (lib/loop-queue.mjs).
   ...LOOP_LABELS,
+  ...TASTE_LABELS,
 ];
 
 const invokedDirectly =

@@ -147,3 +147,18 @@ jobs:
     permissions:
       contents: read
       issues: write
+
+  # S2 (docs/decisions.md 2026-10-01): a taste/strategy question the agent saved as
+  # .scratch/out/taste-ruling-1.json (`taste-ruling.mjs save`) is filed by a plain
+  # job and Fable's ruling routine starts at once — never the owner. A green no-op
+  # when nothing was saved.
+  taste:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/taste-ruling-file.yml
+    with:
+      artifact: marjorie-ask-response-out
+    permissions:
+      contents: read
+      issues: write
+      actions: write

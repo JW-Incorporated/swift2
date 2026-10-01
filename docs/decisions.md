@@ -7,6 +7,68 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — Social strategy and taste belong to Tree and Marjorie; the owner keeps a short guardrails list; Fable rules on taste (S2)
+
+**Decision.** Owner instruction, verbatim (2026-10-01): "What Tree posts should come
+from our social strategy. I should not be defining if it's cards, pictures, or what.
+Marjorie and Tree need to figure out how to grow the site, and they need to decide what
+to post. The rules should be eliminated and they should be figuring out a strategy. I
+don't want to be in the rule making business, I want to be in the reviewing/approving
+business." And: "taste decisions should go to fable."
+
+1. **Ownership split.** `docs/marketing/social-strategy.md`, `social/calendar.md`,
+   `social/lessons.md` and the new `social/strategy-params.json` are owned by **Tree**
+   (execution and format) and **Marjorie** (growth goals, weekly judgment of Tree's
+   changes and experiments). They change by PR with a written reason and evidence and
+   **land without a founder merge** (the first two plus the params file are on
+   `.github/content-automerge-allowlist.txt`). The owner owns exactly one short list,
+   `docs/social/guardrails.md`: the ✅ before anything posts (`SOCIAL_FREEZE`, poster caps),
+   rights/credit/takedown/no lyrics in cards, no AI images of Taylor, confirmed-only
+   sensitive topics, platform limits, replies/DMs human, no new channel/spend, no teasing
+   unshipped features. That file is in `NEVER_ALLOWLIST` — never auto-merged, never
+   bot-edited. Everything not on it is Tree's and Marjorie's.
+2. **Taste checks become parameters.** The thresholds `check-drafts.mjs` and
+   `lib/photo-reuse.mjs` hard-coded as taste — allowed media kinds, photo-reuse
+   window/scope, the both-platforms pairing default and window, opener/hook windows,
+   cross-post similarity, the X warn threshold, photo-mix, screenshot rules — read
+   `social/strategy-params.json` (a missing file or field falls back to the old values).
+   Credit/rights, X's 280 limit, Instagram's image and aspect rules, the story-unique
+   `campaign` and the approval stamp stay hard-coded and have no parameter. Promoting a
+   lesson into a hard gate after 3 firings is Tree's explicit choice (`lessons.autoCodify`,
+   shipped `false`), no longer automatic.
+3. **Cards are a sanctioned image source** (`mediaKind: "card"`: a committed PNG from
+   `/api/share-card`, `cardUrl` recorded, credited "Long Live", never lyrics;
+   `scripts/social/fetch-share-card.mjs`). The 2026-08 cards retirement is no longer a
+   founder rule. `lib/queue-schema.mjs` (a posting-path file) must also list `card` in
+   `MEDIA_KINDS` before the CI backstop accepts one — a separate change.
+4. **Experiments.** An optional `experiment: { hypothesis, variant, metric }` on queue
+   items; Tree spends up to ~1 in 4 slots on a labelled one, Marjorie's weekly review
+   judges approval rate, site clicks and engagement.
+5. **Fable rules on taste.** A Tree-vs-Marjorie disagreement, or a strategy call Tree is
+   unsure of, is a `taste-ruling` issue (filed by a plain job on the workflow identity)
+   ruled on by `routine-fable-taste-ruling.yml` (claude-fable-5, ~$4 / 30 turns, at most 2
+   rulings a UTC day, dispatch-only, no shell). Marjorie's weekly Fable review is the
+   strategy owner of record. A content/social DECIDE item reaches the owner **only** if it
+   touches `guardrails.md`.
+
+**Supersedes.** Tree Overhaul T5's founder-merge on strategy changes (`tree/strategy/` PRs,
+the propose-then-✅ mechanism, hard invariant 2's ✅ gate — the 2026-09-30 amendment's "every
+other strategy change still goes through a Monday proposal"); the 2026-08 retirement of
+designed cards as a founder rule; the "no designed cards / re-admitting cards is a founder
+call" line in strategy §2. **Not superseded:** the owner's ✅ on every post
+(`RULINGS-SOCIAL-2.md` B1), lesson L001's content (now a parameter Tree may tune), and every
+guardrail above.
+
+**Guardrails pending sign-off.** The six-row list is the Opus review's carve-out and is
+written as the owner listed it; the owner's sign-off on the exact wording is outstanding.
+
+**Reversible by** reverting the S2 PR; the allowlist lines, `NEVER_ALLOWLIST` entry and
+params file are independent one-line changes.
+
+**Approved by.** The owner, 2026-10-01 (direction, in chat).
+
+---
+
 ## 2026-09-30 — Instagram-ready photo variants: pad, never crop (Bots v2 W10)
 
 **Decision.** Every library photo outside Instagram's 0.8–1.91 aspect window gets a deterministic padded variant (`scripts/social/make-ig-variants.mjs`): the original, uncropped and unaltered, centred on a 4:5 (1080x1350) or 1.91:1 (1080x566) canvas over a blurred, darkened copy of itself. The variant is its own library entry with the original's credit/source/alt/tags and `variantOf`; original and variant count as ONE photo for L001 reuse.

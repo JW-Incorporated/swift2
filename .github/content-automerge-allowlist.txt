@@ -136,10 +136,17 @@ social/failed/
 # ── Tree's operational strategy docs (bots v2 W7, owner instruction
 #    2026-09-30: "social strategy should be fluid; Tree addresses Marjorie's
 #    feedback immediately"). Docs only — nothing here posts; every post still
-#    needs the founder ✅. docs/marketing/social-strategy.md stays OUT on
-#    purpose (Tree Overhaul T5: the founder merges the core strategy doc). ──
+#    needs the founder ✅. S2 (owner instruction 2026-10-01: "I don't want to
+#    be in the rule making business, I want to be in the reviewing/approving
+#    business"): the core strategy doc and the taste-parameter file join them —
+#    Tree owns execution/format, Marjorie owns growth goals, neither waits for
+#    a founder merge (docs/decisions.md 2026-10-01). The founder-owned list is
+#    docs/social/guardrails.md, which is in NEVER_ALLOWLIST and never lands
+#    here. ──────────────────────────────────────────────────────────────────
 social/calendar.md
 social/lessons.md
+social/strategy-params.json
+docs/marketing/social-strategy.md
 
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/

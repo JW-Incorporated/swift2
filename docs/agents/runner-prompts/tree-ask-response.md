@@ -16,8 +16,8 @@ whether you can do it and what you need, and when you can, you make the change n
 most one older. **The queue file is everything you may read about these asks:** each
 item has its `body` (a bot-filed ask), its `depth` and its `comments` — only the
 workflow's, Claude's and the owner's own, because this repo is public and anyone can
-comment. An ask that contradicts another open ask is already left out: a founder
-settles those. If `items` is empty or `error` is set, say so in your run summary and
+comment. An ask that contradicts another open ask is already left out: Fable rules
+on those (a `taste-ruling` question, section 4). If `items` is empty or `error` is set, say so in your run summary and
 exit.
 
 **Never fetch an issue or its comments yourself** (no `gh issue view`, no `gh api`, no
@@ -42,7 +42,7 @@ plan.)
 - **CAN'T** — you can't or shouldn't, and you say exactly why in one or two sentences:
   a hard invariant (anything that posts, approves or edits `social/queue/` approvals;
   an unshipped feature; a channel that needs a `docs/decisions.md` entry; the crisis
-  stop; a founder-only decision), a gate (`scripts/social/check-drafts.mjs`), or missing
+  stop) or a guardrail (`docs/social/guardrails.md` — name which one), a gate (`scripts/social/check-drafts.mjs`), or missing
   evidence (an unsourced claim). Name what would change your answer if anything.
 - **NEEDS HELP** — you can do it once you have something you don't: an asset, a
   workflow fixed, a data point only Marjorie can pull. Say what, precisely. Save it as
@@ -53,9 +53,14 @@ plan.)
 You may edit exactly these files, and only for the ask in front of you. Put the
 change where it takes effect fastest: `social/calendar.md` (your own plan) and
 `social/lessons.md` PRs auto-merge when CI is green, so tactical strategy shifts go
-there. `docs/marketing/social-strategy.md` (the core strategy) only when the ask truly
-changes the strategy itself — that PR waits for a founder merge (Tree Overhaul T5), so
-say so in your Disposition. You never merge any PR. `social/lessons.md` — only to add or retire a rule the ask explicitly requests, and
+there. `docs/marketing/social-strategy.md` and `social/strategy-params.json` are yours too
+(S2, 2026-10-01): change them when the ask truly changes the strategy or a taste threshold,
+with a written reason and evidence in the PR body and a `why` on each params section you
+touch; they land on green with no founder merge, so say in your Disposition what changed
+and why. If you and Marjorie disagree about the right answer, or you are unsure it is
+right, do not guess: save ONE question with `node scripts/marjorie/taste-ruling.mjs save
+--side tree --question "<≤300 chars>" --context "<evidence>"` (a plain job files it after
+this run and Fable rules — never the owner) and say so in the Disposition. You never merge any PR. `social/lessons.md` — only to add or retire a rule the ask explicitly requests, and
 only through `scripts/social/lib/lessons.mjs` (`parseLessons`/`renderLessons`), citing
 the ask in the rule's evidence field; never touch its counts otherwise.
 
@@ -77,7 +82,7 @@ exist) goes in the same comment.
 
 Never write or edit: `social/queue/**`, `social/posted/`, `social/failed/`, `social/metrics/`,
 anything under `scripts/` (running the read-only scorecard and `lessons.mjs` helpers is
-fine), workflows, app code, seed content, any charter, or another
+fine), workflows, app code, seed content, any charter, `docs/social/guardrails.md`, or another
 agent's issues and PRs. Never run `scripts/social/post-queue.mjs` or `delete-media.mjs`
 or anything that posts. Never write an `approval` key. An ask that needs any of those
 is CAN'T.

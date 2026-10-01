@@ -1,0 +1,52 @@
+# Files the taste question an agent run saved, then starts Fable's ruling routine
+# (S2, docs/decisions.md 2026-10-01). A routine passes the name of its same-run
+# artifact; the agent ran `node scripts/marjorie/taste-ruling.mjs save ...`, which
+# wrote `.scratch/out/taste-ruling-1.json` (one per run).
+#
+# A plain job on the workflow token, never an agent: routine-fable-taste-ruling.yml
+# only rules on issues the workflow identity filed (the repo is public), and an
+# issue made with GITHUB_TOKEN fires no `issues` event, so `file --dispatch`
+# dispatches explicitly (`actions: write`), behind the guards in
+# scripts/marjorie/lib/taste-ruling.mjs: one start per issue and at most 2 rulings
+# a UTC day. The checkout pins `ref: main` and the saved file is read as DATA
+# only. A failure is a warning — it must never turn the calling routine red.
+name: taste-ruling-file
+
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        description: "Name of the same-run artifact holding .scratch/out/taste-ruling-1.json"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  actions: write
+
+jobs:
+  file:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Download the agent's saved question (same run)
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact }}
+          path: .scratch/out
+      - name: File the question and start Fable's ruling
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -uo pipefail
+          timeout 180 node scripts/marjorie/taste-ruling.mjs file --dir .scratch/out --source-url "$SOURCE_URL" --dispatch \
+            || echo "::warning::taste-ruling file failed"
