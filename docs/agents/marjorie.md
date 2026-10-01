@@ -764,8 +764,13 @@ The answer is yes, and it is now a mechanism, not an assumption.
 - **The owner steers it by talking to her in `#longlive-marjorie`.** A question is
   answered from the file and the latest weekly plan, with links, never from memory. A
   challenge or a steer: she (a) restates it in one line and confirms, (b) appends his
-  words verbatim with the date under `## Owner direction (standing)` by PR (`strategy-doc.mjs
-  add-direction --from-context`; it lands without waiting for a review), (c) when it changes
+  words verbatim with the date and author label under `## Owner direction (standing)` by PR
+  (`strategy-doc.mjs add-direction --from-context`; it lands without waiting for a review). The
+  chat agent cannot author an owner line: the only input is the context job's file, honoured
+  only when that trusted job verified the message's author is the owner's own Discord id
+  (`ownerId` in `chat-inbox.mjs`: Joey's id, overridable by the `OWNER_DISCORD_ID` variable;
+  the other founder's messages are answered but never recorded). There is no `--text`, and a
+  message over 1200 characters is refused (she asks him to send it shorter), (c) when it changes
   the strategy materially, saves `strategy-doc.mjs save-update --pr <N>`, and a plain job in
   the chat workflow starts `routine-fable-strategy-update.yml` (at most four starts a UTC
   day; it waits for the direction PR to merge, then Fable rewrites the affected sections the
@@ -774,8 +779,10 @@ The answer is yes, and it is now a mechanism, not an assumption.
 - **Owner direction outranks everything in the file and every weekly plan, except
   `docs/social/guardrails.md`.** A direction that collides with a guardrail is still recorded,
   Fable keeps a `Conflict flag` under that section, and the guardrail stands until the owner
-  edits that file himself. Owner-direction and Changelog lines are append-only: a rewrite
-  that drops one fails validation and does not land.
+  edits that file himself. Only the owner can add an Owner-direction line: Fable never does
+  (her rewrite may not add, edit or drop one; `strategy-pr.yml` re-applies main's section onto
+  it, so a steer that merged while she worked survives, and refuses a file carrying a line
+  main lacks). Changelog lines are append-only.
 
 **What did not change.** Invariants 1–8. The strategy file is neither a charter nor a spec;
 she still never edits a charter, a spec or the guardrails, and an owner direction is never a

@@ -6,9 +6,11 @@
 # The agent never holds a write token: it writes `.scratch/out/growth-strategy.md`
 # and this plain job, on `SOCIAL_POSTER_PAT` (a PR from the workflow token would not
 # trigger the required `build` check, so it could never merge), validates the file
-# as DATA with scripts/marjorie/strategy-doc.mjs open-pr: the seven headings in order,
-# a Summary of at most six bullets, and every previous Owner direction and Changelog
-# line still present. A bad rewrite fails this job (the run goes red; watchdog sees
+# as DATA with scripts/marjorie/strategy-doc.mjs open-pr: it first re-applies main's
+# current Owner direction section onto the rewrite (a steer can merge while Fable works)
+# and refuses a file carrying an owner line main lacks; then the seven headings in order,
+# a Summary of at most six bullets, an Owner direction section equal to main's, and every
+# previous Changelog line still present. A bad rewrite fails this job (the run goes red; watchdog sees
 # it) and nothing is pushed. A good one becomes a PR with auto-merge set, gated by CI.
 # The checkout pins `ref: main`: a secret-holding job never runs dispatch-chosen code.
 name: strategy-pr

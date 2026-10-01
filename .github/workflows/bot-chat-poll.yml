@@ -46,8 +46,10 @@ permissions:
 # stuck "waiting" on the `social` environment) held this group for two weeks, every
 # later run sat `pending` and was replaced by the next dispatch, and the poll never ran
 # again. A new run now cancels a stuck or in-flight one. One poll is still the only one
-# running, the 👀 claim and the 45-minute reconcile in chat-poll.mjs cover a poll cut
-# short, and the relay is idempotent on its relay-id marker.
+# running and the relay is idempotent on its relay-id marker. A poll cut short between
+# its 👀 claim and its dispatch leaves a claimed-not-dispatched message: claims are never
+# re-dispatched, so after 45 minutes the reconcile posts `[chat failed]` and marks it ❌
+# (docs/ops/chat-poll.md). The window is a few seconds wide.
 concurrency:
   group: bot-chat-poll
   cancel-in-progress: true

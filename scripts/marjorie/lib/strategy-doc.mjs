@@ -49,8 +49,12 @@ export function parseSections(text) {
 const bulletsOf = (body) => body.split('\n').filter((l) => /^- /.test(l));
 const sectionNamed = (sections, prefix) => sections.find((s) => s.heading.startsWith(prefix));
 
-/** Problems with a proposed version of the file (empty = fine). `previous` is the version on main, if any. */
-export function validateStrategy(text, previous = '') {
+/**
+ * Problems with a proposed version of the file (empty = fine). `previous` is the version on main, if any.
+ * Against a `previous`, the Owner direction bullet set must EQUAL it exactly (a Fable rewrite never adds,
+ * edits or drops an owner line; only chat's `add-direction` appends, which passes `ownerAppend`).
+ */
+export function validateStrategy(text, previous = '', { ownerAppend = false } = {}) {
   const problems = [];
   const t = String(text);
   if (!t.trim()) return ['the file is empty'];
@@ -74,20 +78,62 @@ export function validateStrategy(text, previous = '') {
       for (const line of bulletsOf(sectionNamed(before, heading)?.body ?? '')) {
         if (!kept.has(line)) problems.push(`${heading.slice(3)} lost a line it had (append-only): ${line.slice(0, 80)}`);
       }
+      if (heading === OWNER_HEADING && !ownerAppend) {
+        const had = new Set(bulletsOf(sectionNamed(before, heading)?.body ?? ''));
+        for (const line of kept) if (!had.has(line)) problems.push(`${heading.slice(3)} has a line main lacks — only the owner's chat can add one: ${line.slice(0, 80)}`);
+      }
     }
   }
   return problems;
 }
 
+/**
+ * Re-applies main's current Owner direction and Changelog lines onto a rewrite Fable began from an older
+ * copy (an owner steer can land while she works). Returns { text }, or { error } when the rewrite has an
+ * owner line main lacks: that is a forgery or an edit, never a race, and must not land.
+ */
+export function rebaseOntoMain(proposal, current) {
+  const src = String(proposal).replace(/\r\n/g, '\n');
+  const base = parseSections(current).sections;
+  const mainOwner = bulletsOf(sectionNamed(base, OWNER_HEADING)?.body ?? '');
+  const mainLog = bulletsOf(sectionNamed(base, CHANGELOG_HEADING)?.body ?? '');
+  const mine = parseSections(src).sections;
+  if (mine.length !== HEADINGS.length) return { text: src };
+  const extra = bulletsOf(sectionNamed(mine, OWNER_HEADING)?.body ?? '').filter((l) => !mainOwner.includes(l));
+  if (extra.length > 0) return { error: `Owner direction has a line main lacks (forged or edited): ${extra[0].slice(0, 80)}` };
+  const lines = src.split('\n');
+  const range = (heading) => {
+    const start = lines.findIndex((l) => l.startsWith(heading));
+    const next = lines.findIndex((l, i) => i > start && /^## /.test(l));
+    return [start, next === -1 ? lines.length : next];
+  };
+  const trimEnd = (from, to) => {
+    let end = to;
+    while (end > from + 1 && lines[end - 1].trim() === '') end -= 1;
+    return end;
+  };
+  let [start, stop] = range(OWNER_HEADING);
+  const prose = lines.slice(start + 1, stop).filter((l) => !/^- /.test(l));
+  let at = prose.length;
+  while (at > 0 && prose[at - 1].trim() === '') at -= 1;
+  prose.splice(at, 0, ...mainOwner);
+  lines.splice(start + 1, stop - start - 1, ...prose);
+  [start, stop] = range(CHANGELOG_HEADING);
+  const have = new Set(lines.slice(start + 1, stop));
+  lines.splice(trimEnd(start, stop), 0, ...mainLog.filter((l) => !have.has(l)));
+  return { text: lines.join('\n') };
+}
+
 const todayUtc = () => new Date().toISOString().slice(0, 10);
 
 /** Appends one dated owner steer (verbatim, whitespace collapsed to one line) and a changelog line. */
-export function addOwnerDirection(text, { direction, date = todayUtc() }) {
+export function addOwnerDirection(text, { direction, date = todayUtc(), author = '' }) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('--date must be YYYY-MM-DD');
   const clean = String(direction ?? '').replace(/\s+/g, ' ').trim();
-  if (!clean) throw new Error('--text is required');
-  if (clean.length > MAX_DIRECTION_CHARS) throw new Error(`the direction is ${clean.length} characters; the cap is ${MAX_DIRECTION_CHARS} (ask the owner to split it)`);
-  const bullet = `- **${date}** — ${clean}`;
+  if (!clean) throw new Error('the message is empty');
+  if (clean.length > MAX_DIRECTION_CHARS) throw new Error(`the direction is ${clean.length} characters; the cap is ${MAX_DIRECTION_CHARS} (ask the owner to send it shorter or in parts)`);
+  const label = String(author ?? '').replace(/[^\p{L}\p{N} ._-]/gu, '').trim().slice(0, 32);
+  const bullet = `- **${date}**${label ? ` (${label})` : ''} — ${clean}`;
   const { sections } = parseSections(text);
   if (!sectionNamed(sections, OWNER_HEADING) || !sectionNamed(sections, CHANGELOG_HEADING)) throw new Error('the file lacks the Owner direction or Changelog section');
   if (bulletsOf(sectionNamed(sections, OWNER_HEADING).body).includes(bullet)) return { text: String(text), added: false };

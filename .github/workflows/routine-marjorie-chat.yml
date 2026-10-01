@@ -95,6 +95,7 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           DISCORD_FOUNDER_IDS: ${{ vars.DISCORD_FOUNDER_IDS }} # a non-founder's message stops the run here
+          OWNER_DISCORD_ID: ${{ vars.OWNER_DISCORD_ID }} # optional override; default is Joey's id (chat-inbox.mjs ownerId). Owner direction in the strategy counts only from this id
           MESSAGE_ID: ${{ inputs.message_id }}
           CHANNEL_ID: ${{ inputs.channel_id }}
           THREAD_ID: ${{ inputs.thread_id }}

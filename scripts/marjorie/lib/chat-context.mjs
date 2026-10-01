@@ -7,7 +7,7 @@
 // root and the last 15 messages.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { BOTS, CLAIM, FAILED, HISTORY_LIMIT, REPLIED, SNOWFLAKE, buildContext, founderIds } from './chat-inbox.mjs';
+import { BOTS, CLAIM, FAILED, HISTORY_LIMIT, REPLIED, SNOWFLAKE, buildContext, founderIds, ownerId } from './chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction, reactionUrl } from './discord-bot.mjs';
 
 // A refusal is a warning: a second dispatch in the gap stops at its own
@@ -53,6 +53,10 @@ export async function context(flags, { env = process.env, fetchImpl = fetch, sle
     bot, guildId: channel.data?.guild_id || '@me', channelId, threadId, message: msg.data,
     history: [...earlier, msg.data], threadRoot: root?.ok ? root.data : null,
   });
+  // Verified HERE, in the trusted job: only the owner's own id counts as owner direction for the growth
+  // strategy (strategy-doc.mjs add-direction refuses unless `owner.verified`).
+  const owner = ownerId(env.OWNER_DISCORD_ID);
+  ctx.owner = { configured: owner !== '', verified: !notFounder && owner !== '' && String(author?.id ?? '') === owner };
   if (notFounder) {
     ctx.already = 'not-founder';
     console.log(`::warning::chat-poll context: message ${messageId} is not a founder's message — the run stops here`);

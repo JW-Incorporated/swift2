@@ -81,6 +81,10 @@ describe('chat steering', () => {
     expect(chatPrompt).toContain('strategy-doc.mjs save-update --pr');
     expect(chatPrompt).toContain('gh pr merge <pr number> --repo "$GITHUB_REPOSITORY" --squash --auto');
     expect(chatPrompt).toMatch(/Guardrails outrank him/);
+    expect(chatPrompt).toMatch(/ONLY way an owner line is written/);
+    expect(chatPrompt).not.toContain('--text-file');
+    expect(chatPrompt).not.toMatch(/add-direction --text/);
+    expect(chat).toContain('OWNER_DISCORD_ID: ${{ vars.OWNER_DISCORD_ID }}');
     expect(chatPrompt).toContain('You have 35 turns');
     expect(chat).toMatch(/max_turns: 35/);
   });

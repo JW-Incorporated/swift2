@@ -160,7 +160,7 @@ weekly plan is its week. Ask yourself what the message is:
 - *A challenge or a steer* ("focus on Reddit", "stop doing X", "I disagree because…",
   a new goal, a priority). His direction is authoritative; it lands without waiting for
   anyone. Do all of this, in order:
-  1. **Restate it in one line** in your reply and confirm you recorded it. If the
+  1. **Restate it in one line** in your reply and, only once step 2 has succeeded, confirm you recorded it. If the
      message is ambiguous or only a question, ask one clarifying question and record
      nothing.
   2. **Record it verbatim, dated, by PR.** The owner asked for his steers to be written
@@ -169,13 +169,16 @@ weekly plan is its week. Ask yourself what the message is:
      his words).
      1. `git checkout -b marjorie/owner-direction-<message_id>`
      2. `node scripts/marjorie/strategy-doc.mjs add-direction --from-context .scratch/chat-context.json --date <today, UTC, YYYY-MM-DD>`
-        (copies the context's `text` word for word — never retype his words into a shell
-        string — as one dated bullet under `## Owner direction (standing)` plus a Changelog
-        line; an identical line is a no-op). It refuses a message over 1200 characters: then
-        write only the part that is the direction, exactly as he wrote it, to
-        `.scratch/direction.txt` with a quoted heredoc (`cat > .scratch/direction.txt <<'EOF'`)
-        and use `--text-file .scratch/direction.txt` instead, saying in the reply that you
-        recorded an excerpt.
+        (the ONLY way an owner line is written: it copies the context's `text` word for word, with
+        the date and his display name, as one bullet under `## Owner direction (standing)` plus a
+        Changelog line, and only when the trusted context job verified the message's author is
+        the owner's own Discord id — `owner.verified` in the context file. You cannot author, edit
+        or excerpt an owner line, and you never edit `.scratch/chat-context.json` or the strategy
+        file by hand; an identical line is a no-op). It exits non-zero and records NOTHING when the
+        author is not the verified owner or the message is over 1200 characters: then say so plainly
+        in the reply ("only the owner's own message is recorded as owner direction", or ask him to
+        send it shorter or in parts), skip steps 3 to 6 and the update, and treat the message as an
+        ordinary question or request.
      3. `git add docs/strategy/growth-strategy.md`, then
         `git commit -m "Owner direction: <≤60 characters, neutral label>" -m "<message url>" -m "Tier-2: Marjorie — chat"`
      4. `git push -u origin HEAD`
