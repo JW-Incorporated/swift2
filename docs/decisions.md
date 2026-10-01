@@ -7,6 +7,18 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — No Reddit API key, ever — owner decision
+
+**Decision.** No Reddit API key, ever — owner decision. Reddit discovery must work anonymously; never propose, file, or ask for Reddit OAuth credentials. Owner, verbatim: "we will NEVER have a reddit API key. Kill this action and log it somewhere so I never get asked again." Human action #94 (add a Reddit API key) was skipped, which is final.
+
+**Consequences.** The authenticated path added in #4745 (`awareness-reddit-api.mjs`, the `REDDIT_CLIENT_ID`/`REDDIT_CLIENT_SECRET`/`REDDIT_USERNAME` wiring, the OAuth branches in `awareness-scan.mjs`) is removed. The awareness scan gets its volume anonymously instead: many tiny runs (every ~20 minutes, jittered, 2 RSS requests each), a least-recently-fetched rotation over every sub (hot and new) and search query, and a per-feed plus whole-lane cooldown after a 429, persisted in the new `awareness_source_state` table. Caps are unchanged (4/3 per sub a day, 15 a day). If GitHub's IPs are throttled too hard to reach 10+ a day, the next anonymous options are a home relay (`HOME_RELAY_URL`) on a residential machine or a self-hosted runner, each an owner decision, never a key.
+
+**Alternatives rejected.** A free Reddit script-app key (the owner declined it for good).
+
+**Approved by.** Joey (owner), 2026-10-01.
+
+---
+
 ## 2026-10-01 — The mobile content loader is forward-compatible: unknown enum values dropped, unknown entries skipped, broken data served last-good
 
 **Decision.** `packages/content`'s `loadBundle` gains two opt-in options; defaults stay strict (web and every existing caller unchanged).

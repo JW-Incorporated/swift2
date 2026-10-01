@@ -1,7 +1,8 @@
 # Awareness Answerer — image-reply drafts, step 2 of 3 of the awareness lane
 # (docs/agents/runner-prompts/awareness-answerer.md; the lane is described in
-# docs/community/README.md). Every 3 hours, 22 minutes after each
-# community-awareness-scan run. ONE Claude run per batch, never per lead.
+# docs/community/README.md). Every 3 hours (8 batches a day at most; the scan
+# now finds threads every ~20 minutes, so each run drafts whatever is waiting
+# and the gate skips it when nothing is). ONE Claude run per batch, never per lead.
 #
 # The Claude step holds NO database secret and NO shell, because it reads
 # untrusted Reddit titles. Three jobs, secrets only in the plain ones:
@@ -22,12 +23,12 @@ name: routine-awareness-answerer
 
 on:
   schedule:
-    - cron: "41 */3 * * *"
+    - cron: '41 */3 * * *'
   workflow_dispatch:
 
 permissions:
   contents: read
-  id-token: write  # claude-code-action@v1 OIDC bootstrap, same as every routine
+  id-token: write # claude-code-action@v1 OIDC bootstrap, same as every routine
 
 jobs:
   export:
@@ -39,7 +40,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: '24'
       - run: npm ci --ignore-scripts
       - name: Build the offline moment catalogue (seed files only, no secrets)
         run: node scripts/sync-longlive-content.mjs
@@ -75,10 +76,10 @@ jobs:
     if: needs.export.outputs.pending != '0'
     uses: ./.github/workflows/routine-template.yml
     with:
-      routine_name: "Awareness Answerer — image replies"
+      routine_name: 'Awareness Answerer — image replies'
       prompt_file: docs/agents/runner-prompts/awareness-answerer.md
       model: claude-sonnet-5
-      allowed_tools: "Read,Write,Glob,Grep"
+      allowed_tools: 'Read,Write,Glob,Grep'
       timeout_minutes: 15
       max_turns: 30
       max_budget_usd: 1
@@ -97,7 +98,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: '24'
       - run: npm ci --ignore-scripts
       - name: Build the offline moment catalogue (seed files only, no secrets)
         run: node scripts/sync-longlive-content.mjs

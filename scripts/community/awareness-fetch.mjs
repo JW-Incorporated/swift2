@@ -3,7 +3,8 @@
 // (community-scan inserted 8 leads/run and community-crawl hit 429 on 3 subs;
 // seen again 2026-10-01), so every run gets a small REQUEST BUDGET, spaced out
 // with exponential backoff, and a blocked source is skipped, never retried.
-// After MAX_STRIKES consecutive failures the run stops asking altogether.
+// After MAX_STRIKES consecutive failures (the scan passes 1: strict skip-on-429)
+// the run stops asking altogether.
 //
 // Fallback: when the repo variable HOME_RELAY_URL is set (the same operator
 // relay community-crawl uses, a URL-prefix proxy) a failed request gets ONE
@@ -27,6 +28,7 @@ export function createFeedFetcher({
   pacingMs = DEFAULT_PACING_MS,
   relayUrl = null,
   relayBudget = 3,
+  maxStrikes = MAX_STRIKES,
   fetchImpl = fetch,
   sleep = wait,
   random = Math.random,
@@ -76,7 +78,7 @@ export function createFeedFetcher({
         }
         res = viaRelay;
       }
-      if (strikes >= MAX_STRIKES) aborted = true;
+      if (strikes >= maxStrikes) aborted = true;
       return { ...res, posts: [], via: null };
     },
   };

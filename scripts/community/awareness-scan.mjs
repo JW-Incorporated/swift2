@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 // Awareness image-reply lane — discovery (owner direction 2026-10-01,
-// docs/strategy/growth-strategy.md bet 2). Zero-LLM. Runs every 3 hours with
-// a small Reddit request budget (awareness-fetch.mjs): the two big fan subs
-// every run plus a rotating window of the other subs and of Reddit-wide
-// search RSS (awareness-sources.mjs), which finds Taylor threads outside the
-// fan subs. Titles go through the discovery filters (awareness-filters.mjs),
+// docs/strategy/growth-strategy.md bet 2). Zero-LLM. Runs every ~20 minutes as
+// a MANY-TINY-RUNS scan: 1-2 anonymous Reddit RSS requests a run
+// (awareness-fetch.mjs), the feeds fetched longest ago first (every sub in hot
+// and new, plus Reddit-wide search RSS that finds Taylor threads outside the
+// fan subs; awareness-sources.mjs), with the rotation, per-feed cooldowns and a
+// whole-lane cooldown after a 429 persisted in awareness_source_state
+// (awareness-rotation.mjs). Titles go through the discovery filters (awareness-filters.mjs),
 // each sub's image-comment support comes from a cached about.json reading
 // (awareness-eligibility.mjs), a site card is picked (awareness-image.mjs),
 // and `engagement_lead(kind='awareness_reply', status='new')` rows are
@@ -16,10 +18,9 @@
 // `hot_thread` leads with platform='facebook'; this script adopts the fitting
 // ones as awareness rows (awareness-facebook.mjs) without touching the exporter.
 //
-// Reddit access: with secrets REDDIT_CLIENT_ID + REDDIT_CLIENT_SECRET the scan
-// uses app-only OAuth (awareness-reddit-api.mjs: every sub hot+new, every search
-// query, /about for image eligibility); without them, or if the token request
-// fails, it falls back to the anonymous RSS path above. Log line `auth: oauth`.
+// Reddit access is anonymous, always. The owner ruled 2026-10-01 that this
+// project will NEVER have a Reddit API key (docs/decisions.md): never add an
+// authenticated path, never propose one.
 //
 // Kill switch: repo VARIABLE `AWARENESS_LANE_ENABLED=false` stops the lane
 // (workflow checks it first; re-checked here). Unset means ON.
@@ -43,19 +44,17 @@ import {
 import { buildAwarenessRow, fetchTodaysCandidateCounts } from './awareness-rows.mjs';
 import { adoptFacebookLeads } from './awareness-facebook.mjs';
 import { createFeedFetcher } from './awareness-fetch.mjs';
-import { connectRedditApi, oauthRequests, redditAuthFromEnv } from './awareness-reddit-api.mjs';
 import { loadCatalog, pickImageRef } from './awareness-image.mjs';
+import { buildFeeds, communityFromPermalink, isBlockedSub } from './awareness-sources.mjs';
 import {
-  buildSources,
-  communityFromPermalink,
-  dayIndexOf,
-  isBlockedSub,
-  pickSources,
-  searchFeedUrl,
-  slotOf,
-  sortFor,
-  subFeedUrl,
-} from './awareness-sources.mjs';
+  GLOBAL_KEY,
+  coolingDown,
+  jitterMs,
+  loadSourceState,
+  pickFeeds,
+  recordRun,
+  saveSourceState,
+} from './awareness-rotation.mjs';
 
 const CONFIG_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), 'awareness-subs.json');
 export {
@@ -65,6 +64,7 @@ export {
   utcDayStart,
 } from './awareness-rows.mjs';
 export const RUN_CAP = 6;
+export const START_JITTER_MS = 90_000;
 export const DEFAULT_DAILY_CAP = 3;
 
 export function awarenessEnabled(env = process.env) {
@@ -104,18 +104,12 @@ export function groupByCommunity(fetched, config) {
 
 /**
  * Resolves a community's image-comment state: cache first. Anonymous: at most
- * one live about.json read per run, configured subs only. OAuth: every
- * uncached community, bounded by the API request budget.
+ * one live about.json read per run, configured subs only, none in a run Reddit
+ * just throttled.
  */
 async function aboutFor(name, configured, ctx) {
   const cached = cachedAbout(ctx.cache, name, ctx.now);
   if (cached) return cached;
-  if (ctx.oauth) {
-    const live = await ctx.fetchAbout(name);
-    if (ctx.supabase && !ctx.dryRun && !live.error)
-      await saveAbout(ctx.supabase, name, live, ctx.now);
-    return live;
-  }
   if (!configured || ctx.aboutSpent || aboutBlockedRecently(ctx.cache, ctx.now))
     return { imageComments: 'unknown', over18: false };
   ctx.aboutSpent = true;
@@ -138,55 +132,45 @@ export async function runAwarenessScan({
     }),
   random = Math.random,
   relayUrl = null,
-  redditAuth = null,
+  startJitterMs = 0,
   dryRun = false,
 } = {}) {
   const { defaults } = config;
   const limit = defaults.feedLimit ?? 25;
-  const slot = slotOf(now);
-  const { api, auth, authError } = await connectRedditApi(redditAuth, {
-    defaults,
+  const pacingMs = defaults.pacingMs ?? 6000;
+  const fetcher = createFeedFetcher({
+    budget: defaults.feedRequestsPerRun ?? 2,
+    pacingMs,
+    relayUrl,
     fetchImpl,
     sleep,
+    random,
+    maxStrikes: 1,
   });
-  const pacingMs = defaults.pacingMs ?? 6000;
-  const fetcher =
-    api ??
-    createFeedFetcher({
-      budget: defaults.feedRequestsPerRun ?? 6,
-      pacingMs,
-      relayUrl,
-      fetchImpl,
-      sleep,
-      random,
-    });
-  const requests = api
-    ? oauthRequests(config, limit)
-    : pickSources(buildSources(config), {
-        slot,
-        dayIndex: dayIndexOf(now),
-        budget: defaults.feedRequestsPerRun ?? 6,
-      }).map((source, index) => ({
-        source,
-        label: source.id,
-        url:
-          source.kind === 'sub'
-            ? subFeedUrl(source.sub.name, sortFor(slot, index), limit)
-            : searchFeedUrl(source.query, limit),
-      }));
+  if (startJitterMs > 0) await sleep(jitterMs(random, startJitterMs));
+  const state = supabase ? await loadSourceState(supabase) : new Map();
+  const laneCooling = coolingDown(state, GLOBAL_KEY, now);
+  const requests = pickFeeds(buildFeeds(config, limit), state, {
+    now,
+    budget: defaults.feedRequestsPerRun ?? 2,
+  });
   const fetched = [];
   const perSource = [];
+  const results = [];
   for (const request of requests) {
-    const res = await fetcher.get(request.url, request.label, { rankOffset: request.rankOffset });
+    const res = await fetcher.get(request.url, request.id);
     fetched.push({ source: request.source, posts: res.posts });
     perSource.push({
-      source: request.label,
+      source: request.id,
       status: res.status,
       posts: res.posts.length,
       via: res.via ?? null,
       skipped: res.skipped === true,
     });
+    results.push({ id: request.id, status: res.status, skipped: res.skipped === true });
   }
+  const requestStats = fetcher.stats();
+  if (supabase && !dryRun) await saveSourceState(supabase, recordRun(state, results, now));
 
   const known = supabase ? await fetchKnownThreadIds(supabase) : new Set();
   const today = supabase ? await fetchTodaysCandidateCounts(supabase, now) : {};
@@ -195,12 +179,11 @@ export async function runAwarenessScan({
     now,
     sleep,
     pacingMs,
-    fetchAbout: api ? (name) => api.about(name) : fetchAbout,
+    fetchAbout,
     fetchImpl,
     supabase,
     dryRun,
-    aboutSpent: false,
-    oauth: api !== null,
+    aboutSpent: requests.length === 0 || requestStats.rateLimited + requestStats.blocked > 0,
   };
   const byName = new Map(config.subs.map((sub) => [sub.name, sub]));
   const all = [];
@@ -265,11 +248,10 @@ export async function runAwarenessScan({
       (await insertLeads(supabase, facebookRows)).inserted;
   }
   return {
-    auth,
-    authError,
+    laneCooling,
     perSource,
     perSub,
-    requests: fetcher.stats(),
+    requests: requestStats,
     candidates: all.length,
     kept: rows.length,
     facebook: facebookRows.length,
@@ -297,12 +279,13 @@ async function main() {
     supabase,
     catalog: await loadCatalog(),
     relayUrl: process.env.HOME_RELAY_URL || null,
-    redditAuth: redditAuthFromEnv(),
+    startJitterMs: START_JITTER_MS,
     dryRun,
   });
-  console.log(
-    `awareness-scan: auth: ${result.auth}${result.authError ? ` (${result.authError}; fell back to anonymous RSS)` : ''}`,
-  );
+  if (result.laneCooling)
+    console.log(
+      'awareness-scan: lane cooling down after a Reddit 429 — made no requests this run.',
+    );
   console.log(
     `awareness-scan: ${result.candidates} candidate(s) passed filters, ${result.kept} kept under caps, ${result.facebook} Facebook adopted, ${result.inserted} inserted${dryRun ? ' (dry-run: nothing written)' : ''}. Requests: ${JSON.stringify(result.requests)}`,
   );

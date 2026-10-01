@@ -77,11 +77,14 @@ the hook. If someone asks, that is the moment to talk about the site.
 How it works, in three workflows (kill switch: repo variable
 `AWARENESS_LANE_ENABLED=false`; unset means on):
 
-1. `community-awareness-scan` (every 3 hours, 6 Reddit requests a run with
-   exponential backoff, skipped on 429, optional `HOME_RELAY_URL` fallback)
-   reads `scripts/community/awareness-subs.json` (the subs, a note on each
-   one's self-promo rule, and the caps): r/TaylorSwift and r/swifties every run,
-   the other subs and Reddit-wide search RSS in rotation. Search finds Taylor
+1. `community-awareness-scan` (every ~20 minutes with a random start delay,
+   2 anonymous Reddit requests a run, skipped on 429, optional `HOME_RELAY_URL`
+   fallback) reads `scripts/community/awareness-subs.json` (the subs, a note on
+   each one's self-promo rule, and the caps) and takes the feeds fetched
+   longest ago first: every sub in hot and new, plus Reddit-wide search RSS,
+   so each feed is asked several times a day. A 429 stops the run and puts that
+   feed, and the whole scan, on a cooldown (30 minutes, doubling to 6 hours)
+   remembered across runs in `awareness_source_state`. Search finds Taylor
    threads outside the fan subs (r/popculturechat, r/AskReddit, r/Music ...),
    the best targets; those use a strict Taylor-name filter and a block list.
    It keeps titles that fit a picture: era
@@ -91,7 +94,7 @@ How it works, in three workflows (kill switch: repo variable
    (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
    run, a day budget of cap+1 candidates per sub, 6 per run. Recent screened Facebook
    export leads are adopted as awareness rows too.
-2. `routine-awareness-answerer` is ONE Claude run per batch (not per lead; at
+2. `routine-awareness-answerer` (every 3 hours) is ONE Claude run per batch (not per lead; at
    most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
    waiting. It writes the words only, with no shell and no database secret
    (it reads untrusted Reddit titles): a plain job exports the waiting leads
@@ -123,31 +126,23 @@ contributions the link gate waits for (it is promotion, not a plain contribution
 
 Expect to spend roughly 10–15 minutes on this most days.
 
-#### Reddit API key (what makes 10+ a day possible)
+#### No Reddit API key, ever
 
-Anonymous Reddit RSS from GitHub runners is throttled hard (run 36908472939:
-HTTP 429 on 4 of 6 requests, 3 opportunities). With a free Reddit app key the
-scan switches to the authenticated API and the log's first line reads
-`auth: oauth`; without it (or if the token request is refused) it keeps the
-anonymous path above and prints `auth: anonymous`.
+Owner decision, 2026-10-01 (`docs/decisions.md`): this project will never have
+a Reddit API key. Reddit discovery works anonymously (public RSS) or it does
+not run. Nobody proposes, files a card for, or asks the owner for Reddit OAuth
+credentials, a Reddit app, or any `REDDIT_*` secret.
 
-- **Secrets** (repo, `JW-Incorporated/swift2`): `REDDIT_CLIENT_ID` and
-  `REDDIT_CLIENT_SECRET`, from a `script` app at
-  https://www.reddit.com/prefs/apps (the human-action card has the steps).
-  Optional repo variable `REDDIT_USERNAME` names the account in the
-  User-Agent (`longlive-awareness/1.0 (by u/<name>)`, default `longlivets`).
-  Only the scan step receives them.
-- **What it does** (`scripts/community/awareness-reddit-api.mjs`): an
-  app-only token (`client_credentials`, read-only; nothing here can post), then
-  `oauth.reddit.com` JSON for **every** sub in `awareness-subs.json` (`/new` and
-  `/hot`), **every** search query (`/search?sort=new&t=day&type=link`) and each
-  uncached community's `/about` (`allowed_media_types`, cached a week as before,
-  so image eligibility is now verified instead of "unknown"). Budget 40
-  requests a run (`authedRequestsPerRun`), paced by `authedPacingMs`; it
-  honours `x-ratelimit-remaining`/`x-ratelimit-reset` and `Retry-After`, retries
-  a 429 once after waiting, skips a source that stays blocked and stops after 3
-  failures in a row. The token and secret are never logged.
-- **Turn it off:** delete the two secrets; the next run is anonymous again.
+**How 10+ a day works without one.** Anonymous RSS from GitHub runners is
+throttled (run 36908472939: HTTP 429 on 4 of 6 requests in one burst), so the
+scan sends many tiny runs instead of a burst: ~72 runs a day, 2 requests each,
+a random start delay, and a hard stop on the first 429 with a persisted
+cooldown. r/TaylorSwift's feed alone yields about 7 fitting threads per fetch;
+the caps (4 a day for r/TaylorSwift and r/swifties, 3 for other subs, 15 in
+total) are what limit volume, not the request count. If GitHub's IPs turn out
+to be blocked outright, the next anonymous options are a home relay
+(`HOME_RELAY_URL`, already supported, on a residential machine) or a
+self-hosted runner; neither is built.
 
 ### Reddit notification intake
 

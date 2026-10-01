@@ -1,13 +1,12 @@
-// Awareness lane — what to fetch this run. A run has a small request budget
-// (awareness-fetch.mjs), so sources rotate: the `always` subs (the two
-// biggest fan subs) every run, the rest in a rotation keyed on the UTC
-// 3-hour slot, so every source is touched several times a day. Sources are
-// subreddit listings plus Reddit-wide search RSS, which finds Taylor threads
-// OUTSIDE the fan subs (r/popculturechat, r/AskReddit, r/Music ...), the best
-// awareness targets.
+// Awareness lane — what can be fetched. A run has a tiny request budget
+// (awareness-fetch.mjs) and the scan runs every ~20 minutes, so the unit of
+// work is one FEED: a subreddit listing in one sort (hot or new) or one
+// Reddit-wide search RSS query, which finds Taylor threads OUTSIDE the fan
+// subs (r/popculturechat, r/AskReddit, r/Music ...), the best awareness
+// targets. Which feeds a run takes is decided by awareness-rotation.mjs
+// (least recently fetched first, minus anything cooling down).
 
 const NSFW_SUB_RE = /nsfw|porn|hentai|gonewild|onlyfans/i;
-const SLOTS_PER_DAY = 8;
 
 export function subFeedUrl(name, sort, limit = 25) {
   return `https://www.reddit.com/r/${name}/${sort}/.rss?limit=${limit}`;
@@ -22,40 +21,20 @@ export function searchFeedUrl(query, limit = 25) {
   return url.href;
 }
 
-export function buildSources(config) {
-  const subs = config.subs.map((sub) => ({
-    id: `sub:${sub.name}`,
-    kind: 'sub',
-    sub,
-    always: sub.always === true,
-  }));
-  const searches = (config.search?.queries ?? []).map((query, i) => ({
-    id: `search:${i}`,
-    kind: 'search',
-    query,
-    always: false,
-  }));
-  return [...subs, ...searches];
+/** Every feed the lane knows: every sub hot, every sub new (so neighbours in the rotation are different subs), then each search query. */
+export function buildFeeds(config, limit = 25) {
+  const feeds = [];
+  for (const sort of ['hot', 'new'])
+    for (const sub of config.subs) {
+      const source = { id: `sub:${sub.name}`, kind: 'sub', sub };
+      feeds.push({ id: `${source.id}:${sort}`, source, url: subFeedUrl(sub.name, sort, limit) });
+    }
+  (config.search?.queries ?? []).forEach((query, i) => {
+    const source = { id: `search:${i}`, kind: 'search', query };
+    feeds.push({ id: source.id, source, url: searchFeedUrl(query, limit) });
+  });
+  return feeds;
 }
-
-export const slotOf = (now) => Math.floor(now.getUTCHours() / 3);
-export const dayIndexOf = (now) => Math.floor(now.getTime() / 86_400_000);
-
-/** The sources for this run: every `always` one, then a rotating window of the rest, up to `budget`. */
-export function pickSources(sources, { slot, dayIndex, budget }) {
-  const always = sources.filter((s) => s.always);
-  const rest = sources.filter((s) => !s.always);
-  const room = Math.max(0, budget - always.length);
-  if (rest.length === 0 || room === 0) return always.slice(0, budget);
-  const start = ((dayIndex * SLOTS_PER_DAY + slot) * room) % rest.length;
-  const window = [];
-  for (let i = 0; i < Math.min(room, rest.length); i += 1)
-    window.push(rest[(start + i) % rest.length]);
-  return [...always, ...window];
-}
-
-/** Hot on even slots, new on odd, so repeated runs cover both listings. */
-export const sortFor = (slot, index = 0) => ((slot + index) % 2 === 0 ? 'hot' : 'new');
 
 export function communityFromPermalink(link) {
   const match = /\/r\/([^/]+)\/comments\//.exec(String(link ?? ''));

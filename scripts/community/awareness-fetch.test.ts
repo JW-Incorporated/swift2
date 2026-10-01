@@ -5,12 +5,10 @@ import { createFeedFetcher, MAX_STRIKES } from './awareness-fetch.mjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
-  buildSources,
+  buildFeeds,
   communityFromPermalink,
   isBlockedSub,
-  pickSources,
   searchFeedUrl,
-  sortFor,
   subFeedUrl,
 } from './awareness-sources.mjs';
 
@@ -63,6 +61,21 @@ describe('budgeted feed fetcher', () => {
     expect(fetcher.stats().aborted).toBe(true);
   });
 
+  it('stops after the first failure when the scan asks for strict skip-on-429 (maxStrikes 1)', async () => {
+    const fetchImpl = vi.fn(async () => new Response('', { status: 429 }));
+    const fetcher = createFeedFetcher({
+      budget: 2,
+      pacingMs: 0,
+      maxStrikes: 1,
+      fetchImpl: fetchImpl as never,
+      sleep: async () => {},
+    });
+    expect((await fetcher.get('u1', 'a')).posts).toEqual([]);
+    expect((await fetcher.get('u2', 'b')).skipped).toBe(true);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(fetcher.stats()).toMatchObject({ aborted: true, rateLimited: 1, skipped: 1 });
+  });
+
   it('tries the home relay once on a block, with 1-11s pacing, and only when configured', async () => {
     const urls: string[] = [];
     const sleeps: number[] = [];
@@ -100,24 +113,25 @@ describe('budgeted feed fetcher', () => {
 
 describe('source selection', () => {
   const config = {
-    subs: [
-      { name: 'A', always: true },
-      { name: 'B', always: true },
-      ...['C', 'D', 'E', 'F', 'G', 'H'].map((name) => ({ name })),
-    ],
-    search: { queries: ['q1', 'q2', 'q3'], blockSubs: ['Fauxmoi'] },
+    subs: [...['A', 'B', 'C'].map((name) => ({ name }))],
+    search: { queries: ['q1', 'q2'], blockSubs: ['Fauxmoi'] },
     excluded: [{ name: 'SwiftlyNSFW' }],
   };
 
-  it('always includes the always-subs and fills the rest of the budget from a rotation', () => {
-    const sources = buildSources(config);
-    const run = pickSources(sources, { slot: 0, dayIndex: 10, budget: 6 });
-    expect(run).toHaveLength(6);
-    expect(run.slice(0, 2).map((s: { id: string }) => s.id)).toEqual(['sub:A', 'sub:B']);
-    const covered = new Set<string>();
-    for (let slot = 0; slot < 8; slot += 1)
-      for (const s of pickSources(sources, { slot, dayIndex: 10, budget: 6 })) covered.add(s.id);
-    expect(covered.size).toBe(sources.length); // every source is reached within a day
+  it('builds one feed per sub and sort, then one per search query, neighbours being different subs', () => {
+    const feeds = buildFeeds(config, 10);
+    expect(feeds.map((f: { id: string }) => f.id)).toEqual([
+      'sub:A:hot',
+      'sub:B:hot',
+      'sub:C:hot',
+      'sub:A:new',
+      'sub:B:new',
+      'sub:C:new',
+      'search:0',
+      'search:1',
+    ]);
+    expect(feeds[3].url).toBe('https://www.reddit.com/r/A/new/.rss?limit=10');
+    expect(feeds[3].source.sub.name).toBe('A');
   });
 
   it('builds subreddit and Reddit-wide search RSS URLs', () => {
@@ -129,8 +143,6 @@ describe('source selection', () => {
     expect(url.searchParams.get('q')).toBe('"taylor swift"');
     expect(url.searchParams.get('sort')).toBe('new');
     expect(url.searchParams.get('t')).toBe('day');
-    expect(sortFor(0)).toBe('hot');
-    expect(sortFor(1)).toBe('new');
   });
 
   it('reads the community from a permalink and blocks NSFW, excluded and listed subs', () => {
