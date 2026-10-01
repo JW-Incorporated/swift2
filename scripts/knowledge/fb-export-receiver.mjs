@@ -97,7 +97,7 @@ function validCommentCoverage(cc) {
   return cc.processed + cc.failed + cc.timedOut + (cc.unknownEmpty ?? 0) <= cc.eligible;
 }
 
-// Codex round 3 #5: comment collection fails the group whenever a post was eligible and not one
+// Codex round 3 #5 (superseded: now only flags `commentsFailed`, never fails the group): comment collection is flagged whenever a post was eligible and not one
 // was processed, whenever the extension reported an explicit error, and whenever a harvested
 // group arrives with no coverage at all (nothing may be recorded complete without its comments).
 // Partial failures (some processed) stay collected; the counts ride along in the result.
@@ -402,7 +402,9 @@ export async function startReceiver({
         ? { error: commentErrorCode(rawCoverage.error) }
         : rawCoverage;
     const commentReason = commentFailure(body);
-    if (commentReason) return { slug, status: 'failed', reason: commentReason, commentCoverage };
+    // PM decision: comment collection never blocks the posts. The group stays collected and the
+    // result carries the code; the runner reports it without failing the group or the issue.
+    const commentsFailed = commentReason ? { commentsFailed: commentReason } : {};
     const at = clock();
     const recent = recentHarvestUnits(units, at);
     const base = {
@@ -418,6 +420,7 @@ export async function startReceiver({
       profileVerified: typeof cov.profileVerified === 'boolean' ? cov.profileVerified : null,
       sanitizeDropped,
       commentCoverage,
+      ...commentsFailed,
     };
     if (units.length === 0 || recent.length === 0) {
       return { slug, status: 'no-recent-posts', ...base };
@@ -521,7 +524,9 @@ export async function startReceiver({
             (cc.unknownEmpty !== undefined
               ? ` unknown-empty=${cc.unknownEmpty} count-unknown=${cc.countUnknown}/${cc.unitsSent}`
               : '');
-      const reason = result.reason ? ` ${result.reason}` : '';
+      const reason =
+        (result.reason ? ` ${result.reason}` : '') +
+        (result.commentsFailed ? ` comments-failed=${result.commentsFailed}` : '');
       const dropped =
         result.reason === 'sanitize-dropped'
           ? ` sanitize-dropped=${result.sanitizeDropped} kept=${result.keptCount}`

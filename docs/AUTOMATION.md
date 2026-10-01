@@ -264,7 +264,14 @@ and says "close that Chrome window and rerun". A stale lockfile (not held) is
 ignored. Group budgets: taylor-swifts-vault 75 min,
 others 20 min; the scheduled task limit is 5 h. Comments are collected
 privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
-never in the repo and never uploaded. `fb-export-ingest`
+never in the repo and never uploaded. Comment collection never blocks the
+posts: a comment-coverage failure (`comments-collection-failed`,
+`comments-count-drift`, `comments-coverage-missing`, collector error) leaves the
+group `collected` (gate, ingest and upload proceed), the result carries
+`commentsFailed: <code>` plus the counts, the run summary prints `comments:
+FAILED (<code>) — posts uploaded; comments need a selector fix (run
+knowledge:fb-export:capture)`, and the weekly issue still closes (it is about
+posts). Comment-store failures (503 retry) are unchanged. `fb-export-ingest`
 (script, not its own cron — invoked by the local export runner before upload)
 and
 `theory-resolve` (folds into the existing nightly `sync:content` job as
