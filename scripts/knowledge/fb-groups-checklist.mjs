@@ -32,20 +32,6 @@ export const FB_GROUPS_CHECKLIST = [
     candidate: true,
   },
   {
-    slug: 'friendship-bracelet-making-trading',
-    label: 'Friendship Bracelet Making and Trading',
-    groupId: '959997728506267',
-    wallBudgetMs: 20 * 60_000,
-    candidate: true,
-  },
-  {
-    slug: 'swiftie-super-worldwide-bracelet-trade',
-    label: 'Swiftie Super Worldwide Friendship Bracelet Trade',
-    groupId: '1404884973507150',
-    wallBudgetMs: 20 * 60_000,
-    candidate: true,
-  },
-  {
     slug: 'kulto-ni-taylor-swift',
     label: 'Kulto ni TAYLOR SWIFT',
     groupId: '557483725146375',
@@ -59,18 +45,16 @@ export const FB_GROUPS_CHECKLIST = [
     wallBudgetMs: 20 * 60_000,
     candidate: true,
   },
-  // TODO(owner): name — one of "Otro Grupo De Taylor Swift…" / "Taylor Swift fans club"
   {
     slug: 'taylor-swift-group-563881396975983',
-    label: 'Taylor Swift group 563881396975983',
+    label: 'Taylor Swift fans club',
     groupId: '563881396975983',
     wallBudgetMs: 20 * 60_000,
     candidate: true,
   },
-  // TODO(owner): name — one of "Otro Grupo De Taylor Swift…" / "Taylor Swift fans club"
   {
     slug: 'taylor-swift-group-458298915485042',
-    label: 'Taylor Swift group 458298915485042',
+    label: 'Otro Grupo De Taylor Swift Para Swifties Tercermundistas',
     groupId: '458298915485042',
     wallBudgetMs: 20 * 60_000,
     candidate: true,
@@ -97,6 +81,8 @@ export const FB_GROUPS_CHECKLIST = [
     wallBudgetMs: 20 * 60_000,
     candidate: true,
   },
+  // Removed 2026-10-01: both Friendship Bracelet trading groups ('friendship-bracelet-making-trading'
+  // 959997728506267, 'swiftie-super-worldwide-bracelet-trade' 1404884973507150) — owner left the group (#4690).
   // Removed 2026-09-30: 'taylor-swift-swifties' (264466934870157) and
   // 'friendship-bracelets-buy-sell-trade' (1220925938596348) — desk-research IDs
   // that resolve to "This content isn't available" for every profile (Joey confirmed).
