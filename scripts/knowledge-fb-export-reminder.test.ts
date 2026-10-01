@@ -65,7 +65,12 @@ describe('issueBody', () => {
   it('describes deterministic collection and safe stop conditions', () => {
     const body = issueBody([]);
     expect(body).toMatch(/Sunday 18:00 local time/);
+    expect(body).toMatch(/New posts \(chronological\)/);
+    expect(body).toMatch(/seven-day stop is only sound in creation order/);
+    expect(body).not.toMatch(/new activity/i);
     expect(body).toMatch(/checkpoint, 2FA, CAPTCHA/);
+    expect(body).toMatch(/250 scrolls, or 20 minutes/);
+    expect(body).toMatch(/dry-run ingest/);
     expect(body).toMatch(/no AI/);
   });
 

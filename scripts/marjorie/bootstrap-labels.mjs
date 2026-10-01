@@ -96,6 +96,10 @@ export const LABELS = [
   ['link-submission', '1D76DB', 'User-submitted link candidate (submit-link.ts) — not auto-published, review by hand'],
   ['founder-assigned', '1D76DB', 'Founder assigned this Marjorie-filed item to the next build session'],
   ['deferred', '6E6E6E', 'Founder deferred this item; Marjorie stops chasing it while it remains open'],
+  // Bots v2 W5 (docs/plans/bots-v2/PLAN.md): the weekly growth review's plan
+  // issue, and the log issue the Marjorie→bot1 bridge counts its daily limit from.
+  ['weekly-plan', '0E8A16', "Marjorie's weekly growth review and plan — its '## Next up' section is machine-read"],
+  ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
 ];
 
 const invokedDirectly =
