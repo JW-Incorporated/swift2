@@ -11,9 +11,11 @@ the same shape and costs no model tokens.
 | Section | Source |
 |---|---|
 | Needs you | Every open `HUMAN-ACTIONS.md` item: number, title, one-line why, link to the entry (the detailed instructions). `[DECIDE]` items add how-to-decide lines, the options, and `decide #N <choice>`; others show `done #N`. |
-| Shipped (last 7 days) | Merged PRs by Pacific day. Housekeeping is dropped by `NOISE_RULES` in `scripts/marjorie/lib/status-shipped.mjs` (dependabot, growth snapshots, cie scans, social ledger/poster fold-backs, Tree drafts, output sampling, human-action bookkeeping, chase filings, merch automation). One test per rule — change the list there, not here. |
-| Next up | Newest open `weekly-plan` issue (absent is fine) and open non-draft PRs (cap 8). |
-| Growth | Latest `social/metrics/YYYY-MM-DD.json` followers vs the snapshot nearest seven days earlier. |
+| Strategy | The `## Summary` (<= 6 bullets) of `docs/strategy/growth-strategy.md` on main, when that file last changed (commit date), a link to the whole file, and how to steer it. Absent file = no section. |
+| For fans (7 days) | What a visitor would notice: merged content PRs (with an era link when the changed seed maps to one), social posts that went live (`social/posted/`, with links), user-facing features and fixes (merged PRs touching `apps/web/**` or `packages/experience/**`, not tests/docs/CI; a `feat`/`fix` title scoped to web/app when the file list is unavailable), app updates (`apps/mobile/**`), and fan feedback (`user-feedback` issues from the site's Feedback button: count + latest three). Plus Marjorie's plain-language recap between `<!-- fan-recap:start -->` markers, written by the morning brief (`status-note.mjs write-recap`). Logic: `lib/status-fans.mjs`. |
+| Behind the scenes (7 days) | The merged-PR list, collapsed in a `<details>` block, minus what is shown under For fans. Housekeeping is dropped by `NOISE_RULES` in `scripts/marjorie/lib/status-shipped.mjs` (dependabot, growth snapshots, cie scans, social ledger/poster fold-backs, Tree drafts, output sampling, human-action bookkeeping, chase filings, merch automation). One test per rule — change the list there, not here. |
+| Next up | Newest open `weekly-plan` issue (absent is fine): the `### To grow`, `### To make content better` and `### Other` sub-sections of its `## Next up` (read until the next `##`); a plan without sub-sections falls back to the flat bullets. Plus open non-draft PRs (cap 8). |
+| Growth | Latest `social/metrics/YYYY-MM-DD.json` followers vs the snapshot nearest seven days earlier, and site usage: 7-day visitors and pageviews vs the week before, top 5 pages and referrers (Vercel Web Analytics via `lib/growth-traffic.mjs`, cached daily in the issue body by `status-traffic.mjs` — the only step holding `VERCEL_TOKEN`). |
 | Tree | Posts in `social/posted/` published in the last 7 days; open `social-draft` PRs awaiting approval. |
 | Marjorie's note | Her ≤12-line judgment, written by the morning brief routine. Kept across re-renders. |
 
@@ -22,10 +24,23 @@ the same shape and costs no model tokens.
 `.github/workflows/marjorie-status.yml`, job `render`: every hour (`7 * * * *`),
 on a push to `main` touching `HUMAN-ACTIONS.md` or `social/**`, and on
 `workflow_dispatch`. A close PR merged by auto-merge (PAT) triggers the push run; the
-hourly run is the backstop if a merge ever lands without one. The brief's `deliver` job also re-renders before pinging.
+hourly run is the backstop if a merge ever lands without one. The brief's `deliver` job
+also re-renders (and pings) right after Marjorie writes her note.
 A source that cannot be read (a GitHub endpoint, a file) is named in a
 warning line on the page instead of being shown as empty.
 
+### The change ping
+
+One short Discord line in `#longlive-marjorie` whenever the page materially changed,
+and nothing when it did not: `📋 Status updated — +1 needs you · 2 closed · 3 shipped · 1 post live · strategy updated — <link>`
+(no link previews, no mentions). `render --notify` (`lib/status-ping.mjs`) hashes the meaningful parts
+(waiting and closing items, shipped PRs, live posts, feedback, the plan, the strategy summary, the
+fan recap and the note — never the timestamp, growth numbers or the in-flight PR list) against a hidden
+`<!-- status-ping {...} -->` baseline in the issue body: same hash, no ping. At most one ping an hour,
+unless a Needs-you item was added; held changes pile into the next ping. The baseline moves only when the
+line was delivered, so a Discord failure is retried by the next render (the brief's run also falls back to
+email, as before). Only `render` and the brief's `deliver` job post (the `ops` environment holds the
+webhook); a reply-triggered re-render never posts or moves the baseline.
 Preview without writing anything: `node scripts/marjorie/status-page.mjs --dry-run`
 (live read-only `gh` data).
 
@@ -79,15 +94,15 @@ other comment, and every bot comment, is ignored — the workflow's `if` and
 
 `routine-marjorie-brief.yml` still runs at 12:00 UTC on Opus, but it no longer
 opens a `Founders' Brief` issue. The agent writes the note with
-`node scripts/marjorie/status-note.mjs write --body-file <path>`; the `deliver`
+`node scripts/marjorie/status-note.mjs write --body-file <path>` and the fan-view recap with
+`status-note.mjs write-recap --body-file <path>` (3-5 plain bullets, no jargon); the `deliver`
 job then re-renders the page, files the note's `- For Tree:` ask (unchanged
-L1 behavior), and posts one line to `#longlive-marjorie`:
-`📋 Status updated — <link>`. The email fallback is intact (same
-`post-or-mail.mjs`). Delivery is recorded as `<!-- marjorie-ping date=… -->`
-in the issue body; `brief-guard.mjs` reads it to keep a day from delivering
-twice, and the watchdog's "brief exists" check reads the note's date
-(`status-note.mjs today`).
-
+L1 behavior), and renders once more with `--notify`, which posts the shared change line
+above if the page changed (the brief's new note counts). It no longer posts its own daily
+line. `<!-- marjorie-ping date=… -->` is still stamped (date only, no Discord message id):
+`brief-guard.mjs` reads it to keep a day from delivering twice, and the watchdog's
+"brief exists" check reads the note's date (`status-note.mjs today`). With no daily ping message
+`reply-poll.mjs` finds no thread to follow — reply on the status page itself or in the chat channel.
 Re-pointed at the status issue: `reply-poll.mjs` finds the day's Discord thread from
 the `msg=` id in the page's ping stamp and relays replies as comments there;
 `chat-post.mjs`'s turn log lands there too; dispatch-chase reads held markers from the

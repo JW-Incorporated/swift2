@@ -5,7 +5,13 @@
 # Three jobs, least privilege each:
 #   render  every hour, on a push to main that touches HUMAN-ACTIONS.md or
 #           social/**, and on demand. Reads the repo + GitHub, writes only the
-#           status issue body. No secrets beyond the workflow token.
+#           status issue body. Two secrets, each visible to ONE step only:
+#           VERCEL_TOKEN (status-traffic.mjs: the daily site-usage cache) and
+#           the `ops` environment's DISCORD_MARJORIE_WEBHOOK_URL (the single
+#           "Status updated" line when the page materially changed).
+#   heal    hourly and on every push to main: rebuilds the rolling close PR's
+#           bot-owned branch from main when main has moved under it (the only
+#           force-push in this file; never main, never a human's branch).
 #   reply   an issue_comment on the status issue. This repo is public, so the
 #           job's `if` admits ONLY the owner's own account with OWNER/MEMBER/
 #           COLLABORATOR standing on a status-page issue (never a bot, so the job's own ack
@@ -15,12 +21,9 @@
 #           lives on it, rebuilt from main each time, so two quick replies can
 #           never conflict), opened with SOCIAL_POSTER_PAT (so required checks
 #           run), then re-renders. The page shows an answered item as "Closing"
-#           the moment that PR is open and drops it once it merges.
-#   heal    hourly and on every push to main: rebuilds the rolling close PR's
-#           bot-owned branch from main when main has moved under it (the only
-#           force-push in this file; never main, never a human's branch). A free-text owner
-#           comment is dispatched to routine-marjorie-status-reply.yml (the chat
-#           routine's GitHub twin), which answers on the issue.
+#           the moment that PR is open and drops it once it merges. A free-text
+#           owner comment is dispatched to routine-marjorie-status-reply.yml (the
+#           chat routine's GitHub twin), which answers on the issue.
 # Checkout is always `main`: nothing a comment or a PR carries is executed.
 name: marjorie-status
 
@@ -43,6 +46,9 @@ jobs:
     if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # Only to read DISCORD_MARJORIE_WEBHOOK_URL (an environment secret, as in
+    # routine-marjorie-brief.yml's deliver job); checkout stays pinned to main.
+    environment: ops
     permissions:
       contents: read
       issues: write
@@ -57,11 +63,21 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Rewrite the status issue
+      # The only step that sees VERCEL_TOKEN. It calls Vercel at most once a day
+      # (the answer is cached in the status issue) and never prints the token.
+      - name: Cache the daily site-usage numbers
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: node scripts/marjorie/status-page.mjs --apply
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: node --use-env-proxy scripts/marjorie/status-traffic.mjs
+      - name: Rewrite the status issue and post the change line
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+        run: node scripts/marjorie/status-page.mjs --apply --notify
 
   heal:
     if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'

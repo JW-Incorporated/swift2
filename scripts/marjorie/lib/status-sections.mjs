@@ -1,5 +1,8 @@
 // Next up / Growth / Tree / Marjorie's note for the status page (Bots v2 W4).
 // Pure renderers over already-fetched data; deterministic, no LLM.
+import { nextUpSections, renderNextUpSections } from './status-plan.mjs';
+import { renderTrafficLines } from './status-traffic.mjs';
+
 const DAY_MS = 86_400_000;
 const PR_CAP = 8;
 const PLAN_LINES = 5;
@@ -53,8 +56,10 @@ export function renderNextUp({ plan, prs }, { now = Date.now() } = {}) {
   const out = ['## 🧭 Next up', ''];
   if (plan) {
     out.push(`🗓️ **This week's plan:** [${oneLine(plan.title, 90)}](${plan.url})`);
-    const summary = planSummary(plan.body);
-    if (summary) out.push(...summary.split('\n').map((l) => `> ${l}`));
+    const sections = nextUpSections(plan.body);
+    const summary = sections.length ? '' : planSummary(plan.body);
+    if (sections.length) out.push(...renderNextUpSections(sections));
+    else if (summary) out.push(...summary.split('\n').map((l) => `> ${l}`));
   } else {
     out.push('🗓️ _No weekly plan filed yet._');
   }
@@ -71,9 +76,9 @@ export function renderNextUp({ plan, prs }, { now = Date.now() } = {}) {
 const delta = (n) => (n > 0 ? `+${n}` : n < 0 ? `${n}` : '±0');
 
 /** `latest`/`prior` are social/metrics daily snapshots (or null). */
-export function renderGrowth({ latest, prior }) {
+export function renderGrowth({ latest, prior, traffic = null }) {
   const out = ['## 📈 Growth', ''];
-  if (!latest?.followers) return [...out, '_No growth snapshot yet._'].join('\n');
+  if (!latest?.followers) return [...out, '_No growth snapshot yet._', ...renderTrafficLines(traffic)].join('\n');
   const basis = prior ? `vs ${prior.date}` : 'no earlier snapshot to compare';
   out.push(`Followers as of ${latest.date} (${basis})`);
   for (const key of ['instagram', 'x', 'facebook']) {
@@ -84,6 +89,7 @@ export function renderGrowth({ latest, prior }) {
   }
   const day = latest.postsLast24h?.total;
   if (typeof day === 'number') out.push(`- Posts in last 24h: ${day}`);
+  out.push(...renderTrafficLines(traffic));
   return out.join('\n');
 }
 

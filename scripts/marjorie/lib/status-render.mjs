@@ -1,10 +1,14 @@
 // Composes the status page body (Bots v2 W4) from already-fetched data.
 // Pure: same input, same output; the clock is a parameter.
-import { pendingCloses } from './status-closes.mjs';
-import { parseHaEntries, renderNeedsYou } from './status-ha.mjs';
-import { noiseRuleFor, renderShipped, selectShipped, SHIPPED_WINDOW_DAYS } from './status-shipped.mjs';
+import { renderForFans } from './status-fans.mjs';
+import { renderNeedsYou } from './status-ha.mjs';
+import { pingMarker } from './status-ping.mjs';
+import { renderShipped, SHIPPED_WINDOW_DAYS } from './status-shipped.mjs';
 import { readHeldRegion, renderHeldSection } from './status-held.mjs';
 import { renderGrowth, renderNextUp, renderNote, renderTree } from './status-sections.mjs';
+import { renderStrategy } from './status-strategy.mjs';
+import { trafficMarker } from './status-traffic.mjs';
+import { buildView } from './status-view.mjs';
 
 export const PAGE_MARKER = '<!-- marjorie-status-page v1 -->';
 export const BODY_LIMIT = 60_000; // GitHub's issue body cap is 65,536 characters
@@ -45,19 +49,15 @@ function glance({ items, shipped, prs }) {
   return `${bits.join(' · ')}\n\n_Reply on this issue: \`done #N\`, \`skip #N <why>\`, \`close #N <why>\` or \`decide #N <anything>\`. Updated hourly and whenever human actions change._`;
 }
 
-function compose(data, now, repo, shippedLines) {
-  const parsed = parseHaEntries(data.haMarkdown);
-  // An item the owner already answered leaves Needs you the moment its close PR is open, not when it lands.
-  const pending = pendingCloses(data.openPrs);
-  const items = parsed.filter((i) => !pending.has(i.number));
-  const closing = parsed.filter((i) => pending.has(i.number)).map((i) => ({ number: i.number, title: i.title, ...pending.get(i.number) }));
+function compose(data, now, repo, behindLines) {
+  const view = buildView(data, now);
+  const { items, closing, shipped, fans, behind, inFlight } = view;
   const warnings = data.warnings || [];
-  const windowMerged = data.mergedPrs.filter((pr) => pr.mergedAt && now - Date.parse(pr.mergedAt) <= SHIPPED_WINDOW_DAYS * 86_400_000);
-  const shipped = selectShipped(data.mergedPrs, now);
-  const inFlight = data.openPrs.filter((pr) => !pr.draft && !noiseRuleFor(pr));
   const updated = new Date(now);
+  const strategy = renderStrategy({ bullets: data.strategy?.bullets, changedAt: data.strategy?.changedAt }, { repo });
+  const markers = [PAGE_MARKER, ...(data.pingState ? [pingMarker(data.pingState)] : []), ...(data.traffic ? [trafficMarker(data.traffic)] : [])];
   const parts = [
-    PAGE_MARKER,
+    markers.join('\n'),
     '# 📋 Long Live — Status',
     `_Updated ${updated.toISOString().slice(0, 16).replace('T', ' ')} UTC · ${pt(updated)} PT_`,
     glance({ items, shipped, prs: inFlight }),
@@ -65,10 +65,15 @@ function compose(data, now, repo, shippedLines) {
     warnings.includes('HUMAN-ACTIONS.md')
       ? '## 🙋 Needs you\n\n_Could not read HUMAN-ACTIONS.md this run — see the repo file directly._'
       : renderNeedsYou(items, { repo, now, closing }),
-    renderShipped(shipped, { hidden: windowMerged.length - shipped.length, maxLines: shippedLines }),
+    ...(strategy ? [strategy] : []),
+    renderForFans({ fans, posted: data.posted || [], feedback: data.feedback ?? null, recap: data.recap || '' }),
+    renderShipped(behind, {
+      hidden: view.filtered, maxLines: behindLines, collapse: true,
+      heading: `## 🔧 Behind the scenes (last ${SHIPPED_WINDOW_DAYS} days)`,
+    }),
     renderNextUp({ plan: data.plan, prs: inFlight }, { now }),
     ...(renderHeldSection(data.held) ? [renderHeldSection(data.held)] : []),
-    renderGrowth({ latest: data.metricsLatest, prior: data.metricsPrior }),
+    renderGrowth({ latest: data.metricsLatest, prior: data.metricsPrior, traffic: data.traffic || null }),
     renderTree({ published: data.posted, pending: data.draftPrs, pendingUrl: `https://github.com/${repo}/pulls?q=is%3Apr+is%3Aopen+label%3Asocial-draft` }),
     renderNote({ text: sanitizeNote(data.note?.text), date: data.note?.date }),
   ];
@@ -76,7 +81,10 @@ function compose(data, now, repo, shippedLines) {
   return `${parts.join('\n\n')}\n`;
 }
 
-/** Renders the page, trimming the Shipped list until it fits under BODY_LIMIT. */
+/** What the change-ping compares: the page's meaningful content, never its timestamp. */
+export const statusSnapshot = (data, now) => buildView(data, now).snapshot;
+
+/** Renders the page, trimming the Behind-the-scenes list until it fits under BODY_LIMIT. */
 export function renderStatusPage(data, { now = Date.now(), repo }) {
   for (const lines of [60, 30, 12, 4, 0]) {
     const body = compose(data, now, repo, lines);
