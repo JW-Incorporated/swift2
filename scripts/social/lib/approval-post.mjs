@@ -34,7 +34,7 @@ const MAX_FILES_PER_POST = 4;
 // A file name is only ever combined into a multi-file ref line (comma-joined,
 // see social-approval-poll.mjs) when it cannot contain the separator or any
 // character that could break the line.
-const SAFE_FILE_RE = /^[A-Za-z0-9_./-]+$/;
+const SAFE_FILE_RE = /^social\/queue\/[A-Za-z0-9_.-]+\.json$/;
 
 // Null prototype, same reasoning as queue-schema.mjs's PLATFORM_RULES:
 // `draft.platform: "constructor"` must fall through to the fallback below.

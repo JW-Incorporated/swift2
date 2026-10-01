@@ -1,0 +1,118 @@
+# Tree — event draft (Bots v2 W8, docs/plans/bots-v2/PLAN.md).
+# dispatch-only: social-event-dispatch.yml (every two hours, and straight after
+# the news desk files) dispatches one run per time-sensitive `intake:` issue no
+# social item covers yet — 18 of 27 such events never reached social before
+# this, because the only path to a post was the weekly calendar. It has no
+# schedule of its own, which is why check-routine-workflows.mjs needs this
+# header to say so. Capped at two dispatches a day and deduped by the intake
+# issue (scripts/social/lib/event-dispatch.mjs), so it cannot loop or pile up.
+#
+# The run drafts ONE IG+X pair for that one event, or declines with a reason.
+# It opens an ordinary social-draft PR: the founder's own ✅ in #longlive-tree is
+# still the only approval (RULINGS-SOCIAL-2 B1) and this workflow never stamps,
+# merges or posts anything. Same three-job shape as routine-tree-daily-draft.yml:
+# `prepare` (read-only pre-compute + the issue text), `run` (the agent, a tight
+# 30-turn cap), `receipt` (a failed run leaves a summary and one deduped issue).
+name: routine-tree-event-draft
+run-name: "Tree event draft · intake #${{ inputs.issue }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "Number of the intake: issue to draft for"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
+  issues: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install workspace packages (event-status.mjs needs them; the agent job never installs)
+        continue-on-error: true
+        run: npm ci --silent
+      - name: Read the intake issue and pre-compute today's inputs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ inputs.issue }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          set -uo pipefail
+          mkdir -p .scratch
+          case "$ISSUE" in ''|*[!0-9]*) echo "::error::issue input must be a number"; exit 1;; esac
+          gh issue view "$ISSUE" --json number,title,body,url,createdAt,labels > .scratch/event.json
+          node -e "const f='.scratch/event.json';const j=JSON.parse(require('fs').readFileSync(f,'utf8'));j.body=String(j.body||'').slice(0,6000);require('fs').writeFileSync(f,JSON.stringify(j,null,2))"
+          node scripts/social/prepare-draft-inputs.mjs --out .scratch/tree-inputs.json || true
+          if [ ! -s .scratch/tree-inputs.json ]; then
+            echo '{"v":1,"error":"prepare-draft-inputs.mjs failed; see the prepare job log"}' > .scratch/tree-inputs.json
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tree-event-inputs
+          path: |
+            .scratch/tree-inputs.json
+            .scratch/event.json
+          retention-days: 1
+
+  run:
+    needs: prepare
+    uses: ./.github/workflows/routine-template.yml
+    with:
+      routine_name: "Tree — event draft"
+      prompt_file: docs/agents/runner-prompts/tree-event-draft.md
+      model: claude-opus-4-8
+      allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
+      timeout_minutes: 20
+      max_turns: 30
+      checkout_token_secret: SOCIAL_POSTER_PAT
+      pre_run_artifact: tree-event-inputs
+      concurrency_key: issue-${{ inputs.issue }}
+      allowed_bots: github-actions # social-event-dispatch dispatches on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  receipt:
+    needs: [prepare, run]
+    if: always() && (needs.run.result == 'failure' || needs.run.result == 'cancelled')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Fetch the pre-compute and the usage telemetry (same run; either may be absent)
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          path: .scratch/receipt
+      - name: Write the failure receipt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_RESULT: ${{ needs.run.result }}
+        run: node scripts/social/draft-receipt.mjs --kind event --result "$RUN_RESULT" --run-url "$RUN_URL" --inputs .scratch/receipt/tree-event-inputs/tree-inputs.json --usage .scratch/receipt/routine-usage/routine-usage.json --file-issue

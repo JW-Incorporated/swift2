@@ -134,5 +134,5 @@ Codex.
 | W4 | building |
 | W5 | building |
 | W7 | queued |
-| W8 | queued |
+| W8 | built — branch feature/tree-drafter-unstick (on top of #4660), awaiting PR |
 | W9 | queued |
