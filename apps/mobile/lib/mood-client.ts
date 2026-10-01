@@ -3,13 +3,12 @@
 // cross-origin call against the deployed API (host decided in
 // `api-base.ts`).
 //
-// The response shape is a deliberate, minimal COPY of the web's `Result`
-// union (`MoodChat.tsx`) — not an import, same architecture.md boundary
-// rationale as `clown-client.ts`'s header. `MoodMatch`, unlike the answer
-// shapes above, genuinely is shared (`@swift2/experience`'s `mood-match.ts`)
-// since it's pure, framework-free domain data — only the chat-shaped
-// wrapper around it is duplicated here.
+// The response wire shape (`MoodApiResponse`) lives in `@swift2/shared`'s
+// api/mood.ts and is checked against the route in CI. `MoodMatch` is the
+// pick row (`@swift2/experience`'s `mood-match.ts`); only the chat-shaped
+// result below is local.
 import type { MoodMatch } from '@swift2/experience';
+import type { MoodApiResponse as SharedMoodApiResponse } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
 
 export type MoodResult =
@@ -18,12 +17,7 @@ export type MoodResult =
   | { kind: 'unclear'; message: string }
   | { kind: 'matches'; picks: MoodMatch[]; intro?: string };
 
-interface MoodApiResponse {
-  kind: 'crisis' | 'refusal' | 'unclear' | 'matches';
-  message?: string | string[];
-  picks?: MoodMatch[];
-  intro?: string;
-}
+type MoodApiResponse = SharedMoodApiResponse<MoodMatch>;
 
 function normalize(json: MoodApiResponse): MoodResult {
   if (json.kind === 'crisis') {

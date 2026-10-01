@@ -6,54 +6,27 @@
 // identity instead of a same-origin cookie (see `clown-session-store.ts`'s
 // header for why).
 //
-// The wire shapes below (ClownAnswer/ClownSegment/InvestigationStep/
-// ClownStreamEvent/ClownTurn) are a deliberate, minimal COPY of the ones
-// `apps/web/lib/longlive/clown-answer.ts`/`clown-client.ts`/`clown-
-// stream.ts` define, not an import — apps/mobile has no dependency on
-// apps/web (architecture.md hard boundary; every native surface is built
-// against @swift2/shared/@swift2/experience or its own copy, never a
-// cross-app import). Keep this shape in sync BY HAND if the server's
-// `ClownAnswer` contract changes.
+// The wire shapes (ClownAnswer/ClownSegment/InvestigationStep/
+// ClownStreamEvent/ClownTurn) and their runtime guards live in
+// `@swift2/shared`'s api/clown.ts — the one source of truth the web route and
+// its tests are checked against. Re-exported here so existing imports of this
+// module keep working. `RetrievedItem` is the shared `ClownRetrievedItem`.
+// The runtime checks below stay deliberately SHALLOW (type/kind only): the
+// deep shared guards are enforced against the server in CI (route tests), and
+// a stricter client check would drop an answer line the app renders today.
+import type { ClownAnswer, ClownStreamEvent, ClownTurn, InvestigationStep } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
 import { getStoredClownSessionToken, setStoredClownSessionToken } from './clown-session-store';
 
-export interface ClownTurn {
-  role: 'user' | 'assistant';
-  text: string;
-}
-
-export type ClownSegmentRole = 'stance' | 'argument' | 'counterpoint' | 'aside' | 'plain';
-
-export interface ClownSegment {
-  role: ClownSegmentRole;
-  text: string;
-}
-
-export interface InvestigationStep {
-  tool: string;
-  input: Record<string, unknown>;
-  summary: string;
-}
-
-export interface RetrievedItem {
-  id: string;
-  headline: string;
-  date: string;
-  status: 'confirmed' | 'debunked' | 'reported' | 'rumor';
-}
-
-export interface ClownAnswer {
-  kind: 'take' | 'fallback';
-  theoryName: string | null;
-  segments: ClownSegment[];
-  delulu: number | null;
-  sources: RetrievedItem[];
-  investigation: InvestigationStep[];
-}
-
-export type ClownStreamEvent =
-  | { type: 'investigation'; step: InvestigationStep }
-  | { type: 'answer'; answer: ClownAnswer };
+export type {
+  ClownAnswer,
+  ClownRetrievedItem as RetrievedItem,
+  ClownSegment,
+  ClownSegmentRole,
+  ClownStreamEvent,
+  ClownTurn,
+  InvestigationStep,
+} from '@swift2/shared';
 
 function isStreamEvent(value: unknown): value is ClownStreamEvent {
   if (!value || typeof value !== 'object') return false;

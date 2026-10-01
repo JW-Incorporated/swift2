@@ -10,7 +10,7 @@ import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import type { DevicePlatform } from '@swift2/shared';
+import type { DevicePlatform, DeviceRegistrationInput } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
 import { getOrCreateDeviceId } from './device-id';
 import { registerNotificationChannels } from './notification-channels';
@@ -103,18 +103,19 @@ async function registerWithBackend(input: {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const locale = Intl.DateTimeFormat().resolvedOptions().locale;
   const appVersion = Constants.expoConfig?.version ?? undefined;
+  const body: DeviceRegistrationInput = {
+    deviceId: input.deviceId,
+    platform: input.platform,
+    pushToken: input.pushToken,
+    tz,
+    locale,
+    appVersion,
+  };
 
   const res = await fetch(`${apiBaseUrl()}/api/devices/register`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      deviceId: input.deviceId,
-      platform: input.platform,
-      pushToken: input.pushToken,
-      tz,
-      locale,
-      appVersion,
-    }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     throw new Error(`devices/register: HTTP ${res.status}`);
