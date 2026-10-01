@@ -391,8 +391,8 @@ export default {
           },
         ],
         // Shop pass (2026-07-21): the exact 2013 stage dress is undocumented
-        // past this description -- a current red thigh-slit dress,
-        // verified in stock, closest real match.
+        // past this description -- a current red thigh-slit dress was a match,
+        // but removed as dead in #4324 link sweep (2026-09-30).
         products: [],
       },
     },
