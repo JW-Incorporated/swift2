@@ -244,7 +244,19 @@ by hand in that profile. Stop statuses: `login` (logged out, sign in),
 slots after 20 scrolls: Facebook is limiting this browser; stopped, retry
 later), and `run-wall-budget` (total wall time, sum of group budgets + 10 min,
 ran out; unfinished groups are marked failed). All of these stop or fail the
-run and leave the weekly issue open. Group budgets: taylor-swifts-vault 75 min,
+run and leave the weekly issue open. `stunted` applies only to a tab that
+stayed visible: Chrome throttles a hidden tab and Facebook's feed does not
+load in one. **Keep the export window visible and don't switch tabs in it.**
+The launcher passes `--disable-backgrounding-occluded-windows`,
+`--disable-renderer-backgrounding` and `--disable-background-timer-throttling`
+so a covered window keeps working, and the extension makes the run's tab the
+active tab of its window (it never steals OS focus). While the tab is hidden
+the extension pauses scrolling; scrolls that overlap hidden time count toward
+neither the stunted check nor the scroll cap, and the group's wall budget
+keeps running (heartbeats carry `hidden` and `hiddenMs`). A group whose tab is
+hidden 10 min in a row, or that looks stunted with hidden time in the last
+60 s, fails with reason `tab-hidden` — a per-group failure (the run continues
+with the next group), explained in the run summary. Group budgets: taylor-swifts-vault 75 min,
 others 20 min; the scheduled task limit is 3 h. Comments are collected
 privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
 never in the repo and never uploaded. `fb-export-ingest`

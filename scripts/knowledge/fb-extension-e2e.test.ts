@@ -259,7 +259,7 @@ function createBrowser({
       html = `<!doctype html><html><body><div role="feed">${initial.join('')}</div></body></html>`;
     }
     if (closed) return;
-    const dom = new JSDOM(html, { url, runScripts: 'outside-only' });
+    const dom = new JSDOM(html, { url, runScripts: 'outside-only', pretendToBeVisual: true });
     tab.dom = dom;
     const win: Any = dom.window;
     for (const name of ['setTimeout', 'setInterval'] as const) {

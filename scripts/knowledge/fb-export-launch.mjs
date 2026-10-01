@@ -15,8 +15,24 @@ export function chromeExecutable(env = process.env) {
 // Facebook stunts the feed for CDP-controlled Chrome, so this is plain Chrome: a profile dir,
 // a new window and the receiver URL. Never a debugging port/pipe; Chrome 137+ ignores
 // --load-extension, so the extension is loaded once by hand in this profile.
+// Tab-hidden (FB-EXTENSION-1): Chrome throttles occluded windows and background renderers, and
+// Facebook's infinite scroll does not load there — these keep the run's own window working when
+// another window covers it. (A tab switched away from inside the run's window is still paused by
+// the extension and reported failed{tab-hidden}.)
+export const ANTI_THROTTLE_FLAGS = Object.freeze([
+  '--disable-backgrounding-occluded-windows',
+  '--disable-renderer-backgrounding',
+  '--disable-background-timer-throttling',
+]);
+
 export function plainChromeArgs(profileDir, url) {
-  return [`--user-data-dir=${profileDir}`, '--new-window', '--no-first-run', url];
+  return [
+    `--user-data-dir=${profileDir}`,
+    '--new-window',
+    '--no-first-run',
+    ...ANTI_THROTTLE_FLAGS,
+    url,
+  ];
 }
 
 export async function launchPlainChrome({

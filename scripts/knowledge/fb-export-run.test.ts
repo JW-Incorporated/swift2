@@ -532,6 +532,33 @@ describe('Facebook export orchestration', () => {
     });
   });
 
+  it('explains tab-hidden in the summary without stopping the run', async () => {
+    const result = await runExport({
+      root: 'C:/outside-repo',
+      groups: [group, { ...group, slug: 'group-b' }],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      writeLedger: vi.fn(),
+      collect: vi.fn().mockResolvedValue({
+        results: [
+          { slug: 'group-a', status: 'failed', reason: 'tab-hidden', hiddenMs: 600_000 },
+          { slug: 'group-b', status: 'failed', reason: 'tab-hidden' },
+        ],
+        actingPageId: null,
+      }),
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue: vi.fn(),
+    });
+    expect(result.ok).toBe(false);
+    // Both groups were handed out (not run-stopping) and keep their tab-hidden reason.
+    expect(result.results.map((r) => [r.slug, r.status, r.reason])).toEqual([
+      ['group-a', 'failed', 'tab-hidden'],
+      ['group-b', 'failed', 'tab-hidden'],
+    ]);
+    expect(result.summary).toContain('Tab hidden (group-a, group-b)');
+    expect(result.summary).toContain("don't switch tabs in it");
+    expect(result.summary).not.toContain('Feed stunted');
+  });
+
   it('stops the run on a stunted feed, skips later groups and says why', async () => {
     const gate = vi.fn();
     const result = await runExport({

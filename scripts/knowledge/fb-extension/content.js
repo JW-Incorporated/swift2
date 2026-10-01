@@ -22,6 +22,8 @@
   const COMMENTS_MAX_MS = 15 * 60_000;
   const COMMENTS_RESERVE_MS = 60_000;
   const DEFAULT_WALL_MS = 20 * 60_000; // stopDecision's default wallBudgetMs
+  const HIDDEN_POLL_MS = 1_000;
+  const TAB_HIDDEN = 'tab-hidden'; // failed-result reason code (receiver → run summary)
   const RESULT_RETRY_MS = [0, 5_000, 10_000, 20_000, 30_000, 60_000, 60_000, 60_000];
 
   function statusBox(doc) {
@@ -155,7 +157,8 @@
     };
   }
 
-  // env: { doc, win, url, cookie, sleep, random, clock, now, render, heartbeat, every }
+  // env: { doc, win, url, cookie, sleep, random, clock, now, render, heartbeat, every,
+  //        visible?, onVisibilityChange? } — no visible() means always visible
   async function runJob(job, env) {
     const startedAtMs = Number.isFinite(job.startedAtMs) ? job.startedAtMs : env.clock();
     const now = env.now();
@@ -203,19 +206,63 @@
     let previousMaxPosinset = 0;
     let previousScrollHeight = pageMetrics(env).scrollHeight;
     let stagnantScrolls = 0;
-    let scrollCount = 0;
-    const stopHeartbeat = env.every(
-      () =>
-        env.heartbeat({
-          slug: job.slug,
-          scrolls: scrollCount,
+    let scrollCount = 0; // counted scrolls only: a scroll that overlapped hidden time is not one
+    let lastScrollHidden = false;
+    // Tab-hidden (FB-EXTENSION-1): Chrome throttles a hidden tab and Facebook's feed does not
+    // load in one, so scrolling pauses while the tab is hidden, hidden scrolls count toward
+    // neither the stunted check nor maxScrolls, and the wall budget keeps running.
+    const isVisible = () => (typeof env.visible === 'function' ? env.visible() !== false : true);
+    const visibility = LLFB.visibilityTracker(env.clock, isVisible());
+    const stopVisibility =
+      typeof env.onVisibilityChange === 'function'
+        ? env.onVisibilityChange(() => visibility.update(isVisible()))
+        : null;
+    const wallBudgetMs = Number.isFinite(job.wallBudgetMs) ? job.wallBudgetMs : DEFAULT_WALL_MS;
+    const stopHeartbeat = env.every(() => {
+      const seen = visibility.snapshot();
+      env.heartbeat({
+        slug: job.slug,
+        scrolls: scrollCount,
+        slotCount: LLFB.harvestSlotCount(harvest),
+        hidden: seen.hidden,
+        hiddenMs: seen.hiddenMs,
+      });
+    }, HEARTBEAT_MS);
+    // Per-group failure, never run-stopping: the next group still runs.
+    const tabHiddenResult = () => {
+      const seen = visibility.snapshot();
+      render([
+        `LL export — ${job.label ?? job.slug}`,
+        'STOP: tab-hidden — keep the export window visible; don’t switch tabs in it',
+      ]);
+      return baseResult(job, 'failed', {
+        message: TAB_HIDDEN,
+        coverage: {
           slotCount: LLFB.harvestSlotCount(harvest),
-        }),
-      HEARTBEAT_MS,
-    );
+          scrolls: scrollCount,
+          hiddenMs: seen.hiddenMs,
+          wallMs: env.clock() - startedAtMs,
+          profileVerified,
+        },
+        collectedAt: collectedAt(),
+      });
+    };
 
     try {
-      for (; ; scrollCount += 1) {
+      for (;;) {
+        visibility.update(isVisible());
+        while (visibility.snapshot().hidden) {
+          if (visibility.snapshot().continuousMs >= LLFB.TAB_HIDDEN_MAX_MS)
+            return tabHiddenResult();
+          if (env.clock() - startedAtMs >= wallBudgetMs) break; // the tick below stops on it
+          render([
+            `LL export — ${job.label ?? job.slug}`,
+            'PAUSED: this tab is hidden — keep the export window visible',
+          ]);
+          await env.sleep(HIDDEN_POLL_MS);
+          visibility.update(isVisible());
+        }
+
         const expanded = LLFB.expandVisibleUnits(env.doc, env.win);
         if (expanded) await env.sleep(EXPAND_WAIT_MS);
         const snapshot = LLFB.captureVisibleUnits(env.doc, env.win);
@@ -232,7 +279,9 @@
           scrollHeight: metrics.scrollHeight,
           previousScrollHeight,
         });
-        stagnantScrolls = progress ? 0 : stagnantScrolls + 1;
+        // A scroll that overlapped hidden time proves nothing about the feed: no stagnant step.
+        if (progress) stagnantScrolls = 0;
+        else if (!lastScrollHidden) stagnantScrolls += 1;
         previousHarvestCount = harvest.units.length;
         previousMaxPosinset = Math.max(previousMaxPosinset, snapshot.maxPosinset);
         previousScrollHeight = Math.max(previousScrollHeight, metrics.scrollHeight);
@@ -248,6 +297,9 @@
           scrollCap: job.maxScrolls,
           wallBudgetMs: job.wallBudgetMs,
         });
+        // Stunted is reserved for a visible tab whose feed will not grow (and it stops the run).
+        if (tick.status === 'stunted' && LLFB.hiddenRecently(visibility.snapshot(), env.clock()))
+          return tabHiddenResult();
         // Capture stops early once its pools are full (stunted / seven-days / budget still win).
         const decision =
           !tick.stop && captureFull
@@ -348,8 +400,13 @@
         }
 
         const step = LLFB.humanScrollStep(env.random);
+        const epochBefore = visibility.snapshot().epoch;
         env.win.scrollBy({ top: step.top, behavior: 'smooth' });
         await env.sleep(step.pauseMs);
+        visibility.update(isVisible());
+        const after = visibility.snapshot();
+        lastScrollHidden = after.hidden || after.epoch !== epochBefore;
+        if (!lastScrollHidden) scrollCount += 1;
       }
     } catch (error) {
       return baseResult(job, 'failed', {
@@ -359,6 +416,7 @@
       });
     } finally {
       stopHeartbeat();
+      if (typeof stopVisibility === 'function') stopVisibility();
     }
   }
 
@@ -418,6 +476,11 @@
       now: () => new Date(),
       render: statusBox(root.document),
       heartbeat: (beat) => send({ type: 'llfb-heartbeat', ...beat }),
+      visible: () => root.document.visibilityState === 'visible',
+      onVisibilityChange: (fn) => {
+        root.document.addEventListener('visibilitychange', fn);
+        return () => root.document.removeEventListener('visibilitychange', fn);
+      },
       every: (fn, ms) => {
         const id = setInterval(fn, ms);
         return () => clearInterval(id);

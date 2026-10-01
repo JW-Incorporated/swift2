@@ -315,6 +315,35 @@ describe('extension-only rules', () => {
     expect(core.detectWrongProfile({ cookie: 'i_user=42', readAs: 'page' })).toBe(false);
   });
 
+  it('visibilityTracker + hiddenRecently: cumulative and continuous hidden time', () => {
+    let t = 0;
+    const tracker = core.visibilityTracker(() => t, true);
+    expect(plain(tracker.snapshot())).toMatchObject({ hidden: false, hiddenMs: 0, epoch: 0 });
+    expect(core.hiddenRecently(tracker.snapshot(), t)).toBe(false);
+    t = 1_000;
+    tracker.update(false);
+    t = 4_000;
+    expect(plain(tracker.snapshot())).toMatchObject({
+      hidden: true,
+      hiddenMs: 3_000,
+      continuousMs: 3_000,
+      epoch: 1,
+    });
+    expect(core.hiddenRecently(tracker.snapshot(), t)).toBe(true);
+    tracker.update(true);
+    t = 64_000;
+    expect(plain(tracker.snapshot())).toMatchObject({
+      hidden: false,
+      hiddenMs: 3_000,
+      continuousMs: 0,
+      lastHiddenAt: 4_000,
+    });
+    expect(core.hiddenRecently(tracker.snapshot(), t)).toBe(true);
+    t = 64_001;
+    expect(core.hiddenRecently(tracker.snapshot(), t)).toBe(false);
+    expect(core.TAB_HIDDEN_MAX_MS).toBe(10 * 60_000);
+  });
+
   it('tickDecision: stunted after 20 scrolls with ≤ 3 slots, feed-end suppressed before', () => {
     const base = {
       units: [unit(1, '1 h')],
@@ -552,6 +581,83 @@ describe('content.js runJob against a synthetic group page', () => {
     expect(result.coverage.scrolls).toBe(20);
     expect(scrolls).toHaveLength(20);
     expect(scrolls.every((top) => top >= 350 && top <= 800)).toBe(true);
+  });
+
+  // FB-EXTENSION-1 tab-hidden. A synthetic clock with hidden windows [from, to): sleep() walks
+  // through each edge and fires the visibilitychange listener there, like the real page does.
+  function hiddenClock(windows: [number, number][]) {
+    let t = 0;
+    let listener: (() => void) | null = null;
+    const edges = windows.flat().filter(Number.isFinite);
+    return {
+      clock: () => t,
+      visible: () => !windows.some(([from, to]) => t >= from && t < to),
+      onVisibilityChange: (fn: () => void) => ((listener = fn), () => (listener = null)),
+      sleep: async (ms: number) => {
+        const end = t + ms;
+        for (const edge of edges.filter((e) => e > t && e <= end).sort((a, b) => a - b)) {
+          t = edge;
+          listener?.();
+        }
+        t = end;
+      },
+    };
+  }
+  const twoPosts = `<body><div role="feed">${post(1, '1 h')}${post(2, '2 h')}</div></body>`;
+
+  it('a hidden tab never scrolls and fails tab-hidden after 10 min hidden (not stunted)', async () => {
+    const { LLFB, env, scrolls, beats } = makeEnv(twoPosts, hiddenClock([[0, Infinity]]));
+    const result = plain(await LLFB.runJob(job, env));
+    expect(result).toMatchObject({ status: 'failed', message: 'tab-hidden', units: [] });
+    expect(result.coverage).toMatchObject({ hiddenMs: 10 * 60_000, scrolls: 0 });
+    expect(scrolls).toHaveLength(0);
+    expect(beats[0]).toMatchObject({ slug: 'group-a', hidden: true, hiddenMs: 0 });
+  });
+
+  it('the wall budget keeps running while the tab is hidden', async () => {
+    const { LLFB, env, scrolls } = makeEnv(twoPosts, hiddenClock([[0, Infinity]]));
+    const result = plain(await LLFB.runJob({ ...job, wallBudgetMs: 3 * 60_000 }, env));
+    expect(result).toMatchObject({ status: 'collected', stopReason: 'wall-budget' });
+    expect(scrolls).toHaveLength(0);
+  });
+
+  it('scrolls overlapping hidden time do not count; stunted right after hidden time is tab-hidden', async () => {
+    // random 0.5 → 2.2 s per scroll. Hidden 10 s–70 s: 4 counted scrolls, one hidden scroll, a
+    // pause, then 16 more counted → the stunted check fires 35 s after the tab came back.
+    const { LLFB, env, scrolls } = makeEnv(twoPosts, hiddenClock([[10_000, 70_000]]));
+    const result = plain(await LLFB.runJob(job, env));
+    expect(result).toMatchObject({ status: 'failed', message: 'tab-hidden' });
+    expect(result.status).not.toBe('stunted');
+    expect(result.coverage.scrolls).toBe(20);
+    expect(result.coverage.hiddenMs).toBe(60_000);
+    expect(scrolls).toHaveLength(21);
+  });
+
+  it('a visible tab whose feed will not grow is still stunted; the hidden scroll did not count', async () => {
+    // random 0.05 → 4.2 s per scroll. Hidden 2 s–3 s inside the first scroll's pause: that scroll
+    // is not counted, and the stunted verdict lands > 60 s after the hidden stretch.
+    const { LLFB, env, scrolls } = makeEnv(twoPosts, {
+      ...hiddenClock([[2_000, 3_000]]),
+      random: () => 0.05,
+    });
+    const result = plain(await LLFB.runJob(job, env));
+    expect(result).toMatchObject({ status: 'stunted', stopReason: 'stunted-feed' });
+    expect(result.coverage.scrolls).toBe(20);
+    expect(scrolls).toHaveLength(21);
+  });
+
+  it('hidden scrolls do not count toward maxScrolls', async () => {
+    const feed = [1, 2, 3, 4, 5].map((p) => post(p, `${p} h`)).join('');
+    const { LLFB, env, scrolls } = makeEnv(
+      `<body><div role="feed">${feed}</div><div style="height:9999px"></div></body>`,
+      hiddenClock([[1_000, 2_000]]),
+    );
+    // jsdom has no layout (nearBottom true, height 0), so the feed would read stagnant: the
+    // scroll cap of 2 is what stops it — after 2 COUNTED scrolls, 3 issued.
+    const result = plain(await LLFB.runJob({ ...job, maxScrolls: 2 }, env));
+    expect(result).toMatchObject({ status: 'collected', stopReason: 'scroll-cap' });
+    expect(result.coverage.scrolls).toBe(2);
+    expect(scrolls).toHaveLength(3);
   });
 
   it('stops at feed-end on a stagnant bottom and survives a throwing collectComments', async () => {
@@ -1248,7 +1354,7 @@ describe('background.js outbox survives a worker restart', () => {
       await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender),
     ).toEqual({ ok: true });
     await worker.settle(); // (lets the pre-fix, un-awaited nextJob() reach the same point)
-    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url }]);
+    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url, active: true }]);
     expect((await worker.send({ type: 'llfb-ready' }, groupSender)).job.slug).toBe('group-a');
     return worker;
   }
@@ -1445,7 +1551,7 @@ describe('background.js wake alarm and receiver pinning', () => {
     up = true;
     worker.fireAlarm('llfb-resume');
     await worker.settle();
-    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url }]);
+    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url, active: true }]);
     expect(store.llfb.phase).toBe('job');
     expect(alarms.has('llfb-resume')).toBe(false);
   });
@@ -1539,7 +1645,7 @@ describe('background.js wake alarm and receiver pinning', () => {
       );
       await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
       await worker.settle();
-      expect(worker.tabUpdates).toEqual([{ tabId: 7, url }]);
+      expect(worker.tabUpdates).toEqual([{ tabId: 7, url, active: true }]);
     }
   }, 30_000);
 
@@ -1562,4 +1668,35 @@ describe('background.js wake alarm and receiver pinning', () => {
       ok: false,
     });
   });
+});
+
+describe('background.js: tab-hidden support', () => {
+  it('makes the run tab active in its window and forwards hidden/hiddenMs heartbeats', async () => {
+    const groupJob = { done: false, slug: 'group-a', url: 'https://www.facebook.com/groups/1' };
+    const worker = bootWorker({}, (call) =>
+      call.path === '/next' ? { status: 200, json: groupJob } : { status: 200, json: { ok: true } },
+    );
+    const sender = { url: 'https://www.facebook.com/groups/1', tab: { id: 7 } };
+    await worker.send(
+      { type: 'llfb-start', port: 4567, token: 'ab'.repeat(16) },
+      { url: 'http://127.0.0.1:4567/start', tab: { id: 7 } },
+    );
+    await worker.settle();
+    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url, active: true }]);
+    await worker.send({ type: 'llfb-ready' }, sender);
+    expect(
+      await worker.send(
+        { type: 'llfb-heartbeat', scrolls: 3, slotCount: 2, hidden: true, hiddenMs: 4_000 },
+        sender,
+      ),
+    ).toEqual({ ok: true });
+    await worker.settle();
+    expect(worker.calls.find((c) => c.path === '/heartbeat')?.body).toEqual({
+      slug: 'group-a',
+      scrolls: 3,
+      slotCount: 2,
+      hidden: true,
+      hiddenMs: 4_000,
+    });
+  }, 30_000);
 });

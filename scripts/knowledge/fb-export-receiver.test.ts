@@ -284,6 +284,30 @@ describe('fb export receiver', () => {
     ).toBe(400);
   });
 
+  // FB-EXTENSION-1: a hidden tab is a per-group failure with its own reason, never stunted and
+  // never run-stopping — the next group is still handed out.
+  it('maps failed{tab-hidden} to reason tab-hidden with hiddenMs, and keeps the run going', async () => {
+    const { r } = await setup();
+    await call(r, 'GET', '/next');
+    const body = {
+      v: 1,
+      slug: 'group-a',
+      status: 'failed',
+      message: 'tab-hidden',
+      units: [],
+      comments: [],
+      coverage: { hiddenMs: 600_000.4, scrolls: 0, slotCount: 2, profileVerified: false },
+    };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0]).toEqual({
+      slug: 'group-a',
+      status: 'failed',
+      reason: 'tab-hidden',
+      hiddenMs: 600_000,
+    });
+    expect((await (await call(r, 'GET', '/next')).json()).slug).toBe('group-b');
+  });
+
   // Codex round 3 #1: a group whose post/comment boundary failed for at least as many recent
   // posts as were kept is not recorded complete.
   it('fails the group when sanitizing dropped at least as many posts as it kept', async () => {
