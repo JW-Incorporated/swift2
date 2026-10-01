@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { API_VERSION } from '@swift2/shared';
 
 import { contentSecurityPolicy } from './lib/security-headers.mjs';
 
@@ -15,6 +16,9 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('Content-Security-Policy', policy);
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    response.headers.set('x-api-version', String(API_VERSION));
+  }
   return response;
 }
 
