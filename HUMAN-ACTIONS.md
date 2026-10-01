@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **4 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -18,18 +18,6 @@
 4. ⓘ next to the token → Open in Access Token Tool → Extend Access Token; copy it.
 5. https://github.com/JW-Incorporated/swift2/settings/secrets/actions → IG_ACCESS_TOKEN → ✏️ → paste → Update secret.
 **Worked if:** the next social-reply-notifier run log has no `missing scope` and no `pages_read_user_content` error.
-
-## #94 🟢 [UPGRADE] Add a free Reddit API key so Tree finds 10+ opportunities a day (~3 min)
-<!-- ha filed=2026-10-01 -->
-
-**Why:** Anonymous Reddit is throttled from GitHub: 4 of 6 requests got 429 and only 3 opportunities were found. A free Reddit API key allows ~100 requests/min, so Tree can find 10+ opportunities a day.
-**Steps:**
-1. While logged into the Reddit account you'll reply from, open https://www.reddit.com/prefs/apps and click "create another app…".
-2. Name it `longlive-awareness`, choose `script`, set redirect uri to `http://localhost:8080`, click Create app.
-3. Copy the client id (the string under the app name) and the secret.
-4. In your own terminal (not Claude's `!`, which doesn't wait for input) run `gh secret set REDDIT_CLIENT_ID --repo JW-Incorporated/swift2` and paste the client id.
-5. Run `gh secret set REDDIT_CLIENT_SECRET --repo JW-Incorporated/swift2` and paste the secret.
-**Worked if:** The next community-awareness-scan log shows `auth: oauth` and no 429s.
 
 ## #93 🟢 [UPGRADE] Check the app's API address isn't overridden in Expo (~2 min)
 <!-- ha filed=2026-10-01 -->
