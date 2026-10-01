@@ -742,9 +742,13 @@
   }
 
   const lastInDocumentOrder = (elements) =>
-    elements.filter(Boolean).reduce((last, next) => (!last || follows(last, next) ? next : last), null);
+    elements
+      .filter(Boolean)
+      .reduce((last, next) => (!last || follows(last, next) ? next : last), null);
   const firstInDocumentOrder = (elements) =>
-    elements.filter(Boolean).reduce((first, next) => (!first || follows(next, first) ? next : first), null);
+    elements
+      .filter(Boolean)
+      .reduce((first, next) => (!first || follows(next, first) ? next : first), null);
 
   function copyAttributes(from, to, names) {
     for (const name of names) {
@@ -818,7 +822,8 @@
     // Attachment preview (link / share card): Facebook's meta > title / description texts only,
     // after the header, and only when the block holds no comment residue (else fail closed).
     const meta = [...region.scope.querySelectorAll(META_SELECTOR)].find(
-      (el) => region.inRegion(el) && !message?.contains(el) && (!headerEnd || follows(headerEnd, el)),
+      (el) =>
+        region.inRegion(el) && !message?.contains(el) && (!headerEnd || follows(headerEnd, el)),
     );
     if (meta) {
       const clone = meta.cloneNode(true);

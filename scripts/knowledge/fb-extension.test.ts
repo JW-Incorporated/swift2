@@ -1098,7 +1098,11 @@ describe('live feed shape (2026-09-30): no post article, anchored action row', (
         ? ''
         : `<div><span>${translated ? `<font><font>${n}</font></font>` : n}</span></div>`;
     const cc =
-      commentCount === undefined ? (comments.length ? String(comments.length) : null) : commentCount;
+      commentCount === undefined
+        ? comments.length
+          ? String(comments.length)
+          : null
+        : commentCount;
     return `<div aria-posinset="${position}">
       <div><div role="button">Reaction A</div><div role="button">Reaction B</div><div role="button">Reaction C</div></div>
       <div>
@@ -1178,7 +1182,9 @@ describe('live feed shape (2026-09-30): no post article, anchored action row', (
   it('a text post with comments is kept: counts from the action buttons, no comment text, parser-ready', async () => {
     const { buildIngestResult } = await import('../community/fb-export-ingest.mjs');
     const { core, units, coverage, html } = await liveRun(
-      feedOf(liveUnit({ comments: ['SYNTHETIC-COMMENT-TEXT alpha', 'SYNTHETIC-COMMENT-TEXT beta'] })),
+      feedOf(
+        liveUnit({ comments: ['SYNTHETIC-COMMENT-TEXT alpha', 'SYNTHETIC-COMMENT-TEXT beta'] }),
+      ),
     );
     expect(coverage.sanitizeDropped).toBe(0);
     expect(units).toHaveLength(1);
@@ -1210,8 +1216,9 @@ describe('live feed shape (2026-09-30): no post article, anchored action row', (
     );
     expect(coverage.sanitizeDropped).toBe(0);
     expect(units[0]).toMatchObject({ reactions: 3, commentCount: 0 });
-    const unitEl = new JSDOM(feedOf(liveUnit({ message: null, photo: true, meta: true })))
-      .window.document.querySelector('[aria-posinset]');
+    const unitEl = new JSDOM(
+      feedOf(liveUnit({ message: null, photo: true, meta: true })),
+    ).window.document.querySelector('[aria-posinset]');
     expect(core.postMessageVerdict(unitEl).reason).toBe('ok-no-message');
     for (const kept of [
       'https://cdn.example/post.jpg',
@@ -1238,7 +1245,9 @@ describe('live feed shape (2026-09-30): no post article, anchored action row', (
     const core = loadCore();
     const read = (html: string) =>
       plain(
-        core.extractEngagement(new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]')),
+        core.extractEngagement(
+          new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'),
+        ),
       );
     expect(
       read(liveUnit({ likes: null, toolbarLabel: '14 reactions; see who reacted to this' })),
@@ -1272,10 +1281,13 @@ describe('live feed shape (2026-09-30): no post article, anchored action row', (
   it('still fails closed: no end anchor, or a message container outside the region', async () => {
     const core = loadCore();
     const verdict = (html: string) =>
-      core.postMessageVerdict(new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'))
-        .reason;
+      core.postMessageVerdict(
+        new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'),
+      ).reason;
     const unitOf = (html: string) =>
-      core.sanitizeUnitElement(new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'));
+      core.sanitizeUnitElement(
+        new JSDOM(feedOf(html)).window.document.querySelector('[aria-posinset]'),
+      );
     // No message and no action row / toolbar: nothing bounds the post below.
     expect(verdict(liveUnit({ message: null, actionRow: false }))).toBe('no-message-container');
     expect(unitOf(liveUnit({ message: null, actionRow: false }))).toBeNull();
@@ -1301,7 +1313,12 @@ describe('live feed shape (2026-09-30): no post article, anchored action row', (
       feedOf(
         liveUnit({ position: 1, comments: ['SYNTHETIC-COMMENT-TEXT one'] }),
         liveUnit({ position: 2, message: null, photo: true, likes: null, toolbar: false }),
-        liveUnit({ position: 3, message: 'Synthetic shared caption', meta: true, comments: ['SYNTHETIC-COMMENT-TEXT two', 'SYNTHETIC-COMMENT-TEXT three'] }),
+        liveUnit({
+          position: 3,
+          message: 'Synthetic shared caption',
+          meta: true,
+          comments: ['SYNTHETIC-COMMENT-TEXT two', 'SYNTHETIC-COMMENT-TEXT three'],
+        }),
       ),
     );
     expect(units.map((u: Any) => [u.key, u.reactions, u.commentCount])).toEqual([
