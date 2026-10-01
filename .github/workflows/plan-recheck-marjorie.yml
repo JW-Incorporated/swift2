@@ -33,7 +33,7 @@ jobs:
       run: ${{ steps.check.outputs.run }}
       ids: ${{ steps.check.outputs.ids }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: docs/plans/marjorie-overhaul
       - id: check

@@ -74,7 +74,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ inputs.issue_number }}
         run: node scripts/marjorie/loop-live.mjs pending --for tree --issue "$ISSUE" --limit 2 --out .scratch/ask-queue.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: steps.queue.outputs.skip != 'true'
         with:
           name: tree-ask-queue
@@ -120,7 +120,7 @@ jobs:
           node-version: "24"
       - name: Download the queue the run was given
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: tree-ask-queue
           path: .scratch
