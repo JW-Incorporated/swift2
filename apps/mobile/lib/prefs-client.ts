@@ -1,21 +1,15 @@
 // Notifications Phase 1 (NOTIFICATIONS_SPEC.md §8, NOTIFICATIONS_PLAN.md
 // Phase 1) — mobile client for the prefs API. Talks to the deployed
-// `GET/PUT /api/devices/:id/prefs` route (same `apiBaseUrl()` fallback
-// pattern `push-registration.ts` uses — there's no local backend to point
-// at from a device/emulator).
+// `GET/PUT /api/devices/:id/prefs` route (host decided in
+// `api-base.ts` — there's no local backend to point at from a
+// device/emulator).
 import type {
   DeviceNotificationSettings,
   DevicePrefsResponse,
   NotificationPref,
 } from '@swift2/shared';
+import { apiBaseUrl } from './api-base';
 import { getOrCreateDeviceId } from './device-id';
-
-function apiBaseUrl(): string {
-  return (process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://swift2-web-nine.vercel.app').replace(
-    /\/$/,
-    '',
-  );
-}
 
 async function prefsUrl(): Promise<string> {
   const deviceId = await getOrCreateDeviceId();
