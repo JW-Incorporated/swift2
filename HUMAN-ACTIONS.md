@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -17,17 +17,6 @@ unlimited fresh images, but you earlier retired text cards from the feed
 1. Decide: `mix` — cards may fill gaps, at most 1 in 3 posts, real photos stay the default; `no` — cards stay a share feature only, Tree keeps photos-only.
 2. Criteria: growth needs posting volume (0 posts in 8 days) vs feed looking like a real fan account.
 **Worked if:** Your reply is recorded and Tree's drafting rules match it.
-
-## #90 🔴 [BLOCKING] Unfreeze social posting once PR #4660 has merged (~1 min)
-<!-- ha filed=2026-10-01 -->
-
-**Why:** You froze posting so PR #4660 (one-message approvals, reply-to-reject,
-IG+X pairs) could pass CI ruling A6. While frozen, nothing Tree drafts can
-post. Agents are guard-blocked from changing repo variables.
-**Steps:**
-1. Confirm https://github.com/JW-Incorporated/swift2/pull/4660 shows Merged.
-2. Run `gh variable set SOCIAL_FREEZE --repo JW-Incorporated/swift2 --body false`
-**Worked if:** `gh variable get SOCIAL_FREEZE --repo JW-Incorporated/swift2` prints `false`.
 
 ## #89 🟢 [UPGRADE] Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist (~10 min)
 <!-- ha filed=2026-09-30 -->
