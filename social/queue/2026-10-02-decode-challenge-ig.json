@@ -1,0 +1,33 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "the Decode thread has me spiraling again and i need company 😭\n\nok here's your challenge: open it and find the clue where Taylor filmed herself pressing an elevator button marked 18 in a tiny instagram video back in august 2014. fourteen days later, on august 18th, she announced 1989 and premiered 'shake it off.' the number WAS the announcement. she told us the exact date and we just... watched a button.\n\nand that's only ONE. the thread lays out pair after pair in order — the glitchy snake clips before reputation, the hidden 'APRIL NINTH' capitals buried in the fearless (taylor's version) letter, the orange door she walked out of at the final eras tour show that became the whole showgirl era.\n\ngo find the one you'd never clocked before, then come back and tell me which clue actually made you gasp 👀\n\nopen it → longlivets.com/?lens=hidden-clues&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ocof56-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ocof56-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ocof56/the_life_of_a_showgirl_album_variant_photo_shiny/",
+  "scheduledAt": "2026-10-02T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: The life of a showgirl album variant photo! (Shiny bug)"
+  ],
+  "campaign": "thread:hidden-clues:interactive-challenge:2026-10-hero",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "IG sibling of the Decode October hero — fan-gush open, then the confirmed elevator-button-18 clue plus three more checkable plant-and-payoff pairs (snake teasers, the hidden APRIL NINTH, the orange door). Reply-bait challenge carries the share; handed never-used Taylor photo.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of thread:hidden-clues:interactive-challenge:2026-10-hero (Calendar 2026-10-02 23:00Z). Longer fan-gush caption, distinct opener from X ('the Decode thread has me spiraling' vs 'quick challenge for the clowns'). All four clues confirmed in CLUE_PAIRS: elevator-button-18 (1989), snake teasers (reputation), APRIL NINTH capitals (Fearless TV), orange door (Showgirl). Thread-of-the-month post = share-hook exempt, but the reply challenge carries it anyway. Same handed photo as X per W8/L001; uncredited so no credit line/field. photoEra unset (non-themed thread campaign, reddit pick carries no era tag). Screenshot slide 2 dropped (site-screen launch-only; carousel would fail CI)."
+}
