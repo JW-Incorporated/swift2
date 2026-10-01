@@ -4,6 +4,7 @@
 // review (docs/agents/runner-prompts/marjorie-weekly-review.md) judges
 // evidence it cannot have misremembered. I/O lives in ../growth-data.mjs.
 import { computeDeltas, countPostsByPlatformSince } from '../../social/lib/growth.mjs';
+import { familyOf } from '../../social/lib/scorecard-report.mjs';
 
 export const DAY_MS = 86_400_000;
 export const WEEK_MS = 7 * DAY_MS;
@@ -69,6 +70,45 @@ export function postsSummary(posted, postMetrics, win) {
   };
 }
 
+const addTo = (o, k, v) => { if (typeof v === 'number') o[k] = (o[k] ?? 0) + v; };
+
+/**
+ * `social.byCampaign`: one row per campaign family (`thread`, `timeline`,
+ * `heartbeat`, `launch`, `mood` — the first `:` segment of a post's
+ * `campaign`, which is also the `utm_campaign` Tree puts on its links), for
+ * the week: posts, Instagram reach/saves/shares/likes/comments, and site
+ * visits from Vercel Web Analytics (`traffic.topCampaigns`, social-medium
+ * links only). A figure that was not collected is `null`, never 0 —
+ * `visitors`/`pageviews` are `null` on every row when traffic was not
+ * collected (see `visitsNote`); reach/saves/shares are `null` until a post
+ * in that family has Instagram insights on file.
+ */
+export function socialSummary(posted, postMetrics, trafficResult, win) {
+  const rows = Object.create(null);
+  const at = (k) => (rows[k] ??= { posts: 0, measuredPosts: 0, reach: null, saved: null, shares: null, likes: 0, comments: 0, visitors: null, pageviews: null });
+  for (const p of posted || []) if (inWindow(p.postedAt, win)) at(familyOf(p.campaign)).posts += 1;
+  for (const m of postMetrics || []) {
+    if (!inWindow(m.postedAt, win)) continue;
+    const r = at(familyOf(m.campaign));
+    r.measuredPosts += 1;
+    r.likes += m.like_count || 0;
+    r.comments += m.comments_count || 0;
+    addTo(r, 'reach', m.reach);
+    addTo(r, 'saved', m.saved);
+    addTo(r, 'shares', m.shares);
+  }
+  const traffic = trafficResult?.traffic;
+  const visits = Array.isArray(traffic?.topCampaigns) ? traffic.topCampaigns : null;
+  for (const v of visits || []) {
+    const r = at(v.campaign);
+    r.visitors = (r.visitors ?? 0) + v.visitors;
+    r.pageviews = (r.pageviews ?? 0) + v.pageviews;
+  }
+  if (visits) for (const r of Object.values(rows)) { r.visitors ??= 0; r.pageviews ??= 0; }
+  const visitsNote = visits ? 'Visits are Vercel Web Analytics rows with utmMedium=social, grouped by utmCampaign (unique visitors per row, not additive).' : (traffic?.campaignNote ?? trafficResult?.trafficNote ?? 'Campaign visits were not collected in this run.');
+  return { byCampaign: { ...rows }, visitsNote };
+}
+
 /** Merged content PRs → the eras they touched (`withFiles` = fetchContentShipped output). */
 export function contentSummary(withFiles, erasTouched) {
   const items = (withFiles || []).map(({ pr, files }) => ({
@@ -92,6 +132,7 @@ export function buildGrowthData({ win, series, posted, postMetrics, content, cov
     followers: followerDeltas(series, win),
     followersPreviousWeek: followerDeltas(series, shift(win, WEEK_MS)),
     posts: postsSummary(posted, postMetrics, win),
+    social: socialSummary(posted, postMetrics, trafficResult, win),
     contentShipped: content,
     timeSensitive: coverage,
     treeAsks,

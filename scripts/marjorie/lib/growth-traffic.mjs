@@ -2,6 +2,11 @@
 // Web Analytics REST API (https://vercel.com/docs/analytics/web-analytics-api):
 //   GET /v1/query/web-analytics/visits/count      → { data: { pageviews, visitors } }
 //   GET /v1/query/web-analytics/visits/aggregate  → { data: [{ <dim>, pageviews, visitors }] }
+// `aggregate` also takes `by=utmCampaign` and a `filter` (documented dimensions
+// utmSource/utmMedium/utmCampaign/utmContent) — used for per-campaign visits
+// from Tree's utm-tagged links. UTM dimensions need Web Analytics Plus or
+// Enterprise; on a plan without them that one call fails and only the
+// campaign section degrades (`topCampaigns: null` + `campaignNote`).
 // Read-only; production data only (the count endpoint's own scope). The token
 // comes from the environment (VERCEL_TOKEN) and is never logged, echoed in an
 // error, or written into the output. Any failure — no token, no project, HTTP
@@ -33,13 +38,24 @@ async function totals(range, ctx) {
   return { visitors, pageviews };
 }
 
-async function top(dimension, key, range, ctx) {
-  const rows = await call('aggregate', { projectId: ctx.projectId, by: dimension, limit: TOP, ...range }, ctx);
+async function top(dimension, key, range, ctx, extra = {}) {
+  const rows = await call('aggregate', { projectId: ctx.projectId, by: dimension, limit: TOP, ...extra, ...range }, ctx);
   if (!Array.isArray(rows)) throw new Error(`aggregate by ${dimension} was not a list`);
   return rows
     .filter((r) => r && typeof r[dimension] === 'string' && r[dimension] !== 'Others')
     .map((r) => ({ [key]: r[dimension] || '(direct)', pageviews: num(r.pageviews) ?? 0, visitors: num(r.visitors) ?? 0 }))
     .sort((a, b) => b.pageviews - a.pageviews);
+}
+
+const SOCIAL_FILTER = "utmMedium eq 'social'";
+
+/** Visits per `utm_campaign` for social-medium links; never throws — a failure is `{ rows: null, note }`. */
+async function campaignVisits(range, ctx) {
+  try {
+    return { rows: await top('utmCampaign', 'campaign', range, ctx, { filter: SOCIAL_FILTER }), note: null };
+  } catch (err) {
+    return { rows: null, note: `Campaign visits not collected: ${String(err?.message ?? err).replaceAll(ctx.token, '[token]').slice(0, 160)}` };
+  }
 }
 
 /**
@@ -54,11 +70,11 @@ export async function fetchTraffic({ token, projectId, teamId, win, fetchImpl = 
   const week = { since: win.startMs, until: win.endMs };
   const prior = { since: win.startMs - (win.endMs - win.startMs), until: win.startMs };
   try {
-    const [now, before, topPaths, topReferrers] = await Promise.all([
-      totals(week, ctx), totals(prior, ctx), top('requestPath', 'path', week, ctx), top('referrerHostname', 'referrer', week, ctx),
+    const [now, before, topPaths, topReferrers, campaigns] = await Promise.all([
+      totals(week, ctx), totals(prior, ctx), top('requestPath', 'path', week, ctx), top('referrerHostname', 'referrer', week, ctx), campaignVisits(week, ctx),
     ]);
     return {
-      traffic: { source: 'vercel-web-analytics', ...now, topPaths, topReferrers, previousWeek: before },
+      traffic: { source: 'vercel-web-analytics', ...now, topPaths, topReferrers, topCampaigns: campaigns.rows, campaignNote: campaigns.note, previousWeek: before },
       trafficNote: 'Vercel Web Analytics (production). Visitors are unique per range, so they do not sum across rows or weeks.',
     };
   } catch (err) {

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { collect, parseArgs, readJsonTree } from './growth-data.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { followerDeltas, postsSummary, weekWindow, trafficSection, contentSummary } from './lib/growth-data.mjs';
+import { followerDeltas, postsSummary, weekWindow, trafficSection, contentSummary, socialSummary } from './lib/growth-data.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { keywordsOf, referencesIssue, textMatches, timeSensitiveCoverage, treeAsksSummary } from './lib/growth-coverage.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -241,5 +241,56 @@ describe('collect + CLI helpers', () => {
   it('reads json recursively and skips unreadable files; parses flags', () => {
     expect(readJsonTree(path.join(fixtureRoot(), 'social/metrics')).length).toBe(3);
     expect(parseArgs(['--week-ending', '2026-09-27', '--no-gh'])).toEqual({ 'week-ending': '2026-09-27', 'no-gh': true });
+  });
+});
+
+describe('social.byCampaign (S3)', () => {
+  const posted = [
+    { platform: 'instagram', postedAt: iso(NOW - 2 * 24 * H), campaign: 'thread:love-story:quiz-poll:2026-09' },
+    { platform: 'x', postedAt: iso(NOW - 3 * 24 * H), campaign: 'thread:fashion:quiz' },
+    { platform: 'instagram', postedAt: iso(NOW - 1 * 24 * H), campaign: 'mood:chip-poll' },
+    { platform: 'instagram', postedAt: iso(NOW - 20 * 24 * H), campaign: 'thread:old:x' },
+  ];
+  const postMetrics = [
+    { postedAt: iso(NOW - 2 * 24 * H), campaign: 'thread:love-story:quiz-poll:2026-09', like_count: 4, comments_count: 1, reach: 300, saved: 7, shares: 2 },
+    { postedAt: iso(NOW - 1 * 24 * H), campaign: 'mood:chip-poll', like_count: 1, comments_count: 0, reach: null },
+  ];
+  const traffic = { traffic: { topCampaigns: [{ campaign: 'thread', visitors: 12, pageviews: 20 }, { campaign: 'launch', visitors: 3, pageviews: 3 }] }, trafficNote: 'n' };
+
+  it('joins posts, Instagram insights and site visits per campaign family; uncollected figures stay null', () => {
+    const out = socialSummary(posted, postMetrics, traffic, win);
+    expect(out.byCampaign.thread).toEqual({ posts: 2, measuredPosts: 1, reach: 300, saved: 7, shares: 2, likes: 4, comments: 1, visitors: 12, pageviews: 20 });
+    expect(out.byCampaign.mood).toMatchObject({ posts: 1, reach: null, visitors: 0, pageviews: 0 });
+    expect(out.byCampaign.launch).toMatchObject({ posts: 0, visitors: 3 });
+    expect(out.visitsNote).toMatch(/utmMedium=social/);
+  });
+  it('leaves visits null (not 0) and says why when traffic or the campaign query was unavailable', () => {
+    const none = socialSummary(posted, postMetrics, { traffic: null, trafficNote: 'Traffic not collected: no token' }, win);
+    expect(none.byCampaign.thread).toMatchObject({ visitors: null, pageviews: null });
+    expect(none.visitsNote).toBe('Traffic not collected: no token');
+    const failed = socialSummary(posted, postMetrics, { traffic: { topCampaigns: null, campaignNote: 'Campaign visits not collected: HTTP 403' } }, win);
+    expect(failed.byCampaign.thread.visitors).toBeNull();
+    expect(failed.visitsNote).toMatch(/HTTP 403/);
+  });
+  it('fetchTraffic asks for utmCampaign filtered to social links, and degrades only that section on failure', async () => {
+    const urls: string[] = [];
+    const ok = (data: unknown) => ({ ok: true, status: 200, json: async () => ({ data }) });
+    const make = (campaignFails: boolean) => async (url: URL) => {
+      const u = new URL(String(url));
+      urls.push(String(url));
+      if (u.pathname.endsWith('/count')) return ok({ pageviews: 5, visitors: 4 });
+      const by = u.searchParams.get('by');
+      if (by === 'utmCampaign') return campaignFails ? { ok: false, status: 403, json: async () => ({}) } : ok([{ utmCampaign: 'thread', pageviews: 9, visitors: 6 }, { utmCampaign: 'Others', pageviews: 1, visitors: 1 }]);
+      return ok(by === 'requestPath' ? [{ requestPath: '/', pageviews: 5, visitors: 4 }] : []);
+    };
+    const ctx = { token: 'tok_SECRET', projectId: 'prj_1', win };
+    const good = await fetchTraffic({ ...ctx, fetchImpl: make(false) as never });
+    expect(good.traffic.topCampaigns).toEqual([{ campaign: 'thread', pageviews: 9, visitors: 6 }]);
+    const call = new URL(urls.find((u) => u.includes('by=utmCampaign')) as string);
+    expect(call.searchParams.get('filter')).toBe("utmMedium eq 'social'");
+    const degraded = await fetchTraffic({ ...ctx, fetchImpl: make(true) as never });
+    expect(degraded.traffic).toMatchObject({ visitors: 4, topCampaigns: null });
+    expect(degraded.traffic.campaignNote).toMatch(/HTTP 403/);
+    expect(JSON.stringify(degraded)).not.toContain('tok_SECRET');
   });
 });

@@ -10,6 +10,9 @@ import {
   aggregateEngagement,
   buildEngagementSummary,
   renderEngagement,
+  parseInsights,
+  fetchMediaInsights,
+  INSIGHT_METRICS,
 } from './post-metrics.mjs';
 
 const NOW = '2026-09-12T00:00:00Z';
@@ -79,8 +82,19 @@ describe('buildPostMetricRecord', () => {
       postedAt: '2026-09-01T00:00:00Z',
       like_count: 12,
       comments_count: 3,
+      reach: null,
+      saved: null,
+      shares: null,
+      total_interactions: null,
+      views: null,
       fetchedAt: NOW,
     });
+  });
+
+  it('persists the insights metrics alongside likes/comments, null for any missing', () => {
+    const insights = { reach: 540, saved: 12, shares: 4, total_interactions: 31, views: null };
+    const record = buildPostMetricRecord(igItem(), { like_count: 12, comments_count: 3, fetchedAt: NOW, insights });
+    expect(record).toMatchObject({ like_count: 12, reach: 540, saved: 12, shares: 4, total_interactions: 31, views: null });
   });
 
   it('nulls out a missing campaign and missing counts rather than writing undefined', () => {
@@ -228,5 +242,84 @@ describe('renderEngagement', () => {
   it('pluralizes post correctly for a single post', () => {
     const summary = { byPillar: { 'mood:x': { posts: 1, like_count: 3, comments_count: 1 } } };
     expect(renderEngagement(summary)).toContain('(1 post)');
+  });
+});
+
+describe('parseInsights', () => {
+  const body = {
+    data: [
+      { name: 'reach', period: 'lifetime', values: [{ value: 540 }] },
+      { name: 'saved', period: 'lifetime', values: [{ value: 12 }] },
+      { name: 'shares', period: 'lifetime', values: [{ value: 0 }] },
+      { name: 'views', period: 'lifetime', values: [{ value: 'n/a' }] },
+      { name: 'follows', period: 'lifetime', values: [{ value: 9 }] },
+    ],
+  };
+
+  it('maps the insights envelope to the five metrics, 0 stays 0, missing/non-numeric/unknown is null', () => {
+    expect(parseInsights(body)).toEqual({ reach: 540, saved: 12, shares: 0, total_interactions: null, views: null });
+  });
+
+  it('accepts a total_value shaped row and tolerates garbage input', () => {
+    expect(parseInsights({ data: [{ name: 'total_interactions', total_value: { value: 31 } }] }).total_interactions).toBe(31);
+    expect(parseInsights(null)).toEqual(Object.fromEntries(INSIGHT_METRICS.map((m) => [m, null])));
+    expect(parseInsights({ data: 'nope' }).reach).toBeNull();
+  });
+});
+
+describe('fetchMediaInsights', () => {
+  const ok = (data: unknown) => ({ ok: true, status: 200, json: async () => data });
+  const fail = () => ({ ok: false, status: 400, json: async () => ({ error: { message: 'bad metric' } }) });
+  const row = (name: string, value: number) => ({ name, period: 'lifetime', values: [{ value }] });
+
+  it('requests all five metrics in one call against the Graph version and token', async () => {
+    const urls: string[] = [];
+    const fetchImpl = async (url: string) => {
+      urls.push(String(url));
+      return ok({ data: INSIGHT_METRICS.map((m, i) => row(m, i + 1)) });
+    };
+    const out = await fetchMediaInsights('123', { token: 'tok_SECRET', version: 'v25.0', fetchImpl: fetchImpl as never });
+    expect(out).toEqual({ reach: 1, saved: 2, shares: 3, total_interactions: 4, views: 5 });
+    expect(urls).toHaveLength(1);
+    expect(urls[0]).toContain('https://graph.facebook.com/v25.0/123/insights?metric=reach,saved,shares,total_interactions,views');
+  });
+
+  it('retries per metric when the batch is rejected, so supported metrics still land', async () => {
+    const fetchImpl = async (url: string) => {
+      const metric = new URL(String(url)).searchParams.get('metric') ?? '';
+      if (metric.includes(',')) return fail();
+      if (metric === 'views') return fail();
+      if (metric === 'shares') throw new Error('network blip tok_SECRET');
+      return ok({ data: [row(metric, 7)] });
+    };
+    const out = await fetchMediaInsights('123', { token: 'tok_SECRET', fetchImpl: fetchImpl as never });
+    expect(out).toEqual({ reach: 7, saved: 7, shares: null, total_interactions: 7, views: null });
+  });
+
+  it('is all-null, never throws, when the token is missing or every call fails', async () => {
+    const allNull = Object.fromEntries(INSIGHT_METRICS.map((m) => [m, null]));
+    let called = 0;
+    const counting = async () => { called += 1; return fail(); };
+    expect(await fetchMediaInsights('123', { token: undefined, fetchImpl: counting as never })).toEqual(allNull);
+    expect(called).toBe(0);
+    const boom = async () => { throw new Error('down'); };
+    expect(await fetchMediaInsights('123', { token: 'tok', fetchImpl: boom as never })).toEqual(allNull);
+  });
+});
+
+describe('aggregateEngagement / renderEngagement with insights', () => {
+  const rec = (campaign: string, extra: Record<string, unknown>) => ({ campaign, like_count: 1, comments_count: 0, ...extra });
+
+  it('sums reach/saved/shares only over posts that have insights, and leaves insight-less buckets unchanged', () => {
+    const summary = aggregateEngagement([
+      rec('thread:a:b', { reach: 100, saved: 5, shares: 2 }),
+      rec('thread:a:b', { reach: null }),
+      rec('mood:chip-poll', {}),
+    ]);
+    expect(summary.byPillar['thread:a:b']).toEqual({ posts: 2, like_count: 2, comments_count: 0, insightPosts: 1, reach: 100, saved: 5, shares: 2 });
+    expect(summary.byPillar['mood:chip-poll']).toEqual({ posts: 1, like_count: 1, comments_count: 0 });
+    const line = renderEngagement(summary);
+    expect(line).toContain('thread:a:b — 2 likes/0 comments/100 reach/5 saves/2 shares (2 posts)');
+    expect(line).toContain('mood:chip-poll — 1 likes/0 comments (1 post)');
   });
 });

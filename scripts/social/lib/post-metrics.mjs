@@ -7,16 +7,82 @@
 //
 // Instagram-only, v1 (Step 0 research, spot-checked): `impressions` was
 // killed by Meta for every IG media created after 2024-07-02 — dead, not
-// gated. `reach`/`saved`/`shares` need the `instagram_manage_insights`
-// scope, which the current IG_ACCESS_TOKEN doesn't carry (HUMAN-ACTIONS.md).
+// gated. `reach`/`saved`/`shares`/`total_interactions`/`views` come from
+// `GET /{ig-media-id}/insights` and need the `instagram_manage_insights`
+// scope, granted 2026-09-30 (HUMAN-ACTIONS #63); fetchMediaInsights below
+// reads them and degrades to `null` per metric when one is unavailable
+// (older media, a scope regression, a metric Meta gates for that media type).
 // X per-post reads are metered spend (~$0.005/read) with no free tier left
 // at all — not this repo's call to make, so no X post ever reaches this
 // module (HUMAN-ACTIONS.md). Never a per-post LLM call anywhere here.
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { pillarOf } from './feedback.mjs';
+import { GRAPH_VERSION } from './platforms.mjs';
 
 const WINDOW_DAYS_DEFAULT = 30;
+
+/** Graph API `/{ig-media-id}/insights` metric names, verbatim. `views`
+ * replaced the retired `impressions`/`plays`. Order is the record's order. */
+export const INSIGHT_METRICS = ['reach', 'saved', 'shares', 'total_interactions', 'views'];
+
+function emptyInsights() {
+  return Object.fromEntries(INSIGHT_METRICS.map((m) => [m, null]));
+}
+
+/**
+ * Reads `{ data: [{ name, values: [{ value }] }] }` (the Graph API's
+ * insights envelope) into `{ reach, saved, shares, total_interactions,
+ * views }`. A metric Meta didn't return, or returned as a non-number, is
+ * `null` — never 0, so "no reach data" can't be mistaken for "zero reach".
+ */
+export function parseInsights(body) {
+  const out = emptyInsights();
+  for (const row of Array.isArray(body?.data) ? body.data : []) {
+    if (!INSIGHT_METRICS.includes(row?.name)) continue;
+    const value = row?.values?.[0]?.value ?? row?.total_value?.value;
+    if (typeof value === 'number' && Number.isFinite(value)) out[row.name] = value;
+  }
+  return out;
+}
+
+const hasAnyInsight = (insights) => INSIGHT_METRICS.some((m) => insights[m] !== null);
+
+async function insightsCall(mediaId, metrics, { token, version, fetchImpl }) {
+  const url = `https://graph.facebook.com/${version}/${mediaId}/insights?metric=${metrics.join(',')}&access_token=${encodeURIComponent(token)}`;
+  const res = await fetchImpl(url);
+  if (!res.ok) return null;
+  return parseInsights(await res.json());
+}
+
+/**
+ * Per-post reach/saves/shares for one IG media id. Never throws and never
+ * returns a rejected promise: one batched call first; if Meta rejects the
+ * batch (a single unsupported metric fails the whole request) each metric is
+ * retried alone so the supported ones still land. Anything still missing is
+ * `null`. A missing token yields all-`null` without a network call. The
+ * token is never logged or put in an error.
+ */
+export async function fetchMediaInsights(mediaId, { token, version = GRAPH_VERSION, fetchImpl = fetch } = {}) {
+  const result = emptyInsights();
+  if (!token || !mediaId) return result;
+  const ctx = { token, version, fetchImpl };
+  try {
+    const batch = await insightsCall(mediaId, INSIGHT_METRICS, ctx);
+    if (batch && hasAnyInsight(batch)) return batch;
+  } catch {
+    // fall through to per-metric retries
+  }
+  for (const metric of INSIGHT_METRICS) {
+    try {
+      const one = await insightsCall(mediaId, [metric], ctx);
+      if (one) result[metric] = one[metric];
+    } catch {
+      // this metric stays null
+    }
+  }
+  return result;
+}
 
 /**
  * `social/posted/` items due for a per-post metrics fetch: Instagram only
@@ -52,11 +118,13 @@ export function postMetricsLocation(item) {
  * The record written to `social/metrics/posts/<YYYY-MM>/<postId>.json`.
  * `like_count`/`comments_count` keep the Graph API's own field names
  * verbatim — a direct passthrough of what `GET /{ig-media-id}` returned,
- * not a repo-authored shape. `campaign` is carried here (not just in
+ * not a repo-authored shape; `reach`/`saved`/`shares`/`total_interactions`/
+ * `views` are likewise the `/insights` metric names (`null` when
+ * unavailable). `campaign` is carried here (not just in
  * social/posted/) so aggregateEngagement below never has to re-join the two
  * directories.
  */
-export function buildPostMetricRecord(item, { like_count, comments_count, fetchedAt }) {
+export function buildPostMetricRecord(item, { like_count, comments_count, fetchedAt, insights = {} }) {
   return {
     postId: item.platformPostId,
     platform: item.platform,
@@ -64,6 +132,11 @@ export function buildPostMetricRecord(item, { like_count, comments_count, fetche
     postedAt: item.postedAt,
     like_count: like_count ?? null,
     comments_count: comments_count ?? null,
+    reach: insights.reach ?? null,
+    saved: insights.saved ?? null,
+    shares: insights.shares ?? null,
+    total_interactions: insights.total_interactions ?? null,
+    views: insights.views ?? null,
     fetchedAt,
   };
 }
@@ -114,6 +187,15 @@ function addTo(buckets, key, fallbackLabel, record) {
   buckets[k].posts += 1;
   buckets[k].like_count += record.like_count ?? 0;
   buckets[k].comments_count += record.comments_count ?? 0;
+  if (typeof record.reach === 'number') {
+    // insight fields appear only once a post in the bucket has them, so a
+    // bucket with no insights keeps the original three-field shape.
+    const b = buckets[k];
+    b.insightPosts = (b.insightPosts ?? 0) + 1;
+    b.reach = (b.reach ?? 0) + record.reach;
+    b.saved = (b.saved ?? 0) + (record.saved ?? 0);
+    b.shares = (b.shares ?? 0) + (record.shares ?? 0);
+  }
 }
 
 const NO_CAMPAIGN_LABEL = '(none)';
@@ -165,6 +247,6 @@ export function renderEngagement(summary) {
   if (entries.length === 0) return `**Engagement by pillar (30d):** ${NO_ENGAGEMENT_SENTENCE}`;
   const parts = entries
     .sort((a, b) => b[1].like_count - a[1].like_count)
-    .map(([pillar, b]) => `${pillar} — ${b.like_count} likes/${b.comments_count} comments (${b.posts} post${b.posts === 1 ? '' : 's'})`);
+    .map(([pillar, b]) => `${pillar} — ${b.like_count} likes/${b.comments_count} comments${b.insightPosts ? `/${b.reach} reach/${b.saved} saves/${b.shares} shares` : ''} (${b.posts} post${b.posts === 1 ? '' : 's'})`);
   return `**Engagement by pillar (30d):** ${parts.join(' · ')}`;
 }
