@@ -21,7 +21,7 @@ function tally(photos, keyFn, label) {
   return [...counts.entries()].sort((a, b) => b[1] - a[1]);
 }
 
-const photos = inventory.photos;
+const photos = inventory.photos.filter((p) => !p.variantOf); // an IG-ready variant is the same photograph, not a second one
 const total = photos.length;
 
 function printSection(title, rows) {
