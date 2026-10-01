@@ -51,6 +51,15 @@ const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
 const isCount = (v) => Number.isInteger(v) && v >= 0;
 const COMMENT_COVERAGE_KEYS = ['eligible', 'processed', 'failed', 'timedOut'];
+// Round 5 (PM decision): optional, but counts when present.
+const OPTIONAL_COVERAGE_KEYS = [
+  'knownPositiveEligible',
+  'unknownEmpty',
+  'countUnknown',
+  'unitsSent',
+];
+// A feed this busy always shows some "N comments"; every count unknown there is selector drift.
+const COUNT_DRIFT_MIN_UNITS = 10;
 const MAX_DETAIL = 200;
 
 // commentCoverage is either the four counts or an explicit {error} from the extension (collector
@@ -60,7 +69,11 @@ function validCommentCoverage(cc) {
   if (!isObj(cc)) return false;
   if ('error' in cc) return typeof cc.error === 'string' && cc.error.length > 0;
   if (!COMMENT_COVERAGE_KEYS.every((k) => isCount(cc[k]))) return false;
-  return cc.processed + cc.failed + cc.timedOut <= cc.eligible;
+  if (!OPTIONAL_COVERAGE_KEYS.every((k) => cc[k] === undefined || isCount(cc[k]))) return false;
+  if ((cc.knownPositiveEligible ?? 0) > cc.eligible) return false;
+  if (cc.countUnknown !== undefined && cc.unitsSent !== undefined && cc.countUnknown > cc.unitsSent)
+    return false;
+  return cc.processed + cc.failed + cc.timedOut + (cc.unknownEmpty ?? 0) <= cc.eligible;
 }
 
 // Codex round 3 #5: comment collection fails the group whenever a post was eligible and not one
@@ -70,7 +83,18 @@ function validCommentCoverage(cc) {
 export function commentFailure(body) {
   const cc = body.commentCoverage ?? null;
   if (cc && typeof cc.error === 'string') return 'comments-collection-failed';
-  if (cc && cc.eligible > 0 && cc.processed === 0) return 'comments-collection-failed';
+  // PM decision (round 5): unknown-count posts that yield nothing are a quiet group, not a failure.
+  // Count-selector drift: a busy feed (>= 10 units) where every unit's count is unknown.
+  if (
+    cc &&
+    isCount(cc.unitsSent) &&
+    cc.unitsSent >= COUNT_DRIFT_MIN_UNITS &&
+    cc.countUnknown === cc.unitsSent
+  )
+    return 'comments-count-drift';
+  // An older coverage without knownPositiveEligible keeps the old rule (every eligible known).
+  if (cc && (cc.knownPositiveEligible ?? cc.eligible) > 0 && cc.processed === 0)
+    return 'comments-collection-failed';
   if (!cc && body.units.length > 0) return 'comments-coverage-missing';
   return null;
 }
@@ -374,7 +398,10 @@ export async function startReceiver({
         ? ''
         : typeof cc.error === 'string'
           ? ` comment-error=${commentErrorCode(cc.error)}`
-          : ` comment-eligible=${cc.eligible} processed=${cc.processed} failed=${cc.failed} timed-out=${cc.timedOut}`;
+          : ` comment-eligible=${cc.eligible} processed=${cc.processed} failed=${cc.failed} timed-out=${cc.timedOut}` +
+            (cc.unknownEmpty !== undefined
+              ? ` unknown-empty=${cc.unknownEmpty} count-unknown=${cc.countUnknown}/${cc.unitsSent}`
+              : '');
       const reason = result.reason ? ` ${result.reason}` : '';
       const dropped =
         result.reason === 'sanitize-dropped'

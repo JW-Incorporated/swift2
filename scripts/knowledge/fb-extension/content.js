@@ -79,6 +79,13 @@
   }
 
   const COVERAGE_KEYS = ['eligible', 'processed', 'failed', 'timedOut'];
+  // Round 5 (PM decision): passed through when the collector reports them.
+  const OPTIONAL_COVERAGE_KEYS = [
+    'knownPositiveEligible',
+    'unknownEmpty',
+    'countUnknown',
+    'unitsSent',
+  ];
   // Mirrors COMMENT_ERROR_CODES in fb-export-helpers.mjs.
   const COMMENT_ERRORS = Object.freeze({
     missing: 'collector-missing',
@@ -108,7 +115,11 @@
         return { comments: [], commentCoverage: { error: COMMENT_ERRORS.badShape } };
       return {
         comments: Array.isArray(out.comments) ? out.comments : [],
-        commentCoverage: Object.fromEntries(COVERAGE_KEYS.map((k) => [k, coverage[k]])),
+        commentCoverage: Object.fromEntries(
+          [...COVERAGE_KEYS, ...OPTIONAL_COVERAGE_KEYS]
+            .filter((k) => isCount(coverage[k]))
+            .map((k) => [k, coverage[k]]),
+        ),
       };
     } catch {
       return { comments: [], commentCoverage: { error: COMMENT_ERRORS.threw } };
@@ -262,6 +273,16 @@
               // receiver fails the group instead of recording it complete without its comments.
               const eligible = eligibleCommentPosts(units, job.comments?.topN);
               commentCoverage = { eligible, processed: 0, failed: 0, timedOut: eligible };
+              if (typeof LLFB.commentCountStats === 'function') {
+                const stats = LLFB.commentCountStats(units, job.comments?.topN);
+                commentCoverage = {
+                  ...stats,
+                  processed: 0,
+                  failed: 0,
+                  timedOut: stats.eligible,
+                  unknownEmpty: 0,
+                };
+              }
               if (eligible) message = `comments skipped: ${COMMENT_ERRORS.budgetSkip}`;
             }
           }

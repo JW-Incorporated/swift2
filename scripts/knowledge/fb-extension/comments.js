@@ -191,6 +191,21 @@
       .map(({ unit }) => unit);
   }
 
+  // Count-selector health over ALL units sent (PM decision, Codex round 5 #1): the receiver
+  // fails a busy group (>= 10 units) whose every count is unknown as count drift.
+  function commentCountStats(units, topN = DEFAULTS.topN) {
+    const list = (Array.isArray(units) ? units : []).filter(
+      (unit) => unit && typeof unit.key === 'string',
+    );
+    const selected = selectTopUnits(list, topN);
+    return {
+      eligible: selected.length,
+      knownPositiveEligible: selected.filter((unit) => knownCommentCount(unit) !== null).length,
+      countUnknown: list.filter((unit) => knownCommentCount(unit) === null).length,
+      unitsSent: list.length,
+    };
+  }
+
   function pathOf(href) {
     try {
       const url = new URL(String(href).replace(/&amp;/g, '&'), FB_ORIGIN);
@@ -468,21 +483,32 @@
   // units: merged harvest units; opts: {topN, maxPerPost, pacingMs, maxMs}.
   // Test hooks: opts.document, opts.sleep, opts.random, opts.now.
   // Never throws; returns {comments: [{postKey, postUrl, comments}], coverage}. coverage counts the
-  // eligible posts (top-N with commentCount > 0 or unknown) and how each ended: processed (opened and at
-  // least one comment read), failed (post not found on the page, the driver threw, or it
-  // yielded zero comments despite commentCount > 0 — selector drift) or
-  // timedOut (the time cap hit during it, or it was never reached). The four always add up:
-  // eligible = processed + failed + timedOut. The receiver fails the group when comments were
-  // systematically broken (Codex round 2 #6: failures used to be swallowed into []).
+  // eligible posts (top-N with commentCount > 0 or unknown) and how each ended: processed (opened
+  // and at least one comment read), failed (post not found on the page, the driver threw, or it
+  // yielded zero comments despite a KNOWN commentCount > 0 — selector drift), unknownEmpty (an
+  // unknown-count post that yielded zero comments: most likely a post nobody commented on) or
+  // timedOut (the time cap hit during it, or it was never reached). They always add up:
+  // eligible = processed + failed + timedOut + unknownEmpty. Also knownPositiveEligible,
+  // countUnknown and unitsSent (commentCountStats). The receiver fails the group when comments
+  // were systematically broken (Codex round 2 #6: failures used to be swallowed into []).
   async function collectComments(units, options) {
     const results = [];
-    const coverage = { eligible: 0, processed: 0, failed: 0, timedOut: 0 };
+    const coverage = {
+      eligible: 0,
+      knownPositiveEligible: 0,
+      processed: 0,
+      failed: 0,
+      timedOut: 0,
+      unknownEmpty: 0,
+      countUnknown: 0,
+      unitsSent: 0,
+    };
     let unaccounted = 'failed'; // how posts never attempted are counted
     try {
       const opts = { ...DEFAULTS, ...(options || {}) };
       opts.maxPerPost = Math.max(0, Number(opts.maxPerPost) || 0);
       const selected = selectTopUnits(units, opts.topN);
-      coverage.eligible = selected.length;
+      Object.assign(coverage, commentCountStats(units, opts.topN));
       const doc = opts.document || globalThis.document;
       if (!doc) {
         coverage.failed = selected.length;
@@ -506,11 +532,14 @@
           const result = await collectForPost(unit, ctx);
           if (!result) coverage.failed += 1;
           else if (now() >= ctx.deadline) coverage.timedOut += 1;
-          // Codex round 4 #1: an eligible post (commentCount > 0) that yields zero extracted
-          // comments is selector drift, not "no comments" — the page offers no positive
-          // zero-comments signal, so it always counts as failed.
-          else if (!result.comments.length) coverage.failed += 1;
-          else coverage.processed += 1;
+          // Codex round 4 #1: a post with a KNOWN commentCount > 0 that yields zero extracted
+          // comments is selector drift, not "no comments", so it counts as failed. PM decision
+          // (round 5): an unknown-count post that yields zero is unknownEmpty, not failed — count
+          // drift is caught instead by countUnknown === unitsSent on a busy feed (receiver).
+          else if (!result.comments.length) {
+            if (knownCommentCount(unit) === null) coverage.unknownEmpty += 1;
+            else coverage.failed += 1;
+          } else coverage.processed += 1;
           if (result && result.comments.length) results.push(result);
         } catch {
           coverage.failed += 1; // per-post failure: counted, keep going
@@ -519,13 +548,15 @@
     } catch {
       // never throw to the harvester; posts never attempted are counted as failed below
     }
-    const accounted = coverage.processed + coverage.failed + coverage.timedOut;
+    const accounted =
+      coverage.processed + coverage.failed + coverage.timedOut + coverage.unknownEmpty;
     coverage[unaccounted] += Math.max(0, coverage.eligible - accounted);
     return { comments: results, coverage };
   }
 
   Object.assign(LLFB, {
     collectComments,
+    commentCountStats,
     extractCommentsFromContainer,
     findExpandButtons,
     findPostElement,

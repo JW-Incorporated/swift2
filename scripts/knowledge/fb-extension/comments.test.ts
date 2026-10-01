@@ -97,27 +97,59 @@ describe('comment parsing helpers', () => {
     ]);
   });
 
-  it('fails the group loudly when both count and comment selectors drift (Codex round 5 #1)', async () => {
-    document.body.innerHTML = `<div role="feed">
-      <div aria-posinset="1" id="p1"><a href="/groups/1/posts/11/">t</a>
-        <div class="drifted">Synthetic unrecognised comment block</div></div>
-      <div aria-posinset="2" id="p2"><a href="/groups/1/posts/22/">t</a></div>
-    </div>`;
+  // PM decision on round 5 #1: an unknown-count post that yields zero comments is unknownEmpty,
+  // not failed; countUnknown / unitsSent let the receiver detect count drift on a busy feed.
+  const quietFeed = (n: number) => {
+    document.body.innerHTML = `<div role="feed">${Array.from(
+      { length: n },
+      (_, i) => `<div aria-posinset="${i + 1}"><a href="/groups/1/posts/${i + 1}/">t</a></div>`,
+    ).join('')}</div>`;
+    return Array.from({ length: n }, (_, i) => ({
+      key: `pos:${i + 1}`,
+      position: i + 1,
+      html: '',
+      reactions: i,
+      commentCount: null,
+    }));
+  };
+  const quietOpts = () => {
     let t = 0;
-    const out = await LLFB.collectComments(
-      [
-        { key: 'pos:1', position: 1, html: '', reactions: 4, commentCount: null },
-        { key: 'pos:2', position: 2, html: '', reactions: 2, commentCount: null },
-      ],
-      {
-        pacingMs: [0, 0],
-        sleep: async (ms: number) => {
-          t += ms;
-        },
-        now: () => t,
+    return {
+      pacingMs: [0, 0],
+      sleep: async (ms: number) => {
+        t += ms;
       },
-    );
-    expect(out.coverage).toEqual({ eligible: 2, processed: 0, failed: 2, timedOut: 0 });
+      now: () => t,
+    };
+  };
+
+  it('a quiet group (8 posts, all counts null, no comments) is unknownEmpty, not failed', async () => {
+    const out = await LLFB.collectComments(quietFeed(8), quietOpts());
+    expect(out.coverage).toEqual({
+      eligible: 8,
+      knownPositiveEligible: 0,
+      processed: 0,
+      failed: 0,
+      timedOut: 0,
+      unknownEmpty: 8,
+      countUnknown: 8,
+      unitsSent: 8,
+    });
+  });
+
+  it('reports countUnknown over ALL units sent, not just the top N', async () => {
+    const units = [
+      ...quietFeed(12),
+      { key: 'pos:99', position: 99, html: '', reactions: 0, commentCount: 0 },
+    ];
+    const out = await LLFB.collectComments(units, { ...quietOpts(), topN: 5 });
+    expect(out.coverage).toMatchObject({
+      eligible: 5,
+      unknownEmpty: 5,
+      failed: 0,
+      countUnknown: 12,
+      unitsSent: 13,
+    });
   });
 
   it('extracts comments with first-level replies, ids, reactions and dedupe', () => {
@@ -271,7 +303,14 @@ describe('collectComments (live driver against a synthetic DOM)', () => {
     expect(sleeps.filter((ms) => ms === 3500).length).toBeGreaterThanOrEqual(3);
     // Codex round 2 #6: failures are counted, not swallowed. pos:3 has no comments (not
     // eligible); pos:2's click throws and pos:7 is not on the page → failed.
-    expect(coverage).toEqual({ eligible: 3, processed: 1, failed: 2, timedOut: 0 });
+    expect(coverage).toMatchObject({
+      eligible: 3,
+      knownPositiveEligible: 3,
+      processed: 1,
+      failed: 2,
+      timedOut: 0,
+      unknownEmpty: 0,
+    });
   });
 
   it('counts an eligible post that yields zero comments as failed (Codex round 4 #1)', async () => {
@@ -299,7 +338,13 @@ describe('collectComments (live driver against a synthetic DOM)', () => {
     );
     expect(all).toEqual({
       comments: [],
-      coverage: { eligible: 2, processed: 0, failed: 2, timedOut: 0 },
+      coverage: expect.objectContaining({
+        eligible: 2,
+        processed: 0,
+        failed: 2,
+        timedOut: 0,
+        unknownEmpty: 0,
+      }),
     });
   });
 
@@ -321,17 +366,35 @@ describe('collectComments (live driver against a synthetic DOM)', () => {
     // pos:2 scores first and runs past the 1 s cap mid-post; pos:1 is never attempted.
     expect(out).toEqual({
       comments: [],
-      coverage: { eligible: 2, processed: 0, failed: 0, timedOut: 2 },
+      coverage: expect.objectContaining({
+        eligible: 2,
+        processed: 0,
+        failed: 0,
+        timedOut: 2,
+        unknownEmpty: 0,
+      }),
     });
     await expect(LLFB.collectComments(undefined, undefined)).resolves.toEqual({
       comments: [],
-      coverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
+      coverage: expect.objectContaining({
+        eligible: 0,
+        processed: 0,
+        failed: 0,
+        timedOut: 0,
+        unknownEmpty: 0,
+      }),
     });
     await expect(
       LLFB.collectComments([{ key: 'pos:1', commentCount: 1 }], { document: {} }),
     ).resolves.toEqual({
       comments: [],
-      coverage: { eligible: 1, processed: 0, failed: 1, timedOut: 0 },
+      coverage: expect.objectContaining({
+        eligible: 1,
+        processed: 0,
+        failed: 1,
+        timedOut: 0,
+        unknownEmpty: 0,
+      }),
     });
   });
 });

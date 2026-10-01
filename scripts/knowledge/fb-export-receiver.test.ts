@@ -442,6 +442,75 @@ describe('fb export receiver', () => {
     ]);
   });
 
+  // PM decision on Codex round 5 #1: unknown (null) counts that yield nothing are a quiet group;
+  // count drift is a busy feed (>= 10 units sent) where every count is unknown.
+  describe('unknown comment counts', () => {
+    const nullUnits = (n: number) =>
+      Array.from({ length: n }, (_, i) => ({
+        ...unit(i + 1, `Synthetic quiet post ${i + 1}`),
+        commentCount: null,
+      }));
+    const quietCoverage = (n: number) => ({
+      eligible: n,
+      knownPositiveEligible: 0,
+      processed: 0,
+      failed: 0,
+      timedOut: 0,
+      unknownEmpty: n,
+      countUnknown: n,
+      unitsSent: n,
+    });
+    const post = async (body: Record<string, unknown>) => {
+      const { r, log } = await setup();
+      await call(r, 'GET', '/next');
+      expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+      return { result: r.partialResults()[0], log };
+    };
+
+    it('a quiet group (8 posts, all counts null, no comments) is collected', async () => {
+      const { result, log } = await post({
+        ...collected('group-a', nullUnits(8)),
+        comments: [],
+        commentCoverage: quietCoverage(8),
+      });
+      expect(result).toMatchObject({ slug: 'group-a', status: 'collected' });
+      expect(log.mock.calls.map((c) => c[0]).join('\n')).toContain(
+        'unknown-empty=8 count-unknown=8/8',
+      );
+    });
+
+    it('12 posts with every count null fail as comments-count-drift', async () => {
+      const { result } = await post({
+        ...collected('group-a', nullUnits(12)),
+        comments: [],
+        commentCoverage: { ...quietCoverage(12), eligible: 12, unknownEmpty: 12 },
+      });
+      expect(result).toMatchObject({
+        slug: 'group-a',
+        status: 'failed',
+        reason: 'comments-count-drift',
+      });
+    });
+
+    it('known-positive posts that yield zero comments still fail the group', async () => {
+      const { result } = await post({
+        ...collected('group-a', nullUnits(3)),
+        comments: [],
+        commentCoverage: {
+          eligible: 3,
+          knownPositiveEligible: 2,
+          processed: 0,
+          failed: 2,
+          timedOut: 0,
+          unknownEmpty: 1,
+          countUnknown: 1,
+          unitsSent: 3,
+        },
+      });
+      expect(result).toMatchObject({ status: 'failed', reason: 'comments-collection-failed' });
+    });
+  });
+
   it('an explicit collector error, or no coverage with harvested posts, fails the group', async () => {
     const { r, log, storeComments, outputDir } = await setup({
       groups: [...groups, { slug: 'group-c', groupId: '3' }],
