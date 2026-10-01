@@ -17,6 +17,7 @@ import { erasTouched, fetchContentShipped } from './content-shipped.mjs';
 import { buildGrowthData, contentSummary, weekWindow } from './lib/growth-data.mjs';
 import { timeSensitiveCoverage, treeAsksSummary } from './lib/growth-coverage.mjs';
 import { apiFor, listIssuesByLabels } from './lib/issues-rest.mjs';
+import { fetchTraffic } from './lib/growth-traffic.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const REPO = 'JW-Incorporated/swift2';
@@ -65,7 +66,7 @@ async function soft(label, warnings, fn, fallback) {
   }
 }
 
-export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), repo = REPO, noGh = false, gh = ghRun, fetchContent = fetchContentShipped } = {}) {
+export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), repo = REPO, noGh = false, gh = ghRun, fetchContent = fetchContentShipped, env = process.env, fetchImpl = fetch } = {}) {
   const win = weekWindow(weekEnding, nowMs);
   const warnings = [];
   const series = readJsonTree(path.join(root, 'social', 'metrics')).filter((r) => r?.date && r?.followers);
@@ -78,6 +79,8 @@ export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), rep
   let treeFiled = [];
   let marjorieFiledForTree = [];
   let content = { mergedContentPRs: null, items: [] };
+  let mergedPRs = null;
+  let trafficResult = { traffic: null, trafficNote: 'Traffic skipped (--no-gh, offline run).' };
   if (noGh) {
     warnings.push('--no-gh: GitHub sections (content, time-sensitive, tree asks) skipped');
   } else {
@@ -88,11 +91,15 @@ export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), rep
     marjorieFiledForTree = await soft('marjorie-filed desk:tree issues', warnings, () => list(['marjorie-filed', 'desk:tree']), []);
     const shipped = await soft('content PRs', warnings, () => fetchContent(repo, win.start), null);
     if (shipped) content = contentSummary(shipped, erasTouched);
+    mergedPRs = await soft('merged PRs', warnings, async () => JSON.parse((await gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '200', '--json', 'number,title,body,mergedAt,closingIssuesReferences'])).stdout || '[]'), null);
+    const cfg = readJson(path.join(root, 'scripts', 'marjorie', 'marjorie-config.json'))?.traffic ?? {};
+    trafficResult = await fetchTraffic({ token: env.VERCEL_TOKEN, projectId: env.VERCEL_PROJECT_ID || cfg.projectId, teamId: env.VERCEL_TEAM_ID || cfg.teamId, win, fetchImpl });
   }
 
   return buildGrowthData({
     win, series, posted, postMetrics, content, eventStatus, warnings,
-    coverage: timeSensitiveCoverage(intake, posted, win),
+    trafficResult,
+    coverage: timeSensitiveCoverage(intake, posted, win, mergedPRs),
     treeAsks: treeAsksSummary({ treeFiled, marjorieFiledForTree }, win),
   });
 }

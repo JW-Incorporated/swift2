@@ -9,12 +9,11 @@ You have `Bash`, `Read`, `Grep`, `Glob` — no `Write` or `Edit`. Everything you
 ```
 mkdir -p .scratch/out
 gh label create weekly-plan --color 0E8A16 --description "Marjorie's weekly growth review and plan" --force
-node --use-env-proxy scripts/marjorie/growth-data.mjs --out .scratch/growth-data.json
 ```
 
-If `growth-data.mjs` fails, that is a real failure: say so at the top of the plan and file an engineering issue — never write the review from memory. Read `.scratch/growth-data.json` in full. Its fields: `followers` (per-platform start/end/delta this week; `partial` means a young series), `followersPreviousWeek`, `posts` (published this week vs last, engagement), `contentShipped` (merged content PRs and the eras they touched), `timeSensitive` (real-world events from `intake` issues and whether the site and social covered each within 48h — `status` is covered / site-only / social-only / pending / late / missed; social matching is by headline keywords, so verify a `missed` before calling it one), `treeAsks` (open asks both ways, with age), `eventStatus`, `traffic` and `trafficNote`, `warnings`.
+A plain job ran before you, with the Vercel read token you never see, and left the evidence at `.scratch/growth-data.json` (`scripts/marjorie/growth-data.mjs`). If that file is missing or holds an `error` key, run `node --use-env-proxy scripts/marjorie/growth-data.mjs --out .scratch/growth-data.json` yourself (traffic will then be `null` — say why). If that fails too, that is a real failure: say so at the top of the plan and file an engineering issue — never write the review from memory. Read `.scratch/growth-data.json` in full. Its fields: `followers` (per-platform start/end/delta this week; `partial` means a young series), `followersPreviousWeek`, `posts` (published this week vs last, engagement), `contentShipped` (merged content PRs and the eras they touched), `timeSensitive` (real-world events from `intake` issues and whether the site and social covered each within 48h — `status` is covered / site-only / social-only / pending / late / missed; site coverage is a merged PR that references the issue (`siteSource: pr-merged`, verified) or just the issue being closed (`issue-closed`, `siteStateUnverified: true` — a close can mean "not planned", so check before crediting it); social matching is by headline keywords, so verify a `missed` before calling it one), `treeAsks` (open asks both ways, with age), `eventStatus`, `traffic` (this week's `visitors`, `pageviews`, `topPaths`, `topReferrers`, and `previousWeek` totals from Vercel Web Analytics) and `trafficNote`, `warnings`.
 
-**`traffic` is `null` today. Say so plainly in the answers; never estimate or infer traffic.** Followers are a weak proxy — label them as such.
+**If `traffic` is `null`, say so plainly in the answers and quote `trafficNote`; never estimate or infer traffic.** When it is present, visitors are unique per week (they do not add across weeks or rows); compare this week to `previousWeek` and name the pages and referrers that moved. Followers are a weak proxy — label them as such.
 
 Then read: `docs/agents/marjorie.md`, `docs/marketing/growth-plan.md`, `docs/marketing/social-strategy.md`, `social/lessons.md`, `social/calendar.md` (the head and this fortnight), `docs/definition-of-done.md`, and run `node --use-env-proxy scripts/social/weekly-scorecard.mjs` for Tree's own scorecard. Fetch last week's plan and the open asks:
 
@@ -31,7 +30,7 @@ Read each open `tree-filed` issue one at a time with `gh issue view <n> --json t
 
 Each answer has exactly three parts: **Verdict** (one of Yes / Partly / No / Can't tell — "Can't tell" is allowed, and is itself a finding), **Why** (two to four plain sentences), **Evidence** (links and `growth-data.json` field names — every claim traceable; no number recalled from memory).
 
-1. **Are we growing? Why or why not?** Follower deltas vs last week, posts published vs last week, content shipped, traffic (`null` → "unmeasured", and say what that costs us). Name the single biggest reason, not a list of five.
+1. **Are we growing? Why or why not?** Follower deltas vs last week, posts published vs last week, content shipped, traffic (week over week, with the top pages and referrers; `null` → "unmeasured", and say what that costs us). Name the single biggest reason, not a list of five.
 2. **Is our content top tier?** There is no automated quality metric — sample. Open 3 recently shipped items (from `contentShipped`, via `gh pr view <n> --json files` and reading the diff) and judge them against the product's own bar (`docs/definition-of-done.md`, `docs/vision.md`): would a devoted fan share this? Say what is top tier, what is filler, and what is missing that fans would want.
 3. **Is our social strategy good?** Reach and cadence vs plan, engagement, Tree's scorecard, lessons learned, whether posts are actually going out (a week of zero posts is a verdict on its own — find the cause in the open PRs, not a guess). Strategy feedback for Tree is produced in Step 4.
 4. **Are we catching time-sensitive content?** Walk `timeSensitive.items`. For every `missed` or `late` event, confirm it really mattered to fans (a headline about a lawsuit may not) and state what a good response within 48 hours would have been. Name the cause of each miss: no one saw it, intake issue stuck, drafting gate blocked, content desk queue. The "Patient Zero" release is the standing test case: would we have caught it this week?
@@ -79,19 +78,19 @@ gh issue close <previous-number> --comment "Superseded by the plan for the week 
 
 <TL;DR: two sentences — are we growing, and the one thing this week is about.>
 
+## Next up
+- <plain-language outcome> — [#N](<url>) (<owner>)
+(3 to 5 lines: the ranked priorities, most growth impact first, each one line; nothing else under this heading)
+
 ## The six questions
 ### 1. Are we growing? — <Verdict>
 **Why:** ...
 **Evidence:** ...
 (...same three parts for 2 to 6; question 6 ends with one disposition line per open Tree ask)
 
-## Priorities
+## Priority detail
 1. **<outcome>** — why it grows the site · owner · [issue](<url>) · success signal
-(3 to 5)
-
-## Next up
-- <plain-language outcome> — [#N](<url>) (<owner>)
-(3 to 5 lines, ranked, each one line; nothing else under this heading)
+(the same 3 to 5, in the same order as `## Next up`)
 
 ## Filed this run
 - [#N](<url>) <title> — <why>  (or "Nothing new — everything is already filed.")
@@ -102,7 +101,7 @@ gh issue close <previous-number> --comment "Superseded by the plan for the week 
 Tier-2: Marjorie — weekly growth review
 ```
 
-`## Next up` must be present even in a bad week; if nothing can be set, say so in one line under it. Do not edit the plan body afterwards. If a problem needs the owner's identity, login, money or a product decision, list it under `## Needs the owner` — you cannot edit `HUMAN-ACTIONS.md` and must not try.
+`## Next up` must come directly after the TL;DR and be present even in a bad week; if nothing can be set, say so in one line under it. Its bullets are the same ranked priorities as `## Priority detail`. Do not edit the plan body afterwards. If a problem needs the owner's identity, login, money or a product decision, list it under `## Needs the owner` — you cannot edit `HUMAN-ACTIONS.md` and must not try.
 
 ## Step 6 — asking bot1 (the Hermes bot) — only if the rules say so
 
@@ -112,7 +111,7 @@ Read `.claude/skills/prompting-bot1/SKILL.md` first. At most **3 prompts**, and 
 gh api --paginate "repos/$GITHUB_REPOSITORY/issues/comments?since=$(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ)&per_page=100" --jq '.[] | select((.body|startswith("bot1-candidate:")) and (.user.login=="claude" or .user.login=="claude[bot]")) | {url:.html_url, body}'
 ```
 
-Treat each candidate as a draft to judge, not an order. For each prompt you decide to send, write only the prompt text (no preamble) to `.scratch/out/bot1-prompt-1.md` (then `-2`, `-3`). A later job posts them **only if the owner has switched the bridge on** (`scripts/marjorie/marjorie-config.json`, off today) and refuses otherwise — so still write them: the plan should list them under "Needs the owner" as "bot1 prompts drafted, bridge is off" while that is true. A prompt must never replace filing a GitHub issue for repo work.
+The daily triage routine also sends its own prompts after it runs, and the three-a-day cap is shared, so you are the backstop: send what chat left as candidates and anything stuck that triage did not catch. Treat each candidate as a draft to judge, not an order. For each prompt you decide to send, write only the prompt text (no preamble) to `.scratch/out/bot1-prompt-1.md` (then `-2`, `-3`). A later job posts them **only if the owner has switched the bridge on** (`scripts/marjorie/marjorie-config.json`, off today) and refuses otherwise — so still write them: the plan should list them under "Needs the owner" as "bot1 prompts drafted, bridge is off" while that is true. A prompt must never replace filing a GitHub issue for repo work.
 
 ## Hard limits (from the charter — never violate)
 

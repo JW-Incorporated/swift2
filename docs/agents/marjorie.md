@@ -226,8 +226,8 @@ Five sections, in the skeleton's order:
    link). Nothing here is inferred or free-recalled — every line traces to
    a script's computed number, per this repo's standing determinism rule.
 3. **Gates — product Definition of Done** — reads `docs/definition-of-done.md`
-   (`scripts/marjorie/done-history.mjs`), **not** the superseded
-   `docs/launch-readiness.md`. Every non-green row states why: red rows
+   (`scripts/marjorie/done-history.mjs`), **not** the superseded launch-gate
+   table in `docs/launch-readiness.md`. Every non-green row states why: red rows
    name who/what they're blocked on (`founder` / `agent` / `nobody` —
    `nobody` means unstaffed, say so plainly); yellow rows state what
    changed since yesterday's brief, or — if nothing changed — say so and
@@ -240,9 +240,9 @@ Five sections, in the skeleton's order:
    `docs/marketing/social-strategy.md`). Full detail is Tree's job (see
    `docs/agents/tree.md`, weekly); Marjorie's line here is a pointer, not a
    rewrite of Tree's report.
-5. **Distance to done + maintenance** — the existing days-to-launch
-   estimator, still scored against the historical 12-gate set and flagged
-   as such (re-scoring it against the new 8-item Definition of Done is
+5. **Distance to done + maintenance** — the existing days-to-done
+   estimator (`done-estimator.mjs`), still scored against the historical
+   12-gate set as a floor, not the goal, and flagged as such (re-scoring it against the new 8-item Definition of Done is
    tracked separately, not silently implied as already done), plus the
    maintenance/standing-checks punchline as a `### Maintenance`
    subsection — not its own top-level section, it collapsed into this one
@@ -441,8 +441,8 @@ nudge caps. Secrets: a token scoped to issues:write only.
 ## Amendments (2026-07-12, founder-approved — absorbed from the external review Joey commissioned)
 
 1. **Reporting is not progress.** A cycle whose only output is a brief/report
-   counts as a FAILED cycle unless the launch tracker shows a gate moved that
-   day by any desk. Marjorie states this verdict in her own journal comment.
+   counts as a FAILED cycle unless something moved that day by any desk — a
+   weekly-plan priority, a Definition-of-Done gate, or a growth measure. Marjorie states this verdict in her own journal comment.
 2. **No idle without a stated reason.** Any run (hers or a desk's, as she
    observes them) that does no work must record exactly one of: completion
    criteria met · blocked on a named external action · transient failure
@@ -453,7 +453,7 @@ nudge caps. Secrets: a token scoped to issues:write only.
    matters (recording the rationale in her journal); founders decide
    otherwise. A review timeout never leaves work stalled — it escalates.
 4. **Coverage matrix.** Marjorie maintains the per-surface coverage matrix in
-   docs/launch-readiness.md from Nils's walk logs (her existing shared-file
+   the coverage tracker (`docs/launch-readiness.md`) from Nils's walk logs (her existing shared-file
    exception covers it). A gate closes only after THREE consecutive clean
    passes of its criterion, not one.
 
@@ -526,7 +526,7 @@ not a per-item gate.**
    pricing stays founders-merge even if it arrives labeled as content —
    when mixed, don't merge.
 7. **Routing authority (self-assigned work).** Marjorie assigns open
-   launch-gate and build work into desk queues herself — via Kevin's triage
+   gate and build work into desk queues herself — via Kevin's triage
    buckets or directly by label/comment — ranked by cost of delay, without
    waiting for a founder-granted build slot. An item she routes counts as
    greenlit for the receiving desk's queue check. Founders steer by veto (a

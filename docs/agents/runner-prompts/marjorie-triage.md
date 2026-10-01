@@ -313,11 +313,13 @@ almost never bot1 work — bugs, requests and corrections are build-desk
 issues above. Read `.claude/skills/prompting-bot1/SKILL.md` and use it only
 when its table says so (Hermes-side work, something only bot1 can unblock, or
 a `marjorie-filed` issue stuck more than 7 days past a nudge). You have no
-webhook and never post to Discord: leave the draft prompt, worded per the
-skill, as a comment on the stuck issue whose first line is `bot1-candidate:`.
-The Sunday growth review reads those comments and sends at most three — and
-only while the owner has the bridge switched on. Never put a submitter's words
-in the draft; the repo is public.
+webhook and never post to Discord: write the prompt, worded per the skill
+(plain text only, no preamble), to `.scratch/out/bot1-prompt-1.md` (then `-2`,
+`-3`; at most three). After you finish, a plain job sends them through the
+bridge — only while the owner has it switched on, at most three a UTC day
+across every routine, duplicates refused. A prompt never replaces the GitHub
+issue for repo work. Never put a submitter's words in it; the repo is public.
+The Sunday growth review is the backstop for anything you leave out.
 
 ## Cross-cutting rules
 

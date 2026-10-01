@@ -7,7 +7,9 @@ import { collect, parseArgs, readJsonTree } from './growth-data.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { followerDeltas, postsSummary, weekWindow, trafficSection, contentSummary } from './lib/growth-data.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { keywordsOf, textMatches, timeSensitiveCoverage, treeAsksSummary } from './lib/growth-coverage.mjs';
+import { keywordsOf, referencesIssue, textMatches, timeSensitiveCoverage, treeAsksSummary } from './lib/growth-coverage.mjs';
+// @ts-expect-error — plain .mjs module, no type declarations
+import { fetchTraffic, NO_TOKEN_NOTE } from './lib/growth-traffic.mjs';
 
 const NOW = Date.parse('2026-09-30T12:00:00Z');
 const win = weekWindow(undefined, NOW);
@@ -96,6 +98,26 @@ describe('time-sensitive coverage', () => {
     expect(out.items.find((e: { number: number }) => e.number === 7)).toBeUndefined();
     expect(out.coverageHours).toBe(48);
   });
+  it('counts a merged PR that references the intake issue as verified site coverage', () => {
+    const issues = [issue(1, "intake: 'Alpha Song' drops", 100), issue(2, "intake: 'Beta Song' drops", 100, { state: 'CLOSED', closedAt: iso(NOW - 90 * H) }), issue(3, "intake: 'Gamma Song' drops", 100)];
+    const prs = [
+      { number: 50, title: 'content: alpha', body: 'Closes #1', mergedAt: iso(NOW - 80 * H) },
+      { number: 51, title: 'unrelated', body: 'mentions #11 only', mergedAt: iso(NOW - 70 * H) },
+      { number: 52, title: 'x', body: '', mergedAt: iso(NOW - 60 * H), closingIssuesReferences: [{ number: 3 }] },
+    ];
+    const out = timeSensitiveCoverage(issues, [], win, prs);
+    const by = Object.fromEntries(out.items.map((e: { number: number }) => [e.number, e]));
+    expect(by[1]).toMatchObject({ status: 'site-only', siteSource: 'pr-merged', siteStateUnverified: false, mergedPR: { number: 50, hoursAfter: 20 } });
+    expect(by[2]).toMatchObject({ siteSource: 'issue-closed', siteStateUnverified: true });
+    expect(by[3]).toMatchObject({ siteSource: 'pr-merged', siteStateUnverified: false });
+    expect(out.siteStateUnverified).toBe(1);
+    expect(referencesIssue(prs[1], 1)).toBe(false);
+  });
+  it('flags every site verdict unverified when the PR list could not be read', () => {
+    const out = timeSensitiveCoverage([issue(1, "intake: 'Alpha Song' drops", 10)], [], win, null);
+    expect(out.items[0].siteStateUnverified).toBe(true);
+    expect(out.siteStateUnverified).toBe(1);
+  });
   it('carries over still-open events from the prior week but not closed ones', () => {
     const old = (n: number, state: string) => issue(n, `intake: 'Old ${n}' news`, 24 * 9, { state });
     const out = timeSensitiveCoverage([old(1, 'OPEN'), old(2, 'CLOSED')], [], win);
@@ -119,10 +141,60 @@ describe('treeAsksSummary', () => {
 });
 
 describe('traffic', () => {
-  it('is null with a reason — never an estimate', () => {
-    const t = trafficSection();
-    expect(t.traffic).toBeNull();
-    expect(t.trafficNote).toMatch(/No read-only site-traffic source/);
+  const ctx = { token: 'tok_SECRET', projectId: 'prj_1', teamId: 'team_1', win };
+  const respond = (data: unknown, ok = true, status = 200) => ({ ok, status, json: async () => ({ version: 1, query: {}, data }) });
+  function fakeApi() {
+    const urls: string[] = [];
+    const fetchImpl = vi.fn(async (url: URL, init: { headers: { authorization: string } }) => {
+      urls.push(String(url));
+      expect(init.headers.authorization).toBe('Bearer tok_SECRET');
+      const u = new URL(String(url));
+      if (u.pathname.endsWith('/count')) {
+        return respond(Number(u.searchParams.get('since')) < win.startMs ? { pageviews: 20, visitors: 15 } : { pageviews: 50, visitors: 39 });
+      }
+      const by = u.searchParams.get('by');
+      return respond(by === 'requestPath'
+        ? [{ requestPath: '/', pageviews: 30, visitors: 25 }, { requestPath: 'Others', pageviews: 3, visitors: 3 }, { requestPath: '/eras/folklore', pageviews: 12, visitors: 9 }]
+        : [{ referrerHostname: 'google.com', pageviews: 5, visitors: 5 }, { referrerHostname: '', pageviews: 40, visitors: 30 }]);
+    });
+    return { fetchImpl, urls };
+  }
+  it('is null with a reason when there is no token, project or the API fails — never an estimate', async () => {
+    expect(trafficSection().traffic).toBeNull();
+    expect(await fetchTraffic({ ...ctx, token: undefined })).toEqual({ traffic: null, trafficNote: NO_TOKEN_NOTE });
+    expect((await fetchTraffic({ ...ctx, projectId: undefined })).traffic).toBeNull();
+    const bad = await fetchTraffic({ ...ctx, fetchImpl: (async () => respond({}, false, 403)) as never });
+    expect(bad.traffic).toBeNull();
+    expect(bad.trafficNote).toMatch(/HTTP 403/);
+    const odd = await fetchTraffic({ ...ctx, fetchImpl: (async () => respond({ nope: 1 })) as never });
+    expect(odd.traffic).toBeNull();
+  });
+  it('never leaks the token into the note when a request throws with it in the message', async () => {
+    const out = await fetchTraffic({ ...ctx, fetchImpl: (async () => { throw new Error('boom tok_SECRET'); }) as never });
+    expect(out.traffic).toBeNull();
+    expect(JSON.stringify(out)).not.toContain('tok_SECRET');
+  });
+  it('collects this week, the prior week and top paths/referrers from the documented endpoints', async () => {
+    const { fetchImpl, urls } = fakeApi();
+    const out = await fetchTraffic({ ...ctx, fetchImpl: fetchImpl as never });
+    expect(out.traffic).toMatchObject({ source: 'vercel-web-analytics', visitors: 39, pageviews: 50, previousWeek: { visitors: 15, pageviews: 20 } });
+    expect(out.traffic.topPaths).toEqual([{ path: '/', pageviews: 30, visitors: 25 }, { path: '/eras/folklore', pageviews: 12, visitors: 9 }]);
+    expect(out.traffic.topReferrers[0]).toEqual({ referrer: '(direct)', pageviews: 40, visitors: 30 });
+    expect(urls.every((u) => u.startsWith('https://api.vercel.com/v1/query/web-analytics/visits/'))).toBe(true);
+    expect(urls.every((u) => u.includes('projectId=prj_1') && u.includes('teamId=team_1'))).toBe(true);
+    expect(urls.some((u) => u.includes('/aggregate?') && u.includes('by=requestPath'))).toBe(true);
+  });
+  it('collect() passes VERCEL_TOKEN from env only, and without a token reports null with the reason', async () => {
+    const root = mkdtempSync(path.join(tmpdir(), 'growth-traffic-'));
+    const gh = vi.fn(async () => ({ stdout: '[]' }));
+    const fetchContent = vi.fn(async () => []);
+    const { fetchImpl } = fakeApi();
+    const withToken = await collect({ root, nowMs: NOW, gh, fetchContent, env: { VERCEL_TOKEN: 'tok_SECRET', VERCEL_PROJECT_ID: 'prj_1' }, fetchImpl });
+    expect(withToken.traffic).toMatchObject({ visitors: 39 });
+    expect(JSON.stringify(withToken)).not.toContain('tok_SECRET');
+    const without = await collect({ root, nowMs: NOW, gh, fetchContent, env: {}, fetchImpl });
+    expect(without.traffic).toBeNull();
+    expect(without.trafficNote).toBe(NO_TOKEN_NOTE);
   });
 });
 
@@ -148,7 +220,7 @@ describe('collect + CLI helpers', () => {
   }
 
   it('assembles every section offline with --no-gh and says GitHub was skipped', async () => {
-    const out = await collect({ root: fixtureRoot(), nowMs: NOW, noGh: true });
+    const out = await collect({ root: fixtureRoot(), nowMs: NOW, noGh: true, env: {} });
     expect(out.followers.platforms.instagram.delta).toBe(1);
     expect(out.posts.thisWeek.total).toBe(1);
     expect(out.posts.engagement.likes).toBe(2);
@@ -160,7 +232,7 @@ describe('collect + CLI helpers', () => {
   it('a GitHub outage in one section becomes a warning, not a crash', async () => {
     const gh = vi.fn(async () => { throw new Error('HTTP 502'); });
     const fetchContent = vi.fn(async () => { throw new Error('gh pr list failed'); });
-    const out = await collect({ root: fixtureRoot(), nowMs: NOW, gh, fetchContent });
+    const out = await collect({ root: fixtureRoot(), nowMs: NOW, gh, fetchContent, env: {} });
     expect(out.timeSensitive.events).toBe(0);
     expect(out.warnings.filter((w: string) => /HTTP 502|gh pr list failed/.test(w)).length).toBeGreaterThanOrEqual(3);
     expect(out.followers.platforms.instagram.end).toBe(4);

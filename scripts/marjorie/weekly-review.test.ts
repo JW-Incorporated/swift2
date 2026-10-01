@@ -13,7 +13,18 @@ const austin = read('.github/workflows/routine-austin-build.yml');
 const prompt = read('docs/agents/runner-prompts/marjorie-weekly-review.md');
 const charter = read('docs/agents/marjorie.md');
 const skill = read('.claude/skills/prompting-bot1/SKILL.md');
+const triage = read('.github/workflows/routine-marjorie-triage.yml');
+const cadence = JSON.parse(read('scripts/marjorie/runner-cadence.json'));
 const TRAILER = 'Tier-2: Marjorie — weekly growth review';
+
+// One job's text: from `  <name>:` at job indent to the next job header.
+function job(text: string, name: string) {
+  const start = text.indexOf(`\n  ${name}:\n`);
+  expect(start, `job ${name}`).toBeGreaterThan(-1);
+  const rest = text.slice(start + 1);
+  const next = rest.slice(1).search(/\n {2}[a-z0-9-]+:\n/);
+  return next === -1 ? rest : rest.slice(0, next + 1);
+}
 
 // Minutes from Monday 00:00 UTC; cron day 0 (Sunday) is the END of the week, day 7.
 function weekMinute(cron: string) {
@@ -40,27 +51,46 @@ describe('routine-marjorie-weekly-review.yml', () => {
     expect(review).toMatch(/max_turns: \d+/);
     expect(Number(/max_turns: (\d+)/.exec(review)![1])).toBeLessThanOrEqual(100);
     expect(review).toMatch(/timeout_minutes: \d+/);
-    expect(review).toContain("inputs.max_budget_usd");
+    expect(review).toContain('inputs.max_budget_usd');
+  });
+
+  it('caps scheduled runs with a nonzero budget (manual 0 falls back to it)', () => {
+    const expr = /max_budget_usd: \$\{\{ fromJSON\(format\('\{0\}', (.+)\)\) \}\}/.exec(review)![1];
+    expect(expr).toBe("github.event_name == 'workflow_dispatch' && inputs.max_budget_usd > 0 && inputs.max_budget_usd || 12");
+    expect(review).not.toMatch(/inputs\.max_budget_usd \|\| 0/);
   });
 
   it('gives the agent no Write/Edit/Task and no secret beyond the OAuth token', () => {
     const tools = extractAllowedTools(review);
     expect(tools).toEqual(expect.arrayContaining(['Bash', 'Read', 'Grep', 'Glob']));
     for (const forbidden of ['Write', 'Edit', 'Task', 'MultiEdit', 'NotebookEdit']) expect(tools).not.toContain(forbidden);
-    const agentJob = review.slice(review.indexOf('  run:'), review.indexOf('  # The agent wrote'));
+    const agentJob = job(review, 'run');
     expect(agentJob).toContain('CLAUDE_CODE_OAUTH_TOKEN');
     expect(agentJob).not.toMatch(/SOCIAL_POSTER_PAT|DISCORD_|webhook/i);
     expect(review).not.toContain('DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL');
     expect(agentJob).toContain('post_run_artifact: marjorie-weekly-review-out');
+    expect(agentJob).toContain('pre_run_artifact: marjorie-growth-data');
+    expect(agentJob).not.toContain('VERCEL');
+  });
+
+  it('reads VERCEL_TOKEN only in the plain collect job, on main, via env', () => {
+    const collect = job(review, 'collect');
+    expect(collect).toContain('ref: main');
+    expect(collect).toContain('VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}');
+    expect(collect).toContain('scripts/marjorie/growth-data.mjs');
+    expect(collect).not.toContain('claude-code-action');
+    expect(collect).toContain('name: marjorie-growth-data');
+    expect(review.match(/secrets\.VERCEL_TOKEN/g)).toHaveLength(1);
+    expect(job(review, 'run')).toContain('needs: collect');
   });
 
   it('files Tree asks from a plain job on the workflow token with main pinned, then calls the bridge', () => {
-    const job = review.slice(review.indexOf('  file-tree-feedback:'), review.indexOf('  bot1:'));
-    expect(job).toContain('ref: main');
-    expect(job).toContain('loop-asks.mjs file-marjorie');
-    expect(job).toContain('--no-edit');
-    expect(job).toContain('secrets.GITHUB_TOKEN');
-    expect(job).not.toContain('claude-code-action');
+    const filing = job(review, 'file-tree-feedback');
+    expect(filing).toContain('ref: main');
+    expect(filing).toContain('loop-asks.mjs file-marjorie');
+    expect(filing).toContain('--no-edit');
+    expect(filing).toContain('secrets.GITHUB_TOKEN');
+    expect(filing).not.toContain('claude-code-action');
     expect(review).toContain('uses: ./.github/workflows/marjorie-bot1-bridge.yml');
   });
 
@@ -110,7 +140,9 @@ describe('weekly review prompt', () => {
   });
   it('uses the collector and the deterministic funnel, never invents traffic, dedupes, and gives Tree asks the loop-asks shape', () => {
     expect(prompt).toContain('scripts/marjorie/growth-data.mjs');
-    expect(prompt).toMatch(/`traffic` is `null` today/);
+    expect(prompt).toMatch(/If `traffic` is `null`, say so plainly/);
+    expect(prompt).toContain('previousWeek');
+    expect(prompt).toContain('siteStateUnverified');
     expect(prompt).toContain('marjorie-triage.md');
     expect(prompt).toMatch(/dedupe/i);
     expect(prompt).toContain('.scratch/out/for-tree-1.md');
@@ -121,6 +153,15 @@ describe('weekly review prompt', () => {
   it('closes only asks it satisfied and files no HUMAN-ACTIONS entry itself', () => {
     expect(prompt).toMatch(/never close an ask you did not satisfy/i);
     expect(prompt).toMatch(/cannot edit `HUMAN-ACTIONS.md`/);
+  });
+  it('puts `## Next up` (the ranked priorities) directly after the TL;DR in the template', () => {
+    const template = prompt.slice(prompt.indexOf('**Week of <YYYY-MM-DD>**'));
+    const headings = [...template.matchAll(/^## .+$/gm)].map((m) => m[0]);
+    expect(headings[0]).toBe('## Next up');
+    expect(headings.filter((h) => h === '## Next up')).toHaveLength(1);
+    expect(headings.indexOf('## Next up')).toBeLessThan(headings.indexOf('## The six questions'));
+    expect(prompt).toMatch(/directly after the TL;DR/);
+    expect(prompt).toContain('## Priority detail');
   });
   it('requires the exact attribution trailer', () => {
     expect(prompt).toContain(TRAILER);
@@ -152,15 +193,48 @@ describe('charter, decision log and skill', () => {
     expect(skill).toMatch(/one outcome/i);
     expect(skill).toMatch(/Done when/);
   });
-  it('the triage and chat prompts reference the skill with the candidate hand-off', () => {
-    for (const f of ['marjorie-triage.md', 'marjorie-chat.md']) {
-      const text = read(`docs/agents/runner-prompts/${f}`);
-      expect(text).toContain('.claude/skills/prompting-bot1/SKILL.md');
-      expect(text).toContain('bot1-candidate:');
-    }
+  it('the triage prompt sends via the artifact path and the chat prompt hands off by candidate comment, both through the skill', () => {
+    const t = read('docs/agents/runner-prompts/marjorie-triage.md');
+    const c = read('docs/agents/runner-prompts/marjorie-chat.md');
+    for (const text of [t, c]) expect(text).toContain('.claude/skills/prompting-bot1/SKILL.md');
+    expect(t).toContain('.scratch/out/bot1-prompt-1.md');
+    expect(c).toContain('bot1-candidate:');
   });
   it('the new labels are bootstrapped', () => {
     const names = LABELS.map(([n]: [string]) => n);
     expect(names).toEqual(expect.arrayContaining(['weekly-plan', 'bot1-bridge']));
+  });
+});
+
+describe('triage bot1 sender, cadence entries and the human action', () => {
+  it('triage saves its bot1 prompts as an artifact and a plain job sends them through the bridge', () => {
+    expect(job(triage, 'run')).toContain('post_run_artifact: marjorie-triage-out');
+    const bot1 = job(triage, 'bot1');
+    expect(bot1).toContain('uses: ./.github/workflows/marjorie-bot1-bridge.yml');
+    expect(bot1).toContain('artifact: marjorie-triage-out');
+    expect(bot1).toContain("needs.run.result == 'success'");
+    expect(job(triage, 'run')).not.toMatch(/DISCORD_|webhook/i);
+    expect(read('docs/agents/runner-prompts/marjorie-triage.md')).toContain('.scratch/out/bot1-prompt-1.md');
+  });
+  it('registers the weekly review and Tree plan in the standing cadence check', () => {
+    const find = (name: string) => cadence.runners.find((r: { name: string }) => r.name === name);
+    expect(find('Marjorie — weekly growth review')).toEqual({ name: 'Marjorie — weekly growth review', perDay: 0.14, maxAgeHours: 216, match: { kind: 'issue-label', value: 'weekly-plan' } });
+    expect(find('Tree — weekly social plan').match).toEqual({ kind: 'pr-branch', value: 'tree/plan/' });
+  });
+  it('files the bridge human action in format v2 with the literal secret name and the Hermes tracking link', () => {
+    const ha = read('HUMAN-ACTIONS.md');
+    const entry = ha.slice(ha.indexOf('## #89 '), ha.indexOf('## #88 '));
+    expect(entry).toMatch(/^## #89 🟢 \[UPGRADE\] /);
+    for (const literal of ['DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL', '`ops`', 'https://github.com/JW-Incorporated/Hermes/issues/1', 'bot1Bridge.enabled', '`Marjorie`']) expect(entry).toContain(literal);
+    for (const label of ['**Why:**', '**Steps:**', '**Worked if:**']) expect(entry).toContain(label);
+    expect(entry).not.toMatch(/\*\*Status/);
+    expect(Buffer.byteLength(entry)).toBeLessThanOrEqual(1500);
+  });
+  it('the brief prompt and charter no longer headline launch framing', () => {
+    const brief = read('docs/agents/runner-prompts/marjorie-brief.md');
+    expect(brief).not.toContain('failed org day');
+    expect(brief).not.toContain('launch-gate ticket');
+    expect(charter).not.toContain('days-to-launch');
+    expect(charter).not.toContain('launch tracker shows a gate moved');
   });
 });

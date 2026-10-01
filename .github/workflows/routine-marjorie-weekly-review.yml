@@ -13,6 +13,16 @@
 # proven in any routine here, so this routine matches the working one. Bump it
 # in one line once another routine has run green on it.
 #
+# Budget: scheduled runs carry a nonzero cap (default $12), unlike the brief and
+# triage routines (0 = uncapped). The closest peer, Tree's weekly plan (69 turns,
+# the heaviest weekly run), cost $5.50 list-price on 2026-09-28 per its
+# routine-usage artifact; this one reads more and runs on Fable, so ~2x headroom.
+# A manual dispatch may set its own positive cap; 0 or empty falls back to 12.
+#
+# VERCEL_TOKEN (traffic) is read ONLY by the plain `collect` job below, which
+# runs the deterministic collector on main and hands the agent a JSON file via
+# pre_run_artifact — the agent never holds the token.
+#
 # Allowed tools carry no Write/Edit (charter: Marjorie never writes product
 # code, content or specs) and no Task (invariant 4). The agent holds no Discord
 # credential: the two plain jobs below do the sending — `file-tree-feedback`
@@ -27,7 +37,7 @@ on:
   workflow_dispatch:
     inputs:
       max_budget_usd:
-        description: "Optional manual-run Claude budget setting; 0 keeps normal behavior"
+        description: "Optional manual-run Claude budget in USD; 0 or empty keeps the scheduled default of 12"
         required: false
         type: number
         default: 0
@@ -39,7 +49,43 @@ permissions:
   id-token: write
 
 jobs:
+  # Deterministic, read-only evidence for the review (scripts/marjorie/
+  # growth-data.mjs). Plain job, checkout pinned to main (it holds a token),
+  # token passed through env only. Always uploads a file — a collector failure
+  # becomes {"error": ...} so the agent can say so instead of the run dying.
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Collect growth data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          mkdir -p .scratch
+          timeout 600 node --use-env-proxy scripts/marjorie/growth-data.mjs --out .scratch/growth-data.json || true
+          if [ ! -s .scratch/growth-data.json ]; then
+            echo '{"error":"growth-data.mjs failed; see the collect job log"}' > .scratch/growth-data.json
+          fi
+      - name: Hand the evidence to the agent job
+        uses: actions/upload-artifact@v4
+        with:
+          name: marjorie-growth-data
+          path: .scratch/growth-data.json
+          retention-days: 1
+
   run:
+    needs: collect
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Marjorie — weekly growth review"
@@ -48,7 +94,8 @@ jobs:
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 45
       max_turns: 80
-      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
+      max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd > 0 && inputs.max_budget_usd || 12)) }}
+      pre_run_artifact: marjorie-growth-data
       post_run_artifact: marjorie-weekly-review-out
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

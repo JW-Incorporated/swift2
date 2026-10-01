@@ -81,18 +81,12 @@ export function contentSummary(withFiles, erasTouched) {
   return { mergedContentPRs: items.length, items };
 }
 
-export const TRAFFIC_NOTE =
-  'No read-only site-traffic source is wired. @vercel/analytics is client-only (apps/web/app/layout.tsx); ' +
-  'no documented read API for Vercel Web Analytics data was found, and the repo secret VERCEL_TOKEN ' +
-  '(names checked via gh secret list) is used only for deployment status. Human action: choose a read-only ' +
-  'analytics source (see the W5 report) before traffic can be reported.';
-
-/** Traffic is `null` until a real source exists — never an estimate. */
-export function trafficSection() {
-  return { traffic: null, trafficNote: TRAFFIC_NOTE };
+/** Fallback when no traffic result was collected (see lib/growth-traffic.mjs). */
+export function trafficSection(result) {
+  return result ?? { traffic: null, trafficNote: 'Traffic was not collected in this run.' };
 }
 
-export function buildGrowthData({ win, series, posted, postMetrics, content, coverage, treeAsks, eventStatus, warnings = [] }) {
+export function buildGrowthData({ win, series, posted, postMetrics, content, coverage, treeAsks, eventStatus, trafficResult, warnings = [] }) {
   return {
     generatedFor: { start: win.start, end: win.end, days: 7 },
     followers: followerDeltas(series, win),
@@ -102,7 +96,7 @@ export function buildGrowthData({ win, series, posted, postMetrics, content, cov
     timeSensitive: coverage,
     treeAsks,
     eventStatus: eventStatus ?? null,
-    ...trafficSection(),
+    ...trafficSection(trafficResult),
     warnings,
   };
 }

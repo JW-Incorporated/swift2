@@ -3,8 +3,12 @@
 // (`intake` label, title `intake: <headline>` — the news desk's drops, e.g.
 // the "Patient Zero" single). Coverage = did the SITE ship it (issue closed)
 // and did a SOCIAL post go out, each within COVERAGE_HOURS of the event.
-// Social matching is by headline keywords against posted body/campaign/why —
-// a mechanical hint the reviewer re-checks, never a verdict on its own.
+// Site coverage is a MERGED PR that references the intake issue (verified), or
+// else the issue being closed — which can also mean "not planned", so that path
+// is flagged `siteStateUnverified`. Social matching is by headline keywords
+// against posted body/campaign/why — a mechanical hint the reviewer re-checks,
+// never a verdict on its own. Intake issues carry no structured relevance
+// field, so no event is excluded as "not fan-relevant"; the reviewer judges.
 import { DAY_MS } from './growth-data.mjs';
 
 export const COVERAGE_HOURS = 48;
@@ -38,12 +42,19 @@ function classify({ siteHours, socialHours, ageHours }) {
   return siteHours !== null || socialHours !== null ? 'late' : 'missed';
 }
 
+/** A PR references issue `n` by a closing link or a `#n` mention in its title/body. */
+export function referencesIssue(pr, n) {
+  if ((pr?.closingIssuesReferences || []).some((r) => Number(r?.number) === n)) return true;
+  return new RegExp(`(^|[^\\w/])#${n}(?!\\d)`).test(`${pr?.title ?? ''}\n${pr?.body ?? ''}`);
+}
+
 /**
  * Events from intake issues created inside the window, plus still-open ones
  * from the week before (carried over — an uncovered event does not stop
- * mattering at the week boundary).
+ * mattering at the week boundary). `mergedPRs` is `null` when the PR list
+ * could not be read: every site verdict is then unverified.
  */
-export function timeSensitiveCoverage(intakeIssues, posted, { startMs, endMs }) {
+export function timeSensitiveCoverage(intakeIssues, posted, { startMs, endMs }, mergedPRs = null) {
   const events = (intakeIssues || [])
     .filter((i) => /^intake:/i.test(i.title || ''))
     .filter((i) => {
@@ -61,7 +72,15 @@ export function timeSensitiveCoverage(intakeIssues, posted, { startMs, endMs }) 
         .sort((a, b) => Date.parse(a.postedAt) - Date.parse(b.postedAt))
         .map((p) => ({ platform: p.platform, postedAt: p.postedAt, campaign: p.campaign ?? null, hoursAfter: Math.round((Date.parse(p.postedAt) - created) / HOUR_MS) }));
       const closed = String(issue.state).toUpperCase() === 'CLOSED' && issue.closedAt;
-      const siteHours = closed ? Math.round((Date.parse(issue.closedAt) - created) / HOUR_MS) : null;
+      const closedHours = closed ? Math.round((Date.parse(issue.closedAt) - created) / HOUR_MS) : null;
+      const pr = (mergedPRs || [])
+        .filter((p) => p.mergedAt && Date.parse(p.mergedAt) >= created && Date.parse(p.mergedAt) <= endMs && referencesIssue(p, issue.number))
+        .sort((a, b) => Date.parse(a.mergedAt) - Date.parse(b.mergedAt))[0];
+      const prHours = pr ? Math.round((Date.parse(pr.mergedAt) - created) / HOUR_MS) : null;
+      // A merged PR is verified shipping. A bare close may be "not planned"; with no PR list at all, nothing is verified.
+      const siteSource = pr ? 'pr-merged' : closedHours !== null ? 'issue-closed' : null;
+      const siteHours = prHours !== null && (closedHours === null || prHours <= closedHours) ? prHours : closedHours;
+      const siteStateUnverified = mergedPRs === null || siteSource === 'issue-closed';
       const socialHours = matched.length ? matched[0].hoursAfter : null;
       const ageHours = Math.max(0, Math.round((endMs - created) / HOUR_MS));
       return {
@@ -72,6 +91,9 @@ export function timeSensitiveCoverage(intakeIssues, posted, { startMs, endMs }) 
         state: String(issue.state).toLowerCase(),
         ageHours,
         siteHoursToShip: siteHours,
+        siteSource,
+        siteStateUnverified,
+        mergedPR: pr ? { number: pr.number, hoursAfter: prHours } : null,
         socialHoursToFirstPost: socialHours,
         matchedPosts: matched.slice(0, 5),
         status: classify({ siteHours, socialHours, ageHours }),
@@ -79,7 +101,7 @@ export function timeSensitiveCoverage(intakeIssues, posted, { startMs, endMs }) 
     });
   const byStatus = {};
   for (const e of events) byStatus[e.status] = (byStatus[e.status] || 0) + 1;
-  return { coverageHours: COVERAGE_HOURS, events: events.length, byStatus, items: events };
+  return { coverageHours: COVERAGE_HOURS, events: events.length, byStatus, siteStateUnverified: events.filter((e) => e.siteStateUnverified).length, items: events };
 }
 
 const stripTitle = (t) => String(t || '').replace(TITLE_PREFIX_RE, '').slice(0, 110);

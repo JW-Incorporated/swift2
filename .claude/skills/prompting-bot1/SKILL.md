@@ -9,7 +9,10 @@ version: 1.0.0
 bot1 is the Hermes1 Discord bot. The owner types a free-text message in
 `#longlive`; Hermes turns it into a Kanban card on the project board and
 works it. Marjorie reaches the same door through
-`scripts/marjorie/prompt-bot1.mjs` — a webhook post to `#longlive`, **off by
+`scripts/marjorie/prompt-bot1.mjs` — a webhook post to `#longlive` (the daily
+triage run and the Sunday growth review save `.scratch/out/bot1-prompt-N.md`
+and a plain job sends it; chat leaves a `bot1-candidate:` comment the Sunday
+review picks up), **off by
 default** (`scripts/marjorie/marjorie-config.json` → `bot1Bridge.enabled`),
 at most **3 prompts per UTC day**, every one logged on the issue labelled
 `bot1-bridge`. A prompt costs a Hermes card and the owner's attention; treat
