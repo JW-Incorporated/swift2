@@ -11,6 +11,10 @@ export const DISCORD_MESSAGE_LIMIT = 2_000;
 export const TREE_WEBHOOK_USERNAME = 'Tree';
 export const TREE_AVATAR_URL = 'https://www.longlivets.com/social/tree-avatar.png';
 
+/** Discord message flag SUPPRESS_EMBEDS (1 << 2) — C6 in docs/plans/bots-v2/PLAN.md:
+ * every webhook post turns link previews off in code, not channel permissions. */
+export const DISCORD_SUPPRESS_EMBEDS = 4;
+
 export function neutralizeMentions(text) {
   return String(text ?? '')
     .replace(/@everyone/g, '@\u200beveryone')
@@ -109,82 +113,6 @@ export function chunkForDiscord(content, limit = DISCORD_MESSAGE_LIMIT) {
   return balanceFences(rawChunks);
 }
 
-/** S6 (docs/specs/tree-overhaul/s3-reason-protocol.md §3 "What S6 must
- * add"): the ref line social-approval-poll.mjs dispatches a Reddit
- * reaction against is appended below, after every OTHER field a lead
- * carries — `lead.title`/`lead.draft`/`lead.draft_alt` are uncontrolled
- * free text (a scraped Reddit thread, a drafted reply) rendered BEFORE
- * that trusted trailing line, so a line inside them that happens to be
- * ref-line-shaped is neutralized first, same zero-width-space technique
- * weekly-brief.mjs's escapeRefLookalikes and approval-prompt.mjs's
- * neutralizeRefLikeLines already use for the PR ref grammar (found and
- * fixed twice already this wave) — reused here, not reinvented, extended
- * to also cover S6's own `ref: reddit ·` grammar. */
-const REF_LOOKALIKE_RE_PR = /^ref: PR #/gm;
-const REF_LOOKALIKE_RE_REDDIT = /^ref: reddit ·/gm;
-
-function escapeRefLookalikes(text) {
-  return String(text ?? '')
-    .replace(REF_LOOKALIKE_RE_PR, 'ref​: PR #')
-    .replace(REF_LOOKALIKE_RE_REDDIT, 'ref​: reddit ·');
-}
-
-/**
- * Builds a paste-ready Discord prompt for one lead. Unlike the earlier
- * revision, this never mints its own acknowledgement identifier — it takes
- * the caller-supplied `postedUrl`/`skipUrl` (built by
- * `mailer.mjs#buildAckUrl`, the SAME signed HMAC url the email path has
- * always used — `packages/core/src/community-ack-token.ts`) and simply
- * wraps them in Markdown angle brackets (`<url>`) so Discord's link
- * unfurler never issues its own GET against the acknowledgement route
- * (Fable ruling 2026-09-09 23:24: an unfurl-triggered GET would otherwise
- * be a false, unintended acknowledgement). No unsigned `discord_ack_id`
- * capability exists; `action`/`link` remain bound into the HMAC signature
- * exactly as the email flow already verifies them.
- */
-export function buildCommunityPrompt(lead, { postedUrl = null, skipUrl = null } = {}) {
-  const platform = lead.platform === 'reddit' ? 'Reddit' : 'Facebook';
-  const destination =
-    lead.platform === 'reddit' ? `r/${lead.community}` : lead.locator || lead.community;
-  const relevance = typeof lead.relevance === 'number' ? lead.relevance.toFixed(2) : 'n/a';
-  const lines = [
-    `**Community prompt · ${platform} · ${destination}**`,
-    `ID: ${lead.id}`,
-    `Relevance: ${relevance}`,
-    lead.title ? `Thread: ${escapeRefLookalikes(neutralizeMentions(lead.title))}` : null,
-    lead.url ? `Open thread: ${lead.url}` : null,
-    '',
-    '**Paste-ready reply**',
-    '```',
-    escapeRefLookalikes(neutralizeMentions(lead.draft || '(No draft on file.)')).replace(/```/g, '``\u200b`'),
-    '```',
-    lead.draft_alt
-      ? `**Alternative**\n\`\`\`\n${escapeRefLookalikes(neutralizeMentions(lead.draft_alt)).replace(/```/g, '``\u200b`')}\n\`\`\``
-      : null,
-    lead.target_url && !lead.link_included
-      ? `Link candidate (not included): ${lead.target_url}`
-      : null,
-    '',
-    'Nothing is posted automatically. After your manual decision, record it here:',
-    postedUrl && skipUrl
-      ? `[Posted manually](<${postedUrl}>) · [Skip](<${skipUrl}>)`
-      : 'Acknowledgement control unavailable: COMMUNITY_ACK_SECRET is not configured in this environment yet.',
-  ];
-  // S6: Reddit only — Facebook prompts (this builder's other caller) are
-  // out of S6's scope and keep today's behavior of no ref line at all.
-  // `lead.id` lands directly inside this trusted line (not through
-  // escapeRefLookalikes, which only guards text rendered ABOVE it), so it
-  // is whitespace-collapsed the same way approval-prompt.mjs's
-  // sanitizeInlineField guards an inline field — a stray embedded newline
-  // in `lead.id` must never be able to shift what this message's true
-  // last line is.
-  if (lead.platform === 'reddit') {
-    const postId = String(lead.id ?? '').replace(/\s+/g, ' ').trim();
-    if (postId) lines.push(`ref: reddit · ${postId}`);
-  }
-  return lines.filter(Boolean).join('\n');
-}
-
 /**
  * Sends every prompt to the configured Discord webhook one at a time,
  * never throwing on an individual failure — a transient Discord error on
@@ -196,7 +124,12 @@ export function buildCommunityPrompt(lead, { postedUrl = null, skipUrl = null } 
  */
 export async function postCommunityPrompts(
   prompts,
-  { webhook = process.env.DISCORD_SOCIAL_WEBHOOK, fetchImpl = fetch, onDelivered = null } = {},
+  {
+    webhook = process.env.DISCORD_SOCIAL_WEBHOOK,
+    fetchImpl = fetch,
+    onDelivered = null,
+    username = TREE_WEBHOOK_USERNAME,
+  } = {},
 ) {
   if (!webhook) return { status: 'unconfigured', delivered: [], failed: [] };
   const delivered = [];
@@ -213,9 +146,10 @@ export async function postCommunityPrompts(
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           content: prompt.content,
-          username: TREE_WEBHOOK_USERNAME,
+          username,
           avatar_url: TREE_AVATAR_URL,
           allowed_mentions: { parse: [] },
+          flags: DISCORD_SUPPRESS_EMBEDS,
         }),
       });
       if (!response.ok)
@@ -230,6 +164,30 @@ export async function postCommunityPrompts(
     }
   }
   return { status: failed.length === 0 ? 'delivered' : 'partial', delivered, failed };
+}
+
+/** Best-effort one-line lead-in before a batch; never throws, never blocks the batch. */
+export async function postBatchHeader(
+  content,
+  { webhook = process.env.DISCORD_SOCIAL_WEBHOOK, fetchImpl = fetch, username = TREE_WEBHOOK_USERNAME } = {},
+) {
+  if (!webhook) return false;
+  try {
+    const response = await fetchImpl(webhook, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        content,
+        username,
+        avatar_url: TREE_AVATAR_URL,
+        allowed_mentions: { parse: [] },
+        flags: DISCORD_SUPPRESS_EMBEDS,
+      }),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
 }
 
 export function deliveryStatusFromResult(result) {

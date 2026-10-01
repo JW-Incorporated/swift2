@@ -53,7 +53,15 @@ import { createHmac } from 'node:crypto';
 import { URLSearchParams } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { buildCommunityPrompt, postCommunityPrompts } from './discord-delivery.mjs';
+import { postBatchHeader, postCommunityPrompts } from './discord-delivery.mjs';
+import {
+  COMMUNITY_WEBHOOK_USERNAME,
+  buildBatchHeader,
+  buildReplyOpportunity,
+  describeWebhookTarget,
+  formatWebhookTarget,
+  hasDraft,
+} from './reply-opportunity.mjs';
 
 export const SITE = 'https://www.longlivets.com';
 
@@ -220,7 +228,7 @@ export const FETCH_POOL_LIMIT = 200;
 
 export async function fetchLeadsToMail(
   supabase,
-  { mode = 'daily', limit = MAX_LEADS_PER_EMAIL } = {},
+  { mode = 'daily', limit = MAX_LEADS_PER_EMAIL, onSkipped = null } = {},
 ) {
   let query = supabase
     .from('engagement_lead')
@@ -233,7 +241,12 @@ export async function fetchLeadsToMail(
   if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');
   const { data, error } = await query;
   if (error) throw error;
-  return orderLeads(data ?? []).slice(0, limit);
+  // W3: a lead with no drafted reply text is not sendable (nothing to copy/paste);
+  // it stays status='drafted' for the Answerer to fill, and never eats a slot.
+  const ordered = orderLeads(data ?? []);
+  const sendable = ordered.filter(hasDraft);
+  if (onSkipped && sendable.length < ordered.length) onSkipped(ordered.length - sendable.length);
+  return sendable.slice(0, limit);
 }
 
 /**
@@ -377,6 +390,9 @@ async function main() {
     return 1;
   }
 
+  // W3: prove the target channel from logs (metadata only — never the URL/token).
+  console.log(formatWebhookTarget(await describeWebhookTarget(process.env.DISCORD_SOCIAL_WEBHOOK)));
+
   const supabase = serviceClient();
   if (!supabase) {
     console.log(
@@ -385,7 +401,13 @@ async function main() {
     return 0;
   }
 
-  const leads = await fetchLeadsToMail(supabase, { mode });
+  const leads = await fetchLeadsToMail(supabase, {
+    mode,
+    onSkipped: (n) =>
+      console.log(
+        `community-mailer: ${n} drafted lead(s) have no reply text yet — not sent, left for the Answerer.`,
+      ),
+  });
   if (leads.length === 0) {
     console.log(
       `community-mailer: no ${mode === 'replies-waiting' ? 'reply_to_us ' : ''}drafted leads to mail — nothing to send today.`,
@@ -423,10 +445,15 @@ async function main() {
         })
       : null;
     const skipUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' }) : null;
-    return { id: lead.id, content: buildCommunityPrompt(lead, { postedUrl, skipUrl }) };
+    return { id: lead.id, content: buildReplyOpportunity(lead, { postedUrl, skipUrl }) };
   });
 
+  // One lead-in so the batch reads as one block, then the leads back to back.
+  await postBatchHeader(buildBatchHeader(prompts.length, { mode }), {
+    username: COMMUNITY_WEBHOOK_USERNAME,
+  });
   const result = await postCommunityPrompts(prompts, {
+    username: COMMUNITY_WEBHOOK_USERNAME,
     onDelivered: (delivery) => markDiscordDelivered(supabase, [delivery]),
   });
 

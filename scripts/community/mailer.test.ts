@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
@@ -261,6 +261,20 @@ describe('fetchLeadsToMail', () => {
     const result = await fetchLeadsToMail(supabase, { mode: 'daily' });
     expect(result[0].id).toBe('urgent-reply');
     expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
+  });
+
+  it('W3: skips leads with no reply text, reports how many, and never lets them eat a slot', async () => {
+    const rows = [
+      lead({ id: 'blank', draft: null, kind: 'reply_to_us' }),
+      lead({ id: 'spaces', draft: '   ' }),
+      ...Array.from({ length: MAX_LEADS_PER_EMAIL }, (_, i) => lead({ id: `ok-${i}` })),
+    ];
+    const supabase = fakeSupabase({ rows });
+    const onSkipped = vi.fn();
+    const result = await fetchLeadsToMail(supabase, { mode: 'daily', onSkipped });
+    expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
+    expect(result.some((l: Lead) => l.id === 'blank' || l.id === 'spaces')).toBe(false);
+    expect(onSkipped).toHaveBeenCalledWith(2);
   });
 
   it('throws on a genuine db error rather than mailing a silently-empty batch', async () => {

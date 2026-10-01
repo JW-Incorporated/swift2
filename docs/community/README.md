@@ -16,27 +16,36 @@ posting, by copy-pasting into the site yourself.
 
 ## 1. What you'll see day to day
 
-**One email a day**, subject "Community Tasks — YYYY-MM-DD", sent to
-Marjorie's Gmail-fed founder mail (same inbox as the Founders' Brief). It
-lists, in order:
-1. Any reply someone left on a comment we already posted (these matter
-   most — a stale reply looks bad).
-2. Everything else, best opportunity first.
+**Reply opportunities in Discord** (the same channel as Tree's approvals,
+posted under the name **Tree · Reply opportunities**). Twice a day at most
+(about 15:36 UTC, plus a later send only for replies to our own comments)
+`community-mailer` posts a one-line lead-in ("💬 N reply opportunities")
+and then **one message per opportunity**, replies-to-us first, then best
+opportunity first. No link previews. Each message is:
 
-Each item in the email gives you:
-- **Where** — the subreddit/thread (or, for Facebook, the group + a few
-  words of the post so you can find it — we never store a private-group
-  link).
-- **The paste-ready text** — copy it as-is, or edit it, then paste it
-  yourself on Reddit/Facebook.
-- **A "Posted" link and a "Skip" link** — click "Posted" after you paste it
-  so we never suggest the same thread again; click "Skip" if you don't want
-  to answer that one. Clicking either takes one click, no login.
+```
+💬 Reply opportunity · r/<sub>
+<thread title>
+<thread link>
+Why: one line on why it is worth a reply
+[the drafted reply, in a code block, ready to copy]
+Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
+```
 
-Some days there's also a **second, shorter email** in the evening — only
-when someone replied to one of our own comments after the morning email
-already went out. This is capped at one extra email per day; you will never
-get more than two Community Emails on the same day.
+- **Copy** the code block, edit if you like, paste it yourself.
+- **Posted / Skip** links record the outcome (one click, no login) so we never
+  suggest the same thread again; the ✅ / ⏭️ reactions feed Tree's feedback
+  ledger. Nothing posts automatically.
+- A lead the Answerer has not written reply text for is **not sent** (there
+  is nothing to copy); it stays queued and is sent once a draft exists.
+- Every mailer run logs `webhook target channel_id=… name=…` (never the
+  URL) so you can confirm in the Actions log which channel it posts to.
+- **Facebook** leads only appear once the Facebook export collector is
+  running (it needs the owner's Facebook login); until then only Reddit
+  opportunities arrive.
+
+(The older "one email a day" description below is historical; delivery moved
+to Discord on 2026-09-09.)
 
 Expect to spend roughly 10–15 minutes on this most days.
 
