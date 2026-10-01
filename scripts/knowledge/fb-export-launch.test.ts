@@ -267,9 +267,15 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
     });
   // The fake extension: takes groups until /next says done; `hang` makes it lose its tab on one slug
   // (/tab-lost, deterministic: no wall-clock watchdog is involved, so slow CI cannot flake).
+  // Like background.js (api() retries, then retryLater()), a 503 {relaunching} on /next is retried:
+  // the relaunched extension can ask before extensionCollect's launch() returns and resume() runs.
   const drive = async (base: string, hang?: string) => {
     for (;;) {
-      const res = await fetch(`${base}/next`, { headers });
+      let res = await fetch(`${base}/next`, { headers });
+      for (let retries = 0; res.status === 503 && retries < 200; retries += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        res = await fetch(`${base}/next`, { headers });
+      }
       if (res.status !== 200) return;
       const job = await res.json();
       if (job.done) {
