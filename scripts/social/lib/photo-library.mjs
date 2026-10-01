@@ -62,6 +62,14 @@ export function validatePhotoEntry(entry) {
   return findings;
 }
 
+/** `mediaPath` plus the paths of every other entry that is the same photograph (original <-> its IG-ready variants). */
+export function samePhotoPaths(mediaPath, allPhotos) {
+  const entry = allPhotos.find((p) => p.mediaPath === mediaPath);
+  if (!entry) return [mediaPath];
+  const root = canonicalPhotoId(entry);
+  return [...new Set([mediaPath, ...allPhotos.filter((p) => canonicalPhotoId(p) === root).map((p) => p.mediaPath)])];
+}
+
 /** Ids and media paths of every entry that is the same photograph as `entry` (itself, its original, its variants). */
 function photoGroup(entry, allPhotos) {
   const root = canonicalPhotoId(entry);

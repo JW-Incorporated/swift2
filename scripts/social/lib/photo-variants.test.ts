@@ -138,6 +138,14 @@ describe('Instagram halves prefer the IG-ready variant', () => {
     const [{ photo }] = assignBeatPhotos([{ date: '2026-10-01', hintId: variant.id }], ledger);
     expect(photo).toMatchObject({ photoId: variant.id, media: [variant.mediaPath], mediaCredit: original.credit, variantOf: original.id, xOriginal: { photoId: original.id, media: [original.mediaPath] } });
   });
+  it('a calendar hint naming an out-of-window original applies to its variant', () => {
+    const ledger = buildPhotoLedger(library, {}, { igUsable });
+    const [hinted] = assignBeatPhotos([{ date: '2026-10-01', hintId: original.id }], ledger);
+    expect(hinted).toMatchObject({ fromCalendar: true, photo: { photoId: variant.id } });
+    const [unhinted] = assignBeatPhotos([{ date: '2026-10-01' }], ledger);
+    expect(unhinted.photo?.photoId).toBe('lover-ok');
+    expect(unhinted).not.toHaveProperty('fromCalendar');
+  });
   it('an original with no drawable variant still counts as IG-blocked', () => {
     const ledger = buildPhotoLedger([original, inRange], {}, { igUsable: new Set([inRange.id]) });
     expect(ledger.igBlockedUnused).toBe(1);
