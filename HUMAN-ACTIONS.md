@@ -2,9 +2,23 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #92 🟢 [UPGRADE] Refresh the Instagram token so DMs reach Discord (~10 min)
+<!-- ha filed=2026-10-01 -->
+
+**Why:** You asked to be notified of every Instagram DM. The Long Live Poster app now has
+instagram_manage_messages (added 10-01), but the stored IG_ACCESS_TOKEN predates it, so the
+reply notifier can see comments and mentions but not DMs. Only you can grant and store tokens.
+**Steps:**
+1. Open https://developers.facebook.com/tools/explorer/ and pick app `Long Live Poster`.
+2. Under Permissions, keep every current one and add `instagram_manage_messages` and `pages_messaging`.
+3. Click Generate Access Token and approve the Long Live Page and Instagram account.
+4. Click the ⓘ next to the token → Open in Access Token Tool → Extend Access Token; copy the long-lived token.
+5. In the Swift2 folder run `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` and paste it.
+**Worked if:** the next `social-reply-notifier` run's log no longer says `DMs disabled: missing scope`.
 
 ## #91 🟡 [DECIDE] May Tree post site-made share cards in the feed? (~1 min)
 <!-- ha filed=2026-10-01 -->
