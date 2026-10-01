@@ -13,6 +13,7 @@ import {
   markEmailed,
   getOrCreateReceipt,
   MAX_LEADS_PER_EMAIL,
+  shouldPostBatchHeader,
   SITE,
 } from './mailer.mjs';
 
@@ -210,6 +211,7 @@ function fakeSupabase({
       const builder: Record<string, unknown> = {
         select: () => builder,
         eq: () => builder,
+        not: () => builder,
         order: () => builder,
         limit: () => Promise.resolve({ data: rows, error: selectError }),
         update: (patch: unknown) => ({
@@ -223,6 +225,14 @@ function fakeSupabase({
     },
   };
 }
+
+describe('shouldPostBatchHeader', () => {
+  it('posts the lead-in only when a lead message follows and this is not a receipt retry', () => {
+    expect(shouldPostBatchHeader({ promptCount: 3, isRetry: false })).toBe(true);
+    expect(shouldPostBatchHeader({ promptCount: 0, isRetry: false })).toBe(false);
+    expect(shouldPostBatchHeader({ promptCount: 3, isRetry: true })).toBe(false);
+  });
+});
 
 describe('fetchLeadsToMail', () => {
   it('fetches drafted leads and orders them (replies-to-us first)', async () => {
@@ -261,6 +271,23 @@ describe('fetchLeadsToMail', () => {
     const result = await fetchLeadsToMail(supabase, { mode: 'daily' });
     expect(result[0].id).toBe('urgent-reply');
     expect(result.length).toBe(MAX_LEADS_PER_EMAIL);
+  });
+
+  it('filters null drafts in the query so no-draft rows cannot starve sendable leads', async () => {
+    const not = vi.fn();
+    const builder: Record<string, unknown> = {
+      select: () => builder,
+      eq: () => builder,
+      not: (...args: unknown[]) => {
+        not(...args);
+        return builder;
+      },
+      order: () => builder,
+      limit: () => Promise.resolve({ data: [lead({ id: 'ok' })], error: null }),
+    };
+    const result = await fetchLeadsToMail({ from: () => builder }, { mode: 'daily' });
+    expect(not).toHaveBeenCalledWith('draft', 'is', null);
+    expect(result.map((l: Lead) => l.id)).toEqual(['ok']);
   });
 
   it('W3: skips leads with no reply text, reports how many, and never lets them eat a slot', async () => {

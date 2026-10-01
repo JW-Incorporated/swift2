@@ -78,6 +78,75 @@ describe('buildReplyOpportunity', () => {
     expect(trimmed).toContain('(Reply trimmed to fit Discord.)');
   });
 
+  it('stays under 2000 with hostile URLs and ids: long links are dropped, never sent', () => {
+    const longUrl = `https://www.reddit.com/r/x/${'p'.repeat(2500)}`;
+    const msg = buildReplyOpportunity(
+      lead({
+        url: longUrl,
+        target_url: `https://example.com/${'q'.repeat(2500)}`,
+        id: `id-${'z'.repeat(3000)}`,
+        draft: 'word '.repeat(2000),
+      }),
+      { postedUrl: `https://a.example/${'a'.repeat(2500)}`, skipUrl: SKIP },
+    );
+    expect(msg.length).toBeLessThanOrEqual(2000);
+    expect(msg).not.toContain(longUrl);
+    expect(msg).not.toContain('Link to add');
+    expect(msg).toContain('React ✅ posted');
+    expect(msg.split('\n').at(-1)).toMatch(/^ref: reddit · id-/);
+  });
+
+  it('falls back to a minimal message when the full layout cannot hold a useful reply', () => {
+    const url = `https://www.reddit.com/r/x/${'p'.repeat(250)}`;
+    const msg = buildReplyOpportunity(
+      lead({
+        url,
+        target_url: `https://example.com/${'q'.repeat(250)}`,
+        title: '[x]'.repeat(200),
+        community: 'c'.repeat(200),
+        draft: 'reply '.repeat(600),
+      }),
+      {
+        postedUrl: `https://a.example/${'a'.repeat(420)}`,
+        skipUrl: `https://a.example/${'b'.repeat(420)}`,
+      },
+    );
+    expect(msg.length).toBeLessThanOrEqual(2000);
+    expect(msg).toContain('reply reply');
+    expect(msg.split('\n').at(-1)).toMatch(/^ref: reddit · /);
+  });
+
+  it('never splits an emoji surrogate pair when clipping the title or trimming the reply', () => {
+    const msg = buildReplyOpportunity(
+      lead({ title: '🎤'.repeat(300), community: '🎤'.repeat(200), draft: '🎶'.repeat(3000) }),
+      { postedUrl: POSTED, skipUrl: SKIP },
+    );
+    expect(msg.length).toBeLessThanOrEqual(2000);
+    expect(msg).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])/);
+    expect(msg).not.toMatch(/(?<![\ud800-\udbff])[\udc00-\udfff]/);
+  });
+
+  it('escapes link brackets in titles so they cannot form a markdown link', () => {
+    const msg = buildReplyOpportunity(lead({ title: 'Click [here](https://evil.example) now' }));
+    expect(msg).toContain('**Click \\[here\\](https://evil.example) now**');
+    expect(msg).not.toContain('[here](');
+  });
+
+  it('adds one short Alt line when it fits, and skips it when it would overflow', () => {
+    const withAlt = buildReplyOpportunity(
+      lead({ draft_alt: 'A longer\ndetailed version of the reply.' }),
+    );
+    expect(withAlt).toContain('Alt: A longer detailed version of the reply.');
+    expect(withAlt.split('\n').at(-1)).toMatch(/^ref: reddit · /);
+    const tight = buildReplyOpportunity(
+      lead({ draft: 'word '.repeat(2000), draft_alt: 'Alt text here' }),
+      { postedUrl: POSTED, skipUrl: SKIP },
+    );
+    expect(tight).not.toContain('Alt:');
+    expect(tight.length).toBeLessThanOrEqual(2000);
+    expect(buildReplyOpportunity(lead())).not.toContain('Alt:');
+  });
+
   it('does not trim a reply that already fits', () => {
     expect(buildReplyOpportunity(lead())).not.toContain('trimmed');
   });

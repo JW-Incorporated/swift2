@@ -22,15 +22,43 @@ function escapeRefLookalikes(text) {
     .replace(REF_LOOKALIKE_RE_REDDIT, 'ref​: reddit ·');
 }
 
+/** Longest prefix of `text` within `units` UTF-16 units, never splitting a surrogate pair. */
+function clipUnits(text, units) {
+  let out = '';
+  for (const ch of text) {
+    if (out.length + ch.length > units) break;
+    out += ch;
+  }
+  return out;
+}
+
 function oneLine(text, max) {
   const flat = String(text ?? '')
     .replace(/\s+/g, ' ')
     .trim();
-  return flat.length > max ? `${flat.slice(0, max - 1)}…` : flat;
+  return flat.length > max ? `${clipUnits(flat, max - 1).trimEnd()}…` : flat;
 }
 
 function safe(text) {
   return escapeRefLookalikes(neutralizeMentions(text));
+}
+
+// Untrusted titles must not be able to form a markdown link ("[x](http://…)").
+function escapeLinkBrackets(text) {
+  return text.replace(/[[\]]/g, '\\$&');
+}
+
+// Every URL the message carries is bounded, so the 2000-char cap can always be
+// met by trimming the reply alone; an over-long or odd URL is dropped, not sent.
+const MAX_URL_UNITS = 300;
+const MAX_ACK_URL_UNITS = 450;
+const MIN_REPLY_UNITS = 200;
+const TRIM_NOTE = '(Reply trimmed to fit Discord.)';
+
+function urlLine(url, prefix = '') {
+  const clean = String(url ?? '').trim();
+  if (!clean || clean.length > MAX_URL_UNITS || /[\s<>]/.test(clean)) return null;
+  return `${prefix}<${clean}>`;
 }
 
 function whyLine(lead) {
@@ -39,7 +67,7 @@ function whyLine(lead) {
   if (lead.kind === 'reply_to_us')
     return `Someone replied to our comment, time-sensitive${relevance}`;
   if (lead.kind === 'hot_thread') return `Active thread on-topic for us${relevance}`;
-  return `${oneLine(lead.kind, 40) || 'Opportunity'}${relevance}`;
+  return `${oneLine(safe(lead.kind), 40) || 'Opportunity'}${relevance}`;
 }
 
 /** True when the Answerer left usable reply text for this lead. */
@@ -47,46 +75,72 @@ export function hasDraft(lead) {
   return typeof lead?.draft === 'string' && lead.draft.trim() !== '';
 }
 
+function render({ head, tail }, body, { note = null, alt = null } = {}) {
+  return [
+    ...head.filter(Boolean),
+    '```',
+    body,
+    '```',
+    ...[note, alt, ...tail].filter(Boolean),
+  ].join('\n');
+}
+
 /**
- * One reply opportunity as one Discord message, hard-capped at
- * DISCORD_MESSAGE_LIMIT. The reply text is the only elastic part: if the
- * message would overflow it is trimmed (with a visible marker), never the
- * link, footer, or ref line. `ref: reddit · <id>` stays the true last line
- * for Reddit leads so a ✅/❌/⏭️ reaction still reaches social-approval-poll.
+ * One reply opportunity as one Discord message, guaranteed at or under
+ * DISCORD_MESSAGE_LIMIT. Only the reply text is elastic (trimmed by code
+ * point, with a visible note); URLs are clamped/dropped, the optional Alt line
+ * is skipped unless it fits whole, and if the full layout still cannot hold a
+ * useful reply it degrades to a minimal message (sub, title, reply, ref).
+ * `ref: reddit · <id>` stays the true last line for Reddit leads so a ✅/❌/⏭️
+ * reaction still reaches social-approval-poll.
  */
 export function buildReplyOpportunity(lead, { postedUrl = null, skipUrl = null } = {}) {
   const isReddit = lead.platform === 'reddit';
-  const where = isReddit ? `r/${lead.community}` : lead.locator || lead.community;
-  const head = [
-    `💬 **Reply opportunity · ${oneLine(safe(where), 80)}**`,
-    lead.title ? `**${oneLine(safe(lead.title), 200)}**` : null,
-    lead.url ? `<${String(lead.url).trim()}>` : null,
-    `Why: ${whyLine(lead)}`,
-  ].filter(Boolean);
-  const tail = [
-    lead.target_url && !lead.link_included
-      ? `Link to add only if it fits: <${String(lead.target_url).trim()}>`
-      : null,
-    postedUrl && skipUrl
-      ? `Done? [✅ Posted](<${postedUrl}>) · [Skip](<${skipUrl}>)`
-      : 'Done? React ✅ posted · ⏭️ skip. Nothing posts automatically.',
-  ].filter(Boolean);
-  if (isReddit) {
-    const postId = String(lead.id ?? '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    if (postId) tail.push(`ref: reddit · ${postId}`);
-  }
-
+  const where = escapeLinkBrackets(
+    oneLine(safe(isReddit ? `r/${lead.community}` : lead.locator || lead.community), 80),
+  );
+  const titleText = (max) =>
+    lead.title ? `**${escapeLinkBrackets(oneLine(safe(lead.title), max))}**` : null;
+  const postId = oneLine(lead.id, 100);
+  const refLine = isReddit && postId ? `ref: reddit · ${postId}` : null;
+  const acks =
+    postedUrl &&
+    skipUrl &&
+    postedUrl.length <= MAX_ACK_URL_UNITS &&
+    skipUrl.length <= MAX_ACK_URL_UNITS;
+  const footer = acks
+    ? `Done? [✅ Posted](<${postedUrl}>) · [Skip](<${skipUrl}>)`
+    : 'Done? React ✅ posted · ⏭️ skip. Nothing posts automatically.';
+  const heading = `💬 **Reply opportunity · ${where}**`;
+  const full = {
+    head: [heading, titleText(200), urlLine(lead.url), `Why: ${whyLine(lead)}`],
+    tail: [
+      lead.target_url && !lead.link_included
+        ? urlLine(lead.target_url, 'Link to add only if it fits: ')
+        : null,
+      footer,
+      refLine,
+    ],
+  };
+  const minimal = { head: [heading, titleText(100)], tail: [refLine] };
   const reply = safe(lead.draft).replace(/```/g, '``​`').trim();
-  const render = (body, note = null) =>
-    [...head, '```', body, '```', note, ...tail].filter((l) => l !== null).join('\n');
-  let content = render(reply);
-  if (content.length > DISCORD_MESSAGE_LIMIT) {
-    const note = '(Reply trimmed to fit Discord.)';
-    const room = reply.length - (content.length - DISCORD_MESSAGE_LIMIT) - note.length - 1;
-    content = render(reply.slice(0, Math.max(room, 0)).trimEnd(), note);
+  const altText = String(lead.draft_alt ?? '').trim();
+  const alt = altText ? `Alt: ${oneLine(safe(altText), 200)}` : null;
+
+  const fitReply = (parts) => {
+    const whole = render(parts, reply);
+    if (whole.length <= DISCORD_MESSAGE_LIMIT) return whole;
+    const room = DISCORD_MESSAGE_LIMIT - render(parts, '', { note: TRIM_NOTE }).length;
+    if (room < MIN_REPLY_UNITS) return null;
+    return render(parts, clipUnits(reply, room).trimEnd(), { note: TRIM_NOTE });
+  };
+
+  if (alt) {
+    const withAlt = render(full, reply, { alt });
+    if (withAlt.length <= DISCORD_MESSAGE_LIMIT) return withAlt;
   }
+  const content = fitReply(full) ?? fitReply(minimal);
+  if (content === null) throw new Error(`Reply opportunity ${postId} cannot fit Discord's limit`);
   return content;
 }
 
