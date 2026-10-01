@@ -95,6 +95,6 @@ describe('renderShipped', () => {
 describe('toPr', () => {
   it('normalizes a REST pull row', () => {
     expect(toPr({ number: 5, title: '  a\n b ', html_url: 'u', user: { login: 'x' }, head: { ref: 'br' }, labels: [{ name: 'l' }], merged_at: 'm', updated_at: 'u2', draft: true }))
-      .toEqual({ number: 5, title: 'a b', url: 'u', author: 'x', branch: 'br', labels: ['l'], mergedAt: 'm', updatedAt: 'u2', draft: true });
+      .toEqual({ number: 5, title: 'a b', url: 'u', author: 'x', branch: 'br', labels: ['l'], mergedAt: 'm', updatedAt: 'u2', draft: true, body: '', fork: false });
   });
 });

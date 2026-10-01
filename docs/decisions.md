@@ -7,6 +7,15 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — Replies in #longlive-marjorie are chat; the reply-poll relay to the status issue is retired
+
+**Decision.** A reply in #longlive-marjorie — including a reply to the "📋 Status updated" change ping — is an ordinary message to Marjorie's chat routine (`bot-chat-poll` claims it, `routine-marjorie-chat` answers). That channel is the owner's steering channel. `reply-poll.mjs` (which relayed replies in the daily brief's Discord thread onto the status issue as link-only comments), its manual `marjorie-reply-poll.yml` workflow, and the relay step in `bot-chat-poll.yml` are removed. `chat-inbox.selectInbox` only skips replies to approval/community posts (`ref:` last line); a reply to the ping is picked, and a test pins that.
+
+**Why.** The ping is no longer a once-a-day message with an id stamped on the page: it is posted only when the page materially changed, so there is no daily thread for a relay to follow, and the relay would have silently no-op'd forever. Two paths for the same reply (chat and relay) would also have answered it twice.
+
+**Alternatives considered.** Keep the relay and stamp every ping's message id (rejected: a ping per change is not a thread anchor, and the relay only ever wrote a link, never an answer). Make the relay a second chat path (rejected: duplicates chat).
+
+**Approved by.** The owner, via the coordinating session, 2026-10-01.
 ## 2026-10-01 — Uncredited photos are fine: credit the photographer when known, post without a credit line when not (guardrail 2)
 
 **Decision.** Owner, chat, 2026-10-01, verbatim: "I'm ok with uncredited photos.

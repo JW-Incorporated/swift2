@@ -109,8 +109,11 @@ jobs:
     environment: ops
     # L1 fix (Codex review, MEDIUM): serializes lookup → create → writeback
     # so two overlapping deliveries of the same brief can never both file it.
+    # Shares marjorie-status.yml's render group on purpose: both rewrite the status
+    # issue body and both may post the change ping, so they must never overlap
+    # (a second ping from a stale baseline).
     concurrency:
-      group: marjorie-brief-deliver
+      group: marjorie-status-render
       cancel-in-progress: false
     permissions:
       contents: read
@@ -124,7 +127,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Refresh the status page and post the one-line ping
+      - name: Refresh the status page, file the Tree ask, and post the change line if the page changed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
@@ -134,7 +137,7 @@ jobs:
           set -euo pipefail
           # Bots v2 W4: no daily brief issue any more. The agent step wrote
           # Marjorie's note into the status page; this job re-renders the page
-          # (creating it if missing) and posts ONE line to Discord.
+          # (creating it if missing); the closing step posts the shared change line.
           node scripts/marjorie/status-page.mjs --apply
           # Chase items Marjorie stopped chasing: shown on the page and recorded
           # as hidden markers there, which the chase reads so it never re-announces them.
@@ -156,10 +159,13 @@ jobs:
               || node scripts/marjorie/status-note.mjs write --body-file /tmp/note.md \
               || echo "::warning::could not write the Tree ask number back into the note"
           fi
-          echo "📋 Status updated — $STATUS_URL" > /tmp/ping.md
-          DELIVERY_OUTPUT=$(node scripts/marjorie/post-or-mail.mjs --subject "Status updated" --body-file /tmp/ping.md --url "$STATUS_URL")
-          echo "$DELIVERY_OUTPUT"
-          if echo "$DELIVERY_OUTPUT" | grep -qE '^delivered: (discord|email)'; then
-            MESSAGE_ID=$(echo "$DELIVERY_OUTPUT" | sed -n 's/^discord-message-id: //p')
-            node scripts/marjorie/status-note.mjs stamp-ping --message-id "$MESSAGE_ID"
-          fi
+          # One shared "Status updated" line (lib/status-ping.mjs): posted only when
+          # the page materially changed since the owner was last told (the new note
+          # counts), at most one an hour unless a Needs-you item was added. The same
+          # render runs hourly in marjorie-status.yml; this one just makes the
+          # morning note ping without waiting for it.
+          node scripts/marjorie/status-page.mjs --apply --notify
+          # The brief ran and its note is on the page: stamp the day so brief-guard.mjs
+          # never delivers it twice. (No Discord message id any more: the ping is no
+          # longer a once-a-day post; replies in the channel are chat asks.)
+          node scripts/marjorie/status-note.mjs stamp-ping

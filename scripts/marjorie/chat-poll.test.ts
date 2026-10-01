@@ -109,6 +109,22 @@ ref: PR #4544 · ${'a'.repeat(40)} · brief` });
       });
     });
   });
+  describe('replies to the status change ping are chat asks (the reply-poll relay is retired)', () => {
+    const PING_ID = '1000000000000000200';
+    const ping = () => msg(PING_ID, { author: { id: '9', bot: true }, webhook_id: '9', content: '📋 Status updated — +1 needs you · 2 closed — https://github.com/o/r/issues/4' });
+    it('picks a reply to the ping, in the window or via the embedded referenced_message', () => {
+      const reply = (extra: Record<string, unknown> = {}) => msg('1000000000000000201', { type: 19, message_reference: { message_id: PING_ID }, ...extra });
+      expect(ids(pick([ping(), reply()]).picked)).toEqual(['1000000000000000201']);
+      expect(ids(pick([reply({ referenced_message: ping() })]).picked)).toEqual(['1000000000000000201']);
+    });
+    it('picks a message in a thread started from the ping', () => {
+      const { picked } = selectInbox(
+        [{ channelId: MARJ, threadId: '', messages: [{ ...ping(), id: THREAD }] }, { channelId: MARJ, threadId: THREAD, messages: [msg('1000000000000000202')] }],
+        { founders, now: NOW },
+      );
+      expect(ids(picked)).toEqual(['1000000000000000202']);
+    });
+  });
   it('treats a top-level Discord reply (type 19) as a top-level message', () => {
     const { picked } = pick([msg('1000000000000000001', { type: 19, message_reference: { message_id: '1548716528432713729' } })]);
     expect(picked).toEqual([expect.objectContaining({ messageId: '1000000000000000001', threadId: '' })]);
@@ -270,7 +286,6 @@ describe('poll', () => {
   it('keeps both relay entry points in one concurrency group', () => {
     const group = /concurrency:\s+group: bot-chat-poll\s+cancel-in-progress: true/;
     expect(readFileSync('.github/workflows/bot-chat-poll.yml', 'utf8')).toMatch(group);
-    expect(readFileSync('.github/workflows/marjorie-reply-poll.yml', 'utf8')).toMatch(group);
   });
 });
 describe('context', () => {

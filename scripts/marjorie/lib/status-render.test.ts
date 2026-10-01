@@ -33,7 +33,7 @@ describe('renderStatusPage', () => {
   it('has the header with the UTC update time and every section in order', () => {
     expect(body.startsWith(PAGE_MARKER)).toBe(true);
     expect(body).toContain('_Updated 2026-09-30 20:00 UTC · 1:00 PM PT_');
-    const order = ['## 🙋 Needs you', '## 🚢 Shipped', '## 🧭 Next up', '## 📈 Growth', '## 🌳 Tree', "## 🗒️ Marjorie's note"].map((h) => body.indexOf(h));
+    const order = ['## 🙋 Needs you', '## 🎉 For fans', '## 🔧 Behind the scenes', '## 🧭 Next up', '## 📈 Growth', '## 🌳 Tree', "## 🗒️ Marjorie's note"].map((h) => body.indexOf(h));
     expect(order.every((i) => i > 0)).toBe(true);
     expect([...order].sort((a, b) => a - b)).toEqual(order);
   });
@@ -162,5 +162,43 @@ describe('data readers', () => {
     expect(data.warnings).toEqual(['merged PRs']);
     expect(data.haMarkdown).toBe(HA);
     expect(data.posted).toHaveLength(1);
+  });
+});
+
+describe('the page\'s fan, strategy and behind-the-scenes sections', () => {
+  const withStrategy = () => ({
+    ...base(),
+    mergedPrs: [pr(1, { title: 'chore: tidy' }), pr(2, { title: 'feat(web): era share button' })],
+    strategy: { bullets: ['Win on era pages', 'Post daily'], changedAt: '2026-09-28' },
+    prFiles: new Map([[2, ['apps/web/components/Share.tsx']]]),
+    feedback: { count: 1, numbers: [5], latest: [{ number: 5, title: 'Love it', url: 'https://github.com/o/r/issues/5' }] },
+    recap: '- Sharing an era is easier',
+  });
+  const out = renderStatusPage(withStrategy(), { now: NOW, repo: REPO });
+
+  it('puts Strategy right under Needs you, then For fans, then the collapsed Behind the scenes', () => {
+    const order = ['## 🙋 Needs you', '## 🧭 Strategy', '## 🎉 For fans', '## 🔧 Behind the scenes', '## 🧭 Next up', '## 📈 Growth'].map((h) => out.indexOf(h));
+    expect(order.every((i) => i > 0)).toBe(true);
+    expect([...order].sort((a, b) => a - b)).toEqual(order);
+    expect(out).toContain('- Win on era pages');
+    expect(out).toContain('Last changed 2026-09-28');
+  });
+  it('shows fan-facing changes under For fans and only the rest behind the scenes', () => {
+    const fans = out.slice(out.indexOf('## 🎉 For fans'), out.indexOf('## 🔧 Behind the scenes'));
+    const behind = out.slice(out.indexOf('## 🔧 Behind the scenes'), out.indexOf('## 🧭 Next up'));
+    expect(fans).toContain('[era share button](https://github.com/o/r/pull/2)');
+    expect(fans).toContain('- Sharing an era is easier');
+    expect(behind).toContain('<details>');
+    expect(behind).toContain('[chore: tidy](https://github.com/o/r/pull/1)');
+    expect(behind).not.toContain('era share button');
+  });
+  it('omits Strategy when the strategy file is absent, and keeps its markers out of the way', () => {
+    const none = renderStatusPage({ ...withStrategy(), strategy: { bullets: [], changedAt: '' } }, { now: NOW, repo: REPO });
+    expect(none).not.toContain('## 🧭 Strategy');
+    expect(none.startsWith(PAGE_MARKER)).toBe(true);
+  });
+  it('is still deterministic and bounded', () => {
+    expect(renderStatusPage(withStrategy(), { now: NOW, repo: REPO })).toBe(out);
+    expect(out.length).toBeLessThanOrEqual(BODY_LIMIT);
   });
 });

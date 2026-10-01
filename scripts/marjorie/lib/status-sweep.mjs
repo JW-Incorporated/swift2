@@ -15,7 +15,7 @@
 // re-answering the thread's back catalogue would relay old messages again.
 import { isOwnerComment } from './status-reply.mjs';
 
-const ACK_RE = /<!-- status-ack: (\d+) -->/g;
+const ACK_RE = /<!-- status-ack: (\d+) --!?>/g;
 const ACK_AUTHORS = new Set(['github-actions[bot]', 'github-actions', 'app/github-actions']);
 
 export const ackMarker = (id) => `<!-- status-ack: ${id} -->`;

@@ -1,14 +1,18 @@
 // Owner replies on the status page (Bots v2 W4). The repo is PUBLIC, so every
 // check here is about who is allowed to move anything: only the owner's own
-// comment on the `status-page` issue is ever acted on, a bot's never is, and
-// only two shapes are commands — `done #N` and `decide #N <choice>`.
-// Closing an item reuses ha-close.mjs's pure `closeHumanAction`, landed the way
-// the chat routine lands it: a branch, a PR, auto-merge (main is protected).
+// comment on the `status-page` issue is ever acted on, a bot's never is. Four
+// shapes are commands, and each closes ANY item, task or decision:
+//   done #N [note]   skip #N [why]   close #N [why]   decide #N <answer>
+// A `decide` answer that is not one of the item's listed options is recorded
+// verbatim, never refused (issue #4665: the real answer was "wrong question").
+// Closing reuses ha-close.mjs's pure `closeHumanAction` and lands through the one
+// rolling close PR (lib/status-closes.mjs), so two quick replies cannot conflict.
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { closeHumanAction, laToday } from '../ha-close.mjs';
 import { HUMAN_ACTIONS_DONE_PATH, HUMAN_ACTIONS_PATH } from '../human-actions.mjs';
 import { propagateDecision } from './decision-propagate.mjs';
+import { NOTE_CAP, recordFor, syncCloses } from './status-closes.mjs';
 import { parseHaEntries } from './status-ha.mjs';
 import { STATUS_LABEL } from './status-issue.mjs';
 
@@ -17,9 +21,9 @@ const OWNER_ASSOCIATIONS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
 // A choice that means "stop, don't do it" closes the item as `skip` (the human-actions
 // ledger outcome the chase also reads as held), exactly like a `skip` reply on the card.
 const SKIP_CHOICE = /^(skip|defer)\b/i;
-const CHOICE_CAP = 120;
+const CHOICE_CAP = 300;
 const RELAY_WORKFLOW = 'routine-marjorie-status-reply.yml';
-const COMMAND = /^\s*(done|decide)\s+#(\d+)(?:\s+([\s\S]+))?$/i;
+const COMMAND = /^\s*(done|decide|skip|close)\s+#(\d+)(?:\s+([\s\S]+))?$/i;
 
 /** True only for the owner's own account, never a bot, with owner/member standing in the repo. */
 export function isOwnerComment({ login = '', association = '', type = '' } = {}) {
@@ -29,7 +33,7 @@ export function isOwnerComment({ login = '', association = '', type = '' } = {})
     && OWNER_ASSOCIATIONS.has(String(association).toUpperCase());
 }
 
-/** The first non-empty line, if it is exactly `done #N` or `decide #N <choice>`. */
+/** The first non-empty line, if it is exactly `done|skip|close #N [text]` or `decide #N <text>`. */
 export function parseCommand(body) {
   const first = String(body || '').split(/\r?\n/).find((l) => l.trim());
   const m = first && COMMAND.exec(first.trim().replace(/^`+|`+$/g, ''));
@@ -39,24 +43,33 @@ export function parseCommand(body) {
 
 const optionList = (item) => item.options.map((o) => `\`${o.choice}\``).join(', ');
 
-/** Is this command a legal way to close this item? Returns the recorded choice, or a message to post back. */
+/**
+ * What a command records. Every command is legal on every open item; only a
+ * bare `decide #N` is answered with a question. An answer that is not one of the
+ * item's options is kept verbatim as the decision.
+ */
 export function checkCommand(item, cmd) {
-  if (cmd.kind === 'done') {
-    if (item.tag === 'DECIDE') return { ok: false, message: `#${item.number} is a decision, not a task — reply \`decide #${item.number} <choice>\`${item.options.length ? ` (options: ${optionList(item)})` : ''}.` };
-    return { ok: true, choice: '', outcome: 'done' };
-  }
-  if (item.tag !== 'DECIDE') return { ok: false, message: `#${item.number} isn't a decision — reply \`done #${item.number}\` once it's finished.` };
-  if (!cmd.text) return { ok: false, message: `Which way on #${item.number}? Reply \`decide #${item.number} <choice>\`${item.options.length ? ` — options: ${optionList(item)}` : ''}.` };
+  const text = cmd.text.slice(0, CHOICE_CAP);
+  if (cmd.kind === 'done') return { ok: true, choice: text, outcome: 'done', verb: 'done' };
+  if (cmd.kind === 'skip') return { ok: true, choice: text, outcome: 'skip', verb: 'skipped' };
+  if (cmd.kind === 'close') return { ok: true, choice: text, outcome: 'done', verb: 'closed' };
+  if (!cmd.text) return { ok: false, message: `Which way on #${item.number}? Reply \`decide #${item.number} <choice>\`${item.options.length ? ` — options: ${optionList(item)}` : ''} — or any words of your own, or \`close #${item.number} <why>\` if it's the wrong question.` };
   const [word, ...more] = cmd.text.split(' ');
   const outcome = SKIP_CHOICE.test(word) ? 'skip' : 'done';
-  if (!item.options.length) return { ok: true, choice: cmd.text.slice(0, CHOICE_CAP), outcome };
   const hit = item.options.find((o) => o.choice.toLowerCase() === word.toLowerCase())
     || (word.toLowerCase() === 'skip' ? { choice: 'skip' } : null);
-  if (!hit) return { ok: false, message: `\`${word}\` isn't one of the options for #${item.number}: ${optionList(item)}. Reply again with one of those.` };
-  return { ok: true, choice: `${hit.choice}${more.length ? ` — ${more.join(' ')}` : ''}`.slice(0, CHOICE_CAP), outcome };
+  if (!hit) return { ok: true, choice: text, outcome, verb: 'decided' };
+  return { ok: true, choice: `${hit.choice}${more.length ? ` — ${more.join(' ')}` : ''}`.slice(0, CHOICE_CAP), outcome, verb: 'decided' };
 }
 
 const mentionSafe = (s) => String(s).replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
+
+function ackFor(number, verdict) {
+  const said = verdict.choice ? `: \`${mentionSafe(verdict.choice)}\`` : '';
+  if (verdict.verb === 'decided') return `Decision recorded on #${number}${said}${verdict.outcome === 'skip' ? ' (closed as skipped)' : ''}`;
+  if (verdict.verb === 'done') return `#${number} marked done${said}`;
+  return `#${number} ${verdict.verb}${said}`;
+}
 
 /**
  * `run(cmd, args, { env })` executes git/gh and returns stdout (throws on failure);
@@ -97,49 +110,28 @@ export async function handleComment({ event, root, run, reply, now = new Date(),
     return { acted: false, reason: 'bad command' };
   }
 
-  const prefixes = [`status-page/ha-close-${cmd.number}-`, `marjorie/ha-close-${cmd.number}-`];
-  let openBranches;
-  try {
-    openBranches = JSON.parse(String(run('gh', ['pr', 'list', '--repo', repo, '--state', 'open', '--json', 'headRefName', '--limit', '100'])).trim() || '[]');
-  } catch {
-    openBranches = [];
-  }
-  const existing = openBranches.find((p) => prefixes.some((pre) => String(p.headRefName).startsWith(pre)));
-  if (existing) {
-    await reply(`A closing PR for #${cmd.number} is already open (\`${existing.headRefName}\`) — it lands on its own, so I opened no second one.`);
-    return { acted: false, reason: 'closing pr already open' };
-  }
-
   const date = laToday(now);
-  const how = cmd.kind === 'decide' ? `owner ${verdict.outcome === 'skip' ? 'skipped' : 'decided'} "${verdict.choice}"` : 'owner said done';
-  const note = `status page ${comment.html_url} — ${how}`;
-  const closed = closeHumanAction(openMd, io.readFileSync(donePath, 'utf8'), { number: cmd.number, date, note, by: 'status page', outcome: verdict.outcome });
-  if (!closed.ok) {
-    await reply(`Couldn't close #${cmd.number}: ${closed.reason}.`);
-    return { acted: false, reason: closed.reason };
+  const record = recordFor({ number: cmd.number, outcome: verdict.outcome, verb: verdict.verb, choice: verdict.choice, date, url: comment.html_url });
+  const closed = record && closeHumanAction(openMd, io.readFileSync(donePath, 'utf8'), { number: cmd.number, date, note: record.note, by: record.by, outcome: record.o, noteCap: NOTE_CAP });
+  if (!closed?.ok) {
+    await reply(`Couldn't close #${cmd.number}: ${closed?.reason || 'the reply could not be recorded'}.`);
+    return { acted: false, reason: closed?.reason || 'bad record' };
   }
-  const branch = `status-page/ha-close-${cmd.number}-${comment.id}`;
-  const title = `Close HA #${cmd.number} — owner replied on the status page`;
-  const prEnv = prToken ? { GH_TOKEN: prToken } : undefined;
   try {
-    run('git', ['checkout', '-b', branch]);
-    io.writeFileSync(openPath, closed.open);
-    io.writeFileSync(donePath, closed.done);
-    run('git', ['add', HUMAN_ACTIONS_PATH, HUMAN_ACTIONS_DONE_PATH]);
-    run('git', ['commit', '-m', title, '-m', comment.html_url]);
-    run('git', ['push', '-u', 'origin', 'HEAD']);
-    const prUrl = String(run('gh', ['pr', 'create', '--repo', repo, '--title', title, '--body', `The owner replied on the status page: ${comment.html_url}\n\nTier-2: Marjorie — status page`], { env: prEnv })).trim().split(/\s+/).pop();
-    let merge = 'auto-merges when checks pass';
-    try {
-      run('gh', ['pr', 'merge', prUrl, '--repo', repo, '--squash', '--auto'], { env: prEnv });
-    } catch {
-      merge = 'auto-merge was refused — merge it by hand';
+    const res = await syncCloses({ root, run, repo, prToken, add: record, log, io });
+    if (res.duplicate) {
+      await reply(`#${cmd.number} is already queued to close (${res.url}) — your first answer stands; it lands on its own, so I queued nothing new.`);
+      return { acted: false, reason: 'closing pr already open' };
     }
-    await reply(`✅ ${cmd.kind === 'decide' ? `Decision recorded on #${cmd.number}: \`${mentionSafe(verdict.choice)}\`${verdict.outcome === 'skip' ? ' (closed as skipped)' : ''}` :`#${cmd.number} marked done`}. Closing PR: ${prUrl} (${merge}). This page updates when it lands.`);
+    if (!res.ok) {
+      await reply(`Couldn't close #${cmd.number}: ${res.reason}.`);
+      return { acted: false, reason: res.reason };
+    }
+    await reply(`✅ ${ackFor(cmd.number, verdict)}. Closing PR: ${res.url} (${res.merge}). This page shows it as closing now and drops it once it lands.`);
     // The item's text names the tickets the answer is about and is about to leave the
-    // file: pass the decision on to each of them now (best effort, never throws).
-    if (cmd.kind === 'decide') await propagateDecision({ openMd, number: cmd.number, title: item.title, choice: verdict.choice, outcome: verdict.outcome, url: comment.html_url, repo, run, log });
-    return { acted: true, number: cmd.number, prUrl };
+    // file: pass the answer on to each of them now (best effort, never throws).
+    if (cmd.kind !== 'done') await propagateDecision({ openMd, number: cmd.number, title: item.title, choice: verdict.choice || verdict.verb, outcome: verdict.outcome, url: comment.html_url, repo, run, log });
+    return { acted: true, number: cmd.number, prUrl: res.url };
   } catch (err) {
     log(`status reply: closing #${cmd.number} failed: ${String(err?.message || err).split('\n')[0].slice(0, 200)}`);
     await reply(`⚠️ Couldn't close #${cmd.number} automatically. Reply again, or close it by hand.`);

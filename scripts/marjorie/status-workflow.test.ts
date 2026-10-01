@@ -7,19 +7,38 @@ const brief = read('.github/workflows/routine-marjorie-brief.yml');
 const job = (text: string, name: string, next: string) => text.slice(text.indexOf(`\n  ${name}:`), next ? text.indexOf(`\n  ${next}:`) : undefined);
 
 describe('marjorie-status.yml', () => {
-  it('fires every 3h, on HA/social pushes to main, on demand, and on issue comments', () => {
-    expect(status).toContain('cron: "7 */3 * * *"');
+  it('fires hourly, on HA/social pushes to main, on demand, and on issue comments', () => {
+    expect(status).toContain('cron: "7 * * * *"');
     expect(status).toMatch(/push:\n {4}branches: \[main\]\n {4}paths:\n {6}- HUMAN-ACTIONS\.md\n {6}- "social\/\*\*"/);
     expect(status).toContain('workflow_dispatch');
     expect(status).toMatch(/issue_comment:\n {4}types: \[created\]/);
   });
   it('starts with no permissions and grants each job only what it needs', () => {
     expect(status).toMatch(/\npermissions: \{\}\n/);
-    const render = job(status, 'render', 'reply');
+    const render = job(status, 'render', 'heal');
     expect(render).toMatch(/permissions:\n {6}contents: read\n {6}issues: write\n {6}pull-requests: read/);
-    expect(render).not.toContain('secrets.');
+    // Two secrets, each visible to exactly one step: the daily traffic cache and the change ping.
+    expect(render.match(/secrets\.[A-Z_]+/g)).toEqual(['secrets.VERCEL_TOKEN', 'secrets.DISCORD_MARJORIE_WEBHOOK_URL']);
+    const [traffic, rewrite] = render.split('      - name: ').slice(-2);
+    expect(traffic).toContain('status-traffic.mjs');
+    expect(traffic).toContain('VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}');
+    expect(traffic).not.toContain('DISCORD');
+    expect(rewrite).toContain('status-page.mjs --apply --notify');
+    expect(rewrite).toContain('DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}');
+    expect(rewrite).not.toContain('VERCEL');
+    expect(render).toContain('environment: ops');
+    expect(render).toMatch(/- uses: actions\/checkout@v7\n {8}with:\n {10}ref: main/);
     expect(render).toMatch(/concurrency:\n {6}group: marjorie-status-render\n {6}cancel-in-progress: false/);
     expect(render).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
+  });
+  it('keeps the rolling close PR mergeable: a heal job on its own lane, never in the reply group', () => {
+    const heal = job(status, 'heal', 'reply');
+    expect(heal).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
+    expect(heal).toMatch(/permissions:\n {6}contents: write\n {6}pull-requests: write\n/);
+    expect(heal).toMatch(/group: marjorie-status-heal\n {6}cancel-in-progress: false/);
+    expect(heal).not.toContain('group: marjorie-status-reply');
+    expect(heal).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
+    expect(heal).toContain('node scripts/marjorie/status-heal.mjs');
   });
   it('lets only the owner\'s own comment on a status-page issue reach the reply job', () => {
     const reply = job(status, 'reply', '');
@@ -57,9 +76,10 @@ describe('marjorie-status.yml', () => {
 
 describe('routine-marjorie-brief.yml delivery', () => {
   const deliver = job(brief, 'deliver', '');
-  it('posts one status line, not a brief issue', () => {
-    expect(deliver).toContain('echo "📋 Status updated — $STATUS_URL" > /tmp/ping.md');
-    expect(deliver).toContain('post-or-mail.mjs --subject "Status updated" --body-file /tmp/ping.md');
+  it('posts the shared change line (only when the page changed), not a brief issue', () => {
+    expect(deliver).toContain('node scripts/marjorie/status-page.mjs --apply --notify');
+    expect(deliver).not.toContain('post-or-mail.mjs');
+    expect(deliver).not.toContain('/tmp/ping.md');
     expect(deliver).not.toContain('founders-brief');
     expect(deliver).not.toContain('gh issue create');
     expect(deliver).toContain('status-note.mjs stamp-ping');
