@@ -1,14 +1,12 @@
 {
-  "_comment": "Awareness image-reply lane (owner direction 2026-10-01): subs scanned for threads where a picture of the site, with no link, invites 'what is that?!'. Read by awareness-scan.mjs. imageComments is a human override ('image' | 'text_only' | null = ask about.json at run time); when about.json is unreachable the lane marks the sub 'unknown', never 'text_only'. A sub with verified:false was named from memory and could not be confirmed live from the build environment (reddit.com blocks it, 2026-10-01); a 404/empty feed degrades to a logged skip, never a failure.",
+  "_comment": "Awareness image-reply lane (owner direction 2026-10-01): subs scanned for threads where a picture of the site, with no link, invites 'what is that?!'. Read by awareness-scan.mjs, which runs every ~20 minutes with feedRequestsPerRun anonymous RSS requests and rotates through every sub (hot and new) and search query, least recently fetched first (awareness-rotation.mjs). imageComments is a human override ('image' | 'text_only' | null = ask about.json at run time); when about.json is unreachable the lane marks the sub 'unknown', never 'text_only'. A sub with verified:false was named from memory and could not be confirmed live from the build environment (reddit.com blocks it, 2026-10-01); a 404/empty feed degrades to a logged skip, never a failure.",
   "defaults": {
     "maxAgeHours": 48,
     "perSubScanCapPerRun": 2,
     "perSubDailyDeliveryCap": 3,
     "feedLimit": 25,
-    "feedRequestsPerRun": 6,
-    "pacingMs": 6000,
-    "authedRequestsPerRun": 40,
-    "authedPacingMs": 700
+    "feedRequestsPerRun": 2,
+    "pacingMs": 6000
   },
   "excluded": [
     {
@@ -36,7 +34,6 @@
       "verified": true,
       "selfPromoNote": "No self-promo; a link is a ban risk (docs/community/watchlist.md). Image-only reply with no link and no site name in the text.",
       "notes": "Main hub (~3.8M). Highest volume; era rankings, anniversaries, news reactions. Megathreads are buried, skip them.",
-      "always": true,
       "dailyCap": 4
     },
     {
@@ -46,7 +43,6 @@
       "verified": true,
       "selfPromoNote": "Assume standard Reddit 9:1 norm; no link, no pitch.",
       "notes": "Fan hub, chattier than r/TaylorSwift; good for nostalgia and 'which era' threads.",
-      "always": true,
       "dailyCap": 4
     },
     {

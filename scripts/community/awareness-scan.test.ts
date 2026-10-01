@@ -44,14 +44,14 @@ const config = {
     perSubScanCapPerRun: 2,
     perSubDailyDeliveryCap: 3,
     feedLimit: 25,
-    feedRequestsPerRun: 6,
+    feedRequestsPerRun: 7, // every feed below: 3 subs x hot/new + 1 search
     pacingMs: 0,
   },
   excluded: [{ name: 'SwiftlyNSFW' }],
   search: { queries: ['"taylor swift"'], blockSubs: ['Fauxmoi'] },
   subs: [
-    { name: 'TaylorSwift', tier: 1, always: true, dailyCap: 4 },
-    { name: 'swifties', tier: 1, always: true, dailyCap: 4 },
+    { name: 'TaylorSwift', tier: 1, dailyCap: 4 },
+    { name: 'swifties', tier: 1, dailyCap: 4 },
     { name: 'Spicy', tier: 3 },
   ],
 };
@@ -76,17 +76,24 @@ function fakeSupabase({
   fbLeads = [] as unknown[],
   fbExisting = [] as unknown[],
   cache = [] as unknown[],
+  sourceState = [] as unknown[],
 } = {}) {
   const inserted: { rows: unknown }[] = [];
   const upserts: unknown[] = [];
+  const stateWrites: Record<string, unknown>[][] = [];
   return {
     inserted,
     upserts,
+    stateWrites,
     from(table: string) {
       const ctx: { platform?: string; kind?: string } = {};
       const builder: Record<string, unknown> = {
-        select: () =>
-          table === 'awareness_sub_cache' ? Promise.resolve({ data: cache, error: null }) : builder,
+        select: () => {
+          if (table === 'awareness_sub_cache') return Promise.resolve({ data: cache, error: null });
+          if (table === 'awareness_source_state')
+            return Promise.resolve({ data: sourceState, error: null });
+          return builder;
+        },
         eq: (col: string, val: string) => {
           if (col === 'platform') ctx.platform = val;
           if (col === 'kind') ctx.kind = val;
@@ -110,7 +117,9 @@ function fakeSupabase({
           return Promise.resolve({ error: null });
         },
         upsert: (row: unknown) => {
-          upserts.push(row);
+          if (table === 'awareness_source_state')
+            stateWrites.push(row as Record<string, unknown>[]);
+          else upserts.push(row);
           return Promise.resolve({ error: null });
         },
       };
@@ -175,27 +184,72 @@ describe('awareness scan', () => {
     expect(rows.every((r) => /^(era|moment):/.test(r.image_ref))).toBe(true);
   });
 
-  it('stays inside the request budget and rotates the optional sources between slots', async () => {
-    const many = {
-      ...config,
-      subs: [...config.subs, ...['A', 'B', 'C', 'D', 'E', 'F'].map((name) => ({ name, tier: 2 }))],
-    };
-    const seen: string[][] = [];
-    for (const hour of [0, 3, 6]) {
+  it('makes 2 requests a run and the persisted state walks every feed in turn', async () => {
+    const tiny = { ...config, defaults: { ...config.defaults, feedRequestsPerRun: 2 } };
+    let sourceState: Record<string, unknown>[] = [];
+    const seen: string[] = [];
+    for (let i = 0; i < 4; i += 1) {
+      const supabase = fakeSupabase({ sourceState });
       const fetchImpl = feeds({});
       const result = await run({
-        config: many,
+        config: tiny,
+        supabase,
         fetchImpl: fetchImpl as never,
-        now: new Date(`2026-10-01T0${hour}:30:00Z`),
-        dryRun: true,
+        now: new Date(NOW.getTime() + i * 20 * 60_000),
       });
-      expect(fetchImpl.mock.calls.length).toBeLessThanOrEqual(6);
-      expect(result.perSource.map((s: { source: string }) => s.source)).toContain(
-        'sub:TaylorSwift',
-      );
-      seen.push(result.perSource.map((s: { source: string }) => s.source));
+      expect(fetchImpl.mock.calls.length).toBe(2);
+      seen.push(...result.perSource.map((s: { source: string }) => s.source));
+      const written = supabase.stateWrites[0];
+      sourceState = [
+        ...sourceState.filter((r) => !written.some((w) => w.source === r.source)),
+        ...written,
+      ];
     }
-    expect(new Set(seen.flat()).size).toBeGreaterThan(6);
+    expect(seen).toEqual([
+      'sub:TaylorSwift:hot',
+      'sub:swifties:hot',
+      'sub:Spicy:hot',
+      'sub:TaylorSwift:new',
+      'sub:swifties:new',
+      'sub:Spicy:new',
+      'search:0',
+      'sub:TaylorSwift:hot',
+    ]);
+  });
+
+  it('waits a random start delay when asked, none by default', async () => {
+    const sleeps: number[] = [];
+    const sleep = async (ms: number) => void sleeps.push(ms);
+    await run({ fetchImpl: feeds({}) as never, dryRun: true, sleep });
+    expect(sleeps.every((ms) => ms === 0)).toBe(true);
+    await run({
+      fetchImpl: feeds({}) as never,
+      dryRun: true,
+      sleep,
+      random: () => 0.5,
+      startJitterMs: 90_000,
+    });
+    expect(sleeps).toContain(45_000);
+  });
+
+  it('a lane cooling down after a 429 makes no Reddit request at all', async () => {
+    const supabase = fakeSupabase({
+      sourceState: [
+        {
+          source: '*global*',
+          last_fetched_at: hoursAgo(0.2),
+          cooldown_until: new Date(NOW.getTime() + 600_000).toISOString(),
+          strikes: 1,
+        },
+      ],
+    });
+    const fetchImpl = feeds({});
+    const fetchAbout = vi.fn(aboutOk);
+    const result = await run({ supabase, fetchImpl: fetchImpl as never, fetchAbout });
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(fetchAbout).not.toHaveBeenCalled();
+    expect(result).toMatchObject({ laneCooling: true, kept: 0, perSource: [] });
+    expect(supabase.stateWrites).toHaveLength(0);
   });
 
   it('finds threads outside the fan subs through search RSS, with the strict Taylor filter and blocked subs', async () => {
@@ -288,12 +342,26 @@ describe('awareness scan', () => {
     expect(result).toMatchObject({ kept: 1, inserted: 0 });
   });
 
-  it('a blocked feed is skipped, not a failure, and the run stops after repeated blocks', async () => {
+  it('a 429 is skipped, not a failure: the run stops at once and the cooldowns are persisted', async () => {
+    const supabase = fakeSupabase();
     const fetchImpl = vi.fn(async () => new Response('blocked', { status: 429 }));
-    const result = await run({ fetchImpl: fetchImpl as never, dryRun: true });
+    const fetchAbout = vi.fn(aboutOk);
+    const result = await run({ supabase, fetchImpl: fetchImpl as never, fetchAbout });
     expect(result.kept).toBe(0);
     expect(result.requests.aborted).toBe(true);
-    expect(fetchImpl.mock.calls.length).toBeLessThan(6);
+    expect(fetchImpl.mock.calls.length).toBe(1);
+    expect(fetchAbout).not.toHaveBeenCalled(); // no extra request in a throttled run
+    const written = supabase.stateWrites[0] as { source: string; strikes: number }[];
+    expect(written.map((r) => [r.source, r.strikes])).toEqual([
+      ['sub:TaylorSwift:hot', 1],
+      ['*global*', 1],
+    ]);
+  });
+
+  it('dry-run records no rotation state', async () => {
+    const supabase = fakeSupabase();
+    await run({ supabase, fetchImpl: feeds({}) as never, dryRun: true });
+    expect(supabase.stateWrites).toHaveLength(0);
   });
 
   it('groups posts by community, dropping blocked subs', () => {

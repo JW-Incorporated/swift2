@@ -127,9 +127,10 @@ describe('committed sub list', () => {
     }
     for (const excluded of config.excluded) expect(names).not.toContain(excluded.name);
     expect(config.defaults.perSubDailyDeliveryCap).toBeLessThanOrEqual(3);
-    expect(config.defaults.feedRequestsPerRun).toBeLessThanOrEqual(6);
-    const big = config.subs.filter((s: { always?: boolean }) => s.always);
+    expect(config.defaults.feedRequestsPerRun).toBeLessThanOrEqual(2);
+    const big = config.subs.filter((s: { dailyCap?: number }) => s.dailyCap === 4);
     expect(big.map((s: { name: string }) => s.name)).toEqual(['TaylorSwift', 'swifties']);
+    expect(JSON.stringify(config)).not.toMatch(/authed|oauth|REDDIT_CLIENT/i);
     for (const s of config.subs) expect(s.dailyCap ?? 3).toBeLessThanOrEqual(4);
     expect(config.search.queries.length).toBeGreaterThanOrEqual(2);
     expect(config.search.queries[0]).toContain('taylor swift');
