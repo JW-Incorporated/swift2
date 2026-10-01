@@ -1,0 +1,68 @@
+# Awareness image-reply lane, step 1 of 3 — discovery (owner direction
+# 2026-10-01, docs/strategy/growth-strategy.md bet 2; docs/community/README.md
+# § Awareness replies). Zero-LLM. Runs every 3 hours (minute 19) so batches
+# arrive through the day. Each run has a small Reddit request budget (6 feed
+# requests, exponential backoff, skip-on-429, optional HOME_RELAY_URL
+# fallback): the two big fan subs every run plus a rotating window of the other
+# subs in scripts/community/awareness-subs.json and Reddit-wide search RSS
+# (threads outside the fan subs). Filters, caps and a share-card pick are in
+# the scripts; rows land as `engagement_lead(kind='awareness_reply',
+# status='new')`. routine-awareness-answerer drafts the words 22 minutes later
+# and community-awareness-deliver posts the batch to Discord.
+#
+# Kill switch: repo VARIABLE AWARENESS_LANE_ENABLED=false stops all three
+# steps (unset = on). Nothing here posts anywhere; the owner posts every reply.
+name: community-awareness-scan
+
+on:
+  schedule:
+    - cron: "19 */3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: community-awareness-scan
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Enabled check
+        id: enabled
+        env:
+          FLAG: ${{ vars.AWARENESS_LANE_ENABLED }}
+        run: |
+          if [ "$FLAG" = "false" ] || [ "$FLAG" = "0" ]; then
+            echo "AWARENESS_LANE_ENABLED=false: skipping this run. Kill switch, not a fault."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - uses: actions/setup-node@v7
+        if: steps.enabled.outputs.enabled == 'true'
+        with:
+          node-version: "24"
+
+      - run: npm ci --ignore-scripts
+        if: steps.enabled.outputs.enabled == 'true'
+
+      - name: Build the offline moment catalogue (seed files only, no secrets)
+        if: steps.enabled.outputs.enabled == 'true'
+        run: node scripts/sync-longlive-content.mjs
+
+      - name: Find awareness threads
+        if: steps.enabled.outputs.enabled == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          AWARENESS_LANE_ENABLED: ${{ vars.AWARENESS_LANE_ENABLED }}
+          HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
+        run: npx tsx scripts/community/awareness-scan.mjs

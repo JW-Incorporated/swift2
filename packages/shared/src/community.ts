@@ -19,7 +19,13 @@ export const COMMUNITY_PLATFORMS = ['reddit', 'facebook'] as const;
 export type CommunityPlatform = (typeof COMMUNITY_PLATFORMS)[number];
 
 /** `engagement_lead.kind`. */
-export const ENGAGEMENT_LEAD_KINDS = ['alert', 'digest', 'hot_thread', 'reply_to_us'] as const;
+export const ENGAGEMENT_LEAD_KINDS = [
+  'alert',
+  'digest',
+  'hot_thread',
+  'reply_to_us',
+  'awareness_reply',
+] as const;
 export type EngagementLeadKind = (typeof ENGAGEMENT_LEAD_KINDS)[number];
 
 /** `engagement_lead.status`. `skipped_by_founder` is P1-5's ack-route outcome

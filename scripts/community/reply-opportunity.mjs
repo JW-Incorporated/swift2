@@ -23,7 +23,7 @@ function escapeRefLookalikes(text) {
 }
 
 /** Longest prefix of `text` within `units` UTF-16 units, never splitting a surrogate pair. */
-function clipUnits(text, units) {
+export function clipUnits(text, units) {
   let out = '';
   for (const ch of text) {
     if (out.length + ch.length > units) break;
@@ -32,19 +32,19 @@ function clipUnits(text, units) {
   return out;
 }
 
-function oneLine(text, max) {
+export function oneLine(text, max) {
   const flat = String(text ?? '')
     .replace(/\s+/g, ' ')
     .trim();
   return flat.length > max ? `${clipUnits(flat, max - 1).trimEnd()}…` : flat;
 }
 
-function safe(text) {
+export function safe(text) {
   return escapeRefLookalikes(neutralizeMentions(text));
 }
 
 // Untrusted titles must not be able to form a markdown link ("[x](http://…)").
-function escapeLinkBrackets(text) {
+export function escapeLinkBrackets(text) {
   return text.replace(/[[\]]/g, '\\$&');
 }
 
@@ -55,7 +55,7 @@ const MAX_ACK_URL_UNITS = 450;
 const MIN_REPLY_UNITS = 200;
 const TRIM_NOTE = '(Reply trimmed to fit Discord.)';
 
-function urlLine(url, prefix = '') {
+export function urlLine(url, prefix = '') {
   const clean = String(url ?? '').trim();
   if (!clean || clean.length > MAX_URL_UNITS || /[\s<>]/.test(clean)) return null;
   return `${prefix}<${clean}>`;

@@ -212,6 +212,7 @@ function fakeSupabase({
         select: () => builder,
         eq: () => builder,
         not: () => builder,
+        neq: () => builder,
         order: () => builder,
         limit: () => Promise.resolve({ data: rows, error: selectError }),
         update: (patch: unknown) => ({
@@ -275,6 +276,7 @@ describe('fetchLeadsToMail', () => {
 
   it('filters null drafts in the query so no-draft rows cannot starve sendable leads', async () => {
     const not = vi.fn();
+    const neq = vi.fn();
     const builder: Record<string, unknown> = {
       select: () => builder,
       eq: () => builder,
@@ -282,11 +284,16 @@ describe('fetchLeadsToMail', () => {
         not(...args);
         return builder;
       },
+      neq: (...args: unknown[]) => {
+        neq(...args);
+        return builder;
+      },
       order: () => builder,
       limit: () => Promise.resolve({ data: [lead({ id: 'ok' })], error: null }),
     };
     const result = await fetchLeadsToMail({ from: () => builder }, { mode: 'daily' });
     expect(not).toHaveBeenCalledWith('draft', 'is', null);
+    expect(neq).toHaveBeenCalledWith('kind', 'awareness_reply'); // the awareness lane has its own delivery
     expect(result.map((l: Lead) => l.id)).toEqual(['ok']);
   });
 

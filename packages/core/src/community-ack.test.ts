@@ -83,6 +83,25 @@ describe('ackPosted', () => {
     expect(rpcCall?.args[0]).toEqual({ p_id: 'reddit_non_promo' });
   });
 
+  it('does NOT bump the etiquette counter for an awareness image reply', async () => {
+    const { db, calls } = makeFakeDb({
+      lead: {
+        id: LEAD_ID,
+        platform: 'reddit',
+        community: 'TaylorSwift',
+        thread_id: 't3_aw',
+        locator: null,
+        link_included: null,
+        status: 'delivered',
+        kind: 'awareness_reply',
+      },
+    });
+    const result = await ackPosted(db, LEAD_ID, false);
+    expect(result).toEqual({ ok: true, alreadyActed: false });
+    expect(calls.some((c) => c.op === 'insert')).toBe(true);
+    expect(calls.some((c) => c.table === 'rpc')).toBe(false);
+  });
+
   it('does NOT bump the etiquette counter when a link was included', async () => {
     const { db, calls } = makeFakeDb({
       lead: {

@@ -47,6 +47,80 @@ Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
 (The older "one email a day" description below is historical; delivery moved
 to Discord on 2026-09-09.)
 
+### Awareness replies (picture-only replies, 10+ a day)
+
+Owner direction 2026-10-01 (`docs/strategy/growth-strategy.md`, bet 2): find
+Reddit and Facebook threads where a **picture of the site, with no link**,
+invites "what is that?!", then explain once someone asks. The system finds the
+threads, picks the picture, drafts a short reply and posts the lot to the same
+Discord channel under **Tree · Awareness replies**. **You post every reply
+yourself** (guardrail 6); nothing posts automatically.
+
+Every 3 hours (a batch about 45 minutes past 00, 03, 06 ... 21 UTC, when there is something to send) a header reads
+**🎯 Awareness replies — N today** (N counts today's total, including that
+batch), then one message per opportunity:
+
+```
+🎯 Awareness reply · r/<sub> · image comments allowed (or: 🖼️ image replies unverified — if there's no image button, post the text)
+<thread title>  +  <thread link>
+Why: one line on why a picture fits
+Image: attached card (era:folklore). Post it with the reply, no link.
+Sub rule: that sub's self-promo note
+[the reply text, in a code block]
+Done? ✅ Posted · Skip
+```
+
+The card is **attached as a PNG** (not a link). Paste the reply, attach the
+picture, post. No link, no site name in the text: the unexplained picture is
+the hook. If someone asks, that is the moment to talk about the site.
+
+How it works, in three workflows (kill switch: repo variable
+`AWARENESS_LANE_ENABLED=false`; unset means on):
+
+1. `community-awareness-scan` (every 3 hours, 6 Reddit requests a run with
+   exponential backoff, skipped on 429, optional `HOME_RELAY_URL` fallback)
+   reads `scripts/community/awareness-subs.json` (the subs, a note on each
+   one's self-promo rule, and the caps): r/TaylorSwift and r/swifties every run,
+   the other subs and Reddit-wide search RSS in rotation. Search finds Taylor
+   threads outside the fan subs (r/popculturechat, r/AskReddit, r/Music ...),
+   the best targets; those use a strict Taylor-name filter and a block list.
+   It keeps titles that fit a picture: era
+   rankings/debates, timeline questions, Easter-egg/theory threads, nostalgia
+   and anniversary threads, news reactions. It skips threads older than 48
+   hours, megathreads, crafts and fan art, redline and personal-life topics
+   (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
+   run, a day budget of cap+1 candidates per sub, 6 per run. Recent screened Facebook
+   export leads are adopted as awareness rows too.
+2. `routine-awareness-answerer` is ONE Claude run per batch (not per lead; at
+   most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
+   waiting. It writes the words only, with no shell and no database secret
+   (it reads untrusted Reddit titles): a plain job exports the waiting leads
+   to a file, the agent (Read/Write/Glob/Grep only) writes a drafts file, and
+   a plain job validates it (`awareness-draft.mjs apply`): the picture id must
+   exist and a reply with a link, a domain, "check out", an em dash or more
+   than 300 characters is rejected. Delivery lints every reply again.
+3. `community-awareness-deliver` sends at most 5 per batch, 3 per sub per day
+   (4 for r/TaylorSwift and r/swifties) and 15 per day, image-capable subs
+   first, unverified next, **text-only sub** last. An unverified sub is never
+   dropped: the label tells you to post the text if there is no image button.
+
+**Image comments per sub.** The scan reads one sub's public `about.json` per run, caches a good reading for a week (and a blocked attempt for 12 hours) in `awareness_sub_cache`,
+(`comment_contribution_settings.allowed_media_types`; `static` means still
+images). Reddit blocks that request from CI and from the build environment
+(HTTP 403, 2026-10-01), so today every sub reads "image comments unverified
+(look for the image icon in the comment box)". To pin a sub, set its
+`imageComments` to `"image"` or `"text_only"` in `awareness-subs.json` once you
+have seen its comment box. A sub marked `verified: false` there was named from
+memory; a missing sub just yields no threads.
+
+**Numbers.** Posted and Skip clicks feed Marjorie's weekly review as
+`awareness: {delivered, posted, skipped, open}` (by delivery week); tell
+Marjorie in `#longlive-marjorie` how many people replied "what is that?".
+Delivery is at-least-once: if Discord confirms a message but marking the lead
+`delivered` then fails, that opportunity can arrive again in a later batch;
+skip the repeat. Posting an awareness reply does not count toward the 20 non-promo
+contributions the link gate waits for (it is promotion, not a plain contribution).
+
 Expect to spend roughly 10–15 minutes on this most days.
 
 ### Reddit notification intake
