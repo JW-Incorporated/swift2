@@ -1,16 +1,17 @@
 # Awareness image-reply lane, step 1 of 3 — discovery (owner direction
 # 2026-10-01, docs/strategy/growth-strategy.md bet 2; docs/community/README.md
-# § Awareness replies). Zero-LLM. Runs every 3 hours (minute 19) so batches
-# arrive through the day. Each run has a small Reddit request budget (6 feed
-# requests, exponential backoff, skip-on-429, optional HOME_RELAY_URL
-# fallback; with the REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET secrets the scan
-# uses the authenticated Reddit API instead, 40 requests, every sub + query
-# each run): the two big fan subs every run plus a rotating window of the other
-# subs in scripts/community/awareness-subs.json and Reddit-wide search RSS
-# (threads outside the fan subs). Filters, caps and a share-card pick are in
-# the scripts; rows land as `engagement_lead(kind='awareness_reply',
-# status='new')`. routine-awareness-answerer drafts the words 22 minutes later
-# and community-awareness-deliver posts the batch to Discord.
+# § Awareness replies). Zero-LLM. Many tiny runs: every ~20 minutes (jittered),
+# 2 anonymous Reddit RSS requests a run, the feeds fetched longest ago first
+# (every sub in scripts/community/awareness-subs.json hot + new, plus
+# Reddit-wide search RSS for threads outside the fan subs). A 429 stops the run
+# and puts the feed, and the whole lane, on a persisted cooldown
+# (awareness_source_state); optional HOME_RELAY_URL fallback. Reddit access is
+# anonymous only: the owner ruled 2026-10-01 there is NEVER a Reddit API key
+# (docs/decisions.md). Filters, caps and a share-card pick are in the scripts;
+# rows land as `engagement_lead(kind='awareness_reply', status='new')`.
+# routine-awareness-answerer drafts the words every 3 hours (skipped by a gate
+# when nothing is waiting) and community-awareness-deliver posts each batch to
+# Discord.
 #
 # Kill switch: repo VARIABLE AWARENESS_LANE_ENABLED=false stops all three
 # steps (unset = on). Nothing here posts anywhere; the owner posts every reply.
@@ -18,7 +19,7 @@ name: community-awareness-scan
 
 on:
   schedule:
-    - cron: '19 */3 * * *'
+    - cron: "7,27,47 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -67,7 +68,4 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           AWARENESS_LANE_ENABLED: ${{ vars.AWARENESS_LANE_ENABLED }}
           HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
-          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-          REDDIT_USERNAME: ${{ vars.REDDIT_USERNAME }}
         run: npx tsx scripts/community/awareness-scan.mjs
