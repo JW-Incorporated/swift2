@@ -19,9 +19,10 @@ the same shape and costs no model tokens.
 
 ## When it updates
 
-`.github/workflows/marjorie-status.yml`, job `render`: every 3 hours (`7 */3 * * *`),
+`.github/workflows/marjorie-status.yml`, job `render`: every hour (`7 * * * *`),
 on a push to `main` touching `HUMAN-ACTIONS.md` or `social/**`, and on
-`workflow_dispatch`. The brief's `deliver` job also re-renders before pinging.
+`workflow_dispatch`. A close PR merged by auto-merge (PAT) triggers the push run; the
+hourly run is the backstop if a merge ever lands without one. The brief's `deliver` job also re-renders before pinging.
 A source that cannot be read (a GitHub endpoint, a file) is named in a
 warning line on the page instead of being shown as empty.
 
@@ -35,17 +36,30 @@ Comment on the status issue. Only the owner's own account (`sffan15-sys`, with
 other comment, and every bot comment, is ignored — the workflow's `if` and
 `status-reply.mjs` both check.
 
-- `done #N` — closes a blocking/upgrade item.
-- `decide #N <choice>` — closes a `[DECIDE]` item and records the choice in
-  the ledger. If the item lists options (a `Decide:` step line), the choice
-  must be one of them; extra words after the option are kept as detail.
-- Either one opens a `Close HA #N` PR from `status-page/ha-close-N-<comment id>`
-  through `ha-close.mjs`'s `closeHumanAction`, with auto-merge, using
-  `SOCIAL_POSTER_PAT` so required checks run. The bot answers with an ack
-  comment (PR link) and re-renders; the page keeps the item, marked
-  `⏳ Closing now`, until the PR lands on `main`.
-- Wrong shape (`done` on a decision, an unknown option, a closed item) gets a
-  reply with the right syntax and closes nothing.
+- Four commands, each legal on ANY open item (task or decision):
+  `done #N [note]`, `skip #N <why>` (closes as `skip`, which is final),
+  `close #N <why>` (withdraws it, e.g. "wrong question, not a founder call"), and
+  `decide #N <anything>`. If a decision lists options (a `Decide:` step line) and the
+  answer starts with one, that option is recorded (extra words kept as detail);
+  any other answer is recorded verbatim, never refused. Only a bare `decide #N`
+  is answered with a question.
+- Every close lands through ONE rolling PR, `Close HA #A, #B — owner replied on
+  the status page`, on the bot-owned branch `status-page/ha-closes`
+  (`lib/status-closes.mjs`). The pending closes live in the PR body as hidden
+  `<!-- ha-close {...} -->` records; the branch is always rebuilt from the tip of
+  `main` plus that list (header count recomputed from the file), then force-pushed
+  with a lease — the only force-push anywhere, never `main` or a human's branch.
+  Auto-merge uses `SOCIAL_POSTER_PAT` so required checks run. Two replies a minute
+  apart therefore cannot conflict. The `heal` job (hourly and on every push to
+  `main`) rebuilds the branch whenever main has moved under it, drops a close
+  someone else already made, and closes the PR if nothing is left.
+- The page reflects a reply at once: the reply job re-renders right after the PR
+  opens, and an answered item leaves Needs you for a small
+  `✅ Closing — merging now` line (your answer + the PR) until the PR merges, then
+  the line disappears. The ack comment carries the PR link.
+- A reply for an item a close PR already carries (rolling, chat routine, or older
+  per-item PR) is answered with a pointer to it; the first answer stands.
+- An `#N` that is not open gets "isn't open" and nothing happens.
 - **Closing is all it does.** A decision such as `assign` or `defer` is
   recorded, not executed; Marjorie reads the ledger and acts on it.
 - Any other owner comment goes to Marjorie right away. The `reply` job answers with
@@ -57,12 +71,9 @@ other comment, and every bot comment, is ignored — the workflow's `if` and
   routine's authority list and answers with one comment on the issue. Her reply is a
   bot comment, so nothing loops. If the dispatch fails the bot says so and the
   next morning brief still reads the comment.
-- A choice that means *skip* (`skip`, `defer`) closes the item as `skip` in the
-  ledger, which the chase reads as "held"; `skip` is accepted even when an item
-  does not list it.
-- Only one reply job runs at a time (shared concurrency group), and a second
-  `done #N` for an item whose closing PR is still open is answered with a pointer
-  to that PR instead of opening another.
+- A `decide` answer whose first word is `skip` or `defer` also closes as `skip`.
+- Only one reply job runs at a time (shared concurrency group); `heal` has its own
+  lane and races it safely (force-with-lease; the loser rebuilds).
 
 ## The daily brief
 

@@ -7,19 +7,28 @@ const brief = read('.github/workflows/routine-marjorie-brief.yml');
 const job = (text: string, name: string, next: string) => text.slice(text.indexOf(`\n  ${name}:`), next ? text.indexOf(`\n  ${next}:`) : undefined);
 
 describe('marjorie-status.yml', () => {
-  it('fires every 3h, on HA/social pushes to main, on demand, and on issue comments', () => {
-    expect(status).toContain('cron: "7 */3 * * *"');
+  it('fires hourly, on HA/social pushes to main, on demand, and on issue comments', () => {
+    expect(status).toContain('cron: "7 * * * *"');
     expect(status).toMatch(/push:\n {4}branches: \[main\]\n {4}paths:\n {6}- HUMAN-ACTIONS\.md\n {6}- "social\/\*\*"/);
     expect(status).toContain('workflow_dispatch');
     expect(status).toMatch(/issue_comment:\n {4}types: \[created\]/);
   });
   it('starts with no permissions and grants each job only what it needs', () => {
     expect(status).toMatch(/\npermissions: \{\}\n/);
-    const render = job(status, 'render', 'reply');
+    const render = job(status, 'render', 'heal');
     expect(render).toMatch(/permissions:\n {6}contents: read\n {6}issues: write\n {6}pull-requests: read/);
     expect(render).not.toContain('secrets.');
     expect(render).toMatch(/concurrency:\n {6}group: marjorie-status-render\n {6}cancel-in-progress: false/);
     expect(render).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
+  });
+  it('keeps the rolling close PR mergeable: a heal job on its own lane, never in the reply group', () => {
+    const heal = job(status, 'heal', 'reply');
+    expect(heal).toContain("if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'");
+    expect(heal).toMatch(/permissions:\n {6}contents: write\n {6}pull-requests: write\n/);
+    expect(heal).toMatch(/group: marjorie-status-heal\n {6}cancel-in-progress: false/);
+    expect(heal).not.toContain('group: marjorie-status-reply');
+    expect(heal).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
+    expect(heal).toContain('node scripts/marjorie/status-heal.mjs');
   });
   it('lets only the owner\'s own comment on a status-page issue reach the reply job', () => {
     const reply = job(status, 'reply', '');

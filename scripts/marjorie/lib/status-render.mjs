@@ -1,5 +1,6 @@
 // Composes the status page body (Bots v2 W4) from already-fetched data.
 // Pure: same input, same output; the clock is a parameter.
+import { pendingCloses } from './status-closes.mjs';
 import { parseHaEntries, renderNeedsYou } from './status-ha.mjs';
 import { noiseRuleFor, renderShipped, selectShipped, SHIPPED_WINDOW_DAYS } from './status-shipped.mjs';
 import { readHeldRegion, renderHeldSection } from './status-held.mjs';
@@ -41,19 +42,18 @@ function glance({ items, shipped, prs }) {
   const bits = [`🔴 ${blocking} blocking`, `🟡 ${decide} to decide`];
   if (other) bits.push(`🟢 ${other} upgrade${other === 1 ? '' : 's'}`);
   bits.push(`🚢 ${shipped.length} shipped`, `🧭 ${prs.length} in flight`);
-  return `${bits.join(' · ')}\n\n_Reply on this issue: \`done #N\` or \`decide #N <choice>\`. Updated every 3 hours and whenever human actions change._`;
+  return `${bits.join(' · ')}\n\n_Reply on this issue: \`done #N\`, \`skip #N <why>\`, \`close #N <why>\` or \`decide #N <anything>\`. Updated hourly and whenever human actions change._`;
 }
 
 function compose(data, now, repo, shippedLines) {
-  const items = parseHaEntries(data.haMarkdown);
+  const parsed = parseHaEntries(data.haMarkdown);
+  // An item the owner already answered leaves Needs you the moment its close PR is open, not when it lands.
+  const pending = pendingCloses(data.openPrs);
+  const items = parsed.filter((i) => !pending.has(i.number));
+  const closing = parsed.filter((i) => pending.has(i.number)).map((i) => ({ number: i.number, title: i.title, ...pending.get(i.number) }));
   const warnings = data.warnings || [];
   const windowMerged = data.mergedPrs.filter((pr) => pr.mergedAt && now - Date.parse(pr.mergedAt) <= SHIPPED_WINDOW_DAYS * 86_400_000);
   const shipped = selectShipped(data.mergedPrs, now);
-  const pendingClose = new Map();
-  for (const pr of data.openPrs) {
-    const m = /^close ha #(\d+)/i.exec(pr.title);
-    if (m) pendingClose.set(Number(m[1]), pr);
-  }
   const inFlight = data.openPrs.filter((pr) => !pr.draft && !noiseRuleFor(pr));
   const updated = new Date(now);
   const parts = [
@@ -64,7 +64,7 @@ function compose(data, now, repo, shippedLines) {
     ...(warnings.length ? [`⚠️ Couldn't read: ${warnings.join(', ')} — those sections may be incomplete.`] : []),
     warnings.includes('HUMAN-ACTIONS.md')
       ? '## 🙋 Needs you\n\n_Could not read HUMAN-ACTIONS.md this run — see the repo file directly._'
-      : renderNeedsYou(items, { repo, now, pendingClose }),
+      : renderNeedsYou(items, { repo, now, closing }),
     renderShipped(shipped, { hidden: windowMerged.length - shipped.length, maxLines: shippedLines }),
     renderNextUp({ plan: data.plan, prs: inFlight }, { now }),
     ...(renderHeldSection(data.held) ? [renderHeldSection(data.held)] : []),

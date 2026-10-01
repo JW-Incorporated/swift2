@@ -97,8 +97,13 @@ describe('parseCommand', () => {
     expect(parseCommand('\n  Decide #87 accept — fine by me ')).toEqual({ kind: 'decide', number: 87, text: 'accept — fine by me' });
     expect(parseCommand('`done #5`')).toEqual({ kind: 'done', number: 5, text: '' });
   });
+  it('reads skip and close with their reasons', () => {
+    expect(parseCommand('skip #91 not now, revisit in Q4')).toEqual({ kind: 'skip', number: 91, text: 'not now, revisit in Q4' });
+    expect(parseCommand('Close #85 wrong question, not a founder call')).toEqual({ kind: 'close', number: 85, text: 'wrong question, not a founder call' });
+    expect(parseCommand('close #85')).toEqual({ kind: 'close', number: 85, text: '' });
+  });
   it('ignores everything else', () => {
-    for (const body of ['', 'done', 'done 88 please', 'thanks!', 'I will do #88 done', 'please decide #87 accept', 'redone #5']) {
+    for (const body of ['', 'done', 'done 88 please', 'thanks!', 'I will do #88 done', 'please decide #87 accept', 'redone #5', 'close the loop', 'skip it']) {
       expect(parseCommand(body)).toBeNull();
     }
   });
@@ -107,18 +112,22 @@ describe('parseCommand', () => {
 describe('checkCommand', () => {
   const items = parseHaEntries(OPEN);
   const [blocking, optioned, freeform] = items;
-  it('accepts done only on non-decisions and decide only on decisions', () => {
-    expect(checkCommand(blocking, { kind: 'done', number: 88, text: '' })).toMatchObject({ ok: true, choice: '' });
-    expect(checkCommand(optioned, { kind: 'done', number: 87, text: '' }).ok).toBe(false);
-    expect(checkCommand(blocking, { kind: 'decide', number: 88, text: 'yes' }).ok).toBe(false);
+  it('accepts done, skip and close on any item, task or decision', () => {
+    for (const item of [blocking, optioned, freeform]) {
+      expect(checkCommand(item, { kind: 'done', number: item.number, text: '' })).toMatchObject({ ok: true, choice: '', outcome: 'done', verb: 'done' });
+      expect(checkCommand(item, { kind: 'skip', number: item.number, text: 'later' })).toMatchObject({ ok: true, choice: 'later', outcome: 'skip', verb: 'skipped' });
+      expect(checkCommand(item, { kind: 'close', number: item.number, text: 'wrong question' })).toMatchObject({ ok: true, choice: 'wrong question', outcome: 'done', verb: 'closed' });
+    }
+    expect(checkCommand(blocking, { kind: 'decide', number: 88, text: 'yes' })).toMatchObject({ ok: true, choice: 'yes', verb: 'decided' });
   });
-  it('requires a declared option when options exist, keeping trailing detail', () => {
+  it('keeps a declared option (with trailing detail) and records anything else verbatim', () => {
     expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'ACCEPT' })).toMatchObject({ ok: true, choice: 'accept' });
     expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'route to austin' })).toMatchObject({ ok: true, choice: 'route — to austin' });
-    const bad = checkCommand(optioned, { kind: 'decide', number: 87, text: 'maybe' });
-    expect(bad.ok).toBe(false);
-    expect(bad.message).toContain('`accept`, `route`');
-    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: '' }).ok).toBe(false);
+    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'wrong question, not a founder call' })).toMatchObject({ ok: true, choice: 'wrong question, not a founder call', outcome: 'done' });
+    const bare = checkCommand(optioned, { kind: 'decide', number: 87, text: '' });
+    expect(bare.ok).toBe(false);
+    expect(bare.message).toContain('`accept`, `route`');
+    expect(bare.message).toContain('close #87 <why>');
   });
   it('accepts a short free-form choice when none are declared', () => {
     expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'confirmed, ship it' })).toMatchObject({ ok: true, choice: 'confirmed, ship it' });
@@ -166,7 +175,7 @@ describe('handleComment — who and what is acted on', () => {
 });
 
 describe('handleComment — closing', () => {
-  it('done #N closes the item through a branch, PR and auto-merge, then acks', async () => {
+  it('done #N closes the item through the rolling branch, PR and auto-merge, then acks', async () => {
     const root = repoDir();
     const h = harness();
     const out = await handleComment({ event: event('done #88'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, prToken: 'pat', log: vi.fn() });
@@ -178,10 +187,12 @@ describe('handleComment — closing', () => {
     const done = readFileSync(path.join(root, 'HUMAN-ACTIONS-DONE.md'), 'utf8');
     expect(done).toMatch(/- #88 · 2026-09-30 · done · Store the login — "status page https:\/\/github.com\/o\/r\/issues\/50#issuecomment-999 — owner said done" · by status page/);
     const verbs = h.calls.map((c) => c.slice(0, 3).join(' '));
-    expect(verbs).toEqual(['gh pr list', 'git checkout -b', 'git add HUMAN-ACTIONS.md', 'git commit -m', 'git push -u', 'gh pr create', 'gh pr merge']);
-    expect(h.calls[1][3]).toBe('status-page/ha-close-88-999');
+    expect(verbs.map((v) => v.split(' ').slice(0, 2).join(' '))).toEqual(['git fetch', 'git fetch', 'gh pr', 'git checkout', 'git add', 'git commit', 'git rev-parse', 'git push', 'gh pr', 'gh pr']);
+    expect(h.calls.find((c) => c[1] === 'checkout')).toEqual(['git', 'checkout', '--quiet', '-B', 'status-page/ha-closes', 'refs/remotes/origin/main']);
+    expect(h.calls.find((c) => c[1] === 'push')!.slice(-2)).toEqual(['origin', 'HEAD:refs/heads/status-page/ha-closes']);
     const create = h.calls.find((c) => c[1] === 'pr' && c[2] === 'create')!;
     expect(create[create.indexOf('--title') + 1]).toBe('Close HA #88 — owner replied on the status page');
+    expect(create[create.indexOf('--body') + 1]).toContain('<!-- ha-close {"n":88,"o":"done","d":"2026-09-30"');
     expect(h.calls.find((c) => c[2] === 'merge')).toContain('--auto');
     expect(h.run.mock.calls.find(([, a]) => (a as string[])[0] === 'pr' && (a as string[])[1] === 'create')![2]).toEqual({ env: { GH_TOKEN: 'pat' } });
     expect(h.replies).toHaveLength(1);
@@ -206,20 +217,44 @@ describe('handleComment — closing', () => {
     expect(h.replies[0]).toContain("#4 isn't open");
   });
 
-  it('answers a wrong-shaped command with the right syntax and closes nothing', async () => {
+  it('asks for the answer on a bare decide, and closes nothing', async () => {
     const root = repoDir();
     const h = harness();
-    await handleComment({ event: event('done #87'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
-    await handleComment({ event: event('decide #87 maybe'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    await handleComment({ event: event('decide #87'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
     expect(h.replies[0]).toContain('decide #87 <choice>');
-    expect(h.replies[1]).toContain('isn\'t one of the options');
+    expect(h.replies[0]).toContain('close #87 <why>');
     expect(h.run).not.toHaveBeenCalled();
     expect(readFileSync(path.join(root, 'HUMAN-ACTIONS.md'), 'utf8')).toContain('## #87');
   });
 
+  it('closes a decision with done, close <why>, skip, or an answer that is not an option (issue #4665)', async () => {
+    const wrong = 'wrong question, not a founder call';
+    for (const [text, ledger, ack] of [
+      ['done #87', /- #87 · 2026-09-30 · done · .*owner said done" /, '#87 marked done'],
+      [`close #87 ${wrong}`, new RegExp(`- #87 · 2026-09-30 · done · .*owner closed '${wrong}'`), `#87 closed: \`${wrong}\``],
+      [`decide #87 ${wrong}`, new RegExp(`owner decided '${wrong}'`), `Decision recorded on #87: \`${wrong}\``],
+      ['skip #87 not this quarter', /- #87 · 2026-09-30 · skip · .*owner skipped 'not this quarter'/, '#87 skipped: `not this quarter`'],
+    ] as const) {
+      const root = repoDir();
+      const h = harness();
+      const out = await handleComment({ event: event(text), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+      expect(out.acted, text).toBe(true);
+      expect(readFileSync(path.join(root, 'HUMAN-ACTIONS-DONE.md'), 'utf8'), text).toMatch(ledger);
+      expect(readFileSync(path.join(root, 'HUMAN-ACTIONS.md'), 'utf8'), text).not.toContain('## #87');
+      expect(h.replies[0], text).toContain(ack);
+    }
+  });
+
+  it('closes a task with skip too', async () => {
+    const root = repoDir();
+    const h = harness();
+    expect((await handleComment({ event: event('skip #88 no longer needed'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() })).acted).toBe(true);
+    expect(readFileSync(path.join(root, 'HUMAN-ACTIONS-DONE.md'), 'utf8')).toMatch(/- #88 · 2026-09-30 · skip · /);
+  });
+
   it('reports a failed close and flags the run failed', async () => {
     const h = harness();
-    h.run.mockImplementation((cmd: string, args: string[]) => { if (cmd === 'git' && args[0] === 'push') throw new Error('remote: denied\nsecret detail'); return ''; });
+    h.run.mockImplementation((cmd: string, args: string[]) => { if (cmd === 'gh' && args[1] === 'create') throw new Error('GraphQL: denied\nsecret detail'); return ''; });
     const log = vi.fn();
     const out = await handleComment({ event: event('done #88'), root: repoDir(), run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log });
     expect(out).toMatchObject({ acted: false, failed: true });
@@ -257,18 +292,24 @@ describe('handleComment — skip and duplicate closes', () => {
     expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'deferred until next month' })).toMatchObject({ outcome: 'done' });
     expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'defer it' })).toMatchObject({ outcome: 'skip' });
   });
-  it('does not open a second closing PR while one for the same item is open', async () => {
+  it('does not queue a second close for an item a close PR already carries', async () => {
     const root = repoDir();
     const h = harness();
-    h.run.mockImplementation((cmd: string, args: string[]) => (cmd === 'gh' && args[1] === 'list' ? JSON.stringify([{ headRefName: 'status-page/ha-close-88-111' }]) : ''));
+    const list = (rows: unknown[]) => (cmd: string, args: string[]) => (cmd === 'gh' && args[1] === 'list' ? JSON.stringify(rows) : '');
+    const rolling = { number: 7, url: 'https://github.com/o/r/pull/7', title: 'Close HA #88 — owner replied on the status page', headRefName: 'status-page/ha-closes', isCrossRepository: false, body: '<!-- ha-close {"n":88,"o":"done","d":"2026-09-30","note":"status page x — owner said done","by":"status page","s":"done"} -->' };
+    h.run.mockImplementation(list([rolling]));
     const out = await handleComment({ event: event('done #88'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
     expect(out).toMatchObject({ acted: false, reason: 'closing pr already open' });
-    expect(h.run).toHaveBeenCalledTimes(1);
-    expect(h.replies[0]).toContain('already open');
-    expect(readFileSync(path.join(root, 'HUMAN-ACTIONS.md'), 'utf8')).toContain('## #88');
+    expect(h.replies[0]).toContain('already queued');
+    expect(h.replies[0]).toContain('pull/7');
+    expect(h.calls.some((c) => c[1] === 'push' || c[1] === 'create')).toBe(false);
+    const chat = harness();
+    chat.run.mockImplementation(list([{ number: 8, url: 'https://github.com/o/r/pull/8', title: 'Close HA #88 — founder said done in chat', headRefName: 'marjorie/ha-close-88-5', isCrossRepository: false, body: '' }]));
+    const out2 = await handleComment({ event: event('done #88'), root: repoDir(), run: chat.run, reply: chat.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    expect(out2).toMatchObject({ acted: false, reason: 'closing pr already open' });
     const other = harness();
-    other.run.mockImplementation((cmd: string, args: string[]) => (cmd === 'gh' && args[1] === 'list' ? JSON.stringify([{ headRefName: 'status-page/ha-close-87-5' }, { headRefName: 'feat/x' }]) : ''));
-    const out2 = await handleComment({ event: event('done #88'), root: repoDir(), run: other.run, reply: other.reply, repo: 'o/r', now: NOW, log: vi.fn() });
-    expect(out2.acted).toBe(true);
+    other.run.mockImplementation(list([{ ...rolling, body: rolling.body.replace('"n":88', '"n":87'), title: 'Close HA #87 — x' }]));
+    const out3 = await handleComment({ event: event('done #88'), root: repoDir(), run: other.run, reply: other.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    expect(out3.acted).toBe(true);
   });
 });

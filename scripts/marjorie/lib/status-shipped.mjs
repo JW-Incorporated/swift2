@@ -49,6 +49,7 @@ export function toPr(row) {
     mergedAt: row.merged_at || null,
     updatedAt: row.updated_at || null,
     draft: Boolean(row.draft),
+    body: String(row.body || ''),
   };
 }
 
