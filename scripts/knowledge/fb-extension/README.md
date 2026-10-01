@@ -59,6 +59,37 @@ restarts.
 - `harvest-core.js` holds the pure harvest logic, ported from `fb-export-helpers.mjs` /
   `fb-export-harvest.mjs`; `fb-extension.test.ts` checks it against those originals.
 
+## Capture mode — reading Facebook's real markup without reading any post
+
+`npm run knowledge:fb-export:capture` runs the same receiver + plain Chrome flow with the job
+flag `capture:true` (dry run 2026-09-30: Vault dropped 96/131 posts for "no message container",
+Kulto read no "N comments" count on 45/45 posts — both selectors are guesses, see
+`buildPostHtml` / `extractEngagement`). Per group: at most **3 minutes** of the usual human-paced
+scrolling, no comments, no ingest, no upload, no ledger, no weekly issue. The content script
+(`skeleton.js`) sends, for up to 15 post containers per group (units `buildPostHtml` DROPPED
+first, then a few kept ones), a **skeleton**:
+
+- a nested tree `{tag, role?, attrs?, n, children?}`, depth ≤ 25, ≤ 600 nodes per unit, in which
+  **every text node is `{text:'T', len}`**;
+- attribute values only for `role`, `data-ad-*`, `data-pagelet`, `aria-posinset`, `dir`,
+  `tabindex`, `type`, `data-testid` and enum-valued `aria-*`; `aria-label` / `title` / `alt` keep a
+  **shape** (lower-cased; words kept only from a fixed UI vocabulary — comment(s), reaction(s),
+  like, share(s), reply/replies, see, more, all, view, previous, most, relevant, write, a, an, by,
+  their Tagalog equivalents, time units; digits → `9`; every other word → `w`); `href` keeps a
+  **path shape** (known path words, every id/vanity → `:id`, query keys only); `class`, `src`,
+  `style`, `id`, `name`, `value` are dropped; other attributes keep their name only (`-`);
+- a `diagnosis` per unit: what `postRegion` cut on (`cutKind`), `postMessageVerdict`'s reason
+  code (`ok` / `no-message-container` / `message-holds-…`), the count reader's result, and tag
+  paths; plus `labels` (every aria-label and every ≤ 40-char text holding a digit, as shapes with
+  their tag path) and `dataAttributes` (where `data-ad-*` / `data-pagelet` sit).
+
+The receiver re-checks every skeleton against the same grammar (`isRedactedSkeleton`) and fails
+the group (`capture-unredacted`) if anything else appears, then writes
+`%LOCALAPPDATA%/longlive-fb/debug/<date>/<slug>.skeleton.json` — private, never the repo — and
+prints counts and that path only. An extension that predates capture mode answers without
+`skeletons` → `capture-unsupported`: reload it on `chrome://extensions`. `skeleton.test.ts`
+proves no synthetic sentence, name, id or link survives a skeleton.
+
 ## Known limits
 
 - **Profile.** Reading as personal, wrong-profile fires on ANY acting-as-a-Page signal: a readable

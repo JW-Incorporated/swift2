@@ -54,7 +54,7 @@ describe('fb-extension manifest', () => {
     const fb = manifest.content_scripts.find((entry: Any) =>
       entry.matches.includes('https://www.facebook.com/groups/*'),
     );
-    expect(fb.js).toEqual(['harvest-core.js', 'comments.js', 'content.js']);
+    expect(fb.js).toEqual(['harvest-core.js', 'comments.js', 'skeleton.js', 'content.js']);
     const start = manifest.content_scripts.find((entry: Any) =>
       entry.matches.includes('http://127.0.0.1/start*'),
     );
@@ -62,7 +62,7 @@ describe('fb-extension manifest', () => {
   });
 
   it('never fetches from a content script', () => {
-    for (const file of ['content.js', 'harvest-core.js'])
+    for (const file of ['content.js', 'harvest-core.js', 'skeleton.js', 'comments.js'])
       expect(readFileSync(join(DIR, file), 'utf8')).not.toMatch(/\bfetch\(|XMLHttpRequest/);
     expect(readFileSync(join(DIR, 'background.js'), 'utf8')).toContain("'X-LLFB-Token'");
   });
@@ -376,13 +376,17 @@ describe('extension-only rules', () => {
 });
 
 describe('content.js runJob against a synthetic group page', () => {
-  function makeEnv(html: string, overrides: Record<string, unknown> = {}) {
+  function makeEnv(
+    html: string,
+    overrides: Record<string, unknown> = {},
+    files = ['harvest-core.js', 'content.js'],
+  ) {
     const dom = new JSDOM(html);
     let clock = 0;
     const scrolls: number[] = [];
     const beats: Any[] = [];
     (dom.window as Any).scrollBy = ({ top }: { top: number }) => scrolls.push(top);
-    const LLFB = loadCore({ LLFB: {} }, ['harvest-core.js', 'content.js']);
+    const LLFB = loadCore({ LLFB: {}, URL }, files);
     const env = {
       doc: dom.window.document,
       win: dom.window,
@@ -607,6 +611,73 @@ describe('content.js runJob against a synthetic group page', () => {
     expect(LLFB.commentsBudgetMs({ wallBudgetMs: 20 * 60_000 }, 0)).toBe(15 * 60_000);
     expect(LLFB.commentsBudgetMs({ wallBudgetMs: 75 * 60_000 }, 70 * 60_000)).toBe(4 * 60_000);
     expect(LLFB.commentsBudgetMs({ wallBudgetMs: 20 * 60_000 }, 19.5 * 60_000)).toBe(0);
+  });
+
+  it('capture mode: sends skeletons only — no units, no comments, no post text', async () => {
+    const bare = (position: number, age: string) =>
+      `<div aria-posinset="${position}"><div role="article"><a aria-label="Fan ${position}">Fan</a>` +
+      `<a href="/groups/1/posts/${position}/">${age}</a>` +
+      `<div dir="auto">Synthetic secret sentence ${position} about a concert in Manila</div>` +
+      `<span>${position} comments</span></div></div>`;
+    const feed = [post(1, '1 h'), post(2, '2 d'), bare(3, '3 h'), bare(4, '4 h'), bare(5, '5 h')];
+    const { LLFB, env, scrolls } = makeEnv(
+      `<body><div role="feed">${feed.join('')}</div></body>`,
+      {},
+      ['harvest-core.js', 'skeleton.js', 'content.js'],
+    );
+    LLFB.collectComments = async () => {
+      throw new Error('comments must never run in capture mode');
+    };
+    const result = plain(
+      await LLFB.runJob({ ...job, capture: true, wallBudgetMs: 3 * 60_000 }, env),
+    );
+    expect(result).toMatchObject({
+      status: 'collected',
+      stopReason: 'feed-end',
+      units: [],
+      comments: [],
+      commentCoverage: null,
+      coverage: {
+        harvestedCount: 5,
+        recentCount: 5,
+        sanitizeDropped: 3,
+        captureInspected: 5,
+        captureDropped: 3,
+        captureKept: 2,
+      },
+    });
+    expect(scrolls.length).toBeGreaterThan(0);
+    expect(result.skeletons.map((s: Any) => [s.key, s.diagnosis.message])).toEqual([
+      ['pos:3', 'no-message-container'],
+      ['pos:4', 'no-message-container'],
+      ['pos:5', 'no-message-container'],
+      ['pos:1', 'ok'],
+      ['pos:2', 'ok'],
+    ]);
+    const json = JSON.stringify(result).toLowerCase();
+    for (const word of ['synthetic', 'secret', 'manila', 'concert', 'fan'])
+      expect(json, word).not.toContain(word);
+    for (const skeleton of result.skeletons)
+      expect(LLFB.isRedactedSkeleton(skeleton)).toEqual({ ok: true });
+  });
+
+  it('capture mode stops early (capture-full) once 15 dropped + 3 kept units are pooled', async () => {
+    const bare = (position: number) =>
+      `<div aria-posinset="${position}"><div role="article"><a aria-label="Fan ${position}">Fan</a>` +
+      `<a href="/groups/1/posts/${position}/">1 h</a><div dir="auto">${'x'.repeat(320)}</div></div></div>`;
+    const feed = [
+      ...Array.from({ length: 18 }, (_, i) => bare(i + 1)),
+      ...Array.from({ length: 4 }, (_, i) => post(i + 19, '1 h')),
+    ];
+    const { LLFB, env } = makeEnv(`<body><div role="feed">${feed.join('')}</div></body>`, {}, [
+      'harvest-core.js',
+      'skeleton.js',
+      'content.js',
+    ]);
+    const result = plain(await LLFB.runJob({ ...job, capture: true }, env));
+    expect(result).toMatchObject({ status: 'collected', stopReason: 'capture-full' });
+    expect(result.skeletons).toHaveLength(15);
+    expect(result.coverage).toMatchObject({ captureDropped: 15, captureKept: 4, scrolls: 0 });
   });
 
   it('a feed without aria-posinset counts merged units as slots (not stunted)', async () => {

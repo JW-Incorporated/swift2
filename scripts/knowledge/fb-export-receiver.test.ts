@@ -3,6 +3,7 @@ import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { startReceiver } from './fb-export-receiver.mjs';
+import { localDate } from './fb-export-helpers.mjs';
 import { gateExport, runSummary } from './fb-export-run.mjs';
 
 const TOKEN = 'a'.repeat(64);
@@ -611,5 +612,165 @@ describe('fb export receiver', () => {
     await r.close();
     await r.close();
     expect(await r.done).toEqual([]);
+  });
+});
+
+describe('fb export receiver — capture mode (DOM skeletons)', () => {
+  // A hand-made skeleton in the extension's shape grammar (fb-extension/skeleton.js).
+  const skeleton = (key = 'pos:1') => ({
+    key,
+    diagnosis: {
+      posinset: 1,
+      unitTag: 'div',
+      primaryArticlePath: 'div[article]',
+      articleCount: 1,
+      cutKind: 'toolbar',
+      cutPath: 'div[article]>div',
+      message: 'no-message-container',
+      messagePath: null,
+      messageSelectorHitsAnywhere: 0,
+      reactions: null,
+      commentCount: null,
+      countPath: null,
+      textLength: 420,
+      hasAuthorLabel: true,
+      hasPermalink: true,
+      dirAutoCount: 3,
+      kept: false,
+    },
+    labels: [{ path: 'div[article]>a', depth: 2, label: 'w w', inRegion: true }],
+    dataAttributes: [],
+    tree: {
+      tag: 'div',
+      attrs: { 'aria-posinset': '1' },
+      n: 1,
+      children: [
+        {
+          tag: 'div',
+          role: 'article',
+          attrs: { 'aria-labelledby': '-' },
+          n: 2,
+          children: [
+            { tag: 'a', attrs: { href: '/groups/:id/posts/:id/?comment_id', 'aria-label': '9h' }, n: 1, children: [{ text: 'T', len: 2 }] },
+            { text: 'T', len: 57 },
+          ],
+        },
+      ],
+    },
+  });
+  const captured = (slug: string, skeletons: unknown[] = [skeleton()]) => ({
+    ...collected(slug, []),
+    stopReason: 'capture-full',
+    comments: [],
+    commentCoverage: null,
+    skeletons,
+    coverage: {
+      ...collected(slug, []).coverage,
+      harvestedCount: 20,
+      slotCount: 22,
+      scrolls: 31,
+      captureInspected: 20,
+      captureDropped: 14,
+      captureKept: 6,
+    },
+  });
+  const debugFile = (root: string, slug: string) =>
+    join(root, 'debug', localDate(NOW), `${slug}.skeleton.json`);
+
+  it('hands out capture:true with a 3-minute budget', async () => {
+    const { r } = await setup({ capture: true });
+    const next = await (await call(r, 'GET', '/next')).json();
+    expect(next).toMatchObject({ slug: 'group-a', capture: true, wallBudgetMs: 180_000 });
+    // Even the 75-minute group is capped.
+    await call(r, 'POST', '/result', captured('group-a'));
+    const second = await (await call(r, 'GET', '/next')).json();
+    expect(second).toMatchObject({ slug: 'group-b', capture: true, wallBudgetMs: 180_000 });
+  });
+
+  it('writes the skeletons to <root>/debug/<date>/<slug>.skeleton.json, prints counts only, stores nothing else', async () => {
+    const { r, outputDir, storeComments, log } = await setup({ capture: true });
+    await call(r, 'GET', '/next');
+    const body = {
+      ...captured('group-a', [skeleton('pos:1'), skeleton('pos:2')]),
+      comments: collected('group-a').comments, // a stray comment payload is ignored in capture mode
+    };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    const result = r.partialResults()[0];
+    expect(result).toMatchObject({
+      slug: 'group-a',
+      status: 'captured',
+      skeletonCount: 2,
+      dropped: 14,
+      kept: 6,
+      inspected: 20,
+      harvestedCount: 20,
+      stopReason: 'capture-full',
+      filePath: debugFile(outputDir, 'group-a'),
+    });
+    const file = JSON.parse(await readFile(debugFile(outputDir, 'group-a'), 'utf8'));
+    expect(file).toMatchObject({
+      v: 1,
+      slug: 'group-a',
+      label: 'Group A',
+      status: 'collected',
+      stopReason: 'capture-full',
+      coverage: { captureDropped: 14, harvestedCount: 20 },
+    });
+    expect(file.skeletons).toHaveLength(2);
+    expect(file.skeletons[0]).toEqual(skeleton('pos:1'));
+    expect(storeComments).not.toHaveBeenCalled();
+    await expect(readdir(join(outputDir, 'exports'))).rejects.toThrow();
+    const line = log.mock.calls.map((c) => String(c[0])).find((l) => l.includes('group-a'));
+    expect(line).toContain('captured skeletons=2 dropped=14 kept=6 inspected=20 harvested=20');
+    expect(line).toContain(debugFile(outputDir, 'group-a'));
+    expect(line).not.toContain('"tree"');
+  });
+
+  it('refuses a skeleton outside the redaction grammar and writes nothing', async () => {
+    const { r, outputDir } = await setup({ capture: true });
+    await call(r, 'GET', '/next');
+    const leaked = skeleton();
+    (leaked.tree.children[0].children[1] as { text: string }).text = 'Maria said hello';
+    expect((await call(r, 'POST', '/result', captured('group-a', [leaked]))).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({
+      status: 'failed',
+      reason: 'capture-unredacted',
+      detail: 'tree:text',
+    });
+    await expect(readFile(debugFile(outputDir, 'group-a'), 'utf8')).rejects.toThrow();
+  });
+
+  it('an extension without capture support (no skeletons) fails the group, never writes html', async () => {
+    const { r, outputDir } = await setup({ capture: true });
+    await call(r, 'GET', '/next');
+    expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(200);
+    expect(r.partialResults()[0]).toEqual({
+      slug: 'group-a',
+      status: 'failed',
+      reason: 'capture-unsupported',
+    });
+    await expect(readdir(join(outputDir, 'exports'))).rejects.toThrow();
+  });
+
+  it('a stop status in capture mode keeps its meaning and still keeps the skeletons it got', async () => {
+    const { r, outputDir } = await setup({ capture: true });
+    await call(r, 'GET', '/next');
+    const body = { ...captured('group-a'), status: 'stunted', stopReason: 'stunted-feed' };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0]).toMatchObject({ status: 'stunted', skeletonCount: 1 });
+    expect(JSON.parse(await readFile(debugFile(outputDir, 'group-a'), 'utf8')).status).toBe(
+      'stunted',
+    );
+    expect(await (await call(r, 'GET', '/next')).json()).toEqual({ done: true });
+  });
+
+  it('outside capture mode a skeletons field is accepted but ignored', async () => {
+    const { r, outputDir } = await setup();
+    await call(r, 'GET', '/next');
+    const body = { ...collected('group-a'), skeletons: [skeleton()] };
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    expect(r.partialResults()[0].status).toBe('collected');
+    await expect(readFile(debugFile(outputDir, 'group-a'), 'utf8')).rejects.toThrow();
+    expect((await call(r, 'POST', '/result', { ...body, skeletons: 'x' })).status).toBe(400);
   });
 });

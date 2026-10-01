@@ -189,6 +189,15 @@
       });
     }
 
+    // Capture mode (FB-EXTENSION-1 capture): the receiver's job says capture:true. The feed is
+    // scrolled exactly as usual (same classification, pacing, stop rules, 3-min budget from the
+    // receiver), but what leaves the page is a privacy-safe SKELETON of up to 15 post containers
+    // (skeleton.js) — no unit html, no comments, no text. Used once to read Facebook's real
+    // markup so buildPostHtml / the count reader can be fixed.
+    const capture = job.capture === true && typeof LLFB.captureVisibleSkeletons === 'function';
+    const captureState = capture ? {} : null;
+    let captureFull = false;
+
     let harvest = LLFB.emptyHarvest();
     let previousHarvestCount = 0;
     let previousMaxPosinset = 0;
@@ -211,6 +220,8 @@
         if (expanded) await env.sleep(EXPAND_WAIT_MS);
         const snapshot = LLFB.captureVisibleUnits(env.doc, env.win);
         harvest = LLFB.mergeHarvest(harvest, snapshot);
+        if (capture)
+          captureFull = LLFB.captureVisibleSkeletons(env.doc, env.win, captureState).full;
         const metrics = pageMetrics(env);
         const progress = LLFB.madeProgress({
           snapshotMaxPosinset: snapshot.maxPosinset,
@@ -227,7 +238,7 @@
         previousScrollHeight = Math.max(previousScrollHeight, metrics.scrollHeight);
 
         const elapsedMs = env.clock() - startedAtMs;
-        const decision = LLFB.tickDecision({
+        const tick = LLFB.tickDecision({
           units: harvest.units,
           slotCount: LLFB.harvestSlotCount(harvest),
           now,
@@ -237,10 +248,18 @@
           scrollCap: job.maxScrolls,
           wallBudgetMs: job.wallBudgetMs,
         });
+        // Capture stops early once its pools are full (stunted / seven-days / budget still win).
+        const decision =
+          !tick.stop && captureFull
+            ? { stop: true, status: 'collected', reason: 'capture-full', ageRuleMet: false }
+            : tick;
         render([
-          `LL export — ${job.label ?? job.slug}`,
+          `LL export — ${job.label ?? job.slug}${capture ? ' (capture)' : ''}`,
           `feed slots loaded: ${LLFB.harvestSlotCount(harvest)}`,
           `posts kept: ${harvest.units.length}`,
+          ...(capture
+            ? [`skeletons: ${captureState.dropped?.length ?? 0} dropped, ${captureState.kept?.length ?? 0} kept`]
+            : []),
           `scroll steps: ${scrollCount}   time: ${Math.round(elapsedMs / 1000)}s`,
         ]);
 
@@ -254,6 +273,31 @@
             wallMs: elapsedMs,
             profileVerified,
           });
+          if (capture) {
+            // Only skeletons leave the page: no units, no comments. The harvest counts ride
+            // along so the receiver can print them next to the capture counts.
+            const skeletons = LLFB.pickSkeletons(captureState);
+            render([
+              `LL export — ${job.label ?? job.slug} (capture)`,
+              `DONE (${decision.reason}) — ${skeletons.length} skeletons`,
+            ]);
+            return baseResult(job, decision.status, {
+              stopReason: decision.reason,
+              units: [],
+              comments: [],
+              commentCoverage: null,
+              skeletons,
+              coverage: {
+                ...coverage,
+                profileVerified,
+                wallMs: env.clock() - startedAtMs,
+                captureInspected: captureState.inspected ?? 0,
+                captureDropped: captureState.dropped?.length ?? 0,
+                captureKept: captureState.kept?.length ?? 0,
+              },
+              collectedAt: collectedAt(),
+            });
+          }
           let comments = [];
           let commentCoverage = null;
           let message;

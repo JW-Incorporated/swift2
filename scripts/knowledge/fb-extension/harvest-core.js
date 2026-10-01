@@ -481,6 +481,21 @@
     return markers.reduce((first, next) => (follows(first, next) ? first : next));
   }
 
+  // Which detector produced a comment marker (capture mode records it per unit — a diagnosis,
+  // never a behaviour change). Same tests as firstCommentMarker, in its priority order.
+  function markerKind(el, primary) {
+    if (!el) return null;
+    if (el !== primary && el.matches('[role="article"]')) return 'nested-article';
+    if (el.matches(RESIDUAL_LINK)) return 'comment-link';
+    if (el.matches(COMPOSER_SELECTOR)) return 'composer';
+    const label = (el.getAttribute('aria-label') || '').trim();
+    if (el !== primary && COMMENT_LABEL.test(label)) return 'comment-label';
+    if (COMPOSER_LABEL.test(label)) return 'composer-label';
+    if (el.matches(CONTROL_SELECTOR) && COMMENT_LIST_CONTROL.test(controlName(el)))
+      return 'list-control';
+    return 'toolbar';
+  }
+
   // The post's own region: the post article (the unit itself or its first role=article), minus
   // everything from the first comment marker on. `inRegion(el)` is the single ownership test every
   // positive copy below uses.
@@ -493,7 +508,29 @@
     const inRegion = (el) =>
       el.closest('[role="article"]') === primary &&
       !(cut && (el === cut || cut.contains(el) || follows(cut, el)));
-    return { primary, scope, cut, inRegion };
+    return { primary, scope, cut, cutKind: markerKind(cut, primary), inRegion };
+  }
+
+  // The verdict buildPostHtml is built on: the post's message container inside the post region
+  // and, when the unit is dropped, the reason code. Capture mode (skeleton.js) records the reason
+  // per unit so the live markup can be read without any post text leaving the page.
+  //   ok | no-message-container | message-holds-article | message-holds-comment-link-or-composer
+  //   | message-holds-comment-label
+  function postMessageVerdict(unit, region = postRegion(unit)) {
+    const message = [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion);
+    if (!message) return { message: null, body: null, reason: 'no-message-container' };
+    const body = message.cloneNode(true);
+    if (body.querySelector('[role="article"]'))
+      return { message, body: null, reason: 'message-holds-article' };
+    if (body.querySelector(`${RESIDUAL_LINK}, ${COMPOSER_SELECTOR}`))
+      return { message, body: null, reason: 'message-holds-comment-link-or-composer' };
+    if (
+      [body, ...body.querySelectorAll('[aria-label]')].some((el) =>
+        RESIDUAL_LABEL.test((el.getAttribute('aria-label') || '').trim()),
+      )
+    )
+      return { message, body: null, reason: 'message-holds-comment-label' };
+    return { message, body, reason: 'ok' };
   }
 
   function copyAttributes(from, to, names) {
@@ -506,16 +543,8 @@
   // Positive build of the uploaded html (see the block comment above). Returns the html string, or
   // null when the post/comment boundary cannot be established for this unit.
   function buildPostHtml(unit, region = postRegion(unit)) {
-    const message = [...region.scope.querySelectorAll(MESSAGE_SELECTOR)].find(region.inRegion);
-    if (!message) return null;
-    const body = message.cloneNode(true);
-    if (body.querySelector(`[role="article"], ${RESIDUAL_LINK}, ${COMPOSER_SELECTOR}`)) return null;
-    if (
-      [body, ...body.querySelectorAll('[aria-label]')].some((el) =>
-        RESIDUAL_LABEL.test((el.getAttribute('aria-label') || '').trim()),
-      )
-    )
-      return null;
+    const { message, body, reason } = postMessageVerdict(unit, region);
+    if (reason !== 'ok') return null;
     for (const el of body.querySelectorAll(NEVER_COPIED)) el.remove();
 
     const doc = unit.ownerDocument;
@@ -907,7 +936,11 @@
     groupSegment,
     groupMatches,
     postRegion,
+    postMessageVerdict,
+    markerKind,
     buildPostHtml,
+    MESSAGE_SELECTOR,
+    PERMALINK_SELECTOR,
     DAY_MS,
     AGE_STOP_COUNT,
     STUNTED_SCROLLS,

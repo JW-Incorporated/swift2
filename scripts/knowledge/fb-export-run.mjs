@@ -19,6 +19,7 @@ import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
+import { CAPTURE_WALL_BUDGET_MS, startReceiver } from './fb-export-receiver.mjs';
 import { commentErrorCode, localDate, weekOf } from './fb-export-helpers.mjs';
 
 const execFileAsync = promisify(execFile);
@@ -485,8 +486,61 @@ export async function runExport(options = {}) {
   return { ok: !failed && Boolean(issue), results, summary, issue };
 }
 
+// `--capture` (npm run knowledge:fb-export:capture): the same receiver + plain Chrome flow with
+// the job flag capture:true — at most 3 min of scrolling per group, and the extension sends
+// privacy-safe DOM skeletons of up to 15 post containers (fb-extension/skeleton.js) instead of
+// post html. No ingest, no upload, no ledger, no weekly issue, no comments. The receiver writes
+// <root>/debug/<date>/<slug>.skeleton.json (private, never the repo); this prints counts only.
+export async function runCapture(options = {}) {
+  const now = options.now ?? new Date();
+  const root =
+    options.root ?? (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb'));
+  if (!root) throw new Error('LOCALAPPDATA is unavailable');
+  const groups = (options.groups ?? FB_GROUPS_CHECKLIST).map((group) => ({
+    ...group,
+    wallBudgetMs: CAPTURE_WALL_BUDGET_MS,
+  }));
+  const outputDir = join(root, 'debug', localDate(now));
+  const collect =
+    options.collect ??
+    ((args) =>
+      extensionCollect({
+        ...args,
+        startReceiver: (receiverArgs) => startReceiver({ ...receiverArgs, capture: true }),
+      }));
+  const collection = await collect({ groups, root, outputDir, now, week: weekOf(now) });
+  const results = Array.isArray(collection) ? collection : collection.results;
+  const represented = new Set(results.map((row) => row.slug));
+  for (const group of groups)
+    if (!represented.has(group.slug))
+      results.push({ slug: group.slug, status: 'failed', reason: 'collection aborted before this group' });
+  const captured = results.filter((row) => row.status === 'captured' && row.skeletonCount > 0);
+  const lines = results.map((row) => {
+    if (row.status === 'captured')
+      return (
+        `- ${row.slug}: captured ${row.skeletonCount} skeletons` +
+        ` (dropped ${row.dropped ?? '?'}, kept ${row.kept ?? '?'}, inspected ${row.inspected ?? '?'};` +
+        ` harvested ${row.harvestedCount ?? '?'}, stop: ${row.stopReason ?? '?'})` +
+        (row.filePath ? `\n    ${row.filePath}` : '')
+      );
+    return `- ${row.slug}: ${row.status}${row.reason ? ` — ${row.reason}` : ''}${row.detail ? ` (${row.detail})` : ''}`;
+  });
+  const summary = [
+    `Facebook DOM capture: ${captured.length}/${groups.length} groups captured.`,
+    `Skeleton files are private (${outputDir}) — hand them to the PM; nothing was ingested, uploaded or ledgered.`,
+    ...lines,
+  ].join('\n');
+  return { ok: captured.length === groups.length, results, summary, outputDir };
+}
+
 async function main() {
   const args = process.argv.slice(2);
+  if (args.includes('--capture')) {
+    const result = await runCapture();
+    console.log(result.summary);
+    if (!result.ok) return 1;
+    return;
+  }
   const dryRun = args.includes('--dry-run');
   const result = await runExport({ dryRun });
   console.log(result.summary);

@@ -7,6 +7,7 @@ import {
   gateExport,
   ingestOne,
   parseIngestSummary,
+  runCapture,
   runExport,
   runSummary,
   uploadOne,
@@ -551,5 +552,84 @@ describe('Facebook export orchestration', () => {
     expect(result.summary).toContain('Feed stunted');
     expect(result.summary).toContain('Facebook is limiting this browser; stopped');
     expect(result.results.find((r) => r.slug === 'group-b')?.status).toBe('failed');
+  });
+});
+
+describe('Facebook DOM capture (--capture)', () => {
+  const now = new Date('2026-09-30T12:00:00Z');
+
+  it('collects with 3-minute budgets into <root>/debug/<date> and prints counts + paths only', async () => {
+    const collect = vi.fn().mockResolvedValue({
+      results: [
+        {
+          slug: 'group-a',
+          status: 'captured',
+          skeletonCount: 15,
+          dropped: 15,
+          kept: 6,
+          inspected: 24,
+          harvestedCount: 24,
+          slotCount: 26,
+          scrolls: 40,
+          stopReason: 'capture-full',
+          filePath: 'C:/outside-repo/debug/2026-09-30/group-a.skeleton.json',
+        },
+        {
+          slug: 'group-b',
+          status: 'captured',
+          skeletonCount: 4,
+          dropped: 0,
+          kept: 4,
+          inspected: 4,
+          harvestedCount: 4,
+          slotCount: 4,
+          scrolls: 12,
+          stopReason: 'feed-end',
+          filePath: 'C:/outside-repo/debug/2026-09-30/group-b.skeleton.json',
+        },
+      ],
+      actingPageId: null,
+    });
+    const result = await runCapture({
+      root: 'C:/outside-repo',
+      now,
+      groups: [group, { ...group, slug: 'group-b', wallBudgetMs: 75 * 60_000 }],
+      collect,
+    });
+    expect(collect).toHaveBeenCalledTimes(1);
+    const args = collect.mock.calls[0][0];
+    expect(args.groups.map((g: { slug: string; wallBudgetMs: number }) => [g.slug, g.wallBudgetMs])).toEqual([
+      ['group-a', 180_000],
+      ['group-b', 180_000],
+    ]);
+    expect(args.outputDir.replace(/\\/g, '/')).toMatch(/^C:\/outside-repo\/debug\/\d{4}-\d{2}-\d{2}$/);
+    expect(result.ok).toBe(true);
+    expect(result.summary).toContain('Facebook DOM capture: 2/2 groups captured.');
+    expect(result.summary).toContain('nothing was ingested, uploaded or ledgered');
+    expect(result.summary).toContain(
+      '- group-a: captured 15 skeletons (dropped 15, kept 6, inspected 24; harvested 24, stop: capture-full)',
+    );
+    expect(result.summary).toContain('C:/outside-repo/debug/2026-09-30/group-a.skeleton.json');
+    expect(result.summary).not.toContain('"tree"');
+  });
+
+  it('is not ok when a group failed, was not captured or was never reached', async () => {
+    const result = await runCapture({
+      root: 'C:/outside-repo',
+      now,
+      groups: [group, { ...group, slug: 'group-b' }, { ...group, slug: 'group-c' }],
+      collect: vi.fn().mockResolvedValue({
+        results: [
+          { slug: 'group-a', status: 'failed', reason: 'capture-unsupported' },
+          { slug: 'group-b', status: 'captured', skeletonCount: 0, filePath: null },
+        ],
+        actingPageId: null,
+      }),
+    });
+    expect(result.ok).toBe(false);
+    expect(result.summary).toContain('Facebook DOM capture: 0/3 groups captured.');
+    expect(result.summary).toContain('- group-a: failed — capture-unsupported');
+    expect(result.summary).toContain('- group-b: captured 0 skeletons');
+    expect(result.summary).toContain('- group-c: failed — collection aborted before this group');
   });
 });

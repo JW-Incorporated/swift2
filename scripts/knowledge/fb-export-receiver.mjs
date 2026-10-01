@@ -1,6 +1,8 @@
 import { createServer } from 'node:http';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { buildHarvestedHtml } from './fb-export-harvest.mjs';
 import {
@@ -35,7 +37,26 @@ const STOP_REASONS = new Set([
   'scroll-cap',
   'wall-budget',
   'stunted-feed',
+  'capture-full',
 ]);
+// Capture mode (FB-EXTENSION-1 capture): per group at most 3 min of scrolling, no comments; the
+// extension sends privacy-safe DOM skeletons (fb-extension/skeleton.js) instead of unit html.
+export const CAPTURE_WALL_BUDGET_MS = 3 * 60_000;
+const CAPTURE_MAX_SKELETONS = 30;
+const EXT_DIR = fileURLToPath(new URL('./fb-extension/', import.meta.url));
+
+// The extension's own redaction grammar, loaded once as the receiver-side checker: a skeleton
+// that carries anything outside it (a word, an id, a raw attribute value) fails the group.
+let skeletonLib = null;
+async function loadSkeletonLib() {
+  if (!skeletonLib) {
+    const source = await readFile(join(EXT_DIR, 'skeleton.js'), 'utf8');
+    const context = vm.createContext({ URL });
+    vm.runInContext(source, context, { filename: 'skeleton.js' });
+    skeletonLib = context.LLFB;
+  }
+  return skeletonLib;
+}
 const START_PAGE =
   '<!doctype html><html><head><meta charset="utf-8"><title>Long Live FB export</title></head>' +
   '<body><p>Long Live Facebook export in progress. Leave this window open.</p></body></html>\n';
@@ -107,6 +128,7 @@ export function validateResult(body) {
   if (body.coverage != null && !isObj(body.coverage)) return 'coverage';
   if (body.coverage?.profileVerified != null && typeof body.coverage.profileVerified !== 'boolean')
     return 'profileVerified';
+  if (body.skeletons != null && !Array.isArray(body.skeletons)) return 'skeletons';
   if (body.status === 'collected') {
     if (!Array.isArray(body.units)) return 'units';
     for (const u of body.units) {
@@ -168,8 +190,10 @@ export async function startReceiver({
   log = (line) => console.log(line),
   readAs = FB_READ_AS,
   actingPage = FB_ACTING_PAGE,
+  capture = false,
 } = {}) {
   if (!token || typeof token !== 'string') throw new Error('token required');
+  if (capture && !root) throw new Error('capture mode needs root');
   const runId = randomBytes(8).toString('hex');
   const clock = () => (typeof now === 'function' ? now() : now);
   const store =
@@ -216,7 +240,10 @@ export async function startReceiver({
     label: g.label,
     groupId: g.groupId,
     url: `https://www.facebook.com/groups/${encodeURIComponent(g.groupId)}?sorting_setting=CHRONOLOGICAL`,
-    wallBudgetMs: g.wallBudgetMs ?? DEFAULT_WALL_BUDGET_MS,
+    wallBudgetMs: capture
+      ? Math.min(g.wallBudgetMs ?? CAPTURE_WALL_BUDGET_MS, CAPTURE_WALL_BUDGET_MS)
+      : (g.wallBudgetMs ?? DEFAULT_WALL_BUDGET_MS),
+    ...(capture ? { capture: true } : {}),
     maxScrolls: 250,
     comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
     // For the extension's positive profile check (harvest-core profileCheck).
@@ -227,7 +254,8 @@ export async function startReceiver({
     aliases: Array.isArray(g.aliases) ? g.aliases.map(String) : [],
   });
 
-  async function toResult(body, group) {
+  // The result for every status but 'collected' (null for 'collected').
+  function statusResult(body) {
     const { slug } = body;
     switch (body.status) {
       case 'login':
@@ -260,8 +288,83 @@ export async function startReceiver({
           reason: String(body.message ?? body.stopReason ?? 'failed').slice(0, MAX_DETAIL),
         };
       default:
-        break;
+        return null;
     }
+  }
+
+  // Capture mode: the skeletons go to <root>/debug/<date>/<slug>.skeleton.json (private, never
+  // the repo); unit html, comments and exports are never written. Every skeleton is re-checked
+  // against the extension's redaction grammar before anything is written. An extension without
+  // capture support (no `skeletons` on a collected result) fails the group: reload it.
+  async function captureResult(body, group, early) {
+    const { slug } = body;
+    const skeletons = Array.isArray(body.skeletons) ? body.skeletons : null;
+    if (!skeletons && body.status === 'collected')
+      return { slug, status: 'failed', reason: 'capture-unsupported' };
+    if (skeletons && skeletons.length > CAPTURE_MAX_SKELETONS)
+      return { slug, status: 'failed', reason: 'capture-too-many', skeletonCount: skeletons.length };
+    const cov = isObj(body.coverage) ? body.coverage : {};
+    const counts = {
+      skeletonCount: skeletons?.length ?? 0,
+      inspected: isCount(cov.captureInspected) ? cov.captureInspected : null,
+      dropped: isCount(cov.captureDropped) ? cov.captureDropped : null,
+      kept: isCount(cov.captureKept) ? cov.captureKept : null,
+      harvestedCount: isCount(cov.harvestedCount) ? cov.harvestedCount : null,
+      slotCount: isCount(cov.slotCount) ? cov.slotCount : null,
+      scrolls: isCount(cov.scrolls) ? cov.scrolls : null,
+      stopReason: body.stopReason ?? null,
+    };
+    let filePath = null;
+    if (skeletons?.length) {
+      const lib = await loadSkeletonLib();
+      for (const skeleton of skeletons) {
+        const verdict = lib.isRedactedSkeleton(skeleton);
+        if (!verdict.ok)
+          return {
+            slug,
+            status: 'failed',
+            reason: 'capture-unredacted',
+            detail: String(verdict.reason).slice(0, 60),
+          };
+      }
+      const at = clock();
+      const dir = join(root, 'debug', localDate(at));
+      filePath = join(dir, `${slug}.skeleton.json`);
+      const numeric = Object.fromEntries(
+        Object.entries(cov).filter(
+          ([, v]) => v === null || typeof v === 'number' || typeof v === 'boolean',
+        ),
+      );
+      await mkdir(dir, { recursive: true });
+      await writeFile(
+        filePath,
+        JSON.stringify(
+          {
+            v: 1,
+            slug,
+            label: group.label,
+            capturedAt: typeof body.collectedAt === 'string' ? body.collectedAt : at.toISOString(),
+            extVersion: String(body.extVersion ?? '').slice(0, 20),
+            status: body.status,
+            stopReason: counts.stopReason,
+            coverage: numeric,
+            skeletons,
+          },
+          null,
+          1,
+        ),
+        'utf8',
+      );
+    }
+    if (early) return { ...early, ...counts, filePath };
+    return { slug, status: 'captured', filePath, ...counts };
+  }
+
+  async function toResult(body, group) {
+    const { slug } = body;
+    const early = statusResult(body);
+    if (capture) return captureResult(body, group, early);
+    if (early) return early;
     const cov = body.coverage;
     const units = body.units;
     const sanitizeDropped = isCount(cov.sanitizeDropped) ? cov.sanitizeDropped : 0;
@@ -407,8 +510,18 @@ export async function startReceiver({
         result.reason === 'sanitize-dropped'
           ? ` sanitize-dropped=${result.sanitizeDropped} kept=${result.keptCount}`
           : '';
+      // Capture mode prints counts and the private file path only — never a skeleton.
+      const captureLine =
+        capture && Number.isInteger(result.skeletonCount)
+          ? ` skeletons=${result.skeletonCount} dropped=${result.dropped ?? '?'} kept=${result.kept ?? '?'}` +
+            ` inspected=${result.inspected ?? '?'} harvested=${result.harvestedCount ?? '?'}` +
+            ` slots=${result.slotCount ?? '?'} scrolls=${result.scrolls ?? '?'}` +
+            (result.filePath ? ` file=${result.filePath}` : '')
+          : capture && result.detail
+            ? ` detail=${result.detail}`
+            : '';
       log(
-        `fb-receiver ${group.slug}: ${result.status}${reason}${counts}${dropped}${ccLine}${commentLine}`,
+        `fb-receiver ${group.slug}: ${result.status}${reason}${counts}${dropped}${captureLine}${ccLine}${commentLine}`,
       );
       return send(200, { ok: true });
     }
