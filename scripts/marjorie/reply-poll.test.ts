@@ -18,7 +18,11 @@ function fakeSleep() {
   return vi.fn().mockResolvedValue(undefined);
 }
 
-const issueListOut = JSON.stringify([{ number: 42 }]);
+const issueListOut = JSON.stringify([{ number: 42, body: `status page
+
+<!-- marjorie-ping date=2026-09-12 msg=${THREAD_ID} -->
+` }]);
+const unstampedIssueOut = JSON.stringify([{ number: 42, body: 'status page, no ping yet' }]);
 
 // Mirrors `gh api --paginate --slurp`'s real shape: one JSON array of
 // pages, each page the raw array of comment objects GitHub sent. A single
@@ -47,6 +51,7 @@ describe('main()', () => {
 
     expect(exitCode).toBe(0);
     expect(execImpl).toHaveBeenCalledTimes(3);
+    expect(execImpl.mock.calls[0][1]).toContain('status-page');
     const postArgs = execImpl.mock.calls[2];
     expect(postArgs[0]).toBe('gh');
     expect(postArgs[1]).toEqual(['issue', 'comment', '42', '--repo', 'JW-Incorporated/swift2', '--body', expect.stringContaining(`https://discord.com/channels/${GUILD_ID}/${THREAD_ID}/2222222222222222222`)]);
@@ -98,7 +103,7 @@ describe('main()', () => {
     expect(execImpl).toHaveBeenCalledTimes(2);
   });
 
-  it('is a no-op when no open founders-brief issue exists', async () => {
+  it('is a no-op when no open status-page issue exists', async () => {
     const execImpl = vi.fn().mockReturnValueOnce(JSON.stringify([]));
     const fetchImpl = vi.fn();
 
@@ -108,9 +113,9 @@ describe('main()', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
-  it('is a no-op when the issue has no discord-message-id marker yet', async () => {
+  it('is a no-op when the status issue has no ping message id yet', async () => {
     const execImpl = vi.fn()
-      .mockReturnValueOnce(issueListOut)
+      .mockReturnValueOnce(unstampedIssueOut)
       .mockReturnValueOnce(commentsOut([]));
     const fetchImpl = vi.fn();
 
@@ -120,9 +125,8 @@ describe('main()', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
-  it('ignores a delivery marker posted by a human account', async () => {
-    const comments = JSON.stringify([[{ body: markerComment, user: { login: 'github-actions', type: 'User' } }]]);
-    const execImpl = vi.fn().mockReturnValueOnce(issueListOut).mockReturnValueOnce(comments);
+  it('ignores a message-id marker posted as a comment: only the issue body stamp counts', async () => {
+    const execImpl = vi.fn().mockReturnValueOnce(unstampedIssueOut).mockReturnValueOnce(commentsOut([markerComment]));
     const fetchImpl = vi.fn();
     expect(await main({ fetchImpl, sleepImpl: fakeSleep(), execImpl })).toBe(0);
     expect(fetchImpl).not.toHaveBeenCalled();

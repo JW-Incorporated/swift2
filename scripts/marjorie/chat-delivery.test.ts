@@ -110,6 +110,7 @@ describe('classifyDelivery', () => {
   it('the failure notice text is the one the poll dedups on', () => {
     expect(failureBody(MID, RUN)).toMatchObject({ content: `${FAILURE_PREFIX} ${RUN} — please send it again`, message_reference: { message_id: MID } });
     expect(failureBody(MID).content).toBe(`${FAILURE_PREFIX} — please send it again`);
+    expect(failureBody(MID, RUN).flags).toBe(4);
     expect(isFailureNotice({ ...failureBody(MID, RUN), id: '1000000000000000010', author: { bot: true } }, MID)).toBe(true);
   });
 });

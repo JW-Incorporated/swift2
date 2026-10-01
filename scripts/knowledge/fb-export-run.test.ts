@@ -134,17 +134,20 @@ describe('Facebook export gate', () => {
       formatComments({ commentCoverage: { error: 'comments failed: Synthetic private QX7' } }),
     ).toBe('comments: collection error: unknown');
     expect(formatComments({})).toBeNull();
-    expect(
-      runSummary([
-        {
-          slug: 'group-a',
-          status: 'failed',
-          reason: 'comments-collection-failed',
-          commentCoverage: { eligible: 2, processed: 0, failed: 2, timedOut: 0 },
-        },
-      ]),
-    ).toContain(
-      'group-a: failed (covered unknown, comments: 0/2 posts read, 2 failed, 0 timed out) — comments-collection-failed',
+    // Kulto-shaped: posts uploaded, comment collection failed -> not a failed group.
+    const kulto = runSummary([
+      {
+        slug: 'kulto',
+        status: 'uploaded',
+        postCount: 55,
+        commentsFailed: 'comments-collection-failed',
+        commentCoverage: { eligible: 6, processed: 0, failed: 6, timedOut: 0 },
+      },
+    ]);
+    expect(kulto).toContain('1 done, 0 not joined, 0 unavailable, 0 failed');
+    expect(kulto).toContain('kulto: uploaded (55 posts');
+    expect(kulto).toContain(
+      'comments: FAILED (comments-collection-failed) — posts uploaded; comments need a selector fix (run knowledge:fb-export:capture)',
     );
   });
 

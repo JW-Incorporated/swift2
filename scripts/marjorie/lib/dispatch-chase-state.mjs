@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gh as ghRun } from '../../lib/gh.mjs';
+import { readHeldMarkers } from './status-held.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 const ACTIVITY_EVENTS = new Set(['labeled', 'unlabeled', 'assigned', 'unassigned', 'renamed', 'reopened', 'closed', 'milestoned', 'demilestoned']);
@@ -97,6 +98,10 @@ export async function fetchDispatchChaseState(repo = REPO, {
     if (delivered.test(brief.body) || comments.some((row) => delivered.test(row.body))) {
       reportedHeld.push(...markers.map((match) => ({ issue: Number(match[1]), ha: Number(match[2]) })));
     }
+  }
+  // Bots v2 W4: held items are reported on the status page, whose body carries the same markers.
+  for (const page of (await pages(`${base}/issues?state=open&labels=status-page`)).filter((row) => !row.pull_request)) {
+    reportedHeld.push(...readHeldMarkers(page.body));
   }
   const [fullIssues, fullPRs] = await Promise.all([enrich(issues, false), enrich(prs, true)]);
   return { issues: fullIssues, prs: fullPRs, openActions, doneActions, pendingHaPrs, reportedHeld, now };

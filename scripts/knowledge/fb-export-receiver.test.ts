@@ -404,8 +404,8 @@ describe('fb export receiver', () => {
   });
 
   // Codex round 2 #6 / round 3 #5: comment collection outcomes are never silent.
-  it('fails the group when comment posts were eligible and none was processed', async () => {
-    const { r, storeComments, outputDir, log } = await setup();
+  it('keeps the group collected (commentsFailed) when comment posts were eligible and none was processed', async () => {
+    const { r, outputDir, log } = await setup();
     await call(r, 'GET', '/next');
     const body = withCommentCoverage(collected('group-a'), {
       eligible: 3,
@@ -414,18 +414,18 @@ describe('fb export receiver', () => {
       timedOut: 1,
     });
     expect((await call(r, 'POST', '/result', body)).status).toBe(200);
-    expect(r.partialResults()[0]).toEqual({
+    expect(r.partialResults()[0]).toMatchObject({
       slug: 'group-a',
-      status: 'failed',
-      reason: 'comments-collection-failed',
+      status: 'collected',
+      commentsFailed: 'comments-collection-failed',
       commentCoverage: { eligible: 3, processed: 0, failed: 2, timedOut: 1 },
     });
-    expect(storeComments).not.toHaveBeenCalled();
-    expect(await readdir(outputDir)).toEqual([]);
+    expect(r.partialResults()[0].reason).toBeUndefined();
+    expect(await readdir(outputDir)).toHaveLength(1);
     // Not a run-stopping status: the next group is still handed out.
     expect(await (await call(r, 'GET', '/next')).json()).toMatchObject({ slug: 'group-b' });
     expect(log.mock.calls.map((c) => c[0]).join('\n')).toContain(
-      'group-a: failed comments-collection-failed comment-eligible=3 processed=0 failed=2 timed-out=1',
+      'group-a: collected comments-failed=comments-collection-failed harvested=1 recent=1 slots=10 profile=verified sanitize-dropped=0 comment-eligible=3 processed=0 failed=2 timed-out=1',
     );
   });
 
@@ -450,7 +450,7 @@ describe('fb export receiver', () => {
   });
 
   // Codex round 3 #5: eligible > 0 && processed === 0 fails the group whatever the count.
-  it('one or two eligible posts with none processed also fail the group', async () => {
+  it('one or two eligible posts with none processed are flagged, not failed', async () => {
     const { r } = await setup();
     for (const [slug, cc] of [
       ['group-a', { eligible: 2, processed: 0, failed: 2, timedOut: 0 }],
@@ -461,9 +461,9 @@ describe('fb export receiver', () => {
         (await call(r, 'POST', '/result', withCommentCoverage(collected(slug), cc))).status,
       ).toBe(200);
     }
-    expect(r.partialResults().map((x) => [x.status, x.reason])).toEqual([
-      ['failed', 'comments-collection-failed'],
-      ['failed', 'comments-collection-failed'],
+    expect(r.partialResults().map((x) => [x.status, x.commentsFailed])).toEqual([
+      ['collected', 'comments-collection-failed'],
+      ['collected', 'comments-collection-failed'],
     ]);
   });
 
@@ -504,7 +504,7 @@ describe('fb export receiver', () => {
       );
     });
 
-    it('12 posts with every count null fail as comments-count-drift', async () => {
+    it('12 posts with every count null are flagged comments-count-drift', async () => {
       const { result } = await post({
         ...collected('group-a', nullUnits(12)),
         comments: [],
@@ -512,12 +512,12 @@ describe('fb export receiver', () => {
       });
       expect(result).toMatchObject({
         slug: 'group-a',
-        status: 'failed',
-        reason: 'comments-count-drift',
+        status: 'collected',
+        commentsFailed: 'comments-count-drift',
       });
     });
 
-    it('known-positive posts that yield zero comments still fail the group', async () => {
+    it('known-positive posts that yield zero comments are flagged, group stays collected', async () => {
       const { result } = await post({
         ...collected('group-a', nullUnits(3)),
         comments: [],
@@ -532,12 +532,15 @@ describe('fb export receiver', () => {
           unitsSent: 3,
         },
       });
-      expect(result).toMatchObject({ status: 'failed', reason: 'comments-collection-failed' });
+      expect(result).toMatchObject({
+        status: 'collected',
+        commentsFailed: 'comments-collection-failed',
+      });
     });
   });
 
-  it('an explicit collector error, or no coverage with harvested posts, fails the group', async () => {
-    const { r, log, storeComments, outputDir } = await setup({
+  it('an explicit collector error, or no coverage with harvested posts, is flagged and the group stays collected', async () => {
+    const { r, log, outputDir } = await setup({
       groups: [...groups, { slug: 'group-c', groupId: '3' }],
     });
     const bodies = [
@@ -549,33 +552,31 @@ describe('fb export receiver', () => {
       await call(r, 'GET', '/next');
       expect((await call(r, 'POST', '/result', body)).status).toBe(200);
     }
-    expect(r.partialResults()).toEqual([
+    expect(r.partialResults()).toMatchObject([
       {
         slug: 'group-a',
-        status: 'failed',
-        reason: 'comments-collection-failed',
+        status: 'collected',
+        commentsFailed: 'comments-collection-failed',
         commentCoverage: { error: 'collector-missing' },
       },
       {
         slug: 'group-b',
-        status: 'failed',
-        reason: 'comments-coverage-missing',
+        status: 'collected',
+        commentsFailed: 'comments-coverage-missing',
         commentCoverage: null,
       },
       {
         slug: 'group-c',
-        status: 'failed',
-        reason: 'comments-coverage-missing',
+        status: 'collected',
+        commentsFailed: 'comments-coverage-missing',
         commentCoverage: null,
       },
     ]);
-    expect(storeComments).not.toHaveBeenCalled();
-    expect(await readdir(outputDir)).toEqual([]);
+    expect(await readdir(outputDir)).toHaveLength(3);
     const logged = log.mock.calls.map((c) => c[0]).join('\n');
-    expect(logged).toContain(
-      'group-a: failed comments-collection-failed comment-error=collector-missing',
-    );
-    expect(logged).toContain('group-b: failed comments-coverage-missing');
+    expect(logged).toContain('group-a: collected comments-failed=comments-collection-failed');
+    expect(logged).toContain('group-b: collected comments-failed=comments-coverage-missing');
+    expect(logged).toContain('comment-error=collector-missing');
   });
 
   it('never keeps, logs or publishes free text from a comment-collection error (Codex round 4 #4)', async () => {
@@ -587,11 +588,11 @@ describe('fb export receiver', () => {
     } as never);
     expect((await call(r, 'POST', '/result', body)).status).toBe(200);
     const results = r.partialResults();
-    expect(results).toEqual([
+    expect(results).toMatchObject([
       {
         slug: 'group-a',
-        status: 'failed',
-        reason: 'comments-collection-failed',
+        status: 'collected',
+        commentsFailed: 'comments-collection-failed',
         commentCoverage: { error: 'unknown' },
       },
     ]);

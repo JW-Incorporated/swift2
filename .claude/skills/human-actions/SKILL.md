@@ -37,6 +37,11 @@ answer is the whole action), `UPGRADE` (🟢 nothing halted) — glyph follows
 `KIND`, never chosen independently. **Order: descending by `N`, newest at
 top, everywhere — file and Discord alike.**
 
+A `DECIDE` item writes its choices as one Steps line —
+``Decide: `accept` — raise the budget; `route` — send it to a desk.`` — so the
+status page can show them as reply options (`decide #N <choice>`); with no such
+line any short reply counts as the decision.
+
 ## Numbering
 Never reused, never renumbered. Allocator is always `max(N in open file ∪
 N in ledger) + 1` — never "next free-looking number." Duplicate `N` in the

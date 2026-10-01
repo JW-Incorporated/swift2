@@ -202,9 +202,9 @@ export function turnLog({ bot, summary, replied, messageId, repliedIn = null }) 
 function writeTurnLog({ comment, env, execImpl }) {
   const repo = env.REPO || env.GITHUB_REPOSITORY || '';
   try {
-    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'founders-brief', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
+    const issues = JSON.parse(execImpl('gh', ['issue', 'list', '--repo', repo, '--label', 'status-page', '--state', 'open', '--json', 'number', '--limit', '1'], { encoding: 'utf8' }));
     if (!issues[0]) {
-      console.log('no open founders-brief issue — turn log skipped');
+      console.log('no open status-page issue — turn log skipped');
     } else {
       execImpl('gh', ['issue', 'comment', String(issues[0].number), '--repo', repo, '--body', comment], { encoding: 'utf8' });
       console.log(`turn log → #${issues[0].number}`);

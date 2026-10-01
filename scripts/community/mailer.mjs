@@ -53,7 +53,15 @@ import { createHmac } from 'node:crypto';
 import { URLSearchParams } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { buildCommunityPrompt, postCommunityPrompts } from './discord-delivery.mjs';
+import { postBatchHeader, postCommunityPrompts } from './discord-delivery.mjs';
+import {
+  COMMUNITY_WEBHOOK_USERNAME,
+  buildBatchHeader,
+  buildReplyOpportunity,
+  describeWebhookTarget,
+  formatWebhookTarget,
+  hasDraft,
+} from './reply-opportunity.mjs';
 
 export const SITE = 'https://www.longlivets.com';
 
@@ -220,7 +228,7 @@ export const FETCH_POOL_LIMIT = 200;
 
 export async function fetchLeadsToMail(
   supabase,
-  { mode = 'daily', limit = MAX_LEADS_PER_EMAIL } = {},
+  { mode = 'daily', limit = MAX_LEADS_PER_EMAIL, onSkipped = null } = {},
 ) {
   let query = supabase
     .from('engagement_lead')
@@ -228,12 +236,18 @@ export async function fetchLeadsToMail(
       'id, platform, community, kind, thread_id, url, locator, title, relevance, target_url, draft, draft_alt, link_included, status',
     )
     .eq('status', 'drafted')
+    .not('draft', 'is', null)
     .order('created_at', { ascending: true })
     .limit(FETCH_POOL_LIMIT);
   if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');
   const { data, error } = await query;
   if (error) throw error;
-  return orderLeads(data ?? []).slice(0, limit);
+  // W3: a lead with no drafted reply text is not sendable (nothing to copy/paste);
+  // it stays status='drafted' for the Answerer to fill, and never eats a slot.
+  const ordered = orderLeads(data ?? []);
+  const sendable = ordered.filter(hasDraft);
+  if (onSkipped && sendable.length < ordered.length) onSkipped(ordered.length - sendable.length);
+  return sendable.slice(0, limit);
 }
 
 /**
@@ -272,6 +286,11 @@ export async function markEmailed(
     if (attempt < attempts) await sleep(delayMs * attempt);
   }
   throw lastError;
+}
+
+/** The lead-in is only worth posting when a lead message follows it, and never twice for one receipt. */
+export function shouldPostBatchHeader({ promptCount, isRetry }) {
+  return promptCount > 0 && !isRetry;
 }
 
 export async function markDiscordDelivered(supabase, deliveries) {
@@ -377,6 +396,9 @@ async function main() {
     return 1;
   }
 
+  // W3: prove the target channel from logs (metadata only — never the URL/token).
+  console.log(formatWebhookTarget(await describeWebhookTarget(process.env.DISCORD_SOCIAL_WEBHOOK)));
+
   const supabase = serviceClient();
   if (!supabase) {
     console.log(
@@ -385,7 +407,13 @@ async function main() {
     return 0;
   }
 
-  const leads = await fetchLeadsToMail(supabase, { mode });
+  const leads = await fetchLeadsToMail(supabase, {
+    mode,
+    onSkipped: (n) =>
+      console.log(
+        `community-mailer: ${n} drafted lead(s) have no reply text yet — not sent, left for the Answerer.`,
+      ),
+  });
   if (leads.length === 0) {
     console.log(
       `community-mailer: no ${mode === 'replies-waiting' ? 'reply_to_us ' : ''}drafted leads to mail — nothing to send today.`,
@@ -414,7 +442,9 @@ async function main() {
   }
 
   const ackSecret = process.env.COMMUNITY_ACK_SECRET;
-  const prompts = leads.map((lead) => {
+  const prompts = [];
+  const buildFailed = [];
+  for (const lead of leads) {
     const postedUrl = ackSecret
       ? buildAckUrl(ackSecret, {
           leadId: lead.id,
@@ -423,12 +453,26 @@ async function main() {
         })
       : null;
     const skipUrl = ackSecret ? buildAckUrl(ackSecret, { leadId: lead.id, action: 'skip' }) : null;
-    return { id: lead.id, content: buildCommunityPrompt(lead, { postedUrl, skipUrl }) };
-  });
+    try {
+      prompts.push({ id: lead.id, content: buildReplyOpportunity(lead, { postedUrl, skipUrl }) });
+    } catch (err) {
+      // One unbuildable lead never aborts the batch; it stays drafted and is reported below.
+      buildFailed.push({ leadId: lead.id, message: String(err?.message ?? err) });
+    }
+  }
 
+  // One lead-in so the batch reads as one block, then the leads back to back —
+  // only when at least one message will follow, and not again on a receipt retry.
+  if (shouldPostBatchHeader({ promptCount: prompts.length, isRetry: Boolean(receipt.existing) })) {
+    await postBatchHeader(buildBatchHeader(prompts.length, { mode }), {
+      username: COMMUNITY_WEBHOOK_USERNAME,
+    });
+  }
   const result = await postCommunityPrompts(prompts, {
+    username: COMMUNITY_WEBHOOK_USERNAME,
     onDelivered: (delivery) => markDiscordDelivered(supabase, [delivery]),
   });
+  result.failed = [...(result.failed ?? []), ...buildFailed];
 
   if (result.status === 'unconfigured') {
     const diagnosis =
