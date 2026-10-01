@@ -60,6 +60,23 @@ describe('brief first-job guard', () => {
     expect(runGuard([issue("Founders' Brief \u2014 2026-09-12")])).toHaveBeenCalledWith('brief guard: first-run');
     expect(runGuard([{ ...issue("Founders' Brief \u2014 2026-09-13"), created_at: '2026-09-13T23:59:00Z' }])).toHaveBeenCalledWith('brief guard: already-delivered');
   });
+  it('treats a dated ping stamp on the status page as already delivered (no brief issue exists any more)', () => {
+    const runGuard = (statusBody: string) => {
+      const execImpl = vi.fn((_cmd: string, args: string[]) => {
+        const endpoint = args.at(-1)!;
+        if (endpoint.endsWith('/runs/20')) return JSON.stringify(CURRENT);
+        if (endpoint.includes('/runs?')) return JSON.stringify({ total_count: 1, workflow_runs: [CURRENT] });
+        if (endpoint.includes('labels=status-page')) return JSON.stringify([{ number: 7, body: statusBody }]);
+        return JSON.stringify([]);
+      });
+      const log = vi.fn();
+      expect(guard({ env: ENV, execImpl, log })).toBe(0);
+      return log;
+    };
+    expect(runGuard('<!-- marjorie-ping date=2026-09-14 msg=1 -->')).toHaveBeenCalledWith('brief guard: already-delivered');
+    expect(runGuard('<!-- marjorie-ping date=2026-09-13 msg=1 -->')).toHaveBeenCalledWith('brief guard: first-run');
+    expect(runGuard('no stamp')).toHaveBeenCalledWith('brief guard: first-run');
+  });
   it('fails closed on an API error, incomplete run list, or pagination cap; force bypass is read-free', () => {
     for (const execImpl of [() => { throw new Error('private error'); }, (_cmd: string, args: string[]) => JSON.stringify(args.at(-1)?.endsWith('/runs/20') ? CURRENT : { total_count: 101, workflow_runs: [CURRENT] })]) {
       const log = vi.fn();

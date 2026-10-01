@@ -23,6 +23,7 @@
 // empty. The bot token is used only in `run:` steps and never in an agent step.
 import { BOTS, FAILED, FAILURE_PREFIX, REPLIED, founderIds, isFailureNotice } from './chat-inbox.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, hasOwnReaction } from './discord-bot.mjs';
+import { SUPPRESS_EMBEDS } from './discord.mjs';
 
 /**
  * True only for a message a founder typed: not a webhook post, not a bot, and
@@ -152,6 +153,7 @@ export function failureBody(messageId, runUrl = '') {
   return {
     content: `${FAILURE_PREFIX} ${runUrl ? `${runUrl} ` : ''}— please send it again`,
     allowed_mentions: { parse: [] },
+    flags: SUPPRESS_EMBEDS,
     message_reference: { message_id: messageId, fail_if_not_exists: false },
   };
 }

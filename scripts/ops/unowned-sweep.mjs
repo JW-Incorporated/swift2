@@ -85,6 +85,7 @@ export const S1_EXCLUSIONS = ['cie:safety', 'cie:escalate', PARKED_LABEL];
 // digests; they close when their agent's next run supersedes them.
 export const LEDGER_LABELS = new Set([
   'founders-brief',
+  'status-page',
   'kevin-triage',
   'kevin-radar',
   'kevin-digest',
