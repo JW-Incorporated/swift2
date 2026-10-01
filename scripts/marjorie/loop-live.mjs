@@ -4,6 +4,10 @@
 //   node scripts/marjorie/loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <issue>] [--response] [--dispatch]
 //   node scripts/marjorie/loop-live.mjs pending --for marjorie|tree --out <json> [--issue <N>] [--limit <N>]
 //   node scripts/marjorie/loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]
+//   node scripts/marjorie/loop-live.mjs guard-dispositions --for marjorie|tree --queue <json>
+//
+// `guard-dispositions` is the post-run guard: every ask in the queue file the agent
+// still has no Disposition on gets a fallback NEEDS HELP (lib/loop-fallback.mjs).
 //
 // `save-help` is how an agent with no Write tool saves a help ask: it writes the
 // next `for-*-N.json` (at most two) and never touches GitHub. A response run
@@ -23,13 +27,15 @@ import { runMain } from '../lib/cli.mjs';
 import { gh as ghRun } from '../lib/gh.mjs';
 import { REPO, fileAsk, parseTreeAsks } from './lib/loop-asks.mjs';
 import { dispatchResponse } from './lib/loop-dispatch.mjs';
+import { postMissingDispositions, queueNumbers } from './lib/loop-fallback.mjs';
 import { buildQueue, ensureLoopLabels, helpBudget } from './lib/loop-queue.mjs';
 import { parseArgs } from './loop-asks.mjs';
 
 const USAGE =
   'usage: loop-live.mjs file-help --side tree|marjorie --dir <dir> --source <N> --source-url <url> [--parent <N>] [--response] [--dispatch]\n' +
   '       loop-live.mjs pending --for marjorie|tree --out <json> [--issue <N>] [--limit <N>]\n' +
-  '       loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]';
+  '       loop-live.mjs save-help --side tree|marjorie --ask "<text>" [--why "<text>"] [--parent <N>] [--dir <dir>]\n' +
+  '       loop-live.mjs guard-dispositions --for marjorie|tree --queue <json>';
 const DIRECTION = { tree: 'to-marjorie', marjorie: 'to-tree' };
 const warn = (message) => console.log(`::warning::loop-live: ${message}`);
 
@@ -142,6 +148,22 @@ export async function pending(flags, { gh = ghRun, now = Date.now() } = {}) {
   return 0;
 }
 
+export async function guardDispositions(flags, { gh = ghRun } = {}) {
+  const bot = flags.for;
+  if (bot !== 'marjorie' && bot !== 'tree') throw new Error(`--for must be marjorie or tree\n${USAGE}`);
+  const repo = typeof flags.repo === 'string' ? flags.repo : REPO;
+  let numbers;
+  try {
+    numbers = queueNumbers(JSON.parse(readFileSync(flags.queue, 'utf8')));
+  } catch (err) {
+    warn(`could not read the queue file, nothing to guard: ${err.message}`);
+    return 0;
+  }
+  if (numbers.length > 0) await ensureLoopLabels({ repo, gh });
+  await postMissingDispositions(bot, numbers, { repo, gh });
+  return 0;
+}
+
 async function main() {
   const { command, flags } = parseArgs(process.argv.slice(2));
   if (command === 'file-help') {
@@ -152,6 +174,10 @@ async function main() {
   if (command === 'pending') {
     need(flags, ['for', 'out']);
     return pending(flags);
+  }
+  if (command === 'guard-dispositions') {
+    need(flags, ['for', 'queue']);
+    return guardDispositions(flags);
   }
   throw new Error(USAGE);
 }

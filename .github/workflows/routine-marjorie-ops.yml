@@ -17,11 +17,10 @@
 # concurrent run for no latency worth having.
 #
 # `allowed_tools` uses the space-free scoped form the spec asks M2 to try
-# first (`Bash(gh:*),Bash(git:*),Bash(node:*)` — no spaces, so it survives
-# `routine-template.yml`'s UNQUOTED interpolation into `claude_args` the
-# same way every existing routine's bare tool list does) instead of the
-# commissioning brief's `gh issue`/`gh run`/`gh workflow run`/`gh pr` list,
-# which contains spaces and would not. No `Write`, `Edit`, or `Task` — a
+# first (`Bash(gh:*),Bash(git:*),Bash(node:*)` — no spaces) instead of the
+# commissioning brief's `gh issue`/`gh run`/`gh workflow run`/`gh pr` list.
+# (`routine-template.yml` now quotes the list into `claude_args`, so spaces
+# would survive too; this routine keeps the broader verb on purpose.) No `Write`, `Edit`, or `Task` — a
 # narrowing, not a guarantee (`Bash` can still write files); the real
 # enforcement that she edits no product code is acceptance criterion 5,
 # checked on the PR diff. `.claude/hooks/guard.sh` denies `gh secret`/

@@ -243,7 +243,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ steps.load_prompt.outputs.prompt }}
-          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools ${{ inputs.allowed_tools }}${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
+          # The allowed_tools value is wrapped in quotes on purpose: claude-code-action splits claude_args with shell-quote, so an unquoted `Bash(gh issue comment:*)` becomes three tokens and the scoped rule is never enforced. scripts/check-routine-workflows.mjs fails if these quotes go missing.
+          claude_args: "--model ${{ inputs.model }} --max-turns ${{ inputs.max_turns }} --allowedTools \"${{ inputs.allowed_tools }}\"${{ inputs.max_budget_usd > 0 && format(' --max-budget-usd {0}', inputs.max_budget_usd) || '' }}"
           allowed_bots: ${{ inputs.allowed_bots }}
         env:
           GH_TOKEN: ${{ inputs.checkout_token_secret == 'SOCIAL_POSTER_PAT' && secrets.SOCIAL_POSTER_PAT || secrets.GITHUB_TOKEN }}

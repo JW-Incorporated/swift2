@@ -240,7 +240,7 @@ anyone can read. Both bots manage the site together.
 workflow token and call `lib/loop-dispatch.mjs`; `loop-live.mjs pending` writes
 `.scratch/ask-queue.json` for the response run; `loop-live.mjs save-help` is how an agent
 without a Write tool saves an ask. Responded means a comment by `claude`/`claude[bot]`
-whose line is `Disposition: <WORD>` (`lib/loop-queue.mjs`); nobody else's comment counts.
+whose line is `Disposition: <WORD>` (`lib/loop-queue.mjs`); nobody else's comment counts — except the post-run `guard` job's marker-bearing fallback `NEEDS HELP` (`lib/loop-fallback.mjs`), posted by the workflow identity on any queued ask the run left unanswered.
 A response run files nothing itself: a counter-ask is saved to `.scratch/out/` and filed by
 the plain `asks` job with `parent` set to the ask it answered.
 

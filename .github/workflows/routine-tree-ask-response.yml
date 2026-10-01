@@ -102,6 +102,33 @@ jobs:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
 
+  guard:
+    # Deterministic, no agent: an ask still without a `Disposition:` comment after the run (a denied tool, a timeout, a silent exit) gets a fallback NEEDS HELP and loop:needs-help (scripts/marjorie/lib/loop-fallback.mjs), so no ask is ever silently dropped. Runs even when the routine failed or was cancelled.
+    needs: [context, run]
+    if: always() && needs.context.result == 'success' && needs.context.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Download the queue the run was given
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: tree-ask-queue
+          path: .scratch
+      - name: Answer any ask the run left without a Disposition
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/marjorie/loop-live.mjs guard-dispositions --for tree --queue .scratch/ask-queue.json
+
   asks:
     needs: run
     if: always() && needs.run.result == 'success'

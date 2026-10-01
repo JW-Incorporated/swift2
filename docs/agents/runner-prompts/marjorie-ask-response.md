@@ -35,7 +35,12 @@ asks for it and you never dispatch anything.
 ## 2. Decide ONE disposition per ask
 
 Judge the ask against the plan, the charter (growth is priority #1) and what your
-authority can actually deliver. Four answers, nothing else:
+authority can actually deliver. Four answers, nothing else.
+
+**Every queue item MUST get exactly one Disposition comment before you exit.** A denied
+tool or a forbidden file means DECLINE (say what you could not do and why) or REROUTE
+(to whoever can) — never silence. (A plain job after this run posts a fallback
+`NEEDS HELP` on any ask you left unanswered; that is a failure, not a plan.)
 
 - **ACCEPT-NOW** — you can and will do it now. Say what, who (you, a desk, a founder
   via a human action) and by when. Do the part that is yours in this run: file the
