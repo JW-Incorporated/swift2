@@ -3,6 +3,9 @@
 // never made ineligible: a finite library must still be able to serve a valid
 // paired campaign after every entry has appeared.
 
+/** A variant (make-ig-variants.mjs) and its original are one photograph: both resolve to the original's id. */
+export const canonicalPhotoId = (entry) => (typeof entry?.variantOf === 'string' && entry.variantOf.trim() ? entry.variantOf.trim() : entry?.id);
+
 function isHttpUrl(value) {
   try {
     const url = new URL(value);
@@ -52,11 +55,23 @@ export function validatePhotoEntry(entry) {
       findings.push('date, if present, must be a parseable date string (e.g. YYYY-MM-DD)');
     }
   }
+  // `variantOf` (Bots v2 W10): an Instagram-ready padded copy of another entry (make-ig-variants.mjs).
+  if (entry.variantOf !== undefined && (typeof entry.variantOf !== 'string' || entry.variantOf.trim() === '' || entry.variantOf === entry.id)) {
+    findings.push('variantOf, if present, must be the id of a different library entry');
+  }
   return findings;
 }
 
-function historyFor(entry, history) {
-  return history.filter((record) => record?.photoId === entry.id || record?.media?.includes(entry.mediaPath));
+/** Ids and media paths of every entry that is the same photograph as `entry` (itself, its original, its variants). */
+function photoGroup(entry, allPhotos) {
+  const root = canonicalPhotoId(entry);
+  const members = allPhotos.filter((p) => canonicalPhotoId(p) === root || p.id === entry.id);
+  return { ids: new Set(members.map((p) => p.id)), paths: new Set(members.map((p) => p.mediaPath)) };
+}
+
+function historyFor(entry, history, allPhotos) {
+  const { ids, paths } = photoGroup(entry, allPhotos);
+  return history.filter((record) => ids.has(record?.photoId) || (Array.isArray(record?.media) && record.media.some((m) => paths.has(m))));
 }
 
 function timestamp(value) {
@@ -115,9 +130,12 @@ export function selectSocialPhoto(library, history = [], options = {}) {
   const pool = requiredTags.length ? eligible.filter((entry) => photoMatchesRequiredTags(entry, requiredTags)) : eligible;
   if (!pool.length) return null;
 
+  // `options.allPhotos` (Bots v2 W10): the FULL library when `library` is a filtered subset, so an IG-ready
+  // variant and its original share one use history even when only one of them is a candidate.
+  const allPhotos = Array.isArray(options.allPhotos) ? options.allPhotos : library;
   const ranked = pool
     .map((entry) => {
-      const uses = historyFor(entry, history);
+      const uses = historyFor(entry, history, allPhotos);
       const lastUsedAt = uses.reduce((latest, use) => Math.max(latest, timestamp(use.postedAt)), 0);
       return { entry, useCount: uses.length, lastUsedAt };
     })

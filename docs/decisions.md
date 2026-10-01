@@ -7,6 +7,16 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-30 — Instagram-ready photo variants: pad, never crop (Bots v2 W10)
+
+**Decision.** Every library photo outside Instagram's 0.8–1.91 aspect window gets a deterministic padded variant (`scripts/social/make-ig-variants.mjs`): the original, uncropped and unaltered, centred on a 4:5 (1080x1350) or 1.91:1 (1080x566) canvas over a blurred, darkened copy of itself. The variant is its own library entry with the original's credit/source/alt/tags and `variantOf`; original and variant count as ONE photo for L001 reuse.
+
+**Why.** After W8, 34 of 54 photos could never ship on Instagram and only 10 never-used photos were drawable; seven eras were exhausted. Cropping would cut the subject; padding keeps the photograph intact and credited. No posting-path file changed: the IG aspect gate lives only in `check-drafts.mjs`/`photo-dimensions.mjs`, which the variant passes.
+
+**Reversible by** deleting the `-ig*.jpg` files and `variantOf` entries.
+
+---
+
 ## 2026-09-30 — Tree's drafter un-stuck: one pair, one never-used Instagram-sized photo; pre-compute before the model; same-day event drafts; stale drafts retired (Bots v2 W8; amends lesson L001)
 
 **Why.** Tree posted nothing from 2026-09-22 (0 posts the week of 09-28, 18
