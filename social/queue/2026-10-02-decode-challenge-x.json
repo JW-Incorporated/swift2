@@ -1,0 +1,43 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "quick challenge for the clowns 🤡 in our Decode thread: find the time Taylor filmed herself pressing an elevator button marked 18 — then announced 1989 exactly 14 days later, on the 18th. reply with the clue that got you → longlivets.com/?lens=hidden-clues&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1ocof56-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1ocof56-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1ocof56/the_life_of_a_showgirl_album_variant_photo_shiny/",
+  "scheduledAt": "2026-10-02T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: The life of a showgirl album variant photo! (Shiny bug)"
+  ],
+  "campaign": "thread:hidden-clues:interactive-challenge:2026-10-hero",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "October Decode hero as an interactive challenge: find the elevator-button-18 clue and reply — a confirmed, checkable fact (Taylor filmed button 18, announced 1989 exactly 14 days later on Aug 18). Playful Clownbot-native hook; handed never-used Taylor photo on both halves.",
+    "rulesChecked": [
+      "L001"
+    ],
+    "revision": 1
+  },
+  "why": "Calendar 2026-10-02 23:00Z thread:hidden-clues interactive-challenge beat. Minted thread:hidden-clues:interactive-challenge:2026-10-hero (October angle index advances). Hook = the challenge. Anchored on a VERIFIED thread clue (clue-1989-elevator-eighteen, confirmed): button marked 18 filmed 2014-08-04, 1989 announced 2014-08-18 — gap is exactly 14 days. Photo: handed never-used pick reddit-taylorswiftpictures-1ocof56-ig45 (viewed: Taylor in frame, showgirl promo), uncredited so no credit line/field; same photo on both halves per W8/L001. X carries the image (not text-only) per W8/check-drafts. Screenshot slide 2 (thread-hidden-clues-screen.png) DROPPED: site-screen is launch-only per strategy-params/check-drafts, so a thread-campaign carousel fails CI — photo-only instead.",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-01T21:03:47.891Z",
+    "pr": 4728,
+    "sha": "9057569f2f0eeaa66c4fead789269c6b0aedb155",
+    "message": "1555270196619640944",
+    "contentHash": "sha256:b5413ff926795fad7a61c430bd3e3690dff02a4c45965e86220267f6f9e7ea58",
+    "sig": "hmac-sha256:7cde97b310e9dc598e52e8d98b17188e522b63da645738de1cf6592a85ef2743"
+  }
+}
