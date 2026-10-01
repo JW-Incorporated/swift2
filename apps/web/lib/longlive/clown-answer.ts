@@ -18,67 +18,17 @@
  * Do not add a second answer type. If a producer needs a field this does not
  * carry, widen this type.
  */
+import type { ClownAnswer, ClownSegment, InvestigationStep } from '@swift2/shared';
 import type { ClownTake } from './clown-client';
 import type { FallbackAnswer, RetrievedItem } from './clown-fallback';
 
-/**
- * A labelled piece of prose. The bubble renders segments in array order.
- *
- * `stance` / `argument` / `counterpoint` are kept as DISTINCT segments rather
- * than pre-joined into one string on purpose: the counterpoint is the half
- * that keeps the bot honest — it is where the answer argues against itself —
- * and flattening it into a paragraph is how it quietly stops being visible.
- * The renderer may style them differently; it may not drop one.
- */
-export type ClownSegmentRole =
-  | 'stance'
-  | 'argument'
-  | 'counterpoint'
-  | 'aside'
-  /** Fallback prose, which has no rhetorical structure to label. */
-  | 'plain';
-
-export interface ClownSegment {
-  role: ClownSegmentRole;
-  text: string;
-}
-
-/**
- * One tool call the agent loop (clown-agent.ts, PLAN.md Stage 10) made while
- * investigating a question, in the order it happened. Rendered to the reader
- * so the trail is transparent, not just internal telemetry — "what the bot
- * looked up and found." Always `[]` for the fallback/chip/degraded/refusal
- * producers below: nothing investigated, nothing to show.
- */
-export interface InvestigationStep {
-  /** The tool name, exactly as sent on the wire (e.g. 'search', 'precedents'). */
-  tool: string;
-  /** The arguments the model supplied, already validated. */
-  input: Record<string, unknown>;
-  /** One line, our words: what the call found. Never the raw row payload. */
-  summary: string;
-}
-
-export interface ClownAnswer {
-  /** Which path produced this. Drives nothing user-visible except analytics. */
-  kind: 'take' | 'fallback';
-  /** Canonical theory name where one applies (see clown-names.ts). */
-  theoryName: string | null;
-  segments: ClownSegment[];
-  /**
-   * 0..5, or NULL.
-   *
-   * Null is load-bearing: the fallback path has no model, so nothing scored
-   * the ambition of the claim. Rendering a fabricated 0 (or a cheerful 3)
-   * there would invent a judgement no one made. The UI must render no delulu
-   * element at all when this is null rather than substituting a default.
-   */
-  delulu: number | null;
-  /** The corpus items this answer is allowed to have leaned on. */
-  sources: RetrievedItem[];
-  /** The agent loop's tool-call trail, in order. `[]` for every non-loop producer. */
-  investigation: InvestigationStep[];
-}
+// The wire shapes (ClownAnswer and friends) live in `@swift2/shared`'s api/
+// clown.ts — the one source of truth the native client also imports. Their
+// field docs (segments are kept DISTINCT so the counterpoint stays visible;
+// `delulu` is NULL on the zero-model paths and the UI must then render no
+// delulu element; `investigation` is `[]` for every non-loop producer) are
+// there too. Re-exported so every existing web import keeps working.
+export type { ClownAnswer, ClownSegment, ClownSegmentRole, InvestigationStep } from '@swift2/shared';
 
 /** Drop empty/whitespace-only segments so the bubble never renders a blank row. */
 function compact(segments: ClownSegment[]): ClownSegment[] {
