@@ -56,10 +56,15 @@ function gh(execImpl, args) {
   return execImpl('gh', args, { encoding: 'utf8', maxBuffer: GH_MAX_BUFFER });
 }
 
+// Bots v2 W4: the day's thread is anchored on the one `status-page` issue, not a
+// per-day `founders-brief` issue. The brief's `deliver` job records the Discord
+// ping's message id as `<!-- marjorie-ping date=... msg=<id> -->` in that
+// issue's BODY (only workflows and write-access users can edit it), and relayed
+// replies and turn logs land as comments on the same issue.
 function findBriefIssue(execImpl, repo) {
   const out = gh(execImpl, [
-    'issue', 'list', '--repo', repo, '--label', 'founders-brief',
-    '--state', 'open', '--json', 'number', '--limit', '1',
+    'issue', 'list', '--repo', repo, '--label', 'status-page',
+    '--state', 'open', '--json', 'number,body', '--limit', '1',
   ]);
   const issues = JSON.parse(out);
   return issues[0] || null;
@@ -79,19 +84,10 @@ function issueComments(execImpl, repo, issueNumber) {
   return JSON.parse(out).flat();
 }
 
-function extractDiscordMessageId(comments) {
-  for (const comment of comments) {
-    const user = comment?.user;
-    if (user?.type !== 'Bot' || !['github-actions[bot]', 'github-actions'].includes(user.login)) continue;
-    // Posted only by `routine-marjorie-brief.yml`'s `deliver` job (environment-
-    // scoped, not agent-writable), and always before any founder reply can
-    // exist on this issue (the thread doesn't exist until that job creates
-    // it) — so a first-match-anywhere scan can't collide with attacker-
-    // controlled content the way `alreadyRelayedIds` below could. Left as-is.
-    const m = /^<!-- discord-message-id: (\d{15,21}) -->$/.exec(String(comment.body || '').trim());
-    if (m) return m[1];
-  }
-  return null;
+/** The id of the latest ping Discord post, read from the status issue body's ping stamp. */
+export function extractDiscordMessageId(issue) {
+  const m = /<!--\s*marjorie-ping date=\S+ msg=(\d{15,21})\s*-->/.exec(String(issue?.body || ''));
+  return m ? m[1] : null;
 }
 
 function alreadyRelayedIds(commentBodies) {
@@ -191,15 +187,15 @@ export async function main({ fetchImpl = fetch, sleepImpl = defaultSleep, execIm
 
   const issue = findBriefIssue(execImpl, repo);
   if (!issue) {
-    console.log('no open founders-brief issue found — nothing to poll');
+    console.log('no open status-page issue found — nothing to poll');
     return 0;
   }
 
   const comments = issueComments(execImpl, repo, issue.number);
   const commentBodies = comments.map((comment) => comment.body);
-  const threadId = extractDiscordMessageId(comments);
+  const threadId = extractDiscordMessageId(issue);
   if (!threadId) {
-    console.log(`issue #${issue.number} has no discord-message-id marker yet — nothing to poll`);
+    console.log(`issue #${issue.number} has no marjorie-ping message id yet — nothing to poll`);
     return 0;
   }
 

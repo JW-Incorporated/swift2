@@ -196,6 +196,7 @@ describe('finish', () => {
     const now = () => snowflakeMs(MID) + 154_400;
     expect(await finish(base(dir, 'replied'), { env: { REPO: 'o/r' }, fetchImpl, sleepImpl, execImpl, now })).toBe(0);
     expect(keys(log)).toEqual([reaction('✅')]);
+    expect(execImpl.mock.calls[0][1]).toContain('status-page');
     expect(execImpl.mock.calls[1][1].slice(0, 5)).toEqual(['issue', 'comment', '42', '--repo', 'o/r']);
     expect(execImpl.mock.calls[1][1][6]).toBe(`💬 chat: #longlive-marjorie → answered from the charter · replied in 154s\n\n<!-- chat-id: ${MID} -->`);
   });

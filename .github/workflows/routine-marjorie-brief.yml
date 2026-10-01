@@ -135,6 +135,9 @@ jobs:
           # Marjorie's note into the status page; this job re-renders the page
           # (creating it if missing) and posts ONE line to Discord.
           node scripts/marjorie/status-page.mjs --apply
+          # Chase items Marjorie stopped chasing: shown on the page and recorded
+          # as hidden markers there, which the chase reads so it never re-announces them.
+          node scripts/marjorie/status-note.mjs stamp-held || echo "::warning::could not record held chase items on the status page"
           STATUS_URL=$(node scripts/marjorie/status-note.mjs url)
           STATUS_NUMBER=${STATUS_URL##*/}
           # L1 (docs/specs/marjorie-overhaul/l1-loop.md): file the note's

@@ -21,12 +21,12 @@ export async function findStatusIssue(api, repo) {
   return rows.sort((a, b) => a.number - b.number)[0];
 }
 
-function withBodyFile(body, fn) {
+async function withBodyFile(body, fn) {
   const dir = mkdtempSync(path.join(tmpdir(), 'status-body-'));
   const file = path.join(dir, 'body.md');
   try {
     writeFileSync(file, body);
-    return fn(file);
+    return await fn(file);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

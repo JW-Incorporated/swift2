@@ -66,7 +66,7 @@ describe('renderStatusPage', () => {
   });
   it('treats the empty-note placeholder as no note', () => {
     expect(readPreserved(body).note).toEqual({ text: '', date: '' });
-    expect(readPreserved('no markers at all')).toEqual({ note: { text: '', date: '' }, ping: null });
+    expect(readPreserved('no markers at all')).toEqual({ note: { text: '', date: '' }, ping: null, held: '' });
   });
   it('filters noise from Shipped and counts it', () => {
     const out = renderStatusPage({ ...base(), mergedPrs: [pr(1), pr(3, { title: 'growth-snapshot: x' })] }, { now: NOW, repo: REPO });
@@ -89,6 +89,24 @@ describe('sanitizeNote', () => {
 describe('sections', () => {
   it('summarizes a weekly plan without headings or comments', () => {
     expect(planSummary('<!-- x -->\n# Title\n\nGoal one.\n\n---\nGoal two.')).toBe('Goal one.\nGoal two.');
+  });
+  it('quotes only the "Next up" bullets from a weekly plan, falling back to the first lines without that heading', () => {
+    const plan = [
+      '# Weekly plan — week of 2026-09-28', '', 'TL;DR: grow Instagram, fix the drafter.', '',
+      '## Next up', '- Ship the share-card MVP', '- Unblock Tree drafts', '3. Review the Patient Zero coverage', '* Close the link sweep', '- Pick the VMAs recap angle', '- A sixth bullet that must not show', '',
+      '## 1. Are we growing?', '**Why:** followers are flat', '**Evidence:** social/metrics', '',
+      '## 2. Is content top tier?', '**Why:** mixed',
+    ].join('\n');
+    const out = planSummary(plan);
+    expect(out.split('\n')).toEqual([
+      '- Ship the share-card MVP', '- Unblock Tree drafts', '- Review the Patient Zero coverage', '- Close the link sweep', '- Pick the VMAs recap angle',
+    ]);
+    expect(out).not.toMatch(/Why|Evidence|TL;DR|sixth/);
+    const page = renderNextUp({ plan: { number: 9, title: 'Weekly plan', url: 'https://p/9', body: plan }, prs: [] }, { now: NOW });
+    expect(page).toContain('[Weekly plan](https://p/9)');
+    expect(page).toContain('> - Ship the share-card MVP');
+    expect(page).not.toContain('Evidence');
+    expect(planSummary('# T\n\nTL;DR only.\n\n## Next up\n\nnothing bulleted\n\n## 1. Q\n**Why:** x')).toBe('TL;DR only.\nnothing bulleted\n**Why:** x');
   });
   it('renders next up with and without a plan, capping in-flight PRs at 8', () => {
     const prs = Array.from({ length: 11 }, (_, i) => pr(i + 1, { mergedAt: null, updatedAt: '2026-09-20T00:00:00Z' }));

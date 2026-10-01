@@ -12,8 +12,12 @@ import { parseHaEntries } from './status-ha.mjs';
 import { STATUS_LABEL } from './status-issue.mjs';
 
 export const OWNER_LOGIN = 'sffan15-sys';
-const OWNER_ASSOCIATIONS = new Set(['OWNER', 'MEMBER']);
+const OWNER_ASSOCIATIONS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
+// A choice that means "stop, don't do it" closes the item as `skip` (the human-actions
+// ledger outcome the chase also reads as held), exactly like a `skip` reply on the card.
+const SKIP_CHOICE = /^(skip|defer)\b/i;
 const CHOICE_CAP = 120;
+const RELAY_WORKFLOW = 'routine-marjorie-status-reply.yml';
 const COMMAND = /^\s*(done|decide)\s+#(\d+)(?:\s+([\s\S]+))?$/i;
 
 /** True only for the owner's own account, never a bot, with owner/member standing in the repo. */
@@ -38,15 +42,17 @@ const optionList = (item) => item.options.map((o) => `\`${o.choice}\``).join(', 
 export function checkCommand(item, cmd) {
   if (cmd.kind === 'done') {
     if (item.tag === 'DECIDE') return { ok: false, message: `#${item.number} is a decision, not a task — reply \`decide #${item.number} <choice>\`${item.options.length ? ` (options: ${optionList(item)})` : ''}.` };
-    return { ok: true, choice: '' };
+    return { ok: true, choice: '', outcome: 'done' };
   }
   if (item.tag !== 'DECIDE') return { ok: false, message: `#${item.number} isn't a decision — reply \`done #${item.number}\` once it's finished.` };
   if (!cmd.text) return { ok: false, message: `Which way on #${item.number}? Reply \`decide #${item.number} <choice>\`${item.options.length ? ` — options: ${optionList(item)}` : ''}.` };
-  if (!item.options.length) return { ok: true, choice: cmd.text.slice(0, CHOICE_CAP) };
   const [word, ...more] = cmd.text.split(' ');
-  const hit = item.options.find((o) => o.choice.toLowerCase() === word.toLowerCase());
+  const outcome = SKIP_CHOICE.test(word) ? 'skip' : 'done';
+  if (!item.options.length) return { ok: true, choice: cmd.text.slice(0, CHOICE_CAP), outcome };
+  const hit = item.options.find((o) => o.choice.toLowerCase() === word.toLowerCase())
+    || (word.toLowerCase() === 'skip' ? { choice: 'skip' } : null);
   if (!hit) return { ok: false, message: `\`${word}\` isn't one of the options for #${item.number}: ${optionList(item)}. Reply again with one of those.` };
-  return { ok: true, choice: `${hit.choice}${more.length ? ` — ${more.join(' ')}` : ''}`.slice(0, CHOICE_CAP) };
+  return { ok: true, choice: `${hit.choice}${more.length ? ` — ${more.join(' ')}` : ''}`.slice(0, CHOICE_CAP), outcome };
 }
 
 const mentionSafe = (s) => String(s).replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
@@ -63,8 +69,17 @@ export async function handleComment({ event, root, run, reply, now = new Date(),
   if (!isOwnerComment(who)) return { acted: false, reason: 'not the owner' };
   const cmd = parseCommand(comment.body);
   if (!cmd) {
-    log('status reply: free-text owner comment, not a command — left for Marjorie\'s next brief');
-    return { acted: false, reason: 'free text' };
+    // Free text goes to Marjorie now: a dispatch-only routine (the chat routine's
+    // twin) re-verifies the comment is the owner's, then answers on the issue.
+    try {
+      run('gh', ['workflow', 'run', RELAY_WORKFLOW, '--repo', repo, '--ref', 'main', '-f', `comment_id=${comment.id}`]);
+      await reply('👀 Passed to Marjorie — her answer will appear here.');
+      return { acted: false, reason: 'relayed to marjorie' };
+    } catch (err) {
+      log(`status reply: could not dispatch ${RELAY_WORKFLOW}: ${String(err?.message || err).split('\n')[0].slice(0, 200)}`);
+      await reply("I couldn't pass that to Marjorie right now; she reads owner comments on this page at the next morning brief.");
+      return { acted: false, reason: 'relay failed' };
+    }
   }
 
   const openPath = path.join(root, HUMAN_ACTIONS_PATH);
@@ -81,10 +96,23 @@ export async function handleComment({ event, root, run, reply, now = new Date(),
     return { acted: false, reason: 'bad command' };
   }
 
+  const prefixes = [`status-page/ha-close-${cmd.number}-`, `marjorie/ha-close-${cmd.number}-`];
+  let openBranches;
+  try {
+    openBranches = JSON.parse(String(run('gh', ['pr', 'list', '--repo', repo, '--state', 'open', '--json', 'headRefName', '--limit', '100'])).trim() || '[]');
+  } catch {
+    openBranches = [];
+  }
+  const existing = openBranches.find((p) => prefixes.some((pre) => String(p.headRefName).startsWith(pre)));
+  if (existing) {
+    await reply(`A closing PR for #${cmd.number} is already open (\`${existing.headRefName}\`) — it lands on its own, so I opened no second one.`);
+    return { acted: false, reason: 'closing pr already open' };
+  }
+
   const date = laToday(now);
-  const how = cmd.kind === 'decide' ? `owner decided "${verdict.choice}"` : 'owner said done';
+  const how = cmd.kind === 'decide' ? `owner ${verdict.outcome === 'skip' ? 'skipped' : 'decided'} "${verdict.choice}"` : 'owner said done';
   const note = `status page ${comment.html_url} — ${how}`;
-  const closed = closeHumanAction(openMd, io.readFileSync(donePath, 'utf8'), { number: cmd.number, date, note, by: 'status page' });
+  const closed = closeHumanAction(openMd, io.readFileSync(donePath, 'utf8'), { number: cmd.number, date, note, by: 'status page', outcome: verdict.outcome });
   if (!closed.ok) {
     await reply(`Couldn't close #${cmd.number}: ${closed.reason}.`);
     return { acted: false, reason: closed.reason };
@@ -106,7 +134,7 @@ export async function handleComment({ event, root, run, reply, now = new Date(),
     } catch {
       merge = 'auto-merge was refused — merge it by hand';
     }
-    await reply(`✅ ${cmd.kind === 'decide' ? `Decision recorded on #${cmd.number}: \`${mentionSafe(verdict.choice)}\`` : `#${cmd.number} marked done`}. Closing PR: ${prUrl} (${merge}). This page updates when it lands.`);
+    await reply(`✅ ${cmd.kind === 'decide' ? `Decision recorded on #${cmd.number}: \`${mentionSafe(verdict.choice)}\`${verdict.outcome === 'skip' ? ' (closed as skipped)' : ''}` :`#${cmd.number} marked done`}. Closing PR: ${prUrl} (${merge}). This page updates when it lands.`);
     return { acted: true, number: cmd.number, prUrl };
   } catch (err) {
     log(`status reply: closing #${cmd.number} failed: ${String(err?.message || err).split('\n')[0].slice(0, 200)}`);

@@ -30,7 +30,7 @@ describe('marjorie-status.yml', () => {
       '!github.event.issue.pull_request',
       "github.event.comment.user.login == 'sffan15-sys'",
       "github.event.comment.user.type == 'User'",
-      `contains(fromJSON('["OWNER","MEMBER"]'), github.event.comment.author_association)`,
+      `contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)`,
       "contains(github.event.issue.labels.*.name, 'status-page')",
     ]) expect(cond).toContain(clause);
   });
@@ -39,8 +39,13 @@ describe('marjorie-status.yml', () => {
     expect(status).not.toMatch(/github\.event\.(comment|issue)\.(body|title)/);
     const reply = job(status, 'reply', '');
     expect(reply).toContain('token: ${{ secrets.SOCIAL_POSTER_PAT }}');
-    expect(reply).toMatch(/concurrency:\n {6}group: marjorie-status-reply-\$\{\{ github\.event\.comment\.id \}\}/);
+    expect(reply).toMatch(/concurrency:\n(?: {6}#[^\n]*\n)* {6}group: marjorie-status-reply\n {6}cancel-in-progress: false/);
+    expect(reply).not.toContain('comment.id }}\n      cancel');
     expect(reply).toContain('git checkout --force --quiet main');
+  });
+  it('may dispatch the free-text relay, with actions: write on the reply job only', () => {
+    expect(job(status, 'reply', '')).toContain('actions: write');
+    expect(job(status, 'render', 'reply')).not.toContain('actions: write');
   });
   it('posts acks with the workflow token so an ack is never an owner comment', () => {
     const reply = job(status, 'reply', '');
@@ -61,5 +66,23 @@ describe('routine-marjorie-brief.yml delivery', () => {
   });
   it('can read pull requests so it can render the page', () => {
     expect(deliver).toMatch(/permissions:\n {6}contents: read\n {6}issues: write\n {6}pull-requests: read/);
+  });
+});
+
+describe('routine-marjorie-status-reply.yml', () => {
+  const relay = read('.github/workflows/routine-marjorie-status-reply.yml');
+  it('is dispatch-only, one lane per comment, and says so in its header', () => {
+    expect(relay).toMatch(/^# .*dispatch-only/m);
+    expect(relay).not.toContain('schedule:');
+    expect(relay).toMatch(/^on:\n {2}workflow_dispatch:\n {4}inputs:\n {6}comment_id:/m);
+    expect(relay).toContain('concurrency:\n  group: marjorie-status-reply-${{ inputs.comment_id }}\n  cancel-in-progress: false');
+  });
+  it('re-verifies the comment before the agent sees it, and never hands the agent a Discord credential', () => {
+    expect(relay).toContain('status-relay.mjs context');
+    expect(relay).toContain("if: needs.context.outputs.skip != 'true'");
+    expect(relay).toContain('pre_run_artifact: status-reply-context');
+    expect(relay).toContain('ref: main');
+    expect(relay).not.toMatch(/DISCORD/);
+    expect(relay).not.toMatch(/Write|Edit/);
   });
 });

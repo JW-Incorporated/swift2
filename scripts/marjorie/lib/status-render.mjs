@@ -2,6 +2,7 @@
 // Pure: same input, same output; the clock is a parameter.
 import { parseHaEntries, renderNeedsYou } from './status-ha.mjs';
 import { noiseRuleFor, renderShipped, selectShipped, SHIPPED_WINDOW_DAYS } from './status-shipped.mjs';
+import { readHeldRegion, renderHeldSection } from './status-held.mjs';
 import { renderGrowth, renderNextUp, renderNote, renderTree } from './status-sections.mjs';
 
 export const PAGE_MARKER = '<!-- marjorie-status-page v1 -->';
@@ -19,6 +20,7 @@ export function readPreserved(body) {
   return {
     note: { text: noteText, date: note && note[1] !== 'none' ? note[1] : '' },
     ping: ping ? { date: ping[1], msg: ping[2] || '' } : null,
+    held: readHeldRegion(text),
   };
 }
 
@@ -65,6 +67,7 @@ function compose(data, now, repo, shippedLines) {
       : renderNeedsYou(items, { repo, now, pendingClose }),
     renderShipped(shipped, { hidden: windowMerged.length - shipped.length, maxLines: shippedLines }),
     renderNextUp({ plan: data.plan, prs: inFlight }, { now }),
+    ...(renderHeldSection(data.held) ? [renderHeldSection(data.held)] : []),
     renderGrowth({ latest: data.metricsLatest, prior: data.metricsPrior }),
     renderTree({ published: data.posted, pending: data.draftPrs, pendingUrl: `https://github.com/${repo}/pulls?q=is%3Apr+is%3Aopen+label%3Asocial-draft` }),
     renderNote({ text: sanitizeNote(data.note?.text), date: data.note?.date }),

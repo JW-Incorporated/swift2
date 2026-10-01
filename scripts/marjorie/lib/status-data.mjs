@@ -86,6 +86,6 @@ export async function gatherStatusData({ api, repo, root, now, existingBody = ''
   return {
     haMarkdown, mergedPrs, openPrs, plan, posted, metricsLatest: latest, metricsPrior: prior,
     draftPrs: openPrs.filter((pr) => pr.labels.includes('social-draft')),
-    note: preserved.note, ping: preserved.ping, warnings,
+    note: preserved.note, ping: preserved.ping, held: preserved.held, warnings,
   };
 }

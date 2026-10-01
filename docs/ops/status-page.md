@@ -31,7 +31,7 @@ Preview without writing anything: `node scripts/marjorie/status-page.mjs --dry-r
 ## Replying
 
 Comment on the status issue. Only the owner's own account (`sffan15-sys`, with
-`OWNER`/`MEMBER` association) is ever acted on; this repo is public and every
+`OWNER`/`MEMBER`/`COLLABORATOR` association) is ever acted on; this repo is public and every
 other comment, and every bot comment, is ignored — the workflow's `if` and
 `status-reply.mjs` both check.
 
@@ -48,11 +48,21 @@ other comment, and every bot comment, is ignored — the workflow's `if` and
   reply with the right syntax and closes nothing.
 - **Closing is all it does.** A decision such as `assign` or `defer` is
   recorded, not executed; Marjorie reads the ledger and acts on it.
-- Any other owner comment is **not** acted on by the workflow. There is no
-  GitHub-comment path into `routine-marjorie-chat` (it is dispatched per Discord
-  message). The next morning brief reads owner comments on the status issue
-  and answers them in the note. For an immediate answer, message Marjorie in
-  `#longlive-marjorie`.
+- Any other owner comment goes to Marjorie right away. The `reply` job answers with
+  a `👀 Passed to Marjorie` comment and dispatches `routine-marjorie-status-reply.yml`
+  (dispatch-only, the Discord chat routine's twin: `scripts/marjorie/status-relay.mjs`
+  re-reads the comment from GitHub and passes it to the agent only if it is the
+  owner's own comment on a status-page issue; prompt
+  `docs/agents/runner-prompts/marjorie-status-reply.md`). She acts inside the chat
+  routine's authority list and answers with one comment on the issue. Her reply is a
+  bot comment, so nothing loops. If the dispatch fails the bot says so and the
+  next morning brief still reads the comment.
+- A choice that means *skip* (`skip`, `defer`) closes the item as `skip` in the
+  ledger, which the chase reads as "held"; `skip` is accepted even when an item
+  does not list it.
+- Only one reply job runs at a time (shared concurrency group), and a second
+  `done #N` for an item whose closing PR is still open is answered with a pointer
+  to that PR instead of opening another.
 
 ## The daily brief
 
@@ -67,10 +77,13 @@ in the issue body; `brief-guard.mjs` reads it to keep a day from delivering
 twice, and the watchdog's "brief exists" check reads the note's date
 (`status-note.mjs today`).
 
-Left alone on purpose: `marjorie-reply-poll.yml`/`reply-poll.mjs` and
-`marjorie-brief-delivery-recovery.yml` still work on legacy `founders-brief`
-issues but find nothing to do once the old ones are closed; the chat turn log
-and dispatch-chase "held" notices keyed on a brief issue go quiet.
+Re-pointed at the status issue: `reply-poll.mjs` finds the day's Discord thread from
+the `msg=` id in the page's ping stamp and relays replies as comments there;
+`chat-post.mjs`'s turn log lands there too; dispatch-chase reads held markers from the
+page body. `stamp-held` (run by `deliver`) shows the chase's held items on the page in
+a "Held" section and records the hidden `marjorie-held` markers beside them, outside
+Marjorie's sanitized note, so the brief never re-announces an item. Left alone:
+`marjorie-brief-delivery-recovery.yml` still works on legacy `founders-brief` issues.
 
 ### Cleanup after this ships
 

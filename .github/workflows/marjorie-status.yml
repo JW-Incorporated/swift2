@@ -7,12 +7,13 @@
 #           social/**, and on demand. Reads the repo + GitHub, writes only the
 #           status issue body. No secrets beyond the workflow token.
 #   reply   an issue_comment on the status issue. This repo is public, so the
-#           job's `if` admits ONLY the owner's own account with OWNER/MEMBER
-#           standing on a status-page issue (never a bot, so the job's own ack
+#           job's `if` admits ONLY the owner's own account with OWNER/MEMBER/
+#           COLLABORATOR standing on a status-page issue (never a bot, so the job's own ack
 #           comments cannot loop), and status-reply.mjs re-checks the same.
 #           It closes a human action through a PR opened with SOCIAL_POSTER_PAT
-#           (so required checks run), then re-renders. Free-text owner
-#           comments are not acted on here; Marjorie's morning brief reads them.
+#           (so required checks run), then re-renders. A free-text owner
+#           comment is dispatched to routine-marjorie-status-reply.yml (the chat
+#           routine's GitHub twin), which answers on the issue.
 # Checkout is always `main`: nothing a comment or a PR carries is executed.
 name: marjorie-status
 
@@ -62,16 +63,20 @@ jobs:
       && !github.event.issue.pull_request
       && github.event.comment.user.login == 'sffan15-sys'
       && github.event.comment.user.type == 'User'
-      && contains(fromJSON('["OWNER","MEMBER"]'), github.event.comment.author_association)
+      && contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
       && contains(github.event.issue.labels.*.name, 'status-page')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
+      actions: write # dispatch routine-marjorie-status-reply.yml for free-text comments
       contents: write
       issues: write
       pull-requests: write
     concurrency:
-      group: marjorie-status-reply-${{ github.event.comment.id }}
+      # One shared group: replies run strictly one after another, so a second
+      # `done #N` sees the first one's open closing PR instead of racing it.
+      # (GitHub holds one pending run; owner comments are minutes apart.)
+      group: marjorie-status-reply
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v7

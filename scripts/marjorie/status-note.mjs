@@ -6,6 +6,7 @@
 //   node scripts/marjorie/status-note.mjs write --body-file <md> [--date YYYY-MM-DD]   replace Marjorie's note
 //   node scripts/marjorie/status-note.mjs extract --out <md>                           save the current note; prints the issue url
 //   node scripts/marjorie/status-note.mjs stamp-ping --message-id <id> [--date ...]    record today's Discord ping
+//   node scripts/marjorie/status-note.mjs stamp-held                                    record the chase's held items (page section + markers)
 //   node scripts/marjorie/status-note.mjs url                                           print the status issue url
 //   node scripts/marjorie/status-note.mjs today                                         prints 1 when today's note or ping exists, else 0
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -16,6 +17,9 @@ import { gh as ghRun, ghApi } from '../lib/gh.mjs';
 import { laToday } from './ha-close.mjs';
 import { ensureStatusIssue, findStatusIssue, replaceNote, stampPing, updateBody } from './lib/status-issue.mjs';
 import { readPreserved } from './lib/status-render.mjs';
+import { evaluateDispatchChase } from './lib/dispatch-chase.mjs';
+import { fetchDispatchChaseState } from './lib/dispatch-chase-state.mjs';
+import { heldEntries, readHeldMarkers, replaceHeld } from './lib/status-held.mjs';
 import { DEFAULT_REPO } from './status-page.mjs';
 
 function flagsOf(argv) {
@@ -38,7 +42,7 @@ async function editBody({ api, gh, repo, edit, hasEdit }) {
 }
 
 export async function main(argv = process.argv.slice(2), {
-  api = ghApi, gh = ghRun, log = console.log, now = new Date(), env = process.env, read = readFileSync, write = writeFileSync,
+  api = ghApi, gh = ghRun, log = console.log, now = new Date(), env = process.env, read = readFileSync, write = writeFileSync, fetchSnapshot = fetchDispatchChaseState,
 } = {}) {
   const [command, ...rest] = argv;
   const flags = flagsOf(rest);
@@ -65,6 +69,17 @@ export async function main(argv = process.argv.slice(2), {
     log(`status note: ping stamped on #${issue.number} for ${date}`);
     return 0;
   }
+  if (command === 'stamp-held') {
+    const entries = heldEntries(evaluateDispatchChase(await fetchSnapshot(repo, { now: now.getTime() })).items);
+    const want = JSON.stringify(entries.map((e) => ({ issue: e.issue, ha: e.ha })));
+    const issue = await editBody({
+      api, gh, repo,
+      edit: (body) => replaceHeld(body, entries),
+      hasEdit: (body) => JSON.stringify(readHeldMarkers(body)) === want,
+    });
+    log(`status note: ${entries.length} held item(s) recorded on #${issue.number}`);
+    return 0;
+  }
   const issue = await findStatusIssue(api, repo);
   if (command === 'today') {
     const kept = issue ? readPreserved(issue.body) : null;
@@ -82,7 +97,7 @@ export async function main(argv = process.argv.slice(2), {
     log(`status-issue: ${issue.number} ${issue.url}`);
     return 0;
   }
-  throw new Error('usage: status-note.mjs write|extract|stamp-ping|url|today');
+  throw new Error('usage: status-note.mjs write|extract|stamp-ping|stamp-held|url|today');
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

@@ -82,7 +82,8 @@ describe('isOwnerComment', () => {
     expect(isOwnerComment({ ...ok, login: 'wjduvall-cmd' })).toBe(false);
     expect(isOwnerComment({ ...ok, login: 'random-fan', association: 'NONE' })).toBe(false);
     expect(isOwnerComment({ ...ok, association: 'CONTRIBUTOR' })).toBe(false);
-    expect(isOwnerComment({ ...ok, association: 'COLLABORATOR' })).toBe(false);
+    expect(isOwnerComment({ ...ok, association: 'COLLABORATOR' })).toBe(true);
+    expect(isOwnerComment({ ...ok, login: 'someone-else', association: 'COLLABORATOR' })).toBe(false);
     expect(isOwnerComment({ ...ok, type: 'Bot' })).toBe(false);
     expect(isOwnerComment({ ...ok, login: 'sffan15-sys[bot]' })).toBe(false);
     expect(isOwnerComment({ login: 'github-actions[bot]', association: 'MEMBER', type: 'Bot' })).toBe(false);
@@ -107,20 +108,20 @@ describe('checkCommand', () => {
   const items = parseHaEntries(OPEN);
   const [blocking, optioned, freeform] = items;
   it('accepts done only on non-decisions and decide only on decisions', () => {
-    expect(checkCommand(blocking, { kind: 'done', number: 88, text: '' })).toEqual({ ok: true, choice: '' });
+    expect(checkCommand(blocking, { kind: 'done', number: 88, text: '' })).toMatchObject({ ok: true, choice: '' });
     expect(checkCommand(optioned, { kind: 'done', number: 87, text: '' }).ok).toBe(false);
     expect(checkCommand(blocking, { kind: 'decide', number: 88, text: 'yes' }).ok).toBe(false);
   });
   it('requires a declared option when options exist, keeping trailing detail', () => {
-    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'ACCEPT' })).toEqual({ ok: true, choice: 'accept' });
-    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'route to austin' })).toEqual({ ok: true, choice: 'route — to austin' });
+    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'ACCEPT' })).toMatchObject({ ok: true, choice: 'accept' });
+    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'route to austin' })).toMatchObject({ ok: true, choice: 'route — to austin' });
     const bad = checkCommand(optioned, { kind: 'decide', number: 87, text: 'maybe' });
     expect(bad.ok).toBe(false);
     expect(bad.message).toContain('`accept`, `route`');
     expect(checkCommand(optioned, { kind: 'decide', number: 87, text: '' }).ok).toBe(false);
   });
   it('accepts a short free-form choice when none are declared', () => {
-    expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'confirmed, ship it' })).toEqual({ ok: true, choice: 'confirmed, ship it' });
+    expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'confirmed, ship it' })).toMatchObject({ ok: true, choice: 'confirmed, ship it' });
   });
 });
 
@@ -146,8 +147,21 @@ describe('handleComment — who and what is acted on', () => {
   it('ignores edits and deletions', async () => {
     await never({ ...event('done #88'), action: 'edited' }, 'not a new issue comment');
   });
-  it('leaves free-text owner comments alone', async () => {
-    await never(event('can we talk about the Eras plan?'), 'free text');
+  it('relays free-text owner comments to Marjorie instead of acting on them', async () => {
+    const root = repoDir();
+    const h = harness();
+    const out = await handleComment({ event: event('can we talk about the Eras plan?'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    expect(out).toMatchObject({ acted: false, reason: 'relayed to marjorie' });
+    expect(h.calls).toEqual([['gh', 'workflow', 'run', 'routine-marjorie-status-reply.yml', '--repo', 'o/r', '--ref', 'main', '-f', 'comment_id=999']]);
+    expect(h.replies[0]).toContain('Passed to Marjorie');
+    expect(readFileSync(path.join(root, 'HUMAN-ACTIONS.md'), 'utf8')).toContain('## #88');
+  });
+  it('says so when the relay dispatch fails, and still closes nothing', async () => {
+    const h = harness();
+    h.run.mockImplementation(() => { throw new Error('Resource not accessible'); });
+    const out = await handleComment({ event: event('hello'), root: repoDir(), run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    expect(out).toMatchObject({ acted: false, reason: 'relay failed' });
+    expect(h.replies[0]).toContain("couldn't pass that to Marjorie");
   });
 });
 
@@ -164,12 +178,12 @@ describe('handleComment — closing', () => {
     const done = readFileSync(path.join(root, 'HUMAN-ACTIONS-DONE.md'), 'utf8');
     expect(done).toMatch(/- #88 · 2026-09-30 · done · Store the login — "status page https:\/\/github.com\/o\/r\/issues\/50#issuecomment-999 — owner said done" · by status page/);
     const verbs = h.calls.map((c) => c.slice(0, 3).join(' '));
-    expect(verbs).toEqual(['git checkout -b', 'git add HUMAN-ACTIONS.md', 'git commit -m', 'git push -u', 'gh pr create', 'gh pr merge']);
-    expect(h.calls[0][3]).toBe('status-page/ha-close-88-999');
+    expect(verbs).toEqual(['gh pr list', 'git checkout -b', 'git add HUMAN-ACTIONS.md', 'git commit -m', 'git push -u', 'gh pr create', 'gh pr merge']);
+    expect(h.calls[1][3]).toBe('status-page/ha-close-88-999');
     const create = h.calls.find((c) => c[1] === 'pr' && c[2] === 'create')!;
     expect(create[create.indexOf('--title') + 1]).toBe('Close HA #88 — owner replied on the status page');
     expect(h.calls.find((c) => c[2] === 'merge')).toContain('--auto');
-    expect(h.run.mock.calls.find(([, a]) => (a as string[])[0] === 'pr')![2]).toEqual({ env: { GH_TOKEN: 'pat' } });
+    expect(h.run.mock.calls.find(([, a]) => (a as string[])[0] === 'pr' && (a as string[])[1] === 'create')![2]).toEqual({ env: { GH_TOKEN: 'pat' } });
     expect(h.replies).toHaveLength(1);
     expect(h.replies[0]).toContain('#88 marked done');
     expect(h.replies[0]).toContain('https://github.com/o/r/pull/501');
@@ -222,5 +236,39 @@ describe('handleComment — closing', () => {
     const out = await handleComment({ event: event('done #88'), root: repoDir(), run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
     expect(out.acted).toBe(true);
     expect(h.replies[0]).toContain('merge it by hand');
+  });
+});
+
+describe('handleComment — skip and duplicate closes', () => {
+  it('a skip/defer choice closes the item as skipped', async () => {
+    for (const text of ['decide #87 skip', 'decide #70 defer later', 'decide #70 SKIP not needed now']) {
+      const root = repoDir();
+      const h = harness();
+      await handleComment({ event: event(text), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+      const done = readFileSync(path.join(root, 'HUMAN-ACTIONS-DONE.md'), 'utf8');
+      expect(done, text).toMatch(/- #(87|70) · 2026-09-30 · skip · /);
+      expect(h.replies[0], text).toContain('closed as skipped');
+    }
+  });
+  it('maps choices to outcomes: only skip/defer skip, and skip is legal even when not an option', () => {
+    const [, optioned, freeform] = parseHaEntries(OPEN);
+    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'accept' })).toMatchObject({ ok: true, outcome: 'done' });
+    expect(checkCommand(optioned, { kind: 'decide', number: 87, text: 'skip' })).toMatchObject({ ok: true, choice: 'skip', outcome: 'skip' });
+    expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'deferred until next month' })).toMatchObject({ outcome: 'done' });
+    expect(checkCommand(freeform, { kind: 'decide', number: 70, text: 'defer it' })).toMatchObject({ outcome: 'skip' });
+  });
+  it('does not open a second closing PR while one for the same item is open', async () => {
+    const root = repoDir();
+    const h = harness();
+    h.run.mockImplementation((cmd: string, args: string[]) => (cmd === 'gh' && args[1] === 'list' ? JSON.stringify([{ headRefName: 'status-page/ha-close-88-111' }]) : ''));
+    const out = await handleComment({ event: event('done #88'), root, run: h.run, reply: h.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    expect(out).toMatchObject({ acted: false, reason: 'closing pr already open' });
+    expect(h.run).toHaveBeenCalledTimes(1);
+    expect(h.replies[0]).toContain('already open');
+    expect(readFileSync(path.join(root, 'HUMAN-ACTIONS.md'), 'utf8')).toContain('## #88');
+    const other = harness();
+    other.run.mockImplementation((cmd: string, args: string[]) => (cmd === 'gh' && args[1] === 'list' ? JSON.stringify([{ headRefName: 'status-page/ha-close-87-5' }, { headRefName: 'feat/x' }]) : ''));
+    const out2 = await handleComment({ event: event('done #88'), root: repoDir(), run: other.run, reply: other.reply, repo: 'o/r', now: NOW, log: vi.fn() });
+    expect(out2.acted).toBe(true);
   });
 });

@@ -232,10 +232,11 @@ End with a single link line: `Full detail: journal comment below.`
   posts ONE line to `#longlive-marjorie` (`📋 Status updated — <link>`, link
   previews suppressed). `done #N` / `decide #N <choice>` comments from the
   owner on the status issue close human actions (`marjorie-status.yml`); other
-  owner comments are read by the next brief run. Operations:
-  `docs/ops/status-page.md`. Where the bullets below say "brief issue", the
-  durable copy is now the status issue's note, and the reply poller and the
-  `founders-brief` bullets describe the legacy path (old briefs left open).
+  owner comments are dispatched at once to `routine-marjorie-status-reply.yml`,
+  which answers on the issue. Operations: `docs/ops/status-page.md`. Where the
+  bullets below say "brief issue", read "the status issue": the reply poller,
+  the chat turn log and the held-chase markers now live on it, and its body
+  carries the delivery stamp.
 - **The brief is delivered to `#longlive-marjorie`** by the brief routine
   itself, at its existing 12:00 UTC cron, through
   `scripts/marjorie/lib/discord.mjs` (a webhook held in the `main`-only

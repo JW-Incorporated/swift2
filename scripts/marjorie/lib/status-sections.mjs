@@ -3,7 +3,7 @@
 const DAY_MS = 86_400_000;
 const PR_CAP = 8;
 const PLAN_LINES = 5;
-const PLAN_CHARS = 420;
+const PLAN_CHARS = 700;
 
 const LABELS = { x: 'X', instagram: 'Instagram', facebook: 'Facebook' };
 
@@ -12,10 +12,32 @@ const oneLine = (s, n) => {
   return flat.length > n ? `${flat.slice(0, n - 1).trimEnd()}…` : flat;
 };
 
-/** First few meaningful lines of a plan issue body: no HTML comments, headings or rules. */
+const NEXT_UP_HEADING = /^#{1,6}\s*next up\b/i;
+const NEXT_UP_BULLETS = 5;
+
+/** The bullets under a plan's "Next up" heading (up to 5), or [] when the heading or its bullets are absent. */
+function nextUpBullets(lines) {
+  const start = lines.findIndex((l) => NEXT_UP_HEADING.test(l.trim()));
+  if (start === -1) return [];
+  const bullets = [];
+  for (const line of lines.slice(start + 1)) {
+    const t = line.trim();
+    if (/^#{1,6}\s/.test(t)) break;
+    if (/^(?:[-*]|\d+[.)])\s+\S/.test(t)) bullets.push(t.replace(/^\d+[.)]\s+/, '- ').replace(/^\*\s+/, '- '));
+  }
+  return bullets.slice(0, NEXT_UP_BULLETS);
+}
+
+/**
+ * What the status page quotes from a weekly-plan issue: its `## Next up` bullets
+ * when present, otherwise the first few meaningful lines (no HTML comments,
+ * headings or rules).
+ */
 export function planSummary(body) {
-  const lines = String(body || '').replace(/<!--[\s\S]*?-->/g, '').split(/\r?\n/)
-    .map((l) => l.trim()).filter((l) => l && !/^#{1,6}\s/.test(l) && !/^[-*_]{3,}$/.test(l));
+  const all = String(body || '').replace(/<!--[\s\S]*?-->/g, '').split(/\r?\n/);
+  const bullets = nextUpBullets(all);
+  const lines = bullets.length ? bullets
+    : all.map((l) => l.trim()).filter((l) => l && !/^#{1,6}\s/.test(l) && !/^[-*_]{3,}$/.test(l));
   let text = lines.slice(0, PLAN_LINES).join('\n');
   if (text.length > PLAN_CHARS) text = `${text.slice(0, PLAN_CHARS - 1).trimEnd()}…`;
   return text;

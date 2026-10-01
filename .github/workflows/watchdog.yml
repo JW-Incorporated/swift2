@@ -58,6 +58,11 @@ jobs:
       # previously ran entirely on gh/curl and never needed it.
       - uses: actions/checkout@v7
 
+      # Bots v2 W4: the brief check below runs repo scripts (status-note.mjs).
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
       # Daily-only gate (ALARMS gate #799, 2026-07-29): this job now also
       # fires hourly (see the `on.schedule` comment above) so the prod smoke
       # check below can run far more often, but the brief/propagation/cadence
