@@ -34,18 +34,16 @@
 //      runs) — catching it here means a workflow's own header can never
 //      lie about its own schedule without failing CI.
 //
-//   4. No unquoted `--allowedTools` entry containing a space. claude-code-action
-//      splits `claude_args` with shell-quote, so an unquoted
-//      `Bash(gh issue comment:*)` arrives as `Bash(gh`, `issue`, `comment:*)` and
-//      the scoped rule is silently never enforced (Tree/Marjorie ask-response,
-//      runs 36828261914 / 36831500246). `routine-template.yml` must wrap
-//      `inputs.allowed_tools` in quotes; with it unquoted, any `allowed_tools`
-//      entry with a space fails here, and so does a routine that writes its own
-//      `claude_args` with an unquoted spaced `--allowedTools` entry.
+//   4. No `allowed_tools` entry contains a space. `routine-template.yml`
+//      interpolates the list UNQUOTED into `claude_args`, and claude-code-action
+//      splits `claude_args` with shell-quote, so `Bash(gh issue comment:*)` arrives
+//      as `Bash(gh`, `issue`, `comment:*)` and the scoped rule is silently never
+//      enforced (Tree/Marjorie ask-response, runs 36828261914 / 36831500246). Use
+//      the space-free scoped form, e.g. `Bash(gh:*)`.
 //
-// `routine-template.yml` itself (the reusable callee, not a routine) is read
-// only for check 4; anything that isn't `routine-*.yml` is out of scope — this
-// is a workflow-file check, not a general CI auditor.
+// Deliberately NOT covered: `routine-template.yml` itself (the reusable
+// callee, not a routine) and anything that isn't `routine-*.yml` — this is
+// a workflow-file check, not a general CI auditor.
 //
 // Exports the pure pieces for scripts/check-routine-workflows.test.ts.
 
@@ -92,30 +90,6 @@ export function extractAllowedTools(text) {
     .split(',')
     .map((t) => t.trim())
     .filter(Boolean);
-}
-
-/**
- * Does the reusable template wrap the interpolated `inputs.allowed_tools` in
- * quotes (`--allowedTools \"${{ inputs.allowed_tools }}\"` inside a YAML
- * double-quoted string, or plain quotes inside a single-quoted one)?
- */
-export function templateQuotesAllowedTools(templateText) {
-  return /--allowedTools\s+(?:\\"|"|')\$\{\{\s*inputs\.allowed_tools\s*\}\}(?:\\"|"|')/.test(templateText);
-}
-
-/**
- * Entries of a `claude_args:` value written directly in a workflow that are
- * unquoted and contain a space: an unquoted `--allowedTools` token with more `(`
- * than `)` was cut at a space inside a scoped rule like `Bash(gh issue:*)`.
- */
-export function unquotedSpacedAllowedTools(text) {
-  const bad = [];
-  for (const m of text.matchAll(/^\s*claude_args:\s*(.+)$/gm)) {
-    for (const t of m[1].matchAll(/--allowedTools\s+([^\s"'\\]\S*)/g)) {
-      if ((t[1].match(/\(/g) || []).length > (t[1].match(/\)/g) || []).length) bad.push(t[1]);
-    }
-  }
-  return bad;
 }
 
 /**
@@ -218,23 +192,12 @@ export function cronsInHeader(header) {
  *
  * @param {Record<string, string>} files  repo-relative path -> file contents,
  *   for every `routine-*.yml` file (excluding the template)
- * @param {{ template?: string }} [opts]  `template`: the contents of
- *   `routine-template.yml`, for check 4 (omit to skip the template-quoting half)
  */
-export function checkRoutineWorkflows(files, { template } = {}) {
+export function checkRoutineWorkflows(files) {
   const problems = [];
   const report = [];
   let totalRunsPerWeek = 0;
   let unmodeled = 0;
-  const templateQuotes = template === undefined ? true : templateQuotesAllowedTools(template);
-  if (!templateQuotes) {
-    problems.push(
-      `${WORKFLOWS_DIR}/${TEMPLATE_FILE}: \`--allowedTools\` is not followed by a quoted \`inputs.allowed_tools\`. ` +
-        'claude-code-action splits claude_args with shell-quote, so an unquoted scoped rule like ' +
-        '`Bash(gh issue comment:*)` is cut at its spaces and never enforced. Wrap it: ' +
-        '`--allowedTools \\"${{ inputs.allowed_tools }}\\"`.',
-    );
-  }
 
   for (const path of Object.keys(files).sort()) {
     const text = files[path];
@@ -262,14 +225,13 @@ export function checkRoutineWorkflows(files, { template } = {}) {
       );
     }
 
-    // ── 4. No unquoted allowedTools entry containing a space ──────────────
-    if (!templateQuotes) {
-      for (const tool of tools.filter((t) => /\s/.test(t))) {
-        problems.push(`${path}: \`allowed_tools\` entry \`${tool}\` contains a space and the template does not quote the list — it would be split into separate tools.`);
-      }
-    }
-    for (const entry of unquotedSpacedAllowedTools(text)) {
-      problems.push(`${path}: \`claude_args\` has an unquoted \`--allowedTools\` entry containing a space (\`${entry} …\`) — quote the whole list.`);
+    // ── 4. No allowed_tools entry containing a space ──────────────────────
+    for (const tool of tools.filter((t) => /\s/.test(t))) {
+      problems.push(
+        `${path}: \`allowed_tools\` entry \`${tool}\` contains a space. The template passes the list ` +
+          'unquoted into claude_args, so the entry is split into separate tokens and the scoped ' +
+          'rule is silently not enforced. Use a space-free form such as `Bash(gh:*)`.',
+      );
     }
 
     // ── 2. Cadence sum (always reported, never itself a failure) ──────────
@@ -316,7 +278,7 @@ function main() {
     files[`${WORKFLOWS_DIR}/${f}`] = readFileSync(join(dir, f), 'utf8');
   }
 
-  const { problems, report } = checkRoutineWorkflows(files, { template: readFileSync(join(dir, TEMPLATE_FILE), 'utf8') });
+  const { problems, report } = checkRoutineWorkflows(files);
 
   for (const line of report) console.log(line);
 

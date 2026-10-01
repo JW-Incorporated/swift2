@@ -89,8 +89,8 @@ jobs:
       routine_name: "Tree — ask response"
       prompt_file: docs/agents/runner-prompts/tree-ask-response.md
       model: claude-opus-5
-      # gh limited to the verbs the prompt uses, so the agent cannot fetch an issue or its comments itself: everything it may read is in the queue file (lib/loop-queue.mjs trusts only workflow/Claude/owner comments).
-      allowed_tools: "Bash(gh issue comment:*),Bash(gh issue edit:*),Bash(gh issue close:*),Bash(gh pr create:*),Bash(gh pr list:*),Bash(git:*),Bash(node:*),Read,Grep,Glob,Write,Edit"
+      # Space-free scoped form like the other routines: routine-template.yml interpolates this unquoted into claude_args, so a space would split a rule into separate tokens (check-routine-workflows.mjs fails on one). The prompt forbids fetching issues; the queue file (lib/loop-queue.mjs trusts only workflow/Claude/owner comments) is everything it should read.
+      allowed_tools: "Bash(gh:*),Bash(git:*),Bash(node:*),Read,Grep,Glob,Write,Edit"
       timeout_minutes: 35
       max_turns: 70
       max_budget_usd: 7

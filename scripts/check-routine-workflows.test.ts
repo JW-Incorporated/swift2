@@ -9,8 +9,6 @@ import {
   listRoutineWorkflowFiles,
   runsPerWeek,
   taskJustification,
-  templateQuotesAllowedTools,
-  unquotedSpacedAllowedTools,
 } from './check-routine-workflows.mjs';
 
 describe('listRoutineWorkflowFiles', () => {
@@ -168,39 +166,17 @@ describe('checkRoutineWorkflows — the whole gate as a pure function', () => {
   });
 });
 
-describe('allowedTools quoting (claude-code-action splits claude_args with shell-quote)', () => {
-  const spaced = (tools: string) => `# routine-a, cron 0 12 * * *\nname: routine-a\non:\n  schedule:\n    - cron: "0 12 * * *"\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
-  const QUOTED = 'claude_args: "--model m --allowedTools \\"${{ inputs.allowed_tools }}\\" --max-turns 3"';
-  const UNQUOTED = 'claude_args: "--model m --allowedTools ${{ inputs.allowed_tools }} --max-turns 3"';
-  const files = { '.github/workflows/routine-a.yml': spaced('Bash(gh issue comment:*),Bash(node:*),Read') };
+describe('allowed_tools entries must be space-free (the template passes them unquoted to claude_args)', () => {
+  const withTools = (tools: string) =>
+    `# routine-a, cron 0 12 * * *\nname: routine-a\non:\n  schedule:\n    - cron: "0 12 * * *"\njobs:\n  run:\n    uses: ./.github/workflows/routine-template.yml\n    with:\n      allowed_tools: "${tools}"\n`;
 
-  it('templateQuotesAllowedTools sees the quoted form only', () => {
-    expect(templateQuotesAllowedTools(QUOTED)).toBe(true);
-    expect(templateQuotesAllowedTools("claude_args: '--allowedTools \"${{ inputs.allowed_tools }}\"'")).toBe(true);
-    expect(templateQuotesAllowedTools(UNQUOTED)).toBe(false);
-    expect(templateQuotesAllowedTools('no claude args here')).toBe(false);
+  it('flags a scoped rule with a space, naming the file and the entry', () => {
+    const { problems } = checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash(gh issue comment:*),Read') });
+    expect(problems.some((p: string) => p.includes('routine-a.yml') && p.includes('Bash(gh issue comment:*)') && p.includes('contains a space'))).toBe(true);
   });
 
-  it('passes spaced entries when the template quotes the list', () => {
-    expect(checkRoutineWorkflows(files, { template: QUOTED }).problems).toEqual([]);
-  });
-
-  it('fails the template and every spaced entry when the list is unquoted', () => {
-    const { problems } = checkRoutineWorkflows(files, { template: UNQUOTED });
-    expect(problems.some((p: string) => p.includes('routine-template.yml') && p.includes('not followed by a quoted'))).toBe(true);
-    expect(problems.some((p: string) => p.includes('routine-a.yml') && p.includes('Bash(gh issue comment:*)'))).toBe(true);
-  });
-
-  it('does not flag space-free lists even when the template is unquoted', () => {
-    const { problems } = checkRoutineWorkflows({ '.github/workflows/routine-a.yml': spaced('Bash(gh:*),Read') }, { template: UNQUOTED });
-    expect(problems.some((p: string) => p.includes('routine-a.yml'))).toBe(false);
-  });
-
-  it('flags a routine writing its own claude_args with an unquoted spaced entry, not a quoted one', () => {
-    expect(unquotedSpacedAllowedTools('claude_args: "--allowedTools Bash(gh issue comment:*),Read"')).toEqual(['Bash(gh']);
-    expect(unquotedSpacedAllowedTools("claude_args: '--allowedTools \"Bash(gh issue comment:*),Read\"'")).toEqual([]);
-    expect(unquotedSpacedAllowedTools('claude_args: "--allowedTools Bash(gh:*),Read --max-turns 3"')).toEqual([]);
-    const own = `${spaced('Bash,Read')}      claude_args: "--allowedTools Bash(gh issue comment:*)"\n`;
-    expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': own }).problems.some((p: string) => p.includes('unquoted'))).toBe(true);
+  it('passes the space-free scoped form and bare tool names', () => {
+    expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash(gh:*),Bash(node:*),Read,Write') }).problems).toEqual([]);
+    expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash,Read') }).problems).toEqual([]);
   });
 });

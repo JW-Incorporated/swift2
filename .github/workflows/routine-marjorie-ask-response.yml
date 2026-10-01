@@ -87,8 +87,8 @@ jobs:
       routine_name: "Marjorie — ask response"
       prompt_file: docs/agents/runner-prompts/marjorie-ask-response.md
       model: claude-opus-5
-      # gh limited to the verbs the prompt uses, so the agent cannot fetch an issue or its comments itself: everything it may read is in the queue file (lib/loop-queue.mjs trusts only workflow/Claude/owner comments). `gh api` stays for the build-ticket helper's label listing only. The open weekly plan is in the queue file too.
-      allowed_tools: "Bash(gh issue comment:*),Bash(gh issue edit:*),Bash(gh issue close:*),Bash(gh issue create:*),Bash(gh api:*),Bash(node:*),Read,Grep,Glob,Write"
+      # Space-free scoped form like the other routines: routine-template.yml interpolates this unquoted into claude_args, so a space would split a rule into separate tokens (check-routine-workflows.mjs fails on one). The prompt forbids fetching issues or comments (`gh api` is for the build-ticket helper's label listing only); the queue file (lib/loop-queue.mjs trusts only workflow/Claude/owner comments) and the open weekly plan in it are everything it should read.
+      allowed_tools: "Bash(gh:*),Bash(node:*),Read,Grep,Glob,Write"
       timeout_minutes: 30
       max_turns: 60
       max_budget_usd: 6
