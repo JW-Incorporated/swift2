@@ -126,6 +126,15 @@ bug is still live — which is exactly why each beat is written to stand alone.
 - **Share-design pass** (strategy, 2026-09-01): every `heartbeat:` and `mood:`
   caption needs one genuine tag/share hook grounded in the actual content. Thread
   and launch posts are exempt. Never bolt on a fake one; say so in `why`.
+- **📰 A NEWS RESERVE day is a slot, not a gap.** Two days below (**10-04**,
+  **10-11**) are reserved for news first, each with a named fallback subject on
+  the day. On a reserve day: check `events.uncovered[]` at 11:00Z, leave the
+  slot for the same-day event run if an event is uncovered, otherwise draft the
+  fallback. **The previous day's run never drafts a reserve day early.** News
+  landing on a non-reserve day may take the next unfilled beat inside 48h,
+  yielding in order heartbeat → mood → a thread window's *second* slot; it
+  never takes the weekly timeline minimum, a thread hero, or a launch day
+  0/+2/+4 (strategy §1(e2)). Cap: **≤2 news posts per rolling 7 days.**
 - **Read `social/lessons.md` first. L001 is active and binding.**
 
 ---
@@ -154,6 +163,7 @@ bug is still live — which is exactly why each beat is written to stand alone.
 | IG Insights | **Never supplied**, three months running. **Asked this week** — September's monthly cadence falls on this run. |
 | Founder tasks | **#4294 (09-14) and #3990 (09-07) are both open, 0 ticked — five consecutive weeks, zero completions**, including the week it was cut to a single 4-minute ask. The same founder answered 9 Reddit prompts and 9 draft approvals in Discord in the same period, median 3h 19m. The issue channel is not read as a work queue; Discord is. Founder question 2. |
 | Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The repo-variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; it was inferred from live posting on 09-22 and from approvals continuing through 09-28.)* |
+| **📰 News reserve (new, 2026-10-01 — answers [#4676](https://github.com/JW-Incorporated/swift2/issues/4676))** | **10-04 and 10-11**, each with a named fallback. Every calendar from the 10-05 run onward reserves **≥1 day per week** — a calendar that assigns all seven days is now a planning bug (strategy §2). Root cause of the 27 uncovered events: the same-day event run only schedules onto a UTC day where neither platform is taken, and no such day existed. |
 | Social event mode | **`normal`** — `scripts/social/event-status.mjs` run this session returns `{"mode":"normal","kind":null,"windingDown":false,"reservedBeats":0}`. No countdown or big theory is live, so no beats are reserved and the 14 days below are planned as ordinary rotation. |
 
 ### Photo assignment — read this off, then verify
@@ -268,7 +278,25 @@ already a day late is worth less than the next one being on time.
   a real result on screen**; else photo-only with the songs in the caption.
   X: **text-only.** **Share hook required.** Hook: **the artifact**.
 
-## 2026-10-04 (Sun) — The Decode, slot 2 of 2 (window closes 10-05)
+## 2026-10-04 (Sun) — 📰 NEWS RESERVE · fallback: The Decode, slot 2 of 2
+
+**This beat is reserved for news first** (strategy §1(e2), added 2026-10-01 for
+[#4676](https://github.com/JW-Incorporated/swift2/issues/4676)). At the 11:00Z
+run on 10-04, read `events.uncovered[]` **before** anything else:
+
+- **An uncovered real-world event from the last 48h → draft nothing here.**
+  Leave the 10-04 `23:00Z` slot open so `routine-tree-event-draft.yml` can take
+  it the same day; mint `news:<event-slug>-2026-10-04`, clear `timely` ≥4 on the
+  six-dimension rubric, and the Decode answer beat below is **dropped** (its
+  window closes 10-05 — drop rather than slide, per the window rule).
+- **Nothing uncovered → draft the fallback below exactly as written.**
+- **The 10-03 run does not draft this day's beat a day early.** That is what
+  makes the reserve a reserve.
+
+Either way the IG tile is 10-04's assigned photo (`reddit-taylorswiftpictures-1puk3m7`)
+unless the event run's own `eventPhoto` supersedes it.
+
+**Fallback beat:**
 
 - **`23:00Z` · `thread:hidden-clues:interactive-challenge`** — a second
   story-unique value: `thread:hidden-clues:interactive-challenge:2026-10-answer`.
@@ -353,7 +381,19 @@ already a day late is worth less than the next one being on time.
   IG media: `reddit-taylorswiftpictures-1pjmwfb`; slide 2 per 10-05's rule.
   X: **text-only.** Hook: **the artifact**.
 
-## 2026-10-11 (Sun) — Heartbeat · the only one in the fortnight
+## 2026-10-11 (Sun) — 📰 NEWS RESERVE · fallback: the fortnight's one heartbeat
+
+**Second news reserve of this window** (strategy §1(e2)). Same procedure as
+10-04: at the 11:00Z run on 10-11, an uncovered real-world event from the last
+48h takes this slot as `news:<event-slug>-2026-10-11` and the heartbeat below
+**slides into the calendar written 10-12** rather than being dropped (a
+heartbeat is not window-bound). Nothing uncovered → draft the fallback as
+written. The 10-10 run leaves this day alone.
+
+Heartbeat is first in the yield order, so this is the cheapest reserve in the
+fortnight — which is exactly why it is one.
+
+**Fallback beat:**
 
 - **`23:00Z` · `heartbeat:era-deep-cut`** — mint
   `heartbeat:era-deep-cut:speak-now-million-week-2026-10-11`. **A new

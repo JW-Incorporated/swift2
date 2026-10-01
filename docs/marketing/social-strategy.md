@@ -47,7 +47,8 @@ Three structural fixes, in priority order:
 
 ## 1. Campaign architecture
 
-Six campaigns. Every queue item belongs to exactly one. The names below are
+Seven campaigns (News added 2026-10-01, answering #4676). Every queue item
+belongs to exactly one. The names below are
 **families** — a prefix that groups metrics — and the `campaign` field on a
 queue item is never the bare family:
 
@@ -57,6 +58,7 @@ queue item is never the bare family:
 | Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
 | Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
+| **News beat** | `news:<event-slug>` | `news:patient-zero-cover-reveal-2026-10-03` | **≥1 reserved day per calendar week, ≤2 posted per rolling 7 days** |
 | Daily heartbeat | `heartbeat:<pillar>` | `heartbeat:on-this-day:red-announcement` | everything left (~60-70%) |
 | Human reach | *(no queue item — a GitHub issue)* | — | 0 slots, ~15 min/week of Joey |
 
@@ -284,6 +286,69 @@ can still be 300+ weighted once the link is counted — this, not duplicate
 sibling copy, is what actually broke 11 of 12 `social/failed/` items (§0,
 corrected 2026-08-11).
 
+### (e2) News beat — same-day coverage of a real-world event
+
+**Added 2026-10-01, answering Marjorie's ask [#4676](https://github.com/JW-Incorporated/swift2/issues/4676)
+(evidence: the week-of-2026-10-05 plan, [#4674](https://github.com/JW-Incorporated/swift2/issues/4674)).**
+27 real-world Taylor events landed in `intake:` issues across the last two
+weeks and **not one of them got a social post**, while the fandom conversation
+those weeks was almost entirely about them. News is the strongest share-bait
+this account has and it had no slot at all: every day of the calendar was
+assigned to a thread, mood, launch or timeline beat, the poster ships **one
+item per platform per UTC day**, and the same-day event run
+(`routine-tree-event-draft.yml`) schedules only onto "a UTC day where neither
+platform is already taken". A full calendar therefore *silently* turned every
+event into a no-post. This section is the slot it was missing.
+
+**Trigger.** A real-world event dated inside the last 48h that no shipped or
+queued post covers (the daily run's `events.uncovered[]`). Confirmed fact
+only, from the intake record — never a rumor-stage claim, and never anything
+on the §Voice blocklist (the confirmed-only carve-out there governs the
+personal-life topics).
+
+**Slot — the news reserve, and this is the first-class part.** Every calendar
+Tree writes **reserves at least one day per week as a news day**: its beat is
+written as `news:` with a **named fallback subject on the same line**, so a
+quiet week still posts and the "a calendar gap is never filled" rule
+(§0/invariant) is never in play — a reserve is an assigned slot with two
+possible subjects, not a gap. On a reserve day the 11:00Z daily run checks
+`events.uncovered[]` first: an uncovered event → leave the beat for the event
+run and draft nothing there; nothing uncovered → draft the named fallback as
+written. A reserve day's beat is never drafted a day early by the previous
+run.
+
+**Yield order, when news lands off-reserve.** News may take the next
+unfilled beat inside 48h, displacing in exactly this order, nearest first:
+
+1. a `heartbeat:` beat — always yields,
+2. a `mood:` beat,
+3. the **second** slot of a thread window (never the hero).
+
+It never displaces the weekly Blank Spaces timeline minimum (§1(c)), a thread
+window's hero, or a launch arc's day 0 / +2 / +4 (§1(a)). The displaced beat
+slides to the next free day where that is possible; a window-bound thread
+slot is dropped rather than slid, same as today. The news item records the
+displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
+the event run may not edit `social/calendar.md`; the next weekly run
+reconciles the calendar to what actually shipped.
+
+**Cap — ≤2 news posts per rolling 7 days.** News is the one campaign that can
+arrive unplanned, so it gets the same bounded shape as the T6 fast lane: the
+rotation it preempts is what teaches new followers the product, and a week of
+pure reaction posting is how a fan account becomes a news aggregator nobody
+needs.
+
+**Bar.** A news beat is scored on the six-dimension rubric the fast lane
+already uses — T2's five plus **`timely`, which must clear 4 on its own** — and
+it has no claim on a slot it cannot clear. One rewrite, then the beat reverts
+to its fallback subject. `lane` stays `"calendar"` (a reserved beat *is* a
+calendar slot; `scripts/social/lib/queue-schema.mjs` has no `news` lane and
+this strategy does not ask for one).
+
+**Platform shape.** IG+X pair like everything else. Speed over polish is the
+one legitimate `singlePlatformReason` for X-first here (§2's sibling rule
+already names it), with Instagram following in the next run.
+
 ### (f) Human reach — the lane APIs can't touch
 
 Facebook groups, Reddit and Tumblr are where this audience actually lives, and
@@ -324,6 +389,12 @@ see §3, it's the only real engagement data we can get.
 |---|---|---|---|---|
 | **A** | `15:00Z` | 11am ET / 8am PT | X + Instagram pair | heartbeat (on-this-day when today has a real Vault match) |
 | **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, or mood beat; heartbeat otherwise |
+
+**At least one day of every calendar week is a news reserve** (§1(e2), added
+2026-10-01): its beat is written `news:` with a named fallback subject on the
+same line, and it is the only slot the previous day's run leaves alone. A
+calendar that assigns all seven days to planned campaigns is now a planning
+bug, not a full plan — it is what made 27 events in two weeks un-postable.
 
 Evening-US is the priority window (growth-plan §6), which is why the stronger
 campaign beat sits there. Each beat becomes two queue items authored together,
