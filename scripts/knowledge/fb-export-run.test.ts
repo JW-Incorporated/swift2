@@ -3,18 +3,92 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
+  checkWorkerEnv,
+  ENV_MISSING_SUMMARY,
+  failureReason,
   formatComments,
   gateExport,
   ingestOne,
   parseIngestSummary,
+  redactReason,
   runCapture,
-  runExport,
+  runExport as runExportReal,
   runSummary,
   uploadOne,
   uploadSucceeded,
 } from './fb-export-run.mjs';
 
+// Real runs preflight the worker env; tests inject a passing check unless they override it.
+const runExport = (options: Record<string, unknown> = {}) =>
+  runExportReal({ checkEnv: async () => ({ ok: true }), ...options });
+
 const group = { slug: 'group-a', label: 'Group A', groupId: '123' };
+
+describe('failure reasons and env preflight', () => {
+  it('uses the last non-empty stderr line, trimmed to 200 chars', async () => {
+    const stderr = `first\nfb-export-ingest: SUPABASE_URL not set\n\n`;
+    const exec = vi.fn().mockRejectedValue(Object.assign(new Error('x'), { stderr }));
+    const r = await ingestOne({ groupSlug: 'g', filePath: 'a.html', exportedAt: new Date() }, exec);
+    expect(r).toEqual({ ok: false, reason: 'fb-export-ingest: SUPABASE_URL not set' });
+    expect(failureReason({ stderr: 'word '.repeat(100) }, 'x')).toHaveLength(200);
+    expect(failureReason({}, 'ingest')).toBe('ingest');
+  });
+
+  it('redacts keys, tokens and credentialed URLs', () => {
+    expect(redactReason('bad SERVICE_ROLE_KEY=abc123def')).toBe('bad SERVICE_ROLE_KEY=[redacted]');
+    expect(redactReason('fetch https://user:pw@host.example/x failed')).toBe(
+      'fetch [redacted-url] failed',
+    );
+    expect(redactReason('token eyJhbGciOiJIUzI1NiJ9.payload.sig')).not.toContain('eyJ');
+    expect(redactReason('key sk-abcdefghijkl')).not.toContain('abcdefghijkl');
+  });
+
+  it('upload failures carry the redacted reason too', async () => {
+    const exec = vi
+      .fn()
+      .mockRejectedValue(Object.assign(new Error('x'), { stderr: 'boom password=hunter2\n' }));
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-up-'));
+    const file = join(dir, 'a.html');
+    await writeFile(file, '<p>x</p>');
+    const r = await uploadOne(file, exec);
+    await rm(dir, { recursive: true, force: true });
+    expect(r.ok).toBe(false);
+    expect(r.reason).toContain('boom password=[redacted]');
+    expect(r.reason).not.toContain('hunter2');
+  });
+
+  it('checkWorkerEnv needs both keys true', async () => {
+    const out = (o: object) => vi.fn().mockResolvedValue({ stdout: `${JSON.stringify(o)}\n` });
+    const both = { SUPABASE_URL: true, SUPABASE_SERVICE_ROLE_KEY: true };
+    expect(await checkWorkerEnv(out(both))).toEqual({ ok: true });
+    expect(await checkWorkerEnv(out({ ...both, SUPABASE_URL: false }))).toEqual({ ok: false });
+    expect(await checkWorkerEnv(vi.fn().mockRejectedValue(new Error('x')))).toEqual({ ok: false });
+  });
+
+  it('a real run stops before collecting when the env is missing; dry-run skips the check', async () => {
+    const collect = vi.fn();
+    const checkEnv = vi.fn().mockResolvedValue({ ok: false });
+    const result = await runExportReal({
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      collect,
+      checkEnv,
+    });
+    expect(result.ok).toBe(false);
+    expect(result.summary).toBe(ENV_MISSING_SUMMARY);
+    expect(collect).not.toHaveBeenCalled();
+    await runExportReal({
+      dryRun: true,
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      collect: vi.fn().mockResolvedValue([]),
+      checkEnv,
+    });
+    expect(checkEnv).toHaveBeenCalledTimes(1);
+  });
+});
 
 describe('Facebook export gate', () => {
   it('runs the real parser against a copy and accepts at least one kept post', async () => {

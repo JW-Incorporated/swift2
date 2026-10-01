@@ -141,7 +141,7 @@ describe('fb export receiver', () => {
       groupId: '111',
       url: 'https://www.facebook.com/groups/111?sorting_setting=CHRONOLOGICAL',
       wallBudgetMs: 20 * 60_000,
-      maxScrolls: 250,
+      maxScrolls: 2000,
       comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
       readAs: 'personal',
       actingPage: { name: 'Long Live' },

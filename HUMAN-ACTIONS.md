@@ -40,28 +40,16 @@ post. Agents are guard-blocked from changing repo variables.
 4. Reply `done` here. An agent then sets `bot1Bridge.enabled` to `true` in `scripts/marjorie/marjorie-config.json` by PR.
 **Worked if:** after that PR merges, Marjorie's first bot1 prompt appears as a card on Hermes' board and is logged on the `bot1-bridge` issue.
 
-## #88 🔴 [BLOCKING] Store Facebook login and schedule the weekly export (~5 min)
+## #88 🔴 [BLOCKING] Finish the weekly Facebook export setup (~5 min)
 <!-- ha filed=2026-09-30 -->
 
-**Why:** The weekly Facebook group export is now deterministic local automation
-(`docs/decisions.md`, 2026-09-30), but only Joey can store his personal login
-with Windows DPAPI and register the task in his logged-in Windows session.
-The credential stays user-scoped outside the repo; checkpoints, 2FA, and
-CAPTCHA still stop for Joey.
+**Why:** The first real run failed at ingest: apps/worker's env file lacks the Supabase keys, so nothing uploads. The task also needs re-registering with the 5 h limit and the extension reloaded. The stored DPAPI Facebook password is no longer used.
 **Steps:**
-1. In PowerShell, run
-   `New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\longlive-fb" | Out-Null`
-   and then run exactly
-   `Get-Credential | Export-Clixml "$env:LOCALAPPDATA\longlive-fb\fb-cred.xml"`.
-   Enter the username and password for Joey's personal Facebook account.
-2. In this project folder, run `npm run knowledge:fb-schedule`.
-3. Run `npm run knowledge:fb-export:dry` once. In the visible dedicated Chrome
-   window, sign into Facebook if asked; complete any checkpoint/2FA/CAPTCHA
-   yourself, then rerun the dry run.
-**Worked if:** Windows Task Scheduler shows `Long Live Weekly Facebook Export`
-for Sunday 6:00 PM with “run as soon as possible after a missed start” and
-wake enabled, and the dry run reports every joined group as `validated` (a
-group Joey has not joined may report `not-member`).
+1. Supabase dashboard → Project Settings → API: copy Project URL and service_role key. Open apps/worker's env file in Notepad, add `SUPABASE_URL=<url>` and `SUPABASE_SERVICE_ROLE_KEY=<key>`. Never paste values in chat.
+2. In the Swift2 folder run `npm run knowledge:fb-schedule`.
+3. In the Long Live Chrome profile: chrome://extensions → remove Long Live → Load unpacked → `C:\Users\Fourtys\Documents\Claude\Projects\Swift2\scripts\knowledge\fb-extension`. Then close that Chrome fully (tray → Exit).
+4. Optional: delete `%LOCALAPPDATA%\longlive-fb\fb-cred.xml`.
+**Worked if:** `npm run knowledge:fb-export` finishes with N/N uploaded and no KEPT line.
 
 ## #87 🟡 [DECIDE] Ownership backlog stuck 7+ days — accept it or get it routed (~5 min)
 <!-- ha filed=2026-09-30 -->
@@ -142,7 +130,7 @@ accepted the account risk (`docs/decisions.md`, 2026-09-30), so this is now
 automated. This existing action remains open only until the first successful
 run proves the previously unverified parser against a real export.
 **Steps:**
-1. Complete #88 to store the DPAPI credential and register the Sunday task.
+1. Complete #88 (worker Supabase keys, Sunday task, reload the extension).
 2. Let `npm run knowledge:fb-export` finish once, or run it yourself after a
    successful dry run. Do not solve a checkpoint, 2FA prompt, or CAPTCHA with
    automation; complete it in the visible browser and rerun.
