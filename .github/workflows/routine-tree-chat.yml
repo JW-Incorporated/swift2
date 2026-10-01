@@ -15,6 +15,8 @@
 #                     stay in the channel and existing user threads are preserved,
 #                     and stops a duplicate run (message already ✅/❌). Its
 #                     outputs (reply thread, message link) outlive artifacts.
+#   typing (social)   beside `run`: shows Discord's "typing…" until `deliver`
+#                     starts (chat-typing.mjs); never blocks or fails a run.
 #   run (template)    Opus reads .scratch/chat-context.json and saves its reply
 #                     under .scratch/out/. No Discord secret is passed to it,
 #                     no PAT, no dispatch token, no git.
@@ -125,6 +127,36 @@ jobs:
       allowed_bots: github-actions # bot-chat-poll dispatches on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  # Discord "typing…" while the agent composes (scripts/marjorie/chat-typing.mjs,
+  # docs/ops/chat-poll.md). Parallel to `run` and in no job's `needs`, so it can
+  # never delay or fail the reply: it ends itself when `deliver` starts or `run`
+  # fails (it reads this run's jobs with the workflow token), and at 20 minutes.
+  # A missing Send Messages permission is a 403: one log line, exit 0.
+  typing:
+    needs: context
+    if: github.run_attempt == '1' && needs.context.outputs.skip != 'true' && !inputs.force_fail
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 22
+    continue-on-error: true
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Show typing until the reply is on its way
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANNEL_ID: ${{ inputs.channel_id }}
+          REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
+        run: node scripts/marjorie/chat-typing.mjs start --channel-id "$CHANNEL_ID" --thread-id "$REPLY_THREAD_ID" --stop-job deliver
 
   deliver:
     needs: [context, run]
