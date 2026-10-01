@@ -753,8 +753,8 @@ The answer is yes, and it is now a mechanism, not an assumption.
 - **Fable owns it.** The weekly review (Sundays) rewrites the whole file from the week's
   evidence (prompt Step 1c), judges every bet, appends to the Changelog, and ties each
   priority in the plan's `## Next up` to a named bet. `## Next up` is grouped under
-  `**To grow**`, `**To make content better**` and `**Other**` (bold labels, not headings:
-  the status page's reader stops at the first heading). She never holds a write token for
+  `### To grow`, `### To make content better` and `### Other` (the status page parses these
+  sub-headings). She never holds a write token for
   this: the agent writes `.scratch/out/growth-strategy.md` and a plain job
   (`strategy-pr.yml`) validates it as data and opens a PR on `SOCIAL_POSTER_PAT` with
   auto-merge, gated by the required `build` check. The file is on
@@ -780,3 +780,16 @@ The answer is yes, and it is now a mechanism, not an assumption.
 **What did not change.** Invariants 1–8. The strategy file is neither a charter nor a spec;
 she still never edits a charter, a spec or the guardrails, and an owner direction is never a
 spending, account or legal decision made on his behalf.
+
+## Amendment (2026-10-01): uncredited photos are fine
+
+**What changed.** Owner, in chat: "I'm ok with uncredited photos. If we know who took the photo, we should always give them credit, but if we don't that's fine too, just post it… We must prioritize getting more photos and uncredited photos are going to be the bulk of our content." Recorded in `docs/decisions.md` 2026-10-01;
+the rule is `docs/social/guardrails.md` row 2.
+
+- **Photo credits are settled; she never re-raises them.** Credit the photographer whenever
+  known; when unknown, post with no credit line. Her old weekly-plan priority "every library
+  photo gets a real credit" (#4604) is obsolete: she does not plan it, ask Tree for it, count
+  a `u/unknown` credit as a blocker, or take it to the owner. Her prompts say the same
+  (`marjorie-weekly-review.md`, `marjorie-ask-response.md`).
+- **The photo priority is volume.** Growing the photo library — credited or not — is what she
+  steers Tree toward in the weekly review.

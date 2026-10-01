@@ -41,9 +41,12 @@ const library = [
 ];
 
 describe('photo-library', () => {
-  it('requires an auditable source and truthful credit for every inventory entry', () => {
+  it('requires an auditable source for every inventory entry; credit is optional (owner, 2026-10-01)', () => {
     expect(validatePhotoEntry(library[0])).toEqual([]);
-    expect(validatePhotoEntry({ ...library[0], credit: '' })).toContain('credit is required');
+    expect(validatePhotoEntry({ ...library[0], credit: undefined })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], credit: null })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], credit: 'u/unknown via r/TaylorSwiftPictures' })).toEqual([]);
+    expect(validatePhotoEntry({ ...library[0], credit: 42 })).toContain('credit, if present, must be a string (omit it when the photographer is unknown)');
     expect(validatePhotoEntry({ ...library[0], source: 'not-a-url' })).toContain('source must be an http(s) URL');
   });
 

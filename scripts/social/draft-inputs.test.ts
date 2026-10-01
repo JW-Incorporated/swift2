@@ -31,21 +31,23 @@ describe('photo ledger', () => {
     expect(ledger.igBlockedUnused).toBe(3);
   });
 
-  it('hands every beat a DISTINCT photo: real credit first, then the calendar hint, then untagged-by-era', () => {
+  it('hands every beat a DISTINCT photo: the calendar hint, then untagged-by-era; a missing credit never ranks a photo down', () => {
     const ledger = buildPhotoLedger(LIB);
     const out = assignBeatPhotos([{ date: 'd1' }, { date: 'd2', hintId: 'a-red-2' }, { date: 'd3' }], ledger);
     const ids = out.map((o: { photo: { photoId: string } | null }) => o.photo?.photoId);
     expect(new Set(ids).size).toBe(3);
-    expect(ids[0]).toBe('b-fan-1'); // strong credit, no era tag
-    expect(ids[1]).toBe('a-red-2'); // hint breaks the tie among the remaining strong credits
+    expect(ids[0]).toBe('b-fan-1'); // no era tag
+    expect(ids[1]).toBe('a-red-2'); // the calendar hint wins its beat
     expect(out[1].fromCalendar).toBe(true);
-    expect(ids).not.toContain('b-fan-2'); // the weak credit is last, so only taken when nothing better remains
+    expect(ids[2]).toBe('b-fan-2'); // uncredited (owner rule 2026-10-01) is eligible and no longer last
   });
 
-  it('gives a beat photo: null (never a repeat) once the pool is spent, and flags a weak credit', () => {
+  it('gives a beat photo: null (never a repeat) once the pool is spent, and omits mediaCredit for an unknown uploader', () => {
     const ledger = buildPhotoLedger(LIB.slice(3, 4));
     const [first, second] = assignBeatPhotos([{ date: 'd1' }, { date: 'd2' }], ledger);
-    expect(first.photo.creditWeak).toBe(true);
+    expect(first.photo.photoId).toBe('b-fan-2');
+    expect(first.photo).not.toHaveProperty('mediaCredit');
+    expect(assignBeatPhotos([{ date: 'd1' }], buildPhotoLedger(LIB.slice(0, 1))).at(0).photo.mediaCredit).toBe('Real Person (CC BY 2.0)');
     expect(second.photo).toBeNull();
   });
 

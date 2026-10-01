@@ -10,7 +10,7 @@ Last rewritten 2026-10-01 (first version). `(assumption)` marks anything not yet
 - **Who we serve:** devoted Taylor Swift fans who want news they can trust (sourced, fake stories flagged) and a way to time-travel through her eras — people who argue about details and share what is true.
 - **The core bet:** social drives to the site. We post one genuinely shareable thing every day where fans already are (Instagram and X, paired), take part in fan communities as real members, and give fans a card they want to post themselves; the site is where they land.
 - **Where we are (week of 2026-09-28):** not growing. 37 visitors that week (34 the week before), Instagram 4 followers, X 0, zero posts in nine days because drafts were stuck behind a broken approval step (fixed 2026-09-29/30). The outward-reach engine (comments, follows, Reddit) has never run.
-- **Order of work:** (1) posts ship daily again, (2) every library photo is usable, (3) start the reach lane, (4) cover time-sensitive fan moments, (5) share cards as a loop. Growth is priority #1.
+- **Order of work:** (1) posts ship daily again, (2) a bigger photo library, (3) start the reach lane, (4) cover time-sensitive fan moments, (5) share cards as a loop. Growth is priority #1.
 - **Money:** later. The fashion section is the long-term revenue lever once traffic is meaningful; we revisit it at a sustained ~2,000 visitors a week (assumption) and only after the owner's counsel sign-off.
 - **This quarter's target metric:** weekly unique visitors, from 37 now to 500 by 2026-12-31 (assumption — Fable confirms or replaces it each week). Leading indicator: Instagram followers 150 by 2026-10-31, 500 by 2026-12-31.
 
@@ -47,9 +47,9 @@ Not a growth bet yet: **fashion monetisation.** There is nothing to monetise at 
 
 - **The craft is already top tier:** sourced to several outlets, honest about what could not be verified, balanced (the lukewarm critical reception sits beside the streaming records), and rumours are re-dated rather than quietly deleted. That honesty is the brand; never trade it for speed.
 - **What is missing is the conversation fans actually have:** the "Patient Zero" cover-art backlash was the week's biggest fan debate and the site said nothing. Every time-sensitive event gets covered or declined with a written reason ([#4673](https://github.com/JW-Incorporated/swift2/issues/4673)).
-- **Photos first.** Real Taylor photography is the default image ("the Taylor-photo standard"); a photo that repeats is rejected, so a deep library of never-used photos is the scarce resource. Growing it is a standing priority ([#4604](https://github.com/JW-Incorporated/swift2/issues/4604)); cards and site screens are secondary image kinds Tree may use by evidence.
+- **Photos first.** Real Taylor photography is the default image ("the Taylor-photo standard"); a photo that repeats is rejected, so a deep library of never-used photos is the scarce resource. Growing it, credited or not, is a standing owner priority (credit the photographer whenever known; unknown credits no longer block a post); cards and site screens are secondary image kinds Tree may use by evidence.
 - **Campaign rhythm (Tree owns the calendar):** thread of the month (all six threads), the weekly Blank Spaces timeline (confirmed-only), the monthly Mood beat, the daily heartbeat, and the same-day news beat. One idea goes to Instagram and X together.
-- **Hard limits that never move without the owner:** `docs/social/guardrails.md` (✅ before anything posts, credit and rights, no AI images of Taylor, confirmed-only sensitive topics, platform limits, replies and DMs human for now).
+- **Hard limits that never move without the owner:** `docs/social/guardrails.md` (✅ before anything posts, rights, no AI images of Taylor, confirmed-only sensitive topics, platform limits, replies and DMs human for now).
 
 ## What we stopped and why
 
@@ -67,9 +67,7 @@ Not a growth bet yet: **fashion monetisation.** There is nothing to monetise at 
 - **2026-09-30** — "you manage the business; the goal is to grow the site by giving fans real value; growth is priority #1; long term the money comes from the fashion section once traffic is significant."
 - **2026-10-01** — "I don't want to be in the rule making business, I want to be in the reviewing/approving business."
 - **2026-10-01** — "I still have no idea what Marjorie's strategy is to grow the site, and get more users. It's just not clear. We now ask weekly with Fable how we're going to manage the site and grow it, but I don't get to see that strategy, nor do I know where I can challenge the strategy. I assume I can just talk in Marjorie's channel in order to challenge the strategy, ask questions, and steer it?"
-- **2026-10-01** — (relayed from the owner's session, not verbatim) Uncredited photos are acceptable; credit when the credit is known; prioritise growing the photo library.
-
-Conflict flag (2026-10-01): the last direction collides with `docs/social/guardrails.md` guardrail 2 ("a credit on every photo", enforced in code). Only the owner can change that file, by PR. Until he does, the guardrail stands and the library grows with credited photos ([#4604](https://github.com/JW-Incorporated/swift2/issues/4604)).
+- **2026-10-01** — Uncredited photos are fine; credit the photographer whenever known; growing the photo library is a priority.
 
 ## Changelog
 

@@ -47,7 +47,8 @@ The owner handed social taste and strategy to Tree (execution, format) and to yo
 2. **Judge the experiments.** Read `social/posted/*.json` since the last review for items with an `experiment` object ({hypothesis, variant, metric}). Per experiment, with numbers: **approval rate** (the pair's `social-draft` PRs approved vs rejected), **site clicks** (`growth-data.json` traffic and referrers; `null` → say unmeasured), **engagement** (`social/metrics/`). Verdict: keep / drop / run longer / needs a better metric. Tree spends up to ~1 in 4 slots on these; if there were none, or too few to judge, say that and ask Tree for one with a metric you can read.
 3. **Set the targets.** Growth targets are yours now (they used to sit in strategy §3). Start from the last baseline unless the evidence says otherwise: Instagram followers 50 by 2026-09-30, 150 by 2026-10-31, 500 by 2026-12-31; app-store launch week +200-500 IG in 7 days given a 150+ base. Restate each target with the mechanism it depends on, move it when the data warrants it, and say why. These go under `## Social strategy and targets` in the plan.
 4. **Taste disputes go to Fable, never the owner.** If you and Tree disagree, or a call is genuinely unclear, save ONE question — `node scripts/marjorie/taste-ruling.mjs save --side marjorie --question "<≤300 chars>" --context "<evidence>"` — and a plain job files it and starts Fable's ruling routine. Also list open `taste-ruling` issues (`gh issue list --repo "$GITHUB_REPOSITORY" --label taste-ruling --state open --json number,title`); any open one with no `Ruling:` comment (check `gh issue view <n> --json comments`; the daily cap of 2 was hit, or its ruling run failed) is yours to rule on now, as Fable would (`docs/agents/runner-prompts/fable-taste-ruling.md`): comment `Ruling: <decision>` with the reasoning, then close it.
-5. **The owner only gets what touches `docs/social/guardrails.md`.** A content or social DECIDE item reaches `## Needs the owner` / a `founder-decision` / `HUMAN-ACTIONS.md` only if it does; anything else you decide or Fable rules.
+5. **Photo credits are settled — do not re-raise them.** The owner ruled 2026-10-01 that uncredited photos are fine (credit the photographer when known, no credit line when not). "Every library photo gets a real credit" (#4604) is obsolete: never plan it, ask Tree for it, count it as a blocker, or raise it with the owner. Photo-library growth (more photos, credited or not) is the standing priority instead.
+6. **The owner only gets what touches `docs/social/guardrails.md`.** A content or social DECIDE item reaches `## Needs the owner` / a `founder-decision` / `HUMAN-ACTIONS.md` only if it does; anything else you decide or Fable rules.
 
 ## Step 1c — rewrite the growth strategy (the owner reads it and steers it)
 
@@ -103,13 +104,13 @@ gh issue close <previous-number> --comment "Superseded by the plan for the week 
 <TL;DR: two sentences — are we growing, and the one thing this week is about.>
 
 ## Next up
-**To grow**
+### To grow
 - <plain-language outcome> — [#N](<url>) (<owner>) · bet <n>
-**To make content better**
+### To make content better
 - <plain-language outcome> — [#N](<url>) (<owner>) · bet <n>
-**Other**
+### Other
 - <plain-language outcome> — [#N](<url>) (<owner>) · bet <n> (or "machine" for plumbing that serves no bet)
-(3 to 5 bullets in total: the ranked priorities, most growth impact first within each group, each one line, each naming the bet it serves; omit a group that has none, and never write a "nothing" bullet; nothing else under this heading — no `#` headings inside it, the status page stops reading at the first heading)
+(3 to 5 bullets in total: the ranked priorities, most growth impact first within each group, each one line, each naming the bet it serves; omit a group that has none, and never write a "nothing" bullet; nothing else under this heading — only these three `###` sub-headings, which the status page parses)
 
 ## The six questions
 ### 1. Are we growing? — <Verdict>
@@ -140,7 +141,7 @@ gh issue close <previous-number> --comment "Superseded by the plan for the week 
 Tier-2: Marjorie — weekly growth review
 ```
 
-`## Next up` must come directly after the TL;DR and be present even in a bad week; if nothing can be set, say so in one line under it. Its bullets are the same ranked priorities as `## Priority detail`, grouped under the three bold labels (`**To grow**`, `**To make content better**`, `**Other**`). Do not edit the plan body afterwards. If a problem needs the owner's identity, login, money or a product decision, list it under `## Needs the owner` — you cannot edit `HUMAN-ACTIONS.md` and must not try.
+`## Next up` must come directly after the TL;DR and be present even in a bad week; if nothing can be set, say so in one line under it. Its bullets are the same ranked priorities as `## Priority detail`, grouped under the three `###` sub-headings (`### To grow`, `### To make content better`, `### Other`). Do not edit the plan body afterwards. If a problem needs the owner's identity, login, money or a product decision, list it under `## Needs the owner` — you cannot edit `HUMAN-ACTIONS.md` and must not try.
 
 ## Step 6 — asking bot1 (the Hermes bot) — only if the rules say so
 

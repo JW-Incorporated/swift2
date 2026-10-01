@@ -39,8 +39,8 @@ describe('weekly review rewrites the strategy', () => {
     expect(reviewPrompt).toContain('.scratch/out/growth-strategy.md');
     expect(reviewPrompt).toContain('strategy-doc.mjs check');
     expect(reviewPrompt).toMatch(/Honour every `## Owner direction \(standing\)` line/);
-    for (const g of ['**To grow**', '**To make content better**', '**Other**']) expect(reviewPrompt).toContain(g);
-    expect(reviewPrompt).toMatch(/no `#` headings inside it/);
+    for (const g of ['### To grow', '### To make content better', '### Other']) expect(reviewPrompt).toContain(g);
+    expect(reviewPrompt).toMatch(/only these three `###` sub-headings/);
   });
 });
 
