@@ -2,15 +2,16 @@
   "version": 1,
   "seeded": {
     "ig_comments": "2026-10-01T18:48:04.459Z",
-    "ig_mentions": "2026-10-01T18:48:04.459Z"
+    "ig_mentions": "2026-10-01T18:48:04.459Z",
+    "fb_comments": "2026-10-01T19:38:02.971Z"
   },
   "seen": {},
   "disabledLogged": {
     "ig_dms": "2026-10-01T18:48:04.459Z"
   },
   "lastRun": {
-    "ig_comments": "2026-10-01T18:57:37.336Z",
-    "fb_comments": "2026-10-01T18:57:37.336Z",
+    "ig_comments": "2026-10-01T19:38:02.971Z",
+    "fb_comments": "2026-10-01T19:38:02.971Z",
     "ig_dms": "2026-10-01T18:48:04.459Z",
     "ig_mentions": "2026-10-01T18:48:04.459Z"
   }
