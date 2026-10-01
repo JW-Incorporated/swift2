@@ -144,6 +144,16 @@ to be blocked outright, the next anonymous options are a home relay
 (`HOME_RELAY_URL`, already supported, on a residential machine) or a
 self-hosted runner; neither is built.
 
+#### Replying as the brand account
+
+If you are logged into two Reddit accounts, every Reddit thread link Tree sends
+to Discord (reply opportunities and awareness replies) carries the URL
+parameters in `scripts/community/reddit-account.json` (`redditLinkParams`,
+including `target_user=NegativeRest9507`, the same parameter Reddit's own email
+links use), so the link opens as the brand account. Each such message also has
+a `↪️ Reply as u/NegativeRest9507` line. Change the parameters in that file, no
+code change needed. Non-Reddit links are left untouched.
+
 ### Reddit notification intake
 
 `community-inbox` checks Marjorie's existing inbox every 30 minutes. It does

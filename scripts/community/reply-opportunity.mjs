@@ -3,6 +3,7 @@
 // Pure builders + a metadata-only webhook probe; no Supabase, no posting here
 // (discord-delivery.mjs#postCommunityPrompts sends, mailer.mjs orchestrates).
 import { DISCORD_MESSAGE_LIMIT, neutralizeMentions } from './discord-delivery.mjs';
+import { replyAsLine, withReplyAccount } from './reddit-account.mjs';
 
 /** Header + per-lead messages post under this display name so a reply
  * opportunity is visually distinct from Tree's approval prompts, which share
@@ -61,6 +62,11 @@ export function urlLine(url, prefix = '') {
   return `${prefix}<${clean}>`;
 }
 
+/** A thread link as a no-preview line; a Reddit link gets the brand-account switch unless that pushes it past the URL bound. */
+export function threadLinkLine(url) {
+  return urlLine(withReplyAccount(url)) ?? urlLine(url);
+}
+
 function whyLine(lead) {
   const relevance =
     typeof lead.relevance === 'number' ? ` · relevance ${lead.relevance.toFixed(2)}` : '';
@@ -113,7 +119,13 @@ export function buildReplyOpportunity(lead, { postedUrl = null, skipUrl = null }
     : 'Done? React ✅ posted · ⏭️ skip. Nothing posts automatically.';
   const heading = `💬 **Reply opportunity · ${where}**`;
   const full = {
-    head: [heading, titleText(200), urlLine(lead.url), `Why: ${whyLine(lead)}`],
+    head: [
+      heading,
+      titleText(200),
+      threadLinkLine(lead.url),
+      isReddit ? replyAsLine() : null,
+      `Why: ${whyLine(lead)}`,
+    ],
     tail: [
       lead.target_url && !lead.link_included
         ? urlLine(lead.target_url, 'Link to add only if it fits: ')
@@ -122,7 +134,10 @@ export function buildReplyOpportunity(lead, { postedUrl = null, skipUrl = null }
       refLine,
     ],
   };
-  const minimal = { head: [heading, titleText(100)], tail: [refLine] };
+  const minimal = {
+    head: [heading, titleText(100), isReddit ? replyAsLine() : null],
+    tail: [refLine],
+  };
   const reply = safe(lead.draft).replace(/```/g, '``​`').trim();
   const altText = String(lead.draft_alt ?? '').trim();
   const alt = altText ? `Alt: ${oneLine(safe(altText), 200)}` : null;
