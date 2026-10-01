@@ -607,7 +607,7 @@
     const namesPage = parts.some(
       (part) =>
         (name && part.trim().toLowerCase() === name) ||
-        (id && new RegExp(`[=/]${id.replace(/[^\w.-]/g, '\\$&')}(?:\\D|$)`).test(part)),
+        (id && new RegExp(`[=/]${id.replace(/[^\w-]/g, '\\$&')}(?:\\D|$)`).test(part)),
     );
     return namesPage ? 'page' : 'personal';
   }
