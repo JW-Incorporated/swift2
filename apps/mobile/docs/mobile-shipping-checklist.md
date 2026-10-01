@@ -86,8 +86,9 @@ Tags: [$] money · [ACCT] account/login · [MAC] the Mac · [DEV] physical devic
 
 ### Critical path — Android first (cheapest, no Mac, APK pipeline already proven)
 
-1. **[ACCT]** `eas login` (existing Expo account `wjduvall` — project
-   `swift2-vault` is already linked) and confirm the EAS env vars exist for
+1. **[ACCT]** `eas login` (project `swift2-vault` lives in the Expo
+   organization `jw-labs` since 2026-10-01; log in with an account that is a
+   member of it) and confirm the EAS env vars exist for
    `production`: `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`
    (`eas env:list --environment production`; create with `eas env:create` per
    `.env.example` if missing). ~5 min.
