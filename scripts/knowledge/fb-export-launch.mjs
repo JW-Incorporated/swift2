@@ -1,5 +1,5 @@
 import { spawn as nodeSpawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { closeSync, existsSync, openSync } from 'node:fs';
 import { mkdir } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import { join } from 'node:path';
@@ -34,6 +34,26 @@ export function plainChromeArgs(profileDir, url) {
     url,
   ];
 }
+
+// Chrome on Windows creates <profile>/lockfile and holds it open while it runs. A second launch
+// on a running profile just hands the URL to that process and ignores our flags, so the run must
+// start Chrome itself. Exists + cannot be opened read-write = in use; a stale file opens fine.
+export function chromeProfileInUse(
+  profileDir,
+  { exists = existsSync, open = openSync, close = closeSync } = {},
+) {
+  const lockfile = join(profileDir, 'lockfile');
+  if (!exists(lockfile)) return false;
+  try {
+    close(open(lockfile, 'r+'));
+    return false;
+  } catch (error) {
+    return error?.code !== 'ENOENT';
+  }
+}
+
+export const PROFILE_OPEN_MESSAGE =
+  'The Long Live Chrome profile was already open — close that Chrome window and rerun (the export must start Chrome itself).';
 
 export async function launchPlainChrome({
   url,
@@ -86,11 +106,23 @@ export async function extensionCollect({
   week,
   startReceiver,
   launch = launchPlainChrome,
+  profileDir = ROOT && join(ROOT, 'chrome-profile'),
+  profileInUse = launch === launchPlainChrome ? (dir) => chromeProfileInUse(dir) : () => false,
   token = randomBytes(32).toString('hex'),
   setTimer = setTimeout,
   clearTimer = clearTimeout,
   runSlackMs = RUN_SLACK_MS,
 } = {}) {
+  if (profileDir && profileInUse(profileDir)) {
+    return {
+      results: groups.map((g) => ({
+        slug: g.slug,
+        status: 'failed',
+        reason: 'chrome-profile-open',
+      })),
+      actingPageId: null,
+    };
+  }
   const start = startReceiver ?? (await import('./fb-export-receiver.mjs')).startReceiver;
   const totalMs = groups.reduce((sum, g) => sum + (g.wallBudgetMs ?? 20 * 60_000), 0) + runSlackMs;
   const receiver = await start({ groups, token, root, outputDir, now, week });

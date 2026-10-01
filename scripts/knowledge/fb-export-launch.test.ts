@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { mkdtemp, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
-import { extensionCollect, launchPlainChrome } from './fb-export-launch.mjs';
+import { chromeProfileInUse, extensionCollect, launchPlainChrome } from './fb-export-launch.mjs';
 import { startReceiver } from './fb-export-receiver.mjs';
 
 const fakeSpawn = () => {
@@ -64,7 +64,36 @@ describe('launchPlainChrome', () => {
   });
 });
 
+describe('chromeProfileInUse', () => {
+  it('is false without a lockfile, false for a stale one, true when it cannot be opened', () => {
+    const close = vi.fn();
+    expect(chromeProfileInUse('p', { exists: () => false })).toBe(false);
+    expect(chromeProfileInUse('p', { exists: () => true, open: (() => 3) as never, close })).toBe(
+      false,
+    );
+    const busy = () => {
+      throw Object.assign(new Error('busy'), { code: 'EBUSY' });
+    };
+    expect(chromeProfileInUse('p', { exists: () => true, open: busy as never, close })).toBe(true);
+  });
+});
+
 describe('extensionCollect', () => {
+  it('does not start Chrome or the receiver when the profile is already open', async () => {
+    const startReceiver = vi.fn();
+    const launch = vi.fn();
+    const out = await extensionCollect({
+      groups: [{ slug: 'a', label: 'A', groupId: '1' }],
+      profileDir: 'p',
+      profileInUse: () => true,
+      startReceiver,
+      launch,
+    });
+    expect(out.results).toEqual([{ slug: 'a', status: 'failed', reason: 'chrome-profile-open' }]);
+    expect(launch).not.toHaveBeenCalled();
+    expect(startReceiver).not.toHaveBeenCalled();
+  });
+
   const groups = [
     { slug: 'a', label: 'A', groupId: '1', wallBudgetMs: 20 * 60_000 },
     { slug: 'b', label: 'B', groupId: '2', wallBudgetMs: 75 * 60_000 },

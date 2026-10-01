@@ -203,6 +203,11 @@ export function runSummary(results, actingPageId = null) {
           `Tab hidden (${tabHidden.join(', ')}): the export tab was not visible, so Facebook's feed could not load. Keep the export window visible and don't switch tabs in it.`,
         ]
       : []),
+    ...(results.some((row) => row.reason === 'chrome-profile-open')
+      ? [
+          'The Long Live Chrome profile was already open — close that Chrome window and rerun (the export must start Chrome itself).',
+        ]
+      : []),
     ...(partial.length ? [`Partial groups: ${partial.join(', ')}.`] : []),
   ].join('\n');
 }

@@ -256,7 +256,12 @@ neither the stunted check nor the scroll cap, and the group's wall budget
 keeps running (heartbeats carry `hidden` and `hiddenMs`). A group whose tab is
 hidden 10 min in a row, or that looks stunted with hidden time in the last
 60 s, fails with reason `tab-hidden` — a per-group failure (the run continues
-with the next group), explained in the run summary. Group budgets: taylor-swifts-vault 75 min,
+with the next group), explained in the run summary. **The export must start Chrome itself:** if
+the profile's Chrome is already running (it holds `<profile>/lockfile`), a new
+launch would hand the URL to that process and ignore the flags above, so the
+run does not start Chrome, fails every group with reason `chrome-profile-open`
+and says "close that Chrome window and rerun". A stale lockfile (not held) is
+ignored. Group budgets: taylor-swifts-vault 75 min,
 others 20 min; the scheduled task limit is 5 h. Comments are collected
 privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
 never in the repo and never uploaded. `fb-export-ingest`
