@@ -91,6 +91,28 @@ describe.each(deployed)('%s chat routine', (bot, cfg) => {
     expect(template).toMatch(/allowed_bots:\n(?: {8}.*\n)+? {8}default: ""/);
   });
 
+  it('shows typing beside the agent without ever gating or failing the reply', () => {
+    const stopJob = bot === 'tree' ? 'deliver' : 'post';
+    const typing = byJob.typing;
+    expect(typing).toMatch(/^ {4}needs: context$/m);
+    expect(typing).toMatch(/^ {4}continue-on-error: true$/m);
+    expect(typing).toMatch(/^ {4}timeout-minutes: 2\d$/m);
+    expect(typing).toMatch(/^ {4}environment: social$/m);
+    expect(typing).toMatch(/^ {6}actions: read\n {6}contents: read\n/m);
+    expect(typing).not.toMatch(/: write/);
+    expect(typing).toContain(`chat-typing.mjs start --channel-id "$CHANNEL_ID" --thread-id "$REPLY_THREAD_ID" --stop-job ${stopJob}`);
+    expect(typing).not.toMatch(/WEBHOOK|download-artifact|CLAUDE_CODE/);
+    expect(byJob[stopJob]).toBeDefined();
+    for (const [name, job] of Object.entries(byJob)) {
+      if (name === 'typing') continue;
+      expect(job.match(/^ {4}needs: .*$/m)?.[0] ?? '', name).not.toContain('typing');
+    }
+    // The bot token reaches the typing job and the two jobs that already held it, nowhere else.
+    expect(Object.keys(byJob).filter((name) => /secrets\.DISCORD_BOT_TOKEN/.test(byJob[name])).sort()).toEqual(
+      bot === 'tree' ? ['context', 'deliver', 'typing'] : ['context', 'finish', 'typing'],
+    );
+  });
+
   it('gives Tree no push, dispatch or PAT rights (read-mostly)', () => {
     if (bot !== 'tree') return;
     expect(byJob.run).not.toMatch(/SOCIAL_POSTER_PAT|expose_dispatch_token|Bash\(git/);

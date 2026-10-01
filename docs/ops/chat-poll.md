@@ -32,3 +32,17 @@ so a message it rang usually gets its run regardless.
 - A run sitting `waiting`/`pending` for hours is the stuck-run signature:
   `gh api repos/<owner>/<repo>/actions/workflows/bot-chat-poll.yml/runs?status=waiting`, then
   `gh run cancel <id>`.
+
+## Typing indicator (2026-10-01)
+
+While the agent composes, the chat routines show Discord's "typing…" in the channel (or the reply thread, when
+the reply goes into one). A parallel `typing` job (`environment: social`, `actions: read`, `continue-on-error`,
+in no job's `needs`) runs `scripts/marjorie/chat-typing.mjs start`: it POSTs `/channels/{id}/typing` with the bot
+token every 8 s (each call lasts ~10 s) and reads the run's jobs with `gh run view --json jobs` on the same beat.
+It stops when `post` (Marjorie) / `deliver` (Tree) starts, when the agent job fails or is cancelled, after 20 minutes,
+or after 5 failed calls in a row. 429 waits `retry_after` (8-60 s).
+
+- Needs the bot to have **Send Messages** in #longlive-marjorie and #longlive-tree. Without it Discord answers
+  403: the job logs one line (`Discord answered 403 …`), exits 0, and nothing else changes.
+- Never affects delivery: the job is not a dependency of `post`/`deliver`/`finish`, and a failure of it cannot fail the run.
+- Checking it: `gh run view <run-id> --log --job <typing job id>` shows the single exit line (`stopping — post job started`).
