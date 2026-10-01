@@ -139,6 +139,81 @@ bug is still live — which is exactly why each beat is written to stand alone.
 
 ---
 
+## 🧪 EXPERIMENT 01 — hashtags on Instagram (answers ask #4722)
+
+**The finding that started it.** Every one of the **44 Instagram items in
+`social/posted/` carries zero hashtags** — checked this run across the whole
+archive; the only `#` matches in it are issue references (`#3278`, `#36`).
+Instagram sits at **4 followers** and every per-post record in
+`social/metrics/posts/` reads `like_count: 0, comments_count: 0`. At that size a
+post is only ever seen by people who do not follow us, and hashtags/explore are
+the one surface that puts it in front of them. The drafter prompt has said
+"Instagram gets the longer caption + hashtags" since August; it has never once
+happened.
+
+**This is S2's first labelled experiment** (`docs/agents/tree.md`, 2026-10-01 —
+up to ~1 in 4 slots may carry one, and none ever had). It takes 2 of the 8
+remaining slots in this window.
+
+**On a TAGGED slot, copy this object onto BOTH halves of the pair** — do not
+reword it, it is the experiment's identity, and
+`scripts/social/lib/queue-schema.mjs` caps `hypothesis` at 300 characters and
+`variant`/`metric` at 100:
+
+```json
+"experiment": {
+  "hypothesis": "IG reach at 4 followers is nearly all non-follower surfacing, and we have never used the one lever for it: all 44 posted IG items carry zero hashtags and every per-post metric reads 0 likes, 0 comments. A mid-tail Swiftie tag block should earn this account its first non-zero engagement.",
+  "variant": "IG caption ends with 8-12 mid-tail Swiftie hashtags (no mega-tags); the X half is unchanged.",
+  "metric": "like_count + comments_count at 48h in social/metrics/posts/2026-10, tagged pairs vs controls."
+}
+```
+
+**On a control slot: no hashtags and no `experiment` object.** A control is an
+ordinary post; noting "Experiment 01 control" in `why` is all it needs.
+
+**Slot assignment — counterbalanced inside the `thread:` family**, so
+hero-versus-second position cannot explain the result:
+
+| Date | Beat | Arm |
+|---|---|---|
+| 10-02 | The Decode hero | **TAGGED** |
+| 10-04 | The Decode answer beat (only if the news reserve goes unused) | control |
+| 10-06 | Clue Web hero | control |
+| 10-09 | Clue Web, slot 2 | **TAGGED** |
+
+If news takes the 10-04 reserve, that control is simply lost — 10-06 control
+against 10-09 tagged still reads, and the news post sits outside the experiment
+(do not tag it).
+
+**Choosing the tags — 8-12 of them, as the last line of the Instagram caption:**
+
+1. **Mid-tail, never mega-tags.** Not `#taylorswift`, `#swifties`, `#swiftie`
+   or a bare `#erastour`: a tag with tens of millions of posts buries a
+   4-follower account within seconds. Aim at tags plausibly in the
+   thousands-to-low-millions.
+2. **Three kinds, roughly even:** the era or album, the actual subject of the
+   post, and the fan-practice tag a Swiftie would really search.
+3. **Never a tag implying official status** (`#taylornation`,
+   `#taylorswiftofficial`) and never one naming another real person, a
+   relationship, or anything on the #36 blocklist.
+4. **The X half is unchanged.** No tags there — they cost weighted characters
+   and buy us nothing.
+5. **Record the exact tag list in `why`** and cite `ask #4722`, so the readout
+   knows which tags were in play.
+
+**Readout, Sunday 2026-10-11:** `social/metrics/posts/2026-10/*.json` matched by
+`campaign` — `like_count + comments_count` on the two tagged pairs against the
+controls, plus the Instagram follower delta from the weekly scorecard.
+**Written down now so the result is read honestly:** against a baseline of zero
+across 44 posts, *any* non-zero number on a tagged post is the signal — and
+zero on both arms is a real answer too. It would mean engagement cannot
+discriminate anything at this follower count, and the next experiment has to
+wait for the click attribution in
+[#4719](https://github.com/JW-Incorporated/swift2/issues/4719). A 0-vs-0 is not
+"hashtags don't work".
+
+---
+
 ## Ledger
 
 | State | Value |
@@ -164,6 +239,7 @@ bug is still live — which is exactly why each beat is written to stand alone.
 | Founder tasks | **#4294 (09-14) and #3990 (09-07) are both open, 0 ticked — five consecutive weeks, zero completions**, including the week it was cut to a single 4-minute ask. The same founder answered 9 Reddit prompts and 9 draft approvals in Discord in the same period, median 3h 19m. The issue channel is not read as a work queue; Discord is. Founder question 2. |
 | Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The repo-variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; it was inferred from live posting on 09-22 and from approvals continuing through 09-28.)* |
 | **📰 News reserve (new, 2026-10-01 — answers [#4676](https://github.com/JW-Incorporated/swift2/issues/4676))** | **10-04 and 10-11**, each with a named fallback. Every calendar from the 10-05 run onward reserves **≥1 day per week** — a calendar that assigns all seven days is now a planning bug (strategy §2). Root cause of the 27 uncovered events: the same-day event run only schedules onto a UTC day where neither platform is taken, and no such day existed. |
+| 🧪 **Experiment 01 — Instagram hashtags** (ask [#4722](https://github.com/JW-Incorporated/swift2/issues/4722)) | **Live from 10-02.** Tagged: 10-02, 10-09. Control: 10-04 (if the reserve goes unused), 10-06. Full protocol in the Experiment 01 section above; readout 10-11. The desk's first labelled experiment under S2. |
 | Social event mode | **`normal`** — `scripts/social/event-status.mjs` run this session returns `{"mode":"normal","kind":null,"windingDown":false,"reservedBeats":0}`. No countdown or big theory is live, so no beats are reserved and the 14 days below are planned as ordinary rotation. |
 
 ### Photo assignment — read this off, then verify
@@ -246,6 +322,10 @@ already a day late is worth less than the next one being on time.
   Hook: **the number** (a date, a gap, a count).
 
 ## 2026-10-02 (Fri) — The Decode hero, slot 1 of 2 (October window 10-01→05)
+
+🧪 **Experiment 01: TAGGED arm.** The Instagram caption ends with the 8-12
+mid-tail hashtag block and both halves carry the `experiment` object — rules and
+the exact object are in the Experiment 01 section above.
 
 RE-DRAFT ask #4675 by 2026-10-04: the 09-23 Mood pair and the 09-24 Blank Spaces timeline X — founder-✅'d in retired PR #4544, never posted. Re-cover both subjects fresh as single-post items under the per-post approval flow: new openers, a never-used photo (L001), X text-only. Mood rides the 10-03 slot. Cite "ask #4675" in each item's `why`.
 
@@ -331,6 +411,9 @@ unless the event run's own `eventPhoto` supersedes it.
 
 ## 2026-10-06 (Tue) — Clue Web hero, slot 1 of 2 (October window 10-06→10)
 
+🧪 **Experiment 01: control arm.** No hashtags, no `experiment` object — write
+"Experiment 01 control" in `why`.
+
 - **`23:00Z` · `thread:easter-eggs:behind-the-data`** — mint
   `thread:easter-eggs:behind-the-data:2026-10-hero`. Link `/?lens=easter-eggs`.
   Angle `behind-the-data`: how the thread knows what it knows — the shape of the
@@ -362,6 +445,9 @@ unless the event run's own `eventPhoto` supersedes it.
   screenshot exists (see 10-05). X: **text-only.** Hook: **the challenge**.
 
 ## 2026-10-09 (Fri) — Clue Web, slot 2 of 2 (window closes 10-10)
+
+🧪 **Experiment 01: TAGGED arm** — same rules as 10-02, a different 8-12 tag
+block chosen for this post's own subject.
 
 - **`23:00Z` · `thread:easter-eggs:behind-the-data`** — a second story-unique
   value: `thread:easter-eggs:behind-the-data:2026-10-second`. Link
