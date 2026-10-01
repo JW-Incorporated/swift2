@@ -523,3 +523,58 @@ describe('groupTargets / classifyTarget — one post message naming several file
     expect(classifyTarget(entry([]), { kind: 'post' }).action).toBe('none');
   });
 });
+
+// Review round 1 on the W2 branch (findings 1 and 3).
+describe('groupTargets — a multi-file ref binds only strict queue paths (finding 1, defence in depth)', () => {
+  const SHA = 'a'.repeat(40);
+  const msg = { id: 'post-1', timestamp: '2026-09-19T00:00:00Z' };
+
+  it('one odd token (a bare name, a traversal, a stray space) and the WHOLE multi-file ref binds nothing', () => {
+    for (const file of [
+      'social/queue/a.json,victim.json',
+      'social/queue/a.json,social/queue/../../etc/x.json',
+      'social/queue/a.json,social/queue/b c.json',
+      'social/queue/a.json,social/queue/b.txt',
+      'social/queue/a.json,https://evil.example/x.json',
+    ]) {
+      expect([...groupTargets([{ message: msg, sha: SHA, file }]).keys()]).toEqual([]);
+    }
+  });
+
+  it('a well-formed multi-file ref still fans out', () => {
+    expect([...groupTargets([{ message: msg, sha: SHA, file: 'social/queue/a.json,social/queue/b.json' }]).keys()]).toEqual(['social/queue/a.json', 'social/queue/b.json']);
+  });
+});
+
+describe("classifyTarget kind 'post' — a stale reply cannot override a newer message's ✅ (finding 3)", () => {
+  const SHA = 'a'.repeat(40);
+  const entry = (id: string, timestamp: string, reactions: Record<string, string[]> = {}, replies: Array<Record<string, unknown>> = []) => ({ message: { id, timestamp }, sha: SHA, multi: true, reactions, replies });
+  const aReply = (content: string) => reply({ id: 'r1', content, timestamp: '2026-09-19T01:00:00Z' });
+  const OLD = '2026-09-19T00:00:00Z';
+  const NEW = '2026-09-20T00:00:00Z';
+
+  it('a reply on an OLDER message is ignored when a NEWER message carries a ✅', () => {
+    const r = classifyTarget([entry('old', OLD, {}, [aReply('wrong photo')]), entry('new', NEW, { approvedBy: [APPROVER] })], { kind: 'post' });
+    expect(r).toMatchObject({ action: 'approve', messageId: 'new' });
+  });
+
+  it('a reply on the NEWEST message still rejects, even beside a ✅', () => {
+    const r = classifyTarget([entry('old', OLD, { approvedBy: [APPROVER] }), entry('new', NEW, {}, [aReply('changed my mind')])], { kind: 'post' });
+    expect(r).toMatchObject({ action: 'reject', reason: 'changed my mind' });
+  });
+
+  it('a reply on an older message still rejects when no newer message is approved', () => {
+    const r = classifyTarget([entry('old', OLD, {}, [aReply('nope')]), entry('new', NEW, {})], { kind: 'post' });
+    expect(r.action).toBe('reject');
+  });
+
+  it("a ✅ on a newer message from a non-approver does not neutralise the older reply", () => {
+    const r = classifyTarget([entry('old', OLD, {}, [aReply('nope')]), entry('new', NEW, { approvedBy: [NON_APPROVER] })], { kind: 'post' });
+    expect(r.action).toBe('reject');
+  });
+
+  it('the same pair under the legacy kinds is untouched (stale-reply rule is post/pr only)', () => {
+    const r = classifyTarget([entry('old', OLD, { rejectedBy: [APPROVER] }, [aReply('wrong photo')]), entry('new', NEW, { approvedBy: [APPROVER] })], { kind: 'draft' });
+    expect(r.action).toBe('reject');
+  });
+});

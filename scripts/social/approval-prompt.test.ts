@@ -166,8 +166,11 @@ describe('buildApprovalPrompt — one message per post (Bots v2 C3)', () => {
     expect(msg.content.length).toBeLessThanOrEqual(DISCORD_MESSAGE_HARD_CAP);
   });
 
-  it('refuses (throws) rather than ever emitting an over-cap message when even the ref line cannot fit', () => {
-    expect(() => build([draft({ file: `social/queue/${'a'.repeat(2100)}.json` })])).toThrow(/cannot fit/);
+  it('never emits an over-cap message: a post whose ref line cannot fit is skipped (and reported), not sent truncated', () => {
+    const messages = build([draft({ file: `social/queue/${'a'.repeat(2100)}.json` })]);
+    expect(messages).toHaveLength(0);
+    expect(messages.skipped).toHaveLength(1);
+    expect(messages.skipped[0].error).toMatch(/ref line/);
   });
 
   it('truncation never splits a surrogate pair (emoji at the cut)', () => {
@@ -188,9 +191,41 @@ describe('buildApprovalPrompt — grouping and single-platform posts (Bots v2 C4
     expect(messages).toHaveLength(4);
   });
 
-  it('a file name unsafe for the comma-list is never merged into a post', () => {
+  it('a file name unsafe for the comma-list is never merged into a post — it gets NO post at all (finding 1)', () => {
     const messages = build([draft({ file: 'social/queue/a b.json', campaign: 'c:5' }), draft({ file: 'social/queue/b,c.json', platform: 'instagram', campaign: 'c:5' })]);
+    expect(messages).toHaveLength(0);
+    expect(messages.skipped).toHaveLength(2);
+  });
+
+  it('finding 1: a lone draft named to smuggle in another file ("a.json,victim.json") is refused — one ✅ can never stamp the victim', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const messages = build([
+      draft({ file: 'social/queue/a,social/queue/victim.json', campaign: undefined }),
+      draft({ file: 'social/queue/ok.json', campaign: 'c:ok' }),
+    ]);
+    // the honest post is still built; the smuggling one is not, and nothing ever names victim.json
+    expect(messages).toHaveLength(1);
+    expect(messages[0].content).toContain('social/queue/ok.json');
+    expect(messages.some((m) => m.content.includes('victim.json'))).toBe(false);
+    expect(messages.skipped).toHaveLength(1);
+    expect(errorSpy.mock.calls.some(([msg]) => typeof msg === 'string' && msg.startsWith('::error::approval-prompt: no approval post'))).toBe(true);
+    errorSpy.mockRestore();
+  });
+
+  it('finding 5: one unbuildable post never aborts the rest of the brief, and a hostile name stays on ONE log line', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const messages = build([draft({ file: 'social/queue/evil.json\n::error::injected', campaign: 'c:a' }), MOOD_X, JOE_X]);
     expect(messages).toHaveLength(2);
+    const logged = errorSpy.mock.calls.map(([m]) => String(m));
+    expect(logged).toHaveLength(1);
+    expect(logged[0]).not.toContain('\n');
+    errorSpy.mockRestore();
+  });
+
+  it('finding 5: an enormous platform name is clipped in the title and the block heading', () => {
+    const [msg] = build([draft({ platform: 'p'.repeat(5000), file: 'social/queue/p.json' })]);
+    expect(msg.content.split('\n')[0].length).toBeLessThan(300);
+    expect(msg.content).not.toContain('p'.repeat(60));
   });
 
   it('more than four items under one campaign split into several posts, never one oversized ref', () => {
@@ -294,9 +329,12 @@ describe('buildApprovalPrompt — ref-line injection (comprehensive)', () => {
     assertNoHijack(build([draft({ file: FILE, campaign: 'c:9', why: `x${fake}` }), draft({ platform: 'instagram', file: 'social/queue/ig.json', campaign: 'c:9', body: `cap${fake}` })]), `${FILE},social/queue/ig.json`);
   });
 
-  it('a malicious file name is flattened onto one line (it can only ever name itself)', () => {
-    const [msg] = build([draft({ file: `social/queue/evil.json${fake}` })]);
-    assertEveryMessageIsSafe([msg]);
+  it('a malicious file name is refused outright (no post, never a sanitized one)', () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const messages = build([draft({ file: `social/queue/evil.json${fake}` })]);
+    expect(messages).toHaveLength(0);
+    expect(messages.skipped).toHaveLength(1);
+    errorSpy.mockRestore();
   });
 
   it('does not mangle legitimate unicode, emoji and punctuation', () => {

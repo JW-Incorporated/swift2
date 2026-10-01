@@ -55,6 +55,36 @@ describe('selectInbox', () => {
       ['1000000000000000003', THREAD],
     ]);
   });
+  // Bots v2 W2: an owner reply to a social approval post is a REJECTION the
+  // approval poll acts on — it must never also dispatch a Tree chat run.
+  describe('replies to a social approval post are not chat asks', () => {
+    const APPROVAL_ID = '1000000000000000100';
+    const approval = (extra: Record<string, unknown> = {}) =>
+      msg(APPROVAL_ID, { author: { id: '9', bot: true }, webhook_id: '9', content: `**Tree · mood** · X + Instagram · PR #4544
+ref: PR #4544 · ${'a'.repeat(40)} · social/queue/a-x.json,social/queue/a-ig.json`, ...extra });
+    const reply = (extra: Record<string, unknown> = {}) => msg('1000000000000000101', { type: 19, message_reference: { message_id: APPROVAL_ID }, ...extra });
+
+    it('skips a reply whose message_reference is an approval post in the window', () => {
+      expect(pick([approval(), reply()]).picked).toEqual([]);
+    });
+    it('skips it via the embedded referenced_message when the parent is outside the window', () => {
+      expect(pick([reply({ referenced_message: approval() })]).picked).toEqual([]);
+    });
+    it('skips a message posted in a thread started from an approval post', () => {
+      const { picked } = selectInbox(
+        [{ channelId: MARJ, threadId: '', messages: [approval({ id: THREAD })] }, { channelId: MARJ, threadId: THREAD, messages: [msg('1000000000000000102')] }],
+        { founders, now: NOW },
+      );
+      expect(picked).toEqual([]);
+    });
+    it('still picks a reply to an ordinary bot message, and a reply to a weekly-brief ref (not an approval post)', () => {
+      const plain = msg('1000000000000000103', { author: { id: '9', bot: true }, webhook_id: '9', content: 'hello' });
+      const brief = approval({ id: '1000000000000000104', content: `brief
+ref: PR #4544 · ${'a'.repeat(40)} · brief` });
+      const { picked } = pick([plain, brief, msg('1000000000000000105', { type: 19, message_reference: { message_id: '1000000000000000103' } }), msg('1000000000000000106', { type: 19, message_reference: { message_id: '1000000000000000104' } })]);
+      expect(ids(picked)).toEqual(['1000000000000000105', '1000000000000000106']);
+    });
+  });
   it('treats a top-level Discord reply (type 19) as a top-level message', () => {
     const { picked } = pick([msg('1000000000000000001', { type: 19, message_reference: { message_id: '1548716528432713729' } })]);
     expect(picked).toEqual([expect.objectContaining({ messageId: '1000000000000000001', threadId: '' })]);

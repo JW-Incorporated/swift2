@@ -51,6 +51,15 @@ posting"; a preview image is ideal). Replaced, per
   (`flags: 4` unless a deliberate embed is present): approval posts, the
   poll's notices, the weekly brief and re-plan update.
 
+**Integrity guards (review):** a draft whose file name is not strictly safe
+(`[A-Za-z0-9_./-]`) gets no approval post at all — it is skipped, logged and
+fails the notify run — because the ref line comma-joins names and a crafted
+name could otherwise stamp a file the owner never saw; `groupTargets` also
+trusts a multi-file ref only when every token is a strict `social/queue/*.json`
+path. A reply on an older re-posted message never overrides a newer message's
+✅, and the chat poll skips owner replies to approval posts (they are
+rejections, not chat asks).
+
 **Legacy:** six draft PRs briefed under the old format were open at the time
 (they retire at 48h). The poll still reads old per-draft + header messages
 (the `*` header target is kept, marked legacy in `social-approval-poll.mjs`);

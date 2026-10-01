@@ -99,6 +99,19 @@ export function isFailureNotice(m, messageId) {
   return messageId === undefined || String(ref) === String(messageId);
 }
 
+// A social approval post (scripts/social/approval-prompt.mjs): a webhook
+// message whose LAST non-empty line is `ref: PR #n · <sha> · <file[,file…]|*>`
+// (the same grammar social-approval-poll.mjs's REF_LINE_RE reads, narrowed to
+// queue files — the weekly brief's plan-scope refs are not approval posts). An
+// owner reply to one is a REJECTION the poll acts on (Bots v2 W2), not a chat ask.
+const APPROVAL_POST_REF = /^ref: PR #\d+ · [0-9a-f]{40} · (?:\*|.+\.json)$/;
+
+export function isApprovalPost(m) {
+  if (!m?.webhook_id) return false;
+  const lines = String(m.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  return APPROVAL_POST_REF.test(lines[lines.length - 1] ?? '');
+}
+
 const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1);
 
 /**
@@ -115,11 +128,17 @@ export function selectInbox(sources, { founders, now, cap = MAX_PER_CHANNEL }) {
   const picked = [];
   const claimed = [];
   const empty = [];
+  const byId = new Map();
+  for (const { messages } of sources) for (const m of messages || []) byId.set(String(m.id), m);
   for (const { channelId, threadId, messages } of sources) {
+    // A thread started from an approval post is the owner's rejection channel for it.
+    if (threadId && isApprovalPost(byId.get(String(threadId)))) continue;
     const notices = new Set((messages || []).filter((m) => isFailureNotice(m)).map((m) => String(m.message_reference.message_id)));
     for (const m of messages || []) {
       const windowMs = hasOwnReaction(m, CLAIM) ? CLAIM_WINDOW_MS : WINDOW_MS;
       if (!isFounderMessage(m, { founders, sourceId: threadId || channelId, now, windowMs })) continue;
+      const parentId = m.message_reference?.message_id;
+      if (parentId && isApprovalPost(m.referenced_message ?? byId.get(String(parentId)))) continue; // a rejection reply, not a chat ask
       const failed = hasOwnReaction(m, FAILED);
       const item = {
         messageId: m.id, channelId, threadId: threadId || '', timestamp: m.timestamp,

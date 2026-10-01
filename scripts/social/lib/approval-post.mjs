@@ -26,6 +26,10 @@ const WHY_PREVIEW_CHARS = 180;
 const LABEL_MAX_CHARS = 120;
 const REASON_MAX_CHARS = 200;
 const LINK_MAX_CHARS = 400;
+const PLATFORM_LABEL_MAX_CHARS = 24;
+// The ref line is never truncated (the poll must read it intact); a post whose
+// file names make it longer than this is refused instead — see buildPostMessage.
+const REF_LINE_MAX_CHARS = 700;
 const MAX_FILES_PER_POST = 4;
 // A file name is only ever combined into a multi-file ref line (comma-joined,
 // see social-approval-poll.mjs) when it cannot contain the separator or any
@@ -104,12 +108,22 @@ function singlePlatformLine(post) {
 
 /** Builds the one message for `post` (an array of drafts from groupPosts). */
 export function buildPostMessage(post, pr, { now, headSha, repo, facebookCrosspost }) {
+  // Fail closed BEFORE anything is built: the ref line comma-joins file names
+  // and the poll splits on that comma, so a name that is not strictly safe (a
+  // comma, a second path, whitespace…) could make one ✅ stamp a file the owner
+  // never saw. Such a draft gets no approval post at all (buildApprovalPrompt
+  // reports it) rather than a sanitized one.
+  for (const d of post) {
+    if (typeof d?.file !== 'string' || !SAFE_FILE_RE.test(d.file)) {
+      throw new Error(`refusing to build an approval post for unsafe file name ${JSON.stringify(String(d?.file).slice(0, 120))}`);
+    }
+  }
   const first = post[0];
   const pillar = sanitizeInlineField(pillarOf(stringOrNull(first.campaign)) ?? 'unspecified');
   const fast = post.find((d) => FAST_LANE_LANES.includes(d.lane));
-  const accounts = post.map((d) => ACCOUNT_BY_PLATFORM[d.platform]?.label ?? sanitizeInlineField(d.platform));
+  const accounts = post.map((d) => ACCOUNT_BY_PLATFORM[d.platform]?.label ?? clip(sanitizeInlineField(d.platform), PLATFORM_LABEL_MAX_CHARS));
   const label = clip(`Tree · ${pillar}${fast ? ` · fast lane (${sanitizeInlineField(fast.lane)})` : ''}`, LABEL_MAX_CHARS);
-  const titleLine = `**${label}** · ${[...new Set(accounts)].join(' + ')} · PR #${sanitizeInlineField(pr.number)}`;
+  const titleLine = `**${label}** · ${[...new Set(accounts)].join(' + ')} · PR #${clip(sanitizeInlineField(pr.number), 12)}`;
 
   const mediaByDraft = post.map((d) => mediaUrlsFor({ media: asArray(d.media) }, MEDIA_BASE_URL));
   const imageUrl = mediaByDraft.find((urls) => urls.length > 0)?.[0] ?? null;
@@ -125,15 +139,18 @@ export function buildPostMessage(post, pr, { now, headSha, repo, facebookCrosspo
 
   const rationale = first.critique?.rationale || first.why;
   const why = rationale ? sanitizeInlineField(rationale) : '';
-  const refFiles = post.map((d) => sanitizeInlineField(d.file)).join(',');
+  const refFiles = post.map((d) => d.file).join(',');
   const refLine = `ref: PR #${sanitizeInlineField(pr.number)} · ${headSha} · ${refFiles}`;
+  if (refLine.length > REF_LINE_MAX_CHARS) {
+    throw new Error(`approval post ref line is ${refLine.length} characters (max ${REF_LINE_MAX_CHARS}) — file names too long to bind safely`);
+  }
 
   const blocks = post.map((draft) => {
     const account = ACCOUNT_BY_PLATFORM[draft.platform];
     const isX = draft.platform === 'x';
     const link = isX ? null : fullDraftLink(draft, { headSha, repo });
     const fb = facebookCrosspost && draft.platform === 'instagram' ? ' · also → your Facebook Page' : '';
-    const head = `**${account ? account.label : sanitizeInlineField(draft.platform)}** · ${lengthLabel(draft)}${fb}${link ? ` · full: ${link}` : ''}`;
+    const head = `**${account ? account.label : clip(sanitizeInlineField(draft.platform), PLATFORM_LABEL_MAX_CHARS)}** · ${lengthLabel(draft)}${fb}${link ? ` · full: ${link}` : ''}`;
     return { head, text: preparedBody(draft), pref: isX ? Infinity : IG_PREVIEW_CHARS, isX };
   });
 

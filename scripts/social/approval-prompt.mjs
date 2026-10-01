@@ -56,6 +56,9 @@ export const TREE_AVATAR_URL = `${MEDIA_BASE_URL}/social/tree-avatar.png`;
  * entries: `{ file, platform, body, scheduledAt, campaign, media, why,
  * singlePlatformReason, lane, critique }` (the FULL `media` array).
  *
+ * A post that cannot be built safely is skipped (never thrown), logged, and
+ * listed on the returned array's `.skipped`.
+ *
  * `options.facebookCrosspost` (A4) — when true, an Instagram caption's
  * heading gets the cross-post disclosure. `options.headSha`/`repo` build the
  * full-draft link and the ref line.
@@ -64,7 +67,22 @@ export function buildApprovalPrompt(pr, drafts, { now = new Date(), headSha, rep
   if (!headSha) {
     throw new Error('buildApprovalPrompt: headSha is required — every brief message must carry a verifiable ref: line (RULINGS-SOCIAL-2.md B1)');
   }
-  return groupPosts(drafts).map((post) => buildPostMessage(post, pr, { now, headSha, repo, facebookCrosspost }));
+  // One unbuildable post (an unsafe file name, a ref line too long to bind
+  // safely…) must never abort the rest of the PR's brief: it is skipped, logged
+  // loudly, and listed on `.skipped` so the CLI can still fail the run.
+  const messages = [];
+  const skipped = [];
+  for (const post of groupPosts(drafts)) {
+    try {
+      messages.push(buildPostMessage(post, pr, { now, headSha, repo, facebookCrosspost }));
+    } catch (err) {
+      const files = post.map((d) => String(d?.file ?? '').slice(0, 120));
+      skipped.push({ files, error: String(err?.message ?? err) });
+      // JSON.stringify keeps a hostile file name on ONE log line (no ::command:: injection).
+      console.error(`::error::approval-prompt: no approval post for ${JSON.stringify(files)} — ${JSON.stringify(String(err?.message ?? err).slice(0, 300))}`);
+    }
+  }
+  return Object.assign(messages, { skipped });
 }
 
 /**
@@ -153,6 +171,7 @@ async function main() {
     console.log('approval-prompt: SOCIAL_APPROVAL_WEBHOOK_URL is not configured -- skipping (clean no-op).');
     return;
   }
+  if (messages.skipped.length > 0) process.exitCode = 1; // a draft with no approval post can never be approved — keep the run red
   console.log(`approval-prompt: ${result.delivered.length} message(s) delivered, ${result.failed.length} failed.`);
   for (const f of result.failed) console.error(`approval-prompt: message ${f.message} failed: ${f.error}`);
   // A rotated/deleted webhook secret (or a silently-dropped embed) must not

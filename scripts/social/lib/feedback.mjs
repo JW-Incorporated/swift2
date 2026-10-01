@@ -203,6 +203,8 @@ export function classifyReaction(reactions = {}, replies = [], { kind = 'draft' 
   return { action: 'none', reason: null, editedBody: null, approver: null, replyId: null };
 }
 
+const QUEUE_REF_FILE_RE = /^social\/queue\/[A-Za-z0-9_.-]+\.json$/;
+
 /**
  * Listening axis (docs/decisions.md 2026-09-12): every `{ message, sha,
  * file }` ref a PR's window messages carry, grouped by TARGET — the header
@@ -221,6 +223,10 @@ export function groupTargets(refs) {
     // each file's target, flagged `multi` so a ✏️ on it is never read as one
     // caption for two platforms.
     const files = ref.file === '*' ? ['*'] : String(ref.file).split(',').map((f) => f.trim()).filter(Boolean);
+    // Defence in depth (approval-post.mjs refuses unsafe names before it ever
+    // builds a ref): a multi-file ref is trusted only when EVERY token is a
+    // strict queue path — one odd token and the whole ref binds nothing.
+    if (files.length > 1 && !files.every((f) => QUEUE_REF_FILE_RE.test(f))) continue;
     for (const file of files) {
       const key = file === '*' ? '*' : path.posix.join('social', 'queue', path.basename(file));
       if (!targets.has(key)) targets.set(key, []);
@@ -278,7 +284,20 @@ export function classifyTarget(entries = [], { kind = 'draft' } = {}) {
     editedBy: uniqueIds(messages.map((m) => m.reactions.editedBy)),
     skippedBy: uniqueIds(messages.map((m) => m.reactions.skippedBy)),
   };
-  const replies = entries.flatMap((e) => (e.replies ?? []).map((r) => ({ ...r, parentId: e.message?.id, parentSha: e.sha })));
+  let replies = entries.flatMap((e) => (e.replies ?? []).map((r) => ({ ...r, parentId: e.message?.id, parentSha: e.sha })));
+  // Bots v2 W2: on an approval post a reply is a rejection, so a STALE reply
+  // (on an older re-posted message) must not override a newer message's ✅ —
+  // the owner who rejected the old post and then approved the re-post meant
+  // the approval. A reply counts when it is on the newest message of the
+  // target, or when no NEWER message carries an approver ✅.
+  if (kind === 'post' || kind === 'pr') {
+    const newest = latestMessage(messages);
+    replies = replies.filter((r) => {
+      const parent = messages.find((m) => m.id === r.parentId);
+      if (!parent || parent.id === newest?.id) return true;
+      return !messages.some((m) => messageTime(m) > messageTime(parent) && filterApprovers(m.reactions.approvedBy).length > 0);
+    });
+  }
   const base = classifyReaction(union, replies, { kind });
 
   const bearing = (field) => messages.filter((m) => filterApprovers(m.reactions[field]).length > 0);

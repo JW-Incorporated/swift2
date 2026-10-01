@@ -1647,3 +1647,59 @@ describe('Bots v2 W2 — one approval post covers the whole pair', () => {
     for (const p of posts) expect(p.body.flags).toBe(4);
   });
 });
+
+// Review round 1 on the W2 branch (finding 3 and 4).
+describe('Bots v2 W2 — review fixes', () => {
+  const X_REL2 = `social/queue/${QUEUE_FILE}`;
+  const IG_REL2 = 'social/queue/2026-09-20-example-ig.json';
+  const OLD_ID = '444444444444444400';
+  const NEW_ID = '444444444444444411';
+  const postAt = (id: string, timestamp: string, extra: Record<string, unknown> = {}) => ({
+    id,
+    webhook_id: '999999999999999999',
+    timestamp,
+    content: `**Tree · mood** · X + Instagram · PR #${PR_NUMBER}\nref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${X_REL2},${IG_REL2}`,
+    ...extra,
+  });
+  const okPut = { ok: true, status: 204, json: async () => ({}), text: async () => '' };
+
+  it('finding 3: a STALE reply on an older re-posted message does not override a newer message\'s ✅', async () => {
+    await seedQueueFile(QUEUE_FILE, { platform: 'x', body: 'x half', scheduledAt: '2026-09-20T00:00:00Z' });
+    await seedQueueFile('2026-09-20-example-ig.json', { platform: 'instagram', body: 'ig half', scheduledAt: '2026-09-20T00:00:00Z' });
+    const { impl: baseImpl } = makeFetchImplByMessage(
+      [postAt(OLD_ID, '2026-09-19T00:00:00Z'), postAt(NEW_ID, '2026-09-20T00:00:00Z'), replyMessage({ id: 'old-reply', parentId: OLD_ID, content: 'not this one', timestamp: '2026-09-19T01:00:00Z' })],
+      { [OLD_ID]: {}, [NEW_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } },
+    );
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: X_REL2 }, { path: IG_REL2 }] });
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(gitCalls.some((c) => c[0] === 'rm')).toBe(false);
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true);
+    expect((await readLedgerLines()).map((r) => r.action)).toEqual(['approve', 'approve']);
+  });
+
+  it('finding 4: a ❌ confirmation that failed transiently is retried after the PR has closed (file already gone at head)', async () => {
+    const replyOnPost = replyMessage({ id: 'reply-1', parentId: NEW_ID, content: 'no thanks' });
+    const { impl: baseImpl } = makeFetchImplByMessage([postAt(NEW_ID, '2026-09-20T00:00:00Z'), replyOnPost], { [NEW_ID]: {} });
+    const impl = vi.fn(async (url: string, init?: RequestInit) => (init?.method === 'PUT' ? okPut : baseImpl(url, init)));
+    const { impl: fetchImpl } = withPostCapture(impl);
+    const execGh = vi.fn((args: string[]) => {
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('headRefOid,headRefName,state,number')) {
+        return JSON.stringify({ headRefOid: HEAD_SHA, headRefName: 'feature/x', state: 'CLOSED', number: PR_NUMBER });
+      }
+      if (args[0] === 'pr' && args[1] === 'view' && args.includes('files')) return JSON.stringify({ files: [{ path: X_REL2 }, { path: IG_REL2 }] });
+      return '';
+    });
+    // Both halves were already removed by the run that rejected them.
+    const { impl: execGit } = makeFakeGit({ trees: { [HEAD_SHA]: {} } });
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    const confirmations = impl.mock.calls.filter(([, init]) => init?.method === 'PUT');
+    expect(confirmations).toHaveLength(1);
+    expect(String(confirmations[0][0])).toContain(`/messages/${NEW_ID}/reactions/${CROSS_MARK}/@me`);
+  });
+});

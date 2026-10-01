@@ -1108,11 +1108,13 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         if (prView.state === 'CLOSED' && header?.action === 'reject') {
           prLedgerRows.push(rejectRow(pr, '*', header, null, runResolvedAt));
           prLedgerRows.push(...perDraftRejectRows(pr, header, prQueueFiles, gitState, prView.headRefOid, runResolvedAt));
+          await confirmReject(header); // a retry (429/5xx) of the ❌ must not die with the PR (idempotent)
         }
         for (const [key, c] of classified) {
           if (key === '*' || c.action !== 'reject') continue;
           if (gitState.show(prView.headRefOid, key) !== null) continue; // still there at the PR's final head — this ❌ was never acted on
           prLedgerRows.push(rejectRow(pr, key, c, itemAtAnchors(gitState, c.anchors, key), runResolvedAt));
+          await confirmReject(c); // same: the post's ❌ confirmation retries after the PR closes too
         }
         continue;
       }
