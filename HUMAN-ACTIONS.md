@@ -2,7 +2,7 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
@@ -85,17 +85,6 @@ group Joey has not joined may report `not-member`).
 4. Go to github.com/JW-Incorporated/swift2 -> Settings -> Secrets and variables -> Actions -> Secrets -> SOCIAL_POSTER_PAT -> Update, paste, Save.
 
 **Worked if:** the next Marjorie ops sweep that tries to re-dispatch a quiet routine reports success instead of a 403 error.
-
-## #85 🟡 [DECIDE] #4559 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-09-28 -->
-<!-- marjorie-chase: 96h issue=4559 -->
-
-**Why:** Marjorie dispatched it on 2026-09-24 (plan-recheck-marjorie.yml: max_turns=40 too low, fails last 2 scheduled runs despite succ…). Nothing has moved since 2026-09-24. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4559 under stalled.
 
 ## #82 🔴 [BLOCKING] GH_DISPATCH_TOKEN can't dispatch workflows (~10 min)
 <!-- ha filed=2026-09-22 -->
