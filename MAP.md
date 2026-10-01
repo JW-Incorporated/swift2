@@ -560,3 +560,15 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/legal-links.ts` (+ test) | `LEGAL_PAGES`, `legalPageUrl`, `isLegalPageUrl` (moved from App.tsx), `CLOWNBOT_AI_DISCLOSURE` |
 | `apps/mobile/lib/settings-entry.ts` (+ test) | `openSettingsEntry`: onboarding first time, settings after (shared by HomeTopBar and the web bridge) |
 | `apps/mobile/lib/visible-screen.ts` (+ test) | Which overlay App.tsx renders; inbox sits above settings so Settings → Inbox works |
+
+## Social reply notifier (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `scripts/social/reply-notifier.mjs` | CLI: polls IG comments/replies, IG mentions, IG DMs and FB Page comments, dedupes against the ledger, posts one Discord message per new item (batch cap 15 + "+N more"). Read-only toward platforms; never on the posting path. `DRY_RUN=1` prints only |
+| `scripts/social/lib/reply-sources.mjs` | Read-only Graph collectors + `makeGraph` (pagination via `paging.next`, token-scrubbed errors, `isPermissionError`) |
+| `scripts/social/lib/reply-dms.mjs` | IG DM collector (`instagram_manage_messages`; page-token then user-token attempts) and `SourceDisabledError` for a missing scope |
+| `scripts/social/lib/reply-notify.mjs` | Ledger (`seeded`/`seen`/`disabledLogged`), `planNotifications` (first-run 24h rule, 7-day stale rule), `sanitizeUserText`/`formatItem`, `postDiscord` ("Tree · Replies") |
+| `scripts/social/reply-ledger.sh` | `fetch`/`push` of `reply-ledger.json` on the dedicated `social-reply-ledger` branch (plumbing only; creates the branch before anything is sent) |
+| `.github/workflows/social-reply-notifier.yml` | Every 15 min (`:11/:26/:41/:56`), `environment: social`, `contents: write` only; kill switch `REPLY_NOTIFIER_ENABLED=false`. See `docs/social/pipeline.md` › Reply notifier |
+| `scripts/social/reply-notifier.test.ts`, `reply-dms.test.ts`, `social-reply-notifier-workflow.test.ts` | Mocked-Graph tests (pagination, dedupe, first-run seeding, injection, per-source failure, DM scope) + workflow invariants |

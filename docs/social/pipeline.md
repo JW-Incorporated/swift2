@@ -162,3 +162,66 @@ merch and appearance side doors no longer write captions or queue drafts at
 all — they write a fact sheet to `social/inbox/`, and Tree drafts (or
 declines) any post from it in its own next daily run, under the same
 founder ✅ gate as every other post.
+
+## Reply notifier (2026-10-01)
+
+The owner answers replies himself (`docs/social/guardrails.md` row 6), so
+something has to tell him they exist. `social-reply-notifier.yml` runs every 15
+minutes (`:11/:26/:41/:56`), reads our accounts through the Graph API, and posts
+one short Discord message per new item to #longlive-tree as "Tree · Replies"
+(`flags: 4`, `allowed_mentions: {parse: []}`). It is read-only toward the
+platforms — it never replies, likes, hides or posts — and sits entirely off the
+posting path (it imports only `GRAPH_VERSION` from `lib/platforms.mjs`).
+
+| Source | Graph call | Scope |
+|---|---|---|
+| IG comments + replies | `/{ig}/media` (last 30 posts / 30 days) → `/{media}/comments?fields=…,replies{…}` | `instagram_manage_comments` |
+| IG mentions / tags | `/{ig}/tags` | `instagram_basic` |
+| IG DMs | `/{ig}/conversations?platform=instagram` (Page token from `/{page}?fields=access_token`, user token as fallback) | `instagram_manage_messages` |
+| FB Page comments | `/{page}/posts` (30 / 30 days) → `/{post}/comments?filter=stream` | `pages_read_engagement` |
+
+Our own account's comments are skipped (by username on IG, by `from.id` on FB).
+
+**DMs are disabled until the token carries `instagram_manage_messages`.** The app
+has the permission (Standard access); `IG_ACCESS_TOKEN` must be regenerated to
+include it. Until then the DM source logs `ig_dms disabled: missing scope` once
+a day and the other sources carry on — nothing is sent to Discord about it. DM
+messages quote at most 200 characters and link to the Instagram inbox
+(`https://www.instagram.com/direct/inbox/`), not to the thread.
+
+**Message shape.** `💬 New IG comment on "<post snippet>" — @user: "<≤300 chars>"`
+then the permalink; `📣` for mentions, `✉️ New IG DM from @user: "<≤200 chars>"`
+for DMs. User text is flattened to one line, markdown and `<@…>` syntax is
+escaped, and `@everyone`/`@here`/role pings are neutralised
+(`lib/reply-notify.mjs` `sanitizeUserText`). At most 15 messages go out per run;
+the rest wait (they stay unseen) behind a `+N more` line and post on the next
+run. IG comment links use the `…/p/<code>/c/<id>/` deep-link form and fall back
+to nothing if the media permalink is missing.
+
+**Dedupe — a durable ledger.** `reply-ledger.json` lives alone on the
+`social-reply-ledger` branch (not `social-ledger`: that branch's writers
+snapshot whole namespaces and would drop or collide with a stray file).
+`scripts/social/reply-ledger.sh` fetches it before the run — creating the branch
+with an empty ledger first, so a push failure aborts before anything is sent —
+and pushes it after. Each source seeds independently: the first clean read of a
+source notifies only items from the last 24h and records the rest silently, so
+switching this on never floods the channel. Afterwards any unseen item notifies,
+except one older than 7 days (recorded silently — which also makes pruning
+entries older than 180 days safe). A source that failed or warned is not marked
+seeded and is retried. A Discord failure leaves the item unseen and the run
+exits 1; if the final ledger push fails after messages went out, the next run
+can repeat them (at-least-once beats a missed reply).
+
+**Operating it.** Kill switch: repo variable `REPLY_NOTIFIER_ENABLED=false`.
+`workflow_dispatch` with `dry_run` prints what would be sent and writes
+nothing. Credentials are `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`,
+`FB_PAGE_ID` (read via `environment: social`) and the repo secret
+`DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL`; no new secrets.
+
+**Out of scope, and why.**
+- **X replies/mentions** — reading them is metered API spend (paid tier) and the
+  owner declined it; guardrail 6 also forbids new spend without him.
+- **Facebook Messenger DMs** — would need `pages_messaging`, a separate Meta app
+  review; not requested. Only Instagram DMs are covered.
+- **Replying.** Guardrail 6: replies and DMs stay human. Nothing here drafts or
+  sends one.

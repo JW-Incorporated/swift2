@@ -1,0 +1,84 @@
+# Social reply notifier — pings #longlive-tree when someone comments on, replies
+# under, tags, or DMs our Instagram / Facebook accounts. Replies and DMs stay
+# human (docs/social/guardrails.md row 6): this only READS and NOTIFIES, it
+# never replies to or posts on a platform. Design, scopes and what is out of
+# scope (X reads are paid and declined; Facebook DMs): docs/social/pipeline.md
+# › Reply notifier.
+#
+# Not on the posting path: touches none of post-queue.mjs, lib/queue*.mjs,
+# lib/platforms.mjs (read-only GRAPH_VERSION import), approval/stamp scripts or
+# the poster/approval/auto-merge workflows.
+#
+# `environment: social` (main-only deployment policy) — the same environment
+# social-poster.yml reads IG_ACCESS_TOKEN / IG_BUSINESS_ACCOUNT_ID / FB_PAGE_ID
+# from; the Discord webhook is a plain repo secret and resolves from there too.
+# Secrets reach only the one `run:` step that needs them. Checkout pins
+# `ref: main`: a secret-holding job never runs dispatch-chosen code.
+#
+# Dedupe: reply-ledger.json on the dedicated `social-reply-ledger` branch, read
+# before and pushed after the run (scripts/social/reply-ledger.sh). The branch
+# is created, with an empty ledger, before anything is sent, so a push problem
+# fails the run early instead of re-notifying every 15 minutes. If the final
+# push fails after messages went out, the next run may repeat them
+# (at-least-once; a missed notification would be worse).
+#
+# Cadence: every 15 minutes at :11/:26/:41/:56 — off the repo's :00/:05/:10/
+# :23/:30/:40 contention cluster (watchdog.yml header). This repository is
+# public, so its Actions minutes are not billed. Kill switch: repo variable
+# REPLY_NOTIFIER_ENABLED=false skips the job. `dry_run` prints the messages and
+# sends nothing, writes nothing.
+name: social-reply-notifier
+
+on:
+  schedule:
+    - cron: "11,26,41,56 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print what would be sent; send nothing, write no ledger"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # push the single-file ledger to the social-reply-ledger branch
+
+concurrency:
+  group: social-reply-notifier
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    if: vars.REPLY_NOTIFIER_ENABLED != 'false'
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Fetch the reply ledger (creates the branch first if missing)
+        id: ledger
+        env:
+          REPLY_LEDGER_PATH: ${{ runner.temp }}/reply-ledger.json
+        run: bash scripts/social/reply-ledger.sh fetch
+
+      - name: Poll replies, mentions and DMs; notify Discord
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          REPLY_LEDGER_PATH: ${{ runner.temp }}/reply-ledger.json
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: node scripts/social/reply-notifier.mjs
+
+      - name: Push the reply ledger
+        if: ${{ always() && !inputs.dry_run && steps.ledger.conclusion == 'success' }}
+        env:
+          REPLY_LEDGER_PATH: ${{ runner.temp }}/reply-ledger.json
+        run: bash scripts/social/reply-ledger.sh push
