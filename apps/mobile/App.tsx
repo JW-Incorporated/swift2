@@ -24,7 +24,7 @@
 // swallowed taps. `react-native-safe-area-context` reads real window insets
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -37,11 +37,14 @@ import * as Notifications from 'expo-notifications';
 import type { EraId, TrackNote } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import {
+  DEFAULT_ROUTE_FLAGS,
   createNavigate,
   resolve as resolveRoute,
   type NativeParams,
+  type RouteFlags,
   type ScreenId,
 } from './lib/routes';
+import { loadAppConfig, routeFlagsFrom } from './lib/app-config';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
@@ -215,9 +218,29 @@ export default function App() {
     }
   }, []);
 
+  // Remote kill switch: starts on the compiled defaults (startup never waits
+  // on the network); the ref lets the stable callbacks below read the latest
+  // flags without re-subscribing the notification listener.
+  const [routeFlags, setRouteFlags] = useState<RouteFlags>(DEFAULT_ROUTE_FLAGS);
+  const routeFlagsRef = useRef(routeFlags);
+  routeFlagsRef.current = routeFlags;
+  useEffect(() => {
+    let cancelled = false;
+    loadAppConfig().then((config) => {
+      if (!cancelled) setRouteFlags(routeFlagsFrom(config));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const navigate = useCallback(
     (rawUrl: string | null | undefined) => {
-      createNavigate({ openNative: openNativeScreen, openWeb: openWebUrl }, SITE_URL)(rawUrl);
+      createNavigate(
+        { openNative: openNativeScreen, openWeb: openWebUrl },
+        SITE_URL,
+        () => routeFlagsRef.current,
+      )(rawUrl);
     },
     [openNativeScreen, openWebUrl],
   );
@@ -226,7 +249,7 @@ export default function App() {
   // route (per the OS-030 card) so a link to Settings/Inbox opens the native
   // screen instead of the WebView rendering the site's own version of it.
   const isNativeCapableUrl = useCallback(
-    (url: string) => 'native' in resolveRoute(url, SITE_URL),
+    (url: string) => 'native' in resolveRoute(url, SITE_URL, routeFlagsRef.current),
     [],
   );
 

@@ -593,5 +593,8 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `packages/content/src/forward-compat.ts` (+ test) | `pruneUnknownEnumValues`: drops unknown enum/literal values (array element, nearest enclosing array element, or whole file) for `loadBundle({ unknownEnumPolicy: 'drop' })`; any other zod issue stays a failure. Policy: `docs/decisions.md` 2026-10-01 |
+| `config/mobile/app-config.json` | Remote kill switch source: `routeFlags` (one boolean per native screen). Published by `scripts/publish-content-bundle.mjs` to `<outRoot>/app-config.json` (sibling of `current.json`, never a manifest entry; not mirrored to Storage). Runbook: `docs/mobile-release.md` |
+| `packages/content/src/app-config.ts` (+ test) | `appConfigSchema` (unknown keys stripped), `ROUTE_FLAG_KEYS` (the one list of flag names; mobile test asserts it matches `DEFAULT_ROUTE_FLAGS`) |
+| `apps/mobile/lib/app-config.ts` (+ test) | `loadAppConfig()` (network, 3s timeout -> last-good -> defaults, never throws) + `routeFlagsFrom()`; App.tsx applies the result to `resolve`/`createNavigate` |
 | `apps/mobile/lib/content-bundle.ts` (+ test) | `loadContentBundle()`: the one mobile bundle loader (shared storage, `unknownEnumPolicy: 'drop'`, `dataErrorFallback: 'last-good'`) + once-per-process OTA `selfHealOnce()`. All six `*-data.ts`/`vault.ts` callers use it |
 | `packages/experience/src/era-ids-sync.test.ts` | Asserts `ERAS` ids equal `eraIdSchema.options`; see `docs/mobile-release.md` "Adding an era/enum/catalogue" |

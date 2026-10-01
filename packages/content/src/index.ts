@@ -11,3 +11,4 @@ export * from './cache';
 export * from './load';
 export * from './compat';
 export * from './forward-compat';
+export * from './app-config';

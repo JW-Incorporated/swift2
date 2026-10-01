@@ -212,6 +212,34 @@ it queues behind a running release instead of racing it.
 users are on a new store build with a different `runtimeVersion`. Revert the
 commit and ship a new build through the train.
 
+## Kill switch: turning off a native screen
+
+**When:** a native screen is broken in production and you want it off without
+an app release (no store build, no OTA).
+
+1. Edit `config/mobile/app-config.json` in a PR and set that screen's flag to
+   `false` under `routeFlags` (keys are the `RouteFlags` names in
+   `apps/mobile/lib/routes.ts`, e.g. `trackGuide`, `eraStream`). Leave the
+   other keys alone; a missing key means "use the app's compiled default".
+2. Merge to `main`. Vercel's web build (`scripts/publish-content-bundle.mjs`)
+   publishes it at `https://www.longlivets.com/content/app-config.json`, the
+   host the app reads content from. An invalid config fails the publish. (The
+   Supabase Storage mirror deliberately does not carry it — apps never read
+   content from Storage.)
+3. Installed apps fetch the file at launch (3s timeout, last-good cached, so
+   offline launches keep the previous setting) and apply it on that launch.
+   Until it arrives the app routes on its compiled defaults, so a
+   notification tapped during the first seconds of a cold start can still
+   open the switched-off screen.
+
+**Effect:** links to that screen (notifications, deep links, in-app) land on
+the era tab instead. To turn it back on, set the flag to `true` and merge.
+
+The file is a sibling of `current.json`, never inside a `<bundleVersion>/`
+directory and never a manifest entry: installed apps hard-fail on unknown
+manifest entries. Unknown keys in it are ignored by older apps, so a newer
+config is safe to publish.
+
 ## Things that would silently break the invariant (don't)
 
 - Running `eas build` from a machine with a fingerprint that differs from
