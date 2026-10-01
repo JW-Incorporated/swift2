@@ -49,7 +49,7 @@ describe('fb-extension manifest', () => {
     const manifest = JSON.parse(readFileSync(join(DIR, 'manifest.json'), 'utf8'));
     expect(manifest.manifest_version).toBe(3);
     expect(manifest.background.service_worker).toBe('background.js');
-    expect(manifest.permissions.sort()).toEqual(['storage', 'tabs']);
+    expect(manifest.permissions.sort()).toEqual(['alarms', 'storage', 'tabs']);
     expect(manifest.host_permissions).toEqual(['http://127.0.0.1/*']);
     const fb = manifest.content_scripts.find((entry: Any) =>
       entry.matches.includes('https://www.facebook.com/groups/*'),
@@ -448,7 +448,49 @@ describe('content.js runJob against a synthetic group page', () => {
       { keys: ['pos:1', 'pos:2'], options: { ...job.comments, maxMs: 15 * 60_000 } },
     ]);
     expect(result.comments).toHaveLength(1);
+    expect(result.commentCoverage).toBeNull(); // old bare-array shape
+    expect(result.coverage.profileVerified).toBe(false); // no profileCheck in this harvest-core
     expect(beats[0]).toMatchObject({ slug: 'group-a' });
+  });
+
+  it('sends comments + commentCoverage from the {comments, coverage} shape', async () => {
+    const feed = [post(1, '1 h'), post(2, '2 d'), post(3, '8 d'), post(4, '9 d'), post(5, '10 d')];
+    const { LLFB, env } = makeEnv(`<body><div role="feed">${feed.join('')}</div></body>`);
+    const coverage = { eligible: 2, processed: 1, failed: 1, timedOut: 0 };
+    LLFB.collectComments = async () => ({
+      comments: [{ postKey: 'pos:1', postUrl: 'u', comments: [] }],
+      coverage,
+    });
+    const result = plain(await LLFB.runJob(job, env));
+    expect(result.comments).toEqual([{ postKey: 'pos:1', postUrl: 'u', comments: [] }]);
+    expect(result.commentCoverage).toEqual(coverage);
+  });
+
+  it('uses profileCheck when present: stops only on wrong-profile, reports profileVerified', async () => {
+    const feed = [post(1, '1 h'), post(2, '2 d'), post(3, '8 d'), post(4, '9 d'), post(5, '10 d')];
+    const html = `<body><div role="feed">${feed.join('')}</div></body>`;
+    const calls: Any[] = [];
+    const verdicts: Record<string, Any> = {
+      ok: { status: 'ok', profileVerified: true },
+      unverified: { status: 'unverified', profileVerified: false },
+      wrong: { status: 'wrong-profile', profileVerified: false },
+    };
+    const outcomes: Any[] = [];
+    for (const key of ['ok', 'unverified', 'wrong']) {
+      const { LLFB, env } = makeEnv(html, { cookie: 'c=1' });
+      LLFB.profileCheck = (args: Any) => (calls.push(args), verdicts[key]);
+      const result = plain(
+        await LLFB.runJob({ ...job, readAs: 'personal', actingPage: { id: '9' } }, env),
+      );
+      outcomes.push([result.status, result.coverage?.profileVerified ?? null]);
+    }
+    expect(outcomes).toEqual([
+      ['collected', true],
+      ['collected', false],
+      ['wrong-profile', null],
+    ]);
+    expect(calls[0]).toMatchObject({ cookie: 'c=1', readAs: 'personal', actingPage: { id: '9' } });
+    expect(calls[0].doc).toBeDefined();
   });
 
   it('flags a stunted feed (≤ 3 slots after 20 scrolls)', async () => {
@@ -603,10 +645,10 @@ describe('comment subtrees never leave the page', () => {
 
 // ---- background.js: durable delivery across a service-worker restart ----------------------
 
-type Call = { method: string; path: string; body?: Any };
+type Call = { method: string; path: string; body?: Any; url?: string; redirect?: string };
 
-function fakeChrome(store: Record<string, Any>) {
-  const listeners: { message?: Any; updated?: Any } = {};
+function fakeChrome(store: Record<string, Any>, alarms: Map<string, Any> = new Map()) {
+  const listeners: { message?: Any; updated?: Any; alarm?: Any } = {};
   const tabUpdates: Any[] = [];
   const chrome = {
     storage: {
@@ -626,6 +668,11 @@ function fakeChrome(store: Record<string, Any>) {
       update: async (tabId: number, props: Any) => void tabUpdates.push({ tabId, ...props }),
       onUpdated: { addListener: (fn: Any) => (listeners.updated = fn) },
     },
+    alarms: {
+      create: async (name: string, info: Any) => void alarms.set(name, info),
+      clear: async (name: string) => alarms.delete(name),
+      onAlarm: { addListener: (fn: Any) => (listeners.alarm = fn) },
+    },
   };
   return { chrome, listeners, tabUpdates };
 }
@@ -635,15 +682,18 @@ function fakeChrome(store: Record<string, Any>) {
 function bootWorker(
   store: Record<string, Any>,
   respond: (call: Call) => { status: number; json?: Any } | null,
+  alarms: Map<string, Any> = new Map(),
 ) {
   const calls: Call[] = [];
   const delays: number[] = [];
-  const { chrome, listeners, tabUpdates } = fakeChrome(store);
+  const { chrome, listeners, tabUpdates } = fakeChrome(store, alarms);
   const fetch = async (url: string, init: Any) => {
     const call: Call = {
       method: init.method,
       path: new URL(url).pathname,
       body: init.body ? JSON.parse(init.body) : undefined,
+      url,
+      redirect: init.redirect,
     };
     calls.push(call);
     const answer = respond(call);
@@ -677,7 +727,17 @@ function bootWorker(
   const settle = async () => {
     for (let i = 0; i < 50; i += 1) await new Promise((r) => setTimeout(r, 0));
   };
-  return { calls, delays, tabUpdates, send, settle, ready: context.LLFB?.backgroundReady };
+  const fireAlarm = (name: string) => listeners.alarm?.({ name });
+  return {
+    calls,
+    delays,
+    tabUpdates,
+    send,
+    settle,
+    fireAlarm,
+    alarms,
+    ready: context.LLFB?.backgroundReady,
+  };
 }
 
 describe('background.js outbox survives a worker restart', () => {
@@ -766,5 +826,161 @@ describe('background.js outbox survives a worker restart', () => {
     expect(response).toEqual({ ok: true });
     expect(order).toEqual(['ack', 'response']);
     expect(store.llfb.outbox).toBeNull();
+  });
+});
+
+describe('background.js wake alarm and receiver pinning', () => {
+  const TOKEN = 'cd'.repeat(16);
+  const startSender = { url: 'http://127.0.0.1:4567/start', tab: { id: 7 } };
+  const groupSender = { tab: { id: 7 } };
+  const groupJob = {
+    done: false,
+    slug: 'group-a',
+    url: 'https://www.facebook.com/groups/1?sorting_setting=CHRONOLOGICAL',
+  };
+
+  it('schedules a wake alarm when /next is unreachable and clears it after the transition', async () => {
+    const store: Record<string, Any> = {};
+    const alarms = new Map<string, Any>();
+    let up = false;
+    const worker = bootWorker(
+      store,
+      (call) => {
+        if (!up) return { status: 503 };
+        if (call.path === '/next') return { status: 200, json: groupJob };
+        return { status: 200, json: { ok: true } };
+      },
+      alarms,
+    );
+    await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
+    await worker.settle();
+    expect(store.llfb.phase).toBe('next');
+    expect(worker.tabUpdates).toEqual([]);
+    expect(alarms.get('llfb-resume')).toMatchObject({ periodInMinutes: 1 });
+
+    // Still down at the first wake: the alarm stays armed.
+    worker.fireAlarm('llfb-resume');
+    await worker.settle();
+    expect(alarms.has('llfb-resume')).toBe(true);
+
+    up = true;
+    worker.fireAlarm('llfb-resume');
+    await worker.settle();
+    expect(worker.tabUpdates).toEqual([{ tabId: 7, url: groupJob.url }]);
+    expect(store.llfb.phase).toBe('job');
+    expect(alarms.has('llfb-resume')).toBe(false);
+  });
+
+  it('wakes to re-deliver a persisted result after the in-worker retries ran out', async () => {
+    const store: Record<string, Any> = {};
+    const alarms = new Map<string, Any>();
+    let resultStatus = 500;
+    const worker = bootWorker(
+      store,
+      (call) => {
+        if (call.path === '/next')
+          return { status: 200, json: store.llfb?.lastDelivered ? { done: true } : groupJob };
+        if (call.path === '/result') return { status: resultStatus };
+        return { status: 200, json: { ok: true } };
+      },
+      alarms,
+    );
+    await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
+    await worker.settle();
+    await worker.send({ type: 'llfb-ready' }, groupSender);
+    const result = { v: 1, slug: 'group-a', status: 'collected', units: [], comments: [] };
+    expect(await worker.send({ type: 'llfb-result', result }, groupSender)).toEqual({ ok: true });
+    expect(store.llfb.phase).toBe('deliver');
+    expect(alarms.has('llfb-resume')).toBe(true);
+
+    resultStatus = 200;
+    worker.fireAlarm('llfb-resume');
+    await worker.settle();
+    expect(store.llfb).toMatchObject({ phase: 'done', finished: true, outbox: null });
+    expect(alarms.has('llfb-resume')).toBe(false);
+    expect(worker.calls.at(-1)?.path).toBe('/finished');
+  });
+
+  it('refuses a /start whose claimed port is not the page it came from', async () => {
+    const store: Record<string, Any> = {};
+    const worker = bootWorker(store, () => ({ status: 200, json: groupJob }));
+    const claims = [
+      [{ port: 9999 }, startSender],
+      [{ port: 4567 }, { url: 'http://127.0.0.1:4567/other', tab: { id: 7 } }],
+      [{ port: 4567 }, { url: 'http://localhost:4567/start', tab: { id: 7 } }],
+      [{ port: 4567 }, { url: 'http://127.0.0.1:4567/startx', tab: { id: 7 } }],
+    ];
+    for (const [claim, sender] of claims)
+      expect(await worker.send({ type: 'llfb-start', token: TOKEN, ...claim }, sender)).toEqual({
+        ok: false,
+      });
+    expect(worker.calls).toEqual([]);
+    expect(store.llfb).toBeUndefined();
+  });
+
+  it('only talks to the /start port, never follows a redirect, and refuses non-group job urls', async () => {
+    const bad = [
+      'https://www.facebook.com/groups/',
+      'https://www.facebook.com/groups/../settings',
+      'https://www.facebook.com/groupsx/1',
+      'https://www.facebook.com.evil.example/groups/1',
+      'https://evil.example/https://www.facebook.com/groups/1',
+      'http://www.facebook.com/groups/1',
+      'https://www.facebook.com/groups/1#x',
+    ];
+    for (const url of bad) {
+      const store: Record<string, Any> = {};
+      let served = false;
+      const worker = bootWorker(store, (call) => {
+        if (call.path === '/next') {
+          const job = served ? { done: true } : { ...groupJob, url };
+          served = true;
+          return { status: 200, json: job };
+        }
+        return { status: 200, json: { ok: true } };
+      });
+      await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
+      await worker.settle();
+      expect(worker.tabUpdates, url).toEqual([]);
+      const posted = worker.calls.find((c) => c.path === '/result');
+      expect(posted?.body, url).toMatchObject({ slug: 'group-a', status: 'failed' });
+      expect(
+        worker.calls.every(
+          (c) => c.url?.startsWith('http://127.0.0.1:4567/') && c.redirect === 'error',
+        ),
+      ).toBe(true);
+    }
+    for (const url of [
+      'https://www.facebook.com/groups/1',
+      'https://www.facebook.com/groups/taylor.swift_vault-1/',
+      'https://www.facebook.com/groups/1?sorting_setting=CHRONOLOGICAL',
+    ]) {
+      const worker = bootWorker({}, (call) =>
+        call.path === '/next' ? { status: 200, json: { ...groupJob, url } } : { status: 200 },
+      );
+      await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
+      await worker.settle();
+      expect(worker.tabUpdates).toEqual([{ tabId: 7, url }]);
+    }
+  }, 30_000);
+
+  it('acknowledges a re-sent result it already took (worker stopped before answering)', async () => {
+    const store: Record<string, Any> = {};
+    const worker = bootWorker(store, (call) => {
+      if (call.path === '/next')
+        return { status: 200, json: store.llfb?.lastDelivered ? { done: true } : groupJob };
+      return { status: 200, json: { ok: true } };
+    });
+    await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
+    await worker.settle();
+    await worker.send({ type: 'llfb-ready' }, groupSender);
+    const result = { v: 1, slug: 'group-a', status: 'collected', units: [], comments: [] };
+    expect(await worker.send({ type: 'llfb-result', result }, groupSender)).toEqual({ ok: true });
+    expect(await worker.send({ type: 'llfb-result', result }, groupSender)).toEqual({ ok: true });
+    expect(worker.calls.filter((c) => c.path === '/result')).toHaveLength(1);
+    const other = { ...result, slug: 'group-b' };
+    expect(await worker.send({ type: 'llfb-result', result: other }, groupSender)).toEqual({
+      ok: false,
+    });
   });
 });

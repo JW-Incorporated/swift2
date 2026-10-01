@@ -44,3 +44,9 @@ restarts.
 - `reactions` / `commentCount` per post are best-effort label matches (`null` when unknown).
 - A service-worker restart is harmless (state is in session storage); a full page reload mid-group
   restarts that group's scroll, with the wall budget still counted from the first start.
+- `chrome.storage.session` holds at most 10 MiB, so a large result (full post HTML + comments) is
+  not persisted: the background posts it from memory and the group page re-sends it until it is
+  acknowledged. If the receiver is unreachable after retries, a `chrome.alarms` wake-up (every
+  minute) resumes the persisted step.
+- Accepted residual: any local process can serve its own `/start#<token>` page and drive a run;
+  such a process already has the Chrome profile, so this extension adds no new exposure.
