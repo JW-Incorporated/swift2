@@ -62,8 +62,23 @@ jobs:
       timeout_minutes: 25
       max_turns: 40
       max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
+      post_run_artifact: marjorie-triage-out
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+  # bot1 bridge (bots-v2 C5): sends any `.scratch/out/bot1-prompt-N.md` the run
+  # saved, through the shared bridge workflow (ops environment, main-only, a
+  # green no-op while `bot1Bridge.enabled` is false in marjorie-config.json).
+  # The Sunday weekly review is the backstop for anything this misses.
+  bot1:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/marjorie-bot1-bridge.yml
+    with:
+      artifact: marjorie-triage-out
+    permissions:
+      contents: read
+      issues: write
 
   # Reads the `pending` founder-handoff marker comments `run` left on
   # `founder-decision` issues and posts each one's message text to Discord,

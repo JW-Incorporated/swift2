@@ -7,6 +7,59 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-30 — Growth-first mandate for Marjorie, a weekly Fable review, and a bounded bot1 bridge
+
+**Decision (owner, 2026-09-30, via the Bots v2 brief; program calls C2 and C5
+in `docs/plans/bots-v2/PLAN.md`):**
+
+1. **Growth is priority #1.** Marjorie manages the business to grow the site
+   by giving fans real value; long-term revenue comes from the fashion section
+   once traffic is significant. Her charter mission (`docs/agents/marjorie.md`)
+   is rewritten accordingly; "the site runs and the user experience improves"
+   (epic #4180, 2026-09-12) becomes the floor, not the goal.
+2. **A weekly Fable review** (`routine-marjorie-weekly-review.yml`, Sundays,
+   before Tree's Monday plan) answers six questions — growth, content quality,
+   social strategy, time-sensitive coverage, money, Tree's asks — from
+   deterministic evidence (`scripts/marjorie/growth-data.mjs`), then opens a
+   `weekly-plan` issue and files work through the existing GitHub funnel
+   (Kevin triages, Austin builds). It files issues itself rather than routing
+   through bot1: bot1 ignores bot/webhook authors today
+   (`DISCORD_ALLOW_BOTS` none) and Hermes cards are invisible to this repo's
+   pipeline, so a bot1 hop would add a dependency and no capability (C2).
+3. **A bounded Marjorie→bot1 bridge** (C5). **This amends the
+   `#longlive` rule** in "Three Discord channels, one job each" (2026-09-12:
+   "No scheduled routine ever posts here unprompted") and the matching
+   charter rule ("Nothing unprompted"). The exception is narrow: a committed
+   flag (`bot1Bridge.enabled`, default **off**) AND a dedicated webhook secret
+   (`DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL`, `ops` environment, never in an agent
+   step) AND at most three prompts per UTC day, each logged on a tracking issue,
+   link previews suppressed (`flags: 4`), worded per
+   `.claude/skills/prompting-bot1/SKILL.md`. Engineering work still goes to
+   GitHub issues, never bot1. The bridge does nothing until Hermes allowlists
+   the webhook's author — a Hermes-session change (cross-project rule l),
+   filed as a human action.
+
+**Why.** The owner's complaint was that Marjorie and Tree were underperforming
+and nobody owned the question "are we growing?". Traffic is currently
+unmeasured (no read-only analytics source exists; `@vercel/analytics` is
+client-only), so the first review reports that honestly and the owner is asked
+to choose a source. Rate-limit state for the bridge lives in the tracking
+issue's own comment log so the counter and the audit trail cannot disagree.
+
+**Alternatives considered.** Route the weekly plan through bot1 (rejected, C2).
+Leave `#longlive` fully closed to Marjorie (rejected — she then cannot unblock
+Hermes-side work). A committed ledger for the rate limit (rejected — an Action
+cannot push to branch-protected `main`).
+
+**Reversal.** Set `bot1Bridge.enabled` back to `false`, or delete the secret.
+Everything else is a `git revert`.
+
+**Approved by:** the growth-first mandate is the owner's (2026-09-30). The
+review design and the bridge (C2, C5) are reversible program calls made under
+his delegation; the bridge stays off until the owner turns it on.
+
+---
+
 ## 2026-09-30 — One short Discord approval per post: ✅ approves the pair, any reply rejects it (Bots v2 W2; amends RULINGS-SOCIAL-2 rejection semantics and the 2026-08-26 "no single-platform exception" ruling)
 
 **Decision (Joey, direct instruction, 2026-09-30):** the social approval posts
@@ -8025,3 +8078,19 @@ than shipping one.
 with base64 secrets (puts signing material in a second secret store and
 keeps the runner's fingerprint in play); keeping manual `eas build` +
 manual Play upload (the failure mode this replaces).
+
+## 2026-09-30 — Facebook export collects via a Chrome extension, not CDP
+
+Facebook stunts the feed (about 3 slots, never infinite) for any
+CDP-controlled Chrome, including plain Chrome with a debugging port, while the
+same profile in a normal browser loads fine. The weekly export therefore uses
+a content-script extension loaded unpacked in the dedicated profile; Chrome is
+started with no `--remote-debugging-port`, and the extension talks only to a
+local receiver on `127.0.0.1` with a per-run random token, from its background
+worker. **Removed:** the Puppeteer collector (`fb-export-browser.mjs`,
+`fb-export-collect.mjs`, `fb-export-profile.mjs`), the DPAPI login and the
+`--probe-profile` path. New stop status `stunted` halts the run like a
+checkpoint. **Comments** are collected but private and local (per #4649): stored
+only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
+**Trade-off:** the extension must be loaded by hand once (Chrome 137+ ignores
+`--load-extension`) and the profile must stay logged in.
