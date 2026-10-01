@@ -6,7 +6,9 @@
     "perSubDailyDeliveryCap": 3,
     "feedLimit": 25,
     "feedRequestsPerRun": 6,
-    "pacingMs": 6000
+    "pacingMs": 6000,
+    "authedRequestsPerRun": 40,
+    "authedPacingMs": 700
   },
   "excluded": [
     {
