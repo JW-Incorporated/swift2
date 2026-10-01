@@ -37,11 +37,11 @@ retired, not deleted.
 
 - **Status:** active
 - **First seen:** 2026-09-21 (PR #4471)
-- **Times fired:** 4
-- **Last fired:** 2026-09-28 (PR #4556)
-- **Evidence:** [#4471 ❌](https://github.com/JW-Incorporated/swift2/pull/4471), [#4513 ❌](https://github.com/JW-Incorporated/swift2/pull/4513), [#4544 ❌](https://github.com/JW-Incorporated/swift2/pull/4544), [#4556 ❌](https://github.com/JW-Incorporated/swift2/pull/4556)
+- **Times fired:** 6
+- **Last fired:** 2026-09-30 (PR #4574)
+- **Evidence:** [#4471 ❌](https://github.com/JW-Incorporated/swift2/pull/4471), [#4513 ❌](https://github.com/JW-Incorporated/swift2/pull/4513), [#4544 ❌](https://github.com/JW-Incorporated/swift2/pull/4544), [#4556 ❌](https://github.com/JW-Incorporated/swift2/pull/4556), [#4565 ❌](https://github.com/JW-Incorporated/swift2/pull/4565), [#4574 ❌](https://github.com/JW-Incorporated/swift2/pull/4574)
 - **Codify:** #4601
 
 **You said:** "The reason for all the "no's" on all of these posts is teh same: Re-used picture. All re-used pictures will be rejected. We need new pictures."
 
-**So I:** Never ship a `photoId` that already appears in `social/posted/` or `social/queue/`. Before writing any `mediaKind: "photo"` item, build the set of every `photoId` that has ever shipped or is already queued and treat it as **ineligible**, not merely deprioritised — this is stricter than the 7-day window this rule first carried, because the founder has now rejected on it four times and the last time in absolute terms. Pick a never-used entry from `social/photo-library.json` (`npm run social:select-photo` per ITEM, not per beat), never put the same `photoId` on both halves of an IG/X pair, and when no unused entry is left drop the X sibling to text-only (strategy §2 rung 3) and leave the Instagram slot empty rather than repeating a tile. Name the repeat you avoided in the item's `why`.
+**So I:** Never ship a `photoId` that already appears in `social/posted/`, `social/queue/` or an open draft PR — except the one sanctioned repeat: the IG and X halves of the SAME campaign carry the SAME photo (one pair, one image, because the owner approves the pair as one post — docs/decisions.md 2026-09-30), so the earlier "never put the same `photoId` on both halves" clause is withdrawn. You do not hunt for a photo: the daily pre-compute (`.scratch/tree-inputs.json`) hands each beat a never-used, Instagram-sized pick (a photo outside Instagram's 0.8–1.91 aspect window can never ship, so it is never offered), and `check-drafts.mjs` now fails a repeat across campaigns. When no pick is left for a beat (or its era), defer the beat and say so in the PR body — never repeat a tile, never drop X to text-only to dodge this rule, never take an off-era photo. Name the photo choice in the item's `why`.

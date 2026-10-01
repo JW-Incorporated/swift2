@@ -12,6 +12,16 @@
 # SOCIAL_POSTER_PAT (main is branch-protected; the built-in GITHUB_TOKEN
 # cannot trigger this repo's required `build` check on its own PRs — same
 # reason growth-snapshot.yml / appearance-discovery.yml use the PAT).
+#
+# Bots v2 W8 (docs/decisions.md 2026-09-30): three plain jobs now bracket the
+# agent so its 50 turns go to writing, not searching. `prepare` retires stale
+# unapproved draft PRs (scripts/social/retire-stale-drafts.mjs — nothing else
+# ever closes an unmerged draft) and runs the deterministic pre-compute
+# (scripts/social/prepare-draft-inputs.mjs: today's calendar slots, what is
+# already drafted incl. open PRs, the never-used photo per slot, active rules,
+# recent rejections, uncovered events) into .scratch/tree-inputs.json, handed
+# to the agent as an artifact. `receipt` turns a failed/capped run into a run
+# summary plus one deduped desk:tree issue instead of a silent red run.
 name: routine-tree-daily-draft
 
 on:
@@ -26,7 +36,46 @@ permissions:
   issues: write
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: write # closes stale social-draft PRs with a `retired:` comment
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install workspace packages (event-status.mjs needs them; the agent job never installs)
+        continue-on-error: true
+        run: npm ci --silent
+      - name: Retire stale unapproved drafts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/social/retire-stale-drafts.mjs --apply || echo "::warning::stale-draft sweep failed; the run continues"
+      - name: Pre-compute today's inputs (read-only; a failure degrades to an error stub)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          node scripts/social/prepare-draft-inputs.mjs --out .scratch/tree-inputs.json || true
+          if [ ! -s .scratch/tree-inputs.json ]; then
+            mkdir -p .scratch
+            echo '{"v":1,"error":"prepare-draft-inputs.mjs failed; see the prepare job log — fall back to reading the repo yourself"}' > .scratch/tree-inputs.json
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tree-inputs
+          path: .scratch/tree-inputs.json
+          retention-days: 1
+
   run:
+    needs: prepare
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Tree — daily social draft"
@@ -34,8 +83,36 @@ jobs:
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
       timeout_minutes: 30
-      max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07)
+      max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07); kept at 50 — W8 bounds the work instead of raising the cap
       checkout_token_secret: SOCIAL_POSTER_PAT
+      pre_run_artifact: tree-inputs
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  receipt:
+    needs: [prepare, run]
+    if: always() && (needs.run.result == 'failure' || needs.run.result == 'cancelled')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Fetch the pre-compute and the usage telemetry (same run; either may be absent)
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          path: .scratch/receipt
+      - name: Write the failure receipt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_RESULT: ${{ needs.run.result }}
+        run: node scripts/social/draft-receipt.mjs --kind daily --result "$RUN_RESULT" --run-url "$RUN_URL" --inputs .scratch/receipt/tree-inputs/tree-inputs.json --usage .scratch/receipt/routine-usage/routine-usage.json --file-issue

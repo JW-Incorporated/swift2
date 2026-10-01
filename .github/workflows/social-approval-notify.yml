@@ -234,7 +234,9 @@ jobs:
       # here (loud in the Action log/step summary), not auto-filed anywhere
       # — the drafting routine's own read of rejected PRs (tree-daily-draft.md)
       # is the consumer that matters; this is a human-visible backstop for
-      # when even that silent-close case happens.
+      # when even that silent-close case happens. A `retired:` comment (the
+      # stale-draft sweep, scripts/social/retire-stale-drafts.mjs) is an
+      # explained housekeeping close, not a silent one.
       - name: Flag social-draft PRs closed unmerged with no reject reason
         if: always()
         env:
@@ -248,7 +250,7 @@ jobs:
           printf '%s\n' "$CLOSED" | jq -c '.' | while IFS= read -r pr; do
             NUM=$(echo "$pr" | jq -r '.number')
             URL=$(echo "$pr" | jq -r '.url')
-            HAS_REASON=$(echo "$pr" | jq -r '[.comments[]?.body // "" | select(startswith("reject:"))] | length > 0')
+            HAS_REASON=$(echo "$pr" | jq -r '[.comments[]?.body // "" | select(startswith("reject:") or startswith("retired:"))] | length > 0')
             if [ "$HAS_REASON" != "true" ]; then
               echo "::warning title=social-draft closed without a reason::PR #$NUM ($URL) was closed unmerged with no 'reject:' comment — the drafter cannot learn from this."
             fi

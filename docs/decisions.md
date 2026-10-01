@@ -7,6 +7,110 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-30 — Tree's drafter un-stuck: one pair, one never-used Instagram-sized photo; pre-compute before the model; same-day event drafts; stale drafts retired (Bots v2 W8; amends lesson L001)
+
+**Why.** Tree posted nothing from 2026-09-22 (0 posts the week of 09-28, 18
+the week before) while six daily drafts sat unapproved and the 09-30 daily run
+died at its turn cap ($8.55, no PR). Diagnosis, from the repo and the open PRs
+(not the agent transcript, which the run log does not keep):
+
+1. **L001 contradicted the rules around it.** L001 said never put one photo on
+   both halves of a pair and, when none is left, drop X to text-only. The pair
+   rule (C4, 2026-09-30) says both halves share one image, and `check-drafts`
+   fails an X item without media. No valid draft existed.
+2. **The photo selector could not see the drafts that mattered.**
+   `select-photo.mjs` ranks by `social/posted/` alone and breaks ties by id, so
+   a draft waiting in an open PR was invisible and every day returned the SAME
+   photo: the six open PRs hold `fearless-inglewood-2023` x3 and
+   `reputation-inglewood-2023` x2 — exactly the "re-used picture" the owner
+   rejected eight times.
+3. **Most of the "never-used" inventory could never ship.** Instagram rejects
+   images outside a 0.8–1.91 aspect ratio and every pair needs an Instagram
+   half. 34 of the 54 library photos are outside it (portrait fan photos, wide
+   stage grabs), including the photos the 09-28 calendar assigned by hand for
+   09-29 to 10-09: each failed `check-drafts` on the aspect gate one at a time,
+   which is the turn-burning loop. Only **10** photos were both never-used and
+   Instagram-sized; none for speak-now, red, 1989, reputation, lover, evermore.
+4. **The weekly calendar said "X: text-only"**, which `check-drafts` has failed
+   since 2026-09-10, and the sanctioned "no usable image → X-only" exception
+   (`singlePlatformReason`) still failed the media gate.
+5. **Stale drafts have no retirement.** The poster's 48h rule only reaches
+   items on main; `social-approval-poll` only stamps and merges. #4471, #4513
+   and #4544 are stamped (approved) but unmergeable — the owner's rejection of
+   one half removed that file and left a lone half the pair rule refuses, so
+   `check-drafts` is red forever; #4556 is empty (all four drafts rejected);
+   #4565 and #4574 were never approved. Nothing closes any of them.
+
+**Decision (a reversible call made under CLAUDE.md Decision authority, per the
+Bots v2 W8 brief; none of it touches a posting-path file).**
+
+- **L001, resolved by the smallest coherent rule.** A photo is ineligible once
+  it appears in `social/posted/`, `social/queue/` or an open draft PR — except
+  across the IG and X halves of the SAME campaign, which carry the same photo
+  by design. The "never both halves" clause is withdrawn; "drop X to
+  text-only" is withdrawn (a text-only X item needs its own written
+  `singlePlatformReason`, and is never a way around L001). When no unused,
+  Instagram-sized photo fits a beat or its era, the beat is deferred, not
+  repeated. L001's counters are refreshed from the ledger (6 PRs, last
+  2026-09-30).
+- **L001 is codified** (#4601): `check-drafts` fails a photo already shipped or
+  queued under a different campaign (`lib/photo-reuse.mjs`) and no longer warns
+  about same-campaign siblings. The text-only-X media gate honours the
+  sanctioned `singlePlatformReason`.
+- **Deterministic pre-compute before the model** (`prepare-draft-inputs.mjs`,
+  run by the daily workflow's `prepare` job): today's calendar slots, what is
+  already drafted on main and in open PRs, one never-used Instagram-sized photo
+  per beat (credited before weakly credited, era-tagged photos kept for themed
+  beats), per-era availability, the active rules, the owner's `reject:`
+  reasons, uncovered intake events and the fast-lane inbox, as one JSON file.
+  The prompt now tells the model to read that, skip the 458-line charter and
+  623-line strategy, do the listening scan AFTER the PR and aim for ≤30 tool
+  calls. `max_turns` stays 50 — the work is bounded, not the cap raised. A
+  failed or capped run leaves a receipt (`draft-receipt.mjs`: run summary plus
+  one deduped `desk:tree` issue per day).
+- **Same-day event drafts.** `social-event-dispatch.yml` (every two hours, and
+  straight after `routine-news-triage`) dispatches
+  `routine-tree-event-draft.yml` for an open `intake:` issue from the last 24h
+  that no social item covers and that reads as a time-boxed event (release,
+  premiere, announcement, win) and not a blocklist topic: at most two a day,
+  deduped by a `tree-event-dispatched` label put on BEFORE the dispatch. The
+  event run is a 30-turn, one-pair job (or a one-line decline on the issue); its
+  PR waits for the owner's ✅ like every draft. Back-tested on 40 intake issues
+  from 09-15 to 09-30: 19 would have dispatched (about one a day), including
+  both "Patient Zero" items (#4567, #4587).
+- **Stale drafts.** `retire-stale-drafts.mjs --apply` (the daily workflow's
+  `prepare` job) closes a `social-draft` PR open longer than 48h that is empty,
+  never approved, or approved-but-stranded (every file stamped, newest stamp
+  older than 48h, a check red), with a `retired:` comment — deliberately not
+  `reject:`, so it is not a verdict and the drafter reads no reason into it.
+  `social-approval-notify`'s "closed without a reason" backstop accepts
+  `retired:`. It never merges, stamps or touches a queue file.
+- **W2 review follow-ups.** `groupTargets` and the approval post now apply the
+  strict `social/queue/<name>.json` check to single-file refs; chat-poll fetches
+  (bounded, 5) the parents of owner replies that fall outside the pages read and
+  treats a reply whose parent stays unknown as NOT chat; `ref: reddit · <id>`
+  messages count as poll targets, so owner replies to them are not chat.
+
+**Not decided here (owner).** The inventory itself. After this change the honest
+number is 10 usable photos, enough for about ten days of non-themed beats and
+none for six eras; themed beats defer until photos exist. Two ways to unlock
+more, both the owner's call and both open to #4607's rights question: an
+Instagram-ready 4:5 crop of each unshipped portrait photo (a derivative of an
+unshipped picture — the same picture to a viewer), or more sourcing. This
+change does neither.
+
+**Alternatives considered.** Reusing a photo after N days (rejected: the owner's
+"All re-used pictures will be rejected" is absolute); relaxing the era-tag
+requirement (rejected: an off-era photo is worse than none, 2026-09-10);
+raising `max_turns` to 65 (rejected: the cap was hit because the run searched,
+not because 50 is small); having the poll close stale PRs (the poll is a
+posting-path file under the founder social freeze — the sweep lives in the
+daily workflow instead).
+
+**Approved by:** not yet — reversible by a revert; stated in the PR for the owner.
+
+---
+
 ## 2026-09-30 — Growth-first mandate for Marjorie, a weekly Fable review, and a bounded bot1 bridge
 
 **Decision (owner, 2026-09-30, via the Bots v2 brief; program calls C2 and C5

@@ -90,6 +90,8 @@ import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
+import { checkPhotoReuse } from './lib/photo-reuse.mjs';
+import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -157,13 +159,12 @@ const ACTIVE_LESSON_IDS = (() => {
 })();
 // Instagram rejects a feed image whose aspect ratio (width/height) falls
 // outside ~0.8 (4:5 portrait) to 1.91 (landscape) — API error_subcode
-// 2207009 / code 36003, "the aspect ratio is not supported". X has no such
+// 2207009 / code 36003, "the aspect ratio is not supported". The window lives in
+// lib/photo-dimensions.mjs so the daily pre-compute filters on the same numbers. X has no such
 // limit, so this gate is Instagram-only. Nine days of IG posts (15–23 Aug
 // 2026) died silently on this: eight/nine 780x1688 site screenshots (ratio
 // 0.462) were queued and rejected while nothing inspected image shape
 // (social/calendar.md). 1080x1350 = exactly 0.8 and publishes.
-const IG_MIN_ASPECT_RATIO = 0.8;
-const IG_MAX_ASPECT_RATIO = 1.91;
 
 // X's own length limit — see checkLength/weightedTweetLength below for the
 // full story. HARD_LIMIT is X's real cap; anything past it gets rejected
@@ -586,6 +587,10 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     return findings; // nothing else to check without media
   }
   if (item.platform === 'x' && !item.media?.length) {
+    // Bots v2 W8: "no usable image → X-only" is the sanctioned single-platform case (checkCampaignPair,
+    // owner 2026-09-30) — it could never pass while this gate demanded media too. Only an X item that
+    // carries its OWN written reason is exempt; a paired X item still needs its image.
+    if (isValidSinglePlatformReason(item.singlePlatformReason)) return findings;
     findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
     return findings;
   }
@@ -685,15 +690,18 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
       );
       continue;
     }
-    if (repeatsRecentIgMedia(mediaPath, recentIgPosted, ERA_ART_LOOKBACK)) {
+    const ownCampaign = typeof item.campaign === 'string' && item.campaign.trim() ? item.campaign.trim() : null;
+    // The IG and X halves of ONE campaign share their image by design — only a repeat from another campaign is reuse.
+    const otherCampaignIg = ownCampaign ? recentIgPosted.filter((p) => p.campaign !== ownCampaign) : recentIgPosted;
+    if (repeatsRecentIgMedia(mediaPath, otherCampaignIg, ERA_ART_LOOKBACK)) {
       findings.push(
-        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but reuse remains valid so a finite library cannot deadlock a paired campaign.`,
+        `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but across campaigns it is also a hard finding (photo reuse, L001).`,
       );
     }
     // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
     // posted-window check above until it's too late (PR #2043 review — two
     // queued IG items four days apart shared a screenshot and both passed).
-    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath));
+    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath) && !(ownCampaign && o.data.campaign === ownCampaign));
     if (alsoQueuedIn) {
       findings.push(
         `${WARNING_PREFIX} media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file}; select another credited inventory entry when available, but retain this valid fallback so a finite library cannot deadlock the calendar.`,
@@ -864,6 +872,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkFastLaneDisplacement(target.file, target.data, allQueue),
     ...checkLength(target.data),
     ...(await checkMedia(target.file, target.data, recentIg, allQueue)),
+    ...checkPhotoReuse(target.file, target.data, allQueue, allPosted, [...PHOTO_LIBRARY_BY_ID.values()]),
     ...checkCritique(target.data, { activeLessonIds }),
   ];
 }

@@ -227,6 +227,14 @@ export function groupTargets(refs) {
     // builds a ref): a multi-file ref is trusted only when EVERY token is a
     // strict queue path — one odd token and the whole ref binds nothing.
     if (files.length > 1 && !files.every((f) => QUEUE_REF_FILE_RE.test(f))) continue;
+    // A single-file ref gets the same strict check after the legacy bare
+    // `<name>.json` form is read as `social/queue/<name>.json`: a `/`-bearing or
+    // `..` token must never bind a file the owner was not shown (W2 review LOW).
+    if (files.length === 1 && files[0] !== '*') {
+      const candidate = files[0].includes('/') ? files[0] : `social/queue/${files[0]}`;
+      if (!QUEUE_REF_FILE_RE.test(candidate)) continue;
+      files[0] = candidate;
+    }
     for (const file of files) {
       const key = file === '*' ? '*' : path.posix.join('social', 'queue', path.basename(file));
       if (!targets.has(key)) targets.set(key, []);

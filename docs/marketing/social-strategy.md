@@ -461,6 +461,14 @@ the code is what actually ships and this file is the bug.
 3. **No image at all** (X only — Instagram always requires media). A sharp
    text-only tweet beats a decorative tile every time.
 
+   **Amended 2026-09-30 (Bots v2 W8, `docs/decisions.md`): rung 3 is closed
+   for pair posts.** `check-drafts.mjs` has failed an X item without media
+   since 2026-09-10, and a post is one IG+X pair on ONE image (the owner
+   approves the pair as one Discord message). A text-only X item now needs a
+   written `singlePlatformReason`, like any other single-platform post. When no
+   never-used photo fits the beat, the beat is deferred — never repeated, never
+   dropped to text-only to dodge L001.
+
 **Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed
 and the checker rejects it outright, declared or not — on 2026-08-06 all 17
 posted IG items were era tiles, and the "declared fallback" loophole is how

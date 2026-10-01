@@ -31,12 +31,13 @@ import { postFailure, readDeliveryState } from './lib/chat-delivery.mjs';
 import { DISCORD_API, defaultSleep, discordRequest, reactionUrl, snowflakeMs } from './lib/discord-bot.mjs';
 import {
   ALARM_WORKFLOW, BOTS, CLAIM, CLAIM_WINDOW_MS, CLOCK_LIVE, CLOCK_LIVE_SINCE, DOORBELL_LIVE, FAILED, FAILURE_PREFIX, MAX_PER_CHANNEL, REPLIED, STALE_CLAIM_MS,
-  alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, selectInbox,
+  alarmArgs, createdSince, dispatchArgs, doorbellWatch, findRuns, founderIds, messageTime, missingParents, selectInbox,
 } from './lib/chat-inbox.mjs';
 export { context };
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const MAX_PAGES = 10;
 const RUN_LIMIT = 200;
+const PARENT_FETCH_CAP = 5;
 /**
  * Channel ids by name within the guild. The guild comes from the Tree
  * webhook (a webhook GET needs no auth and names its guild and channel —
@@ -97,6 +98,16 @@ async function readSources({ channelId, activeThreads, token, now, fetchImpl, sl
     sources.push({ channelId, threadId, messages: r.messages });
   }
   return { sources, failed };
+}
+// A founder reply whose parent lies outside the pages read could be a rejection of an
+// old approval post; fetch those parents (bounded) so selectInbox can tell (W8).
+async function fetchParents(sources, { founders, now, token, opts }) {
+  const parents = new Map();
+  for (const { id, where } of missingParents(sources, { founders, now }).slice(0, PARENT_FETCH_CAP)) {
+    const r = await discordRequest('GET', `${DISCORD_API}/channels/${where}/messages/${id}`, token, opts).catch(() => null);
+    if (r?.ok && r.data) parents.set(id, r.data);
+  }
+  return parents;
 }
 export function listRuns(execImpl, repo, workflow, createdAfter) {
   try {
@@ -225,7 +236,9 @@ export async function poll({
     const { sources, failed } = await readSources({ channelId, activeThreads, token, now, ...opts });
     failures += failed;
     // Watching the doorbell skips messages it has, so the cap applies to claims below.
-    const { picked, claimed, empty } = selectInbox(sources, { founders, now, cap: doorbellLive ? Infinity : MAX_PER_CHANNEL });
+    const parents = await fetchParents(sources, { founders, now, token, opts });
+    const { picked, claimed, empty, unresolved } = selectInbox(sources, { founders, now, cap: doorbellLive ? Infinity : MAX_PER_CHANNEL, parents });
+    if (unresolved.length) console.log(`::warning::chat-poll: ${bot}: ${unresolved.length} founder repl${unresolved.length === 1 ? 'y' : 'ies'} to a message that could not be read were left unanswered (cannot rule out a rejection of an approval post)`);
     if (empty.length) {
       failures += 1;
       console.log(`::error::chat-poll: ${bot}: ${empty.length} founder message(s) read with a blank body — the bot likely lacks the Message Content intent`);

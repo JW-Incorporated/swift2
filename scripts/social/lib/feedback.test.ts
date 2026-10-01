@@ -544,6 +544,16 @@ describe('groupTargets — a multi-file ref binds only strict queue paths (findi
   it('a well-formed multi-file ref still fans out', () => {
     expect([...groupTargets([{ message: msg, sha: SHA, file: 'social/queue/a.json,social/queue/b.json' }]).keys()]).toEqual(['social/queue/a.json', 'social/queue/b.json']);
   });
+
+  it('a single-token ref gets the same strict check — traversal, foreign paths and bad names bind nothing', () => {
+    for (const file of ['social/queue/../../etc/x.json', 'other/dir/x.json', 'social/queue/sub/x.json', 'b c.json', 'x.txt', 'https://evil.example/x.json', '../x.json']) {
+      expect([...groupTargets([{ message: msg, sha: SHA, file }]).keys()]).toEqual([]);
+    }
+  });
+
+  it('a single-token ref in the legacy bare form or the full form still binds, header included', () => {
+    expect([...groupTargets([{ message: msg, sha: SHA, file: 'a.json' }, { message: msg, sha: SHA, file: 'social/queue/b.json' }, { message: msg, sha: SHA, file: '*' }]).keys()]).toEqual(['social/queue/a.json', 'social/queue/b.json', '*']);
+  });
 });
 
 describe("classifyTarget kind 'post' — a stale reply cannot override a newer message's ✅ (finding 3)", () => {
