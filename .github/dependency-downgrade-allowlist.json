@@ -288,7 +288,7 @@
       "from": "6.4.0",
       "to": "5.0.1",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -296,7 +296,7 @@
       "from": "6.2.3",
       "to": "5.2.0",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -304,7 +304,7 @@
       "from": "9.0.1",
       "to": "8.0.1",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -312,7 +312,7 @@
       "from": "10.6.0",
       "to": "8.0.0",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -320,7 +320,7 @@
       "from": "8.3.0",
       "to": "4.2.3",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -328,7 +328,7 @@
       "from": "7.2.0",
       "to": "6.0.1",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -336,7 +336,7 @@
       "from": "9.0.2",
       "to": "7.0.0",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -344,7 +344,7 @@
       "from": "8.22.0",
       "to": "8.21.3",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -352,7 +352,7 @@
       "from": "18.2.0",
       "to": "17.7.3",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     },
     {
@@ -360,7 +360,7 @@
       "from": "22.0.0",
       "to": "21.1.1",
       "reason": "Removing the unused puppeteer-core dependency (#4689) drops the only consumer of the newer copy of this transitive package; the highest resolved version falls to the remaining tree.",
-      "approvedBy": "the owner (review required on PR)",
+      "approvedBy": "Joey",
       "date": "2026-10-01"
     }
   ]
