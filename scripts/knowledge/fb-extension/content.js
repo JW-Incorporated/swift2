@@ -286,7 +286,8 @@
       }
     } catch (error) {
       return baseResult(job, 'failed', {
-        message: String(error?.message ?? error).slice(0, 300),
+        // Error class name only: a message could carry DOM-derived (private) text.
+        message: `harvest-threw:${/^[A-Za-z]{1,40}$/.test(error?.name ?? '') ? error.name : 'Error'}`,
         collectedAt: collectedAt(),
       });
     } finally {
