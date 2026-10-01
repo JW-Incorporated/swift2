@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat
 - #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
 - #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
 - #86 · 2026-10-01 · done · SOCIAL_POSTER_PAT can't trigger GitHub Actions — "Joey regenerated swift2-social-poster (Actions: Read and write) and saved SOCIAL_POSTER_PAT 2026-10-01 ~16:00Z; pat-dispatch-health run 36889926352 dispatched run 36889947595 with the PAT" · by chat
