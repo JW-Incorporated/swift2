@@ -155,9 +155,32 @@ Each carries the script output. By code:
 | `BUILD_LAG` | one platform's latest build is >48h older and from a different commit | check the train run for a failed build/submit job (`eas workflow:runs`), fix, re-run |
 | exit 2 | check could not run | usually `EXPO_TOKEN` missing or expired → HUMAN-ACTIONS #48 |
 
-Rolling back JS on both platforms: `eas update:republish --branch production
---group <previous-group-id>` (one command, both platforms). Rolling back a
-store build is a new build from the reverted commit — through the train.
+Rolling back a store build is a new build from the reverted commit — through
+the train. Rolling back JS: see the next section.
+
+## Rolling back an OTA
+
+**When:** a JS-only (OTA) release broke the app and you want the previous
+JS on users' phones without waiting for a new train. This is the only
+sanctioned rollback path — do not run `eas update:republish` by hand.
+
+1. Actions → **Mobile OTA rollback** → Run workflow with `mode=list`. The log
+   prints recent update groups on the `production` branch. One publish is
+   **two groups** (one iOS, one Android); pick the last good group for each.
+2. Run the workflow again with `mode=republish`, `ios_group` and
+   `android_group` both set (optionally `message`). Roll back **both**
+   platforms or parity breaks; the job warns if only one is given and
+   rejects ids that aren't 36-char UUIDs.
+3. What it does: `eas update:republish` re-points `production` at the older
+   group as a **new** update. Installs pick it up on their next launch (the
+   usual two-launch OTA delay).
+
+The workflow shares the `mobile-release` concurrency group with the train, so
+it queues behind a running release instead of racing it.
+
+**Limit:** a fingerprint (native) change cannot be rolled back by OTA — those
+users are on a new store build with a different `runtimeVersion`. Revert the
+commit and ship a new build through the train.
 
 ## Things that would silently break the invariant (don't)
 

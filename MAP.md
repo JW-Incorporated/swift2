@@ -564,6 +564,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/settings-entry.ts` (+ test) | `openSettingsEntry`: onboarding first time, settings after (shared by HomeTopBar and the web bridge) |
 | `apps/mobile/lib/visible-screen.ts` (+ test) | Which overlay App.tsx renders; inbox sits above settings so Settings → Inbox works |
 
+## Mobile OTA rollback (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `.github/workflows/mobile-rollback.yml` | `workflow_dispatch` one-click OTA rollback (`mode=list` / `republish` per-platform groups); shares the `mobile-release` concurrency group |
+| `scripts/mobile/rollback-workflow.test.ts` | YAML invariants for it: dispatch-only, pinned eas-cli, no `inputs.` interpolation in `run:`, serialised with the train |
+
 ## Social reply notifier (2026-10-01)
 
 | File | What it is |

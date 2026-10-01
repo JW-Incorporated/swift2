@@ -181,6 +181,15 @@ device/notification routes answer 503 there because preview has no
 `SUPABASE_SERVICE_ROLE_KEY` — their documented unconfigured path, unchanged
 by any of this.) A `--depth 1` clone was checked separately and fails open.
 
+## Rolling back content
+
+Revert the content PR on `main`; the next publish rebuilds the bundle from the
+reverted seed (`content-publish.yml` plus Vercel's own prebuild). The
+alternative is the owner's Vercel Instant Rollback, which reverts content
+**and** web code to the earlier deployment. There is no content-rollback
+workflow. Mobile JS rollback is separate: `docs/mobile-release.md` "Rolling
+back an OTA".
+
 ## After it's live
 
 - Open the URL — you should see the eras with per-era theming.
