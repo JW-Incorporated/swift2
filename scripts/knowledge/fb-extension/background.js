@@ -261,7 +261,10 @@ async function navigateToJob(state) {
   await scheduleWake();
   if (!state.job.dispatched) {
     try {
-      await chrome.tabs.update(state.tabId, { url: state.job.url });
+      // active:true makes the run's tab the active tab of ITS window (a background tab is
+      // throttled and Facebook's feed won't load — tab-hidden). It never focuses the window or
+      // steals OS focus (no chrome.windows call), and needs no permission beyond "tabs".
+      await chrome.tabs.update(state.tabId, { url: state.job.url, active: true });
     } catch (error) {
       console.warn('[llfb] tabs.update failed', String(error?.message ?? error));
       return retryLater(); // phase stays 'navigate'; the wake alarm re-issues it
@@ -388,6 +391,8 @@ async function onHeartbeat(message, sender) {
     slug: state.job.slug,
     scrolls: message.scrolls,
     slotCount: message.slotCount,
+    hidden: message.hidden === true,
+    hiddenMs: Number.isFinite(message.hiddenMs) ? message.hiddenMs : 0,
   }).catch(() => {});
   return { ok: true };
 }

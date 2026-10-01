@@ -282,6 +282,17 @@ export async function startReceiver({
       case 'stunted':
         return { slug, status: body.status };
       case 'failed':
+        // Tab-hidden (FB-EXTENSION-1): the tab was hidden, not the feed stunted. Per-group
+        // failure, never run-stopping (it is not in STOP_STATUSES); hiddenMs rides along.
+        if (body.message === 'tab-hidden')
+          return {
+            slug,
+            status: 'failed',
+            reason: 'tab-hidden',
+            ...(isNum(body.coverage?.hiddenMs) && body.coverage.hiddenMs >= 0
+              ? { hiddenMs: Math.round(body.coverage.hiddenMs) }
+              : {}),
+          };
         return {
           slug,
           status: 'failed',

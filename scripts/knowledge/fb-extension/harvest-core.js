@@ -18,6 +18,10 @@
   const AGE_STOP_COUNT = 3;
   const STUNTED_SCROLLS = 20;
   const STUNTED_MAX_SLOTS = 3;
+  // FB-EXTENSION-1 tab-hidden: Chrome throttles a hidden tab and Facebook's infinite scroll does
+  // not load in one, so a hidden tab must never read as a stunted feed.
+  const TAB_HIDDEN_MAX_MS = 10 * 60_000; // continuous hidden time → failed{tab-hidden}
+  const HIDDEN_RECENT_MS = 60_000; // stunted with hidden time this recent → failed{tab-hidden}
   const DOCUMENT_POSITION_FOLLOWING = 4; // Node.DOCUMENT_POSITION_FOLLOWING
 
   const MONTHS = new Map(
@@ -849,6 +853,53 @@
     return { ...decision, status: decision.stop ? 'collected' : null };
   }
 
+  // Hidden-time bookkeeping for one group (clock = ms). update(visible) is called on every
+  // visibilitychange and every poll; snapshot() → {hidden, hiddenMs (cumulative), continuousMs
+  // (current hidden stretch), lastHiddenAt (clock of the last hidden moment, null = never),
+  // epoch (number of hidden stretches started)}.
+  function visibilityTracker(clock, visible = true) {
+    let hiddenSince = visible ? null : clock();
+    let doneMs = 0;
+    let lastHiddenAt = visible ? null : hiddenSince;
+    let epoch = visible ? 0 : 1;
+    return {
+      update(isVisible) {
+        const t = clock();
+        if (!isVisible) {
+          if (hiddenSince == null) {
+            hiddenSince = t;
+            epoch += 1;
+          }
+          lastHiddenAt = t;
+        } else if (hiddenSince != null) {
+          doneMs += t - hiddenSince;
+          lastHiddenAt = t;
+          hiddenSince = null;
+        }
+      },
+      snapshot() {
+        const t = clock();
+        const hidden = hiddenSince != null;
+        const continuousMs = hidden ? t - hiddenSince : 0;
+        return {
+          hidden,
+          hiddenMs: doneMs + continuousMs,
+          continuousMs,
+          lastHiddenAt: hidden ? t : lastHiddenAt,
+          epoch,
+        };
+      },
+    };
+  }
+
+  // A stunted verdict is only trusted for a tab that stayed visible: hidden now, or hidden at
+  // any moment in the last HIDDEN_RECENT_MS, turns it into tab-hidden.
+  function hiddenRecently(snapshot, nowMs, windowMs = HIDDEN_RECENT_MS) {
+    if (!snapshot || snapshot.hiddenMs <= 0) return false;
+    if (snapshot.hidden) return true;
+    return snapshot.lastHiddenAt != null && nowMs - snapshot.lastHiddenAt <= windowMs;
+  }
+
   // Units + coverage block for POST /result (schema v1). Only recent units leave the page, and
   // only those whose html survived sanitizing; the rest are counted in coverage.sanitizeDropped.
   // profileVerified is profileCheck's verdict; anything but an explicit true reports false.
@@ -945,6 +996,10 @@
     AGE_STOP_COUNT,
     STUNTED_SCROLLS,
     STUNTED_MAX_SLOTS,
+    TAB_HIDDEN_MAX_MS,
+    HIDDEN_RECENT_MS,
+    visibilityTracker,
+    hiddenRecently,
     relativeAgeMs,
     unitAgeMs,
     trailingOldBoundary,

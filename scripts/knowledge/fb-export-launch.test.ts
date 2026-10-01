@@ -31,6 +31,14 @@ describe('launchPlainChrome', () => {
       expect(args).toContain('--no-first-run');
       expect(args).toContain('http://127.0.0.1:5555/start#tok');
       expect(args.join(' ')).not.toMatch(/remote-debugging|load-extension/);
+      // Tab-hidden: an occluded/background run window must not be throttled.
+      for (const flag of [
+        '--disable-backgrounding-occluded-windows',
+        '--disable-renderer-backgrounding',
+        '--disable-background-timer-throttling',
+      ])
+        expect(args).toContain(flag);
+      expect(args.at(-1)).toBe('http://127.0.0.1:5555/start#tok');
       expect(chrome.pid).toBe(4242);
     } finally {
       await rm(dir, { recursive: true, force: true });

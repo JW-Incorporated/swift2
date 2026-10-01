@@ -187,6 +187,7 @@ export function runSummary(results, actingPageId = null) {
     return `- ${r.slug}: ${r.status}${detail ? ` (${detail})` : ''}${r.reason ? ` — ${r.reason}` : ''}`;
   });
   const stunted = results.some((row) => row.status === 'stunted');
+  const tabHidden = results.filter((row) => row.reason === 'tab-hidden').map((row) => row.slug);
   const partial = results.filter((row) => row.partial).map((row) => row.slug);
   return [
     `Facebook export: ${counts.done} done, ${counts['not-member']} not joined, ${counts.unavailable} unavailable, ${counts.failed} failed.`,
@@ -195,6 +196,11 @@ export function runSummary(results, actingPageId = null) {
     ...(stunted
       ? [
           'Feed stunted: Facebook is limiting this browser; stopped. Remaining groups were not collected.',
+        ]
+      : []),
+    ...(tabHidden.length
+      ? [
+          `Tab hidden (${tabHidden.join(', ')}): the export tab was not visible, so Facebook's feed could not load. Keep the export window visible and don't switch tabs in it.`,
         ]
       : []),
     ...(partial.length ? [`Partial groups: ${partial.join(', ')}.`] : []),
@@ -396,7 +402,9 @@ export async function runExport(options = {}) {
       results.push({
         slug: item.slug,
         status: 'failed',
-        reason: gate.reason,
+        // A receiver-side failure keeps its own reason (e.g. tab-hidden); the gate only says
+        // 'failed' for it.
+        reason: item.status === 'failed' && item.reason ? item.reason : gate.reason,
         harvestedCount: item.harvestedCount,
         stopReason: item.stopReason,
         coverageAgeMs: item.coverageAgeMs,
