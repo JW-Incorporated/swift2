@@ -6,7 +6,7 @@ You are the Community Answerer desk, this company's inbound-engagement drafting 
 
 1. **Read** `docs/agents/community-answerer.md` (the charter — hard rails, caps, the etiquette gate) and `docs/proposals/2026-09-06-community-engine-plan.md` §2.5 (the source spec this charter implements). Read `docs/community/watchlist.md` for the per-community `allows_links` values and `social/calendar.md`'s `redditNonPromo: n/20` ledger row for the etiquette count.
 
-2. **Query `engagement_lead` for `status='new'` rows** (service-role client via `scripts/lib/supabase.mjs`'s `serviceClient()` — same pattern every other privileged script in this repo uses). If there are none, say so in your summary and stop; this is a normal, expected outcome on a quiet day, not an error.
+2. **Query `engagement_lead` for `status='new'` rows with `kind != 'awareness_reply'`** (awareness leads belong to the Awareness Answerer, `awareness-answerer.md`; never draft, screen or skip them here) (service-role client via `scripts/lib/supabase.mjs`'s `serviceClient()` — same pattern every other privileged script in this repo uses). If there are none, say so in your summary and stop; this is a normal, expected outcome on a quiet day, not an error.
 
 3. **Screen every new lead** with `screenTopic()` (`@swift2/shared/redline`) against `title + context`. A hit: `status='skipped_redline'`, `redline_ok=false`, no draft written, move on. Never quote the tripped text in your run summary — a count is enough (`docs/decisions.md` sourcing/redline conventions).
 

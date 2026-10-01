@@ -47,6 +47,68 @@ Done? ✅ Posted · Skip   (or react ✅ posted / ⏭️ skip)
 (The older "one email a day" description below is historical; delivery moved
 to Discord on 2026-09-09.)
 
+### Awareness replies (picture-only replies, 10+ a day)
+
+Owner direction 2026-10-01 (`docs/strategy/growth-strategy.md`, bet 2): find
+Reddit and Facebook threads where a **picture of the site, with no link**,
+invites "what is that?!", then explain once someone asks. The system finds the
+threads, picks the picture, drafts a short reply and posts the lot to the same
+Discord channel under **Tree · Awareness replies**. **You post every reply
+yourself** (guardrail 6); nothing posts automatically.
+
+Three times a day (batches around 14:45, 19:45 and 00:45 UTC) a header reads
+**🎯 Awareness replies — N today** (N counts today's total, including that
+batch), then one message per opportunity:
+
+```
+🎯 Awareness reply · r/<sub> · image comments allowed
+<thread title>  +  <thread link>
+Why: one line on why a picture fits
+Image: attached card (era:folklore). Post it with the reply, no link.
+Sub rule: that sub's self-promo note
+[the reply text, in a code block]
+Done? ✅ Posted · Skip
+```
+
+The card is **attached as a PNG** (not a link). Paste the reply, attach the
+picture, post. No link, no site name in the text: the unexplained picture is
+the hook. If someone asks, that is the moment to talk about the site.
+
+How it works, in three workflows (kill switch: repo variable
+`AWARENESS_LANE_ENABLED=false`; unset means on):
+
+1. `community-awareness-scan` reads `scripts/community/awareness-subs.json`
+   (the subs, a note on each one's self-promo rule, and the caps), scans each
+   sub's hot and new feeds, and keeps titles that fit a picture: era
+   rankings/debates, timeline questions, Easter-egg/theory threads, nostalgia
+   and anniversary threads, news reactions. It skips threads older than 48
+   hours, megathreads, crafts and fan art, redline and personal-life topics
+   (guardrail 4), NSFW subs, and anything already seen. Caps: 2 per sub per
+   run, 4 candidates per sub per day, 8 per run. Recent screened Facebook
+   export leads are adopted as awareness rows too.
+2. `routine-awareness-answerer` writes the words only. A script
+   (`awareness-draft.mjs`) does every read and write: it screens, checks the
+   picture id exists, and rejects a reply with a link, a domain, "check out",
+   an em dash or more than 300 characters.
+3. `community-awareness-deliver` sends at most 7 per batch, 3 per sub per day
+   and 20 per day, image-capable subs first. A sub that cannot take image
+   comments is labelled **text-only sub** and sent last.
+
+**Image comments per sub.** The scan reads each sub's public `about.json`
+(`comment_contribution_settings.allowed_media_types`; `static` means still
+images). Reddit blocks that request from CI and from the build environment
+(HTTP 403, 2026-10-01), so today every sub reads "image comments unverified
+(look for the image icon in the comment box)". To pin a sub, set its
+`imageComments` to `"image"` or `"text_only"` in `awareness-subs.json` once you
+have seen its comment box. A sub marked `verified: false` there was named from
+memory; a missing sub just yields no threads.
+
+**Numbers.** Posted and Skip clicks feed Marjorie's weekly review as
+`awareness: {delivered, posted, skipped, open}` (by delivery week); tell
+Marjorie in `#longlive-marjorie` how many people replied "what is that?".
+Posting an awareness reply does not count toward the 20 non-promo
+contributions the link gate waits for (it is promotion, not a plain contribution).
+
 Expect to spend roughly 10–15 minutes on this most days.
 
 ### Reddit notification intake

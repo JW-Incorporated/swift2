@@ -237,6 +237,7 @@ export async function fetchLeadsToMail(
     )
     .eq('status', 'drafted')
     .not('draft', 'is', null)
+    .neq('kind', 'awareness_reply') // the awareness lane delivers via awareness-deliver.mjs
     .order('created_at', { ascending: true })
     .limit(FETCH_POOL_LIMIT);
   if (mode === 'replies-waiting') query = query.eq('kind', 'reply_to_us');

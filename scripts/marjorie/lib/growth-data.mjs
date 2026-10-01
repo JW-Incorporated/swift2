@@ -126,7 +126,7 @@ export function trafficSection(result) {
   return result ?? { traffic: null, trafficNote: 'Traffic was not collected in this run.' };
 }
 
-export function buildGrowthData({ win, series, posted, postMetrics, content, coverage, treeAsks, eventStatus, trafficResult, warnings = [] }) {
+export function buildGrowthData({ win, series, posted, postMetrics, content, coverage, treeAsks, eventStatus, trafficResult, awareness = null, warnings = [] }) {
   return {
     generatedFor: { start: win.start, end: win.end, days: 7 },
     followers: followerDeltas(series, win),
@@ -137,6 +137,7 @@ export function buildGrowthData({ win, series, posted, postMetrics, content, cov
     timeSensitive: coverage,
     treeAsks,
     eventStatus: eventStatus ?? null,
+    awareness,
     ...trafficSection(trafficResult),
     warnings,
   };
