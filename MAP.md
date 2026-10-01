@@ -567,6 +567,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `docs/mobile-parity.md` | Web↔native parity inventory: every `apps/web` page route, `?mode=`/`?item=`/etc. query surface and `ShellDestination` kind with its native status (`native screen` / `web-only` / `N/A`) |
 | `scripts/mobile/parity-inventory.test.ts` | Fails when a web page route or `ShellDestination` kind has no row in `docs/mobile-parity.md`, or a row's status is invalid |
 
+## Mobile OTA rollback (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `.github/workflows/mobile-rollback.yml` | `workflow_dispatch` one-click OTA rollback (`mode=list` / `republish` per-platform groups); shares the `mobile-release` concurrency group |
+| `scripts/mobile/rollback-workflow.test.ts` | YAML invariants for it: dispatch-only, pinned eas-cli, no `inputs.` interpolation in `run:`, serialised with the train |
+
 ## Social reply notifier (2026-10-01)
 
 | File | What it is |
