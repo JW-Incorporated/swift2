@@ -10,3 +10,4 @@ export * from './schema';
 export * from './cache';
 export * from './load';
 export * from './compat';
+export * from './forward-compat';

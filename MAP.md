@@ -575,3 +575,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `scripts/social/reply-ledger.sh` | `fetch`/`push` of `reply-ledger.json` on the dedicated `social-reply-ledger` branch (plumbing only; creates the branch before anything is sent) |
 | `.github/workflows/social-reply-notifier.yml` | Every 30 min (`:13/:43`), <= 30 Graph calls per run, `environment: social`, `contents: write` only; kill switch `REPLY_NOTIFIER_ENABLED=false`. See `docs/social/pipeline.md` › Reply notifier |
 | `scripts/social/reply-notifier.test.ts`, `reply-dms.test.ts`, `social-reply-notifier-workflow.test.ts` | Mocked-Graph tests (pagination, dedupe, first-run seeding, injection, per-source failure, DM scope) + workflow invariants |
+
+## Content loader forward compatibility (2026-10-01)
+
+| File | What it is |
+|---|---|
+| `packages/content/src/forward-compat.ts` (+ test) | `pruneUnknownEnumValues`: drops unknown enum/literal values (array element, nearest enclosing array element, or whole file) for `loadBundle({ unknownEnumPolicy: 'drop' })`; any other zod issue stays a failure. Policy: `docs/decisions.md` 2026-10-01 |

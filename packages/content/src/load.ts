@@ -30,6 +30,11 @@
  * support likewise always throws `SchemaVersionMismatchError` — never
  * silently falls back.
  *
+ * That is the default, and what build-time callers want. Installed apps opt
+ * out with `unknownEnumPolicy: 'drop'` and `dataErrorFallback: 'last-good'`
+ * (docs/decisions.md 2026-10-01): a bundle published after the app's JS must
+ * degrade, not blank the app.
+ *
  * The manifest/etag/files/last-good cache entries are only written once the
  * *entire* bundle (every listed file) has been fetched and validated, all in
  * one batch — so a later run never finds a manifest+etag cached without a
@@ -41,6 +46,7 @@ import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
 import { MemoryStorageAdapter, type StorageAdapter } from './cache';
 import { createHash } from './hash';
 import { assertSchemaVersionSupported, CURRENT_SCHEMA_VERSION } from './compat';
+import { pruneUnknownEnumValues } from './forward-compat';
 
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
@@ -71,19 +77,38 @@ export interface LoadBundleOptions {
   storage?: StorageAdapter;
   /** Schema version this loader build supports. Defaults to `SUPPORTED_SCHEMA_VERSION`; override only in tests. */
   schemaVersion?: number;
+  /**
+   * `'reject'` (default): an unknown enum value or manifest entry fails the load.
+   * `'drop'` (installed apps): unknown enum values are pruned via
+   * `pruneUnknownEnumValues` and manifest entries with no schema in this build
+   * are skipped; both are listed on `skipped`. See docs/decisions.md 2026-10-01.
+   */
+  unknownEnumPolicy?: 'reject' | 'drop';
+  /**
+   * `'throw'` (default): a data error always throws. `'last-good'`: a data
+   * error (see `isDataError`) serves the cached last-good bundle with
+   * `source: 'last-good-after-data-error'` and the error on `dataError`;
+   * still throws when nothing is cached.
+   */
+  dataErrorFallback?: 'throw' | 'last-good';
 }
 
 export type BundleFiles = Record<string, unknown>;
 
-export type LoadSource = 'network' | 'cache-etag' | 'offline-last-good';
+export type LoadSource =
+  'network' | 'cache-etag' | 'offline-last-good' | 'last-good-after-data-error';
 
 export interface LoadedBundle {
   manifest: Manifest;
   /** Manifest entry name -> the file's content, already zod-validated. */
   files: BundleFiles;
   source: LoadSource;
-  /** True when this bundle was served from the last-good offline cache because the transport (network/server) was unreachable, not because it was freshly confirmed current. */
+  /** True when this bundle was served from the last-good cache (transport failure, or a data error under `dataErrorFallback: 'last-good'`), not freshly confirmed current. */
   stale: boolean;
+  /** The data error that made this load fall back (`source: 'last-good-after-data-error'` only). */
+  dataError?: Error;
+  /** Manifest entries left out under `unknownEnumPolicy: 'drop'` (no schema in this build, or the whole file held an unknown value). */
+  skipped?: string[];
 }
 
 export class BundleLoadError extends Error {
@@ -141,10 +166,14 @@ class TransportError extends Error {
   }
 }
 
-/** Same manifest-entry-name -> schema mapping the OS-010 fixture test uses (`content:<eraId>` prefix -> the per-era content file schema; everything else keyed directly into `contentBundleSchemas`). */
-function schemaForManifestEntry(name: string): z.ZodTypeAny {
+/** Same manifest-entry-name -> schema mapping the OS-010 fixture test uses (`content:<eraId>` prefix -> the per-era content file schema; everything else keyed directly into `contentBundleSchemas`). Undefined when this build has no schema for `name`. */
+function lookupSchema(name: string): z.ZodTypeAny | undefined {
   if (name.startsWith('content:')) return contentBundleSchemas.content;
-  const schema = (contentBundleSchemas as Record<string, z.ZodTypeAny>)[name];
+  return (contentBundleSchemas as Record<string, z.ZodTypeAny>)[name];
+}
+
+function schemaForManifestEntry(name: string): z.ZodTypeAny {
+  const schema = lookupSchema(name);
   if (!schema) {
     throw new BundleLoadError(
       `No schema mapped for manifest entry "${name}" — update schemaForManifestEntry() in load.ts.`,
@@ -205,15 +234,46 @@ async function readJson<T>(res: FetchResponseLike): Promise<T> {
   return JSON.parse(text) as T;
 }
 
+/** A problem in data the server actually returned (never a transport failure) — the only errors `dataErrorFallback: 'last-good'` may absorb. */
+export function isDataError(err: unknown): err is Error {
+  return (
+    err instanceof SchemaVersionMismatchError ||
+    err instanceof BundleIntegrityError ||
+    err instanceof SyntaxError ||
+    err instanceof z.ZodError
+  );
+}
+
 /**
  * Load the content bundle, validating everything against `schema.ts` before
  * returning it. See module doc for the full flow and fallback behavior.
  */
 export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBundle> {
+  try {
+    return await loadBundleStrict(options);
+  } catch (err) {
+    if (options.dataErrorFallback !== 'last-good' || !isDataError(err)) throw err;
+    const lastGood = await fetchLastGoodBundle(
+      options.storage ?? new MemoryStorageAdapter(),
+      options.baseUrl,
+    );
+    if (!lastGood) throw err;
+    return {
+      manifest: lastGood.manifest,
+      files: lastGood.files,
+      source: 'last-good-after-data-error',
+      stale: true,
+      dataError: err,
+    };
+  }
+}
+
+async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
   const { baseUrl } = options;
   const fetchImpl = options.fetch ?? (globalThis.fetch as unknown as FetchLike | undefined);
   const storage = options.storage ?? new MemoryStorageAdapter();
   const schemaVersion = options.schemaVersion ?? SUPPORTED_SCHEMA_VERSION;
+  const dropUnknown = options.unknownEnumPolicy === 'drop';
 
   if (!fetchImpl) {
     throw new BundleLoadError(
@@ -314,8 +374,15 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
   }
 
   const files: BundleFiles = {};
+  const skipped: string[] = [];
+  let pruned = false;
   try {
     for (const [name, entry] of Object.entries(manifest.files)) {
+      if (dropUnknown && !lookupSchema(name)) {
+        // A catalogue added after this build; nothing here could read it.
+        skipped.push(name);
+        continue;
+      }
       const fileRes = await transportFetch(
         fetchImpl,
         joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
@@ -337,13 +404,26 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
       }
       const schema = schemaForManifestEntry(name);
       const parsed = schema.safeParse(JSON.parse(text));
-      if (!parsed.success) {
+      if (parsed.success) {
+        files[name] = parsed.data;
+        continue;
+      }
+      if (!dropUnknown) {
         throw new BundleIntegrityError(
           name,
           `schema validation failed: ${JSON.stringify(parsed.error.issues)}`,
         );
       }
-      files[name] = parsed.data;
+      const result = pruneUnknownEnumValues(schema, JSON.parse(text));
+      if (result.kind === 'invalid') {
+        throw new BundleIntegrityError(
+          name,
+          `schema validation failed: ${JSON.stringify(result.issues)}`,
+        );
+      }
+      pruned = true;
+      if (result.kind === 'drop-file') skipped.push(name);
+      else files[name] = result.data;
     }
   } catch (err) {
     return fallbackOrRethrow(
@@ -356,9 +436,18 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
   // and validated together — persist the cache atomically, so a future 304
   // can never find a manifest+etag on disk without its matching files.
   await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
-  if (manifestEtagToStore) await storeSet(storage, etagKey, manifestEtagToStore);
+  // A pruned load never stores the ETag: once a newer build (that knows the
+  // new values) is running, a 304 must not keep serving the pruned files.
+  const partial = pruned || skipped.length > 0;
+  if (manifestEtagToStore && !partial) await storeSet(storage, etagKey, manifestEtagToStore);
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
 
-  return { manifest, files, source: 'network', stale: false };
+  return {
+    manifest,
+    files,
+    source: 'network',
+    stale: false,
+    ...(skipped.length ? { skipped } : {}),
+  };
 }
