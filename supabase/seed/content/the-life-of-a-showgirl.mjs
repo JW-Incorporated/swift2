@@ -14740,6 +14740,97 @@ export default {
       },
     },
     {
+      // Authored by the Vault Run Content Shift lane, 2026-10-01 (intake #4567).
+      // Distinct from 'patient-zero-single-announced' (the Sept. 22-23 reveal)
+      // and 'patient-zero-released-spotify-records' (the Sept. 25 song release,
+      // which flagged this full video as "still to come") — this is the video's
+      // actual VMAs premiere and YouTube debut, with facts those entries do not
+      // carry: the Lubezki cinematography, the Farrell/Johnson/Delevingne/
+      // Stafford cast, and the ghost storyline.
+      slug: 'patient-zero-music-video-vmas-premiere',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      significance: 'notable',
+      title:
+        'The "Patient Zero" video premieres at the VMAs — self-directed, shot by Lubezki, haunting Colin Farrell and Dakota Johnson',
+      snippet:
+        'The music video for "Patient Zero" — directed by Taylor, shot by Oscar-winning cinematographer Emmanuel Lubezki, and starring Colin Farrell and Dakota Johnson with Taylor as a ghost — had its world premiere at the 2026 MTV VMAs on Sept. 27 and reached YouTube two days later.',
+      sourceUrl: 'https://www.youtube.com/watch?v=mw3kSNIxjqo',
+      thumbnailUrl: null,
+      moment: {
+        // No `video` field on purpose (same reasoning as the sibling
+        // 'patient-zero-released-spotify-records' entry, issue #4134): a
+        // seed-only lane cannot move the video-affordance real-vault counts
+        // (video-affordance.test.ts asserts exactly 19 video-carrying moments
+        // / 11 promoted heroes), so the official MV frame is used here as a
+        // plain credited photo. The watchable player URL is the sourceUrl.
+        context:
+          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.',
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxresdefault.jpg',
+            // 1280x720 maxres thumbnail curl-verified 200 image/jpeg, downloaded
+            // and viewed: a Lubezki-style wide, symmetrical frame inside a glass-
+            // and-concrete modernist home over the ocean, two figures flanking a
+            // classical statue — the official MV hero frame. oEmbed verified:
+            // title "Taylor Swift - Patient Zero (Official Music Video)",
+            // author_url youtube.com/@TaylorSwift.
+            focalPoint: '50% 55%',
+            credit: 'Taylor Swift (official "Patient Zero" music video, YouTube)',
+            caption:
+              'A frame from the official "Patient Zero" music video, directed by Taylor and shot by Emmanuel Lubezki.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Patient_Zero_(song)',
+            source_title: 'Patient Zero (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-10-01',
+            reliability_score: 2,
+            notes:
+              'confirms the video director (Taylor), cinematographer (Emmanuel Lubezki), cast (Colin Farrell, Dakota Johnson; cameos Cara Delevingne, Matthew Stafford), the Sept. 27 VMAs premiere and the Sept. 29 YouTube debut.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-vmas-patient-zero-music-video-premiere-1236876944/',
+            source_title: "Taylor Swift Premieres Star-Filled 'Patient Zero' Music Video at VMAs",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-patient-zero-music-video-1237112373/',
+            source_title: "Taylor Swift's 'Patient Zero' Music Video To Debut At VMAs",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+            notes:
+              "CBS/MTV's official premiere announcement, the self-directed credit, the Lubezki cinematography, and the Farrell/Johnson casting.",
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-1235630867/',
+            source_title: "Taylor Swift's 'Patient Zero' Video to Premiere at the VMAs",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-01',
+            reliability_score: 4,
+            notes:
+              'rollingstone.com is tollbit/bot-gated in the run environment, so the body could not be loaded directly; the premiere, director and cast were confirmed against Wikipedia and the Variety/Deadline coverage that did load.',
+          },
+        ],
+      },
+    },
+    {
       slug: 'oheka-castle-blank-space-auction-2026',
       year: 2026,
       month: 9,
