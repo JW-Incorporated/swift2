@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 83
+
+## AI-generated fashion at the 2026 MTV VMAs causes confusion
+
+- first seen: 2026-10-01 16:22 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The 2026 MTV VMAs showcased fashion looks that went viral, sparking discussions about which appearances were real and which were AI-generated. This has raised questions about identifying authentic celebrity presence at the event.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/z8bxqyc?at_medium=RSS&at_campaign=rss
+
+## Tim Hardaway Critiques NFL's Attention on Taylor Swift
+
+- first seen: 2026-10-01 16:22 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tim Hardaway has voiced his criticism regarding the NFL's emphasis on Taylor Swift in their coverage. The remarks highlight a divergence in focus from traditional sports narratives.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxQSU5RallMdXlEbTlGS0wxbFFYMHc1eWxDWnNZMlhrc0dmSHVCYmF4aXBCZE5aLVlqaG81RzhTVXNpM2gtT1N6ZlRBYXI4Rm5WN2tBZkRKTDdUM3AyZzVlSEFqRnN0VFJqYTI1RktCYjdPWVBLMjFnZVNyd1R2bndqc0l1YjE4ZW5QZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Affected by Fan Backlash on New Songs
+
+- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is said to be taking the negative feedback to her new songs very personally following unexpected backlash from fans.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQMGlnTjlFWWNsVk5zemRKN1oydUlSTWFIcHE0RldEQVlRaU1ZWkZJLTVxcUh0ZjEtUHgtNjA4OVV5S2w1QjIzZ0tJR2huVjcxTmRjMkZGYTFocFhCODlEQ21UXzFsTFYxRVNnbW1Uem8xU3dQX254S1lmUk1yY3JybmtTM1NmMGxuaHFiQmFqVDlBWjN6M0JXdjFQb2hvb2VXMm1jazJkUTE?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Ariana Grande Could Set New Record Shared With Taylor Swift
+
+- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Ariana Grande is on the verge of potentially breaking a record that she currently shares with Taylor Swift. The details surrounding the record and the implications are yet to be disclosed.
+- sources:
+  - [unverified] forbes.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxQSGtWQ0d3VHcwWXZtSWlMT2p5T0w1b1d5a1lxOWZCbUppbUV0bGc0SmlKaktHV0QwUFBsaFMtNDVfTUtCcVZlb25hX1hLazBITVlmZjVlYW55V3NVU1pfaUVRRXNySlRqbFVmMVV3RUhQaEVKdVFPUDFDZkZMNVUzM1UxR3BkNWFoNTFieWtZZGtHWWJxM050c0l2czdtTlNtbHdZUjNYOTdUR1ZXVFpYVFpDLXREZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Faces Backlash Over 'Encore' Music Release
+
+- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A source reveals that Taylor Swift has received negative feedback regarding her recent music project, 'Encore'. This situation may impact her public image and reception among fans.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxPSjhXN2pKblN0ZlIwR19qZG0wRzdnRlZpNkFwS1FqZms1U2R3XzdxVkM0V1Mxd3VvSEMtcjBHb1JLSFVMYTZXekdFczVrNXVCNHBBZGlBSV9XalBPYVl0RzdOM0czclUxOUJROXU4ZER4WHRZdFRfa0JHSW10emdfSUl0ZUZQLTVodUJKT3BreXBaVXpkbXd4dzJB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Oscar Campaign Under Discussion
+
+- first seen: 2026-10-01 16:22 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article titled 'Taylor Swift’s Oscar Campaign: Hiding in Plain Sight' examines the strategies behind her Oscar campaign. The piece provides insights into how Swift is navigating this prestigious awards landscape.
+- sources:
+  - [unverified] The Ankler — https://news.google.com/rss/articles/CBMifkFVX3lxTE9tSkdOQmJkcFlwYVdiSVRjLVRYWFNWMWRtY2kyZDUxX2ZmcE5DTE0xY1FHRXZBTVJPZENvc1RVNVlfbzZGT2dsQU9HMERrdWhPLTY1XzhDNXVfd2pYSkRnR0Z4Vzd6XzlrSVAzMzhCMkRVOWNqZm1JdnlUbFhoZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## MTV VMAs Producer Addresses Comments on Taylor Swift's New Award
 
@@ -70,10 +118,12 @@ Stories: 77
 ## Todd Rundgren Critiques Taylor Swift's Artistic Influence
 
 - first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Musician Todd Rundgren has referred to Taylor Swift as 'the apotheosis of mediocrity' in a recent statement. This comment reflects his views on current music trends and highlights the ongoing discussions about artistry in pop music.
 - sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxQY0Rtek9iLW45ZTVtTEpya1lHY3VNT1hjdEJmZXJNa3I3QVVRVEZTRVRpVTJTOHZFMDdvMlZIMnB4ZjE1aEIyaWxtR2tZc2xWSC1fUTZlNUNWUlJjTjZWdGFIeFFhdjNEZDJHZ0IyM296TEFWRDRsNndhdUVXdWcxSmhR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPQjU0TFJleVJxZnFNSkEyUmJPelltd0RZLWJ2LWxwaTNwMk84ejJnblFjbmxFWVUyaHoyNFVkZ01jRXljZzhqQllaeUVyR2J4MDc3MnhBMFB0SW1VU2xjS3lKQVFBbDcwY0JuUHkyR1JzbTRrZ3JZZmdHYVZONmhTQ3RyUVA1NkZaWXFsak5UNXlkUmxNdG1KR1hJdnNOckxKVFczRTA3d2wzNkpUcnB3?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] USA TODAY 10BEST — https://news.google.com/rss/articles/CBMihgFBVV95cUxQNkZTLUZhM21LRm03ZFpyVlV3blFkNWtVNW9wT19GMEdDZ3VZZ0lKb2hBV1RGdGRjclNfRjlMTHJCSnV5eUswVVFNbG9ZcE9keXc4Zktuak90b216Vy1yZkF5cWY0Wnp1VUJYa2xPS3RIWEJxR3NJSmFmejZoUDFpWDVVSnp5QQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## VMAs Records Set by Madonna and Taylor Swift in 2026
 
@@ -116,14 +166,6 @@ Stories: 77
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/podcasts/100000011183423/is-taylor-swift-in-a-holding-pattern.html
   - [unverified] The New York Times — https://news.google.com/rss/articles/CBMinAFBVV95cUxNdzVJZDltcDJ5dU41emRmNVZhSlVFaXJtd0RmUjhqUzR0dk9xblJmT3Q1VEZ3ZEJidG9HRXZvNFVCdXN3SWR6S0gtbmsyUTMySVZLNE1sSnpKYVJCM3IwdGV0d3NIQl9Oc0xiRWJvS2tlYUtTcXo2TVZxcHZDNWJxZnRHUTZhZ0d3bVAyVlp2eVJMSWVtbEpPNDc3VDY?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Travis Kelce Responds to Taylor Swift's 'Cleveland!' as Fans React
-
-- first seen: 2026-09-30 21:24 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has shared his thoughts on Taylor Swift's recent mention of 'Cleveland!' which has garnered mixed reactions from fans. The situation comes alongside local news regarding privacy measures for Kelce and Swift's home.
-- sources:
-  - [unverified] KBOI — https://news.google.com/rss/articles/CBMiugFBVV95cUxQNklkQ1FOREJ0c1JuZWZ2ZHd5aXE1bVlVbHBJTGR0OUVHdF9ERnp4YjFkelF5SDdtWjN1VTlQTjZ1S05hb1lScUxTN2JLNWFCQ3JtTUlMQV9PczJxLTM2a0NXeFAwanZUaFNZN0cxQWxIMmpOUlZET3pUYzBTOWNjZ0RXemRNRDZrM0dEd2l3V2ZjQ01oWEdZeEZaMWdieVdRbFp3Qm96UW9NdllPVVJRcEZ6UDBVS2YyWlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Fans Speculate About Taylor Swift's Potential Lost Album Linked to 'Karma' Theory
 
 - first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
@@ -147,6 +189,16 @@ Stories: 77
 - summary: The article discusses the temporary nature of girl groups in the pop music scene, illustrating the inevitable challenges they face leading to dissolution. It reflects on the common underestimation of these challenges until they become apparent.
 - sources:
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513117/adelas-american-dreampop/columns/chained-to-the-rhythm/
+
+## Travis Kelce Responds to Taylor Swift's 'Cleveland!' as Fans React
+
+- first seen: 2026-09-30 21:24 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 3
+- summary: Travis Kelce has shared his thoughts on Taylor Swift's recent mention of 'Cleveland!' which has garnered mixed reactions from fans. The situation comes alongside local news regarding privacy measures for Kelce and Swift's home.
+- sources:
+  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMi5AFBVV95cUxNRkdIYTFrSkRmb0RjMVpRSDMzcGpWb3NKd1ZaMExLMnEtWFFZQUF4QWJrRzVFN3IxbTRTTnpQV3d1YVR3ajdBd21LMF95Q3BTYzZQWXpBckx6cGl2S2pJRzhQN0xjS2RZclBPSGFtNG1QelJvSzdFWTZRTUpwVld5ekhYTXFlZnEwdmlFYUk5ZFlpeVVfc2ZQZXYyQjZYZTNTUXloWGhHNGR6cExfNVlSektiS21welJVY084ZmYzMjVwVDlhb1hwRDFoazhTVm5Na3pVQkZVT0pOQjNEbDN0VDl4WDDSAfgBQVVfeXFMUHNKWVVGdGhRbUJlZHd3RlpZRGNIQ050bFVCbFB0WG1KbFRMZTRibzhjTHY2WDBVZDhJOVZBU3ExUGhwMDdHWXlCcUJsVlk3eG5mUXNIVl9Jdmx6YzAyWkgwdGk5WTg2bUx4b2dWMzBta3J2akE0dzA1MHdjSlMyWEFGVm5NbHJ4UVl0ZU9HbWYwd3pUWVZyemJWSDc1R0ttUC1NaHhNbEoxWmtNc2pmQkV4ZFhEN1JHRGpTd1ZfLVBSQldTUU5xbXUxVk5YVkV3d1Q0TERpOTI3MDZQS21xLVcwX2RyNmhBWUpqNjlnNjNIVnZmOTVISXc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KBOI — https://news.google.com/rss/articles/CBMiugFBVV95cUxQNklkQ1FOREJ0c1JuZWZ2ZHd5aXE1bVlVbHBJTGR0OUVHdF9ERnp4YjFkelF5SDdtWjN1VTlQTjZ1S05hb1lScUxTN2JLNWFCQ3JtTUlMQV9PczJxLTM2a0NXeFAwanZUaFNZN0cxQWxIMmpOUlZET3pUYzBTOWNjZ0RXemRNRDZrM0dEd2l3V2ZjQ01oWEdZeEZaMWdieVdRbFp3Qm96UW9NdllPVVJRcEZ6UDBVS2YyWlE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WSET — https://news.google.com/rss/articles/CBMiswFBVV95cUxQOHBFTDd5THhjZzZGbWJObGxVeUE2c0ZPckl0Q0h4TE9pX1Rld3pBRjR3MDVFRkVvX2JoOU1NT1ZZbnFMTHNQMzNIenFZTE00OTNMUWVMOE52bjlfTV9mZnNsamdLSEgteElSaDltU213VlNtaVFZdGF6MFVzTUQ2QnRXQXZMRmJOYkt2a2NWUXF5cXU3TE9HY25aWF9UeGFEOWpYWk9BdlZkemxXMFNEaU9LVQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Holds No. 1 on Top Movie Songs Chart
 
