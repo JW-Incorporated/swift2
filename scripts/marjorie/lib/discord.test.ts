@@ -197,6 +197,16 @@ describe('post()', () => {
   // only a FILTER over mentions already in the text, never an injector.
   // These tests assert the actual outgoing payload, not just the return
   // value, so that regression cannot recur silently.
+  it('suppresses link-preview embeds (flags: 4) on every chunk, first attempt and retry', async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(fakeResponse(200))
+      .mockResolvedValueOnce(fakeResponse(500))
+      .mockResolvedValueOnce(fakeResponse(200));
+    await post('A'.repeat(2500) + ' https://example.com/preview', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl: fakeWait() });
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
+    for (const call of fetchImpl.mock.calls) expect(bodyOf(call).flags).toBe(4);
+  });
+
   it('defaults to allowed_mentions: {parse: []} when mentionUserIds is omitted (no behavior change for existing callers)', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(fakeResponse(200));
     await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl });

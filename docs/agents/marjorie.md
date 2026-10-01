@@ -220,8 +220,22 @@ Five sections, in the skeleton's order:
 
 End with a single link line: `Full detail: journal comment below.`
 
-### Delivery (amended 2026-09-12, epic #4180 — Discord, not email)
+### Delivery (amended 2026-09-12, epic #4180 — Discord, not email; amended 2026-09-30, Bots v2 W4 — status page)
 
+- **Amended 2026-09-30 (Bots v2 W4, `docs/plans/bots-v2/PLAN.md` C1):** the
+  daily brief no longer opens a `Founders' Brief` issue and no longer posts a
+  long Discord message. The founders' artifact is the one pinned issue labeled
+  `status-page`, rewritten by `scripts/marjorie/status-page.mjs` every 3 hours
+  (Needs you · Shipped · Next up · Growth · Tree — deterministic, no LLM).
+  Marjorie's contribution is a ≤12-line **note** written into the page with
+  `scripts/marjorie/status-note.mjs write`; the brief's `deliver` job then
+  posts ONE line to `#longlive-marjorie` (`📋 Status updated — <link>`, link
+  previews suppressed). `done #N` / `decide #N <choice>` comments from the
+  owner on the status issue close human actions (`marjorie-status.yml`); other
+  owner comments are read by the next brief run. Operations:
+  `docs/ops/status-page.md`. Where the bullets below say "brief issue", the
+  durable copy is now the status issue's note, and the reply poller and the
+  `founders-brief` bullets describe the legacy path (old briefs left open).
 - **The brief is delivered to `#longlive-marjorie`** by the brief routine
   itself, at its existing 12:00 UTC cron, through
   `scripts/marjorie/lib/discord.mjs` (a webhook held in the `main`-only

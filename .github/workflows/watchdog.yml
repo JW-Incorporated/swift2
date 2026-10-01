@@ -73,8 +73,8 @@ jobs:
           set -euo pipefail
           TODAY=$(TZ=America/Los_Angeles date +%F)
           TITLE="Founders' Brief — ${TODAY}"
-          FOUND=$(gh issue list --repo "$REPO" --label founders-brief \
-            --search "\"$TITLE\" in:title" --state all --json number --jq 'length')
+          # Bots v2 W4: the brief is now Marjorie's dated note on the status page.
+          FOUND=$(node scripts/marjorie/status-note.mjs today)
           echo "today=$TODAY" >> "$GITHUB_OUTPUT"
           if [ "$FOUND" -gt 0 ]; then
             echo "missing=false" >> "$GITHUB_OUTPUT"

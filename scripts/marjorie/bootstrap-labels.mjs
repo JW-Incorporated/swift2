@@ -34,6 +34,7 @@ const DESKS = [
 export const LABELS = [
   ['founder-decision', 'B60205', 'Needs a founder answer — banked into the daily Founders Brief'],
   ['founders-brief', '0E8A16', 'The daily Founders Brief issues (Marjorie)'],
+  ['status-page', '5319E7', 'The one pinned Long Live status page (marjorie-status.yml rewrites its body)'],
   ['watchdog-alert', 'D93F0B', 'A scheduled cadence failed — loud by design'],
   ['intake', '1D76DB', 'Real-world event dropped for content authoring'],
   ['needs-sources', 'FBCA04', 'Intake item stalled on real sourcing'],

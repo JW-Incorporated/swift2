@@ -1,0 +1,103 @@
+# Long Live status page (Bots v2 W4, docs/plans/bots-v2/PLAN.md). One pinned
+# issue labeled `status-page`, body rewritten deterministically (no LLM) by
+# scripts/marjorie/status-page.mjs. Operations: docs/ops/status-page.md.
+#
+# Two jobs, least privilege each:
+#   render  every 3h, on a push to main that touches HUMAN-ACTIONS.md or
+#           social/**, and on demand. Reads the repo + GitHub, writes only the
+#           status issue body. No secrets beyond the workflow token.
+#   reply   an issue_comment on the status issue. This repo is public, so the
+#           job's `if` admits ONLY the owner's own account with OWNER/MEMBER
+#           standing on a status-page issue (never a bot, so the job's own ack
+#           comments cannot loop), and status-reply.mjs re-checks the same.
+#           It closes a human action through a PR opened with SOCIAL_POSTER_PAT
+#           (so required checks run), then re-renders. Free-text owner
+#           comments are not acted on here; Marjorie's morning brief reads them.
+# Checkout is always `main`: nothing a comment or a PR carries is executed.
+name: marjorie-status
+
+on:
+  schedule:
+    - cron: "7 */3 * * *"
+  push:
+    branches: [main]
+    paths:
+      - HUMAN-ACTIONS.md
+      - "social/**"
+  workflow_dispatch: {}
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+jobs:
+  render:
+    if: github.event_name != 'issue_comment' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    concurrency:
+      group: marjorie-status-render
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Rewrite the status issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/marjorie/status-page.mjs --apply
+
+  reply:
+    if: >-
+      github.event_name == 'issue_comment'
+      && github.event.action == 'created'
+      && !github.event.issue.pull_request
+      && github.event.comment.user.login == 'sffan15-sys'
+      && github.event.comment.user.type == 'User'
+      && contains(fromJSON('["OWNER","MEMBER"]'), github.event.comment.author_association)
+      && contains(github.event.issue.labels.*.name, 'status-page')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    concurrency:
+      group: marjorie-status-reply-${{ github.event.comment.id }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Act on the owner's command
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/marjorie/status-reply.mjs
+      # Back on main first: the page must show what main says, so the item
+      # stays open (with a "closing now" PR link) until the PR actually lands.
+      - name: Re-render the page
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          git checkout --force --quiet main
+          node scripts/marjorie/status-page.mjs --apply
