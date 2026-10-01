@@ -104,7 +104,7 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: node scripts/marjorie/chat-post.mjs thread --context .scratch/chat-context.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: steps.thread.outputs.skip != 'true'
         with:
           name: chat-context
@@ -151,7 +151,7 @@ jobs:
           node-version: "24"
       - name: Fetch the reply (absent when the agent was skipped or saved none)
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: chat-reply
           path: .scratch/out
@@ -182,7 +182,7 @@ jobs:
           node-version: "24"
       - name: Fetch the reply summary
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: chat-reply
           path: .scratch/out
