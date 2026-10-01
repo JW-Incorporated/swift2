@@ -169,7 +169,7 @@ export function buildDraftInputs(d) {
 
 /** One-screen summary of the inputs, for the job log and the failure receipt. */
 export function summarizeInputs(inputs) {
-  const beatLine = (b) => `${b.date}: ${b.text === null ? 'no calendar entry' : b.needsDraft ? `needs a pair${b.photo ? ` · photo ${b.photo.photoId}${b.photo.creditWeak ? ' (weak credit)' : ''}` : ' · NO never-used photo left'}` : 'already drafted'}`;
+  const beatLine = (b) => `${b.date}: ${b.text === null ? 'no calendar entry' : b.needsDraft ? `needs a pair${b.photo ? ` · photo ${b.photo.photoId}${b.photo.mediaCredit ? '' : ' (no credit line)'}` : ' · NO never-used photo left'}` : 'already drafted'}`;
   const exhausted = Object.entries(inputs.photos.eras).filter(([, e]) => e.exhausted).map(([era]) => era);
   return [
     `tree-inputs ${inputs.today}: held ${inputs.backlog.heldItems}/${inputs.backlog.skipAt}${inputs.backlog.skipCalendarDrafting ? ' (calendar drafting skipped)' : ''}`,
