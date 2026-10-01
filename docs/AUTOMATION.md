@@ -182,7 +182,7 @@ call a model are separate **manually confirmed** workflows.
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
-| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue; Joey's Windows task performs the deterministic export at Sun 18:00 local (`docs/decisions.md`, 2026-09-30) |
+| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue; Joey's Windows task performs the deterministic export at Sun 23:00 local (`docs/decisions.md`, 2026-09-30) |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The retired Routine Auditor's invariant work is now covered by CI's `npm run check:routines`. |
 
 ### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
@@ -246,10 +246,10 @@ later), and `run-wall-budget` (total wall time, sum of group budgets + 10 min,
 ran out; unfinished groups are marked failed). All of these stop or fail the
 run and leave the weekly issue open. `stunted` applies only to a tab that
 stayed visible: Chrome throttles a hidden tab and Facebook's feed does not
-load in one. **Keep the export window visible and don't switch tabs in it.**
+load in one. **The run is unattended Sundays 23:00-04:00: the PC must stay on and signed in (locking is fine; don't sign out or shut down), allow wake timers, and don't switch tabs in the export window.**
 The launcher passes `--disable-backgrounding-occluded-windows`,
-`--disable-renderer-backgrounding` and `--disable-background-timer-throttling`
-so a covered window keeps working, and the extension makes the run's tab the
+`--disable-renderer-backgrounding`, `--disable-background-timer-throttling`
+and `--disable-features=CalculateNativeWinOcclusion` so a covered window keeps working, and the extension makes the run's tab the
 active tab of its window (it never steals OS focus). While the tab is hidden
 the extension pauses scrolling; scrolls that overlap hidden time count toward
 neither the stunted check nor the scroll cap, and the group's wall budget

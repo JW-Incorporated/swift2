@@ -24,6 +24,8 @@ export const ANTI_THROTTLE_FLAGS = Object.freeze([
   '--disable-backgrounding-occluded-windows',
   '--disable-renderer-backgrounding',
   '--disable-background-timer-throttling',
+  // Windows native occlusion marks a covered, locked or display-off window hidden (run failed tab-hidden), so the unattended overnight run on a locked PC needs it off.
+  '--disable-features=CalculateNativeWinOcclusion',
 ]);
 
 export function plainChromeArgs(profileDir, url) {

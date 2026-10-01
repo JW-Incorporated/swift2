@@ -46,7 +46,7 @@ unlimited fresh images, but you earlier retired text cards from the feed
 ## #88 🔴 [BLOCKING] Finish the weekly Facebook export setup (~5 min)
 <!-- ha filed=2026-09-30 -->
 
-**Why:** The first real run failed at ingest: apps/worker's env file lacks the Supabase keys, so nothing uploads. The task also needs re-registering with the 5 h limit and the extension reloaded. The stored DPAPI Facebook password is no longer used.
+**Why:** The first real run failed at ingest: apps/worker's env file lacks the Supabase keys, so nothing uploads. The task also needs re-registering (Sundays 23:00-04:00, 5 h limit) and the extension reloaded. The PC must stay on and signed in overnight (locking is fine; allow wake timers). The stored DPAPI Facebook password is no longer used.
 **Steps:**
 1. Supabase → Project Settings → API: copy Project URL and service_role key into apps/worker's env file as `SUPABASE_URL=<url>` and `SUPABASE_SERVICE_ROLE_KEY=<key>`. Never paste values in chat.
 2. In the Swift2 folder run `npm run knowledge:fb-schedule`.
@@ -98,7 +98,7 @@ unlimited fresh images, but you earlier retired text cards from the feed
 1. Complete #88 (worker Supabase keys, Sunday task, reload the extension).
 2. Let `npm run knowledge:fb-export` finish once, or run it yourself after a
    successful dry run. Do not solve a checkpoint, 2FA prompt, or CAPTCHA with
-   automation; complete it in the visible browser and rerun.
+   automation; complete it in the browser and rerun. Runs are Sundays 23:00-04:00 unattended.
 3. Confirm the weekly `FB group export due — week of ...` issue closed with a
    comment listing uploaded/not-member counts.
 **Worked if:** the weekly issue is closed, every joined group says `uploaded`,

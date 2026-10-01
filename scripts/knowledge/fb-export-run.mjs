@@ -255,7 +255,7 @@ export function runSummary(results, actingPageId = null) {
       : []),
     ...(tabHidden.length
       ? [
-          `Tab hidden (${tabHidden.join(', ')}): the export tab was not visible, so Facebook's feed could not load. Keep the export window visible and don't switch tabs in it.`,
+          `Tab hidden (${tabHidden.join(', ')}): the export tab was not visible, so Facebook's feed could not load. The run is unattended Sundays 23:00-04:00: keep the PC on and signed in (locking is fine; don't sign out or shut down), allow wake timers, and don't switch tabs in it.`,
         ]
       : []),
     ...(results.some((row) => row.reason === 'chrome-profile-open')
