@@ -99,9 +99,11 @@ export function assignBeatPhotos(beats, ledger) {
   const taken = new Set();
   return beats.map((beat) => {
     const pool = ledger.eligible.filter((entry) => !taken.has(entry.id));
-    const [best] = rankForBeat(pool, beat.hintId);
+    // A hint naming an out-of-window original applies to its IG-ready variant (the original is never drawable).
+    const hintId = beat.hintId ? (pool.find((entry) => entry.id === beat.hintId || entry.variantOf === beat.hintId)?.id ?? beat.hintId) : undefined;
+    const [best] = rankForBeat(pool, hintId);
     if (best) taken.add(best.id);
-    return { date: beat.date, photo: best ? toPick(best, ledger.byId) : null, ...(beat.hintId && best?.id === beat.hintId ? { fromCalendar: true } : {}) };
+    return { date: beat.date, photo: best ? toPick(best, ledger.byId) : null, ...(hintId && best?.id === hintId ? { fromCalendar: true } : {}) };
   });
 }
 

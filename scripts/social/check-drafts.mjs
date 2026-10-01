@@ -91,6 +91,7 @@ import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
+import { samePhotoPaths } from './lib/photo-library.mjs';
 import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -693,7 +694,9 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     const ownCampaign = typeof item.campaign === 'string' && item.campaign.trim() ? item.campaign.trim() : null;
     // The IG and X halves of ONE campaign share their image by design — only a repeat from another campaign is reuse.
     const otherCampaignIg = ownCampaign ? recentIgPosted.filter((p) => p.campaign !== ownCampaign) : recentIgPosted;
-    if (repeatsRecentIgMedia(mediaPath, otherCampaignIg, ERA_ART_LOOKBACK)) {
+    // An Instagram-ready variant and its original are ONE photograph (make-ig-variants.mjs): match either path.
+    const samePhoto = samePhotoPaths(mediaPath, PHOTO_LIBRARY);
+    if (samePhoto.some((p) => repeatsRecentIgMedia(p, otherCampaignIg, ERA_ART_LOOKBACK))) {
       findings.push(
         `${WARNING_PREFIX} media: "${mediaPath}" was used in recent Instagram history; the selector prefers less-used, longer-unseen credited entries first, but across campaigns it is also a hard finding (photo reuse, L001).`,
       );
@@ -701,7 +704,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [])
     // Queue-vs-queue: a SCHEDULED future repeat is invisible to the
     // posted-window check above until it's too late (PR #2043 review — two
     // queued IG items four days apart shared a screenshot and both passed).
-    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).includes(mediaPath) && !(ownCampaign && o.data.campaign === ownCampaign));
+    const alsoQueuedIn = allQueueItems.find((o) => o.file !== file && (o.data.media ?? []).some((m) => samePhoto.includes(m)) && !(ownCampaign && o.data.campaign === ownCampaign));
     if (alsoQueuedIn) {
       findings.push(
         `${WARNING_PREFIX} media: "${mediaPath}" is also scheduled in ${alsoQueuedIn.file}; select another credited inventory entry when available, but retain this valid fallback so a finite library cannot deadlock the calendar.`,

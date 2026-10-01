@@ -136,4 +136,14 @@ describe('Instagram-ready variants (Bots v2 W10) pass the real checker', () => {
     const findings = await checkDraft(target, { allQueue: [target], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
     expect(findings.join('\n')).toMatch(/outside Instagram's accepted/);
   });
+  it('path-based warnings treat original and variant as one photo (recent IG history and queue-vs-queue)', async () => {
+    const { ig, posted } = await pairFromPrecompute();
+    const original = bind('speaknow-inglewood-2023-2');
+    const target = { file: 'a-ig.json', data: { ...ig, ...bind('speaknow-inglewood-2023-2-ig45') } };
+    const otherQueued = { file: 'other.json', data: { ...ig, ...original, campaign: 'mood:other' } };
+    const recent = [{ ...ig, ...original, campaign: 'mood:older', platform: 'instagram' }];
+    const findings = (await checkDraft(target, { allQueue: [target, otherQueued], allPosted: posted, openerContext: [], recentIg: recent, activeLessonIds: ['L001'] })).join('\n');
+    expect(findings).toMatch(/used in recent Instagram history/);
+    expect(findings).toMatch(/also scheduled in other\.json/);
+  });
 });
