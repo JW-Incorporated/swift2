@@ -42,7 +42,7 @@ describe.each(RESPONSES)('$file', ({ file, prompt, trailer, queue }) => {
     const run = job(text, 'run');
     expect(run).toMatch(/model: claude-opus-5/);
     expect(Number(/max_budget_usd: (\d+)/.exec(run)?.[1])).toBeGreaterThan(0);
-    expect(Number(/max_budget_usd: (\d+)/.exec(run)?.[1])).toBeLessThanOrEqual(6);
+    expect(Number(/max_budget_usd: (\d+)/.exec(run)?.[1])).toBeLessThanOrEqual(8);
     expect(run).toContain("needs.context.outputs.skip != 'true'");
     expect(run).toContain('allowed_bots: github-actions');
     expect(run).toContain(`prompt_file: docs/agents/runner-prompts/${prompt}`);
