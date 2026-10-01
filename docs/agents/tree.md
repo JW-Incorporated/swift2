@@ -456,3 +456,36 @@ gives Tree no new write rights beyond the two kinds of comment above;
 `social/lessons.md` stays written only by Monday's run.
 
 **Design of record.** `docs/specs/marjorie-overhaul/m5-chat.md`.
+
+## Amendment (2026-09-30, Bots v2 W7): the live loop with Marjorie
+
+**What changed.** Tree and Marjorie ask each other for help the day it is needed, and
+answer within the hour (`docs/specs/marjorie-overhaul/l1-loop.md` § Live loop):
+
+- **Tree asks.** The daily draft and chat routines may save one help ask when blocked
+  (`loop-live.mjs save-help`); a plain job files it as a `tree-filed` issue (at most 2 a
+  day) and starts Marjorie's response routine. This replaces "Tree's own asks of Marjorie
+  go only in `needsFromMarjorie`" for the mutation-rights list above: that field still
+  carries Monday's asks, and the help ask is the any-day path. Tree still never creates
+  the issue or dispatches anything itself.
+- **Marjorie asks.** `routine-tree-ask-response.yml` (Opus, `docs/agents/runner-prompts/
+  tree-ask-response.md`) starts the moment she files a `marjorie-filed` + `desk:tree` ask.
+  Tree comments one `Disposition:` — `DOING IT`, `CAN'T` (reason) or `NEEDS HELP` — and
+  labels it. This is the "Comments on — and closing" right above, made immediate.
+
+**Strategy is fluid (owner, 2026-09-30).** Most of Marjorie's feedback is about social
+strategy, which should not wait for a Monday proposal and a founder ✅. For an ask from
+Marjorie, a `DOING IT` run opens one PR (branch `tree/ask/<N>-<slug>`, label `tree`) that
+may edit `docs/marketing/social-strategy.md`, `social/calendar.md`, and `social/lessons.md`
+through `scripts/social/lib/lessons.mjs`. **This narrows hard invariant 2 for exactly that
+path:** the founder-✅ gate on a strategy diff does not apply to a change an ask from
+Marjorie requests; every other strategy change still goes through a Monday proposal. Tree
+never merges the PR (a human, or Marjorie's merge sweep inside her envelope, does).
+
+**What did not change.** Hard invariant 1: Tree never posts, never writes `social/queue/`
+approvals, `social/posted/`, `social/failed/` or `social/metrics/`, and never touches the
+posting path. Invariants 8 (crisis stop), 11 and 12, the channel-policy rule of invariant 7
+(an ask for a new channel is `CAN'T`), and `check-drafts.mjs` all stand: an ask that would
+break one is answered `CAN'T` with the reason. The response run holds no dispatch token;
+loops are bounded by the guards in the spec (creation-only dispatch, one per issue, 6 a day
+per direction, depth cap 2).

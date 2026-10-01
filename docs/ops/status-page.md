@@ -119,3 +119,17 @@ exempt from the work-ownership sweep (`EXEMPT` in `scripts/check-work-ownership.
   Shipped list is trimmed first.
 - Journal comments from the brief land on the status issue inside a collapsed
   `<details>` block, one a day.
+
+## Bursts and decisions (Bots v2 W7)
+
+- **No owner comment is dropped.** The `reply` job's concurrency group keeps one pending run,
+  so three comments in a burst used to lose the middle one. The job now sweeps the thread
+  (`scripts/marjorie/lib/status-sweep.mjs`): it handles every owner comment after the newest
+  `<!-- status-ack: ID -->` the workflow wrote, oldest first, and each reply carries its own
+  ack marker. Re-running it finds nothing left to do. A stranger's comment is never handled
+  and a marker from anyone but the workflow is never trusted. If the thread cannot be listed,
+  only the triggering comment is handled.
+- **A decision reaches its tickets.** On `decide #N <choice>` the job comments the decision,
+  with a link to the owner's comment, on every issue or PR the item names
+  (`scripts/marjorie/lib/decision-propagate.mjs`), once each (`<!-- decision-propagated: HA-N
+  -->`). Marjorie's next brief moves the tickets the decision settles.

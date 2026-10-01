@@ -1,8 +1,11 @@
 // CLI for L1 — the Tree/Marjorie loop (docs/specs/marjorie-overhaul/l1-loop.md).
 // Always a `run:` step on the workflow token, never an agent:
 //
-//   node scripts/marjorie/loop-asks.mjs file-tree --plan <calendar.brief.json> --pr <N> --pr-url <url> --out <loop.json>
-//   node scripts/marjorie/loop-asks.mjs file-marjorie --issue <N> --issue-url <url> --body-file <in.md> --out <out.md> [--no-edit]
+//   node scripts/marjorie/loop-asks.mjs file-tree --plan <calendar.brief.json> --pr <N> --pr-url <url> --out <loop.json> [--dispatch]
+//   node scripts/marjorie/loop-asks.mjs file-marjorie --issue <N> --issue-url <url> --body-file <in.md> --out <out.md> [--no-edit] [--dispatch]
+//
+// --dispatch (W7): each NEWLY filed ask also starts the other bot's response
+// routine at once (lib/loop-dispatch.mjs holds the loop guards).
 //
 // A GitHub failure is a ::warning:: and exit 0 — a failed filing must never
 // stop a brief from going out. Only bad usage (or an unreadable input file)
@@ -14,10 +17,11 @@ import {
   REPO, parseTreeAsks, parseMarjorieAsk, fileAsk, rewriteForTreeLine,
   fetchAsksFor, selectAsksFor, renderTreeBriefBlock,
 } from './lib/loop-asks.mjs';
+import { dispatchResponse } from './lib/loop-dispatch.mjs';
 
 const USAGE =
-  'usage: loop-asks.mjs file-tree --plan <json> --pr <N> --pr-url <url> --out <json>\n' +
-  '       loop-asks.mjs file-marjorie --issue <N> --issue-url <url> --body-file <md> --out <md> [--no-edit]';
+  'usage: loop-asks.mjs file-tree --plan <json> --pr <N> --pr-url <url> --out <json> [--dispatch]\n' +
+  '       loop-asks.mjs file-marjorie --issue <N> --issue-url <url> --body-file <md> --out <md> [--no-edit] [--dispatch]';
 
 function warn(message) {
   console.log(`::warning::loop-asks: ${message}`);
@@ -74,6 +78,7 @@ export async function fileTree(flags, { gh = ghRun, now = Date.now() } = {}) {
       const filing = await fileAsk('tree', ask, { sourceNumber: flags.pr, sourceUrl: flags['pr-url'], repo, gh });
       filed.push(filing);
       console.log(`loop-asks: ${filing.created ? 'filed' : 'already filed'} #${filing.number} (Tree → Marjorie)`);
+      if (flags.dispatch && filing.created) await dispatchResponse('to-marjorie', filing.number, { repo, gh, now });
     } catch (err) {
       failed += 1;
       warn(`filing a Tree ask failed: ${err.message}`);
@@ -112,6 +117,7 @@ export async function fileMarjorie(flags, { gh = ghRun, timeoutMs } = {}) {
     try {
       const filing = await fileAsk('marjorie', parsed.ask, { sourceNumber: flags.issue, sourceUrl: flags['issue-url'], repo, gh, timeoutMs });
       console.log(`loop-asks: ${filing.created ? 'filed' : 'already filed'} #${filing.number} (Marjorie → Tree)`);
+      if (flags.dispatch && filing.created) await dispatchResponse('to-tree', filing.number, { repo, gh });
       out = rewriteForTreeLine(body, filing);
       // Written before the brief edit, so a hang there can't lose the number.
       writeAtomic(flags.out, out);

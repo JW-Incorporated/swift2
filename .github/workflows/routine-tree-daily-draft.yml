@@ -36,6 +36,22 @@ jobs:
       timeout_minutes: 30
       max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07)
       checkout_token_secret: SOCIAL_POSTER_PAT
+      post_run_artifact: tree-daily-draft-out
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+
+  # Bots v2 W7: a help ask Tree saved as .scratch/out/for-marjorie-1.json
+  # (tree-daily-draft.md step 9) is filed by a plain job and Marjorie's
+  # response routine starts at once. A green no-op when nothing was saved.
+  help:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/loop-file-asks.yml
+    with:
+      artifact: tree-daily-draft-out
+      side: tree
+    permissions:
+      contents: read
+      issues: write
+      actions: write

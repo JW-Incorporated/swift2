@@ -24,7 +24,7 @@ gh issue list --repo "$GITHUB_REPOSITORY" --label marjorie-filed --label desk:tr
 gh pr list --repo "$GITHUB_REPOSITORY" --state merged --limit 40 --json number,title,mergedAt
 ```
 
-Read each open `tree-filed` issue one at a time with `gh issue view <n> --json title,body,comments` (the list's `comments` field truncates). Read last week's `## Next up` and judge each line: done, slipped, or dropped.
+Read each open `tree-filed` issue one at a time with `gh issue view <n> --json title,body,comments` (the list's `comments` field truncates). Each carries a `Disposition:` comment from the ask-response routine when it ran (ACCEPT-NOW / SCHEDULE / DECLINE / REROUTE): an ACCEPT-NOW still open after a week, or a SCHEDULEd week that has arrived, is yours to finish or re-plan this week; an ask with no disposition at all is a backlog item to answer now. Read last week's `## Next up` and judge each line: done, slipped, or dropped.
 
 ## Step 1 — answer the six questions
 
