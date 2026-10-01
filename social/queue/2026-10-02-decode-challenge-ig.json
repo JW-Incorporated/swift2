@@ -29,5 +29,15 @@
     ],
     "revision": 1
   },
-  "why": "IG sibling of thread:hidden-clues:interactive-challenge:2026-10-hero (Calendar 2026-10-02 23:00Z). Longer fan-gush caption, distinct opener from X ('the Decode thread has me spiraling' vs 'quick challenge for the clowns'). All four clues confirmed in CLUE_PAIRS: elevator-button-18 (1989), snake teasers (reputation), APRIL NINTH capitals (Fearless TV), orange door (Showgirl). Thread-of-the-month post = share-hook exempt, but the reply challenge carries it anyway. Same handed photo as X per W8/L001; uncredited so no credit line/field. photoEra unset (non-themed thread campaign, reddit pick carries no era tag). Screenshot slide 2 dropped (site-screen launch-only; carousel would fail CI)."
+  "why": "IG sibling of thread:hidden-clues:interactive-challenge:2026-10-hero (Calendar 2026-10-02 23:00Z). Longer fan-gush caption, distinct opener from X ('the Decode thread has me spiraling' vs 'quick challenge for the clowns'). All four clues confirmed in CLUE_PAIRS: elevator-button-18 (1989), snake teasers (reputation), APRIL NINTH capitals (Fearless TV), orange door (Showgirl). Thread-of-the-month post = share-hook exempt, but the reply challenge carries it anyway. Same handed photo as X per W8/L001; uncredited so no credit line/field. photoEra unset (non-themed thread campaign, reddit pick carries no era tag). Screenshot slide 2 dropped (site-screen launch-only; carousel would fail CI).",
+  "approval": {
+    "v": 3,
+    "by": "discord:338508192755482626",
+    "at": "2026-10-01T21:03:47.891Z",
+    "pr": 4728,
+    "sha": "9057569f2f0eeaa66c4fead789269c6b0aedb155",
+    "message": "1555270196619640944",
+    "contentHash": "sha256:a39faa14245ea73fdcbe847151c324f89fb7f19cfd597aed4dc30d487f8a6e2f",
+    "sig": "hmac-sha256:cffbc75f1046291b778a8912632d4be4a967a6205acd529f557ab6b92f912bfc"
+  }
 }
