@@ -174,6 +174,17 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: node scripts/marjorie/chat-post.mjs finish --bot tree --message-id "$MESSAGE_ID" --channel-id "$CHANNEL_ID" --source-thread-id "$THREAD_ID" --reply-thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL" --post-result "$POST_RESULT" --reply-dir .scratch/out --run-url "$RUN_URL"
 
+      # Bots v2 W7: a help ask saved with `loop-live.mjs save-help` is filed here, by the
+      # workflow token (loop-asks only trusts that identity), and Marjorie's response
+      # routine starts at once. Soft-fail: it must never turn a chat run red.
+      - name: File a help ask for Marjorie, when one was saved
+        if: always() && github.run_attempt == '1' && needs.context.result == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: timeout 180 node scripts/marjorie/loop-live.mjs file-help --side tree --dir .scratch/out --source "$GITHUB_RUN_ID" --source-url "$RUN_URL" --dispatch
+
       # This repo is public, and a public run's artifacts are downloadable by
       # any signed-in GitHub user. The context and reply carry founder
       # messages, so they go the moment the run is done.

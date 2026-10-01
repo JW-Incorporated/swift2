@@ -1,6 +1,9 @@
 // Entry point for the status-page reply job (Bots v2 W4). Reads the
-// `issue_comment` event the workflow was fired with and hands it to
-// lib/status-reply.mjs, which decides whether it is the owner's command.
+// `issue_comment` event the workflow was fired with, then sweeps the thread
+// (lib/status-sweep.mjs): every owner comment not yet acknowledged is handed
+// to lib/status-reply.mjs, which decides whether it is the owner's command.
+// A concurrency group keeps only one pending run, so the comment that woke
+// this job is not necessarily the only one owed an answer.
 // GH_TOKEN is the workflow token (ack comments post as the bot, so an ack is
 // never mistaken for an owner command); PR_TOKEN is the PAT that opens the
 // closing PR so required checks run on it.
@@ -10,6 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { handleComment } from './lib/status-reply.mjs';
+import { sweepOwnerComments } from './lib/status-sweep.mjs';
 import { DEFAULT_REPO } from './status-page.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -21,9 +25,18 @@ export async function main({ env = process.env, root = ROOT, exec = execFileSync
   const reply = async (text) => {
     run('gh', ['issue', 'comment', String(event.issue.number), '--repo', repo, '--body', text]);
   };
-  const result = await handleComment({ event, root, run, reply, repo, prToken: env.PR_TOKEN || '' });
-  console.log(`status reply: ${result.acted ? `closed #${result.number} via ${result.prUrl}` : `no action (${result.reason})`}`);
-  return result.failed ? 1 : 0;
+  let comments = [];
+  try {
+    const pages = JSON.parse(String(run('gh', ['api', '--paginate', '--slurp', `repos/${repo}/issues/${event.issue.number}/comments?per_page=100`])).trim() || '[]');
+    comments = pages.flat();
+  } catch (err) {
+    console.log(`status reply: could not list the thread, handling only the triggering comment: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
+  }
+  const handle = (ev, ack) => handleComment({ event: ev, root, run, reply: ack, repo, prToken: env.PR_TOKEN || '' });
+  const results = await sweepOwnerComments({ event, comments, handle, reply, run });
+  for (const r of results) console.log(`status reply: #${r.commentId} ${r.acted ? `closed #${r.number} via ${r.prUrl}` : `no action (${r.reason})`}`);
+  if (results.length === 0) console.log('status reply: nothing unacknowledged — an earlier run already answered it');
+  return results.some((r) => r.failed) ? 1 : 0;
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

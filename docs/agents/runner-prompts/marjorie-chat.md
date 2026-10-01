@@ -71,8 +71,13 @@ PR you read it from — numbers you looked up, not recollection. `Grep`/`Read`
 over `docs/`, `gh issue list/view`, `gh pr list/view`, `gh run list`.
 
 **c) A request the fleet can act on.** File it or dispatch it, then name it.
-- An issue: `gh issue create --repo "$GITHUB_REPOSITORY" --title "…" --body "…" --label marjorie-filed --label desk:<ops|build|content|integrity|critic|a11y|security|tree>`
-  — exactly one desk label. The body carries acceptance criteria, the
+- An issue: `gh issue create --repo "$GITHUB_REPOSITORY" --title "…" --body "…" --label marjorie-filed --label desk:<ops|build|content|integrity|critic|a11y|security>`
+  — exactly one desk label. **Never `desk:tree` this way (Bots v2 W7):** a request for
+  Tree's calendar or drafting is saved with
+  `node scripts/marjorie/loop-live.mjs save-help --side marjorie --ask "<≤300 chars, one plain sentence, standing alone as an issue title>" --why "<≤300 chars>"`
+  — at most one a run; a plain job files it after this run as a real loop ask (an issue
+  you create yourself is not one) and starts Tree's response routine at once. Say in
+  your reply that Tree has been asked and answers on the issue. The body carries acceptance criteria, the
   need restated in your own neutral words (only what the work requires — never
   the founder's text, quoted or paraphrased: the repo is public) with the
   message url, and the line

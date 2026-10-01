@@ -116,6 +116,7 @@ jobs:
       contents: read
       issues: write
       pull-requests: read
+      actions: write # W7: a new ask of Tree starts Tree's response routine (lib/loop-dispatch.mjs guards)
     steps:
       - uses: actions/checkout@v7
         with:
@@ -149,7 +150,7 @@ jobs:
           node scripts/marjorie/status-note.mjs extract --out /tmp/note.md
           if [ "$(node scripts/marjorie/status-note.mjs today)" = "1" ] && grep -q '[^[:space:]]' /tmp/note.md; then
             cp /tmp/note.md /tmp/note.before.md
-            timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$STATUS_NUMBER" --issue-url "$STATUS_URL" --body-file /tmp/note.md --out /tmp/note.md --no-edit \
+            timeout 120 node scripts/marjorie/loop-asks.mjs file-marjorie --issue "$STATUS_NUMBER" --issue-url "$STATUS_URL" --body-file /tmp/note.md --out /tmp/note.md --no-edit --dispatch \
               || echo "::warning::loop-asks file-marjorie failed; delivering the ping unchanged"
             cmp -s /tmp/note.md /tmp/note.before.md \
               || node scripts/marjorie/status-note.mjs write --body-file /tmp/note.md \

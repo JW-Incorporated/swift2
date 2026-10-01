@@ -86,6 +86,7 @@ jobs:
       max_turns: 50 # was hitting default 40 by only 2 turns (kanban t_68b1a827, 2026-09-07); kept at 50 — W8 bounds the work instead of raising the cap
       checkout_token_secret: SOCIAL_POSTER_PAT
       pre_run_artifact: tree-inputs
+      post_run_artifact: tree-daily-draft-out
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
@@ -116,3 +117,18 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           RUN_RESULT: ${{ needs.run.result }}
         run: node scripts/social/draft-receipt.mjs --kind daily --result "$RUN_RESULT" --run-url "$RUN_URL" --inputs .scratch/receipt/tree-inputs/tree-inputs.json --usage .scratch/receipt/routine-usage/routine-usage.json --file-issue
+
+  # Bots v2 W7: a help ask Tree saved as .scratch/out/for-marjorie-1.json
+  # (tree-daily-draft.md step 9) is filed by a plain job and Marjorie's
+  # response routine starts at once. A green no-op when nothing was saved.
+  help:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/loop-file-asks.yml
+    with:
+      artifact: tree-daily-draft-out
+      side: tree
+    permissions:
+      contents: read
+      issues: write
+      actions: write

@@ -111,6 +111,55 @@ daily workflow instead).
 
 ---
 
+## 2026-09-30 — Marjorie-originated asks may change Tree's strategy, calendar and lessons without a founder ✅ (Bots v2 W7; narrows `docs/agents/tree.md` hard invariant 2)
+
+**Decision (owner, 2026-09-30, Bots v2 brief):** "Tree should address any
+feedback from Marjorie immediately when it comes in. Most feedback will pertain
+to social strategy, which should be fluid. Tree should assess Marjorie's
+request and let her know if there's any reason he can't do it, or any help
+needed." Both bots manage the site together.
+
+1. **What changes.** When Marjorie files a `marjorie-filed` + `desk:tree` ask,
+   `routine-tree-ask-response.yml` starts at once and Tree answers `DOING IT` /
+   `CAN'T` / `NEEDS HELP`. A `DOING IT` run opens one `tree/ask/<N>-<slug>` PR
+   that may edit exactly `docs/marketing/social-strategy.md`, `social/calendar.md`
+   and `social/lessons.md` (the last only through `lib/lessons.mjs`). **This
+   narrows hard invariant 2** ("never edits `social-strategy.md` directly; a
+   strategy change needs a founder ✅ on a Monday proposal first") for that one
+   path: a strategy change an ask from Marjorie requests no longer waits for a
+   founder ✅. Every other strategy change still goes through a Monday proposal.
+2. **What does not change.** A post still needs the founder's own ✅ reaction
+   (`docs/social/RULINGS-SOCIAL-2.md` B1): Tree never writes `social/queue/`
+   approvals, `social/posted/`, `social/failed/` or `social/metrics/`, never
+   touches the posting path, and never merges its own PR. The crisis stop,
+   channel-policy rule (an ask for a new channel is `CAN'T`), the unshipped-
+   features rule and `check-drafts.mjs` all stand. Charters stay human-edited.
+3. **Bounds.** The loop is bounded in code: dispatch only on a newly created
+   ask, one dispatch per issue, 6 a day per direction, chain depth capped at 2
+   (a response run that cannot name its parent never dispatches). The response
+   agent reads only the queue file the workflow builds from trusted authors'
+   comments, and its `gh` access cannot fetch issues or comments itself.
+
+**Why.** Strategy feedback that waits for a Monday proposal and a founder's
+reaction is why the five asks of 2026-09-14 sat unanswered for 16 days. The
+owner's time is the scarce resource; the diff is a plain-text strategy file,
+reviewable and revertable in one commit.
+
+**Alternatives considered.** Keep invariant 2 and have Tree only comment
+(rejected — it is the status quo the owner objected to). Let Tree edit
+`social/queue/` for strategy follow-through (rejected — posts keep the
+founder's ✅).
+
+**Reversal.** Delete the `tree-ask-response` workflow or revert the
+`tree.md` amendment; one `git revert`. Any PR the loop opened is an ordinary
+PR and reverts the same way.
+
+**Approved by:** the owner (2026-09-30), by the instruction quoted above. The
+auto-merge treatment of these PRs is a separate change to the merge-authority
+files, made by the coordinator.
+
+---
+
 ## 2026-09-30 — Growth-first mandate for Marjorie, a weekly Fable review, and a bounded bot1 bridge
 
 **Decision (owner, 2026-09-30, via the Bots v2 brief; program calls C2 and C5

@@ -4,6 +4,7 @@
 // so a fresh repo (or the future org home, see org-transfer plans) must run
 // this once:  node --use-env-proxy scripts/marjorie/bootstrap-labels.mjs
 import { gh } from '../lib/gh.mjs';
+import { LOOP_LABELS } from './lib/loop-queue.mjs';
 
 // The `desk:*` routing taxonomy (2026-08-11). EXACTLY ONE of these on an open
 // issue is what "routed" means — see scripts/check-work-ownership.mjs and
@@ -100,6 +101,8 @@ export const LABELS = [
   // issue, and the log issue the Marjorie→bot1 bridge counts its daily limit from.
   ['weekly-plan', '0E8A16', "Marjorie's weekly growth review and plan — its '## Next up' section is machine-read"],
   ['bot1-bridge', '5319E7', 'Log of Marjorie→bot1 prompts (one comment each); machine-counted — do not edit'],
+  // Bots v2 W7: how a response routine disposed of a loop ask (lib/loop-queue.mjs).
+  ...LOOP_LABELS,
 ];
 
 const invokedDirectly =

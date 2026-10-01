@@ -133,6 +133,14 @@ social/inbox/
 social/posted/
 social/failed/
 
+# ── Tree's operational strategy docs (bots v2 W7, owner instruction
+#    2026-09-30: "social strategy should be fluid; Tree addresses Marjorie's
+#    feedback immediately"). Docs only — nothing here posts; every post still
+#    needs the founder ✅. docs/marketing/social-strategy.md stays OUT on
+#    purpose (Tree Overhaul T5: the founder merges the core strategy doc). ──
+social/calendar.md
+social/lessons.md
+
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/
 

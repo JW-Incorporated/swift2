@@ -43,7 +43,19 @@ BACKGROUND (why this runner exists, 2026-08-11): before you, nothing planned. Th
    desk:tree --state open --json number,title,url`. None is the normal case
    — move on. For each, read it one issue at a time with `gh issue view <n>
    --json body,comments` (never the list's `comments` field — it
-   truncates), then do exactly one of:
+   truncates), then do exactly one of. **Most are already answered (Bots v2 W7):**
+   `routine-tree-ask-response.yml` starts the moment Marjorie files an ask and
+   comments a `Disposition:` (DOING IT / CAN'T / NEEDS HELP) — and, for a DOING IT,
+   opens the PR that makes the change. An ask with a `Disposition:` comment of yours
+   is answered: read it, don't answer it twice. **DOING IT** and its PR is merged (or
+   still open and sound): fold its change into this week's calendar; the ask is
+   already closed. **CAN'T:** unless Marjorie has since changed the ask or a founder
+   has commented, leave it as it stands. **NEEDS HELP:** check whether what you
+   asked for has arrived; if so, do it now as below and comment. Only an ask with NO
+   `Disposition:` comment (the response routine never ran) needs the full treatment
+   below, and your first comment on it starts `Disposition: DOING IT`, `Disposition: CAN'T`
+   or `Disposition: NEEDS HELP` (then the label `loop:accepted` / `loop:declined` /
+   `loop:needs-help`).
    - **It's marked as contradicting another ask** (its body says
      `⚠️ Contradicts #N`) **and no founder has commented on either issue
      since it was filed:** hold it — don't act on it, don't close it. It is

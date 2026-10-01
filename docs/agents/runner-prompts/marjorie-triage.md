@@ -321,6 +321,19 @@ across every routine, duplicates refused. A prompt never replaces the GitHub
 issue for repo work. Never put a submitter's words in it; the repo is public.
 The Sunday growth review is the backstop for anything you leave out.
 
+## An ask of Tree (Bots v2 W7, rare)
+
+A submission or a reconciled fix can mean Tree's calendar or drafting should change
+today: a broken link in a queued post, a feature that just shipped and needs an arc,
+a content lane to pause. That is an ask of Tree, never a build ticket and never an
+issue you create by hand (a hand-made issue is not a loop ask). Save at most ONE per
+run with
+`node scripts/marjorie/loop-live.mjs save-help --side marjorie --ask "<≤300 chars, one plain sentence, standing alone as an issue title>" --why "<≤300 chars>"`
+(no submitter's words — the repo is public). After you finish, a plain job files it as
+a `marjorie-filed` + `desk:tree` issue (at most 4 a day across every routine, never
+one already open) and starts Tree's response routine at once; Tree comments a
+`Disposition:` on it. Never for a founder decision or a strategy opinion.
+
 ## Cross-cutting rules
 
 - **Nothing is auto-closed except spam**, or a reconciled `COMPLETED` fix.

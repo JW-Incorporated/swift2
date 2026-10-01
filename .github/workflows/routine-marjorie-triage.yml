@@ -80,6 +80,21 @@ jobs:
       contents: read
       issues: write
 
+  # Bots v2 W7: an ask of Tree the run saved with `loop-live.mjs save-help --side
+  # marjorie` (marjorie-triage.md) is filed by a plain job and Tree's response
+  # routine starts at once. A green no-op when nothing was saved.
+  help:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    uses: ./.github/workflows/loop-file-asks.yml
+    with:
+      artifact: marjorie-triage-out
+      side: marjorie
+    permissions:
+      contents: read
+      issues: write
+      actions: write
+
   # Reads the `pending` founder-handoff marker comments `run` left on
   # `founder-decision` issues and posts each one's message text to Discord,
   # then writes back a `posted` marker so the same issue is never re-posted
