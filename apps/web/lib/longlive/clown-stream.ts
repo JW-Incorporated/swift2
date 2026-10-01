@@ -8,9 +8,9 @@
  * so this reader works identically for those — one `onEvent` call, then
  * done — as it does for the agent loop's multi-line trail.
  */
-import type { ClownAnswer, InvestigationStep } from './clown-answer';
+import type { ClownAnswer, ClownStreamEvent } from '@swift2/shared';
 
-export type ClownStreamEvent = { type: 'investigation'; step: InvestigationStep } | { type: 'answer'; answer: ClownAnswer };
+export type { ClownStreamEvent } from '@swift2/shared';
 
 /**
  * Every deterministic (non-loop) route path — crisis/refusal/chip/scope

@@ -10,6 +10,7 @@ export * from './current-types';
 export * from './notifications-types';
 export * from './notification-deep-links';
 export * from './notification-digest-copy';
+export * from './api';
 
 /**
  * The aspects of Taylor's life the Vault classifies content into.
