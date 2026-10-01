@@ -7,7 +7,12 @@
  * Bump rules (the ADR's mechanism, made checkable here):
  * - A schema change that only ADDS an optional field, or adds a new
  *   optional/whole-catalogue entry to `contentBundleSchemas`, does NOT bump
- *   `schemaVersion` — existing bundles still validate unchanged.
+ *   `schemaVersion` — existing bundles still validate unchanged. That is the
+ *   OLD-BUNDLE direction only. In the other direction (a NEW bundle read by an
+ *   installed app's OLDER loader) a new manifest entry or a new enum value
+ *   (e.g. an era id) fails a strict load; only loaders with
+ *   `unknownEnumPolicy: 'drop'` skip/prune them (docs/decisions.md
+ *   2026-10-01). `schemaVersion` does not protect against this.
  * - A schema change that makes a previously-optional field required, changes
  *   a field's type, removes a field a consumer reads, or renames a manifest
  *   key MUST bump `schemaVersion` by exactly 1 in the same PR that ships the
@@ -18,8 +23,9 @@
  *   against version N must still read a bundle published at N-1, so a mobile
  *   client on an older EAS Update (D4) keeps rendering correctly against a
  *   newer web-published bundle for one release cycle.
- * - Bundles older than N-1 are NOT supported; a loader must fail loudly
- *   (`UnsupportedSchemaVersionError`) rather than attempt best-effort
+ * - Bundles outside N-1..N are NOT supported; the loader fails loudly
+ *   (`loadBundle` surfaces it as `SchemaVersionMismatchError`, wrapping this
+ *   module's `UnsupportedSchemaVersionError`) rather than attempt best-effort
  *   parsing against a schema shape it no longer has.
  *
  * This module owns the mechanism only. The CI check that enforces "a schema

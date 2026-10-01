@@ -12,6 +12,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { z } from 'zod';
 import {
   loadBundle,
   SchemaVersionMismatchError,
@@ -191,5 +192,295 @@ describe('loadBundle', () => {
     expect(err).toBeInstanceOf(SchemaVersionMismatchError);
     expect((err as Error).message).toMatch(/schemaVersion 999/);
     expect((err as Error).message).toMatch(/supports schemaVersion 1/);
+  });
+});
+
+type ServedFile = { path: string; text: string };
+
+/** A server publishing `files` under a manifest whose bytes/sha256 match them (so only schema checks can fail). */
+function serveFiles(
+  files: Record<string, ServedFile>,
+  opts: { etag?: string; schemaVersion?: number; requestLog?: string[] } = {},
+): FetchLike {
+  const served: Manifest = {
+    ...manifest,
+    schemaVersion: opts.schemaVersion ?? manifest.schemaVersion,
+    files: Object.fromEntries(
+      Object.entries(files).map(([name, f]) => [
+        name,
+        {
+          path: f.path,
+          bytes: Buffer.byteLength(f.text, 'utf8'),
+          sha256: createHash('sha256').update(f.text).digest('hex'),
+        },
+      ]),
+    ),
+  };
+  const etag = opts.etag ?? '"served"';
+  return async (url, init) => {
+    opts.requestLog?.push(url);
+    const respond = (status: number, body: string, headers: Record<string, string> = {}) => ({
+      ok: status >= 200 && status < 300,
+      status,
+      text: async () => body,
+      headers: { get: (name: string) => headers[name.toLowerCase()] ?? null },
+    });
+    if (url === `${baseUrl}/current.json`) {
+      return respond(200, JSON.stringify({ bundleVersion: manifest.bundleVersion }));
+    }
+    if (url === `${baseUrl}/${manifest.bundleVersion}/manifest.json`) {
+      if (init?.headers?.['If-None-Match'] === etag) return respond(304, '');
+      return respond(200, JSON.stringify(served), { etag });
+    }
+    for (const f of Object.values(files)) {
+      if (url === `${baseUrl}/${manifest.bundleVersion}/${f.path}`) return respond(200, f.text);
+    }
+    return respond(404, 'not found');
+  };
+}
+
+function fixtureServed(): Record<string, ServedFile> {
+  return Object.fromEntries(
+    Object.entries(manifest.files).map(([name, e]) => [
+      name,
+      { path: e.path, text: fixtureFiles[name]! },
+    ]),
+  );
+}
+
+function withJson(
+  files: Record<string, ServedFile>,
+  name: string,
+  edit: (value: any) => unknown, // eslint-disable-line @typescript-eslint/no-explicit-any
+): Record<string, ServedFile> {
+  const f = files[name]!;
+  return { ...files, [name]: { ...f, text: JSON.stringify(edit(JSON.parse(f.text))) } };
+}
+
+/** The fixture plus an era this build has never heard of, in eras.json and its own content file. */
+function bundleWithNewEra(): Record<string, ServedFile> {
+  const files = withJson(fixtureServed(), 'eras', (eras) => [
+    ...eras,
+    { ...eras[0], id: 'some-future-era', name: 'Future' },
+  ]);
+  const folklore = JSON.parse(files['content:folklore']!.text);
+  return {
+    ...files,
+    'content:some-future-era': {
+      path: 'eras/some-future-era.json',
+      text: JSON.stringify({
+        ...folklore,
+        eraId: 'some-future-era',
+        items: folklore.items.map((i: object) => ({ ...i, eraId: 'some-future-era' })),
+      }),
+    },
+  };
+}
+
+describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallback)', () => {
+  let storage: MemoryStorageAdapter;
+
+  beforeEach(() => {
+    storage = new MemoryStorageAdapter();
+  });
+
+  it('strict by default: an unknown era id fails the load', async () => {
+    await expect(
+      loadBundle({ baseUrl, fetch: serveFiles(bundleWithNewEra()), storage }),
+    ).rejects.toThrow(BundleIntegrityError);
+  });
+
+  it("'drop': prunes the unknown era from eras.json and skips its whole content file", async () => {
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(bundleWithNewEra()),
+      storage,
+      unknownEnumPolicy: 'drop',
+    });
+    expect(result.source).toBe('network');
+    expect((result.files.eras as { id: string }[]).map((e) => e.id)).toEqual(['folklore']);
+    expect(result.skipped).toEqual(['content:some-future-era']);
+    expect(result.files['content:some-future-era']).toBeUndefined();
+    expect(result.files['content:folklore']).toBeDefined();
+  });
+
+  it("'drop': removes an unknown tag from a primitive array but keeps the item", async () => {
+    const files = withJson(fixtureServed(), 'content:folklore', (c) => {
+      c.items[0].tags = ['Music', 'NotATagYet'];
+      return c;
+    });
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(files),
+      storage,
+      unknownEnumPolicy: 'drop',
+    });
+    const content = result.files['content:folklore'] as { items: { tags: string[] }[] };
+    expect(content.items).toHaveLength(1);
+    expect(content.items[0]!.tags).toEqual(['Music']);
+  });
+
+  it("'drop': skips a manifest entry this build has no schema for, without fetching it", async () => {
+    const requestLog: string[] = [];
+    const files = {
+      ...fixtureServed(),
+      futureCatalogue: { path: 'future.json', text: '{"anything":true}' },
+    };
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(files, { requestLog }),
+      storage,
+      unknownEnumPolicy: 'drop',
+    });
+    expect(result.skipped).toEqual(['futureCatalogue']);
+    expect(requestLog.some((u) => u.endsWith('/future.json'))).toBe(false);
+  });
+
+  it("'drop' still throws on a non-enum schema failure", async () => {
+    const files = withJson(fixtureServed(), 'content:folklore', (c) => {
+      c.items[0].title = 42;
+      return c;
+    });
+    await expect(
+      loadBundle({ baseUrl, fetch: serveFiles(files), storage, unknownEnumPolicy: 'drop' }),
+    ).rejects.toThrow(BundleIntegrityError);
+  });
+
+  it('a pruned load does not store the ETag, so the next load re-validates instead of a 304', async () => {
+    const fetch = serveFiles(bundleWithNewEra());
+    await loadBundle({ baseUrl, fetch, storage, unknownEnumPolicy: 'drop' });
+    const again = await loadBundle({ baseUrl, fetch, storage, unknownEnumPolicy: 'drop' });
+    expect(again.source).toBe('network');
+  });
+
+  it("'last-good': a schema failure serves the last-good bundle with the error attached", async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(bundleWithNewEra()),
+      storage,
+      dataErrorFallback: 'last-good',
+    });
+    expect(result.source).toBe('last-good-after-data-error');
+    expect(result.stale).toBe(true);
+    expect(result.dataError).toBeInstanceOf(BundleIntegrityError);
+    expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
+  });
+
+  it("'last-good': an unsupported schemaVersion serves last-good", async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(fixtureServed(), { schemaVersion: 999 }),
+      storage,
+      dataErrorFallback: 'last-good',
+    });
+    expect(result.source).toBe('last-good-after-data-error');
+    expect(result.dataError).toBeInstanceOf(SchemaVersionMismatchError);
+  });
+
+  it("'last-good': malformed JSON serves last-good", async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const files = { ...fixtureServed(), eras: { path: 'eras.json', text: '[{"id":' } };
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(files),
+      storage,
+      dataErrorFallback: 'last-good',
+    });
+    expect(result.dataError).toBeInstanceOf(SyntaxError);
+  });
+
+  it("'last-good': a manifest failing its schema (ZodError) serves last-good", async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const broken: FetchLike = async (url, init) =>
+      url.endsWith('/manifest.json')
+        ? { ok: true, status: 200, text: async () => '{"files":7}', headers: { get: () => null } }
+        : makeFakeFetch()(url, init);
+    const result = await loadBundle({
+      baseUrl,
+      fetch: broken,
+      storage,
+      dataErrorFallback: 'last-good',
+    });
+    expect(result.source).toBe('last-good-after-data-error');
+    expect(result.dataError).toBeInstanceOf(z.ZodError);
+  });
+
+  it("'last-good' rethrows when a cached file no longer passes this build's schemas", async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const key = `@swift2/content:v1:${baseUrl}:last-good`;
+    const record = JSON.parse(storage.getItem(key)!);
+    record.files.eras[0].name = 42; // written by a build whose shape differed
+    storage.setItem(key, JSON.stringify(record));
+    await expect(
+      loadBundle({
+        baseUrl,
+        fetch: serveFiles(bundleWithNewEra()),
+        storage,
+        dataErrorFallback: 'last-good',
+      }),
+    ).rejects.toThrow(BundleIntegrityError);
+  });
+
+  it("'last-good' rethrows when the cached record is outside this build's schema window", async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    // This build is two schema versions ahead of the cached record.
+    await expect(
+      loadBundle({
+        baseUrl,
+        fetch: serveFiles(bundleWithNewEra()),
+        storage,
+        schemaVersion: manifest.schemaVersion + 2,
+        dataErrorFallback: 'last-good',
+      }),
+    ).rejects.toThrow(SchemaVersionMismatchError);
+  });
+
+  it('a pruned load clears an ETag stored by an earlier full load of the same bundleVersion', async () => {
+    await loadBundle({ baseUrl, fetch: serveFiles(fixtureServed()), storage });
+    await loadBundle({
+      baseUrl,
+      fetch: serveFiles(bundleWithNewEra(), { etag: '"pruned"' }),
+      storage,
+      unknownEnumPolicy: 'drop',
+    });
+    // The server rolls back to the first manifest: its ETag must not 304 into the pruned files.
+    const again = await loadBundle({ baseUrl, fetch: serveFiles(fixtureServed()), storage });
+    expect(again.source).toBe('network');
+  });
+
+  it("'drop': several unknown values in nested and parent arrays in one pass", async () => {
+    const files = withJson(fixtureServed(), 'content:folklore', (c) => {
+      const base = c.items[0];
+      c.items = [
+        { ...base, id: 'keep-1', tags: ['NewA', 'Music', 'NewB'] },
+        { ...base, id: 'drop-1', significance: 'brand-new-level' },
+        { ...base, id: 'keep-2' },
+        { ...base, id: 'drop-2', significance: 'brand-new-level', tags: ['NewC'] },
+      ];
+      return c;
+    });
+    const result = await loadBundle({
+      baseUrl,
+      fetch: serveFiles(files),
+      storage,
+      unknownEnumPolicy: 'drop',
+    });
+    const items = (result.files['content:folklore'] as { items: { id: string; tags: string[] }[] })
+      .items;
+    expect(items.map((i) => i.id)).toEqual(['keep-1', 'keep-2']);
+    expect(items[0]!.tags).toEqual(['Music']);
+  });
+
+  it("'last-good' with nothing cached still throws the data error", async () => {
+    await expect(
+      loadBundle({
+        baseUrl,
+        fetch: serveFiles(bundleWithNewEra()),
+        storage,
+        dataErrorFallback: 'last-good',
+      }),
+    ).rejects.toThrow(BundleIntegrityError);
   });
 });
