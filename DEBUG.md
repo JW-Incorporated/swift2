@@ -24,3 +24,9 @@ no /result and no heartbeat within the 5-min watchdog, so all 4 groups failed (3
 The extension never reported back on the first group. Not yet diagnosed (owner's view of the tab and
 chrome://extensions errors for the unpacked extension are the first evidence to collect: did the
 /start page hand off, did the tab reach the group, did the status box appear?).
+17:20 check: the window was closed by the launcher, so there is no visual evidence. The profile's Secure
+Preferences show the unpacked extension registered from this worktree path (location 4 = unpacked,
+disable_reasons [], developer mode on) — so it was installed and enabled; the stall is in the code path
+(start handshake → navigation → content-script job → /result). Next diagnosis: a local fake-receiver
+harness + the extension's service-worker console (chrome://extensions → "service worker" → Inspect) on a
+watched run.
