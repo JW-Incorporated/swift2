@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **9 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #89 🟢 [UPGRADE] Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist (~10 min)
+<!-- ha filed=2026-09-30 -->
+
+**Why:** Marjorie can only file GitHub issues. Hermes-side blockers need bot1, and bot1 ignores webhook messages until it is told to accept this one. Nothing halts while off; the bridge ships disabled.
+**Steps:**
+1. In Discord open #longlive, then Edit Channel, Integrations, Webhooks, New Webhook. Name it `Marjorie` and click Copy Webhook URL.
+2. Open github.com/JW-Incorporated/swift2/settings/environments, choose `ops`, Add environment secret: name `DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL`, value the copied URL.
+3. In a Hermes session (not this project) apply the allowlist change tracked at https://github.com/JW-Incorporated/Hermes/issues/1.
+4. Reply `done` here. An agent then sets `bot1Bridge.enabled` to `true` in `scripts/marjorie/marjorie-config.json` by PR.
+**Worked if:** after that PR merges, Marjorie's first bot1 prompt appears as a card on Hermes' board and is logged on the `bot1-bridge` issue.
 
 ## #88 🔴 [BLOCKING] Store Facebook login and schedule the weekly export (~5 min)
 <!-- ha filed=2026-09-30 -->

@@ -7,6 +7,59 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-30 — Growth-first mandate for Marjorie, a weekly Fable review, and a bounded bot1 bridge
+
+**Decision (owner, 2026-09-30, via the Bots v2 brief; program calls C2 and C5
+in `docs/plans/bots-v2/PLAN.md`):**
+
+1. **Growth is priority #1.** Marjorie manages the business to grow the site
+   by giving fans real value; long-term revenue comes from the fashion section
+   once traffic is significant. Her charter mission (`docs/agents/marjorie.md`)
+   is rewritten accordingly; "the site runs and the user experience improves"
+   (epic #4180, 2026-09-12) becomes the floor, not the goal.
+2. **A weekly Fable review** (`routine-marjorie-weekly-review.yml`, Sundays,
+   before Tree's Monday plan) answers six questions — growth, content quality,
+   social strategy, time-sensitive coverage, money, Tree's asks — from
+   deterministic evidence (`scripts/marjorie/growth-data.mjs`), then opens a
+   `weekly-plan` issue and files work through the existing GitHub funnel
+   (Kevin triages, Austin builds). It files issues itself rather than routing
+   through bot1: bot1 ignores bot/webhook authors today
+   (`DISCORD_ALLOW_BOTS` none) and Hermes cards are invisible to this repo's
+   pipeline, so a bot1 hop would add a dependency and no capability (C2).
+3. **A bounded Marjorie→bot1 bridge** (C5). **This amends the
+   `#longlive` rule** in "Three Discord channels, one job each" (2026-09-12:
+   "No scheduled routine ever posts here unprompted") and the matching
+   charter rule ("Nothing unprompted"). The exception is narrow: a committed
+   flag (`bot1Bridge.enabled`, default **off**) AND a dedicated webhook secret
+   (`DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL`, `ops` environment, never in an agent
+   step) AND at most three prompts per UTC day, each logged on a tracking issue,
+   link previews suppressed (`flags: 4`), worded per
+   `.claude/skills/prompting-bot1/SKILL.md`. Engineering work still goes to
+   GitHub issues, never bot1. The bridge does nothing until Hermes allowlists
+   the webhook's author — a Hermes-session change (cross-project rule l),
+   filed as a human action.
+
+**Why.** The owner's complaint was that Marjorie and Tree were underperforming
+and nobody owned the question "are we growing?". Traffic is currently
+unmeasured (no read-only analytics source exists; `@vercel/analytics` is
+client-only), so the first review reports that honestly and the owner is asked
+to choose a source. Rate-limit state for the bridge lives in the tracking
+issue's own comment log so the counter and the audit trail cannot disagree.
+
+**Alternatives considered.** Route the weekly plan through bot1 (rejected, C2).
+Leave `#longlive` fully closed to Marjorie (rejected — she then cannot unblock
+Hermes-side work). A committed ledger for the rate limit (rejected — an Action
+cannot push to branch-protected `main`).
+
+**Reversal.** Set `bot1Bridge.enabled` back to `false`, or delete the secret.
+Everything else is a `git revert`.
+
+**Approved by:** the growth-first mandate is the owner's (2026-09-30). The
+review design and the bridge (C2, C5) are reversible program calls made under
+his delegation; the bridge stays off until the owner turns it on.
+
+---
+
 ## 2026-09-30 — Automate the weekly Facebook groups export with a local persistent browser profile
 
 **Decision (Joey, explicit, in session):** automate HUMAN-ACTIONS #70 from
