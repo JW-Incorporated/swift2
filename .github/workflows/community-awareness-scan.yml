@@ -3,7 +3,9 @@
 # § Awareness replies). Zero-LLM. Runs every 3 hours (minute 19) so batches
 # arrive through the day. Each run has a small Reddit request budget (6 feed
 # requests, exponential backoff, skip-on-429, optional HOME_RELAY_URL
-# fallback): the two big fan subs every run plus a rotating window of the other
+# fallback; with the REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET secrets the scan
+# uses the authenticated Reddit API instead, 40 requests, every sub + query
+# each run): the two big fan subs every run plus a rotating window of the other
 # subs in scripts/community/awareness-subs.json and Reddit-wide search RSS
 # (threads outside the fan subs). Filters, caps and a share-card pick are in
 # the scripts; rows land as `engagement_lead(kind='awareness_reply',
@@ -16,7 +18,7 @@ name: community-awareness-scan
 
 on:
   schedule:
-    - cron: "19 */3 * * *"
+    - cron: '19 */3 * * *'
   workflow_dispatch:
 
 concurrency:
@@ -49,7 +51,7 @@ jobs:
       - uses: actions/setup-node@v7
         if: steps.enabled.outputs.enabled == 'true'
         with:
-          node-version: "24"
+          node-version: '24'
 
       - run: npm ci --ignore-scripts
         if: steps.enabled.outputs.enabled == 'true'
@@ -65,4 +67,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           AWARENESS_LANE_ENABLED: ${{ vars.AWARENESS_LANE_ENABLED }}
           HOME_RELAY_URL: ${{ vars.HOME_RELAY_URL }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ vars.REDDIT_USERNAME }}
         run: npx tsx scripts/community/awareness-scan.mjs

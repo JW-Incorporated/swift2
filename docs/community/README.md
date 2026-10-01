@@ -123,6 +123,32 @@ contributions the link gate waits for (it is promotion, not a plain contribution
 
 Expect to spend roughly 10–15 minutes on this most days.
 
+#### Reddit API key (what makes 10+ a day possible)
+
+Anonymous Reddit RSS from GitHub runners is throttled hard (run 36908472939:
+HTTP 429 on 4 of 6 requests, 3 opportunities). With a free Reddit app key the
+scan switches to the authenticated API and the log's first line reads
+`auth: oauth`; without it (or if the token request is refused) it keeps the
+anonymous path above and prints `auth: anonymous`.
+
+- **Secrets** (repo, `JW-Incorporated/swift2`): `REDDIT_CLIENT_ID` and
+  `REDDIT_CLIENT_SECRET`, from a `script` app at
+  https://www.reddit.com/prefs/apps (the human-action card has the steps).
+  Optional repo variable `REDDIT_USERNAME` names the account in the
+  User-Agent (`longlive-awareness/1.0 (by u/<name>)`, default `longlivets`).
+  Only the scan step receives them.
+- **What it does** (`scripts/community/awareness-reddit-api.mjs`): an
+  app-only token (`client_credentials`, read-only; nothing here can post), then
+  `oauth.reddit.com` JSON for **every** sub in `awareness-subs.json` (`/new` and
+  `/hot`), **every** search query (`/search?sort=new&t=day&type=link`) and each
+  uncached community's `/about` (`allowed_media_types`, cached a week as before,
+  so image eligibility is now verified instead of "unknown"). Budget 40
+  requests a run (`authedRequestsPerRun`), paced by `authedPacingMs`; it
+  honours `x-ratelimit-remaining`/`x-ratelimit-reset` and `Retry-After`, retries
+  a 429 once after waiting, skips a source that stays blocked and stops after 3
+  failures in a row. The token and secret are never logged.
+- **Turn it off:** delete the two secrets; the next run is anonymous again.
+
 ### Reddit notification intake
 
 `community-inbox` checks Marjorie's existing inbox every 30 minutes. It does

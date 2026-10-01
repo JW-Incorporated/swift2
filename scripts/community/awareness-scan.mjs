@@ -16,6 +16,11 @@
 // `hot_thread` leads with platform='facebook'; this script adopts the fitting
 // ones as awareness rows (awareness-facebook.mjs) without touching the exporter.
 //
+// Reddit access: with secrets REDDIT_CLIENT_ID + REDDIT_CLIENT_SECRET the scan
+// uses app-only OAuth (awareness-reddit-api.mjs: every sub hot+new, every search
+// query, /about for image eligibility); without them, or if the token request
+// fails, it falls back to the anonymous RSS path above. Log line `auth: oauth`.
+//
 // Kill switch: repo VARIABLE `AWARENESS_LANE_ENABLED=false` stops the lane
 // (workflow checks it first; re-checked here). Unset means ON.
 //
@@ -38,6 +43,7 @@ import {
 import { buildAwarenessRow, fetchTodaysCandidateCounts } from './awareness-rows.mjs';
 import { adoptFacebookLeads } from './awareness-facebook.mjs';
 import { createFeedFetcher } from './awareness-fetch.mjs';
+import { connectRedditApi, oauthRequests, redditAuthFromEnv } from './awareness-reddit-api.mjs';
 import { loadCatalog, pickImageRef } from './awareness-image.mjs';
 import {
   buildSources,
@@ -96,10 +102,20 @@ export function groupByCommunity(fetched, config) {
   return groups;
 }
 
-/** Resolves a community's image-comment state: cache first, at most one live about.json read per run. */
+/**
+ * Resolves a community's image-comment state: cache first. Anonymous: at most
+ * one live about.json read per run, configured subs only. OAuth: every
+ * uncached community, bounded by the API request budget.
+ */
 async function aboutFor(name, configured, ctx) {
   const cached = cachedAbout(ctx.cache, name, ctx.now);
   if (cached) return cached;
+  if (ctx.oauth) {
+    const live = await ctx.fetchAbout(name);
+    if (ctx.supabase && !ctx.dryRun && !live.error)
+      await saveAbout(ctx.supabase, name, live, ctx.now);
+    return live;
+  }
   if (!configured || ctx.aboutSpent || aboutBlockedRecently(ctx.cache, ctx.now))
     return { imageComments: 'unknown', over18: false };
   ctx.aboutSpent = true;
@@ -122,26 +138,49 @@ export async function runAwarenessScan({
     }),
   random = Math.random,
   relayUrl = null,
+  redditAuth = null,
   dryRun = false,
 } = {}) {
   const { defaults } = config;
-  const budget = defaults.feedRequestsPerRun ?? 6;
-  const pacingMs = defaults.pacingMs ?? 6000;
+  const limit = defaults.feedLimit ?? 25;
   const slot = slotOf(now);
-  const fetcher = createFeedFetcher({ budget, pacingMs, relayUrl, fetchImpl, sleep, random });
-  const sources = pickSources(buildSources(config), { slot, dayIndex: dayIndexOf(now), budget });
+  const { api, auth, authError } = await connectRedditApi(redditAuth, {
+    defaults,
+    fetchImpl,
+    sleep,
+  });
+  const pacingMs = defaults.pacingMs ?? 6000;
+  const fetcher =
+    api ??
+    createFeedFetcher({
+      budget: defaults.feedRequestsPerRun ?? 6,
+      pacingMs,
+      relayUrl,
+      fetchImpl,
+      sleep,
+      random,
+    });
+  const requests = api
+    ? oauthRequests(config, limit)
+    : pickSources(buildSources(config), {
+        slot,
+        dayIndex: dayIndexOf(now),
+        budget: defaults.feedRequestsPerRun ?? 6,
+      }).map((source, index) => ({
+        source,
+        label: source.id,
+        url:
+          source.kind === 'sub'
+            ? subFeedUrl(source.sub.name, sortFor(slot, index), limit)
+            : searchFeedUrl(source.query, limit),
+      }));
   const fetched = [];
   const perSource = [];
-  for (const [index, source] of sources.entries()) {
-    const limit = defaults.feedLimit ?? 25;
-    const url =
-      source.kind === 'sub'
-        ? subFeedUrl(source.sub.name, sortFor(slot, index), limit)
-        : searchFeedUrl(source.query, limit);
-    const res = await fetcher.get(url, source.id);
-    fetched.push({ source, posts: res.posts });
+  for (const request of requests) {
+    const res = await fetcher.get(request.url, request.label, { rankOffset: request.rankOffset });
+    fetched.push({ source: request.source, posts: res.posts });
     perSource.push({
-      source: source.id,
+      source: request.label,
       status: res.status,
       posts: res.posts.length,
       via: res.via ?? null,
@@ -156,11 +195,12 @@ export async function runAwarenessScan({
     now,
     sleep,
     pacingMs,
-    fetchAbout,
+    fetchAbout: api ? (name) => api.about(name) : fetchAbout,
     fetchImpl,
     supabase,
     dryRun,
     aboutSpent: false,
+    oauth: api !== null,
   };
   const byName = new Map(config.subs.map((sub) => [sub.name, sub]));
   const all = [];
@@ -225,6 +265,8 @@ export async function runAwarenessScan({
       (await insertLeads(supabase, facebookRows)).inserted;
   }
   return {
+    auth,
+    authError,
     perSource,
     perSub,
     requests: fetcher.stats(),
@@ -255,8 +297,12 @@ async function main() {
     supabase,
     catalog: await loadCatalog(),
     relayUrl: process.env.HOME_RELAY_URL || null,
+    redditAuth: redditAuthFromEnv(),
     dryRun,
   });
+  console.log(
+    `awareness-scan: auth: ${result.auth}${result.authError ? ` (${result.authError}; fell back to anonymous RSS)` : ''}`,
+  );
   console.log(
     `awareness-scan: ${result.candidates} candidate(s) passed filters, ${result.kept} kept under caps, ${result.facebook} Facebook adopted, ${result.inserted} inserted${dryRun ? ' (dry-run: nothing written)' : ''}. Requests: ${JSON.stringify(result.requests)}`,
   );
