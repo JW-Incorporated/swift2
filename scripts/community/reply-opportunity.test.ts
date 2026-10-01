@@ -8,6 +8,8 @@ import {
   hasDraft,
   COMMUNITY_WEBHOOK_USERNAME,
 } from './reply-opportunity.mjs';
+// @ts-expect-error — implementation is plain .mjs
+import { withReplyAccount } from './reddit-account.mjs';
 
 const POSTED =
   'https://www.longlivets.com/api/community/ack?lead=x&action=posted&link=0&token=' +
@@ -38,9 +40,13 @@ describe('buildReplyOpportunity', () => {
     const lines = msg.split('\n');
     expect(lines[0]).toBe('💬 **Reply opportunity · r/TaylorSwift**');
     expect(lines[1]).toBe('**A hot thread**');
-    expect(lines[2]).toBe('<https://www.reddit.com/r/TaylorSwift/comments/abc/post/>');
-    expect(lines[3]).toBe('Why: Active thread on-topic for us · relevance 0.80');
-    expect(lines.slice(4, 7)).toEqual(['```', 'A paste-ready reply.', '```']);
+    expect(lines[2]).toBe(
+      `<${withReplyAccount('https://www.reddit.com/r/TaylorSwift/comments/abc/post/')}>`,
+    );
+    expect(lines[2]).toContain('target_user=NegativeRest9507');
+    expect(lines[3]).toBe('↪️ Reply as u/NegativeRest9507');
+    expect(lines[4]).toBe('Why: Active thread on-topic for us · relevance 0.80');
+    expect(lines.slice(5, 8)).toEqual(['```', 'A paste-ready reply.', '```']);
     expect(msg).toContain(`[✅ Posted](<${POSTED}>) · [Skip](<${SKIP}>)`);
     expect(lines.at(-1)).toBe('ref: reddit · 11111111-1111-1111-1111-111111111111');
   });
@@ -242,5 +248,76 @@ describe('describeWebhookTarget', () => {
     expect(JSON.stringify(thrown)).not.toContain('SECRET-TOKEN');
     expect(await describeWebhookTarget('')).toEqual({ error: 'webhook not configured' });
     expect(formatWebhookTarget(http)).toContain('check failed (HTTP 404)');
+  });
+});
+
+describe('withReplyAccount', () => {
+  const P = { target_user: 'Brand', ref: 'email_digest', $deep_link: 'true' };
+  const U = 'https://www.reddit.com/r/TaylorSwift/comments/abc/post/';
+
+  it('adds every configured param to Reddit thread and comment URLs on all hosts', () => {
+    for (const host of ['reddit.com', 'www.reddit.com', 'old.reddit.com', 'new.reddit.com']) {
+      const out = new URL(withReplyAccount(`https://${host}/r/x/comments/abc/post/def/`, P));
+      expect(out.searchParams.get('target_user')).toBe('Brand');
+      expect(out.searchParams.get('ref')).toBe('email_digest');
+      expect(out.searchParams.get('$deep_link')).toBe('true');
+    }
+  });
+
+  it('preserves existing params and overrides a stale target_user', () => {
+    const out = new URL(withReplyAccount(`${U}?context=3&target_user=Other`, P));
+    expect(out.searchParams.get('context')).toBe('3');
+    expect(out.searchParams.getAll('target_user')).toEqual(['Brand']);
+  });
+
+  it('is idempotent', () => {
+    const once = withReplyAccount(U, P);
+    expect(withReplyAccount(once, P)).toBe(once);
+  });
+
+  it('leaves non-Reddit, non-thread and malformed input untouched', () => {
+    for (const u of [
+      'https://example.com/r/x/comments/abc/',
+      'https://notreddit.com/r/x/comments/abc/',
+      'https://www.reddit.com/r/TaylorSwift/',
+      'javascript:alert(1)',
+      'not a url',
+      '',
+    ])
+      expect(withReplyAccount(u, P)).toBe(u);
+    expect(withReplyAccount(null as unknown as string, P)).toBeNull();
+  });
+
+  it('uses the committed config by default', () => {
+    expect(withReplyAccount(U)).toContain('target_user=NegativeRest9507');
+  });
+});
+
+describe('Reddit link account switch in messages', () => {
+  it('keeps the link angle-wrapped, adds the reply-as line, and stays within 2000 chars', () => {
+    const msg = buildReplyOpportunity(lead({ draft: 'x'.repeat(5000) }), {
+      postedUrl: POSTED,
+      skipUrl: SKIP,
+    });
+    expect(msg.length).toBeLessThanOrEqual(2000);
+    const link = msg
+      .split('\n')
+      .find((l) => l.startsWith('<https://www.reddit.com/r/TaylorSwift/comments/abc/post/'));
+    expect(link).toMatch(/target_user=NegativeRest9507.*>$/);
+    expect(msg).toContain('↪️ Reply as u/NegativeRest9507');
+  });
+
+  it('falls back to the plain link when the added params would exceed the URL bound', () => {
+    const longPath = `https://www.reddit.com/r/TaylorSwift/comments/abc/${'p'.repeat(240)}/`;
+    const msg = buildReplyOpportunity(lead({ url: longPath }));
+    expect(msg).toContain(`<${longPath}>`);
+  });
+
+  it('omits the reply-as line for non-Reddit leads', () => {
+    const msg = buildReplyOpportunity(
+      lead({ platform: 'facebook', url: 'https://www.facebook.com/groups/x/posts/1/' }),
+    );
+    expect(msg).not.toContain('Reply as u/');
+    expect(msg).toContain('<https://www.facebook.com/groups/x/posts/1/>');
   });
 });

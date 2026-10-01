@@ -28,6 +28,12 @@ const lead = (overrides: Record<string, unknown> = {}) => ({
 });
 
 describe('awareness Discord message', () => {
+  it('keeps a Reddit message within 2000 chars with the account-switched link', () => {
+    const text = buildAwarenessMessage(lead({ draft: 'y'.repeat(5000) }));
+    expect(text.length).toBeLessThanOrEqual(2000);
+    expect(text).toContain('target_user=NegativeRest9507');
+  });
+
   it('carries sub, title, link, why, copy block and the ack links, with the ref line last', () => {
     const text = buildAwarenessMessage(lead(), {
       postedUrl: 'https://x.test/p',
@@ -36,7 +42,13 @@ describe('awareness Discord message', () => {
     expect(text).toContain('Awareness reply · r/TaylorSwift');
     expect(text).toContain('image comments allowed');
     expect(text).toContain('**Rank the eras**');
-    expect(text).toContain('<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>');
+    const link = text
+      .split('\n')
+      .find((l) =>
+        l.startsWith('<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/'),
+      );
+    expect(link).toMatch(/target_user=NegativeRest9507.*>$/);
+    expect(text).toContain('↪️ Reply as u/NegativeRest9507');
     expect(text).toContain('Why: Era ranking, so a card fits');
     expect(text).toContain('```\nfolklore at number one and I will not be taking questions\n```');
     expect(text).toContain('[✅ Posted](<https://x.test/p>) · [Skip](<https://x.test/s>)');

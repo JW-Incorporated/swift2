@@ -8,7 +8,14 @@ import {
   DISCORD_SUPPRESS_EMBEDS,
   TREE_AVATAR_URL,
 } from './discord-delivery.mjs';
-import { clipUnits, escapeLinkBrackets, oneLine, safe, urlLine } from './reply-opportunity.mjs';
+import {
+  clipUnits,
+  escapeLinkBrackets,
+  oneLine,
+  safe,
+  threadLinkLine,
+} from './reply-opportunity.mjs';
+import { replyAsLine } from './reddit-account.mjs';
 import { imageCommentsLabel } from './awareness-eligibility.mjs';
 
 export const AWARENESS_WEBHOOK_USERNAME = 'Tree · Awareness replies';
@@ -69,10 +76,11 @@ export function buildAwarenessMessage(
     `🎯 **Awareness reply · ${where}** · ${label}`,
     title,
     lead.url
-      ? urlLine(lead.url)
+      ? threadLinkLine(lead.url)
       : lead.locator
         ? `Find it in: ${oneLine(safe(lead.locator), 160)}`
         : null,
+    isReddit ? replyAsLine() : null,
     `Why: ${whyFor(lead)}`,
     `Image: attached card (${oneLine(safe(lead.image_ref), 90)}). Post it with the reply, no link.`,
     rule ? `Sub rule: ${oneLine(safe(rule), 140)}` : null,
