@@ -432,6 +432,18 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   );
 });
 
+// The tab's current target: the in-flight navigation (pendingUrl) or the committed url; null when
+// the tab is gone or cannot be read.
+async function currentTabUrl(tabId) {
+  try {
+    const tab = await chrome.tabs.get(tabId);
+    const url = tab?.pendingUrl || tab?.url;
+    return typeof url === 'string' && url ? url : null;
+  } catch {
+    return null;
+  }
+}
+
 // The group URL can redirect off /groups/ (login wall, checkpoint), where the content script does
 // not run, or onto ANOTHER group (Codex round 3 #3). Report that as the job's status instead of
 // waiting for the receiver's stall watchdog.
@@ -446,7 +458,14 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
     serialized(async () => {
       const latest = await loadState();
       if (!latest?.job || latest.job.dispatched || latest.job.slug !== slug) return;
-      await reportOffGroup(latest.job, url);
+      // A 'complete' can be stale: the PREVIOUS page (the /start page, or the last group) can
+      // finish loading after the job was persisted, while the job's navigation is still under
+      // way. Only the tab's current target is evidence of a redirect — if it is (navigating to)
+      // the job's group, the page will ask for the job itself (or the stall watchdog fires).
+      const current = await currentTabUrl(tabId);
+      if (current && GROUP_URL.test(current) && globalThis.LLFB.groupMatches(current, latest.job))
+        return;
+      await reportOffGroup(latest.job, current ?? url);
     }).catch((error) => console.warn('[llfb] off-group report failed', String(error?.message)));
   }, OFF_GROUP_GRACE_MS);
 });

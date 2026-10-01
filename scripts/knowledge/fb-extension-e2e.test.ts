@@ -74,15 +74,19 @@ function createBrowser({
   feed,
   idleKill = false,
   killOnTabsUpdate = 0,
+  navigateDelayMs = 2,
+  staleComplete = false,
 }: {
   feed: () => Feed;
   idleKill?: boolean;
   killOnTabsUpdate?: number;
+  navigateDelayMs?: number;
+  staleComplete?: boolean;
 }) {
   let tabsUpdateKills = killOnTabsUpdate;
   const session: Record<string, string> = {};
   const alarms = new Map<string, Any>();
-  const tabs = new Map<number, { url: string; dom: JSDOM | null }>();
+  const tabs = new Map<number, { url: string; pendingUrl?: string; dom: JSDOM | null }>();
   const fetches: string[] = [];
   const messages: string[] = [];
   const storageErrors: string[] = [];
@@ -130,8 +134,29 @@ function createBrowser({
               instance.alive = false;
               return new Promise<{ id: number; url: string }>(() => {});
             }
+            // The previous page's 'complete' can still be in flight when the navigation starts.
+            const previous = tabs.get(tabId);
+            if (staleComplete && previous) {
+              const staleUrl = previous.url;
+              realSetTimeout(() => {
+                if (closed) return;
+                const w = wake();
+                for (const fn of w.listeners.updated)
+                  fn(tabId, { status: 'complete' }, { id: tabId, url: staleUrl });
+              });
+            }
             navigate(tabId, props.url);
             return { id: tabId, url: props.url };
+          }),
+        get: (tabId: number) =>
+          guard(async () => {
+            const tab = tabs.get(tabId);
+            if (!tab) throw new Error(`No tab with id: ${tabId}.`);
+            return {
+              id: tabId,
+              url: tab.url,
+              ...(tab.pendingUrl ? { pendingUrl: tab.pendingUrl } : {}),
+            };
           }),
         onUpdated: { addListener: (fn: Any) => instance.listeners.updated.push(fn) },
       },
@@ -249,6 +274,7 @@ function createBrowser({
     const tab = tabs.get(tabId)!;
     tab.dom?.window.close();
     tab.url = url;
+    delete tab.pendingUrl;
     let html = '<!doctype html><html><body></body></html>';
     const target = new URL(url);
     let growth: string[] = [];
@@ -293,7 +319,8 @@ function createBrowser({
 
   function navigate(tabId: number, url: string) {
     if (!tabs.has(tabId)) tabs.set(tabId, { url, dom: null });
-    realSetTimeout(() => void loadPage(tabId, url).catch(() => {}), 2);
+    else tabs.get(tabId)!.pendingUrl = url; // committed on load (tab.url keeps the old page)
+    realSetTimeout(() => void loadPage(tabId, url).catch(() => {}), navigateDelayMs);
   }
 
   return {
@@ -327,11 +354,15 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     stallMs,
     idleKill = false,
     killOnTabsUpdate = 0,
+    navigateDelayMs,
+    staleComplete,
   }: {
     feed: () => Feed;
     stallMs: number;
     idleKill?: boolean;
     killOnTabsUpdate?: number;
+    navigateDelayMs?: number;
+    staleComplete?: boolean;
   }) {
     const root = mkdtempSync(join(tmpdir(), 'llfb-e2e-'));
     const stored: Any[] = [];
@@ -348,7 +379,13 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       },
       log: (line: string) => log.push(line),
     });
-    const browser = createBrowser({ feed, idleKill, killOnTabsUpdate });
+    const browser = createBrowser({
+      feed,
+      idleKill,
+      killOnTabsUpdate,
+      navigateDelayMs,
+      staleComplete,
+    });
     cleanups.push(async () => {
       browser.close();
       await receiver.close();
@@ -373,7 +410,9 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     });
     const { results, browser, log } = await run({ feed, stallMs: 1_000 });
     expect(log).not.toContain('fb-receiver vault: stalled');
-    expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 44 }]);
+    expect(results, JSON.stringify({ results, log })).toMatchObject([
+      { slug: 'vault', status: 'collected', recentCount: 44 },
+    ]);
     expect(browser.fetches[0]).toBe('GET /hello'); // the /start token is validated first
     expect(browser.fetches).toContain('POST /heartbeat');
     expect(browser.fetches.filter((f) => f === 'POST /result')).toHaveLength(1);
@@ -396,7 +435,9 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     });
     const { results, log } = await run({ feed, stallMs: 1_000, idleKill: true });
     expect(log).not.toContain('fb-receiver vault: stalled');
-    expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 34 }]);
+    expect(results, JSON.stringify({ results, log })).toMatchObject([
+      { slug: 'vault', status: 'collected', recentCount: 34 },
+    ]);
   }, 30_000);
 
   it('a worker restart mid tabs.update re-issues the navigation (Codex round 4 #2)', async () => {
@@ -407,9 +448,32 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     // The stall watchdog (3 s) is longer than one wake-alarm period (60 s / SCALE = 600 ms).
     const { results, browser, log } = await run({ feed, stallMs: 3_000, killOnTabsUpdate: 1 });
     expect(log).not.toContain('fb-receiver vault: stalled');
-    expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 2 }]);
+    expect(results, JSON.stringify({ results, log })).toMatchObject([
+      { slug: 'vault', status: 'collected', recentCount: 2 },
+    ]);
     expect(browser.fetches.at(-1)).toBe('POST /finished');
     expect(browser.alarms.size).toBe(0);
+  }, 30_000);
+
+  // CI (PR #4658): the start page's 'complete' landed after the job was persisted while the
+  // (slow, Vault-sized) group page was still loading; the off-group grace (8 s → 80 ms) then
+  // reported the job failed{redirected}. The tab's current target decides, not a stale event.
+  it('a stale complete from the previous page is not an off-group redirect', async () => {
+    const feed = () => ({
+      initial: [post(1, '1 h'), post(2, '2 h'), post(3, '9 d'), post(4, '10 d'), post(5, '11 d')],
+      more: [],
+    });
+    // The group page takes 300 ms to load: well past the 80 ms off-group grace.
+    const { results, browser, log } = await run({
+      feed,
+      stallMs: 3_000,
+      staleComplete: true,
+      navigateDelayMs: 300,
+    });
+    expect(results, JSON.stringify({ results, log })).toMatchObject([
+      { slug: 'vault', status: 'collected', recentCount: 2 },
+    ]);
+    expect(browser.fetches.filter((f) => f === 'POST /result')).toHaveLength(1);
   }, 30_000);
 
   it('delivers a Vault-sized result larger than storage.session can hold', async () => {
@@ -427,7 +491,9 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     });
     const { results, browser, log } = await run({ feed, stallMs: 3_000 });
     expect(log).not.toContain('fb-receiver vault: stalled');
-    expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 25 }]);
+    expect(results, JSON.stringify({ results, log })).toMatchObject([
+      { slug: 'vault', status: 'collected', recentCount: 25 },
+    ]);
     expect(browser.fetches.at(-1)).toBe('POST /finished');
     expect(browser.storageErrors).toEqual([]);
     expect(browser.alarms.size).toBe(0);
