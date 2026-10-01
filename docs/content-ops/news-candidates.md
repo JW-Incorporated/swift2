@@ -25,7 +25,104 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 81
+
+## Xtra Magazine Discusses Taylor Swift's Current Status
+
+- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Xtra Magazine features an article discussing Taylor Swift's current state in the music industry. The piece outlines her recent activities and public perception.
+- sources:
+  - [unverified] Xtra Magazine — https://news.google.com/rss/articles/CBMie0FVX3lxTFByYmpBOTZzd1YyUktPRzY4TnBxanR4UUZTRV81bDJXTnpSanR3T2lSYXlCdGN4am9ibURXX1ZzZVlZSjlJV3plOXIwU05EbmliTlgteHBRMnlBY3JMOXF4QXdJSENHUS1HYzRFelh1dkZYNlR6OTNPQ1N0Yw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Impact at the VMAs Sparks Discussion on Music Video Importance
+
+- first seen: 2026-10-01 21:47 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's significant presence at the VMAs has led to a broader conversation about the relevance of music videos in today's industry. The discussion highlights her influence and the changing landscape of music consumption.
+- sources:
+  - [unverified] BBC — https://news.google.com/rss/articles/CBMiW0FVX3lxTE1KRzRPVGtva3FSWDZYV1hRWFFhbDl2dW1uSnFYRFVyQUNaMGFlSDNwQnpnRVJXZTFWdmFFeFhSQXRzMV9tcUZUX1RmRERfR3lMaDM4VXlJWUgzb2s?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Fans Create Lip Reading of Swift and Farrell's Scene in 'Patient Zero'
+
+- first seen: 2026-10-01 21:47 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Fans have put together a lip reading interpretation of the argument between Taylor Swift and Colin Farrell in the film 'Patient Zero'. This creative endeavor highlights fan engagement with Swift's recent projects.
+- sources:
+  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOY0VUa3VDeXktWEo5QU9TdTNXb3pvVDdMV1JfaXpzLUlxbVl0NkxEdnUxaElHUi1oTWFGa3NEenNDUXg3T1hRTXlRbnNiZXFyZ2ljLURaRW5NZWZvZ1BjX25tQ3Q5eHh5NldhN1B0SVlPaW5NRjR1cDM1MnRPY1hQdDF1RVRDUGRCSlp4TkFaSDJXSTUtS0FWSkVfQTV0eEZSZExyRkVVQ2YyTnc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPc0Y1V0xya3VnQnFDNW8wT2RvZjgzYVpid0ZmbHVOM2pwU1hxeEJBU1AweDlRT3d0eEszN25sUXFYVlhLc1pVYzE2bkdsR3hzV3hpcmhhVEFVWjh2MVpCY24wSVpmRy16QnlDSndxazc4OU5jRFZMOUFSTFBLWTZjQ3FlTUlLbFdQazFzejgzQ0ZybXFVMTRSOUxhUWdVcXVMbkJsd2UyYlFhLXRDM3oxQmdYTTJGUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Matthew Stafford Explains Taylor Swift Cameo Reason
+
+- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Matthew Stafford discusses the motivation behind his cameo with Taylor Swift, as reported by New York Post. The details reveal insights into Stafford's perspective on the appearance.
+- sources:
+  - [unverified] New York Post — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQRU1xb1BnUDJHalhMZlNKZHF5Y1RsSldxdEJneHlFblVITHJka3FvYXpWbDYwdnhoRi15WUI3b0JkTDJ5dmdHNVF3WVlNS3d0bjNWQ2dQcU4tWHhFMTVnTGJHejhOb2tHOVY3cy1yWDdHdnRKTnlaX2pOTUNtZDdFSkxmLTE3VkFRRVQ1Uy1FWHpwNU41QlFoVWxsTFNCUDJmV3FieHM5bkZuR29kNlg1bGRHZE1xaU5BV1ROOVBjZE9lOHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Receives Artist Director Honor at VMAs, Details Revealed by Producer
+
+- first seen: 2026-10-01 21:47 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The VMAs producer shared insights into the decision to honor Taylor Swift with the Artist Director title. This recognition highlights her impact and achievements in the music industry.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRndLZHY2RHZHbnQzXzRYajZrSG1leXlFaTR3TEpidGk5SnFlc3VQbzF1Z2I4dFNmTUNtaGVEOWFNMm1kRkU3QktWR3NVZGp6dUhpNDQwSW5OcFg1cnh1Q2FGdXVlUXVsckNwYlphMGZkalRQZy0yVVBTMEpfdDBmS3F5S0Rpa2pMYUppWkRsWkh5aUxVLV8xVGQ2T0ttTl82?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Responds to Criticism of New Songs Following Fan Backlash
+
+- first seen: 2026-10-01 21:47 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly affected by the recent criticism directed at her new songs after some backlash from fans. This reaction highlights the impact of fan responses on her music.
+- sources:
+  - [unverified] The Express Tribune — https://news.google.com/rss/articles/CBMitAFBVV95cUxPQkJWb3hNUFVPc2tHSUkwOUpMNm1Ua212OHN0MnotbDJtSVlIVFMzRlZ5ZWVjQ2xxcklfTU5oNkNHcGpiaHRvSl96N1cyUGMtUThyTUo5U0ZpWFlUd1RfdHVTNHVONEFPOWk3SDlIb3M0bGU2dDZMTnFMMnd1NTRNdVZudEpfVG9QakI1T0tReEVjUVNSTVJiazVKS253Wkk0bUNxc0VoOHdLUGJuQ2o3X3piVWfSAbwBQVVfeXFMT1JDVGZZWlY3TXg2dlB5c3pscFloSTBJRk0xcTF6eEpOUmtxSjFRUWZnNjM2QmdKcllPd2tIYVhfTXBOZEVLX3dvaHVCdHVzV05VWE40V0lFWnBXS2pIX1U5ZU9BQTNPTVBFZzRfdzRmbDZmdkJfWkRVVlBmNV9JbzE1X3A5Ym5aQWk1OWR0c2dGaVFaNGFSdlpPSWJBWlJxdUVpbWtDSVV5QzFkUWVfZmpMY0drVUlXRk1sZHM?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Matthew Stafford Discusses Taylor Swift's Cameo Origin
+
+- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Matthew Stafford from the LA Rams shares insights on who influenced Taylor Swift's recent cameo. The revelation highlights connections between sports and entertainment.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPeGtsWmhvRGZ0NVNlSEcxSTFyUVRhQ2JTX2hGSlNDX1lRZjEwNnpoMjl2Q2NFMnRybWpRRDZTRk5CTkpZeExoMk9FOEJmcF95MzRIajVFTVlBLWcza1pGT3RhQjRuRjRPZTRxdzdoWDh3QXN2V1ZEbnFwUkRRbXp4Q3RiSTBIc2VfazN2dE1WVG52UDhMSXJwWXFSRjBxdFl4d3BJOA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Wears Le Silla Sandals at MTV VMAs 2026
+
+- first seen: 2026-10-01 21:47 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: At the 2026 MTV VMAs, Taylor Swift completed her look with stunning Le Silla sandals as she is awarded the first-ever MTV VMA Artist Director Honors.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-le-silla-sandals-mtv-vmas-2026-1239282862/
+
+## Kylie Kelce Apologizes to Kate Middleton
+
+- first seen: 2026-10-01 21:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce, who is Taylor Swift's sister-in-law, has issued an apology to Kate Middleton. Details surrounding the situation have emerged.
+- sources:
+  - [unverified] HOLA — https://news.google.com/rss/articles/CBMitwFBVV95cUxQZExjNTdVUGt2MGlEMGtER0NqZTJuT3FSNnAzS1QyOFQ3Z2hURU1teVZFYVJTdXR0SlRWX1QyUGppdkpVcHlxUFd2VGRONEJQUlhqeExtZElGQVZ1QUxqVWxRcXdYZ0ZWbjgydUdPNTB2WWtmdVNCY3RweExGdG1aUF8tcnoxWXdkNlFnNU9pS2VqNVNJR0dHckZwY29wWUxRUEdWT0NsZXNxN1MzbkpTWm5VSlBZZ00?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Patient Zero' house sold for nearly $47 million
+
+- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report reveals that Taylor Swift's 'Patient Zero' house has been sold for approximately $47 million. The sale has drawn attention due to the significant price tag associated with the property.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQN0RDS3FiNUFBTk9WdnhJdW5TbmN2UURHSmZZdHJwaXNSalMxZU1uc2NoX1Q0amZDaU1HMThqTENOTEJVeHJOZFAxd2RlMEpJQzNRdURKdXEtamxqZlcwMy1VTTZKODA2bHVuZFVJTkJrWVFCOTA4MTZkXzJVSHl0NDg5bDFXQVhvMFVxb3Q2OXU1TmoycnNSSnhISDFXZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Sister-in-Law Issues Apology to Kate
+
+- first seen: 2026-10-01 21:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's sister-in-law has apologized for an offensive remark made after reports surfaced that Princess Kate did not attend Swift's wedding. The situation drew attention due to the implications for their relationship.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMnY0VHZwS3RZLTloR09lcVF5YnhiMm1nazJsdkppSVpkbTFjT1ppSUc5emJ3a2ZKTm1GekEwQkNXOHgwdjEtbGR0X19Ocm1TSVRPSllyQk9odFdqRU9EMDBlOG4xNTdwQjJSTzRHN09zYmtKdW82TFFCekhpc29oS2o3dGpwdmZMOWs5V0x3SC1hS0FCRFZZQ0YzTDBEU1E3ZWJBNDI1UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Albums Continue to Climb Ahead of Potential No. 1 Return
+
+- first seen: 2026-10-01 21:47 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's albums are experiencing a notable rise in the charts, potentially leading to her return to the No. 1 position soon. This shift highlights her ongoing popularity in the music industry.
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiygFBVV95cUxQeDBacklrUVdReTdmSmlXczl1X2FqLUt3VGRTLVZEU0NicmpvaC1hTllfNFZCTXVaekZjOWw1d0pwc3ItZk5ic0czVUF2ZU1yQXlBOHJuS3ZIN1YxZVpOY1p5Um1JRnFvalFIYWpnZWt4UndZWFl3cVlSR2N1SjRaVXhGZHA1WlpNR3Bhc0d0aHpyZ2tiQnNDR2FYTjAyU2djTzFUMHZXYWhlTjQ3a1hYc2xmZGo1bEk0SGZfcmdkZmhTLTVEb1pkeEdn?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## AI-generated fashion at the 2026 MTV VMAs causes confusion
 
@@ -59,14 +156,6 @@ Stories: 83
 - sources:
   - [unverified] forbes.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxQSGtWQ0d3VHcwWXZtSWlMT2p5T0w1b1d5a1lxOWZCbUppbUV0bGc0SmlKaktHV0QwUFBsaFMtNDVfTUtCcVZlb25hX1hLazBITVlmZjVlYW55V3NVU1pfaUVRRXNySlRqbFVmMVV3RUhQaEVKdVFPUDFDZkZMNVUzM1UxR3BkNWFoNTFieWtZZGtHWWJxM050c0l2czdtTlNtbHdZUjNYOTdUR1ZXVFpYVFpDLXREZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Faces Backlash Over 'Encore' Music Release
-
-- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A source reveals that Taylor Swift has received negative feedback regarding her recent music project, 'Encore'. This situation may impact her public image and reception among fans.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxPSjhXN2pKblN0ZlIwR19qZG0wRzdnRlZpNkFwS1FqZms1U2R3XzdxVkM0V1Mxd3VvSEMtcjBHb1JLSFVMYTZXekdFczVrNXVCNHBBZGlBSV9XalBPYVl0RzdOM0czclUxOUJROXU4ZER4WHRZdFRfa0JHSW10emdfSUl0ZUZQLTVodUJKT3BreXBaVXpkbXd4dzJB?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's Oscar Campaign Under Discussion
 
 - first seen: 2026-10-01 16:22 UTC | category: business | importance: 6
@@ -74,6 +163,14 @@ Stories: 83
 - summary: An article titled 'Taylor Swift’s Oscar Campaign: Hiding in Plain Sight' examines the strategies behind her Oscar campaign. The piece provides insights into how Swift is navigating this prestigious awards landscape.
 - sources:
   - [unverified] The Ankler — https://news.google.com/rss/articles/CBMifkFVX3lxTE9tSkdOQmJkcFlwYVdiSVRjLVRYWFNWMWRtY2kyZDUxX2ZmcE5DTE0xY1FHRXZBTVJPZENvc1RVNVlfbzZGT2dsQU9HMERrdWhPLTY1XzhDNXVfd2pYSkRnR0Z4Vzd6XzlrSVAzMzhCMkRVOWNqZm1JdnlUbFhoZw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Faces Backlash Over 'Encore' Music Release
+
+- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A source reveals that Taylor Swift has received negative feedback regarding her recent music project, 'Encore'. This situation may impact her public image and reception among fans.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxPSjhXN2pKblN0ZlIwR19qZG0wRzdnRlZpNkFwS1FqZms1U2R3XzdxVkM0V1Mxd3VvSEMtcjBHb1JLSFVMYTZXekdFczVrNXVCNHBBZGlBSV9XalBPYVl0RzdOM0czclUxOUJROXU4ZER4WHRZdFRfa0JHSW10emdfSUl0ZUZQLTVodUJKT3BreXBaVXpkbXd4dzJB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## MTV VMAs Producer Addresses Comments on Taylor Swift's New Award
 
@@ -118,12 +215,13 @@ Stories: 83
 ## Todd Rundgren Critiques Taylor Swift's Artistic Influence
 
 - first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Musician Todd Rundgren has referred to Taylor Swift as 'the apotheosis of mediocrity' in a recent statement. This comment reflects his views on current music trends and highlights the ongoing discussions about artistry in pop music.
 - sources:
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxQY0Rtek9iLW45ZTVtTEpya1lHY3VNT1hjdEJmZXJNa3I3QVVRVEZTRVRpVTJTOHZFMDdvMlZIMnB4ZjE1aEIyaWxtR2tZc2xWSC1fUTZlNUNWUlJjTjZWdGFIeFFhdjNEZDJHZ0IyM296TEFWRDRsNndhdUVXdWcxSmhR?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPQjU0TFJleVJxZnFNSkEyUmJPelltd0RZLWJ2LWxwaTNwMk84ejJnblFjbmxFWVUyaHoyNFVkZ01jRXljZzhqQllaeUVyR2J4MDc3MnhBMFB0SW1VU2xjS3lKQVFBbDcwY0JuUHkyR1JzbTRrZ3JZZmdHYVZONmhTQ3RyUVA1NkZaWXFsak5UNXlkUmxNdG1KR1hJdnNOckxKVFczRTA3d2wzNkpUcnB3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA TODAY 10BEST — https://news.google.com/rss/articles/CBMihgFBVV95cUxQNkZTLUZhM21LRm03ZFpyVlV3blFkNWtVNW9wT19GMEdDZ3VZZ0lKb2hBV1RGdGRjclNfRjlMTHJCSnV5eUswVVFNbG9ZcE9keXc4Zktuak90b216Vy1yZkF5cWY0Wnp1VUJYa2xPS3RIWEJxR3NJSmFmejZoUDFpWDVVSnp5QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] winespectator.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxPbUtQZDh4UGRxTHRwRnBVXzRVbS1DODFaLVRDOEFRTlp6Q05uV3o3TFBBdDBYcXlXV3VXdWNNVkpZM1JVUzc4VGZnYl9QVFNDeFJ1ZjZiak9vVTV0UGdqOEgzU2gyUi1VZW9RUVpyakY2TkhLRmpZUzNxSGdsUVg2VzJTUVJ3R2NHckVBVDRLaXNwdzc2VjFLTzRxT3ZyRklB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## VMAs Records Set by Madonna and Taylor Swift in 2026
 
@@ -193,11 +291,12 @@ Stories: 83
 ## Travis Kelce Responds to Taylor Swift's 'Cleveland!' as Fans React
 
 - first seen: 2026-09-30 21:24 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Travis Kelce has shared his thoughts on Taylor Swift's recent mention of 'Cleveland!' which has garnered mixed reactions from fans. The situation comes alongside local news regarding privacy measures for Kelce and Swift's home.
 - sources:
   - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMi5AFBVV95cUxNRkdIYTFrSkRmb0RjMVpRSDMzcGpWb3NKd1ZaMExLMnEtWFFZQUF4QWJrRzVFN3IxbTRTTnpQV3d1YVR3ajdBd21LMF95Q3BTYzZQWXpBckx6cGl2S2pJRzhQN0xjS2RZclBPSGFtNG1QelJvSzdFWTZRTUpwVld5ekhYTXFlZnEwdmlFYUk5ZFlpeVVfc2ZQZXYyQjZYZTNTUXloWGhHNGR6cExfNVlSektiS21welJVY084ZmYzMjVwVDlhb1hwRDFoazhTVm5Na3pVQkZVT0pOQjNEbDN0VDl4WDDSAfgBQVVfeXFMUHNKWVVGdGhRbUJlZHd3RlpZRGNIQ050bFVCbFB0WG1KbFRMZTRibzhjTHY2WDBVZDhJOVZBU3ExUGhwMDdHWXlCcUJsVlk3eG5mUXNIVl9Jdmx6YzAyWkgwdGk5WTg2bUx4b2dWMzBta3J2akE0dzA1MHdjSlMyWEFGVm5NbHJ4UVl0ZU9HbWYwd3pUWVZyemJWSDc1R0ttUC1NaHhNbEoxWmtNc2pmQkV4ZFhEN1JHRGpTd1ZfLVBSQldTUU5xbXUxVk5YVkV3d1Q0TERpOTI3MDZQS21xLVcwX2RyNmhBWUpqNjlnNjNIVnZmOTVISXc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KBOI — https://news.google.com/rss/articles/CBMiugFBVV95cUxQNklkQ1FOREJ0c1JuZWZ2ZHd5aXE1bVlVbHBJTGR0OUVHdF9ERnp4YjFkelF5SDdtWjN1VTlQTjZ1S05hb1lScUxTN2JLNWFCQ3JtTUlMQV9PczJxLTM2a0NXeFAwanZUaFNZN0cxQWxIMmpOUlZET3pUYzBTOWNjZ0RXemRNRDZrM0dEd2l3V2ZjQ01oWEdZeEZaMWdieVdRbFp3Qm96UW9NdllPVVJRcEZ6UDBVS2YyWlE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] KOMO — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVW5PWmplUUVlRHo5MlZ6Q3U0MFl4aGIzZzh5TEdha3J6bGx1NmhJMlJOcVZkenBvMUJuNkpQX3FHbXBHYmt0X3hTOE1SQUxGSGRVbEJpTW54YzVtZlUtRjdmWWdqaDdyek83N1NsMjJ0cUtvU0k2S1hFVmFUZE1kODR6TFktRGVNMTFzeVF4YkF2QlNSd0xUdjZPaU9yREJnVWZpdTdnM1FsOTdpMkhLSFk4ZjhNZ0RW?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WSET — https://news.google.com/rss/articles/CBMiswFBVV95cUxQOHBFTDd5THhjZzZGbWJObGxVeUE2c0ZPckl0Q0h4TE9pX1Rld3pBRjR3MDVFRkVvX2JoOU1NT1ZZbnFMTHNQMzNIenFZTE00OTNMUWVMOE52bjlfTV9mZnNsamdLSEgteElSaDltU213VlNtaVFZdGF6MFVzTUQ2QnRXQXZMRmJOYkt2a2NWUXF5cXU3TE9HY25aWF9UeGFEOWpYWk9BdlZkemxXMFNEaU9LVQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Holds No. 1 on Top Movie Songs Chart
@@ -595,118 +694,3 @@ Stories: 83
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxNd1hNYkFCT0R6MTB2MzRPcnAwdGpNNVdZeUw4TjdoVXpVWHI0bzRUbkl2dm5TOU1NY1Z2UlpUcTYwZFNwYm1TNXU5c1hzdzVvdjBsWHlhd3JaN0dGeFBhY3hHZTVIbVVhcTRTTUNJcF9jWEhNUUlKUFpQSUhqT1NTdTVMeFUxUXVpNWR4cldjTkRMOVVCaDFwU2JUMzgzbVNPSTRnUnE4UFJkc0E4aVFMeFFBSDk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxOaTV3MV9NSm44Uk4xMUJBZF9VVVpGd1E1eXVyRjZQRVI5TDBndDB2Y0lhUFdaMGRBc19ZT2F3bzZ6QnpUZDJKYXl2SmI3Q2dSTW5WakM1VWp1ZGExUFd3Tnl0RjdpZVV4VzFBLTVIcXhRVjNjanE1REMxcnNTNGU0MkJnNkdmT0JfdFZuWHV1cVNCUDlLdjdmclhwRWtvNkxuY293NVZhSDk1RGFy?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Omits Travis Kelce in VMAs Speech
-
-- first seen: 2026-09-28 17:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During her acceptance speech at the VMAs, Taylor Swift did not mention her husband, Travis Kelce. This detail has garnered attention from media outlets.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiowFBVV95cUxQczVUaF9PWXpiNHFUdk8zeDJ0RVFvdURkbGRwc25mX3B6eDFseVRvYXVTa180bzBiSl92bXB0Q0Z4LW1aSnlwZnNNZHgwUzVYWVpDYW1JQzhVZ28tQVhwQVpiNFBqUmxta3JYc3BCeTN3UUp3NVRfWHFYcHd6RmZaQ3JWZjYyMnExTFh3TGRqRGNtY2VSRUxqSWkxbzc3V3AzOGhR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Debuts 'Patient Zero' Music Video at VMAs
-
-- first seen: 2026-09-28 17:37 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: At the VMAs, Taylor Swift premiered her new music video for 'Patient Zero', showcasing her latest artistic work.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxQRFc4cXBnTmFidXRvdE1GOElZRE85UnhhQXZHYWxxNWN3dWt6WUZDV3M0ZUE1RWZBWUR2UXYzanYzQzQtY3RBVFFQdDlyZlhiYk1pQWU5cldFekRpYTNvd0NMNWlwWDZEUVVNaUtMQnJiYVZVZGFTbVZjSzB2UGV2andRSkc4SldNLXVZVnNjOUJzMS03N1B2eFN3aVBnS0FQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMixwFBVV95cUxOVTNuUDYxT3JGYXdrUktRb29uM2tlemhPQ2UybDNfYzdfZzg3M1NNbWZtbDZGMEhabFRvWEVjbEJYUkxkcWNBTllqY3Y5N0RJenRRanNCTkk1b2dsTWd0ZFlIUUx1Q3QwQjVxUUtJVUVHQnpNbGRrcExobEl6N1FJWk5Qb0FxUldnU0FMaHc4NUx2a3RpYVBhLWl0bkFaenNkUEpqN2Jxd3RzTi0tZmp1c1hlR1gxQUlLbEV6Rm44dnpEZ1F3UGFR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Details About Travis Kelce Wedding Revealed by Taylor Swift's Close Friend
-
-- first seen: 2026-09-28 17:37 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A close friend of Taylor Swift has disclosed new information regarding the wedding of Travis Kelce. This insight adds to the ongoing public interest in Swift's connections and relationships.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPT2VyQzFUdXlKdy1jQ25aeExfVEtVY1c0WXVjLUJaVUg3MlRQcUhzaGZUQ1hSN2xrNE9qN1hDeDNtRUI0RWVpd1BVdUgzcVZpM2V2M2xxcmlMQXRsZDRtV3VTN1pDeHRKUDVyMHdZXzV2R1kzMGRKOEt1N0ZpT3NKdHUxMWNTNE90aVhyODJDS1A0UlhzQjZoNzhxVGJvcFdLekR5SA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Producer Critiques Taylor Swift While Praising Lady Gaga
-
-- first seen: 2026-09-28 17:37 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An iconic producer has made headlines by praising Lady Gaga while criticizing Taylor Swift, stating that she has ‘ruined music’. This comment has sparked discussions about influence in the music industry.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPOUNQS3BYV3QxM3EyR0JsRG41dF9GbjhHc0QxcllOU2lXOUZkZXo5OEhWQVVjcW5xUVVpNkVuMEpSdktpZGkxUFB0bXlFTDJ5T0ZuekVpbmJBclI0bV9hWHZWRWhvaTRxRlZlVmlRT3hBTl9VWWtqVHFSbFF4Tk9hRFliWVFFN2I5LVFVRXpZQlh5Nk5yeS04b25QWHFKZEds?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift reportedly skips Chiefs-Dolphins game
-
-- first seen: 2026-09-28 17:37 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was not present at the Chiefs-Dolphins game, according to Town & Country Magazine. This absence has been noted by fans and media.
-- sources:
-  - [unverified] Town & Country Magazine — https://news.google.com/rss/articles/CBMiwgFBVV95cUxPYU9Td2N2Y2J6eEtJcDExeFJMNi1qVk9wS0dyVUF4UzZ6a2VkRE11X0Rkd1NJdlpJYmFCNWtSeGNhVnVFSjU2NmFheGdHM3JidmxEUjlPTVZzbWl0MW5iTE5MSkRjNHU5NDFnTXJQeW5QNXJwN3lTeG5aSEE3dzBhaGkwbzBraDZSM3A2NTNrLUZsaGtTalN1RXRpYURnNmhvZ3dsbWJsNVJJQTQ0QlB0cjZLZzNfRF9SRGlpYUk2TXVzQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Sheer Style at 2026 MTV VMAs Red Carpet
-
-- first seen: 2026-09-28 17:37 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: At the 2026 MTV VMAs, Taylor Swift and other celebrities showcased various sheer styles designed by Tamara Ralph and Zuhair Murad. The event highlighted a trend in fashion with these bold clothing choices.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/mtv-vmas-2026-sheer-trend-1239283705/
-
-## Taylor Swift referred to as Mrs. Kelce at 2026 VMAs
-
-- first seen: 2026-09-28 17:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: At the 2026 VMAs, Taylor Swift was humorously referred to as Mrs. Kelce. This moment caught the attention of fans and media alike.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMilAFBVV95cUxObFFPMGE0X196aHAxVU9hU2FrWlBJbUlvM19NT3EtUVBabWJFYWJtZGdDcGxmNklYbVZNYTAzcjdXQTFTMXBJNGF4Slkwck03OGxkX3FUTnJwclE3bnNZRGFYUmdFaFBMbWZPblhPWlI3SWgyNDBoLV9QUmRabnRhTWt6TkxVMmdMb0xFTUdJM3pQYWdJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Questions Taylor Swift's Impact on Music
-
-- first seen: 2026-09-28 17:37 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent discussion, Todd Rundgren raises questions about the influence of Taylor Swift on the music industry. The debate centers around her role and its effects on music as a whole, as stated in an article by Ultimate Classic Rock.
-- sources:
-  - [unverified] Ultimate Classic Rock — https://news.google.com/rss/articles/CBMia0FVX3lxTE1FRm4tR0lCNWFMcmhOeWU5RXpPWl80X0dvOFROUW1aeUR0SlJrOVJqSWtSSE1kMVFHRVh6N2tRWXlGcndQOXVYcmx4RU12c3ktbzZNTmlKOF9FbmNwTWtKem9zb1Z1TjVPT0Yw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fans Speculate Taylor Swift Wore Travis Kelce's Shirt for Career Moment
-
-- first seen: 2026-09-28 17:37 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Fans have noted that Taylor Swift may have borrowed a shirt from Travis Kelce during a significant moment in her career. The speculation has generated interest online among her followers.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQTzQxQ0NMbk12NEx4b2NwdVFVeWJYVEZBUkJ4ZW94SXJDUUw3TURiOWhnR2NXaWpxMm1aaG85Yl9YcUFveHMybmZxNkp6SUZfRUZyRjYwWkNRSHluXzlsTkg5ampYZzJUemVQRzZhb3FtM1d6a1dXbkNhR2RMVll2VjlzNDU2NnNSc1FkWGNic29jUUtBRjROSHFfOXViM28?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Historic Milestone at VMA
-
-- first seen: 2026-09-28 17:37 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made history at the VMA, marking a significant achievement in her career. This milestone underscores her impact on the music scene.
-- sources:
-  - [unverified] WTVG — https://news.google.com/rss/articles/CBMiekFVX3lxTE0tYjRRM1lrblVIaVhhdW9ydjFqb1NTbGgtaUwtNFhPT281aDZ4QkdkRzJUZzFtT1l0ZklwTy1CaUVrcWE0aWJ4RkhBRjhTOXR1QTNsbmFnYTdnYWtLeW5TcnZYakRrWU0xaVF6VHI4RUhqbF9DMU91am13?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Matt Stafford to Appear in Taylor Swift's Latest Music Video
-
-- first seen: 2026-09-28 17:37 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Rams quarterback Matt Stafford will make a cameo in Taylor Swift's new music video, highlighting his unexpected collaboration with the pop star. The details surrounding his appearance and its significance are shared in the article.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxPRzAwOTd6ZzJabTZ6NmhWYVBsRjljVmZHSjdVNXh4RTRBcTBKR21rSmtoQVNOOUxqQjVSbnJ6aGlubmJ1TTdqeTVIWnNVT3YzTXZ0OXhMRlAxLWY0OXdqeXFqdjB6Y1ZtSXZSSDd1Y05fZ3NfQ0dtelJkeTZ0STFha2pTbkF5dVF2Ni1sVDV4UzVYTmd5M2FYSnFTREtUMFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## MTV VMAs Collaborates with Taylor Swift to Increase Ratings
-
-- first seen: 2026-09-28 17:37 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: The MTV Video Music Awards have partnered with Taylor Swift in an effort to enhance viewership and ratings for the event. This collaboration aims to leverage Swift's influence in the music industry.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/sounds/play/w3ct98y1?at_medium=RSS&at_campaign=rss
-
-## Cleveland! Signs Appearing After Taylor Swift's Recent Success
-
-- first seen: 2026-09-28 17:37 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Following Taylor Swift's recent hit, signs promoting 'Cleveland!' have started to appear. This development highlights the impact of her music on local events and promotions.
-- sources:
-  - [unverified] FOX 8 News — https://news.google.com/rss/articles/CBMid0FVX3lxTE5ZbmZVZjdWMWhzcHNrMkFvUmozamZKenhMWXJNdmNwNW9GaUhZVXpFb1I5eWQzdkFVMlBvQzNLNGdac1VSM3Y1cGEtSzZ4Yjlub3EyTE9XVjdGWGhfM1BiaXA0Y1B2NjREZk9DSVU3ZjRlSkRzX3Vv0gF8QVVfeXFMUEZGZ0JpeHpPeEt1VWhoRGtIeUlwY0l0U3J1NXBPUzNyMFQ1Y0JVYlVkWVUyQmNDbnZpdGlYU3htNHF1aW9lUWJPa3dmOE12R0lFdXh3RGkxUWNISUh2c2RTWktrOVVOUEpkbVRXdUpJQkNBQ1hYb05tNHV6VQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## The Cornell Daily Sun Discusses Taylor Swift's Encore Performance
-
-- first seen: 2026-09-28 17:37 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 3
-- summary: An article from The Cornell Daily Sun examines Taylor Swift's recent performance, questioning the idea of an encore. The piece includes analysis of her live shows and fan reactions.
-- sources:
-  - [unverified] The Cornell Daily Sun — https://news.google.com/rss/articles/CBMikgFBVV95cUxNSDBPLWI1ZDYyUE1UQU1PTmd4Wlhiak8wSUJlZG9XVGJXNF93aDduOFp0a3hiczVISS1ORjluc0NWbEJqQTNhLUI5Sm1rUFpNTEVQM2tRSkU2MVF5a0VmMVEtNzZzWV9RMDlBY21DQnVweXdLbTJlT3JkYVRSV2xNNTIzUUNtSGtrdlhxSHhGT1pNUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Flor-Ala — https://news.google.com/rss/articles/CBMiaEFVX3lxTE9KYndWSGozeEVldWd1bXltUUhwWUoyMFZqRXZOTUh1NUZwN2dJbFlFQkRrOEZEQURYTEdYWllpbEFEc0tpV3Jjd1NhMTN2STE5aFVoNnl5T0FPUWdMRmtKbWFFUGFIQnh1?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] thesunflower.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxNOWxNeEVhRU5vQlFSRXpMRS1DcjI1NHNJNmVSQlh2ZjFyTUJRMUFRSHphSEFMRWtPUUFtb2hlaGM3bmY5U04wb2xFOU5NWWEtaUxQM1JibGlpQ0lvZHFRZE5rWkVzcGRkUUlDdzlyMVNFVFBHWmVNN3FpRU5PRFBvQmI4Y1FOXzV2a2hYTW1QaEZxX3IzaE5sSXcxQVBKaUF5UDFhaVI2SmMwWklqcm52VEJtT3NDeEwzT2syWnZfN1haMXFGNWpoX3A4S3pBeUdjcGxDTWZCSlpsSW9ublhF?oc=5&hl=en-US&gl=US&ceid=US:en
