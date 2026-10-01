@@ -503,29 +503,24 @@ describe('S3 reason protocol', () => {
     expect(rows[0]).toMatchObject({ pr: PR_NUMBER, action: 'reject', reason: 'too salesy', approver: APPROVER });
   });
 
-  it('AC4: ❌ with no reply does not close the PR or remove the file, and posts exactly one nudge within 24h', async () => {
-    const { impl: baseImpl1 } = makeFetchImplByMessage([briefMessage()], { [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
-    const { impl: fetchImpl1, posts: posts1 } = withPostCapture(baseImpl1);
-    const { impl: execGh1, calls: ghCalls1 } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
-    const { impl: execGit1, calls: gitCalls1 } = makeExecGit();
+  // Bots v2 W2 (owner 2026-09-30, docs/decisions.md): a bare ❌ IS a complete
+  // rejection now — reason "none given", no nudge, no second ❌ from the bot.
+  it('AC4 (v2): ❌ with no reply rejects the file with reason "none given", posts no nudge, and adds no confirmation reaction', async () => {
+    const { impl: baseImpl } = makeFetchImplByMessage([briefMessage()], { [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
 
-    await run({ execGh: execGh1, execGit: execGit1, fetchImpl: fetchImpl1, sleepImpl: vi.fn(() => Promise.resolve()) });
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
 
-    expect(ghCalls1.some((c) => c[0] === 'pr' && c[1] === 'close')).toBe(false);
-    expect(gitCalls1.some((c) => c[0] === 'rm')).toBe(false);
-    const nudges1 = posts1.filter((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`nudge: PR #${PR_NUMBER}`));
-    expect(nudges1).toHaveLength(1);
-
-    const nudgeMessage = { id: 'nudge-1', webhook_id: '999999999999999999', content: nudges1[0].body.content as string, timestamp: new Date().toISOString() };
-    const { impl: baseImpl2 } = makeFetchImplByMessage([briefMessage(), nudgeMessage], { [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
-    const { impl: fetchImpl2, posts: posts2 } = withPostCapture(baseImpl2);
-    const { impl: execGh2 } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
-    const { impl: execGit2 } = makeExecGit();
-
-    await run({ execGh: execGh2, execGit: execGit2, fetchImpl: fetchImpl2, sleepImpl: vi.fn(() => Promise.resolve()) });
-
-    const nudges2 = posts2.filter((p) => typeof p.body.content === 'string' && (p.body.content as string).includes(`nudge: PR #${PR_NUMBER}`));
-    expect(nudges2).toHaveLength(0);
+    expect(gitCalls.some((c) => c[0] === 'rm' && c[1] === path.posix.join('social', 'queue', QUEUE_FILE))).toBe(true);
+    const commentCall = ghCalls.find((c) => c[0] === 'pr' && c[1] === 'comment');
+    expect(commentCall?.[commentCall.length - 1]).toBe(`reject: social/queue/${QUEUE_FILE} — none given`);
+    expect(posts).toHaveLength(0); // no nudge, no notice
+    expect(fetchImpl.mock.calls.some(([, init]) => (init as RequestInit | undefined)?.method === 'PUT')).toBe(false);
+    const rows = await readLedgerLines();
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ action: 'reject', reason: 'none given', replyId: null, approver: APPROVER });
   });
 
   it('AC5 + AC7: ✅ writes an action:"approve" row with reason:null, and a second run against the same state writes no duplicate', async () => {
@@ -550,20 +545,33 @@ describe('S3 reason protocol', () => {
     expect(rows).toHaveLength(1); // idempotent — no duplicate row
   });
 
-  it('AC6: a reply from a Discord id not in SOCIAL_APPROVERS does not satisfy the reply requirement', async () => {
-    const { impl: baseImpl } = makeFetchImplByMessage(
+  it('AC6: a reply from a Discord id not in SOCIAL_APPROVERS is never a rejection and never the reason', async () => {
+    // No reaction at all: a non-approver's reply must not reject anything.
+    const { impl: baseImpl1 } = makeFetchImplByMessage(
+      [briefMessage(), replyMessage({ id: 'reply-1', parentId: MESSAGE_ID, authorId: `discord:${NON_APPROVER_SNOWFLAKE}`, content: 'not an approver' })],
+      { [MESSAGE_ID]: {} },
+    );
+    const { impl: fetchImpl1 } = withPostCapture(baseImpl1);
+    const { impl: execGh1, calls: ghCalls1 } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit1, calls: gitCalls1 } = makeExecGit();
+    await run({ execGh: execGh1, execGit: execGit1, fetchImpl: fetchImpl1, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(gitCalls1.some((c) => c[0] === 'rm')).toBe(false);
+    expect(ghCalls1.some((c) => c[0] === 'pr' && c[1] === 'close')).toBe(false);
+    expect(await readLedgerLines()).toHaveLength(0);
+
+    // With the approver's own ❌: rejects, but the stranger's text is not the reason.
+    const { impl: baseImpl2 } = makeFetchImplByMessage(
       [briefMessage(), replyMessage({ id: 'reply-1', parentId: MESSAGE_ID, authorId: `discord:${NON_APPROVER_SNOWFLAKE}`, content: 'not an approver' })],
       { [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } },
     );
-    const { impl: fetchImpl } = withPostCapture(baseImpl);
-    const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
-    const { impl: execGit, calls: gitCalls } = makeExecGit();
-
-    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
-
-    expect(gitCalls.some((c) => c[0] === 'rm')).toBe(false);
-    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'close')).toBe(false);
-    expect(await readLedgerLines()).toHaveLength(0);
+    const { impl: fetchImpl2 } = withPostCapture(baseImpl2);
+    const { impl: execGh2 } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
+    const { impl: execGit2, calls: gitCalls2 } = makeExecGit();
+    await run({ execGh: execGh2, execGit: execGit2, fetchImpl: fetchImpl2, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(gitCalls2.some((c) => c[0] === 'rm')).toBe(true);
+    const rows = await readLedgerLines();
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ action: 'reject', reason: 'none given' });
   });
 
   describe('#4127 stale-SHA — the safety axis (v3 stamps sign the head they were minted on)', () => {
@@ -950,11 +958,11 @@ describe('S3 reason protocol', () => {
     expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
   });
 
-  it('finding 3b: an already-stamped file with a pending (no-reply) ❌ this run does not merge', async () => {
+  it('finding 3b (v2): an already-stamped file with a bare ❌ is rejected, never merged', async () => {
     const itemA = { platform: 'x', body: 'hello world', scheduledAt: '2026-09-20T00:00:00Z' };
     const stampedItem = { ...itemA, approval: signedStamp(itemA, { sha: HEAD_SHA }) };
     await writeFile(path.join(root, 'social', 'queue', QUEUE_FILE), JSON.stringify(stampedItem, null, 2) + '\n');
-    const { impl: baseImpl } = makeFetchImplByMessage([briefMessage()], { [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } }); // ❌, no reply -> pending
+    const { impl: baseImpl } = makeFetchImplByMessage([briefMessage()], { [MESSAGE_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } }); // ❌, no reply -> reject (none given)
     const { impl: fetchImpl } = withPostCapture(baseImpl);
     const { impl: execGh, calls: ghCalls } = makeExecGh({ files: [{ path: `social/queue/${QUEUE_FILE}` }] });
     const { impl: execGit } = makeExecGit();
@@ -1422,5 +1430,220 @@ describe('HIGH 3 — a failed thread fetch must never fall back to approving the
     expect(item.body).toBe('hello world'); // the original caption, unchanged
     expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
     expect(await readLedgerLines()).toHaveLength(0);
+  });
+});
+
+// Bots v2 W2 (owner 2026-09-30; docs/decisions.md): ONE approval post covers
+// both halves of an IG+X pair — its ref line names every file, one ✅ stamps
+// both, ANY owner reply rejects both (reason = the reply), and the poll marks
+// the post ❌ itself (webhook fallback when the bot lacks Add Reactions).
+describe('Bots v2 W2 — one approval post covers the whole pair', () => {
+  const IG_FILE = '2026-09-20-example-ig.json';
+  const IG_REL = `social/queue/${IG_FILE}`;
+  const X_REL = `social/queue/${QUEUE_FILE}`;
+  const POST_ID = '444444444444444444';
+  const X_ITEM = { platform: 'x', body: 'x half', scheduledAt: '2026-09-20T00:00:00Z', campaign: 'mood:chip-poll:2026-09-b' };
+  const IG_ITEM = { platform: 'instagram', body: 'ig half', scheduledAt: '2026-09-20T00:00:00Z', campaign: 'mood:chip-poll:2026-09-b' };
+  const okPut = { ok: true, status: 204, json: async () => ({}), text: async () => '' };
+
+  function postMessage(extra: Record<string, unknown> = {}) {
+    return {
+      id: POST_ID,
+      webhook_id: '999999999999999999',
+      timestamp: '2026-09-19T00:00:00Z',
+      content: `**Tree · mood:chip-poll** · X + Instagram · PR #${PR_NUMBER}\nref: PR #${PR_NUMBER} · ${HEAD_SHA} · ${X_REL},${IG_REL}`,
+      ...extra,
+    };
+  }
+
+  async function seedPair() {
+    await seedQueueFile(QUEUE_FILE, X_ITEM);
+    await seedQueueFile(IG_FILE, IG_ITEM);
+  }
+
+  const bothFiles = () => ({ files: [{ path: X_REL }, { path: IG_REL }] });
+  const readItem = async (file: string) => JSON.parse(await readFile(path.join(root, 'social', 'queue', file), 'utf8'));
+  const puts = (impl: { mock: { calls: unknown[][] } }) => impl.mock.calls.filter(([, init]) => (init as RequestInit | undefined)?.method === 'PUT');
+  /** GETs go to the scripted base; a reaction PUT answers with `putResponse`. */
+  const withPut = (baseImpl: (url: string, init?: RequestInit) => unknown, putResponse: unknown = okPut) =>
+    vi.fn(async (url: string, init?: RequestInit) => (init?.method === 'PUT' ? putResponse : baseImpl(url, init)));
+
+  it('one ✅ on the post stamps BOTH halves (a signed stamp per file) and merges', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage()], { [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh, calls: ghCalls } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    for (const file of [QUEUE_FILE, IG_FILE]) {
+      const item = await readItem(file);
+      expect(item.approval?.by).toBe(APPROVER);
+      expect(item.approval?.message).toBe(POST_ID);
+      expect(approvalStatus(item, { approvers: SOCIAL_APPROVERS, key: TEST_KEY }).ok).toBe(true);
+    }
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(true);
+    expect((await readLedgerLines()).map((r) => r.action)).toEqual(['approve', 'approve']);
+  });
+
+  it('a ✅ from someone who is not an approver stamps nothing', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage()], { [POST_ID]: { check: [() => jsonResponse([{ id: NON_APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect((await readItem(QUEUE_FILE)).approval).toBeUndefined();
+    expect((await readItem(IG_FILE)).approval).toBeUndefined();
+  });
+
+  it('ANY owner reply to the post (no ❌ needed) rejects BOTH halves with the reply as the reason, then marks the post ❌', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage(), replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'the photo is wrong for IG' })], { [POST_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(withPut(baseImpl));
+    const { impl: execGh, calls: ghCalls } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(gitCalls.filter((c) => c[0] === 'rm').map((c) => c[1]).sort()).toEqual([IG_REL, X_REL].sort());
+    const comments = ghCalls.filter((c) => c[0] === 'pr' && c[1] === 'comment').map((c) => c[c.length - 1]);
+    expect(comments.sort()).toEqual([`reject: ${IG_REL} — the photo is wrong for IG`, `reject: ${X_REL} — the photo is wrong for IG`].sort());
+    const rows = await readLedgerLines();
+    expect(rows.map((r) => r.action)).toEqual(['reject', 'reject']);
+    expect(rows.every((r) => r.reason === 'the photo is wrong for IG' && r.replyId === 'reply-1' && r.approver === APPROVER)).toBe(true);
+    // The confirmation: ONE ❌ PUT on the post (not one per file), no nudge, no webhook fallback.
+    const confirmations = puts(fetchImpl);
+    expect(confirmations).toHaveLength(1);
+    expect(String(confirmations[0][0])).toContain(`/messages/${POST_ID}/reactions/${CROSS_MARK}/@me`);
+    expect((confirmations[0][1] as RequestInit).headers).toMatchObject({ Authorization: `Bot ${BOT_TOKEN}` });
+    expect(posts).toHaveLength(0);
+  });
+
+  it("a reply inside the post's thread rejects both halves the same way", async () => {
+    await seedPair();
+    const threadId = '121212121212121212';
+    const base = makeFetchImplByMessage([postMessage({ thread: { id: threadId } })], { [POST_ID]: {} }).impl;
+    const impl = vi.fn(async (url: string, init?: RequestInit) => {
+      if (init?.method === 'PUT') return okPut;
+      if (url.includes(`/channels/${threadId}/messages`)) return jsonResponse([{ id: 'thread-reply', author: { id: APPROVER_SNOWFLAKE }, content: 'wrong tone', timestamp: '2026-09-20T12:00:00Z' }]);
+      return base(url);
+    });
+    const { impl: fetchImpl } = withPostCapture(impl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(gitCalls.filter((c) => c[0] === 'rm')).toHaveLength(2);
+    expect((await readLedgerLines()).every((r) => r.reason === 'wrong tone')).toBe(true);
+  });
+
+  it('a reply wins over a ✅ on the same post — nothing is stamped or merged', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage(), replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'hold on' })], {
+      [POST_ID]: { check: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: fetchImpl } = withPostCapture(withPut(baseImpl));
+    const { impl: execGh, calls: ghCalls } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(gitCalls.filter((c) => c[0] === 'rm')).toHaveLength(2);
+    expect(ghCalls.some((c) => c[0] === 'pr' && c[1] === 'merge')).toBe(false);
+  });
+
+  it('✏️ + a reply on a two-file post is a rejection, never an edit (one caption cannot serve two platforms)', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage(), replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'new caption for both' })], {
+      [POST_ID]: { pencil: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: fetchImpl } = withPostCapture(withPut(baseImpl));
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()), checkDraftImpl: vi.fn(() => ({ ok: true, findings: [] })) });
+    expect(gitCalls.filter((c) => c[0] === 'rm')).toHaveLength(2);
+    expect((await readItem(QUEUE_FILE)).edit).toBeUndefined();
+  });
+
+  it('a bare ❌ on the post rejects both halves ("none given"), with no nudge and no extra bot reaction', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage()], { [POST_ID]: { cross: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] } });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit, calls: gitCalls } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(gitCalls.filter((c) => c[0] === 'rm')).toHaveLength(2);
+    expect((await readLedgerLines()).every((r) => r.reason === 'none given')).toBe(true);
+    expect(posts).toHaveLength(0);
+    expect(puts(fetchImpl)).toHaveLength(0);
+  });
+
+  it('falls back to ONE short webhook message (flags 4, jump link) when the bot may not add reactions — and says a human action is needed', async () => {
+    await seedPair();
+    const forbidden = jsonResponse({ code: 50013, message: 'Missing Permissions' }, 403);
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage(), replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'no' })], { [POST_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(withPut(baseImpl, forbidden));
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (url: string) => {
+        if (String(url).startsWith(WEBHOOK_URL)) return jsonResponse({ channel_id: CHANNEL_ID, guild_id: '555000555000555000' });
+        throw new Error(`unexpected global fetch url: ${url}`);
+      }),
+    );
+
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+
+    expect(posts).toHaveLength(1);
+    expect(posts[0].url).toBe(WEBHOOK_URL);
+    expect(posts[0].body.flags).toBe(4);
+    expect(String(posts[0].body.content)).toContain('❌ Rejected — reason logged.');
+    expect(String(posts[0].body.content)).toContain(`<https://discord.com/channels/555000555000555000/${CHANNEL_ID}/${POST_ID}>`);
+    expect(String(posts[0].body.content).trimEnd().endsWith(`rejected: ${POST_ID}`)).toBe(true);
+    expect(errorSpy.mock.calls.some(([msg]) => typeof msg === 'string' && msg.includes('Add Reactions'))).toBe(true);
+
+    // A later run that can see its own fallback message in the window posts nothing more.
+    const fallback = { id: 'fallback-1', webhook_id: '999999999999999999', content: String(posts[0].body.content), timestamp: new Date().toISOString() };
+    const { impl: baseImpl2 } = makeFetchImplByMessage([postMessage(), replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'no' }), fallback], { [POST_ID]: {} });
+    const { impl: fetchImpl2, posts: posts2 } = withPostCapture(withPut(baseImpl2, forbidden));
+    await run({ execGh, execGit, fetchImpl: fetchImpl2, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(posts2).toHaveLength(0);
+  });
+
+  it('a transient failure adding the ❌ (429/5xx) posts nothing — it retries next run', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([postMessage(), replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'no' })], { [POST_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(withPut(baseImpl, jsonResponse({ message: 'rate limited' }, 429)));
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(posts).toHaveLength(0);
+  });
+
+  it('does not add a second ❌ when the bot has already marked the post (idempotent across runs)', async () => {
+    await seedPair();
+    const marked = postMessage({ reactions: [{ emoji: { name: '❌' }, count: 1, me: true }] });
+    const { impl: baseImpl } = makeFetchImplByMessage([marked, replyMessage({ id: 'reply-1', parentId: POST_ID, content: 'no' })], { [POST_ID]: {} });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh(bothFiles());
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()) });
+    expect(puts(fetchImpl)).toHaveLength(0);
+    expect(posts).toHaveLength(0);
+  });
+
+  it('every Tree notice the poll posts suppresses link previews (flags 4)', async () => {
+    await seedPair();
+    const { impl: baseImpl } = makeFetchImplByMessage([briefMessage(), replyMessage({ id: 'reply-1', parentId: MESSAGE_ID, content: 'bad caption' })], {
+      [MESSAGE_ID]: { pencil: [() => jsonResponse([{ id: APPROVER_SNOWFLAKE }])] },
+    });
+    const { impl: fetchImpl, posts } = withPostCapture(baseImpl);
+    const { impl: execGh } = makeExecGh({ files: [{ path: X_REL }] });
+    const { impl: execGit } = makeExecGit();
+    await run({ execGh, execGit, fetchImpl, sleepImpl: vi.fn(() => Promise.resolve()), checkDraftImpl: vi.fn(() => ({ ok: false, findings: ['length: too long'] })) });
+    expect(posts.length).toBeGreaterThan(0);
+    for (const p of posts) expect(p.body.flags).toBe(4);
   });
 });

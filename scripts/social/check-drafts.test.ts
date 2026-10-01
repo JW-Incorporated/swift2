@@ -293,6 +293,28 @@ describe('checkCampaignPair', () => {
     expect(checkCampaignPair('x.json', all[0].data, all, [])).toHaveLength(1);
   });
 
+  // Bots v2 C4 (owner, 2026-09-30): the one sanctioned exemption is a written
+  // `singlePlatformReason` on the item itself.
+  it('passes an unpaired item that carries its own written singlePlatformReason', () => {
+    const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', singlePlatformReason: 'Breaking news: speed beats polish, IG caption follows later.' } };
+    expect(checkCampaignPair('x.json', x.data, [x], [])).toEqual([]);
+  });
+
+  it('rejects a throwaway or oversized singlePlatformReason — it must be a real written reason', () => {
+    for (const singlePlatformReason of ['n/a', '   too short   ', 'x'.repeat(301), 42]) {
+      const x = { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b', singlePlatformReason } };
+      expect(checkCampaignPair('x.json', x.data, [x], [])).toHaveLength(1);
+    }
+  });
+
+  it('does not let a sibling\'s singlePlatformReason excuse THIS file', () => {
+    const all = [
+      { file: 'x.json', data: { platform: 'x', campaign: 'c1', body: 'b' } },
+      { file: 'x2.json', data: { platform: 'x', campaign: 'c1', body: 'b2', singlePlatformReason: 'Breaking news: speed beats polish, IG later.' } },
+    ];
+    expect(checkCampaignPair('x.json', all[0].data, all, [])).toHaveLength(1);
+  });
+
   // Verbatim from the two drafts that shipped X-only on 2026-08-26 while
   // Instagram got nothing all day — still fails, same as any other marker.
   it('rejects the calendar/dropped-slot pretext that was actually used', () => {

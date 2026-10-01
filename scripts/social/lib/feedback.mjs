@@ -17,6 +17,10 @@ const REASON_MAX_LENGTH = 2000; // spec §Data-1 field rules: "reason ... capped
  * so the poll script and its tests share one literal, never two. */
 export const PENCIL_UNSUPPORTED_ON_HEADER = '✏️ only works on a single draft — react on the draft you want to change.';
 
+/** The reason recorded for a bare ❌ with no reply (Bots v2 W2) — the owner
+ * rejected without saying why; never nudged for one. */
+export const REASON_NONE_GIVEN = 'none given';
+
 /** family shape (spec §Data-1): how many `:`-separated segments of a
  * `campaign` value belong to its `pillar`. A real campaign may carry extra
  * trailing segments (a phase, a date) beyond this arity — pillarOf keeps
@@ -130,8 +134,10 @@ function latestQualifyingReply(replies) {
  * here; the caller, e.g. getMessageApprovals, already filters too).
  * `replies`: candidate replies already scoped to this target's message,
  * `{ id, authorId, content, timestamp }[]`.
- * `opts.kind`: `'draft' | 'reddit' | 'proposal' | 'pr'` — `'pr'` is the `*`
- * header; defaults to `'draft'`, the only kind S3's poll script ever passes.
+ * `opts.kind`: `'post' | 'draft' | 'reddit' | 'proposal' | 'pr'` — `'post'` is an
+ * approval post's per-file target (Bots v2 W2: any reply rejects), `'pr'` the legacy
+ * `*` header (same rule); `'draft'` (the default, and the weekly brief's
+ * brief/calendar/questions scopes) keeps the S3 rule that a ❌ needs a reply.
  *
  * Priority (❌ "wins" over everything — spec §3's "Rules holding for every
  * kind" — then the header's ✏️-unsupported rule, then ✏️, then ✅):
@@ -147,6 +153,19 @@ export function classifyReaction(reactions = {}, replies = [], { kind = 'draft' 
   // for every other kind (spec §3's reaction table + the ⏭️ footnote).
   if (kind === 'reddit' && skippedBy.length > 0) {
     return { action: 'skip', reason: null, editedBody: null, approver: skippedBy[0], replyId: null };
+  }
+
+  // Bots v2 W2 (owner, 2026-09-30; amends RULINGS-SOCIAL-2's rejection
+  // semantics — docs/decisions.md): on an approval post, ANY qualifying reply
+  // IS the rejection, reason = the reply text, no ❌ needed; a bare ❌ still
+  // rejects, with reason REASON_NONE_GIVEN and no follow-up nudge. A reply
+  // alongside an explicit ✏️ stays the legacy edit protocol below (single-file
+  // posts only — classifyTarget drops ✏️ from a multi-file post).
+  if ((kind === 'post' || kind === 'pr') && (rejectedBy.length > 0 || (qualifyingReply && editedBy.length === 0))) {
+    if (qualifyingReply) {
+      return { action: 'reject', reason: cleanReplyText(qualifyingReply.content), editedBody: null, approver: qualifyingReply.authorId, replyId: qualifyingReply.id };
+    }
+    return { action: 'reject', reason: REASON_NONE_GIVEN, editedBody: null, approver: rejectedBy[0], replyId: null };
   }
 
   if (rejectedBy.length > 0) {
@@ -197,9 +216,16 @@ export function groupTargets(refs) {
   const targets = new Map();
   for (const ref of refs ?? []) {
     if (!ref?.file) continue;
-    const key = ref.file === '*' ? '*' : path.posix.join('social', 'queue', path.basename(ref.file));
-    if (!targets.has(key)) targets.set(key, []);
-    targets.get(key).push(ref);
+    // Bots v2 W2: an approval post's ref names EVERY file in the post
+    // (`a.json,b.json`, both halves of an IG+X pair). The same message joins
+    // each file's target, flagged `multi` so a ✏️ on it is never read as one
+    // caption for two platforms.
+    const files = ref.file === '*' ? ['*'] : String(ref.file).split(',').map((f) => f.trim()).filter(Boolean);
+    for (const file of files) {
+      const key = file === '*' ? '*' : path.posix.join('social', 'queue', path.basename(file));
+      if (!targets.has(key)) targets.set(key, []);
+      targets.get(key).push(files.length > 1 ? { ...ref, file, multi: true } : ref);
+    }
   }
   return targets;
 }
@@ -238,7 +264,14 @@ function latestMessage(messages) {
  *   - `replyTimestamp`: when the winning reply was posted.
  */
 export function classifyTarget(entries = [], { kind = 'draft' } = {}) {
-  const messages = entries.map((e) => ({ id: e.message?.id, timestamp: e.message?.timestamp, sha: e.sha, reactions: e.reactions ?? {} }));
+  // `multi` entries (a post message covering both halves of a pair) never
+  // contribute a ✏️: one reply cannot be the new caption for two platforms.
+  const messages = entries.map((e) => ({
+    id: e.message?.id,
+    timestamp: e.message?.timestamp,
+    sha: e.sha,
+    reactions: e.multi ? { ...(e.reactions ?? {}), editedBy: [] } : (e.reactions ?? {}),
+  }));
   const union = {
     approvedBy: uniqueIds(messages.map((m) => m.reactions.approvedBy)),
     rejectedBy: uniqueIds(messages.map((m) => m.reactions.rejectedBy)),

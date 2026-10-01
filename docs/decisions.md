@@ -7,6 +7,63 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-09-30 — One short Discord approval per post: ✅ approves the pair, any reply rejects it (Bots v2 W2; amends RULINGS-SOCIAL-2 rejection semantics and the 2026-08-26 "no single-platform exception" ruling)
+
+**Decision (Joey, direct instruction, 2026-09-30):** the social approval posts
+in `#longlive-tree` were far too long ("I just want to know what we're
+posting"; a preview image is ideal). Replaced, per
+`docs/plans/bots-v2/PLAN.md` C3/C4/C6:
+
+- **One Discord message per post**, a post being a campaign's IG+X pair or a
+  lone item — never chunked, hard-capped at Discord's 2,000-character webhook
+  limit (`DISCORD_MESSAGE_HARD_CAP`; fields are truncated to fit, X text last,
+  and a test pins every built message). Content: label, schedule, X text in
+  full, IG caption trimmed to ~350 characters with a `<link>` to the full
+  draft on GitHub, a one-line why, one image preview (an explicit embed — the
+  only image form that survives, since `flags: 4` would suppress it — with
+  every URL `<…>`-wrapped), and the `ref:` line last. The separate header
+  message is gone. Builder: `scripts/social/lib/approval-post.mjs`.
+- **✅ approves the whole post** (both halves; one signed stamp per file,
+  schema v2/v3, owner-id check and HMAC unchanged). The ref line names every
+  file in the post (`a.json,b.json`) and `groupTargets` fans the one message
+  out to each file.
+- **Any reply by the owner to the post (message reference or its thread)
+  rejects the whole post**, reason = the reply text, written to the feedback
+  ledger and the `reject:` PR comment exactly as before. A bare ❌ still
+  rejects, reason `"none given"`, and is never nudged. This **amends
+  RULINGS-SOCIAL-2 / S3**, where ❌ needed a reply and a reply alone did
+  nothing. A reply beats a ✅ on the same post (approve-then-comment is a
+  rejection). ✏️ + reply survives only on a legacy single-file message; on a
+  two-file post it is ignored and the reply rejects.
+- **The bot confirms with ❌ itself** (PUT reaction via the existing bot
+  token). The token is read-only by design, so a 403 falls back to one short
+  webhook message with a jump link (`flags: 4`, trailer `rejected: <id>`,
+  idempotent) and a `::warning::` that the owner must grant "Add Reactions" —
+  filed as a human action rather than changing any secret.
+- **Every post is an IG+X pair by default, same image** (`check-drafts.mjs`
+  already failed an unpaired item). The one sanctioned exception is a written
+  item-level `singlePlatformReason` (20–300 characters; schema + gate +
+  shown to the owner on the post) — e.g. no usable image → X-only,
+  breaking-news speed → X first. This **amends the 2026-08-26 "Always an IG
+  copy. Always." ruling** at the owner's instruction; the old `Single-platform
+  exception:` text in `why` still does nothing.
+- **Link previews off (C6)** on every Tree webhook sender in code
+  (`flags: 4` unless a deliberate embed is present): approval posts, the
+  poll's notices, the weekly brief and re-plan update.
+
+**Legacy:** six draft PRs briefed under the old format were open at the time
+(they retire at 48h). The poll still reads old per-draft + header messages
+(the `*` header target is kept, marked legacy in `social-approval-poll.mjs`);
+delete those paths once none are open.
+
+**Alternatives considered:** an attachment upload for the preview (rejected:
+needs the image bytes at send time, and photos on an unmerged PR are not yet
+deployed); chunking long posts (rejected: a ✅/reply must mean exactly one
+thing); making ✏️ work on a pair (rejected: one caption cannot serve two
+platforms).
+
+**Approved by:** Joey (owner), 2026-09-30.
+
 ## 2026-09-30 — Automate the weekly Facebook groups export with a local persistent browser profile
 
 **Decision (Joey, explicit, in session):** automate HUMAN-ACTIONS #70 from

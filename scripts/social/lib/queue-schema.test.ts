@@ -91,6 +91,13 @@ describe('validateQueueItem', () => {
     expect(validateQueueItem({ ...validIg, campaign: 'c', why: 'w', approvedBy: 'joey', approvedAt: '2026-08-01T00:00:00Z' })).toEqual([]);
   });
 
+  it('validates singlePlatformReason as a written reason of 20-300 characters (Bots v2 C4)', () => {
+    expect(validateQueueItem({ ...validX, singlePlatformReason: 'No usable image for this story, so X-only with a link.' })).toEqual([]);
+    expect(findingFor({ ...validX, singlePlatformReason: 'n/a' }, 'singlePlatformReason')).toBeTruthy();
+    expect(findingFor({ ...validX, singlePlatformReason: 'y'.repeat(301) }, 'singlePlatformReason')).toBeTruthy();
+    expect(findingFor({ ...validX, singlePlatformReason: 7 }, 'singlePlatformReason: must be a string')).toBeTruthy();
+  });
+
   it('rejects a non-object', () => {
     expect(validateQueueItem(null)).toEqual(['not a JSON object']);
     expect(validateQueueItem([validX])).toEqual(['not a JSON object']);

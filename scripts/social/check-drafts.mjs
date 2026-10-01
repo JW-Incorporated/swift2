@@ -88,7 +88,7 @@ import { imageMeta } from '../content-engine/checkers/image-liveness.mjs';
 import { isGenericEraArt, repeatsRecentIgMedia, isValidScheduledAt, utcDateOnly } from './lib/queue.mjs';
 import { MAX_X_IMAGES } from './lib/platforms.mjs';
 import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
-import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES } from './lib/queue-schema.mjs';
+import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -338,6 +338,11 @@ export function checkOpeners(file, item, others) {
  * copy. Always." No marker, however genuinely worded, suppresses this
  * finding any more.
  *
+ * AMENDED 2026-09-30 (owner, Bots v2 C4): pairing is still the default, but an
+ * item may carry its own written `singlePlatformReason` (no usable image →
+ * X-only; breaking-news speed) — the only exemption, shown to the owner on the
+ * approval post. See docs/decisions.md 2026-09-30.
+ *
  * Scoped deliberately to the campaign of the draft being checked, not to the
  * whole corpus: legacy unpaired campaigns already in `social/posted/` are the
  * advisory checker's business, and must not retroactively fail every future
@@ -371,12 +376,18 @@ export function checkCampaignPair(file, item, allQueueItems, allPostedItems) {
 
   if (group.some((o) => o.data.platform === wanted)) return [];
 
+  // Bots v2 (docs/plans/bots-v2/PLAN.md C4, owner 2026-09-30): a WRITTEN
+  // `singlePlatformReason` on THIS item is the one sanctioned exception —
+  // distinct from the removed `why` marker (a reason on a sibling, or inside
+  // `why`, still does not count). The owner reads it on the approval post.
+  if (isValidSinglePlatformReason(item.singlePlatformReason)) return [];
+
   return [
     `campaign pair: campaign "${campaign}" has this ${item.platform} item but no ${wanted} sibling in social/queue/ or ` +
-      'social/posted/. Every real campaign ships to BOTH platforms, unconditionally — no single-platform exception of ' +
-      `any kind (social/README.md, Joey 2026-08-25 and 2026-08-26) — author the ${wanted} item in this same change ` +
-      'with the exact same `campaign` value. The Instagram item already cross-posts to Facebook, so never add a ' +
-      'third Facebook item.',
+      'social/posted/. Every post ships to BOTH platforms by default — author the ' +
+      `${wanted} item in this same change with the exact same \`campaign\` value, or set a written ` +
+      '`singlePlatformReason` on this item (no usable image → X-only; breaking-news speed). ' +
+      'The Instagram item already cross-posts to Facebook, so never add a third Facebook item.',
   ];
 }
 
