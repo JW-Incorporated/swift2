@@ -36,6 +36,7 @@ describe('launchPlainChrome', () => {
         '--disable-backgrounding-occluded-windows',
         '--disable-renderer-backgrounding',
         '--disable-background-timer-throttling',
+        '--disable-features=CalculateNativeWinOcclusion',
       ])
         expect(args).toContain(flag);
       expect(args.at(-1)).toBe('http://127.0.0.1:5555/start#tok');
