@@ -12,13 +12,14 @@
 // The recap lives between `<!-- fan-recap:start -->` markers that only the
 // daily brief routine writes (status-note.mjs write-recap).
 import { eraLink, erasTouched, isContentPR } from '../content-shipped.mjs';
+import { neutralizeHtmlComments } from './html-safe.mjs';
 
 const SECTION_CAP = 6;
 const TITLE_CAP = 90;
 const RECAP_LINES = 6;
 const RECAP_LINE_CAP = 220;
 const RECAP_PLACEHOLDER = "_Marjorie writes a short, plain-language recap from a fan's point of view each morning._";
-const RECAP_RE = /<!-- fan-recap:start -->\n([\s\S]*?)\n<!-- fan-recap:end -->/;
+const RECAP_RE = /<!-- fan-recap:start --!?>\n([\s\S]*?)\n<!-- fan-recap:end --!?>/;
 const LABELS = { x: 'X', instagram: 'Instagram', facebook: 'Facebook' };
 const CONVENTIONAL = /^(\w+)(?:\(([^)]*)\))?!?:/;
 const NON_FAN_TYPES = new Set(['docs', 'test', 'tests', 'ci', 'chore', 'build', 'style', 'refactor', 'deps', 'revert']);
@@ -27,7 +28,7 @@ const SITE_SCOPE = /\b(web|site|ui|ux|experience|longlive|app)\b/i;
 const APP_SCOPE = /\b(mobile|ios|android|native)\b/i;
 const NOT_VISIBLE = /(\.test\.|\.spec\.|__tests__|\/e2e\/|\.md$|\.stories\.)/;
 
-const defang = (s) => String(s ?? '').replace(/<!--|-->/g, '').replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
+const defang = (s) => neutralizeHtmlComments(s).replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
 /** Issue titles and PR titles are public input: no markup, links, mentions or autolinked refs. */
 const plain = (s, n = TITLE_CAP) => {
   const flat = defang(s).replace(/\s*\(#\d+\)\s*$/, '').replace(/[[\]`<>|]/g, '').replace(/#(?=\d)/g, '#​').replace(/\s+/g, ' ').trim();

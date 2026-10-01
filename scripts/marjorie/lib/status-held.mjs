@@ -6,15 +6,17 @@
 //
 // These markers are written only by status-note.mjs (stamp-held), never by the
 // agent: sanitizeNote strips every comment marker out of agent text.
-const REGION = /<!-- marjorie-held:start -->\n([\s\S]*?)\n<!-- marjorie-held:end -->/;
-const MARKER = /<!--\s*marjorie-held:\s*issue=(\d+)\s+ha=(\d+)\s*-->/g;
+import { neutralizeHtmlComments } from './html-safe.mjs';
+
+const REGION = /<!-- marjorie-held:start --!?>\n([\s\S]*?)\n<!-- marjorie-held:end --!?>/;
+const MARKER = /<!--\s*marjorie-held:\s*issue=(\d+)\s+ha=(\d+)\s*--!?>/g;
 export const HELD_HEADING = '## ⏸️ Held — chase stopped';
 const TITLE_CAP = 80;
 const MAX_ENTRIES = 20;
 
 /** Issue titles are public input: no markers, mentions, or markdown link syntax. */
 function plainTitle(title) {
-  const flat = String(title || '').replace(/<!--|-->/g, '').replace(/[[\]`]/g, '').replace(/(^|[^\w`])@(?=\w)/g, '$1@​').replace(/\s+/g, ' ').trim();
+  const flat = neutralizeHtmlComments(title).replace(/[[\]`]/g, '').replace(/(^|[^\w`])@(?=\w)/g, '$1@​').replace(/\s+/g, ' ').trim();
   return flat.length > TITLE_CAP ? `${flat.slice(0, TITLE_CAP - 1).trimEnd()}…` : flat;
 }
 

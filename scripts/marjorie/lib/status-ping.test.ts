@@ -29,7 +29,7 @@ describe('the stored baseline', () => {
     expect(readPingState('<!-- status-ping {"h":"x","at":"never","s":{}} -->')).toBeNull();
   });
   it('never lets stored text close the comment early', () => {
-    expect(pingMarker({ h: 'a', at: T0, s: { t: '--> <b>' } }).match(/-->/g)).toHaveLength(1);
+    expect(pingMarker({ h: 'a', at: T0, s: { t: '--> <b>' } }).match(/--!?>/g)).toHaveLength(1);
   });
 });
 

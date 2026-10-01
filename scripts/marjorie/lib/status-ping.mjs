@@ -20,7 +20,7 @@
 import { createHash } from 'node:crypto';
 
 export const PING_DEBOUNCE_MS = 60 * 60 * 1000;
-const MARKER = /<!-- status-ping (\{[^\n]*?\}) -->/;
+const MARKER = /<!-- status-ping (\{[^\n]*?\}) --!?>/;
 const LIST_CAP = 150;
 
 const short = (text) => createHash('sha1').update(String(text ?? '')).digest('hex').slice(0, 8);

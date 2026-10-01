@@ -59,7 +59,7 @@ describe('nextUpSections', () => {
 describe('strategy summary', () => {
   const DOC = '# Growth strategy\n\nIntro.\n\n## Summary\n\n- Win on era pages\n- Post daily on IG @someone\n* Fashion later <!-- x -->\n\n## Details\n- not in the summary\n';
   it('takes the bullets of the Summary section only, at most six, defanged', () => {
-    expect(summaryBullets(DOC)).toEqual(['Win on era pages', 'Post daily on IG @​someone', 'Fashion later x']);
+    expect(summaryBullets(DOC)).toEqual(['Win on era pages', 'Post daily on IG @​someone', 'Fashion later &lt;!-- x --&gt;']);
     expect(summaryBullets(`## Summary\n${Array.from({ length: 9 }, (_, i) => `- b${i}`).join('\n')}`)).toHaveLength(6);
     expect(summaryBullets('## Summary\nJust a sentence.\n\n## Next')).toEqual(['Just a sentence.']);
     expect(summaryBullets('# No summary here')).toEqual([]);

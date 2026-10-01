@@ -18,7 +18,7 @@ import { HUMAN_ACTIONS_DONE_PATH, HUMAN_ACTIONS_PATH } from '../human-actions.mj
 export const CLOSES_BRANCH = 'status-page/ha-closes';
 export const NOTE_CAP = 450;
 const SUMMARY_CAP = 140;
-const MARKER = /<!-- ha-close (\{[^\n]*?\}) -->/g;
+const MARKER = /<!-- ha-close (\{[^\n]*?\}) --!?>/g;
 const MAX_PENDING = 40;
 const TRUSTED_AUTHORS = new Set(['sffan15-sys', 'github-actions[bot]', 'github-actions', 'app/github-actions']);
 const LEGACY_BRANCH = /^(?:status-page|marjorie)\/ha-close-\d+/;

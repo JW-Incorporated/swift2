@@ -240,7 +240,7 @@ describe('records read back from a PR body are untrusted', () => {
     const nasty = { ...good, note: 'a --> b <!-- c', s: 'closed: <script>' };
     const rec = cleanRecord(nasty);
     expect(recordsFromBody(closesBody([rec]))).toEqual([rec]);
-    expect(closesBody([rec]).match(/-->/g)).toHaveLength(1);
+    expect(closesBody([rec]).match(/--!?>/g)).toHaveLength(1);
   });
   it('drops malformed, duplicate and out-of-range records', () => {
     const body = [good, { ...good, o: 'delete' }, { ...good, n: -3 }, { ...good, d: 'yesterday' }, { ...good, note: '' }, good]
@@ -331,7 +331,7 @@ describe('only OUR close PRs count (the repo is public)', () => {
   it('defangs even a trusted summary: no markers, backticks or live mentions', () => {
     const risky = { ...ours, body: closesBody([cleanRecord({ n: 80, o: 'done', d: '2026-10-01', note: 'n', s: 'decided: @sffan15-sys <!-- x --> `code`' })]) };
     const needs = page([risky]);
-    expect(needs).toContain('your answer: decided: @​sffan15-sys  x  \'code\'');
+    expect(needs).toContain('your answer: decided: @​sffan15-sys &lt;!-- x --&gt; \'code\'');
     expect(needs).not.toMatch(/@sffan15-sys|<!-- x/);
   });
 });

@@ -1,5 +1,6 @@
 // Next up / Growth / Tree / Marjorie's note for the status page (Bots v2 W4).
 // Pure renderers over already-fetched data; deterministic, no LLM.
+import { stripHtmlComments } from './html-safe.mjs';
 import { nextUpSections, renderNextUpSections } from './status-plan.mjs';
 import { renderTrafficLines } from './status-traffic.mjs';
 
@@ -37,7 +38,7 @@ function nextUpBullets(lines) {
  * headings or rules).
  */
 export function planSummary(body) {
-  const all = String(body || '').replace(/<!--[\s\S]*?-->/g, '').split(/\r?\n/);
+  const all = stripHtmlComments(body).split(/\r?\n/);
   const bullets = nextUpBullets(all);
   const lines = bullets.length ? bullets
     : all.map((l) => l.trim()).filter((l) => l && !/^#{1,6}\s/.test(l) && !/^[-*_]{3,}$/.test(l));

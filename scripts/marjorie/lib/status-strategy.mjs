@@ -5,13 +5,14 @@
 // section.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { neutralizeHtmlComments } from './html-safe.mjs';
 
 export const STRATEGY_PATH = 'docs/strategy/growth-strategy.md';
 const MAX_BULLETS = 6;
 const LINE_CAP = 240;
 const BULLET = /^(?:[-*]|\d+[.)])\s+(\S.*)$/;
 
-const clean = (s) => String(s || '').replace(/<!--|-->/g, '').replace(/(^|[^\w`])@(?=\w)/g, '$1@​').replace(/\s+/g, ' ').trim();
+const clean = (s) => neutralizeHtmlComments(s).replace(/(^|[^\w`])@(?=\w)/g, '$1@​').replace(/\s+/g, ' ').trim();
 const cap = (s, n) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
 
 /** The bullets (or, failing that, first lines) of the `## Summary` section; [] when there is none. */

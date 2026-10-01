@@ -7,7 +7,7 @@
 // A missing token or a failed call leaves the old cache in place; a number is
 // never estimated.
 export const TRAFFIC_STALE_MS = 20 * 60 * 60 * 1000;
-const MARKER = /<!-- status-traffic (\{[^\n]*?\}) -->/;
+const MARKER = /<!-- status-traffic (\{[^\n]*?\}) --!?>/;
 const TOP = 5;
 const LABEL_CAP = 44;
 
@@ -15,7 +15,7 @@ const num = (v) => (typeof v === 'number' && Number.isFinite(v) && v >= 0 ? Math
 
 /** Public-input strings (paths, referrer hostnames): no markup, mentions or links. */
 const label = (s) => {
-  const flat = String(s ?? '').replace(/<!--|-->/g, '').replace(/[[\]`<>|*_~]/g, '').replace(/(^|\s)@(?!\u200b)/g, '$1@​').replace(/\s+/g, ' ').trim() || '(direct)';
+  const flat = String(s ?? '').replace(/[[\]`<>|*_~]/g, '').replace(/(^|\s)@(?!\u200b)/g, '$1@​').replace(/\s+/g, ' ').trim() || '(direct)';
   return flat.length > LABEL_CAP ? `${flat.slice(0, LABEL_CAP - 1)}…` : flat;
 };
 const top = (rows, key) => (Array.isArray(rows) ? rows : []).slice(0, TOP)

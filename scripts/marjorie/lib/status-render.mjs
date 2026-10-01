@@ -1,5 +1,6 @@
 // Composes the status page body (Bots v2 W4) from already-fetched data.
 // Pure: same input, same output; the clock is a parameter.
+import { neutralizeHtmlComments } from './html-safe.mjs';
 import { renderForFans } from './status-fans.mjs';
 import { renderNeedsYou } from './status-ha.mjs';
 import { pingMarker } from './status-ping.mjs';
@@ -12,8 +13,8 @@ import { buildView } from './status-view.mjs';
 
 export const PAGE_MARKER = '<!-- marjorie-status-page v1 -->';
 export const BODY_LIMIT = 60_000; // GitHub's issue body cap is 65,536 characters
-const NOTE_RE = /<!-- marjorie-note:start date=(\S+) -->\n([\s\S]*?)\n<!-- marjorie-note:end -->/;
-const PING_RE = /<!-- marjorie-ping date=(\S+)(?: msg=(\d+))? -->/;
+const NOTE_RE = /<!-- marjorie-note:start date=(\S+) --!?>\n([\s\S]*?)\n<!-- marjorie-note:end --!?>/;
+const PING_RE = /<!-- marjorie-ping date=(\S+)(?: msg=(\d+))? --!?>/;
 const PLACEHOLDER = /^_No note yet/;
 
 /** Marjorie's note and delivery stamp, read back out of an existing body so a re-render keeps them. */
@@ -31,8 +32,7 @@ export function readPreserved(body) {
 
 /** Agent-written text is published to a public issue: no marker injection, no live @-mentions. */
 export function sanitizeNote(text) {
-  return String(text || '')
-    .replace(/<!--|-->/g, '')
+  return neutralizeHtmlComments(text)
     .replace(/(^|[^\w`])@(?=\w)/g, '$1@​')
     .trim();
 }

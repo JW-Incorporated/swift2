@@ -2,6 +2,8 @@
 // 2026-10-01): `### To grow`, `### To make content better`, `### Other`. The
 // weekly review writes them; the page just parses them. A plan with no
 // sub-sections returns [] and the caller falls back to the flat bullet list.
+import { neutralizeHtmlComments, stripHtmlComments } from './html-safe.mjs';
+
 const HEADING = /^(#{1,6})\s*(.+?)\s*#*\s*$/;
 const NEXT_UP = /^next up\b/i;
 const BULLET = /^(?:[-*]|\d+[.)])\s+(\S.*)$/;
@@ -9,12 +11,12 @@ const BULLETS_PER_SECTION = 5;
 const LINE_CAP = 200;
 const ICONS = [[/grow/i, '🌱'], [/content/i, '🎨']];
 
-const clean = (s) => String(s || '').replace(/<!--|-->/g, '').replace(/\s+/g, ' ').trim();
+const clean = (s) => neutralizeHtmlComments(s).replace(/\s+/g, ' ').trim();
 const cap = (s, n) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
 
 /** `[{ title, icon, bullets }]` for each non-empty sub-heading under "Next up", in plan order. */
 export function nextUpSections(body) {
-  const lines = String(body || '').replace(/<!--[\s\S]*?-->/g, '').split(/\r?\n/);
+  const lines = stripHtmlComments(body).split(/\r?\n/);
   let level = 0;
   let start = -1;
   for (let i = 0; i < lines.length; i += 1) {

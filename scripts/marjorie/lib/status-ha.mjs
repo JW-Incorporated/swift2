@@ -9,7 +9,9 @@
 //   Decide: `accept` — raise the budget; `route` — send it to a desk.
 // (or the older "reply with one word: `a`, `b`, or `c`"). An item with no such
 // line accepts any short reply as its decision.
-export const HA_HEADING = /^##\s+#(\d+)\s+(\S*)\s*\[(BLOCKING|DECIDE|UPGRADE)\]\s+(.*?)(?:\s+\(~([^)]*)\))?\s*$/;
+import { neutralizeHtmlComments } from './html-safe.mjs';
+
+export const HA_HEADING =/^##\s+#(\d+)\s+(\S*)\s*\[(BLOCKING|DECIDE|UPGRADE)\]\s+(.*?)(?:\s+\(~([^)]*)\))?\s*$/;
 const FIELD = /^\*\*([A-Za-z ]+):\*\*\s*(.*)$/;
 const STEP_START = /^\s*(?:\d+[.)]|[-*])\s+/;
 const OPTION_STEP = /^(?:decide|choose|options?)\s*:|one word/i;
@@ -140,7 +142,7 @@ export function renderNeedsYou(items, { repo, now = Date.now(), closing = [] } =
   if (closing.length) {
     out.push('', '✅ **Closing — merging now**');
     // The summary is the owner's own words carried through a PR body: no markers, backticks or live mentions.
-    const safe = (s) => String(s).replace(/<!--|-->/g, '').replace(/`/g, "'").replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
+    const safe = (s) => neutralizeHtmlComments(s).replace(/`/g, "'").replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
     for (const c of closing) out.push(`- #${c.number} — ${c.title}${c.summary ? ` · your answer: ${safe(c.summary)}` : ''} · [PR #${c.pr.number}](${c.pr.url})`);
   }
   return out.join('\n');
