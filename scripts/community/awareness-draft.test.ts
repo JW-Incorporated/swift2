@@ -6,6 +6,9 @@ import {
   countNewLeads,
   lintReply,
   lintWhy,
+  parseDrafts,
+  applyDrafts,
+  MAX_DRAFT_ENTRIES,
   pickForDrafting,
 } from './awareness-draft.mjs';
 
@@ -113,5 +116,102 @@ describe('countNewLeads (the routine gate)', () => {
     expect(await countNewLeads({ from: () => chain({ count: 9, error: { message: 'x' } }) })).toBe(
       0,
     );
+  });
+});
+
+describe('parseDrafts (untrusted LLM output)', () => {
+  it('keeps only well-formed entries, drops unknown fields, and caps the list', () => {
+    const entries = parseDrafts(
+      JSON.stringify([
+        { id: 'a', action: 'draft', draft: 'x', why: 'y', image_ref: 'era:folklore', evil: 'drop' },
+        { id: 'b', action: 'skip' },
+        { id: 'c', action: 'delete' },
+        { action: 'draft' },
+        'nope',
+        ...Array.from({ length: 30 }, (_, i) => ({ id: `n${i}`, action: 'skip' })),
+      ]),
+    );
+    expect(entries).toHaveLength(MAX_DRAFT_ENTRIES);
+    expect(entries[0]).toEqual({
+      id: 'a',
+      action: 'draft',
+      draft: 'x',
+      why: 'y',
+      image_ref: 'era:folklore',
+    });
+    expect(entries.some((e: { id: string }) => e.id === 'c')).toBe(false);
+  });
+
+  it('treats malformed JSON as nothing to apply', () => {
+    expect(parseDrafts('not json')).toEqual([]);
+    expect(parseDrafts('{"drafts": 4}')).toEqual([]);
+    expect(parseDrafts(JSON.stringify({ drafts: [{ id: 'a', action: 'skip' }] }))).toHaveLength(1);
+  });
+});
+
+describe('applyDrafts', () => {
+  function fakeDb(waiting: { id: string; image_ref: string }[]) {
+    const updates: { patch: unknown; id: string }[] = [];
+    const db = {
+      from: () => {
+        const b: Record<string, unknown> = {
+          select: () => b,
+          in: () => b,
+          eq: (col: string, val: string) => {
+            if (col === 'id') updates.push({ patch: b.patch, id: val });
+            return b;
+          },
+          update: (patch: unknown) => {
+            b.patch = patch;
+            return b;
+          },
+          then: (resolve: (v: unknown) => unknown) =>
+            Promise.resolve({ data: waiting, error: null }).then(resolve),
+        };
+        return b;
+      },
+    };
+    return { db, updates };
+  }
+
+  it('saves valid drafts, applies skips, and rejects bad replies and ids that are not waiting', async () => {
+    const { db, updates } = fakeDb([
+      { id: 'ok', image_ref: 'era:folklore' },
+      { id: 'bad', image_ref: 'era:folklore' },
+      { id: 'sk', image_ref: 'era:folklore' },
+    ]);
+    const result = await applyDrafts(
+      db,
+      [
+        {
+          id: 'ok',
+          action: 'draft',
+          draft: 'folklore, no contest',
+          why: 'Era ranking, so a card fits',
+        },
+        {
+          id: 'bad',
+          action: 'draft',
+          draft: 'see https://x.test now',
+          why: 'Era ranking, so a card fits',
+        },
+        { id: 'sk', action: 'skip', draft: '', why: '' },
+        {
+          id: 'ghost',
+          action: 'draft',
+          draft: 'folklore, no contest',
+          why: 'Era ranking, so a card fits',
+        },
+      ],
+      catalog,
+    );
+    expect(result).toMatchObject({ drafted: 1, skipped: 1 });
+    expect(result.rejected.map((r: { id: string }) => r.id)).toEqual(['bad', 'ghost']);
+    expect(updates.find((u) => u.id === 'ok')?.patch).toMatchObject({
+      status: 'drafted',
+      link_included: false,
+    });
+    expect(updates.find((u) => u.id === 'sk')?.patch).toEqual({ status: 'skipped_low_relevance' });
+    expect(updates.some((u) => u.id === 'bad' || u.id === 'ghost')).toBe(false);
   });
 });

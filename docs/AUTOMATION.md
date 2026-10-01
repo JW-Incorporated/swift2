@@ -343,7 +343,7 @@ runs in CI as `npm run check:routines` to enforce their routine invariants.
 | News Triage | daily 15:40 | Opus 4.8 (T-3 trial: Sonnet 5, pending account access — `docs/agents/runners.md` § News Triage) | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
 | Lex depth | **disabled** (warm spare) | Opus 4.8 | *none* | [`lex-depth.md`](agents/runner-prompts/lex-depth.md) |
 | Community Answerer — engagement drafts (P1-4, `routine-community-answerer.yml`) | daily 14:46 (after `community-scan.yml`, P1-2) | Sonnet 5 (§8-Q4) | [`community-answerer.md`](agents/community-answerer.md) | [`community-answerer.md`](agents/runner-prompts/community-answerer.md) |
-| Awareness Answerer — image replies (`routine-awareness-answerer.yml`) | every 3 hours, 22 min after each awareness scan (minute 41); a gate job skips the Claude run when no lead is waiting; one run per batch, 30 turns, $1 guard | Sonnet 5 | [`community-answerer.md`](agents/community-answerer.md) (hard rails) | [`awareness-answerer.md`](agents/runner-prompts/awareness-answerer.md) |
+| Awareness Answerer — image replies (`routine-awareness-answerer.yml`) | every 3 hours, 22 min after each awareness scan (minute 41); a plain export job (the only one with the DB secret; the Claude job has none, no shell) skips the Claude run when no lead is waiting; one run per batch, 30 turns, $1 guard | Sonnet 5 | [`community-answerer.md`](agents/community-answerer.md) (hard rails) | [`awareness-answerer.md`](agents/runner-prompts/awareness-answerer.md) |
 
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built
 to replace them** — Phase 4 never landed, so Rumor Desk content lands daily

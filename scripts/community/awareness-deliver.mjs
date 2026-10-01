@@ -19,6 +19,7 @@ import { postBatchHeader } from './discord-delivery.mjs';
 import { buildAckUrl } from './mailer.mjs';
 import { awarenessEnabled, dailyCapFor, loadConfig, utcDayStart } from './awareness-scan.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
+import { lintReply } from './awareness-draft.mjs';
 import { eligibilityRank } from './awareness-eligibility.mjs';
 import {
   cardUrlForRef,
@@ -58,13 +59,18 @@ export async function fetchDraftedAwareness(supabase, now = new Date()) {
     .eq('kind', AWARENESS_KIND)
     .eq('status', 'drafted')
     .not('draft', 'is', null)
+    .not('image_ref', 'is', null)
+    .not('why', 'is', null)
     .gte('created_at', since)
     .limit(200);
   if (error) {
     if (isSchemaPending(error)) return [];
     throw error;
   }
-  return (data ?? []).filter((lead) => typeof lead.draft === 'string' && lead.draft.trim() !== '');
+  // Defence in depth: whatever wrote the row, nothing reaches Discord that fails the reply lint.
+  return (data ?? []).filter(
+    (lead) => typeof lead.draft === 'string' && lintReply(lead.draft).length === 0,
+  );
 }
 
 /** `{ perSub: {community: n}, total }` delivered today (UTC). */

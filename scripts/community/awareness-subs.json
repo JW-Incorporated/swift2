@@ -68,7 +68,7 @@
       "tier": 2,
       "imageComments": null,
       "verified": true,
-      "requireTaylor": true,
+      "requireTaylor": "strict",
       "selfPromoNote": "Strict self-promo rules; only Taylor-specific threads, and never a pitch.",
       "notes": "General pop sub. Only threads that name Taylor/an era/an album; everything else is off-topic."
     },

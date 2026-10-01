@@ -26,7 +26,7 @@ function lead(n: number, community = 'TaylorSwift', overrides: Record<string, un
     community,
     url: `https://www.reddit.com/r/${community}/comments/${n}/x/`,
     title: `Thread ${n}`,
-    draft: `reply ${n}`,
+    draft: `reply number ${n}`,
     why: 'fits',
     image_ref: 'era:folklore',
     image_comments: 'image',
@@ -288,5 +288,26 @@ describe('runDelivery caps and unlisted subs', () => {
     );
     expect(DAILY_CAP).toBe(15);
     expect(BATCH_CAP).toBe(5);
+  });
+});
+
+describe('delivery re-lints what it reads', () => {
+  it('never sends a draft that fails the reply lint, even if it was saved as drafted', async () => {
+    const { fetchImpl, calls } = discord();
+    const drafted = [
+      lead(1, 'TaylorSwift', { draft: 'see https://longlivets.com for more' }),
+      lead(2, 'swifties', { draft: 'folklore, no contest' }),
+    ];
+    const result = await runDelivery({
+      supabase: fakeSupabase({ drafted }),
+      webhook: 'h',
+      catalog,
+      config,
+      fetchImpl: fetchImpl as never,
+      postHeader: async () => true,
+    });
+    expect(result.delivered).toHaveLength(1);
+    expect(calls).toHaveLength(1);
+    expect(result.drafted).toBe(1);
   });
 });

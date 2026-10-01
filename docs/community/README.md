@@ -93,10 +93,12 @@ How it works, in three workflows (kill switch: repo variable
    export leads are adopted as awareness rows too.
 2. `routine-awareness-answerer` is ONE Claude run per batch (not per lead; at
    most 6 leads, 30 turns, a $1 guard) and is skipped outright when nothing is
-   waiting. It writes the words only. A script
-   (`awareness-draft.mjs`) does every read and write: it screens, checks the
-   picture id exists, and rejects a reply with a link, a domain, "check out",
-   an em dash or more than 300 characters.
+   waiting. It writes the words only, with no shell and no database secret
+   (it reads untrusted Reddit titles): a plain job exports the waiting leads
+   to a file, the agent (Read/Write/Glob/Grep only) writes a drafts file, and
+   a plain job validates it (`awareness-draft.mjs apply`): the picture id must
+   exist and a reply with a link, a domain, "check out", an em dash or more
+   than 300 characters is rejected. Delivery lints every reply again.
 3. `community-awareness-deliver` sends at most 5 per batch, 3 per sub per day
    (4 for r/TaylorSwift and r/swifties) and 15 per day, image-capable subs
    first, unverified next, **text-only sub** last. An unverified sub is never
@@ -114,7 +116,9 @@ memory; a missing sub just yields no threads.
 **Numbers.** Posted and Skip clicks feed Marjorie's weekly review as
 `awareness: {delivered, posted, skipped, open}` (by delivery week); tell
 Marjorie in `#longlive-marjorie` how many people replied "what is that?".
-Posting an awareness reply does not count toward the 20 non-promo
+Delivery is at-least-once: if Discord confirms a message but marking the lead
+`delivered` then fails, that opportunity can arrive again in a later batch;
+skip the repeat. Posting an awareness reply does not count toward the 20 non-promo
 contributions the link gate waits for (it is promotion, not a plain contribution).
 
 Expect to spend roughly 10–15 minutes on this most days.

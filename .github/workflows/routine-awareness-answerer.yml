@@ -1,18 +1,23 @@
 # Awareness Answerer — image-reply drafts, step 2 of 3 of the awareness lane
 # (docs/agents/runner-prompts/awareness-answerer.md; the lane is described in
 # docs/community/README.md). Every 3 hours, 22 minutes after each
-# community-awareness-scan run. ONE Claude run per batch, never per lead: it
-# lists at most 6 new leads and writes them one command each, bounded by 30
-# turns, 15 minutes and a $1 budget guard. A plain `gate` job first counts the
-# waiting leads and skips the Claude run entirely when there are none, so an
-# empty window costs nothing. The agent only chooses words: every read and
-# write goes through scripts/community/awareness-draft.mjs, which screens
-# (redline), validates the picture id, lints the reply (no link, no site
-# name) and writes `engagement_lead` rows. No PR, no GitHub comment; delivery
-# is the next workflow (community-awareness-deliver.yml, on this run's success).
+# community-awareness-scan run. ONE Claude run per batch, never per lead.
 #
-# Kill switch: the repo variable AWARENESS_LANE_ENABLED=false makes the gate
-# report zero. Narrowest tools: no WebSearch/WebFetch, no Task.
+# The Claude step holds NO database secret and NO shell, because it reads
+# untrusted Reddit titles. Three jobs, secrets only in the plain ones:
+#   export  (plain, has Supabase) counts the waiting leads, redline-screens
+#           and exports up to 6 to .scratch/awareness-in.json, uploads it;
+#           pending=0 (or any failure) means no Claude run at all
+#   run     (Claude; tools Read,Write,Glob,Grep; 30 turns, 15 minutes, $1 guard)
+#           reads the export, writes .scratch/out/drafts.json
+#   apply   (plain, has Supabase) treats drafts.json as untrusted input:
+#           validates every image id, lints every reply (no link, no site name),
+#           and writes `engagement_lead` rows
+# No PR, no GitHub comment; delivery is the next workflow
+# (community-awareness-deliver.yml, on this run's success).
+#
+# Kill switch: the repo variable AWARENESS_LANE_ENABLED=false makes the export
+# job report zero. No Task, no Bash, no WebSearch/WebFetch.
 name: routine-awareness-answerer
 
 on:
@@ -25,44 +30,85 @@ permissions:
   id-token: write  # claude-code-action@v1 OIDC bootstrap, same as every routine
 
 jobs:
-  gate:
+  export:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
-      pending: ${{ steps.count.outputs.pending }}
+      pending: ${{ steps.export.outputs.pending }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
       - run: npm ci --ignore-scripts
-      - name: Count awareness leads waiting for a draft
-        id: count
+      - name: Build the offline moment catalogue (seed files only, no secrets)
+        run: node scripts/sync-longlive-content.mjs
+      - name: Export awareness leads waiting for a draft
+        id: export
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           FLAG: ${{ vars.AWARENESS_LANE_ENABLED }}
         run: |
-          if [ "$FLAG" = "false" ] || [ "$FLAG" = "0" ]; then
-            echo "pending=0" >> "$GITHUB_OUTPUT"
-          else
-            echo "pending=$(npx tsx scripts/community/awareness-draft.mjs count | tail -1)" >> "$GITHUB_OUTPUT"
+          mkdir -p .scratch
+          n=0
+          if [ "$FLAG" != "false" ] && [ "$FLAG" != "0" ]; then
+            n=$(npx tsx scripts/community/awareness-draft.mjs count | tail -1) || n=0
+            case "$n" in ''|*[!0-9]*) n=0 ;; esac
           fi
+          if [ "$n" != "0" ]; then
+            npx tsx scripts/community/awareness-draft.mjs export --out .scratch/awareness-in.json || true
+            n=$(node -e "console.log(require('./.scratch/awareness-in.json').leads.length)") || n=0
+            case "$n" in ''|*[!0-9]*) n=0 ;; esac
+          fi
+          echo "pending=${n:-0}" >> "$GITHUB_OUTPUT"
+      - name: Hand the export to the agent job
+        if: steps.export.outputs.pending != '0'
+        uses: actions/upload-artifact@v7
+        with:
+          name: awareness-pending
+          path: .scratch/awareness-in.json
+          retention-days: 1
 
   run:
-    needs: gate
-    if: needs.gate.outputs.pending != '0'
+    needs: export
+    if: needs.export.outputs.pending != '0'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Awareness Answerer — image replies"
       prompt_file: docs/agents/runner-prompts/awareness-answerer.md
       model: claude-sonnet-5
-      allowed_tools: "Bash,Read,Glob,Grep"
+      allowed_tools: "Read,Write,Glob,Grep"
       timeout_minutes: 15
       max_turns: 30
       max_budget_usd: 1
       checkout_token_secret: GITHUB_TOKEN
+      pre_run_artifact: awareness-pending
+      post_run_artifact: awareness-drafts
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+  apply:
+    needs: run
+    if: always() && needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - run: npm ci --ignore-scripts
+      - name: Build the offline moment catalogue (seed files only, no secrets)
+        run: node scripts/sync-longlive-content.mjs
+      - name: Fetch the agent's drafts file
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: awareness-drafts
+          path: .scratch/out
+      - name: Validate and save the drafts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx tsx scripts/community/awareness-draft.mjs apply --file .scratch/out/drafts.json
