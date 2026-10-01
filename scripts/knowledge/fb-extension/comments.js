@@ -445,8 +445,9 @@
   // units: merged harvest units; opts: {topN, maxPerPost, pacingMs, maxMs}.
   // Test hooks: opts.document, opts.sleep, opts.random, opts.now.
   // Never throws; returns {comments: [{postKey, postUrl, comments}], coverage}. coverage counts the
-  // eligible posts (top-N with commentCount > 0) and how each ended: processed (opened and read,
-  // even if it held no comments), failed (post not found on the page or the driver threw) or
+  // eligible posts (top-N with commentCount > 0) and how each ended: processed (opened and at
+  // least one comment read), failed (post not found on the page, the driver threw, or it
+  // yielded zero comments despite commentCount > 0 — selector drift) or
   // timedOut (the time cap hit during it, or it was never reached). The four always add up:
   // eligible = processed + failed + timedOut. The receiver fails the group when comments were
   // systematically broken (Codex round 2 #6: failures used to be swallowed into []).
@@ -482,6 +483,10 @@
           const result = await collectForPost(unit, ctx);
           if (!result) coverage.failed += 1;
           else if (now() >= ctx.deadline) coverage.timedOut += 1;
+          // Codex round 4 #1: an eligible post (commentCount > 0) that yields zero extracted
+          // comments is selector drift, not "no comments" — the page offers no positive
+          // zero-comments signal, so it always counts as failed.
+          else if (!result.comments.length) coverage.failed += 1;
           else coverage.processed += 1;
           if (result && result.comments.length) results.push(result);
         } catch {

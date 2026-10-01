@@ -68,8 +68,9 @@ describe('Facebook export pure helpers', () => {
   });
 
   // Codex round 3 #6: fewer than three trailing old posts do not stop the feed, but a known old
-  // post still never reaches the output. Pinned units and unreadable timestamps are kept.
-  it('filters every known non-pinned unit older than seven days, boundary or not', () => {
+  // post still never reaches the output. Unreadable timestamps are kept; a pinned unit with a
+  // readable old timestamp is dropped too (Codex round 4 #3: pinned only affects the boundary).
+  it('filters every known unit older than seven days, pinned or not, boundary or not', () => {
     const units = [
       { position: 1, ownTimestamp: '1 h', ignoreForAge: false },
       { position: 2, ownTimestamp: '30 d', ignoreForAge: true },
@@ -78,7 +79,7 @@ describe('Facebook export pure helpers', () => {
       { position: 5, ownTimestamp: '8 d', ignoreForAge: false },
     ];
     expect(trailingOldBoundary(units, now)).toBeNull();
-    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[1], units[2]]);
+    expect(recentHarvestUnits(units, now)).toEqual([units[0], units[2]]);
     expect(recentHarvestUnits([units[0], units[3]], now)).toEqual([units[0]]);
   });
 

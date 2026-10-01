@@ -17,7 +17,7 @@ let LLFB: any;
 
 beforeAll(() => {
   const source = readFileSync(
-    resolve(process.cwd(), 'scripts/knowledge/fb-extension/comments.js'),
+    resolve(process.env.LLFB_EXT_DIR || 'scripts/knowledge/fb-extension', 'comments.js'),
     'utf8',
   );
   new Function(source)();
@@ -229,6 +229,35 @@ describe('collectComments (live driver against a synthetic DOM)', () => {
     // Codex round 2 #6: failures are counted, not swallowed. pos:3 has no comments (not
     // eligible); pos:2's click throws and pos:7 is not on the page → failed.
     expect(coverage).toEqual({ eligible: 3, processed: 1, failed: 2, timedOut: 0 });
+  });
+
+  it('counts an eligible post that yields zero comments as failed (Codex round 4 #1)', async () => {
+    // Selector drift: the post is on the page and reports comments, but nothing the driver
+    // recognises is there to open or read.
+    document.body.innerHTML = `<div role="feed">
+      <div aria-posinset="1" id="p1"><a href="/groups/1/posts/11/">t</a>
+        <div class="drifted">Synthetic unrecognised comment block</div></div>
+      <div aria-posinset="2" id="p2"><a href="/groups/1/posts/22/">t</a></div>
+    </div>`;
+    let t = 0;
+    const opts = {
+      pacingMs: [0, 0],
+      sleep: async (ms: number) => {
+        t += ms;
+      },
+      now: () => t,
+    };
+    const all = await LLFB.collectComments(
+      [
+        { key: 'pos:1', position: 1, html: '', reactions: 1, commentCount: 4 },
+        { key: 'pos:2', position: 2, html: '', reactions: 1, commentCount: 2 },
+      ],
+      opts,
+    );
+    expect(all).toEqual({
+      comments: [],
+      coverage: { eligible: 2, processed: 0, failed: 2, timedOut: 0 },
+    });
   });
 
   it('never throws and stops at the time cap', async () => {

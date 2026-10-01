@@ -131,6 +131,13 @@ describe('harvest-core pure ports match the originals', () => {
       );
   });
 
+  it('drops a pinned unit with a readable old timestamp from the output (Codex round 4 #3)', () => {
+    const units = feeds.pinnedOld;
+    // pinned 30 d, 1 d, 8 d, unreadable, 9 d → only the 1 d post and the unreadable one survive.
+    expect(plain(core.recentHarvestUnits(units, NOW)).map((u: Any) => u.position)).toEqual([2, 4]);
+    expect(helpers.recentHarvestUnits(units, NOW).map((u: Any) => u.position)).toEqual([2, 4]);
+  });
+
   it('stopDecision agrees', () => {
     const cases = [
       { ageStopMet: true, stagnantScrolls: 0, scrollCount: 0 },
@@ -487,7 +494,7 @@ describe('content.js runJob against a synthetic group page', () => {
       { keys: ['pos:1', 'pos:2'], options: { ...job.comments, maxMs: 15 * 60_000 } },
     ]);
     expect(result.comments).toEqual([]); // the bare-array shape carries no coverage: refused
-    expect(result.commentCoverage).toEqual({ error: 'comment collector returned no coverage' });
+    expect(result.commentCoverage).toEqual({ error: 'bad-shape' });
     expect(result.coverage.profileVerified).toBe(false); // no banner → unverified
     expect(beats[0]).toMatchObject({ slug: 'group-a' });
   });
@@ -547,12 +554,14 @@ describe('content.js runJob against a synthetic group page', () => {
     const feed = [1, 2, 3, 4].map((p) => post(p, `${p} h`)).join('');
     const { LLFB, env } = makeEnv(`<body><div role="feed">${feed}</div></body>`);
     LLFB.collectComments = async () => {
-      throw new Error('synthetic');
+      throw new Error('Synthetic private comment text QX7');
     };
     const result = plain(await LLFB.runJob(job, env));
     expect(result).toMatchObject({ status: 'collected', stopReason: 'feed-end', comments: [] });
-    expect(result.message).toMatch(/comments failed: synthetic/);
-    expect(result.commentCoverage).toEqual({ error: 'comments failed: synthetic' });
+    // Codex round 4 #4: a fixed code only — the exception text never reaches the result body.
+    expect(result.commentCoverage).toEqual({ error: 'collector-threw' });
+    expect(result.message).toBeUndefined();
+    expect(JSON.stringify(result)).not.toContain('QX7');
     expect(result.coverage.recentCount).toBe(4);
   });
 
@@ -562,7 +571,7 @@ describe('content.js runJob against a synthetic group page', () => {
     delete LLFB.collectComments;
     const result = plain(await LLFB.runJob(job, env));
     expect(result.status).toBe('collected');
-    expect(result.commentCoverage).toEqual({ error: 'comment collector missing' });
+    expect(result.commentCoverage).toEqual({ error: 'collector-missing' });
   });
 
   const oldFeed = [post(1, '1 h'), post(2, '2 d'), post(3, '8 d'), post(4, '9 d'), post(5, '10 d')];

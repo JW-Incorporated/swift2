@@ -108,6 +108,19 @@ function unitsInFeedOrder(units) {
   return [...units].sort((left, right) => left.position - right.position);
 }
 
+// Codex round 4 #4: comment collection reports failures as one of these fixed codes, never as an
+// exception message (which can carry DOM-derived private text). Anything else → 'unknown'.
+export const COMMENT_ERROR_CODES = Object.freeze([
+  'collector-missing',
+  'collector-threw',
+  'bad-shape',
+  'budget-skip',
+]);
+
+export function commentErrorCode(value) {
+  return COMMENT_ERROR_CODES.includes(value) ? value : 'unknown';
+}
+
 export function trailingOldBoundary(units, now = new Date(), count = AGE_STOP_COUNT) {
   const ordered = unitsInFeedOrder(units);
   const trailingOld = [];
@@ -134,8 +147,9 @@ function isOld(ageMs) {
 }
 
 // Two independent rules (Codex round 3 #6): the three-trailing-old-posts boundary decides where
-// the feed STOPS; whatever it says, a non-pinned unit with a readable timestamp older than seven
-// days is never part of the output. (Mirrored in fb-extension/harvest-core.js.)
+// the feed STOPS; whatever it says, ANY unit (pinned or not) with a readable timestamp older than
+// seven days is never part of the output — ignoreForAge only affects the stop boundary (Codex
+// round 4 #3). (Mirrored in fb-extension/harvest-core.js.)
 export function recentHarvestUnits(units, now = new Date()) {
   const ordered = unitsInFeedOrder(units);
   const boundary = trailingOldBoundary(ordered, now);
@@ -145,7 +159,7 @@ export function recentHarvestUnits(units, now = new Date()) {
           index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
       )
     : ordered;
-  return beforeBoundary.filter((unit) => unit.ignoreForAge || !isOld(unitAgeMs(unit, now)));
+  return beforeBoundary.filter((unit) => !isOld(unitAgeMs(unit, now)));
 }
 
 function median(values) {

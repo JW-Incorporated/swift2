@@ -79,15 +79,24 @@
   }
 
   const COVERAGE_KEYS = ['eligible', 'processed', 'failed', 'timedOut'];
+  // Mirrors COMMENT_ERROR_CODES in fb-export-helpers.mjs.
+  const COMMENT_ERRORS = Object.freeze({
+    missing: 'collector-missing',
+    threw: 'collector-threw',
+    badShape: 'bad-shape',
+    budgetSkip: 'budget-skip',
+  });
   const isCount = (value) => Number.isInteger(value) && value >= 0;
 
   // comments.js returns {comments, coverage:{eligible, processed, failed, timedOut}}. Codex round
   // 3 #5: commentCoverage is never null for a harvested group — a missing collector, a collector
   // that returns no usable coverage (an older bare-array build) or one that throws produces an
   // explicit {error} coverage, which the receiver turns into a failed group.
+  // Codex round 4 #4: the error is one of a fixed set of codes (COMMENT_ERRORS); an exception's
+  // message is never put on the wire — it can carry DOM-derived private comment text.
   async function collectCommentsSafely(units, options) {
     if (typeof LLFB.collectComments !== 'function')
-      return { comments: [], commentCoverage: { error: 'comment collector missing' } };
+      return { comments: [], commentCoverage: { error: COMMENT_ERRORS.missing } };
     try {
       const out = await LLFB.collectComments(units, options);
       const coverage = out?.coverage;
@@ -96,17 +105,13 @@
         typeof coverage !== 'object' ||
         !COVERAGE_KEYS.every((k) => isCount(coverage[k]))
       )
-        return {
-          comments: [],
-          commentCoverage: { error: 'comment collector returned no coverage' },
-        };
+        return { comments: [], commentCoverage: { error: COMMENT_ERRORS.badShape } };
       return {
         comments: Array.isArray(out.comments) ? out.comments : [],
         commentCoverage: Object.fromEntries(COVERAGE_KEYS.map((k) => [k, coverage[k]])),
       };
-    } catch (error) {
-      const message = `comments failed: ${String(error?.message ?? error)}`.slice(0, 300);
-      return { comments: [], commentCoverage: { error: message }, message };
+    } catch {
+      return { comments: [], commentCoverage: { error: COMMENT_ERRORS.threw } };
     }
   }
 
@@ -248,7 +253,7 @@
                 `LL export — ${job.label ?? job.slug}`,
                 `comments for ${units.length} posts…`,
               ]);
-              ({ comments, commentCoverage, message } = await collectCommentsSafely(units, {
+              ({ comments, commentCoverage } = await collectCommentsSafely(units, {
                 ...job.comments,
                 maxMs: commentsMaxMs,
               }));
@@ -257,7 +262,7 @@
               // receiver fails the group instead of recording it complete without its comments.
               const eligible = eligibleCommentPosts(units, job.comments?.topN);
               commentCoverage = { eligible, processed: 0, failed: 0, timedOut: eligible };
-              if (eligible) message = 'comments skipped: group wall budget exhausted';
+              if (eligible) message = `comments skipped: ${COMMENT_ERRORS.budgetSkip}`;
             }
           }
           render([

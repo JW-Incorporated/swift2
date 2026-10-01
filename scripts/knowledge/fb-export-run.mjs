@@ -10,7 +10,7 @@ import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
-import { localDate, weekOf } from './fb-export-helpers.mjs';
+import { commentErrorCode, localDate, weekOf } from './fb-export-helpers.mjs';
 
 const execFileAsync = promisify(execFile);
 // Statuses that stop the whole run (Facebook is blocking or limiting this browser).
@@ -199,7 +199,9 @@ export function formatComments(r) {
   const parts = [];
   if (stored)
     parts.push(`${stored.comments} comments + ${stored.replies} replies on ${stored.posts} posts`);
-  if (cc && typeof cc.error === 'string') parts.push(`collection error: ${cc.error.slice(0, 120)}`);
+  // Codex round 4 #4: a fixed code only — never free text from comment collection.
+  if (cc && typeof cc.error === 'string')
+    parts.push(`collection error: ${commentErrorCode(cc.error)}`);
   else if (cc)
     parts.push(
       `${cc.processed}/${cc.eligible} posts read, ${cc.failed} failed, ${cc.timedOut} timed out`,

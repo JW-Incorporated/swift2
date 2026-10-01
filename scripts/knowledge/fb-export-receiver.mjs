@@ -3,7 +3,13 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { buildHarvestedHtml } from './fb-export-harvest.mjs';
-import { exportFileName, localDate, recentHarvestUnits, weekOf } from './fb-export-helpers.mjs';
+import {
+  commentErrorCode,
+  exportFileName,
+  localDate,
+  recentHarvestUnits,
+  weekOf,
+} from './fb-export-helpers.mjs';
 import { FB_ACTING_PAGE, FB_READ_AS } from './fb-groups-checklist.mjs';
 
 // Local receiver for the FB-export Chrome extension (PLAN.md schema v1). Binds 127.0.0.1 only,
@@ -245,7 +251,13 @@ export async function startReceiver({
         sanitizeDropped,
         keptCount: units.length,
       };
-    const commentCoverage = body.commentCoverage ?? null;
+    // Codex round 4 #4: an error is only ever a known code; any other string → 'unknown', so no
+    // free text from comment collection is kept, logged or published.
+    const rawCoverage = body.commentCoverage ?? null;
+    const commentCoverage =
+      rawCoverage && typeof rawCoverage.error === 'string'
+        ? { error: commentErrorCode(rawCoverage.error) }
+        : rawCoverage;
     const commentReason = commentFailure(body);
     if (commentReason) return { slug, status: 'failed', reason: commentReason, commentCoverage };
     const at = clock();
@@ -361,7 +373,7 @@ export async function startReceiver({
       const ccLine = !cc
         ? ''
         : typeof cc.error === 'string'
-          ? ` comment-error=${JSON.stringify(cc.error.slice(0, MAX_DETAIL))}`
+          ? ` comment-error=${commentErrorCode(cc.error)}`
           : ` comment-eligible=${cc.eligible} processed=${cc.processed} failed=${cc.failed} timed-out=${cc.timedOut}`;
       const reason = result.reason ? ` ${result.reason}` : '';
       const dropped =

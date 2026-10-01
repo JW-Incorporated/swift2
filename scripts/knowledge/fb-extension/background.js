@@ -7,7 +7,9 @@
  *
  *   state.phase   'next'     → GET /next is owed (re-asking is safe: the receiver re-serves the
  *                              current group)
- *                 'job'      → a job is out; the tab is (being) navigated to job.url
+ *                 'navigate' → a job is persisted; tabs.update(job.url) is owed (re-issued on
+ *                              wake until it resolves — the wake alarm is armed first)
+ *                 'job'      → a job is out; the tab has been navigated to job.url
  *                 'deliver'  → state.outbox = {phase:'deliver', slug, pendingResult} is owed to
  *                              POST /result; it stays persisted until a 200 (or a 409 duplicate,
  *                              which means an earlier attempt already landed)
@@ -193,6 +195,7 @@ async function finishRun(state) {
 }
 
 // Walks the persisted phase forward until it needs the page (phase 'job') or the run is over.
+// Phase 'navigate' is owed by this worker: it re-issues tabs.update (Codex round 4 #2).
 async function advance() {
   for (;;) {
     const state = await loadState();
@@ -203,6 +206,13 @@ async function advance() {
       continue;
     }
     if (state.phase === 'finish') return finishRun(state);
+    if (state.phase === 'navigate') {
+      if (!state.job) {
+        await patchState({ phase: 'next' });
+        continue;
+      }
+      return navigateToJob(state);
+    }
     if (state.phase !== 'next') return clearWake();
     let job;
     try {
@@ -230,14 +240,35 @@ async function advance() {
       });
       continue;
     }
-    await saveState({
+    // Codex round 4 #2: the wake alarm is armed BEFORE 'navigate' is persisted, so a worker that
+    // dies between here and tabs.update() completing is woken again and re-issues the navigation.
+    await scheduleWake();
+    const navigating = {
       ...state,
-      phase: 'job',
+      phase: 'navigate',
       job: { ...job, dispatched: false, startedAtMs: null },
-    });
-    await chrome.tabs.update(state.tabId, { url: job.url });
-    return clearWake();
+    };
+    await saveState(navigating);
+    return navigateToJob(navigating);
   }
+}
+
+// Phase 'navigate': the job is persisted but the tab may never have been sent to it (the worker
+// can stop mid tabs.update). Re-issuing the navigation is idempotent: the job is not dispatched
+// until a page on its group asks for it (onReady), and a reload just re-dispatches it. Only once
+// tabs.update() has resolved does the phase become 'job' (the page drives it from there).
+async function navigateToJob(state) {
+  await scheduleWake();
+  if (!state.job.dispatched) {
+    try {
+      await chrome.tabs.update(state.tabId, { url: state.job.url });
+    } catch (error) {
+      console.warn('[llfb] tabs.update failed', String(error?.message ?? error));
+      return retryLater(); // phase stays 'navigate'; the wake alarm re-issues it
+    }
+  }
+  await patchState({ phase: 'job' });
+  return clearWake();
 }
 
 // The job's result → the persisted outbox (job cleared in the same write, before any network I/O)
@@ -343,7 +374,8 @@ async function onReady(sender) {
   // A full page reload mid-harvest re-dispatches the job; the wall budget still counts from the
   // first dispatch (startedAtMs).
   const startedAtMs = job.startedAtMs ?? Date.now();
-  await saveState({ ...state, job: { ...job, dispatched: true, startedAtMs } });
+  const phase = state.phase === 'navigate' ? 'job' : state.phase;
+  await saveState({ ...state, phase, job: { ...job, dispatched: true, startedAtMs } });
   const payload = { ...job, startedAtMs };
   delete payload.dispatched;
   return { job: payload };

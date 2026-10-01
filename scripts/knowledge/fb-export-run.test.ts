@@ -125,9 +125,13 @@ describe('Facebook export gate', () => {
     expect(runSummary([row])).toContain(
       'comments: 12 comments + 4 replies on 2 posts; 2/3 posts read, 1 failed, 0 timed out',
     );
-    expect(formatComments({ commentCoverage: { error: 'comment collector missing' } })).toBe(
-      'comments: collection error: comment collector missing',
+    expect(formatComments({ commentCoverage: { error: 'collector-missing' } })).toBe(
+      'comments: collection error: collector-missing',
     );
+    // Codex round 4 #4: free text is never printed — only a known code, else 'unknown'.
+    expect(
+      formatComments({ commentCoverage: { error: 'comments failed: Synthetic private QX7' } }),
+    ).toBe('comments: collection error: unknown');
     expect(formatComments({})).toBeNull();
     expect(
       runSummary([

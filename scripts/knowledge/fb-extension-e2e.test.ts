@@ -67,7 +67,16 @@ const post = (position: number, age: string, filler = '') =>
   `<div data-ad-preview="message">Synthetic post ${position} ${filler}</div>` +
   `</div></div>`;
 
-function createBrowser({ feed, idleKill = false }: { feed: () => Feed; idleKill?: boolean }) {
+function createBrowser({
+  feed,
+  idleKill = false,
+  killOnTabsUpdate = 0,
+}: {
+  feed: () => Feed;
+  idleKill?: boolean;
+  killOnTabsUpdate?: number;
+}) {
+  let tabsUpdateKills = killOnTabsUpdate;
   const session: Record<string, string> = {};
   const alarms = new Map<string, Any>();
   const tabs = new Map<number, { url: string; dom: JSDOM | null }>();
@@ -111,6 +120,13 @@ function createBrowser({ feed, idleKill = false }: { feed: () => Feed; idleKill?
       tabs: {
         update: (tabId: number, props: { url: string }) =>
           guard(async () => {
+            if (tabsUpdateKills > 0) {
+              // Chrome stops the worker while tabs.update is in flight; the navigation never
+              // happens and the call never settles.
+              tabsUpdateKills -= 1;
+              instance.alive = false;
+              return new Promise<{ id: number; url: string }>(() => {});
+            }
             navigate(tabId, props.url);
             return { id: tabId, url: props.url };
           }),
@@ -307,10 +323,12 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     feed,
     stallMs,
     idleKill = false,
+    killOnTabsUpdate = 0,
   }: {
     feed: () => Feed;
     stallMs: number;
     idleKill?: boolean;
+    killOnTabsUpdate?: number;
   }) {
     const root = mkdtempSync(join(tmpdir(), 'llfb-e2e-'));
     const stored: Any[] = [];
@@ -327,7 +345,7 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       },
       log: (line: string) => log.push(line),
     });
-    const browser = createBrowser({ feed, idleKill });
+    const browser = createBrowser({ feed, idleKill, killOnTabsUpdate });
     cleanups.push(async () => {
       browser.close();
       await receiver.close();
@@ -376,6 +394,19 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     const { results, log } = await run({ feed, stallMs: 1_000, idleKill: true });
     expect(log).not.toContain('fb-receiver vault: stalled');
     expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 34 }]);
+  }, 30_000);
+
+  it('a worker restart mid tabs.update re-issues the navigation (Codex round 4 #2)', async () => {
+    const feed = () => ({
+      initial: [post(1, '1 h'), post(2, '2 h'), post(3, '9 d'), post(4, '10 d'), post(5, '11 d')],
+      more: [],
+    });
+    // The stall watchdog (3 s) is longer than one wake-alarm period (60 s / SCALE = 600 ms).
+    const { results, browser, log } = await run({ feed, stallMs: 3_000, killOnTabsUpdate: 1 });
+    expect(log).not.toContain('fb-receiver vault: stalled');
+    expect(results).toMatchObject([{ slug: 'vault', status: 'collected', recentCount: 2 }]);
+    expect(browser.fetches.at(-1)).toBe('POST /finished');
+    expect(browser.alarms.size).toBe(0);
   }, 30_000);
 
   it('delivers a Vault-sized result larger than storage.session can hold', async () => {

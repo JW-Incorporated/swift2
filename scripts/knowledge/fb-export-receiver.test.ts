@@ -3,7 +3,7 @@ import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { startReceiver } from './fb-export-receiver.mjs';
-import { gateExport } from './fb-export-run.mjs';
+import { gateExport, runSummary } from './fb-export-run.mjs';
 
 const TOKEN = 'a'.repeat(64);
 const NOW = new Date('2026-09-30T12:00:00Z');
@@ -447,7 +447,7 @@ describe('fb export receiver', () => {
       groups: [...groups, { slug: 'group-c', groupId: '3' }],
     });
     const bodies = [
-      withCommentCoverage(collected('group-a'), { error: 'comment collector missing' } as never),
+      withCommentCoverage(collected('group-a'), { error: 'collector-missing' } as never),
       withCommentCoverage(collected('group-b'), null),
       { ...collected('group-c'), commentCoverage: undefined },
     ];
@@ -460,7 +460,7 @@ describe('fb export receiver', () => {
         slug: 'group-a',
         status: 'failed',
         reason: 'comments-collection-failed',
-        commentCoverage: { error: 'comment collector missing' },
+        commentCoverage: { error: 'collector-missing' },
       },
       {
         slug: 'group-b',
@@ -479,9 +479,32 @@ describe('fb export receiver', () => {
     expect(await readdir(outputDir)).toEqual([]);
     const logged = log.mock.calls.map((c) => c[0]).join('\n');
     expect(logged).toContain(
-      'group-a: failed comments-collection-failed comment-error="comment collector missing"',
+      'group-a: failed comments-collection-failed comment-error=collector-missing',
     );
     expect(logged).toContain('group-b: failed comments-coverage-missing');
+  });
+
+  it('never keeps, logs or publishes free text from a comment-collection error (Codex round 4 #4)', async () => {
+    const { r, log } = await setup();
+    const secret = 'Synthetic private comment text QX7';
+    await call(r, 'GET', '/next');
+    const body = withCommentCoverage(collected('group-a'), {
+      error: `comments failed: ${secret}`,
+    } as never);
+    expect((await call(r, 'POST', '/result', body)).status).toBe(200);
+    const results = r.partialResults();
+    expect(results).toEqual([
+      {
+        slug: 'group-a',
+        status: 'failed',
+        reason: 'comments-collection-failed',
+        commentCoverage: { error: 'unknown' },
+      },
+    ]);
+    const logged = log.mock.calls.map((c) => c[0]).join('\n');
+    expect(logged).toContain('comment-error=unknown');
+    for (const text of [JSON.stringify(results), logged, runSummary(results)])
+      expect(text).not.toContain('QX7');
   });
 
   it('validates commentCoverage, profileVerified and sanitizeDropped', async () => {

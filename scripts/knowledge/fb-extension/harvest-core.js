@@ -124,8 +124,9 @@
   }
 
   // Two independent rules (Codex round 3 #6): the three-trailing-old-posts boundary decides where
-  // the feed STOPS, and — whatever the boundary says — a non-pinned unit with a readable timestamp
-  // older than seven days never leaves the page.
+  // the feed STOPS, and — whatever the boundary says — ANY unit with a readable timestamp older
+  // than seven days never leaves the page. Pinned (ignoreForAge) only matters for the stop
+  // boundary, never for this output filter (Codex round 4 #3).
   function recentHarvestUnits(units, now = new Date()) {
     const ordered = unitsInFeedOrder(units);
     const boundary = trailingOldBoundary(ordered, now);
@@ -135,7 +136,7 @@
             index < boundary.boundaryIndex || unitAgeMs(unit, now) === null || unit.ignoreForAge,
         )
       : ordered;
-    return beforeBoundary.filter((unit) => unit.ignoreForAge || !isOld(unitAgeMs(unit, now)));
+    return beforeBoundary.filter((unit) => !isOld(unitAgeMs(unit, now)));
   }
 
   function median(values) {
