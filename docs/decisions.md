@@ -7,6 +7,43 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — Uncredited photos are fine: credit the photographer when known, post without a credit line when not (guardrail 2)
+
+**Decision.** Owner, chat, 2026-10-01, verbatim: "I'm ok with uncredited photos.
+If we know who took the photo, we should always give them credit, but if we don't
+that's fine too, just post it… We must prioritize getting more photos and
+uncredited photos are going to be the bulk of our content."
+
+**Supersedes** the credit-required half of guardrail 2 ("a credit on every
+photo", 2026-07-09 media policy and 2026-08-12 Taylor-photo standard) and every
+"a `u/unknown` credit is unusable / fix the credits first" policy that grew from
+it (the 2026-09-28 calendar note, the `photo-ledger` weak-credit ranking, Marjorie's
+#4604 priority). Unchanged: takedown on request without argument, no lyrics in
+cards, no AI images of Taylor, no watermarked images, no fan edits without the
+creator's permission, `mediaSource` on every photo (the audit trail takedowns
+need), and the exact `"Long Live"` credit on a `card`.
+
+**What changed in code.** `mediaCredit` is optional on a `photo`; a credit that
+IS present must still match its `social/photo-library.json` entry, and a known
+credit still goes in the caption. Unknown means absent, null, blank, "unknown" or
+"u/unknown via r/…" (`isUnknownCredit`, `scripts/social/lib/photo-library.mjs`):
+the picker omits `mediaCredit` for those and the caption has no credit line,
+never the word "unknown". Library entries may omit `credit`. The photo ledger no
+longer ranks a credited photo ahead of an uncredited one. Posting-path touch,
+deliberately minimal: `scripts/social/lib/queue-schema.mjs` only (the credit
+requirement removed, the inventory binding compares via `creditsMatch`).
+
+**Priority.** Growing the photo library is now Tree's standing priority —
+uncredited fan and concert photos are welcome; credit them when known.
+
+**Alternatives considered.** Keeping "unknown" credits as a ranked-last tier
+(rejected: the owner expects uncredited photos to be the bulk of the content).
+
+**Approved by:** the owner, in chat, 2026-10-01 (edit to the founder-owned
+`docs/social/guardrails.md` made on his explicit instruction).
+
+---
+
 ## 2026-10-01 — Social strategy and taste belong to Tree and Marjorie; the owner keeps a short guardrails list; Fable rules on taste (S2)
 
 **Decision.** Owner instruction, verbatim (2026-10-01): "What Tree posts should come

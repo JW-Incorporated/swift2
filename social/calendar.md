@@ -40,15 +40,16 @@ own never-used photograph and none repeats.**
 
 ---
 
-## 🔴 READ THIS BEFORE USING ANY NEW PHOTO — the credits are not finished
+## New fan photos — most carry no credit, and that is fine
 
 Sixteen of the twenty new entries carry the credit string **`u/unknown via
-r/TaylorSwiftPictures`**. That is not a credit; it is the absence of one, and
-this desk's own content boundary is *"no reposting others' media without credit
-and permission"* (`docs/agents/tree.md` § Voice and content boundaries). Four
-entries — all four `reddit-erastour-*` — do name a real uploader
-(`u/Friscic`, `u/Shiver8597`, `u/Sensitive-Archer3010` ×2), and those are
-assigned to the four highest-value beats below on purpose.
+r/TaylorSwiftPictures`**: we have the Reddit link, not the person's name. **The
+owner ruled 2026-10-01 that this is fine** ("I'm ok with uncredited photos. If we know who
+took the photo, we should always give them credit, but if we don't that's fine too, just
+post it…", `docs/social/guardrails.md` row 2): credit the photographer when known; when
+not, post with no credit line. Four entries — all four `reddit-erastour-*` — do name a
+real uploader (`u/Friscic`, `u/Shiver8597`, `u/Sensitive-Archer3010` ×2), and those are
+assigned to the four highest-value beats below on purpose; credit them in the caption.
 
 **Binding on the drafter, every slot:**
 
@@ -58,21 +59,20 @@ assigned to the four highest-value beats below on purpose.
    check, not a path check: if Taylor is not plainly in the frame, or the image
    does not match its `alt`, **take the next reserve entry and say which one you
    rejected and why in `why`.**
-2. **Never paste `u/unknown` into a caption.** If the real uploader can be read
-   off the entry's `source` URL, credit them by name. If it cannot, **do not
-   ship that photograph** — take a reserve, or drop to text-only X + an empty
-   Instagram slot. An empty slot beats an uncredited repost.
+2. **Never paste `u/unknown` (or the word "unknown") into a caption.** If the real
+   uploader can be read off the entry's `source` URL, credit them by name. If it cannot,
+   ship the photo anyway with **no credit line and no `mediaCredit` on the item**
+   (the pick from `.scratch/tree-inputs.json` already omits it).
 3. **Never use `reddit-taylorswiftpictures-1nz3wbn`** — it is a 5.4 MB `.gif`.
    The pipeline posts one still image.
 4. **Files over ~1.5 MB may be rejected by the platform** (strategy §2.1's
    rehost budget). Oversized entries are marked `⚠️ size` below; if one 400s,
    take the next reserve and note it.
 5. **These are fan photos with no era tag** (`tags: ["fan-photo","eras-tour"]`).
-   **A caption may not claim era relevance for them.** Credit the photo, say it
+   **A caption may not claim era relevance for them.** Credit the photo when known, say it
    is an Eras Tour fan photo, and let the words carry the era.
 
-This is not fixable from this file — Tree may not write `social/photo-library.json`
-or `scripts/`. Raised this week as an ask of Marjorie and as founder question 1.
+Nothing here blocks on credits any more; the library gaining photos (credited or not) is the priority.
 
 ---
 
@@ -177,17 +177,17 @@ Run `npm run social:select-photo` to copy the exact `photoId`, `mediaPath`,
 |---|---|---|---|
 | 09-29 | `reddit-erastour-1q6jwfl` | u/Sensitive-Archer3010 | ✅ named uploader |
 | 09-30 | `reddit-erastour-1q8clxb` | u/Sensitive-Archer3010 | ✅ named uploader |
-| 10-01 | `reddit-taylorswiftpictures-1q1pxtp` | u/unknown | ⚠️ resolve the uploader first |
-| 10-02 | `reddit-taylorswiftpictures-1ocof56` | u/unknown | ⚠️ resolve the uploader first |
+| 10-01 | `reddit-taylorswiftpictures-1q1pxtp` | u/unknown | no credit line |
+| 10-02 | `reddit-taylorswiftpictures-1ocof56` | u/unknown | no credit line |
 | 10-03 | `reddit-erastour-1ptssc4` | u/Friscic | ✅ named uploader · ⚠️ size 3.1 MB |
-| 10-04 | `reddit-taylorswiftpictures-1puk3m7` | u/unknown | ⚠️ resolve the uploader first |
+| 10-04 | `reddit-taylorswiftpictures-1puk3m7` | u/unknown | no credit line |
 | 10-05 | `reddit-erastour-1q65hiz` | u/Shiver8597 | ✅ named uploader · ⚠️ size 5.2 MB |
-| 10-06 | `reddit-taylorswiftpictures-1pxtr93` | u/unknown | ⚠️ resolve the uploader first |
-| 10-07 | `reddit-taylorswiftpictures-1r6n7aq` | u/unknown | ⚠️ resolve the uploader first |
-| 10-08 | `reddit-taylorswiftpictures-1tl4pqb` | u/unknown | ⚠️ resolve the uploader first |
-| 10-09 | `reddit-taylorswiftpictures-1ojprpr` | u/unknown | ⚠️ resolve the uploader first |
-| 10-10 | `reddit-taylorswiftpictures-1pjmwfb` | u/unknown | ⚠️ resolve the uploader first |
-| 10-11 | `reddit-taylorswiftpictures-1ogrcvp` | u/unknown | ⚠️ resolve the uploader first |
+| 10-06 | `reddit-taylorswiftpictures-1pxtr93` | u/unknown | no credit line |
+| 10-07 | `reddit-taylorswiftpictures-1r6n7aq` | u/unknown | no credit line |
+| 10-08 | `reddit-taylorswiftpictures-1tl4pqb` | u/unknown | no credit line |
+| 10-09 | `reddit-taylorswiftpictures-1ojprpr` | u/unknown | no credit line |
+| 10-10 | `reddit-taylorswiftpictures-1pjmwfb` | u/unknown | no credit line |
+| 10-11 | `reddit-taylorswiftpictures-1ogrcvp` | u/unknown | no credit line |
 
 **Reserves, in order, all never used:** `1nxmfeq` · `1qad9bo` · `1pphafw`
 (⚠️ 1.8 MB) · `1pm1yly` (⚠️ 2.1 MB) · `1qgb3m8` (⚠️ 2.2 MB) · `1r38qiv`
@@ -492,8 +492,9 @@ dropped twice. Mood October = `mood:result`. Next launch arc after Community
 Engine: notifications + web push (#3568→#3583).
 
 **5. Needed a founder decision.** Two, both in this week's brief: whether a
-`u/unknown` photo credit may ship at all, and whether the weekly founder task
-moves out of GitHub issues into `#longlive-tree`.
+`u/unknown` photo credit may ship at all (answered 2026-10-01: yes, with no credit
+line), and whether the weekly founder task moves out of GitHub issues into
+`#longlive-tree`.
 
 ---
 

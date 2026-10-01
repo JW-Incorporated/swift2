@@ -733,3 +733,16 @@ in `docs/decisions.md` 2026-10-01; the matching Tree amendment is at the end of
 **What did not change.** Invariants 1–8: she still never writes product code, content or
 specs, never edits a charter or `docs/social/guardrails.md`, and never decides product
 direction beyond the above, spending, pricing or legal.
+
+## Amendment (2026-10-01): uncredited photos are fine
+
+**What changed.** Owner, in chat: "I'm ok with uncredited photos. If we know who took the photo, we should always give them credit, but if we don't that's fine too, just post it… We must prioritize getting more photos and uncredited photos are going to be the bulk of our content." Recorded in `docs/decisions.md` 2026-10-01;
+the rule is `docs/social/guardrails.md` row 2.
+
+- **Photo credits are settled; she never re-raises them.** Credit the photographer whenever
+  known; when unknown, post with no credit line. Her old weekly-plan priority "every library
+  photo gets a real credit" (#4604) is obsolete: she does not plan it, ask Tree for it, count
+  a `u/unknown` credit as a blocker, or take it to the owner. Her prompts say the same
+  (`marjorie-weekly-review.md`, `marjorie-ask-response.md`).
+- **The photo priority is volume.** Growing the photo library — credited or not — is what she
+  steers Tree toward in the weekly review.

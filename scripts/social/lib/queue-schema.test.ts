@@ -446,6 +446,14 @@ ${url}`;
   });
 
   describe('media', () => {
+    it('binds a credit-less photo to an unknown-credit library entry, but never drops a known credit', () => {
+      const bound = (credit: string) => ({ ...library[0], credit });
+      const uncredited = { ...validX, mediaCredit: undefined };
+      expect(validatePhotoInventoryBinding(uncredited, [bound('u/unknown via r/TaylorSwiftPictures')])).toEqual([]);
+      expect(validatePhotoInventoryBinding(uncredited, [{ ...library[0], credit: undefined }])).toEqual([]);
+      expect(validatePhotoInventoryBinding(uncredited, library)).toContainEqual(expect.stringContaining('exact credit'));
+    });
+
     it('requires a photoId and exact inventory attribution in the queue CI binding', () => {
       expect(validatePhotoInventoryBinding({ ...validX, photoId: undefined }, library).some((f) => f.includes('photoId: required'))).toBe(true);
       expect(validatePhotoInventoryBinding({ ...validX, mediaCredit: 'Wrong credit' }, library).some((f) => f.includes('must use its inventory media path, exact credit, and exact source'))).toBe(true);
@@ -579,10 +587,12 @@ ${url}`;
       expect(findingFor({ ...validX, media: undefined, mediaKind: 'video-thumb' }, 'mediaKind:')).toBeDefined();
     });
 
-    // The Taylor-photo standard (2026-08-12): a photo always ships credited
-    // and auditable, and queue media always declares what it is.
-    it('requires mediaCredit AND mediaSource on mediaKind "photo"', () => {
-      expect(findingFor({ ...validIg, mediaKind: 'photo' }, 'mediaCredit:')).toBeDefined();
+    // The Taylor-photo standard (2026-08-12, credit relaxed 2026-10-01): a photo is
+    // auditable (mediaSource), its credit is set when the photographer is known and
+    // omitted when not, and queue media always declares what it is.
+    it('requires mediaSource on mediaKind "photo"; mediaCredit may be omitted but never blank', () => {
+      expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: undefined, mediaSource: 'https://x' }, 'mediaCredit')).toBeUndefined();
+      expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: undefined, mediaSource: 'https://x' }, 'media')).toBeUndefined();
       expect(findingFor({ ...validIg, mediaKind: 'photo' }, 'mediaSource:')).toBeDefined();
       expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: '  ' }, 'mediaCredit:')).toBeDefined();
       expect(findingFor({ ...validIg, mediaKind: 'photo', mediaCredit: 'c', mediaSource: 'https://x' }, 'media')).toBeUndefined();
@@ -687,7 +697,13 @@ ${url}`;
       expect(validateQueueItem(validX)).toEqual([]);
       expect(validateQueueItem(validIg)).toEqual([]);
       expect(findingFor({ ...validX, mediaKind: 'video-thumb' }, 'mediaKind')).toBeDefined();
-      expect(findingFor({ ...validX, mediaCredit: undefined }, 'mediaCredit')).toBeDefined();
+      expect(findingFor({ ...validX, mediaCredit: undefined }, 'mediaCredit')).toBeUndefined();
+    });
+
+    it('still requires the exact "Long Live" credit on a card', () => {
+      expect(findingFor({ ...card, mediaCredit: undefined }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor({ ...card, mediaCredit: 'Someone Else' }, 'mediaCredit:')).toBeDefined();
+      expect(findingFor(card, 'mediaCredit:')).toBeUndefined();
     });
   });
 

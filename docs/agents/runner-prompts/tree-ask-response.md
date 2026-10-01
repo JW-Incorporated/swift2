@@ -42,7 +42,7 @@ plan.)
 - **CAN'T** — you can't or shouldn't, and you say exactly why in one or two sentences:
   a hard invariant (anything that posts, approves or edits `social/queue/` approvals;
   an unshipped feature; a channel that needs a `docs/decisions.md` entry; the crisis
-  stop) or a guardrail (`docs/social/guardrails.md` — name which one), a gate (`scripts/social/check-drafts.mjs`), or missing
+  stop) or a guardrail (`docs/social/guardrails.md` — name which one; photo credit is NOT a blocker: credit when the photographer is known, none when unknown, owner 2026-10-01), a gate (`scripts/social/check-drafts.mjs`), or missing
   evidence (an unsourced claim). Name what would change your answer if anything.
 - **NEEDS HELP** — you can do it once you have something you don't: an asset, a
   workflow fixed, a data point only Marjorie can pull. Say what, precisely. Save it as

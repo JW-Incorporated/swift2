@@ -715,10 +715,20 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('no declared `mediaKind`'))).toBe(true);
   });
 
-  it('requires mediaCredit AND mediaSource on a photo tile', async () => {
+  it('requires mediaSource on a photo tile but no longer requires mediaCredit (owner, 2026-10-01)', async () => {
     const findings = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo' }, []);
-    expect(findings.some((f) => f.includes('requires `mediaCredit`'))).toBe(true);
+    expect(findings.some((f) => f.includes('requires `mediaCredit`'))).toBe(false);
     expect(findings.some((f) => f.includes('requires `mediaSource`'))).toBe(true);
+  });
+
+  it('accepts a credit-less photo bound to an unknown-credit library entry, and still binds a known credit', async () => {
+    const UNKNOWN_ID = 'reddit-taylorswiftpictures-1nxmfeq-ig45';
+    const UNKNOWN_TILE = '/social/library/photos/reddit-taylorswiftpictures-1nxmfeq-ig45.jpg';
+    const UNKNOWN_SOURCE = 'https://www.reddit.com/r/TaylorSwiftPictures/comments/1nxmfeq/beautiful_showgirl/';
+    const uncredited = await checkMedia('a.json', { platform: 'instagram', media: [UNKNOWN_TILE], mediaKind: 'photo', photoId: UNKNOWN_ID, mediaSource: UNKNOWN_SOURCE }, []);
+    expect(uncredited.filter((f) => !f.startsWith('[warn]') && !f.includes('warning'))).toEqual([]);
+    const knownOmitted = await checkMedia('a.json', { platform: 'instagram', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaSource: CORPUS_PHOTO_SOURCE }, []);
+    expect(knownOmitted.some((f) => f.includes('must use its inventory media path, exact credit'))).toBe(true);
   });
 
   it('requires an exact inventory binding for every credited photo tile', async () => {
