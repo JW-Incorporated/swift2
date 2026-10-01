@@ -11,12 +11,9 @@
 // construction (docs/specs/2026-09-05-one-source-three-surfaces.md, D2) —
 // there is no second "which items belong to this thread" implementation to
 // drift out of sync.
-import { loadBundle } from '@swift2/content';
 import type { ContentBundleFile } from '@swift2/content';
 import { ERAS, setThreadContentProvider, type ContentItem, type EraId } from '@swift2/experience';
-import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
-
-const storage = expoFileSystemStorageAdapter();
+import { loadContentBundle } from './content-bundle';
 
 let contentWired = false;
 /** The full corpus, across every era's `content:<eraId>` manifest file — kept warm after the first successful wire so a second `ensureThreadContent()` call (e.g. re-opening Threads mode) is a no-op fetch-and-diff rather than a re-parse. */
@@ -29,7 +26,7 @@ let allContent: ContentItem[] = [];
  * process; safe to call from every screen that needs threads data.
  */
 export async function ensureThreadContent(): Promise<ContentItem[]> {
-  const { files } = await loadBundle({ baseUrl: contentBaseUrl(), storage });
+  const { files } = await loadContentBundle();
 
   const items: ContentItem[] = [];
   for (const era of ERAS) {

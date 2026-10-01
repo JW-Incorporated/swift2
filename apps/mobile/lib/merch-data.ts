@@ -6,13 +6,11 @@
 // the bundle-backed equivalent of `apps/web/lib/longlive/merch.ts` — no
 // generated-literal fallback here since this module only exists for the
 // native surface, which has no build-time `.generated.ts` to read.
-import { loadBundle, type MerchCatalogue } from '@swift2/content';
-import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
-
-const storage = expoFileSystemStorageAdapter();
+import type { MerchCatalogue } from '@swift2/content';
+import { loadContentBundle } from './content-bundle';
 
 /** The published bundle's merch catalogue — same shape and content the web's `MERCH_CATALOGUE` renders. */
 export async function loadMerchCatalogue(): Promise<MerchCatalogue> {
-  const { files } = await loadBundle({ baseUrl: contentBaseUrl(), storage });
-  return files.merch as MerchCatalogue;
+  const { files } = await loadContentBundle();
+  return (files.merch as MerchCatalogue | undefined) ?? { shopTheLook: [], officialStore: [], fanMade: [] };
 }

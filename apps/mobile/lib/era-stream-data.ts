@@ -20,7 +20,6 @@
 // which `buildEraStreamViewModel` already treats as "no live entries" /
 // "no image suppressed" — a strict subset of the web's behavior, not a
 // divergence from it.
-import { loadBundle } from '@swift2/content';
 import type { ContentBundleFile, TheoriesBundleFile, VideosBundleFile } from '@swift2/content';
 import {
   ERAS,
@@ -36,12 +35,10 @@ import {
   type TheoryNote,
 } from '@swift2/experience';
 import { eraVideoFeed, type WatchableVideoNote } from '@swift2/content-enrichment';
-import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
-
-const storage = expoFileSystemStorageAdapter();
+import { loadContentBundle } from './content-bundle';
 
 async function ensureBundle() {
-  return loadBundle({ baseUrl: contentBaseUrl(), storage });
+  return loadContentBundle();
 }
 
 /** Every `content:<eraId>` manifest entry's `items`, keyed by era — mirrors `vault-bundle-map.ts`'s `eraContentFiles`. */

@@ -6,7 +6,6 @@
 // injectable `StorageAdapter` so a bundle already fetched once survives an
 // app restart and the offline-with-cache "done when" (network off after one
 // successful load still renders).
-import { loadBundle } from '@swift2/content';
 import type { VaultSkeleton } from '@swift2/core';
 import type { Moment, TrackNote } from '@swift2/shared';
 import {
@@ -15,9 +14,7 @@ import {
   mapBundleToSkeleton,
   type Manifest,
 } from './vault-bundle-map';
-import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
-
-const storage = expoFileSystemStorageAdapter();
+import { loadContentBundle } from './content-bundle';
 
 /**
  * Loads the current published bundle. Always calls `loadBundle`, never short-circuits on an in-memory cache: the
@@ -27,7 +24,7 @@ const storage = expoFileSystemStorageAdapter();
  * the "already have this version" case just as cheap as an in-memory read would have been.
  */
 async function ensureBundle() {
-  return loadBundle({ baseUrl: contentBaseUrl(), storage });
+  return loadContentBundle();
 }
 
 /** Tier 0 Vault skeleton — the always-resident eras/milestones/month index, now read from the published content

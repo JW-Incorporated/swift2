@@ -592,3 +592,5 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `packages/content/src/forward-compat.ts` (+ test) | `pruneUnknownEnumValues`: drops unknown enum/literal values (array element, nearest enclosing array element, or whole file) for `loadBundle({ unknownEnumPolicy: 'drop' })`; any other zod issue stays a failure. Policy: `docs/decisions.md` 2026-10-01 |
+| `apps/mobile/lib/content-bundle.ts` (+ test) | `loadContentBundle()`: the one mobile bundle loader (shared storage, `unknownEnumPolicy: 'drop'`, `dataErrorFallback: 'last-good'`) + once-per-process OTA `selfHealOnce()`. All six `*-data.ts`/`vault.ts` callers use it |
+| `packages/experience/src/era-ids-sync.test.ts` | Asserts `ERAS` ids equal `eraIdSchema.options`; see `docs/mobile-release.md` "Adding an era/enum/catalogue" |

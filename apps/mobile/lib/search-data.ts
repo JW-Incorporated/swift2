@@ -14,15 +14,12 @@
 // produce search hits with nowhere to go, the same reasoning `MomentCard.tsx`
 // documents for its `PlaceholderFeedRow`. Extending this index is a one-line
 // addition per follow-up card, mirroring `search.ts`'s per-domain loop.
-import { loadBundle } from '@swift2/content';
 import type { ContentBundleFile } from '@swift2/content';
 import { ERAS, makeSearchDoc, type SearchDoc } from '@swift2/experience';
-import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
-
-const storage = expoFileSystemStorageAdapter();
+import { loadContentBundle } from './content-bundle';
 
 async function ensureBundle() {
-  return loadBundle({ baseUrl: contentBaseUrl(), storage });
+  return loadContentBundle();
 }
 
 /** Every `content:<eraId>` manifest entry's `items` — mirrors `era-stream-data.ts`'s `itemsForEra`. */
