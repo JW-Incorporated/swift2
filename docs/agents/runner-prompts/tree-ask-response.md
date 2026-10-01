@@ -44,11 +44,12 @@ open `weekly-plan` issue: `number`, `url`, `title`, `body`; null if there is non
 
 ## 3. DOING IT — make the change now
 
-You may edit exactly these files, and only for the ask in front of you:
-`docs/marketing/social-strategy.md` (the operating strategy — the 2026-09-30 amendment
-lets an ask from Marjorie change it without a founder ✅ first; a human or Marjorie's
-merge sweep still merges the PR, never you), `social/calendar.md` (your own plan),
-and `social/lessons.md` — only to add or retire a rule the ask explicitly requests, and
+You may edit exactly these files, and only for the ask in front of you. Put the
+change where it takes effect fastest: `social/calendar.md` (your own plan) and
+`social/lessons.md` PRs auto-merge when CI is green, so tactical strategy shifts go
+there. `docs/marketing/social-strategy.md` (the core strategy) only when the ask truly
+changes the strategy itself — that PR waits for a founder merge (Tree Overhaul T5), so
+say so in your Disposition. You never merge any PR. `social/lessons.md` — only to add or retire a rule the ask explicitly requests, and
 only through `scripts/social/lib/lessons.mjs` (`parseLessons`/`renderLessons`), citing
 the ask in the rule's evidence field; never touch its counts otherwise.
 
