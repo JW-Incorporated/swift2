@@ -563,6 +563,8 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/legal-links.ts` (+ test) | `LEGAL_PAGES`, `legalPageUrl`, `isLegalPageUrl` (moved from App.tsx), `CLOWNBOT_AI_DISCLOSURE` |
 | `apps/mobile/lib/settings-entry.ts` (+ test) | `openSettingsEntry`: onboarding first time, settings after (shared by HomeTopBar and the web bridge) |
 | `apps/mobile/lib/visible-screen.ts` (+ test) | Which overlay App.tsx renders; inbox sits above settings so Settings → Inbox works |
+| `docs/mobile-parity.md` | Web↔native parity inventory: every `apps/web` page route, `?mode=`/`?item=`/etc. query surface and `ShellDestination` kind with its native status (`native screen` / `web-only` / `N/A`) |
+| `scripts/mobile/parity-inventory.test.ts` | Fails when a web page route or `ShellDestination` kind has no row in `docs/mobile-parity.md`, or a row's status is invalid |
 
 ## Social reply notifier (2026-10-01)
 
