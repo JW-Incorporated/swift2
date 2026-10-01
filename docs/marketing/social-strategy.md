@@ -60,9 +60,56 @@ queue item is never the bare family:
 | Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
 | Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
-| **News beat** | `news:<event-slug>` | `news:patient-zero-cover-reveal-2026-10-03` | **≥1 reserved day per calendar week, ≤2 posted per rolling 7 days** |
+| **News beat** | `heartbeat:event-news:<slug>` | `heartbeat:event-news:patient-zero-cover-reveal-2026-10-03` | **≥1 reserved day per calendar week, ≤2 posted per rolling 7 days** |
 | Daily heartbeat | `heartbeat:<pillar>` | `heartbeat:on-this-day:red-announcement` | everything left (~60-70%) |
+| **Merch fast lane** (T6) | `merch:<item-slug>` | `merch:showgirl-vinyl-restock-2026-10-02` | side door, ≤2 fast-lane posts per rolling 7 days (shared with appearance) |
+| **Appearance fast lane** (T6) | `appearance:<video-id>` | `appearance:dQw4w9WgXcQ` | same shared ≤2 per rolling 7 days |
 | Human reach | *(no queue item — a GitHub issue)* | — | 0 slots, ~15 min/week of Joey |
+
+**The family column above IS the recognised-prefix list** (added 2026-10-01,
+answering Marjorie's ask #4724). `pillarOf` in
+`scripts/social/lib/feedback.mjs` carries the same set as `PILLAR_ARITY` — the
+prefix plus how many `:`-segments belong to the family — and every pillar metric
+downstream (the per-post rollups in `scripts/social/lib/post-metrics.mjs`, the
+scorecard's engagement-by-pillar, Marjorie's weekly review) buckets by its
+answer. **A `campaign` value whose prefix is not in that table groups as
+`(unrecognized)` and tells us nothing**, which is exactly the hole Marjorie
+found. Two consequences, and they are not optional:
+
+1. **Never mint a value under a prefix that is not in the table above.** The
+   News beat is the live example of getting this wrong: the calendar written
+   2026-10-01 said to mint `news:<event-slug>`, while
+   `docs/agents/runner-prompts/tree-event-draft.md` — the prompt the same-day
+   event run actually executes — mints `heartbeat:event-news:<slug>-<date>`.
+   The table now says `heartbeat:event-news:`, matching the shipping code path
+   and a prefix `pillarOf` already recognises; the calendar is corrected to
+   match. A news post buckets under `heartbeat:event-news` from here.
+2. **`merch:` and `appearance:` are live and were missing.** The T6 side doors
+   have been drafting them since 2026-09-12 and `appearance:` already accounts
+   for 12 records across `social/posted/` + `social/failed/` — every one of them
+   currently `(unrecognized)`. Listing them here is the strategy half; they
+   still need `PILLAR_ARITY` to carry `'merch:': 2` and `'appearance:': 2`
+   before the metric changes, and that file is a script Tree may not edit.
+
+### Legacy campaign slugs — the pre-2026-08-12 values
+
+Nine prefixes in `social/posted/` predate the family convention. **Nothing mints
+them any more and they are never to be minted again**; the records cannot be
+re-slugged either, because `social/posted/` is immutable history (Tree
+invariant 1). They are listed here so the history has a documented home, and so
+whoever adds them to `PILLAR_ARITY` knows which family each belongs to:
+
+| Legacy prefix | Records | Canonical family today |
+|---|---|---|
+| `on-this-day:` | 11 | `heartbeat:on-this-day:<slug>` |
+| `era-deep-cut:` | 11 | `heartbeat:era-deep-cut:<slug>` |
+| `track-fact:` | 8 | `heartbeat:track-fact:<slug>` |
+| `vault:` | 2 | `heartbeat:vault:<slug>` |
+| `anniversary:` | 1 | `heartbeat:anniversary:<slug>` |
+| `era-page:` | 1 | `heartbeat:<pillar>:<slug>` |
+| `thread-decode:` | 2 | `thread:hidden-clues:<angle>` |
+| `thread-clue-web:` | 2 | `thread:easter-eggs:<angle>` |
+| `symbol-thread:` | 1 | `thread:<lensId>:<angle>` |
 
 **Rule — every `campaign` value is story-unique** (2026-08-12, found the hard
 way in issue #2031). The poster's `findPostedDuplicate`
@@ -310,7 +357,8 @@ personal-life topics).
 
 **Slot — the news reserve, and this is the first-class part.** Every calendar
 Tree writes **reserves at least one day per week as a news day**: its beat is
-written as `news:` with a **named fallback subject on the same line**, so a
+written as `heartbeat:event-news:` with a **named fallback subject on the same
+line** (the prefix is the one the event run actually mints — §1's family table), so a
 quiet week still posts and the "a calendar gap is never filled" rule
 (§0/invariant) is never in play — a reserve is an assigned slot with two
 possible subjects, not a gap. On a reserve day the 11:00Z daily run checks
@@ -393,8 +441,8 @@ see §3, it's the only real engagement data we can get.
 | **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, or mood beat; heartbeat otherwise |
 
 **At least one day of every calendar week is a news reserve** (§1(e2), added
-2026-10-01): its beat is written `news:` with a named fallback subject on the
-same line, and it is the only slot the previous day's run leaves alone. A
+2026-10-01): its beat is written `heartbeat:event-news:` with a named fallback
+subject on the same line, and it is the only slot the previous day's run leaves alone. A
 calendar that assigns all seven days to planned campaigns is now a planning
 bug, not a full plan — it is what made 27 events in two weeks un-postable.
 

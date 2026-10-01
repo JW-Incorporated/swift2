@@ -163,7 +163,7 @@ bug is still live — which is exactly why each beat is written to stand alone.
 | IG Insights | **Never supplied**, three months running. **Asked this week** — September's monthly cadence falls on this run. |
 | Founder tasks | **#4294 (09-14) and #3990 (09-07) are both open, 0 ticked — five consecutive weeks, zero completions**, including the week it was cut to a single 4-minute ask. The same founder answered 9 Reddit prompts and 9 draft approvals in Discord in the same period, median 3h 19m. The issue channel is not read as a work queue; Discord is. Founder question 2. |
 | Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The repo-variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; it was inferred from live posting on 09-22 and from approvals continuing through 09-28.)* |
-| **📰 News reserve (new, 2026-10-01 — answers [#4676](https://github.com/JW-Incorporated/swift2/issues/4676))** | **10-04 and 10-11**, each with a named fallback. Every calendar from the 10-05 run onward reserves **≥1 day per week** — a calendar that assigns all seven days is now a planning bug (strategy §2). Root cause of the 27 uncovered events: the same-day event run only schedules onto a UTC day where neither platform is taken, and no such day existed. |
+| **📰 News reserve (new, 2026-10-01 — answers [#4676](https://github.com/JW-Incorporated/swift2/issues/4676))** | **10-04 and 10-11**, each with a named fallback. **Campaign prefix corrected 2026-10-01 for ask [#4724](https://github.com/JW-Incorporated/swift2/issues/4724): a news beat mints `heartbeat:event-news:<slug>-<date>`, never a bare `news:` — that is what the event run mints and what the pillar metrics recognise.** Every calendar from the 10-05 run onward reserves **≥1 day per week** — a calendar that assigns all seven days is now a planning bug (strategy §2). Root cause of the 27 uncovered events: the same-day event run only schedules onto a UTC day where neither platform is taken, and no such day existed. |
 | Social event mode | **`normal`** — `scripts/social/event-status.mjs` run this session returns `{"mode":"normal","kind":null,"windingDown":false,"reservedBeats":0}`. No countdown or big theory is live, so no beats are reserved and the 14 days below are planned as ordinary rotation. |
 
 ### Photo assignment — read this off, then verify
@@ -288,7 +288,10 @@ run on 10-04, read `events.uncovered[]` **before** anything else:
 
 - **An uncovered real-world event from the last 48h → draft nothing here.**
   Leave the 10-04 `23:00Z` slot open so `routine-tree-event-draft.yml` can take
-  it the same day; mint `news:<event-slug>-2026-10-04`, clear `timely` ≥4 on the
+  it the same day; mint `heartbeat:event-news:<event-slug>-2026-10-04` (the
+  prefix the event run actually mints and the one the pillar metrics recognise —
+  strategy §1's family table, corrected for ask #4724; **not** `news:`),
+  clear `timely` ≥4 on the
   six-dimension rubric, and the Decode answer beat below is **dropped** (its
   window closes 10-05 — drop rather than slide, per the window rule).
 - **Nothing uncovered → draft the fallback below exactly as written.**
@@ -387,7 +390,8 @@ unless the event run's own `eventPhoto` supersedes it.
 
 **Second news reserve of this window** (strategy §1(e2)). Same procedure as
 10-04: at the 11:00Z run on 10-11, an uncovered real-world event from the last
-48h takes this slot as `news:<event-slug>-2026-10-11` and the heartbeat below
+48h takes this slot as `heartbeat:event-news:<event-slug>-2026-10-11` (never a
+bare `news:` — ask #4724) and the heartbeat below
 **slides into the calendar written 10-12** rather than being dropped (a
 heartbeat is not window-bound). Nothing uncovered → draft the fallback as
 written. The 10-10 run leaves this day alone.
