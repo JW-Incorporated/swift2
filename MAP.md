@@ -345,7 +345,8 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 
 | Path | What |
 |---|---|
-| `scripts/knowledge/fb-export-collect.mjs` | Visible Puppeteer collector using a dedicated persistent Chrome profile, DPAPI password read, safety-stop classification, bounded scrolling, accessible selectors, and selector-failure diagnostics |
+| `scripts/knowledge/fb-export-harvest.mjs` | Captures and merges virtualized Facebook feed units during scrolling, neutralizes nested article roles, and builds parser-safe HTML exports |
+| `scripts/knowledge/fb-export-launch.mjs` | Starts plain Chrome (no CDP/debugging port) on the local receiver URL and runs `extensionCollect`: receiver + Chrome, total wall budget, always closes both |
 | `scripts/knowledge/fb-export-helpers.mjs` | Pure filename/date, relative-age, stopping, and page-classification rules |
 | `scripts/knowledge/fb-export-run.mjs` | Weekly idempotent orchestration: collect → real-parser copy gate → confirmed upload → reminder issue comment/close; `--dry-run` stops before upload/GitHub |
 | `scripts/knowledge/fb-export-task.ps1` | Registers the Sunday 18:00 local Windows task with start-after-miss and wake enabled |

@@ -221,13 +221,52 @@ parameters are appended to drafted links today, so link-CTR cannot be
 measured from click data until that's added.
 
 The local `knowledge:fb-export` command collects and parser-gates weekly
-Facebook HTML, uploads passing files, and closes the reminder issue; its
+Facebook HTML, ingests each passing file before upload, uploads it, and closes
+the reminder issue; its
 Windows task is installed with `knowledge:fb-schedule`, and
 `knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
-DPAPI credential, run ledgers, screenshots, and the persistent Chrome profile
-all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo. `fb-export-ingest`
-(script, not its own cron — run by the Answerer desk or `workflow_dispatch`
-after a weekly Facebook export lands) and
+run ledgers, private comment files, and the persistent Chrome profile
+all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
+
+Facebook export runbook (extension collector, 2026-09-30). The run starts a
+local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
+debugging port) in the dedicated profile
+`%LOCALAPPDATA%\longlive-fb\chrome-profile`; the unpacked extension in
+`scripts/knowledge/fb-extension` walks the groups and posts results back.
+One-time setup: in that profile open `chrome://extensions`, enable Developer
+mode, and Load unpacked from `<Projects/Swift2>/scripts/knowledge/fb-extension`
+(Chrome 137+ ignores `--load-extension`, so this cannot be automated). The
+profile must stay logged in to Facebook as the owner: there is no automatic
+login any more (the DPAPI login path was removed), so if it logs out, sign in
+by hand in that profile. Stop statuses: `login` (logged out, sign in),
+`checkpoint` / `captcha` (clear the Facebook prompt by hand), `wrong-profile`
+(the profile is not the expected account), `stunted` (feed stayed at 3 or fewer
+slots after 20 scrolls: Facebook is limiting this browser; stopped, retry
+later), and `run-wall-budget` (total wall time, sum of group budgets + 10 min,
+ran out; unfinished groups are marked failed). All of these stop or fail the
+run and leave the weekly issue open. `stunted` applies only to a tab that
+stayed visible: Chrome throttles a hidden tab and Facebook's feed does not
+load in one. **Keep the export window visible and don't switch tabs in it.**
+The launcher passes `--disable-backgrounding-occluded-windows`,
+`--disable-renderer-backgrounding` and `--disable-background-timer-throttling`
+so a covered window keeps working, and the extension makes the run's tab the
+active tab of its window (it never steals OS focus). While the tab is hidden
+the extension pauses scrolling; scrolls that overlap hidden time count toward
+neither the stunted check nor the scroll cap, and the group's wall budget
+keeps running (heartbeats carry `hidden` and `hiddenMs`). A group whose tab is
+hidden 10 min in a row, or that looks stunted with hidden time in the last
+60 s, fails with reason `tab-hidden` — a per-group failure (the run continues
+with the next group), explained in the run summary. **The export must start Chrome itself:** if
+the profile's Chrome is already running (it holds `<profile>/lockfile`), a new
+launch would hand the URL to that process and ignore the flags above, so the
+run does not start Chrome, fails every group with reason `chrome-profile-open`
+and says "close that Chrome window and rerun". A stale lockfile (not held) is
+ignored. Group budgets: taylor-swifts-vault 75 min,
+others 20 min; the scheduled task limit is 5 h. Comments are collected
+privately, stored only under `%LOCALAPPDATA%\longlive-fb\comments\<week>\`,
+never in the repo and never uploaded. `fb-export-ingest`
+(script, not its own cron — invoked by the local export runner before upload)
+and
 `theory-resolve` (folds into the existing nightly `sync:content` job as
 its final step — `scripts/community/theory-resolve.mjs`, matches
 `fan_theory_candidate.predicts`/`predicted_date` against Vault moments by

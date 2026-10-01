@@ -8012,3 +8012,19 @@ than shipping one.
 with base64 secrets (puts signing material in a second secret store and
 keeps the runner's fingerprint in play); keeping manual `eas build` +
 manual Play upload (the failure mode this replaces).
+
+## 2026-09-30 — Facebook export collects via a Chrome extension, not CDP
+
+Facebook stunts the feed (about 3 slots, never infinite) for any
+CDP-controlled Chrome, including plain Chrome with a debugging port, while the
+same profile in a normal browser loads fine. The weekly export therefore uses
+a content-script extension loaded unpacked in the dedicated profile; Chrome is
+started with no `--remote-debugging-port`, and the extension talks only to a
+local receiver on `127.0.0.1` with a per-run random token, from its background
+worker. **Removed:** the Puppeteer collector (`fb-export-browser.mjs`,
+`fb-export-collect.mjs`, `fb-export-profile.mjs`), the DPAPI login and the
+`--probe-profile` path. New stop status `stunted` halts the run like a
+checkpoint. **Comments** are collected but private and local (per #4649): stored
+only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
+**Trade-off:** the extension must be loaded by hand once (Chrome 137+ ignores
+`--load-extension`) and the profile must stay logged in.

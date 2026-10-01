@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildIngestResult,
   engagementLeadsFromPosts,
+  parseArgs,
   resolveGroupName,
   shopLinksFromPosts,
 } from './fb-export-ingest.mjs';
@@ -127,6 +128,26 @@ describe('resolveGroupName', () => {
 
   it('falls back to the slug itself when the group is not in the checklist', () => {
     expect(resolveGroupName('unknown-group', { checklist: [] })).toBe('unknown-group');
+  });
+});
+
+describe('parseArgs', () => {
+  it('accepts the collection timestamp used for fan_signal exportedAt', () => {
+    expect(
+      parseArgs([
+        '--group',
+        'group-a',
+        '--exported-at',
+        '2026-09-30T19:13:00.000Z',
+        '--dry-run',
+        'export.html',
+      ]),
+    ).toMatchObject({
+      group: 'group-a',
+      exportedAt: '2026-09-30T19:13:00.000Z',
+      dryRun: true,
+      files: ['export.html'],
+    });
   });
 });
 
