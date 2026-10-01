@@ -125,6 +125,7 @@ describe('fb export receiver', () => {
       ['POST', '/result'],
       ['POST', '/heartbeat'],
       ['POST', '/finished'],
+      ['POST', '/tab-lost'],
     ]) {
       expect((await call(r, m, p, m === 'POST' ? {} : undefined, null)).status).toBe(403);
       expect((await call(r, m, p, m === 'POST' ? {} : undefined, 'b'.repeat(64))).status).toBe(403);
@@ -141,7 +142,7 @@ describe('fb export receiver', () => {
       groupId: '111',
       url: 'https://www.facebook.com/groups/111?sorting_setting=CHRONOLOGICAL',
       wallBudgetMs: 20 * 60_000,
-      maxScrolls: 2000,
+      maxScrolls: 400,
       comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
       readAs: 'personal',
       actingPage: { name: 'Long Live' },
@@ -343,10 +344,84 @@ describe('fb export receiver', () => {
     expect((await call(r, 'POST', '/result', collected('group-a'))).status).toBe(409);
   });
 
-  it('records a stalled group as failed and resolves done when heartbeats stop', async () => {
-    const { r } = await setup({ stallMs: 150 });
+  it('a stalled last group is failed and the run resolves done', async () => {
+    const { r } = await setup({ stallMs: 150, groups: [groups[0]] });
     await call(r, 'GET', '/next');
     expect(await r.done).toEqual([{ slug: 'group-a', status: 'failed', reason: 'stalled' }]);
+  });
+
+  it('a stall fails only that group: the run waits for a relaunch, then serves the rest', async () => {
+    const { r, log } = await setup({ stallMs: 100 });
+    await call(r, 'GET', '/next'); // group-a handed out, the tab then freezes
+    expect(await r.lostSignal()).toBe('lost');
+    expect(log).toHaveBeenCalledWith('fb-receiver group-a: stalled');
+    // Not over, and a late wake-up of the dead tab gets no job and cannot end the run.
+    expect((await call(r, 'GET', '/next')).status).toBe(503);
+    await call(r, 'POST', '/finished', {});
+    expect(await Promise.race([r.done.then(() => 'done'), Promise.resolve('pending')])).toBe(
+      'pending',
+    );
+    r.resume(); // the launcher relaunched Chrome
+    expect((await (await call(r, 'GET', '/next')).json()).slug).toBe('group-b');
+    expect((await call(r, 'POST', '/result', collected('group-b'))).status).toBe(200);
+    expect(await (await call(r, 'GET', '/next')).json()).toEqual({ done: true });
+    await call(r, 'POST', '/finished', {});
+    expect(await r.done).toEqual([
+      { slug: 'group-a', status: 'failed', reason: 'stalled' },
+      expect.objectContaining({ slug: 'group-b', status: 'collected' }),
+    ]);
+  });
+
+  it('a stall with nothing in flight (Chrome never connected) still ends the run', async () => {
+    const { r } = await setup({ stallMs: 100 });
+    expect(await r.done).toEqual([]);
+  });
+
+  it('POST /tab-lost fails the group in flight at once and signals a relaunch', async () => {
+    const { r } = await setup({ stallMs: 60_000 });
+    await call(r, 'GET', '/next');
+    const lost = r.lostSignal();
+    expect(
+      (await call(r, 'POST', '/tab-lost', { slug: 'group-a', reason: 'tab-closed' })).status,
+    ).toBe(200);
+    expect(await lost).toBe('lost');
+    r.resume();
+    expect((await (await call(r, 'GET', '/next')).json()).slug).toBe('group-b');
+    expect((await call(r, 'POST', '/result', collected('group-b'))).status).toBe(200);
+    await call(r, 'GET', '/next');
+    await call(r, 'POST', '/finished', {});
+    expect(await r.done).toEqual([
+      { slug: 'group-a', status: 'failed', reason: 'tab-closed' },
+      expect.objectContaining({ slug: 'group-b', status: 'collected' }),
+    ]);
+  });
+
+  it('POST /tab-lost for the last group ends the run; a stale slug is ignored', async () => {
+    const { r } = await setup({ stallMs: 60_000, groups: [groups[0]] });
+    await call(r, 'GET', '/next');
+    await call(r, 'POST', '/tab-lost', { slug: 'other', reason: 'tab-closed' });
+    expect(await Promise.race([r.done.then(() => 'done'), Promise.resolve('pending')])).toBe(
+      'pending',
+    );
+    await call(r, 'POST', '/tab-lost', { slug: 'group-a', reason: 'renderer-gone' });
+    expect(await r.done).toEqual([{ slug: 'group-a', status: 'failed', reason: 'renderer-gone' }]);
+  });
+
+  it('hands each group its own maxScrolls (default 400, capped at 2000)', async () => {
+    const { r } = await setup({
+      groups: [
+        { slug: 'g1', label: 'G1', groupId: '1' },
+        { slug: 'g2', label: 'G2', groupId: '2', maxScrolls: 250 },
+        { slug: 'g3', label: 'G3', groupId: '3', maxScrolls: 99_999 },
+        { slug: 'g4', label: 'G4', groupId: '4', maxScrolls: -5 },
+      ],
+    });
+    const seen: number[] = [];
+    for (const slug of ['g1', 'g2', 'g3', 'g4']) {
+      seen.push((await (await call(r, 'GET', '/next')).json()).maxScrolls);
+      await call(r, 'POST', '/result', { v: 1, slug, status: 'not-member' });
+    }
+    expect(seen).toEqual([400, 250, 2000, 400]);
   });
 
   it('heartbeats keep the watchdog from firing', async () => {

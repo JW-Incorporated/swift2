@@ -159,6 +159,7 @@ function createBrowser({
             };
           }),
         onUpdated: { addListener: (fn: Any) => instance.listeners.updated.push(fn) },
+        onRemoved: { addListener: () => undefined },
       },
       alarms: {
         create: (name: string, info: Any) => guard(async () => void scheduleAlarm(name, info)),

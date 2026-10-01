@@ -1510,7 +1510,7 @@ describe('profile verification is positive, absence is unverified', () => {
 type Call = { method: string; path: string; body?: Any; url?: string; redirect?: string };
 
 function fakeChrome(store: Record<string, Any>, alarms: Map<string, Any> = new Map()) {
-  const listeners: { message?: Any; updated?: Any; alarm?: Any } = {};
+  const listeners: { message?: Any; updated?: Any; removed?: Any; alarm?: Any } = {};
   const tabUpdates: Any[] = [];
   const chrome = {
     storage: {
@@ -1529,6 +1529,7 @@ function fakeChrome(store: Record<string, Any>, alarms: Map<string, Any> = new M
     tabs: {
       update: async (tabId: number, props: Any) => void tabUpdates.push({ tabId, ...props }),
       onUpdated: { addListener: (fn: Any) => (listeners.updated = fn) },
+      onRemoved: { addListener: (fn: Any) => (listeners.removed = fn) },
     },
     alarms: {
       create: async (name: string, info: Any) => void alarms.set(name, info),
@@ -1569,9 +1570,15 @@ function bootWorker(
       json: async () => answer.json ?? {},
     };
   };
+  const skew = { ms: 0 };
   const context: Any = vm.createContext({
     chrome,
     fetch,
+    Date: class extends Date {
+      static now() {
+        return Date.now() + skew.ms;
+      }
+    },
     console: { warn: () => {}, log: () => {} },
     URL,
     setTimeout: (fn: () => void, ms: number) => {
@@ -1593,6 +1600,7 @@ function bootWorker(
     for (let i = 0; i < 50; i += 1) await new Promise((r) => setTimeout(r, 0));
   };
   const fireAlarm = (name: string) => listeners.alarm?.({ name });
+  const removeTab = (tabId: number) => listeners.removed?.(tabId);
   return {
     calls,
     delays,
@@ -1600,6 +1608,8 @@ function bootWorker(
     send,
     settle,
     fireAlarm,
+    removeTab,
+    skewClock: (ms: number) => void (skew.ms = ms),
     alarms,
     ready: context.LLFB?.backgroundReady,
   };
@@ -1972,4 +1982,84 @@ describe('background.js: tab-hidden support', () => {
       hiddenMs: 4_000,
     });
   }, 30_000);
+});
+
+describe('background.js: a dead run tab is reported at once', () => {
+  const TOKEN = 'ef'.repeat(16);
+  const startSender = { url: 'http://127.0.0.1:4567/start', tab: { id: 7 } };
+  const groupSender = { url: 'https://www.facebook.com/groups/1', tab: { id: 7 } };
+  const groupJob = { done: false, slug: 'group-a', url: 'https://www.facebook.com/groups/1' };
+
+  async function dispatched(store: Record<string, Any>, alarms = new Map<string, Any>()) {
+    const worker = bootWorker(
+      store,
+      (call) =>
+        call.path === '/next'
+          ? { status: 200, json: groupJob }
+          : { status: 200, json: { ok: true } },
+      alarms,
+    );
+    await worker.send({ type: 'llfb-start', port: 4567, token: TOKEN }, startSender);
+    await worker.settle();
+    await worker.send({ type: 'llfb-ready' }, groupSender);
+    return worker;
+  }
+
+  it('tabs.onRemoved on the run tab POSTs /tab-lost with the job slug and stops the session', async () => {
+    const store: Record<string, Any> = {};
+    const worker = await dispatched(store);
+    worker.removeTab(7);
+    await worker.settle();
+    const lost = worker.calls.find((c) => c.path === '/tab-lost');
+    expect(lost?.body).toEqual({ slug: 'group-a', reason: 'tab-closed' });
+    expect(store.llfb).toMatchObject({ phase: 'done', finished: true, job: null });
+    expect(worker.alarms.size).toBe(0);
+    // Nothing further is requested from a dead tab.
+    expect(worker.calls.filter((c) => c.path === '/next')).toHaveLength(1);
+  });
+
+  it('ignores the removal of some other tab', async () => {
+    const worker = await dispatched({});
+    worker.removeTab(99);
+    await worker.settle();
+    expect(worker.calls.some((c) => c.path === '/tab-lost')).toBe(false);
+  });
+
+  it('reports renderer-gone when heartbeats stop for longer than 150 s', async () => {
+    const store: Record<string, Any> = {};
+    const alarms = new Map<string, Any>();
+    const worker = await dispatched(store, alarms);
+    expect(alarms.get('llfb-liveness')).toMatchObject({ periodInMinutes: 1 });
+    // A fresh job is not lost yet.
+    worker.fireAlarm('llfb-liveness');
+    await worker.settle();
+    expect(worker.calls.some((c) => c.path === '/tab-lost')).toBe(false);
+    worker.skewClock(200_000);
+    worker.fireAlarm('llfb-liveness');
+    await worker.settle();
+    expect(worker.calls.find((c) => c.path === '/tab-lost')?.body).toEqual({
+      slug: 'group-a',
+      reason: 'renderer-gone',
+    });
+    expect(alarms.has('llfb-liveness')).toBe(false);
+  });
+
+  it('delivers a result already owed before reporting a tab closed in between', async () => {
+    const store: Record<string, Any> = {};
+    const worker = await dispatched(store);
+    // The result is persisted (delivery owed) and the receiver is slow to ack.
+    store.llfb = {
+      ...store.llfb,
+      job: null,
+      phase: 'deliver',
+      outbox: {
+        phase: 'deliver',
+        pendingResult: { v: 1, slug: 'group-a', status: 'collected', units: [], comments: [] },
+      },
+    };
+    worker.removeTab(7);
+    await worker.settle();
+    expect(store.llfb.tabGone).toBe('tab-closed');
+    expect(worker.calls.some((c) => c.path === '/tab-lost')).toBe(false);
+  });
 });

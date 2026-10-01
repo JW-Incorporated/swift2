@@ -64,6 +64,44 @@ describe('launchPlainChrome', () => {
   });
 });
 
+describe('launchPlainChrome close() is platform-explicit and once-only', () => {
+  const launched = (platform: string) =>
+    launchPlainChrome({
+      url: 'http://127.0.0.1:1/start',
+      profileDir: tmpdir(),
+      spawn: fakeSpawn().spawn as never,
+      chromeExecutable: 'x',
+      platform: platform as never,
+    });
+
+  it('on linux signals the pid directly, and only on the first close()', async () => {
+    const kill = vi.spyOn(process, 'kill').mockImplementation((() => true) as never);
+    try {
+      const chrome = await launched('linux');
+      await chrome.close();
+      await chrome.close();
+      expect(kill).toHaveBeenCalledTimes(1);
+      expect(kill).toHaveBeenCalledWith(4242);
+    } finally {
+      kill.mockRestore();
+    }
+  });
+
+  it('on win32 taskkills once even when close() is called twice', async () => {
+    const { spawn, calls } = fakeSpawn();
+    const chrome = await launchPlainChrome({
+      url: 'http://127.0.0.1:1/start',
+      profileDir: tmpdir(),
+      spawn: spawn as never,
+      chromeExecutable: 'x',
+      platform: 'win32',
+    });
+    await chrome.close();
+    await chrome.close();
+    expect(calls.filter((c) => c.cmd === 'taskkill')).toHaveLength(1);
+  });
+});
+
 describe('chromeProfileInUse', () => {
   it('is false without a lockfile, false for a stale one, true when it cannot be opened', () => {
     const close = vi.fn();
@@ -203,6 +241,181 @@ describe('extensionCollect with the real receiver', () => {
       const collected = out.results[0] as { filePath: string };
       expect(await readdir(dir)).toContain(basename(collected.filePath));
       expect(chrome.close).toHaveBeenCalled();
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('extensionCollect relaunches Chrome after a stalled group', () => {
+  const token = 'c'.repeat(64);
+  const headers = { 'x-llfb-token': token, 'content-type': 'application/json' };
+  const groups = [
+    { slug: 'one', label: 'One', groupId: '1' },
+    { slug: 'two', label: 'Two', groupId: '2' },
+    { slug: 'three', label: 'Three', groupId: '3' },
+  ];
+  const collectedBody = (slug: string) =>
+    JSON.stringify({
+      v: 1,
+      slug,
+      status: 'collected',
+      stopReason: 'feed-end',
+      units: [{ html: '<div>synthetic post</div>', position: 0 }],
+      coverage: { ageRuleMet: true, harvestedCount: 1, slotCount: 1, partial: false },
+      commentCoverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
+    });
+  // The fake extension: takes groups until /next says done; `hang` makes it lose its tab on one slug
+  // (/tab-lost, deterministic: no wall-clock watchdog is involved, so slow CI cannot flake).
+  // Like background.js (api() retries, then retryLater()), a 503 {relaunching} on /next is retried:
+  // the relaunched extension can ask before extensionCollect's launch() returns and resume() runs.
+  const drive = async (base: string, hang?: string) => {
+    for (;;) {
+      let res = await fetch(`${base}/next`, { headers });
+      for (let retries = 0; res.status === 503 && retries < 200; retries += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        res = await fetch(`${base}/next`, { headers });
+      }
+      if (res.status !== 200) return;
+      const job = await res.json();
+      if (job.done) {
+        await fetch(`${base}/finished`, { method: 'POST', headers, body: '{}' });
+        return;
+      }
+      if (job.slug === hang) {
+        await fetch(`${base}/tab-lost`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ slug: job.slug, reason: 'tab-closed' }),
+        });
+        return;
+      }
+      await fetch(`${base}/result`, { method: 'POST', headers, body: collectedBody(job.slug) });
+    }
+  };
+
+  it('kills the stalled Chrome, relaunches the profile and finishes the remaining groups', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-relaunch-'));
+    try {
+      const { spawn, calls } = fakeSpawn();
+      let launches = 0;
+      const launch = vi.fn(async ({ url }: { url: string }) => {
+        launches += 1;
+        void drive(new URL(url).origin, launches === 1 ? 'one' : undefined).catch(() => undefined);
+        return launchPlainChrome({
+          url,
+          profileDir: dir,
+          spawn: spawn as never,
+          chromeExecutable: 'chrome.exe',
+          platform: 'win32',
+        });
+      });
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({ ...args, stallMs: 60_000, log: () => {} } as never)) as never,
+        launch,
+        token,
+        profileDir: dir,
+        profileInUse: () => false,
+      });
+      expect(out.results.map((r: { slug: string; status: string }) => [r.slug, r.status])).toEqual([
+        ['one', 'failed'],
+        ['two', 'collected'],
+        ['three', 'collected'],
+      ]);
+      expect(out.results[0]).toMatchObject({ reason: 'tab-closed' });
+      expect(launches).toBe(2);
+      expect(calls.map((c) => c.cmd)).toEqual(['chrome.exe', 'taskkill', 'chrome.exe', 'taskkill']);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('waits for the profile lockfile to free before relaunching', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-relaunch-'));
+    try {
+      let busyChecks = 3;
+      const sleep = vi.fn(async () => undefined);
+      let launches = 0;
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({ ...args, stallMs: 60_000, log: () => {} } as never)) as never,
+        launch: async ({ url }: { url: string }) => {
+          launches += 1;
+          void drive(new URL(url).origin, launches === 1 ? 'one' : undefined).catch(
+            () => undefined,
+          );
+          return { pid: 1, close: async () => undefined };
+        },
+        token,
+        profileDir: dir,
+        // pre-flight check passes (false); then busy for 3 polls after the kill, then free
+        profileInUse: (() => {
+          let first = true;
+          return () => {
+            if (first) {
+              first = false;
+              return false;
+            }
+            return busyChecks-- > 0;
+          };
+        })(),
+        sleep,
+      });
+      expect(launches).toBe(2);
+      expect(sleep).toHaveBeenCalledTimes(3);
+      expect(out.results.map((r: { status: string }) => r.status)).toEqual([
+        'failed',
+        'collected',
+        'collected',
+      ]);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('fails the remaining groups chrome-relaunch-failed when the profile never frees', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-relaunch-'));
+    try {
+      let first = true;
+      const launch = vi.fn(async ({ url }: { url: string }) => {
+        void drive(new URL(url).origin, 'one').catch(() => undefined);
+        return { pid: 1, close: async () => undefined };
+      });
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({ ...args, stallMs: 60_000, log: () => {} } as never)) as never,
+        launch,
+        token,
+        profileDir: dir,
+        profileInUse: () => {
+          if (first) {
+            first = false;
+            return false;
+          }
+          return true;
+        },
+        sleep: async () => undefined,
+        relaunchWaitMs: 2_000,
+      });
+      expect(launch).toHaveBeenCalledTimes(1);
+      expect(out.results).toEqual([
+        { slug: 'one', status: 'failed', reason: 'tab-closed' },
+        { slug: 'two', status: 'failed', reason: 'chrome-relaunch-failed' },
+        { slug: 'three', status: 'failed', reason: 'chrome-relaunch-failed' },
+      ]);
     } finally {
       await rm(dir, { recursive: true, force: true });
     }

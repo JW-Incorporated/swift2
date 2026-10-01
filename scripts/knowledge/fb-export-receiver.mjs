@@ -19,6 +19,15 @@ import { FB_ACTING_PAGE, FB_READ_AS } from './fb-groups-checklist.mjs';
 
 const MAX_BODY = 64 * 1024 * 1024;
 const DEFAULT_WALL_BUDGET_MS = 20 * 60_000;
+// 250 finished the Vault in ~16 min (2026-09-30); 2000 froze its renderer (2026-10-01). 400 is
+// ~1.6x the scrolls that worked and ~26 min of the Vault's 75 min wall budget. A group may set its
+// own `maxScrolls` in fb-groups-checklist.mjs (a positive integer up to MAX_SCROLLS_CEILING).
+export const DEFAULT_MAX_SCROLLS = 400;
+const MAX_SCROLLS_CEILING = 2000;
+export const scrollBudget = (group) =>
+  Number.isInteger(group?.maxScrolls) && group.maxScrolls > 0
+    ? Math.min(group.maxScrolls, MAX_SCROLLS_CEILING)
+    : DEFAULT_MAX_SCROLLS;
 const STOP_STATUSES = new Set(['login', 'checkpoint', 'captcha', 'wrong-profile', 'stunted']);
 const EXT_STATUSES = new Set([
   'collected',
@@ -219,18 +228,32 @@ export async function startReceiver({
     clearTimeout(watchdog);
     resolveDone(ordered());
   };
-  const armWatchdog = () => {
+  // A group lost to a dead tab (stall watchdog, or the extension's /tab-lost) fails ONLY that
+  // group. The tab/Chrome may be dead, so the run is not over: `lostSignal()` tells the launcher to
+  // relaunch Chrome, then `resume()` re-arms the watchdog for the remaining groups. Nothing in
+  // flight (`idleIsFatal`: Chrome never connected) or nothing left → the run ends as before.
+  let lostPending = false;
+  let lostResolve = null;
+  const groupLost = (reason, idleIsFatal) => {
     clearTimeout(watchdog);
-    if (finished) return;
-    watchdog = setTimeout(() => {
-      if (current) {
-        results.push({ slug: current.slug, status: 'failed', reason: 'stalled' });
-        log(`fb-receiver ${current.slug}: stalled`);
-        current = null;
-      }
+    const group = current;
+    if (group) {
+      results.push({ slug: group.slug, status: 'failed', reason });
+      log(`fb-receiver ${group.slug}: ${reason === 'stalled' ? 'stalled' : `lost (${reason})`}`);
+      current = null;
+    }
+    if ((!group && idleIsFatal) || cursor >= groups.length || stopped) {
       stopped = true;
       finish();
-    }, stallMs);
+      return;
+    }
+    lostPending = true;
+    lostResolve?.('lost');
+  };
+  const armWatchdog = () => {
+    clearTimeout(watchdog);
+    if (finished || lostPending) return;
+    watchdog = setTimeout(() => groupLost('stalled', true), stallMs);
     watchdog.unref?.();
   };
 
@@ -244,7 +267,7 @@ export async function startReceiver({
       ? Math.min(g.wallBudgetMs ?? CAPTURE_WALL_BUDGET_MS, CAPTURE_WALL_BUDGET_MS)
       : (g.wallBudgetMs ?? DEFAULT_WALL_BUDGET_MS),
     ...(capture ? { capture: true } : {}),
-    maxScrolls: 2000,
+    maxScrolls: scrollBudget(g),
     comments: { topN: 20, maxPerPost: 50, pacingMs: [2000, 5000] },
     // For the extension's positive profile check (harvest-core profileCheck).
     readAs,
@@ -450,7 +473,18 @@ export async function startReceiver({
     // Token-authenticated handshake: the extension validates a /start token here before it
     // replaces any session state (background.js onStart). No side effects.
     if (req.method === 'GET' && url.pathname === '/hello') return send(200, { ok: true, runId });
+    // The extension saw its run tab close or its renderer go quiet: fail the group in flight now
+    // instead of waiting out the stall watchdog (background.js reportTabLost).
+    if (req.method === 'POST' && url.pathname === '/tab-lost') {
+      const body = await readJson(req);
+      const reason = /^[a-z][a-z-]{0,29}$/.test(String(body?.reason)) ? body.reason : 'tab-lost';
+      if (!finished && !lostPending && (!current || !body?.slug || body.slug === current.slug))
+        groupLost(reason, false);
+      return send(200, { ok: true });
+    }
     if (req.method === 'GET' && url.pathname === '/next') {
+      // A previous tab that wakes up while Chrome is being relaunched gets no job.
+      if (lostPending) return send(503, { error: 'relaunching' });
       armWatchdog();
       if (current) return send(200, nextPayload(current)); // reload mid-group: same group again
       if (stopped || finished || cursor >= groups.length) return send(200, { done: true });
@@ -549,7 +583,7 @@ export async function startReceiver({
     if (req.method === 'POST' && url.pathname === '/finished') {
       await readJson(req);
       send(200, { ok: true });
-      finish();
+      if (!lostPending) finish();
       return;
     }
     return send(404, { error: 'not found' });
@@ -575,6 +609,19 @@ export async function startReceiver({
     port,
     url: `http://127.0.0.1:${port}/start#${token}`,
     done,
+    // Resolves 'lost' once a group's tab died with groups still to do (see groupLost).
+    lostSignal: () =>
+      lostPending
+        ? Promise.resolve('lost')
+        : new Promise((resolve) => {
+            lostResolve = resolve;
+          }),
+    // The launcher relaunched Chrome: hand out the remaining groups again.
+    resume() {
+      lostPending = false;
+      lostResolve = null;
+      armWatchdog();
+    },
     // Results gathered so far, in group order; a group handed out but not reported is failed.
     partialResults() {
       const out = ordered();

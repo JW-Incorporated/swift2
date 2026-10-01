@@ -226,7 +226,10 @@ export function runSummary(results, actingPageId = null) {
     const detail = [
       count !== undefined ? `${count} posts` : null,
       stop ? `stop: ${stop}` : null,
-      `covered ${formatCoverage(r.coverageAgeMs)}`,
+      // Rows that never harvested (not-member, failed, ...) have no coverage to report.
+      count !== undefined || Number.isFinite(r.coverageAgeMs)
+        ? `covered ${formatCoverage(r.coverageAgeMs)}`
+        : null,
       ingest,
       formatComments(r),
     ]
@@ -333,7 +336,9 @@ export async function runExport(options = {}) {
   const completedEntries = dryRun
     ? []
     : Object.entries(ledger.groups).filter(([, row]) =>
-        ['uploaded', 'not-member', 'unavailable', 'no-recent-posts'].includes(row.status),
+        // 'not-member' is deliberately absent: membership changes (approval, a fresh join), so a
+        // later run retries the group and it is only done after a successful export/upload.
+        ['uploaded', 'unavailable', 'no-recent-posts'].includes(row.status),
       );
   const complete = new Set(completedEntries.map(([slug]) => slug));
   // Codex round 5 #2: a group whose ingest already ran this week is ledgered 'ingested' before
