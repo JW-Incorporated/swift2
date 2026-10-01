@@ -2842,12 +2842,19 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+            // Swift is centered, upper half of frame.
+            focalPoint: '58% 35%',
             credit: 'Big Machine Records, via YouTube/TaylorSwift',
             caption:
               'The bathtub-of-diamonds shot from "Look What You Made Me Do" — the single that broke the year of silence in August 2017.',
-            kind: 'reference',
-            // Swift is centered, upper half of frame.
-            focalPoint: '58% 35%',
+            // Photo-enrichment pass (2026-10-01, #3895): promoted from
+            // 'reference' to 'primary'. content.top-of-feed-photo counts only a
+            // kind:'primary' image (hasRealPrimaryImage), so the connected real
+            // photo the 2026-09-06 policy added was not registering as the hero.
+            // Re-verified live (HTTP 200 image/jpeg) and vision-confirmed as the
+            // LWYMMD bathtub frame; this page has no `video` field, so promoting
+            // it does not trip the video-affordance duplicate-still rule.
+            kind: 'primary',
           },
         ],
       },

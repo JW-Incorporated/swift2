@@ -2962,6 +2962,14 @@ export default {
       title: "“Begin Again” as the soft landing",
       snippet: "A gentle promotional single about hope after heartbreak.",
       video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
+      // Photo-enrichment pass (2026-10-01, #3898): this page embeds the official
+      // "Begin Again" music video (video field above, oEmbed-verified @TaylorSwift)
+      // as its visual. A separate still would have to be the same video's ytimg
+      // frame, which the video-affordance rule (video-affordance.test.ts /
+      // #4134) suppresses as a duplicate of the page video — so no separate
+      // primary photo is sourced; the MV embed is the hero.
+      photosReviewed:
+        'Official "Begin Again" MV is embedded (video); the MV itself is the page visual, and a ytimg still would duplicate it (video-affordance suppression), so no separate photo is added.',
       moment: {
         sources: [
           {
