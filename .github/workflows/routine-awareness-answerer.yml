@@ -23,7 +23,7 @@ name: routine-awareness-answerer
 
 on:
   schedule:
-    - cron: '41 */3 * * *'
+    - cron: "41 */3 * * *"
   workflow_dispatch:
 
 permissions:
