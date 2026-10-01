@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 77
+
+## MTV VMAs Producer Addresses Comments on Taylor Swift's New Award
+
+- first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An MTV VMAs producer has clarified remarks regarding the influence behind Taylor Swift's recent award, addressing claims of 'external' factors impacting the decision.
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxNX0hxWWlidUhDZVBJV1UyZGRSMTdTemxUMzRtd0U5Ujhhc2Q2RnN1VUpURXhkcExXcktOS0ExT1FMSjVJbjU0YmJDQlRDVU1yQTM5dThqX3owalNOODRnQ1NFTzJjQlpQV2NadUdGQ1QyYTBPSTJRTWl4SnpOSjBLRnk2Y3V2dXdSeW83TGpmWDlkZHc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Addresses Personal Feelings on Song Criticism
+
+- first seen: 2026-10-01 07:09 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: In a recent discussion, Taylor Swift expressed that she personally takes criticism of her songs to heart, viewing them as her 'babies.' She emphasizes the emotional connection she has with her music.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNWmdNVWdlMmtGNGlONmdfazU4X1I2RjRQV0o4TFZWdVJrdldIbXFKT0R0RFBndUFBSDJyVWMyUnQzYkpnd2d5MTE1TVhNdTJWV3dhZVRIblBIMzc2WGRYR1VWOUlYY2g2ZTcxdGc4RVYxU0Y4Z1EwUTFsNE8wM2dfTi1sY2p2NkEtb2hhck5TR0tiMFpmQVFF?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Explains $47 Million Home in 'Patient Zero' Music Video
+
+- first seen: 2026-10-01 07:09 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift unveils the significance of the $47 million Beverly Hills property featured in her music video for 'Patient Zero'. The revelation provides insight into her artistic choices and the setting of the video.
+- sources:
+  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxNU3ROTFZsdURNUFhvOU52bEx5Q0NCZkVVd2Vpd0NsbXVuZE5fZjlRbGE5MFRjMHprYURlN3VsOHY0NTBpX0w1cnM0N1ozOVpjaXQ0c0dtRDNwWXBpS1FSUm1iQkgwM1ozSXJkVUhoRWdIX1BoRnRtdVZqS3FrYzRJR0piNGtfUFduVkFfdlY2b2JaSks4NFAxR1Y2TElpamQ4RV9iQ2pOMTBSSTZ1cWpNSw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Pat Garrett, early advisor to Taylor Swift, passes away
+
+- first seen: 2026-10-01 07:09 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Pat Garrett, an early advisor to Taylor Swift and a notable figure in country music, has died. His contributions to the music industry and support for Swift have been acknowledged following his passing.
+- sources:
+  - [unverified] local21news.com — https://news.google.com/rss/articles/CBMi4AFBVV95cUxNOGQ5cjJobnBUeGRiTTBsUklPUDFfclFsOXc1THFveW1ReWJ2ZTd5TldMc1V6Qm9xbXY2a1ExSlBIbHpvZ3NUVngxQTR4QXU0bjhaWDcwcmlnbWI2UUF4NXZRTDRJOTRnRVpjaFJBUUJYU3ViNkdHUUJMZDNlb3NWTWU1TU9YMi1vRnFhUExwampXQ3RWR1BDdzVxMFZKX2VvTGxrQXk4cWJ4eS1Db1dvdlVkVzh6Q3pockFnazItMDhtQlBra3BSYzVzZHRCVGtwS0tjUjAyaVZCZGdNdzl3bA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Rock Icon Claims Taylor Swift 'Ruined Music' and Calls Her Mediocre
+
+- first seen: 2026-10-01 07:09 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A '70s rock icon has publicly criticized Taylor Swift, stating she has 'ruined music' and referring to her as 'the apotheosis of mediocrity'. This statement has sparked discussions among music fans.
+- sources:
+  - [unverified] buzzfeed.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOXzJNUk9kTjh5VUdfcmlfN2RKTnM2NlYwWUtwMUs0QnZNSmNNRldzeExlSk5WRWVDNUk5dHhtRHlkR21yV2FGdGNhalk1SEljMGJETEZIQzkxRkEyN21NLW93T2MzVGhUVkUwbEo3eW54aWR2N1pOdXViN3FGeW85NQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Todd Rundgren Critiques Taylor Swift's Artistic Influence
+
+- first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Musician Todd Rundgren has referred to Taylor Swift as 'the apotheosis of mediocrity' in a recent statement. This comment reflects his views on current music trends and highlights the ongoing discussions about artistry in pop music.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPQjU0TFJleVJxZnFNSkEyUmJPelltd0RZLWJ2LWxwaTNwMk84ejJnblFjbmxFWVUyaHoyNFVkZ01jRXljZzhqQllaeUVyR2J4MDc3MnhBMFB0SW1VU2xjS3lKQVFBbDcwY0JuUHkyR1JzbTRrZ3JZZmdHYVZONmhTQ3RyUVA1NkZaWXFsak5UNXlkUmxNdG1KR1hJdnNOckxKVFczRTA3d2wzNkpUcnB3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## VMAs Records Set by Madonna and Taylor Swift in 2026
 
@@ -610,198 +658,3 @@ Stories: 91
   - [unverified] The Cornell Daily Sun — https://news.google.com/rss/articles/CBMikgFBVV95cUxNSDBPLWI1ZDYyUE1UQU1PTmd4Wlhiak8wSUJlZG9XVGJXNF93aDduOFp0a3hiczVISS1ORjluc0NWbEJqQTNhLUI5Sm1rUFpNTEVQM2tRSkU2MVF5a0VmMVEtNzZzWV9RMDlBY21DQnVweXdLbTJlT3JkYVRSV2xNNTIzUUNtSGtrdlhxSHhGT1pNUQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Flor-Ala — https://news.google.com/rss/articles/CBMiaEFVX3lxTE9KYndWSGozeEVldWd1bXltUUhwWUoyMFZqRXZOTUh1NUZwN2dJbFlFQkRrOEZEQURYTEdYWllpbEFEc0tpV3Jjd1NhMTN2STE5aFVoNnl5T0FPUWdMRmtKbWFFUGFIQnh1?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] thesunflower.com — https://news.google.com/rss/articles/CBMi3wFBVV95cUxNOWxNeEVhRU5vQlFSRXpMRS1DcjI1NHNJNmVSQlh2ZjFyTUJRMUFRSHphSEFMRWtPUUFtb2hlaGM3bmY5U04wb2xFOU5NWWEtaUxQM1JibGlpQ0lvZHFRZE5rWkVzcGRkUUlDdzlyMVNFVFBHWmVNN3FpRU5PRFBvQmI4Y1FOXzV2a2hYTW1QaEZxX3IzaE5sSXcxQVBKaUF5UDFhaVI2SmMwWklqcm52VEJtT3NDeEwzT2syWnZfN1haMXFGNWpoX3A4S3pBeUdjcGxDTWZCSlpsSW9ublhF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Record 31 Wins at MTV VMAs
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made history by becoming the most-awarded artist at the MTV Video Music Awards with a total of 31 wins.
-- sources:
-  - [unverified] France 24 — https://news.google.com/rss/articles/CBMikAFBVV95cUxPUEJsT1BvWGx0NTJDYW1VUXlqSVo5VmVlSmJIdU9CVkRmWmtGQk8xVTRUS3pYamJWWjJZYmxjQWRQcXgtUFdHdjV4RlpVWGIyUXNqWngzTXpCeWt4Uk5GaUtxcFZ5NEJKU0prMjNvRFk2cVVtMXFhS0Q2dlhEUFN5NTBBV3FHUUtzcE9SQ1FNT2g?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## NFL Stars Appear in Taylor Swift's New Music Video
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's latest music video features cameos from several NFL stars, surprising many fans. The inclusion of these athletes has captured the attention of her audience and sparked conversations online.
-- sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNNDRUdWJoMHNRNm9vTkdCNlVYXzZ4MGw3d3NWc0VvZTg1TWxEa3hfSmdrZzIxckt5Y3I1ZktYbUdEMWlqNlpvUGtBNzJ3T3JuN1luSnoyQmFyODJyQnR0WFlLUUQ2T0o3aHcwcWViWTZOT1lMVkhsQ1VGUDFibkswU0x6N2NqdEpkQjJTZnpDcnRfZmpPY0wzWEhxNkRWamxkbDBNbQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's VMA Win Linked to Travis Kelce
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's recent victory at the VMAs is notably connected to her relationship with NFL star Travis Kelce. The event has sparked discussions among fans and media alike.
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxPSjRSbXRqVEZZRVFnQ0lmOHplcXhJdXVhT3llMFlYR3FGcTZxQXpHY0FLLW5QaUlPOUtyVjM0OWFRNmh5ZmFVOF9FZUJSby14cGRSd3FDQjBLSnpXY1Rfay1VUjlMNHYyQW5pc0pROTkwTEY0V3p5ZFpzZ3JweDJBajRnRV9TMnExamlNaS0yNkZmVFhrTlE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Critiques Taylor Swift's Musical Impact
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Producer Todd Rundgren has publicly criticized Taylor Swift, describing her work as 'the apotheosis of mediocrity.' This statement highlights ongoing discussions about artistic merit in the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiiAFBVV95cUxOa2JHUEV3N09fQzcxM0ZyQnVsQXZUSktsRFhWWGtjYVh2RjRzWXV5ZXR1TzR0OEdvT214Vzg3MzQ4ZXlDdlNEaU4zTW5Wc2d5WmNOVldBVVkwbzllMTRSOV90aGlweVRzMk9PdzdLclVEU21LZlV2d3R0eVRKQ1k1U0x3SUw0WDZz?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Achieves Record for Most VMA Wins
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has set a new record for the most wins at the MTV Video Music Awards (VMA). This achievement highlights her significant impact on the music industry and her continued success.
-- sources:
-  - [unverified] KCRA — https://news.google.com/rss/articles/CBMickFVX3lxTE5wcHN1UmJnMU4zU0pFeHZQU1p1RlYtV3hjWmpqRVlCOGlzZkRlcjZoN3hEQWRqNUNYYTV5MWJQU1QzOHQ4MWhaV0dMZW9QVVlzUk5RZTc1bVh2bUJ0ZUEyTWlmdG5rLWpUWmp2aHF3VElLdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## NFL Player Appears in Taylor Swift Music Video
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An NFL player has made an unexpected appearance in a new Taylor Swift music video, surprising fans and viewers alike. The collaboration highlights Swift’s ongoing influence in both the music and sports worlds.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiyAFBVV95cUxPWnhNSklGeGl2bVNIbXRmbWJHaGxKaFdsSV8yR256WThzdkgzeVdHQzFFQmxwY0JpbmcyckZZMmFLOVM3QXNoclR1ZTdPNF9qN0ZYeWZrbFZrY2RxRGVBbUtFTGxfUi13ZkRDNVRJZXBmdjltVWFpcGRqWVVDRjZITXdMZnlEUG12OUROR19zZFl0a1BOcmJ5MUV6czBCQ19uSXh5SWhvckRLYmY0b0lNUW1veWNpRDlXUGVCYU9LMVJfeVZ3UzRCUw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Honors Dolly Parton After Historic VMA Win
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: At the VMAs, Taylor Swift dedicated her historic award win to Dolly Parton, praising her as 'the ultimate showgirl.' This acknowledgment highlights Swift's admiration for Parton within the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirgFBVV95cUxOVkpzWDlmRXlpQ01zbzFUcmtWcjByWWdhcl9scXJSaWdFMWN3Y3NGWExwdnNqSTBkSmNMQ192UDZIQmNWNjFvTV9SZkFlSFp4Z3hnYmZ1VXF5WVpDaGYwNHoyN1hUYjdQN3h6OE96ZUhObVFaTTFBSzhaQXFNUkR0MWhkVzR5cjA0NVRkTzZaOGxydFhwRzUyQXNXd3dYNWxwOGVlWWZ4bXpwYTVQUWc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOeEZpc0lxYXVZWEI4TnJIUktzNE5VZWtrU1JxSjg4MTJkM0hRNk50RTV0d0FYUnRibVM5dVJwanpLQTR2aDhhaHpJdnBXRzZKa0F4SjZSVWdmMmZTUk1OUmEyT1VSNGYwejI4X0FxalhxUExmTlRDajNHTzNUVE5INXRsNXlyMGhMTWkwQlIxY2U2al9DMTB3c1NZT0NCaDVGNm9jUW5aY1lBTHc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTUs5aloyWENQd2l5dW5pS1Vwa2lLdTA2RlgyNjM0LVNFdlpWSVZ2SHNWMmZFRU9QRmtYazVfMHhZOUVicHh4RTNEMzBhOWU0YXdqcDFqZHp0N0FuZFo5V0ZyV3dpOFBxVTVyR1c0bGR1VDJyY1g3LUNxSE5kcW5kWVFqUDV1bkV1X3dSV09ZVFFmR2ExVDY0WVdMV3huSFFVeXBsWEZtamFJNUhTYlowVFptX3JUUnJI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Honors Dolly Parton at 2026 VMAs Acceptance Speech
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: At the 2026 VMAs, Taylor Swift dedicated her Video of the Year award for 'The Fate of Ophelia' to Dolly Parton, expressing admiration for her as 'the ultimate showgirl'.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitAFBVV95cUxPRkFZbVBEUkhudDVlOFRCSWx4dHV0RU93NDNFSWc1ZXRGTk5DM2psUE90WG5KYTFFMFIyUDBSY21VWGN5ZkRydkZTbFhGVVdQZklUNnZaam5HVVJHejFaMFN0OEVrRDNnQm9LN3NZX08zT0k0V0MwZTF4VkhsbVZ2dElTcjFiWXFaQUlnTW1VaVdzU2c0NmRJXzFua1h5WncyRmstZlhSX0tGNW5CU1R4cmtkTWU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-dolly-parton-vmas-video-of-the-year-ophelia-1235631582/
-
-## Taylor Swift Unveils 'Patient Zero' Music Video at VMAs
-
-- first seen: 2026-09-28 06:46 UTC | category: release | importance: 7
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift premiered her music video for 'Patient Zero' during the VMAs, featuring a star-studded cast. The event highlighted her latest work and drew significant attention from fans and media alike.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMizwFBVV95cUxOamNQVVBWVlZHUTYtTTlSTTh2Mk5GMERyU1QzZmtOTmFpREVYNGVfRy00U3VuUGZoalk1RTRGZVdaclhPMWRQRENvSHQzQVEyV0w4TEJzWkVNSkRNaXVQTVhvY2xGNnlIalNYd1oyQ2ktT0dkcjVIQlFLa3V1NnNfM2QtV19oUUNsMWVadk1lZU1NYlJZb1B1Q3pRVlM5SXZaVXR2a21WcTJ3ODA2ZG5kNVl3Zl9SeHQ0MHlsZXdWZ2RQVnZ3N0hrdUJqcGFadUU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] ESPN — https://news.google.com/rss/articles/CBMitwFBVV95cUxPbGJ2WnZxU1J0dkNzS3FPZ2d6WHBydU1iYjk5MTlsRWYzcTFYa3RySVdUS0htN0xkNkJPdE95NmFFbks5ZVV2aTduR0FGdk5VbVVqNklvQ2NtcDNkSkd3RS1xYUVYZGNNR2lLUmpKN0lqM1hrbU13aUZMSHQ0NkhfQkJZaWVnWjI4Z2hFWnlqdExZR2FKS1pxZVZ2WERvdk9PMnhaRjZUNXRWSm03TnlEclZIRXF1SFE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Los Angeles Times — https://news.google.com/rss/articles/CBMitwFBVV95cUxPcXQ4bnpfc3NNODI1bjRmRThoVzRrRDRVbXpfTk9LbWRjYTlqY2RmcFZjdFhadElWT1N6TEdjT3dOWVRzOHd3UjlKUUE3M3djQTlJSGtXSVg4bjZTOVFsSnVWTXdJcHRVVU9IcnlnZHFabkFHV0dnV2xzMnNTTS1kSnFhZFpYdmwxd1FDRWk5Z2ZYcXNEWW1VX1B1QVVBTFN1ZzV4LTVranU1TGxEVDNTTUJNQ19xaFU?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxPSE80eTBDeTZMSXRtUmxKUEJLbjhIbm9tN2xWR0JvZy04RVZkcGZTTXYzX1NFblRMSDNFeUZNRU0yN0g5X2FVMENmbHgwYlAyUnNjY0ttTmlKb1Y3THV5YjM2UEg0eVhuT2J0a3FUNlNqUlh4WWE3eDdjYXpsMDFZT2VWQTFZeGx1UTktVVduc0JBVUUzLVAxZEV1Zk1LVWVy?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Critiques Taylor Swift's Impact on Music
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Todd Rundgren expressed his views on Taylor Swift, claiming she has negatively impacted the music industry by being the 'apotheosis of mediocrity.'
-- sources:
-  - [unverified] Ultimate Guitar — https://news.google.com/rss/articles/CBMilwJBVV95cUxPcXJncmtRWUtqUU1FTFpRZTdzdUYydzFnbmZiUzByd2NoWkhRbHN4cW1lNE1wdXA1c0ZXZmdjQWdpQmRfUFROdnBVZXZyM2NjS2Z2U2o4V1NlYTJ1ci1nc1VpeHl3TnVZaGN1T0p4VzRlTExUQ2I5RUVWN0hYbUw4OTJlOFNMNnZjYmRCeEJYZ1lkVDZxdG44eDF4SFZNSFVQSmk5cEt3b2lpbGpPLWJIeHpqTUJFQ0ZqeUU5LVBoQVVUTUFDbURzY1gydTh6bEJTaUpVeElBOGx2ZlB0WUd5R2JxX19GSHdQbk45OFlaWkUtUTREbHR5MDRUUUVVSzhhTG9UV3VleW1iZW40RWZGTFl6bzR2a1U?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Inaugural MTV VMAs Artist Director Award
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was honored with the inaugural Artist Director award at the MTV VMAs, presented by Dakota Johnson, her co-star in the new video "Patient Zero."
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-directors-award-acceptance-speech-1235631393/
-
-## Review of New Taylor Swift Songs on The Needle Drop
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A review of Taylor Swift's new songs has been published on The Needle Drop, detailing the author's listening experience and insights on the music.
-- sources:
-  - [unverified] The Needle Drop — https://news.google.com/rss/articles/CBMikAFBVV95cUxNY2MyOUYtOTNfNHVaaFlicE1sbl9YQVV6RHZqRlV4ZHNJaUFQaDM2UG5iNGpfTEh1dFZqQm5sdFB6dUVROXFrNldjQnVTT0lLN08tSlZ0RE1xYUs3SG5pUzBTeFc4VkFOekVZZzc3VEdPb2pJcXlSangtc3ZzOTNlZWF0S3JkUG14ZGRDdmxVVHo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Top 10 Fashion Moments from the MTV Video Music Awards
-
-- first seen: 2026-09-28 06:46 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: The MTV Video Music Awards showcased stunning fashion, featuring leather, lace, and daring looks on the red carpet. Celebrities brought their A-game with a variety of eye-catching outfits.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/27/style/mtv-vmas-best-dressed.html
-
-## Taylor Swift Debuts New Music Video for "Patient Zero"
-
-- first seen: 2026-09-28 06:46 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 9
-- summary: Taylor Swift has premiered the music video for her latest song, "Patient Zero." Fans can now watch the new visual on consequence.net.
-- sources:
-  - [unverified] consequence.net — https://news.google.com/rss/articles/CBMiekFVX3lxTE5TeVRkbnc0WHVEVV9vRGFzT2pLNTNqQ29EOWl6Um9sTXBsT3JHbXlLdk9ueE5ySktNckNWOV9GbjFyd3pYcDNqVEtObE02TWpaUEpaM2hDSW5lUFhjZDlKVUJZMmZUTXZLeUtrVE04SHo0TWVKV0hhSExB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] facebook.com — https://news.google.com/rss/articles/CBMi1AFBVV95cUxNdGY0cFFVR1hXMGdaRG9nc1NTdVFYTlY1d1NoUHhCOFZJbnRqZzdDSUJON0lIY0t4LVJHdkFBRmZOQmZDYUhSRFdvbmNGVWkyVmlCWW1hUTBONDF3WGNoNFFpdF81OTVHaWdmdVRZWnJ5R0loZTExWmctb09zbFpvZHZvQkdLQWVsQnpoSjlRZnBqQ2pNb0Y0bm51QnhiazNoTjZYY3FQakl3SEd2eDJGN3dSNThNWUxnZGtHTDVCeVdSNWxRSFlySC1kTWhZUFUteEVZYg?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxQV3NEMEdtOWZQX1FReU9qM1dKbmZLTGp1c0NLOGxqc25uWjFfUS1NYjdjYjg0dG1jbk5BOFVMcHFEMkpSaTA3clYwSUJGUWEwc2tMbHJHRjRpNFBUQVI4VFJVUTJpaG0ydEEtTWk3c0VqQWlUUmxUSHBjRy1mVFh3eEo3ZTA5aklPYVhPajBkeGpzZ0RObDZhVVlB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMitgFBVV95cUxOU2xHWlBzMzV4M3oxVHF2MDVHZzgyVTVoLUcya1dIdzhVdThkOGdvWG5XUDNnaWpjNFZuNktQV2V6WHBESDdPZ3Zyd1lIdEw5VVY0YW55T0ZHOS1RWkZCQWs3SFVaNEpkU28xZFF5TzR5TmlDZE8zN05qdC05Uko5ckswUG43MEEzR1Q0SmZaLUhPbjRkZEZIWWtjWmo2T0JhMTdVbmU1Z09PdzQxZGRJM3BUUVV0UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-patient-zero-video-vmas-premiere-2-1235631268/
-  - [unverified] Rolling Stone Australia — https://news.google.com/rss/articles/CBMirwFBVV95cUxOUnUwMUtmVGlMd0FGR2wwMjdTTVFESWNHU1lHX05qZkJYMVV5TEpmZjgzUktHNzFkRWUyTkNDWHBXeVc3TVdEdzU5aTdaTWVieTlHUExJRUxrUlF4UWtveWVudkc3TllGZ1QzZFFONEtzUll2X2x3cUJwN3hVWlY2WnRzVnJoa0lpczBwbmtQSEFBeDdja3RaQkt4bnp4cTNqckowTW0wM0JueDRkSVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2512688/vmas-2026-taylor-swift-receives-the-inaugural-artist-director-honors-debuts-patient-zero-video-with-dakota-johnson-colin-farrell/news/
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-patient-zero-music-video-1236713202/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-vmas-patient-zero-music-video-premiere-1236876944/
-
-## Taylor Swift Attends MTV VMAs 2026 Red Carpet with Other Stars
-
-- first seen: 2026-09-28 06:46 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 22
-- summary: The MTV Video Music Awards 2026 took place at the Peacock Theater in Los Angeles, featuring various artists, including Taylor Swift on the red carpet. The event was hosted by Snoop Dogg and highlighted music video achievements from the past year.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMihAFBVV95cUxOQ0YxWFFLY1RjUTFXenFyeHF1c2RRU2syMXV2ZEZOQVVEZ2x1X2RVd3R5ckZJcDZVTVBZSmxPQnVCWDloVVJCUDBhWEVBbGpYX1YyS3R3TUJQQzQ4NmdzZUhnYmZETEJtWVEyNTlCaE5RaWFoOWItV3VrcFp2bDlDenBLU0s?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] BBC — https://news.google.com/rss/articles/CBMiW0FVX3lxTE9tMndhLWRRQXJUQjVDUWJYbk90NWtkUjByQktiSlM5NjZ6SFBfb0RVTnRwbG92T1VSQUlBRGk0ZV85OXo0RG1FaGdnOWdVQ3RrakVmMnZrLU40RUE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/videos/ckvgy6j4594yo?at_medium=RSS&at_campaign=rss
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMisAFBVV95cUxQOWtRV2lCdkhBQ3Q3VG1SbmFWX2NKcGhmbldRWjM4M0VTSlZSRXp4aXczU1lfV1FIVGctR1NQaTVDeUgwcHRQRURtTVlPM2NzQmNHaFk4SExnRnVNT25KZUF1LU9tSWZLNWJWRnJXYlRUZGRDOVdWWFBodXlkbkFQbElsNzAwVFBjMnp2ekFFYllzc3hlVTJnZVI0S25QQlhZNFhXNTAwVlpIbDNSM21tMw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Deadline — https://news.google.com/rss/articles/CBMimwFBVV95cUxOcFY0TWxZaW9tcFBvSkxyY2lpSXRWYlhVcVFHT2JORmtrbldKekpSWkI2RVhkVnhCaXphSGVHRHdGdDhrcGluSDVlVS1jdU5fUkcyUmczTUVPME1fcjJJWDNWWkVMV0VkdUVjSHJ4UTQzOEZsTXBhT0l2Q0pFdWw4dGZCamZ2THJjdGJnWGFNM2pLb21qZTU3MUViWQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/gallery/mtv-vmas-2026-red-carpet-orville-peck-chloe-bailey-jojo-more/
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOczl6SlBodVVxNGdVMmxzYXI3STVFaFRRRVFRc2pUOG5SS01DaTI1UEZCTllGTWVKY041bWVVUEJZOGpWZ3B1YmNCLVFvY2xqZmgzdXJILWZ6UUxDeWpLNXFUNEh3YWRsczFXMXRjdDJMLVBPaE5lQTMxT0xSSWYxRjQ5MUFrQVQtOE1GS3g2LWw2and0eXpMRkEyUEQtYk5RTEdvc3JKbEc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMinwFBVV95cUxPRWxldVZzTXRLUVk5YnVzYlhKS25oejVjMVE4RFFmRVUzODNxZk1kMTZkRTVoYXp5RDhTRmY1Q2FyZjA5WmdXcG9hbUdlbnRZWVFLLXAyUEI5LVBLUWZEZjNWUFl3bkhMZnB0c2tLS2steExJcGs2R0tNR1h2VnBlclJrOV9yaDhZekx4Q2pXU3oxRk5jSmlyTkdWM0E3a3M?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMilAFBVV95cUxPLWw4MFFMUW5LYS1NMERnMHNQMnNBTTJwWm54bnZMOGNFWmhpRWhDc0RfSTRQRkl3SEpNX0Jzbm9HY2hRMUFlVWNvVHJVUGZCSU5QUFAySmJ5cS1tVE5PeEhZbEYzQzJHVTBSTVR4dHRnMmhHbFNpUmNfejZYTGxtOTcxeldlRUs5VGU5OTg1WXdONGxK?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KOMO — https://news.google.com/rss/articles/CBMiwwFBVV95cUxNZlVHMkRMTl9MMVcxLTEwYWRnOFNxM0JXcVZnWE1RMUNQellVTUpSUWk5d2dLai1FUkhnLWFQZnZWeXhjcHUyYkhpOGlWa3NrODM4OExyaE0zRlc1T04wdUluRU9qdVBaTGNSX0QzRmVEUUVSVVlOeGJlZzNIeFdoRDBmNnQ1a1EyN0ZwY1dNS1BGT0x3bDNQdGJwT29QRVlMTW14clNyUGdzVk1CZkY3ZHJ6NmFCejcycEs5V2NaNDc5MWc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] NBC News — https://news.google.com/rss/articles/CBMiyAFBVV95cUxQT0NGYi1lV1I2UnVBbTZuUHhqTmpZaTJ0aDItcWMyNHdHYjFpZHpfVVh2NExGeklsakxQZFpLZms3TlVBdS1wY0dTbjlCUXpNU0xqa2ZxeU5qQ1lENW1yRW9IRjhFOC1GYmg1MXFUNHl1eTRTT0k2ZEpNVkdxNmhWWUZtRW9iRHBES2J0blE5R2hzUGt1WTR4MkVsWW9DSmxsQmxQODAxck5Id2NoeU5KY0pZUjRRUjFWM0pGZ3d0RTh2M1pocmtqag?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/09/27/arts/music/vmas-best-worst-moments.html
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivwFBVV95cUxQXzlPUFRFdnRBRmc5UjFpRmJfX0xGMFpQMjRlNmhDcElfdUdpR1lrZFMzaHJpRlZQQkJMOUxUU3lRU2dHM1F4d3dUTVVWUW1rSEZoQW9kYlV4aEF3VHVqcVhpdVRXb0N4M09hSTRnUWsxUGFUQXhOVFc0dW1RejI3a0xKbUNoS1M0UFdidTRqQzBsajZTQ1N2UXd2VU9mMTBESDAxTEpGbG9MdENDdWFoVU1QNlhKUHlKNklLc1RoTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxNUFcwV21MYnktQ2NiRl9iU0FOTEVlMnQxQXBCeW04UHFwMF9OcmxtcDcxdDdNaE4tRVItdnBGTV9JZEs2Ykh3Qko3TThtdFVZN0g3TC1ScjA3QTVBY2J1TmhIQktUd21BdmhhSllFQUVFdVlOQUhXOVFwTU9reHg0amFINDY1YXhpcm9fd3Q4Rk1QUnJENndGczVYeGQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Pitchfork — https://news.google.com/rss/articles/CBMirAFBVV95cUxNc0lObXRNcldfdnN5QUxMYlFEN1gxOTNLU0JzZExvbkdkbE5FRm1lWktBY1pOMzBQTkI0QUJRc0kxTnY2M3Zpak5VUWFtdXozVUdaUXJhQVVLQ0hxenZWOW5aXzhjbnlwNEltMm5qYjNiaF9YWUIxU3JDQVlCcDJHckpqVkJqTzNCZkV6cGt3V3Bmd2MwM010eEZMZlBPaExkbHdPdWN0MXF1Ny1P?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Cut — https://news.google.com/rss/articles/CBMifkFVX3lxTFB4b1lwWkl6ZE5WVnF0NUFoblRFX19LakdXYW1WRWViNmZSR2tqdEdUT2QyU21lSnNTX3RvcUltSXlUQWtGaVpvRi1mb2pTUF9sNDNXOEpZc0haWk5HaFpsRGJmM2k0eHU2cUhGLXBFeVFSLVU2bVJxc05ZNm1zUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMivgFBVV95cUxNR1ZSdC1helpRTHI0T1RxcDNDRzlSdTViYXQtbzd6YWx4ZGx5RURLNENZWTdYd0l6SEZsUXJBX2hWbVBsRFl2M3oyT2VoejNPMVhGQW9rZkNVLVU3MEExVFZRY0dpWGJZaEZxMmVFZmx5aWhCRENZY1pYZFVFakdhRGI1TVdyeXFILWtLeHlnejdSczlNd2VENWdXczBicEhSeVF0THhDY2tBd2Fpb0xDTF85UnpyZHhZUlh6R0tB?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/sep/28/mtv-vmas-2026-taylor-swift-madonna-win-video-music-awards-sienna-spiro-lisa
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMiugFBVV95cUxPajRxWWRncWRod0xDOFhyN29DdVUxUHJxQkJJcUZOdnFhMU42cWczb0RqOVNlM09SUkJTajFDdDlVSF9DMVhFdEdDTGRMRVppSUlKSjRwNTgxLTdIOUpmUzlmLTFmQUxnNFJ6R3N4WlMwVW9lQ0dPNmVuRFgxYXdGMVpSSW1SZHNHT3BlTnVITHlBUDF2Sm4zNl9fSndjOHotazI0RXRjZ2RsVk0telBpSG5MMmtVOGFocFE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-mtv-vmas-artist-director-patient-zero-1236713216/
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi9AFBVV95cUxOM0dvS1JHc0ZQc3hCRUhIWUpHblVOalFkNlk5X0VESF9KMW1BNFdBRDJ5TFhfeTQyU0UydDJ6UzQzZGlxNnp2S3J2ZlJlUEtLd2VxUlBnb0V6b3Zxa25jYWZqZXM4aEkzRjlvRUpTNVdJQlJKelJsR1dGSC15bll4a1kxTVp0QU1ZU2NoRHV6Y0xJSXllMUF0LTZjWHk0Tk5TSVRWbFI1cFUxZTNxV21JU1RCQ0tVZmU1WGN6SkFReUR4WUgybnJMb1pDNDEydWJPZUdodlEwb3hoYmNRUHRfOVVfNWh5YVl5QVg0SzhkWmg3WUcy?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMimgJBVV95cUxOdFU2Y0huYTVyZGlwVF9wazA0dlJvREF3dzRZdzJOemxJUzVSbkZlQzlad3VrTGdsTUllNXUtdjA4RlVpaTVVTGpCNHI4RGY4ZUtNdzZ4R3E5SWUtaGxwbTluaWtsWmI5RE9tZUxWRWh3THRZcmYyYTJBTGxOSEFjSzdPWmZKRkJNSjJ2Nm82VmxDbWx1cFpWYmh0SlpzX0J6YkxBUzFMbW5kaFlRVG1yUEd3MEliMDdRUkFmdmMzZ1plS2lVdV9GZjBOS2JISmpiUEM0ejdsalFhcHN0NVBUQ2lFUE45UVlDRG9ab3FubGlSdC1FZXhzUUtZbmg1MTA2MGdhVUszb3ZJLXdtbGJiLVNaVDZZYmdjcnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's VMAs Dress Blends Business Casual with Greek Goddess Style
-
-- first seen: 2026-09-27 23:47 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: At the VMAs, Taylor Swift showcased a dress that combines elements of business casual with a Greek goddess aesthetic. The unique style choice has drawn attention from fashion commentators.
-- sources:
-  - [unverified] cosmopolitan.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQOHo1VWZuVGZaUmM3WVI0bWJKMEx1dnZzMW9JM1gyRGJNeTRVbHJ0cDlmaloyUVpkYjBRVm5xSzh4X2VZX1BnZ2RVN2U5VUFmTnZWMlRYcldYSWpvRkZ2Mi1jZ1BRV2EwX3RpWHRWNy1pdDNyeEdTUG1vVzlla2liOWZDUGx0YmhzdjFqQm5uS0N1TU96S2luam1tQnY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes History at the VMAs and Surprises Fans
-
-- first seen: 2026-09-27 23:47 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Before the VMAs officially start, Taylor Swift achieves a historic milestone and surprises her fans with new content. The details of the surprise and the significance of the achievement are highlighted.
-- sources:
-  - [unverified] American Songwriter — https://news.google.com/rss/articles/CBMivwFBVV95cUxNUVU3ZDlZNlc2RHdYSDNnWE94R2E3cDN1ZjBzSmMxZmgzMHlwUTNjRXlZelJ1LVYzZnFZZTI4TWhHdXVpdzA5a1k4S2hpUGVuXzdTVF9DR1BKRmg5bzgxMjN3VEJESVBGdFRsaF9HM24wTklicTAtYUlGREdZMzhMUzM1WjVMMnhzZGl5czVjMEFJY2p5SFNSRXFSMDNoWlo2WG5FT2trdUUxS2dTYWN4QmFoREppT1hnTmVYR1VSVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Disappointing News Ahead of Chiefs-Dolphins Game
-
-- first seen: 2026-09-27 23:47 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reportedly received disappointing news just before the Chiefs-Dolphins game. The details of the news have not been disclosed in the source article.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxNMDdwWGZtbkl1eDM2OFJ2bGdlNDQyS094ZFp0eG1Vcnl6TVRaRjFwbGpTYk1yWlRmTmhjOWRKTktucnNMaGJ6ZXlkWkpQTnFhQXVxU2RJZS1zZ0ZpZTVoaFNKaThYRXNPWEk5a3BKUXFwLXBuWDVsNWNwYjRUeDlZNjhBczZYWlpNZVVTQTV3b1NWTW5lN2pKUFhLbkRRYUpNa0dVMEZ4Yw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Sheer Corset Top and Silver Skirt at 2026 VMAs
-
-- first seen: 2026-09-27 23:47 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: At the 2026 VMAs, Taylor Swift made a fashion statement in a sheer corset top paired with a silver skirt. The look drew significant attention as she graced the event.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxOYy13NWdOdVZlRE9TQjBlSUdsSlBFY1BtQTV3QnlmS0dsSV9Ia08tQm5HMkp3NGgzZDc0eWdJQ2d1OVFyVjA1Z1ZvWnl4VjFteC04UzZqN2tScFl5NDRRd1FfVFNtTlZOLVBiTXJHSkoxQnZ5MjV2bENUaFNuWmlCbzNZTmw3ZG4xQmtuaXlBTUtEdVJFbWk4ekdNNnc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift to Make a Statement at the 2026 VMAs
-
-- first seen: 2026-09-27 23:47 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to make an impression with her fashion choices at the 2026 VMAs, according to Vogue. Her outfit is expected to be noteworthy and significant at the event.
-- sources:
-  - [unverified] Vogue — https://news.google.com/rss/articles/CBMicEFVX3lxTFAwUnFsSVlrV0R0YWhvaHBpcTduY1FoSnBERFhfd0ktNlBZeTlyWjliT1pmMEhkbjJ5dEwwNVoxVTl6S2M5NEZzM0I1SGJEMC00S091cG5SdS0tMi1tcEc3WkV3OWV4VVRuRXRMTGVpUWY?oc=5&hl=en-US&gl=US&ceid=US:en
