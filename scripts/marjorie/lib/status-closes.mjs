@@ -8,8 +8,8 @@
 // the only force-push anywhere (never main, never a human's branch).
 //
 // `syncCloses` is the one entry point: the reply job calls it with `add` (the
-// new close); the heal job calls it with none, on a schedule and on every push
-// to main, so a branch main has moved under is rebuilt before it ever sits dirty.
+// new close); the heal job calls it with none, hourly and on a push to main
+// touching HUMAN-ACTIONS.md, so a branch main has moved under is rebuilt before it ever sits dirty.
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { closeHumanAction } from '../ha-close.mjs';
@@ -20,6 +20,8 @@ export const NOTE_CAP = 450;
 const SUMMARY_CAP = 140;
 const MARKER = /<!-- ha-close (\{[^\n]*?\}) -->/g;
 const MAX_PENDING = 40;
+const TRUSTED_AUTHORS = new Set(['sffan15-sys', 'github-actions[bot]', 'github-actions', 'app/github-actions']);
+const LEGACY_BRANCH = /^(?:status-page|marjorie)\/ha-close-\d+/;
 const refMain = 'refs/remotes/origin/main';
 const refBranch = `refs/remotes/origin/${CLOSES_BRANCH}`;
 
@@ -61,14 +63,26 @@ export function closesBody(records) {
 }
 
 /**
- * HA number -> { pr: { number, url }, summary } for every open close PR: the
- * rolling one (records in its body) and any older per-item `Close HA #N` PR
- * (title only). Pure.
+ * Is this open PR one of ours? The repo is PUBLIC: a title proves nothing, and a
+ * fork can reuse a branch name. Accepted: a same-repo PR from the rolling branch,
+ * or from an older per-item close branch (`status-page/ha-close-*`,
+ * `marjorie/ha-close-*`) authored by the workflow bot or the owner.
+ */
+export function isOurClosePr(pr) {
+  if (!pr || pr.fork) return false;
+  if (pr.branch === CLOSES_BRANCH) return true;
+  return LEGACY_BRANCH.test(pr.branch || '') && TRUSTED_AUTHORS.has(String(pr.author || '').toLowerCase());
+}
+
+/**
+ * HA number -> { pr: { number, url }, summary } for every open close PR of ours:
+ * the rolling one (records in its body) and any older per-item `Close HA #N` PR
+ * (title only). Shape: { number, url, title, body, branch, author, fork }. Pure.
  */
 export function pendingCloses(openPrs) {
   const out = new Map();
   for (const pr of openPrs || []) {
-    if (!/^close ha #\d+/i.test(pr.title || '')) continue;
+    if (!isOurClosePr(pr) || !/^close ha #\d+/i.test(pr.title || '')) continue;
     const ref = { number: pr.number, url: pr.url };
     const recs = recordsFromBody(pr.body);
     if (recs.length) {
@@ -118,10 +132,11 @@ export async function syncCloses({ root, run, repo, prToken = '', add = null, lo
     if (tryRun(run, 'git', ['fetch', '--quiet', '--depth=1', 'origin', `+refs/heads/${CLOSES_BRANCH}:${refBranch}`]) === null) {
       tryRun(run, 'git', ['update-ref', '-d', refBranch]);
     }
-    const listed = JSON.parse(String(run('gh', ['pr', 'list', '--repo', repo, '--state', 'open', '--json', 'number,url,title,body,headRefName,isCrossRepository', '--limit', '100'])).trim() || '[]');
-    let pr = listed.find((p) => p.headRefName === CLOSES_BRANCH && !p.isCrossRepository) || null;
+    const listed = JSON.parse(String(run('gh', ['pr', 'list', '--repo', repo, '--state', 'open', '--json', 'number,url,title,body,headRefName,isCrossRepository,author', '--limit', '100'])).trim() || '[]')
+      .map((p) => ({ number: p.number, url: p.url, title: p.title, body: p.body, branch: p.headRefName, author: p.author?.login || '', fork: Boolean(p.isCrossRepository) }));
+    let pr = listed.find((p) => p.branch === CLOSES_BRANCH && !p.fork) || null;
     const existing = pr ? recordsFromBody(pr.body) : [];
-    const queued = add && pendingCloses(listed.filter((p) => !p.isCrossRepository)).get(add.n);
+    const queued = add && pendingCloses(listed).get(add.n);
     if (queued) return { ok: true, duplicate: true, number: queued.pr.number, url: queued.pr.url };
     const wanted = add ? [...existing, add] : existing;
     if (!wanted.length) return { ok: true, nothing: true };
@@ -146,7 +161,14 @@ export async function syncCloses({ root, run, repo, prToken = '', add = null, lo
       kept.push(r);
     }
     if (!kept.length) {
-      if (pr) tryRun(run, 'gh', ['pr', 'close', String(pr.number), '--repo', repo, '--comment', 'Every item this PR carried is already closed on main.'], prEnv);
+      if (pr) {
+        // A reply may have added a close since we listed; closing now would drop it. Re-read, and leave the PR alone if anything is new (or unreadable).
+        const fresh = tryRun(run, 'gh', ['pr', 'view', String(pr.number), '--repo', repo, '--json', 'body']);
+        let seen = null;
+        try { seen = recordsFromBody(JSON.parse(fresh).body); } catch { /* cannot verify: do not close */ }
+        if (!seen || seen.some((r) => !existing.some((e) => e.n === r.n))) return { ok: true, nothing: true, raced: true };
+        tryRun(run, 'gh', ['pr', 'close', String(pr.number), '--repo', repo, '--comment', 'Every item this PR carried is already closed on main.'], prEnv);
+      }
       return { ok: true, nothing: true };
     }
 

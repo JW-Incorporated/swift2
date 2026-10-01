@@ -13,8 +13,10 @@ import { gh as ghRun, ghApi } from '../lib/gh.mjs';
 import { post as discordPost } from './lib/discord.mjs';
 import { sendMailFallback } from './post-or-mail.mjs';
 import { gatherStatusData } from './lib/status-data.mjs';
-import { ensureStatusIssue, updateBody } from './lib/status-issue.mjs';
-import { decidePing } from './lib/status-ping.mjs';
+import { ensureStatusIssue, findStatusIssue, updateBody } from './lib/status-issue.mjs';
+import { readRecap } from './lib/status-fans.mjs';
+import { decidePing, readPingState } from './lib/status-ping.mjs';
+import { readTraffic } from './lib/status-traffic.mjs';
 import { readPreserved, renderStatusPage, statusSnapshot } from './lib/status-render.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -33,7 +35,14 @@ export async function main(argv = process.argv.slice(2), {
   if (apply) {
     existing = (await ensureStatusIssue({ api, gh, repo, log })).issue;
   }
-  const data = await gatherStatusData({ api, repo, root, now, existingBody: existing?.body || '', readPreserved });
+  let data = await gatherStatusData({ api, repo, root, now, existingBody: existing?.body || '', readPreserved });
+  if (apply) {
+    // Gathering takes seconds, and other writers (the brief's note, the traffic cache, a ping in
+    // another run) edit this body meanwhile. Re-read it now, right before rendering, so the regions
+    // this render only carries over — note, recap, traffic cache, ping baseline — are the latest.
+    const latest = await findStatusIssue(api, repo);
+    if (latest) data = withPreserved(data, latest.body);
+  }
   let body = renderStatusPage(data, { now, repo });
   if (apply && argv.includes('--notify')) body = await notifyChange({ data, body, existing, now, repo, env, post, mail, log });
   if (!apply) {
@@ -43,6 +52,12 @@ export async function main(argv = process.argv.slice(2), {
   await updateBody({ gh, repo, number: existing.number, body });
   log(`status page: rewrote #${existing.number} (${body.length} chars${data.warnings.length ? `, unreadable: ${data.warnings.join(', ')}` : ''})`);
   return 0;
+}
+
+/** The regions a render carries over from the body already on the issue. */
+function withPreserved(data, body) {
+  const kept = readPreserved(body);
+  return { ...data, note: kept.note, ping: kept.ping, held: kept.held, traffic: readTraffic(body), recap: readRecap(body), pingState: readPingState(body) };
 }
 
 /**

@@ -14,7 +14,7 @@ describe('snapshotOf', () => {
   });
   it('changes when any meaningful part changes', () => {
     const h = base().h;
-    for (const change of [{ waiting: [88] }, { closing: [87] }, { shipped: [1, 2, 3] }, { posts: [] }, { feedback: [] }, { plan: 'plan B' }, { strategy: 'strat B' }, { note: 'note B' }, { recap: 'recap B' }]) {
+    for (const change of [{ waiting: [88] }, { shipped: [1, 2, 3] }, { posts: [] }, { feedback: [] }, { plan: 'plan B' }, { strategy: 'strat B' }, { note: 'note B' }, { recap: 'recap B' }]) {
       expect(snapshotOf({ ...{ waiting: [88, 87], shipped: [1, 2], posts: ['https://x.com/p/1'], feedback: [5], plan: 'plan A', strategy: 'strat A', note: 'note A', recap: 'recap A' }, ...change }).h, JSON.stringify(change)).not.toBe(h);
     }
   });
@@ -78,6 +78,14 @@ describe('decidePing', () => {
   it('pings through the debounce when a Needs-you item was added', () => {
     const cur = snapshotOf({ waiting: [88, 87, 92], shipped: [1, 2], posts: ['https://x.com/p/1'], feedback: [5], plan: 'plan A', strategy: 'strat A', note: 'note A', recap: 'recap A' });
     expect(run({ cur, now: T0 + 5 * MIN })).toMatchObject({ send: true, text: `📋 Status updated — +1 needs you — ${URL}` });
+  });
+  it('never pings for items merely leaving Needs you (the owner own closes), but advances the baseline quietly', () => {
+    const cur = snapshotOf({ waiting: [88], shipped: [1, 2], posts: ['https://x.com/p/1'], feedback: [5], plan: 'plan A', strategy: 'strat A', note: 'note A', recap: 'recap A' });
+    const out = run({ cur });
+    expect(out).toMatchObject({ send: false, reason: 'closed-only' });
+    expect(out.state).toEqual({ h: cur.h, at: stored().at, s: cur });
+    const later = decidePing({ prev: out.state, cur: snapshotOf({ waiting: [88], shipped: [1, 2, 3], posts: ['https://x.com/p/1'], feedback: [5], plan: 'plan A', strategy: 'strat A', note: 'note A', recap: 'recap A' }), now: T0 + 4 * 60 * MIN, url: URL, notify: true });
+    expect(later.text).toBe('📋 Status updated — 1 shipped — ' + URL);
   });
   it('only records a baseline the first time, with no ping', () => {
     const out = run({ prev: null });

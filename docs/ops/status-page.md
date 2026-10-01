@@ -65,8 +65,8 @@ other comment, and every bot comment, is ignored — the workflow's `if` and
   `main` plus that list (header count recomputed from the file), then force-pushed
   with a lease — the only force-push anywhere, never `main` or a human's branch.
   Auto-merge uses `SOCIAL_POSTER_PAT` so required checks run. Two replies a minute
-  apart therefore cannot conflict. The `heal` job (hourly and on every push to
-  `main`) rebuilds the branch whenever main has moved under it, drops a close
+  apart therefore cannot conflict. The `heal` job (hourly, and on a push to
+  `main` touching `HUMAN-ACTIONS.md` or `social/**`) rebuilds the branch whenever main has moved under it, drops a close
   someone else already made, and closes the PR if nothing is left.
 - The page reflects a reply at once: the reply job re-renders right after the PR
   opens, and an answered item leaves Needs you for a small
@@ -101,11 +101,11 @@ L1 behavior), and renders once more with `--notify`, which posts the shared chan
 above if the page changed (the brief's new note counts). It no longer posts its own daily
 line. `<!-- marjorie-ping date=… -->` is still stamped (date only, no Discord message id):
 `brief-guard.mjs` reads it to keep a day from delivering twice, and the watchdog's
-"brief exists" check reads the note's date (`status-note.mjs today`). With no daily ping message
-`reply-poll.mjs` finds no thread to follow — reply on the status page itself or in the chat channel.
-Re-pointed at the status issue: `reply-poll.mjs` finds the day's Discord thread from
-the `msg=` id in the page's ping stamp and relays replies as comments there;
-`chat-post.mjs`'s turn log lands there too; dispatch-chase reads held markers from the
+"brief exists" check reads the note's date (`status-note.mjs today`). Replies in `#longlive-marjorie` — including replies to the change ping — are handled by Marjorie's chat routine
+(`bot-chat-poll` → `routine-marjorie-chat`), the owner's steering channel. The old `reply-poll.mjs` relay of
+ping-thread replies onto this issue is retired (docs/decisions.md, 2026-10-01); `chat-inbox` skips only
+approval/community `ref:` posts, so a reply to the ping is picked up as chat.
+Re-pointed at the status issue: `chat-post.mjs`'s turn log lands there; dispatch-chase reads held markers from the
 page body. `stamp-held` (run by `deliver`) shows the chase's held items on the page in
 a "Held" section and records the hidden `marjorie-held` markers beside them, outside
 Marjorie's sanitized note, so the brief never re-announces an item. Left alone:

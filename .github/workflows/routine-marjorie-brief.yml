@@ -109,8 +109,11 @@ jobs:
     environment: ops
     # L1 fix (Codex review, MEDIUM): serializes lookup → create → writeback
     # so two overlapping deliveries of the same brief can never both file it.
+    # Shares marjorie-status.yml's render group on purpose: both rewrite the status
+    # issue body and both may post the change ping, so they must never overlap
+    # (a second ping from a stale baseline).
     concurrency:
-      group: marjorie-brief-deliver
+      group: marjorie-status-render
       cancel-in-progress: false
     permissions:
       contents: read
@@ -164,5 +167,5 @@ jobs:
           node scripts/marjorie/status-page.mjs --apply --notify
           # The brief ran and its note is on the page: stamp the day so brief-guard.mjs
           # never delivers it twice. (No Discord message id any more: the ping is no
-          # longer a once-a-day post, so reply-poll.mjs has no daily thread to follow.)
+          # longer a once-a-day post; replies in the channel are chat asks.)
           node scripts/marjorie/status-note.mjs stamp-ping

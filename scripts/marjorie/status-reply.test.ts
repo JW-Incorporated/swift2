@@ -304,7 +304,7 @@ describe('handleComment — skip and duplicate closes', () => {
     expect(h.replies[0]).toContain('pull/7');
     expect(h.calls.some((c) => c[1] === 'push' || c[1] === 'create')).toBe(false);
     const chat = harness();
-    chat.run.mockImplementation(list([{ number: 8, url: 'https://github.com/o/r/pull/8', title: 'Close HA #88 — founder said done in chat', headRefName: 'marjorie/ha-close-88-5', isCrossRepository: false, body: '' }]));
+    chat.run.mockImplementation(list([{ number: 8, url: 'https://github.com/o/r/pull/8', title: 'Close HA #88 — founder said done in chat', headRefName: 'marjorie/ha-close-88-5', isCrossRepository: false, author: { login: 'sffan15-sys' }, body: '' }]));
     const out2 = await handleComment({ event: event('done #88'), root: repoDir(), run: chat.run, reply: chat.reply, repo: 'o/r', now: NOW, log: vi.fn() });
     expect(out2).toMatchObject({ acted: false, reason: 'closing pr already open' });
     const other = harness();

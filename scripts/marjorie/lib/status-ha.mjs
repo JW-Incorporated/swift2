@@ -139,7 +139,9 @@ export function renderNeedsYou(items, { repo, now = Date.now(), closing = [] } =
   }
   if (closing.length) {
     out.push('', '✅ **Closing — merging now**');
-    for (const c of closing) out.push(`- #${c.number} — ${c.title}${c.summary ? ` · your answer: ${c.summary.replace(/`/g, "'")}` : ''} · [PR #${c.pr.number}](${c.pr.url})`);
+    // The summary is the owner's own words carried through a PR body: no markers, backticks or live mentions.
+    const safe = (s) => String(s).replace(/<!--|-->/g, '').replace(/`/g, "'").replace(/(^|[^\w`])@(?=\w)/g, '$1@​');
+    for (const c of closing) out.push(`- #${c.number} — ${c.title}${c.summary ? ` · your answer: ${safe(c.summary)}` : ''} · [PR #${c.pr.number}](${c.pr.url})`);
   }
   return out.join('\n');
 }

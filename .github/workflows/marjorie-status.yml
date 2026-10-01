@@ -9,7 +9,7 @@
 #           VERCEL_TOKEN (status-traffic.mjs: the daily site-usage cache) and
 #           the `ops` environment's DISCORD_MARJORIE_WEBHOOK_URL (the single
 #           "Status updated" line when the page materially changed).
-#   heal    hourly and on every push to main: rebuilds the rolling close PR's
+#   heal    hourly and on a push to main that touches HUMAN-ACTIONS.md or social/**: rebuilds the rolling close PR's
 #           bot-owned branch from main when main has moved under it (the only
 #           force-push in this file; never main, never a human's branch).
 #   reply   an issue_comment on the status issue. This repo is public, so the

@@ -50,6 +50,8 @@ export function toPr(row) {
     updatedAt: row.updated_at || null,
     draft: Boolean(row.draft),
     body: String(row.body || ''),
+    // A PR from a fork (or a deleted fork) is a stranger's: never trusted as one of ours.
+    fork: row.head?.repo === null || Boolean(row.head?.repo && row.base?.repo && row.head.repo.full_name !== row.base.repo.full_name),
   };
 }
 

@@ -24,7 +24,6 @@ export function buildView(data, now) {
   const plan = data.plan ? `${data.plan.number}|${data.plan.title}|${JSON.stringify(nextUpSections(data.plan.body))}|${planSummary(data.plan.body)}` : '';
   const snapshot = snapshotOf({
     waiting: items.map((i) => i.number),
-    closing: closing.map((c) => c.number),
     shipped: shipped.map((p) => p.number),
     posts: (data.posted || []).map((p) => p.url || `${p.platform}@${p.postedAt}`),
     feedback: data.feedback?.numbers || [],

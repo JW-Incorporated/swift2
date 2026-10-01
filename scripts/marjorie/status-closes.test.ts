@@ -95,6 +95,7 @@ function world() {
       pr.body = flag(args, '--body');
       return '';
     }
+    if (args[0] === 'pr' && args[1] === 'view') return JSON.stringify({ body: prs.find((p) => String(p.number) === args[2])!.body });
     if (args[0] === 'pr' && args[1] === 'close') {
       prs.find((p) => String(p.number) === args[2])!.open = false;
       return '';
@@ -151,7 +152,7 @@ describe('two closes in quick succession (issue #4665)', () => {
     expect(merged.done).toMatch(/- #80 · 2026-09-30 · done · /);
     expect(merged.done).toContain("owner decided 'close'");
     expect(recordsFromBody(w.prs[0].body).map((r: { n: number }) => r.n)).toEqual([80, 85]);
-    expect([...pendingCloses(w.prs.map((p) => ({ ...p, title: p.title }))).keys()]).toEqual([80, 85]);
+    expect([...pendingCloses(w.prs.map((p) => ({ ...p, branch: p.headRefName, fork: p.isCrossRepository }))).keys()]).toEqual([80, 85]);
   });
 
   it('a repeat reply for an item already queued adds nothing', async () => {
@@ -258,9 +259,9 @@ describe('pendingCloses', () => {
   it('reads the rolling PR from its body and older per-item PRs from their titles', () => {
     const rec = cleanRecord({ n: 85, o: 'done', d: '2026-09-30', note: 'n', s: 'closed: wrong question' });
     const map = pendingCloses([
-      { number: 4667, url: 'u1', title: 'Close HA #80, #85 — owner replied on the status page', body: closesBody([rec]) },
-      { number: 4668, url: 'u2', title: 'Close HA #12 — founder said done in chat', body: '' },
-      { number: 4669, url: 'u3', title: 'feat: something', body: '' },
+      { number: 4667, url: 'u1', title: 'Close HA #80, #85 — owner replied on the status page', body: closesBody([rec]), branch: BRANCH, author: 'sffan15-sys', fork: false },
+      { number: 4668, url: 'u2', title: 'Close HA #12 — founder said done in chat', body: '', branch: 'marjorie/ha-close-12-5', author: 'sffan15-sys', fork: false },
+      { number: 4669, url: 'u3', title: 'feat: something', body: '', branch: 'feat/x', author: 'sffan15-sys', fork: false },
     ]);
     expect([...map.keys()].sort()).toEqual([12, 85]);
     expect(map.get(85)).toEqual({ pr: { number: 4667, url: 'u1' }, summary: 'closed: wrong question' });
@@ -297,5 +298,76 @@ describe('the page reflects an answered item at once', () => {
   });
   it('shows nothing for a close PR whose item already left the file', () => {
     expect(page([rolling], OPEN.replace(/\n## #80 [\s\S]*$/, '\n').replace(/\n## #85 [\s\S]*?(?=\n## #|$)/, ''))).not.toContain('#80 —');
+  });
+});
+
+describe('only OUR close PRs count (the repo is public)', () => {
+  const rec = cleanRecord({ n: 80, o: 'done', d: '2026-10-01', note: 'n', s: 'closed: paid' });
+  const ours = { number: 4667, url: 'https://github.com/o/r/pull/4667', title: 'Close HA #80 — x', body: closesBody([rec]), branch: BRANCH, author: 'github-actions[bot]', fork: false, labels: [] as string[], draft: false };
+  const page = (openPrs: unknown[]) => renderStatusPage({
+    haMarkdown: OPEN, mergedPrs: [], openPrs, plan: null, posted: [], draftPrs: [], metricsLatest: null, metricsPrior: null,
+    note: { text: '', date: '' }, ping: null, warnings: [],
+  }, { now: Date.parse('2026-10-01T06:00:00Z'), repo: 'o/r' });
+
+  it('ignores a fork PR that reuses the rolling branch name and a stranger\'s "Close HA" title', () => {
+    expect([...pendingCloses([{ ...ours, fork: true }]).keys()]).toEqual([]);
+    expect([...pendingCloses([{ ...ours, branch: 'evil/x', author: 'stranger' }]).keys()]).toEqual([]);
+    expect([...pendingCloses([{ ...ours, branch: 'evil/x', body: '' }]).keys()]).toEqual([]);
+    expect([...pendingCloses([ours]).keys()]).toEqual([80]);
+  });
+  it('accepts an older per-item close branch only from the bot or the owner', () => {
+    const legacy = { ...ours, title: 'Close HA #85 — x', body: '', branch: 'status-page/ha-close-85-9' };
+    expect([...pendingCloses([legacy]).keys()]).toEqual([85]);
+    expect([...pendingCloses([{ ...legacy, author: 'stranger' }]).keys()]).toEqual([]);
+    expect([...pendingCloses([{ ...legacy, branch: 'marjorie/ha-close-85-9', author: 'sffan15-sys' }]).keys()]).toEqual([85]);
+  });
+  it('a forged PR neither hides a Needs-you item nor injects text into the page', () => {
+    const forged = { ...ours, fork: true, body: closesBody([cleanRecord({ n: 80, o: 'done', d: '2026-10-01', note: 'n', s: '@everyone <!-- x --> click' })]) };
+    const out = page([forged]);
+    expect(out).toContain('**#80 — ');
+    expect(out).not.toContain('Closing — merging now');
+    expect(out).not.toContain('@everyone');
+  });
+  it('defangs even a trusted summary: no markers, backticks or live mentions', () => {
+    const risky = { ...ours, body: closesBody([cleanRecord({ n: 80, o: 'done', d: '2026-10-01', note: 'n', s: 'decided: @sffan15-sys <!-- x --> `code`' })]) };
+    const needs = page([risky]);
+    expect(needs).toContain('your answer: decided: @​sffan15-sys  x  \'code\'');
+    expect(needs).not.toMatch(/@sffan15-sys|<!-- x/);
+  });
+});
+
+describe('a heal never closes a PR a reply just added to', () => {
+  async function queued() {
+    const w = world();
+    await w.reply(1001, 'decide #80 close');
+    return w;
+  }
+  const strip80 = (text: string) => text.replace(/\n## #80 [\s\S]*$/, '\n').replace(/\*\*\d open\.\*\*/, '**2 open.**');
+
+  it('leaves the PR open when its body gained a close between the heal\'s listing and its close', async () => {
+    const w = await queued();
+    w.pushMain(strip80);
+    const base = w.run.getMockImplementation()!;
+    w.run.mockImplementation((cmd: string, args: string[]) => {
+      if (cmd === 'gh' && args[1] === 'view') {
+        w.prs[0].body = closesBody([...recordsFromBody(w.prs[0].body), cleanRecord({ n: 85, o: 'done', d: '2026-10-01', note: 'n', s: 'done' })]);
+      }
+      return base(cmd, args);
+    });
+    const out = await syncCloses({ root: w.work, run: w.run, repo: 'o/r', prToken: 'pat', log: vi.fn() });
+    expect(out).toMatchObject({ ok: true, nothing: true, raced: true });
+    expect(w.prs[0].open).toBe(true);
+    expect(recordsFromBody(w.prs[0].body).map((r: { n: number }) => r.n)).toEqual([80, 85]);
+  });
+  it('does not close when the re-read fails either', async () => {
+    const w = await queued();
+    w.pushMain(strip80);
+    const base = w.run.getMockImplementation()!;
+    w.run.mockImplementation((cmd: string, args: string[]) => {
+      if (cmd === 'gh' && args[1] === 'view') throw new Error('502');
+      return base(cmd, args);
+    });
+    expect(await syncCloses({ root: w.work, run: w.run, repo: 'o/r', prToken: 'pat', log: vi.fn() })).toMatchObject({ raced: true });
+    expect(w.prs[0].open).toBe(true);
   });
 });

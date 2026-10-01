@@ -1,5 +1,5 @@
 // Keeps the rolling human-action close PR (lib/status-closes.mjs) mergeable.
-// Runs hourly and on every push to main (marjorie-status.yml, job `heal`): if
+// Runs hourly and on a push to main touching HUMAN-ACTIONS.md or social/** (marjorie-status.yml, job `heal`): if
 // the PR's branch no longer equals "main + every pending close" — main moved
 // under it, or it went CONFLICTING — the bot-owned branch is rebuilt from main
 // and force-pushed. No PR open is the usual case and does nothing.

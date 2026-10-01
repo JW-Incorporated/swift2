@@ -221,3 +221,61 @@ describe('status-note.mjs write-recap', () => {
     expect(w.state.body).toContain('<!-- fan-recap:start -->\n- Midnights has a new moment');
   });
 });
+
+describe('concurrent writers never clobber the ping baseline', () => {
+  /** The status-page issue list answers with `first` once, then with whatever the state holds (a run that wrote in between). */
+  const racing = (w: ReturnType<typeof world>, first: string) => {
+    let served = false;
+    const inner = w.api.getMockImplementation()!;
+    return vi.fn(async (p: string) => {
+      if (p.includes('/issues?') && p.includes('labels=status-page') && !served) {
+        served = true;
+        const rows = (await inner(p)) as Array<{ body: string }>;
+        return rows.map((r) => ({ ...r, body: first }));
+      }
+      return inner(p);
+    });
+  };
+  const cfg = (w: ReturnType<typeof world>, api: unknown, post = vi.fn(async () => ({ ok: true }))) => ({
+    api, gh: w.gh, log: vi.fn(), post, env: { GITHUB_REPOSITORY: REPO, DISCORD_MARJORIE_WEBHOOK_URL: 'https://discord.test/hook' },
+  });
+
+  it('a plain re-render (the reply job) keeps a baseline another run wrote while it was gathering', async () => {
+    const root = repoRoot();
+    const w = world();
+    await main(['--apply', '--notify'], { ...cfg(w, w.api), root, now: T0 });
+    const stale = w.state.body;
+    w.state.merged = [pull(20, 'feat(web): a')];
+    await main(['--apply', '--notify'], { ...cfg(w, w.api), root, now: T0 + 120 * MIN });
+    const newest = readPingState(w.state.body);
+    expect(newest?.at).toBe(new Date(T0 + 120 * MIN).toISOString());
+    // The reply job read `stale` first; by the time it writes, the newest baseline is on the issue.
+    await main(['--apply'], { ...cfg(w, racing(w, stale)), root, now: T0 + 121 * MIN });
+    expect(readPingState(w.state.body)).toEqual(newest);
+  });
+
+  it('does not ping twice when another run pinged after this one first read the body', async () => {
+    const root = repoRoot();
+    const w = world();
+    await main(['--apply', '--notify'], { ...cfg(w, w.api), root, now: T0 });
+    const stale = w.state.body;
+    w.state.merged = [pull(20, 'feat(web): a')];
+    const first = cfg(w, w.api);
+    await main(['--apply', '--notify'], { ...first, root, now: T0 + 120 * MIN });
+    expect(first.post).toHaveBeenCalledTimes(1);
+    const second = cfg(w, racing(w, stale));
+    await main(['--apply', '--notify'], { ...second, root, now: T0 + 121 * MIN });
+    expect(second.post).not.toHaveBeenCalled();
+  });
+
+  it('owner replies that only move items out of Needs you never ping', async () => {
+    const root = repoRoot();
+    const w = world();
+    await main(['--apply', '--notify'], { ...cfg(w, w.api), root, now: T0 });
+    writeFileSync(path.join(root, 'HUMAN-ACTIONS.md'), '# Human actions\n');
+    const quiet = cfg(w, w.api);
+    await main(['--apply', '--notify'], { ...quiet, root, now: T0 + 180 * MIN });
+    expect(quiet.post).not.toHaveBeenCalled();
+    expect(readPingState(w.state.body)?.at).toBe(new Date(T0).toISOString());
+  });
+});

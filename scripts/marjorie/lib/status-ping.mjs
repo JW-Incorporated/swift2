@@ -11,6 +11,10 @@
 //   changed, pinged < 60 min ago   -> hold: the baseline stays, so the changes
 //                                     pile up into the next ping — unless a
 //                                     Needs-you item was ADDED (always worth it)
+//   only Needs-you items LEFT        -> no ping: the owner's own replies (an item moving to
+//                                     Closing, then merging) never ping them about themselves;
+//                                     the baseline advances quietly and the closes ride along
+//                                     with the next real ping
 //   changed, otherwise             -> one ping, baseline moves to now
 // A first-ever render only records the baseline (nothing to compare with).
 import { createHash } from 'node:crypto';
@@ -24,9 +28,9 @@ const ints = (list) => [...new Set((list || []).map(Number).filter((n) => Number
 const hashes = (list) => [...new Set((list || []).map(short))].sort().slice(0, LIST_CAP);
 
 /** What the owner would care to be told about; every field is small and stable. */
-export function snapshotOf({ waiting = [], closing = [], shipped = [], posts = [], feedback = [], plan = '', strategy = '', note = '', recap = '' } = {}) {
+export function snapshotOf({ waiting = [], shipped = [], posts = [], feedback = [], plan = '', strategy = '', note = '', recap = '' } = {}) {
   const snap = {
-    n: ints(waiting), c: ints(closing), p: ints(shipped), o: hashes(posts), f: ints(feedback),
+    n: ints(waiting), p: ints(shipped), o: hashes(posts), f: ints(feedback),
     l: plan ? short(plan) : '', s: strategy ? short(strategy) : '', t: note ? short(note) : '', r: recap ? short(recap) : '',
   };
   return { ...snap, h: short(JSON.stringify(snap)) };
@@ -80,6 +84,7 @@ export function decidePing({ prev, cur, now, url, notify }) {
   if (!prev) return { send: false, state: stamp(now), reason: 'baseline' };
   if (prev.h === cur.h) return { send: false, state: prev, reason: 'unchanged' };
   const { chips, added } = describeChange(prev.s, cur);
+  if (!added && chips.every((c) => c.endsWith(' closed'))) return { send: false, state: { h: cur.h, at: prev.at, s: cur }, reason: 'closed-only' };
   if (!added && now - Date.parse(prev.at) < PING_DEBOUNCE_MS) return { send: false, state: prev, reason: 'debounced' };
   return { send: true, text: pingText(chips, url), state: stamp(now), reason: 'changed' };
 }
