@@ -6,6 +6,7 @@ import { join } from 'node:path';
 
 const ROOT = process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'longlive-fb');
 const RUN_SLACK_MS = 10 * 60_000;
+const RELAUNCH_WAIT_MS = 30_000;
 
 export function chromeExecutable(env = process.env) {
   const roots = [env.PROGRAMFILES, env['PROGRAMFILES(X86)'], env.LOCALAPPDATA].filter(Boolean);
@@ -30,6 +31,8 @@ export function plainChromeArgs(profileDir, url) {
     `--user-data-dir=${profileDir}`,
     '--new-window',
     '--no-first-run',
+    // A relaunch after a killed Chrome must not reopen the group page that froze it.
+    '--hide-crash-restore-bubble',
     ...ANTI_THROTTLE_FLAGS,
     url,
   ];
@@ -98,6 +101,19 @@ export async function launchPlainChrome({
   };
 }
 
+// A lost tab (the receiver's stall watchdog, or the extension's /tab-lost) fails only its group.
+// extensionCollect then kills that Chrome (taskkill /T /F), waits for the profile lockfile to
+// free, starts Chrome again on the same receiver URL and lets the remaining groups run (capped at
+// maxRelaunches).
+async function profileFree(profileDir, profileInUse, sleep, waitMs) {
+  if (!profileDir) return true;
+  for (let waited = 0; ; waited += 1_000) {
+    if (!profileInUse(profileDir)) return true;
+    if (waited >= waitMs) return false;
+    await sleep(1_000);
+  }
+}
+
 export async function extensionCollect({
   groups,
   root = ROOT,
@@ -112,6 +128,9 @@ export async function extensionCollect({
   setTimer = setTimeout,
   clearTimer = clearTimeout,
   runSlackMs = RUN_SLACK_MS,
+  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+  maxRelaunches = groups.length,
+  relaunchWaitMs = RELAUNCH_WAIT_MS,
 } = {}) {
   if (profileDir && profileInUse(profileDir)) {
     return {
@@ -133,8 +152,36 @@ export async function extensionCollect({
     const timeout = new Promise((resolve) => {
       timer = setTimer(() => resolve('timeout'), totalMs);
     });
-    const outcome = await Promise.race([receiver.done, timeout]);
-    if (outcome === 'timeout') {
+    let outcome;
+    for (let relaunches = 0; ; relaunches += 1) {
+      outcome = await Promise.race([
+        receiver.done,
+        timeout,
+        receiver.lostSignal?.() ?? new Promise(() => {}),
+      ]);
+      if (outcome !== 'lost') break;
+      await chrome?.close?.();
+      chrome = null;
+      let relaunched = false;
+      if (
+        relaunches < maxRelaunches &&
+        (await profileFree(profileDir, profileInUse, sleep, relaunchWaitMs))
+      ) {
+        try {
+          chrome = await launch({ url: receiver.url });
+          relaunched = true;
+        } catch {
+          // reported below as chrome-relaunch-failed
+        }
+      }
+      if (!relaunched) {
+        outcome = 'relaunch-failed';
+        break;
+      }
+      receiver.resume?.();
+    }
+    if (outcome === 'timeout' || outcome === 'relaunch-failed') {
+      const reason = outcome === 'timeout' ? 'run-wall-budget' : 'chrome-relaunch-failed';
       // Optional: a receiver that exposes results gathered so far keeps them.
       const results = receiver.partialResults?.();
       const have = Array.isArray(results) ? results : [];
@@ -144,7 +191,7 @@ export async function extensionCollect({
           ...have,
           ...groups
             .filter((g) => !seen.has(g.slug))
-            .map((g) => ({ slug: g.slug, status: 'failed', reason: 'run-wall-budget' })),
+            .map((g) => ({ slug: g.slug, status: 'failed', reason })),
         ],
         actingPageId: null,
       };

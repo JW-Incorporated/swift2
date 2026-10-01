@@ -208,3 +208,164 @@ describe('extensionCollect with the real receiver', () => {
     }
   });
 });
+
+describe('extensionCollect relaunches Chrome after a stalled group', () => {
+  const token = 'c'.repeat(64);
+  const headers = { 'x-llfb-token': token, 'content-type': 'application/json' };
+  const groups = [
+    { slug: 'one', label: 'One', groupId: '1' },
+    { slug: 'two', label: 'Two', groupId: '2' },
+    { slug: 'three', label: 'Three', groupId: '3' },
+  ];
+  const collectedBody = (slug: string) =>
+    JSON.stringify({
+      v: 1,
+      slug,
+      status: 'collected',
+      stopReason: 'feed-end',
+      units: [{ html: '<div>synthetic post</div>', position: 0 }],
+      coverage: { ageRuleMet: true, harvestedCount: 1, slotCount: 1, partial: false },
+      commentCoverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
+    });
+  // The fake extension: takes groups until /next says done; `hang` makes it freeze on one slug.
+  const drive = async (base: string, hang?: string) => {
+    for (;;) {
+      const res = await fetch(`${base}/next`, { headers });
+      if (res.status !== 200) return;
+      const job = await res.json();
+      if (job.done) {
+        await fetch(`${base}/finished`, { method: 'POST', headers, body: '{}' });
+        return;
+      }
+      if (job.slug === hang) return; // renderer froze: no result, no heartbeat
+      await fetch(`${base}/result`, { method: 'POST', headers, body: collectedBody(job.slug) });
+    }
+  };
+
+  it('kills the stalled Chrome, relaunches the profile and finishes the remaining groups', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-relaunch-'));
+    try {
+      const { spawn, calls } = fakeSpawn();
+      let launches = 0;
+      const launch = vi.fn(async ({ url }: { url: string }) => {
+        launches += 1;
+        void drive(new URL(url).origin, launches === 1 ? 'one' : undefined).catch(() => undefined);
+        return launchPlainChrome({
+          url,
+          profileDir: dir,
+          spawn: spawn as never,
+          chromeExecutable: 'chrome.exe',
+          platform: 'win32',
+        });
+      });
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({ ...args, stallMs: 150, log: () => {} } as never)) as never,
+        launch,
+        token,
+        profileDir: dir,
+        profileInUse: () => false,
+      });
+      expect(out.results.map((r: { slug: string; status: string }) => [r.slug, r.status])).toEqual([
+        ['one', 'failed'],
+        ['two', 'collected'],
+        ['three', 'collected'],
+      ]);
+      expect(out.results[0]).toMatchObject({ reason: 'stalled' });
+      expect(launches).toBe(2);
+      expect(calls.map((c) => c.cmd)).toEqual(['chrome.exe', 'taskkill', 'chrome.exe', 'taskkill']);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('waits for the profile lockfile to free before relaunching', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-relaunch-'));
+    try {
+      let busyChecks = 3;
+      const sleep = vi.fn(async () => undefined);
+      let launches = 0;
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({ ...args, stallMs: 150, log: () => {} } as never)) as never,
+        launch: async ({ url }: { url: string }) => {
+          launches += 1;
+          void drive(new URL(url).origin, launches === 1 ? 'one' : undefined).catch(
+            () => undefined,
+          );
+          return { pid: 1, close: async () => undefined };
+        },
+        token,
+        profileDir: dir,
+        // pre-flight check passes (false); then busy for 3 polls after the kill, then free
+        profileInUse: (() => {
+          let first = true;
+          return () => {
+            if (first) {
+              first = false;
+              return false;
+            }
+            return busyChecks-- > 0;
+          };
+        })(),
+        sleep,
+      });
+      expect(launches).toBe(2);
+      expect(sleep).toHaveBeenCalledTimes(3);
+      expect(out.results.map((r: { status: string }) => r.status)).toEqual([
+        'failed',
+        'collected',
+        'collected',
+      ]);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('fails the remaining groups chrome-relaunch-failed when the profile never frees', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-relaunch-'));
+    try {
+      let first = true;
+      const launch = vi.fn(async ({ url }: { url: string }) => {
+        void drive(new URL(url).origin, 'one').catch(() => undefined);
+        return { pid: 1, close: async () => undefined };
+      });
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({ ...args, stallMs: 150, log: () => {} } as never)) as never,
+        launch,
+        token,
+        profileDir: dir,
+        profileInUse: () => {
+          if (first) {
+            first = false;
+            return false;
+          }
+          return true;
+        },
+        sleep: async () => undefined,
+        relaunchWaitMs: 2_000,
+      });
+      expect(launch).toHaveBeenCalledTimes(1);
+      expect(out.results).toEqual([
+        { slug: 'one', status: 'failed', reason: 'stalled' },
+        { slug: 'two', status: 'failed', reason: 'chrome-relaunch-failed' },
+        { slug: 'three', status: 'failed', reason: 'chrome-relaunch-failed' },
+      ]);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+});

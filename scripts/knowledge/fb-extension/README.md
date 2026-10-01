@@ -41,6 +41,24 @@ restarts.
   collector's rules (seven-days, feed-end, scroll cap, wall budget) plus **stunted** (≤ 3 feed
   slots after 20 scrolls). Then `LLFB.collectComments` (from `comments.js`). A small status box
   shows progress.
+- **Scroll cap.** The receiver hands each job `maxScrolls`: default **400** (`DEFAULT_MAX_SCROLLS`
+  in `fb-export-receiver.mjs`), overridable per group with `maxScrolls: <n>` in
+  `fb-groups-checklist.mjs` (clamped to 1–2000). 250 finished the Vault in ~16 min; 2000 froze its
+  renderer on 2026-10-01, so the wall budget alone is not a safe limit on a huge feed.
+- **A dead tab fails only its group.** Heartbeat silence for 5 min (the receiver's stall
+  watchdog), the run tab closing (`tabs.onRemoved`) or no heartbeat for 150 s (renderer gone;
+  `llfb-liveness` alarm) makes the extension `POST /tab-lost` (or the watchdog fire): the receiver
+  records that group `failed{stalled | tab-closed | renderer-gone}`, answers `/next` with 503
+  meanwhile, and signals the launcher. `extensionCollect` (`fb-export-launch.mjs`) kills that
+  Chrome (`taskkill /T /F`), waits for the profile lockfile to free (30 s), relaunches the profile
+  on the same receiver URL (`--hide-crash-restore-bubble`, so the frozen group page is not
+  reopened) and the remaining groups run. At most one relaunch per group; if Chrome cannot be
+  relaunched the rest are `failed{chrome-relaunch-failed}`. A stall with no group in flight
+  (Chrome never connected) still ends the run. After changing `background.js`, reload the
+  extension (chrome://extensions) before the next run.
+- **Ledger.** A `not-member` verdict is recorded but is **not** done: the next run retries the
+  group (membership changes), and only `uploaded` / `unavailable` / `no-recent-posts` rows are
+  skipped as `already-done`.
 - **Uploaded html is built positively** (`buildPostHtml`), on the live feed shape read from the
   2026-09-30 DOM skeletons: the post card is **not** a `role=article` any more — every article
   inside a feed unit is a comment — so the post is anchored by Facebook's own

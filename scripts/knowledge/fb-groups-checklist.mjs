@@ -13,6 +13,10 @@
 // Joey is actually a member — the weekly reminder issue flags these rows so
 // he can confirm membership or delete the line before the first real export.
 // Drop `candidate` (or set it `false`) once membership is confirmed.
+//
+// Optional per-group budgets: `wallBudgetMs` (default 20 min) and `maxScrolls` (default 400, max
+// 2000; see fb-export-receiver.mjs). A very large feed (the Vault) can freeze Chrome's renderer if
+// scrolled too far, so raise `maxScrolls` only deliberately.
 export const FB_ACTING_PAGE = {
   name: 'Long Live',
 };

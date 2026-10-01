@@ -543,6 +543,45 @@ describe('Facebook export orchestration', () => {
     );
   });
 
+  it('retries a ledgered not-member group on a later run; only uploaded groups are done', async () => {
+    const collect = vi.fn().mockResolvedValue([]);
+    const writeLedger = vi.fn();
+    const groups = [group, { ...group, slug: 'group-b' }];
+    const result = await runExport({
+      now: new Date('2026-09-30T12:00:00'),
+      root: 'C:\\outside-repo',
+      groups,
+      readLedger: vi.fn().mockResolvedValue({
+        groups: {
+          'group-a': { status: 'not-member', at: '2026-09-30T01:00:00Z' },
+          'group-b': { status: 'uploaded', postCount: 3, at: '2026-09-30T01:00:00Z' },
+        },
+      }),
+      writeLedger,
+      collect,
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue: vi.fn(),
+    });
+    expect(collect).toHaveBeenCalledWith(
+      expect.objectContaining({ groups: [expect.objectContaining({ slug: 'group-a' })] }),
+    );
+    expect(result.results.find((r: { slug: string }) => r.slug === 'group-a')?.status).not.toBe(
+      'already-done',
+    );
+    expect(result.results.find((r: { slug: string }) => r.slug === 'group-b')?.status).toBe(
+      'already-done',
+    );
+  });
+
+  it('omits the coverage detail for rows that never harvested', () => {
+    const summary = runSummary([
+      { slug: 'group-a', status: 'not-member', profileVerified: true },
+      { slug: 'group-b', status: 'failed', reason: 'stalled' },
+    ]);
+    expect(summary).toContain('- group-a: not-member');
+    expect(summary).not.toContain('covered unknown');
+  });
+
   it('treats no recent posts as successful and closes the weekly issue', async () => {
     const reportIssue = vi.fn();
     const result = await runExport({

@@ -29,6 +29,8 @@
  *   group page ──llfb-ready──▶ reply {job} if this tab has an active job, else {job:null}
  *   group page ──llfb-heartbeat──▶ POST /heartbeat
  *   group page ──llfb-result──▶ outbox (or straight from memory) → deliver → advance()
+ *   run tab closed / renderer silent for 150 s → POST /tab-lost (the receiver fails that group only
+ *                              and the launcher relaunches Chrome for the rest).
  *   tab lands off /groups/ (login, checkpoint redirect) → report that status for the job.
  *   worker (re)start / wake alarm → advance() picks up whatever phase was persisted.
  *
@@ -49,6 +51,12 @@ const OUTBOX_BACKOFF_MS = [1_000, 2_000, 4_000, 8_000, 16_000, 30_000];
 // JSON characters, not bytes: even all-3-byte UTF-8 (6 MiB) stays under the 10 MiB quota.
 const OUTBOX_MAX_CHARS = 2 * 1024 * 1024;
 const WAKE_ALARM = 'llfb-resume';
+// Renderer-gone watch: while a job is dispatched the page heartbeats every 30 s; a gap this long
+// means the tab's renderer crashed or froze (Chrome has no event for that), so the group is
+// reported lost now instead of after the receiver's 5 min stall watchdog.
+const LIVENESS_ALARM = 'llfb-liveness';
+const RENDERER_GONE_MS = 150_000;
+let lastBeatAt = Date.now();
 
 async function loadState() {
   const stored = await chrome.storage.session.get(SESSION_KEY);
@@ -83,6 +91,15 @@ async function scheduleWake() {
 
 async function clearWake() {
   await chrome.alarms.clear(WAKE_ALARM);
+}
+
+async function scheduleLiveness() {
+  lastBeatAt = Date.now();
+  await chrome.alarms.create(LIVENESS_ALARM, { delayInMinutes: 1, periodInMinutes: 1 });
+}
+
+async function clearLiveness() {
+  await chrome.alarms.clear(LIVENESS_ALARM);
 }
 
 // Only ever the 127.0.0.1 port the /start page came from; a redirect is refused, not followed.
@@ -183,6 +200,7 @@ async function retryLater() {
 }
 
 async function finishRun(state) {
+  await clearLiveness();
   await saveState({ ...state, job: null, phase: 'finish' });
   try {
     await api(state, 'POST', '/finished', {});
@@ -192,6 +210,31 @@ async function finishRun(state) {
   }
   await patchState({ phase: 'done', finished: true });
   return clearWake();
+}
+
+// The run tab is gone (closed) or its renderer is: nothing can navigate or harvest any more. Stop
+// this session and tell the receiver, which fails the group in flight and has the launcher
+// relaunch Chrome for the remaining groups. Best effort: the receiver's stall watchdog backs it.
+async function reportTabLost(state, reason) {
+  await saveState({ ...state, job: null, phase: 'done', finished: true, tabGone: null });
+  await clearWake();
+  await clearLiveness();
+  try {
+    await api(state, 'POST', '/tab-lost', { slug: state.job?.slug ?? null, reason });
+  } catch (error) {
+    console.warn('[llfb] /tab-lost failed', String(error?.message ?? error));
+  }
+}
+
+// A result or finish still owed is delivered first (it needs no tab); the loss is reported after.
+async function onTabGone(reason) {
+  const state = await loadState();
+  if (!state || state.finished || state.phase === 'done' || state.phase === 'finish') return;
+  if (state.phase === 'deliver') {
+    await patchState({ tabGone: reason });
+    return;
+  }
+  await reportTabLost(state, reason);
 }
 
 // Walks the persisted phase forward until it needs the page (phase 'job') or the run is over.
@@ -214,6 +257,7 @@ async function advance() {
       return navigateToJob(state);
     }
     if (state.phase !== 'next') return clearWake();
+    if (state.tabGone) return reportTabLost(state, state.tabGone);
     let job;
     try {
       job = await api(state, 'GET', '/next');
@@ -280,6 +324,7 @@ async function navigateToJob(state) {
 async function finishJob(result) {
   const state = await loadState();
   if (!state?.job) return { ok: false };
+  await clearLiveness();
   const body = resultBody(result);
   let persisted = false;
   if (JSON.stringify(body).length <= OUTBOX_MAX_CHARS) {
@@ -379,6 +424,7 @@ async function onReady(sender) {
   const startedAtMs = job.startedAtMs ?? Date.now();
   const phase = state.phase === 'navigate' ? 'job' : state.phase;
   await saveState({ ...state, phase, job: { ...job, dispatched: true, startedAtMs } });
+  await scheduleLiveness();
   const payload = { ...job, startedAtMs };
   delete payload.dispatched;
   return { job: payload };
@@ -387,6 +433,7 @@ async function onReady(sender) {
 async function onHeartbeat(message, sender) {
   const state = await loadState();
   if (!boundToJob(state, sender)) return { ok: false };
+  lastBeatAt = Date.now();
   await api(state, 'POST', '/heartbeat', {
     slug: state.job.slug,
     scrolls: message.scrolls,
@@ -426,10 +473,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm?.name === LIVENESS_ALARM) {
+    serialized(async () => {
+      const state = await loadState();
+      if (!state?.job?.dispatched || state.finished) return clearLiveness();
+      if (Date.now() - lastBeatAt > RENDERER_GONE_MS) return onTabGone('renderer-gone');
+    }).catch((error) => console.warn('[llfb] liveness failed', String(error?.message ?? error)));
+    return;
+  }
   if (alarm?.name !== WAKE_ALARM) return;
   serialized(() => advance()).catch((error) =>
     console.warn('[llfb] wake failed', String(error?.message ?? error)),
   );
+});
+
+// The run tab was closed (or its window was).
+chrome.tabs.onRemoved.addListener((tabId) => {
+  serialized(async () => {
+    const state = await loadState();
+    if (state && tabId === state.tabId) await onTabGone('tab-closed');
+  }).catch((error) => console.warn('[llfb] tab-removed failed', String(error?.message ?? error)));
 });
 
 // The tab's current target: the in-flight navigation (pendingUrl) or the committed url; null when
