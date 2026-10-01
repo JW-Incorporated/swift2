@@ -247,6 +247,8 @@ already a day late is worth less than the next one being on time.
 
 ## 2026-10-02 (Fri) — The Decode hero, slot 1 of 2 (October window 10-01→05)
 
+RE-DRAFT ask #4675 by 2026-10-04: the 09-23 Mood pair and the 09-24 Blank Spaces timeline X — founder-✅'d in retired PR #4544, never posted. Re-cover both subjects fresh as single-post items under the per-post approval flow: new openers, a never-used photo (L001), X text-only. Mood rides the 10-03 slot. Cite "ask #4675" in each item's `why`.
+
 - **`23:00Z` · `thread:hidden-clues:interactive-challenge`** — mint
   `thread:hidden-clues:interactive-challenge:2026-10-hero`. Link
   `/?lens=hidden-clues`. **October's angle index** — the cycle month advances here.
