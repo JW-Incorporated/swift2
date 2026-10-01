@@ -48,6 +48,7 @@ import {
   imageDuplicatesPageVideo,
 } from '@/lib/longlive/video-affordance';
 import { ZoomableImage } from './ZoomableImage';
+import { ShareImageMenu } from './ShareImageMenu';
 import { SignificanceBadge } from './SignificanceBadge';
 import {
   isSubConfirmed,
@@ -644,6 +645,12 @@ export function MomentDetail() {
       >
         <Share2 className="h-5 w-5" />
       </button>
+      <ShareImageMenu
+        variant="icon"
+        target={{ kind: 'item', itemId: item.id }}
+        source={{ item: item.id }}
+        label="Share this moment as an image"
+      />
       <button
         onClick={closeItem}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"

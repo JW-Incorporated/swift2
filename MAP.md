@@ -135,6 +135,12 @@ read once on mount (`deepLink.ts`) and never written back.
 | `components/longlive/TopBar.tsx` | Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode |
 | `lib/longlive/track-video.ts` | Pairs a track with a playable video. Exact match on normalised titles — **never strip edition qualifiers** like "(Taylor's Version)" |
 | `components/longlive/TrackGuideBar.tsx` | Full-width bar under the lyric, in the retired Spotify player's slot; opens `TrackGuide` |
+| `app/api/share-card/route.tsx` | W9 share cards: `GET /api/share-card` → deterministic PNG (`?item=` moment, `?era=`, `?eras=&m=&e=&f=` "My Eras", `size=portrait\|story`). Invalid input → default brand card, never 500; CDN cache headers. Separate from `/api/og` (untouched). Details in `docs/longlive-experience.md` §7a |
+| `lib/longlive/share-card-params.ts` | Client-safe: size allowlist, `bucketCount`/`COUNT_BUCKETS`, `shareCardPath`, `summarizeProgress` (top-3 eras from `ll-progress-v1`) |
+| `lib/longlive/share-card-spec.ts` | Server: `parseShareCardRequest` — validates a URL against the era/moment allowlists into a `ShareCardSpec` (sub-confirmed → "Unconfirmed"/"Debunked" stamp) |
+| `lib/longlive/share-card.tsx` · `share-card-layouts.tsx` · `share-card-frame.tsx` | Renderer split: `renderShareCard`/cache header, per-format layouts, shared era-palette frame + watermark + safe zones |
+| `lib/longlive/share-card-fonts.ts` · `share-fonts/` | Vendored Playfair/Inter `.woff` (OFL) read with fs; `next.config.mjs` `outputFileTracingIncludes` ships them with the function |
+| `components/longlive/ShareImageMenu.tsx` · `YourLongLiveCard.tsx` | "Share as image" Story/Post menu (moment detail, era hero) and the "Your Long Live" entry in `EraSelector`; `lib/longlive/share-action.ts` `triggerImageShare` + `share-payload.ts` `shareCardImage` do file-share-or-download |
 | `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal; plays a paired song video inline (~20% of tracks pair) |
 | `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
 | `components/longlive/TheoryCard.tsx` | One theory/egg card: badges, sources, R4 back-link (thread if `theoryThreadId` resolves, else the unconditional "whole section" line) |

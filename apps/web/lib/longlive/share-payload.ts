@@ -17,7 +17,14 @@ import {
   type ShareTarget,
 } from '@swift2/experience';
 import { getContentItem } from './content';
-import { triggerWebShare, type WebSharePayload, type WebShareResult } from './share-action';
+import {
+  triggerImageShare,
+  triggerWebShare,
+  type ImageShareResult,
+  type WebSharePayload,
+  type WebShareResult,
+} from './share-action';
+import { shareCardPath, type ShareCardSize, type ShareCardSource } from './share-card-params';
 
 export function sharePayloadForTarget(target: ShareTarget, baseUrl: string): WebSharePayload {
   let copy: ShareCopy;
@@ -70,4 +77,51 @@ export async function shareTarget(target: ShareTarget): Promise<WebShareResult> 
     );
   }
   return result;
+}
+
+function downloadFile(file: File): void {
+  const href = URL.createObjectURL(file);
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = file.name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.setTimeout(() => URL.revokeObjectURL(href), 10_000);
+}
+
+/**
+ * "Share as image": fetch the deterministic card for `source` and hand the PNG
+ * to the native share sheet (or save it). The caption + deep link come from
+ * the same payload a plain link share would use, so the image always points
+ * back at the page it was made from.
+ */
+export async function shareCardImage(
+  target: ShareTarget,
+  source: ShareCardSource,
+  size: ShareCardSize,
+): Promise<ImageShareResult | 'error'> {
+  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname);
+  let file: File;
+  try {
+    const res = await fetch(shareCardPath(source, size));
+    if (!res.ok) return 'error';
+    file = new File([await res.blob()], `long-live-${size}.png`, { type: 'image/png' });
+  } catch {
+    return 'error';
+  }
+  // Native file sharing only on touch devices: desktop Chromium reports
+  // canShare({files}) too, but opens an OS share dialog where a saved PNG is
+  // what people expect.
+  const touch =
+    typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+  return triggerImageShare(
+    file,
+    { title: payload.title, text: `${payload.text} ${payload.url}` },
+    {
+      canShareFiles: touch ? navigator.canShare?.bind(navigator) : undefined,
+      share: navigator.share?.bind(navigator),
+      download: downloadFile,
+    },
+  );
 }

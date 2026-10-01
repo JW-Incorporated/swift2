@@ -17,6 +17,7 @@ import { tracksForEra } from '@/lib/longlive/tracks';
 import { threadsInEra } from '@swift2/experience';
 import { videosForEra, eraVideoFeed } from '@/lib/longlive/videos';
 import { EraSecretCard } from './EraSecretCard';
+import { ShareImageMenu } from './ShareImageMenu';
 import { TrackGuideBar } from './TrackGuideBar';
 import { EraFeedList } from './EraFeedList';
 import { EraThreadsPivot } from './EraThreadsPivot';
@@ -256,6 +257,13 @@ export function EraSection({
               trackCount={trackCount}
             />
           )}
+          <div className="mt-5 flex justify-center">
+            <ShareImageMenu
+              target={{ kind: 'era', eraId: era.id }}
+              source={{ era: era.id }}
+              align="above"
+            />
+          </div>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { EraGrid } from './EraGrid';
+import { YourLongLiveCard } from './YourLongLiveCard';
 
 const selectorTitleId = 'era-selector-title';
 
@@ -62,6 +63,8 @@ export function EraSelector() {
             <X className="h-5 w-5" />
           </button>
         </div>
+
+        <YourLongLiveCard />
 
         <EraGrid activeEraId={eraId} onPick={setEra} />
       </div>
