@@ -10,10 +10,16 @@
 // until that PR lands. `experiment` needs nothing there: queue-schema ignores
 // unknown keys.
 
+import { createHash } from 'node:crypto';
+
 export const CARD_PREFIX = '/social/library/cards/';
 export const CARD_SOURCE_ORIGIN = 'https://www.longlivets.com';
 export const CARD_SOURCE_PATH = '/api/share-card';
 export const CARD_CREDIT = 'Long Live';
+
+/** `<name>.png` -> `<name>.json`: the provenance sidecar fetch-share-card.mjs writes next to every card. */
+export const cardSidecarPath = (tile) => tile.replace(/\.png$/i, '.json');
+export const sha256Hex = (buf) => createHash('sha256').update(buf).digest('hex');
 
 /**
  * A designed card is a committed PNG rendered from the site's own
@@ -22,8 +28,12 @@ export const CARD_CREDIT = 'Long Live';
  * "Long Live" — it is our own artwork, not a photograph, so it never carries
  * photo credit/source. "Cards never reproduce lyrics" (docs/social/guardrails.md)
  * cannot be checked by a machine; the owner's approval stamp is the backstop.
+ *
+ * Provenance (S2 review): a committed PNG under CARD_PREFIX is not enough — an arbitrary image
+ * could be dropped there. `png` (the file's bytes) must hash to the `sha256` in the sidecar
+ * manifest (`<name>.json`, written by fetch-share-card.mjs) whose `cardUrl` equals the draft's.
  */
-export function checkCardMedia(item, tile) {
+export function checkCardMedia(item, tile, { png = null, sidecar = null } = {}) {
   const findings = [];
   if (!tile.startsWith(CARD_PREFIX) || !tile.toLowerCase().endsWith('.png')) {
     findings.push(`media: mediaKind "card" tile "${tile}" must be a committed PNG under ${CARD_PREFIX} (save it with scripts/social/fetch-share-card.mjs).`);
@@ -39,6 +49,13 @@ export function checkCardMedia(item, tile) {
   }
   if (typeof item.mediaCredit !== 'string' || item.mediaCredit.trim() !== CARD_CREDIT) {
     findings.push(`media: mediaKind "card" must carry \`mediaCredit: ${JSON.stringify(CARD_CREDIT)}\` (got ${JSON.stringify(item.mediaCredit ?? null)}) — it is our own artwork.`);
+  }
+  const claimed = sidecar && typeof sidecar === 'object' ? sidecar : null;
+  if (!claimed || typeof claimed.sha256 !== 'string' || typeof claimed.cardUrl !== 'string') {
+    findings.push(`media: mediaKind "card" tile "${tile}" has no provenance manifest (${cardSidecarPath(tile)}) — only a card saved by scripts/social/fetch-share-card.mjs is accepted, not an arbitrary PNG.`);
+  } else {
+    if (claimed.cardUrl !== item.cardUrl) findings.push(`media: mediaKind "card" \`cardUrl\` ${JSON.stringify(item.cardUrl ?? null)} does not match the manifest's ${JSON.stringify(claimed.cardUrl)} for ${tile}.`);
+    if (!png || sha256Hex(png) !== claimed.sha256) findings.push(`media: mediaKind "card" tile "${tile}" does not match the sha256 in its manifest — the PNG was altered or is not the fetched render; re-run fetch-share-card.mjs.`);
   }
   return findings;
 }

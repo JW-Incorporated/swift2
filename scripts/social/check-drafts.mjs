@@ -94,7 +94,7 @@ import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { samePhotoPaths } from './lib/photo-library.mjs';
 import { IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
-import { checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
+import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 // S2 (docs/decisions.md 2026-10-01): the TASTE thresholds below — media kinds,
@@ -807,7 +807,9 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
         );
       }
     } else if (item.mediaKind === 'card') {
-      findings.push(...checkCardMedia(item, tile));
+      const png = await readFile(path.join(PUBLIC_DIR, tile)).catch(() => null);
+      const sidecar = await readFile(path.join(PUBLIC_DIR, cardSidecarPath(tile)), 'utf8').then(JSON.parse).catch(() => null);
+      findings.push(...checkCardMedia(item, tile, { png, sidecar }));
     } else if (item.mediaKind === 'era-art') {
       findings.push(
         'media: mediaKind "era-art" is no longer allowed on drafts (2026-08-12 standard) — the value survives only so historical records parse. Use "photo", "site-screen" or "card".',

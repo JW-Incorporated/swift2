@@ -291,7 +291,7 @@ duplicate the report.
   individuals, relationship-existence speculation) applies to every draft;
   sourcing standards from `docs/decisions.md` 2026-07-08 apply to claims.
 - **Confirmed-only carve-out for major personal-life events (Joey, 2026-09-01,
-  `D1=A`; full rule in `docs/marketing/social-strategy.md` §"Voice"):**
+  `D1=A`; the full rule is founder-owned: `docs/social/guardrails.md` guardrail 4):**
   pregnancy/relationship-existence *speculation* stays fully banned, same as
   every other blocklist topic — never search for it, never draft it. Once
   such an event is confirmed (by Taylor/her team, or two major outlets

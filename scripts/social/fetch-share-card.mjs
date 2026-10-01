@@ -23,7 +23,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { CARD_PREFIX, CARD_SOURCE_ORIGIN, CARD_SOURCE_PATH, CARD_CREDIT } from './lib/draft-taste.mjs';
+import { CARD_PREFIX, CARD_SOURCE_ORIGIN, CARD_SOURCE_PATH, CARD_CREDIT, cardSidecarPath, sha256Hex } from './lib/draft-taste.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CARDS_DIR = path.join(ROOT, 'apps', 'web', 'public', 'social', 'library', 'cards');
@@ -57,7 +57,10 @@ export async function fetchShareCard({ url, query, name }, { fetchImpl = fetch, 
   if (png.length > MAX_BYTES) throw new Error(`card is ${png.length} bytes (> ${MAX_BYTES}); pick a lighter card.`);
   await mkdir(dir, { recursive: true });
   await writeFile(path.join(dir, file), png);
-  return { media: `${CARD_PREFIX}${file}`, cardUrl: res.url || requested, bytes: png.length };
+  const cardUrl = res.url || requested;
+  // The provenance sidecar check-drafts verifies: the PNG's hash and the render URL it came from.
+  await writeFile(path.join(dir, path.basename(cardSidecarPath(file))), `${JSON.stringify({ cardUrl, sha256: sha256Hex(png), fetchedAt: new Date().toISOString() }, null, 2)}\n`);
+  return { media: `${CARD_PREFIX}${file}`, cardUrl, bytes: png.length };
 }
 
 function parseArgs(argv) {

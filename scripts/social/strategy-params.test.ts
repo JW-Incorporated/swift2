@@ -8,7 +8,7 @@ import { checkOpeners, checkCampaignPair, checkLength, checkMedia, checkDraft } 
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { findCodifiableRules } from './lib/lessons.mjs';
 import { DEFAULT_PARAMS, mergeParams, validateStrategyParams, loadStrategyParams } from './lib/strategy-params.mjs';
-import { checkCardMedia, checkExperiment, photoMixWarning } from './lib/draft-taste.mjs';
+import { cardSidecarPath, checkCardMedia, checkExperiment, photoMixWarning, sha256Hex } from './lib/draft-taste.mjs';
 import { buildCardUrl, cardFileName, fetchShareCard } from './fetch-share-card.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -126,13 +126,20 @@ describe('taste thresholds are read from params', () => {
 });
 
 describe('mediaKind "card"', () => {
+  const PNG = pngHeader(1080, 1350);
+  const SIDECAR = path.join(PUBLIC_DIR, cardSidecarPath(CARD_REL));
+  const writeSidecar = (over: Record<string, unknown> = {}) =>
+    writeFile(SIDECAR, JSON.stringify({ cardUrl: CARD_URL, sha256: sha256Hex(PNG), fetchedAt: '2026-10-01T00:00:00Z', ...over }));
   beforeAll(async () => {
     await mkdir(path.dirname(path.join(PUBLIC_DIR, CARD_REL)), { recursive: true });
-    await writeFile(path.join(PUBLIC_DIR, CARD_REL), pngHeader(1080, 1350));
+    await writeFile(path.join(PUBLIC_DIR, CARD_REL), PNG);
+    await writeSidecar();
   });
   afterAll(async () => {
     await rm(path.join(PUBLIC_DIR, CARD_REL), { force: true });
+    await rm(SIDECAR, { force: true });
   });
+  const good = { png: PNG, sidecar: { cardUrl: CARD_URL, sha256: sha256Hex(PNG) } };
 
   const card = { platform: 'instagram', media: [CARD_REL], mediaKind: 'card', cardUrl: CARD_URL, mediaCredit: 'Long Live' };
 
@@ -141,10 +148,24 @@ describe('mediaKind "card"', () => {
   });
 
   it('requires cardUrl from the real route, the credit, and the cards/ path', () => {
-    expect(checkCardMedia({ ...card, cardUrl: undefined }, CARD_REL).some((m) => m.includes('cardUrl'))).toBe(true);
-    expect(checkCardMedia({ ...card, cardUrl: 'https://evil.example/api/share-card?x=1' }, CARD_REL)).toHaveLength(1);
-    expect(checkCardMedia({ ...card, mediaCredit: 'Getty' }, CARD_REL).some((m) => m.includes('Long Live'))).toBe(true);
-    expect(checkCardMedia(card, '/social/library/photos/a.png').some((m) => m.includes('cards/'))).toBe(true);
+    expect(checkCardMedia(card, CARD_REL, good)).toEqual([]);
+    expect(checkCardMedia({ ...card, cardUrl: undefined }, CARD_REL, good).some((m) => m.includes('cardUrl'))).toBe(true);
+    expect(checkCardMedia({ ...card, cardUrl: 'https://evil.example/api/share-card?x=1' }, CARD_REL, good).some((m) => m.includes('requires'))).toBe(true);
+    expect(checkCardMedia({ ...card, mediaCredit: 'Getty' }, CARD_REL, good).some((m) => m.includes('Long Live'))).toBe(true);
+    expect(checkCardMedia(card, '/social/library/photos/a.png', good).some((m) => m.includes('cards/'))).toBe(true);
+  });
+
+  it('rejects an unknown PNG (no provenance manifest), a tampered PNG, and a cardUrl that is not the fetched one', async () => {
+    expect(checkCardMedia(card, CARD_REL, { png: PNG, sidecar: null }).some((m) => m.includes('no provenance manifest'))).toBe(true);
+    expect(checkCardMedia(card, CARD_REL, { png: Buffer.concat([PNG, Buffer.from('x')]), sidecar: good.sidecar }).some((m) => m.includes('sha256'))).toBe(true);
+    expect(checkCardMedia({ ...card, cardUrl: CARD_URL + '&id=other' }, CARD_REL, good).some((m) => m.includes('does not match the manifest'))).toBe(true);
+    // through the real gate, with files on disk
+    await writeSidecar({ sha256: sha256Hex(Buffer.from('some other image')) });
+    expect((await checkMedia('a.json', card, [])).some((m) => m.includes('sha256'))).toBe(true);
+    await rm(SIDECAR, { force: true });
+    expect((await checkMedia('a.json', card, [])).some((m) => m.includes('no provenance manifest'))).toBe(true);
+    await writeSidecar();
+    expect(await checkMedia('a.json', card, [])).toEqual([]);
   });
 
   it('is rejected if Tree removes it from allowedKinds', async () => {
@@ -196,6 +217,7 @@ describe('fetch-share-card', () => {
       const r = await fetchShareCard({ query: 'type=era&id=midnights&x=1', name: 'midnights' }, { fetchImpl: ok as never, dir });
       expect(r).toMatchObject({ media: '/social/library/cards/midnights.png', cardUrl: CARD_URL });
       expect((await readFile(path.join(dir, 'midnights.png'))).length).toBe(png.length);
+      expect(JSON.parse(await readFile(path.join(dir, 'midnights.json'), 'utf8'))).toMatchObject({ cardUrl: CARD_URL, sha256: sha256Hex(png) });
       const html = async () => ({ ok: true, status: 200, url: CARD_URL, headers: new Headers(), arrayBuffer: async () => Buffer.from('<html>') });
       await expect(fetchShareCard({ query: 'type=era', name: 'x' }, { fetchImpl: html as never, dir })).rejects.toThrow(/PNG/);
     } finally {

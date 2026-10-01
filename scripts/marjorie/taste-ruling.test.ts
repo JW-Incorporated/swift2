@@ -215,6 +215,13 @@ describe('routine-fable-taste-ruling.yml and its filer', () => {
     }
   });
 
+  it('serialises per issue, not globally, and the weekly review rules on any unruled open question', () => {
+    expect(wf).toContain('group: fable-taste-ruling-${{ inputs.issue_number }}');
+    const review = read('docs/agents/runner-prompts/marjorie-weekly-review.md');
+    expect(review).toContain('--label taste-ruling --state open');
+    expect(review).toContain('any open one with no `Ruling:` comment');
+  });
+
   it('has its prompt, trailer and labels', () => {
     const p = read('docs/agents/runner-prompts/fable-taste-ruling.md');
     expect(p).toContain('Ruling:');

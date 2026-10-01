@@ -552,25 +552,14 @@ format choice — photo, card, screenshot or text — is Tree's, judged on what 
 numbers say. A card is a committed PNG saved from the site's own
 `/api/share-card` render (`scripts/social/fetch-share-card.mjs`), recorded as
 `cardUrl`, credited "Long Live". The card redline holds wherever a card is rendered:
-**cards never reproduce lyrics** — titles, dates, numbers, and sourced quotes
-only, the same no-lyrics line the Mood starter chips hold (docs/decisions.md
-2026-07-09 lyrics entry).
+the no-lyrics redline is a founder guardrail — `docs/social/guardrails.md`.
 
 **Instagram media is required. X images work** (up to 4, via the v1.1 media
 endpoint since 2026-08-11) — attach a photo to X posts whenever one fits the
 story; the 280-char budget is for words, `mediaCredit` carries the credit when
 the body can't.
 
-**Rights posture** (decision entries 2026-07-09 and 2026-08-12; the
-2026-08-11 entry's *ladder* is superseded, its rights bars are not): hosting real
-internet photos is unrestricted — embed, hotlink, or rehost, press/agency all
-fine — **with credit, always**, as a knowing accepted risk;
-takedown-on-request without argument. The hard bars: **no AI-generated
-images, ever**, and any reference/comparable stand-in must be visibly labeled
-as such (never passed off as Taylor). No watermarked images, no fan edits
-without the creator's permission. Clickability is priority #1 — a
-rights-clean but boring tile is the failure mode we corrected, not the safe
-default.
+**Rights posture** is a founder guardrail — see `docs/social/guardrails.md` (credit always, takedown on request, no AI images of Taylor, no watermarked or uncredited fan edits). Clickability is priority #1 — a rights-clean but boring tile is the failure mode we corrected, not the safe default.
 
 ### Voice
 
@@ -587,30 +576,9 @@ start, per `era-capitalization.mjs` — that is brand-name styling, not
 register, and is unaffected by this change (Joey, 2026-09-10 — "why aren't we
 capitalizing the first letter in a sentence? drives me nuts"; supersedes the
 lowercase-everything register call from 2026-08-25 below). Fan-made is implicit in the
-bio, never claimed as official. The `#36`/Clownbot blocklist (health, pregnancy,
-sexuality, family/minors, legal wrongdoing, private individuals,
-relationship-existence speculation) applies to every draft, and nothing is ever
-invented — no stat, quote, or trend without a Vault item or a verifiable source
-behind it.
+bio, never claimed as official. The sensitive-topic blocklist and the no-fabrication rule are founder guardrails — `docs/social/guardrails.md`.
 
-**Major personal-life events — confirmed-only carve-out (Joey, 2026-09-01,
-`D1=A`).** The blocklist above still bars searching for, drafting, or posting
-any pregnancy or relationship-existence *speculation* — that stays absolute,
-zero exceptions, same as every other rumor-stage topic on this list. The one
-change: once a major personal-life event (pregnancy, engagement, marriage, and
-comparable milestones) is **confirmed** — by Taylor or her team directly, or
-independently reported as settled fact by two major outlets — it is no longer
-"speculation" and social may cover it like any other confirmed public news
-event (the same treatment a Grammy win or a tour date gets): warm, factual,
-sourced, celebratory. It never gets a "clues/countdown/rumor tracker"
-treatment the way an album rollout does — that framing is reserved for
-product launches and creative rollouts, not a person's private life. Until
-confirmation, silence; the moment it's confirmed, normal coverage. This
-carve-out is social-caption policy only (this file, `docs/agents/tree.md`,
-`docs/agents/runner-prompts/tree-daily-draft.md`) — it does not touch the
-site's Vault/editorial pipeline or the Clownbot safety gate, which remain
-governed by their own docs and are outside Tree's mutation
-rights.
+**Major personal-life events — confirmed-only carve-out:** a founder guardrail, in full in `docs/social/guardrails.md` (guardrail 4).
 
 **Register — a fan in love, out loud (Joey, 2026-08-25).** We are fans and we
 GUSH. Every caption is first-person fan reaction first, fact second: lead with
