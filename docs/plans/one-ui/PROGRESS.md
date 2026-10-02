@@ -262,6 +262,14 @@ metachars; 3 tests pass) — confirm CodeQL green before landing.
 executor launched** (`feature/one-ui-wp0.5a`, stacked on wp0.4b). #4816
 stale comment fixed e47afbd0 → **#4816 APPROVED**, queued post-S1. Researcher
 checking SDK57 dom-webview persistence (Fable optional 10).
+**14:34:** Persistence check (source read): iOS loadFileURL read-access "/",
+default persistent store → localStorage likely persists; **Android
+domStorageEnabled never set (default false) → localStorage/IndexedDB likely
+unavailable**; Android allowFileAccessFromFileURLs=true. Breaks the 0.5b
+IndexedDB plan on Android + web reader localStorage uses. **Fable consulted
+(judgment fork)**: PM leaning B = webview reads native disk cache via
+file:// fetch (path + version token over bridge, C6 intact) + localStorage
+shim. 0.5b brief on hold until ruling; 0.5a unaffected.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
