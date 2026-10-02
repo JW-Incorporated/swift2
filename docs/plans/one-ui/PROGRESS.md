@@ -128,6 +128,11 @@ Optional later: post-wait `workflow:status --json` per-job summary (would
 also surface the update group id) — not scheduled. WP0.2 PR A → **#4813**
 (+55/-1, head 0f1c0f23, suite 8090 pass, fingerprint unchanged 49a1159e,
 no bypassing callers). Codex r1 + reviewer r1 launched. Merge waits for S1.
+**14:08:** #4813 reviewer r1 = APPROVE (Low: doc-comment that the shared
+LoadedBundle must not be mutated). Codex r1 `task-murgdpv0-bxq2dx` pending.
+WP0.2 PR B (parallel fetches, cap 5, manifest-order validation) executor
+launched STACKED on feature/one-ui-wp0.3b (#4796) → branch
+`feature/one-ui-wp0.2b`. PR C waits for B.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
