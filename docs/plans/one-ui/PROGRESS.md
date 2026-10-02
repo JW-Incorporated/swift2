@@ -58,6 +58,11 @@ NEXT: scoped `reviewer` on the fix-r2 diff only → if APPROVE, #4799 + #4811
 are READY; land both in one pass when S1 closes (`gh pr merge 4799 --squash
 --auto --delete-branch`, then retarget #4811 base to main + merge). No Codex
 r3 on #4811.
+**14:01:** release run 37052010807 = success (S1 OTA live); #4791 has 0
+reports. Owner directive (Joey, 14:00): "run as much parallel work as makes
+sense" → PM pulled forward two read-only research stages (reversible, no
+merges): WP0.2 loader pre-analysis (ready to rank once [diag] lands) and
+WP1.1 parity-harness research (build path, comparator, runtime). 3/3 slots.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
