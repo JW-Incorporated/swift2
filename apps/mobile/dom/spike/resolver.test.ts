@@ -55,6 +55,25 @@ describe('spike resolver: shims', () => {
 });
 
 describe('spike resolver: next stubs', () => {
+  it('stubs next/dynamic', () => {
+    expect(resolve({ originModulePath: webOrigin }, 'next/dynamic', 'web', fallback)).toEqual({
+      type: 'sourceFile',
+      filePath: path.join(spikeDir, 'stubs/dynamic.tsx'),
+    });
+  });
+
+  it.each(['next/navigation', 'next/og', 'next/font/google', 'next'])(
+    'fails loudly on unstubbed %s instead of falling through to Next',
+    (spec) => {
+      expect(() => resolve({ originModulePath: webOrigin }, spec, 'web', fallback)).toThrow(/no DOM stub/);
+    },
+  );
+
+  it('does not throw for next/* outside apps/web or on native', () => {
+    expect(resolve({ originModulePath: path.join(root, 'apps/mobile/App.tsx') }, 'next/og', 'web', fallback)).toBeNull();
+    expect(resolve({ originModulePath: webOrigin }, 'next/og', 'ios', fallback)).toBeNull();
+  });
+
   it('stubs next/link and next/image', () => {
     expect(resolve({ originModulePath: webOrigin }, 'next/link', 'web', fallback)).toEqual({
       type: 'sourceFile',
