@@ -1,11 +1,10 @@
-// @ts-nocheck -- imports apps/web modules (the '@/' alias is vitest-only; the mobile tsconfig has none).
 import { describe, expect, it } from 'vitest';
-import * as webContent from '@/lib/longlive/content';
-import * as webEraSecrets from '@/lib/longlive/era-secrets';
-import * as webMerch from '@/lib/longlive/merch';
-import * as webTheories from '@/lib/longlive/theories';
-import * as webTracks from '@/lib/longlive/tracks';
-import * as webVideos from '@/lib/longlive/videos';
+import * as webContent from '../../../../web/lib/longlive/content';
+import * as webEraSecrets from '../../../../web/lib/longlive/era-secrets';
+import * as webMerch from '../../../../web/lib/longlive/merch';
+import * as webTheories from '../../../../web/lib/longlive/theories';
+import * as webTracks from '../../../../web/lib/longlive/tracks';
+import * as webVideos from '../../../../web/lib/longlive/videos';
 import * as content from './content';
 import * as eraSecrets from './era-secrets';
 import * as merch from './merch';

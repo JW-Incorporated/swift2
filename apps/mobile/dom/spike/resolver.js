@@ -9,7 +9,7 @@
 const path = require('path');
 
 const SHIMMED = ['content', 'videos', 'tracks', 'era-secrets', 'merch', 'theories'];
-const NEXT_STUBS = { 'next/link': 'link.tsx', 'next/image': 'image.tsx' };
+const NEXT_STUBS = { 'next/link': 'link.tsx', 'next/image': 'image.tsx', 'next/dynamic': 'dynamic.tsx' };
 const SINGLETONS = ['react', 'react-dom', 'scheduler'];
 const SOURCE_EXT = /\.(tsx?|jsx?)$/;
 
@@ -17,6 +17,9 @@ const norm = (p) => (process.platform === 'win32' ? p.toLowerCase() : p);
 
 function createSpikeResolver({ webRoot, spikeDir, pinned }) {
   const webPrefix = norm(path.resolve(webRoot) + path.sep);
+  // Also true for apps/web/node_modules origins. Acceptable: packages nested there
+  // are web-only deps, so the same rules apply to them (react pinned to the mobile
+  // copy, next/* stubbed or reported); native and non-web platforms never reach here.
   const underWeb = (file) => typeof file === 'string' && norm(path.resolve(file)).startsWith(webPrefix);
 
   const shimByPath = new Map(
@@ -46,6 +49,11 @@ function createSpikeResolver({ webRoot, spikeDir, pinned }) {
 
     const stub = NEXT_STUBS[moduleName];
     if (stub) return { type: 'sourceFile', filePath: path.join(spikeDir, 'stubs', stub) };
+    if (moduleName === 'next' || moduleName.startsWith('next/')) {
+      throw new Error(
+        `spike resolver: '${moduleName}' imported from ${origin} has no DOM stub; add one under dom/spike/stubs and register it in NEXT_STUBS.`,
+      );
+    }
 
     const target = absoluteTarget(origin, moduleName);
     if (target !== null) {
