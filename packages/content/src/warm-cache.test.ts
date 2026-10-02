@@ -83,7 +83,7 @@ describe('warm path', () => {
       if (stored) storage.setItem(key(`schemafp:${v}`), stored);
       else storage.setItem(key(`schemafp:${v}`), '');
       const calls = spySafeParse();
-      // fresh adapter view of the same data so the in-session memo cannot answer
+      // fresh storage adapter holding the same data, so each pass exercises the fingerprint path from scratch
       const copy = new MemoryStorageAdapter();
       for (const k of ['etag', 'manifest', 'files', 'schemafp']) {
         const full = key(k === 'schemafp' ? `schemafp:${v}` : `${k}:${v}`);
