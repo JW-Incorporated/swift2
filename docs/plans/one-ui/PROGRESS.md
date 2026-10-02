@@ -113,6 +113,15 @@ unlock reachable (SettingsAboutSection.tsx). Gave Joey exact relaunch steps.
 Watch item: the trigger's wait ended while the publish job was still in
 COMPLETE_JOB — check whether the WP0.0 wait can report success before the
 final EAS job finishes (follow-up if so).
+**14:07:** #4811 scoped reviewer = **APPROVE** (hand-traced 4-launch bound;
+mixed streak fail-closed; Low: "ready resets" test doesn't seed a streak —
+non-blocking). Fable's two rulings stand as its design review. **#4799 +
+#4811 READY** — land in one pass when S1 closes, once #4811 build-full is
+green: `gh pr merge 4799 --squash --auto --delete-branch`; after it merges,
+`gh pr edit 4811 --base main` (+ merge main if needed) then `gh pr merge 4811
+--squash --auto --delete-branch`. Launched: WP1.1a size-check executor
+(`feature/one-ui-wp1.1a`, CI/scripts only, not frozen) + researcher on the
+WP0.0 wait-timing question.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
