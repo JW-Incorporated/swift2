@@ -49,6 +49,9 @@ concurrency:
 jobs:
   trigger:
     runs-on: ubuntu-latest
+    # Hard ceiling (WP0.0, #4771): a hung EAS wait must fail in an hour, not
+    # hold the `mobile-release` concurrency group for GitHub's 360-min default.
+    timeout-minutes: 60
     steps:
       - name: Refuse to run half-configured
         env:
@@ -69,6 +72,8 @@ jobs:
       - run: npm install -g eas-cli@23.2.0
       - name: Run the EAS release workflow for this commit and wait for it
         id: eas_workflow
+        # Tighter than the job so the report step below still has time to run.
+        timeout-minutes: 50
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
@@ -82,6 +87,31 @@ jobs:
             -F message="$(printf '%s' "$MESSAGE" | head -n1 | cut -c1-200)" \
             | tee /tmp/run.json
           echo "EAS workflow run: $(node -e "const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.url||j.id||JSON.stringify(j))" 2>/dev/null || true)"
+      - name: Report the EAS run in the job summary
+        if: always() && (steps.eas_workflow.outcome == 'success' || steps.eas_workflow.outcome == 'failure' || steps.eas_workflow.outcome == 'cancelled')
+        timeout-minutes: 5
+        continue-on-error: true
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          OUTCOME: ${{ steps.eas_workflow.outcome }}
+        run: |
+          URL=$(node -e "try{const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.url||'')}catch{console.log('')}" 2>/dev/null || true)
+          {
+            echo "## EAS release workflow: $OUTCOME"
+            echo "Commit: $GITHUB_SHA"
+            if [ -n "$URL" ]; then
+              echo "EAS run: $URL"
+            else
+              echo "EAS run URL was not returned (the wait never finished). Recent EAS runs, newest first:"
+              echo '```'
+              eas workflow:runs --limit 5 --non-interactive 2>&1 | head -40 || true
+              echo '```'
+            fi
+            if [ "$OUTCOME" != success ]; then
+              echo "**The EAS wait did not finish successfully (hung past 50 min, cancelled, or failed).** A still-running EAS build is NOT cancelled by GitHub; check it in the Expo dashboard or with eas workflow:runs, cancel it if stuck, then re-run this train."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
       # ── Android submit (see header comment: EAS infra can't see this secret) ──
       - name: Locate an Android store build for this commit
         id: android_build

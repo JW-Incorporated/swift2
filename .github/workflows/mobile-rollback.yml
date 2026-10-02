@@ -49,6 +49,7 @@ concurrency:
 jobs:
   rollback:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Refuse to run half-configured
         env:
