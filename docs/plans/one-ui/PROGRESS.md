@@ -171,6 +171,14 @@ total ≠ exact re-download payload). PM: P1 → add exports + check to
 build-content (supersedes 14:12 doc-note call; repo public → minutes free);
 P2 → wording only (export total is the plan's proxy; bundle always
 re-downloads); + dist-*/ gitignore. Fix round 1 sent to the WP1.1a executor.
+**14:17:** #4814 fix r1 pushed HEAD 90de8426 (build-content now runs
+sync:content + exports + check). Codex r2 launched; reviewer r2 next slot.
+Last round (cap 2): a reject → Fable. Codex r2 job `task-murgrk7u-v20kab`;
+reviewer r2 launched.
+**14:18:** #4815 fix r1 pushed HEAD e4772afe (per-item never-reject promises,
+stop at first decisive manifest-order failure; suite 8111). Residuals
+accepted: earlier-file hang still blocks (as before); no abort signal.
+Codex r2 launched; reviewer r2 next slot. PR C told to merge fixed B.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
