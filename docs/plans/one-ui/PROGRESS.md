@@ -6,7 +6,33 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
-(Checkpoint 2026-10-02 ~12:15 PDT.) Merged: WP0.0 #4792, WP0.3 #4794,
+**CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
+section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
+yet). Merged today: #4792 #4794 #4793 #4814 (size gate). #4817 auto-merge set.
+
+APPROVED & HELD for post-S1 landing, in this order (CodeQL/CI green; check
+`gh pr view <n> --json mergeable` first, merge main in if behind):
+1. #4796 (WP0.3b) `gh pr merge 4796 --squash --auto --delete-branch`
+2. #4813 (WP0.2 A) same
+3. #4799 (WP0.4 native batch → store builds) same
+4. #4811 (WP0.4b) — after #4799 merges: `gh pr edit 4811 --base main`, merge
+   main in if needed, then auto-merge
+5. #4815 (WP0.2 B, base wp0.3b) → retarget main after #4796; then #4816
+   (WP0.2 C, base wp0.2b) → retarget main after #4815
+6. #4818 (WP0.5a, base wp0.4b) → retarget after #4811
+7. After #4799 lands: bump size baseline (`node scripts/parity/size-check.mjs
+   --update`, +11.6% expected) in a small PR; then S2/S3 sessions in chat
+   (owner directive: sessions go in chat). S3 extra check: WP0.4 test page
+   ~250 px wide in a 393 px iPhone viewport.
+IN FLIGHT: WP0.5b executor (`feature/one-ui-wp0.5b`, stacked on wp0.5a; brief
+scratch `brief-wp05.md` §"0.5b AMENDED 14:34"); #4819 (WP1.1c part 1) Codex
+r1 pending + reviewer r1 REQUEST CHANGES (minor: real PR run on head;
+fingerprint line in PR/docs) → one fix round to the #4819 executor after
+Codex. Then: Codex + reviewer + Fable design-fidelity on WP0.5b; WP1.1c part
+2 brief (research in log 14:37; Fable review incl. structural-gate deviation).
+WP0.2 S2 + cost table wait for S1 [diag] reports.
+
+(Older checkpoint 2026-10-02 ~12:15 PDT, superseded.) Merged: WP0.0 #4792, WP0.3 #4794,
 WP0.1 #4793. PM worktree `C:\Users\Fourtys\AppData\Local\Temp\one-ui-pm`.
 **Merge freeze on apps/mobile/** + packages/** is ON** (S1 pending) — no
 auto-merge on #4796 / #4799 until S1 closes.
