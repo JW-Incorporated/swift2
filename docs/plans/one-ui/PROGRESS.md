@@ -183,6 +183,10 @@ Codex r2 launched; reviewer r2 next slot. PR C told to merge fixed B.
 jobs). Land #4814 when Codex r2 approves + build-full green (CI-only, not
 frozen; `gh pr merge 4814 --squash --auto --delete-branch`). #4815 Codex r2
 job `task-murgs6mn-xqyx7t`; reviewer r2 launched.
+**14:19:** #4814 Codex r2 = APPROVE (no findings; build aggregator still
+waits on build-content) → **auto-merge SET** on #4814 (lands when build-full
+green). #4815 reviewer r2 = APPROVE (Low: abandoned fetch leaves no
+endDownload mark — harmless). #4815 Codex r2 pending.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
