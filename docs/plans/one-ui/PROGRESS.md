@@ -220,6 +220,11 @@ post-S1 (retarget base → main after #4796 merges). Doc nit pushed bab13e49.
 import graph/shims, data feed via fromBundle, CSS/fonts, in-webview
 persistence, X2 images, native risk, PR split. Then PM brief → Fable brief
 review (owner directive) → executor once #4799/#4811 land.
+**14:26:** Owner (Joey, chat): "Keep working as much in parallel as
+possible." PM: WP1.1c split — part 1 now (stacked on wp0.4b: parity entry +
+web export + Playwright 4 projects on the test page + baseline compare +
+negative spec + parity.yml), part 2 after WP0.5 (web fixture render (a),
+a-vs-b, real routes). Fable brief review of part 1 launched. 3/3 slots.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
