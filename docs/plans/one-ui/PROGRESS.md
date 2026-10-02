@@ -6,19 +6,38 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
-0. Create the PM worktree (OPERATING-MODE §3) if it's missing. (Done
-   2026-10-02; branch pushed.)
-1. WP0.0, WP0.1, WP0.3 executors launched 2026-10-02. If a fresh PM finds
-   no PR for one, check `gh pr list --search "one-ui"` / branch
-   `feature/one-ui-wp0.x` before re-briefing.
-2. On each PR: `reviewer` + Codex (every PR, per owner directive in the
-   Decisions log), + Fable final review for the WPs listed there; then
-   enable auto-merge. Fable reviews the WP0.3b and WP0.4 briefs before launch.
-   As a slot frees up: WP0.3b, then the WP0.4 researcher audit (the
-   native-needs matrix).
-3. When WP0.1 merges and its OTA has published: file HA session S1 with
-   the `human-actions` skill, pinning the build and update id, and tell
-   Joey. The merge freeze starts.
+(Checkpoint 2026-10-02 ~12:15 PDT.) Merged: WP0.0 #4792, WP0.3 #4794,
+WP0.1 #4793. PM worktree `C:\Users\Fourtys\AppData\Local\Temp\one-ui-pm`.
+**Merge freeze on apps/mobile/** + packages/** is ON** (S1 pending) — no
+auto-merge on #4796 / #4799 until S1 closes.
+
+1. **S1:** when release-train run 37052010807 (#4793 merge f27698a4)
+   completes, have a researcher pull the OTA update id / group, runtime and
+   store build numbers from its summary/logs; then file HA session S1 via
+   the `human-actions` skill (PLAN §WP0.1 "Then": Android + iPad 5 cold +
+   5 warm launches each, "Send report" after each; iPhone same "for Joey to
+   coordinate"; pin build + update id; unlock = tap Settings version label
+   7×; reports land on #4791). Land HUMAN-ACTIONS on main via a docs-only
+   PR from this branch (`--squash --auto`, no `--delete-branch`), then
+   `git merge origin/main` here. Tell Joey. If the run is red/hung → researcher
+   diagnoses (`mobile-release.yml` now caps wait 195 / job 235).
+2. **#4796 (WP0.3b):** executor applying Fable's final fix (partial loads
+   write only last-good; merge of main for #4793's load.ts hooks; follow-up
+   issue for the cross-OTA schema hazard). Then a SCOPED `reviewer` on the
+   fix diff (Test A fails-before/passes-after; ordering) — no Codex r3.
+   Land only after S1 closes.
+3. **#4799 (WP0.4):** reviewer APPROVE (2 Low nits in the Status row).
+   Codex job `task-murc7r9d-4t3m8x` — read with
+   `node "C:/Users/Fourtys/.claude/plugins/marketplaces/openai-codex/plugins/codex/scripts/codex-companion.mjs" result <id>`
+   (check log mtime for stalls). Send Codex findings + the 2 nits to an
+   executor (worktree `scratchpad/wt-wp04` of the prior session may be gone
+   → fresh worktree on `feature/one-ui-wp0.4`). Land only after S1 closes;
+   merge produces store builds → then S3 (PLAN §WP0.4).
+4. **WP0.4b** (watchdog, JS-only) can start now in parallel — Fable
+   reviews its brief first (per owner directive). Depends on WP0.4's host
+   signals; branch from `feature/one-ui-wp0.4` or wait for its merge.
+5. **WP0.2** waits on S1 reports (researcher turns `[diag]` comments on
+   #4791 into a ranked cost table first).
 
 ## Status
 
@@ -58,6 +77,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-02 | #4794 design fidelity | MERGE-WITH-EDITS: doc-comment eraStream/trackGuide/threads as equivalence fingerprints (types.ts + README); PR body states the search tie-break web change. Pure derivation = WP2.2 acceptance gate | Adopted; WP2.2 carry list recorded |
 | 2026-10-02 | #4794 two consecutive Codex rejections (mandatory) | Sound, fix-forward, no DEBUG/revert. Restore original provider function refs via getters (identity test); withProviders module-private + sync-only (type + runtime thenable throw). One commit with doc edits → scoped `reviewer` (each Medium fail→pass test) → land; no Codex r3 | Adopted |
 | 2026-10-02 | #4793 two consecutive Codex rejections (mandatory) | Fix-forward. Route-wide 32 KB byte cap before JSON parse (16 KB could 413 legit 5000-char CJK/emoji feedback; diag-only leaves the shared hole); streamed abort for chunked; exact `[diag]`, top-level keys {message,hp,diag}; constant repo; `unknown` launch. Scoped reviewer → merge, no Codex r3. Watch: any real-user 413 in Vercel logs | Adopted |
+| 2026-10-02 | #4796 two consecutive Codex rejections (mandatory) | Race real (verified load.ts 489-501) and reachable on main too. Fix-forward: partial/pruned loads write ONLY last-good, never the version-keyed trio (structural; correct across N JS contexts). Rejected per-version mutex (one runtime only) and pulling WP0.2 dedupe forward. Deterministic interleaving tests. Follow-up issue: cross-OTA schema hazard (fold schemaVersion/build id into cache keys). Land after scoped reviewer | Adopted; PM overrides landing timing only: no auto-merge until S1 closes (merge freeze) |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
