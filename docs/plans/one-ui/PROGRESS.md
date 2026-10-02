@@ -204,6 +204,15 @@ hit doesn't re-check complete marker / comment overclaims; fingerprint ignores
 zod version — PM: zod is JS so it DOES ship by OTA → include zod version in
 the fingerprint or the pin test). Bundle with Codex r1; #4816 must also merge
 B's fix r2.
+**14:23:** #4816 Codex r1 = REQUEST CHANGES (P1 memo aliases mutable objects
+across sequential calls; P2 pin covers only schema.ts, not load.ts
+name→schema mapping). PM: DROP the memo (clone defeats it, freeze risks
+TypeErrors); move mapping to `validation-contract.ts`; pin hashes schema.ts +
+validation-contract.ts + zod version. Fix round 1 sent to PR C executor.
+**14:24:** #4815 fix r2 pushed HEAD 497698fe (stop()/drain, finally; suite
+8113). PM accepted deviation: integrity-failure bound is cap+1 launches (the
+freed worker launches one more before the loader judges) — bounded. Scoped
+reviewer launched (landing gate, no Codex r3).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
