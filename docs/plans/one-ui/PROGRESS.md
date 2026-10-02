@@ -150,6 +150,16 @@ in build-full, not build-content → PM: doc note in docs/mobile-release.md
 export on content CI = Actions minutes); Low — add `dist-*/` to
 apps/mobile/.gitignore (PM accepts; not shipped by OTA, freeze n/a). Bundle
 with Codex r1.
+**14:13:** WP0.2 PR B → **#4815** (base feature/one-ui-wp0.3b, head c4d37653,
++210/-6; pool.ts mapPool cap 5; manifest-order validation; suite 8108;
+fingerprint unchanged 71afa3f3). Codex r1 + reviewer r1 launched. PR C
+(warm short-circuit via schema fingerprint, memo by bundleVersion, single
+encode + single files write) executor launched STACKED on wp0.2b →
+`feature/one-ui-wp0.2c`. Post-S1 landing adds: #4815 (retarget → main after
+#4796) then PR C.
+**14:14:** #4815 reviewer r1 = APPROVE (Lows: up to 5 in-flight bodies held
+after an integrity fail — accepted; dead `!settled` guard; 5 ms timer in
+test 3 may flake). Codex r1 job `task-murglwtp-mbz069` pending.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
