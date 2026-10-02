@@ -41,7 +41,12 @@ new round; its findings are resolved in #4811). A 2nd #4811 rejection → Fable.
 **13:56:** #4811 fix r1 pushed, HEAD db051c61 (suite 8113 pass, fingerprint
 dcf1ea59 unchanged, both exports OK). PM accepted ~557 non-test lines over
 tripwire (one safety mechanism; WP0.3 precedent). Codex r2 + reviewer r2
-(diff-only) launched on #4811.
+(diff-only) launched on #4811. Codex r2 job `task-murg0wvd-tv2w1x`.
+**13:57:** reviewer r2 #4811 = 3 Lows, non-blocking (PM: treat as approve-
+with-nits). Bundle with Codex r2: (1) write backgrounded:true after
+startAttempt if AppState not active; (2) doc note in dom-host.md: double
+ready-save failure → one false strike (bounded); (3) hook-level test gap →
+covered by S4 device check, no code.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
