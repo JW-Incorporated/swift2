@@ -248,6 +248,12 @@ React 19 runs React-18 web code. PM draft brief = scratch `brief-wp05.md`
 (fresh PM: rebuild from this row if missing): 3 stacked PRs on wp0.4b — 0.5a
 Metro alias + next stubs + content shims; 0.5b ReaderSpike + IndexedDB +
 bridge min + marks; 0.5c tests/docs. **Fable brief review launched.**
+**14:31:** #4816 Codex r2 = "REQUEST CHANGES" with ONLY a P3: stale
+"in-session memo" test comment (same as reviewer Low); no P1/P2, everything
+else verified. PM call (reversible, recorded): treat as approve-with-nit —
+not a §4 "failed review" (approach approved by both; comment-only) → no Fable.
+Queue: PR C executor removes the stale comment (next free slot) → #4816
+APPROVED, queued post-S1.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
