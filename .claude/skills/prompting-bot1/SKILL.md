@@ -11,9 +11,12 @@ bot1 is the Hermes1 Discord bot. The owner types a free-text message in
 works it. Marjorie reaches the same door through
 `scripts/marjorie/prompt-bot1.mjs` — a webhook post to `#longlive` (the daily
 triage run and the Sunday growth review save `.scratch/out/bot1-prompt-N.md`
-and a plain job sends it; chat leaves a `bot1-candidate:` comment the Sunday
-review picks up), **off by
-default** (`scripts/marjorie/marjorie-config.json` → `bot1Bridge.enabled`),
+and a plain job sends it; chat does the same, at once, when the **owner**
+explicitly asks or says "ask bot1 …" — `chat-post.mjs save-bot1`, one per chat
+run, owner-verified messages only, and she tells him "sent to bot1 — card
+coming in #longlive"; her own chat judgment calls and anyone else's messages
+still leave a `bot1-candidate:` comment the Sunday review picks up), gated by
+`scripts/marjorie/marjorie-config.json` → `bot1Bridge.enabled`,
 at most **3 prompts per UTC day**, every one logged on the issue labelled
 `bot1-bridge`. A prompt costs a Hermes card and the owner's attention; treat
 all 3 as scarce.

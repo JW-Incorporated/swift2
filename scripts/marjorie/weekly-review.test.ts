@@ -199,6 +199,7 @@ describe('charter, decision log and skill', () => {
     for (const text of [t, c]) expect(text).toContain('.claude/skills/prompting-bot1/SKILL.md');
     expect(t).toContain('.scratch/out/bot1-prompt-1.md');
     expect(c).toContain('bot1-candidate:');
+    expect(c).toContain('chat-post.mjs save-bot1');
   });
   it('the new labels are bootstrapped', () => {
     const names = LABELS.map(([n]: [string]) => n);

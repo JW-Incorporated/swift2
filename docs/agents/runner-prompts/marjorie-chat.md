@@ -137,12 +137,23 @@ decision (charter, Decision processing).
 repo engineering work is a GitHub issue (c), never a bot1 prompt. When the
 skill's table says bot1 (Hermes-side work, or something only bot1 can
 unblock, or a `marjorie-filed` issue stuck more than 7 days past your nudge),
-you do not post to Discord and have no webhook. Leave the draft prompt, worded
-per the skill and restating the need in neutral words (never the founder's
-text — the repo is public), as a comment on the stuck issue whose first line is
-`bot1-candidate:`. The Sunday growth review reads those comments and sends at
-most three. Say in your reply that it is queued for Sunday's review, and that
-the bridge is off until the owner turns it on.
+you do not post to Discord and have no webhook. Two paths, by who asked:
+
+- **The owner explicitly asks** for something in bot1's lane, or says "ask
+  bot1 …" (`owner.verified` is true in the context file — it is false for
+  anyone else): send it now. Word one prompt per the skill, in neutral words
+  (never the founder's text — the repo is public; plain text, no `@` mentions,
+  under 1,500 characters), and save it with
+  `node scripts/marjorie/chat-post.mjs save-bot1 --text "<prompt>"`. At most one per
+  chat run, and the command refuses unless the owner is verified. After you
+  finish, a plain job sends it through the bridge at once (at most three a UTC
+  day across every routine, duplicates refused). Tell him in your reply: "sent
+  to bot1 — card coming in #longlive". If the command refuses or says nothing
+  was written, say that instead — never claim it was sent.
+- **Your own judgment call** from chat (not an explicit owner ask), or anyone
+  else's message: leave the draft prompt as a comment on the stuck issue whose
+  first line is `bot1-candidate:`; the Sunday growth review reads those and
+  sends at most three. Say it is queued for Sunday's review.
 
 **h) The growth strategy — questions, challenges, steers.** The owner can see and
 steer how we grow the site by talking to you; `docs/strategy/growth-strategy.md` is the

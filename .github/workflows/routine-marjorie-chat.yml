@@ -3,7 +3,7 @@
 # #longlive-marjorie after claiming it with 👀. It has no schedule of its own,
 # which is why check-routine-workflows.mjs needs this header to say so.
 #
-# Four jobs, secrets split by environment so the agent never holds one:
+# Five jobs plus typing, secrets split by environment so the agent never holds one:
 #   context (social)  reads the message and its conversation with the bot
 #                     token, selects the reply location; top-level messages
 #                     stay in the channel and existing user threads are preserved,
@@ -14,6 +14,8 @@
 #   run (template)    Opus reads .scratch/chat-context.json, acts inside the
 #                     authority list in its prompt, and saves its reply under
 #                     .scratch/out/. No Discord secret is passed to it.
+#   bot1 (bridge)     sends the owner's one saved bot1 prompt, if any, through
+#                     marjorie-bot1-bridge.yml — owner-verified messages only.
 #   post (ops)        posts the reply, when one was saved, through
 #                     DISCORD_MARJORIE_WEBHOOK_URL, which exists only in `ops`.
 #                     It never posts [chat failed].
@@ -86,6 +88,7 @@ jobs:
       skip: ${{ steps.thread.outputs.skip }}
       reply_thread_id: ${{ steps.thread.outputs.reply_thread_id }}
       message_url: ${{ steps.thread.outputs.message_url }}
+      owner_verified: ${{ steps.thread.outputs.owner_verified }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -165,6 +168,25 @@ jobs:
           REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
         run: node scripts/marjorie/chat-typing.mjs start --channel-id "$CHANNEL_ID" --thread-id "$REPLY_THREAD_ID" --stop-job post
 
+  # bot1 bridge, now (bots-v2 C5): when the OWNER asks for something only bot1 can
+  # do, the one prompt the run saved with `chat-post.mjs save-bot1`
+  # (.scratch/out/bot1-prompt-1.md, inside the chat-reply artifact) goes to
+  # #longlive through the shared bridge at once instead of waiting for Sunday.
+  # Runs only when the context job verified the message author is the owner
+  # (`owner_verified`, the same check strategy steering uses): a non-owner's
+  # message never triggers a send, whatever the agent saved. The bridge's own
+  # gates stay — `bot1Bridge.enabled`, 3 a UTC day, duplicate refusal. `finish`
+  # waits for this job because it deletes the artifact this one reads.
+  bot1:
+    needs: [context, run]
+    if: always() && github.run_attempt == '1' && needs.run.result == 'success' && needs.context.outputs.owner_verified == 'true'
+    uses: ./.github/workflows/marjorie-bot1-bridge.yml
+    with:
+      artifact: chat-reply
+    permissions:
+      contents: read
+      issues: write
+
   post:
     needs: [context, run]
     if: always() && github.run_attempt == '1' && needs.context.result == 'success' && needs.context.outputs.skip != 'true'
@@ -197,7 +219,7 @@ jobs:
         run: node scripts/marjorie/chat-post.mjs post --bot marjorie --reply-dir .scratch/out --thread-id "$REPLY_THREAD_ID" --message-url "$MESSAGE_URL"
 
   finish:
-    needs: [context, run, post]
+    needs: [context, run, post, bot1]
     if: always() && needs.context.outputs.skip != 'true'
     runs-on: ubuntu-latest
     environment: social
