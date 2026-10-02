@@ -66,12 +66,15 @@ export interface ReaderSnapshotDomains {
   content: ByEra<ContentItem[]>;
   milestones: Milestone[];
   videos: ByEra<VideoNote[]>;
+  /** Equivalence fingerprint: the reader never reads this; it derives from the raw domains. */
   eraStream: ByEra<EraStreamDomain>;
   theories: ByEra<TheoryNote[]>;
   eraSecrets: ByEra<EraSecret[]>;
+  /** Equivalence fingerprint: the reader never reads this; it derives from the raw domains. */
   threads: { id: string; itemIds: string[] }[];
   searchIndex: SearchDoc[];
   tracks: ByEra<TrackNote[]>;
+  /** Equivalence fingerprint: the reader never reads this; it derives from the raw domains. */
   trackGuide: ByEra<TrackGuideEntry[]>;
   merch: MerchCatalogue;
   songMoods: SongMoodsBundleFile['songs'];

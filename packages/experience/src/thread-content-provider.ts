@@ -30,6 +30,11 @@ export function setThreadContentProvider(fn: ContentProvider): void {
   contentProvider = fn;
 }
 
+/** The installed provider function itself, so a scoped caller can restore the exact reference. */
+export function getThreadContentProvider(): ContentProvider {
+  return contentProvider;
+}
+
 export function contentForThreadInjected(): ContentItem[] {
   return contentProvider();
 }
@@ -60,6 +65,11 @@ export function setTheoriesRawProvider(fn: TheoriesRawProvider): void {
   theoriesRawProvider = fn;
 }
 
+/** The installed provider function itself (see `getThreadContentProvider`). */
+export function getTheoriesRawProvider(): TheoriesRawProvider {
+  return theoriesRawProvider;
+}
+
 export function theoriesRawInjected(): Partial<Record<EraId, TheoryNote[]>> {
   return theoriesRawProvider();
 }
@@ -70,6 +80,11 @@ let eraSecretsRawProvider: EraSecretsRawProvider = () => ({});
 
 export function setEraSecretsRawProvider(fn: EraSecretsRawProvider): void {
   eraSecretsRawProvider = fn;
+}
+
+/** The installed provider function itself (see `getThreadContentProvider`). */
+export function getEraSecretsRawProvider(): EraSecretsRawProvider {
+  return eraSecretsRawProvider;
 }
 
 export function eraSecretsRawInjected(): Partial<Record<EraId, EraSecret[]>> {

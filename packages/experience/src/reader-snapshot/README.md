@@ -11,10 +11,10 @@ from the package root). Nothing imports it yet.
 - `fromBaked(mods, deps)`: web path. `mods` is the web's `apps/web/lib/longlive`
   exports; it wires those same inputs itself, not via the web's import chain.
 - `fromBundle(bundle, deps)`: app path, from a `loadBundle()` result.
-- Both go through `withProviders`, which installs the inputs into the core's
+- Both go through `withProviders` (module-private), which installs the inputs into the core's
   module-global providers (threads, doorways, track guide and the mood catalogue
-  read through them) for the duration of the build and restores the previous
-  ones in `finally`: no leak, no dependence on call order. Synchronous only.
+  read through them) for the duration of the build and restores the original provider
+  function references in `finally`: no leak, no dependence on call order. Synchronous only.
   Pure derivation over inputs, with no providers, is WP2.2's job.
 - `deps.eraVideoFeed`: pass `@swift2/content-enrichment`'s. It imports this
   package, so it cannot be imported back.
@@ -22,6 +22,8 @@ from the package root). Nothing imports it yet.
   `undefined` dropped) via WebCrypto (`crypto.subtle`; Node 18+, browsers,
   webview; not Hermes). Hash covers `version` + `domains`; `state` and `origin`
   are provenance and never hashed. `diffSnapshots` returns diverging domain names.
+- `eraStream`, `trackGuide` and `threads` are equivalence fingerprints: the reader
+  never reads them; it derives from the raw domains.
 - Domains: eras, content (by era), milestones, videos, eraStream (curated
   videos, doorways, render-ordered keys), theories, eraSecrets, threads,
   searchIndex, tracks, trackGuide, merch, songMoods.

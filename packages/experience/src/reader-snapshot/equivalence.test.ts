@@ -15,7 +15,12 @@ import { getContentItemLookup } from '../content-item-provider';
 import { defaultSongCatalogue } from '../song-catalogue-provider';
 import { matchMoods } from '../mood-match';
 import { tracksRawProvider } from '../track-catalogue-provider';
-import { contentForThreadInjected, eraSecretsRawInjected, getSongTargetResolver, theoriesRawInjected } from '../thread-content-provider';
+import {
+  getEraSecretsRawProvider,
+  getSongTargetResolver,
+  getTheoriesRawProvider,
+  getThreadContentProvider,
+} from '../thread-content-provider';
 import type { ReaderSnapshot, ReaderSnapshotDeps } from './types';
 
 const deps: ReaderSnapshotDeps = { eraVideoFeed };
@@ -127,10 +132,10 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
   it('leaves the module-global providers as it found them', () => {
     const snap = () => [
       getContentItemLookup(),
-      contentForThreadInjected(),
+      getThreadContentProvider(),
       tracksRawProvider(),
-      theoriesRawInjected(),
-      eraSecretsRawInjected(),
+      getTheoriesRawProvider(),
+      getEraSecretsRawProvider(),
       getSongTargetResolver(),
       defaultSongCatalogue(),
     ];

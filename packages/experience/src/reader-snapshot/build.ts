@@ -8,14 +8,14 @@ import { getContentItemLookup, setContentItemLookup } from '../content-item-prov
 import { defaultSongCatalogue, setDefaultSongCatalogue } from '../song-catalogue-provider';
 import { setTracksRawProvider, tracksRawProvider } from '../track-catalogue-provider';
 import {
-  contentForThreadInjected,
-  eraSecretsRawInjected,
+  getEraSecretsRawProvider,
   getSongTargetResolver,
+  getTheoriesRawProvider,
+  getThreadContentProvider,
   setEraSecretsRawProvider,
   setSongTargetResolver,
   setTheoriesRawProvider,
   setThreadContentProvider,
-  theoriesRawInjected,
 } from '../thread-content-provider';
 import type { ContentItem, EraId, VideoNote } from '../types';
 import type { SearchDoc } from '../search-index';
@@ -35,16 +35,20 @@ import {
  * Runs `fn` with `inputs` installed in the experience core's module-global
  * providers (the seams `apps/web/lib/longlive/*` wires at import time), then
  * restores whatever was wired before, so a build never leaks or depends on the
- * caller's wiring. Providers without a data getter are restored from a snapshot
- * of what they returned. Synchronous only.
+ * caller's wiring. The original provider function references are restored, not
+ * data they returned. Synchronous only: an async callback throws (providers are
+ * still restored). Module-private by design; not exported from the package.
  */
-export function withProviders<T>(inputs: ReaderSnapshotInputs, fn: () => T): T {
+export function withProviders<T>(
+  inputs: ReaderSnapshotInputs,
+  fn: () => T extends PromiseLike<unknown> ? never : T,
+): T {
   const prev = {
     lookup: getContentItemLookup(),
-    thread: contentForThreadInjected(),
+    thread: getThreadContentProvider(),
     tracks: tracksRawProvider(),
-    theories: theoriesRawInjected(),
-    secrets: eraSecretsRawInjected(),
+    theories: getTheoriesRawProvider(),
+    secrets: getEraSecretsRawProvider(),
     song: getSongTargetResolver(),
     moods: defaultSongCatalogue(),
   };
@@ -57,13 +61,17 @@ export function withProviders<T>(inputs: ReaderSnapshotInputs, fn: () => T): T {
   setSongTargetResolver(songTargetOf);
   setDefaultSongCatalogue(inputs.songMoods);
   try {
-    return fn();
+    const result = fn();
+    if (typeof (result as { then?: unknown } | null)?.then === 'function') {
+      throw new Error('withProviders: the callback must be synchronous; providers are restored when it returns');
+    }
+    return result as T;
   } finally {
     setContentItemLookup(prev.lookup);
-    setThreadContentProvider(() => prev.thread);
+    setThreadContentProvider(prev.thread);
     setTracksRawProvider(prev.tracks);
-    setTheoriesRawProvider(() => prev.theories);
-    setEraSecretsRawProvider(() => prev.secrets);
+    setTheoriesRawProvider(prev.theories);
+    setEraSecretsRawProvider(prev.secrets);
     setSongTargetResolver(prev.song);
     setDefaultSongCatalogue(prev.moods);
   }
