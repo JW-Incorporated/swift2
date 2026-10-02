@@ -193,6 +193,11 @@ detected after the worker already launched file 5+; P2 tests don't assert
 launch counts). 2nd consecutive rejection → **Fable consulted (mandatory)**;
 PM leaning A = amend contract (≤cap extra discarded fetches) + launch-count
 test + scoped reviewer, no Codex r3.
+**14:21:** WP0.2 PR C → **#4816** (base feature/one-ui-wp0.2b; merged B fix
+e4772afe; warm-cache.ts SCHEMA_FINGERPRINT hand-bumped, test pins sha256 of
+schema.ts (#4800); memo per adapter+baseUrl+bundleVersion; single encode +
+single blob write; suite 8121; fingerprint 71afa3f3 = base). Codex r1 +
+reviewer r1 launched.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
