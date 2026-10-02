@@ -80,7 +80,7 @@ export interface ReaderSnapshotDomains {
 export type ReaderSnapshotDomainName = keyof ReaderSnapshotDomains;
 
 export interface ReaderSnapshot {
-  version: typeof READER_SNAPSHOT_VERSION;
+  version: number;
   state: ReaderSnapshotState;
   /** Where it came from. Provenance only: never hashed. */
   origin: { kind: 'baked' } | { kind: 'bundle'; bundleVersion: string };

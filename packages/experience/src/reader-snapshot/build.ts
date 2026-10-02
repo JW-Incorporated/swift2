@@ -4,13 +4,18 @@ import { eggDoorwaysForEra, threadDoorwaysForEra } from '../doorways';
 import { THREADS } from '../lenses';
 import { contentForThread } from '../threads';
 import { keepExploring, nextTrackOnAlbum, songTargetOf, trackKey } from '../track-guide';
-import { setContentItemLookup } from '../content-item-provider';
-import { setTracksRawProvider } from '../track-catalogue-provider';
+import { getContentItemLookup, setContentItemLookup } from '../content-item-provider';
+import { defaultSongCatalogue, setDefaultSongCatalogue } from '../song-catalogue-provider';
+import { setTracksRawProvider, tracksRawProvider } from '../track-catalogue-provider';
 import {
+  contentForThreadInjected,
+  eraSecretsRawInjected,
+  getSongTargetResolver,
   setEraSecretsRawProvider,
   setSongTargetResolver,
   setTheoriesRawProvider,
   setThreadContentProvider,
+  theoriesRawInjected,
 } from '../thread-content-provider';
 import type { ContentItem, EraId, VideoNote } from '../types';
 import type { SearchDoc } from '../search-index';
@@ -27,12 +32,22 @@ import {
 } from './types';
 
 /**
- * Installs `inputs` into the experience core's injected providers, the same
- * seams `apps/web/lib/longlive/*` wires at import time. The bundle path must
- * call this before `buildReaderSnapshot`; the web has already done it.
- * Global by design (the core's providers are module singletons).
+ * Runs `fn` with `inputs` installed in the experience core's module-global
+ * providers (the seams `apps/web/lib/longlive/*` wires at import time), then
+ * restores whatever was wired before, so a build never leaks or depends on the
+ * caller's wiring. Providers without a data getter are restored from a snapshot
+ * of what they returned. Synchronous only.
  */
-export function wireProviders(inputs: ReaderSnapshotInputs): void {
+export function withProviders<T>(inputs: ReaderSnapshotInputs, fn: () => T): T {
+  const prev = {
+    lookup: getContentItemLookup(),
+    thread: contentForThreadInjected(),
+    tracks: tracksRawProvider(),
+    theories: theoriesRawInjected(),
+    secrets: eraSecretsRawInjected(),
+    song: getSongTargetResolver(),
+    moods: defaultSongCatalogue(),
+  };
   const byId = new Map(inputs.content.map((c) => [c.id, c] as const));
   setContentItemLookup((id) => byId.get(id));
   setThreadContentProvider(() => inputs.content);
@@ -40,6 +55,18 @@ export function wireProviders(inputs: ReaderSnapshotInputs): void {
   setTheoriesRawProvider(() => inputs.theories);
   setEraSecretsRawProvider(() => inputs.eraSecrets);
   setSongTargetResolver(songTargetOf);
+  setDefaultSongCatalogue(inputs.songMoods);
+  try {
+    return fn();
+  } finally {
+    setContentItemLookup(prev.lookup);
+    setThreadContentProvider(() => prev.thread);
+    setTracksRawProvider(prev.tracks);
+    setTheoriesRawProvider(() => prev.theories);
+    setEraSecretsRawProvider(() => prev.secrets);
+    setSongTargetResolver(prev.song);
+    setDefaultSongCatalogue(prev.moods);
+  }
 }
 
 function groupContent(inputs: ReaderSnapshotInputs): Partial<Record<EraId, ContentItem[]>> {
@@ -49,10 +76,10 @@ function groupContent(inputs: ReaderSnapshotInputs): Partial<Record<EraId, Conte
 }
 
 /**
- * Ranking ties break on score then title, never on position, so doc order is
- * not meaningful; the bundle also regroups content by era where the web keeps
- * its own global order. Hashing the index as a set keeps that from reading as
- * divergence.
+ * The bundle regroups content by era, so it cannot reproduce the web's global
+ * `CONTENT` order (that order is VAULT_RAW's key order, not in the bundle).
+ * Ranking breaks ties on score, title, then key (search-index.ts), never on
+ * position, so the index is hashed in key order instead.
  */
 function sortedDocs(docs: SearchDoc[]): SearchDoc[] {
   const key = (d: SearchDoc) => d.key;
@@ -86,6 +113,15 @@ export function buildReaderSnapshot(
   deps: ReaderSnapshotDeps,
   origin: ReaderSnapshot['origin'],
   state: ReaderSnapshotState = 'ready',
+): ReaderSnapshot {
+  return withProviders(inputs, () => derive(inputs, deps, origin, state));
+}
+
+function derive(
+  inputs: ReaderSnapshotInputs,
+  deps: ReaderSnapshotDeps,
+  origin: ReaderSnapshot['origin'],
+  state: ReaderSnapshotState,
 ): ReaderSnapshot {
   const content = groupContent(inputs);
   const eraStream: ReaderSnapshotDomains['eraStream'] = {};

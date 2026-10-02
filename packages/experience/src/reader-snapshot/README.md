@@ -9,10 +9,13 @@ Import from `@swift2/experience/reader-snapshot` (deliberately not re-exported
 from the package root). Nothing imports it yet.
 
 - `fromBaked(mods, deps)`: web path. `mods` is the web's `apps/web/lib/longlive`
-  exports; assumes the web's provider wiring already ran.
-- `fromBundle(bundle, deps)`: app path, from a `loadBundle()` result. Installs
-  the bundle into the core's global providers first (`wireProviders`), because
-  threads, doorways and the track guide are derived through them.
+  exports; it wires those same inputs itself, not via the web's import chain.
+- `fromBundle(bundle, deps)`: app path, from a `loadBundle()` result.
+- Both go through `withProviders`, which installs the inputs into the core's
+  module-global providers (threads, doorways, track guide and the mood catalogue
+  read through them) for the duration of the build and restores the previous
+  ones in `finally`: no leak, no dependence on call order. Synchronous only.
+  Pure derivation over inputs, with no providers, is WP2.2's job.
 - `deps.eraVideoFeed`: pass `@swift2/content-enrichment`'s. It imports this
   package, so it cannot be imported back.
 - `hashSnapshot` / `diffSnapshots`: SHA-256 over canonical JSON (sorted keys,
@@ -23,13 +26,20 @@ from the package root). Nothing imports it yet.
   videos, doorways, render-ordered keys), theories, eraSecrets, threads,
   searchIndex, tracks, trackGuide, merch, songMoods.
 
-## Known by-design differences, normalised before hashing
+## Search ordering contract
 
-- The bundle regroups content by era; the web keeps one global `CONTENT`
-  order. `content` is grouped by era on both sides, and `searchIndex` is hashed
-  sorted by doc `key` (ranking ties break on score then title, never position).
+`searchDocs` ranks by score, then title, then doc `key` (unique), never by
+position in the index, so the result list and the per-type cap are identical
+whatever order the docs were built in. The bundle cannot reproduce the web's
+global `CONTENT` order (it is `VAULT_RAW`'s key order and the bundle regroups
+by era), so `searchIndex` is hashed in key order. Anything that makes ranking
+depend on index position again breaks this and must also change the hash.
+
+## Known by-design differences
+
+- `content` is grouped by era on both sides.
 - The bundle path builds the search index with `search-docs.ts`, a mirror of
-  the web's `buildSearchIndex()`. The equivalence test is what keeps them from
+  the web's `buildSearchIndex()`. The equivalence test keeps them from
   drifting; WP2.2 should make the web use this one.
 
 ## Not covered

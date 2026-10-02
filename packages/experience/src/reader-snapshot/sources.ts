@@ -9,7 +9,7 @@ import type {
 } from '@swift2/content';
 import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
 import type { SearchDoc } from '../search-index';
-import { buildReaderSnapshot, wireProviders } from './build';
+import { buildReaderSnapshot } from './build';
 import type { ReaderSnapshot, ReaderSnapshotDeps, ReaderSnapshotInputs, ReaderSnapshotState } from './types';
 
 /** The web's generated/derived modules (`apps/web/lib/longlive/*`), passed in so this package never imports app code. */
@@ -26,10 +26,7 @@ export interface BakedModules {
   getSearchIndex(): SearchDoc[];
 }
 
-/**
- * Web path. Assumes the web's provider wiring (`vault-wiring.ts`, imported by
- * the app) has already run, as it has for any reader render.
- */
+/** Web path. Reads the web's accessors, then wires those same inputs itself for the derived domains. */
 export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderSnapshot {
   const byEra = <T>(read: (id: EraId) => T) =>
     Object.fromEntries(mods.ERAS.map((e) => [e.id, read(e.id)])) as Partial<Record<EraId, T>>;
@@ -45,7 +42,7 @@ export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderS
     songMoods: mods.SONG_MOODS,
     searchIndex: mods.getSearchIndex(),
   };
-  return buildReaderSnapshot(inputs, deps, { kind: 'baked' });
+  return buildReaderSnapshot(inputs, deps, { kind: 'baked' }, 'ready');
 }
 
 /** The parts of `@swift2/content`'s `LoadedBundle` this path reads. */
@@ -64,16 +61,12 @@ function perEra<F extends { eraId: string }, T>(
   return Object.fromEntries((files ?? []).map((f) => [f.eraId, pick(f)])) as Partial<Record<EraId, T>>;
 }
 
-/**
- * App path: builds from a loaded D1 bundle. INSTALLS the bundle into the core's
- * global providers first (see `wireProviders`), as the mobile `*-data.ts`
- * loaders already do per domain.
- */
-export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshot {
+/** Normalises a loaded bundle's files to the snapshot inputs. */
+export function inputsFromBundle(bundle: BundleLike): ReaderSnapshotInputs {
   const f = bundle.files;
   const eras = (f.eras as Era[] | undefined) ?? [];
   const content = eras.flatMap((e) => (f[`content:${e.id}`] as ContentBundleFile | undefined)?.items ?? []);
-  const inputs: ReaderSnapshotInputs = {
+  return {
     eras,
     content: content as ContentItem[],
     milestones: (f.milestones as Milestone[] | undefined) ?? [],
@@ -84,7 +77,14 @@ export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): Reader
     merch: f.merch as MerchCatalogue,
     songMoods: (f.songMoods as SongMoodsBundleFile | undefined)?.songs ?? [],
   };
-  wireProviders(inputs);
+}
+
+/**
+ * App path: builds from a loaded D1 bundle. Providers are installed for the
+ * duration of the build only (`withProviders`).
+ */
+export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshot {
+  const inputs = inputsFromBundle(bundle);
   const state: ReaderSnapshotState = bundle.source === 'offline-last-good' ? 'offline' : bundle.stale ? 'stale' : 'ready';
   return buildReaderSnapshot(inputs, deps, { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion }, state);
 }

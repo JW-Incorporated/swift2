@@ -43,6 +43,11 @@ export function setSongTargetResolver(fn: SongTargetResolver): void {
   songTargetResolver = fn;
 }
 
+/** The currently wired resolver, so a scoped caller (reader-snapshot) can restore it. */
+export function getSongTargetResolver(): SongTargetResolver {
+  return songTargetResolver;
+}
+
 export function songTargetInjected(relatedId: string): SongTarget | null {
   return songTargetResolver(relatedId);
 }

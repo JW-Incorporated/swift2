@@ -9,7 +9,13 @@ import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { diffSnapshots, hashSnapshot } from './hash';
-import { fromBaked, fromBundle, type BakedModules, type BundleLike } from './sources';
+import { fromBaked, fromBundle, inputsFromBundle, type BakedModules, type BundleLike } from './sources';
+import { withProviders } from './build';
+import { getContentItemLookup } from '../content-item-provider';
+import { defaultSongCatalogue } from '../song-catalogue-provider';
+import { matchMoods } from '../mood-match';
+import { tracksRawProvider } from '../track-catalogue-provider';
+import { contentForThreadInjected, eraSecretsRawInjected, getSongTargetResolver, theoriesRawInjected } from '../thread-content-provider';
 import type { ReaderSnapshot, ReaderSnapshotDeps } from './types';
 
 const deps: ReaderSnapshotDeps = { eraVideoFeed };
@@ -18,6 +24,7 @@ const scripts = '../../../../scripts/';
 
 let outRoot: string;
 let bundle: BundleLike;
+let mods: BakedModules;
 let baked: ReaderSnapshot;
 let fromFiles: ReaderSnapshot;
 
@@ -61,8 +68,8 @@ beforeAll(async () => {
   const { writeBundle } = await import(/* @vite-ignore */ `${scripts}build-content-bundle.mjs`);
   const { dir } = await writeBundle({ outRoot, resync: false });
   bundle = await readBundle(dir);
-  // Baked first: fromBundle re-wires the core's global providers to the bundle.
-  baked = fromBaked(await loadBakedModules(), deps);
+  mods = await loadBakedModules();
+  baked = fromBaked(mods, deps);
   fromFiles = fromBundle(bundle, deps);
 }, 240_000);
 
@@ -91,7 +98,6 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
     const names = await diffSnapshots(baked, diverged);
     expect(names).toContain('theories');
     expect(names).not.toContain('milestones');
-    fromBundle(bundle, deps); // restore the providers for later tests
   });
 
   it('carries version and state; state and origin never change the hash', async () => {
@@ -100,5 +106,57 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
     const stale = fromBundle({ ...bundle, stale: true }, deps);
     expect(stale.state).toBe('stale');
     expect((await hashSnapshot(stale)).hash).toBe((await hashSnapshot(fromFiles)).hash);
+  });
+
+  it('is not vacuous: threads and era streams are populated', () => {
+    const { threads, eraStream } = baked.domains;
+    expect(threads.length).toBeGreaterThan(0);
+    expect(threads.some((t) => t.itemIds.length > 0)).toBe(true);
+    const streams = Object.values(eraStream);
+    expect(streams.length).toBeGreaterThan(0);
+    expect(streams.every((e) => e!.entries.length > 0)).toBe(true);
+  });
+
+  it('is independent of call order', async () => {
+    const bundleFirst = fromBundle(bundle, deps);
+    const bakedSecond = fromBaked(mods, deps);
+    expect((await hashSnapshot(bundleFirst)).hash).toBe((await hashSnapshot(fromFiles)).hash);
+    expect((await hashSnapshot(bakedSecond)).hash).toBe((await hashSnapshot(baked)).hash);
+  });
+
+  it('leaves the module-global providers as it found them', () => {
+    const snap = () => [
+      getContentItemLookup(),
+      contentForThreadInjected(),
+      tracksRawProvider(),
+      theoriesRawInjected(),
+      eraSecretsRawInjected(),
+      getSongTargetResolver(),
+      defaultSongCatalogue(),
+    ];
+    const before = snap();
+    fromBundle(bundle, deps);
+    expect(snap()).toEqual(before);
+    snap().forEach((v, i) => expect(v).toBe(before[i]));
+    fromBaked(mods, deps);
+    snap().forEach((v, i) => expect(v).toBe(before[i]));
+  });
+
+  it('does not let a diverged bundle bleed into later builds', async () => {
+    type TheoryFiles = { theories: { title: string }[] }[];
+    const files = structuredClone(bundle.files);
+    const era = (files.theories as TheoryFiles).find((f) => f.theories.length > 0)!;
+    era.theories[0]!.title = 'bleed';
+    fromBundle({ ...bundle, files }, deps);
+    expect((await hashSnapshot(fromBaked(mods, deps))).hash).toBe((await hashSnapshot(baked)).hash);
+    expect((await hashSnapshot(fromBundle(bundle, deps))).hash).toBe((await hashSnapshot(fromFiles)).hash);
+  });
+
+  it('wires the bundle song catalogue while building (matchMoods default catalogue)', () => {
+    const query = { moods: { heartbreak: 1 } };
+    const expected = matchMoods(query, { catalogue: mods.SONG_MOODS }).map((m) => m.slug);
+    expect(expected.length).toBeGreaterThan(0);
+    const got = withProviders(inputsFromBundle(bundle), () => matchMoods(query).map((m) => m.slug));
+    expect(got).toEqual(expected);
   });
 });

@@ -1,5 +1,4 @@
 import type { ReaderSnapshot, ReaderSnapshotDomainName } from './types';
-import { READER_SNAPSHOT_VERSION } from './types';
 
 /**
  * Canonical JSON: object keys sorted, `undefined` object members dropped
@@ -58,7 +57,7 @@ export async function hashSnapshot(snapshot: ReaderSnapshot): Promise<ReaderSnap
   const names = Object.keys(snapshot.domains).sort() as ReaderSnapshotDomainName[];
   const entries = await Promise.all(names.map(async (n) => [n, await hashValue(snapshot.domains[n])] as const));
   const domains = Object.fromEntries(entries) as Record<ReaderSnapshotDomainName, string>;
-  const hash = await hashValue({ version: READER_SNAPSHOT_VERSION, domains });
+  const hash = await hashValue({ version: snapshot.version, domains });
   return { hash, domains };
 }
 
