@@ -444,7 +444,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     // first failing file in manifest order decides the error. We never await
     // fetches past a decisive failure (a hung one must not block the fallback);
     // their results are discarded and nothing they do is written.
-    const bodies = mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
+    const { slots, stop } = mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
       const endDownload = beginStage('download', name);
       const fileRes = await transportFetch(
         fetchImpl,
@@ -457,44 +457,48 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       endDownload();
       return body;
     });
-    for (const [i, [name, entry]] of wanted.entries()) {
-      const settled = await bodies[i]!;
-      if (!settled.ok) throw settled.error;
-      const text = settled.value;
-      const endHash = beginStage('hash', name);
-      const bytes = new TextEncoder().encode(text);
-      const byteLength = bytes.length;
-      if (byteLength !== entry.bytes) {
-        throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
+    try {
+      for (const [i, [name, entry]] of wanted.entries()) {
+        const settled = await slots[i]!;
+        if (!settled.ok) throw settled.error;
+        const text = settled.value;
+        const endHash = beginStage('hash', name);
+        const bytes = new TextEncoder().encode(text);
+        const byteLength = bytes.length;
+        if (byteLength !== entry.bytes) {
+          throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
+        }
+        const actualHash = await createHash(bytes);
+        if (actualHash !== entry.sha256) {
+          throw new BundleIntegrityError(
+            name,
+            `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
+          );
+        }
+        endHash();
+        const schema = schemaForManifestEntry(name);
+        const endParse = beginStage('parse', name);
+        const json: unknown = JSON.parse(text);
+        endParse();
+        const endValidate = beginStage('validate', name);
+        const result = validateEntry(schema, json, dropUnknown);
+        endValidate();
+        if (result.kind === 'invalid') {
+          throw new BundleIntegrityError(
+            name,
+            `schema validation failed: ${JSON.stringify(result.issues)}`,
+          );
+        }
+        if (result.kind === 'drop-file') {
+          pruned = true;
+          skipped.push(name);
+        } else {
+          if (result.removed > 0) pruned = true;
+          files[name] = result.data;
+        }
       }
-      const actualHash = await createHash(bytes);
-      if (actualHash !== entry.sha256) {
-        throw new BundleIntegrityError(
-          name,
-          `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
-        );
-      }
-      endHash();
-      const schema = schemaForManifestEntry(name);
-      const endParse = beginStage('parse', name);
-      const json: unknown = JSON.parse(text);
-      endParse();
-      const endValidate = beginStage('validate', name);
-      const result = validateEntry(schema, json, dropUnknown);
-      endValidate();
-      if (result.kind === 'invalid') {
-        throw new BundleIntegrityError(
-          name,
-          `schema validation failed: ${JSON.stringify(result.issues)}`,
-        );
-      }
-      if (result.kind === 'drop-file') {
-        pruned = true;
-        skipped.push(name);
-      } else {
-        if (result.removed > 0) pruned = true;
-        files[name] = result.data;
-      }
+    } finally {
+      stop();
     }
   } catch (err) {
     return fallbackOrRethrow(
