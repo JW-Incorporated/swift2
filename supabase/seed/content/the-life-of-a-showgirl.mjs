@@ -8993,23 +8993,6 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Rumor Desk (Vault Run 2026-10-02, intake #4809): a forward-looking,
-        // adjudicable awards-season claim — admitted as unconfirmed, never
-        // woven into the confirmed narrative above. No location/redline content
-        // (RR4-clean: no redline-category phrase in `claim`).
-        rumors: [
-          {
-            claim:
-              'The entertainment trade The Ankler argued in an Oct. 1, 2026 piece, "Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight," that Taylor is quietly mounting an awards-season campaign — anchored by "I Knew It, I Knew You" as a Best Original Song contender and reinforced by the A-list, Emmanuel Lubezki-shot "Patient Zero" video and her inaugural VMA Artist Director Honor — without ever announcing one. No Oscar campaign, submission, or nomination has been confirmed by Taylor, her team, or the Academy.',
-            reportedBy: 'The Ankler',
-            reportedOn: '2026-10-01',
-            status: 'unconfirmed',
-            url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
-            note: 'Industry-trade analysis of her awards-season strategy, not an official statement — corroborated by IndieWire (established) and repackaged by Yahoo and heavy.com (tabloid). Forward-looking and adjudicable: resolves if/when she pursues or lands a Best Original Song nomination for the 99th Oscars (submission deadline Oct. 14, 2026; nominations Jan. 21, 2027), and fades if the awards run goes quiet. No location or redline content.',
-            sourceTier: 'established',
-            lastCheckedOn: '2026-10-02',
-          },
-        ],
         // Photo pass #762 run 9 (2026-07-18): page had zero photos. Official
         // music video id hDU4GB1PTxc verified via YouTube oEmbed against
         // @TaylorSwift this session ("Taylor Swift - I Knew It, I Knew You
@@ -9070,6 +9053,21 @@ export default {
             note: 'A ballot campaign, not a nomination. Recheck 2026-08-13 (Tennessean\'s Bryan West, via Yahoo): it cleared the write-in round — "I Knew It, I Knew You" advanced to the CMA second ballot for Single of the Year, one of 22 recordings vying for five nominations (voting through Aug. 17). Real momentum, still not a nomination, so unconfirmed. Resolves when official nominees are named.',
             sourceTier: 'established',
             lastCheckedOn: '2026-08-13',
+          },
+          {
+            // Rumor Desk (Vault Run 2026-10-02, intake #4809): the newest beat on
+            // the same awards thread — a broader "she's running a quiet Oscar
+            // campaign" thesis, distinct from the Billboard Best-Original-Song
+            // handicapping above. Adjudicable, no location/redline (RR4-clean).
+            claim:
+              'The entertainment trade The Ankler argued in an Oct. 1, 2026 piece, "Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight," that Taylor is quietly mounting an awards-season campaign — anchored by "I Knew It, I Knew You" as a Best Original Song contender and reinforced by the A-list, Emmanuel Lubezki-shot "Patient Zero" video and her inaugural VMA Artist Director Honor — without ever announcing one. No Oscar campaign, submission, or nomination has been confirmed by Taylor, her team, or the Academy.',
+            reportedBy: 'The Ankler',
+            reportedOn: '2026-10-01',
+            status: 'unconfirmed',
+            url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
+            note: 'Industry-trade analysis of her awards-season strategy, not an official statement — corroborated by IndieWire (established) and repackaged by Yahoo and heavy.com (tabloid). Forward-looking and adjudicable: resolves if/when she pursues or lands a Best Original Song nomination for the 99th Oscars (submission deadline Oct. 14, 2026; nominations Jan. 21, 2027), and fades if the awards run goes quiet. No location or redline content.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-10-02',
           },
         ],
       },
