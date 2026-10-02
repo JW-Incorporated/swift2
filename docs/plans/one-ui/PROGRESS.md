@@ -24,7 +24,7 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 | WP | State | PR | Notes |
 |---|---|---|---|
-| 0.0 | in review | #4792 | +36/-1; Codex review running, then reviewer. Open: EAS run not auto-cancelled on GH timeout (documented); `eas workflow:runs --limit` flag unverified |
+| 0.0 | in review (round 1 changes) | #4792 | Codex REQUEST CHANGES: (H) job timeout can cancel the summary step — reserve time / separate `needs` report job; (H) hung path has no reliable run URL — launch without `--wait`, persist run id/URL, then wait by id; (L) rollback 15 min tight. Fix queued for next free slot (resume WP0.0 executor), then Codex round 2 + reviewer |
 | 0.1 | in progress | | executor |
 | 0.2 | blocked on S1 | | |
 | 0.3 | in progress | | executor |
@@ -52,6 +52,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 |---|---|---|---|
 | 2026-10-02 | Plan review (pre-kickoff) | Blocker: no CORS on `/content`; watchdog too late; missing native-needs audit; `next/font` breaks parity; PROGRESS landing, kickoff prompt, OTA freeze undefined | All five required edits and the minor notes adopted (WP0.3b, WP0.4b, needs matrix, fonts in WP2.1, OPERATING-MODE §3/§6/§8 kickoff, `[diag]` → one issue, perceptual diff, OTA size budget) |
 
+| 2026-10-02 | Pre-launch review of WP0.3b + WP0.4 briefs | 0.3b: bridge-serializable `ApiFetch` ({method,path,headers,body:string}); strip non-safelisted request headers (no preflight); expose ETag only if read; no `Vary: Origin`; curl the Vercel preview on `www.`. 0.4: must-add = any WP through G5; add orientation/tablet, splash-hold, web-browser, inline media, X4 prereqs, fonts, webview version rows; name DOM ready/crash/imperative mechanisms + release origin/IndexedDB persistence; test page proves `onReady` + crash callbacks in S3; store build only if fingerprint diff non-empty; Fable signs matrix at the stage 1→2 boundary instead of post-impl | All 12 REQUIRED adopted; 0.4 Stage 1 launched first (critical path), 0.3b next free slot |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
@@ -66,3 +67,5 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 - 2026-10-02 — Programme planned; awaiting kickoff.
 - 2026-10-02 — Kickoff. PM worktree created; WP0.0, WP0.1, WP0.3 launched.
 - 2026-10-02 — WP0.0 PR #4792 opened (yaml-lint pass); Codex review launched.
+- 2026-10-02 — Fable reviewed 0.3b/0.4 briefs (12 required edits adopted). WP0.4 Stage 1 researcher launched. Codex round 1 on #4792: REQUEST CHANGES (fix queued; cap is 3 agents).
+- Queue for free slots, in order: (a) WP0.0 fix (resume executor) → Codex round 2; (b) WP0.3b executor with Fable edits 1–6 (brief in PM scratch `briefs-0.3b-0.4.md` + Fable log row); (c) Fable signs the WP0.4 matrix when Stage 1 returns.
