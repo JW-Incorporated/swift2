@@ -339,6 +339,13 @@ unchanged). 0.5b told to merge it. Codex r2 on #4818 launched; reviewer r1 on
 on head; fingerprint proof for the `main` change not in docs/PR body. PM:
 the fix-round push (non-bot) triggers a real PR run; add the dcf1ea59
 before/after line. Bundle with Codex r1 on #4819 (next slot).
+**14:53:** #4817 reviewer r2 = APPROVE (CI all green). Codex r2 = REQUEST
+CHANGES (P2: only newest 6 groups scanned; EAS push trigger can publish ≥6
+newer groups during the wait → false "None published") → 2nd consecutive →
+**Fable (mandatory)**; PM proposal: scan ≤20 groups within budget, honest
+"lookup incomplete" wording, scoped reviewer, no Codex r3. Codex r1 on #4819
+running (job not in the Swift2 state dir — read via relay); #4818 r2 job
+task-murhzvkg-7tilc6 "not found" in companion → relay agent will report.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
