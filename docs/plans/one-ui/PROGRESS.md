@@ -74,6 +74,19 @@ warm short-circuit + memo + single encode/write (<250, after #4796) · **D**
 only if [diag] says so. PM call: build A now (merge waits for freeze anyway;
 S1 measures the old build) → executor `feature/one-ui-wp0.2a` launched.
 B/C wait for #4796 to merge. S2 measures after A–C.
+**14:03:** WP1.1 research back. Recipe: `expo export --platform web` of a
+harness entry ('use dom' renders as-is on web; reuses WP0.4 Metro/Tailwind) —
+unproven; Playwright 1.63 descriptors Pixel 7 / iPhone 15 / iPad Pro 11 (+
+landscape); toHaveScreenshot (threshold ~0.2, maxDiffPixelRatio ~0.002) for
+baselines + pixelmatch includeAA:false for a-vs-b; negative spec (4px shift +
+colour) and blur-passes case; Linux-only baselines + manual update workflow;
+clock/reducedMotion/page.route stubs; fonts must match (WP2.1 recapture);
+size check = sum dist JS + www.bundle vs committed baseline, +15% fails;
+est. 6–8 min. PM calls: gate on BOTH a-vs-b and baseline; routes = WP0.5
+spike routes (a-vs-b hollow until then); split **1.1a** OTA size check (now,
+next free slot) · **1.1b** web-export spike (scratch, launched 14:03) ·
+**1.1c** harness (after WP0.5; Fable brief review first). Open: apps/web
+needs a fixture mode for (a) — resolve in 1.1c brief.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
