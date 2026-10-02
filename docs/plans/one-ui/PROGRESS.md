@@ -34,6 +34,24 @@ filter widened; fingerprint dcf1ea59 line in body+docs); PM spot-check: run
 37077115019 pull_request = success on dc79e754. Scoped reviewer r2 = APPROVE
 → **#4819 APPROVED**, held: lands after #4811 (add as step 6b below: retarget
 to main after #4811, then auto-merge). WP1.1 stays PARTIAL until part 2.
+**16:52:** Owner raised agent cap 3→5 (root CLAUDE.md commit 68e028d, local-only
+repo; Swift2 hook + OPERATING-MODE §5 via grunt PR). #4822 r2: scoped
+reviewer = all 6 resolved, one nit (wp0.5.md:3 fingerprint 3603a03f → dcf1ea59)
+→ PM: approve-with-nit; Codex r2 `task-murlnx3a-vf2h2l` pending. WP1.1c part 2
+executor launched (wt `wt-wp11c2`, branch feature/one-ui-wp1.1c-2, base wp0.5b
+merged with wp1.1c). Read-only pre-research launched: WP2.1, WP2.3.
+**16:54:** WP2.3 prep back. Protocol: envelope {v,id,kind cmd|res|evt,type,
+payload,ts}; typed union in packages/ui/src/bridge; native declares {min,max},
+DOM sends v in ready → out of range = pre-ready error → watchdog strike; unknown
+type → error 'unsupported' (add-only); every cmd one res, 8s default timeout,
+api cancellable; pre-ready commands queue (notification-tap nav held till
+ready). Replace backTick-style counters with a seq event queue. **/api sites = 9
+fetches / 7–8 endpoints** (ClownChat:168, CurrentItemDetail:65,
+FeedbackButton:159, MoodChat:63, SubmitLinkForm:122, WebNotificationSettings
+:96,:113, web-push-client:110,:150) — PLAN says 7, reconcile in WP2.3 brief.
+Split A types · B host dispatcher+watchdog · C DOM client+contract test · D
+navigate/openExternal/share/haptic/insets/back · E notifications+tap queue ·
+F api proxy (needs WP0.3b merged). No auth/session in the bridge.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
