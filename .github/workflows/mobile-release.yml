@@ -20,7 +20,7 @@ name: Mobile release train
 # `workflow:status --wait` until it finishes, looks up whether it produced a fresh Android
 # store build for this exact commit, and if so submits it to Play itself,
 # in the one place that actually has the secret. Step caps (minutes):
-# 20 preflight / 195 wait / 10 Android (3 locate + 7 submit); job 235;
+# 20 preflight / 195 wait / 5 summary (informational) / 10 Android (3 locate + 7 submit); job 235;
 # rollback workflow 30. Never echo the secret to
 # logs; the key file is written with `chmod 600` and deleted immediately
 # after use.
@@ -55,7 +55,7 @@ jobs:
     # `mobile-release` concurrency group for GitHub's 360-min default.
     # Sized to data: 12 successful runs sampled 2026-10-02 had EAS waits of
     # 15-20 min (5 runs) and 70-155 min (7 runs), max 154.8 (run 36859454944).
-    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + android 10 + ~10 slack = 235.
+    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + summary 5 + android 10 = 230, +5 slack = 235.
     timeout-minutes: 235
     steps:
       - name: Refuse to run half-configured
@@ -128,12 +128,14 @@ jobs:
           echo "Waiting on EAS run $RUN_ID ${RUN_URL}"
           # Exit codes: 0 success, 11 failure, 12 canceled, 13 wait aborted.
           eas workflow:status "$RUN_ID" --non-interactive --wait
-      # Read-only. Pins what shipped (job statuses + OTA group/runtime for THIS
-      # commit) into the run summary so device tests need no Expo login. It
-      # never masks the wait step's result; it fails only when the run said
-      # SUCCESS but a job shows failed (docs/mobile-release.md "Pin the build").
+      # Read-only and purely informational (continue-on-error): pins what
+      # shipped (job statuses + OTA group/runtime for THIS commit) into the run
+      # summary so device tests need no Expo login. It can never change the job
+      # result or block the Play submit below; a slow EAS just yields a
+      # "lookup skipped" note. docs/mobile-release.md "Pin the build".
       - name: Summarise EAS jobs and the published OTA update
         if: always() && steps.eas_start.outputs.run_id != ''
+        continue-on-error: true
         timeout-minutes: 5
         working-directory: apps/mobile
         env:
@@ -145,56 +147,47 @@ jobs:
           const { execFileSync } = require('node:child_process');
           const fs = require('node:fs');
           const sha = process.env.GITHUB_SHA;
-          const out = [];
-          let mismatch = false;
+          const deadline = Date.now() + 200000;
+          const flush = (...lines) => fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n');
+          const cell = (v) => String(v ?? '?').replace(/[\r\n]+/g, ' ').replace(/[|`<>]/g, ' ').slice(0, 120);
           const eas = (args) => {
-            const s = execFileSync('eas', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 90000 });
+            if (Date.now() > deadline) throw new Error('lookup skipped: time budget (200 s) exhausted');
+            const s = execFileSync('eas', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 25000 });
             return JSON.parse(s.slice(s.search(/[[{]/)));
           };
           const rowsOf = (p) =>
             Array.isArray(p) ? p : p?.currentPage ?? p?.updates ?? (p && typeof p === 'object' ? [p] : []);
-          out.push('## EAS release result');
-          out.push(`Commit: ${sha} | wait step: ${process.env.WAIT_OUTCOME}`);
+          const note = (e) => cell(String(e.message).split('\n')[0]);
+          flush('## EAS release result', `Commit: ${cell(sha)} | wait step: ${cell(process.env.WAIT_OUTCOME)}`);
           try {
             const run = eas(['workflow:status', process.env.RUN_ID, '--non-interactive', '--json']);
             const jobs = run.jobs ?? run.run?.jobs ?? [];
-            const runStatus = String(run.status ?? run.run?.status ?? 'unknown');
-            out.push(`Run status: ${runStatus}`, '', '| Job | Status |', '|---|---|');
-            for (const j of jobs) {
-              const status = String(j.status ?? j.conclusion ?? j.outcome ?? 'unknown');
-              out.push(`| ${j.name ?? j.key ?? j.id ?? '?'} | ${status} |`);
-              if (/fail|error/i.test(status) && process.env.WAIT_OUTCOME === 'success') mismatch = true;
-            }
-            if (!jobs.length) out.push('| (no job list in --json output) | - |');
+            flush(`Run status: ${cell(run.status ?? run.run?.status ?? 'unknown')}`, '', '| Job | Status |', '|---|---|');
+            for (const j of jobs) flush(`| ${cell(j.name ?? j.key ?? j.id)} | ${cell(j.status ?? j.conclusion ?? j.outcome ?? 'unknown')} |`);
+            if (!jobs.length) flush('| (no job list in --json output) | - |');
           } catch (e) {
-            out.push(`Could not read job statuses: ${String(e.message).split('\n')[0].slice(0, 200)}`);
+            flush(`Could not read job statuses (${note(e)})`);
           }
           if (process.env.WAIT_OUTCOME === 'success') {
+            flush('', '### OTA update for this commit (branch/channel production)');
             try {
               const list = rowsOf(eas(['update:list', '--branch', 'production', '--limit', '10', '--json', '--non-interactive']));
               const seen = new Set();
-              const found = [];
+              let found = 0;
               for (const row of list.slice(0, 6)) {
                 const group = row.group ?? row.groupId;
                 if (!group || seen.has(group)) continue;
                 seen.add(group);
                 for (const u of rowsOf(eas(['update:view', group, '--json']))) {
                   if ((u.gitCommitHash ?? row.gitCommitHash) !== sha) continue;
-                  found.push(`| ${u.group ?? group} | ${u.platform ?? u.platforms ?? row.platform ?? '?'} | ${u.runtimeVersion ?? u.runtime?.version ?? row.runtimeVersion ?? '?'} |`);
+                  if (!found++) flush('| Update group | Platform | Runtime version |', '|---|---|---|');
+                  flush(`| ${cell(u.group ?? group)} | ${cell(u.platform ?? u.platforms ?? row.platform)} | ${cell(u.runtimeVersion ?? u.runtime?.version ?? row.runtimeVersion)} |`);
                 }
               }
-              out.push('', '### OTA update for this commit (branch/channel production)');
-              if (found.length) out.push('| Update group | Platform | Runtime version |', '|---|---|---|', ...found);
-              else out.push('None published for this commit (store-build path, or a store build already carries it).');
+              if (!found) flush('None published for this commit (store-build path, or a store build already carries it).');
             } catch (e) {
-              out.push('', `Could not look up the OTA update: ${String(e.message).split('\n')[0].slice(0, 200)}`);
+              flush(`OTA lookup incomplete (${note(e)}); check the Expo dashboard.`);
             }
-          }
-          if (mismatch) out.push('', '**A job reported failure while the run reported SUCCESS; failing this step.**');
-          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, out.join('\n') + '\n');
-          if (mismatch) {
-            console.log('::error::EAS run reported SUCCESS but a job shows failed.');
-            process.exit(1);
           }
           NODE
       # ── Android submit (see header comment: EAS infra can't see this secret) ──

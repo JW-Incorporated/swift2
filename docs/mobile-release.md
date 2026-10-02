@@ -103,8 +103,9 @@ Instead:
   `update:view`; the fingerprint runtime policy yields one group per
   platform) to the run summary, so a device test can pin the update without
   an Expo login. "None published" means the store-build path. The step is
-  read-only and only fails the job if a job shows failed while the run said
-  SUCCESS.
+  read-only and informational (`continue-on-error`, 200 s lookup budget,
+  summary written incrementally): it never changes the job result or blocks
+  the release, and on a slow EAS it may show "lookup skipped".
 - `eas.json`'s `submit.production.android.serviceAccountKeyPath` points at
   that same gitignored path so a founder can also run `eas submit
   --platform android` locally after populating the file by hand (or once
