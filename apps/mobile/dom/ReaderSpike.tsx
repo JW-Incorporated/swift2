@@ -4,7 +4,7 @@
 // DOM host. The webview is READ-ONLY over the native disk cache: the host
 // passes a file:// URI + version token (config, not content, C6); the bundle is
 // read here, turned into a ReaderSnapshot with packages/content (C6), poured
-// into the shims, and only THEN are the web components imported (their
+// into the shims, and only THEN are the web components required (their
 // module-level constants derive from the filled arrays).
 import './reader-spike.css';
 import { useEffect, useRef, useState, type ComponentType } from 'react';
@@ -12,6 +12,7 @@ import { eraVideoFeed } from '@swift2/content-enrichment';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
 import { describeSnapshot, snapshotFromEnvelope } from './spike/snapshot';
+import { fill } from './spike/shims/fill';
 import { installStorageShim } from './spike/storage-shim';
 import { loadReader, type ReaderProps } from './spike/reader-modules';
 
@@ -98,9 +99,8 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
         const { snapshot, version } = snapshotFromEnvelope(text, { eraVideoFeed });
         probe.report.version = version;
         probe.report.snapshot = await describeSnapshot(snapshot);
-        const { fill } = await import('./spike/shims/fill');
         fill(snapshot);
-        const reader = await loadReader();
+        const reader = loadReader();
         setReader(() => reader);
         void checkMarkers(version, probe);
       } catch (e) {
