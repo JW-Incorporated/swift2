@@ -24,6 +24,7 @@ export const ROUTE_FLAG_KEYS = [
   'song',
   'moment',
   'clownbot',
+  'sharedUi',
 ] as const;
 
 export type RouteFlagKey = (typeof ROUTE_FLAG_KEYS)[number];

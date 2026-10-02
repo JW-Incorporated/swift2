@@ -69,6 +69,8 @@ import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
+import { SharedUiHost } from './components/SharedUiHost';
+import { lockPhonesToPortrait } from './lib/orientation-lock';
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -228,6 +230,9 @@ export default function App() {
   routeFlagsRef.current = routeFlags;
   const [updateRequired, setUpdateRequired] = useState(false);
   useEffect(() => {
+    void lockPhonesToPortrait();
+  }, []);
+  useEffect(() => {
     let cancelled = false;
     loadAppConfig().then((config) => {
       if (cancelled) return;
@@ -359,6 +364,8 @@ export default function App() {
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
+          ) : routeFlags.sharedUi ? (
+            <SharedUiHost onSignal={(stage, detail) => console.log(`[dom] ${stage}`, detail ?? '')} />
           ) : screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
