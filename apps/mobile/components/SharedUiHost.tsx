@@ -1,6 +1,6 @@
 // One UI WP0.4: native host for the 'use dom' test page. Records the watchdog
 // signals (launch attempted / ready / DOM-side errors / webview process death)
-// through `onSignal`; WP0.4b adds persistence and timeouts on top of these.
+// through `onSignal`; WP0.4b persistence + timeouts consume these via `watch`.
 // Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the
 // expo wrapper's auto-reload, so this host reloads itself — at most
 // MAX_CRASH_RELOADS times, then it shows a static message instead of looping.
@@ -8,12 +8,22 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, StyleSheet, Text, View } from 'react-native';
 import SharedUiTest from '../dom/SharedUiTest';
 import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
+import type { DomFailureMode } from '../lib/watchdog';
+import type { DomWatch } from '../lib/watchdog-gate';
 
 interface DomRef {
   reload?: () => void;
 }
 
-export function SharedUiHost({ onSignal }: { onSignal: DomSignal }) {
+export function SharedUiHost({
+  onSignal,
+  watch,
+  forceFailure,
+}: {
+  onSignal: DomSignal;
+  watch: DomWatch;
+  forceFailure: DomFailureMode;
+}) {
   const ref = useRef<DomRef>(null);
   const [failed, setFailed] = useState(false);
 
@@ -25,6 +35,7 @@ export function SharedUiHost({ onSignal }: { onSignal: DomSignal }) {
     () =>
       createDomHostHandlers({
         onSignal,
+        watch,
         reload: () => ref.current?.reload?.(),
         onGiveUp: () => setFailed(true),
         isAppActive: () => AppState.currentState === 'active',
@@ -56,6 +67,7 @@ export function SharedUiHost({ onSignal }: { onSignal: DomSignal }) {
         }}
         onReady={handlers.onReady}
         reportError={handlers.reportError}
+        forceFailure={forceFailure}
       />
     </View>
   );

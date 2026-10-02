@@ -65,3 +65,24 @@ describe('sharedUiActive', () => {
     expect(sharedUiActive(false, true)).toBe(true);
   });
 });
+
+describe("watchdog forwarding", () => {
+  it("forwards ready, error and crash events to the watch sink", async () => {
+    const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn() };
+    const h = createDomHostHandlers({
+      onSignal: vi.fn(),
+      reload: vi.fn(),
+      onGiveUp: vi.fn(),
+      isAppActive: () => true,
+      onceFocused: () => {},
+      watch,
+    });
+    await h.onReady();
+    await h.reportError("bad");
+    h.onContentProcessDidTerminate();
+    h.onRenderProcessGone();
+    expect(watch.ready).toHaveBeenCalledTimes(1);
+    expect(watch.error).toHaveBeenCalledWith("bad");
+    expect(watch.crashed.mock.calls).toEqual([["terminated"], ["render-gone"]]);
+  });
+});

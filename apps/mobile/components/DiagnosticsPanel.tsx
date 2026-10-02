@@ -5,16 +5,28 @@ import { useEffect, useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
-import { getForceSharedUi, setForceSharedUi } from '../lib/diagnostics-override';
+import {
+  getForceDomFailure,
+  getForceSharedUi,
+  setForceDomFailure,
+  setForceSharedUi,
+} from '../lib/diagnostics-override';
 import { sendDiagReport } from '../lib/diagnostics-send';
+import { watchdogLines, type DomFailureMode, type WatchdogRecord } from '../lib/watchdog';
+import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const [forceShared, setForceShared] = useState(false);
+  const [failMode, setFailMode] = useState<DomFailureMode>('off');
+  const [wd, setWd] = useState<WatchdogRecord | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (visible) void getForceSharedUi().then(setForceShared);
+    if (!visible) return;
+    void getForceSharedUi().then(setForceShared);
+    void getForceDomFailure().then(setFailMode);
+    void loadWatchdogRecord().then(setWd);
   }, [visible]);
 
   if (!visible) return null;
@@ -32,6 +44,15 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   function toggle(on: boolean) {
     setForceShared(on);
     void setForceSharedUi(on);
+    if (on) {
+      setWd(null);
+      void clearWatchdogRecord();
+    }
+  }
+
+  function pickFailMode(mode: DomFailureMode) {
+    setFailMode(mode);
+    void setForceDomFailure(mode);
   }
 
   return (
@@ -60,6 +81,26 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
             <Text style={styles.fact}>Force shared UI (this device)</Text>
             <Switch value={forceShared} onValueChange={toggle} />
           </View>
+          <Text style={styles.fact}>Force DOM failure (applies next launch)</Text>
+          <View style={styles.modeRow}>
+            {(['off', 'throw', 'hang'] as const).map((mode) => (
+              <Pressable
+                key={mode}
+                onPress={() => pickFailMode(mode)}
+                accessibilityRole="button"
+                accessibilityState={{ selected: failMode === mode }}
+                style={[styles.modeBtn, failMode === mode && styles.modeBtnOn]}
+              >
+                <Text style={styles.modeText}>{mode}</Text>
+              </Pressable>
+            ))}
+          </View>
+          <Text style={styles.section}>Watchdog</Text>
+          {watchdogLines(wd).map((line) => (
+            <Text key={line} style={styles.fact}>
+              {line}
+            </Text>
+          ))}
           <Pressable onPress={send} style={styles.button} accessibilityRole="button">
             <Text style={styles.buttonText}>
               {status === 'sending' ? 'Sending…' : 'Send report'}
@@ -94,6 +135,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 16,
   },
+  modeRow: { flexDirection: 'row', gap: 8, paddingVertical: 8 },
+  modeBtn: { borderColor: '#f2c744', borderWidth: 1, borderRadius: 8, paddingHorizontal: 16, paddingVertical: 8 },
+  modeBtnOn: { backgroundColor: '#3a3320' },
+  modeText: { color: '#fff', fontSize: 13, fontWeight: '700' },
   button: { backgroundColor: '#f2c744', borderRadius: 8, paddingVertical: 12, alignItems: 'center' },
   buttonText: { color: '#000', fontSize: 15, fontWeight: '800' },
 });
