@@ -629,6 +629,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `apps/mobile/dom/SharedUiTest.tsx` (+ `shared-ui-test.css`, `css.d.ts`) | `'use dom'` test page: Tailwind v4, `--era-*` switch, Radix dialog, 50-row list, inlined web font, watchdog signals |
+| `apps/mobile/dom/spike/resolver.js` (+ test) | WP0.5a Metro rules (wired in `metro.config.js`), web platform + apps/web origins only: match on resolved absolute path, `@/` to apps/web, `next/link`/`next/image` to `stubs/`, baked `lib/longlive/{content,videos,tracks,era-secrets,merch,theories}` to `shims/`, react/react-dom/scheduler pinned to the mobile copy. Native and non-apps/web origins untouched |
+| `apps/mobile/dom/spike/shims/*.ts` (+ `fill.test.ts`, `parity.test.ts`) | Same exports as the baked web modules over live arrays/maps; `fill(snapshot)` mutates them in place and calls every `set*Provider`. `theories` is shimmed too (the baked one would overwrite the filled provider at import). Fill BEFORE importing reader components |
+| `apps/mobile/dom/spike/stubs/{link,image}.tsx` | `next/link` as `<a>`, `next/image` as lazy no-referrer `<img>` |
 | `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals and forwards them to the watchdog; no reload or error screen of its own |
 | `apps/mobile/lib/dom-host-handlers.ts` (+ test) | Pure DOM-host signal handlers (`createDomHostHandlers`: signal + `watch` sink only) and `sharedUiActive` |
 | `apps/mobile/lib/watchdog.ts` (+ test), `watchdog-store.ts`, `watchdog-gate.ts` | One UI WP0.4b: DOM-reader watchdog. Pure record/monitor rules (`decideMount`, strikes, ready-timeout with fake-clock tests), one SecureStore key, and the `useDomMount` hook App.tsx uses (attempt write awaited, fail closed). No network. Diagnostics: tri-state Force DOM failure + watchdog block (panel only) |
