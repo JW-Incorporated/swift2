@@ -270,6 +270,10 @@ IndexedDB plan on Android + web reader localStorage uses. **Fable consulted
 (judgment fork)**: PM leaning B = webview reads native disk cache via
 file:// fetch (path + version token over bridge, C6 intact) + localStorage
 shim. 0.5b brief on hold until ruling; 0.5a unaffected.
+**14:36:** Fable → B (Fable log); 0.5b brief amended; 0.5b launches when 0.5a
+PR is up (stacked). #4796 CodeQL now PASS. Researcher launched on WP1.1c part
+2 render (a) (web build without secrets, equivalence-hash argument, determinism,
+font gap until WP2.1).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
