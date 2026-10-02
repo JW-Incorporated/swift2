@@ -229,6 +229,11 @@ a-vs-b, real routes). Fable brief review of part 1 launched. 3/3 slots.
 validation-contract.ts + zod version; merged B 497698fe, conflict resolved
 keeping B's loop; suite 8121). Codex r2 `task-murh3zcn-5ny6a6` + reviewer r2
 launched. A 2nd Codex reject → Fable.
+**14:28:** #4816 reviewer r2 = APPROVE (Low: stale "in-session memo" test
+comment — fold into next round). **#4814 MERGED 21:22Z** (WP1.1a done; size
+gate live). Pre-landing check: #4813/#4799 CLEAN, #4811/#4815/#4816 mergeable
+into their bases; **#4796 UNSTABLE — CodeQL fail** → researcher diagnosing
+(real finding vs pre-existing vs tooling).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
