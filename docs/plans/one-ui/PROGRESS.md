@@ -286,6 +286,10 @@ structural a-vs-b (landmarks, text, layout boxes w/ tolerance) + per-side
 pixel baselines; pixel a-vs-b deferred to WP2.1 (plan deviation → Fable in
 part-2 brief review). Runtime est 10–15 min > 10 → parallel (a)/(b) jobs,
 cache .next/cache. Part 2 brief written after WP0.5b lands.
+**14:38:** Support task launched (CI-only, not frozen): release-train summary
+gains per-job statuses + OTA update group id/runtime (lookup keyed to commit
+SHA) so S-sessions can pin the update without an Expo login → branch
+`feature/one-ui-release-summary`. Needs Codex + reviewer after.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
