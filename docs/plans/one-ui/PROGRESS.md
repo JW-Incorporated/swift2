@@ -258,6 +258,10 @@ APPROVED, queued post-S1.
 on wp0.4b). WP1.1 = PARTIAL until part 2 (Fable). PR C stale-comment fix
 sent. #4796 CodeQL fix pushed aba7028f (test helper escapes all regex
 metachars; 3 tests pass) — confirm CodeQL green before landing.
+**14:33:** Fable reviewed WP0.5 brief (Fable log) → brief rewritten; **0.5a
+executor launched** (`feature/one-ui-wp0.5a`, stacked on wp0.4b). #4816
+stale comment fixed e47afbd0 → **#4816 APPROVED**, queued post-S1. Researcher
+checking SDK57 dom-webview persistence (Fable optional 10).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
@@ -342,6 +346,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-02 14:00 | #4811 two consecutive Codex rejections (mandatory): bg→active→kill race | B: `abandonedStreak` (2 abandons = strike 'abandoned-repeated'), reset on ready/strike/fallback; reviewer Low 1 fix; header states bound (worst case 4 launches). Rejected A (unbounded hole) and C (same race). Land: executor → scoped reviewer → land; no Codex r3; reply on PR with the bound | Adopted as written; + Low 2 doc note |
 | 2026-10-02 14:21 | #4815 two consecutive Codex rejections (mandatory): no-new-fetch only on transport failures | C: mapPool `stop()` (drain + failed=true) called in a `finally` around the consume loop; contract = no new launches after any decisive failure, ≤cap−1 in-flight discarded; gated-promise launch-count test. Rejected A (premise false: workers fetch ALL remaining files after a consumer-detected failure) and B (parse/validate depend on drop state; wider touch). Land: executor → scoped reviewer, no Codex r3 | Adopted; PM's A premise was wrong — recorded |
 | 2026-10-02 14:30 | WP1.1c part-1 brief review | Split sound; part 1 = harness proof, NOT WP1.1 acceptance (G1 needs part 2). REQUIRED: never edit app.json (web platform changes fingerprint → store build/OTA cut-off) — env-gated app.config.js only if needed, prove fingerprint equal; entry via `main:"index"` + index.web.tsx, prove size-identical; updateSnapshots none + dispatch bootstrap to non-main ref; maxDiffPixels 200 not ratio; blank-page guard + fail on external requests; playwright container v1.63; wider path triggers; never required | All REQUIRED + OPTIONAL 8, 9 adopted; executor launched |
+| 2026-10-02 14:31 | WP0.5 brief review | Approve with edits. REQUIRED: dynamic-import screens after snapshot fill (module-level constants freeze); resolver on resolved absolute path, web+apps/web scoped; force react/react-dom/jsx-runtime/scheduler singletons; bundle-has-no-baked-content proof as committed script in 0.5b; tests travel with code (fold 0.5c); persistence probe on PRODUCTION export, IndexedDB+localStorage, adapter `kind` tag, fallback not built now; automated placeholder-image counts per host; diag snapshot hash = CI equivalence hash. OPTIONAL: keep no-referrer (+doc), grep SDK57 dom-webview for nonPersistent, tsconfig paths | All REQUIRED + OPTIONAL 9–11 adopted; brief rewritten (scratch brief-wp05.md); 0.5a launched |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
