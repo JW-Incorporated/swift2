@@ -6240,6 +6240,21 @@ export default {
       moment: {
         context:
           'Marked the first time Taylor publicly shared a photo with Kelce on her own Instagram, taken during the royal family backstage visit at Wembley Stadium.',
+        // Photo Enrichment (Vault Run 2026-10-02, Part B): the moment IS the
+        // post, so embed it. Shortcode found in Vogue's coverage and verified
+        // via instagram.com/p/Dd…/embed/captioned — the rendered post is the
+        // taylorswift account, caption "Happy Bday M8! London shows are off to
+        // a splendid start 🇬🇧🇺🇸🤝 @princeandprincessofwales," matching the
+        // June 21, 2024 royal-visit backstage selfie this page describes. The
+        // image is one Taylor published to her own public account (Always-OK),
+        // the same frame already shown as the page photo.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            'Taylor\'s own Instagram post from Wembley — "Happy Bday M8! London shows are off to a splendid start" — the first photo of her and Travis Kelce she shared on her account, taken during the royal family\'s backstage visit.',
+          postedOn: '2024-06-21',
+        },
         sources: [
           { outlet: 'People', url: 'https://people.com/taylor-swift-travis-kelce-party-4am-london-eras-tour-stage-debut-8667987' },
           { outlet: 'E! Online', url: 'https://www.eonline.com/news/1406999/taylor-swift-and-travis-kelce-arrive-at-nyc-dinner-in-style-after-chiefs-win' },
