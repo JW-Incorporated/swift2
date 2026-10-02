@@ -121,7 +121,9 @@ describe('loadBundle concurrent file fetches', () => {
 
   it('a network failure on one file still serves last-good and writes nothing new', async () => {
     const { view, writes } = await seededColdView();
+    let launches = 0;
     const failing = serve(async (name) => {
+      launches++;
       if (name === names[2]) throw new Error('simulated network outage');
       return undefined;
     });
@@ -129,6 +131,8 @@ describe('loadBundle concurrent file fetches', () => {
     expect(result.source).toBe('offline-last-good');
     expect(result.stale).toBe(true);
     expect(writes).toEqual([]);
+    expect(launches).toBeLessThanOrEqual(5);
+    expect(launches).toBeLessThan(names.length);
   });
 
   it('an earlier transport failure falls back promptly even though a later request never resolves, with no unhandled rejection', async () => {
@@ -167,5 +171,28 @@ describe('loadBundle concurrent file fetches', () => {
     await expect(
       loadBundle({ baseUrl, fetch: fetchImpl, storage: new MemoryStorageAdapter() }),
     ).rejects.toThrow(BundleIntegrityError);
+  });
+
+  it('an integrity failure stops launching further fetches (at most the cap are ever started)', async () => {
+    const { view, writes } = await seededColdView();
+    let release: () => void = () => {};
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    let launches = 0;
+    const fetchImpl = serve(async (name) => {
+      launches++;
+      if (name === names[0]) return respond(200, '{"corrupt": true}');
+      await gate;
+      return undefined;
+    });
+    await expect(loadBundle({ baseUrl, fetch: fetchImpl, storage: view })).rejects.toThrow(
+      BundleIntegrityError,
+    );
+    release();
+    for (let i = 0; i < 20; i++) await Promise.resolve();
+    // The fetch that carried the corrupt body frees its worker before the loader can
+    // judge it, so one extra launch (cap + 1) is inherent; nothing beyond that starts.
+    expect(launches).toBeLessThanOrEqual(6);
+    expect(launches).toBeLessThan(names.length);
+    expect(writes).toEqual([]);
   });
 });
