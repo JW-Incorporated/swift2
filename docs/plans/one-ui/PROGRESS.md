@@ -93,6 +93,17 @@ scoped `reviewer` on the fix-r2 diff only. Joey 14:02: "nothing has changed
 on the android app" — expected visually (panel is hidden), BUT run
 37052010807 has only a `trigger` job → researcher verifying the Android OTA
 actually published + runtime matches the installed build.
+**14:05:** WP1.1b spike = WORKS (primary path, no fallback). Recipe: entry
+`apps/mobile/parity-entry/index.tsx` (15 lines: mounts SharedUiTest, stub
+onReady→window.__ready, `?inset=` → --safe-* vars, registerRootComponent);
+app.json `platforms += web`, `web:{bundler:metro,output:single}`; entry via
+package.json main (CI: find a non-edit way); `npx expo export --platform web
+--output-dir dist-parity` (26 s; 371 KB JS + 43 KB CSS); static serve;
+Chromium + WebKit pass: Tailwind, font, --safe-top, onReady, --era-* switch,
+Radix portal, no console errors. PM spot-checked 4 screenshots exist
+(scratch `sp-wp11b/shots`). Untested on Linux CI; real DOM entry must stay
+free of native-only imports for web export. Scoped reviewer on #4811 fix r2
+launched (landing gate).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
