@@ -605,6 +605,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/content-bundle.ts` (+ test) | `loadContentBundle()`: the one mobile bundle loader (shared storage, `unknownEnumPolicy: 'drop'`, `dataErrorFallback: 'last-good'`) + once-per-process OTA `selfHealOnce()`. All six `*-data.ts`/`vault.ts` callers use it |
 | `packages/experience/src/era-ids-sync.test.ts` | Asserts `ERAS` ids equal `eraIdSchema.options`; see `docs/mobile-release.md` "Adding an era/enum/catalogue" |
 
+## ReaderSnapshot (One UI WP0.3, 2026-10-02)
+
+| File | What it is |
+|---|---|
+| `packages/experience/src/reader-snapshot/` (`types`, `build`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
+
 ## CI concurrency (2026-10-01)
 
 | File | What it is |
