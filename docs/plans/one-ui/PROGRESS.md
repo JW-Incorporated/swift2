@@ -143,7 +143,13 @@ android 4,021,701 B from 58242111; ci.yml exports → dist-ios/dist-android;
 suite 8092 pass; negative run exit 1). NOT frozen (CI/scripts only) → can
 auto-merge once Codex + reviewer pass. Interaction: #4799's DOM assets add
 size → bump baseline with `--update` in #4799's wake (or in #4799 if it
-trips >15%). Codex r1 + reviewer r1 launched.
+trips >15%). Codex r1 + reviewer r1 launched. Codex job `task-murgketx-ycdgoc`.
+**14:12:** #4814 reviewer r1 = REQUEST CHANGES (minor): Med — check runs only
+in build-full, not build-content → PM: doc note in docs/mobile-release.md
+(content reaches the app via the runtime D1 bundle, not the OTA; no extra
+export on content CI = Actions minutes); Low — add `dist-*/` to
+apps/mobile/.gitignore (PM accepts; not shipped by OTA, freeze n/a). Bundle
+with Codex r1.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
