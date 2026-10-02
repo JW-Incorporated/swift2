@@ -61,19 +61,27 @@ jobs:
             echo "::error::EXPO_TOKEN repo secret is missing (HUMAN-ACTIONS.md #48). No mobile release can start until it exists."
             exit 1
           fi
+      # Preflight steps are individually bounded so that
+      # preflight (<=19 min) + wait (40 min) stays inside the 60-min job cap
+      # and the wait step's own timeout, not the job's, is what fires on a hang.
       - uses: actions/checkout@v7
+        timeout-minutes: 3
       - uses: actions/setup-node@v7
+        timeout-minutes: 3
         with:
           node-version: 24
           cache: npm
       - run: npm ci
+        timeout-minutes: 5
       # eas-cli is not a workspace dependency; `npx eas-cli` on a non-TTY
       # runner refuses to download it ("npx canceled due to missing packages").
       - run: npm install -g eas-cli@23.2.0
-      - name: Run the EAS release workflow for this commit and wait for it
-        id: eas_workflow
-        # Tighter than the job so the report step below still has time to run.
-        timeout-minutes: 50
+        timeout-minutes: 3
+      # Launch WITHOUT --wait so the run id/URL exists before any waiting and is
+      # written to the job summary immediately (it survives a later hang/cancel).
+      - name: Start the EAS release workflow for this commit
+        id: eas_start
+        timeout-minutes: 5
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
@@ -82,36 +90,38 @@ jobs:
         run: |
           set -euo pipefail
           eas workflow:run .eas/workflows/release.yml \
-            --non-interactive --wait --json \
+            --non-interactive --no-wait --json \
             -F force_store_build="$FORCE" \
             -F message="$(printf '%s' "$MESSAGE" | head -n1 | cut -c1-200)" \
-            | tee /tmp/run.json
-          echo "EAS workflow run: $(node -e "const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.url||j.id||JSON.stringify(j))" 2>/dev/null || true)"
-      - name: Report the EAS run in the job summary
-        if: always() && (steps.eas_workflow.outcome == 'success' || steps.eas_workflow.outcome == 'failure' || steps.eas_workflow.outcome == 'cancelled')
-        timeout-minutes: 5
-        continue-on-error: true
+            > /tmp/run.json
+          RUN_ID=$(node -e "const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.id||'')")
+          RUN_URL=$(node -e "const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.url||'')")
+          {
+            echo "## EAS release workflow"
+            echo "Commit: $GITHUB_SHA"
+            echo "EAS run: ${RUN_URL:-unknown} (id: ${RUN_ID:-unknown})"
+            echo "If this job goes red on a timeout, the EAS run above is NOT cancelled by GitHub: check it in the Expo dashboard (or \`eas workflow:status $RUN_ID\`), cancel it if stuck, then re-run the train."
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ -z "$RUN_ID" ]; then
+            echo "::error::eas workflow:run returned no run id; cannot wait on it. Raw output is in the job summary."
+            { echo '```'; head -c 2000 /tmp/run.json; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
+          echo "run_url=$RUN_URL" >> "$GITHUB_OUTPUT"
+      - name: Wait for the EAS release workflow (fails the job on hang, failure or cancel)
+        id: eas_workflow
+        timeout-minutes: 40
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          OUTCOME: ${{ steps.eas_workflow.outcome }}
+          RUN_ID: ${{ steps.eas_start.outputs.run_id }}
+          RUN_URL: ${{ steps.eas_start.outputs.run_url }}
         run: |
-          URL=$(node -e "try{const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.url||'')}catch{console.log('')}" 2>/dev/null || true)
-          {
-            echo "## EAS release workflow: $OUTCOME"
-            echo "Commit: $GITHUB_SHA"
-            if [ -n "$URL" ]; then
-              echo "EAS run: $URL"
-            else
-              echo "EAS run URL was not returned (the wait never finished). Recent EAS runs, newest first:"
-              echo '```'
-              eas workflow:runs --limit 5 --non-interactive 2>&1 | head -40 || true
-              echo '```'
-            fi
-            if [ "$OUTCOME" != success ]; then
-              echo "**The EAS wait did not finish successfully (hung past 50 min, cancelled, or failed).** A still-running EAS build is NOT cancelled by GitHub; check it in the Expo dashboard or with eas workflow:runs, cancel it if stuck, then re-run this train."
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          echo "Waiting on EAS run $RUN_ID ${RUN_URL}"
+          # Exit codes: 0 success, 11 failure, 12 canceled, 13 wait aborted.
+          eas workflow:status "$RUN_ID" --non-interactive --wait
       # ── Android submit (see header comment: EAS infra can't see this secret) ──
       - name: Locate an Android store build for this commit
         id: android_build

@@ -77,11 +77,13 @@ Instead:
   fingerprinting, `build_android`, `build_ios`, `submit_ios`, and all three
   OTA-update jobs. It has no Android submit job.
 - `.github/workflows/mobile-release.yml` runs that EAS workflow with
-  `eas workflow:run --wait`, so the Action doesn't return until EAS is
-  done. The wait step is capped at 50 minutes and the job at 60: a hung
+  `eas workflow:run --no-wait`, writes the EAS run URL to the job summary
+  at once, then waits by id (`eas workflow:status <id> --wait`), so the
+  Action doesn't return until EAS is done. Preflight steps are capped (19
+  min total), the wait at 40 minutes and the job at 60: a hung
   EAS run turns the job red and frees the `mobile-release` concurrency
   group (it does not cancel the EAS-side run — check it in the Expo
-  dashboard / `eas workflow:runs`). The job summary lists the EAS run URL.
+  dashboard / `eas workflow:runs`).
   It then calls `eas build:list --platform android --status
   finished --git-commit-hash <sha>` to ask "did this commit's run produce
   a fresh Android store build?" — if the fingerprint already had a build
