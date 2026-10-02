@@ -644,3 +644,8 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/lib/orientation-lock.ts` | Locks phones to portrait at runtime (app.json orientation is `default`) |
 | `apps/mobile/postcss.config.mjs` | Tailwind v4 PostCSS plugin for DOM CSS |
 | `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
+| `apps/mobile/index.web.tsx` | One UI WP1.1c: web-only parity entry (mounts SharedUiTest; `?inset=`, `?mutate=` hooks). Native keeps `index.ts` (`main` is `index`) |
+| `playwright.parity.config.ts`, `e2e/parity/` (`helpers.ts`, `baseline.spec.ts`, `negative.spec.ts`, `__screenshots__/`) | Visual parity harness: 4 device projects, Linux baselines, tolerance negative specs. Root `playwright.config.ts` ignores it |
+| `scripts/parity/serve.mjs` | Static server for the web export the harness screenshots |
+| `.github/workflows/parity.yml` | Parity CI (pinned Playwright container) + baseline-update dispatch; never a required check |
+| `docs/one-ui/parity.md` | How the harness works, tolerance, baseline-update order |
