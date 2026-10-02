@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 70
+
+## Taylor Swift References Cleveland in New Song Title
+
+- first seen: 2026-10-02 21:18 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has included Cleveland in a song title, highlighting the significance of Travis Kelce's hometown. This tribute draws attention to what makes Cleveland noteworthy.
+- sources:
+  - [unverified] creators.yahoo.com — https://news.google.com/rss/articles/CBMi7wFBVV95cUxPTEl6cVAxNHpid0M4a1RTWlZnRFBKUENHRWVRelQ1TVVDUVUwYy1oeUpHTUc2REctXzBPb25Cb2NDS00wVHNyV3U2Z3JzWTZ3Uk8xQk90QjUzeF9Fd1ViZllReWt5ZXB6clc4TTF4dFlHck5hU09BTnQxVEtxT3lGZjNMTnFWOHQ1Vkpxc3hXcUVud3o4M2JjaFd4Z1ZDUldua3FhX01EM1JqRmRyclRHbGRrYmRDOXVuSmdOTHRQbFp4TGc3OXhmcGJTc2wxUHpfNi1kMTVQbHJ5bUhYQlllOUc0M1dfdUpsWVBuZWlMcw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Exploring Taylor Swift's Favorite Perfumes
+
+- first seen: 2026-10-02 21:18 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Prestige Online delves into the favorite perfumes of pop icon Taylor Swift, revealing insights into her fragrance choices.
+- sources:
+  - [unverified] Prestige Online - Singapore — https://news.google.com/rss/articles/CBMiowFBVV95cUxNVnBuWjVmdS05NkxSRkVhczBER0JtN0NwWFc2WXozMnFDanhjNEF2bUdfcnRYWVd2Ym5xMWtIdUFad3ppX2pzaU4tMGRDdTBBVHY0eEZDTmJtajZrQTRIclJwbE5hSTJaZ1pNWWxGVzcxY3YzRHV6RHpwd2huSW5lT3ZsVVFZZW5XMmJieDhNcm10aGUzSGRKS0s2SGdoWC10ZVNr0gGoAUFVX3lxTE5ubGQzbHduVENQcnJGTml3aWluUHotQ1haU0xleE5CTlE4TjktdVo2Z2tzX0lLMFZwbW1OTHN2OW9uY0k1b3lLTTcwWDN3RFVkSHZHdW0tMlpPNThIUXBDTUU2SXBfcXAzeTdod2VGUDF3RkFGQm1fNjV3NEZRd1R4aWlkd2pTbVJORUs4alpkbGZHYW5FZlVBS1lvOG1PS2FIWU5MR0FVdg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Happy Ending Discussed Amid Concerns for Her Music Career
+
+- first seen: 2026-10-02 21:18 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An article explores the implications of Taylor Swift's recent personal developments on her music career, highlighting concerns that her newfound happiness may have affected her artistic output.
+- sources:
+  - [unverified] The Free Press — https://news.google.com/rss/articles/CBMiaEFVX3lxTE8yX2xlZFlYLWFqanRscHA3TnRaSDg5Q0M2NE1qdUx4aER6akk5WnpaTTJqbV9HMEtJd0dNVU9FTlBwbzJVdUVhaFRlUFdseG5Ca0FoSzRlR3ZDaDVaTW1MZFZiX3lDdzBt?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Heidi Gardner Comments on Taylor Swift and Travis Kelce's Wedding
+
+- first seen: 2026-10-02 21:18 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Heidi Gardner noted the palpable love between Taylor Swift and Travis Kelce at their wedding, highlighting the emotional atmosphere of the event.
+- sources:
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxPMjU0bmMyd0hQb2ZSU2hJcVhpeUZDeEFGQk4zMk5Rb3c0TTlWV2xlWHg5R3JuMVU0UFI4dnIxQ2MyVGIyUWJlSTFrTWFZTGJjb2xKTTlseWczdHZxM1l6ZjhHZ2s2ZXRPMEhtZkhnMW5ZNWZRTnNlN3JKZE1iM19seU9jSktmV1pteTNaZFBJcURQSlF1THpRSG90dG9rOVN1dDNOdXVZLVJkZE5o?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Beverly Hills Bungalow Showcases Glamorous Design
+
+- first seen: 2026-10-02 21:18 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Beverly Hills bungalow has been highlighted for its glamorous interior design, as featured in Homes and Gardens. The article explores the stylish aspects of the property.
+- sources:
+  - [unverified] Homes and Gardens — https://news.google.com/rss/articles/CBMilgFBVV95cUxNWFFMTW1EQ2o4ejZyUFprME5DV2ZsRUwwUF80dno5cEh5aWN1dlVLUlowdE9jM3FzYUJxQmtuNmRwUXI5SlZHU0JDX3VfMzBSbGRkUzVESG1oRUNfbkV3c0R4X1JjeGVWSkNoVlFwRkU2ekQyZGZBZGpUTEc1NDIwUThUV252dE1ubUxTLXY3dHFSY3VtMmc?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson Hosts SNL with Turnstile as Musical Guest
+
+- first seen: 2026-10-02 21:18 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Dakota Johnson, hosting SNL, highlighted the band Turnstile in a recent promotional clip. The actress and a cast member made jokes about the hardcore group, showcasing a unique blend of comedy and music.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513377/dakota-johnson-turnstile-make-hardcore-jokes-in-their-snl-promos/news/
 
 ## Taylor Swift's romantic spark noted as absent in Cleveland
 
@@ -43,14 +91,6 @@ Stories: 64
 - sources:
   - [unverified] Case Western Reserve University — https://news.google.com/rss/articles/CBMigAFBVV95cUxORnZPclQ4MEdNaDZGOEEzNzMyYXhnOGlEblg4a3hIMzZjaVBnUVJsOXhGRnRfUzc3b3ZrMGs1S1UydFFPQlVDSWM5eHZNb0ljcmtzRDRGaHVTZE8yTnNNMERCR1J3VEJjaVJNYkl0Rm1WVGhZOTN5b2kzNVdfNUdTWg?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Travis Kelce and Taylor Swift Receive Positive News Before Game
-
-- first seen: 2026-10-02 15:45 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift are reported to have received good news ahead of the Chiefs-Raiders game, according to Yahoo Sports. Details about the nature of the news were not disclosed.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNdHlQU2g1anhkSUtEOVVQQTlXMmRXX2k0MzRYRkJvZlBIdXNXc2VHNFYyMGxIaGlobHlEck9ZYm1KYVZIcjdIUkdSQjN3MzgtU3kya2p2WG1OUlBIV3RuakNCQjkxVF81b1RCQTB5Yjc5TWlnQ2NXeDJZWHpMbzE1X0ZfVHhxd3M?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's 'The Life Of A Showgirl' Tops Australian Charts Again
 
 - first seen: 2026-10-02 15:45 UTC | category: music | importance: 7
@@ -58,6 +98,17 @@ Stories: 64
 - summary: Taylor Swift's album 'The Life Of A Showgirl' has climbed back to the No. 1 spot on the Australian music charts, marking a notable achievement. This milestone showcases the continued popularity of her work in the region.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxQc01oY0ZoVnp0dlVRWEVmRDlnREJvYnM0Qy1MYmw3WmZYbERUYlFHZkJvaGdBUWFYNmVBSTdaZHdrMUxObV94M2VtYkpoVXMtSHpEZmswcUFzeW1aQlh4SXg1SDBHWUFJT1MxWmRxM2pEU2NqV19Bbk92R3pCU1ZicnRSakM3RnZpUThhblNkRHJtT3lrZnNjeTB1ai01UDMwOHVFb2htOVhkMmQ3VDZmdWVVWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Receive Positive News Before Game
+
+- first seen: 2026-10-02 15:45 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 4
+- summary: Travis Kelce and Taylor Swift are reported to have received good news ahead of the Chiefs-Raiders game, according to Yahoo Sports. Details about the nature of the news were not disclosed.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipwFBVV95cUxQazNrdjQyV0ZqRkpCU2tWLXltUGZJNmhFRVRnQmdrdVRuUWoyd1AxZWphc29CSVN5NUhaZnlfTDhJVTVuLTBPandBN2I1amh1UGktSDN3NWVReXBSM013YmRfbUhUYVhsX0tMbWdrTGEyNGE4TDRObU1idG0tTDh1Y1dxXzVfcjh5dHJYQU5YZDctcUttcnZEb0U3X29TVU5NcHpsMjM2aw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxPOEFPeHhMRU1OLUlzWHdGVEJGTkp2S0pfUWpPV1FCSDBtMVFqRU10bHFIMG9Eem1ncDBuM2VQRVRtQ2RRQ2ZmS3R4eVJKdUZmakFfUVkyWld4dDhkUjI5dmNqaGowdEVfMDNoOVN6V1p0UUJ0c3pmcE9hcFRCQmwwdHAzWERmTWJMMjRTZVVBWk9Ld9IBkgFBVV95cUxPZHNReEZTTlRMVS1nOVREd3ViNTRaT3pNbHBGQTFPNjJKZWd5TmZUQnoyeFVOLXNaR2p1anhQLWRBN25ZLW1MSzFOTk8yV0RYQ0h4bFkzNXI5c0lSSkVzelc4RUxCZFpvb2lPelFILWJrbW1CME9oUVJSUG1Vb0NjT1d2VFNrNU5EbnN4WFNxU3gzUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMisAFBVV95cUxPQlRmcGs4UnFQeUFGRThMSmUxNUhWRU5UOFRDRG1EX1ZNRUlzUWxjZ2RtWFY2QUUzTDc2U1gxZVI1ZDdBNXFDTkE5SlZaVXNaZjZYdVBpSVNGTE1jcXE3RE9fa19USmJ3Mlh0ZHBvTFp5US1tZEdQdmNIMXVreHJUa3pUdExWRnYyREhuN25yYXVIeFRkMGYwdG5QZnRhU3ZBYk1UWGJqUERvTDM5VVNMNA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNdHlQU2g1anhkSUtEOVVQQTlXMmRXX2k0MzRYRkJvZlBIdXNXc2VHNFYyMGxIaGlobHlEck9ZYm1KYVZIcjdIUkdSQjN3MzgtU3kya2p2WG1OUlBIV3RuakNCQjkxVF81b1RCQTB5Yjc5TWlnQ2NXeDJZWHpMbzE1X0ZfVHhxd3M?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Dakota Johnson Wear Matching Valentino Dresses for Music Video
 
@@ -75,15 +126,6 @@ Stories: 64
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMic0FVX3lxTFB6Y1ZrVGt2ZUJuQk53VWctV1JfLUFfWDlzWGg0V1kzZFlpMGxTVG5CaGtTczBVNUNwVERJNUFUbGI2djREM2wtUHk4U2FCWWs5WFZMYnFjMjYzN2V0NWhwN3RXQk5jT3ZZeTRXbm5pVkFiQk0?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Erin Andrews Unable to Attend Taylor Swift Music Video Shoot
-
-- first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Erin Andrews has disclosed that she was compelled to skip her appearance in a Taylor Swift music video. Reasons for her absence were provided in a recent report.
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOS0dOSjM2Nl9mR1RMNU1jcHE4dWhQeEticGdIV1BVTHlDcEJPSW9SdE5uT0FqSWRkSldsU1d5dGFmSThlcV8xYUt6b3daZjg4aFRhWDlXV2ZFNVZERGRDV0pTMUpwLWdkdXk4TmNPTlpzd2dEX0VPd0xDa2tOamV5eWhDcUdzSU5Mampn?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQSUpkY2tVT3BsMm90LU5XQW1TQ2tKZ0E2NmJycGZWTFJ3eWdoR0hac2JodHpnUGh2OUlsQTBkbUtXQXoyQktETm9MMG5HaUI4WTRhb2VLSlA2TXVaY1dhR2hUdHdCS1M1RlZlZVRvM1VZcW95NG5aSkpVWkJnYTJfNUliaU9jR3M1TmlVMk5SQl93STNrLUtKTk1PT3p3QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Dakota Johnson Comments on Taylor Swift's New Music Video
 
 - first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
@@ -91,6 +133,18 @@ Stories: 64
 - summary: During an interview, Dakota Johnson was asked about Taylor Swift's new music video but humorously got distracted. The comment highlights the ongoing conversation about Swift's recent work.
 - sources:
   - [unverified] TheWrap — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNek0yMFRDN244dHpPdDJLMUU0S3EtN3NNYk1VbUM0OWVDc1VBRVNkS1ppZUdfaVdQZFBxRHFYOFdsWTYzTzZHY0pyZ00zbFByamN5QUZoSm9RbmdCY3hzTjZPM2JIX1paQkJTc2lUYnc5d1lCNmpTamE0ckxYYldMUWN3SXZpbGQ2U3lQVXRwTDRWUzVVQUE2Q1drNktBeU4tampqM3l5aEJEN1RjNUtoTEZNZzBrOWpTa0V5UTVDRk8?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Erin Andrews Unable to Attend Taylor Swift Music Video Shoot
+
+- first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Erin Andrews has disclosed that she was compelled to skip her appearance in a Taylor Swift music video. Reasons for her absence were provided in a recent report.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3d3QzN2cEdyMTZrX1pmT3h2YkZoUWFieHAta2JFa0ZWdjFNNm43ZlhoZTJVb2x1STlqU3VaelgzV1lhdmF5WkQyQm9IaV9ldXd6LURJZVo1amRmR1I2Zkw1dUZiTEtsMzNjbXhzNG9YcVdXaXZ5eXBYV3hhYXFyQ3d1b2JtbDcxanNDYzJrYjJCX09CajN0V2dlMURZS3B5bmN6Q18zbUtLWk1waG45NA?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOS0dOSjM2Nl9mR1RMNU1jcHE4dWhQeEticGdIV1BVTHlDcEJPSW9SdE5uT0FqSWRkSldsU1d5dGFmSThlcV8xYUt6b3daZjg4aFRhWDlXV2ZFNVZERGRDV0pTMUpwLWdkdXk4TmNPTlpzd2dEX0VPd0xDa2tOamV5eWhDcUdzSU5Mampn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Official Charts — https://news.google.com/rss/articles/CBMirgFBVV95cUxOTWhSNGdKbDRFclRxMHQ4Rjc3amJQVnJVMXhGLUJzOEZLbWZubUhfYmJrUTlYX004Snp0SU1NYVNfRWVnMkxIcnJPbTZrbGtaYTRuTDFjdk5MRnl2Z01ldldmLXh5WUhaczNudUZuZENtLVhOZWhJLUt4N01WdDVvbnhWREQ2WTJCa0ZTQllPMFM1b1VIUVFUYXBCZ3pHRmplQllZY2NiTHJTZzItVUE?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] people.com — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPMW9QUlcwT1FVYnRSX2FpV1lDeHphY0Z6dTFsSl9WbnpmelNWOGd2enA3MGEzT1k4bFZfdnpWY2FmODljWDhKUV8tVmdRVDczd3NEQ3pEd0NJQTRSaVo4ekFMQ3ByeWUtZHhZQmlxVm1sQmhOa2d6NHNhTC1ydkVQY2EyS3RLOFY2U1pVVlhfcXYtVWdBaWo2MEUyTWx0TFczT3hZejNSekFhY01VOVdpVHg4YXc0Y1NhYjVjakxLRlZXZ1Zrc0o5V2U4YUk4TGozUFNv?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQSUpkY2tVT3BsMm90LU5XQW1TQ2tKZ0E2NmJycGZWTFJ3eWdoR0hac2JodHpnUGh2OUlsQTBkbUtXQXoyQktETm9MMG5HaUI4WTRhb2VLSlA2TXVaY1dhR2hUdHdCS1M1RlZlZVRvM1VZcW95NG5aSkpVWkJnYTJfNUliaU9jR3M1TmlVMk5SQl93STNrLUtKTk1PT3p3QQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's $900k Ring Holds Hidden Meaning
 
