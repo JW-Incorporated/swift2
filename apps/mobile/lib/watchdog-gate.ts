@@ -75,6 +75,10 @@ export function useDomMount(wantsDom: boolean): {
         return;
       }
       recordRef.current = attempt;
+      if (AppState.currentState !== 'active') {
+        recordRef.current = { ...attempt, backgrounded: true };
+        void write(recordRef.current);
+      }
       monitorRef.current = createAttemptMonitor({
         scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as never) },
         now: Date.now,

@@ -145,6 +145,40 @@ describe('record transitions', () => {
     expect(l2.d.fallbackActive).toBe(false);
   });
 
+  it('abandon streak 1 stays idle; streak 2 is a strike and resets the streak', () => {
+    const l1 = launch(null, 'background');
+    const l2 = launch(l1.rec, 'background');
+    expect(l2.d.record.abandonedStreak).toBe(1);
+    expect(l2.d.record.strikes).toBe(0);
+    const l3 = launch(l2.rec, 'abandon');
+    expect(l3.d.record.strikes).toBe(1);
+    expect(l3.d.record.lastReason).toBe('abandoned-repeated');
+    expect(l3.d.record.abandonedStreak).toBe(0);
+    expect(l3.d.fallbackActive).toBe(false);
+  });
+
+  it('stale markers mount the DOM on at most 4 launches before the native fallback; ready resets the streak', () => {
+    let rec = launch(null, 'background').rec; // DOM launch 1
+    let l = launch(rec, 'background'); // DOM launch 2
+    expect(l.d.fallbackActive).toBe(false);
+    l = launch(l.rec, 'background'); // DOM launch 3 (decides strike 1)
+    expect(l.d.record.strikes).toBe(1);
+    expect(l.d.fallbackActive).toBe(false);
+    l = launch(l.rec, 'background'); // DOM launch 4
+    expect(l.d.fallbackActive).toBe(false);
+    l = launch(l.rec, 'background'); // launch 5: strike 2 -> native
+    expect(l.d.clearOverride).toBe(true);
+    expect(l.d.fallbackActive).toBe(true);
+    const ready = launch(launch(null, 'background').rec, 'ready');
+    expect(ready.d.record.abandonedStreak).toBe(1);
+    expect(launch(ready.rec, 'ready').d.record.abandonedStreak).toBe(0);
+  });
+
+  it('a strike resets the abandon streak', () => {
+    const rec = { ...beginAttempt(freshRecord(KEY, 0), 1), abandonedStreak: 1 };
+    expect(recordStrike(rec, 'x', 2).record.abandonedStreak).toBe(0);
+  });
+
   it('two foreground kills before ready clear the override and owe a fallback launch', () => {
     const l1 = launch(null, 'abandon');
     const l2 = launch(l1.rec, 'abandon');
@@ -282,6 +316,8 @@ describe('persistence helpers', () => {
     expect(parseRecord(JSON.stringify(r))).toEqual(r);
     expect(parseRecord(null)).toBeNull();
     expect(parseRecord('{nope')).toBeNull();
+    const { abandonedStreak: _a, ...legacy } = r;
+    expect(parseRecord(JSON.stringify(legacy))?.abandonedStreak).toBe(0);
     expect(parseRecord(JSON.stringify({ ...r, v: 2 }))).toBeNull();
     // After clearWatchdogRecord the stored value is null -> fresh launch, no fallback owed.
     expect(decideMount(parseRecord(null), KEY, 1).fallbackActive).toBe(false);

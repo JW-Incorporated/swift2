@@ -5,7 +5,12 @@
 // Rules: one persisted record per buildKey. A launch that records an attempt
 // and never reaches `ready` is a strike if it died in the foreground
 // ('abandoned-before-ready'); if the app was backgrounded first it is merely
-// ABANDONED (the OS may have reaped it). A failure (ready-timeout, DOM error before ready, webview
+// ABANDONED (the OS may have reaped it); 2 consecutive abandons are a strike
+// ('abandoned-repeated'), so a stale or lost `backgrounded` marker cannot keep
+// the DOM host alive forever. Bound: worst case 4 launches before the native
+// fallback (2 abandoned -> strike 1, 2 more -> strike 2 -> fallback). A
+// double-failed ready save costs at most one false strike, which the next
+// ready launch clears. A failure (ready-timeout, DOM error before ready, webview
 // terminate/render-gone) is a strike: strike 1 mounts native for this launch;
 // strike 2 (consecutive) also clears the C4 override and makes the next launch
 // native too.
@@ -13,6 +18,7 @@
 export const READY_TIMEOUT_MS = 10_000;
 export const STRIKES_TO_FALLBACK = 2;
 export const FALLBACK_LAUNCHES = 1;
+export const ABANDONED_TO_STRIKE = 2;
 export const MAX_REASON_CHARS = 120;
 
 export type WatchdogState = 'idle' | 'attempting' | 'ready' | 'failed' | 'fallback';
@@ -26,6 +32,8 @@ export interface WatchdogRecord {
   fallbackLaunchesRemaining: number;
   /** True once the app was backgrounded during an unresolved attempt. */
   backgrounded: boolean;
+  /** Consecutive launches abandoned (backgrounded) before ready. */
+  abandonedStreak: number;
   at: number;
 }
 
@@ -40,7 +48,7 @@ export const truncateReason = (s: string): string => s.slice(0, MAX_REASON_CHARS
 const STATES: WatchdogState[] = ['idle', 'attempting', 'ready', 'failed', 'fallback'];
 
 export function freshRecord(buildKey: string, now: number): WatchdogRecord {
-  return { v: 1, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, at: now };
+  return { v: 1, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: now };
 }
 
 /** Defensive parse of the persisted JSON; anything malformed is null (treated as no record). */
@@ -59,6 +67,7 @@ export function parseRecord(raw: string | null): WatchdogRecord | null {
     return {
       ...(r as WatchdogRecord),
       backgrounded: typeof r.backgrounded === 'boolean' ? r.backgrounded : false,
+      abandonedStreak: Number.isInteger(r.abandonedStreak) ? (r.abandonedStreak as number) : 0,
       lastReason: truncateReason(String(r.lastReason ?? '')),
     };
   } catch {
@@ -94,22 +103,32 @@ export function decideMount(
         strikes: 0,
         fallbackLaunchesRemaining: record.fallbackLaunchesRemaining - 1,
         backgrounded: false,
+        abandonedStreak: 0,
         at: now,
       },
     };
   }
   // 'attempting' in the foreground = the last launch died before ready: a strike.
-  // 'attempting' after backgrounding = abandoned (no strike).
+  // 'attempting' after backgrounding = abandoned; the 2nd in a row is a strike.
   if (record.state === 'attempting' && !record.backgrounded) {
     const s = recordStrike(record, 'abandoned-before-ready', now);
     return { fallbackActive: s.clearOverride, clearOverride: s.clearOverride, record: s.record };
   }
+  let abandonedStreak = record.abandonedStreak;
+  if (record.state === 'attempting' && record.backgrounded) {
+    abandonedStreak += 1;
+    if (abandonedStreak >= ABANDONED_TO_STRIKE) {
+      const s = recordStrike(record, 'abandoned-repeated', now);
+      return { fallbackActive: s.clearOverride, clearOverride: s.clearOverride, record: s.record };
+    }
+  }
   // 'ready' = the last launch ran clean: the streak is over.
+  if (record.state === 'ready') abandonedStreak = 0;
   const strikes = record.state === 'ready' ? 0 : record.strikes;
   return {
     fallbackActive: false,
     clearOverride: false,
-    record: { ...record, state: 'idle', strikes, backgrounded: false, at: now },
+    record: { ...record, state: 'idle', strikes, backgrounded: false, abandonedStreak, at: now },
   };
 }
 
@@ -180,6 +199,7 @@ export function recordStrike(
       lastReason: truncateReason(reason),
       fallbackLaunchesRemaining: fallback ? FALLBACK_LAUNCHES : r.fallbackLaunchesRemaining,
       backgrounded: false,
+      abandonedStreak: 0,
       at: now,
     },
   };
