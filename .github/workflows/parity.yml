@@ -1,0 +1,142 @@
+name: Parity (DOM visual)
+
+# One UI WP1.1c: renders the app's DOM UI in Chromium/WebKit at four device
+# viewports and compares against committed Linux baselines in
+# e2e/parity/__screenshots__. Rules and the baseline-update order:
+# docs/one-ui/parity.md. NEVER a required check.
+#
+# Runs in the Playwright image whose tag must equal the installed
+# @playwright/test version (a step below enforces it), so pixels match.
+
+on:
+  pull_request:
+    paths:
+      - 'packages/ui/**'
+      - 'apps/web/**'
+      - 'apps/mobile/dom/**'
+      - 'apps/mobile/metro.config.js'
+      - 'apps/mobile/postcss.config.mjs'
+      - 'apps/mobile/package.json'
+      - 'apps/mobile/app.json'
+      - 'apps/mobile/app.config.*'
+      - 'apps/mobile/index.web.tsx'
+      - 'e2e/parity/**'
+      - 'playwright.parity.config.ts'
+      - 'scripts/parity/serve.mjs'
+      - '.github/workflows/parity.yml'
+      - 'package-lock.json'
+  workflow_dispatch:
+    inputs:
+      update-baselines:
+        description: 'Regenerate baselines and commit them to this ref (on main: open a PR instead)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: parity-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.update-baselines) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm ci --silent
+      - name: Playwright version matches the container
+        run: test "$(npx playwright --version)" = "Version 1.63.0"
+      - name: Build the web export
+        working-directory: apps/mobile
+        env:
+          EXPO_NO_WEB_SETUP: '1'
+        run: npx expo export --platform web --output-dir dist/parity-web --clear
+      - name: Parity specs
+        run: npx playwright test -c playwright.parity.config.ts
+      - name: Upload diffs and report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: parity-failure
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14
+
+  update-baselines:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.update-baselines }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      REF_NAME: ${{ github.ref_name }}
+      IS_DEFAULT: ${{ github.ref_name == github.event.repository.default_branch }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm ci --silent
+      - name: Playwright version matches the container
+        run: test "$(npx playwright --version)" = "Version 1.63.0"
+      - name: Keep the before set
+        run: |
+          mkdir -p "$RUNNER_TEMP/before" e2e/parity/__screenshots__
+          cp -r e2e/parity/__screenshots__/. "$RUNNER_TEMP/before/"
+      - name: Build the web export
+        working-directory: apps/mobile
+        env:
+          EXPO_NO_WEB_SETUP: '1'
+        run: npx expo export --platform web --output-dir dist/parity-web --clear
+      - name: Regenerate baselines
+        env:
+          PARITY_UPDATE: '1'
+        run: npx playwright test -c playwright.parity.config.ts e2e/parity/baseline.spec.ts
+      - name: Upload before and after
+        uses: actions/upload-artifact@v7
+        with:
+          name: parity-baselines
+          path: |
+            ${{ runner.temp }}/before/
+            e2e/parity/__screenshots__/
+          retention-days: 14
+      - name: Commit (branch ref) or open a PR (default branch)
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add e2e/parity/__screenshots__
+          if git diff --cached --quiet; then
+            echo "Baselines unchanged; nothing to commit."
+            exit 0
+          fi
+          if [ "$IS_DEFAULT" = "true" ]; then
+            BRANCH="parity/baselines-$GITHUB_RUN_ID"
+            git checkout -b "$BRANCH"
+            git commit -m "parity: regenerate baselines (run $GITHUB_RUN_ID)"
+            git push origin "$BRANCH"
+            BODY="Regenerated parity baselines. Before/after PNGs: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID (artifact parity-baselines)."
+            curl -sS -f -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls" \
+              -d "{\"title\":\"parity: regenerate baselines\",\"head\":\"$BRANCH\",\"base\":\"$REF_NAME\",\"body\":\"$BODY\"}"
+          else
+            git commit -m "parity: regenerate baselines (run $GITHUB_RUN_ID)"
+            git push origin "HEAD:refs/heads/$REF_NAME"
+          fi
