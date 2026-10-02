@@ -52,6 +52,21 @@ FeedbackButton:159, MoodChat:63, SubmitLinkForm:122, WebNotificationSettings
 Split A types · B host dispatcher+watchdog · C DOM client+contract test · D
 navigate/openExternal/share/haptic/insets/back · E notifications+tap queue ·
 F api proxy (needs WP0.3b merged). No auth/session in the bridge.
+**16:55:** WP2.1 prep back. Fonts: 5 next/font families in apps/web
+layout.tsx:10-41 (Inter var, Playfair var, Special Elite 400, Dancing Script
+var, Bodoni Moda 400/600/800 ±italic — merch only) → packages/ui
+fonts/*.woff2 + fonts.css defining the SAME --font-* vars (theme.ts/globals.css
+unchanged); leave lib/longlive/share-fonts/ (OG card) alone; open: DOM host
+@font-face URL resolution. HostAdapter via context `useHost()`: Link, Image
+(16 next/image files, `fill` needs wrapper CSS), lazy, navigate, onBack
+(replaces useBackDismiss popstate), apiFetch, storage(local|session), share,
+haptic (web no-op), openExternal, notifications, insets, env{turnstileSiteKey,
+origin}. Reader has no useRouter. Traps: Tailwind v4 needs `@source
+packages/ui/src` in BOTH globals.css and DOM CSS (else utilities silently
+dropped); safe-area → `var(--safe-*, env(...))` in the package (kills the
+spike's !important overrides); ESLint ban next/* + react-native* in
+packages/ui. Split A skeleton+wiring ~150 · B adapter+web adapter ~300 · C
+fonts+re-baseline · D next/* call-site refactor (split by domain) · E X3 list.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
