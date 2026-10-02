@@ -72,6 +72,7 @@ import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { SharedUiHost } from './components/SharedUiHost';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
+import { getForceSharedUi } from './lib/diagnostics-override';
 
 installDiagnostics();
 
@@ -232,8 +233,11 @@ export default function App() {
   const routeFlagsRef = useRef(routeFlags);
   routeFlagsRef.current = routeFlags;
   const [updateRequired, setUpdateRequired] = useState(false);
+  const [forceSharedUi, setForceSharedUi] = useState(false);
   useEffect(() => {
     void lockPhonesToPortrait();
+    // C4 override (Diagnostics panel); read once per launch, so a toggle applies on the next launch.
+    void getForceSharedUi().then(setForceSharedUi);
   }, []);
   useEffect(() => {
     let cancelled = false;
@@ -370,8 +374,8 @@ export default function App() {
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
-          ) : routeFlags.sharedUi ? (
-            <SharedUiHost onSignal={(stage, detail) => console.log(`[dom] ${stage}`, detail ?? '')} />
+          ) : routeFlags.sharedUi || forceSharedUi ? (
+            <SharedUiHost onSignal={(stage, detail) => diagCollector.mark(stage, detail)} />
           ) : screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
