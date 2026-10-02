@@ -71,7 +71,9 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parseFacebookExport, extractPostsFromHtml } from '../../apps/worker/src/sources/facebook-groups-parser.ts';
 import { screenTopic } from '@swift2/shared/redline';
-import { serviceClient } from '../lib/supabase.mjs';
+import { serviceClient, normalizeSupabaseUrl } from '../lib/supabase.mjs';
+
+export { normalizeSupabaseUrl };
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
 

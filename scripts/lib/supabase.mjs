@@ -16,6 +16,29 @@
 // remove duplication.
 import { createClient } from '@supabase/supabase-js';
 
+const BARE_HOST = /^[a-z0-9-]+(\.[a-z0-9-]+)+(:\d+)?(\/.*)?$/i;
+
+/**
+ * A bare host (`<ref>.supabase.co`, no scheme) gets `https://`; anything with a scheme, and
+ * anything that does not look like a host, is returned unchanged so supabase-js still throws
+ * its own clear error.
+ */
+export function normalizeSupabaseUrl(value) {
+  if (typeof value !== 'string') return value;
+  const trimmed = value.trim();
+  return BARE_HOST.test(trimmed) ? `https://${trimmed}` : value;
+}
+
+/** True when the normalized value parses as an http(s) URL. */
+export function isValidSupabaseUrl(value) {
+  try {
+    const { protocol } = new URL(normalizeSupabaseUrl(value));
+    return protocol === 'http:' || protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
 /**
  * A Supabase client authenticated with the service-role key, or `null` when
  * the required env vars are not set. Every caller already treats `null` as
@@ -23,7 +46,7 @@ import { createClient } from '@supabase/supabase-js';
  * so this preserves that contract rather than throwing itself.
  */
 export function serviceClient(env = process.env) {
-  const url = env.SUPABASE_URL;
+  const url = normalizeSupabaseUrl(env.SUPABASE_URL);
   const key = env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
