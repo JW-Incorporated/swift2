@@ -330,6 +330,15 @@ Baselines committed 4c5ef187 (16 PNGs); runtime ~2 min. Side facts: base
 page renders ~250 px wide in a 393 px iPhone viewport. Note: GITHUB_TOKEN
 commits don't trigger pull_request runs → dispatch reruns by hand. Codex r2
 on #4817 launched; #4819 reviews + #4817 reviewer r2 queued.
+**14:51:** #4818 fix r1 pushed 42dc6852 (next/dynamic stub; other next/* from
+apps/web on web THROW; parity.types.ts compile-time; suite 8152; fingerprint
+unchanged). 0.5b told to merge it. Codex r2 on #4818 launched; reviewer r1 on
+#4819 running. Still queued: Codex on #4819, reviewer r2 #4818 + #4817.
+**14:52:** #4819 reviewer r1 = REQUEST CHANGES (minor): PR-head parity run
+37068886288 = action_required (bot-authored baseline push) → no real PR run
+on head; fingerprint proof for the `main` change not in docs/PR body. PM:
+the fix-round push (non-bot) triggers a real PR run; add the dcf1ea59
+before/after line. Bundle with Codex r1 on #4819 (next slot).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
