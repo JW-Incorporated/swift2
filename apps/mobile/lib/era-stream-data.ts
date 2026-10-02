@@ -36,6 +36,7 @@ import {
 } from '@swift2/experience';
 import { eraVideoFeed, type WatchableVideoNote } from '@swift2/content-enrichment';
 import { loadContentBundle } from './content-bundle';
+import { diagMarkOnce } from './diagnostics';
 
 async function ensureBundle() {
   return loadContentBundle();
@@ -61,6 +62,7 @@ function wireTheories(files: Record<string, unknown>): void {
   for (const f of flat ?? []) byEra[f.eraId] = f.theories;
   setTheoriesRawProvider(() => byEra);
   theoriesWired = true;
+  diagMarkOnce('provider-wiring');
 }
 
 /** One era's golden view-model, built from the published bundle via the same shared pipeline the web uses. */
