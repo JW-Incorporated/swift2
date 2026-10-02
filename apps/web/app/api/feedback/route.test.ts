@@ -1,5 +1,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { POST, defangGitHub, titleFrom, bodyFrom, trustedClientIp } from './route';
+import {
+  POST,
+  defangGitHub,
+  titleFrom,
+  bodyFrom,
+  trustedClientIp,
+  DIAG_ISSUE_NUMBER,
+  diagCommentBody,
+  isDiagMessage,
+} from './route';
 
 const ZWSP = '​';
 
@@ -209,5 +218,62 @@ describe('POST', () => {
     expect(sent.labels).toContain('user-feedback');
     expect(sent.body).not.toMatch(/@[A-Za-z0-9]/); // no live mention reached GitHub
     expect(sent.body).not.toMatch(/#[0-9]/); // no live issue ref reached GitHub
+  });
+
+  it('appends a [diag] report as a comment on the tracking issue, not a new issue', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
+    vi.stubEnv('FEEDBACK_REPO', '');
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ id: 9, html_url: 'http://gh/c/9' }), { status: 201 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const res = await POST(
+      req({ message: '[diag] {"model":"Pixel","note":"@evil #1"}' }, { 'x-real-ip': '10.9.0.1' }),
+    );
+    expect(res.status).toBe(201);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchSpy.mock.calls[0];
+    expect(url).toBe(
+      `https://api.github.com/repos/JW-Incorporated/swift2/issues/${DIAG_ISSUE_NUMBER}/comments`,
+    );
+    expect((init.headers as Record<string, string>).Authorization).toBe('Bearer feedback-scoped-token');
+    const sent = JSON.parse(init.body as string);
+    expect(sent.labels).toBeUndefined();
+    expect(sent.title).toBeUndefined();
+    expect(sent.body).toContain('[diag]');
+    expect(sent.body.startsWith('```\n')).toBe(true);
+    expect(sent.body).not.toMatch(/@[A-Za-z0-9]/);
+    expect(sent.body).not.toMatch(/#[0-9]/);
+  });
+
+  it('still rate-limits [diag] reports per IP and keeps the 503 when no token is set', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', '');
+    const noToken = await POST(req({ message: '[diag] {}' }, { 'x-real-ip': '10.9.0.2' }));
+    expect(noToken.status).toBe(503);
+
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response('{}', { status: 201 })));
+    const statuses: number[] = [];
+    for (let i = 0; i < 7; i++) {
+      statuses.push((await POST(req({ message: '[diag] {}' }, { 'x-real-ip': '10.9.0.3' }))).status);
+    }
+    expect(statuses.slice(0, 5)).toEqual([201, 201, 201, 201, 201]);
+    expect(statuses[6]).toBe(429);
+  });
+
+  it('only treats a message that STARTS with [diag] as a report', async () => {
+    expect(isDiagMessage('[diag] x')).toBe(true);
+    expect(isDiagMessage('hello [diag]')).toBe(false);
+    expect(isDiagMessage('[Diag] x')).toBe(false);
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    const fetchSpy = vi.fn().mockResolvedValue(new Response('{"number":1}', { status: 201 }));
+    vi.stubGlobal('fetch', fetchSpy);
+    await POST(req({ message: 'my [diag] is odd' }, { 'x-real-ip': '10.9.0.4' }));
+    expect(fetchSpy.mock.calls[0][0]).toMatch(/\/issues$/);
+  });
+
+  it('widens the comment fence past backtick runs in a report', () => {
+    expect(diagCommentBody('a ``` b')).toBe('````\na ``` b\n````');
   });
 });

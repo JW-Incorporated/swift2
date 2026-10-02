@@ -146,6 +146,25 @@ export function bodyFrom(message: string, loc: Location): string {
   ].join('\n');
 }
 
+// One UI WP0.1: device timing reports from the app's hidden diagnostics panel
+// (`[diag]`-prefixed messages) are appended as comments on this ONE tracking
+// issue instead of each opening a new issue. Hardcoded on purpose — an env var
+// would be prod infra. Same repo, token and rate limit as ordinary feedback.
+export const DIAG_ISSUE_NUMBER = 4791;
+export const DIAG_PREFIX = '[diag]';
+
+export function isDiagMessage(message: string): boolean {
+  return message.startsWith(DIAG_PREFIX);
+}
+
+/** Comment body for a `[diag]` report: untrusted text, so defanged and fenced like an issue body. */
+export function diagCommentBody(message: string): string {
+  const text = defangGitHub(message);
+  const longestRun = Math.max(0, ...(text.match(/`+/g) ?? []).map((run) => run.length));
+  const bar = '`'.repeat(Math.max(3, longestRun + 1));
+  return `${bar}\n${text}\n${bar}`;
+}
+
 export async function POST(req: Request): Promise<Response> {
   let payload: { message?: string; location?: Location; hp?: string };
   try {
@@ -200,21 +219,29 @@ export async function POST(req: Request): Promise<Response> {
   location.url = clip(location.url, MAX_FIELD);
 
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type': 'application/json',
-        'User-Agent': 'longlive-feedback',
+    const diag = isDiagMessage(message);
+    const res = await fetch(
+      `https://api.github.com/repos/${repo}/issues${diag ? `/${DIAG_ISSUE_NUMBER}/comments` : ''}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+          'Content-Type': 'application/json',
+          'User-Agent': 'longlive-feedback',
+        },
+        body: JSON.stringify(
+          diag
+            ? { body: diagCommentBody(message) }
+            : {
+                title: titleFrom(message),
+                body: bodyFrom(message, location),
+                labels: ['user-feedback', 'feedback'],
+              },
+        ),
       },
-      body: JSON.stringify({
-        title: titleFrom(message),
-        body: bodyFrom(message, location),
-        labels: ['user-feedback', 'feedback'],
-      }),
-    });
+    );
 
     if (!res.ok) {
       const detail = await res.text();
