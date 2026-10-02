@@ -117,7 +117,7 @@ cp .env.example .env                        # fill in EXPO_PUBLIC_* creds
 npm run start --workspace @swift2/mobile    # open in Expo Go / emulator
 ```
 
-**Mobile diagnostics panel (One UI WP0.1):** Settings -> tap the version label at the bottom 7 times (within ~2 s of each other). Shows load-stage timings, model, OS, build and update id; "Send report" posts a `[diag]` message that `/api/feedback` appends as a comment on tracking issue #4791. Reports carry no device ids, push tokens or personal data. "Force shared UI (this device)" is a stub until WP0.4.
+**Mobile diagnostics panel (One UI WP0.1):** Settings -> tap the version label at the bottom 7 times (within ~2 s of each other). Shows load-stage timings, model, OS, build and update id; "Send report" posts a structured `[diag]` payload; `/api/feedback` validates it strictly and appends a templated comment on tracking issue #4791 (no client text is ever posted). Reports carry no device ids, push tokens or personal data. "Force shared UI (this device)" is a stub until WP0.4.
 
 ## Data model (5 tables · RLS public-read)
 

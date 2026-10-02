@@ -114,37 +114,60 @@ export function summarizeMarks(marks: readonly DiagMark[]): TimingSummary {
 }
 
 const round = (n: number): number => Math.round(n * 10) / 10;
-const clip = (s: string, n: number): string => s.slice(0, n);
+const clamp = (n: number): number => Math.min(600_000, Math.max(0, round(n)));
+const safeText = (s: string, max: number): string =>
+  s.replace(/[^A-Za-z0-9 ,._()-]/g, '').slice(0, max).trim() || 'unknown';
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export const DIAG_PREFIX = '[diag]';
-const MAX_REPORT_CHARS = 4500;
 
-/** The `[diag]` feedback message: a fixed whitelist of fields, compact JSON. */
-export function buildDiagMessage(env: DiagEnv, summary: TimingSummary): string {
-  const stages = summary.stages.map((s) => ({
-    stage: clip(s.stage, 40),
-    n: s.count,
-    totalMs: round(s.totalMs),
-    maxMs: round(s.maxMs),
-    atMs: round(s.firstStartMs),
-  }));
-  const render = (st: typeof stages, slow: TimingSummary['slowestDownloads']): string =>
-    `${DIAG_PREFIX} ${JSON.stringify({
-      model: clip(env.model, 60),
-      os: clip(env.os, 60),
-      build: clip(env.build, 60),
-      updateId: clip(env.updateId, 60),
-      launch: summary.launch,
-      stages: st,
-      slowestDownloads: slow.map((d) => ({ file: clip(d.file, 60), ms: round(d.ms) })),
-    })}`;
-  let message = render(stages, summary.slowestDownloads);
-  if (message.length > MAX_REPORT_CHARS) message = render(stages, []);
-  while (message.length > MAX_REPORT_CHARS && stages.length > 1) {
-    stages.pop();
-    message = render(stages, []);
+/** Stage names /api/feedback accepts (apps/web/app/api/feedback/diag.ts — keep in sync). */
+const REPORT_STAGES = [
+  'app-start', 'config', 'app-first-render', 'pointer', 'manifest', 'download', 'hash',
+  'parse', 'validate', 'disk-write', 'load-total', 'provider-wiring', 'first-era-paint',
+];
+
+export interface DiagPayload {
+  message: typeof DIAG_PREFIX;
+  diag: {
+    model: string;
+    os: string;
+    build: string;
+    updateId: string;
+    launch: 'cold' | 'warm';
+    timings: Record<string, number>;
+  };
+}
+
+/**
+ * The structured `[diag]` request body. The server validates it against an
+ * exact schema and rebuilds the comment itself, so this is a strict whitelist:
+ * coarse device facts (charset-sanitised) plus numeric timings under known
+ * stage names (`<stage>` = total ms, `at:<stage>` = first start ms).
+ */
+export function buildDiagPayload(env: DiagEnv, summary: TimingSummary): DiagPayload {
+  const timings: Record<string, number> = {};
+  for (const s of summary.stages) {
+    if (!REPORT_STAGES.includes(s.stage)) continue;
+    timings[s.stage] = clamp(s.totalMs);
+    timings[`at:${s.stage}`] = clamp(s.firstStartMs);
   }
-  return message;
+  for (const d of summary.slowestDownloads) {
+    const name = d.file.replace(/[^A-Za-z0-9:_.-]/g, '').slice(0, 40);
+    if (name) timings[`download:${name}`] = clamp(d.ms);
+  }
+  if (Object.keys(timings).length === 0) timings['app-start'] = 0;
+  return {
+    message: DIAG_PREFIX,
+    diag: {
+      model: safeText(env.model, 40),
+      os: safeText(env.os, 20),
+      build: safeText(env.build, 20),
+      updateId: UUID_RE.test(env.updateId) ? env.updateId : 'embedded',
+      launch: summary.launch === 'warm' ? 'warm' : 'cold',
+      timings,
+    },
+  };
 }
 
 /** Counts rapid taps; `tap()` is true on the tap that reaches `taps` within `windowMs` of each other. */

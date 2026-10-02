@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, diagCommentFrom, isDiagMessage, parseDiagReport } from './diag';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -146,27 +147,8 @@ export function bodyFrom(message: string, loc: Location): string {
   ].join('\n');
 }
 
-// One UI WP0.1: device timing reports from the app's hidden diagnostics panel
-// (`[diag]`-prefixed messages) are appended as comments on this ONE tracking
-// issue instead of each opening a new issue. Hardcoded on purpose — an env var
-// would be prod infra. Same repo, token and rate limit as ordinary feedback.
-export const DIAG_ISSUE_NUMBER = 4791;
-export const DIAG_PREFIX = '[diag]';
-
-export function isDiagMessage(message: string): boolean {
-  return message.startsWith(DIAG_PREFIX);
-}
-
-/** Comment body for a `[diag]` report: untrusted text, so defanged and fenced like an issue body. */
-export function diagCommentBody(message: string): string {
-  const text = defangGitHub(message);
-  const longestRun = Math.max(0, ...(text.match(/`+/g) ?? []).map((run) => run.length));
-  const bar = '`'.repeat(Math.max(3, longestRun + 1));
-  return `${bar}\n${text}\n${bar}`;
-}
-
 export async function POST(req: Request): Promise<Response> {
-  let payload: { message?: string; location?: Location; hp?: string };
+  let payload: { message?: string; location?: Location; hp?: string; diag?: unknown };
   try {
     payload = await req.json();
   } catch {
@@ -187,6 +169,20 @@ export async function POST(req: Request): Promise<Response> {
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
       { status: 429 },
     );
+  }
+
+  // One UI WP0.1: a `[diag]` report is never posted as client text. The
+  // structured `diag` payload is validated against an exact schema and the
+  // comment is rebuilt from those values only (see ./diag.ts). Rejects with a
+  // fixed error before anything else, so nothing client-supplied is echoed.
+  const diag = isDiagMessage(message);
+  let diagComment = '';
+  if (diag) {
+    const parsed = message === DIAG_PREFIX && !payload.location ? parseDiagReport(payload.diag) : null;
+    if (!parsed?.ok) {
+      return NextResponse.json({ error: 'Invalid diagnostics report.' }, { status: 400 });
+    }
+    diagComment = diagCommentFrom(parsed.report);
   }
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
@@ -219,7 +215,6 @@ export async function POST(req: Request): Promise<Response> {
   location.url = clip(location.url, MAX_FIELD);
 
   try {
-    const diag = isDiagMessage(message);
     const res = await fetch(
       `https://api.github.com/repos/${repo}/issues${diag ? `/${DIAG_ISSUE_NUMBER}/comments` : ''}`,
       {
@@ -233,7 +228,7 @@ export async function POST(req: Request): Promise<Response> {
         },
         body: JSON.stringify(
           diag
-            ? { body: diagCommentBody(message) }
+            ? { body: diagComment }
             : {
                 title: titleFrom(message),
                 body: bodyFrom(message, location),

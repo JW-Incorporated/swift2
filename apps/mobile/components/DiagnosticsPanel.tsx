@@ -3,7 +3,7 @@
 // report, and holds the C4 "Force shared UI" stub switch (wired in WP0.4).
 import { useEffect, useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
-import { buildDiagMessage, diagCollector } from '../lib/diagnostics';
+import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import { getForceSharedUi, setForceSharedUi } from '../lib/diagnostics-override';
 import { sendDiagReport } from '../lib/diagnostics-send';
@@ -24,7 +24,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   async function send() {
     if (status === 'sending') return;
     setStatus('sending');
-    const result = await sendDiagReport(buildDiagMessage(env, diagCollector.summary()));
+    const result = await sendDiagReport(buildDiagPayload(env, diagCollector.summary()));
     setStatus(result.ok ? 'sent' : 'error');
     setError(result.error ?? '');
   }

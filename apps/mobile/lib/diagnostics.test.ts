@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { setLoadTimingSink, beginStage } from '@swift2/content';
 import {
   DIAG_PREFIX,
-  buildDiagMessage,
+  buildDiagPayload,
   createTapUnlock,
   createTimingCollector,
   diagCollector,
@@ -12,6 +12,7 @@ import {
   summarizeMarks,
 } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
+import { parseDiagReport } from '../../web/app/api/feedback/diag';
 
 function clock(...values: number[]) {
   let i = 0;
@@ -80,31 +81,41 @@ describe('launchKindOf / summarizeMarks', () => {
   });
 });
 
-describe('buildDiagMessage', () => {
-  it('is [diag]-prefixed JSON carrying only the whitelisted fields', () => {
-    const msg = buildDiagMessage(env, {
-      launch: 'cold',
-      stages: [{ stage: 'manifest', count: 1, totalMs: 12.34, maxMs: 12.34, firstStartMs: 100.06 }],
-      slowestDownloads: [{ file: 'content:1989', ms: 50.55 }],
-    });
-    expect(msg.startsWith(`${DIAG_PREFIX} `)).toBe(true);
-    const body = JSON.parse(msg.slice(DIAG_PREFIX.length + 1));
-    expect(Object.keys(body).sort()).toEqual(
-      ['build', 'launch', 'model', 'os', 'slowestDownloads', 'stages', 'updateId'].sort(),
+describe('buildDiagPayload', () => {
+  const summary = {
+    launch: 'cold' as const,
+    stages: [
+      { stage: 'manifest', count: 1, totalMs: 12.34, maxMs: 12.34, firstStartMs: 100.06 },
+      { stage: 'not-a-known-stage', count: 1, totalMs: 1, maxMs: 1, firstStartMs: 1 },
+      { stage: 'first-era-paint', count: 1, totalMs: 0, maxMs: 0, firstStartMs: 9e9 },
+    ],
+    slowestDownloads: [{ file: 'content:1989 `@evil`', ms: 50.55 }],
+  };
+
+  it('carries only the whitelisted fields with known stage names', () => {
+    const p = buildDiagPayload(env, summary);
+    expect(p.message).toBe(DIAG_PREFIX);
+    expect(Object.keys(p.diag).sort()).toEqual(
+      ['build', 'launch', 'model', 'os', 'timings', 'updateId'].sort(),
     );
-    expect(body.stages[0]).toEqual({ stage: 'manifest', n: 1, totalMs: 12.3, maxMs: 12.3, atMs: 100.1 });
-    expect(body.model).toBe('Pixel 8');
+    expect(p.diag.timings.manifest).toBe(12.3);
+    expect(p.diag.timings['at:manifest']).toBe(100.1);
+    expect(p.diag.timings['not-a-known-stage']).toBeUndefined();
+    expect(p.diag.timings['at:first-era-paint']).toBe(600000);
+    expect(p.diag.timings['download:content:1989evil']).toBe(50.6);
+    expect(p.diag.updateId).toBe('embedded');
   });
 
-  it('stays under the route limit even with a huge stage list', () => {
-    const stages = Array.from({ length: 500 }, (_, i) => ({
-      stage: `stage-${i}`,
-      count: 1,
-      totalMs: 1,
-      maxMs: 1,
-      firstStartMs: 1,
-    }));
-    expect(buildDiagMessage(env, { launch: 'cold', stages, slowestDownloads: [] }).length).toBeLessThanOrEqual(4500);
+  it('is accepted by the server-side schema (contract with /api/feedback)', () => {
+    const p = buildDiagPayload(
+      { ...env, model: 'iPad (10th generation) `x`', updateId: '123e4567-e89b-12d3-a456-426614174000' },
+      summary,
+    );
+    expect(parseDiagReport(p.diag).ok).toBe(true);
+    expect(buildDiagPayload(env, { launch: 'unknown', stages: [], slowestDownloads: [] }).diag.timings).toEqual({
+      'app-start': 0,
+    });
+    expect(parseDiagReport(buildDiagPayload(env, { launch: 'unknown', stages: [], slowestDownloads: [] }).diag).ok).toBe(true);
   });
 });
 
@@ -154,19 +165,21 @@ describe('installDiagnostics', () => {
 });
 
 describe('sendDiagReport', () => {
-  it('posts only { message } to /api/feedback', async () => {
+  const payload = buildDiagPayload(env, { launch: 'warm', stages: [], slowestDownloads: [] });
+
+  it('posts the structured payload to /api/feedback', async () => {
     const fetchImpl = vi.fn().mockResolvedValue({ ok: true });
-    const result = await sendDiagReport('[diag] {}', fetchImpl as unknown as typeof fetch);
+    const result = await sendDiagReport(payload, fetchImpl as unknown as typeof fetch);
     expect(result.ok).toBe(true);
     const [url, init] = fetchImpl.mock.calls[0];
     expect(url).toMatch(/\/api\/feedback$/);
-    expect(JSON.parse(init.body)).toEqual({ message: '[diag] {}' });
+    expect(JSON.parse(init.body)).toEqual(payload);
   });
 
   it('surfaces the route error and survives a network failure', async () => {
     const limited = vi.fn().mockResolvedValue({ ok: false, status: 429, json: async () => ({ error: 'slow down' }) });
-    expect(await sendDiagReport('x', limited as unknown as typeof fetch)).toEqual({ ok: false, error: 'slow down' });
+    expect(await sendDiagReport(payload, limited as unknown as typeof fetch)).toEqual({ ok: false, error: 'slow down' });
     const down = vi.fn().mockRejectedValue(new Error('offline'));
-    expect((await sendDiagReport('x', down as unknown as typeof fetch)).ok).toBe(false);
+    expect((await sendDiagReport(payload, down as unknown as typeof fetch)).ok).toBe(false);
   });
 });
