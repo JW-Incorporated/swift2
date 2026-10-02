@@ -6,10 +6,13 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
-0. Create the PM worktree (OPERATING-MODE §3) if it's missing.
-1. Start WP0.0, WP0.1 and WP0.3 in parallel. All three are independent;
-   that's the 3-agent cap.
-2. As one of them frees up: WP0.3b, then the WP0.4 researcher audit (the
+0. Create the PM worktree (OPERATING-MODE §3) if it's missing. (Done
+   2026-10-02; branch pushed.)
+1. WP0.0, WP0.1, WP0.3 executors launched 2026-10-02. If a fresh PM finds
+   no PR for one, check `gh pr list --search "one-ui"` / branch
+   `feature/one-ui-wp0.x` before re-briefing.
+2. On each PR: `reviewer` (+ Codex for [codex] WPs), then enable auto-merge.
+   As a slot frees up: WP0.3b, then the WP0.4 researcher audit (the
    native-needs matrix).
 3. When WP0.1 merges and its OTA has published: file HA session S1 with
    the `human-actions` skill, pinning the build and update id, and tell
@@ -19,10 +22,10 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 | WP | State | PR | Notes |
 |---|---|---|---|
-| 0.0 | queued | | |
-| 0.1 | queued | | |
+| 0.0 | in progress | | executor |
+| 0.1 | in progress | | executor |
 | 0.2 | blocked on S1 | | |
-| 0.3 | queued | | |
+| 0.3 | in progress | | executor |
 | 0.3b | queued | | CORS on /content only |
 | 0.4 | queued | | native batch; PM signs needs matrix |
 | 0.4b | blocked on 0.4 | | minimal watchdog |
@@ -52,7 +55,10 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 ## Decisions log (PM, reversible, one line each)
 
 - 2026-10-02 — Plan calls C1–C6 (`PLAN.md`).
+- 2026-10-02 — PM branch based on `origin/docs/one-ui-plan` (PR #4789, auto-merge set) because `main` didn't have PROGRESS.md yet; merge `origin/main` once #4789 lands.
+- 2026-10-02 — Workers open PRs without auto-merge; the PM enables it after `reviewer` (+ Codex) passes, so nothing lands unreviewed.
 
 ## Log
 
 - 2026-10-02 — Programme planned; awaiting kickoff.
+- 2026-10-02 — Kickoff. PM worktree created; WP0.0, WP0.1, WP0.3 launched.
