@@ -138,6 +138,12 @@ label still accurate) → reviewer Low doc note dropped (PM). **#4813 APPROVED,
 queued for the post-S1 landing.** Post-S1 landing pass (in order): #4796,
 #4813 (both main-based; merge main into each if behind), #4799, then #4811
 (retarget base → main). Then PR B (retarget → main after #4796).
+**14:11:** WP1.1a → **#4814** (size-check script, baseline ios 4,009,136 /
+android 4,021,701 B from 58242111; ci.yml exports → dist-ios/dist-android;
+suite 8092 pass; negative run exit 1). NOT frozen (CI/scripts only) → can
+auto-merge once Codex + reviewer pass. Interaction: #4799's DOM assets add
+size → bump baseline with `--update` in #4799's wake (or in #4799 if it
+trips >15%). Codex r1 + reviewer r1 launched.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
