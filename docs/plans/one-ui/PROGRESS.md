@@ -63,6 +63,17 @@ reports. Owner directive (Joey, 14:00): "run as much parallel work as makes
 sense" → PM pulled forward two read-only research stages (reversible, no
 merges): WP0.2 loader pre-analysis (ready to rank once [diag] lands) and
 WP1.1 parity-harness research (build path, comparator, runtime). 3/3 slots.
+**14:02:** WP0.2 pre-analysis back. Predicted #1 cost: NO in-flight dedupe —
+3 EraSections each run a full loadBundle every launch (content-bundle.ts:50).
+Then pure-JS sha256 per file (hash.ts; don't add expo-crypto = native), serial
+file fetches (load.ts:433), double-stringify disk write; warm: 3× JSON.parse
++ zod safeParse per file. Partial-load apps never get a complete marker →
+cold load every launch. Split (all JS-only): **A** in-flight dedupe (<150,
+independent of #4796) · **B** parallel fetches (<200, after #4796) · **C**
+warm short-circuit + memo + single encode/write (<250, after #4796) · **D**
+only if [diag] says so. PM call: build A now (merge waits for freeze anyway;
+S1 measures the old build) → executor `feature/one-ui-wp0.2a` launched.
+B/C wait for #4796 to merge. S2 measures after A–C.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
