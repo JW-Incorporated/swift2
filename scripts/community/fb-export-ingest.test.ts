@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildIngestResult,
   engagementLeadsFromPosts,
+  normalizeSupabaseUrl,
   parseArgs,
   resolveGroupName,
   shopLinksFromPosts,
@@ -190,5 +191,20 @@ describe('buildIngestResult', () => {
     expect(result.fanSignal.volume).toBe(0);
     expect(result.engagementLeads).toEqual([]);
     expect(result.shopLinks).toEqual([]);
+  });
+});
+
+describe('normalizeSupabaseUrl', () => {
+  it('prefixes https:// onto a bare host', () => {
+    expect(normalizeSupabaseUrl('abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
+  });
+  it('keeps http and https URLs as they are', () => {
+    expect(normalizeSupabaseUrl('https://abcd1234.supabase.co')).toBe('https://abcd1234.supabase.co');
+    expect(normalizeSupabaseUrl('http://localhost:54321')).toBe('http://localhost:54321');
+  });
+  it('leaves empty or garbage values unchanged', () => {
+    expect(normalizeSupabaseUrl('')).toBe('');
+    expect(normalizeSupabaseUrl('not a url')).toBe('not a url');
+    expect(normalizeSupabaseUrl(undefined)).toBeUndefined();
   });
 });

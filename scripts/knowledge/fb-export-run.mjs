@@ -14,8 +14,7 @@ import { tmpdir } from 'node:os';
 import { basename, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 import { pathToFileURL } from 'node:url';
-import { buildIngestResult } from '../community/fb-export-ingest.mjs';
-import { gh } from '../lib/gh.mjs';
+import { buildIngestResult } from '../community/fb-export-ingest.mjs';import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
@@ -120,14 +119,16 @@ export async function ingestOne(
   }
 }
 
-// The child's last non-empty stderr line (<=200 chars), secrets redacted, so a failed child
-// reports WHY instead of a bare stage name.
+const ERROR_LINE = /^(\w*Error|Error)\b|:\s*Error\b|^error:/i;
+
+// The child's last stderr line that looks like an error message (else the last non-empty line),
+// <=200 chars, secrets redacted, so a failed child reports WHY instead of a stack frame.
 export function failureReason(error, fallback) {
-  const last = String(error?.stderr ?? '')
+  const lines = String(error?.stderr ?? '')
     .split(/\r?\n/)
     .map((line) => line.trim())
-    .filter(Boolean)
-    .at(-1);
+    .filter(Boolean);
+  const last = lines.findLast((line) => ERROR_LINE.test(line)) ?? lines.at(-1);
   return last ? redactReason(last).slice(0, 200) : fallback;
 }
 
@@ -146,12 +147,16 @@ export function redactReason(text) {
 const REQUIRED_ENV_KEYS = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
 export const ENV_MISSING_SUMMARY =
   'Worker env is missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY — see HUMAN-ACTIONS #88';
+export const ENV_URL_INVALID_SUMMARY =
+  'Worker env SUPABASE_URL is not a valid http(s) URL (a bare host is fixed automatically; anything else is not) — fix the env file';
 
 // Loads the worker env file exactly as the ingest child does; prints only true/false per key.
 export async function checkWorkerEnv(exec = execFileAsync) {
-  const script = `console.log(JSON.stringify(Object.fromEntries(${JSON.stringify(
-    REQUIRED_ENV_KEYS,
-  )}.map((k) => [k, Boolean(process.env[k])]))))`;
+  const supabaseModule = pathToFileURL(join(REPO_ROOT, 'scripts/lib/supabase.mjs')).href;
+  const script = `import(${JSON.stringify(supabaseModule)}).then((m) => console.log(JSON.stringify({
+    ...Object.fromEntries(${JSON.stringify(REQUIRED_ENV_KEYS)}.map((k) => [k, Boolean(process.env[k])])),
+    SUPABASE_URL_VALID: m.isValidSupabaseUrl(process.env.SUPABASE_URL),
+  })))`;
   try {
     const { stdout } = await exec(process.execPath, [INGEST_ENV_ARG, '-e', script], {
       cwd: REPO_ROOT,
@@ -159,7 +164,8 @@ export async function checkWorkerEnv(exec = execFileAsync) {
       maxBuffer: 64 * 1024,
     });
     const flags = JSON.parse(String(stdout).trim().split('\n').at(-1));
-    return { ok: REQUIRED_ENV_KEYS.every((k) => flags[k] === true) };
+    if (!REQUIRED_ENV_KEYS.every((k) => flags[k] === true)) return { ok: false };
+    return flags.SUPABASE_URL_VALID === true ? { ok: true } : { ok: false, urlInvalid: true };
   } catch {
     return { ok: false };
   }
@@ -368,7 +374,14 @@ export async function runExport(options = {}) {
   }
   if (!dryRun && pending.length) {
     const env = await (options.checkEnv ?? checkWorkerEnv)();
-    if (!env.ok) return { ok: false, results: [], summary: ENV_MISSING_SUMMARY, envMissing: true };
+    if (!env.ok) {
+      return {
+        ok: false,
+        results: [],
+        summary: env.urlInvalid ? ENV_URL_INVALID_SUMMARY : ENV_MISSING_SUMMARY,
+        envMissing: true,
+      };
+    }
   }
   const collection = pending.length
     ? await (options.collect ?? extensionCollect)({

@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import {
   checkWorkerEnv,
   ENV_MISSING_SUMMARY,
+  ENV_URL_INVALID_SUMMARY,
   failureReason,
   formatComments,
   gateExport,
@@ -34,6 +35,29 @@ describe('failure reasons and env preflight', () => {
     expect(failureReason({}, 'ingest')).toBe('ingest');
   });
 
+  it('prefers the Error line over trailing stack frames', () => {
+    const stderr =
+      'Error: Invalid supabaseUrl: Must be a valid HTTP or HTTPS URL.\n    at a (x.js:1:1)\n    at async b (y.js:2:2)\n';
+    expect(failureReason({ stderr }, 'x')).toBe(
+      'Error: Invalid supabaseUrl: Must be a valid HTTP or HTTPS URL.',
+    );
+    expect(failureReason({ stderr: 'plain\nlast line\n' }, 'x')).toBe('last line');
+  });
+
+  it('an invalid SUPABASE_URL stops the run before collecting, naming the problem', async () => {
+    const collect = vi.fn();
+    const result = await runExportReal({
+      root: 'C:\\outside-repo',
+      groups: [group],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      collect,
+      checkEnv: async () => ({ ok: false, urlInvalid: true }),
+    });
+    expect(result.ok).toBe(false);
+    expect(result.summary).toBe(ENV_URL_INVALID_SUMMARY);
+    expect(collect).not.toHaveBeenCalled();
+  });
+
   it('redacts keys, tokens and credentialed URLs', () => {
     expect(redactReason('bad SERVICE_ROLE_KEY=abc123def')).toBe('bad SERVICE_ROLE_KEY=[redacted]');
     expect(redactReason('fetch https://user:pw@host.example/x failed')).toBe(
@@ -59,9 +83,13 @@ describe('failure reasons and env preflight', () => {
 
   it('checkWorkerEnv needs both keys true', async () => {
     const out = (o: object) => vi.fn().mockResolvedValue({ stdout: `${JSON.stringify(o)}\n` });
-    const both = { SUPABASE_URL: true, SUPABASE_SERVICE_ROLE_KEY: true };
+    const both = { SUPABASE_URL: true, SUPABASE_SERVICE_ROLE_KEY: true, SUPABASE_URL_VALID: true };
     expect(await checkWorkerEnv(out(both))).toEqual({ ok: true });
     expect(await checkWorkerEnv(out({ ...both, SUPABASE_URL: false }))).toEqual({ ok: false });
+    expect(await checkWorkerEnv(out({ ...both, SUPABASE_URL_VALID: false }))).toEqual({
+      ok: false,
+      urlInvalid: true,
+    });
     expect(await checkWorkerEnv(vi.fn().mockRejectedValue(new Error('x')))).toEqual({ ok: false });
   });
 
