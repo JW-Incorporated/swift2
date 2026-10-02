@@ -1,7 +1,8 @@
-/** One UI WP0.2 PR C: warm-path short-circuit, in-session memo, single encode / single files write. */
+/** One UI WP0.2 PR C: warm-path short-circuit, single encode / single files write. */
 import { createHash as nodeHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryStorageAdapter } from './cache';
@@ -44,13 +45,19 @@ function spySafeParse() {
 }
 
 describe('schema fingerprint guard', () => {
-  it('schema.ts is unchanged since SCHEMA_FINGERPRINT was last bumped', () => {
+  it('validation inputs are unchanged since SCHEMA_FINGERPRINT was last bumped', () => {
+    const read = (f: string) => readFileSync(join(srcDir, f), 'utf8').replace(/\r\n/g, '\n');
+    const zodVersion = (createRequire(import.meta.url)('zod/package.json') as { version: string })
+      .version;
     const sha = nodeHash('sha256')
-      .update(readFileSync(join(srcDir, 'schema.ts'), 'utf8').replace(/\r\n/g, '\n'))
+      .update(
+        [read('schema.ts'), read('validation-contract.ts'), `zod@${zodVersion}`].join('\n--\n'),
+      )
       .digest('hex');
-    // If this fails: schema.ts changed. Bump SCHEMA_FINGERPRINT in warm-cache.ts
-    // (so cached bundles re-validate once after the OTA) AND update this pin.
-    expect([SCHEMA_FINGERPRINT, sha]).toEqual(['schema-fp-1', 'ee6af5b80881b38a92895d18e05ef60b6d8c722b2c0ff900afe914a073ab11a6']);
+    // If this fails: schema.ts, validation-contract.ts or the installed zod
+    // version changed. Bump SCHEMA_FINGERPRINT in warm-cache.ts (so cached
+    // bundles re-validate once after the OTA) AND update this pin.
+    expect([SCHEMA_FINGERPRINT, sha]).toEqual(['schema-fp-1', 'a533d7fbdba965a4f05021175be49ac5b02b58d82a0e92178aaa8e6dc601fe4d']);
   });
 });
 
@@ -98,38 +105,6 @@ describe('warm path', () => {
     storage.setItem(key(`files:${v}`), JSON.stringify(files));
     const warm = await loadBundle({ baseUrl, fetch: makeFetch(), storage });
     expect(warm.source).toBe('network');
-  });
-});
-
-describe('in-session memo', () => {
-  it('second warm load in one session skips storage reads of the bundle; new version misses', async () => {
-    const storage = new MemoryStorageAdapter();
-    await loadBundle({ baseUrl, fetch: makeFetch(), storage });
-    const first = await loadBundle({ baseUrl, fetch: makeFetch(), storage });
-    const getSpy = vi.spyOn(storage, 'getItem');
-    const second = await loadBundle({ baseUrl, fetch: makeFetch(), storage });
-    expect(getSpy).not.toHaveBeenCalled();
-    expect(second.files).toBe(first.files);
-    expect(second.source).toBe('cache-etag');
-
-    const other: FetchLike = async (url, init) =>
-      url.endsWith('current.json')
-        ? {
-            ok: true,
-            status: 200,
-            text: async () => JSON.stringify({ bundleVersion: 'c'.repeat(64) }),
-            headers: { get: () => null },
-          }
-        : makeFetch()(url, init);
-    getSpy.mockClear();
-    await loadBundle({ baseUrl, fetch: other, storage }).catch(() => undefined);
-    expect(getSpy).toHaveBeenCalled();
-  });
-
-  it('a cold load is never served from the memo of a different storage adapter', async () => {
-    await loadBundle({ baseUrl, fetch: makeFetch(), storage: new MemoryStorageAdapter() });
-    const fresh = await loadBundle({ baseUrl, fetch: makeFetch(), storage: new MemoryStorageAdapter() });
-    expect(fresh.source).toBe('network');
   });
 });
 

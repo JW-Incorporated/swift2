@@ -42,7 +42,8 @@
  * last-good, so it can never clobber a full load of the same version.
  */
 import { z } from 'zod';
-import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
+import { manifestSchema, type Manifest } from './schema';
+import { lookupSchema } from './validation-contract';
 import { MemoryStorageAdapter, type StorageAdapter } from './cache';
 import { createHash } from './hash';
 import {
@@ -55,8 +56,6 @@ import { mapPool } from './pool';
 import { beginStage } from './timing';
 import {
   lastGoodJson,
-  memoGet,
-  memoSet,
   readWarmCache,
   SCHEMA_FINGERPRINT,
 } from './warm-cache';
@@ -179,12 +178,6 @@ class TransportError extends Error {
     super(message);
     this.name = 'TransportError';
   }
-}
-
-/** Same manifest-entry-name -> schema mapping the OS-010 fixture test uses (`content:<eraId>` prefix -> the per-era content file schema; everything else keyed directly into `contentBundleSchemas`). Undefined when this build has no schema for `name`. */
-function lookupSchema(name: string): z.ZodTypeAny | undefined {
-  if (name.startsWith('content:')) return contentBundleSchemas.content;
-  return (contentBundleSchemas as Record<string, z.ZodTypeAny>)[name];
 }
 
 function schemaForManifestEntry(name: string): z.ZodTypeAny {
@@ -388,14 +381,6 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   // Any truthy marker counts, including a legacy ETag string: the previous code
   // wrote it only after the whole bundle was fetched and validated, and '' for
   // pruned loads. An unreadable cache falls through to the network load.
-  // An earlier warm hit in this JS session (same storage + version) is served
-  // as-is; the memo is only ever filled from a storage-verified warm read.
-  const memoized = memoGet(storage, baseUrl, bundleVersion, schemaVersion);
-  if (memoized) {
-    beginStage('manifest')('304');
-    return { ...memoized, source: 'cache-etag', stale: false };
-  }
-
   if (await storeGet(storage, completeKey)) {
     const cachedRaw = await storeGet(storage, manifestCacheKey);
     const cachedFilesRaw = await storeGet(storage, filesCacheKey);
@@ -411,7 +396,6 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
             // best effort: the next warm launch just validates again
           }
         }
-        memoSet(storage, baseUrl, bundleVersion, schemaVersion, warm);
         // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
         beginStage('manifest')('304');
         return { ...warm, source: 'cache-etag', stale: false };

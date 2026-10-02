@@ -11,7 +11,10 @@
  * it would mean walking the zod graph (or hashing source, unavailable on
  * Hermes) on every launch, which is the cost this removes. The drift risk of a
  * hand-bumped value is closed by `warm-cache.test.ts`, which pins a hash of
- * `schema.ts` and fails until whoever changes the schema bumps BOTH. A new OTA
+ * every input that decides what "valid" means — `schema.ts`,
+ * `validation-contract.ts` (entry name -> schema) and the installed zod version
+ * (zod ships by OTA, so a bump can change parse behaviour) — and fails until
+ * whoever changes any of them bumps BOTH. A new OTA
  * with a changed schema therefore ships a new fingerprint, mismatches what the
  * cache stored, and re-validates once (docs: issue #4800, cross-OTA hazard).
  */
@@ -58,40 +61,4 @@ export function readWarmCache(
 /** Same bytes as `JSON.stringify({ manifest, files })`, reusing already-serialised parts so `files` is stringified once per cold load. */
 export function lastGoodJson(manifestJson: string, filesJson: string): string {
   return `{"manifest":${manifestJson},"files":${filesJson}}`;
-}
-
-interface MemoEntry {
-  bundleVersion: string;
-  schemaVersion: number;
-  bundle: WarmBundle;
-}
-
-// Keyed by the storage adapter instance (then baseUrl) so a memo can never
-// outlive or cross the cache it was read from.
-const memo = new WeakMap<object, Map<string, MemoEntry>>();
-
-export function memoGet(
-  storage: object,
-  baseUrl: string,
-  bundleVersion: string,
-  schemaVersion: number,
-): WarmBundle | null {
-  const hit = memo.get(storage)?.get(baseUrl);
-  if (!hit || hit.bundleVersion !== bundleVersion || hit.schemaVersion !== schemaVersion) {
-    return null;
-  }
-  return hit.bundle;
-}
-
-/** Holds one version per (storage, baseUrl): a new bundleVersion replaces, never accumulates. */
-export function memoSet(
-  storage: object,
-  baseUrl: string,
-  bundleVersion: string,
-  schemaVersion: number,
-  bundle: WarmBundle,
-): void {
-  let perUrl = memo.get(storage);
-  if (!perUrl) memo.set(storage, (perUrl = new Map()));
-  perUrl.set(baseUrl, { bundleVersion, schemaVersion, bundle });
 }
