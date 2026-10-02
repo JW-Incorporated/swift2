@@ -4,3 +4,4 @@ web-build/
 *.log
 .env
 .env.local
+dist-*/

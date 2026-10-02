@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-// OTA size budget check (One UI WP1.1a). Sums the bytes of every file in each
-// platform's `expo export` output dir (Hermes bundle, assets, and any DOM
-// `www.bundle` assets) except metadata.json, and fails when either platform
-// grows more than 15% over e2e/parity/size-baseline.json.
+// OTA size budget (One UI WP1.1a). Totals the uncompressed bytes of every file
+// in each platform's `expo export` output dir (Hermes bundle, assets, any DOM
+// `www.bundle`; metadata.json excluded) and fails when either platform grows
+// more than 15% over e2e/parity/size-baseline.json. This is a proxy for update
+// download growth, not the exact payload: the JS bundle is re-downloaded in
+// full on every update, assets only when their hash changes.
 //
 //   node scripts/parity/size-check.mjs            compare against baseline
 //   node scripts/parity/size-check.mjs --update   rewrite the baseline
@@ -29,7 +31,7 @@ export function dirBytes(dir) {
 // Pure. current/baseline: { ios?: {bytes}, android?: {bytes} } or undefined.
 export function evaluateSizes(current, baseline, maxGrowth = MAX_GROWTH) {
   if (!baseline) {
-    return { ok: false, rows: [], errors: ['baseline missing: run with --update to create it'] };
+    return { ok: false, rows: [], errors: ['baseline missing: run "node scripts/parity/size-check.mjs --update" and commit e2e/parity/size-baseline.json'] };
   }
   const errors = [];
   const rows = [];
@@ -49,7 +51,7 @@ export function evaluateSizes(current, baseline, maxGrowth = MAX_GROWTH) {
     rows.push({ platform: p, current: cur, baseline: base, growth, over });
     if (over) {
       errors.push(
-        `${p}: ${cur} bytes is ${(growth * 100).toFixed(1)}% over baseline ${base} (limit ${maxGrowth * 100}%)`,
+        `${p}: ${cur} bytes is ${(growth * 100).toFixed(1)}% over baseline ${base} (limit ${maxGrowth * 100}%). If intentional: run 'node scripts/parity/size-check.mjs --update' after both exports and commit e2e/parity/size-baseline.json in the same PR`,
       );
     }
   }

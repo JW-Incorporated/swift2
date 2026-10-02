@@ -235,6 +235,17 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
+      # Seed changes regenerate lenses.generated.ts into the Hermes bundle, so
+      # content-only PRs get the OTA size budget too (see build-full).
+      - run: npm run sync:content
+      - name: Expo export (iOS, size budget)
+        working-directory: apps/mobile
+        run: npx expo export --platform ios --output-dir dist-ios
+      - name: Expo export (Android, size budget)
+        working-directory: apps/mobile
+        run: npx expo export --platform android --output-dir dist-android
+      - name: OTA size budget check
+        run: node scripts/parity/size-check.mjs
 
   # Required-check aggregator: branch protection points at the job named
   # `build`, which now never runs the work itself — it just fans in whichever
