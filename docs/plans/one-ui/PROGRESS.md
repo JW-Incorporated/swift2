@@ -133,6 +133,11 @@ LoadedBundle must not be mutated). Codex r1 `task-murgdpv0-bxq2dx` pending.
 WP0.2 PR B (parallel fetches, cap 5, manifest-order validation) executor
 launched STACKED on feature/one-ui-wp0.3b (#4796) → branch
 `feature/one-ui-wp0.2b`. PR C waits for B.
+**14:09:** #4813 Codex r1 = APPROVE (no findings; callers read-only, cold/warm
+label still accurate) → reviewer Low doc note dropped (PM). **#4813 APPROVED,
+queued for the post-S1 landing.** Post-S1 landing pass (in order): #4796,
+#4813 (both main-based; merge main into each if behind), #4799, then #4811
+(retarget base → main). Then PR B (retarget → main after #4796).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
