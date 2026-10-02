@@ -29,6 +29,11 @@ inert; 3603a03f vs dcf1ea59 = measurement env. #4819 r1: Codex
 (`task-murktwfp-vpt722`) P1 main-ref baseline regen allowed, P2 trigger paths
 → fix round 1 executor (wt `wt-wp11c`) with reviewer r1 items. Fable reviewed
 part-2 brief → B (Fable log).
+**16:24:** #4819 fix r1 dc79e754 (main-ref regen refused pre-checkout;
+filter widened; fingerprint dcf1ea59 line in body+docs); PM spot-check: run
+37077115019 pull_request = success on dc79e754. Scoped reviewer r2 = APPROVE
+→ **#4819 APPROVED**, held: lands after #4811 (add as step 6b below: retarget
+to main after #4811, then auto-merge). WP1.1 stays PARTIAL until part 2.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
@@ -44,6 +49,8 @@ APPROVED & HELD for post-S1 landing, in this order (CodeQL/CI green; check
 5. #4815 (WP0.2 B, base wp0.3b) → retarget main after #4796; then #4816
    (WP0.2 C, base wp0.2b) → retarget main after #4815
 6. #4818 (WP0.5a, base wp0.4b) → retarget after #4811
+6b. #4819 (WP1.1c p1, base wp0.4b) → retarget main after #4811, auto-merge
+6c. #4822 (WP0.5b, base wp0.5a) → retarget after #4818 (once approved)
 7. After #4799 lands: bump size baseline (`node scripts/parity/size-check.mjs
    --update`, +11.6% expected) in a small PR; then S2/S3 sessions in chat
    (owner directive: sessions go in chat). S3 extra check: WP0.4 test page
