@@ -349,6 +349,10 @@ task-murhzvkg-7tilc6 "not found" in companion → relay agent will report.
 **14:55:** #4817 fix r2 fc0bfa6b (LIMIT 50, hash filter first, honest
 wording) → scoped reviewer APPROVE → **auto-merge SET** (CI-only, not frozen).
 First real check of it = the next release-train run (post-S1 landing).
+**14:56:** #4818 Codex r2 = APPROVE (no findings; throw surfaces in Metro;
+next/dynamic named-export loader OK; parity.types.ts in CI typecheck). With
+reviewer r1 APPROVE (Lows fixed) → **#4818 APPROVED**, queued post-S1
+(stacked: lands after #4811). #4819 Codex r1 pending (relay will report).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
