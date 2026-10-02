@@ -134,6 +134,30 @@ describe('loadBundle', () => {
     expect(requestLog).toEqual([`${baseUrl}/current.json`]);
   });
 
+  it('legacy install: a truthy ETag string in the marker key still gets a one-request warm hit', async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    storage.setItem(`@swift2/content:v1:${baseUrl}:etag:${manifest.bundleVersion}`, '"legacy"');
+    const requestLog: string[] = [];
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch({ requestLog }), storage });
+    expect(result.source).toBe('cache-etag');
+    expect(requestLog).toEqual([`${baseUrl}/current.json`]);
+  });
+
+  it('legacy install: an empty marker (pruned load) forces a network load', async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    storage.setItem(`@swift2/content:v1:${baseUrl}:etag:${manifest.bundleVersion}`, '');
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    expect(result.source).toBe('network');
+  });
+
+  it('a corrupt cached manifest falls through to the network load', async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    storage.setItem(`@swift2/content:v1:${baseUrl}:manifest:${manifest.bundleVersion}`, '{not json');
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    expect(result.source).toBe('network');
+    expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
+  });
+
   it('a changed version downloads the manifest and every file (integrity checks: the sha256-mismatch test below)', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 

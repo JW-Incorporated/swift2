@@ -358,6 +358,8 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
 
   const manifestUrl = joinUrl(baseUrl, `${bundleVersion}/manifest.json`);
   const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
+  // Key name `etag:` and source value 'cache-etag' are kept deliberately: existing
+  // installs already hold this key, and renaming the source would break callers.
   const completeKey = keyFor(baseUrl, `etag:${bundleVersion}`);
   const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
 
@@ -367,16 +369,23 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   // immutable, so a fully validated cached copy of this exact version needs no
   // manifest or file downloads. Plain requests only: a conditional header
   // (If-None-Match) would force a CORS preflight from the app's opaque origin.
+  // Any truthy marker counts, including a legacy ETag string: the previous code
+  // wrote it only after the whole bundle was fetched and validated, and '' for
+  // pruned loads. An unreadable cache falls through to the network load.
   if (await storeGet(storage, completeKey)) {
     const cachedRaw = await storeGet(storage, manifestCacheKey);
     const cachedFilesRaw = await storeGet(storage, filesCacheKey);
     if (cachedRaw && cachedFilesRaw) {
-      return {
-        manifest: manifestSchema.parse(JSON.parse(cachedRaw)),
-        files: JSON.parse(cachedFilesRaw) as BundleFiles,
-        source: 'cache-etag',
-        stale: false,
-      };
+      try {
+        return {
+          manifest: manifestSchema.parse(JSON.parse(cachedRaw)),
+          files: JSON.parse(cachedFilesRaw) as BundleFiles,
+          source: 'cache-etag',
+          stale: false,
+        };
+      } catch {
+        // corrupt cache entry: re-download below
+      }
     }
   }
 
