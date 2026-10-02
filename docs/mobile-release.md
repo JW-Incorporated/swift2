@@ -96,6 +96,15 @@ Instead:
   and runs `eas submit --platform android --id <build_id> --profile
   production --non-interactive` itself, in the one place that has the
   secret.
+- After the wait (even when it failed), the step "Summarise EAS jobs and the
+  published OTA update" writes each EAS job's final status and, on success,
+  the OTA update group id(s), platform and runtime version published for
+  this exact commit (looked up by `gitCommitHash` via `update:list` +
+  `update:view`; the fingerprint runtime policy yields one group per
+  platform) to the run summary, so a device test can pin the update without
+  an Expo login. "None published" means the store-build path. The step is
+  read-only and only fails the job if a job shows failed while the run said
+  SUCCESS.
 - `eas.json`'s `submit.production.android.serviceAccountKeyPath` points at
   that same gitignored path so a founder can also run `eas submit
   --platform android` locally after populating the file by hand (or once
