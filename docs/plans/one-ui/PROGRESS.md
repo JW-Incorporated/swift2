@@ -24,8 +24,18 @@ APPROVED & HELD for post-S1 landing, in this order (CodeQL/CI green; check
    --update`, +11.6% expected) in a small PR; then S2/S3 sessions in chat
    (owner directive: sessions go in chat). S3 extra check: WP0.4 test page
    ~250 px wide in a 393 px iPhone viewport.
-IN FLIGHT: WP0.5b executor (`feature/one-ui-wp0.5b`, stacked on wp0.5a; brief
-scratch `brief-wp05.md` §"0.5b AMENDED 14:34"); #4819 (WP1.1c part 1) Codex
+**15:03 update:** WP0.5b → **#4822** (base wp0.5a; merged 42dc6852). ~700
+non-test lines — PM accepts unsplit (spike code, replaced by WP2.x).
+Deviation accepted: call-time require() after fill() (await import() broke
+expo export: "Asset not found __common-*.js"). Added `@/*` paths to mobile
+tsconfig. Suite 8174; exports OK; bundle check OK; browser screenshots real
+(scratch `wp05b-{chromium,webkit}-{stream,scrolled,moment-detail}.png`;
+snapshot hash ad5cf47a…, 780 items/12 eras). **Reviewers must reconcile the
+fingerprint: executor reports 3603a03f before==after, earlier executors
+reported dcf1ea59 on a similar base — confirm the native fingerprint is truly
+unchanged vs origin/feature/one-ui-wp0.4b.** NEXT: Codex + reviewer on #4822,
+then Fable design-fidelity (owner directive). Device-only checks → S4.
+IN FLIGHT (as of 14:56): WP0.5b executor (now done → #4822); #4819 (WP1.1c part 1) Codex
 r1 pending + reviewer r1 REQUEST CHANGES (minor: real PR run on head;
 fingerprint line in PR/docs) → one fix round to the #4819 executor after
 Codex. Then: Codex + reviewer + Fable design-fidelity on WP0.5b; WP1.1c part
