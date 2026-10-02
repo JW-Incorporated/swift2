@@ -6,6 +6,7 @@ import {
   createTapUnlock,
   createTimingCollector,
   diagCollector,
+  diagMarkOnce,
   installDiagnostics,
   launchKindOf,
   summarizeMarks,
@@ -130,10 +131,23 @@ describe('createTapUnlock', () => {
 describe('installDiagnostics', () => {
   afterEach(() => setLoadTimingSink(null));
 
-  it('routes content stage events into the shared collector, once', () => {
+  it('diagMarkOnce is a no-op before install, then marks each stage once', () => {
+    diagMarkOnce('provider-wiring');
+    expect(diagCollector.marks().some((x) => x.stage === 'provider-wiring')).toBe(false);
+    installDiagnostics();
+    diagMarkOnce('provider-wiring');
+    diagMarkOnce('provider-wiring');
+    diagMarkOnce('first-era-paint');
+    const stages = diagCollector.marks().map((x) => x.stage);
+    expect(stages.filter((x) => x === 'provider-wiring').length).toBe(1);
+    expect(stages).toContain('first-era-paint');
+  });
+
+  it('installs once and routes content stage events into the shared collector', () => {
     installDiagnostics();
     installDiagnostics();
     expect(diagCollector.marks().filter((x) => x.stage === 'app-start').length).toBe(1);
+    setLoadTimingSink((e) => diagCollector.record(e));
     beginStage('probe')();
     expect(diagCollector.marks().some((x) => x.stage === 'probe')).toBe(true);
   });

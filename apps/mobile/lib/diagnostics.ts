@@ -171,6 +171,15 @@ export const diagCollector: TimingCollector = createTimingCollector();
 
 let installed = false;
 
+const markedOnce = new Set<string>();
+
+/** Instant mark recorded at most once per process; a no-op until diagnostics are installed. */
+export function diagMarkOnce(stage: string, detail?: string): void {
+  if (!installed || markedOnce.has(stage)) return;
+  markedOnce.add(stage);
+  diagCollector.mark(stage, detail);
+}
+
 /** Route packages/content load-stage events into `diagCollector`, once, and mark app start. */
 export function installDiagnostics(): void {
   if (installed) return;
