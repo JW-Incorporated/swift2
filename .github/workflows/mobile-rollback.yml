@@ -49,6 +49,8 @@ concurrency:
 jobs:
   rollback:
     runs-on: ubuntu-latest
+    # 30: emergency path; setup + CLI install + two republishes, with slack.
+    timeout-minutes: 30
     steps:
       - name: Refuse to run half-configured
         env:

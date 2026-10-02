@@ -45,6 +45,7 @@ import {
   type ScreenId,
 } from './lib/routes';
 import { loadAppConfig, routeFlagsFrom } from './lib/app-config';
+import { diagCollector, installDiagnostics } from './lib/diagnostics';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
@@ -69,6 +70,8 @@ import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
+
+installDiagnostics();
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -229,7 +232,10 @@ export default function App() {
   const [updateRequired, setUpdateRequired] = useState(false);
   useEffect(() => {
     let cancelled = false;
+    const endConfig = diagCollector.start('config');
+    diagCollector.mark('app-first-render');
     loadAppConfig().then((config) => {
+      endConfig();
       if (cancelled) return;
       setRouteFlags(routeFlagsFrom(config));
       setUpdateRequired(

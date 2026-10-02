@@ -292,12 +292,10 @@ function candidatesForTerm(entries: readonly SuffixEntry[], term: string): TermC
  * on, so ranking/output is unchanged. Falls back to the full doc list (same
  * cost as the pre-refactor scan, never worse) when no term narrows usefully.
  *
- * Returns docs in their ORIGINAL relative order (not suffix-sort order):
- * `searchDocs`'s final sort is `score` then `title` — both computed fresh —
- * but a tie on both falls through to whatever order the byType buckets were
- * filled in, and that must match the pre-refactor full-array scan exactly
- * (insertion order), or two same-score-same-title docs can swap places (and,
- * with a finite `limitPerType`, which one gets cut can change).
+ * Returns docs in their ORIGINAL relative order (not suffix-sort order).
+ * `searchDocs`'s final sort is `score`, then `title`, then `key` (unique), so
+ * ranking never depends on index order: a bundle-built index (content regrouped
+ * by era) ranks identically to the web's, even under a finite `limitPerType`.
  */
 function candidateDocs(docs: readonly SearchDoc[], terms: readonly string[]): readonly SearchDoc[] {
   const entries = getSuffixIndex(docs);
@@ -363,7 +361,12 @@ export function searchDocs(
   for (const { type, label } of GROUP_META) {
     const results = byType.get(type);
     if (!results || results.length === 0) continue;
-    results.sort((a, b) => b.score - a.score || a.doc.title.localeCompare(b.doc.title));
+    results.sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.doc.title.localeCompare(b.doc.title) ||
+        (a.doc.key < b.doc.key ? -1 : a.doc.key > b.doc.key ? 1 : 0),
+    );
     groups.push({
       type,
       label,

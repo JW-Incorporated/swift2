@@ -77,8 +77,15 @@ Instead:
   fingerprinting, `build_android`, `build_ios`, `submit_ios`, and all three
   OTA-update jobs. It has no Android submit job.
 - `.github/workflows/mobile-release.yml` runs that EAS workflow with
-  `eas workflow:run --wait`, so the Action doesn't return until EAS is
-  done. It then calls `eas build:list --platform android --status
+  `eas workflow:run --no-wait`, writes the EAS run URL to the job summary
+  at once, then waits by id (`eas workflow:status <id> --wait`), so the
+  Action doesn't return until EAS is done. Preflight steps are capped (20
+  min total), the wait at 195 minutes (observed successful waits run 15-155
+  min) and Android locate/submit at 10 and the job at 235: a hung
+  EAS run turns the job red and frees the `mobile-release` concurrency
+  group (it does not cancel the EAS-side run — check it in the Expo
+  dashboard / `eas workflow:runs`).
+  It then calls `eas build:list --platform android --status
   finished --git-commit-hash <sha>` to ask "did this commit's run produce
   a fresh Android store build?" — if the fingerprint already had a build
   (OTA-only case) there's nothing to submit and the step no-ops cleanly.
@@ -152,6 +159,12 @@ launch re-downloads the bundle and does one update check.
 - Build numbers (`buildNumber` / `versionCode`) are remote and
   auto-increment per platform on EAS (`appVersionSource: remote`). Never
   hand-edit them.
+
+## OTA size budget
+
+CI (`node scripts/parity/size-check.mjs`, right after the two `expo export` steps) totals the uncompressed bytes of every file in each platform's export dir (`apps/mobile/dist-ios`, `dist-android`: Hermes bundle, assets, any DOM `www.bundle`; `metadata.json` excluded) and fails the PR if either platform grows more than 15% over `e2e/parity/size-baseline.json`. It is a proxy for update download growth, not the exact payload: the JS bundle is re-downloaded in full on every update, assets only when their hash changes. It runs in both build-full and build-content (seed changes regenerate code in the bundle).
+
+To accept an intentional jump: run both exports with `--output-dir dist-ios` / `dist-android` in `apps/mobile`, then `node scripts/parity/size-check.mjs --update` and commit the baseline in the same PR.
 
 ## When the parity check fails
 

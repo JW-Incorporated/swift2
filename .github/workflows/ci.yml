@@ -85,6 +85,12 @@ jobs:
       # The mobile apps load this bundle at runtime; build it twice and
       # require identical hashes (OS-011) on every PR, not just on publish.
       - run: npm run check:content-bundle
+      # One UI WP0.3: the snapshot built from the web's baked modules and the
+      # one built from this commit's D1 bundle must hash equal; a mismatch
+      # names the diverging domains. Also runs inside `npm run test` below;
+      # the explicit step makes a divergence its own red line.
+      - name: ReaderSnapshot equivalence (baked vs bundle)
+        run: npx vitest run packages/experience/src/reader-snapshot
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
@@ -99,10 +105,13 @@ jobs:
       - run: npm run typecheck --workspace @swift2/mobile
       - name: Expo export (iOS, headless bundle check)
         working-directory: apps/mobile
-        run: npx expo export --platform ios
+        run: npx expo export --platform ios --output-dir dist-ios
       - name: Expo export (Android, headless bundle check)
         working-directory: apps/mobile
-        run: npx expo export --platform android
+        run: npx expo export --platform android --output-dir dist-android
+      # OTA size budget (One UI WP1.1a): fail on >15% growth vs e2e/parity/size-baseline.json.
+      - name: OTA size budget check
+        run: node scripts/parity/size-check.mjs
       # Clownbot rebuild's red-team battery (J3, PLAN.md Step 12): the feature
       # ships live on merge, gated on this check, so it runs on every PR, not
       # on a cadence someone has to remember. Deterministic and keyless — it
@@ -226,6 +235,17 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
+      # Seed changes regenerate lenses.generated.ts into the Hermes bundle, so
+      # content-only PRs get the OTA size budget too (see build-full).
+      - run: npm run sync:content
+      - name: Expo export (iOS, size budget)
+        working-directory: apps/mobile
+        run: npx expo export --platform ios --output-dir dist-ios
+      - name: Expo export (Android, size budget)
+        working-directory: apps/mobile
+        run: npx expo export --platform android --output-dir dist-android
+      - name: OTA size budget check
+        run: node scripts/parity/size-check.mjs
 
   # Required-check aggregator: branch protection points at the job named
   # `build`, which now never runs the work itself — it just fans in whichever

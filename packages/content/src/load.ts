@@ -51,6 +51,7 @@ import {
   isSchemaVersionSupported,
 } from './compat';
 import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
+import { beginStage } from './timing';
 
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
@@ -253,8 +254,11 @@ export function isDataError(err: unknown): err is Error {
  * returning it. See module doc for the full flow and fallback behavior.
  */
 export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBundle> {
+  const endTotal = beginStage('load-total');
   try {
-    return await loadBundleStrict(options);
+    const loaded = await loadBundleStrict(options);
+    endTotal(loaded.source);
+    return loaded;
   } catch (err) {
     if (options.dataErrorFallback !== 'last-good' || !isDataError(err)) throw err;
     const lastGood = await fetchLastGoodBundle(
@@ -341,6 +345,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   }
 
   let bundleVersion: string;
+  const endPointer = beginStage('pointer');
   try {
     const pointerRes = await transportFetch(fetchImpl, joinUrl(baseUrl, 'current.json'));
     if (!pointerRes.ok) {
@@ -348,6 +353,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     }
     const pointerRaw = await readJson<unknown>(pointerRes);
     bundleVersion = pointerSchema.parse(pointerRaw).bundleVersion;
+    endPointer();
   } catch (err) {
     return fallbackOrRethrow(
       err,
@@ -363,6 +369,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   let manifest: Manifest;
   let manifestEtagToStore: string | undefined;
 
+  const endManifest = beginStage('manifest');
   try {
     const storedEtag = await storeGet(storage, etagKey);
     const headers: Record<string, string> = {};
@@ -385,6 +392,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
         );
       }
       manifest = manifestSchema.parse(JSON.parse(cachedRaw));
+      endManifest('304');
       // A 304 means this exact bundleVersion's manifest and files are unchanged
       // since we last validated them — return the cached files directly instead
       // of re-fetching and re-validating every file over the network.
@@ -397,6 +405,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     } else if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
       manifest = manifestSchema.parse(manifestRaw);
+      endManifest('200');
       manifestEtagToStore =
         manifestRes.headers.get('etag') ?? manifestRes.headers.get('ETag') ?? undefined;
     } else {
@@ -427,6 +436,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
         skipped.push(name);
         continue;
       }
+      const endDownload = beginStage('download', name);
       const fileRes = await transportFetch(
         fetchImpl,
         joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
@@ -435,6 +445,8 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
         throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
       }
       const text = await fileRes.text();
+      endDownload();
+      const endHash = beginStage('hash', name);
       const byteLength = new TextEncoder().encode(text).length;
       if (byteLength !== entry.bytes) {
         throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
@@ -446,8 +458,14 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
           `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
         );
       }
+      endHash();
       const schema = schemaForManifestEntry(name);
-      const result = validateEntry(schema, JSON.parse(text), dropUnknown);
+      const endParse = beginStage('parse', name);
+      const json: unknown = JSON.parse(text);
+      endParse();
+      const endValidate = beginStage('validate', name);
+      const result = validateEntry(schema, json, dropUnknown);
+      endValidate();
       if (result.kind === 'invalid') {
         throw new BundleIntegrityError(
           name,
@@ -472,6 +490,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   // Only now — once the manifest AND every file it lists have been fetched
   // and validated together — persist the cache atomically, so a future 304
   // can never find a manifest+etag on disk without its matching files.
+  const endDiskWrite = beginStage('disk-write');
   await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
   // A pruned load never stores the ETag: once a newer build (that knows the
   // new values) is running, a 304 must not keep serving the pruned files.
@@ -482,6 +501,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   else if (manifestEtagToStore) await storeSet(storage, etagKey, manifestEtagToStore);
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+  endDiskWrite();
 
   return {
     manifest,
