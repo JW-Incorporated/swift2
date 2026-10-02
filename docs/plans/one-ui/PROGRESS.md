@@ -315,6 +315,11 @@ reviewer, #4817 r2 reviews.
 unstubbed → stub it (React.lazy-based) + integration-resolution test; P2
 parity test @ts-nocheck/runtime keys only → add compile-time export-shape
 check). Bundle with reviewer r1 (running).
+**14:48:** #4818 reviewer r1 = APPROVE (Lows: parity type gap; underWeb also
+matches apps/web/node_modules; CI all green incl. build-full). Fix round 1
+sent to 0.5a executor (next/dynamic stub + loud fail on other next/*;
+compile-time parity check; comment). Then Codex r2 + reviewer r2. #4817 r2
+reviews wait for a slot.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
