@@ -36,6 +36,16 @@ load-bearing; none substitutes for another's manual.
 
 ## Convergence: one content bundle, two renderers, one headless core
 
+> **Direction changed 2026-10-02 (`docs/decisions.md`, "One UI for web,
+> iOS and Android").** The UI half of D2 and D3 below is superseded. The
+> target is **one UI**: the website's reader moves to `packages/ui` and is
+> mounted in the apps through a single Expo DOM host. Content flows through
+> one versioned `ReaderSnapshot`, and the native shell keeps only
+> capabilities. D1 and D4 are unchanged. The migration is gated and in
+> progress, so the "five native screens" description below remains the
+> *current* state until `routeFlags.sharedUi` is default-on. Design and
+> gates: `docs/proposals/2026-10-02-one-ui-three-surfaces.md`.
+
 Ratified 2026-09-05 (`docs/decisions.md` "Convergence decisions D1–D4",
 spec `docs/specs/2026-09-05-one-source-three-surfaces.md`) and now largely
 implemented, not aspirational:
