@@ -11,7 +11,9 @@ block at every checkpoint; append to the **Log**; never let this file pass
 1. WP0.0, WP0.1, WP0.3 executors launched 2026-10-02. If a fresh PM finds
    no PR for one, check `gh pr list --search "one-ui"` / branch
    `feature/one-ui-wp0.x` before re-briefing.
-2. On each PR: `reviewer` (+ Codex for [codex] WPs), then enable auto-merge.
+2. On each PR: `reviewer` + Codex (every PR, per owner directive in the
+   Decisions log), + Fable final review for the WPs listed there; then
+   enable auto-merge. Fable reviews the WP0.3b and WP0.4 briefs before launch.
    As a slot frees up: WP0.3b, then the WP0.4 researcher audit (the
    native-needs matrix).
 3. When WP0.1 merges and its OTA has published: file HA session S1 with
@@ -22,7 +24,7 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 | WP | State | PR | Notes |
 |---|---|---|---|
-| 0.0 | in progress | | executor |
+| 0.0 | in review | #4792 | +36/-1; Codex review running, then reviewer. Open: EAS run not auto-cancelled on GH timeout (documented); `eas workflow:runs --limit` flag unverified |
 | 0.1 | in progress | | executor |
 | 0.2 | blocked on S1 | | |
 | 0.3 | in progress | | executor |
@@ -56,9 +58,11 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 
 - 2026-10-02 — Plan calls C1–C6 (`PLAN.md`).
 - 2026-10-02 — PM branch based on `origin/docs/one-ui-plan` (PR #4789, auto-merge set) because `main` didn't have PROGRESS.md yet; merge `origin/main` once #4789 lands.
+- 2026-10-02 — **Owner directive (Joey, chat): "Leverage fable as much as you want to ensure this goes very well. And codex for reviews."** Applied as: (1) Codex adversarial review (`codex:rescue --background`, read via `codex-companion.mjs result`) on **every** WP PR, not only [codex] ones, alongside `reviewer`; (2) Fable reviews the brief before launch for every [codex]/native/architectural WP (0.3b, 0.4, 0.4b, 0.5, 1.1, 2.1, 2.2, 2.3) and does a final design-fidelity review of those PRs, plus the mandatory §4 triggers; (3) Fable sanity-checks any PM call that touches the proposal §4 design. The 3-concurrent-agent cap still holds, so reviews queue behind it.
 - 2026-10-02 — Workers open PRs without auto-merge; the PM enables it after `reviewer` (+ Codex) passes, so nothing lands unreviewed.
 
 ## Log
 
 - 2026-10-02 — Programme planned; awaiting kickoff.
 - 2026-10-02 — Kickoff. PM worktree created; WP0.0, WP0.1, WP0.3 launched.
+- 2026-10-02 — WP0.0 PR #4792 opened (yaml-lint pass); Codex review launched.
