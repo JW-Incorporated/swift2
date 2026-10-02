@@ -6,8 +6,10 @@ export type PoolSettled<R> = { ok: true; value: R } | { ok: false; error: unknow
  * to a result and NEVER rejects, so a caller that stops consuming after a
  * decisive failure leaves no unhandled rejection and need not await the rest.
  *
- * Contract: no new item launches after any decisive failure, whether `fn`
- * itself failed or the caller found one downstream and called `stop()`. At most
+ * Contract: no new item launches after a decisive failure of `fn` itself. For a
+ * failure the caller detects downstream, at most one further launch can occur
+ * (the freed worker relaunches before the caller observes the result) and then
+ * `stop()` prevents any more. At most
  * `limit - 1` already-in-flight calls still complete and are discarded (there is
  * no AbortSignal). Items never started resolve to a failure. Items start in
  * order, so every slot before a failed one was started.
