@@ -9,11 +9,12 @@
 // favour of the native screens (lib/watchdog-gate.ts).
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { BackHandler, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ReaderSpike from '../dom/ReaderSpike';
 import SharedUiTest from '../dom/SharedUiTest';
+import { hardwareBackHandled } from '../dom/spike/back';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
@@ -39,6 +40,7 @@ export function SharedUiHost({
   const [testPage, setTestPage] = useState<boolean | null>(null);
   const [source, setSource] = useState<ReaderSource | null>(null);
   const [backTick, setBackTick] = useState(0);
+  const readerReady = useRef(false);
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
@@ -64,10 +66,9 @@ export function SharedUiHost({
 
   useEffect(() => {
     if (testPage !== false) return;
-    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
-      setBackTick((n) => n + 1);
-      return true;
-    });
+    const sub = BackHandler.addEventListener('hardwareBackPress', () =>
+      hardwareBackHandled(readerReady.current, () => setBackTick((n) => n + 1)),
+    );
     return () => sub.remove();
   }, [testPage]);
 
@@ -96,7 +97,14 @@ export function SharedUiHost({
           versionToken={source.versionToken}
           backTick={backTick}
           insets={insets}
-          onReady={forceFailure === 'off' ? handlers.onReady : async () => {}}
+          onReady={
+            forceFailure === 'off'
+              ? async () => {
+                  readerReady.current = true;
+                  await handlers.onReady();
+                }
+              : async () => {}
+          }
           reportError={handlers.reportError}
           reportProbe={async (json) => setProbeJson(json)}
           reportBack={async (result) => {

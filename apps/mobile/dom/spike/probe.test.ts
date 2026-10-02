@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { checkMarkers, countPlaceholders, createProbe, probeLines } from './probe';
 
 describe('countPlaceholders', () => {
-  it('counts tiny and errored images per host and skips unfinished loads', () => {
+  it('counts tiny and errored images per host and reports unfinished loads as pending', () => {
     const out = countPlaceholders([
       { src: 'https://a.example/x.jpg', complete: true, naturalWidth: 800 },
       { src: 'https://a.example/y.jpg', complete: true, naturalWidth: 1 },
@@ -11,9 +11,9 @@ describe('countPlaceholders', () => {
       { src: 'not a url', complete: true, naturalWidth: 10 },
     ]);
     expect(out).toEqual({
-      'a.example': { total: 2, bad: 1 },
-      'b.example': { total: 1, bad: 1 },
-      invalid: { total: 1, bad: 0 },
+      'a.example': { total: 2, bad: 1, pending: 0 },
+      'b.example': { total: 1, bad: 1, pending: 1 },
+      invalid: { total: 1, bad: 0, pending: 0 },
     });
   });
 
@@ -22,7 +22,7 @@ describe('countPlaceholders', () => {
       { src: 'https://a.example/1', complete: true, naturalWidth: 2 },
       { src: 'https://a.example/2', complete: true, naturalWidth: 3 },
     ]);
-    expect(out['a.example']).toEqual({ total: 2, bad: 1 });
+    expect(out['a.example']).toEqual({ total: 2, bad: 1, pending: 0 });
   });
 });
 
@@ -39,6 +39,7 @@ describe('probe recorder', () => {
     expect(p.report.read).toEqual({ fetch: 'fail', xhr: 'ok', script: 'n/a' });
     const lines = probeLines(JSON.parse(p.json()));
     expect(lines).toContain('Read: fetch fail, xhr ok, script n/a');
+    expect(lines).toContain('Storage: localStorage present, indexedDB absent, adapter memory-shim');
     expect(lines.some((l) => l.startsWith('Snapshot: hhhhhhhhhhhh (3 items, 2 eras)'))).toBe(true);
   });
 
@@ -54,8 +55,23 @@ describe('probe recorder', () => {
     await checkMarkers('v1', p);
     expect(p.report.marker.localStorage).toBe('hit');
     expect(p.report.storage.indexedDB).toBe('absent');
+    expect(p.report.adapter).toBe('localStorage');
     await checkMarkers('v2', p);
     expect(p.report.marker.localStorage).toBe('miss');
     expect(store.get('wp05-marker')).toBe('v2');
+  });
+
+  it('falls back to the memory shim when localStorage is shimmed and there is no indexedDB', async () => {
+    vi.stubGlobal('window', { localStorage: { getItem: () => null, setItem: () => {} } });
+    const p = createProbe();
+    p.report.storage.localStorage = 'shimmed';
+    await checkMarkers('v1', p);
+    expect(p.report.adapter).toBe('memory-shim');
+  });
+
+  it('prints pending images in the panel line', () => {
+    const p = createProbe();
+    p.report.placeholders = { 'a.example': { total: 3, bad: 1, pending: 2 } };
+    expect(probeLines(p.report)).toContain('Placeholder images (bad/total): a.example 1/3 (+2 pending)');
   });
 });

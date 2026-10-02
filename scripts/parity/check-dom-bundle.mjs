@@ -4,36 +4,56 @@
 //   cd apps/mobile && npx expo export --platform ios --source-maps --output-dir <dir>
 //   node scripts/parity/check-dom-bundle.mjs <dir>
 // Asserts (1) a DOM bundle containing ReaderSpike exists, (2) its sourcemap
-// `sources` has nothing from apps/web/lib/longlive/generated/** (nor the
-// web-only dev loader), (3) no DOM script contains a real moment title taken
-// from the published bundle (apps/web/public/content, built by sync:content).
+// `sources` has no baked content module: no apps/web/lib/**/*.generated.ts,
+// nothing under lib/longlive/generated/, nor the web-only dev loader, (3) no DOM
+// script contains any of >= 3 sentinels from different content kinds (era
+// moment title, track title, theory title, merch item) taken from the
+// published bundle (apps/web/public/content, built by sync:content).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const FORBIDDEN = [/apps\/web\/lib\/longlive\/generated\//, /dom\/spike\/dev-loader/, /index\.web\./];
+const FORBIDDEN = [
+  /apps\/web\/lib\/.*\.generated\.[cm]?[jt]sx?$/,
+  /lib\/longlive\/generated\//,
+  /dom\/spike\/dev-loader/,
+  /index\.web\./,
+];
 
 export function findForbiddenSources(sources) {
   return sources.map((s) => s.replace(/\\/g, '/')).filter((s) => FORBIDDEN.some((re) => re.test(s)));
 }
 
-export function pickSentinel(items) {
-  const t = items.map((i) => i?.title).find((x) => typeof x === 'string' && /^[\w ,'-]{30,}$/.test(x));
-  return t ?? null;
+/** First string that is plain ASCII with no quotes or backslashes (a minifier cannot re-escape it). */
+export function pickSentinel(titles, min = 30) {
+  const re = new RegExp(`^[A-Za-z0-9 ,-]{${min},}$`);
+  return titles.find((x) => typeof x === 'string' && re.test(x)) ?? null;
 }
 
-function sentinelFromPublishedBundle(root) {
+function readJson(file) {
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+export function sentinelsFromPublishedBundle(root) {
   const content = path.join(root, 'apps/web/public/content');
-  const { bundleVersion } = JSON.parse(fs.readFileSync(path.join(content, 'current.json'), 'utf8'));
-  const dir = path.join(content, bundleVersion, 'eras');
-  for (const f of fs.readdirSync(dir)) {
-    const s = pickSentinel(JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).items ?? []);
-    if (s) return s;
-  }
-  return null;
+  const dir = path.join(content, readJson(path.join(content, 'current.json')).bundleVersion);
+  const erasDir = path.join(dir, 'eras');
+  const moments = fs.readdirSync(erasDir).flatMap((f) => (readJson(path.join(erasDir, f)).items ?? []).map((i) => i?.title));
+  const tracks = readJson(path.join(dir, 'tracks.json')).flatMap((e) => (e.tracks ?? []).map((t) => t?.title));
+  const theories = readJson(path.join(dir, 'theories.json')).flatMap((e) => (e.theories ?? []).map((t) => t?.title));
+  const merch = Object.values(readJson(path.join(dir, 'merch.json'))).flatMap((l) => (Array.isArray(l) ? l.map((m) => m?.item) : []));
+  const picks = {
+    moment: pickSentinel(moments, 30),
+    track: pickSentinel(tracks, 12),
+    theory: pickSentinel(theories, 25),
+    merch: pickSentinel(merch, 15),
+  };
+  return Object.entries(picks)
+    .filter(([, text]) => text)
+    .map(([kind, text]) => ({ kind, text }));
 }
 
-export function checkDomBundle(exportDir, sentinel) {
+export function checkDomBundle(exportDir, sentinels) {
   const problems = [];
   const dir = path.join(exportDir, 'www.bundle');
   if (!fs.existsSync(dir)) return { problems: [`no www.bundle in ${exportDir} (native export with DOM components, --source-maps)`], files: 0 };
@@ -47,7 +67,9 @@ export function checkDomBundle(exportDir, sentinel) {
   if (readerSpikeMaps === 0) problems.push('no DOM sourcemap lists dom/ReaderSpike.tsx (wrong export, or no --source-maps)');
   for (const f of files.filter((n) => n.endsWith('.js'))) {
     const text = fs.readFileSync(path.join(dir, f), 'utf8');
-    if (text.includes(sentinel)) problems.push(`${f}: contains sentinel moment title "${sentinel}"`);
+    for (const { kind, text: needle } of sentinels) {
+      if (text.includes(needle)) problems.push(`${f}: contains ${kind} sentinel "${needle}"`);
+    }
   }
   return { problems, files: files.length };
 }
@@ -59,15 +81,15 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(2);
   }
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-  const sentinel = sentinelFromPublishedBundle(root);
-  if (!sentinel) {
-    console.error('no sentinel moment title found; run `npm run sync:content` first');
+  const sentinels = sentinelsFromPublishedBundle(root);
+  if (sentinels.length < 3) {
+    console.error(`need >= 3 content-kind sentinels, found ${sentinels.length}; run \`npm run sync:content\` first`);
     process.exit(2);
   }
-  const { problems, files } = checkDomBundle(path.resolve(exportDir), sentinel);
+  const { problems, files } = checkDomBundle(path.resolve(exportDir), sentinels);
   if (problems.length) {
     console.error(problems.join('\n'));
     process.exit(1);
   }
-  console.log(`DOM bundle clean: ${files} files, no generated sources, sentinel "${sentinel}" absent`);
+  console.log(`DOM bundle clean: ${files} files, no baked-content sources, ${sentinels.length} sentinels absent (${sentinels.map((x) => x.kind).join(', ')})`);
 }

@@ -34,10 +34,19 @@ export interface ReaderSpikeProps {
   ref?: React.Ref<object>;
 }
 
+/** Dev/web only: ?inset=top,right,bottom,left simulates the native safe-area insets. */
+function insetsFromQuery(): ReaderSpikeProps['insets'] {
+  const raw = new URLSearchParams(window.location.search).get('inset');
+  if (!raw) return undefined;
+  const [top = 0, right = 0, bottom = 0, left = 0] = raw.split(',').map((n) => Number(n) || 0);
+  return { top, right, bottom, left };
+}
+
 type Probe = ReturnType<typeof createProbe>;
 
 export default function ReaderSpike(props: ReaderSpikeProps) {
-  const { cacheUri, versionToken = '', backTick = 0, insets, devLoader } = props;
+  const { cacheUri, versionToken = '', backTick = 0, devLoader } = props;
+  const insets = props.insets ?? (devLoader ? insetsFromQuery() : undefined);
   const [Reader, setReader] = useState<ComponentType<ReaderProps> | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
   const started = useRef(false);
@@ -59,9 +68,10 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   useEffect(() => {
     if (!insets) return;
     const s = document.documentElement.style;
-    s.setProperty('--spike-inset-top', `${insets.top}px`);
-    s.setProperty('--spike-inset-bottom', `${insets.bottom}px`);
-  }, [insets?.top, insets?.bottom]);
+    for (const side of ['top', 'right', 'bottom', 'left'] as const) {
+      s.setProperty(`--safe-${side}`, `${insets[side]}px`);
+    }
+  }, [insets?.top, insets?.right, insets?.bottom, insets?.left]);
 
   useEffect(() => {
     const onError = (e: ErrorEvent) => {
@@ -116,6 +126,10 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   useEffect(() => {
     if (!Reader) return;
     const probe = probeRef.current;
+    const errored = new WeakSet<EventTarget>();
+    // img load/error do not bubble, so listen in the capture phase.
+    const onImgError = (e: Event) => void errored.add(e.target as EventTarget);
+    document.addEventListener('error', onImgError, true);
     requestAnimationFrame(() =>
       requestAnimationFrame(async () => {
         probe.report.firstPaintMs = Math.round(performance.now());
@@ -124,17 +138,22 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
         await propsRef.current.reportProbe(probe.json());
         await propsRef.current.onReady();
         if (cacheUri) probe.report.read.script = (await probeScript(cacheUri)) ? 'ok' : 'fail';
-        setTimeout(() => {
-          const imgs = Array.from(document.images).map((i) => ({
-            src: i.currentSrc || i.src,
-            complete: i.complete,
-            naturalWidth: i.naturalWidth,
-          }));
-          probe.report.placeholders = countPlaceholders(imgs);
-          void propsRef.current.reportProbe(probe.json());
-        }, 4000);
+        // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
+        for (const ms of [4000, 12000]) {
+          setTimeout(() => {
+            const imgs = Array.from(document.images).map((i) => ({
+              src: i.currentSrc || i.src,
+              complete: i.complete,
+              naturalWidth: i.naturalWidth,
+              errored: errored.has(i),
+            }));
+            probe.report.placeholders = countPlaceholders(imgs);
+            void propsRef.current.reportProbe(probe.json());
+          }, ms);
+        }
       }),
     );
+    return () => document.removeEventListener('error', onImgError, true);
   }, [Reader]);
 
   if (failed) return <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>;

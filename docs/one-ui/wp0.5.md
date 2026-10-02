@@ -36,7 +36,13 @@ that way until the CLI supports split DOM bundles.
 - `onReady` (watchdog) fires after two animation frames post-mount.
 - Android back: host increments `backTick` on `hardwareBackPress`; the webview
   closes an open moment (`handled`) or reports `exit` (host calls `exitApp`).
-- Insets: `--spike-inset-top/bottom` CSS variables.
+  Until the reader has reported ready (loading or failed) the host does not
+  swallow the press (`hardwareBackPress` returns false), so the user can leave.
+- Insets: all four sides as `--safe-top/right/bottom/left`; `reader-spike.css`
+  maps them onto what the web layout consumes (body padding, BottomNav padding,
+  the footer clearance spacer, FeedbackButton offsets; each falls back to the
+  web's own `env(safe-area-inset-*)`). Browser simulation: `?inset=top,right,bottom,left`
+  (web entry only). ClownChat's own env() panel math is not remapped.
 - `reportProbe(json)`: one JSON string of facts (below); no content.
 - Forced failure drills still work (`throw` reports an error, `hang` withholds ready).
 
@@ -47,14 +53,20 @@ Diagnostics > "Reader spike": bundle version, read result per method
 hit/miss from the previous launch (kept for the record), snapshot hash +
 items/eras (S4: must equal the CI equivalence hash for that bundle version),
 first-paint ms, JS heap (Chromium only), and `bad/total` images per host
-(naturalWidth <= 2 or errored, counted 4 s after first paint).
+(naturalWidth <= 2 or errored via the capture-phase `error` event), sampled at
+4 s and again at 12 s after first paint; images still loading are shown as
+`(+N pending)` rather than dropped. The storage line also shows the
+persistence `adapter` actually used (`memory-shim` | `localStorage` | `indexedDB`).
+`performance.memory` is Chromium-only, so heap reads null on iOS.
 The strict `[diag]` server schema is untouched; promoting these into reports is
 a follow-up.
 
 ## Not built
 
 - No IndexedDB adapter (Android has no web storage; ruling B).
-- No `bundle.js` / `<script src>` content fallback. The `script` probe loads the
+- No `bundle.js` / `<script src>` content fallback. The iOS `<script src>` path
+  is PROBE-ONLY in this spike (PM decision); a real fallback is built only if S4
+  shows iOS fetch and XHR both fail. The `script` probe loads the
   cache file as a script only to record whether subresource loads work. If XHR
   fails on iOS at S4, the RN side writes `bundle.js` (`globalThis.__bundle=<json>`)
   beside the cache: still JS-only.
@@ -64,7 +76,11 @@ a follow-up.
 
 ## Recipes
 
-No-baked-content check (committed; CI hook deferred, run on any native export):
+No-baked-content check (committed; the CI wiring lands in WP1.1c part 2, run on any native export).
+It forbids every `apps/web/lib/**/*.generated.ts` and `lib/longlive/generated/` source and
+looks for four plain-ASCII sentinels (moment, track, theory, merch) in the DOM scripts.
+`packages/content-enrichment/src/videos.ts` was checked: pure functions and UI labels, no
+baked content (raw video data is passed in), so its import stays.
 
 ```
 cd apps/mobile && npx expo export --platform ios --source-maps --output-dir <dir outside the repo>
