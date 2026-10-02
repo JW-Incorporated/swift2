@@ -81,7 +81,7 @@ Instead:
   at once, then waits by id (`eas workflow:status <id> --wait`), so the
   Action doesn't return until EAS is done. Preflight steps are capped (20
   min total), the wait at 195 minutes (observed successful waits run 15-155
-  min) and the job at 225: a hung
+  min) and Android locate/submit at 10 and the job at 235: a hung
   EAS run turns the job red and frees the `mobile-release` concurrency
   group (it does not cancel the EAS-side run — check it in the Expo
   dashboard / `eas workflow:runs`).

@@ -16,10 +16,12 @@ name: Mobile release train
 # service-account key arrived as the repo secret `PLAY_SERVICE_ACCOUNT_JSON`
 # rather than being uploaded to EAS credentials, and the EAS workflow above
 # runs on EAS's own infrastructure with no visibility into GitHub repo
-# secrets. So this job waits for that EAS workflow to finish
-# (`workflow:run --wait`), looks up whether it produced a fresh Android
+# secrets. So this job starts it with `workflow:run --no-wait`, then
+# `workflow:status --wait` until it finishes, looks up whether it produced a fresh Android
 # store build for this exact commit, and if so submits it to Play itself,
-# in the one place that actually has the secret. Never echo the secret to
+# in the one place that actually has the secret. Step caps (minutes):
+# 20 preflight / 195 wait / 10 Android (3 locate + 7 submit); job 235;
+# rollback workflow 30. Never echo the secret to
 # logs; the key file is written with `chmod 600` and deleted immediately
 # after use.
 
@@ -53,8 +55,8 @@ jobs:
     # `mobile-release` concurrency group for GitHub's 360-min default.
     # Sized to data: 12 successful runs sampled 2026-10-02 had EAS waits of
     # 15-20 min (5 runs) and 70-155 min (7 runs), max 154.8 (run 36859454944).
-    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + ~10 slack = 225.
-    timeout-minutes: 225
+    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + android 10 + ~10 slack = 235.
+    timeout-minutes: 235
     steps:
       - name: Refuse to run half-configured
         timeout-minutes: 1
@@ -66,7 +68,7 @@ jobs:
             exit 1
           fi
       # Preflight steps are individually bounded so that
-      # preflight (<=20 min) + wait (195 min) stays inside the 225-min job cap
+      # preflight (<=20 min) + wait (195 min) stays inside the 235-min job cap
       # and the wait step's own timeout, not the job's, is what fires on a hang.
       - uses: actions/checkout@v7
         timeout-minutes: 3
@@ -129,6 +131,7 @@ jobs:
       # ── Android submit (see header comment: EAS infra can't see this secret) ──
       - name: Locate an Android store build for this commit
         id: android_build
+        timeout-minutes: 3
         if: always() && steps.eas_workflow.outcome == 'success'
         working-directory: apps/mobile
         env:
@@ -147,6 +150,7 @@ jobs:
             echo "No fresh Android store build for this commit (JS-only OTA update, or Android already had a matching build) — nothing to submit."
           fi
       - name: Submit Android build to Play (internal track)
+        timeout-minutes: 7
         if: steps.android_build.outputs.build_id != ''
         working-directory: apps/mobile
         env:
