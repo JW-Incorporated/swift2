@@ -239,6 +239,15 @@ helper apps/web/next-config.test.ts:11 (matches() escapes `/` not `\`); trusted
 fixed input, no runtime exposure; Analyze jobs all passed (PR-diff gate). PM:
 fix in code, not dismiss → grunt pushing a test-only commit to
 feature/one-ui-wp0.3b. #4815/#4816 (stacked) will pick it up at landing.
+**14:30:** WP0.5 research back: 73 web files in graph; only next/image (6) +
+next/link (1) need stubs; no next/navigation/font/analytics/Supabase; baked
+content modules install providers at import → must be shimmed (else baked
+content ships); seam = exported set*Provider; injected async StorageAdapter →
+IndexedDB adapter; file:// persistence unproven (CB-9008); no native need;
+React 19 runs React-18 web code. PM draft brief = scratch `brief-wp05.md`
+(fresh PM: rebuild from this row if missing): 3 stacked PRs on wp0.4b — 0.5a
+Metro alias + next stubs + content shims; 0.5b ReaderSpike + IndexedDB +
+bridge min + marks; 0.5c tests/docs. **Fable brief review launched.**
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
