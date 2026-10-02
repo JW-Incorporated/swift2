@@ -11,6 +11,15 @@ WP0.1 #4793. PM worktree `C:\Users\Fourtys\AppData\Local\Temp\one-ui-pm`.
 **Merge freeze on apps/mobile/** + packages/** is ON** (S1 pending) — no
 auto-merge on #4796 / #4799 until S1 closes.
 
+**In flight (13:38 PDT session):** Codex r2 on #4799 = job
+`task-murfe0gi-4nj6py` (reads wt-wp04 tree; read with `codex-companion.mjs
+result`); `reviewer` r2 on #4799 (own worktree `rv-wp04`); WP0.4b executor
+(worktree `wt-wp04b` under this session's scratchpad
+`71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
+finds these unreported: check `gh pr list --head feature/one-ui-wp0.4b`
+and the Codex job before relaunching. S1 is with Joey in chat (release run
+37052010807 still in progress at 13:38).
+
 1. **S1:** when release-train run 37052010807 (#4793 merge f27698a4)
    completes, have a researcher pull the OTA update id / group, runtime and
    store build numbers from its summary/logs; then file HA session S1 via
