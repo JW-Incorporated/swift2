@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-26',
+  updatedOn: '2026-10-02',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
@@ -104,7 +104,10 @@ export default {
       // Encore" (four new songs, out 25 Sept) — new music, but NOT a re-record.
       // The longest-running open question stays open; neither reputation TV nor
       // debut TV has been released or dated.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-02 (Vault Run): still open — no reputation TV or debut
+      // re-record announced or dated; the circulating Nov-10/locked-website-page
+      // reads remain unsettled fan speculation, nothing official.
+      lastCheckedOn: '2026-10-02',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -187,7 +190,11 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. Nothing in the
       // 25 Sept Encore news cycle revisited the promo-video AI question; her
       // team has still neither confirmed nor denied it.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-02 (Vault Run): still `reported`. The AI-editing theme
+      // resurfaced around the "Patient Zero" single cover (fan/critic backlash,
+      // late Sept) but that is a separate artwork dispute; the orange-door promo
+      // accusation itself is still neither confirmed nor denied by her team.
+      lastCheckedOn: '2026-10-02',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -219,7 +226,9 @@ export default {
       // into resolved to a single ("Patient Zero") and the Showgirl Encore —
       // not a debut/Reputation/TS13 release. The green-TS read stays fandom
       // interpretation; nothing official connects the images to a re-record.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-02 (Vault Run): still `reported` — no debut/Reputation/
+      // TS13 release has connected to these images since.
+      lastCheckedOn: '2026-10-02',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -249,7 +258,9 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
       // activity was the Showgirl Encore, not a TS13 reveal — no album title,
       // color system, or release plan has been confirmed.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-02 (Vault Run): still `reported` — no TS13 title, color
+      // system, or release plan confirmed.
+      lastCheckedOn: '2026-10-02',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -275,8 +286,10 @@ export default {
       // partly borne out — she released four brand-new songs on 25 Sept — but
       // the TS13/next-era read it feeds is still unconfirmed, so status stays
       // `reported`. Added the Encore as a corroborating source.
+      // Rechecked 2026-10-02 (Vault Run): still `reported` — no next-era (TS13)
+      // album, title, or timeline announced beyond the Showgirl Encore.
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-26',
+      lastCheckedOn: '2026-10-02',
       headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',
@@ -449,6 +462,34 @@ export default {
         'Three CD editions, 24 hours only. Rank the odds this is a one-off drop versus the front edge of a full TS13 rollout. Commit to a number.',
       ],
       tags: ['tloas', 'release', 'new-music'],
+    },
+    {
+      // Added 2026-10-02 (Vault Run, Rumor Desk Part C) from intake #4809 — the
+      // same adjudicable, redline-clean awards claim admitted to the Vault's
+      // i-knew-it-i-knew-you-oscar-buzz moment. Prompt-worthy current item:
+      // outlet analysis of intent, not an announcement.
+      id: 'oscar-campaign-hiding-in-plain-sight',
+      status: 'reported',
+      date: '2026-10-01',
+      lastCheckedOn: '2026-10-02',
+      headline: 'The "secret Oscar campaign," hiding in plain sight',
+      detail:
+        'The industry trade The Ankler argued on 1 October 2026 ("Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight") that Taylor is quietly building an awards-season case without ever announcing one: her Toy Story 5 song "I Knew It, I Knew You" is a widely tipped Best Original Song contender, the VMA-premiered "Patient Zero" video was shot by three-time Oscar-winning cinematographer Emmanuel "Chivo" Lubezki with Colin Farrell and Dakota Johnson, and MTV just handed her an inaugural Artist Director Honor. IndieWire weighed the same question; Yahoo and heavy.com repackaged it. Status is `reported`, not `confirmed`: no Oscar campaign, submission, or nomination has been confirmed by Taylor, her team, or the Academy. It resolves if she pursues or lands a Best Original Song nod for the 99th Oscars (submissions due 14 Oct 2026, nominations 21 Jan 2027).',
+      sources: [
+        {
+          name: 'The Ankler',
+          url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
+        },
+        {
+          name: 'IndieWire',
+          url: 'https://www.indiewire.com/awards/industry/taylor-swift-patient-zero-oscar-chances-1235218787/',
+        },
+      ],
+      prompts: [
+        'A trade says the Oscar campaign is "hiding in plain sight": a Pixar song, a Lubezki-shot video, a brand-new VMA honor — all arriving at once, none of it called a campaign. Decode it: deliberate awards play or a bot reading tea leaves? Commit.',
+        'Rank the odds she lands her first-ever Oscar nomination for "I Knew It, I Knew You." Commit to a number before the 14 October submission deadline settles it.',
+      ],
+      tags: ['awards', 'oscars', 'tloas'],
     },
   ],
 };
