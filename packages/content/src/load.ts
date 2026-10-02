@@ -53,6 +53,13 @@ import {
 import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
 import { mapPool } from './pool';
 import { beginStage } from './timing';
+import {
+  lastGoodJson,
+  memoGet,
+  memoSet,
+  readWarmCache,
+  SCHEMA_FINGERPRINT,
+} from './warm-cache';
 
 const FETCH_CONCURRENCY = 5;
 
@@ -319,35 +326,6 @@ function validateEntry(schema: z.ZodTypeAny, value: unknown, dropUnknown: boolea
   return pruneUnknownEnumValues(schema, value);
 }
 
-/**
- * Re-checks a cached bundle before the warm shortcut returns it: manifest
- * parses and its schemaVersion is supported, every manifest entry is present in
- * the files record, and each passes the same schema the network path applies
- * (strict, no pruning — pruned loads are never marked complete). sha256 is NOT
- * recomputed, matching the previous 304 shortcut. Null = unusable, so the
- * caller falls through to a network load.
- */
-function readWarmCache(
-  manifestRaw: string,
-  filesRaw: string,
-  schemaVersion: number,
-): { manifest: Manifest; files: BundleFiles } | null {
-  try {
-    const manifest = manifestSchema.parse(JSON.parse(manifestRaw));
-    if (!isSchemaVersionSupported(manifest.schemaVersion, schemaVersion)) return null;
-    const files = JSON.parse(filesRaw) as BundleFiles;
-    if (!files || typeof files !== 'object') return null;
-    for (const name of Object.keys(manifest.files)) {
-      const schema = lookupSchema(name);
-      if (!schema || !(name in files)) return null;
-      if (!schema.safeParse(files[name]).success) return null;
-    }
-    return { manifest, files };
-  } catch {
-    return null;
-  }
-}
-
 async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
   const { baseUrl } = options;
   const fetchImpl = options.fetch ?? (globalThis.fetch as unknown as FetchLike | undefined);
@@ -399,6 +377,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   // installs already hold this key, and renaming the source would break callers.
   const completeKey = keyFor(baseUrl, `etag:${bundleVersion}`);
   const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
+  const schemaFpKey = keyFor(baseUrl, `schemafp:${bundleVersion}`);
 
   let manifest: Manifest;
 
@@ -409,12 +388,30 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   // Any truthy marker counts, including a legacy ETag string: the previous code
   // wrote it only after the whole bundle was fetched and validated, and '' for
   // pruned loads. An unreadable cache falls through to the network load.
+  // An earlier warm hit in this JS session (same storage + version) is served
+  // as-is; the memo is only ever filled from a storage-verified warm read.
+  const memoized = memoGet(storage, baseUrl, bundleVersion, schemaVersion);
+  if (memoized) {
+    beginStage('manifest')('304');
+    return { ...memoized, source: 'cache-etag', stale: false };
+  }
+
   if (await storeGet(storage, completeKey)) {
     const cachedRaw = await storeGet(storage, manifestCacheKey);
     const cachedFilesRaw = await storeGet(storage, filesCacheKey);
     if (cachedRaw && cachedFilesRaw) {
-      const warm = readWarmCache(cachedRaw, cachedFilesRaw, schemaVersion);
+      // The fingerprint says this build's schemas already validated these bytes.
+      const trusted = (await storeGet(storage, schemaFpKey)) === SCHEMA_FINGERPRINT;
+      const warm = readWarmCache(cachedRaw, cachedFilesRaw, schemaVersion, lookupSchema, trusted);
       if (warm) {
+        if (!trusted) {
+          try {
+            await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
+          } catch {
+            // best effort: the next warm launch just validates again
+          }
+        }
+        memoSet(storage, baseUrl, bundleVersion, schemaVersion, warm);
         // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
         beginStage('manifest')('304');
         return { ...warm, source: 'cache-etag', stale: false };
@@ -481,11 +478,12 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       if (!settled.ok) throw settled.error;
       const text = settled.value;
       const endHash = beginStage('hash', name);
-      const byteLength = new TextEncoder().encode(text).length;
+      const bytes = new TextEncoder().encode(text);
+      const byteLength = bytes.length;
       if (byteLength !== entry.bytes) {
         throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
       }
-      const actualHash = await createHash(text);
+      const actualHash = await createHash(bytes);
       if (actualHash !== entry.sha256) {
         throw new BundleIntegrityError(
           name,
@@ -542,10 +540,13 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   // validated together — persist the cache so a warm load can never find the
   // complete marker without its matching files: the marker is cleared first and
   // set LAST, so a failed write mid-way leaves it unset.
+  const manifestJson = JSON.stringify(manifest);
+  const filesJson = JSON.stringify(files);
   await storeSet(storage, completeKey, '');
-  await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
-  await storeSet(storage, filesCacheKey, JSON.stringify(files));
-  await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+  await storeSet(storage, manifestCacheKey, manifestJson);
+  await storeSet(storage, filesCacheKey, filesJson);
+  await storeSet(storage, keyFor(baseUrl, 'last-good'), lastGoodJson(manifestJson, filesJson));
+  await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
   await storeSet(storage, completeKey, '1');
   endDiskWrite();
 
