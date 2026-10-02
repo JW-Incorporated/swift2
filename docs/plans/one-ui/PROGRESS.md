@@ -13,7 +13,10 @@ auto-merge on #4796 / #4799 until S1 closes.
 
 **In flight (13:38 PDT session):** Codex r2 on #4799 = job
 `task-murfe0gi-4nj6py` (reads wt-wp04 tree; read with `codex-companion.mjs
-result`); `reviewer` r2 on #4799 (own worktree `rv-wp04`); WP0.4b executor
+result`); `reviewer` r2 on #4799 **APPROVE** 13:40 (Low: MAP.md row for
+`apps/mobile/lib/dom-host-handlers.ts` — bundle with Codex r2 fixes; CI
+build/build-full green on 39a129b0, PM spot-checked; stale worktree
+`rv-wp04` left — long-path remove failed, prune later); WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
 finds these unreported: check `gh pr list --head feature/one-ui-wp0.4b`
