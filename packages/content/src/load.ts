@@ -313,6 +313,35 @@ function validateEntry(schema: z.ZodTypeAny, value: unknown, dropUnknown: boolea
   return pruneUnknownEnumValues(schema, value);
 }
 
+/**
+ * Re-checks a cached bundle before the warm shortcut returns it: manifest
+ * parses and its schemaVersion is supported, every manifest entry is present in
+ * the files record, and each passes the same schema the network path applies
+ * (strict, no pruning — pruned loads are never marked complete). sha256 is NOT
+ * recomputed, matching the previous 304 shortcut. Null = unusable, so the
+ * caller falls through to a network load.
+ */
+function readWarmCache(
+  manifestRaw: string,
+  filesRaw: string,
+  schemaVersion: number,
+): { manifest: Manifest; files: BundleFiles } | null {
+  try {
+    const manifest = manifestSchema.parse(JSON.parse(manifestRaw));
+    if (!isSchemaVersionSupported(manifest.schemaVersion, schemaVersion)) return null;
+    const files = JSON.parse(filesRaw) as BundleFiles;
+    if (!files || typeof files !== 'object') return null;
+    for (const name of Object.keys(manifest.files)) {
+      const schema = lookupSchema(name);
+      if (!schema || !(name in files)) return null;
+      if (!schema.safeParse(files[name]).success) return null;
+    }
+    return { manifest, files };
+  } catch {
+    return null;
+  }
+}
+
 async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
   const { baseUrl } = options;
   const fetchImpl = options.fetch ?? (globalThis.fetch as unknown as FetchLike | undefined);
@@ -376,16 +405,8 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     const cachedRaw = await storeGet(storage, manifestCacheKey);
     const cachedFilesRaw = await storeGet(storage, filesCacheKey);
     if (cachedRaw && cachedFilesRaw) {
-      try {
-        return {
-          manifest: manifestSchema.parse(JSON.parse(cachedRaw)),
-          files: JSON.parse(cachedFilesRaw) as BundleFiles,
-          source: 'cache-etag',
-          stale: false,
-        };
-      } catch {
-        // corrupt cache entry: re-download below
-      }
+      const warm = readWarmCache(cachedRaw, cachedFilesRaw, schemaVersion);
+      if (warm) return { ...warm, source: 'cache-etag', stale: false };
     }
   }
 
@@ -467,15 +488,17 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
 
   // Only now — once the manifest AND every file it lists have been fetched
   // and validated together — persist the cache atomically, so a future warm
-  // load can never find the complete marker without its matching files.
+  // load can never find the complete marker without its matching files. The
+  // marker is cleared first and set LAST, so a failed write mid-way leaves it unset.
+  await storeSet(storage, completeKey, '');
   await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
   // A pruned load is never marked complete: once a newer build (that knows the
   // new values) is running, the warm shortcut must not keep serving pruned
   // files. '' clears a marker an earlier full load stored (storeGet: '' = absent).
   const partial = pruned || skipped.length > 0;
-  await storeSet(storage, completeKey, partial ? '' : '1');
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+  if (!partial) await storeSet(storage, completeKey, '1');
 
   return {
     manifest,

@@ -158,6 +158,42 @@ describe('loadBundle', () => {
     expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
   });
 
+  it('valid-JSON but schema-invalid cached files fall through to the network load', async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const key = `@swift2/content:v1:${baseUrl}:files:${manifest.bundleVersion}`;
+    const files = JSON.parse(storage.getItem(key)!);
+    files.eras[0].name = 42;
+    storage.setItem(key, JSON.stringify(files));
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    expect(result.source).toBe('network');
+  });
+
+  it('partial cached files (a manifest entry missing) fall through to the network load', async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const key = `@swift2/content:v1:${baseUrl}:files:${manifest.bundleVersion}`;
+    const files = JSON.parse(storage.getItem(key)!);
+    delete files.eras;
+    storage.setItem(key, JSON.stringify(files));
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    expect(result.source).toBe('network');
+    expect(Array.isArray(result.files.eras)).toBe(true);
+  });
+
+  it('a failed files write leaves the complete marker unset, so the next load goes to the network', async () => {
+    const failing = new MemoryStorageAdapter();
+    const realSet = failing.setItem.bind(failing);
+    failing.setItem = (k: string, v: string) => {
+      if (k.includes(':files:')) throw new Error('simulated write failure');
+      realSet(k, v);
+    };
+    await expect(
+      loadBundle({ baseUrl, fetch: makeFakeFetch(), storage: failing }),
+    ).rejects.toThrow('simulated write failure');
+    failing.setItem = realSet;
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage: failing });
+    expect(result.source).toBe('network');
+  });
+
   it('a changed version downloads the manifest and every file (integrity checks: the sha256-mismatch test below)', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 
