@@ -179,6 +179,10 @@ reviewer r2 launched.
 stop at first decisive manifest-order failure; suite 8111). Residuals
 accepted: earlier-file hang still blocks (as before); no abort signal.
 Codex r2 launched; reviewer r2 next slot. PR C told to merge fixed B.
+**14:18b:** #4814 reviewer r2 = APPROVE (Low: duplicated export steps in two
+jobs). Land #4814 when Codex r2 approves + build-full green (CI-only, not
+frozen; `gh pr merge 4814 --squash --auto --delete-branch`). #4815 Codex r2
+job `task-murgs6mn-xqyx7t`; reviewer r2 launched.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
