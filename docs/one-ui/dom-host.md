@@ -63,3 +63,5 @@ DOM bundle under `www.bundle/`.
   19.2.3 for mobile; same split as `react`, handled by the Metro singleton
   pins) and patch-level SDK drift on pre-existing packages (deliberately not
   bumped: this batch adds only the signed list).
+- **Do not use the C4 override on a build without the WP0.4b watchdog.** This PR caps in-launch reloads after a webview crash at 2, then shows a static "Shared UI failed — turn off in Settings > Diagnostics" message; durable recovery across launches is WP0.4b.
+- **App links declared but unverified until WP2.3 ships URL intake + .well-known; risk accepted (Codex vs Fable disagreement recorded in PROGRESS).** Without  files Android 12+ opens these links in the browser by default; only test devices exist (C5).

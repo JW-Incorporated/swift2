@@ -5,7 +5,7 @@
 // scroll list, a bundled web font, and the watchdog signals (onReady +
 // window.onerror/unhandledrejection -> reportError).
 import './shared-ui-test.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 
 const ERA_ACCENTS = ['#c9a24b', '#7fb8d9', '#d97fa6'];
@@ -33,12 +33,18 @@ export default function SharedUiTest({ onReady, reportError }: SharedUiTestProps
     };
     window.addEventListener('error', onError);
     window.addEventListener('unhandledrejection', onRejection);
-    void onReady();
     return () => {
       window.removeEventListener('error', onError);
       window.removeEventListener('unhandledrejection', onRejection);
     };
-  }, [onReady, reportError]);
+  }, [reportError]);
+
+  const readyFired = useRef(false);
+  useEffect(() => {
+    if (readyFired.current) return;
+    readyFired.current = true;
+    void onReady();
+  }, []);
 
   return (
     <div

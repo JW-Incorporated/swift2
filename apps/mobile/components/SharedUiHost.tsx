@@ -2,12 +2,12 @@
 // signals (launch attempted / ready / DOM-side errors / webview process death)
 // through `onSignal`; WP0.4b adds persistence and timeouts on top of these.
 // Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the
-// expo wrapper's auto-reload, so this host calls reload() itself.
-import { useCallback, useRef, useState } from 'react';
-import { AppState, StyleSheet, View } from 'react-native';
+// expo wrapper's auto-reload, so this host reloads itself — at most
+// MAX_CRASH_RELOADS times, then it shows a static message instead of looping.
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { AppState, StyleSheet, Text, View } from 'react-native';
 import SharedUiTest from '../dom/SharedUiTest';
-
-export type DomSignal = (stage: string, detail?: string) => void;
+import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
 
 interface DomRef {
   reload?: () => void;
@@ -15,47 +15,53 @@ interface DomRef {
 
 export function SharedUiHost({ onSignal }: { onSignal: DomSignal }) {
   const ref = useRef<DomRef>(null);
-  useState(() => {
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
     onSignal('dom-launch-attempted');
-    return null;
-  });
+  }, []);
 
-  const reload = useCallback(() => ref.current?.reload?.(), []);
-
-  const onReady = useCallback(async () => {
-    onSignal('dom-ready');
-  }, [onSignal]);
-
-  const reportError = useCallback(
-    async (message: string) => {
-      onSignal('dom-error', message.slice(0, 200));
-    },
-    [onSignal],
+  const handlers = useMemo(
+    () =>
+      createDomHostHandlers({
+        onSignal,
+        reload: () => ref.current?.reload?.(),
+        onGiveUp: () => setFailed(true),
+        isAppActive: () => AppState.currentState === 'active',
+        onceFocused: (fn) => {
+          const sub = AppState.addEventListener('focus', () => {
+            fn();
+            sub.remove();
+          });
+        },
+      }),
+    [],
   );
 
-  const dom = {
-    onContentProcessDidTerminate: () => {
-      onSignal('dom-process-terminated');
-      reload();
-    },
-    onRenderProcessGone: () => {
-      onSignal('dom-render-process-gone');
-      if (AppState.currentState === 'active') {
-        reload();
-        return;
-      }
-      const sub = AppState.addEventListener('focus', () => {
-        reload();
-        sub.remove();
-      });
-    },
-  };
+  if (failed) {
+    return (
+      <View style={styles.fill}>
+        <Text style={styles.msg}>Shared UI failed — turn off in Settings &gt; Diagnostics</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.fill}>
-      <SharedUiTest ref={ref} dom={dom} onReady={onReady} reportError={reportError} />
+      <SharedUiTest
+        ref={ref}
+        dom={{
+          onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
+          onRenderProcessGone: handlers.onRenderProcessGone,
+        }}
+        onReady={handlers.onReady}
+        reportError={handlers.reportError}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({ fill: { flex: 1, backgroundColor: '#0b0b0f' } });
+const styles = StyleSheet.create({
+  fill: { flex: 1, backgroundColor: '#0b0b0f', justifyContent: 'center', padding: 24 },
+  msg: { color: '#fff', textAlign: 'center' },
+});

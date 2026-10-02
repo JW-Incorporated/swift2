@@ -72,6 +72,7 @@ import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { SharedUiHost } from './components/SharedUiHost';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
+import { sharedUiActive } from './lib/dom-host-handlers';
 import { getForceSharedUi } from './lib/diagnostics-override';
 
 installDiagnostics();
@@ -374,7 +375,7 @@ export default function App() {
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
-          ) : routeFlags.sharedUi || forceSharedUi ? (
+          ) : sharedUiActive(routeFlags.sharedUi, forceSharedUi) ? (
             <SharedUiHost onSignal={(stage, detail) => diagCollector.mark(stage, detail)} />
           ) : screen === 'inbox' ? (
             <NotificationInboxScreen
