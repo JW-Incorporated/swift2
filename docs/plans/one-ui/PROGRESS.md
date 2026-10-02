@@ -122,6 +122,12 @@ green: `gh pr merge 4799 --squash --auto --delete-branch`; after it merges,
 --squash --auto --delete-branch`. Launched: WP1.1a size-check executor
 (`feature/one-ui-wp1.1a`, CI/scripts only, not frozen) + researcher on the
 WP0.0 wait-timing question.
+**14:07:** wait-timing = NO defect (wait polls run status; publish-job
+"In progress" line was a stale table snapshot; a failed job → exit 11, red).
+Optional later: post-wait `workflow:status --json` per-job summary (would
+also surface the update group id) — not scheduled. WP0.2 PR A → **#4813**
+(+55/-1, head 0f1c0f23, suite 8090 pass, fingerprint unchanged 49a1159e,
+no bypassing callers). Codex r1 + reviewer r1 launched. Merge waits for S1.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
