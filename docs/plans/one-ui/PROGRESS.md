@@ -290,6 +290,13 @@ cache .next/cache. Part 2 brief written after WP0.5b lands.
 gains per-job statuses + OTA update group id/runtime (lookup keyed to commit
 SHA) so S-sessions can pin the update without an Expo login → branch
 `feature/one-ui-release-summary`. Needs Codex + reviewer after.
+**14:40:** → **#4817**. Reviewer r1 = REQUEST CHANGES (High: 5-min step cap
+vs up to 8 × 90 s CLI calls → timeout kills the step red → Play submit
+skipped; Lows: stale header arithmetic, docs omit that a mismatch skips
+submit). PM decision: step becomes informational — `continue-on-error: true`,
+total deadline (~200 s) skipping remaining lookups, incremental summary
+writes; DROP the "SUCCESS but job failed" assertion (wait step already keys
+on run status). Bundle with Codex r1 (relay job running).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
