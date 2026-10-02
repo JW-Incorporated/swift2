@@ -160,6 +160,17 @@ encode + single files write) executor launched STACKED on wp0.2b →
 **14:14:** #4815 reviewer r1 = APPROVE (Lows: up to 5 in-flight bodies held
 after an integrity fail — accepted; dead `!settled` guard; 5 ms timer in
 test 3 may flake). Codex r1 job `task-murglwtp-mbz069` pending.
+**14:15:** #4815 Codex r1 = REQUEST CHANGES (P1: mapPool awaits all in-flight
+after a failure → a hung later fetch blocks fallback forever; P3 test). Fix
+round 1 sent to the PR B executor (finish as soon as manifest-order outcome is
+decisive; discard later in-flight; + reviewer Lows). Then Codex r2 + reviewer.
+PR C (stacked) will need to merge the fixed B.
+**14:16:** #4814 Codex r1 = REQUEST CHANGES (P1 content-only PRs skip the
+check though seed regenerates lenses.generated.ts into the bundle; P2 export
+total ≠ exact re-download payload). PM: P1 → add exports + check to
+build-content (supersedes 14:12 doc-note call; repo public → minutes free);
+P2 → wording only (export total is the plan's proxy; bundle always
+re-downloads); + dist-*/ gitignore. Fix round 1 sent to the WP1.1a executor.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
