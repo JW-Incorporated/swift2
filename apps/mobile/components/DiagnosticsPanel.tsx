@@ -8,15 +8,19 @@ import { readDiagEnv } from '../lib/diagnostics-env';
 import {
   getForceDomFailure,
   getForceSharedUi,
+  getUseTestPage,
   setForceDomFailure,
   setForceSharedUi,
+  setUseTestPage,
 } from '../lib/diagnostics-override';
+import { readerSpikeLines } from '../lib/dom-probe-store';
 import { sendDiagReport } from '../lib/diagnostics-send';
 import { watchdogLines, type DomFailureMode, type WatchdogRecord } from '../lib/watchdog';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const [forceShared, setForceShared] = useState(false);
+  const [testPage, setTestPage] = useState(false);
   const [failMode, setFailMode] = useState<DomFailureMode>('off');
   const [wd, setWd] = useState<WatchdogRecord | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -25,6 +29,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   useEffect(() => {
     if (!visible) return;
     void getForceSharedUi().then(setForceShared);
+    void getUseTestPage().then(setTestPage);
     void getForceDomFailure().then(setFailMode);
     void loadWatchdogRecord().then(setWd);
   }, [visible]);
@@ -81,6 +86,16 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
             <Text style={styles.fact}>Force shared UI (this device)</Text>
             <Switch value={forceShared} onValueChange={toggle} />
           </View>
+          <View style={styles.switchRow}>
+            <Text style={styles.fact}>Use WP0.4 test page, not ReaderSpike (next launch)</Text>
+            <Switch
+              value={testPage}
+              onValueChange={(on) => {
+                setTestPage(on);
+                void setUseTestPage(on);
+              }}
+            />
+          </View>
           <Text style={styles.fact}>Force DOM failure (applies next launch)</Text>
           <View style={styles.modeRow}>
             {(['off', 'throw', 'hang'] as const).map((mode) => (
@@ -97,6 +112,12 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           </View>
           <Text style={styles.section}>Watchdog</Text>
           {watchdogLines(wd).map((line) => (
+            <Text key={line} style={styles.fact}>
+              {line}
+            </Text>
+          ))}
+          <Text style={styles.section}>Reader spike</Text>
+          {readerSpikeLines().map((line) => (
             <Text key={line} style={styles.fact}>
               {line}
             </Text>
