@@ -104,6 +104,15 @@ Radix portal, no console errors. PM spot-checked 4 screenshots exist
 (scratch `sp-wp11b/shots`). Untested on Linux CI; real DOM entry must stay
 free of native-only imports for web export. Scoped reviewer on #4811 fix r2
 launched (landing gate).
+**14:06:** Android OTA check: run 37052010807 → EAS workflow; fingerprint
+matched existing builds (no store build), "Publish OTA (both platforms, one
+group)" ran on branch/channel `production`; green. Installed Android build =
+EAS 86b6c887 (from 98a99c65, Play internal, 2026-10-01 23:47Z). Group id not
+visible (no EXPO_TOKEN here) — Expo dashboard jw-labs/swift2-vault. Panel
+unlock reachable (SettingsAboutSection.tsx). Gave Joey exact relaunch steps.
+Watch item: the trigger's wait ended while the publish job was still in
+COMPLETE_JOB — check whether the WP0.0 wait can report success before the
+final EAS job finishes (follow-up if so).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
