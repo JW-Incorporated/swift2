@@ -51,7 +51,10 @@ import {
   isSchemaVersionSupported,
 } from './compat';
 import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
+import { mapPool } from './pool';
 import { beginStage } from './timing';
+
+const FETCH_CONCURRENCY = 5;
 
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
@@ -449,12 +452,17 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   const skipped: string[] = [];
   let pruned = false;
   try {
+    const wanted: Array<[string, (typeof manifest.files)[string]]> = [];
     for (const [name, entry] of Object.entries(manifest.files)) {
-      if (dropUnknown && !lookupSchema(name)) {
-        // A catalogue added after this build; nothing here could read it.
-        skipped.push(name);
-        continue;
-      }
+      // A catalogue added after this build has nothing here that could read it.
+      if (dropUnknown && !lookupSchema(name)) skipped.push(name);
+      else wanted.push([name, entry]);
+    }
+    // Bodies download concurrently (capped), so per-file 'download' marks now
+    // overlap in time. Hash/parse/validate below stay in manifest order, so the
+    // first failing file in manifest order decides the error; results of any
+    // fetch still in flight after a failure are discarded.
+    const bodies = await mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
       const endDownload = beginStage('download', name);
       const fileRes = await transportFetch(
         fetchImpl,
@@ -463,8 +471,15 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       if (!fileRes.ok) {
         throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
       }
-      const text = await fileRes.text();
+      const body = await fileRes.text();
       endDownload();
+      return body;
+    });
+    for (const [i, [name, entry]] of wanted.entries()) {
+      const settled = bodies[i];
+      if (!settled) throw new TransportError(`Fetching "${entry.path}" did not complete`);
+      if (!settled.ok) throw settled.error;
+      const text = settled.value;
       const endHash = beginStage('hash', name);
       const byteLength = new TextEncoder().encode(text).length;
       if (byteLength !== entry.bytes) {
