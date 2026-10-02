@@ -85,6 +85,12 @@ jobs:
       # The mobile apps load this bundle at runtime; build it twice and
       # require identical hashes (OS-011) on every PR, not just on publish.
       - run: npm run check:content-bundle
+      # One UI WP0.3: the snapshot built from the web's baked modules and the
+      # one built from this commit's D1 bundle must hash equal; a mismatch
+      # names the diverging domains. Also runs inside `npm run test` below;
+      # the explicit step makes a divergence its own red line.
+      - name: ReaderSnapshot equivalence (baked vs bundle)
+        run: npx vitest run packages/experience/src/reader-snapshot
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
