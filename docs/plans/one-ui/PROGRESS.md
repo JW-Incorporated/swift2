@@ -187,6 +187,12 @@ job `task-murgs6mn-xqyx7t`; reviewer r2 launched.
 waits on build-content) → **auto-merge SET** on #4814 (lands when build-full
 green). #4815 reviewer r2 = APPROVE (Low: abandoned fetch leaves no
 endDownload mark — harmless). #4815 Codex r2 pending.
+**14:20:** #4815 Codex r2 = REQUEST CHANGES (P1: "no new fetches after
+failure" holds only for transport/HTTP; integrity/parse/validate failures are
+detected after the worker already launched file 5+; P2 tests don't assert
+launch counts). 2nd consecutive rejection → **Fable consulted (mandatory)**;
+PM leaning A = amend contract (≤cap extra discarded fetches) + launch-count
+test + scoped reviewer, no Codex r3.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
