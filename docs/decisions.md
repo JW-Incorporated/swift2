@@ -7,6 +7,26 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-01 — Three bots stay three: Tree (social), Marjorie (Long Live head), bot1 (hands)
+
+**Decision (Joey, in chat, 2026-10-01: "Ok 3 bots it is"):** Keep the three bots with sharp roles.
+Tree is the social specialist (drafts, approvals, posting, reply opportunities). Marjorie is the
+head of Long Live (strategy, weekly plan, status page, routing work). bot1 (Hermes1) is the hands
+(Hermes-side work and anything the owner asks it directly). Tree's asks go to Marjorie, who weighs
+them against the weekly plan; most become GitHub issues or content work, and only Hermes-side work
+goes to bot1 (owner chat asks to bot1 are sent immediately, #4780).
+
+**Why:** Marjorie and Tree run on GitHub Actions (cloud-reliable, repo-native, scoped secrets, CI
+guardrails); bot1 runs on the home server (always-on, instant, broad tools, serves every project).
+The 2026-09-13 reasons for not merging Marjorie/Tree into Hermes still hold: home-server reliability,
+secrets inside an always-on Discord-facing AI runtime, guardrails enforced in GitHub, and focus.
+
+**Alternatives considered:** bot1 becomes Marjorie (rejected for the reasons above); Tree → bot1
+directly for Hermes plumbing (not built — zero cases so far; add only if it happens).
+**Revisit if:** the home server proves reliable for a month AND reply speed becomes the main pain.
+
+---
+
 ## 2026-10-01 — API version header and a dormant update-required gate
 
 **Decision.**
