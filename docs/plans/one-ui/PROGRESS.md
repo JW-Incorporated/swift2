@@ -38,6 +38,10 @@ by abandoned rule). Fable ruled (Fable log). Combined fix round 1 sent to the
 WP0.4b executor (items 1–9). NEXT: Codex r2 + reviewer r2 on #4811 → if both
 approve, merge #4799 then #4811 in ONE pass after S1 closes (#4799 needs no
 new round; its findings are resolved in #4811). A 2nd #4811 rejection → Fable.
+**13:56:** #4811 fix r1 pushed, HEAD db051c61 (suite 8113 pass, fingerprint
+dcf1ea59 unchanged, both exports OK). PM accepted ~557 non-test lines over
+tripwire (one safety mechanism; WP0.3 precedent). Codex r2 + reviewer r2
+(diff-only) launched on #4811.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
