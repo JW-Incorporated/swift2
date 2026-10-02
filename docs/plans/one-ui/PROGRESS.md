@@ -311,6 +311,10 @@ dropped, 200 s budget / 25 s per call, incremental summary, sanitised cells).
 → Codex r2 + reviewer r2 queued. **0.5b executor launched**
 (`feature/one-ui-wp0.5b`, stacked on wp0.5a). Queue for slots: #4818
 reviewer, #4817 r2 reviews.
+**14:46:** #4818 Codex r1 = REQUEST CHANGES (P1 next/dynamic in LongLive.tsx
+unstubbed → stub it (React.lazy-based) + integration-resolution test; P2
+parity test @ts-nocheck/runtime keys only → add compile-time export-shape
+check). Bundle with reviewer r1 (running).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
