@@ -463,33 +463,13 @@ export default {
       ],
       tags: ['tloas', 'release', 'new-music'],
     },
-    {
-      // Added 2026-10-02 (Vault Run, Rumor Desk Part C) from intake #4809 — the
-      // same adjudicable, redline-clean awards claim admitted to the Vault's
-      // i-knew-it-i-knew-you-oscar-buzz moment. Prompt-worthy current item:
-      // outlet analysis of intent, not an announcement.
-      id: 'oscar-campaign-hiding-in-plain-sight',
-      status: 'reported',
-      date: '2026-10-01',
-      lastCheckedOn: '2026-10-02',
-      headline: 'The "secret Oscar campaign," hiding in plain sight',
-      detail:
-        'The industry trade The Ankler argued on 1 October 2026 ("Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight") that Taylor is quietly building an awards-season case without ever announcing one: her Toy Story 5 song "I Knew It, I Knew You" is a widely tipped Best Original Song contender, the VMA-premiered "Patient Zero" video was shot by three-time Oscar-winning cinematographer Emmanuel "Chivo" Lubezki with Colin Farrell and Dakota Johnson, and MTV just handed her an inaugural Artist Director Honor. IndieWire weighed the same question; Yahoo and heavy.com repackaged it. Status is `reported`, not `confirmed`: no Oscar campaign, submission, or nomination has been confirmed by Taylor, her team, or the Academy. It resolves if she pursues or lands a Best Original Song nod for the 99th Oscars (submissions due 14 Oct 2026, nominations 21 Jan 2027).',
-      sources: [
-        {
-          name: 'The Ankler',
-          url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
-        },
-        {
-          name: 'IndieWire',
-          url: 'https://www.indiewire.com/awards/industry/taylor-swift-patient-zero-oscar-chances-1235218787/',
-        },
-      ],
-      prompts: [
-        'A trade says the Oscar campaign is "hiding in plain sight": a Pixar song, a Lubezki-shot video, a brand-new VMA honor — all arriving at once, none of it called a campaign. Decode it: deliberate awards play or a bot reading tea leaves? Commit.',
-        'Rank the odds she lands her first-ever Oscar nomination for "I Knew It, I Knew You." Commit to a number before the 14 October submission deadline settles it.',
-      ],
-      tags: ['awards', 'oscars', 'tloas'],
-    },
+    // NOTE (Vault Run 2026-10-02): the Oct-1 "Oscar campaign hiding in plain
+    // sight" claim (The Ankler, intake #4809) was NOT added here as a new open
+    // lore item — clown-board.test.ts freezes `NOW` at 2026-08-31 and asserts
+    // no open (rumor/reported) item is future-dated, and clownbot-lore.test.ts
+    // hardcodes the open-item count at 5, so a new current open item fails CI
+    // and only an app-code test change (Austin) can lift that. The claim is
+    // carried in the Vault on the i-knew-it-i-knew-you-oscar-buzz moment's
+    // rumors[] instead. Flagged for a test fix separately.
   ],
 };
