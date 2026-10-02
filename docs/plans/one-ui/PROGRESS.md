@@ -16,7 +16,14 @@ auto-merge on #4796 / #4799 until S1 closes.
 result`); `reviewer` r2 on #4799 **APPROVE** 13:40 (Low: MAP.md row for
 `apps/mobile/lib/dom-host-handlers.ts` — bundle with Codex r2 fixes; CI
 build/build-full green on 39a129b0, PM spot-checked; stale worktree
-`rv-wp04` left — long-path remove failed, prune later); WP0.4b executor
+`rv-wp04` left — long-path remove failed, prune later); WP0.4b → **#4811**
+opened 13:48 (base feature/one-ui-wp0.4, head 989e0aaa, no auto-merge; suite
+8111 pass; fingerprint unchanged dcf1ea59 both sides; PM accepted watchdog
+block panel-only — diag schema has no slot). Codex r1 on #4811 launched
+(job id from the codex-rescue relay; check `/codex:status`) + `reviewer` r1
+(diff-only, no worktree). PM concern for both: whole-app kill before ready
+may read as "abandoned" not strike → possible loop. Fable final after.
+Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
 finds these unreported: check `gh pr list --head feature/one-ui-wp0.4b`
