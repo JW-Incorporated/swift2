@@ -320,6 +320,16 @@ matches apps/web/node_modules; CI all green incl. build-full). Fix round 1
 sent to 0.5a executor (next/dynamic stub + loud fail on other next/*;
 compile-time parity check; comment). Then Codex r2 + reviewer r2. #4817 r2
 reviews wait for a slot.
+**14:50:** WP1.1c part 1 → **#4819** (base wp0.4b). No app.json change
+(`EXPO_NO_WEB_SETUP=1`); main→"index" + index.web.tsx; fingerprint dcf1ea59
+unchanged; .hbc names identical. PM spot-checked: bootstrap run 37068517032 =
+failure (missing baselines — as designed), rerun 37068913846 = success.
+Baselines committed 4c5ef187 (16 PNGs); runtime ~2 min. Side facts: base
+(WP0.4 DOM www.bundle) is +11.6% over the size baseline → #4799 passes the
+15% gate; bump baseline after #4799 lands. **S3 check to add:** WP0.4 test
+page renders ~250 px wide in a 393 px iPhone viewport. Note: GITHUB_TOKEN
+commits don't trigger pull_request runs → dispatch reruns by hand. Codex r2
+on #4817 launched; #4819 reviews + #4817 reviewer r2 queued.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
