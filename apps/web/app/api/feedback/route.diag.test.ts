@@ -27,12 +27,20 @@ describe('POST [diag] reports', () => {
     build: '1.0.0 (42)',
     updateId: '123e4567-e89b-12d3-a456-426614174000',
     launch: 'cold',
-    timings: { manifest: 12.34, 'at:manifest': 100, 'first-era-paint': 0, 'at:first-era-paint': 2500.5, 'download:content:1989': 50 },
+    timings: {
+      manifest: 12.34,
+      'at:manifest': 100,
+      'first-era-paint': 0,
+      'at:first-era-paint': 2500.5,
+      'download:content:1989': 50,
+    },
   });
   const diagReq = (diag: unknown, ip: string, extra: Record<string, unknown> = {}) =>
     req({ message: '[diag]', diag, ...extra }, { 'x-real-ip': ip });
   const okFetch = () =>
-    vi.fn().mockImplementation(async () => new Response(JSON.stringify({ id: 9 }), { status: 201 }));
+    vi
+      .fn()
+      .mockImplementation(async () => new Response(JSON.stringify({ id: 9 }), { status: 201 }));
 
   it('posts a fixed-template comment on the tracking issue, not a new issue', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
@@ -47,7 +55,9 @@ describe('POST [diag] reports', () => {
     expect(url).toBe(
       `https://api.github.com/repos/JW-Incorporated/swift2/issues/${DIAG_ISSUE_NUMBER}/comments`,
     );
-    expect((init.headers as Record<string, string>).Authorization).toBe('Bearer feedback-scoped-token');
+    expect((init.headers as Record<string, string>).Authorization).toBe(
+      'Bearer feedback-scoped-token',
+    );
     const sent = JSON.parse(init.body as string);
     expect(Object.keys(sent)).toEqual(['body']);
     const parsed = parseDiagReport(validDiag());
@@ -137,7 +147,8 @@ describe('POST [diag] reports', () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
     vi.stubGlobal('fetch', okFetch());
     const statuses: number[] = [];
-    for (let i = 0; i < 7; i++) statuses.push((await POST(diagReq(validDiag(), '10.9.3.2'))).status);
+    for (let i = 0; i < 7; i++)
+      statuses.push((await POST(diagReq(validDiag(), '10.9.3.2'))).status);
     expect(statuses.slice(0, 5)).toEqual([201, 201, 201, 201, 201]);
     expect(statuses[6]).toBe(429);
   });
@@ -153,40 +164,42 @@ describe('POST [diag] reports', () => {
     expect(fetchSpy.mock.calls[0][0]).toMatch(/\/issues$/);
   });
 
-it('rejects "[diag]" with trailing whitespace (raw message must be exactly "[diag]")', async () => {
-  vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
-  const fetchSpy = okFetch();
-  vi.stubGlobal('fetch', fetchSpy);
-  for (const [i, message] of ['[diag] \n', ' [diag]', '[diag]\n'].entries()) {
-    const res = await POST(req({ message, diag: validDiag() }, { 'x-real-ip': `10.9.4.${i}` }));
+  it('rejects "[diag]" with trailing whitespace (raw message must be exactly "[diag]")', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    const fetchSpy = okFetch();
+    vi.stubGlobal('fetch', fetchSpy);
+    for (const [i, message] of ['[diag] \n', ' [diag]', '[diag]\n'].entries()) {
+      const res = await POST(req({ message, diag: validDiag() }, { 'x-real-ip': `10.9.4.${i}` }));
+      expect(res.status).toBe(400);
+    }
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('rejects any top-level field other than message, hp and diag', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    const fetchSpy = okFetch();
+    vi.stubGlobal('fetch', fetchSpy);
+    const res = await POST(diagReq(validDiag(), '10.9.5.1', { extra: 'x' }));
     expect(res.status).toBe(400);
-  }
-  expect(fetchSpy).not.toHaveBeenCalled();
-});
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
 
-it('rejects any top-level field other than message, hp and diag', async () => {
-  vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
-  const fetchSpy = okFetch();
-  vi.stubGlobal('fetch', fetchSpy);
-  const res = await POST(diagReq(validDiag(), '10.9.5.1', { extra: 'x' }));
-  expect(res.status).toBe(400);
-  expect(fetchSpy).not.toHaveBeenCalled();
-});
+  it('accepts launch "unknown" truthfully', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    vi.stubGlobal('fetch', okFetch());
+    expect((await POST(diagReq({ ...validDiag(), launch: 'unknown' }, '10.9.6.1'))).status).toBe(
+      201,
+    );
+  });
 
-it('accepts launch "unknown" truthfully', async () => {
-  vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
-  vi.stubGlobal('fetch', okFetch());
-  expect((await POST(diagReq({ ...validDiag(), launch: 'unknown' }, '10.9.6.1'))).status).toBe(201);
-});
-
-it('always comments on the swift2 tracking issue, ignoring FEEDBACK_REPO', async () => {
-  vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
-  vi.stubEnv('FEEDBACK_REPO', 'someone/else');
-  const fetchSpy = okFetch();
-  vi.stubGlobal('fetch', fetchSpy);
-  await POST(diagReq(validDiag(), '10.9.7.1'));
-  expect(fetchSpy.mock.calls[0][0]).toBe(
-    `https://api.github.com/repos/JW-Incorporated/swift2/issues/${DIAG_ISSUE_NUMBER}/comments`,
-  );
-});
+  it('always comments on the swift2 tracking issue, ignoring FEEDBACK_REPO', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    vi.stubEnv('FEEDBACK_REPO', 'someone/else');
+    const fetchSpy = okFetch();
+    vi.stubGlobal('fetch', fetchSpy);
+    await POST(diagReq(validDiag(), '10.9.7.1'));
+    expect(fetchSpy.mock.calls[0][0]).toBe(
+      `https://api.github.com/repos/JW-Incorporated/swift2/issues/${DIAG_ISSUE_NUMBER}/comments`,
+    );
+  });
 });
