@@ -170,21 +170,54 @@ jobs:
           }
           if (process.env.WAIT_OUTCOME === 'success') {
             flush('', '### OTA update for this commit (branch/channel production)');
+            let found = 0;
+            let complete = false;
+            let scanned = 0;
             try {
-              const list = rowsOf(eas(['update:list', '--branch', 'production', '--limit', '10', '--json', '--non-interactive']));
-              const seen = new Set();
-              let found = 0;
-              for (const row of list.slice(0, 6)) {
-                const group = row.group ?? row.groupId;
-                if (!group || seen.has(group)) continue;
-                seen.add(group);
-                for (const u of rowsOf(eas(['update:view', group, '--json']))) {
-                  if ((u.gitCommitHash ?? row.gitCommitHash) !== sha) continue;
-                  if (!found++) flush('| Update group | Platform | Runtime version |', '|---|---|---|');
-                  flush(`| ${cell(u.group ?? group)} | ${cell(u.platform ?? u.platforms ?? row.platform)} | ${cell(u.runtimeVersion ?? u.runtime?.version ?? row.runtimeVersion)} |`);
+              // The checkout (depth 1) contains GITHUB_SHA itself, so its commit time is local and exact.
+              let commitMs = NaN;
+              try { commitMs = Date.parse(execFileSync('git', ['show', '-s', '--format=%cI', sha], { encoding: 'utf8' }).trim()); } catch {}
+              const LIMIT = 50;
+              const VIEW_CAP = 20;
+              const list = rowsOf(eas(['update:list', '--branch', 'production', '--limit', String(LIMIT), '--json', '--non-interactive']));
+              scanned = list.length;
+              const born = (r) => Date.parse(r?.createdAt ?? '');
+              const predates = (r) => born(r) < commitMs;
+              const emit = (group, u, row) => {
+                if (!found++) flush('| Update group | Platform | Runtime version |', '|---|---|---|');
+                flush(`| ${cell(u.group ?? group)} | ${cell(u.platform ?? u.platforms ?? row.platform)} | ${cell(u.runtimeVersion ?? u.runtime?.version ?? row.runtimeVersion)} |`);
+              };
+              const groupOf = (r) => r.group ?? r.groupId;
+              if (list.some((r) => r.gitCommitHash)) {
+                // The list carries commit hashes: filter first, view only matching groups.
+                const seen = new Set();
+                for (const row of list) {
+                  const group = groupOf(row);
+                  if (row.gitCommitHash !== sha || !group || seen.has(group)) continue;
+                  seen.add(group);
+                  for (const u of rowsOf(eas(['update:view', group, '--json']))) {
+                    if ((u.gitCommitHash ?? row.gitCommitHash) === sha) emit(group, u, row);
+                  }
+                }
+                complete = list.length < LIMIT || predates(list[list.length - 1]);
+              } else {
+                // No hashes in the list: view groups newest-first (capped), stop once older than the commit.
+                const groups = [...new Set(list.map(groupOf).filter(Boolean))];
+                scanned = Math.min(groups.length, VIEW_CAP);
+                complete = groups.length <= VIEW_CAP && list.length < LIMIT;
+                for (const group of groups.slice(0, VIEW_CAP)) {
+                  const row = list.find((r) => groupOf(r) === group) ?? {};
+                  const rows = rowsOf(eas(['update:view', group, '--json']));
+                  for (const u of rows) {
+                    if ((u.gitCommitHash ?? row.gitCommitHash) === sha) emit(group, u, row);
+                  }
+                  if (rows.length && rows.every((u) => predates(u) || predates(row))) { complete = true; break; }
                 }
               }
-              if (!found) flush('None published for this commit (store-build path, or a store build already carries it).');
+              if (!found) {
+                if (complete) flush('None published for this commit (store-build path, or a store build already carries it).');
+                else flush(`Not found in the newest ${scanned} update groups (lookup incomplete); check the Expo dashboard.`);
+              }
             } catch (e) {
               flush(`OTA lookup incomplete (${note(e)}); check the Expo dashboard.`);
             }
