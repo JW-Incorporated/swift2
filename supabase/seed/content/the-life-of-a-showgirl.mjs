@@ -3778,13 +3778,14 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
-            // "not confirmed" banner): re-verified the moment's status against
-            // current reporting — the late-Aug Grammy Museum "next album"
-            // speculation (see the new rumor entry below) confirms no album 13
-            // or re-record has been announced, so the banner stays and this
-            // records that someone looked.
-            accessed_at: '2026-08-25',
+            // Vault Run Answerer re-check 2026-10-02 (CIE #4552, 30d-stale
+            // "not confirmed" banner; prior re-check 2026-08-25): re-verified
+            // against current reporting — still no album 13 (TS13) announced,
+            // titled, or dated. The Life of a Showgirl: The Encore (Sept 25,
+            // 2026) added four songs to her TWELFTH album; it is not album 13.
+            // Status stays unconfirmed and the banner stays; this records that
+            // someone looked.
+            accessed_at: '2026-10-02',
             reliability_score: 4,
           },
         ],
@@ -3845,7 +3846,7 @@ export default {
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
             note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-10-02',
           },
           {
             claim:
@@ -3856,7 +3857,7 @@ export default {
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
             note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-25',
+            lastCheckedOn: '2026-10-02',
           },
           // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
           // distinct next-project thread from the TS13 tips above — this one
@@ -3874,9 +3875,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-10-02: no debut re-record announced; the circulating Nov-10/locked-website-page reads remain unsettled fan speculation, nothing official.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-09-02',
+            lastCheckedOn: '2026-10-02',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -3898,9 +3899,9 @@ export default {
             reportedOn: '2026-08-28',
             status: 'unconfirmed',
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
-            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
+            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location. Re-verified STILL LIVE 2026-10-02: no album 13 announced, titled, or dated.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-30',
+            lastCheckedOn: '2026-10-02',
           },
         ],
       },
