@@ -17,6 +17,18 @@ scoped reviewer; #4822 fix round if needed → Fable design-fidelity; WP1.1c
 part-2 brief (stack on wp0.5b) → Fable brief review (structural a-vs-b gate
 deviation). Housekeeping: fold log lines 45–431 below into ≤10 summary lines
 (file is >500 lines vs the ~200 cap).
+**16:15:** #4822 r1: reviewer + Codex (`task-murku2go-hxy9gw`) both REQUEST
+CHANGES → fix round 1 executor (wt `wt-wp05b`): baked-content proof covers all
+`*.generated.ts` + ≥3 sentinels + videos.ts; insets 4 sides actually applied in
+CSS; probe `adapter`; Android back not swallowed pre-ready; placeholder counts
+via events; docs. **PM override (recorded):** Codex P1 "iOS <script src>
+fallback absent" → spike keeps it PROBE-ONLY; real fallback only if S4 shows
+iOS fetch+XHR fail (Fable 14:31 "fallback not built now"). Bundle-check CI
+wiring → WP1.1c part 2. Fingerprint: reviewer — no native inputs in diff,
+inert; 3603a03f vs dcf1ea59 = measurement env. #4819 r1: Codex
+(`task-murktwfp-vpt722`) P1 main-ref baseline regen allowed, P2 trigger paths
+→ fix round 1 executor (wt `wt-wp11c`) with reviewer r1 items. Fable reviewed
+part-2 brief → B (Fable log).
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
@@ -488,6 +500,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-02 14:31 | WP0.5 brief review | Approve with edits. REQUIRED: dynamic-import screens after snapshot fill (module-level constants freeze); resolver on resolved absolute path, web+apps/web scoped; force react/react-dom/jsx-runtime/scheduler singletons; bundle-has-no-baked-content proof as committed script in 0.5b; tests travel with code (fold 0.5c); persistence probe on PRODUCTION export, IndexedDB+localStorage, adapter `kind` tag, fallback not built now; automated placeholder-image counts per host; diag snapshot hash = CI equivalence hash. OPTIONAL: keep no-referrer (+doc), grep SDK57 dom-webview for nonPersistent, tsconfig paths | All REQUIRED + OPTIONAL 9–11 adopted; brief rewritten (scratch brief-wp05.md); 0.5a launched |
 | 2026-10-02 14:34 | Android DOM webview has no web storage (domStorageEnabled unset) — 0.5b persistence design fork | B: webview read-only over the native disk cache via file:// (fetch → XHR, status 0 ok); RN passes only cache URIs + version token (C6 holds; amend wording); iOS fallback = RN writes bundle.js read via <script src>; Map-backed localStorage shim before importing web code; probe records fetch/XHR/script/storage per platform. Rejected A (builds a second cache likely to fail) and C (no prop; native change, C3). No decisions.md entry | Adopted; brief amended (scratch brief-wp05.md) |
 | 2026-10-02 14:53 | #4817 two consecutive Codex rejections (mandatory): newest-6 scan window | PM proposal + tweak: LIMIT 50 list, filter by row.gitCommitHash first, update:view only on matches; per-group view (cap 20) only as fallback; "None published" only if list < LIMIT or oldest createdAt predates commit time, else "lookup incomplete". Rejected EAS-run outputs (undocumented) and Codex r3. Land: scoped reviewer, merge | Adopted |
+| 2026-10-02 16:14 | WP1.1c part-2 brief: structural-only a-vs-b deviation? | B: pixel a-vs-b NOW, font-normalised (shared @font-face override + fonts.ready), content-root screenshot, zero insets on (b); structural kept as 2nd blocking assertion (root-relative rects, role landmarks in order, ±2px/edge, NFC text); baselines threshold 0.3 / maxDiffPixelRatio 0.001; (b) baseline with real insets; colour negative fails a-vs-b; size budget | Adopted all; size budget already live (WP1.1a #4814), not duplicated. Brief = scratch `brief-wp11c-part2.md` (fresh PM: rebuild from this row). Launch after #4822 settles (stack on wp0.5b) |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
