@@ -13,3 +13,4 @@ export * from './compat';
 export * from './forward-compat';
 export * from './app-config';
 export * from './api-fetch';
+export * from './timing';

@@ -21,7 +21,7 @@ import {
   type FetchLike,
   type FetchResponseLike,
 } from './load';
-import { MemoryStorageAdapter } from './cache';
+import { MemoryStorageAdapter, type StorageAdapter } from './cache';
 import type { Manifest } from './schema';
 
 const bundleDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'bundle');
@@ -553,5 +553,81 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
         dataErrorFallback: 'last-good',
       }),
     ).rejects.toThrow(BundleIntegrityError);
+  });
+
+  /** Wraps a MemoryStorageAdapter; the first write whose key matches is parked until release(). */
+  function holdableStorage(inner: MemoryStorageAdapter) {
+    let pred: ((key: string) => boolean) | null = null;
+    let release: () => void = () => {};
+    let onParked: () => void = () => {};
+    const parked = new Promise<void>((r) => {
+      onParked = r;
+    });
+    const adapter: StorageAdapter = {
+      getItem: (k) => inner.getItem(k),
+      removeItem: (k) => inner.removeItem(k),
+      async setItem(k, v) {
+        if (pred?.(k)) {
+          pred = null;
+          const gate = new Promise<void>((r) => {
+            release = r;
+          });
+          onParked();
+          await gate;
+        }
+        inner.setItem(k, v);
+      },
+    };
+    return {
+      adapter,
+      parked,
+      hold: (p: (key: string) => boolean) => {
+        pred = p;
+      },
+      release: () => release(),
+    };
+  }
+
+  it('a partial load overlapping a full load of the same version never overwrites the full cache', async () => {
+    const holder = holdableStorage(storage);
+    holder.hold(() => true); // park the pruned load's first write
+    const pruned = loadBundle({
+      baseUrl,
+      fetch: serveFiles(bundleWithNewEra()),
+      storage: holder.adapter,
+      unknownEnumPolicy: 'drop',
+    });
+    await Promise.race([pruned, holder.parked]);
+
+    const full = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    holder.release();
+    await pruned;
+
+    const v = manifest.bundleVersion;
+    expect(storage.getItem(`@swift2/content:v1:${baseUrl}:etag:${v}`)).toBe('1');
+    expect(JSON.parse(storage.getItem(`@swift2/content:v1:${baseUrl}:files:${v}`)!)).toEqual(
+      full.files,
+    );
+    const onlyPointer: FetchLike = async (url, init) => {
+      if (url !== `${baseUrl}/current.json`) throw new Error(`unexpected fetch ${url}`);
+      return makeFakeFetch()(url, init);
+    };
+    const third = await loadBundle({ baseUrl, fetch: onlyPointer, storage });
+    expect(third.source).toBe('cache-etag');
+    expect(third.files).toEqual(full.files);
+  });
+
+  it('a pruned load alone writes only last-good, never the version-keyed trio', async () => {
+    await loadBundle({
+      baseUrl,
+      fetch: serveFiles(bundleWithNewEra()),
+      storage,
+      unknownEnumPolicy: 'drop',
+    });
+    const v = manifest.bundleVersion;
+    for (const k of ['manifest', 'files', 'etag']) {
+      expect(storage.getItem(`@swift2/content:v1:${baseUrl}:${k}:${v}`)).toBeNull();
+    }
+    expect(storage.getItem(`@swift2/content:v1:${baseUrl}:last-good`)).not.toBeNull();
   });
 });

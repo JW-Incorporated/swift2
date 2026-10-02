@@ -24,3 +24,8 @@ export function setContentItemLookup(fn: ContentItemLookup): void {
 export function contentItemLookup(id: string): ContentItem | undefined {
   return lookup(id);
 }
+
+/** The currently wired lookup, so a scoped caller (reader-snapshot) can restore it. */
+export function getContentItemLookup(): ContentItemLookup {
+  return lookup;
+}

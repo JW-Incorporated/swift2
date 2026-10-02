@@ -604,11 +604,21 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `packages/content/src/app-config.ts` (+ test) | `appConfigSchema` (unknown keys stripped), `ROUTE_FLAG_KEYS` (the one list of flag names; mobile test asserts it matches `DEFAULT_ROUTE_FLAGS`) |
 | `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
 | `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
+| `packages/content/src/timing.ts` (+ test) | One UI WP0.1: optional load-stage hooks (`beginStage`, `setLoadTimingSink`); shared no-op when no sink is registered; `load.ts` reports pointer/manifest/download/hash/parse/validate/disk-write/load-total |
+| `apps/mobile/lib/diagnostics.ts` (+ test), `diagnostics-env.ts`, `diagnostics-override.ts`, `diagnostics-send.ts`, `components/DiagnosticsPanel.tsx` | One UI WP0.1: timing collector + `[diag]` report builder, device facts, C4 `Force shared UI` stub (persisted, unwired until WP0.4), send via `/api/feedback`. Hidden panel: 7 taps on the Settings version label. Marks: `provider-wiring` (era-stream-data.ts `wireTheories`), `first-era-paint` (EraSection.tsx, first rAF after real entries commit) |
+| `apps/web/app/api/feedback/route.ts` (32 KB body cap, 413), `diag.ts` (+ `route.test.ts`, `route.diag.test.ts`) | `{message:"[diag]", diag:{...}}` is validated against an exact schema (`parseDiagReport`) and the comment on tracking issue #4791 (hardcoded `DIAG_ISSUE_NUMBER`) is rebuilt from a fixed template; client text is never posted. Same token, repo and per-IP rate limit; 400 on any unknown/extra/out-of-range field |
 | `packages/shared/src/api/version.ts` | `API_VERSION`; `apps/web/proxy.ts` sends it as `x-api-version` on `/api/*` (test: `apps/web/proxy.test.ts`) |
 | `apps/mobile/lib/update-required.ts` (+ test), `components/UpdateRequiredScreen.tsx` | Dormant forced-update gate: `isUpdateRequired`, `currentNativeBuild`, store URLs; driven by optional `minNativeBuild` in app-config (unset = inert). Rule: `docs/mobile-release.md` "Forcing an update" |
 | `apps/mobile/lib/app-config.ts` (+ test) | `loadAppConfig()` (network, 3s timeout -> last-good -> defaults, never throws) + `routeFlagsFrom()`; App.tsx applies the result to `resolve`/`createNavigate` |
 | `apps/mobile/lib/content-bundle.ts` (+ test) | `loadContentBundle()`: the one mobile bundle loader (shared storage, `unknownEnumPolicy: 'drop'`, `dataErrorFallback: 'last-good'`) + once-per-process OTA `selfHealOnce()`. All six `*-data.ts`/`vault.ts` callers use it |
 | `packages/experience/src/era-ids-sync.test.ts` | Asserts `ERAS` ids equal `eraIdSchema.options`; see `docs/mobile-release.md` "Adding an era/enum/catalogue" |
+
+## ReaderSnapshot (One UI WP0.3, 2026-10-02)
+
+| File | What it is |
+|---|---|
+| `packages/experience/src/reader-snapshot/` (`types`, `build`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
 
 ## CI concurrency (2026-10-01)
 

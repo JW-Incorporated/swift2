@@ -1,0 +1,212 @@
+// One UI WP0.1 — load-stage timing collector + `[diag]` report builder.
+// Pure (no native imports) so it is unit-testable; the device facts live in
+// diagnostics-env.ts. A report is posted to a PUBLIC GitHub issue, so it
+// carries only model, OS, build, update id and timings — never a device id,
+// push token or personal data.
+import { setLoadTimingSink, type LoadTimingEvent } from '@swift2/content';
+
+export interface DiagMark {
+  stage: string;
+  detail?: string;
+  /** Clock reading (ms) when the stage began; app-start is ~0 on Hermes. */
+  startMs: number;
+  /** 0 for an instant mark. */
+  durationMs: number;
+}
+
+export type LaunchKind = 'cold' | 'warm' | 'unknown';
+
+export interface StageSummary {
+  stage: string;
+  count: number;
+  totalMs: number;
+  maxMs: number;
+  firstStartMs: number;
+}
+
+export interface TimingSummary {
+  launch: LaunchKind;
+  stages: StageSummary[];
+  slowestDownloads: { file: string; ms: number }[];
+}
+
+export interface DiagEnv {
+  model: string;
+  os: string;
+  build: string;
+  updateId: string;
+}
+
+const MAX_MARKS = 500;
+
+function defaultNow(): number {
+  const perf = (globalThis as { performance?: { now?: () => number } }).performance;
+  return typeof perf?.now === 'function' ? perf.now() : Date.now();
+}
+
+export function createTimingCollector(now: () => number = defaultNow) {
+  let marks: DiagMark[] = [];
+  const push = (m: DiagMark) => {
+    if (marks.length < MAX_MARKS) marks.push(m);
+  };
+  return {
+    /** Sink for packages/content's load-stage events. */
+    record(event: LoadTimingEvent): void {
+      push({ ...event });
+    },
+    /** An instant mark (app start, provider wiring, first paint ...). */
+    mark(stage: string, detail?: string): void {
+      push({ stage, ...(detail ? { detail } : {}), startMs: now(), durationMs: 0 });
+    },
+    /** Start a timed stage; call the returned function when it finishes. */
+    start(stage: string, detail?: string): () => void {
+      const startMs = now();
+      return () =>
+        push({ stage, ...(detail ? { detail } : {}), startMs, durationMs: now() - startMs });
+    },
+    marks(): readonly DiagMark[] {
+      return marks;
+    },
+    reset(): void {
+      marks = [];
+    },
+    summary(): TimingSummary {
+      return summarizeMarks(marks);
+    },
+  };
+}
+
+export type TimingCollector = ReturnType<typeof createTimingCollector>;
+
+/** Cold = the loader had to download a bundle (manifest 200); warm = served from cache (manifest 304). */
+export function launchKindOf(marks: readonly DiagMark[]): LaunchKind {
+  const manifest = marks.find((m) => m.stage === 'manifest');
+  if (manifest?.detail === '304') return 'warm';
+  if (manifest?.detail === '200') return 'cold';
+  return 'unknown';
+}
+
+export function summarizeMarks(marks: readonly DiagMark[]): TimingSummary {
+  const byStage = new Map<string, StageSummary>();
+  for (const m of marks) {
+    const s = byStage.get(m.stage);
+    if (s) {
+      s.count += 1;
+      s.totalMs += m.durationMs;
+      s.maxMs = Math.max(s.maxMs, m.durationMs);
+      s.firstStartMs = Math.min(s.firstStartMs, m.startMs);
+    } else {
+      byStage.set(m.stage, {
+        stage: m.stage,
+        count: 1,
+        totalMs: m.durationMs,
+        maxMs: m.durationMs,
+        firstStartMs: m.startMs,
+      });
+    }
+  }
+  const slowestDownloads = marks
+    .filter((m) => m.stage === 'download' && m.detail)
+    .sort((a, b) => b.durationMs - a.durationMs)
+    .slice(0, 5)
+    .map((m) => ({ file: String(m.detail), ms: m.durationMs }));
+  return { launch: launchKindOf(marks), stages: [...byStage.values()], slowestDownloads };
+}
+
+const round = (n: number): number => Math.round(n * 10) / 10;
+const clamp = (n: number): number => Math.min(600_000, Math.max(0, round(n)));
+const safeText = (s: string, max: number): string =>
+  s.replace(/[^A-Za-z0-9 ,._()-]/g, '').slice(0, max).trim() || 'unknown';
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export const DIAG_PREFIX = '[diag]';
+
+/** Stage names /api/feedback accepts (apps/web/app/api/feedback/diag.ts — keep in sync). */
+const REPORT_STAGES = [
+  'app-start', 'config', 'app-first-render', 'pointer', 'manifest', 'download', 'hash',
+  'parse', 'validate', 'disk-write', 'load-total', 'provider-wiring', 'first-era-paint',
+];
+
+export interface DiagPayload {
+  message: typeof DIAG_PREFIX;
+  diag: {
+    model: string;
+    os: string;
+    build: string;
+    updateId: string;
+    launch: LaunchKind;
+    timings: Record<string, number>;
+  };
+}
+
+/**
+ * The structured `[diag]` request body. The server validates it against an
+ * exact schema and rebuilds the comment itself, so this is a strict whitelist:
+ * coarse device facts (charset-sanitised) plus numeric timings under known
+ * stage names (`<stage>` = total ms, `at:<stage>` = first start ms).
+ */
+export function buildDiagPayload(env: DiagEnv, summary: TimingSummary): DiagPayload {
+  const timings: Record<string, number> = {};
+  for (const s of summary.stages) {
+    if (!REPORT_STAGES.includes(s.stage)) continue;
+    timings[s.stage] = clamp(s.totalMs);
+    timings[`at:${s.stage}`] = clamp(s.firstStartMs);
+  }
+  for (const d of summary.slowestDownloads) {
+    const name = d.file.replace(/[^A-Za-z0-9:_.-]/g, '').slice(0, 40);
+    if (name) timings[`download:${name}`] = clamp(d.ms);
+  }
+  if (Object.keys(timings).length === 0) timings['app-start'] = 0;
+  return {
+    message: DIAG_PREFIX,
+    diag: {
+      model: safeText(env.model, 40),
+      os: safeText(env.os, 20),
+      build: safeText(env.build, 20),
+      updateId: UUID_RE.test(env.updateId) ? env.updateId : 'embedded',
+      launch: summary.launch,
+      timings,
+    },
+  };
+}
+
+/** Counts rapid taps; `tap()` is true on the tap that reaches `taps` within `windowMs` of each other. */
+export function createTapUnlock(opts: { taps?: number; windowMs?: number; now?: () => number } = {}) {
+  const { taps = 7, windowMs = 2000, now = defaultNow } = opts;
+  let count = 0;
+  let last = 0;
+  return {
+    tap(): boolean {
+      const t = now();
+      count = count > 0 && t - last <= windowMs ? count + 1 : 1;
+      last = t;
+      if (count >= taps) {
+        count = 0;
+        return true;
+      }
+      return false;
+    },
+  };
+}
+
+/** The process-wide collector the app uses. */
+export const diagCollector: TimingCollector = createTimingCollector();
+
+let installed = false;
+
+const markedOnce = new Set<string>();
+
+/** Instant mark recorded at most once per process; a no-op until diagnostics are installed. */
+export function diagMarkOnce(stage: string, detail?: string): void {
+  if (!installed || markedOnce.has(stage)) return;
+  markedOnce.add(stage);
+  diagCollector.mark(stage, detail);
+}
+
+/** Route packages/content load-stage events into `diagCollector`, once, and mark app start. */
+export function installDiagnostics(): void {
+  if (installed) return;
+  installed = true;
+  setLoadTimingSink((e) => diagCollector.record(e));
+  diagCollector.mark('app-start');
+}

@@ -36,11 +36,10 @@
  * (docs/decisions.md 2026-10-01): a bundle published after the app's JS must
  * degrade, not blank the app.
  *
- * The manifest/etag/files/last-good cache entries are only written once the
- * *entire* bundle (every listed file) has been fetched and validated, all in
- * one batch — so a later run never finds a manifest+etag cached without a
- * matching validated file set (which would otherwise make a legitimate
- * server 304 look like corrupted local state).
+ * The version-keyed manifest/files/complete-marker entries are only written
+ * by a FULL load, once the *entire* bundle has been fetched and validated (marker
+ * cleared first, set last). A partial (pruned/skipped) load writes only
+ * last-good, so it can never clobber a full load of the same version.
  */
 import { z } from 'zod';
 import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
@@ -52,6 +51,7 @@ import {
   isSchemaVersionSupported,
 } from './compat';
 import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
+import { beginStage } from './timing';
 
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
@@ -254,8 +254,11 @@ export function isDataError(err: unknown): err is Error {
  * returning it. See module doc for the full flow and fallback behavior.
  */
 export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBundle> {
+  const endTotal = beginStage('load-total');
   try {
-    return await loadBundleStrict(options);
+    const loaded = await loadBundleStrict(options);
+    endTotal(loaded.source);
+    return loaded;
   } catch (err) {
     if (options.dataErrorFallback !== 'last-good' || !isDataError(err)) throw err;
     const lastGood = await fetchLastGoodBundle(
@@ -371,6 +374,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   }
 
   let bundleVersion: string;
+  const endPointer = beginStage('pointer');
   try {
     const pointerRes = await transportFetch(fetchImpl, joinUrl(baseUrl, 'current.json'));
     if (!pointerRes.ok) {
@@ -378,6 +382,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     }
     const pointerRaw = await readJson<unknown>(pointerRes);
     bundleVersion = pointerSchema.parse(pointerRaw).bundleVersion;
+    endPointer();
   } catch (err) {
     return fallbackOrRethrow(
       err,
@@ -406,16 +411,22 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     const cachedFilesRaw = await storeGet(storage, filesCacheKey);
     if (cachedRaw && cachedFilesRaw) {
       const warm = readWarmCache(cachedRaw, cachedFilesRaw, schemaVersion);
-      if (warm) return { ...warm, source: 'cache-etag', stale: false };
+      if (warm) {
+        // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
+        beginStage('manifest')('304');
+        return { ...warm, source: 'cache-etag', stale: false };
+      }
     }
   }
 
+  const endManifest = beginStage('manifest');
   try {
     const manifestRes = await transportFetch(fetchImpl, manifestUrl);
 
     if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
       manifest = manifestSchema.parse(manifestRaw);
+      endManifest('200');
     } else {
       throw new TransportError(`Fetching manifest.json failed with HTTP ${manifestRes.status}`);
     }
@@ -444,6 +455,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
         skipped.push(name);
         continue;
       }
+      const endDownload = beginStage('download', name);
       const fileRes = await transportFetch(
         fetchImpl,
         joinUrl(baseUrl, `${bundleVersion}/${entry.path}`),
@@ -452,6 +464,8 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
         throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
       }
       const text = await fileRes.text();
+      endDownload();
+      const endHash = beginStage('hash', name);
       const byteLength = new TextEncoder().encode(text).length;
       if (byteLength !== entry.bytes) {
         throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
@@ -463,8 +477,14 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
           `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
         );
       }
+      endHash();
       const schema = schemaForManifestEntry(name);
-      const result = validateEntry(schema, JSON.parse(text), dropUnknown);
+      const endParse = beginStage('parse', name);
+      const json: unknown = JSON.parse(text);
+      endParse();
+      const endValidate = beginStage('validate', name);
+      const result = validateEntry(schema, json, dropUnknown);
+      endValidate();
       if (result.kind === 'invalid') {
         throw new BundleIntegrityError(
           name,
@@ -486,19 +506,33 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     );
   }
 
-  // Only now — once the manifest AND every file it lists have been fetched
-  // and validated together — persist the cache atomically, so a future warm
-  // load can never find the complete marker without its matching files. The
-  // marker is cleared first and set LAST, so a failed write mid-way leaves it unset.
+  // A partial (pruned/skipped) load writes ONLY last-good: it never touches the
+  // version-keyed manifest/files/marker trio, so an overlapping full load of the
+  // same version can never be overwritten by pruned data.
+  const partial = pruned || skipped.length > 0;
+  const endDiskWrite = beginStage('disk-write');
+  if (partial) {
+    await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+    endDiskWrite();
+    return {
+      manifest,
+      files,
+      source: 'network',
+      stale: false,
+      ...(skipped.length ? { skipped } : {}),
+    };
+  }
+
+  // Full load — once the manifest AND every file it lists have been fetched and
+  // validated together — persist the cache so a warm load can never find the
+  // complete marker without its matching files: the marker is cleared first and
+  // set LAST, so a failed write mid-way leaves it unset.
   await storeSet(storage, completeKey, '');
   await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
-  // A pruned load is never marked complete: once a newer build (that knows the
-  // new values) is running, the warm shortcut must not keep serving pruned
-  // files. '' clears a marker an earlier full load stored (storeGet: '' = absent).
-  const partial = pruned || skipped.length > 0;
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
-  if (!partial) await storeSet(storage, completeKey, '1');
+  await storeSet(storage, completeKey, '1');
+  endDiskWrite();
 
   return {
     manifest,

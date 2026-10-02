@@ -17,6 +17,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import type { Era, EraId } from '@swift2/experience';
 import type { WatchableVideoNote } from '@swift2/content-enrichment';
 import { loadEraStream } from '../lib/era-stream-data';
+import { diagMarkOnce } from '../lib/diagnostics';
 import { MomentCard, PlaceholderFeedRow } from './MomentCard';
 import { ThreadDoorwayRow, EggDoorwayRow } from './DoorwayCard';
 import { eraColors } from '../lib/theme';
@@ -42,6 +43,13 @@ export function EraSection({ era, onOpenItem }: { era: Era; onOpenItem: (id: str
       cancelled = true;
     };
   }, [era.id]);
+
+  // WP0.1 first-era-paint: the first animation frame after real era entries commit.
+  useEffect(() => {
+    if (state.status !== 'ready') return;
+    const frame = requestAnimationFrame(() => diagMarkOnce('first-era-paint'));
+    return () => cancelAnimationFrame(frame);
+  }, [state.status]);
 
   return (
     <View style={[styles.section, { backgroundColor: era.theme.bg }]}>
