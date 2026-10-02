@@ -87,6 +87,12 @@ spike routes (a-vs-b hollow until then); split **1.1a** OTA size check (now,
 next free slot) · **1.1b** web-export spike (scratch, launched 14:03) ·
 **1.1c** harness (after WP0.5; Fable brief review first). Open: apps/web
 needs a fixture mode for (a) — resolve in 1.1c brief.
+**14:04:** #4811 fix r2 pushed HEAD 31400300 (abandonedStreak; suite 8116;
+fingerprint unchanged; bound comment posted). NEXT (queued, slots full):
+scoped `reviewer` on the fix-r2 diff only. Joey 14:02: "nothing has changed
+on the android app" — expected visually (panel is hidden), BUT run
+37052010807 has only a `trigger` job → researcher verifying the Android OTA
+actually published + runtime matches the installed build.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
