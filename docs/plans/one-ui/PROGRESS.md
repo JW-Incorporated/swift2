@@ -274,6 +274,18 @@ shim. 0.5b brief on hold until ruling; 0.5a unaffected.
 PR is up (stacked). #4796 CodeQL now PASS. Researcher launched on WP1.1c part
 2 render (a) (web build without secrets, equivalence-hash argument, determinism,
 font gap until WP2.1).
+**14:37:** 1.1c part-2 research: (a) = `npm run sync:content` → `npm run
+build -w @swift2/web` → `next start` (secretless build already works in
+build-full; Supabase degrades to empty; `/` + `/?item=<id>`); same-data claim
+rests on the WP0.3 fromBaked==fromBundle hash (optional fixture-hash assert).
+Determinism via Playwright only: stub /vault/live, abort analytics + external
+hosts (same handler for (b)), clock.setFixedTime (not install — jump-scroll
+loops), reducedMotion, caret/animations, addInitScript first-visit flags.
+Fonts (5 next/font families) differ until WP2.1 → PM leaning: G1 gate =
+structural a-vs-b (landmarks, text, layout boxes w/ tolerance) + per-side
+pixel baselines; pixel a-vs-b deferred to WP2.1 (plan deviation → Fable in
+part-2 brief review). Runtime est 10–15 min > 10 → parallel (a)/(b) jobs,
+cache .next/cache. Part 2 brief written after WP0.5b lands.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
