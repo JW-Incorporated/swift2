@@ -6,6 +6,18 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**CHECKPOINT 2026-10-02 16:10 PDT (new PM session) — read this first; the
+14:56 block below still holds for the post-S1 landing order.** Freeze ON;
+#4791 has 0 `[diag]` reports. #4817 MERGED. Prior session's Codex job ids are
+gone (companion state is per-session) → #4819 Codex r1 RE-RUN = job
+`task-murktwfp-vpt722` (worktree scratchpad `cx-4819`). #4822: Codex r1 +
+reviewer r1 (incl. fingerprint reconciliation) launched 16:09 (worktree
+`cx-4822`). NEXT: #4819 one fix round (reviewer r1 + Codex r1 findings) →
+scoped reviewer; #4822 fix round if needed → Fable design-fidelity; WP1.1c
+part-2 brief (stack on wp0.5b) → Fable brief review (structural a-vs-b gate
+deviation). Housekeeping: fold log lines 45–431 below into ≤10 summary lines
+(file is >500 lines vs the ~200 cap).
+
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
 yet). Merged today: #4792 #4794 #4793 #4814 (size gate). #4817 auto-merge set.
