@@ -215,7 +215,11 @@ freed worker launches one more before the loader judges) — bounded. Scoped
 reviewer launched (landing gate, no Codex r3).
 **14:24b:** #4815 scoped reviewer = **APPROVE** (cap+1 bound confirmed
 finite; doc nit → executor fixing comment only). **#4815 APPROVED**, queued
-post-S1 (retarget base → main after #4796 merges).
+post-S1 (retarget base → main after #4796 merges). Doc nit pushed bab13e49.
+**14:25:** WP0.5 research stage launched early (read-only; slots free):
+import graph/shims, data feed via fromBundle, CSS/fonts, in-webview
+persistence, X2 images, native risk, PR split. Then PM brief → Fable brief
+review (owner directive) → executor once #4799/#4811 land.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
