@@ -306,6 +306,11 @@ baked theories.ts self-installs a provider); singletons forced; suite 8146 —
 one file failed once then green on rerun → reviewers to check flake;
 fingerprint dcf1ea59 unchanged). Codex r1 launched; reviewer next slot; 0.5b
 executor launches stacked on wp0.5a when a slot frees (critical path).
+**14:43:** #4817 fix r1 pushed 200f3c71 (continue-on-error, assertion
+dropped, 200 s budget / 25 s per call, incremental summary, sanitised cells).
+→ Codex r2 + reviewer r2 queued. **0.5b executor launched**
+(`feature/one-ui-wp0.5b`, stacked on wp0.5a). Queue for slots: #4818
+reviewer, #4817 r2 reviews.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
