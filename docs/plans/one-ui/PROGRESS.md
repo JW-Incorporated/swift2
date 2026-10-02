@@ -297,6 +297,9 @@ submit). PM decision: step becomes informational — `continue-on-error: true`,
 total deadline (~200 s) skipping remaining lookups, incremental summary
 writes; DROP the "SUCCESS but job failed" assertion (wait step already keys
 on run status). Bundle with Codex r1 (relay job running).
+**14:41:** #4817 Codex r1 = REQUEST CHANGES, same P1 (timeout). Fix round 1
+sent. (Relay summarised rather than pasting companion output — on r2 read via
+codex-companion result directly.)
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
