@@ -23,6 +23,15 @@ block panel-only — diag schema has no slot). Codex r1 on #4811 launched
 (job id from the codex-rescue relay; check `/codex:status`) + `reviewer` r1
 (diff-only, no worktree). PM concern for both: whole-app kill before ready
 may read as "abandoned" not strike → possible loop. Fable final after.
+**13:49:** #4799 Codex r2 = REQUEST CHANGES (P1 cap → static dead-end
+screen, override can't be cleared in-app; P2 crashReloads never resets
+after ready) → 2nd rejection → **Fable consulted (mandatory)**, options
+A fix-forward in #4811 (PM leaning) / B fix #4799 too / C fold. #4811
+Codex r1 = job `task-murfr9fb-knxeem`; #4811 reviewer r1 = REQUEST CHANGES
+(HIGH kill-before-ready = abandoned → infinite loop, test :124 locks it;
+MED ready-save fire-and-forget; LOW remote-flag flip doesn't unmount;
+LOW native flash in pending) — forwarded to Fable. Plan: one combined fix
+round after Fable + Codex #4811.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
