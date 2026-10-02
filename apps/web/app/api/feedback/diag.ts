@@ -8,6 +8,8 @@
 /** The tracking issue `[diag]` reports are appended to. Hardcoded on purpose — an env var would be prod infra. */
 export const DIAG_ISSUE_NUMBER = 4791;
 export const DIAG_PREFIX = '[diag]';
+/** Issue #4791 lives in this repo only, so the comment URL never follows FEEDBACK_REPO. */
+export const DIAG_REPO = 'JW-Incorporated/swift2';
 export const MAX_DIAG_BYTES = 4096;
 
 export const DIAG_STAGES = [
@@ -39,7 +41,7 @@ export interface DiagReport {
   os: string;
   build: string;
   updateId: string;
-  launch: 'cold' | 'warm';
+  launch: 'cold' | 'warm' | 'unknown';
   timings: Record<string, number>;
 }
 
@@ -67,7 +69,7 @@ export function parseDiagReport(raw: unknown): { ok: true; report: DiagReport } 
   if (typeof updateId !== 'string' || !(updateId === 'embedded' || UUID_RE.test(updateId))) {
     return { ok: false };
   }
-  if (launch !== 'cold' && launch !== 'warm') return { ok: false };
+  if (launch !== 'cold' && launch !== 'warm' && launch !== 'unknown') return { ok: false };
   if (!isObject(timings)) return { ok: false };
   const keys = Object.keys(timings);
   if (keys.length === 0 || keys.length > MAX_TIMINGS) return { ok: false };

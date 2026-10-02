@@ -134,7 +134,7 @@ export interface DiagPayload {
     os: string;
     build: string;
     updateId: string;
-    launch: 'cold' | 'warm';
+    launch: LaunchKind;
     timings: Record<string, number>;
   };
 }
@@ -164,7 +164,7 @@ export function buildDiagPayload(env: DiagEnv, summary: TimingSummary): DiagPayl
       os: safeText(env.os, 20),
       build: safeText(env.build, 20),
       updateId: UUID_RE.test(env.updateId) ? env.updateId : 'embedded',
-      launch: summary.launch === 'warm' ? 'warm' : 'cold',
+      launch: summary.launch,
       timings,
     },
   };

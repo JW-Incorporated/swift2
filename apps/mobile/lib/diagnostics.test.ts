@@ -115,7 +115,9 @@ describe('buildDiagPayload', () => {
     expect(buildDiagPayload(env, { launch: 'unknown', stages: [], slowestDownloads: [] }).diag.timings).toEqual({
       'app-start': 0,
     });
-    expect(parseDiagReport(buildDiagPayload(env, { launch: 'unknown', stages: [], slowestDownloads: [] }).diag).ok).toBe(true);
+    const unknown = buildDiagPayload(env, { launch: 'unknown', stages: [], slowestDownloads: [] });
+    expect(unknown.diag.launch).toBe('unknown');
+    expect(parseDiagReport(unknown.diag).ok).toBe(true);
   });
 });
 

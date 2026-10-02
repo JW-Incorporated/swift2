@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
-import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, diagCommentFrom, isDiagMessage, parseDiagReport } from './diag';
+import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, diagCommentFrom, isDiagMessage, parseDiagReport } from './diag';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -23,6 +23,37 @@ export const dynamic = 'force-dynamic';
 
 const MAX_MESSAGE = 5000;
 const MAX_FIELD = 2000;
+// Route-wide request body cap (bytes), enforced before JSON parsing on every
+// path. 5000 chars of 4-byte UTF-8 is ~20 KB, so real feedback fits. Watch
+// signal: any 413 from a real user in the Vercel logs means the cap is too tight.
+const MAX_BODY_BYTES = 32 * 1024;
+
+/** Read the body as text, aborting past the cap even when no Content-Length is sent. */
+async function readBodyText(req: Request): Promise<string | null> {
+  const declared = Number(req.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return null;
+  if (!req.body) return '';
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > MAX_BODY_BYTES) {
+      await reader.cancel().catch(() => {});
+      return null;
+    }
+    chunks.push(value);
+  }
+  const all = new Uint8Array(total);
+  let offset = 0;
+  for (const c of chunks) {
+    all.set(c, offset);
+    offset += c.byteLength;
+  }
+  return new TextDecoder().decode(all);
+}
 
 type Location = {
   eraId?: string;
@@ -149,9 +180,16 @@ export function bodyFrom(message: string, loc: Location): string {
 
 export async function POST(req: Request): Promise<Response> {
   let payload: { message?: string; location?: Location; hp?: string; diag?: unknown };
+  const bodyText = await readBodyText(req);
+  if (bodyText === null) {
+    return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
+  }
   try {
-    payload = await req.json();
+    payload = JSON.parse(bodyText);
   } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+  }
+  if (typeof payload !== 'object' || payload === null || Array.isArray(payload)) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
@@ -178,7 +216,10 @@ export async function POST(req: Request): Promise<Response> {
   const diag = isDiagMessage(message);
   let diagComment = '';
   if (diag) {
-    const parsed = message === DIAG_PREFIX && !payload.location ? parseDiagReport(payload.diag) : null;
+    const exactShape =
+      payload.message === DIAG_PREFIX &&
+      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'diag');
+    const parsed = exactShape ? parseDiagReport(payload.diag) : null;
     if (!parsed?.ok) {
       return NextResponse.json({ error: 'Invalid diagnostics report.' }, { status: 400 });
     }
@@ -216,7 +257,9 @@ export async function POST(req: Request): Promise<Response> {
 
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${repo}/issues${diag ? `/${DIAG_ISSUE_NUMBER}/comments` : ''}`,
+      diag
+        ? `https://api.github.com/repos/${DIAG_REPO}/issues/${DIAG_ISSUE_NUMBER}/comments`
+        : `https://api.github.com/repos/${repo}/issues`,
       {
         method: 'POST',
         headers: {
