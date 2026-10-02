@@ -120,21 +120,24 @@ describe('loadBundle', () => {
     expect(requestLog.length).toBe(2 + Object.keys(manifest.files).length);
   });
 
-  it('cached load: a second load against the same storage uses If-None-Match and gets a 304', async () => {
+  it('sends no request headers (a non-safelisted header forces a CORS preflight from an opaque origin)', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 
-    const requestLog: string[] = [];
-    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch({ requestLog }), storage });
+    const inits: unknown[] = [];
+    const inner = makeFakeFetch();
+    const result = await loadBundle({
+      baseUrl,
+      fetch: (url, init) => {
+        inits.push(init);
+        return inner(url, init);
+      },
+      storage,
+    });
 
-    expect(result.source).toBe('cache-etag');
+    expect(result.source).toBe('network');
     expect(result.stale).toBe(false);
-    expect(result.manifest.bundleVersion).toBe(manifest.bundleVersion);
     expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
-    // current.json + manifest.json only — a 304 means no per-file re-fetch.
-    expect(requestLog).toEqual([
-      `${baseUrl}/current.json`,
-      `${baseUrl}/${manifest.bundleVersion}/manifest.json`,
-    ]);
+    expect(inits.every((i) => i === undefined || !(i as { headers?: unknown }).headers)).toBe(true);
   });
 
   it('stale-while-revalidate: when the network is unreachable, a previously loaded bundle is served as stale/last-good', async () => {

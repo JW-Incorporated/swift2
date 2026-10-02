@@ -364,11 +364,10 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   let manifestEtagToStore: string | undefined;
 
   try {
-    const storedEtag = await storeGet(storage, etagKey);
-    const headers: Record<string, string> = {};
-    if (storedEtag) headers['If-None-Match'] = storedEtag;
-
-    const manifestRes = await transportFetch(fetchImpl, manifestUrl, { headers });
+    // No request headers: a non-CORS-safelisted header (If-None-Match) forces a
+    // preflight from the app's opaque-origin host, so the manifest is fetched
+    // plain and revalidation is by manifest hash, not a conditional request.
+    const manifestRes = await transportFetch(fetchImpl, manifestUrl);
 
     if (manifestRes.status === 304) {
       const cachedRaw = await storeGet(storage, manifestCacheKey);

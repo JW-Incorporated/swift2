@@ -173,6 +173,16 @@ window. `db-seed.yml`'s Vault-content seeding is retired.
 tier (News/Current world, reads `current_item`/`live_theory`/`fan_signal`
 via `apps/web/lib/current.ts`), intentionally left untouched.
 
+**Cross-origin reads (One UI WP0.3b).** The app's DOM host is a `file://` page
+(opaque `null` origin). `/content/**` is served with `Access-Control-Allow-Origin: *`
+and `Access-Control-Expose-Headers: ETag` (`apps/web/next.config.mjs`; never on `/api`
+or HTML routes). `loadBundle` therefore sends no request headers (no `If-None-Match`),
+so the fetches stay preflight-free; revalidation is by manifest hash. `/api/*` stays
+same-origin only: the reader reaches it through the `ApiFetch` seam
+(`packages/content/src/api-fetch.ts`, bridge-serializable request/response; web default
+`webApiFetch`). WP2.1/2.3 implement the app side (bridge -> native fetch); existing call
+sites are not migrated yet.
+
 ## Data architecture: two worlds, kept apart
 
 The product still has two content cadences that must not be coupled:
