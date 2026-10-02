@@ -77,6 +77,7 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
+| `scripts/parity/size-check.mjs` (+ `.test.ts`) | OTA size budget: fails CI on >15% growth of the mobile export vs `e2e/parity/size-baseline.json` (`--update` rewrites it; see docs/mobile-release.md) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
 **Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,

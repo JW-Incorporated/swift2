@@ -160,6 +160,12 @@ launch re-downloads the bundle and does one update check.
   auto-increment per platform on EAS (`appVersionSource: remote`). Never
   hand-edit them.
 
+## OTA size budget
+
+CI (`node scripts/parity/size-check.mjs`, right after the two `expo export` steps) totals the uncompressed bytes of every file in each platform's export dir (`apps/mobile/dist-ios`, `dist-android`: Hermes bundle, assets, any DOM `www.bundle`; `metadata.json` excluded) and fails the PR if either platform grows more than 15% over `e2e/parity/size-baseline.json`. It is a proxy for update download growth, not the exact payload: the JS bundle is re-downloaded in full on every update, assets only when their hash changes. It runs in both build-full and build-content (seed changes regenerate code in the bundle).
+
+To accept an intentional jump: run both exports with `--output-dir dist-ios` / `dist-android` in `apps/mobile`, then `node scripts/parity/size-check.mjs --update` and commit the baseline in the same PR.
+
 ## When the parity check fails
 
 Three alert issues exist, because they mean different things:
