@@ -1,6 +1,9 @@
 # One UI, three surfaces: the website's screens as the app's screens
 
-Status: **debated (2 Codex rounds), awaiting founder approval** (2026-10-02).
+Status: **approved by Joey, 2026-10-02** ("Apple will not reject it. We
+launch when it looks correct, not sooner"). Recorded in `docs/decisions.md`.
+Founder calls: the iOS app stays identical to the site (no iOS-only
+divergence), and the store launch waits until the app looks correct.
 Author: Claude Code. Decider: Joey (CEO). Supersedes, if approved: the UI
 half of D2 and D3 in `docs/decisions.md` "Convergence decisions D1–D4"
 (2026-09-05). D1 (published content bundle) and D4 (EAS Update) stay.

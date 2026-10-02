@@ -7,6 +7,26 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-02 — One UI for web, iOS and Android: the website's screens become the app's screens (supersedes the UI half of D2/D3)
+
+**Decision (Joey, in chat, 2026-10-02).** After testing Android 1.0.0 (16): "It has to be B, but it has to look exactly like the site. The site is an app - we build it that way on purpose. And we have to keep it maintainable - when we make 1 change, it has to land on the 2 apps and the website." He approved the debated design: "Apple will not reject it. We launch when it looks correct, not sooner."
+- The website's reader moves into `packages/ui`, the only UI. The iOS and Android apps mount it in one Expo DOM host from local assets. The native shell keeps only capabilities: push, back/swipe, share, haptics, safe areas, offline watchdog, update gate.
+- Content reaches both surfaces through one versioned `ReaderSnapshot` (`packages/experience`): baked on the web, loaded inside the webview from the D1 bundle in the app, proven identical by a CI hash test. No content crosses the native bridge.
+- Invariant: one UI source; one merge produces every surface's artifact; there is no separately editable mobile UI.
+- **The iOS app stays identical to the site.** There is no iOS-only visual divergence to placate review. The founder's call is that Apple will approve it. If Apple does reject it, the response is an appeal plus additions that don't change the screens' look, which comes back to the founder.
+- **Store launch (#4729) waits until the app looks correct.** No promotion of the current native-screen builds to public tracks.
+- Gates, in order: (0) trace and fix the 10 s content load (#4783), `ReaderSnapshot` + equivalence test, Expo DOM build prerequisites, spike, milestone estimate; (1) device screenshot + web↔app visual diff + accessibility CI; (2) screen-by-screen migration behind `routeFlags.sharedUi`; (3) performance on Pixel 6a / iPhone 12 vs the native baseline; (4) offline watchdog drill; (5) App Review approval before public default-on. Native screens are retired only after a full store-version cohort.
+
+**Why.** Two UI copies (D2) drifted visibly within four weeks of the spec that said "parity first". Only a single UI source meets both founder requirements. Full rationale and the two Codex review rounds: `docs/proposals/2026-10-02-one-ui-three-surfaces.md`.
+
+**Alternatives considered.** Visual parity pass on the native screens (drifts; fails "one change"); native shell with web only where it beats native (Codex round 1; still two copies); universal React Native Web rewrite (approximates the CSS, loses Next SSR; already rejected in D2); remote WebView/Capacitor (network on the critical path); react-strict-dom/Tamagui/NativeWind (full restyle, not exact); content baked into the app bundle, and content over the bridge (both withdrawn during the debate).
+
+**Unchanged.** D1 (content bundle source of truth), D4 (EAS Update), `packages/experience` as the headless core.
+
+**Approved by.** Joey (CEO), in chat, 2026-10-02.
+
+---
+
 ## 2026-10-01 — Three bots stay three: Tree (social), Marjorie (Long Live head), bot1 (hands)
 
 **Decision (Joey, in chat, 2026-10-01: "Ok 3 bots it is"):** Keep the three bots with sharp roles.
