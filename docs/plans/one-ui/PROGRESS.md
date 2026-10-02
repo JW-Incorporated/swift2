@@ -29,7 +29,7 @@ block at every checkpoint; append to the **Log**; never let this file pass
 | 0.2 | blocked on S1 | | |
 | 0.3 | in progress | | executor |
 | 0.3b | queued | | CORS on /content only |
-| 0.4 | queued | | native batch; PM signs needs matrix |
+| 0.4 | Stage 1 done; matrix awaiting Fable sign-off | | Must-add: react-dom 19.2.3, react-native-web ~0.21.0, @expo/metro-runtime ~57.0.16, **@expo/dom-webview ~57.0.1 (native — DOM no longer uses RNC webview)**, expo-haptics ~57.0.3, `android.softwareKeyboardLayoutMode: resize`, iOS associatedDomains + Android intentFilters (X4). Open: RNC webview 14.0.1 vs SDK pin 13.16.1; dom-webview has no onError/onLoad (watchdog = ready + terminate/renderGone + timeout; expo#46374 blank WKWebView); file:// storage persistence → WP0.5 device test; Tailwind v4 in DOM unproven. PM leanings for Fable: include universal links now (C3), keep RNC 14.0.1 unless export/doctor fails |
 | 0.4b | blocked on 0.4 | | minimal watchdog |
 | 0.5 | blocked on 0.2/0.3/0.3b/0.4/0.4b | | |
 | 0.6 | blocked on 0.5 | | Fable |
@@ -68,4 +68,5 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 - 2026-10-02 — Kickoff. PM worktree created; WP0.0, WP0.1, WP0.3 launched.
 - 2026-10-02 — WP0.0 PR #4792 opened (yaml-lint pass); Codex review launched.
 - 2026-10-02 — Fable reviewed 0.3b/0.4 briefs (12 required edits adopted). WP0.4 Stage 1 researcher launched. Codex round 1 on #4792: REQUEST CHANGES (fix queued; cap is 3 agents).
-- Queue for free slots, in order: (a) WP0.0 fix (resume executor) → Codex round 2; (b) WP0.3b executor with Fable edits 1–6 (brief in PM scratch `briefs-0.3b-0.4.md` + Fable log row); (c) Fable signs the WP0.4 matrix when Stage 1 returns.
+- 2026-10-02 — WP0.4 Stage 1 returned (matrix in Status row). WP0.0 round-1 fix sent to its executor.
+- Queue for free slots, in order: (a) ~~WP0.0 fix~~ (running) → Codex round 2; (b) WP0.3b executor with Fable edits 1–6 (brief in PM scratch `briefs-0.3b-0.4.md` + Fable log row); (c) Fable signs the WP0.4 matrix when Stage 1 returns.
