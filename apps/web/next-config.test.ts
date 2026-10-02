@@ -33,10 +33,9 @@ describe('next.config headers() — content CORS (WP0.3b)', () => {
     expect(acao('/vault')).toEqual([]);
   });
 
-  it('exposes only ETag, with no Vary/Allow-Methods/Allow-Headers on the content rule', () => {
+  it('sets only ACAO on the content rule (no Expose-Headers/Vary/Allow-Methods/Allow-Headers)', () => {
     const rule = rules.find((r) => r.source === '/content/:path*')!;
     const keys = rule.headers.map((h) => h.key.toLowerCase()).sort();
-    expect(keys).toEqual(['access-control-allow-origin', 'access-control-expose-headers']);
-    expect(rule.headers.find((h) => h.key === 'Access-Control-Expose-Headers')!.value).toBe('ETag');
+    expect(keys).toEqual(['access-control-allow-origin']);
   });
 });

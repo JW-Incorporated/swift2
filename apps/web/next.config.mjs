@@ -25,13 +25,10 @@ const nextConfig = {
       // The content bundle is public, static, cookie-less: the app's DOM host
       // (opaque `null` origin) reads it cross-origin. `*` only — never on /api
       // or HTML routes. No Vary/Allow-* (simple GETs need no preflight). The
-      // loader reads the manifest `ETag`, which is not CORS-safelisted.
+      // loader reads no non-safelisted response header, so nothing is exposed.
       {
         source: '/content/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Expose-Headers', value: 'ETag' },
-        ],
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
       },
     ];
   },

@@ -12,9 +12,10 @@
  *   <baseUrl>/<bundleVersion>/<entry.path>      one validated file per manifest entry
  *
  * Flow: fetch `current.json` to learn the current `bundleVersion`, fetch that
- * version's `manifest.json` (conditionally, with `If-None-Match` against a
- * previously-stored ETag — a 304 short-circuits straight to the cached,
- * already-validated bundle), then fetch every file the manifest lists,
+ * version's `manifest.json` (skipped entirely when a fully validated copy of
+ * that exact version is cached — `bundleVersion` is a content hash, so equal
+ * version means identical bundle; no conditional headers are ever sent), then
+ * fetch every file the manifest lists,
  * verifying byte length + sha256 against the manifest entry before parsing it
  * against its zod schema.
  *
@@ -357,47 +358,34 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
 
   const manifestUrl = joinUrl(baseUrl, `${bundleVersion}/manifest.json`);
   const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
-  const etagKey = keyFor(baseUrl, `etag:${bundleVersion}`);
+  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}`);
   const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
 
   let manifest: Manifest;
-  let manifestEtagToStore: string | undefined;
 
-  try {
-    // No request headers: a non-CORS-safelisted header (If-None-Match) forces a
-    // preflight from the app's opaque-origin host, so the manifest is fetched
-    // plain and revalidation is by manifest hash, not a conditional request.
-    const manifestRes = await transportFetch(fetchImpl, manifestUrl);
-
-    if (manifestRes.status === 304) {
-      const cachedRaw = await storeGet(storage, manifestCacheKey);
-      const cachedFilesRaw = await storeGet(storage, filesCacheKey);
-      if (!cachedRaw || !cachedFilesRaw) {
-        // The server thinks we already have this exact manifest+files (we
-        // sent its own previously-issued ETag back to it), but our local
-        // cache doesn't actually have them — a genuine local-state bug, not
-        // a connectivity problem, so this must NOT be silently treated as
-        // "offline, serve last-good"; it needs to surface as an error.
-        throw new BundleLoadError(
-          'Server returned 304 Not Modified for a cached ETag, but no matching manifest/files ' +
-            'are cached locally — local cache state is inconsistent with the stored ETag.',
-        );
-      }
-      manifest = manifestSchema.parse(JSON.parse(cachedRaw));
-      // A 304 means this exact bundleVersion's manifest and files are unchanged
-      // since we last validated them — return the cached files directly instead
-      // of re-fetching and re-validating every file over the network.
+  // `bundleVersion` is the bundle's content hash and its URL directory is
+  // immutable, so a fully validated cached copy of this exact version needs no
+  // manifest or file downloads. Plain requests only: a conditional header
+  // (If-None-Match) would force a CORS preflight from the app's opaque origin.
+  if (await storeGet(storage, completeKey)) {
+    const cachedRaw = await storeGet(storage, manifestCacheKey);
+    const cachedFilesRaw = await storeGet(storage, filesCacheKey);
+    if (cachedRaw && cachedFilesRaw) {
       return {
-        manifest,
+        manifest: manifestSchema.parse(JSON.parse(cachedRaw)),
         files: JSON.parse(cachedFilesRaw) as BundleFiles,
         source: 'cache-etag',
         stale: false,
       };
-    } else if (manifestRes.ok) {
+    }
+  }
+
+  try {
+    const manifestRes = await transportFetch(fetchImpl, manifestUrl);
+
+    if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
       manifest = manifestSchema.parse(manifestRaw);
-      manifestEtagToStore =
-        manifestRes.headers.get('etag') ?? manifestRes.headers.get('ETag') ?? undefined;
     } else {
       throw new TransportError(`Fetching manifest.json failed with HTTP ${manifestRes.status}`);
     }
@@ -469,16 +457,14 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   }
 
   // Only now — once the manifest AND every file it lists have been fetched
-  // and validated together — persist the cache atomically, so a future 304
-  // can never find a manifest+etag on disk without its matching files.
+  // and validated together — persist the cache atomically, so a future warm
+  // load can never find the complete marker without its matching files.
   await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
-  // A pruned load never stores the ETag: once a newer build (that knows the
-  // new values) is running, a 304 must not keep serving the pruned files.
-  // An empty value also clears an ETag a fuller, earlier load of this
-  // bundleVersion stored (storeGet treats '' as absent).
+  // A pruned load is never marked complete: once a newer build (that knows the
+  // new values) is running, the warm shortcut must not keep serving pruned
+  // files. '' clears a marker an earlier full load stored (storeGet: '' = absent).
   const partial = pruned || skipped.length > 0;
-  if (partial) await storeSet(storage, etagKey, '');
-  else if (manifestEtagToStore) await storeSet(storage, etagKey, manifestEtagToStore);
+  await storeSet(storage, completeKey, partial ? '' : '1');
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
 

@@ -38,6 +38,7 @@ function readFixtureFiles(): Record<string, string> {
 }
 
 const fixtureFiles = readFixtureFiles();
+const V2 = 'b'.repeat(64);
 const MANIFEST_ETAG = `"${createHash('sha256').update(JSON.stringify(manifest)).digest('hex')}"`;
 
 interface FakeServerOptions {
@@ -120,24 +121,44 @@ describe('loadBundle', () => {
     expect(requestLog.length).toBe(2 + Object.keys(manifest.files).length);
   });
 
-  it('sends no request headers (a non-safelisted header forces a CORS preflight from an opaque origin)', async () => {
+  it('warm load of an unchanged version: only current.json is fetched, no manifest or files', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 
-    const inits: unknown[] = [];
-    const inner = makeFakeFetch();
+    const requestLog: string[] = [];
+    const result = await loadBundle({ baseUrl, fetch: makeFakeFetch({ requestLog }), storage });
+
+    expect(result.source).toBe('cache-etag');
+    expect(result.stale).toBe(false);
+    expect(result.manifest.bundleVersion).toBe(manifest.bundleVersion);
+    expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
+    expect(requestLog).toEqual([`${baseUrl}/current.json`]);
+  });
+
+  it('a changed version downloads the manifest and every file (integrity checks: the sha256-mismatch test below)', async () => {
+    await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+
+    const requestLog: string[] = [];
     const result = await loadBundle({
       baseUrl,
-      fetch: (url, init) => {
-        inits.push(init);
-        return inner(url, init);
-      },
+      fetch: serveFiles(fixtureServed(), { version: V2, requestLog }),
       storage,
     });
-
     expect(result.source).toBe('network');
-    expect(result.stale).toBe(false);
-    expect(Object.keys(result.files).sort()).toEqual(Object.keys(manifest.files).sort());
-    expect(inits.every((i) => i === undefined || !(i as { headers?: unknown }).headers)).toBe(true);
+    expect(result.manifest.bundleVersion).toBe(V2);
+    expect(requestLog.length).toBe(2 + Object.keys(manifest.files).length);
+  });
+
+  it('never sends request headers (a non-safelisted header forces a CORS preflight from an opaque origin)', async () => {
+    const seen: unknown[] = [];
+    const inner = makeFakeFetch();
+    const spy: FetchLike = (url, init) => {
+      seen.push(init);
+      return inner(url, init);
+    };
+    await loadBundle({ baseUrl, fetch: spy, storage });
+    await loadBundle({ baseUrl, fetch: spy, storage });
+    expect(seen.length).toBeGreaterThan(0);
+    expect(seen.every((i) => i === undefined || !(i as { headers?: unknown }).headers)).toBe(true);
   });
 
   it('stale-while-revalidate: when the network is unreachable, a previously loaded bundle is served as stale/last-good', async () => {
@@ -163,11 +184,11 @@ describe('loadBundle', () => {
     // First, a real successful load populates the last-good cache.
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 
-    // Simulate the manifest changing on the server (so the ETag no longer
-    // matches and we get a full re-fetch, not a 304 short-circuit) while one
-    // file's body is corrupted relative to its own manifest entry.
+    // The server publishes a new version (so the cache does not short-circuit)
+    // in which one file's body is corrupted relative to its own manifest entry.
+    const v2 = serveFiles(fixtureServed(), { version: V2 });
     const corruptFetch: FetchLike = async (url, init) => {
-      if (url === `${baseUrl}/${manifest.bundleVersion}/${manifest.files.tracks!.path}`) {
+      if (url === `${baseUrl}/${V2}/${manifest.files.tracks!.path}`) {
         return {
           ok: true,
           status: 200,
@@ -175,9 +196,7 @@ describe('loadBundle', () => {
           headers: { get: () => null },
         };
       }
-      // Everything else (current.json, manifest.json, other files) is served
-      // normally but without honoring If-None-Match, forcing a full re-fetch.
-      return makeFakeFetch()(url, { ...init, headers: {} });
+      return v2(url, init);
     };
 
     await expect(loadBundle({ baseUrl, fetch: corruptFetch, storage })).rejects.toThrow(
@@ -203,10 +222,12 @@ type ServedFile = { path: string; text: string };
 /** A server publishing `files` under a manifest whose bytes/sha256 match them (so only schema checks can fail). */
 function serveFiles(
   files: Record<string, ServedFile>,
-  opts: { etag?: string; schemaVersion?: number; requestLog?: string[] } = {},
+  opts: { etag?: string; schemaVersion?: number; requestLog?: string[]; version?: string } = {},
 ): FetchLike {
+  const version = opts.version ?? manifest.bundleVersion;
   const served: Manifest = {
     ...manifest,
+    bundleVersion: version,
     schemaVersion: opts.schemaVersion ?? manifest.schemaVersion,
     files: Object.fromEntries(
       Object.entries(files).map(([name, f]) => [
@@ -220,7 +241,7 @@ function serveFiles(
     ),
   };
   const etag = opts.etag ?? '"served"';
-  return async (url, init) => {
+  return async (url) => {
     opts.requestLog?.push(url);
     const respond = (status: number, body: string, headers: Record<string, string> = {}) => ({
       ok: status >= 200 && status < 300,
@@ -229,14 +250,13 @@ function serveFiles(
       headers: { get: (name: string) => headers[name.toLowerCase()] ?? null },
     });
     if (url === `${baseUrl}/current.json`) {
-      return respond(200, JSON.stringify({ bundleVersion: manifest.bundleVersion }));
+      return respond(200, JSON.stringify({ bundleVersion: version }));
     }
-    if (url === `${baseUrl}/${manifest.bundleVersion}/manifest.json`) {
-      if (init?.headers?.['If-None-Match'] === etag) return respond(304, '');
+    if (url === `${baseUrl}/${version}/manifest.json`) {
       return respond(200, JSON.stringify(served), { etag });
     }
     for (const f of Object.values(files)) {
-      if (url === `${baseUrl}/${manifest.bundleVersion}/${f.path}`) return respond(200, f.text);
+      if (url === `${baseUrl}/${version}/${f.path}`) return respond(200, f.text);
     }
     return respond(404, 'not found');
   };
@@ -349,7 +369,7 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     ).rejects.toThrow(BundleIntegrityError);
   });
 
-  it('a pruned load does not store the ETag, so the next load re-validates instead of a 304', async () => {
+  it('a pruned load is not marked complete, so the next load re-validates instead of serving the cache', async () => {
     const fetch = serveFiles(bundleWithNewEra());
     await loadBundle({ baseUrl, fetch, storage, unknownEnumPolicy: 'drop' });
     const again = await loadBundle({ baseUrl, fetch, storage, unknownEnumPolicy: 'drop' });
@@ -360,7 +380,7 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
     const result = await loadBundle({
       baseUrl,
-      fetch: serveFiles(bundleWithNewEra()),
+      fetch: serveFiles(bundleWithNewEra(), { version: V2 }),
       storage,
       dataErrorFallback: 'last-good',
     });
@@ -374,7 +394,7 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
     const result = await loadBundle({
       baseUrl,
-      fetch: serveFiles(fixtureServed(), { schemaVersion: 999 }),
+      fetch: serveFiles(fixtureServed(), { schemaVersion: 999, version: V2 }),
       storage,
       dataErrorFallback: 'last-good',
     });
@@ -387,7 +407,7 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     const files = { ...fixtureServed(), eras: { path: 'eras.json', text: '[{"id":' } };
     const result = await loadBundle({
       baseUrl,
-      fetch: serveFiles(files),
+      fetch: serveFiles(files, { version: V2 }),
       storage,
       dataErrorFallback: 'last-good',
     });
@@ -396,10 +416,11 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
 
   it("'last-good': a manifest failing its schema (ZodError) serves last-good", async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
+    const v2 = serveFiles(fixtureServed(), { version: V2 });
     const broken: FetchLike = async (url, init) =>
       url.endsWith('/manifest.json')
         ? { ok: true, status: 200, text: async () => '{"files":7}', headers: { get: () => null } }
-        : makeFakeFetch()(url, init);
+        : v2(url, init);
     const result = await loadBundle({
       baseUrl,
       fetch: broken,
@@ -419,7 +440,7 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     await expect(
       loadBundle({
         baseUrl,
-        fetch: serveFiles(bundleWithNewEra()),
+        fetch: serveFiles(bundleWithNewEra(), { version: V2 }),
         storage,
         dataErrorFallback: 'last-good',
       }),
@@ -432,25 +453,12 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     await expect(
       loadBundle({
         baseUrl,
-        fetch: serveFiles(bundleWithNewEra()),
+        fetch: serveFiles(bundleWithNewEra(), { version: V2 }),
         storage,
         schemaVersion: manifest.schemaVersion + 2,
         dataErrorFallback: 'last-good',
       }),
     ).rejects.toThrow(SchemaVersionMismatchError);
-  });
-
-  it('a pruned load clears an ETag stored by an earlier full load of the same bundleVersion', async () => {
-    await loadBundle({ baseUrl, fetch: serveFiles(fixtureServed()), storage });
-    await loadBundle({
-      baseUrl,
-      fetch: serveFiles(bundleWithNewEra(), { etag: '"pruned"' }),
-      storage,
-      unknownEnumPolicy: 'drop',
-    });
-    // The server rolls back to the first manifest: its ETag must not 304 into the pruned files.
-    const again = await loadBundle({ baseUrl, fetch: serveFiles(fixtureServed()), storage });
-    expect(again.source).toBe('network');
   });
 
   it("'drop': several unknown values in nested and parent arrays in one pass", async () => {
