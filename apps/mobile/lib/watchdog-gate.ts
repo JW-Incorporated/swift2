@@ -3,9 +3,11 @@
 // 'dom' is returned; if that write fails the launch mounts native (fail closed).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
+import { diagCollector } from './diagnostics';
 import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
 import {
   createAttemptMonitor,
+  createWriteQueue,
   decideMount,
   markReady,
   recordStrike,
@@ -38,13 +40,19 @@ export function useDomMount(wantsDom: boolean): {
   const recordRef = useRef<WatchdogRecord | null>(null);
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);
+  const wantsRef = useRef(wantsDom);
+  wantsRef.current = wantsDom;
+  const writeRef = useRef<ReturnType<typeof createWriteQueue> | null>(null);
+  writeRef.current ??= createWriteQueue(saveWatchdogRecord);
+  const write = writeRef.current;
 
   useEffect(() => {
     let cancelled = false;
     void (async () => {
       const d = decideMount(await loadWatchdogRecord(), currentBuildKey(), Date.now());
       recordRef.current = d.record;
-      await saveWatchdogRecord(d.record);
+      await write(d.record);
+      if (d.clearOverride) void setForceSharedUi(false);
       if (!cancelled) setDecision(d);
     })();
     return () => {
@@ -60,28 +68,29 @@ export function useDomMount(wantsDom: boolean): {
       return;
     }
     void (async () => {
-      const attempt = await startAttempt(decision, Date.now(), saveWatchdogRecord);
+      setForceFailure(await getForceDomFailure());
+      const attempt = await startAttempt(decision, Date.now(), write, () => wantsRef.current);
       if (!attempt) {
         setMount('native');
         return;
       }
       recordRef.current = attempt;
-      setForceFailure(await getForceDomFailure());
       monitorRef.current = createAttemptMonitor({
         scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as never) },
         now: Date.now,
         active: AppState.currentState === 'active',
         onReady: () => {
-          if (recordRef.current) {
-            recordRef.current = markReady(recordRef.current, Date.now());
-            void saveWatchdogRecord(recordRef.current);
-          }
+          if (!recordRef.current) return;
+          recordRef.current = markReady(recordRef.current, Date.now());
+          void write(recordRef.current, 1).then((ok) => {
+            if (!ok) diagCollector.mark('watchdog-ready-save-failed');
+          });
         },
         onStrike: (reason) => {
           if (!recordRef.current) return;
           const { record, clearOverride } = recordStrike(recordRef.current, reason, Date.now());
           recordRef.current = record;
-          void saveWatchdogRecord(record);
+          void write(record);
           if (clearOverride) void setForceSharedUi(false);
           setMount('native');
         },
@@ -91,7 +100,14 @@ export function useDomMount(wantsDom: boolean): {
   }, [decision, wantsDom]);
 
   useEffect(() => {
-    const sub = AppState.addEventListener('change', (s) => monitorRef.current?.setActive(s === 'active'));
+    const sub = AppState.addEventListener('change', (s) => {
+      monitorRef.current?.setActive(s === 'active');
+      const r = recordRef.current;
+      if (r?.state === 'attempting' && r.backgrounded !== (s !== 'active')) {
+        recordRef.current = { ...r, backgrounded: s !== 'active' };
+        void write(recordRef.current);
+      }
+    });
     return () => {
       sub.remove();
       monitorRef.current?.dispose();

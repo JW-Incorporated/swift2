@@ -3,8 +3,9 @@
 // watchdog-store.ts, the React wiring in watchdog-gate.ts.
 //
 // Rules: one persisted record per buildKey. A launch that records an attempt
-// and then never reaches `ready` (killed/backgrounded) is ABANDONED, not a
-// strike. A failure (ready-timeout, DOM error before ready, webview
+// and never reaches `ready` is a strike if it died in the foreground
+// ('abandoned-before-ready'); if the app was backgrounded first it is merely
+// ABANDONED (the OS may have reaped it). A failure (ready-timeout, DOM error before ready, webview
 // terminate/render-gone) is a strike: strike 1 mounts native for this launch;
 // strike 2 (consecutive) also clears the C4 override and makes the next launch
 // native too.
@@ -23,6 +24,8 @@ export interface WatchdogRecord {
   strikes: number;
   lastReason: string;
   fallbackLaunchesRemaining: number;
+  /** True once the app was backgrounded during an unresolved attempt. */
+  backgrounded: boolean;
   at: number;
 }
 
@@ -37,7 +40,7 @@ export const truncateReason = (s: string): string => s.slice(0, MAX_REASON_CHARS
 const STATES: WatchdogState[] = ['idle', 'attempting', 'ready', 'failed', 'fallback'];
 
 export function freshRecord(buildKey: string, now: number): WatchdogRecord {
-  return { v: 1, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, at: now };
+  return { v: 1, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, at: now };
 }
 
 /** Defensive parse of the persisted JSON; anything malformed is null (treated as no record). */
@@ -53,7 +56,11 @@ export function parseRecord(raw: string | null): WatchdogRecord | null {
       Number.isInteger(r.fallbackLaunchesRemaining) &&
       typeof r.at === 'number';
     if (!ok) return null;
-    return { ...(r as WatchdogRecord), lastReason: truncateReason(String(r.lastReason ?? '')) };
+    return {
+      ...(r as WatchdogRecord),
+      backgrounded: typeof r.backgrounded === 'boolean' ? r.backgrounded : false,
+      lastReason: truncateReason(String(r.lastReason ?? '')),
+    };
   } catch {
     return null;
   }
@@ -62,6 +69,8 @@ export function parseRecord(raw: string | null): WatchdogRecord | null {
 export interface MountDecision {
   /** True while a fallback launch is owed: mount native whatever the flags say. */
   fallbackActive: boolean;
+  /** True when this decision itself reached strike 2: clear the C4 override. */
+  clearOverride: boolean;
   /** The normalised record to persist for this launch. */
   record: WatchdogRecord;
 }
@@ -73,24 +82,35 @@ export function decideMount(
   now: number,
 ): MountDecision {
   if (!record || record.buildKey !== buildKey) {
-    return { fallbackActive: false, record: freshRecord(buildKey, now) };
+    return { fallbackActive: false, clearOverride: false, record: freshRecord(buildKey, now) };
   }
   if (record.fallbackLaunchesRemaining > 0) {
     return {
       fallbackActive: true,
+      clearOverride: false,
       record: {
         ...record,
         state: 'fallback',
         strikes: 0,
         fallbackLaunchesRemaining: record.fallbackLaunchesRemaining - 1,
+        backgrounded: false,
         at: now,
       },
     };
   }
-  // 'attempting' = the last launch never resolved (abandoned): no strike.
+  // 'attempting' in the foreground = the last launch died before ready: a strike.
+  // 'attempting' after backgrounding = abandoned (no strike).
+  if (record.state === 'attempting' && !record.backgrounded) {
+    const s = recordStrike(record, 'abandoned-before-ready', now);
+    return { fallbackActive: s.clearOverride, clearOverride: s.clearOverride, record: s.record };
+  }
   // 'ready' = the last launch ran clean: the streak is over.
   const strikes = record.state === 'ready' ? 0 : record.strikes;
-  return { fallbackActive: false, record: { ...record, state: 'idle', strikes, at: now } };
+  return {
+    fallbackActive: false,
+    clearOverride: false,
+    record: { ...record, state: 'idle', strikes, backgrounded: false, at: now },
+  };
 }
 
 /** The mount predicate: shared UI wanted by flag or override, and no fallback owed. */
@@ -101,6 +121,7 @@ export function shouldMountDom(wantsDom: boolean, decision: MountDecision): bool
 export const beginAttempt = (r: WatchdogRecord, now: number): WatchdogRecord => ({
   ...r,
   state: 'attempting',
+  backgrounded: false,
   at: now,
 });
 
@@ -109,16 +130,39 @@ export async function startAttempt(
   decision: MountDecision,
   now: number,
   save: (r: WatchdogRecord) => Promise<boolean>,
+  stillWanted: () => boolean = () => true,
 ): Promise<WatchdogRecord | null> {
   const attempt = beginAttempt(decision.record, now);
-  return (await save(attempt)) ? attempt : null;
+  if (!(await save(attempt))) return null;
+  if (!stillWanted()) {
+    // The flag flipped off mid-flow: nothing mounted, so un-record the attempt (no strike).
+    await save(decision.record);
+    return null;
+  }
+  return attempt;
 }
 
-export const markReady = (r: WatchdogRecord, now: number): WatchdogRecord => ({
-  ...r,
-  state: 'ready',
-  at: now,
-});
+/**
+ * Every record write goes through one in-order chain, so the last write issued
+ * is the last persisted. A failed write is retried `retries` times in place
+ * (inside its own turn, so a retry can never land after a later write).
+ */
+export function createWriteQueue(save: (r: WatchdogRecord) => Promise<boolean>) {
+  let tail: Promise<unknown> = Promise.resolve();
+  return (record: WatchdogRecord, retries = 0): Promise<boolean> => {
+    const run = async (): Promise<boolean> => {
+      for (let i = 0; i <= retries; i += 1) if (await save(record)) return true;
+      return false;
+    };
+    const result = tail.then(run, run);
+    tail = result;
+    return result;
+  };
+}
+
+/** Monotonic within a launch: ready never overwrites a recorded strike/fallback. */
+export const markReady = (r: WatchdogRecord, now: number): WatchdogRecord =>
+  r.state === 'attempting' ? { ...r, state: 'ready', at: now } : r;
 
 export function recordStrike(
   r: WatchdogRecord,
@@ -135,6 +179,7 @@ export function recordStrike(
       strikes,
       lastReason: truncateReason(reason),
       fallbackLaunchesRemaining: fallback ? FALLBACK_LAUNCHES : r.fallbackLaunchesRemaining,
+      backgrounded: false,
       at: now,
     },
   };
