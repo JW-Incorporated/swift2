@@ -17,6 +17,7 @@ the web-vs-app comparison come in part 2. Epic #4788.
   `EXPO_NO_WEB_SETUP=1` skips Expo's "web is not in app.json platforms" check,
   so `app.json` is untouched and the native fingerprint (OTA runtime version)
   does not change.
+  Fingerprint proof for the `main` change: fingerprint dcf1ea59 before == after (measured on 67061e0b-based head 4c5ef187 with `main` = `index.ts` vs `index`, all else equal; `npx @expo/fingerprint fingerprint:generate` in apps/mobile, Windows 11 / Node 24.18).
 - Serve + test: `npx playwright test -c playwright.parity.config.ts` (starts
   `scripts/parity/serve.mjs` on 127.0.0.1:4173).
 - Projects: Pixel 7 (chromium), iPhone 15 (webkit), iPad Pro 11 portrait and
@@ -43,8 +44,8 @@ the web-vs-app comparison come in part 2. Epic #4788.
 
 1. Open the PR (the parity run is red until baselines exist; that is expected).
 2. Dispatch on the PR branch: `gh workflow run parity.yml --ref <branch> -f update-baselines=true`.
-   The job regenerates PNGs and commits them to that branch. (On `main` it
-   opens a PR with before/after artifacts instead; it never pushes to `main`.)
+   The job regenerates PNGs and commits them to that branch. (On the default branch the job fails fast;
+   baselines are never regenerated there.)
 3. Re-run the parity workflow (`gh workflow run parity.yml --ref <branch>`) -
    commits made with `GITHUB_TOKEN` do not trigger `pull_request` runs.
 

@@ -15,6 +15,9 @@ on:
       - 'apps/web/**'
       - 'apps/mobile/dom/**'
       - 'apps/mobile/metro.config.js'
+      - 'apps/mobile/babel.config.js'
+      - 'apps/mobile/index.ts'
+      - 'apps/mobile/parity-entry/**'
       - 'apps/mobile/postcss.config.mjs'
       - 'apps/mobile/package.json'
       - 'apps/mobile/app.json'
@@ -28,7 +31,7 @@ on:
   workflow_dispatch:
     inputs:
       update-baselines:
-        description: 'Regenerate baselines and commit them to this ref (on main: open a PR instead)'
+        description: 'Regenerate baselines and commit them to this ref (never on the default branch)'
         type: boolean
         default: false
 
@@ -78,15 +81,19 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: write
-      pull-requests: write
     container:
       image: mcr.microsoft.com/playwright:v1.63.0-noble
       options: --ipc=host
     env:
       REF_NAME: ${{ github.ref_name }}
       IS_DEFAULT: ${{ github.ref_name == github.event.repository.default_branch }}
-      GH_TOKEN: ${{ github.token }}
     steps:
+      - name: Refuse the default branch
+        run: |
+          if [ "$IS_DEFAULT" = "true" ]; then
+            echo "::error::Baseline regeneration is blocked on the default branch ($REF_NAME). Dispatch on a PR branch instead; see docs/one-ui/parity.md."
+            exit 1
+          fi
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
@@ -115,7 +122,7 @@ jobs:
             ${{ runner.temp }}/before/
             e2e/parity/__screenshots__/
           retention-days: 14
-      - name: Commit (branch ref) or open a PR (default branch)
+      - name: Commit to the branch ref
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
@@ -125,18 +132,5 @@ jobs:
             echo "Baselines unchanged; nothing to commit."
             exit 0
           fi
-          if [ "$IS_DEFAULT" = "true" ]; then
-            BRANCH="parity/baselines-$GITHUB_RUN_ID"
-            git checkout -b "$BRANCH"
-            git commit -m "parity: regenerate baselines (run $GITHUB_RUN_ID)"
-            git push origin "$BRANCH"
-            BODY="Regenerated parity baselines. Before/after PNGs: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID (artifact parity-baselines)."
-            curl -sS -f -X POST \
-              -H "Authorization: Bearer $GH_TOKEN" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls" \
-              -d "{\"title\":\"parity: regenerate baselines\",\"head\":\"$BRANCH\",\"base\":\"$REF_NAME\",\"body\":\"$BODY\"}"
-          else
-            git commit -m "parity: regenerate baselines (run $GITHUB_RUN_ID)"
-            git push origin "HEAD:refs/heads/$REF_NAME"
-          fi
+          git commit -m "parity: regenerate baselines (run $GITHUB_RUN_ID)"
+          git push origin "HEAD:refs/heads/$REF_NAME"
