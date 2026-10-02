@@ -300,6 +300,12 @@ on run status). Bundle with Codex r1 (relay job running).
 **14:41:** #4817 Codex r1 = REQUEST CHANGES, same P1 (timeout). Fix round 1
 sent. (Relay summarised rather than pasting companion output — on r2 read via
 codex-companion result directly.)
+**14:42:** WP0.5a → **#4818** (base wp0.4b; resolver.js web+apps/web scoped,
+absolute-path match; next stubs; shims incl. theories (PM accepts deviation:
+baked theories.ts self-installs a provider); singletons forced; suite 8146 —
+one file failed once then green on rerun → reviewers to check flake;
+fingerprint dcf1ea59 unchanged). Codex r1 launched; reviewer next slot; 0.5b
+executor launches stacked on wp0.5a when a slot frees (critical path).
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
