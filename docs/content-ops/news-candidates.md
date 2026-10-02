@@ -25,7 +25,72 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 64
+
+## Taylor Swift's romantic spark noted as absent in Cleveland
+
+- first seen: 2026-10-02 15:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the observation that Taylor Swift's romantic spark was missing during her time in Cleveland, as reported by the Daily Trojan. The context and implications of this observation are not detailed in the snippet.
+- sources:
+  - [unverified] Daily Trojan — https://news.google.com/rss/articles/CBMilAFBVV95cUxQTG1GMHFlRDNaY0dkQ1lUYlVWQ2VrQWt3YWJJRmxoYS0zSVhSMVVjbl95ZThocTBYNjRRVXZTcWx3OUVUeU1fRF9jYXA1anFUc1lyZDN5UlVyM0FuRXlGR1VwSWdhYlZGR2Z5Sm1BU0Z2QW9rWDVZT05DVFNGa2tSbVBxdGxiWEV5d044MmxCc3lKNC1L?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Glitter Pen Featured in Case Western Reserve University
+
+- first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Case Western Reserve University discusses Taylor Swift's glitter pen and its significance in her work. It highlights the creative aspects associated with the item without delving into personal or speculative details.
+- sources:
+  - [unverified] Case Western Reserve University — https://news.google.com/rss/articles/CBMigAFBVV95cUxORnZPclQ4MEdNaDZGOEEzNzMyYXhnOGlEblg4a3hIMzZjaVBnUVJsOXhGRnRfUzc3b3ZrMGs1S1UydFFPQlVDSWM5eHZNb0ljcmtzRDRGaHVTZE8yTnNNMERCR1J3VEJjaVJNYkl0Rm1WVGhZOTN5b2kzNVdfNUdTWg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce and Taylor Swift Receive Positive News Before Game
+
+- first seen: 2026-10-02 15:45 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift are reported to have received good news ahead of the Chiefs-Raiders game, according to Yahoo Sports. Details about the nature of the news were not disclosed.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMihwFBVV95cUxNdHlQU2g1anhkSUtEOVVQQTlXMmRXX2k0MzRYRkJvZlBIdXNXc2VHNFYyMGxIaGlobHlEck9ZYm1KYVZIcjdIUkdSQjN3MzgtU3kya2p2WG1OUlBIV3RuakNCQjkxVF81b1RCQTB5Yjc5TWlnQ2NXeDJZWHpMbzE1X0ZfVHhxd3M?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'The Life Of A Showgirl' Tops Australian Charts Again
+
+- first seen: 2026-10-02 15:45 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's album 'The Life Of A Showgirl' has climbed back to the No. 1 spot on the Australian music charts, marking a notable achievement. This milestone showcases the continued popularity of her work in the region.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiswFBVV95cUxQc01oY0ZoVnp0dlVRWEVmRDlnREJvYnM0Qy1MYmw3WmZYbERUYlFHZkJvaGdBUWFYNmVBSTdaZHdrMUxObV94M2VtYkpoVXMtSHpEZmswcUFzeW1aQlh4SXg1SDBHWUFJT1MxWmRxM2pEU2NqV19Bbk92R3pCU1ZicnRSakM3RnZpUThhblNkRHJtT3lrZnNjeTB1ai01UDMwOHVFb2htOVhkMmQ3VDZmdWVVWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Dakota Johnson Wear Matching Valentino Dresses for Music Video
+
+- first seen: 2026-10-02 15:45 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Dakota Johnson were seen wearing matching plunging Valentino dresses for an upcoming music video. The collaboration showcases their stylish choices in fashion.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikAFBVV95cUxNX3hTcThNY2F0QzlHUU91Q1VoalNmVnRUNmZ4V0kzczJ6c0NoTTB3ZVZHM2szSklfY00tUnVoNzlycXh0TWlrQmNlM3gzb2c2eWR0MmdENUR2cGpRcmY5d19DU18zV1BWbFhYNmtyMHdJektRLWpnTDRUcjJpQ29JMU9IVjNKX3VDNVlTZW9zVms?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Ranking of Taylor Swift's Bonus Tracks Released
+
+- first seen: 2026-10-02 15:45 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Billboard has published a ranking of Taylor Swift's bonus tracks, showcasing staff picks and highlighting their favorites from her discography. This reflects the diverse opinions and preferences surrounding her additional music offerings.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMic0FVX3lxTFB6Y1ZrVGt2ZUJuQk53VWctV1JfLUFfWDlzWGg0V1kzZFlpMGxTVG5CaGtTczBVNUNwVERJNUFUbGI2djREM2wtUHk4U2FCWWs5WFZMYnFjMjYzN2V0NWhwN3RXQk5jT3ZZeTRXbm5pVkFiQk0?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Erin Andrews Unable to Attend Taylor Swift Music Video Shoot
+
+- first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Erin Andrews has disclosed that she was compelled to skip her appearance in a Taylor Swift music video. Reasons for her absence were provided in a recent report.
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOS0dOSjM2Nl9mR1RMNU1jcHE4dWhQeEticGdIV1BVTHlDcEJPSW9SdE5uT0FqSWRkSldsU1d5dGFmSThlcV8xYUt6b3daZjg4aFRhWDlXV2ZFNVZERGRDV0pTMUpwLWdkdXk4TmNPTlpzd2dEX0VPd0xDa2tOamV5eWhDcUdzSU5Mampn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQSUpkY2tVT3BsMm90LU5XQW1TQ2tKZ0E2NmJycGZWTFJ3eWdoR0hac2JodHpnUGh2OUlsQTBkbUtXQXoyQktETm9MMG5HaUI4WTRhb2VLSlA2TXVaY1dhR2hUdHdCS1M1RlZlZVRvM1VZcW95NG5aSkpVWkJnYTJfNUliaU9jR3M1TmlVMk5SQl93STNrLUtKTk1PT3p3QQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson Comments on Taylor Swift's New Music Video
+
+- first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During an interview, Dakota Johnson was asked about Taylor Swift's new music video but humorously got distracted. The comment highlights the ongoing conversation about Swift's recent work.
+- sources:
+  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMiwAFBVV95cUxNek0yMFRDN244dHpPdDJLMUU0S3EtN3NNYk1VbUM0OWVDc1VBRVNkS1ppZUdfaVdQZFBxRHFYOFdsWTYzTzZHY0pyZ00zbFByamN5QUZoSm9RbmdCY3hzTjZPM2JIX1paQkJTc2lUYnc5d1lCNmpTamE0ckxYYldMUWN3SXZpbGQ2U3lQVXRwTDRWUzVVQUE2Q1drNktBeU4tampqM3l5aEJEN1RjNUtoTEZNZzBrOWpTa0V5UTVDRk8?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's $900k Ring Holds Hidden Meaning
 
@@ -340,12 +405,13 @@ Stories: 70
 ## Travis Kelce Responds to Taylor Swift's 'Cleveland!' as Fans React
 
 - first seen: 2026-09-30 21:24 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce has shared his thoughts on Taylor Swift's recent mention of 'Cleveland!' which has garnered mixed reactions from fans. The situation comes alongside local news regarding privacy measures for Kelce and Swift's home.
 - sources:
   - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMi5AFBVV95cUxNRkdIYTFrSkRmb0RjMVpRSDMzcGpWb3NKd1ZaMExLMnEtWFFZQUF4QWJrRzVFN3IxbTRTTnpQV3d1YVR3ajdBd21LMF95Q3BTYzZQWXpBckx6cGl2S2pJRzhQN0xjS2RZclBPSGFtNG1QelJvSzdFWTZRTUpwVld5ekhYTXFlZnEwdmlFYUk5ZFlpeVVfc2ZQZXYyQjZYZTNTUXloWGhHNGR6cExfNVlSektiS21welJVY084ZmYzMjVwVDlhb1hwRDFoazhTVm5Na3pVQkZVT0pOQjNEbDN0VDl4WDDSAfgBQVVfeXFMUHNKWVVGdGhRbUJlZHd3RlpZRGNIQ050bFVCbFB0WG1KbFRMZTRibzhjTHY2WDBVZDhJOVZBU3ExUGhwMDdHWXlCcUJsVlk3eG5mUXNIVl9Jdmx6YzAyWkgwdGk5WTg2bUx4b2dWMzBta3J2akE0dzA1MHdjSlMyWEFGVm5NbHJ4UVl0ZU9HbWYwd3pUWVZyemJWSDc1R0ttUC1NaHhNbEoxWmtNc2pmQkV4ZFhEN1JHRGpTd1ZfLVBSQldTUU5xbXUxVk5YVkV3d1Q0TERpOTI3MDZQS21xLVcwX2RyNmhBWUpqNjlnNjNIVnZmOTVISXc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KBOI — https://news.google.com/rss/articles/CBMiugFBVV95cUxQNklkQ1FOREJ0c1JuZWZ2ZHd5aXE1bVlVbHBJTGR0OUVHdF9ERnp4YjFkelF5SDdtWjN1VTlQTjZ1S05hb1lScUxTN2JLNWFCQ3JtTUlMQV9PczJxLTM2a0NXeFAwanZUaFNZN0cxQWxIMmpOUlZET3pUYzBTOWNjZ0RXemRNRDZrM0dEd2l3V2ZjQ01oWEdZeEZaMWdieVdRbFp3Qm96UW9NdllPVVJRcEZ6UDBVS2YyWlE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] KOMO — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVW5PWmplUUVlRHo5MlZ6Q3U0MFl4aGIzZzh5TEdha3J6bGx1NmhJMlJOcVZkenBvMUJuNkpQX3FHbXBHYmt0X3hTOE1SQUxGSGRVbEJpTW54YzVtZlUtRjdmWWdqaDdyek83N1NsMjJ0cUtvU0k2S1hFVmFUZE1kODR6TFktRGVNMTFzeVF4YkF2QlNSd0xUdjZPaU9yREJnVWZpdTdnM1FsOTdpMkhLSFk4ZjhNZ0RW?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] thenationaldesk.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOajAtYmttNlJEb1REVXFLNUlodEpMTGpiOElfZjBuakt0a3p5RFJjcUswNXV4ZWV2TmJPN2xES0wxcWZyLXVoSGYzYjlYRXUzWlB0Z3JIVGVpS2VJMmg5Z3FfbFRUaExiY1VSNEJORVlpakFDNnVTVGRpaXpSblBGaDdKS2tUcXRNTk5WcGxEMk8yTGJqTHRpWGNSTnR1c0N3RzFqMkp1Qjd5UWtTa19LZmd6S2JCR1dIYjRXOERHdE9oQQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WSET — https://news.google.com/rss/articles/CBMiswFBVV95cUxQOHBFTDd5THhjZzZGbWJObGxVeUE2c0ZPckl0Q0h4TE9pX1Rld3pBRjR3MDVFRkVvX2JoOU1NT1ZZbnFMTHNQMzNIenFZTE00OTNMUWVMOE52bjlfTV9mZnNsamdLSEgteElSaDltU213VlNtaVFZdGF6MFVzTUQ2QnRXQXZMRmJOYkt2a2NWUXF5cXU3TE9HY25aWF9UeGFEOWpYWk9BdlZkemxXMFNEaU9LVQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Holds No. 1 on Top Movie Songs Chart
@@ -484,118 +550,3 @@ Stories: 70
 - summary: Travis Kelce has provided a one-word reaction to Taylor Swift's recently released music video, highlighting his thoughts on her latest work.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNbUFUbjV6dV92SHJXbUhxVjR1MVhVYlBqUmdqN3BTaVVNcXZsOFVHblZPZndDUTVseUJVQ2xmeU9PVklOYWNsanh0ZnhTY0l2SjZoYlBLU3lzbVdOckZQRWprOHZCY184T1ZwN0RRYnZ3TkF5Q2ZoV2VKRXFSeDZsSjBQSVJYcUdVUC02dXhLOUZxd3ZVRmFF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Appears in Strapless Bridal Gown in Photo
-
-- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been spotted wearing a strapless bridal gown in a new photo, prompting interest in the identity of the groom alongside her.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxNNm01aG1VeXR6N2I5NncyX05vWVQ5QVFXZlFVd1dSbEdoLVVBWVNMY0x3OTNHek9ncm5JZndnLUVKQVVoM2hYdnlnQXROeGt3MVlIS2RvZkNTNzdCV0g5UXpfNUpCQlJNMHN1eTF6YTNENnBNcmE0YjJkdU5JU1JDek1rYTA5Q2RXVXZzZmxn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Matthew Stafford Appears in New Taylor Swift Music Video
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Former UGA quarterback Matthew Stafford makes a cameo appearance in Taylor Swift's latest music video, as reported by The Atlanta Journal-Constitution.
-- sources:
-  - [unverified] The Atlanta Journal-Constitution — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTkpkLVdQMVdVYXdNTEFRanNid3BTZXBGdXFOTno1UGhtdHJqVHlOZUpCbHFVY1dHTUZrREt1UHJOak10SDJGb1o3S0NjcE9kc2FvRjg5SVc0UUpTNWx6TzJ3RXhKY3RRcUNUVDhiUGYwajM5S2FpWTNTU3VLYVljVEJrOU5BVGlYSjk3b0hMX0ZWYzM1WEdFZE9uWk1qRmItb3c2QUE0UmNwZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Beverly Hills Home Listed for $8 Million
-
-- first seen: 2026-09-29 15:44 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Beverly Hills home previously owned by Taylor Swift, where she wrote her '1989' album, is now on the market for $8 million.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiogFBVV95cUxNWVowOHZiOW04bkdpOXk0b0NJWUJ2d1JrSWFvNVdkOUE2dGswTU90LUlWUm1BbkgxVWJ5V29EMXRmbkJSSzZEMm9oMHRMYW5BY1kzT184cUtNMmZ1ZWhmSk5ENlBUTzdwLW42cFFadS1tSjJZd19zWDlVOTNYYmFBRG1GQXppQndqV3Q5eTBJVXNaam9MeXlyek9JbGVOQmhIZ1E?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Red Carpet Outfits at MTV VMAs
-
-- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: A look back at Taylor Swift's red carpet fashion throughout the years as she breaks the record for most-awarded artist in MTV VMA history at the 2026 ceremony.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-mtv-vmas-red-carpet-outfits-through-the-years-1236608424/
-
-## Eras Tour Dancers Wear Black Tie Attire at Taylor Swift's Wedding
-
-- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Eras Tour dancers attended her wedding, opting for elegant black tie outfits instead of their usual stage costumes. Their fashion choices were highlighted in a detailed overview.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4gFBVV95cUxOTEdZWE5JQnV0ZVloX2RvWndsUmtwT09BeVFGSUpuOHNOd1VTckhVTElCMzRfeFE2MERtRVFIbHptWWoydE1VckRqaWZZa3VjRHJtNEMwQnItTkhLUEV0NEd1SUNTa2MtMVNzcFpwSWtBQmRJRHR2eFFHTTRIQ0FwT1Fzd1MzRFBEaWhoTVp4T1dLd0k1X0tnR0NfVFZUREU2Y0lpUEhVS3hGRTV0Z2JjaVRkaEZ4M3RBUFFrUlFuNTVnYWRDS0NudXdfTndBcGwyNUdfLWpvdmVGS0lQaThpVVZn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Taylor's Version' Sparks Sociological Interest
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is once again trending, with discussions surrounding her 'Taylor's Version' albums prompting sociological inquiries into the reasons behind her popularity. This phenomenon is explored in a recent USA Today article.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi4wFBVV95cUxONzlRWHd1WVBRdEJSRHBFRV9wWDd0LXEweVZWYm9GNHc3c3BiLTA4MFNRSTNjMXJtR2ZEUXlXRHZqeHJhRmd1ZDEzTFJhQVEyM0lQTmlhLXBqb3JvdlhKNTc4VXM3cFVTUEQ5VzdKNEpJX3VfU2FnOGNsSzVVaC0yZjBuRGxOYzBDMVlKM0xPZ3I0QTZZRHo2cThEUmdOdGdETXdSNWNidmxoZzl6YmVRM1M4UURMYWp4Wjk5aW9kTFJ6V3U4ampSaWhhbGlLX0RPakZMekV0a2NiX19WOVJOaHNIdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Skips Thanking Travis Kelce at VMAs Amid Recent Wedding Attention
-
-- first seen: 2026-09-29 15:44 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift did not thank Travis Kelce during her VMAs speech to prevent fatigue from the intense media coverage surrounding their recent wedding.
-- sources:
-  - [unverified] yahoo.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOaEhXUWRhVnhRWjgzZ0VWLVRWdzQxWlVobU50Z09wTmQ2TXVScHhHY2s1eG9xUlFubTZkRi1oQkYtQ1ZHSnRRUmF3eThaejJWcUlCUXY5SUt3WDRCN3BXUml3TmlrOXkwUm5IRzF6dFJVdTZDZTFlRG9JdXBVWWxpbzFsaUt3WkRJSkVDWTY3eHZoTG8zRVE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Wedding Ring Highlighted at the VMAs
-
-- first seen: 2026-09-29 15:44 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: High-quality images of Taylor Swift's wedding ring were featured during the VMAs, capturing attention. The coverage by Cosmopolitan showcases the jewelry's details and its significance at the event.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcHVhNThkaEV6QjVqbnJQZTM3MUNnX1lUVjdwTHI5NnIteWx2d0R6TTZXb3VpYmNVUHZoZDdCOVVJMGl0aVI5cWdBWkJKRjg4MllnZ1dhLXAtT2ExQU5SYldhbUJTc09meFNfaUxhQzcwODFnZUNaRVUzMUVpZ0Fjd1ZNZ0kyaktMRUVzdjZ5NG5jcld1bzFzcWZuZVY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Unveils Song Featuring Cleveland in Deluxe Edition
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has included a song referencing Cleveland in her deluxe edition of The Life of a Showgirl. The article discusses other notable songs that celebrate the city by various artists.
-- sources:
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMikAFBVV95cUxQeTZScHptNVctNHVrOTVPWlgzd0V6UTJORWdUSGJuSlE0OV9nUlgzR0JpdkR5eVVfU0llTWJBZ1FUWFZ4MHluTm9kYlpmWFV3WmE5eFQxUDk5LUVkdHpqSXFzOE1UVVRIWHpfS0ZqcmxWRTNPV1QtOHJ5a0hGNkNFamtDUEFhUXh3cnRuMFJuak8?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-lists/cleveland-songs-taylor-swift-1235633235/
-
-## Taylor Swift's VMAs Performance Sparks Debate on Music Video Relevance
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Cinematographer Melissa Cofie discusses the evolving purpose of music videos in the age of platforms like TikTok, following Taylor Swift's impactful performance at the VMAs.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cm750pyz5r0eo?at_medium=RSS&at_campaign=rss
-
-## Critique of Taylor Swift's Evolving Audience and Music Style
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article from The Atlantic discusses the perceived shift in Taylor Swift's music as her audience matures. It explores the dynamics between her artistic evolution and the changing demographics of her fanbase.
-- sources:
-  - [unverified] The Atlantic — https://news.google.com/rss/articles/CBMiigFBVV95cUxPYXdFZWkzdjFMMjE3M2F3anlHaEhvdXAteVh3SUkzaHZxcXBNSnpHUTZfd0RxbjZ1Nzl6UVBZWXFWWmpHemkyRUdNSm1JR0h3d2pqT3FUbFBkZUdKQjJ5T3I5VDNCbmVvZXpWSVBxdlhVSFV6RTdXTHptQmRvUmNlSnVObXotbzBfbFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discussion Surrounds Taylor Swift's 'The Encore'
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from Bustle discusses the heightened attention surrounding Taylor Swift's project, 'The Encore.' The piece suggests that the public response may be excessive in relation to the work.
-- sources:
-  - [unverified] Bustle — https://news.google.com/rss/articles/CBMijAFBVV95cUxOYVdDTm5TMXlRTGU4cHo1MklGaDZHOGs0VDBha2VISnhKTVBJTTF3TS1aWHU0ZWZlYkw0WXlYSS1MTTRrb1VJa1F1WnhXRXItZEpkWThobW55QnpCZEpiMXotZW44b1NPQXMxVEU5b3AtN0ttZU9ZSWQyb3FiRllUaEQxekIwWU9Pc2VZUg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Dakota Johnson Enjoy Moment at VMAs
-
-- first seen: 2026-09-29 15:44 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Dakota Johnson were seen lipsyncing together during the VMAs, highlighting a fun moment that took place off-camera. The event hosted several other unseen interactions that showcased the atmosphere of the night.
-- sources:
-  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMirgFBVV95cUxNT0MzVE5jLWthMWpjQkpvcm5IUGNZcFBxRXVDM3VkaFlGSDRYRVZSSnRtZXZ4VDE5RkVXU3lpamdKSTA3a1ZSbXRGM1N3b1RRZlR6YnRlSGQtNi1vUFBrSmVUVWVRVGdZZGxMQlp1QS1ib3BtdVZ3VVM4eGRxRWg1TW9qVG1MN2dGdjJDTlBGVlhkU0tWX0xvMHRKVnU0bjVuamt3MEdQd29mbzlqbXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Rock and Roll Hall of Famer Criticizes Taylor Swift's Impact on Music
-
-- first seen: 2026-09-29 15:44 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: A Rock and Roll Hall of Famer has publicly stated that Taylor Swift has 'ruined music'. This comment has sparked conversations about her influence in the music industry.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMieEFVX3lxTE9sUy1xZDhYOVV5TjVqT3p4S2M0RlpRZE84aVVkeWhjOHJQOE1zZENrX0hITHZSdEFkYW5JZTlIZnU3bGowX1RmWlRZbl9Jb0t0UmY5UkdqQndKU1VSTDdSdnU2QkJuUnFhNDh1U3VTaDMtcnJJMXkzdw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Independent — https://news.google.com/rss/articles/CBMiswFBVV95cUxQeW43SXV0d19FbDB1WkdRSlZvLWtEZm9CSENBbFkwZGVvcnpzMDdJRUM5TXdJNkxKTTQxeEw5RzBlX1hlcEJxYkJtWnIxVTlkSXkzZTBxTlFaRklNSUgzZm95YWg3QlN4NXg1T1pqOW16LUFrSmh0Q0JVNGFGUUsyYWNyYlh2TnA3TXJTS2RWcC0tZGJwTXdGc04wS1lCYkRuMXVUQzRXM0FscWJaeFEweU9sTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] the-independent.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxNcjFjRWFWTkM0QWNQQTJTdVR0ZFcxMkp6a2hXNE1kNVg5Xzd2ZHRvcHlZQy1BXzZUQTZyMlgtTEkyVUMxWkRRajR4VWc0RGhXcWNLZ05fZS1FcG9IV0doVFpVRXJMTExKX3dNaUR4VGZ2YkpHY1piRnBzMUZyTDU3eDZuRWozdjhFM0stN0o3ZnVmVDMzaUVuY1lNSUgxX0N1bDVYN1V6blRyMWJmNDk2UTBKUlM2dw?oc=5&hl=en-US&gl=US&ceid=US:en
