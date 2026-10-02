@@ -460,9 +460,10 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     }
     // Bodies download concurrently (capped), so per-file 'download' marks now
     // overlap in time. Hash/parse/validate below stay in manifest order, so the
-    // first failing file in manifest order decides the error; results of any
-    // fetch still in flight after a failure are discarded.
-    const bodies = await mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
+    // first failing file in manifest order decides the error. We never await
+    // fetches past a decisive failure (a hung one must not block the fallback);
+    // their results are discarded and nothing they do is written.
+    const bodies = mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
       const endDownload = beginStage('download', name);
       const fileRes = await transportFetch(
         fetchImpl,
@@ -476,8 +477,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       return body;
     });
     for (const [i, [name, entry]] of wanted.entries()) {
-      const settled = bodies[i];
-      if (!settled) throw new TransportError(`Fetching "${entry.path}" did not complete`);
+      const settled = await bodies[i]!;
       if (!settled.ok) throw settled.error;
       const text = settled.value;
       const endHash = beginStage('hash', name);
