@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { POST, defangGitHub, titleFrom, bodyFrom, trustedClientIp } from './route';
+import {
+  POST,
+  defangGitHub,
+  titleFrom,
+  bodyFrom,
+  trustedClientIp,
+} from './route';
 
 const ZWSP = '​';
 
@@ -209,5 +215,51 @@ describe('POST', () => {
     expect(sent.labels).toContain('user-feedback');
     expect(sent.body).not.toMatch(/@[A-Za-z0-9]/); // no live mention reached GitHub
     expect(sent.body).not.toMatch(/#[0-9]/); // no live issue ref reached GitHub
+  });
+
+  describe('body size cap (32 KB, before JSON parsing)', () => {
+    const big = JSON.stringify({ message: 'x'.repeat(40_000) });
+
+    it('413s an oversized declared Content-Length without reading it', async () => {
+      const res = await POST(
+        new Request('http://localhost/api/feedback', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', 'content-length': '40000' },
+          body: '{}',
+        }),
+      );
+      expect(res.status).toBe(413);
+    });
+
+    it('413s an oversized chunked body that carries no Content-Length', async () => {
+      const bytes = new TextEncoder().encode(big);
+      const stream = new ReadableStream({
+        start(c) {
+          for (let i = 0; i < bytes.length; i += 8192) c.enqueue(bytes.slice(i, i + 8192));
+          c.close();
+        },
+      });
+      const res = await POST(
+        new Request('http://localhost/api/feedback', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: stream,
+          duplex: 'half',
+        } as RequestInit),
+      );
+      expect(res.status).toBe(413);
+    });
+
+    it('still accepts a max-length (5000 char) emoji/CJK feedback of ~20 KB UTF-8', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+      vi.stubGlobal(
+        'fetch',
+        vi.fn().mockImplementation(async () => new Response('{"number":1}', { status: 201 })),
+      );
+      const message = '😀'.repeat(2500) + '漢'.repeat(2500);
+      expect(new TextEncoder().encode(message).length).toBeGreaterThan(17_000);
+      const res = await POST(req({ message }, { 'x-real-ip': '10.9.8.1' }));
+      expect(res.status).toBe(201);
+    });
   });
 });
