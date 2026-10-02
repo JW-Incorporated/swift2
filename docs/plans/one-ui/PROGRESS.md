@@ -234,6 +234,11 @@ comment — fold into next round). **#4814 MERGED 21:22Z** (WP1.1a done; size
 gate live). Pre-landing check: #4813/#4799 CLEAN, #4811/#4815/#4816 mergeable
 into their bases; **#4796 UNSTABLE — CodeQL fail** → researcher diagnosing
 (real finding vs pre-existing vs tooling).
+**14:29:** CodeQL on #4796 = new high `js/incomplete-sanitization` in TEST
+helper apps/web/next-config.test.ts:11 (matches() escapes `/` not `\`); trusted
+fixed input, no runtime exposure; Analyze jobs all passed (PR-diff gate). PM:
+fix in code, not dismiss → grunt pushing a test-only commit to
+feature/one-ui-wp0.3b. #4815/#4816 (stacked) will pick it up at landing.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
