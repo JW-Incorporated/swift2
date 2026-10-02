@@ -225,6 +225,10 @@ possible." PM: WP1.1c split — part 1 now (stacked on wp0.4b: parity entry +
 web export + Playwright 4 projects on the test page + baseline compare +
 negative spec + parity.yml), part 2 after WP0.5 (web fixture render (a),
 a-vs-b, real routes). Fable brief review of part 1 launched. 3/3 slots.
+**14:27:** #4816 fix r1 pushed HEAD 314d05db (memo removed; pin = schema.ts +
+validation-contract.ts + zod version; merged B 497698fe, conflict resolved
+keeping B's loop; suite 8121). Codex r2 `task-murh3zcn-5ny6a6` + reviewer r2
+launched. A 2nd Codex reject → Fable.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
