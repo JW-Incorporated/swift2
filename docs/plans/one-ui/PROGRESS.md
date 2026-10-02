@@ -47,6 +47,12 @@ with-nits). Bundle with Codex r2: (1) write backgrounded:true after
 startAttempt if AppState not active; (2) doc note in dom-host.md: double
 ready-save failure → one false strike (bounded); (3) hook-level test gap →
 covered by S4 device check, no code.
+**13:59:** Codex r2 #4811 = REQUEST CHANGES (P1: on return to active the
+backgrounded:false clear isn't awaited → bg→active→kill race leaves stale
+marker → abandoned, no strike → repeatable). 2nd consecutive rejection →
+**Fable consulted (mandatory)**; PM leaning B = `abandonedStreak` cap (N
+abandons = strike) + reviewer Low 1 fix + Low 2 doc, scoped reviewer, no
+Codex r3.
 Old executor note: WP0.4b executor
 (worktree `wt-wp04b` under this session's scratchpad
 `71ba59ae-…/scratchpad`, branch `feature/one-ui-wp0.4b`). If a fresh PM
