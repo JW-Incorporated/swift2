@@ -511,7 +511,14 @@ polling CI; C2 #4857 exhaustive 830ee85d. C3 → **#4858** (6 new queries, share
 cascade w/ server-only wrapper) reviewer r1: sampled equivalence + myEras cases;
 "out-of-scope release files" = main merged into its stack (noise, clears on
 retarget) → fix after Codex r1. **HA #97 still open** (rulesets require only
-`build`) → WP2.4 A1 held. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+`build`) → WP2.4 A1 held.
+**04:48:** **#4850 (WP2.3-A) MERGED**; #4853/#4855 retargeted to main, wp2.3a
+deleted. B #4853 landing executor (merge main; adapt bridge-host to A's final
+string-boundary API). C #4855 Fable r2 80d0b310 → scoped review found a real bug
+(flush on ready POST success, before readyAck reseed) + client.ts 378 lines →
+fix (gate opens on readyAck; ack timeout → retry; split) running. C3 #4858
+exhaustive equivalence pushed. WP2.2 landing chain executor (C1→C2→C3, merging
+main each) running. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
