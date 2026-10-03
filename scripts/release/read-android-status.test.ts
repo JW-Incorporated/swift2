@@ -71,6 +71,18 @@ describe.skipIf(!hasBash)('read-android-status.sh', () => {
     expect(run(0, json).out.result).toBe('skipped');
   });
 
+  it('exit 11 with build_android SKIPPED and an existing build selects it', () => {
+    const json = JSON.stringify({
+      jobs: [
+        { key: 'get_android_build', status: 'SUCCESS', turtleBuild: { id: ID } },
+        { key: 'build_android', status: 'SKIPPED' },
+      ],
+    });
+    const r = run(11, json);
+    expect(r.out.result).toBe('existing');
+    expect(r.out.build_id).toBe(ID);
+  });
+
   it('exit 12 (CANCELED) still runs the selector', () => {
     expect(run(12, job('SUCCESS', goodBuild)).out.result).toBe('success');
   });

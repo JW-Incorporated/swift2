@@ -138,9 +138,12 @@ change does not turn the run red. A change to the renderers, the sync format
 (`--apply` hash check fails) or the fixture does, until the fixture and baselines
 are regenerated deliberately.
 
-Asset gate: a missing side-b export asset is an HTTP 404 and fails the test. The only
-exception is the named allowlist in `serve.mjs` (`/eras/*.png`, borrowed from
-`apps/web/public`): app asset packaging is resolved in WP2.1 (TODO there).
+Asset gate: a missing side-b export asset is an HTTP 404 and fails the test; `serve.mjs`
+has no fallthrough. Era art is the one app-relative network asset: the DOM host's
+`resolveUrl` maps `/eras/x.png` to `https://www.longlivets.com/eras/x.png`, and the shared
+Playwright handler (`e2e/parity/helpers.ts`) fulfils that URL with the real bytes from
+`apps/web/public/eras` (not the grey stub, not recorded as an external image). S4:
+offline/airplane-mode era art in the app must be checked on a device.
 
 ## Updating baselines
 

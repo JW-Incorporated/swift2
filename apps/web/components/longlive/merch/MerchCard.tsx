@@ -30,7 +30,7 @@
  * MomentDetail — the mockup's card links nowhere.
  */
 
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
@@ -78,6 +78,7 @@ function MerchCardHalf({
   shopHref?: string;
   shopAriaLabel?: string;
 }) {
+  const { Image } = useHost();
   const photo = imageUrl ? (
     <Image
       src={imageUrl}
