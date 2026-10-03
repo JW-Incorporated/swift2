@@ -69,7 +69,9 @@ export function parseEnvelope(raw: string): ParseResult {
 export function parseEnvelopeValue(x: unknown): ParseResult {
   const c = canonicalize(x);
   if (!c.ok) return { ok: false, reason: c.reason };
-  return validateEnvelope(c.value);
+  const json = checkParsedJson(c.value);
+  if (!json.ok) return { ok: false, reason: json.reason };
+  return validateEnvelope(json.value);
 }
 
 function validateEnvelope(raw: unknown): ParseResult {
