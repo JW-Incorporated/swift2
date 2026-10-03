@@ -10,6 +10,7 @@ import {
 } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { inAppPlatformFromUserAgent } from '@/lib/longlive/in-app';
+import { WebHostProvider } from '@/lib/host-adapter-provider';
 import '@/lib/longlive/vault-wiring';
 import './globals.css';
 
@@ -135,7 +136,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
           }}
         />
-        {children}
+        <WebHostProvider>{children}</WebHostProvider>
         <Analytics />
       </body>
     </html>
