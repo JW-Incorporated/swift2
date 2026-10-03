@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import ts from 'typescript';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createSlotRegistry } from './registry';
 import { createRouteRegistry } from './routes-registry';
@@ -100,10 +101,15 @@ describe('route registry', () => {
     expect(out[0]?.id).toBe('a:1');
     expect(Object.isFrozen(out)).toBe(true);
     expect(Object.isFrozen(out[0])).toBe(true);
-    expect(Object.isFrozen(out[0]?.match)).toBe(true);
     expect(() => {
       (out[0] as { id: string }).id = 'x';
     }).toThrow();
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (out[0]?.match as any).compile('^/evil$');
+    } catch {
+      /* compile may be unavailable; the returned regex is a throwaway either way */
+    }
     expect(r.isNativeRoute('/evil')).toBe(false);
     expect(r.isNativeRoute('/p/x')).toBe(true);
   });
@@ -117,8 +123,15 @@ describe('route registry', () => {
   });
 });
 
+const importSpecs = (src: string) => ts.preProcessFile(src, true, true).importedFiles.map((f) => f.fileName);
+
 describe('native-safe routes module', () => {
   beforeEach(() => resetRoutesForTests());
+
+  it('import scanner sees every import form', () => {
+    const src = ['import "./x";', 'export * from "./y";', 'const z = import("./z");', "const w = require('./w');", "import a from './a';"].join('\n');
+    expect(importSpecs(src).sort()).toEqual(['./a', './w', './x', './y', './z']);
+  });
 
   it('import graph contains only route/type files, never slot or DOM files', () => {
     const dir = dirname(fileURLToPath(import.meta.url));
@@ -127,9 +140,7 @@ describe('native-safe routes module', () => {
       if (seen.has(file)) return;
       seen.add(file);
       const src = readFileSync(file, 'utf8');
-      for (const m of src.matchAll(/(?:import|export)[^'"]*?from\s+'([^']+)'|import\s+'([^']+)'/g)) {
-        const spec = m[1] ?? m[2];
-        if (!spec) continue;
+      for (const spec of importSpecs(src)) {
         expect(spec.startsWith('.'), `non-relative import "${spec}" in ${file}`).toBe(true);
         const base = resolve(dirname(file), spec);
         const target = ['.ts', '.tsx'].map((e) => base + e).find(existsSync);

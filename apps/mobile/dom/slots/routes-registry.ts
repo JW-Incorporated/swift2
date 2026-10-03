@@ -1,16 +1,17 @@
 // Native-safe: imports types only. Never import a slot component from here.
 import type { NativeRouteEntry, RouteModule, RouteRegistry } from './types';
 
-type Stored = Readonly<NativeRouteEntry>;
+type StoredMatch = string | { readonly source: string; readonly flags: string };
+type Stored = Readonly<{ id: string; match: StoredMatch }>;
 
-const matcherKey = (m: string | RegExp) => (typeof m === 'string' ? `s:${m}` : `r:${m.flags}/${m.source}`);
+const matcherKey = (m: StoredMatch) => (typeof m === 'string' ? `s:${m}` : `r:${m.flags}/${m.source}`);
 
-function freezeEntry(e: NativeRouteEntry): Stored {
-  if (typeof e.match !== 'string' && (e.match.global || e.match.sticky)) {
+function toStored(e: NativeRouteEntry): Stored {
+  if (typeof e.match === 'string') return Object.freeze({ id: e.id, match: e.match });
+  if (e.match.global || e.match.sticky) {
     throw new Error(`route registry: route "${e.id}" uses a g/y regex (stateful)`);
   }
-  const match = typeof e.match === 'string' ? e.match : Object.freeze(new RegExp(e.match.source, e.match.flags));
-  return Object.freeze({ id: e.id, match });
+  return Object.freeze({ id: e.id, match: Object.freeze({ source: e.match.source, flags: e.match.flags }) });
 }
 
 const sameEntries = (a: readonly Stored[], b: readonly Stored[]) =>
@@ -19,12 +20,14 @@ const sameEntries = (a: readonly Stored[], b: readonly Stored[]) =>
 export function createRouteRegistry(): RouteRegistry {
   const bySlice = new Map<string, readonly Stored[]>();
   const routes: Stored[] = [];
+  // Private compiled matchers, built once at registration and never returned.
+  const testers: ((path: string) => boolean)[] = [];
   const idOwner = new Map<string, string>();
   const matcherOwner = new Map<string, string>();
 
   return {
     registerRoutes(mod: RouteModule) {
-      const incoming = mod.nativeRoutes.map(freezeEntry);
+      const incoming = mod.nativeRoutes.map(toStored);
       const prior = bySlice.get(mod.slice);
       if (prior) {
         if (sameEntries(prior, incoming)) return;
@@ -45,11 +48,23 @@ export function createRouteRegistry(): RouteRegistry {
       bySlice.set(mod.slice, Object.freeze(incoming));
       for (const r of incoming) {
         routes.push(r);
+        const m = r.match;
+        if (typeof m === 'string') testers.push((p) => p === m);
+        else {
+          const re = new RegExp(m.source, m.flags);
+          testers.push((p) => re.test(p));
+        }
         idOwner.set(r.id, mod.slice);
         matcherOwner.set(matcherKey(r.match), r.id);
       }
     },
-    nativeRoutes: () => Object.freeze([...routes]),
-    isNativeRoute: (path) => routes.some((r) => (typeof r.match === 'string' ? r.match === path : r.match.test(path))),
+    /** Diagnostic only: each regex `match` is freshly minted per call, so identity comparison on `match` is unsupported. */
+    nativeRoutes: () =>
+      Object.freeze(
+        routes.map((r) =>
+          Object.freeze({ id: r.id, match: typeof r.match === 'string' ? r.match : new RegExp(r.match.source, r.match.flags) }),
+        ),
+      ),
+    isNativeRoute: (path) => testers.some((t) => t(path)),
   };
 }
