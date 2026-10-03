@@ -13,6 +13,12 @@ import { bakedModules } from './baked-modules';
  * re-renders and the search engine's per-array suffix cache holds.
  */
 export function WebReaderSnapshotProvider({ children }: { children: ReactNode }) {
-  const [snapshot] = useState(() => fromBakedCore(bakedModules(), { eraVideoFeed }));
+  const [snapshot] = useState(() => {
+    performance.mark('snapshot-core:start');
+    const built = fromBakedCore(bakedModules(), { eraVideoFeed });
+    performance.mark('snapshot-core:end');
+    performance.measure('snapshot-core', 'snapshot-core:start', 'snapshot-core:end');
+    return built;
+  });
   return <ReaderSnapshotProvider value={snapshot}>{children}</ReaderSnapshotProvider>;
 }
