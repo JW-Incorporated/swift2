@@ -4,7 +4,7 @@ import { securityHeaders } from './lib/security-headers.mjs';
 const nextConfig = {
   reactStrictMode: true,
   // Workspace packages ship TypeScript source; Next must transpile them.
-  transpilePackages: ['@swift2/shared', '@swift2/core'],
+  transpilePackages: ['@swift2/shared', '@swift2/core', '@swift2/ui'],
   // /api/share-card reads its vendored fonts with fs at runtime (nft can't
   // see through the import.meta.url-relative path), so ship them explicitly.
   outputFileTracingIncludes: {

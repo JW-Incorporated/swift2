@@ -92,7 +92,10 @@ Instead:
   FINISHED / profile `production`, its `gitCommitHash` is a string equal to
   the run's `GITHUB_SHA` (absent, empty or mismatched fails closed with a
   loud warning), and its id is a UUID
-  (`scripts/release/select-android-build.mjs`). If the fingerprint already had a build (OTA-only case) the job is
+  (`scripts/release/select-android-build.mjs`). `eas workflow:status --json`
+  prints the JSON and then exits 11 when the run is FAILURE (12 CANCELED), so
+  `scripts/release/read-android-status.sh` treats exit 0/11/12 as readable
+  (an iOS failure must not hide a good Android build); other codes give `unknown`. If the fingerprint already had a build (OTA-only case) the job is
   SKIPPED, there is no id, and nothing is submitted. The parsed job
   statuses and chosen build id are printed to the job log
   (`gh run view --log`). If a build id was found, the Action writes
