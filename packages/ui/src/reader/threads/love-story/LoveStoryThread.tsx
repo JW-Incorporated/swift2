@@ -11,8 +11,8 @@ import {
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getEra } from '@swift2/experience';
 import { RELATIONSHIPS, SINGLE_PERIODS } from '@swift2/experience';
-import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, type LoveStoryEntry } from '@/lib/longlive/love-story';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { allocateHitRanges, durationLabel, mergedTimeline, monthsBetween, type LoveStoryEntry } from '../lib/love-story';
+import { useBackDismiss } from '../../lib/useBackDismiss';
 import { EntryDetail } from './EntryDetail';
 
 /** WCAG 2.5.8 minimum target size (CSS px) that the band's hit ranges aim for (#658). */

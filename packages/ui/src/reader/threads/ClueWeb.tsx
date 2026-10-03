@@ -33,11 +33,11 @@ import {
   useAppState,
   useProgress,
   useProgressActions,
-} from '@/lib/longlive/store';
+} from '../store';
 import type { EggNode, Motif, MotifId } from '@swift2/experience';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { useLiveTheories } from '@/lib/longlive/use-live-theories';
-import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from '@/lib/longlive/live-theories';
+import { useBackDismiss } from '../lib/useBackDismiss';
+import { useLiveTheories } from '../lib/use-live-theories';
+import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from './lib/live-theories';
 import { LiveTheoryCard } from './LiveTheoryCard';
 
 /** Motif icon strings (from the data) resolved to lucide components. */

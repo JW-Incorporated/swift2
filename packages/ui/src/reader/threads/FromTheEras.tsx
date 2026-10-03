@@ -2,7 +2,7 @@
 
 import { useHost } from '@swift2/ui';
 import { ArrowRight, Compass } from 'lucide-react';
-import { useAppActions } from '@/lib/longlive/store';
+import { useAppActions } from '../store';
 import { getEra } from '@swift2/experience';
 import { autoFocalPoint, focalPointOf, primaryImageRef, type ContentItem } from '@swift2/experience';
 

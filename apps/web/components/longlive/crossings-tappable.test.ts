@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 // escape-dismiss.test.ts) so a future edit can't quietly regress either back
 // to inert markup.
 
-const src = readFileSync(new URL('./Crossings.tsx', import.meta.url), 'utf8');
+const src = readFileSync(new URL('../../../../packages/ui/src/reader/threads/Crossings.tsx', import.meta.url), 'utf8');
 
 describe('#655 Crossings lane dots are real tappable elements', () => {
   it('renders lane A points as buttons, not aria-hidden spans', () => {

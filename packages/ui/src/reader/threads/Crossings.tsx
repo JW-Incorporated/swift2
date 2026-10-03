@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { Heart, Shirt, RefreshCw, Gem, ArrowLeft, ArrowRight, X, GitFork } from 'lucide-react';
-import { useAppActions } from '@/lib/longlive/store';
+import { useAppActions } from '../store';
 import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@swift2/experience';
 import {
   CROSSING_THREADS,
@@ -10,11 +10,11 @@ import {
   type Crossing,
 } from '@swift2/experience';
 import type { LensId } from '@swift2/experience';
-import { accentFgFor } from '@/lib/longlive/theme';
-import { cn } from '@/lib/utils';
+import { accentFgFor } from '../lib/theme';
+import { cn } from '../lib/utils';
 import { useReader } from '@swift2/ui';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { resolveCrossingMarkerTops } from './crossingMarkerLayout';
+import { useBackDismiss } from '../lib/useBackDismiss';
+import { resolveCrossingMarkerTops } from './lib/crossingMarkerLayout';
 
 const THREAD_ICONS: Partial<Record<LensId, typeof Heart>> = {
   'love-story': Heart,

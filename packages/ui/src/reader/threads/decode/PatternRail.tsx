@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { getEra, eraIndex } from '@swift2/experience';
 import type { CluePair } from '@swift2/experience';
-import { RAIL_BUTTON_CLASS, railButtonLabel } from './patternRailLayout';
+import { RAIL_BUTTON_CLASS, railButtonLabel } from '../lib/decode/patternRailLayout';
 
 /**
  * Replaces the career-timeline scrubber for The Decode thread. On mobile:

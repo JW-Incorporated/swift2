@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { X, Heart, Star, Music, BookText } from 'lucide-react';
-import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { useAppActions, useAppState } from '../../store';
 import { getEra } from '@swift2/experience';
-import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
+import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '../lib/love-story';
 import { useReader } from '@swift2/ui';
 import { trackKey } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';

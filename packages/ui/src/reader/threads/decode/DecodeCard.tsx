@@ -17,9 +17,9 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { getEra } from '@swift2/experience';
-import { erasBetween, gapYears } from '@/lib/longlive/decode';
+import { erasBetween, gapYears } from '../lib/decode';
 import { DECODE_MOTIF_META, type CluePair, type DecodeMotifId } from '@swift2/experience';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { useBackDismiss } from '../../lib/useBackDismiss';
 
 const MOTIF_ICON: Record<DecodeMotifId, LucideIcon> = {
   number: Hash,

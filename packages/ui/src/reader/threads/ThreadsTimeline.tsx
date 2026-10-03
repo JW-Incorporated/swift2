@@ -10,8 +10,8 @@ import {
 } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
 import type { LensId } from '@swift2/experience';
-import { cn } from '@/lib/utils';
-import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
+import { cn } from '../lib/utils';
+import { measureChromeHeight } from '../lib/chrome-offset';
 
 const REF_RATIO = 0.3;
 /** Horizontal distance (px) of the rail line from the viewport's right edge. */
