@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { trackKey } from '@swift2/experience';
 import { CANONICAL_ORIGIN } from '../../apps/web/lib/canonical-origin';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { expect, test as base, type Page, type TestInfo } from '@playwright/test';
@@ -41,6 +42,81 @@ export const ROUTES = [
   { name: 'item', path: `/?item=${fixture.itemId}`, root: '[role="dialog"]' },
 ] as const;
 export type Route = (typeof ROUTES)[number];
+type RouteLike = { readonly name: string; readonly path: string; readonly root: string };
+
+const frozenTracks = JSON.parse(
+  readFileSync(resolve(repo, 'scripts/parity/fixture/content/frozen/tracks.json'), 'utf-8'),
+) as { eraId: string; tracks: Parameters<typeof trackKey>[1][] }[];
+const SONG_KEY = trackKey('fearless', frozenTracks.find((e) => e.eraId === 'fearless')!.tracks[1]!);
+
+/** Side-a-only baselines (One UI PR0, WP2.5-2.8): surfaces side b does not render yet. `prepare` runs after the route settles; `clip` (when set) is captured instead of the root. */
+export interface AOnlyRoute extends RouteLike {
+  prepare?: (page: Page) => Promise<void>;
+  clip?: string;
+}
+const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main' });
+const SEARCH_DIALOG = '[role="dialog"][aria-label="Search the archive"]';
+const SEARCH_OPEN_BUTTON = 'button[aria-label="Search the archive (press /)"]';
+export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
+  { name: 'item-video', path: '/?item=vault-tloas-the-fate-of-ophelia-video-premieres', root: '[role="dialog"]' },
+  {
+    name: 'item-social',
+    path: '/?item=vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
+    root: '[role="dialog"]',
+  },
+  { name: 'threads', path: '/?mode=threads', root: 'main' },
+  threadLens('love-story'),
+  threadLens('fashion'),
+  threadLens('taylors-version'),
+  threadLens('easter-eggs'),
+  threadLens('hidden-clues'),
+  threadLens('the-proposal'),
+  {
+    name: 'crossing',
+    path: '/?mode=threads',
+    root: 'main',
+    prepare: async (page) => {
+      await page.getByRole('button', { name: /Where threads cross/ }).first().click();
+    },
+  },
+  { name: 'guide', path: '/?guide=fearless', root: '[role="dialog"][aria-label$="track guide"]' },
+  {
+    name: 'song',
+    path: `/?song=${encodeURIComponent(SONG_KEY)}`,
+    root: '[role="dialog"][aria-label$="song detail"]',
+  },
+  { name: 'theories', path: '/?theories=fearless', root: '[role="dialog"][aria-label$="theories and easter eggs"]' },
+  {
+    name: 'search-open',
+    path: '/',
+    root: 'main',
+    clip: SEARCH_DIALOG,
+    prepare: async (page) => {
+      await page.locator(SEARCH_OPEN_BUTTON).first().click();
+      await expect(page.locator(SEARCH_DIALOG)).toBeVisible();
+    },
+  },
+  {
+    name: 'search-results',
+    path: '/',
+    root: 'main',
+    clip: SEARCH_DIALOG,
+    prepare: async (page) => {
+      await page.locator(SEARCH_OPEN_BUTTON).first().click();
+      await page.locator(`${SEARCH_DIALOG} [role="combobox"]`).fill('fearless');
+      await expect(page.locator(`${SEARCH_DIALOG} [role="listbox"] [role="option"]`).first()).toBeVisible();
+    },
+  },
+];
+
+/** Element-clip selectors for the A-only captures (existing roles, aria labels and headings only). */
+export const ITEM_SOCIAL = A_ONLY_ROUTES[1]!;
+export const RAIL_CLIP = '.era-card:has(> div:has-text("Keep reading"))';
+export const FOLLOW_CLIP = '.era-card:has(> div:has-text("Part of a bigger story"))';
+export const LIGHTBOX_CLIP = '[role="dialog"][aria-label="Photo viewer"]';
+export const SCRUBBER_CLIP = '[role="slider"][aria-label="Career timeline"]';
+export const SONG_NAV_CLIP = '[role="dialog"][aria-label$="song detail"] nav[aria-label="Track overlay navigation"]';
+export const SEARCH_ROW_CLIP = `${SEARCH_DIALOG} div:has(> [role="combobox"])`;
 
 /** Simulated native safe-area insets per project (top, right, bottom, left); side b only. */
 const REAL_INSETS: Record<string, string> = {
@@ -142,7 +218,7 @@ export const test = base.extend<{ guard: void }>({
 export { expect };
 
 /** Open a route on one side and block until it is genuinely rendered and font-normalised. */
-export async function openRoute(page: Page, side: Side, route: Route, inset?: string): Promise<void> {
+export async function openRoute(page: Page, side: Side, route: RouteLike, inset?: string): Promise<void> {
   const query = inset ? `${route.path.includes('?') ? '&' : '?'}inset=${inset}` : '';
   await page.goto(`${BASE[side]}${route.path}${query}`);
   await page.addStyleTag({ url: FONT_CSS_PATH });
@@ -159,6 +235,25 @@ export async function openRoute(page: Page, side: Side, route: Route, inset?: st
   await settle(page, route.root);
   await quiet(page, route);
   await settle(page, route.root);
+}
+
+/** Open an A-only route, run its prepare step, and settle. */
+export async function openAOnlyRoute(page: Page, route: AOnlyRoute): Promise<void> {
+  await openRoute(page, 'a', route);
+  if (!route.prepare) return;
+  await route.prepare(page);
+  const root = route.clip ?? route.root;
+  await settle(page, root);
+  await quiet(page, { root });
+  await settle(page, root);
+}
+
+/** PNG of an element below the fold: scrolled into view first, then `locator.screenshot` (its box can sit outside the viewport clip). */
+export async function captureLocator(page: Page, selector: string): Promise<Buffer> {
+  const loc = page.locator(selector).first();
+  await loc.scrollIntoViewIfNeeded();
+  await imagesReady(page, 'body');
+  return loc.screenshot({ scale: 'css' });
 }
 
 /** The short static /support page on side a: its footer is the stable place to capture the web footer (the home stream is ~67k px and grows lazily). */
@@ -198,7 +293,7 @@ async function quiet(page: Page, route: { root: string }): Promise<void> {
 }
 
 /** Wait for React to own the page (the web build is server-rendered; hydration swaps client-only text). */
-async function hydrated(page: Page, route: Route): Promise<void> {
+async function hydrated(page: Page, route: RouteLike): Promise<void> {
   await page.waitForFunction((sel) => {
     const owned = (el: Element | null) =>
       !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'));
@@ -335,7 +430,7 @@ export async function captureElement(page: Page, selector: string, clip?: Clip):
 }
 
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */
-export async function captureRoot(page: Page, route: Route): Promise<Buffer> {
+export async function captureRoot(page: Page, route: RouteLike): Promise<Buffer> {
   // Web-only chrome (TopBar and its fixed timeline rail, footer) is not part of the shared root; the app host supplies its own.
   // A stylesheet, not inline styles: the rail re-renders (and sets its own visibility) after hydration.
   await page.addStyleTag({ url: `${CAPTURE_CSS_PATH}?root=${encodeURIComponent(route.root)}` });
