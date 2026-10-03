@@ -1,11 +1,10 @@
 'use client';
 
-import { useHost } from '@swift2/ui';
+import { useHost, useReader } from '@swift2/ui';
 import { Quote } from 'lucide-react';
 import { getEra } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
 import { useAppActions } from '@/lib/longlive/store';
-import { contentForThread } from '@/lib/longlive/threads';
 import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@swift2/experience';
 import type { ImageKind } from '@swift2/experience';
 
@@ -36,6 +35,7 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 export function ProposalThread() {
   const { Image } = useHost();
   const { openItem } = useAppActions();
+  const { contentForThread } = useReader();
   const beats = contentForThread('the-proposal');
   return (
     <div className="pt-8">
