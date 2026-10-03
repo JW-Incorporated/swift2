@@ -147,6 +147,16 @@ brief-wp21.md / brief-wp23.md (react ^18||^19 common APIs; drop useRouter;
 X3 in B; bridge version = JS const; /api/clown excluded from F; device
 endpoints via E; F extends CORS to /vault/live + share-card; ApiFetch gets
 optional AbortSignal; WP2.3 D after #4822). Fable reviewing both brief sets.
+**19:01:** #4827 Codex r2 APPROVE (+ reviewer r2 APPROVE) → **#4827
+APPROVED**. Landing executor launched: merge #4827 into wp0.5b (no delete) →
+#4828 base → wp0.5b → merge main into wp0.5b (keep index.web.ts, delete
+index.web.tsx; fingerprint must equal main; parity dispatch green) → #4822 →
+main → #4828 → main → delete wp0.5b/wp1.1c-2 once childless. #4838 reviewer:
+EAS status string UNVERIFIABLE from logs (step summary not in API); fail-safe;
+fix round after Codex r1 (`task-murquos8-drekre`): verify via eas-cli npm
+package's GraphQL types + log parsed status. Fable G2 brief review adopted
+(Fable log); briefs copied to docs/plans/one-ui/briefs/. **G1 gate (Fable,
+mandatory) after #4827+#4828 land.**
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
@@ -263,6 +273,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-02 16:14 | WP1.1c part-2 brief: structural-only a-vs-b deviation? | B: pixel a-vs-b NOW, font-normalised (shared @font-face override + fonts.ready), content-root screenshot, zero insets on (b); structural kept as 2nd blocking assertion (root-relative rects, role landmarks in order, ±2px/edge, NFC text); baselines threshold 0.3 / maxDiffPixelRatio 0.001; (b) baseline with real insets; colour negative fails a-vs-b; size budget | Adopted all; size budget already live (WP1.1a #4814), not duplicated. Brief = scratch `brief-wp11c-part2.md` (fresh PM: rebuild from this row). Launch after #4822 settles (stack on wp0.5b) |
 | 2026-10-02 16:56 | #4822 two consecutive Codex rejections (mandatory): r2 P1a unmapped chunks/uncanonical map paths, P1b sentinel kinds + untested extractor, P2 ClownChat raw env() | Fix-forward, no DEBUG. Every .js needs a map (exit 1; named-chunk allowlist only, never skip); canonicalize sources; all 4 kinds required, missing current.json → exit 1 "run sync:content"; real-extractor fixture test; P2 → WP2.1 + explicit S4 check, no spike override. One commit → scoped reviewer, no Codex r3 | Adopted; told WP1.1c-2 executor: CI runs sync:content first + re-merge wp0.5b |
 | 2026-10-02 17:02 | #4822 design fidelity (G0-evidence quality) | MERGE-WITH-EDITS: (1) describeSnapshot hash failure non-fatal (else false G0 negative); (2) show native-clock launch→ready beside webview firstPaintMs (else flatters DOM vs S2); (3) probe JSON exportable verbatim. **S4 checks:** store build + build id; persistence = 2 launches same bundle version then airplane kill, judge by `Marker` not `adapter`; CI equivalence hash beside each device hash; placeholder count = initial viewport only → human scrolls full stream + opens 3+ photo moments/era; 1 YouTube + 1 Spotify (null-origin refusal = G0 input, not bug); iOS memory: 2-min scroll + 10 moment opens + iPad split-view resize, no content-process strike; record `Read:` per platform (iOS xhr=fail → bundle.js fallback is WP0.6 scope); note system fonts / unoptimised images; + ClownChat expanded panel vs notch/gesture bar (Android) | Adopted all; (3) via RN core Share (no native dep). Final round + reviewer nits (regex `i`, decodeURIComponent) → scoped reviewer → APPROVED |
+| 2026-10-02 19:00 | WP2.1 (A–D) + WP2.3 (A–F) brief review | Sound. REQUIRED 2.1: apiFetch = WP0.3b `ApiFetch` type (Response can't cross bridge); shared primitive types in packages/ui/src/host/types.ts; web adapter built in provider, stable Link/Image, no module singleton (WP2.2 gate); turnstileSiteKey `string\|null`. 2.3: A after 2.1-B; HandlerMap in A; C contract 3rd leg HostAdapter⇄payloads; D navigate semantic (in-DOM routing stays DOM); Expo-DOM transport isolated to 2 files (G0 guard). ClownChat → WP2.11 "F2" native-held cookie, per-endpoint `nativeSession`. Wait for G0: 2.3-D/E/F, 2.3-B step 4, 2.3-C step 3 | Adopted all + OPTIONAL (preload Inter/Playfair; next/image fill styles doc). Briefs now durable at docs/plans/one-ui/briefs/brief-wp21.md, brief-wp23.md. Launch after G1 lands + G1 Fable go/no-go |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
