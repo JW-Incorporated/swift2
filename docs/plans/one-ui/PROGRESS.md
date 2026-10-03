@@ -397,7 +397,13 @@ fixture) → Codex r2 `task-musa207v-tat3sq`. #4847 DOM latin-ext added (OTA
 `task-musa3de3-412a1q`. #4853 reviewer r1 REQUEST CHANGES (7: unbounded queues,
 LRU evicts in-flight ids, unvalidated share/haptic/notif payloads, re-ready
 ignored, cancel typing, requests never resolve after fatal, raw error text) +
-Codex r1 `task-musa4…` launched → one fix round after. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+Codex r1 `task-musa4…` launched → one fix round after.
+**04:02:** **#4851 (WP2.1-D) MERGED** (allowlist closed on main; WP2.1 A/B/D
+done, C = #4847 in Codex r2). Launched WP2.3-C (client + 3-leg contract, not
+wired) and WP2.2-C1 (caller migration group 1). Release train 37115793933:
+Android selection `skipped` → suspect an existing Android store build for the
+fingerprint (built earlier, never submitted — "this run only" rule strands it)
+→ researcher confirming. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
