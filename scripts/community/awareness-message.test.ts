@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildAwarenessHeader,
   buildAwarenessMessage,
+  buildAwarenessReplyText,
   buildMultipartPayload,
   imageFilename,
   selectBatch,
@@ -34,7 +35,7 @@ describe('awareness Discord message', () => {
     expect(text).toContain('target_user=NegativeRest9507');
   });
 
-  it('carries sub, title, link, why, copy block and the ack links, with the ref line last', () => {
+  it('carries sub, title, link, why, a pointer to the reply message and the ack links, with the ref line last', () => {
     const text = buildAwarenessMessage(lead(), {
       postedUrl: 'https://x.test/p',
       skipUrl: 'https://x.test/s',
@@ -50,7 +51,9 @@ describe('awareness Discord message', () => {
     expect(link).toMatch(/target_user=NegativeRest9507.*>$/);
     expect(text).toContain('↪️ Reply as u/NegativeRest9507');
     expect(text).toContain('Why: Era ranking, so a card fits');
-    expect(text).toContain('```\nfolklore at number one and I will not be taking questions\n```');
+    expect(text).toContain('📋 Reply: next message ↓ (long-press it → Copy Text)');
+    expect(text).not.toContain('```');
+    expect(text).not.toContain('folklore at number one');
     expect(text).toContain('[✅ Posted](<https://x.test/p>) · [Skip](<https://x.test/s>)');
     expect(text.split('\n').at(-1)).toBe('ref: reddit · 11111111-1111-4111-8111-111111111111');
   });
@@ -61,23 +64,31 @@ describe('awareness Discord message', () => {
     expect(text).toContain('React ✅ posted');
   });
 
-  it('stays within the Discord limit and trims only the reply', () => {
-    const text = buildAwarenessMessage(lead({ draft: 'word '.repeat(900) }), {
+  it('trims only an over-long reply and says so on the card', () => {
+    const big = lead({ draft: 'word '.repeat(900) });
+    const reply = buildAwarenessReplyText(big);
+    expect(reply.trimmed).toBe(true);
+    expect(reply.text.length).toBeLessThanOrEqual(2000);
+    expect(reply.text.startsWith('word word')).toBe(true);
+    const card = buildAwarenessMessage(big, {
       postedUrl: 'https://x.test/p',
       skipUrl: 'https://x.test/s',
     });
-    expect(text.length).toBeLessThanOrEqual(2000);
-    expect(text).toContain('(Reply trimmed to fit Discord.)');
-    expect(text).toContain('Rank the eras');
+    expect(card).toContain('(Reply trimmed to fit Discord.)');
+    expect(buildAwarenessMessage(lead())).not.toContain('trimmed');
   });
 
-  it('neutralises mentions and fences in untrusted text', () => {
-    const text = buildAwarenessMessage(
-      lead({ title: '@everyone [x](http://evil)', draft: 'a ``` b' }),
-    );
+  it('sends the reply text alone and verbatim, with no fence or label around it', () => {
+    const reply = buildAwarenessReplyText(lead({ draft: '  folklore *is* the one ```  ' }));
+    expect(reply).toEqual({ text: 'folklore *is* the one ```', trimmed: false });
+  });
+
+  it('neutralises mentions in untrusted text, card and reply alike', () => {
+    const l = lead({ title: '@everyone [x](http://evil)', draft: 'hey @everyone' });
+    const text = buildAwarenessMessage(l);
     expect(text).not.toContain('@everyone');
     expect(text).toContain('\\[x\\]');
-    expect((text.match(/```/g) ?? []).length).toBe(2);
+    expect(buildAwarenessReplyText(l).text).not.toContain('@everyone');
   });
 
   it('writes a facebook lead without a ref line and with its locator', () => {
