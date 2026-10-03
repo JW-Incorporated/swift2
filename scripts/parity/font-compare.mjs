@@ -8,6 +8,19 @@
 //        --b http://127.0.0.1:3102 [--out .scratch/font-compare] [--max-strips 80] [--only home,merch]
 //
 // Exits 1 if any strip differs. Needs both servers running (`next start`).
+//
+// Noise handling (main-vs-main runs otherwise flip between 0 and ~27 px):
+//  1. Tolerance: a pixel counts only if its max per-channel delta exceeds 2
+//     (1-2 level antialiasing jitter on fractional-offset rounded borders is
+//     ignored). Both counts are reported: rawDiffPixels (any delta) and
+//     diffPixels (tolerant); the pass criterion uses diffPixels.
+//  2. Retry: a page/width with a nonzero tolerant diff (or height mismatch) is
+//     re-captured once; only the second result is reported, so a regression
+//     is flagged only if it reproduces.
+//  3. Fonts: loaded faces compare as family + style only (deduped). Weight is
+//     dropped because a variable face ("400 800") and static next/font faces
+//     (400, 600, ...) of one family render identical pixels; the pixel diff
+//     is the real weight check.
 /* global document, window, localStorage */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -28,6 +41,8 @@ if (!A || !B) {
   process.stderr.write('usage: font-compare.mjs --a <baseUrl> --b <baseUrl> [--out dir]\n');
   process.exit(2);
 }
+
+const TOLERANCE = 2;
 
 const PAGES = [
   { name: 'home', path: '/' },
@@ -132,7 +147,8 @@ async function capture(browser, base, page, vp) {
   const fonts = await p.evaluate(() =>
     [...document.fonts]
       .filter((f) => f.status === 'loaded')
-      .map((f) => `${f.family.replaceAll('"', '')} ${f.style} ${f.weight}`)
+      .map((f) => `${f.family.replaceAll('"', '')} ${f.style}`)
+      .filter((s, i, all) => all.indexOf(s) === i)
       .sort(),
   );
   await ctx.close();
@@ -149,13 +165,16 @@ async function diff(a, b) {
   const { width, height } = ra.info;
   const out = Buffer.alloc(width * height * 4);
   let count = 0;
+  let raw = 0;
   for (let i = 0; i < width * height; i += 1) {
     const o = i * 4;
-    const d =
-      ra.data[o] !== rb.data[o] ||
-      ra.data[o + 1] !== rb.data[o + 1] ||
-      ra.data[o + 2] !== rb.data[o + 2];
-    if (d) {
+    const delta = Math.max(
+      Math.abs(ra.data[o] - rb.data[o]),
+      Math.abs(ra.data[o + 1] - rb.data[o + 1]),
+      Math.abs(ra.data[o + 2] - rb.data[o + 2]),
+    );
+    if (delta > 0) raw += 1;
+    if (delta > TOLERANCE) {
       count += 1;
       out[o] = 255;
       out[o + 3] = 255;
@@ -169,7 +188,28 @@ async function diff(a, b) {
   const png = await sharp(out, { raw: { width, height, channels: 4 } })
     .png()
     .toBuffer();
-  return { count, png };
+  return { count, raw, png };
+}
+
+async function comparePage(page, vp) {
+  const [ca, cb] = [await capture(browser, A, page, vp), await capture(browser, B, page, vp)];
+  let total = 0;
+  let rawTotal = 0;
+  const files = [];
+  const n = Math.min(ca.strips.length, cb.strips.length);
+  for (let i = 0; i < n; i += 1) {
+    const d = await diff(ca.strips[i], cb.strips[i]);
+    rawTotal += Math.max(d.raw ?? 0, 0);
+    if (d.count !== 0) {
+      total += Math.max(d.count, 0);
+      const base = join(OUT, `${page.name}-${vp.w}-strip${i}`);
+      writeFileSync(`${base}-a.png`, ca.strips[i]);
+      writeFileSync(`${base}-b.png`, cb.strips[i]);
+      if (d.png) writeFileSync(`${base}-diff.png`, d.png);
+      files.push(`${base}-diff.png`);
+    }
+  }
+  return { ca, cb, n, total, rawTotal, files };
 }
 
 mkdirSync(OUT, { recursive: true });
@@ -177,21 +217,13 @@ const browser = await chromium.launch();
 const rows = [];
 for (const page of PAGES.filter((q) => !ONLY || ONLY.split(',').includes(q.name))) {
   for (const vp of WIDTHS) {
-    const [ca, cb] = [await capture(browser, A, page, vp), await capture(browser, B, page, vp)];
-    let total = 0;
-    const files = [];
-    const n = Math.min(ca.strips.length, cb.strips.length);
-    for (let i = 0; i < n; i += 1) {
-      const d = await diff(ca.strips[i], cb.strips[i]);
-      if (d.count !== 0) {
-        total += Math.max(d.count, 0);
-        const base = join(OUT, `${page.name}-${vp.w}-strip${i}`);
-        writeFileSync(`${base}-a.png`, ca.strips[i]);
-        writeFileSync(`${base}-b.png`, cb.strips[i]);
-        if (d.png) writeFileSync(`${base}-diff.png`, d.png);
-        files.push(`${base}-diff.png`);
-      }
+    let r = await comparePage(page, vp);
+    let retried = false;
+    if (r.total !== 0 || r.ca.height !== r.cb.height) {
+      retried = true;
+      r = await comparePage(page, vp);
     }
+    const { ca, cb, n, total, rawTotal, files } = r;
     const sameFonts = JSON.stringify(ca.fonts) === JSON.stringify(cb.fonts);
     rows.push({
       page: page.name,
@@ -200,13 +232,15 @@ for (const page of PAGES.filter((q) => !ONLY || ONLY.split(',').includes(q.name)
       heightB: cb.height,
       strips: n,
       diffPixels: total,
+      rawDiffPixels: rawTotal,
+      retried,
       loadedFacesEqual: sameFonts,
       loadedFacesA: ca.fonts,
       loadedFaces: cb.fonts,
       diffFiles: files,
     });
     process.stdout.write(
-      `${page.name} @${vp.w}: strips=${n} heightA=${ca.height} heightB=${cb.height} diffPixels=${total} fonts(${cb.fonts.length}) equal=${sameFonts}\n`,
+      `${page.name} @${vp.w}: strips=${n} heightA=${ca.height} heightB=${cb.height} diffPixels=${total} rawDiffPixels=${rawTotal}${retried ? ' (retried)' : ''} fonts(${cb.fonts.length}) equal=${sameFonts}\n`,
     );
   }
 }
