@@ -134,7 +134,7 @@ export async function extensionCollect({
   clearTimer = clearTimeout,
   runSlackMs = RUN_SLACK_MS,
   sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
-  maxRelaunches = groups.length,
+  maxRelaunches = groups.length + 2,
   relaunchWaitMs = RELAUNCH_WAIT_MS,
 } = {}) {
   if (profileDir && profileInUse(profileDir)) {
