@@ -79,4 +79,6 @@ export function createReaderQueries<W extends VideoNote = VideoNote, M extends W
   };
 }
 
-export type ReaderQueries = ReturnType<typeof createReaderQueries>;
+export type ReaderQueries<W extends VideoNote = VideoNote, M extends W = W> = ReturnType<
+  typeof createReaderQueries<W, M>
+>;

@@ -25,20 +25,22 @@ describe('cache envelope to snapshot', () => {
   });
 
   it('builds a bundle-origin snapshot and a stable hash', async () => {
-    const { snapshot, version } = snapshotFromEnvelope(envelope(), { eraVideoFeed });
+    const { core, extensions, version } = snapshotFromEnvelope(envelope(), { eraVideoFeed });
     expect(version).toBe('v-test');
-    expect(snapshot.origin).toEqual({ kind: 'bundle', bundleVersion: 'v-test' });
-    const a = await describeSnapshot(snapshot);
-    const b = await describeSnapshot(snapshotFromEnvelope(envelope(), { eraVideoFeed }).snapshot);
+    expect(core.origin).toEqual({ kind: 'bundle', bundleVersion: 'v-test' });
+    const a = await describeSnapshot(core, extensions);
+    const next = snapshotFromEnvelope(envelope(), { eraVideoFeed });
+    const b = await describeSnapshot(next.core, next.extensions);
     expect(a).toEqual({ hash: b.hash, items: 0, eras: 0 });
     expect(a.hash).toMatch(/^[0-9a-f]{64}$/);
   });
 
   it('turns a hash/describe throw into a recorded error so the reader still mounts', async () => {
-    const r = await describeSnapshotSafe(undefined as never);
+    const r = await describeSnapshotSafe(undefined as never, undefined as never);
     expect(r.snapshot).toBeNull();
     expect(r.error).toMatch(/^snapshot hash: /);
-    const ok = await describeSnapshotSafe(snapshotFromEnvelope(envelope(), { eraVideoFeed }).snapshot);
+    const loaded = snapshotFromEnvelope(envelope(), { eraVideoFeed });
+    const ok = await describeSnapshotSafe(loaded.core, loaded.extensions);
     expect(ok.error).toBeNull();
   });
 });

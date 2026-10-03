@@ -7,6 +7,7 @@ import {
   tracksForEra,
 } from '@swift2/experience';
 import type { ReaderSnapshot } from '@swift2/experience/reader-snapshot';
+import { fillExtensions } from './fill-extensions';
 import * as content from './content';
 import * as eraSecrets from './era-secrets';
 import { fill } from './fill';
@@ -53,7 +54,9 @@ describe('fill(snapshot)', () => {
       official: merch.MERCH_CATALOGUE.officialStore,
       fan: merch.MERCH_CATALOGUE.fanMade,
     };
-    fill(snapshot());
+    const s = snapshot();
+    fill(s);
+    fillExtensions(s.domains);
     expect(content.CONTENT).toBe(refs.content);
     expect(content.CONTENT.map((c) => c.id)).toEqual(['a', 'b', 'c']);
     expect(content.MILESTONES).toBe(refs.milestones);

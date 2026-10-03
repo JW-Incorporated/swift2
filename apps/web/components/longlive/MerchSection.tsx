@@ -33,9 +33,11 @@
  * need to clear the rail's stuck height.
  */
 
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReaderExtensionsProvider, useMerch } from '@swift2/ui';
 import { hasAffiliateMerch, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { MERCH_CATALOGUE, newDrops, type MerchItem } from '@/lib/longlive/merch';
+import type { ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
 import { MerchMarquee } from './merch/MerchMarquee';
@@ -48,26 +50,6 @@ const SECTION_OFFICIAL = 'merch-official';
 const SECTION_FANMADE = 'merch-fanmade';
 const SECTION_STYLE = 'merch-style';
 
-const RAIL_SECTIONS: readonly MerchRailSection[] = [
-  {
-    id: SECTION_OFFICIAL,
-    label: 'Official Shop',
-    count: MERCH_CATALOGUE.officialStore.length,
-    accent: 'var(--merch-gold)',
-  },
-  {
-    id: SECTION_FANMADE,
-    label: 'Fan Made',
-    count: MERCH_CATALOGUE.fanMade.length,
-    accent: 'var(--merch-rose)',
-  },
-  {
-    id: SECTION_STYLE,
-    label: 'Her Style',
-    count: MERCH_CATALOGUE.shopTheLook.length,
-    accent: 'var(--merch-lilac)',
-  },
-];
 
 function MerchSectionHead({
   accent,
@@ -135,15 +117,39 @@ function MerchGrid({
   );
 }
 
-export function MerchSection() {
+export function MerchSectionBody() {
+  const merch = useMerch() as unknown as typeof MERCH_CATALOGUE;
+  const railSections = useMemo<readonly MerchRailSection[]>(
+    () => [
+      {
+        id: SECTION_OFFICIAL,
+        label: 'Official Shop',
+        count: merch.officialStore.length,
+        accent: 'var(--merch-gold)',
+      },
+      {
+        id: SECTION_FANMADE,
+        label: 'Fan Made',
+        count: merch.fanMade.length,
+        accent: 'var(--merch-rose)',
+      },
+      {
+        id: SECTION_STYLE,
+        label: 'Her Style',
+        count: merch.shopTheLook.length,
+        accent: 'var(--merch-lilac)',
+      },
+    ],
+    [merch],
+  );
   const [drops, setDrops] = useState<readonly MerchItem[]>([]);
   useEffect(() => {
-    setDrops(newDrops([...MERCH_CATALOGUE.officialStore, ...MERCH_CATALOGUE.fanMade]));
+    setDrops(newDrops([...merch.officialStore, ...merch.fanMade]));
   }, []);
   const anyAffiliate = hasAffiliateMerch([
-    ...MERCH_CATALOGUE.officialStore,
-    ...MERCH_CATALOGUE.fanMade,
-    ...MERCH_CATALOGUE.shopTheLook,
+    ...merch.officialStore,
+    ...merch.fanMade,
+    ...merch.shopTheLook,
   ]);
 
   return (
@@ -163,7 +169,7 @@ export function MerchSection() {
       </div>
 
       <div className="mt-14">
-        <MerchSectionRail sections={RAIL_SECTIONS} />
+        <MerchSectionRail sections={railSections} />
       </div>
 
       <main className="mx-auto max-w-[1180px] px-4 sm:px-6">
@@ -190,7 +196,7 @@ export function MerchSection() {
             subtitle="Pulled straight from the official store — when we have a vetted feed for it. We don't sell anything ourselves; every card here will link straight to taylorswift.com."
           />
           <MerchGrid
-            items={MERCH_CATALOGUE.officialStore}
+            items={merch.officialStore}
             emptyMessage="Nothing curated here yet — we don't have a vetted feed from the official store."
             pageSize={12}
           />
@@ -208,7 +214,7 @@ export function MerchSection() {
             subtitle="One maker per listing, hand-checked before it's added. Nothing's been vetted yet — this is where those listings will live."
           />
           <MerchGrid
-            items={MERCH_CATALOGUE.fanMade}
+            items={merch.fanMade}
             emptyMessage="We haven't vetted any fan-made shops yet — each one gets hand-checked before it's listed here."
           />
         </section>
@@ -238,5 +244,19 @@ export function MerchSection() {
         </div>
       </main>
     </div>
+  );
+}
+
+const EXTENSIONS: ReaderSnapshotExtensions = {
+  merch: MERCH_CATALOGUE as unknown as ReaderSnapshotExtensions['merch'],
+  songMoods: [],
+};
+
+/** The lazy chunk's entry: attaches the merch extension here so the main route never holds it. The merch section reads no moods. */
+export function MerchSection() {
+  return (
+    <ReaderExtensionsProvider extensions={EXTENSIONS}>
+      <MerchSectionBody />
+    </ReaderExtensionsProvider>
   );
 }

@@ -10,9 +10,10 @@
  */
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
+import { useMerch } from '@swift2/ui';
 import { getContentItem } from '@/lib/longlive/content';
 import { ERAS, getEra } from '@swift2/experience';
-import { MERCH_CATALOGUE, type MerchItem } from '@/lib/longlive/merch';
+import type { MERCH_CATALOGUE, MerchItem } from '@/lib/longlive/merch';
 import {
   merchMatchesFilter,
   ALL_MERCH_FILTERS,
@@ -57,6 +58,7 @@ function FilterPill({
 }
 
 export function MerchStyleSection() {
+  const merch = useMerch() as unknown as typeof MERCH_CATALOGUE;
   const [activeEraKey, setActiveEraKey] = useState<string>('all');
   const [activeFilters, setActiveFilters] = useState<ReadonlySet<MerchFilterId>>(new Set());
   const [activeKind, setActiveKind] = useState<NonNullable<Product['kind']> | null>(null);
@@ -82,11 +84,11 @@ export function MerchStyleSection() {
   // (every era option must stay comparable against the same filtered pool).
   const filterMatched = useMemo(
     () =>
-      MERCH_CATALOGUE.shopTheLook.filter(
+      merch.shopTheLook.filter(
         (item) =>
           merchMatchesFilter(item, activeFilters) && (!activeKind || item.kind === activeKind),
       ),
-    [activeFilters, activeKind],
+    [merch, activeFilters, activeKind],
   );
 
   const eraSpineEntries: readonly EraSpineEntry[] = useMemo(() => {
@@ -178,7 +180,7 @@ export function MerchStyleSection() {
                 {MERCH_FILTER_LABEL[id]}
               </FilterPill>
             ))}
-            {merchKinds(MERCH_CATALOGUE.shopTheLook).map((kind) => (
+            {merchKinds(merch.shopTheLook).map((kind) => (
               <FilterPill
                 key={kind}
                 active={activeKind === kind}

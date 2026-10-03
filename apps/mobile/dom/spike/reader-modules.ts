@@ -6,14 +6,20 @@
 // "Asset not found: __common"). Returns one component: era stream + moment
 // detail + bottom nav inside the web AppProvider, plus the Android back bridge.
 import { createElement, useEffect, useRef, type ComponentType } from 'react';
-import type { ReaderSnapshotCore } from '@swift2/experience/reader-snapshot';
-import { HostProvider, ReaderSnapshotProvider } from '@swift2/ui';
+import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
+import { HostProvider, ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
 import { resolveAppUrl } from './resolve-url';
 
 type BackResult = 'handled' | 'exit';
 export type ReaderProps = { backTick: number; onBack: (r: BackResult) => void };
 
-export function loadReader(snapshot: ReaderSnapshotCore): ComponentType<ReaderProps> {
+export function loadReader(
+  snapshot: ReaderSnapshotCore,
+  extensions: ReaderSnapshotExtensions,
+): ComponentType<ReaderProps> {
+  // Merch and songMoods are poured and attached here, after the core fill and apart from it, as the web's lazy chunks do.
+  const fillExt = require('./shims/fill-extensions') as typeof import('./shims/fill-extensions');
+  fillExt.fillExtensions(extensions);
   const store = require('../../../web/lib/longlive/store') as typeof import('../../../web/lib/longlive/store');
   const theme = require('../../../web/lib/longlive/theme') as typeof import('../../../web/lib/longlive/theme');
   const experience = require('@swift2/experience') as typeof import('@swift2/experience');
@@ -57,7 +63,10 @@ export function loadReader(snapshot: ReaderSnapshotCore): ComponentType<ReaderPr
       { adapter },
       createElement(ReaderSnapshotProvider, {
         value: snapshot,
-        children: createElement(store.AppProvider, null, createElement(Shell, props)),
+        children: createElement(ReaderExtensionsProvider, {
+          extensions,
+          children: createElement(store.AppProvider, null, createElement(Shell, props)),
+        }),
       }),
     );
   };
