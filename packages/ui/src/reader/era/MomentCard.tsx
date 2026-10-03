@@ -142,7 +142,7 @@ export function MomentCard({
                 </button>
               </>
             ) : (
-              <VideoPoster video={video} onPlay={() => setPlaying(true)} />
+              <VideoPoster video={video} priority={eager} onPlay={() => setPlaying(true)} />
             )}
           </div>
         )}

@@ -13,6 +13,7 @@ const A_PORT = Number(process.env.PARITY_A_PORT ?? 4174);
 const B_PORT = Number(process.env.PARITY_PORT ?? 4173);
 
 export type Side = 'a' | 'b';
+const CLIP_HEIGHT = 480;
 const externalImages = new WeakMap<Page, Set<string>>();
 /** External image URLs requested since the last call (sorted); resets the record. */
 export function takeExternalImages(page: Page): string[] {
@@ -21,26 +22,42 @@ export function takeExternalImages(page: Page): string[] {
   return [...seen].sort();
 }
 /**
- * External images a side DISPLAYS: the URLs it requested (takeExternalImages) plus the currentSrc of every
- * decoded <img> pointing off the local hosts. Both sides share one page, and WebKit serves an image the other
- * side already fetched from its in-memory cache without a network request, so the route handler never sees
- * it although the side renders it. Eager loading makes that common (side a fetches first), so the a-vs-b
- * comparison must use what is shown, not only what hit the network. Resets the request record like
- * takeExternalImages. The network guard in `test` still blocks any unexpected external host.
+ * External images a side DISPLAYS in the compared region: every <img> inside the root's first screen (the same
+ * bounds imagesReady waits on and the pixel capture clips to) that is visible and decodes, off the local hosts
+ * and not era art. Both sides share one page, and WebKit serves an image the other side already fetched from its
+ * in-memory cache without a network request, so the route handler never sees it although the side renders it
+ * (eager loading makes that common: side a fetches first). The comparison is therefore on what is shown, not on
+ * the request ledger, which also cannot be partitioned per side (a late side-a request would land in side b's
+ * record). Hidden, zero-size, offscreen and undecodable images are not shown. The scan runs after captureRoot
+ * (imagesReady has decoded the region), and the ledger is drained after it so it stays bounded. The network
+ * guard in `test` still blocks any unexpected external host.
  */
-export async function takeShownExternalImages(page: Page): Promise<string[]> {
-  const requested = takeExternalImages(page);
-  const shown = await page.evaluate(({ local, artOrigin }) => {
-    return Array.from(document.querySelectorAll('img'))
-      .filter((img) => img.complete && img.naturalWidth > 0 && img.currentSrc)
-      .map((img) => img.currentSrc)
-      .filter((src) => {
-        const u = new URL(src, document.baseURI);
+export async function takeShownExternalImages(page: Page, rootSel: string): Promise<string[]> {
+  const shown = await page.evaluate(
+    async ({ sel, clip, local, artOrigin }) => {
+      const root = (document.querySelector(sel) ?? document.body) as HTMLElement;
+      const limit = Math.max(window.innerHeight, root.getBoundingClientRect().top + window.scrollY + clip);
+      const urls = new Set<string>();
+      for (const img of Array.from(root.querySelectorAll('img'))) {
+        const r = img.getBoundingClientRect();
+        const cs = getComputedStyle(img);
+        const inRegion =
+          r.bottom + window.scrollY > 0 && r.top + window.scrollY < limit && r.right > 0 && r.left < window.innerWidth;
+        if (!inRegion || r.width === 0 || r.height === 0) continue;
+        if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) continue;
+        if (!img.currentSrc || !img.complete || img.naturalWidth === 0) continue;
+        if (!(await img.decode().then(() => true, () => img.complete && img.naturalWidth > 0))) continue;
+        const u = new URL(img.currentSrc, document.baseURI);
         const eraArt = u.origin === artOrigin && /^\/eras\/[\w-]+\.png$/.test(u.pathname);
-        return !eraArt && !local.includes(u.hostname) && !u.protocol.startsWith('data') && !u.protocol.startsWith('blob');
-      });
-  }, { local: [...LOCAL_HOSTS], artOrigin: new URL(ERA_ART_ORIGIN).origin });
-  return [...new Set([...requested, ...shown])].sort();
+        if (eraArt || local.includes(u.hostname) || u.protocol === 'data:' || u.protocol === 'blob:') continue;
+        urls.add(u.href);
+      }
+      return [...urls];
+    },
+    { sel: rootSel, clip: CLIP_HEIGHT, local: [...LOCAL_HOSTS], artOrigin: new URL(ERA_ART_ORIGIN).origin },
+  );
+  takeExternalImages(page);
+  return shown.sort();
 }
 export interface Fixture {
   bundleVersion: string;
@@ -325,7 +342,6 @@ async function hydrated(page: Page, route: RouteLike): Promise<void> {
   }, route.root);
 }
 
-const CLIP_HEIGHT = 480;
 const IMAGE_TIMEOUT_MS = 10_000;
 
 /**

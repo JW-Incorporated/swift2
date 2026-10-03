@@ -65,8 +65,8 @@ export function VideoPoster({
    *
    * Only for a poster that is the largest thing above the fold on arrival — the
    * moment-detail hero (#2081), which a `?item=` share link opens as the first
-   * paint, making this poster the page's LCP element. Every poster in the era
-   * feed stays lazy: dozens are mounted at once and eager-loading them would
+   * paint, making this poster the page's LCP element. Also the first two cards
+   * of the first era's feed (#4895). Every other feed poster stays lazy: dozens are mounted at once and eager-loading them would
    * undo the reason this is a facade at all.
    */
   priority?: boolean;
@@ -88,6 +88,9 @@ export function VideoPoster({
           sizes="(max-width: 672px) 100vw, 672px"
           className="object-cover transition motion-safe:group-hover:scale-[1.03]"
           priority={priority}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
+          decoding="async"
           unoptimized
         />
         <span aria-hidden className="absolute inset-0 bg-black/25 transition group-hover:bg-black/10" />

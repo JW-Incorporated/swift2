@@ -64,6 +64,8 @@ export function EraStream() {
 
   // Read the live active era without making it an effect dependency (scroll
   // updates it constantly; only an explicit *jump* should re-anchor the stream).
+  // Survives sequenceKey re-subscribes of the scroll effect, so era-switch fires only when the active era changes.
+  const lastMarkedEraRef = useRef<string | null>(null);
   const eraIdRef = useRef(eraId);
   eraIdRef.current = eraId;
 
@@ -263,7 +265,6 @@ export function EraStream() {
   // can restore this exact spot — anchor era, appended eras, and scroll offset.
   useEffect(() => {
     let raf = 0;
-    let lastMarkedEra: string | null = null;
     const pick = () => {
       raf = 0;
       eraPerfMark('era-scroll');
@@ -287,8 +288,8 @@ export function EraStream() {
         if (r.top <= center && r.bottom >= center) {
           const id = el.dataset.llSection;
           if (id) {
-            if (id !== lastMarkedEra) {
-              lastMarkedEra = id;
+            if (id !== lastMarkedEraRef.current) {
+              lastMarkedEraRef.current = id;
               eraPerfMark('era-switch', { eraId: id });
             }
             setActiveEra(id as Era['id']);

@@ -20,14 +20,14 @@ for (const route of ROUTES) {
     await openRoute(page, 'a', route);
     const pixelsA = await captureRoot(page, route);
     const structA = await collectStructure(page, route.root);
-    const imagesA = await takeShownExternalImages(page);
+    const imagesA = await takeShownExternalImages(page, route.root);
 
     await openRoute(page, 'b', route);
     const pixelsB = await captureRoot(page, route);
     const structB = await collectStructure(page, route.root);
-    const imagesB = await takeShownExternalImages(page);
+    const imagesB = await takeShownExternalImages(page, route.root);
 
-    expect.soft(imagesB, 'external image URLs requested: b equals a').toEqual(imagesA);
+    expect.soft(imagesB, 'external images displayed in the compared region: b equals a').toEqual(imagesA);
     expect.soft(diffStructure(structA, structB), 'structural a-vs-b').toEqual([]);
     expect.soft(await pixelMatches(testInfo, `ref-a-${route.name}`, pixelsA, pixelsB), 'pixel a-vs-b').toBe(true);
   });

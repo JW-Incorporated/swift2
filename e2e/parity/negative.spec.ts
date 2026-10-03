@@ -20,6 +20,7 @@ import {
   pixelMatches,
   ROUTES,
   takeExternalImages,
+  takeShownExternalImages,
   test,
   type Mutation,
 } from './helpers';
@@ -120,6 +121,49 @@ test.describe('asset and image gates', () => {
       document.body.append(img);
     });
     await expect.poll(() => takeExternalImages(page).length).toBeGreaterThan(0);
+  });
+});
+
+test.describe('displayed external image gate (takeShownExternalImages)', () => {
+  const EXTRA = 'https://parity.invalid/shown-extra.png';
+  const place = (page: Page, css: string, src: string, root: string) =>
+    page.evaluate(
+      ({ c, u, sel }) =>
+        new Promise<void>((done) => {
+          const host = document.querySelector(sel) as HTMLElement;
+          const wrap = document.createElement('div');
+          wrap.style.cssText = 'position:relative;height:0';
+          const img = new Image();
+          img.alt = '';
+          img.style.cssText = `position:absolute;top:0;left:0;width:40px;height:40px;${c}`;
+          img.onload = img.onerror = () => done();
+          img.src = u;
+          wrap.append(img);
+          host.prepend(wrap);
+        }),
+      { c: css, u: src, sel: root },
+    );
+
+  test('an extra decoded external image in the region changes the displayed set', async ({ page }) => {
+    await openRoute(page, 'b', route);
+    await captureRoot(page, route);
+    const before = await takeShownExternalImages(page, route.root);
+    await place(page, '', EXTRA, route.root);
+    const after = await takeShownExternalImages(page, route.root);
+    expect(after).toEqual([...before, EXTRA].sort());
+  });
+
+  test('a cached image that is hidden, zero-size, offscreen or broken is not counted', async ({ page }) => {
+    await openRoute(page, 'b', route);
+    await captureRoot(page, route);
+    const before = await takeShownExternalImages(page, route.root);
+    await page.route('**/shown-broken.png', (r) => r.abort());
+    await place(page, 'display:none', 'https://parity.invalid/shown-hidden.png', route.root);
+    await place(page, 'visibility:hidden', 'https://parity.invalid/shown-invisible.png', route.root);
+    await place(page, 'width:0;height:0', 'https://parity.invalid/shown-zero.png', route.root);
+    await place(page, 'top:20000px', 'https://parity.invalid/shown-offscreen.png', route.root);
+    await place(page, '', 'https://parity.invalid/shown-broken.png', route.root);
+    expect(await takeShownExternalImages(page, route.root)).toEqual(before);
   });
 });
 

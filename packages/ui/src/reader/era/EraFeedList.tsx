@@ -1,6 +1,7 @@
 'use client';
 
 import type { CSSProperties } from 'react';
+import { cn } from '../lib/utils';
 import { emptyFeedMessage, type EraFeedEntry, type RenderFeedEntry, type CardTier } from '@swift2/experience';
 import type { FilterId } from '@swift2/experience';
 import type { Era } from '@swift2/experience';
@@ -19,8 +20,8 @@ import { ClusterCard } from './ClusterCard';
 // era-level component stays about wiring data, not about how each card kind
 // renders.
 
-/** Rough height of one feed card on a phone: sizes the placeholder of a skipped feed. */
-const EST_CARD_PX = 400;
+/** Rough height of one feed row: sizes the placeholder of a skipped feed (phone: one card per row; md+: two). */
+const EST_ROW_PX = 400;
 
 /**
  * Skip layout and paint for an era feed that is nowhere near the viewport
@@ -28,10 +29,26 @@ const EST_CARD_PX = 400;
  * overlay would be re-parented by layout containment) and not each card (the
  * TimelineScrubber measures every card of the active era, so per-card skipping
  * would hand it estimated positions). `auto` makes the browser remember the
- * real size after the first render, so the estimate only matters once.
+ * real size after the first render, so the estimate only matters once. The
+ * estimate is rows, not cards: one row per entry on a phone, and on md+ (two
+ * columns) full-span cards take a row while half-span moments pair up.
  */
-function feedContainment(count: number): CSSProperties {
-  return { contentVisibility: 'auto', containIntrinsicSize: `auto ${count * EST_CARD_PX}px` };
+function feedEstimateVars(entries: RenderFeedEntry<WatchableVideoNote>[], tiers: Map<string, CardTier>): CSSProperties {
+  const rows = feedRows(entries, tiers);
+  return {
+    '--feed-est-phone': `${rows.phone * EST_ROW_PX}px`,
+    '--feed-est-desktop': `${rows.desktop * EST_ROW_PX}px`,
+  } as CSSProperties;
+}
+
+function feedRows(entries: RenderFeedEntry<WatchableVideoNote>[], tiers: Map<string, CardTier>) {
+  let wide = 0;
+  let half = 0;
+  for (const e of entries) {
+    if (e.kind === 'moment' && (tiers.get(e.item.id) ?? 'text') !== 'hero') half += 1;
+    else wide += 1;
+  }
+  return { phone: entries.length, desktop: wide + Math.ceil(half / 2) };
 }
 
 /**
@@ -68,8 +85,12 @@ export function EraFeedList({
 }) {
   return (
     <div
-      className="mx-auto max-w-4xl px-4 py-10 md:pr-8"
-      style={entries.length > 0 ? feedContainment(entries.length) : undefined}
+      className={cn(
+        'mx-auto max-w-4xl px-4 py-10 md:pr-8',
+        entries.length > 0 &&
+          '[content-visibility:auto] [contain-intrinsic-size:auto_var(--feed-est-phone)] md:[contain-intrinsic-size:auto_var(--feed-est-desktop)]',
+      )}
+      style={entries.length > 0 ? feedEstimateVars(entries, tiers) : undefined}
     >
       {/* Visually hidden: card titles are h3, so without this the outline
           jumps h1 (era) → h3 (card) — axe `heading-order` (#703). */}
@@ -140,6 +161,7 @@ function renderEntry(
           eraId={era.id}
           sortDate={entry.anchor.sortDate}
           displayDate={entry.anchor.displayDate}
+          eager={eager}
         />
       );
     case 'thread':
