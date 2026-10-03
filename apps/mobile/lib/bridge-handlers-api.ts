@@ -1,4 +1,4 @@
-import { resErr, resOk } from '@swift2/ui';
+import { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS, apiTimeoutFor, resErr, resOk } from '@swift2/ui';
 import type { HandlerMap, ResResult } from '@swift2/ui';
 import type { ApiResponse } from '@swift2/content';
 
@@ -13,9 +13,7 @@ export const API_ALLOWLIST: readonly string[] = [
   'POST /api/clown',
 ];
 export const MAX_API_BYTES = 256 * 1024;
-export const API_TIMEOUT_MS = 8000;
-// ClownChat streams a model answer; OS-036 gives clown endpoints 60 s, everything else keeps 8 s.
-export const CLOWN_TIMEOUT_MS = 60000;
+export { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS };
 const CLOWN_ENDPOINTS: readonly string[] = ['POST /api/clown'];
 
 const REQ_HEADERS = ['content-type', 'accept'];
@@ -116,7 +114,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       const timer = setTimer(() => {
         cancelAll();
         settleAbort(resErr('timeout', 'api request timed out'));
-      }, isClown ? (deps.clownTimeoutMs ?? CLOWN_TIMEOUT_MS) : (deps.timeoutMs ?? API_TIMEOUT_MS));
+      }, isClown ? (deps.clownTimeoutMs ?? apiTimeoutFor(req.method, req.path)) : (deps.timeoutMs ?? apiTimeoutFor(req.method, req.path)));
       const run = async (): Promise<ResResult<ApiResponse>> => {
         try {
           // Added natively AFTER sanitization: a page-supplied authorization never survives.
@@ -132,6 +130,11 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
             redirect: 'error',
             signal: ac.signal,
           });
+          // Persist the rotated token as soon as headers arrive, so a failed body read cannot strand it.
+          if (isClown && deps.clownSession) {
+            const refreshed = res.headers.get('x-clown-session');
+            if (refreshed) await deps.clownSession.set(refreshed).catch(() => {});
+          }
           const len = Number(res.headers.get('content-length'));
           if (Number.isFinite(len) && len > MAX_API_BYTES) {
             ac.abort();
@@ -145,10 +148,6 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
           if (text === null) {
             cancelAll();
             return resErr('failed', 'api response too large');
-          }
-          if (isClown && deps.clownSession) {
-            const refreshed = res.headers.get('x-clown-session');
-            if (refreshed) await deps.clownSession.set(refreshed).catch(() => {});
           }
           const out: Record<string, string> = {};
           res.headers.forEach((value, key) => {

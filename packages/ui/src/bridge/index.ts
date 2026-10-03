@@ -1,3 +1,4 @@
+export { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS, apiCommandTimeout, apiTimeoutFor } from './api-timeout';
 export { DEFAULT_TIMEOUT_MS, DOM_SUPPORTED_RANGE, MAX_BATCH, MAX_PENDING, createBridgeClient, monotonicIds } from './client';
 export type { BridgeClient, CallOptions, ClientOptions, IdSource } from './client';
 export {

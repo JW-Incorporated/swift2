@@ -74,3 +74,35 @@ describe('api handler: ClownChat (OS-036)', () => {
     }
   });
 });
+
+describe('api handler: ClownChat token persists on every header-bearing outcome (P2)', () => {
+  const hdr = { 'x-clown-session': 'tok-2' };
+  it.each([
+    ['oversize by content-length', () => new Response('{}', { status: 200, headers: { ...hdr, 'content-length': '999999' } })],
+    ['unreadable (no stream body)', () => ({ status: 200, headers: new Headers(hdr), body: null }) as unknown as Response],
+    [
+      'oversize stream',
+      () => new Response('x'.repeat(256 * 1024 + 1), { status: 200, headers: hdr }),
+    ],
+    ['http failure', () => new Response('no', { status: 500, headers: hdr })],
+  ])('%s', async (_n, mk) => {
+    const { call, set } = setup(mk);
+    const r = await call(clown());
+    expect(set).toHaveBeenCalledWith('tok-2');
+    if (r.ok) expect(r.value.headers).not.toHaveProperty('x-clown-session');
+  });
+
+  it('timeout while the body hangs', async () => {
+    vi.useFakeTimers();
+    try {
+      const stream = new ReadableStream({ start() {} });
+      const { call, set } = setup(() => new Response(stream, { status: 200, headers: hdr }));
+      const p = call(clown());
+      await vi.advanceTimersByTimeAsync(CLOWN_TIMEOUT_MS);
+      expect(await p).toMatchObject({ ok: false, error: { code: 'timeout' } });
+      expect(set).toHaveBeenCalledWith('tok-2');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
