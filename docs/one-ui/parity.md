@@ -29,8 +29,17 @@ disagree with each other or with committed Linux baselines. Epic #4788.
   (`npm run build` would re-run `prebuild` and re-sync live content over it).
   CI never regenerates. Regeneration is deliberate and manual: `npm run sync:content`,
   then `npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --regenerate`,
-  commit the fixture, then re-baseline (below). Size: about 8 MB raw (about 2 MB compressed) per
-  regeneration; a pruned snapshot is a possible follow-up.
+  commit the fixture, then re-baseline (below). The snapshot is PRUNED (`--regenerate` does it
+  itself; `--prune` re-prunes the committed fixture in place, idempotently): it keeps only the
+  eras the two routes render, the current era (first screen of `/`; the clip is 480 px, so
+  only that era shows) and the fixed item's era, in BOTH the bundle and the era-keyed baked
+  modules. Other eras stay in `eras.json` but have no content, and their per-era
+  tracks/theories/videos/secrets entries are empty; milestones and shop-the-look merch,
+  which derive from the baked content, are filtered to the same eras. Size: about 2.9 MB raw
+  (was 8.3 MB, 118k lines). The content dir is `content/frozen/` (was the 64-hex content
+  hash; the loader treats `bundleVersion` as an opaque string and checks per-file
+  sha256, which `--prune` recomputes). Scrolling further than the first screen would reach
+  empty eras, which no parity route does.
 - Runtime equivalence hash on BOTH sides (`compare.spec.ts`): side b reports its
   rendered snapshot hash (`window.__probe`); side a reports the hash of the baked
   modules the running server holds via `GET /parity-probe`
@@ -56,7 +65,15 @@ web build's CSP stays on for Chromium; WebKit refuses the inline style Playwrigh
 itself injects for any `page.screenshot()` under that CSP, so only the three WebKit
 projects set `bypassCSP` (side b has no CSP). Captures wait for React to own the DOM (the web build is
 server-rendered; client-only text such as the daily gloss swaps in after
-hydration) and for the root's text and height to hold still.
+hydration) and for the root's text and height to hold still. Every capture (pixel
+and a11y alike, via `openRoute` / `captureRoot` / `captureViewport`) also blocks in
+`imagesReady` until each `<img>` and CSS `background-image` in the root's first screen
+is loaded and decoded (lazy imgs are forced eager); a broken, undecodable or
+10 s-stuck image fails the test naming its URL, so a baseline can never be captured
+before a hero image paints (the #4827 flake). Scope is the clip region both ways (vertical
+and the viewport width, so offscreen carousel slides are skipped); an image that is
+`complete` with a width is loaded even if `decode()` rejects (SVG). `negative.spec.ts`
+proves the gate: with `imagesReady` made a no-op the delayed-image specs fail.
 Web-only chrome outside the shared root (TopBar and its fixed timeline rail,
 footer) is hidden by stylesheet for pixel capture; the app host supplies its own.
 
@@ -82,7 +99,8 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
-4px shift fail the structural a-vs-b; the unmutated pair passes. Self-referential
+4px shift fail the structural a-vs-b; the unmutated pair passes; a 4 s delay on every image response (local or external) must still
+yield a capture identical to the undelayed one (the image-settle guard). Self-referential
 (references captured on the machine), so it runs on any OS and needs no PNGs.
 
 Not duplicated here: the OTA size budget lives in WP1.1a (#4814). The
@@ -99,8 +117,21 @@ to the installed `@playwright/test` version). Triggers: `packages/ui/**`,
 `packages/content/**`, `packages/content-enrichment/**`, `packages/experience/**`,
 `scripts/sync-longlive-content.mjs`, `scripts/parity/**` (incl. the fixture), `apps/web/**`, `apps/mobile/dom/**`,
 `apps/mobile/parity-entry/**`, `e2e/parity/**` and the harness files. Linux
-only. Parity is not a required check: that is a G1 choice to revisit when
-screens move.
+only.
+
+**The gate.** The workflow runs on every pull request (no top-level `paths:`),
+so a required check can never be left waiting on a run that never started. A
+`changes` job (`dorny/paths-filter`, the path list above) outputs `relevant`;
+the builds and Playwright jobs run only when it is true (always true on
+`workflow_dispatch`). A final job named `parity-gate` always runs on PRs and
+passes iff nothing relevant changed, or `build-web`, `build-dom` and every
+`parity` matrix job succeeded; any failure, cancellation or skip of those when
+relevant fails it. The `update-baselines` dispatch path is unchanged. When
+editing the filter, keep it in sync with this list.
+
+Parity is not yet a required check. Marking `parity-gate` required is a
+separate owner/PM step in branch protection (G1 condition 1); it is not done by
+this workflow change.
 
 Baselines depend on the frozen fixture, not live content, so a live content
 change does not turn the run red. A change to the renderers, the sync format
