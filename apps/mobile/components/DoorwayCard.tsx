@@ -9,7 +9,7 @@
 // This replaces the plain `PlaceholderFeedRow` (MomentCard.tsx) ONLY for
 // `thread`/`egg` entries — `video`/`current` entries are still out of scope
 // (OS-033/OS-036/OS-038's native homes) and keep rendering the placeholder.
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import type { EggDoorway, ThreadDoorway } from '@swift2/experience';
 import { eraColors } from '../lib/theme';
 

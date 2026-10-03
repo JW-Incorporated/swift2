@@ -158,7 +158,7 @@ describe('record transitions', () => {
   });
 
   it('stale markers mount the DOM on at most 4 launches before the native fallback; ready resets the streak', () => {
-    let rec = launch(null, 'background').rec; // DOM launch 1
+    const rec = launch(null, 'background').rec; // DOM launch 1
     let l = launch(rec, 'background'); // DOM launch 2
     expect(l.d.fallbackActive).toBe(false);
     l = launch(l.rec, 'background'); // DOM launch 3 (decides strike 1)

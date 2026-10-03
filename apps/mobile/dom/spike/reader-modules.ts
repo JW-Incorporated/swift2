@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- call-time require is deliberate (Metro lazy eval, see below) */
 // WP0.5b: lazy load of the real reader components, called only after
 // `fill(snapshot)` (never import these statically: module-level constants
 // would freeze empty). Metro evaluates a module on its first `require`, so a
