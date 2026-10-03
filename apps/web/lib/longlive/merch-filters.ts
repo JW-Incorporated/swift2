@@ -10,9 +10,11 @@
  */
 
 import { ERAS } from '@swift2/experience';
-import { getContentItem } from './content';
-import { hasRealPrimaryImage, primaryImage, type EraId, type Product } from '@swift2/experience';
-import { MERCH_CATALOGUE, type MerchItem } from './merch';
+import { hasRealPrimaryImage, primaryImage, type ContentItem, type EraId, type Product } from '@swift2/experience';
+import type { MerchItem } from '@swift2/content-enrichment';
+
+/** The reader's content-item lookup (`useReader().getContentItem`), passed in so this module reads no module-global. */
+export type MomentLookup = (id: string) => ContentItem | undefined;
 
 export interface MerchEraGroup {
   eraId: EraId;
@@ -34,7 +36,8 @@ export interface MerchEraGroup {
  * subset — the caller still has the full-catalogue group to report N from).
  */
 export function merchByEra(
-  items: readonly MerchItem[] = MERCH_CATALOGUE.shopTheLook,
+  items: readonly MerchItem[],
+  getContentItem: MomentLookup,
 ): readonly MerchEraGroup[] {
   const byEra = new Map<EraId, MerchItem[]>();
   for (const item of items) {
@@ -194,7 +197,7 @@ export type MerchImage =
   | { kind: 'moment'; url: string }
   | { kind: 'monogram' };
 
-export function merchItemImage(item: MerchItem): MerchImage {
+export function merchItemImage(item: MerchItem, getContentItem: MomentLookup): MerchImage {
   const moment = item.source ? getContentItem(item.source.momentId) : undefined;
   const momentUrl = moment && hasRealPrimaryImage(moment) ? primaryImage(moment) : undefined;
   if (item.imageUrl && momentUrl) return { kind: 'split', productUrl: item.imageUrl, momentUrl };

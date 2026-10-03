@@ -191,17 +191,11 @@ export default tseslint.config(
     // render-with-reader.tsx, *.server.ts, clown-agent*/clown-index/clown-retrieve/
     // clown-client/clown-fallback/clown-answer (route-handler side), og-card.tsx,
     // share-card*.tsx, parity-queries.ts, search.ts, tests.
-    // TODO(WP2.2): communities.ts, live-theories.ts and love-story.ts are `export * from
-    // '@swift2/experience'` shims that re-export the banned wrappers; narrowing them to
-    // explicit exports needs a consumer audit, so they are allow-listed here.
-    // TODO(#4859): merch-filters.ts reads content/merch directly until merch moves
-    // to ReaderExtensionsProvider; clown-board.ts reads THEORIES_RAW directly
-    // (its snapshot migration is larger than a lint-follow-up).
     files: [
       'apps/web/lib/longlive/store/**/*.{ts,tsx}',
       'apps/web/lib/longlive/use-*.ts',
       'apps/web/lib/longlive/use[A-Z]*.ts',
-      'apps/web/lib/longlive/{clown-chat-ui,clown-chat-helpers,clown-stream,clown-explain,clown-starters,local-storage-adapter,return-point-stack,chrome-offset,bottom-nav-focus,bottom-nav-layout,card-chrome,contain-fit,share-payload,share-action,share,section-jump,era-jump-landing,era-stream-pin,in-app,theme,tagBadges,tags,video-affordance,track-video,related,submit-link,legal,decode,social,share-card-params,mood-starters}.ts',
+      'apps/web/lib/longlive/{clown-chat-ui,clown-chat-helpers,clown-stream,clown-explain,clown-starters,local-storage-adapter,return-point-stack,chrome-offset,bottom-nav-focus,bottom-nav-layout,card-chrome,contain-fit,share-payload,share-action,share,section-jump,era-jump-landing,era-stream-pin,in-app,theme,tagBadges,tags,video-affordance,track-video,related,submit-link,legal,decode,social,share-card-params,mood-starters,clown-board,merch-filters,communities,live-theories,love-story}.ts',
     ],
     ignores: ['**/*.test.{ts,tsx}', '**/*.server.{ts,tsx}'],
     languageOptions: { parser: tseslint.parser },

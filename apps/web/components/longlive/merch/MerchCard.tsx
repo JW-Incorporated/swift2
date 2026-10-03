@@ -129,7 +129,7 @@ export function MerchCard({ item }: { item: MerchItem }) {
   const exactPiece = item.matchTier ? item.matchTier === 'exact' : item.isAlternative !== true;
   const monogram = item.brand.charAt(0) || '?';
   const moment = item.source ? q.getContentItem(item.source.momentId) : undefined;
-  const image = merchItemImage(item);
+  const image = merchItemImage(item, q.getContentItem);
   const productLabel = showsMatch
     ? exactPiece
       ? 'The exact piece'
