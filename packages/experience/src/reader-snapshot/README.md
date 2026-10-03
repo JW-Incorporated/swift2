@@ -11,11 +11,20 @@ from the package root). Nothing imports it yet.
 - `fromBaked(mods, deps)`: web path. `mods` is the web's `apps/web/lib/longlive`
   exports; it wires those same inputs itself, not via the web's import chain.
 - `fromBundle(bundle, deps)`: app path, from a `loadBundle()` result.
-- Both go through `withProviders` (module-private), which installs the inputs into the core's
-  module-global providers (threads, doorways, track guide and the mood catalogue
-  read through them) for the duration of the build and restores the original provider
-  function references in `finally`: no leak, no dependence on call order. Synchronous only.
-  Pure derivation over inputs, with no providers, is WP2.2's job.
+- Both run `buildReaderSnapshot`, which is pure over its inputs:
+  `corpusFromInputs(inputs)` builds a `ReaderCorpus` (`src/corpus.ts` type) once
+  and `derive()` calls only the pure `*In(corpus, ...)` variants:
+  `contentForThreadIn`, `threadPointsIn`, `threadsInEraIn`,
+  `threadDoorwaysForEraIn`, `eggDoorwaysForEraIn`, `theoriesForEraIn`,
+  `resolveRelatedTheoryIn`, `eraSecretsForEraIn`, `resolveEraSecretLinkIn`,
+  `tracksForEraIn`, `resolveTrackKeyIn`, `songTargetOfIn`, `resolveConnectionsIn`,
+  `nextTrackOnAlbumIn`, `adjacentTrackOnAlbumIn`, `keepExploringIn`. A build reads
+  and writes no module-global provider, so there is no leak and no dependence on
+  call order or wiring; this folder imports no `*-provider` module
+  (`purity.test.ts` enforces it). The original exports are one-line wrappers over
+  `injectedCorpus()` (O(1): every `ReaderCorpus` member is a function) and still
+  read the providers. The setters remain only for native screens and server
+  routes, until native retirement.
 - `deps.eraVideoFeed`: pass `@swift2/content-enrichment`'s. It imports this
   package, so it cannot be imported back.
 - `hashSnapshot` / `diffSnapshots`: SHA-256 over canonical JSON (sorted keys,
@@ -42,7 +51,17 @@ depend on index position again breaks this and must also change the hash.
 - `content` is grouped by era on both sides.
 - The bundle path builds the search index with `search-docs.ts`, a mirror of
   the web's `buildSearchIndex()`. The equivalence test keeps them from
-  drifting; WP2.2 should make the web use this one.
+  drifting; WP2.2-B makes the web use this one.
+
+## Order dependencies (flat-order audit, WP2.2-A)
+
+The snapshot groups content by era, the web's `CONTENT` is flat `VAULT_RAW` order.
+`contentForThread` stable-sorts by date only, so same-date ties keep input order.
+`flat-order.test.ts` flattens the real content era by era and asserts
+`contentForThreadIn` returns the same ids, in order, for every thread, and that
+ids and slugs are unique. Result: PASSES on the real baked content (all threads
+identical, no duplicate ids or slugs). `milestones` must be read from its domain,
+never re-derived (it is unsorted, flat order).
 
 ## Not covered
 

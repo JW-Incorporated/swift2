@@ -31,7 +31,7 @@ import {
   mergeEraFeed,
 } from '../packages/experience/src/era-feed.ts';
 import { ALL_FILTERS, filtersForEntry } from '../packages/experience/src/filters.ts';
-import { threadDoorwaysForEra, eggDoorwaysForEra } from '../packages/experience/src/doorways.ts';
+import { threadDoorwaysForEra, eggDoorwaysForEra } from '../packages/experience/src/doorways-injected.ts';
 import { runMain } from './lib/cli.mjs';
 
 /** The five topic tags — ALL_FILTERS minus the Videos peer chip. */
