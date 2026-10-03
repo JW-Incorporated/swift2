@@ -127,6 +127,15 @@ baselines don't match. **PM call:** land as a pair after #4827 approval —
 index.web.tsx + re-baselines on spike routes), (2) merge origin/main into
 wp0.5b keeping index.web.ts / deleting index.web.tsx, (3) #4822 → main
 (squash; then retarget #4828 to main before deleting wp0.5b/wp1.1c-2).
+**18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
+main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
+POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
+APPROVE (probe route safe: runtime env, force-dynamic, no input; fixture apply
+fails closed); PM verified fingerprint line 4c8f334d base==head. Codex r2
+`task-murow2wy-ubyg32` pending → then the #4827/#4822/#4828 landing sequence.
+**NEXT after #4833 lands (OTA):** S2 in chat — Android (+iPad if TestFlight
+invite arrived): 5 cold + 5 warm [diag] reports; pass bar PLAN §WP0.2 cold
+≤2.5 s worst-of-5, warm ≤1 s; check at: offsets are real (not 600000).
 **18:04:** #4827 fix r1 → head 8a35f251 (all 10 items; PM verified run
 37084307031 success). Deviations PM-accepted: frozen fixture ≈8 MB/118k lines
 committed (prune = follow-up issue; no regeneration until pruned);
