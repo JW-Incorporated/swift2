@@ -39,8 +39,8 @@ export function trapBoundaryTarget<T>(
   if (key !== 'Tab' || focusables.length === 0) return null;
   const first = focusables[0];
   const last = focusables[focusables.length - 1];
-  if (shiftKey && active === first) return last;
-  if (!shiftKey && active === last) return first;
+  if (shiftKey && active === first) return last!;
+  if (!shiftKey && active === last) return first!;
   return null;
 }
 

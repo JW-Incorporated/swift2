@@ -181,10 +181,10 @@ export function ZoomableImage({
       tapRef.current = null;
       panRef.current = null;
       const rect = rectRef.current;
-      const midX = (pts[0].x + pts[1].x) / 2 - rect.left;
-      const midY = (pts[0].y + pts[1].y) / 2 - rect.top;
+      const midX = (pts[0]!.x + pts[1]!.x) / 2 - rect.left;
+      const midY = (pts[0]!.y + pts[1]!.y) / 2 - rect.top;
       pinchRef.current = {
-        startDist: Math.max(Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y), 1),
+        startDist: Math.max(Math.hypot(pts[1]!.x - pts[0]!.x, pts[1]!.y - pts[0]!.y), 1),
         startScale: scaleRef.current,
         originX: (midX - translateRef.current.x) / scaleRef.current,
         originY: (midY - translateRef.current.y) / scaleRef.current,
@@ -219,12 +219,12 @@ export function ZoomableImage({
       const rect = rectRef.current;
       if (!rect) return;
       const [a, b] = Array.from(pointersRef.current.values());
-      const dist = Math.max(Math.hypot(b.x - a.x, b.y - a.y), 1);
+      const dist = Math.max(Math.hypot(b!.x - a!.x, b!.y - a!.y), 1);
       const scale = clamp(pinch.startScale * (dist / pinch.startDist), MIN_SCALE, MAX_SCALE);
       // Keep the anchored content point under the fingers' current midpoint:
       // rendered = translate + p·scale ⇒ translate = mid − origin·scale.
-      const midX = (a.x + b.x) / 2 - rect.left;
-      const midY = (a.y + b.y) / 2 - rect.top;
+      const midX = (a!.x + b!.x) / 2 - rect.left;
+      const midY = (a!.y + b!.y) / 2 - rect.top;
       setTransform(scale, midX - pinch.originX * scale, midY - pinch.originY * scale);
     } else if (panRef.current && pointersRef.current.size === 1) {
       const pan = panRef.current;
@@ -247,8 +247,8 @@ export function ZoomableImage({
       panRef.current =
         scaleRef.current > 1
           ? {
-              x: remaining[0].x,
-              y: remaining[0].y,
+              x: remaining[0]!.x,
+              y: remaining[0]!.y,
               tx: translateRef.current.x,
               ty: translateRef.current.y,
             }

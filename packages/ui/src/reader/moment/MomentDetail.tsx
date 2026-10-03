@@ -834,7 +834,7 @@ export function MomentDetail() {
           {item.body.map((para, i) => (
             <Fragment key={i}>
               <p className="text-pretty">{para}</p>
-              {inlineSlots[i].map((img, j) => (
+              {inlineSlots[i]!.map((img, j) => (
                 <MomentFigure key={`${img.url}-${j}`} img={img} onOpen={() => openLightbox(img)} />
               ))}
             </Fragment>
