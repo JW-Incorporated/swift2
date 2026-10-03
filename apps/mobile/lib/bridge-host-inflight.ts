@@ -1,4 +1,4 @@
-import { checkParsedJson, isResResult, resErr } from '@swift2/ui';
+import { apiCommandTimeout, checkParsedJson, isResResult, resErr } from '@swift2/ui';
 import type { DomCommandType, HandlerContext, HandlerMap, JsonValue, ResResult } from '@swift2/ui';
 
 export const DEFAULT_TIMEOUT_MS = 8000;
@@ -34,7 +34,7 @@ export function createInflight(deps: InflightDeps) {
 
   function run(id: string, type: Exclude<DomCommandType, 'cancel'>, payload: JsonValue) {
     const controller = new AbortController();
-    const timeoutMs = deps.timeouts?.[type] ?? DEFAULT_TIMEOUT_MS;
+    const timeoutMs = deps.timeouts?.[type] ?? (type === 'api' ? apiCommandTimeout(payload) : DEFAULT_TIMEOUT_MS);
     const f: Inflight = { id, type, controller, timer: undefined };
     const t = arm(() => {
       if (map.get(id) !== f) return;

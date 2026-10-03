@@ -45,28 +45,19 @@ function parseLine(line: string): ClownStreamEvent | null {
 }
 
 /**
- * Reads `res`'s body as newline-delimited JSON, calling `onEvent` for each
+ * Reads the response text chunks as newline-delimited JSON, calling `onEvent` for each
  * event as soon as its line is complete — this is what makes the
- * investigation trail arrive live rather than all at once. Falls back to
- * reading the whole body at once when `res.body` isn't a readable stream
- * (older runtimes/test environments) — same event contract either way.
+ * investigation trail arrive live rather than all at once. Consumes the
+ * host's text-chunk iterable (`apiStream`, or the buffered one-chunk
+ * fallback) — one consumer path, same event contract either way.
  */
-export async function readClownStream(res: Response, onEvent: (event: ClownStreamEvent) => void): Promise<void> {
-  if (!res.body) {
-    const text = await res.text();
-    for (const line of text.split('\n')) {
-      const event = parseLine(line);
-      if (event) onEvent(event);
-    }
-    return;
-  }
-
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
+export async function readClownStream(
+  chunks: AsyncIterable<string>,
+  onEvent: (event: ClownStreamEvent) => void,
+): Promise<void> {
   let buffer = '';
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (value) buffer += decoder.decode(value, { stream: true });
+  for await (const chunk of chunks) {
+    buffer += chunk;
     let newlineIndex = buffer.indexOf('\n');
     while (newlineIndex >= 0) {
       const event = parseLine(buffer.slice(0, newlineIndex));
@@ -74,7 +65,6 @@ export async function readClownStream(res: Response, onEvent: (event: ClownStrea
       buffer = buffer.slice(newlineIndex + 1);
       newlineIndex = buffer.indexOf('\n');
     }
-    if (done) break;
   }
   const trailing = parseLine(buffer);
   if (trailing) onEvent(trailing);

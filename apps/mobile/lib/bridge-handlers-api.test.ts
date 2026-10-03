@@ -22,7 +22,7 @@ function harness(fetchImpl?: (url: string, init: RequestInit) => Promise<Respons
 const value = (r: ResResult<ApiResponse>) => (r.ok ? r.value : null);
 
 describe('api handler: allowlist', () => {
-  it.each(['/api/intake', '/api/feedback', '/api/mood', '/api/submit-link'])('accepts POST %s', async (p) => {
+  it.each(['/api/intake', '/api/feedback', '/api/mood', '/api/submit-link', '/api/clown'])('accepts POST %s', async (p) => {
     const { call, fetchMock } = harness();
     const r = await call(post(p, { body: '{}' }));
     expect(value(r)?.status).toBe(200);
@@ -31,7 +31,6 @@ describe('api handler: allowlist', () => {
 
   it.each([
     ['GET', '/api/intake'],
-    ['POST', '/api/clown'],
     ['POST', '/api/devices/register'],
     ['PUT', '/api/devices/x/prefs'],
     ['POST', '/api/feedback?x=1'],
@@ -239,7 +238,7 @@ describe('api handler: through the fake bridge host', () => {
     await vi.waitFor(() => expect(t.resFor('1000000000001')).toHaveLength(1));
     expect(t.resFor('1000000000001')).toHaveLength(1);
     expect(body(t.resFor('1000000000001')[0])).toMatchObject({ ok: true, value: { status: 200 } });
-    t.cmd('1000000000002', 'api', { req: { method: 'POST', path: '/api/clown' } });
+    t.cmd('1000000000002', 'api', { req: { method: 'POST', path: '/api/devices/register' } });
     await tick();
     expect(body(t.resFor('1000000000002')[0])).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(fetchMock).toHaveBeenCalledTimes(1);
