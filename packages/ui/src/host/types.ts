@@ -138,6 +138,8 @@ export interface HostAdapter {
   lazy?: <T>(loader: () => Promise<{ default: ComponentType<T> }>) => ComponentType<T>;
   /** @later WP2.5 */
   share?: (payload: SharePayload) => Promise<void>;
+  /** Current page URL for feedback reports (web root adapter: `location.href`; the app reports the in-DOM web path). */
+  currentUrl?: () => string;
   /** @later WP2.x (web: no-op) */
   haptic?: (kind: HapticKind) => void;
   /** @later WP2.5 */

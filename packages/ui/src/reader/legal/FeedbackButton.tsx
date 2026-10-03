@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
+import { useHost } from '../../host';
 import { useAppState } from '../store';
 import { getEra } from '@swift2/experience';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
@@ -36,26 +37,26 @@ const MAX = 5000;
  * session," not forever. Dismissing is a per-visit choice, not a permanent one. */
 const DISMISSED_KEY = 'll-feedback-dismissed-v1';
 
-function readDismissed(): boolean {
-  try {
-    if (typeof window === 'undefined') return false;
-    return window.sessionStorage.getItem(DISMISSED_KEY) === '1';
-  } catch {
-    return false;
-  }
-}
-
-function writeDismissed(): void {
-  try {
-    if (typeof window === 'undefined') return;
-    window.sessionStorage.setItem(DISMISSED_KEY, '1');
-  } catch {
-    /* private mode / quota — the dismissal just won't persist */
-  }
-}
-
 export function FeedbackButton() {
   const state = useAppState();
+  const host = useHost();
+
+  function readDismissed(): boolean {
+    try {
+      return host.storage.session.get(DISMISSED_KEY) === '1';
+    } catch {
+      return false;
+    }
+  }
+
+  function writeDismissed(): void {
+    try {
+      host.storage.session.set(DISMISSED_KEY, '1');
+    } catch {
+      /* private mode / quota — the dismissal just won't persist */
+    }
+  }
+
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
   const [hp, setHp] = useState('');
@@ -141,7 +142,7 @@ export function FeedbackButton() {
       trackGuideEraId: state.trackGuideEraId,
       theoryGuideEraId: state.theoryGuideEraId,
       lensId: state.lensId,
-      url: typeof window !== 'undefined' ? window.location.href : undefined,
+      url: host.currentUrl?.(),
       pageTitle: typeof document !== 'undefined' ? document.title : undefined,
       viewport:
         typeof window !== 'undefined' ? `${window.innerWidth}×${window.innerHeight}` : undefined,
@@ -156,13 +157,19 @@ export function FeedbackButton() {
     setStatus('sending');
     setErrorMsg('');
     try {
-      const res = await fetch('/api/feedback', {
+      const res = await host.apiFetch({
         method: 'POST',
+        path: '/api/feedback',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, location: buildLocation(), hp }),
       });
-      const data: { error?: string } = await res.json().catch(() => ({}));
-      if (res.ok) {
+      let data: { error?: string } = {};
+      try {
+        data = JSON.parse(res.body) ?? {};
+      } catch {
+        data = {};
+      }
+      if (res.status >= 200 && res.status < 300) {
         setStatus('sent');
         setMsg('');
         window.setTimeout(() => {
