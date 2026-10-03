@@ -8,7 +8,7 @@ import { WATCHDOG_REASONS, type WatchdogReason } from './watchdog-policy';
 
 export const MAX_PENDING = 3;
 export const REPORT_THROTTLE_MS = 24 * 60 * 60 * 1000;
-const MAX_SENT = 6;
+const MAX_SENT = 50;
 export const WATCHDOG_PREFIX = '[watchdog]';
 
 export type ReportPlatform = 'ios' | 'android';
@@ -36,7 +36,7 @@ export interface WatchdogPayload {
 const str = (v: unknown): v is string => typeof v === 'string' && v.length > 0 && v.length <= 80;
 
 /** Defensive parse: anything malformed is dropped, never thrown. */
-export function parseReportState(raw: string | null): ReportState {
+export function parseReportState(raw: string | null, now: number = Date.now()): ReportState {
   const empty: ReportState = { pending: [], sent: [] };
   if (!raw) return empty;
   try {
@@ -49,7 +49,8 @@ export function parseReportState(raw: string | null): ReportState {
       .map((p) => ({ category: p.category, buildKey: p.buildKey }));
     const sent = (Array.isArray(o.sent) ? o.sent : [])
       .filter((s): s is SentMark => !!s && str(s.buildKey) && Number.isFinite(s.at))
-      .map((s) => ({ buildKey: s.buildKey, at: s.at }));
+      .map((s) => ({ buildKey: s.buildKey, at: s.at }))
+      .filter((s) => Math.abs(now - s.at) < REPORT_THROTTLE_MS);
     return { pending: pending.slice(-MAX_PENDING), sent: sent.slice(-MAX_SENT) };
   } catch {
     return empty;
@@ -85,7 +86,7 @@ export function createTelemetry(deps: TelemetryDeps) {
     tail = run.catch(() => undefined);
     return run;
   };
-  const read = async (): Promise<ReportState> => parseReportState(await deps.load().catch(() => null));
+  const read = async (): Promise<ReportState> => parseReportState(await deps.load().catch(() => null), deps.now());
   const write = (s: ReportState) => deps.save(JSON.stringify(s)).catch(() => undefined);
 
   async function flushNow(enabled: boolean): Promise<void> {
@@ -95,9 +96,12 @@ export function createTelemetry(deps: TelemetryDeps) {
     for (const p of state.pending) {
       const res = await deps.send(reportPayload(p, deps.platform())).catch(() => ({ ok: false }));
       if (!res.ok) break;
+      const now = deps.now();
       state = {
         pending: state.pending.filter((q) => q !== p),
-        sent: [...state.sent, { buildKey: p.buildKey, at: deps.now() }].slice(-MAX_SENT),
+        sent: [...state.sent, { buildKey: p.buildKey, at: now }]
+          .filter((s) => Math.abs(now - s.at) < REPORT_THROTTLE_MS)
+          .slice(-MAX_SENT),
       };
       await write(state);
     }

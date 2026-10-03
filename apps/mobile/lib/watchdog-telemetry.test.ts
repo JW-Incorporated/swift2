@@ -36,7 +36,7 @@ function harness(online = true, start = 1_000_000) {
     platform: () => 'android',
     now: () => t,
   });
-  return { t: tel, sent, send, state: () => parseReportState(raw), advance: (ms: number) => (t += ms) };
+  return { t: tel, sent, send, state: () => parseReportState(raw, t), advance: (ms: number) => (t += ms) };
 }
 
 describe('report payload', () => {
@@ -75,7 +75,7 @@ describe('queue', () => {
       pending: [rep(), { category: 'x' }, rep({ category: 'free text' as never })],
       sent: [{ buildKey: 'a', at: 1 }, 5, { buildKey: 'b', at: 'x' }],
     });
-    expect(parseReportState(raw)).toEqual({ pending: [rep()], sent: [{ buildKey: 'a', at: 1 }] });
+    expect(parseReportState(raw, 1)).toEqual({ pending: [rep()], sent: [{ buildKey: 'a', at: 1 }] });
   });
 });
 
@@ -110,6 +110,14 @@ describe('telemetry', () => {
     await make().report('dom-error', '42:embedded', true);
     await make().report('dom-error', '42:embedded', true);
     expect(sent).toHaveLength(1);
+  });
+
+  it('keeps the daily throttle for the first key after 7+ distinct keys in one day', async () => {
+    const h = harness();
+    for (let i = 0; i < 8; i += 1) await h.t.report('dom-error', `${40 + i}:embedded`, true);
+    expect(h.sent).toHaveLength(8);
+    await h.t.report('dom-error', '40:embedded', true);
+    expect(h.sent).toHaveLength(8);
   });
 
   it('a different buildKey is not throttled by another', async () => {

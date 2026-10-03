@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST } from './route';
 import {
+  WATCHDOG_GLOBAL_MAX_PER_WINDOW,
   WATCHDOG_MAX_PER_WINDOW,
   WATCHDOG_WINDOW_MS,
   parseWatchdogReport,
@@ -48,6 +49,15 @@ describe('flood guard', () => {
     expect(watchdogAllowed('42:embedded', 2000)).toBe(false);
     expect(watchdogAllowed('43:embedded', 2000)).toBe(true);
     expect(watchdogAllowed('42:embedded', 1000 + WATCHDOG_WINDOW_MS + 1)).toBe(true);
+  });
+
+  it('caps accepts across rotating buildKeys at the global limit, then recovers', () => {
+    for (let i = 0; i < WATCHDOG_GLOBAL_MAX_PER_WINDOW; i += 1) {
+      expect(watchdogAllowed(`${i}:embedded`, 1000 + i)).toBe(true);
+    }
+    expect(watchdogAllowed('rotated:embedded', 2000)).toBe(false);
+    expect(watchdogAllowed('0:embedded', 2000)).toBe(false);
+    expect(watchdogAllowed('rotated:embedded', 1000 + WATCHDOG_WINDOW_MS + WATCHDOG_GLOBAL_MAX_PER_WINDOW)).toBe(true);
   });
 });
 

@@ -51,16 +51,22 @@ export function watchdogCommentFrom(r: WatchdogReport): string {
   ].join('\n');
 }
 
-export const WATCHDOG_WINDOW_MS = 10 * 60_000;
-export const WATCHDOG_MAX_PER_WINDOW = 5;
+export const WATCHDOG_WINDOW_MS = 24 * 60 * 60_000;
+export const WATCHDOG_MAX_PER_WINDOW = 20;
+export const WATCHDOG_GLOBAL_MAX_PER_WINDOW = 100;
 const MAX_TRACKED_KEYS = 500;
 const seen = new Map<string, number[]>();
+let globalSeen: number[] = [];
 
 /**
- * Per-buildKey flood guard (in-memory, per server instance, best effort): at
- * most WATCHDOG_MAX_PER_WINDOW accepted per buildKey per window. Returns false when over.
+ * Flood guards (in-memory, per server instance, best effort): at most
+ * WATCHDOG_MAX_PER_WINDOW accepted per buildKey per 24 h, and at most
+ * WATCHDOG_GLOBAL_MAX_PER_WINDOW across all keys per 24 h (defeats buildKey
+ * rotation). Returns false when over either cap.
  */
 export function watchdogAllowed(buildKey: string, now: number = Date.now()): boolean {
+  globalSeen = globalSeen.filter((t) => now - t < WATCHDOG_WINDOW_MS);
+  if (globalSeen.length >= WATCHDOG_GLOBAL_MAX_PER_WINDOW) return false;
   const recent = (seen.get(buildKey) ?? []).filter((t) => now - t < WATCHDOG_WINDOW_MS);
   if (recent.length >= WATCHDOG_MAX_PER_WINDOW) {
     seen.set(buildKey, recent);
@@ -68,7 +74,11 @@ export function watchdogAllowed(buildKey: string, now: number = Date.now()): boo
   }
   if (!seen.has(buildKey) && seen.size >= MAX_TRACKED_KEYS) seen.delete(seen.keys().next().value as string);
   seen.set(buildKey, [...recent, now]);
+  globalSeen.push(now);
   return true;
 }
 
-export const resetWatchdogAllowed = (): void => seen.clear();
+export const resetWatchdogAllowed = (): void => {
+  seen.clear();
+  globalSeen = [];
+};
