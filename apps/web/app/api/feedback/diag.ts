@@ -28,6 +28,14 @@ export const DIAG_STAGES = [
   'first-era-paint',
 ] as const;
 
+/** Instant marks (no duration): reported by `at:` offset only. Mirrors apps/mobile/lib/diagnostics.ts POINT_STAGES (a test pins them equal). */
+export const POINT_STAGES = [
+  'app-start',
+  'app-first-render',
+  'provider-wiring',
+  'first-era-paint',
+] as const;
+
 const MAX_TIMINGS = 60;
 const MAX_DOWNLOAD_KEYS = 10;
 const MAX_MS = 600_000;
@@ -93,8 +101,9 @@ export function diagCommentFrom(r: DiagReport): string {
     const i = (DIAG_STAGES as readonly string[]).indexOf(stage);
     return (i === -1 ? DIAG_STAGES.length : i) * 2 + (k.startsWith('at:') ? 1 : 0);
   };
-  // A zero-duration stage with an `at:` offset is a point mark: its offset is the datum.
-  const isPoint = (k: string): boolean => r.timings[k] === 0 && `at:${k}` in r.timings;
+  // Only the fixed point-mark stages drop their duration row; a timed stage measuring 0 ms keeps it.
+  const isPoint = (k: string): boolean =>
+    (POINT_STAGES as readonly string[]).includes(k) && r.timings[k] === 0 && `at:${k}` in r.timings;
   const keys = Object.keys(r.timings)
     .filter((k) => !isPoint(k))
     .sort((a, b) => order(a) - order(b) || a.localeCompare(b));

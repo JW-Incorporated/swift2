@@ -3,7 +3,7 @@
 // report, and holds the C4 "Force shared UI" stub switch (wired in WP0.4).
 import { useEffect, useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
-import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
+import { buildDiagPayload, diagCollector, isPointStage } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import {
   getForceDomFailure,
@@ -74,7 +74,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           {summary.stages.length === 0 && <Text style={styles.fact}>No timings recorded yet.</Text>}
           {summary.stages.map((s) => (
             <Text key={s.stage} style={styles.fact}>
-              {s.maxMs === 0
+              {isPointStage(s)
                 ? `${s.stage}: at ${Math.round(s.firstStartMs)} ms / ${s.count}`
                 : `${s.stage}: ${Math.round(s.totalMs)} ms / ${s.count} (at ${Math.round(s.firstStartMs)})`}
             </Text>

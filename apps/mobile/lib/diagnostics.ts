@@ -132,6 +132,14 @@ const REPORT_STAGES = [
   'parse', 'validate', 'disk-write', 'load-total', 'provider-wiring', 'first-era-paint',
 ];
 
+/** Instant marks (no duration) — keep equal to POINT_STAGES in apps/web/app/api/feedback/diag.ts (a test pins them). */
+export const POINT_STAGES = ['app-start', 'app-first-render', 'provider-wiring', 'first-era-paint'];
+
+/** True when the stage is a point mark shown by its `at` offset only; any other stage keeps its duration even at 0 ms. */
+export function isPointStage(s: StageSummary): boolean {
+  return POINT_STAGES.includes(s.stage) && s.maxMs === 0;
+}
+
 export interface DiagPayload {
   message: typeof DIAG_PREFIX;
   diag: {

@@ -2,7 +2,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { setLoadTimingSink, beginStage } from '@swift2/content';
 import {
   DIAG_PREFIX,
+  POINT_STAGES,
   buildDiagPayload,
+  isPointStage,
   createTapUnlock,
   createTimingCollector,
   diagCollector,
@@ -12,7 +14,7 @@ import {
   summarizeMarks,
 } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
-import { parseDiagReport } from '../../web/app/api/feedback/diag';
+import { POINT_STAGES as SERVER_POINT_STAGES, parseDiagReport } from '../../web/app/api/feedback/diag';
 
 function clock(...values: number[]) {
   let i = 0;
@@ -96,6 +98,27 @@ describe('launchKindOf / summarizeMarks', () => {
     });
     expect(s.slowestDownloads[0]).toEqual({ file: 'b', ms: 30 });
     expect(s.stages.map((x) => x.stage)).toEqual(['download', 'hash', 'app-start']);
+  });
+});
+
+describe('point-mark stages', () => {
+  const stage = (name: string, maxMs: number) => ({
+    stage: name,
+    count: 1,
+    totalMs: maxMs,
+    maxMs,
+    firstStartMs: 5,
+  });
+
+  it('only the fixed point stages render by offset; a timed stage at 0 ms keeps its duration', () => {
+    expect(isPointStage(stage('first-era-paint', 0))).toBe(true);
+    expect(isPointStage(stage('app-start', 0))).toBe(true);
+    expect(isPointStage(stage('manifest', 0))).toBe(false);
+    expect(isPointStage(stage('first-era-paint', 3))).toBe(false);
+  });
+
+  it('matches the server list (contract with /api/feedback)', () => {
+    expect([...POINT_STAGES]).toEqual([...SERVER_POINT_STAGES]);
   });
 });
 
