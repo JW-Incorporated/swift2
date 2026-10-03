@@ -1,0 +1,41 @@
+{
+  "source": "origin/main (d3259942) next build, .next/static/chunks/*.css, @font-face '<family> Fallback' rules emitted by next/font/google",
+  "faces": {
+    "Inter": {
+      "src": "Arial",
+      "ascent": 90.44,
+      "descent": 22.52,
+      "lineGap": 0,
+      "sizeAdjust": 107.12
+    },
+    "Playfair Display": {
+      "src": "Times New Roman",
+      "ascent": 97.25,
+      "descent": 22.56,
+      "lineGap": 0,
+      "sizeAdjust": 111.26
+    },
+    "Special Elite": {
+      "src": "Arial",
+      "ascent": 60,
+      "descent": 25.33,
+      "lineGap": 0,
+      "sizeAdjust": 117.2
+    },
+    "Dancing Script": {
+      "src": "Arial",
+      "ascent": 112.99,
+      "descent": 34.39,
+      "lineGap": 0,
+      "sizeAdjust": 81.43
+    },
+    "Bodoni Moda": {
+      "src": "Times New Roman",
+      "ascent": 98.5,
+      "descent": 35.02,
+      "lineGap": 0,
+      "sizeAdjust": 114.22
+    }
+  },
+  "preloadedFaces": 6
+}

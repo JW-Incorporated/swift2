@@ -1,4 +1,5 @@
 @import '../../web/app/globals.css';
+@import '../../../packages/ui/fonts/fonts.dom.css';
 @source '../../web';
 @source '../../../packages/ui/src';
 

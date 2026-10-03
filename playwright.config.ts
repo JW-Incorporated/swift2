@@ -15,8 +15,8 @@ const BASE_URL = process.env.BASE_URL ?? 'https://swift2-web-nine.vercel.app';
 
 export default defineConfig({
   testDir: './e2e',
-  // e2e/parity is the One UI visual-parity harness; it has its own config.
-  testIgnore: '**/parity/**',
+  // e2e/parity (visual parity) and e2e/perf (perf gate) each have their own config.
+  testIgnore: ['**/parity/**', '**/perf/**'],
   // Smoke tests hit a live network; give async fetches/animations room but keep
   // the whole run snappy.
   timeout: 45_000,

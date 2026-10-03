@@ -1,11 +1,13 @@
-import { mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CANONICAL_ORIGIN } from '../../apps/web/lib/canonical-origin';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { expect, test as base, type Page, type TestInfo } from '@playwright/test';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const LOCAL_HOSTS = new Set(['127.0.0.1', 'localhost']);
+export const ERA_ART_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || CANONICAL_ORIGIN;
 const FIXED_TIME = new Date('2026-01-01T12:00:00Z');
 const A_PORT = Number(process.env.PARITY_A_PORT ?? 4174);
 const B_PORT = Number(process.env.PARITY_PORT ?? 4173);
@@ -100,6 +102,16 @@ export const test = base.extend<{ guard: void }>({
           return route.continue();
         }
         if (['data:', 'blob:', 'about:'].includes(url.protocol)) return route.continue();
+        const era = url.origin === ERA_ART_ORIGIN ? /^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
+        if (era) {
+          // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
+          const file = resolve(repo, 'apps/web/public/eras', era[1]!);
+          if (!existsSync(file)) {
+            problems.push(`missing era asset ${era[1]}`);
+            return route.fulfill({ status: 404 });
+          }
+          return route.fulfill({ status: 200, contentType: 'image/png', body: readFileSync(file) });
+        }
         if (req.resourceType() === 'image') {
           externalImages.get(page)?.add(url.href);
           return route.fulfill({ status: 200, contentType: 'image/png', body: PLACEHOLDER_PNG });
@@ -145,8 +157,29 @@ export async function openRoute(page: Page, side: Side, route: Route, inset?: st
   await settle(page, route.root);
 }
 
+/** The short static /support page on side a: its footer is the stable place to capture the web footer (the home stream is ~67k px and grows lazily). */
+export const FOOTER_SELECTOR = 'footer';
+export async function openSupportFooter(page: Page): Promise<void> {
+  await page.goto(`${BASE.a}/support`);
+  await page.addStyleTag({ url: FONT_CSS_PATH });
+  await page.evaluate(async () => {
+    await document.fonts.load('16px "ParityFont"');
+    await document.fonts.ready;
+  });
+  expect(await page.evaluate(() => document.fonts.check('16px "ParityFont"'))).toBe(true);
+  await expect(page.locator(FOOTER_SELECTOR).first()).toBeVisible();
+  await page.waitForFunction((sel) => {
+    const el = document.querySelector(sel);
+    return !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'));
+  }, FOOTER_SELECTOR);
+  await page.locator(FOOTER_SELECTOR).first().scrollIntoViewIfNeeded();
+  await settle(page, FOOTER_SELECTOR);
+  await quiet(page, { root: FOOTER_SELECTOR });
+  await settle(page, FOOTER_SELECTOR);
+}
+
 /** Hydration effects (client-only text) land after React owns the DOM: wait until the root's text and size hold still. */
-async function quiet(page: Page, route: Route): Promise<void> {
+async function quiet(page: Page, route: { root: string }): Promise<void> {
   await page.waitForFunction(
     (sel) => {
       const w = window as unknown as { __quiet?: { sig: string; n: number } };
@@ -280,6 +313,21 @@ function captureCss(r: string): string {
 export async function captureViewport(page: Page): Promise<Buffer> {
   await imagesReady(page, 'body');
   return page.screenshot({ scale: 'css' });
+}
+
+export type Clip = { x: number; y: number; width: number; height: number };
+
+/** Bounding box of one element in page coordinates (feed it back to captureElement to hold the clip fixed across a mutation). */
+export async function elementBox(page: Page, selector: string): Promise<Clip> {
+  const box = await page.locator(selector).first().boundingBox();
+  if (!box) throw new Error(`parity: ${selector} has no box`);
+  return box;
+}
+
+/** PNG clipped to an element's bounding box (or a given clip), so the pixel ratio applies to that small area, not the whole viewport. */
+export async function captureElement(page: Page, selector: string, clip?: Clip): Promise<Buffer> {
+  await imagesReady(page, 'body');
+  return page.screenshot({ clip: clip ?? (await elementBox(page, selector)), scale: 'css' });
 }
 
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */

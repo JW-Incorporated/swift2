@@ -1,7 +1,8 @@
 import type { NextRequest } from 'next/server';
 
 import { renderShareCard } from '@/lib/longlive/share-card';
-import { canonicalShareCardPath, parseShareCardRequest } from '@/lib/longlive/share-card-spec';
+import { canonicalShareCardPath } from '@/lib/longlive/share-card-spec';
+import { parseShareCardRequestFromModules } from '@/lib/longlive/share-card-spec.server';
 import '../../../lib/longlive/vault-wiring';
 
 // W9 share cards: a deterministic PNG of site content (a moment, an era, or a
@@ -17,7 +18,7 @@ export const runtime = 'nodejs';
 export function GET(req: NextRequest): Response {
   const url = new URL(req.url);
   try {
-    const request = parseShareCardRequest(url);
+    const request = parseShareCardRequestFromModules(url);
     const canonical = canonicalShareCardPath(request);
     if (url.pathname + url.search !== canonical) {
       // Redirects are cheap and carry no render, so only browsers keep them.

@@ -14,7 +14,7 @@ import {
   Users,
   ShoppingBag,
 } from 'lucide-react';
-import Link from 'next/link';
+import { useHost, useReader } from '@swift2/ui';
 import { cn } from '@/lib/utils';
 import { getEra, getThread } from '@swift2/experience';
 import { isInAppDocument, postToNativeApp } from '@/lib/longlive/in-app';
@@ -26,6 +26,8 @@ import { shareTarget as share } from '@/lib/longlive/share-payload';
 import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 export function TopBar() {
+  const { Link } = useHost();
+  const q = useReader();
   const { mode, eraId, lensId } = useAppState();
   const { setMode, setSelectorOpen, setSearchOpen, goHome } = useAppActions();
   const era = getEra(eraId);
@@ -152,7 +154,7 @@ export function TopBar() {
             title="Share"
             disabled={shareTarget == null}
             onClick={() => {
-              if (shareTarget) void share(shareTarget);
+              if (shareTarget) void share(shareTarget, q);
             }}
           >
             <Share2 />

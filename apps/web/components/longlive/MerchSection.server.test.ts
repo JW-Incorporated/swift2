@@ -14,6 +14,10 @@ vi.mock('@/lib/longlive/merch', () => ({
   },
   newDrops,
 }));
+vi.mock('@swift2/ui', () => ({
+  ReaderExtensionsProvider: ({ children }: { children: unknown }) => children,
+  useMerch: () => ({ officialStore: [{ url: 'https://example.com/new-drop' }], fanMade: [], shopTheLook: [] }),
+}));
 vi.mock('@/lib/longlive/shop', () => ({ hasAffiliateMerch: () => false, SHOP_DISCLOSURE: '' }));
 vi.mock('@/lib/longlive/section-jump', () => ({ suggestLinkSectionId: () => 'suggest-link' }));
 vi.mock('./SubmitLinkForm', () => ({ SubmitLinkForm: () => null }));
@@ -23,11 +27,11 @@ vi.mock('./merch/MerchStyleSection', () => ({ MerchStyleSection: () => null }));
 vi.mock('./merch/MerchEmptyPanel', () => ({ MerchEmptyPanel: () => null }));
 vi.mock('./merch/MerchCard', () => ({ MerchCard: () => null }));
 
-import { MerchSection } from './MerchSection';
+import { MerchSectionBody } from './MerchSection';
 
 describe('MerchSection new drops', () => {
   it('does not calculate time-sensitive drops during server rendering', () => {
-    const html = renderToStaticMarkup(createElement(MerchSection));
+    const html = renderToStaticMarkup(createElement(MerchSectionBody));
 
     expect(newDrops).not.toHaveBeenCalled();
     expect(html).not.toContain('Just landed');

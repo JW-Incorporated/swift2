@@ -9,6 +9,7 @@
 import './reader-spike.css';
 import { useEffect, useRef, useState, type ComponentType } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
+import { UI_PACKAGE_VERSION } from '@swift2/ui';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
 import { describeSnapshotSafe, snapshotFromEnvelope } from './spike/snapshot';
@@ -106,13 +107,13 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
           text = read.text;
         }
         if (!text) throw new Error('bundle cache unreadable');
-        const { snapshot, version } = snapshotFromEnvelope(text, { eraVideoFeed });
+        const { core, extensions, version } = snapshotFromEnvelope(text, { eraVideoFeed });
         probe.report.version = version;
-        const described = await describeSnapshotSafe(snapshot);
+        const described = await describeSnapshotSafe(core, extensions);
         probe.report.snapshot = described.snapshot;
         if (described.error) probe.report.error = described.error;
-        fill(snapshot);
-        const reader = loadReader();
+        fill(core);
+        const reader = loadReader(core, extensions);
         setReader(() => reader);
         void checkMarkers(version, probe);
       } catch (e) {
@@ -159,6 +160,11 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   }, [Reader]);
 
   if (failed) return <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>;
-  if (!Reader) return <div style={{ padding: 16, color: '#fff' }}>Loading...</div>;
+  if (!Reader)
+    return (
+      <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
+        Loading...
+      </div>
+    );
   return <Reader backTick={backTick} onBack={(r) => void propsRef.current.reportBack?.(r)} />;
 }

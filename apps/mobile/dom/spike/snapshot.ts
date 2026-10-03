@@ -1,8 +1,18 @@
 // WP0.5b: cache envelope -> ReaderSnapshot. The native loader stores the
 // `last-good` record as JSON `{ manifest, files }` (packages/content load.ts);
 // this unwraps it and builds the snapshot in-webview (C6).
-import { fromBundle, hashSnapshot, type BundleLike } from '@swift2/experience/reader-snapshot';
-import type { ReaderSnapshot, ReaderSnapshotDeps } from '@swift2/experience/reader-snapshot';
+import {
+  attachExtensions,
+  extensionsFromBundle,
+  fromBundleCore,
+  hashSnapshot,
+  type BundleLike,
+} from '@swift2/experience/reader-snapshot';
+import type {
+  ReaderSnapshotCore,
+  ReaderSnapshotDeps,
+  ReaderSnapshotExtensions,
+} from '@swift2/experience/reader-snapshot';
 
 export function unwrapEnvelope(text: string): BundleLike {
   const rec = JSON.parse(text) as Partial<BundleLike> | null;
@@ -15,19 +25,25 @@ export function unwrapEnvelope(text: string): BundleLike {
 
 export function snapshotFromEnvelope(text: string, deps: ReaderSnapshotDeps) {
   const bundle = unwrapEnvelope(text);
-  return { snapshot: fromBundle(bundle, deps), version: bundle.manifest.bundleVersion };
+  return {
+    core: fromBundleCore(bundle, deps),
+    extensions: extensionsFromBundle(bundle),
+    version: bundle.manifest.bundleVersion,
+  };
 }
 
 /** The hash is diagnostics only: a throw must not stop the reader mounting, so it becomes a recorded error. */
-export async function describeSnapshotSafe(snapshot: ReaderSnapshot) {
+export async function describeSnapshotSafe(core: ReaderSnapshotCore, extensions: ReaderSnapshotExtensions) {
   try {
-    return { snapshot: await describeSnapshot(snapshot), error: null as string | null };
+    return { snapshot: await describeSnapshot(core, extensions), error: null as string | null };
   } catch (e) {
     return { snapshot: null, error: `snapshot hash: ${e instanceof Error ? e.message : String(e)}` };
   }
 }
 
-export async function describeSnapshot(snapshot: ReaderSnapshot) {
+/** Hashing needs all 13 domains, so the extensions are attached first; a core-only snapshot is never hashed. */
+export async function describeSnapshot(core: ReaderSnapshotCore, extensions: ReaderSnapshotExtensions) {
+  const snapshot = attachExtensions(core, extensions);
   const d = snapshot.domains;
   const { hash } = await hashSnapshot(snapshot);
   const items = d.eras.reduce((n, e) => n + (d.content[e.id]?.length ?? 0), 0);

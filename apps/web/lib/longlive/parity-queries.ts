@@ -1,0 +1,33 @@
+/** Fixed query set for the frozen-fixture search golden (every result group; includes tie-break cases). */
+export const PARITY_QUERIES = [
+  'love story',
+  'fearless',
+  'fifteen',
+  'the fate of ophelia',
+  'ophelia',
+  'elizabeth taylor',
+  'father figure',
+  'showgirl',
+  'grammys',
+  'liner note',
+  'anagram',
+  'vault',
+  'home video',
+  'orange',
+  'change',
+  'new heights',
+  'taylor',
+  'love',
+  'the',
+  'era',
+  'a',
+  'e',
+  'best day',
+  'secret',
+  'zzzz no such thing',
+  'Hey Stephen!',
+  'FEARLESS  (Taylor’s Version)',
+  'blank spaces',
+] as const;
+
+export const PARITY_MODES = ['default', 'all'] as const;

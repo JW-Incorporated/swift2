@@ -29,6 +29,7 @@
  */
 
 import { useMemo, useState } from 'react';
+import { useReader } from '@swift2/ui';
 import { confirmedEggs, currentTheories, type BoardItem } from '@/lib/longlive/clown-board';
 import { useLiveTheories } from '@/lib/longlive/use-live-theories';
 import { sortByHeatDesc } from '@/lib/longlive/live-theories';
@@ -79,8 +80,9 @@ export function ClownBoard({ onSelect }: ClownBoardProps) {
   // Mount-time only, matching Clownbot.tsx's `now` pattern: computing this
   // during render would differ between server and client and risk a
   // hydration mismatch (currentTheories clamps era-end dates to `now`).
+  const q = useReader();
   const now = useMemo(() => new Date(), []);
-  const theories = useMemo(() => currentTheories(now), [now]);
+  const theories = useMemo(() => currentTheories(now, q.theoriesForEra), [now, q]);
   // Knowledge-engine Stage 7: `live_theory` rows, hottest first, rendered as
   // an additional live block above the static "Most recent" list — pure
   // data render, zero model calls (J2). Empty when the fetch fails or (the
@@ -98,7 +100,7 @@ export function ClownBoard({ onSelect }: ClownBoardProps) {
       })),
     [liveBoard.theories],
   );
-  const allEggs = useMemo(() => confirmedEggs(), []);
+  const allEggs = useMemo(() => confirmedEggs(q.theoriesForEra), [q]);
   // Only era-resolved eggs are ever shown or counted, so the "N decoded" /
   // "Show all N" numbers always match what's on screen (see header comment).
   const groupableEggs = useMemo(() => allEggs.filter((item) => item.era !== undefined), [allEggs]);

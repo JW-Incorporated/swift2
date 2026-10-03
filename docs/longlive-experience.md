@@ -20,6 +20,8 @@ body, but any unsuppressed authored photo appears above it in a full-width 16:10
 frame. Article length and later arrivals must not shrink that photo to an icon.
 Image-free compact rows, media/hero scoring, and video-image suppression are unchanged.
 
+**Reader snapshot provider (One UI WP2.2-B):** `components/longlive/LongLive.tsx` mounts `WebReaderSnapshotProvider` (`lib/longlive/reader-snapshot-provider.tsx`) outermost, around `AppProvider`. It builds one CORE-only `ReaderSnapshot` per instance with `fromBakedCore(bakedModules())` (merch and songMoods attach later, in the merch chunk, via `ReaderExtensionsProvider`); `useReader()` from `@swift2/ui` exposes pure accessors over it (`createReaderQueries`). The search index is the snapshot's own `domains.searchIndex`; the web has no index builder of its own. The synchronous module accessors still serve every other caller until WP2.2-C moves them.
+
 ## 1. The one-paragraph mental model
 
 The app is a single client-rendered experience (`app/page.tsx` → `<LongLive/>`)
@@ -733,6 +735,29 @@ constellation.
 ---
 
 ## 9. Current state / known gaps
+
+### Reader data flow (One UI WP2.2)
+
+- The web reader reads content only through the `ReaderSnapshot`: the web
+  provider (`lib/longlive/reader-snapshot-provider.tsx`) builds the CORE
+  snapshot from `baked-modules.ts` (`fromBakedCore`) and exposes it through
+  the `@swift2/ui` context; components call `useReader()` (or
+  `createReaderQueries`) and never import the content modules.
+- Extension domains (merch, songMoods) attach in the lazy merch chunk via
+  `ReaderExtensionsProvider` (`@swift2/ui`); components read them with
+  `useMerch()` / `useSongMoods()`. The main route never holds them, and no
+  component is allow-listed in `eslint.config.mjs`.
+- Server-only code (API routes, `*.server.ts`, `vault-wiring.ts`) may still
+  use the module-global accessors and injected wrappers; shared helpers take
+  their data as a required parameter.
+- Enforcement: `eslint.config.mjs` bans the old accessors, baked/`*.generated`
+  modules and injected `@swift2/experience` wrappers in
+  `apps/web/components/longlive/**` and `packages/ui/**` (tests and
+  `*.server.*` exempt); `packages/ui/src/reader-lint-ban.test.ts` proves it.
+- Out of scope (PM ruling 2), still module-global readers: server API routes
+  (`app/api/{mood,og,share-card}` via `vault-wiring.ts`), native screens
+  (`apps/mobile/lib/*-data.ts`) and the WP0.5 spike. They retire with native
+  retirement (WP2.13/C5).
 
 - Content in `content.ts` is a mix of hand-curated items plus a generated
   sync (`content-vault.generated.ts`, `VAULT_RAW`) produced by

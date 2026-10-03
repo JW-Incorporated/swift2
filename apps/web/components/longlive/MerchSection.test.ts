@@ -8,6 +8,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import type { MerchItem } from '@/lib/longlive/merch';
 import { MerchCard } from './merch/MerchCard';
+import { TestHostProvider } from '@/lib/test-host';
+import { WebReaderSnapshotProvider } from '@/lib/longlive/reader-snapshot-provider';
 
 const { buildShopUrl, isAffiliateListing } = vi.hoisted(() => ({
   buildShopUrl: vi.fn((listing: { url: string }, context: { bucket: string }) =>
@@ -58,7 +60,7 @@ describe('MerchCard alt-piece clarity', () => {
     const altNote =
       'The exact custom Etro gown was a one-off runway piece — this is the closest current silhouette.';
     const item: MerchItem = { ...baseItem, isAlternative: true, altNote };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(withoutTitleAttrs(html)).toContain(altNote);
     expect(html).toContain('We found something similar');
@@ -66,7 +68,7 @@ describe('MerchCard alt-piece clarity', () => {
 
   it('does not show the "similar" warning for an exact-piece item', () => {
     const item: MerchItem = { ...baseItem };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(html).toContain('The exact piece');
     expect(html).not.toContain('We found something similar');
@@ -74,7 +76,7 @@ describe('MerchCard alt-piece clarity', () => {
 
   it('uses the scored match tier for the visible badge and alternative disclosure', () => {
     const item: MerchItem = { ...baseItem, matchTier: 'close', altNote: 'A close verified match.' };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(html).toContain('close match');
     expect(html).toContain('We found something similar');
@@ -82,7 +84,7 @@ describe('MerchCard alt-piece clarity', () => {
 
   it('labels standalone official items as official, not as an exact look match', () => {
     const item: MerchItem = { ...baseItem, category: 'official-store' };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(html).toContain('Official item');
     expect(html).not.toContain('The exact piece');
@@ -94,7 +96,7 @@ describe('MerchCard alt-piece clarity', () => {
       category: 'official-store',
       altListing: { retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B123' },
     };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(buildShopUrl).toHaveBeenCalledWith(item.altListing, { bucket: 'official' });
     expect(isAffiliateListing).toHaveBeenCalledWith(item.altListing, { bucket: 'official' });
@@ -104,7 +106,7 @@ describe('MerchCard alt-piece clarity', () => {
 
   it('emits schema.org Product JSON-LD for every card (SPEC.merch-autonomy.md §9)', () => {
     const item: MerchItem = { ...baseItem, imageUrl: 'https://www.etro.com/img/gown.jpg' };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(html).toContain('"@type":"Product"');
     expect(html).toContain('"name":"Silk Gown"');
@@ -114,7 +116,7 @@ describe('MerchCard alt-piece clarity', () => {
 
   it('omits the offers block when the item has no fresh machine-verified price/stock', () => {
     const item: MerchItem = { ...baseItem };
-    const html = renderToStaticMarkup(createElement(MerchCard, { item }));
+    const html = renderToStaticMarkup(createElement(TestHostProvider, null, createElement(WebReaderSnapshotProvider, null, createElement(MerchCard, { item }))));
 
     expect(html).toContain('"@type":"Product"');
     expect(html).not.toContain('"offers"');

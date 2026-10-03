@@ -4,7 +4,7 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import { createPortal } from 'react-dom';
-import Image from 'next/image';
+import { useHost, useReader } from '@swift2/ui';
 import {
   X,
   Sparkles,
@@ -28,7 +28,6 @@ import {
   useProgressActions,
 } from '@/lib/longlive/store';
 import { isPointerOutsideContainedImage } from '@/lib/longlive/contain-fit';
-import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@swift2/experience';
 import { getThread } from '@swift2/experience';
 import {
@@ -288,6 +287,7 @@ function ImageKindBadge({ kind }: { kind: Exclude<ImageKind, 'primary'> }) {
 // (kind badge / reference note), caption, and credit. Same figure the old
 // trailing gallery used, now placed inline between paragraphs (#XYZ v1).
 function MomentFigure({ img, onOpen }: { img: ImageRef; onOpen: () => void }) {
+  const { Image } = useHost();
   return (
     <figure className="era-card overflow-hidden rounded-2xl border">
       {/* Tap to open the full-screen zoomable viewer (#525 follow-up); the
@@ -484,6 +484,9 @@ function MomentLightbox({
 }
 
 export function MomentDetail() {
+  const q = useReader();
+  const { Image } = useHost();
+  const { getContentItem } = useReader();
   const { openItemId } = useAppState();
   const { closeItem, goHome, openItem } = useAppActions();
   const { progress } = useProgress();
@@ -555,7 +558,7 @@ export function MomentDetail() {
   const trail = resolveMotifTrail(item.relatedIds);
   // Moment -> moment cross-links, resolved separately: resolveMotifTrail
   // handles only motif:/egg: and returns null for `moment:` ids.
-  const related = resolveRelatedMoments(item.relatedIds, item.id);
+  const related = resolveRelatedMoments(getContentItem, item.relatedIds, item.id);
   // Hero = the primary image (else the first one); the rest form the gallery.
   // When even the hero is a stand-in (no primary exists) it gets the same
   // honest labeling the gallery uses.
@@ -639,7 +642,7 @@ export function MomentDetail() {
         <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
       </button>
       <button
-        onClick={() => void shareTargetNow({ kind: 'item', itemId: item.id })}
+        onClick={() => void shareTargetNow({ kind: 'item', itemId: item.id }, q)}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"
         aria-label="Share this moment"
       >
@@ -1091,6 +1094,7 @@ function RelatedMomentsRail({
   related: RelatedMoment[];
   onOpen: (id: string) => void;
 }) {
+  const { Image } = useHost();
   if (related.length === 0) return null;
 
   return (

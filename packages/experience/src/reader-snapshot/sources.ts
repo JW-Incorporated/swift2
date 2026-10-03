@@ -1,36 +1,46 @@
-import type {
-  ContentBundleFile,
-  EraSecretsBundleFile,
-  MerchCatalogue,
-  SongMoodsBundleFile,
-  TheoriesBundleFile,
-  TracksBundleFile,
-  VideosBundleFile,
+import {
+  LOAD_SOURCE,
+  type ContentBundleFile,
+  type EraSecretsBundleFile,
+  type LoadSource,
+  type MerchCatalogue,
+  type SongMoodsBundleFile,
+  type TheoriesBundleFile,
+  type TracksBundleFile,
+  type VideosBundleFile,
 } from '@swift2/content';
 import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
-import type { SearchDoc } from '../search-index';
-import { buildReaderSnapshot } from './build';
-import type { ReaderSnapshot, ReaderSnapshotDeps, ReaderSnapshotInputs, ReaderSnapshotState } from './types';
+import { attachExtensions, buildReaderSnapshot, buildReaderSnapshotCore } from './build';
+import type {
+  ReaderSnapshot,
+  ReaderSnapshotCore,
+  ReaderSnapshotCoreInputs,
+  ReaderSnapshotDeps,
+  ReaderSnapshotExtensions,
+  ReaderSnapshotInputs,
+  ReaderSnapshotState,
+} from './types';
 
 /** The web's generated/derived modules (`apps/web/lib/longlive/*`), passed in so this package never imports app code. */
-export interface BakedModules {
+export interface BakedCoreModules {
   ERAS: readonly Era[];
   CONTENT: readonly ContentItem[];
   MILESTONES: readonly Milestone[];
-  MERCH_CATALOGUE: MerchCatalogue;
-  SONG_MOODS: SongMoodsBundleFile['songs'];
   tracksForEra(eraId: EraId): TrackNote[];
   theoriesForEra(eraId: EraId): TheoryNote[];
   allVideoRecordsForEra(eraId: EraId): VideoNote[];
   eraSecretsForEra(eraId: EraId): EraSecret[];
-  getSearchIndex(): SearchDoc[];
 }
 
-/** Web path. Reads the web's accessors, then wires those same inputs itself for the derived domains. */
-export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderSnapshot {
+export interface BakedModules extends BakedCoreModules {
+  MERCH_CATALOGUE: MerchCatalogue;
+  SONG_MOODS: SongMoodsBundleFile['songs'];
+}
+
+function coreInputsFromBaked(mods: BakedCoreModules): ReaderSnapshotCoreInputs {
   const byEra = <T>(read: (id: EraId) => T) =>
     Object.fromEntries(mods.ERAS.map((e) => [e.id, read(e.id)])) as Partial<Record<EraId, T>>;
-  const inputs: ReaderSnapshotInputs = {
+  return {
     eras: [...mods.ERAS],
     content: [...mods.CONTENT],
     milestones: [...mods.MILESTONES],
@@ -38,11 +48,20 @@ export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderS
     theories: byEra(mods.theoriesForEra),
     videos: byEra(mods.allVideoRecordsForEra),
     eraSecrets: byEra(mods.eraSecretsForEra),
+  };
+}
+
+/** Web path, core only: no merch or songMoods, so the caller need not import those chunks. */
+export function fromBakedCore(mods: BakedCoreModules, deps: ReaderSnapshotDeps): ReaderSnapshotCore {
+  return buildReaderSnapshotCore(coreInputsFromBaked(mods), deps, { kind: 'baked' }, 'ready');
+}
+
+/** Web path, full. Reads the web's accessors, then wires those same inputs itself for the derived domains. */
+export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderSnapshot {
+  return attachExtensions(fromBakedCore(mods, deps), {
     merch: mods.MERCH_CATALOGUE,
     songMoods: mods.SONG_MOODS,
-    searchIndex: mods.getSearchIndex(),
-  };
-  return buildReaderSnapshot(inputs, deps, { kind: 'baked' }, 'ready');
+  });
 }
 
 /** The parts of `@swift2/content`'s `LoadedBundle` this path reads. */
@@ -51,7 +70,7 @@ export interface BundleLike {
   /** Manifest entry name -> parsed file (`eras`, `content:<eraId>`, `tracks`, ...). */
   files: Record<string, unknown>;
   stale?: boolean;
-  source?: string;
+  source?: LoadSource;
 }
 
 function perEra<F extends { eraId: string }, T>(
@@ -79,12 +98,32 @@ export function inputsFromBundle(bundle: BundleLike): ReaderSnapshotInputs {
   };
 }
 
-/**
- * App path: builds from a loaded D1 bundle. Providers are installed for the
- * duration of the build only (`withProviders`).
- */
+/** Loader outcome to snapshot state: last-good-after-data-error is `error` (last-good shown, refresh failed). */
+function stateFromBundle(bundle: BundleLike): ReaderSnapshotState {
+  if (bundle.source === LOAD_SOURCE.offlineLastGood) return 'offline';
+  if (bundle.source === LOAD_SOURCE.lastGoodAfterDataError) return 'error';
+  return bundle.stale ? 'stale' : 'ready';
+}
+
+/** App path, core only: a loaded D1 bundle without the merch and songMoods domains. */
+export function fromBundleCore(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshotCore {
+  return buildReaderSnapshotCore(
+    inputsFromBundle(bundle),
+    deps,
+    { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion },
+    stateFromBundle(bundle),
+  );
+}
+
+/** The extension domains of a loaded bundle, for `attachExtensions`. */
+export function extensionsFromBundle(bundle: BundleLike): ReaderSnapshotExtensions {
+  const { merch, songMoods } = inputsFromBundle(bundle);
+  return { merch, songMoods };
+}
+
+/** App path: builds from a loaded D1 bundle; reads only the bundle, no module-global provider. */
 export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshot {
   const inputs = inputsFromBundle(bundle);
-  const state: ReaderSnapshotState = bundle.source === 'offline-last-good' ? 'offline' : bundle.stale ? 'stale' : 'ready';
+  const state = stateFromBundle(bundle);
   return buildReaderSnapshot(inputs, deps, { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion }, state);
 }
