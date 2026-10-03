@@ -215,6 +215,8 @@ public launch.
     consecutive launches, clear the C4 override and mount the native
     screens for this launch and the next.
   - Works with no network.
+  - A remote `sharedUi` flag flip is evaluated at launch only (no live unmount).
+  - The brief native flash while the gate is `pending` is deferred; check it in S4.
 - **Accept:** unit tests for the timeout, the crash streak and recovery.
   The S4 checklist includes a forced-failure check in airplane mode.
 - **If Expo DOM can't do this on SDK 57:** stop, write it up, and take it
