@@ -2,21 +2,26 @@
 // version label). Shows load-stage timings + device facts, sends a `[diag]`
 // report, and holds the C4 "Force shared UI" stub switch (wired in WP0.4).
 import { useEffect, useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, Share, StyleSheet, Switch, Text, View } from 'react-native';
 import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import {
   getForceDomFailure,
   getForceSharedUi,
+  getUseTestPage,
   setForceDomFailure,
   setForceSharedUi,
+  setUseTestPage,
 } from '../lib/diagnostics-override';
+import { latestProbeJson } from '../dom/spike/probe';
+import { readerSpikeLines } from '../lib/dom-probe-store';
 import { sendDiagReport } from '../lib/diagnostics-send';
 import { watchdogLines, type DomFailureMode, type WatchdogRecord } from '../lib/watchdog';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const [forceShared, setForceShared] = useState(false);
+  const [testPage, setTestPage] = useState(false);
   const [failMode, setFailMode] = useState<DomFailureMode>('off');
   const [wd, setWd] = useState<WatchdogRecord | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -25,6 +30,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   useEffect(() => {
     if (!visible) return;
     void getForceSharedUi().then(setForceShared);
+    void getUseTestPage().then(setTestPage);
     void getForceDomFailure().then(setFailMode);
     void loadWatchdogRecord().then(setWd);
   }, [visible]);
@@ -81,6 +87,16 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
             <Text style={styles.fact}>Force shared UI (this device)</Text>
             <Switch value={forceShared} onValueChange={toggle} />
           </View>
+          <View style={styles.switchRow}>
+            <Text style={styles.fact}>Use WP0.4 test page, not ReaderSpike (next launch)</Text>
+            <Switch
+              value={testPage}
+              onValueChange={(on) => {
+                setTestPage(on);
+                void setUseTestPage(on);
+              }}
+            />
+          </View>
           <Text style={styles.fact}>Force DOM failure (applies next launch)</Text>
           <View style={styles.modeRow}>
             {(['off', 'throw', 'hang'] as const).map((mode) => (
@@ -101,6 +117,19 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               {line}
             </Text>
           ))}
+          <Text style={styles.section}>Reader spike</Text>
+          {readerSpikeLines().map((line) => (
+            <Text key={line} style={styles.fact}>
+              {line}
+            </Text>
+          ))}
+          <Pressable
+            onPress={() => void Share.share({ message: latestProbeJson() ?? '{}' })}
+            style={styles.button}
+            accessibilityRole="button"
+          >
+            <Text style={styles.buttonText}>Share probe JSON</Text>
+          </Pressable>
           <Pressable onPress={send} style={styles.button} accessibilityRole="button">
             <Text style={styles.buttonText}>
               {status === 'sending' ? 'Sending…' : 'Send report'}

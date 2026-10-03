@@ -1,0 +1,33 @@
+@import '../../web/app/globals.css';
+@source '../../web';
+
+/* WP0.5b safe-area bridge. ReaderSpike writes --safe-top/right/bottom/left from
+   the native insets (the DOM webview's env() is not reliable on Android). Each
+   var falls back to the web's own env() when the bridge has not set it. The web
+   components hard-code env(safe-area-inset-*) in inline styles / utilities, so
+   the overrides below are !important and match what they emit. */
+body {
+  padding-top: var(--safe-top, 0px);
+  padding-left: var(--safe-left, 0px);
+  padding-right: var(--safe-right, 0px);
+}
+
+/* BottomNav: fixed, inset-x-0; its padding already clears the home indicator. */
+nav[aria-label='Primary'] {
+  padding-bottom: var(--safe-bottom, env(safe-area-inset-bottom)) !important;
+  padding-left: var(--safe-left, 0px) !important;
+  padding-right: var(--safe-right, 0px) !important;
+}
+
+/* LongLive's clearance spacer under the footer (height = bar + inset). */
+[style*='3.5rem + env(safe-area-inset-bottom)'] {
+  height: calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+}
+
+/* FeedbackButton floats above the bar. */
+[class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
+  bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+}
+[class~='bottom-[calc(8.5rem+env(safe-area-inset-bottom))]'] {
+  bottom: calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+}
