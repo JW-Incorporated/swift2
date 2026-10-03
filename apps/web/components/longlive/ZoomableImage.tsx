@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { Minus, Plus } from 'lucide-react';
 
 /**
@@ -74,6 +74,7 @@ export function ZoomableImage({
    *  cannot", on a viewer where double-click zoom already worked. */
   controls?: boolean;
 }) {
+  const { Image } = useHost();
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 

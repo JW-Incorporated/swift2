@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { ArrowRight, Compass } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
@@ -30,6 +30,7 @@ export function FromTheEras({
   heading?: string;
   limit?: number;
 }) {
+  const { Image } = useHost();
   const { openItem } = useAppActions();
   if (items.length === 0) return null;
   const shown = items.slice(0, limit);
