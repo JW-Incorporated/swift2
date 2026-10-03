@@ -707,6 +707,31 @@ describe('Facebook export orchestration', () => {
     expect(result.summary).not.toContain('Feed stunted');
   });
 
+  it('explains an extension that never connected, ids and counts only', async () => {
+    const result = await runExport({
+      root: 'C:/outside-repo',
+      groups: [group, { ...group, slug: 'group-b' }],
+      readLedger: vi.fn().mockResolvedValue({ groups: {} }),
+      writeLedger: vi.fn(),
+      collect: vi.fn().mockResolvedValue({
+        results: [
+          { slug: 'group-a', status: 'failed', reason: 'extension-never-connected' },
+          { slug: 'group-b', status: 'failed', reason: 'extension-never-connected' },
+        ],
+        actingPageId: null,
+      }),
+      findIssue: vi.fn().mockResolvedValue(70),
+      reportIssue: vi.fn(),
+    });
+    expect(result.results.map((r) => [r.slug, r.reason])).toEqual([
+      ['group-a', 'extension-never-connected'],
+      ['group-b', 'extension-never-connected'],
+    ]);
+    expect(result.summary).toContain('Extension never connected: Chrome opened the receiver page');
+    expect(result.summary).toContain('chrome://extensions');
+    expect(result.summary).not.toContain('collection aborted');
+  });
+
   it('stops the run on a stunted feed, skips later groups and says why', async () => {
     const gate = vi.fn();
     const result = await runExport({
