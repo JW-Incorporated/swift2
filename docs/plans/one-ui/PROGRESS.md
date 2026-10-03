@@ -563,7 +563,13 @@ allow-list from the ban) + land running. WP2.2 done once #4859 lands.
 1px rounded .era-card borders; main-vs-main flips 0↔27 too) + merch equal=false
 = variable-vs-static Bodoni face listing (pixels identical) → NOT a regression →
 **auto-merge re-enabled on #4847**. Tooling follow-up (tolerance ≤2, re-run on
-nonzero, face normalisation) executor waits for #4847 then opens a small PR. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+nonzero, face normalisation) executor waits for #4847 then opens a small PR.
+**05:41: ✅ WP2.2 COMPLETE** — **#4859 (E) MERGED** (merch/songMoods via
+ReaderExtensionsProvider in the merch chunk; merch components migrated to
+useReader + content-enrichment; allow-list removed; docs fixed). Home route
+gzip 1,278,783 B (merch absent). Open: #4862 (lint ban → lib/longlive client
+files; merch-filters TODO now clearable) reviewer landing; /support footer
+capture; font-compare tooling; G0 evidence pack committed (g0-evidence.md). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
