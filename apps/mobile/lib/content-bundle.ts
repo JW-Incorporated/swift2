@@ -47,7 +47,25 @@ export async function selfHealOnce(): Promise<void> {
   }
 }
 
-export async function loadContentBundle(): Promise<LoadedBundle> {
+let inFlight: Promise<LoadedBundle> | null = null;
+
+/**
+ * Concurrent callers share ONE in-flight load (the era stream mounts several
+ * sections at once). The slot clears on settle, success or failure, so the
+ * result is never cached: the next call after settlement re-checks freshness.
+ * Options are fixed in this module, so every caller's options are equal.
+ */
+export function loadContentBundle(): Promise<LoadedBundle> {
+  if (inFlight) return inFlight;
+  const run = loadOnce();
+  const slot = run.finally(() => {
+    if (inFlight === slot) inFlight = null;
+  });
+  inFlight = slot;
+  return slot;
+}
+
+async function loadOnce(): Promise<LoadedBundle> {
   let bundle: LoadedBundle;
   try {
     bundle = await loadBundle({
