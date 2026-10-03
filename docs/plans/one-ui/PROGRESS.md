@@ -525,7 +525,13 @@ existing; build id 0a1ef202…" → **submitted to Google Play internal (version
 the Android app from Play. **S2 (Android) ready for chat:** update from Play →
 open twice → diag panel shows build 18 + current update id → 5 cold (force-stop
 between) + 5 warm [diag] reports; pass bar PLAN §WP0.2 cold ≤2.5 s worst-of-5,
-warm ≤1 s; at: offsets must be real now (#4833). Then S4 (spike checklist). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+warm ≤1 s; at: offsets must be real now (#4833). Then S4 (spike checklist).
+**05:00:** **#4853 (WP2.3-B) MERGED** (adapted to A's string-boundary API:
+parseEnvelope(raw) for strings, parseEnvelopeValue for objects; 8660 tests).
+C #4855 gate fix 59bcfe57 (ack-gated flush; split client-ready/inbox/back) →
+verify-and-land agent (merge main, land). WP2.2-E launched (merch + songMoods
+via attachExtensions in their lazy chunk; mobile mirror; useReader typing →
+drop TrackGuide cast). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
