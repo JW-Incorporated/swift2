@@ -1,4 +1,4 @@
-import { bOnly, inspect, keyOf, newViolations, readBaseline, UPDATE, writeBaseline } from './a11y';
+import { bOnly, inspect, keyOf, newViolations, readBaseline, UPDATE, writeBaseline, type A11yFinding } from './a11y';
 import { expect, openRoute, ROUTES, test } from './helpers';
 
 // axe (wcag2a/wcag2aa) on both sides of each fixture route. Fails only on
@@ -9,7 +9,7 @@ test.describe.configure({ mode: 'serial' });
 for (const route of ROUTES) {
   test(`a11y: ${route.name}`, async ({ page }, testInfo) => {
     const project = testInfo.project.name;
-    const found = {} as Record<'a' | 'b', Awaited<ReturnType<typeof scan>>>;
+    const found = {} as Record<'a' | 'b', A11yFinding[]>;
     for (const side of ['a', 'b'] as const) {
       await openRoute(page, side, route);
       const { findings, passes } = await inspect(page);
