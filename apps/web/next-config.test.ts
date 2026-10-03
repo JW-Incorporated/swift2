@@ -34,6 +34,13 @@ describe('next.config headers() — content CORS (WP0.3b)', () => {
     expect(acao('/content/v1/eras.json')).toEqual(['*']);
   });
 
+  it('puts ACAO * on /vault/live/** and /api/share-card only (WP2.3-F)', () => {
+    expect(acao('/vault/live/folklore')).toEqual(['*']);
+    expect(acao('/api/share-card')).toEqual(['*']);
+    expect(acao('/vault/live-theories')).toEqual([]);
+    expect(acao('/vault/current/folklore')).toEqual([]);
+  });
+
   it('puts no ACAO on /api/* or HTML routes', () => {
     expect(acao('/api/feedback')).toEqual([]);
     expect(acao('/api/devices/x/prefs')).toEqual([]);

@@ -31,6 +31,14 @@ describe('webApiFetch', () => {
     expect(JSON.parse(JSON.stringify(out))).toEqual(out);
   });
 
+  it('forwards an optional AbortSignal to fetch', async () => {
+    const fetchMock = vi.fn(async () => new Response('{}'));
+    vi.stubGlobal('fetch', fetchMock);
+    const ac = new AbortController();
+    await webApiFetch({ method: 'POST', path: '/api/mood' }, { signal: ac.signal });
+    expect(fetchMock).toHaveBeenCalledWith('/api/mood', expect.objectContaining({ signal: ac.signal }));
+  });
+
   it('passes non-2xx statuses through without throwing', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response('nope', { status: 429 })));
     const out = await webApiFetch({ method: 'GET', path: '/api/devices/x/prefs' });

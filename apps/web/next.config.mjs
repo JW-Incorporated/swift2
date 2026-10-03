@@ -36,6 +36,17 @@ const nextConfig = {
         source: '/content/:path*',
         headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
       },
+      // Same rule for the Current tier's public read route and the share-card
+      // PNG (GET, cookie-less): the app's DOM host reads them cross-origin
+      // (One UI WP2.3-F). The rest of /api stays same-origin only.
+      {
+        source: '/vault/live/:path*',
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
+      },
+      {
+        source: '/api/share-card',
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
+      },
     ];
   },
 };
