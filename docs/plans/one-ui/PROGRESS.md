@@ -547,7 +547,13 @@ authorized: one shared post-parse funnel (object path = canonicalize →
 parseEnvelope(string)). **05:18:** fix → **#4860** (parseEnvelopeValue runs the
 whole-envelope checkParsedJson walk like the string path; object-path.test.ts
 pins the invariant; 457 tests) — auto-merge set; PM accepted without separate
-review (strictly narrows validation; CI typecheck gates). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+review (strictly narrows validation; CI typecheck gates).
+**05:27:** WP2.2-D → **#4861** (lint ban in components/longlive + packages/ui;
+merch allow-listed → #4859; root lint now covers components/longlive) →
+reviewer landing. #4847 synced (fc93da5d) but real-font compare now shows a
+**reproducible 27 px diff on home @1440** (card-corner marks; was 0 before sync;
+main-vs-main 0) + merch `fonts equal=false` → **PM DISABLED auto-merge on #4847**
+(founder rule 1) → researcher root-causing. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
