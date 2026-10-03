@@ -95,7 +95,16 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    (`MomentDetail.tsx` has no safe-area styles; the bridge in `reader-spike.css` only
    touches body padding, the nav and fixed bottom offsets, all behind the modal); a
    test pins that.
-4. Equivalence hash (above).
+   WP2.4-0 adds web-chrome baselines on side a, captured from `main` before the chrome
+   moves into `packages/ui`: `a-<route>-viewport.png` (whole viewport at scroll top with
+   TopBar, its timeline rail and BottomNav visible; `captureRoot` hides them) and
+   `a-home-topbar.png` (the TopBar element only, `captureElement`: the pixel ratio then
+   applies to the small area, because over a whole iPad viewport a 1px TopBar shift is
+   under `maxDiffPixelRatio`). They are new files only; no existing baseline was
+   regenerated. `negative.spec.ts` proves a pure 1px TopBar translate fails the TopBar
+   clip and a 1px TopBar growth fails the viewport capture. The footer is not captured:
+   it sits at the foot of a ~67k px lazily-growing stream and could not be clipped
+   stably (see WP2.4 notes).
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
@@ -138,9 +147,12 @@ change does not turn the run red. A change to the renderers, the sync format
 (`--apply` hash check fails) or the fixture does, until the fixture and baselines
 are regenerated deliberately.
 
-Asset gate: a missing side-b export asset is an HTTP 404 and fails the test. The only
-exception is the named allowlist in `serve.mjs` (`/eras/*.png`, borrowed from
-`apps/web/public`): app asset packaging is resolved in WP2.1 (TODO there).
+Asset gate: a missing side-b export asset is an HTTP 404 and fails the test; `serve.mjs`
+has no fallthrough. Era art is the one app-relative network asset: the DOM host's
+`resolveUrl` maps `/eras/x.png` to `https://www.longlivets.com/eras/x.png`, and the shared
+Playwright handler (`e2e/parity/helpers.ts`) fulfils that URL with the real bytes from
+`apps/web/public/eras` (not the grey stub, not recorded as an external image). S4:
+offline/airplane-mode era art in the app must be checked on a device.
 
 ## Updating baselines
 

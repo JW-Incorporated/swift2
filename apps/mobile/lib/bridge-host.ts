@@ -10,6 +10,7 @@ import {
   makeRes,
   negotiate,
   parseEnvelope,
+  parseEnvelopeValue,
   parseReady,
   resErr,
   resOk,
@@ -213,7 +214,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   function receive(raw: unknown): void {
     try {
       if (closed) return;
-      const parsed = parseEnvelope(raw);
+      const parsed = typeof raw === 'string' ? parseEnvelope(raw) : parseEnvelopeValue(raw);
       if (!parsed.ok) {
         if (!ready) return raise(`bridge-invalid envelope ${parsed.reason}`);
         onSignal('bridge-invalid', parsed.reason);

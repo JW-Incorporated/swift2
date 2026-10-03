@@ -4,7 +4,7 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
 import { createPortal } from 'react-dom';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import {
   X,
   Sparkles,
@@ -288,6 +288,7 @@ function ImageKindBadge({ kind }: { kind: Exclude<ImageKind, 'primary'> }) {
 // (kind badge / reference note), caption, and credit. Same figure the old
 // trailing gallery used, now placed inline between paragraphs (#XYZ v1).
 function MomentFigure({ img, onOpen }: { img: ImageRef; onOpen: () => void }) {
+  const { Image } = useHost();
   return (
     <figure className="era-card overflow-hidden rounded-2xl border">
       {/* Tap to open the full-screen zoomable viewer (#525 follow-up); the
@@ -484,6 +485,7 @@ function MomentLightbox({
 }
 
 export function MomentDetail() {
+  const { Image } = useHost();
   const { openItemId } = useAppState();
   const { closeItem, goHome, openItem } = useAppActions();
   const { progress } = useProgress();
@@ -1091,6 +1093,7 @@ function RelatedMomentsRail({
   related: RelatedMoment[];
   onOpen: (id: string) => void;
 }) {
+  const { Image } = useHost();
   if (related.length === 0) return null;
 
   return (

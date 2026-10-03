@@ -3,8 +3,13 @@
 Transport-neutral message contract between the DOM reader and the native host.
 Pure types plus pure validators; no dispatcher, no transport (that is WP2.3-B).
 
-- `parseEnvelope` returns `{ok, envelope} | {ok:false, reason}`; the payload must be
-  strict JSON (depth <= 32, serialized <= 256 KB). It never throws.
+- The boundary is a string (`postMessage` / `injectJavaScript` deliver strings);
+  validators parse then walk: length > 256 KB is invalid before anything else, then
+  `JSON.parse` in try, then a shape-walk of the plain parsed data.
+- `parseEnvelope(raw: string)` returns `{ok, envelope} | {ok:false, reason}`; the payload must be
+  strict JSON (depth <= 32). It never throws. Object-accepting entry points
+  (`parseEnvelopeValue`, `negotiate`, `parseReady`, `sanitizeApiRequest`) first run
+  `canonicalize` (stringify, length check, parse, all in try), then validate.
 - `ts` is informational and untrusted: never used for auth, ordering or dedup.
 - `isWebPath` / `isExternalUrl` (https only) / `sanitizeApiRequest` guard what a
   command may reach. `WebPath` and `ExternalUrl` are branded; only validators make them.
@@ -30,7 +35,7 @@ The dispatcher (WP2.3-B) must implement, and test:
    backwards after reload cannot get every id rejected. hwm >= MAX_SAFE_INTEGER - 1 is protocol-fatal.
    Assumes FIFO delivery per channel (WKWebView messageHandlers, Android
    `addJavascriptInterface`): an out-of-order lower id is rejected, not reordered.
-6. Every inbound envelope goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
+6. Every inbound envelope string goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
    payloads through `isWebPath`/`isExternalUrl`/`sanitizeApiRequest` before any handler runs.
 7. Pre-ready version negotiation against `NATIVE_SUPPORTED_RANGE`; out-of-range = protocol-fatal → watchdog strike (B: `onProtocolFatal`).
 8. `res` is unsequenced (no `seq`, never queued or replayed on ack/re-ready). A native request

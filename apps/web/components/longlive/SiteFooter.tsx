@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { useHost } from '@swift2/ui';
 import { useEffect, useState } from 'react';
 import { formatRelativeTime, contentGeneratedAt } from '@swift2/experience';
 import { LEGAL_LINKS } from '@/lib/longlive/legal';
@@ -17,6 +17,7 @@ const SOCIAL_ICONS: Record<SocialLink['id'], string> = {
 };
 
 export function SiteFooter() {
+  const { Link } = useHost();
   // Content-freshness label ("Vault refreshed 3 days ago"). Computed after
   // mount — relative time depends on the visitor's clock, so rendering it
   // during SSR would risk a hydration mismatch (same pattern as the scrubber

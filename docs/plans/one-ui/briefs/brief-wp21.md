@@ -3,6 +3,9 @@
 Sources: PLAN.md §WP2.1 (lines 306-325), §WP2.2, §WP2.4–2.13, Calls C1–C6, X1–X4;
 OPERATING-MODE.md §7, §9; PROGRESS.md 16:55 prep research.
 
+## PM ruling C (2026-10-03 02:26, from the font spike) - supersedes C font-loading steps
+Spike result: in the Expo DOM export, CSS url() fonts and JS-imported .woff2 both 404 (not emitted / path mismatch); data-URI @font-face works (part-1 precedent shared-ui-test.css:3-8); file:// fonts load fine in Chromium/WebKit when present. RULING: ONE generator script (packages/ui/scripts/build-fonts.mjs) produces the font CSS from the SAME latin-subset WOFF2 files: web = url() to self-hosted woff2 (apps/web/public or packages/ui assets) + preload Inter/Playfair; DOM host = data-URI @font-face (~270 KB woff2 / ~360 KB base64). Same bytes both sides = pixel parity. Do NOT use url()/asset imports in the DOM host. OTA size baseline bump is EXPECTED here - state the measured delta and this reason in the PR body (G1 condition 3). Add a test that the DOM CSS and web CSS reference the same font file hashes. Close the /eras/*.png parity allowlist in C or D (G1 condition 2). Peer react ^19 (02:24 ruling).
+
 ## FABLE REQUIRED (2026-10-02 19:00) — apply to the briefs before launch
 1. B: `apiFetch: ApiFetch` imported from `@swift2/content` (WP0.3b `(req: ApiRequest) => Promise<ApiResponse>`) — NOT `(path, init?: RequestInit) => Promise<Response>`.
 2. B: shared primitive types (`Insets`, `SharePayload`, `HapticKind`, `NotificationPrefs`/`NotificationStatus`) in `packages/ui/src/host/types.ts`; WP2.3-A imports them (one definition).

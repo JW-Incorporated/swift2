@@ -175,6 +175,200 @@ skipped), P2 build not tied to the run's build_android job, P3 resubmit
 idempotency (pre-existing → doc note) → fix round launched. Parity harness
 never ran on main (PR/dispatch only) → dispatched run 37090052458 on main →
 if green: **Fable G1 go/no-go**.
+**02:10 (10-03) — owner: "keep going… run all night… parallel agents".**
+Parity on main 37090052458 = SUCCESS. #4833 (WP0.1b) + #4837 (HA #96 on main)
+MERGED. Release train still red (iOS signing; HA #96 open). #4838 Codex r2 =
+REQUEST CHANGES (P1 commit-hash binding fails open; P2 id not validated) →
+2nd consecutive → Fable (mandatory) + fix round 2 in parallel. Launched:
+Fable = G1 go/no-go + #4838 ruling; #4838 fix r2; WP2.2 brief draft (→
+docs/plans/one-ui/briefs/brief-wp22.md); #4835/#4836 fixture prune executor.
+NIGHT PLAN: on G1 GO → WP2.1-A executor (briefs/brief-wp21.md), then 2.1-B
+(stacked), 2.1-C (fonts; step 1 = DOM @font-face resolution = G0 evidence),
+2.3-A after 2.1-B; WP2.2 after its brief + Fable review. Keep ≤5 workers.
+**02:16:** #4838 fix r2 5334b44a (scripts/release/select-android-build.mjs +
+20 vitest; UUID evidence eas-cli ArchiveSource.js:411) → scoped reviewer
+APPROVE; grunt added "red if Android selection ≠ success" (c64db4df) + set
+auto-merge → **PM caught false-red: every OTA-only release (build_android
+skipped/absent) would go red** → auto-merge DISABLED; fix: distinct `skipped`
+result, red only on unknown/not_success/no_build. Parity-gate always-run job
+(G1 condition 1) executor launched.
+**02:19:** #4838 c30a9d0a (`skipped` for absent/SKIPPED; eas-cli enum
+ACTION_REQUIRED/CANCELED/FAILURE/IN_PROGRESS/NEW/PENDING_CANCEL/SKIPPED/SUCCESS)
++ prettier c27161c2 → scoped reviewer APPROVE → **auto-merge set**. **#4840
+MERGED** (parity always runs on PRs; `parity-gate` job = the check to mark
+required before the first WP2.4 slice — branch-protection step pending; PM
+skipped Codex: CI plumbing, reviewer covered pinning/perms/gate). WP2.2 brief
+→ docs/plans/one-ui/briefs/brief-wp22.md (A purity · B context+provider in
+packages/ui after 2.1-A · C1–C3 callers · D ESLint ban); PM rulings written;
+Fable reviewing. Spike launched: DOM-host @font-face from bundled assets
+(WP2.1-C step 1 = G0 evidence).
+**02:24:** WP2.1-A → **#4841** (packages/ui skeleton; transpilePackages +
+@source in web globals.css and DOM reader-spike.css; ESLint ban + test;
+fingerprint 473eab6c unchanged; parity 37112663539 green; suite 8240).
+**PM ruling:** web is React 19.2 too (research said 18) → packages/ui peer
+`^19`, drop React-18 typing requirement (amends 2.1 rulings Q1). /eras
+allowlist closure → 2.1-C or D. Reviewer + Codex r1 launched. WP2.2-A running
+in parallel.
+**02:26:** #4841 reviewer r1 REQUEST CHANGES (peer ^19; @source missing in
+apps/mobile/dom/shared-ui-test.css; prettier drift unverified) → bundle with
+Codex r1. WP2.1-B launched (stacked on wp2.1a). **Font spike (G0 evidence):**
+DOM export drops url()/imported woff2 (404); data-URI @font-face works →
+PM ruling C: one generator, web url()+preload, DOM data-URI (~360 KB base64,
+OTA bump reason recorded), same bytes both sides (ruling in brief-wp21.md).
+**S4 additions:** data-URI faces `loaded` on iOS+Android; no FOUT before
+onReady; variable-axis weights render in WKWebView + Android WebView; 360 KB
+font CSS doesn't slow DOM cold start.
+**02:30:** #4842 (fixture prune 8.3→2.9 MB; content/frozen/; closes #4835
+#4836) reviewer APPROVE → auto-merge set. **Harness hole found:** #4827's
+iphone-15 b-home baseline was captured BEFORE the hero image painted (old
+40 KB = no photo; new 81 KB = correct, matches pixel-7) — helpers.ts:~39
+waits only for __ready. = G1 condition 4 (flake) → executor fixing now
+(wait for img load+decode + CSS backgrounds, broken image fails loudly,
+negative delayed-image spec, two green verification runs). WP2.1-C launched
+(stacked on wp2.1a; generator + data-URI DOM fonts).
+**02:32:** WP2.1-B → **#4844** (base wp2.1a; HostAdapter types + HostProvider
+in apps/web layout; suite 8252; parity 37113287859 pending) → reviewer r1
+launched (Codex next slot). #4841 Codex r1 (`task-mus6qiwu-zu39g1`): P2 package
+never resolved by either host; P2 lint ban only static imports; P3 fingerprint
+unproven → fix round 1 launched with reviewer items (peer ^19, @source in
+shared-ui-test.css, prettier drift) + real @swift2/ui import in ReaderSpike.
+**02:34:** #4844 reviewer r1 REQUEST CHANGES (declare @swift2/content +
+@swift2/ui in apps/web/package.json; re-render identity test; onBack doc) +
+Codex r1 `task-mus714zb-kgv3x9` pending → one fix round after. WP2.2-A →
+**#4843** (corpus.ts function lookups, withProviders deleted, LOAD_SOURCE,
+hash ba18fffa unchanged, parity 37113198335 green, flat-order audit passes —
+C2 unblocked; local expo export failed "environmental" — reviewer checking CI
+coverage) → reviewer r1 launched; Codex next slot.
+**02:40:** #4843 reviewer r1 APPROVE (CI build-full runs expo exports ios+android
+— covered); Codex r1 REQUEST CHANGES (P1 build.ts → lenses/track-guide →
+corpus.ts → provider modules still in the import graph; P2 purity test not
+transitive; P2 no assertion for lastGoodAfterDataError→error) → fix round 1.
+#4844 Codex r1: P2 HostImageProps too narrow for next/image migration
+(unoptimized, onLoad…); P3 env.origin hydration-unstable → fix round 1 with
+reviewer items. **#4841 r2 reviewer REQUEST CHANGES — caused by PM ruling:
+peer `react: ^19` → npm ci ERESOLVE (root resolves react 18.3.1; the dup root
+react noted in WP0.4) → CI red on wp2.1a.** PM: revert to `^18 || ^19` (02:24
+ruling withdrawn); 2nd rejection → Fable consult (mandatory) with Codex r2
+(`task-mus799r9-r7gpgt`) findings.
+**02:41:** WP2.1-C built + pushed (feature/one-ui-wp2.1c @7b0c0dbf, stacked on
+wp2.1a): build-fonts.mjs → web url() /fonts/*.hash.woff2 (+preload Inter/
+Playfair, immutable cache) + DOM data-URI CSS; same-bytes hash test;
+FONTS-LICENSE; next/font removed. 238,776 B woff2 / 321,939 B base64 → **OTA
++322 KB (+4.4%), baseline updated with reason (G1 cond 3)**. Web before/after:
+text rects + heights identical; small hero-region pixel diff (likely
+animation, unviewed). /eras allowlist → D (12 PNGs ≈21 MB). PR NOT opened —
+blocked by wp2.1a ERESOLVE → grunt reverting peer now (urgent; not waiting
+for Codex r2).
+**02:44:** wp2.1a peer reverted 4ecd7f49 (npm ci OK; root resolves react
+18.3.1 + 19.2.8, apps/web 19.2.8). B fixer + C executor told to merge it; C
+resumed to verify/parity/open PR. #4841 Codex r2 REQUEST CHANGES (P2 computed
+dynamic import/require bypass; P3 data-swift2-ui attr; P3 fingerprint
+unverified) → **Fable (mandatory, 2nd consecutive)** launched. **#4838 MERGED**
+(Android independent of iOS). **#4842 MERGED**. Image-race fix → **#4845**
+(imagesReady wait; negative 4 s-delay spec; no baselines changed; 2 green runs)
+— was based on the prune branch, retargeted to main BEFORE GitHub deleted it
+(stacked-PR rule held); reviewer r1 launched.
+**02:46:** Fable #4841 (Fable log): fix-forward — ban all computed import()/
+require() in packages/ui; REMOVE data-swift2-ui (rendered DOM isn't a probe
+surface; proof-of-resolution → per-host tests); fingerprint from CI run URL;
+scoped reviewer, land A, retarget B + C → fix r2 launched. **First post-#4838
+train run 37112800404: Android selection `unknown`** (status read failed —
+fails closed, Android skipped) → researcher diagnosing (EAS CLI command/flags/
+JSON noise?). #4845 reviewer: minor — branch carries the prune commits
+(merge main), negative spec may not discriminate (prove via mutation), SVG
+decode false-fail risk → fix next slot.
+**02:50:** Train "unknown" root cause: `eas workflow:status --json` prints JSON
+then exits 11 (FAILURE)/12 (CANCELED) (eas-cli 23.2.0 status.js:97-108) → old
+`if eas …; then` skipped the selector. Fix → **#4846** (read-android-status.sh
+accepts 0/11/12; fake-eas tests 34/34) → reviewer APPROVE → **auto-merge set**.
+Next train run after it lands should submit Android to Play internal (if the
+EAS Android build job succeeded). #4844 fix r1 74426fe8 (deps, HostImageProps
++5 props, constant origin, identity test) → scoped reviewer APPROVE
+(provisional on parity jobs); ops-env dispatch failure = wrong workflow
+(mobile-parity.yml), irrelevant; Codex r2 `task-mus7mnzi-srp8qe` pending.
+#4843 fix r1 pushed (PM accepted ~561 gross lines: moved wrappers, net +167;
+transitive purity test catches 12 offenders pre-fix) → scoped reviewer r2
+launched; Codex r2 next slot. #4845 fix r1 launched (merge main; prove the
+negative spec discriminates via mutation; SVG decode tolerance).
+**02:52:** #4843 r2 reviewer APPROVE; Codex r2 `task-mus7p36t-c6etr1` pending.
+WP2.1-C → **#4847** (base wp2.1a; parity 37114176156 green, no baselines changed
+— harness forces ParityFont, so parity can't see real-font regressions: web
+evidence = identical text rects + doc heights before/after; hero diff =
+animation (two "after" shots differ too); OTA +4.4% reason in body; extra:
+/fonts immutable cache header in next.config.mjs, .prettierignore) → reviews
+queued for next slot. WP2.4 first-slice brief draft launched (prep).
+**02:56:** #4841 fix r2 daa4ab81 (computed import/require ban + 7 tests;
+data-swift2-ui removed; per-host resolution tests; fingerprint caveat — no CI
+job prints it) → scoped reviewer APPROVE → **#4841 (WP2.1-A) MERGED**; #4844 +
+#4847 retargeted to main BEFORE branch delete (rule held). WP2.2-B executor
+launched (stacked on wp2.2a + main merged in). Open: no CI job prints the Expo
+fingerprint → candidate small CI addition (later).
+**02:59:** #4845 fix r1 7d3a30fc (merged main; new delayed lazy-img + CSS-bg
+specs fail with imagesReady no-op'd; SVG tolerance; viewport-width scope) →
+scoped reviewer APPROVE → **#4845 MERGED** (harness image race closed; G1
+cond 4 hole fixed). Executor syncing main into wp2.1b (#4844) + wp2.1c
+(#4847) so their diffs show only their own work; then #4847 reviews + #4844
+landing.
+**03:08:** B/C synced (#4844 ac02626b, #4847 b5f7509b). **#4844 (WP2.1-B)
+MERGED** (Codex r2 APPROVE + reviewer). #4847 reviewer r1: Med preload only
+Inter/Playfair vs next/font preloading all → PM: preload ALL used faces (founder
+rule 1); Med need real-font pixel evidence (no ParityFont) incl. merch (Bodoni
+italic) + Dancing Script surface; Low stale comments; confirm bundle budget
+counts fonts → fix after Codex r1 (`task-mus88z07-dy3gc1`). #4843 Codex r2 P2
+(walker forms) → Fable: fix-forward → hardening fix running. WP2.3-A launched
+(2.1-B merged). WP2.4 PR 0 running. **HA #97** filed (parity-gate required),
+landing via #4848.
+**03:10:** #4843 walker hardening b5aebe07 → scoped reviewer APPROVE → auto-merge
+set WITHOUT --delete-branch (2.2-B stacked). **TODO after #4843 merges:**
+retarget any PR on feature/one-ui-wp2.2a to main, then delete that branch.
+**03:13:** WP2.1-D launched (next/* call sites → useHost; close /eras
+allowlist or report options). WP2.2-B → **#4849** (base wp2.2a — RETARGET
+when #4843 merges): perf median 12.1 ms / max 22.1 ms unthrottled (gate ok),
+4x median 60.6; probe hash = fixture; suite 8367; search index replaced
+(identical). **Concern: web bundle +117 KB gzip (.next/static 3.03→3.49 MB)**
+— eager snapshot pulls merch/moods/videos/theories into the main route →
+reviewer judging inherent-vs-avoidable; Fable if contested (G3 perf input).
+**03:27:** WP2.1-D → **#4851** (14 reader files next/image→useHost; +118/-31;
+parity 37116143963 green; reader-modules.ts mounts web adapter for side b).
+**PM decision (reversible, recorded): era art in the app = network via
+resolveUrl → https://www.longlivets.com/eras/* (like content photos; 21 MB
+can't ride OTA); harness serves those canonical URLs with real bytes from
+apps/web/public/eras via page.route; serve.mjs /eras fallthrough DELETED →
+allowlist closed (G1 cond 2).** S4/G0 check added: offline era art on device.
+TopBar bell Link: widen HostLinkProps (className/aria/title/ref passthrough).
+Executor resumed for both; then reviews.
+**03:29:** WP2.4 PR 0 → **#4852** (12 new captures: a-home-viewport,
+a-item-viewport, a-home-footer ×4; 0 modified; 2 green runs). **Sensitivity
+gap found:** pure 1px TopBar translate stays under maxDiffPixelRatio 0.001 on
+iPad viewports (executor fell back to a padding mutation) → PM: add
+element-clipped TopBar (+footer if needed) captures so the ratio applies to
+the small area; negative = pure translateY(1px) must fail on all 4. Executor
+resumed. **03:30:** #4849 fix r1 (Fable B split; base now main; hash = fixture;
+parity 37116269531 green; main-route gzip −65 KB of +117 → remainder = core/
+search code, accepted as inherent per Fable). Perf conflict: r0 browser
+median 12.1 ms vs r1 script median 36 ms (likely Node) → re-measure per
+ratified spec (Playwright, prod build + fixture, ≥10 fresh contexts) before
+any contract call. **03:34:** re-measured per spec (e2e/perf/snapshot-build.spec.ts,
+prod build + fixture, 12 fresh contexts ×3): fromBakedCore median 12.55/12.75/
+12.60 ms, p90 24.0/13.6/12.9, max 24.6/14.1/13.4 → **gate PASSES**; 4x median
+58–76 ms (report-only, G3). Full fromBaked ≈23 ms → core split ~halves it. Node
+script deleted. #4843 MERGED; wp2.2a branch deleted (childless). Codex r1 on
+#4849 launched. **03:35:** WP2.3-A → #4850: reviewer r1 minor; Codex r1
+REQUEST CHANGES (payload not JSON-validated / proto keys; WebPath accepts
+//host; openExternal any scheme; api headers allow Authorization/Cookie;
+negotiate(NaN) ok; ids unbounded; dispatcher behaviours absent). PM: fix
+validators in A (strict JSON, isWebPath, https-only isExternalUrl,
+safelisted-header BridgeApiRequest, NATIVE_SUPPORTED_RANGE, bounded ids);
+dispatcher behaviours (exactly-one-res, unsupported, timeouts, cancel,
+replay dedup) = **WP2.3-B acceptance**, written as a CONTRACT in the bridge
+README. Fix round launched. **03:43:** #4850 fix r1 (validate.ts strict JSON/
+isWebPath/https-only/BridgeApiRequest safelist/bounded ids/NATIVE_SUPPORTED_
+RANGE; README CONTRACT; 125 bridge tests) → reviewer r2 minor (undefined type
+test, missing pre-ready strike line, nit) + Codex r2 `task-mus9hlb7-olv7lp`
+pending. #4851 r1 changes done (resolveUrl era art; serve.mjs fallthrough
+deleted → **/eras allowlist CLOSED**; HostLinkProps widened, TopBar migrated;
+parity 37117092950 green) → reviewer launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
@@ -292,6 +486,12 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-02 16:56 | #4822 two consecutive Codex rejections (mandatory): r2 P1a unmapped chunks/uncanonical map paths, P1b sentinel kinds + untested extractor, P2 ClownChat raw env() | Fix-forward, no DEBUG. Every .js needs a map (exit 1; named-chunk allowlist only, never skip); canonicalize sources; all 4 kinds required, missing current.json → exit 1 "run sync:content"; real-extractor fixture test; P2 → WP2.1 + explicit S4 check, no spike override. One commit → scoped reviewer, no Codex r3 | Adopted; told WP1.1c-2 executor: CI runs sync:content first + re-merge wp0.5b |
 | 2026-10-02 17:02 | #4822 design fidelity (G0-evidence quality) | MERGE-WITH-EDITS: (1) describeSnapshot hash failure non-fatal (else false G0 negative); (2) show native-clock launch→ready beside webview firstPaintMs (else flatters DOM vs S2); (3) probe JSON exportable verbatim. **S4 checks:** store build + build id; persistence = 2 launches same bundle version then airplane kill, judge by `Marker` not `adapter`; CI equivalence hash beside each device hash; placeholder count = initial viewport only → human scrolls full stream + opens 3+ photo moments/era; 1 YouTube + 1 Spotify (null-origin refusal = G0 input, not bug); iOS memory: 2-min scroll + 10 moment opens + iPad split-view resize, no content-process strike; record `Read:` per platform (iOS xhr=fail → bundle.js fallback is WP0.6 scope); note system fonts / unoptimised images; + ClownChat expanded panel vs notch/gesture bar (Android) | Adopted all; (3) via RN core Share (no native dep). Final round + reviewer nits (regex `i`, decodeURIComponent) → scoped reviewer → APPROVED |
 | 2026-10-02 19:00 | WP2.1 (A–D) + WP2.3 (A–F) brief review | Sound. REQUIRED 2.1: apiFetch = WP0.3b `ApiFetch` type (Response can't cross bridge); shared primitive types in packages/ui/src/host/types.ts; web adapter built in provider, stable Link/Image, no module singleton (WP2.2 gate); turnstileSiteKey `string\|null`. 2.3: A after 2.1-B; HandlerMap in A; C contract 3rd leg HostAdapter⇄payloads; D navigate semantic (in-DOM routing stays DOM); Expo-DOM transport isolated to 2 files (G0 guard). ClownChat → WP2.11 "F2" native-held cookie, per-endpoint `nativeSession`. Wait for G0: 2.3-D/E/F, 2.3-B step 4, 2.3-C step 3 | Adopted all + OPTIONAL (preload Inter/Playfair; next/image fill styles doc). Briefs now durable at docs/plans/one-ui/briefs/brief-wp21.md, brief-wp23.md. Launch after G1 lands + G1 Fable go/no-go |
+| 2026-10-03 02:10 | **G1 go/no-go** (mandatory) + #4838 two consecutive Codex rejections | **G1 GO** for G2 limited to WP2.1 (all) + WP2.3 A, B-logic, C. Conditions: (1) parity becomes a REQUIRED check before the first WP2.4 slice branch (add an always-run job reporting success when paths untouched); (2) WP2.1 closes the /eras/*.png allowlist, no new entries; (3) no OTA baseline re-bump without a PROGRESS reason; (4) watch: WebKit parity flake with no code change ×2 → revisit comparator before required. #4838: fix-forward (strict string hash == GITHUB_SHA else skip; UUID regex), extract selection to scripts/release/select-android-build.mjs + vitest (no node -e on inline YAML); scoped reviewer, no Codex r3, land | Adopted all; WP2.1-A launched |
+| 2026-10-03 02:20 | WP2.2 brief review (A, B, C1–C3, D) + may it run pre-G0? | Sound; **GO pre-G0** (zero-visual refactor, parity-guarded, per-PR revertible). REQUIRED: A O(1) lookups as functions not prebuilt Maps; flat-order audit doesn't block A; B browser perf mark ≤15 ms unthrottled (+4x report), type-guard narrowing, packages/ui/package.json in touch set; C required data param + *.server.ts with server-only; merge main bottom-up before every parity run, never re-baseline. Eager snapshot = §4 contract (no laziness; >15 ms → contract change via Fable). Order: A now ∥ 2.1-A; B after 2.1-A; C, D after B | Adopted all + OPTIONAL (C1–C3 each on B). WP2.2-A launched |
+| 2026-10-03 02:44 | #4841 two consecutive Codex rejections (mandatory) | Fix-forward, land A. REQUIRED: no-restricted-syntax ImportExpression[source.type!='Literal'] + CallExpression[callee.name='require']:not([arguments.0.type='Literal']) with tests; remove data-swift2-ui from ReaderSpike (proof → per-host tests); fingerprint cited from CI run. Rejected Codex r3 + reverting the peer revert. Landing: scoped reviewer → merge A → retarget #4844 + 2.1-C | Adopted |
+| 2026-10-03 03:15 | #4849 web bundle +117 KB gzip (eager snapshot defeats MerchSection's lazy split) + perf gate statistic | **B**: CORE = eras, content, milestones, videos, theories, eraSecrets, tracks + eraStream, threads, trackGuide, searchIndex; EXTENSION = merch, songMoods only (videos/theories feed search → core). PR B: drop MERCH/SONG_MOODS from root baked-modules; fromBakedCore + pure attachExtensions; hashSnapshot throws on missing domains (never hash core-only); probe stays full → hashes unchanged. WP2.2-C: merch dynamic() chunk + mood-match read extensions via attachExtensions. Gate: median ≤15 ms over ≥10 fresh contexts, report p90 + max; 4x report-only. Wrong-call: a main-route accessor needing merch/songMoods → move it back to core, never a 3rd tier | Adopted; #4849 fix r1 launched |
+| 2026-10-03 03:07 | #4843 two consecutive Codex rejections (mandatory): r2 sole P2 = purity walker misses import=require / import() / .tsx entrypoints | Fix-forward (gate hardening, not a shipped-graph defect); one failing fixture per form; scoped reviewer; land; retarget 2.2-B before deleting | Adopted; fix running |
+| 2026-10-03 03:03 | WP2.4 first slice brief (shell + era stream; PRs 0, A, B, C, D) | Launch 0–C after edits; D held to G0 GO. PR0: pasted 1px-TopBar negative proof; captureRoot untouched. A split MOVE (A1) vs LOGIC (A2). **Binding move-only rule** for A1/B/C: renames via git diff -M50%, only import/export-path lines inside renamed files (pasted empty grep), non-rename non-shim non-test ≤400; 300-line rule waived, debt in READER-MOVE.md. D: no NotInAppYet — navigate(tabPath)+setMode(prev); **native screens present modally over a still-mounted SharedUiHost, never remount**; presentNativeRoute in dom-host-handlers.ts; native owns back during overlay; Codex mandatory on D | Adopted all (brief-wp24.md top block). PM: parity-gate required = branch protection → **HA #97** (owner); PR 0 launched now (captures only); A1 waits for #97 |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
