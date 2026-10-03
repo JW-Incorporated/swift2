@@ -438,7 +438,15 @@ cancelled + relaunched #4849 r2; #4850 r2 nits (undefined type test, contract
 pre-ready strike, prettier) via grunt. C1 → **#4856** (parity 37119083649 green;
 PM accepts ~8-line ReaderSpike provider mount; threadsInEra/threadCrossings
 → C3) and C2 → **#4857** (+4 pure queries; era-secrets-link.ts; 404 =
-/_vercel/insights pre-existing) → reviewers launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+/_vercel/insights pre-existing) → reviewers launched.
+**04:30:** C1 #4856 reviewer APPROVE (Codex r1 `task-musayp0r-iuy0qa`); C2 #4857
+reviewer APPROVE provisional (Codex r1 `task-musazabl-yqjavl`); C1 lands
+before C2 (MomentDetail conflict). #4850 nits d371b8ab → Codex r2
+`task-musazy2d-icpi1v`. WP2.2-C3 launched (threadsInEra/threadCrossings
+queries + share cascade; stacked on C1). WP2.4 PR 0 #4852 done: TopBar element
+clip — pure 1px translate fails on all 4 (run 37119324040); footer capture
+DROPPED (unstable; follow-up: footer on /support); 12 A / 0 M; 2 green runs →
+reviewer w/ landing authority. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
