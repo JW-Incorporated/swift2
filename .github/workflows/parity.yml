@@ -206,6 +206,10 @@ jobs:
         env:
           PARITY_UPDATE: '1'
         run: npx playwright test -c playwright.parity.config.ts e2e/parity/baseline.spec.ts
+      - name: Regenerate a11y baselines
+        env:
+          A11Y_UPDATE: '1'
+        run: npx playwright test -c playwright.parity.config.ts e2e/parity/a11y.spec.ts
       - name: Upload before and after
         uses: actions/upload-artifact@v7
         with:
@@ -219,7 +223,7 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add e2e/parity/__screenshots__
+          git add e2e/parity/__screenshots__ e2e/parity/a11y-baseline
           if git diff --cached --quiet; then
             echo "Baselines unchanged; nothing to commit."
             exit 0

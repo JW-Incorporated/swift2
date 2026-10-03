@@ -93,6 +93,25 @@ are regenerated (below).
 3. Re-run the parity workflow (`gh workflow run parity.yml --ref <branch>`) -
    commits made with `GITHUB_TOKEN` do not trigger `pull_request` runs.
 
+## Accessibility (One UI WP1.2)
+
+`e2e/parity/a11y.spec.ts` runs axe (`wcag2a`, `wcag2aa`) on both sides of both
+fixture routes, after the same readiness guards as the parity specs, in all four
+projects. Only serious and critical findings count. The run fails on any
+(rule, node-target) pair not in the committed baseline
+`e2e/parity/a11y-baseline/<project>.json` (keys `a/home`, `a/item`, `b/home`,
+`b/item`); new ones print as `[impact] rule at target`. A missing baseline is
+red, never vacuous. Findings on side b whose rule id side a lacks on that route
+are logged (`a11y b-only ...`, also a test annotation); they never fail the run
+but go to the PM in the PR body. `a11y-negative.spec.ts` injects an alt-less
+image and a nameless button and asserts both surface as new.
+
+Regenerate (same rule as the screenshots: never on the default branch): the
+`update-baselines` dispatch in "Updating baselines" also runs
+`A11Y_UPDATE=1 npx playwright test -c playwright.parity.config.ts e2e/parity/a11y.spec.ts`
+and commits `e2e/parity/a11y-baseline`. Review the JSON diff: every added entry is
+a violation you are accepting.
+
 ## Fingerprint
 
 Native fingerprint dcf1ea59 before == after (measured at WP1.1c part 2: with and
