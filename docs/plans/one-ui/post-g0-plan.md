@@ -109,3 +109,15 @@ Decision rule: waves 0a/0a-2/0b run regardless (transport-independent). Hold H0 
 - Whether Fable releases the 0b-pure items and 2.11-D1 pre-GO (assumed, not ruled).
 - ClownChat streaming approach (G12), prod Turnstile secret state (G5), affiliate id values (G4).
 - Wave durations unknown (no slice D has landed yet).
+
+## Rulings and acceptance additions (2026-10-03 14:10–14:29)
+- Fable 14:10 plan review: APPROVED with edits — H0 (B4+C3) is one PR and the critical path; H4/D2 merges only after H0's ready→ack round trip is observed on a real device; each slice's dom/slots/<slice>.ts exports its slot AND its native-route entries (only shared edit = one import line; native-safe routes module split from DOM slots per #4940); wave 0 approved and in flight (#4934 presentNativeRoute, #4937 Mood, #4938 ack hook, #4939 ClownChat apiStream, #4940 composer+slots, #4941 expo-fetch deps + clown allow-list).
+- ClownChat on the app: optional HostAdapter.apiStream (web root only); app falls back to bufferedFrom(apiFetch) until 2.11-D1 decides on native streaming (F1 caps replies at 256 KB — check clown reply sizes).
+- NO-GO fallback must NOT use baseUrl https://www.longlivets.com (origin spoofing → site cookies attach); keep null/custom origin; S2/S4 data does not transfer to a different renderer — budget an S4-lite go/no-go for the fallback.
+- H6 universal-link intake must dedupe getInitialURL vs the url listener (consume-once flag); H3 adds clearLastNotificationResponseAsync.
+- currentUrl (G13) and diag hot-corner survival under the RN Modal (G8) are explicit H4/D1 acceptance items.
+- Affiliate ids: NEXT_PUBLIC_* values are public — ship as a JS constant read from the live site (no HA); app must supply HostEnv.affiliate or Shop-the-Look earns nothing in-app.
+- E2/D2 acceptance (Codex 14:29 on #4938): bridge host and WebView/client transport share one lifetime — recreating the host must recreate the transport; test it (epochless wire acks are otherwise ambiguous).
+- presentNativeRoute (Fable 14:25): App.tsx schedules one `tick` per applied opening/closing transition (OPEN 1500 ms, CLOSE 1000 ms); log 'stale' results.
+- F2 (Fable 12:58): inject fetch from expo/fetch (expo-fetch-deps.ts); per-endpoint API timeout table shared by DOM client, native dispatcher and handler (#4941 fix).
+- Era perf rung 2 (content-visibility) stays gated on S7 + element-anchored restore; follow-ups #4935.
