@@ -1,4 +1,5 @@
 import type { CSSProperties, ImgHTMLAttributes } from 'react';
+import { imageLoaded } from '../image-listener';
 
 interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
   src: string | { src: string };
@@ -37,6 +38,10 @@ export default function Image({
       alt={alt ?? ''}
       src={typeof src === 'string' ? src : src.src}
       style={fill ? { ...FILL, ...style } : style}
+      onLoad={(e) => {
+        rest.onLoad?.(e);
+        imageLoaded(e.currentTarget);
+      }}
     />
   );
 }

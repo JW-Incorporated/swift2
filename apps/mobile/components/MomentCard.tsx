@@ -12,6 +12,7 @@
 // native homes) — a `video`/`thread`/`egg`/`current` entry renders a
 // simpler placeholder row here so the full feed order is still visible on
 // device, without claiming a play/detail affordance this card doesn't ship.
+import { noteImageLoaded } from '../lib/image-marks';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { CardTier, ContentItem, RenderFeedEntry } from '@swift2/experience';
 import type { WatchableVideoNote } from '@swift2/content-enrichment';
@@ -50,7 +51,12 @@ export function MomentCard({
       style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
     >
       {imageUrl && imageHeight > 0 ? (
-        <Image source={{ uri: imageUrl }} style={[styles.image, { height: imageHeight }]} resizeMode="cover" />
+        <Image
+          source={{ uri: imageUrl }}
+          style={[styles.image, { height: imageHeight }]}
+          resizeMode="cover"
+          onLoad={() => noteImageLoaded(true)}
+        />
       ) : null}
       <View style={styles.body}>
         <Text style={styles.dateLabel}>{item.dateLabel}</Text>

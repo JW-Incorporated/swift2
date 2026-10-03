@@ -10,7 +10,7 @@ const NOW = new Date('2026-08-31T12:00:00Z');
 
 describe('currentTheories — column 1', () => {
   it('never pads: fewer than 10 in the corpus means fewer than 10 returned', () => {
-    const items = currentTheories(NOW, forEra);
+    const items = currentTheories(NOW, forEra, LORE);
     // Real corpus, real count — asserted exactly so a future change to the
     // corpus fails this test loudly instead of silently padding.
     // 9 -> 10 (#3153): admits the ESB green/"TS"-logo new-era theory
@@ -20,11 +20,11 @@ describe('currentTheories — column 1', () => {
   });
 
   it('caps at 10 even if the corpus were to grow past it', () => {
-    expect(currentTheories(NOW, forEra).length).toBeLessThanOrEqual(10);
+    expect(currentTheories(NOW, forEra, LORE).length).toBeLessThanOrEqual(10);
   });
 
   it('contains only unresolved theories and open rumors', () => {
-    for (const item of currentTheories(NOW, forEra)) {
+    for (const item of currentTheories(NOW, forEra, LORE)) {
       const isVaultTheory = item.id.startsWith('theory:');
       const isLoreRumor = item.id.startsWith('lore:');
       expect(isVaultTheory || isLoreRumor).toBe(true);
@@ -32,7 +32,7 @@ describe('currentTheories — column 1', () => {
   });
 
   it('excludes every resolved theory outcome (confirmed, debunked, abandoned, unfalsifiable, partially_confirmed)', () => {
-    const ids = new Set(currentTheories(NOW, forEra).map((i) => i.id));
+    const ids = new Set(currentTheories(NOW, forEra, LORE).map((i) => i.id));
     for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
       for (const note of notes ?? []) {
         if (note.outcome !== 'pending') {
@@ -43,7 +43,7 @@ describe('currentTheories — column 1', () => {
   });
 
   it('excludes lore items that are confirmed or debunked, not open', () => {
-    const ids = new Set(currentTheories(NOW, forEra).map((i) => i.id));
+    const ids = new Set(currentTheories(NOW, forEra, LORE).map((i) => i.id));
     for (const item of LORE) {
       if (item.status === 'confirmed' || item.status === 'debunked') {
         expect(ids.has(`lore:${item.id}`)).toBe(false);
@@ -52,14 +52,14 @@ describe('currentTheories — column 1', () => {
   });
 
   it('is recency-ranked, newest first', () => {
-    const items = currentTheories(NOW, forEra);
+    const items = currentTheories(NOW, forEra, LORE);
     for (let i = 1; i < items.length; i += 1) {
       expect(items[i - 1].date >= items[i].date).toBe(true);
     }
   });
 
   it('every item carries a non-empty title, blurb, prompt and ISO date', () => {
-    for (const item of currentTheories(NOW, forEra)) {
+    for (const item of currentTheories(NOW, forEra, LORE)) {
       expect(item.title.length).toBeGreaterThan(0);
       expect(item.blurb.length).toBeGreaterThan(0);
       expect(item.prompt.length).toBeGreaterThan(0);
@@ -68,21 +68,45 @@ describe('currentTheories — column 1', () => {
   });
 
   it('ids are unique', () => {
-    const items = currentTheories(NOW, forEra);
+    const items = currentTheories(NOW, forEra, LORE);
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
   });
 
   it('is deterministic: same corpus + same now => byte-identical board', () => {
-    const a = currentTheories(NOW, forEra);
-    const b = currentTheories(new Date(NOW.getTime()), forEra);
+    const a = currentTheories(NOW, forEra, LORE);
+    const b = currentTheories(new Date(NOW.getTime()), forEra, LORE);
     expect(JSON.stringify(a)).toBe(JSON.stringify(b));
   });
 
   it('never sorts a still-open era into the future relative to now', () => {
     const today = NOW.toISOString().slice(0, 10);
-    for (const item of currentTheories(NOW, forEra)) {
+    for (const item of currentTheories(NOW, forEra, LORE)) {
       expect(item.date <= today).toBe(true);
     }
+  });
+
+  it('works with an empty lore: theory items only, no lore ids', () => {
+    const items = currentTheories(NOW, forEra, []);
+    expect(items.every((i) => i.id.startsWith('theory:'))).toBe(true);
+  });
+
+  it('injected baked LORE yields exactly the ids origin/main produced before the change', () => {
+    expect(currentTheories(NOW, forEra, LORE).map((i) => i.id)).toEqual([
+      'theory:tloas:showgirl-esb-green-ts-debut-era',
+      'theory:tloas:showgirl-spotify-canvas-color-swap',
+      'lore:writing-new-music-post-wedding',
+      'lore:ts13-lilac-cipher',
+      'lore:green-ts-next-era',
+      'lore:swifties-against-ai',
+      'theory:ttpd:cassandra-reputation-callback',
+      'theory:ttpd:ttpd-quill-fountain-pen-era',
+      'lore:rep-tv-debut-tv',
+      'theory:midnights:karma-lost-album',
+    ]);
+  });
+
+  it('omitting lore behaves as an empty lore', () => {
+    expect(currentTheories(NOW, forEra)).toEqual(currentTheories(NOW, forEra, []));
   });
 });
 
