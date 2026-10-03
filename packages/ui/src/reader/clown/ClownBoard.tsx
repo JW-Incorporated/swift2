@@ -45,7 +45,7 @@ const COLLAPSED_EGG_COUNT = 10;
 export interface ClownBoardProps {
   onSelect: (item: BoardItem) => void;
   /** Rumor/reported lore feeding column 1; the host supplies it (baked app data). */
-  lore: readonly LoreItem[];
+  lore?: readonly LoreItem[];
 }
 
 interface EraGroup {
@@ -79,7 +79,7 @@ function PulseDot() {
   );
 }
 
-export function ClownBoard({ onSelect, lore }: ClownBoardProps) {
+export function ClownBoard({ onSelect, lore = [] }: ClownBoardProps) {
   // Mount-time only, matching Clownbot.tsx's `now` pattern: computing this
   // during render would differ between server and client and risk a
   // hydration mismatch (currentTheories clamps era-end dates to `now`).

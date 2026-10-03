@@ -112,7 +112,7 @@ function byDateDesc(a: BoardItem, b: BoardItem): number {
 export function currentTheories(
   now: Date,
   theoriesForEra: TheoriesForEra,
-  lore: readonly LoreItem[],
+  lore: readonly LoreItem[] = [],
 ): BoardItem[] {
   const items: BoardItem[] = [];
 

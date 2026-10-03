@@ -90,16 +90,23 @@ describe('currentTheories — column 1', () => {
     expect(items.every((i) => i.id.startsWith('theory:'))).toBe(true);
   });
 
-  it('injected lore matches the baked LORE: same output as passing LORE, lore ids drawn only from it', () => {
-    const baked = currentTheories(NOW, forEra, LORE);
-    const copy = currentTheories(NOW, forEra, [...LORE]);
-    expect(copy).toEqual(baked);
-    const loreIds = new Set(
-      LORE.filter((l) => l.status === 'rumor' || l.status === 'reported').map((l) => `lore:${l.id}`),
-    );
-    for (const item of baked.filter((i) => i.id.startsWith('lore:'))) {
-      expect(loreIds.has(item.id)).toBe(true);
-    }
+  it('injected baked LORE yields exactly the ids origin/main produced before the change', () => {
+    expect(currentTheories(NOW, forEra, LORE).map((i) => i.id)).toEqual([
+      'theory:tloas:showgirl-esb-green-ts-debut-era',
+      'theory:tloas:showgirl-spotify-canvas-color-swap',
+      'lore:writing-new-music-post-wedding',
+      'lore:ts13-lilac-cipher',
+      'lore:green-ts-next-era',
+      'lore:swifties-against-ai',
+      'theory:ttpd:cassandra-reputation-callback',
+      'theory:ttpd:ttpd-quill-fountain-pen-era',
+      'lore:rep-tv-debut-tv',
+      'theory:midnights:karma-lost-album',
+    ]);
+  });
+
+  it('omitting lore behaves as an empty lore', () => {
+    expect(currentTheories(NOW, forEra)).toEqual(currentTheories(NOW, forEra, []));
   });
 });
 

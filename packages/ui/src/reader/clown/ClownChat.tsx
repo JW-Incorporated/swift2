@@ -69,7 +69,7 @@ const NETWORK_ERROR = "That didn't go through. Try again in a moment?";
 const EMPTY_STATE_TEXT = 'Try our chat bot — ask a question below.';
 
 export interface ClownChatProps {
-  lore: readonly LoreItem[];
+  lore?: readonly LoreItem[];
 }
 
 export function ClownChat({ lore }: ClownChatProps) {
