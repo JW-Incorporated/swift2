@@ -1,4 +1,4 @@
-import type { ApiRequest, ApiResponse } from '@swift2/content';
+import type { ApiResponse } from '@swift2/content';
 import type {
   HapticKind,
   Insets,
@@ -6,25 +6,29 @@ import type {
   NotificationStatus,
   SharePayload,
 } from '../host/types';
-import type { JsonValue, ResResult } from './envelope';
+import type { Envelope, ResResult } from './envelope';
+import { makeRes, resErr } from './envelope';
+import type { BridgeApiRequest, ExternalUrl, WebPath } from './validate';
 import type { VersionRange } from './version';
-
-/** A web path, exactly as the web routes it (X4): `/era/<id>?...`, never an app-only route name. */
-export type WebPath = `/${string}`;
 
 type Spec<P, R> = { payload: P; result: R };
 
 /** DOM -> native commands. `null` result = completed, nothing to return. */
 export type DomCommandSpec = {
+  /**
+   * Native-owned routes only (`isWebPath`, and a route the native shell owns);
+   * anything else is answered `invalid`, never navigated.
+   */
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
   share: Spec<SharePayload, null>;
   haptic: Spec<{ kind: HapticKind }, null>;
-  openExternal: Spec<{ url: string }, null>;
+  /** `https:` only (`isExternalUrl`); anything else is `invalid`. */
+  openExternal: Spec<{ url: ExternalUrl }, null>;
   'notifications.status': Spec<Record<string, never>, NotificationStatus>;
   'notifications.request': Spec<Record<string, never>, NotificationStatus>;
   'notifications.register': Spec<Record<string, never>, null>;
   'notifications.updatePrefs': Spec<{ prefs: NotificationPrefs }, null>;
-  api: Spec<{ req: ApiRequest }, ApiResponse>;
+  api: Spec<{ req: BridgeApiRequest }, ApiResponse>;
   cancel: Spec<{ targetId: string }, null>;
 };
 
@@ -67,7 +71,8 @@ export type HandlerContext = { signal: AbortSignal };
 /**
  * A handler resolves with the `res` body, so a handler can answer `invalid`
  * (e.g. a non-web `navigate` path) without throwing. A rejection or throw is
- * mapped by the dispatcher to `failed`.
+ * mapped by the dispatcher to `failed`; an explicit `resErr('failed')` and a
+ * dispatcher-mapped rejection are indistinguishable on the wire (intended).
  */
 export type Handler<T extends CommandType> = (
   payload: PayloadOf<T>,
@@ -83,9 +88,6 @@ export type HandlerMap = { [T in DomCommandType]: Handler<T> };
 
 /** Native -> DOM command responders (the DOM client implements these). */
 export type ResponderMap = { [T in NativeCommandType]: Handler<T> };
-
-/** Every payload and result in the protocol must stay JSON-serializable. */
-export type AssertJson<T extends JsonValue | undefined> = T;
 
 /** Runtime lists, exhaustive by construction (a `Record` over the union). */
 const DOM_COMMANDS: Record<DomCommandType, true> = {
@@ -113,5 +115,14 @@ export const EVENT_TYPES: readonly EventType[] = [...DOM_EVENT_TYPES, ...NATIVE_
 
 export const isDomCommandType = (t: string): t is DomCommandType => Object.hasOwn(DOM_COMMANDS, t);
 export const isNativeCommandType = (t: string): t is NativeCommandType => Object.hasOwn(NATIVE_COMMANDS, t);
-export const isDomEventType = (t: string): t is DomEventType => Object.hasOwn(DOM_EVENTS, t);
+/**
+ * The `res` for a `cmd` whose type is not a DOM command: `unsupported`, never a
+ * throw. Returns null when `cmd` is known (the dispatcher handles it).
+ */
+export function answerUnknown(cmd: Pick<Envelope, 'id' | 'type'>, v: number, ts: number): Envelope | null {
+  if (isDomCommandType(cmd.type)) return null;
+  return makeRes(cmd, resErr('unsupported', `unknown command: ${cmd.type.slice(0, 64)}`), v, ts);
+}
+
+export const isDomEventType =(t: string): t is DomEventType => Object.hasOwn(DOM_EVENTS, t);
 export const isNativeEventType = (t: string): t is NativeEventType => Object.hasOwn(NATIVE_EVENTS, t);

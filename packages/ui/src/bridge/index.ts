@@ -9,6 +9,8 @@ export type {
   Envelope,
   EnvelopeKind,
   JsonValue,
+  ParseFailure,
+  ParseResult,
   ResError,
   ResErrorCode,
   ResResult,
@@ -20,13 +22,13 @@ export {
   EVENT_TYPES,
   NATIVE_COMMAND_TYPES,
   NATIVE_EVENT_TYPES,
+  answerUnknown,
   isDomCommandType,
   isDomEventType,
   isNativeCommandType,
   isNativeEventType,
 } from './messages';
 export type {
-  AssertJson,
   CommandSpec,
   CommandType,
   DomCommandSpec,
@@ -46,7 +48,19 @@ export type {
   PayloadOf,
   ResponderMap,
   ResultOf,
-  WebPath,
 } from './messages';
-export { BRIDGE_VERSION, inRange, negotiate } from './version';
+export {
+  MAX_API_BODY,
+  MAX_PAYLOAD_DEPTH,
+  MAX_PAYLOAD_SIZE,
+  checkStrictJson,
+  isBridgeId,
+  isExternalUrl,
+  isWebPath,
+  sanitizeApiRequest,
+  toExternalUrl,
+  toWebPath,
+} from './validate';
+export type { BridgeApiHeaderName, BridgeApiRequest, ExternalUrl, JsonFailure, WebPath } from './validate';
+export { BRIDGE_VERSION, NATIVE_SUPPORTED_RANGE, inRange, isVersionRange, negotiate, parseReady } from './version';
 export type { NegotiateResult, VersionRange } from './version';

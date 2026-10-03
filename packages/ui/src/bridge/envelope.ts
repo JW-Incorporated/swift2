@@ -1,8 +1,15 @@
+import { checkStrictJson, isBridgeId } from './validate';
+import type { JsonFailure } from './validate';
+
 /**
  * Bridge envelope (One UI WP2.3-A). Transport-neutral: nothing here knows how
  * an envelope travels (Expo DOM props/actions live only in the app's host
  * wiring). Everything that crosses is JSON-serializable: no functions, Dates,
  * Maps, class instances or `undefined` array holes.
+ *
+ * Optional-field semantics: an object type's optional field (`a?: T`) is typed
+ * `T | undefined` so it satisfies `JsonValue`, but on the wire the key must be
+ * ABSENT. An explicit `undefined` value is rejected by `parseEnvelope`.
  */
 export type JsonValue =
   | string
@@ -17,11 +24,13 @@ export type EnvelopeKind = 'cmd' | 'res' | 'evt';
 export type Envelope = {
   /** Protocol version of the sender (`BRIDGE_VERSION`). */
   v: number;
-  /** A `res` reuses the `id` of the `cmd` it answers. */
+  /** 1-64 chars of `[A-Za-z0-9_-]`. A `res` reuses the `id` of the `cmd` it answers. */
   id: string;
   kind: EnvelopeKind;
   type: string;
-  payload: unknown;
+  /** Strict JSON (see `checkStrictJson`); a missing payload is normalized to `null`. */
+  payload: JsonValue;
+  /** Informational and untrusted: never used for auth, ordering or dedup. */
   ts: number;
   /** Sequence number on native-to-DOM queued messages; acked by `ack {seq}`. */
   seq?: number;
@@ -40,19 +49,34 @@ const ERROR_CODES: readonly ResErrorCode[] = ['unsupported', 'timeout', 'cancell
 const isRecord = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
 
-/** Hand-written guard (no dependency). Returns null for anything that is not an envelope. */
-export function parseEnvelope(raw: unknown): Envelope | null {
-  if (!isRecord(raw)) return null;
-  const { v, id, kind, type, payload, ts, seq } = raw;
-  if (typeof v !== 'number' || !Number.isFinite(v)) return null;
-  if (typeof id !== 'string' || id === '') return null;
-  if (typeof kind !== 'string' || !KINDS.includes(kind as EnvelopeKind)) return null;
-  if (typeof type !== 'string' || type === '') return null;
-  if (typeof ts !== 'number' || !Number.isFinite(ts)) return null;
-  if (seq !== undefined && (typeof seq !== 'number' || !Number.isFinite(seq))) return null;
-  const env: Envelope = { v, id, kind: kind as EnvelopeKind, type, payload: payload ?? null, ts };
-  if (seq !== undefined) env.seq = seq;
-  return env;
+export type ParseFailure = 'malformed' | 'bad-id' | JsonFailure;
+
+export type ParseResult = { ok: true; envelope: Envelope } | { ok: false; reason: ParseFailure };
+
+/**
+ * Hand-written guard (no dependency). Never throws on hostile input; returns a
+ * typed failure for anything that is not a well-formed envelope with a strict
+ * JSON payload (depth <= 32, serialized <= 256 KB).
+ */
+export function parseEnvelope(raw: unknown): ParseResult {
+  const bad = (reason: ParseFailure): ParseResult => ({ ok: false, reason });
+  try {
+    if (!isRecord(raw)) return bad('malformed');
+    const { v, id, kind, type, payload, ts, seq } = raw;
+    if (typeof v !== 'number' || !Number.isInteger(v) || v < 0) return bad('malformed');
+    if (!isBridgeId(id)) return bad('bad-id');
+    if (typeof kind !== 'string' || !KINDS.includes(kind as EnvelopeKind)) return bad('malformed');
+    if (typeof type !== 'string' || type === '' || type.length > 64) return bad('malformed');
+    if (typeof ts !== 'number' || !Number.isFinite(ts)) return bad('malformed');
+    if (seq !== undefined && (typeof seq !== 'number' || !Number.isInteger(seq) || seq < 0)) return bad('malformed');
+    const json = checkStrictJson(payload === undefined ? null : payload);
+    if (!json.ok) return bad(json.reason);
+    const envelope: Envelope = { v, id, kind: kind as EnvelopeKind, type, payload: json.value, ts };
+    if (seq !== undefined) envelope.seq = seq;
+    return { ok: true, envelope };
+  } catch {
+    return bad('malformed');
+  }
 }
 
 /** Shape guard for a `res` envelope's payload. */
@@ -75,6 +99,6 @@ export const resErr = (code: ResErrorCode, message: string): ResResult<never> =>
 });
 
 /** Build the one `res` that answers `cmd` (same `id`). */
-export function makeRes(cmd: Pick<Envelope, 'id' | 'type'>, result: ResResult<unknown>, v: number, ts: number): Envelope {
+export function makeRes(cmd: Pick<Envelope, 'id' | 'type'>, result: ResResult<JsonValue>, v: number, ts: number): Envelope {
   return { v, id: cmd.id, kind: 'res', type: cmd.type, payload: result, ts };
 }
