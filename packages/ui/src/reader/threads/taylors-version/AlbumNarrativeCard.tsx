@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ChevronDown, Vault, Disc3, Calendar } from 'lucide-react';
 import type { ReRecord } from '@swift2/experience';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { useBackDismiss } from '../../lib/useBackDismiss';
 import { SpotifyCompare } from './SpotifyCompare';
 
 /**

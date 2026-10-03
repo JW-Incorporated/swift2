@@ -23,21 +23,21 @@ export function resolveCrossingMarkerTops(
 ): number[] {
   if (rawTopPcts.length <= 1) return [...rawTopPcts];
   const gap = (minGapPx / railHeightPx) * 100;
-  const order = rawTopPcts.map((_, i) => i).sort((a, b) => rawTopPcts[a] - rawTopPcts[b] || a - b);
+  const order = rawTopPcts.map((_, i) => i).sort((a, b) => rawTopPcts[a]! - rawTopPcts[b]! || a - b);
 
   // Cluster merge (1-D label placement): a cluster puts its k markers at
   // start, start+gap, …; least-squares start = mean(p_j − j·gap). Merging on
   // overlap centres stacks on their true midpoint instead of cascading down.
   const clusters: Cluster[] = [];
   for (const idx of order) {
-    let cur: Cluster = { count: 1, sumAdjusted: rawTopPcts[idx], start: rawTopPcts[idx] };
+    let cur: Cluster = { count: 1, sumAdjusted: rawTopPcts[idx]!, start: rawTopPcts[idx]! };
     while (clusters.length > 0) {
       const prev = clusters[clusters.length - 1];
-      if (cur.start >= prev.start + prev.count * gap) break;
+      if (cur.start >= prev!.start + prev!.count * gap) break;
       clusters.pop();
-      const count = prev.count + cur.count;
+      const count = prev!.count + cur.count;
       // cur's markers sit prev.count slots further down the merged ladder.
-      const sumAdjusted = prev.sumAdjusted + cur.sumAdjusted - prev.count * gap * cur.count;
+      const sumAdjusted = prev!.sumAdjusted + cur.sumAdjusted - prev!.count * gap * cur.count;
       cur = { count, sumAdjusted, start: sumAdjusted / count };
     }
     // Keep the ladder on the rail; if the rail is ever too full to hold
@@ -51,7 +51,7 @@ export function resolveCrossingMarkerTops(
   const out = new Array<number>(rawTopPcts.length);
   let cursor = 0;
   for (const cluster of clusters) {
-    for (let j = 0; j < cluster.count; j += 1) out[order[cursor + j]] = cluster.start + j * gap;
+    for (let j = 0; j < cluster.count; j += 1) out[order[cursor + j]!] = cluster.start + j * gap;
     cursor += cluster.count;
   }
   return out;

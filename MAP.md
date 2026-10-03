@@ -615,6 +615,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/dom/bridge/transport-expo.ts` (+ test) | WP2.3-C the ONE Expo-DOM-specific DOM-side file (`inbox` prop + `bridge` action -> client); NOT yet imported by ReaderSpike/SharedUiTest (waits for G0) |
 | `apps/mobile/lib/bridge-host.ts` (+ `bridge-host.test.ts`, `bridge-host-queue.test.ts`, `bridge-host.test-kit.ts`) | WP2.3-B native bridge dispatcher: pure/transport-neutral `createBridgeHost` (injected clock/scheduler/send/handlers). One res per cmd, 8 s per-type timeouts, `cancel`, bounded-LRU replay dedup, per-command validators before handlers, pre-ready seq queue + ack trim, version check vs `NATIVE_SUPPORTED_RANGE` -> `onProtocolFatal` (the only watchdog path). NOT wired into SharedUiHost/App yet (step 4 waits for G0) |
 | `apps/mobile/lib/bridge-handlers-api.ts` (+ test) | WP2.3-F1 native `api` handler: `createHandlers({fetch,baseUrl,...})` -> `{api}`; 4-endpoint POST allowlist, header allowlists both ways, 256 KB caps, 8 s timeout, abort -> cancelled, no expo/SharedUiHost imports. NOT wired (F2 waits for G0) |
+| `apps/mobile/lib/bridge-handlers-notifications.ts`, `notification-tap-queue.ts` (+ tests) | WP2.3-E1 (pre-G0, pure, no expo/SharedUiHost imports): `createHandlers(deps)` for `notifications.{status,request,register,updatePrefs}` (fixed failure text, no token); tap queue holds bounded, id-deduped taps until `attach(sink)` then replays in order (`navigateSink(host.emit)`; `detach` re-holds). E2 wiring (App.tsx listener, SharedUiHost, watchdog-gate TODO) waits for G0 |
 | `apps/mobile/lib/bridge-handlers-ui.ts` (+ test) | WP2.3-D1 UI bridge handlers: pure `createHandlers(deps)` (navigate/openExternal/share/haptic, injected native deps, validation before deps), `createBackHandler` (false pre-ready; non-`handled` -> exitApp; 1000 ms), `createInsetsEmitter`, `createContentVersionEmitter`. No RN/Expo imports; unwired until D2 (post-G0). |
 | `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
 | `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
@@ -652,7 +653,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 
 ## One UI reader slices (WP2.5-2.13 scaffold)
 
-Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and package subpath exports already exist; each slice adds its rows only under its own heading.
+Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and package subpath exports already exist (no root re-exports; import via deep subpaths); each slice adds its rows only under its own heading.
 
 ### WP2.5 moment
 
@@ -662,7 +663,9 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 | `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 
 ### WP2.6 threads
-(pending)
+| Path | Purpose | Notes |
+|---|---|---|
+| `packages/ui/src/reader/threads/` (+ `READER-MOVE.md` § WP2.6 threads) | WP2.6-A1 move-only: ThreadsMode, ThreadsTimeline, ClueWeb, Crossings, FromTheEras, LiveTheoryCard, TheoryCard and the `decode/`, `love-story/`, `proposal/`, `runway/`, `taylors-version/` thread components; non-components under `threads/lib/` (`crossingMarkerLayout`, `decode`, `love-story`, `live-theories`, `lib/decode/patternRailLayout`) with their pure tests | One-line shims at `components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx` and `lib/longlive/live-theories.ts`; `TheoryGuide` stays in `apps/web` until WP2.5 moves `useFocusTrap`; source-reading tests stay in `apps/web` and point at the moved files |
 
 ### WP2.7 tracks
 
@@ -680,7 +683,7 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 (2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. MerchSection stays until A2 (extensions prop). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.10 community
-(pending)
+(2.10-A1, move-only) Moved to `packages/ui/src/reader/community/`: CommunitySection, CommunityCard, SectionJumpBar. Old apps/web paths are one-line `export *` shims. Community data is imported from `@swift2/experience` directly; SubmitLinkForm and section-jump come from `reader/merch/`. A2 not needed (no non-import hunks). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.11 clown
 A1 (clown board/chat client modules only; Mood and all server-side `clown-*` stay in apps/web). MOVED to `packages/ui/src/reader/clown/`: `ClownBoard`, `ClownChat`, `ClownChatComposer`, `ClownChatTitlebar`, `ClownEmptyState`, `ClownItemCard`, `ClownMessageRow` (.tsx) and `lib/{clown-board,clown-chat-helpers,clown-chat-ui,clown-explain,clown-starters,clown-stream,useChromeOffset}.ts`. The old paths are one-line `export *` shims. Wire types come from `@swift2/shared`. `clown-board.ts` takes `lore` as a parameter (`ClownChat`/`ClownBoard` take a `lore` prop); the baked `LORE` (`apps/web/lib/longlive/clownbot-lore.ts` + `.generated`) stays app-side and `LongLive.tsx` passes it.
@@ -693,8 +696,9 @@ A1 (clown board/chat client modules only; Mood and all server-side `clown-*` sta
 | `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
 
 ### WP2.13 legal
-| File | What it is |
+| Path | What it is |
 |---|---|
+| `packages/ui/src/reader/legal/{LegalDocument,SupportPage}.tsx` + `lib/legal.ts` | MOVED from `apps/web` (WP2.13-A1 + minimal A2). `apps/web/lib/longlive/legal.ts` is a one-line `export *` shim. `app/{privacy,terms,support}/page.tsx` keep `metadata` and pass `footer={<SiteFooter />}` (SiteFooter stays until 2.4-B). `Link` via `useHost()` |
 | `packages/ui/src/reader/legal/FeedbackButton.tsx` | MOVED from `apps/web/components/longlive/` (WP2.13-A1b, move-only). Old path is a one-line `export *` shim (until A2) |
 
 ## CI concurrency (2026-10-01)

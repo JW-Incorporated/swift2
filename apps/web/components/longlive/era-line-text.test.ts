@@ -27,14 +27,9 @@ const TEXT_COLOR_USES = [
 ];
 
 describe('#2230 --era-line (border token) is never used as a text color', () => {
-  const ERA_UI = fileURLToPath(new URL('../../../../packages/ui/src/reader/era/', import.meta.url));
-  const CLOWN_UI = fileURLToPath(new URL('../../../../packages/ui/src/reader/clown/', import.meta.url));
-  for (const file of [...tsxFiles(ROOT), ...tsxFiles(ERA_UI), ...tsxFiles(CLOWN_UI)]) {
-    const rel = file.startsWith(ROOT)
-      ? file.slice(ROOT.length)
-      : file.startsWith(ERA_UI)
-        ? file.slice(ERA_UI.length)
-        : file.slice(CLOWN_UI.length);
+  const READER_UI = fileURLToPath(new URL('../../../../packages/ui/src/reader/', import.meta.url));
+  for (const file of [...tsxFiles(ROOT), ...tsxFiles(READER_UI)]) {
+    const rel = file.startsWith(ROOT) ? file.slice(ROOT.length) : file.slice(READER_UI.length);
     it(rel, () => {
       const src = readFileSync(file, 'utf8');
       for (const pattern of TEXT_COLOR_USES) {
