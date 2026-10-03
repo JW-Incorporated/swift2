@@ -1,11 +1,26 @@
 import type { ReaderCorpus } from '../corpus';
 import { eggDoorwaysForEraIn, threadDoorwaysForEraIn } from '../doorways';
 import { resolveEraSecretLinkIn } from '../era-secrets-link';
-import { threadPointsIn } from '../lenses';
+import { threadCrossingsIn, threadPointsIn, threadsInEraIn } from '../lenses';
 import { contentForThreadIn } from '../threads';
-import { theoriesForEraIn } from '../theories';
-import { songTargetOfIn, tracksForEraIn } from '../track-guide';
-import type { ContentItem, EraId, EraSecret, LensId, Milestone, RelatedId, VideoNote } from '../types';
+import { resolveRelatedTheoryIn, theoriesForEraIn } from '../theories';
+import {
+  adjacentTrackOnAlbumIn,
+  keepExploringIn,
+  resolveTrackKeyIn,
+  songTargetOfIn,
+  tracksForEraIn,
+} from '../track-guide';
+import type {
+  ContentItem,
+  EraId,
+  EraSecret,
+  LensId,
+  Milestone,
+  RelatedId,
+  TrackNote,
+  VideoNote,
+} from '../types';
 import { corpusFromInputs } from './corpus';
 import type { ReaderSnapshotCore, ReaderSnapshotCoreInputs } from './types';
 
@@ -81,6 +96,14 @@ export function createReaderQueries<W extends VideoNote = VideoNote, M extends W
     songTargetOf: (relatedId: RelatedId) => songTargetOfIn(corpus, relatedId),
     resolveEraSecretLink: (deeperLink?: string) => resolveEraSecretLinkIn(corpus, deeperLink),
     threadPoints: (threadId: LensId) => threadPointsIn(corpus, threadId),
+    threadsInEra: (eraId: string) => threadsInEraIn(corpus, eraId),
+    threadCrossings: (a: LensId, b: LensId, windowDays?: number) =>
+      threadCrossingsIn(corpus, a, b, windowDays),
+    resolveTrackKey: (key: string) => resolveTrackKeyIn(corpus, key),
+    adjacentTrackOnAlbum: (eraId: EraId, track: TrackNote, direction: 'previous' | 'next') =>
+      adjacentTrackOnAlbumIn(corpus, eraId, track, direction),
+    keepExploring: (eraId: EraId, track: TrackNote) => keepExploringIn(corpus, eraId, track),
+    resolveRelatedTheory: (ref: string) => resolveRelatedTheoryIn(corpus, ref),
     threadDoorwaysForEra: (eraId: EraId, eraStart: string, eraEnd: string) =>
       threadDoorwaysForEraIn(corpus, eraId, eraStart, eraEnd),
     eggDoorwaysForEra: (eraId: EraId, eraStart: string, eraEnd: string) =>

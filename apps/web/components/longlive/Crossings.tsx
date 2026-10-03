@@ -7,7 +7,6 @@ import { CAREER_START_MS, careerEndMs, ERAS, getEra } from '@swift2/experience';
 import {
   CROSSING_THREADS,
   getThread,
-  threadCrossings,
   type Crossing,
 } from '@swift2/experience';
 import type { LensId } from '@swift2/experience';
@@ -82,7 +81,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
 
   const pointsA = useMemo(() => q.threadPoints(a), [q, a]);
   const pointsB = useMemo(() => q.threadPoints(b), [q, b]);
-  const crossings = useMemo(() => threadCrossings(a, b), [a, b]);
+  const crossings = useMemo(() => q.threadCrossings(a, b), [q, a, b]);
 
   // Diamond tops after the ≥24px collision pass (#701); connectors keep the true dates.
   const markerTops = useMemo(

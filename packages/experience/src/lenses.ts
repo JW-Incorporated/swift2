@@ -249,6 +249,31 @@ export function threadsInEraIn(corpus: ReaderCorpus, eraId: string): { id: LensI
   })).filter((t) => t.count > 0);
 }
 
+/** `threadCrossings` over an explicit corpus; the injected wrapper delegates here. */
+export function threadCrossingsIn(
+  corpus: ReaderCorpus,
+  a: LensId,
+  b: LensId,
+  windowDays = 210,
+): Crossing[] {
+  if (a === b) return [];
+  const pa = threadPointsIn(corpus, a);
+  const pb = threadPointsIn(corpus, b);
+  const windowMs = windowDays * 86_400_000;
+  const out: Crossing[] = [];
+  for (const x of pa) {
+    const xt = new Date(x.date).getTime();
+    for (const y of pb) {
+      const yt = new Date(y.date).getTime();
+      const gap = Math.abs(xt - yt);
+      if (gap <= windowMs) {
+        out.push({ date: (xt + yt) / 2, eraId: x.eraId, a: x, b: y, gapDays: Math.round(gap / 86_400_000) });
+      }
+    }
+  }
+  return out.sort((m, n) => n.date - m.date);
+}
+
 /** A moment where two threads have points near each other in time. */
 export interface Crossing {
   /** Midpoint of the two dates, in ms — used to place the marker on the axis. */

@@ -484,6 +484,7 @@ function MomentLightbox({
 }
 
 export function MomentDetail() {
+  const q = useReader();
   const { Image } = useHost();
   const { getContentItem } = useReader();
   const { openItemId } = useAppState();
@@ -641,7 +642,7 @@ export function MomentDetail() {
         <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
       </button>
       <button
-        onClick={() => void shareTargetNow({ kind: 'item', itemId: item.id })}
+        onClick={() => void shareTargetNow({ kind: 'item', itemId: item.id }, q)}
         className="era-icon-btn rounded-full p-2 backdrop-blur-md"
         aria-label="Share this moment"
       >
