@@ -37,6 +37,10 @@ const BANNED_MODULES = [
   'content-vault.generated',
   '*.generated',
 ].map((m) => '**/lib/longlive/' + m);
+const BANNED_RELATIVE_MODULES = BANNED_MODULES.map((m) => m.replace('**/lib/longlive/', '')).flatMap((m) => [
+  './' + m,
+  '../' + m,
+]);
 const READER_WRAPPER_BAN = {
   name: '@swift2/experience',
   importNames: READER_WRAPPERS,
@@ -64,6 +68,9 @@ export default tseslint.config(
       '!apps/web/components',
       'apps/web/components/*',
       '!apps/web/components/longlive',
+      '!apps/web/lib',
+      'apps/web/lib/*',
+      '!apps/web/lib/longlive',
       'apps/mobile/**',
       '.claude/**',
     ],
@@ -169,6 +176,52 @@ export default tseslint.config(
         {
           paths: [READER_WRAPPER_BAN],
           patterns: [READER_MODULE_BAN],
+        },
+      ],
+    },
+  },
+  {
+    // WP2.2-D follow-up: the same ban for the CLIENT modules of apps/web/lib/longlive
+    // (that folder mixes server and client code, so this is an explicit list, not a
+    // folder glob). Client = 'use client' files + the pure helpers client components
+    // import: store/, use*.ts hooks, share-payload, section-jump, etc.
+    // Deliberately NOT covered (server / snapshot-construction / data, may read the
+    // module-global accessors): the banned modules themselves, *.generated.ts,
+    // baked-modules*.ts, vault-wiring.ts, reader-snapshot-provider.tsx,
+    // render-with-reader.tsx, *.server.ts, clown-agent*/clown-index/clown-retrieve/
+    // clown-client/clown-fallback/clown-answer (route-handler side), og-card.tsx,
+    // share-card*.tsx, parity-queries.ts, search.ts, tests.
+    // TODO(WP2.2): communities.ts, live-theories.ts and love-story.ts are `export * from
+    // '@swift2/experience'` shims that re-export the banned wrappers; narrowing them to
+    // explicit exports needs a consumer audit, so they are allow-listed here.
+    // TODO(#4859): merch-filters.ts reads content/merch directly until merch moves
+    // to ReaderExtensionsProvider; clown-board.ts reads THEORIES_RAW directly
+    // (its snapshot migration is larger than a lint-follow-up).
+    files: [
+      'apps/web/lib/longlive/store/**/*.{ts,tsx}',
+      'apps/web/lib/longlive/use-*.ts',
+      'apps/web/lib/longlive/use[A-Z]*.ts',
+      'apps/web/lib/longlive/{clown-chat-ui,clown-chat-helpers,clown-stream,clown-explain,clown-starters,local-storage-adapter,return-point-stack,chrome-offset,bottom-nav-focus,bottom-nav-layout,card-chrome,contain-fit,share-payload,share-action,share,section-jump,era-jump-landing,era-stream-pin,in-app,theme,tagBadges,tags,video-affordance,track-video,related,submit-link,legal,decode,social,share-card-params,mood-starters}.ts',
+    ],
+    ignores: ['**/*.test.{ts,tsx}', '**/*.server.{ts,tsx}'],
+    languageOptions: { parser: tseslint.parser },
+    plugins: {
+      'react-hooks': stubPlugin('exhaustive-deps'),
+      '@next/next': stubPlugin('no-img-element', 'no-html-link-for-pages'),
+    },
+    linterOptions: { reportUnusedDisableDirectives: 'off' },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [READER_WRAPPER_BAN],
+          patterns: [
+            READER_MODULE_BAN,
+            {
+              group: BANNED_RELATIVE_MODULES,
+              message: READER_MODULE_BAN.message,
+            },
+          ],
         },
       ],
     },
