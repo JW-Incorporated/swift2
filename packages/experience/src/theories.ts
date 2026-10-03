@@ -1,5 +1,5 @@
 import type { EraId, TheoryNote } from './types';
-import { injectedCorpus, type ReaderCorpus } from './corpus';
+import type { ReaderCorpus } from './corpus';
 
 /**
  * Per-era easter eggs + fan theories — static data synced at build time from
@@ -20,10 +20,6 @@ export function theoriesForEraIn(corpus: ReaderCorpus, eraId: EraId): TheoryNote
   return corpus.theories()[eraId] ?? [];
 }
 
-export function theoriesForEra(eraId: EraId): TheoryNote[] {
-  return theoriesForEraIn(injectedCorpus(), eraId);
-}
-
 /**
  * Resolves one `TheoryNote.relatedSlugs` entry (`${EraId}:${slug}`, already
  * mapped to a real EraId at generation time) against the live per-era
@@ -41,8 +37,4 @@ export function resolveRelatedTheoryIn(
   const slug = ref.slice(i + 1);
   const theory = (corpus.theories()[eraId] ?? []).find((t) => t.slug === slug);
   return theory ? { eraId, theory } : null;
-}
-
-export function resolveRelatedTheory(ref: string): { eraId: EraId; theory: TheoryNote } | null {
-  return resolveRelatedTheoryIn(injectedCorpus(), ref);
 }

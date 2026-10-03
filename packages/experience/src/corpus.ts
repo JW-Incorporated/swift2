@@ -1,13 +1,5 @@
 import type { ContentItem, EraId, EraSecret, TheoryNote, TrackNote } from './types';
 import type { SongTarget } from './track-guide';
-import { contentItemLookup } from './content-item-provider';
-import { tracksRawProvider } from './track-catalogue-provider';
-import {
-  contentForThreadInjected,
-  eraSecretsRawInjected,
-  songTargetInjected,
-  theoriesRawInjected,
-} from './thread-content-provider';
 
 /**
  * The data the content-derived functions read, passed explicitly. Every member
@@ -22,18 +14,4 @@ export interface ReaderCorpus {
   theories(): Partial<Record<EraId, TheoryNote[]>>;
   eraSecrets(): Partial<Record<EraId, EraSecret[]>>;
   songTarget(relatedId: string): SongTarget | null;
-}
-
-const injected: ReaderCorpus = {
-  content: contentForThreadInjected,
-  getContentItem: contentItemLookup,
-  tracks: tracksRawProvider,
-  theories: theoriesRawInjected,
-  eraSecrets: eraSecretsRawInjected,
-  songTarget: songTargetInjected,
-};
-
-/** The corpus backed by the module-global providers (native screens, server routes). Never used by a snapshot build. */
-export function injectedCorpus(): ReaderCorpus {
-  return injected;
 }

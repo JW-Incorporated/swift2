@@ -1,7 +1,7 @@
 import type { EraId, LensId, TheoryNote } from './types';
 import { getThread, threadPointsIn, threadsInEraIn } from './lenses';
 import { theoriesForEraIn } from './theories';
-import { injectedCorpus, type ReaderCorpus } from './corpus';
+import type { ReaderCorpus } from './corpus';
 import { resolveAnchor } from './anchor-date';
 import type { Anchored, ThreadDoorway, EggDoorway } from './feed-types';
 
@@ -47,14 +47,6 @@ const EGG_DOORWAY_KICKER = 'EGGS — the secrets she plants';
  * without any special-casing here. A point already inside the window is
  * untouched and keeps its real, exact, displayed date.
  */
-export function threadDoorwaysForEra(
-  eraId: EraId,
-  eraStart: string,
-  eraEnd: string,
-): { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored }[] {
-  return threadDoorwaysForEraIn(injectedCorpus(), eraId, eraStart, eraEnd);
-}
-
 export function threadDoorwaysForEraIn(
   corpus: ReaderCorpus,
   eraId: EraId,
@@ -96,14 +88,6 @@ export function threadDoorwaysForEraIn(
  * `track-video.ts` (PLAN.md P2 step 10), for the same reason and a stronger
  * one here: there is no curated pointer to even start from.
  */
-export function eggDoorwaysForEra(
-  eraId: EraId,
-  eraStart: string,
-  eraEnd: string,
-): { kind: 'egg'; doorway: EggDoorway; anchor: Anchored }[] {
-  return eggDoorwaysForEraIn(injectedCorpus(), eraId, eraStart, eraEnd);
-}
-
 export function eggDoorwaysForEraIn(
   corpus: ReaderCorpus,
   eraId: EraId,

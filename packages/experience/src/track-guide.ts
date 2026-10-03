@@ -1,5 +1,5 @@
 import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from './types';
-import { injectedCorpus, type ReaderCorpus } from './corpus';
+import type { ReaderCorpus } from './corpus';
 import { getEra } from './eras';
 import { formatFullDate } from './format';
 
@@ -15,10 +15,6 @@ import { formatFullDate } from './format';
 
 export function tracksForEraIn(corpus: ReaderCorpus, eraId: EraId): TrackNote[] {
   return corpus.tracks()[eraId] ?? [];
-}
-
-export function tracksForEra(eraId: EraId): TrackNote[] {
-  return tracksForEraIn(injectedCorpus(), eraId);
 }
 
 /**
@@ -39,10 +35,6 @@ export function trackKey(eraId: string, track: Pick<TrackNote, 'trackNumber' | '
  * for a stale/mangled key — the store then simply stays on the landing page
  * rather than opening an empty dossier over the wrong era.
  */
-export function resolveTrackKey(key: string): { eraId: EraId; track: TrackNote } | null {
-  return resolveTrackKeyIn(injectedCorpus(), key);
-}
-
 export function resolveTrackKeyIn(
   corpus: ReaderCorpus,
   key: string,
@@ -81,10 +73,6 @@ export interface SongTarget {
  * collides across eras, the first era (object key order of the generated
  * map) wins.
  */
-export function songTargetOf(relatedId: RelatedId): SongTarget | null {
-  return songTargetOfIn(injectedCorpus(), relatedId);
-}
-
 export function songTargetOfIn(corpus: ReaderCorpus, relatedId: RelatedId): SongTarget | null {
   if (!relatedId.startsWith('song:')) return null;
   const slug = relatedId.slice('song:'.length);
@@ -107,13 +95,6 @@ export type ResolvedConnection =
  * era content; everything else — other namespaces, unknown ids, and a song
  * pointing at itself (`selfSlug`) — is skipped silently.
  */
-export function resolveConnections(
-  connections: readonly TrackConnection[] | undefined,
-  selfSlug?: string,
-): ResolvedConnection[] {
-  return resolveConnectionsIn(injectedCorpus(), connections, selfSlug);
-}
-
 export function resolveConnectionsIn(
   corpus: ReaderCorpus,
   connections: readonly TrackConnection[] | undefined,
@@ -141,10 +122,6 @@ export function resolveConnectionsIn(
  * number ascending, unnumbered last), so "next" is the first later entry
  * with a greater number.
  */
-export function nextTrackOnAlbum(eraId: EraId, track: TrackNote): TrackNote | null {
-  return nextTrackOnAlbumIn(injectedCorpus(), eraId, track);
-}
-
 export function nextTrackOnAlbumIn(corpus: ReaderCorpus, eraId: EraId, track: TrackNote): TrackNote | null {
   if (track.trackNumber == null) return null;
   return (
@@ -162,14 +139,6 @@ export function nextTrackOnAlbumIn(corpus: ReaderCorpus, eraId: EraId, track: Tr
  * explicit scope call on #774 was that Previous/Next must not silently skip
  * a sourced note that lacks a full dossier. Null at either end (no wrap).
  */
-export function adjacentTrackOnAlbum(
-  eraId: EraId,
-  track: TrackNote,
-  direction: 'previous' | 'next',
-): TrackNote | null {
-  return adjacentTrackOnAlbumIn(injectedCorpus(), eraId, track, direction);
-}
-
 export function adjacentTrackOnAlbumIn(
   corpus: ReaderCorpus,
   eraId: EraId,
@@ -192,10 +161,6 @@ export function adjacentTrackOnAlbumIn(
  * connections still get the next-song entry, so the section is never empty
  * mid-album.
  */
-export function keepExploring(eraId: EraId, track: TrackNote): ResolvedConnection[] {
-  return keepExploringIn(injectedCorpus(), eraId, track);
-}
-
 export function keepExploringIn(corpus: ReaderCorpus, eraId: EraId, track: TrackNote): ResolvedConnection[] {
   const curated = resolveConnectionsIn(corpus, track.dossier?.connections, track.slug);
   const next = nextTrackOnAlbumIn(corpus, eraId, track);

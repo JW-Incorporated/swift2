@@ -5,6 +5,7 @@ import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { LOAD_SOURCE } from '@swift2/content';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { setContentItemLookup, getContentItemLookup } from '../content-item-provider';
 import { setDefaultSongCatalogue, defaultSongCatalogue } from '../song-catalogue-provider';
@@ -108,35 +109,64 @@ describe('snapshot derivation is pure over its inputs', () => {
     expect((await hashSnapshot(snap)).hash).toBe(await hashOf(bundle));
   });
 
-  it('reader-snapshot sources import no provider module or injected wrapper', async () => {
-    const dir = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
-    const files = (await readdir(dir)).filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts'));
-    const wrappers = new Set([
-      'injectedCorpus',
-      'contentForThread',
-      'threadPoints',
-      'threadsInEra',
-      'threadDoorwaysForEra',
-      'eggDoorwaysForEra',
-      'theoriesForEra',
-      'eraSecretsForEra',
-      'resolveEraSecretLink',
-      'tracksForEra',
-      'nextTrackOnAlbum',
-      'keepExploring',
-      'songTargetOf',
-      'resolveConnections',
-    ]);
-    for (const f of files) {
-      const src = await readFile(path.join(dir, f), 'utf-8');
-      for (const m of src.matchAll(/^import\s+(type\s+)?([^;]*?)\s+from\s+['"]([^'"]+)['"]/gms)) {
-        const [, typeOnly, clause, from] = m;
-        expect(/-provider$/.test(from!), `${f} imports ${from}`).toBe(false);
-        if (typeOnly) continue;
-        const names = clause!.replace(/\btype\s+\w+/g, '').match(/\w+/g) ?? [];
-        const hit = names.filter((n) => wrappers.has(n));
-        expect(hit, `${f} imports injected wrappers from ${from}`).toEqual([]);
+  it('the transitive runtime import graph of reader-snapshot reaches no provider or injected corpus', async () => {
+    const found = await reachedModules();
+    expect(found.has('reader-snapshot/build.ts')).toBe(true);
+    const offenders: string[] = [];
+    for (const [rel, src] of found) {
+      if (/-provider\.ts$/.test(rel)) offenders.push(`${rel}: is a provider module`);
+      const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+      if (/\bset[A-Z]\w*(Provider|Lookup|Resolver|Catalogue)\b|\binjectedCorpus\b|\w+Injected\b/.test(code)) {
+        offenders.push(`${rel}: defines/calls a provider setter or references injectedCorpus`);
       }
     }
+    expect(offenders).toEqual([]);
+  });
+
+  it('fromBundle maps load sources to state, offline beating the stale flag', () => {
+    const at = (source: string, stale?: boolean) => fromBundle({ ...bundle, source, stale } as BundleLike, deps).state;
+    expect(at(LOAD_SOURCE.lastGoodAfterDataError, true)).toBe('error');
+    expect(at(LOAD_SOURCE.lastGoodAfterDataError)).toBe('error');
+    expect(at(LOAD_SOURCE.offlineLastGood, true)).toBe('offline');
+    expect(at(LOAD_SOURCE.offlineLastGood)).toBe('offline');
+    expect(at(LOAD_SOURCE.network, true)).toBe('stale');
+    expect(at(LOAD_SOURCE.network)).toBe('ready');
   });
 });
+
+const srcRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..');
+
+async function resolveLocal(from: string, spec: string): Promise<string | null> {
+  const base = path.resolve(path.dirname(from), spec);
+  for (const c of [`${base}.ts`, `${base}.tsx`, path.join(base, 'index.ts')]) {
+    try {
+      await readFile(c);
+      return c;
+    } catch {
+      // not this extension
+    }
+  }
+  return null;
+}
+
+async function reachedModules(): Promise<Map<string, string>> {
+  const entries = (await readdir(path.join(srcRoot, 'reader-snapshot')))
+    .filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts'))
+    .map((f) => path.join(srcRoot, 'reader-snapshot', f));
+  const found = new Map<string, string>();
+  const queue = [...entries];
+  while (queue.length > 0) {
+    const file = queue.pop()!;
+    const rel = path.relative(srcRoot, file).split(path.sep).join('/');
+    if (found.has(rel)) continue;
+    const src = await readFile(file, 'utf-8');
+    found.set(rel, src);
+    const re = /^(?:import|export)\s+(type\s+)?[^;]*?\bfrom\s+['"](\.[^'"]*)['"]|^import\s+['"](\.[^'"]*)['"]/gms;
+    for (const m of src.matchAll(re)) {
+      if (m[1]) continue;
+      const next = await resolveLocal(file, (m[2] ?? m[3])!);
+      if (next) queue.push(next);
+    }
+  }
+  return found;
+}

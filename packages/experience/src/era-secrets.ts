@@ -1,6 +1,7 @@
 import type { ContentItem, EraId, EraSecret, TrackNote } from './types';
 import { contentItemInjected } from './thread-content-provider';
-import { injectedCorpus, type ReaderCorpus } from './corpus';
+import type { ReaderCorpus } from './corpus';
+import { injectedCorpus } from './corpus-injected';
 import { epochDay } from './epoch-day';
 
 /**
