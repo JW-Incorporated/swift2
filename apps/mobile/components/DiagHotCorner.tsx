@@ -1,17 +1,28 @@
-// Invisible 44x44 top-left hot corner that opens the Diagnostics panel with 7
-// quick taps while the shared-UI host is mounted (issue #4872). No visual
-// change by design: the app must look exactly like the website.
+// Invisible hot corner in the top safe-area inset strip (bottom strip as a
+// fallback) that opens the Diagnostics panel with 7 quick taps while the
+// shared-UI host is mounted (issue #4872). It lives outside the SafeAreaView so
+// it never overlaps DOM content. No visual change by design.
 import { useRef, useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { createHotCornerPress, HOT_CORNER_SIZE } from '../lib/diag-hot-corner';
+import { Pressable, StyleSheet, useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createHotCornerPress, hotCornerRect } from '../lib/diag-hot-corner';
 import { DiagnosticsPanel } from './DiagnosticsPanel';
 
 export function DiagHotCorner() {
   const [open, setOpen] = useState(false);
   const onPress = useRef(createHotCornerPress(() => setOpen(true))).current;
+  const insets = useSafeAreaInsets();
+  const window = useWindowDimensions();
+  const rect = hotCornerRect(insets, window);
+  if (!rect) return null;
   return (
     <>
-      <Pressable accessible={false} onPress={onPress} style={styles.corner} />
+      <Pressable
+        accessible={false}
+        android_ripple={null}
+        onPress={onPress}
+        style={[styles.corner, rect]}
+      />
       <DiagnosticsPanel visible={open} onClose={() => setOpen(false)} />
     </>
   );
@@ -20,10 +31,6 @@ export function DiagHotCorner() {
 const styles = StyleSheet.create({
   corner: {
     backgroundColor: 'transparent',
-    height: HOT_CORNER_SIZE,
-    left: 0,
     position: 'absolute',
-    top: 0,
-    width: HOT_CORNER_SIZE,
   },
 });

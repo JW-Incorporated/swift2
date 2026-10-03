@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { searchShareReducer, searchShareInitialState } from './search-share';
-import type { ClownAnswer } from '../clown-answer';
+import type { ClownAnswer } from '@swift2/shared';
 
 const answer = { text: 'hi', citations: [], investigation: [] } as unknown as ClownAnswer;
 
@@ -45,8 +45,8 @@ describe('searchShareReducer', () => {
       });
     }
     expect(state.clownMessages).toHaveLength(6);
-    expect(state.clownMessages[0].question).toBe('q2');
-    expect(state.clownMessages[5].question).toBe('q7');
+    expect(state.clownMessages[0]!.question).toBe('q2');
+    expect(state.clownMessages[5]!.question).toBe('q7');
   });
 
   it('clearClownMessages empties the transcript', () => {

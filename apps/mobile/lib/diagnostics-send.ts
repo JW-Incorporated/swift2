@@ -2,9 +2,10 @@
 // builds the tracking-issue comment from the validated fields. No location, no ids.
 import { apiBaseUrl } from './api-base';
 import type { DiagPayload } from './diagnostics';
+import type { WatchdogPayload } from './watchdog-telemetry';
 
 export async function sendDiagReport(
-  payload: DiagPayload,
+  payload: DiagPayload | WatchdogPayload,
   fetchImpl: typeof fetch = fetch,
 ): Promise<{ ok: boolean; error?: string }> {
   try {

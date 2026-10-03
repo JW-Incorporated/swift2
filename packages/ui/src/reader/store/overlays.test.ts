@@ -4,7 +4,7 @@ import { CURRENT_ERA_ID, ERAS } from '@swift2/experience';
 import type { MotifId } from '@swift2/experience';
 
 const eraA = CURRENT_ERA_ID;
-const eraB = ERAS[0].id;
+const eraB = ERAS[0]!.id;
 
 describe('overlaysReducer', () => {
   it('has the expected initial state', () => {

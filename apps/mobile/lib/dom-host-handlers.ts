@@ -32,8 +32,3 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
     },
   };
 }
-
-/** Whether the shared-UI host replaces the native reader. */
-export function sharedUiActive(flagOn: boolean, forcedOnThisDevice: boolean): boolean {
-  return flagOn || forcedOnThisDevice;
-}

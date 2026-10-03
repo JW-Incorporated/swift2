@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createDomHostHandlers, sharedUiActive } from './dom-host-handlers';
+import { createDomHostHandlers } from './dom-host-handlers';
 
 function setup() {
   const onSignal = vi.fn();
@@ -25,13 +25,5 @@ describe('createDomHostHandlers', () => {
     expect(onSignal).toHaveBeenCalledWith('dom-process-terminated');
     expect(onSignal).toHaveBeenCalledWith('dom-render-process-gone');
     expect(watch.crashed.mock.calls).toEqual([['terminated'], ['render-gone']]);
-  });
-});
-
-describe('sharedUiActive', () => {
-  it('mounts only when the flag or the device override is on', () => {
-    expect(sharedUiActive(false, false)).toBe(false);
-    expect(sharedUiActive(true, false)).toBe(true);
-    expect(sharedUiActive(false, true)).toBe(true);
   });
 });
