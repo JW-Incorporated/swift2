@@ -109,6 +109,42 @@ describe('loadContentBundle', () => {
   });
 });
 
+describe('loadContentBundle in-flight sharing', () => {
+  it('shares one load across concurrent callers', async () => {
+    let resolve!: (b: typeof clean) => void;
+    loadBundle.mockReturnValue(new Promise<typeof clean>((r) => (resolve = r)));
+    const calls = [loadContentBundle(), loadContentBundle(), loadContentBundle()];
+    resolve(clean);
+    const results = await Promise.all(calls);
+    expect(loadBundle).toHaveBeenCalledTimes(1);
+    expect(results[0]).toBe(clean);
+    expect(results[1]).toBe(clean);
+    expect(results[2]).toBe(clean);
+  });
+
+  it('rejects every waiter on failure, then the next call loads again', async () => {
+    const err = new Error('boom');
+    let reject!: (e: Error) => void;
+    loadBundle.mockReturnValueOnce(new Promise((_, rej) => (reject = rej)));
+    const calls = [loadContentBundle(), loadContentBundle()];
+    const settled = Promise.allSettled(calls);
+    reject(err);
+    const results = await settled;
+    expect(results.map((r) => r.status)).toEqual(['rejected', 'rejected']);
+    expect(loadBundle).toHaveBeenCalledTimes(1);
+    loadBundle.mockResolvedValue(clean);
+    await expect(loadContentBundle()).resolves.toBe(clean);
+    expect(loadBundle).toHaveBeenCalledTimes(2);
+  });
+
+  it('starts a fresh load for sequential calls after settle', async () => {
+    loadBundle.mockResolvedValue(clean);
+    await loadContentBundle();
+    await loadContentBundle();
+    expect(loadBundle).toHaveBeenCalledTimes(2);
+  });
+});
+
 describe('selfHealOnce', () => {
   it('runs check, fetch, reload in order', async () => {
     await selfHealOnce();

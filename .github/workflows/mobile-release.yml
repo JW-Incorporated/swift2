@@ -20,7 +20,7 @@ name: Mobile release train
 # `workflow:status --wait` until it finishes, looks up whether it produced a fresh Android
 # store build for this exact commit, and if so submits it to Play itself,
 # in the one place that actually has the secret. Step caps (minutes):
-# 20 preflight / 195 wait / 10 Android (3 locate + 7 submit); job 235;
+# 20 preflight / 195 wait / 5 summary (informational) / 10 Android (3 locate + 7 submit); job 235;
 # rollback workflow 30. Never echo the secret to
 # logs; the key file is written with `chmod 600` and deleted immediately
 # after use.
@@ -55,7 +55,7 @@ jobs:
     # `mobile-release` concurrency group for GitHub's 360-min default.
     # Sized to data: 12 successful runs sampled 2026-10-02 had EAS waits of
     # 15-20 min (5 runs) and 70-155 min (7 runs), max 154.8 (run 36859454944).
-    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + android 10 + ~10 slack = 235.
+    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + summary 5 + android 10 = 230, +5 slack = 235.
     timeout-minutes: 235
     steps:
       - name: Refuse to run half-configured
@@ -128,6 +128,101 @@ jobs:
           echo "Waiting on EAS run $RUN_ID ${RUN_URL}"
           # Exit codes: 0 success, 11 failure, 12 canceled, 13 wait aborted.
           eas workflow:status "$RUN_ID" --non-interactive --wait
+      # Read-only and purely informational (continue-on-error): pins what
+      # shipped (job statuses + OTA group/runtime for THIS commit) into the run
+      # summary so device tests need no Expo login. It can never change the job
+      # result or block the Play submit below; a slow EAS just yields a
+      # "lookup skipped" note. docs/mobile-release.md "Pin the build".
+      - name: Summarise EAS jobs and the published OTA update
+        if: always() && steps.eas_start.outputs.run_id != ''
+        continue-on-error: true
+        timeout-minutes: 5
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          RUN_ID: ${{ steps.eas_start.outputs.run_id }}
+          WAIT_OUTCOME: ${{ steps.eas_workflow.outcome }}
+        run: |
+          node - <<'NODE'
+          const { execFileSync } = require('node:child_process');
+          const fs = require('node:fs');
+          const sha = process.env.GITHUB_SHA;
+          const deadline = Date.now() + 200000;
+          const flush = (...lines) => fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n');
+          const cell = (v) => String(v ?? '?').replace(/[\r\n]+/g, ' ').replace(/[|`<>]/g, ' ').slice(0, 120);
+          const eas = (args) => {
+            if (Date.now() > deadline) throw new Error('lookup skipped: time budget (200 s) exhausted');
+            const s = execFileSync('eas', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 25000 });
+            return JSON.parse(s.slice(s.search(/[[{]/)));
+          };
+          const rowsOf = (p) =>
+            Array.isArray(p) ? p : p?.currentPage ?? p?.updates ?? (p && typeof p === 'object' ? [p] : []);
+          const note = (e) => cell(String(e.message).split('\n')[0]);
+          flush('## EAS release result', `Commit: ${cell(sha)} | wait step: ${cell(process.env.WAIT_OUTCOME)}`);
+          try {
+            const run = eas(['workflow:status', process.env.RUN_ID, '--non-interactive', '--json']);
+            const jobs = run.jobs ?? run.run?.jobs ?? [];
+            flush(`Run status: ${cell(run.status ?? run.run?.status ?? 'unknown')}`, '', '| Job | Status |', '|---|---|');
+            for (const j of jobs) flush(`| ${cell(j.name ?? j.key ?? j.id)} | ${cell(j.status ?? j.conclusion ?? j.outcome ?? 'unknown')} |`);
+            if (!jobs.length) flush('| (no job list in --json output) | - |');
+          } catch (e) {
+            flush(`Could not read job statuses (${note(e)})`);
+          }
+          if (process.env.WAIT_OUTCOME === 'success') {
+            flush('', '### OTA update for this commit (branch/channel production)');
+            let found = 0;
+            let complete = false;
+            let scanned = 0;
+            try {
+              // The checkout (depth 1) contains GITHUB_SHA itself, so its commit time is local and exact.
+              let commitMs = NaN;
+              try { commitMs = Date.parse(execFileSync('git', ['show', '-s', '--format=%cI', sha], { encoding: 'utf8' }).trim()); } catch {}
+              const LIMIT = 50;
+              const VIEW_CAP = 20;
+              const list = rowsOf(eas(['update:list', '--branch', 'production', '--limit', String(LIMIT), '--json', '--non-interactive']));
+              scanned = list.length;
+              const born = (r) => Date.parse(r?.createdAt ?? '');
+              const predates = (r) => born(r) < commitMs;
+              const emit = (group, u, row) => {
+                if (!found++) flush('| Update group | Platform | Runtime version |', '|---|---|---|');
+                flush(`| ${cell(u.group ?? group)} | ${cell(u.platform ?? u.platforms ?? row.platform)} | ${cell(u.runtimeVersion ?? u.runtime?.version ?? row.runtimeVersion)} |`);
+              };
+              const groupOf = (r) => r.group ?? r.groupId;
+              if (list.some((r) => r.gitCommitHash)) {
+                // The list carries commit hashes: filter first, view only matching groups.
+                const seen = new Set();
+                for (const row of list) {
+                  const group = groupOf(row);
+                  if (row.gitCommitHash !== sha || !group || seen.has(group)) continue;
+                  seen.add(group);
+                  for (const u of rowsOf(eas(['update:view', group, '--json']))) {
+                    if ((u.gitCommitHash ?? row.gitCommitHash) === sha) emit(group, u, row);
+                  }
+                }
+                complete = list.length < LIMIT || predates(list[list.length - 1]);
+              } else {
+                // No hashes in the list: view groups newest-first (capped), stop once older than the commit.
+                const groups = [...new Set(list.map(groupOf).filter(Boolean))];
+                scanned = Math.min(groups.length, VIEW_CAP);
+                complete = groups.length <= VIEW_CAP && list.length < LIMIT;
+                for (const group of groups.slice(0, VIEW_CAP)) {
+                  const row = list.find((r) => groupOf(r) === group) ?? {};
+                  const rows = rowsOf(eas(['update:view', group, '--json']));
+                  for (const u of rows) {
+                    if ((u.gitCommitHash ?? row.gitCommitHash) === sha) emit(group, u, row);
+                  }
+                  if (rows.length && rows.every((u) => predates(u) || predates(row))) { complete = true; break; }
+                }
+              }
+              if (!found) {
+                if (complete) flush('None published for this commit (store-build path, or a store build already carries it).');
+                else flush(`Not found in the newest ${scanned} update groups (lookup incomplete); check the Expo dashboard.`);
+              }
+            } catch (e) {
+              flush(`OTA lookup incomplete (${note(e)}); check the Expo dashboard.`);
+            }
+          }
+          NODE
       # ── Android submit (see header comment: EAS infra can't see this secret) ──
       - name: Locate an Android store build for this commit
         id: android_build

@@ -77,6 +77,7 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
+| `scripts/parity/size-check.mjs` (+ `.test.ts`) | OTA size budget: fails CI on >15% growth of the mobile export vs `e2e/parity/size-baseline.json` (`--update` rewrites it; see docs/mobile-release.md) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
 **Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
@@ -602,6 +603,8 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `packages/content/src/forward-compat.ts` (+ test) | `pruneUnknownEnumValues`: drops unknown enum/literal values (array element, nearest enclosing array element, or whole file) for `loadBundle({ unknownEnumPolicy: 'drop' })`; any other zod issue stays a failure. Policy: `docs/decisions.md` 2026-10-01 |
 | `config/mobile/app-config.json` | Remote kill switch source: `routeFlags` (one boolean per native screen). Published by `scripts/publish-content-bundle.mjs` to `<outRoot>/app-config.json` (sibling of `current.json`, never a manifest entry; not mirrored to Storage). Runbook: `docs/mobile-release.md` |
 | `packages/content/src/app-config.ts` (+ test) | `appConfigSchema` (unknown keys stripped), `ROUTE_FLAG_KEYS` (the one list of flag names; mobile test asserts it matches `DEFAULT_ROUTE_FLAGS`) |
+| `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
+| `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
 | `packages/content/src/timing.ts` (+ test) | One UI WP0.1: optional load-stage hooks (`beginStage`, `setLoadTimingSink`); shared no-op when no sink is registered; `load.ts` reports pointer/manifest/download/hash/parse/validate/disk-write/load-total |
 | `apps/mobile/lib/diagnostics.ts` (+ test), `diagnostics-env.ts`, `diagnostics-override.ts`, `diagnostics-send.ts`, `components/DiagnosticsPanel.tsx` | One UI WP0.1: timing collector + `[diag]` report builder, device facts, C4 `Force shared UI` stub (persisted, unwired until WP0.4), send via `/api/feedback`. Hidden panel: 7 taps on the Settings version label. Marks: `provider-wiring` (era-stream-data.ts `wireTheories`), `first-era-paint` (EraSection.tsx, first rAF after real entries commit) |
 | `apps/web/app/api/feedback/route.ts` (32 KB body cap, 413), `diag.ts` (+ `route.test.ts`, `route.diag.test.ts`) | `{message:"[diag]", diag:{...}}` is validated against an exact schema (`parseDiagReport`) and the comment on tracking issue #4791 (hardcoded `DIAG_ISSUE_NUMBER`) is rebuilt from a fixed template; client text is never posted. Same token, repo and per-IP rate limit; 400 on any unknown/extra/out-of-range field |
