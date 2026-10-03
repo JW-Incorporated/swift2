@@ -79,7 +79,8 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
-| `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from `eas workflow:status` JSON; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
+| `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from the train state file; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
+| `scripts/release/train-lib.mjs` (+ `.test.ts`), `train-plan.mjs`, `train-wait.mjs` | Release train, run from GitHub Actions since 2026-10-03 (HA #98): fingerprint + existing-build plan, build polling, state file, iOS submit gate; replaces the retired EAS workflow (see docs/mobile-release.md) |
 | `scripts/parity/size-check.mjs` (+ `.test.ts`) | OTA size budget: fails CI on >15% growth of the mobile export vs `e2e/parity/size-baseline.json` (`--update` rewrites it; see docs/mobile-release.md) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
@@ -699,6 +700,7 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 | `apps/mobile/dom/ReaderSpike.tsx` (+ `reader-spike.css`, `spike/back.ts` + test) | WP0.5b `'use dom'` page: reads the native cache file by URI, builds the snapshot in-webview, fills the shims, then `require`s the real EraStream/MomentDetail/BottomNav (`spike/reader-modules.ts`); ready/error/probe/back/insets bridge |
 | `apps/mobile/dom/spike/{read-local,storage-shim,snapshot,probe}.ts` (+ tests) | `readLocalText` (fetch then XHR, status 0 ok), Map-backed storage shim, cache envelope to `ReaderSnapshot` + hash, probe recorder / placeholder counter / marker check |
 | `apps/mobile/dom/spike/dev-loader.ts`, `apps/mobile/index.web.ts` | DEV/WEB ONLY browser entry (served content bundle); never in the app bundle, enforced by `scripts/parity/check-dom-bundle.mjs` |
+| `apps/mobile/lib/speed-test.ts`, `speed-test-controller.ts`, `speed-test-runtime.ts`, `speed-test-store.ts`, `image-marks.ts` (+ tests); `dom/spike/image-listener.ts` | #4896 Speed test mode: pure state/math/report builders, injected-deps controller + launch tracker (cold vs warm via AppState), runtime wiring (installed in App.tsx), one SecureStore key, image-load marks fed by MomentCard and the DOM image stub. Server side: `apps/web/app/api/feedback/diag.ts` `speed` meta + `speedAllowed` limiter (`route.speed.test.ts`) |
 | `apps/mobile/lib/dom-reader-config.ts`, `dom-probe-store.ts` | Cache-file URI handed to the webview (config, not content); latest probe for the Diagnostics panel |
 | `scripts/parity/check-dom-bundle.mjs` (+ test) | Asserts the exported DOM bundle has no baked content (sourcemap sources incl. every `*.generated.ts`, plus 4 content-kind sentinels) |
 | `docs/one-ui/wp0.5.md` | WP0.5 spike notes: shims, gaps, recipes, findings |
