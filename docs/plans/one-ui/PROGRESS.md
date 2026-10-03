@@ -6,33 +6,29 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
-**>>> CHECKPOINT 2026-10-03 04:43 PDT — AUTHORITATIVE; everything below is history. <<<**
+**>>> CHECKPOINT 2026-10-03 05:51 PDT — AUTHORITATIVE; everything below is history. <<<**
 Owner: "keep going… run all night… parallel agents" (02:08). Cap 5 workers (+Codex jobs).
-**ON MAIN:** G1 done (harness+a11y+parity-gate always-run #4840, image-race fix #4845,
-fixture prune #4842); WP0.1b #4833; WP2.1 A #4841, B #4844, D #4851 (allowlist closed,
-resolveUrl era art); WP2.2 A #4843, B #4849 (core/extension snapshot); WP2.4 PR0 #4852;
-release train: #4838/#4846/#4854 (Android submit independent of iOS; existing build
-0a1ef202 submitted on next train).
-**OPEN / NEXT (in order):**
-1. WP2.1-C fonts **#4847** — approved, auto-merge set (check merged).
-2. WP2.3 bridge: A **#4850** scoped reviewer landing → retarget B **#4853** (approved incl.
-   hwm `readyAck` delta) + C **#4855** to main → land B → C fix r2 (Fable 04:36) running →
-   C scoped reviewer after merging main (contains B) → land. Watch README CONTRACT conflicts.
-3. WP2.2 callers: C1 **#4856** lander polling CI (then retarget C3 **#4858** to main) → C2
-   **#4857** (approved; Codex P3 fixed 830ee85d; merge main, resolve MomentDetail conflict
-   vs C1) → C3 #4858 fix round after Codex r1 (exhaustive equivalence + myEras cases;
-   conflicts w/ C2 on MomentDetail/TopBar/TheoryGuide/TrackGuide/TrackDetail/queries.ts).
-4. WP2.4 A1 (move-only rule, brief-wp24.md) — BLOCKED on **HA #97** (parity-gate required;
-   rulesets currently require only `build`). Then A2 → B → C; D after G0.
-5. G0 (WP0.6) blocked on device sessions: **HA #96** (Apple Associated Domains) for iOS;
-   Android: confirm Play internal got build 0a1ef202 (check latest "Mobile release train"
-   run log: "Android store-build job: existing" + submit step) → then S2 in chat with Joey
-   (5 cold + 5 warm [diag]; diag offsets now real via #4833) and S4 (checklist in Fable
-   log 17:02 + font/era-art/ClownChat checks).
-6. WP2.3 D/E/F + all of WP2.4-D wait for G0.
-Follow-ups: footer parity capture on /support; packages/ui `useReader` generic typing
-(WatchableVideoNote cast in TrackGuide); executors keep dispatching mobile-parity.yml by
-mistake — always say "exactly parity.yml"; Codex queue can wedge (cancel + relaunch).
+**DONE ON MAIN:** G1 (harness, a11y, always-run parity-gate #4840, image race #4845,
+fixture prune #4842, font-compare tooling #4863 auto-merging); WP0.1b #4833; **WP2.1 complete**
+(A #4841, B #4844, C fonts #4847, D #4851 — /eras allowlist closed, resolveUrl era art);
+**WP2.2 complete** (A #4843, B #4849, C1 #4856, C2 #4857, C3 #4858, D lint ban #4861 +
+lib/longlive #4862, E extensions #4859); **WP2.3 A/B/C pre-G0 scope** (#4850, #4853, #4855,
++ object/string funnel #4860); WP2.4 PR0 #4852; release train #4838/#4846/#4854 → **Android
+build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-evidence.md.
+**IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
+parity capture.
+**BLOCKED ON OWNER:** **HA #97** (make `parity-gate` required — rulesets require only
+`build`) → unblocks WP2.4 A1 (move-only rule, brief-wp24.md) → A2 → B → C. **HA #96** (Apple
+Associated Domains) → iOS store builds + iOS/iPad device sessions.
+**NEXT WITH JOEY (chat):** **S2 Android** — update from Play (build 18) → open twice → diag
+panel 7 taps on version label → 5 cold (force-stop between) + 5 warm "Send report"; pass
+bar PLAN §WP0.2 cold ≤2.5 s worst-of-5, warm ≤1 s; offsets real now. Then **S4** (spike
+checklist: Fable log 17:02 + fonts loaded/no FOUT, era art offline, ClownChat safe area,
+iPad split view). Then **G0 go/no-go (Fable, mandatory)** using g0-evidence.md.
+**AFTER G0:** WP2.3 B step 4 + C step 3 (wiring), D/E/F; WP2.4-D (app mount).
+Notes: executors sometimes dispatch mobile-parity.yml by mistake — always say "exactly
+parity.yml"; bot (GITHUB_TOKEN) baseline commits don't trigger PR CI — push a non-bot
+commit; Codex queue can wedge (cancel + relaunch); stacked PRs: retarget before delete.
 Briefs: docs/plans/one-ui/briefs/brief-wp2{1,2,3,4}.md (top blocks = binding rulings).
 
 (Session log 2026-10-02 16:10 → 2026-10-03 05:41 moved verbatim to `PROGRESS-archive-2026-10-03.md`; earlier history in `PROGRESS-archive-2026-10-02.md`.)
