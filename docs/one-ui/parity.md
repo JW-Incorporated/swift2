@@ -52,6 +52,11 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 
 ## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 
+The a-vs-b specs run each side in its own browser context (`pages.a` is the test's page, `pages.b` a second
+context with the same device options, armed by the same handler). When both sides shared one page, WebKit's
+in-memory image cache served side b an image side a had just fetched, so b's request never reached the route
+handler and the recorded external-image sets differed although both sides rendered the image.
+
 Fixed clock (`clock.setFixedTime`, never `install`), reduced motion, animations
 disabled, caret hidden, first-visit flags in `localStorage`, `/vault/live`
 stubbed empty, Vercel analytics stubbed, every external image answered by one

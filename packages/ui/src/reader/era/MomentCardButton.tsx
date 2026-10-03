@@ -144,14 +144,19 @@ export function MomentCardButton({
   item,
   tier,
   hideImage,
+  eager = false,
   onOpen,
 }: {
   item: ContentItem;
   tier: CardTier;
   hideImage: boolean;
+  eager?: boolean;
   onOpen: () => void;
 }) {
   const { Image } = useHost();
+  const loadAttrs = eager
+    ? ({ loading: 'eager', fetchPriority: 'high' } as const)
+    : ({ loading: 'lazy', decoding: 'async' } as const);
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
   const hero = !hideImage && hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
@@ -183,6 +188,7 @@ export function MomentCardButton({
               unoptimized={/^https?:\/\//.test(hero.url)}
               className="object-cover transition duration-300 group-hover:scale-[1.03]"
               style={{ objectPosition: focalPointOf(hero) }}
+              {...loadAttrs}
               onLoad={autoFocalPoint(hero)}
             />
             <div
@@ -223,6 +229,7 @@ export function MomentCardButton({
               unoptimized={/^https?:\/\//.test(hero.url)}
               className="object-cover"
               style={{ objectPosition: focalPointOf(hero) }}
+              {...loadAttrs}
               onLoad={autoFocalPoint(hero)}
             />
           </div>
@@ -271,6 +278,7 @@ export function MomentCardButton({
             unoptimized={/^https?:\/\//.test(hero.url)}
             className="object-cover transition duration-300 group-hover:scale-[1.03]"
             style={{ objectPosition: focalPointOf(hero) }}
+            {...loadAttrs}
             onLoad={autoFocalPoint(hero)}
           />
           <div
