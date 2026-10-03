@@ -12,8 +12,8 @@ import { describe, expect, it } from 'vitest';
 
 const SOURCES = [
   '../../../../packages/ui/src/reader/shell/button.tsx',
-  './FeedbackButton.tsx',
-  './WebNotificationSettings.tsx',
+  '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
+  '../../../../packages/ui/src/reader/settings/WebNotificationSettings.tsx',
   '../../../../packages/ui/src/reader/era/FilterBar.tsx',
 ].map((rel) => [rel, readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8')] as const);
 

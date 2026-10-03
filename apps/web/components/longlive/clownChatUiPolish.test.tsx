@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { describe, expect, it } from 'vitest';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import { ClownChat } from './ClownChat';
+import { LORE } from '@/lib/longlive/clownbot-lore';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
 import { TestHostProvider } from '@/lib/test-host';
@@ -14,7 +15,7 @@ function renderClownChat() {
   return renderWithReader(
     <TestHostProvider>
       <AppProvider>
-        <ClownChat />
+        <ClownChat lore={LORE} />
       </AppProvider>
     </TestHostProvider>,
   );

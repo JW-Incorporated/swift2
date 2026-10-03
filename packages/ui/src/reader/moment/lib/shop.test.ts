@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createShopLinkBuilder, createShopLinkRenderer, SHOP_DISCLOSURE } from './shop';
-import type { MerchItem } from './merch';
+import type { MerchItem } from '@swift2/content-enrichment';
 import type { Product } from '@swift2/experience';
 
 const product = (over: Partial<Product> = {}): Product => ({

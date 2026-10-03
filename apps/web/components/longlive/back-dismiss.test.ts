@@ -21,12 +21,12 @@ const BACK_DISMISS_FILES = [
   './Crossings.tsx',
   '../../../../packages/ui/src/reader/era/CurrentItemDetail.tsx',
   './EraSelector.tsx',
-  './FeedbackButton.tsx',
-  './MomentDetail.tsx',
-  './SearchOverlay.tsx',
+  '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
+  '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
+  '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
   './TheoryGuide.tsx',
-  './TrackDetail.tsx',
-  './TrackGuide.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
   './decode/DecodeThread.tsx',
   './love-story/LoveStoryThread.tsx', // owns EntryDetail's back-dismiss — see note above
 ];

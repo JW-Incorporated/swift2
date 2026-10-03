@@ -7,9 +7,11 @@ export type {
   HostLinkProps,
   HostNotifications,
   HostStorage,
+  HostWebPush,
   Insets,
   NotificationPrefs,
   NotificationStatus,
   SharePayload,
   Unsubscribe,
+  WebPushSubscribeResult,
 } from './types';

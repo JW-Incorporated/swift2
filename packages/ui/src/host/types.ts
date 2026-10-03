@@ -76,6 +76,25 @@ export type HostEnv = {
   origin: string;
 };
 
+export type WebPushSubscribeResult =
+  | { status: 'subscribed'; deviceId: string }
+  | { status: 'permission_denied'; deviceId: string }
+  | { status: 'unsupported' }
+  | { status: 'vapid_not_configured' }
+  | { status: 'error'; error: string };
+
+/** Browser web-push settings surface (web adapter only; the app host omits it). */
+export type HostWebPush = {
+  isSupported(): boolean;
+  getDeviceId(): string;
+  subscribe(vapidPublicKey: string | null): Promise<WebPushSubscribeResult>;
+  unsubscribe(): Promise<{ ok: true } | { ok: false; error: string }>;
+  /** GET /api/devices/:id/prefs; resolves to the parsed body, rejects on HTTP error. */
+  loadPrefs(deviceId: string): Promise<unknown>;
+  /** PUT /api/devices/:id/prefs; resolves to the parsed body, rejects on HTTP error. */
+  savePrefs(deviceId: string, body: { settings?: object; prefs?: object[] }): Promise<unknown>;
+};
+
 export type HostNotifications = {
   status(): Promise<NotificationStatus>;
   request(): Promise<NotificationStatus>;
@@ -114,4 +133,6 @@ export interface HostAdapter {
   openExternal?: (url: string) => void;
   /** @later WP2.12 */
   notifications?: HostNotifications;
+  /** @later WP2.12 (web adapter only; the app host omits it) */
+  webPush?: HostWebPush;
 }
