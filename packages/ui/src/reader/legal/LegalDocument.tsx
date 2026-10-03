@@ -1,6 +1,4 @@
-'use client';
-
-import { useHost } from '../../host/context';
+import { HostLink } from './HostLink';
 import type { ReactNode } from 'react';
 import {
   LEGAL_DRAFT_BANNER,
@@ -94,19 +92,18 @@ function Block({ block }: { block: LegalBlock }) {
 }
 
 export function LegalDocument({ doc, footer }: { doc: LegalDoc; footer?: ReactNode }) {
-  const { Link } = useHost();
   const isDraft = LEGAL_STATUS !== 'approved';
 
   return (
     <div className="era-shell font-sans">
       <main className="mx-auto w-full max-w-[46rem] px-5 pb-16 pt-8">
         <nav aria-label="Breadcrumb" className="mb-8">
-          <Link
+          <HostLink
             href="/"
             className="text-sm text-[color:var(--era-ink-soft)] underline underline-offset-4 hover:text-[color:var(--era-ink)]"
           >
             &larr; Back to Long Live
-          </Link>
+          </HostLink>
         </nav>
 
         {isDraft && (

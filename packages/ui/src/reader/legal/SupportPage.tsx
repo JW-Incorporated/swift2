@@ -1,7 +1,5 @@
-'use client';
-
+import { HostLink } from './HostLink';
 import type { ReactNode } from 'react';
-import { useHost } from '../../host/context';
 import { LEGAL_FACTS } from './lib/legal';
 
 // The support page both app stores require a URL for (App Store Connect
@@ -33,17 +31,16 @@ const FAQ: { q: string; a: string }[] = [
 const linkClass = 'underline underline-offset-4 hover:text-[color:var(--era-ink)]';
 
 export function SupportPage({ footer }: { footer?: ReactNode }) {
-  const { Link } = useHost();
   return (
     <div className="era-shell font-sans">
       <main className="mx-auto w-full max-w-[46rem] px-5 pb-16 pt-8">
         <nav aria-label="Breadcrumb" className="mb-8">
-          <Link
+          <HostLink
             href="/"
             className="text-sm text-[color:var(--era-ink-soft)] underline underline-offset-4 hover:text-[color:var(--era-ink)]"
           >
             &larr; Back to Long Live
-          </Link>
+          </HostLink>
         </nav>
 
         <h1 className="font-era text-3xl font-semibold leading-tight">Support</h1>
@@ -94,15 +91,15 @@ export function SupportPage({ footer }: { footer?: ReactNode }) {
           </h2>
           <ul className="mt-4 list-disc space-y-2 pl-6 leading-relaxed">
             <li>
-              <Link href="/privacy" className={linkClass}>
+              <HostLink href="/privacy" className={linkClass}>
                 Privacy Policy
-              </Link>{' '}
+              </HostLink>{' '}
               — what the website and the app do and do not collect.
             </li>
             <li>
-              <Link href="/terms" className={linkClass}>
+              <HostLink href="/terms" className={linkClass}>
                 Terms of Use
-              </Link>
+              </HostLink>
             </li>
           </ul>
           <p className="mt-6 text-sm text-[color:var(--era-ink-soft)]">
