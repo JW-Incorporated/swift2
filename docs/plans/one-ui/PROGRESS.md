@@ -467,7 +467,11 @@ P2 pre-ready timeouts start before send; P2 inbox parses 1,024 before cap; P3
 ids beyond MAX_SAFE_INTEGER) → both 2nd consecutive → **Fable consult**
 (leaning: A returns a fresh clone + bounded walk + decode-until-stable + ASCII
 paths + guarded reads; C ready backoff, host returns hwm in ready ack → client
-reseeds max(now, hwm+1), timeouts from send, parse ≤ cap, BigInt ids). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+reseeds max(now, hwm+1), timeouts from send, parse ≤ cap, BigInt ids).
+**04:37:** **#4849 (WP2.2-B) MERGED** — snapshot context + core/extension split
+on main; #4856/#4857 retargeted to main, wp2.2b deleted. Landing next: C1 #4856
+(after exhaustive-test commit) → retarget C3 (stacked on c1) → C2 #4857 (merge
+main; MomentDetail conflict) . (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
