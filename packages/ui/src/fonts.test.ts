@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -25,7 +25,10 @@ const webHashes = [
   ),
 ]
   .map((m) => `${m[1]}:${m[2]}`)
-  .filter((h) => LATIN.has(h.split(':')[0] as string));
+  .filter((h) => {
+    const name = h.split(':')[0] as string;
+    return LATIN.has(name) || name.endsWith('-latin-ext');
+  });
 const domHashes = [
   ...readFileSync(join(fonts, 'fonts.dom.css'), 'utf8').matchAll(
     /url\(data:font\/woff2;base64,([A-Za-z0-9+/=]+)\)/g,
@@ -43,7 +46,7 @@ describe('self-hosted reader fonts', () => {
   });
 
   it('web CSS and DOM CSS reference the same font bytes, face for face', () => {
-    expect(webHashes.length).toBe(6);
+    expect(webHashes.length).toBe(12);
     expect(domHashes).toEqual(webHashes.map((h) => h.split(':')[1]));
   });
 
@@ -116,7 +119,7 @@ describe('self-hosted reader fonts', () => {
       preload: string[];
     };
     expect(m.preload.length).toBe(fixture.preloadedFaces);
-    expect(new Set(m.preload).size).toBe(webHashes.length);
+    expect(new Set(m.preload).size).toBe(6);
   });
 
   it('keeps the --font-* variable names in both CSS files', () => {
@@ -132,6 +135,54 @@ describe('self-hosted reader fonts', () => {
     const css = readFileSync(join(fonts, 'fonts.web.css'), 'utf8');
     expect(css.match(/url\('\/fonts\//g)?.length).toBe(24);
     expect(css.match(/unicode-range: U\+0000-00FF/g)?.length).toBe(6);
+  });
+
+  it('every content code point above U+00FF is covered by a DOM font face or allow-listed', () => {
+    const css = readFileSync(join(fonts, 'fonts.dom.css'), 'utf8');
+    const ranges: [number, number][] = [];
+    for (const m of css.matchAll(/unicode-range: ([^;]+);/g)) {
+      for (const tok of (m[1] as string).split(',')) {
+        const t = tok.trim().slice(2);
+        if (t.includes('?')) {
+          ranges.push([parseInt(t.replaceAll('?', '0'), 16), parseInt(t.replaceAll('?', 'F'), 16)]);
+        } else {
+          const [lo, hi] = t.split('-');
+          ranges.push([parseInt(lo as string, 16), parseInt((hi ?? lo) as string, 16)]);
+        }
+      }
+    }
+    // Falls back to the system font on web AND app alike (no Google face has
+    // these): arrows, math, box-drawing, hearts, the emoji presentation selector.
+    const SYSTEM_FALLBACK = (c: number) =>
+      (c >= 0x2190 && c <= 0x21ff) ||
+      (c >= 0x2200 && c <= 0x22ff) ||
+      (c >= 0x2500 && c <= 0x257f) ||
+      (c >= 0x2600 && c <= 0x27bf) ||
+      c === 0xfe0f ||
+      c >= 0x1f000;
+    const walk = (d: string, out: string[] = []): string[] => {
+      for (const e of readdirSync(d)) {
+        const f = join(d, e);
+        if (statSync(f).isDirectory()) walk(f, out);
+        else out.push(f);
+      }
+      return out;
+    };
+    const uncovered = new Map<number, string>();
+    for (const dir of ['scripts/parity/fixture/content', 'supabase/seed/content']) {
+      if (!existsSync(join(root, dir))) continue;
+      for (const f of walk(join(root, dir))) {
+        for (const ch of readFileSync(f, 'utf8')) {
+          const c = ch.codePointAt(0) as number;
+          if (c <= 0xff || SYSTEM_FALLBACK(c)) continue;
+          if (!ranges.some(([lo, hi]) => c >= lo && c <= hi)) uncovered.set(c, f);
+        }
+      }
+    }
+    expect(
+      [...uncovered].map(([c, f]) => `U+${c.toString(16)} in ${f}`),
+      'content needs a font that covers these (add the subset to build-fonts.mjs) or an allow-list entry',
+    ).toEqual([]);
   });
 
   it('the web layout no longer uses next/font/google', () => {

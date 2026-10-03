@@ -139,12 +139,15 @@ export function buildFonts() {
       .join('') + faceCss(f, `url('/fonts/${f.publicName}')`);
   const tail = fallbackCss() + rootCss();
   const web = header + files.map(webFaces).join('') + tail;
-  const dom =
-    header +
-    files
-      .map((f) => faceCss(f, `url(data:font/woff2;base64,${f.bytes.toString('base64')})`))
-      .join('') +
-    tail;
+  // The DOM host carries latin + latin-ext only (content has a c-caron; no
+  // Cyrillic/Greek/Vietnamese). Same bytes and ranges as the web faces.
+  const b64 = (x) => `url(data:font/woff2;base64,${x.bytes.toString('base64')})`;
+  const domFaces = (f) =>
+    subsets
+      .filter((x) => x.family === f.family && x.style === f.style && x.file.endsWith('-latin-ext'))
+      .map((x) => faceCss(f, b64(x), x.range))
+      .join('') + faceCss(f, b64(f));
+  const dom = header + files.map(domFaces).join('') + tail;
   const manifest = {
     preload: files.filter((f) => f.preload).map((f) => `/fonts/${f.publicName}`),
     files: Object.fromEntries(
