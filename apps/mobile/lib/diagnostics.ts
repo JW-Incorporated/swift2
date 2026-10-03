@@ -8,7 +8,7 @@ import { setLoadTimingSink, type LoadTimingEvent } from '@swift2/content';
 export interface DiagMark {
   stage: string;
   detail?: string;
-  /** Clock reading (ms) when the stage began; app-start is ~0 on Hermes. */
+  /** Offset (ms) from launch T0 when the stage began. */
   startMs: number;
   /** 0 for an instant mark. */
   durationMs: number;
@@ -44,25 +44,30 @@ function defaultNow(): number {
   return typeof perf?.now === 'function' ? perf.now() : Date.now();
 }
 
-export function createTimingCollector(now: () => number = defaultNow) {
+/**
+ * `startMs` is always an offset from `origin` (T0 = the collector's creation,
+ * i.e. the earliest JS point, since index.ts imports this module first-ish):
+ * Hermes' performance.now() is not JS-start-relative, so raw readings are huge.
+ */
+export function createTimingCollector(now: () => number = defaultNow, origin: number = now()) {
   let marks: DiagMark[] = [];
   const push = (m: DiagMark) => {
     if (marks.length < MAX_MARKS) marks.push(m);
   };
   return {
-    /** Sink for packages/content's load-stage events. */
+    /** Sink for packages/content's load-stage events (same clock as `now`). */
     record(event: LoadTimingEvent): void {
-      push({ ...event });
+      push({ ...event, startMs: event.startMs - origin });
     },
     /** An instant mark (app start, provider wiring, first paint ...). */
     mark(stage: string, detail?: string): void {
-      push({ stage, ...(detail ? { detail } : {}), startMs: now(), durationMs: 0 });
+      push({ stage, ...(detail ? { detail } : {}), startMs: now() - origin, durationMs: 0 });
     },
     /** Start a timed stage; call the returned function when it finishes. */
     start(stage: string, detail?: string): () => void {
-      const startMs = now();
+      const t0 = now();
       return () =>
-        push({ stage, ...(detail ? { detail } : {}), startMs, durationMs: now() - startMs });
+        push({ stage, ...(detail ? { detail } : {}), startMs: t0 - origin, durationMs: now() - t0 });
     },
     marks(): readonly DiagMark[] {
       return marks;
@@ -126,6 +131,14 @@ const REPORT_STAGES = [
   'app-start', 'config', 'app-first-render', 'pointer', 'manifest', 'download', 'hash',
   'parse', 'validate', 'disk-write', 'load-total', 'provider-wiring', 'first-era-paint',
 ];
+
+/** Instant marks (no duration) — keep equal to POINT_STAGES in apps/web/app/api/feedback/diag.ts (a test pins them). */
+export const POINT_STAGES = ['app-start', 'app-first-render', 'provider-wiring', 'first-era-paint'];
+
+/** True when the stage is a point mark shown by its `at` offset only; any other stage keeps its duration even at 0 ms. */
+export function isPointStage(s: StageSummary): boolean {
+  return POINT_STAGES.includes(s.stage) && s.maxMs === 0;
+}
 
 export interface DiagPayload {
   message: typeof DIAG_PREFIX;
