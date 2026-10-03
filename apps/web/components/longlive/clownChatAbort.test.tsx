@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { HostProvider, type ApiStream } from '@swift2/ui';
 import { ClownChat } from './ClownChat';
@@ -74,5 +74,40 @@ describe('ClownChat abort', () => {
     );
     send('hello');
     expect(await screen.findByText("That didn't go through. Try again in a moment?")).toBeInTheDocument();
+  });
+
+  it('unmount while the stream is pending: late rejection is swallowed with no console.error', async () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    let signal: AbortSignal | undefined;
+    let rejectStream!: (e: unknown) => void;
+    const apiStream: ApiStream = (_req, opts) => {
+      signal = opts?.signal;
+      return (async function* () {
+        await new Promise<void>((_, reject) => {
+          rejectStream = reject;
+        });
+        yield '';
+      })();
+    };
+    const adapter = { ...createWebAdapter({ push() {}, replace() {} }), apiStream };
+    const { unmount } = renderWithReader(
+      <HostProvider adapter={adapter}>
+        <AppProvider>
+          <ClownChat lore={LORE} />
+        </AppProvider>
+      </HostProvider>,
+    );
+    send('hello');
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 10));
+    });
+    unmount();
+    expect(signal?.aborted).toBe(true);
+    await act(async () => {
+      rejectStream(new DOMException('aborted', 'AbortError'));
+      await new Promise((r) => setTimeout(r, 10));
+    });
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
   });
 });

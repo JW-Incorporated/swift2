@@ -96,7 +96,14 @@ export function ClownChat({ lore }: ClownChatProps) {
   // on iOS Safari, precisely where filling the screen matters most).
   const host = useHost();
   const inflightRef = useRef<AbortController | null>(null);
-  useEffect(() => () => inflightRef.current?.abort(), []);
+  useEffect(
+    () => () => {
+      const c = inflightRef.current;
+      inflightRef.current = null;
+      c?.abort();
+    },
+    [],
+  );
   const [expanded, setExpanded] = useState(false);
   const expandToggleRef = useRef<HTMLButtonElement>(null);
   const wasExpandedRef = useRef(false);
@@ -197,9 +204,9 @@ export function ClownChat({ lore }: ClownChatProps) {
         });
         if (!answer) throw new Error('no answer event in stream');
         addClownMessage(question, answer);
-        setText('');
+        if (inflightRef.current === controller) setText('');
       } catch {
-        if (!controller.signal.aborted) setError(NETWORK_ERROR);
+        if (inflightRef.current === controller) setError(NETWORK_ERROR);
       } finally {
         if (inflightRef.current === controller) {
           inflightRef.current = null;
