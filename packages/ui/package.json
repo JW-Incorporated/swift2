@@ -9,7 +9,7 @@
     ".": "./src/index.ts"
   },
   "peerDependencies": {
-    "react": "^18 || ^19"
+    "react": "^19"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

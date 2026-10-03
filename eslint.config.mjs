@@ -59,7 +59,19 @@ export default tseslint.config(
           ],
           patterns: [
             { group: ['next/*', 'react-native-*', 'react-native/*'], message: 'packages/ui is host-agnostic: use useHost() instead of next/* or react-native*.' },
+            { group: ['**/apps/**'], message: 'packages/ui must not import from apps/*: apps depend on packages/ui, never the reverse.' },
           ],
+        },
+      ],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "ImportExpression[source.value=/^(next$|next[^-a-zA-Z0-9]|react-native)/]",
+          message: 'packages/ui is host-agnostic: use useHost() instead of dynamic import of next/react-native.',
+        },
+        {
+          selector: "CallExpression[callee.name='require'][arguments.0.value=/^(next$|next[^-a-zA-Z0-9]|react-native)/]",
+          message: 'packages/ui is host-agnostic: use useHost() instead of require of next/react-native.',
         },
       ],
     },
