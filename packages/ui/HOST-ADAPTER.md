@@ -8,6 +8,8 @@
 |---|---|---|
 | `Link`, `Image` | `next/link`, `next/image` | WP2.4+ |
 | `resolveUrl` (optional; `useResolveUrl()`) | omitted: the path is used unchanged (same-origin) | `https://www.longlivets.com` + path (canonical origin, overridable). Era art (`/eras/*.png`) goes over the network like content photos. **S4: offline/airplane-mode era art must be checked on device.** |
+| `currentUrl` (optional) | web root adapter only: `window.location.href`; omitted in `createWebAdapter`. The reader reads `?era`/`?item` deep links from it; absent = no deep link | in-DOM web path (not `file://`) |
+| `clipboard` (optional) | web root adapter only: wraps `navigator.clipboard.writeText`; absent = the `navigator.clipboard` fallback | native clipboard |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |

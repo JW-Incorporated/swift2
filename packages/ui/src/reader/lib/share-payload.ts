@@ -33,9 +33,10 @@ export type SharePayloadData = Pick<ReaderQueries, 'getContentItem' | 'resolveTr
  * The host members a share needs (`useHost()`). Omitted on the web: the
  * navigator.share / clipboard path and same-origin URLs are unchanged.
  */
-export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl'>;
+export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard'>;
 
 function shareBaseUrl(host: ShareHost | undefined): string {
+  if (typeof window === 'undefined') return host?.resolveUrl ? host.resolveUrl('/') : '/';
   return host?.resolveUrl
     ? host.resolveUrl(window.location.pathname)
     : window.location.origin + window.location.pathname;
@@ -90,7 +91,9 @@ export async function shareTarget(
   const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
   const result = await triggerWebShare(payload, {
     share: host?.share ?? navigator.share?.bind(navigator),
-    copyText: navigator.clipboard?.writeText.bind(navigator.clipboard),
+    copyText: host?.clipboard
+      ? (text) => host.clipboard!.writeText(text)
+      : navigator.clipboard?.writeText.bind(navigator.clipboard),
   });
   if (result === 'fallback' || result === 'unavailable') {
     window.dispatchEvent(

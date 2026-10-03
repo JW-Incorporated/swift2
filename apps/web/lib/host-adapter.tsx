@@ -143,5 +143,7 @@ export function createWebRootAdapter(router: WebRouter): HostAdapter {
       },
     },
     webPush: webPushHost,
+    currentUrl: () => window.location.href,
+    clipboard: { writeText: (text) => navigator.clipboard.writeText(text) },
   };
 }
