@@ -1,14 +1,26 @@
 // UI-capability bridge handlers (One UI WP2.3-D1). Pure and transport-neutral: no
 // React/RN/Expo imports; every native capability is injected. Not wired into
 // the host component yet (D2, after G0).
-import { isExternalUrl, isWebPath, resErr, resOk } from '@swift2/ui';
-import type { HandlerMap, HapticKind, Insets, ResResult, SharePayload, WebPath } from '@swift2/ui';
+import {
+  isExternalUrl,
+  isWebPath,
+  resErr,
+  resOk,
+  type HandlerMap,
+  type HapticKind,
+  type Insets,
+  type ResResult,
+  type SharePayload,
+  type WebPath,
+} from '@swift2/ui';
 
 export type UiHandlerDeps = {
   /** Performs the in-app navigation for an already validated web path. */
   navigate: (path: WebPath, replace: boolean) => void | Promise<void>;
-  /** Optional route-ownership check; a path it rejects answers `invalid`. */
-  isNativeRoute?: (path: WebPath) => boolean;
+  /** Required route allow-list; a path it rejects answers `invalid`. No default. */
+  isNativeRoute: (path: WebPath) => boolean;
+  /** Native-side only; failure details never reach the WebView reply. */
+  log: (stage: string, detail: string) => void;
   /** `Linking.openURL` in the host. */
   openURL: (url: string) => Promise<void>;
   /** RN `Share.share` in the host; resolves once the sheet has closed. */
@@ -26,23 +38,34 @@ const MAX_SHARE_FIELD = 2048;
 const invalid = (message: string): ResResult<never> => resErr('invalid', message);
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
 
-async function run(fn: () => void | Promise<void>, what: string): Promise<ResResult<null>> {
-  try {
-    await fn();
-    return resOk(null);
-  } catch (e) {
-    return resErr('failed', `${what}: ${String(e).slice(0, 120)}`);
-  }
-}
-
 export function createHandlers(deps: UiHandlerDeps): UiHandlers {
+  async function run(fn: () => void | Promise<void>, what: string): Promise<ResResult<null>> {
+    try {
+      await fn();
+      return resOk(null);
+    } catch (e) {
+      try {
+        deps.log(`bridge-${what}-failed`, String(e).slice(0, 200));
+      } catch {
+        // logging must never change the reply
+      }
+      return resErr('failed', `${what} failed`);
+    }
+  }
+
   return {
     navigate: async (payload) => {
       const p: unknown = payload;
       if (!isRecord(p) || !isWebPath(p.path)) return invalid('navigate: not a web path');
       if (p.replace !== undefined && typeof p.replace !== 'boolean') return invalid('navigate: replace');
       const path = p.path;
-      if (deps.isNativeRoute && !deps.isNativeRoute(path)) return invalid('navigate: unknown route');
+      let owned = false;
+      try {
+        owned = deps.isNativeRoute(path) === true;
+      } catch {
+        owned = false;
+      }
+      if (!owned) return invalid('navigate: unknown route');
       return run(() => deps.navigate(path, p.replace === true), 'navigate');
     },
     openExternal: async (payload) => {
@@ -61,7 +84,7 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
         if (typeof v !== 'string' || v.length > MAX_SHARE_FIELD) return invalid(`share: ${k}`);
         out[k] = v;
       }
-      if (out.url !== undefined && !/^https?:\/\//i.test(out.url)) return invalid('share: url scheme');
+      if (out.url !== undefined && !isExternalUrl(out.url)) return invalid('share: url scheme');
       if (out.title === undefined && out.text === undefined && out.url === undefined) return invalid('share: empty');
       return run(() => deps.share(out), 'share');
     },

@@ -14,6 +14,8 @@ const bad = (v: unknown) => v as never;
 function fakeDeps(over: Partial<UiHandlerDeps> = {}) {
   const deps = {
     navigate: vi.fn(),
+    isNativeRoute: () => true,
+    log: vi.fn(),
     openURL: vi.fn(async () => {}),
     share: vi.fn(async () => {}),
     haptic: vi.fn(),
@@ -28,7 +30,22 @@ describe('navigate', () => {
     expect(await h.navigate({ path: bad('/eras/1989?x=1'), replace: true }, ctx)).toEqual({ ok: true, value: null });
     expect(deps.navigate).toHaveBeenCalledWith('/eras/1989?x=1', true);
   });
-  it.each(['https://evil.example/x', '//evil.example', '/a/../b', 'eras', '/a\\b', 42, undefined])(
+  it.each([
+    'https://evil.example/x',
+    '//evil.example',
+    '/a/../b',
+    '/%2e%2e/x',
+    '/%2E%2E/x',
+    '/a/%2e%2e/b',
+    '/%252e%252e/x',
+    '/a%2f%2fb',
+    '/a%5cb',
+    '/a\u0000b',
+    'eras',
+    '/a\\b',
+    42,
+    undefined,
+  ])(
     'rejects %s as invalid without navigating',
     async (path) => {
       const { deps, h } = fakeDeps();
@@ -42,9 +59,18 @@ describe('navigate', () => {
     expect(await h.navigate({ path: bad('/nope') }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(deps.navigate).not.toHaveBeenCalled();
   });
-  it('maps a throwing navigate to failed, never throws', async () => {
-    const { h } = fakeDeps({ navigate: () => { throw new Error('boom'); } });
-    expect(await h.navigate({ path: bad('/a') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+  it('treats a throwing allow-list as not owned', async () => {
+    const { deps, h } = fakeDeps({ isNativeRoute: () => { throw new Error('x'); } });
+    expect(await h.navigate({ path: bad('/a') }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(deps.navigate).not.toHaveBeenCalled();
+  });
+  it('maps a throwing navigate to a static failure, logging details native-side only', async () => {
+    const log = vi.fn();
+    const { h } = fakeDeps({ log, navigate: () => { throw new Error('SECRET-internal-path'); } });
+    const r = await h.navigate({ path: bad('/a') }, ctx);
+    expect(r).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(JSON.stringify(r)).not.toContain('SECRET');
+    expect(log).toHaveBeenCalledWith('bridge-navigate-failed', expect.stringContaining('SECRET-internal-path'));
   });
 });
 
@@ -63,8 +89,10 @@ describe('openExternal', () => {
     },
   );
   it('maps a rejecting openURL to failed', async () => {
-    const { h } = fakeDeps({ openURL: async () => { throw new Error('no'); } });
-    expect(await h.openExternal({ url: bad('https://example.com') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    const { h } = fakeDeps({ openURL: async () => { throw new Error('no-SECRET'); } });
+    const r = await h.openExternal({ url: bad('https://example.com') }, ctx);
+    expect(r).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(JSON.stringify(r)).not.toContain('SECRET');
   });
 });
 
@@ -83,6 +111,18 @@ describe('share', () => {
     const { deps, h } = fakeDeps();
     await h.share({ title: 't', text: 'x', url: 'https://example.com', extra: 1 } as never, ctx);
     expect(deps.share).toHaveBeenCalledWith({ title: 't', text: 'x', url: 'https://example.com' });
+  });
+  it.each([
+    { url: 'http://example.com' },
+    { url: 'https://user:pw@example.com' },
+    { url: 'https://example.com\\@evil.example' },
+    { url: 'https://example.com/\u0001x' },
+    { url: 'https://' },
+    { url: 'https://trusted.example%2f@evil.example' },
+  ])('rejects adversarial share url %j', async (payload) => {
+    const { deps, h } = fakeDeps();
+    expect(await h.share(bad(payload), ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(deps.share).not.toHaveBeenCalled();
   });
   it.each([{}, { url: 'javascript:1' }, { text: 5 }, { text: 'x'.repeat(2049) }, null])('rejects %j', async (payload) => {
     const { deps, h } = fakeDeps();
