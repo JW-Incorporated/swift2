@@ -353,7 +353,15 @@ prod build + fixture, 12 fresh contexts ×3): fromBakedCore median 12.55/12.75/
 12.60 ms, p90 24.0/13.6/12.9, max 24.6/14.1/13.4 → **gate PASSES**; 4x median
 58–76 ms (report-only, G3). Full fromBaked ≈23 ms → core split ~halves it. Node
 script deleted. #4843 MERGED; wp2.2a branch deleted (childless). Codex r1 on
-#4849 launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+#4849 launched. **03:35:** WP2.3-A → #4850: reviewer r1 minor; Codex r1
+REQUEST CHANGES (payload not JSON-validated / proto keys; WebPath accepts
+//host; openExternal any scheme; api headers allow Authorization/Cookie;
+negotiate(NaN) ok; ids unbounded; dispatcher behaviours absent). PM: fix
+validators in A (strict JSON, isWebPath, https-only isExternalUrl,
+safelisted-header BridgeApiRequest, NATIVE_SUPPORTED_RANGE, bounded ids);
+dispatcher behaviours (exactly-one-res, unsupported, timeouts, cancel,
+replay dedup) = **WP2.3-B acceptance**, written as a CONTRACT in the bridge
+README. Fix round launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
