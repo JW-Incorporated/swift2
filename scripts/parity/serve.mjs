@@ -8,6 +8,8 @@ import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/mobile/dist/parity-web');
+const fixture = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/mobile/dist/parity-fixture');
+const webPublic = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/web/public');
 const port = Number(process.env.PARITY_PORT ?? 4173);
 
 if (!existsSync(join(root, 'index.html'))) {
@@ -30,8 +32,15 @@ const TYPES = {
 
 createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://x').pathname);
-  const file = normalize(join(root, pathname === '/' ? 'index.html' : pathname));
-  if (!file.startsWith(root) || !existsSync(file) || !statSync(file).isFile()) {
+  // /content/** is the fixture bundle (make-fixture.mjs), read from disk: side b never touches a network.
+  let base = pathname.startsWith('/content/') ? fixture : root;
+  let file = normalize(join(base, pathname === '/' ? 'index.html' : pathname));
+  // Static site assets (/eras/*.png ...) come from the web app's public dir, as the site would serve them.
+  if (!existsSync(file) && !pathname.startsWith('/content/')) {
+    base = webPublic;
+    file = normalize(join(base, pathname));
+  }
+  if (!file.startsWith(base) || !existsSync(file) || !statSync(file).isFile()) {
     res.writeHead(404).end('not found');
     return;
   }

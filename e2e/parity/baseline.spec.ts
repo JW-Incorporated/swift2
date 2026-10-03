@@ -1,27 +1,17 @@
-import { expect, openDialog, openParityPage, scrollListToBottom, test } from './helpers';
+import { captureRoot, expect, openRoute, PIXEL_OPTS, realInsets, ROUTES, test } from './helpers';
 
-// Baselines are Linux-only (generated in the pinned Playwright container).
+// Per-side baselines (Linux-only, generated in the pinned Playwright container).
+// Side b is captured with the project's REAL simulated safe-area insets.
 test.skip(process.platform !== 'linux', 'visual baselines are Linux-only');
 
-test('home', async ({ page }) => {
-  await openParityPage(page);
-  await expect(page).toHaveScreenshot('home.png');
-});
+for (const route of ROUTES) {
+  test(`a (web build) ${route.name}`, async ({ page }) => {
+    await openRoute(page, 'a', route);
+    expect(await captureRoot(page, route)).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+  });
 
-test('era switched', async ({ page }) => {
-  await openParityPage(page);
-  await page.getByRole('button', { name: 'Switch era' }).click();
-  await expect(page).toHaveScreenshot('era-switched.png');
-});
-
-test('dialog open', async ({ page }) => {
-  await openParityPage(page);
-  await openDialog(page);
-  await expect(page).toHaveScreenshot('dialog-open.png');
-});
-
-test('list scrolled to bottom', async ({ page }) => {
-  await openParityPage(page);
-  await scrollListToBottom(page);
-  await expect(page).toHaveScreenshot('list-bottom.png');
-});
+  test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
+    await openRoute(page, 'b', route, realInsets(testInfo));
+    expect(await captureRoot(page, route)).toMatchSnapshot(`b-${route.name}.png`, PIXEL_OPTS);
+  });
+}

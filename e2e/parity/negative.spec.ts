@@ -1,48 +1,73 @@
-import { mkdirSync, unlinkSync, writeFileSync } from 'node:fs';
-import { dirname } from 'node:path';
-import type { Page, TestInfo } from '@playwright/test';
-import { expect, openParityPage, test } from './helpers';
+import {
+  captureRoot,
+  collectStructure,
+  diffStructure,
+  expect,
+  mutate,
+  openRoute,
+  pixelMatches,
+  ROUTES,
+  test,
+  type Mutation,
+} from './helpers';
 
-// Proves the tolerance catches real regressions and ignores sub-pixel noise.
-// Self-referential (reference captured on this machine), so it runs on any OS
-// and needs no committed PNGs. Mutations come from the ?mutate= hook that lives
-// only in apps/mobile/index.web.tsx.
-const OPTS = { maxDiffPixels: 200, threshold: 0.2 };
+// Proves the gates catch real regressions. Self-referential (references are
+// captured on this machine), so it runs on any OS and needs no committed PNGs.
+// Mutations are applied through the DOM after load, identically on either side.
+const route = ROUTES[0];
 
-/** True when the mutated page still matches the unmutated reference within tolerance. */
-async function matchesReference(page: Page, testInfo: TestInfo, mutate: string): Promise<boolean> {
-  const name = `negative-${mutate}.png`;
-  const refPath = testInfo.snapshotPath(name);
-  await openParityPage(page);
-  mkdirSync(dirname(refPath), { recursive: true });
-  writeFileSync(
-    refPath,
-    await page.screenshot({ animations: 'disabled', caret: 'hide', scale: 'css' }),
-  );
-  try {
-    await openParityPage(page, `?mutate=${mutate}`);
-    await expect(page.getByRole('button', { name: 'Switch era' })).toBeVisible();
-    return await expect(page)
-      .toHaveScreenshot(name, OPTS)
-      .then(
-        () => true,
-        () => false,
-      );
-  } finally {
-    unlinkSync(refPath);
+const PIXEL_MUTATIONS: [string, Mutation][] = [
+  ['a 4px shift', 'shift'],
+  ['a colour change', 'colour'],
+];
+
+test.describe('pixel baseline gate (same side, mutated vs clean)', () => {
+  for (const [label, kind] of PIXEL_MUTATIONS) {
+    test(`${label} fails`, async ({ page }, testInfo) => {
+      await openRoute(page, 'b', route);
+      const clean = await captureRoot(page, route);
+      await mutate(page, route, kind);
+      const mutated = await captureRoot(page, route);
+      expect(await pixelMatches(testInfo, `neg-base-${kind}`, clean, mutated)).toBe(false);
+    });
   }
-}
+});
 
-test.describe('tolerance', () => {
-  test('a 4px shift of one small element fails', async ({ page }, testInfo) => {
-    expect(await matchesReference(page, testInfo, 'shift')).toBe(false);
-  });
+test.describe('pixel a-vs-b gate (side a clean vs side b mutated)', () => {
+  for (const [label, kind] of PIXEL_MUTATIONS) {
+    test(`${label} fails`, async ({ page }, testInfo) => {
+      await openRoute(page, 'a', route);
+      const a = await captureRoot(page, route);
+      await openRoute(page, 'b', route);
+      await mutate(page, route, kind);
+      const b = await captureRoot(page, route);
+      expect(await pixelMatches(testInfo, `neg-ab-${kind}`, a, b)).toBe(false);
+    });
+  }
+});
 
-  test('a single colour change fails', async ({ page }, testInfo) => {
-    expect(await matchesReference(page, testInfo, 'colour')).toBe(false);
-  });
+test.describe('structural a-vs-b gate', () => {
+  const STRUCTURAL: [string, Mutation][] = [
+    ['a missing landmark', 'remove'],
+    ['changed text', 'text'],
+    ['a 4px shift', 'shift'],
+  ];
+  for (const [label, kind] of STRUCTURAL) {
+    test(`${label} fails`, async ({ page }) => {
+      await openRoute(page, 'a', route);
+      const a = await collectStructure(page, route);
+      await openRoute(page, 'b', route);
+      await mutate(page, route, kind);
+      const b = await collectStructure(page, route);
+      expect(diffStructure(a, b).length).toBeGreaterThan(0);
+    });
+  }
 
-  test('a sub-pixel blur passes', async ({ page }, testInfo) => {
-    expect(await matchesReference(page, testInfo, 'blur')).toBe(true);
+  test('the unmutated pair passes (the gate is not vacuous the other way)', async ({ page }) => {
+    await openRoute(page, 'a', route);
+    const a = await collectStructure(page, route);
+    await openRoute(page, 'b', route);
+    expect(a.length).toBeGreaterThan(100);
+    expect(diffStructure(a, await collectStructure(page, route))).toEqual([]);
   });
 });
