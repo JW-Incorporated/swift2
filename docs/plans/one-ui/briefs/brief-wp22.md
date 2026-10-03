@@ -11,6 +11,14 @@ reviews these briefs before launch and does a design-fidelity review of the
 A and B PRs. Codex adversarial review runs on every PR. The PM runs Codex,
 not the executor.
 
+## FABLE REQUIRED (2026-10-03 02:20) - apply before launch; supersedes conflicting text below
+A1. injectedCorpus() must be O(1): ReaderCorpus exposes lookups as FUNCTIONS (getContentItem(id), songTarget(id)), never prebuilt Maps; Maps are built only inside corpusFromInputs (else native screens/server routes regress). A2. Flat-order audit failure does NOT block A: land A with the result documented; offending ids block C2 only.
+B3. Step 0 = Playwright perf mark on the parity fixture in a browser: unthrottled must be <=15 ms; also report 4x CPU-throttled (no gate). Node timing is not evidence. If >15 ms: stop; remedy is moving fingerprint-only domains out of the eager build (contract change -> Fable), NOT laziness. B4. useReaderSnapshot narrows with a type guard isReaderSnapshot(v) (domains in v), not key equality. B5. packages/ui/package.json in the B touch set (@swift2/experience dep if 2.1-A did not declare it).
+C6. Server-shared helpers: data parameter REQUIRED, no default; the module-data wrapper lives in a *.server.ts with import server-only so client code cannot silently fall back to the impure path.
+ALL7. Before every parity.yml run, merge origin/main into the stack bottom-up (2.1-C re-baselines fonts; stale branch = spurious diff). WP2.2 NEVER re-baselines.
+OPTIONAL adopted: C1-C3 each base on B independently (B adds renderWithReader).
+ORDER: A now (parallel with 2.1-A); B after 2.1-A merged; C, D after B. Earliest wrong-signal: B probe hash != fixture.json.
+
 ## PM rulings (2026-10-03 02:18) - supersede the open questions below
 1. Context lives in packages/ui (one UI source; DOM host consumes it too) -> B waits for WP2.1-A merged. 2. No-module-global-providers gate = READER path only; list remaining globals (server routes, native screens) in docs as out of scope. 3. Keep the ~15 ms snapshot-build budget: B measures in a browser (Playwright perf mark on the parity fixture) and stops/reports if exceeded. 4. last-good-after-data-error maps to state error (Fable carry: error = last-good shown, refresh failed). 5. Touch-set expansions in A and B approved as listed. Every Land line: NO auto-merge; never --delete-branch a branch with open child PRs.
 
