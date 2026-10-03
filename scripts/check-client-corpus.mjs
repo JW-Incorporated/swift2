@@ -17,20 +17,27 @@ const SENTINEL_LEN = 70;
 // Plain ASCII only, so minification/JSON escaping cannot alter the literal.
 const SAFE = /^[A-Za-z0-9 ,.'-]+$/;
 
-/** Up to `count` distinctive sentences: the longest safe paragraphs, alternating docs. */
+/** Up to `count` distinct mid-paragraph slices, longest paragraphs first, alternating docs. */
 export function pickSentinels(docs, count = 3) {
   const perDoc = docs.map((doc) =>
     doc.sections
       .flatMap((s) => s.blocks)
       .filter((b) => b.kind === 'p')
-      .map((b) => b.text.slice(0, SENTINEL_LEN))
-      .filter((t) => t.length === SENTINEL_LEN && SAFE.test(t))
-      .sort((a, b) => b.length - a.length),
+      .map((b) => b.text)
+      .filter((t) => t.length >= SENTINEL_LEN * 3)
+      .sort((a, b) => b.length - a.length)
+      .map((t) => {
+        const mid = Math.floor((t.length - SENTINEL_LEN) / 2);
+        return t.slice(mid, mid + SENTINEL_LEN);
+      })
+      .filter((t) => SAFE.test(t)),
   );
   const out = [];
   for (let i = 0; out.length < count; i++) {
     const before = out.length;
-    for (const list of perDoc) if (list[i] && out.length < count) out.push(list[i]);
+    for (const list of perDoc) {
+      if (list[i] && !out.includes(list[i]) && out.length < count) out.push(list[i]);
+    }
     if (out.length === before) break;
   }
   return out;

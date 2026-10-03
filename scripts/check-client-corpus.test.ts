@@ -31,7 +31,7 @@ function resolveSpec(from: string, spec: string): string | null {
 const IMPORT_RE = /(?:import|export)\s[^'"]*?from\s*['"]([^'"]+)['"]|import\s*['"]([^'"]+)['"]|import\(\s*['"]([^'"]+)['"]\s*\)/g;
 
 describe('client/corpus boundary', () => {
-  it('no "use client" file imports legal.ts (directly or via a re-export shim)', () => {
+  it('no "use client" file imports legal.ts (transitively, incl. re-export shims)', () => {
     const files = [
       ...sources(join(root, 'apps/web')),
       ...sources(join(root, 'packages/ui/src')),
@@ -64,7 +64,21 @@ describe('client/corpus boundary', () => {
         }
       }
     }
-    const offenders = clientFiles.filter((f) => imports.get(f)!.some((r) => corpus.has(r)));
+    const reachesCorpus = (start: string): boolean => {
+      const seen = new Set<string>([start]);
+      const queue = [start];
+      while (queue.length > 0) {
+        for (const next of imports.get(queue.pop()!) ?? []) {
+          if (corpus.has(next)) return true;
+          if (!seen.has(next)) {
+            seen.add(next);
+            queue.push(next);
+          }
+        }
+      }
+      return false;
+    };
+    const offenders = clientFiles.filter(reachesCorpus);
     expect(offenders.map((f) => f.slice(root.length + 1))).toEqual([]);
   });
 
