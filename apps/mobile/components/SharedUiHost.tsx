@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ReaderSpike from '../dom/ReaderSpike';
 import SharedUiTest from '../dom/SharedUiTest';
 import { hardwareBackHandled } from '../dom/spike/back';
+import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
@@ -41,9 +42,13 @@ export function SharedUiHost({
   const [source, setSource] = useState<ReaderSource | null>(null);
   const [backTick, setBackTick] = useState(0);
   const readerReady = useRef(false);
+  const launchedAt = useRef(0);
+  const nativeMs = useRef<number | null>(null);
+  const rawProbe = useRef<string | null>(null);
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
+    launchedAt.current = Date.now();
     onSignal('dom-launch-attempted');
     void getUseTestPage().then(setTestPage);
   }, []);
@@ -76,6 +81,13 @@ export function SharedUiHost({
     if (forceFailure === 'throw' && source) void handlers.reportError('forced DOM failure');
   }, [forceFailure, source]);
 
+  const publishProbe = (json: string) => {
+    const merged = withNativeTiming(json, nativeMs.current);
+    rawProbe.current = json;
+    setProbeJson(merged);
+    setLatestProbeJson(merged);
+  };
+
   const dom = {
     onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
     onRenderProcessGone: handlers.onRenderProcessGone,
@@ -101,12 +113,14 @@ export function SharedUiHost({
             forceFailure === 'off'
               ? async () => {
                   readerReady.current = true;
+                  nativeMs.current = Date.now() - launchedAt.current;
+                  if (rawProbe.current) publishProbe(rawProbe.current);
                   await handlers.onReady();
                 }
               : async () => {}
           }
           reportError={handlers.reportError}
-          reportProbe={async (json) => setProbeJson(json)}
+          reportProbe={async (json) => publishProbe(json)}
           reportBack={async (result) => {
             if (result === 'exit') BackHandler.exitApp();
           }}

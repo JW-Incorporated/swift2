@@ -2,7 +2,7 @@
 // version label). Shows load-stage timings + device facts, sends a `[diag]`
 // report, and holds the C4 "Force shared UI" stub switch (wired in WP0.4).
 import { useEffect, useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, Share, StyleSheet, Switch, Text, View } from 'react-native';
 import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import {
@@ -13,6 +13,7 @@ import {
   setForceSharedUi,
   setUseTestPage,
 } from '../lib/diagnostics-override';
+import { latestProbeJson } from '../dom/spike/probe';
 import { readerSpikeLines } from '../lib/dom-probe-store';
 import { sendDiagReport } from '../lib/diagnostics-send';
 import { watchdogLines, type DomFailureMode, type WatchdogRecord } from '../lib/watchdog';
@@ -122,6 +123,13 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               {line}
             </Text>
           ))}
+          <Pressable
+            onPress={() => void Share.share({ message: latestProbeJson() ?? '{}' })}
+            style={styles.button}
+            accessibilityRole="button"
+          >
+            <Text style={styles.buttonText}>Share probe JSON</Text>
+          </Pressable>
           <Pressable onPress={send} style={styles.button} accessibilityRole="button">
             <Text style={styles.buttonText}>
               {status === 'sending' ? 'Sending…' : 'Send report'}

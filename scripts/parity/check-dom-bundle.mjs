@@ -16,16 +16,24 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const FORBIDDEN = [
-  /apps\/web\/lib\/.*\.generated\.[cm]?[jt]sx?$/,
-  /lib\/longlive\/generated\//,
-  /dom\/spike\/dev-loader/,
-  /index\.web\./,
+  /apps\/web\/lib\/.*\.generated\.[cm]?[jt]sx?$/i,
+  /lib\/longlive\/generated\//i,
+  /dom\/spike\/dev-loader/i,
+  /index\.web\./i,
 ];
 const KINDS = ['moment', 'track', 'theory', 'merch'];
 const SYNC_HINT = 'run `npm run sync:content` first';
 
+function decodeSource(s) {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
 export function findForbiddenSources(sources) {
-  return sources.map((s) => s.replace(/\\/g, '/')).filter((s) => FORBIDDEN.some((re) => re.test(s)));
+  return sources.map((s) => decodeSource(s).replace(/\\/g, '/')).filter((s) => FORBIDDEN.some((re) => re.test(s)));
 }
 
 /** Map source -> repo-relative forward-slash path (resolved against the map file and sourceRoot). */

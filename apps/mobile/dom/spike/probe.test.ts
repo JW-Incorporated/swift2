@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { checkMarkers, countPlaceholders, createProbe, probeLines } from './probe';
+import { checkMarkers, countPlaceholders, createProbe, latestProbeJson, probeLines, setLatestProbeJson, withNativeTiming } from './probe';
 
 describe('countPlaceholders', () => {
   it('counts tiny and errored images per host and reports unfinished loads as pending', () => {
@@ -23,6 +23,24 @@ describe('countPlaceholders', () => {
       { src: 'https://a.example/2', complete: true, naturalWidth: 3 },
     ]);
     expect(out['a.example']).toEqual({ total: 2, bad: 1, pending: 0 });
+  });
+});
+
+describe('native timing + export', () => {
+  it('stamps the native delta and labels both clocks', () => {
+    const p = createProbe('v');
+    p.report.firstPaintMs = 800;
+    const merged = withNativeTiming(p.json(), 1234);
+    expect(JSON.parse(merged).nativeLaunchToReadyMs).toBe(1234);
+    expect(withNativeTiming(p.json(), null)).toBe(p.json());
+    const lines = probeLines(JSON.parse(merged));
+    expect(lines).toContain('Webview first paint ms: 800, heap - MB');
+    expect(lines).toContain('Native launch->ready ms: 1234');
+  });
+
+  it('keeps the exact exported JSON', () => {
+    setLatestProbeJson('{"a":1}');
+    expect(latestProbeJson()).toBe('{"a":1}');
   });
 });
 
