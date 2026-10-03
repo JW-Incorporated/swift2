@@ -135,7 +135,8 @@ A1 + minimal A2 in one PR (separate commits). Moved with `git mv`, old paths now
 - Type edges (`clown-answer`, `clown-client`, `clown-fallback`) re-homed to `@swift2/shared` in a separate type-only `!` commit.
 - A2 logic: `currentTheories(now, theoriesForEra, lore)` takes `lore`; `ClownChat`/`ClownBoard` take a `lore` prop. `LORE` stays in apps/web; 2.11-D1 supplies it in the app.
 - Debt: `ClownChat.tsx` (308) is over the 300-line rule; moved as-is.
-- Not moved: Mood (`MoodChat`, `MoodSongCard`, `mood-starters`) is A1b.
+- A1b (move-only): `MoodChat`, `MoodSongCard` -> `reader/clown/`; `mood-starters` -> `reader/clown/lib/`. Old paths are one-line `export *` shims. No value imports of app modules, so no lore-style injection was needed. `moodChatLayout.test.ts` is repointed at the moved source; `mood-starters.test.ts` stays (imports web-only `vault-wiring`).
+- A2 (apiFetch swap for `fetch('/api/mood')`, non-streaming `res.json()`) follows in a separate commit.
 
 ### WP2.12 settings
 A1 + A2 in one PR (PM ruling), separate commits.
