@@ -297,6 +297,12 @@ evidence = identical text rects + doc heights before/after; hero diff =
 animation (two "after" shots differ too); OTA +4.4% reason in body; extra:
 /fonts immutable cache header in next.config.mjs, .prettierignore) → reviews
 queued for next slot. WP2.4 first-slice brief draft launched (prep).
+**02:56:** #4841 fix r2 daa4ab81 (computed import/require ban + 7 tests;
+data-swift2-ui removed; per-host resolution tests; fingerprint caveat — no CI
+job prints it) → scoped reviewer APPROVE → **#4841 (WP2.1-A) MERGED**; #4844 +
+#4847 retargeted to main BEFORE branch delete (rule held). WP2.2-B executor
+launched (stacked on wp2.2a + main merged in). Open: no CI job prints the Expo
+fingerprint → candidate small CI addition (later).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
