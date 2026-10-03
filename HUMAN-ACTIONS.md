@@ -2,18 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **2 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #98 🟡 [DECIDE] Expo build minutes are used up until Nov 1 (~5 min)
-<!-- ha filed=2026-10-03 -->
-
-**Why:** The app release pipeline stopped: Expo's free plan (account jw-labs) used its 60 CI/CD minutes for October, so no iOS or Android store build can start until Nov 1 — the new iOS profile can't be tested and no app update ships.
-**Steps:**
-1. Decide: `pay` — upgrade jw-labs at https://expo.dev/accounts/jw-labs/settings/billing; `reroute` — Claude moves the release steps onto GitHub Actions so they don't use Expo CI minutes (no cost, ~1 PR); `wait` — pause app builds until Nov 1.
-2. If `pay`: open the link, pick a paid plan, enter payment, then tell Claude "expo paid".
-**Worked if:** a re-run of "Mobile release train" on main gets past the fingerprint job.
 
 ## #88 🔴 [BLOCKING] Finish the weekly Facebook export setup (~5 min)
 <!-- ha filed=2026-09-30 -->
