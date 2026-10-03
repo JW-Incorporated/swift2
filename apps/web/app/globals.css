@@ -116,6 +116,21 @@ body {
   animation: glint 2.4s ease-in-out infinite;
 }
 
+/* Merch marquee bulbs (MerchMarquee). Lives here, not in an inline <style>,
+   because the CSP forbids un-nonced inline styles. */
+@keyframes merch-marquee-flick {
+  0%,
+  100% {
+    opacity: 0.32;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+.merch-marquee-bulb {
+  animation: merch-marquee-flick 3.6s ease-in-out infinite;
+}
+
 @keyframes float-up {
   from {
     opacity: 0;
