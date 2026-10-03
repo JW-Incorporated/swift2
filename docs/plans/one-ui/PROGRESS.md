@@ -232,6 +232,13 @@ launched (Codex next slot). #4841 Codex r1 (`task-mus6qiwu-zu39g1`): P2 package
 never resolved by either host; P2 lint ban only static imports; P3 fingerprint
 unproven → fix round 1 launched with reviewer items (peer ^19, @source in
 shared-ui-test.css, prettier drift) + real @swift2/ui import in ReaderSpike.
+**02:34:** #4844 reviewer r1 REQUEST CHANGES (declare @swift2/content +
+@swift2/ui in apps/web/package.json; re-render identity test; onBack doc) +
+Codex r1 `task-mus714zb-kgv3x9` pending → one fix round after. WP2.2-A →
+**#4843** (corpus.ts function lookups, withProviders deleted, LOAD_SOURCE,
+hash ba18fffa unchanged, parity 37113198335 green, flat-order audit passes —
+C2 unblocked; local expo export failed "environmental" — reviewer checking CI
+coverage) → reviewer r1 launched; Codex next slot.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
