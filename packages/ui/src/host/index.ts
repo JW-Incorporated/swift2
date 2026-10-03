@@ -2,6 +2,7 @@ export { HostProvider, useHost, useResolveUrl } from './context';
 export type {
   HapticKind,
   HostAdapter,
+  HostAffiliateEnv,
   HostEnv,
   HostImageProps,
   HostLinkProps,
