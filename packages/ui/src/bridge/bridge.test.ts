@@ -307,7 +307,7 @@ describe('runtime registries', () => {
         'notifications.status', 'notifications.updatePrefs', 'openExternal', 'share',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready', 'readyAck']);
   });
 });
 
@@ -332,6 +332,7 @@ describe('JSON round-trip, one sample per type', () => {
     ack: { seq: 4 },
     insets,
     contentVersion: { token: 'abc' },
+    readyAck: { hwm: 0 },
     navigate: { path: toWebPath('/')!, source: 'deeplink' },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
