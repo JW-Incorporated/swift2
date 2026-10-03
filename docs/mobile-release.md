@@ -96,6 +96,20 @@ Instead:
   and runs `eas submit --platform android --id <build_id> --profile
   production --non-interactive` itself, in the one place that has the
   secret.
+- After the wait (even when it failed), the step "Summarise EAS jobs and the
+  published OTA update" writes each EAS job's final status and, on success,
+  the OTA update group id(s), platform and runtime version published for
+  this exact commit (looked up by `gitCommitHash` over the newest 50 groups
+  of `update:list`, then `update:view` on matching groups; if the list lacks
+  hashes it views up to 20 groups; the fingerprint runtime policy yields one
+  group per platform) to the run summary, so a device test can pin the
+  update without an Expo login. "None published" (the store-build path) is
+  claimed only when the scan provably reached back past the commit's time
+  (or the list was shorter than 50); otherwise it says "not found in the
+  newest N groups (lookup incomplete)". The step is
+  read-only and informational (`continue-on-error`, 200 s lookup budget,
+  summary written incrementally): it never changes the job result or blocks
+  the release, and on a slow EAS it may show "lookup skipped".
 - `eas.json`'s `submit.production.android.serviceAccountKeyPath` points at
   that same gitignored path so a founder can also run `eas submit
   --platform android` locally after populating the file by hand (or once
@@ -159,6 +173,12 @@ launch re-downloads the bundle and does one update check.
 - Build numbers (`buildNumber` / `versionCode`) are remote and
   auto-increment per platform on EAS (`appVersionSource: remote`). Never
   hand-edit them.
+
+## OTA size budget
+
+CI (`node scripts/parity/size-check.mjs`, right after the two `expo export` steps) totals the uncompressed bytes of every file in each platform's export dir (`apps/mobile/dist-ios`, `dist-android`: Hermes bundle, assets, any DOM `www.bundle`; `metadata.json` excluded) and fails the PR if either platform grows more than 15% over `e2e/parity/size-baseline.json`. It is a proxy for update download growth, not the exact payload: the JS bundle is re-downloaded in full on every update, assets only when their hash changes. It runs in both build-full and build-content (seed changes regenerate code in the bundle).
+
+To accept an intentional jump: run both exports with `--output-dir dist-ios` / `dist-android` in `apps/mobile`, then `node scripts/parity/size-check.mjs --update` and commit the baseline in the same PR.
 
 ## When the parity check fails
 

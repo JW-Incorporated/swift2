@@ -14720,7 +14720,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.\n\nThe critics were cooler than the counters. Reviewing the four new tracks for Consequence, Cassidy Sollazzo landed on a shrug — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted into "a predictable, bordering-on-bland caricature." The split is the story of the weekend: a record-setting single day on Spotify and a lukewarm critical reception, arriving together.',
+          'The Life of a Showgirl: The Encore — the expanded edition Taylor teased on Sept. 22 and named on Sept. 23 — arrived Friday, Sept. 25, 2026, adding four brand-new songs to the 2025 album: "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" "Patient Zero" led the release, and the numbers came in fast.\n\nSpotify reported two 2026 firsts off the drop: Taylor became the platform\'s most-streamed female artist in a single day this year, and "Patient Zero" became the most-streamed song by a female artist in a single day in 2026. Spotify framed both as year-to-date records and did not publish the underlying stream counts.\n\nThe rollout came with visuals to match. An official lyric video for "Patient Zero" — sparkle-lettered title card, the song\'s name wrapped around a parenthetical "Taylor Swift" — posted to her YouTube channel the same weekend. The full music video is a bigger production still to come: per Deadline and other trades, it was directed by Taylor and features Colin Farrell and Dakota Johnson, and is set to premiere during the 2026 MTV VMAs on Sept. 27 — the same night she receives the inaugural Artist Director Honor.\n\nThe critics were cooler than the counters. Reviewing the four new tracks for Consequence, Cassidy Sollazzo landed on a shrug — "the encore sounds a lot like the show we just sat through" — and argued Taylor had drifted into "a predictable, bordering-on-bland caricature." The split is the story of the weekend: a record-setting single day on Spotify and a lukewarm critical reception, arriving together.\n\nThe commercial run kept building abroad. On the ARIA chart dated Oct. 2, 2026, the Encore sent The Life of a Showgirl back to No. 1 in Australia — a jump from No. 23 the week before — while "Patient Zero" debuted at No. 1 on the ARIA Singles Chart, and all four new Encore songs took four of the top five singles spots. A clean Australian chart double a week on from the release.',
         // No `video` field on purpose: the lyric-video frame is used as a plain
         // credited photo (and the video is cited as a source below). Declaring
         // it as `video` here would make the ytimg-still-as-hero the moment's own
@@ -14793,6 +14793,28 @@ export default {
             notes:
               'Release-day review of the four new tracks; source for the mixed-to-cool critical reception and the quoted verdict ("the encore sounds a lot like the show we just sat through" / "a predictable, bordering-on-bland caricature").',
           },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-the-life-of-a-showgirl-returns-no-1-australia-1236352841/',
+            source_title: "Take a Bow: Taylor Swift's 'The Life Of A Showgirl' Returns to No. 1 In Australia",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              'source for the Oct. 2, 2026 ARIA chart double (album 23->1, "Patient Zero" debuts No. 1 on ARIA Singles). billboard.com is tollbit/bot-gated in the run environment; confirmed against ARIA\'s own charts-news page.',
+          },
+          {
+            outlet: 'ARIA',
+            url: 'https://www.aria.com.au/charts/news/taylor-swift-comes-back-for-an-encore',
+            source_title: 'Taylor Swift comes back for an encore',
+            publisher: 'ARIA (Australian Recording Industry Association)',
+            source_type: 'official',
+            accessed_at: '2026-10-02',
+            reliability_score: 5,
+            notes:
+              'The chart body\'s own announcement — The Life of a Showgirl returns to No. 1 on the ARIA Albums Chart and the four Encore tracks take four of the top five on the ARIA Singles Chart, led by "Patient Zero" at No. 1.',
+          },
         ],
       },
     },
@@ -14824,7 +14846,7 @@ export default {
         // / 11 promoted heroes), so the official MV frame is used here as a
         // plain credited photo. The watchable player URL is the sourceUrl.
         context:
-          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.',
+          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.\n\nThe setting had a backstory of its own. Taylor shot the video inside a concrete-clad Beverly Hills mansion — roughly 18,300 square feet, built in 2014 for Oakley founder James Jannard and sold in June 2026 for just under $47 million — a glass-and-concrete fortress whose retractable walls open onto an infinity pool above Los Angeles. In an Instagram note after the premiere she explained the choice plainly: "The house was a metaphor for the coldness of a relationship that\'s faded and atrophied." It is a documented filming location, a former owner\'s property rather than anywhere Taylor lives.\n\nThe wardrobe ran the same doubling. In a ballroom scene, Taylor and Dakota Johnson wear the exact same dress — Valentino\'s beige Bow Embellished Tulle Gown, a plunging-V-neck tulle column worked in floral sequin-and-crystal embroidery, retailing around $30,000 — the ghost and the living woman mirrored in a single frame.',
         photos: [
           {
             url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxresdefault.jpg',
@@ -14883,6 +14905,41 @@ export default {
             reliability_score: 4,
             notes:
               'rollingstone.com is tollbit/bot-gated in the run environment, so the body could not be loaded directly; the premiere, director and cast were confirmed against Wikipedia and the Variety/Deadline coverage that did load.',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-patient-zero-music-video-outfits-mtv-vmas-2026/',
+            source_title:
+              'Taylor Swift and Dakota Johnson Twin in Minimalist Looks for the "Patient Zero" Music Video',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              'source for the matching Valentino Bow Embellished Tulle Gown (beige, ~$30,000, plunging V-neck, floral sequin/crystal embroidery) worn by Taylor and Dakota Johnson in the ballroom scene; corroborated by theFashionSpot and Yahoo Lifestyle.',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-reveals-meaning-behind-212107292.html',
+            source_title:
+              'Taylor Swift Reveals the Meaning Behind the $47 Million Beverly Hills Fortress in the "Patient Zero" Music Video',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              "source for Taylor's Instagram quote that the house was \"a metaphor for the coldness of a relationship that's faded and atrophied.\"",
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-patient-zero-house-134844887.html',
+            source_title: "Taylor Swift's 'Patient Zero' House Was Sold for Nearly $47 Million — Report",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-02',
+            reliability_score: 4,
+            notes:
+              'source for the filming location (an ~18,300 sq ft concrete Beverly Hills mansion built in 2014 for Oakley founder James Jannard) and its ~$46.95M June 2026 sale; corroborated by The Statesman. Address withheld per privacy-redlines.md — a past filming location, not a residence, capped at city level.',
           },
         ],
       },
