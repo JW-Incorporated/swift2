@@ -6,6 +6,35 @@ block at every checkpoint; append to the **Log**; never let this file pass
 
 ## Next actions (for a fresh PM session)
 
+**>>> CHECKPOINT 2026-10-03 04:43 PDT — AUTHORITATIVE; everything below is history. <<<**
+Owner: "keep going… run all night… parallel agents" (02:08). Cap 5 workers (+Codex jobs).
+**ON MAIN:** G1 done (harness+a11y+parity-gate always-run #4840, image-race fix #4845,
+fixture prune #4842); WP0.1b #4833; WP2.1 A #4841, B #4844, D #4851 (allowlist closed,
+resolveUrl era art); WP2.2 A #4843, B #4849 (core/extension snapshot); WP2.4 PR0 #4852;
+release train: #4838/#4846/#4854 (Android submit independent of iOS; existing build
+0a1ef202 submitted on next train).
+**OPEN / NEXT (in order):**
+1. WP2.1-C fonts **#4847** — approved, auto-merge set (check merged).
+2. WP2.3 bridge: A **#4850** scoped reviewer landing → retarget B **#4853** (approved incl.
+   hwm `readyAck` delta) + C **#4855** to main → land B → C fix r2 (Fable 04:36) running →
+   C scoped reviewer after merging main (contains B) → land. Watch README CONTRACT conflicts.
+3. WP2.2 callers: C1 **#4856** lander polling CI (then retarget C3 **#4858** to main) → C2
+   **#4857** (approved; Codex P3 fixed 830ee85d; merge main, resolve MomentDetail conflict
+   vs C1) → C3 #4858 fix round after Codex r1 (exhaustive equivalence + myEras cases;
+   conflicts w/ C2 on MomentDetail/TopBar/TheoryGuide/TrackGuide/TrackDetail/queries.ts).
+4. WP2.4 A1 (move-only rule, brief-wp24.md) — BLOCKED on **HA #97** (parity-gate required;
+   rulesets currently require only `build`). Then A2 → B → C; D after G0.
+5. G0 (WP0.6) blocked on device sessions: **HA #96** (Apple Associated Domains) for iOS;
+   Android: confirm Play internal got build 0a1ef202 (check latest "Mobile release train"
+   run log: "Android store-build job: existing" + submit step) → then S2 in chat with Joey
+   (5 cold + 5 warm [diag]; diag offsets now real via #4833) and S4 (checklist in Fable
+   log 17:02 + font/era-art/ClownChat checks).
+6. WP2.3 D/E/F + all of WP2.4-D wait for G0.
+Follow-ups: footer parity capture on /support; packages/ui `useReader` generic typing
+(WatchableVideoNote cast in TrackGuide); executors keep dispatching mobile-parity.yml by
+mistake — always say "exactly parity.yml"; Codex queue can wedge (cancel + relaunch).
+Briefs: docs/plans/one-ui/briefs/brief-wp2{1,2,3,4}.md (top blocks = binding rulings).
+
 **CHECKPOINT 2026-10-02 16:10 PDT (new PM session) — read this first; the
 14:56 block below still holds for the post-S1 landing order.** Freeze ON;
 #4791 has 0 `[diag]` reports. #4817 MERGED. Prior session's Codex job ids are
