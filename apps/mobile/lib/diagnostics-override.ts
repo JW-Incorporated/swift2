@@ -33,3 +33,19 @@ export async function setForceSharedUi(on: boolean): Promise<void> {
   if (on) await SecureStore.setItemAsync(FORCE_SHARED_UI_KEY, 'true');
   else await SecureStore.deleteItemAsync(FORCE_SHARED_UI_KEY);
 }
+
+// WP0.5b: keep the WP0.4 test page reachable now that the C4 override mounts ReaderSpike.
+export const USE_TEST_PAGE_KEY = 'longlive_diag_use_test_page';
+
+export async function getUseTestPage(): Promise<boolean> {
+  try {
+    return (await SecureStore.getItemAsync(USE_TEST_PAGE_KEY)) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export async function setUseTestPage(on: boolean): Promise<void> {
+  if (on) await SecureStore.setItemAsync(USE_TEST_PAGE_KEY, 'true');
+  else await SecureStore.deleteItemAsync(USE_TEST_PAGE_KEY);
+}

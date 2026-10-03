@@ -1,44 +1,115 @@
-# Visual parity harness (One UI WP1.1c, part 1)
+# Visual parity harness (One UI WP1.1c)
 
-Renders the app's DOM UI in a browser at four device viewports and fails on
-visual regressions against committed Linux baselines. Part 1 is harness proof
-on the WP0.4 test page (`apps/mobile/dom/SharedUiTest.tsx`); real routes and
-the web-vs-app comparison come in part 2. Epic #4788.
+Renders the WP0.5b spike routes twice and fails when the two renderings
+disagree with each other or with committed Linux baselines. Epic #4788.
+
+- Side a: the Next web build (`next start`, secretless; Supabase degrades to empty).
+- Side b: the app's DOM entry (`apps/mobile/index.web.ts`, which mounts
+  `ReaderSpike`) exported for a browser, fed from the fixture bundle on disk.
+- Routes: `/` (the era stream; shared root `main`) and `/?item=<id>` (the open
+  moment; shared root `[role="dialog"]`). The item id is stored in
+  `scripts/parity/fixture/fixture.json` (`itemId`).
 
 ## How it works
 
-- `apps/mobile/index.web.tsx` is the web-only entry (Expo resolves
-  `index.web.tsx` for web, `index.ts` for native; `package.json` `main` is
-  `index`). It mounts the test page with a stub `onReady` (sets
-  `window.__ready`) and `reportError` (`console.error`). `?inset=t,r,b,l` sets
-  `--safe-top/right/bottom/left`; `?mutate=shift|colour|blur` is the negative-spec
-  hook and exists only in this file.
-- Build: `cd apps/mobile && EXPO_NO_WEB_SETUP=1 npx expo export --platform web --output-dir dist/parity-web --clear`.
+- `package.json` `main` is `index`: Expo resolves `index.ts` for native and
+  `index.web.ts` for web. Build b:
+  `cd apps/mobile && EXPO_NO_WEB_SETUP=1 npx expo export --platform web --output-dir dist/parity-web --clear`.
   `EXPO_NO_WEB_SETUP=1` skips Expo's "web is not in app.json platforms" check,
   so `app.json` is untouched and the native fingerprint (OTA runtime version)
   does not change.
-  Fingerprint proof for the `main` change: fingerprint dcf1ea59 before == after (measured on 67061e0b-based head 4c5ef187 with `main` = `index.ts` vs `index`, all else equal; `npx @expo/fingerprint fingerprint:generate` in apps/mobile, Windows 11 / Node 24.18).
-- Serve + test: `npx playwright test -c playwright.parity.config.ts` (starts
-  `scripts/parity/serve.mjs` on 127.0.0.1:4173).
+- Frozen fixture (`scripts/parity/fixture/`, committed): a content snapshot taken
+  once: the published bundle (`content/`, side b reads it from disk at `/content`
+  via `serve.mjs`) and the seven baked modules the web build imports
+  (`web/*.generated.ts`, side a). BOTH sides render from it, so baselines do NOT move
+  when live content (`supabase/seed/**`) changes. CI `build-web` runs
+  `npm run sync:content` (for the unrelated generated files), then
+  `make-fixture.mjs --apply` (overlays the snapshot over `apps/web` and fails unless
+  baked and bundle hash equal `fixture.json`), then `npx next build` directly
+  (`npm run build` would re-run `prebuild` and re-sync live content over it).
+  CI never regenerates. Regeneration is deliberate and manual: `npm run sync:content`,
+  then `npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --regenerate`,
+  commit the fixture, then re-baseline (below). Size: about 8 MB raw (about 2 MB compressed) per
+  regeneration; a pruned snapshot is a possible follow-up.
+- Runtime equivalence hash on BOTH sides (`compare.spec.ts`): side b reports its
+  rendered snapshot hash (`window.__probe`); side a reports the hash of the baked
+  modules the running server holds via `GET /parity-probe`
+  (`apps/web/app/parity-probe/route.ts`, 404 unless `PARITY_PROBE=1`, set only by
+  `playwright.parity.config.ts`). Both must equal `fixture.json`.
+- Serve + test: `npx playwright test -c playwright.parity.config.ts` starts
+  `serve.mjs` (b, 4173) and `next start` (a, 4174), both on 127.0.0.1.
 - Projects: Pixel 7 (chromium), iPhone 15 (webkit), iPad Pro 11 portrait and
-  landscape (webkit); 2 workers.
+  landscape (webkit); 2 workers locally, one CI job per project.
 
-## Guarantees
+## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 
-- Blank pages cannot pass: every capture waits for `window.__ready`, the
-  bundled font, and Row 50 in the list (dialog shot also waits for
-  `data-state=open`). `pageerror`, `console.error`, and any non-localhost
-  request fail the test (non-local requests are aborted too).
-- Tolerance: `maxDiffPixels: 200`, `threshold: 0.2`, animations disabled,
-  caret hidden, fixed clock.
-- `e2e/parity/negative.spec.ts` proves the tolerance: a 4px shift of one
-  button and a one-colour change must fail; a 0.3px blur must pass. It is
-  self-referential, so it runs on any OS.
-- Baselines (`baseline.spec.ts`) are Linux-only (`test.skip` elsewhere) and live
-  in `e2e/parity/__screenshots__/<project>/`. `updateSnapshots` is `none`
-  unless `PARITY_UPDATE=1`, so a missing baseline is a red run.
-- The workflow runs in `mcr.microsoft.com/playwright:v1.63.0-noble`; keep the
-  tag equal to the installed `@playwright/test` version.
+Fixed clock (`clock.setFixedTime`, never `install`), reduced motion, animations
+disabled, caret hidden, first-visit flags in `localStorage`, `/vault/live`
+stubbed empty, Vercel analytics stubbed, every external image answered by one
+generated grey PNG (every external image URL is recorded per side and the a and b
+sets are asserted identical per route), any other external request or any `pageerror` /
+`console.error` / HTTP >= 400 fails the test. Fonts: both sides get
+`@font-face "ParityFont"` from the DOM entry's own data-URI font plus
+`* { font-family: "ParityFont" !important }`, and `document.fonts.ready` before
+any capture. The stylesheets are served same-origin (`page.route` + `<link>`), so the
+web build's CSP stays on for Chromium; WebKit refuses the inline style Playwright
+itself injects for any `page.screenshot()` under that CSP, so only the three WebKit
+projects set `bypassCSP` (side b has no CSP). Captures wait for React to own the DOM (the web build is
+server-rendered; client-only text such as the daily gloss swaps in after
+hydration) and for the root's text and height to hold still.
+Web-only chrome outside the shared root (TopBar and its fixed timeline rail,
+footer) is hidden by stylesheet for pixel capture; the app host supplies its own.
+
+## The gates (blocking)
+
+1. Pixel a-vs-b: the top 480 css px of the shared root (a full era stream is
+   about 67k px tall), font-normalised, same project and engine, ZERO insets on
+   b. Threshold 0.3, `maxDiffPixelRatio` 0.001.
+2. Structural a-vs-b: elements with role main, navigation, banner, article,
+   list, listitem or heading under the root, DOM order; same count and order;
+   rects root-relative integer css px, each of x, y, width, height within 2px;
+   text is `innerText`, whitespace-collapsed, NFC.
+3. Per-side pixel baselines (`baseline.spec.ts`, Linux only): same threshold and
+   ratio. Side b is captured with REAL simulated insets (`?inset=t,r,b,l`:
+   iPhone 15 59/0/34/0, Pixel 7 24/0/48/0, iPad 24/0/20/0). A second baseline per
+   route (`b-<route>-viewport.png`) is the whole viewport, where body top padding and
+   nav bottom padding show. `compare.spec.ts` proves the insets are visible on home
+   (real vs zero insets differ). The item dialog is inset-immune by construction
+   (`MomentDetail.tsx` has no safe-area styles; the bridge in `reader-spike.css` only
+   touches body padding, the nav and fixed bottom offsets, all behind the modal); a
+   test pins that.
+4. Equivalence hash (above).
+
+`negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
+the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
+4px shift fail the structural a-vs-b; the unmutated pair passes. Self-referential
+(references captured on the machine), so it runs on any OS and needs no PNGs.
+
+Not duplicated here: the OTA size budget lives in WP1.1a (#4814). The
+no-baked-content proof (`scripts/parity/check-dom-bundle.mjs`) runs in the
+`build-dom` job against a native `expo export --platform ios --source-maps`,
+after `npm run sync:content`.
+
+## CI
+
+`.github/workflows/parity.yml`: `build-web` (a, plus the fixture) and
+`build-dom` (b, plus the bundle check) run in parallel, then one Playwright job
+per project in `mcr.microsoft.com/playwright:v1.63.0-noble` (keep the tag equal
+to the installed `@playwright/test` version). Triggers: `packages/ui/**`,
+`packages/content/**`, `packages/content-enrichment/**`, `packages/experience/**`,
+`scripts/sync-longlive-content.mjs`, `scripts/parity/**` (incl. the fixture), `apps/web/**`, `apps/mobile/dom/**`,
+`apps/mobile/parity-entry/**`, `e2e/parity/**` and the harness files. Linux
+only. Parity is not a required check: that is a G1 choice to revisit when
+screens move.
+
+Baselines depend on the frozen fixture, not live content, so a live content
+change does not turn the run red. A change to the renderers, the sync format
+(`--apply` hash check fails) or the fixture does, until the fixture and baselines
+are regenerated deliberately.
+
+Asset gate: a missing side-b export asset is an HTTP 404 and fails the test. The only
+exception is the named allowlist in `serve.mjs` (`/eras/*.png`, borrowed from
+`apps/web/public`): app asset packaging is resolved in WP2.1 (TODO there).
 
 ## Updating baselines
 
@@ -49,4 +120,29 @@ the web-vs-app comparison come in part 2. Epic #4788.
 3. Re-run the parity workflow (`gh workflow run parity.yml --ref <branch>`) -
    commits made with `GITHUB_TOKEN` do not trigger `pull_request` runs.
 
-Parity is not a required check.
+## Accessibility (One UI WP1.2)
+
+`e2e/parity/a11y.spec.ts` runs axe (`wcag2a`, `wcag2aa`) on both sides of both
+fixture routes, after the same readiness guards as the parity specs, in all four
+projects. Only serious and critical findings count. The run fails on any
+(rule, node-target, impact) triple not in the committed baseline
+`e2e/parity/a11y-baseline/<project>.json` (keys `a/home`, `a/item`, `b/home`,
+`b/item`); new ones print as `[impact] rule at target`. A missing baseline is
+red, never vacuous. Findings on side b whose rule id side a lacks on that route
+are logged (`a11y b-only ...`, also a test annotation); b-only findings never fail the run; they appear as the `a11y-b-only` annotation in the Playwright report and in the CI job log, and are not posted to the PR. Each page
+must also have at least one axe rule pass, so a blank page cannot pass.
+`a11y-compare.spec.ts` unit-tests the baseline key. `a11y-negative.spec.ts` injects an alt-less
+image and a nameless button and asserts both surface as new.
+
+Regenerate (same rule as the screenshots: never on the default branch): the
+`update-baselines` dispatch in "Updating baselines" also runs
+`A11Y_UPDATE=1 npx playwright test -c playwright.parity.config.ts e2e/parity/a11y.spec.ts`
+and commits `e2e/parity/a11y-baseline`. Review the JSON diff: every added entry is
+a violation you are accepting.
+
+## Fingerprint
+
+Native fingerprint `4c8f334d334c6e26208f4f638112b00b5f551e80` on origin/feature/one-ui-wp0.5b
+(d16abd2c) == on this branch (`npx @expo/fingerprint fingerprint:generate` in apps/mobile,
+same worktree and environment, Windows 11 / Node 24.18; the branch's only apps/mobile
+difference, `main` = `index`, was toggled and does not move the hash).

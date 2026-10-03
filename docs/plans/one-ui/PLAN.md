@@ -43,8 +43,10 @@ public launch.
   UI with no regression.
 - **C6 — Content loads in-webview.** The app's DOM reader builds its
   `ReaderSnapshot` with `packages/content` inside the webview, which has
-  WebCrypto. Only commands and a version token cross the bridge (proposal
-  §4.2).
+  WebCrypto. Only commands, a version token and config such as a cache-file
+  path cross the bridge; content never does (proposal §4.2; amended in
+  WP0.5b, when the Android DOM webview turned out to have no web storage and
+  reads the native disk cache by URI instead).
 
 ## Cross-cutting concerns (each owned by the WP named)
 
