@@ -11,7 +11,7 @@ const componentSource = (relPath: string) =>
  */
 describe('ImageRef cover crops respect authored focal points (#746)', () => {
   it.each([
-    ['./MomentCardButton.tsx', 3],
+    ['../../../../packages/ui/src/reader/era/MomentCardButton.tsx', 3],
     ['./MomentDetail.tsx', 3],
     ['./FromTheEras.tsx', 1],
     ['./proposal/ProposalThread.tsx', 1],

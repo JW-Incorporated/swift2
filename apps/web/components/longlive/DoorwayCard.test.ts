@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 // variants render theme accent as small text, which fails WCAG 1.4.3 on
 // eras whose raw accent doesn't clear 4.5:1 — they must use the
 // small-text-safe token (#659's pattern), never the raw accent.
-const src = readFileSync(join(__dirname, 'DoorwayCard.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/era/DoorwayCard.tsx'), 'utf8');
 
 describe('DoorwayCard — #3396 (kicker/CTA contrast)', () => {
   it('renders no small text in the raw accent color', () => {

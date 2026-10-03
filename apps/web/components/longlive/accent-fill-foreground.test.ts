@@ -14,7 +14,7 @@ const SOURCES = [
   '../../../../packages/ui/src/reader/shell/button.tsx',
   './FeedbackButton.tsx',
   './WebNotificationSettings.tsx',
-  './FilterBar.tsx',
+  '../../../../packages/ui/src/reader/era/FilterBar.tsx',
 ].map((rel) => [rel, readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8')] as const);
 
 describe('#3664 accent fills never use era-bg as their text color', () => {
