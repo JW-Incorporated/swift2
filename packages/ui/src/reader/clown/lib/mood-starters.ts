@@ -130,5 +130,5 @@ export function visibleStarters(
   const n = set.length;
   const take = Math.min(count, n);
   const start = ((offset % n) + n) % n;
-  return Array.from({ length: take }, (_, i) => set[(start + i) % n]);
+  return Array.from({ length: take }, (_, i) => set[(start + i) % n] as MoodStarter);
 }
