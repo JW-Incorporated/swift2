@@ -24,6 +24,12 @@ the DOM bundles.
   and `packages/content/src/app-config.ts`). When true, or when the
   diagnostics C4 "Force shared UI (this device)" override is on, App.tsx
   mounts the host instead of the native reader.
+- Diagnostics access while the host is mounted (#4872): the Settings -> About
+  path is unreachable, so an invisible 44x44 pt native hot corner
+  (`components/DiagHotCorner.tsx`, logic in `lib/diag-hot-corner.ts`) sits
+  top-left inside the safe area above the host, mounted only while the host is.
+  7 quick taps (`createTapUnlock`) open the same `DiagnosticsPanel`, where the
+  "Force shared UI" switch turns the override off (applies next launch).
 - `apps/mobile/lib/orientation-lock.ts` — `app.json` is `orientation:
   "default"`; phones are locked to portrait at runtime (tablets rotate).
 

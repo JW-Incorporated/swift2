@@ -70,7 +70,9 @@ import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
+import { DiagHotCorner } from './components/DiagHotCorner';
 import { SharedUiHost } from './components/SharedUiHost';
+import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { sharedUiActive } from './lib/dom-host-handlers';
 import { getForceSharedUi } from './lib/diagnostics-override';
@@ -379,11 +381,14 @@ export default function App() {
           {updateRequired ? (
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
-            <SharedUiHost
-              onSignal={(stage, detail) => diagCollector.mark(stage, detail)}
-              watch={domMount.watch}
-              forceFailure={domMount.forceFailure}
-            />
+            <>
+              <SharedUiHost
+                onSignal={(stage, detail) => diagCollector.mark(stage, detail)}
+                watch={domMount.watch}
+                forceFailure={domMount.forceFailure}
+              />
+              {shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
+            </>
           ) : screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
