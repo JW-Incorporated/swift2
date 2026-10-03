@@ -345,12 +345,12 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 - `apps/web/app/api/submit-link/route.ts` — the public endpoint. Honeypot + per-IP rate limit copied from `/api/feedback`. **Never fetches the submitted URL** (SSRF).
 - `apps/web/components/longlive/CommunitySection.tsx` — directory grouped by platform. Verification badge shows only when NOT verified; flags render above descriptions.
 - `apps/web/components/longlive/MerchSection.tsx` — composition only (~165 lines): marquee, sticky rail, three sections, submit form. Links out only; no cart, no checkout (item 4a standing rule).
-- `apps/web/components/longlive/merch/MerchMarquee.tsx` — flashing-bulb hero. Staggered `animationDelay`; relies on `globals.css`'s blanket `prefers-reduced-motion` `!important` rule, so the animation must stay a CSS `animation` (a JS timer would escape it).
-- `apps/web/components/longlive/merch/MerchSectionRail.tsx` — sticky 3-section rail + scrollspy. Offset comes from `measureChromeBottom()` re-read on scroll/resize, NEVER a constant. Tags itself `data-ll-merchrail` but is deliberately NOT wired into `chrome-offset.ts` — nothing sticky sits below it.
-- `apps/web/components/longlive/merch/EraSpine.tsx` — era filter spine. **Never use `scrollIntoView` here**: with `block:'nearest'` it scrolls the window too and hijacked page position on mount. Scroll the track's `scrollLeft` directly. 0 → em-dash + `disabled`, never "0".
-- `apps/web/components/longlive/merch/MerchStyleSection.tsx` — the "Seen on Taylor" section: spine wiring, the REAL filters, tally, grid, pager. **No garment-type filter exists — `Product` has no `kind` field, deliberately.**
-- `apps/web/components/longlive/merch/MerchCard.tsx` — split "On Taylor | the piece" card; exact-vs-similar with `altNote` INLINE (a hover tooltip is invisible on touch — that was the bug).
-- `apps/web/components/longlive/merch/MerchEmptyPanel.tsx` — honest placeholder for the two empty buckets. Never fabricates products.
+- `packages/ui/src/reader/merch/MerchMarquee.tsx` (apps/web path is a one-line shim) — flashing-bulb hero. Staggered `animationDelay`; relies on `globals.css`'s blanket `prefers-reduced-motion` `!important` rule, so the animation must stay a CSS `animation` (a JS timer would escape it).
+- `packages/ui/src/reader/merch/MerchSectionRail.tsx` (apps/web path is a one-line shim) — sticky 3-section rail + scrollspy. Offset comes from `measureChromeBottom()` re-read on scroll/resize, NEVER a constant. Tags itself `data-ll-merchrail` but is deliberately NOT wired into `chrome-offset.ts` — nothing sticky sits below it.
+- `packages/ui/src/reader/merch/EraSpine.tsx` (apps/web path is a one-line shim) — era filter spine. **Never use `scrollIntoView` here**: with `block:'nearest'` it scrolls the window too and hijacked page position on mount. Scroll the track's `scrollLeft` directly. 0 → em-dash + `disabled`, never "0".
+- `packages/ui/src/reader/merch/MerchStyleSection.tsx` (apps/web path is a one-line shim) — the "Seen on Taylor" section: spine wiring, the REAL filters, tally, grid, pager. **No garment-type filter exists — `Product` has no `kind` field, deliberately.**
+- `packages/ui/src/reader/merch/MerchCard.tsx` (apps/web path is a one-line shim) — split "On Taylor | the piece" card; exact-vs-similar with `altNote` INLINE (a hover tooltip is invisible on touch — that was the bug).
+- `packages/ui/src/reader/merch/MerchEmptyPanel.tsx` (apps/web path is a one-line shim) — honest placeholder for the two empty buckets. Never fabricates products.
 - `.merch-shell` in `apps/web/app/globals.css` — 11 `--merch-*` tokens. Merch deliberately opts OUT of era skinning; do not "unify" it back into the nine `--era-*` vars.
 - `apps/web/components/longlive/SubmitLinkForm.tsx` — shared by both sections. Honeypot is off-screen, NOT `display:none`.
 - `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
@@ -676,7 +676,7 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 | `packages/ui/src/reader/search/{SearchOverlay.tsx,search-listbox-children.test.ts}` | MOVED from `apps/web/components/longlive/` (WP2.8-A1, move-only). `apps/web/components/longlive/SearchOverlay.tsx` is a one-line `export *` shim (until D / WP2.13). `lib/longlive/search.ts` stays (still used by `clown-retrieve.ts`, the golden suite, regen script) |
 
 ### WP2.9 merch
-(pending)
+(2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. MerchSection stays until A2 (extensions prop). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.10 community
 (pending)

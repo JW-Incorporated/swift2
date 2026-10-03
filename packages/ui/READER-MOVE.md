@@ -103,7 +103,10 @@ A1 (move-only): `SearchOverlay.tsx` and `search-listbox-children.test.ts` -> `re
 - Source-reading tests repointed: `back-dismiss.test.ts`, `escape-dismiss.test.ts`, `modal-focus-trap.test.ts` (import string follows the new path).
 
 ### WP2.9 merch
-(pending)
+
+2.9-A1 (move-only). Moved to `packages/ui/src/reader/merch/`: `EraSpine` (+ test), `MerchMarquee`, `MerchEmptyPanel`, `MerchSectionRail`, `SubmitLinkForm`; libs in `merch/lib/`: `merch-filters`, `section-jump`. Old paths are one-line `export *` shims (delete in WP2.13). No type re-homing was needed.
+
+2.9-A1b: `MerchCard` and `MerchStyleSection` moved too (shop imported from `../moment/lib/shop`, WP2.5). `MerchSection` stays in apps/web: it imports baked `merch-extensions` (apps/web data), and the fix is the `extensions` prop = A2. `merch-filters.test.ts` stays (reads web-only data modules through the shim); `section-jump.test.ts` stays (fails the ui package's stricter `noUncheckedIndexedAccess`; fixing it is a non-import hunk, so it goes to A2).
 
 ### WP2.10 community
 (pending)
