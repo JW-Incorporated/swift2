@@ -682,7 +682,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 (2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. MerchSection stays until A2 (extensions prop). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.10 community
-(pending)
+(2.10-A1, move-only) Moved to `packages/ui/src/reader/community/`: CommunitySection, CommunityCard, SectionJumpBar. Old apps/web paths are one-line `export *` shims. Community data is imported from `@swift2/experience` directly; SubmitLinkForm and section-jump come from `reader/merch/`. A2 not needed (no non-import hunks). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.11 clown
 A1 (clown board/chat client modules only; Mood and all server-side `clown-*` stay in apps/web). MOVED to `packages/ui/src/reader/clown/`: `ClownBoard`, `ClownChat`, `ClownChatComposer`, `ClownChatTitlebar`, `ClownEmptyState`, `ClownItemCard`, `ClownMessageRow` (.tsx) and `lib/{clown-board,clown-chat-helpers,clown-chat-ui,clown-explain,clown-starters,clown-stream,useChromeOffset}.ts`. The old paths are one-line `export *` shims. Wire types come from `@swift2/shared`. `clown-board.ts` takes `lore` as a parameter (`ClownChat`/`ClownBoard` take a `lore` prop); the baked `LORE` (`apps/web/lib/longlive/clownbot-lore.ts` + `.generated`) stays app-side and `LongLive.tsx` passes it.
