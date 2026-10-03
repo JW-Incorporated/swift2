@@ -239,6 +239,17 @@ Codex r1 `task-mus714zb-kgv3x9` pending → one fix round after. WP2.2-A →
 hash ba18fffa unchanged, parity 37113198335 green, flat-order audit passes —
 C2 unblocked; local expo export failed "environmental" — reviewer checking CI
 coverage) → reviewer r1 launched; Codex next slot.
+**02:40:** #4843 reviewer r1 APPROVE (CI build-full runs expo exports ios+android
+— covered); Codex r1 REQUEST CHANGES (P1 build.ts → lenses/track-guide →
+corpus.ts → provider modules still in the import graph; P2 purity test not
+transitive; P2 no assertion for lastGoodAfterDataError→error) → fix round 1.
+#4844 Codex r1: P2 HostImageProps too narrow for next/image migration
+(unoptimized, onLoad…); P3 env.origin hydration-unstable → fix round 1 with
+reviewer items. **#4841 r2 reviewer REQUEST CHANGES — caused by PM ruling:
+peer `react: ^19` → npm ci ERESOLVE (root resolves react 18.3.1; the dup root
+react noted in WP0.4) → CI red on wp2.1a.** PM: revert to `^18 || ^19` (02:24
+ruling withdrawn); 2nd rejection → Fable consult (mandatory) with Codex r2
+(`task-mus799r9-r7gpgt`) findings.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
