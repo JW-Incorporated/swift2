@@ -32,3 +32,50 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
     },
   };
 }
+
+// Native-route presenter (One UI D-7). Native screens present modally over the
+// still-mounted shared-UI host; this is the pure state behind that modal. The
+// App.tsx Modal renders `route` (null = no overlay) and owns hardware back
+// while `nativeOwnsBack` is true. Presenting never touches insets or the host.
+export interface NativeRouteState {
+  route: string | null;
+}
+
+export type NativeRouteEvent =
+  | { type: 'present'; path: string }
+  | { type: 'dismiss' }
+  | { type: 'back' }
+  | { type: 'watchdog-fallback' };
+
+export const INITIAL_NATIVE_ROUTE_STATE: NativeRouteState = { route: null };
+
+// Root-relative app paths only; rejects empty, protocol-relative and
+// scheme-bearing input so a bad navigate can never open an overlay.
+export function isPresentablePath(path: unknown): path is string {
+  return (
+    typeof path === 'string' &&
+    path.length > 1 &&
+    path.startsWith('/') &&
+    !path.startsWith('//') &&
+    !/[\\\s]/.test(path)
+  );
+}
+
+export function reduceNativeRoute(
+  state: NativeRouteState,
+  event: NativeRouteEvent,
+): NativeRouteState {
+  switch (event.type) {
+    case 'present':
+      if (!isPresentablePath(event.path) || state.route === event.path) return state;
+      return { route: event.path };
+    case 'dismiss':
+    case 'back':
+    case 'watchdog-fallback':
+      return state.route === null ? state : { route: null };
+  }
+}
+
+export function nativeOwnsBack(state: NativeRouteState): boolean {
+  return state.route !== null;
+}
