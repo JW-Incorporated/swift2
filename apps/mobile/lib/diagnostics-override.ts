@@ -1,5 +1,5 @@
 // C4 preview override: "Force shared UI (this device)". Persisted, internal
-// only. Nothing reads it yet — WP0.4 wires it to the `sharedUi` decision.
+// only. App.tsx reads it once per launch (WP0.4) and mounts the shared-UI DOM host.
 import * as SecureStore from 'expo-secure-store';
 
 export const FORCE_SHARED_UI_KEY = 'longlive_diag_force_shared_ui';

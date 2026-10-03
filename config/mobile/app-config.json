@@ -9,6 +9,7 @@
     "trackGuide": true,
     "song": true,
     "moment": true,
-    "clownbot": true
+    "clownbot": true,
+    "sharedUi": false
   }
 }
