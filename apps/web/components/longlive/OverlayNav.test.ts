@@ -38,7 +38,10 @@ describe('#773 track overlays keep the global era navigation visible', () => {
     );
   });
 
-  for (const file of ['./TrackGuide.tsx', './TrackDetail.tsx']) {
+  for (const file of [
+    '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
+    '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
+  ]) {
     it(`${file} supplies its active era to the shared navigation`, () => {
       expect(read(file)).toMatch(/<OverlayNav\s+[\s\S]*?era=\{era\}/);
     });

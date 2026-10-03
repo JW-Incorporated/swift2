@@ -664,7 +664,10 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 (pending)
 
 ### WP2.7 tracks
-(pending)
+
+| File | Note |
+|---|---|
+| `packages/ui/src/reader/tracks/{TrackGuide,TrackDetail}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.7-A1, move-only). Both old paths are one-line `export *` shims (until D) |
 
 ### WP2.8 search
 (pending)
