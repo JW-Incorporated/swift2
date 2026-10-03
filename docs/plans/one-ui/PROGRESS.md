@@ -518,7 +518,14 @@ string-boundary API). C #4855 Fable r2 80d0b310 → scoped review found a real b
 (flush on ready POST success, before readyAck reseed) + client.ts 378 lines →
 fix (gate opens on readyAck; ack timeout → retry; split) running. C3 #4858
 exhaustive equivalence pushed. WP2.2 landing chain executor (C1→C2→C3, merging
-main each) running. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+main each) running.
+**04:49: ANDROID UNBLOCKED** — train run 37120205359: "Android store-build job:
+existing; build id 0a1ef202…" → **submitted to Google Play internal (version code
+18)** at 11:43Z, submission 8696849e-52ec-4edf-972c-482113e6e814. Joey can update
+the Android app from Play. **S2 (Android) ready for chat:** update from Play →
+open twice → diag panel shows build 18 + current update id → 5 cold (force-stop
+between) + 5 warm [diag] reports; pass bar PLAN §WP0.2 cold ≤2.5 s worst-of-5,
+warm ≤1 s; at: offsets must be real now (#4833). Then S4 (spike checklist). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
