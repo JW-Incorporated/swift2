@@ -152,20 +152,9 @@ jobs:
             # eas-cli WorkflowJobStatus enum (graphql/generated.js): SUCCESS is
             # the only success value; job.turtleBuild is this run's build
             # (graphql/types/WorkflowJob.js). Anything else fails closed.
-            node - /tmp/status.json > /tmp/android_job.out <<'NODE' || true
-          const s=require('fs').readFileSync(process.argv[2],'utf8');
-          try {
-            const run=JSON.parse(s.slice(s.search(/[[{]/)));
-            const jobs=run.jobs ?? [];
-            console.error('EAS jobs: '+JSON.stringify(jobs.map((x)=>({key:x.key,name:x.name,status:x.status,build:x.turtleBuild?.id??null}))));
-            const j=jobs.find((x)=>x.key==='build_android');
-            const b=j?.turtleBuild;
-            if (!j) console.log('result=absent');
-            else if (j.status!=='SUCCESS') console.log('result=not_success');
-            else if (!b?.id || b.platform!=='ANDROID' || b.status!=='FINISHED' || b.buildProfile!=='production' || (b.gitCommitHash && b.gitCommitHash!==process.env.GITHUB_SHA)) console.log('result=no_build');
-            else console.log('result=success\nbuild_id='+b.id);
-          } catch { console.log('result=unknown'); }
-          NODE
+            # Selection logic (commit binding, UUID id check) is unit-tested in
+            # scripts/release/select-android-build.test.ts.
+            node "$GITHUB_WORKSPACE/scripts/release/select-android-build.mjs" /tmp/status.json > /tmp/android_job.out || true
             RESULT=$(sed -n 's/^result=//p' /tmp/android_job.out)
             BUILD_ID=$(sed -n 's/^build_id=//p' /tmp/android_job.out)
             RESULT=${RESULT:-unknown}

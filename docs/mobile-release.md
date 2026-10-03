@@ -89,8 +89,10 @@ Instead:
   It then reads `eas workflow:status <id> --json` and takes the build id
   from THIS run's `build_android` job (`jobs[].turtleBuild.id`), only when
   that job's status is exactly `SUCCESS` and the build is ANDROID /
-  FINISHED / profile `production` (and its commit hash, if set, equals the
-  run's). If the fingerprint already had a build (OTA-only case) the job is
+  FINISHED / profile `production`, its `gitCommitHash` is a string equal to
+  the run's `GITHUB_SHA` (absent, empty or mismatched fails closed with a
+  loud warning), and its id is a UUID
+  (`scripts/release/select-android-build.mjs`). If the fingerprint already had a build (OTA-only case) the job is
   SKIPPED, there is no id, and nothing is submitted. The parsed job
   statuses and chosen build id are printed to the job log
   (`gh run view --log`). If a build id was found, the Action writes
