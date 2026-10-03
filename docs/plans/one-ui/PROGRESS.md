@@ -380,7 +380,14 @@ quantifying. **03:52:** #4847 reviewer r2 APPROVE conditional: only non-latin
 letter in content = č (Toni Matičevski). **PM: DOM CSS gets latin-ext for all 5
 families (~245 KB base64; reason recorded = G1 cond 3) + guard test: every
 content code point > U+00FF must be covered by a DOM unicode-range or an
-explicit system-fallback allow-list.** Executor resumed. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+explicit system-fallback allow-list.** Executor resumed.
+**03:53:** WP2.3-B (logic only) → **#4853** (base wp2.3a; createBridgeHost,
+injected deps, CONTRACT→test table; not wired; fingerprint unchanged) → reviews
+next free slot. #4849 Codex r1: P1 "callers not migrated" = BY DESIGN (C1–C3);
+P2 enforce PERF_SAMPLES ≥10; P2 search golden over ALL groups on the frozen
+fixture, generated from the OLD builder → fix round. #4851 Codex r1 = same
+minors as reviewer (404 not throw, //host guard, shared origin) → fix round.
+#4850 Codex r2 queued. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
