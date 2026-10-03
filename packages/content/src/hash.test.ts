@@ -32,6 +32,14 @@ describe('createHash', () => {
     expect(await createHash('Long Live')).toBe(expected('Long Live'));
   });
 
+  it('accepts pre-encoded bytes without re-encoding', async () => {
+    const bytes = new TextEncoder().encode('Long Live ✨');
+    const encode = vi.spyOn(TextEncoder.prototype, 'encode');
+    expect(await createHash(bytes)).toBe(expected('Long Live ✨'));
+    expect(encode).not.toHaveBeenCalled();
+    encode.mockRestore();
+  });
+
   // Hermes (the native app) has `crypto.randomUUID` but no `crypto.subtle`.
   it('falls back to pure JS when crypto.subtle is missing', async () => {
     vi.stubGlobal('crypto', { randomUUID: () => 'x' });
