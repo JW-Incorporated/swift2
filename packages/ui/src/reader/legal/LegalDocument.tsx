@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { HostLink } from './HostLink';
 import type { ReactNode } from 'react';
 import {
   LEGAL_DRAFT_BANNER,
@@ -6,8 +6,7 @@ import {
   legalEffectiveLine,
   type LegalBlock,
   type LegalDoc,
-} from '@/lib/longlive/legal';
-import { SiteFooter } from './SiteFooter';
+} from './lib/legal';
 
 /**
  * The renderer for both legal pages (#800). All copy lives in
@@ -92,19 +91,19 @@ function Block({ block }: { block: LegalBlock }) {
   );
 }
 
-export function LegalDocument({ doc }: { doc: LegalDoc }) {
+export function LegalDocument({ doc, footer }: { doc: LegalDoc; footer?: ReactNode }) {
   const isDraft = LEGAL_STATUS !== 'approved';
 
   return (
     <div className="era-shell font-sans">
       <main className="mx-auto w-full max-w-[46rem] px-5 pb-16 pt-8">
         <nav aria-label="Breadcrumb" className="mb-8">
-          <Link
+          <HostLink
             href="/"
             className="text-sm text-[color:var(--era-ink-soft)] underline underline-offset-4 hover:text-[color:var(--era-ink)]"
           >
             &larr; Back to Long Live
-          </Link>
+          </HostLink>
         </nav>
 
         {isDraft && (
@@ -145,7 +144,7 @@ export function LegalDocument({ doc }: { doc: LegalDoc }) {
           </section>
         ))}
       </main>
-      <SiteFooter />
+      {footer}
     </div>
   );
 }
