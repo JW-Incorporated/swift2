@@ -299,8 +299,19 @@ export async function captureElement(page: Page, selector: string, clip?: Clip):
 
 /** Footer wordmark ("Long Live"): a tight 160 css px wide clip, so a 1px footer shift exceeds the pixel ratio even on iPad. Scrolls the footer into view. */
 export async function footerBand(page: Page): Promise<Clip> {
-  await page.locator('footer').last().scrollIntoViewIfNeeded();
-  const box = await elementBox(page, 'footer >> nth=-1 >> p.font-era');
+  const inView = (b: Clip) => b.y >= 4 && b.y + b.height <= (page.viewportSize()?.height ?? 0) - 4;
+  let box = await elementBox(page, 'footer >> nth=-1 >> p.font-era');
+  await expect
+    .poll(
+      async () => {
+        await page.locator('footer').last().scrollIntoViewIfNeeded();
+        await page.evaluate(() => new Promise<void>((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))));
+        box = await elementBox(page, 'footer >> nth=-1 >> p.font-era');
+        return inView(box);
+      },
+      'parity: the footer wordmark must settle inside the viewport',
+    )
+    .toBe(true);
   const width = Math.min(box.width, 160);
   return { x: box.x + (box.width - width) / 2, y: box.y - 4, width, height: box.height + 8 };
 }
