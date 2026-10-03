@@ -64,10 +64,14 @@ the 300-line rule; moved as-is.
 
 ## Slice sections (scaffold)
 
-Each slice edits only under its own heading below. Slice barrels, root re-exports
-and `package.json` subpath exports (`./reader/<slice>` and `./reader/<slice>/*`,
-the latter mapping to `.tsx`) already exist; `.ts` modules are exposed through the
-slice `index.ts`. `@swift2/content-enrichment` is already a dependency.
+Each slice edits only under its own heading below. Slice barrels and
+`package.json` subpath exports already exist (no root re-exports).
+`@swift2/content-enrichment` is already a dependency.
+
+Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
+(.ts) at `reader/<slice>/lib/X.ts`; never edit package.json exports or
+`src/index.ts`. Deep imports: `@swift2/ui/reader/<slice>/X` (.tsx) and
+`@swift2/ui/reader/<slice>/lib/X` (.ts).
 
 ### WP2.5 moment
 (pending)
