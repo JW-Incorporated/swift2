@@ -27,19 +27,21 @@ let content: Web;
 let tracks: Web;
 let theories: Web;
 let videos: Web;
+let threads: Web;
 let secrets: Web;
 let q: ReaderQueries;
 
 beforeAll(async () => {
-  const [c, t, th, v, s, bm] = await Promise.all([
+  const [c, t, th, v, s, bm, thr] = await Promise.all([
     import(/* @vite-ignore */ `${web}content`),
     import(/* @vite-ignore */ `${web}tracks`),
     import(/* @vite-ignore */ `${web}theories`),
     import(/* @vite-ignore */ `${web}videos`),
     import(/* @vite-ignore */ `${web}era-secrets`),
     import(/* @vite-ignore */ `${web}baked-modules`),
+    import(/* @vite-ignore */ `${web}threads`),
   ]);
-  [content, tracks, theories, videos, secrets] = [c, t, th, v, s];
+  [content, tracks, theories, videos, secrets, threads] = [c, t, th, v, s, thr];
   const mods = (bm as { bakedModules(): BakedCoreModules }).bakedModules();
   q = createReaderQueries(fromBakedCore(mods, { eraVideoFeed }), deps);
 }, 120_000);
@@ -95,6 +97,45 @@ describe('createReaderQueries equals the web modules', () => {
     for (const e of ERAS) {
       expect(q.threadDoorwaysForEra(e.id, e.start, e.end)).toEqual(threadDoorwaysForEra(e.id, e.start, e.end));
       expect(q.eggDoorwaysForEra(e.id, e.start, e.end)).toEqual(eggDoorwaysForEra(e.id, e.start, e.end));
+    }
+  });
+
+  it('thread range/era, song target and era-secret link queries (WP2.2-C2)', () => {
+    let nonEmpty = 0;
+    for (const t of THREADS) {
+      for (const e of ERAS) {
+        const inEra = q.contentForThreadInEra(t.id, e.id);
+        nonEmpty += inEra.length;
+        expect(inEra, `InEra ${t.id} ${e.id}`).toEqual(threads.contentForThreadInEra(t.id, e.id));
+        for (const end of [e.end, null]) {
+          expect(q.contentForThreadInRange(t.id, e.start, end), `InRange ${t.id} ${e.id} ${end}`).toEqual(
+            threads.contentForThreadInRange(t.id, e.start, end),
+          );
+        }
+      }
+    }
+    expect(nonEmpty).toBeGreaterThan(0);
+    let songs = 0;
+    for (const { id } of ERAS) {
+      for (const track of tracks.tracksForEra(id)) {
+        songs += 1;
+        expect(q.songTargetOf(`song:${track.slug}`)).toEqual(tracks.songTargetOf(`song:${track.slug}`));
+      }
+      for (const s of secrets.eraSecretsForEra(id)) {
+        expect(q.resolveEraSecretLink(s.deeperLink), `link ${s.deeperLink}`).toEqual(
+          secrets.resolveEraSecretLink(s.deeperLink),
+        );
+      }
+    }
+    expect(songs).toBeGreaterThan(0);
+    for (const bad of ['', 'song:', 'song:no-such-slug', 'moment:no-such-id', 'egg:x', 'x']) {
+      expect(q.songTargetOf(bad)).toEqual(tracks.songTargetOf(bad));
+      expect(q.resolveEraSecretLink(bad)).toEqual(secrets.resolveEraSecretLink(bad));
+    }
+    expect(q.resolveEraSecretLink(undefined)).toEqual(secrets.resolveEraSecretLink(undefined));
+    for (const item of content.CONTENT) {
+      const link = `moment:${item.id}`;
+      expect(q.resolveEraSecretLink(link)).toEqual(secrets.resolveEraSecretLink(link));
     }
   });
 
