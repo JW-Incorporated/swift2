@@ -19,6 +19,8 @@ import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
+import { noteImageLoaded } from '../lib/image-marks';
+import { speedTest } from '../lib/speed-test-runtime';
 import { lastGoodCacheUri } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
@@ -46,6 +48,12 @@ export function SharedUiHost({
   const nativeMs = useRef<number | null>(null);
   const rawProbe = useRef<string | null>(null);
   const insets = useSafeAreaInsets();
+  const [speedOn, setSpeedOn] = useState(speedTest.isOn());
+  useEffect(() => {
+    const sync = () => setSpeedOn(speedTest.isOn());
+    sync();
+    return speedTest.onChange(sync);
+  }, []);
 
   useEffect(() => {
     launchedAt.current = Date.now();
@@ -121,6 +129,8 @@ export function SharedUiHost({
           }
           reportError={handlers.reportError}
           reportProbe={async (json) => publishProbe(json)}
+          speedTestOn={speedOn}
+          reportImageLoad={async (visible) => noteImageLoaded(visible)}
           reportBack={async (result) => {
             if (result === 'exit') BackHandler.exitApp();
           }}

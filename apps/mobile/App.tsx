@@ -45,7 +45,8 @@ import {
   type ScreenId,
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
-import { diagCollector, installDiagnostics } from './lib/diagnostics';
+import { diagCollector, diagMarkOnce, installDiagnostics } from './lib/diagnostics';
+import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
@@ -79,6 +80,7 @@ import { eraColors } from './lib/theme';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 
 installDiagnostics();
+installSpeedTest();
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -384,7 +386,10 @@ export default function App() {
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
             <SharedUiHost
-              onSignal={(stage, detail) => diagCollector.mark(stage, detail)}
+              onSignal={(stage, detail) => {
+                diagCollector.mark(stage, detail);
+                if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
+              }}
               watch={domMount.watch}
               forceFailure={domMount.forceFailure}
             />

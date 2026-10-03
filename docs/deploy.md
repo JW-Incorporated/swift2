@@ -204,8 +204,9 @@ back an OTA".
 
 Superseded 2026-09-05 by the **mobile release train** — see
 `docs/mobile-release.md`. In short: a merge to `main` touching
-`apps/mobile/**` or `packages/**` runs `apps/mobile/.eas/workflows/release.yml`
-on EAS, which decides per platform (by native fingerprint) between one OTA
+`apps/mobile/**` or `packages/**` runs `.github/workflows/mobile-release.yml`
+(GitHub Actions driving the EAS CLI; moved off EAS Workflows 2026-10-03, HA #98,
+because the Free plan's CI/CD minutes ran out), which decides per platform (by native fingerprint) between one OTA
 update group to both platforms and store builds for both, and never submits
 one platform without the other. `scripts/mobile/check-parity.mjs` proves it
 every 6 hours. Do not run `eas build`/`eas update` for production by hand;

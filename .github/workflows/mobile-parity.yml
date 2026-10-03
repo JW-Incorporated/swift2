@@ -1,7 +1,7 @@
 name: Mobile parity check
 
 # Independent proof that iOS and Android carry the same release. The release
-# train (mobile-release.yml → apps/mobile/.eas/workflows/release.yml) is
+# train (mobile-release.yml, run entirely from GitHub Actions) is
 # built not to drift; this job checks EAS state every 6 hours and after
 # every train run, and raises ONE persistent alert issue (same pattern as
 # watchdog.yml) when they diverge or when the check itself cannot run.
