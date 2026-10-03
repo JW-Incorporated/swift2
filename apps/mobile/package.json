@@ -2,7 +2,7 @@
   "name": "@swift2/mobile",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
+  "main": "index",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
