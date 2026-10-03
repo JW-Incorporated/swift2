@@ -48,6 +48,17 @@ Moved to `packages/ui/src/reader/shell/`: `TopBar`, `TimelineScrubber` (789 line
 - Tests stay in `apps/web` (they read component source or render with the web test host); source-read paths now point at the moved files. New: `components/longlive/ReaderShell.test.tsx`.
 - Debt: `TimelineScrubber.tsx` (789) over the 300-line rule.
 
+## 2.4-C: era stream
+
+Moved to `packages/ui/src/reader/era/`: EraStream, EraSection, EraFeedList, FilterBar, LandingMasthead, CountdownBanner, ClusterCard, CurrentItemCard, CurrentItemDetail, DoorwayCard, EraSecretCard, EraThreadsPivot, MomentCard, MomentCardButton, MomentVideo, OverlayNav, ShareImageMenu, SignificanceBadge, TrackFivePill, TrackGuideBar, VideoMomentCard. Old `apps/web/components/longlive` paths are one-line `export *` shims (the other slices keep importing through them); shims stay until WP2.13. `package.json` gains one subpath export, `./reader/era/*`.
+
+- Import edits only, plus: `EraSecretCard` takes `trackKey` from `@swift2/experience` (its real source) instead of the `TrackDetail` re-export; `OverlayNav` takes `ModeToggle` from `../shell/TopBar`.
+- One non-import hunk: the `react-hooks/exhaustive-deps` disable comment in `EraStream` removed (rule not registered under `packages/ui`, same as A1/B).
+- `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
+- Tests stay in `apps/web` (they read component source); source-read paths now point at the moved files.
+- DEFERRED to a companion logic PR (C2, per C-5): `CurrentItemDetail.tsx` `fetch('/api/intake')` to `useHost().apiFetch`. It needs a hook call at the top of the component plus a call-site edit (two non-import hunks), so it is not part of this move.
+- Debt: `EraStream.tsx` (470) and `MomentCardButton.tsx` (298) are over or near the 300-line rule; moved as-is.
+
 Debt (2.4-A): `video-affordance.ts` (294) and `store/index.tsx` (473) are over or near
 the 300-line rule; moved as-is.
 

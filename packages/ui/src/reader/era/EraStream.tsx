@@ -86,7 +86,6 @@ export function EraStream() {
     } else {
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Re-anchor + jump to the chosen era whenever the user explicitly jumps.
