@@ -387,7 +387,17 @@ next free slot. #4849 Codex r1: P1 "callers not migrated" = BY DESIGN (C1–C3);
 P2 enforce PERF_SAMPLES ≥10; P2 search golden over ALL groups on the frozen
 fixture, generated from the OLD builder → fix round. #4851 Codex r1 = same
 minors as reviewer (404 not throw, //host guard, shared origin) → fix round.
-#4850 Codex r2 queued. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+#4850 Codex r2 queued.
+**03:58:** #4851 minors fixed (404 era route, resolve-url.ts single-slash only,
+shared canonical-origin.ts) → lander waiting on PR parity-gate (not yet a
+required check — HA #97) then merges. #4849 r2 fix 2680dbd5 (PERF_SAMPLES ≥10;
+search golden over all 7 groups / 28 queries from the OLD builder on the frozen
+fixture) → Codex r2 `task-musa207v-tat3sq`. #4847 DOM latin-ext added (OTA
++247 KB ≈ +3.3%, reason recorded) + coverage guard → Codex r2
+`task-musa3de3-412a1q`. #4853 reviewer r1 REQUEST CHANGES (7: unbounded queues,
+LRU evicts in-flight ids, unvalidated share/haptic/notif payloads, re-ready
+ignored, cancel typing, requests never resolve after fatal, raw error text) +
+Codex r1 `task-musa4…` launched → one fix round after. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
