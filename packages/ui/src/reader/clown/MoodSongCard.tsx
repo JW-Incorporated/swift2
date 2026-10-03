@@ -54,7 +54,6 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
               className="group absolute inset-0 h-full w-full"
             >
               {/* Plain <img>: no player JS until the reader asks for it. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://i.ytimg.com/vi/${pick.youtubeId}/hqdefault.jpg`}
                 alt=""
