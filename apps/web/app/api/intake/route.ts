@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
@@ -82,68 +84,153 @@ export function bodyFrom(payload: {
   return lines.filter((l): l is string => l !== null).join('\n');
 }
 
-// Stable per-item marker (#4883): lets a retry find the issue a prior attempt
-// already created. Sanitized so a client-supplied id can't break out of the
-// HTML comment or the search query.
-export function itemMarker(itemId: string): string {
-  return `<!-- intake-item:${itemId.replace(/[^A-Za-z0-9_.:-]/g, '_')} -->`;
+// Best-effort idempotency (#4883): a retry after a server-side success must
+// not file a second issue. Layers, cheapest first: per-instance cache of
+// recent creates/hits, per-instance in-flight map, then a GitHub search for
+// an open, intake-labeled issue authored by this token's own user carrying
+// the marker. Cross-instance duplicates inside GitHub's search-index lag are
+// an accepted residual; durable dedupe would need a store.
+export function itemHash(itemId: string): string {
+  return createHash('sha256').update(itemId).digest('hex').slice(0, 32);
 }
+
+export function itemMarker(itemId: string): string {
+  return `<!-- intake-item:${itemHash(itemId)} -->`;
+}
+
+const INTAKE_LABEL = 'intake';
+const SEARCH_TIMEOUT_MS = 2500;
+const RECENT_TTL_MS = 10 * 60_000;
+const RECENT_MAX = 500;
 
 interface IssueRef {
   number?: number;
   url?: string;
 }
 
-const RECENT_TTL_MS = 10 * 60_000;
-const RECENT_MAX = 500;
-const recentCreates = new Map<string, { at: number; ref: IssueRef }>();
+interface Outcome {
+  status: number;
+  body: Record<string, unknown>;
+}
 
-function recentGet(itemId: string): IssueRef | null {
-  const hit = recentCreates.get(itemId);
+const recent = new Map<string, { at: number; ref: IssueRef }>();
+const inflight = new Map<string, Promise<Outcome>>();
+const loginByToken = new Map<string, string>();
+
+function recentGet(hash: string): IssueRef | null {
+  const hit = recent.get(hash);
   if (!hit) return null;
   if (Date.now() - hit.at > RECENT_TTL_MS) {
-    recentCreates.delete(itemId);
+    recent.delete(hash);
     return null;
   }
   return hit.ref;
 }
 
-function recentSet(itemId: string, ref: IssueRef): void {
-  recentCreates.delete(itemId);
-  recentCreates.set(itemId, { at: Date.now(), ref });
-  while (recentCreates.size > RECENT_MAX) {
-    const oldest = recentCreates.keys().next().value;
+function recentSet(hash: string, ref: IssueRef): void {
+  recent.delete(hash);
+  recent.set(hash, { at: Date.now(), ref });
+  while (recent.size > RECENT_MAX) {
+    const oldest = recent.keys().next().value;
     if (oldest === undefined) break;
-    recentCreates.delete(oldest);
+    recent.delete(oldest);
   }
 }
 
-// Fails open: any error or odd response returns null so intake still creates.
-async function findOpenIssue(
-  repo: string,
-  token: string,
-  itemId: string,
-): Promise<IssueRef | null> {
+const ghHeaders = (token: string): Record<string, string> => ({
+  Authorization: `Bearer ${token}`,
+  Accept: 'application/vnd.github+json',
+  'X-GitHub-Api-Version': '2022-11-28',
+  'User-Agent': 'longlive-intake',
+});
+
+async function viewerLogin(token: string): Promise<string | null> {
+  const cached = loginByToken.get(token);
+  if (cached) return cached;
   try {
+    const res = await fetch('https://api.github.com/user', {
+      headers: ghHeaders(token),
+      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    const login = ((await res.json()) as { login?: unknown }).login;
+    if (typeof login !== 'string' || !login) return null;
+    loginByToken.set(token, login);
+    return login;
+  } catch {
+    return null;
+  }
+}
+
+// Fails open: any error, timeout, 403/429 or odd response returns null so
+// intake still creates. Only issues the token's own user filed, carrying the
+// intake label and the exact marker, count — anyone can open a public issue
+// with a predictable marker, so untrusted hits must never suppress intake.
+async function findOpenIssue(repo: string, token: string, itemId: string): Promise<IssueRef | null> {
+  try {
+    const login = await viewerLogin(token);
+    if (!login) return null;
     const marker = itemMarker(itemId);
-    const token_ = marker.replace('<!-- ', '').replace(' -->', '');
-    const q = `repo:${repo} is:issue is:open in:body "${token_}"`;
+    const needle = `intake-item:${itemHash(itemId)}`;
+    const q = `repo:${repo} is:issue is:open label:${INTAKE_LABEL} author:${login} in:body "${needle}"`;
     const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(q)}&per_page=5`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'User-Agent': 'longlive-intake',
-      },
+      headers: ghHeaders(token),
+      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
     });
     if (!res.ok) return null;
     const data = (await res.json()) as {
-      items?: { number?: number; html_url?: string; body?: string | null }[];
+      items?: {
+        number?: number;
+        html_url?: string;
+        body?: string | null;
+        user?: { login?: string } | null;
+        labels?: ({ name?: string } | string)[];
+      }[];
     };
-    const hit = data.items?.find((i) => typeof i.body === 'string' && i.body.includes(marker));
+    const hit = data.items?.find(
+      (i) =>
+        typeof i.body === 'string' &&
+        i.body.includes(marker) &&
+        i.user?.login?.toLowerCase() === login.toLowerCase() &&
+        (i.labels ?? []).some((l) => (typeof l === 'string' ? l : l.name) === INTAKE_LABEL),
+    );
     return hit ? { number: hit.number, url: hit.html_url } : null;
   } catch {
     return null;
+  }
+}
+
+async function fileIntake(
+  repo: string,
+  token: string,
+  hash: string,
+  itemId: string,
+  issue: { title: string; body: string },
+): Promise<Outcome> {
+  const existing = recentGet(hash) ?? (await findOpenIssue(repo, token, itemId));
+  if (existing) {
+    recentSet(hash, existing);
+    return { status: 200, body: { ok: true, number: existing.number, url: existing.url, deduped: true } };
+  }
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
+      method: 'POST',
+      headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: issue.title, body: issue.body, labels: [INTAKE_LABEL] }),
+    });
+
+    if (!res.ok) {
+      const detail = await res.text();
+      console.error('intake: GitHub issue create failed', res.status, detail.slice(0, 300));
+      return { status: 502, body: { error: 'Couldn’t file that right now — please try again later.' } };
+    }
+
+    const created = (await res.json()) as { number?: number; html_url?: string };
+    recentSet(hash, { number: created.number, url: created.html_url });
+    return { status: 201, body: { ok: true, number: created.number, url: created.html_url } };
+  } catch (err) {
+    console.error('intake: unexpected error', (err as Error).message);
+    return { status: 500, body: { error: 'Something went wrong filing that.' } };
   }
 }
 
@@ -189,42 +276,25 @@ export async function POST(req: Request): Promise<Response> {
         .filter((s) => s.url !== '')
     : [];
 
-  const existing = recentGet(itemId) ?? (await findOpenIssue(repo, token, itemId));
-  if (existing) {
-    return NextResponse.json(
-      { ok: true, number: existing.number, url: existing.url, deduped: true },
-      { status: 200 },
-    );
+  const hash = itemHash(itemId);
+  const pending = inflight.get(hash);
+  if (pending) {
+    const out = await pending;
+    if (out.status === 201) {
+      return NextResponse.json({ ...out.body, deduped: true }, { status: 200 });
+    }
+    return NextResponse.json(out.body, { status: out.status });
   }
 
+  const work = fileIntake(repo, token, hash, itemId, {
+    title: titleFrom(headline),
+    body: bodyFrom({ headline, summary, itemId, eraId, status, sources }),
+  });
+  inflight.set(hash, work);
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type': 'application/json',
-        'User-Agent': 'longlive-intake',
-      },
-      body: JSON.stringify({
-        title: titleFrom(headline),
-        body: bodyFrom({ headline, summary, itemId, eraId, status, sources }),
-        labels: ['intake'],
-      }),
-    });
-
-    if (!res.ok) {
-      const detail = await res.text();
-      console.error('intake: GitHub issue create failed', res.status, detail.slice(0, 300));
-      return NextResponse.json({ error: 'Couldn’t file that right now — please try again later.' }, { status: 502 });
-    }
-
-    const issue = (await res.json()) as { number?: number; html_url?: string };
-    recentSet(itemId, { number: issue.number, url: issue.html_url });
-    return NextResponse.json({ ok: true, number: issue.number, url: issue.html_url }, { status: 201 });
-  } catch (err) {
-    console.error('intake: unexpected error', (err as Error).message);
-    return NextResponse.json({ error: 'Something went wrong filing that.' }, { status: 500 });
+    const out = await work;
+    return NextResponse.json(out.body, { status: out.status });
+  } finally {
+    inflight.delete(hash);
   }
 }
