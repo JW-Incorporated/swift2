@@ -1,7 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { trackKey } from '@swift2/experience';
 import { CANONICAL_ORIGIN } from '../../apps/web/lib/canonical-origin';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { expect, test as base, type Page, type TestInfo } from '@playwright/test';
@@ -46,8 +45,10 @@ type RouteLike = { readonly name: string; readonly path: string; readonly root: 
 
 const frozenTracks = JSON.parse(
   readFileSync(resolve(repo, 'scripts/parity/fixture/content/frozen/tracks.json'), 'utf-8'),
-) as { eraId: string; tracks: Parameters<typeof trackKey>[1][] }[];
-const SONG_KEY = trackKey('fearless', frozenTracks.find((e) => e.eraId === 'fearless')!.tracks[1]!);
+) as { eraId: string; tracks: { trackNumber?: number; title: string }[] }[];
+// Mirrors trackKey() in packages/experience/src/track-guide.ts; importing @swift2/experience needs sync:content's generated files, which the baseline job does not run.
+const SONG_TRACK = frozenTracks.find((e) => e.eraId === 'fearless')!.tracks[1]!;
+const SONG_KEY = `fearless::${SONG_TRACK.trackNumber ?? 'x'}::${SONG_TRACK.title}`;
 
 /** Side-a-only baselines (One UI PR0, WP2.5-2.8): surfaces side b does not render yet. `prepare` runs after the route settles; `clip` (when set) is captured instead of the root. */
 export interface AOnlyRoute extends RouteLike {
