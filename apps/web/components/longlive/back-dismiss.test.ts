@@ -23,7 +23,7 @@ const BACK_DISMISS_FILES = [
   './EraSelector.tsx',
   './FeedbackButton.tsx',
   '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
-  './SearchOverlay.tsx',
+  '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
   './TheoryGuide.tsx',
   './TrackDetail.tsx',
   './TrackGuide.tsx',

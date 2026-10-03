@@ -151,10 +151,10 @@ describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
 });
 
 describe('#3177 SearchOverlay is a real focus-trapped dialog', () => {
-  const src = read('./SearchOverlay.tsx');
+  const src = read('../../../../packages/ui/src/reader/search/SearchOverlay.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the overlay root declares dialog semantics and a focus target', () => {

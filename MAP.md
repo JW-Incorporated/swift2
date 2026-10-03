@@ -667,7 +667,10 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 (pending)
 
 ### WP2.8 search
-(pending)
+
+| Path | What |
+|---|---|
+| `packages/ui/src/reader/search/{SearchOverlay.tsx,search-listbox-children.test.ts}` | MOVED from `apps/web/components/longlive/` (WP2.8-A1, move-only). `apps/web/components/longlive/SearchOverlay.tsx` is a one-line `export *` shim (until D / WP2.13). `lib/longlive/search.ts` stays (still used by `clown-retrieve.ts`, the golden suite, regen script) |
 
 ### WP2.9 merch
 (pending)
