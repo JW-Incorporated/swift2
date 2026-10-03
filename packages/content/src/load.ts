@@ -12,9 +12,10 @@
  *   <baseUrl>/<bundleVersion>/<entry.path>      one validated file per manifest entry
  *
  * Flow: fetch `current.json` to learn the current `bundleVersion`, fetch that
- * version's `manifest.json` (conditionally, with `If-None-Match` against a
- * previously-stored ETag — a 304 short-circuits straight to the cached,
- * already-validated bundle), then fetch every file the manifest lists,
+ * version's `manifest.json` (skipped entirely when a fully validated copy of
+ * that exact version is cached — `bundleVersion` is a content hash, so equal
+ * version means identical bundle; no conditional headers are ever sent), then
+ * fetch every file the manifest lists,
  * verifying byte length + sha256 against the manifest entry before parsing it
  * against its zod schema.
  *
@@ -35,11 +36,10 @@
  * (docs/decisions.md 2026-10-01): a bundle published after the app's JS must
  * degrade, not blank the app.
  *
- * The manifest/etag/files/last-good cache entries are only written once the
- * *entire* bundle (every listed file) has been fetched and validated, all in
- * one batch — so a later run never finds a manifest+etag cached without a
- * matching validated file set (which would otherwise make a legitimate
- * server 304 look like corrupted local state).
+ * The version-keyed manifest/files/complete-marker entries are only written
+ * by a FULL load, once the *entire* bundle has been fetched and validated (marker
+ * cleared first, set last). A partial (pruned/skipped) load writes only
+ * last-good, so it can never clobber a full load of the same version.
  */
 import { z } from 'zod';
 import { contentBundleSchemas, manifestSchema, type Manifest } from './schema';
@@ -51,7 +51,10 @@ import {
   isSchemaVersionSupported,
 } from './compat';
 import { pruneUnknownEnumValues, type PruneResult } from './forward-compat';
+import { mapPool } from './pool';
 import { beginStage } from './timing';
+
+const FETCH_CONCURRENCY = 5;
 
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
@@ -316,6 +319,35 @@ function validateEntry(schema: z.ZodTypeAny, value: unknown, dropUnknown: boolea
   return pruneUnknownEnumValues(schema, value);
 }
 
+/**
+ * Re-checks a cached bundle before the warm shortcut returns it: manifest
+ * parses and its schemaVersion is supported, every manifest entry is present in
+ * the files record, and each passes the same schema the network path applies
+ * (strict, no pruning — pruned loads are never marked complete). sha256 is NOT
+ * recomputed, matching the previous 304 shortcut. Null = unusable, so the
+ * caller falls through to a network load.
+ */
+function readWarmCache(
+  manifestRaw: string,
+  filesRaw: string,
+  schemaVersion: number,
+): { manifest: Manifest; files: BundleFiles } | null {
+  try {
+    const manifest = manifestSchema.parse(JSON.parse(manifestRaw));
+    if (!isSchemaVersionSupported(manifest.schemaVersion, schemaVersion)) return null;
+    const files = JSON.parse(filesRaw) as BundleFiles;
+    if (!files || typeof files !== 'object') return null;
+    for (const name of Object.keys(manifest.files)) {
+      const schema = lookupSchema(name);
+      if (!schema || !(name in files)) return null;
+      if (!schema.safeParse(files[name]).success) return null;
+    }
+    return { manifest, files };
+  } catch {
+    return null;
+  }
+}
+
 async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundle> {
   const { baseUrl } = options;
   const fetchImpl = options.fetch ?? (globalThis.fetch as unknown as FetchLike | undefined);
@@ -363,51 +395,41 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
 
   const manifestUrl = joinUrl(baseUrl, `${bundleVersion}/manifest.json`);
   const manifestCacheKey = keyFor(baseUrl, `manifest:${bundleVersion}`);
-  const etagKey = keyFor(baseUrl, `etag:${bundleVersion}`);
+  // Key name `etag:` and source value 'cache-etag' are kept deliberately: existing
+  // installs already hold this key, and renaming the source would break callers.
+  const completeKey = keyFor(baseUrl, `etag:${bundleVersion}`);
   const filesCacheKey = keyFor(baseUrl, `files:${bundleVersion}`);
 
   let manifest: Manifest;
-  let manifestEtagToStore: string | undefined;
+
+  // `bundleVersion` is the bundle's content hash and its URL directory is
+  // immutable, so a fully validated cached copy of this exact version needs no
+  // manifest or file downloads. Plain requests only: a conditional header
+  // (If-None-Match) would force a CORS preflight from the app's opaque origin.
+  // Any truthy marker counts, including a legacy ETag string: the previous code
+  // wrote it only after the whole bundle was fetched and validated, and '' for
+  // pruned loads. An unreadable cache falls through to the network load.
+  if (await storeGet(storage, completeKey)) {
+    const cachedRaw = await storeGet(storage, manifestCacheKey);
+    const cachedFilesRaw = await storeGet(storage, filesCacheKey);
+    if (cachedRaw && cachedFilesRaw) {
+      const warm = readWarmCache(cachedRaw, cachedFilesRaw, schemaVersion);
+      if (warm) {
+        // WP0.1 diagnostics classify a warm load by manifest detail '304'; keep that signal.
+        beginStage('manifest')('304');
+        return { ...warm, source: 'cache-etag', stale: false };
+      }
+    }
+  }
 
   const endManifest = beginStage('manifest');
   try {
-    const storedEtag = await storeGet(storage, etagKey);
-    const headers: Record<string, string> = {};
-    if (storedEtag) headers['If-None-Match'] = storedEtag;
+    const manifestRes = await transportFetch(fetchImpl, manifestUrl);
 
-    const manifestRes = await transportFetch(fetchImpl, manifestUrl, { headers });
-
-    if (manifestRes.status === 304) {
-      const cachedRaw = await storeGet(storage, manifestCacheKey);
-      const cachedFilesRaw = await storeGet(storage, filesCacheKey);
-      if (!cachedRaw || !cachedFilesRaw) {
-        // The server thinks we already have this exact manifest+files (we
-        // sent its own previously-issued ETag back to it), but our local
-        // cache doesn't actually have them — a genuine local-state bug, not
-        // a connectivity problem, so this must NOT be silently treated as
-        // "offline, serve last-good"; it needs to surface as an error.
-        throw new BundleLoadError(
-          'Server returned 304 Not Modified for a cached ETag, but no matching manifest/files ' +
-            'are cached locally — local cache state is inconsistent with the stored ETag.',
-        );
-      }
-      manifest = manifestSchema.parse(JSON.parse(cachedRaw));
-      endManifest('304');
-      // A 304 means this exact bundleVersion's manifest and files are unchanged
-      // since we last validated them — return the cached files directly instead
-      // of re-fetching and re-validating every file over the network.
-      return {
-        manifest,
-        files: JSON.parse(cachedFilesRaw) as BundleFiles,
-        source: 'cache-etag',
-        stale: false,
-      };
-    } else if (manifestRes.ok) {
+    if (manifestRes.ok) {
       const manifestRaw = await readJson<unknown>(manifestRes);
       manifest = manifestSchema.parse(manifestRaw);
       endManifest('200');
-      manifestEtagToStore =
-        manifestRes.headers.get('etag') ?? manifestRes.headers.get('ETag') ?? undefined;
     } else {
       throw new TransportError(`Fetching manifest.json failed with HTTP ${manifestRes.status}`);
     }
@@ -430,12 +452,18 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
   const skipped: string[] = [];
   let pruned = false;
   try {
+    const wanted: Array<[string, (typeof manifest.files)[string]]> = [];
     for (const [name, entry] of Object.entries(manifest.files)) {
-      if (dropUnknown && !lookupSchema(name)) {
-        // A catalogue added after this build; nothing here could read it.
-        skipped.push(name);
-        continue;
-      }
+      // A catalogue added after this build has nothing here that could read it.
+      if (dropUnknown && !lookupSchema(name)) skipped.push(name);
+      else wanted.push([name, entry]);
+    }
+    // Bodies download concurrently (capped), so per-file 'download' marks now
+    // overlap in time. Hash/parse/validate below stay in manifest order, so the
+    // first failing file in manifest order decides the error. We never await
+    // fetches past a decisive failure (a hung one must not block the fallback);
+    // their results are discarded and nothing they do is written.
+    const { slots, stop } = mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
       const endDownload = beginStage('download', name);
       const fileRes = await transportFetch(
         fetchImpl,
@@ -444,41 +472,51 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       if (!fileRes.ok) {
         throw new TransportError(`Fetching "${entry.path}" failed with HTTP ${fileRes.status}`);
       }
-      const text = await fileRes.text();
+      const body = await fileRes.text();
       endDownload();
-      const endHash = beginStage('hash', name);
-      const byteLength = new TextEncoder().encode(text).length;
-      if (byteLength !== entry.bytes) {
-        throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
+      return body;
+    });
+    try {
+      for (const [i, [name, entry]] of wanted.entries()) {
+        const settled = await slots[i]!;
+        if (!settled.ok) throw settled.error;
+        const text = settled.value;
+        const endHash = beginStage('hash', name);
+        const byteLength = new TextEncoder().encode(text).length;
+        if (byteLength !== entry.bytes) {
+          throw new BundleIntegrityError(name, `expected ${entry.bytes} bytes, got ${byteLength}`);
+        }
+        const actualHash = await createHash(text);
+        if (actualHash !== entry.sha256) {
+          throw new BundleIntegrityError(
+            name,
+            `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
+          );
+        }
+        endHash();
+        const schema = schemaForManifestEntry(name);
+        const endParse = beginStage('parse', name);
+        const json: unknown = JSON.parse(text);
+        endParse();
+        const endValidate = beginStage('validate', name);
+        const result = validateEntry(schema, json, dropUnknown);
+        endValidate();
+        if (result.kind === 'invalid') {
+          throw new BundleIntegrityError(
+            name,
+            `schema validation failed: ${JSON.stringify(result.issues)}`,
+          );
+        }
+        if (result.kind === 'drop-file') {
+          pruned = true;
+          skipped.push(name);
+        } else {
+          if (result.removed > 0) pruned = true;
+          files[name] = result.data;
+        }
       }
-      const actualHash = await createHash(text);
-      if (actualHash !== entry.sha256) {
-        throw new BundleIntegrityError(
-          name,
-          `sha256 mismatch (expected ${entry.sha256}, got ${actualHash})`,
-        );
-      }
-      endHash();
-      const schema = schemaForManifestEntry(name);
-      const endParse = beginStage('parse', name);
-      const json: unknown = JSON.parse(text);
-      endParse();
-      const endValidate = beginStage('validate', name);
-      const result = validateEntry(schema, json, dropUnknown);
-      endValidate();
-      if (result.kind === 'invalid') {
-        throw new BundleIntegrityError(
-          name,
-          `schema validation failed: ${JSON.stringify(result.issues)}`,
-        );
-      }
-      if (result.kind === 'drop-file') {
-        pruned = true;
-        skipped.push(name);
-      } else {
-        if (result.removed > 0) pruned = true;
-        files[name] = result.data;
-      }
+    } finally {
+      stop();
     }
   } catch (err) {
     return fallbackOrRethrow(
@@ -487,20 +525,32 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     );
   }
 
-  // Only now — once the manifest AND every file it lists have been fetched
-  // and validated together — persist the cache atomically, so a future 304
-  // can never find a manifest+etag on disk without its matching files.
-  const endDiskWrite = beginStage('disk-write');
-  await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
-  // A pruned load never stores the ETag: once a newer build (that knows the
-  // new values) is running, a 304 must not keep serving the pruned files.
-  // An empty value also clears an ETag a fuller, earlier load of this
-  // bundleVersion stored (storeGet treats '' as absent).
+  // A partial (pruned/skipped) load writes ONLY last-good: it never touches the
+  // version-keyed manifest/files/marker trio, so an overlapping full load of the
+  // same version can never be overwritten by pruned data.
   const partial = pruned || skipped.length > 0;
-  if (partial) await storeSet(storage, etagKey, '');
-  else if (manifestEtagToStore) await storeSet(storage, etagKey, manifestEtagToStore);
+  const endDiskWrite = beginStage('disk-write');
+  if (partial) {
+    await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+    endDiskWrite();
+    return {
+      manifest,
+      files,
+      source: 'network',
+      stale: false,
+      ...(skipped.length ? { skipped } : {}),
+    };
+  }
+
+  // Full load — once the manifest AND every file it lists have been fetched and
+  // validated together — persist the cache so a warm load can never find the
+  // complete marker without its matching files: the marker is cleared first and
+  // set LAST, so a failed write mid-way leaves it unset.
+  await storeSet(storage, completeKey, '');
+  await storeSet(storage, manifestCacheKey, JSON.stringify(manifest));
   await storeSet(storage, filesCacheKey, JSON.stringify(files));
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
+  await storeSet(storage, completeKey, '1');
   endDiskWrite();
 
   return {

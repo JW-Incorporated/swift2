@@ -137,7 +137,7 @@ views in `PROGRESS.md`, and tells Joey in its next message (CLAUDE.md rule
    - If it's red, the PM sends a worker to fix it.
 7. **Record** the outcome in `PROGRESS.md`.
 
-**Concurrency:** at most 3 subagents at once, never two branch-writing
+**Concurrency:** at most 5 subagents at once (owner raised 3→5, 2026-10-02), never two branch-writing
 agents in one checkout, and never Codex and a Claude agent on the same
 tree.
 
