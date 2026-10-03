@@ -108,6 +108,14 @@ launched. S2 must wait for WP0.1b. No WP0.2 D evidence yet. Release train run
 37082264743 (#4799 store builds) in EAS wait at 15 min — normal; superseded runs
 cancelled by concurrency (fine if the last main run completes — check).
 Size-baseline bump grunt launched.
+**17:52:** Strike 1 CONFIRMED (no T0; raw Hermes clock; clamp is CLIENT-side
+diagnostics.ts:117; point marks shown by duration). WP0.1b → **#4833** (T0 at
+collector creation, imported early in index.ts; point marks by at:; loader
+already emits hash/parse/validate/disk-write; fingerprint 473eab6c unchanged =
+main's post-#4799 value). Reviewer r1 APPROVE; Codex r1 `task-murof6pl-nys0wf`
+pending. Size baseline → #4831 (+11.7% both platforms; auto-merge set). #4828
+Codex r1 = REQUEST CHANGES (P2 baseline key lacks impact; P3 doc) → small fix
+round launched (+ reviewer Low: assert axe passes>0).
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
