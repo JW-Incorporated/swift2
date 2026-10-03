@@ -7,6 +7,7 @@
 // detail + bottom nav inside the web AppProvider, plus the Android back bridge.
 import { createElement, useEffect, useRef, type ComponentType } from 'react';
 import { HostProvider } from '@swift2/ui';
+import { resolveAppUrl } from './resolve-url';
 
 type BackResult = 'handled' | 'exit';
 export type ReaderProps = { backTick: number; onBack: (r: BackResult) => void };
@@ -25,7 +26,7 @@ export function loadReader(): ComponentType<ReaderProps> {
   // The DOM page is a null origin: app-relative assets (era art) load over the network from the canonical origin.
   const adapter = {
     ...base,
-    resolveUrl: (path: string) => (path.startsWith('/') ? `${base.env.origin}${path}` : path),
+    resolveUrl: (path: string) => resolveAppUrl(path, base.env.origin),
   };
 
   function Shell({ backTick, onBack }: ReaderProps) {

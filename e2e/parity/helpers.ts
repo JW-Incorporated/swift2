@@ -1,12 +1,13 @@
-import { mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CANONICAL_ORIGIN } from '../../apps/web/lib/canonical-origin';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { expect, test as base, type Page, type TestInfo } from '@playwright/test';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const LOCAL_HOSTS = new Set(['127.0.0.1', 'localhost']);
-const ERA_ART_ORIGIN = 'https://www.longlivets.com';
+export const ERA_ART_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || CANONICAL_ORIGIN;
 const FIXED_TIME = new Date('2026-01-01T12:00:00Z');
 const A_PORT = Number(process.env.PARITY_A_PORT ?? 4174);
 const B_PORT = Number(process.env.PARITY_PORT ?? 4173);
@@ -104,11 +105,12 @@ export const test = base.extend<{ guard: void }>({
         const era = url.origin === ERA_ART_ORIGIN ? /^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
         if (era) {
           // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
-          return route.fulfill({
-            status: 200,
-            contentType: 'image/png',
-            body: readFileSync(resolve(repo, 'apps/web/public/eras', era[1]!)),
-          });
+          const file = resolve(repo, 'apps/web/public/eras', era[1]!);
+          if (!existsSync(file)) {
+            problems.push(`missing era asset ${era[1]}`);
+            return route.fulfill({ status: 404 });
+          }
+          return route.fulfill({ status: 200, contentType: 'image/png', body: readFileSync(file) });
         }
         if (req.resourceType() === 'image') {
           externalImages.get(page)?.add(url.href);

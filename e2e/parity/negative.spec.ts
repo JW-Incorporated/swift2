@@ -2,6 +2,7 @@ import type { Page } from '@playwright/test';
 import {
   BASE,
   captureRoot,
+  ERA_ART_ORIGIN,
   expect,
   mutate,
   openRoute,
@@ -61,13 +62,14 @@ test.describe('asset and image gates', () => {
     await openRoute(page, 'b', route);
     takeExternalImages(page);
     const size = await page.evaluate(
-      () =>
+      (origin) =>
         new Promise<[number, number]>((done, fail) => {
           const img = new Image();
           img.onload = () => done([img.naturalWidth, img.naturalHeight]);
           img.onerror = () => fail(new Error('era art did not load'));
-          img.src = 'https://www.longlivets.com/eras/debut.png?probe';
+          img.src = `${origin}/eras/debut.png?probe`;
         }),
+      ERA_ART_ORIGIN,
     );
     expect(size, 'not the 640x360 grey stub').not.toEqual([640, 360]);
     expect(takeExternalImages(page)).toEqual([]);
@@ -138,7 +140,7 @@ test.describe('image settle gate (images injected after load, so only imagesRead
       await openRoute(page, side, route);
       const tag = `parity-slow=${Date.now()}`;
       // Side b has no /eras in its export: it loads era art from the canonical origin, like the app.
-      const origin = side === 'b' ? 'https://www.longlivets.com' : BASE.a;
+      const origin = side === 'b' ? ERA_ART_ORIGIN : BASE.a;
       const urls = {
         img: `${origin}/eras/debut.png?${tag}-img`,
         bg: `${origin}/eras/debut.png?${tag}-bg`,

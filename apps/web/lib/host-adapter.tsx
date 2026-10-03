@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import { webApiFetch } from '@swift2/content';
 import type { HostAdapter, HostImageProps, HostLinkProps, HostStorage } from '@swift2/ui';
 
-const CANONICAL_ORIGIN = 'https://www.longlivets.com';
+import { CANONICAL_ORIGIN } from './canonical-origin';
 
 // Module-level so their identity is stable across renders (a component defined
 // inside the adapter factory would remount its subtree on every adapter rebuild).
