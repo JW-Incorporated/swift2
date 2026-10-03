@@ -150,7 +150,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/share-card-fonts.ts` · `share-fonts/` | Vendored Playfair/Inter `.woff` (OFL) read with fs; `next.config.mjs` `outputFileTracingIncludes` ships them with the function |
 | `components/longlive/ShareImageMenu.tsx` · `YourLongLiveCard.tsx` | "Share as image" Story/Post menu (moment detail, era hero) and the "Your Long Live" entry in `EraSelector`; `lib/longlive/share-action.ts` `triggerImageShare` + `share-payload.ts` `shareCardImage` do file-share-or-download |
 | `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal; plays a paired song video inline (~20% of tracks pair) |
-| `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
+| `packages/ui/src/reader/threads/TheoryGuide.tsx` (shim: `components/longlive/TheoryGuide.tsx`) | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
 | `components/longlive/TheoryCard.tsx` | One theory/egg card: badges, sources, R4 back-link (thread if `theoryThreadId` resolves, else the unconditional "whole section" line) |
 | `components/longlive/ThreadsMode.tsx` | Thread gallery + thread detail |
 | `components/longlive/FeedbackButton.tsx` | Fixed bottom-right, `z-[71]`, POSTs to `/api/feedback` |
@@ -682,7 +682,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 (2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. MerchSection stays until A2 (extensions prop). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.10 community
-(pending)
+(2.10-A1, move-only) Moved to `packages/ui/src/reader/community/`: CommunitySection, CommunityCard, SectionJumpBar. Old apps/web paths are one-line `export *` shims. Community data is imported from `@swift2/experience` directly; SubmitLinkForm and section-jump come from `reader/merch/`. A2 not needed (no non-import hunks). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.11 clown
 A1 (clown board/chat client modules only; Mood and all server-side `clown-*` stay in apps/web). MOVED to `packages/ui/src/reader/clown/`: `ClownBoard`, `ClownChat`, `ClownChatComposer`, `ClownChatTitlebar`, `ClownEmptyState`, `ClownItemCard`, `ClownMessageRow` (.tsx) and `lib/{clown-board,clown-chat-helpers,clown-chat-ui,clown-explain,clown-starters,clown-stream,useChromeOffset}.ts`. The old paths are one-line `export *` shims. Wire types come from `@swift2/shared`. `clown-board.ts` takes `lore` as a parameter (`ClownChat`/`ClownBoard` take a `lore` prop); the baked `LORE` (`apps/web/lib/longlive/clownbot-lore.ts` + `.generated`) stays app-side and `LongLive.tsx` passes it.
@@ -695,8 +695,9 @@ A1 (clown board/chat client modules only; Mood and all server-side `clown-*` sta
 | `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
 
 ### WP2.13 legal
-| File | What it is |
+| Path | What it is |
 |---|---|
+| `packages/ui/src/reader/legal/{LegalDocument,SupportPage}.tsx` + `lib/legal.ts` | MOVED from `apps/web` (WP2.13-A1 + minimal A2). `apps/web/lib/longlive/legal.ts` is a one-line `export *` shim. `app/{privacy,terms,support}/page.tsx` keep `metadata` and pass `footer={<SiteFooter />}` (SiteFooter stays until 2.4-B). `Link` via `useHost()` |
 | `packages/ui/src/reader/legal/FeedbackButton.tsx` | MOVED from `apps/web/components/longlive/` (WP2.13-A1b, move-only). Old path is a one-line `export *` shim (until A2) |
 
 ## CI concurrency (2026-10-01)
