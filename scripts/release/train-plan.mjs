@@ -3,17 +3,11 @@
 // look up an existing finished production build for it. Writes the train
 // state file (argv[2]) and GITHUB_OUTPUT lines. Any CLI failure throws, so the
 // step goes red and nothing downstream mutates.
-import { execFileSync } from 'node:child_process';
 import { appendFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { decide, fingerprintArgs, initialState, listArgs, parseFingerprint, pickExisting } from './train-lib.mjs';
+import { decide, fingerprintArgs, initialState, listArgs, parseFingerprint, pickExisting, runEas } from './train-lib.mjs';
 
-const eas = (args) =>
-  execFileSync('eas', args, {
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'inherit'],
-    timeout: 600000,
-  });
+const eas = (args) => runEas(args, { timeout: 600000 });
 
 function lookup(platform) {
   const hash = parseFingerprint(
