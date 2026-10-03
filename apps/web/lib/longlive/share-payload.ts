@@ -7,7 +7,6 @@ import {
   merchShareCopy,
   momentShareCopy,
   moodShareCopy,
-  resolveTrackKey,
   siteShareCopy,
   theoryGuideShareCopy,
   threadsGalleryShareCopy,
@@ -16,7 +15,7 @@ import {
   type ShareCopy,
   type ShareTarget,
 } from '@swift2/experience';
-import { getContentItem } from './content';
+import type { ReaderQueries } from '@swift2/experience/reader-snapshot';
 import {
   triggerImageShare,
   triggerWebShare,
@@ -26,10 +25,17 @@ import {
 } from './share-action';
 import { shareCardPath, type ShareCardSize, type ShareCardSource } from './share-card-params';
 
-export function sharePayloadForTarget(target: ShareTarget, baseUrl: string): WebSharePayload {
+/** The lookups a share payload needs, from the reader snapshot (`useReader()`); required, never defaulted. */
+export type SharePayloadData = Pick<ReaderQueries, 'getContentItem' | 'resolveTrackKey'>;
+
+export function sharePayloadForTarget(
+  target: ShareTarget,
+  baseUrl: string,
+  data: SharePayloadData,
+): WebSharePayload {
   let copy: ShareCopy;
   if (target.kind === 'item') {
-    const item = getContentItem(target.itemId);
+    const item = data.getContentItem(target.itemId);
     copy = item ? momentShareCopy(item, getEra(item.eraId)) : siteShareCopy();
   } else if (target.kind === 'era') {
     const era = getEra(target.eraId);
@@ -41,7 +47,7 @@ export function sharePayloadForTarget(target: ShareTarget, baseUrl: string): Web
     const thread = getThread(target.lensId);
     copy = { title: `${thread.title} — Long Live`, text: `${thread.what} — on Long Live.` };
   } else if (target.kind === 'track') {
-    const resolved = resolveTrackKey(target.trackKey);
+    const resolved = data.resolveTrackKey(target.trackKey);
     copy = resolved ? trackShareCopy(resolved.track, getEra(resolved.eraId)) : siteShareCopy();
   } else if (target.kind === 'trackGuide') {
     copy = trackGuideShareCopy(getEra(target.eraId));
@@ -63,8 +69,11 @@ export function sharePayloadForTarget(target: ShareTarget, baseUrl: string): Web
   return { ...copy, url: buildShareUrl(target, baseUrl) };
 }
 
-export async function shareTarget(target: ShareTarget): Promise<WebShareResult> {
-  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname);
+export async function shareTarget(
+  target: ShareTarget,
+  data: SharePayloadData,
+): Promise<WebShareResult> {
+  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname, data);
   const result = await triggerWebShare(payload, {
     share: navigator.share?.bind(navigator),
     copyText: navigator.clipboard?.writeText.bind(navigator.clipboard),
@@ -147,8 +156,9 @@ export async function shareCardImage(
   target: ShareTarget,
   source: ShareCardSource,
   size: ShareCardSize,
+  data: SharePayloadData,
 ): Promise<ImageShareResult | 'error'> {
-  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname);
+  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname, data);
   const file =
     readyCards.get(shareCardPath(source, size)) ?? (await prefetchShareCard(source, size));
   if (!file) return 'error';

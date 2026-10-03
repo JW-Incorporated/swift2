@@ -3,7 +3,7 @@
 import { Egg, HelpCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
-import { resolveRelatedTheory } from '@/lib/longlive/theories';
+import { useReader } from '@swift2/ui';
 import { theoryThreadId } from '@swift2/experience';
 import { getThread } from '@swift2/experience';
 import type { Confidence, TheoryNote, TheoryOutcome } from '@swift2/experience';
@@ -51,8 +51,9 @@ export function TheoryCard({ theory, highlighted }: { theory: TheoryNote; highli
   const KindIcon = theory.kind === 'easter_egg' ? Egg : HelpCircle;
   const settled = SETTLED_OUTCOMES.has(theory.outcome);
   const { openTheoryGuide, openThread, setMode } = useAppActions();
+  const q = useReader();
   const related = (theory.relatedSlugs ?? [])
-    .map(resolveRelatedTheory)
+    .map((ref) => q.resolveRelatedTheory(ref))
     .filter((r): r is NonNullable<typeof r> => r !== null);
   // R4: every egg/theory detail points back to the thread it belongs to
   // (doorways.ts's `theoryThreadId` — the same mapping `EggDoorway.threadId`

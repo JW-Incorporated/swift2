@@ -3,11 +3,10 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import { useHost, useResolveUrl } from '@swift2/ui';
+import { useHost, useReader, useResolveUrl } from '@swift2/ui';
 import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
-import { theoriesForEra } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { useLiveTheories } from '@/lib/longlive/use-live-theories';
@@ -34,8 +33,10 @@ export function TheoryGuide() {
   const { theoryGuideEraId, theoryGuideHighlightSlug } = useAppState();
   const { closeTheoryGuide, popReturnPoint } = useAppActions();
 
+  const q = useReader();
+
   const era = theoryGuideEraId ? getEra(theoryGuideEraId) : undefined;
-  const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
+  const theories = theoryGuideEraId ? q.theoriesForEra(theoryGuideEraId) : [];
   const open = Boolean(era && theories.length > 0);
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
@@ -137,7 +138,7 @@ export function TheoryGuide() {
             the button is added here directly. */}
         <div className="absolute right-4 top-4 flex items-center gap-2">
           <button
-            onClick={() => void shareTargetNow({ kind: 'theoryGuide', eraId: era.id })}
+            onClick={() => void shareTargetNow({ kind: 'theoryGuide', eraId: era.id }, q)}
             className="era-icon-btn grid size-11 place-items-center rounded-full backdrop-blur-md"
             aria-label="Share"
             title="Share"

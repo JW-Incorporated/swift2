@@ -10,9 +10,12 @@ import {
   videosForEra,
 } from '@swift2/content-enrichment';
 import { ERAS } from '../eras';
-import { THREADS } from '../lenses';
+import { CROSSING_THREADS, THREADS } from '../lenses';
 import { contentForThread } from '../threads-injected';
-import { threadPoints } from '../lenses-injected';
+import { threadCrossings, threadPoints, threadsInEra } from '../lenses-injected';
+import { trackKey } from '../track-guide';
+import { adjacentTrackOnAlbum, keepExploring, resolveTrackKey } from '../track-guide-injected';
+import { resolveRelatedTheory } from '../theories-injected';
 import { eggDoorwaysForEra, threadDoorwaysForEra } from '../doorways-injected';
 import type { ContentItem, EraId } from '../types';
 import { fromBakedCore, type BakedCoreModules } from './sources';
@@ -96,6 +99,55 @@ describe('createReaderQueries equals the web modules', () => {
       expect(q.threadDoorwaysForEra(e.id, e.start, e.end)).toEqual(threadDoorwaysForEra(e.id, e.start, e.end));
       expect(q.eggDoorwaysForEra(e.id, e.start, e.end)).toEqual(eggDoorwaysForEra(e.id, e.start, e.end));
     }
+  });
+
+  it('threadsInEra and threadCrossings, over every era and every thread pair', () => {
+    for (const e of ERAS) {
+      expect(q.threadsInEra(e.id), `threadsInEra ${e.id}`).toEqual(threadsInEra(e.id));
+    }
+    expect(ERAS.some((e) => q.threadsInEra(e.id).length > 0)).toBe(true);
+    let crossed = 0;
+    for (const a of CROSSING_THREADS) {
+      for (const b of CROSSING_THREADS) {
+        const got = q.threadCrossings(a, b);
+        expect(got, `threadCrossings ${a}/${b}`).toEqual(threadCrossings(a, b));
+        expect(q.threadCrossings(a, b, 30), `threadCrossings ${a}/${b} 30d`).toEqual(
+          threadCrossings(a, b, 30),
+        );
+        crossed += got.length;
+      }
+    }
+    expect(crossed).toBeGreaterThan(0);
+  });
+
+  it('track and theory lookups, over every era', () => {
+    let tracked = 0;
+    let related = 0;
+    for (const { id } of ERAS) {
+      for (const t of tracks.tracksForEra(id)) {
+        const key = trackKey(id, t);
+        expect(q.resolveTrackKey(key), `resolveTrackKey ${key}`).toEqual(resolveTrackKey(key));
+        expect(q.keepExploring(id, t), `keepExploring ${key}`).toEqual(keepExploring(id, t));
+        for (const dir of ['previous', 'next'] as const) {
+          expect(q.adjacentTrackOnAlbum(id, t, dir), `adjacent ${dir} ${key}`).toEqual(
+            adjacentTrackOnAlbum(id, t, dir),
+          );
+        }
+        tracked += 1;
+      }
+      for (const th of theories.theoriesForEra(id)) {
+        for (const ref of th.relatedSlugs ?? []) {
+          expect(q.resolveRelatedTheory(ref), `resolveRelatedTheory ${ref}`).toEqual(resolveRelatedTheory(ref));
+          related += 1;
+        }
+      }
+    }
+    expect(tracked).toBeGreaterThan(0);
+    expect(related).toBeGreaterThan(0);
+    for (const bad of ['', 'nope', 'debut::missing', 'zzz::x']) {
+      expect(q.resolveTrackKey(bad)).toEqual(resolveTrackKey(bad));
+    }
+    expect(q.resolveRelatedTheory('no-colon')).toBeNull();
   });
 
   it('searchIndex is the snapshot domain; the core queries carry no merch', () => {

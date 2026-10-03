@@ -5,7 +5,6 @@ import { useHost, useResolveUrl } from '@swift2/ui';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { eraVideoFeed, type WatchableVideoNote } from '@swift2/content-enrichment';
-import { threadsInEra } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
 import { EraSecretCard } from './EraSecretCard';
 import { ShareImageMenu } from './ShareImageMenu';
@@ -68,7 +67,7 @@ export function EraSection({
   // section only reads the active set; it no longer owns filter state.
   const { filters } = useAppState();
   const q = useReader();
-  const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
+  const eraThreads = useMemo(() => q.threadsInEra(era.id), [q, era.id]);
   const trackCount = useMemo(() => q.tracksForEra(era.id).length, [q, era.id]);
 
   const items = useMemo(() => q.contentForEra(era.id), [q, era.id]);
