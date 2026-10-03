@@ -27,6 +27,7 @@ import type { MoodMatch } from '@swift2/experience';
 import { MOOD_STARTERS, visibleStarters, type MoodStarter } from './lib/mood-starters';
 import { getEra } from '@swift2/experience';
 import { MoodSongCard } from './MoodSongCard';
+import { useHost } from '../../host/context';
 
 /** The approved disclaimer (Block 3). Deliberately mentions neither therapy nor
  *  crisis: naming those before the reader has typed anything primes distress
@@ -44,6 +45,8 @@ type Result =
   | null;
 
 export function MoodChat() {
+  // TODO(PM, WP2.3-F): mobile reach for /api/mood comes via the WP2.3-F2 bridge apiFetch.
+  const { apiFetch } = useHost();
   const [text, setText] = useState('');
   const [result, setResult] = useState<Result>(null);
   const [busy, setBusy] = useState(false);
@@ -60,13 +63,14 @@ export function MoodChat() {
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch('/api/mood', {
+      const res = await apiFetch({
+        path: '/api/mood',
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error(String(res.status));
-      const data = await res.json();
+      if (res.status < 200 || res.status >= 300) throw new Error(String(res.status));
+      const data = JSON.parse(res.body);
       setResult(data);
       // Move the rotation on so the chip set never reads as a fixed menu.
       setRotation((r) => r + 3);
@@ -91,7 +95,7 @@ export function MoodChat() {
     } finally {
       setBusy(false);
     }
-  }, []);
+  }, [apiFetch]);
 
   const submitText = useCallback(
     (e: React.FormEvent) => {
