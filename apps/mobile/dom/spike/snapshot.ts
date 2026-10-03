@@ -18,6 +18,15 @@ export function snapshotFromEnvelope(text: string, deps: ReaderSnapshotDeps) {
   return { snapshot: fromBundle(bundle, deps), version: bundle.manifest.bundleVersion };
 }
 
+/** The hash is diagnostics only: a throw must not stop the reader mounting, so it becomes a recorded error. */
+export async function describeSnapshotSafe(snapshot: ReaderSnapshot) {
+  try {
+    return { snapshot: await describeSnapshot(snapshot), error: null as string | null };
+  } catch (e) {
+    return { snapshot: null, error: `snapshot hash: ${e instanceof Error ? e.message : String(e)}` };
+  }
+}
+
 export async function describeSnapshot(snapshot: ReaderSnapshot) {
   const d = snapshot.domains;
   const { hash } = await hashSnapshot(snapshot);

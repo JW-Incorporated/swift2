@@ -63,6 +63,10 @@ persistence `adapter` actually used (`memory-shim` | `localStorage` | `indexedDB
 The strict `[diag]` server schema is untouched; promoting these into reports is
 a follow-up.
 
+- A throw while hashing the snapshot no longer blocks the reader: it is recorded in the probe's `error` field and the reader mounts anyway.
+- Two clocks are shown side by side: "Webview first paint ms" (performance.now() in the page) and "Native launch->ready ms" (Date.now() in SharedUiHost, dom-launch-attempted to onReady).
+- "Share probe JSON" in the panel hands the last probe JSON, verbatim, to the OS share sheet (react-native core `Share`; no new dependency, fingerprint unchanged).
+
 ## Not built
 
 - No IndexedDB adapter (Android has no web storage; ruling B).

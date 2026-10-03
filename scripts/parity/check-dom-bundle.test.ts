@@ -42,6 +42,12 @@ describe('check-dom-bundle', () => {
     ).toHaveLength(5);
   });
 
+  it('matches forbidden paths case-insensitively and after URL-decoding', () => {
+    expect(findForbiddenSources(['/r/apps/mobile/DOM/Spike/Dev-Loader.ts'])).toHaveLength(1);
+    expect(findForbiddenSources(['/r/apps/mobile/dom/spike/dev-loader%2Ets', '/r/apps/web/lib/x%2Egenerated%2Ets'])).toHaveLength(2);
+    expect(findForbiddenSources(['/r/%E0%A4%A/index.web.ts'])).toHaveLength(1);
+  });
+
   it('picks a plain ASCII sentinel with no quotes or backslashes', () => {
     expect(pickSentinel(['short', 'A long enough moment title for sentinel'])).toBe('A long enough moment title for sentinel');
     expect(pickSentinel(['has "quotes" and is quite long enough for it', "it's quite long enough for the picker"])).toBeNull();

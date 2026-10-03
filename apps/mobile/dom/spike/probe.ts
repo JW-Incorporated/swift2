@@ -11,7 +11,10 @@ export interface ProbeReport {
   adapter: 'memory-shim' | 'localStorage' | 'indexedDB';
   marker: { localStorage: 'hit' | 'miss'; indexedDB: 'hit' | 'miss' | 'n/a' };
   snapshot: { hash: string; items: number; eras: number } | null;
+  /** Webview clock: performance.now() at first paint inside the DOM page. */
   firstPaintMs: number | null;
+  /** Native clock, stamped by the host (not the webview): dom-launch-attempted to onReady. */
+  nativeLaunchToReadyMs?: number | null;
   heapMb: number | null;
   placeholders: Record<string, { total: number; bad: number; pending: number }> | null;
   error: string | null;
@@ -39,6 +42,27 @@ export function createProbe(version = '') {
   };
 }
 
+/** Host side: stamp the native-clock launch->ready delta into the probe JSON without altering any other field. */
+export function withNativeTiming(json: string, ms: number | null): string {
+  if (ms === null) return json;
+  try {
+    return JSON.stringify({ ...(JSON.parse(json) as ProbeReport), nativeLaunchToReadyMs: ms });
+  } catch {
+    return json;
+  }
+}
+
+let latestRaw: string | null = null;
+
+export function setLatestProbeJson(json: string): void {
+  latestRaw = json;
+}
+
+/** The exact JSON last published by the probe (what the panel exports verbatim). */
+export function latestProbeJson(): string | null {
+  return latestRaw;
+}
+
 export function probeLines(r: ProbeReport | null): string[] {
   if (!r) return ['Reader spike: no probe yet.'];
   const ph = r.placeholders
@@ -52,7 +76,8 @@ export function probeLines(r: ProbeReport | null): string[] {
     r.snapshot
       ? `Snapshot: ${r.snapshot.hash.slice(0, 12)} (${r.snapshot.items} items, ${r.snapshot.eras} eras)`
       : 'Snapshot: none',
-    `First paint: ${r.firstPaintMs ?? '-'} ms, heap ${r.heapMb ?? '-'} MB`,
+    `Webview first paint ms: ${r.firstPaintMs ?? '-'}, heap ${r.heapMb ?? '-'} MB`,
+    `Native launch->ready ms: ${r.nativeLaunchToReadyMs ?? '-'}`,
     `Placeholder images (bad/total): ${ph}`,
     ...(r.error ? [`Error: ${r.error}`] : []),
   ];
