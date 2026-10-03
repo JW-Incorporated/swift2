@@ -146,22 +146,11 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           RUN_ID: ${{ steps.eas_start.outputs.run_id }}
         run: |
-          RESULT=unknown
-          BUILD_ID=
-          if eas workflow:status "$RUN_ID" --non-interactive --json > /tmp/status.json 2>/dev/null; then
-            # eas-cli WorkflowJobStatus enum (graphql/generated.js): SUCCESS is
-            # the only success value; job.turtleBuild is this run's build
-            # (graphql/types/WorkflowJob.js). Anything else fails closed.
-            # Selection logic (commit binding, UUID id check) is unit-tested in
-            # scripts/release/select-android-build.test.ts.
-            node "$GITHUB_WORKSPACE/scripts/release/select-android-build.mjs" /tmp/status.json > /tmp/android_job.out || true
-            RESULT=$(sed -n 's/^result=//p' /tmp/android_job.out)
-            BUILD_ID=$(sed -n 's/^build_id=//p' /tmp/android_job.out)
-            RESULT=${RESULT:-unknown}
-          fi
-          echo "Android store-build job: $RESULT; build id: ${BUILD_ID:-none}"
-          echo "result=$RESULT" >> "$GITHUB_OUTPUT"
-          echo "build_id=$BUILD_ID" >> "$GITHUB_OUTPUT"
+          # eas exits 11 (FAILURE) / 12 (CANCELED) AFTER printing the JSON, so
+          # the script treats 0/11/12 as readable; selection logic is unit-tested
+          # in scripts/release/select-android-build.test.ts and
+          # read-android-status.test.ts.
+          bash "$GITHUB_WORKSPACE/scripts/release/read-android-status.sh" >> "$GITHUB_OUTPUT"
       # Read-only and purely informational (continue-on-error): pins what
       # shipped (job statuses + OTA group/runtime for THIS commit) into the run
       # summary so device tests need no Expo login. It can never change the job
