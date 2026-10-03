@@ -42,6 +42,8 @@ import { useChromeOffset } from './lib/useChromeOffset';
 import { flattenAnswer, investigationLabel } from './lib/clown-chat-helpers';
 import { readClownStream } from './lib/clown-stream';
 import { useAppActions, useAppState } from '../store';
+import { useHost } from '../../host/context';
+import { bufferedFrom } from '../../host/buffered-from';
 import { useStickToBottomScroll } from './lib/clown-chat-ui';
 import { useScrollLock } from '../lib/useScrollLock';
 import { ClownBoard } from './ClownBoard';
@@ -92,6 +94,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   // Full-screen toggle — a CSS overlay, deliberately not the native
   // Fullscreen API (requestFullscreen on a non-video element is unreliable
   // on iOS Safari, precisely where filling the screen matters most).
+  const host = useHost();
   const [expanded, setExpanded] = useState(false);
   const expandToggleRef = useRef<HTMLButtonElement>(null);
   const wasExpandedRef = useRef(false);
@@ -170,19 +173,19 @@ export function ClownChat({ lore }: ClownChatProps) {
         // an `HttpOnly` cookie the browser sends/receives automatically on
         // this same-origin `fetch` — no client-side token capture or storage
         // needed at all.
-        const res = await fetch('/api/clown', {
+        const chunks = (host.apiStream ?? bufferedFrom(host.apiFetch))({
           method: 'POST',
+          path: '/api/clown',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ text: question, transcript, ...(options.chip ? { chip: true } : {}) }),
         });
-        if (!res.ok) throw new Error(String(res.status));
         // PLAN.md Stage 10: the route streams the agent loop's investigation
         // trail as it happens, then exactly one final answer event — every
         // deterministic (non-loop) response still arrives as a single event
         // under this same reader, so this replaces the old `res.json()` for
         // every path, not just the loop's.
         let answer: ClownAnswer | null = null;
-        await readClownStream(res, (event) => {
+        await readClownStream(chunks, (event) => {
           if (event.type === 'investigation') setInvestigating(event.step);
           else answer = event.answer;
         });
@@ -196,7 +199,7 @@ export function ClownChat({ lore }: ClownChatProps) {
         setBusy(false);
       }
     },
-    [addClownMessage, clownMessages],
+    [addClownMessage, clownMessages, host],
   );
 
   const submit = useCallback(

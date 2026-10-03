@@ -11,6 +11,7 @@ import type {
 } from '@swift2/ui';
 
 import { CANONICAL_ORIGIN } from './canonical-origin';
+import { webApiStream } from './host-api-stream';
 import {
   getOrCreateWebDeviceId,
   isWebPushSupported,
@@ -135,6 +136,7 @@ export function createWebRootAdapter(router: WebRouter): HostAdapter {
   const base = createWebAdapter(router);
   return {
     ...base,
+    apiStream: webApiStream,
     env: {
       ...base.env,
       affiliate: {
