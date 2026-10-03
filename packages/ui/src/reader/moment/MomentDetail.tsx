@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from './lib/useFocusTrap';
 import { createPortal } from 'react-dom';
@@ -64,7 +64,7 @@ import {
   type RumorStatus,
   type SubConfirmed,
 } from '@swift2/experience';
-import { renderMomentShopLink, SHOP_DISCLOSURE } from './lib/shop';
+import { createHostShopLinkRenderer, renderMomentShopLink, SHOP_DISCLOSURE } from './lib/shop';
 import { formatFullDate } from '@swift2/experience';
 import { useBackDismiss } from '../lib/useBackDismiss';
 
@@ -991,6 +991,8 @@ function ShopTheLook({
   products: Product[] | undefined;
   context: { eraId: string; momentId: string };
 }) {
+  const affiliate = useHost().env.affiliate;
+  const renderer = useMemo(() => createHostShopLinkRenderer(affiliate ?? {}), [affiliate]);
   if (!products || products.length === 0) return null;
   return (
     <div className="era-card mt-8 rounded-2xl border p-5">
@@ -1001,7 +1003,7 @@ function ShopTheLook({
       <ul className="mt-3">
         {products.map((p, i) => {
           const soldOut = p.inStock === false;
-          const shopLink = renderMomentShopLink(p, context);
+          const shopLink = renderMomentShopLink(p, context, renderer);
           return (
             // border-t on the li itself (not divide-y on the ul): the era-line
             // color must sit on the element that owns the border, since
@@ -1063,7 +1065,7 @@ function ShopTheLook({
       </ul>
       {/* Renders only once buildShopUrl actually returns affiliate links —
           wiring it now is what makes the affiliate flip a shop.ts-only change. */}
-      {products.some((product) => renderMomentShopLink(product, context).isAffiliate) && (
+      {products.some((product) => renderMomentShopLink(product, context, renderer).isAffiliate) && (
         <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
           {SHOP_DISCLOSURE}
         </p>

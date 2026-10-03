@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { createShopLinkBuilder, createShopLinkRenderer, SHOP_DISCLOSURE } from './shop';
+import {
+  createHostShopLinkRenderer,
+  createShopLinkBuilder,
+  createShopLinkRenderer,
+  renderMomentShopLink,
+  SHOP_DISCLOSURE,
+} from './shop';
 import type { MerchItem } from '@swift2/content-enrichment';
 import type { Product } from '@swift2/experience';
 
@@ -14,6 +20,23 @@ const product = (over: Partial<Product> = {}): Product => ({
 });
 
 const context = { eraId: 'midnights', momentId: 'bejeweled-video' };
+
+describe('host-supplied affiliate ids (WP2.5 A2)', () => {
+  const amazon = product({ retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B0' });
+
+  it('tags links from host affiliate env and stays direct when absent', () => {
+    const tagged = createHostShopLinkRenderer({ amazonAssociatesTag: 'tag-20' });
+    expect(renderMomentShopLink(amazon, context, tagged)).toEqual({
+      href: 'https://www.amazon.com/dp/B0?tag=tag-20&ascsubtag=midnights.bejeweled-video',
+      isAffiliate: true,
+    });
+    const direct = createHostShopLinkRenderer({});
+    expect(renderMomentShopLink(amazon, context, direct)).toEqual({
+      href: amazon.url,
+      isAffiliate: false,
+    });
+  });
+});
 
 describe('listing-scoped affiliate wrapping', () => {
   it('wraps an Awin-mapped primary listing with the listing subid', () => {

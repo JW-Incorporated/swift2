@@ -1,5 +1,6 @@
 import type { MerchItem } from '@swift2/content-enrichment';
 import type { Product } from '@swift2/experience';
+import type { HostAffiliateEnv } from '../../../host/types';
 import { createNetworkResolver, networkFor, type AwinAdvertisers, type NetworkResolution } from './shop-networks';
 
 declare const process: {
@@ -119,12 +120,18 @@ const productionShopLinks = createShopLinkBuilder({
 });
 const productionShopLinkRenderer = createShopLinkRenderer(productionShopLinks);
 
+/** Renderer for host-supplied affiliate ids (`HostEnv.affiliate`); `{}` yields direct links. */
+export function createHostShopLinkRenderer(affiliate: HostAffiliateEnv) {
+  return createShopLinkRenderer(createShopLinkBuilder(affiliate));
+}
+
 /** Resolves a moment product's href and disclosure predicate from one context. */
 export function renderMomentShopLink(
   listing: ShopListing,
   context: Extract<ShopLinkContext, { eraId: string }>,
+  renderer: ReturnType<typeof createShopLinkRenderer> = productionShopLinkRenderer,
 ) {
-  return productionShopLinkRenderer.forMoment(listing, context);
+  return renderer.forMoment(listing, context);
 }
 
 /** Resolves a merch card's href and disclosure predicate from its source or bucket. */
