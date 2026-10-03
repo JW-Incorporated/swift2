@@ -287,7 +287,7 @@ jobs:
       # Last step: Android has had its chance above; now surface any EAS
       # failure (iOS build/signing, submit_ios, timeout, cancel) as a red run.
       - name: Fail the train if the EAS run did not succeed
-        if: always() && steps.eas_workflow.outcome != 'success'
+        if: always() && ( steps.eas_workflow.outcome != 'success' || steps.android_job.outputs.result != 'success' )
         run: |
-          echo "::error::EAS release run did not succeed (wait step outcome: ${{ steps.eas_workflow.outcome }}; Android store-build job: ${{ steps.android_job.outputs.result || 'not read' }}). Android was still submitted to Play internal if its build job succeeded. See the EAS run URL in the job summary."
+          echo "::error::Release run failed (EAS wait step outcome: ${{ steps.eas_workflow.outcome }}; Android store-build selection: ${{ steps.android_job.outputs.result || 'not read' }}). Android was submitted to Play internal only if its build job succeeded. See the EAS run URL in the job summary."
           exit 1
