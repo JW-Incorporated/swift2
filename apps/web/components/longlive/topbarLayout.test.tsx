@@ -18,13 +18,16 @@ vi.mock('next/link', () => ({
 import { TopBar } from './TopBar';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 function renderTopBar() {
   return renderWithReader(
-    <AppProvider>
-      <TopBar />
-    </AppProvider>,
+    <TestHostProvider>
+      <AppProvider>
+        <TopBar />
+      </AppProvider>
+    </TestHostProvider>,
   );
 }
 

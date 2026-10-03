@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { EraSection } from './EraSection';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 
 /** Heading levels as they appear in a component's source, in JSX order —
@@ -30,9 +31,11 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
   it('EraSection renders the era hero h1, and EraFeedList (nested inside it) contributes the only h2', () => {
     const era = getEra(CURRENT_ERA_ID);
     const { container } = renderWithReader(
-      <AppProvider>
-        <EraSection era={era} />
-      </AppProvider>,
+      <TestHostProvider>
+        <AppProvider>
+          <EraSection era={era} />
+        </AppProvider>
+      </TestHostProvider>,
     );
 
     const headings = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((el) =>

@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { createElement } from 'react';
+import { createElement, forwardRef } from 'react';
 import { render, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { HostProvider, useHost } from './context';
@@ -7,7 +7,7 @@ import type { HostAdapter } from './types';
 
 const stubStorage = { get: () => null, set: () => {}, remove: () => {} };
 const adapter: HostAdapter = {
-  Link: () => null,
+  Link: forwardRef(() => null),
   Image: () => null,
   navigate: () => {},
   onBack: () => () => {},

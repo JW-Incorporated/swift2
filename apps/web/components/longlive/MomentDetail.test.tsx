@@ -5,6 +5,7 @@ import { screen, within, fireEvent } from '@testing-library/react';
 import { MomentDetail } from './MomentDetail';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider, useAppActions } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import { CONTENT } from '@/lib/longlive/content';
 import { TAG_META } from '@/lib/longlive/tags';
 import { useEffect } from 'react';
@@ -22,10 +23,12 @@ function OpenMoment({ id, children }: { id: string; children?: React.ReactNode }
 
 function renderMoment(id: string) {
   return renderWithReader(
-    <AppProvider>
-      <OpenMoment id={id} />
-      <MomentDetail />
-    </AppProvider>,
+    <TestHostProvider>
+      <AppProvider>
+        <OpenMoment id={id} />
+        <MomentDetail />
+      </AppProvider>
+    </TestHostProvider>,
   );
 }
 

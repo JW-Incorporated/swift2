@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
-import Image from 'next/image';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import {
   ListMusic,
   Star,
@@ -72,6 +72,8 @@ export { trackKey };
  * only when real sourced content exists — never a placeholder.
  */
 export function TrackDetail() {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openTrackKey, trackGuideEraId } = useAppState();
   const { closeTrack, openTrack } = useAppActions();
 
@@ -209,7 +211,7 @@ export function TrackDetail() {
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
         <Image
-          src={era.image || '/placeholder.svg'}
+          src={resolveUrl(era.image || '/placeholder.svg')}
           alt=""
           fill
           priority

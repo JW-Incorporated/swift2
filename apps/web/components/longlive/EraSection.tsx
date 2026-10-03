@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import Image from 'next/image';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { eraVideoFeed, type WatchableVideoNote } from '@swift2/content-enrichment';
@@ -52,6 +52,8 @@ export function EraSection({
   /** Current era's live `current_item` rows (Stage 5); ignored elsewhere. */
   currentItems?: CurrentItem[];
 }) {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
   // Stage 5 — live entries + overlay state (use-era-current-feed.ts).
@@ -196,7 +198,7 @@ export function EraSection({
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={era.image || '/placeholder.svg'}
+            src={resolveUrl(era.image || '/placeholder.svg')}
             alt=""
             fill
             priority
