@@ -138,4 +138,25 @@ describe('notification bridge handlers', () => {
     expect(await three).toEqual({ ok: true, value: null });
     expect(applied).toEqual([{ song_drop: true }, { song_drop: true, easter_egg: true }]);
   });
+
+  it('an abort unblocks the next pref update behind a hung one', async () => {
+    const d = deps();
+    const ac = new AbortController();
+    d.updatePrefs.mockImplementationOnce(() => new Promise<void>(() => {}));
+    const h = createHandlers(d);
+    const one = h['notifications.updatePrefs']({ prefs: { song_drop: true } }, { signal: ac.signal });
+    await new Promise((r) => setTimeout(r, 0));
+    const two = h['notifications.updatePrefs']({ prefs: { song_drop: false } }, ctx);
+    ac.abort();
+    expect(await one).toMatchObject({ ok: false, error: { code: 'cancelled' } });
+    expect(await two).toEqual({ ok: true, value: null });
+    expect(d.updatePrefs).toHaveBeenLastCalledWith({ song_drop: false });
+  });
+
+  it('a hung native call times out as failed and releases the chain', async () => {
+    const d = deps();
+    d.status.mockImplementation(() => new Promise<never>(() => {}));
+    const r = await createHandlers(d, { opTimeoutMs: 10 })['notifications.status']({}, ctx);
+    expect(r).toEqual({ ok: false, error: { code: 'failed', message: 'notification operation failed' } });
+  });
 });

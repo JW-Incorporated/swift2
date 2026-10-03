@@ -131,6 +131,78 @@ describe('notification tap queue', () => {
     expect(got).toEqual(['/settings', '/privacy']);
   });
 
+
+  it('a hung sink is abandoned by detach then re-attach, and the tap is delivered', async () => {
+    const q = createTapQueue();
+    q.enqueue(tap('h', '/settings'));
+    q.attach(() => new Promise<boolean>(() => {}));
+    await new Promise((r) => setTimeout(r, 0));
+    q.detach();
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual(['/settings']);
+    expect(q.size()).toBe(0);
+  });
+
+  it('an ack timeout releases the drain and keeps the tap', async () => {
+    const q = createTapQueue({ ackTimeoutMs: 10 });
+    q.enqueue(tap('to', '/settings'));
+    q.attach(() => new Promise<boolean>(() => {}));
+    await q.flush();
+    expect(q.size()).toBe(1);
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual(['/settings']);
+  });
+
+  it('overflow never evicts the in-flight head', async () => {
+    const onDrop = vi.fn();
+    const q = createTapQueue({ capacity: 2, onDrop });
+    let release!: (v: boolean) => void;
+    const seen: string[] = [];
+    q.enqueue(tap('1', '/settings'));
+    q.enqueue(tap('2', '/privacy'));
+    q.attach((t) => {
+      seen.push(t.path);
+      return (t.path as string) === '/settings' ? new Promise<boolean>((r) => (release = r)) : Promise.resolve(true);
+    });
+    await new Promise((r) => setTimeout(r, 0));
+    q.enqueue(tap('3', '/terms'));
+    release(true);
+    await q.flush();
+    expect(seen).toEqual(['/settings', '/terms']);
+    expect(onDrop).toHaveBeenCalledWith('overflow');
+  });
+
+  it('capacity 1 with an in-flight head drops the incoming tap', async () => {
+    const q = createTapQueue({ capacity: 1 });
+    let release!: (v: boolean) => void;
+    q.enqueue(tap('1', '/settings'));
+    q.attach(() => new Promise<boolean>((r) => (release = r)));
+    await new Promise((r) => setTimeout(r, 0));
+    expect(q.enqueue(tap('2', '/privacy'))).toBe('dropped');
+    release(true);
+    await q.flush();
+    expect(q.size()).toBe(0);
+  });
+
+  it('uses the monotonic clock for the TTL by default', async () => {
+    const spy = vi.spyOn(globalThis.performance, 'now').mockReturnValue(0);
+    const dateSpy = vi.spyOn(Date, 'now').mockReturnValue(0);
+    const q = createTapQueue({ ttlMs: 1000 });
+    q.enqueue(tap('m1', '/settings'));
+    dateSpy.mockReturnValue(10_000_000);
+    expect(spy).toHaveBeenCalled();
+    const { sink, got } = ackAll();
+    q.attach(sink);
+    await q.flush();
+    expect(got).toEqual(['/settings']);
+    spy.mockRestore();
+    dateSpy.mockRestore();
+  });
+
   it('drops stale taps (older than the TTL) at flush', async () => {
     let t = 0;
     const onDrop = vi.fn();

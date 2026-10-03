@@ -19,31 +19,50 @@ export type NotificationHandlers = Pick<
   'notifications.status' | 'notifications.request' | 'notifications.register' | 'notifications.updatePrefs'
 >;
 
+const OP_TIMEOUT_MS = 15_000;
 const cancelled = (message = 'cancelled') => resErr('cancelled', message);
 
 /**
- * Runs `run` unless already aborted; an abort during the call discards its
- * result. Failures answer a fixed message: a token or server text never
- * crosses the bridge.
+ * Runs `run` unless already aborted; an abort, or `opTimeoutMs`, settles the
+ * call at once (so the update chain never wedges on a hung native call) and
+ * discards any later result. An abandoned write may still complete natively:
+ * ordering holds only among non-abandoned writes. Failures answer a fixed
+ * message: a token or server text never crosses the bridge.
  */
-async function guarded<V>(ctx: HandlerContext, run: () => Promise<V>): Promise<ResResult<V>> {
+async function guarded<V>(ctx: HandlerContext, run: () => Promise<V>, opTimeoutMs = OP_TIMEOUT_MS): Promise<ResResult<V>> {
   if (ctx.signal.aborted) return cancelled();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let onAbort: (() => void) | undefined;
   try {
-    const value = await run();
-    return ctx.signal.aborted ? cancelled() : resOk(value);
+    const aborted = new Promise<ResResult<never>>((r) => {
+      onAbort = () => r(cancelled());
+      ctx.signal.addEventListener('abort', onAbort, { once: true });
+    });
+    const timedOut = new Promise<ResResult<never>>((r) => {
+      timer = setTimeout(() => r(resErr('failed', 'notification operation failed')), opTimeoutMs);
+    });
+    const done = run().then(
+      (value): ResResult<V> => (ctx.signal.aborted ? cancelled() : resOk(value)),
+      (): ResResult<V> => (ctx.signal.aborted ? cancelled() : resErr('failed', 'notification operation failed')),
+    );
+    return await Promise.race([done, aborted, timedOut]);
   } catch {
-    return ctx.signal.aborted ? cancelled() : resErr('failed', 'notification operation failed');
+    return resErr('failed', 'notification operation failed');
+  } finally {
+    clearTimeout(timer);
+    if (onAbort) ctx.signal.removeEventListener('abort', onAbort);
   }
 }
 
-export function createHandlers(deps: NotificationHandlerDeps): NotificationHandlers {
+export function createHandlers(deps: NotificationHandlerDeps, opts: { opTimeoutMs?: number } = {}): NotificationHandlers {
+  const guardedT = <V>(ctx: HandlerContext, run: () => Promise<V>) => guarded(ctx, run, opts.opTimeoutMs);
   let latest = 0;
   let tail: Promise<unknown> = Promise.resolve();
 
   return {
-    'notifications.status': (_p, ctx) => guarded(ctx, () => deps.status()),
-    'notifications.request': (_p, ctx) => guarded(ctx, () => deps.request()),
-    'notifications.register': (_p, ctx) => guarded(ctx, async () => (await deps.register(), null)),
+    'notifications.status': (_p, ctx) => guardedT(ctx, () => deps.status()),
+    'notifications.request': (_p, ctx) => guardedT(ctx, () => deps.request()),
+    'notifications.register': (_p, ctx) => guardedT(ctx, async () => (await deps.register(), null)),
     'notifications.updatePrefs': (payload, ctx) => {
       const clean = validKnownPrefs(payload?.prefs) as { prefs: Record<string, boolean> } | null;
       if (!clean) return Promise.resolve(resErr('invalid', 'prefs must be a bounded map of booleans'));
@@ -51,7 +70,7 @@ export function createHandlers(deps: NotificationHandlerDeps): NotificationHandl
       const seq = ++latest;
       const run = tail.then(() => {
         if (seq !== latest) return cancelled('superseded');
-        return guarded(ctx, async () => (await deps.updatePrefs(clean.prefs), null));
+        return guardedT(ctx, async () => (await deps.updatePrefs(clean.prefs), null));
       });
       tail = run.catch(() => undefined);
       return run;

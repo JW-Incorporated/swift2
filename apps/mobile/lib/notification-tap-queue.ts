@@ -3,6 +3,7 @@ import type { EventPayloadOf, WebPath } from '@swift2/ui';
 
 export const MAX_QUEUED_TAPS = 16;
 export const MAX_SEEN_TAPS = 64;
+export const ACK_TIMEOUT_MS = 15_000;
 export const TAP_TTL_MS = 10 * 60 * 1000;
 
 const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
@@ -56,6 +57,9 @@ export interface TapQueueDeps {
   capacity?: number;
   seenCapacity?: number;
   ttlMs?: number;
+  /** Ack wait per tap before it is treated as not delivered (default 15 s). */
+  ackTimeoutMs?: number;
+  /** Clock for `receivedAt`/TTL: clock-relative, monotonic (performance.now) when available. */
   now?: () => number;
   /** A tap lost to an unmappable payload, overflow or age; never throws into the caller. */
   onDrop?: (reason: 'unmappable' | 'overflow' | 'stale') => void;
@@ -73,13 +77,16 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   const capacity = deps.capacity ?? MAX_QUEUED_TAPS;
   const seenCap = deps.seenCapacity ?? MAX_SEEN_TAPS;
   const ttl = deps.ttlMs ?? TAP_TTL_MS;
-  const now = deps.now ?? Date.now;
+  const ackTimeout = deps.ackTimeoutMs ?? ACK_TIMEOUT_MS;
+  const now = deps.now ?? (() => globalThis.performance?.now?.() ?? Date.now());
   const resolvePath = deps.resolvePath ?? resolveTapPath;
   const held: Tap[] = [];
   const delivered = new Set<string>();
   let sink: TapSink | null = null;
   let flushing: Promise<void> | null = null;
   let again = false;
+  let inFlight: Tap | null = null;
+  let abandon: (() => void) | null = null;
 
   const drop = (reason: 'unmappable' | 'overflow' | 'stale') => {
     try {
@@ -105,10 +112,18 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
         continue;
       }
       let acked = false;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      inFlight = head;
       try {
-        acked = (await s(head)) === true;
+        const abandoned = new Promise<boolean>((r) => (abandon = () => r(false)));
+        const timedOut = new Promise<boolean>((r) => (timer = setTimeout(() => r(false), ackTimeout)));
+        acked = await Promise.race([s(head).then((v) => v === true, () => false), abandoned, timedOut]);
       } catch {
         acked = false;
+      } finally {
+        clearTimeout(timer);
+        abandon = null;
+        inFlight = null;
       }
       if (!acked) return;
       markDelivered(head.id);
@@ -151,8 +166,10 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
     const id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= 256 ? raw.id : null;
     if (id !== null && (delivered.has(id) || held.some((t) => t.id === id))) return 'duplicate';
     if (held.length >= capacity) {
-      held.shift();
+      const idx = held[0] === inFlight ? 1 : 0;
       drop('overflow');
+      if (idx >= held.length) return 'dropped';
+      held.splice(idx, 1);
     }
     held.push({ id, path, receivedAt: now() });
     void flush();
@@ -163,10 +180,12 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
     enqueue,
     attach(next: TapSink): void {
       sink = next;
+      abandon?.();
       void flush();
     },
     detach(): void {
       sink = null;
+      abandon?.();
     },
     flush,
     size: () => held.length,
