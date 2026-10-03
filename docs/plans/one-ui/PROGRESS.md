@@ -175,6 +175,16 @@ skipped), P2 build not tied to the run's build_android job, P3 resubmit
 idempotency (pre-existing → doc note) → fix round launched. Parity harness
 never ran on main (PR/dispatch only) → dispatched run 37090052458 on main →
 if green: **Fable G1 go/no-go**.
+**02:10 (10-03) — owner: "keep going… run all night… parallel agents".**
+Parity on main 37090052458 = SUCCESS. #4833 (WP0.1b) + #4837 (HA #96 on main)
+MERGED. Release train still red (iOS signing; HA #96 open). #4838 Codex r2 =
+REQUEST CHANGES (P1 commit-hash binding fails open; P2 id not validated) →
+2nd consecutive → Fable (mandatory) + fix round 2 in parallel. Launched:
+Fable = G1 go/no-go + #4838 ruling; #4838 fix r2; WP2.2 brief draft (→
+docs/plans/one-ui/briefs/brief-wp22.md); #4835/#4836 fixture prune executor.
+NIGHT PLAN: on G1 GO → WP2.1-A executor (briefs/brief-wp21.md), then 2.1-B
+(stacked), 2.1-C (fonts; step 1 = DOM @font-face resolution = G0 evidence),
+2.3-A after 2.1-B; WP2.2 after its brief + Fable review. Keep ≤5 workers.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
