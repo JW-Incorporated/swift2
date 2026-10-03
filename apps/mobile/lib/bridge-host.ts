@@ -35,7 +35,8 @@ import { isExpectedResult, isRecord, validateCommand } from './bridge-host-valid
 
 export const HOST_RANGE: VersionRange = NATIVE_SUPPORTED_RANGE;
 export { DEFAULT_TIMEOUT_MS, type BridgeScheduler };
-export const SEEN_IDS_CAP = 256;
+export const READY_LIMIT = 3;
+export const READY_WINDOW_MS = 10_000;
 export const MAX_INFLIGHT = 32;
 export const MAX_PENDING = 64;
 
@@ -51,7 +52,6 @@ export interface BridgeHostDeps {
   onSignal: (stage: string, detail?: string) => void;
   /** Per-type overrides of DEFAULT_TIMEOUT_MS. */
   timeouts?: Partial<Record<DomCommandType, number>>;
-  seenCap?: number;
   maxInflight?: number;
   outboxCap?: number;
 }
@@ -67,9 +67,9 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       /* a throwing signal sink must not break the dispatcher */
     }
   };
-  const seenCap = deps.seenCap ?? SEEN_IDS_CAP;
   const maxInflight = deps.maxInflight ?? MAX_INFLIGHT;
-  const seen = new Map<string, true>(); // bounded LRU of cmd ids
+  let hwm = -1; // highest cmd id admitted; `ready` never resets it
+  let readyTimes: number[] = [];
   const pending = new Map<string, Pending>(); // native-to-DOM requests, by id
   const { arm, disarm } = createTimers(deps.scheduler, onSignal);
   const outbox = createOutbox(deps.outboxCap ?? OUTBOX_CAP, onSignal);
@@ -106,7 +106,6 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       p.resolve(resErr('failed', 'bridge closed'));
     }
     outbox.clear();
-    seen.clear();
   }
   const raise = (reason: string) => {
     if (closed) return;
@@ -118,26 +117,25 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     }
   };
 
-  const markSeen = (id: string) => {
-    seen.delete(id);
-    seen.set(id, true);
-    if (seen.size > seenCap) seen.delete(seen.keys().next().value as string);
-  };
+  /** Monotonic admission: ids are digit strings strictly above the high-water mark. */
+  function admit(id: string, type: string): boolean {
+    const n = /^[0-9]{1,15}$/.test(id) ? Number(id) : Number.NaN;
+    if (n > hwm) {
+      hwm = n;
+      return true;
+    }
+    onSignal('rejected_monotonic', id.slice(0, 64));
+    if (!inflight.has(id)) respond(id, type.slice(0, 64), resErr('invalid', 'command id not monotonic'));
+    return false;
+  }
 
-  /** Answer a cmd that cannot run, at most once per id, with a bounded seen set. */
+  /** Answer a cmd that cannot run; a replayed or out-of-order id is rejected by `admit`. */
   function rejectCmd(id: string, type: string, message: string) {
-    if (seen.has(id) || inflight.has(id)) return;
-    markSeen(id);
-    respond(id, type.slice(0, 64), resErr('invalid', message));
+    if (admit(id, type)) respond(id, type.slice(0, 64), resErr('invalid', message));
   }
 
   function onCmd(env: Envelope) {
-    if (seen.has(env.id) || inflight.has(env.id)) {
-      if (seen.has(env.id)) markSeen(env.id);
-      onSignal('bridge-duplicate', env.id);
-      return;
-    }
-    markSeen(env.id);
+    if (!admit(env.id, env.type)) return;
     const unknown = answerUnknown(env, BRIDGE_VERSION, now());
     if (unknown) return safeSend(unknown);
     const type = env.type as DomCommandType;
@@ -155,6 +153,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     const p = pending.get(id);
     if (!p) return;
     pending.delete(id);
+    outbox.remove(id);
     disarm(p.timer);
     p.resolve(result);
   }
@@ -173,6 +172,8 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   }
 
   function onReady(env: Envelope) {
+    readyTimes = [...readyTimes.filter((x) => now() - x < READY_WINDOW_MS), now()];
+    if (readyTimes.length > READY_LIMIT) return raise('bridge-ready rate limit');
     const r = parseReady(env.payload);
     if (!r) {
       if (ready) return onSignal('bridge-invalid', 'ready payload');
@@ -184,10 +185,8 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       const reason = n.ok ? (r.range!.min > HOST_RANGE.max ? 'too-new' : 'too-old') : n.reason;
       return raise(`bridge-version ${reason} dom=${r.v} host=${HOST_RANGE.min}-${HOST_RANGE.max}`);
     }
-    if (ready) {
-      inflight.abortAll();
-      seen.clear();
-    }
+    if (env.v !== r.v) return raise(`bridge-version envelope v=${env.v} ready v=${r.v}`);
+    if (ready) inflight.abortAll();
     ready = true;
     negotiated = r.v;
     outbox.all().forEach(dispatch);
@@ -224,7 +223,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       }
       const env = parsed.envelope;
       const isReady = env.kind === 'evt' && env.type === 'ready';
-      if (negotiated !== null && !isReady && env.v !== negotiated) {
+      if (negotiated !== null && env.v !== negotiated) {
         onSignal('bridge-version-mismatch', `${env.kind} v=${env.v} negotiated=${negotiated}`);
         if (env.kind === 'cmd') rejectCmd(env.id, env.type, 'envelope version mismatch');
         return;

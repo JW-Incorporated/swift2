@@ -31,41 +31,30 @@ describe('bridge-host hardening: bounds', () => {
     expect(s.host.inbox()).toHaveLength(2);
   });
 
-  it('bounds the seen set on the malformed-command path too', () => {
-    const s = setup({}, { seenCap: 2 });
+  it('malformed commands pass through the same monotonic admission', () => {
+    const s = setup();
     s.makeReady();
-    for (const id of ['m0', 'm1', 'm2', 'm3']) {
-      s.host.receive({ v: 1, id, kind: 'cmd', type: 'haptic', payload: { f: () => 1 }, ts: 1 });
-    }
-    s.host.receive({ v: 1, id: 'm0', kind: 'cmd', type: 'haptic', payload: { f: () => 1 }, ts: 1 });
-    expect(s.resFor('m0')).toHaveLength(2); // evicted, so answered again: the set stayed bounded
-    s.host.receive({ v: 1, id: 'm3', kind: 'cmd', type: 'haptic', payload: { f: () => 1 }, ts: 1 });
-    expect(s.resFor('m3')).toHaveLength(1);
+    const bad = (id: string) => s.host.receive({ v: 1, id, kind: 'cmd', type: 'haptic', payload: { f: () => 1 }, ts: 1 });
+    bad('10');
+    bad('10');
+    bad('9');
+    expect(s.resFor('10')).toHaveLength(2);
+    expect(s.resFor('9')).toHaveLength(1);
+    expect((s.resFor('10')[1]!.payload as { error: { message: string } }).error.message).toBe('command id not monotonic');
+    bad('11');
+    expect(s.resFor('11')).toHaveLength(1);
   });
 
   it('caps concurrent in-flight commands: over the cap answers failed without starting a handler', async () => {
     const api = vi.fn(never);
     const s = setup({ api } as never, { maxInflight: 2 });
-    s.cmd('a1', 'api', apiReq);
-    s.cmd('a2', 'api', apiReq);
-    s.cmd('a3', 'api', apiReq);
+    s.cmd('1', 'api', apiReq);
+    s.cmd('2', 'api', apiReq);
+    s.cmd('3', 'api', apiReq);
     await tick();
     expect(api).toHaveBeenCalledTimes(2);
-    expect(code(s.resFor('a3')[0]!)).toBe('failed');
-    expect((body(s.resFor('a3')[0]!) as { error: { message: string } }).error.message).toBe('busy');
-  });
-
-  it('an in-flight id evicted from the seen LRU is still a duplicate', async () => {
-    const api = vi.fn(never);
-    const s = setup({ api } as never, { seenCap: 1 });
-    s.cmd('c1', 'api', apiReq);
-    s.cmd('c2', 'haptic', { kind: 'light' });
-    s.cmd('c3', 'haptic', { kind: 'light' });
-    s.cmd('c1', 'api', apiReq);
-    await tick();
-    expect(api).toHaveBeenCalledTimes(1);
-    s.sch.advance(8000);
-    expect(s.resFor('c1')).toHaveLength(1);
+    expect(code(s.resFor('3')[0]!)).toBe('failed');
+    expect((body(s.resFor('3')[0]!) as { error: { message: string } }).error.message).toBe('busy');
   });
 });
 
@@ -73,20 +62,20 @@ describe('bridge-host hardening: payloads and version', () => {
   it('validates share, haptic and notification payloads per field', async () => {
     const h = vi.fn(async () => resOk(null));
     const s = setup({ share: h, haptic: h, 'notifications.updatePrefs': h, 'notifications.status': h } as never);
-    s.cmd('s1', 'share', { title: 5 });
-    s.cmd('s2', 'share', { url: 'x'.repeat(3000) });
-    s.cmd('h1', 'haptic', { kind: 'earthquake' });
-    s.cmd('h2', 'haptic', {});
-    s.cmd('p1', 'notifications.updatePrefs', { prefs: { a: 'yes' } });
-    s.cmd('p2', 'notifications.updatePrefs', { prefs: [true] });
-    s.cmd('p3', 'notifications.updatePrefs', {});
-    s.cmd('n1', 'notifications.status', 'str');
+    s.cmd('1', 'share', { title: 5 });
+    s.cmd('2', 'share', { url: 'x'.repeat(3000) });
+    s.cmd('3', 'haptic', { kind: 'earthquake' });
+    s.cmd('4', 'haptic', {});
+    s.cmd('5', 'notifications.updatePrefs', { prefs: { a: 'yes' } });
+    s.cmd('6', 'notifications.updatePrefs', { prefs: [true] });
+    s.cmd('7', 'notifications.updatePrefs', {});
+    s.cmd('8', 'notifications.status', 'str');
     await tick();
-    for (const id of ['s1', 's2', 'h1', 'h2', 'p1', 'p2', 'p3', 'n1']) expect(code(s.resFor(id)[0]!)).toBe('invalid');
+    for (const id of ['1', '2', '3', '4', '5', '6', '7', '8']) expect(code(s.resFor(id)[0]!)).toBe('invalid');
     expect(h).not.toHaveBeenCalled();
-    s.cmd('s3', 'share', { title: 't', url: 'https://x.test', extra: 1 });
-    s.cmd('h3', 'haptic', { kind: 'light' });
-    s.cmd('p4', 'notifications.updatePrefs', { prefs: { news: true } });
+    s.cmd('9', 'share', { title: 't', url: 'https://x.test', extra: 1 });
+    s.cmd('10', 'haptic', { kind: 'light' });
+    s.cmd('11', 'notifications.updatePrefs', { prefs: { news: true } });
     await tick();
     expect(h).toHaveBeenCalledWith({ title: 't', url: 'https://x.test' }, expect.anything());
     expect(h).toHaveBeenCalledWith({ prefs: { news: true } }, expect.anything());
@@ -97,11 +86,11 @@ describe('bridge-host hardening: payloads and version', () => {
     const haptic = vi.fn(async () => resOk(null));
     const s = setup({ haptic } as never);
     s.makeReady();
-    s.host.receive({ v: 2, id: 'c1', kind: 'cmd', type: 'haptic', payload: { kind: 'light' }, ts: 1 });
+    s.host.receive({ v: 2, id: '1', kind: 'cmd', type: 'haptic', payload: { kind: 'light' }, ts: 1 });
     s.host.receive({ v: 2, id: 'e1', kind: 'evt', type: 'diag', payload: { stage: 'x' }, ts: 1 });
     s.host.receive({ v: 2, id: 'e2', kind: 'evt', type: 'ack', payload: { seq: 0 }, ts: 1 });
     await tick();
-    expect(code(s.resFor('c1')[0]!)).toBe('invalid');
+    expect(code(s.resFor('1')[0]!)).toBe('invalid');
     expect(haptic).not.toHaveBeenCalled();
     expect(s.onSignal).not.toHaveBeenCalledWith('x', undefined);
     expect(s.onSignal).toHaveBeenCalledWith('bridge-version-mismatch', expect.any(String));
@@ -128,7 +117,7 @@ describe('bridge-host hardening: payloads and version', () => {
     expect(await p).toMatchObject({ error: { code: 'timeout' } });
   });
 
-  it('re-ready is a new session: reused ids are accepted and old-session handlers send nothing', async () => {
+  it('re-ready aborts old-session handlers silently; a reused id stays rejected, a higher id runs', async () => {
     let finish!: () => void;
     let signal!: AbortSignal;
     const api = vi.fn((_p: unknown, c: { signal: AbortSignal }) => {
@@ -137,19 +126,21 @@ describe('bridge-host hardening: payloads and version', () => {
     });
     const s = setup({ api } as never);
     s.makeReady();
-    s.cmd('c1', 'api', apiReq);
+    s.cmd('1', 'api', apiReq);
     await tick();
     s.makeReady();
     expect(signal.aborted).toBe(true);
     expect(s.sch.count()).toBe(0);
     finish();
     await tick();
-    expect(s.resFor('c1')).toHaveLength(0);
-    s.cmd('c1', 'api', apiReq);
+    expect(s.resFor('1')).toHaveLength(0);
+    s.cmd('1', 'api', apiReq);
+    s.cmd('2', 'api', apiReq);
     await tick();
     expect(api).toHaveBeenCalledTimes(2);
+    expect(code(s.resFor('1')[0]!)).toBe('invalid');
     s.sch.advance(8000);
-    expect(s.resFor('c1')).toHaveLength(1);
+    expect(s.resFor('2')).toHaveLength(1);
   });
 
   it('a second ready with an unsupported version is protocol-fatal and silences the host', () => {
@@ -159,7 +150,7 @@ describe('bridge-host hardening: payloads and version', () => {
     expect(s.onProtocolFatal).toHaveBeenCalledTimes(1);
     const n = s.sent.length;
     s.host.emit('contentVersion', { token: 'z' });
-    s.cmd('c1', 'haptic', { kind: 'light' });
+    s.cmd('1', 'haptic', { kind: 'light' });
     expect(s.sent).toHaveLength(n);
   });
 });
@@ -168,12 +159,12 @@ describe('bridge-host hardening: cancel, fatal, teardown', () => {
   it('a cancel landing before the deferred handler starts means the handler never runs; one res', async () => {
     const api = vi.fn(never);
     const s = setup({ api } as never);
-    s.cmd('c1', 'api', apiReq);
-    s.cmd('x1', 'cancel', { targetId: 'c1' });
+    s.cmd('1', 'api', apiReq);
+    s.cmd('2', 'cancel', { targetId: '1' });
     await tick();
     expect(api).not.toHaveBeenCalled();
-    expect(s.resFor('c1')).toHaveLength(1);
-    expect(code(s.resFor('c1')[0]!)).toBe('cancelled');
+    expect(s.resFor('1')).toHaveLength(1);
+    expect(code(s.resFor('1')[0]!)).toBe('cancelled');
     expect(s.sch.count()).toBe(0);
   });
 
@@ -181,7 +172,7 @@ describe('bridge-host hardening: cancel, fatal, teardown', () => {
     let signal!: AbortSignal;
     const s = setup({ api: (_p: unknown, c: { signal: AbortSignal }) => { signal = c.signal; return never(); } } as never);
     s.makeReady();
-    s.cmd('c1', 'api', apiReq);
+    s.cmd('1', 'api', apiReq);
     await tick();
     const p = s.host.request('back', {});
     const n = s.sent.length;
@@ -190,7 +181,7 @@ describe('bridge-host hardening: cancel, fatal, teardown', () => {
     expect(s.sch.count()).toBe(0);
     expect(await p).toMatchObject({ ok: false, error: { code: 'failed' } });
     s.host.emit('contentVersion', { token: 'z' });
-    s.cmd('c2', 'haptic', { kind: 'light' });
+    s.cmd('2', 'haptic', { kind: 'light' });
     s.sch.advance(60000);
     await tick();
     expect(s.sent).toHaveLength(n);
@@ -213,18 +204,18 @@ describe('bridge-host hardening: cancel, fatal, teardown', () => {
     s.makeReady();
     s.sch.setTimeout = () => { throw new Error('no timers'); };
     expect(await s.host.request('back', {})).toMatchObject({ ok: false, error: { code: 'failed' } });
-    s.cmd('c1', 'api', apiReq);
+    s.cmd('1', 'api', apiReq);
     await tick();
-    expect(code(s.resFor('c1')[0]!)).toBe('failed');
+    expect(code(s.resFor('1')[0]!)).toBe('failed');
     const t = setup({}, { now: () => { throw new Error('clock'); } });
     expect(await t.host.request('back', {})).toMatchObject({ ok: false });
   });
 
   it('never sends the raw handler error message to the DOM; logs it natively', async () => {
     const s = setup({ share: async () => { throw new Error('secret /var/path token=abc'); } } as never);
-    s.cmd('c1', 'share', {});
+    s.cmd('1', 'share', {});
     await tick();
-    expect(JSON.stringify(s.resFor('c1')[0])).not.toContain('secret');
+    expect(JSON.stringify(s.resFor('1')[0])).not.toContain('secret');
     expect(s.onSignal).toHaveBeenCalledWith('bridge-handler-error', expect.stringContaining('secret'));
   });
 });

@@ -104,25 +104,38 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
 const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true };
-const NATIVE_EVENTS: Record<NativeEventType, true> = { insets: true, contentVersion: true, navigate: true };
+const NATIVE_EVENTS: Record<NativeEventType, true> = {
+  insets: true,
+  contentVersion: true,
+  navigate: true,
+};
 
 export const DOM_COMMAND_TYPES = Object.keys(DOM_COMMANDS) as readonly DomCommandType[];
 export const NATIVE_COMMAND_TYPES = Object.keys(NATIVE_COMMANDS) as readonly NativeCommandType[];
-export const COMMAND_TYPES: readonly CommandType[] = [...DOM_COMMAND_TYPES, ...NATIVE_COMMAND_TYPES];
+export const COMMAND_TYPES: readonly CommandType[] = [
+  ...DOM_COMMAND_TYPES,
+  ...NATIVE_COMMAND_TYPES,
+];
 export const DOM_EVENT_TYPES = Object.keys(DOM_EVENTS) as readonly DomEventType[];
 export const NATIVE_EVENT_TYPES = Object.keys(NATIVE_EVENTS) as readonly NativeEventType[];
 export const EVENT_TYPES: readonly EventType[] = [...DOM_EVENT_TYPES, ...NATIVE_EVENT_TYPES];
 
 export const isDomCommandType = (t: string): t is DomCommandType => Object.hasOwn(DOM_COMMANDS, t);
-export const isNativeCommandType = (t: string): t is NativeCommandType => Object.hasOwn(NATIVE_COMMANDS, t);
+export const isNativeCommandType = (t: string): t is NativeCommandType =>
+  Object.hasOwn(NATIVE_COMMANDS, t);
 /**
  * The `res` for a `cmd` whose type is not a DOM command: `unsupported`, never a
  * throw. Returns null when `cmd` is known (the dispatcher handles it).
  */
-export function answerUnknown(cmd: Pick<Envelope, 'id' | 'type'>, v: number, ts: number): Envelope | null {
+export function answerUnknown(
+  cmd: Pick<Envelope, 'id' | 'type'>,
+  v: number,
+  ts: number,
+): Envelope | null {
   if (isDomCommandType(cmd.type)) return null;
   return makeRes(cmd, resErr('unsupported', `unknown command: ${cmd.type.slice(0, 64)}`), v, ts);
 }
 
-export const isDomEventType =(t: string): t is DomEventType => Object.hasOwn(DOM_EVENTS, t);
-export const isNativeEventType = (t: string): t is NativeEventType => Object.hasOwn(NATIVE_EVENTS, t);
+export const isDomEventType = (t: string): t is DomEventType => Object.hasOwn(DOM_EVENTS, t);
+export const isNativeEventType = (t: string): t is NativeEventType =>
+  Object.hasOwn(NATIVE_EVENTS, t);

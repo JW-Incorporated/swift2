@@ -14,7 +14,10 @@ export function createOutbox(cap: number, onSignal: (stage: string, detail?: str
     highest: () => seq,
     all: (): Envelope[] => queue.slice(),
     ack(n: number) {
-      queue = queue.filter((q) => q.seq! > n);
+      queue = queue.filter((q) => q.kind === 'cmd' || q.seq! > n);
+    },
+    remove(id: string) {
+      queue = queue.filter((q) => q.id !== id);
     },
     clear() {
       queue = [];
