@@ -2,8 +2,8 @@
 
 Owner: Engineering. This is the source of truth for the **shipped front-end
 experience** — the interactive era/threads reader that renders at `/`. Read it
-before touching anything under `apps/web/components/longlive/**` or
-`apps/web/lib/longlive/**`.
+before touching anything under `packages/ui/src/reader/**`,
+`apps/web/components/longlive/**` or `apps/web/lib/longlive/**`.
 
 > **Why this doc exists.** `docs/architecture.md` describes the *intended*
 > Supabase-backed two-tier Vault. The experience currently shipped on the web
@@ -12,6 +12,33 @@ before touching anything under `apps/web/components/longlive/**` or
 > two-tier serving path, or `lib/vault.ts`. Any AI working on the site will
 > spend its time here, so this layer gets its own manual. When the two
 > converge (data moving to Supabase), update both docs in the same change.
+
+---
+
+**Where the code lives now (One UI, 2026-10-03).** Most of the reader UI moved
+from `apps/web/components/longlive/**` and `apps/web/lib/longlive/**` into
+`packages/ui/src/reader/<slice>/` (slices: `era`, `store`, `lib`, `shell`,
+`moment`, `threads`, `tracks`, `search`, `merch`, `community`, `clown`,
+`settings`, `legal`). Components are `reader/<slice>/X.tsx`; non-component
+modules are `reader/<slice>/lib/X.ts`. The per-slice file lists, what stayed in
+`apps/web`, and the logged size debt are in `packages/ui/READER-MOVE.md`. The
+directory map in §2 still names the original files; look them up in the package.
+
+- **Shim convention.** Where something outside the moved set still imports an
+  old path, that path is a one-line `export * from '@swift2/ui/reader/…'`
+  shim (kept until WP2.13). New code imports
+  `@swift2/ui/reader/<slice>/…` directly, never the shim. Subpath exports are
+  declared in `packages/ui/package.json`.
+- **Host adapter seam.** `packages/ui` never imports `next/*` or
+  `react-native*`; anything host-specific goes through `useHost()`
+  (`packages/ui/HOST-ADAPTER.md`). The web has two adapters in
+  `apps/web/lib/host-adapter.tsx`: `createWebAdapter` is the base (also spread
+  by the app's DOM host later) and `createWebRootAdapter` is the Next root's
+  adapter, adding affiliate ids and browser web push. Every tree that mounts
+  `AppProvider` needs a `HostProvider`.
+- **Parity-gate rule.** The website is the reference (decisions.md,
+  2026-10-02). A reader change lands once in `packages/ui` and reaches web and
+  app together; a PR fails if the app and web renderings differ.
 
 ---
 
@@ -53,6 +80,11 @@ moment detail) hangs off those two modes. Navigation state lives in one store
 ---
 
 ## 2. Directory map
+
+Pre-move layout: files listed under `components/longlive/` and the logic modules
+under `lib/longlive/` that moved now live in `packages/ui/src/reader/` (see the
+note at the top); data modules (`eras`, `content`, `lenses`, `*.generated.ts`)
+stay in `apps/web/lib/longlive/`.
 
 ```
 apps/web/

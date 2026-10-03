@@ -12,7 +12,11 @@ not a plan still in progress.
 ## What this repo actually is — two products in one, plus a mobile app now on a headless core
 
 1. **The website.** One client-rendered Next.js page (`apps/web/app/page.tsx`
-   → `<LongLive/>` in `apps/web/components/longlive/**`) driven by
+   → `<LongLive/>` in `apps/web/components/longlive/**`) whose reader UI now
+   lives in `packages/ui/src/reader/**` (old `apps/web` paths are one-line
+   re-export shims; host-specific behaviour goes through the `HostAdapter`
+   seam, `packages/ui/HOST-ADAPTER.md`; the website is the parity reference,
+   so a PR fails if app and web differ), driven by data modules in
    `apps/web/lib/longlive/**`. Content used to live in committed
    `*.generated.ts` files; those are gone now (see "Content pipeline" below).
    This is the interactive era/threads reader users see at `/`. **Its
