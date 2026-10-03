@@ -12,6 +12,7 @@ import {
 import { deepLinkTarget, resolveVideoDeepLink } from '@swift2/experience';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
 import { useReader } from '../../snapshot/context';
+import { useHost } from '../../host/context';
 import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import { createLocalStorageAdapter } from '../lib/local-storage-adapter';
@@ -147,7 +148,8 @@ function ProgressProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   // Injected adapter (OS-025): stable across renders, created once — the
   // module itself is renderer-agnostic and knows nothing about localStorage.
-  const storage = useMemo(() => createLocalStorageAdapter(), []);
+  const hostStorage = useHost().storage.local;
+  const storage = useMemo(() => createLocalStorageAdapter(hostStorage), [hostStorage]);
 
   useEffect(() => {
     setProgress(readStoredProgress(storage));

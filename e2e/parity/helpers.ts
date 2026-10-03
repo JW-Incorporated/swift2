@@ -102,7 +102,11 @@ export const test = base.extend<{ guard: void }>({
           return route.continue();
         }
         if (['data:', 'blob:', 'about:'].includes(url.protocol)) return route.continue();
-        const era = url.origin === ERA_ART_ORIGIN ? /^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
+        if (url.origin === ERA_ART_ORIGIN && url.pathname.startsWith('/vault/live')) {
+          // Side b resolves the live-data fetch (resolveUrl) to the canonical origin: same stub as the local hosts.
+          return route.fulfill({ json: { items: [], theories: [], signals: [] } });
+        }
+        const era = url.origin === ERA_ART_ORIGIN ?/^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
         if (era) {
           // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
           const file = resolve(repo, 'apps/web/public/eras', era[1]!);

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { FanSignal, LiveTheory } from '@swift2/shared';
 import { CURRENT_ERA_ID } from '@swift2/experience';
+import { useResolveUrl } from '../../host/context';
 import { fetchLiveData } from './use-live-data';
 
 export interface LiveTheoryBoard {
@@ -27,6 +28,7 @@ const EMPTY_BOARD: LiveTheoryBoard = { theories: [], signals: [] };
  */
 export function useLiveTheories(enabled: boolean): LiveTheoryBoard {
   const [board, setBoard] = useState<LiveTheoryBoard>(EMPTY_BOARD);
+  const resolveUrl = useResolveUrl();
 
   useEffect(() => {
     if (!enabled) {
@@ -34,13 +36,13 @@ export function useLiveTheories(enabled: boolean): LiveTheoryBoard {
       return;
     }
     let cancelled = false;
-    fetchLiveData(CURRENT_ERA_ID).then((data) => {
+    fetchLiveData(CURRENT_ERA_ID, resolveUrl).then((data) => {
       if (!cancelled) setBoard({ theories: data.theories, signals: data.signals });
     });
     return () => {
       cancelled = true;
     };
-  }, [enabled]);
+  }, [enabled, resolveUrl]);
 
   return board;
 }

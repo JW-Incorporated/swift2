@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronDown, Share2, X } from 'lucide-react';
-import { useReader } from '@swift2/ui';
+import { useHost, useReader } from '@swift2/ui';
 import { useAppActions, useAppState, type ShareTarget } from '@/lib/longlive/store';
 import type { Era } from '@swift2/experience';
 import { ModeToggle } from './TopBar';
@@ -31,6 +31,7 @@ export function OverlayNav({
 }) {
   const { mode } = useAppState();
   const q = useReader();
+  const host = useHost();
   const { goHome, setMode, closeTrackGuide, setSelectorOpen } = useAppActions();
   const navMode = mode === 'threads' ? 'threads' : 'era';
 
@@ -92,7 +93,7 @@ export function OverlayNav({
         {shareTarget && (
           <button
             type="button"
-            onClick={() => void share(shareTarget, q)}
+            onClick={() => void share(shareTarget, q, host)}
             aria-label="Share"
             title="Share"
             className="era-icon-btn grid size-11 shrink-0 place-items-center rounded-full"

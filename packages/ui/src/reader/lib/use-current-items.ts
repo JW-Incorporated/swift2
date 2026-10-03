@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { CurrentItem } from '@swift2/shared';
+import { useResolveUrl } from '../../host/context';
 import { fetchLiveData } from './use-live-data';
 
 /**
@@ -18,16 +19,17 @@ import { fetchLiveData } from './use-live-data';
  */
 export function useCurrentItems(eraId: string): CurrentItem[] {
   const [items, setItems] = useState<CurrentItem[]>([]);
+  const resolveUrl = useResolveUrl();
 
   useEffect(() => {
     let cancelled = false;
-    fetchLiveData(eraId).then((data) => {
+    fetchLiveData(eraId, resolveUrl).then((data) => {
       if (!cancelled) setItems(data.items);
     });
     return () => {
       cancelled = true;
     };
-  }, [eraId]);
+  }, [eraId, resolveUrl]);
 
   return items;
 }

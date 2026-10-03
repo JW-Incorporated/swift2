@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { TimelineScrubber } from './TimelineScrubber';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import {
   CURRENT_ERA_NOW_GRAIN_MS,
   RAIL_PCT_DECIMALS,
@@ -104,9 +105,11 @@ describe('TimelineScrubber layout', () => {
   // somewhere in the file.
   it('is actually wired into TimelineScrubber in shell > anchor > rail order', () => {
     const { container } = renderWithReader(
-      <AppProvider>
-        <TimelineScrubber />
-      </AppProvider>,
+      <TestHostProvider>
+        <AppProvider>
+          <TimelineScrubber />
+        </AppProvider>
+      </TestHostProvider>,
     );
 
     // Match by the FULL class string (not just the first token) — the scrim

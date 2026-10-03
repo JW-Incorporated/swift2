@@ -28,7 +28,8 @@ import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
  */
 
 export function TheoryGuide() {
-  const { Image } = useHost();
+  const host = useHost();
+  const { Image } = host;
   const resolveUrl = useResolveUrl();
   const { theoryGuideEraId, theoryGuideHighlightSlug } = useAppState();
   const { closeTheoryGuide, popReturnPoint } = useAppActions();
@@ -138,7 +139,7 @@ export function TheoryGuide() {
             the button is added here directly. */}
         <div className="absolute right-4 top-4 flex items-center gap-2">
           <button
-            onClick={() => void shareTargetNow({ kind: 'theoryGuide', eraId: era.id }, q)}
+            onClick={() => void shareTargetNow({ kind: 'theoryGuide', eraId: era.id }, q, host)}
             className="era-icon-btn grid size-11 place-items-center rounded-full backdrop-blur-md"
             aria-label="Share"
             title="Share"
