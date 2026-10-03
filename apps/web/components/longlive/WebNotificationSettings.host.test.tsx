@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HostProvider, type HostWebPush } from '@swift2/ui';
 import { WebNotificationSettings } from '@swift2/ui/reader/settings/WebNotificationSettings';
-import { createWebAdapter, webPushHost } from '@/lib/host-adapter';
+import { createWebAdapter, createWebRootAdapter, webPushHost } from '@/lib/host-adapter';
 import { TestHostProvider } from '@/lib/test-host';
 import * as client from '@/lib/web-push-client';
 
@@ -20,7 +20,11 @@ describe('web adapter webPush (WP2.12 A2)', () => {
     expect(webPushHost.getDeviceId).toBe(client.getOrCreateWebDeviceId);
     expect(webPushHost.subscribe).toBe(client.subscribeToWebPush);
     expect(webPushHost.unsubscribe).toBe(client.unsubscribeFromWebPush);
-    expect(base.webPush).toBe(webPushHost);
+    expect(createWebRootAdapter({ push() {}, replace() {} }).webPush).toBe(webPushHost);
+  });
+
+  it('keeps webPush out of the base adapter (the app DOM host spreads it)', () => {
+    expect(base.webPush).toBeUndefined();
   });
 
   it('loads and saves prefs through the same /api/devices endpoint', async () => {
@@ -41,7 +45,7 @@ describe('web adapter webPush (WP2.12 A2)', () => {
     await expect(webPushHost.loadPrefs('d1')).rejects.toThrow('HTTP 500');
   });
 
-  it('renders under TestHostProvider (unsupported in jsdom)', async () => {
+  it('renders under TestHostProvider (webPush absent: unsupported state)', async () => {
     render(
       <TestHostProvider>
         <WebNotificationSettings vapidPublicKey={null} />

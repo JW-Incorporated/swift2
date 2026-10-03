@@ -63,6 +63,7 @@ type SubscribeState =
   | { kind: 'error'; message: string };
 
 export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: string | null }) {
+  // webPush is absent on hosts without it; every webPush! below sits behind the unsupported-state gate.
   const { webPush } = useHost();
   const [subscribeState, setSubscribeState] = useState<SubscribeState>({ kind: 'checking' });
   const [prefsState, setPrefsState] = useState<DevicePrefsResponse | null>(null);

@@ -126,6 +126,10 @@ export function createWebAdapter(router: WebRouter): HostAdapter {
     },
     insets: { top: 0, right: 0, bottom: 0, left: 0 },
     haptic: () => {},
-    webPush: webPushHost,
   };
+}
+
+/** The Next app root's adapter: the base web adapter plus browser web push (never in the base, which the app DOM host spreads). */
+export function createWebRootAdapter(router: WebRouter): HostAdapter {
+  return { ...createWebAdapter(router), webPush: webPushHost };
 }
