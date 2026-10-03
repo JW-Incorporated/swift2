@@ -270,7 +270,7 @@ describe('runtime registries', () => {
         'notifications.status', 'notifications.updatePrefs', 'openExternal', 'share',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready', 'readyAck']);
   });
 });
 

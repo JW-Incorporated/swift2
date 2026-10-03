@@ -50,6 +50,8 @@ export type DomEventSpec = {
 export type NativeEventSpec = {
   insets: Insets;
   contentVersion: { token: string };
+  /** Unsequenced reply to each accepted `ready`: the host's cmd-id high-water mark (-1 -> 0). */
+  readyAck: { hwm: number };
   navigate: { path: WebPath; source: 'notification' | 'deeplink' };
 };
 
@@ -107,6 +109,7 @@ const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: t
 const NATIVE_EVENTS: Record<NativeEventType, true> = {
   insets: true,
   contentVersion: true,
+  readyAck: true,
   navigate: true,
 };
 
