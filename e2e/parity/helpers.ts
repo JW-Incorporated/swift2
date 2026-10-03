@@ -566,10 +566,10 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
 
 /** One element per new surface for the 1px negatives (a root clip is under the iPad tolerance). */
 export const BETA_NEGATIVE_TARGETS: Record<string, string> = {
-  merch: 'section[aria-labelledby="merch-new-drops"]',
+  merch: '.merch-shell > div:first-child',
   community: 'main h1',
-  clownbot: 'form:has(#clown-input)',
-  'clownbot-transcript': 'form:has(#clown-input)',
+  clownbot: 'div:has(> button[aria-label="Expand to full screen"])',
+  'clownbot-transcript': 'div:has(> button[aria-label="Expand to full screen"])',
   mood: 'form:has(#mood-input)',
   'settings-notifications': 'main h1',
   privacy: 'main h1',
