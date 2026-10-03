@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { deflateSync } from 'node:zlib';
+import { PLACEHOLDER_PNG } from './placeholder';
 import { expect, test as base, type Page, type TestInfo } from '@playwright/test';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -53,40 +53,6 @@ const PARITY_FONT_CSS = (() => {
   );
 })();
 
-/** One fixed 640x360 grey PNG answers every external image (both sides see identical pixels). */
-const PLACEHOLDER_PNG = (() => {
-  const w = 640;
-  const h = 360;
-  const row = Buffer.concat([Buffer.from([0]), Buffer.alloc(w * 3, 0x5a)]);
-  const crcTable = Array.from({ length: 256 }, (_, n) => {
-    let c = n;
-    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-    return c >>> 0;
-  });
-  const crc = (buf: Buffer) => {
-    let c = 0xffffffff;
-    for (const b of buf) c = crcTable[(c ^ b) & 0xff]! ^ (c >>> 8);
-    return (c ^ 0xffffffff) >>> 0;
-  };
-  const chunk = (type: string, data: Buffer) => {
-    const len = Buffer.alloc(4);
-    len.writeUInt32BE(data.length);
-    const body = Buffer.concat([Buffer.from(type), data]);
-    const sum = Buffer.alloc(4);
-    sum.writeUInt32BE(crc(body));
-    return Buffer.concat([len, body, sum]);
-  };
-  const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(w, 0);
-  ihdr.writeUInt32BE(h, 4);
-  ihdr.set([8, 2, 0, 0, 0], 8);
-  return Buffer.concat([
-    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
-    chunk('IHDR', ihdr),
-    chunk('IDAT', deflateSync(Buffer.concat(Array.from({ length: h }, () => row)))),
-    chunk('IEND', Buffer.alloc(0)),
-  ]);
-})();
 
 /**
  * Auto-fixture shared by both sides: fixed clock, stubbed /vault/live, no
@@ -244,85 +210,6 @@ export async function pixelMatches(
   } finally {
     unlinkSync(refPath);
   }
-}
-
-export interface StructNode {
-  role: string;
-  text: string;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
-
-/** Landmarks, lists and headings under the shared root, DOM order, root-relative integer css px. */
-export async function collectStructure(page: Page, route: Route): Promise<StructNode[]> {
-  return page.locator(route.root).first().evaluate((root) => {
-    const ROLES = ['main', 'navigation', 'banner', 'article', 'list', 'listitem', 'heading'];
-    const IMPLICIT: Record<string, string> = {
-      MAIN: 'main',
-      NAV: 'navigation',
-      HEADER: 'banner',
-      ARTICLE: 'article',
-      UL: 'list',
-      OL: 'list',
-      LI: 'listitem',
-      H1: 'heading',
-      H2: 'heading',
-      H3: 'heading',
-      H4: 'heading',
-      H5: 'heading',
-      H6: 'heading',
-    };
-    const origin = root.getBoundingClientRect();
-    const out: StructNode[] = [];
-    for (const el of Array.from(root.querySelectorAll('*'))) {
-      const explicit = el.getAttribute('role');
-      const role = explicit && ROLES.includes(explicit) ? explicit : IMPLICIT[el.tagName];
-      if (!role || el.getClientRects().length === 0) continue;
-      const r = el.getBoundingClientRect();
-      out.push({
-        role,
-        text: ((el as HTMLElement).innerText ?? '').replace(/\s+/g, ' ').trim().normalize('NFC'),
-        x: Math.round(r.x - origin.x),
-        y: Math.round(r.y - origin.y),
-        w: Math.round(r.width),
-        h: Math.round(r.height),
-      });
-    }
-    return out;
-  });
-}
-
-export const EDGE_TOLERANCE = 2;
-
-/** Differences between two structures; empty means they agree. */
-export function diffStructure(a: StructNode[], b: StructNode[]): string[] {
-  const problems: string[] = [];
-  const count = (nodes: StructNode[]) => {
-    const n: Record<string, number> = {};
-    for (const x of nodes) n[x.role] = (n[x.role] ?? 0) + 1;
-    return JSON.stringify(Object.entries(n).sort());
-  };
-  if (a.length !== b.length || count(a) !== count(b)) {
-    problems.push(`count: a=${count(a)} b=${count(b)}`);
-    return problems;
-  }
-  for (let i = 0; i < a.length; i++) {
-    const p = a[i]!;
-    const q = b[i]!;
-    if (p.role !== q.role) problems.push(`#${i} role ${p.role} != ${q.role}`);
-    if (p.text !== q.text) {
-      let at = 0;
-      while (at < p.text.length && p.text[at] === q.text[at]) at++;
-      problems.push();
-    }
-    for (const k of ['x', 'y', 'w', 'h'] as const) {
-      if (Math.abs(p[k] - q[k]) > EDGE_TOLERANCE) problems.push(`#${i} ${p.role} ${k} ${p[k]} vs ${q[k]}`);
-    }
-    if (problems.length >= 10) break;
-  }
-  return problems;
 }
 
 export type Mutation = 'shift' | 'colour' | 'remove' | 'text';

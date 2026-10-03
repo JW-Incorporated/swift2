@@ -1,7 +1,5 @@
 import {
   captureRoot,
-  collectStructure,
-  diffStructure,
   expect,
   mutate,
   openRoute,
@@ -10,6 +8,7 @@ import {
   test,
   type Mutation,
 } from './helpers';
+import { collectStructure, diffStructure } from './structure';
 
 // Proves the gates catch real regressions. Self-referential (references are
 // captured on this machine), so it runs on any OS and needs no committed PNGs.
@@ -55,19 +54,19 @@ test.describe('structural a-vs-b gate', () => {
   for (const [label, kind] of STRUCTURAL) {
     test(`${label} fails`, async ({ page }) => {
       await openRoute(page, 'a', route);
-      const a = await collectStructure(page, route);
+      const a = await collectStructure(page, route.root);
       await openRoute(page, 'b', route);
       await mutate(page, route, kind);
-      const b = await collectStructure(page, route);
+      const b = await collectStructure(page, route.root);
       expect(diffStructure(a, b).length).toBeGreaterThan(0);
     });
   }
 
   test('the unmutated pair passes (the gate is not vacuous the other way)', async ({ page }) => {
     await openRoute(page, 'a', route);
-    const a = await collectStructure(page, route);
+    const a = await collectStructure(page, route.root);
     await openRoute(page, 'b', route);
     expect(a.length).toBeGreaterThan(100);
-    expect(diffStructure(a, await collectStructure(page, route))).toEqual([]);
+    expect(diffStructure(a, await collectStructure(page, route.root))).toEqual([]);
   });
 });

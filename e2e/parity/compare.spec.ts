@@ -1,7 +1,5 @@
 import {
   captureRoot,
-  collectStructure,
-  diffStructure,
   expect,
   fixture,
   openRoute,
@@ -9,6 +7,7 @@ import {
   ROUTES,
   test,
 } from './helpers';
+import { collectStructure, diffStructure } from './structure';
 
 // Side a (Next web build) vs side b (the app's DOM entry), zero insets on b,
 // same engine and project, font-normalised. Both gates are blocking.
@@ -16,11 +15,11 @@ for (const route of ROUTES) {
   test(`a vs b: ${route.name}`, async ({ page }, testInfo) => {
     await openRoute(page, 'a', route);
     const pixelsA = await captureRoot(page, route);
-    const structA = await collectStructure(page, route);
+    const structA = await collectStructure(page, route.root);
 
     await openRoute(page, 'b', route);
     const pixelsB = await captureRoot(page, route);
-    const structB = await collectStructure(page, route);
+    const structB = await collectStructure(page, route.root);
 
     expect.soft(diffStructure(structA, structB), 'structural a-vs-b').toEqual([]);
     expect.soft(await pixelMatches(testInfo, `ref-a-${route.name}`, pixelsA, pixelsB), 'pixel a-vs-b').toBe(true);
