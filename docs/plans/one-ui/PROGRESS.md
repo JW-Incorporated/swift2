@@ -321,6 +321,13 @@ landing via #4848.
 **03:10:** #4843 walker hardening b5aebe07 → scoped reviewer APPROVE → auto-merge
 set WITHOUT --delete-branch (2.2-B stacked). **TODO after #4843 merges:**
 retarget any PR on feature/one-ui-wp2.2a to main, then delete that branch.
+**03:13:** WP2.1-D launched (next/* call sites → useHost; close /eras
+allowlist or report options). WP2.2-B → **#4849** (base wp2.2a — RETARGET
+when #4843 merges): perf median 12.1 ms / max 22.1 ms unthrottled (gate ok),
+4x median 60.6; probe hash = fixture; suite 8367; search index replaced
+(identical). **Concern: web bundle +117 KB gzip (.next/static 3.03→3.49 MB)**
+— eager snapshot pulls merch/moods/videos/theories into the main route →
+reviewer judging inherent-vs-avoidable; Fable if contested (G3 perf input).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
