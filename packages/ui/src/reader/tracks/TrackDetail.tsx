@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useHost, useResolveUrl } from '../../host/context';
+import type { HostStorage } from '../../host/types';
 import { useReader } from '../../snapshot/context';
 import {
   ListMusic,
@@ -33,19 +34,17 @@ import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swi
  * a returning user shouldn't see it again either. */
 const SWIPE_HINT_KEY = 'll-track-swipe-hint-seen-v1';
 
-function readSwipeHintSeen(): boolean {
+function readSwipeHintSeen(storage: HostStorage): boolean {
   try {
-    if (typeof window === 'undefined') return true;
-    return window.localStorage.getItem(SWIPE_HINT_KEY) === '1';
+    return storage.get(SWIPE_HINT_KEY) === '1';
   } catch {
     return true;
   }
 }
 
-function writeSwipeHintSeen(): void {
+function writeSwipeHintSeen(storage: HostStorage): void {
   try {
-    if (typeof window === 'undefined') return;
-    window.localStorage.setItem(SWIPE_HINT_KEY, '1');
+    storage.set(SWIPE_HINT_KEY, '1');
   } catch {
     /* private mode / quota — the hint just reappears next visit */
   }
@@ -66,7 +65,8 @@ export { trackKey };
  * only when real sourced content exists — never a placeholder.
  */
 export function TrackDetail() {
-  const { Image } = useHost();
+  const { Image, storage: hostStorage } = useHost();
+  const storage = hostStorage.local;
   const resolveUrl = useResolveUrl();
   const { openTrackKey, trackGuideEraId } = useAppState();
   const { closeTrack, openTrack } = useAppActions();
@@ -90,13 +90,13 @@ export function TrackDetail() {
   const [showSwipeHint, setShowSwipeHint] = useState(false);
   useEffect(() => {
     if (!track) return;
-    if ((prevTrack || nextTrack) && !readSwipeHintSeen()) {
+    if ((prevTrack || nextTrack) && !readSwipeHintSeen(storage)) {
       setShowSwipeHint(true);
-      writeSwipeHintSeen();
+      writeSwipeHintSeen(storage);
       const t = setTimeout(() => setShowSwipeHint(false), 3000);
       return () => clearTimeout(t);
     }
-  }, [openTrackKey, track, prevTrack, nextTrack]);
+  }, [openTrackKey, track, prevTrack, nextTrack, storage]);
 
   useSwipeNav(
     Boolean(track),
