@@ -2,7 +2,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { setLoadTimingSink, beginStage } from '@swift2/content';
 import {
   DIAG_PREFIX,
+  POINT_STAGES,
   buildDiagPayload,
+  isPointStage,
   createTapUnlock,
   createTimingCollector,
   diagCollector,
@@ -12,7 +14,7 @@ import {
   summarizeMarks,
 } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
-import { parseDiagReport } from '../../web/app/api/feedback/diag';
+import { POINT_STAGES as SERVER_POINT_STAGES, parseDiagReport } from '../../web/app/api/feedback/diag';
 
 function clock(...values: number[]) {
   let i = 0;
@@ -23,7 +25,7 @@ const env = { model: 'Pixel 8', os: 'android 15', build: '1.0.0 (42)', updateId:
 
 describe('createTimingCollector', () => {
   it('records instant marks and timed stages on the injected clock', () => {
-    const c = createTimingCollector(clock(5, 10, 40));
+    const c = createTimingCollector(clock(5, 10, 40), 0);
     c.mark('app-start');
     const end = c.start('config');
     end();
@@ -33,14 +35,32 @@ describe('createTimingCollector', () => {
     ]);
   });
 
-  it('records packages/content load events as-is', () => {
-    const c = createTimingCollector();
+  it('rebases packages/content load events onto the launch origin', () => {
+    const c = createTimingCollector(() => 0, 0);
     c.record({ stage: 'download', detail: 'content:1989', startMs: 1, durationMs: 9 });
     expect(c.marks()[0]).toEqual({ stage: 'download', detail: 'content:1989', startMs: 1, durationMs: 9 });
   });
 
+  it('reports small launch offsets even when the clock origin is huge', () => {
+    const base = 1e9;
+    const c = createTimingCollector(clock(base, base + 120, base + 300, base + 2500), undefined);
+    c.mark('app-start');
+    c.record({ stage: 'hash', detail: 'a', startMs: base + 200, durationMs: 4 });
+    const end = c.start('parse');
+    end();
+    const marks = c.marks();
+    expect(marks[0]).toMatchObject({ stage: 'app-start', startMs: 120, durationMs: 0 });
+    expect(marks[1]).toMatchObject({ stage: 'hash', startMs: 200 });
+    expect(marks[2]).toMatchObject({ stage: 'parse', startMs: 300, durationMs: 2200 });
+    const p = buildDiagPayload(env, c.summary());
+    for (const v of Object.values(p.diag.timings)) expect(v).toBeLessThan(600000);
+    expect(p.diag.timings['at:app-start']).toBe(120);
+    expect(p.diag.timings['at:hash']).toBe(200);
+    expect(parseDiagReport(p.diag).ok).toBe(true);
+  });
+
   it('caps stored marks and can reset', () => {
-    const c = createTimingCollector(() => 0);
+    const c = createTimingCollector(() => 0, 0);
     for (let i = 0; i < 600; i++) c.mark('x');
     expect(c.marks().length).toBe(500);
     c.reset();
@@ -78,6 +98,27 @@ describe('launchKindOf / summarizeMarks', () => {
     });
     expect(s.slowestDownloads[0]).toEqual({ file: 'b', ms: 30 });
     expect(s.stages.map((x) => x.stage)).toEqual(['download', 'hash', 'app-start']);
+  });
+});
+
+describe('point-mark stages', () => {
+  const stage = (name: string, maxMs: number) => ({
+    stage: name,
+    count: 1,
+    totalMs: maxMs,
+    maxMs,
+    firstStartMs: 5,
+  });
+
+  it('only the fixed point stages render by offset; a timed stage at 0 ms keeps its duration', () => {
+    expect(isPointStage(stage('first-era-paint', 0))).toBe(true);
+    expect(isPointStage(stage('app-start', 0))).toBe(true);
+    expect(isPointStage(stage('manifest', 0))).toBe(false);
+    expect(isPointStage(stage('first-era-paint', 3))).toBe(false);
+  });
+
+  it('matches the server list (contract with /api/feedback)', () => {
+    expect([...POINT_STAGES]).toEqual([...SERVER_POINT_STAGES]);
   });
 });
 

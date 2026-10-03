@@ -79,13 +79,30 @@ describe('POST [diag] reports', () => {
         '|---|---|',
         '| `manifest` | 12.3 |',
         '| `at:manifest` | 100.0 |',
-        '| `first-era-paint` | 0.0 |',
         '| `at:first-era-paint` | 2500.5 |',
         '| `download:content:1989` | 50.0 |',
         '',
         '<!-- diag:v1 -->',
       ].join('\n'),
     );
+  });
+
+  it('keeps the duration row for a timed stage that measured 0 ms, drops it only for point marks', () => {
+    const parsed = parseDiagReport({
+      ...validDiag(),
+      timings: {
+        manifest: 0,
+        'at:manifest': 100,
+        'first-era-paint': 0,
+        'at:first-era-paint': 2500.5,
+      },
+    });
+    expect(parsed.ok).toBe(true);
+    const body = diagCommentFrom((parsed as { ok: true; report: DiagReport }).report);
+    expect(body).toContain('| `manifest` | 0.0 |');
+    expect(body).toContain('| `at:manifest` | 100.0 |');
+    expect(body).toContain('| `at:first-era-paint` | 2500.5 |');
+    expect(body).not.toContain('| `first-era-paint` |');
   });
 
   it('rejects an extra field with 400 and never calls GitHub', async () => {
