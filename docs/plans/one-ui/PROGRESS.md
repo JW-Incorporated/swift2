@@ -367,7 +367,16 @@ RANGE; README CONTRACT; 125 bridge tests) → reviewer r2 minor (undefined type
 test, missing pre-ready strike line, nit) + Codex r2 `task-mus9hlb7-olv7lp`
 pending. #4851 r1 changes done (resolveUrl era art; serve.mjs fallthrough
 deleted → **/eras allowlist CLOSED**; HostLinkProps widened, TopBar migrated;
-parity 37117092950 green) → reviewer launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+parity 37117092950 green) → reviewer launched. **03:50:** #4851 reviewer APPROVE
+(minors: route fulfil 404 not throw; harness origin constant; resolveUrl must
+not mangle //host) + Codex r1 `task-mus9lswp-ex91af` pending. WP2.3-B (logic
+only, not wired — step 4 waits G0) launched stacked on wp2.3a. #4847 fix r1
+65d608ea: real-font compare found REAL diffs (font bytes ≠ next/font's; č
+fell back in Special Elite) → now next/font's exact bytes + 18 non-latin
+subset faces (web CSS) → **0 px diff** on home/Speak Now/Merch/support/privacy
+at 390+1440; preload 6 faces; metrics fixture; budget counts fonts (5.21/8
+MB). Open: DOM CSS is latin-only (app may fall back on č) → reviewer r2
+quantifying. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
