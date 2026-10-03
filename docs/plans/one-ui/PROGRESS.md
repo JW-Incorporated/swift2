@@ -328,6 +328,15 @@ when #4843 merges): perf median 12.1 ms / max 22.1 ms unthrottled (gate ok),
 (identical). **Concern: web bundle +117 KB gzip (.next/static 3.03→3.49 MB)**
 — eager snapshot pulls merch/moods/videos/theories into the main route →
 reviewer judging inherent-vs-avoidable; Fable if contested (G3 perf input).
+**03:27:** WP2.1-D → **#4851** (14 reader files next/image→useHost; +118/-31;
+parity 37116143963 green; reader-modules.ts mounts web adapter for side b).
+**PM decision (reversible, recorded): era art in the app = network via
+resolveUrl → https://www.longlivets.com/eras/* (like content photos; 21 MB
+can't ride OTA); harness serves those canonical URLs with real bytes from
+apps/web/public/eras via page.route; serve.mjs /eras fallthrough DELETED →
+allowlist closed (G1 cond 2).** S4/G0 check added: offline era art on device.
+TopBar bell Link: widen HostLinkProps (className/aria/title/ref passthrough).
+Executor resumed for both; then reviews.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
