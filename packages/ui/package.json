@@ -8,6 +8,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "dependencies": {
+    "@swift2/content": "*"
+  },
   "peerDependencies": {
     "react": "^18 || ^19"
   },

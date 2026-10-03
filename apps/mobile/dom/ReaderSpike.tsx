@@ -9,6 +9,7 @@
 import './reader-spike.css';
 import { useEffect, useRef, useState, type ComponentType } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
+import { UI_PACKAGE_VERSION } from '@swift2/ui';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
 import { describeSnapshotSafe, snapshotFromEnvelope } from './spike/snapshot';
@@ -159,6 +160,11 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   }, [Reader]);
 
   if (failed) return <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>;
-  if (!Reader) return <div style={{ padding: 16, color: '#fff' }}>Loading...</div>;
+  if (!Reader)
+    return (
+      <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
+        Loading...
+      </div>
+    );
   return <Reader backTick={backTick} onBack={(r) => void propsRef.current.reportBack?.(r)} />;
 }
