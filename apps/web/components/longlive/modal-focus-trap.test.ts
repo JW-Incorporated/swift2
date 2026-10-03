@@ -90,10 +90,10 @@ describe('#657 EraSelector is a real focus-trapped dialog', () => {
 // that issue's audit trail.
 
 describe('#3177 TrackGuide is a real focus-trapped dialog', () => {
-  const src = read('./TrackGuide.tsx');
+  const src = read('../../../../packages/ui/src/reader/tracks/TrackGuide.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the guide root declares dialog semantics and a focus target', () => {

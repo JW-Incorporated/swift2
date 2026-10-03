@@ -100,7 +100,11 @@ Not moved: `TheoryGuide` (imports `useFocusTrap`, owned by WP2.5; follow-up once
 `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit. A2 expected empty. Debt: `ClueWeb.tsx` (911), `Crossings.tsx` (620), `ThreadsTimeline.tsx` (469), `ThreadsMode.tsx` (434), `LoveStoryThread.tsx` (414) over the 300-line rule.
 
 ### WP2.7 tracks
-(pending)
+- Moved (A1, move-only): `TrackGuide.tsx`, `TrackDetail.tsx` -> `packages/ui/src/reader/tracks/`. TheoryGuide/TheoryCard are WP2.6, not here.
+- Shims (one-line `export *`, in `apps/web`, importer `LongLive.tsx`): `components/longlive/{TrackGuide,TrackDetail}.tsx`. No plain renames.
+- Source-reading tests repointed at the moved files: `OverlayNav.test.ts`, `back-dismiss.test.ts`, `escape-dismiss.test.ts`, `modal-focus-trap.test.ts` (now expects the relative `useFocusTrap` import).
+- Imports: `useHost`/`useResolveUrl`/`useReader` from package-internal `../../host/context` and `../../snapshot/context`; `useFocusTrap` from `../moment/lib/useFocusTrap` (WP2.5). `@swift2/content-enrichment` already a `packages/ui` dependency.
+- Debt: `TrackDetail.tsx` (580) over the 300-line rule; moved as-is. A2 (swipe-hint `window.localStorage` -> `useHost().storage.local`) pending.
 
 ### WP2.8 search
 (pending)

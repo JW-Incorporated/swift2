@@ -666,7 +666,10 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 | `packages/ui/src/reader/threads/` (+ `READER-MOVE.md` § WP2.6 threads) | WP2.6-A1 move-only: ThreadsMode, ThreadsTimeline, ClueWeb, Crossings, FromTheEras, LiveTheoryCard, TheoryCard and the `decode/`, `love-story/`, `proposal/`, `runway/`, `taylors-version/` thread components; non-components under `threads/lib/` (`crossingMarkerLayout`, `decode`, `love-story`, `live-theories`, `lib/decode/patternRailLayout`) with their pure tests | One-line shims at `components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx` and `lib/longlive/live-theories.ts`; `TheoryGuide` stays in `apps/web` until WP2.5 moves `useFocusTrap`; source-reading tests stay in `apps/web` and point at the moved files |
 
 ### WP2.7 tracks
-(pending)
+
+| File | Note |
+|---|---|
+| `packages/ui/src/reader/tracks/{TrackGuide,TrackDetail}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.7-A1, move-only). Both old paths are one-line `export *` shims (until D) |
 
 ### WP2.8 search
 (pending)

@@ -25,8 +25,8 @@ const BACK_DISMISS_FILES = [
   '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
   './SearchOverlay.tsx',
   './TheoryGuide.tsx',
-  './TrackDetail.tsx',
-  './TrackGuide.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
+  '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
   '../../../../packages/ui/src/reader/threads/decode/DecodeThread.tsx',
   '../../../../packages/ui/src/reader/threads/love-story/LoveStoryThread.tsx', // owns EntryDetail's back-dismiss — see note above
 ];
