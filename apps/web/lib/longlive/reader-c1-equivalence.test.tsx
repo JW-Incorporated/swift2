@@ -21,10 +21,16 @@ describe('WP2.2-C1: the migrated call sites read the same data through useReader
     for (const era of ERAS) {
       expect(q.contentForEra(era.id).map((c) => c.id)).toEqual(contentForEra(era.id).map((c) => c.id));
       expect(q.milestonesForEra(era.id)).toEqual(milestonesForEra(era.id));
-      for (const c of contentForEra(era.id).slice(0, 3)) {
+      for (const c of contentForEra(era.id)) {
         expect(q.getContentItemByIdOrSlug(c.id)?.id).toBe(getContentItemByIdOrSlug(c.id)?.id);
+        if (c.slug) {
+          expect(q.getContentItemByIdOrSlug(c.slug)?.id).toBe(getContentItemByIdOrSlug(c.slug)?.id);
+        }
       }
     }
+    // Test unknown ids/slugs
+    expect(q.getContentItemByIdOrSlug('unknown-id')).toBeUndefined();
+    expect(q.getContentItemByIdOrSlug('unknown-slug')).toBeUndefined();
   });
 
   it('the era video feed built from the snapshot records matches the module feed', () => {
