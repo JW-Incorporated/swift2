@@ -4,7 +4,7 @@
 import * as Application from 'expo-application';
 import * as SecureStore from 'expo-secure-store';
 import * as Updates from 'expo-updates';
-import { parseRecord, type WatchdogRecord } from './watchdog';
+import { readRecord, type WatchdogRecord } from './watchdog';
 
 export const WATCHDOG_KEY = 'longlive_watchdog_v1';
 
@@ -12,11 +12,12 @@ export function currentBuildKey(): string {
   return `${Application.nativeBuildVersion ?? '?'}:${Updates.updateId ?? 'embedded'}`;
 }
 
-export async function loadWatchdogRecord(): Promise<WatchdogRecord | null> {
+/** null = nothing stored; 'corrupt' = unreadable or failed the strict parse (the caller mounts native and resets). */
+export async function loadWatchdogRecord(): Promise<WatchdogRecord | null | 'corrupt'> {
   try {
-    return parseRecord(await SecureStore.getItemAsync(WATCHDOG_KEY));
+    return readRecord(await SecureStore.getItemAsync(WATCHDOG_KEY));
   } catch {
-    return null;
+    return 'corrupt';
   }
 }
 

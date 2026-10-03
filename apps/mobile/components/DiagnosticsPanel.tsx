@@ -33,7 +33,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     void getForceSharedUi().then(setForceShared);
     void getUseTestPage().then(setTestPage);
     void getForceDomFailure().then(setFailMode);
-    void loadWatchdogRecord().then(setWd);
+    void loadWatchdogRecord().then((r) => setWd(r === 'corrupt' ? null : r));
   }, [visible]);
 
   if (!visible) return null;

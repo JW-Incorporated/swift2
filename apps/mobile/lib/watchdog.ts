@@ -15,7 +15,7 @@
 // strike 2 (consecutive) also clears the C4 override and makes the next launch
 // native too.
 
-import { escalate, quarantinedDecision } from './watchdog-policy';
+import { QUARANTINE_AFTER_FALLBACK_CYCLES, escalate, quarantinedDecision } from './watchdog-policy';
 
 export const READY_TIMEOUT_MS = 10_000;
 export const STRIKES_TO_FALLBACK = 2;
@@ -27,7 +27,7 @@ export type WatchdogState = 'idle' | 'attempting' | 'ready' | 'failed' | 'fallba
 
 export interface WatchdogRecord {
   v: 1;
-  /** WP2.14: fallbacks owed within this buildKey; QUARANTINE_AFTER of them quarantines the build. */
+  /** WP2.14: fallback cycles (2 strikes each) within this buildKey; QUARANTINE_AFTER_FALLBACK_CYCLES of them quarantines the build. */
   fallbackCycles: number;
   buildKey: string;
   state: WatchdogState;
@@ -55,29 +55,46 @@ export function freshRecord(buildKey: string, now: number): WatchdogRecord {
   return { v: 1, fallbackCycles: 0, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: now };
 }
 
-/** Defensive parse of the persisted JSON; anything malformed is null (treated as no record). */
+const inRange = (v: unknown, max: number): v is number => Number.isSafeInteger(v) && (v as number) >= 0 && (v as number) <= max;
+
+/**
+ * Strict parse of the persisted JSON. Anything malformed or out of range (a
+ * counter that is negative, huge or not an integer, an unknown state, a
+ * non-string buildKey) is null; use readRecord to tell that from "no record".
+ */
 export function parseRecord(raw: string | null): WatchdogRecord | null {
   if (!raw) return null;
   try {
-    const r = JSON.parse(raw) as Partial<WatchdogRecord>;
-    const ok =
-      r.v === 1 &&
-      typeof r.buildKey === 'string' &&
-      STATES.includes(r.state as WatchdogState) &&
-      Number.isInteger(r.strikes) &&
-      Number.isInteger(r.fallbackLaunchesRemaining) &&
-      typeof r.at === 'number';
-    if (!ok) return null;
+    const r = JSON.parse(raw) as Record<string, unknown>;
+    if (typeof r !== 'object' || r === null || Array.isArray(r)) return null;
+    if (r.v !== 1 || typeof r.buildKey !== 'string' || !STATES.includes(r.state as WatchdogState)) return null;
+    if (!inRange(r.strikes, STRIKES_TO_FALLBACK) || !inRange(r.fallbackLaunchesRemaining, FALLBACK_LAUNCHES)) return null;
+    if (typeof r.at !== 'number' || !Number.isFinite(r.at)) return null;
+    if (r.fallbackCycles !== undefined && !inRange(r.fallbackCycles, QUARANTINE_AFTER_FALLBACK_CYCLES)) return null;
+    if (r.abandonedStreak !== undefined && !inRange(r.abandonedStreak, ABANDONED_TO_STRIKE)) return null;
+    if (r.backgrounded !== undefined && typeof r.backgrounded !== 'boolean') return null;
+    if (r.lastReason !== undefined && typeof r.lastReason !== 'string') return null;
     return {
-      ...(r as WatchdogRecord),
-      fallbackCycles: Number.isInteger(r.fallbackCycles) ? (r.fallbackCycles as number) : 0,
-      backgrounded: typeof r.backgrounded === 'boolean' ? r.backgrounded : false,
-      abandonedStreak: Number.isInteger(r.abandonedStreak) ? (r.abandonedStreak as number) : 0,
-      lastReason: truncateReason(String(r.lastReason ?? '')),
+      v: 1,
+      buildKey: r.buildKey,
+      state: r.state as WatchdogState,
+      strikes: r.strikes,
+      fallbackLaunchesRemaining: r.fallbackLaunchesRemaining,
+      at: r.at,
+      fallbackCycles: (r.fallbackCycles as number | undefined) ?? 0,
+      backgrounded: (r.backgrounded as boolean | undefined) ?? false,
+      abandonedStreak: (r.abandonedStreak as number | undefined) ?? 0,
+      lastReason: truncateReason((r.lastReason as string | undefined) ?? ''),
     };
   } catch {
     return null;
   }
+}
+
+/** null = nothing stored (first launch); 'corrupt' = something stored that failed the strict parse. */
+export function readRecord(raw: string | null): WatchdogRecord | null | 'corrupt' {
+  if (raw === null) return null;
+  return parseRecord(raw) ?? 'corrupt';
 }
 
 export interface MountDecision {
@@ -91,10 +108,15 @@ export interface MountDecision {
 
 /** Launch-time gate: folds the previous launch's outcome into the record. */
 export function decideMount(
-  record: WatchdogRecord | null,
+  record: WatchdogRecord | null | 'corrupt',
   buildKey: string,
   now: number,
 ): MountDecision {
+  // A stored record we cannot trust is never a licence for the DOM host: native
+  // this launch, record reset, the next launch starts clean.
+  if (record === 'corrupt') {
+    return { fallbackActive: true, clearOverride: false, record: freshRecord(buildKey, now) };
+  }
   if (!record || record.buildKey !== buildKey) {
     return { fallbackActive: false, clearOverride: false, record: freshRecord(buildKey, now) };
   }
@@ -233,7 +255,8 @@ export interface AttemptMonitorOptions {
  */
 export function createAttemptMonitor(opts: AttemptMonitorOptions) {
   const { scheduler, now, onReady, onStrike } = opts;
-  let remaining = opts.timeoutMs ?? READY_TIMEOUT_MS;
+  const total = opts.timeoutMs ?? READY_TIMEOUT_MS;
+  let remaining = total;
   let handle: unknown = null;
   let startedAt = 0;
   let readySeen = false;
@@ -278,7 +301,9 @@ export function createAttemptMonitor(opts: AttemptMonitorOptions) {
     setActive(active: boolean) {
       if (readySeen || struck) return;
       if (!active && handle !== null) {
-        remaining = Math.max(0, remaining - (now() - startedAt));
+        // A backward clock step reads as zero elapsed, so remaining never grows past `total`.
+        const elapsed = Math.max(0, now() - startedAt);
+        remaining = Math.min(total, Math.max(0, remaining - (Number.isFinite(elapsed) ? elapsed : 0)));
         stopTimer();
       } else if (active && handle === null) {
         startTimer();

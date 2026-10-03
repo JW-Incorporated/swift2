@@ -49,7 +49,7 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
 export interface LaunchFlags {
   /** Last-good cached remote `sharedUi`; null when nothing was cached. */
   sharedUi: boolean | null;
-  /** Last-good cached `watchdogReports`; null = not set (reports on). */
+  /** Last-good cached `watchdogReports`; null = not set (reports off). */
   watchdogReports: boolean | null;
 }
 

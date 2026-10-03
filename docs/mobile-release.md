@@ -316,9 +316,10 @@ flip both the JSON and `DEFAULT_ROUTE_FLAGS.sharedUi`.
 
 A build whose DOM bundle keeps failing quarantines itself: two fallback cycles
 (4 failed attempts) in one `buildKey`, then native until the next OTA or a
-Diagnostics "Reset watchdog". Quarantined devices send one
-`[diag] watchdog-quarantine` comment to #4791 (category only); set
-`watchdogReports:false` at the top level of `app-config.json` to stop reports.
+Diagnostics "Reset watchdog". Watchdog reports are OFF by default; set `watchdogReports:true` at the top
+level of `app-config.json` to turn them on. When on, a fallback or quarantine
+sends one `[watchdog]` comment to #4791 per build per day (platform, build key
+and category only).
 Rolling back an OTA changes the `buildKey`, so it also lifts quarantine.
 Drill: docs/one-ui/dom-host.md "G4 drill".
 

@@ -12,7 +12,7 @@ import {
 } from './watchdog';
 import {
   PENDING_MAX_MS,
-  QUARANTINE_AFTER,
+  QUARANTINE_AFTER_FALLBACK_CYCLES,
   armPendingBound,
   reasonCategory,
   resolveWantsDom,
@@ -42,7 +42,7 @@ describe('quarantine', () => {
     expect(s2).toMatchObject({ state: 'fallback', fallbackCycles: 1, fallbackLaunchesRemaining: FALLBACK_LAUNCHES });
     const fb = decideMount(s2, KEY, 3).record;
     const t1 = recordStrike(recordStrike(decideMount(fb, KEY, 4).record, 'a', 5).record, 'b', 6).record;
-    expect(QUARANTINE_AFTER).toBe(2);
+    expect(QUARANTINE_AFTER_FALLBACK_CYCLES).toBe(2);
     expect(t1).toMatchObject({ state: 'quarantined', fallbackCycles: 2, fallbackLaunchesRemaining: 0 });
   });
 

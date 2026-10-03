@@ -126,21 +126,14 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 export const DIAG_PREFIX = '[diag]';
 
-/** WP2.14 watchdog report stages: the two kinds, then one `wd-<category>` per reason category (no free text). */
-const WATCHDOG_STAGES = [
-  'watchdog-fallback', 'watchdog-quarantine', 'wd-ready-timeout', 'wd-dom-error',
-  'wd-webview-terminated', 'wd-webview-render-gone', 'wd-abandoned', 'wd-protocol',
-];
-
 /** Stage names /api/feedback accepts (apps/web/app/api/feedback/diag.ts — keep in sync). */
 const REPORT_STAGES = [
   'app-start', 'config', 'app-first-render', 'pointer', 'manifest', 'download', 'hash',
   'parse', 'validate', 'disk-write', 'load-total', 'provider-wiring', 'first-era-paint',
-  ...WATCHDOG_STAGES,
 ];
 
 /** Instant marks (no duration) — keep equal to POINT_STAGES in apps/web/app/api/feedback/diag.ts (a test pins them). */
-export const POINT_STAGES = ['app-start', 'app-first-render', 'provider-wiring', 'first-era-paint', ...WATCHDOG_STAGES];
+export const POINT_STAGES = ['app-start', 'app-first-render', 'provider-wiring', 'first-era-paint'];
 
 /** True when the stage is a point mark shown by its `at` offset only; any other stage keeps its duration even at 0 ms. */
 export function isPointStage(s: StageSummary): boolean {

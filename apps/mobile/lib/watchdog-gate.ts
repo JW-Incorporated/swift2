@@ -5,10 +5,14 @@
 // next launch. The launch-attempt record is AWAITED before 'dom' is returned;
 // if that write fails the launch mounts native (fail closed). `pending` is
 // bounded by PENDING_MAX_MS, after which native mounts and the DOM never swaps in.
+//
+// NOT YET WIRED (explicit follow-ups, not done in WP2.14):
+// TODO(PM, WP2.4-D): clear the pending/launch overlay when the DOM host reports ready or the watchdog falls back.
+// TODO(PM, WP2.3-E): the notification-tap queue (a tap while quarantined/fallback must land on the native screen).
+// TODO(PM, WP2.3-B step 4): wire the bridge host's onProtocolFatal to `watch.protocol` (DomWatch.protocol has no caller yet).
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AppState } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import { diagCollector } from './diagnostics';
-import { readDiagEnv } from './diagnostics-env';
 import { sendDiagReport } from './diagnostics-send';
 import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
@@ -25,7 +29,7 @@ import {
   type MountDecision,
   type WatchdogRecord,
 } from './watchdog';
-import { armPendingBound, reasonCategory, resolveWantsDom } from './watchdog-policy';
+import { armPendingBound, reasonCategory, refundExpiredFallback, resolveWantsDom } from './watchdog-policy';
 import {
   currentBuildKey,
   loadReportsRaw,
@@ -33,7 +37,7 @@ import {
   saveReportsRaw,
   saveWatchdogRecord,
 } from './watchdog-store';
-import { createTelemetry, type ReportKind } from './watchdog-telemetry';
+import { createTelemetry } from './watchdog-telemetry';
 
 export type MountState = 'pending' | 'dom' | 'native';
 
@@ -43,7 +47,7 @@ export interface LaunchInputs {
   override: boolean;
   /** Last-good cached remote sharedUi (loadLaunchFlags); null = none cached. */
   sharedUi: boolean | null;
-  /** Last-good cached watchdogReports; null = unset (reports on). */
+  /** Last-good cached watchdogReports; reports are on ONLY when this is true (null/false = off). */
   watchdogReports: boolean | null;
 }
 
@@ -54,6 +58,9 @@ export interface DomWatch {
   crashed: (kind: 'terminated' | 'render-gone') => void;
   protocol: () => void;
 }
+
+// Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
+const monotonicNow = (): number => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as never) };
 
@@ -76,11 +83,17 @@ export function useDomMount(inputs: LaunchInputs | null): {
   writeRef.current ??= createWriteQueue(saveWatchdogRecord);
   const write = writeRef.current;
   const telemetryRef = useRef<ReturnType<typeof createTelemetry> | null>(null);
-  telemetryRef.current ??= createTelemetry({ load: loadReportsRaw, save: saveReportsRaw, send: sendDiagReport, env: readDiagEnv });
+  telemetryRef.current ??= createTelemetry({
+    load: loadReportsRaw,
+    save: saveReportsRaw,
+    send: sendDiagReport,
+    platform: () => (Platform.OS === 'ios' ? 'ios' : 'android'),
+    now: Date.now,
+  });
   const telemetry = telemetryRef.current;
-  const reportsOn = () => inputsRef.current?.watchdogReports !== false;
-  const report = (kind: ReportKind, reason: string, buildKey: string) =>
-    void telemetry.report(kind, reasonCategory(reason), buildKey, reportsOn());
+  const reportsOn = () => inputsRef.current?.watchdogReports === true;
+  const report = (reason: string, buildKey: string) =>
+    void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
 
   useEffect(
     () =>
@@ -97,9 +110,9 @@ export function useDomMount(inputs: LaunchInputs | null): {
       const prev = await loadWatchdogRecord();
       const d = decideMount(prev, currentBuildKey(), Date.now());
       recordRef.current = d.record;
-      await write(d.record);
+      await write(refundExpiredFallback(prev, d.record, expiredRef.current));
       if (d.clearOverride) void setForceSharedUi(false);
-      if (prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
+      if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
       if (!cancelled) setDecision(d);
@@ -118,7 +131,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
     startedRef.current = true;
     // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
     const struck = decidedStrikeRef.current;
-    if (struck) report(struck.state === 'quarantined' ? 'watchdog-quarantine' : 'watchdog-fallback', struck.lastReason, struck.buildKey);
+    if (struck) report(struck.lastReason, struck.buildKey);
     if (expiredRef.current) return;
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
@@ -144,7 +157,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
       }
       monitorRef.current = createAttemptMonitor({
         scheduler,
-        now: Date.now,
+        now: monotonicNow,
         active: AppState.currentState === 'active',
         onReady: () => {
           if (!recordRef.current) return;
@@ -160,7 +173,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
           void write(record);
           if (clearOverride) void setForceSharedUi(false);
           if (record.state === 'fallback' || record.state === 'quarantined') {
-            report(record.state === 'quarantined' ? 'watchdog-quarantine' : 'watchdog-fallback', reason, record.buildKey);
+            report(reason, record.buildKey);
           }
           setMount('native');
         },

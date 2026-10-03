@@ -3,21 +3,41 @@
 // the record/monitor mechanics; this file holds the policy layered on top.
 import type { MountDecision, Scheduler, WatchdogRecord } from './watchdog';
 
-/** Fallback cycles within one buildKey before this build is quarantined from the DOM path. */
-export const QUARANTINE_AFTER = 2;
+/**
+ * Fallback CYCLES (each = 2 strikes) within one buildKey before this build is
+ * quarantined from the DOM path: worst case 4 failed launches per build
+ * (Fable's ruling: a false quarantine persists until the next OTA, which costs
+ * more than 4 bad launches once).
+ */
+export const QUARANTINE_AFTER_FALLBACK_CYCLES = 2;
 /** Longest the neutral pending screen may show before native mounts (fail open, never blank). */
 export const PENDING_MAX_MS = 1500;
 
 /**
- * Strike 2 owes a fallback launch. The QUARANTINE_AFTER-th fallback in one
+ * Strike 2 owes a fallback launch. The QUARANTINE_AFTER_FALLBACK_CYCLES-th fallback in one
  * buildKey becomes `quarantined`: native until the buildKey changes or the
  * Diagnostics reset. A ready launch zeroes fallbackCycles (markReady).
  */
 export function escalate(r: WatchdogRecord): WatchdogRecord {
   if (r.state !== 'fallback') return r;
   const fallbackCycles = r.fallbackCycles + 1;
-  if (fallbackCycles < QUARANTINE_AFTER) return { ...r, fallbackCycles };
+  if (fallbackCycles < QUARANTINE_AFTER_FALLBACK_CYCLES) return { ...r, fallbackCycles };
   return { ...r, state: 'quarantined', fallbackCycles, fallbackLaunchesRemaining: 0 };
+}
+
+/**
+ * The pending bound can fire before the launch decision resolves; native then
+ * mounts with no attempt made. That must not spend an owed fallback launch, so
+ * the persisted record keeps the previous remaining count.
+ */
+export function refundExpiredFallback(
+  prev: WatchdogRecord | null | 'corrupt',
+  decided: WatchdogRecord,
+  expired: boolean,
+): WatchdogRecord {
+  if (!expired || !prev || prev === 'corrupt' || prev.buildKey !== decided.buildKey) return decided;
+  if (decided.fallbackLaunchesRemaining >= prev.fallbackLaunchesRemaining) return decided;
+  return { ...decided, state: prev.state, strikes: prev.strikes, fallbackLaunchesRemaining: prev.fallbackLaunchesRemaining };
 }
 
 /** A quarantined record keeps the DOM path off on every launch; nothing is consumed. */
@@ -78,7 +98,7 @@ export function watchdogLines(r: WatchdogRecord | null): string[] {
     `Watchdog state: ${r.state}`,
     `Quarantined: ${r.state === 'quarantined' ? 'yes' : 'no'}`,
     `Strikes: ${r.strikes}`,
-    `Fallback cycles: ${r.fallbackCycles} of ${QUARANTINE_AFTER}`,
+    `Fallback cycles: ${r.fallbackCycles} of ${QUARANTINE_AFTER_FALLBACK_CYCLES}`,
     `Last reason: ${r.lastReason || 'none'}`,
     `Fallback launches remaining: ${r.fallbackLaunchesRemaining}`,
   ];
