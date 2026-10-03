@@ -403,7 +403,13 @@ done, C = #4847 in Codex r2). Launched WP2.3-C (client + 3-leg contract, not
 wired) and WP2.2-C1 (caller migration group 1). Release train 37115793933:
 Android selection `skipped` → suspect an existing Android store build for the
 fingerprint (built earlier, never submitted — "this run only" rule strands it)
-→ researcher confirming. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+→ researcher confirming. **04:04: CONFIRMED** — get_android_build SUCCESS
+build 0a1ef202-45ec-4cf3-add2-04029409828e (current fingerprint), build_android
+SKIPPED, publish_update_android_only SUCCESS (OTA publishing for that
+fingerprint) — but that build was NEVER submitted to Play (old whole-run gate +
+new this-run-only rule). Joey's phone is on an older native build → needs it.
+Fix executor launched: selector `existing` result (fingerprint-bound, not
+commit-bound) → submit; idempotent re-submit handling. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
