@@ -82,15 +82,18 @@ Instead:
   at once, then waits by id (`eas workflow:status <id> --wait`), so the
   Action doesn't return until EAS is done. Preflight steps are capped (20
   min total), the wait at 195 minutes (observed successful waits run 15-155
-  min) and Android locate/submit at 10 and the job at 235: a hung
+  min) and Android submit at 10 and the job at 235: a hung
   EAS run turns the job red and frees the `mobile-release` concurrency
   group (it does not cancel the EAS-side run — check it in the Expo
   dashboard / `eas workflow:runs`).
-  It then calls `eas build:list --platform android --status
-  finished --git-commit-hash <sha>` to ask "did this commit's run produce
-  a fresh Android store build?" — if the fingerprint already had a build
-  (OTA-only case) there's nothing to submit and the step no-ops cleanly.
-  If a build exists for this commit, the Action writes
+  It then reads `eas workflow:status <id> --json` and takes the build id
+  from THIS run's `build_android` job (`jobs[].turtleBuild.id`), only when
+  that job's status is exactly `SUCCESS` and the build is ANDROID /
+  FINISHED / profile `production` (and its commit hash, if set, equals the
+  run's). If the fingerprint already had a build (OTA-only case) the job is
+  SKIPPED, there is no id, and nothing is submitted. The parsed job
+  statuses and chosen build id are printed to the job log
+  (`gh run view --log`). If a build id was found, the Action writes
   `PLAY_SERVICE_ACCOUNT_JSON` to a gitignored file at job time
   (`apps/mobile/credentials/play-service-account.json`, `chmod 600`,
   deleted via `trap ... EXIT` immediately after use, never echoed to logs)
@@ -122,15 +125,17 @@ Instead:
   builds, but the Action no longer requires the whole EAS run to succeed:
   the wait step is `continue-on-error`, the step "Read the EAS Android
   store-build job status" reads the run's per-job status
-  (`eas workflow:status <id> --json`, job `build_android`), and "Locate an
-  Android store build" runs when the wait succeeded OR that job is
-  SUCCESS. The Play submit (internal track only, never promoted) follows
-  as before. The last step, "Fail the train if the EAS run did not
+  (`eas workflow:status <id> --json`, job `build_android`; the EAS
+  `WorkflowJobStatus` success value is exactly `SUCCESS`, anything else
+  fails closed) and outputs that job's build id. The Play submit
+  (internal track only, never promoted) runs when a build id was found. A
+  re-run of the train can resubmit the same build; Play rejects duplicate
+  version codes, but the observable effect is unverified. The last step, "Fail the train if the EAS run did not
   succeed", turns the GitHub run red whenever the wait outcome was not
   success, so the iOS failure stays visible. Cases:
   iOS ok / Android ok → wait succeeds, Android submitted, green.
   iOS fail / Android ok → Android job SUCCESS, Android submitted, run red.
-  Android fail (any iOS) → job not SUCCESS, locate/submit skipped, red.
+  Android fail (any iOS) → job not SUCCESS, submit skipped, red.
   Unreadable status counts as not-success (conservative: skip). In the EAS
   graph, `build_android` and `publish_update_android_only` have no `needs`
   on iOS jobs, so the Android OTA publishes whenever an Android build

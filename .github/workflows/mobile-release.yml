@@ -17,12 +17,13 @@ name: Mobile release train
 # rather than being uploaded to EAS credentials, and the EAS workflow above
 # runs on EAS's own infrastructure with no visibility into GitHub repo
 # secrets. So this job starts it with `workflow:run --no-wait`, then
-# `workflow:status --wait` until it finishes, looks up whether it produced a fresh Android
-# store build for this exact commit, and if so submits it to Play itself,
-# in the one place that actually has the secret. Step caps (minutes):
-# Android is independent of iOS: it is located/submitted when the EAS
+# `workflow:status --wait` until it finishes, reads the build id of THIS run's
+# `build_android` job (only if that job's status is exactly SUCCESS), and if
+# present submits it to Play itself, in the one place that actually has the
+# secret. Step caps (minutes):
+# Android is independent of iOS: it is submitted when the EAS
 # `build_android` job succeeded, even if iOS failed; the run still ends red.
-# 20 preflight / 195 wait / 2 job-status / 5 summary (informational) / 10 Android (3 locate + 7 submit); job 235;
+# 20 preflight / 195 wait / 2 job-status / 5 summary (informational) / 10 Android submit; job 235;
 # rollback workflow 30. Never echo the secret to
 # logs; the key file is written with `chmod 600` and deleted immediately
 # after use.
@@ -146,20 +147,32 @@ jobs:
           RUN_ID: ${{ steps.eas_start.outputs.run_id }}
         run: |
           RESULT=unknown
+          BUILD_ID=
           if eas workflow:status "$RUN_ID" --non-interactive --json > /tmp/status.json 2>/dev/null; then
-            RESULT=$(node -e "
-              const s=require('fs').readFileSync('/tmp/status.json','utf8');
-              try {
-                const run=JSON.parse(s.slice(s.search(/[[{]/)));
-                const jobs=run.jobs ?? run.run?.jobs ?? [];
-                const j=jobs.find((x)=>x.key==='build_android' || /build android \(store\)/i.test(String(x.name ?? '')));
-                const st=String(j?.status ?? j?.conclusion ?? j?.outcome ?? '');
-                console.log(!j ? 'absent' : /^(success|succeeded|finished)\$/i.test(st) ? 'success' : 'not_success');
-              } catch { console.log('unknown'); }
-            ")
+            # eas-cli WorkflowJobStatus enum (graphql/generated.js): SUCCESS is
+            # the only success value; job.turtleBuild is this run's build
+            # (graphql/types/WorkflowJob.js). Anything else fails closed.
+            node - /tmp/status.json > /tmp/android_job.out <<'NODE' || true
+          const s=require('fs').readFileSync(process.argv[2],'utf8');
+          try {
+            const run=JSON.parse(s.slice(s.search(/[[{]/)));
+            const jobs=run.jobs ?? [];
+            console.error('EAS jobs: '+JSON.stringify(jobs.map((x)=>({key:x.key,name:x.name,status:x.status,build:x.turtleBuild?.id??null}))));
+            const j=jobs.find((x)=>x.key==='build_android');
+            const b=j?.turtleBuild;
+            if (!j) console.log('result=absent');
+            else if (j.status!=='SUCCESS') console.log('result=not_success');
+            else if (!b?.id || b.platform!=='ANDROID' || b.status!=='FINISHED' || b.buildProfile!=='production' || (b.gitCommitHash && b.gitCommitHash!==process.env.GITHUB_SHA)) console.log('result=no_build');
+            else console.log('result=success\nbuild_id='+b.id);
+          } catch { console.log('result=unknown'); }
+          NODE
+            RESULT=$(sed -n 's/^result=//p' /tmp/android_job.out)
+            BUILD_ID=$(sed -n 's/^build_id=//p' /tmp/android_job.out)
+            RESULT=${RESULT:-unknown}
           fi
-          echo "Android store-build job: $RESULT"
+          echo "Android store-build job: $RESULT; build id: ${BUILD_ID:-none}"
           echo "result=$RESULT" >> "$GITHUB_OUTPUT"
+          echo "build_id=$BUILD_ID" >> "$GITHUB_OUTPUT"
       # Read-only and purely informational (continue-on-error): pins what
       # shipped (job statuses + OTA group/runtime for THIS commit) into the run
       # summary so device tests need no Expo login. It can never change the job
@@ -256,34 +269,16 @@ jobs:
           }
           NODE
       # ── Android submit (see header comment: EAS infra can't see this secret) ──
-      - name: Locate an Android store build for this commit
-        id: android_build
-        timeout-minutes: 3
-        if: always() && (steps.eas_workflow.outcome == 'success' || steps.android_job.outputs.result == 'success')
-        working-directory: apps/mobile
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: |
-          set -euo pipefail
-          BUILD_JSON=$(eas build:list \
-            --platform android --status finished \
-            --git-commit-hash "$GITHUB_SHA" --limit 1 \
-            --non-interactive --json)
-          BUILD_ID=$(node -e "const b=JSON.parse(process.argv[1]); console.log((b[0] && b[0].id) || '')" "$BUILD_JSON")
-          echo "build_id=$BUILD_ID" >> "$GITHUB_OUTPUT"
-          if [ -n "$BUILD_ID" ]; then
-            echo "Found Android build $BUILD_ID for $GITHUB_SHA."
-          else
-            echo "No fresh Android store build for this commit (JS-only OTA update, or Android already had a matching build) — nothing to submit."
-          fi
+      # The build id comes from THIS EAS run's build_android job (step above);
+      # no job-SUCCESS or no build id means nothing to submit.
       - name: Submit Android build to Play (internal track)
-        timeout-minutes: 7
-        if: steps.android_build.outputs.build_id != ''
+        timeout-minutes: 10
+        if: always() && steps.android_job.outputs.build_id != ''
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          BUILD_ID: ${{ steps.android_build.outputs.build_id }}
+          BUILD_ID: ${{ steps.android_job.outputs.build_id }}
         run: |
           set -euo pipefail
           if [ -z "${EXPO_TOKEN:-}" ]; then
@@ -305,5 +300,5 @@ jobs:
       - name: Fail the train if the EAS run did not succeed
         if: always() && steps.eas_workflow.outcome != 'success'
         run: |
-          echo "::error::EAS release run did not succeed (wait step outcome: ${{ steps.eas_workflow.outcome }}; Android store-build job: ${{ steps.android_job.outputs.result || 'not read' }}). Android was still located/submitted to Play internal if its build succeeded. See the EAS run URL in the job summary."
+          echo "::error::EAS release run did not succeed (wait step outcome: ${{ steps.eas_workflow.outcome }}; Android store-build job: ${{ steps.android_job.outputs.result || 'not read' }}). Android was still submitted to Play internal if its build job succeeded. See the EAS run URL in the job summary."
           exit 1
