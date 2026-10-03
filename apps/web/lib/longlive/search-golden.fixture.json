@@ -1,0 +1,1068 @@
+{
+ "a|default": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:tloas",
+    "era:fearless",
+    "era:reputation",
+    "era:speak-now",
+    "era:debut"
+   ],
+   "scores": [
+    25,
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:love-story",
+    "thread:the-proposal",
+    "thread:taylors-version",
+    "thread:fashion",
+    "thread:easter-eggs"
+   ],
+   "scores": [
+    12,
+    12,
+    12,
+    12,
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 30,
+   "keys": [
+    "egg:egg-ttpd-anthology-drop",
+    "egg:egg-tloas-album-drop",
+    "egg:egg-karma-album-theory",
+    "egg:egg-midnights-vinyl-clock",
+    "egg:egg-man-graffiti"
+   ],
+   "scores": [
+    25,
+    25,
+    25,
+    25,
+    12
+   ]
+  }
+ ],
+ "a|all": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:tloas",
+    "era:fearless",
+    "era:reputation",
+    "era:speak-now",
+    "era:debut",
+    "era:ttpd",
+    "era:1989",
+    "era:evermore",
+    "era:folklore",
+    "era:lover",
+    "era:midnights",
+    "era:red"
+   ],
+   "scores": [
+    25,
+    12,
+    12,
+    12,
+    12,
+    12,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:love-story",
+    "thread:the-proposal",
+    "thread:taylors-version",
+    "thread:fashion",
+    "thread:easter-eggs",
+    "thread:hidden-clues"
+   ],
+   "scores": [
+    12,
+    12,
+    12,
+    12,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 30,
+   "keys": [
+    "egg:egg-ttpd-anthology-drop",
+    "egg:egg-tloas-album-drop",
+    "egg:egg-karma-album-theory",
+    "egg:egg-midnights-vinyl-clock",
+    "egg:egg-man-graffiti",
+    "egg:egg-tloas-orange-doors",
+    "egg:egg-13-tracks-midnights",
+    "egg:egg-13-video-1989",
+    "egg:egg-bejeweled-elevator",
+    "egg:egg-capitals-debut",
+    "egg:egg-snake-instagram",
+    "egg:egg-capitals-fearless",
+    "egg:egg-fearless-tv-scramble",
+    "egg:egg-grammys-two-fingers",
+    "egg:egg-clock-lastkiss",
+    "egg:egg-red-tv-rings",
+    "egg:egg-rep-tv-clue-bejeweled",
+    "egg:egg-snake-lwymmd",
+    "egg:egg-snake-me-mv",
+    "egg:egg-speaknow-tv-nashville",
+    "egg:egg-wood-track-tloas",
+    "egg:egg-ttpd-timetable-clock",
+    "egg:egg-cabin-folklore",
+    "egg:egg-1989-tv-la",
+    "egg:egg-red-burning",
+    "egg:egg-eras-burning-house",
+    "egg:egg-string-willow",
+    "egg:egg-13-debut",
+    "egg:egg-loverhouse-mv",
+    "egg:egg-color-daylight"
+   ],
+   "scores": [
+    25,
+    25,
+    25,
+    25,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    3
+   ]
+  }
+ ],
+ "e|default": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:evermore",
+    "era:fearless",
+    "era:folklore",
+    "era:lover",
+    "era:red"
+   ],
+   "scores": [
+    40,
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:the-proposal",
+    "thread:love-story",
+    "thread:taylors-version",
+    "thread:easter-eggs",
+    "thread:hidden-clues"
+   ],
+   "scores": [
+    40,
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 30,
+   "keys": [
+    "egg:egg-bejeweled-elevator",
+    "egg:egg-man-graffiti",
+    "egg:egg-tloas-orange-doors",
+    "egg:egg-13-video-1989",
+    "egg:egg-1989-tv-la"
+   ],
+   "scores": [
+    25,
+    12,
+    12,
+    12,
+    12
+   ]
+  }
+ ],
+ "e|all": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:evermore",
+    "era:fearless",
+    "era:folklore",
+    "era:lover",
+    "era:red",
+    "era:reputation",
+    "era:speak-now",
+    "era:tloas",
+    "era:ttpd",
+    "era:1989",
+    "era:midnights",
+    "era:debut"
+   ],
+   "scores": [
+    40,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    6,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:the-proposal",
+    "thread:love-story",
+    "thread:taylors-version",
+    "thread:easter-eggs",
+    "thread:hidden-clues",
+    "thread:fashion"
+   ],
+   "scores": [
+    40,
+    12,
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 30,
+   "keys": [
+    "egg:egg-bejeweled-elevator",
+    "egg:egg-man-graffiti",
+    "egg:egg-tloas-orange-doors",
+    "egg:egg-13-video-1989",
+    "egg:egg-1989-tv-la",
+    "egg:egg-red-burning",
+    "egg:egg-eras-burning-house",
+    "egg:egg-capitals-debut",
+    "egg:egg-snake-instagram",
+    "egg:egg-capitals-fearless",
+    "egg:egg-fearless-tv-scramble",
+    "egg:egg-string-willow",
+    "egg:egg-grammys-two-fingers",
+    "egg:egg-clock-lastkiss",
+    "egg:egg-color-daylight",
+    "egg:egg-13-debut",
+    "egg:egg-red-tv-rings",
+    "egg:egg-rep-tv-clue-bejeweled",
+    "egg:egg-snake-lwymmd",
+    "egg:egg-snake-me-mv",
+    "egg:egg-speaknow-tv-nashville",
+    "egg:egg-wood-track-tloas",
+    "egg:egg-ttpd-anthology-drop",
+    "egg:egg-ttpd-timetable-clock",
+    "egg:egg-cabin-folklore",
+    "egg:egg-tloas-album-drop",
+    "egg:egg-karma-album-theory",
+    "egg:egg-loverhouse-mv",
+    "egg:egg-midnights-vinyl-clock",
+    "egg:egg-13-tracks-midnights"
+   ],
+   "scores": [
+    25,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    6
+   ]
+  }
+ ],
+ "s|default": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:speak-now",
+    "era:debut",
+    "era:tloas",
+    "era:fearless",
+    "era:midnights"
+   ],
+   "scores": [
+    40,
+    25,
+    25,
+    12,
+    12
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:love-story",
+    "thread:taylors-version",
+    "thread:the-proposal",
+    "thread:easter-eggs",
+    "thread:hidden-clues"
+   ],
+   "scores": [
+    25,
+    25,
+    6,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 30,
+   "keys": [
+    "egg:egg-snake-lwymmd",
+    "egg:egg-snake-me-mv",
+    "egg:egg-speaknow-tv-nashville",
+    "egg:egg-13-video-1989",
+    "egg:egg-snake-instagram"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    25,
+    25
+   ]
+  }
+ ],
+ "t|default": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:debut",
+    "era:tloas",
+    "era:ttpd",
+    "era:midnights",
+    "era:reputation"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    12,
+    12
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:taylors-version",
+    "thread:easter-eggs",
+    "thread:hidden-clues",
+    "thread:fashion",
+    "thread:love-story"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    40,
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 30,
+   "keys": [
+    "egg:egg-wood-track-tloas",
+    "egg:egg-ttpd-anthology-drop",
+    "egg:egg-ttpd-timetable-clock",
+    "egg:egg-cabin-folklore",
+    "egg:egg-tloas-album-drop"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  }
+ ],
+ "1|default": [
+  {
+   "type": "era",
+   "total": 6,
+   "keys": [
+    "era:1989",
+    "era:fearless",
+    "era:lover",
+    "era:red",
+    "era:reputation"
+   ],
+   "scores": [
+    40,
+    3,
+    3,
+    3,
+    3
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 17,
+   "keys": [
+    "egg:egg-tloas-orange-doors",
+    "egg:egg-13-tracks-midnights",
+    "egg:egg-13-video-1989",
+    "egg:egg-1989-tv-la",
+    "egg:egg-clock-lastkiss"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    40,
+    25
+   ]
+  }
+ ],
+ "13|default": [
+  {
+   "type": "egg",
+   "total": 3,
+   "keys": [
+    "egg:egg-13-tracks-midnights",
+    "egg:egg-13-video-1989",
+    "egg:egg-13-debut"
+   ],
+   "scores": [
+    40,
+    25,
+    25
+   ]
+  }
+ ],
+ "fearless|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:fearless"
+   ],
+   "scores": [
+    100
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 2,
+   "keys": [
+    "egg:egg-capitals-fearless",
+    "egg:egg-fearless-tv-scramble"
+   ],
+   "scores": [
+    40,
+    40
+   ]
+  }
+ ],
+ "1989|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:1989"
+   ],
+   "scores": [
+    100
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 3,
+   "keys": [
+    "egg:egg-13-video-1989",
+    "egg:egg-1989-tv-la",
+    "egg:egg-bejeweled-elevator"
+   ],
+   "scores": [
+    40,
+    40,
+    6
+   ]
+  }
+ ],
+ "red|default": [
+  {
+   "type": "era",
+   "total": 3,
+   "keys": [
+    "era:red",
+    "era:ttpd",
+    "era:reputation"
+   ],
+   "scores": [
+    100,
+    12,
+    3
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 4,
+   "keys": [
+    "egg:egg-red-tv-rings",
+    "egg:egg-red-burning",
+    "egg:egg-color-daylight",
+    "egg:egg-capitals-debut"
+   ],
+   "scores": [
+    40,
+    25,
+    25,
+    3
+   ]
+  }
+ ],
+ "lover|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:lover"
+   ],
+   "scores": [
+    100
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 3,
+   "keys": [
+    "egg:egg-eras-burning-house",
+    "egg:egg-loverhouse-mv",
+    "egg:egg-cabin-folklore"
+   ],
+   "scores": [
+    25,
+    25,
+    6
+   ]
+  }
+ ],
+ "reputation|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:reputation"
+   ],
+   "scores": [
+    100
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 3,
+   "keys": [
+    "egg:egg-rep-tv-clue-bejeweled",
+    "egg:egg-snake-me-mv",
+    "egg:egg-karma-album-theory"
+   ],
+   "scores": [
+    40,
+    6,
+    6
+   ]
+  }
+ ],
+ "midnights|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:midnights"
+   ],
+   "scores": [
+    100
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 2,
+   "keys": [
+    "egg:egg-13-tracks-midnights",
+    "egg:egg-midnights-vinyl-clock"
+   ],
+   "scores": [
+    25,
+    6
+   ]
+  }
+ ],
+ "folklore|default": [
+  {
+   "type": "era",
+   "total": 2,
+   "keys": [
+    "era:folklore",
+    "era:evermore"
+   ],
+   "scores": [
+    100,
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 3,
+   "keys": [
+    "egg:egg-cabin-folklore",
+    "egg:egg-string-willow",
+    "egg:egg-wood-track-tloas"
+   ],
+   "scores": [
+    25,
+    6,
+    6
+   ]
+  }
+ ],
+ "evermore|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:evermore"
+   ],
+   "scores": [
+    100
+   ]
+  }
+ ],
+ "speak now|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:speak-now"
+   ],
+   "scores": [
+    105
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 2,
+   "keys": [
+    "egg:egg-speaknow-tv-nashville",
+    "egg:egg-bejeweled-elevator"
+   ],
+   "scores": [
+    105,
+    12
+   ]
+  }
+ ],
+ "debut|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:debut"
+   ],
+   "scores": [
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 2,
+   "keys": [
+    "egg:egg-1989-tv-la",
+    "egg:egg-capitals-debut"
+   ],
+   "scores": [
+    6,
+    6
+   ]
+  }
+ ],
+ "tortured|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:ttpd"
+   ],
+   "scores": [
+    25
+   ]
+  }
+ ],
+ "eras tour|default": [
+  {
+   "type": "era",
+   "total": 2,
+   "keys": [
+    "era:midnights",
+    "era:ttpd"
+   ],
+   "scores": [
+    12,
+    12
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 1,
+   "keys": [
+    "egg:egg-eras-burning-house"
+   ],
+   "scores": [
+    12
+   ]
+  }
+ ],
+ "love story|default": [],
+ "love story|all": [],
+ "shake it off|default": [],
+ "blank space|default": [
+  {
+   "type": "thread",
+   "total": 1,
+   "keys": [
+    "thread:love-story"
+   ],
+   "scores": [
+    105
+   ]
+  }
+ ],
+ "taylor|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:debut"
+   ],
+   "scores": [
+    40
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 1,
+   "keys": [
+    "thread:taylors-version"
+   ],
+   "scores": [
+    40
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 5,
+   "keys": [
+    "egg:egg-man-graffiti",
+    "egg:egg-1989-tv-la",
+    "egg:egg-13-debut",
+    "egg:egg-red-tv-rings",
+    "egg:egg-snake-lwymmd"
+   ],
+   "scores": [
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
+  }
+ ],
+ "taylor|all": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:debut"
+   ],
+   "scores": [
+    40
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 1,
+   "keys": [
+    "thread:taylors-version"
+   ],
+   "scores": [
+    40
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 5,
+   "keys": [
+    "egg:egg-man-graffiti",
+    "egg:egg-1989-tv-la",
+    "egg:egg-13-debut",
+    "egg:egg-red-tv-rings",
+    "egg:egg-snake-lwymmd"
+   ],
+   "scores": [
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
+  }
+ ],
+ "swift|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:debut"
+   ],
+   "scores": [
+    25
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 1,
+   "keys": [
+    "egg:egg-man-graffiti"
+   ],
+   "scores": [
+    6
+   ]
+  }
+ ],
+ "snake|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:reputation"
+   ],
+   "scores": [
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 3,
+   "keys": [
+    "egg:egg-snake-lwymmd",
+    "egg:egg-snake-me-mv",
+    "egg:egg-snake-instagram"
+   ],
+   "scores": [
+    40,
+    40,
+    25
+   ]
+  }
+ ],
+ "wedding|default": [],
+ "wedding|all": [],
+ "proposal|default": [],
+ "easter egg|default": [],
+ "travis|default": [],
+ "xyzzyqq|default": [],
+ "xyzzyqq|all": [],
+ "the|default": [
+  {
+   "type": "era",
+   "total": 12,
+   "keys": [
+    "era:tloas",
+    "era:ttpd",
+    "era:1989",
+    "era:evermore",
+    "era:fearless"
+   ],
+   "scores": [
+    40,
+    40,
+    6,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 6,
+   "keys": [
+    "thread:easter-eggs",
+    "thread:hidden-clues",
+    "thread:fashion",
+    "thread:love-story",
+    "thread:the-proposal"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 27,
+   "keys": [
+    "egg:egg-wood-track-tloas",
+    "egg:egg-ttpd-anthology-drop",
+    "egg:egg-ttpd-timetable-clock",
+    "egg:egg-cabin-folklore",
+    "egg:egg-tloas-album-drop"
+   ],
+   "scores": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  }
+ ],
+ "album|default": [
+  {
+   "type": "era",
+   "total": 3,
+   "keys": [
+    "era:fearless",
+    "era:folklore",
+    "era:lover"
+   ],
+   "scores": [
+    6,
+    6,
+    6
+   ]
+  },
+  {
+   "type": "thread",
+   "total": 1,
+   "keys": [
+    "thread:taylors-version"
+   ],
+   "scores": [
+    6
+   ]
+  },
+  {
+   "type": "egg",
+   "total": 8,
+   "keys": [
+    "egg:egg-karma-album-theory",
+    "egg:egg-man-graffiti",
+    "egg:egg-tloas-orange-doors",
+    "egg:egg-capitals-debut",
+    "egg:egg-grammys-two-fingers"
+   ],
+   "scores": [
+    25,
+    6,
+    6,
+    6,
+    6
+   ]
+  }
+ ],
+ "cardigan|default": [
+  {
+   "type": "era",
+   "total": 1,
+   "keys": [
+    "era:folklore"
+   ],
+   "scores": [
+    6
+   ]
+  }
+ ]
+}

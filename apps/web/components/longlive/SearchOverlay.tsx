@@ -19,12 +19,12 @@ import { cn } from '@/lib/utils';
 import { getEra } from '@swift2/experience';
 import {
   flattenGroups,
-  getSearchIndex,
   searchDocs,
   type SearchDocType,
   type SearchResult,
   type SearchTarget,
 } from '@/lib/longlive/search';
+import { useReader } from '@swift2/ui';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
@@ -73,6 +73,7 @@ function optionId(key: string): string {
 export function SearchOverlay() {
   const { searchOpen } = useAppState();
   const actions = useAppActions();
+  const { searchIndex } = useReader();
   const { setSearchOpen } = actions;
 
   const [query, setQuery] = useState('');
@@ -160,9 +161,9 @@ export function SearchOverlay() {
   const groups = useMemo(
     () =>
       debounced.trim()
-        ? searchDocs(getSearchIndex(), debounced, showAll ? Number.POSITIVE_INFINITY : undefined)
+        ? searchDocs(searchIndex, debounced, showAll ? Number.POSITIVE_INFINITY : undefined)
         : [],
-    [debounced, showAll],
+    [searchIndex, debounced, showAll],
   );
   const totalMatches = useMemo(
     () => groups.reduce((n, g) => n + g.totalMatches, 0),

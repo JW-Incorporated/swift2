@@ -623,9 +623,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 
 | File | What it is |
 |---|---|
-| `packages/experience/src/reader-snapshot/` (`types`, `build`, `corpus`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/reader-snapshot/` (`types`, `build`, `corpus`, `sources`, `search-docs`, `queries`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. The web reads it via `@swift2/ui` context (`queries.ts`: pure `createReaderQueries`). See its README |
 | `packages/experience/src/corpus.ts` | `ReaderCorpus` type (all-function members) + `injectedCorpus()` (O(1), provider-backed); the pure `*In(corpus, ...)` variants in threads/lenses/doorways/theories/era-secrets/track-guide take it, and the old exports wrap it |
 | `packages/experience/src/reader-snapshot/{purity,flat-order}.test.ts` | WP2.2-A gates: build is pure over inputs (throwing sentinel providers, interleaved builds, no provider import); flat-order audit |
+| `packages/ui/src/snapshot/context.tsx` (+ test) | WP2.2-B reader context: `ReaderSnapshotProvider`, `useReaderSnapshotStatus/useReaderSnapshot/useReader`, `isReaderSnapshot` guard | Host-agnostic (ui import ban); `loading` throws in `useReaderSnapshot` |
+| `apps/web/lib/longlive/{baked-modules,baked-modules-full,reader-snapshot-provider}.ts(x)` | `bakedModules()` = CORE only (no merch/moods; the root client component must not import them) feeds `fromBakedCore`; `bakedModulesFull()` adds them for `parity-probe`/tests (`fromBaked`, hashable). `hashSnapshot` throws on a core-only snapshot | No module singleton; probe hash must equal `fixture.json`; `scripts/perf/snapshot-build.ts` is the 15 ms median gate |
+| `apps/web/lib/longlive/search-golden.fixture.json` | Frozen era/egg/thread search results from the deleted web index builder; `search.ts` is now only the engine re-exports | Content-independent groups only, so content PRs do not move it |
+| `packages/experience/src/reader-snapshot/queries.test.ts` | Every `createReaderQueries` accessor deep-equals the web module it replaces, over all eras/ids/threads | Needs `npm run sync:content` |
 | `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
 
 ## CI concurrency (2026-10-01)
