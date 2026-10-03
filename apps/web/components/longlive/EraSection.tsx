@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
@@ -64,6 +64,7 @@ export function EraSection({
   /** Current era's live `current_item` rows (Stage 5); ignored elsewhere. */
   currentItems?: CurrentItem[];
 }) {
+  const { Image } = useHost();
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
   // Stage 5 — live entries + overlay state (use-era-current-feed.ts).

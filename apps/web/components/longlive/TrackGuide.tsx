@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
@@ -29,6 +29,7 @@ import type { EraId, TrackNote } from '@swift2/experience';
  * note exist in the data, so gaps in an album's numbering are expected.
  */
 export function TrackGuide() {
+  const { Image } = useHost();
   const { trackGuideEraId, openTrackKey } = useAppState();
   const { closeTrackGuide } = useAppActions();
 

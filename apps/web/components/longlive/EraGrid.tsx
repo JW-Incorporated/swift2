@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { ERAS } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { EraId } from '@swift2/experience';
@@ -18,6 +18,7 @@ export function EraGrid({
   activeEraId?: EraId | null;
   onPick: (id: EraId) => void;
 }) {
+  const { Image } = useHost();
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       {[...ERAS].reverse().map((era, i) => {

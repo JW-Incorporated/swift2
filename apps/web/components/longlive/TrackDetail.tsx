@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import {
   ListMusic,
   Star,
@@ -72,6 +72,7 @@ export { trackKey };
  * only when real sourced content exists — never a placeholder.
  */
 export function TrackDetail() {
+  const { Image } = useHost();
   const { openTrackKey, trackGuideEraId } = useAppState();
   const { closeTrack, openTrack } = useAppActions();
 

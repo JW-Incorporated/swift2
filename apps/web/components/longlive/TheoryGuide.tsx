@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
@@ -29,6 +29,7 @@ import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
  */
 
 export function TheoryGuide() {
+  const { Image } = useHost();
   const { theoryGuideEraId, theoryGuideHighlightSlug } = useAppState();
   const { closeTheoryGuide, popReturnPoint } = useAppActions();
 
