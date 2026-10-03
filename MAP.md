@@ -647,6 +647,37 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `eslint.config.mjs` + `packages/ui/src/reader-lint-ban.test.ts` | WP2.2-D: `no-restricted-imports` bans the module-global content accessors, baked/`*.generated` modules and injected `@swift2/experience` wrappers in `apps/web/components/longlive/**` and `packages/ui/**` ("read via useReader()"); tests + `*.server.*` exempt. `apps/web` is otherwise outside root lint; only that folder is un-ignored, with a parser and stub plugins so inline disables resolve | Merch components are allow-listed until #4859 (TODO in the config); the ban is import-level, so `lib/longlive/**` (mixed server/client) is not covered |
 | `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
 
+## One UI reader slices (WP2.5-2.13 scaffold)
+
+Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and package subpath exports already exist; each slice adds its rows only under its own heading.
+
+### WP2.5 moment
+(pending)
+
+### WP2.6 threads
+(pending)
+
+### WP2.7 tracks
+(pending)
+
+### WP2.8 search
+(pending)
+
+### WP2.9 merch
+(pending)
+
+### WP2.10 community
+(pending)
+
+### WP2.11 clown
+(pending)
+
+### WP2.12 settings
+(pending)
+
+### WP2.13 legal
+(pending)
+
 ## CI concurrency (2026-10-01)
 
 | File | What it is |

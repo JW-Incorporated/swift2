@@ -62,5 +62,39 @@ Moved to `packages/ui/src/reader/era/`: EraStream, EraSection, EraFeedList, Filt
 Debt (2.4-A): `video-affordance.ts` (294) and `store/index.tsx` (473) are over or near
 the 300-line rule; moved as-is.
 
+## Slice sections (scaffold)
+
+Each slice edits only under its own heading below. Slice barrels, root re-exports
+and `package.json` subpath exports (`./reader/<slice>` and `./reader/<slice>/*`,
+the latter mapping to `.tsx`) already exist; `.ts` modules are exposed through the
+slice `index.ts`. `@swift2/content-enrichment` is already a dependency.
+
+### WP2.5 moment
+(pending)
+
+### WP2.6 threads
+(pending)
+
+### WP2.7 tracks
+(pending)
+
+### WP2.8 search
+(pending)
+
+### WP2.9 merch
+(pending)
+
+### WP2.10 community
+(pending)
+
+### WP2.11 clown
+(pending)
+
+### WP2.12 settings
+(pending)
+
+### WP2.13 legal
+(pending)
+
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,
 `clownbot-lore`, `content`, `tracks`, `era-secrets`, `videos`.
