@@ -21,8 +21,13 @@ export const keyOf = (side: Side, route: Route): string => `${side}/${route.name
 
 /** axe (wcag2a + wcag2aa), serious and critical only, normalised and sorted. */
 export async function scan(page: Page): Promise<A11yFinding[]> {
+  return (await inspect(page)).findings;
+}
+
+/** Like `scan`, plus how many axe rules passed (0 means axe saw no content to check). */
+export async function inspect(page: Page): Promise<{ findings: A11yFinding[]; passes: number }> {
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
-  return results.violations
+  const findings = results.violations
     .filter((v) => v.impact === 'serious' || v.impact === 'critical')
     .map((v) => ({
       id: v.id,
@@ -30,6 +35,7 @@ export async function scan(page: Page): Promise<A11yFinding[]> {
       targets: v.nodes.map((n) => JSON.stringify(n.target)).sort(),
     }))
     .sort((x, y) => x.id.localeCompare(y.id));
+  return { findings, passes: results.passes.length };
 }
 
 const file = (project: string) => resolve(dir, `${project}.json`);
@@ -50,11 +56,11 @@ export function writeBaseline(project: string, key: string, findings: A11yFindin
   writeFileSync(file(project), JSON.stringify(sorted, null, 2) + '\n');
 }
 
-/** Readable lines for every (rule, target) in `found` that `baseline` does not list. */
+/** Readable lines for every (rule, target, impact) in `found` that `baseline` does not list. */
 export function newViolations(found: A11yFinding[], baseline: A11yFinding[]): string[] {
-  const known = new Set(baseline.flatMap((f) => f.targets.map((t) => `${f.id} ${t}`)));
+  const known = new Set(baseline.flatMap((f) => f.targets.map((t) => `${f.id} ${f.impact} ${t}`)));
   return found.flatMap((f) =>
-    f.targets.filter((t) => !known.has(`${f.id} ${t}`)).map((t) => `[${f.impact}] ${f.id} at ${t}`),
+    f.targets.filter((t) => !known.has(`${f.id} ${f.impact} ${t}`)).map((t) => `[${f.impact}] ${f.id} at ${t}`),
   );
 }
 

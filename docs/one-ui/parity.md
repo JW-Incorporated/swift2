@@ -98,12 +98,15 @@ are regenerated (below).
 `e2e/parity/a11y.spec.ts` runs axe (`wcag2a`, `wcag2aa`) on both sides of both
 fixture routes, after the same readiness guards as the parity specs, in all four
 projects. Only serious and critical findings count. The run fails on any
-(rule, node-target) pair not in the committed baseline
+(rule, node-target, impact) triple not in the committed baseline
 `e2e/parity/a11y-baseline/<project>.json` (keys `a/home`, `a/item`, `b/home`,
 `b/item`); new ones print as `[impact] rule at target`. A missing baseline is
 red, never vacuous. Findings on side b whose rule id side a lacks on that route
 are logged (`a11y b-only ...`, also a test annotation); they never fail the run
-but go to the PM in the PR body. `a11y-negative.spec.ts` injects an alt-less
+they are not posted to the PR body. Find them in the Playwright report (the
+`a11y-b-only` annotation on each `a11y: <route>` test) or the CI job log. Each page
+must also have at least one axe rule pass, so a blank page cannot pass.
+`a11y-compare.spec.ts` unit-tests the baseline key. `a11y-negative.spec.ts` injects an alt-less
 image and a nameless button and asserts both surface as new.
 
 Regenerate (same rule as the screenshots: never on the default branch): the

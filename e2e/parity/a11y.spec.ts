@@ -1,4 +1,4 @@
-import { bOnly, keyOf, newViolations, readBaseline, scan, UPDATE, writeBaseline } from './a11y';
+import { bOnly, inspect, keyOf, newViolations, readBaseline, UPDATE, writeBaseline } from './a11y';
 import { expect, openRoute, ROUTES, test } from './helpers';
 
 // axe (wcag2a/wcag2aa) on both sides of each fixture route. Fails only on
@@ -12,7 +12,9 @@ for (const route of ROUTES) {
     const found = {} as Record<'a' | 'b', Awaited<ReturnType<typeof scan>>>;
     for (const side of ['a', 'b'] as const) {
       await openRoute(page, side, route);
-      found[side] = await scan(page);
+      const { findings, passes } = await inspect(page);
+      expect(passes, `axe inspected content on side ${side}`).toBeGreaterThan(0);
+      found[side] = findings;
     }
 
     const only = bOnly(found.a, found.b);
