@@ -226,6 +226,12 @@ waits only for __ready. = G1 condition 4 (flake) → executor fixing now
 (wait for img load+decode + CSS backgrounds, broken image fails loudly,
 negative delayed-image spec, two green verification runs). WP2.1-C launched
 (stacked on wp2.1a; generator + data-URI DOM fonts).
+**02:32:** WP2.1-B → **#4844** (base wp2.1a; HostAdapter types + HostProvider
+in apps/web layout; suite 8252; parity 37113287859 pending) → reviewer r1
+launched (Codex next slot). #4841 Codex r1 (`task-mus6qiwu-zu39g1`): P2 package
+never resolved by either host; P2 lint ban only static imports; P3 fingerprint
+unproven → fix round 1 launched with reviewer items (peer ^19, @source in
+shared-ui-test.css, prettier drift) + real @swift2/ui import in ReaderSpike.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
