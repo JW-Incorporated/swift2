@@ -129,10 +129,29 @@ describe('api handler: failure modes', () => {
     expect(text).not.toHaveBeenCalled();
   });
 
-  it('falls back to arrayBuffer when the response has no stream body', async () => {
-    const res = { status: 200, headers: new Headers(), body: null, arrayBuffer: async () => new TextEncoder().encode('hi').buffer };
+  it('refuses a response with no stream body (no arrayBuffer fallback)', async () => {
+    const arrayBuffer = vi.fn();
+    const res = { status: 200, headers: new Headers(), body: null, arrayBuffer };
     const { call } = harness(async () => res as unknown as Response);
+    expect(await call(post('/api/feedback'))).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(arrayBuffer).not.toHaveBeenCalled();
+  });
+
+  it('releases the reader lock at EOF', async () => {
+    const res = new Response('hi', { status: 200 });
+    const reader = res.body!.getReader();
+    const releaseLock = vi.spyOn(reader, 'releaseLock');
+    const fake = { status: 200, headers: res.headers, body: { getReader: () => reader } };
+    const { call } = harness(async () => fake as unknown as Response);
     expect(value(await call(post('/api/feedback')))?.body).toBe('hi');
+    expect(releaseLock).toHaveBeenCalledTimes(1);
+  });
+
+  it('rejects a request body over 256 KB in bytes (90K three-byte chars)', async () => {
+    const { call, fetchMock } = harness();
+    const r = await call(post('/api/feedback', { body: '€'.repeat(90 * 1024) }));
+    expect(r).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it('requests redirect: error; an off-origin redirect becomes a static status-0 result', async () => {
@@ -147,13 +166,20 @@ describe('api handler: failure modes', () => {
   it('a never-settling body read still times out, aborts and cleans up', async () => {
     vi.useFakeTimers();
     try {
-      const stream = new ReadableStream<Uint8Array>({ pull: () => new Promise(() => {}) });
+      let cancelled = false;
+      const stream = new ReadableStream<Uint8Array>({
+        pull: () => new Promise(() => {}),
+        cancel() {
+          cancelled = true;
+        },
+      });
       const { call, fetchMock } = harness(async () => new Response(stream, { status: 200 }));
       const p = call(post('/api/feedback'));
       await vi.advanceTimersByTimeAsync(8000);
       expect(await p).toMatchObject({ ok: false, error: { code: 'timeout' } });
       expect((fetchMock.mock.calls[0][1] as RequestInit).signal?.aborted).toBe(true);
       expect(vi.getTimerCount()).toBe(0);
+      expect(cancelled).toBe(true);
     } finally {
       vi.useRealTimers();
     }

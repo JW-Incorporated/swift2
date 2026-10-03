@@ -18,6 +18,7 @@ const REQ_HEADERS = ['content-type', 'accept'];
 const NETWORK_FAILURE: ApiResponse = { status: 0, headers: {}, body: '' };
 
 export type ApiHandlerDeps = {
+  /** Must expose res.body as a ReadableStream: expo/fetch, not RN global fetch. */
   fetch: typeof fetch;
   baseUrl: () => string;
   timeoutMs?: number;
@@ -28,34 +29,45 @@ export type ApiHandlerDeps = {
 const keepResponseHeader = (name: string) =>
   name === 'content-type' || name === 'retry-after' || name.startsWith('x-ratelimit-');
 
+const UNREADABLE = Symbol('unreadable');
+
 /**
- * Reads the body with a byte cap. Streaming path (`res.body.getReader()`):
- * counts Uint8Array bytes, cancels the reader and calls `abort` as soon as the
- * cap is exceeded; null = too large. Fallback when the runtime's fetch has no
- * ReadableStream body: `arrayBuffer()` behind the content-length precheck. The
- * path is chosen at runtime by `res.body?.getReader`: runtimes exposing a
- * stream body (modern Hermes/RN fetch, web, Node) stream; others buffer. The
- * caller's abort race never depends on either read settling.
+ * Reads the body with a byte cap, streaming only (res.body.getReader()):
+ * counts Uint8Array bytes and stops (null) once the cap is exceeded or the
+ * request was aborted. A response with no stream body is refused (UNREADABLE):
+ * RN's global fetch never exposes res.body, so F2 must inject expo/fetch,
+ * which streams on iOS and Android. No arrayBuffer() fallback: it would buffer
+ * the whole body before any cap applies.
  */
-async function readCapped(res: Response, abort: () => void): Promise<string | null> {
-  const dec = new TextDecoder();
+async function readCapped(
+  res: Response,
+  signal: AbortSignal,
+  setReader: (r: ReadableStreamDefaultReader<Uint8Array>) => void,
+): Promise<string | null | typeof UNREADABLE> {
   const reader = res.body?.getReader?.();
-  if (!reader) {
-    const buf = await res.arrayBuffer();
-    return buf.byteLength > MAX_API_BYTES ? null : dec.decode(buf);
-  }
+  if (!reader) return UNREADABLE;
+  setReader(reader);
+  const dec = new TextDecoder();
   let total = 0;
   let text = '';
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) return text + dec.decode();
-    total += value.byteLength;
-    if (total > MAX_API_BYTES) {
-      abort();
-      void reader.cancel().catch(() => {});
-      return null;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (signal.aborted) return null;
+      if (done) return text + dec.decode();
+      total += value.byteLength;
+      if (total > MAX_API_BYTES) {
+        void reader.cancel().catch(() => {});
+        return null;
+      }
+      text += dec.decode(value, { stream: true });
     }
-    text += dec.decode(value, { stream: true });
+  } finally {
+    try {
+      reader.releaseLock();
+    } catch {
+      /* a pending read after cancel can make releaseLock throw */
+    }
   }
 }
 
@@ -68,7 +80,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       if (!req || !API_ALLOWLIST.includes(`${req.method} ${req.path}`)) {
         return resErr('invalid', 'api endpoint not allowed');
       }
-      if (req.body !== undefined && (typeof req.body !== 'string' || req.body.length > MAX_API_BYTES)) {
+      if (req.body !== undefined && (typeof req.body !== 'string' || new TextEncoder().encode(req.body).byteLength > MAX_API_BYTES)) {
         return resErr('invalid', 'api body too large');
       }
       const headers: Record<string, string> = {};
@@ -77,16 +89,21 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       }
       if (ctx.signal.aborted) return resErr('cancelled', 'cancelled');
       const ac = new AbortController();
+      let activeReader: ReadableStreamDefaultReader<Uint8Array> | undefined;
+      const cancelAll = () => {
+        ac.abort();
+        void activeReader?.cancel().catch(() => {});
+      };
       let settleAbort: (r: ResResult<ApiResponse>) => void = () => {};
       const aborted = new Promise<ResResult<ApiResponse>>((r) => (settleAbort = r));
       // Only an external cancel or the timeout answers here; our own over-limit abort is answered by run().
       const onAbort = () => {
-        ac.abort();
+        cancelAll();
         settleAbort(resErr('cancelled', 'cancelled'));
       };
       ctx.signal.addEventListener('abort', onAbort, { once: true });
       const timer = setTimer(() => {
-        ac.abort();
+        cancelAll();
         settleAbort(resErr('timeout', 'api request timed out'));
       }, deps.timeoutMs ?? API_TIMEOUT_MS);
       const run = async (): Promise<ResResult<ApiResponse>> => {
@@ -104,8 +121,15 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
             ac.abort();
             return resErr('failed', 'api response too large');
           }
-          const text = await readCapped(res, () => ac.abort());
-          if (text === null) return resErr('failed', 'api response too large');
+          const text = await readCapped(res, ac.signal, (r) => (activeReader = r));
+          if (text === UNREADABLE) {
+            ac.abort();
+            return resErr('failed', 'api response not readable');
+          }
+          if (text === null) {
+            cancelAll();
+            return resErr('failed', 'api response too large');
+          }
           const out: Record<string, string> = {};
           res.headers.forEach((value, key) => {
             const name = key.toLowerCase();
