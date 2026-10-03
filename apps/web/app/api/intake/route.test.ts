@@ -79,8 +79,8 @@ describe('POST /api/intake', () => {
 
   it('files an intake-labeled issue when a token is set', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'feedback-scoped-token');
-    const fetchSpy = vi.fn().mockResolvedValue(
-      new Response(JSON.stringify({ number: 7, html_url: 'http://gh/7' }), { status: 201 }),
+    const fetchSpy = vi.fn().mockImplementation(
+      async () => new Response(JSON.stringify({ number: 7, html_url: 'http://gh/7' }), { status: 201 }),
     );
     vi.stubGlobal('fetch', fetchSpy);
 
@@ -100,7 +100,7 @@ describe('POST /api/intake', () => {
     expect(res.status).toBe(201);
     expect(await res.json()).toMatchObject({ ok: true, number: 7, url: 'http://gh/7' });
 
-    const [, init] = fetchSpy.mock.calls[0];
+    const [, init] = fetchSpy.mock.calls.find(([, i]) => i?.method === 'POST')!;
     expect((init.headers as Record<string, string>).Authorization).toBe('Bearer feedback-scoped-token');
     const sent = JSON.parse(init.body as string);
     expect(sent.labels).toEqual(['intake']);
@@ -114,10 +114,69 @@ describe('POST /api/intake', () => {
     );
     const ip = '10.1.0.4';
     for (let i = 0; i < 5; i++) {
-      const res = await POST(req({ headline: 'x', itemId: 'ci1' }, ip));
+      const res = await POST(req({ headline: 'x', itemId: `rl${i}` }, ip));
       expect(res.status).toBe(201);
     }
-    const limited = await POST(req({ headline: 'x', itemId: 'ci1' }, ip));
+    const limited = await POST(req({ headline: 'x', itemId: 'rl9' }, ip));
     expect(limited.status).toBe(429);
+  });
+
+  describe('idempotency by itemId (#4883)', () => {
+    const issueRes = () =>
+      new Response(JSON.stringify({ number: 11, html_url: 'http://gh/11' }), { status: 201 });
+    const posts = (spy: ReturnType<typeof vi.fn>) =>
+      spy.mock.calls.filter(([, i]) => i?.method === 'POST');
+
+    it('a duplicate within the cache window does not create a second issue', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      const spy = vi.fn().mockImplementation(async (url: string) =>
+        url.includes('/search/issues') ? new Response(JSON.stringify({ items: [] })) : issueRes(),
+      );
+      vi.stubGlobal('fetch', spy);
+      const first = await POST(req({ headline: 'x', itemId: 'dup1' }, '10.2.0.1'));
+      expect(first.status).toBe(201);
+      const second = await POST(req({ headline: 'x', itemId: 'dup1' }, '10.2.0.1'));
+      expect(second.status).toBe(200);
+      expect(await second.json()).toMatchObject({ ok: true, number: 11, url: 'http://gh/11', deduped: true });
+      expect(posts(spy)).toHaveLength(1);
+    });
+
+    it('a search hit returns the existing issue without creating', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      const spy = vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            items: [{ number: 5, html_url: 'http://gh/5', body: 'x\n<!-- intake-item:hit1 -->' }],
+          }),
+        ),
+      );
+      vi.stubGlobal('fetch', spy);
+      const res = await POST(req({ headline: 'x', itemId: 'hit1' }, '10.2.0.2'));
+      expect(await res.json()).toMatchObject({ ok: true, number: 5, url: 'http://gh/5', deduped: true });
+      expect(posts(spy)).toHaveLength(0);
+    });
+
+    it('a search error fails open and creates', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      const spy = vi.fn().mockImplementation(async (url: string) => {
+        if (url.includes('/search/issues')) throw new Error('boom');
+        return issueRes();
+      });
+      vi.stubGlobal('fetch', spy);
+      const res = await POST(req({ headline: 'x', itemId: 'err1' }, '10.2.0.3'));
+      expect(res.status).toBe(201);
+      expect(posts(spy)).toHaveLength(1);
+    });
+
+    it('distinct itemIds each create', async () => {
+      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token');
+      const spy = vi.fn().mockImplementation(async (url: string) =>
+        url.includes('/search/issues') ? new Response(JSON.stringify({ items: [] })) : issueRes(),
+      );
+      vi.stubGlobal('fetch', spy);
+      await POST(req({ headline: 'x', itemId: 'da' }, '10.2.0.4'));
+      await POST(req({ headline: 'x', itemId: 'db' }, '10.2.0.4'));
+      expect(posts(spy)).toHaveLength(2);
+    });
   });
 });

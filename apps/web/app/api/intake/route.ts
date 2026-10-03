@@ -77,8 +77,74 @@ export function bodyFrom(payload: {
     '---',
     '_Reader-flagged via the Current tier — see docs/proposals/2026-08-23-knowledge-engine.md._',
     '<!-- intake:reader-verify -->',
+    itemMarker(payload.itemId),
   ];
   return lines.filter((l): l is string => l !== null).join('\n');
+}
+
+// Stable per-item marker (#4883): lets a retry find the issue a prior attempt
+// already created. Sanitized so a client-supplied id can't break out of the
+// HTML comment or the search query.
+export function itemMarker(itemId: string): string {
+  return `<!-- intake-item:${itemId.replace(/[^A-Za-z0-9_.:-]/g, '_')} -->`;
+}
+
+interface IssueRef {
+  number?: number;
+  url?: string;
+}
+
+const RECENT_TTL_MS = 10 * 60_000;
+const RECENT_MAX = 500;
+const recentCreates = new Map<string, { at: number; ref: IssueRef }>();
+
+function recentGet(itemId: string): IssueRef | null {
+  const hit = recentCreates.get(itemId);
+  if (!hit) return null;
+  if (Date.now() - hit.at > RECENT_TTL_MS) {
+    recentCreates.delete(itemId);
+    return null;
+  }
+  return hit.ref;
+}
+
+function recentSet(itemId: string, ref: IssueRef): void {
+  recentCreates.delete(itemId);
+  recentCreates.set(itemId, { at: Date.now(), ref });
+  while (recentCreates.size > RECENT_MAX) {
+    const oldest = recentCreates.keys().next().value;
+    if (oldest === undefined) break;
+    recentCreates.delete(oldest);
+  }
+}
+
+// Fails open: any error or odd response returns null so intake still creates.
+async function findOpenIssue(
+  repo: string,
+  token: string,
+  itemId: string,
+): Promise<IssueRef | null> {
+  try {
+    const marker = itemMarker(itemId);
+    const token_ = marker.replace('<!-- ', '').replace(' -->', '');
+    const q = `repo:${repo} is:issue is:open in:body "${token_}"`;
+    const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(q)}&per_page=5`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'User-Agent': 'longlive-intake',
+      },
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      items?: { number?: number; html_url?: string; body?: string | null }[];
+    };
+    const hit = data.items?.find((i) => typeof i.body === 'string' && i.body.includes(marker));
+    return hit ? { number: hit.number, url: hit.html_url } : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function POST(req: Request): Promise<Response> {
@@ -123,6 +189,14 @@ export async function POST(req: Request): Promise<Response> {
         .filter((s) => s.url !== '')
     : [];
 
+  const existing = recentGet(itemId) ?? (await findOpenIssue(repo, token, itemId));
+  if (existing) {
+    return NextResponse.json(
+      { ok: true, number: existing.number, url: existing.url, deduped: true },
+      { status: 200 },
+    );
+  }
+
   try {
     const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
       method: 'POST',
@@ -147,6 +221,7 @@ export async function POST(req: Request): Promise<Response> {
     }
 
     const issue = (await res.json()) as { number?: number; html_url?: string };
+    recentSet(itemId, { number: issue.number, url: issue.html_url });
     return NextResponse.json({ ok: true, number: issue.number, url: issue.html_url }, { status: 201 });
   } catch (err) {
     console.error('intake: unexpected error', (err as Error).message);
