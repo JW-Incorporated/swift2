@@ -73,6 +73,14 @@ export default tseslint.config(
           selector: "CallExpression[callee.name='require'][arguments.0.value=/^(next$|next[^-a-zA-Z0-9]|react-native)/]",
           message: 'packages/ui is host-agnostic: use useHost() instead of require of next/react-native.',
         },
+        {
+          selector: "ImportExpression[source.type!='Literal']",
+          message: 'packages/ui forbids non-literal dynamic import(): the specifier must be a string literal so the host ban can be checked.',
+        },
+        {
+          selector: "CallExpression[callee.name='require']:not([arguments.0.type='Literal'])",
+          message: 'packages/ui forbids non-literal require(): the specifier must be a string literal so the host ban can be checked.',
+        },
       ],
     },
   },
