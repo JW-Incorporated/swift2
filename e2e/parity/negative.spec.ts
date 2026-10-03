@@ -157,7 +157,7 @@ test.describe('displayed external image gate (takeShownExternalImages)', () => {
     await openRoute(page, 'b', route);
     await captureRoot(page, route);
     const before = await takeShownExternalImages(page, route.root);
-    await page.route('**/shown-broken.png', (r) => r.abort());
+    await page.route('**/shown-broken.png', (r) => r.fulfill({ status: 200, contentType: 'image/png', body: 'not an image' }));
     await place(page, 'display:none', 'https://parity.invalid/shown-hidden.png', route.root);
     await place(page, 'visibility:hidden', 'https://parity.invalid/shown-invisible.png', route.root);
     await place(page, 'width:0;height:0', 'https://parity.invalid/shown-zero.png', route.root);
