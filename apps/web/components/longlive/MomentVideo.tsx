@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { Play } from 'lucide-react';
 import type { MomentVideo as MomentVideoData } from '@swift2/experience';
 
@@ -72,6 +72,7 @@ export function VideoPoster({
   priority?: boolean;
   onPlay: () => void;
 }) {
+  const { Image } = useHost();
   return (
     <VideoFrame>
       <button

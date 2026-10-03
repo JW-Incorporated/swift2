@@ -1,4 +1,4 @@
-import { checkStrictJson } from './validate';
+import { canonicalize, checkParsedJson } from './validate';
 import type { JsonValue } from './envelope';
 import type { DomCommandType } from './messages';
 
@@ -29,7 +29,11 @@ function strip(x: unknown, depth = 0): unknown {
 
 export function clean(x: unknown): { ok: true; value: JsonValue } | { ok: false; reason: string } {
   try {
-    return checkStrictJson(strip(x));
+    const v = strip(x);
+    const walked = checkParsedJson(v);
+    if (!walked.ok) return walked;
+    const sized = canonicalize(v);
+    return sized.ok ? walked : sized;
   } catch {
     return { ok: false, reason: 'bad-json' };
   }

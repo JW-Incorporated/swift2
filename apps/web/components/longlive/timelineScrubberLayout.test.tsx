@@ -2,8 +2,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { render } from '@testing-library/react';
+
 import { TimelineScrubber } from './TimelineScrubber';
+import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
 import {
   CURRENT_ERA_NOW_GRAIN_MS,
@@ -102,7 +103,7 @@ describe('TimelineScrubber layout', () => {
   // elements in that nesting order, not just defined and referenced
   // somewhere in the file.
   it('is actually wired into TimelineScrubber in shell > anchor > rail order', () => {
-    const { container } = render(
+    const { container } = renderWithReader(
       <AppProvider>
         <TimelineScrubber />
       </AppProvider>,

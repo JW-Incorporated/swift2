@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
+import { WebReaderSnapshotProvider } from '@/lib/longlive/reader-snapshot-provider';
 import { getEra } from '@swift2/experience';
 import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
@@ -104,8 +105,10 @@ function Shell() {
 
 export function LongLive() {
   return (
-    <AppProvider>
-      <Shell />
-    </AppProvider>
+    <WebReaderSnapshotProvider>
+      <AppProvider>
+        <Shell />
+      </AppProvider>
+    </WebReaderSnapshotProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { checkStrictJson, isBridgeId } from './validate';
+import { canonicalize, checkParsedJson, checkStrictJson, isBridgeId } from './validate';
 import type { JsonFailure } from './validate';
 
 /**
@@ -9,7 +9,7 @@ import type { JsonFailure } from './validate';
  *
  * Optional-field semantics: an object type's optional field (`a?: T`) is typed
  * `T | undefined` so it satisfies `JsonValue`, but on the wire the key must be
- * ABSENT. An explicit `undefined` value is rejected by `parseEnvelope`.
+ * ABSENT (a JSON string cannot carry `undefined`).
  */
 export type JsonValue =
   | string
@@ -54,11 +54,25 @@ export type ParseFailure = 'malformed' | 'bad-id' | JsonFailure;
 export type ParseResult = { ok: true; envelope: Envelope } | { ok: false; reason: ParseFailure };
 
 /**
- * Hand-written guard (no dependency). Never throws on hostile input; returns a
- * typed failure for anything that is not a well-formed envelope with a strict
- * JSON payload (depth <= 32, serialized <= 256 KB).
+ * Hand-written guard (no dependency). The boundary is a STRING: length cap
+ * (256 KB, O(1)) -> JSON.parse -> shape-walk of the parsed result (depth <= 32).
+ * Never throws; returns a typed failure for anything that is not a well-formed
+ * envelope.
  */
-export function parseEnvelope(raw: unknown): ParseResult {
+export function parseEnvelope(raw: string): ParseResult {
+  const json = checkStrictJson(raw);
+  if (!json.ok) return { ok: false, reason: json.reason };
+  return validateEnvelope(json.value);
+}
+
+/** Object-accepting entry (tests, in-process callers): canonicalize to plain data, then validate. */
+export function parseEnvelopeValue(x: unknown): ParseResult {
+  const c = canonicalize(x);
+  if (!c.ok) return { ok: false, reason: c.reason };
+  return validateEnvelope(c.value);
+}
+
+function validateEnvelope(raw: unknown): ParseResult {
   const bad = (reason: ParseFailure): ParseResult => ({ ok: false, reason });
   try {
     if (!isRecord(raw)) return bad('malformed');
@@ -69,7 +83,7 @@ export function parseEnvelope(raw: unknown): ParseResult {
     if (typeof type !== 'string' || type === '' || type.length > 64) return bad('malformed');
     if (typeof ts !== 'number' || !Number.isFinite(ts)) return bad('malformed');
     if (seq !== undefined && (typeof seq !== 'number' || !Number.isInteger(seq) || seq < 0)) return bad('malformed');
-    const json = checkStrictJson(payload === undefined ? null : payload);
+    const json = checkParsedJson(payload === undefined ? null : payload);
     if (!json.ok) return bad(json.reason);
     const envelope: Envelope = { v, id, kind: kind as EnvelopeKind, type, payload: json.value, ts };
     if (seq !== undefined) envelope.seq = seq;

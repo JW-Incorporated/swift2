@@ -157,9 +157,10 @@ describe('readyAck reseed (Fable 2)', () => {
     expect(signals).toEqual([['readyAck-invalid', undefined]]);
   });
 
-  it.each([[NaN], [Infinity]])('non-JSON hwm %s is dropped at the envelope layer, ids untouched', (bad) => {
+  it.each([[NaN], [Infinity]])('non-JSON hwm %s canonicalizes to null: invalid ack, ids untouched', (bad) => {
     const c = mk();
-    expect(c.receive(ack(bad))).toBe(false);
+    expect(c.receive(ack(bad))).toBe(true);
+    expect(signals).toEqual([['readyAck-invalid', undefined]]);
     void c.call('haptic', { kind: 'light' });
     expect(Number(posted[0]!.id)).toBe(1000);
   });

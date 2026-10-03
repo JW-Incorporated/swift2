@@ -1,4 +1,4 @@
-import { isResResult, parseEnvelope, resErr } from './envelope';
+import { isResResult, parseEnvelopeValue, resErr } from './envelope';
 import type { Envelope, JsonValue, ResResult } from './envelope';
 import { isNativeEventType } from './messages';
 import type { DomCommandType, EventPayloadOf, NativeEventType, PayloadOf, ResultOf } from './messages';
@@ -248,7 +248,7 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
 
   function receive(raw: unknown): boolean {
     if (disposed) return false;
-    const parsed = parseEnvelope(raw);
+    const parsed = parseEnvelopeValue(raw);
     if (!parsed.ok) return false;
     const env = parsed.envelope;
     if (env.kind !== 'res' && env.seq !== undefined) {

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import {
   Sparkles, ArrowUpRight, Heart, Shirt, Music, Mic2, ScrollText, AlertTriangle, Check,
   type LucideIcon,
@@ -151,6 +151,7 @@ export function MomentCardButton({
   hideImage: boolean;
   onOpen: () => void;
 }) {
+  const { Image } = useHost();
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
   const hero = !hideImage && hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;

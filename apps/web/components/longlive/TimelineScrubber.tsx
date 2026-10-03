@@ -3,7 +3,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getEra } from '@swift2/experience';
-import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
+import { useReader } from '@swift2/ui';
 import { truncate } from '@swift2/experience';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { measureChromeHeight, measureChromeBottom } from '@/lib/longlive/chrome-offset';
@@ -48,6 +48,7 @@ export function TimelineScrubber() {
   const { eraId } = useAppState();
   const { setScrubbing } = useAppActions();
   const era = getEra(eraId);
+  const q = useReader();
 
   const start = useMemo(() => new Date(era.start).getTime(), [era.start]);
   // The current era's authored end date can sit in the future (a season/
@@ -62,8 +63,8 @@ export function TimelineScrubber() {
   }, [era.end, era.isCurrent]);
   const span = Math.max(1, end - start);
 
-  const items = useMemo(() => contentForEra(eraId), [eraId]);
-  const milestones = useMemo(() => milestonesForEra(eraId), [eraId]);
+  const items = useMemo(() => q.contentForEra(eraId), [q, eraId]);
+  const milestones = useMemo(() => q.milestonesForEra(eraId), [q, eraId]);
 
   // Smoothed activity density (Gaussian kernel over item dates). This stays
   // date-based (it's describing *when* things happened), but is drawn against

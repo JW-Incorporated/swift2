@@ -2,7 +2,7 @@
 
 import type React from 'react';
 import { useState } from 'react';
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import {
   Heart,
   Shirt,
@@ -96,6 +96,7 @@ function ThreadHeroArt({
   priority?: boolean;
   decorative?: boolean;
 }) {
+  const { Image } = useHost();
   const tiles = threadHeroTiles(meta.id);
 
   if (tiles.length > 0) {

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 // next/link resolves react through Next's own dependency chain, which in
 // this npm-hoisted monorepo can land on a different react copy than
@@ -16,14 +16,18 @@ vi.mock('next/link', () => ({
 }));
 
 import { TopBar } from './TopBar';
+import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 function renderTopBar() {
-  return render(
-    <AppProvider>
-      <TopBar />
-    </AppProvider>,
+  return renderWithReader(
+    <TestHostProvider>
+      <AppProvider>
+        <TopBar />
+      </AppProvider>
+    </TestHostProvider>,
   );
 }
 

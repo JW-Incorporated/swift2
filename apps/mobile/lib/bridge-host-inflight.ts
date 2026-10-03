@@ -1,4 +1,4 @@
-import { checkStrictJson, isResResult, resErr } from '@swift2/ui';
+import { checkParsedJson, isResResult, resErr } from '@swift2/ui';
 import type { DomCommandType, HandlerContext, HandlerMap, JsonValue, ResResult } from '@swift2/ui';
 
 export const DEFAULT_TIMEOUT_MS = 8000;
@@ -50,7 +50,7 @@ export function createInflight(deps: InflightDeps) {
       .then(
         (r) => {
           if (r === SKIP) return;
-          const ok = isResResult(r) && checkStrictJson(r).ok;
+          const ok = isResResult(r) && checkParsedJson(r).ok;
           settle(f, ok ? (r as ResResult<JsonValue>) : resErr('failed', 'handler returned an invalid result'));
         },
         (e) => {

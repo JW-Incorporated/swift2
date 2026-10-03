@@ -1,21 +1,12 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import Image from 'next/image';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
-import { contentForEra } from '@/lib/longlive/content';
-// NOT '@swift2/experience' directly (issue #4082): this is a 'use client'
-// component, so Next.js/Turbopack builds it into a separate client module
-// graph from the server-only `app/layout.tsx` -> `vault-wiring.ts` chain
-// that calls `setTracksRawProvider`. Importing `tracksForEra` straight from
-// the headless package resolves a client-bundle copy of that module whose
-// provider was never wired, so `trackCount` was always 0 in production —
-// every consumer of the track catalogue must import through
-// `@/lib/longlive/tracks`, which carries the wiring side effect with it.
-import { tracksForEra } from '@/lib/longlive/tracks';
+import { eraVideoFeed, type WatchableVideoNote } from '@swift2/content-enrichment';
 import { threadsInEra } from '@swift2/experience';
-import { videosForEra, eraVideoFeed } from '@/lib/longlive/videos';
+import { useReader } from '@swift2/ui';
 import { EraSecretCard } from './EraSecretCard';
 import { ShareImageMenu } from './ShareImageMenu';
 import { TrackGuideBar } from './TrackGuideBar';
@@ -29,14 +20,11 @@ import {
   visibleFeed,
   buildEraStreamViewModel,
   type EraFeedEntry,
-  threadDoorwaysForEra,
-  eggDoorwaysForEra,
   spaceDoorways,
 } from '@swift2/experience';
 import { useEraCurrentFeed } from '@/lib/longlive/use-era-current-feed';
 import { feedCardImageHidden } from '@/lib/longlive/video-affordance';
 import type { Era } from '@swift2/experience';
-import type { WatchableVideoNote } from '@/lib/longlive/videos';
 import type { CurrentItem } from '@swift2/shared';
 
 /**
@@ -64,6 +52,8 @@ export function EraSection({
   /** Current era's live `current_item` rows (Stage 5); ignored elsewhere. */
   currentItems?: CurrentItem[];
 }) {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
   // Stage 5 — live entries + overlay state (use-era-current-feed.ts).
@@ -77,17 +67,18 @@ export function EraSection({
   // owned by the store and rendered once by FilterBar in EraStream. This
   // section only reads the active set; it no longer owns filter state.
   const { filters } = useAppState();
+  const q = useReader();
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
-  const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
+  const trackCount = useMemo(() => q.tracksForEra(era.id).length, [q, era.id]);
 
-  const items = useMemo(() => contentForEra(era.id), [era.id]);
+  const items = useMemo(() => q.contentForEra(era.id), [q, era.id]);
   // Everything watchable in this era (all kinds, including the appearances the
   // 2026-08-12 taxonomy made representable), de-duped against the moments that
   // already embed them.
   const embeddedVideoIds = useMemo(() => embeddedYoutubeIds(items), [items]);
   const videoFeed = useMemo(
-    () => eraVideoFeed(era.id, embeddedVideoIds),
-    [era.id, embeddedVideoIds],
+    () => eraVideoFeed(q.allVideoRecordsForEra(era.id), embeddedVideoIds),
+    [q, era.id, embeddedVideoIds],
   );
   // Timeline doorways (PLAN.md P3 steps 13-15): one card per thread present in
   // this era, one per theory/egg the guide has for it. Built here (not once,
@@ -96,10 +87,10 @@ export function EraSection({
   // step 14a clamp for a thread point that falls outside the era's window).
   const doorwayEntries = useMemo(
     () => [
-      ...threadDoorwaysForEra(era.id, era.start, era.end),
-      ...eggDoorwaysForEra(era.id, era.start, era.end),
+      ...q.threadDoorwaysForEra(era.id, era.start, era.end),
+      ...q.eggDoorwaysForEra(era.id, era.start, era.end),
     ],
-    [era.id, era.start, era.end],
+    [q, era.id, era.start, era.end],
   );
   // Merge EVERY moment, video, doorway and live current-item into one
   // unfiltered, newest-first feed, space the doorways (spaceDoorways —
@@ -133,8 +124,8 @@ export function EraSection({
   // chips happen to be lit, so a tag filter can never make a suppressed frame
   // blink back on.
   const knownVideoIds = useMemo(
-    () => eraKnownVideoIds(items, videosForEra(era.id)),
-    [items, era.id],
+    () => eraKnownVideoIds(items, q.videosForEra(era.id)),
+    [q, items, era.id],
   );
   // The cards whose photo will not render: a card carrying footage whose picture
   // is a still of a video the era plays — either the one its own poster is about
@@ -207,7 +198,7 @@ export function EraSection({
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={era.image || '/placeholder.svg'}
+            src={resolveUrl(era.image || '/placeholder.svg')}
             alt=""
             fill
             priority

@@ -1,4 +1,4 @@
-import { describe, expect, expectTypeOf, it } from 'vitest';
+import { describe, expect, expectTypeOf, it, vi } from 'vitest';
 import type { HapticKind, Insets, NotificationPrefs, NotificationStatus, SharePayload } from '../host/types';
 import {
   BRIDGE_VERSION,
@@ -16,10 +16,12 @@ import {
   isDomCommandType,
   isExternalUrl,
   isResResult,
+  isVersionRange,
   isWebPath,
   makeRes,
   negotiate,
   parseEnvelope,
+  parseEnvelopeValue,
   parseReady,
   resErr,
   resOk,
@@ -41,40 +43,52 @@ import type {
 
 const good = { v: 1, id: 'a1', kind: 'cmd', type: 'haptic', payload: { kind: 'light' }, ts: 5 };
 
+const wire = (o: Record<string, unknown>) => JSON.stringify(o);
 const env = (r: unknown) => {
-  const p = parseEnvelope(r);
+  const p = parseEnvelopeValue(r);
   return p.ok ? p.envelope : null;
 };
 const reason = (r: unknown) => {
-  const p = parseEnvelope(r);
+  const p = parseEnvelopeValue(r);
   return p.ok ? null : p.reason;
 };
+const rawEnv = (payloadJson: string) =>
+  `{"v":1,"id":"a1","kind":"cmd","type":"haptic","payload":${payloadJson},"ts":5}`;
 
-describe('parseEnvelope', () => {
-  it('accepts a valid envelope and an optional seq', () => {
-    expect(env(good)).toEqual(good);
-    expect(env({ ...good, kind: 'evt', seq: 3 })?.seq).toBe(3);
+describe('parseEnvelope (string boundary)', () => {
+  it('accepts a valid envelope string and an optional seq', () => {
+    expect(parseEnvelope(wire(good))).toEqual({ ok: true, envelope: good });
+    const withSeq = parseEnvelope(wire({ ...good, kind: 'evt', seq: 3 }));
+    expect(withSeq.ok && withSeq.envelope.seq).toBe(3);
   });
   it('normalizes a missing payload to null', () => {
-    expect(env({ ...good, payload: undefined })?.payload).toBeNull();
+    const noPayload: Record<string, unknown> = { ...good };
+    delete noPayload.payload;
+    const r = parseEnvelope(wire(noPayload));
+    expect(r.ok && r.envelope.payload).toBeNull();
   });
   it.each([
-    ['null', null],
-    ['string', 'x'],
-    ['array', []],
-    ['wrong kind', { ...good, kind: 'req' }],
-    ['numeric id', { ...good, id: 7 }],
-    ['empty id', { ...good, id: '' }],
-    ['numeric type', { ...good, type: 1 }],
-    ['NaN ts', { ...good, ts: Number.NaN }],
-    ['string ts', { ...good, ts: '5' }],
-    ['Infinity v', { ...good, v: Infinity }],
-    ['missing v', { ...good, v: undefined }],
-    ['fractional v', { ...good, v: 1.5 }],
-    ['negative v', { ...good, v: -1 }],
-    ['string seq', { ...good, seq: '1' }],
+    ['null', 'null'],
+    ['string', '"x"'],
+    ['array', '[]'],
+    ['not json', '{nope'],
+    ['empty', ''],
+    ['wrong kind', wire({ ...good, kind: 'req' })],
+    ['numeric id', wire({ ...good, id: 7 })],
+    ['empty id', wire({ ...good, id: '' })],
+    ['numeric type', wire({ ...good, type: 1 })],
+    ['string ts', wire({ ...good, ts: '5' })],
+    ['missing v', wire({ ...good, v: undefined })],
+    ['fractional v', wire({ ...good, v: 1.5 })],
+    ['negative v', wire({ ...good, v: -1 })],
+    ['string seq', wire({ ...good, seq: '1' })],
   ])('rejects %s', (_name, raw) => {
     expect(parseEnvelope(raw).ok).toBe(false);
+  });
+  it('rejects non-string input without throwing', () => {
+    for (const x of [good, null, undefined, 5, [], new Proxy({}, { get: () => { throw new Error('boom'); } })]) {
+      expect(parseEnvelope(x as unknown as string).ok).toBe(false);
+    }
   });
   it('ids: 1-64 chars of [A-Za-z0-9_-]', () => {
     expect(reason({ ...good, id: 'a'.repeat(65) })).toBe('bad-id');
@@ -86,65 +100,88 @@ describe('parseEnvelope', () => {
 });
 
 describe('parseEnvelope payload is strict JSON', () => {
-  const holes: unknown[] = [1, 2, 3];
-  delete holes[1];
-  const withProtoKey = JSON.parse('{"__proto__":{"x":1}}') as unknown;
-  class Klass {
-    a = 1;
-  }
-  let deep: unknown = 1;
-  for (let i = 0; i < 40; i++) deep = [deep];
-  const cyclic: Record<string, unknown> = {};
-  cyclic.self = cyclic;
   it.each([
-    ['function', () => 1],
-    ['nested function', { a: () => 1 }],
-    ['bigint', 1n],
-    ['NaN', Number.NaN],
-    ['Infinity', { a: Infinity }],
-    ['undefined value', { a: undefined }],
-    ['array hole', holes],
-    ['symbol', Symbol('x')],
-    ['Date', new Date()],
-    ['Map', new Map()],
-    ['class instance', new Klass()],
-    ['own __proto__ key', withProtoKey],
-    ['constructor key', { constructor: 1 }],
-    ['prototype key', { prototype: 1 }],
-    ['getter', Object.defineProperty({}, 'a', { get: () => 1, enumerable: true })],
-    ['cycle', cyclic],
-    ['array with extra prop', Object.assign([1], { x: 1 })],
-  ])('rejects %s without throwing', (_n, payload) => {
-    expect(parseEnvelope({ ...good, payload }).ok).toBe(false);
-  });
-  it('rejects a throwing proxy without throwing', () => {
-    const proxy = new Proxy({}, { ownKeys: () => { throw new Error('boom'); } });
-    expect(parseEnvelope({ ...good, payload: proxy }).ok).toBe(false);
+    ['own __proto__ key', '{"__proto__":{"x":1}}'],
+    ['nested __proto__ key', '{"a":[{"__proto__":1}]}'],
+    ['constructor key', '{"constructor":1}'],
+    ['prototype key', '{"prototype":1}'],
+    ['NaN literal', 'NaN'],
+    ['undefined literal', 'undefined'],
+  ])('rejects %s', (_n, payloadJson) => {
+    expect(parseEnvelope(rawEnv(payloadJson)).ok).toBe(false);
   });
   it('rejects depth > 32 and serialized size > 256 KB', () => {
-    expect(reason({ ...good, payload: deep })).toBe('too-deep');
+    expect(parseEnvelope(rawEnv('['.repeat(40) + ']'.repeat(40)))).toEqual({ ok: false, reason: 'too-deep' });
+    expect(parseEnvelope(rawEnv(JSON.stringify('x'.repeat(MAX_PAYLOAD_SIZE))))).toEqual({ ok: false, reason: 'too-large' });
+  });
+  it('accepts nesting at the limit and a string just under the size limit', () => {
+    expect(parseEnvelope(rawEnv('['.repeat(MAX_PAYLOAD_DEPTH) + '1' + ']'.repeat(MAX_PAYLOAD_DEPTH))).ok).toBe(true);
+    expect(parseEnvelope(rawEnv(JSON.stringify('x'.repeat(MAX_PAYLOAD_SIZE - 200)))).ok).toBe(true);
+  });
+  it('rejects a 300 KB string without parsing it', () => {
+    const spy = vi.spyOn(JSON, 'parse');
+    try {
+      expect(parseEnvelope('x'.repeat(300 * 1024))).toEqual({ ok: false, reason: 'too-large' });
+      expect(spy).not.toHaveBeenCalled();
+    } finally {
+      spy.mockRestore();
+    }
+  });
+});
+
+describe('object-accepting entry points canonicalize first and never throw', () => {
+  const cyclic: Record<string, unknown> = {};
+  cyclic.self = cyclic;
+  const hostile: [string, unknown][] = [
+    ['throwing ownKeys proxy', new Proxy({}, { ownKeys: () => { throw new Error('boom'); } })],
+    ['throwing get proxy', new Proxy({}, { get: () => { throw new Error('boom'); } })],
+    ['throwing getOwnPropertyDescriptor proxy', new Proxy({}, { getOwnPropertyDescriptor: () => { throw new Error('boom'); }, ownKeys: () => ['a'] })],
+    ['throwing getter', Object.defineProperty({}, 'a', { get: () => { throw new Error('boom'); }, enumerable: true })],
+    ['throwing toJSON', { toJSON: () => { throw new Error('boom'); } }],
+    ['cycle', cyclic],
+    ['bigint', { a: 1n }],
+    ['toJSON returning undefined', { toJSON: () => undefined }],
+    ['function', () => 1],
+    ['symbol', Symbol('x')],
+  ];
+  it.each(hostile.slice(0, 7))('envelope payload: %s is invalid, never throws', (_n, payload) => {
+    expect(() => parseEnvelopeValue({ ...good, payload })).not.toThrow();
+    expect(parseEnvelopeValue({ ...good, payload }).ok).toBe(false);
+  });
+  it.each(hostile)('whole input: %s is invalid, never throws', (_n, x) => {
+    expect(parseEnvelopeValue(x).ok).toBe(false);
+    expect(sanitizeApiRequest(x)).toBeNull();
+    expect(parseReady(x)).toBeNull();
+    expect(negotiate(1, x as never)).toEqual({ ok: false, reason: 'invalid' });
+    expect(isVersionRange(x)).toBe(false);
+  });
+  it('a getter-bearing object is read once into detached plain data', () => {
+    let calls = 0;
+    const payload = Object.defineProperty({}, 'a', { get: () => ++calls, enumerable: true });
+    const first = env({ ...good, payload });
+    expect(first?.payload).toEqual({ a: 1 });
+    expect(Object.getOwnPropertyDescriptor(first?.payload, 'a')).toMatchObject({ value: 1 });
+  });
+  it('toJSON cannot smuggle a prototype key past the walk', () => {
+    expect(parseEnvelopeValue({ ...good, payload: { toJSON: () => JSON.parse('{"__proto__":1}') as unknown } }).ok).toBe(false);
+  });
+  it('rejects oversized input without throwing', () => {
     expect(reason({ ...good, payload: 'x'.repeat(MAX_PAYLOAD_SIZE + 1) })).toBe('too-large');
   });
-  it('accepts null-prototype objects, nesting at the limit and the size limit', () => {
-    expect(parseEnvelope({ ...good, payload: Object.assign(Object.create(null), { a: [1, 'x', null, true] }) }).ok).toBe(true);
-    let ok: unknown = 1;
-    for (let i = 0; i < MAX_PAYLOAD_DEPTH; i++) ok = [ok];
-    expect(parseEnvelope({ ...good, payload: ok }).ok).toBe(true);
-    expect(parseEnvelope({ ...good, payload: 'x'.repeat(MAX_PAYLOAD_SIZE - 2) }).ok).toBe(true);
-  });
-  it('explicit undefined is dropped by JSON.stringify but rejected on the wire', () => {
-    expect(JSON.stringify({ a: undefined })).toBe('{}');
-    expect(parseEnvelope({ ...good, payload: { a: undefined } }).ok).toBe(false);
+  it('accepts null-prototype objects', () => {
+    expect(parseEnvelopeValue({ ...good, payload: Object.assign(Object.create(null), { a: [1, 'x', null, true] }) }).ok).toBe(true);
   });
 });
 
 describe('isWebPath', () => {
-  it.each(['/', '/era/folklore?x=1', '/a/b#c', '/era/a.b'])('accepts %s', (p) => {
+  it.each(['/', '/era/folklore?x=1', '/a/b#c', '/era/a.b', '/era/caf%C3%A9', '/a%252Fb'])('accepts %s', (p) => {
     expect(isWebPath(p)).toBe(true);
   });
   it.each([
     'era', '//evil.test', '///x', '/\\evil', '/a\\b', '/a\nb', '/a\u0000b', '/../x', '/a/../b', '/a/./b',
     '/%2F%2Fevil', '/%2f', '/%5Cevil', '/%5c', '/%2e%2e/x', '/a%00', 'https://x.test', 'javascript:1', '',
+    '/%252e%252e%252fadmin', '/%252e%252e/x', '/%25252e%25252e%25252fadmin', '/%2525252e%2525252e/x',
+    '/／evil', '/∕evil', '/café', '/a b', '/%', '/%E0%A4%A', '/a?x=%00',
   ])('rejects %j', (p) => {
     expect(isWebPath(p)).toBe(false);
   });
@@ -293,9 +330,9 @@ describe('JSON round-trip, one sample per type', () => {
     ready: { v: 1, range: { min: 1, max: 1 } },
     diag: { stage: 'mount', detail: 'ok' },
     ack: { seq: 4 },
-    readyAck: { hwm: 0 },
     insets,
     contentVersion: { token: 'abc' },
+    readyAck: { hwm: 0 },
     navigate: { path: toWebPath('/')!, source: 'deeplink' },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {

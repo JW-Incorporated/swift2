@@ -18,16 +18,39 @@ export const MAX_PAYLOAD_SIZE = 256 * 1024;
 
 // eslint-disable-next-line no-control-regex -- rejecting control chars is the point
 const CONTROL = /[\u0000-\u001f\u007f]/;
-const BAD_ENCODED = /%(?:2f|5c|2e|00|0[0-9a-f]|1[0-9a-f]|7f)/i;
+const ASCII_PRINTABLE = /^[\x21-\x7e]+$/;
+
+/** Percent-decodes up to 3 rounds until a fixed point; null when malformed or still changing. */
+function decodeToFixedPoint(s: string): string | null {
+  let cur = s;
+  try {
+    for (let i = 0; i < 3; i++) {
+      const next = decodeURIComponent(cur);
+      if (next === cur) return cur;
+      cur = next;
+    }
+    return decodeURIComponent(cur) === cur ? cur : null;
+  } catch {
+    return null;
+  }
+}
 
 /**
- * Exactly one leading `/`; no `//`, backslash, control chars, `..` segments or
- * encoded slash/backslash/dot/control variants (`%2F`, `%5C`, `%2E`, ...).
+ * Raw input must be printable ASCII (kills fullwidth/division-slash lookalikes).
+ * The path part is then percent-decoded to a fixed point (max 3 rounds, else
+ * rejected) and checked: single leading `/`, no `//`, backslash, control chars
+ * or `.`/`..` segments. The query/fragment must decode without control chars.
  */
 export function isWebPath(s: unknown): s is WebPath {
-  if (typeof s !== 'string' || s.length > 2048 || !s.startsWith('/') || s.startsWith('//')) return false;
-  if (s.includes('\\') || CONTROL.test(s) || BAD_ENCODED.test(s)) return false;
-  return !s.split(/[?#]/, 1)[0]!.split('/').some((seg) => seg === '..' || seg === '.');
+  if (typeof s !== 'string' || s.length > 2048 || !ASCII_PRINTABLE.test(s)) return false;
+  const cut = s.search(/[?#]/);
+  const pathPart = decodeToFixedPoint(cut === -1 ? s : s.slice(0, cut));
+  if (pathPart === null || CONTROL.test(pathPart)) return false;
+  if (!pathPart.startsWith('/') || pathPart.includes('//') || pathPart.includes('\\')) return false;
+  if (pathPart.split('/').some((seg) => seg === '..' || seg === '.')) return false;
+  if (cut === -1) return true;
+  const rest = decodeToFixedPoint(s.slice(cut));
+  return rest !== null && !CONTROL.test(rest) && !rest.includes('\\');
 }
 export const toWebPath = (s: unknown): WebPath | null => (isWebPath(s) ? s : null);
 
@@ -84,13 +107,45 @@ function walk(x: unknown, depth: number): JsonFailure | null {
   return null;
 }
 
-/** Strict JSON check: null/boolean/finite number/string/array/plain object only. Never throws. */
-export function checkStrictJson(x: unknown): { ok: true; value: JsonValue } | { ok: false; reason: JsonFailure } {
+export type StrictJsonResult = { ok: true; value: JsonValue } | { ok: false; reason: JsonFailure };
+
+/** Shape-walk of already-parsed data (plain data from `JSON.parse`). Never throws. */
+export function checkParsedJson(x: unknown): StrictJsonResult {
   try {
     const bad = walk(x, 0);
-    if (bad) return { ok: false, reason: bad };
-    if (JSON.stringify(x).length > MAX_PAYLOAD_SIZE) return { ok: false, reason: 'too-large' };
-    return { ok: true, value: x as JsonValue };
+    return bad ? { ok: false, reason: bad } : { ok: true, value: x as JsonValue };
+  } catch {
+    return { ok: false, reason: 'bad-json' };
+  }
+}
+
+/**
+ * The bridge boundary is a STRING: length cap first (O(1)), then `JSON.parse`,
+ * then a shape-walk of the parsed result. Never throws.
+ */
+export function checkStrictJson(raw: unknown): StrictJsonResult {
+  if (typeof raw !== 'string') return { ok: false, reason: 'bad-json' };
+  if (raw.length > MAX_PAYLOAD_SIZE) return { ok: false, reason: 'too-large' };
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return { ok: false, reason: 'bad-json' };
+  }
+  return checkParsedJson(parsed);
+}
+
+/**
+ * For object-accepting entry points: `JSON.stringify` -> length check ->
+ * `JSON.parse`, all inside try. The result is detached plain data (no
+ * Proxy/getters/toJSON survive); anything that throws or is too large is a failure.
+ */
+export function canonicalize(x: unknown): { ok: true; value: unknown } | { ok: false; reason: JsonFailure } {
+  try {
+    const text = JSON.stringify(x);
+    if (typeof text !== 'string') return { ok: false, reason: 'bad-json' };
+    if (text.length > MAX_PAYLOAD_SIZE) return { ok: false, reason: 'too-large' };
+    return { ok: true, value: JSON.parse(text) as unknown };
   } catch {
     return { ok: false, reason: 'bad-json' };
   }
@@ -119,8 +174,11 @@ const METHODS: readonly string[] = ['GET', 'POST', 'PUT', 'DELETE'];
 /** Returns a clean copy, or null when the request is not allowed to cross. Never throws. */
 export function sanitizeApiRequest(raw: unknown): BridgeApiRequest | null {
   try {
-    if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return null;
-    const r = raw as Record<string, unknown>;
+    const c = canonicalize(raw);
+    if (!c.ok) return null;
+    const value = c.value;
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) return null;
+    const r = value as Record<string, unknown>;
     if (typeof r.method !== 'string' || !METHODS.includes(r.method)) return null;
     if (typeof r.path !== 'string' || !r.path.startsWith('/api/') || !isWebPath(r.path)) return null;
     const out: BridgeApiRequest = { method: r.method as ApiRequest['method'], path: r.path as `/api/${string}` };

@@ -1,5 +1,5 @@
 import { MAX_BATCH, MAX_RETAINED, isRec } from './client-util';
-import { parseEnvelope } from './envelope';
+import { parseEnvelopeValue } from './envelope';
 import type { Envelope } from './envelope';
 
 const MAX_SCAN = 1024;
@@ -33,7 +33,7 @@ export function createInbox(lastSeq: () => number, onSignal?: (kind: string, det
     take(): Envelope[] {
       const envs: Envelope[] = [];
       for (const s of [...held.keys()].sort((a, b) => a - b).slice(0, MAX_BATCH)) {
-        const parsed = parseEnvelope(held.get(s));
+        const parsed = parseEnvelopeValue(held.get(s));
         held.delete(s);
         if (parsed.ok && parsed.envelope.seq !== undefined) envs.push(parsed.envelope);
       }
