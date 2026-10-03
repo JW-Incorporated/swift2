@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost } from '@swift2/ui';
 import { Quote } from 'lucide-react';
 import { getEra } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
@@ -34,6 +34,7 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  * tight 2023-2026 arc (see docs/threads-rework-2026-07-10.md).
  */
 export function ProposalThread() {
+  const { Image } = useHost();
   const { openItem } = useAppActions();
   const beats = contentForThread('the-proposal');
   return (

@@ -7,6 +7,13 @@ export function HostProvider({ adapter, children }: { adapter: HostAdapter; chil
   return <HostContext.Provider value={adapter}>{children}</HostContext.Provider>;
 }
 
+const IDENTITY = (path: string) => path;
+
+/** The host's `resolveUrl`, or the identity when the host has none (web). */
+export function useResolveUrl(): (path: string) => string {
+  return useHost().resolveUrl ?? IDENTITY;
+}
+
 export function useHost(): HostAdapter {
   const adapter = useContext(HostContext);
   if (!adapter) {

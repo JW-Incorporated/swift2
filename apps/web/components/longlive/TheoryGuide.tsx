@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import Image from 'next/image';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import { X, Share2, Sparkles } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
@@ -29,6 +29,8 @@ import { shareTarget as shareTargetNow } from '@/lib/longlive/share-payload';
  */
 
 export function TheoryGuide() {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { theoryGuideEraId, theoryGuideHighlightSlug } = useAppState();
   const { closeTheoryGuide, popReturnPoint } = useAppActions();
 
@@ -121,7 +123,7 @@ export function TheoryGuide() {
     >
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">
-        <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
+        <Image src={resolveUrl(era.image || '/placeholder.svg')} alt="" fill priority className="object-cover" />
         <div
           className="absolute inset-0"
           style={{
