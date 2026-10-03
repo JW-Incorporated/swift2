@@ -131,7 +131,7 @@ describe('#3177 TheoryGuide is a real focus-trapped dialog', () => {
 
 
 describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
-  const src = read('./FeedbackButton.tsx');
+  const src = read('../../../../packages/ui/src/reader/legal/FeedbackButton.tsx');
 
   it('imports the shared focus trap', () => {
     expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");

@@ -2,10 +2,10 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
-import { useAppState } from '@/lib/longlive/store';
+import { useAppState } from '../store';
 import { getEra } from '@swift2/experience';
-import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { useFocusTrap } from '../moment/lib/useFocusTrap';
+import { useBackDismiss } from '../lib/useBackDismiss';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs

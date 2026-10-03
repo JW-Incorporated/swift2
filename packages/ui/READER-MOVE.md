@@ -112,7 +112,8 @@ A1 + A2 in one PR (PM ruling), separate commits.
 - Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
 
 ### WP2.13 legal
-(pending)
+- A1b (move-only): `FeedbackButton.tsx` -> `reader/legal/`. Old path is a one-line `export *` shim (stays until WP2.13 A2). Source-reading tests (`accent-fill-foreground`, `back-dismiss`, `close-affordance`, `escape-dismiss`, `modal-focus-trap`, `FeedbackButton.test`) are repointed. A1 (legal pages) is not part of this PR.
+- Deferred to A2 (logic, untouched here): `sessionStorage` -> `storage.session`, `window.location.href`, `fetch('/api/feedback')` -> `apiFetch`.
 
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,
 `clownbot-lore`, `content`, `tracks`, `era-secrets`, `videos`.
