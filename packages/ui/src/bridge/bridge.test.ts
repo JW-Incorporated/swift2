@@ -327,6 +327,11 @@ describe('type-level contract', () => {
     expectTypeOf<{ cb: () => void }>().not.toExtend<JsonValue>();
   });
 
+  it('JsonValue rejects explicit undefined object values', () => {
+    expectTypeOf<{ a: undefined }>().not.toExtend<JsonValue>();
+    expectTypeOf<{ a?: string }>().toExtend<JsonValue>();
+  });
+
   it('JsonValue admits optional fields (absent on the wire) and branded strings', () => {
     expectTypeOf<{ a?: string }>().toExtend<JsonValue>();
     expectTypeOf<PayloadOf<'navigate'>>().toExtend<JsonValue>();

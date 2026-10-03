@@ -17,7 +17,7 @@ export type JsonValue =
   | boolean
   | null
   | JsonValue[]
-  | { [key: string]: JsonValue | undefined };
+  | { [key: string]: JsonValue };
 
 export type EnvelopeKind = 'cmd' | 'res' | 'evt';
 
