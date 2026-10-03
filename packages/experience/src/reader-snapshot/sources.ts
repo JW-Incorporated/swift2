@@ -1,11 +1,13 @@
-import type {
-  ContentBundleFile,
-  EraSecretsBundleFile,
-  MerchCatalogue,
-  SongMoodsBundleFile,
-  TheoriesBundleFile,
-  TracksBundleFile,
-  VideosBundleFile,
+import {
+  LOAD_SOURCE,
+  type ContentBundleFile,
+  type EraSecretsBundleFile,
+  type LoadSource,
+  type MerchCatalogue,
+  type SongMoodsBundleFile,
+  type TheoriesBundleFile,
+  type TracksBundleFile,
+  type VideosBundleFile,
 } from '@swift2/content';
 import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
 import type { SearchDoc } from '../search-index';
@@ -51,7 +53,7 @@ export interface BundleLike {
   /** Manifest entry name -> parsed file (`eras`, `content:<eraId>`, `tracks`, ...). */
   files: Record<string, unknown>;
   stale?: boolean;
-  source?: string;
+  source?: LoadSource;
 }
 
 function perEra<F extends { eraId: string }, T>(
@@ -79,12 +81,16 @@ export function inputsFromBundle(bundle: BundleLike): ReaderSnapshotInputs {
   };
 }
 
-/**
- * App path: builds from a loaded D1 bundle. Providers are installed for the
- * duration of the build only (`withProviders`).
- */
+/** Loader outcome to snapshot state: last-good-after-data-error is `error` (last-good shown, refresh failed). */
+function stateFromBundle(bundle: BundleLike): ReaderSnapshotState {
+  if (bundle.source === LOAD_SOURCE.offlineLastGood) return 'offline';
+  if (bundle.source === LOAD_SOURCE.lastGoodAfterDataError) return 'error';
+  return bundle.stale ? 'stale' : 'ready';
+}
+
+/** App path: builds from a loaded D1 bundle; reads only the bundle, no module-global provider. */
 export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshot {
   const inputs = inputsFromBundle(bundle);
-  const state: ReaderSnapshotState = bundle.source === 'offline-last-good' ? 'offline' : bundle.stale ? 'stale' : 'ready';
+  const state = stateFromBundle(bundle);
   return buildReaderSnapshot(inputs, deps, { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion }, state);
 }

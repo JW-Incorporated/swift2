@@ -1,5 +1,5 @@
 import type { EraId, TheoryNote } from './types';
-import { theoriesRawInjected } from './thread-content-provider';
+import type { ReaderCorpus } from './corpus';
 
 /**
  * Per-era easter eggs + fan theories — static data synced at build time from
@@ -16,8 +16,8 @@ import { theoriesRawInjected } from './thread-content-provider';
  * `setTheoriesRawProvider` — see `thread-content-provider.ts`.
  */
 
-export function theoriesForEra(eraId: EraId): TheoryNote[] {
-  return theoriesRawInjected()[eraId] ?? [];
+export function theoriesForEraIn(corpus: ReaderCorpus, eraId: EraId): TheoryNote[] {
+  return corpus.theories()[eraId] ?? [];
 }
 
 /**
@@ -27,13 +27,14 @@ export function theoriesForEra(eraId: EraId): TheoryNote[] {
  * actual theory — a stale/typo'd cross-link must never render as a dead
  * link, same convention as ContentItem.relatedIds.
  */
-export function resolveRelatedTheory(
+export function resolveRelatedTheoryIn(
+  corpus: ReaderCorpus,
   ref: string,
 ): { eraId: EraId; theory: TheoryNote } | null {
   const i = ref.indexOf(':');
   if (i < 0) return null;
   const eraId = ref.slice(0, i) as EraId;
   const slug = ref.slice(i + 1);
-  const theory = (theoriesRawInjected()[eraId] ?? []).find((t) => t.slug === slug);
+  const theory = (corpus.theories()[eraId] ?? []).find((t) => t.slug === slug);
   return theory ? { eraId, theory } : null;
 }
