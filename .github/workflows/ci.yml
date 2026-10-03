@@ -206,6 +206,9 @@ jobs:
       # docs/dev-quickstart.md. Runs after `build` since it measures that
       # step's output.
       - run: npm run check:budget:bundle
+      # Legal-corpus sentinel (#4918): fails if privacy/terms text leaks into
+      # client chunks. Reuses the build above; no second `next build`.
+      - run: npm run check:client-corpus
       - run: npm run check:budget:seed
 
   # Fast path (R22, #3709): content-only PRs skip typecheck/vitest/next build
