@@ -3743,7 +3743,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Nothing here is announced — file it under fans-doing-what-fans-do. The most concrete thread is a working one: Taylor was spotted at Electric Lady Studios in New York for a roughly 12-hour overnight session in early June, which fans read as real recording rather than a quick drop-in. (Reports naming specific collaborators weren\'t backed by the outlets checked this week, so we\'re leaving names out.)\n\nThe line fans keep circling came from an Us Weekly source back in April: she "does have another record in the works, but there\'s no pressure to release it anytime soon" — "still very much in the creative stages." Cosmopolitan and Elite Daily then rounded up the easter-egg layer the internet had already assembled: an "A13" sign in the Eras docuseries finale where an "A12" once teased album 12, opal earrings with 13 stones, and the docuseries framing Life of a Showgirl as her biggest "to date." Read together, the fan case is that TS13 is on the way; read honestly, none of it is a plan Taylor or her team have confirmed.\n\nWorth keeping the tiers straight: a studio sighting is a documented fact, "another record in the works" is a named-but-anonymous source, and the number-13 numerology is pure fan reading. It\'s the kind of rumor that resolves the day an album is announced — and quietly fades if the signs go dark.',
+          'Nothing here is announced — file it under fans-doing-what-fans-do. The most concrete thread is a working one: Taylor was spotted at Electric Lady Studios in New York for a roughly 12-hour overnight session in early June, which fans read as real recording rather than a quick drop-in. (Reports naming specific collaborators weren\'t backed by the outlets checked this week, so we\'re leaving names out.)\n\nThe line fans keep circling came from an Us Weekly source back in April: she "does have another record in the works, but there\'s no pressure to release it anytime soon" — "still very much in the creative stages." Cosmopolitan and Elite Daily then rounded up the easter-egg layer the internet had already assembled: an "A13" sign in the Eras docuseries finale where an "A12" once teased album 12, opal earrings with 13 stones, and the docuseries framing Life of a Showgirl as her biggest "to date." Read together, the fan case is that TS13 is on the way; read honestly, none of it is a plan Taylor or her team have confirmed.\n\nWorth keeping the tiers straight: a studio sighting is a documented fact, "another record in the works" is a named-but-anonymous source, and the number-13 numerology is pure fan reading. It\'s the kind of rumor that resolves the day an album is announced — and quietly fades if the signs go dark.\n\nUpdate (Oct. 2026): one of those signs partly landed — but not as TS13. In late September Taylor released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote in Sweden with Max Martin and Shellback. That bears out the "another record in the works" source in the most literal way, yet it is an expansion of her 2025 album, not the thirteenth era the numerology points to: no TS13 title, tracklist, or timeline has been announced. The whisper stays exactly that.',
         sources: [
           {
             outlet: 'Cosmopolitan (via Yahoo)',
@@ -3778,14 +3778,28 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
-            // "not confirmed" banner): re-verified the moment's status against
-            // current reporting — the late-Aug Grammy Museum "next album"
-            // speculation (see the new rumor entry below) confirms no album 13
-            // or re-record has been announced, so the banner stays and this
-            // records that someone looked.
-            accessed_at: '2026-08-25',
+            // Re-checked 2026-08-25, then again 2026-10-03 (Vault Run, Answerer
+            // lane, intake #4552 — lifecycle finding: 30d-stale "not confirmed"
+            // banner). The Oct. re-verification against current reporting: the
+            // Sept. 2026 "Patient Zero" / "Life of a Showgirl: The Encore" drop
+            // is new MUSIC but an expansion of the 2025 album, NOT album 13 —
+            // no TS13 title, tracklist or timeline has been announced — so the
+            // banner correctly stays reputable_reporting and this records the
+            // re-check (see the Encore source added below and the Oct. update in
+            // context).
+            accessed_at: '2026-10-03',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/09/taylor-swift-life-of-a-showgirl-encore-new-songs-1237111175/',
+            source_title: "Taylor Swift Announces 'The Life Of A Showgirl: The Encore' With Four New Songs",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 4,
+            notes:
+              'Added 2026-10-03: source for the Oct. update — the four new songs ("Patient Zero," "Pink Clouding," "Cleveland!," "Babylon") written in Sweden with Max Martin and Shellback, released Sept. 25 as an Encore expansion of the 2025 album rather than a TS13 era. Partly bears out the "another record in the works" line while confirming no thirteenth album has been announced.',
           },
         ],
         photos: [
