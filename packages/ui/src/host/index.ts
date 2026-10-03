@@ -1,4 +1,4 @@
-export { HostProvider, useHost } from './context';
+export { HostProvider, useHost, useResolveUrl } from './context';
 export type {
   HapticKind,
   HostAdapter,

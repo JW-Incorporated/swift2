@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import { useHost } from '@swift2/ui';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
@@ -30,6 +30,7 @@ import type { EraId, TrackNote } from '@swift2/experience';
  */
 export function TrackGuide() {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { trackGuideEraId, openTrackKey } = useAppState();
   const { closeTrackGuide } = useAppActions();
 
@@ -79,7 +80,7 @@ export function TrackGuide() {
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">
         <Image
-          src={era.image || '/placeholder.svg'}
+          src={resolveUrl(era.image || '/placeholder.svg')}
           alt=""
           fill
           priority

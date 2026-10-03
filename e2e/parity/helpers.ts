@@ -6,6 +6,7 @@ import { expect, test as base, type Page, type TestInfo } from '@playwright/test
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const LOCAL_HOSTS = new Set(['127.0.0.1', 'localhost']);
+const ERA_ART_ORIGIN = 'https://www.longlivets.com';
 const FIXED_TIME = new Date('2026-01-01T12:00:00Z');
 const A_PORT = Number(process.env.PARITY_A_PORT ?? 4174);
 const B_PORT = Number(process.env.PARITY_PORT ?? 4173);
@@ -100,6 +101,15 @@ export const test = base.extend<{ guard: void }>({
           return route.continue();
         }
         if (['data:', 'blob:', 'about:'].includes(url.protocol)) return route.continue();
+        const era = url.origin === ERA_ART_ORIGIN ? /^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
+        if (era) {
+          // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
+          return route.fulfill({
+            status: 200,
+            contentType: 'image/png',
+            body: readFileSync(resolve(repo, 'apps/web/public/eras', era[1]!)),
+          });
+        }
         if (req.resourceType() === 'image') {
           externalImages.get(page)?.add(url.href);
           return route.fulfill({ status: 200, contentType: 'image/png', body: PLACEHOLDER_PNG });

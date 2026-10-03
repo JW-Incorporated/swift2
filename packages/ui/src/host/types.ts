@@ -1,4 +1,12 @@
-import type { ComponentType, CSSProperties, ReactNode, SyntheticEvent } from 'react';
+import type {
+  AnchorHTMLAttributes,
+  ComponentType,
+  CSSProperties,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+  SyntheticEvent,
+} from 'react';
 import type { ApiFetch } from '@swift2/content';
 
 /** Safe-area insets in CSS px. Package CSS should prefer `var(--safe-*, env(...))`. */
@@ -13,10 +21,14 @@ export type NotificationStatus = 'granted' | 'denied' | 'undetermined' | 'unsupp
 /** Per-category on/off map; the category keys are owned by the notifications domain (WP2.12). */
 export type NotificationPrefs = Record<string, boolean>;
 
-export type HostLinkProps = {
+/**
+ * Every anchor attribute passes through (className, aria-*, title, onClick, ...)
+ * so a Radix `Slot` (`<Button asChild>`) can merge its props onto the Link. A
+ * host Link must also forward its `ref` to the anchor (React.forwardRef).
+ */
+export type HostLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
   href: string;
   children?: ReactNode;
-  className?: string;
   prefetch?: boolean;
   /** Opens outside the app/site (new tab on web, system browser in the app). */
   external?: boolean;
@@ -72,9 +84,15 @@ export type HostNotifications = {
 };
 
 export interface HostAdapter {
-  Link: ComponentType<HostLinkProps>;
+  Link: ForwardRefExoticComponent<HostLinkProps & RefAttributes<HTMLAnchorElement>>;
   Image: ComponentType<HostImageProps>;
   navigate(path: string, opts?: { replace?: boolean }): void;
+  /**
+   * Maps an app-relative asset path (`/eras/x.png`) to a loadable URL. Web omits
+   * it (same-origin path unchanged); the app DOM host (null origin) returns the
+   * canonical-origin URL. Use `useResolveUrl()`.
+   */
+  resolveUrl?: (path: string) => string;
   /**
    * Subscribes to the host's back gesture (web: popstate, app: hardware/swipe
    * back). The handler returns true when it consumed the event. Returns an unsubscribe.

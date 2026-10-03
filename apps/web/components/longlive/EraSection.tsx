@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useHost } from '@swift2/ui';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
@@ -65,6 +65,7 @@ export function EraSection({
   currentItems?: CurrentItem[];
 }) {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
   // Stage 5 — live entries + overlay state (use-era-current-feed.ts).
@@ -208,7 +209,7 @@ export function EraSection({
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={era.image || '/placeholder.svg'}
+            src={resolveUrl(era.image || '/placeholder.svg')}
             alt=""
             fill
             priority

@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import { forwardRef, type ComponentProps } from 'react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import { webApiFetch } from '@swift2/content';
@@ -8,20 +8,23 @@ const CANONICAL_ORIGIN = 'https://www.longlivets.com';
 
 // Module-level so their identity is stable across renders (a component defined
 // inside the adapter factory would remount its subtree on every adapter rebuild).
-export function WebLink({ href, children, className, prefetch, external }: HostLinkProps) {
+export const WebLink = forwardRef<HTMLAnchorElement, HostLinkProps>(function WebLink(
+  { href, children, prefetch, external, ...rest },
+  ref,
+) {
   if (external) {
     return (
-      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
+      <a {...rest} ref={ref} href={href} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     );
   }
   return (
-    <NextLink href={href} className={className} prefetch={prefetch}>
+    <NextLink {...rest} ref={ref} href={href} prefetch={prefetch}>
       {children}
     </NextLink>
   );
-}
+});
 
 export function WebImage(props: HostImageProps) {
   // next/image requires width+height unless `fill`; the host contract leaves both optional.

@@ -21,7 +21,12 @@ export function loadReader(): ComponentType<ReaderProps> {
   // The web adapter lives under apps/web, so the spike resolver swaps its next/image and
   // next/link imports for the DOM stubs: reader components get the same Image/Link seam here.
   const hostAdapter = require('../../../web/lib/host-adapter') as typeof import('../../../web/lib/host-adapter');
-  const adapter = hostAdapter.createWebAdapter({ push() {}, replace() {} });
+  const base = hostAdapter.createWebAdapter({ push() {}, replace() {} });
+  // The DOM page is a null origin: app-relative assets (era art) load over the network from the canonical origin.
+  const adapter = {
+    ...base,
+    resolveUrl: (path: string) => (path.startsWith('/') ? `${base.env.origin}${path}` : path),
+  };
 
   function Shell({ backTick, onBack }: ReaderProps) {
     const { eraId, openItemId } = store.useAppState();
