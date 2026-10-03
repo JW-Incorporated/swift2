@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 63
+
+## Taylor Swift Discusses Close Friendship with Dakota Johnson
+
+- first seen: 2026-10-03 23:45 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift offers insight into her strong bond with actress Dakota Johnson, showcasing the closeness of their friendship. The discussion highlights their shared moments and mutual support.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQYXBPX3JTby1aeGdrRXRrd185OXlvV2JMNDBhYVg5Ym8wS2tmdzh2OWZUS1dKTlFUYzNuTWFfMlhjSHRuSDhXbHloZWsxWGtWa3RwcVY3OVlFd0N1emdNTWZXTGVqWldhSkg1SjZFRGliaFhsVFNZV0JaNFFOUDBLa25iYVRBMWFlamMwVDYyaWhjUTFR?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Caitlin Flanagan Discusses 'Cornell 7' and Gender Issues
 
@@ -492,14 +500,6 @@ Stories: 71
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxPSjhXN2pKblN0ZlIwR19qZG0wRzdnRlZpNkFwS1FqZms1U2R3XzdxVkM0V1Mxd3VvSEMtcjBHb1JLSFVMYTZXekdFczVrNXVCNHBBZGlBSV9XalBPYVl0RzdOM0czclUxOUJROXU4ZER4WHRZdFRfa0JHSW10emdfSUl0ZUZQLTVodUJKT3BreXBaVXpkbXd4dzJB?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## MTV VMAs Producer Addresses Comments on Taylor Swift's New Award
-
-- first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An MTV VMAs producer has clarified remarks regarding the influence behind Taylor Swift's recent award, addressing claims of 'external' factors impacting the decision.
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxNX0hxWWlidUhDZVBJV1UyZGRSMTdTemxUMzRtd0U5Ujhhc2Q2RnN1VUpURXhkcExXcktOS0ExT1FMSjVJbjU0YmJDQlRDVU1yQTM5dThqX3owalNOODRnQ1NFTzJjQlpQV2NadUdGQ1QyYTBPSTJRTWl4SnpOSjBLRnk2Y3V2dXdSeW83TGpmWDlkZHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Addresses Personal Feelings on Song Criticism
 
 - first seen: 2026-10-01 07:09 UTC | category: music | importance: 7
@@ -515,6 +515,15 @@ Stories: 71
 - summary: Taylor Swift unveils the significance of the $47 million Beverly Hills property featured in her music video for 'Patient Zero'. The revelation provides insight into her artistic choices and the setting of the video.
 - sources:
   - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxNU3ROTFZsdURNUFhvOU52bEx5Q0NCZkVVd2Vpd0NsbXVuZE5fZjlRbGE5MFRjMHprYURlN3VsOHY0NTBpX0w1cnM0N1ozOVpjaXQ0c0dtRDNwWXBpS1FSUm1iQkgwM1ozSXJkVUhoRWdIX1BoRnRtdVZqS3FrYzRJR0piNGtfUFduVkFfdlY2b2JaSks4NFAxR1Y2TElpamQ4RV9iQ2pOMTBSSTZ1cWpNSw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## MTV VMAs Producer Addresses Comments on Taylor Swift's New Award
+
+- first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: An MTV VMAs producer has clarified remarks regarding the influence behind Taylor Swift's recent award, addressing claims of 'external' factors impacting the decision.
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQN2VKeUF2NlZuR2k2LWZhNmtaRFJGMDhKdzI2RTBFRUtKY1NSR0NRcmVFdTVTWGVGa3h2YnU3LVlwenJRRWhfeGZpMkZGRlQwSlBsU1ZPYWFVdkZGNU1kYmw2SlEyNWhmOWxiSVpUUTRHZ1JRR1l6ZjJOM0xwMjJkNEZNMVg0QVZ6?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxNX0hxWWlidUhDZVBJV1UyZGRSMTdTemxUMzRtd0U5Ujhhc2Q2RnN1VUpURXhkcExXcktOS0ExT1FMSjVJbjU0YmJDQlRDVU1yQTM5dThqX3owalNOODRnQ1NFTzJjQlpQV2NadUdGQ1QyYTBPSTJRTWl4SnpOSjBLRnk2Y3V2dXdSeW83TGpmWDlkZHc?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Pat Garrett, early advisor to Taylor Swift, passes away
 
@@ -542,80 +551,3 @@ Stories: 71
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPQjU0TFJleVJxZnFNSkEyUmJPelltd0RZLWJ2LWxwaTNwMk84ejJnblFjbmxFWVUyaHoyNFVkZ01jRXljZzhqQllaeUVyR2J4MDc3MnhBMFB0SW1VU2xjS3lKQVFBbDcwY0JuUHkyR1JzbTRrZ3JZZmdHYVZONmhTQ3RyUVA1NkZaWXFsak5UNXlkUmxNdG1KR1hJdnNOckxKVFczRTA3d2wzNkpUcnB3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] USA TODAY 10BEST — https://news.google.com/rss/articles/CBMihgFBVV95cUxQNkZTLUZhM21LRm03ZFpyVlV3blFkNWtVNW9wT19GMEdDZ3VZZ0lKb2hBV1RGdGRjclNfRjlMTHJCSnV5eUswVVFNbG9ZcE9keXc4Zktuak90b216Vy1yZkF5cWY0Wnp1VUJYa2xPS3RIWEJxR3NJSmFmejZoUDFpWDVVSnp5QQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] winespectator.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxPbUtQZDh4UGRxTHRwRnBVXzRVbS1DODFaLVRDOEFRTlp6Q05uV3o3TFBBdDBYcXlXV3VXdWNNVkpZM1JVUzc4VGZnYl9QVFNDeFJ1ZjZiak9vVTV0UGdqOEgzU2gyUi1VZW9RUVpyakY2TkhLRmpZUzNxSGdsUVg2VzJTUVJ3R2NHckVBVDRLaXNwdzc2VjFLTzRxT3ZyRklB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## VMAs Records Set by Madonna and Taylor Swift in 2026
-
-- first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Billboard reports on the records set by Madonna and Taylor Swift during the 2026 VMAs. Both artists achieved significant wins at the event, showcasing their impact in the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMie0FVX3lxTE54Q0Z3QzIwb2R3SnNOZ3pmZmV4Q3pzSDBlLVBycWw2bFozcDkzaThldUw0cEllWUVjWmRVdWwwd1V3bG1SR1ZROGlRaVdHZmZnc0NMZHRjZTFKajVpZlhINlhaT2pXU2Y0Skw1RHJLQ3I1SW1zUlBYeTFMSQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Website Features New 'Cat Collection' Section
-
-- first seen: 2026-09-30 21:24 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's official website has been updated to include a new section labeled 'Cat Collection,' details about which remain unclear. The addition has sparked curiosity among fans and observers alike.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMipwFBVV95cUxPcDVGbkwzZlFqV2N0U09hcURBUkxST3JJUzlTcEU2VldZTlQ5ekJoM0JXbTZZemhxRHFFVmk4azI0eVV5RXBILUFXU2VCdUhMMjNfLWxTdnRqOXdYQU1JTXQzU2JiMXhyVm56TlZNTUdOek1pZk53LTVJUnVZdUR6aDJfOEN3cC1XU0hLTjJ6eWtldW5zWDlzR1dKZlpySU9kQjU2OG5Eaw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Former Home Listed for $8 Million
-
-- first seen: 2026-09-30 21:24 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A former home of Taylor Swift, where she is said to have written her album '1989,' has been listed for sale at $8 million. The Beverly Hills property is attracting attention in the real estate market.
-- sources:
-  - [unverified] ELLE Decor — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOWDJFY09PcHkxVGFTMlRRdVhiQ21YSW1KSlZqTUZKTmEwMW5uZEphaDVOWU9qMmJaUFNlZ2tSZ2FPaHFGdzBZYlBHa3lwSTdlcUZVeGY3N2hhTXNDZXdqbnVyclVlWjF3Y3M3Y2lhR0NFMEhlS0N6U2dvU19xNGFlb0tEUEkyVTBMb0RWOWg3OU1fTlBsc1BVZXpsMmpJOThIaFNBMVdNbk8?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Inquiry About Taylor Swift's Song 'Babylon' and Long Island Town Connection
-
-- first seen: 2026-09-30 21:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Newsday explores the question of whether Taylor Swift's song 'Babylon' is inspired by or named after the Long Island town of Babylon. The article delves into the connection between the song and the location.
-- sources:
-  - [unverified] Newsday — https://news.google.com/rss/articles/CBMifkFVX3lxTFBnX0VlMDVJdGc4UjRMMUlzVW5EWWNmNXQxYmpmWGVaS0FEcHVVaGQ4S0JqbkJKTXhPY2I3aktja01hQmxEQWZEQ2p3VTFma3dLMExVZjBQOEV2S0YyU3h6dXh2RUV1NzJ6TTFmRENSVE14YjZJeW1sRG1uVVo2Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Releases Four-Song Extension of 2025 Album
-
-- first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has released 'The Life of a Showgirl: The Encore,' a four-song extension of her 2025 album. Critic Jon Caramanica discusses the standout track 'Babylon' and its place within her current musical era.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/video/podcasts/100000011183423/is-taylor-swift-in-a-holding-pattern.html
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMinAFBVV95cUxNdzVJZDltcDJ5dU41emRmNVZhSlVFaXJtd0RmUjhqUzR0dk9xblJmT3Q1VEZ3ZEJidG9HRXZvNFVCdXN3SWR6S0gtbmsyUTMySVZLNE1sSnpKYVJCM3IwdGV0d3NIQl9Oc0xiRWJvS2tlYUtTcXo2TVZxcHZDNWJxZnRHUTZhZ0d3bVAyVlp2eVJMSWVtbEpPNDc3VDY?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fans Speculate About Taylor Swift's Potential Lost Album Linked to 'Karma' Theory
-
-- first seen: 2026-09-30 21:24 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Speculation among fans suggests that Taylor Swift may be preparing to release a lost album, with discussions revolving around the 'Karma' theory gaining traction online. This topic has generated significant interest and conversation within the fan community.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNZW1nQUNBVmtHNnBBV0FuWHRQc1hmVkJUNzFyQlp4Q2JTYTBWLWFMR3REZ1A4aUNvekYtQ19mcGdrZkl0RVRpZGJoS2ZSNjQ4SjY0MkdVc3AtUnNneWtIZk5xQjVFZHNfUm40WU96d200ZkNSblRVTnlqT2RyNWhUdDlGN2lNSzBTdUVtR25IdThWR3hOSUpodGR3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Rock and Roll Hall of Famer Criticizes Taylor Swift's Music
-
-- first seen: 2026-09-30 21:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Rock and Roll Hall of Famer has publicly criticized Taylor Swift, labeling her music as 'mediocre' and claiming she has 'ruined music.'
-- sources:
-  - [unverified] pennlive.com — https://news.google.com/rss/articles/CBMixgFBVV95cUxQam8tRVhYWkRmLUtNZTdVUWtfY1I5akNSbzhsTElXd01RZGhST3poNVE3eHpMWXRyZnY3M2RjelA0dFBwTWdJbFpCS3VCNkZxWG5mVDI5R0NiMmJ6b25Ib1V1T0d1MUg2RUxMbjRyVzdCSW95Y3EtNlVqanoyQjNURXBwNlZiNHhONFdBaGZrYUNSeUZkV1JLcVZKSWxGSVoyVGF6TjRWVTBzZFZHSUpiQU85YWVmdUF4TUdyTnN1ejZVSzVDTUHSAdoBQVVfeXFMT1BmeDh0UkpiOXVOV25zRjZ0VDZIc1M0a0l0QmNNOF9OX0xPTWVJTUhIMExwX2NiRV9yaVp4LV9MWTNYM3NOZFFUcWJBd19JeU9uWjBweDA0MUJab2Z2VE5VSWJXT1FiVjJjYVlXak1wUU5adWx4TmVqdFpzc2ZpazNJdVpJQXZkN1ZSa1F5ZS1TeUtOR0NuZ1laaUkyQ0lXZk1XSXlmRkVrZF9XaE1Ta2ozVlBLRlNGT0k3ZXMtamw2bEtKTjNlc1NWbS1rUHQ3NmZWRUxidDBaWkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Exploring the Lifecycle of Girl Groups in Pop Music
-
-- first seen: 2026-09-30 21:24 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The article discusses the temporary nature of girl groups in the pop music scene, illustrating the inevitable challenges they face leading to dissolution. It reflects on the common underestimation of these challenges until they become apparent.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513117/adelas-american-dreampop/columns/chained-to-the-rhythm/
-
-## Travis Kelce Responds to Taylor Swift's 'Cleveland!' as Fans React
-
-- first seen: 2026-09-30 21:24 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 5
-- summary: Travis Kelce has shared his thoughts on Taylor Swift's recent mention of 'Cleveland!' which has garnered mixed reactions from fans. The situation comes alongside local news regarding privacy measures for Kelce and Swift's home.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMi5AFBVV95cUxNRkdIYTFrSkRmb0RjMVpRSDMzcGpWb3NKd1ZaMExLMnEtWFFZQUF4QWJrRzVFN3IxbTRTTnpQV3d1YVR3ajdBd21LMF95Q3BTYzZQWXpBckx6cGl2S2pJRzhQN0xjS2RZclBPSGFtNG1QelJvSzdFWTZRTUpwVld5ekhYTXFlZnEwdmlFYUk5ZFlpeVVfc2ZQZXYyQjZYZTNTUXloWGhHNGR6cExfNVlSektiS21welJVY084ZmYzMjVwVDlhb1hwRDFoazhTVm5Na3pVQkZVT0pOQjNEbDN0VDl4WDDSAfgBQVVfeXFMUHNKWVVGdGhRbUJlZHd3RlpZRGNIQ050bFVCbFB0WG1KbFRMZTRibzhjTHY2WDBVZDhJOVZBU3ExUGhwMDdHWXlCcUJsVlk3eG5mUXNIVl9Jdmx6YzAyWkgwdGk5WTg2bUx4b2dWMzBta3J2akE0dzA1MHdjSlMyWEFGVm5NbHJ4UVl0ZU9HbWYwd3pUWVZyemJWSDc1R0ttUC1NaHhNbEoxWmtNc2pmQkV4ZFhEN1JHRGpTd1ZfLVBSQldTUU5xbXUxVk5YVkV3d1Q0TERpOTI3MDZQS21xLVcwX2RyNmhBWUpqNjlnNjNIVnZmOTVISXc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KBOI — https://news.google.com/rss/articles/CBMiugFBVV95cUxQNklkQ1FOREJ0c1JuZWZ2ZHd5aXE1bVlVbHBJTGR0OUVHdF9ERnp4YjFkelF5SDdtWjN1VTlQTjZ1S05hb1lScUxTN2JLNWFCQ3JtTUlMQV9PczJxLTM2a0NXeFAwanZUaFNZN0cxQWxIMmpOUlZET3pUYzBTOWNjZ0RXemRNRDZrM0dEd2l3V2ZjQ01oWEdZeEZaMWdieVdRbFp3Qm96UW9NdllPVVJRcEZ6UDBVS2YyWlE?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] KOMO — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVW5PWmplUUVlRHo5MlZ6Q3U0MFl4aGIzZzh5TEdha3J6bGx1NmhJMlJOcVZkenBvMUJuNkpQX3FHbXBHYmt0X3hTOE1SQUxGSGRVbEJpTW54YzVtZlUtRjdmWWdqaDdyek83N1NsMjJ0cUtvU0k2S1hFVmFUZE1kODR6TFktRGVNMTFzeVF4YkF2QlNSd0xUdjZPaU9yREJnVWZpdTdnM1FsOTdpMkhLSFk4ZjhNZ0RW?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] thenationaldesk.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOajAtYmttNlJEb1REVXFLNUlodEpMTGpiOElfZjBuakt0a3p5RFJjcUswNXV4ZWV2TmJPN2xES0wxcWZyLXVoSGYzYjlYRXUzWlB0Z3JIVGVpS2VJMmg5Z3FfbFRUaExiY1VSNEJORVlpakFDNnVTVGRpaXpSblBGaDdKS2tUcXRNTk5WcGxEMk8yTGJqTHRpWGNSTnR1c0N3RzFqMkp1Qjd5UWtTa19LZmd6S2JCR1dIYjRXOERHdE9oQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] WSET — https://news.google.com/rss/articles/CBMiswFBVV95cUxQOHBFTDd5THhjZzZGbWJObGxVeUE2c0ZPckl0Q0h4TE9pX1Rld3pBRjR3MDVFRkVvX2JoOU1NT1ZZbnFMTHNQMzNIenFZTE00OTNMUWVMOE52bjlfTV9mZnNsamdLSEgteElSaDltU213VlNtaVFZdGF6MFVzTUQ2QnRXQXZMRmJOYkt2a2NWUXF5cXU3TE9HY25aWF9UeGFEOWpYWk9BdlZkemxXMFNEaU9LVQ?oc=5&hl=en-US&gl=US&ceid=US:en
