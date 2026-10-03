@@ -1,4 +1,4 @@
-import type { ComponentType, ReactNode } from 'react';
+import type { ComponentType, CSSProperties, ReactNode, SyntheticEvent } from 'react';
 import type { ApiFetch } from '@swift2/content';
 
 /** Safe-area insets in CSS px. Package CSS should prefer `var(--safe-*, env(...))`. */
@@ -27,6 +27,11 @@ export type HostLinkProps = {
  * with a size, and hosts MUST replicate next/image's `fill` inline styles
  * (position:absolute; inset:0; width/height:100%; object-fit from className)
  * for pixel parity. See HOST-ADAPTER.md.
+ *
+ * Covers exactly the `next/image` props apps/web call sites use today.
+ * `onLoad` is a function, so it is not JSON-safe: the DOM host implements it
+ * natively in-DOM (it never crosses the bridge); the web adapter passes it
+ * through to next/image 1:1.
  */
 export type HostImageProps = {
   src: string;
@@ -37,6 +42,11 @@ export type HostImageProps = {
   sizes?: string;
   priority?: boolean;
   className?: string;
+  unoptimized?: boolean;
+  loading?: 'lazy' | 'eager';
+  draggable?: boolean;
+  style?: CSSProperties;
+  onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 };
 
 export type Unsubscribe = () => void;
@@ -50,6 +60,7 @@ export type HostStorage = {
 export type HostEnv = {
   /** Cloudflare Turnstile site key; null when unset or when the host origin cannot verify (app DOM host is a null origin). */
   turnstileSiteKey: string | null;
+  /** Canonical site origin; identical on server and client (hydration-stable). */
   origin: string;
 };
 

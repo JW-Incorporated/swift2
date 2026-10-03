@@ -1,7 +1,9 @@
 // @vitest-environment jsdom
 import { render, renderHook } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { HostProvider, useHost } from '@swift2/ui';
+import type { ComponentProps } from 'react';
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
+import NextImage from 'next/image';
+import { HostProvider, useHost, type HostImageProps } from '@swift2/ui';
 
 vi.mock('next/link', () => ({
   default: ({ href, children, className }: { href: string; children?: React.ReactNode; className?: string }) => (
@@ -45,6 +47,35 @@ describe('web host adapter', () => {
     const img = render(<WebImage src="/a.png" alt="a" fill />).container.querySelector('img');
     expect(img?.hasAttribute('data-next-image')).toBe(true);
     expect(img?.getAttribute('data-fill')).toBe('1');
+  });
+
+  it('Image accepts every next/image prop apps/web uses and passes it through 1:1', () => {
+    const onLoad = vi.fn();
+    const used = {
+      src: '/a.png',
+      alt: 'a',
+      width: 10,
+      height: 20,
+      fill: true,
+      sizes: '100vw',
+      priority: true,
+      className: 'x',
+      unoptimized: true,
+      loading: 'lazy',
+      draggable: false,
+      style: { objectPosition: '50% 20%' },
+      onLoad,
+    } satisfies HostImageProps;
+    expectTypeOf(used).toMatchTypeOf<HostImageProps>();
+    expectTypeOf<HostImageProps>().toMatchTypeOf<ComponentProps<typeof NextImage>>();
+    expect(() => render(<WebImage {...used} />)).not.toThrow();
+  });
+
+  it('env.origin is the same canonical constant regardless of window', () => {
+    const client = createWebAdapter(router).env.origin;
+    expect(client).toBe('https://www.longlivets.com');
+    vi.stubGlobal('window', undefined);
+    expect(createWebAdapter(router).env.origin).toBe(client);
   });
 
   it('Link/Image keep stable identity across adapter rebuilds', () => {

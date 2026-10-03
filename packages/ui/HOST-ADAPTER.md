@@ -11,8 +11,13 @@
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
-| `env.origin`, `insets` | `window.location.origin`, zeros | WP2.3 |
+| `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
+| `insets` | zeros | WP2.3 |
 | `lazy`, `share`, `openExternal`, `haptic`, `notifications` | optional (`haptic` no-op) | WP2.4/2.5/2.12 |
+
+Note: the web adapter's `onBack` does not consume the handler's boolean return; `popstate` cannot be cancelled, so the handler runs for its side effects only. The app host honours the boolean (consumed = swallow the native back).
+
+`HostImageProps` covers exactly the `next/image` props apps/web uses (`unoptimized`, `loading`, `draggable`, `style`, `onLoad`, plus the basics). `onLoad` is a function and never crosses the bridge; the DOM host implements it natively in-DOM.
 
 ## X3: web-only side effects
 

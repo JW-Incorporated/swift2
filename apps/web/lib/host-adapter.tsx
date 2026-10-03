@@ -4,6 +4,8 @@ import NextLink from 'next/link';
 import { webApiFetch } from '@swift2/content';
 import type { HostAdapter, HostImageProps, HostLinkProps, HostStorage } from '@swift2/ui';
 
+const CANONICAL_ORIGIN = 'https://www.longlivets.com';
+
 // Module-level so their identity is stable across renders (a component defined
 // inside the adapter factory would remount its subtree on every adapter rebuild).
 export function WebLink({ href, children, className, prefetch, external }: HostLinkProps) {
@@ -84,7 +86,7 @@ export function createWebAdapter(router: WebRouter): HostAdapter {
     storage: { local: createWebStorage('localStorage'), session: createWebStorage('sessionStorage') },
     env: {
       turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || null,
-      origin: typeof window === 'undefined' ? '' : window.location.origin,
+      origin: process.env.NEXT_PUBLIC_SITE_ORIGIN || CANONICAL_ORIGIN,
     },
     insets: { top: 0, right: 0, bottom: 0, left: 0 },
     haptic: () => {},
