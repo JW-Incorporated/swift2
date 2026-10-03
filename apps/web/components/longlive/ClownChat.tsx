@@ -33,9 +33,9 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { ClownAnswer, InvestigationStep } from '@/lib/longlive/clown-answer';
+import type { ClownAnswer, InvestigationStep } from '@swift2/shared';
 import type { BoardItem } from '@/lib/longlive/clown-board';
-import type { ClownTurn } from '@/lib/longlive/clown-client';
+import type { ClownTurn } from '@swift2/shared';
 import { promptForItem, FAN_THEORY_CHIP_PROMPT } from '@/lib/longlive/clown-starters';
 import { useChromeOffset } from '@/lib/longlive/useChromeOffset';
 import { flattenAnswer, investigationLabel } from '@/lib/longlive/clown-chat-helpers';

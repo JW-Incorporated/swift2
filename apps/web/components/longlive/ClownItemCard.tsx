@@ -30,7 +30,7 @@
 
 import { Check } from 'lucide-react';
 import { relativeDate, type BoardItem } from '@/lib/longlive/clown-board';
-import type { ItemStatus, RetrievedItem } from '@/lib/longlive/clown-fallback';
+import type { ClownItemStatus as ItemStatus, ClownRetrievedItem as RetrievedItem } from '@swift2/shared';
 
 /** Exported so `ClownMessageRow.tsx`'s `SourceChip` (a chat message's cited
  * sources) can render the same full status text this card does, instead of

@@ -14,9 +14,9 @@
 
 import { ChevronDown, Copy, RotateCcw, Search, ThumbsUp, VenetianMask } from 'lucide-react';
 import { useState } from 'react';
-import type { ClownSegment, InvestigationStep } from '@/lib/longlive/clown-answer';
+import type { ClownSegment, InvestigationStep } from '@swift2/shared';
 import { investigationLabel } from '@/lib/longlive/clown-chat-helpers';
-import type { RetrievedItem } from '@/lib/longlive/clown-fallback';
+import type { ClownRetrievedItem as RetrievedItem } from '@swift2/shared';
 import type { ClownMessage } from '@/lib/longlive/store';
 import { STATUS_LABEL } from './ClownItemCard';
 

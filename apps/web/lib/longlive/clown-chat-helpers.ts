@@ -2,7 +2,7 @@
  * Pure helpers for `ClownChat.tsx`, split out to keep that file under the
  * 300-line cap (MAP.md).
  */
-import type { ClownAnswer, InvestigationStep } from './clown-answer';
+import type { ClownAnswer, InvestigationStep } from '@swift2/shared';
 
 /** A prior answer, flattened to plain text for the transcript sent to
  * `/api/clown` — the route passes earlier turns straight through to the
