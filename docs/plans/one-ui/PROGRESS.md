@@ -202,6 +202,13 @@ skipped Codex: CI plumbing, reviewer covered pinning/perms/gate). WP2.2 brief
 packages/ui after 2.1-A · C1–C3 callers · D ESLint ban); PM rulings written;
 Fable reviewing. Spike launched: DOM-host @font-face from bundled assets
 (WP2.1-C step 1 = G0 evidence).
+**02:24:** WP2.1-A → **#4841** (packages/ui skeleton; transpilePackages +
+@source in web globals.css and DOM reader-spike.css; ESLint ban + test;
+fingerprint 473eab6c unchanged; parity 37112663539 green; suite 8240).
+**PM ruling:** web is React 19.2 too (research said 18) → packages/ui peer
+`^19`, drop React-18 typing requirement (amends 2.1 rulings Q1). /eras
+allowlist closure → 2.1-C or D. Reviewer + Codex r1 launched. WP2.2-A running
+in parallel.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
