@@ -62,8 +62,6 @@ import {
 
 const FETCH_CONCURRENCY = 5;
 
-const FETCH_CONCURRENCY = 5;
-
 /** Re-exported for anyone importing `SUPPORTED_SCHEMA_VERSION` from `./load` directly. Delegates to `./compat`'s `CURRENT_SCHEMA_VERSION` (OS-041) — the single source of truth for the schemaVersion this loader build targets, including its N-1 compatibility window. */
 export const SUPPORTED_SCHEMA_VERSION = CURRENT_SCHEMA_VERSION;
 
