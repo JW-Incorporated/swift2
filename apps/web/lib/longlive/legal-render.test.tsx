@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import { LegalDocument } from '@swift2/ui/reader/legal/LegalDocument';
 import { SupportPage } from '@swift2/ui/reader/legal/SupportPage';
-import { PRIVACY_POLICY } from './legal';
+import { LEGAL_DOCS, LEGAL_LINKS, PRIVACY_POLICY } from './legal';
 import { TestHostProvider } from '@/lib/test-host';
 
 const read = (name: string) =>
@@ -54,5 +54,13 @@ describe('legal renderers markup', () => {
     expect(html).toContain('href="/terms"');
     expect(html).toContain('href="mailto:');
     expect(html.indexOf('</main>')).toBeLessThan(html.indexOf('id="slot"'));
+  });
+});
+
+describe('LEGAL_LINKS literals', () => {
+  it('match the links derived from LEGAL_DOCS', () => {
+    expect(LEGAL_LINKS).toEqual(
+      LEGAL_DOCS.map((doc) => ({ href: `/${doc.slug}`, label: doc.title })),
+    );
   });
 });

@@ -747,10 +747,7 @@ export const TERMS_OF_USE: LegalDoc = {
 export const LEGAL_DOCS: LegalDoc[] = [PRIVACY_POLICY, TERMS_OF_USE];
 
 /** Footer links to the legal pages. Kept here so the pages can never be orphaned. */
-export const LEGAL_LINKS: { href: string; label: string }[] = LEGAL_DOCS.map((doc) => ({
-  href: `/${doc.slug}`,
-  label: doc.title,
-}));
+export { LEGAL_LINKS } from './legal-links';
 
 /** Every string in a document, flattened — the corpus placeholder scanning reads. */
 function docStrings(doc: LegalDoc): string[] {

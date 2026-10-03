@@ -3,7 +3,7 @@
 import { useHost } from '@swift2/ui';
 import { useEffect, useState } from 'react';
 import { formatRelativeTime, contentGeneratedAt } from '@swift2/experience';
-import { LEGAL_LINKS } from '@/lib/longlive/legal';
+import { LEGAL_LINKS } from '@/lib/longlive/legal-links';
 import { SOCIAL_LINKS, type SocialLink } from '@/lib/longlive/social';
 
 // Official brand glyphs, drawn as plain 24×24 paths so they inherit the era
