@@ -27,14 +27,16 @@ the DOM bundles.
 - Diagnostics access while the host is mounted (#4872): the Settings -> About
   path is unreachable, so an invisible native hot corner
   (`components/DiagHotCorner.tsx`, logic in `lib/diag-hot-corner.ts`) sits in
-  the top safe-area inset strip (status-bar area, `insets.top` tall, 88 pt wide,
-  left-aligned), rendered outside the SafeAreaView so it never overlaps DOM
-  content (it must not swallow the TopBar wordmark button). Geometry: the
+  both the top and the bottom safe-area inset strips (full window width, each
+  `insets.*` tall), rendered outside the SafeAreaView so it never overlaps DOM
+  content (it must not swallow the TopBar wordmark button). A strip renders
+  only when its inset is >= 20 pt (`MIN_STRIP_HEIGHT`); if both are < 20
+  nothing renders (Settings stays native-only). Geometry: the
   SafeAreaView pads all edges by the insets, and the DOM `body` pads `--safe-top`
-  (= the same inset) again, so content starts at >= `insets.top`. If
-  `insets.top < 20` it falls back to the bottom inset strip; if both are < 20
-  nothing renders (Settings stays native-only). To open Diagnostics on the
-  shared-UI path: tap the status-bar area at the top-left 7 times within 2 s.
+  (= the same inset) again, so content starts at >= `insets.top`. Both strips
+  feed one shared counter. To open Diagnostics on the shared-UI path: tap the
+  status-bar area (top) or the bottom inset strip 7 times within 2 s, in any
+  mix of the two.
   The same `DiagnosticsPanel`'s "Force shared UI" switch turns the override off
   (applies next launch).
 - `apps/mobile/lib/orientation-lock.ts` — `app.json` is `orientation:
