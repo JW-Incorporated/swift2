@@ -18,6 +18,18 @@ build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-ev
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
 
+**ADDENDUM 2026-10-03 13:40 PDT (supersedes earlier addenda where they conflict):**
+- OWNER: "ramp to maximum parallelism and go fast" — cap 10 agents (≤6 branch-writing). Fable 12:28 ruling: pre-G0 line = transport; packages/ui/apps/web/e2e/pure handler modules GO; Expo-DOM wiring/app mounts/spike edits HOLD. Briefs revised (commit 521b7027).
+- HA #98 → owner chose REROUTE; release train now GitHub Actions + EAS CLI (#4897, #4905 buffer fix). plan_only verified Android reuse; real run 37149769717 GREEN: iOS store build bd2e0580 → TestFlight (new profile), Android OTA published (Speed test mode #4898 + diag hot-corner #4875). Free EAS builds: 16/30 used before that run.
+- S2 owner run 12:04: inconclusive (all reports labelled warm, stale marks, JS-start anchor) → fixed by Speed test mode (#4898: one switch, 10 launches, auto summary PASS/FAIL). Owner given steps; awaiting run.
+- Owner decision: do NOT fix native era stream (#4895 now a One UI perf requirement).
+- MERGED today since 11:27: #4897 #4898 #4900(scaffold) #4902(D1) #4904(E1) #4905 #4906(PR0α) #4907(2.12) #4908(2.5-A1) #4909(2.6-A1) #4910(2.9-A1) #4911(2.7-A1) #4912(2.11) #4913(2.8-A1) #4914(2.13-A1b) #4884(intake idempotency, HMAC marker).
+- LANDING (auto-merge armed): #4903 F1, #4915 2.13-A1, #4917 2.10-A1. IN REVIEW: #4901 era perf rung 1 (Codex r2; harness compares displayed decoded in-region images). BUILDING: PR0β (2.9–2.13 captures), 2.6-A1b TheoryGuide, A2s for 2.5/2.7/2.9/2.13-FeedbackButton, #4918 client-corpus sentinel.
+- Follow-ups: #4874 (durable report dedupe, 2 consumers), #4877 (diag deep link, needs device evidence), #4883 done via #4884, #4895 (era perf), #4918.
+- Fable invocations today (logged in STATE.md): #4867, #4875, #4882, #4884, #4897, #4898, #4903, #4904, #4915, pre-G0 parallelism.
+- Process: PM heartbeat cron every 30 min targets 10 busy agents; Codex via direct `codex exec -s read-only -o out.md - < prompt.md` (companion queue wedges; cancel needs MSYS_NO_PATHCONV=1).
+- NEXT: land in order; remaining A2s (2.6, 2.8 if any, 2.10, 2.11 already done, 2.12 done); owner Speed test run → S4 (incl. #4877 hot-corner device check, #4895 image timing) → Fable G0 go/no-go → HOLD items (WP2.3 B4/C3/D2/E2/F2 wiring, 2.4-D, X-D mounts, 2.11-D1).
+
 **ADDENDUM 2026-10-03 11:27 PDT (supersedes 09:40 where they conflict):**
 - MERGED: #4875 (closes #4872; hidden 7-tap Diagnostics in top+bottom inset strips while SharedUiHost is mounted; Fable ruling after 2 Codex rejections; deep-link fallback #4877 pending device evidence), #4876 WP2.4 A2 (17:21Z; parity harness now stubs canonical-origin /vault/*), #4880 WP2.4 B (18:02Z; @swift2/ui declares lucide-react/@radix-ui/react-slot/cva), #4881 WP2.4 C (18:13Z; source-reading tests repointed to packages/ui), #4882 WP2.4 C2 (18:23Z; CurrentItemDetail intake via useHost().apiFetch; mobile intake non-functional until WP2.3-F — Fable accepted; body-read retry gap → #4883).
 - WP2.4 pre-G0 work is COMPLETE (0, A1, A2, B, C, C2). Next WP2.4 step is D (after G0 GO).
