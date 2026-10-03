@@ -6,7 +6,7 @@
 import { execFileSync } from 'node:child_process';
 import { appendFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { decide, initialState, parseFingerprint, pickExisting } from './train-lib.mjs';
+import { decide, fingerprintArgs, initialState, listArgs, parseFingerprint, pickExisting } from './train-lib.mjs';
 
 const eas = (args) =>
   execFileSync('eas', args, {
@@ -17,15 +17,11 @@ const eas = (args) =>
 
 function lookup(platform) {
   const hash = parseFingerprint(
-    eas(['fingerprint:generate', '--platform', platform, '--environment', 'production', '--json', '--non-interactive']),
+    eas(fingerprintArgs(platform)),
   );
   if (!hash) throw new Error(`could not read a ${platform} fingerprint hash from eas fingerprint:generate`);
   const existing = pickExisting(
-    eas([
-      'build:list', '--platform', platform, '--fingerprint-hash', hash, '--build-profile', 'production',
-      '--status', 'finished', '--limit', '1', '--json', '--non-interactive',
-    ]),
-  );
+    eas(listArgs(platform, hash)));
   return { hash, existing };
 }
 

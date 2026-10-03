@@ -6,10 +6,10 @@
 import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { applyBuild, awaitBuilds, iosSubmitId } from './train-lib.mjs';
+import { applyBuild, awaitBuilds, iosSubmitId, viewArgs } from './train-lib.mjs';
 
 const view = async (id) => {
-  const s = execFileSync('eas', ['build:view', id, '--json', '--non-interactive'], {
+  const s = execFileSync('eas', viewArgs(id), {
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
     timeout: 60000,

@@ -28,9 +28,9 @@ name: Mobile release train
 # ends red. Never echo secrets; the key file is `chmod 600` and deleted
 # immediately after use.
 #
-# Step caps (minutes): preflight 14 / plan 15 / start builds 10 / OTA 20 /
-# wait 195 / job-status 2 / summary 5 / iOS submit 30 / Android submit 10;
-# job 310. Rollback workflow 30.
+# Step caps (minutes): preflight 15 / usage 2 / plan 15 / start builds 10 /
+# OTA 20 / wait 195 / job-status 2 / summary 5 / iOS submit 30 / Android
+# submit 10 = 304; job 310. Rollback workflow 30.
 
 on:
   push:
@@ -40,6 +40,9 @@ on:
       - 'packages/**'
       - 'package-lock.json'
       - '!**/*.md'
+      # The retired EAS workflow dir (deleted by the HA #98 reroute) is not part of
+      # the train; touching it must not launch a live release.
+      - '!apps/mobile/.eas/**'
   workflow_dispatch:
     inputs:
       force_store_build:
@@ -66,8 +69,8 @@ jobs:
     # `mobile-release` concurrency group for GitHub's 360-min default.
     # Sized to data: 12 successful runs sampled 2026-10-02 had EAS waits of
     # 15-20 min (5 runs) and 70-155 min (7 runs), max 154.8 (run 36859454944).
-    # Arithmetic: preflight 14 + plan 15 + start 10 + OTA 20 + wait 195 (max
-    # 155 + 25%) + status 2 + summary 5 + iOS 30 + android 10 = 301, +9 slack = 310.
+    # Arithmetic: preflight 15 + usage 2 + plan 15 + start 10 + OTA 20 + wait 195
+    # (max 155 + 25%) + status 2 + summary 5 + iOS 30 + android 10 = 304, +6 slack = 310.
     timeout-minutes: 310
     env:
       TRAIN_STATE: /tmp/train-state.json
@@ -327,12 +330,12 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${EXPO_TOKEN:-}" ]; then
-            echo "::warning::EXPO_TOKEN repo secret is missing. Android build $BUILD_ID was produced but NOT submitted to Play. Not failing the train for it."
-            exit 0
+            echo "::error::EXPO_TOKEN repo secret is missing. Android build $BUILD_ID was produced but NOT submitted to Play."
+            exit 1
           fi
           if [ -z "${PLAY_SERVICE_ACCOUNT_JSON:-}" ]; then
-            echo "::warning::PLAY_SERVICE_ACCOUNT_JSON repo secret is missing (HUMAN-ACTIONS.md #48). Android build $BUILD_ID was produced but NOT submitted to Play — store submission will not happen until the key is added. Not failing the train for it."
-            exit 0
+            echo "::error::PLAY_SERVICE_ACCOUNT_JSON repo secret is missing (HUMAN-ACTIONS.md #48). Android build $BUILD_ID was produced but NOT submitted to Play; failing the train so this cannot finish green."
+            exit 1
           fi
           mkdir -p credentials
           umask 077
@@ -352,7 +355,7 @@ jobs:
       # Last step: Android has had its chance above; now surface any failure
       # (plan, build start, iOS build/signing, OTA, iOS submit, timeout) as a red run.
       - name: Fail the train if any stage did not succeed
-        if: always() && ( steps.plan.outcome != 'success' || steps.builds.outcome == 'failure' || steps.ota.outcome == 'failure' || steps.eas_wait.outcome == 'failure' || steps.ios_submit.outcome == 'failure' || contains(fromJSON('["unknown","not_success","no_build"]'), steps.android_job.outputs.result) )
+        if: always() && ( steps.plan.outcome != 'success' || steps.builds.outcome == 'failure' || steps.ota.outcome == 'failure' || steps.eas_wait.outcome == 'failure' || (steps.eas_wait.outputs.ios_submit_id != '' && steps.ios_submit.outcome != 'success') || (steps.android_job.outputs.build_id != '' && steps.android_marker.outputs.cache-hit != 'true' && steps.android_submit.outputs.submitted != 'true') || contains(fromJSON('["unknown","not_success","no_build"]'), steps.android_job.outputs.result) )
         run: |
           echo "::error::Release run failed (plan: ${{ steps.plan.outcome }}, start builds: ${{ steps.builds.outcome }}, OTA: ${{ steps.ota.outcome }}, build wait: ${{ steps.eas_wait.outcome }}, iOS submit: ${{ steps.ios_submit.outcome }}; Android store-build selection: ${{ steps.android_job.outputs.result || 'not read' }}). Android was submitted to Play internal only if its build was usable. See the job summary."
           exit 1

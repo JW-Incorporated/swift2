@@ -164,12 +164,7 @@ How the Android submit works (unchanged in effect):
   submitted. iOS fail / Android ok → Android submitted, run red. Android
   fail (any iOS) → submit skipped, red. A platform with an existing build
   and no native change still gets its OTA regardless of the other platform.
-- **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the Android
-  submit step warns (`::warning::`) and exits 0 rather than failing the
-  train — HA#48 tracks `EXPO_TOKEN` as still-open founder work, and the
-  train as a whole already refuses to start without `EXPO_TOKEN` in its
-  first step, so this path only fires if `EXPO_TOKEN` exists but the *Play*
-  key somehow doesn't.
+- **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the train refuses to start without `EXPO_TOKEN`. If a build needs submitting to Play and the Play key is missing, the Android submit step fails and the run ends red (changed in the HA #98 reroute: a green run must not mean iOS-only). The final step also fails the run whenever a produced build was not submitted (Android: no submitted marker and no cache hit; iOS: submit not successful).
 - **Free-plan quotas:** the "Show EAS plan usage" step prints `eas
   account:usage` into the log (informational). Build and submission
   allowances on the Free plan are separate from CI/CD minutes and were not

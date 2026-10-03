@@ -105,3 +105,14 @@ export function iosSubmitId(state) {
   if (!['SKIPPED', 'SUCCESS'].includes(and?.status)) return null;
   return typeof id === 'string' && UUID.test(id) ? id : null;
 }
+
+// eas-cli 23.2.0 argument vectors. `build:view` accepts --json but NOT
+// --non-interactive (it errors "Nonexistent flag"); the others accept both.
+export const viewArgs = (id) => ['build:view', id, '--json'];
+export const fingerprintArgs = (platform) => [
+  'fingerprint:generate', '--platform', platform, '--environment', 'production', '--json', '--non-interactive',
+];
+export const listArgs = (platform, hash) => [
+  'build:list', '--platform', platform, '--fingerprint-hash', hash, '--build-profile', 'production',
+  '--status', 'finished', '--limit', '1', '--json', '--non-interactive',
+];
