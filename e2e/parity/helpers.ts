@@ -157,8 +157,29 @@ export async function openRoute(page: Page, side: Side, route: Route, inset?: st
   await settle(page, route.root);
 }
 
+/** The short static /support page on side a: its footer is the stable place to capture the web footer (the home stream is ~67k px and grows lazily). */
+export const FOOTER_SELECTOR = 'footer';
+export async function openSupportFooter(page: Page): Promise<void> {
+  await page.goto(`${BASE.a}/support`);
+  await page.addStyleTag({ url: FONT_CSS_PATH });
+  await page.evaluate(async () => {
+    await document.fonts.load('16px "ParityFont"');
+    await document.fonts.ready;
+  });
+  expect(await page.evaluate(() => document.fonts.check('16px "ParityFont"'))).toBe(true);
+  await expect(page.locator(FOOTER_SELECTOR).first()).toBeVisible();
+  await page.waitForFunction((sel) => {
+    const el = document.querySelector(sel);
+    return !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'));
+  }, FOOTER_SELECTOR);
+  await page.locator(FOOTER_SELECTOR).first().scrollIntoViewIfNeeded();
+  await settle(page, FOOTER_SELECTOR);
+  await quiet(page, { root: FOOTER_SELECTOR });
+  await settle(page, FOOTER_SELECTOR);
+}
+
 /** Hydration effects (client-only text) land after React owns the DOM: wait until the root's text and size hold still. */
-async function quiet(page: Page, route: Route): Promise<void> {
+async function quiet(page: Page, route: { root: string }): Promise<void> {
   await page.waitForFunction(
     (sel) => {
       const w = window as unknown as { __quiet?: { sig: string; n: number } };
