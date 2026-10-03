@@ -1,3 +1,9 @@
+## FABLE RULING 2026-10-03 12:28 — pre-G0 parallelism (supersedes conflicting text below)
+
+Parallelism: a scaffold PR pre-creates per-slice barrels `packages/ui/src/reader/<slice>/index.ts`, package.json exports, and per-slice headings in MAP.md / READER-MOVE.md — executors edit ONLY under their own heading and never touch package.json exports or index.ts. PR0s consolidated into two PRs: α (2.5–2.8) and β (2.9–2.13, stacked on α). `shop.ts` / shop-networks / awin are owned by WP2.5 only (delete the WP2.9 claim). The 'A-series serial' rule and 'previous slice's A2' dependency rows are deleted; explicit deps only: wave 1 (parallel on main) = 2.5-A1, 2.6-A1, 2.9-A1 (minus shop), 2.11-clown A1, 2.12-A1; wave 2 = 2.7-A1, 2.8-A1, 2.13-A1b after 2.5-A1; 2.10-A1 after 2.9-A1. A2s stack on their own A1, HostAdapter edits additive, one A2 merge at a time. All X-D app mounts and 2.11-D1 HOLD until G0 GO. Integration order (PM sole merger, one at a time; after each merge open branches `git merge origin/main`, never rebase): scaffold → #4895 → PR0α → PR0β → F1 → D1 → E1 → 2.5-A1 → other wave-1 A1s → A2s → wave 2.
+
+---
+
 # WP2.5–2.8 executor briefs (0, A1, A2, D per slice): moment detail, threads, track guide + song, search (draft for the PM)
 
 Sources: PLAN.md §WP2.4–2.13 (`origin/main` 359-389: slice table 365-370, "Each slice" 372-385, S5 after 2.4–2.7 / S6 after 2.8–2.13 at 387-389); brief-wp24.md (FABLE REQUIRED block, PM rulings 03:02, carried rulings, and the shared Repo rules / Land / Verify blocks, **reused verbatim and not repeated here**). Research is from `origin/main` @ `ace719b0` (2026-10-03).
@@ -11,7 +17,7 @@ State of main:
 ## FABLE REQUIRED (2026-10-03 06:10) - supersedes the PM rulings block and anything below where they conflict
 - 2.4-D PULL FORWARD: overlayFallback (overlays the DOM cannot render yet -> native via presentNativeRoute) and the capture-phase _blank/off-origin -> openExternal interceptor ship in 2.4-D (the shell TopBar already opens them). 2.5-2.8-D then only DELETE their fallback entries; 2.5-D D1/D2 split removed.
 - 2.5-A1: drop EraSelector/ShareFallbackToast (-> 2.4-B). 2.6: add TheoryGuide/TheoryCard + theories route; D deletes that fallback; do NOT split A1 (renames do not count toward 400; run PR0 once; shard by project only if >10 min). 2.7: remove TheoryGuide/theories. 2.13: drop SiteFooter (-> 2.4-B).
-- D-chain order is a scheduling preference (S5/S6 batching), not a dependency; A-series stays serial (shared shims/READER-MOVE.md).
+- D-chain order is a scheduling preference (S5/S6 batching), not a dependency; A-series stays serial (shared shims/READER-MOVE.md). (superseded — see FABLE RULING 2026-10-03 12:28)
 - ClownChat F2 = REUSE OS-036 (SecureStore Bearer, persisted): nativeSession is allowlist-side only (test: DOM cannot set it); Authorization added AFTER sanitize; strip x-clown-session/set-cookie; 60 s cancellable; non-streaming = known deviation (streaming via evt chunks only if S6 says so).
 - Turnstile: NO native form (separately-editable mobile UI violates founder rule). App: siteKey null -> form submits; if server says verification required -> inline "Finish on longlivets.com" via openExternal. Deciding fact: is TURNSTILE_SECRET_KEY set in prod (ask owner); unset = no change.
 - 2.12: file the web-inbox-or-drop-inbox product question to Joey before WP5.2, not now. Affiliate via HostEnv = config, OK (optional member; S5 check 10 verifies).
@@ -102,7 +108,7 @@ State of main:
 |---|---|---|---|
 | WP2.4-A1/A2 (store, libs, share/storage adapters) | | yes | yes |
 | WP2.4-B/C (ReaderShell slots; MomentVideo, OverlayNav, ShareImageMenu, TrackFivePill, SignificanceBadge in the package; EraSecretCard re-pointed off TrackDetail) | | yes | yes |
-| Previous slice's A2 (READER-MOVE.md, MAP.md and `index.ts` conflict, so moves go serially) | | yes | |
+| Previous slice's A2 (READER-MOVE.md, MAP.md and `index.ts` conflict, so moves go serially) (superseded — see FABLE RULING 2026-10-03 12:28) | | yes | |
 | 2.5-A1 (`useFocusTrap` in the package): for 2.7 and 2.8 | | yes | |
 | WP2.4-D, WP2.3-D/F (navigate, openExternal, share, apiFetch) | | | yes |
 | Previous slice's D (the overlays it opens are DOM-rendered): 2.6←2.5, 2.7←2.6, 2.8←2.7 | | | yes |
