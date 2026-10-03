@@ -10,7 +10,7 @@
     "./fonts/*": "./fonts/*"
   },
   "peerDependencies": {
-    "react": "^19"
+    "react": "^18 || ^19"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
