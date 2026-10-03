@@ -95,6 +95,8 @@ export function ClownChat({ lore }: ClownChatProps) {
   // Fullscreen API (requestFullscreen on a non-video element is unreliable
   // on iOS Safari, precisely where filling the screen matters most).
   const host = useHost();
+  const inflightRef = useRef<AbortController | null>(null);
+  useEffect(() => () => inflightRef.current?.abort(), []);
   const [expanded, setExpanded] = useState(false);
   const expandToggleRef = useRef<HTMLButtonElement>(null);
   const wasExpandedRef = useRef(false);
@@ -147,6 +149,9 @@ export function ClownChat({ lore }: ClownChatProps) {
 
   const ask = useCallback(
     async (question: string, options: { chip?: boolean } = {}) => {
+      inflightRef.current?.abort();
+      const controller = new AbortController();
+      inflightRef.current = controller;
       setBusy(true);
       setError(null);
       setInvestigating(null);
@@ -178,7 +183,7 @@ export function ClownChat({ lore }: ClownChatProps) {
           path: '/api/clown',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ text: question, transcript, ...(options.chip ? { chip: true } : {}) }),
-        });
+        }, { signal: controller.signal });
         // PLAN.md Stage 10: the route streams the agent loop's investigation
         // trail as it happens, then exactly one final answer event — every
         // deterministic (non-loop) response still arrives as a single event
@@ -186,6 +191,7 @@ export function ClownChat({ lore }: ClownChatProps) {
         // every path, not just the loop's.
         let answer: ClownAnswer | null = null;
         await readClownStream(chunks, (event) => {
+          if (controller.signal.aborted) throw new DOMException('aborted', 'AbortError');
           if (event.type === 'investigation') setInvestigating(event.step);
           else answer = event.answer;
         });
@@ -193,10 +199,13 @@ export function ClownChat({ lore }: ClownChatProps) {
         addClownMessage(question, answer);
         setText('');
       } catch {
-        setError(NETWORK_ERROR);
+        if (!controller.signal.aborted) setError(NETWORK_ERROR);
       } finally {
-        setInvestigating(null);
-        setBusy(false);
+        if (inflightRef.current === controller) {
+          inflightRef.current = null;
+          setInvestigating(null);
+          setBusy(false);
+        }
       }
     },
     [addClownMessage, clownMessages, host],
