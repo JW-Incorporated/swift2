@@ -16,6 +16,7 @@ import { describeSnapshotSafe, snapshotFromEnvelope } from './spike/snapshot';
 import { fill } from './spike/shims/fill';
 import { installStorageShim } from './spike/storage-shim';
 import { loadReader, type ReaderProps } from './spike/reader-modules';
+import { setImageLoadListener } from './spike/image-listener';
 
 export interface ReaderSpikeProps {
   /** file:// URI of the native `last-good` cache file. */
@@ -29,6 +30,10 @@ export interface ReaderSpikeProps {
   reportError: (message: string) => Promise<void>;
   reportProbe: (json: string) => Promise<void>;
   reportBack?: (result: 'handled' | 'exit') => Promise<void>;
+  /** Speed test mode (#4896): one call per loaded image; `visible` = inside the viewport. */
+  reportImageLoad?: (visible: boolean) => Promise<void>;
+  /** Speed test mode is running: only then are image loads measured and reported. */
+  speedTestOn?: boolean;
   /** Web/dev only (index.web.ts): supplies the cache envelope text where no native cache exists. */
   devLoader?: () => Promise<string>;
   dom?: import('expo/dom').DOMProps;
@@ -73,6 +78,12 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
       s.setProperty(`--safe-${side}`, `${insets[side]}px`);
     }
   }, [insets?.top, insets?.right, insets?.bottom, insets?.left]);
+
+  useEffect(() => {
+    if (!props.speedTestOn) return;
+    setImageLoadListener((visible) => void propsRef.current.reportImageLoad?.(visible));
+    return () => setImageLoadListener(null);
+  }, [props.speedTestOn]);
 
   useEffect(() => {
     const onError = (e: ErrorEvent) => {

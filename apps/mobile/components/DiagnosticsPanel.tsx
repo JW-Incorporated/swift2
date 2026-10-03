@@ -16,6 +16,8 @@ import {
 import { latestProbeJson } from '../dom/spike/probe';
 import { readerSpikeLines } from '../lib/dom-probe-store';
 import { sendDiagReport } from '../lib/diagnostics-send';
+import { isActive, panelLines, type SpeedState } from '../lib/speed-test';
+import { speedTest } from '../lib/speed-test-runtime';
 import type { DomFailureMode, WatchdogRecord } from '../lib/watchdog';
 import { watchdogLines } from '../lib/watchdog-policy';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
@@ -24,6 +26,8 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   const [forceShared, setForceShared] = useState(false);
   const [testPage, setTestPage] = useState(false);
   const [failMode, setFailMode] = useState<DomFailureMode>('off');
+  const [speed, setSpeed] = useState<SpeedState | null>(null);
+  const [, setTick] = useState(0);
   const [wd, setWd] = useState<WatchdogRecord | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState('');
@@ -33,7 +37,12 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     void getForceSharedUi().then(setForceShared);
     void getUseTestPage().then(setTestPage);
     void getForceDomFailure().then(setFailMode);
+    void speedTest.state().then(setSpeed);
     void loadWatchdogRecord().then((r) => setWd(r === 'corrupt' ? null : r));
+    return speedTest.onChange(() => {
+      setTick((n) => n + 1);
+      void speedTest.state().then(setSpeed);
+    });
   }, [visible]);
 
   if (!visible) return null;
@@ -100,6 +109,20 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               }}
             />
           </View>
+          <View style={styles.switchRow}>
+            <Text style={styles.fact}>Speed test mode (auto-sends the next 10 launches)</Text>
+            <Switch
+              value={isActive(speed)}
+              onValueChange={(on) => {
+                void (on ? speedTest.enable() : speedTest.disable().then(() => null)).then(setSpeed);
+              }}
+            />
+          </View>
+          {panelLines(speed, speedTest.queued()).map((line) => (
+            <Text key={line} style={styles.fact}>
+              {line}
+            </Text>
+          ))}
           <Text style={styles.fact}>Force DOM failure (applies next launch)</Text>
           <View style={styles.modeRow}>
             {(['off', 'throw', 'hang'] as const).map((mode) => (
