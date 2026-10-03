@@ -420,7 +420,13 @@ r1: 8 small items; Codex r1 launched. #4853 Codex r1: 8 hardening findings
 (unbounded seen on malformed path, no inflight cap, v not enforced post-ready,
 cancel-before-start still invokes handler, no teardown after fatal/dispose,
 res correlation by id only, ack seq bounds, scheduler throws) + reviewer's 7
-→ fix round 1 launched (15 items). Codex queue: #4849 r2, #4850 r2. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+→ fix round 1 launched (15 items). Codex queue: #4849 r2, #4850 r2.
+**04:16:** WP2.2-C2 → **#4857** (partial: MomentDetail, ThreadsTimeline,
+ProposalThread migrated; ~22 lines). PM: C2 adds missing queries
+(contentForThreadInRange, songTargetOf, contentForThreadInEra,
+resolveEraSecretLink) with deep-equal tests + migrates EntryDetail /
+RunwayThread / EraSecretCard; share-payload cascade → C3; trace a 1×404 per
+page seen in smoke. Executor resumed. WP2.2-C1 running in parallel. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
