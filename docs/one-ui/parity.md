@@ -29,8 +29,17 @@ disagree with each other or with committed Linux baselines. Epic #4788.
   (`npm run build` would re-run `prebuild` and re-sync live content over it).
   CI never regenerates. Regeneration is deliberate and manual: `npm run sync:content`,
   then `npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --regenerate`,
-  commit the fixture, then re-baseline (below). Size: about 8 MB raw (about 2 MB compressed) per
-  regeneration; a pruned snapshot is a possible follow-up.
+  commit the fixture, then re-baseline (below). The snapshot is PRUNED (`--regenerate` does it
+  itself; `--prune` re-prunes the committed fixture in place, idempotently): it keeps only the
+  eras the two routes render, the current era (first screen of `/`; the clip is 480 px, so
+  only that era shows) and the fixed item's era, in BOTH the bundle and the era-keyed baked
+  modules. Other eras stay in `eras.json` but have no content, and their per-era
+  tracks/theories/videos/secrets entries are empty; milestones and shop-the-look merch,
+  which derive from the baked content, are filtered to the same eras. Size: about 2.9 MB raw
+  (was 8.3 MB, 118k lines). The content dir is `content/frozen/` (was the 64-hex content
+  hash; the loader treats `bundleVersion` as an opaque string and checks per-file
+  sha256, which `--prune` recomputes). Scrolling further than the first screen would reach
+  empty eras, which no parity route does.
 - Runtime equivalence hash on BOTH sides (`compare.spec.ts`): side b reports its
   rendered snapshot hash (`window.__probe`); side a reports the hash of the baked
   modules the running server holds via `GET /parity-probe`
