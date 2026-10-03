@@ -26,8 +26,10 @@ export default defineConfig({
   retries: 0,
   workers: 2,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : [['list']],
-  // bypassCSP: the web build's CSP forbids the harness's injected font style (side a only).
-  use: { trace: 'off', reducedMotion: 'reduce', bypassCSP: true },
+  // The web build's CSP stays ON for Chromium: the harness injects its stylesheets same-origin (page.route + <link>).
+  // WebKit refuses the inline style Playwright itself injects for EVERY page.screenshot() under that CSP (verified:
+  // a bare screenshot logs the violation), so the WebKit projects alone set bypassCSP; side b has no CSP either way.
+  use: { trace: 'off', reducedMotion: 'reduce' },
   webServer: [
     {
       command: 'node scripts/parity/serve.mjs',
@@ -40,13 +42,14 @@ export default defineConfig({
       command: `npm run start -w @swift2/web -- -H 127.0.0.1 -p ${A_PORT}`,
       url: `http://127.0.0.1:${A_PORT}/`,
       reuseExistingServer: !process.env.CI,
+      env: { PARITY_PROBE: '1' },
       timeout: 60_000,
     },
   ],
   projects: [
     { name: 'pixel-7', use: { ...devices['Pixel 7'] } },
-    { name: 'iphone-15', use: { ...devices['iPhone 15'] } },
-    { name: 'ipad-pro-11-portrait', use: { ...devices['iPad Pro 11'] } },
-    { name: 'ipad-pro-11-landscape', use: { ...devices['iPad Pro 11 landscape'] } },
+    { name: 'iphone-15', use: { ...devices['iPhone 15'], bypassCSP: true } },
+    { name: 'ipad-pro-11-portrait', use: { ...devices['iPad Pro 11'], bypassCSP: true } },
+    { name: 'ipad-pro-11-landscape', use: { ...devices['iPad Pro 11 landscape'], bypassCSP: true } },
   ],
 });

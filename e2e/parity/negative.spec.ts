@@ -1,10 +1,12 @@
 import {
+  BASE,
   captureRoot,
   expect,
   mutate,
   openRoute,
   pixelMatches,
   ROUTES,
+  takeExternalImages,
   test,
   type Mutation,
 } from './helpers';
@@ -43,6 +45,27 @@ test.describe('pixel a-vs-b gate (side a clean vs side b mutated)', () => {
       expect(await pixelMatches(testInfo, `neg-ab-${kind}`, a, b)).toBe(false);
     });
   }
+});
+
+test.describe('asset and image gates', () => {
+  test('a missing (b) export asset is a 404 (the guard fails the page on any >=400)', async ({ page }) => {
+    expect((await page.request.get(`${BASE.b}/no-such-export-asset.js`)).status()).toBe(404);
+  });
+
+  test('an allowlisted app asset path is still served (WP2.1 TODO)', async ({ page }) => {
+    expect((await page.request.get(`${BASE.b}/eras/debut.png`)).status()).toBe(200);
+  });
+
+  test('an unexpected external image changes the recorded set', async ({ page }) => {
+    await openRoute(page, 'b', route);
+    takeExternalImages(page);
+    await page.evaluate(() => {
+      const img = new Image();
+      img.src = 'https://parity.invalid/extra.png';
+      document.body.append(img);
+    });
+    await expect.poll(() => takeExternalImages(page).length).toBeGreaterThan(0);
+  });
 });
 
 test.describe('structural a-vs-b gate', () => {

@@ -646,6 +646,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
 | `apps/mobile/package.json` `main` = `index` | One UI WP1.1c: Expo resolves `index.ts` for native and `index.web.ts` (WP0.5b, mounts ReaderSpike) for the parity web export, so no `app.json` edit and the native fingerprint is unchanged. The part-1 `index.web.tsx` test-page entry was removed in part 2 |
 | `playwright.parity.config.ts`, `e2e/parity/` (`helpers.ts`, `placeholder.ts`, `structure.ts`, `baseline.spec.ts`, `compare.spec.ts`, `negative.spec.ts`, `__screenshots__/`) | Visual parity harness on the spike routes: sides a (web build) and b (DOM entry), 4 device projects, a-vs-b pixel + structural gates, per-side Linux baselines, negative specs. Root `playwright.config.ts` ignores it |
-| `scripts/parity/serve.mjs`, `scripts/parity/make-fixture.mjs` | Side b static server (export + fixture bundle at `/content`); fixture generator that fails unless baked and bundle snapshots hash equal |
+| `scripts/parity/serve.mjs`, `scripts/parity/make-fixture.mjs`, `scripts/parity/fixture/` | Side b static server (export + frozen fixture bundle at `/content`; missing assets 404 except the `/eras/*.png` allowlist); fixture tool (`--apply` in CI, `--regenerate` manual); the COMMITTED frozen content snapshot both sides render from |
+| `apps/web/app/parity-probe/route.ts` | Parity harness only: reports the baked-modules equivalence hash; 404 unless `PARITY_PROBE=1` |
 | `.github/workflows/parity.yml` | Parity CI (pinned Playwright container) + baseline-update dispatch; never a required check |
 | `docs/one-ui/parity.md` | How the harness works, tolerance, baseline-update order |

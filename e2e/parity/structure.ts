@@ -69,7 +69,8 @@ export function diffStructure(a: StructNode[], b: StructNode[]): string[] {
     if (p.text !== q.text) {
       let at = 0;
       while (at < p.text.length && p.text[at] === q.text[at]) at++;
-      problems.push();
+      const excerpt = (t: string) => JSON.stringify(t.slice(Math.max(0, at - 10), at + 30));
+      problems.push(`#${i} ${p.role} text differs at char ${at}: ${excerpt(p.text)} vs ${excerpt(q.text)}`);
     }
     for (const k of ['x', 'y', 'w', 'h'] as const) {
       if (Math.abs(p[k] - q[k]) > EDGE_TOLERANCE) problems.push(`#${i} ${p.role} ${k} ${p[k]} vs ${q[k]}`);

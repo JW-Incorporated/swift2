@@ -16,6 +16,9 @@ on:
     paths:
       - 'packages/ui/**'
       - 'packages/content/**'
+      - 'packages/content-enrichment/**'
+      - 'packages/experience/**'
+      - 'scripts/sync-longlive-content.mjs'
       - 'apps/web/**'
       - 'apps/mobile/dom/**'
       - 'apps/mobile/parity-entry/**'
@@ -60,15 +63,17 @@ jobs:
       - run: npm ci --silent
       - name: Sync content (secretless; Supabase degrades to empty, as in build-full)
         run: npm run sync:content --silent
+      - name: Freeze content (overlay the committed snapshot; fails unless baked and bundle hash equal fixture.json)
+        run: npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --apply
       - uses: actions/cache@v6
         with:
           path: apps/web/.next/cache
           key: parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
           restore-keys: |
             parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
-      - run: npm run build -w @swift2/web
-      - name: Fixture (fails unless baked and bundle snapshots hash equal)
-        run: npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs
+      - name: Build (next build directly: npm run build would re-run prebuild and re-sync live content over the snapshot)
+        working-directory: apps/web
+        run: npx next build
       - uses: actions/upload-artifact@v7
         with:
           name: parity-a-next
@@ -76,11 +81,6 @@ jobs:
             apps/web/.next
             !apps/web/.next/cache
           include-hidden-files: true
-          retention-days: 1
-      - uses: actions/upload-artifact@v7
-        with:
-          name: parity-fixture
-          path: apps/mobile/dist/parity-fixture
           retention-days: 1
 
   build-dom:
@@ -140,10 +140,6 @@ jobs:
           path: apps/web/.next
       - uses: actions/download-artifact@v8
         with:
-          name: parity-fixture
-          path: apps/mobile/dist/parity-fixture
-      - uses: actions/download-artifact@v8
-        with:
           name: parity-b
           path: apps/mobile/dist/parity-web
       - name: Parity specs
@@ -190,10 +186,6 @@ jobs:
         with:
           name: parity-a-next
           path: apps/web/.next
-      - uses: actions/download-artifact@v8
-        with:
-          name: parity-fixture
-          path: apps/mobile/dist/parity-fixture
       - uses: actions/download-artifact@v8
         with:
           name: parity-b

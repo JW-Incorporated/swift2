@@ -8,7 +8,7 @@ import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/mobile/dist/parity-web');
-const fixture = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/mobile/dist/parity-fixture');
+const fixture = resolve(dirname(fileURLToPath(import.meta.url)), 'fixture');
 const webPublic = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/web/public');
 const port = Number(process.env.PARITY_PORT ?? 4173);
 
@@ -30,13 +30,17 @@ const TYPES = {
   '.ico': 'image/x-icon',
 };
 
+// The ONLY assets side b may borrow from the web app's public dir. Every other
+// path missing from the (b) export is a 404, and the harness fails on any 404.
+// TODO(WP2.1): app asset packaging is resolved in WP2.1; delete this allowlist then.
+const WEB_PUBLIC_ALLOWLIST = [/^\/eras\/[^/]+\.png$/];
+
 createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://x').pathname);
-  // /content/** is the fixture bundle (make-fixture.mjs), read from disk: side b never touches a network.
+  // /content/** is the frozen fixture bundle (scripts/parity/fixture), read from disk: side b never touches a network.
   let base = pathname.startsWith('/content/') ? fixture : root;
   let file = normalize(join(base, pathname === '/' ? 'index.html' : pathname));
-  // Static site assets (/eras/*.png ...) come from the web app's public dir, as the site would serve them.
-  if (!existsSync(file) && !pathname.startsWith('/content/')) {
+  if (!existsSync(file) && WEB_PUBLIC_ALLOWLIST.some((re) => re.test(pathname))) {
     base = webPublic;
     file = normalize(join(base, pathname));
   }
