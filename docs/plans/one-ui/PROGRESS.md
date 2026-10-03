@@ -409,7 +409,18 @@ SKIPPED, publish_update_android_only SUCCESS (OTA publishing for that
 fingerprint) — but that build was NEVER submitted to Play (old whole-run gate +
 new this-run-only rule). Joey's phone is on an older native build → needs it.
 Fix executor launched: selector `existing` result (fingerprint-bound, not
-commit-bound) → submit; idempotent re-submit handling. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+commit-bound) → submit; idempotent re-submit handling.
+**04:09:** **#4854** (submit existing Android build; field = jobs[get_android_build]
+.turtleBuild.id — the logged "build" is our projection; actions/cache marker
+per build id) reviewer APPROVE → **auto-merge set** → next main train should
+submit 0a1ef202 to Play internal. **#4847 (WP2.1-C fonts)**: Codex r2 APPROVE
+(no findings) + reviewer → **auto-merge set** (parity green 37117886342).
+WP2.3-C → **#4855** (client + 3-leg contract, not wired; 150 tests) → reviewer
+r1: 8 small items; Codex r1 launched. #4853 Codex r1: 8 hardening findings
+(unbounded seen on malformed path, no inflight cap, v not enforced post-ready,
+cancel-before-start still invokes handler, no teardown after fatal/dispose,
+res correlation by id only, ack seq bounds, scheduler throws) + reviewer's 7
+→ fix round 1 launched (15 items). Codex queue: #4849 r2, #4850 r2. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
