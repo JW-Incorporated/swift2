@@ -1,10 +1,11 @@
 import type { ReaderCorpus } from '../corpus';
 import { eggDoorwaysForEraIn, threadDoorwaysForEraIn } from '../doorways';
+import { resolveEraSecretLinkIn } from '../era-secrets-link';
 import { threadPointsIn } from '../lenses';
 import { contentForThreadIn } from '../threads';
 import { theoriesForEraIn } from '../theories';
-import { tracksForEraIn } from '../track-guide';
-import type { ContentItem, EraId, EraSecret, LensId, Milestone, VideoNote } from '../types';
+import { songTargetOfIn, tracksForEraIn } from '../track-guide';
+import type { ContentItem, EraId, EraSecret, LensId, Milestone, RelatedId, VideoNote } from '../types';
 import { corpusFromInputs } from './corpus';
 import type { ReaderSnapshotCore, ReaderSnapshotCoreInputs } from './types';
 
@@ -71,6 +72,14 @@ export function createReaderQueries<W extends VideoNote = VideoNote, M extends W
     allVideoRecordsForEra: (eraId: EraId): VideoNote[] => deps.allVideoRecords(rawVideos(eraId)),
     musicVideosForEra: (eraId: EraId): M[] => deps.musicVideosForEra(rawVideos(eraId)),
     contentForThread: (threadId: LensId) => contentForThreadIn(corpus, threadId),
+    contentForThreadInRange: (threadId: LensId, start: string, end: string | null): ContentItem[] => {
+      const upto = end ?? new Date().toISOString().slice(0, 10);
+      return contentForThreadIn(corpus, threadId).filter((c) => c.date >= start && c.date <= upto);
+    },
+    contentForThreadInEra: (threadId: LensId, eraId: EraId): ContentItem[] =>
+      contentForThreadIn(corpus, threadId).filter((c) => c.eraId === eraId),
+    songTargetOf: (relatedId: RelatedId) => songTargetOfIn(corpus, relatedId),
+    resolveEraSecretLink: (deeperLink?: string) => resolveEraSecretLinkIn(corpus, deeperLink),
     threadPoints: (threadId: LensId) => threadPointsIn(corpus, threadId),
     threadDoorwaysForEra: (eraId: EraId, eraStart: string, eraEnd: string) =>
       threadDoorwaysForEraIn(corpus, eraId, eraStart, eraEnd),

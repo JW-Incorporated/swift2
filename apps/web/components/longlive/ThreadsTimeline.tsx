@@ -8,7 +8,7 @@ import {
   ERAS,
   getEra,
 } from '@swift2/experience';
-import { threadPoints } from '@swift2/experience';
+import { useReader } from '@swift2/ui';
 import type { LensId } from '@swift2/experience';
 import { cn } from '@/lib/utils';
 import { measureChromeHeight } from '@/lib/longlive/chrome-offset';
@@ -36,11 +36,12 @@ interface Anchor {
  * Direction matches era mode: top = now, bottom = the start of her career.
  */
 export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
+  const { threadPoints } = useReader();
   const start = CAREER_START_MS;
   const end = useMemo(() => careerEndMs(), []);
   const span = Math.max(1, end - start);
 
-  const points = useMemo(() => threadPoints(threadId), [threadId]);
+  const points = useMemo(() => threadPoints(threadId), [threadPoints, threadId]);
 
   const pctForDate = useCallback(
     (ms: number) => clamp01((end - ms) / span) * 100,
