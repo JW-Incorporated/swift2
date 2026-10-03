@@ -536,7 +536,15 @@ drop TrackGuide cast).
 Fable's wrong-call signal fired: DOM client uses parseEnvelopeValue (Expo can
 deliver objects); native host has an object path (tests) → Fable consulted.
 Remaining WP2.3: B step 4 (wire host into SharedUiHost/watchdog), C step 3
-(wire client into DOM host), D/E/F — all after G0. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+(wire client into DOM host), D/E/F — all after G0.
+**05:16:** **WP2.2 C1 #4856, C2 #4857, C3 #4858 MERGED** (landing chain; no
+ambiguous hunks). WP2.2 remaining: E #4859 (reviewer APPROVE; Codex r1 pending)
+and D (lint ban + docs) launched. #4847 fonts went CONFLICTING after the merges
+→ sync executor (re-run font-compare). Fable invariant test FOUND A REAL
+DIVERGENCE: top-level own `__proto__` key rejected by parseEnvelope(string) but
+accepted by parseEnvelopeValue(object) (object path walked only payload) → fix
+authorized: one shared post-parse funnel (object path = canonicalize →
+parseEnvelope(string)). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
