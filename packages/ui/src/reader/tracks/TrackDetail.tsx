@@ -34,17 +34,26 @@ import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swi
  * a returning user shouldn't see it again either. */
 const SWIPE_HINT_KEY = 'll-track-swipe-hint-seen-v1';
 
-function readSwipeHintSeen(storage: HostStorage): boolean {
+const PROBE_KEY = 'll-track-swipe-hint-probe';
+
+/** Host adapters swallow blocked-storage errors (null reads, silent writes),
+ * so availability is probed with a write/read-back before trusting a read. */
+function readSwipeHintSeen(storage: HostStorage | undefined): boolean {
   try {
+    if (!storage) return true;
+    storage.set(PROBE_KEY, '1');
+    const ok = storage.get(PROBE_KEY) === '1';
+    storage.remove(PROBE_KEY);
+    if (!ok) return true;
     return storage.get(SWIPE_HINT_KEY) === '1';
   } catch {
     return true;
   }
 }
 
-function writeSwipeHintSeen(storage: HostStorage): void {
+function writeSwipeHintSeen(storage: HostStorage | undefined): void {
   try {
-    storage.set(SWIPE_HINT_KEY, '1');
+    storage?.set(SWIPE_HINT_KEY, '1');
   } catch {
     /* private mode / quota — the hint just reappears next visit */
   }
@@ -66,7 +75,7 @@ export { trackKey };
  */
 export function TrackDetail() {
   const { Image, storage: hostStorage } = useHost();
-  const storage = hostStorage.local;
+  const storage = hostStorage?.local;
   const resolveUrl = useResolveUrl();
   const { openTrackKey, trackGuideEraId } = useAppState();
   const { closeTrack, openTrack } = useAppActions();
