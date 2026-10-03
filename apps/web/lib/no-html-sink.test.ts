@@ -51,7 +51,7 @@ describe('no user/content HTML sink (issue #1975)', () => {
     expect(hits.map((hit) => hit.file.replace(/\\/g, '/'))).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/\/app\/layout\.tsx$/),
-        expect.stringMatching(/\/components\/longlive\/merch\/MerchCard\.tsx$/),
+        expect.stringMatching(/\/reader\/merch\/MerchCard\.tsx$/),
       ]),
     );
   });

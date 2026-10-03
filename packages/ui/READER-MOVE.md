@@ -73,6 +73,9 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 `src/index.ts`. Deep imports: `@swift2/ui/reader/<slice>/X` (.tsx) and
 `@swift2/ui/reader/<slice>/lib/X` (.ts).
 
+Slice barrels are intentionally empty; import via `@swift2/ui/reader/<slice>/<File>`
+or `…/lib/<module>`; populate a barrel only when a consumer needs it.
+
 ### WP2.5 moment
 
 2.5-A1 (move-only): `MomentDetail`, `MomentSocialPost`, `ZoomableImage` to `reader/moment/`; `contain-fit`, `related`, `useFocusTrap`, `shop`, `shop-networks` and `awin-advertisers.json` to `reader/moment/lib/`. Pure tests moved with them (`ZoomableImage`, `contain-fit`, `useFocusTrap`, `shop`, `shop-networks`).
@@ -85,7 +88,16 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 - Debt: `MomentDetail.tsx` (1216) and `ZoomableImage.tsx` (382) over the 300-line rule; moved as-is.
 
 ### WP2.6 threads
-(pending)
+
+2.6-A1, move-only. Components to `reader/threads/` (subfolders `decode`, `love-story`, `proposal`, `runway`, `taylors-version` kept); `.ts` modules to `reader/threads/lib/` (`lib/decode/patternRailLayout.ts` keeps the subfolder).
+
+Moved: `ThreadsMode`, `ThreadsTimeline`, `ClueWeb`, `Crossings`, `FromTheEras`, `LiveTheoryCard`, `TheoryCard`, `crossingMarkerLayout`, `decode/{DecodeThread,DecodeCard,PatternRail,StatBar,patternRailLayout}`, `love-story/{LoveStoryThread,EntryDetail}`, `proposal/ProposalThread`, `runway/RunwayThread`, `taylors-version/{TaylorsVersionThread,AlbumNarrativeCard,BuybackBeat,OwnershipTimeline,SpotifyCompare}`, libs `decode`, `love-story`, `live-theories`. Pure tests moved with them: `crossingMarkerLayout`, `patternRailLayout`, `decode`.
+
+Shims (importer outside the moved set): `apps/web/components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx`, `apps/web/lib/longlive/live-theories.ts`. Plain renames: everything else.
+
+Not moved: `TheoryGuide` (imports `useFocusTrap`, owned by WP2.5; follow-up once it lands), `threads.ts`/`theories.ts` (data). Tests staying in `apps/web` (read component source, or wire app-layer data): `crossings-*`, `decode-ink-soft-opacity`, `EntryDetail`, `LoveStoryThread`, `ProposalThread`, `ownershipTimeline`, `love-story-songs`; plus the shared source-lock lists, repointed.
+
+`noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit. A2 expected empty. Debt: `ClueWeb.tsx` (911), `Crossings.tsx` (620), `ThreadsTimeline.tsx` (469), `ThreadsMode.tsx` (434), `LoveStoryThread.tsx` (414) over the 300-line rule.
 
 ### WP2.7 tracks
 - Moved (A1, move-only): `TrackGuide.tsx`, `TrackDetail.tsx` -> `packages/ui/src/reader/tracks/`. TheoryGuide/TheoryCard are WP2.6, not here.
@@ -95,16 +107,30 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 - Debt: `TrackDetail.tsx` (580) over the 300-line rule; moved as-is. A2 (swipe-hint `window.localStorage` -> `useHost().storage.local`) pending.
 
 ### WP2.8 search
-(pending)
+A1 (move-only): `SearchOverlay.tsx` and `search-listbox-children.test.ts` -> `reader/search/`. A2 is empty (no fetch, storage or external links).
+
+- Shim (one-line `export *`, kept until WP2.13; `LongLive.tsx` imports it): `apps/web/components/longlive/SearchOverlay.tsx`.
+- Plain rename (no outside importer): `search-listbox-children.test.ts`.
+- Import fix-ups: `@/lib/longlive/search` -> `@swift2/experience` (the stay-behind `search.ts` is a re-export of it); `useFocusTrap` from `../moment/lib/` (WP2.5-owned).
+- Source-reading tests repointed: `back-dismiss.test.ts`, `escape-dismiss.test.ts`, `modal-focus-trap.test.ts` (import string follows the new path).
 
 ### WP2.9 merch
-(pending)
+
+2.9-A1 (move-only). Moved to `packages/ui/src/reader/merch/`: `EraSpine` (+ test), `MerchMarquee`, `MerchEmptyPanel`, `MerchSectionRail`, `SubmitLinkForm`; libs in `merch/lib/`: `merch-filters`, `section-jump`. Old paths are one-line `export *` shims (delete in WP2.13). No type re-homing was needed.
+
+2.9-A1b: `MerchCard` and `MerchStyleSection` moved too (shop imported from `../moment/lib/shop`, WP2.5). `MerchSection` stays in apps/web: it imports baked `merch-extensions` (apps/web data), and the fix is the `extensions` prop = A2. `merch-filters.test.ts` stays (reads web-only data modules through the shim); `section-jump.test.ts` stays (fails the ui package's stricter `noUncheckedIndexedAccess`; fixing it is a non-import hunk, so it goes to A2).
 
 ### WP2.10 community
 (pending)
 
 ### WP2.11 clown
-(pending)
+A1 + minimal A2 in one PR (separate commits). Moved with `git mv`, old paths now one-line `export *` shims:
+- `reader/clown/`: `ClownBoard`, `ClownChat`, `ClownChatComposer`, `ClownChatTitlebar`, `ClownEmptyState`, `ClownItemCard`, `ClownMessageRow`.
+- `reader/clown/lib/`: `clown-board`, `clown-chat-helpers`, `clown-chat-ui`, `clown-explain`, `clown-starters`, `clown-stream`, `useChromeOffset`.
+- Type edges (`clown-answer`, `clown-client`, `clown-fallback`) re-homed to `@swift2/shared` in a separate type-only `!` commit.
+- A2 logic: `currentTheories(now, theoriesForEra, lore)` takes `lore`; `ClownChat`/`ClownBoard` take a `lore` prop. `LORE` stays in apps/web; 2.11-D1 supplies it in the app.
+- Debt: `ClownChat.tsx` (308) is over the 300-line rule; moved as-is.
+- Not moved: Mood (`MoodChat`, `MoodSongCard`, `mood-starters`) is A1b.
 
 ### WP2.12 settings
 A1 + A2 in one PR (PM ruling), separate commits.
@@ -120,6 +146,8 @@ A1 + minimal A2 in one PR (PM ruling), separate commits.
 
 - A1 (move-only): `lib/longlive/legal.ts` -> `reader/legal/lib/legal.ts` (one-line shim; 821 lines, over the 300 rule, waived); `LegalDocument.tsx`, `SupportPage.tsx` (support page body, `metadata` split into the route file) -> `reader/legal/`.
 - A2 (logic): `next/link` -> `useHost().Link`; `SiteFooter` is not moved, both components take a `footer?: ReactNode` slot that the route files fill. `mailto:` links stay plain anchors (host handling, if the app needs it, is a later A2). `SiteFooter` is 2.4-B.
+- A1b (move-only): `FeedbackButton.tsx` -> `reader/legal/`. Old path is a one-line `export *` shim (stays until WP2.13 A2). Source-reading tests (`accent-fill-foreground`, `back-dismiss`, `close-affordance`, `escape-dismiss`, `modal-focus-trap`, `FeedbackButton.test`) are repointed. A1 (legal pages) is not part of this PR.
+- Deferred to A2 (logic, untouched here): `sessionStorage` -> `storage.session`, `window.location.href`, `fetch('/api/feedback')` -> `apiFetch`.
 
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,
 `clownbot-lore`, `content`, `tracks`, `era-secrets`, `videos`.

@@ -2,7 +2,7 @@
 
 import { useHost, useReader } from '@swift2/ui';
 import { getEra } from '@swift2/experience';
-import { accentFgFor, eraStyle } from '@/lib/longlive/theme';
+import { accentFgFor, eraStyle } from '../../lib/theme';
 import { RUNWAY_LOOKS } from '@swift2/experience';
 import { autoFocalPoint, focalPointOf } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';

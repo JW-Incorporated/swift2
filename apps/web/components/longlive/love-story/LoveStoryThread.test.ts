@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 // regression pin for #659: white text hardcoded on the band's own
 // per-relationship accent color measured as low as 2.18:1, since that
 // color is composited over whichever era surface happens to be active.
-const src = readFileSync(join(__dirname, 'LoveStoryThread.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '../../../../../packages/ui/src/reader/threads/love-story/LoveStoryThread.tsx'), 'utf8');
 
 describe('LoveStoryThread — #659 (band label contrast)', () => {
   it('no longer paints the name label white directly on the band color', () => {

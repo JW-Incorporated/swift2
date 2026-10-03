@@ -15,17 +15,17 @@ import { describe, expect, it } from 'vitest';
 const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8');
 
 const ESCAPE_DISMISS_COMPONENTS = [
-  './Crossings.tsx',
+  '../../../../packages/ui/src/reader/threads/Crossings.tsx',
   '../../../../packages/ui/src/reader/era/CurrentItemDetail.tsx',
   './EraSelector.tsx',
-  './FeedbackButton.tsx',
+  '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
   '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
-  './SearchOverlay.tsx',
+  '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
   './TheoryGuide.tsx',
   '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
   '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
-  './decode/DecodeThread.tsx',
-  './love-story/EntryDetail.tsx',
+  '../../../../packages/ui/src/reader/threads/decode/DecodeThread.tsx',
+  '../../../../packages/ui/src/reader/threads/love-story/EntryDetail.tsx',
 ];
 
 describe('#525 every close-affordance component dismisses on Escape', () => {

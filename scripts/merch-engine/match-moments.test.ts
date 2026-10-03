@@ -133,7 +133,7 @@ describe('moment-to-product matcher', () => {
 
   it('keeps the staged workflow dispatch-only and records the canonical price-band rules', () => {
     const workflow = readFileSync('.github/workflows/merch-matcher.yml', 'utf8');
-    const filters = readFileSync('apps/web/lib/longlive/merch-filters.ts', 'utf8');
+    const filters = readFileSync('packages/ui/src/reader/merch/lib/merch-filters.ts', 'utf8');
 
     expect(workflow).toContain('workflow_dispatch:');
     expect(workflow).not.toContain('\n  push:');
