@@ -652,7 +652,11 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and package subpath exports already exist; each slice adds its rows only under its own heading.
 
 ### WP2.5 moment
-(pending)
+
+| Path | What |
+|---|---|
+| `packages/ui/src/reader/moment/{MomentDetail,MomentSocialPost,ZoomableImage}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.5-A1, move-only). `apps/web/components/longlive/MomentDetail.tsx` is a one-line `export *` shim (until D / WP2.13) |
+| `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 
 ### WP2.6 threads
 (pending)

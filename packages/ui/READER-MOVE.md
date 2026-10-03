@@ -74,7 +74,15 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 `@swift2/ui/reader/<slice>/lib/X` (.ts).
 
 ### WP2.5 moment
-(pending)
+
+2.5-A1 (move-only): `MomentDetail`, `MomentSocialPost`, `ZoomableImage` to `reader/moment/`; `contain-fit`, `related`, `useFocusTrap`, `shop`, `shop-networks` and `awin-advertisers.json` to `reader/moment/lib/`. Pure tests moved with them (`ZoomableImage`, `contain-fit`, `useFocusTrap`, `shop`, `shop-networks`).
+
+- Shims (one-line `export *`, in `apps/web`): `components/longlive/MomentDetail.tsx`, `lib/longlive/{related,shop,useFocusTrap}.ts`. Plain renames (no outside importer): `MomentSocialPost`, `ZoomableImage`, `contain-fit`, `shop-networks`, `awin-advertisers.json`.
+- Type re-homing: `shop.ts` takes `MerchItem` from `@swift2/content-enrichment` (its real source) instead of `./merch`.
+- Tests that stay in `apps/web` (web data or render harness): `MomentDetail.test.tsx`, `related.test.ts`. Source-reading tests (`back-dismiss`, `escape-dismiss`, `focal-point-rendering`, `modal-focus-trap`, `card-chrome`) now read the moved `MomentDetail.tsx`; `modal-focus-trap` expects the new relative `useFocusTrap` import.
+- Hooks `useHost`/`useReader` are imported from `../../host/context` and `../../snapshot/context` (package-internal), a two-line import edit.
+- `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
+- Debt: `MomentDetail.tsx` (1216) and `ZoomableImage.tsx` (382) over the 300-line rule; moved as-is.
 
 ### WP2.6 threads
 (pending)

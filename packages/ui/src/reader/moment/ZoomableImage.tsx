@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { useHost } from '@swift2/ui';
+import { useHost } from '../../host/context';
 import { Minus, Plus } from 'lucide-react';
 
 /**
