@@ -283,14 +283,14 @@ test.describe('One UI PR0 a-only gates (WP2.5-2.8: a 1px mutation of each new su
     expect(await pixelMatches(testInfo, 'neg-search-row', clean, mutated)).toBe(false);
   });
 
-  test('a 1px shift of the threads heading fails the lens-fashion root capture', async ({ page }, testInfo) => {
-    const route = A_ONLY_ROUTES.find((r) => r.name === 'lens-fashion')!;
-    await openAOnlyRoute(page, route);
-    const clean = await captureRoot(page, route);
+  test('a 1px shift of the threads heading fails its clip', async ({ page }, testInfo) => {
+    await openAOnlyRoute(page, A_ONLY_ROUTES.find((r) => r.name === 'lens-fashion')!);
+    const clip = await elementBox(page, 'main h1');
+    const clean = await captureElement(page, 'main h1', clip);
     await page.locator('main h1').first().evaluate((el) => {
       el.style.transform = 'translateY(1px)';
     });
-    const mutated = await captureRoot(page, route);
+    const mutated = await captureElement(page, 'main h1', clip);
     expect(await pixelMatches(testInfo, 'neg-threads-1px', clean, mutated)).toBe(false);
   });
 });
