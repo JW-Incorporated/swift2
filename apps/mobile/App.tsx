@@ -70,7 +70,9 @@ import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
+import { DiagHotCorner } from './components/DiagHotCorner';
 import { SharedUiHost } from './components/SharedUiHost';
+import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
@@ -471,6 +473,7 @@ export default function App() {
             </View>
           )}
         </SafeAreaView>
+        {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
