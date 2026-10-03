@@ -109,8 +109,14 @@ export interface LoadBundleOptions {
 
 export type BundleFiles = Record<string, unknown>;
 
-export type LoadSource =
-  'network' | 'cache-etag' | 'offline-last-good' | 'last-good-after-data-error';
+export const LOAD_SOURCE = {
+  network: 'network',
+  cacheEtag: 'cache-etag',
+  offlineLastGood: 'offline-last-good',
+  lastGoodAfterDataError: 'last-good-after-data-error',
+} as const;
+
+export type LoadSource = (typeof LOAD_SOURCE)[keyof typeof LOAD_SOURCE];
 
 export interface LoadedBundle {
   manifest: Manifest;
@@ -273,7 +279,7 @@ export async function loadBundle(options: LoadBundleOptions): Promise<LoadedBund
     return {
       manifest: lastGood.manifest,
       files: readable.files,
-      source: 'last-good-after-data-error',
+      source: LOAD_SOURCE.lastGoodAfterDataError,
       stale: true,
       dataError: err,
       ...(readable.skipped.length ? { skipped: readable.skipped } : {}),
@@ -340,7 +346,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       return {
         manifest: lastGood.manifest,
         files: lastGood.files,
-        source: 'offline-last-good',
+        source: LOAD_SOURCE.offlineLastGood,
         stale: true,
       };
     }

@@ -1,9 +1,7 @@
 import type { ContentItem, EraId, EraSecret, TrackNote } from './types';
-import {
-  eraSecretsRawInjected,
-  songTargetInjected,
-  contentItemInjected,
-} from './thread-content-provider';
+import { contentItemInjected } from './thread-content-provider';
+import type { ReaderCorpus } from './corpus';
+import { injectedCorpus } from './corpus-injected';
 import { epochDay } from './epoch-day';
 
 /**
@@ -23,8 +21,12 @@ import { epochDay } from './epoch-day';
  * scope), so the app wires them in at import time via the injected
  * providers — see `thread-content-provider.ts`.
  */
+export function eraSecretsForEraIn(corpus: ReaderCorpus, eraId: EraId): EraSecret[] {
+  return corpus.eraSecrets()[eraId] ?? [];
+}
+
 export function eraSecretsForEra(eraId: EraId): EraSecret[] {
-  return eraSecretsRawInjected()[eraId] ?? [];
+  return eraSecretsForEraIn(injectedCorpus(), eraId);
 }
 
 /**
@@ -55,13 +57,18 @@ export type EraSecretLink =
  * with no deeper link rather than a dead one (same silent-skip contract as
  * lib/longlive/related.ts and the dossier connections).
  */
-export function resolveEraSecretLink(deeperLink?: string): EraSecretLink | null {
+export function resolveEraSecretLinkIn(corpus: ReaderCorpus, deeperLink?: string): EraSecretLink | null {
   if (!deeperLink) return null;
-  const song = songTargetInjected(deeperLink);
+  const song = corpus.songTarget(deeperLink);
   if (song) return { kind: 'song', eraId: song.eraId, track: song.track };
   if (deeperLink.startsWith('moment:')) {
-    const item = contentItemInjected(deeperLink.slice('moment:'.length));
+    const item = corpus.getContentItem(deeperLink.slice('moment:'.length));
     if (item) return { kind: 'moment', item };
   }
   return null;
+}
+
+/** Keeps the era-secret link's historical lookup: the content provider, not the content-item lookup. */
+export function resolveEraSecretLink(deeperLink?: string): EraSecretLink | null {
+  return resolveEraSecretLinkIn({ ...injectedCorpus(), getContentItem: contentItemInjected }, deeperLink);
 }

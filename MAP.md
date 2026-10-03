@@ -48,7 +48,7 @@ docs `CLAUDE.md` points at:
 | `apps/mobile` | Mobile client | — |
 | `packages/core` | Shared domain logic | Don't import app code into it |
 | `packages/shared` | Shared types/utilities | Don't duplicate types in apps |
-| `packages/ui` | `@swift2/ui`: source-shipped, host-agnostic UI shared by apps/web and the apps/mobile DOM host (One UI WP2.1). Tailwind sees it via `@source` in `apps/web/app/globals.css`, `apps/mobile/dom/reader-spike.css`, and `apps/mobile/dom/shared-ui-test.css`. Host adapter (`useHost()`) arrives in WP2.1-B | No `next/*`, no `react-native*`, no dynamic import/require of them, no relative imports into `apps/*` (ESLint-enforced, `src/lint-ban.test.ts`); reach the host only via `useHost()` |
+| `packages/ui` | `@swift2/ui`: source-shipped, host-agnostic UI shared by apps/web and the apps/mobile DOM host (One UI WP2.1). Tailwind sees it via `@source` in `apps/web/app/globals.css` and `apps/mobile/dom/reader-spike.css`, and `apps/mobile/dom/shared-ui-test.css`. Host adapter: `src/host/` (`HostAdapter` types, `HostProvider`, `useHost()`); X3 web-only side-effect list in `HOST-ADAPTER.md`. Web impl: `apps/web/lib/host-adapter.tsx` + `host-adapter-provider.tsx` (mounted in `app/layout.tsx`) | No `next/*`, no `react-native*`, no dynamic import/require of them, no relative imports into `apps/*` (ESLint-enforced, `src/lint-ban.test.ts`); reach the host only via `useHost()` |
 | `packages/shared/src/api/{clown,mood,inbox,devices}.ts` | API wire contracts (types + hand-written guards) for `/api/clown`, `/api/mood`, `/api/notifications/inbox`, `/api/devices/*` — web lib re-exports them, mobile clients import them, route tests assert the guards accept real responses (`api.test.ts` covers the guards) | Server shape wins; change the route and the contract together |
 | `scripts/` | Repo automation: `check:*`, `validate:*`, `sync:*`, seeds, migrations | Don't re-do a chore by hand twice — codify it (Workflow rule 8) |
 | `scripts/social/` | Social pipeline. **`post-queue.mjs` and `delete-media.mjs` hit the LIVE accounts** | Don't invoke those two, ever. `guard.sh` denies it |
@@ -623,7 +623,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 
 | File | What it is |
 |---|---|
-| `packages/experience/src/reader-snapshot/` (`types`, `build`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/reader-snapshot/` (`types`, `build`, `corpus`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/corpus.ts` | `ReaderCorpus` type (all-function members) + `injectedCorpus()` (O(1), provider-backed); the pure `*In(corpus, ...)` variants in threads/lenses/doorways/theories/era-secrets/track-guide take it, and the old exports wrap it |
+| `packages/experience/src/reader-snapshot/{purity,flat-order}.test.ts` | WP2.2-A gates: build is pure over inputs (throwing sentinel providers, interleaved builds, no provider import); flat-order audit |
 | `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
 
 ## CI concurrency (2026-10-01)
