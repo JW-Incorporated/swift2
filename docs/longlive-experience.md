@@ -20,6 +20,8 @@ body, but any unsuppressed authored photo appears above it in a full-width 16:10
 frame. Article length and later arrivals must not shrink that photo to an icon.
 Image-free compact rows, media/hero scoring, and video-image suppression are unchanged.
 
+**Reader snapshot provider (One UI WP2.2-B):** `components/longlive/LongLive.tsx` mounts `WebReaderSnapshotProvider` (`lib/longlive/reader-snapshot-provider.tsx`) outermost, around `AppProvider`. It builds one `ReaderSnapshot` per instance with `fromBaked(bakedModules())`; `useReader()` from `@swift2/ui` exposes pure accessors over it (`createReaderQueries`). The search index is the snapshot's own `domains.searchIndex`; the web has no index builder of its own. The synchronous module accessors still serve every other caller until WP2.2-C moves them.
+
 ## 1. The one-paragraph mental model
 
 The app is a single client-rendered experience (`app/page.tsx` → `<LongLive/>`)

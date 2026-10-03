@@ -112,7 +112,7 @@ function derive(
     theories: inputs.theories,
     eraSecrets: inputs.eraSecrets,
     threads: THREADS.map((t) => ({ id: t.id, itemIds: contentForThreadIn(corpus, t.id).map((i) => i.id) })),
-    searchIndex: sortedDocs(inputs.searchIndex ?? buildSearchDocs(inputs)),
+    searchIndex: sortedDocs(buildSearchDocs(inputs)),
     tracks: inputs.tracks,
     trackGuide,
     merch: inputs.merch,

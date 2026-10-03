@@ -10,7 +10,6 @@ import {
   type VideosBundleFile,
 } from '@swift2/content';
 import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
-import type { SearchDoc } from '../search-index';
 import { buildReaderSnapshot } from './build';
 import type { ReaderSnapshot, ReaderSnapshotDeps, ReaderSnapshotInputs, ReaderSnapshotState } from './types';
 
@@ -25,7 +24,6 @@ export interface BakedModules {
   theoriesForEra(eraId: EraId): TheoryNote[];
   allVideoRecordsForEra(eraId: EraId): VideoNote[];
   eraSecretsForEra(eraId: EraId): EraSecret[];
-  getSearchIndex(): SearchDoc[];
 }
 
 /** Web path. Reads the web's accessors, then wires those same inputs itself for the derived domains. */
@@ -42,7 +40,6 @@ export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderS
     eraSecrets: byEra(mods.eraSecretsForEra),
     merch: mods.MERCH_CATALOGUE,
     songMoods: mods.SONG_MOODS,
-    searchIndex: mods.getSearchIndex(),
   };
   return buildReaderSnapshot(inputs, deps, { kind: 'baked' }, 'ready');
 }

@@ -6,7 +6,7 @@ builds it from its baked modules; the app builds it in the webview from the D1
 bundle. CI proves the two hash equal for the same commit.
 
 Import from `@swift2/experience/reader-snapshot` (deliberately not re-exported
-from the package root). Nothing imports it yet.
+from the package root). The web reads it through React context (below).
 
 - `fromBaked(mods, deps)`: web path. `mods` is the web's `apps/web/lib/longlive`
   exports; it wires those same inputs itself, not via the web's import chain.
@@ -49,9 +49,8 @@ depend on index position again breaks this and must also change the hash.
 ## Known by-design differences
 
 - `content` is grouped by era on both sides.
-- The bundle path builds the search index with `search-docs.ts`, a mirror of
-  the web's `buildSearchIndex()`. The equivalence test keeps them from
-  drifting; WP2.2-B makes the web use this one.
+- One search builder: `search-docs.ts` builds `domains.searchIndex` on both paths; the web's own
+  `buildSearchIndex`/`getSearchIndex` is deleted and `ReaderSnapshotInputs` has no `searchIndex`.
 
 ## Order dependencies (flat-order audit, WP2.2-A)
 
@@ -62,6 +61,21 @@ The snapshot groups content by era, the web's `CONTENT` is flat `VAULT_RAW` orde
 ids and slugs are unique. Result: PASSES on the real baked content (all threads
 identical, no duplicate ids or slugs). `milestones` must be read from its domain,
 never re-derived (it is unsorted, flat order).
+
+## Reading it on the web (WP2.2-B)
+
+- `@swift2/ui` holds the context: `ReaderSnapshotProvider`, `useReaderSnapshotStatus()`
+  (`{ status: 'loading' } | ReaderSnapshot`), `useReaderSnapshot()` (throws outside a provider
+  or while loading; narrows with `isReaderSnapshot(v)`, i.e. `'domains' in v`) and `useReader()`
+  (`createReaderQueries(snapshot, deps)`, memoised per snapshot).
+- `state === 'error'` means a last-good snapshot is shown and the latest refresh failed.
+- `queries.ts`: `createReaderQueries` is pure over one snapshot (built on `corpusFromInputs`). Its
+  accessors equal the web modules' (`queries.test.ts`). `milestones` is read from its domain,
+  never re-derived. The video helpers are passed in (`ReaderQueryDeps`) because
+  `@swift2/content-enrichment` imports this package.
+- `apps/web/lib/longlive/reader-snapshot-provider.tsx` builds the snapshot once per provider instance
+  from `bakedModules()` (also what `parity-probe` hashes), mounted outermost in `LongLive.tsx`.
+  Measured on the parity fixture in Chromium: ~12 ms median to build unthrottled, ~61 ms at 4x CPU throttle.
 
 ## Not covered
 

@@ -189,7 +189,7 @@ for (const [name, entry] of Object.entries(manifest.files)) {
   files[name] = JSON.parse(readFileSync(join(dir, entry.path), 'utf-8'));
 }
 
-const [content, tracks, theories, videos, secrets, merch, moods, search] = await Promise.all(
+const [content, tracks, theories, videos, secrets, merch, moods] = await Promise.all(
   [
     'content',
     'tracks',
@@ -198,7 +198,6 @@ const [content, tracks, theories, videos, secrets, merch, moods, search] = await
     'era-secrets',
     'merch',
     'song-moods.generated',
-    'search',
   ].map((m) => import(`${web}${m}.ts`)),
 );
 const baked = fromBaked(
@@ -212,7 +211,6 @@ const baked = fromBaked(
     theoriesForEra: theories.theoriesForEra,
     allVideoRecordsForEra: videos.allVideoRecordsForEra,
     eraSecretsForEra: secrets.eraSecretsForEra,
-    getSearchIndex: search.getSearchIndex,
   },
   { eraVideoFeed },
 );

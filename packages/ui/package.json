@@ -8,6 +8,10 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "dependencies": {
+    "@swift2/content-enrichment": "*",
+    "@swift2/experience": "*"
+  },
   "peerDependencies": {
     "react": "^18 || ^19"
   },

@@ -32,7 +32,7 @@ let baked: ReaderSnapshot;
 let fromFiles: ReaderSnapshot;
 
 async function loadBakedModules(): Promise<BakedModules> {
-  const [content, tracks, theories, videos, secrets, merch, moods, search] = await Promise.all([
+  const [content, tracks, theories, videos, secrets, merch, moods] = await Promise.all([
     import(/* @vite-ignore */ `${web}content`),
     import(/* @vite-ignore */ `${web}tracks`),
     import(/* @vite-ignore */ `${web}theories`),
@@ -40,7 +40,6 @@ async function loadBakedModules(): Promise<BakedModules> {
     import(/* @vite-ignore */ `${web}era-secrets`),
     import(/* @vite-ignore */ `${web}merch`),
     import(/* @vite-ignore */ `${web}song-moods.generated`),
-    import(/* @vite-ignore */ `${web}search`),
   ]);
   const { ERAS } = await import('../eras');
   return {
@@ -53,7 +52,6 @@ async function loadBakedModules(): Promise<BakedModules> {
     theoriesForEra: theories.theoriesForEra,
     allVideoRecordsForEra: videos.allVideoRecordsForEra,
     eraSecretsForEra: secrets.eraSecretsForEra,
-    getSearchIndex: search.getSearchIndex,
   };
 }
 

@@ -37,8 +37,6 @@ export interface ReaderSnapshotInputs {
   eraSecrets: ByEra<EraSecret[]>;
   merch: MerchCatalogue;
   songMoods: SongMoodsBundleFile['songs'];
-  /** The web's own `getSearchIndex()` when baked; omitted for a bundle, so it is built from the inputs. */
-  searchIndex?: SearchDoc[];
 }
 
 /**
