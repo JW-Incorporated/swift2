@@ -361,7 +361,13 @@ validators in A (strict JSON, isWebPath, https-only isExternalUrl,
 safelisted-header BridgeApiRequest, NATIVE_SUPPORTED_RANGE, bounded ids);
 dispatcher behaviours (exactly-one-res, unsupported, timeouts, cancel,
 replay dedup) = **WP2.3-B acceptance**, written as a CONTRACT in the bridge
-README. Fix round launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+README. Fix round launched. **03:43:** #4850 fix r1 (validate.ts strict JSON/
+isWebPath/https-only/BridgeApiRequest safelist/bounded ids/NATIVE_SUPPORTED_
+RANGE; README CONTRACT; 125 bridge tests) → reviewer r2 minor (undefined type
+test, missing pre-ready strike line, nit) + Codex r2 `task-mus9hlb7-olv7lp`
+pending. #4851 r1 changes done (resolveUrl era art; serve.mjs fallthrough
+deleted → **/eras allowlist CLOSED**; HostLinkProps widened, TopBar migrated;
+parity 37117092950 green) → reviewer launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
