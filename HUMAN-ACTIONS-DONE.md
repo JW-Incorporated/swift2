@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #97 · 2026-10-03 · done · Make the parity check required on main (~3 min) — "owner verified 08:48 PDT — ruleset protect-swift2-main requires [\"build\",\"parity-gate\"]" · by chat
+- #96 · 2026-10-03 · done · Add Associated Domains to the iOS signing profile (~10 min) — "owner regenerated the App Store provisioning profile via EAS at 08:54 PDT (new Developer Portal ID 57SBZ45RQA); release train re-run 37134936992 started" · by chat
 - #95 · 2026-10-01 · done · Save the refreshed Instagram token so DMs and FB comments reach Discord — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5939131633 — owner said done" · by status page
 - #94 · 2026-10-01 · skip · Add a free Reddit API key so Tree finds 10+ opportunities a day — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5938589539 — owner skipped 'Owner decision 2026-10-01: we will NEVER have a Reddit API key. Never raise this again. (Relayed by Claude from Joey's chat.)'" · by status page
 - #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat
