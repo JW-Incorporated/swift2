@@ -120,6 +120,26 @@ exception is the named allowlist in `serve.mjs` (`/eras/*.png`, borrowed from
 3. Re-run the parity workflow (`gh workflow run parity.yml --ref <branch>`) -
    commits made with `GITHUB_TOKEN` do not trigger `pull_request` runs.
 
+## Accessibility (One UI WP1.2)
+
+`e2e/parity/a11y.spec.ts` runs axe (`wcag2a`, `wcag2aa`) on both sides of both
+fixture routes, after the same readiness guards as the parity specs, in all four
+projects. Only serious and critical findings count. The run fails on any
+(rule, node-target, impact) triple not in the committed baseline
+`e2e/parity/a11y-baseline/<project>.json` (keys `a/home`, `a/item`, `b/home`,
+`b/item`); new ones print as `[impact] rule at target`. A missing baseline is
+red, never vacuous. Findings on side b whose rule id side a lacks on that route
+are logged (`a11y b-only ...`, also a test annotation); b-only findings never fail the run; they appear as the `a11y-b-only` annotation in the Playwright report and in the CI job log, and are not posted to the PR. Each page
+must also have at least one axe rule pass, so a blank page cannot pass.
+`a11y-compare.spec.ts` unit-tests the baseline key. `a11y-negative.spec.ts` injects an alt-less
+image and a nameless button and asserts both surface as new.
+
+Regenerate (same rule as the screenshots: never on the default branch): the
+`update-baselines` dispatch in "Updating baselines" also runs
+`A11Y_UPDATE=1 npx playwright test -c playwright.parity.config.ts e2e/parity/a11y.spec.ts`
+and commits `e2e/parity/a11y-baseline`. Review the JSON diff: every added entry is
+a violation you are accepting.
+
 ## Fingerprint
 
 Native fingerprint `4c8f334d334c6e26208f4f638112b00b5f551e80` on origin/feature/one-ui-wp0.5b
