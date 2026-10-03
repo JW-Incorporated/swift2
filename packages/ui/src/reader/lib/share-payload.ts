@@ -184,8 +184,8 @@ export async function shareCardImage(
     try {
       await host.share(payload);
       return 'native';
-    } catch {
-      return 'cancelled';
+    } catch (error) {
+      return error instanceof Error && error.name === 'AbortError' ? 'cancelled' : 'error';
     }
   }
   const file =

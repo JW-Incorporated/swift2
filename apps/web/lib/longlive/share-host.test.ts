@@ -44,9 +44,14 @@ describe('share with a host (WP2.4-A2)', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('shareCardImage reports cancelled when host.share rejects', async () => {
-    const share = vi.fn().mockRejectedValue(new Error('x'));
+  it('shareCardImage reports cancelled when host.share rejects with AbortError', async () => {
+    const share = vi.fn().mockRejectedValue(new DOMException('dismissed', 'AbortError'));
     expect(await shareCardImage(target, source, 'portrait', data, { share })).toBe('cancelled');
+  });
+
+  it('shareCardImage reports error when host.share rejects otherwise', async () => {
+    const share = vi.fn().mockRejectedValue(new Error('x'));
+    expect(await shareCardImage(target, source, 'portrait', data, { share })).toBe('error');
   });
 
   it('prefetchShareCard fetches the resolved URL', async () => {

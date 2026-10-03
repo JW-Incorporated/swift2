@@ -26,7 +26,8 @@ import { shareTarget as share } from '@/lib/longlive/share-payload';
 import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 export function TopBar() {
-  const { Link } = useHost();
+  const host = useHost();
+  const { Link } = host;
   const q = useReader();
   const { mode, eraId, lensId } = useAppState();
   const { setMode, setSelectorOpen, setSearchOpen, goHome } = useAppActions();
@@ -154,7 +155,7 @@ export function TopBar() {
             title="Share"
             disabled={shareTarget == null}
             onClick={() => {
-              if (shareTarget) void share(shareTarget, q);
+              if (shareTarget) void share(shareTarget, q, host);
             }}
           >
             <Share2 />
