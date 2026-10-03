@@ -20,6 +20,7 @@
     "@swift2/core": "*",
     "@swift2/experience": "*",
     "@swift2/shared": "*",
+    "@swift2/ui": "*",
     "@tailwindcss/postcss": "^4.3.3",
     "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",

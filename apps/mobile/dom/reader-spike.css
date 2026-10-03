@@ -1,5 +1,6 @@
 @import '../../web/app/globals.css';
 @source '../../web';
+@source '../../../packages/ui/src';
 
 /* WP0.5b safe-area bridge. ReaderSpike writes --safe-top/right/bottom/left from
    the native insets (the DOM webview's env() is not reliable on Android). Each

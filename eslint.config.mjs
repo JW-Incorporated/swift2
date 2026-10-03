@@ -46,6 +46,45 @@ export default tseslint.config(
     },
   },
   {
+    // packages/ui is host-agnostic UI shared by apps/web and the apps/mobile
+    // DOM host. Framework and renderer access goes through useHost() only.
+    files: ['packages/ui/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            { name: 'next', message: 'packages/ui is host-agnostic: use useHost() instead of next.' },
+            { name: 'react-native', message: 'packages/ui is host-agnostic: use useHost() instead of react-native.' },
+          ],
+          patterns: [
+            { group: ['next/*', 'react-native-*', 'react-native/*'], message: 'packages/ui is host-agnostic: use useHost() instead of next/* or react-native*.' },
+            { group: ['**/apps/**'], message: 'packages/ui must not import from apps/*: apps depend on packages/ui, never the reverse.' },
+          ],
+        },
+      ],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "ImportExpression[source.value=/^(next$|next[^-a-zA-Z0-9]|react-native)/]",
+          message: 'packages/ui is host-agnostic: use useHost() instead of dynamic import of next/react-native.',
+        },
+        {
+          selector: "CallExpression[callee.name='require'][arguments.0.value=/^(next$|next[^-a-zA-Z0-9]|react-native)/]",
+          message: 'packages/ui is host-agnostic: use useHost() instead of require of next/react-native.',
+        },
+        {
+          selector: "ImportExpression[source.type!='Literal']",
+          message: 'packages/ui forbids non-literal dynamic import(): the specifier must be a string literal so the host ban can be checked.',
+        },
+        {
+          selector: "CallExpression[callee.name='require']:not([arguments.0.type='Literal'])",
+          message: 'packages/ui forbids non-literal require(): the specifier must be a string literal so the host ban can be checked.',
+        },
+      ],
+    },
+  },
+  {
     // Node tooling scripts (migrations, seeds) run under Node with ESM.
     files: ['scripts/**/*.mjs', 'supabase/**/*.mjs'],
     languageOptions: {
