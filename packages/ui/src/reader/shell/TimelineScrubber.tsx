@@ -187,13 +187,13 @@ export function TimelineScrubber() {
   const topForDate = useCallback((target: number): number => {
     const a = anchorsRef.current;
     if (!a.length) return 0;
-    if (target >= a[0].date) return a[0].top;
-    const last = a[a.length - 1];
+    if (target >= a[0]!.date) return a[0]!.top;
+    const last = a[a.length - 1]!;
     if (target <= last.date) return last.top;
     for (let i = 0; i < a.length - 1; i++) {
-      if (target <= a[i].date && target > a[i + 1].date) {
-        const f = (a[i].date - target) / Math.max(1, a[i].date - a[i + 1].date);
-        return a[i].top + f * (a[i + 1].top - a[i].top);
+      if (target <= a[i]!.date && target > a[i + 1]!.date) {
+        const f = (a[i]!.date - target) / Math.max(1, a[i]!.date - a[i + 1]!.date);
+        return a[i]!.top + f * (a[i + 1]!.top - a[i]!.top);
       }
     }
     return last.top;
@@ -207,13 +207,13 @@ export function TimelineScrubber() {
     (top: number): number => {
       const a = exactAnchorsRef.current;
       if (!a.length) return end;
-      if (top <= a[0].top) return a[0].date;
-      const last = a[a.length - 1];
+      if (top <= a[0]!.top) return a[0]!.date;
+      const last = a[a.length - 1]!;
       if (top >= last.top) return last.date;
       for (let i = 0; i < a.length - 1; i++) {
-        if (top >= a[i].top && top < a[i + 1].top) {
-          const f = (top - a[i].top) / Math.max(1, a[i + 1].top - a[i].top);
-          return a[i].date + f * (a[i + 1].date - a[i].date);
+        if (top >= a[i]!.top && top < a[i + 1]!.top) {
+          const f = (top - a[i]!.top) / Math.max(1, a[i + 1]!.top - a[i]!.top);
+          return a[i]!.date + f * (a[i + 1]!.date - a[i]!.date);
         }
       }
       return last.date;
@@ -247,15 +247,15 @@ export function TimelineScrubber() {
   const pctForTop = useCallback((top: number): number => {
     const a = anchorsRef.current;
     if (a.length < 2) return 0;
-    const railSpan = Math.max(1, a[a.length - 1].top - a[0].top);
-    return clamp01((top - a[0].top) / railSpan) * 100;
+    const railSpan = Math.max(1, a[a.length - 1]!.top - a[0]!.top);
+    return clamp01((top - a[0]!.top) / railSpan) * 100;
   }, []);
 
   const topForPct = useCallback((pct: number): number => {
     const a = anchorsRef.current;
     if (a.length < 2) return 0;
-    const railSpan = a[a.length - 1].top - a[0].top;
-    return a[0].top + (pct / 100) * railSpan;
+    const railSpan = a[a.length - 1]!.top - a[0]!.top;
+    return a[0]!.top + (pct / 100) * railSpan;
   }, []);
 
   // Date -> rail position. Before the DOM has been measured, fall back to
