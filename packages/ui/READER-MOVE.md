@@ -92,7 +92,13 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 (pending)
 
 ### WP2.11 clown
-(pending)
+A1 + minimal A2 in one PR (separate commits). Moved with `git mv`, old paths now one-line `export *` shims:
+- `reader/clown/`: `ClownBoard`, `ClownChat`, `ClownChatComposer`, `ClownChatTitlebar`, `ClownEmptyState`, `ClownItemCard`, `ClownMessageRow`.
+- `reader/clown/lib/`: `clown-board`, `clown-chat-helpers`, `clown-chat-ui`, `clown-explain`, `clown-starters`, `clown-stream`, `useChromeOffset`.
+- Type edges (`clown-answer`, `clown-client`, `clown-fallback`) re-homed to `@swift2/shared` in a separate type-only `!` commit.
+- A2 logic: `currentTheories(now, theoriesForEra, lore)` takes `lore`; `ClownChat`/`ClownBoard` take a `lore` prop. `LORE` stays in apps/web; 2.11-D1 supplies it in the app.
+- Debt: `ClownChat.tsx` (308) is over the 300-line rule; moved as-is.
+- Not moved: Mood (`MoodChat`, `MoodSongCard`, `mood-starters`) is A1b.
 
 ### WP2.12 settings
 (pending)
