@@ -20,6 +20,28 @@ export function takeExternalImages(page: Page): string[] {
   externalImages.set(page, new Set());
   return [...seen].sort();
 }
+/**
+ * External images a side DISPLAYS: the URLs it requested (takeExternalImages) plus the currentSrc of every
+ * decoded <img> pointing off the local hosts. Both sides share one page, and WebKit serves an image the other
+ * side already fetched from its in-memory cache without a network request, so the route handler never sees
+ * it although the side renders it. Eager loading makes that common (side a fetches first), so the a-vs-b
+ * comparison must use what is shown, not only what hit the network. Resets the request record like
+ * takeExternalImages. The network guard in `test` still blocks any unexpected external host.
+ */
+export async function takeShownExternalImages(page: Page): Promise<string[]> {
+  const requested = takeExternalImages(page);
+  const shown = await page.evaluate(({ local, artOrigin }) => {
+    return Array.from(document.querySelectorAll('img'))
+      .filter((img) => img.complete && img.naturalWidth > 0 && img.currentSrc)
+      .map((img) => img.currentSrc)
+      .filter((src) => {
+        const u = new URL(src, document.baseURI);
+        const eraArt = u.origin === artOrigin && /^\/eras\/[\w-]+\.png$/.test(u.pathname);
+        return !eraArt && !local.includes(u.hostname) && !u.protocol.startsWith('data') && !u.protocol.startsWith('blob');
+      });
+  }, { local: [...LOCAL_HOSTS], artOrigin: new URL(ERA_ART_ORIGIN).origin });
+  return [...new Set([...requested, ...shown])].sort();
+}
 export interface Fixture {
   bundleVersion: string;
   hash: string;

@@ -8,7 +8,7 @@ import {
   realInsets,
   ROUTES,
   runtimeHash,
-  takeExternalImages,
+  takeShownExternalImages,
   test,
 } from './helpers';
 import { collectStructure, diffStructure } from './structure';
@@ -20,12 +20,12 @@ for (const route of ROUTES) {
     await openRoute(page, 'a', route);
     const pixelsA = await captureRoot(page, route);
     const structA = await collectStructure(page, route.root);
-    const imagesA = takeExternalImages(page);
+    const imagesA = await takeShownExternalImages(page);
 
     await openRoute(page, 'b', route);
     const pixelsB = await captureRoot(page, route);
     const structB = await collectStructure(page, route.root);
-    const imagesB = takeExternalImages(page);
+    const imagesB = await takeShownExternalImages(page);
 
     expect.soft(imagesB, 'external image URLs requested: b equals a').toEqual(imagesA);
     expect.soft(diffStructure(structA, structB), 'structural a-vs-b').toEqual([]);
