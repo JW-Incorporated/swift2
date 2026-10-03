@@ -1,5 +1,5 @@
 {
-  "$comment": "Observation checkpoints for the Marjorie Overhaul (epic #4180). plan-recheck-marjorie.yml runs daily; the routine handles every entry whose due <= today and status == pending, then flips status to reported via PR. Statuses: pending | reported | skipped. The M1 session sets MR1/MR2 dates when M1 merges (due is null until then, and a null due is never due).",
+  "$comment": "Observation checkpoints for the Marjorie Overhaul (epic #4180). plan-recheck-marjorie.yml runs daily; the routine handles every entry whose due <= today and status == pending, then flips status to reported via PR. Statuses: pending | reported | skipped. The M1 session sets MR1/MR2 dates when M1 merges (due is null until then, and a null due is never due). MR1 and MR2 are both reported; MR3 (2027-08-13) is the only live entry and must outlive the epic. Brief-delivery markers have moved twice (brief-issue comments -> deliver-log 'discord-message-id:' -> status page); any future delivery check keys on 'status ping: sent' plus 'status note: ping stamped on #<n>' in the deliver log. See rechecks/MR2.md.",
   "epic": 4180,
   "checkpoints": [
     {
@@ -20,7 +20,7 @@
     {
       "id": "MR2",
       "due": "2026-10-03",
-      "status": "pending",
+      "status": "reported",
       "title": "Marjorie acted on real events (+21d after M1)",
       "checks": [
         "routine-marjorie-ops.yml resolved at least one real watchdog-alert issue: the issue shows Marjorie's comment, a dispatch or a human action, and a close",
