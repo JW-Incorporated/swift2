@@ -391,8 +391,8 @@ export default {
           },
         ],
         // Shop pass (2026-07-21): the exact 2013 stage dress is undocumented
-        // past this description -- a current red thigh-slit dress,
-        // verified in stock, closest real match.
+        // past this description -- a current red thigh-slit dress was a match,
+        // but removed as dead in #4324 link sweep (2026-09-30).
         products: [],
       },
     },
@@ -735,21 +735,7 @@ export default {
         // Shop pass (2026-07-21): the exact 2013 gown is discontinued -- a
         // current Hervé Léger gown, verified in stock, same house and
         // crystal-embellished bandage construction.
-        products: [
-          {
-            brand: 'Hervé Léger',
-            item: 'The Reina Gown',
-            retailer: 'herveleger.com',
-            url: 'https://herveleger.com/products/the-reina-gown-black-001',
-            matchTier: 'unscored',
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0449/6139/8952/files/HLC8549906-001-1.jpg?v=1759859583',
-            price: '$569.00',
-            isAlternative: true,
-            altNote: 'Her exact 2013 gown is long discontinued -- this is a current Hervé Léger black gown, same house and crystal-embellished bandage construction.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
+        products: [],
       },
     },
     {

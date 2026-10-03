@@ -96,15 +96,15 @@ describe('affiliate coverage', () => {
     );
   });
 
-  it('has zero unexplained uncovered rows in the generated 477-product report', () => {
+  it('has zero unexplained uncovered rows in the generated 411-product report', () => {
     const generated = parseCoverage(readFileSync('docs/ops/AFFILIATE-COVERAGE.md', 'utf8'));
     const uncovered = generated.rows.filter((row) => row.status === 'uncovered');
 
-    // Count grew from 455 to 477 after curating 21 verified E5 fan-made
-    // launch items (see supabase/seed/merch/fanmade.mjs); this pinned total
-    // tracks the checked-in generated report and must move in lockstep with
+    // Count was 477; reduced to 411 after removing 66 dead listings in #4324
+    // (60 official-store + 5 shop-the-look + 1 Etsy). This pinned total tracks
+    // the checked-in generated report and must move in lockstep with
     // `npm run merch:coverage` regenerations.
-    expect(generated.summary.total).toBe(477);
+    expect(generated.summary.total).toBe(411);
     expect(uncovered).not.toHaveLength(0);
     expect(uncovered.filter((row) => !row.reason)).toHaveLength(0);
   });
