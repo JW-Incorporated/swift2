@@ -10,9 +10,13 @@ export const API_ALLOWLIST: readonly string[] = [
   'POST /api/feedback',
   'POST /api/mood',
   'POST /api/submit-link',
+  'POST /api/clown',
 ];
 export const MAX_API_BYTES = 256 * 1024;
 export const API_TIMEOUT_MS = 8000;
+// ClownChat streams a model answer; OS-036 gives clown endpoints 60 s, everything else keeps 8 s.
+export const CLOWN_TIMEOUT_MS = 60000;
+const CLOWN_ENDPOINTS: readonly string[] = ['POST /api/clown'];
 
 const REQ_HEADERS = ['content-type', 'accept'];
 const NETWORK_FAILURE: ApiResponse = { status: 0, headers: {}, body: '' };
@@ -22,6 +26,12 @@ export type ApiHandlerDeps = {
   fetch: typeof fetch;
   baseUrl: () => string;
   timeoutMs?: number;
+  clownTimeoutMs?: number;
+  /** Native-held ClownChat session (OS-036). TODO(PM, 2.11-D1): F2 wires clown-session-store here. */
+  clownSession?: {
+    get: () => Promise<string | null>;
+    set: (token: string) => Promise<void>;
+  };
   setTimer?: (fn: () => void, ms: number) => unknown;
   clearTimer?: (handle: unknown) => void;
 };
@@ -87,6 +97,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       for (const [k, v] of Object.entries(req.headers ?? {})) {
         if (REQ_HEADERS.includes(k.toLowerCase()) && typeof v === 'string') headers[k.toLowerCase()] = v;
       }
+      const isClown = CLOWN_ENDPOINTS.includes(`${req.method} ${req.path}`);
       if (ctx.signal.aborted) return resErr('cancelled', 'cancelled');
       const ac = new AbortController();
       let activeReader: ReadableStreamDefaultReader<Uint8Array> | undefined;
@@ -105,9 +116,14 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       const timer = setTimer(() => {
         cancelAll();
         settleAbort(resErr('timeout', 'api request timed out'));
-      }, deps.timeoutMs ?? API_TIMEOUT_MS);
+      }, isClown ? (deps.clownTimeoutMs ?? CLOWN_TIMEOUT_MS) : (deps.timeoutMs ?? API_TIMEOUT_MS));
       const run = async (): Promise<ResResult<ApiResponse>> => {
         try {
+          // Added natively AFTER sanitization: a page-supplied authorization never survives.
+          if (isClown && deps.clownSession) {
+            const token = await deps.clownSession.get().catch(() => null);
+            if (token) headers.authorization = `Bearer ${token}`;
+          }
           const res = await deps.fetch(deps.baseUrl() + req.path, {
             method: req.method,
             headers,
@@ -129,6 +145,10 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
           if (text === null) {
             cancelAll();
             return resErr('failed', 'api response too large');
+          }
+          if (isClown && deps.clownSession) {
+            const refreshed = res.headers.get('x-clown-session');
+            if (refreshed) await deps.clownSession.set(refreshed).catch(() => {});
           }
           const out: Record<string, string> = {};
           res.headers.forEach((value, key) => {
