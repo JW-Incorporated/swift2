@@ -8,6 +8,16 @@ State of main:
 - WP2.3-A/B/C merged (#4850 #4853 #4855); the wiring comes after G0.
 - WP2.4-0 merged (#4852, plus the footer capture #4864). WP2.4 A1–D are NOT merged, and every brief below stacks on them.
 
+## FABLE REQUIRED (2026-10-03 06:10) - supersedes the PM rulings block and anything below where they conflict
+- 2.4-D PULL FORWARD: overlayFallback (overlays the DOM cannot render yet -> native via presentNativeRoute) and the capture-phase _blank/off-origin -> openExternal interceptor ship in 2.4-D (the shell TopBar already opens them). 2.5-2.8-D then only DELETE their fallback entries; 2.5-D D1/D2 split removed.
+- 2.5-A1: drop EraSelector/ShareFallbackToast (-> 2.4-B). 2.6: add TheoryGuide/TheoryCard + theories route; D deletes that fallback; do NOT split A1 (renames do not count toward 400; run PR0 once; shard by project only if >10 min). 2.7: remove TheoryGuide/theories. 2.13: drop SiteFooter (-> 2.4-B).
+- D-chain order is a scheduling preference (S5/S6 batching), not a dependency; A-series stays serial (shared shims/READER-MOVE.md).
+- ClownChat F2 = REUSE OS-036 (SecureStore Bearer, persisted): nativeSession is allowlist-side only (test: DOM cannot set it); Authorization added AFTER sanitize; strip x-clown-session/set-cookie; 60 s cancellable; non-streaming = known deviation (streaming via evt chunks only if S6 says so).
+- Turnstile: NO native form (separately-editable mobile UI violates founder rule). App: siteKey null -> form submits; if server says verification required -> inline "Finish on longlivets.com" via openExternal. Deciding fact: is TURNSTILE_SECRET_KEY set in prod (ask owner); unset = no change.
+- 2.12: file the web-inbox-or-drop-inbox product question to Joey before WP5.2, not now. Affiliate via HostEnv = config, OK (optional member; S5 check 10 verifies).
+- WP2.14: approve all five fixes; QUARANTINE_AFTER=2; precedence quarantine > override > cache > default; pending-view colour from the reader body-background token (never hardcoded); MUST merge before any channel publishes remote sharedUi:true. Nothing needed before G0. S4 must record time-to-ready per device (feeds READY_TIMEOUT).
+- Earliest wrong signal: 2.4-D fallback loops on device (navigate -> native -> back -> reopen) => the D-7 modal model is wrong, not the slices.
+
 ## PM rulings (2026-10-03 06:08) - supersede the open questions below; Fable review pending
 1. Unowned components: EraSelector + SiteFooter + share toast -> WP2.4-B (shell chrome); TheoryGuide -> WP2.6 (threads); MoodChat -> WP2.11 (Clownbot/chat); FeedbackButton -> WP2.13.
 2. Overlays the app can open but whose slice has not moved: fall back to the NATIVE screen via presentNativeRoute (Fable D-6/D-7 pattern) - never a blank.
