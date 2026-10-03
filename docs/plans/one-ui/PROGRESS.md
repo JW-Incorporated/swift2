@@ -531,7 +531,12 @@ parseEnvelope(raw) for strings, parseEnvelopeValue for objects; 8660 tests).
 C #4855 gate fix 59bcfe57 (ack-gated flush; split client-ready/inbox/back) →
 verify-and-land agent (merge main, land). WP2.2-E launched (merch + songMoods
 via attachExtensions in their lazy chunk; mobile mirror; useReader typing →
-drop TrackGuide cast). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+drop TrackGuide cast).
+**05:12:** **#4855 (WP2.3-C) MERGED** → WP2.3 A, B, C (pre-G0 scope) all on main.
+Fable's wrong-call signal fired: DOM client uses parseEnvelopeValue (Expo can
+deliver objects); native host has an object path (tests) → Fable consulted.
+Remaining WP2.3: B step 4 (wire host into SharedUiHost/watchdog), C step 3
+(wire client into DOM host), D/E/F — all after G0. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
