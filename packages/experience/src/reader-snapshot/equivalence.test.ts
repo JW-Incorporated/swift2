@@ -9,11 +9,9 @@ import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { diffSnapshots, hashSnapshot } from './hash';
-import { fromBaked, fromBundle, inputsFromBundle, type BakedModules, type BundleLike } from './sources';
-import { withProviders } from './build';
+import { fromBaked, fromBundle, type BakedModules, type BundleLike } from './sources';
 import { getContentItemLookup } from '../content-item-provider';
 import { defaultSongCatalogue } from '../song-catalogue-provider';
-import { matchMoods } from '../mood-match';
 import { tracksRawProvider } from '../track-catalogue-provider';
 import {
   getEraSecretsRawProvider,
@@ -155,13 +153,5 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
     fromBundle({ ...bundle, files }, deps);
     expect((await hashSnapshot(fromBaked(mods, deps))).hash).toBe((await hashSnapshot(baked)).hash);
     expect((await hashSnapshot(fromBundle(bundle, deps))).hash).toBe((await hashSnapshot(fromFiles)).hash);
-  });
-
-  it('wires the bundle song catalogue while building (matchMoods default catalogue)', () => {
-    const query = { moods: { heartbreak: 1 } };
-    const expected = matchMoods(query, { catalogue: mods.SONG_MOODS }).map((m) => m.slug);
-    expect(expected.length).toBeGreaterThan(0);
-    const got = withProviders(inputsFromBundle(bundle), () => matchMoods(query).map((m) => m.slug));
-    expect(got).toEqual(expected);
   });
 });

@@ -15,6 +15,11 @@ import type { EraFeedEntry } from '../feed-types';
 /** Contract version, hashed with the domains: bump when a domain's shape changes. */
 export const READER_SNAPSHOT_VERSION = 1;
 
+/**
+ * 'error' = a last-good snapshot is shown and the latest refresh failed;
+ * 'offline' = last-good served because the network failed;
+ * 'stale' = cached, not yet confirmed current.
+ */
 export type ReaderSnapshotState = 'ready' | 'stale' | 'offline' | 'error';
 
 type ByEra<T> = Partial<Record<EraId, T>>;
@@ -89,3 +94,6 @@ export interface ReaderSnapshot {
   origin: { kind: 'baked' } | { kind: 'bundle'; bundleVersion: string };
   domains: ReaderSnapshotDomains;
 }
+
+/** What the reader context holds: a snapshot, or `loading` before the first one exists. */
+export type ReaderSnapshotContextValue = { status: 'loading' } | ReaderSnapshot;

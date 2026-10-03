@@ -623,7 +623,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 
 | File | What it is |
 |---|---|
-| `packages/experience/src/reader-snapshot/` (`types`, `build`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/reader-snapshot/` (`types`, `build`, `corpus`, `sources`, `search-docs`, `hash`, `index`, README) | Versioned `ReaderSnapshot` contract; `fromBaked` (web modules) / `fromBundle` (D1 bundle); canonical WebCrypto hash + `diffSnapshots`. Export: `@swift2/experience/reader-snapshot`. Nothing imports it yet. See its README |
+| `packages/experience/src/corpus.ts` | `ReaderCorpus` type (all-function members) + `injectedCorpus()` (O(1), provider-backed); the pure `*In(corpus, ...)` variants in threads/lenses/doorways/theories/era-secrets/track-guide take it, and the old exports wrap it |
+| `packages/experience/src/reader-snapshot/{purity,flat-order}.test.ts` | WP2.2-A gates: build is pure over inputs (throwing sentinel providers, interleaved builds, no provider import); flat-order audit |
 | `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
 
 ## CI concurrency (2026-10-01)
