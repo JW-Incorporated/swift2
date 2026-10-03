@@ -426,7 +426,19 @@ ProposalThread migrated; ~22 lines). PM: C2 adds missing queries
 (contentForThreadInRange, songTargetOf, contentForThreadInEra,
 resolveEraSecretLink) with deep-equal tests + migrates EntryDetail /
 RunwayThread / EraSecretCard; share-payload cascade → C3; trace a 1×404 per
-page seen in smoke. Executor resumed. WP2.2-C1 running in parallel. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+page seen in smoke. Executor resumed. WP2.2-C1 running in parallel.
+**04:22:** **#4854 MERGED** (existing Android build submit) → next main train
+should push 0a1ef202 to Play internal. #4853: reviewer r2 APPROVE (all 15);
+re-ready = new session (PM decision: abort old in-flight, clear seen,
+renegotiate, re-flush); Codex r2 `task-musaux0q-uz8cfw` running. #4855 Codex r1
+(P1 no sendReady on mount; P1 readySent before post; strict JSON outbound; inbox
+cap; contract legs tautological/one-way; timer TDZ) + reviewer 8 → fix round
+(14 items). Codex queue was WEDGED (#4849 r2, #4850 r2 queued 40 min) →
+cancelled + relaunched #4849 r2; #4850 r2 nits (undefined type test, contract
+pre-ready strike, prettier) via grunt. C1 → **#4856** (parity 37119083649 green;
+PM accepts ~8-line ReaderSpike provider mount; threadsInEra/threadCrossings
+→ C3) and C2 → **#4857** (+4 pure queries; era-secrets-link.ts; 404 =
+/_vercel/insights pre-existing) → reviewers launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
