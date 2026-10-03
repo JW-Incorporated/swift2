@@ -16,16 +16,18 @@ import { collectStructure, diffStructure } from './structure';
 // Side a (Next web build) vs side b (the app's DOM entry), zero insets on b,
 // same engine and project, font-normalised. Both gates are blocking.
 for (const route of ROUTES) {
-  test(`a vs b: ${route.name}`, async ({ page }, testInfo) => {
-    await openRoute(page, 'a', route);
-    const pixelsA = await captureRoot(page, route);
-    const structA = await collectStructure(page, route.root);
-    const imagesA = takeExternalImages(page);
+  test(`a vs b: ${route.name}`, async ({ pages }, testInfo) => {
+    takeExternalImages(pages.a);
+    await openRoute(pages.a, 'a', route);
+    const pixelsA = await captureRoot(pages.a, route);
+    const imagesA = takeExternalImages(pages.a);
+    const structA = await collectStructure(pages.a, route.root);
 
-    await openRoute(page, 'b', route);
-    const pixelsB = await captureRoot(page, route);
-    const structB = await collectStructure(page, route.root);
-    const imagesB = takeExternalImages(page);
+    takeExternalImages(pages.b);
+    await openRoute(pages.b, 'b', route);
+    const pixelsB = await captureRoot(pages.b, route);
+    const imagesB = takeExternalImages(pages.b);
+    const structB = await collectStructure(pages.b, route.root);
 
     expect.soft(imagesB, 'external image URLs requested: b equals a').toEqual(imagesA);
     expect.soft(diffStructure(structA, structB), 'structural a-vs-b').toEqual([]);
