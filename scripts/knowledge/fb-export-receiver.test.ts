@@ -377,6 +377,35 @@ describe('fb export receiver', () => {
     expect(await r.done).toEqual([]);
   });
 
+  it('never connected within the connect window signals a relaunch; a connected run is left alone', async () => {
+    const { r } = await setup({ connectWaitMs: 60, stallMs: 60_000 });
+    expect(await r.lostSignal()).toBe('lost');
+    expect((await call(r, 'GET', '/next')).status).toBe(503);
+    r.resume();
+    expect((await call(r, 'GET', '/hello')).status).toBe(200); // connected: the window is spent
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    expect((await (await call(r, 'GET', '/next')).json()).slug).toBe('group-a');
+  });
+
+  it('a /hello inside the connect window cancels the relaunch signal', async () => {
+    const { r } = await setup({ connectWaitMs: 80, stallMs: 60_000 });
+    await call(r, 'GET', '/hello');
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    expect(await Promise.race([r.lostSignal(), Promise.resolve('quiet')])).toBe('quiet');
+  });
+
+  it('a third never-connected window fails every group extension-never-connected', async () => {
+    const { r } = await setup({ connectWaitMs: 40, stallMs: 60_000 });
+    for (let i = 0; i < 2; i += 1) {
+      expect(await r.lostSignal()).toBe('lost');
+      r.resume();
+    }
+    expect(await r.done).toEqual([
+      { slug: 'group-a', status: 'failed', reason: 'extension-never-connected' },
+      { slug: 'group-b', status: 'failed', reason: 'extension-never-connected' },
+    ]);
+  });
+
   it('POST /tab-lost fails the group in flight at once and signals a relaunch', async () => {
     const { r } = await setup({ stallMs: 60_000 });
     await call(r, 'GET', '/next');

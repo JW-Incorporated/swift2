@@ -185,6 +185,11 @@ async function readJson(req) {
 }
 
 const MAX_STORE_ATTEMPTS = 3;
+// Cold-start failure (2026-10-02): Chrome opened the receiver page but the extension never asked
+// for anything. No /hello or /next within this window → the launcher relaunches Chrome, at most
+// MAX_NEVER_CONNECTED_RELAUNCHES times; then every remaining group fails extension-never-connected.
+export const CONNECT_WAIT_MS = 90_000;
+export const MAX_NEVER_CONNECTED_RELAUNCHES = 2;
 
 export async function startReceiver({
   groups,
@@ -195,6 +200,8 @@ export async function startReceiver({
   week,
   storeComments,
   stallMs = 300_000,
+  connectWaitMs = CONNECT_WAIT_MS,
+  maxNeverConnectedRelaunches = MAX_NEVER_CONNECTED_RELAUNCHES,
   host = '127.0.0.1',
   log = (line) => console.log(line),
   readAs = FB_READ_AS,
@@ -216,6 +223,9 @@ export async function startReceiver({
   let finished = false;
   let closed = false;
   let watchdog = null;
+  let connectTimer = null;
+  let connected = false; // /hello or /next seen since start/resume
+  let neverConnectedCount = 0;
   let resolveDone;
   const done = new Promise((resolve) => {
     resolveDone = resolve;
@@ -226,6 +236,7 @@ export async function startReceiver({
     if (finished) return;
     finished = true;
     clearTimeout(watchdog);
+    clearTimeout(connectTimer);
     resolveDone(ordered());
   };
   // A group lost to a dead tab (stall watchdog, or the extension's /tab-lost) fails ONLY that
@@ -249,6 +260,34 @@ export async function startReceiver({
     }
     lostPending = true;
     lostResolve?.('lost');
+  };
+  const markConnected = () => {
+    connected = true;
+    clearTimeout(connectTimer);
+  };
+  const neverConnected = () => {
+    if (finished || lostPending || connected) return;
+    neverConnectedCount += 1;
+    if (neverConnectedCount > maxNeverConnectedRelaunches) {
+      for (const g of groups)
+        if (!results.some((r) => r.slug === g.slug))
+          results.push({ slug: g.slug, status: 'failed', reason: 'extension-never-connected' });
+      log(`fb-receiver: extension never connected (attempts=${neverConnectedCount})`);
+      current = null;
+      stopped = true;
+      finish();
+      return;
+    }
+    log(`fb-receiver: extension never connected (attempt=${neverConnectedCount}) relaunch`);
+    clearTimeout(watchdog);
+    lostPending = true;
+    lostResolve?.('lost');
+  };
+  const armConnect = () => {
+    clearTimeout(connectTimer);
+    if (finished || connected || !(connectWaitMs > 0)) return;
+    connectTimer = setTimeout(neverConnected, connectWaitMs);
+    connectTimer.unref?.();
   };
   const armWatchdog = () => {
     clearTimeout(watchdog);
@@ -472,7 +511,10 @@ export async function startReceiver({
 
     // Token-authenticated handshake: the extension validates a /start token here before it
     // replaces any session state (background.js onStart). No side effects.
-    if (req.method === 'GET' && url.pathname === '/hello') return send(200, { ok: true, runId });
+    if (req.method === 'GET' && url.pathname === '/hello') {
+      markConnected();
+      return send(200, { ok: true, runId });
+    }
     // The extension saw its run tab close or its renderer go quiet: fail the group in flight now
     // instead of waiting out the stall watchdog (background.js reportTabLost).
     if (req.method === 'POST' && url.pathname === '/tab-lost') {
@@ -485,6 +527,7 @@ export async function startReceiver({
     if (req.method === 'GET' && url.pathname === '/next') {
       // A previous tab that wakes up while Chrome is being relaunched gets no job.
       if (lostPending) return send(503, { error: 'relaunching' });
+      markConnected();
       armWatchdog();
       if (current) return send(200, nextPayload(current)); // reload mid-group: same group again
       if (stopped || finished || cursor >= groups.length) return send(200, { done: true });
@@ -604,6 +647,7 @@ export async function startReceiver({
   });
   const { port } = server.address();
   armWatchdog();
+  armConnect();
 
   return {
     port,
@@ -620,7 +664,9 @@ export async function startReceiver({
     resume() {
       lostPending = false;
       lostResolve = null;
+      connected = false;
       armWatchdog();
+      armConnect();
     },
     // Results gathered so far, in group order; a group handed out but not reported is failed.
     partialResults() {
@@ -634,6 +680,7 @@ export async function startReceiver({
       if (closed) return Promise.resolve();
       closed = true;
       clearTimeout(watchdog);
+      clearTimeout(connectTimer);
       finish();
       return new Promise((resolve) => {
         server.close(() => resolve());
