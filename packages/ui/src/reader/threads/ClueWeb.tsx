@@ -33,11 +33,11 @@ import {
   useAppState,
   useProgress,
   useProgressActions,
-} from '@/lib/longlive/store';
+} from '../store';
 import type { EggNode, Motif, MotifId } from '@swift2/experience';
-import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import { useLiveTheories } from '@/lib/longlive/use-live-theories';
-import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from '@/lib/longlive/live-theories';
+import { useBackDismiss } from '../lib/useBackDismiss';
+import { useLiveTheories } from '../lib/use-live-theories';
+import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from './lib/live-theories';
 import { LiveTheoryCard } from './LiveTheoryCard';
 
 /** Motif icon strings (from the data) resolved to lucide components. */
@@ -471,7 +471,7 @@ function TrailCompleteCard({
   nodes: EggNode[];
   onBack: () => void;
 }) {
-  const finalEra = getEra(nodes[nodes.length - 1].eraId);
+  const finalEra = getEra(nodes[nodes.length - 1]!.eraId);
   const eraIds = motifEraIds(motif.id);
   return (
     <div
@@ -499,7 +499,7 @@ function TrailCompleteCard({
           You&apos;ve followed “{motif.label}” to the end
         </h3>
         <p className="mx-auto mt-2 max-w-md text-pretty text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          Every clue on this trail — all {nodes.length}, from {getEra(nodes[0].eraId).shortName} to{' '}
+          Every clue on this trail — all {nodes.length}, from {getEra(nodes[0]!.eraId).shortName} to{' '}
           {finalEra.shortName} — is now part of your decode.
         </p>
         <div className="mt-4 flex items-center justify-center gap-1.5">

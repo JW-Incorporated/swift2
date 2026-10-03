@@ -57,7 +57,7 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
     }
   });
 
-  it.each([['./runway/RunwayThread.tsx'], ['./proposal/ProposalThread.tsx']])(
+  it.each([['../../../../packages/ui/src/reader/threads/runway/RunwayThread.tsx'], ['../../../../packages/ui/src/reader/threads/proposal/ProposalThread.tsx']])(
     "%s opens with an h2, before any h3 card title",
     (relPath) => {
       const levels = headingLevels(relPath);

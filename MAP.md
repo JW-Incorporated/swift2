@@ -652,7 +652,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 
 ## One UI reader slices (WP2.5-2.13 scaffold)
 
-Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and package subpath exports already exist; each slice adds its rows only under its own heading.
+Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and package subpath exports already exist (no root re-exports; import via deep subpaths); each slice adds its rows only under its own heading.
 
 ### WP2.5 moment
 
@@ -662,7 +662,9 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 | `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 
 ### WP2.6 threads
-(pending)
+| Path | Purpose | Notes |
+|---|---|---|
+| `packages/ui/src/reader/threads/` (+ `READER-MOVE.md` § WP2.6 threads) | WP2.6-A1 move-only: ThreadsMode, ThreadsTimeline, ClueWeb, Crossings, FromTheEras, LiveTheoryCard, TheoryCard and the `decode/`, `love-story/`, `proposal/`, `runway/`, `taylors-version/` thread components; non-components under `threads/lib/` (`crossingMarkerLayout`, `decode`, `love-story`, `live-theories`, `lib/decode/patternRailLayout`) with their pure tests | One-line shims at `components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx` and `lib/longlive/live-theories.ts`; `TheoryGuide` stays in `apps/web` until WP2.5 moves `useFocusTrap`; source-reading tests stay in `apps/web` and point at the moved files |
 
 ### WP2.7 tracks
 

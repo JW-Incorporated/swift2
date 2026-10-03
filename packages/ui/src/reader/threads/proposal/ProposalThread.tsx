@@ -3,8 +3,8 @@
 import { useHost, useReader } from '@swift2/ui';
 import { Quote } from 'lucide-react';
 import { getEra } from '@swift2/experience';
-import { accentFgFor } from '@/lib/longlive/theme';
-import { useAppActions } from '@/lib/longlive/store';
+import { accentFgFor } from '../../lib/theme';
+import { useAppActions } from '../../store';
 import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@swift2/experience';
 import type { ImageKind } from '@swift2/experience';
 

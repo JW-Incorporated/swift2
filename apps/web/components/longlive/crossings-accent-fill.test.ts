@@ -12,7 +12,7 @@ import { describe, expect, it } from 'vitest';
 // so neither half of the tinted-chip shape can quietly return.
 
 const SRC = readFileSync(
-  fileURLToPath(new URL('./Crossings.tsx', import.meta.url)),
+  fileURLToPath(new URL('../../../../packages/ui/src/reader/threads/Crossings.tsx', import.meta.url)),
   'utf8',
 );
 
