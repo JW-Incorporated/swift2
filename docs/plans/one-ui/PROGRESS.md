@@ -185,6 +185,13 @@ docs/plans/one-ui/briefs/brief-wp22.md); #4835/#4836 fixture prune executor.
 NIGHT PLAN: on G1 GO → WP2.1-A executor (briefs/brief-wp21.md), then 2.1-B
 (stacked), 2.1-C (fonts; step 1 = DOM @font-face resolution = G0 evidence),
 2.3-A after 2.1-B; WP2.2 after its brief + Fable review. Keep ≤5 workers.
+**02:16:** #4838 fix r2 5334b44a (scripts/release/select-android-build.mjs +
+20 vitest; UUID evidence eas-cli ArchiveSource.js:411) → scoped reviewer
+APPROVE; grunt added "red if Android selection ≠ success" (c64db4df) + set
+auto-merge → **PM caught false-red: every OTA-only release (build_android
+skipped/absent) would go red** → auto-merge DISABLED; fix: distinct `skipped`
+result, red only on unknown/not_success/no_build. Parity-gate always-run job
+(G1 condition 1) executor launched.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
