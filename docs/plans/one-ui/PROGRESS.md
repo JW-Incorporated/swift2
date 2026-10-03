@@ -343,7 +343,12 @@ gap found:** pure 1px TopBar translate stays under maxDiffPixelRatio 0.001 on
 iPad viewports (executor fell back to a padding mutation) → PM: add
 element-clipped TopBar (+footer if needed) captures so the ratio applies to
 the small area; negative = pure translateY(1px) must fail on all 4. Executor
-resumed. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+resumed. **03:30:** #4849 fix r1 (Fable B split; base now main; hash = fixture;
+parity 37116269531 green; main-route gzip −65 KB of +117 → remainder = core/
+search code, accepted as inherent per Fable). Perf conflict: r0 browser
+median 12.1 ms vs r1 script median 36 ms (likely Node) → re-measure per
+ratified spec (Playwright, prod build + fixture, ≥10 fresh contexts) before
+any contract call. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
