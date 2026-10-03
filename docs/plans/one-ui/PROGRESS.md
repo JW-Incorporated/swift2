@@ -98,6 +98,16 @@ review round (rule 3). WP1.2 → **#4828** (base wp1.1c-2; dispatch 37082405671
 green, PM verified; empty baselines = no serious/critical anywhere). Reviewer
 r1: no blockers (Low: assert axe `passes`>0; lockfile rn-web sync note);
 Codex r1 `task-murnv3l2-3dvkaa` running.
+**17:45:** #4829 (replaces auto-closed #4815) MERGED; #4816 merge-resolution
+reviewed (all invariants kept) → auto-merge set. S1 analysis (n=2, Pixel 10
+Pro, warm only): warm load-total 1.56/2.39 s vs ≤1 s target; pointer ≈63% of
+load-total; **diag marks broken: every at:=600000, point marks 0.0 →
+launch→first-era unmeasurable; no per-file hash/parse/write marks.** → WP0.1b
+(debug protocol strike 1: wrong clock origin + server 600000 clamp) researcher
+launched. S2 must wait for WP0.1b. No WP0.2 D evidence yet. Release train run
+37082264743 (#4799 store builds) in EAS wait at 15 min — normal; superseded runs
+cancelled by concurrency (fine if the last main run completes — check).
+Size-baseline bump grunt launched.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
