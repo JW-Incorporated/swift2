@@ -103,7 +103,13 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 (pending)
 
 ### WP2.12 settings
-(pending)
+A1 + A2 in one PR (PM ruling), separate commits.
+
+- A1 (move-only): `WebNotificationSettings.tsx` -> `reader/settings/`. Old path is a one-line `export *` shim (stays until WP2.13). The `accent-fill-foreground` source-read test is repointed.
+- A2 (logic): `HostAdapter.webPush?: HostWebPush` (additive, web adapter only; app host omits it). The web implementation `webPushHost` in `apps/web/lib/host-adapter.tsx` wraps the unchanged `web-push-client` functions and the `/api/devices/:id/prefs` GET/PUT, so web behaviour is identical. `WebNotificationSettings` reads them via `useHost().webPush` (absent -> "unsupported" state); `WebPushSubscribeResult` re-homed to `host/types.ts`.
+- New `NotificationSettingsPage.tsx` (page body, `next/link` -> `useHost().Link`); `app/settings/notifications/page.tsx` keeps `metadata` and the VAPID env read and renders it.
+- `lib/web-push-client.ts` does not move. Tests: `components/longlive/WebNotificationSettings.host.test.tsx`.
+- Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
 
 ### WP2.13 legal
 (pending)
