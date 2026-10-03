@@ -34,8 +34,8 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
   ~23 ms (PG:380-384, #4849). Not a device number.
 - OTA size (baseline scripts/parity/size-check.mjs): +11.6/11.7% from WP0.4 native batch (baseline
   bump #4831); +61% from WP0.5b ReaderSpike (pulls web reader into DOM bundle; accepted for spike,
-  flagged "G0 input", PG:191-194). WP2.1-C fonts: 238,776 B woff2 / 321,939 B base64 = +322 KB (+4.4%)
-  at PG:285-287; later restated "+247 KB ~ +3.3%" (latin-ext, PG ~405-426) - recheck live baseline.
+  flagged "G0 input", PG:191-194). WP2.1-C fonts: 238,776 B woff2 / 321,939 B base64 = +322 KB (+4.4% (inconsistent — recompute at G0 from the live OTA))
+  at PG:285-287; later restated "+247 KB ~ +3.3% (inconsistent — recompute at G0 from the live OTA)" (latin-ext, PG ~405-426) - recheck live baseline.
   Fable cond. 3: no re-bump without a PROGRESS reason (PG:685). 10k-MAU bandwidth forecast: not found.
 - Web bundle: eager snapshot cost +117 KB gzip on main routes; core/extension split took -65 KB
   back; remainder accepted as inherent (PG:375-377, 691).
@@ -120,6 +120,34 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
   WP5.2 after launch + 1 OTA cycle. App Review duration unknown.
 - Critical path: HA #96 -> iOS S2/S4 -> G0 -> 2.3 D-F + 2.4-D -> 2.5-2.13 -> S5/S6 -> S7 -> S8 -> S9.
   Joey's device availability, not agent throughput, is the dominant unknown.
+
+## S2/S4 results (2026-10-03 onward)
+
+| Criterion | Platform | Evidence | Status | Link |
+|---|---|---|---|---|
+| S2 cold ≤2.5 s worst-of-5 | Android native | Pending | pending | |
+| S2 cold ≤2.5 s worst-of-5 | Android shared-UI | Pending | pending | |
+| S2 cold ≤2.5 s worst-of-5 | iPhone | Pending | pending | |
+| S2 cold ≤2.5 s worst-of-5 | iPad | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | Android native | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | Android shared-UI | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | iPhone | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | iPad | Pending | pending | |
+| S4 persistence airplane-mode relaunch | Android | Pending | pending | |
+| S4 persistence airplane-mode relaunch | iOS | Pending | pending | |
+| S4 stability no content-process strike | iOS | Pending | pending | |
+| S4 stability no content-process strike | iPad | Pending | pending | |
+| S4 watchdog forced failure → native offline | Android | Pending | pending | |
+| S4 watchdog forced failure → native offline | iOS | Pending | pending | |
+| S4 real photos + YouTube/Spotify embeds | All | Pending | pending | |
+| S4 fonts no FOUT | All | Pending | pending | |
+| ClownChat safe area | All | Pending | pending | |
+| Diag hot-corner reachable | All | Pending | pending | #4877 |
+| First visible image + T+10 s load | Shared-UI | Pending | pending | #4895 |
+| OTA size within 15% rule | All | Pending | pending | |
+| Spike not materially worse than S2 | All | Pending | pending | |
+
+**Note:** S1 (n=2, warm only, broken offsets) and the 12:04 S2 run (all labelled warm, stale marks) are NOT valid baselines — superseded by Speed test mode (#4898). Score with `npm run one-ui:score-speed` (PR pending).
 
 ## Traps
 - PROGRESS "Status" table (PG:634-650) is stale; trust the 04:43 checkpoint (PG:9-36).
