@@ -1,9 +1,10 @@
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error plain .mjs script
-import { checkDomBundle, findForbiddenSources, pickSentinel } from './check-dom-bundle.mjs';
+import { canonicalizeSource, checkDomBundle, findForbiddenSources, pickSentinel, sentinelsFromPublishedBundle } from './check-dom-bundle.mjs';
 
 const SENTINELS = [
   { kind: 'moment', text: 'MOMENT SENTINEL TITLE' },
@@ -11,14 +12,20 @@ const SENTINELS = [
   { kind: 'merch', text: 'MERCH SENTINEL' },
 ];
 
-function fixture(sources: string[], js: string) {
+const FIXTURE_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '__fixtures__/content-root');
+
+function fixture(sources: string[], js: string, opts: { mapped?: boolean } = {}) {
   const root = mkdtempSync(path.join(tmpdir(), 'dom-bundle-'));
-  const dir = path.join(root, 'www.bundle');
-  mkdirSync(dir);
-  writeFileSync(path.join(dir, 'a.map'), JSON.stringify({ sources }));
-  writeFileSync(path.join(dir, 'a.js'), js);
+  const dir = path.join(root, 'apps/mobile/www.bundle');
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(path.join(dir, 'a.map'), JSON.stringify({ sources, debugId: 'id-1' }));
+  writeFileSync(path.join(dir, 'a.js'), `${js}
+//# debugId=${opts.mapped === false ? 'id-other' : 'id-1'}
+`);
   return root;
 }
+
+const exportDirOf = (root: string) => path.join(root, 'apps/mobile');
 
 describe('check-dom-bundle', () => {
   it('flags generated sources and the dev loader, in either slash style', () => {
@@ -44,7 +51,7 @@ describe('check-dom-bundle', () => {
 
   it('passes a clean ReaderSpike bundle', () => {
     const root = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1');
-    expect(checkDomBundle(root, SENTINELS).problems).toEqual([]);
+    expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual([]);
   });
 
   it('fails when baked content or the sentinel is present, or no ReaderSpike map', () => {
@@ -52,13 +59,38 @@ describe('check-dom-bundle', () => {
       ['/r/apps/mobile/dom/ReaderSpike.tsx', '/r/apps/web/lib/longlive/generated/c.generated.ts'],
       'var t="MOMENT SENTINEL TITLE"',
     );
-    expect(checkDomBundle(baked, SENTINELS).problems).toHaveLength(2);
+    expect(checkDomBundle(exportDirOf(baked), SENTINELS, baked).problems).toHaveLength(2);
     const oneEach = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var a="TRACK SENTINEL",b="MERCH SENTINEL"');
-    expect(checkDomBundle(oneEach, SENTINELS).problems.map((p: string) => p.split(' sentinel')[0])).toEqual([
+    expect(checkDomBundle(exportDirOf(oneEach), SENTINELS, oneEach).problems.map((p: string) => p.split(' sentinel')[0])).toEqual([
       'a.js: contains track',
       'a.js: contains merch',
     ]);
     const none = fixture(['/r/apps/mobile/dom/SharedUiTest.tsx'], 'var x=1');
-    expect(checkDomBundle(none, SENTINELS).problems).toHaveLength(1);
+    expect(checkDomBundle(exportDirOf(none), SENTINELS, none).problems).toHaveLength(1);
+  });
+  it('fails a chunk with no sourcemap, naming it', () => {
+    const root = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1', { mapped: false });
+    expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual(['a.js: chunk has no sourcemap (debugId id-other)']);
+  });
+
+  it('canonicalizes relative sources before matching', () => {
+    const root = fixture(['../../web/lib/x.generated.ts', '/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1');
+    expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual(['a.map: forbidden source apps/web/lib/x.generated.ts']);
+    const map = path.join(root, 'apps/mobile/www.bundle/a.map');
+    expect(canonicalizeSource('/apps/mobile/dom/ReaderSpike.tsx', map, undefined, root)).toBe('apps/mobile/dom/ReaderSpike.tsx');
+    expect(canonicalizeSource('x.generated.ts', map, '../../web/lib', root)).toBe('apps/web/lib/x.generated.ts');
+  });
+
+  it('extracts all four sentinel kinds from a committed content fixture', () => {
+    expect(sentinelsFromPublishedBundle(FIXTURE_ROOT)).toEqual([
+      { kind: 'moment', text: 'Fixture moment title long enough for sentinel' },
+      { kind: 'track', text: 'Fixture Track Title' },
+      { kind: 'theory', text: 'Fixture theory title long enough to qualify' },
+      { kind: 'merch', text: 'Fixture merch item name' },
+    ]);
+  });
+
+  it('throws with the sync:content hint when content is missing', () => {
+    expect(() => sentinelsFromPublishedBundle(mkdtempSync(path.join(tmpdir(), 'no-content-')))).toThrow(/sync:content/);
   });
 });

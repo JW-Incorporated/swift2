@@ -1,6 +1,6 @@
 # WP0.5 - real screens in the DOM host (spike)
 
-JS-only (C3): no native change, fingerprint `3603a03f...` unchanged.
+JS-only (C3): no native change, native fingerprint hash `dcf1ea59` unchanged (a `@expo/fingerprint` hash, not a commit).
 
 ## What runs
 
@@ -42,7 +42,9 @@ that way until the CLI supports split DOM bundles.
   maps them onto what the web layout consumes (body padding, BottomNav padding,
   the footer clearance spacer, FeedbackButton offsets; each falls back to the
   web's own `env(safe-area-inset-*)`). Browser simulation: `?inset=top,right,bottom,left`
-  (web entry only). ClownChat's own env() panel math is not remapped.
+  (web entry only). ClownChat's own env() panel math is not remapped: its
+  expanded-panel safe-area is deferred to WP2.1 (`var(--safe-*, env())` in
+  `packages/ui`) and is an explicit S4 device check.
 - `reportProbe(json)`: one JSON string of facts (below); no content.
 - Forced failure drills still work (`throw` reports an error, `hang` withholds ready).
 
