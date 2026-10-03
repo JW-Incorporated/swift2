@@ -144,7 +144,7 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   });
 
   it('reader consumers (WP2.4-A2): ShareHost, resolveUrl and storage.local', () => {
-    expectTypeOf<ShareHost>().toEqualTypeOf<Pick<HostAdapter, 'share' | 'resolveUrl'>>();
+    expectTypeOf<ShareHost>().toEqualTypeOf<Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard'>>();
     expectTypeOf<NonNullable<ShareHost['share']>>().toEqualTypeOf<NonNullable<HostAdapter['share']>>();
     expectTypeOf<NonNullable<HostAdapter['resolveUrl']>>().toEqualTypeOf<(path: string) => string>();
     expectTypeOf<HostAdapter['storage']['local']>().toEqualTypeOf<HostStorage>();

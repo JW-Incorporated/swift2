@@ -262,10 +262,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // #2105) lands the visitor on the shared target instead of the front-door
   // era stream. One-time read on mount — ongoing navigation stays
   // state-only, not URL-synced.
+  const currentUrl = useHost().currentUrl;
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const href = currentUrl?.() ?? (typeof window !== 'undefined' ? window.location.href : undefined);
+    if (href === undefined) return;
+    let search: string;
+    try {
+      search = new URL(href).search;
+    } catch {
+      return;
+    }
     const target = deepLinkTarget(
-      window.location.search,
+      search,
       THREADS.map((t) => t.id),
     );
     if (!target) return;
@@ -283,7 +291,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // Not a moment id — resolve it as a video slug instead (#3312). A
         // still-unresolved id falls through to the front door, same as a bad
         // moment id always has.
-        const eraHint = new URLSearchParams(window.location.search).get('era');
+        const eraHint = new URLSearchParams(search).get('era');
         const videoEraId = resolveVideoDeepLink(
           target.id,
           eraHint,

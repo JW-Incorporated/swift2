@@ -37,6 +37,22 @@ describe('share with a host (WP2.4-A2)', () => {
     expect(navShare).toHaveBeenCalledTimes(1);
   });
 
+  it('shareTarget copies via host.clipboard.writeText when no share is available', async () => {
+    vi.stubGlobal('navigator', {});
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    expect(await shareTarget(target, data, { clipboard: { writeText } })).toBe('fallback');
+    expect(writeText).toHaveBeenCalledTimes(1);
+    expect(writeText.mock.calls[0]?.[0]).toMatch(/^null\?item=/);
+  });
+
+  it('shareTarget does not crash when window is unavailable', async () => {
+    vi.stubGlobal('window', undefined);
+    const share = vi.fn().mockResolvedValue(undefined);
+    const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
+    expect(await shareTarget(target, data, { share, resolveUrl })).toBe('native');
+    expect(share.mock.calls[0]?.[0]).toMatchObject({ url: expect.stringContaining('https://www.longlivets.com?item=') });
+  });
+
   it('shareCardImage with host.share falls back to a link share and fetches no card', async () => {
     const share = vi.fn().mockResolvedValue(undefined);
     expect(await shareCardImage(target, source, 'portrait', data, { share })).toBe('native');
