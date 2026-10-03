@@ -7,6 +7,7 @@
 | Member | Web | App (DOM host) |
 |---|---|---|
 | `Link`, `Image` | `next/link`, `next/image` | WP2.4+ |
+| `resolveUrl` (optional; `useResolveUrl()`) | omitted: the path is used unchanged (same-origin) | `https://www.longlivets.com` + path (canonical origin, overridable). Era art (`/eras/*.png`) goes over the network like content photos. **S4: offline/airplane-mode era art must be checked on device.** |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
@@ -18,6 +19,8 @@
 Note: the web adapter's `onBack` does not consume the handler's boolean return; `popstate` cannot be cancelled, so the handler runs for its side effects only. The app host honours the boolean (consumed = swallow the native back).
 
 `HostImageProps` covers exactly the `next/image` props apps/web uses (`unoptimized`, `loading`, `draggable`, `style`, `onLoad`, plus the basics). `onLoad` is a function and never crosses the bridge; the DOM host implements it natively in-DOM.
+
+`HostLinkProps` is the anchor attributes plus `href`, `prefetch`, `external`. A host `Link` must pass every other prop through to the anchor and forward its `ref` (`React.forwardRef`), because a Radix `Slot` (`<Button asChild><Link>`) merges `className`, `aria-*`, `title`, handlers and a ref onto it.
 
 ## X3: web-only side effects
 

@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest';
+import { eraVideoFeed } from '@swift2/content-enrichment';
+import { fromBaked } from '@swift2/experience/reader-snapshot';
+import { bakedModulesFull } from './baked-modules-full';
 import { CONTENT } from './content';
+import golden from './search-golden.fixture.json';
 import { resolveTrackKey } from '@swift2/experience';
 import './tracks'; // wires setTracksRawProvider so track lookups resolve real data
 import {
   MAX_RESULTS_PER_TYPE,
-  buildSearchIndex,
   flattenGroups,
   normalize,
   scoreDoc,
@@ -14,6 +17,9 @@ import {
   type SearchDoc,
   type SearchDocType,
 } from './search';
+
+/** The index the reader uses: the snapshot's own, built from the baked modules. */
+const buildSearchIndex = () => fromBaked(bakedModulesFull(), { eraVideoFeed }).domains.searchIndex;
 
 /** Minimal doc factory for ranking tests (mirrors makeDoc's normalization). */
 function doc(
@@ -154,7 +160,7 @@ describe('searchDocs', () => {
   });
 });
 
-describe('buildSearchIndex (real data)', () => {
+describe('snapshot search index (real data)', () => {
   const index = buildSearchIndex();
 
   it('has unique keys', () => {
@@ -251,5 +257,28 @@ describe('#652 deep-link targets', () => {
     const endGame = searchDocs(index, 'end game').find((g) => g.type === 'thread');
     expect(endGame).toBeDefined();
     expect(endGame!.results[0].doc.target).toEqual({ kind: 'thread', lensId: 'the-proposal' });
+  });
+});
+
+// Frozen once from the pre-WP2.2-B web builder on origin/main (the builder is
+// deleted). Only the content-independent groups (era, egg, thread) are frozen so
+// content PRs do not move it; the full ordered results were compared against the
+// old builder when this was captured.
+describe('golden: snapshot index ranks like the deleted web builder', () => {
+  const index = buildSearchIndex();
+  const shape = (groups: ReturnType<typeof searchDocs>) =>
+    groups
+      .filter((g) => ['era', 'egg', 'thread'].includes(g.type))
+      .map((g) => ({
+        type: g.type,
+        total: g.totalMatches,
+        keys: g.results.map((r) => r.doc.key),
+        scores: g.results.map((r) => r.score),
+      }));
+
+  it.each(Object.entries(golden as Record<string, unknown>))('%s', (name, expected) => {
+    const [query, mode] = name.split('|') as [string, 'all' | 'default'];
+    const limit = mode === 'all' ? Number.POSITIVE_INFINITY : undefined;
+    expect(shape(searchDocs(index, query, limit))).toEqual(expected);
   });
 });

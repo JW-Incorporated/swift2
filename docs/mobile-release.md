@@ -110,6 +110,9 @@ Instead:
   | Scenario | `result` | Run colour |
   |---|---|---|
   | OTA-only (fingerprint unchanged, `build_android` skipped or absent) | `skipped` | green |
+  | `build_android` skipped, `get_android_build` SUCCESS with an existing production build id (submitted to Play internal unless a prior train already did; no commit match required, lookup is by native fingerprint) | `existing` | green (red if iOS failed) |
+  | `get_android_build` SUCCESS but no id exposed | `skipped` | green |
+  | Existing build id/platform/status/profile malformed | `no_build` | red |
   | Store build, iOS and Android both ok | `success` | green |
   | iOS fails, Android ok (Android still submitted) | `success` | red (EAS wait failed) |
   | Android build fails/cancelled | `not_success` | red |
@@ -145,8 +148,11 @@ Instead:
   `WorkflowJobStatus` success value is exactly `SUCCESS`, anything else
   fails closed) and outputs that job's build id. The Play submit
   (internal track only, never promoted) runs when a build id was found. A
-  re-run of the train can resubmit the same build; Play rejects duplicate
-  version codes, but the observable effect is unverified. The last step, "Fail the train if the EAS run did not
+  re-run of the train would resubmit the same build, and the duplicate
+  version-code failure format is unverified, so a successful submit writes
+  a cache entry `android-play-submitted-<build id>` (actions/cache, no
+  secrets) and later trains skip the submit when it exists (cache eviction
+  after 7 days idle only risks a repeat submit). The last step, "Fail the train if the EAS run did not
   succeed", turns the GitHub run red whenever the wait outcome was not
   success, so the iOS failure stays visible. Cases:
   iOS ok / Android ok → wait succeeds, Android submitted, green.

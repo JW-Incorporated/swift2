@@ -10,29 +10,36 @@ import {
   type VideosBundleFile,
 } from '@swift2/content';
 import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
-import type { SearchDoc } from '../search-index';
-import { buildReaderSnapshot } from './build';
-import type { ReaderSnapshot, ReaderSnapshotDeps, ReaderSnapshotInputs, ReaderSnapshotState } from './types';
+import { attachExtensions, buildReaderSnapshot, buildReaderSnapshotCore } from './build';
+import type {
+  ReaderSnapshot,
+  ReaderSnapshotCore,
+  ReaderSnapshotCoreInputs,
+  ReaderSnapshotDeps,
+  ReaderSnapshotInputs,
+  ReaderSnapshotState,
+} from './types';
 
 /** The web's generated/derived modules (`apps/web/lib/longlive/*`), passed in so this package never imports app code. */
-export interface BakedModules {
+export interface BakedCoreModules {
   ERAS: readonly Era[];
   CONTENT: readonly ContentItem[];
   MILESTONES: readonly Milestone[];
-  MERCH_CATALOGUE: MerchCatalogue;
-  SONG_MOODS: SongMoodsBundleFile['songs'];
   tracksForEra(eraId: EraId): TrackNote[];
   theoriesForEra(eraId: EraId): TheoryNote[];
   allVideoRecordsForEra(eraId: EraId): VideoNote[];
   eraSecretsForEra(eraId: EraId): EraSecret[];
-  getSearchIndex(): SearchDoc[];
 }
 
-/** Web path. Reads the web's accessors, then wires those same inputs itself for the derived domains. */
-export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderSnapshot {
+export interface BakedModules extends BakedCoreModules {
+  MERCH_CATALOGUE: MerchCatalogue;
+  SONG_MOODS: SongMoodsBundleFile['songs'];
+}
+
+function coreInputsFromBaked(mods: BakedCoreModules): ReaderSnapshotCoreInputs {
   const byEra = <T>(read: (id: EraId) => T) =>
     Object.fromEntries(mods.ERAS.map((e) => [e.id, read(e.id)])) as Partial<Record<EraId, T>>;
-  const inputs: ReaderSnapshotInputs = {
+  return {
     eras: [...mods.ERAS],
     content: [...mods.CONTENT],
     milestones: [...mods.MILESTONES],
@@ -40,11 +47,20 @@ export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderS
     theories: byEra(mods.theoriesForEra),
     videos: byEra(mods.allVideoRecordsForEra),
     eraSecrets: byEra(mods.eraSecretsForEra),
+  };
+}
+
+/** Web path, core only: no merch or songMoods, so the caller need not import those chunks. */
+export function fromBakedCore(mods: BakedCoreModules, deps: ReaderSnapshotDeps): ReaderSnapshotCore {
+  return buildReaderSnapshotCore(coreInputsFromBaked(mods), deps, { kind: 'baked' }, 'ready');
+}
+
+/** Web path, full. Reads the web's accessors, then wires those same inputs itself for the derived domains. */
+export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderSnapshot {
+  return attachExtensions(fromBakedCore(mods, deps), {
     merch: mods.MERCH_CATALOGUE,
     songMoods: mods.SONG_MOODS,
-    searchIndex: mods.getSearchIndex(),
-  };
-  return buildReaderSnapshot(inputs, deps, { kind: 'baked' }, 'ready');
+  });
 }
 
 /** The parts of `@swift2/content`'s `LoadedBundle` this path reads. */

@@ -2,6 +2,7 @@ export {
   isResResult,
   makeRes,
   parseEnvelope,
+  parseEnvelopeValue,
   resErr,
   resOk,
 } from './envelope';
@@ -53,6 +54,8 @@ export {
   MAX_API_BODY,
   MAX_PAYLOAD_DEPTH,
   MAX_PAYLOAD_SIZE,
+  canonicalize,
+  checkParsedJson,
   checkStrictJson,
   isBridgeId,
   isExternalUrl,

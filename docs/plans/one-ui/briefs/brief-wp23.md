@@ -3,6 +3,9 @@
 Drafted 2026-10-02 against `origin/main` @ `b09c8246`. Sources: PLAN.md §WP2.3, "Calls made up front" (C1–C6), "Cross-cutting concerns" (X1–X4); OPERATING-MODE.md §7 and §9; PROGRESS.md 16:54 (WP2.3 prep).
 **Codex adversarial review applies to all six PRs** (PLAN marks WP2.3 `[codex]`). The PM runs it, not the executor.
 
+## PM ruling (2026-10-03 03:35, from #4850 Codex r1) — WP2.3-B ACCEPTANCE additions
+The host dispatcher (B) MUST implement and test: exactly one `res` per `cmd`; unknown command type → `answerUnknown` ('unsupported'); per-type timeouts (default 8 s; `api` cancellable by id via `cancel`); duplicate/replayed command ids rejected (bounded LRU of seen ids per session); every inbound envelope passed through A's `parseEnvelope` (strict JSON) and the per-command validators (`isWebPath`, `isExternalUrl`, `sanitizeApiRequest`) before any handler runs — invalid → `invalid`, never throw; pre-`ready` version negotiation against `NATIVE_SUPPORTED_RANGE` — out of range = protocol-fatal → watchdog strike; no Authorization/Cookie ever forwarded. A's bridge README CONTRACT section is the source of truth.
+
 ## FABLE REQUIRED (2026-10-02 19:00) — apply to the briefs before launch
 1. A depends on WP2.1-B merged (shared types in packages/ui/src/host/types.ts), not only 2.1-A.
 2. A defines the exhaustive `HandlerMap` type in packages/ui/src/bridge; B implements it; C imports it (C depends only on A).

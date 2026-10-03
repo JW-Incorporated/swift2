@@ -12,6 +12,8 @@
  * The host's `{min,max}` range is a JS constant in the app (the DOM bundle
  * ships in the same OTA group); no native config carries it.
  */
+import { canonicalize } from './validate';
+
 export const BRIDGE_VERSION = 1;
 
 export type VersionRange = { min: number; max: number };
@@ -23,18 +25,27 @@ export type NegotiateResult = { ok: true } | { ok: false; reason: 'too-old' | 't
 
 const isVersion = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= 0;
 
-export const isVersionRange = (r: unknown): r is VersionRange =>
-  typeof r === 'object' && r !== null && isVersion((r as VersionRange).min) && isVersion((r as VersionRange).max) &&
-  (r as VersionRange).min <= (r as VersionRange).max;
+/** Canonicalizes first (never throws), then validates; returns a clean copy or null. */
+function toRange(r: unknown): VersionRange | null {
+  const c = canonicalize(r);
+  if (!c.ok || typeof c.value !== 'object' || c.value === null || Array.isArray(c.value)) return null;
+  const { min, max } = c.value as { min?: unknown; max?: unknown };
+  return isVersion(min) && isVersion(max) && min <= max ? { min, max } : null;
+}
 
-export const inRange = (v: number, range: VersionRange): boolean =>
-  isVersion(v) && isVersionRange(range) && v >= range.min && v <= range.max;
+export const isVersionRange = (r: unknown): r is VersionRange => toRange(r) !== null;
+
+export function inRange(v: number, range: VersionRange): boolean {
+  const r = toRange(range);
+  return isVersion(v) && r !== null && v >= r.min && v <= r.max;
+}
 
 /** Fails closed: a non-integer/NaN/negative `domV` or an invalid range is `invalid`. */
 export function negotiate(domV: number, hostRange: VersionRange): NegotiateResult {
-  if (!isVersion(domV) || !isVersionRange(hostRange)) return { ok: false, reason: 'invalid' };
-  if (domV < hostRange.min) return { ok: false, reason: 'too-old' };
-  if (domV > hostRange.max) return { ok: false, reason: 'too-new' };
+  const r = toRange(hostRange);
+  if (!isVersion(domV) || r === null) return { ok: false, reason: 'invalid' };
+  if (domV < r.min) return { ok: false, reason: 'too-old' };
+  if (domV > r.max) return { ok: false, reason: 'too-new' };
   return { ok: true };
 }
 
@@ -43,9 +54,11 @@ export function negotiate(domV: number, hostRange: VersionRange): NegotiateResul
  * ABSENT means "the DOM only speaks `v`" (treated as `{min:v,max:v}`).
  */
 export function parseReady(p: unknown): { v: number; range?: VersionRange } | null {
-  if (typeof p !== 'object' || p === null || Array.isArray(p)) return null;
-  const { v, range } = p as { v?: unknown; range?: unknown };
+  const c = canonicalize(p);
+  if (!c.ok || typeof c.value !== 'object' || c.value === null || Array.isArray(c.value)) return null;
+  const { v, range } = c.value as { v?: unknown; range?: unknown };
   if (!isVersion(v)) return null;
   if (range === undefined) return { v };
-  return isVersionRange(range) ? { v, range: { min: range.min, max: range.max } } : null;
+  const r = toRange(range);
+  return r ? { v, range: r } : null;
 }
