@@ -159,9 +159,7 @@ passes iff nothing relevant changed, or `build-web`, `build-dom` and every
 relevant fails it. The `update-baselines` dispatch path is unchanged. When
 editing the filter, keep it in sync with this list.
 
-Parity is not yet a required check. Marking `parity-gate` required is a
-separate owner/PM step in branch protection (G1 condition 1); it is not done by
-this workflow change.
+Parity is required on main since 2026-10-03 (ruleset protect-swift2-main: build + parity-gate).
 
 Baselines depend on the frozen fixture, not live content, so a live content
 change does not turn the run red. A change to the renderers, the sync format
