@@ -35,8 +35,9 @@ apps/mobile/.eas/workflows/release.yml           (EAS: the actual train)
   commit. Same hash as an existing production build → JS-only → one OTA
   update group to both platforms. Different hash → native change → store
   builds.
-- **No half-submit.** Both submit jobs `need` both build jobs. A failed
-  build on either platform blocks both submissions.
+- **iOS submit needs both builds.** `submit_ios` `needs` both build jobs.
+  Android is no longer blocked by an iOS failure — see "Android is
+  independent of iOS" below.
 - **No laptop in the loop.** The fingerprint computed on a Windows checkout
   of this monorepo differs from the one EAS computes on Linux (hoisting
   paths differ), which is exactly why the 2026-09-05 manual builds failed
@@ -81,21 +82,37 @@ Instead:
   at once, then waits by id (`eas workflow:status <id> --wait`), so the
   Action doesn't return until EAS is done. Preflight steps are capped (20
   min total), the wait at 195 minutes (observed successful waits run 15-155
-  min) and Android locate/submit at 10 and the job at 235: a hung
+  min) and Android submit at 10 and the job at 235: a hung
   EAS run turns the job red and frees the `mobile-release` concurrency
   group (it does not cancel the EAS-side run — check it in the Expo
   dashboard / `eas workflow:runs`).
-  It then calls `eas build:list --platform android --status
-  finished --git-commit-hash <sha>` to ask "did this commit's run produce
-  a fresh Android store build?" — if the fingerprint already had a build
-  (OTA-only case) there's nothing to submit and the step no-ops cleanly.
-  If a build exists for this commit, the Action writes
+  It then reads `eas workflow:status <id> --json` and takes the build id
+  from THIS run's `build_android` job (`jobs[].turtleBuild.id`), only when
+  that job's status is exactly `SUCCESS` and the build is ANDROID /
+  FINISHED / profile `production`, its `gitCommitHash` is a string equal to
+  the run's `GITHUB_SHA` (absent, empty or mismatched fails closed with a
+  loud warning), and its id is a UUID
+  (`scripts/release/select-android-build.mjs`). If the fingerprint already had a build (OTA-only case) the job is
+  SKIPPED, there is no id, and nothing is submitted. The parsed job
+  statuses and chosen build id are printed to the job log
+  (`gh run view --log`). If a build id was found, the Action writes
   `PLAY_SERVICE_ACCOUNT_JSON` to a gitignored file at job time
   (`apps/mobile/credentials/play-service-account.json`, `chmod 600`,
   deleted via `trap ... EXIT` immediately after use, never echoed to logs)
   and runs `eas submit --platform android --id <build_id> --profile
   production --non-interactive` itself, in the one place that has the
   secret.
+- The selector's result decides the run colour (final step "Fail the train"):
+
+  | Scenario | `result` | Run colour |
+  |---|---|---|
+  | OTA-only (fingerprint unchanged, `build_android` skipped or absent) | `skipped` | green |
+  | Store build, iOS and Android both ok | `success` | green |
+  | iOS fails, Android ok (Android still submitted) | `success` | red (EAS wait failed) |
+  | Android build fails/cancelled | `not_success` | red |
+  | Android SUCCESS but hash/id/platform/profile check fails | `no_build` | red |
+  | Status JSON unreadable / selector crash | `unknown` | red |
+
 - After the wait (even when it failed), the step "Summarise EAS jobs and the
   published OTA update" writes each EAS job's final status and, on success,
   the OTA update group id(s), platform and runtime version published for
@@ -115,15 +132,27 @@ Instead:
   --platform android` locally after populating the file by hand (or once
   the key is uploaded to EAS credentials directly, at which point this
   local path becomes unnecessary and could be removed).
-- **No half-submit is preserved differently than iOS's.** `submit_ios`
-  inside the EAS workflow still `needs` both builds. The Android submit
-  step in the Action only runs `if: steps.eas_workflow.outcome ==
-  'success'` — so a failed iOS (or Android) build inside the EAS workflow
-  fails the whole `workflow:run --wait` call, and the Action's Android
-  submit step is skipped. A failed build on either platform still blocks
-  both submissions; the mechanism is now "the whole upstream workflow run
-  must succeed" rather than a shared `needs:` array, because Android's
-  submit job doesn't live in that graph anymore.
+- **Android is independent of iOS (changed 2026-10-02, #4788).** An
+  iOS-only failure (e.g. code signing, HA #89) must not strand a good
+  Android build. `submit_ios` inside the EAS workflow still `needs` both
+  builds, but the Action no longer requires the whole EAS run to succeed:
+  the wait step is `continue-on-error`, the step "Read the EAS Android
+  store-build job status" reads the run's per-job status
+  (`eas workflow:status <id> --json`, job `build_android`; the EAS
+  `WorkflowJobStatus` success value is exactly `SUCCESS`, anything else
+  fails closed) and outputs that job's build id. The Play submit
+  (internal track only, never promoted) runs when a build id was found. A
+  re-run of the train can resubmit the same build; Play rejects duplicate
+  version codes, but the observable effect is unverified. The last step, "Fail the train if the EAS run did not
+  succeed", turns the GitHub run red whenever the wait outcome was not
+  success, so the iOS failure stays visible. Cases:
+  iOS ok / Android ok → wait succeeds, Android submitted, green.
+  iOS fail / Android ok → Android job SUCCESS, Android submitted, run red.
+  Android fail (any iOS) → job not SUCCESS, submit skipped, red.
+  Unreadable status counts as not-success (conservative: skip). In the EAS
+  graph, `build_android` and `publish_update_android_only` have no `needs`
+  on iOS jobs, so the Android OTA publishes whenever an Android build
+  already exists for the fingerprint, regardless of iOS.
 - **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the Android
   submit step warns (`::warning::`) and exits 0 rather than failing the
   train — HA#48 tracks `EXPO_TOKEN` as still-open founder work, and the
