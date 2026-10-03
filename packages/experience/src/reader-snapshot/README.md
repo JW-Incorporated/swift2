@@ -77,6 +77,11 @@ never re-derived (it is unsorted, flat order).
   from `bakedModules()` (also what `parity-probe` hashes), mounted outermost in `LongLive.tsx`.
   Measured on the parity fixture in Chromium: ~12 ms median to build unthrottled, ~61 ms at 4x CPU throttle.
 
+## Core / extension split (WP2.2-B r1)
+
+- CORE = every domain except `merch` and `songMoods`; `fromBakedCore`/`buildReaderSnapshotCore` build it and it is what the context holds (`ReaderSnapshotCore`).
+- `attachExtensions(core, { merch, songMoods })` returns the full `ReaderSnapshot`. `hashSnapshot` throws if any of the 13 domains is missing, so a core-only snapshot is never hashed.
+
 ## Not covered
 
 Clownbot lore (server-side only) and live/current feeds (runtime, not baked).
