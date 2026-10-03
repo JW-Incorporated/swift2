@@ -131,23 +131,30 @@ test.describe('image settle gate (a slow image must be painted before capture)',
     test(`side ${side}: a delayed image response (local or external) is waited for, so the capture matches the undelayed render`, async ({ page }, testInfo) => {
       // The delayed pass runs FIRST, on a cold cache: eager images (#4895) are served from WebKit's memory cache on a
       // reload, so a warm second pass would never reach the slow route. The undelayed control is captured after it.
+      // Only images requested AFTER the load event are delayed: page.goto() already waits for the eager images, so
+      // delaying those would let the elapsed-time assertion pass even with a broken imagesReady. Post-load requests
+      // (lazy images that imagesReady flips to eager) can only be waited for by the capture gate.
       const delayed = new Set<string>();
+      let loadedAt = 0;
+      page.once('load', () => {
+        loadedAt = Date.now();
+      });
       const slow = async (r: Route) => {
-        if (r.request().resourceType() !== 'image') return r.fallback();
+        if (r.request().resourceType() !== 'image' || !loadedAt) return r.fallback();
         delayed.add(r.request().url());
         await new Promise((done) => setTimeout(done, DELAY_MS));
         return r.fallback();
       };
       const slowMatch = (url: URL) => /^https?:$/.test(url.protocol);
       await page.route(slowMatch, slow);
-      const started = Date.now();
       await openRoute(page, side, route);
       const shot = await captureRoot(page, route);
+      const capturedAt = Date.now();
       await page.unroute(slowMatch, slow);
       await openRoute(page, side, route);
       const control = await captureRoot(page, route);
-      expect(delayed.size, 'the slow route must actually have intercepted images').toBeGreaterThan(0);
-      expect(Date.now() - started, 'the capture must have waited for the slow images').toBeGreaterThanOrEqual(DELAY_MS);
+      expect(delayed.size, 'the slow route must actually have intercepted post-load images').toBeGreaterThan(0);
+      expect(capturedAt - loadedAt, 'the capture must have waited for the slow post-load images').toBeGreaterThanOrEqual(DELAY_MS);
       expect(await pixelMatches(testInfo, `neg-slow-${side}`, control, shot)).toBe(true);
     });
   }
