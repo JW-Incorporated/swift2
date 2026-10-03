@@ -95,7 +95,9 @@ Moved: `ThreadsMode`, `ThreadsTimeline`, `ClueWeb`, `Crossings`, `FromTheEras`, 
 
 Shims (importer outside the moved set): `apps/web/components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx`, `apps/web/lib/longlive/live-theories.ts`. Plain renames: everything else.
 
-Not moved: `TheoryGuide` (imports `useFocusTrap`, owned by WP2.5; follow-up once it lands), `threads.ts`/`theories.ts` (data). Tests staying in `apps/web` (read component source, or wire app-layer data): `crossings-*`, `decode-ink-soft-opacity`, `EntryDetail`, `LoveStoryThread`, `ProposalThread`, `ownershipTimeline`, `love-story-songs`; plus the shared source-lock lists, repointed.
+A1b (move-only): `TheoryGuide.tsx` -> `threads/TheoryGuide.tsx` (its `useFocusTrap` now lives in `moment/lib`), shim `apps/web/components/longlive/TheoryGuide.tsx`; still passes the host to `shareTargetNow`. Source-lock tests (`back-dismiss`, `escape-dismiss`, `modal-focus-trap`) repointed.
+
+Not moved: `threads.ts`/`theories.ts` (data). Tests staying in `apps/web` (read component source, or wire app-layer data): `crossings-*`, `decode-ink-soft-opacity`, `EntryDetail`, `LoveStoryThread`, `ProposalThread`, `ownershipTimeline`, `love-story-songs`; plus the shared source-lock lists, repointed.
 
 `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit. A2 expected empty. Debt: `ClueWeb.tsx` (911), `Crossings.tsx` (620), `ThreadsTimeline.tsx` (469), `ThreadsMode.tsx` (434), `LoveStoryThread.tsx` (414) over the 300-line rule.
 
