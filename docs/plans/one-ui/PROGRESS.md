@@ -376,7 +376,11 @@ fell back in Special Elite) → now next/font's exact bytes + 18 non-latin
 subset faces (web CSS) → **0 px diff** on home/Speak Now/Merch/support/privacy
 at 390+1440; preload 6 faces; metrics fixture; budget counts fonts (5.21/8
 MB). Open: DOM CSS is latin-only (app may fall back on č) → reviewer r2
-quantifying. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+quantifying. **03:52:** #4847 reviewer r2 APPROVE conditional: only non-latin
+letter in content = č (Toni Matičevski). **PM: DOM CSS gets latin-ext for all 5
+families (~245 KB base64; reason recorded = G1 cond 3) + guard test: every
+content code point > U+00FF must be covered by a DOM unicode-range or an
+explicit system-fallback allow-list.** Executor resumed. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
