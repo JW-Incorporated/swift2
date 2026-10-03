@@ -290,6 +290,13 @@ EAS Android build job succeeded). #4844 fix r1 74426fe8 (deps, HostImageProps
 transitive purity test catches 12 offenders pre-fix) → scoped reviewer r2
 launched; Codex r2 next slot. #4845 fix r1 launched (merge main; prove the
 negative spec discriminates via mutation; SVG decode tolerance).
+**02:52:** #4843 r2 reviewer APPROVE; Codex r2 `task-mus7p36t-c6etr1` pending.
+WP2.1-C → **#4847** (base wp2.1a; parity 37114176156 green, no baselines changed
+— harness forces ParityFont, so parity can't see real-font regressions: web
+evidence = identical text rects + doc heights before/after; hero diff =
+animation (two "after" shots differ too); OTA +4.4% reason in body; extra:
+/fonts immutable cache header in next.config.mjs, .prettierignore) → reviews
+queued for next slot. WP2.4 first-slice brief draft launched (prep).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
