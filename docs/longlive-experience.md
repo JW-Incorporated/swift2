@@ -736,6 +736,29 @@ constellation.
 
 ## 9. Current state / known gaps
 
+### Reader data flow (One UI WP2.2)
+
+- The web reader reads content only through the `ReaderSnapshot`: the web
+  provider (`lib/longlive/reader-snapshot-provider.tsx`) builds the CORE
+  snapshot from `baked-modules.ts` (`fromBakedCore`) and exposes it through
+  the `@swift2/ui` context; components call `useReader()` (or
+  `createReaderQueries`) and never import the content modules.
+- Extension domains (merch, songMoods) move to a `ReaderExtensionsProvider`
+  in PR #4859 (pending). Until it merges, the three merch components still
+  import the old modules and are allow-listed in `eslint.config.mjs` with a
+  TODO referencing #4859.
+- Server-only code (API routes, `*.server.ts`, `vault-wiring.ts`) may still
+  use the module-global accessors and injected wrappers; shared helpers take
+  their data as a required parameter.
+- Enforcement: `eslint.config.mjs` bans the old accessors, baked/`*.generated`
+  modules and injected `@swift2/experience` wrappers in
+  `apps/web/components/longlive/**` and `packages/ui/**` (tests and
+  `*.server.*` exempt); `packages/ui/src/reader-lint-ban.test.ts` proves it.
+- Out of scope (PM ruling 2), still module-global readers: server API routes
+  (`app/api/{mood,og,share-card}` via `vault-wiring.ts`), native screens
+  (`apps/mobile/lib/*-data.ts`) and the WP0.5 spike. They retire with native
+  retirement (WP2.13/C5).
+
 - Content in `content.ts` is a mix of hand-curated items plus a generated
   sync (`content-vault.generated.ts`, `VAULT_RAW`) produced by
   `scripts/sync-longlive-content.mjs`, which runs automatically as a

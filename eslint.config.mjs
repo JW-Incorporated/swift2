@@ -1,6 +1,56 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
+const READER_WRAPPERS = [
+  'contentForThread',
+  'threadPoints',
+  'threadDoorwaysForEra',
+  'eggDoorwaysForEra',
+  'theoriesForEra',
+  'eraSecretsForEra',
+  'resolveEraSecretLink',
+  'tracksForEra',
+  'nextTrackOnAlbum',
+  'keepExploring',
+  'findTrack',
+  'setDefaultSongCatalogue',
+  'setContentGeneratedAtSource',
+  'setContentItemLookup',
+  'setEraSecretsRawProvider',
+  'setSongTargetResolver',
+  'setTheoriesRawProvider',
+  'setThreadContentProvider',
+  'setTracksRawProvider',
+];
+const BANNED_MODULES = [
+  'content',
+  'tracks',
+  'theories',
+  'era-secrets',
+  'threads',
+  'videos',
+  'merch',
+  'song-moods.generated',
+  'vault-wiring',
+  'baked-modules',
+  'baked-modules-full',
+  'content-vault.generated',
+  '*.generated',
+].map((m) => '**/lib/longlive/' + m);
+const READER_WRAPPER_BAN = {
+  name: '@swift2/experience',
+  importNames: READER_WRAPPERS,
+  message: 'Read via useReader() - WP2.2. The injected module-global wrappers are replaced by the ReaderSnapshot.',
+};
+const READER_MODULE_BAN = {
+  group: BANNED_MODULES,
+  message: 'Read via useReader() - WP2.2. Module-global content accessors and baked data modules are server/snapshot-construction only.',
+};
+
+const stubPlugin = (...names) => ({
+  rules: Object.fromEntries(names.map((n) => [n, { create: () => ({}) }])),
+});
+
 // Web (apps/web) and mobile (apps/mobile) are linted by their own framework
 // tooling (Next / Expo); this root config covers the TypeScript packages +
 // worker + Node scripts.
@@ -10,13 +60,29 @@ export default tseslint.config(
       '**/node_modules/**',
       '**/dist/**',
       '**/.next/**',
-      'apps/web/**',
+      'apps/web/*',
+      '!apps/web/components',
+      'apps/web/components/*',
+      '!apps/web/components/longlive',
       'apps/mobile/**',
       '.claude/**',
     ],
   },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
+  // apps/web is linted by Next tooling; only the WP2.2-D reader ban below reaches it.
+  ...[js.configs.recommended, ...tseslint.configs.recommended].map((c) => ({
+    ...c,
+    ignores: [...(c.ignores ?? []), 'apps/web/**'],
+  })),
+  {
+    files: ['apps/web/components/longlive/**/*.{ts,tsx}'],
+    languageOptions: { parser: tseslint.parser },
+    // Inline disables name Next/react-hooks rules this root config does not load.
+    plugins: {
+      'react-hooks': stubPlugin('exhaustive-deps'),
+      '@next/next': stubPlugin('no-img-element', 'no-html-link-for-pages'),
+    },
+    linterOptions: { reportUnusedDisableDirectives: 'off' },
+  },
   {
     // packages/experience is the headless core shared by apps/web (Next.js)
     // and apps/mobile (React Native) — see docs/specs/2026-09-05-one-source-
@@ -56,10 +122,12 @@ export default tseslint.config(
           paths: [
             { name: 'next', message: 'packages/ui is host-agnostic: use useHost() instead of next.' },
             { name: 'react-native', message: 'packages/ui is host-agnostic: use useHost() instead of react-native.' },
+            READER_WRAPPER_BAN,
           ],
           patterns: [
             { group: ['next/*', 'react-native-*', 'react-native/*'], message: 'packages/ui is host-agnostic: use useHost() instead of next/* or react-native*.' },
             { group: ['**/apps/**'], message: 'packages/ui must not import from apps/*: apps depend on packages/ui, never the reverse.' },
+            READER_MODULE_BAN,
           ],
         },
       ],
@@ -80,6 +148,31 @@ export default tseslint.config(
         {
           selector: "CallExpression[callee.name='require']:not([arguments.0.type='Literal'])",
           message: 'packages/ui forbids non-literal require(): the specifier must be a string literal so the host ban can be checked.',
+        },
+      ],
+    },
+  },
+  {
+    // WP2.2-D: the web reader reads only the ReaderSnapshot (useReader()), never
+    // the module-global content accessors the snapshot replaced. Server code
+    // (*.server.ts, API routes), snapshot construction (baked-modules*.ts,
+    // reader-snapshot-provider.tsx) and tests live outside this override or are
+    // exempted below. Remaining module-global readers: docs/longlive-experience.md.
+    files: ['apps/web/components/longlive/**/*.{ts,tsx}'],
+    ignores: [
+      '**/*.test.{ts,tsx}',
+      '**/*.server.{ts,tsx}',
+      // TODO(#4859): merch + songMoods move to ReaderExtensionsProvider; drop these then.
+      'apps/web/components/longlive/MerchSection.tsx',
+      'apps/web/components/longlive/merch/MerchCard.tsx',
+      'apps/web/components/longlive/merch/MerchStyleSection.tsx',
+    ],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [READER_WRAPPER_BAN],
+          patterns: [READER_MODULE_BAN],
         },
       ],
     },

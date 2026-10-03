@@ -92,3 +92,7 @@ Clownbot lore (server-side only) and live/current feeds (runtime, not baked).
 (needs `npm run sync:content` first, as CI does), asserts equal hashes, and
 proves a deliberately diverged bundle fails and names its domain.
 CI runs it as its own step: `npx vitest run packages/experience/src/reader-snapshot`.
+
+## Reader import ban (WP2.2-D)
+
+The web reader (`apps/web/components/longlive/**`, `packages/ui/**`) reads this snapshot via `useReader()`; ESLint bans the old module-global accessors there (see `eslint.config.mjs`, `docs/longlive-experience.md` section 9).
