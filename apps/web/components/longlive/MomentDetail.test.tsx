@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
 import { describe, expect, it } from 'vitest';
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { screen, within, fireEvent } from '@testing-library/react';
 import { MomentDetail } from './MomentDetail';
+import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider, useAppActions } from '@/lib/longlive/store';
 import { CONTENT } from '@/lib/longlive/content';
 import { TAG_META } from '@/lib/longlive/tags';
@@ -20,7 +21,7 @@ function OpenMoment({ id, children }: { id: string; children?: React.ReactNode }
 }
 
 function renderMoment(id: string) {
-  return render(
+  return renderWithReader(
     <AppProvider>
       <OpenMoment id={id} />
       <MomentDetail />

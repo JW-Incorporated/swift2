@@ -11,8 +11,7 @@ import {
 } from 'react';
 import { deepLinkTarget, resolveVideoDeepLink } from '@swift2/experience';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
-import { getContentItemByIdOrSlug } from '../content';
-import { allVideoRecordsForEra, findVideoEraId } from '../videos';
+import { useReader } from '@swift2/ui';
 import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import { createLocalStorageAdapter } from '../local-storage-adapter';
@@ -192,6 +191,7 @@ function ProgressProvider({ children }: { children: ReactNode }) {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const q = useReader();
   const returnPoints = useReturnPoints();
   const nav = useNavigation(CURRENT_ERA_ID, returnPoints.consumeMatching);
   const searchShare = useSearchShare();
@@ -271,7 +271,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // one — pushing a back-entry here would trap the first back gesture.
     nav.suppressNavPushRef.current = true;
     if (target.kind === 'item') {
-      const contentItem = getContentItemByIdOrSlug(target.id);
+      const contentItem = q.getContentItemByIdOrSlug(target.id);
       if (contentItem) {
         // The moment overlay reads over the era stream.
         // Published links use the stable seed slug; the overlay store uses the
@@ -286,8 +286,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
           target.id,
           eraHint,
           (id) => getEra(id).id === id,
-          (eraId, slug) => allVideoRecordsForEra(eraId as EraId).some((v) => v.slug === slug),
-          findVideoEraId,
+          (eraId, slug) => q.allVideoRecordsForEra(eraId as EraId).some((v) => v.slug === slug),
+          (slug) => q.eras.find((e) => q.allVideoRecordsForEra(e.id).some((v) => v.slug === slug))?.id ?? null,
         );
         if (videoEraId) {
           // Mirrors the `openVideo` action (defined below) exactly: jump to

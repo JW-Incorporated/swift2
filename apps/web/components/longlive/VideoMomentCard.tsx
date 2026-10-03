@@ -1,8 +1,7 @@
 'use client';
 
 import { Clapperboard, ExternalLink } from 'lucide-react';
-import { VIDEO_KIND_LABEL, isPlayable } from '@/lib/longlive/videos';
-import type { WatchableVideoNote } from '@/lib/longlive/videos';
+import { VIDEO_KIND_LABEL, isPlayable, type WatchableVideoNote } from '@swift2/content-enrichment';
 import { formatMonthYear } from '@swift2/experience';
 import { MomentVideo } from './MomentVideo';
 import type { Era } from '@swift2/experience';
