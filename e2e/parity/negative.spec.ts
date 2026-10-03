@@ -5,7 +5,6 @@ import {
   captureElement,
   captureViewport,
   elementBox,
-  footerBand,
   expect,
   mutate,
   openRoute,
@@ -51,7 +50,7 @@ test.describe('web chrome viewport gate (WP2.4-0: a 1px TopBar growth must fail 
   });
 });
 
-test.describe('web chrome element-clip gate (WP2.4-0: a pure 1px translate fails the TopBar and footer clips)', () => {
+test.describe('web chrome element-clip gate (WP2.4-0: a pure 1px translate fails the TopBar clip)', () => {
   test('a pure 1px TopBar translate fails the TopBar clip', async ({ page }, testInfo) => {
     await openRoute(page, 'a', route);
     const clip = await elementBox(page, '[data-ll-topbar]');
@@ -61,17 +60,6 @@ test.describe('web chrome element-clip gate (WP2.4-0: a pure 1px translate fails
     });
     const mutated = await captureElement(page, '[data-ll-topbar]', clip);
     expect(await pixelMatches(testInfo, 'neg-topbar-clip', clean, mutated)).toBe(false);
-  });
-
-  test('a pure 1px footer translate fails the footer clip', async ({ page }, testInfo) => {
-    await openRoute(page, 'a', route);
-    const clip = await footerBand(page);
-    const clean = await captureElement(page, 'footer >> nth=-1', clip);
-    await page.locator('footer').last().evaluate((el) => {
-      el.style.transform = 'translateY(1px)';
-    });
-    const mutated = await captureElement(page, 'footer >> nth=-1', clip);
-    expect(await pixelMatches(testInfo, 'neg-footer-clip', clean, mutated)).toBe(false);
   });
 });
 

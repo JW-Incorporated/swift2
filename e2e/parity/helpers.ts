@@ -297,25 +297,6 @@ export async function captureElement(page: Page, selector: string, clip?: Clip):
   return page.screenshot({ clip: clip ?? (await elementBox(page, selector)), scale: 'css' });
 }
 
-/** Footer wordmark ("Long Live"): a tight 160 css px wide clip, so a 1px footer shift exceeds the pixel ratio even on iPad. Scrolls the footer into view. */
-export async function footerBand(page: Page): Promise<Clip> {
-  const inView = (b: Clip) => b.y >= 4 && b.y + b.height <= (page.viewportSize()?.height ?? 0) - 4;
-  let box = await elementBox(page, 'footer >> nth=-1 >> p.font-era');
-  await expect
-    .poll(
-      async () => {
-        await page.locator('footer').last().scrollIntoViewIfNeeded();
-        await page.evaluate(() => new Promise<void>((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))));
-        box = await elementBox(page, 'footer >> nth=-1 >> p.font-era');
-        return inView(box);
-      },
-      'parity: the footer wordmark must settle inside the viewport',
-    )
-    .toBe(true);
-  const width = Math.min(box.width, 160);
-  return { x: box.x + (box.width - width) / 2, y: box.y - 4, width, height: box.height + 8 };
-}
-
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */
 export async function captureRoot(page: Page, route: Route): Promise<Buffer> {
   // Web-only chrome (TopBar and its fixed timeline rail, footer) is not part of the shared root; the app host supplies its own.

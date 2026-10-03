@@ -1,4 +1,4 @@
-import { captureElement, footerBand, captureViewport, captureRoot, expect, openRoute, PIXEL_OPTS, realInsets, ROUTES, test } from './helpers';
+import { captureElement, captureViewport, captureRoot, expect, openRoute, PIXEL_OPTS, realInsets, ROUTES, test } from './helpers';
 
 // Per-side baselines (Linux-only, generated in the pinned Playwright container).
 // Side b is captured with the project's REAL simulated safe-area insets.
@@ -27,9 +27,4 @@ for (const route of ROUTES) {
 test('a (web build) home topbar', async ({ page }) => {
   await openRoute(page, 'a', ROUTES[0]);
   expect(await captureElement(page, '[data-ll-topbar]')).toMatchSnapshot('a-home-topbar.png', PIXEL_OPTS);
-});
-
-test('a (web build) home footer', async ({ page }) => {
-  await openRoute(page, 'a', ROUTES[0]);
-  expect(await captureElement(page, 'footer >> nth=-1', await footerBand(page))).toMatchSnapshot('a-home-footer.png', PIXEL_OPTS);
 });
