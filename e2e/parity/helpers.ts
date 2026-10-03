@@ -294,6 +294,21 @@ export async function captureViewport(page: Page): Promise<Buffer> {
   return page.screenshot({ scale: 'css' });
 }
 
+export type Clip = { x: number; y: number; width: number; height: number };
+
+/** Bounding box of one element in page coordinates (feed it back to captureElement to hold the clip fixed across a mutation). */
+export async function elementBox(page: Page, selector: string): Promise<Clip> {
+  const box = await page.locator(selector).first().boundingBox();
+  if (!box) throw new Error(`parity: ${selector} has no box`);
+  return box;
+}
+
+/** PNG clipped to an element's bounding box (or a given clip), so the pixel ratio applies to that small area, not the whole viewport. */
+export async function captureElement(page: Page, selector: string, clip?: Clip): Promise<Buffer> {
+  await imagesReady(page, 'body');
+  return page.screenshot({ clip: clip ?? (await elementBox(page, selector)), scale: 'css' });
+}
+
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */
 export async function captureRoot(page: Page, route: Route): Promise<Buffer> {
   // Web-only chrome (TopBar and its fixed timeline rail, footer) is not part of the shared root; the app host supplies its own.

@@ -65,9 +65,9 @@ never re-derived (it is unsorted, flat order).
 ## Reading it on the web (WP2.2-B)
 
 - `@swift2/ui` holds the context: `ReaderSnapshotProvider`, `useReaderSnapshotStatus()`
-  (`{ status: 'loading' } | ReaderSnapshot`), `useReaderSnapshot()` (throws outside a provider
-  or while loading; narrows with `isReaderSnapshot(v)`, i.e. `'domains' in v`) and `useReader()`
-  (`createReaderQueries(snapshot, deps)`, memoised per snapshot).
+  (`{ status: 'loading' } | ReaderSnapshotCore`), `useReaderSnapshot()` (throws outside a provider
+  or while loading; narrows with `isReaderSnapshot(v)`, i.e. `'domains' in v`; both return the core, not the full `ReaderSnapshot`) and `useReader()`
+  (`createReaderQueries(core, deps)`, memoised per snapshot).
 - `state === 'error'` means a last-good snapshot is shown and the latest refresh failed.
 - `queries.ts`: `createReaderQueries` is pure over one snapshot (built on `corpusFromInputs`). Its
   accessors equal the web modules' (`queries.test.ts`). `milestones` is read from its domain,

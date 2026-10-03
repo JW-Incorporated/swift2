@@ -6,7 +6,7 @@
 // Run against a production build with the parity fixture applied:
 //   npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --apply
 //   (cd apps/web && npx next build) && npm run start -w @swift2/web -- -H 127.0.0.1 -p 4180
-//   PERF_URL=http://127.0.0.1:4180/ npx playwright test e2e/perf/snapshot-build.spec.ts --config e2e/perf/playwright.perf.config.ts
+//   PERF_URL=http://127.0.0.1:4180/ npx playwright test e2e/perf/snapshot-build.spec.ts --config e2e/perf/playwright.config.ts
 import { expect, test, type Browser } from '@playwright/test';
 
 const URL = process.env.PERF_URL ?? 'http://127.0.0.1:4180/';
