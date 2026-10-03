@@ -36,6 +36,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ClownAnswer, InvestigationStep } from '@swift2/shared';
 import type { BoardItem } from './lib/clown-board';
 import type { ClownTurn } from '@swift2/shared';
+import type { LoreItem } from '@swift2/experience';
 import { promptForItem, FAN_THEORY_CHIP_PROMPT } from './lib/clown-starters';
 import { useChromeOffset } from './lib/useChromeOffset';
 import { flattenAnswer, investigationLabel } from './lib/clown-chat-helpers';
@@ -67,7 +68,11 @@ const CONTAINER_TOP_PADDING = '0.75rem';
 const NETWORK_ERROR = "That didn't go through. Try again in a moment?";
 const EMPTY_STATE_TEXT = 'Try our chat bot — ask a question below.';
 
-export function ClownChat() {
+export interface ClownChatProps {
+  lore: readonly LoreItem[];
+}
+
+export function ClownChat({ lore }: ClownChatProps) {
   const [text, setText] = useState('');
   // clownMessages is the store's capped (6), memory-only, never-persisted
   // transcript (store.tsx) — this component holds no transcript state of its
@@ -301,7 +306,7 @@ export function ClownChat() {
       </div>
 
       <div className="mt-10">
-        <ClownBoard onSelect={handleBoardSelect} />
+        <ClownBoard onSelect={handleBoardSelect} lore={lore} />
       </div>
     </div>
   );

@@ -62,6 +62,5 @@ export function useStickToBottomScroll(containerRef: RefObject<HTMLElement | nul
     const el = containerRef.current;
     if (!el || !nearBottomRef.current) return;
     el.scrollTop = el.scrollHeight;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }

@@ -16,7 +16,7 @@
  * future.
  */
 
-import { LORE } from './clownbot-lore';
+import type { LoreItem } from '@swift2/experience';
 import { ERAS, getEra, type EraId, type TheoryNote } from '@swift2/experience';
 
 /** The reader's per-era theory query (`useReader().theoriesForEra`). */
@@ -109,7 +109,11 @@ function byDateDesc(a: BoardItem, b: BoardItem): number {
  * back in time to fill the slot — a padded "current" list is a lie about
  * what is current. The UI handles a short list (§ Step 8).
  */
-export function currentTheories(now: Date, theoriesForEra: TheoriesForEra): BoardItem[] {
+export function currentTheories(
+  now: Date,
+  theoriesForEra: TheoriesForEra,
+  lore: readonly LoreItem[],
+): BoardItem[] {
   const items: BoardItem[] = [];
 
   for (const [eraId, notes] of theoryEntries(theoriesForEra)) {
@@ -127,7 +131,7 @@ export function currentTheories(now: Date, theoriesForEra: TheoriesForEra): Boar
     }
   }
 
-  for (const item of LORE) {
+  for (const item of lore) {
     if (item.status !== 'rumor' && item.status !== 'reported') continue;
     items.push({
       id: `lore:${item.id}`,

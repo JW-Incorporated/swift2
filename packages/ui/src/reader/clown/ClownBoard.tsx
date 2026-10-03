@@ -30,6 +30,7 @@
 
 import { useMemo, useState } from 'react';
 import { useReader } from '../../snapshot/context';
+import type { LoreItem } from '@swift2/experience';
 import { confirmedEggs, currentTheories, type BoardItem } from './lib/clown-board';
 import { useLiveTheories } from '../lib/use-live-theories';
 import { sortByHeatDesc } from '@swift2/experience';
@@ -43,6 +44,8 @@ const COLLAPSED_EGG_COUNT = 10;
 
 export interface ClownBoardProps {
   onSelect: (item: BoardItem) => void;
+  /** Rumor/reported lore feeding column 1; the host supplies it (baked app data). */
+  lore: readonly LoreItem[];
 }
 
 interface EraGroup {
@@ -76,13 +79,13 @@ function PulseDot() {
   );
 }
 
-export function ClownBoard({ onSelect }: ClownBoardProps) {
+export function ClownBoard({ onSelect, lore }: ClownBoardProps) {
   // Mount-time only, matching Clownbot.tsx's `now` pattern: computing this
   // during render would differ between server and client and risk a
   // hydration mismatch (currentTheories clamps era-end dates to `now`).
   const q = useReader();
   const now = useMemo(() => new Date(), []);
-  const theories = useMemo(() => currentTheories(now, q.theoriesForEra), [now, q]);
+  const theories = useMemo(() => currentTheories(now, q.theoriesForEra, lore), [now, q, lore]);
   // Knowledge-engine Stage 7: `live_theory` rows, hottest first, rendered as
   // an additional live block above the static "Most recent" list — pure
   // data render, zero model calls (J2). Empty when the fetch fails or (the
