@@ -6,7 +6,7 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #89 🔴 [BLOCKING] Add Associated Domains to the iOS signing profile (~10 min)
+## #96 🔴 [BLOCKING] Add Associated Domains to the iOS signing profile (~10 min)
 <!-- ha filed=2026-10-02 -->
 
 **Why:** Since #4799 the iOS store build fails: profile "LongLive App Store 2026-09-05" lacks Associated Domains. No new store builds or app updates reach either phone until this is fixed.

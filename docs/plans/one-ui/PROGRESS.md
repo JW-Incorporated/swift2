@@ -133,12 +133,12 @@ Store 2026-09-05" lacks Associated Domains (entitlement added by #4799).
 Play submit skipped (gated on whole EAS run); publish_update_* gated on a store
 build for the new fingerprint → **no OTA since c541c2bc, and post-#4799 JS
 targets the new runtime anyway → devices need the new store builds.** Filed
-**HA #89** (Joey: enable Associated Domains on ai.jwlabs.longlive, regenerate
+**HA #96** (Joey: enable Associated Domains on ai.jwlabs.longlive, regenerate
 profile via `eas credentials`). PM: decouple Android submit from iOS failure
 (workflow change, reversible) so S2 can run on Android. Docs PR #4834
 (stacked-PR rule) + issues #4835 (prune fixture) #4836 (MAX_PATH) filed.
 WP2.1 brief drafted (scratch brief-wp21.md; 5 open Qs).
-**18:59:** HA #89 landing via #4837 (PM-branch PR, auto-merge, no delete).
+**18:59:** HA #96 landing via #4837 (PM-branch PR, auto-merge, no delete).
 Release fix → **#4838** (wait continue-on-error; Android locate+Play-internal
 submit if build_android SUCCESS; final step fails run if EAS not success).
 Risk: 'SUCCESS' string unverified (fail-safe skip) → reviewer verifying from
