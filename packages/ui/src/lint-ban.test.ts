@@ -65,6 +65,31 @@ describe('packages/ui import ban', { timeout: 30_000 }, () => {
     expect(messages).toHaveLength(0);
   });
 
+  it.each([
+    'import(`next/${"image"}`)',
+    'require(`react-native`)',
+    'require(`next/${"link"}`)',
+    'import(spec)',
+    'require(spec)',
+    'require()',
+    'require(...args)',
+  ])('rejects non-literal specifier %s', async (expr) => {
+    const messages = await lint(
+      `declare const spec: string;\ndeclare const args: string[];\nexport const x = ${expr};\n`,
+      `${root}/packages/ui/src/fixture.ts`,
+    );
+    expect(messages.length).toBeGreaterThanOrEqual(1);
+    expect(messages[0]?.message).toContain('non-literal');
+  });
+
+  it('allows a literal @swift2/ui-internal import', async () => {
+    const messages = await lint(
+      `export const a = import('@swift2/ui');\nexport const b = require('@swift2/ui');\n`,
+      `${root}/packages/ui/src/fixture.ts`,
+    );
+    expect(messages).toHaveLength(0);
+  });
+
   it('allows react', async () => {
     const messages = await lint(
       `import { useState } from 'react';\nexport { useState };\n`,
