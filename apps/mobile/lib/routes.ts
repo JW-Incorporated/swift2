@@ -100,6 +100,9 @@ export interface RouteFlags {
   /** OS-036: same progressive-rollout posture as eraStream/trackGuide —
    * defaults OFF (see DEFAULT_ROUTE_FLAGS). */
   clownbot: boolean;
+  /** One UI WP0.4: mounts the shared-UI DOM host instead of the native
+   * reader. Defaults OFF; the diagnostics C4 override can force it per device. */
+  sharedUi: boolean;
 }
 
 /** OS-039: every native screen this phase built now ships ON by default —
@@ -122,6 +125,7 @@ export const DEFAULT_ROUTE_FLAGS: RouteFlags = {
   song: true,
   moment: true,
   clownbot: true,
+  sharedUi: false,
 };
 
 function screenForDestination(dest: ShellDestination): ScreenId | null {

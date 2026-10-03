@@ -8,6 +8,7 @@ vi.mock('./vault-storage', () => ({
 import { ROUTE_FLAG_KEYS, MemoryStorageAdapter } from '@swift2/content';
 import { APP_CONFIG_CACHE_KEY, loadAppConfig, routeFlagsFrom } from './app-config';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
+import shippedConfig from '../../../config/mobile/app-config.json';
 
 function okFetch(body: unknown): typeof fetch {
   return vi.fn(async () => ({
@@ -23,6 +24,12 @@ const failingFetch = vi.fn(async () => {
 describe('ROUTE_FLAG_KEYS', () => {
   it('equals the keys of DEFAULT_ROUTE_FLAGS', () => {
     expect([...ROUTE_FLAG_KEYS].sort()).toEqual(Object.keys(DEFAULT_ROUTE_FLAGS).sort());
+  });
+
+  it('defaults sharedUi off and the shipped config agrees', () => {
+    expect(DEFAULT_ROUTE_FLAGS.sharedUi).toBe(false);
+    expect(routeFlagsFrom({ routeFlags: { sharedUi: true } }).sharedUi).toBe(true);
+    expect(shippedConfig.routeFlags.sharedUi).toBe(false);
   });
 });
 

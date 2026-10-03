@@ -626,3 +626,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `scripts/ci-concurrency.test.ts` | Pins `ci.yml`'s concurrency: `main` pushes grouped per commit (a shared group silently dropped queued runs when merges clustered), PRs per-ref with cancel-in-progress |
+
+## Expo DOM host (One UI WP0.4)
+
+| File | What it is |
+|---|---|
+| `apps/mobile/dom/SharedUiTest.tsx` (+ `shared-ui-test.css`, `css.d.ts`) | `'use dom'` test page: Tailwind v4, `--era-*` switch, Radix dialog, 50-row list, inlined web font, watchdog signals |
+| `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals, reloads itself on webview death |
+| `apps/mobile/lib/orientation-lock.ts` | Locks phones to portrait at runtime (app.json orientation is `default`) |
+| `apps/mobile/postcss.config.mjs` | Tailwind v4 PostCSS plugin for DOM CSS |
+| `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
