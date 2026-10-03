@@ -31,7 +31,7 @@ export function loadReader(
   const hostAdapter = require('../../../web/lib/host-adapter') as typeof import('../../../web/lib/host-adapter');
   const base = hostAdapter.createWebAdapter({ push() {}, replace() {} });
   // The DOM page is a null origin: app-relative assets (era art) load over the network from the canonical origin.
-  // TODO(PM, WP2.4-D): apiFetch is inherited (relative fetch) and /api has no CORS, so mobile intake is not functional until the WP2.3-F bridge apiFetch replaces it.
+  // TODO(PM, WP2.3-F): apiFetch is inherited (relative fetch) and /api has no CORS, so mobile intake is not functional until the WP2.3-F bridge apiFetch replaces it.
   const adapter = {
     ...base,
     resolveUrl: (path: string) => resolveAppUrl(path, base.env.origin),

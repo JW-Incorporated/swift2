@@ -51,7 +51,7 @@ describe('CurrentItemDetail intake goes through the host apiFetch', () => {
     const base = createWebAdapter({ push() {}, replace() {} });
     const apiFetch = vi.fn(base.apiFetch);
     // Same shape as apps/mobile/dom/spike/reader-modules.ts: web adapter plus a resolveUrl override.
-    // TODO(PM, WP2.4-D): apiFetch is inherited, so mobile intake stays relative (non-functional) until the WP2.3-F bridge apiFetch lands.
+    // TODO(PM, WP2.3-F): apiFetch is inherited, so mobile intake stays relative (non-functional) until the WP2.3-F bridge apiFetch lands.
     const adapter: HostAdapter = { ...base, apiFetch, resolveUrl: (p) => `https://api.example.test${p}` };
     render(createElement(HostProvider, { adapter }, createElement(CurrentItemDetail, { item, era, onClose: () => {} })));
     click();
