@@ -19,6 +19,7 @@ import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
+import { noteImageLoaded } from '../lib/image-marks';
 import { lastGoodCacheUri } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
@@ -121,6 +122,7 @@ export function SharedUiHost({
           }
           reportError={handlers.reportError}
           reportProbe={async (json) => publishProbe(json)}
+          reportImageLoad={async (visible) => noteImageLoaded(visible)}
           reportBack={async (result) => {
             if (result === 'exit') BackHandler.exitApp();
           }}

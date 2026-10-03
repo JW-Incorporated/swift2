@@ -144,3 +144,21 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
   bumped: this batch adds only the signed list).
 - **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) clears the C4 override and keeps the next launch native too. A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Re-enabling the override in Diagnostics clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
 - **App links declared but unverified until WP2.3 ships URL intake + .well-known; risk accepted (Codex vs Fable disagreement recorded in PROGRESS).** Without  files Android 12+ opens these links in the browser by default; only test devices exist (C5).
+
+## Speed test mode (#4896) — the S2/S4 device procedure
+
+Replaces "force-stop, 7 taps, Send report, repeat 10 times". Three steps:
+
+1. Open Diagnostics (hot corner or Settings version label) and turn on **Speed test mode**. Close the panel.
+2. Run the launches: force-stop and reopen for cold, or press Home and reopen for warm. Nothing else to tap.
+3. After the 10th launch the mode switches itself off and posts one summary comment (per-launch table, worst cold, worst warm, PASS/FAIL).
+
+Behavior:
+
+- Each launch posts a `[diag]` comment on #4791 tagged with the run id (`run abcd1234, launch 3 of 10`). A cold report is held until T+10 s so it can carry `Images loaded by T+10 s`; backgrounding the app sends it early with the count so far.
+- Cold vs warm comes from the process, not the content cache: a new JS runtime is cold; AppState background -> active inside one process is warm and gets fresh marks anchored to the resume (`resume-paint`). Fixes the S2 reports that were all labelled warm and repeated stale `at:` marks.
+- Cold clock: when RN's `performance.rnStartupTiming.startTime` is available the report adds `native-lead` (native app start to JS start) and says `Clock starts at: native process start`; otherwise it says `JS start (native lead unavailable)` and the number is JS start -> first-era-paint. Cold number = native-lead + `at:first-era-paint`. Unverified on device until the first S2/S4 run.
+- Bar (PLAN.md §WP0.2): cold <= 2500 ms worst, warm <= 1000 ms worst. The server recomputes the verdict from the raw launches; INCOMPLETE if a kind has no launches.
+- `first-era-paint` is the native era stream's first frame, or the shared-UI host's `dom-ready`; each report records which (`UI | native/shared`). `first-image-paint` = first loaded image inside the viewport. Shared UI reports via ReaderSpike's `reportImageLoad` prop (the next/image stub's `onLoad`), native via `MomentCard` `onLoad`.
+- State (run id, remaining, results) is one SecureStore key `longlive_diag_speed_test_v1`. The server caps reports at 31 per run id and 300 per 24 h overall, on top of the existing 5/min per IP.
+- Opt-in by the tester; unrelated to the category-only watchdog telemetry.

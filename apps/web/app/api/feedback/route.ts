@@ -2,7 +2,15 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
-import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, diagCommentFrom, isDiagMessage, parseDiagReport } from './diag';
+import {
+  DIAG_ISSUE_NUMBER,
+  DIAG_PREFIX,
+  DIAG_REPO,
+  diagCommentFrom,
+  isDiagMessage,
+  parseDiagReport,
+  speedAllowed,
+} from './diag';
 import {
   WATCHDOG_PREFIX,
   isWatchdogMessage,
@@ -242,6 +250,9 @@ export async function POST(req: Request): Promise<Response> {
     const parsed = exactShape ? parseDiagReport(payload.diag) : null;
     if (!parsed?.ok) {
       return NextResponse.json({ error: 'Invalid diagnostics report.' }, { status: 400 });
+    }
+    if (parsed.report.speed && !speedAllowed(parsed.report.speed.run)) {
+      return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
     }
     diagComment = diagCommentFrom(parsed.report);
   }
