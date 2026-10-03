@@ -1,7 +1,7 @@
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { fromBaked, hashSnapshot } from '@swift2/experience/reader-snapshot';
 
-import { bakedModules } from '@/lib/longlive/baked-modules';
+import { bakedModulesFull } from '@/lib/longlive/baked-modules-full';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(): Promise<Response> {
   if (process.env.PARITY_PROBE !== '1') return new Response('not found', { status: 404 });
-  const snapshot = fromBaked(bakedModules(), { eraVideoFeed });
+  const snapshot = fromBaked(bakedModulesFull(), { eraVideoFeed });
   const { hash } = await hashSnapshot(snapshot);
   return Response.json({ hash });
 }

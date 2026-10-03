@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { canonicalize, hashSnapshot, hashValue } from './hash';
-import type { ReaderSnapshot } from './types';
+import { READER_SNAPSHOT_DOMAIN_NAMES, type ReaderSnapshot } from './types';
 
 describe('canonicalize', () => {
   it('is independent of key order and drops undefined members', () => {
@@ -21,12 +21,32 @@ describe('hashValue', () => {
   });
 });
 
+const fullDomains = Object.fromEntries(READER_SNAPSHOT_DOMAIN_NAMES.map((n) => [n, []]));
+
 describe('hashSnapshot', () => {
   it('hashes snapshot.version: a version-only difference changes the hash', async () => {
-    const base = { state: 'ready', origin: { kind: 'baked' }, domains: { eras: [] } };
+    const base = { state: 'ready', origin: { kind: 'baked' }, domains: fullDomains };
     const a = await hashSnapshot({ ...base, version: 1 } as unknown as ReaderSnapshot);
     const b = await hashSnapshot({ ...base, version: 2 } as unknown as ReaderSnapshot);
     expect(a.domains).toEqual(b.domains);
     expect(a.hash).not.toBe(b.hash);
+  });
+
+  it('names all 13 domains', () => {
+    expect(READER_SNAPSHOT_DOMAIN_NAMES).toHaveLength(13);
+  });
+
+  it.each(READER_SNAPSHOT_DOMAIN_NAMES.map((n) => [n]))('throws when domain %s is missing', async (name) => {
+    const rest = Object.fromEntries(Object.entries(fullDomains).filter(([k]) => k !== name));
+    const snap = { version: 1, state: 'ready', origin: { kind: 'baked' }, domains: rest };
+    await expect(hashSnapshot(snap as unknown as ReaderSnapshot)).rejects.toThrow(new RegExp(`missing domains: ${name}`));
+  });
+
+  it('throws on a core-only snapshot, naming merch and songMoods', async () => {
+    const core = Object.fromEntries(
+      Object.entries(fullDomains).filter(([k]) => k !== 'merch' && k !== 'songMoods'),
+    );
+    const snap = { version: 1, state: 'ready', origin: { kind: 'baked' }, domains: core };
+    await expect(hashSnapshot(snap as unknown as ReaderSnapshot)).rejects.toThrow(/merch, songMoods/);
   });
 });

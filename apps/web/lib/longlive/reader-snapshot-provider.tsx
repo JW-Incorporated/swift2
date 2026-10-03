@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
-import { fromBaked } from '@swift2/experience/reader-snapshot';
+import { fromBakedCore } from '@swift2/experience/reader-snapshot';
 import { ReaderSnapshotProvider } from '@swift2/ui';
 
 import { bakedModules } from './baked-modules';
@@ -13,6 +13,6 @@ import { bakedModules } from './baked-modules';
  * re-renders and the search engine's per-array suffix cache holds.
  */
 export function WebReaderSnapshotProvider({ children }: { children: ReactNode }) {
-  const [snapshot] = useState(() => fromBaked(bakedModules(), { eraVideoFeed }));
+  const [snapshot] = useState(() => fromBakedCore(bakedModules(), { eraVideoFeed }));
   return <ReaderSnapshotProvider value={snapshot}>{children}</ReaderSnapshotProvider>;
 }

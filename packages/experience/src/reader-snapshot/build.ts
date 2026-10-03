@@ -12,14 +12,17 @@ import { buildSearchDocs } from './search-docs';
 import {
   READER_SNAPSHOT_VERSION,
   type ReaderSnapshot,
+  type ReaderSnapshotCore,
+  type ReaderSnapshotCoreDomains,
+  type ReaderSnapshotCoreInputs,
   type ReaderSnapshotDeps,
-  type ReaderSnapshotDomains,
+  type ReaderSnapshotExtensions,
   type ReaderSnapshotInputs,
   type ReaderSnapshotState,
   type TrackGuideEntry,
 } from './types';
 
-function groupContent(inputs: ReaderSnapshotInputs): Partial<Record<EraId, ContentItem[]>> {
+function groupContent(inputs: ReaderSnapshotCoreInputs): Partial<Record<EraId, ContentItem[]>> {
   const out: Partial<Record<EraId, ContentItem[]>> = {};
   for (const era of inputs.eras) out[era.id] = inputs.content.filter((c) => c.eraId === era.id);
   return out;
@@ -65,19 +68,31 @@ export function buildReaderSnapshot(
   origin: ReaderSnapshot['origin'],
   state: ReaderSnapshotState = 'ready',
 ): ReaderSnapshot {
-  return derive(inputs, deps, origin, state);
+  return attachExtensions(buildReaderSnapshotCore(inputs, deps, origin, state), inputs);
 }
 
-function derive(
-  inputs: ReaderSnapshotInputs,
+/** Pure: a full snapshot from a core one plus the extension domains. The core is not mutated. */
+export function attachExtensions(
+  core: ReaderSnapshotCore,
+  extensions: ReaderSnapshotExtensions,
+): ReaderSnapshot {
+  return {
+    ...core,
+    domains: { ...core.domains, merch: extensions.merch, songMoods: extensions.songMoods },
+  };
+}
+
+/** The core domains only (no merch, songMoods). */
+export function buildReaderSnapshotCore(
+  inputs: ReaderSnapshotCoreInputs,
   deps: ReaderSnapshotDeps,
   origin: ReaderSnapshot['origin'],
-  state: ReaderSnapshotState,
-): ReaderSnapshot {
+  state: ReaderSnapshotState = 'ready',
+): ReaderSnapshotCore {
   const corpus = corpusFromInputs(inputs);
   const content = groupContent(inputs);
-  const eraStream: ReaderSnapshotDomains['eraStream'] = {};
-  const trackGuide: ReaderSnapshotDomains['trackGuide'] = {};
+  const eraStream: ReaderSnapshotCoreDomains['eraStream'] = {};
+  const trackGuide: ReaderSnapshotCoreDomains['trackGuide'] = {};
 
   for (const era of inputs.eras) {
     const items = content[era.id] ?? [];
@@ -103,7 +118,7 @@ function derive(
     );
   }
 
-  const domains: ReaderSnapshotDomains = {
+  const domains: ReaderSnapshotCoreDomains = {
     eras: inputs.eras,
     content,
     milestones: inputs.milestones,
@@ -115,8 +130,6 @@ function derive(
     searchIndex: sortedDocs(buildSearchDocs(inputs)),
     tracks: inputs.tracks,
     trackGuide,
-    merch: inputs.merch,
-    songMoods: inputs.songMoods,
   };
   return { version: READER_SNAPSHOT_VERSION, state, origin, domains };
 }

@@ -14,8 +14,10 @@ import { THREADS } from '../lenses';
 import { contentForThread } from '../threads-injected';
 import { threadPoints } from '../lenses-injected';
 import { eggDoorwaysForEra, threadDoorwaysForEra } from '../doorways-injected';
-import { fromBaked, type BakedModules } from './sources';
+import type { ContentItem, EraId } from '../types';
+import { fromBakedCore, type BakedCoreModules } from './sources';
 import { createReaderQueries, type ReaderQueries } from './queries';
+import type { ReaderSnapshotCore } from './types';
 
 const web = '../../../../apps/web/lib/longlive/';
 const deps = { videosForEra, musicVideosForEra, allVideoRecords };
@@ -38,8 +40,8 @@ beforeAll(async () => {
     import(/* @vite-ignore */ `${web}baked-modules`),
   ]);
   [content, tracks, theories, videos, secrets] = [c, t, th, v, s];
-  const mods = (bm as { bakedModules(): BakedModules }).bakedModules();
-  q = createReaderQueries(fromBaked(mods, { eraVideoFeed }), deps);
+  const mods = (bm as { bakedModules(): BakedCoreModules }).bakedModules();
+  q = createReaderQueries(fromBakedCore(mods, { eraVideoFeed }), deps);
 }, 120_000);
 
 describe('createReaderQueries equals the web modules', () => {
@@ -96,9 +98,66 @@ describe('createReaderQueries equals the web modules', () => {
     }
   });
 
-  it('merch and searchIndex are the snapshot domains', async () => {
-    const { MERCH_CATALOGUE } = (await import(/* @vite-ignore */ `${web}merch`)) as Web;
-    expect(q.merch).toEqual(MERCH_CATALOGUE);
+  it('searchIndex is the snapshot domain; the core queries carry no merch', () => {
     expect(q.searchIndex.length).toBeGreaterThan(0);
+    expect('merch' in q).toBe(false);
+  });
+});
+
+describe('createReaderQueries ordering and lookup edge cases', () => {
+  const item = (id: string, date: string, slug?: string) =>
+    ({ id, eraId: 'debut', date, slug }) as unknown as ContentItem;
+  const synthetic = (content: ContentItem[]) =>
+    createReaderQueries(
+      {
+        version: 1,
+        state: 'ready',
+        origin: { kind: 'baked' },
+        domains: {
+          eras: [{ id: 'debut' }],
+          content: { debut: content },
+          milestones: [],
+          videos: {},
+          tracks: {},
+          theories: {},
+          eraSecrets: {},
+          searchIndex: [],
+        },
+      } as unknown as ReaderSnapshotCore,
+      deps,
+    );
+
+  it('contentForEra sorts newest first and keeps domain order on equal dates', () => {
+    const r = synthetic([
+      item('a', '2020-01-01'),
+      item('b', '2021-05-05'),
+      item('c', '2020-01-01'),
+      item('d', '2021-05-05'),
+      item('e', '2019-01-01'),
+    ]);
+    expect(r.contentForEra('debut' as EraId).map((i) => i.id)).toEqual(['b', 'd', 'a', 'c', 'e']);
+  });
+
+  it('contentForEra does not mutate the domain array', () => {
+    const r = synthetic([item('a', '2020-01-01'), item('b', '2021-01-01')]);
+    r.contentForEra('debut' as EraId);
+    expect(r.getContentItem('a')?.id).toBe('a');
+  });
+
+  it('getContentItemByIdOrSlug: an id beats another item\'s slug; the first of duplicate slugs wins', () => {
+    const r = synthetic([
+      item('one', '2020-01-01', 'shared'),
+      item('shared', '2020-02-01', 'other'),
+      item('two', '2020-03-01', 'shared'),
+    ]);
+    expect(r.getContentItemByIdOrSlug('shared')?.id).toBe('shared');
+    expect(r.getContentItemByIdOrSlug('other')?.id).toBe('shared');
+    expect(r.getContentItemByIdOrSlug('one')?.id).toBe('one');
+    expect(r.getContentItemByIdOrSlug('missing')).toBeUndefined();
+  });
+
+  it('getContentItemByIdOrSlug: slug-only collision returns the first item', () => {
+    const r = synthetic([item('x1', '2020-01-01', 'dup'), item('x2', '2020-02-01', 'dup')]);
+    expect(r.getContentItemByIdOrSlug('dup')?.id).toBe('x1');
   });
 });

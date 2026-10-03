@@ -6,7 +6,7 @@ import { theoriesForEraIn } from '../theories';
 import { tracksForEraIn } from '../track-guide';
 import type { ContentItem, EraId, EraSecret, LensId, Milestone, VideoNote } from '../types';
 import { corpusFromInputs } from './corpus';
-import type { ReaderSnapshot, ReaderSnapshotInputs } from './types';
+import type { ReaderSnapshotCore, ReaderSnapshotCoreInputs } from './types';
 
 /**
  * The video helpers live in `@swift2/content-enrichment`, which imports this
@@ -19,7 +19,7 @@ export interface ReaderQueryDeps<W extends VideoNote = VideoNote, M extends W = 
 }
 
 /** Content and per-era domains back as the pure derivation's inputs. Era order, so a flat read is era-grouped. */
-function inputsFromSnapshot(snapshot: ReaderSnapshot): ReaderSnapshotInputs {
+function inputsFromSnapshot(snapshot: ReaderSnapshotCore): ReaderSnapshotCoreInputs {
   const d = snapshot.domains;
   return {
     eras: d.eras,
@@ -29,8 +29,6 @@ function inputsFromSnapshot(snapshot: ReaderSnapshot): ReaderSnapshotInputs {
     theories: d.theories,
     videos: d.videos,
     eraSecrets: d.eraSecrets,
-    merch: d.merch,
-    songMoods: d.songMoods,
   };
 }
 
@@ -40,7 +38,7 @@ function inputsFromSnapshot(snapshot: ReaderSnapshot): ReaderSnapshotInputs {
  * reading only the snapshot, never a module-global provider.
  */
 export function createReaderQueries<W extends VideoNote = VideoNote, M extends W = W>(
-  snapshot: ReaderSnapshot,
+  snapshot: ReaderSnapshotCore,
   deps: ReaderQueryDeps<W, M>,
 ) {
   const { domains } = snapshot;
@@ -52,7 +50,6 @@ export function createReaderQueries<W extends VideoNote = VideoNote, M extends W
 
   return {
     eras: domains.eras,
-    merch: domains.merch,
     searchIndex: domains.searchIndex,
     milestones: domains.milestones as readonly Milestone[],
     contentForEra: (eraId: EraId): ContentItem[] =>

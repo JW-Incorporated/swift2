@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { fromBaked } from '@swift2/experience/reader-snapshot';
-import { bakedModules } from './baked-modules';
+import { bakedModulesFull } from './baked-modules-full';
 import { CONTENT } from './content';
 import golden from './search-golden.fixture.json';
 import { resolveTrackKey } from '@swift2/experience';
@@ -19,7 +19,7 @@ import {
 } from './search';
 
 /** The index the reader uses: the snapshot's own, built from the baked modules. */
-const buildSearchIndex = () => fromBaked(bakedModules(), { eraVideoFeed }).domains.searchIndex;
+const buildSearchIndex = () => fromBaked(bakedModulesFull(), { eraVideoFeed }).domains.searchIndex;
 
 /** Minimal doc factory for ranking tests (mirrors makeDoc's normalization). */
 function doc(

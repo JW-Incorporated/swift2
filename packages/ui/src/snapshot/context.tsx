@@ -7,8 +7,8 @@ import {
 import {
   createReaderQueries,
   type ReaderQueries,
-  type ReaderSnapshot,
   type ReaderSnapshotContextValue,
+  type ReaderSnapshotCore,
 } from '@swift2/experience/reader-snapshot';
 
 /**
@@ -20,7 +20,7 @@ import {
 const ReaderSnapshotContext = createContext<ReaderSnapshotContextValue | null>(null);
 
 /** Type guard, not key equality: only a real snapshot carries `domains`. */
-export function isReaderSnapshot(v: ReaderSnapshotContextValue): v is ReaderSnapshot {
+export function isReaderSnapshot(v: ReaderSnapshotContextValue): v is ReaderSnapshotCore {
   return 'domains' in v;
 }
 
@@ -48,7 +48,7 @@ export function useReaderSnapshotStatus(): ReaderSnapshotContextValue {
  * renders children only once a snapshot is ready, so a reader component never
  * sees `loading`.
  */
-export function useReaderSnapshot(): ReaderSnapshot {
+export function useReaderSnapshot(): ReaderSnapshotCore {
   const value = useReaderSnapshotStatus();
   if (!isReaderSnapshot(value)) {
     throw new Error('useReaderSnapshot called while the snapshot is loading; gate on useReaderSnapshotStatus().');
