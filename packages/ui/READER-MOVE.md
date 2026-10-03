@@ -33,7 +33,7 @@ Deferred to 2.4-A2 (logic, not move): landed below.
 ## 2.4-A2: host-backed logic (not a move)
 
 - `storage.local`: `createLocalStorageAdapter(storage)` wraps `useHost().storage.local`; the store ProgressProvider builds it from the host (no module singleton). Every tree that mounts `AppProvider` now needs a `HostProvider`.
-- `share`: `shareTarget` / `shareCardImage` take an optional trailing `ShareHost` (`Pick<HostAdapter, 'share' | 'resolveUrl'>`). Omitted on the web (unchanged path). With `host.share`, a link share replaces the file share (known S5 fallback). Existing callers do not pass it yet.
+- `share`: `shareTarget` / `shareCardImage` take an optional trailing `ShareHost` (`Pick<HostAdapter, 'share' | 'resolveUrl'>`). Omitted on the web (unchanged path). With `host.share`, a link share replaces the file share (known S5 fallback). All 6 live callers pass the host: TopBar, MomentDetail, ShareImageMenu (`shareCardImage` and `prefetchShareCard`), OverlayNav, TheoryGuide.
 - `resolveUrl` (member already on `HostAdapter`): used by `fetchLiveData` (via `useResolveUrl()` in the two hooks) and `prefetchShareCard`; identity on the web.
 - `types.ts`: no new declarations needed; the type re-homing finished in A1.
 - Contract test: `bridge/contract.test.ts` gains the reader-consumer leg (ShareHost, resolveUrl, storage.local).
