@@ -471,7 +471,18 @@ reseeds max(now, hwm+1), timeouts from send, parse ≤ cap, BigInt ids).
 **04:37:** **#4849 (WP2.2-B) MERGED** — snapshot context + core/extension split
 on main; #4856/#4857 retargeted to main, wp2.2b deleted. Landing next: C1 #4856
 (after exhaustive-test commit) → retarget C3 (stacked on c1) → C2 #4857 (merge
-main; MomentDetail conflict) . (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+main; MomentDetail conflict) .
+**04:42:** **#4852 (WP2.4 PR 0) MERGED** (chrome captures on main). B #4853 hwm
+delta 629a8d44 (`readyAck {hwm}`) delta-reviewed APPROVE → B fully approved,
+lands after A. C #4855 fix r2 launched (ready backoff, hwm reseed w/ validation,
+timeouts from send, inbox slice before parse) — merged wp2.3b in. A #4850 Fable
+fixes in (string boundary, canonicalize, ASCII+fixed-point isWebPath) → scoped
+reviewer landing (retarget B + C). C1 #4856 exhaustive test 23f4996e → lander
+polling CI; C2 #4857 exhaustive 830ee85d. C3 → **#4858** (6 new queries, share
+cascade w/ server-only wrapper) reviewer r1: sampled equivalence + myEras cases;
+"out-of-scope release files" = main merged into its stack (noise, clears on
+retarget) → fix after Codex r1. **HA #97 still open** (rulesets require only
+`build`) → WP2.4 A1 held. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
