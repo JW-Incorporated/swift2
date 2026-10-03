@@ -38,7 +38,17 @@ Deferred to 2.4-A2 (logic, not move): landed below.
 - `types.ts`: no new declarations needed; the type re-homing finished in A1.
 - Contract test: `bridge/contract.test.ts` gains the reader-consumer leg (ShareHost, resolveUrl, storage.local).
 
-Debt: `video-affordance.ts` (294) and `store/index.tsx` (473) are over or near
+## 2.4-B: shell chrome + ReaderShell
+
+Moved to `packages/ui/src/reader/shell/`: `TopBar`, `TimelineScrubber` (789 lines, as-is), `timelineScrubberLayout`, `topbarLayout`, `BottomNav`, `button` (from `apps/web/components/ui`). Old paths are one-line `export *` shims; exports are explicit per file in `packages/ui/package.json` because the dir mixes .ts and .tsx. Shims stay until WP2.13.
+
+- `ReaderShell.tsx` (new): the body of the old `LongLive.tsx` `Shell` with `slots` (`surfaces`, `overlays`, `footer`, `floating`, `fallback({mode})`); `ReaderRoot` = `AppProvider` + `ReaderShell`. Not exported from the package index (it pulls the store); import the subpath `@swift2/ui/reader/shell/ReaderShell`.
+- One non-import hunk: the `react-hooks/exhaustive-deps` disable comment in `TimelineScrubber` removed (rule not registered under `packages/ui`, same as A1).
+- `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
+- Tests stay in `apps/web` (they read component source or render with the web test host); source-read paths now point at the moved files. New: `components/longlive/ReaderShell.test.tsx`.
+- Debt: `TimelineScrubber.tsx` (789) over the 300-line rule.
+
+Debt (2.4-A): `video-affordance.ts` (294) and `store/index.tsx` (473) are over or near
 the 300-line rule; moved as-is.
 
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,

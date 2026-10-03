@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest';
 // components so the era-bg-on-accent pairing can't quietly return.
 
 const SOURCES = [
-  '../ui/button.tsx',
+  '../../../../packages/ui/src/reader/shell/button.tsx',
   './FeedbackButton.tsx',
   './WebNotificationSettings.tsx',
   './FilterBar.tsx',

@@ -9,14 +9,24 @@
     ".": "./src/index.ts",
     "./fonts/*": "./fonts/*",
     "./reader/lib/*": "./src/reader/lib/*.ts",
-    "./reader/store/*": "./src/reader/store/*.tsx"
+    "./reader/store/*": "./src/reader/store/*.tsx",
+    "./reader/shell/ReaderShell": "./src/reader/shell/ReaderShell.tsx",
+    "./reader/shell/TopBar": "./src/reader/shell/TopBar.tsx",
+    "./reader/shell/TimelineScrubber": "./src/reader/shell/TimelineScrubber.tsx",
+    "./reader/shell/BottomNav": "./src/reader/shell/BottomNav.tsx",
+    "./reader/shell/button": "./src/reader/shell/button.tsx",
+    "./reader/shell/timelineScrubberLayout": "./src/reader/shell/timelineScrubberLayout.ts",
+    "./reader/shell/topbarLayout": "./src/reader/shell/topbarLayout.ts"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.3.3",
     "@swift2/content": "*",
     "@swift2/content-enrichment": "*",
     "@swift2/experience": "*",
     "@swift2/shared": "*",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lucide-react": "^1.39.0",
     "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
