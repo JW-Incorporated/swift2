@@ -121,7 +121,8 @@ A1 (move-only): `SearchOverlay.tsx` and `search-listbox-children.test.ts` -> `re
 2.9-A1b: `MerchCard` and `MerchStyleSection` moved too (shop imported from `../moment/lib/shop`, WP2.5). `MerchSection` stays in apps/web: it imports baked `merch-extensions` (apps/web data), and the fix is the `extensions` prop = A2. `merch-filters.test.ts` stays (reads web-only data modules through the shim); `section-jump.test.ts` stays (fails the ui package's stricter `noUncheckedIndexedAccess`; fixing it is a non-import hunk, so it goes to A2).
 
 ### WP2.10 community
-(pending)
+A1 (move-only). Moved with `git mv` to `reader/community/`: `CommunityCard`, `CommunitySection`, `SectionJumpBar`; old paths now one-line `export *` shims. Imports repointed: `@swift2/experience` (data/types), `../merch/lib/section-jump`, `../merch/SubmitLinkForm`, `../lib/chrome-offset`.
+- A2 not needed: no non-import hunks. Left for D: `CommunityCard` `target=_blank` anchor (openExternal interceptor).
 
 ### WP2.11 clown
 A1 + minimal A2 in one PR (separate commits). Moved with `git mv`, old paths now one-line `export *` shims:
@@ -142,6 +143,10 @@ A1 + A2 in one PR (PM ruling), separate commits.
 - Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
 
 ### WP2.13 legal
+A1 + minimal A2 in one PR (PM ruling), separate commits.
+
+- A1 (move-only): `lib/longlive/legal.ts` -> `reader/legal/lib/legal.ts` (one-line shim; 821 lines, over the 300 rule, waived); `LegalDocument.tsx`, `SupportPage.tsx` (support page body, `metadata` split into the route file) -> `reader/legal/`.
+- A2 (logic): `next/link` -> `useHost().Link`; `SiteFooter` is not moved, both components take a `footer?: ReactNode` slot that the route files fill. `mailto:` links stay plain anchors (host handling, if the app needs it, is a later A2). `SiteFooter` is 2.4-B.
 - A1b (move-only): `FeedbackButton.tsx` -> `reader/legal/`. Old path is a one-line `export *` shim (stays until WP2.13 A2). Source-reading tests (`accent-fill-foreground`, `back-dismiss`, `close-affordance`, `escape-dismiss`, `modal-focus-trap`, `FeedbackButton.test`) are repointed. A1 (legal pages) is not part of this PR.
 - Deferred to A2 (logic, untouched here): `sessionStorage` -> `storage.session`, `window.location.href`, `fetch('/api/feedback')` -> `apiFetch`.
 - A2 (FeedbackButton): done. `storage.session` (same key), `host.apiFetch` POST `/api/feedback` (same headers/body; ok = 2xx, body parsed as JSON best-effort), new optional `HostAdapter.currentUrl` (web root adapter only). Shim still stays until the WP2.13 shim cleanup.
