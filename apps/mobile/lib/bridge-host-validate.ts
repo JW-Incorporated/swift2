@@ -1,10 +1,11 @@
+import { isAnyNotificationCategory } from '@swift2/shared';
 import { isBridgeId, isExternalUrl, isWebPath, sanitizeApiRequest } from '@swift2/ui';
 import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
 
 const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const MAX_SHARE_FIELD = 2048;
-const MAX_PREFS = 64;
-const MAX_PREF_KEY = 64;
+export const MAX_PREFS = 64;
+export const MAX_PREF_KEY = 64;
 
 export const isRecord = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -20,7 +21,7 @@ function validShare(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
-function validPrefs(prefs: unknown): JsonValue | null {
+export function validPrefs(prefs: unknown): JsonValue | null {
   if (!isRecord(prefs)) return null;
   const keys = Object.keys(prefs);
   if (keys.length > MAX_PREFS) return null;
@@ -30,6 +31,14 @@ function validPrefs(prefs: unknown): JsonValue | null {
     out[k] = prefs[k] as boolean;
   }
   return { prefs: out };
+}
+
+/** Strict variant: validPrefs plus keys restricted to the canonical notification categories (shared isAnyNotificationCategory). */
+export function validKnownPrefs(prefs: unknown): JsonValue | null {
+  const v = validPrefs(prefs);
+  if (!v) return null;
+  const out = (v as { prefs: Record<string, JsonValue> }).prefs;
+  return Object.keys(out).every((k) => isAnyNotificationCategory(k)) ? v : null;
 }
 
 /** Per-command payload validation; returns the cleaned payload or null. */
