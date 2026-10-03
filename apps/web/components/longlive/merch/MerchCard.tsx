@@ -30,10 +30,9 @@
  * MomentDetail — the mockup's card links nowhere.
  */
 
-import { useHost } from '@swift2/ui';
+import { useHost, useReader } from '@swift2/ui';
 import { ExternalLink } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
-import { getContentItem } from '@/lib/longlive/content';
 import { merchItemImage } from '@/lib/longlive/merch-filters';
 import {
   buildShopUrl,
@@ -41,7 +40,7 @@ import {
   renderMerchShopLink,
   SHOP_DISCLOSURE,
 } from '@/lib/longlive/shop';
-import { merchProductJsonLd, type MerchItem } from '@/lib/longlive/merch';
+import { merchProductJsonLd, type MerchItem } from '@swift2/content-enrichment';
 
 function isRemoteUrl(url: string): boolean {
   return /^https?:\/\//.test(url);
@@ -123,12 +122,13 @@ function MerchCardHalf({
 }
 
 export function MerchCard({ item }: { item: MerchItem }) {
+  const q = useReader();
   const { openItem } = useAppActions();
   const soldOut = item.inStock === false;
   const showsMatch = item.category === 'shop-the-look';
   const exactPiece = item.matchTier ? item.matchTier === 'exact' : item.isAlternative !== true;
   const monogram = item.brand.charAt(0) || '?';
-  const moment = item.source ? getContentItem(item.source.momentId) : undefined;
+  const moment = item.source ? q.getContentItem(item.source.momentId) : undefined;
   const image = merchItemImage(item);
   const productLabel = showsMatch
     ? exactPiece

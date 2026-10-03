@@ -63,7 +63,6 @@ describe('WP2.2-D reader import ban', { timeout: 30_000 }, () => {
   it.each([
     `${root}/apps/web/components/longlive/Fixture.test.tsx`,
     `${root}/apps/web/components/longlive/Fixture.server.ts`,
-    `${root}/apps/web/components/longlive/MerchSection.tsx`,
   ])('exempts %s', async (filePath) => {
     const messages = await lint(
       "import { getContentItem } from '@/lib/longlive/content';\nexport default getContentItem;\n",

@@ -36,8 +36,8 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { ReaderExtensionsProvider, useMerch } from '@swift2/ui';
 import { hasAffiliateMerch, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
-import { MERCH_CATALOGUE, newDrops, type MerchItem } from '@/lib/longlive/merch';
-import type { ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
+import { newDrops, type MerchItem } from '@swift2/content-enrichment';
+import { MERCH_EXTENSIONS } from '@/lib/longlive/merch-extensions';
 import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
 import { MerchMarquee } from './merch/MerchMarquee';
@@ -118,7 +118,7 @@ function MerchGrid({
 }
 
 export function MerchSectionBody() {
-  const merch = useMerch() as unknown as typeof MERCH_CATALOGUE;
+  const merch = useMerch();
   const railSections = useMemo<readonly MerchRailSection[]>(
     () => [
       {
@@ -145,7 +145,7 @@ export function MerchSectionBody() {
   const [drops, setDrops] = useState<readonly MerchItem[]>([]);
   useEffect(() => {
     setDrops(newDrops([...merch.officialStore, ...merch.fanMade]));
-  }, []);
+  }, [merch]);
   const anyAffiliate = hasAffiliateMerch([
     ...merch.officialStore,
     ...merch.fanMade,
@@ -247,15 +247,10 @@ export function MerchSectionBody() {
   );
 }
 
-const EXTENSIONS: ReaderSnapshotExtensions = {
-  merch: MERCH_CATALOGUE as unknown as ReaderSnapshotExtensions['merch'],
-  songMoods: [],
-};
-
 /** The lazy chunk's entry: attaches the merch extension here so the main route never holds it. The merch section reads no moods. */
 export function MerchSection() {
   return (
-    <ReaderExtensionsProvider extensions={EXTENSIONS}>
+    <ReaderExtensionsProvider extensions={MERCH_EXTENSIONS}>
       <MerchSectionBody />
     </ReaderExtensionsProvider>
   );

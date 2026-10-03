@@ -20,7 +20,7 @@ body, but any unsuppressed authored photo appears above it in a full-width 16:10
 frame. Article length and later arrivals must not shrink that photo to an icon.
 Image-free compact rows, media/hero scoring, and video-image suppression are unchanged.
 
-**Reader snapshot provider (One UI WP2.2-B):** `components/longlive/LongLive.tsx` mounts `WebReaderSnapshotProvider` (`lib/longlive/reader-snapshot-provider.tsx`) outermost, around `AppProvider`. It builds one `ReaderSnapshot` per instance with `fromBaked(bakedModules())`; `useReader()` from `@swift2/ui` exposes pure accessors over it (`createReaderQueries`). The search index is the snapshot's own `domains.searchIndex`; the web has no index builder of its own. The synchronous module accessors still serve every other caller until WP2.2-C moves them.
+**Reader snapshot provider (One UI WP2.2-B):** `components/longlive/LongLive.tsx` mounts `WebReaderSnapshotProvider` (`lib/longlive/reader-snapshot-provider.tsx`) outermost, around `AppProvider`. It builds one CORE-only `ReaderSnapshot` per instance with `fromBakedCore(bakedModules())` (merch and songMoods attach later, in the merch chunk, via `ReaderExtensionsProvider`); `useReader()` from `@swift2/ui` exposes pure accessors over it (`createReaderQueries`). The search index is the snapshot's own `domains.searchIndex`; the web has no index builder of its own. The synchronous module accessors still serve every other caller until WP2.2-C moves them.
 
 ## 1. The one-paragraph mental model
 
@@ -743,10 +743,10 @@ constellation.
   snapshot from `baked-modules.ts` (`fromBakedCore`) and exposes it through
   the `@swift2/ui` context; components call `useReader()` (or
   `createReaderQueries`) and never import the content modules.
-- Extension domains (merch, songMoods) move to a `ReaderExtensionsProvider`
-  in PR #4859 (pending). Until it merges, the three merch components still
-  import the old modules and are allow-listed in `eslint.config.mjs` with a
-  TODO referencing #4859.
+- Extension domains (merch, songMoods) attach in the lazy merch chunk via
+  `ReaderExtensionsProvider` (`@swift2/ui`); components read them with
+  `useMerch()` / `useSongMoods()`. The main route never holds them, and no
+  component is allow-listed in `eslint.config.mjs`.
 - Server-only code (API routes, `*.server.ts`, `vault-wiring.ts`) may still
   use the module-global accessors and injected wrappers; shared helpers take
   their data as a required parameter.

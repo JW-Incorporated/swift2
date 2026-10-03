@@ -10,10 +10,9 @@
  */
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
-import { useMerch } from '@swift2/ui';
-import { getContentItem } from '@/lib/longlive/content';
+import { useMerch, useReader } from '@swift2/ui';
 import { ERAS, getEra } from '@swift2/experience';
-import type { MERCH_CATALOGUE, MerchItem } from '@/lib/longlive/merch';
+import type { MerchItem } from '@swift2/content-enrichment';
 import {
   merchMatchesFilter,
   ALL_MERCH_FILTERS,
@@ -58,7 +57,8 @@ function FilterPill({
 }
 
 export function MerchStyleSection() {
-  const merch = useMerch() as unknown as typeof MERCH_CATALOGUE;
+  const q = useReader();
+  const merch = useMerch();
   const [activeEraKey, setActiveEraKey] = useState<string>('all');
   const [activeFilters, setActiveFilters] = useState<ReadonlySet<MerchFilterId>>(new Set());
   const [activeKind, setActiveKind] = useState<NonNullable<Product['kind']> | null>(null);
@@ -131,9 +131,9 @@ export function MerchStyleSection() {
         ? filterMatched
         : filterMatched.filter((item) => item.source?.eraId === activeEraKey);
     const dateOf = (item: MerchItem) =>
-      item.source ? (getContentItem(item.source.momentId)?.date ?? '') : '';
+      item.source ? (q.getContentItem(item.source.momentId)?.date ?? '') : '';
     return [...pool].sort((a, b) => dateOf(b).localeCompare(dateOf(a)));
-  }, [filterMatched, activeEraKey]);
+  }, [filterMatched, activeEraKey, q]);
 
   useEffect(() => setVisibleCount(PAGE_SIZE), [activeEraKey, activeFilters, activeKind]);
 
