@@ -144,6 +144,7 @@ A1 + A2 in one PR (PM ruling), separate commits.
 ### WP2.13 legal
 - A1b (move-only): `FeedbackButton.tsx` -> `reader/legal/`. Old path is a one-line `export *` shim (stays until WP2.13 A2). Source-reading tests (`accent-fill-foreground`, `back-dismiss`, `close-affordance`, `escape-dismiss`, `modal-focus-trap`, `FeedbackButton.test`) are repointed. A1 (legal pages) is not part of this PR.
 - Deferred to A2 (logic, untouched here): `sessionStorage` -> `storage.session`, `window.location.href`, `fetch('/api/feedback')` -> `apiFetch`.
+- A2 (FeedbackButton): done. `storage.session` (same key), `host.apiFetch` POST `/api/feedback` (same headers/body; ok = 2xx, body parsed as JSON best-effort), new optional `HostAdapter.currentUrl` (web root adapter only). Shim still stays until the WP2.13 shim cleanup.
 
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,
 `clownbot-lore`, `content`, `tracks`, `era-secrets`, `videos`.

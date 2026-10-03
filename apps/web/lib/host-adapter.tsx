@@ -131,5 +131,5 @@ export function createWebAdapter(router: WebRouter): HostAdapter {
 
 /** The Next app root's adapter: the base web adapter plus browser web push (never in the base, which the app DOM host spreads). */
 export function createWebRootAdapter(router: WebRouter): HostAdapter {
-  return { ...createWebAdapter(router), webPush: webPushHost };
+  return { ...createWebAdapter(router), webPush: webPushHost, currentUrl: () => window.location.href };
 }
