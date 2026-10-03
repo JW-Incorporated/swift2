@@ -1,10 +1,10 @@
 {
   "ios": {
-    "bytes": 4009136
+    "bytes": 4479564
   },
   "android": {
-    "bytes": 4021701
+    "bytes": 4492279
   },
-  "updatedAt": "2026-10-02T21:07:59.596Z",
-  "commit": "58242111c134d33ca66f9fdd78625178ac59ddb0"
+  "updatedAt": "2026-10-03T00:46:33.914Z",
+  "commit": "fa0810f8b28274fc26a7046e9e3678f9b0f783de"
 }
