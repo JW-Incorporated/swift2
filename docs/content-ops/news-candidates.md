@@ -25,15 +25,73 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
 
-## Taylor Swift's Wedding Linked to Presley Gerber's Final Months
+## Caitlin Flanagan Discusses 'Cornell 7' and Gender Issues
 
-- first seen: 2026-10-03 14:18 UTC | category: relationship | importance: 6
+- first seen: 2026-10-03 19:49 UTC | category: music | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Reports suggest a poignant connection between Taylor Swift's wedding and the final months of Presley Gerber. The details highlight the emotional context surrounding the event.
+- summary: Caitlin Flanagan elaborates on the concept of the 'Cornell 7' and its relation to gender dynamics. The insights were shared in a piece by The Free Press.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdkNKbXRwN2drM3pfaUx2bTdIbjEweHR3Z3ZyOGZBc0EybUNsZTdPc2Jkb2UybzR0ZTV5ci14VTRxa0lEZ3pfWEJWR0lDRDAzcGxPNDQ1UEpKdmlZSlhhQ1lTWkkzTEhFb2FWN2ExOWN2eTJMT2xjMFpMX1BNX2tSSUJvbUJDT0I3b0hUanVYbjhPcE5VOUFlWmNMVnBjUEdpMWFmRHZycw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Free Press — https://news.google.com/rss/articles/CBMiaEFVX3lxTE9FQmdJWjF6Q3kzckhsQWhMSU02R05iWDd0aWJfTGlhbGNfTlppVXBsNTEtaTIxUmlfckwwN0d3bGRmMnNPekpWNDdTcXRxYnY5eE5lTE4zM05nOV9JOWVuVkxTcGNCME5q?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reveals Her Favorite Seasonal Fashion Staples
+
+- first seen: 2026-10-03 19:49 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a feature by Harper's BAZAAR, Taylor Swift shares her favorite fashion staples for the upcoming season, promoting cozy styles. The article highlights her fashion choices that embrace the season.
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiygFBVV95cUxPa1ktRGVQek1rYVVockw3eUpsa2Q2aVlqNE1neGdzVGl2MkV2aFpVMElfS1FQNVcxM1dGd2ZPa0o1NmhYVWFFUlFFckpzVENiZjE2bHJlZG9MbVZFYnJpSEl6Z0tlNV9vRG55Uzdhb1owZnpfbXdGY0RMUXVYbmMtTXBYNmxwTHBOTWNmOWZkN3FqeEIwSU9SZzBqZGFZc1ViSUdzSlZtM29NZmxqT1V5Q0dnSGhTdmt5RG5Rb1lVZTBXbVZfcGJaV3dR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Matthew Stafford Discusses Cameo in Taylor Swift's Music Video
+
+- first seen: 2026-10-03 19:49 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Matthew Stafford shares insights about his appearance in a Taylor Swift music video, providing details about his experience on set.
+- sources:
+  - [unverified] Rams Wire — https://news.google.com/rss/articles/CBMizgFBVV95cUxPTUE1UnhvTlFWdDhRb0pUanh0dWRiZFZaWDRreV82eEFtczBHZHFMd0J0OVVPNFR0VVZDdkRka09xbVdqenZjTFA0T01WVUVaWDcwdUFIQVNFQUF0VDBMRWJ5SFplbW9wYjZjT2dWLWtaS2lRMjlFNi1HZ2FRLXpuRGZTeEpHXzZIOWhaMWVhQWlCZjRqZUwzek9pRnRzMEVSVU5yU2ZPMWlvNTVPZWR6UTJJZHdQNWdvWTU0eVA0QzZhOURfV2JGSjNwTDQ0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shares Insights on 'Patient Zero' in New Video
+
+- first seen: 2026-10-03 19:49 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has released an expanded video that explores the making of her music video for 'Patient Zero.' The video features comments from Dakota Johnson and Anne Hathaway, discussing their impressions and experiences related to the project.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNU9IaGdVcmhLaV8tS24xa2x5RTNQb0VycC1YTzRCSHBweVpCUU94U19fQzktM0tJVzZxZHpZRWQwakJDdzY2RlBITDBWUUJzVU9XVnpUSHZjZ3o0VkN1eXgxMEdmVlp5UURiaVF5aDFWbGpJQi1RNDZ5emJDNmlYTVI5T0VZY0ZtblFwZE54UkZtbE1YUGhVSk1DOExSOXlBRVFTSF95bTk?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNQTVRdmQtQmMydS1oTUxnaDBvb1dzOXlDQnlYRFY3c1dEVkhfTlNQNFFlc3ZLRDh3WjE3cmtpMFBmV2RrczdvMVhsM3RKdEJHZER3YmgwVm5MSVBXZGFTUU1IZjAwcmhrVVBYOUJ3MGJnSGtsMHd4NGdjRkl2OFV5MzBZQVcybU4zRVNlbzFxYU9oLVpGRDBzU0p3eXQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Paul McCartney Shares Reason for Performing at Taylor Swift's Wedding
+
+- first seen: 2026-10-03 19:49 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Paul McCartney explained that he performed at Taylor Swift's wedding because she requested him to do so. He also mentioned an incident involving Larry David during his appearance on Jimmy Kimmel Live.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/paul-mccartney-taylor-swift-wedding-larry-david-kimmel-1235636499/
+
+## Country singer who guided Taylor Swift passes away at 84
+
+- first seen: 2026-10-03 19:49 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: A country singer known for influencing Taylor Swift and his notable lyrics has died at the age of 84, as reported by LehighValleyLive.com.
+- sources:
+  - [unverified] AL.com — https://news.google.com/rss/articles/CBMitwFBVV95cUxNcl85MmNmaWtQSVNDbnRiZWk2QzJYYXllWFNXSDQwbzZvT2NTQUNTRDlUT3JCUm1jalNnaVFVRzI3Z0xFZzZlRkpNQlQzMk1QWEdVNFVzalUwU2kyS0R6RE9DVGMxdkM3NmFDb2ZEUktSV0RLZzZQMzBwTHRRWFhzem1OM3VTRk9xeTByZXpiTzRSbFhoT0gwVks2UENFZ3RGS2JGeGFKSDFMNjctUzBRSU9tTG5TSzjSAcsBQVVfeXFMTVlpTEZVN0d6dkhmWG50SUwteW5JcWJlLWJuT1Z5amo4ZHdZeW5mQlljcEtsM3BvVjQ4NWJGZ2E3YmpvU3lESHo2b0p3MVNQZEhCbnFWa1diUWpZZURDT2pxb2NscTV3eDM5eXVvUWl1RGlyZjdnNjVUZzNWUWNwREd2bk1CUW9HaDFQbHN1MHJjaEJWNFZoa1VyUGJNQzczVjMybHA0bXctN2ZzajR5U3A4M0JJTVJ2VFd2RU9xU0pwMlAzS1VQSE1mZDQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] LehighValleyLive.com — https://news.google.com/rss/articles/CBMi1gFBVV95cUxOMXpWWVRJMFJadUhfdWNCamRPV2pNcHhsMk53TUxtZG5FUjZLQi16enVXajE4V2Z2Q3ZIS2Fmako4eTBNUk01QnkyYThqZWh6cC13My1wRVBJVzVUSGRkQkVVNlFJNVFTVEd3U1p0RHhWdWxhY1dJeE1IMjh5TV9PZHZ3eTNrbFdoV1hlOUk4NTlobnNsZlVUR1NZcXNmN29sQkpFQkc1ZDNMbWRRelZkM3BPMDZtMjdLTlVuRXZZRlhPd2Z6VXVBVWN1ZFJiak5MWmJ6a3hn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts New Curly Shoulder-Length Lob
+
+- first seen: 2026-10-03 19:49 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In her latest hair transformation, Taylor Swift has unveiled a curly shoulder-length lob, showcasing her evolving style. The new look has been featured by various media outlets, including NBC Los Angeles.
+- sources:
+  - [unverified] NBC Los Angeles — https://news.google.com/rss/articles/CBMi3AFBVV95cUxQMldvTi1QVmJmRUt0akFRbGdHWlF0d0JJUUNIZW5maUprMUdDdnZyTm1NdmlHQ2YwcjZDUDFid19lTDdLU0NwS1JGRU1uSUhXeElXaFNQMndVVmFJeTJnMnIzU0FCSlFESFpYQ3dpbWpQN1VfMnRRM1htMnk2UUVfaUNWQXJFdGFqMF94ZHF1MWJReWN6N2NuTzR6ZFhaV1NZS0hFQmxBbnZ2NlkzRDZ5dVRsVmItUDRNZVRsRWc4SWxpRjlVZ190c2kwYUw5SGxNRC1GbzhFOElOQzBw0gHkAUFVX3lxTFBvNWt5eGZXa003d2wwQXRxN0YyM0NESkdOQnpibEExQkFaU25JS1ZGYk4tcW1RTkhQREotR3BId0JSbEpEaEpFSHd2MWhLeWhQbDQ1REo2Z3g4MXZ5OF9Lcks4YXIzc3hKZ1RvcWFXdEVPdW9xVjdDektxVnM2UUE4WHlnTHFtWWpkaFVaRm9JWWxmaFRUYXRtdjRTdTU1eHUzaXpvVUsyS1ZSYXJRMmVYUkplYlhMV2QtSXcwekdTamlkRVJabDBOS3dtcVY2WlQ5Zm12eWNjdFJodVNXVmtwb2cyYw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Off New Curly Hairstyle
+
+- first seen: 2026-10-03 19:49 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has debuted a new curly hairstyle following her recent career milestones. The change in her look was highlighted in a feature by USA Today.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiswFBVV95cUxOZk9BTWotczFxSmhyeFRWRkZFMUExbDh4ZnNBTkdZd3dXSzE2X2REcnZUaFp4QjZMTWVqX05CekhCWkpsaG1faVdLNXFLNnlwMU9zY1RRaTlrYnZ4dWRBbDVwc1BTYUdKQzM3M2I4dWVLNzZPQkJmaV9MSmotU2NBeUNuS2htRVNCbWd1V0tCcTM1MmljYVJmMVk3R1RYcEFQbVNDc2NKR2R2dmNMOTNRY19lcw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Honors Dolly Parton During VMA Acceptance Speech
 
@@ -50,6 +108,15 @@ Stories: 70
 - summary: Taylor Swift celebrates a significant musical achievement while showcasing a symbolic outfit, as reported by Page Six.
 - sources:
   - [unverified] Page Six — https://news.google.com/rss/articles/CBMinAFBVV95cUxPeUk4eGRYRkZsR29QM0VQbXlMaWQyaUpaejJMbFlGejhONm45SVVPb3ZNTnRueTd6UWZNX2g5eHlQWVhQOXdDTGFVYVlrNHkwM0NJMDNZeEZhRHBkclpEZ1lOX0I5TVB4ek4zcm45Yll4R3NMR2xxTS1YMXpNWm04SkY0RWFZQmJiR3YzaHdLejBDaVNLUm1YWHVrWjA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Wedding Linked to Presley Gerber's Final Months
+
+- first seen: 2026-10-03 14:18 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Reports suggest a poignant connection between Taylor Swift's wedding and the final months of Presley Gerber. The details highlight the emotional context surrounding the event.
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipAFBVV95cUxNUnNURVcyNVN3NlhFd3RVRlZaQ3BlcTA1Zkg3UGFhTllCTWh6alFlX0gtTmZSNFFtMFBLa3lFTkpocEhTZUE3TXN0bGJaU1NQTk44eGZvNGJlYTJhMGhFNV8wbnd2eTA3Tk12X2tTaGJneGVvMnVBS19qbzV1QjVkS19iYzRCNjlsYjlmY3VwWm1oQVRwa1RTN0ZqREdlNGhucndkTw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdkNKbXRwN2drM3pfaUx2bTdIbjEweHR3Z3ZyOGZBc0EybUNsZTdPc2Jkb2UybzR0ZTV5ci14VTRxa0lEZ3pfWEJWR0lDRDAzcGxPNDQ1UEpKdmlZSlhhQ1lTWkkzTEhFb2FWN2ExOWN2eTJMT2xjMFpMX1BNX2tSSUJvbUJDT0I3b0hUanVYbjhPcE5VOUFlWmNMVnBjUEdpMWFmRHZycw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Shows Off New Curly Hairstyle and Shorter Haircut
 
@@ -102,11 +169,14 @@ Stories: 70
 ## Taylor Swift Debuts New Curly Hairstyle Amid Fan Speculation
 
 - first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift has revealed a new curly hairstyle, prompting fans to speculate about its significance, including potential connections to Travis Kelce and the VMAs.
 - sources:
   - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMilAJBVV95cUxOYl93WGdBc2pQd1BPTWF4eEp5dWVlbjVYOXhyNndtQTM5MzBINkZ5THZ2aHFpd2pNX0M3VVBkZFJ2Sk80R01mWklRYmM1b0VhYzdxdGp5dlYycXhqZGdKN0wyRVJGSjZjMUJFdEdGODRJTDVuRjFQdHZYcDJWM0Y2OTRMSjBFdEdMN1Jva3FOWW43a2lkSm1RaUZ6SHMxaHY3d3NwVlpZNEVqclU1azRRY1Z0bG9kZjQ3WTFwX1ZxM3JpeWZtYjFSa1ZwLUplN3V5b1ZYME9JS090cnMtOVE5TTBNU2k2dGVZYUMxZ1k0OGxoTERkYkhDdjl6Y2t2OUdXbnRUNmpwRFJKR1A4Q21ORHUyd0fSAZoCQVVfeXFMUG5IV21mY2tsb0lfdy1MVlhGVlVRTGxuNjMxVmJlZ3VNUkFwOTVNUXFhSUt5RDNkNTY0akgzSjd3X0NJY2U5enlNUHdfR092VjNrZGpWRWxjb0luR3VXcXVRUEFCM29DVjNfVVRBaUpvcHRldGtqejFJczNxQjh4R3pnUTNCTmZPNkxBaFlKU0Q2YU9zMlBrVm83TGV5dmZHdmFyZm9SOUVha24yYmFBOFlFTEd2YzVROUdjRXJPUTZfT2IySElETGhiWllLR2VuZWVXR0d5eGJkdGItbTNFMmhEUXd5djhWV1pFZEprVi1iMlhULVk4ZDJqLUpuakxiTllLcGU0ZWQxejRFcmVYLXk5dUxKQkx4SWFB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOVDhSdURvOFN0empwUkxIWS1ra0MyQno5blhCUWVfUXFHcG1DNkJZS0huYzNnRGZOVjZZdFlNMUg3MVRsMXdJbWhsVTQ1QlNBTEpCcUhkcHpsWXJMS3hBcWswTEEtX1l1R3RIbkRtNFpodE9rUkFTV203ckxkbTJCSW4yN3ZBOGQtWndlRi1EZjRndlMtYmdnWU83NEdMM1F4dXh4M05XOWc?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMi9AFBVV95cUxQRDZPOUxUMHlPUzUzYXZKYWM3Y00xMVpxMTNPOVRnX1pqS2pvbTRDTWkyaWNsRGJxYXRIamw3eHhzWGxfYUJjZTVYN2lVNW5HeEtCSExtVVdRRWMxSG4zeUNWS3RFdUJxVWJMbW91STdQVGpmUUdsclc1SV9XUUotUlhSTzI4Mkp3eVNja0hxc3RMOElKSXdfbkJjV0dBU2k0cTZDQXBVZlNwT2tVVlZrc2NfeXJ2eDZiS3o1U29hWlVOcW9wVWM2aVhVbk0yYnVPVlRfTmVGdGY4eG9rR0JOSndWalRhNFhaYVAzYjBSdTF4dXkx?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WHIO TV — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOZHdSSUFmRnVvVjVYbGZhdGo4SGRWZTRxbWVGS1kzUE5EUDlIRmwzMTNNQXMtZDRiZVFBc05HNHYzdm5RdlZNdmtORFppQ0lvWUxNOGVic2tOdW0wa2lKV2d1NlFYbEh3Y0FoTHBNUVJLUmdfZXNySmRrVlpzUnpmM3J3RXcwdENjQUl0VUdWWTUyTzVMRlNKSm5EYjFDd1dDRi0tMWRnSVIyMENpQWZEemVNSVRqd0tVNkNNQ0NMYWYwLVNRekN2dtIB3AFBVV95cUxQVWg0OEY5d2p3NjJDNUJxTUdac3lzcVdhR2pobXA3d1RzQjVmRl82UWlMX0lLLURhZDhweXQyVElXYlJuTmFveUJueVdCQjRNNkY2Znl0aHZWV21ZMjAyeV8wTVI5eHE1MUNGaHFMcEpzTklHcjM4U3VRVTQxakF2YTR1ZllMXzVZNDB0YUlmRXBvNEdiQlZrU0VPeThOT1EtRk9KUVFScDZwM2djN0IzMXVoMEZwQVZfaHRXTGxEM1VrZk9YZGNKYWJKS1dFeEhwZWtmaVNLZ3NFaVEy?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMifEFVX3lxTE11R20zTE9IQVF0bnhuWmQzQzk2Q3lxNFozVVd5NlRHVlh5Y05WU3A5YXJROTYyUWtNWmtacGtUVWVOZXJqSTRQM3VOTDhqeGpCODBmR0VHYzZ0RGk0ckZjY1ltUUY0TjBmN3ZSeWkwNXZCOGRkQ2NnZ2NlSTg?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift References Cleveland in New Song Title
 
@@ -549,59 +619,3 @@ Stories: 70
   - [unverified] KOMO — https://news.google.com/rss/articles/CBMiuAFBVV95cUxOVW5PWmplUUVlRHo5MlZ6Q3U0MFl4aGIzZzh5TEdha3J6bGx1NmhJMlJOcVZkenBvMUJuNkpQX3FHbXBHYmt0X3hTOE1SQUxGSGRVbEJpTW54YzVtZlUtRjdmWWdqaDdyek83N1NsMjJ0cUtvU0k2S1hFVmFUZE1kODR6TFktRGVNMTFzeVF4YkF2QlNSd0xUdjZPaU9yREJnVWZpdTdnM1FsOTdpMkhLSFk4ZjhNZ0RW?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] thenationaldesk.com — https://news.google.com/rss/articles/CBMiwgFBVV95cUxOajAtYmttNlJEb1REVXFLNUlodEpMTGpiOElfZjBuakt0a3p5RFJjcUswNXV4ZWV2TmJPN2xES0wxcWZyLXVoSGYzYjlYRXUzWlB0Z3JIVGVpS2VJMmg5Z3FfbFRUaExiY1VSNEJORVlpakFDNnVTVGRpaXpSblBGaDdKS2tUcXRNTk5WcGxEMk8yTGJqTHRpWGNSTnR1c0N3RzFqMkp1Qjd5UWtTa19LZmd6S2JCR1dIYjRXOERHdE9oQQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] WSET — https://news.google.com/rss/articles/CBMiswFBVV95cUxQOHBFTDd5THhjZzZGbWJObGxVeUE2c0ZPckl0Q0h4TE9pX1Rld3pBRjR3MDVFRkVvX2JoOU1NT1ZZbnFMTHNQMzNIenFZTE00OTNMUWVMOE52bjlfTV9mZnNsamdLSEgteElSaDltU213VlNtaVFZdGF6MFVzTUQ2QnRXQXZMRmJOYkt2a2NWUXF5cXU3TE9HY25aWF9UeGFEOWpYWk9BdlZkemxXMFNEaU9LVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Holds No. 1 on Top Movie Songs Chart
-
-- first seen: 2026-09-30 15:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift maintains her position at No. 1 on the Top Movie Songs chart ahead of competition from the 'Spider-Man' franchise. The achievement underscores her ongoing impact in the music industry.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMirwFBVV95cUxNVlNPNldBU096RkhZLXFnNHlJeFozNDBwZXBuWXhRWHZIdU4zOU1MamU4SG1IUjNvNWpTbDVNR1A0clZlRHpCSEp3a0xjcmJObklQeHFTcDF3ZFBNbnNWcVFXUkFiRGk3ZHhRSHg3Y0ZrZFE3UXBwc0E0NmU2NzNJX2dnd0hRUTZicGl6UzV0SHlWcWFYcjJSVFNnZHg5amlJREkxNjcwVlFLbV85ZWt3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Prepares for Wedding and Honeymoon
-
-- first seen: 2026-09-30 15:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce is getting into shape for his wedding and has also started a late-career honeymoon. This marks a new chapter in his personal life as he balances his professional commitments with personal milestones.
-- sources:
-  - [unverified] wsj.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNNEdCamd1NXUxd01sNHlhNEFzcHExcU1FNURlbzFfMW5VaWJ0Z0E5ZUJTQXdZYmZBV3k0VkRfUTV5UGlhOFFYelhFWG11ZTNYT2JmZ1lKVnNJT3lLRW1UOFNxSHlPaW9VQlZqOEdWRGpFRFZNTDhuSlBJSVZTZTI5QU9Ub2tTVmRv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Critiques Taylor Swift's Impact on Music
-
-- first seen: 2026-09-30 15:53 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Rocker Todd Rundgren has publicly stated that Taylor Swift has ‘ruined music,’ expressing his critique of her influence in the industry. The comments were reported by the South China Morning Post.
-- sources:
-  - [unverified] South China Morning Post — https://news.google.com/rss/articles/CBMi2gFBVV95cUxQYXMxR1Ezb0JwaXpONlVWd2lwcmZwUXJEblBuU25HQ0JkSzJjX2ZiWFpKSzRJbUpzOXZnbUp0Wm9SbTE1RHlQOFZPeFBqb18yZVZaS0tmNXpVT3N2T0FhcEgtdkYxUnJkcVhCRlRkWXNOSEtZLTFmNGpXMTFIWGY2RThBM2FJaEVEa200QWI5alFHZ0pUcG9mQXoxajY1M0YxNFpSWUtaNUNobFJvcUpCbENxLVRUc0RKakJtWVZuaDcxMjRzQzlmWjl5aG1FUWlFanl4M25BdkVhQdIB2gFBVV95cUxQdkVjZmtzempuVHZKZ3p3QXdMWHRkSk81RWozSlVjN2lJc01VZF9vQUNERmxSVW8wQ2h4a0xRbm1OWUJPYWxXWWxzc0VGSHVRZmZtaXIyOWI3QnFQaVZMc3VuZ0twUzROdHJONHpqTE1TSmV5cHZJdDFwV3M4LWFEVXhkbUNDd2tkNlo5X1cybl92a2JQclRScU1fanQxMFA4U092UXBJdUFURlhjVXB3WWUtbXZQT0MwSHZUSWZqLUZwZWpJWndkMTRhQzVsSndYSTVFeXFneF9vUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kelce Brothers Share Their Thoughts on Taylor Swift's 'Cleveland!'
-
-- first seen: 2026-09-30 15:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis and Jason Kelce express their opinions about Taylor Swift's song 'Cleveland!' in a recent discussion.
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOLTZrcVVPVTM3NXUyVXlsOUlZY2NGSXNSQTlJWGwwMEdRc2lBUlNWVnZFY3djcmJxdVgwc3pQVFNDTnFMdGswRjJRc29QSG9BX05PdDlra3VxWGNIaFN2T2NJWGFJSVlGSFBuRnRBaXd6S1lHcnRjTXk2ZEFzZllZdlYxcjYyM0htN2F0blJwd2tENGhWb3h5MjRKMnhNbHFKYnVkZDN4Yk5QUml1d2t6ZWUzOFBmREdWODQ5STdaQjdYZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Attacker Loses Privacy Case Against Disney Over Swift Concert Incident
-
-- first seen: 2026-09-30 15:53 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A would-be attacker at a Taylor Swift concert has lost a privacy lawsuit against Disney, the parent company of the venue. The case highlights legal challenges related to privacy rights in high-profile events.
-- sources:
-  - [unverified] Reuters — https://news.google.com/rss/articles/CBMitAFBVV95cUxPY3RKWE4yZWU0YXZnU3p0RXQyOVNMRmg0NVoxQTltaUxUYVJ0SUYtV3NyTk03NHdwVGhPN3JMWkoyRXdEZnhnWGxZb0xQRVhaOElGOElYdnUwODJlTDZLZGxZZUhKVW1TRGR4TjBFR2N6bVB1Y0prMF84YzNZQTRaaGdyMDBNR2RwVkg4TmhZR1YyV2lCM3Uzd25VWHJMUjhuS2ZxRzhJUjEwZUFlZXhBa1g0bmw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Praises Taylor Swift's 'Cleveland!' Song
-
-- first seen: 2026-09-30 15:53 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expresses appreciation for Taylor Swift's song 'Cleveland!', calling it a banger. The song highlights his home city and has received positive attention.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMinwFBVV95cUxOd1Q1STdfejc5N2owbHhjTi1UTDdBREItY1NyVGw2ZHFGX0JpMFpuck1YdXl1cGJFYnNYY2VBUVhwVjdDeHk2T0NkZ0FSRFhUVHRKN1RtWXRTYUN4Q1F2clI4RjI2eW1YNTc0VFdVZl9KNVdycEZ3ZFoxdFJiT1JaeGJlUWY2M1Vnay1RTzdHTWpUVkVsalJjellQVzhZNmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Kelce Brothers React to Taylor Swift's New Song 'Cleveland!'
-
-- first seen: 2026-09-30 15:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis and Jason Kelce share their thoughts on Taylor Swift's latest song 'Cleveland!', with Travis calling it a 'banger' inspired by his hometown. The Kelce brothers express their enthusiasm for Swift's work.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNeVJ4eHhBWk5zS2lhYkY0NU5tMFpBOEJ1aUdqZ2Q3Yl82MmRteUIwbV9nUHBGMmIteVZoVzE3Y1M5dGVXX28xX2pid29XQlpDN0VUS0pDNmpfekpzbnhmb2xPQXdNYVNmTHBMZUZPZnVENWJLZVlQRGJCQlI5SjBfMm96QWpodG1BS3kzSy14dHpaZWNpTlVLZzRwT2ZXQ0c2bWNiMQ?oc=5&hl=en-US&gl=US&ceid=US:en
