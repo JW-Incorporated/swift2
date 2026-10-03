@@ -1,0 +1,919 @@
+[
+  {
+    "eraId": "debut",
+    "videos": []
+  },
+  {
+    "eraId": "fearless",
+    "videos": [
+      {
+        "slug": "change-live-2009",
+        "kind": "performance",
+        "title": "Change (Live)",
+        "director": null,
+        "releasedOn": "2009-06-16",
+        "relatedSongs": [
+          "Change"
+        ],
+        "summary": "A full-length live performance video of the Fearless-era anthem, posted to her official channel the same week as the deluxe-cut video for \"I'm Only Me When I'm With You.\"",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "FMDVWSqALRs",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Change (Live)",
+            "url": "https://www.youtube.com/watch?v=FMDVWSqALRs",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Change (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "im-only-me-when-im-with-you-mv",
+        "kind": "music_video",
+        "title": "I'm Only Me When I'm With You",
+        "director": null,
+        "releasedOn": "2009-06-16",
+        "relatedSongs": [
+          "I'm Only Me When I'm with You"
+        ],
+        "summary": "The official video for the Taylor Swift (Deluxe Edition) bonus cut, uploaded to her channel during the Fearless era rather than around the debut album's 2006 release — YouTube's own \"Music video by Taylor Swift performing...\" credit line confirms the official upload.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "AlTfYj7q5gQ",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - I'm Only Me When I'm With You",
+            "url": "https://www.youtube.com/watch?v=AlTfYj7q5gQ",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Taylor Swift (album)",
+            "url": "https://en.wikipedia.org/wiki/Taylor_Swift_(album)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "fearless-mv",
+        "kind": "music_video",
+        "title": "Fearless",
+        "director": null,
+        "releasedOn": "2010-01-01",
+        "relatedSongs": [
+          "Fearless"
+        ],
+        "summary": "A live-performance-style video built from touring footage for the album's title track, released as its final single.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "ptSjNWnzpjg",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Fearless",
+            "url": "https://www.youtube.com/watch?v=ptSjNWnzpjg",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Fearless (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "grammys-album-of-the-year-2010",
+        "kind": "award_speech",
+        "title": "Accepting Album of the Year for Fearless — 52nd GRAMMYs",
+        "director": null,
+        "releasedOn": "2010-01-31",
+        "relatedSongs": [],
+        "summary": "Twenty years old, holding Album of the Year for Fearless and, at the time, the youngest artist ever to win it. She thanks her parents and producer Nathan Chapman.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "BFk2NjdJ1yY",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift accepting the GRAMMY for Album of the Year at the 52nd GRAMMY Awards | GRAMMYs",
+            "url": "https://www.youtube.com/watch?v=BFk2NjdJ1yY",
+            "reliability": 5,
+            "type": "official"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "change-mv",
+        "kind": "music_video",
+        "title": "Change",
+        "director": null,
+        "releasedOn": null,
+        "relatedSongs": [
+          "Change"
+        ],
+        "summary": "Taylor and her band perform in a ballroom, intercut with a version featuring 2008 Beijing Olympics footage tying the anthem to Team USA.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "B1jYllE0T-k",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Change",
+            "url": "https://www.youtube.com/watch?v=B1jYllE0T-k",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Change (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "fifteen-mv",
+        "kind": "music_video",
+        "title": "Fifteen",
+        "director": "Roman White",
+        "releasedOn": null,
+        "relatedSongs": [
+          "Fifteen"
+        ],
+        "summary": "A greenhouse-dream staging of freshman year: scenes bloom and dissolve around Taylor as she narrates Abigail's story and her own — memory rendered as a garden being planted and unplanted.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "Pb-K2tXWK4w",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Fifteen (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/Fifteen_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          },
+          {
+            "name": "Taylor Swift Flashed Back To High School For VMA-Nominated 'Fifteen'",
+            "url": "https://web.archive.org/web/20150327105811/http://www.mtv.com/news/1646390/taylor-swift-flashed-back-to-high-school-for-vma-nominated-fifteen/",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "journey-to-fearless",
+        "kind": "tour_film",
+        "title": "Journey to Fearless",
+        "director": null,
+        "releasedOn": null,
+        "relatedSongs": [],
+        "summary": "The first concert film: a three-part TV documentary following the Fearless Tour — 19-year-old headliner, screaming arenas, and the backstory told between stadium cuts.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": null,
+        "watchUrl": "https://www.amazon.com/Taylor-Swift-Journey-Fearless-Blu-ray/dp/B005KQVD8W",
+        "platform": "Amazon (Blu-ray/DVD)",
+        "sources": [
+          {
+            "name": "Journey to Fearless",
+            "url": "https://en.wikipedia.org/wiki/Journey_to_Fearless",
+            "reliability": 2,
+            "type": "wiki"
+          },
+          {
+            "name": "Taylor Swift: Journey to Fearless DVD",
+            "url": "https://www.blu-ray.com/dvd/Taylor-Swift-Journey-To-Fearless-DVD/91360/",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Tour"
+        ]
+      },
+      {
+        "slug": "love-story-mv",
+        "kind": "music_video",
+        "title": "Love Story",
+        "director": "Trey Fanjoy",
+        "releasedOn": null,
+        "relatedSongs": [
+          "Love Story"
+        ],
+        "summary": "The period-piece blockbuster: a campus meet-cute dissolves into a full Regency-styled castle romance, ballgown and all, ending with the two reunited across a field — the happy ending the song writes over Romeo and Juliet.",
+        "easterEggs": [],
+        "symbolism": "The dual-timeline device (present-day glance, imagined past) became a signature she returned to through Wildest Dreams and beyond.",
+        "youtubeId": "8xg3vE8Ie_E",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Love Story",
+            "url": "https://www.youtube.com/watch?v=8xg3vE8Ie_E",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Love Story (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "love-story-live-letterman",
+        "kind": "performance",
+        "title": "Love Story (Live on Letterman)",
+        "director": null,
+        "releasedOn": null,
+        "relatedSongs": [
+          "Love Story"
+        ],
+        "summary": "A solo performance of the breakout single on the Late Show with David Letterman, part of the national TV rounds Taylor did during Fearless's 2008-2009 promotional run.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "mNLVMDF9mUo",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Love Story (Live on Letterman)",
+            "url": "https://www.youtube.com/watch?v=mNLVMDF9mUo",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Love Story (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "the-best-day-mv",
+        "kind": "music_video",
+        "title": "The Best Day",
+        "director": null,
+        "releasedOn": null,
+        "relatedSongs": [
+          "The Best Day"
+        ],
+        "summary": "A home-movie tribute assembled from Taylor family footage — childhood birthdays, ordinary afternoons with her mother — released as a Mother's Day surprise.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "l4_6eQm7RTQ",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - The Best Day",
+            "url": "https://www.youtube.com/watch?v=l4_6eQm7RTQ",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "The Best Day (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "white-horse-mv",
+        "kind": "music_video",
+        "title": "White Horse",
+        "director": "Trey Fanjoy",
+        "releasedOn": null,
+        "relatedSongs": [
+          "White Horse"
+        ],
+        "summary": "The anti-fairytale companion to Love Story: a dim apartment, a phone that shouldn't be answered, and a breakup played in intercut apology scenes — no castle, no rescue.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "D1Xr-JFLxik",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "White Horse (Taylor Swift song)",
+            "url": "https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)",
+            "reliability": 2,
+            "type": "wiki"
+          },
+          {
+            "name": "Taylor Swift, “White Horse”",
+            "url": "https://www.countryuniverse.net/2009/02/09/taylor-swift-white-horse/",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "you-belong-with-me-mv",
+        "kind": "music_video",
+        "title": "You Belong with Me",
+        "director": "Roman White",
+        "releasedOn": null,
+        "relatedSongs": [
+          "You Belong with Me"
+        ],
+        "summary": "Taylor plays both the band-tee girl next door and the brunette cheer captain across the driveway — window-sign confessions, a prom-night reveal, and the era's defining underdog fantasy.",
+        "easterEggs": [],
+        "symbolism": "Casting herself as her own rival literalizes the song's point-of-view trick; the \"I love you\" window sign became one of her most-referenced images.",
+        "youtubeId": "VuNIsY6JdUw",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - You Belong With Me",
+            "url": "https://www.youtube.com/watch?v=VuNIsY6JdUw",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "You Belong with Me",
+            "url": "https://en.wikipedia.org/wiki/You_Belong_with_Me",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      }
+    ]
+  },
+  {
+    "eraId": "speak-now",
+    "videos": []
+  },
+  {
+    "eraId": "red",
+    "videos": []
+  },
+  {
+    "eraId": "1989",
+    "videos": []
+  },
+  {
+    "eraId": "reputation",
+    "videos": []
+  },
+  {
+    "eraId": "lover",
+    "videos": []
+  },
+  {
+    "eraId": "folklore",
+    "videos": []
+  },
+  {
+    "eraId": "evermore",
+    "videos": []
+  },
+  {
+    "eraId": "midnights",
+    "videos": []
+  },
+  {
+    "eraId": "ttpd",
+    "videos": []
+  },
+  {
+    "eraId": "tloas",
+    "videos": [
+      {
+        "slug": "new-heights-podcast-2025",
+        "kind": "interview",
+        "title": "New Heights — announcing The Life of a Showgirl",
+        "director": null,
+        "releasedOn": "2025-08-13",
+        "relatedSongs": [],
+        "summary": "Her first-ever podcast appearance, on Jason and Travis Kelce’s show: a mint-green briefcase opens on album No. 12, out October 3, plus buying back her masters. The livestream buckled at roughly 1.3 million concurrent viewers.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "M2lX9XESvDE",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift on Reclaiming Her Masters, Wrapping The Eras Tour, and The Life of a Showgirl | NHTV",
+            "url": "https://www.youtube.com/watch?v=M2lX9XESvDE",
+            "reliability": 5,
+            "type": "official"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "graham-norton-2025",
+        "kind": "interview",
+        "title": "The Graham Norton Show",
+        "director": null,
+        "releasedOn": "2025-10-02",
+        "relatedSongs": [],
+        "summary": "On the Graham Norton couch as The Life of a Showgirl lands: album promo that detours into wedding plans, and an invitation for the host.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "NlOdFJmkEls",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift Invites Graham Norton To Her Wedding - BBC",
+            "url": "https://www.youtube.com/watch?v=NlOdFJmkEls",
+            "reliability": 5,
+            "type": "official"
+          }
+        ],
+        "tags": [
+          "Music",
+          "Relationship"
+        ]
+      },
+      {
+        "slug": "the-official-release-party-of-a-showgirl",
+        "kind": "performance",
+        "title": "The Official Release Party of a Showgirl",
+        "director": null,
+        "releasedOn": "2025-10-03",
+        "relatedSongs": [],
+        "summary": "Release weekend as a cinema event: the Ophelia video premiere, lyric videos, and behind-the-scenes cuts packaged into a theatrical party that topped the box office on album weekend.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": null,
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "The Official Release Party of a Showgirl",
+            "url": "https://en.wikipedia.org/wiki/The_Official_Release_Party_of_a_Showgirl",
+            "reliability": 2,
+            "type": "wiki"
+          },
+          {
+            "name": "Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event",
+            "url": "https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "the-fate-of-ophelia-mv",
+        "kind": "music_video",
+        "title": "The Fate of Ophelia",
+        "director": "Taylor Swift",
+        "releasedOn": "2025-10-05",
+        "relatedSongs": [
+          "The Fate of Ophelia"
+        ],
+        "summary": "The lead single's video premiered as the centerpiece of the release-party theatrical event: showgirl staging that pulls Ophelia out of the water and onto the stage, inverting the Hamlet ending.",
+        "easterEggs": [],
+        "symbolism": "Rescue-by-love replaces the drowning — the era's glitter is framed as the survivable version of the tragedy.",
+        "youtubeId": "ko70cExuzZM",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "The Fate of Ophelia",
+            "url": "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia",
+            "reliability": 2,
+            "type": "wiki"
+          },
+          {
+            "name": "Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event",
+            "url": "https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344",
+            "reliability": 4,
+            "type": "reputable_press"
+          },
+          {
+            "name": "Taylor Swift - The Fate of Ophelia (Official Music Video)",
+            "url": "https://www.youtube.com/watch?v=ko70cExuzZM",
+            "reliability": 5,
+            "type": "official"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "tonight-show-fallon-2025",
+        "kind": "interview",
+        "title": "The Tonight Show Starring Jimmy Fallon",
+        "director": null,
+        "releasedOn": "2025-10-06",
+        "relatedSongs": [],
+        "summary": "Roughly twenty minutes with Fallon on the new album, the engagement and regaining her masters — including why she is not playing the 2026 Super Bowl halftime show. An extended cut aired as its own special four days later.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "GzjZqH0WRwE",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift Stops by The Tonight Show | The Tonight Show Starring Jimmy Fallon",
+            "url": "https://www.youtube.com/watch?v=GzjZqH0WRwE",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Taylor Swift on The Tonight Show",
+            "url": "https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/",
+            "reliability": 4,
+            "type": "reputable_press"
+          },
+          {
+            "name": "How to Watch the Extended Taylor Swift Tonight Show Interview",
+            "url": "https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music",
+          "Relationship"
+        ]
+      },
+      {
+        "slug": "zane-lowe-apple-music-2025",
+        "kind": "interview",
+        "title": "The Zane Lowe Interview — Apple Music",
+        "director": null,
+        "releasedOn": "2025-10-07",
+        "relatedSongs": [],
+        "summary": "An extended sit-down with Zane Lowe, conducted over FaceTime, on how The Life of a Showgirl was written.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "mUZ9T-hstUI",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift: The Life of a Showgirl and Writing Process | The Zane Lowe Interview",
+            "url": "https://www.youtube.com/watch?v=mUZ9T-hstUI",
+            "reliability": 5,
+            "type": "official"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "late-night-seth-meyers-2025",
+        "kind": "interview",
+        "title": "Late Night with Seth Meyers — the sole-guest episode",
+        "director": null,
+        "releasedOn": "2025-10-08",
+        "relatedSongs": [],
+        "summary": "A rare sole-guest episode of Late Night: the album, Travis Kelce, and a full hour built around one interview.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "Wd7S1wZqkbI",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift and Seth Talk The Life of a Showgirl, Travis Kelce and More",
+            "url": "https://www.youtube.com/watch?v=Wd7S1wZqkbI",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Taylor Swift Extended Interview on Late Night With Seth Meyers",
+            "url": "https://variety.com/2025/music/news/taylor-swift-extended-interview-late-night-with-seth-meyers-1236534347/",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music",
+          "Relationship"
+        ]
+      },
+      {
+        "slug": "end-of-an-era-announcement-trailer",
+        "kind": "documentary",
+        "title": "Taylor Swift: The End of an Era — Announcement Trailer",
+        "director": null,
+        "releasedOn": "2025-10-13",
+        "relatedSongs": [],
+        "summary": "The first trailer for the 6-episode \"End of an Era\" docuseries, released the same day Taylor announced the project on Good Morning America — real backstage, rehearsal, and tour-ending footage.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "YF6jaBeBMIk",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "December 12th on @DisneyPlus",
+            "url": "https://www.youtube.com/watch?v=YF6jaBeBMIk",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Taylor Swift: The End of an Era",
+            "url": "https://en.wikipedia.org/wiki/Taylor_Swift:_The_End_of_an_Era",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Tour"
+        ]
+      },
+      {
+        "slug": "end-of-an-era-official-trailer",
+        "kind": "documentary",
+        "title": "Taylor Swift: The End of an Era — Official Trailer",
+        "director": null,
+        "releasedOn": "2025-11-13",
+        "relatedSongs": [],
+        "summary": "A second, fuller trailer for \"The End of an Era\" docuseries released about a month before the Dec 12 Disney+ premiere.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "dSSqCoCiQVs",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "\"The End of an Era\", a 6-episode docuseries, streams on @Disneyplus beginning Dec 12",
+            "url": "https://www.youtube.com/watch?v=dSSqCoCiQVs",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "The End of an Era streaming announcement",
+            "url": "https://press.disneyplus.com/news/the-end-of-an-era-streaming",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Tour"
+        ]
+      },
+      {
+        "slug": "eras-tour-final-show-countdown",
+        "kind": "performance",
+        "title": "Just 11 days until the final show of The Eras Tour is all yours",
+        "director": null,
+        "releasedOn": "2025-12-01",
+        "relatedSongs": [],
+        "summary": "A short promotional clip counting down to the Dec 12, 2025 Disney+ premiere of \"The Eras Tour: The Final Show\" — the concert film of the Vancouver closing night.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "fHjxp-rpUGw",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Just 11 days until the final show of The Eras Tour is all yours",
+            "url": "https://www.youtube.com/watch?v=fHjxp-rpUGw",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Taylor Swift: The End of an Era",
+            "url": "https://en.wikipedia.org/wiki/Taylor_Swift:_The_End_of_an_Era",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Tour"
+        ]
+      },
+      {
+        "slug": "late-show-colbert-2025",
+        "kind": "interview",
+        "title": "The Late Show with Stephen Colbert",
+        "director": null,
+        "releasedOn": "2025-12-10",
+        "relatedSongs": [],
+        "summary": "Her first time on Colbert's couch: The End of an Era docuseries and The Final Show film, the engagement, the masters — and a ranking of her own top five songs.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "qtyzac0JbS4",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift's Good Year: Engaged To The Love Of Her Life, In Control Of Her Music Masters",
+            "url": "https://www.youtube.com/watch?v=qtyzac0JbS4",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Taylor Swift on The Late Show",
+            "url": "https://www.rollingstone.com/music/music-news/taylor-swift-engagement-masters-showgirl-late-show-1235482380/",
+            "reliability": 4,
+            "type": "reputable_press"
+          },
+          {
+            "name": "Taylor Swift's Five Favorite Taylor Swift Songs",
+            "url": "https://www.billboard.com/music/pop/taylor-swift-five-favorite-taytay-songs-colbert-1236134507/",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music",
+          "Relationship"
+        ]
+      },
+      {
+        "slug": "opalite-mv",
+        "kind": "music_video",
+        "title": "Opalite",
+        "director": null,
+        "releasedOn": "2026-01-12",
+        "relatedSongs": [
+          "Opalite"
+        ],
+        "summary": "A 1990s-styled rom-com in which Taylor's lonely Pet Rock owner and Domhnall Gleeson's cactus owner are brought together by a magical \"Opalite\" spray — released as the era's second single.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "1FVF-9KQiPo",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Opalite (Official Music Video)",
+            "url": "https://www.youtube.com/watch?v=1FVF-9KQiPo",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "Opalite (song)",
+            "url": "https://en.wikipedia.org/wiki/Opalite_(song)",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "elizabeth-taylor-mv",
+        "kind": "music_video",
+        "title": "Elizabeth Taylor",
+        "director": null,
+        "releasedOn": "2026-03-09",
+        "relatedSongs": [
+          "Elizabeth Taylor"
+        ],
+        "summary": "The album's third single, named for the screen icon, arrives with its own official video as part of an extended single cycle five months after the album's release.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "WqbJT_vC0rs",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - Elizabeth Taylor (Official Music Video)",
+            "url": "https://www.youtube.com/watch?v=WqbJT_vC0rs",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "The Life of a Showgirl",
+            "url": "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl",
+            "reliability": 2,
+            "type": "wiki"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "i-knew-it-i-knew-you-mv",
+        "kind": "music_video",
+        "title": "I Knew It, I Knew You",
+        "director": null,
+        "releasedOn": "2026-06-05",
+        "relatedSongs": [
+          "I Knew It, I Knew You"
+        ],
+        "summary": "The Toy Story 5 single's official video is built entirely from Toy Story franchise footage centered on Jessie — her meeting Woody, being abandoned by Emily, and finding a new home with Bonnie.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "hDU4GB1PTxc",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift - I Knew It, I Knew You (from Toy Story 5)",
+            "url": "https://www.youtube.com/watch?v=hDU4GB1PTxc",
+            "reliability": 5,
+            "type": "official"
+          },
+          {
+            "name": "I Knew It, I Knew You",
+            "url": "https://en.wikipedia.org/wiki/I_Knew_It,_I_Knew_You",
+            "reliability": 2,
+            "type": "wiki"
+          },
+          {
+            "name": "Taylor Swift Wrote and Recorded 'I Knew It, I Knew You' in 8 Hours Right After Watching 'Toy Story 5'",
+            "url": "https://variety.com/2026/music/news/taylor-swift-wrote-recorded-toy-story-song-eight-hours-1236785352/",
+            "reliability": 4,
+            "type": "reputable_press"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      },
+      {
+        "slug": "icon-sessions-grammy-museum-medley",
+        "kind": "performance",
+        "title": "The Icon Sessions at the Grammy Museum",
+        "director": null,
+        "releasedOn": "2026-08-24",
+        "relatedSongs": [
+          "I Knew It, I Knew You",
+          "August",
+          "All Too Well"
+        ],
+        "summary": "A medley of \"I Knew It, I Knew You,\" \"August\" and \"All Too Well\" for The Recording Academy Songwriters & Composers Wing 20-Year Retrospective, live at the Grammy Museum — pairing her Toy Story 5 single with catalog favorites from folklore and Red.",
+        "easterEggs": [],
+        "symbolism": null,
+        "youtubeId": "_9jaJtmraXA",
+        "watchUrl": null,
+        "platform": null,
+        "sources": [
+          {
+            "name": "Taylor Swift Performance - The Icon Sessions at the Grammy Museum",
+            "url": "https://www.youtube.com/watch?v=_9jaJtmraXA",
+            "reliability": 5,
+            "type": "official"
+          }
+        ],
+        "tags": [
+          "Music"
+        ]
+      }
+    ]
+  }
+]

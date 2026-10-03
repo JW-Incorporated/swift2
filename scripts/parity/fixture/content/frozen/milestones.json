@@ -1,0 +1,65 @@
+[
+  {
+    "id": "m-fear-3",
+    "eraId": "fearless",
+    "date": "2010-01-31",
+    "label": "Album of the Year",
+    "kind": "award"
+  },
+  {
+    "id": "m-fear-0",
+    "eraId": "fearless",
+    "date": "2009-04-23",
+    "label": "Fearless Tour opens",
+    "kind": "tour"
+  },
+  {
+    "id": "m-fear-2",
+    "eraId": "fearless",
+    "date": "2009-09-13",
+    "label": "VMAs moment",
+    "kind": "life"
+  },
+  {
+    "id": "m-fear-1",
+    "eraId": "fearless",
+    "date": "2008-11-11",
+    "label": "Fearless released",
+    "kind": "album"
+  },
+  {
+    "id": "m-tloas-1",
+    "eraId": "tloas",
+    "date": "2025-08-13",
+    "label": "Era announced",
+    "kind": "life"
+  },
+  {
+    "id": "m-tloas-4",
+    "eraId": "tloas",
+    "date": "2025-10-18",
+    "label": "Hot 100 sweep",
+    "kind": "award"
+  },
+  {
+    "id": "m-tloas-5",
+    "eraId": "tloas",
+    "date": "2026-07-03",
+    "label": "Married at MSG",
+    "kind": "life"
+  },
+  {
+    "id": "m-tloas-2",
+    "eraId": "tloas",
+    "date": "2025-10-03",
+    "label": "Showgirl released",
+    "kind": "album"
+  },
+  {
+    "id": "m-tloas-3",
+    "eraId": "tloas",
+    "date": "2025-10-18",
+    "label": "Record debut",
+    "kind": "award"
+  }
+]

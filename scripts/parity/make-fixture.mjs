@@ -10,11 +10,24 @@
 //                         apps/web, then verify. Run after `npm run sync:content`, then
 //                         `next build` directly (NOT `npm run build`: its prebuild re-syncs).
 //   --regenerate          deliberate, manual or dispatch only: freeze the LIVE synced tree
-//                         (after `npm run sync:content`) into scripts/parity/fixture/ and
-//                         write fixture.json. CI never runs this.
+//                         (after `npm run sync:content`) into scripts/parity/fixture/, prune it
+//                         (below) and write fixture.json. CI never runs this.
+//   --prune               prune the committed fixture in place (idempotent), then verify and
+//                         rewrite fixture.json. Keeps only the eras the two routes render (the
+//                         current era and the fixed item's era), in BOTH the bundle and the baked
+//                         modules, and renames the hash-named content dir to `frozen`.
 //
 // fixture.json = { bundleVersion, hash, itemId }; itemId is the moment-detail route.
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -35,8 +48,21 @@ const BAKED = [
   'song-moods',
 ].map((n) => `${n}.generated.ts`);
 
+/** Baked modules keyed by era at two-space indent (`  "<era>": [ ... ],`); pruned in step with the bundle. */
+const ERA_KEYED = [
+  'content-vault',
+  'era-secrets',
+  'theories-bundle',
+  'tracks',
+  'videos-bundle',
+].map((n) => `${n}.generated.ts`);
+/** Bundle catalogues that are one `{ eraId, <field>: [...] }` entry per era. */
+const PER_ERA = { tracks: 'tracks', theories: 'theories', videos: 'videos', eraSecrets: 'secrets' };
+/** Short stand-in for the 64-hex content hash: directory name, current.json and manifest.bundleVersion. */
+const ALIAS = 'frozen';
+
 const mode = process.argv[2] ?? '--check';
-if (!['--check', '--apply', '--regenerate'].includes(mode)) {
+if (!['--check', '--apply', '--regenerate', '--prune'].includes(mode)) {
   console.error(`parity fixture: unknown mode ${mode}`);
   process.exit(2);
 }
@@ -46,27 +72,112 @@ const FIXED_ITEM_ID =
     ? (process.env.PARITY_ITEM_ID ?? 'vault-fearless-fifteen-written-for-her-best-friend-abigail')
     : JSON.parse(readFileSync(join(fixtureDir, 'fixture.json'), 'utf-8')).itemId;
 
+const { ERAS, CURRENT_ERA_ID } = await import('@swift2/experience');
+const writing = mode === '--regenerate' || mode === '--prune';
+
+const writeJson = (path, value) => {
+  const text = JSON.stringify(value, null, 2) + '\n';
+  writeFileSync(path, text);
+  return {
+    sha256: createHash('sha256').update(text).digest('hex'),
+    bytes: Buffer.byteLength(text),
+  };
+};
+
+/**
+ * Keep only what the two routes render: the current era (first screen of `/`) and the
+ * fixed item's era. Dropped eras lose their content file and have their per-era catalogue
+ * entries emptied (not removed: the baked accessors answer [] for them, so the bundle must too);
+ * the same eras' blocks are cut from the era-keyed baked modules. Milestones and the
+ * shop-the-look merch are derived from the baked content, so they are filtered to the same eras. Idempotent.
+ */
+function pruneFixture() {
+  const pointerPath = join(fixtureDir, 'content/current.json');
+  const pointer = JSON.parse(readFileSync(pointerPath, 'utf-8'));
+  const oldDir = join(fixtureDir, 'content', pointer.bundleVersion);
+  const manifestPath = join(oldDir, 'manifest.json');
+  const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+  let itemEra;
+  for (const [name, entry] of Object.entries(manifest.files)) {
+    if (!name.startsWith('content:')) continue;
+    const file = JSON.parse(readFileSync(join(oldDir, entry.path), 'utf-8'));
+    if (file.items.some((i) => i.id === FIXED_ITEM_ID)) itemEra = name.slice('content:'.length);
+  }
+  if (!itemEra) {
+    console.error(`parity fixture: item ${FIXED_ITEM_ID} is not in the bundle`);
+    process.exit(1);
+  }
+  const keep = new Set([CURRENT_ERA_ID, itemEra]);
+  for (const [name, entry] of Object.entries(manifest.files)) {
+    if (name.startsWith('content:') && !keep.has(name.slice('content:'.length))) {
+      rmSync(join(oldDir, entry.path), { force: true });
+      delete manifest.files[name];
+    } else if (name === 'milestones') {
+      const all = JSON.parse(readFileSync(join(oldDir, entry.path), 'utf-8'));
+      Object.assign(
+        entry,
+        writeJson(
+          join(oldDir, entry.path),
+          all.filter((m) => keep.has(m.eraId)),
+        ),
+      );
+    } else if (name === 'merch') {
+      const all = JSON.parse(readFileSync(join(oldDir, entry.path), 'utf-8'));
+      all.shopTheLook = all.shopTheLook.filter((m) => keep.has(m.source?.eraId));
+      Object.assign(entry, writeJson(join(oldDir, entry.path), all));
+    } else if (name in PER_ERA) {
+      const field = PER_ERA[name];
+      const pruned = JSON.parse(readFileSync(join(oldDir, entry.path), 'utf-8')).map((e) =>
+        keep.has(e.eraId) ? e : { ...e, [field]: [] },
+      );
+      Object.assign(entry, writeJson(join(oldDir, entry.path), pruned));
+    }
+  }
+  manifest.bundleVersion = ALIAS;
+  writeJson(manifestPath, manifest);
+  writeJson(pointerPath, { ...pointer, bundleVersion: ALIAS });
+  if (pointer.bundleVersion !== ALIAS) renameSync(oldDir, join(fixtureDir, 'content', ALIAS));
+  for (const f of ERA_KEYED) {
+    const path = join(fixtureDir, 'web', f);
+    let skipping = false;
+    const kept = [];
+    for (const line of readFileSync(path, 'utf-8').split('\n')) {
+      if (skipping) {
+        skipping = !/^ {2}\],?\s*$/.test(line);
+        continue;
+      }
+      const m = /^ {2}"?([a-z0-9-]+)"?: \[\s*$/.exec(line);
+      if (m && !keep.has(m[1])) skipping = true;
+      else kept.push(line);
+    }
+    writeFileSync(path, kept.join('\n'));
+  }
+}
+
 if (mode === '--regenerate') {
   rmSync(fixtureDir, { recursive: true, force: true });
   mkdirSync(join(fixtureDir, 'web'), { recursive: true });
   const { bundleVersion } = JSON.parse(readFileSync(join(published, 'current.json'), 'utf-8'));
-  cpSync(join(published, bundleVersion), join(fixtureDir, 'content', bundleVersion), { recursive: true });
+  cpSync(join(published, bundleVersion), join(fixtureDir, 'content', bundleVersion), {
+    recursive: true,
+  });
   cpSync(join(published, 'current.json'), join(fixtureDir, 'content', 'current.json'));
   for (const f of BAKED) cpSync(join(longlive, f), join(fixtureDir, 'web', f));
 }
-if (mode === '--apply') {
+if (writing) pruneFixture();
+if (mode === '--apply' || writing) {
   for (const f of BAKED) cpSync(join(fixtureDir, 'web', f), join(longlive, f));
   rmSync(published, { recursive: true, force: true });
   cpSync(join(fixtureDir, 'content'), published, { recursive: true });
 }
 
 const { eraVideoFeed } = await import('@swift2/content-enrichment');
-const { fromBaked, fromBundle, hashSnapshot, diffSnapshots } = await import(
-  '@swift2/experience/reader-snapshot'
-);
-const { ERAS } = await import('@swift2/experience');
+const { fromBaked, fromBundle, hashSnapshot, diffSnapshots } =
+  await import('@swift2/experience/reader-snapshot');
 
-const { bundleVersion } = JSON.parse(readFileSync(join(fixtureDir, 'content/current.json'), 'utf-8'));
+const { bundleVersion } = JSON.parse(
+  readFileSync(join(fixtureDir, 'content/current.json'), 'utf-8'),
+);
 const dir = join(fixtureDir, 'content', bundleVersion);
 if (!existsSync(dir)) {
   console.error(`parity fixture: ${dir} missing`);
@@ -79,9 +190,16 @@ for (const [name, entry] of Object.entries(manifest.files)) {
 }
 
 const [content, tracks, theories, videos, secrets, merch, moods, search] = await Promise.all(
-  ['content', 'tracks', 'theories', 'videos', 'era-secrets', 'merch', 'song-moods.generated', 'search'].map(
-    (m) => import(`${web}${m}.ts`),
-  ),
+  [
+    'content',
+    'tracks',
+    'theories',
+    'videos',
+    'era-secrets',
+    'merch',
+    'song-moods.generated',
+    'search',
+  ].map((m) => import(`${web}${m}.ts`)),
 );
 const baked = fromBaked(
   {
@@ -103,20 +221,26 @@ const bundled = fromBundle({ manifest, files }, { eraVideoFeed });
 const diverging = await diffSnapshots(baked, bundled);
 const { hash } = await hashSnapshot(bundled);
 if (diverging.length > 0 || (await hashSnapshot(baked)).hash !== hash) {
-  console.error(`parity fixture: baked and bundle snapshots diverge: ${diverging.join(', ') || '(hash)'}`);
+  console.error(
+    `parity fixture: baked and bundle snapshots diverge: ${diverging.join(', ') || '(hash)'}`,
+  );
   process.exit(1);
 }
-if (!Object.values(bundled.domains.content).some((items) => items.some((i) => i.id === FIXED_ITEM_ID))) {
+if (
+  !Object.values(bundled.domains.content).some((items) => items.some((i) => i.id === FIXED_ITEM_ID))
+) {
   console.error(`parity fixture: item ${FIXED_ITEM_ID} is not in the bundle`);
   process.exit(1);
 }
 
-if (mode === '--regenerate') {
+if (writing) {
   writeFileSync(
     join(fixtureDir, 'fixture.json'),
     JSON.stringify({ bundleVersion, hash, itemId: FIXED_ITEM_ID }, null, 2) + '\n',
   );
-  console.log(`parity fixture: FROZEN ${bundleVersion.slice(0, 12)} hash ${hash.slice(0, 12)} item ${FIXED_ITEM_ID}`);
+  console.log(
+    `parity fixture: ${mode.slice(2).toUpperCase()} ${bundleVersion.slice(0, 12)} hash ${hash.slice(0, 12)} item ${FIXED_ITEM_ID}`,
+  );
 } else {
   const committed = JSON.parse(readFileSync(join(fixtureDir, 'fixture.json'), 'utf-8'));
   if (committed.hash !== hash || committed.bundleVersion !== bundleVersion) {
@@ -126,5 +250,7 @@ if (mode === '--regenerate') {
     );
     process.exit(1);
   }
-  console.log(`parity fixture: ${mode.slice(2)} ok, ${bundleVersion.slice(0, 12)} hash ${hash.slice(0, 12)}`);
+  console.log(
+    `parity fixture: ${mode.slice(2)} ok, ${bundleVersion.slice(0, 12)} hash ${hash.slice(0, 12)}`,
+  );
 }
