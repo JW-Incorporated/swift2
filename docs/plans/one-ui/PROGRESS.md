@@ -127,6 +127,15 @@ baselines don't match. **PM call:** land as a pair after #4827 approval —
 index.web.tsx + re-baselines on spike routes), (2) merge origin/main into
 wp0.5b keeping index.web.ts / deleting index.web.tsx, (3) #4822 → main
 (squash; then retarget #4828 to main before deleting wp0.5b/wp1.1c-2).
+**18:04:** #4827 fix r1 → head 8a35f251 (all 10 items; PM verified run
+37084307031 success). Deviations PM-accepted: frozen fixture ≈8 MB/118k lines
+committed (prune = follow-up issue; no regeneration until pruned);
+apps/web/app/parity-probe/route.ts env-gated (accepted IF reviewers confirm
+prod-unreachable); bypassCSP kept on WebKit only. **Windows MAX_PATH:** fixture
+hash-dirs fail checkout without core.longpaths (worktree add failed) — reviewers
+rating. Round 2 (FINAL per rule 3) launched: Codex r2 (tree
+C:/Users/Fourtys/AppData/Local/Temp/cx27) + reviewer r2. 2nd rejection → DEBUG.md
++ Fable.
 **17:56:** #4828 r2 fixes 1a67746e (impact in key + test; passes>0; doc) +
 nit 6d6bd5d1 (stale type ref) → **#4828 APPROVED** (approve-with-nit), lands
 after #4827/#4822 pair (retarget to main first; re-run parity after merge-in).
