@@ -51,6 +51,8 @@ function defaultNow(): number {
  */
 export function createTimingCollector(now: () => number = defaultNow, origin: number = now()) {
   let marks: DiagMark[] = [];
+  // A new JS runtime is a cold launch; beginLaunch('warm') flips it on resume from background.
+  let launch: LaunchKind = 'cold';
   const push = (m: DiagMark) => {
     if (marks.length < MAX_MARKS) marks.push(m);
   };
@@ -72,26 +74,31 @@ export function createTimingCollector(now: () => number = defaultNow, origin: nu
     marks(): readonly DiagMark[] {
       return marks;
     },
+    /** A span measured elsewhere (e.g. the native lead before JS started), recorded at offset 0. */
+    note(stage: string, durationMs: number): void {
+      push({ stage, startMs: 0, durationMs });
+    },
+    /** Start a fresh launch: drop the previous launch's marks and re-anchor T0 to now. */
+    beginLaunch(kind: LaunchKind): void {
+      marks = [];
+      origin = now();
+      launch = kind;
+    },
+    elapsed(): number {
+      return now() - origin;
+    },
     reset(): void {
       marks = [];
     },
     summary(): TimingSummary {
-      return summarizeMarks(marks);
+      return summarizeMarks(marks, launch);
     },
   };
 }
 
 export type TimingCollector = ReturnType<typeof createTimingCollector>;
 
-/** Cold = the loader had to download a bundle (manifest 200); warm = served from cache (manifest 304). */
-export function launchKindOf(marks: readonly DiagMark[]): LaunchKind {
-  const manifest = marks.find((m) => m.stage === 'manifest');
-  if (manifest?.detail === '304') return 'warm';
-  if (manifest?.detail === '200') return 'cold';
-  return 'unknown';
-}
-
-export function summarizeMarks(marks: readonly DiagMark[]): TimingSummary {
+export function summarizeMarks(marks: readonly DiagMark[], launch: LaunchKind = 'unknown'): TimingSummary {
   const byStage = new Map<string, StageSummary>();
   for (const m of marks) {
     const s = byStage.get(m.stage);
@@ -115,7 +122,7 @@ export function summarizeMarks(marks: readonly DiagMark[]): TimingSummary {
     .sort((a, b) => b.durationMs - a.durationMs)
     .slice(0, 5)
     .map((m) => ({ file: String(m.detail), ms: m.durationMs }));
-  return { launch: launchKindOf(marks), stages: [...byStage.values()], slowestDownloads };
+  return { launch, stages: [...byStage.values()], slowestDownloads };
 }
 
 const round = (n: number): number => Math.round(n * 10) / 10;
@@ -130,14 +137,29 @@ export const DIAG_PREFIX = '[diag]';
 const REPORT_STAGES = [
   'app-start', 'config', 'app-first-render', 'pointer', 'manifest', 'download', 'hash',
   'parse', 'validate', 'disk-write', 'load-total', 'provider-wiring', 'first-era-paint',
+  'resume-paint', 'first-image-paint', 'native-lead',
 ];
 
 /** Instant marks (no duration) — keep equal to POINT_STAGES in apps/web/app/api/feedback/diag.ts (a test pins them). */
-export const POINT_STAGES = ['app-start', 'app-first-render', 'provider-wiring', 'first-era-paint'];
+export const POINT_STAGES = [
+  'app-start', 'app-first-render', 'provider-wiring', 'first-era-paint', 'resume-paint', 'first-image-paint',
+];
 
 /** True when the stage is a point mark shown by its `at` offset only; any other stage keeps its duration even at 0 ms. */
 export function isPointStage(s: StageSummary): boolean {
   return POINT_STAGES.includes(s.stage) && s.maxMs === 0;
+}
+
+/** Speed test mode metadata (#4896); the server validates it against an exact schema (apps/web/app/api/feedback/diag.ts). */
+export interface DiagSpeed {
+  run: string;
+  kind: 'launch' | 'summary';
+  index: number;
+  total: number;
+  ui: 'native' | 'shared' | 'unknown';
+  anchor: 'native' | 'js';
+  images10s?: number;
+  launches?: { k: 'cold' | 'warm'; ms: number }[];
 }
 
 export interface DiagPayload {
@@ -149,6 +171,7 @@ export interface DiagPayload {
     updateId: string;
     launch: LaunchKind;
     timings: Record<string, number>;
+    speed?: DiagSpeed;
   };
 }
 
@@ -158,7 +181,7 @@ export interface DiagPayload {
  * coarse device facts (charset-sanitised) plus numeric timings under known
  * stage names (`<stage>` = total ms, `at:<stage>` = first start ms).
  */
-export function buildDiagPayload(env: DiagEnv, summary: TimingSummary): DiagPayload {
+export function buildDiagPayload(env: DiagEnv, summary: TimingSummary, speed?: DiagSpeed): DiagPayload {
   const timings: Record<string, number> = {};
   for (const s of summary.stages) {
     if (!REPORT_STAGES.includes(s.stage)) continue;
@@ -169,7 +192,7 @@ export function buildDiagPayload(env: DiagEnv, summary: TimingSummary): DiagPayl
     const name = d.file.replace(/[^A-Za-z0-9:_.-]/g, '').slice(0, 40);
     if (name) timings[`download:${name}`] = clamp(d.ms);
   }
-  if (Object.keys(timings).length === 0) timings['app-start'] = 0;
+  if (Object.keys(timings).length === 0 && speed?.kind !== 'summary') timings['app-start'] = 0;
   return {
     message: DIAG_PREFIX,
     diag: {
@@ -179,6 +202,7 @@ export function buildDiagPayload(env: DiagEnv, summary: TimingSummary): DiagPayl
       updateId: UUID_RE.test(env.updateId) ? env.updateId : 'embedded',
       launch: summary.launch,
       timings,
+      ...(speed ? { speed } : {}),
     },
   };
 }
@@ -209,11 +233,41 @@ let installed = false;
 
 const markedOnce = new Set<string>();
 
-/** Instant mark recorded at most once per process; a no-op until diagnostics are installed. */
+let paintListener: ((stage: string, detail?: string) => void) | null = null;
+
+/** Notified after each first-era-paint (cold) / resume-paint (warm) mark; the Speed test mode hook. */
+export function setPaintListener(fn: ((stage: string, detail?: string) => void) | null): void {
+  paintListener = fn;
+}
+
+/** Instant mark recorded at most once per launch; a no-op until diagnostics are installed. */
 export function diagMarkOnce(stage: string, detail?: string): void {
   if (!installed || markedOnce.has(stage)) return;
   markedOnce.add(stage);
   diagCollector.mark(stage, detail);
+  if (stage === 'first-era-paint' || stage === 'resume-paint') paintListener?.(stage, detail);
+}
+
+/** Resume from background: a warm launch gets its own marks, re-anchored to the resume. */
+export function beginWarmLaunch(): void {
+  diagCollector.beginLaunch('warm');
+  markedOnce.clear();
+}
+
+/**
+ * ms from native app start to the collector's T0 (JS start), from RN's
+ * performance.rnStartupTiming when the platform provides it; null otherwise
+ * (the report then measures JS start -> paint and says so).
+ */
+export function nativeLeadMs(perf: unknown, originNow: number): number | null {
+  try {
+    const start = (perf as { rnStartupTiming?: { startTime?: unknown } } | undefined)?.rnStartupTiming?.startTime;
+    if (typeof start !== 'number' || !Number.isFinite(start) || start < 0) return null;
+    const lead = originNow - start;
+    return lead >= 0 && lead <= 120_000 ? lead : null;
+  } catch {
+    return null;
+  }
 }
 
 /** Route packages/content load-stage events into `diagCollector`, once, and mark app start. */
@@ -222,4 +276,6 @@ export function installDiagnostics(): void {
   installed = true;
   setLoadTimingSink((e) => diagCollector.record(e));
   diagCollector.mark('app-start');
+  const lead = nativeLeadMs((globalThis as { performance?: unknown }).performance, defaultNow() - diagCollector.elapsed());
+  if (lead !== null) diagCollector.note('native-lead', lead);
 }

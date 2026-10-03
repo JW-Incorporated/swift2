@@ -10,7 +10,9 @@ import {
   diagCollector,
   diagMarkOnce,
   installDiagnostics,
-  launchKindOf,
+  beginWarmLaunch,
+  nativeLeadMs,
+  setPaintListener,
   summarizeMarks,
 } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
@@ -68,7 +70,7 @@ describe('createTimingCollector', () => {
   });
 });
 
-describe('launchKindOf / summarizeMarks', () => {
+describe('summarizeMarks', () => {
   const m = (stage: string, durationMs: number, detail?: string, startMs = 0) => ({
     stage,
     durationMs,
@@ -76,10 +78,10 @@ describe('launchKindOf / summarizeMarks', () => {
     ...(detail ? { detail } : {}),
   });
 
-  it('reads cold from a 200 manifest and warm from a 304', () => {
-    expect(launchKindOf([m('manifest', 5, '200')])).toBe('cold');
-    expect(launchKindOf([m('manifest', 5, '304')])).toBe('warm');
-    expect(launchKindOf([])).toBe('unknown');
+  it('takes the launch kind from the process lifecycle, never from the manifest status', () => {
+    expect(summarizeMarks([m('manifest', 5, '304')], 'cold').launch).toBe('cold');
+    expect(summarizeMarks([m('manifest', 5, '200')], 'warm').launch).toBe('warm');
+    expect(summarizeMarks([]).launch).toBe('unknown');
   });
 
   it('aggregates per stage and lists the slowest downloads', () => {
@@ -182,6 +184,43 @@ describe('createTapUnlock', () => {
   });
 });
 
+describe('launch kind and per-launch marks', () => {
+  it('a new collector is cold; beginLaunch(warm) drops stale marks and re-anchors T0', () => {
+    let t = 1000;
+    const c = createTimingCollector(() => t);
+    expect(c.summary().launch).toBe('cold');
+    t = 1770;
+    c.mark('first-era-paint');
+    expect(c.summary().stages[0].firstStartMs).toBe(770);
+    t = 9000;
+    c.beginLaunch('warm');
+    expect(c.marks().length).toBe(0);
+    t = 9400;
+    c.mark('resume-paint');
+    const s = c.summary();
+    expect(s.launch).toBe('warm');
+    expect(s.stages.map((x) => x.stage)).toEqual(['resume-paint']);
+    expect(s.stages[0].firstStartMs).toBe(400);
+    expect(c.elapsed()).toBe(400);
+  });
+});
+
+describe('nativeLeadMs', () => {
+  const perf = (startTime: unknown) => ({ rnStartupTiming: { startTime } });
+  it('is the gap between the native app start and the JS origin', () => {
+    expect(nativeLeadMs(perf(1200), 2000)).toBe(800);
+  });
+  it('is null when RN does not report a usable start (labelled JS start -> paint)', () => {
+    expect(nativeLeadMs(undefined, 2000)).toBeNull();
+    expect(nativeLeadMs({}, 2000)).toBeNull();
+    expect(nativeLeadMs(perf(null), 2000)).toBeNull();
+    expect(nativeLeadMs(perf(NaN), 2000)).toBeNull();
+    expect(nativeLeadMs(perf(5000), 2000)).toBeNull();
+    expect(nativeLeadMs(perf(0), 500_000)).toBeNull();
+    expect(nativeLeadMs({ get rnStartupTiming(): never { throw new Error('x'); } }, 2000)).toBeNull();
+  });
+});
+
 describe('installDiagnostics', () => {
   afterEach(() => setLoadTimingSink(null));
 
@@ -205,6 +244,21 @@ describe('installDiagnostics', () => {
     beginStage('probe')();
     expect(diagCollector.marks().some((x) => x.stage === 'probe')).toBe(true);
   });
+
+  it('beginWarmLaunch lets first-era-paint style marks fire again and notifies the paint listener', () => {
+    installDiagnostics();
+    const seen: string[] = [];
+    setPaintListener((stage) => seen.push(stage));
+    beginWarmLaunch();
+    expect(diagCollector.summary().launch).toBe('warm');
+    expect(diagCollector.marks().length).toBe(0);
+    diagMarkOnce('resume-paint');
+    diagMarkOnce('resume-paint');
+    diagMarkOnce('first-era-paint');
+    setPaintListener(null);
+    expect(seen).toEqual(['resume-paint', 'first-era-paint']);
+    expect(diagCollector.marks().filter((x) => x.stage === 'resume-paint').length).toBe(1);
+  });
 });
 
 describe('sendDiagReport', () => {
@@ -221,7 +275,7 @@ describe('sendDiagReport', () => {
 
   it('surfaces the route error and survives a network failure', async () => {
     const limited = vi.fn().mockResolvedValue({ ok: false, status: 429, json: async () => ({ error: 'slow down' }) });
-    expect(await sendDiagReport(payload, limited as unknown as typeof fetch)).toEqual({ ok: false, error: 'slow down' });
+    expect(await sendDiagReport(payload, limited as unknown as typeof fetch)).toEqual({ ok: false, status: 429, error: 'slow down' });
     const down = vi.fn().mockRejectedValue(new Error('offline'));
     expect((await sendDiagReport(payload, down as unknown as typeof fetch)).ok).toBe(false);
   });

@@ -47,7 +47,7 @@ export function EraSection({ era, onOpenItem }: { era: Era; onOpenItem: (id: str
   // WP0.1 first-era-paint: the first animation frame after real era entries commit.
   useEffect(() => {
     if (state.status !== 'ready') return;
-    const frame = requestAnimationFrame(() => diagMarkOnce('first-era-paint'));
+    const frame = requestAnimationFrame(() => diagMarkOnce('first-era-paint', 'native'));
     return () => cancelAnimationFrame(frame);
   }, [state.status]);
 

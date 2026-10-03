@@ -2,7 +2,19 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
-import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, diagCommentFrom, isDiagMessage, parseDiagReport } from './diag';
+import {
+  DIAG_ISSUE_NUMBER,
+  DIAG_PREFIX,
+  DIAG_REPO,
+  diagCommentFrom,
+  isDiagMessage,
+  parseDiagReport,
+  speedAllowed,
+  speedCommit,
+  speedDuplicate,
+  speedRefund,
+  type SpeedMeta,
+} from './diag';
 import {
   WATCHDOG_PREFIX,
   isWatchdogMessage,
@@ -209,7 +221,15 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const ip = trustedClientIp(req);
-  if (rateLimited(ip)) {
+  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
+  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
+  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
+  const speedShaped =
+    message === DIAG_PREFIX &&
+    typeof payload.diag === 'object' &&
+    payload.diag !== null &&
+    'speed' in payload.diag;
+  if (!speedShaped && rateLimited(ip)) {
     return NextResponse.json(
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
       { status: 429 },
@@ -223,6 +243,7 @@ export async function POST(req: Request): Promise<Response> {
   const watchdog = isWatchdogMessage(message);
   const diag = isDiagMessage(message) || watchdog;
   let diagComment = '';
+  let speedReport: SpeedMeta | null = null;
   if (watchdog) {
     const exactShape =
       payload.message === WATCHDOG_PREFIX &&
@@ -242,6 +263,15 @@ export async function POST(req: Request): Promise<Response> {
     const parsed = exactShape ? parseDiagReport(payload.diag) : null;
     if (!parsed?.ok) {
       return NextResponse.json({ error: 'Invalid diagnostics report.' }, { status: 400 });
+    }
+    if (parsed.report.speed) {
+      if (speedDuplicate(parsed.report.speed)) {
+        return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
+      }
+      if (!speedAllowed(parsed.report.speed.run)) {
+        return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
+      }
+      speedReport = parsed.report.speed;
     }
     diagComment = diagCommentFrom(parsed.report);
   }
@@ -304,12 +334,14 @@ export async function POST(req: Request): Promise<Response> {
     if (!res.ok) {
       const detail = await res.text();
       console.error('feedback: GitHub issue create failed', res.status, detail.slice(0, 300));
+      if (speedReport) speedRefund(speedReport.run);
       return NextResponse.json(
         { error: 'Couldn’t file that right now — please try again later.' },
         { status: 502 },
       );
     }
 
+    if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
     return NextResponse.json(
       { ok: true, number: issue.number, url: issue.html_url },
