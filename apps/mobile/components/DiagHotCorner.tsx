@@ -1,11 +1,11 @@
-// Invisible hot corner in the top safe-area inset strip (bottom strip as a
-// fallback) that opens the Diagnostics panel with 7 quick taps while the
+// Invisible hot corner in the top and bottom inset strips that opens the
+// Diagnostics panel with 7 quick taps (shared across both strips) while the
 // shared-UI host is mounted (issue #4872). It lives outside the SafeAreaView so
 // it never overlaps DOM content. No visual change by design.
 import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createHotCornerPress, hotCornerRect } from '../lib/diag-hot-corner';
+import { createHotCornerPress, hotCornerRects } from '../lib/diag-hot-corner';
 import { DiagnosticsPanel } from './DiagnosticsPanel';
 
 export function DiagHotCorner() {
@@ -13,16 +13,19 @@ export function DiagHotCorner() {
   const onPress = useRef(createHotCornerPress(() => setOpen(true))).current;
   const insets = useSafeAreaInsets();
   const window = useWindowDimensions();
-  const rect = hotCornerRect(insets, window);
-  if (!rect) return null;
+  const rects = hotCornerRects(insets, window);
+  if (rects.length === 0) return null;
   return (
     <>
-      <Pressable
-        accessible={false}
-        android_ripple={null}
-        onPress={onPress}
-        style={[styles.corner, rect]}
-      />
+      {rects.map((rect) => (
+        <Pressable
+          key={rect.top === 0 ? 'top' : 'bottom'}
+          accessible={false}
+          android_ripple={null}
+          onPress={onPress}
+          style={[styles.corner, rect]}
+        />
+      ))}
       <DiagnosticsPanel visible={open} onClose={() => setOpen(false)} />
     </>
   );

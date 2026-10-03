@@ -1,7 +1,7 @@
 // Pure logic for the invisible Diagnostics hot corner (issue #4872). While the
 // Expo DOM shared-UI host is mounted the native Settings -> About path is
-// unreachable, so a transparent box in the safe-area inset strip (the status-bar
-// area, which the DOM content never occupies) reuses the 7-tap unlock.
+// unreachable, so transparent boxes in the top and bottom inset strips (which the
+// DOM content never occupies) feed one shared 7-tap unlock.
 import { createTapUnlock } from './diagnostics';
 
 /** Width of the hot corner strip, in points. */
@@ -47,21 +47,23 @@ export function domContentRect(
 }
 
 /**
- * Rect of the hot corner in window coordinates: the top inset strip, else the
- * bottom inset strip, else null (no usable strip; Settings stays native-only).
+ * Rects of the hot corner in window coordinates: the top inset strip and the
+ * bottom inset strip, each only when usable. Empty when neither is (Settings
+ * stays native-only).
  */
-export function hotCornerRect(
+export function hotCornerRects(
   insets: Insets,
   window: { width: number; height: number },
-): HotCornerRect | null {
+): HotCornerRect[] {
   const width = Math.min(HOT_CORNER_WIDTH, window.width);
+  const rects: HotCornerRect[] = [];
   if (insets.top >= MIN_STRIP_HEIGHT) {
-    return { left: 0, top: 0, width, height: insets.top };
+    rects.push({ left: 0, top: 0, width, height: insets.top });
   }
   if (insets.bottom >= MIN_STRIP_HEIGHT) {
-    return { left: 0, top: window.height - insets.bottom, width, height: insets.bottom };
+    rects.push({ left: 0, top: window.height - insets.bottom, width, height: insets.bottom });
   }
-  return null;
+  return rects;
 }
 
 /** Returns a press handler that calls `onUnlock` on the 7th rapid tap. */

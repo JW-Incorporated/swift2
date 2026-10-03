@@ -4,7 +4,7 @@ import {
   createHotCornerPress,
   domContentRect,
   HOT_CORNER_WIDTH,
-  hotCornerRect,
+  hotCornerRects,
   type HotCornerRect,
   shouldMountHotCorner,
 } from './diag-hot-corner';
@@ -26,50 +26,51 @@ describe('shouldMountHotCorner', () => {
   });
 });
 
-describe('hotCornerRect', () => {
+describe('hotCornerRects', () => {
   const win = { width: 390, height: 844 };
-  const cases: Array<[string, { top: number; bottom: number }, boolean]> = [
-    ['iPhone notch 59/34', { top: 59, bottom: 34 }, true],
-    ['Android edge-to-edge 24/0', { top: 24, bottom: 0 }, true],
-    ['Android edge-to-edge 48/48', { top: 48, bottom: 48 }, true],
-    ['bottom-only strip 0/34', { top: 0, bottom: 34 }, true],
-    ['small insets 10/10', { top: 10, bottom: 10 }, false],
-    ['zero insets', { top: 0, bottom: 0 }, false],
-  ];
-  for (const [name, i, expectRect] of cases) {
-    it(`${name}: never intersects DOM content`, () => {
-      const insets = { ...i, left: 0, right: 0 };
-      const rect = hotCornerRect(insets, win);
-      if (!expectRect) {
-        expect(rect).toBeNull();
-        return;
-      }
-      expect(rect).not.toBeNull();
-      expect(rect!.width).toBe(HOT_CORNER_WIDTH);
-      expect(rect!.left).toBe(0);
-      expect(intersects(rect!, domContentRect(insets, win))).toBe(false);
-    });
-  }
-  it('uses the top strip when both are usable', () => {
-    expect(hotCornerRect({ top: 59, bottom: 34, left: 0, right: 0 }, win)).toEqual({
-      left: 0,
-      top: 0,
-      width: 88,
-      height: 59,
-    });
+  const ins = (top: number, bottom: number) => ({ top, bottom, left: 0, right: 0 });
+  it('mounts both strips when both insets are usable', () => {
+    const rects = hotCornerRects(ins(59, 34), win);
+    expect(rects).toEqual([
+      { left: 0, top: 0, width: 88, height: 59 },
+      { left: 0, top: 810, width: 88, height: 34 },
+    ]);
   });
-  it('falls back to the bottom strip when top is too small', () => {
-    expect(hotCornerRect({ top: 0, bottom: 34, left: 0, right: 0 }, win)).toEqual({
-      left: 0,
-      top: 810,
-      width: 88,
-      height: 34,
-    });
+  it('mounts only the top strip when bottom is too small', () => {
+    expect(hotCornerRects(ins(24, 10), win)).toEqual([
+      { left: 0, top: 0, width: 88, height: 24 },
+    ]);
+  });
+  it('mounts only the bottom strip when top is too small', () => {
+    const rects = hotCornerRects(ins(10, 34), win);
+    expect(rects).toEqual([
+      { left: 0, top: win.height - 34, width: 88, height: 34 },
+    ]);
+  });
+  it('mounts nothing when both insets are too small', () => {
+    expect(hotCornerRects(ins(10, 10), win)).toEqual([]);
+    expect(hotCornerRects(ins(0, 0), win)).toEqual([]);
+  });
+  it('never intersects DOM content', () => {
+    for (const [t, b] of [
+      [59, 34],
+      [24, 0],
+      [48, 48],
+      [0, 34],
+    ]) {
+      const insets = ins(t, b);
+      for (const rect of hotCornerRects(insets, win)) {
+        expect(rect.width).toBe(HOT_CORNER_WIDTH);
+        expect(intersects(rect, domContentRect(insets, win))).toBe(false);
+      }
+    }
   });
   it('never intersects content with landscape side insets', () => {
     const insets = { top: 24, bottom: 21, left: 47, right: 47 };
     const land = { width: 844, height: 390 };
-    expect(intersects(hotCornerRect(insets, land)!, domContentRect(insets, land))).toBe(false);
+    const rects = hotCornerRects(insets, land);
+    expect(rects).toHaveLength(2);
+    for (const rect of rects) expect(intersects(rect, domContentRect(insets, land))).toBe(false);
   });
 });
 
@@ -81,6 +82,16 @@ describe('createHotCornerPress', () => {
     for (let i = 0; i < 6; i++) press();
     expect(onUnlock).not.toHaveBeenCalled();
     press();
+    expect(onUnlock).toHaveBeenCalledTimes(1);
+  });
+  it('shares one counter across handlers wired to the same unlock', () => {
+    let t = 0;
+    const onUnlock = vi.fn();
+    const unlock = createTapUnlock({ now: () => (t += 100) });
+    const top = createHotCornerPress(onUnlock, unlock);
+    const bottom = createHotCornerPress(onUnlock, unlock);
+    for (let i = 0; i < 4; i++) top();
+    for (let i = 0; i < 3; i++) bottom();
     expect(onUnlock).toHaveBeenCalledTimes(1);
   });
   it('does not open when taps are too slow', () => {
