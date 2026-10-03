@@ -75,6 +75,20 @@ bypassCSP, external images → grey PNG, (b) serves /eras/*.png from web public.
 Codex r1 `task-murncc9n-9q975l` + reviewer r1 launched (part-2 commits only).
 **WP1.2** executor launched (wt `wt-wp12`, branch feature/one-ui-wp1.2 stacked
 on wp1.1c-2; axe baseline + negative spec; root devDep @axe-core/playwright).
+**17:22:** #4827 reviewer r1 = REQUEST CHANGES: High baselines from live
+content (→ commit frozen fixture), Med phone a-item==b-item PNGs (insets not
+exercised in b-item), Med fingerprint not compared vs wp0.5b base; accepted
+deviations bypassCSP / grey PNG / /eras from web public / index.web.tsx delete.
+Bundle with Codex r1 into one fix round.
+**17:28: S1 CLOSED — owner (Joey, chat): "just use the feedback from my phone
+for now and move on at risk."** 2 Android [diag] reports on #4791; iPad
+pending a TestFlight invite (Joey). **Merge freeze OFF.** Landed: #4796
+(WP0.3b), #4813 (WP0.2 A), #4799 (WP0.4 native → store builds, c541c2bc).
+GitHub did NOT auto-retarget stacked PRs when bases were deleted → two restack
+executors: loader chain #4815→#4816; DOM chain #4811→#4818+#4819→#4822 (#4827
+only retargeted to main, not merged). TODO next free slot: size-baseline bump
+PR (+11.6%, after #4799); researcher on S1 reports → WP0.2 D decision;
+release-train check for the #4799 store builds.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
