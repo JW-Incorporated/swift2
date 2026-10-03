@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@source '../../../packages/ui/src';
 
 /* Inlined as a data URI: Metro CSS cannot import local font files yet, and the
    DOM webview ignores expo-font. Source: @fontsource/playfair-display latin-700. */

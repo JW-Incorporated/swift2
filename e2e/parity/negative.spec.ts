@@ -1,3 +1,4 @@
+import type { Page } from '@playwright/test';
 import {
   BASE,
   captureRoot,
@@ -65,6 +66,103 @@ test.describe('asset and image gates', () => {
       document.body.append(img);
     });
     await expect.poll(() => takeExternalImages(page).length).toBeGreaterThan(0);
+  });
+});
+
+test.describe('image settle gate (a slow image must be painted before capture)', () => {
+  const DELAY_MS = 4000;
+  for (const side of ['a', 'b'] as const) {
+    test(`side ${side}: a delayed image response (local or external) is waited for, so the capture matches the undelayed render`, async ({ page }, testInfo) => {
+      await openRoute(page, side, route);
+      const control = await captureRoot(page, route);
+      const delayed = new Set<string>();
+      await page.route(
+        (url) => /^https?:$/.test(url.protocol),
+        async (r) => {
+          if (r.request().resourceType() !== 'image') return r.fallback();
+          delayed.add(r.request().url());
+          await new Promise((done) => setTimeout(done, DELAY_MS));
+          return r.fallback();
+        },
+      );
+      const started = Date.now();
+      await openRoute(page, side, route);
+      const shot = await captureRoot(page, route);
+      expect(delayed.size, 'the slow route must actually have intercepted images').toBeGreaterThan(0);
+      expect(Date.now() - started, 'the capture must have waited for the slow images').toBeGreaterThanOrEqual(DELAY_MS);
+      expect(await pixelMatches(testInfo, `neg-slow-${side}`, control, shot)).toBe(true);
+    });
+  }
+});
+
+test.describe('image settle gate (images injected after load, so only imagesReady can wait for them)', () => {
+  const DELAY_MS = 3000;
+  const inject = (page: Page, urls: { img: string; bg: string }, root: string) =>
+    page.evaluate(
+      ({ u, sel }) => {
+        const host = document.querySelector(sel) as HTMLElement;
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'position:relative;height:0;z-index:9';
+        const img = new Image();
+        img.loading = 'lazy';
+        img.id = 'parity-slow-img';
+        img.src = u.img;
+        img.style.cssText = 'position:absolute;top:0;left:0;width:60px;height:60px';
+        const bg = document.createElement('div');
+        bg.id = 'parity-slow-bg';
+        bg.style.cssText = `position:absolute;top:70px;left:0;width:60px;height:60px;background:url("${u.bg}") center/cover`;
+        wrap.append(img, bg);
+        host.prepend(wrap);
+      },
+      { u: urls, sel: root },
+    );
+
+  for (const side of ['a', 'b'] as const) {
+    test(`side ${side}: a delayed lazy <img> and CSS background are waited for and present in the capture`, async ({ page }, testInfo) => {
+      await openRoute(page, side, route);
+      const tag = `parity-slow=${Date.now()}`;
+      const urls = {
+        img: `${BASE[side]}/eras/debut.png?${tag}-img`,
+        bg: `${BASE[side]}/eras/debut.png?${tag}-bg`,
+      };
+      const served = new Map<string, number>();
+      await page.route(
+        (url) => url.search.includes(tag),
+        async (r) => {
+          await new Promise((done) => setTimeout(done, DELAY_MS));
+          served.set(r.request().url(), Date.now());
+          return r.fallback();
+        },
+      );
+      const started = Date.now();
+      await inject(page, urls, route.root);
+      const shot = await captureRoot(page, route);
+      const captured = Date.now();
+      expect([...served.keys()].sort(), 'both slow URLs were requested and served before the capture').toEqual(
+        [urls.bg, urls.img].sort(),
+      );
+      expect(captured - started).toBeGreaterThanOrEqual(DELAY_MS);
+      expect(
+        await page.evaluate(() => {
+          const i = document.querySelector('#parity-slow-img') as HTMLImageElement;
+          return i.complete && i.naturalWidth > 0;
+        }),
+      ).toBe(true);
+      const later = await captureRoot(page, route);
+      expect(await pixelMatches(testInfo, `neg-slow-inject-${side}`, shot, later)).toBe(true);
+    });
+  }
+
+  test('an SVG image (decode() may reject) is treated as loaded', async ({ page }) => {
+    await openRoute(page, 'b', route);
+    await page.evaluate((sel) => {
+      const host = document.querySelector(sel) as HTMLElement;
+      const img = new Image();
+      img.src = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><rect width="10" height="10" fill="red"/></svg>')}`;
+      img.style.cssText = 'position:absolute;top:0;left:0;width:20px;height:20px';
+      host.prepend(img);
+    }, route.root);
+    await captureRoot(page, route);
   });
 });
 

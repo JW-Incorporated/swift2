@@ -140,8 +140,9 @@ export async function openRoute(page: Page, side: Side, route: Route, inset?: st
   if (route.name === 'home') await expect(root.locator('li').first()).toBeVisible();
   else await expect(root.getByRole('heading').first()).toBeVisible();
   await hydrated(page, route);
-  await settle(page);
+  await settle(page, route.root);
   await quiet(page, route);
+  await settle(page, route.root);
 }
 
 /** Hydration effects (client-only text) land after React owns the DOM: wait until the root's text and size hold still. */
@@ -169,22 +170,103 @@ async function hydrated(page: Page, route: Route): Promise<void> {
   }, route.root);
 }
 
-/** Wait for in-view images to finish and for layout to be quiet for two frames. */
-async function settle(page: Page): Promise<void> {
-  await page.waitForFunction(() =>
-    Array.from(document.images)
-      .filter((i) => {
-        const r = i.getBoundingClientRect();
-        return r.bottom > 0 && r.top < window.innerHeight;
-      })
-      .every((i) => i.complete),
+const CLIP_HEIGHT = 480;
+const IMAGE_TIMEOUT_MS = 10_000;
+
+/**
+ * Block until every image the capture can show is loaded and decoded: <img> and CSS background-image
+ * in the root's first screen. A broken, undecodable or stuck image fails the test naming its URL, so it
+ * can never be baked into a baseline unpainted (or silently pass).
+ */
+export async function imagesReady(page: Page, rootSel: string): Promise<void> {
+  const problems = await page.evaluate(
+    async ({ sel, clip, timeout }) => {
+      const root = (document.querySelector(sel) ?? document.body) as HTMLElement;
+      const limit = Math.max(window.innerHeight, root.getBoundingClientRect().top + window.scrollY + clip);
+      const inRegion = (el: Element) => {
+        const r = el.getBoundingClientRect();
+        return (
+          r.bottom + window.scrollY > 0 &&
+          r.top + window.scrollY < limit &&
+          r.right > 0 &&
+          r.left < window.innerWidth
+        );
+      };
+      const failed: string[] = [];
+      const pending = new Set<string>();
+      const jobs: Promise<void>[] = [];
+      const track = (url: string, job: Promise<void>) => {
+        pending.add(url);
+        jobs.push(
+          job.then(
+            () => void pending.delete(url),
+            (e: unknown) => {
+              pending.delete(url);
+              failed.push(`${url} (${e instanceof Error ? e.message : String(e)})`);
+            },
+          ),
+        );
+      };
+      for (const img of Array.from(root.querySelectorAll('img')).filter(inRegion)) {
+        if (img.loading === 'lazy') img.loading = 'eager';
+        track(
+          img.currentSrc || img.src || '(no src)',
+          (async () => {
+            if (!img.complete) {
+              await new Promise<void>((ok, bad) => {
+                img.addEventListener('load', () => ok(), { once: true });
+                img.addEventListener('error', () => bad(new Error('load error')), { once: true });
+                if (img.complete) ok();
+              });
+            }
+            if (img.naturalWidth === 0) throw new Error('broken image');
+            // decode() can reject for an SVG with no intrinsic size; a complete image with a width is loaded.
+            await img.decode().catch((e: unknown) => {
+              if (!(img.complete && img.naturalWidth > 0)) throw e;
+            });
+          })(),
+        );
+      }
+      const bgUrls = new Set<string>();
+      for (const el of [root, ...Array.from(root.querySelectorAll('*'))].filter(inRegion)) {
+        for (const m of getComputedStyle(el).backgroundImage.matchAll(/url\((?:"([^"]*)"|'([^']*)'|([^)]*))\)/g)) {
+          const u = m[1] ?? m[2] ?? m[3];
+          if (u) bgUrls.add(new URL(u, document.baseURI).href);
+        }
+      }
+      for (const url of bgUrls) {
+        track(
+          url,
+          (async () => {
+            const bg = new Image();
+            bg.src = url;
+            await bg.decode().catch((e: unknown) => {
+              if (!(bg.complete && bg.naturalWidth > 0)) throw e;
+            });
+          })(),
+        );
+      }
+      let timer = 0;
+      const timedOut = new Promise<void>((r) => {
+        timer = window.setTimeout(r, timeout);
+      });
+      await Promise.race([Promise.all(jobs), timedOut]);
+      window.clearTimeout(timer);
+      for (const u of pending) failed.push(`${u} (still loading after ${timeout} ms)`);
+      return failed;
+    },
+    { sel: rootSel, clip: CLIP_HEIGHT, timeout: IMAGE_TIMEOUT_MS },
   );
+  expect(problems, 'parity: every image in the capture region must load and decode').toEqual([]);
+}
+
+/** Wait for every image to paint, then for layout to be quiet for two frames. */
+async function settle(page: Page, rootSel = 'body'): Promise<void> {
+  await imagesReady(page, rootSel);
   await page.evaluate(
     () => new Promise<void>((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))),
   );
 }
-
-const CLIP_HEIGHT = 480;
 
 /** Served same-origin (style-src 'self'): an injected <style> would need bypassing the web build's CSP. */
 function captureCss(r: string): string {
@@ -196,6 +278,7 @@ function captureCss(r: string): string {
 
 /** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
 export async function captureViewport(page: Page): Promise<Buffer> {
+  await imagesReady(page, 'body');
   return page.screenshot({ scale: 'css' });
 }
 
@@ -204,6 +287,7 @@ export async function captureRoot(page: Page, route: Route): Promise<Buffer> {
   // Web-only chrome (TopBar and its fixed timeline rail, footer) is not part of the shared root; the app host supplies its own.
   // A stylesheet, not inline styles: the rail re-renders (and sets its own visibility) after hydration.
   await page.addStyleTag({ url: `${CAPTURE_CSS_PATH}?root=${encodeURIComponent(route.root)}` });
+  await imagesReady(page, route.root);
   const box = await page.locator(route.root).first().boundingBox();
   if (!box) throw new Error(`parity: ${route.root} has no box`);
   return page.screenshot({
@@ -265,5 +349,5 @@ export async function mutate(page: Page, route: Route, kind: Mutation): Promise<
     if (k === 'remove') el.remove();
     if (k === 'text') el.textContent = `${el.textContent ?? ''} (changed)`;
   }, kind);
-  await settle(page);
+  await settle(page, route.root);
 }

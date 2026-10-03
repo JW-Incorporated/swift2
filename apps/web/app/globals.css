@@ -3,6 +3,7 @@
    :root block below for why this lives in its own generated file. Must
    stay a top-level @import (CSS requires imports before other rules). */
 @import './tokens.generated.css';
+@source '../../../packages/ui/src';
 
 /*
   Long Live — per-era theming system.
