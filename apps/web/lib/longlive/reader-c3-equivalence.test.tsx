@@ -31,10 +31,10 @@ function sampleTargets(): ShareTarget[] {
     targets.push({ kind: 'era', eraId: era.id });
     targets.push({ kind: 'trackGuide', eraId: era.id });
     targets.push({ kind: 'theoryGuide', eraId: era.id });
-    for (const item of CONTENT.filter((c) => c.eraId === era.id).slice(0, 3)) {
+    for (const item of CONTENT.filter((c) => c.eraId === era.id)) {
       targets.push({ kind: 'item', itemId: item.id });
     }
-    for (const t of tracksForEra(era.id).slice(0, 2)) {
+    for (const t of tracksForEra(era.id)) {
       targets.push({ kind: 'track', eraId: era.id, trackKey: trackKey(era.id, t) });
     }
   }
@@ -54,16 +54,32 @@ describe('WP2.2-C3: share payloads and card specs are identical on snapshot and 
     }
   });
 
-  it('parseShareCardRequest and the canonical card path: sample items, slugs, eras', () => {
+  it('parseShareCardRequest and the canonical card path: every item, slug, era, myEras combo', () => {
     const q = renderReader();
-    const items = ERAS.flatMap((e) => CONTENT.filter((c) => c.eraId === e.id).slice(0, 3));
+    const items = ERAS.flatMap((e) => CONTENT.filter((c) => c.eraId === e.id));
     expect(items.length).toBeGreaterThan(20);
+    const ids = ERAS.map((e) => e.id);
+    const erasCombos = [
+      '',
+      'nope',
+      ids[0],
+      ids.slice(0, 2).join(','),
+      ids.join(','),
+      `${ids[0]},nope,${ids[1]}`,
+      encodeURIComponent(ids.slice(0, 3).join(',')),
+    ];
+    const perms = ['m=3&e=1&f=0', 'm=0&e=0&f=0', 'e=2&f=5&m=1', 'f=9', 'm=x&e=&f=-1', ''];
     const qs = [
       '',
       '?item=no-such-item',
-      '?eras=debut,fearless&m=3&e=1&f=0',
+      '?item=',
+      ...erasCombos.flatMap((e) => perms.map((p) => `?eras=${e}&${p}`)),
       ...ERAS.map((e) => `?era=${e.id}&size=portrait`),
-      ...items.flatMap((c) => [`?item=${c.id}`, `?item=${c.slug ?? c.id}&size=story`]),
+      ...items.flatMap((c) => [
+        `?item=${encodeURIComponent(c.id)}`,
+        `?item=${encodeURIComponent(c.slug ?? c.id)}&size=story`,
+        `?item=${encodeURIComponent(c.id)}&eras=${ids.slice(0, 2).join(',')}&m=2&e=1&f=3`,
+      ]),
     ];
     for (const s of qs) {
       const url = new URL(`https://www.longlivets.com/api/share-card${s}`);
