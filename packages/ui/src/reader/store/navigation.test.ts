@@ -3,7 +3,7 @@ import { navReducer, navInitialState, type NavState } from './navigation';
 import { CURRENT_ERA_ID, ERAS } from '@swift2/experience';
 import type { LensId } from '@swift2/experience';
 
-const otherEraId = ERAS[0].id;
+const otherEraId = ERAS[0]!.id;
 
 describe('navReducer', () => {
   it('has the expected initial state', () => {
