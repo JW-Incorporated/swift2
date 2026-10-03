@@ -194,13 +194,17 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
 
 export type TapQueue = ReturnType<typeof createTapQueue>;
 
-/** The ready-host sink: `emit` is `BridgeHost.emit`; `awaitAck` resolves true on the DOM's ack (E2). */
+/**
+ * The ready-host sink: `emit` is `BridgeHost.emit` (its seq is passed on to `awaitAck`);
+ * `awaitAck` resolves true on the DOM's ack (E2). `source` defaults to 'notification'.
+ */
 export const navigateSink =
   (
-    emit: (type: 'navigate', payload: EventPayloadOf<'navigate'>) => void,
-    awaitAck: (tap: Tap) => Promise<boolean>,
+    emit: (type: 'navigate', payload: EventPayloadOf<'navigate'>) => number | null | void,
+    awaitAck: (tap: Tap, seq: number | null) => Promise<boolean>,
+    source: EventPayloadOf<'navigate'>['source'] = 'notification',
   ): TapSink =>
   (tap) => {
-    emit('navigate', { path: tap.path, source: 'notification' });
-    return awaitAck(tap);
+    const seq = emit('navigate', { path: tap.path, source });
+    return awaitAck(tap, typeof seq === 'number' ? seq : null);
   };

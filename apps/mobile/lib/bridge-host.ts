@@ -78,6 +78,8 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   let closed = false; // fatal or disposed: nothing further is sent or run
   let negotiated: number | null = null;
   let hostId = 0;
+  let ackedThrough = 0;
+  const ackWaiters = new Set<{ seq: number; cb: () => void }>();
 
   const safeSend = (env: Envelope) => {
     if (closed) return;
@@ -107,6 +109,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       p.resolve(resErr('failed', 'bridge closed'));
     }
     outbox.clear();
+    ackWaiters.clear();
   }
   const raise = (reason: string) => {
     if (closed) return;
@@ -197,8 +200,19 @@ export function createBridgeHost(deps: BridgeHostDeps) {
 
   function onAck(payload: unknown) {
     const n = isRecord(payload) ? payload.seq : undefined;
-    if (typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= outbox.highest()) outbox.ack(n);
-    else onSignal('bridge-bad-ack', String(n).slice(0, 32));
+    if (typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= outbox.highest()) {
+      outbox.ack(n);
+      if (n > ackedThrough) ackedThrough = n;
+      for (const w of [...ackWaiters]) {
+        if (w.seq > n) continue;
+        ackWaiters.delete(w);
+        try {
+          w.cb();
+        } catch (e) {
+          onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
+        }
+      }
+    } else onSignal('bridge-bad-ack', String(n).slice(0, 32));
   }
 
   function onRes(env: Envelope) {
@@ -253,12 +267,33 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     return env;
   }
 
-  function emit<T extends NativeEventType>(type: T, payload: EventPayloadOf<T>): void {
+  /** Returns the envelope's monotonically increasing seq, or null when nothing was queued. */
+  function emit<T extends NativeEventType>(type: T, payload: EventPayloadOf<T>): number | null {
     try {
-      enqueue('evt', `h-${++hostId}`, type, payload);
+      return enqueue('evt', `h-${++hostId}`, type, payload)?.seq ?? null;
     } catch (e) {
       onSignal('bridge-emit-failed', String(e).slice(0, 200));
+      return null;
     }
+  }
+
+  /**
+   * One-shot: `cb` runs when the DOM's cumulative ack reaches `seq` (at once if it
+   * already has). An unknown seq is ignored. Returns an unsubscribe. Dropped on dispose.
+   */
+  function onAcked(seq: number, cb: () => void): () => void {
+    if (closed || !Number.isSafeInteger(seq) || seq < 1 || seq > outbox.highest()) return () => {};
+    if (seq <= ackedThrough) {
+      try {
+        cb();
+      } catch (e) {
+        onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
+      }
+      return () => {};
+    }
+    const w = { seq, cb };
+    ackWaiters.add(w);
+    return () => void ackWaiters.delete(w);
   }
 
   /** Native-to-DOM command. Never rejects: failure and timeout resolve as a `res` error. */
@@ -289,6 +324,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   return {
     receive,
     emit,
+    onAcked,
     request,
     isReady: () => ready,
     /** Aborts handlers, clears timers, settles pending requests; nothing is sent afterwards. */

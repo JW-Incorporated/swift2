@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { setup } from './bridge-host.test-kit';
 import { createTapQueue, navigateSink, resolveTapPath } from './notification-tap-queue';
 import type { Tap, TapSink } from './notification-tap-queue';
 
@@ -287,6 +288,34 @@ describe('notification tap queue', () => {
     q.enqueue(tap('e', '/vault/lover'));
     await q.flush();
     expect(emit).toHaveBeenCalledWith('navigate', { path: '/vault/lover', source: 'notification' });
+    expect(q.size()).toBe(0);
+  });
+
+  it('navigateSink passes the source through and hands the emit seq to awaitAck', async () => {
+    const emit = vi.fn().mockReturnValue(7);
+    const seqs: Array<number | null> = [];
+    const q = createTapQueue();
+    q.attach(navigateSink(emit, async (_t: Tap, seq) => (seqs.push(seq), true), 'deeplink'));
+    q.enqueue(tap('d', '/settings'));
+    await q.flush();
+    expect(emit).toHaveBeenCalledWith('navigate', { path: '/settings', source: 'deeplink' });
+    expect(seqs).toEqual([7]);
+  });
+
+  it('a real host ack via onAcked resolves the in-flight tap', async () => {
+    const s = setup();
+    s.makeReady();
+    const q = createTapQueue();
+    q.attach(
+      navigateSink(s.host.emit, (_t, seq) =>
+        seq === null ? Promise.resolve(false) : new Promise<boolean>((r) => void s.host.onAcked(seq, () => r(true))),
+      ),
+    );
+    q.enqueue(tap('r', '/vault/lover'));
+    await Promise.resolve();
+    expect(q.size()).toBe(1);
+    s.evt('ack', { seq: 1 }, 'ack1');
+    await q.flush();
     expect(q.size()).toBe(0);
   });
 });

@@ -55,6 +55,55 @@ describe('bridge-host ready, queue and protocol-fatal', () => {
     expect(s.host.inbox().map((e) => e.seq)).toEqual([3]);
   });
 
+  it('emit returns a monotonically increasing seq, also before ready', () => {
+    const s = setup();
+    const a = s.host.emit('contentVersion', { token: 'a' });
+    s.makeReady();
+    const b = s.host.emit('contentVersion', { token: 'b' });
+    const c = s.host.emit('contentVersion', { token: 'c' });
+    expect([a, b, c]).toEqual([1, 2, 3]);
+    expect(s.sent.map((e) => e.seq)).toEqual([1, 2, 3]);
+  });
+
+  it('onAcked fires once when the cumulative ack reaches its seq; unknown and duplicate acks are ignored', () => {
+    const s = setup();
+    s.makeReady();
+    const one = vi.fn();
+    const two = vi.fn();
+    const bogus = vi.fn();
+    const q1 = s.host.emit('contentVersion', { token: 'a' })!;
+    const q2 = s.host.emit('contentVersion', { token: 'b' })!;
+    s.host.onAcked(q1, one);
+    s.host.onAcked(q2, two);
+    s.host.onAcked(99, bogus);
+    s.evt('ack', { seq: 1 }, 'ack1');
+    expect([one.mock.calls.length, two.mock.calls.length]).toEqual([1, 0]);
+    s.evt('ack', { seq: 1 }, 'ack2');
+    expect(one).toHaveBeenCalledTimes(1);
+    s.evt('ack', { seq: 2 }, 'ack3');
+    expect(two).toHaveBeenCalledTimes(1);
+    s.evt('ack', { seq: 99 }, 'ack4');
+    expect(bogus).not.toHaveBeenCalled();
+    const late = vi.fn();
+    s.host.onAcked(q1, late);
+    expect(late).toHaveBeenCalledTimes(1);
+  });
+
+  it('onAcked unsubscribe and dispose drop the waiter', () => {
+    const s = setup();
+    s.makeReady();
+    const a = vi.fn();
+    const b = vi.fn();
+    const sa = s.host.emit('contentVersion', { token: 'a' })!;
+    const sb = s.host.emit('contentVersion', { token: 'b' })!;
+    s.host.onAcked(sa, a)();
+    s.host.onAcked(sb, b);
+    s.host.dispose();
+    s.evt('ack', { seq: 2 }, 'ack1');
+    expect(a).not.toHaveBeenCalled();
+    expect(b).not.toHaveBeenCalled();
+  });
+
   it('version too old or too new is protocol-fatal, and the host never becomes ready', () => {
     const a = setup();
     a.evt('ready', { v: 99 });
