@@ -7,9 +7,17 @@ const rules = (await nextConfig.headers!()) as Rule[];
 
 /** Path-to-regexp-lite: does a Next `source` pattern match this path? */
 function matches(source: string, path: string): boolean {
-  const re = new RegExp(
-    '^' + source.replace(/\/:path\*$/, '(?:/.*)?').replace(/\//g, '\\/') + '$',
-  );
+  // Handle /:path* suffix specially - it becomes (?:/.*)?
+  const hasPathSuffix = source.endsWith('/:path*');
+  const prefix = hasPathSuffix ? source.slice(0, -7) : source; // -7 = length of '/:path*'
+
+  // Escape all regex metacharacters in the prefix
+  const escaped = prefix.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
+
+  // Reconstruct: add the path suffix pattern if it was present
+  const pattern = hasPathSuffix ? escaped + '(?:/.*)?' : escaped;
+
+  const re = new RegExp('^' + pattern + '$');
   return re.test(path);
 }
 

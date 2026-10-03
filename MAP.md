@@ -77,6 +77,7 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
+| `scripts/parity/size-check.mjs` (+ `.test.ts`) | OTA size budget: fails CI on >15% growth of the mobile export vs `e2e/parity/size-baseline.json` (`--update` rewrites it; see docs/mobile-release.md) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
 **Retired 2026-08-19 (kit-v3):** `STATE.md`, `PLAN.md`, `PLANtemplate.md`,
@@ -626,3 +627,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `scripts/ci-concurrency.test.ts` | Pins `ci.yml`'s concurrency: `main` pushes grouped per commit (a shared group silently dropped queued runs when merges clustered), PRs per-ref with cancel-in-progress |
+
+## Expo DOM host (One UI WP0.4)
+
+| File | What it is |
+|---|---|
+| `apps/mobile/dom/SharedUiTest.tsx` (+ `shared-ui-test.css`, `css.d.ts`) | `'use dom'` test page: Tailwind v4, `--era-*` switch, Radix dialog, 50-row list, inlined web font, watchdog signals |
+| `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals, reloads itself on webview death |
+| `apps/mobile/lib/orientation-lock.ts` | Locks phones to portrait at runtime (app.json orientation is `default`) |
+| `apps/mobile/postcss.config.mjs` | Tailwind v4 PostCSS plugin for DOM CSS |
+| `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
