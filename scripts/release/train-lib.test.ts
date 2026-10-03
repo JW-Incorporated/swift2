@@ -148,3 +148,30 @@ describe('awaitBuilds', () => {
     expect(r.builds.android.status).toBe('IN_QUEUE');
   });
 });
+
+describe('large eas output (fingerprint:generate is ~1.1 MB)', () => {
+  it('runEas sets a maxBuffer well above 1 MiB', async () => {
+    const { runEas, EAS_MAX_BUFFER } = await import('./train-lib.mjs');
+    let seen: { maxBuffer?: number } = {};
+    const big = JSON.stringify({ hash: 'c'.repeat(40), sources: 'x'.repeat(1_200_000) });
+    const out = runEas(['fingerprint:generate'], {
+      exec: ((_c: string, _a: string[], o: { maxBuffer?: number }) => {
+        seen = o;
+        return big;
+      }) as never,
+    });
+    expect(seen.maxBuffer).toBe(EAS_MAX_BUFFER);
+    expect(EAS_MAX_BUFFER).toBeGreaterThan(2 * 1024 * 1024);
+    expect(parseFingerprint(out)).toBe('c'.repeat(40));
+  });
+
+  it('really survives >1 MiB of stdout through child_process', async () => {
+    const { runEas } = await import('./train-lib.mjs');
+    const { execFileSync } = await import('node:child_process');
+    const out = runEas([], {
+      exec: ((_c: string, _a: string[], o: object) =>
+        execFileSync(process.execPath, ['-e', 'process.stdout.write("y".repeat(1200000))'], o)) as never,
+    });
+    expect(out.length).toBe(1_200_000);
+  });
+});
