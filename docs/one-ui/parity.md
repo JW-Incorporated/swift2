@@ -109,6 +109,16 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    opened by `openSupportFooter` which waits for hydration and the client-only
    "Vault refreshed" line to hold still); `negative.spec.ts` proves a pure 1px footer
    translate fails that clip on all four projects.
+   One UI PR0-alpha (WP2.5-2.8) adds side-a-only baselines (`A_ONLY_ROUTES` in
+   `helpers.ts`; they never enter `ROUTES`, so compare and a11y are unchanged): `a-item-video`,
+   `a-item-social` (the Instagram facade is never clicked, because an iframe is an external
+   non-image request), `a-threads`, one `a-lens-<id>` per thread lens, `a-crossing`,
+   `a-guide`, `a-song`, `a-theories`, `a-search-open`, `a-search-results`, plus element
+   clips: related rail and follow-threads row (on `item-social`, because the frozen
+   Fearless `item` has no related ids or threads), `a-item-lightbox` (on `item`), the
+   fashion career scrubber, the song OverlayNav and the search combobox row. The fixture
+   covers only Fearless and TLOAS, so some threads are sparse. `negative.spec.ts` proves a
+   1px mutation fails the rail clip, the search row clip and the threads root capture.
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
