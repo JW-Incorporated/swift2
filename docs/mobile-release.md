@@ -102,6 +102,17 @@ Instead:
   and runs `eas submit --platform android --id <build_id> --profile
   production --non-interactive` itself, in the one place that has the
   secret.
+- The selector's result decides the run colour (final step "Fail the train"):
+
+  | Scenario | `result` | Run colour |
+  |---|---|---|
+  | OTA-only (fingerprint unchanged, `build_android` skipped or absent) | `skipped` | green |
+  | Store build, iOS and Android both ok | `success` | green |
+  | iOS fails, Android ok (Android still submitted) | `success` | red (EAS wait failed) |
+  | Android build fails/cancelled | `not_success` | red |
+  | Android SUCCESS but hash/id/platform/profile check fails | `no_build` | red |
+  | Status JSON unreadable / selector crash | `unknown` | red |
+
 - After the wait (even when it failed), the step "Summarise EAS jobs and the
   published OTA update" writes each EAS job's final status and, on success,
   the OTA update group id(s), platform and runtime version published for

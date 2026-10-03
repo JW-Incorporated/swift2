@@ -47,8 +47,22 @@ describe('selectAndroidBuild', () => {
   });
 
   it('maps job states', () => {
-    expect(selectAndroidBuild({ jobs: [] }, SHA).result).toBe('absent');
-    expect(selectAndroidBuild(run(build(), 'SKIPPED'), SHA).result).toBe('not_success');
     expect(selectAndroidBuild(run(undefined), SHA).result).toBe('no_build');
   });
+
+  it('treats an absent build_android job as skipped (OTA-only)', () => {
+    expect(selectAndroidBuild({ jobs: [] }, SHA)).toEqual({ result: 'skipped' });
+    expect(selectAndroidBuild({}, SHA)).toEqual({ result: 'skipped' });
+  });
+
+  it('treats the eas-cli SKIPPED status as skipped', () => {
+    expect(selectAndroidBuild(run(undefined, 'SKIPPED'), SHA)).toEqual({ result: 'skipped' });
+  });
+
+  it.each(['FAILURE', 'CANCELED', 'PENDING_CANCEL', 'IN_PROGRESS', 'NEW', 'ACTION_REQUIRED'])(
+    'maps job status %s to not_success',
+    (status) => {
+      expect(selectAndroidBuild(run(build(), status), SHA).result).toBe('not_success');
+    },
+  );
 });

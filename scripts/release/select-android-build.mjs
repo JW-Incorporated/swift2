@@ -8,7 +8,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export function selectAndroidBuild(run, sha) {
   const j = (run?.jobs ?? []).find((x) => x?.key === 'build_android');
-  if (!j) return { result: 'absent' };
+  if (!j) return { result: 'skipped' };
+  if (j.status === 'SKIPPED') return { result: 'skipped' };
   if (j.status !== 'SUCCESS') return { result: 'not_success' };
   const b = j.turtleBuild;
   if (
