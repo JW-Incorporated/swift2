@@ -110,10 +110,10 @@ describe('#3177 TrackGuide is a real focus-trapped dialog', () => {
 });
 
 describe('#3177 TheoryGuide is a real focus-trapped dialog', () => {
-  const src = read('./TheoryGuide.tsx');
+  const src = read('../../../../packages/ui/src/reader/threads/TheoryGuide.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the guide root declares dialog semantics and a focus target', () => {

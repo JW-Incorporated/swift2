@@ -150,7 +150,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/share-card-fonts.ts` · `share-fonts/` | Vendored Playfair/Inter `.woff` (OFL) read with fs; `next.config.mjs` `outputFileTracingIncludes` ships them with the function |
 | `components/longlive/ShareImageMenu.tsx` · `YourLongLiveCard.tsx` | "Share as image" Story/Post menu (moment detail, era hero) and the "Your Long Live" entry in `EraSelector`; `lib/longlive/share-action.ts` `triggerImageShare` + `share-payload.ts` `shareCardImage` do file-share-or-download |
 | `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal; plays a paired song video inline (~20% of tracks pair) |
-| `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
+| `packages/ui/src/reader/threads/TheoryGuide.tsx` (shim: `components/longlive/TheoryGuide.tsx`) | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
 | `components/longlive/TheoryCard.tsx` | One theory/egg card: badges, sources, R4 back-link (thread if `theoryThreadId` resolves, else the unconditional "whole section" line) |
 | `components/longlive/ThreadsMode.tsx` | Thread gallery + thread detail |
 | `components/longlive/FeedbackButton.tsx` | Fixed bottom-right, `z-[71]`, POSTs to `/api/feedback` |
