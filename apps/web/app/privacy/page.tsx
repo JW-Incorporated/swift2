@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { LegalDocument } from '@/components/longlive/LegalDocument';
+import { LegalDocument } from '@swift2/ui/reader/legal/LegalDocument';
 import { PRIVACY_POLICY, legalRobots } from '@/lib/longlive/legal';
 
 // The copy lives in `lib/longlive/legal.ts` — including the standing rule that

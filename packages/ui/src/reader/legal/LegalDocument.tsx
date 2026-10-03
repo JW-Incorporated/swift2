@@ -6,8 +6,8 @@ import {
   legalEffectiveLine,
   type LegalBlock,
   type LegalDoc,
-} from '@/lib/longlive/legal';
-import { SiteFooter } from './SiteFooter';
+} from './lib/legal';
+import { SiteFooter } from '@/components/longlive/SiteFooter';
 
 /**
  * The renderer for both legal pages (#800). All copy lives in
