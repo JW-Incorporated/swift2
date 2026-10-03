@@ -1,7 +1,6 @@
 // Native-side bridge dispatcher (One UI WP2.3-B). Pure and transport-neutral: no
 // React/RN/Expo imports; clock, scheduler, transport and handlers are injected.
-// Contract: packages/ui/src/bridge/README.md. Not wired into SharedUiHost yet
-// (step 4 waits for G0).
+// Contract: packages/ui/src/bridge/README.md. Not wired into SharedUiHost yet (G0).
 import {
   BRIDGE_VERSION,
   NATIVE_SUPPORTED_RANGE,
@@ -31,12 +30,11 @@ import type {
 import { OUTBOX_CAP, createOutbox } from './bridge-host-outbox';
 import { DEFAULT_TIMEOUT_MS, createInflight } from './bridge-host-inflight';
 import { createTimers } from './bridge-host-timers';
-import type { BridgeScheduler } from './bridge-host-timers';
+import { type BridgeScheduler } from './bridge-host-timers';
 import { isExpectedResult, isRecord, validateCommand } from './bridge-host-validate';
 
 export const HOST_RANGE: VersionRange = NATIVE_SUPPORTED_RANGE;
-export { DEFAULT_TIMEOUT_MS };
-export type { BridgeScheduler };
+export { DEFAULT_TIMEOUT_MS, type BridgeScheduler };
 export const SEEN_IDS_CAP = 256;
 export const MAX_INFLIGHT = 32;
 export const MAX_PENDING = 64;
@@ -186,7 +184,10 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       const reason = n.ok ? (r.range!.min > HOST_RANGE.max ? 'too-new' : 'too-old') : n.reason;
       return raise(`bridge-version ${reason} dom=${r.v} host=${HOST_RANGE.min}-${HOST_RANGE.max}`);
     }
-    if (ready) onSignal('bridge-re-ready', 'renegotiated, resending unacked');
+    if (ready) {
+      inflight.abortAll();
+      seen.clear();
+    }
     ready = true;
     negotiated = r.v;
     outbox.all().forEach(dispatch);

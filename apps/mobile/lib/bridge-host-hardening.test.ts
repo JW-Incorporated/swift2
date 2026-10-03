@@ -128,6 +128,30 @@ describe('bridge-host hardening: payloads and version', () => {
     expect(await p).toMatchObject({ error: { code: 'timeout' } });
   });
 
+  it('re-ready is a new session: reused ids are accepted and old-session handlers send nothing', async () => {
+    let finish!: () => void;
+    let signal!: AbortSignal;
+    const api = vi.fn((_p: unknown, c: { signal: AbortSignal }) => {
+      signal = c.signal;
+      return new Promise((r) => { finish = () => r(resOk({ status: 200, headers: {}, body: '' })); });
+    });
+    const s = setup({ api } as never);
+    s.makeReady();
+    s.cmd('c1', 'api', apiReq);
+    await tick();
+    s.makeReady();
+    expect(signal.aborted).toBe(true);
+    expect(s.sch.count()).toBe(0);
+    finish();
+    await tick();
+    expect(s.resFor('c1')).toHaveLength(0);
+    s.cmd('c1', 'api', apiReq);
+    await tick();
+    expect(api).toHaveBeenCalledTimes(2);
+    s.sch.advance(8000);
+    expect(s.resFor('c1')).toHaveLength(1);
+  });
+
   it('a second ready with an unsupported version is protocol-fatal and silences the host', () => {
     const s = setup();
     s.makeReady();
