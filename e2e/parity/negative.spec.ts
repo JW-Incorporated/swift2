@@ -7,8 +7,10 @@ import {
   elementBox,
   ERA_ART_ORIGIN,
   expect,
+  FOOTER_SELECTOR,
   mutate,
   openRoute,
+  openSupportFooter,
   pixelMatches,
   ROUTES,
   takeExternalImages,
@@ -237,5 +239,18 @@ test.describe('structural a-vs-b gate', () => {
     await openRoute(page, 'b', route);
     expect(a.length).toBeGreaterThan(100);
     expect(diffStructure(a, await collectStructure(page, route.root))).toEqual([]);
+  });
+});
+
+test.describe('web footer element-clip gate (a pure 1px translate fails the /support footer clip)', () => {
+  test('a pure 1px footer translate fails the footer clip', async ({ page }, testInfo) => {
+    await openSupportFooter(page);
+    const clip = await elementBox(page, FOOTER_SELECTOR);
+    const clean = await captureElement(page, FOOTER_SELECTOR, clip);
+    await page.locator(FOOTER_SELECTOR).first().evaluate((el) => {
+      el.style.transform = 'translateY(1px)';
+    });
+    const mutated = await captureElement(page, FOOTER_SELECTOR, clip);
+    expect(await pixelMatches(testInfo, 'neg-footer-clip', clean, mutated)).toBe(false);
   });
 });

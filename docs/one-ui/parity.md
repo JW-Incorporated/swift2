@@ -102,9 +102,13 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    applies to the small area, because over a whole iPad viewport a 1px TopBar shift is
    under `maxDiffPixelRatio`). They are new files only; no existing baseline was
    regenerated. `negative.spec.ts` proves a pure 1px TopBar translate fails the TopBar
-   clip and a 1px TopBar growth fails the viewport capture. The footer is not captured:
-   it sits at the foot of a ~67k px lazily-growing stream and could not be clipped
-   stably (see WP2.4 notes).
+   clip and a 1px TopBar growth fails the viewport capture. The footer is not captured
+   on home: it sits at the foot of a ~67k px lazily-growing stream and could not be
+   clipped stably. It is captured on the short static `/support` page instead
+   (`a-support-footer.png`, side a only, the `footer` element via `captureElement`,
+   opened by `openSupportFooter` which waits for hydration and the client-only
+   "Vault refreshed" line to hold still); `negative.spec.ts` proves a pure 1px footer
+   translate fails that clip on all four projects.
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
