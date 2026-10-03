@@ -189,3 +189,19 @@ Native fingerprint `4c8f334d334c6e26208f4f638112b00b5f551e80` on origin/feature/
 (d16abd2c) == on this branch (`npx @expo/fingerprint fingerprint:generate` in apps/mobile,
 same worktree and environment, Windows 11 / Node 24.18; the branch's only apps/mobile
 difference, `main` = `index`, was toggled and does not move the hash).
+
+## Fonts: real-font web comparison (`scripts/parity/font-compare.mjs`)
+
+Compares two production web builds with real fonts (no ParityFont override).
+Main-vs-main runs were noisy (0 vs 27 px on home @1440: 1-2 level antialiasing
+jitter on 1px rounded `.era-card` borders; merch `fonts equal=false` from
+static next/font faces vs a variable face with identical pixels). Three rules:
+
+- Tolerance: pixels whose max channel delta is <= 2 are ignored. The report
+  carries `rawDiffPixels` (any delta) and `diffPixels` (tolerant); pass/fail
+  uses `diffPixels`.
+- Retry: a page/width with a nonzero tolerant diff is re-run once; a
+  regression is reported only if it reproduces (`retried` marks these rows).
+- Faces compare as family + style only (deduped); weights are not compared
+  because variable and static faces of one family render the same. The pixel
+  diff is the real weight check.
