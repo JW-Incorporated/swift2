@@ -38,8 +38,10 @@ describe('notification bridge handlers', () => {
       undefined,
       null,
       [],
-      { a: 'yes' },
+      { song_drop: 'yes' },
       { '': true },
+      { unknown_key: true },
+      { song_drop: true, bogus: true },
       { ['x'.repeat(65)]: true },
       Object.fromEntries(Array.from({ length: 65 }, (_, i) => [`k${i}`, true])),
       JSON.parse('{"__proto__": true}'),
@@ -50,6 +52,18 @@ describe('notification bridge handlers', () => {
     }
     expect(await h['notifications.updatePrefs'](undefined as never, ctx)).toMatchObject({ ok: false });
     expect(d.updatePrefs).not.toHaveBeenCalled();
+  });
+
+  it('accepts every known category key and rejects an unknown one', async () => {
+    const d = deps();
+    const h = createHandlers(d);
+    const known = { song_drop: true, lyric_of_day: false, countdowns: true };
+    expect(await h['notifications.updatePrefs']({ prefs: known }, ctx)).toEqual({ ok: true, value: null });
+    expect(d.updatePrefs).toHaveBeenCalledWith(known);
+    expect(await h['notifications.updatePrefs']({ prefs: { song_drop: true, nope: true } }, ctx)).toMatchObject({
+      ok: false,
+      error: { code: 'invalid' },
+    });
   });
 
   it('maps native failures to failed with a fixed message (no leak)', async () => {
@@ -64,7 +78,7 @@ describe('notification bridge handlers', () => {
       await h['notifications.status']({}, ctx),
       await h['notifications.request']({}, ctx),
       await h['notifications.register']({}, ctx),
-      await h['notifications.updatePrefs']({ prefs: { a: true } }, ctx),
+      await h['notifications.updatePrefs']({ prefs: { song_drop: true } }, ctx),
     ];
     for (const r of results) {
       expect(r).toEqual({ ok: false, error: { code: 'failed', message: 'notification operation failed' } });
@@ -81,7 +95,7 @@ describe('notification bridge handlers', () => {
       await h['notifications.status']({}, c),
       await h['notifications.request']({}, c),
       await h['notifications.register']({}, c),
-      await h['notifications.updatePrefs']({ prefs: { a: true } }, c),
+      await h['notifications.updatePrefs']({ prefs: { song_drop: true } }, c),
     ]) {
       expect(r).toMatchObject({ ok: false, error: { code: 'cancelled' } });
     }
@@ -114,14 +128,14 @@ describe('notification bridge handlers', () => {
     );
     d.updatePrefs.mockImplementation(async (p: Record<string, boolean>) => void applied.push(p));
     const h = createHandlers(d);
-    const one = h['notifications.updatePrefs']({ prefs: { a: true } }, ctx);
+    const one = h['notifications.updatePrefs']({ prefs: { song_drop: true } }, ctx);
     await new Promise((r) => setTimeout(r, 0));
-    const two = h['notifications.updatePrefs']({ prefs: { a: false } }, ctx);
-    const three = h['notifications.updatePrefs']({ prefs: { a: true, b: true } }, ctx);
+    const two = h['notifications.updatePrefs']({ prefs: { song_drop: false } }, ctx);
+    const three = h['notifications.updatePrefs']({ prefs: { song_drop: true, easter_egg: true } }, ctx);
     release();
     expect(await one).toEqual({ ok: true, value: null });
     expect(await two).toMatchObject({ ok: false, error: { code: 'cancelled' } });
     expect(await three).toEqual({ ok: true, value: null });
-    expect(applied).toEqual([{ a: true }, { a: true, b: true }]);
+    expect(applied).toEqual([{ song_drop: true }, { song_drop: true, easter_egg: true }]);
   });
 });

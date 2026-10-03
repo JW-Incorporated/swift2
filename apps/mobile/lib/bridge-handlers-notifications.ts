@@ -1,9 +1,9 @@
 // Threat model (PM ruling): the DOM runs only our own bundled code, and a
 // permission request already surfaces the OS prompt, so these handlers carry
-// no user-gesture gate. Prefs go through the canonical `validPrefs`.
+// no user-gesture gate. Prefs go through the strict `validKnownPrefs` (known categories only).
 import { resErr, resOk } from '@swift2/ui';
 import type { HandlerContext, HandlerMap, ResResult } from '@swift2/ui';
-import { validPrefs } from './bridge-host-validate';
+import { validKnownPrefs } from './bridge-host-validate';
 
 type Permission = 'granted' | 'denied' | 'undetermined' | 'unsupported';
 type NotificationHost = {
@@ -45,7 +45,7 @@ export function createHandlers(deps: NotificationHandlerDeps): NotificationHandl
     'notifications.request': (_p, ctx) => guarded(ctx, () => deps.request()),
     'notifications.register': (_p, ctx) => guarded(ctx, async () => (await deps.register(), null)),
     'notifications.updatePrefs': (payload, ctx) => {
-      const clean = validPrefs(payload?.prefs) as { prefs: Record<string, boolean> } | null;
+      const clean = validKnownPrefs(payload?.prefs) as { prefs: Record<string, boolean> } | null;
       if (!clean) return Promise.resolve(resErr('invalid', 'prefs must be a bounded map of booleans'));
       // Serialized, latest-wins: an older update still queued behind a slow one is skipped.
       const seq = ++latest;

@@ -1,3 +1,4 @@
+import { isAnyNotificationCategory } from '@swift2/shared';
 import { isBridgeId, isExternalUrl, isWebPath, sanitizeApiRequest } from '@swift2/ui';
 import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
 
@@ -30,6 +31,14 @@ export function validPrefs(prefs: unknown): JsonValue | null {
     out[k] = prefs[k] as boolean;
   }
   return { prefs: out };
+}
+
+/** Strict variant: validPrefs plus keys restricted to the canonical notification categories (shared isAnyNotificationCategory). */
+export function validKnownPrefs(prefs: unknown): JsonValue | null {
+  const v = validPrefs(prefs);
+  if (!v) return null;
+  const out = (v as { prefs: Record<string, JsonValue> }).prefs;
+  return Object.keys(out).every((k) => isAnyNotificationCategory(k)) ? v : null;
 }
 
 /** Per-command payload validation; returns the cleaned payload or null. */
