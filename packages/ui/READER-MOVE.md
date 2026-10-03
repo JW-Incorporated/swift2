@@ -95,7 +95,12 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 - Debt: `TrackDetail.tsx` (580) over the 300-line rule; moved as-is. A2 (swipe-hint `window.localStorage` -> `useHost().storage.local`) pending.
 
 ### WP2.8 search
-(pending)
+A1 (move-only): `SearchOverlay.tsx` and `search-listbox-children.test.ts` -> `reader/search/`. A2 is empty (no fetch, storage or external links).
+
+- Shim (one-line `export *`, kept until WP2.13; `LongLive.tsx` imports it): `apps/web/components/longlive/SearchOverlay.tsx`.
+- Plain rename (no outside importer): `search-listbox-children.test.ts`.
+- Import fix-ups: `@/lib/longlive/search` -> `@swift2/experience` (the stay-behind `search.ts` is a re-export of it); `useFocusTrap` from `../moment/lib/` (WP2.5-owned).
+- Source-reading tests repointed: `back-dismiss.test.ts`, `escape-dismiss.test.ts`, `modal-focus-trap.test.ts` (import string follows the new path).
 
 ### WP2.9 merch
 (pending)
