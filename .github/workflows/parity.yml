@@ -4,8 +4,9 @@ name: Parity (DOM visual)
 # (b) the app's DOM entry exported for a browser - in Chromium/WebKit at four
 # device viewports, compares a-vs-b (pixel + structural) and each side against
 # committed Linux baselines in e2e/parity/__screenshots__. Rules and the
-# baseline-update order: docs/one-ui/parity.md. NEVER a required check (a G1
-# choice, revisit when screens move).
+# baseline-update order: docs/one-ui/parity.md. The workflow always runs on every PR (no top-level
+# `paths:`); the `changes` job decides relevance and `parity-gate` is the one
+# stable-named job meant to be marked required (docs/one-ui/parity.md).
 #
 # Build (a) and build (b) run as parallel jobs; the Playwright jobs (one per
 # project) run in the image whose tag must equal the installed
@@ -13,28 +14,6 @@ name: Parity (DOM visual)
 
 on:
   pull_request:
-    paths:
-      - 'packages/ui/**'
-      - 'packages/content/**'
-      - 'packages/content-enrichment/**'
-      - 'packages/experience/**'
-      - 'scripts/sync-longlive-content.mjs'
-      - 'apps/web/**'
-      - 'apps/mobile/dom/**'
-      - 'apps/mobile/parity-entry/**'
-      - 'apps/mobile/metro.config.js'
-      - 'apps/mobile/babel.config.js'
-      - 'apps/mobile/index.ts'
-      - 'apps/mobile/index.web.ts'
-      - 'apps/mobile/postcss.config.mjs'
-      - 'apps/mobile/package.json'
-      - 'apps/mobile/app.json'
-      - 'apps/mobile/app.config.*'
-      - 'e2e/parity/**'
-      - 'playwright.parity.config.ts'
-      - 'scripts/parity/**'
-      - '.github/workflows/parity.yml'
-      - 'package-lock.json'
   workflow_dispatch:
     inputs:
       update-baselines:
@@ -50,8 +29,49 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: Parity-relevant changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      relevant: ${{ github.event_name == 'workflow_dispatch' || steps.filter.outputs.relevant == 'true' }}
+    steps:
+      - uses: actions/checkout@v7
+        if: github.event_name == 'pull_request'
+      - uses: dorny/paths-filter@v4
+        if: github.event_name == 'pull_request'
+        id: filter
+        with:
+          filters: |
+            relevant:
+              - 'packages/ui/**'
+              - 'packages/content/**'
+              - 'packages/content-enrichment/**'
+              - 'packages/experience/**'
+              - 'scripts/sync-longlive-content.mjs'
+              - 'apps/web/**'
+              - 'apps/mobile/dom/**'
+              - 'apps/mobile/parity-entry/**'
+              - 'apps/mobile/metro.config.js'
+              - 'apps/mobile/babel.config.js'
+              - 'apps/mobile/index.ts'
+              - 'apps/mobile/index.web.ts'
+              - 'apps/mobile/postcss.config.mjs'
+              - 'apps/mobile/package.json'
+              - 'apps/mobile/app.json'
+              - 'apps/mobile/app.config.*'
+              - 'e2e/parity/**'
+              - 'playwright.parity.config.ts'
+              - 'scripts/parity/**'
+              - '.github/workflows/parity.yml'
+              - 'package-lock.json'
+
   build-web:
     name: Build (a) web
+    needs: [changes]
+    if: needs.changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -85,6 +105,8 @@ jobs:
 
   build-dom:
     name: Build (b) DOM entry
+    needs: [changes]
+    if: needs.changes.outputs.relevant == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -153,6 +175,37 @@ jobs:
             test-results/
             playwright-report/
           retention-days: 14
+
+  parity-gate:
+    name: parity-gate
+    if: always() && github.event_name == 'pull_request'
+    needs: [changes, build-web, build-dom, parity]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Pass when nothing parity-relevant changed, or every parity job succeeded
+        env:
+          CHANGES: ${{ needs.changes.result }}
+          RELEVANT: ${{ needs.changes.outputs.relevant }}
+          BUILD_WEB: ${{ needs.build-web.result }}
+          BUILD_DOM: ${{ needs.build-dom.result }}
+          PARITY: ${{ needs.parity.result }}
+        run: |
+          echo "changes=$CHANGES relevant=$RELEVANT build-web=$BUILD_WEB build-dom=$BUILD_DOM parity=$PARITY"
+          if [ "$CHANGES" != "success" ]; then
+            echo "::error::The changes job did not succeed ($CHANGES)."
+            exit 1
+          fi
+          if [ "$RELEVANT" != "true" ]; then
+            echo "No parity-relevant paths changed; gate passes."
+            exit 0
+          fi
+          if [ "$BUILD_WEB" = "success" ] && [ "$BUILD_DOM" = "success" ] && [ "$PARITY" = "success" ]; then
+            echo "All parity jobs succeeded; gate passes."
+            exit 0
+          fi
+          echo "::error::A parity job failed, was cancelled, or was skipped."
+          exit 1
 
   update-baselines:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.update-baselines }}
