@@ -35,6 +35,8 @@ const routeFlagsShape = Object.fromEntries(
 
 export const appConfigSchema = z.object({
   routeFlags: z.object(routeFlagsShape).partial(),
+  /** WP2.14: remote gate for category-only watchdog fallback/quarantine reports. Absent = off; only an explicit true turns reports on. */
+  watchdogReports: z.boolean().optional(),
   minNativeBuild: z
     .object({
       ios: z.number().int().positive().optional(),

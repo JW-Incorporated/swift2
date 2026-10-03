@@ -3,6 +3,13 @@ import { NextResponse } from 'next/server';
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
 import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, diagCommentFrom, isDiagMessage, parseDiagReport } from './diag';
+import {
+  WATCHDOG_PREFIX,
+  isWatchdogMessage,
+  parseWatchdogReport,
+  watchdogAllowed,
+  watchdogCommentFrom,
+} from './watchdog-report';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -179,7 +186,7 @@ export function bodyFrom(message: string, loc: Location): string {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  let payload: { message?: string; location?: Location; hp?: string; diag?: unknown };
+  let payload: { message?: string; location?: Location; hp?: string; diag?: unknown; watchdog?: unknown };
   const bodyText = await readBodyText(req);
   if (bodyText === null) {
     return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
@@ -213,9 +220,22 @@ export async function POST(req: Request): Promise<Response> {
   // structured `diag` payload is validated against an exact schema and the
   // comment is rebuilt from those values only (see ./diag.ts). Rejects with a
   // fixed error before anything else, so nothing client-supplied is echoed.
-  const diag = isDiagMessage(message);
+  const watchdog = isWatchdogMessage(message);
+  const diag = isDiagMessage(message) || watchdog;
   let diagComment = '';
-  if (diag) {
+  if (watchdog) {
+    const exactShape =
+      payload.message === WATCHDOG_PREFIX &&
+      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'watchdog');
+    const parsed = exactShape ? parseWatchdogReport(payload.watchdog) : null;
+    if (!parsed?.ok) {
+      return NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 });
+    }
+    if (!watchdogAllowed(parsed.report.buildKey)) {
+      return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
+    }
+    diagComment = watchdogCommentFrom(parsed.report);
+  } else if (diag) {
     const exactShape =
       payload.message === DIAG_PREFIX &&
       Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'diag');

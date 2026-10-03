@@ -1,10 +1,21 @@
-// One UI WP0.4b: React wiring for the watchdog. App.tsx asks `useDomMount`
-// whether the DOM host may render. The launch-attempt record is AWAITED before
-// 'dom' is returned; if that write fails the launch mounts native (fail closed).
+// One UI WP0.4b / WP2.14: React wiring for the watchdog. App.tsx asks
+// `useDomMount` whether the DOM host may render. The DOM-or-native choice is
+// made ONCE per launch from local state only (quarantine > override > cached
+// flag > compiled default, watchdog-policy.ts); a network config applies on the
+// next launch. The launch-attempt record is AWAITED before 'dom' is returned;
+// if that write fails the launch mounts native (fail closed). `pending` is
+// bounded by PENDING_MAX_MS, after which native mounts and the DOM never swaps in.
+//
+// NOT YET WIRED (explicit follow-ups, not done in WP2.14):
+// TODO(PM, WP2.4-D): clear the pending/launch overlay when the DOM host reports ready or the watchdog falls back.
+// TODO(PM, WP2.3-E): the notification-tap queue (a tap while quarantined/fallback must land on the native screen).
+// TODO(PM, WP2.3-B step 4): wire the bridge host's onProtocolFatal to `watch.protocol` (DomWatch.protocol has no caller yet).
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AppState } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import { diagCollector } from './diagnostics';
+import { sendDiagReport } from './diagnostics-send';
 import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
+import { DEFAULT_ROUTE_FLAGS } from './routes';
 import {
   createAttemptMonitor,
   createWriteQueue,
@@ -18,18 +29,42 @@ import {
   type MountDecision,
   type WatchdogRecord,
 } from './watchdog';
-import { currentBuildKey, loadWatchdogRecord, saveWatchdogRecord } from './watchdog-store';
+import { armPendingBound, reasonCategory, refundExpiredFallback, resolveWantsDom } from './watchdog-policy';
+import {
+  currentBuildKey,
+  loadReportsRaw,
+  loadWatchdogRecord,
+  saveReportsRaw,
+  saveWatchdogRecord,
+} from './watchdog-store';
+import { createTelemetry } from './watchdog-telemetry';
 
 export type MountState = 'pending' | 'dom' | 'native';
+
+/** Everything the launch decision reads, all local: null until App has resolved them. */
+export interface LaunchInputs {
+  /** C4 "Force shared UI (this device)". */
+  override: boolean;
+  /** Last-good cached remote sharedUi (loadLaunchFlags); null = none cached. */
+  sharedUi: boolean | null;
+  /** Last-good cached watchdogReports; reports are on ONLY when this is true (null/false = off). */
+  watchdogReports: boolean | null;
+}
 
 /** What the DOM host reports into; stable identity, safe to call before/after a monitor exists. */
 export interface DomWatch {
   ready: () => void;
   error: (message: string) => void;
   crashed: (kind: 'terminated' | 'render-gone') => void;
+  protocol: () => void;
 }
 
-export function useDomMount(wantsDom: boolean): {
+// Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
+const monotonicNow = (): number => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
+
+const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as never) };
+
+export function useDomMount(inputs: LaunchInputs | null): {
   mount: MountState;
   watch: DomWatch;
   forceFailure: DomFailureMode;
@@ -40,19 +75,46 @@ export function useDomMount(wantsDom: boolean): {
   const recordRef = useRef<WatchdogRecord | null>(null);
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);
-  const wantsRef = useRef(wantsDom);
-  wantsRef.current = wantsDom;
+  const expiredRef = useRef(false);
+  const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
+  const inputsRef = useRef(inputs);
+  inputsRef.current = inputs;
   const writeRef = useRef<ReturnType<typeof createWriteQueue> | null>(null);
   writeRef.current ??= createWriteQueue(saveWatchdogRecord);
   const write = writeRef.current;
+  const telemetryRef = useRef<ReturnType<typeof createTelemetry> | null>(null);
+  telemetryRef.current ??= createTelemetry({
+    load: loadReportsRaw,
+    save: saveReportsRaw,
+    send: sendDiagReport,
+    platform: () => (Platform.OS === 'ios' ? 'ios' : 'android'),
+    now: Date.now,
+  });
+  const telemetry = telemetryRef.current;
+  const reportsOn = () => inputsRef.current?.watchdogReports === true;
+  const report = (reason: string, buildKey: string) =>
+    void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
+
+  useEffect(
+    () =>
+      armPendingBound(scheduler, () => {
+        expiredRef.current = true;
+        setMount((m) => (m === 'pending' ? 'native' : m));
+      }),
+    [],
+  );
 
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      const d = decideMount(await loadWatchdogRecord(), currentBuildKey(), Date.now());
+      const prev = await loadWatchdogRecord();
+      const d = decideMount(prev, currentBuildKey(), Date.now());
       recordRef.current = d.record;
-      await write(d.record);
+      await write(refundExpiredFallback(prev, d.record, expiredRef.current));
       if (d.clearOverride) void setForceSharedUi(false);
+      if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
+        decidedStrikeRef.current = d.record;
+      }
       if (!cancelled) setDecision(d);
     })();
     return () => {
@@ -61,15 +123,29 @@ export function useDomMount(wantsDom: boolean): {
   }, []);
 
   useEffect(() => {
-    if (!decision || startedRef.current || !wantsDom) return;
+    if (inputs) void telemetry.flush(reportsOn());
+  }, [inputs]);
+
+  useEffect(() => {
+    if (!decision || !inputs || startedRef.current) return;
     startedRef.current = true;
-    if (!shouldMountDom(wantsDom, decision)) {
+    // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
+    const struck = decidedStrikeRef.current;
+    if (struck) report(struck.lastReason, struck.buildKey);
+    if (expiredRef.current) return;
+    const want = resolveWantsDom({
+      quarantined: decision.record.state === 'quarantined',
+      override: inputs.override,
+      cachedSharedUi: inputs.sharedUi,
+      defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
+    });
+    if (!shouldMountDom(want.wantsDom, decision)) {
       setMount('native');
       return;
     }
     void (async () => {
       setForceFailure(await getForceDomFailure());
-      const attempt = await startAttempt(decision, Date.now(), write, () => wantsRef.current);
+      const attempt = await startAttempt(decision, Date.now(), write, () => !expiredRef.current);
       if (!attempt) {
         setMount('native');
         return;
@@ -80,8 +156,8 @@ export function useDomMount(wantsDom: boolean): {
         void write(recordRef.current);
       }
       monitorRef.current = createAttemptMonitor({
-        scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as never) },
-        now: Date.now,
+        scheduler,
+        now: monotonicNow,
         active: AppState.currentState === 'active',
         onReady: () => {
           if (!recordRef.current) return;
@@ -96,12 +172,15 @@ export function useDomMount(wantsDom: boolean): {
           recordRef.current = record;
           void write(record);
           if (clearOverride) void setForceSharedUi(false);
+          if (record.state === 'fallback' || record.state === 'quarantined') {
+            report(reason, record.buildKey);
+          }
           setMount('native');
         },
       });
       setMount('dom');
     })();
-  }, [decision, wantsDom]);
+  }, [decision, inputs]);
 
   useEffect(() => {
     const sub = AppState.addEventListener('change', (s) => {
@@ -123,6 +202,7 @@ export function useDomMount(wantsDom: boolean): {
       ready: () => monitorRef.current?.ready(),
       error: (m) => monitorRef.current?.error(m),
       crashed: (k) => monitorRef.current?.crashed(k),
+      protocol: () => monitorRef.current?.protocolFatal(),
     }),
     [],
   );
