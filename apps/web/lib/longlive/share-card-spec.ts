@@ -1,5 +1,5 @@
 import { ERAS, isSubConfirmed, truncate, type Era } from '@swift2/experience';
-import { getContentItemByIdOrSlug } from './content';
+import type { ReaderQueries } from '@swift2/experience/reader-snapshot';
 import {
   MY_ERAS_MAX,
   parseBucketParam,
@@ -30,6 +30,9 @@ export type ShareCardSpec =
   | { kind: 'era'; era: Era }
   | { kind: 'myEras'; eras: Era[]; moments: number; eggs: number; favorites: number }
   | { kind: 'default'; era: Era };
+
+/** The content lookup a card spec needs; required, so a caller can never fall back to module data. */
+export type ShareCardData = Pick<ReaderQueries, 'getContentItemByIdOrSlug'>;
 
 export interface ShareCardRequest {
   spec: ShareCardSpec;
@@ -67,8 +70,8 @@ export function leadSentences(text: string, max: number): string {
   return out || truncate(t, max);
 }
 
-function momentSpec(raw: string): ShareCardSpec | undefined {
-  const item = getContentItemByIdOrSlug(raw);
+function momentSpec(raw: string, data: ShareCardData): ShareCardSpec | undefined {
+  const item = data.getContentItemByIdOrSlug(raw);
   const era = item ? eraForId(item.eraId) : undefined;
   if (!item || !era) return undefined;
   const unconfirmed = item.confidence !== undefined && isSubConfirmed(item.confidence);
@@ -109,7 +112,7 @@ function myErasSpec(raw: string, params: URLSearchParams): ShareCardSpec | undef
  * recognised target that fails validation degrades to the default brand card.
  * Precedence mirrors the form the share UI builds: item, then eras, then era.
  */
-export function parseShareCardRequest(url: URL): ShareCardRequest {
+export function parseShareCardRequest(url: URL, data: ShareCardData): ShareCardRequest {
   const p = url.searchParams;
   const size = parseShareCardSize(p.get('size'));
   const item = p.get('item');
@@ -117,7 +120,7 @@ export function parseShareCardRequest(url: URL): ShareCardRequest {
   const era = eraForId(p.get('era'));
   let spec: ShareCardSpec | undefined;
   try {
-    if (item) spec = momentSpec(item);
+    if (item) spec = momentSpec(item, data);
     else if (eras) spec = myErasSpec(eras, p);
     else if (era) spec = { kind: 'era', era };
   } catch {

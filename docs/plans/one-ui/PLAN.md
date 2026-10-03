@@ -338,6 +338,11 @@ public launch.
     pre-change baseline.
   - Web e2e is green.
   - Tests pass.
+- **Done:** WP2.2-D lint ban (`eslint.config.mjs`,
+  `packages/ui/src/reader-lint-ban.test.ts`). Remaining module-global setter
+  users (server API routes via `vault-wiring.ts`, `apps/mobile/lib/*-data.ts`,
+  the WP0.5 spike) are out of scope and retire with WP2.13/C5 native
+  retirement.
 
 ### WP2.3 Bridge protocol · executor · [codex]
 - **Touch:** `packages/ui/src/bridge/**`, `apps/mobile/dom/bridge/**`, the
