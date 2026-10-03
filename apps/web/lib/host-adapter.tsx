@@ -54,9 +54,10 @@ export function createWebStorage(which: 'localStorage' | 'sessionStorage'): Host
   return {
     get(key) {
       try {
-        return area()?.getItem(key) ?? null;
+        const a = area();
+        return a ? a.getItem(key) : undefined;
       } catch {
-        return null;
+        return undefined;
       }
     },
     set(key, value) {
