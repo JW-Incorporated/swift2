@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { searchShareReducer, searchShareInitialState } from './search-share';
-import type { ClownAnswer } from '../clown-answer';
+import type { ClownAnswer } from '@swift2/shared';
 
 const answer = { text: 'hi', citations: [], investigation: [] } as unknown as ClownAnswer;
 

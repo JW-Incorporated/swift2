@@ -7,12 +7,17 @@
   "types": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./fonts/*": "./fonts/*"
+    "./fonts/*": "./fonts/*",
+    "./reader/lib/*": "./src/reader/lib/*.ts",
+    "./reader/store/*": "./src/reader/store/*.tsx"
   },
   "dependencies": {
     "@swift2/content": "*",
     "@swift2/content-enrichment": "*",
-    "@swift2/experience": "*"
+    "@swift2/experience": "*",
+    "@swift2/shared": "*",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
     "react": "^18 || ^19"
