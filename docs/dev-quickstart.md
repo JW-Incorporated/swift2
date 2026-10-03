@@ -8,9 +8,10 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 
 | Path | What it is |
 |------|-----------|
-| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` renders the static LongLive experience (`components/longlive/`, `lib/longlive/`) — see `docs/longlive-experience.md`. The old unmounted `VaultReader` UI was deleted 2026-08-11; the Supabase-backed `/vault/*` HTTP routes and `lib/vault.ts` remain. |
+| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` renders the static LongLive experience. The reader UI now lives in `packages/ui/src/reader/**`; `components/longlive/` and `lib/longlive/` keep data modules plus one-line `export *` shims at the old paths — see `docs/longlive-experience.md`. The old unmounted `VaultReader` UI was deleted 2026-08-11; the Supabase-backed `/vault/*` HTTP routes and `lib/vault.ts` remain. |
 | `apps/mobile` | Expo / React Native app. Reuses `packages/*` **unchanged**. ⚠️ Lands with **PR #42** — may not be on `main` yet. |
 | `apps/worker` | **Not code** — just holds a gitignored `.env` (`SUPABASE_DB_URL`) that the DB scripts read. No pipeline/worker in v1. |
+| `packages/ui` | **The reader UI (One UI).** `src/reader/<slice>/` (era, store, lib, shell, moment, threads, tracks, search, merch, community, clown, settings, legal) holds the components and reader logic moved out of `apps/web`; host-specific behaviour goes through `useHost()` (`HOST-ADAPTER.md`). Move log: `packages/ui/READER-MOVE.md`. Import components as `@swift2/ui/reader/<slice>/<Component>` and non-component modules as `@swift2/ui/reader/<slice>/lib/<module>`; slice barrels are intentionally empty. |
 | `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** Also `src/news/` — dormant post-v1 news-pipeline domain behind the `@swift2/shared/news` subpath; nothing imports it (see `docs/proposals/2026-07-07-news-pipeline-architecture.md`). |
 | `packages/core` | Supabase data access (Tier 0 skeleton / Tier 1 moment / track guide) + row→domain mappers. Portable (web + mobile). |
 | `supabase/migrations` | Idempotent SQL, applied in filename order. |

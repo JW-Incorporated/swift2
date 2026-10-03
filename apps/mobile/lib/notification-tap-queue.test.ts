@@ -1,6 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
+import { setup } from './bridge-host.test-kit';
 import { createTapQueue, navigateSink, resolveTapPath } from './notification-tap-queue';
-import type { Tap, TapSink } from './notification-tap-queue';
+import type { AckRef, Tap, TapSink } from './notification-tap-queue';
+
+const hostAwait =
+  (host: ReturnType<typeof setup>['host']) => (_t: Tap, ref: AckRef | null, signal: AbortSignal) =>
+    new Promise<boolean>((r) => {
+      if (!ref) return r(false);
+      const off = host.onAcked(ref, r);
+      signal.addEventListener('abort', off, { once: true });
+    });
 
 const tap = (id: string | undefined, deepLink: unknown) => ({ id, deepLink });
 const ackAll: () => { sink: TapSink; got: string[] } = () => {
@@ -288,6 +297,59 @@ describe('notification tap queue', () => {
     await q.flush();
     expect(emit).toHaveBeenCalledWith('navigate', { path: '/vault/lover', source: 'notification' });
     expect(q.size()).toBe(0);
+  });
+
+  it('navigateSink passes the source through and hands the emit ref to awaitAck', async () => {
+    const ref = { epoch: 3, seq: 7 };
+    const emit = vi.fn().mockReturnValue(ref);
+    const refs: Array<AckRef | null> = [];
+    const q = createTapQueue();
+    q.attach(navigateSink(emit, async (_t: Tap, r) => (refs.push(r), true), 'deeplink'));
+    q.enqueue(tap('d', '/settings'));
+    await q.flush();
+    expect(emit).toHaveBeenCalledWith('navigate', { path: '/settings', source: 'deeplink' });
+    expect(refs).toEqual([ref]);
+  });
+
+  it('a real host ack via onAcked resolves the in-flight tap and leaves no waiter', async () => {
+    const s = setup();
+    s.makeReady();
+    const q = createTapQueue();
+    q.attach(navigateSink(s.host.emit, hostAwait(s.host)));
+    q.enqueue(tap('r', '/vault/lover'));
+    await Promise.resolve();
+    expect(q.size()).toBe(1);
+    expect(s.host.ackWaiterCount()).toBe(1);
+    s.evt('ack', { seq: 1 }, 'ack1');
+    await q.flush();
+    expect(q.size()).toBe(0);
+    expect(s.host.ackWaiterCount()).toBe(0);
+  });
+
+  it('releases the ack waiter on timeout and across detach/attach cycles', async () => {
+    vi.useFakeTimers();
+    try {
+      const s = setup();
+      s.makeReady();
+      const q = createTapQueue({ ackTimeoutMs: 100 });
+      q.attach(navigateSink(s.host.emit, hostAwait(s.host)));
+      q.enqueue(tap('t', '/settings'));
+      await vi.advanceTimersByTimeAsync(101);
+      expect(s.host.ackWaiterCount()).toBe(0);
+      for (let i = 0; i < 5; i++) {
+        q.detach();
+        await vi.advanceTimersByTimeAsync(0);
+        expect(s.host.ackWaiterCount()).toBe(0);
+        q.attach(navigateSink(s.host.emit, hostAwait(s.host)));
+        await vi.advanceTimersByTimeAsync(0);
+        expect(s.host.ackWaiterCount()).toBe(1);
+      }
+      q.detach();
+      await vi.advanceTimersByTimeAsync(0);
+      expect(s.host.ackWaiterCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

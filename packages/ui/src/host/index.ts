@@ -1,5 +1,7 @@
 export { HostProvider, useHost, useResolveUrl } from './context';
+export { bufferedFrom } from './buffered-from';
 export type {
+  ApiStream,
   HapticKind,
   HostAdapter,
   HostAffiliateEnv,

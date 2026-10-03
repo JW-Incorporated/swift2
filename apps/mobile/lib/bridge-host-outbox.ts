@@ -7,7 +7,11 @@ export const OUTBOX_CAP = 256;
  * event is dropped to make room; requests are kept, and a new request that
  * finds only requests queued is refused (null).
  */
-export function createOutbox(cap: number, onSignal: (stage: string, detail?: string) => void) {
+export function createOutbox(
+  cap: number,
+  onSignal: (stage: string, detail?: string) => void,
+  onEvict?: (env: Envelope) => void,
+) {
   let seq = 0;
   let queue: Envelope[] = [];
   return {
@@ -26,8 +30,13 @@ export function createOutbox(cap: number, onSignal: (stage: string, detail?: str
       if (queue.length >= cap) {
         const i = queue.findIndex((q) => q.kind === 'evt');
         if (i >= 0) {
-          queue.splice(i, 1);
+          const [gone] = queue.splice(i, 1);
           onSignal('bridge-queue-drop', 'oldest emit dropped');
+          try {
+            onEvict?.(gone!);
+          } catch {
+            /* an eviction hook must not break the outbox */
+          }
         } else {
           onSignal('bridge-queue-full', env.kind);
           return null;

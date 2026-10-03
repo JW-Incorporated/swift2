@@ -7,7 +7,10 @@ import type {
   RefAttributes,
   SyntheticEvent,
 } from 'react';
-import type { ApiFetch } from '@swift2/content';
+import type { ApiFetch, ApiFetchOptions, ApiRequest } from '@swift2/content';
+
+/** Streaming transport for `/api/*`: yields decoded text chunks as they arrive; throws `Error(String(status))` on a non-2xx response. */
+export type ApiStream = (req: ApiRequest, opts?: ApiFetchOptions) => AsyncIterable<string>;
 
 /** Safe-area insets in CSS px. Package CSS should prefer `var(--safe-*, env(...))`. */
 export type Insets = { top: number; right: number; bottom: number; left: number };
@@ -57,6 +60,8 @@ export type HostImageProps = {
   unoptimized?: boolean;
   loading?: 'lazy' | 'eager';
   draggable?: boolean;
+  fetchPriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
   style?: CSSProperties;
   onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 };
@@ -128,6 +133,12 @@ export interface HostAdapter {
   onBack(handler: () => boolean): Unsubscribe;
   /** Transport for `/api/*` (X1). Same shape as WP0.3b's `ApiFetch`. */
   apiFetch: ApiFetch;
+  /**
+   * Optional streaming transport (ClownChat). Web root adapter streams the real
+   * fetch body; hosts without it fall back to `bufferedFrom(apiFetch)` (whole body once).
+   * TODO(PM, 2.11-D1): the app host implements this (or relies on the buffered fallback) via the bridge api allow-list.
+   */
+  apiStream?: ApiStream;
   storage: { local: HostStorage; session: HostStorage };
   env: HostEnv;
   insets: Insets;

@@ -35,6 +35,7 @@ export function VideoMomentCard({
   eraId,
   sortDate,
   displayDate,
+  eager = false,
 }: {
   video: WatchableVideoNote;
   eraId: Era['id'];
@@ -42,6 +43,8 @@ export function VideoMomentCard({
   /** Positioning only via `sortDate` above — see anchor-date.ts's honesty
    * rule. Rendered (and exposed to the scrubber) only when non-null. */
   displayDate: string | null;
+  /** Poster loads eagerly at high priority (first-viewport cards only). */
+  eager?: boolean;
 }) {
   const anchorProps = {
     'data-ll-item': `era-video-${video.slug}`,
@@ -95,6 +98,7 @@ export function VideoMomentCard({
             caption={null}
             playNoun={kindLabel.toLowerCase()}
             className="mt-4"
+            priority={eager}
           />
         ) : (
           <a

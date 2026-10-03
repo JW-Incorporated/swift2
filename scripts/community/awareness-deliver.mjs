@@ -15,7 +15,7 @@
 // optional (without it the message falls back to the reaction footer).
 import { serviceClient } from '../lib/supabase.mjs';
 import { isSchemaPending, runMain } from '../lib/cli.mjs';
-import { postBatchHeader } from './discord-delivery.mjs';
+import { DISCORD_SUPPRESS_EMBEDS, TREE_AVATAR_URL, postBatchHeader } from './discord-delivery.mjs';
 import { buildAckUrl } from './mailer.mjs';
 import { awarenessEnabled, dailyCapFor, loadConfig, utcDayStart } from './awareness-scan.mjs';
 import { AWARENESS_KIND } from './awareness-filters.mjs';
@@ -32,6 +32,7 @@ import {
   AWARENESS_WEBHOOK_USERNAME,
   buildAwarenessHeader,
   buildAwarenessMessage,
+  buildAwarenessReplyText,
   buildMultipartPayload,
   imageFilename,
   selectBatch,
@@ -98,6 +99,23 @@ export async function postAwarenessMessage({ webhook, content, png, filename, fe
   const payload = await response.json();
   if (!payload?.id) throw new Error('Discord delivery returned no message id');
   return payload.id;
+}
+
+/** The reply text alone, right after its card, so it copies cleanly on mobile. */
+export async function postAwarenessReplyText({ webhook, text, fetchImpl = fetch }) {
+  const response = await fetchImpl(`${webhook}?wait=true`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      content: text,
+      username: AWARENESS_WEBHOOK_USERNAME,
+      avatar_url: TREE_AVATAR_URL,
+      allowed_mentions: { parse: [] },
+      flags: DISCORD_SUPPRESS_EMBEDS,
+    }),
+  });
+  if (!response.ok)
+    throw new Error(`Discord reply-text delivery failed with HTTP ${response.status}`);
 }
 
 export async function markDelivered(supabase, leadId, messageId, imageRef) {
@@ -173,7 +191,9 @@ export async function runDelivery({
         { ...lead, image_ref: imageRef },
         { postedUrl, skipUrl, rule: tiers.get(lead.community)?.selfPromoNote ?? UNKNOWN_SUB_RULE },
       );
-      prepared.push({ lead, imageRef, content, png: cards.get(imageRef).png });
+      const replyText = buildAwarenessReplyText(lead).text;
+      if (!replyText) throw new Error(`Awareness opportunity ${lead.id} has no reply text`);
+      prepared.push({ lead, imageRef, content, replyText, png: cards.get(imageRef).png });
     } catch (err) {
       failed.push({ leadId: lead.id, message: String(err?.message ?? err) });
     }
@@ -195,8 +215,18 @@ export async function runDelivery({
         filename: imageFilename(item.imageRef),
         fetchImpl,
       });
+      // The card is the record (acks and reactions route by it), so a card
+      // that posted is delivered even if its reply text then fails; the
+      // failure is still reported so the run shows it.
+      let replyError = null;
+      try {
+        await postAwarenessReplyText({ webhook, text: item.replyText, fetchImpl });
+      } catch (err) {
+        replyError = String(err?.message ?? err);
+      }
       await markDelivered(supabase, item.lead.id, messageId, item.imageRef);
       delivered.push({ leadId: item.lead.id, messageId, card: cardUrlForRef(item.imageRef) });
+      if (replyError) failed.push({ leadId: item.lead.id, message: replyError });
     } catch (err) {
       failed.push({ leadId: item.lead.id, message: String(err?.message ?? err) });
     }

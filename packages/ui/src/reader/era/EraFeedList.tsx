@@ -32,6 +32,7 @@ export function EraFeedList({
   videoOwnerIds,
   imageHiddenIds,
   filters,
+  eagerCount = 0,
   onOpenItem,
   onOpenDoorway,
   onOpenCurrentItem,
@@ -42,6 +43,8 @@ export function EraFeedList({
   videoOwnerIds: Set<string>;
   imageHiddenIds: Set<string>;
   filters: ReadonlySet<FilterId>;
+  /** Leading feed entries whose moment photos load eagerly (first viewport). */
+  eagerCount?: number;
   onOpenItem: (id: string) => void;
   onOpenDoorway: (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
   /** PLAN.md Stage 5 — opens the live-item overlay (CurrentItemDetail). */
@@ -53,8 +56,12 @@ export function EraFeedList({
           jumps h1 (era) → h3 (card) — axe `heading-order` (#703). */}
       <h2 className="sr-only">Moments from {era.shortName}</h2>
       <ol className="relative grid grid-cols-1 items-start gap-5 md:grid-cols-2 md:gap-6">
-        {entries.map((entry) =>
-          renderEntry(entry, { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem }),
+        {entries.map((entry, index) =>
+          renderEntry(
+            entry,
+            { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem },
+            index < eagerCount,
+          ),
         )}
       </ol>
       {entries.length === 0 && (
@@ -77,6 +84,7 @@ function renderEntry(
     onOpenDoorway: (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
     onOpenCurrentItem: (item: CurrentItem) => void;
   },
+  eager: boolean,
 ) {
   const { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem } = ctx;
   switch (entry.kind) {
@@ -101,6 +109,7 @@ function renderEntry(
           tier={tiers.get(entry.item.id) ?? 'text'}
           ownsVideo={videoOwnerIds.has(entry.item.id)}
           hideImage={imageHiddenIds.has(entry.item.id)}
+          eager={eager}
           onOpen={() => onOpenItem(entry.item.id)}
         />
       );
@@ -112,6 +121,7 @@ function renderEntry(
           eraId={era.id}
           sortDate={entry.anchor.sortDate}
           displayDate={entry.anchor.displayDate}
+          eager={eager}
         />
       );
     case 'thread':

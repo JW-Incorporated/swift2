@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { Page, Route } from '@playwright/test';
 import {
   BASE,
   captureRoot,
@@ -129,23 +129,41 @@ test.describe('image settle gate (a slow image must be painted before capture)',
   const DELAY_MS = 4000;
   for (const side of ['a', 'b'] as const) {
     test(`side ${side}: a delayed image response (local or external) is waited for, so the capture matches the undelayed render`, async ({ page }, testInfo) => {
-      await openRoute(page, side, route);
-      const control = await captureRoot(page, route);
+      // The delayed pass runs FIRST, on a cold cache: eager images (#4895) are served from WebKit's memory cache on a
+      // reload, so a warm second pass would never reach the slow route. The undelayed control is captured after it.
       const delayed = new Set<string>();
-      await page.route(
-        (url) => /^https?:$/.test(url.protocol),
-        async (r) => {
-          if (r.request().resourceType() !== 'image') return r.fallback();
-          delayed.add(r.request().url());
-          await new Promise((done) => setTimeout(done, DELAY_MS));
-          return r.fallback();
-        },
-      );
-      const started = Date.now();
+      const slow = async (r: Route) => {
+        if (r.request().resourceType() !== 'image') return r.fallback();
+        delayed.add(r.request().url());
+        await new Promise((done) => setTimeout(done, DELAY_MS));
+        return r.fallback();
+      };
+      const slowMatch = (url: URL) => /^https?:$/.test(url.protocol);
+      await page.route(slowMatch, slow);
       await openRoute(page, side, route);
       const shot = await captureRoot(page, route);
+      // page.goto() already waits for the eager route images, so the elapsed time of the pass above cannot prove the
+      // capture gate. A lazy image injected AFTER load (still behind the slow route) can only be waited for by imagesReady.
+      const origin = side === 'b' ? ERA_ART_ORIGIN : BASE.a;
+      const gateStarted = Date.now();
+      await page.evaluate(
+        ({ src, sel }) => {
+          const img = new Image();
+          img.loading = 'lazy';
+          img.id = 'parity-gate-img';
+          img.src = src;
+          img.style.cssText = 'position:fixed;top:0;left:0;width:20px;height:20px;z-index:9';
+          (document.querySelector(sel) as HTMLElement).prepend(img);
+        },
+        { src: `${origin}/eras/debut.png?parity-gate=${Date.now()}`, sel: route.root },
+      );
+      await captureRoot(page, route);
+      expect(Date.now() - gateStarted, 'imagesReady must have waited for the slow lazy image').toBeGreaterThanOrEqual(DELAY_MS);
+      expect(await page.evaluate(() => (document.querySelector('#parity-gate-img') as HTMLImageElement).complete)).toBe(true);
+      await page.unroute(slowMatch, slow);
+      await openRoute(page, side, route);
+      const control = await captureRoot(page, route);
       expect(delayed.size, 'the slow route must actually have intercepted images').toBeGreaterThan(0);
-      expect(Date.now() - started, 'the capture must have waited for the slow images').toBeGreaterThanOrEqual(DELAY_MS);
       expect(await pixelMatches(testInfo, `neg-slow-${side}`, control, shot)).toBe(true);
     });
   }

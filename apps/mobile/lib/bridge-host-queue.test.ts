@@ -55,6 +55,98 @@ describe('bridge-host ready, queue and protocol-fatal', () => {
     expect(s.host.inbox().map((e) => e.seq)).toEqual([3]);
   });
 
+  it('emit returns a per-host monotonically increasing seq, also before ready', () => {
+    const s = setup();
+    const a = s.host.emit('contentVersion', { token: 'a' })!;
+    s.makeReady();
+    const b = s.host.emit('contentVersion', { token: 'b' })!;
+    const c = s.host.emit('contentVersion', { token: 'c' })!;
+    expect([a.seq, b.seq, c.seq]).toEqual([1, 2, 3]);
+    expect(new Set([a.epoch, b.epoch, c.epoch]).size).toBe(1);
+    expect(s.sent.map((e) => e.seq)).toEqual([1, 2, 3]);
+  });
+
+  it('onAcked fires once when the cumulative ack reaches its seq; unknown and duplicate acks are ignored', () => {
+    const s = setup();
+    s.makeReady();
+    const one = vi.fn();
+    const two = vi.fn();
+    const bogus = vi.fn();
+    const q1 = s.host.emit('contentVersion', { token: 'a' })!;
+    const q2 = s.host.emit('contentVersion', { token: 'b' })!;
+    s.host.onAcked(q1, one);
+    s.host.onAcked(q2, two);
+    s.host.onAcked({ epoch: q1.epoch, seq: 99 }, bogus);
+    s.evt('ack', { seq: 1 }, 'ack1');
+    expect([one.mock.calls.length, two.mock.calls.length]).toEqual([1, 0]);
+    s.evt('ack', { seq: 1 }, 'ack2');
+    expect(one).toHaveBeenCalledTimes(1);
+    s.evt('ack', { seq: 2 }, 'ack3');
+    expect(two).toHaveBeenCalledTimes(1);
+    expect(one).toHaveBeenCalledWith(true);
+    s.evt('ack', { seq: 99 }, 'ack4');
+    expect(bogus).not.toHaveBeenCalled();
+    const late = vi.fn();
+    s.host.onAcked(q1, late);
+    expect(late).toHaveBeenCalledWith(true);
+    expect(s.host.ackWaiterCount()).toBe(0);
+  });
+
+  it('onAcked unsubscribe drops the waiter; dispose settles the rest as not acked', () => {
+    const s = setup();
+    s.makeReady();
+    const a = vi.fn();
+    const b = vi.fn();
+    const sa = s.host.emit('contentVersion', { token: 'a' })!;
+    const sb = s.host.emit('contentVersion', { token: 'b' })!;
+    s.host.onAcked(sa, a)();
+    s.host.onAcked(sb, b);
+    expect(s.host.ackWaiterCount()).toBe(1);
+    s.host.dispose();
+    s.evt('ack', { seq: 2 }, 'ack1');
+    expect(a).not.toHaveBeenCalled();
+    expect(b).toHaveBeenCalledTimes(1);
+    expect(b).toHaveBeenCalledWith(false);
+    expect(s.host.ackWaiterCount()).toBe(0);
+  });
+
+  it('a ref from a previous host instance never resolves on a recreated host', () => {
+    const old = setup();
+    old.makeReady();
+    const oldRef = old.host.emit('contentVersion', { token: 'a' })!;
+    old.host.dispose();
+    const fresh = setup();
+    fresh.makeReady();
+    const newRef = fresh.host.emit('contentVersion', { token: 'b' })!;
+    expect(newRef.seq).toBe(oldRef.seq);
+    expect(newRef.epoch).not.toBe(oldRef.epoch);
+    const cb = vi.fn();
+    fresh.host.onAcked(oldRef, cb);
+    expect(fresh.host.ackWaiterCount()).toBe(0);
+    fresh.evt('ack', { seq: 1 }, 'ack1');
+    expect(cb).toHaveBeenCalledTimes(1);
+    expect(cb).toHaveBeenCalledWith(false);
+  });
+
+  it('an outbox-evicted seq settles false, and a later cumulative ack fires only delivered seqs', () => {
+    const s = setup({}, { outboxCap: 2 });
+    const first = s.host.emit('contentVersion', { token: 'a' })!;
+    const second = s.host.emit('contentVersion', { token: 'b' })!;
+    const evictedCb = vi.fn();
+    const keptCb = vi.fn();
+    s.host.onAcked(first, evictedCb);
+    s.host.onAcked(second, keptCb);
+    const third = s.host.emit('contentVersion', { token: 'c' })!;
+    expect(evictedCb).toHaveBeenCalledWith(false);
+    s.makeReady();
+    s.evt('ack', { seq: third.seq }, 'ack1');
+    expect(evictedCb).toHaveBeenCalledTimes(1);
+    expect(keptCb).toHaveBeenCalledWith(true);
+    const late = vi.fn();
+    s.host.onAcked(first, late);
+    expect(late).toHaveBeenCalledWith(false);
+  });
+
   it('version too old or too new is protocol-fatal, and the host never becomes ready', () => {
     const a = setup();
     a.evt('ready', { v: 99 });

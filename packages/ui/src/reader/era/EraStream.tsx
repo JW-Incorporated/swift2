@@ -7,6 +7,8 @@ import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow, CURRENT_ERA_ID } fr
 import { eraStyle } from '../lib/theme';
 import type { Era } from '@swift2/experience';
 import { EraSection } from './EraSection';
+import { eraPerfMark } from '../lib/diag-marks';
+import { createEraSwitchMarker } from './era-switch-marker';
 import { FilterBar } from './FilterBar';
 import { LandingMasthead } from './LandingMasthead';
 import { CountdownBanner } from './CountdownBanner';
@@ -63,6 +65,12 @@ export function EraStream() {
 
   // Read the live active era without making it an effect dependency (scroll
   // updates it constantly; only an explicit *jump* should re-anchor the stream).
+  // Survives sequenceKey re-subscribes of the scroll effect, so era-switch fires only when the active era changes.
+  // Silent until a mount-time scroll restoration settles (restore → not settled).
+  const eraMarkerRef = useRef<ReturnType<typeof createEraSwitchMarker> | null>(null);
+  if (!eraMarkerRef.current) {
+    eraMarkerRef.current = createEraSwitchMarker(eraId, !restore, (id) => eraPerfMark('era-switch', { eraId: id }));
+  }
   const eraIdRef = useRef(eraId);
   eraIdRef.current = eraId;
 
@@ -81,7 +89,19 @@ export function EraStream() {
   useEffect(() => {
     if (restore) {
       requestAnimationFrame(() =>
-        requestAnimationFrame(() => window.scrollTo({ top: restore.scrollY, behavior: 'auto' })),
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: restore.scrollY, behavior: 'auto' });
+          const center = window.innerHeight / 2;
+          let restoredEra: string | null = null;
+          for (const el of document.querySelectorAll<HTMLElement>('[data-ll-section]')) {
+            const r = el.getBoundingClientRect();
+            if (r.top <= center && r.bottom >= center) {
+              restoredEra = el.dataset.llSection ?? null;
+              break;
+            }
+          }
+          eraMarkerRef.current?.settle(restoredEra);
+        }),
       );
     } else {
       window.scrollTo({ top: 0, behavior: 'auto' });
@@ -264,6 +284,7 @@ export function EraStream() {
     let raf = 0;
     const pick = () => {
       raf = 0;
+      eraPerfMark('era-scroll');
       // The TimelineScrubber's own auto-scroll during a drag can cross into
       // the next era's viewport-center; flipping the active era mid-drag
       // would swap the scrubber's whole per-era anchor set out from under
@@ -284,6 +305,7 @@ export function EraStream() {
         if (r.top <= center && r.bottom >= center) {
           const id = el.dataset.llSection;
           if (id) {
+            eraMarkerRef.current?.observe(id);
             setActiveEra(id as Era['id']);
             activeEraOffsetRef.current = { eraId: id, offset: r.top };
           }
@@ -388,7 +410,11 @@ export function EraStream() {
       {sequence.map((era, i) => (
         <Fragment key={era.id}>
           {i > 0 && <EraTransition from={sequence[i - 1]!} to={era} />}
-          <EraSection era={era} currentItems={era.id === CURRENT_ERA_ID ? currentItems : undefined} />
+          <EraSection
+            era={era}
+            currentItems={era.id === CURRENT_ERA_ID ? currentItems : undefined}
+            eagerImages={i === 0}
+          />
         </Fragment>
       ))}
 

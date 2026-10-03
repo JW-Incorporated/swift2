@@ -93,6 +93,12 @@ everything is reversible via roll-back, I accept that risk."
   idempotent.
 - Never reconstruct state from memory. `PROGRESS.md`, GitHub and
   `HUMAN-ACTIONS.md` are the truth.
+- **PM heartbeat (owner directive 2026-10-03).** On session start the PM arms
+  a recurring `CronCreate` heartbeat every 30 minutes, on an off-minute
+  (e.g. `13,43`). Its goal each tick: keep the concurrency cap (§5) busy,
+  poll and act on Codex results, resolve conflicting PRs, and land approved
+  ones. Crons are session-only and expire after 7 days, so re-arm the
+  heartbeat at the start of every session.
 
 ## 4. Fable (`architect`)
 
@@ -100,7 +106,10 @@ everything is reversible via roll-back, I accept that risk."
 - each gate's go/no-go (`PLAN.md` G0–G5);
 - any change to the approved design;
 - the debug ladder's architect rung (CLAUDE.md two-strike rule);
-- two consecutive failed reviews on one WP.
+- two consecutive failed reviews on one WP. A second consecutive Codex
+  REQUEST CHANGES on a PR is a mandatory Fable consult; Fable's ruling plus
+  a scoped Claude `reviewer` lands it, with no Codex round 3 (owner
+  directive 2026-10-03, as practiced that day).
 
 **By judgment:** any fork where a wrong call costs days.
 
@@ -129,6 +138,11 @@ views in `PROGRESS.md`, and tells Joey in its next message (CLAUDE.md rule
    `codex-companion.mjs result <id>`, never the relay summary) on any WP
    marked **[codex]** in `PLAN.md`. Max two review rounds. A second
    rejection triggers `DEBUG.md` and Fable.
+   - **Codex dispatch (2026-10-03):** prefer a direct background run:
+     `codex exec -C <worktree> -m gpt-5.6-sol -c model_reasoning_effort=<medium|high> -s read-only -o <out.md> - < <prompt.md>`.
+     The `codex-companion` queue can wedge. Cancelling a companion job needs
+     `MSYS_NO_PATHCONV=1` in Git Bash. Relay agents may report job ids that
+     don't exist, so verify with `status` before trusting one.
 6. **Land.**
    - Open the PR (TL;DR first) and set auto-merge (`gh pr merge --squash
      --auto --delete-branch`). Never watch it.
@@ -136,11 +150,17 @@ views in `PROGRESS.md`, and tells Joey in its next message (CLAUDE.md rule
    - The next WP that depends on it checks `merged` as step 1. That is a
      dependency check, not babysitting.
    - If it's red, the PM sends a worker to fix it.
+   - **Merge discipline (2026-10-03):** the PM is the sole merger. After
+     each merge, the owning executor of every PR that now conflicts runs
+     `git merge origin/main` in its worktree (never rebase). Never
+     `--delete-branch` a branch that has stacked children.
 7. **Record** the outcome in `PROGRESS.md`.
 
-**Concurrency:** at most 5 subagents at once (owner raised 3→5, 2026-10-02), never two branch-writing
-agents in one checkout, and never Codex and a Claude agent on the same
-tree.
+**Concurrency:** at most 10 concurrent agents for One UI (owner-authorized
+2026-10-03, raising the 5 set 2026-10-02), of which at most 6 are
+branch-writing executors (Fable's 12:28 rule); the rest are reviewers, Codex
+runs and researchers. Never two branch-writing agents in one checkout, and
+never Codex and a Claude agent on the same tree.
 
 **Tripwires and failure handling (apply to every WP):**
 - **Size:** if a WP's diff passes ~400 lines, the executor stops and
@@ -167,6 +187,9 @@ tree.
     reopen the app twice.
   - Native-layer changes produce new store builds through the release
     train. Joey updates from TestFlight and the Play Store, then tests.
+- **Say it in chat too (2026-10-03).** Whenever a human action is filed, also
+  give Joey the literal step-by-step instructions in chat (exact taps and
+  URLs), in addition to the `HUMAN-ACTIONS.md` entry.
 - **Batch the asks.** One `HUMAN-ACTIONS.md` entry per test session, not
   per WP. Each entry holds:
   - the build or OTA to be on;
