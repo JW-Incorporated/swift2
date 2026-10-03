@@ -282,6 +282,14 @@ export async function captureViewport(page: Page): Promise<Buffer> {
   return page.screenshot({ scale: 'css' });
 }
 
+/** PNG of the web site footer (SiteFooter) scrolled into view; chrome the root capture hides. */
+export async function captureFooter(page: Page): Promise<Buffer> {
+  const footer = page.locator('footer').last();
+  await footer.scrollIntoViewIfNeeded();
+  await imagesReady(page, 'body');
+  return footer.screenshot({ scale: 'css' });
+}
+
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */
 export async function captureRoot(page: Page, route: Route): Promise<Buffer> {
   // Web-only chrome (TopBar and its fixed timeline rail, footer) is not part of the shared root; the app host supplies its own.

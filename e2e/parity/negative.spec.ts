@@ -2,6 +2,7 @@ import type { Page } from '@playwright/test';
 import {
   BASE,
   captureRoot,
+  captureViewport,
   expect,
   mutate,
   openRoute,
@@ -33,6 +34,18 @@ test.describe('pixel baseline gate (same side, mutated vs clean)', () => {
       expect(await pixelMatches(testInfo, `neg-base-${kind}`, clean, mutated)).toBe(false);
     });
   }
+});
+
+test.describe('web chrome viewport gate (WP2.4-0: a 1px TopBar shift must fail the viewport capture)', () => {
+  test('a 1px TopBar shift fails', async ({ page }, testInfo) => {
+    await openRoute(page, 'a', route);
+    const clean = await captureViewport(page);
+    await page.locator('[data-ll-topbar]').evaluate((el) => {
+      el.style.transform = 'translateY(1px)';
+    });
+    const mutated = await captureViewport(page);
+    expect(await pixelMatches(testInfo, 'neg-topbar-1px', clean, mutated)).toBe(false);
+  });
 });
 
 test.describe('pixel a-vs-b gate (side a clean vs side b mutated)', () => {

@@ -95,6 +95,12 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    (`MomentDetail.tsx` has no safe-area styles; the bridge in `reader-spike.css` only
    touches body padding, the nav and fixed bottom offsets, all behind the modal); a
    test pins that.
+   WP2.4-0 adds web-chrome baselines on side a, captured from `main` before the chrome
+   moves into `packages/ui`: `a-<route>-viewport.png` (whole viewport at scroll top with
+   TopBar, its timeline rail and BottomNav visible; `captureRoot` hides them) and
+   `a-home-footer.png` (the SiteFooter element, `captureFooter`). They are new files
+   only; no existing baseline was regenerated. `negative.spec.ts` proves a 1px TopBar
+   shift fails the viewport capture.
 4. Equivalence hash (above).
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
