@@ -83,7 +83,9 @@ APPROVED & HELD for post-S1 landing, in this order (CodeQL/CI green; check
    (WP0.2 C, base wp0.2b) → retarget main after #4815
 6. #4818 (WP0.5a, base wp0.4b) → retarget after #4811
 6b. #4819 (WP1.1c p1, base wp0.4b) → retarget main after #4811, auto-merge
-6c. #4822 (WP0.5b, base wp0.5a) → retarget after #4818 (once approved)
+6c. #4822 (WP0.5b, base wp0.5a) → **APPROVED 17:09** (head d16abd2c; confirm
+   build-full green) → retarget after #4818, auto-merge. Then S4 (checklist in
+   Fable log 17:02).
 7. After #4799 lands: bump size baseline (`node scripts/parity/size-check.mjs
    --update`, +11.6% expected) in a small PR; then S2/S3 sessions in chat
    (owner directive: sessions go in chat). S3 extra check: WP0.4 test page
