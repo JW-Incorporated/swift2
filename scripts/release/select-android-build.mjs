@@ -1,4 +1,6 @@
-// Picks THIS run's Android store build from `eas workflow:status --json`.
+// Picks THIS run's Android store build from the train state file written by
+// train-plan.mjs / train-wait.mjs (same jobs[] shape the retired EAS workflow
+// reported via `eas workflow:status --json`).
 // Fails closed: anything not provably this commit's finished production
 // Android build yields no build id, so the Play submit is skipped.
 import { readFileSync } from 'node:fs';

@@ -16,15 +16,14 @@ proves the two stores are carrying the same thing.
 ```
 merge to main touching apps/mobile/** or packages/**
         │
-        ▼  .github/workflows/mobile-release.yml   (GitHub: trigger only)
-        │  refuses to start if EXPO_TOKEN is missing
-        ▼
-apps/mobile/.eas/workflows/release.yml           (EAS: the actual train)
-  fingerprint  ─┬─ get_android_build ─┬─ build_android ─┐
-                └─ get_ios_build ─────┴─ build_ios ─────┼─ submit_android
-                                                        └─ submit_ios
-                     both fingerprints already built? ──► publish_update_both
-                     only one? ────────────────────────► publish_update_<other> + build/submit the changed one
+        ▼  .github/workflows/mobile-release.yml   (GitHub Actions: the whole train)
+        │  refuses to start if EXPO_TOKEN is missing; drives the EAS CLI
+        │  (since 2026-10-03, HA #98; no EAS Workflows minutes are used)
+  plan:  eas fingerprint:generate + eas build:list --fingerprint-hash, per platform
+  builds: eas build --no-wait  ──►  wait: poll eas build:view  ──►  submit iOS (TestFlight)
+                                                              └──►  submit Android (Play internal)
+                     both fingerprints already built? ──► eas update (one group, both platforms)
+                     only one? ────────────────────────► eas update (that platform) + build/submit the changed one
         │
         ▼  .github/workflows/mobile-parity.yml    (every 6h + after each train)
    scripts/mobile/check-parity.mjs → one persistent alert issue on divergence
@@ -35,18 +34,22 @@ apps/mobile/.eas/workflows/release.yml           (EAS: the actual train)
   commit. Same hash as an existing production build → JS-only → one OTA
   update group to both platforms. Different hash → native change → store
   builds.
-- **iOS submit needs both builds.** `submit_ios` `needs` both build jobs.
-  Android is no longer blocked by an iOS failure — see "Android is
-  independent of iOS" below.
+- **iOS submit needs both builds.** The iOS submit runs only when the iOS
+  build FINISHED and Android's build was skipped or succeeded
+  (`iosSubmitId` in `scripts/release/train-lib.mjs`). Android is no longer
+  blocked by an iOS failure — see "Android is independent of iOS" below.
 - **No laptop in the loop.** The fingerprint computed on a Windows checkout
   of this monorepo differs from the one EAS computes on Linux (hoisting
   paths differ), which is exactly why the 2026-09-05 manual builds failed
-  in `CONFIGURE_EXPO_UPDATES`. The train computes everything on EAS.
+  in `CONFIGURE_EXPO_UPDATES`. The train computes it on a Linux GitHub
+  runner after `npm ci`, the same layout EAS builds from. Verify with a
+  `plan_only` run (below) before trusting it after any runner-image or
+  lockfile change.
 - **Credentials live in EAS**, not in the repo and not on a machine: iOS
   distribution certificate + App Store provisioning profile + App Store
   Connect API key. Set up once via `HUMAN-ACTIONS.md` #48 (was #45).
-  **Android is the one exception** — see "Android submission lives in the
-  GitHub Action, not here" below.
+  **Android is the one exception** — see "The train runs in GitHub Actions"
+  below.
 
 ## What is a "release" in each store
 
@@ -61,122 +64,126 @@ control. The invariant is about what we *send*, and the parity check
 reports store lag rather than failing on it (`BUILD_LAG` only fires after
 48h).
 
-## Android submission lives in the GitHub Action, not here
+## The train runs in GitHub Actions, not EAS Workflows (since 2026-10-03)
 
-The Google Play service-account key (2026-09-06) arrived as a GitHub
-Actions repo secret, `PLAY_SERVICE_ACCOUNT_JSON`, instead of being uploaded
-to EAS credentials via the interactive `eas credentials` flow HA#46 (now
-folded into #48) originally asked for. That is fine — arguably better, no
-laptop step — but it changes where the Android submit has to run: EAS
-Workflows execute on EAS's own infrastructure, which has no access to this
-repo's GitHub Actions secrets, so `apps/mobile/.eas/workflows/release.yml`
-cannot contain a `submit_android` job that will ever see the key.
+Decision: `docs/decisions.md` 2026-10-03 (HA #98). The Expo account is on the
+Free plan and its EAS Workflows CI/CD minutes (60/month) ran out, so
+`.github/workflows/mobile-release.yml` now does the orchestration itself with
+the EAS CLI and the existing `EXPO_TOKEN`. `eas build`, `eas submit` and
+`eas update` still execute on Expo's servers, under their own allowances
+(build credits, submissions, updates), not CI/CD minutes. The retired EAS
+workflow is recoverable with `git show 6a59b605:apps/mobile/.eas/workflows/release.yml`.
+To go back once minutes return, restore that file plus the previous
+`mobile-release.yml` and `scripts/release/read-android-status.sh`
+(`git show 6a59b605:<path>`).
 
-Instead:
+Old EAS job to new step:
 
-- The EAS workflow (`release.yml`) does everything platform-symmetric —
-  fingerprinting, `build_android`, `build_ios`, `submit_ios`, and all three
-  OTA-update jobs. It has no Android submit job.
-- `.github/workflows/mobile-release.yml` runs that EAS workflow with
-  `eas workflow:run --no-wait`, writes the EAS run URL to the job summary
-  at once, then waits by id (`eas workflow:status <id> --wait`), so the
-  Action doesn't return until EAS is done. Preflight steps are capped (20
-  min total), the wait at 195 minutes (observed successful waits run 15-155
-  min) and Android submit at 10 and the job at 235: a hung
-  EAS run turns the job red and frees the `mobile-release` concurrency
-  group (it does not cancel the EAS-side run — check it in the Expo
-  dashboard / `eas workflow:runs`).
-  It then reads `eas workflow:status <id> --json` and takes the build id
-  from THIS run's `build_android` job (`jobs[].turtleBuild.id`), only when
-  that job's status is exactly `SUCCESS` and the build is ANDROID /
-  FINISHED / profile `production`, its `gitCommitHash` is a string equal to
-  the run's `GITHUB_SHA` (absent, empty or mismatched fails closed with a
-  loud warning), and its id is a UUID
-  (`scripts/release/select-android-build.mjs`). `eas workflow:status --json`
-  prints the JSON and then exits 11 when the run is FAILURE (12 CANCELED), so
-  `scripts/release/read-android-status.sh` treats exit 0/11/12 as readable
-  (an iOS failure must not hide a good Android build); other codes give `unknown`. If the fingerprint already had a build (OTA-only case) the job is
-  SKIPPED, there is no id, and nothing is submitted. The parsed job
-  statuses and chosen build id are printed to the job log
-  (`gh run view --log`). If a build id was found, the Action writes
-  `PLAY_SERVICE_ACCOUNT_JSON` to a gitignored file at job time
-  (`apps/mobile/credentials/play-service-account.json`, `chmod 600`,
-  deleted via `trap ... EXIT` immediately after use, never echoed to logs)
-  and runs `eas submit --platform android --id <build_id> --profile
-  production --non-interactive` itself, in the one place that has the
-  secret.
+| Old (EAS workflow) | New (GitHub step, same file unless noted) |
+|---|---|
+| `fingerprint` (`environment: production`) | Plan: `eas fingerprint:generate --platform <p> --environment production --json` (`scripts/release/train-plan.mjs`) |
+| `get_android_build` / `get_ios_build` (`get-build`, production profile) | Plan: `eas build:list --platform <p> --fingerprint-hash <h> --build-profile production --status finished --limit 1 --json` |
+| `build_android` / `build_ios` (`if: !build_id \|\| force_store_build`) | "Start store builds": `eas build --platform <p> --profile production --non-interactive --no-wait --json`; condition from `decide()` in `train-lib.mjs` |
+| waiting for the builds | "Wait for the store builds": `train-wait.mjs` polls `eas build:view <id> --json` every 60 s, deadline 190 min inside the 195-min step cap |
+| `submit_ios` (`needs` both builds) | "Submit iOS build to TestFlight": `eas submit --platform ios --id <id> --profile production`; gate `iosSubmitId()` |
+| `publish_update_both` / `_android_only` / `_ios_only` | "Publish OTA update": `eas update --branch production --environment production --platform all\|android\|ios --message ...` (`--environment` is required for SDK 55+) |
+| `force_store_build` input | Same input; plan builds both and publishes no OTA |
+| `eas workflow:status` job table + `read-android-status.sh` | `train-state.json` (same `jobs[]` shape) fed to the unchanged `select-android-build.mjs`; job table in the run summary |
+| Android Play submit + `android-play-submitted-<id>` cache marker | Unchanged |
+| concurrency group `mobile-release`, 235-min job cap | Group unchanged (rollback workflow shares it); job cap 310, per-step caps in the workflow header |
+| (none) | New `plan_only` input: prints fingerprints and the decision, mutates nothing |
+
+First run after a change like this: dispatch **Mobile release train** with
+`plan_only=true` first. On a commit with no native change the plan must show
+"reuse" for both platforms (existing build ids listed); "store build" there
+means the runner's fingerprint differs from EAS's, so stop and investigate
+before running without `plan_only`. Then dispatch normally (or let the next
+merge to `main` run it).
+
+How the Android submit works (unchanged in effect):
+
+- The Google Play service-account key is a GitHub Actions repo secret,
+  `PLAY_SERVICE_ACCOUNT_JSON`, not an EAS credential, so Android submit has
+  always run in GitHub. Preflight steps are capped (14 min), plan 15, build
+  start 10, OTA 20, build wait 195 (observed successful waits ran 15-155
+  min), iOS submit 30, Android submit 10, job 310: a hung wait turns the job
+  red and frees the `mobile-release` concurrency group (it does not cancel
+  the builds on EAS; check the Expo dashboard / `eas build:list`).
+- `scripts/release/select-android-build.mjs` reads the train state file and
+  takes the build id from the `build_android` job only when its status is
+  exactly `SUCCESS` and the build is ANDROID / FINISHED / profile
+  `production`, its `gitCommitHash` is a string equal to the run's
+  `GITHUB_SHA` (absent, empty or mismatched fails closed with a loud
+  warning), and its id is a UUID. If the fingerprint already had a build
+  (`build_android` SKIPPED) the existing build from the plan is used instead
+  (`existing`; lookup is by native fingerprint, so no commit match). If a
+  build id was found, the Action writes `PLAY_SERVICE_ACCOUNT_JSON` to a
+  gitignored file (`apps/mobile/credentials/play-service-account.json`,
+  `chmod 600`, deleted via `trap ... EXIT`, never echoed) and runs `eas
+  submit --platform android --id <build_id> --profile production
+  --non-interactive`.
 - The selector's result decides the run colour (final step "Fail the train"):
 
   | Scenario | `result` | Run colour |
   |---|---|---|
   | OTA-only (fingerprint unchanged, `build_android` skipped or absent) | `skipped` | green |
-  | `build_android` skipped, `get_android_build` SUCCESS with an existing production build id (submitted to Play internal unless a prior train already did; no commit match required, lookup is by native fingerprint) | `existing` | green (red if iOS failed) |
-  | `get_android_build` SUCCESS but no id exposed | `skipped` | green |
+  | `build_android` skipped, existing production build id from the plan (submitted to Play internal unless a prior train already did; no commit match required) | `existing` | green (red if iOS failed) |
+  | Existing build lookup returned no id | `skipped` | green |
   | Existing build id/platform/status/profile malformed | `no_build` | red |
   | Store build, iOS and Android both ok | `success` | green |
-  | iOS fails, Android ok (Android still submitted) | `success` | red (EAS wait failed) |
-  | Android build fails/cancelled | `not_success` | red |
+  | iOS fails, Android ok (Android still submitted) | `success` | red (a stage failed) |
+  | Android build fails/cancelled/never started/timed out | `not_success` | red |
   | Android SUCCESS but hash/id/platform/profile check fails | `no_build` | red |
-  | Status JSON unreadable / selector crash | `unknown` | red |
+  | State file unreadable / selector crash | `unknown` | red |
 
-- After the wait (even when it failed), the step "Summarise EAS jobs and the
-  published OTA update" writes each EAS job's final status and, on success,
-  the OTA update group id(s), platform and runtime version published for
-  this exact commit (looked up by `gitCommitHash` over the newest 50 groups
-  of `update:list`, then `update:view` on matching groups; if the list lacks
-  hashes it views up to 20 groups; the fingerprint runtime policy yields one
-  group per platform) to the run summary, so a device test can pin the
-  update without an Expo login. "None published" (the store-build path) is
-  claimed only when the scan provably reached back past the commit's time
-  (or the list was shorter than 50); otherwise it says "not found in the
-  newest N groups (lookup incomplete)". The step is
-  read-only and informational (`continue-on-error`, 200 s lookup budget,
-  summary written incrementally): it never changes the job result or blocks
-  the release, and on a slow EAS it may show "lookup skipped".
+- After the wait (even when it failed), the step "Summarise builds and the
+  published OTA update" writes each job's final status and build id and,
+  when the OTA step succeeded, the OTA update group id(s), platform and
+  runtime version published for this exact commit (looked up by
+  `gitCommitHash` over the newest 50 groups of `update:list`, then
+  `update:view` on matching groups; if the list lacks hashes it views up to
+  20 groups) to the run summary, so a device test can pin the update without
+  an Expo login. "None published" is claimed only when the scan provably
+  reached back past the commit's time (or the list was shorter than 50);
+  otherwise it says "not found in the newest N groups (lookup incomplete)".
+  The step is read-only and informational (`continue-on-error`, 200 s lookup
+  budget): it never changes the job result or blocks a submit.
 - `eas.json`'s `submit.production.android.serviceAccountKeyPath` points at
   that same gitignored path so a founder can also run `eas submit
-  --platform android` locally after populating the file by hand (or once
-  the key is uploaded to EAS credentials directly, at which point this
-  local path becomes unnecessary and could be removed).
+  --platform android` locally after populating the file by hand.
 - **Android is independent of iOS (changed 2026-10-02, #4788).** An
   iOS-only failure (e.g. code signing, HA #89) must not strand a good
-  Android build. `submit_ios` inside the EAS workflow still `needs` both
-  builds, but the Action no longer requires the whole EAS run to succeed:
-  the wait step is `continue-on-error`, the step "Read the EAS Android
-  store-build job status" reads the run's per-job status
-  (`eas workflow:status <id> --json`, job `build_android`; the EAS
-  `WorkflowJobStatus` success value is exactly `SUCCESS`, anything else
-  fails closed) and outputs that job's build id. The Play submit
-  (internal track only, never promoted) runs when a build id was found. A
-  re-run of the train would resubmit the same build, and the duplicate
-  version-code failure format is unverified, so a successful submit writes
-  a cache entry `android-play-submitted-<build id>` (actions/cache, no
-  secrets) and later trains skip the submit when it exists (cache eviction
-  after 7 days idle only risks a repeat submit). The last step, "Fail the train if the EAS run did not
-  succeed", turns the GitHub run red whenever the wait outcome was not
-  success, so the iOS failure stays visible. Cases:
-  iOS ok / Android ok → wait succeeds, Android submitted, green.
-  iOS fail / Android ok → Android job SUCCESS, Android submitted, run red.
-  Android fail (any iOS) → job not SUCCESS, submit skipped, red.
-  Unreadable status counts as not-success (conservative: skip). In the EAS
-  graph, `build_android` and `publish_update_android_only` have no `needs`
-  on iOS jobs, so the Android OTA publishes whenever an Android build
-  already exists for the fingerprint, regardless of iOS.
+  Android build. The wait step is `continue-on-error`, the Android steps run
+  `if: always()`, and the last step turns the run red whenever any stage
+  failed, so the iOS failure stays visible. A re-run of the train would
+  resubmit the same build, and the duplicate version-code failure format is
+  unverified, so a successful submit writes a cache entry
+  `android-play-submitted-<build id>` (actions/cache, no secrets) and later
+  trains skip the submit when it exists (cache eviction after 7 days idle
+  only risks a repeat submit). Cases: iOS ok / Android ok → green, Android
+  submitted. iOS fail / Android ok → Android submitted, run red. Android
+  fail (any iOS) → submit skipped, red. A platform with an existing build
+  and no native change still gets its OTA regardless of the other platform.
 - **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the Android
   submit step warns (`::warning::`) and exits 0 rather than failing the
   train — HA#48 tracks `EXPO_TOKEN` as still-open founder work, and the
-  train as a whole already refuses to start without `EXPO_TOKEN` in the
-  `trigger` job's first step, so this path only fires if `EXPO_TOKEN`
-  exists but the *Play* key somehow doesn't (defense in depth, not the
-  expected case day-to-day).
+  train as a whole already refuses to start without `EXPO_TOKEN` in its
+  first step, so this path only fires if `EXPO_TOKEN` exists but the *Play*
+  key somehow doesn't.
+- **Free-plan quotas:** the "Show EAS plan usage" step prints `eas
+  account:usage` into the log (informational). Build and submission
+  allowances on the Free plan are separate from CI/CD minutes and were not
+  verifiable from here; if a build is refused for quota, the "Start store
+  builds" step fails loudly.
 
 ## Manual runs
 
 ```sh
 cd apps/mobile
-eas workflow:run .eas/workflows/release.yml                  # same decision logic, from your checkout
-eas workflow:run .eas/workflows/release.yml -F force_store_build=true   # force new store builds on both platforms
-eas workflow:runs                                              # list runs; eas workflow:logs <run-id>
+gh workflow run mobile-release.yml                                   # same decision logic, on main
+gh workflow run mobile-release.yml -f force_store_build=true         # force new store builds on both platforms
+gh workflow run mobile-release.yml -f plan_only=true                 # print the plan, change nothing
+eas build:list --limit 5                                             # recent store builds
 node ../../scripts/mobile/check-parity.mjs                     # the same check CI runs
 ```
 
@@ -244,10 +251,10 @@ Each carries the script output. By code:
 | Code | Meaning | Fix |
 | --- | --- | --- |
 | `STRANDED_OTA` | the latest update's runtimeVersion ≠ that platform's latest build | run the train with `force_store_build=true` so both platforms get a build matching current `main`; the next OTA then lands on both |
-| `SPLIT_UPDATE` | the last update group covers one platform | re-run the train (`eas workflow:run …`) from `main`; it publishes one group to both |
+| `SPLIT_UPDATE` | the last update group covers one platform | re-run the train (`gh workflow run mobile-release.yml`) from `main`; it publishes one group to both |
 | `VERSION_SKEW` | store builds disagree on `version` | a build ran outside the train; run the train with `force_store_build=true` |
-| `BUILD_LAG` | one platform's latest build is >48h older and from a different commit | check the train run for a failed build/submit job (`eas workflow:runs`), fix, re-run |
-| `MAIN_AHEAD` (exit 3) | production carries neither a publish nor a store build containing the newest mobile-relevant `main` commit, older than 6h | check the train run for that commit (`eas workflow:runs`); re-run the train from `main` |
+| `BUILD_LAG` | one platform's latest build is >48h older and from a different commit | check the train run for a failed build/submit step (the Mobile release train run), fix, re-run |
+| `MAIN_AHEAD` (exit 3) | production carries neither a publish nor a store build containing the newest mobile-relevant `main` commit, older than 6h | check the Mobile release train run for that commit; re-run the train from `main` |
 | exit 2 | check could not run | usually `EXPO_TOKEN` missing or expired → HUMAN-ACTIONS #48 |
 
 Rolling back a store build is a new build from the reverted commit — through
@@ -352,8 +359,8 @@ launch. To lift it, remove the key and merge.
   store build: the train will build both platforms, which is correct, but
   users only get the change after store review — say so in the PR body.
 - Adding `"web"` to `app.json`'s `platforms` (or removing the array) without
-  also adding `react-native-web` and `react-dom`. `publish_update_both` runs
-  `eas update` with no `platform` param, so Expo exports every platform the
+  also adding `react-native-web` and `react-dom`. the both-platform OTA step runs
+  `eas update --platform all`, so Expo exports every platform the
   config lists; a listed-but-uninstalled web target fails the export with
   "It looks like you're trying to use web support but don't have the required
   dependencies installed" and no OTA update reaches either phone. This broke

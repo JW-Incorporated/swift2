@@ -1,33 +1,36 @@
 name: Mobile release train
 
-# Triggers the EAS workflow apps/mobile/.eas/workflows/release.yml, which
-# builds/submits (iOS) or OTA-updates iOS AND Android together from this
-# exact commit. GitHub only kicks it off and waits for it; EAS does the
-# work with credentials that live in EAS, never on a laptop or in this
-# repo. Runbook: docs/mobile-release.md. Supersedes eas-update.yml
-# (OS-040), whose per-platform, unconditional publish had no way to keep
-# the platforms in step and no store-build path at all.
+# The whole train runs here, in GitHub Actions, driving the EAS CLI with the
+# repo secret EXPO_TOKEN. Decision 2026-10-03 (docs/decisions.md, HA #98): the
+# Expo account is on the Free plan and its EAS Workflows CI/CD minutes
+# (60/month) ran out, so the old orchestrator (`eas workflow:run
+# apps/mobile/.eas/workflows/release.yml`, removed in this change, recoverable
+# from git history) could no longer start. No step below uses EAS Workflows
+# minutes: `eas build`, `eas submit` and `eas update` run on Expo's servers
+# under their own allowances (build credits / submissions / updates), GitHub
+# only orchestrates and polls. Runbook: docs/mobile-release.md. Supersedes
+# eas-update.yml (OS-040).
 #
 # Fires only on `main` (after ci.yml's `build` gate passed on the PR), so
-# there is no separate approval step — same posture as eas-update.yml had.
+# there is no separate approval step.
 #
-# Android submission (decision 2026-09-06, docs/mobile-release.md "Android
-# submission lives in the GitHub Action, not here"): the Google Play
-# service-account key arrived as the repo secret `PLAY_SERVICE_ACCOUNT_JSON`
-# rather than being uploaded to EAS credentials, and the EAS workflow above
-# runs on EAS's own infrastructure with no visibility into GitHub repo
-# secrets. So this job starts it with `workflow:run --no-wait`, then
-# `workflow:status --wait` until it finishes, reads the build id of THIS run's
-# `build_android` job (only if that job's status is exactly SUCCESS; or, when
-# build_android was skipped, the existing build found by `get_android_build`), and if
-# present submits it to Play itself, in the one place that actually has the
-# secret. Step caps (minutes):
-# Android is independent of iOS: it is submitted when the EAS
-# `build_android` job succeeded, even if iOS failed; the run still ends red.
-# 20 preflight / 195 wait / 2 job-status / 5 summary (informational) / 10 Android submit; job 235;
-# rollback workflow 30. Never echo the secret to
-# logs; the key file is written with `chmod 600` and deleted immediately
-# after use.
+# Steps (each maps to a job of the retired EAS workflow, see the table in
+# docs/mobile-release.md):
+#   plan        fingerprint + existing-build lookup per platform (train-plan.mjs)
+#   builds      `eas build --no-wait` for each platform that needs a store build
+#   ota         `eas update --branch production` for platforms with a build
+#   wait        poll `eas build:view` until the builds settle (train-wait.mjs)
+#   ios submit  TestFlight, only if iOS built and Android did not fail
+#   android     select the build (select-android-build.mjs), then Play submit
+# Android submission stays here because the Play service-account key is a
+# GitHub secret (decision 2026-09-06). Android is independent of iOS: it is
+# submitted whenever its build is usable, even if iOS failed; the run still
+# ends red. Never echo secrets; the key file is `chmod 600` and deleted
+# immediately after use.
+#
+# Step caps (minutes): preflight 14 / plan 15 / start builds 10 / OTA 20 /
+# wait 195 / job-status 2 / summary 5 / iOS submit 30 / Android submit 10;
+# job 310. Rollback workflow 30.
 
 on:
   push:
@@ -41,6 +44,10 @@ on:
     inputs:
       force_store_build:
         description: Build + submit both platforms even if a build exists for this fingerprint
+        type: boolean
+        default: false
+      plan_only:
+        description: Only compute fingerprints and print the plan; build, update and submit nothing
         type: boolean
         default: false
 
@@ -59,8 +66,11 @@ jobs:
     # `mobile-release` concurrency group for GitHub's 360-min default.
     # Sized to data: 12 successful runs sampled 2026-10-02 had EAS waits of
     # 15-20 min (5 runs) and 70-155 min (7 runs), max 154.8 (run 36859454944).
-    # Arithmetic: preflight 20 + wait 195 (max 155 + 25%) + summary 5 + android 10 = 230, +5 slack = 235.
-    timeout-minutes: 235
+    # Arithmetic: preflight 14 + plan 15 + start 10 + OTA 20 + wait 195 (max
+    # 155 + 25%) + status 2 + summary 5 + iOS 30 + android 10 = 301, +9 slack = 310.
+    timeout-minutes: 310
+    env:
+      TRAIN_STATE: /tmp/train-state.json
     steps:
       - name: Refuse to run half-configured
         timeout-minutes: 1
@@ -71,9 +81,6 @@ jobs:
             echo "::error::EXPO_TOKEN repo secret is missing (HUMAN-ACTIONS.md #48). No mobile release can start until it exists."
             exit 1
           fi
-      # Preflight steps are individually bounded so that
-      # preflight (<=20 min) + wait (195 min) stays inside the 235-min job cap
-      # and the wait step's own timeout, not the job's, is what fires on a hang.
       - uses: actions/checkout@v7
         timeout-minutes: 3
       - uses: actions/setup-node@v7
@@ -87,85 +94,113 @@ jobs:
       # runner refuses to download it ("npx canceled due to missing packages").
       - run: npm install -g eas-cli@23.2.0
         timeout-minutes: 3
-      # Launch WITHOUT --wait so the run id/URL exists before any waiting and is
-      # written to the job summary immediately (it survives a later hang/cancel).
-      - name: Start the EAS release workflow for this commit
-        id: eas_start
-        timeout-minutes: 5
+      # Informational only: Free-plan allowances (builds etc.) in the log, so a
+      # quota problem is visible before a build is attempted.
+      - name: Show EAS plan usage
+        continue-on-error: true
+        timeout-minutes: 2
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas account:usage --non-interactive
+      - name: Plan (fingerprint and existing build, per platform)
+        id: plan
+        timeout-minutes: 15
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           FORCE: ${{ inputs.force_store_build || 'false' }}
+          PLAN_ONLY: ${{ inputs.plan_only || 'false' }}
+        run: node "$GITHUB_WORKSPACE/scripts/release/train-plan.mjs" "$TRAIN_STATE"
+      # Builds start WITHOUT waiting so the ids are in the log at once; the
+      # wait step below polls them. continue-on-error so one platform failing
+      # to start cannot skip the other platform's wait/submit; the final "Fail
+      # the train" step re-reddens the run from this step's outcome.
+      - name: Start store builds
+        id: builds
+        if: steps.plan.outputs.build_android == 'true' || steps.plan.outputs.build_ios == 'true'
+        continue-on-error: true
+        timeout-minutes: 10
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           MESSAGE: ${{ github.event.head_commit.message || 'manual run' }}
+          BUILD_ANDROID: ${{ steps.plan.outputs.build_android }}
+          BUILD_IOS: ${{ steps.plan.outputs.build_ios }}
+        run: |
+          set -uo pipefail
+          MSG="$(printf '%s' "$MESSAGE" | head -n1 | cut -c1-200)"
+          rc=0
+          start() {
+            local p="$1" out="/tmp/build-$1.json" id
+            if ! eas build --platform "$p" --profile production --non-interactive --no-wait --json --message "$MSG" > "$out"; then
+              echo "::error::eas build ($p) failed to start"; return 1
+            fi
+            id=$(node -e "const j=JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'));console.log((Array.isArray(j)?j[0]:j)?.id||'')" "$out")
+            if ! printf '%s' "$id" | grep -Eq '^[0-9a-fA-F-]{36}$'; then
+              echo "::error::eas build ($p) returned no build id"; return 1
+            fi
+            echo "${p}_build_id=$id" >> "$GITHUB_OUTPUT"
+            echo "Started $p store build $id" | tee -a "$GITHUB_STEP_SUMMARY"
+          }
+          if [ "$BUILD_ANDROID" = "true" ]; then start android || rc=1; fi
+          if [ "$BUILD_IOS" = "true" ]; then start ios || rc=1; fi
+          exit $rc
+      # OTA: the platforms that already have a build for their fingerprint.
+      # One group for both platforms when both do; never when force_store_build.
+      - name: Publish OTA update (production branch)
+        id: ota
+        if: steps.plan.outputs.update != '' && steps.plan.outputs.update != 'none'
+        continue-on-error: true
+        timeout-minutes: 20
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          MESSAGE: ${{ github.event.head_commit.message || 'manual run' }}
+          UPDATE: ${{ steps.plan.outputs.update }}
         run: |
           set -euo pipefail
-          eas workflow:run .eas/workflows/release.yml \
-            --non-interactive --no-wait --json \
-            -F force_store_build="$FORCE" \
-            -F message="$(printf '%s' "$MESSAGE" | head -n1 | cut -c1-200)" \
-            > /tmp/run.json
-          RUN_ID=$(node -e "const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.id||'')")
-          RUN_URL=$(node -e "const j=JSON.parse(require('fs').readFileSync('/tmp/run.json','utf8'));console.log(j.url||'')")
-          {
-            echo "## EAS release workflow"
-            echo "Commit: $GITHUB_SHA"
-            echo "EAS run: ${RUN_URL:-unknown} (id: ${RUN_ID:-unknown})"
-            echo "If this job goes red on a timeout, the EAS run above is NOT cancelled by GitHub: check it in the Expo dashboard (or \`eas workflow:status $RUN_ID\`), cancel it if stuck, then re-run the train."
-          } >> "$GITHUB_STEP_SUMMARY"
-          if [ -z "$RUN_ID" ]; then
-            echo "::error::eas workflow:run returned no run id; cannot wait on it. Raw output is in the job summary."
-            { echo '```'; head -c 2000 /tmp/run.json; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-            exit 1
-          fi
-          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
-          echo "run_url=$RUN_URL" >> "$GITHUB_OUTPUT"
+          case "$UPDATE" in both) P=all ;; android) P=android ;; ios) P=ios ;; *) echo "::error::bad update mode $UPDATE"; exit 1 ;; esac
+          eas update --branch production --environment production --platform "$P" \
+            --message "$(printf '%s' "$MESSAGE" | head -n1 | cut -c1-200)" --non-interactive
       # continue-on-error so an iOS-only failure cannot skip the Android steps
-      # below; the final "Fail the train" step re-reddens the job from this
-      # step's outcome, so nothing is hidden.
-      - name: Wait for the EAS release workflow (outcome gates the final red/green)
-        id: eas_workflow
+      # below; the final "Fail the train" step re-reddens the job.
+      - name: Wait for the store builds (outcome gates the final red/green)
+        id: eas_wait
+        if: always() && (steps.builds.outputs.android_build_id != '' || steps.builds.outputs.ios_build_id != '')
         continue-on-error: true
         timeout-minutes: 195
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          RUN_ID: ${{ steps.eas_start.outputs.run_id }}
-          RUN_URL: ${{ steps.eas_start.outputs.run_url }}
-        run: |
-          set -euo pipefail
-          echo "Waiting on EAS run $RUN_ID ${RUN_URL}"
-          # Exit codes: 0 success, 11 failure, 12 canceled, 13 wait aborted.
-          eas workflow:status "$RUN_ID" --non-interactive --wait
-      # Per-job status of the finished EAS run: is `Build Android (store)`
-      # (job key build_android) SUCCESS? Unknown/unreadable counts as not ok.
-      - name: Read the EAS Android store-build job status
+          ANDROID_BUILD_ID: ${{ steps.builds.outputs.android_build_id }}
+          IOS_BUILD_ID: ${{ steps.builds.outputs.ios_build_id }}
+          DEADLINE_MIN: '190'
+        run: node "$GITHUB_WORKSPACE/scripts/release/train-wait.mjs" "$TRAIN_STATE"
+      # Is Android's store build (or the existing build for its fingerprint)
+      # usable? Unknown/unreadable counts as not ok. Selection logic is
+      # unit-tested in scripts/release/select-android-build.test.ts and
+      # train-lib.test.ts.
+      - name: Select the Android build to submit
         id: android_job
-        if: always() && steps.eas_start.outputs.run_id != ''
+        if: always() && steps.plan.outputs.mutate == 'true'
         timeout-minutes: 2
         working-directory: apps/mobile
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          RUN_ID: ${{ steps.eas_start.outputs.run_id }}
-        run: |
-          # eas exits 11 (FAILURE) / 12 (CANCELED) AFTER printing the JSON, so
-          # the script treats 0/11/12 as readable; selection logic is unit-tested
-          # in scripts/release/select-android-build.test.ts and
-          # read-android-status.test.ts.
-          bash "$GITHUB_WORKSPACE/scripts/release/read-android-status.sh" >> "$GITHUB_OUTPUT"
+        run: node "$GITHUB_WORKSPACE/scripts/release/select-android-build.mjs" "$TRAIN_STATE" >> "$GITHUB_OUTPUT"
       # Read-only and purely informational (continue-on-error): pins what
-      # shipped (job statuses + OTA group/runtime for THIS commit) into the run
+      # shipped (build statuses + OTA group/runtime for THIS commit) into the run
       # summary so device tests need no Expo login. It can never change the job
-      # result or block the Play submit below; a slow EAS just yields a
+      # result or block the submits below; a slow EAS just yields a
       # "lookup skipped" note. docs/mobile-release.md "Pin the build".
-      - name: Summarise EAS jobs and the published OTA update
-        if: always() && steps.eas_start.outputs.run_id != ''
+      - name: Summarise builds and the published OTA update
+        if: always() && steps.plan.outputs.mutate == 'true'
         continue-on-error: true
         timeout-minutes: 5
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          RUN_ID: ${{ steps.eas_start.outputs.run_id }}
-          WAIT_OUTCOME: ${{ steps.eas_workflow.outcome }}
+          WAIT_OUTCOME: ${{ steps.eas_wait.outcome }}
+          OTA_OUTCOME: ${{ steps.ota.outcome }}
         run: |
           node - <<'NODE'
           const { execFileSync } = require('node:child_process');
@@ -182,17 +217,20 @@ jobs:
           const rowsOf = (p) =>
             Array.isArray(p) ? p : p?.currentPage ?? p?.updates ?? (p && typeof p === 'object' ? [p] : []);
           const note = (e) => cell(String(e.message).split('\n')[0]);
-          flush('## EAS release result', `Commit: ${cell(sha)} | wait step: ${cell(process.env.WAIT_OUTCOME)}`);
+          flush('## Release result', `Commit: ${cell(sha)} | build wait: ${cell(process.env.WAIT_OUTCOME)} | OTA: ${cell(process.env.OTA_OUTCOME)}`);
           try {
-            const run = eas(['workflow:status', process.env.RUN_ID, '--non-interactive', '--json']);
-            const jobs = run.jobs ?? run.run?.jobs ?? [];
-            flush(`Run status: ${cell(run.status ?? run.run?.status ?? 'unknown')}`, '', '| Job | Status |', '|---|---|');
-            for (const j of jobs) flush(`| ${cell(j.name ?? j.key ?? j.id)} | ${cell(j.status ?? j.conclusion ?? j.outcome ?? 'unknown')} |`);
-            if (!jobs.length) flush('| (no job list in --json output) | - |');
+            const jobs = JSON.parse(fs.readFileSync(process.env.TRAIN_STATE, 'utf8')).jobs ?? [];
+            flush('', '| Job | Status | Build |', '|---|---|---|');
+            for (const j of jobs) flush(`| ${cell(j.key)} | ${cell(j.status)} | ${cell(j.turtleBuild?.id ?? '-')} |`);
+            if (!jobs.length) flush('| (empty state) | - | - |');
           } catch (e) {
             flush(`Could not read job statuses (${note(e)})`);
           }
-          if (process.env.WAIT_OUTCOME === 'success') {
+          if (process.env.OTA_OUTCOME !== 'success') {
+            flush('', process.env.OTA_OUTCOME === 'failure'
+              ? 'OTA publish FAILED; see the "Publish OTA update" step.'
+              : 'No OTA published for this commit (store-build path, or plan_only).');
+          } else {
             flush('', '### OTA update for this commit (branch/channel production)');
             let found = 0;
             let complete = false;
@@ -247,11 +285,22 @@ jobs:
             }
           }
           NODE
-      # ── Android submit (see header comment: EAS infra can't see this secret) ──
-      # The build id comes from THIS EAS run's build_android job (step above);
-      # no job-SUCCESS or no build id means nothing to submit.
-      # `existing` = EAS reused a production build for this native fingerprint
-      # (build_android skipped). It may never have reached Play, so it is
+      # iOS -> TestFlight. Only when the iOS build FINISHED and the Android
+      # build was skipped or succeeded (the old `submit_ios needs` both builds).
+      - name: Submit iOS build to TestFlight
+        id: ios_submit
+        if: always() && steps.eas_wait.outputs.ios_submit_id != ''
+        timeout-minutes: 30
+        working-directory: apps/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          BUILD_ID: ${{ steps.eas_wait.outputs.ios_submit_id }}
+        run: eas submit --platform ios --id "$BUILD_ID" --profile production --non-interactive
+      # ── Android submit (the Play key is a GitHub secret, see header) ──
+      # The build id comes from the selector above; no usable build means
+      # nothing to submit.
+      # `existing` = a production build already existed for this native
+      # fingerprint (no new build). It may never have reached Play, so it is
       # submitted too. A repo-scoped cache entry keyed by build id records a
       # real submit so a later train on the same build skips it (the duplicate
       # versionCode rejection format from `eas submit` is unverified).
@@ -300,10 +349,10 @@ jobs:
         with:
           path: ${{ runner.temp }}/android-submitted
           key: android-play-submitted-${{ steps.android_job.outputs.build_id }}
-      # Last step: Android has had its chance above; now surface any EAS
-      # failure (iOS build/signing, submit_ios, timeout, cancel) as a red run.
-      - name: Fail the train if the EAS run did not succeed
-        if: always() && ( steps.eas_workflow.outcome != 'success' || contains(fromJSON('["unknown","not_success","no_build"]'), steps.android_job.outputs.result) )
+      # Last step: Android has had its chance above; now surface any failure
+      # (plan, build start, iOS build/signing, OTA, iOS submit, timeout) as a red run.
+      - name: Fail the train if any stage did not succeed
+        if: always() && ( steps.plan.outcome != 'success' || steps.builds.outcome == 'failure' || steps.ota.outcome == 'failure' || steps.eas_wait.outcome == 'failure' || steps.ios_submit.outcome == 'failure' || contains(fromJSON('["unknown","not_success","no_build"]'), steps.android_job.outputs.result) )
         run: |
-          echo "::error::Release run failed (EAS wait step outcome: ${{ steps.eas_workflow.outcome }}; Android store-build selection: ${{ steps.android_job.outputs.result || 'not read' }}). Android was submitted to Play internal only if its build job succeeded. See the EAS run URL in the job summary."
+          echo "::error::Release run failed (plan: ${{ steps.plan.outcome }}, start builds: ${{ steps.builds.outcome }}, OTA: ${{ steps.ota.outcome }}, build wait: ${{ steps.eas_wait.outcome }}, iOS submit: ${{ steps.ios_submit.outcome }}; Android store-build selection: ${{ steps.android_job.outputs.result || 'not read' }}). Android was submitted to Play internal only if its build was usable. See the job summary."
           exit 1
