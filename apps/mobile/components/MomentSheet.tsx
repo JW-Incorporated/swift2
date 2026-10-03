@@ -128,7 +128,7 @@ function youtubeEmbed(video: MomentVideo): { posterUri: string; embedHtml: strin
   };
 }
 
-function spotifyEmbed(albumId: string, albumTitle: string): { embedHtml: string } {
+function spotifyEmbed(albumId: string, _albumTitle: string): { embedHtml: string } {
   // Spotify's own embed widget — no poster of its own (its iframe already
   // renders a compact player chrome, unlike YouTube's raw video surface), so
   // the facade names the album instead.

@@ -82,6 +82,7 @@ describe('corrupt record', () => {
     ['fallbackLaunchesRemaining', 1e21],
     ['fallbackLaunchesRemaining', 2],
     ['fallbackCycles', -1],
+    // eslint-disable-next-line no-loss-of-precision -- deliberate: beyond MAX_SAFE_INTEGER must be rejected
     ['fallbackCycles', 9007199254740993],
     ['fallbackCycles', QUARANTINE_AFTER_FALLBACK_CYCLES + 1],
     ['abandonedStreak', 99],

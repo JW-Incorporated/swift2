@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { resErr, resOk } from '@swift2/ui';
-import type { Envelope, ResResult } from '@swift2/ui';
+import { resOk } from '@swift2/ui';
 import { setup, tick, body } from './bridge-host.test-kit';
 
 const code = (e: { payload: unknown }) => (e.payload as { error: { code: string } }).error.code;

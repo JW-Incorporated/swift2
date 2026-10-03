@@ -1,4 +1,4 @@
-import type { SliceModule, SlotRegistry } from './types';
+import type { SlotRegistry } from './types';
 
 const has = (o: object, k: string) => Object.prototype.hasOwnProperty.call(o, k);
 

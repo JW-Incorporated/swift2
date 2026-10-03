@@ -90,6 +90,7 @@ export const INITIAL_NATIVE_ROUTE_STATE: NativeRouteState = {
 // Query and hash are allowed; the allow-list decides which routes exist.
 export function isPresentablePath(path: unknown): path is string {
   if (typeof path !== 'string' || !path.startsWith('/') || path.startsWith('//')) return false;
+  // eslint-disable-next-line no-control-regex -- intentionally rejects control chars in route paths (#4934)
   if (/[\u0000- \u007f\\]/.test(path)) return false;
   const pathname = path.split(/[?#]/, 1)[0];
   return !pathname.split('/').some((seg) => /^(\.|%2e){2}$/i.test(seg));
