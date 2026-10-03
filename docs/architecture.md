@@ -15,8 +15,12 @@ not a plan still in progress.
    → `<LongLive/>` in `apps/web/components/longlive/**`) whose reader UI now
    lives in `packages/ui/src/reader/**` (old `apps/web` paths are one-line
    re-export shims; host-specific behaviour goes through the `HostAdapter`
-   seam, `packages/ui/HOST-ADAPTER.md`; the website is the parity reference,
-   so a PR fails if app and web differ), driven by data modules in
+   seam, `packages/ui/HOST-ADAPTER.md`; `parity-gate` is a
+   required check on main (since 2026-10-03): every PR's CI renders the website
+   (side a) and the shared UI as mounted by the app's DOM entry (side b) and
+   fails if screenshots or requested external images differ; on-device
+   screenshot comparison (decisions.md Gate 1) comes after the app mounts the
+   shared UI, post-G0), driven by data modules in
    `apps/web/lib/longlive/**`. Content used to live in committed
    `*.generated.ts` files; those are gone now (see "Content pipeline" below).
    This is the interactive era/threads reader users see at `/`. **Its

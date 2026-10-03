@@ -37,8 +37,12 @@ directory map in §2 still names the original files; look them up in the package
   adapter, adding affiliate ids and browser web push. Every tree that mounts
   `AppProvider` needs a `HostProvider`.
 - **Parity-gate rule.** The website is the reference (decisions.md,
-  2026-10-02). A reader change lands once in `packages/ui` and reaches web and
-  app together; a PR fails if the app and web renderings differ.
+  2026-10-02). `parity-gate` is a required check on main (since 2026-10-03):
+  every PR's CI renders the website (side a) and the shared UI as mounted by
+  the app's DOM entry (side b) and fails if screenshots or requested external
+  images differ (`docs/one-ui/parity.md`, `e2e/parity`). On-device screenshot
+  comparison (decisions.md Gate 1) comes after the app mounts the shared UI
+  (post-G0).
 
 ---
 
