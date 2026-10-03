@@ -250,6 +250,15 @@ peer `react: ^19` → npm ci ERESOLVE (root resolves react 18.3.1; the dup root
 react noted in WP0.4) → CI red on wp2.1a.** PM: revert to `^18 || ^19` (02:24
 ruling withdrawn); 2nd rejection → Fable consult (mandatory) with Codex r2
 (`task-mus799r9-r7gpgt`) findings.
+**02:41:** WP2.1-C built + pushed (feature/one-ui-wp2.1c @7b0c0dbf, stacked on
+wp2.1a): build-fonts.mjs → web url() /fonts/*.hash.woff2 (+preload Inter/
+Playfair, immutable cache) + DOM data-URI CSS; same-bytes hash test;
+FONTS-LICENSE; next/font removed. 238,776 B woff2 / 321,939 B base64 → **OTA
++322 KB (+4.4%), baseline updated with reason (G1 cond 3)**. Web before/after:
+text rects + heights identical; small hero-region pixel diff (likely
+animation, unviewed). /eras allowlist → D (12 PNGs ≈21 MB). PR NOT opened —
+blocked by wp2.1a ERESOLVE → grunt reverting peer now (urgent; not waiting
+for Codex r2).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
