@@ -48,6 +48,7 @@ docs `CLAUDE.md` points at:
 | `apps/mobile` | Mobile client | — |
 | `packages/core` | Shared domain logic | Don't import app code into it |
 | `packages/shared` | Shared types/utilities | Don't duplicate types in apps |
+| `packages/ui` | `@swift2/ui`: source-shipped, host-agnostic UI shared by apps/web and the apps/mobile DOM host (One UI WP2.1). Tailwind sees it via `@source` in `apps/web/app/globals.css` and `apps/mobile/dom/reader-spike.css`. Host adapter (`useHost()`) arrives in WP2.1-B | No `next/*`, no `react-native*` (ESLint-enforced, `src/lint-ban.test.ts`); reach the host only via `useHost()` |
 | `packages/shared/src/api/{clown,mood,inbox,devices}.ts` | API wire contracts (types + hand-written guards) for `/api/clown`, `/api/mood`, `/api/notifications/inbox`, `/api/devices/*` — web lib re-exports them, mobile clients import them, route tests assert the guards accept real responses (`api.test.ts` covers the guards) | Server shape wins; change the route and the contract together |
 | `scripts/` | Repo automation: `check:*`, `validate:*`, `sync:*`, seeds, migrations | Don't re-do a chore by hand twice — codify it (Workflow rule 8) |
 | `scripts/social/` | Social pipeline. **`post-queue.mjs` and `delete-media.mjs` hit the LIVE accounts** | Don't invoke those two, ever. `guard.sh` denies it |
