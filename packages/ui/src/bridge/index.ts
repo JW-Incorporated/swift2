@@ -1,3 +1,5 @@
+export { DEFAULT_TIMEOUT_MS, DOM_SUPPORTED_RANGE, MAX_BATCH, MAX_PENDING, createBridgeClient, monotonicIds } from './client';
+export type { BridgeClient, CallOptions, ClientOptions, IdSource } from './client';
 export {
   isResResult,
   makeRes,

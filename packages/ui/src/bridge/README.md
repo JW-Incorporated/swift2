@@ -43,3 +43,10 @@ The dispatcher (WP2.3-B) must implement, and test:
    only unsettled requests and unacked emits.
 9. `ready` is rate limited to 3 per 10 s; the 4th is protocol-fatal (`onProtocolFatal`). `ready`
    is validated against `NATIVE_SUPPORTED_RANGE` and the envelope `v` like every other message.
+
+## DOM client (WP2.3-C)
+
+- Ids: strictly increasing digit strings, seeded from the clock at creation (`monotonicIds`); the host rejects ids at or below its high-water mark.
+- `queueUntilReady`: calls before the handshake completes are queued in order and flushed only when a valid `readyAck` arrives (after the id reseed); their id and timeout are taken when actually sent. A failed `ready` post, or no valid `readyAck` within 2 s, retries (250 ms doubling, cap 5 s, 6 attempts), then `onFatal('ready-failed')` fires and every queued call resolves `failed`. A successful `ready` resets `lastSeq` (host re-flushes its unacked queue).
+- `readyAck {hwm}`: a valid hwm (finite integer, 0 <= hwm < MAX_SAFE_INTEGER - 1) reseeds the id source to max(now, hwm+1); an invalid one is ignored + `onSignal('readyAck-invalid')`. An id reaching MAX_SAFE_INTEGER is fatal (`id-space-exhausted`).
+- Bounds: `MAX_PENDING` (64) calls, `MAX_BATCH` (64) inbox entries per consume (cheap seq check first, full parse only of the batch; the rest stays held for the next consume, `MAX_RETAINED` 1024 total, oldest dropped + `onSignal('inbox-dropped', n)`). Outbound payloads are normalized (undefined keys dropped) and strict-JSON checked (`invalid`); an `ok` res value is shape-checked per command (`failed` on mismatch). `dispose` makes the client unusable.
