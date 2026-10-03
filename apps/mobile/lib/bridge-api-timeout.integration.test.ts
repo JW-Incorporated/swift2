@@ -6,6 +6,7 @@ import { setup, tick } from './bridge-host.test-kit';
 // Real native dispatcher + real DOM client over a fake in-memory transport,
 // one shared fake clock: proves the per-endpoint api timeout holds end to end.
 function rig() {
+  // eslint-disable-next-line prefer-const -- assigned after setup(); the send closure above needs the binding first
   let client!: BridgeClient;
   const never = () => new Promise<never>(() => {});
   const t = setup({ api: never as never }, { send: (e: Envelope) => void client.receive(e) });
