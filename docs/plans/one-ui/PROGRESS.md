@@ -138,6 +138,15 @@ profile via `eas credentials`). PM: decouple Android submit from iOS failure
 (workflow change, reversible) so S2 can run on Android. Docs PR #4834
 (stacked-PR rule) + issues #4835 (prune fixture) #4836 (MAX_PATH) filed.
 WP2.1 brief drafted (scratch brief-wp21.md; 5 open Qs).
+**18:59:** HA #89 landing via #4837 (PM-branch PR, auto-merge, no delete).
+Release fix → **#4838** (wait continue-on-error; Android locate+Play-internal
+submit if build_android SUCCESS; final step fails run if EAS not success).
+Risk: 'SUCCESS' string unverified (fail-safe skip) → reviewer verifying from
+run logs + Codex r1. WP2.1 + WP2.3 briefs: PM rulings written into scratch
+brief-wp21.md / brief-wp23.md (react ^18||^19 common APIs; drop useRouter;
+X3 in B; bridge version = JS const; /api/clown excluded from F; device
+endpoints via E; F extends CORS to /vault/live + share-card; ApiFetch gets
+optional AbortSignal; WP2.3 D after #4822). Fable reviewing both brief sets.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
