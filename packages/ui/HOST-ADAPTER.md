@@ -34,6 +34,10 @@ Note: the web adapter's `onBack` does not consume the handler's boolean return; 
 | `popstate` / `useBackDismiss` history-stack back handling | `onBack` | WP2.3 |
 | Turnstile (`SubmitLinkForm`) | `env.turnstileSiteKey` (`null` hides the widget) | WP2.10 |
 
+## Mobile `apiFetch` status
+
+`CurrentItemDetail` intake calls `useHost().apiFetch`. The mobile spike adapter still inherits the web `apiFetch` (relative fetch, null origin) and `/api` has no CORS (`apps/web/next.config.mjs` only opens `/content/**`), so mobile intake is not functional until the WP2.3-F bridge `apiFetch` lands (TODO(PM, WP2.4-D)).
+
 ## `Image` with `fill`
 
 next/image `fill` applies inline styles (`position:absolute; height:100%; width:100%; inset:0; object-fit` from `className`). The app's `Image` must replicate those inline styles for pixel parity, and the parent needs `position: relative` and a size.

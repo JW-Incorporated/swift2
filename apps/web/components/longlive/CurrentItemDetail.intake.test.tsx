@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HostProvider } from '@swift2/ui';
 import type { HostAdapter } from '@swift2/ui';
-import { webApiFetch } from '@swift2/content';
+import { createWebAdapter } from '@/lib/host-adapter';
 import type { CurrentItem } from '@swift2/shared';
 import { CurrentItemDetail } from '@swift2/ui/reader/era/CurrentItemDetail';
 import { TestHostProvider } from '@/lib/test-host';
@@ -45,22 +45,23 @@ function click() {
 }
 
 describe('CurrentItemDetail intake goes through the host apiFetch', () => {
-  it('hits the resolved canonical URL under a non-identity-resolver host', async () => {
+  it('sends the intake through the host adapter apiFetch (mobile spike adapter shape)', async () => {
     const fetchMock = vi.fn(async () => new Response('', { status: 200 }));
     vi.stubGlobal('fetch', fetchMock);
-    const resolveUrl = (p: string) => `https://api.example.test${p}`;
-    const adapter = {
-      resolveUrl,
-      apiFetch: (req) =>
-        webApiFetch({ ...req, path: resolveUrl(req.path) as `/api/${string}` }),
-    } as HostAdapter;
+    const base = createWebAdapter({ push() {}, replace() {} });
+    const apiFetch = vi.fn(base.apiFetch);
+    // Same shape as apps/mobile/dom/spike/reader-modules.ts: web adapter plus a resolveUrl override.
+    // TODO(PM, WP2.4-D): apiFetch is inherited, so mobile intake stays relative (non-functional) until the WP2.3-F bridge apiFetch lands.
+    const adapter: HostAdapter = { ...base, apiFetch, resolveUrl: (p) => `https://api.example.test${p}` };
     render(createElement(HostProvider, { adapter }, createElement(CurrentItemDetail, { item, era, onClose: () => {} })));
     click();
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
-    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-    expect(url).toBe('https://api.example.test/api/intake');
-    expect(init.method).toBe('POST');
-    expect(init.body).toBe(EXPECTED_BODY);
+    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
+    expect(apiFetch).toHaveBeenCalledWith({
+      path: '/api/intake',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: EXPECTED_BODY,
+    });
     await screen.findByText('Thanks — flagged for review');
   });
 
