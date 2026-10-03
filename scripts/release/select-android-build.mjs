@@ -13,14 +13,22 @@ export function selectAndroidBuild(run, sha) {
   if (j.status !== 'SUCCESS') return { result: 'not_success' };
   const b = j.turtleBuild;
   if (
-    typeof sha !== 'string' || !sha ||
-    typeof b?.gitCommitHash !== 'string' || b.gitCommitHash !== sha
+    typeof sha !== 'string' ||
+    !sha ||
+    typeof b?.gitCommitHash !== 'string' ||
+    b.gitCommitHash !== sha
   ) {
-    return { result: 'no_build', warning: `build commit ${JSON.stringify(b?.gitCommitHash ?? null)} does not match ${JSON.stringify(sha ?? null)}` };
+    return {
+      result: 'no_build',
+      warning: `build commit ${JSON.stringify(b?.gitCommitHash ?? null)} does not match ${JSON.stringify(sha ?? null)}`,
+    };
   }
   if (
-    typeof b.id !== 'string' || !UUID.test(b.id) ||
-    b.platform !== 'ANDROID' || b.status !== 'FINISHED' || b.buildProfile !== 'production'
+    typeof b.id !== 'string' ||
+    !UUID.test(b.id) ||
+    b.platform !== 'ANDROID' ||
+    b.status !== 'FINISHED' ||
+    b.buildProfile !== 'production'
   ) {
     return { result: 'no_build', warning: 'build id/platform/status/profile failed validation' };
   }
@@ -32,7 +40,17 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     const s = readFileSync(process.argv[2], 'utf8');
     const run = JSON.parse(s.slice(s.search(/[[{]/)));
-    console.error('EAS jobs: ' + JSON.stringify((run.jobs ?? []).map((x) => ({ key: x.key, name: x.name, status: x.status, build: x.turtleBuild?.id ?? null }))));
+    console.error(
+      'EAS jobs: ' +
+        JSON.stringify(
+          (run.jobs ?? []).map((x) => ({
+            key: x.key,
+            name: x.name,
+            status: x.status,
+            build: x.turtleBuild?.id ?? null,
+          })),
+        ),
+    );
     out = selectAndroidBuild(run, process.env.GITHUB_SHA);
   } catch {
     out = { result: 'unknown' };

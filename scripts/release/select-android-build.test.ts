@@ -4,9 +4,16 @@ import { selectAndroidBuild } from './select-android-build.mjs';
 const SHA = 'a'.repeat(40);
 const ID = '123e4567-e89b-42d3-a456-426614174000';
 const build = (o: Record<string, unknown> = {}) => ({
-  id: ID, platform: 'ANDROID', status: 'FINISHED', buildProfile: 'production', gitCommitHash: SHA, ...o,
+  id: ID,
+  platform: 'ANDROID',
+  status: 'FINISHED',
+  buildProfile: 'production',
+  gitCommitHash: SHA,
+  ...o,
 });
-const run = (turtleBuild: unknown, status = 'SUCCESS') => ({ jobs: [{ key: 'build_android', status, turtleBuild }] });
+const run = (turtleBuild: unknown, status = 'SUCCESS') => ({
+  jobs: [{ key: 'build_android', status, turtleBuild }],
+});
 
 describe('selectAndroidBuild', () => {
   it('accepts only the matching, finished, valid build', () => {
@@ -25,13 +32,20 @@ describe('selectAndroidBuild', () => {
   });
 
   it.each([undefined, ''])('fails closed when GITHUB_SHA is %j', (sha) => {
-    expect(selectAndroidBuild(run(build({ gitCommitHash: '' })), sha as string).result).toBe('no_build');
+    expect(selectAndroidBuild(run(build({ gitCommitHash: '' })), sha as string).result).toBe(
+      'no_build',
+    );
   });
 
   it.each([
-    ['object', {}], ['array', [ID]], ['number', 5], ['null', null],
-    ['newline', `${ID}\nresult=success`], ['trailing newline', `${ID}\n`],
-    ['wrong format', 'not-a-uuid'], ['short', ID.slice(1)],
+    ['object', {}],
+    ['array', [ID]],
+    ['number', 5],
+    ['null', null],
+    ['newline', `${ID}\nresult=success`],
+    ['trailing newline', `${ID}\n`],
+    ['wrong format', 'not-a-uuid'],
+    ['short', ID.slice(1)],
   ])('rejects id: %s', (_n, id) => {
     expect(selectAndroidBuild(run(build({ id })), SHA).result).toBe('no_build');
   });
@@ -41,7 +55,9 @@ describe('selectAndroidBuild', () => {
   });
 
   it.each([
-    ['platform', { platform: 'IOS' }], ['status', { status: 'ERRORED' }], ['profile', { buildProfile: 'preview' }],
+    ['platform', { platform: 'IOS' }],
+    ['status', { status: 'ERRORED' }],
+    ['profile', { buildProfile: 'preview' }],
   ])('rejects wrong %s', (_n, o) => {
     expect(selectAndroidBuild(run(build(o)), SHA).result).toBe('no_build');
   });
