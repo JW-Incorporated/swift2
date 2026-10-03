@@ -95,7 +95,7 @@ describe('communityGroupsToChips', () => {
       { label: 'Reddit', count: 3 },
     ]);
     expect(chips.every((c) => c.count! > 0)).toBe(true);
-    expect(chips[0].id).toBe(communityPlatformSectionId('Discord'));
+    expect(chips[0]?.id).toBe(communityPlatformSectionId('Discord'));
   });
 });
 

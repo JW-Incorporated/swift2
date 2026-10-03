@@ -122,6 +122,8 @@ A1 (move-only): `SearchOverlay.tsx` and `search-listbox-children.test.ts` -> `re
 
 2.9-A1b: `MerchCard` and `MerchStyleSection` moved too (shop imported from `../moment/lib/shop`, WP2.5). `MerchSection` stays in apps/web: it imports baked `merch-extensions` (apps/web data), and the fix is the `extensions` prop = A2. `merch-filters.test.ts` stays (reads web-only data modules through the shim); `section-jump.test.ts` stays (fails the ui package's stricter `noUncheckedIndexedAccess`; fixing it is a non-import hunk, so it goes to A2).
 
+2.9-A2: `MerchSection` (+ `MerchSection.server.test.ts`) moved to `packages/ui/src/reader/merch/` and now takes an `extensions: ReaderSnapshotExtensions` prop (attached via `ReaderExtensionsProvider`). The web `components/longlive/MerchSection.tsx` is a thin wrapper injecting the baked `MERCH_EXTENSIONS` and re-exporting `MerchSectionBody`. `section-jump.test.ts` moved next to its module (`chips[0]?.id`, type-only fix).
+
 ### WP2.10 community
 A1 (move-only). Moved with `git mv` to `reader/community/`: `CommunityCard`, `CommunitySection`, `SectionJumpBar`; old paths now one-line `export *` shims. Imports repointed: `@swift2/experience` (data/types), `../merch/lib/section-jump`, `../merch/SubmitLinkForm`, `../lib/chrome-offset`.
 - A2 not needed: no non-import hunks. Left for D: `CommunityCard` `target=_blank` anchor (openExternal interceptor).
