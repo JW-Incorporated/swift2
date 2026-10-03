@@ -264,6 +264,25 @@ describe('speed test controller: delivery and retry', () => {
     expect(g.sent.length).toBe(2 * MAX_TRIES);
   });
 
+  it('disable clears the outbox: nothing queued, nothing sent after the network comes back', async () => {
+    const h = harness();
+    await h.c.enable(5);
+    h.reply(() => ({ ok: false, status: 503 }));
+    h.set(warmSummary(100));
+    await h.c.onPaint('warm');
+    await h.c.drain();
+    expect(h.c.queued()).toBe(1);
+    const before = h.sent.length;
+    await h.c.disable();
+    expect(h.c.queued()).toBe(0);
+    expect(h.disk.outbox).toEqual([]);
+    h.reply(() => ({ ok: true }));
+    h.advance(24 * 3_600_000);
+    await h.c.retry();
+    await h.c.drain();
+    expect(h.sent.length).toBe(before);
+  });
+
   it('a duplicate-accepted response (ok) clears the entry', async () => {
     const h = harness();
     await h.c.enable(1);

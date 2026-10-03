@@ -12,6 +12,7 @@ import {
   speedAllowed,
   speedCommit,
   speedDuplicate,
+  speedRefund,
   type SpeedMeta,
 } from './diag';
 import {
@@ -333,6 +334,7 @@ export async function POST(req: Request): Promise<Response> {
     if (!res.ok) {
       const detail = await res.text();
       console.error('feedback: GitHub issue create failed', res.status, detail.slice(0, 300));
+      if (speedReport) speedRefund(speedReport.run);
       return NextResponse.json(
         { error: 'Couldn’t file that right now — please try again later.' },
         { status: 502 },

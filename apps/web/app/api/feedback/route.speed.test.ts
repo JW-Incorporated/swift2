@@ -5,6 +5,7 @@ import {
   diagCommentFrom,
   parseDiagReport,
   resetSpeedAllowed,
+  speedRefund,
   speedAllowed,
   speedVerdict,
   type DiagReport,
@@ -59,6 +60,8 @@ describe('speed test reports: validation', () => {
       launchDiag({ images10s: '3' }),
       launchDiag({ launches }),
       summaryDiag([]),
+      summaryDiag(launches, { index: 2 }),
+      summaryDiag(launches, { index: 4 }),
       summaryDiag(launches, { images10s: 1 }),
       summaryDiag([{ k: 'hot', ms: 1 }]),
       summaryDiag([{ k: 'cold', ms: -1 }]),
@@ -103,7 +106,7 @@ describe('speed test reports: rendering', () => {
     expect(body).toContain('| Worst warm (bar 1000) | 900.0 |');
     expect(body).toContain('| Verdict | **INCOMPLETE** |');
     expect(body).toContain('| 3 | warm | 900.0 |');
-    const fail = diagCommentFrom(report(summaryDiag([...launches, { k: 'warm', ms: 1000.1 }])));
+    const fail = diagCommentFrom(report(summaryDiag([...launches, { k: 'warm', ms: 1000.1 }], { index: 4 })));
     expect(fail).toContain('**FAIL**');
   });
 
@@ -193,6 +196,23 @@ describe('speed test reports: rate limit', () => {
     expect((await post(diag)).status).toBe(502);
     vi.stubGlobal('fetch', okFetch());
     expect((await post(diag)).status).toBe(201);
+  });
+
+  it('speedRefund gives back one unit at the cap boundary, and is a no-op when empty', () => {
+    speedRefund('dddddddd');
+    for (let i = 0; i < MAX_SPEED_LAUNCHES + 1; i++) expect(speedAllowed('dddddddd')).toBe(true);
+    expect(speedAllowed('dddddddd')).toBe(false);
+    speedRefund('dddddddd');
+    expect(speedAllowed('dddddddd')).toBe(true);
+    expect(speedAllowed('dddddddd')).toBe(false);
+  });
+
+  it('a failed GitHub post refunds the budget unit', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response('no', { status: 500 })));
+    for (let i = 0; i < MAX_SPEED_LAUNCHES; i++) expect(speedAllowed('cafe0005')).toBe(true);
+    expect((await post(launchDiag({ run: 'cafe0005', index: 1 }))).status).toBe(502);
+    expect(speedAllowed('cafe0005')).toBe(true);
   });
 
   it('the route answers 429 once a run id is over its budget and never calls GitHub for it', async () => {

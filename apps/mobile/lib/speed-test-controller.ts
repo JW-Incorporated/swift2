@@ -185,6 +185,8 @@ export function createSpeedTestController(deps: ControllerDeps) {
         const c = await ensure();
         pending?.cancel();
         pending = null;
+        c.outbox = [];
+        await saveOutbox(c);
         await saveState(c, null);
       });
     },

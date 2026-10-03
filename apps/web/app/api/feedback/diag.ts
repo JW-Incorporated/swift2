@@ -97,6 +97,7 @@ function parseSpeed(raw: unknown): SpeedMeta | null {
   }
   if (kind === 'summary') {
     if (!Array.isArray(launches) || launches.length < 1 || launches.length > MAX_SPEED_LAUNCHES) return null;
+    if (launches.length !== index) return null;
     meta.launches = [];
     for (const l of launches) {
       if (!isObject(l) || Object.keys(l).some((k) => k !== 'k' && k !== 'ms')) return null;
@@ -152,6 +153,12 @@ export function speedAllowed(run: string, now: number = Date.now()): boolean {
   speedSeen.set(run, [...recent, now]);
   speedGlobal.push(now);
   return true;
+}
+
+/** Give back the budget unit speedAllowed took when the GitHub post then failed (one entry each; no-op if empty). */
+export function speedRefund(run: string): void {
+  speedSeen.get(run)?.pop();
+  speedGlobal.pop();
 }
 
 /**
