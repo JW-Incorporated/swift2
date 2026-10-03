@@ -46,12 +46,13 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
   };
   const handlers = { ...base, ...over } as unknown as Omit<HandlerMap, 'cancel'>;
   const sent: Envelope[] = [];
+  const readyAcks: Envelope[] = [];
   const sch = fakeScheduler();
   const onProtocolFatal = vi.fn();
   const onSignal = vi.fn();
   const host = createBridgeHost({
     handlers,
-    send: (e) => void sent.push(e),
+    send: (e) => void (e.type === 'readyAck' ? readyAcks : sent).push(e),
     now: () => 1000,
     scheduler: sch,
     onProtocolFatal,
@@ -64,7 +65,7 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     host.receive({ v: 1, id, kind: 'evt', type, payload, ts: 1 });
   const makeReady = (id = 'e-ready') => evt('ready', { v: BRIDGE_VERSION }, id);
   const resFor = (id: string) => sent.filter((e) => e.kind === 'res' && e.id === id);
-  return { host, sent, sch, onProtocolFatal, onSignal, cmd, evt, makeReady, resFor };
+  return { host, sent, readyAcks, sch, onProtocolFatal, onSignal, cmd, evt, makeReady, resFor };
 }
 
 export const body = (e: Envelope) => e.payload as ResResult;

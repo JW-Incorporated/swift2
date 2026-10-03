@@ -36,6 +36,21 @@ describe('bridge-host ready limits and request settlement', () => {
     expect(u.onSignal).toHaveBeenCalledWith('bridge-version-mismatch', expect.any(String));
   });
 
+  it('ready is answered with an unsequenced readyAck carrying the id high-water mark', async () => {
+    const s = setup();
+    s.makeReady();
+    const acks = () => s.readyAcks;
+    expect(acks()).toHaveLength(1);
+    expect(acks()[0]!.payload).toEqual({ hwm: 0 });
+    expect(acks()[0]!.seq).toBeUndefined();
+    s.cmd('1700000000000', 'haptic', { kind: 'light' });
+    s.cmd('1700000000005', 'haptic', { kind: 'light' });
+    await tick();
+    s.makeReady();
+    expect(acks()).toHaveLength(2);
+    expect(acks()[1]!.payload).toEqual({ hwm: 1700000000005 });
+  });
+
   it('a settled request leaves the outbox; re-ready resends only unsettled requests and unacked emits', async () => {
     const s = setup();
     s.makeReady();

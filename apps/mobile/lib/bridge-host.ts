@@ -186,9 +186,11 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       return raise(`bridge-version ${reason} dom=${r.v} host=${HOST_RANGE.min}-${HOST_RANGE.max}`);
     }
     if (env.v !== r.v) return raise(`bridge-version envelope v=${env.v} ready v=${r.v}`);
+    if (hwm >= Number.MAX_SAFE_INTEGER - 1) return raise('bridge-hwm exhausted');
     if (ready) inflight.abortAll();
     ready = true;
     negotiated = r.v;
+    safeSend({ v: BRIDGE_VERSION, id: `h-${++hostId}`, kind: 'evt', type: 'readyAck', payload: { hwm: Math.max(hwm, 0) }, ts: now() });
     outbox.all().forEach(dispatch);
   }
 

@@ -25,6 +25,9 @@ The dispatcher (WP2.3-B) must implement, and test:
    host keeps a high-water mark (hwm) that `ready` does NOT reset; an id not above the hwm is
    answered `invalid` (signal `rejected_monotonic`) and never runs. The DOM seeds its counter from
    `Date.now()` at client creation, so ids after a reload exceed prior sessions' (client: #4855).
+   Every accepted `ready` is answered with an unsequenced `readyAck {hwm}` (host hwm, -1 sent as
+   0) before any replay; the DOM reseeds its counter to max(now, hwm+1) so a clock that went
+   backwards after reload cannot get every id rejected. hwm >= MAX_SAFE_INTEGER - 1 is protocol-fatal.
    Assumes FIFO delivery per channel (WKWebView messageHandlers, Android
    `addJavascriptInterface`): an out-of-order lower id is rejected, not reordered.
 6. Every inbound envelope goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
