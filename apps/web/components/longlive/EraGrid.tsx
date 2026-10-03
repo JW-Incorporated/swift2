@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost, useResolveUrl } from '@swift2/ui';
 import { ERAS } from '@swift2/experience';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { EraId } from '@swift2/experience';
@@ -18,6 +18,8 @@ export function EraGrid({
   activeEraId?: EraId | null;
   onPick: (id: EraId) => void;
 }) {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       {[...ERAS].reverse().map((era, i) => {
@@ -31,7 +33,7 @@ export function EraGrid({
             data-active={active}
           >
             <Image
-              src={era.image || '/placeholder.svg'}
+              src={resolveUrl(era.image || '/placeholder.svg')}
               alt=""
               fill
               className="object-cover opacity-70 transition duration-500 group-hover:scale-105 group-hover:opacity-90"
