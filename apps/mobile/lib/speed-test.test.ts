@@ -45,14 +45,21 @@ describe('bar', () => {
   });
 });
 
+const many = (k: 'cold' | 'warm', n: number, ms: number) => Array.from({ length: n }, () => r(k, ms));
+
 describe('summarizeRun pass/fail math', () => {
-  it('passes at exactly the bar and reports the worst of each kind', () => {
-    const s = summarizeRun([r('cold', 2100), r('cold', 2500), r('warm', 400), r('warm', 1000)]);
+  it('passes at exactly the bar with worst-of-5 per kind and reports the worst of each kind', () => {
+    const s = summarizeRun([...many('cold', 4, 2100), r('cold', 2500), ...many('warm', 4, 400), r('warm', 1000)]);
     expect(s).toEqual({ worstCold: 2500, worstWarm: 1000, verdict: 'PASS' });
   });
+  it('is INCOMPLETE below 5 cold or 5 warm, even when every launch is under the bar', () => {
+    expect(summarizeRun([r('cold', 100), ...many('warm', 9, 100)]).verdict).toBe('INCOMPLETE');
+    expect(summarizeRun([...many('cold', 4, 100), ...many('warm', 6, 100)]).verdict).toBe('INCOMPLETE');
+    expect(summarizeRun([...many('cold', 5, 100), ...many('warm', 5, 100)]).verdict).toBe('PASS');
+  });
   it('fails when either kind is over', () => {
-    expect(summarizeRun([r('cold', 2500.1), r('warm', 1)]).verdict).toBe('FAIL');
-    expect(summarizeRun([r('cold', 1), r('warm', 1000.1)]).verdict).toBe('FAIL');
+    expect(summarizeRun([...many('cold', 5, 1), r('cold', 2500.1), ...many('warm', 5, 1)]).verdict).toBe('FAIL');
+    expect(summarizeRun([...many('cold', 5, 1), ...many('warm', 5, 1), r('warm', 1000.1)]).verdict).toBe('FAIL');
   });
   it('is incomplete without both kinds, and FAIL still wins over incomplete', () => {
     expect(summarizeRun([r('cold', 1000)])).toEqual({ worstCold: 1000, worstWarm: null, verdict: 'INCOMPLETE' });

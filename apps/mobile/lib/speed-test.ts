@@ -15,6 +15,8 @@ export const COLD_BAR_MS = 2500;
 export const WARM_BAR_MS = 1000;
 export const DEFAULT_LAUNCHES = 10;
 export const MAX_LAUNCHES = 30;
+/** PLAN §WP0.2 is worst-of-5: PASS needs at least this many cold AND warm launches. */
+export const MIN_PER_KIND = 5;
 
 export type Ui = 'native' | 'shared' | 'unknown';
 
@@ -98,8 +100,10 @@ export function summarizeRun(results: readonly LaunchResult[]): {
   };
   const worstCold = worst('cold');
   const worstWarm = worst('warm');
+  const count = (k: 'cold' | 'warm'): number => results.filter((r) => r.k === k).length;
   const over = (worstCold ?? 0) > COLD_BAR_MS || (worstWarm ?? 0) > WARM_BAR_MS;
-  const verdict = over ? 'FAIL' : worstCold === null || worstWarm === null ? 'INCOMPLETE' : 'PASS';
+  const short = count('cold') < MIN_PER_KIND || count('warm') < MIN_PER_KIND;
+  const verdict = over ? 'FAIL' : short ? 'INCOMPLETE' : 'PASS';
   return { worstCold, worstWarm, verdict };
 }
 
@@ -160,15 +164,63 @@ export function summaryReport(env: DiagEnv, state: SpeedState): DiagPayload {
   return buildDiagPayload(env, { launch: 'unknown', stages: [], slowestDownloads: [] }, speed);
 }
 
-export function panelLines(s: SpeedState | null): string[] {
-  if (!s) return ['Speed test: off'];
+export interface OutboxEntry {
+  p: DiagPayload;
+  tries: number;
+  /** Earliest epoch ms for the next send attempt. */
+  next: number;
+}
+
+export const MAX_OUTBOX = 8;
+export const MAX_TRIES = 8;
+
+/** 1 min, 2 min, 4 min ... capped at 1 h. */
+export const backoffMs = (tries: number): number => Math.min(30_000 * 2 ** tries, 3_600_000);
+
+export function parseOutbox(raws: readonly string[]): OutboxEntry[] {
+  const out: OutboxEntry[] = [];
+  for (const raw of raws) {
+    try {
+      const o: unknown = JSON.parse(raw);
+      if (!isRecord(o) || !isRecord(o.p) || o.p.message !== '[diag]' || !isRecord(o.p.diag)) continue;
+      if (!isRecord(o.p.diag.speed)) continue;
+      if (typeof o.tries !== 'number' || !Number.isInteger(o.tries) || o.tries < 0) continue;
+      if (typeof o.next !== 'number' || !Number.isFinite(o.next)) continue;
+      out.push({ p: o.p as unknown as DiagPayload, tries: o.tries, next: o.next });
+    } catch {
+      // an unreadable entry is dropped, never thrown
+    }
+  }
+  return out.slice(-MAX_OUTBOX);
+}
+
+const isSummary = (e: OutboxEntry): boolean => e.p.diag.speed?.kind === 'summary';
+
+/** Append, then keep at most MAX_OUTBOX entries: oldest launch reports go first, a summary is never evicted. */
+export function capOutbox(entries: OutboxEntry[]): OutboxEntry[] {
+  const out = [...entries];
+  while (out.length > MAX_OUTBOX) {
+    const i = out.findIndex((e) => !isSummary(e));
+    out.splice(i === -1 ? 0 : i, 1);
+  }
+  return out;
+}
+
+export function panelLines(s: SpeedState | null, pendingSends = 0): string[] {
+  const queued = pendingSends > 0 ? [`${pendingSends} report(s) waiting to be sent (retries on next launch).`] : [];
+  if (!s) return ['Speed test: off', ...queued];
   if (s.remaining > 0) {
     return [
       `Speed test: ON, run ${s.run}`,
-      `${s.results.length} of ${s.total} launches sent. Force-stop and reopen, or background and resume.`,
+      `${s.results.length} of ${s.total} launches done. Force-stop and reopen, or background and resume.`,
+      ...queued,
     ];
   }
   const r = summarizeRun(s.results);
   const f = (n: number | null): string => (n === null ? 'n/a' : `${Math.round(n)} ms`);
-  return [`Speed test done, run ${s.run}: ${r.verdict}`, `Worst cold ${f(r.worstCold)}, worst warm ${f(r.worstWarm)}`];
+  return [
+    `Speed test done, run ${s.run}: ${r.verdict}`,
+    `Worst cold ${f(r.worstCold)}, worst warm ${f(r.worstWarm)}`,
+    ...queued,
+  ];
 }

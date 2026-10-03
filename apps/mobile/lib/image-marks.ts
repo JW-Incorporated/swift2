@@ -36,6 +36,14 @@ export function createImageMarks(elapsed: () => number) {
 
 export const imageMarks = createImageMarks(() => diagCollector.elapsed());
 
+let enabled = false;
+
+/** Image marks are only taken while Speed test mode is running. */
+export function setImageMarksEnabled(on: boolean): void {
+  enabled = on;
+}
+
 export function noteImageLoaded(visible: boolean): void {
+  if (!enabled) return;
   if (imageMarks.loaded(visible)) diagMarkOnce('first-image-paint');
 }

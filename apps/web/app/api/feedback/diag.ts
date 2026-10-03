@@ -45,6 +45,8 @@ export const POINT_STAGES = [
 export const SPEED_COLD_BAR_MS = 2500;
 export const SPEED_WARM_BAR_MS = 1000;
 export const MAX_SPEED_LAUNCHES = 30;
+/** PLAN §WP0.2 is worst-of-5: PASS needs at least this many cold AND warm launches. */
+export const SPEED_MIN_PER_KIND = 5;
 const SPEED_KEYS = ['run', 'kind', 'index', 'total', 'ui', 'anchor', 'images10s', 'launches'];
 const RUN_RE = /^[0-9a-f]{8}$/;
 
@@ -116,8 +118,10 @@ export function speedVerdict(launches: { k: 'cold' | 'warm'; ms: number }[]) {
   };
   const cold = worst('cold');
   const warm = worst('warm');
+  const count = (k: 'cold' | 'warm'): number => launches.filter((l) => l.k === k).length;
   const over = (cold ?? 0) > SPEED_COLD_BAR_MS || (warm ?? 0) > SPEED_WARM_BAR_MS;
-  const verdict = over ? 'FAIL' : cold === null || warm === null ? 'INCOMPLETE' : 'PASS';
+  const short = count('cold') < SPEED_MIN_PER_KIND || count('warm') < SPEED_MIN_PER_KIND;
+  const verdict = over ? 'FAIL' : short ? 'INCOMPLETE' : 'PASS';
   return { cold, warm, verdict };
 }
 
@@ -150,9 +154,30 @@ export function speedAllowed(run: string, now: number = Date.now()): boolean {
   return true;
 }
 
+/**
+ * Uniqueness of (run, kind, index), one summary per run (in-memory, per server
+ * instance, best effort like the limiters above). A duplicate is answered 200
+ * so the client's retry queue does not loop on it. Recorded only after GitHub
+ * accepted the comment (speedCommit), so a failed post can be retried.
+ */
+const speedKeys = new Map<string, Set<string>>();
+const speedKey = (s: SpeedMeta): string => (s.kind === 'summary' ? 'summary' : `launch:${s.index}`);
+
+export const speedDuplicate = (s: SpeedMeta): boolean => speedKeys.get(s.run)?.has(speedKey(s)) ?? false;
+
+export function speedCommit(s: SpeedMeta): void {
+  if (!speedKeys.has(s.run) && speedKeys.size >= MAX_TRACKED_RUNS) {
+    speedKeys.delete(speedKeys.keys().next().value as string);
+  }
+  const keys = speedKeys.get(s.run) ?? new Set<string>();
+  keys.add(speedKey(s));
+  speedKeys.set(s.run, keys);
+}
+
 export const resetSpeedAllowed = (): void => {
   speedSeen.clear();
   speedGlobal = [];
+  speedKeys.clear();
 };
 
 export function isDiagMessage(message: string): boolean {

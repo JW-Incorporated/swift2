@@ -27,6 +27,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   const [testPage, setTestPage] = useState(false);
   const [failMode, setFailMode] = useState<DomFailureMode>('off');
   const [speed, setSpeed] = useState<SpeedState | null>(null);
+  const [, setTick] = useState(0);
   const [wd, setWd] = useState<WatchdogRecord | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState('');
@@ -38,6 +39,10 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     void getForceDomFailure().then(setFailMode);
     void speedTest.state().then(setSpeed);
     void loadWatchdogRecord().then((r) => setWd(r === 'corrupt' ? null : r));
+    return speedTest.onChange(() => {
+      setTick((n) => n + 1);
+      void speedTest.state().then(setSpeed);
+    });
   }, [visible]);
 
   if (!visible) return null;
@@ -113,7 +118,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               }}
             />
           </View>
-          {panelLines(speed).map((line) => (
+          {panelLines(speed, speedTest.queued()).map((line) => (
             <Text key={line} style={styles.fact}>
               {line}
             </Text>

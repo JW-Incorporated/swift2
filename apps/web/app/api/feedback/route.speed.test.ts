@@ -101,14 +101,17 @@ describe('speed test reports: rendering', () => {
     const body = diagCommentFrom(report(summaryDiag(launches)));
     expect(body).toContain('| Worst cold (bar 2500) | 2400.0 |');
     expect(body).toContain('| Worst warm (bar 1000) | 900.0 |');
-    expect(body).toContain('| Verdict | **PASS** |');
+    expect(body).toContain('| Verdict | **INCOMPLETE** |');
     expect(body).toContain('| 3 | warm | 900.0 |');
     const fail = diagCommentFrom(report(summaryDiag([...launches, { k: 'warm', ms: 1000.1 }])));
     expect(fail).toContain('**FAIL**');
   });
 
-  it('speedVerdict: bar is inclusive, incomplete without both kinds', () => {
-    expect(speedVerdict([{ k: 'cold', ms: 2500 }, { k: 'warm', ms: 1000 }]).verdict).toBe('PASS');
+  it('speedVerdict: bar is inclusive, PASS needs 5 cold AND 5 warm', () => {
+    const many = (k: 'cold' | 'warm', n: number, ms: number) => Array.from({ length: n }, () => ({ k, ms }));
+    expect(speedVerdict([...many('cold', 5, 2500), ...many('warm', 5, 1000)]).verdict).toBe('PASS');
+    expect(speedVerdict([...many('cold', 1, 10), ...many('warm', 9, 10)]).verdict).toBe('INCOMPLETE');
+    expect(speedVerdict([{ k: 'cold', ms: 2500 }, { k: 'warm', ms: 1000 }]).verdict).toBe('INCOMPLETE');
     expect(speedVerdict([{ k: 'cold', ms: 2500.5 }]).verdict).toBe('FAIL');
     expect(speedVerdict([{ k: 'cold', ms: 10 }]).verdict).toBe('INCOMPLETE');
   });
@@ -139,21 +142,65 @@ describe('speed test reports: rate limit', () => {
     expect(allowed).toBe(300);
   });
 
-  it('the route answers 429 once a run id is over its cap and never calls GitHub for it', async () => {
+  const okFetch = () =>
+    vi.fn().mockImplementation(async () => new Response(JSON.stringify({ id: 9 }), { status: 201 }));
+  const post = (diag: unknown, ip = '10.7.0.1') =>
+    POST(
+      new Request('http://localhost/api/feedback', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-real-ip': ip },
+        body: JSON.stringify({ message: '[diag]', diag }),
+      }),
+    );
+
+  it('speed reports bypass the generic 5/min per-IP limiter, so the summary is not dropped', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
-    const fetchSpy = vi.fn().mockImplementation(async () => new Response(JSON.stringify({ id: 9 }), { status: 201 }));
+    const fetchSpy = okFetch();
     vi.stubGlobal('fetch', fetchSpy);
-    const send = (ip: string) =>
-      POST(
-        new Request('http://localhost/api/feedback', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json', 'x-real-ip': ip },
-          body: JSON.stringify({ message: '[diag]', diag: launchDiag({ run: 'cafe0001' }) }),
-        }),
-      );
-    for (let i = 0; i < MAX_SPEED_LAUNCHES + 1; i++) expect((await send(`10.7.${i}.1`)).status).toBe(201);
-    const over = await send('10.7.99.1');
-    expect(over.status).toBe(429);
-    expect(fetchSpy).toHaveBeenCalledTimes(MAX_SPEED_LAUNCHES + 1);
+    for (let i = 1; i <= 10; i++) expect((await post(launchDiag({ run: 'cafe0002', index: i }), '10.7.1.1')).status).toBe(201);
+    expect((await post(summaryDiag(launches, { run: 'cafe0002', index: 3 }), '10.7.1.1')).status).toBe(201);
+    expect(fetchSpy).toHaveBeenCalledTimes(11);
+  });
+
+  it('the generic limiter still applies to a plain [diag] report from the same IP', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    vi.stubGlobal('fetch', okFetch());
+    const plain = { ...base, launch: 'cold', timings: { manifest: 1, 'at:manifest': 2 } };
+    const statuses: number[] = [];
+    for (let i = 0; i < 7; i++) statuses.push((await post(plain, '10.7.2.1')).status);
+    expect(statuses[6]).toBe(429);
+  });
+
+  it('a duplicate (run, kind, index) and a second summary answer 200 duplicate without calling GitHub', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    const fetchSpy = okFetch();
+    vi.stubGlobal('fetch', fetchSpy);
+    const run = 'cafe0003';
+    expect((await post(launchDiag({ run, index: 2 }))).status).toBe(201);
+    const dup = await post(launchDiag({ run, index: 2 }));
+    expect(dup.status).toBe(200);
+    expect(await dup.json()).toEqual({ ok: true, duplicate: true });
+    expect((await post(summaryDiag(launches, { run }))).status).toBe(201);
+    expect((await post(summaryDiag(launches, { run }))).status).toBe(200);
+    expect((await post(launchDiag({ run, index: 3 }))).status).toBe(201);
+    expect(fetchSpy).toHaveBeenCalledTimes(3);
+  });
+
+  it('a failed GitHub post is not remembered, so the client retry is accepted', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response('no', { status: 500 })));
+    const diag = launchDiag({ run: 'cafe0004', index: 1 });
+    expect((await post(diag)).status).toBe(502);
+    vi.stubGlobal('fetch', okFetch());
+    expect((await post(diag)).status).toBe(201);
+  });
+
+  it('the route answers 429 once a run id is over its budget and never calls GitHub for it', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    const fetchSpy = okFetch();
+    vi.stubGlobal('fetch', fetchSpy);
+    for (let i = 0; i < MAX_SPEED_LAUNCHES + 1; i++) expect(speedAllowed('cafe0001')).toBe(true);
+    expect((await post(launchDiag({ run: 'cafe0001' }))).status).toBe(429);
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

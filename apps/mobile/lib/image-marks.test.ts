@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createImageMarks } from './image-marks';
+import { createImageMarks, imageMarks, noteImageLoaded, setImageMarksEnabled } from './image-marks';
 
 describe('image marks', () => {
   it('records the first VISIBLE image and counts loads inside the window', () => {
@@ -27,5 +27,19 @@ describe('image marks', () => {
     expect(m.firstVisibleMs()).toBeNull();
     expect(m.loadedBy(10_000)).toBe(0);
     expect(m.loaded(true)).toBe(true);
+  });
+});
+
+describe('noteImageLoaded gating', () => {
+  it('records nothing until Speed test mode enables it', () => {
+    imageMarks.reset();
+    noteImageLoaded(true);
+    expect(imageMarks.loadedBy(1e9)).toBe(0);
+    setImageMarksEnabled(true);
+    noteImageLoaded(true);
+    expect(imageMarks.loadedBy(1e9)).toBe(1);
+    setImageMarksEnabled(false);
+    noteImageLoaded(true);
+    expect(imageMarks.loadedBy(1e9)).toBe(1);
   });
 });

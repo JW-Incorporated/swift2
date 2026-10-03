@@ -275,7 +275,7 @@ describe('sendDiagReport', () => {
 
   it('surfaces the route error and survives a network failure', async () => {
     const limited = vi.fn().mockResolvedValue({ ok: false, status: 429, json: async () => ({ error: 'slow down' }) });
-    expect(await sendDiagReport(payload, limited as unknown as typeof fetch)).toEqual({ ok: false, error: 'slow down' });
+    expect(await sendDiagReport(payload, limited as unknown as typeof fetch)).toEqual({ ok: false, status: 429, error: 'slow down' });
     const down = vi.fn().mockRejectedValue(new Error('offline'));
     expect((await sendDiagReport(payload, down as unknown as typeof fetch)).ok).toBe(false);
   });
