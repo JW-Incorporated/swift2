@@ -3,38 +3,85 @@ import type { EventPayloadOf, WebPath } from '@swift2/ui';
 
 export const MAX_QUEUED_TAPS = 16;
 export const MAX_SEEN_TAPS = 64;
+export const TAP_TTL_MS = 10 * 60 * 1000;
+
+const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
+/** First path segments the shared UI serves; `/` itself (query-driven surfaces) is always allowed. */
+const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault']);
+
+/**
+ * Default tap resolver: an app-relative path or an absolute longlivets.com
+ * (and www.) URL becomes a web path, only if it lands on an internal route.
+ * `/api`, `/internal`, other hosts, userinfo/ports and traversal are refused.
+ */
+export function resolveTapPath(link: string): WebPath | null {
+  if (link.length === 0 || link.length > 2048 || link.includes('\\')) return null;
+  let rel = link;
+  if (!link.startsWith('/')) {
+    let u: URL;
+    try {
+      u = new URL(link);
+    } catch {
+      return null;
+    }
+    if (u.protocol !== 'https:' || !SITE_HOSTS.has(u.hostname) || u.port || u.username || u.password) return null;
+    rel = `${u.pathname}${u.search}${u.hash}`;
+  }
+  let pathname: string;
+  try {
+    pathname = new URL(rel, 'https://www.longlivets.com').pathname;
+  } catch {
+    return null;
+  }
+  const segs = pathname.split('/').filter(Boolean);
+  if (segs.some((s) => s === '..' || s === '.')) return null;
+  if (segs.length > 0 && !ROUTE_ROOTS.has(segs[0])) return null;
+  return toWebPath(rel);
+}
 
 /** A notification response reduced to what the queue needs (no token, no PII). */
 export type RawTap = { id?: unknown; deepLink?: unknown };
-export type Tap = { id: string | null; path: WebPath };
-export type TapSink = (tap: Tap) => void;
-export type EnqueueOutcome = 'queued' | 'delivered' | 'duplicate' | 'dropped';
+export type Tap = { id: string | null; path: WebPath; receivedAt: number };
+/**
+ * Delivers one tap. Resolves `true` only when the receiver ACKNOWLEDGED it
+ * (E2: the DOM's `ack`); `false`, a rejection or a disposed host means "not
+ * delivered" and the tap stays at the head for the next `attach`.
+ */
+export type TapSink = (tap: Tap) => Promise<boolean>;
+export type EnqueueOutcome = 'queued' | 'duplicate' | 'dropped';
 
 export interface TapQueueDeps {
-  /** Maps a notification deep link to a web path (X4); default accepts a web path as-is. */
+  /** Maps a deep link to a web path; its output is revalidated at runtime. */
   resolvePath?: (deepLink: string) => WebPath | null;
   capacity?: number;
   seenCapacity?: number;
-  /** A tap lost to an unmappable payload or to overflow; never throws into the caller. */
-  onDrop?: (reason: 'unmappable' | 'overflow') => void;
+  ttlMs?: number;
+  now?: () => number;
+  /** A tap lost to an unmappable payload, overflow or age; never throws into the caller. */
+  onDrop?: (reason: 'unmappable' | 'overflow' | 'stale') => void;
 }
 
 /**
  * Holds notification taps until a sink (the shared UI host, once ready) is
- * attached, then replays them in arrival order and delivers later taps
- * immediately. Transport-neutral: E2 plugs a sink in via `attach`, and calls
- * `detach` when the host leaves ready (taps hold again) or the watchdog falls
- * back (attach a native-navigation sink instead, so no tap is lost).
+ * attached, then replays them in arrival order, one at a time, removing a tap
+ * and recording its id as delivered only after the sink acknowledges it.
+ * Transport-neutral: E2 plugs a sink in via `attach`, calls `detach` when the
+ * host leaves ready (taps hold again) and attaches a native-navigation sink
+ * on fallback, so no tap is lost.
  */
 export function createTapQueue(deps: TapQueueDeps = {}) {
   const capacity = deps.capacity ?? MAX_QUEUED_TAPS;
   const seenCap = deps.seenCapacity ?? MAX_SEEN_TAPS;
-  const resolvePath = deps.resolvePath ?? ((l: string) => toWebPath(l));
+  const ttl = deps.ttlMs ?? TAP_TTL_MS;
+  const now = deps.now ?? Date.now;
+  const resolvePath = deps.resolvePath ?? resolveTapPath;
   const held: Tap[] = [];
-  const seen = new Set<string>();
+  const delivered = new Set<string>();
   let sink: TapSink | null = null;
+  let flushing: Promise<void> | null = null;
+  let again = false;
 
-  const drop = (reason: 'unmappable' | 'overflow') => {
+  const drop = (reason: 'unmappable' | 'overflow' | 'stale') => {
     try {
       deps.onDrop?.(reason);
     } catch {
@@ -42,50 +89,81 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
     }
   };
 
-  function remember(id: string): void {
-    seen.add(id);
-    if (seen.size > seenCap) seen.delete(seen.values().next().value as string);
+  function markDelivered(id: string | null): void {
+    if (id === null) return;
+    delivered.add(id);
+    if (delivered.size > seenCap) delivered.delete(delivered.values().next().value as string);
   }
 
-  /** Deliver held taps in order; a throwing sink leaves the failed tap at the head. */
-  function flush(): void {
+  async function drain(): Promise<void> {
     while (sink && held.length > 0) {
-      const next = held[0];
-      try {
-        sink(next);
-      } catch {
-        return;
+      const s = sink;
+      const head = held[0];
+      if (now() - head.receivedAt > ttl) {
+        held.shift();
+        drop('stale');
+        continue;
       }
-      held.shift();
+      let acked = false;
+      try {
+        acked = (await s(head)) === true;
+      } catch {
+        acked = false;
+      }
+      if (!acked) return;
+      markDelivered(head.id);
+      const i = held.indexOf(head);
+      if (i >= 0) held.splice(i, 1);
     }
+  }
+
+  /** Re-entrant calls coalesce into a re-run of the in-flight drain. */
+  function flush(): Promise<void> {
+    if (flushing) {
+      again = true;
+      return flushing;
+    }
+    flushing = (async () => {
+      try {
+        do {
+          again = false;
+          await drain();
+        } while (again);
+      } finally {
+        flushing = null;
+      }
+    })();
+    return flushing;
   }
 
   function enqueue(raw: RawTap): EnqueueOutcome {
     const link = typeof raw.deepLink === 'string' ? raw.deepLink : null;
-    const path = link === null ? null : resolvePath(link);
+    let path: WebPath | null = null;
+    try {
+      path = link === null ? null : toWebPath(resolvePath(link));
+    } catch {
+      path = null;
+    }
     if (!path) {
       drop('unmappable');
       return 'dropped';
     }
     const id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= 256 ? raw.id : null;
-    if (id !== null) {
-      if (seen.has(id)) return 'duplicate';
-      remember(id);
-    }
+    if (id !== null && (delivered.has(id) || held.some((t) => t.id === id))) return 'duplicate';
     if (held.length >= capacity) {
       held.shift();
       drop('overflow');
     }
-    held.push({ id, path });
-    flush();
-    return held.length === 0 ? 'delivered' : 'queued';
+    held.push({ id, path, receivedAt: now() });
+    void flush();
+    return 'queued';
   }
 
   return {
     enqueue,
     attach(next: TapSink): void {
       sink = next;
-      flush();
+      void flush();
     },
     detach(): void {
       sink = null;
@@ -97,8 +175,13 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
 
 export type TapQueue = ReturnType<typeof createTapQueue>;
 
-/** The ready-host sink: `emit` is `BridgeHost.emit`. */
+/** The ready-host sink: `emit` is `BridgeHost.emit`; `awaitAck` resolves true on the DOM's ack (E2). */
 export const navigateSink =
-  (emit: (type: 'navigate', payload: EventPayloadOf<'navigate'>) => void): TapSink =>
-  (tap) =>
+  (
+    emit: (type: 'navigate', payload: EventPayloadOf<'navigate'>) => void,
+    awaitAck: (tap: Tap) => Promise<boolean>,
+  ): TapSink =>
+  (tap) => {
     emit('navigate', { path: tap.path, source: 'notification' });
+    return awaitAck(tap);
+  };

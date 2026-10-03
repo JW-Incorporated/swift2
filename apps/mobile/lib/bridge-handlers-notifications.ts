@@ -1,9 +1,14 @@
+// Threat model (PM ruling): the DOM runs only our own bundled code, and a
+// permission request already surfaces the OS prompt, so these handlers carry
+// no user-gesture gate. Prefs go through the canonical `validPrefs`.
 import { resErr, resOk } from '@swift2/ui';
-import type { HandlerMap, ResResult } from '@swift2/ui';
+import type { HandlerContext, HandlerMap, ResResult } from '@swift2/ui';
+import { validPrefs } from './bridge-host-validate';
 
+type Permission = 'granted' | 'denied' | 'undetermined' | 'unsupported';
 type NotificationHost = {
-  status(): Promise<'granted' | 'denied' | 'undetermined' | 'unsupported'>;
-  request(): Promise<'granted' | 'denied' | 'undetermined' | 'unsupported'>;
+  status(): Promise<Permission>;
+  request(): Promise<Permission>;
   register(): Promise<void>;
   updatePrefs(prefs: Record<string, boolean>): Promise<void>;
 };
@@ -14,40 +19,42 @@ export type NotificationHandlers = Pick<
   'notifications.status' | 'notifications.request' | 'notifications.register' | 'notifications.updatePrefs'
 >;
 
-const MAX_PREFS = 64;
-const MAX_PREF_KEY = 64;
+const cancelled = (message = 'cancelled') => resErr('cancelled', message);
 
-function cleanPrefs(x: unknown): Record<string, boolean> | null {
-  if (typeof x !== 'object' || x === null || Array.isArray(x)) return null;
-  const keys = Object.keys(x);
-  if (keys.length > MAX_PREFS) return null;
-  const out: Record<string, boolean> = {};
-  for (const k of keys) {
-    const v = (x as Record<string, unknown>)[k];
-    if (k === '__proto__' || k.length === 0 || k.length > MAX_PREF_KEY || typeof v !== 'boolean') return null;
-    out[k] = v;
-  }
-  return out;
-}
-
-/** Failures answer a fixed message: a token or server text never crosses the bridge. */
-async function guarded<V>(run: () => Promise<V>): Promise<ResResult<V>> {
+/**
+ * Runs `run` unless already aborted; an abort during the call discards its
+ * result. Failures answer a fixed message: a token or server text never
+ * crosses the bridge.
+ */
+async function guarded<V>(ctx: HandlerContext, run: () => Promise<V>): Promise<ResResult<V>> {
+  if (ctx.signal.aborted) return cancelled();
   try {
-    return resOk(await run());
+    const value = await run();
+    return ctx.signal.aborted ? cancelled() : resOk(value);
   } catch {
-    return resErr('failed', 'notification operation failed');
+    return ctx.signal.aborted ? cancelled() : resErr('failed', 'notification operation failed');
   }
 }
 
 export function createHandlers(deps: NotificationHandlerDeps): NotificationHandlers {
+  let latest = 0;
+  let tail: Promise<unknown> = Promise.resolve();
+
   return {
-    'notifications.status': () => guarded(() => deps.status()),
-    'notifications.request': () => guarded(() => deps.request()),
-    'notifications.register': () => guarded(async () => (await deps.register(), null)),
-    'notifications.updatePrefs': async (payload) => {
-      const prefs = cleanPrefs(payload?.prefs);
-      if (!prefs) return resErr('invalid', 'prefs must be a bounded map of booleans');
-      return guarded(async () => (await deps.updatePrefs(prefs), null));
+    'notifications.status': (_p, ctx) => guarded(ctx, () => deps.status()),
+    'notifications.request': (_p, ctx) => guarded(ctx, () => deps.request()),
+    'notifications.register': (_p, ctx) => guarded(ctx, async () => (await deps.register(), null)),
+    'notifications.updatePrefs': (payload, ctx) => {
+      const clean = validPrefs(payload?.prefs) as { prefs: Record<string, boolean> } | null;
+      if (!clean) return Promise.resolve(resErr('invalid', 'prefs must be a bounded map of booleans'));
+      // Serialized, latest-wins: an older update still queued behind a slow one is skipped.
+      const seq = ++latest;
+      const run = tail.then(() => {
+        if (seq !== latest) return cancelled('superseded');
+        return guarded(ctx, async () => (await deps.updatePrefs(clean.prefs), null));
+      });
+      tail = run.catch(() => undefined);
+      return run;
     },
   };
 }

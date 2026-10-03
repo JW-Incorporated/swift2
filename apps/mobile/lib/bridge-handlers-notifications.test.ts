@@ -70,4 +70,58 @@ describe('notification bridge handlers', () => {
       expect(r).toEqual({ ok: false, error: { code: 'failed', message: 'notification operation failed' } });
     }
   });
+
+  it('skips native work when already aborted', async () => {
+    const d = deps();
+    const h = createHandlers(d);
+    const ac = new AbortController();
+    ac.abort();
+    const c = { signal: ac.signal };
+    for (const r of [
+      await h['notifications.status']({}, c),
+      await h['notifications.request']({}, c),
+      await h['notifications.register']({}, c),
+      await h['notifications.updatePrefs']({ prefs: { a: true } }, c),
+    ]) {
+      expect(r).toMatchObject({ ok: false, error: { code: 'cancelled' } });
+    }
+    expect(d.status).not.toHaveBeenCalled();
+    expect(d.request).not.toHaveBeenCalled();
+    expect(d.register).not.toHaveBeenCalled();
+    expect(d.updatePrefs).not.toHaveBeenCalled();
+  });
+
+  it('discards a result when aborted mid-call', async () => {
+    const d = deps();
+    const ac = new AbortController();
+    d.request.mockImplementation(async () => {
+      ac.abort();
+      return 'granted';
+    });
+    const r = await createHandlers(d)['notifications.request']({}, { signal: ac.signal });
+    expect(r).toMatchObject({ ok: false, error: { code: 'cancelled' } });
+  });
+
+  it('serializes pref updates latest-wins: an older queued update never overwrites a newer one', async () => {
+    const d = deps();
+    const applied: Array<Record<string, boolean>> = [];
+    let release!: () => void;
+    d.updatePrefs.mockImplementationOnce(
+      (p: Record<string, boolean>) =>
+        new Promise<void>((r) => {
+          release = () => (applied.push(p), r());
+        }),
+    );
+    d.updatePrefs.mockImplementation(async (p: Record<string, boolean>) => void applied.push(p));
+    const h = createHandlers(d);
+    const one = h['notifications.updatePrefs']({ prefs: { a: true } }, ctx);
+    await new Promise((r) => setTimeout(r, 0));
+    const two = h['notifications.updatePrefs']({ prefs: { a: false } }, ctx);
+    const three = h['notifications.updatePrefs']({ prefs: { a: true, b: true } }, ctx);
+    release();
+    expect(await one).toEqual({ ok: true, value: null });
+    expect(await two).toMatchObject({ ok: false, error: { code: 'cancelled' } });
+    expect(await three).toEqual({ ok: true, value: null });
+    expect(applied).toEqual([{ a: true }, { a: true, b: true }]);
+  });
 });

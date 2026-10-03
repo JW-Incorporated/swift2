@@ -3,8 +3,8 @@ import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
 
 const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const MAX_SHARE_FIELD = 2048;
-const MAX_PREFS = 64;
-const MAX_PREF_KEY = 64;
+export const MAX_PREFS = 64;
+export const MAX_PREF_KEY = 64;
 
 export const isRecord = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -20,7 +20,7 @@ function validShare(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
-function validPrefs(prefs: unknown): JsonValue | null {
+export function validPrefs(prefs: unknown): JsonValue | null {
   if (!isRecord(prefs)) return null;
   const keys = Object.keys(prefs);
   if (keys.length > MAX_PREFS) return null;
