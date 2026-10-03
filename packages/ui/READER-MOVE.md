@@ -62,5 +62,61 @@ Moved to `packages/ui/src/reader/era/`: EraStream, EraSection, EraFeedList, Filt
 Debt (2.4-A): `video-affordance.ts` (294) and `store/index.tsx` (473) are over or near
 the 300-line rule; moved as-is.
 
+## Slice sections (scaffold)
+
+Each slice edits only under its own heading below. Slice barrels and
+`package.json` subpath exports already exist (no root re-exports).
+`@swift2/content-enrichment` is already a dependency.
+
+Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
+(.ts) at `reader/<slice>/lib/X.ts`; never edit package.json exports or
+`src/index.ts`. Deep imports: `@swift2/ui/reader/<slice>/X` (.tsx) and
+`@swift2/ui/reader/<slice>/lib/X` (.ts).
+
+### WP2.5 moment
+
+2.5-A1 (move-only): `MomentDetail`, `MomentSocialPost`, `ZoomableImage` to `reader/moment/`; `contain-fit`, `related`, `useFocusTrap`, `shop`, `shop-networks` and `awin-advertisers.json` to `reader/moment/lib/`. Pure tests moved with them (`ZoomableImage`, `contain-fit`, `useFocusTrap`, `shop`, `shop-networks`).
+
+- Shims (one-line `export *`, in `apps/web`): `components/longlive/MomentDetail.tsx`, `lib/longlive/{related,shop,useFocusTrap}.ts`. Plain renames (no outside importer): `MomentSocialPost`, `ZoomableImage`, `contain-fit`, `shop-networks`, `awin-advertisers.json`.
+- Type re-homing: `shop.ts` takes `MerchItem` from `@swift2/content-enrichment` (its real source) instead of `./merch`.
+- Tests that stay in `apps/web` (web data or render harness): `MomentDetail.test.tsx`, `related.test.ts`. Source-reading tests (`back-dismiss`, `escape-dismiss`, `focal-point-rendering`, `modal-focus-trap`, `card-chrome`) now read the moved `MomentDetail.tsx`; `modal-focus-trap` expects the new relative `useFocusTrap` import.
+- Hooks `useHost`/`useReader` are imported from `../../host/context` and `../../snapshot/context` (package-internal), a two-line import edit.
+- `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
+- Debt: `MomentDetail.tsx` (1216) and `ZoomableImage.tsx` (382) over the 300-line rule; moved as-is.
+
+### WP2.6 threads
+(pending)
+
+### WP2.7 tracks
+- Moved (A1, move-only): `TrackGuide.tsx`, `TrackDetail.tsx` -> `packages/ui/src/reader/tracks/`. TheoryGuide/TheoryCard are WP2.6, not here.
+- Shims (one-line `export *`, in `apps/web`, importer `LongLive.tsx`): `components/longlive/{TrackGuide,TrackDetail}.tsx`. No plain renames.
+- Source-reading tests repointed at the moved files: `OverlayNav.test.ts`, `back-dismiss.test.ts`, `escape-dismiss.test.ts`, `modal-focus-trap.test.ts` (now expects the relative `useFocusTrap` import).
+- Imports: `useHost`/`useResolveUrl`/`useReader` from package-internal `../../host/context` and `../../snapshot/context`; `useFocusTrap` from `../moment/lib/useFocusTrap` (WP2.5). `@swift2/content-enrichment` already a `packages/ui` dependency.
+- Debt: `TrackDetail.tsx` (580) over the 300-line rule; moved as-is. A2 (swipe-hint `window.localStorage` -> `useHost().storage.local`) pending.
+
+### WP2.8 search
+(pending)
+
+### WP2.9 merch
+(pending)
+
+### WP2.10 community
+(pending)
+
+### WP2.11 clown
+(pending)
+
+### WP2.12 settings
+A1 + A2 in one PR (PM ruling), separate commits.
+
+- A1 (move-only): `WebNotificationSettings.tsx` -> `reader/settings/`. Old path is a one-line `export *` shim (stays until WP2.13). The `accent-fill-foreground` source-read test is repointed.
+- A2 (logic): `HostAdapter.webPush?: HostWebPush` (additive, web adapter only; app host omits it). The web implementation `webPushHost` in `apps/web/lib/host-adapter.tsx` wraps the unchanged `web-push-client` functions and the `/api/devices/:id/prefs` GET/PUT, so web behaviour is identical. `WebNotificationSettings` reads them via `useHost().webPush` (absent -> "unsupported" state); `WebPushSubscribeResult` re-homed to `host/types.ts`.
+- New `NotificationSettingsPage.tsx` (page body, `next/link` -> `useHost().Link`); `app/settings/notifications/page.tsx` keeps `metadata` and the VAPID env read and renders it.
+- `lib/web-push-client.ts` does not move. Tests: `components/longlive/WebNotificationSettings.host.test.tsx`.
+- Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
+
+### WP2.13 legal
+(pending)
+
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,
 `clownbot-lore`, `content`, `tracks`, `era-secrets`, `videos`.

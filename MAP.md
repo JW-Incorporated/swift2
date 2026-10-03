@@ -79,7 +79,8 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
-| `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from `eas workflow:status` JSON; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
+| `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from the train state file; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
+| `scripts/release/train-lib.mjs` (+ `.test.ts`), `train-plan.mjs`, `train-wait.mjs` | Release train, run from GitHub Actions since 2026-10-03 (HA #98): fingerprint + existing-build plan, build polling, state file, iOS submit gate; replaces the retired EAS workflow (see docs/mobile-release.md) |
 | `scripts/parity/size-check.mjs` (+ `.test.ts`) | OTA size budget: fails CI on >15% growth of the mobile export vs `e2e/parity/size-baseline.json` (`--update` rewrites it; see docs/mobile-release.md) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
@@ -613,6 +614,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `packages/ui/src/bridge/client.ts` (+ `client.test.ts`, `contract.test.ts`) | WP2.3-C transport-neutral DOM bridge client (`createBridgeClient`: id-correlated `call` with timeout/abort->`cancel`, `consumeInbox` seq dedupe + `ack`, `on`/`handle('back')`, `sendReady`); contract test = 3 type-level legs (client <-> `HandlerMap`, host handler signatures, `HostAdapter` <-> `PayloadOf`/`ResultOf`) |
 | `apps/mobile/dom/bridge/transport-expo.ts` (+ test) | WP2.3-C the ONE Expo-DOM-specific DOM-side file (`inbox` prop + `bridge` action -> client); NOT yet imported by ReaderSpike/SharedUiTest (waits for G0) |
 | `apps/mobile/lib/bridge-host.ts` (+ `bridge-host.test.ts`, `bridge-host-queue.test.ts`, `bridge-host.test-kit.ts`) | WP2.3-B native bridge dispatcher: pure/transport-neutral `createBridgeHost` (injected clock/scheduler/send/handlers). One res per cmd, 8 s per-type timeouts, `cancel`, bounded-LRU replay dedup, per-command validators before handlers, pre-ready seq queue + ack trim, version check vs `NATIVE_SUPPORTED_RANGE` -> `onProtocolFatal` (the only watchdog path). NOT wired into SharedUiHost/App yet (step 4 waits for G0) |
+| `apps/mobile/lib/bridge-handlers-ui.ts` (+ test) | WP2.3-D1 UI bridge handlers: pure `createHandlers(deps)` (navigate/openExternal/share/haptic, injected native deps, validation before deps), `createBackHandler` (false pre-ready; non-`handled` -> exitApp; 1000 ms), `createInsetsEmitter`, `createContentVersionEmitter`. No RN/Expo imports; unwired until D2 (post-G0). |
 | `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
 | `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
 | `packages/content/src/timing.ts` (+ test) | One UI WP0.1: optional load-stage hooks (`beginStage`, `setLoadTimingSink`); shared no-op when no sink is registered; `load.ts` reports pointer/manifest/download/hash/parse/validate/disk-write/load-total |
@@ -647,6 +649,48 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `eslint.config.mjs` + `packages/ui/src/reader-lint-ban.test.ts` | WP2.2-D: `no-restricted-imports` bans the module-global content accessors, baked/`*.generated` modules and injected `@swift2/experience` wrappers in `apps/web/components/longlive/**` and `packages/ui/**` ("read via useReader()"); tests + `*.server.*` exempt. `apps/web` is otherwise outside root lint; only that folder is un-ignored, with a parser and stub plugins so inline disables resolve | Merch components are allow-listed until #4859 (TODO in the config); the ban is import-level, so `lib/longlive/**` (mixed server/client) is not covered |
 | `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
 
+## One UI reader slices (WP2.5-2.13 scaffold)
+
+Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and package subpath exports already exist; each slice adds its rows only under its own heading.
+
+### WP2.5 moment
+
+| Path | What |
+|---|---|
+| `packages/ui/src/reader/moment/{MomentDetail,MomentSocialPost,ZoomableImage}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.5-A1, move-only). `apps/web/components/longlive/MomentDetail.tsx` is a one-line `export *` shim (until D / WP2.13) |
+| `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
+
+### WP2.6 threads
+(pending)
+
+### WP2.7 tracks
+
+| File | Note |
+|---|---|
+| `packages/ui/src/reader/tracks/{TrackGuide,TrackDetail}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.7-A1, move-only). Both old paths are one-line `export *` shims (until D) |
+
+### WP2.8 search
+(pending)
+
+### WP2.9 merch
+(pending)
+
+### WP2.10 community
+(pending)
+
+### WP2.11 clown
+(pending)
+
+### WP2.12 settings
+| File | Purpose |
+|---|---|
+| `packages/ui/src/reader/settings/WebNotificationSettings.tsx` | Web-push settings screen; reads `useHost().webPush`. Old `apps/web/components/longlive/` path is a shim |
+| `packages/ui/src/reader/settings/NotificationSettingsPage.tsx` | Body of `/settings/notifications` (`useHost().Link`); the Next page keeps `metadata` + VAPID env |
+| `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
+
+### WP2.13 legal
+(pending)
+
 ## CI concurrency (2026-10-01)
 
 | File | What it is |
@@ -664,6 +708,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/dom/ReaderSpike.tsx` (+ `reader-spike.css`, `spike/back.ts` + test) | WP0.5b `'use dom'` page: reads the native cache file by URI, builds the snapshot in-webview, fills the shims, then `require`s the real EraStream/MomentDetail/BottomNav (`spike/reader-modules.ts`); ready/error/probe/back/insets bridge |
 | `apps/mobile/dom/spike/{read-local,storage-shim,snapshot,probe}.ts` (+ tests) | `readLocalText` (fetch then XHR, status 0 ok), Map-backed storage shim, cache envelope to `ReaderSnapshot` + hash, probe recorder / placeholder counter / marker check |
 | `apps/mobile/dom/spike/dev-loader.ts`, `apps/mobile/index.web.ts` | DEV/WEB ONLY browser entry (served content bundle); never in the app bundle, enforced by `scripts/parity/check-dom-bundle.mjs` |
+| `apps/mobile/lib/speed-test.ts`, `speed-test-controller.ts`, `speed-test-runtime.ts`, `speed-test-store.ts`, `image-marks.ts` (+ tests); `dom/spike/image-listener.ts` | #4896 Speed test mode: pure state/math/report builders, injected-deps controller + launch tracker (cold vs warm via AppState), runtime wiring (installed in App.tsx), one SecureStore key, image-load marks fed by MomentCard and the DOM image stub. Server side: `apps/web/app/api/feedback/diag.ts` `speed` meta + `speedAllowed` limiter (`route.speed.test.ts`) |
 | `apps/mobile/lib/dom-reader-config.ts`, `dom-probe-store.ts` | Cache-file URI handed to the webview (config, not content); latest probe for the Diagnostics panel |
 | `scripts/parity/check-dom-bundle.mjs` (+ test) | Asserts the exported DOM bundle has no baked content (sourcemap sources incl. every `*.generated.ts`, plus 4 content-kind sentinels) |
 | `docs/one-ui/wp0.5.md` | WP0.5 spike notes: shims, gaps, recipes, findings |

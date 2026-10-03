@@ -83,19 +83,16 @@ describe('selectAndroidBuild', () => {
     });
     const skipped = { key: 'build_android', status: 'SKIPPED' };
 
-    it('returns existing + id without requiring a commit match', () => {
+    it('returns existing with no build id and no commit match', () => {
       const r = selectAndroidBuild(
         { jobs: [get(build({ gitCommitHash: 'b'.repeat(40) })), skipped] },
         SHA,
       );
-      expect(r).toEqual({ result: 'existing', buildId: ID });
+      expect(r).toEqual({ result: 'existing' });
     });
 
     it('also works when build_android is absent and only an id is exposed', () => {
-      expect(selectAndroidBuild({ jobs: [get({ id: ID })] }, SHA)).toEqual({
-        result: 'existing',
-        buildId: ID,
-      });
+      expect(selectAndroidBuild({ jobs: [get({ id: ID })] }, SHA)).toEqual({ result: 'existing' });
     });
 
     it.each([undefined, null, {}])('is skipped when get_android_build has no id (%j)', (tb) => {
@@ -106,16 +103,6 @@ describe('selectAndroidBuild', () => {
       expect(selectAndroidBuild({ jobs: [get({ id: ID }, 'FAILURE'), skipped] }, SHA).result).toBe(
         'skipped',
       );
-    });
-
-    it.each([
-      ['malformed id', { id: 'nope' }],
-      ['non-string id', { id: 5 }],
-      ['wrong platform', build({ platform: 'IOS' })],
-      ['wrong status', build({ status: 'ERRORED' })],
-      ['wrong profile', build({ buildProfile: 'preview' })],
-    ])('rejects %s as no_build', (_n, tb) => {
-      expect(selectAndroidBuild({ jobs: [get(tb), skipped] }, SHA).result).toBe('no_build');
     });
 
     it('prefers this run build over the existing one', () => {

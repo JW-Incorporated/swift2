@@ -8,8 +8,14 @@ import {
   ERA_ART_ORIGIN,
   expect,
   FOOTER_SELECTOR,
+  A_ONLY_ROUTES,
+  captureLocator,
+  ITEM_SOCIAL,
   mutate,
+  openAOnlyRoute,
   openRoute,
+  RAIL_CLIP,
+  SEARCH_ROW_CLIP,
   openSupportFooter,
   pixelMatches,
   ROUTES,
@@ -254,5 +260,39 @@ test.describe('web footer element-clip gate (a pure 1px translate fails the /sup
     });
     const mutated = await captureElement(page, FOOTER_SELECTOR, clip);
     expect(await pixelMatches(testInfo, 'neg-footer-clip', clean, mutated)).toBe(false);
+  });
+});
+
+test.describe('One UI PR0 a-only gates (WP2.5-2.8: a 1px mutation of each new surface fails its capture)', () => {
+  test('1px padding on the related rail fails the rail clip', async ({ page }, testInfo) => {
+    await openAOnlyRoute(page, ITEM_SOCIAL);
+    const clean = await captureLocator(page, RAIL_CLIP);
+    await page.locator(RAIL_CLIP).first().evaluate((el) => {
+      el.style.paddingTop = 'calc(1.25rem + 1px)';
+    });
+    const mutated = await captureLocator(page, RAIL_CLIP);
+    expect(await pixelMatches(testInfo, 'neg-rail-clip', clean, mutated)).toBe(false);
+  });
+
+  test('a 1px shift of the search combobox row fails its clip', async ({ page }, testInfo) => {
+    await openAOnlyRoute(page, A_ONLY_ROUTES.find((r) => r.name === 'search-open')!);
+    const clip = await elementBox(page, SEARCH_ROW_CLIP);
+    const clean = await captureElement(page, SEARCH_ROW_CLIP, clip);
+    await page.locator(SEARCH_ROW_CLIP).first().evaluate((el) => {
+      el.style.transform = 'translateY(1px)';
+    });
+    const mutated = await captureElement(page, SEARCH_ROW_CLIP, clip);
+    expect(await pixelMatches(testInfo, 'neg-search-row', clean, mutated)).toBe(false);
+  });
+
+  test('a 1px shift of the threads heading fails its clip', async ({ page }, testInfo) => {
+    await openAOnlyRoute(page, A_ONLY_ROUTES.find((r) => r.name === 'lens-fashion')!);
+    const clip = await elementBox(page, 'main h1');
+    const clean = await captureElement(page, 'main h1', clip);
+    await page.locator('main h1').first().evaluate((el) => {
+      el.style.transform = 'translateY(1px)';
+    });
+    const mutated = await captureElement(page, 'main h1', clip);
+    expect(await pixelMatches(testInfo, 'neg-threads-1px', clean, mutated)).toBe(false);
   });
 });
