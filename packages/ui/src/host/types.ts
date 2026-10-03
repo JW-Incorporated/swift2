@@ -64,7 +64,8 @@ export type HostImageProps = {
 export type Unsubscribe = () => void;
 
 export type HostStorage = {
-  get(key: string): string | null;
+  /** undefined = storage unavailable, null = key absent. */
+  get(key: string): string | null | undefined;
   set(key: string, value: string): void;
   remove(key: string): void;
 };

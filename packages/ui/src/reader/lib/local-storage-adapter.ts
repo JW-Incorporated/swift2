@@ -12,7 +12,7 @@ import type { HostStorage } from '../../host/types';
 export function createLocalStorageAdapter(storage: HostStorage): StorageAdapter {
   return {
     getItem(key: string): string | null {
-      return storage.get(key);
+      return storage.get(key) ?? null;
     },
     setItem(key: string, value: string): void {
       storage.set(key, value);
