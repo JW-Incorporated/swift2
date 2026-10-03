@@ -446,7 +446,15 @@ before C2 (MomentDetail conflict). #4850 nits d371b8ab → Codex r2
 queries + share cascade; stacked on C1). WP2.4 PR 0 #4852 done: TopBar element
 clip — pure 1px translate fails on all 4 (run 37119324040); footer capture
 DROPPED (unstable; follow-up: footer on /support); 12 A / 0 M; 2 green runs →
-reviewer w/ landing authority. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+reviewer w/ landing authority.
+**04:32:** #4852 approved but head = bot commit (no PR CI) → grunt merging main
+(non-bot push triggers CI) then lands. #4849 Fable fixes 07ae26fa (perf spec
+excluded via testIgnore + dispatch-only perf workflow; legacy builder test-only
++ regen-equals-golden test; exactly 28) → scoped reviewer landing w/ stacked
+rule (retarget #4856/#4857 to main). #4855 fix r1 (14 items + monotonic ids;
+176 tests) → reviewer r2 APPROVE; Codex r2 `task-musba925-ao4yi4`. #4853
+monotonic-ids round running. **Bridge landing order: A #4850 → B #4853 + C #4855
+retarget to main; README CONTRACT conflict between B and C expected (trivial).** (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
