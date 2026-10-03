@@ -309,6 +309,15 @@ scoped reviewer APPROVE → **#4845 MERGED** (harness image race closed; G1
 cond 4 hole fixed). Executor syncing main into wp2.1b (#4844) + wp2.1c
 (#4847) so their diffs show only their own work; then #4847 reviews + #4844
 landing.
+**03:08:** B/C synced (#4844 ac02626b, #4847 b5f7509b). **#4844 (WP2.1-B)
+MERGED** (Codex r2 APPROVE + reviewer). #4847 reviewer r1: Med preload only
+Inter/Playfair vs next/font preloading all → PM: preload ALL used faces (founder
+rule 1); Med need real-font pixel evidence (no ParityFont) incl. merch (Bodoni
+italic) + Dancing Script surface; Low stale comments; confirm bundle budget
+counts fonts → fix after Codex r1 (`task-mus88z07-dy3gc1`). #4843 Codex r2 P2
+(walker forms) → Fable: fix-forward → hardening fix running. WP2.3-A launched
+(2.1-B merged). WP2.4 PR 0 running. **HA #97** filed (parity-gate required),
+landing via #4848.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
@@ -429,6 +438,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-03 02:10 | **G1 go/no-go** (mandatory) + #4838 two consecutive Codex rejections | **G1 GO** for G2 limited to WP2.1 (all) + WP2.3 A, B-logic, C. Conditions: (1) parity becomes a REQUIRED check before the first WP2.4 slice branch (add an always-run job reporting success when paths untouched); (2) WP2.1 closes the /eras/*.png allowlist, no new entries; (3) no OTA baseline re-bump without a PROGRESS reason; (4) watch: WebKit parity flake with no code change ×2 → revisit comparator before required. #4838: fix-forward (strict string hash == GITHUB_SHA else skip; UUID regex), extract selection to scripts/release/select-android-build.mjs + vitest (no node -e on inline YAML); scoped reviewer, no Codex r3, land | Adopted all; WP2.1-A launched |
 | 2026-10-03 02:20 | WP2.2 brief review (A, B, C1–C3, D) + may it run pre-G0? | Sound; **GO pre-G0** (zero-visual refactor, parity-guarded, per-PR revertible). REQUIRED: A O(1) lookups as functions not prebuilt Maps; flat-order audit doesn't block A; B browser perf mark ≤15 ms unthrottled (+4x report), type-guard narrowing, packages/ui/package.json in touch set; C required data param + *.server.ts with server-only; merge main bottom-up before every parity run, never re-baseline. Eager snapshot = §4 contract (no laziness; >15 ms → contract change via Fable). Order: A now ∥ 2.1-A; B after 2.1-A; C, D after B | Adopted all + OPTIONAL (C1–C3 each on B). WP2.2-A launched |
 | 2026-10-03 02:44 | #4841 two consecutive Codex rejections (mandatory) | Fix-forward, land A. REQUIRED: no-restricted-syntax ImportExpression[source.type!='Literal'] + CallExpression[callee.name='require']:not([arguments.0.type='Literal']) with tests; remove data-swift2-ui from ReaderSpike (proof → per-host tests); fingerprint cited from CI run. Rejected Codex r3 + reverting the peer revert. Landing: scoped reviewer → merge A → retarget #4844 + 2.1-C | Adopted |
+| 2026-10-03 03:07 | #4843 two consecutive Codex rejections (mandatory): r2 sole P2 = purity walker misses import=require / import() / .tsx entrypoints | Fix-forward (gate hardening, not a shipped-graph defect); one failing fixture per form; scoped reviewer; land; retarget 2.2-B before deleting | Adopted; fix running |
 | 2026-10-03 03:03 | WP2.4 first slice brief (shell + era stream; PRs 0, A, B, C, D) | Launch 0–C after edits; D held to G0 GO. PR0: pasted 1px-TopBar negative proof; captureRoot untouched. A split MOVE (A1) vs LOGIC (A2). **Binding move-only rule** for A1/B/C: renames via git diff -M50%, only import/export-path lines inside renamed files (pasted empty grep), non-rename non-shim non-test ≤400; 300-line rule waived, debt in READER-MOVE.md. D: no NotInAppYet — navigate(tabPath)+setMode(prev); **native screens present modally over a still-mounted SharedUiHost, never remount**; presentNativeRoute in dom-host-handlers.ts; native owns back during overlay; Codex mandatory on D | Adopted all (brief-wp24.md top block). PM: parity-gate required = branch protection → **HA #97** (owner); PR 0 launched now (captures only); A1 waits for #97 |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
