@@ -101,6 +101,64 @@ describe('api handler: failure modes', () => {
     expect(value(await down.call(post('/api/feedback')))).toEqual({ status: 0, headers: {}, body: '' });
   });
 
+  it('counts bytes not chars: multibyte body under 256K chars but over 256 KB is cancelled mid-stream', async () => {
+    let cancelled = false;
+    let pulls = 0;
+    const chunk = new TextEncoder().encode('é'.repeat(16 * 1024)); // 32 KB per chunk
+    const stream = new ReadableStream<Uint8Array>({
+      pull(c) {
+        pulls++;
+        c.enqueue(chunk);
+      },
+      cancel() {
+        cancelled = true;
+      },
+    });
+    const { call } = harness(async () => new Response(stream, { status: 200 }));
+    expect(await call(post('/api/feedback'))).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(cancelled).toBe(true);
+    expect(pulls).toBeLessThan(20);
+  });
+
+  it('rejects on content-length before reading the body', async () => {
+    const text = vi.fn();
+    const res = new Response('x', { status: 200, headers: { 'content-length': String(MAX_API_BYTES + 1) } });
+    res.text = text;
+    const { call } = harness(async () => res);
+    expect(await call(post('/api/feedback'))).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(text).not.toHaveBeenCalled();
+  });
+
+  it('falls back to arrayBuffer when the response has no stream body', async () => {
+    const res = { status: 200, headers: new Headers(), body: null, arrayBuffer: async () => new TextEncoder().encode('hi').buffer };
+    const { call } = harness(async () => res as unknown as Response);
+    expect(value(await call(post('/api/feedback')))?.body).toBe('hi');
+  });
+
+  it('requests redirect: error; an off-origin redirect becomes a static status-0 result', async () => {
+    const { call, fetchMock } = harness(async (_u, init) => {
+      expect(init.redirect).toBe('error');
+      throw new TypeError('redirect mode is set to error');
+    });
+    expect(value(await call(post('/api/feedback')))).toEqual({ status: 0, headers: {}, body: '' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('a never-settling body read still times out, aborts and cleans up', async () => {
+    vi.useFakeTimers();
+    try {
+      const stream = new ReadableStream<Uint8Array>({ pull: () => new Promise(() => {}) });
+      const { call, fetchMock } = harness(async () => new Response(stream, { status: 200 }));
+      const p = call(post('/api/feedback'));
+      await vi.advanceTimersByTimeAsync(8000);
+      expect(await p).toMatchObject({ ok: false, error: { code: 'timeout' } });
+      expect((fetchMock.mock.calls[0][1] as RequestInit).signal?.aborted).toBe(true);
+      expect(vi.getTimerCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('abort resolves cancelled and aborts the fetch', async () => {
     let seen: AbortSignal | undefined;
     const { call, ac } = harness(

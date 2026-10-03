@@ -28,6 +28,37 @@ export type ApiHandlerDeps = {
 const keepResponseHeader = (name: string) =>
   name === 'content-type' || name === 'retry-after' || name.startsWith('x-ratelimit-');
 
+/**
+ * Reads the body with a byte cap. Streaming path (`res.body.getReader()`):
+ * counts Uint8Array bytes, cancels the reader and calls `abort` as soon as the
+ * cap is exceeded; null = too large. Fallback when the runtime's fetch has no
+ * ReadableStream body: `arrayBuffer()` behind the content-length precheck. The
+ * path is chosen at runtime by `res.body?.getReader`: runtimes exposing a
+ * stream body (modern Hermes/RN fetch, web, Node) stream; others buffer. The
+ * caller's abort race never depends on either read settling.
+ */
+async function readCapped(res: Response, abort: () => void): Promise<string | null> {
+  const dec = new TextDecoder();
+  const reader = res.body?.getReader?.();
+  if (!reader) {
+    const buf = await res.arrayBuffer();
+    return buf.byteLength > MAX_API_BYTES ? null : dec.decode(buf);
+  }
+  let total = 0;
+  let text = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) return text + dec.decode();
+    total += value.byteLength;
+    if (total > MAX_API_BYTES) {
+      abort();
+      void reader.cancel().catch(() => {});
+      return null;
+    }
+    text += dec.decode(value, { stream: true });
+  }
+}
+
 export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
   const setTimer = deps.setTimer ?? ((fn, ms) => setTimeout(fn, ms));
   const clearTimer = deps.clearTimer ?? ((h) => clearTimeout(h as ReturnType<typeof setTimeout>));
@@ -46,33 +77,47 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       }
       if (ctx.signal.aborted) return resErr('cancelled', 'cancelled');
       const ac = new AbortController();
-      let timedOut = false;
-      const onAbort = () => ac.abort();
+      let settleAbort: (r: ResResult<ApiResponse>) => void = () => {};
+      const aborted = new Promise<ResResult<ApiResponse>>((r) => (settleAbort = r));
+      // Only an external cancel or the timeout answers here; our own over-limit abort is answered by run().
+      const onAbort = () => {
+        ac.abort();
+        settleAbort(resErr('cancelled', 'cancelled'));
+      };
       ctx.signal.addEventListener('abort', onAbort, { once: true });
       const timer = setTimer(() => {
-        timedOut = true;
         ac.abort();
+        settleAbort(resErr('timeout', 'api request timed out'));
       }, deps.timeoutMs ?? API_TIMEOUT_MS);
+      const run = async (): Promise<ResResult<ApiResponse>> => {
+        try {
+          const res = await deps.fetch(deps.baseUrl() + req.path, {
+            method: req.method,
+            headers,
+            body: req.body,
+            credentials: 'omit',
+            redirect: 'error',
+            signal: ac.signal,
+          });
+          const len = Number(res.headers.get('content-length'));
+          if (Number.isFinite(len) && len > MAX_API_BYTES) {
+            ac.abort();
+            return resErr('failed', 'api response too large');
+          }
+          const text = await readCapped(res, () => ac.abort());
+          if (text === null) return resErr('failed', 'api response too large');
+          const out: Record<string, string> = {};
+          res.headers.forEach((value, key) => {
+            const name = key.toLowerCase();
+            if (keepResponseHeader(name)) out[name] = value;
+          });
+          return resOk({ status: res.status, headers: out, body: text });
+        } catch {
+          return resOk(NETWORK_FAILURE);
+        }
+      };
       try {
-        const res = await deps.fetch(deps.baseUrl() + req.path, {
-          method: req.method,
-          headers,
-          body: req.body,
-          credentials: 'omit',
-          signal: ac.signal,
-        });
-        const text = await res.text();
-        if (text.length > MAX_API_BYTES) return resErr('failed', 'api response too large');
-        const out: Record<string, string> = {};
-        res.headers.forEach((value, key) => {
-          const name = key.toLowerCase();
-          if (keepResponseHeader(name)) out[name] = value;
-        });
-        return resOk({ status: res.status, headers: out, body: text });
-      } catch {
-        if (timedOut) return resErr('timeout', 'api request timed out');
-        if (ctx.signal.aborted) return resErr('cancelled', 'cancelled');
-        return resOk(NETWORK_FAILURE);
+        return await Promise.race([run(), aborted]);
       } finally {
         clearTimer(timer);
         ctx.signal.removeEventListener('abort', onAbort);
