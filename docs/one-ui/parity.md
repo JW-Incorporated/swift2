@@ -99,8 +99,21 @@ to the installed `@playwright/test` version). Triggers: `packages/ui/**`,
 `packages/content/**`, `packages/content-enrichment/**`, `packages/experience/**`,
 `scripts/sync-longlive-content.mjs`, `scripts/parity/**` (incl. the fixture), `apps/web/**`, `apps/mobile/dom/**`,
 `apps/mobile/parity-entry/**`, `e2e/parity/**` and the harness files. Linux
-only. Parity is not a required check: that is a G1 choice to revisit when
-screens move.
+only.
+
+**The gate.** The workflow runs on every pull request (no top-level `paths:`),
+so a required check can never be left waiting on a run that never started. A
+`changes` job (`dorny/paths-filter`, the path list above) outputs `relevant`;
+the builds and Playwright jobs run only when it is true (always true on
+`workflow_dispatch`). A final job named `parity-gate` always runs on PRs and
+passes iff nothing relevant changed, or `build-web`, `build-dom` and every
+`parity` matrix job succeeded; any failure, cancellation or skip of those when
+relevant fails it. The `update-baselines` dispatch path is unchanged. When
+editing the filter, keep it in sync with this list.
+
+Parity is not yet a required check. Marking `parity-gate` required is a
+separate owner/PM step in branch protection (G1 condition 1); it is not done by
+this workflow change.
 
 Baselines depend on the frozen fixture, not live content, so a live content
 change does not turn the run red. A change to the renderers, the sync format
