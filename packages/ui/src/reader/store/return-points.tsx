@@ -39,7 +39,7 @@ export function createReturnPointStack() {
 
   const popReturnPoint = (): ReturnPoint | null => {
     if (stack.length === 0) return null;
-    const top = stack[stack.length - 1];
+    const top = stack[stack.length - 1] as ReturnPoint;
     stack = stack.slice(0, -1);
     return top;
   };

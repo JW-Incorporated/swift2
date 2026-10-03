@@ -45,8 +45,8 @@ describe('searchShareReducer', () => {
       });
     }
     expect(state.clownMessages).toHaveLength(6);
-    expect(state.clownMessages[0].question).toBe('q2');
-    expect(state.clownMessages[5].question).toBe('q7');
+    expect(state.clownMessages[0]!.question).toBe('q2');
+    expect(state.clownMessages[5]!.question).toBe('q7');
   });
 
   it('clearClownMessages empties the transcript', () => {

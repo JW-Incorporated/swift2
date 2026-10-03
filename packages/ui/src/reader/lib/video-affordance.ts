@@ -108,7 +108,7 @@ export function youtubeFrameId(url: string | undefined): string | null {
   }
   if (!isYouTubeThumbHost(parsed.hostname)) return null;
   const match = /^\/(?:vi|vi_webp)\/([^/]+)\//.exec(parsed.pathname);
-  return match ? match[1] : null;
+  return match ? (match[1] as string) : null;
 }
 
 /**

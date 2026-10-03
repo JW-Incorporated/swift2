@@ -67,8 +67,8 @@ describe('triggerImageShare', () => {
   it('keeps the link out of the url field so targets never drop the file', async () => {
     const share = vi.fn().mockResolvedValue(undefined);
     await triggerImageShare(file, caption, { canShareFiles: () => true, share });
-    expect(share.mock.calls[0][0]).not.toHaveProperty('url');
-    expect(share.mock.calls[0][0].text).toContain(payload.url);
+    expect(share.mock.calls[0]![0]).not.toHaveProperty('url');
+    expect(share.mock.calls[0]![0].text).toContain(payload.url);
   });
 
   it('downloads when the platform cannot share files (desktop)', async () => {

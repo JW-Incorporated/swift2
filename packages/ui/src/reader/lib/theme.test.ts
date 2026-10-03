@@ -38,7 +38,7 @@ function relativeLuminance(hex: string): number {
   const c = hex.replace('#', '');
   const [r, g, b] = [0, 2, 4].map((i) => parseInt(c.slice(i, i + 2), 16) / 255);
   const lin = (v: number) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
-  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  return 0.2126 * lin(r!) + 0.7152 * lin(g!) + 0.0722 * lin(b!);
 }
 function contrastRatio(hex1: string, hex2: string): number {
   const [l1, l2] = [relativeLuminance(hex1), relativeLuminance(hex2)];
@@ -75,10 +75,10 @@ describe('SignificanceBadge colors — WCAG AA 4.5:1 (#3318)', () => {
 // shipping unnoticed.
 function mixSrgb(hex1: string, weight1: number, hex2: string): string {
   const [c1, c2] = [hex1, hex2].map((h) => h.replace('#', ''));
-  const [r1, g1, b1] = [0, 2, 4].map((i) => parseInt(c1.slice(i, i + 2), 16));
-  const [r2, g2, b2] = [0, 2, 4].map((i) => parseInt(c2.slice(i, i + 2), 16));
+  const [r1, g1, b1] = [0, 2, 4].map((i) => parseInt(c1!.slice(i, i + 2), 16));
+  const [r2, g2, b2] = [0, 2, 4].map((i) => parseInt(c2!.slice(i, i + 2), 16));
   const mix = (a: number, b: number) => Math.round(a * weight1 + b * (1 - weight1));
-  return [mix(r1, r2), mix(g1, g2), mix(b1, b2)].map((v) => v.toString(16).padStart(2, '0')).join('');
+  return [mix(r1!, r2!), mix(g1!, g2!), mix(b1!, b2!)].map((v) => v.toString(16).padStart(2, '0')).join('');
 }
 
 // #3399: accent2 is painted as small raw text over era-themed backgrounds

@@ -132,7 +132,7 @@ export function trackVideoFor(
   return (
     matches.find((v) => v.kind === 'music_video') ??
     matches.find((v) => v.kind === 'lyric_video') ??
-    matches[0]
+    matches[0] as VideoNote
   );
 }
 

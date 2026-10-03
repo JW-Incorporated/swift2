@@ -22,7 +22,7 @@ import type { LensId } from '@swift2/experience';
  */
 
 const eraA = CURRENT_ERA_ID;
-const eraB = ERAS[0].id;
+const eraB = ERAS[0]!.id;
 
 /** Mirrors AppProvider's composed `openThread` in store/index.tsx exactly. */
 function composedOpenThread(nav: ReturnType<typeof navReducer>, overlays: ReturnType<typeof overlaysReducer>, id: LensId) {
