@@ -114,20 +114,20 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
     const a = anchorsRef.current;
     if (!a.length) return null;
     const ref = window.scrollY + measureChromeHeight() + window.innerHeight * REF_RATIO;
-    if (ref <= a[0].top) return a[0].date;
+    if (ref <= a[0]!.top) return a[0]!.date;
     const last = a[a.length - 1];
-    if (ref >= last.top) return last.date;
+    if (ref >= last!.top) return last!.date;
     // Cards may not render in chronological order (e.g. Taylor's Version is
     // album-ordered), so interpolating a date between two DOM neighbors can
     // move backward as the user scrolls forward. Snap to whichever neighbor
     // the scroll position is nearer to instead.
     for (let i = 0; i < a.length - 1; i++) {
-      if (ref >= a[i].top && ref < a[i + 1].top) {
-        const midpoint = (a[i].top + a[i + 1].top) / 2;
-        return ref < midpoint ? a[i].date : a[i + 1].date;
+      if (ref >= a[i]!.top && ref < a[i + 1]!.top) {
+        const midpoint = (a[i]!.top + a[i + 1]!.top) / 2;
+        return ref < midpoint ? a[i]!.date : a[i + 1]!.date;
       }
     }
-    return last.date;
+    return last!.date;
   }, []);
 
   const scrollToDate = useCallback((target: number) => {
@@ -138,7 +138,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
     // order, so DOM position isn't monotonic with date — interpolating
     // between neighbors can land on the wrong card. Snap to the anchor with
     // the closest date instead.
-    let y = a[0].top;
+    let y = a[0]!.top;
     let bestDist = Infinity;
     for (const anchor of a) {
       const dist = Math.abs(anchor.date - target);

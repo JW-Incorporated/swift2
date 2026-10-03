@@ -20,7 +20,7 @@ function rawTops(a: LensId, b: LensId): number[] {
 
 const minAdjacentGap = (tops: number[]) => {
   const s = [...tops].sort((a, b) => a - b);
-  return Math.min(...s.slice(1).map((v, i) => v - s[i]));
+  return Math.min(...s.slice(1).map((v, i) => v - s[i]!));
 };
 
 describe('resolveCrossingMarkerTops (#701, WCAG 2.5.8)', () => {
@@ -44,8 +44,8 @@ describe('resolveCrossingMarkerTops (#701, WCAG 2.5.8)', () => {
   it('returns positions in input order, preserving date order on the rail', () => {
     const raw = [80, 10, 80.1, 40];
     const resolved = resolveCrossingMarkerTops(raw, RAIL_HEIGHT);
-    const byRaw = raw.map((_, i) => i).sort((a, b) => raw[a] - raw[b] || a - b);
-    const byResolved = resolved.map((_, i) => i).sort((a, b) => resolved[a] - resolved[b] || a - b);
+    const byRaw = raw.map((_, i) => i).sort((a, b) => raw[a]! - raw[b]! || a - b);
+    const byResolved = resolved.map((_, i) => i).sort((a, b) => resolved[a]! - resolved[b]! || a - b);
     expect(byResolved).toEqual(byRaw);
     expect(minAdjacentGap(resolved)).toBeGreaterThanOrEqual(GAP_PCT - EPS);
   });
@@ -60,7 +60,7 @@ describe('resolveCrossingMarkerTops (#701, WCAG 2.5.8)', () => {
     let sawRawViolation = false;
     for (let i = 0; i < CROSSING_THREADS.length; i += 1) {
       for (let j = i + 1; j < CROSSING_THREADS.length; j += 1) {
-        const raw = rawTops(CROSSING_THREADS[i], CROSSING_THREADS[j]);
+        const raw = rawTops(CROSSING_THREADS[i]!, CROSSING_THREADS[j]!);
         if (raw.length > 1 && minAdjacentGap(raw) < GAP_PCT) sawRawViolation = true;
         const resolved = resolveCrossingMarkerTops(raw, RAIL_HEIGHT);
         expect(resolved).toHaveLength(raw.length);

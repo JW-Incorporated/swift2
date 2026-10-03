@@ -34,7 +34,7 @@ function fmtYear(iso: string): string {
 }
 
 function entryColor(entry: LoveStoryEntry): string {
-  return entry.kind === 'relationship' ? getEra(entry.eraIds[0]).theme.accent : 'var(--era-line)';
+  return entry.kind === 'relationship' ? getEra(entry.eraIds[0]!).theme.accent : 'var(--era-line)';
 }
 
 function entryName(entry: LoveStoryEntry): string {
@@ -156,22 +156,22 @@ export function LoveStoryThread() {
     const x = ((clientX - r.left) / r.width) * 100;
     let best = 0;
     for (let i = 1; i < centres.length; i++) {
-      if (Math.abs(centres[i] - x) < Math.abs(centres[best] - x)) best = i;
+      if (Math.abs(centres[i]! - x) < Math.abs(centres[best]! - x)) best = i;
     }
     return best;
   }
   function onScrubDown(e: ReactPointerEvent<HTMLDivElement>) {
     scrubbingRef.current = true;
     e.currentTarget.setPointerCapture(e.pointerId);
-    setHoverId(timeline[nearestAt(e.clientX, e.currentTarget)].id);
+    setHoverId(timeline[nearestAt(e.clientX, e.currentTarget)]!.id);
   }
   function onScrubMove(e: ReactPointerEvent<HTMLDivElement>) {
     if (!scrubbingRef.current) return;
-    setHoverId(timeline[nearestAt(e.clientX, e.currentTarget)].id);
+    setHoverId(timeline[nearestAt(e.clientX, e.currentTarget)]!.id);
   }
   function onScrubUp(e: ReactPointerEvent<HTMLDivElement>) {
     scrubbingRef.current = false;
-    selectFromBand(timeline[nearestAt(e.clientX, e.currentTarget)].id);
+    selectFromBand(timeline[nearestAt(e.clientX, e.currentTarget)]!.id);
     setHoverId(null);
   }
   /** The slider's value: whatever is cued mid-drag, else the open entry. */
@@ -182,12 +182,12 @@ export function LoveStoryThread() {
     if (delta === 0) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        selectFromBand(timeline[scrubIndex].id);
+        selectFromBand(timeline[scrubIndex]!.id);
       }
       return;
     }
     e.preventDefault();
-    selectFromBand(timeline[Math.min(timeline.length - 1, Math.max(0, scrubIndex + delta))].id);
+    selectFromBand(timeline[Math.min(timeline.length - 1, Math.max(0, scrubIndex + delta))]!.id);
   }
 
   const relCount = RELATIONSHIPS.length;
@@ -299,7 +299,7 @@ export function LoveStoryThread() {
                   onFocus={() => setHoverId(entry.id)}
                   onBlur={() => setHoverId(null)}
                   className="pointer-events-auto absolute top-0 h-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
-                  style={{ left: `${hit.start}%`, width: `${hit.end - hit.start}%`, outlineColor: 'var(--era-ink)' }}
+                  style={{ left: `${hit!.start}%`, width: `${hit!.end - hit!.start}%`, outlineColor: 'var(--era-ink)' }}
                   title={label}
                   aria-label={`${label}. Open details`}
                   aria-pressed={activeId === entry.id}
@@ -320,7 +320,7 @@ export function LoveStoryThread() {
             aria-valuemin={0}
             aria-valuemax={timeline.length - 1}
             aria-valuenow={scrubIndex}
-            aria-valuetext={entryLabel(timeline[scrubIndex])}
+            aria-valuetext={entryLabel(timeline[scrubIndex]!)}
             onPointerDown={onScrubDown}
             onPointerMove={onScrubMove}
             onPointerUp={onScrubUp}

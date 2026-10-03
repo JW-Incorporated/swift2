@@ -14,7 +14,7 @@ function fmtYear(iso: string): string {
 }
 
 function entryColor(entry: LoveStoryEntry): string {
-  return entry.kind === 'relationship' ? getEra(entry.eraIds[0]).theme.accent : 'var(--era-ink-soft)';
+  return entry.kind === 'relationship' ? getEra(entry.eraIds[0]!).theme.accent : 'var(--era-ink-soft)';
 }
 
 /**

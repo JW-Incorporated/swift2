@@ -471,7 +471,7 @@ function TrailCompleteCard({
   nodes: EggNode[];
   onBack: () => void;
 }) {
-  const finalEra = getEra(nodes[nodes.length - 1].eraId);
+  const finalEra = getEra(nodes[nodes.length - 1]!.eraId);
   const eraIds = motifEraIds(motif.id);
   return (
     <div
@@ -499,7 +499,7 @@ function TrailCompleteCard({
           You&apos;ve followed “{motif.label}” to the end
         </h3>
         <p className="mx-auto mt-2 max-w-md text-pretty text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          Every clue on this trail — all {nodes.length}, from {getEra(nodes[0].eraId).shortName} to{' '}
+          Every clue on this trail — all {nodes.length}, from {getEra(nodes[0]!.eraId).shortName} to{' '}
           {finalEra.shortName} — is now part of your decode.
         </p>
         <div className="mt-4 flex items-center justify-center gap-1.5">
