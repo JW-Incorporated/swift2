@@ -16,10 +16,25 @@ export type AppHandlerDeps = {
 
 export type AppHandlers = Omit<HandlerMap, 'cancel'>;
 
+/** Merges handler groups; a message type claimed by two groups is a wiring bug, so it throws. */
+export function mergeHandlerGroups(groups: readonly (readonly [source: string, handlers: object])[]): AppHandlers {
+  const out: Record<string, unknown> = {};
+  const owner = new Map<string, string>();
+  for (const [source, handlers] of groups) {
+    for (const key of Object.keys(handlers)) {
+      const prior = owner.get(key);
+      if (prior !== undefined) throw new Error(`createAppHandlers: duplicate handler "${key}" (from ${prior} and ${source})`);
+      owner.set(key, source);
+      out[key] = (handlers as Record<string, unknown>)[key];
+    }
+  }
+  return out as AppHandlers;
+}
+
 export function createAppHandlers(deps: AppHandlerDeps): AppHandlers {
-  return {
-    ...createUiHandlers(deps.ui),
-    ...createNotificationHandlers(deps.notifications, deps.notificationOpts),
-    ...createApiHandlers(deps.api),
-  };
+  return mergeHandlerGroups([
+    ['ui', createUiHandlers(deps.ui)],
+    ['notifications', createNotificationHandlers(deps.notifications, deps.notificationOpts)],
+    ['api', createApiHandlers(deps.api)],
+  ]);
 }

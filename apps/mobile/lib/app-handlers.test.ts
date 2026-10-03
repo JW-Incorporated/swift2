@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
-import { createAppHandlers } from './app-handlers';
+import { createAppHandlers, mergeHandlerGroups } from './app-handlers';
 
 const ctx = { signal: new AbortController().signal };
 
@@ -64,6 +64,13 @@ describe('createAppHandlers', () => {
     expect(await h.api({ req: { method: 'GET', path: '/api/other' } } as never, ctx)).toMatchObject({ ok: false });
     expect(d.ui.navigate).not.toHaveBeenCalled();
     expect(d.fetchFake).not.toHaveBeenCalled();
+  });
+
+  it('throws on a colliding handler key, naming the key and both sources', () => {
+    const a = { navigate: () => 1 };
+    const b = { navigate: () => 2, share: () => 3 };
+    expect(() => mergeHandlerGroups([['ui', a], ['other', b]])).toThrow(/duplicate handler "navigate" \(from ui and other\)/);
+    expect(Object.keys(mergeHandlerGroups([['ui', a], ['other', { share: () => 3 }]])).sort()).toEqual(['navigate', 'share']);
   });
 
   it('passes notification opts through', async () => {

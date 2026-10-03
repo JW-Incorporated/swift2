@@ -1,13 +1,11 @@
-// Adding a slice (One UI slice D) = create `dom/slots/<slice>.ts` that imports
-// `register` from './instance' and calls `register({ slice, slots, nativeRoutes })`
-// at module scope, then add ONE side-effect import line below. That import is the
-// only shared edit. AppReader reads `slots()`; the native route map reads
-// `isNativeRoute` / `nativeRoutes()`. No slice bodies exist yet.
-import { registry } from './instance';
+// DOM-side entry (AppReader reads `slots()`). Adding a slice's slots = create
+// `dom/slots/<slice>.ts` that imports `register` from './instance' and calls
+// `register({ slice, slots })` at module scope, then add ONE side-effect import
+// line below. The native host must NOT import this file (it pulls slot
+// components); it uses './routes' (see `<slice>.routes.ts`). No slice bodies yet.
 
-// --- slice imports (one line each, e.g. `import './tracks';`) ---
+// --- slice imports go here, one line each ---
 
-export const { slots, nativeRoutes, isNativeRoute } = registry;
-export { register, registry } from './instance';
+export { register, slots } from './instance';
 export { createSlotRegistry } from './registry';
-export type { NativeRouteEntry, SliceModule, SlotRegistry } from './types';
+export type { SliceModule, SlotRegistry } from './types';

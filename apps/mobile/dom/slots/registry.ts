@@ -1,31 +1,29 @@
-import type { NativeRouteEntry, SliceModule, SlotRegistry } from './types';
+import type { SliceModule, SlotRegistry } from './types';
+
+const has = (o: object, k: string) => Object.prototype.hasOwnProperty.call(o, k);
 
 export function createSlotRegistry<C = unknown>(): SlotRegistry<C> {
-  const slices = new Set<string>();
-  const slots: Record<string, C> = {};
-  const routes: NativeRouteEntry[] = [];
-  const routeIds = new Set<string>();
+  const bySlice = new Map<string, Readonly<Record<string, C>>>();
+  const slots: Record<string, C> = Object.create(null);
 
   return {
     register(mod) {
-      if (slices.has(mod.slice)) throw new Error(`slot registry: duplicate slice "${mod.slice}"`);
-      for (const name of Object.keys(mod.slots)) {
-        if (name in slots) throw new Error(`slot registry: duplicate slot "${name}" (slice "${mod.slice}")`);
+      const incoming: Record<string, C> = Object.create(null);
+      for (const k of Object.keys(mod.slots)) incoming[k] = mod.slots[k] as C;
+      const prior = bySlice.get(mod.slice);
+      if (prior) {
+        const same =
+          Object.keys(prior).length === Object.keys(incoming).length &&
+          Object.keys(incoming).every((k) => has(prior, k) && Object.is(prior[k], incoming[k]));
+        if (same) return;
+        throw new Error(`slot registry: slice "${mod.slice}" re-registered with different slots`);
       }
-      for (const r of mod.nativeRoutes ?? []) {
-        if (routeIds.has(r.id)) throw new Error(`slot registry: duplicate native route "${r.id}" (slice "${mod.slice}")`);
+      for (const name of Object.keys(incoming)) {
+        if (has(slots, name)) throw new Error(`slot registry: duplicate slot "${name}" (slice "${mod.slice}")`);
       }
-      slices.add(mod.slice);
-      Object.assign(slots, mod.slots);
-      for (const r of mod.nativeRoutes ?? []) {
-        routeIds.add(r.id);
-        routes.push(r);
-      }
+      bySlice.set(mod.slice, Object.freeze(incoming));
+      Object.assign(slots, incoming);
     },
     slots: () => ({ ...slots }),
-    nativeRoutes: () => [...routes],
-    isNativeRoute: (path) => routes.some((r) => (typeof r.match === 'string' ? r.match === path : r.match.test(path))),
   };
 }
-
-export type { SliceModule };
