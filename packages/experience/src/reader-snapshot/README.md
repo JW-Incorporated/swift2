@@ -6,16 +6,25 @@ builds it from its baked modules; the app builds it in the webview from the D1
 bundle. CI proves the two hash equal for the same commit.
 
 Import from `@swift2/experience/reader-snapshot` (deliberately not re-exported
-from the package root). Nothing imports it yet.
+from the package root). The web reads it through React context (below).
 
 - `fromBaked(mods, deps)`: web path. `mods` is the web's `apps/web/lib/longlive`
   exports; it wires those same inputs itself, not via the web's import chain.
 - `fromBundle(bundle, deps)`: app path, from a `loadBundle()` result.
-- Both go through `withProviders` (module-private), which installs the inputs into the core's
-  module-global providers (threads, doorways, track guide and the mood catalogue
-  read through them) for the duration of the build and restores the original provider
-  function references in `finally`: no leak, no dependence on call order. Synchronous only.
-  Pure derivation over inputs, with no providers, is WP2.2's job.
+- Both run `buildReaderSnapshot`, which is pure over its inputs:
+  `corpusFromInputs(inputs)` builds a `ReaderCorpus` (`src/corpus.ts` type) once
+  and `derive()` calls only the pure `*In(corpus, ...)` variants:
+  `contentForThreadIn`, `threadPointsIn`, `threadsInEraIn`,
+  `threadDoorwaysForEraIn`, `eggDoorwaysForEraIn`, `theoriesForEraIn`,
+  `resolveRelatedTheoryIn`, `eraSecretsForEraIn`, `resolveEraSecretLinkIn`,
+  `tracksForEraIn`, `resolveTrackKeyIn`, `songTargetOfIn`, `resolveConnectionsIn`,
+  `nextTrackOnAlbumIn`, `adjacentTrackOnAlbumIn`, `keepExploringIn`. A build reads
+  and writes no module-global provider, so there is no leak and no dependence on
+  call order or wiring; this folder imports no `*-provider` module
+  (`purity.test.ts` enforces it). The original exports are one-line wrappers over
+  `injectedCorpus()` (O(1): every `ReaderCorpus` member is a function) and still
+  read the providers. The setters remain only for native screens and server
+  routes, until native retirement.
 - `deps.eraVideoFeed`: pass `@swift2/content-enrichment`'s. It imports this
   package, so it cannot be imported back.
 - `hashSnapshot` / `diffSnapshots`: SHA-256 over canonical JSON (sorted keys,
@@ -40,9 +49,38 @@ depend on index position again breaks this and must also change the hash.
 ## Known by-design differences
 
 - `content` is grouped by era on both sides.
-- The bundle path builds the search index with `search-docs.ts`, a mirror of
-  the web's `buildSearchIndex()`. The equivalence test keeps them from
-  drifting; WP2.2 should make the web use this one.
+- One search builder: `search-docs.ts` builds `domains.searchIndex` on both paths; the web's own
+  `buildSearchIndex`/`getSearchIndex` is deleted and `ReaderSnapshotInputs` has no `searchIndex`.
+
+## Order dependencies (flat-order audit, WP2.2-A)
+
+The snapshot groups content by era, the web's `CONTENT` is flat `VAULT_RAW` order.
+`contentForThread` stable-sorts by date only, so same-date ties keep input order.
+`flat-order.test.ts` flattens the real content era by era and asserts
+`contentForThreadIn` returns the same ids, in order, for every thread, and that
+ids and slugs are unique. Result: PASSES on the real baked content (all threads
+identical, no duplicate ids or slugs). `milestones` must be read from its domain,
+never re-derived (it is unsorted, flat order).
+
+## Reading it on the web (WP2.2-B)
+
+- `@swift2/ui` holds the context: `ReaderSnapshotProvider`, `useReaderSnapshotStatus()`
+  (`{ status: 'loading' } | ReaderSnapshotCore`), `useReaderSnapshot()` (throws outside a provider
+  or while loading; narrows with `isReaderSnapshot(v)`, i.e. `'domains' in v`; both return the core, not the full `ReaderSnapshot`) and `useReader()`
+  (`createReaderQueries(core, deps)`, memoised per snapshot).
+- `state === 'error'` means a last-good snapshot is shown and the latest refresh failed.
+- `queries.ts`: `createReaderQueries` is pure over one snapshot (built on `corpusFromInputs`). Its
+  accessors equal the web modules' (`queries.test.ts`). `milestones` is read from its domain,
+  never re-derived. The video helpers are passed in (`ReaderQueryDeps`) because
+  `@swift2/content-enrichment` imports this package.
+- `apps/web/lib/longlive/reader-snapshot-provider.tsx` builds the snapshot once per provider instance
+  from `bakedModules()` (also what `parity-probe` hashes), mounted outermost in `LongLive.tsx`.
+  Measured on the parity fixture in Chromium: ~12 ms median to build unthrottled, ~61 ms at 4x CPU throttle.
+
+## Core / extension split (WP2.2-B r1)
+
+- CORE = every domain except `merch` and `songMoods`; `fromBakedCore`/`buildReaderSnapshotCore` build it and it is what the context holds (`ReaderSnapshotCore`).
+- `attachExtensions(core, { merch, songMoods })` returns the full `ReaderSnapshot`. `hashSnapshot` throws if any of the 13 domains is missing, so a core-only snapshot is never hashed.
 
 ## Not covered
 

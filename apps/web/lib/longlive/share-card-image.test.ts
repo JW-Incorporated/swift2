@@ -1,9 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('./content', () => ({ getContentItem: () => undefined }));
-
 import { clearPrefetchedShareCards, prefetchShareCard, shareCardImage } from './share-payload';
 
+const shareData = { getContentItem: () => undefined, resolveTrackKey: () => null };
 const target = { kind: 'item', itemId: 'interrupted-speech' } as const;
 const source = { item: 'interrupted-speech' };
 
@@ -49,7 +48,7 @@ describe('shareCardImage prefetching', () => {
     await prefetchShareCard(source, 'story');
     expect(fetchMock).toHaveBeenCalledTimes(1);
 
-    const pending = shareCardImage(target, source, 'story');
+    const pending = shareCardImage(target, source, 'story', shareData);
     // No await has happened yet: the share call must already be in flight, or
     // iOS Safari would have dropped the click's transient activation.
     expect(share).toHaveBeenCalledTimes(1);
@@ -76,7 +75,7 @@ describe('shareCardImage prefetching', () => {
   });
 
   it('still fetches on demand when nothing was prefetched', async () => {
-    await expect(shareCardImage(target, source, 'portrait')).resolves.toBe('native');
+    await expect(shareCardImage(target, source, 'portrait', shareData)).resolves.toBe('native');
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(share).toHaveBeenCalledTimes(1);
   });
@@ -88,7 +87,7 @@ describe('shareCardImage prefetching', () => {
       setTimeout: () => 0,
     });
     await prefetchShareCard(source, 'story');
-    await expect(shareCardImage(target, source, 'story')).resolves.toBe('downloaded');
+    await expect(shareCardImage(target, source, 'story', shareData)).resolves.toBe('downloaded');
     expect(share).not.toHaveBeenCalled();
     expect(download).toHaveBeenCalledOnce();
   });
@@ -96,13 +95,13 @@ describe('shareCardImage prefetching', () => {
   it('does not cache a failed prefetch, so the tap retries and can still error cleanly', async () => {
     fetchMock.mockImplementationOnce(async () => new Response('nope', { status: 503 }));
     await expect(prefetchShareCard(source, 'story')).resolves.toBeNull();
-    await expect(shareCardImage(target, source, 'story')).resolves.toBe('native');
+    await expect(shareCardImage(target, source, 'story', shareData)).resolves.toBe('native');
     expect(fetchMock).toHaveBeenCalledTimes(2);
 
     clearPrefetchedShareCards();
     fetchMock.mockImplementation(async () => {
       throw new Error('offline');
     });
-    await expect(shareCardImage(target, source, 'story')).resolves.toBe('error');
+    await expect(shareCardImage(target, source, 'story', shareData)).resolves.toBe('error');
   });
 });

@@ -1,14 +1,14 @@
 import { EGG_NODES, THREADS, motifOf } from '../lenses';
 import { makeSearchDoc, type SearchDoc, type SearchTarget } from '../search-index';
 import { trackKey } from '../track-guide';
-import type { ReaderSnapshotInputs } from './types';
+import type { ReaderSnapshotCoreInputs } from './types';
 
 /**
- * Search index from the inputs alone, for the bundle path. Mirrors
- * `apps/web/lib/longlive/search.ts` `buildSearchIndex()` doc for doc and in
- * order; the equivalence test is what keeps the two from drifting.
+ * The one search-index builder, from the inputs alone, for both the baked and
+ * the bundle path (it replaced the web's own `buildSearchIndex()`, which it
+ * matched doc for doc).
  */
-export function buildSearchDocs(inputs: ReaderSnapshotInputs): SearchDoc[] {
+export function buildSearchDocs(inputs: ReaderSnapshotCoreInputs): SearchDoc[] {
   const { eras, content, tracks, theories, videos } = inputs;
   const docs: SearchDoc[] = [];
 

@@ -7,6 +7,18 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-03 — RN↔DOM bridge: monotonic per-DOM command ids (replay protection)
+
+**Decision (ruled by Fable, 04:25, 2026-10-03).** DOM-to-native command ids are strictly increasing integers per DOM (string-encoded digits, 1-15 of them, inside the `isBridgeId` charset). The native host keeps one high-water mark (hwm) that `ready` does not reset; a `cmd` whose id is not above the hwm is answered `invalid` with signal `rejected_monotonic` and never runs. The DOM seeds its counter from `Date.now()` at client creation, so ids after a reload exceed every prior session's (client change: #4855). `ready` is rate limited to 3 per 10 s (the 4th is protocol-fatal, the watchdog fallback) and is checked against `NATIVE_SUPPORTED_RANGE` and the envelope `v` like any other message. Native requests leave the outbox when their `res` arrives; re-ready retransmits only unsettled requests and unacked emits.
+
+**Context.** WP2.3-B first deduplicated `cmd` ids with a bounded seen-id LRU that `ready` cleared. An evicted or cleared id could be replayed and run twice, and a hostile page could force `ready` to reset the set. Dedup that depends on memory of every id cannot be both bounded and sound.
+
+**Consequences.** Replay protection is O(1) state and survives re-ready. The contract now depends on per-channel FIFO delivery (WKWebView message handlers and Android `addJavascriptInterface` are FIFO); an out-of-order lower id is rejected, not reordered. The DOM client must seed from `Date.now()`; until #4855 lands the DOM would be rejected after a reload. Alternative rejected: a larger LRU (still evictable).
+
+**Approved by.** Fable (ruling 04:25); implemented in PR #4853.
+
+---
+
 ## 2026-10-02 — One UI for web, iOS and Android: the website's screens become the app's screens (supersedes the UI half of D2/D3)
 
 **Decision (Joey, in chat, 2026-10-02).** After testing Android 1.0.0 (16): "It has to be B, but it has to look exactly like the site. The site is an app - we build it that way on purpose. And we have to keep it maintainable - when we make 1 change, it has to land on the 2 apps and the website." He approved the debated design: "Apple will not reject it. We launch when it looks correct, not sooner."

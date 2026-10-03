@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ImageDown } from 'lucide-react';
 import type { ShareTarget } from '@swift2/experience';
+import { useReader } from '@swift2/ui';
 import { prefetchShareCard, shareCardImage } from '@/lib/longlive/share-payload';
 import type { ShareCardSize, ShareCardSource } from '@/lib/longlive/share-card-params';
 
@@ -46,6 +47,7 @@ export function ShareImageMenu({
   /** Where the Story/Post panel opens — chosen per mount so it never clips or leaves the screen. */
   align?: keyof typeof PANEL_POSITION;
 }) {
+  const q = useReader();
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>({ kind: 'idle' });
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -71,7 +73,7 @@ export function ShareImageMenu({
 
   const run = async (size: ShareCardSize) => {
     setPhase({ kind: 'busy' });
-    const result = await shareCardImage(target, source, size);
+    const result = await shareCardImage(target, source, size, q);
     const message = DONE_MESSAGES[result];
     setPhase(message ? { kind: 'done', message } : { kind: 'idle' });
     if (!message) setOpen(false);

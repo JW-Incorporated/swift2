@@ -15,12 +15,17 @@ import type { EraFeedEntry } from '../feed-types';
 /** Contract version, hashed with the domains: bump when a domain's shape changes. */
 export const READER_SNAPSHOT_VERSION = 1;
 
+/**
+ * 'error' = a last-good snapshot is shown and the latest refresh failed;
+ * 'offline' = last-good served because the network failed;
+ * 'stale' = cached, not yet confirmed current.
+ */
 export type ReaderSnapshotState = 'ready' | 'stale' | 'offline' | 'error';
 
 type ByEra<T> = Partial<Record<EraId, T>>;
 
-/** Raw, per-source data both paths normalise to before derivation. */
-export interface ReaderSnapshotInputs {
+/** The core's raw, per-source data: everything the main reader route reads. */
+export interface ReaderSnapshotCoreInputs {
   eras: Era[];
   /** Flat, any order; the snapshot groups it by era. */
   content: ContentItem[];
@@ -30,11 +35,16 @@ export interface ReaderSnapshotInputs {
   /** EVERY video record per era, playable or not. */
   videos: ByEra<VideoNote[]>;
   eraSecrets: ByEra<EraSecret[]>;
+}
+
+/** The extension inputs: only the merch and mood chunks read these. */
+export interface ReaderSnapshotExtensions {
   merch: MerchCatalogue;
   songMoods: SongMoodsBundleFile['songs'];
-  /** The web's own `getSearchIndex()` when baked; omitted for a bundle, so it is built from the inputs. */
-  searchIndex?: SearchDoc[];
 }
+
+/** Raw, per-source data both paths normalise to before derivation. */
+export type ReaderSnapshotInputs = ReaderSnapshotCoreInputs & ReaderSnapshotExtensions;
 
 /**
  * `@swift2/content-enrichment` imports this package, so it cannot be imported
@@ -60,8 +70,8 @@ export interface TrackGuideEntry {
   explore: string[];
 }
 
-/** Every hashed domain. A diverging domain is reported by its key. */
-export interface ReaderSnapshotDomains {
+/** The core domains: built eagerly, everything the main route reads. */
+export interface ReaderSnapshotCoreDomains {
   eras: Era[];
   content: ByEra<ContentItem[]>;
   milestones: Milestone[];
@@ -76,16 +86,42 @@ export interface ReaderSnapshotDomains {
   tracks: ByEra<TrackNote[]>;
   /** Equivalence fingerprint: the reader never reads this; it derives from the raw domains. */
   trackGuide: ByEra<TrackGuideEntry[]>;
-  merch: MerchCatalogue;
-  songMoods: SongMoodsBundleFile['songs'];
 }
+
+/** Every hashed domain. A diverging domain is reported by its key. */
+export type ReaderSnapshotDomains = ReaderSnapshotCoreDomains & ReaderSnapshotExtensions;
 
 export type ReaderSnapshotDomainName = keyof ReaderSnapshotDomains;
 
-export interface ReaderSnapshot {
+/** All 13 domain names; `hashSnapshot` requires every one. */
+export const READER_SNAPSHOT_DOMAIN_NAMES: readonly ReaderSnapshotDomainName[] = [
+  'eras',
+  'content',
+  'milestones',
+  'videos',
+  'eraStream',
+  'theories',
+  'eraSecrets',
+  'threads',
+  'searchIndex',
+  'tracks',
+  'trackGuide',
+  'merch',
+  'songMoods',
+];
+
+/** A snapshot without the extension domains (merch, songMoods): what the main route holds. Not hashable. */
+export interface ReaderSnapshotCore {
   version: number;
   state: ReaderSnapshotState;
   /** Where it came from. Provenance only: never hashed. */
   origin: { kind: 'baked' } | { kind: 'bundle'; bundleVersion: string };
+  domains: ReaderSnapshotCoreDomains;
+}
+
+export interface ReaderSnapshot extends ReaderSnapshotCore {
   domains: ReaderSnapshotDomains;
 }
+
+/** What the reader context holds: a core snapshot, or `loading` before the first one exists. */
+export type ReaderSnapshotContextValue = { status: 'loading' } | ReaderSnapshotCore;

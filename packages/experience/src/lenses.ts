@@ -1,6 +1,7 @@
 import type { EggNode, LensId, Motif, MotifId } from './types';
 import { getEra } from './eras';
-import { contentForThread } from './threads';
+import { contentForThreadIn } from './threads';
+import type { ReaderCorpus } from './corpus';
 // Generated from supabase/seed/lenses/*.mjs by scripts/sync-longlive-lenses.mjs
 // (Fable 5.1 architecture review, R12 — redone against the OS-021
 // packages/experience/src layout) — the same generated-file pattern as
@@ -182,7 +183,7 @@ export interface ThreadPoint {
  * ridge and era-colored ticks. Each thread maps its own dataset onto a shared
  * 2006→now axis.
  */
-export function threadPoints(id: LensId): ThreadPoint[] {
+export function threadPointsIn(corpus: ReaderCorpus, id: LensId): ThreadPoint[] {
   switch (id) {
     case 'love-story':
       return RELATIONSHIPS.flatMap((r) =>
@@ -224,7 +225,7 @@ export function threadPoints(id: LensId): ThreadPoint[] {
     case 'the-proposal':
       // Derived (stage 3, 2026-07-19): markers come from the tagged moments
       // themselves — the same source the thread page renders from.
-      return contentForThread('the-proposal').map((item) => ({
+      return contentForThreadIn(corpus, 'the-proposal').map((item) => ({
         date: item.date,
         eraId: item.eraId,
         label: item.title,
@@ -241,35 +242,23 @@ export function threadPoints(id: LensId): ThreadPoint[] {
  */
 export const CROSSING_THREADS: LensId[] = ['love-story', 'fashion', 'taylors-version', 'the-proposal'];
 
-/** Threads with at least one dated point inside the given era, with counts. */
-export function threadsInEra(eraId: string): { id: LensId; count: number }[] {
+export function threadsInEraIn(corpus: ReaderCorpus, eraId: string): { id: LensId; count: number }[] {
   return CROSSING_THREADS.map((id) => ({
     id,
-    count: threadPoints(id).filter((p) => p.eraId === eraId).length,
+    count: threadPointsIn(corpus, id).filter((p) => p.eraId === eraId).length,
   })).filter((t) => t.count > 0);
 }
 
-/** A moment where two threads have points near each other in time. */
-export interface Crossing {
-  /** Midpoint of the two dates, in ms — used to place the marker on the axis. */
-  date: number;
-  /** Era that owns the crossing (taken from thread A's point). */
-  eraId: string;
-  a: ThreadPoint;
-  b: ThreadPoint;
-  /** Absolute distance between the two points, in days. */
-  gapDays: number;
-}
-
-/**
- * Find where two threads cross: pairs of points (one from each) that fall within
- * `windowDays` of each other. This is what powers the intersection overlay —
- * e.g. a fashion shift landing at the same time a relationship begins.
- */
-export function threadCrossings(a: LensId, b: LensId, windowDays = 210): Crossing[] {
+/** `threadCrossings` over an explicit corpus; the injected wrapper delegates here. */
+export function threadCrossingsIn(
+  corpus: ReaderCorpus,
+  a: LensId,
+  b: LensId,
+  windowDays = 210,
+): Crossing[] {
   if (a === b) return [];
-  const pa = threadPoints(a);
-  const pb = threadPoints(b);
+  const pa = threadPointsIn(corpus, a);
+  const pb = threadPointsIn(corpus, b);
   const windowMs = windowDays * 86_400_000;
   const out: Crossing[] = [];
   for (const x of pa) {
@@ -283,6 +272,18 @@ export function threadCrossings(a: LensId, b: LensId, windowDays = 210): Crossin
     }
   }
   return out.sort((m, n) => n.date - m.date);
+}
+
+/** A moment where two threads have points near each other in time. */
+export interface Crossing {
+  /** Midpoint of the two dates, in ms — used to place the marker on the axis. */
+  date: number;
+  /** Era that owns the crossing (taken from thread A's point). */
+  eraId: string;
+  a: ThreadPoint;
+  b: ThreadPoint;
+  /** Absolute distance between the two points, in days. */
+  gapDays: number;
 }
 
 /** Best-effort era for a bare year (used by the reclamation timeline). */

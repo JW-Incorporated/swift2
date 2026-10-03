@@ -1,4 +1,4 @@
-import type { ReaderSnapshot, ReaderSnapshotDomainName } from './types';
+import { READER_SNAPSHOT_DOMAIN_NAMES, type ReaderSnapshot, type ReaderSnapshotDomainName } from './types';
 
 /**
  * Canonical JSON: object keys sorted, `undefined` object members dropped
@@ -53,7 +53,10 @@ export interface ReaderSnapshotHash {
   domains: Record<ReaderSnapshotDomainName, string>;
 }
 
+/** Throws on a snapshot missing any domain: a core-only snapshot must never be hashed. */
 export async function hashSnapshot(snapshot: ReaderSnapshot): Promise<ReaderSnapshotHash> {
+  const missing = READER_SNAPSHOT_DOMAIN_NAMES.filter((n) => snapshot.domains[n] === undefined);
+  if (missing.length > 0) throw new Error(`hashSnapshot: snapshot is missing domains: ${missing.join(', ')}`);
   const names = Object.keys(snapshot.domains).sort() as ReaderSnapshotDomainName[];
   const entries = await Promise.all(names.map(async (n) => [n, await hashValue(snapshot.domains[n])] as const));
   const domains = Object.fromEntries(entries) as Record<ReaderSnapshotDomainName, string>;

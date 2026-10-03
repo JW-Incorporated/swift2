@@ -2,6 +2,10 @@ import type { Page } from '@playwright/test';
 import {
   BASE,
   captureRoot,
+  captureElement,
+  captureViewport,
+  elementBox,
+  ERA_ART_ORIGIN,
   expect,
   mutate,
   openRoute,
@@ -35,6 +39,31 @@ test.describe('pixel baseline gate (same side, mutated vs clean)', () => {
   }
 });
 
+test.describe('web chrome viewport gate (WP2.4-0: a 1px TopBar growth must fail the viewport capture)', () => {
+  test('a 1px TopBar growth fails', async ({ page }, testInfo) => {
+    await openRoute(page, 'a', route);
+    const clean = await captureViewport(page);
+    await page.locator('[data-ll-topbar]').evaluate((el) => {
+      el.style.paddingBottom = '1px';
+    });
+    const mutated = await captureViewport(page);
+    expect(await pixelMatches(testInfo, 'neg-topbar-1px', clean, mutated)).toBe(false);
+  });
+});
+
+test.describe('web chrome element-clip gate (WP2.4-0: a pure 1px translate fails the TopBar clip)', () => {
+  test('a pure 1px TopBar translate fails the TopBar clip', async ({ page }, testInfo) => {
+    await openRoute(page, 'a', route);
+    const clip = await elementBox(page, '[data-ll-topbar]');
+    const clean = await captureElement(page, '[data-ll-topbar]', clip);
+    await page.locator('[data-ll-topbar]').evaluate((el) => {
+      el.style.transform = 'translateY(1px)';
+    });
+    const mutated = await captureElement(page, '[data-ll-topbar]', clip);
+    expect(await pixelMatches(testInfo, 'neg-topbar-clip', clean, mutated)).toBe(false);
+  });
+});
+
 test.describe('pixel a-vs-b gate (side a clean vs side b mutated)', () => {
   for (const [label, kind] of PIXEL_MUTATIONS) {
     test(`${label} fails`, async ({ page }, testInfo) => {
@@ -53,8 +82,25 @@ test.describe('asset and image gates', () => {
     expect((await page.request.get(`${BASE.b}/no-such-export-asset.js`)).status()).toBe(404);
   });
 
-  test('an allowlisted app asset path is still served (WP2.1 TODO)', async ({ page }) => {
-    expect((await page.request.get(`${BASE.b}/eras/debut.png`)).status()).toBe(200);
+  test('there is no /eras fallthrough on side b (era art arrives via resolveUrl, not the export)', async ({ page }) => {
+    expect((await page.request.get(`${BASE.b}/eras/debut.png`)).status()).toBe(404);
+  });
+
+  test('canonical-origin era art is answered with the real bytes and is not an external image', async ({ page }) => {
+    await openRoute(page, 'b', route);
+    takeExternalImages(page);
+    const size = await page.evaluate(
+      (origin) =>
+        new Promise<[number, number]>((done, fail) => {
+          const img = new Image();
+          img.onload = () => done([img.naturalWidth, img.naturalHeight]);
+          img.onerror = () => fail(new Error('era art did not load'));
+          img.src = `${origin}/eras/debut.png?probe`;
+        }),
+      ERA_ART_ORIGIN,
+    );
+    expect(size, 'not the 640x360 grey stub').not.toEqual([640, 360]);
+    expect(takeExternalImages(page)).toEqual([]);
   });
 
   test('an unexpected external image changes the recorded set', async ({ page }) => {
@@ -121,9 +167,11 @@ test.describe('image settle gate (images injected after load, so only imagesRead
     test(`side ${side}: a delayed lazy <img> and CSS background are waited for and present in the capture`, async ({ page }, testInfo) => {
       await openRoute(page, side, route);
       const tag = `parity-slow=${Date.now()}`;
+      // Side b has no /eras in its export: it loads era art from the canonical origin, like the app.
+      const origin = side === 'b' ? ERA_ART_ORIGIN : BASE.a;
       const urls = {
-        img: `${BASE[side]}/eras/debut.png?${tag}-img`,
-        bg: `${BASE[side]}/eras/debut.png?${tag}-bg`,
+        img: `${origin}/eras/debut.png?${tag}-img`,
+        bg: `${origin}/eras/debut.png?${tag}-bg`,
       };
       const served = new Map<string, number>();
       await page.route(

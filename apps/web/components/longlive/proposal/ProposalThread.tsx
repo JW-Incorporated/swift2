@@ -1,11 +1,10 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost, useReader } from '@swift2/ui';
 import { Quote } from 'lucide-react';
 import { getEra } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
 import { useAppActions } from '@/lib/longlive/store';
-import { contentForThread } from '@/lib/longlive/threads';
 import { autoFocalPoint, focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@swift2/experience';
 import type { ImageKind } from '@swift2/experience';
 
@@ -34,7 +33,9 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  * tight 2023-2026 arc (see docs/threads-rework-2026-07-10.md).
  */
 export function ProposalThread() {
+  const { Image } = useHost();
   const { openItem } = useAppActions();
+  const { contentForThread } = useReader();
   const beats = contentForThread('the-proposal');
   return (
     <div className="pt-8">

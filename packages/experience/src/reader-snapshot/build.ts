@@ -1,83 +1,28 @@
 import { buildEraStreamViewModel } from '../era-stream';
 import { embeddedYoutubeIds } from '../era-feed';
-import { eggDoorwaysForEra, threadDoorwaysForEra } from '../doorways';
+import { eggDoorwaysForEraIn, threadDoorwaysForEraIn } from '../doorways';
 import { THREADS } from '../lenses';
-import { contentForThread } from '../threads';
-import { keepExploring, nextTrackOnAlbum, songTargetOf, trackKey } from '../track-guide';
-import { getContentItemLookup, setContentItemLookup } from '../content-item-provider';
-import { defaultSongCatalogue, setDefaultSongCatalogue } from '../song-catalogue-provider';
-import { setTracksRawProvider, tracksRawProvider } from '../track-catalogue-provider';
-import {
-  getEraSecretsRawProvider,
-  getSongTargetResolver,
-  getTheoriesRawProvider,
-  getThreadContentProvider,
-  setEraSecretsRawProvider,
-  setSongTargetResolver,
-  setTheoriesRawProvider,
-  setThreadContentProvider,
-} from '../thread-content-provider';
+import { contentForThreadIn } from '../threads';
+import { keepExploringIn, nextTrackOnAlbumIn, trackKey } from '../track-guide';
 import type { ContentItem, EraId, VideoNote } from '../types';
 import type { SearchDoc } from '../search-index';
 import type { RenderFeedEntry } from '../era-feed-clusters';
+import { corpusFromInputs } from './corpus';
 import { buildSearchDocs } from './search-docs';
 import {
   READER_SNAPSHOT_VERSION,
   type ReaderSnapshot,
+  type ReaderSnapshotCore,
+  type ReaderSnapshotCoreDomains,
+  type ReaderSnapshotCoreInputs,
   type ReaderSnapshotDeps,
-  type ReaderSnapshotDomains,
+  type ReaderSnapshotExtensions,
   type ReaderSnapshotInputs,
   type ReaderSnapshotState,
   type TrackGuideEntry,
 } from './types';
 
-/**
- * Runs `fn` with `inputs` installed in the experience core's module-global
- * providers (the seams `apps/web/lib/longlive/*` wires at import time), then
- * restores whatever was wired before, so a build never leaks or depends on the
- * caller's wiring. The original provider function references are restored, not
- * data they returned. Synchronous only: an async callback throws (providers are
- * still restored). Module-private by design; not exported from the package.
- */
-export function withProviders<T>(
-  inputs: ReaderSnapshotInputs,
-  fn: () => T extends PromiseLike<unknown> ? never : T,
-): T {
-  const prev = {
-    lookup: getContentItemLookup(),
-    thread: getThreadContentProvider(),
-    tracks: tracksRawProvider(),
-    theories: getTheoriesRawProvider(),
-    secrets: getEraSecretsRawProvider(),
-    song: getSongTargetResolver(),
-    moods: defaultSongCatalogue(),
-  };
-  const byId = new Map(inputs.content.map((c) => [c.id, c] as const));
-  setContentItemLookup((id) => byId.get(id));
-  setThreadContentProvider(() => inputs.content);
-  setTracksRawProvider(inputs.tracks);
-  setTheoriesRawProvider(() => inputs.theories);
-  setEraSecretsRawProvider(() => inputs.eraSecrets);
-  setSongTargetResolver(songTargetOf);
-  setDefaultSongCatalogue(inputs.songMoods);
-  try {
-    const result = fn();
-    if (typeof (result as { then?: unknown } | null)?.then === 'function') {
-      throw new Error('withProviders: the callback must be synchronous; providers are restored when it returns');
-    }
-    return result as T;
-  } finally {
-    setContentItemLookup(prev.lookup);
-    setThreadContentProvider(prev.thread);
-    setTracksRawProvider(prev.tracks);
-    setTheoriesRawProvider(prev.theories);
-    setEraSecretsRawProvider(prev.secrets);
-    setSongTargetResolver(prev.song);
-    setDefaultSongCatalogue(prev.moods);
-  }
-}
-
-function groupContent(inputs: ReaderSnapshotInputs): Partial<Record<EraId, ContentItem[]>> {
+function groupContent(inputs: ReaderSnapshotCoreInputs): Partial<Record<EraId, ContentItem[]>> {
   const out: Partial<Record<EraId, ContentItem[]>> = {};
   for (const era of inputs.eras) out[era.id] = inputs.content.filter((c) => c.eraId === era.id);
   return out;
@@ -112,9 +57,10 @@ function entryKey(e: RenderFeedEntry): string {
 }
 
 /**
- * Derives every domain from `inputs` (reading the providers for the derived
- * ones: threads, doorways, track guide). One pipeline for both paths, so any
- * difference traces to the inputs.
+ * Derives every domain from `inputs` alone: the derived ones (threads,
+ * doorways, track guide) run the pure `*In` functions over `corpusFromInputs`,
+ * so a build reads and writes no module-global state. One pipeline for both
+ * paths, so any difference traces to the inputs.
  */
 export function buildReaderSnapshot(
   inputs: ReaderSnapshotInputs,
@@ -122,36 +68,49 @@ export function buildReaderSnapshot(
   origin: ReaderSnapshot['origin'],
   state: ReaderSnapshotState = 'ready',
 ): ReaderSnapshot {
-  return withProviders(inputs, () => derive(inputs, deps, origin, state));
+  return attachExtensions(buildReaderSnapshotCore(inputs, deps, origin, state), inputs);
 }
 
-function derive(
-  inputs: ReaderSnapshotInputs,
+/** Pure: a full snapshot from a core one plus the extension domains. The core is not mutated. */
+export function attachExtensions(
+  core: ReaderSnapshotCore,
+  extensions: ReaderSnapshotExtensions,
+): ReaderSnapshot {
+  return {
+    ...core,
+    domains: { ...core.domains, merch: extensions.merch, songMoods: extensions.songMoods },
+  };
+}
+
+/** The core domains only (no merch, songMoods). */
+export function buildReaderSnapshotCore(
+  inputs: ReaderSnapshotCoreInputs,
   deps: ReaderSnapshotDeps,
   origin: ReaderSnapshot['origin'],
-  state: ReaderSnapshotState,
-): ReaderSnapshot {
+  state: ReaderSnapshotState = 'ready',
+): ReaderSnapshotCore {
+  const corpus = corpusFromInputs(inputs);
   const content = groupContent(inputs);
-  const eraStream: ReaderSnapshotDomains['eraStream'] = {};
-  const trackGuide: ReaderSnapshotDomains['trackGuide'] = {};
+  const eraStream: ReaderSnapshotCoreDomains['eraStream'] = {};
+  const trackGuide: ReaderSnapshotCoreDomains['trackGuide'] = {};
 
   for (const era of inputs.eras) {
     const items = content[era.id] ?? [];
     const videoFeed = deps.eraVideoFeed(inputs.videos[era.id] ?? [], embeddedYoutubeIds(items)) as VideoNote[];
     const doorways = [
-      ...threadDoorwaysForEra(era.id, era.start, era.end),
-      ...eggDoorwaysForEra(era.id, era.start, era.end),
+      ...threadDoorwaysForEraIn(corpus, era.id, era.start, era.end),
+      ...eggDoorwaysForEraIn(corpus, era.id, era.start, era.end),
     ];
     const vm = buildEraStreamViewModel({ era, items, videoFeed, doorwayEntries: doorways, filters: new Set() });
     eraStream[era.id] = { videos: videoFeed.map((v) => v.slug), doorways, entries: vm.entries.map(entryKey) };
 
     trackGuide[era.id] = (inputs.tracks[era.id] ?? []).map(
       (track): TrackGuideEntry => {
-        const next = nextTrackOnAlbum(era.id, track);
+        const next = nextTrackOnAlbumIn(corpus, era.id, track);
         return {
           key: trackKey(era.id, track),
           next: next ? trackKey(era.id, next) : null,
-          explore: keepExploring(era.id, track).map((c) =>
+          explore: keepExploringIn(corpus, era.id, track).map((c) =>
             c.kind === 'song' ? `song:${c.track.slug}` : `moment:${c.item.id}`,
           ),
         };
@@ -159,7 +118,7 @@ function derive(
     );
   }
 
-  const domains: ReaderSnapshotDomains = {
+  const domains: ReaderSnapshotCoreDomains = {
     eras: inputs.eras,
     content,
     milestones: inputs.milestones,
@@ -167,12 +126,10 @@ function derive(
     eraStream,
     theories: inputs.theories,
     eraSecrets: inputs.eraSecrets,
-    threads: THREADS.map((t) => ({ id: t.id, itemIds: contentForThread(t.id).map((i) => i.id) })),
-    searchIndex: sortedDocs(inputs.searchIndex ?? buildSearchDocs(inputs)),
+    threads: THREADS.map((t) => ({ id: t.id, itemIds: contentForThreadIn(corpus, t.id).map((i) => i.id) })),
+    searchIndex: sortedDocs(buildSearchDocs(inputs)),
     tracks: inputs.tracks,
     trackGuide,
-    merch: inputs.merch,
-    songMoods: inputs.songMoods,
   };
   return { version: READER_SNAPSHOT_VERSION, state, origin, domains };
 }

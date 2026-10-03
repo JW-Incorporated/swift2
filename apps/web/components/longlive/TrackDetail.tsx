@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
-import Image from 'next/image';
+import { useHost, useReader, useResolveUrl } from '@swift2/ui';
 import {
   ListMusic,
   Star,
@@ -17,13 +17,7 @@ import {
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
-// tracksForEra/keepExploring/adjacentTrackOnAlbum must come from the app's
-// wired wrapper, not '@swift2/experience' directly (issue #4082) — see
-// EraSection.tsx's comment for why a direct import silently returns zero
-// tracks in the client bundle.
-import { tracksForEra, keepExploring, adjacentTrackOnAlbum } from '@/lib/longlive/tracks';
 import { releasedFactValue, trackKey } from '@swift2/experience';
-import { videosForEra } from '@/lib/longlive/videos';
 import { resolvedTrackVideo } from '@/lib/longlive/track-video';
 import { MomentVideo } from './MomentVideo';
 import { OverlayNav } from './OverlayNav';
@@ -72,19 +66,22 @@ export { trackKey };
  * only when real sourced content exists — never a placeholder.
  */
 export function TrackDetail() {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openTrackKey, trackGuideEraId } = useAppState();
   const { closeTrack, openTrack } = useAppActions();
+  const q = useReader();
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
   const track =
     era && openTrackKey
-      ? tracksForEra(era.id).find((t) => trackKey(era.id, t) === openTrackKey)
+      ? q.tracksForEra(era.id).find((t) => trackKey(era.id, t) === openTrackKey)
       : undefined;
 
   // Previous/Next (#774 Option 2): every sourced track in album order, not
   // just tracks with a full dossier — see adjacentTrackOnAlbum's doc comment.
-  const prevTrack = era && track ? adjacentTrackOnAlbum(era.id, track, 'previous') : null;
-  const nextTrack = era && track ? adjacentTrackOnAlbum(era.id, track, 'next') : null;
+  const prevTrack = era && track ? q.adjacentTrackOnAlbum(era.id, track, 'previous') : null;
+  const nextTrack = era && track ? q.adjacentTrackOnAlbum(era.id, track, 'next') : null;
   const goToTrack = (t: TrackNote) => {
     if (!era) return;
     openTrack(trackKey(era.id, t));
@@ -138,7 +135,7 @@ export function TrackDetail() {
   // verified audio/lyric `youtubeId` — see `resolvedTrackVideo`'s doc comment
   // in track-video.ts for the fallback rationale and the matcher's
   // recording-separation rule.
-  const video = resolvedTrackVideo(track, videosForEra(era.id)) ?? undefined;
+  const video = resolvedTrackVideo(track, q.videosForEra(era.id)) ?? undefined;
   // The dossier backs whyItMatters/meaning/live/voices; the narrative
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.
@@ -209,7 +206,7 @@ export function TrackDetail() {
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
         <Image
-          src={era.image || '/placeholder.svg'}
+          src={resolveUrl(era.image || '/placeholder.svg')}
           alt=""
           fill
           priority
@@ -531,7 +528,8 @@ function MeaningTier({
  */
 function ConnectionsSection({ eraId, track }: { eraId: EraId; track: TrackNote }) {
   const { openSong, openItem, closeTrackGuide } = useAppActions();
-  const resolved = keepExploring(eraId, track);
+  const q = useReader();
+  const resolved = q.keepExploring(eraId, track);
   if (resolved.length === 0) return null;
 
   return (

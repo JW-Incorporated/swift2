@@ -3,15 +3,11 @@
 import { useEffect, useRef } from 'react';
 import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { useFocusTrap } from '@/lib/longlive/useFocusTrap';
-import Image from 'next/image';
+import { useHost, useReader, useResolveUrl } from '@swift2/ui';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
-// See EraSection.tsx's comment (issue #4082): must import through the
-// app's wired wrapper, not '@swift2/experience' directly, or the client
-// bundle reads an unwired provider and always gets zero tracks.
-import { tracksForEra } from '@/lib/longlive/tracks';
-import { videosForEra, isPlayable, VIDEO_KIND_LABEL, type WatchableVideoNote } from '@/lib/longlive/videos';
+import { isPlayable, VIDEO_KIND_LABEL, type WatchableVideoNote } from '@swift2/content-enrichment';
 import { trackVideoFor } from '@/lib/longlive/track-video';
 import { eraStyle } from '@/lib/longlive/theme';
 import { OverlayNav } from './OverlayNav';
@@ -29,12 +25,17 @@ import type { EraId, TrackNote } from '@swift2/experience';
  * note exist in the data, so gaps in an album's numbering are expected.
  */
 export function TrackGuide() {
+  const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { trackGuideEraId, openTrackKey } = useAppState();
   const { closeTrackGuide } = useAppActions();
 
+  const q = useReader();
+
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
-  const tracks = trackGuideEraId ? tracksForEra(trackGuideEraId) : [];
-  const videos = trackGuideEraId ? videosForEra(trackGuideEraId) : [];
+  const tracks = trackGuideEraId ? q.tracksForEra(trackGuideEraId) : [];
+  // ReaderQueries is the default-generic type, so videosForEra reads VideoNote[]; the runtime value is watchable.
+  const videos = (trackGuideEraId ? q.videosForEra(trackGuideEraId) : []) as WatchableVideoNote[];
   const open = Boolean(era && tracks.length > 0);
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
@@ -78,7 +79,7 @@ export function TrackGuide() {
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">
         <Image
-          src={era.image || '/placeholder.svg'}
+          src={resolveUrl(era.image || '/placeholder.svg')}
           alt=""
           fill
           priority

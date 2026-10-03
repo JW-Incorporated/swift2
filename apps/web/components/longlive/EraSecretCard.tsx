@@ -3,13 +3,9 @@
 import { useEffect, useState } from 'react';
 import { Sparkles, ArrowUpRight } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
-import {
-  eraSecretsForEra,
-  dailyEraSecret,
-  resolveEraSecretLink,
-} from '@/lib/longlive/era-secrets';
+import { useReader } from '@swift2/ui';
 import { trackKey } from './TrackDetail';
-import type { EraId } from '@swift2/experience';
+import { epochDay, type EraId } from '@swift2/experience';
 
 /** The viewer's local calendar day as `YYYY-MM-DD`. Client-only (see below). */
 function todayKey(): string {
@@ -34,12 +30,13 @@ function todayKey(): string {
  */
 export function EraSecretCard({ eraId }: { eraId: EraId }) {
   const { openSong, openItem } = useAppActions();
+  const { eraSecretsForEra, resolveEraSecretLink } = useReader();
   const pool = eraSecretsForEra(eraId);
   const [dayKey, setDayKey] = useState<string | null>(null);
   useEffect(() => setDayKey(todayKey()), []);
 
   if (pool.length === 0) return null;
-  const secret = dayKey ? dailyEraSecret(eraId, dayKey)! : pool[0];
+  const secret = dayKey ? pool[epochDay(dayKey) % pool.length]! : pool[0];
 
   const link = resolveEraSecretLink(secret.deeperLink);
   const deeper = link

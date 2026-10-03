@@ -113,7 +113,7 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
         probe.report.snapshot = described.snapshot;
         if (described.error) probe.report.error = described.error;
         fill(snapshot);
-        const reader = loadReader();
+        const reader = loadReader(snapshot);
         setReader(() => reader);
         void checkMarkers(version, probe);
       } catch (e) {

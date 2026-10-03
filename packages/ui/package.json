@@ -9,6 +9,11 @@
     ".": "./src/index.ts",
     "./fonts/*": "./fonts/*"
   },
+  "dependencies": {
+    "@swift2/content": "*",
+    "@swift2/content-enrichment": "*",
+    "@swift2/experience": "*"
+  },
   "peerDependencies": {
     "react": "^18 || ^19"
   },

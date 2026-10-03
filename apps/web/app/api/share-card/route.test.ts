@@ -21,6 +21,7 @@ const rumor = {
 const items = [confirmed, rumor];
 
 vi.mock('../../../lib/longlive/vault-wiring', () => ({}));
+vi.mock('server-only', () => ({}));
 vi.mock('@/lib/longlive/content', () => ({
   getContentItemByIdOrSlug: (id: string) =>
     items.find((i) => i.id === id || (i as { slug?: string }).slug === id),
@@ -31,12 +32,12 @@ import { SHARE_CARD_WATERMARK, STORY_SAFE_Y } from '@/lib/longlive/share-card-fr
 import {
   canonicalShareCardPath,
   leadSentences,
-  parseShareCardRequest,
 } from '@/lib/longlive/share-card-spec';
+import { parseShareCardRequestFromModules } from '@/lib/longlive/share-card-spec.server';
 import { GET } from './route';
 
 const parse = (qs: string) =>
-  parseShareCardRequest(new URL(`https://www.longlivets.com/api/share-card${qs}`));
+  parseShareCardRequestFromModules(new URL(`https://www.longlivets.com/api/share-card${qs}`));
 
 function raw(qs: string): Response {
   return GET(new Request(`http://localhost/api/share-card${qs}`) as never);

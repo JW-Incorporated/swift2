@@ -1,10 +1,9 @@
 'use client';
 
-import Image from 'next/image';
+import { useHost, useReader } from '@swift2/ui';
 import { getEra } from '@swift2/experience';
 import { accentFgFor, eraStyle } from '@/lib/longlive/theme';
 import { RUNWAY_LOOKS } from '@swift2/experience';
-import { contentForThreadInEra } from '@/lib/longlive/threads';
 import { autoFocalPoint, focalPointOf } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
@@ -22,6 +21,8 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  * threads) since this genuinely spans all 12 eras.
  */
 export function RunwayThread() {
+  const { Image } = useHost();
+  const { contentForThreadInEra } = useReader();
   return (
     <div className="space-y-10 pt-8">
       {/* Visually hidden: look names are h3, so without this the outline jumps

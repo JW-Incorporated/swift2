@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import type { CurrentItem } from '@swift2/shared';
 import { CURRENT_ERA_ID, currentFeedEntries, type EraFeedEntry } from '@swift2/experience';
-import type { PlayableVideoNote } from './videos';
+import type { PlayableVideoNote } from '@swift2/content-enrichment';
 
 /**
  * PLAN.md Stage 5 — the live-item slice of one `EraSection`'s wiring: builds
