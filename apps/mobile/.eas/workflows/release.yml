@@ -38,6 +38,12 @@
 # build blocks the Android submission) is preserved by that Action step
 # only running when this whole workflow run succeeds — see the Action file
 # for the exact gating.
+# UPDATE (Android independent of iOS): the Action now submits Android to Play
+# internal whenever the `build_android` job succeeded, even if `build_ios`
+# failed (iOS signing etc.); the GitHub run still ends red. Nothing in this
+# graph makes Android builds or the OTA jobs wait on iOS: `build_android`
+# and `publish_update_android_only` have no `needs` on `build_ios`, so an
+# iOS failure cannot block them. Only `submit_ios` needs both builds.
 #
 # Runbook: docs/mobile-release.md.
 
