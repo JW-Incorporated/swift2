@@ -7,8 +7,8 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 - Side b: the app's DOM entry (`apps/mobile/index.web.ts`, which mounts
   `ReaderSpike`) exported for a browser, fed from the fixture bundle on disk.
 - Routes: `/` (the era stream; shared root `main`) and `/?item=<id>` (the open
-  moment; shared root `[role="dialog"]`). The item id is `FIXED_ITEM_ID` in
-  `scripts/parity/make-fixture.mjs`.
+  moment; shared root `[role="dialog"]`). The item id is stored in
+  `scripts/parity/fixture/fixture.json` (`itemId`).
 
 ## How it works
 
@@ -18,13 +18,24 @@ disagree with each other or with committed Linux baselines. Epic #4788.
   `EXPO_NO_WEB_SETUP=1` skips Expo's "web is not in app.json platforms" check,
   so `app.json` is untouched and the native fingerprint (OTA runtime version)
   does not change.
-- Fixture: after `npm run sync:content`, `npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs`
-  copies the published content bundle to `apps/mobile/dist/parity-fixture/content`
-  (served at `/content` by `scripts/parity/serve.mjs`; no network) and builds the
-  ReaderSnapshot both ways. It exits non-zero unless the baked (side a) and
-  bundle (side b) snapshots hash equal, then writes `fixture.json` with the hash.
-  `compare.spec.ts` asserts side b's runtime snapshot hash and bundle version
-  equal that file.
+- Frozen fixture (`scripts/parity/fixture/`, committed): a content snapshot taken
+  once: the published bundle (`content/`, side b reads it from disk at `/content`
+  via `serve.mjs`) and the seven baked modules the web build imports
+  (`web/*.generated.ts`, side a). BOTH sides render from it, so baselines do NOT move
+  when live content (`supabase/seed/**`) changes. CI `build-web` runs
+  `npm run sync:content` (for the unrelated generated files), then
+  `make-fixture.mjs --apply` (overlays the snapshot over `apps/web` and fails unless
+  baked and bundle hash equal `fixture.json`), then `npx next build` directly
+  (`npm run build` would re-run `prebuild` and re-sync live content over it).
+  CI never regenerates. Regeneration is deliberate and manual: `npm run sync:content`,
+  then `npx tsx --tsconfig apps/web/tsconfig.json scripts/parity/make-fixture.mjs --regenerate`,
+  commit the fixture, then re-baseline (below). Size: about 8 MB raw (about 2 MB compressed) per
+  regeneration; a pruned snapshot is a possible follow-up.
+- Runtime equivalence hash on BOTH sides (`compare.spec.ts`): side b reports its
+  rendered snapshot hash (`window.__probe`); side a reports the hash of the baked
+  modules the running server holds via `GET /parity-probe`
+  (`apps/web/app/parity-probe/route.ts`, 404 unless `PARITY_PROBE=1`, set only by
+  `playwright.parity.config.ts`). Both must equal `fixture.json`.
 - Serve + test: `npx playwright test -c playwright.parity.config.ts` starts
   `serve.mjs` (b, 4173) and `next start` (a, 4174), both on 127.0.0.1.
 - Projects: Pixel 7 (chromium), iPhone 15 (webkit), iPad Pro 11 portrait and
@@ -35,11 +46,15 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 Fixed clock (`clock.setFixedTime`, never `install`), reduced motion, animations
 disabled, caret hidden, first-visit flags in `localStorage`, `/vault/live`
 stubbed empty, Vercel analytics stubbed, every external image answered by one
-generated grey PNG, any other external request or any `pageerror` /
+generated grey PNG (every external image URL is recorded per side and the a and b
+sets are asserted identical per route), any other external request or any `pageerror` /
 `console.error` / HTTP >= 400 fails the test. Fonts: both sides get
 `@font-face "ParityFont"` from the DOM entry's own data-URI font plus
 `* { font-family: "ParityFont" !important }`, and `document.fonts.ready` before
-any capture. Captures wait for React to own the DOM (the web build is
+any capture. The stylesheets are served same-origin (`page.route` + `<link>`), so the
+web build's CSP stays on for Chromium; WebKit refuses the inline style Playwright
+itself injects for any `page.screenshot()` under that CSP, so only the three WebKit
+projects set `bypassCSP` (side b has no CSP). Captures wait for React to own the DOM (the web build is
 server-rendered; client-only text such as the daily gloss swaps in after
 hydration) and for the root's text and height to hold still.
 Web-only chrome outside the shared root (TopBar and its fixed timeline rail,
@@ -56,7 +71,13 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    text is `innerText`, whitespace-collapsed, NFC.
 3. Per-side pixel baselines (`baseline.spec.ts`, Linux only): same threshold and
    ratio. Side b is captured with REAL simulated insets (`?inset=t,r,b,l`:
-   iPhone 15 59/0/34/0, Pixel 7 24/0/48/0, iPad 24/0/20/0).
+   iPhone 15 59/0/34/0, Pixel 7 24/0/48/0, iPad 24/0/20/0). A second baseline per
+   route (`b-<route>-viewport.png`) is the whole viewport, where body top padding and
+   nav bottom padding show. `compare.spec.ts` proves the insets are visible on home
+   (real vs zero insets differ). The item dialog is inset-immune by construction
+   (`MomentDetail.tsx` has no safe-area styles; the bridge in `reader-spike.css` only
+   touches body padding, the nav and fixed bottom offsets, all behind the modal); a
+   test pins that.
 4. Equivalence hash (above).
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
@@ -75,14 +96,20 @@ after `npm run sync:content`.
 `build-dom` (b, plus the bundle check) run in parallel, then one Playwright job
 per project in `mcr.microsoft.com/playwright:v1.63.0-noble` (keep the tag equal
 to the installed `@playwright/test` version). Triggers: `packages/ui/**`,
-`packages/content/**`, `apps/web/**`, `apps/mobile/dom/**`,
+`packages/content/**`, `packages/content-enrichment/**`, `packages/experience/**`,
+`scripts/sync-longlive-content.mjs`, `scripts/parity/**` (incl. the fixture), `apps/web/**`, `apps/mobile/dom/**`,
 `apps/mobile/parity-entry/**`, `e2e/parity/**` and the harness files. Linux
 only. Parity is not a required check: that is a G1 choice to revisit when
 screens move.
 
-Baselines depend on real content, so a content change that alters the first
-screen of the era stream or the fixed item turns the run red until baselines
-are regenerated (below).
+Baselines depend on the frozen fixture, not live content, so a live content
+change does not turn the run red. A change to the renderers, the sync format
+(`--apply` hash check fails) or the fixture does, until the fixture and baselines
+are regenerated deliberately.
+
+Asset gate: a missing side-b export asset is an HTTP 404 and fails the test. The only
+exception is the named allowlist in `serve.mjs` (`/eras/*.png`, borrowed from
+`apps/web/public`): app asset packaging is resolved in WP2.1 (TODO there).
 
 ## Updating baselines
 
@@ -115,6 +142,7 @@ a violation you are accepting.
 
 ## Fingerprint
 
-Native fingerprint dcf1ea59 before == after (measured at WP1.1c part 2: with and
-without the removed part-1 `index.web.tsx`, all else equal; `npx @expo/fingerprint fingerprint:generate`
-in apps/mobile, Windows 11 / Node 24.18).
+Native fingerprint `4c8f334d334c6e26208f4f638112b00b5f551e80` on origin/feature/one-ui-wp0.5b
+(d16abd2c) == on this branch (`npx @expo/fingerprint fingerprint:generate` in apps/mobile,
+same worktree and environment, Windows 11 / Node 24.18; the branch's only apps/mobile
+difference, `main` = `index`, was toggled and does not move the hash).

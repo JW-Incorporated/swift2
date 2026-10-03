@@ -132,12 +132,13 @@ views in `PROGRESS.md`, and tells Joey in its next message (CLAUDE.md rule
 6. **Land.**
    - Open the PR (TL;DR first) and set auto-merge (`gh pr merge --squash
      --auto --delete-branch`). Never watch it.
+   - **Stacked PRs:** never use `--delete-branch` on a PR that other open PRs target — GitHub auto-closes those children and they can't be reopened (2026-10-02: killed #4815, nearly #4811). Before deleting any branch run `gh pr list --base <branch> --state open`; merge the parent without `--delete-branch`, `gh pr edit <child> --base main` for each child, then `git push origin --delete <branch>`.
    - The next WP that depends on it checks `merged` as step 1. That is a
      dependency check, not babysitting.
    - If it's red, the PM sends a worker to fix it.
 7. **Record** the outcome in `PROGRESS.md`.
 
-**Concurrency:** at most 3 subagents at once, never two branch-writing
+**Concurrency:** at most 5 subagents at once (owner raised 3→5, 2026-10-02), never two branch-writing
 agents in one checkout, and never Codex and a Claude agent on the same
 tree.
 
@@ -199,6 +200,7 @@ Workers inherit the tree's `CLAUDE.md`, but repeat these in every brief:
   `git restore`/`reset --hard`/`clean`/`checkout --` or `--no-verify`.
 - **Shell:** one simple command per Bash call. Prefer `node -e` over
   python. Filter command output at the source (`| tail -30`).
+- Windows checkouts of the parity fixture need `git -c core.longpaths=true` (hash-named dirs exceed MAX_PATH).
 - **Never touch `scripts/social/**` or `social/queue/**`.** Never merge a
   `social-draft` PR. Never send social work to Codex.
 - **Gates:**
