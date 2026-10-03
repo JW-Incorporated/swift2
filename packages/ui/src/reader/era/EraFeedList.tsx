@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { emptyFeedMessage, type EraFeedEntry, type RenderFeedEntry, type CardTier } from '@swift2/experience';
 import type { FilterId } from '@swift2/experience';
 import type { Era } from '@swift2/experience';
@@ -18,6 +19,21 @@ import { ClusterCard } from './ClusterCard';
 // era-level component stays about wiring data, not about how each card kind
 // renders.
 
+/** Rough height of one feed card on a phone: sizes the placeholder of a skipped feed. */
+const EST_CARD_PX = 400;
+
+/**
+ * Skip layout and paint for an era feed that is nowhere near the viewport
+ * (#4895). Scoped to this wrapper, not the whole <section> (its fixed detail
+ * overlay would be re-parented by layout containment) and not each card (the
+ * TimelineScrubber measures every card of the active era, so per-card skipping
+ * would hand it estimated positions). `auto` makes the browser remember the
+ * real size after the first render, so the estimate only matters once.
+ */
+function feedContainment(count: number): CSSProperties {
+  return { contentVisibility: 'auto', containIntrinsicSize: `auto ${count * EST_CARD_PX}px` };
+}
+
 /**
  * The chronological feed grid for one era: every moment, video and doorway
  * card, editorially tiered (moments), full-width (videos, doorways), newest
@@ -32,6 +48,7 @@ export function EraFeedList({
   videoOwnerIds,
   imageHiddenIds,
   filters,
+  eagerCount = 0,
   onOpenItem,
   onOpenDoorway,
   onOpenCurrentItem,
@@ -42,19 +59,28 @@ export function EraFeedList({
   videoOwnerIds: Set<string>;
   imageHiddenIds: Set<string>;
   filters: ReadonlySet<FilterId>;
+  /** Leading feed entries whose moment photos load eagerly (first viewport). */
+  eagerCount?: number;
   onOpenItem: (id: string) => void;
   onOpenDoorway: (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
   /** PLAN.md Stage 5 — opens the live-item overlay (CurrentItemDetail). */
   onOpenCurrentItem: (item: CurrentItem) => void;
 }) {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
+    <div
+      className="mx-auto max-w-4xl px-4 py-10 md:pr-8"
+      style={entries.length > 0 ? feedContainment(entries.length) : undefined}
+    >
       {/* Visually hidden: card titles are h3, so without this the outline
           jumps h1 (era) → h3 (card) — axe `heading-order` (#703). */}
       <h2 className="sr-only">Moments from {era.shortName}</h2>
       <ol className="relative grid grid-cols-1 items-start gap-5 md:grid-cols-2 md:gap-6">
-        {entries.map((entry) =>
-          renderEntry(entry, { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem }),
+        {entries.map((entry, index) =>
+          renderEntry(
+            entry,
+            { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem },
+            index < eagerCount,
+          ),
         )}
       </ol>
       {entries.length === 0 && (
@@ -77,6 +103,7 @@ function renderEntry(
     onOpenDoorway: (entry: Extract<EraFeedEntry<WatchableVideoNote>, { kind: 'thread' } | { kind: 'egg' }>) => void;
     onOpenCurrentItem: (item: CurrentItem) => void;
   },
+  eager: boolean,
 ) {
   const { era, tiers, videoOwnerIds, imageHiddenIds, onOpenItem, onOpenDoorway, onOpenCurrentItem } = ctx;
   switch (entry.kind) {
@@ -101,6 +128,7 @@ function renderEntry(
           tier={tiers.get(entry.item.id) ?? 'text'}
           ownsVideo={videoOwnerIds.has(entry.item.id)}
           hideImage={imageHiddenIds.has(entry.item.id)}
+          eager={eager}
           onOpen={() => onOpenItem(entry.item.id)}
         />
       );

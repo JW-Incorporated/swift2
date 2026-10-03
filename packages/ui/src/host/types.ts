@@ -57,6 +57,8 @@ export type HostImageProps = {
   unoptimized?: boolean;
   loading?: 'lazy' | 'eager';
   draggable?: boolean;
+  fetchPriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
   style?: CSSProperties;
   onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 };

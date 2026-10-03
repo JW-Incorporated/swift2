@@ -74,12 +74,15 @@ export function MomentCard({
   tier,
   ownsVideo,
   hideImage,
+  eager = false,
   onOpen,
 }: {
   item: ContentItem;
   tier: CardTier;
   ownsVideo: boolean;
   hideImage: boolean;
+  /** Photo loads eagerly at high priority (first-viewport cards only). */
+  eager?: boolean;
   onOpen: () => void;
 }) {
   const video = ownsVideo ? feedVideoFor(item) : null;
@@ -118,6 +121,7 @@ export function MomentCard({
           item={item}
           tier={tier}
           hideImage={hideImage}
+          eager={eager}
           onOpen={onOpen}
         />
         {video && (

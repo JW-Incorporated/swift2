@@ -7,6 +7,7 @@ import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow, CURRENT_ERA_ID } fr
 import { eraStyle } from '../lib/theme';
 import type { Era } from '@swift2/experience';
 import { EraSection } from './EraSection';
+import { eraPerfMark } from '../lib/diag-marks';
 import { FilterBar } from './FilterBar';
 import { LandingMasthead } from './LandingMasthead';
 import { CountdownBanner } from './CountdownBanner';
@@ -262,8 +263,10 @@ export function EraStream() {
   // can restore this exact spot — anchor era, appended eras, and scroll offset.
   useEffect(() => {
     let raf = 0;
+    let lastMarkedEra: string | null = null;
     const pick = () => {
       raf = 0;
+      eraPerfMark('era-scroll');
       // The TimelineScrubber's own auto-scroll during a drag can cross into
       // the next era's viewport-center; flipping the active era mid-drag
       // would swap the scrubber's whole per-era anchor set out from under
@@ -284,6 +287,10 @@ export function EraStream() {
         if (r.top <= center && r.bottom >= center) {
           const id = el.dataset.llSection;
           if (id) {
+            if (id !== lastMarkedEra) {
+              lastMarkedEra = id;
+              eraPerfMark('era-switch', { eraId: id });
+            }
             setActiveEra(id as Era['id']);
             activeEraOffsetRef.current = { eraId: id, offset: r.top };
           }
@@ -388,7 +395,11 @@ export function EraStream() {
       {sequence.map((era, i) => (
         <Fragment key={era.id}>
           {i > 0 && <EraTransition from={sequence[i - 1]!} to={era} />}
-          <EraSection era={era} currentItems={era.id === CURRENT_ERA_ID ? currentItems : undefined} />
+          <EraSection
+            era={era}
+            currentItems={era.id === CURRENT_ERA_ID ? currentItems : undefined}
+            eagerImages={i === 0}
+          />
         </Fragment>
       ))}
 
