@@ -18,7 +18,8 @@ name: Mobile release train
 # runs on EAS's own infrastructure with no visibility into GitHub repo
 # secrets. So this job starts it with `workflow:run --no-wait`, then
 # `workflow:status --wait` until it finishes, reads the build id of THIS run's
-# `build_android` job (only if that job's status is exactly SUCCESS), and if
+# `build_android` job (only if that job's status is exactly SUCCESS; or, when
+# build_android was skipped, the existing build found by `get_android_build`), and if
 # present submits it to Play itself, in the one place that actually has the
 # secret. Step caps (minutes):
 # Android is independent of iOS: it is submitted when the EAS
@@ -249,9 +250,26 @@ jobs:
       # ── Android submit (see header comment: EAS infra can't see this secret) ──
       # The build id comes from THIS EAS run's build_android job (step above);
       # no job-SUCCESS or no build id means nothing to submit.
-      - name: Submit Android build to Play (internal track)
-        timeout-minutes: 10
+      # `existing` = EAS reused a production build for this native fingerprint
+      # (build_android skipped). It may never have reached Play, so it is
+      # submitted too. A repo-scoped cache entry keyed by build id records a
+      # real submit so a later train on the same build skips it (the duplicate
+      # versionCode rejection format from `eas submit` is unverified).
+      - name: Check Android submit marker
+        id: android_marker
         if: always() && steps.android_job.outputs.build_id != ''
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/android-submitted
+          key: android-play-submitted-${{ steps.android_job.outputs.build_id }}
+          lookup-only: true
+      - name: Note already-submitted Android build
+        if: always() && steps.android_marker.outputs.cache-hit == 'true'
+        run: echo "::warning::Android build ${{ steps.android_job.outputs.build_id }} was already submitted to Play internal by an earlier train; skipping re-submit."
+      - name: Submit Android build to Play (internal track)
+        id: android_submit
+        timeout-minutes: 10
+        if: always() && steps.android_job.outputs.build_id != '' && steps.android_marker.outputs.cache-hit != 'true'
         working-directory: apps/mobile
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
@@ -273,6 +291,15 @@ jobs:
           chmod 600 credentials/play-service-account.json
           trap 'rm -f credentials/play-service-account.json' EXIT
           eas submit --platform android --id "$BUILD_ID" --profile production --non-interactive
+          mkdir -p "$RUNNER_TEMP/android-submitted"
+          printf '%s' "$BUILD_ID" > "$RUNNER_TEMP/android-submitted/build_id"
+          echo "submitted=true" >> "$GITHUB_OUTPUT"
+      - name: Record Android submit marker
+        if: always() && steps.android_submit.outputs.submitted == 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ runner.temp }}/android-submitted
+          key: android-play-submitted-${{ steps.android_job.outputs.build_id }}
       # Last step: Android has had its chance above; now surface any EAS
       # failure (iOS build/signing, submit_ios, timeout, cancel) as a red run.
       - name: Fail the train if the EAS run did not succeed

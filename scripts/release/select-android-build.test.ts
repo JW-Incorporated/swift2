@@ -75,6 +75,64 @@ describe('selectAndroidBuild', () => {
     expect(selectAndroidBuild(run(undefined, 'SKIPPED'), SHA)).toEqual({ result: 'skipped' });
   });
 
+  describe('existing build (build_android skipped)', () => {
+    const get = (turtleBuild: unknown, status = 'SUCCESS') => ({
+      key: 'get_android_build',
+      status,
+      turtleBuild,
+    });
+    const skipped = { key: 'build_android', status: 'SKIPPED' };
+
+    it('returns existing + id without requiring a commit match', () => {
+      const r = selectAndroidBuild(
+        { jobs: [get(build({ gitCommitHash: 'b'.repeat(40) })), skipped] },
+        SHA,
+      );
+      expect(r).toEqual({ result: 'existing', buildId: ID });
+    });
+
+    it('also works when build_android is absent and only an id is exposed', () => {
+      expect(selectAndroidBuild({ jobs: [get({ id: ID })] }, SHA)).toEqual({
+        result: 'existing',
+        buildId: ID,
+      });
+    });
+
+    it.each([undefined, null, {}])('is skipped when get_android_build has no id (%j)', (tb) => {
+      expect(selectAndroidBuild({ jobs: [get(tb), skipped] }, SHA)).toEqual({ result: 'skipped' });
+    });
+
+    it('is skipped when get_android_build is not SUCCESS', () => {
+      expect(selectAndroidBuild({ jobs: [get({ id: ID }, 'FAILURE'), skipped] }, SHA).result).toBe(
+        'skipped',
+      );
+    });
+
+    it.each([
+      ['malformed id', { id: 'nope' }],
+      ['non-string id', { id: 5 }],
+      ['wrong platform', build({ platform: 'IOS' })],
+      ['wrong status', build({ status: 'ERRORED' })],
+      ['wrong profile', build({ buildProfile: 'preview' })],
+    ])('rejects %s as no_build', (_n, tb) => {
+      expect(selectAndroidBuild({ jobs: [get(tb), skipped] }, SHA).result).toBe('no_build');
+    });
+
+    it('prefers this run build over the existing one', () => {
+      const other = '223e4567-e89b-42d3-a456-426614174000';
+      const r = selectAndroidBuild(
+        {
+          jobs: [
+            get({ id: other }),
+            { key: 'build_android', status: 'SUCCESS', turtleBuild: build() },
+          ],
+        },
+        SHA,
+      );
+      expect(r).toEqual({ result: 'success', buildId: ID });
+    });
+  });
+
   it.each(['FAILURE', 'CANCELED', 'PENDING_CANCEL', 'IN_PROGRESS', 'NEW', 'ACTION_REQUIRED'])(
     'maps job status %s to not_success',
     (status) => {
