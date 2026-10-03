@@ -303,6 +303,12 @@ job prints it) → scoped reviewer APPROVE → **#4841 (WP2.1-A) MERGED**; #4844
 #4847 retargeted to main BEFORE branch delete (rule held). WP2.2-B executor
 launched (stacked on wp2.2a + main merged in). Open: no CI job prints the Expo
 fingerprint → candidate small CI addition (later).
+**02:59:** #4845 fix r1 7d3a30fc (merged main; new delayed lazy-img + CSS-bg
+specs fail with imagesReady no-op'd; SVG tolerance; viewport-width scope) →
+scoped reviewer APPROVE → **#4845 MERGED** (harness image race closed; G1
+cond 4 hole fixed). Executor syncing main into wp2.1b (#4844) + wp2.1c
+(#4847) so their diffs show only their own work; then #4847 reviews + #4844
+landing.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
