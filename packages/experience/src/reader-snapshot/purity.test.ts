@@ -123,6 +123,27 @@ describe('snapshot derivation is pure over its inputs', () => {
     expect(offenders).toEqual([]);
   });
 
+  it('the import walker extracts every runtime import form and skips type-only ones', () => {
+    const src = [
+      "import a from './static';",
+      "import { b,\n  c } from './multi-line';",
+      "export * from './export-from';",
+      "export { d } from './export-named';",
+      "import './side-effect';",
+      "import e = require('./import-equals');",
+      "const f = require('./require-call');",
+      "const g = await import('./dynamic');",
+      "import type { T } from './type-only';",
+      "export type { U } from './type-export';",
+      "import type h = require('./type-equals');",
+      "// import i from './commented';",
+      "import pkg from 'not-local';",
+    ].join('\n');
+    expect(runtimeLocalSpecifiers(src).sort()).toEqual(
+      ['./static', './multi-line', './export-from', './export-named', './side-effect', './import-equals', './require-call', './dynamic'].sort(),
+    );
+  });
+
   it('fromBundle maps load sources to state, offline beating the stale flag', () => {
     const at = (source: string, stale?: boolean) => fromBundle({ ...bundle, source, stale } as BundleLike, deps).state;
     expect(at(LOAD_SOURCE.lastGoodAfterDataError, true)).toBe('error');
@@ -151,7 +172,7 @@ async function resolveLocal(from: string, spec: string): Promise<string | null> 
 
 async function reachedModules(): Promise<Map<string, string>> {
   const entries = (await readdir(path.join(srcRoot, 'reader-snapshot')))
-    .filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts'))
+    .filter((f) => /\.tsx?$/.test(f) && !/\.test\.tsx?$/.test(f) && !f.endsWith('.d.ts'))
     .map((f) => path.join(srcRoot, 'reader-snapshot', f));
   const found = new Map<string, string>();
   const queue = [...entries];
@@ -161,12 +182,28 @@ async function reachedModules(): Promise<Map<string, string>> {
     if (found.has(rel)) continue;
     const src = await readFile(file, 'utf-8');
     found.set(rel, src);
-    const re = /^(?:import|export)\s+(type\s+)?[^;]*?\bfrom\s+['"](\.[^'"]*)['"]|^import\s+['"](\.[^'"]*)['"]/gms;
-    for (const m of src.matchAll(re)) {
-      if (m[1]) continue;
-      const next = await resolveLocal(file, (m[2] ?? m[3])!);
+    for (const spec of runtimeLocalSpecifiers(src)) {
+      const next = await resolveLocal(file, spec);
       if (next) queue.push(next);
     }
   }
   return found;
+}
+
+export function runtimeLocalSpecifiers(source: string): string[] {
+  const code = source
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\/\/.*$/gm, '')
+    .replace(/^\s*import\s+type\s+\w+\s*=\s*require\([^)]*\)\s*;?/gm, '');
+  const forms = [
+    /(?:^|[;}\n])\s*(?:import|export)\s+(?!type\b)[^;'"]*?\bfrom\s*['"]([^'"]+)['"]/g,
+    /(?:^|[;}\n])\s*import\s*['"]([^'"]+)['"]/g,
+    /\brequire\(\s*['"]([^'"]+)['"]\s*\)/g,
+    /\bimport\(\s*['"]([^'"]+)['"]\s*\)/g,
+  ];
+  const out = new Set<string>();
+  for (const re of forms) {
+    for (const m of code.matchAll(re)) if (m[1]!.startsWith('.')) out.add(m[1]!);
+  }
+  return [...out];
 }
