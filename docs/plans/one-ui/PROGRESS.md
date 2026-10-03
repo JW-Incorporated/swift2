@@ -192,6 +192,16 @@ auto-merge → **PM caught false-red: every OTA-only release (build_android
 skipped/absent) would go red** → auto-merge DISABLED; fix: distinct `skipped`
 result, red only on unknown/not_success/no_build. Parity-gate always-run job
 (G1 condition 1) executor launched.
+**02:19:** #4838 c30a9d0a (`skipped` for absent/SKIPPED; eas-cli enum
+ACTION_REQUIRED/CANCELED/FAILURE/IN_PROGRESS/NEW/PENDING_CANCEL/SKIPPED/SUCCESS)
++ prettier c27161c2 → scoped reviewer APPROVE → **auto-merge set**. **#4840
+MERGED** (parity always runs on PRs; `parity-gate` job = the check to mark
+required before the first WP2.4 slice — branch-protection step pending; PM
+skipped Codex: CI plumbing, reviewer covered pinning/perms/gate). WP2.2 brief
+→ docs/plans/one-ui/briefs/brief-wp22.md (A purity · B context+provider in
+packages/ui after 2.1-A · C1–C3 callers · D ESLint ban); PM rulings written;
+Fable reviewing. Spike launched: DOM-host @font-face from bundled assets
+(WP2.1-C step 1 = G0 evidence).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
