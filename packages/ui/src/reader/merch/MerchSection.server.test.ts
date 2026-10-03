@@ -6,26 +6,19 @@ const { newDrops } = vi.hoisted(() => ({
   newDrops: vi.fn(() => [{ url: 'https://example.com/new-drop' }]),
 }));
 
-vi.mock('@/lib/longlive/merch', () => ({
-  MERCH_CATALOGUE: {
-    officialStore: [{ url: 'https://example.com/new-drop' }],
-    fanMade: [],
-    shopTheLook: [],
-  },
-  newDrops,
-}));
+vi.mock('@swift2/content-enrichment', () => ({ newDrops }));
 vi.mock('@swift2/ui', () => ({
   ReaderExtensionsProvider: ({ children }: { children: unknown }) => children,
   useMerch: () => ({ officialStore: [{ url: 'https://example.com/new-drop' }], fanMade: [], shopTheLook: [] }),
 }));
-vi.mock('@/lib/longlive/shop', () => ({ hasAffiliateMerch: () => false, SHOP_DISCLOSURE: '' }));
-vi.mock('@/lib/longlive/section-jump', () => ({ suggestLinkSectionId: () => 'suggest-link' }));
+vi.mock('../moment/lib/shop', () => ({ hasAffiliateMerch: () => false, SHOP_DISCLOSURE: '' }));
+vi.mock('./lib/section-jump', () => ({ suggestLinkSectionId: () => 'suggest-link' }));
 vi.mock('./SubmitLinkForm', () => ({ SubmitLinkForm: () => null }));
-vi.mock('./merch/MerchMarquee', () => ({ MerchMarquee: () => null }));
-vi.mock('./merch/MerchSectionRail', () => ({ MerchSectionRail: () => null }));
-vi.mock('./merch/MerchStyleSection', () => ({ MerchStyleSection: () => null }));
-vi.mock('./merch/MerchEmptyPanel', () => ({ MerchEmptyPanel: () => null }));
-vi.mock('./merch/MerchCard', () => ({ MerchCard: () => null }));
+vi.mock('./MerchMarquee', () => ({ MerchMarquee: () => null }));
+vi.mock('./MerchSectionRail', () => ({ MerchSectionRail: () => null }));
+vi.mock('./MerchStyleSection', () => ({ MerchStyleSection: () => null }));
+vi.mock('./MerchEmptyPanel', () => ({ MerchEmptyPanel: () => null }));
+vi.mock('./MerchCard', () => ({ MerchCard: () => null }));
 
 import { MerchSectionBody } from './MerchSection';
 

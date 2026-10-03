@@ -35,16 +35,16 @@
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { ReaderExtensionsProvider, useMerch } from '@swift2/ui';
-import { hasAffiliateMerch, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
+import type { ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
+import { hasAffiliateMerch, SHOP_DISCLOSURE } from '../moment/lib/shop';
 import { newDrops, type MerchItem } from '@swift2/content-enrichment';
-import { MERCH_EXTENSIONS } from '@/lib/longlive/merch-extensions';
-import { suggestLinkSectionId } from '@/lib/longlive/section-jump';
+import { suggestLinkSectionId } from './lib/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
-import { MerchMarquee } from './merch/MerchMarquee';
-import { MerchSectionRail, type MerchRailSection } from './merch/MerchSectionRail';
-import { MerchStyleSection } from './merch/MerchStyleSection';
-import { MerchEmptyPanel } from './merch/MerchEmptyPanel';
-import { MerchCard } from './merch/MerchCard';
+import { MerchMarquee } from './MerchMarquee';
+import { MerchSectionRail, type MerchRailSection } from './MerchSectionRail';
+import { MerchStyleSection } from './MerchStyleSection';
+import { MerchEmptyPanel } from './MerchEmptyPanel';
+import { MerchCard } from './MerchCard';
 
 const SECTION_OFFICIAL = 'merch-official';
 const SECTION_FANMADE = 'merch-fanmade';
@@ -247,10 +247,10 @@ export function MerchSectionBody() {
   );
 }
 
-/** The lazy chunk's entry: attaches the merch extension here so the main route never holds it. The merch section reads no moods. */
-export function MerchSection() {
+/** The lazy chunk's entry: attaches the host-supplied merch extension here so the main route never holds it. The merch section reads no moods. */
+export function MerchSection({ extensions }: { extensions: ReaderSnapshotExtensions }) {
   return (
-    <ReaderExtensionsProvider extensions={MERCH_EXTENSIONS}>
+    <ReaderExtensionsProvider extensions={extensions}>
       <MerchSectionBody />
     </ReaderExtensionsProvider>
   );
