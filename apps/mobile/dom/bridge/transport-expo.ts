@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react';
-import { createBridgeClient } from '@swift2/ui';
+import { useEffect, useMemo, useRef } from 'react';
+import { createBridgeClient, monotonicIds } from '@swift2/ui';
 import type { BridgeClient, Envelope } from '@swift2/ui';
 
 /**
@@ -11,33 +11,56 @@ import type { BridgeClient, Envelope } from '@swift2/ui';
 export type ExpoBridgeProps = {
   /** Sequenced native-to-DOM queue, re-delivered whole on every render. */
   inbox: readonly Envelope[];
-  /** Expo DOM native action; may resolve with a `res` envelope, which is fed back. */
+  /** Expo DOM native action; may resolve with a `res` envelope, which is fed back. A rejection fails the call at once. */
   bridge: (env: Envelope) => Promise<unknown> | void;
 };
 
-export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen: () => string): BridgeClient {
-  const client: BridgeClient = createBridgeClient({
-    now: () => Date.now(),
-    idGen,
-    post(env) {
-      Promise.resolve(bridge(env)).then(
-        (reply) => {
-          if (reply !== undefined && reply !== null) client.receive(reply);
-        },
-        () => undefined,
-      );
-    },
-  });
-  return client;
+/**
+ * Calls made before the `ready` post succeeds are queued in order and flushed
+ * after it. The action's promise is returned to the client, which feeds a
+ * resolved `res` back and fails the call immediately on rejection.
+ */
+export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?: () => string): BridgeClient {
+  return createBridgeClient({ now: () => Date.now(), idGen, queueUntilReady: true, post: (env) => bridge(env) });
 }
 
-let counter = 0;
-const nextId = () => `d${Date.now().toString(36)}${(counter++).toString(36)}`;
+/**
+ * A client that survives dispose/re-mount (React StrictMode): `mount` sends
+ * `ready` and its cleanup disposes the live client; the next access builds a
+ * fresh one (a new session). One id source (seeded from `Date.now()`) is shared
+ * across re-creations, so command ids are strictly increasing and never reused.
+ */
+export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: () => string = monotonicIds(Date.now())) {
+  let live: BridgeClient | null = null;
+  const cur = (): BridgeClient => (live ??= createExpoBridgeClient(bridge, idGen));
+  const client: BridgeClient = {
+    call: (type, payload, o) => cur().call(type, payload, o),
+    on: (type, fn) => cur().on(type, fn),
+    handle: (type, fn) => cur().handle(type, fn),
+    receive: (raw) => cur().receive(raw),
+    consumeInbox: (inbox) => cur().consumeInbox(inbox),
+    sendDiag: (stage, detail) => cur().sendDiag(stage, detail),
+    sendReady: () => cur().sendReady(),
+    dispose: () => {
+      live?.dispose();
+      live = null;
+    },
+  };
+  return {
+    client,
+    mount() {
+      client.sendReady();
+      return () => client.dispose();
+    },
+  };
+}
 
-/** One client per mount: feeds `inbox` into `consumeInbox`, posts via `bridge`. */
+/** One client per mount: `ready` on mount, then `inbox` into `consumeInbox`, posting via `bridge`. */
 export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps): BridgeClient {
-  const client = useMemo(() => createExpoBridgeClient(bridge, nextId), []);
-  useEffect(() => () => client.dispose(), [client]);
-  useEffect(() => client.consumeInbox(inbox), [client, inbox]);
-  return client;
+  const ref = useRef(bridge);
+  ref.current = bridge;
+  const handle = useMemo(() => createExpoBridge((e) => ref.current(e)), []);
+  useEffect(() => handle.mount(), [handle]);
+  useEffect(() => handle.client.consumeInbox(inbox), [handle, inbox]);
+  return handle.client;
 }

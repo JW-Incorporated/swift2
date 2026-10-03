@@ -1,4 +1,4 @@
-export { DEFAULT_TIMEOUT_MS, DOM_SUPPORTED_RANGE, createBridgeClient } from './client';
+export { DEFAULT_TIMEOUT_MS, DOM_SUPPORTED_RANGE, MAX_BATCH, MAX_PENDING, createBridgeClient, monotonicIds } from './client';
 export type { BridgeClient, CallOptions, ClientOptions } from './client';
 export {
   isResResult,

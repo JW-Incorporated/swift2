@@ -83,7 +83,7 @@ describe('inbox + events', () => {
     c.consumeInbox(inbox);
     c.consumeInbox(inbox);
     expect(got).toEqual([{ token: 'a' }, { token: 'b' }]);
-    expect(acks()).toEqual([2]);
+    expect(acks()).toEqual([2, 2]);
   });
 
   it('ignores an out-of-order older seq and survives a throwing subscriber', () => {
@@ -95,7 +95,7 @@ describe('inbox + events', () => {
     c.consumeInbox([evt(5, 'insets', i)]);
     c.consumeInbox([evt(3, 'insets', { ...i, top: 9 })]);
     expect(got).toEqual([1]);
-    expect(acks()).toEqual([5]);
+    expect(acks()).toEqual([5, 5]);
   });
 
   it('drops invalid inbox entries and unsubscribes', () => {

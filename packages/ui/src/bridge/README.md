@@ -23,3 +23,9 @@ The dispatcher (WP2.3-B) must implement, and test:
 5. Replay and duplicate-id dedup: a repeated `cmd` id is not executed twice.
 6. Every inbound envelope goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
    payloads through `isWebPath`/`isExternalUrl`/`sanitizeApiRequest` before any handler runs.
+
+## DOM client (WP2.3-C)
+
+- Ids: strictly increasing digit strings, seeded from the clock at creation (`monotonicIds`); the host rejects ids at or below its high-water mark.
+- `queueUntilReady`: calls before a successful `ready` post are queued in order, flushed after; a failed `ready` is retryable. A successful `ready` resets `lastSeq` (host re-flushes its unacked queue).
+- Bounds: `MAX_PENDING` (64) calls, `MAX_BATCH` (64) inbox entries per consume. Outbound payloads are normalized (undefined keys dropped) and strict-JSON checked (`invalid`); an `ok` res value is shape-checked per command (`failed` on mismatch). `dispose` makes the client unusable.
