@@ -18,6 +18,7 @@ describe('titleFrom', () => {
 describe('bodyFrom', () => {
   it('includes the item id, era, status, headline and sources', () => {
     const body = bodyFrom({
+      key: 'k',
       headline: 'Seen leaving rehearsal',
       summary: 'Fans spotted her leaving.',
       itemId: 'ci1',
@@ -35,6 +36,7 @@ describe('bodyFrom', () => {
 
   it('defangs mentions/refs in the headline and summary', () => {
     const body = bodyFrom({
+      key: 'k',
       headline: 'ping @maintainer',
       summary: 'see #1',
       itemId: 'ci1',
@@ -126,14 +128,13 @@ describe('POST /api/intake', () => {
       number: number;
       html_url: string;
       body: string;
-      user: { login: string };
       labels: { name: string }[];
     };
     const trusted = (id: string, over: Partial<Item> = {}): Item => ({
       number: 5,
       html_url: 'http://gh/5',
-      body: `x\n${itemMarker(id)}`,
-      user: { login: 'bot' },
+      body: `x
+${itemMarker(id, 'token')}`,
       labels: [{ name: 'intake' }],
       ...over,
     });
@@ -148,7 +149,6 @@ describe('POST /api/intake', () => {
       } = {},
     ) {
       const spy = vi.fn().mockImplementation(async (url: string, init?: RequestInit) => {
-        if (url.endsWith('/user')) return json({ login: 'bot' });
         if (url.includes('/search/issues')) {
           return opts.search ? opts.search() : json({ items: opts.items ?? [] });
         }
@@ -190,36 +190,31 @@ describe('POST /api/intake', () => {
       expect(searches(spy)).toHaveLength(1);
     });
 
-    it('scopes the search to the intake label and the token owner', async () => {
+    it('scopes the search to open intake-labeled issues with the HMAC needle and a timeout', async () => {
       const spy = mockGh();
       await call('scope1', '10.2.0.3');
       const q = decodeURIComponent(String(searches(spy)[0][0]));
       expect(q).toContain('label:intake');
-      expect(q).toContain('author:bot');
+      expect(q).toContain('is:open');
+      expect(q).not.toContain('author:');
+      expect(q).toContain(itemMarker('scope1', 'token').slice(5, -4));
       expect(searches(spy)[0][1].signal).toBeDefined();
     });
 
-    it('ignores hits by another author or without the label (poisoning)', async () => {
+    it('ignores hits without the intake label or the exact marker', async () => {
       const spy = mockGh({
         items: [
-          trusted('poison1', { user: { login: 'mallory' } }),
           trusted('poison1', { labels: [] }),
           trusted('poison1', { body: 'no marker here' }),
+          trusted('poison1', { body: itemMarker('poison1', 'other-key') }),
         ],
       });
       expect((await call('poison1', '10.2.0.4')).status).toBe(201);
       expect(posts(spy)).toHaveLength(1);
     });
 
-    it('fails open when the login lookup fails', async () => {
-      vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'token-no-login');
-      const spy = vi.fn().mockImplementation(async (url: string, init?: RequestInit) => {
-        if (url.endsWith('/user')) return json({}, 401);
-        if (init?.method === 'POST') return json({ number: 12, html_url: 'http://gh/12' }, 201);
-        throw new Error('search should not run');
-      });
-      vi.stubGlobal('fetch', spy);
-      expect((await call('nologin1', '10.2.0.5')).status).toBe(201);
+    it('different keys give different markers for the same itemId', () => {
+      expect(itemMarker('same', 'k1')).not.toBe(itemMarker('same', 'k2'));
     });
 
     it.each([
@@ -238,8 +233,8 @@ describe('POST /api/intake', () => {
       await call('da', '10.2.0.7');
       await call('db', '10.2.0.7');
       expect(posts(spy)).toHaveLength(2);
-      expect(itemMarker('a/b')).not.toBe(itemMarker('a?b'));
-      expect(itemMarker('a/b')).toMatch(/^<!-- intake-item:[0-9a-f]{32} -->$/);
+      expect(itemMarker('a/b', 'k')).not.toBe(itemMarker('a?b', 'k'));
+      expect(itemMarker('a/b', 'k')).toMatch(/^<!-- intake-item:[0-9a-f]{32} -->$/);
     });
 
     it('concurrent requests for the same itemId create once', async () => {

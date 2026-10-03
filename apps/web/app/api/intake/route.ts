@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHmac } from 'node:crypto';
 
 import { NextResponse } from 'next/server';
 
@@ -53,6 +53,7 @@ export function titleFrom(headline: string): string {
 }
 
 export function bodyFrom(payload: {
+  key: string;
   headline: string;
   summary: string;
   itemId: string;
@@ -79,7 +80,7 @@ export function bodyFrom(payload: {
     '---',
     '_Reader-flagged via the Current tier — see docs/proposals/2026-08-23-knowledge-engine.md._',
     '<!-- intake:reader-verify -->',
-    itemMarker(payload.itemId),
+    itemMarker(payload.itemId, payload.key),
   ];
   return lines.filter((l): l is string => l !== null).join('\n');
 }
@@ -87,15 +88,14 @@ export function bodyFrom(payload: {
 // Best-effort idempotency (#4883): a retry after a server-side success must
 // not file a second issue. Layers, cheapest first: per-instance cache of
 // recent creates/hits, per-instance in-flight map, then a GitHub search for
-// an open, intake-labeled issue authored by this token's own user carrying
-// the marker. Cross-instance duplicates inside GitHub's search-index lag are
-// an accepted residual; durable dedupe would need a store.
-export function itemHash(itemId: string): string {
-  return createHash('sha256').update(itemId).digest('hex').slice(0, 32);
+// an open intake issue carrying the HMAC marker (see findOpenIssue for the
+// trust boundary and residuals). Durable dedupe would need a store.
+export function itemHash(itemId: string, key: string): string {
+  return createHmac('sha256', key).update(itemId).digest('hex').slice(0, 32);
 }
 
-export function itemMarker(itemId: string): string {
-  return `<!-- intake-item:${itemHash(itemId)} -->`;
+export function itemMarker(itemId: string, key: string): string {
+  return `<!-- intake-item:${itemHash(itemId, key)} -->`;
 }
 
 const INTAKE_LABEL = 'intake';
@@ -115,7 +115,6 @@ interface Outcome {
 
 const recent = new Map<string, { at: number; ref: IssueRef }>();
 const inflight = new Map<string, Promise<Outcome>>();
-const loginByToken = new Map<string, string>();
 
 function recentGet(hash: string): IssueRef | null {
   const hit = recent.get(hash);
@@ -144,35 +143,22 @@ const ghHeaders = (token: string): Record<string, string> => ({
   'User-Agent': 'longlive-intake',
 });
 
-async function viewerLogin(token: string): Promise<string | null> {
-  const cached = loginByToken.get(token);
-  if (cached) return cached;
-  try {
-    const res = await fetch('https://api.github.com/user', {
-      headers: ghHeaders(token),
-      signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
-    });
-    if (!res.ok) return null;
-    const login = ((await res.json()) as { login?: unknown }).login;
-    if (typeof login !== 'string' || !login) return null;
-    loginByToken.set(token, login);
-    return login;
-  } catch {
-    return null;
-  }
-}
-
 // Fails open: any error, timeout, 403/429 or odd response returns null so
-// intake still creates. Only issues the token's own user filed, carrying the
-// intake label and the exact marker, count — anyone can open a public issue
-// with a predictable marker, so untrusted hits must never suppress intake.
+// intake still creates. Trust boundary is the HMAC key: the marker embeds an
+// HMAC of the itemId under the server-only token, so a third party cannot
+// forge a marker for an item they have not seen filed. The intake label is
+// NOT a boundary (.github/ISSUE_TEMPLATE/intake.yml applies it for any
+// submitter); it only narrows the search. Residuals: (1) token rotation
+// changes every marker, so at most one duplicate per item after rotation;
+// (2) once filed, the marker is public, so a copy only matters if the
+// original is closed while the copy stays open, and the copy lands in the
+// founders' intake triage queue; (3) cross-instance duplicates inside
+// GitHub's search-index lag.
 async function findOpenIssue(repo: string, token: string, itemId: string): Promise<IssueRef | null> {
   try {
-    const login = await viewerLogin(token);
-    if (!login) return null;
-    const marker = itemMarker(itemId);
-    const needle = `intake-item:${itemHash(itemId)}`;
-    const q = `repo:${repo} is:issue is:open label:${INTAKE_LABEL} author:${login} in:body "${needle}"`;
+    const marker = itemMarker(itemId, token);
+    const needle = `intake-item:${itemHash(itemId, token)}`;
+    const q = `repo:${repo} is:issue is:open label:${INTAKE_LABEL} in:body "${needle}"`;
     const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(q)}&per_page=5`, {
       headers: ghHeaders(token),
       signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
@@ -183,7 +169,6 @@ async function findOpenIssue(repo: string, token: string, itemId: string): Promi
         number?: number;
         html_url?: string;
         body?: string | null;
-        user?: { login?: string } | null;
         labels?: ({ name?: string } | string)[];
       }[];
     };
@@ -191,7 +176,6 @@ async function findOpenIssue(repo: string, token: string, itemId: string): Promi
       (i) =>
         typeof i.body === 'string' &&
         i.body.includes(marker) &&
-        i.user?.login?.toLowerCase() === login.toLowerCase() &&
         (i.labels ?? []).some((l) => (typeof l === 'string' ? l : l.name) === INTAKE_LABEL),
     );
     return hit ? { number: hit.number, url: hit.html_url } : null;
@@ -276,7 +260,7 @@ export async function POST(req: Request): Promise<Response> {
         .filter((s) => s.url !== '')
     : [];
 
-  const hash = itemHash(itemId);
+  const hash = itemHash(itemId, token);
   const pending = inflight.get(hash);
   if (pending) {
     const out = await pending;
@@ -288,7 +272,7 @@ export async function POST(req: Request): Promise<Response> {
 
   const work = fileIntake(repo, token, hash, itemId, {
     title: titleFrom(headline),
-    body: bodyFrom({ headline, summary, itemId, eraId, status, sources }),
+    body: bodyFrom({ key: token, headline, summary, itemId, eraId, status, sources }),
   });
   inflight.set(hash, work);
   try {
