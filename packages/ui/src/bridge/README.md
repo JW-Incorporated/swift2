@@ -23,6 +23,7 @@ The dispatcher (WP2.3-B) must implement, and test:
 5. Replay and duplicate-id dedup: a repeated `cmd` id is not executed twice.
 6. Every inbound envelope goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
    payloads through `isWebPath`/`isExternalUrl`/`sanitizeApiRequest` before any handler runs.
+7. Pre-ready version negotiation against `NATIVE_SUPPORTED_RANGE`; out-of-range = protocol-fatal → watchdog strike (B: `onProtocolFatal`).
 
 ## DOM client (WP2.3-C)
 
