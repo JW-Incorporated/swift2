@@ -9,7 +9,14 @@
     ".": "./src/index.ts",
     "./fonts/*": "./fonts/*",
     "./reader/lib/*": "./src/reader/lib/*.ts",
-    "./reader/store/*": "./src/reader/store/*.tsx"
+    "./reader/store/*": "./src/reader/store/*.tsx",
+    "./reader/shell/ReaderShell": "./src/reader/shell/ReaderShell.tsx",
+    "./reader/shell/TopBar": "./src/reader/shell/TopBar.tsx",
+    "./reader/shell/TimelineScrubber": "./src/reader/shell/TimelineScrubber.tsx",
+    "./reader/shell/BottomNav": "./src/reader/shell/BottomNav.tsx",
+    "./reader/shell/button": "./src/reader/shell/button.tsx",
+    "./reader/shell/timelineScrubberLayout": "./src/reader/shell/timelineScrubberLayout.ts",
+    "./reader/shell/topbarLayout": "./src/reader/shell/topbarLayout.ts"
   },
   "dependencies": {
     "@swift2/content": "*",
