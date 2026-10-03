@@ -259,6 +259,15 @@ text rects + heights identical; small hero-region pixel diff (likely
 animation, unviewed). /eras allowlist → D (12 PNGs ≈21 MB). PR NOT opened —
 blocked by wp2.1a ERESOLVE → grunt reverting peer now (urgent; not waiting
 for Codex r2).
+**02:44:** wp2.1a peer reverted 4ecd7f49 (npm ci OK; root resolves react
+18.3.1 + 19.2.8, apps/web 19.2.8). B fixer + C executor told to merge it; C
+resumed to verify/parity/open PR. #4841 Codex r2 REQUEST CHANGES (P2 computed
+dynamic import/require bypass; P3 data-swift2-ui attr; P3 fingerprint
+unverified) → **Fable (mandatory, 2nd consecutive)** launched. **#4838 MERGED**
+(Android independent of iOS). **#4842 MERGED**. Image-race fix → **#4845**
+(imagesReady wait; negative 4 s-delay spec; no baselines changed; 2 green runs)
+— was based on the prune branch, retargeted to main BEFORE GitHub deleted it
+(stacked-PR rule held); reviewer r1 launched.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
