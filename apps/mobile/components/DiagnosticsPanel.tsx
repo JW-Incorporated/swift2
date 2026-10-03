@@ -70,11 +70,13 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           <Text style={styles.fact}>Build: {env.build}</Text>
           <Text style={styles.fact}>Update id: {env.updateId}</Text>
           <Text style={styles.fact}>Launch: {summary.launch}</Text>
-          <Text style={styles.section}>Stages (total ms / count)</Text>
+          <Text style={styles.section}>Stages (span: total ms; mark: at ms from launch)</Text>
           {summary.stages.length === 0 && <Text style={styles.fact}>No timings recorded yet.</Text>}
           {summary.stages.map((s) => (
             <Text key={s.stage} style={styles.fact}>
-              {s.stage}: {Math.round(s.totalMs)} ms / {s.count} (at {Math.round(s.firstStartMs)})
+              {s.maxMs === 0
+                ? `${s.stage}: at ${Math.round(s.firstStartMs)} ms / ${s.count}`
+                : `${s.stage}: ${Math.round(s.totalMs)} ms / ${s.count} (at ${Math.round(s.firstStartMs)})`}
             </Text>
           ))}
           <View style={styles.switchRow}>

@@ -79,7 +79,6 @@ describe('POST [diag] reports', () => {
         '|---|---|',
         '| `manifest` | 12.3 |',
         '| `at:manifest` | 100.0 |',
-        '| `first-era-paint` | 0.0 |',
         '| `at:first-era-paint` | 2500.5 |',
         '| `download:content:1989` | 50.0 |',
         '',

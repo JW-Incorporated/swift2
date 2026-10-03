@@ -93,7 +93,11 @@ export function diagCommentFrom(r: DiagReport): string {
     const i = (DIAG_STAGES as readonly string[]).indexOf(stage);
     return (i === -1 ? DIAG_STAGES.length : i) * 2 + (k.startsWith('at:') ? 1 : 0);
   };
-  const keys = Object.keys(r.timings).sort((a, b) => order(a) - order(b) || a.localeCompare(b));
+  // A zero-duration stage with an `at:` offset is a point mark: its offset is the datum.
+  const isPoint = (k: string): boolean => r.timings[k] === 0 && `at:${k}` in r.timings;
+  const keys = Object.keys(r.timings)
+    .filter((k) => !isPoint(k))
+    .sort((a, b) => order(a) - order(b) || a.localeCompare(b));
   return [
     '**[diag] device timing report**',
     '',
