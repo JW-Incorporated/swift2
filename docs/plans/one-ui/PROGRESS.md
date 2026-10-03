@@ -318,6 +318,9 @@ counts fonts → fix after Codex r1 (`task-mus88z07-dy3gc1`). #4843 Codex r2 P2
 (walker forms) → Fable: fix-forward → hardening fix running. WP2.3-A launched
 (2.1-B merged). WP2.4 PR 0 running. **HA #97** filed (parity-gate required),
 landing via #4848.
+**03:10:** #4843 walker hardening b5aebe07 → scoped reviewer APPROVE → auto-merge
+set WITHOUT --delete-branch (2.2-B stacked). **TODO after #4843 merges:**
+retarget any PR on feature/one-ui-wp2.2a to main, then delete that branch.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
