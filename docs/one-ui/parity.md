@@ -65,7 +65,12 @@ web build's CSP stays on for Chromium; WebKit refuses the inline style Playwrigh
 itself injects for any `page.screenshot()` under that CSP, so only the three WebKit
 projects set `bypassCSP` (side b has no CSP). Captures wait for React to own the DOM (the web build is
 server-rendered; client-only text such as the daily gloss swaps in after
-hydration) and for the root's text and height to hold still.
+hydration) and for the root's text and height to hold still. Every capture (pixel
+and a11y alike, via `openRoute` / `captureRoot` / `captureViewport`) also blocks in
+`imagesReady` until each `<img>` and CSS `background-image` in the root's first screen
+is loaded and decoded (lazy imgs are forced eager); a broken, undecodable or
+10 s-stuck image fails the test naming its URL, so a baseline can never be captured
+before a hero image paints (the #4827 flake).
 Web-only chrome outside the shared root (TopBar and its fixed timeline rail,
 footer) is hidden by stylesheet for pixel capture; the app host supplies its own.
 
@@ -91,7 +96,8 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
-4px shift fail the structural a-vs-b; the unmutated pair passes. Self-referential
+4px shift fail the structural a-vs-b; the unmutated pair passes; a 4 s delay on every external image response must still
+yield a capture identical to the undelayed one (the image-settle guard). Self-referential
 (references captured on the machine), so it runs on any OS and needs no PNGs.
 
 Not duplicated here: the OTA size budget lives in WP1.1a (#4814). The

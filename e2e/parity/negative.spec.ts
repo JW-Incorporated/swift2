@@ -68,6 +68,32 @@ test.describe('asset and image gates', () => {
   });
 });
 
+test.describe('image settle gate (a slow image must be painted before capture)', () => {
+  const DELAY_MS = 4000;
+  for (const side of ['a', 'b'] as const) {
+    test(`side ${side}: a delayed image response is waited for, so the capture matches the undelayed render`, async ({ page }, testInfo) => {
+      await openRoute(page, side, route);
+      const control = await captureRoot(page, route);
+      const delayed = new Set<string>();
+      await page.route(
+        (url) => !['127.0.0.1', 'localhost'].includes(url.hostname) && /^https?:$/.test(url.protocol),
+        async (r) => {
+          if (r.request().resourceType() !== 'image') return r.fallback();
+          delayed.add(r.request().url());
+          await new Promise((done) => setTimeout(done, DELAY_MS));
+          return r.fallback();
+        },
+      );
+      const started = Date.now();
+      await openRoute(page, side, route);
+      const shot = await captureRoot(page, route);
+      expect(delayed.size, 'the slow route must actually have intercepted images').toBeGreaterThan(0);
+      expect(Date.now() - started, 'the capture must have waited for the slow images').toBeGreaterThanOrEqual(DELAY_MS);
+      expect(await pixelMatches(testInfo, `neg-slow-${side}`, control, shot)).toBe(true);
+    });
+  }
+});
+
 test.describe('structural a-vs-b gate', () => {
   const STRUCTURAL: [string, Mutation][] = [
     ['a missing landmark', 'remove'],
