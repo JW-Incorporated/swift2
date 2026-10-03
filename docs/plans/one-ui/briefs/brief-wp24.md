@@ -1,5 +1,17 @@
 # WP2.4 executor briefs (0, A–D): shell chrome + era stream, draft for the PM
 
+## FABLE REQUIRED (2026-10-03 03:03) — apply before launch; supersedes conflicting text below
+- **PR0-1** Acceptance includes the pasted negative proof: a 1px TopBar mutation FAILS the new capture.
+- **PR0-2** Prove captureRoot untouched: existing PNGs byte-identical, and `git diff origin/main -- e2e/parity/helpers.ts` shows only additive hunks.
+- **A-3** Split by MOVE vs LOGIC: A1 = `git mv` + import fix-ups + one-line shims + type re-homing; A2 (stacked on A1) = storage.local, share, `resolveUrl`, `types.ts`, the 2.3-C contract-test leg (normal 400 tripwire).
+- **MOVE-ONLY RULE (binding for A1, B, C):** `git diff -M50% --numstat <base>` lists every moved file as a rename; every +/- line inside a renamed file is an import/export-path line — paste the output of `git diff -M50% <base> -- <moved> | grep '^[+-]' | grep -vE "^[+-]{3}|import|from '|export"` and it must be EMPTY; non-rename, non-shim, non-test lines ≤ 400. Any other hunk in a renamed file = logic → companion logic PR. The 300-line file rule is waived for move-only PRs; log the debt in `READER-MOVE.md`.
+- **C-5** apiFetch/trackKey edits are allowed inside the move only if each is the sole non-import hunk in its file and listed file:line in the PR body; otherwise C2.
+- **D-6** No `NotInAppYet` fallback: fallback receives `{mode}`; the app implementation on mount calls `navigate(tabPath)` once, then `setMode(prevMode)`, and renders an empty element. Rewrite S5 check 11 accordingly.
+- **D-7** Native screens PRESENT MODALLY over a still-mounted SharedUiHost — never unmount/remount (a remount restarts READY_TIMEOUT and loses store/scroll state). In App.tsx's `mount === 'dom'` branch render `<SharedUiHost/>` plus an RN `Modal` driven by `nativeOverlayRoute`, set by the native-owned navigate handler. One presenter `presentNativeRoute(path)` in apps/mobile/lib/dom-host-handlers.ts (whichever of 2.3-D / 2.4-D lands first defines it; add the file to D's touch set). While an overlay is up, native owns hardware back; watchdog fallback also clears overlay state; no insets change on present.
+- **D-8** Codex adversarial pass on D is mandatory.
+- **ORDER** 0 → A1 → A2 → B → C → D. 0–C may run pre-G0; ALL of D after the G0 GO; merge freeze during device sessions. Earliest wrong signal: PR 0 can't go green twice without a baseline change; then A1's probe hash ≠ fixture.json.
+- **GATE (PM):** `parity-gate` must be a REQUIRED check (branch protection — HA #97) before A1 opens. PR 0 (captures only, no moves) may proceed now.
+
 Sources: PLAN.md §WP2.4–2.13 (lines 356-389), §WP2.14 (391-394), "Calls made
 up front" C1–C6 (16-49), "Cross-cutting concerns" X1–X4 (51-75);
 OPERATING-MODE.md §5, §7, §9; brief-wp21.md, brief-wp22.md, brief-wp23.md
