@@ -1,6 +1,7 @@
 import type { EraId, LensId, TheoryNote } from './types';
-import { getThread, threadPoints, threadsInEra } from './lenses';
-import { theoriesForEra } from './theories';
+import { getThread, threadPointsIn, threadsInEraIn } from './lenses';
+import { theoriesForEraIn } from './theories';
+import { injectedCorpus, type ReaderCorpus } from './corpus';
 import { resolveAnchor } from './anchor-date';
 import type { Anchored, ThreadDoorway, EggDoorway } from './feed-types';
 
@@ -51,8 +52,17 @@ export function threadDoorwaysForEra(
   eraStart: string,
   eraEnd: string,
 ): { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored }[] {
-  return threadsInEra(eraId).map(({ id }) => {
-    const points = threadPoints(id)
+  return threadDoorwaysForEraIn(injectedCorpus(), eraId, eraStart, eraEnd);
+}
+
+export function threadDoorwaysForEraIn(
+  corpus: ReaderCorpus,
+  eraId: EraId,
+  eraStart: string,
+  eraEnd: string,
+): { kind: 'thread'; doorway: ThreadDoorway; anchor: Anchored }[] {
+  return threadsInEraIn(corpus, eraId).map(({ id }) => {
+    const points = threadPointsIn(corpus, id)
       .filter((p) => p.eraId === eraId)
       .sort((a, b) => a.date.localeCompare(b.date));
     const point = points[0]!; // threadsInEra's count > 0 guarantees this
@@ -91,7 +101,16 @@ export function eggDoorwaysForEra(
   eraStart: string,
   eraEnd: string,
 ): { kind: 'egg'; doorway: EggDoorway; anchor: Anchored }[] {
-  return theoriesForEra(eraId).map((theory) => ({
+  return eggDoorwaysForEraIn(injectedCorpus(), eraId, eraStart, eraEnd);
+}
+
+export function eggDoorwaysForEraIn(
+  corpus: ReaderCorpus,
+  eraId: EraId,
+  eraStart: string,
+  eraEnd: string,
+): { kind: 'egg'; doorway: EggDoorway; anchor: Anchored }[] {
+  return theoriesForEraIn(corpus, eraId).map((theory) => ({
     kind: 'egg' as const,
     doorway: {
       eggId: `${eraId}:${theory.slug}`,

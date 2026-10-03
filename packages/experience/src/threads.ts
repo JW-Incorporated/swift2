@@ -1,5 +1,5 @@
 import type { ContentItem, EraId, LensId } from './types';
-import { contentForThreadInjected } from './thread-content-provider';
+import { injectedCorpus, type ReaderCorpus } from './corpus';
 
 /**
  * A Thread's content, derived from tagged ContentItems (docs/decisions.md
@@ -17,10 +17,15 @@ import { contentForThreadInjected } from './thread-content-provider';
  * (`apps/web/lib/longlive/threads.ts` wires the real implementation in at
  * import time) instead of importing the app's content module directly.
  */
-export function contentForThread(threadId: LensId): ContentItem[] {
-  return contentForThreadInjected()
+export function contentForThreadIn(corpus: ReaderCorpus, threadId: LensId): ContentItem[] {
+  return corpus
+    .content()
     .filter((c) => c.threadIds?.includes(threadId))
     .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export function contentForThread(threadId: LensId): ContentItem[] {
+  return contentForThreadIn(injectedCorpus(), threadId);
 }
 
 /**

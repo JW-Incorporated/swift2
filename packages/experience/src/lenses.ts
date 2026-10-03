@@ -1,6 +1,7 @@
 import type { EggNode, LensId, Motif, MotifId } from './types';
 import { getEra } from './eras';
-import { contentForThread } from './threads';
+import { contentForThreadIn } from './threads';
+import { injectedCorpus, type ReaderCorpus } from './corpus';
 // Generated from supabase/seed/lenses/*.mjs by scripts/sync-longlive-lenses.mjs
 // (Fable 5.1 architecture review, R12 — redone against the OS-021
 // packages/experience/src layout) — the same generated-file pattern as
@@ -183,6 +184,10 @@ export interface ThreadPoint {
  * 2006→now axis.
  */
 export function threadPoints(id: LensId): ThreadPoint[] {
+  return threadPointsIn(injectedCorpus(), id);
+}
+
+export function threadPointsIn(corpus: ReaderCorpus, id: LensId): ThreadPoint[] {
   switch (id) {
     case 'love-story':
       return RELATIONSHIPS.flatMap((r) =>
@@ -224,7 +229,7 @@ export function threadPoints(id: LensId): ThreadPoint[] {
     case 'the-proposal':
       // Derived (stage 3, 2026-07-19): markers come from the tagged moments
       // themselves — the same source the thread page renders from.
-      return contentForThread('the-proposal').map((item) => ({
+      return contentForThreadIn(corpus, 'the-proposal').map((item) => ({
         date: item.date,
         eraId: item.eraId,
         label: item.title,
@@ -243,9 +248,13 @@ export const CROSSING_THREADS: LensId[] = ['love-story', 'fashion', 'taylors-ver
 
 /** Threads with at least one dated point inside the given era, with counts. */
 export function threadsInEra(eraId: string): { id: LensId; count: number }[] {
+  return threadsInEraIn(injectedCorpus(), eraId);
+}
+
+export function threadsInEraIn(corpus: ReaderCorpus, eraId: string): { id: LensId; count: number }[] {
   return CROSSING_THREADS.map((id) => ({
     id,
-    count: threadPoints(id).filter((p) => p.eraId === eraId).length,
+    count: threadPointsIn(corpus, id).filter((p) => p.eraId === eraId).length,
   })).filter((t) => t.count > 0);
 }
 
