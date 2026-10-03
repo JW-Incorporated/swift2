@@ -127,6 +127,17 @@ baselines don't match. **PM call:** land as a pair after #4827 approval —
 index.web.tsx + re-baselines on spike routes), (2) merge origin/main into
 wp0.5b keeping index.web.ts / deleting index.web.tsx, (3) #4822 → main
 (squash; then retarget #4828 to main before deleting wp0.5b/wp1.1c-2).
+**18:55: RELEASE TRAIN RED since #4799** (runs 37082264743, 37083549530,
+37083852380): EAS `Build iOS (store)` RUN_FASTLANE — profile "LongLive App
+Store 2026-09-05" lacks Associated Domains (entitlement added by #4799).
+Play submit skipped (gated on whole EAS run); publish_update_* gated on a store
+build for the new fingerprint → **no OTA since c541c2bc, and post-#4799 JS
+targets the new runtime anyway → devices need the new store builds.** Filed
+**HA #89** (Joey: enable Associated Domains on ai.jwlabs.longlive, regenerate
+profile via `eas credentials`). PM: decouple Android submit from iOS failure
+(workflow change, reversible) so S2 can run on Android. Docs PR #4834
+(stacked-PR rule) + issues #4835 (prune fixture) #4836 (MAX_PATH) filed.
+WP2.1 brief drafted (scratch brief-wp21.md; 5 open Qs).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
