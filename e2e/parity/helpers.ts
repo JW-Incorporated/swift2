@@ -53,6 +53,7 @@ const SONG_KEY = `fearless::${SONG_TRACK.trackNumber ?? 'x'}::${SONG_TRACK.title
 /** Side-a-only baselines (One UI PR0, WP2.5-2.8): surfaces side b does not render yet. `prepare` runs after the route settles; `clip` (when set) is captured instead of the root. */
 export interface AOnlyRoute extends RouteLike {
   prepare?: (page: Page) => Promise<void>;
+  init?: (page: Page) => Promise<void>;
   clip?: string;
 }
 const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main' });
@@ -240,6 +241,7 @@ export async function openRoute(page: Page, side: Side, route: RouteLike, inset?
 
 /** Open an A-only route, run its prepare step, and settle. */
 export async function openAOnlyRoute(page: Page, route: AOnlyRoute): Promise<void> {
+  await route.init?.(page);
   await openRoute(page, 'a', route);
   if (!route.prepare) return;
   await route.prepare(page);
@@ -299,7 +301,8 @@ async function hydrated(page: Page, route: RouteLike): Promise<void> {
     const owned = (el: Element | null) =>
       !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'));
     const root = document.querySelector(sel);
-    return owned(root) && owned(root?.querySelector('button') ?? null);
+    const button = root?.querySelector('button') ?? null;
+    return owned(root) && (button === null || owned(button));
   }, route.root);
 }
 
@@ -499,3 +502,77 @@ export async function mutate(page: Page, route: Route, kind: Mutation): Promise<
   }, kind);
   await settle(page, route.root);
 }
+
+const CLOWN_ANSWER_NDJSON =
+  JSON.stringify({
+    type: 'answer',
+    answer: {
+      kind: 'take',
+      theoryName: null,
+      segments: [
+        { role: 'stance', text: 'Parity fixture stance.' },
+        { role: 'argument', text: 'Parity fixture argument, fixed for the screenshot.' },
+      ],
+      delulu: 3,
+      sources: [],
+      investigation: [],
+    },
+  }) + '\n';
+
+/** Side-a-only baselines (One UI PR0-beta, WP2.9-2.13): merch, community, clownbot, mood, notification settings and the legal pages. */
+export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
+  { name: 'merch', path: '/?mode=merch', root: 'main' },
+  { name: 'community', path: '/?mode=community', root: 'main' },
+  { name: 'clownbot', path: '/?mode=clownbot', root: 'main' },
+  {
+    name: 'clownbot-transcript',
+    path: '/?mode=clownbot',
+    root: 'main',
+    prepare: async (page) => {
+      await page.route('**/api/clown', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/x-ndjson', body: CLOWN_ANSWER_NDJSON }),
+      );
+      await page.locator('#clown-input').fill('parity question');
+      await page.getByRole('button', { name: 'Send to clown bot' }).click();
+      await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
+    },
+  },
+  { name: 'mood', path: '/?mode=mood', root: 'main' },
+  {
+    name: 'settings-notifications',
+    path: '/settings/notifications',
+    root: 'main',
+    init: async (page) => {
+      await page.addInitScript(() => {
+        const define = (target: object, key: string, value: unknown) =>
+          Object.defineProperty(target, key, { configurable: true, get: () => value });
+        class FakeNotification {
+          static permission = 'default';
+          static requestPermission() {
+            return Promise.resolve('default');
+          }
+        }
+        if ('Notification' in window) define(window.Notification, 'permission', 'default');
+        else define(window, 'Notification', FakeNotification);
+        if (!('PushManager' in window)) define(window, 'PushManager', class PushManager {});
+        if (!('serviceWorker' in navigator)) define(navigator, 'serviceWorker', {});
+      });
+    },
+  },
+  { name: 'privacy', path: '/privacy', root: 'main' },
+  { name: 'terms', path: '/terms', root: 'main' },
+  { name: 'support', path: '/support', root: 'main' },
+];
+
+/** One element per new surface for the 1px negatives (a root clip is under the iPad tolerance). */
+export const BETA_NEGATIVE_TARGETS: Record<string, string> = {
+  merch: 'section[aria-labelledby="merch-new-drops"]',
+  community: 'main h1',
+  clownbot: 'form:has(#clown-input)',
+  'clownbot-transcript': 'form:has(#clown-input)',
+  mood: 'form:has(#mood-input)',
+  'settings-notifications': 'main h1',
+  privacy: 'main h1',
+  terms: 'main h1',
+  support: 'main h1',
+};

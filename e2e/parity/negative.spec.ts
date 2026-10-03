@@ -9,6 +9,8 @@ import {
   expect,
   FOOTER_SELECTOR,
   A_ONLY_ROUTES,
+  A_ONLY_ROUTES_BETA,
+  BETA_NEGATIVE_TARGETS,
   captureLocator,
   ITEM_SOCIAL,
   mutate,
@@ -293,4 +295,20 @@ test.describe('One UI PR0 a-only gates (WP2.5-2.8: a 1px mutation of each new su
     const mutated = await captureElement(page, 'main h1', clip);
     expect(await pixelMatches(testInfo, 'neg-threads-1px', clean, mutated)).toBe(false);
   });
+});
+
+test.describe('One UI PR0-beta a-only gates (WP2.9-2.13: a 1px shift of each new surface fails its clip)', () => {
+  for (const route of A_ONLY_ROUTES_BETA) {
+    test(`a 1px shift on ${route.name} fails its clip`, async ({ page }, testInfo) => {
+      const selector = BETA_NEGATIVE_TARGETS[route.name]!;
+      await openAOnlyRoute(page, route);
+      const clip = await elementBox(page, selector);
+      const clean = await captureElement(page, selector, clip);
+      await page.locator(selector).first().evaluate((el) => {
+        el.style.transform = 'translateY(1px)';
+      });
+      const mutated = await captureElement(page, selector, clip);
+      expect(await pixelMatches(testInfo, `neg-beta-${route.name}`, clean, mutated)).toBe(false);
+    });
+  }
 });

@@ -119,6 +119,13 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    fashion career scrubber, the song OverlayNav and the search combobox row. The fixture
    covers only Fearless and TLOAS, so some threads are sparse. `negative.spec.ts` proves a
    1px mutation fails the rail clip, the search row clip and the threads root capture.
+   One UI PR0-beta (WP2.9-2.13) adds more side-a-only baselines (`A_ONLY_ROUTES_BETA` in
+   `helpers.ts`): `a-merch`, `a-community`, `a-clownbot`, `a-clownbot-transcript` (a stubbed
+   `/api/clown` NDJSON answer), `a-mood`, `a-settings-notifications` (the Notification, PushManager
+   and serviceWorker APIs are stubbed to `default` before load), `a-privacy`, `a-terms` and
+   `a-support` (the footer capture `a-support-footer` is unchanged). `negative.spec.ts` proves a
+   1px translate of one element per surface (`BETA_NEGATIVE_TARGETS`) fails its element clip on all
+   four projects. `hydrated` no longer waits for a button when the root has none (static legal pages).
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a

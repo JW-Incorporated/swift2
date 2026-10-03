@@ -1,5 +1,6 @@
 import {
   A_ONLY_ROUTES,
+  A_ONLY_ROUTES_BETA,
   captureElement,
   captureLocator,
   captureViewport,
@@ -52,6 +53,14 @@ for (const route of A_ONLY_ROUTES) {
     await openAOnlyRoute(page, route);
     const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
     expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+  });
+}
+
+// One UI PR0-beta (WP2.9-2.13): side-a-only baselines for merch, community, clownbot, mood, notification settings and the legal pages.
+for (const route of A_ONLY_ROUTES_BETA) {
+  test(`a (web build) ${route.name}`, async ({ page }) => {
+    await openAOnlyRoute(page, route);
+    expect(await captureRoot(page, route)).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
   });
 }
 
