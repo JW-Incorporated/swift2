@@ -8,12 +8,12 @@ import {
   CROSSING_THREADS,
   getThread,
   threadCrossings,
-  threadPoints,
   type Crossing,
 } from '@swift2/experience';
 import type { LensId } from '@swift2/experience';
 import { accentFgFor } from '@/lib/longlive/theme';
 import { cn } from '@/lib/utils';
+import { useReader } from '@swift2/ui';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { resolveCrossingMarkerTops } from './crossingMarkerLayout';
 
@@ -48,6 +48,7 @@ function gapLabel(days: number): string {
  */
 export function Crossings({ a, b }: { a: LensId; b: LensId }) {
   const { openCrossing, closeCrossing, openThread, openEra } = useAppActions();
+  const q = useReader();
   const [selected, setSelected] = useState<number | null>(null);
 
   // Close on Escape (#525) — the open crossing detail first (same as its X),
@@ -79,8 +80,8 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
   const IconA = THREAD_ICONS[a] ?? Heart;
   const IconB = THREAD_ICONS[b] ?? Heart;
 
-  const pointsA = useMemo(() => threadPoints(a), [a]);
-  const pointsB = useMemo(() => threadPoints(b), [b]);
+  const pointsA = useMemo(() => q.threadPoints(a), [q, a]);
+  const pointsB = useMemo(() => q.threadPoints(b), [q, b]);
   const crossings = useMemo(() => threadCrossings(a, b), [a, b]);
 
   // Diamond tops after the ≥24px collision pass (#701); connectors keep the true dates.

@@ -3,7 +3,7 @@
 import { emptyFeedMessage, type EraFeedEntry, type RenderFeedEntry, type CardTier } from '@swift2/experience';
 import type { FilterId } from '@swift2/experience';
 import type { Era } from '@swift2/experience';
-import type { WatchableVideoNote } from '@/lib/longlive/videos';
+import type { WatchableVideoNote } from '@swift2/content-enrichment';
 import type { CurrentItem } from '@swift2/shared';
 import { MomentCard } from './MomentCard';
 import { VideoMomentCard } from './VideoMomentCard';

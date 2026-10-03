@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { EGG_NODES, getEra } from '@swift2/experience';
-import { getContentItem } from '@/lib/longlive/content';
+import { useReader } from '@swift2/ui';
 import { hasShareableProgress, summarizeProgress } from '@/lib/longlive/share-card-params';
 import { useProgress } from '@/lib/longlive/store';
 import { ShareImageMenu } from './ShareImageMenu';
@@ -16,13 +16,14 @@ import { ShareImageMenu } from './ShareImageMenu';
  */
 export function YourLongLiveCard() {
   const { progress, hydrated } = useProgress();
+  const q = useReader();
   const summary = useMemo(
     () =>
       summarizeProgress(progress, {
-        itemEra: (id) => getContentItem(id)?.eraId,
+        itemEra: (id) => q.getContentItem(id)?.eraId,
         eggEra: (id) => EGG_NODES.find((n) => n.id === id)?.eraId,
       }),
-    [progress],
+    [q, progress],
   );
   if (!hydrated || !hasShareableProgress(progress) || summary.eras.length === 0) return null;
   const top = getEra(summary.eras[0]);

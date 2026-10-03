@@ -6,13 +6,14 @@
 // "Asset not found: __common"). Returns one component: era stream + moment
 // detail + bottom nav inside the web AppProvider, plus the Android back bridge.
 import { createElement, useEffect, useRef, type ComponentType } from 'react';
-import { HostProvider } from '@swift2/ui';
+import type { ReaderSnapshotCore } from '@swift2/experience/reader-snapshot';
+import { HostProvider, ReaderSnapshotProvider } from '@swift2/ui';
 import { resolveAppUrl } from './resolve-url';
 
 type BackResult = 'handled' | 'exit';
 export type ReaderProps = { backTick: number; onBack: (r: BackResult) => void };
 
-export function loadReader(): ComponentType<ReaderProps> {
+export function loadReader(snapshot: ReaderSnapshotCore): ComponentType<ReaderProps> {
   const store = require('../../../web/lib/longlive/store') as typeof import('../../../web/lib/longlive/store');
   const theme = require('../../../web/lib/longlive/theme') as typeof import('../../../web/lib/longlive/theme');
   const experience = require('@swift2/experience') as typeof import('@swift2/experience');
@@ -54,7 +55,10 @@ export function loadReader(): ComponentType<ReaderProps> {
     return createElement(
       HostProvider,
       { adapter },
-      createElement(store.AppProvider, null, createElement(Shell, props)),
+      createElement(ReaderSnapshotProvider, {
+        value: snapshot,
+        children: createElement(store.AppProvider, null, createElement(Shell, props)),
+      }),
     );
   };
 }

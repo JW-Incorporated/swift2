@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { render } from '@testing-library/react';
+
 import { EraSection } from './EraSection';
+import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
 import { TestHostProvider } from '@/lib/test-host';
 import { CURRENT_ERA_ID, getEra } from '@swift2/experience';
@@ -29,7 +30,7 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
   // the file regardless of whether it renders.
   it('EraSection renders the era hero h1, and EraFeedList (nested inside it) contributes the only h2', () => {
     const era = getEra(CURRENT_ERA_ID);
-    const { container } = render(
+    const { container } = renderWithReader(
       <TestHostProvider>
         <AppProvider>
           <EraSection era={era} />
