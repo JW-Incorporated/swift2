@@ -23,10 +23,23 @@ import {
   type WebSharePayload,
   type WebShareResult,
 } from './share-action';
+import type { HostAdapter } from '../../host/types';
 import { shareCardPath, type ShareCardSize, type ShareCardSource } from './share-card-params';
 
 /** The lookups a share payload needs, from the reader snapshot (`useReader()`); required, never defaulted. */
 export type SharePayloadData = Pick<ReaderQueries, 'getContentItem' | 'resolveTrackKey'>;
+
+/**
+ * The host members a share needs (`useHost()`). Omitted on the web: the
+ * navigator.share / clipboard path and same-origin URLs are unchanged.
+ */
+export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl'>;
+
+function shareBaseUrl(host: ShareHost | undefined): string {
+  return host?.resolveUrl
+    ? host.resolveUrl(window.location.pathname)
+    : window.location.origin + window.location.pathname;
+}
 
 export function sharePayloadForTarget(
   target: ShareTarget,
@@ -72,10 +85,11 @@ export function sharePayloadForTarget(
 export async function shareTarget(
   target: ShareTarget,
   data: SharePayloadData,
+  host?: ShareHost,
 ): Promise<WebShareResult> {
-  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname, data);
+  const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
   const result = await triggerWebShare(payload, {
-    share: navigator.share?.bind(navigator),
+    share: host?.share ?? navigator.share?.bind(navigator),
     copyText: navigator.clipboard?.writeText.bind(navigator.clipboard),
   });
   if (result === 'fallback' || result === 'unavailable') {
@@ -107,9 +121,13 @@ const MAX_PREFETCHED = 6;
 const readyCards = new Map<string, File>();
 const pendingCards = new Map<string, Promise<File | null>>();
 
-async function fetchCardFile(path: string, size: ShareCardSize): Promise<File | null> {
+async function fetchCardFile(
+  path: string,
+  size: ShareCardSize,
+  resolveUrl: (path: string) => string,
+): Promise<File | null> {
   try {
-    const res = await fetch(path);
+    const res = await fetch(resolveUrl(path));
     if (!res.ok) return null;
     return new File([await res.blob()], `long-live-${size}.png`, { type: 'image/png' });
   } catch {
@@ -121,13 +139,14 @@ async function fetchCardFile(path: string, size: ShareCardSize): Promise<File | 
 export function prefetchShareCard(
   source: ShareCardSource,
   size: ShareCardSize,
+  resolveUrl: (path: string) => string = (path) => path,
 ): Promise<File | null> {
   const path = shareCardPath(source, size);
   const ready = readyCards.get(path);
   if (ready) return Promise.resolve(ready);
   const pending = pendingCards.get(path);
   if (pending) return pending;
-  const started = fetchCardFile(path, size).then((file) => {
+  const started = fetchCardFile(path, size, resolveUrl).then((file) => {
     pendingCards.delete(path);
     if (file) {
       readyCards.set(path, file);
@@ -157,10 +176,20 @@ export async function shareCardImage(
   source: ShareCardSource,
   size: ShareCardSize,
   data: SharePayloadData,
+  host?: ShareHost,
 ): Promise<ImageShareResult | 'error'> {
-  const payload = sharePayloadForTarget(target, window.location.origin + window.location.pathname, data);
+  const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
+  // The bridge share carries no files: a host with share gets a link share.
+  if (host?.share) {
+    try {
+      await host.share(payload);
+      return 'native';
+    } catch {
+      return 'cancelled';
+    }
+  }
   const file =
-    readyCards.get(shareCardPath(source, size)) ?? (await prefetchShareCard(source, size));
+    readyCards.get(shareCardPath(source, size)) ?? (await prefetchShareCard(source, size, host?.resolveUrl));
   if (!file) return 'error';
   // Native file sharing only on touch devices: desktop Chromium reports
   // canShare({files}) too, but opens an OS share dialog where a saved PNG is

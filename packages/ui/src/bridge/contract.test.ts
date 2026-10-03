@@ -15,6 +15,8 @@ import type {
   ResultOf,
 } from './messages';
 import type { BridgeApiRequest, ExternalUrl, WebPath } from './validate';
+import type { ShareHost } from '../reader/lib/share-payload';
+import type { HostStorage } from '../host/types';
 
 /**
  * Three-leg drift check (WP2.3-C, Fable REQUIRED 3). Compile-time legs are
@@ -139,5 +141,13 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   it('onBack: boolean consumption <-> back res handled|exit', () => {
     expectTypeOf<ReturnType<Parameters<HostAdapter['onBack']>[0]>>().toEqualTypeOf<boolean>();
     expectTypeOf<ResultOf<'back'>>().toEqualTypeOf<'handled' | 'exit'>();
+  });
+
+  it('reader consumers (WP2.4-A2): ShareHost, resolveUrl and storage.local', () => {
+    expectTypeOf<ShareHost>().toEqualTypeOf<Pick<HostAdapter, 'share' | 'resolveUrl'>>();
+    expectTypeOf<NonNullable<ShareHost['share']>>().toEqualTypeOf<NonNullable<HostAdapter['share']>>();
+    expectTypeOf<NonNullable<HostAdapter['resolveUrl']>>().toEqualTypeOf<(path: string) => string>();
+    expectTypeOf<HostAdapter['storage']['local']>().toEqualTypeOf<HostStorage>();
+    expectTypeOf<ReturnType<HostStorage['get']>>().toEqualTypeOf<string | null>();
   });
 });

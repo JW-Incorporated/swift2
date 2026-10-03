@@ -28,11 +28,14 @@ export const EMPTY_LIVE_DATA: LiveData = { items: [], theories: [], signals: [] 
 // of each firing their own.
 const inFlight = new Map<string, Promise<LiveData>>();
 
-export function fetchLiveData(eraId: string): Promise<LiveData> {
+export function fetchLiveData(
+  eraId: string,
+  resolveUrl: (path: string) => string = (path) => path,
+): Promise<LiveData> {
   const existing = inFlight.get(eraId);
   if (existing) return existing;
 
-  const promise = fetch(`/vault/live/${encodeURIComponent(eraId)}`)
+  const promise = fetch(resolveUrl(`/vault/live/${encodeURIComponent(eraId)}`))
     .then((res) => (res.ok ? res.json() : EMPTY_LIVE_DATA))
     .then(
       (data: { items?: unknown; theories?: unknown; signals?: unknown }): LiveData => ({
