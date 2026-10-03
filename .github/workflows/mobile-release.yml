@@ -214,7 +214,7 @@ jobs:
           const cell = (v) => String(v ?? '?').replace(/[\r\n]+/g, ' ').replace(/[|`<>]/g, ' ').slice(0, 120);
           const eas = (args) => {
             if (Date.now() > deadline) throw new Error('lookup skipped: time budget (200 s) exhausted');
-            const s = execFileSync('eas', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 25000 });
+            const s = execFileSync('eas', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 25000, maxBuffer: 64 * 1024 * 1024 });
             return JSON.parse(s.slice(s.search(/[[{]/)));
           };
           const rowsOf = (p) =>

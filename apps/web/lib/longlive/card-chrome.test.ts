@@ -228,7 +228,7 @@ describe('VideoPoster keeps the #2051 accessibility contract', () => {
 });
 
 const MOMENT_DETAIL = readFileSync(
-  new URL('../../components/longlive/MomentDetail.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/moment/MomentDetail.tsx', import.meta.url),
   'utf8',
 );
 

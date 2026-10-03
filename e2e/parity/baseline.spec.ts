@@ -1,14 +1,24 @@
 import {
+  A_ONLY_ROUTES,
   captureElement,
+  captureLocator,
   captureViewport,
   captureRoot,
   expect,
   FOOTER_SELECTOR,
+  FOLLOW_CLIP,
+  ITEM_SOCIAL,
+  LIGHTBOX_CLIP,
+  openAOnlyRoute,
   openRoute,
   openSupportFooter,
   PIXEL_OPTS,
+  RAIL_CLIP,
   realInsets,
   ROUTES,
+  SCRUBBER_CLIP,
+  SEARCH_ROW_CLIP,
+  SONG_NAV_CLIP,
   test,
 } from './helpers';
 
@@ -35,6 +45,47 @@ for (const route of ROUTES) {
     expect(await captureViewport(page)).toMatchSnapshot(`b-${route.name}-viewport.png`, PIXEL_OPTS);
   });
 }
+
+// One UI PR0 (WP2.5-2.8): side-a-only baselines for surfaces that move into packages/ui; side b does not render them yet.
+for (const route of A_ONLY_ROUTES) {
+  test(`a (web build) ${route.name}`, async ({ page }) => {
+    await openAOnlyRoute(page, route);
+    const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
+    expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+  });
+}
+
+test('a (web build) item-social related rail', async ({ page }) => {
+  await openAOnlyRoute(page, ITEM_SOCIAL);
+  expect(await captureLocator(page, RAIL_CLIP)).toMatchSnapshot('a-item-social-related-rail.png', PIXEL_OPTS);
+});
+
+test('a (web build) item-social follow-threads row', async ({ page }) => {
+  await openAOnlyRoute(page, ITEM_SOCIAL);
+  expect(await captureLocator(page, FOLLOW_CLIP)).toMatchSnapshot('a-item-social-follow-threads.png', PIXEL_OPTS);
+});
+
+test('a (web build) item lightbox', async ({ page }) => {
+  await openRoute(page, 'a', ROUTES[1]);
+  await page.locator('[role="dialog"] button[aria-label="View photo full screen"]').first().click();
+  await expect(page.locator(LIGHTBOX_CLIP)).toBeVisible();
+  expect(await captureElement(page, LIGHTBOX_CLIP)).toMatchSnapshot('a-item-lightbox.png', PIXEL_OPTS);
+});
+
+test('a (web build) lens-fashion scrubber', async ({ page }) => {
+  await openAOnlyRoute(page, A_ONLY_ROUTES.find((r) => r.name === 'lens-fashion')!);
+  expect(await captureElement(page, SCRUBBER_CLIP)).toMatchSnapshot('a-lens-fashion-scrubber.png', PIXEL_OPTS);
+});
+
+test('a (web build) song overlay nav', async ({ page }) => {
+  await openAOnlyRoute(page, A_ONLY_ROUTES.find((r) => r.name === 'song')!);
+  expect(await captureElement(page, SONG_NAV_CLIP)).toMatchSnapshot('a-song-nav.png', PIXEL_OPTS);
+});
+
+test('a (web build) search combobox row', async ({ page }) => {
+  await openAOnlyRoute(page, A_ONLY_ROUTES.find((r) => r.name === 'search-open')!);
+  expect(await captureElement(page, SEARCH_ROW_CLIP)).toMatchSnapshot('a-search-row.png', PIXEL_OPTS);
+});
 
 test('a (web build) home topbar', async ({ page }) => {
   await openRoute(page, 'a', ROUTES[0]);

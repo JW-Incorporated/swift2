@@ -25,10 +25,10 @@ function openingTag(src: string, marker: string): string {
 }
 
 describe('#657 MomentDetail sheet is a real focus-trapped dialog', () => {
-  const src = read('./MomentDetail.tsx');
+  const src = read('../../../../packages/ui/src/reader/moment/MomentDetail.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from './lib/useFocusTrap';");
   });
 
   it('the sheet root declares dialog semantics and a focus target', () => {

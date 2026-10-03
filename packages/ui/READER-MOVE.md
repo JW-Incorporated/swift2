@@ -73,8 +73,19 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 `src/index.ts`. Deep imports: `@swift2/ui/reader/<slice>/X` (.tsx) and
 `@swift2/ui/reader/<slice>/lib/X` (.ts).
 
+Slice barrels are intentionally empty; import via `@swift2/ui/reader/<slice>/<File>`
+or `…/lib/<module>`; populate a barrel only when a consumer needs it.
+
 ### WP2.5 moment
-(pending)
+
+2.5-A1 (move-only): `MomentDetail`, `MomentSocialPost`, `ZoomableImage` to `reader/moment/`; `contain-fit`, `related`, `useFocusTrap`, `shop`, `shop-networks` and `awin-advertisers.json` to `reader/moment/lib/`. Pure tests moved with them (`ZoomableImage`, `contain-fit`, `useFocusTrap`, `shop`, `shop-networks`).
+
+- Shims (one-line `export *`, in `apps/web`): `components/longlive/MomentDetail.tsx`, `lib/longlive/{related,shop,useFocusTrap}.ts`. Plain renames (no outside importer): `MomentSocialPost`, `ZoomableImage`, `contain-fit`, `shop-networks`, `awin-advertisers.json`.
+- Type re-homing: `shop.ts` takes `MerchItem` from `@swift2/content-enrichment` (its real source) instead of `./merch`.
+- Tests that stay in `apps/web` (web data or render harness): `MomentDetail.test.tsx`, `related.test.ts`. Source-reading tests (`back-dismiss`, `escape-dismiss`, `focal-point-rendering`, `modal-focus-trap`, `card-chrome`) now read the moved `MomentDetail.tsx`; `modal-focus-trap` expects the new relative `useFocusTrap` import.
+- Hooks `useHost`/`useReader` are imported from `../../host/context` and `../../snapshot/context` (package-internal), a two-line import edit.
+- `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
+- Debt: `MomentDetail.tsx` (1216) and `ZoomableImage.tsx` (382) over the 300-line rule; moved as-is.
 
 ### WP2.6 threads
 
@@ -104,7 +115,13 @@ Not moved: `TheoryGuide` (imports `useFocusTrap`, owned by WP2.5; follow-up once
 (pending)
 
 ### WP2.12 settings
-(pending)
+A1 + A2 in one PR (PM ruling), separate commits.
+
+- A1 (move-only): `WebNotificationSettings.tsx` -> `reader/settings/`. Old path is a one-line `export *` shim (stays until WP2.13). The `accent-fill-foreground` source-read test is repointed.
+- A2 (logic): `HostAdapter.webPush?: HostWebPush` (additive, web adapter only; app host omits it). The web implementation `webPushHost` in `apps/web/lib/host-adapter.tsx` wraps the unchanged `web-push-client` functions and the `/api/devices/:id/prefs` GET/PUT, so web behaviour is identical. `WebNotificationSettings` reads them via `useHost().webPush` (absent -> "unsupported" state); `WebPushSubscribeResult` re-homed to `host/types.ts`.
+- New `NotificationSettingsPage.tsx` (page body, `next/link` -> `useHost().Link`); `app/settings/notifications/page.tsx` keeps `metadata` and the VAPID env read and renders it.
+- `lib/web-push-client.ts` does not move. Tests: `components/longlive/WebNotificationSettings.host.test.tsx`.
+- Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
 
 ### WP2.13 legal
 (pending)

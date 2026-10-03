@@ -3,17 +3,12 @@
 // state into the train state file (argv[2]) and emits `ios_submit_id` when the
 // iOS submit gate passes. Exits 1 unless every started build FINISHED. A
 // timeout does NOT cancel the builds on EAS; they keep running there.
-import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { applyBuild, awaitBuilds, iosSubmitId, viewArgs } from './train-lib.mjs';
+import { applyBuild, awaitBuilds, iosSubmitId, runEas, viewArgs } from './train-lib.mjs';
 
 const view = async (id) => {
-  const s = execFileSync('eas', viewArgs(id), {
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'pipe'],
-    timeout: 60000,
-  });
+  const s = runEas(viewArgs(id), { timeout: 60000, stderr: 'pipe' });
   return JSON.parse(s.slice(s.search(/[[{]/)));
 };
 

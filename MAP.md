@@ -614,6 +614,7 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `packages/ui/src/bridge/client.ts` (+ `client.test.ts`, `contract.test.ts`) | WP2.3-C transport-neutral DOM bridge client (`createBridgeClient`: id-correlated `call` with timeout/abort->`cancel`, `consumeInbox` seq dedupe + `ack`, `on`/`handle('back')`, `sendReady`); contract test = 3 type-level legs (client <-> `HandlerMap`, host handler signatures, `HostAdapter` <-> `PayloadOf`/`ResultOf`) |
 | `apps/mobile/dom/bridge/transport-expo.ts` (+ test) | WP2.3-C the ONE Expo-DOM-specific DOM-side file (`inbox` prop + `bridge` action -> client); NOT yet imported by ReaderSpike/SharedUiTest (waits for G0) |
 | `apps/mobile/lib/bridge-host.ts` (+ `bridge-host.test.ts`, `bridge-host-queue.test.ts`, `bridge-host.test-kit.ts`) | WP2.3-B native bridge dispatcher: pure/transport-neutral `createBridgeHost` (injected clock/scheduler/send/handlers). One res per cmd, 8 s per-type timeouts, `cancel`, bounded-LRU replay dedup, per-command validators before handlers, pre-ready seq queue + ack trim, version check vs `NATIVE_SUPPORTED_RANGE` -> `onProtocolFatal` (the only watchdog path). NOT wired into SharedUiHost/App yet (step 4 waits for G0) |
+| `apps/mobile/lib/bridge-handlers-ui.ts` (+ test) | WP2.3-D1 UI bridge handlers: pure `createHandlers(deps)` (navigate/openExternal/share/haptic, injected native deps, validation before deps), `createBackHandler` (false pre-ready; non-`handled` -> exitApp; 1000 ms), `createInsetsEmitter`, `createContentVersionEmitter`. No RN/Expo imports; unwired until D2 (post-G0). |
 | `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
 | `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
 | `packages/content/src/timing.ts` (+ test) | One UI WP0.1: optional load-stage hooks (`beginStage`, `setLoadTimingSink`); shared no-op when no sink is registered; `load.ts` reports pointer/manifest/download/hash/parse/validate/disk-write/load-total |
@@ -650,10 +651,14 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 
 ## One UI reader slices (WP2.5-2.13 scaffold)
 
-Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and package subpath exports already exist; each slice adds its rows only under its own heading.
+Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and package subpath exports already exist (no root re-exports; import via deep subpaths); each slice adds its rows only under its own heading.
 
 ### WP2.5 moment
-(pending)
+
+| Path | What |
+|---|---|
+| `packages/ui/src/reader/moment/{MomentDetail,MomentSocialPost,ZoomableImage}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.5-A1, move-only). `apps/web/components/longlive/MomentDetail.tsx` is a one-line `export *` shim (until D / WP2.13) |
+| `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 
 ### WP2.6 threads
 | Path | Purpose | Notes |
@@ -676,7 +681,11 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 (pending)
 
 ### WP2.12 settings
-(pending)
+| File | Purpose |
+|---|---|
+| `packages/ui/src/reader/settings/WebNotificationSettings.tsx` | Web-push settings screen; reads `useHost().webPush`. Old `apps/web/components/longlive/` path is a shim |
+| `packages/ui/src/reader/settings/NotificationSettingsPage.tsx` | Body of `/settings/notifications` (`useHost().Link`); the Next page keeps `metadata` + VAPID env |
+| `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
 
 ### WP2.13 legal
 (pending)

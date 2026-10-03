@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+
 // Pure decision/state logic for the GitHub-hosted mobile release train
 // (docs/mobile-release.md). Mirrors the jobs of the retired EAS workflow
 // (apps/mobile/.eas/workflows/release.yml, kept in git history): the state
@@ -116,3 +118,15 @@ export const listArgs = (platform, hash) => [
   'build:list', '--platform', platform, '--fingerprint-hash', hash, '--build-profile', 'production',
   '--status', 'finished', '--limit', '1', '--json', '--non-interactive',
 ];
+
+// eas JSON can be huge (fingerprint:generate prints the full sources list,
+// ~1.1 MB); Node's default 1 MiB maxBuffer would throw and truncate stdout.
+export const EAS_MAX_BUFFER = 64 * 1024 * 1024;
+export function runEas(args, { timeout, stderr = 'inherit', exec = execFileSync } = {}) {
+  return exec('eas', args, {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', stderr],
+    timeout,
+    maxBuffer: EAS_MAX_BUFFER,
+  });
+}
