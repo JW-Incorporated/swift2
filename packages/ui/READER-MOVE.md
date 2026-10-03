@@ -77,7 +77,16 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 (pending)
 
 ### WP2.6 threads
-(pending)
+
+2.6-A1, move-only. Components to `reader/threads/` (subfolders `decode`, `love-story`, `proposal`, `runway`, `taylors-version` kept); `.ts` modules to `reader/threads/lib/` (`lib/decode/patternRailLayout.ts` keeps the subfolder).
+
+Moved: `ThreadsMode`, `ThreadsTimeline`, `ClueWeb`, `Crossings`, `FromTheEras`, `LiveTheoryCard`, `TheoryCard`, `crossingMarkerLayout`, `decode/{DecodeThread,DecodeCard,PatternRail,StatBar,patternRailLayout}`, `love-story/{LoveStoryThread,EntryDetail}`, `proposal/ProposalThread`, `runway/RunwayThread`, `taylors-version/{TaylorsVersionThread,AlbumNarrativeCard,BuybackBeat,OwnershipTimeline,SpotifyCompare}`, libs `decode`, `love-story`, `live-theories`. Pure tests moved with them: `crossingMarkerLayout`, `patternRailLayout`, `decode`.
+
+Shims (importer outside the moved set): `apps/web/components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx`, `apps/web/lib/longlive/live-theories.ts`. Plain renames: everything else.
+
+Not moved: `TheoryGuide` (imports `useFocusTrap`, owned by WP2.5; follow-up once it lands), `threads.ts`/`theories.ts` (data). Tests staying in `apps/web` (read component source, or wire app-layer data): `crossings-*`, `decode-ink-soft-opacity`, `EntryDetail`, `LoveStoryThread`, `ProposalThread`, `ownershipTimeline`, `love-story-songs`; plus the shared source-lock lists, repointed.
+
+`noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit. A2 expected empty. Debt: `ClueWeb.tsx` (911), `Crossings.tsx` (620), `ThreadsTimeline.tsx` (469), `ThreadsMode.tsx` (434), `LoveStoryThread.tsx` (414) over the 300-line rule.
 
 ### WP2.7 tracks
 (pending)
