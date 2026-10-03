@@ -18,6 +18,14 @@ build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-ev
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
 
+**ADDENDUM 2026-10-03 14:47 PDT (supersedes earlier addenda where they conflict):**
+- ALL pre-G0 One UI work is merged or auto-merging. Merged since 13:40 (or armed): #4915 #4917 #4919 #4921 (speed-test scorer, `npm run one-ui:score-speed`) #4922 (client-corpus sentinel) #4923 (HostStorage.get tri-state) #4924 #4925 #4926 #4927 (vitest 30 s timeouts, #4920) #4929 (era perf rung 1b; #4901 closed) #4930 (MerchMarquee CSP, live-site fix) #4931 #4932 (OPERATING-MODE heartbeat/cap/codex/HA-steps) #4933 #4934 #4937 (Mood) #4938 #4939 #4940 #4941 #4942 (#4935) #4944 (eslint covers apps/mobile + transport-isolation ban, #4943).
+- WP2.4–2.13 extraction + A2s complete (2.6/2.8/2.10 A2 empty; 2.10 `_blank` → 2.4-D interceptor). Wave 0 of the post-G0 plan complete: composer + slots/routes registries, presentNativeRoute (deadlines/tick/reset), ack hook ({epoch,seq}), expo-fetch-deps + clown allow-list (apiTimeoutFor shared table), ClownChat apiStream.
+- Post-G0 plan: docs/plans/one-ui/post-g0-plan.md (Fable-reviewed 14:10, rulings appended). Fable consults today logged in STATE.md (incl. #4901, #4903, #4904, #4915, #4923, #4934, #4939, #4940, #4941).
+- Store: iOS build 38 (bd2e0580, new profile) submitted to TestFlight 20:04Z; Android OTA live with Speed test mode + diag hot corner (top/bottom inset strips).
+- BLOCKED ON OWNER: S4 device session (Android now; iPhone when TestFlight processes; iPad when invite arrives) — 15-step checklist given in chat 13:40 (Speed test native + shared UI, hot-corner check, images/embeds/fonts/offline/ClownChat/watchdog, probe JSON). Then Fable G0 go/no-go using g0-evidence.md S2/S4 table → execute post-G0 plan waves (H0 B4+C3 critical path; D2 only after device ready→ack).
+- Open follow-ups: #4874 (durable report dedupe, 2 consumers), #4877 (diag deep link — only if both hot-corner strips fail on device).
+
 **ADDENDUM 2026-10-03 13:40 PDT (supersedes earlier addenda where they conflict):**
 - OWNER: "ramp to maximum parallelism and go fast" — cap 10 agents (≤6 branch-writing). Fable 12:28 ruling: pre-G0 line = transport; packages/ui/apps/web/e2e/pure handler modules GO; Expo-DOM wiring/app mounts/spike edits HOLD. Briefs revised (commit 521b7027).
 - HA #98 → owner chose REROUTE; release train now GitHub Actions + EAS CLI (#4897, #4905 buffer fix). plan_only verified Android reuse; real run 37149769717 GREEN: iOS store build bd2e0580 → TestFlight (new profile), Android OTA published (Speed test mode #4898 + diag hot-corner #4875). Free EAS builds: 16/30 used before that run.
