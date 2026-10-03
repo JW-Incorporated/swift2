@@ -35,8 +35,9 @@ apps/mobile/.eas/workflows/release.yml           (EAS: the actual train)
   commit. Same hash as an existing production build → JS-only → one OTA
   update group to both platforms. Different hash → native change → store
   builds.
-- **No half-submit.** Both submit jobs `need` both build jobs. A failed
-  build on either platform blocks both submissions.
+- **iOS submit needs both builds.** `submit_ios` `needs` both build jobs.
+  Android is no longer blocked by an iOS failure — see "Android is
+  independent of iOS" below.
 - **No laptop in the loop.** The fingerprint computed on a Windows checkout
   of this monorepo differs from the one EAS computes on Linux (hoisting
   paths differ), which is exactly why the 2026-09-05 manual builds failed
@@ -115,15 +116,25 @@ Instead:
   --platform android` locally after populating the file by hand (or once
   the key is uploaded to EAS credentials directly, at which point this
   local path becomes unnecessary and could be removed).
-- **No half-submit is preserved differently than iOS's.** `submit_ios`
-  inside the EAS workflow still `needs` both builds. The Android submit
-  step in the Action only runs `if: steps.eas_workflow.outcome ==
-  'success'` — so a failed iOS (or Android) build inside the EAS workflow
-  fails the whole `workflow:run --wait` call, and the Action's Android
-  submit step is skipped. A failed build on either platform still blocks
-  both submissions; the mechanism is now "the whole upstream workflow run
-  must succeed" rather than a shared `needs:` array, because Android's
-  submit job doesn't live in that graph anymore.
+- **Android is independent of iOS (changed 2026-10-02, #4788).** An
+  iOS-only failure (e.g. code signing, HA #89) must not strand a good
+  Android build. `submit_ios` inside the EAS workflow still `needs` both
+  builds, but the Action no longer requires the whole EAS run to succeed:
+  the wait step is `continue-on-error`, the step "Read the EAS Android
+  store-build job status" reads the run's per-job status
+  (`eas workflow:status <id> --json`, job `build_android`), and "Locate an
+  Android store build" runs when the wait succeeded OR that job is
+  SUCCESS. The Play submit (internal track only, never promoted) follows
+  as before. The last step, "Fail the train if the EAS run did not
+  succeed", turns the GitHub run red whenever the wait outcome was not
+  success, so the iOS failure stays visible. Cases:
+  iOS ok / Android ok → wait succeeds, Android submitted, green.
+  iOS fail / Android ok → Android job SUCCESS, Android submitted, run red.
+  Android fail (any iOS) → job not SUCCESS, locate/submit skipped, red.
+  Unreadable status counts as not-success (conservative: skip). In the EAS
+  graph, `build_android` and `publish_update_android_only` have no `needs`
+  on iOS jobs, so the Android OTA publishes whenever an Android build
+  already exists for the fingerprint, regardless of iOS.
 - **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the Android
   submit step warns (`::warning::`) and exits 0 rather than failing the
   train — HA#48 tracks `EXPO_TOKEN` as still-open founder work, and the
