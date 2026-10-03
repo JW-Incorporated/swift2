@@ -71,7 +71,7 @@ jobs:
           key: parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
           restore-keys: |
             parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
-      - name: Build (next build directly: npm run build would re-run prebuild and re-sync live content over the snapshot)
+      - name: Build with next build directly (npm run build would re-run prebuild and re-sync live content over the snapshot)
         working-directory: apps/web
         run: npx next build
       - uses: actions/upload-artifact@v7
