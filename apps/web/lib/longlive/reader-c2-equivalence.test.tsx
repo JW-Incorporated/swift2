@@ -15,13 +15,13 @@ function renderReader() {
 describe('WP2.2-C2: moment detail and threads read the same data through useReader()', () => {
   it('getContentItem matches the module lookup', () => {
     const q = renderReader();
-    for (const c of CONTENT.slice(0, 50)) expect(q.getContentItem(c.id)).toEqual(getContentItem(c.id));
+    for (const c of CONTENT) expect(q.getContentItem(c.id)).toEqual(getContentItem(c.id));
     expect(q.getContentItem('no-such-moment')).toBeUndefined();
   });
 
   it('related moments resolve identically against either lookup', () => {
     const q = renderReader();
-    for (const c of CONTENT.filter((x) => x.relatedIds?.length).slice(0, 50)) {
+    for (const c of CONTENT.filter((x) => x.relatedIds?.length)) {
       expect(resolveRelatedMoments(q.getContentItem, c.relatedIds, c.id)).toEqual(
         resolveRelatedMoments(getContentItem, c.relatedIds, c.id),
       );
