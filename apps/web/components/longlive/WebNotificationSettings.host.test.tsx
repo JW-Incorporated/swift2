@@ -27,6 +27,13 @@ describe('web adapter webPush (WP2.12 A2)', () => {
     expect(base.webPush).toBeUndefined();
   });
 
+  it('exposes affiliate ids on the root adapter only (WP2.5 A2)', () => {
+    vi.stubEnv('NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG', 'tag-20');
+    expect(base.env.affiliate).toBeUndefined();
+    expect(createWebRootAdapter({ push() {}, replace() {} }).env.affiliate?.amazonAssociatesTag).toBe('tag-20');
+    vi.unstubAllEnvs();
+  });
+
   it('loads and saves prefs through the same /api/devices endpoint', async () => {
     const fetchMock = vi
       .fn()

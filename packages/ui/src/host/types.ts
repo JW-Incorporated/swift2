@@ -74,6 +74,14 @@ export type HostEnv = {
   turnstileSiteKey: string | null;
   /** Canonical site origin; identical on server and client (hydration-stable). */
   origin: string;
+  /** Affiliate network ids for shop links (web root adapter only; absent = direct retailer links). */
+  affiliate?: HostAffiliateEnv;
+};
+
+export type HostAffiliateEnv = {
+  awinId?: string;
+  amazonAssociatesTag?: string;
+  catchallId?: string;
 };
 
 export type WebPushSubscribeResult =
