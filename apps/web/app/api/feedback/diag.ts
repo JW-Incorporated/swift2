@@ -12,6 +12,18 @@ export const DIAG_PREFIX = '[diag]';
 export const DIAG_REPO = 'JW-Incorporated/swift2';
 export const MAX_DIAG_BYTES = 4096;
 
+/** WP2.14: watchdog fallback/quarantine reports. The reason is one of a fixed category set, never free text. */
+const WATCHDOG_STAGES = [
+  'watchdog-fallback',
+  'watchdog-quarantine',
+  'wd-ready-timeout',
+  'wd-dom-error',
+  'wd-webview-terminated',
+  'wd-webview-render-gone',
+  'wd-abandoned',
+  'wd-protocol',
+] as const;
+
 export const DIAG_STAGES = [
   'app-start',
   'config',
@@ -26,6 +38,7 @@ export const DIAG_STAGES = [
   'load-total',
   'provider-wiring',
   'first-era-paint',
+  ...WATCHDOG_STAGES,
 ] as const;
 
 /** Instant marks (no duration): reported by `at:` offset only. Mirrors apps/mobile/lib/diagnostics.ts POINT_STAGES (a test pins them equal). */
@@ -34,6 +47,7 @@ export const POINT_STAGES = [
   'app-first-render',
   'provider-wiring',
   'first-era-paint',
+  ...WATCHDOG_STAGES,
 ] as const;
 
 const MAX_TIMINGS = 60;

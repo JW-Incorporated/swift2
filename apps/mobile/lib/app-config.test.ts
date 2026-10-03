@@ -6,7 +6,7 @@ vi.mock('./vault-storage', () => ({
 }));
 
 import { ROUTE_FLAG_KEYS, MemoryStorageAdapter } from '@swift2/content';
-import { APP_CONFIG_CACHE_KEY, loadAppConfig, routeFlagsFrom } from './app-config';
+import { APP_CONFIG_CACHE_KEY, loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './app-config';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
 import shippedConfig from '../../../config/mobile/app-config.json';
 
@@ -46,6 +46,45 @@ describe('routeFlagsFrom', () => {
     });
     expect(flags).toEqual({ ...DEFAULT_ROUTE_FLAGS, song: false });
     expect(flags).not.toHaveProperty('futureScreen');
+  });
+});
+
+describe('loadLaunchFlags (WP2.14)', () => {
+  it('reads only the last-good cache: cached sharedUi and watchdogReports', async () => {
+    const storage = new MemoryStorageAdapter();
+    storage.setItem(
+      APP_CONFIG_CACHE_KEY,
+      JSON.stringify({ routeFlags: { sharedUi: true }, watchdogReports: false }),
+    );
+    await expect(loadLaunchFlags({ storage })).resolves.toEqual({ sharedUi: true, watchdogReports: false });
+  });
+
+  it('is null for both with no cache, an invalid cache, or no key', async () => {
+    const none = { sharedUi: null, watchdogReports: null };
+    await expect(loadLaunchFlags({ storage: new MemoryStorageAdapter() })).resolves.toEqual(none);
+    const bad = new MemoryStorageAdapter();
+    bad.setItem(APP_CONFIG_CACHE_KEY, '{nope');
+    await expect(loadLaunchFlags({ storage: bad })).resolves.toEqual(none);
+    const noKey = new MemoryStorageAdapter();
+    noKey.setItem(APP_CONFIG_CACHE_KEY, JSON.stringify({ routeFlags: { song: false } }));
+    await expect(loadLaunchFlags({ storage: noKey })).resolves.toEqual(none);
+  });
+
+  it('never throws when storage blows up, and never touches the network', async () => {
+    const broken = { getItem: () => { throw new Error('disk'); }, setItem: () => {} };
+    await expect(loadLaunchFlags({ storage: broken })).resolves.toEqual({ sharedUi: null, watchdogReports: null });
+  });
+
+  it('the network result is cached for the NEXT launch, not returned to this one', async () => {
+    const storage = new MemoryStorageAdapter();
+    const before = await loadLaunchFlags({ storage });
+    await loadAppConfig({
+      fetchImpl: okFetch({ routeFlags: { sharedUi: true } }),
+      storage,
+      baseUrl: 'https://x.invalid/content',
+    });
+    expect(before.sharedUi).toBeNull();
+    expect((await loadLaunchFlags({ storage })).sharedUi).toBe(true);
   });
 });
 

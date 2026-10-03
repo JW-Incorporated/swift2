@@ -46,6 +46,32 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
   }
 }
 
+export interface LaunchFlags {
+  /** Last-good cached remote `sharedUi`; null when nothing was cached. */
+  sharedUi: boolean | null;
+  /** Last-good cached `watchdogReports`; null = not set (reports on). */
+  watchdogReports: boolean | null;
+}
+
+/**
+ * WP2.14: the flags a launch is decided on. One local read of the last-good
+ * cache, never the network, so the DOM-or-native choice is made once at launch
+ * and a fresh fetch applies on the NEXT launch. Never throws.
+ */
+export async function loadLaunchFlags(deps: { storage?: StorageAdapter } = {}): Promise<LaunchFlags> {
+  try {
+    const storage = deps.storage ?? expoFileSystemStorageAdapter();
+    const cached = await readLastGood(storage);
+    const sharedUi = cached?.routeFlags.sharedUi;
+    return {
+      sharedUi: typeof sharedUi === 'boolean' ? sharedUi : null,
+      watchdogReports: typeof cached?.watchdogReports === 'boolean' ? cached.watchdogReports : null,
+    };
+  } catch {
+    return { sharedUi: null, watchdogReports: null };
+  }
+}
+
 async function fetchConfig(deps: AppConfigDeps): Promise<AppConfig> {
   const fetchImpl = deps.fetchImpl ?? fetch;
   const baseUrl = deps.baseUrl ?? contentBaseUrl();

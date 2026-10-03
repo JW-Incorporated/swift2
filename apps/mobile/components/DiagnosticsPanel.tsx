@@ -16,7 +16,8 @@ import {
 import { latestProbeJson } from '../dom/spike/probe';
 import { readerSpikeLines } from '../lib/dom-probe-store';
 import { sendDiagReport } from '../lib/diagnostics-send';
-import { watchdogLines, type DomFailureMode, type WatchdogRecord } from '../lib/watchdog';
+import type { DomFailureMode, WatchdogRecord } from '../lib/watchdog';
+import { watchdogLines } from '../lib/watchdog-policy';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
@@ -119,6 +120,16 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               {line}
             </Text>
           ))}
+          <Pressable
+            onPress={() => {
+              setWd(null);
+              void clearWatchdogRecord();
+            }}
+            style={styles.button}
+            accessibilityRole="button"
+          >
+            <Text style={styles.buttonText}>Reset watchdog (applies next launch)</Text>
+          </Pressable>
           <Text style={styles.section}>Reader spike</Text>
           {readerSpikeLines().map((line) => (
             <Text key={line} style={styles.fact}>

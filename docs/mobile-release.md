@@ -305,6 +305,23 @@ directory and never a manifest entry: installed apps hard-fail on unknown
 manifest entries. Unknown keys in it are ignored by older apps, so a newer
 config is safe to publish.
 
+### Kill switch for the shared UI (`sharedUi`), and quarantine (WP2.14)
+
+`sharedUi` is the one flag where the latency matters. The launch decision
+reads the **cached** config only (quarantine > override > cache > compiled
+default), so `sharedUi:false` published to `app-config.json` takes effect on a
+device's **second launch** after publish (the first launch fetches and caches
+it). A device with no cached config follows the compiled default. WP5.1 must
+flip both the JSON and `DEFAULT_ROUTE_FLAGS.sharedUi`.
+
+A build whose DOM bundle keeps failing quarantines itself: two fallback cycles
+(4 failed attempts) in one `buildKey`, then native until the next OTA or a
+Diagnostics "Reset watchdog". Quarantined devices send one
+`[diag] watchdog-quarantine` comment to #4791 (category only); set
+`watchdogReports:false` at the top level of `app-config.json` to stop reports.
+Rolling back an OTA changes the `buildKey`, so it also lifts quarantine.
+Drill: docs/one-ui/dom-host.md "G4 drill".
+
 ## Forcing an update (dormant)
 
 The app carries an update-required gate that is **inert**: `minNativeBuild` is

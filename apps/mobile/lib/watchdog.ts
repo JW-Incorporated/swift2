@@ -15,16 +15,20 @@
 // strike 2 (consecutive) also clears the C4 override and makes the next launch
 // native too.
 
+import { escalate, quarantinedDecision } from './watchdog-policy';
+
 export const READY_TIMEOUT_MS = 10_000;
 export const STRIKES_TO_FALLBACK = 2;
 export const FALLBACK_LAUNCHES = 1;
 export const ABANDONED_TO_STRIKE = 2;
 export const MAX_REASON_CHARS = 120;
 
-export type WatchdogState = 'idle' | 'attempting' | 'ready' | 'failed' | 'fallback';
+export type WatchdogState = 'idle' | 'attempting' | 'ready' | 'failed' | 'fallback' | 'quarantined';
 
 export interface WatchdogRecord {
   v: 1;
+  /** WP2.14: fallbacks owed within this buildKey; QUARANTINE_AFTER of them quarantines the build. */
+  fallbackCycles: number;
   buildKey: string;
   state: WatchdogState;
   strikes: number;
@@ -45,10 +49,10 @@ export function parseDomFailureMode(raw: string | null | undefined): DomFailureM
 
 export const truncateReason = (s: string): string => s.slice(0, MAX_REASON_CHARS);
 
-const STATES: WatchdogState[] = ['idle', 'attempting', 'ready', 'failed', 'fallback'];
+const STATES: WatchdogState[] = ['idle', 'attempting', 'ready', 'failed', 'fallback', 'quarantined'];
 
 export function freshRecord(buildKey: string, now: number): WatchdogRecord {
-  return { v: 1, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: now };
+  return { v: 1, fallbackCycles: 0, buildKey, state: 'idle', strikes: 0, lastReason: '', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: now };
 }
 
 /** Defensive parse of the persisted JSON; anything malformed is null (treated as no record). */
@@ -66,6 +70,7 @@ export function parseRecord(raw: string | null): WatchdogRecord | null {
     if (!ok) return null;
     return {
       ...(r as WatchdogRecord),
+      fallbackCycles: Number.isInteger(r.fallbackCycles) ? (r.fallbackCycles as number) : 0,
       backgrounded: typeof r.backgrounded === 'boolean' ? r.backgrounded : false,
       abandonedStreak: Number.isInteger(r.abandonedStreak) ? (r.abandonedStreak as number) : 0,
       lastReason: truncateReason(String(r.lastReason ?? '')),
@@ -93,6 +98,7 @@ export function decideMount(
   if (!record || record.buildKey !== buildKey) {
     return { fallbackActive: false, clearOverride: false, record: freshRecord(buildKey, now) };
   }
+  if (record.state === 'quarantined') return quarantinedDecision(record, now);
   if (record.fallbackLaunchesRemaining > 0) {
     return {
       fallbackActive: true,
@@ -181,7 +187,7 @@ export function createWriteQueue(save: (r: WatchdogRecord) => Promise<boolean>) 
 
 /** Monotonic within a launch: ready never overwrites a recorded strike/fallback. */
 export const markReady = (r: WatchdogRecord, now: number): WatchdogRecord =>
-  r.state === 'attempting' ? { ...r, state: 'ready', at: now } : r;
+  r.state === 'attempting' ? { ...r, state: 'ready', fallbackCycles: 0, at: now } : r;
 
 export function recordStrike(
   r: WatchdogRecord,
@@ -192,7 +198,7 @@ export function recordStrike(
   const fallback = strikes >= STRIKES_TO_FALLBACK;
   return {
     clearOverride: fallback,
-    record: {
+    record: escalate({
       ...r,
       state: fallback ? 'fallback' : 'failed',
       strikes,
@@ -201,18 +207,8 @@ export function recordStrike(
       backgrounded: false,
       abandonedStreak: 0,
       at: now,
-    },
+    }),
   };
-}
-
-export function watchdogLines(r: WatchdogRecord | null): string[] {
-  if (!r) return ['Watchdog: no record'];
-  return [
-    `Watchdog state: ${r.state}`,
-    `Strikes: ${r.strikes}`,
-    `Last reason: ${r.lastReason || 'none'}`,
-    `Fallback launches remaining: ${r.fallbackLaunchesRemaining}`,
-  ];
 }
 
 export interface Scheduler {
@@ -275,6 +271,9 @@ export function createAttemptMonitor(opts: AttemptMonitorOptions) {
     },
     crashed(kind: 'terminated' | 'render-gone') {
       strike(`webview-${kind}`);
+    },
+    protocolFatal() {
+      strike('protocol-fatal');
     },
     setActive(active: boolean) {
       if (readySeen || struck) return;

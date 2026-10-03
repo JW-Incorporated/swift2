@@ -55,6 +55,60 @@ log-box; autolinking and expoConfig changed). Branch plus a trivial edit to
 `dom/SharedUiTest.tsx` stays `3603a03f…` (unchanged). `expo export` emits the
 DOM bundle under `www.bundle/`.
 
+## Watchdog for default-on (WP2.14)
+
+**This MUST be merged, and installed apps must carry it, before any channel
+publishes remote `routeFlags.sharedUi: true` or the compiled default flips.**
+Without it a broken DOM bundle costs 2 of every 3 launches up to 10 s each,
+and a flipped default cannot be killed remotely.
+
+- **Resolved once per launch, from local state only.** Precedence:
+  quarantine > override > cache > default. Quarantine = this build's record is
+  `quarantined`; override = Diagnostics "Force shared UI"; cache = the last-good
+  `app-config.json` `sharedUi` (`loadLaunchFlags`, one local read); default =
+  `DEFAULT_ROUTE_FLAGS.sharedUi`. The network config is cached and applies on
+  the NEXT launch: there is no native-to-DOM swap mid-launch.
+- **Kill switch latency.** Set `sharedUi:false` in `config/mobile/app-config.json`
+  and publish (docs/mobile-release.md). A device fetches it on a launch, so it
+  is native from that device's second launch after publish. A device that never
+  cached a config follows the compiled default. WP5.1 flips BOTH the JSON and
+  the compiled default.
+- **Quarantine.** Strike 2 owes one native fallback launch; the second such
+  cycle in one `buildKey` (`QUARANTINE_AFTER = 2`) quarantines the build:
+  native on every launch until a new OTA or binary changes the `buildKey`, or
+  Diagnostics "Reset watchdog". A ready launch zeroes the cycle count. Worst
+  case per bad build: 4 DOM attempts, then native.
+- **Pending screen.** While the launch resolves, a plain view in the reader's
+  body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
+  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
+  native mounts and the DOM never swaps in for that launch.
+- **Telemetry.** Category-only `[diag]` reports (`watchdog-fallback`,
+  `watchdog-quarantine` plus one `wd-<category>` stage, categories
+  `ready-timeout | dom-error | webview-terminated | webview-render-gone |
+  abandoned | protocol`), at most one per kind per `buildKey`, max 3 queued,
+  sent when online (next launch at the latest). `watchdogReports:false` in the
+  config stops and drops them (absent = on).
+- **READY_TIMEOUT_MS stays 10 s** until S7 records time-to-ready per device;
+  then set it to `max(10 s, 2 x p95 on the slowest device)`.
+- **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
+  the bridge host's `onProtocolFatal` calls it when the host is wired in.
+
+**G4 drill.** Simulated (no device): `npx vitest run
+apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure
+mode (`hang`, `throw`, `terminated`, `render-gone`, `protocol`, `abandon`)
+through the real rules and prints the launch table (`runDrill`/`drillTable` in
+`lib/watchdog-drill.ts`). On device, offline, shared UI on via the remote flag:
+
+1. Diagnostics > Force DOM failure `hang`, airplane mode, relaunch: neutral
+   background within 1.5 s, the DOM attempt, native after the ready timeout
+   (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
+   attempt). Relaunch twice more: quarantined, native with no attempt.
+   Diagnostics shows `Quarantined: yes`.
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns. `throw`
+   repeats step 1 faster.
+3. Back online: one `[diag] watchdog-quarantine` comment per device on #4791.
+4. A notification tap while quarantined lands on the native screen.
+
 ## Open items
 
 - Device proof (onReady, crash callbacks, file-origin storage durability) is

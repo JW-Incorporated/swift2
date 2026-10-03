@@ -87,6 +87,30 @@ describe('POST [diag] reports', () => {
     );
   });
 
+  it('accepts a WP2.14 watchdog report (fixed stages only) and renders it as at: rows', () => {
+    const parsed = parseDiagReport({
+      ...validDiag(),
+      launch: 'unknown',
+      timings: {
+        'watchdog-quarantine': 0,
+        'at:watchdog-quarantine': 0,
+        'wd-ready-timeout': 0,
+        'at:wd-ready-timeout': 0,
+      },
+    });
+    expect(parsed.ok).toBe(true);
+    const body = diagCommentFrom((parsed as { ok: true; report: DiagReport }).report);
+    expect(body).toContain('| `at:watchdog-quarantine` | 0.0 |');
+    expect(body).toContain('| `at:wd-ready-timeout` | 0.0 |');
+    expect(body).not.toContain('| `wd-ready-timeout` |');
+  });
+
+  it('rejects a watchdog reason that is not one of the fixed categories (no free text)', () => {
+    for (const key of ['wd-because it broke', 'wd-', 'reason:ready-timeout', 'watchdog-other']) {
+      expect(parseDiagReport({ ...validDiag(), timings: { [key]: 0 } }).ok).toBe(false);
+    }
+  });
+
   it('keeps the duration row for a timed stage that measured 0 ms, drops it only for point marks', () => {
     const parsed = parseDiagReport({
       ...validDiag(),
