@@ -6,9 +6,11 @@
 // Asserts (1) a DOM bundle containing ReaderSpike exists, (2) its sourcemap
 // `sources` has no baked content module: no apps/web/lib/**/*.generated.ts,
 // nothing under lib/longlive/generated/, nor the web-only dev loader, (3) no DOM
-// script contains any of >= 3 sentinels from different content kinds (era
-// moment title, track title, theory title, merch item) taken from the
-// published bundle (apps/web/public/content, built by sync:content).
+// script contains any of the 4 required sentinels (era moment title, track
+// title, theory title, merch item) taken from the published bundle
+// (apps/web/public/content, built by sync:content), and (4) every .js chunk
+// has a sourcemap (matched by debugId). Map sources are canonicalized to
+// repo-relative forward-slash paths before the forbidden-pattern match.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,9 +21,20 @@ const FORBIDDEN = [
   /dom\/spike\/dev-loader/,
   /index\.web\./,
 ];
+const KINDS = ['moment', 'track', 'theory', 'merch'];
+const SYNC_HINT = 'run `npm run sync:content` first';
 
 export function findForbiddenSources(sources) {
   return sources.map((s) => s.replace(/\\/g, '/')).filter((s) => FORBIDDEN.some((re) => re.test(s)));
+}
+
+/** Map source -> repo-relative forward-slash path (resolved against the map file and sourceRoot). */
+export function canonicalizeSource(source, mapFile, sourceRoot, root) {
+  const abs = path.resolve(path.dirname(mapFile), sourceRoot ?? '', source);
+  let rel = path.relative(root, abs);
+  // Metro emits server-root-relative sources ("/apps/mobile/..."): re-anchor those at the repo root.
+  if ((rel.startsWith('..') || path.isAbsolute(rel)) && /^[\\/]/.test(source)) rel = path.relative(root, path.resolve(root, '.' + source));
+  return rel.replace(/\\/g, '/');
 }
 
 /** First string that is plain ASCII with no quotes or backslashes (a minifier cannot re-escape it). */
@@ -36,6 +49,7 @@ function readJson(file) {
 
 export function sentinelsFromPublishedBundle(root) {
   const content = path.join(root, 'apps/web/public/content');
+  if (!fs.existsSync(path.join(content, 'current.json'))) throw new Error(`${content}/current.json is missing; ${SYNC_HINT}`);
   const dir = path.join(content, readJson(path.join(content, 'current.json')).bundleVersion);
   const erasDir = path.join(dir, 'eras');
   const moments = fs.readdirSync(erasDir).flatMap((f) => (readJson(path.join(erasDir, f)).items ?? []).map((i) => i?.title));
@@ -48,25 +62,34 @@ export function sentinelsFromPublishedBundle(root) {
     theory: pickSentinel(theories, 25),
     merch: pickSentinel(merch, 15),
   };
-  return Object.entries(picks)
-    .filter(([, text]) => text)
-    .map(([kind, text]) => ({ kind, text }));
+  const missing = KINDS.filter((k) => !picks[k]);
+  if (missing.length) throw new Error(`no usable sentinel for: ${missing.join(', ')}; ${SYNC_HINT}`);
+  return KINDS.map((kind) => ({ kind, text: picks[kind] }));
 }
 
-export function checkDomBundle(exportDir, sentinels) {
+/** Chunks (by .js filename) allowed to have no sourcemap. Empty: every Expo DOM chunk is mapped. */
+export const UNMAPPED_ALLOWLIST = new Set();
+
+export function checkDomBundle(exportDir, sentinels, root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')) {
   const problems = [];
   const dir = path.join(exportDir, 'www.bundle');
   if (!fs.existsSync(dir)) return { problems: [`no www.bundle in ${exportDir} (native export with DOM components, --source-maps)`], files: 0 };
   const files = fs.readdirSync(dir);
   let readerSpikeMaps = 0;
+  const mapsById = new Map();
   for (const f of files.filter((n) => n.endsWith('.map'))) {
-    const sources = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).sources ?? [];
-    if (sources.some((s) => /dom\/ReaderSpike\.tsx$/.test(s.replace(/\\/g, '/')))) readerSpikeMaps += 1;
+    const mapFile = path.join(dir, f);
+    const map = JSON.parse(fs.readFileSync(mapFile, 'utf8'));
+    if (map.debugId) mapsById.set(map.debugId, f);
+    const sources = (map.sources ?? []).map((s) => canonicalizeSource(s, mapFile, map.sourceRoot, root));
+    if (sources.some((s) => /dom\/ReaderSpike\.tsx$/.test(s))) readerSpikeMaps += 1;
     for (const bad of findForbiddenSources(sources)) problems.push(`${f}: forbidden source ${bad}`);
   }
   if (readerSpikeMaps === 0) problems.push('no DOM sourcemap lists dom/ReaderSpike.tsx (wrong export, or no --source-maps)');
   for (const f of files.filter((n) => n.endsWith('.js'))) {
     const text = fs.readFileSync(path.join(dir, f), 'utf8');
+    const id = /^\/\/# debugId=(\S+)\s*$/m.exec(text)?.[1];
+    if (!(id && mapsById.has(id)) && !UNMAPPED_ALLOWLIST.has(f)) problems.push(`${f}: chunk has no sourcemap (debugId ${id ?? 'absent'})`);
     for (const { kind, text: needle } of sentinels) {
       if (text.includes(needle)) problems.push(`${f}: contains ${kind} sentinel "${needle}"`);
     }
@@ -81,12 +104,14 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(2);
   }
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-  const sentinels = sentinelsFromPublishedBundle(root);
-  if (sentinels.length < 3) {
-    console.error(`need >= 3 content-kind sentinels, found ${sentinels.length}; run \`npm run sync:content\` first`);
-    process.exit(2);
+  let sentinels;
+  try {
+    sentinels = sentinelsFromPublishedBundle(root);
+  } catch (e) {
+    console.error(e.message);
+    process.exit(1);
   }
-  const { problems, files } = checkDomBundle(path.resolve(exportDir), sentinels);
+  const { problems, files } = checkDomBundle(path.resolve(exportDir), sentinels, root);
   if (problems.length) {
     console.error(problems.join('\n'));
     process.exit(1);
