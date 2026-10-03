@@ -88,7 +88,7 @@ async function fetchConfig(deps: AppConfigDeps): Promise<AppConfig> {
 
 /** Never throws: returns the freshest valid config, else last-good, else `{ routeFlags: {} }` (= compiled defaults). */
 export async function loadAppConfig(deps: AppConfigDeps = {}): Promise<AppConfig> {
-  let storage: StorageAdapter | null = null;
+  let storage: StorageAdapter | null;
   try {
     storage = deps.storage ?? expoFileSystemStorageAdapter();
   } catch {

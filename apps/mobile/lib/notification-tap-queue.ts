@@ -111,7 +111,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
         drop('stale');
         continue;
       }
-      let acked = false;
+      let acked: boolean;
       let timer: ReturnType<typeof setTimeout> | undefined;
       inFlight = head;
       const ctl = new AbortController();
@@ -155,7 +155,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
 
   function enqueue(raw: RawTap): EnqueueOutcome {
     const link = typeof raw.deepLink === 'string' ? raw.deepLink : null;
-    let path: WebPath | null = null;
+    let path: WebPath | null;
     try {
       path = link === null ? null : toWebPath(resolvePath(link));
     } catch {

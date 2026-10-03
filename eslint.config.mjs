@@ -55,9 +55,9 @@ const stubPlugin = (...names) => ({
   rules: Object.fromEntries(names.map((n) => [n, { create: () => ({}) }])),
 });
 
-// Web (apps/web) and mobile (apps/mobile) are linted by their own framework
-// tooling (Next / Expo); this root config covers the TypeScript packages +
-// worker + Node scripts.
+// apps/web is linted by its own framework tooling (Next); this root config
+// covers the TypeScript packages + worker + Node scripts, and the TypeScript
+// sources of apps/mobile (Expo config/scripts excluded).
 export default tseslint.config(
   {
     ignores: [
@@ -71,7 +71,9 @@ export default tseslint.config(
       '!apps/web/lib',
       'apps/web/lib/*',
       '!apps/web/lib/longlive',
-      'apps/mobile/**',
+      'apps/mobile/**/*.{js,mjs,cjs}',
+      'apps/mobile/scripts/**',
+      'apps/mobile/.expo/**',
       '.claude/**',
     ],
   },
@@ -155,6 +157,37 @@ export default tseslint.config(
         {
           selector: "CallExpression[callee.name='require']:not([arguments.0.type='Literal'])",
           message: 'packages/ui forbids non-literal require(): the specifier must be a string literal so the host ban can be checked.',
+        },
+      ],
+    },
+  },
+  {
+    // apps/mobile follows the underscore-prefix convention for intentionally
+    // unused parameters/bindings (stubs, test doubles, destructure-to-omit).
+    files: ['apps/mobile/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_', ignoreRestSiblings: true },
+      ],
+    },
+  },
+  {
+    // apps/mobile/lib is the native (React Native) side. Transport isolation:
+    // the DOM host, SharedUiHost and the expo transport must not leak in here.
+    files: ['apps/mobile/lib/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            { name: 'expo/dom', message: 'Transport isolation: apps/mobile/lib must not import expo/dom (DOM host code lives in apps/mobile/dom).' },
+          ],
+          patterns: [
+            { group: ['expo/dom/*'], message: 'Transport isolation: apps/mobile/lib must not import expo/dom (DOM host code lives in apps/mobile/dom).' },
+            { group: ['**/*SharedUiHost*'], message: 'Transport isolation: apps/mobile/lib must not import SharedUiHost (DOM-side host).' },
+            { group: ['**/*transport-expo*'], message: 'Transport isolation: apps/mobile/lib must not import transport-expo; take the transport by injection.' },
+          ],
         },
       ],
     },

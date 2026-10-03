@@ -59,7 +59,7 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       if (!isRecord(p) || !isWebPath(p.path)) return invalid('navigate: not a web path');
       if (p.replace !== undefined && typeof p.replace !== 'boolean') return invalid('navigate: replace');
       const path = p.path;
-      let owned = false;
+      let owned: boolean;
       try {
         owned = deps.isNativeRoute(path) === true;
       } catch {
