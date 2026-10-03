@@ -116,7 +116,10 @@ A1 + A2 in one PR (PM ruling), separate commits.
 - Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
 
 ### WP2.13 legal
-(pending)
+A1 + minimal A2 in one PR (PM ruling), separate commits.
+
+- A1 (move-only): `lib/longlive/legal.ts` -> `reader/legal/lib/legal.ts` (one-line shim; 821 lines, over the 300 rule, waived); `LegalDocument.tsx`, `SupportPage.tsx` (support page body, `metadata` split into the route file) -> `reader/legal/`.
+- A2 (logic): `next/link` -> `useHost().Link`; `SiteFooter` is not moved, both components take a `footer?: ReactNode` slot that the route files fill. `mailto:` links stay plain anchors (host handling, if the app needs it, is a later A2). `SiteFooter` is 2.4-B.
 
 Not moved (type-only or data edges): `clown-*`, `mood-usage`, `usage-db-gate`,
 `clownbot-lore`, `content`, `tracks`, `era-secrets`, `videos`.

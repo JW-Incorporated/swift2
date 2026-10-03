@@ -1,4 +1,6 @@
-import Link from 'next/link';
+'use client';
+
+import { useHost } from '../../host/context';
 import type { ReactNode } from 'react';
 import {
   LEGAL_DRAFT_BANNER,
@@ -7,7 +9,6 @@ import {
   type LegalBlock,
   type LegalDoc,
 } from './lib/legal';
-import { SiteFooter } from '@/components/longlive/SiteFooter';
 
 /**
  * The renderer for both legal pages (#800). All copy lives in
@@ -92,7 +93,8 @@ function Block({ block }: { block: LegalBlock }) {
   );
 }
 
-export function LegalDocument({ doc }: { doc: LegalDoc }) {
+export function LegalDocument({ doc, footer }: { doc: LegalDoc; footer?: ReactNode }) {
+  const { Link } = useHost();
   const isDraft = LEGAL_STATUS !== 'approved';
 
   return (
@@ -145,7 +147,7 @@ export function LegalDocument({ doc }: { doc: LegalDoc }) {
           </section>
         ))}
       </main>
-      <SiteFooter />
+      {footer}
     </div>
   );
 }

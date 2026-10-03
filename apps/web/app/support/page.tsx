@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SupportPage } from '@swift2/ui/reader/legal/SupportPage';
+import { SiteFooter } from '@/components/longlive/SiteFooter';
 
 export const metadata: Metadata = {
   title: 'Support — Long Live',
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SupportPage />;
+  return <SupportPage footer={<SiteFooter />} />;
 }

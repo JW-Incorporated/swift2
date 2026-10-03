@@ -1,5 +1,7 @@
-import Link from 'next/link';
-import { SiteFooter } from '@/components/longlive/SiteFooter';
+'use client';
+
+import type { ReactNode } from 'react';
+import { useHost } from '../../host/context';
 import { LEGAL_FACTS } from './lib/legal';
 
 // The support page both app stores require a URL for (App Store Connect
@@ -30,7 +32,8 @@ const FAQ: { q: string; a: string }[] = [
 
 const linkClass = 'underline underline-offset-4 hover:text-[color:var(--era-ink)]';
 
-export function SupportPage() {
+export function SupportPage({ footer }: { footer?: ReactNode }) {
+  const { Link } = useHost();
   return (
     <div className="era-shell font-sans">
       <main className="mx-auto w-full max-w-[46rem] px-5 pb-16 pt-8">
@@ -107,7 +110,7 @@ export function SupportPage() {
           </p>
         </section>
       </main>
-      <SiteFooter />
+      {footer}
     </div>
   );
 }

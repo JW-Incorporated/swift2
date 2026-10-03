@@ -689,7 +689,9 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 | `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
 
 ### WP2.13 legal
-(pending)
+| Path | What it is |
+|---|---|
+| `packages/ui/src/reader/legal/{LegalDocument,SupportPage}.tsx` + `lib/legal.ts` | MOVED from `apps/web` (WP2.13-A1 + minimal A2). `apps/web/lib/longlive/legal.ts` is a one-line `export *` shim. `app/{privacy,terms,support}/page.tsx` keep `metadata` and pass `footer={<SiteFooter />}` (SiteFooter stays until 2.4-B). `Link` via `useHost()` |
 
 ## CI concurrency (2026-10-01)
 
