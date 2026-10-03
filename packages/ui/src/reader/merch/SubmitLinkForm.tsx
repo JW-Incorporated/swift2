@@ -19,6 +19,7 @@
 
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Check, Loader2 } from 'lucide-react';
+import { useHost } from '../../host/context';
 
 declare global {
   interface Window {
@@ -29,7 +30,6 @@ declare global {
   }
 }
 
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
 
 export interface SubmitLinkFormProps {
@@ -67,6 +67,9 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
   const statusId = `submit-link-${section}-status`;
   const trimmed = url.trim();
   const valid = looksLikeUrl(trimmed);
+  // TODO(PM, WP2.3-F): the app host supplies no turnstileSiteKey and its apiFetch is bridge-backed; mobile reach lands with WP2.3-F2.
+  const { apiFetch, env } = useHost();
+  const TURNSTILE_SITE_KEY = env.turnstileSiteKey;
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | undefined>(undefined);
 
@@ -111,7 +114,7 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
       script.removeEventListener('load', render);
       if (widgetIdRef.current && window.turnstile) window.turnstile.remove(widgetIdRef.current);
     };
-  }, []);
+  }, [TURNSTILE_SITE_KEY]);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -119,13 +122,19 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
     setStatus('submitting');
     setErrorMsg('');
     try {
-      const res = await fetch('/api/submit-link', {
+      const res = await apiFetch({
+        path: '/api/submit-link',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: trimmed, section, hp, token: turnstileToken }),
       });
-      const data: { error?: string } = await res.json().catch(() => ({}));
-      if (res.ok) {
+      let data: { error?: string } = {};
+      try {
+        data = JSON.parse(res.body) as { error?: string };
+      } catch {
+        data = {};
+      }
+      if (res.status >= 200 && res.status < 300) {
         setStatus('success');
         setUrl('');
       } else {
