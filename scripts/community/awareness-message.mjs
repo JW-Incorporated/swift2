@@ -1,8 +1,11 @@
-// Awareness lane — Discord message builders (pure). One message per
-// opportunity with the site card ATTACHED as a PNG upload (multipart webhook
-// post, not an embed URL), thread title + link, sub, why, the reply text in a
-// copy block, and the existing signed Posted/Skip links. The owner posts the
-// reply himself; nothing here sends anything (awareness-deliver.mjs does).
+// Awareness lane — Discord message builders (pure). Two messages per
+// opportunity: the card (site card ATTACHED as a PNG upload — multipart
+// webhook post, not an embed URL — thread title + link, sub, why, and the
+// existing signed Posted/Skip links), then the reply text alone as a plain
+// message. A code block can't be copied on Discord mobile and long-press
+// "Copy Text" copies the whole message, so the reply gets a message of its
+// own. The owner posts the reply himself; nothing here sends anything
+// (awareness-deliver.mjs does).
 import {
   DISCORD_MESSAGE_LIMIT,
   DISCORD_SUPPRESS_EMBEDS,
@@ -21,6 +24,7 @@ import { imageCommentsLabel } from './awareness-eligibility.mjs';
 export const AWARENESS_WEBHOOK_USERNAME = 'Tree · Awareness replies';
 const MAX_ACK_URL_UNITS = 450;
 const TRIM_NOTE = '(Reply trimmed to fit Discord.)';
+export const REPLY_POINTER = 'Reply: next message ↓ (long-press it → Copy Text)';
 const WHY_BY_TYPE = {
   ranking: 'Era/ranking debate, so a site card fits the conversation',
   timeline: 'Timeline question, so a moment card answers it at a glance',
@@ -48,9 +52,21 @@ export function buildAwarenessHeader(totalToday, batchCount) {
 }
 
 /**
- * One awareness opportunity as Discord message text, always <= 2000 units.
- * Only the reply copy is elastic. Reddit leads keep `ref: reddit · <id>` as the
- * true last line, same as reply opportunities, so a ✅/⏭️ reaction still routes.
+ * The reply text exactly as the owner pastes it, sent as its own message so
+ * long-press "Copy Text" on mobile copies nothing else. Clipped to the
+ * Discord limit; `trimmed` tells the card to say so.
+ */
+export function buildAwarenessReplyText(lead) {
+  const reply = safe(lead.draft).trim();
+  if (reply.length <= DISCORD_MESSAGE_LIMIT) return { text: reply, trimmed: false };
+  return { text: clipUnits(reply, DISCORD_MESSAGE_LIMIT).trimEnd(), trimmed: true };
+}
+
+/**
+ * One awareness opportunity's card as Discord message text, always <= 2000
+ * units. The reply itself is the next message (buildAwarenessReplyText).
+ * Reddit leads keep `ref: reddit · <id>` as the true last line, same as reply
+ * opportunities, so a ✅/⏭️ reaction on the card still routes.
  */
 export function buildAwarenessMessage(
   lead,
@@ -85,16 +101,13 @@ export function buildAwarenessMessage(
     `Image: attached card (${oneLine(safe(lead.image_ref), 90)}). Post it with the reply, no link.`,
     rule ? `Sub rule: ${oneLine(safe(rule), 140)}` : null,
   ].filter(Boolean);
-  const tail = [footer, refLine].filter(Boolean);
-  const reply = safe(lead.draft).replace(/```/g, '``​`').trim();
-  const render = (body, note) =>
-    [...head, '```', body, '```', ...(note ? [note] : []), ...tail].join('\n');
-
-  const whole = render(reply, null);
-  if (whole.length <= DISCORD_MESSAGE_LIMIT) return whole;
-  const room = DISCORD_MESSAGE_LIMIT - render('', TRIM_NOTE).length;
-  if (room < 120) throw new Error(`Awareness opportunity ${postId} cannot fit Discord's limit`);
-  return render(clipUnits(reply, room).trimEnd(), TRIM_NOTE);
+  const { trimmed } = buildAwarenessReplyText(lead);
+  const text = [...head, `📋 ${REPLY_POINTER}`, ...(trimmed ? [TRIM_NOTE] : []), footer, refLine]
+    .filter(Boolean)
+    .join('\n');
+  if (text.length > DISCORD_MESSAGE_LIMIT)
+    throw new Error(`Awareness opportunity ${postId} cannot fit Discord's limit`);
+  return text;
 }
 
 /**
