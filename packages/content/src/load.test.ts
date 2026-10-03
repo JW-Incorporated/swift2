@@ -164,6 +164,8 @@ describe('loadBundle', () => {
     const files = JSON.parse(storage.getItem(key)!);
     files.eras[0].name = 42;
     storage.setItem(key, JSON.stringify(files));
+    // A matching schema fingerprint trusts the cache (warm-cache.test.ts); a new build's schema does not.
+    storage.setItem(`@swift2/content:v1:${baseUrl}:schemafp:${manifest.bundleVersion}`, 'older-build');
     const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
     expect(result.source).toBe('network');
   });
