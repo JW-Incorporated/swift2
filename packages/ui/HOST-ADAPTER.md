@@ -11,6 +11,7 @@
 | `currentUrl` (optional) | web root adapter only: `window.location.href`; omitted in `createWebAdapter` (feedback reports then omit `url`) | in-DOM web path (not `file://`), WP2.13-D |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
+| `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | TODO(PM, 2.11-D1): bridge api allow-list entry for `/api/clown` (native-held session, 60 s timeout); buffered fallback until then |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
