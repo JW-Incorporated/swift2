@@ -4,7 +4,6 @@
 // module-level constants from these arrays).
 import {
   setContentItemLookup,
-  setDefaultSongCatalogue,
   setEraSecretsRawProvider,
   setSongTargetResolver,
   setThreadContentProvider,
@@ -12,16 +11,15 @@ import {
   setTracksRawProvider,
   songTargetOf,
 } from '@swift2/experience';
-import type { ReaderSnapshot } from '@swift2/experience/reader-snapshot';
+import type { ReaderSnapshotCore } from '@swift2/experience/reader-snapshot';
 import { CONTENT, MILESTONES, getContentItem } from './content';
 import { ERA_SECRETS_RAW } from './era-secrets';
-import { MERCH_CATALOGUE } from './merch';
 import { THEORIES_RAW } from './theories';
 import { TRACKS_RAW } from './tracks';
 import { VIDEOS_RAW } from './videos';
 import { replaceArray, replaceRecord } from './live';
 
-export function fill(snapshot: ReaderSnapshot): void {
+export function fill(snapshot: ReaderSnapshotCore): void {
   const d = snapshot.domains;
   replaceArray(
     CONTENT,
@@ -32,9 +30,6 @@ export function fill(snapshot: ReaderSnapshot): void {
   replaceRecord(TRACKS_RAW, d.tracks);
   replaceRecord(THEORIES_RAW, d.theories);
   replaceRecord(ERA_SECRETS_RAW, d.eraSecrets);
-  replaceArray(MERCH_CATALOGUE.shopTheLook, d.merch.shopTheLook);
-  replaceArray(MERCH_CATALOGUE.officialStore, d.merch.officialStore);
-  replaceArray(MERCH_CATALOGUE.fanMade, d.merch.fanMade);
 
   setContentItemLookup(getContentItem);
   setThreadContentProvider(() => CONTENT);
@@ -42,5 +37,4 @@ export function fill(snapshot: ReaderSnapshot): void {
   setTheoriesRawProvider(() => THEORIES_RAW);
   setEraSecretsRawProvider(() => ERA_SECRETS_RAW);
   setSongTargetResolver(songTargetOf);
-  setDefaultSongCatalogue(d.songMoods);
 }

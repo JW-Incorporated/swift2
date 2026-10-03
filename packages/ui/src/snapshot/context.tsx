@@ -58,8 +58,15 @@ export function useReaderSnapshot(): ReaderSnapshotCore {
 
 const videoDeps = { videosForEra, musicVideosForEra, allVideoRecords };
 
-/** The reader's accessors over the current snapshot; the same object until the snapshot changes. */
-export function useReader(): ReaderQueries {
+/**
+ * The reader's accessors over the current snapshot; the same object until the
+ * snapshot changes. Typed by `videoDeps`, so `videosForEra` is
+ * `WatchableVideoNote[]` with no cast at the call site.
+ */
+export function useReader(): ReaderQueries<
+  ReturnType<typeof videosForEra>[number],
+  ReturnType<typeof musicVideosForEra>[number]
+> {
   const snapshot = useReaderSnapshot();
   return useMemo(() => createReaderQueries(snapshot, videoDeps), [snapshot]);
 }

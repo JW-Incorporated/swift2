@@ -16,6 +16,7 @@ import type {
   ReaderSnapshotCore,
   ReaderSnapshotCoreInputs,
   ReaderSnapshotDeps,
+  ReaderSnapshotExtensions,
   ReaderSnapshotInputs,
   ReaderSnapshotState,
 } from './types';
@@ -102,6 +103,22 @@ function stateFromBundle(bundle: BundleLike): ReaderSnapshotState {
   if (bundle.source === LOAD_SOURCE.offlineLastGood) return 'offline';
   if (bundle.source === LOAD_SOURCE.lastGoodAfterDataError) return 'error';
   return bundle.stale ? 'stale' : 'ready';
+}
+
+/** App path, core only: a loaded D1 bundle without the merch and songMoods domains. */
+export function fromBundleCore(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshotCore {
+  return buildReaderSnapshotCore(
+    inputsFromBundle(bundle),
+    deps,
+    { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion },
+    stateFromBundle(bundle),
+  );
+}
+
+/** The extension domains of a loaded bundle, for `attachExtensions`. */
+export function extensionsFromBundle(bundle: BundleLike): ReaderSnapshotExtensions {
+  const { merch, songMoods } = inputsFromBundle(bundle);
+  return { merch, songMoods };
 }
 
 /** App path: builds from a loaded D1 bundle; reads only the bundle, no module-global provider. */

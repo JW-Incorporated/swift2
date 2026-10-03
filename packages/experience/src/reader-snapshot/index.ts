@@ -4,8 +4,10 @@ export { attachExtensions, buildReaderSnapshot, buildReaderSnapshotCore } from '
 export { corpusFromInputs } from './corpus';
 export {
   fromBaked,
+  extensionsFromBundle,
   fromBakedCore,
   fromBundle,
+  fromBundleCore,
   inputsFromBundle,
   type BakedCoreModules,
   type BakedModules,

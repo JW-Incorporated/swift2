@@ -8,3 +8,9 @@ export {
   useReaderSnapshot,
   useReaderSnapshotStatus,
 } from './snapshot/context';
+export {
+  ReaderExtensionsProvider,
+  useExtendedSnapshot,
+  useMerch,
+  useSongMoods,
+} from './snapshot/extensions';
