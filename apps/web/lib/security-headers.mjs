@@ -121,7 +121,8 @@ export function contentSecurityPolicy({ nonce, dev = false }) {
     // plaintext image loads. See docs/decisions.md.
     "img-src 'self' data: blob: https:",
 
-    // next/font/google self-hosts at build time — no third-party font origin.
+    // Fonts are self-hosted (apps/web/public/fonts, packages/ui/fonts) — no
+    // third-party font origin.
     "font-src 'self' data:",
 
     // We host no audio/video; players live inside third-party iframes, which

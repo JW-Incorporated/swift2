@@ -1,6 +1,8 @@
 Licenses for the self-hosted reader fonts in packages/ui/fonts/*.woff2
-(One UI WP2.1-C). Each file is the unmodified latin-subset WOFF2 served by
-Google Fonts (fonts.gstatic.com); the families and their licenses:
+(One UI WP2.1-C; latin plus the on-demand non-latin subsets listed in
+subsets.json). Each file is the unmodified WOFF2 subset served by Google Fonts
+(fonts.gstatic.com), byte-identical to what next/font/google emitted; the
+families and their licenses:
 
   Inter             SIL OFL 1.1   https://github.com/rsms/inter
   Playfair Display  SIL OFL 1.1   https://github.com/clauseggers/Playfair-Display

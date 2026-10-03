@@ -26,7 +26,9 @@ const UNICODE_RANGE =
   'U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD';
 
 // Same fallback faces next/font generated (size-adjusted local Arial / Times
-// New Roman) so the swap does not shift layout.
+// New Roman) so the swap does not shift layout. Values are next/font's own
+// (fonts.test.ts asserts them against a main build and next's calculator).
+// Every face is preloaded: next/font preloaded all six on every page.
 export const FAMILIES = [
   {
     file: 'inter',
@@ -49,6 +51,7 @@ export const FAMILIES = [
     family: 'Special Elite',
     style: 'normal',
     weight: '400',
+    preload: true,
     fallback: { src: 'Arial', ascent: '60%', descent: '25.33%', size: '117.2%' },
   },
   {
@@ -56,6 +59,7 @@ export const FAMILIES = [
     family: 'Dancing Script',
     style: 'normal',
     weight: '400 700',
+    preload: true,
     fallback: { src: 'Arial', ascent: '112.99%', descent: '34.39%', size: '81.43%' },
   },
   {
@@ -63,9 +67,16 @@ export const FAMILIES = [
     family: 'Bodoni Moda',
     style: 'normal',
     weight: '400 800',
-    fallback: { src: 'Times New Roman', ascent: '98.5%', descent: '35.02%', size: '114.21%' },
+    preload: true,
+    fallback: { src: 'Times New Roman', ascent: '98.5%', descent: '35.02%', size: '114.22%' },
   },
-  { file: 'bodoni-moda-italic', family: 'Bodoni Moda', style: 'italic', weight: '400 800' },
+  {
+    file: 'bodoni-moda-italic',
+    family: 'Bodoni Moda',
+    style: 'italic',
+    weight: '400 800',
+    preload: true,
+  },
 ];
 
 const VARS = {
@@ -78,11 +89,15 @@ const VARS = {
 
 const sha = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);
 
-function faceCss(f, src) {
+// The non-latin subset faces next/font/google also declared (loaded on demand,
+// only when a page uses a character outside latin): same bytes, same ranges.
+const SUBSETS = JSON.parse(readFileSync(join(FONTS_DIR, 'subsets.json'), 'utf8'));
+
+function faceCss(f, src, range = UNICODE_RANGE) {
   return (
     `@font-face {\n  font-family: '${f.family}';\n  font-style: ${f.style};\n` +
     `  font-weight: ${f.weight};\n  font-display: swap;\n  src: ${src} format('woff2');\n` +
-    `  unicode-range: ${UNICODE_RANGE};\n}\n`
+    `  unicode-range: ${range};\n}\n`
   );
 }
 
@@ -113,9 +128,17 @@ export function buildFonts() {
     const bytes = readFileSync(join(FONTS_DIR, `${f.file}.woff2`));
     return { ...f, bytes, hash: sha(bytes), publicName: `${f.file}.${sha(bytes)}.woff2` };
   });
+  const subsets = SUBSETS.map((x) => {
+    const bytes = readFileSync(join(FONTS_DIR, `${x.file}.woff2`));
+    return { ...x, bytes, hash: sha(bytes), publicName: `${x.file}.${sha(bytes)}.woff2` };
+  });
+  const webFaces = (f) =>
+    subsets
+      .filter((x) => x.family === f.family && x.style === f.style)
+      .map((x) => faceCss(f, `url('/fonts/${x.publicName}')`, x.range))
+      .join('') + faceCss(f, `url('/fonts/${f.publicName}')`);
   const tail = fallbackCss() + rootCss();
-  const web =
-    header + files.map((f) => faceCss(f, `url('/fonts/${f.publicName}')`)).join('') + tail;
+  const web = header + files.map(webFaces).join('') + tail;
   const dom =
     header +
     files
@@ -124,14 +147,16 @@ export function buildFonts() {
     tail;
   const manifest = {
     preload: files.filter((f) => f.preload).map((f) => `/fonts/${f.publicName}`),
-    files: Object.fromEntries(files.map((f) => [f.file, { hash: f.hash, bytes: f.bytes.length }])),
+    files: Object.fromEntries(
+      [...files, ...subsets].map((f) => [f.file, { hash: f.hash, bytes: f.bytes.length }]),
+    ),
   };
   const out = {
     [join(FONTS_DIR, 'fonts.web.css')]: web,
     [join(FONTS_DIR, 'fonts.dom.css')]: dom,
     [join(FONTS_DIR, 'fonts.manifest.json')]: `${JSON.stringify(manifest, null, 2)}\n`,
   };
-  for (const f of files) out[join(PUBLIC_DIR, f.publicName)] = f.bytes;
+  for (const f of [...files, ...subsets]) out[join(PUBLIC_DIR, f.publicName)] = f.bytes;
   return out;
 }
 
