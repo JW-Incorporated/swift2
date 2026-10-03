@@ -218,6 +218,14 @@ OTA bump reason recorded), same bytes both sides (ruling in brief-wp21.md).
 **S4 additions:** data-URI faces `loaded` on iOS+Android; no FOUT before
 onReady; variable-axis weights render in WKWebView + Android WebView; 360 KB
 font CSS doesn't slow DOM cold start.
+**02:30:** #4842 (fixture prune 8.3→2.9 MB; content/frozen/; closes #4835
+#4836) reviewer APPROVE → auto-merge set. **Harness hole found:** #4827's
+iphone-15 b-home baseline was captured BEFORE the hero image painted (old
+40 KB = no photo; new 81 KB = correct, matches pixel-7) — helpers.ts:~39
+waits only for __ready. = G1 condition 4 (flake) → executor fixing now
+(wait for img load+decode + CSS backgrounds, broken image fails loudly,
+negative delayed-image spec, two green verification runs). WP2.1-C launched
+(stacked on wp2.1a; generator + data-URI DOM fonts).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
