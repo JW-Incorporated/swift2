@@ -5,12 +5,7 @@ import { X, Heart, Star, Music, BookText } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@swift2/experience';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
-import { contentForThreadInRange } from '@/lib/longlive/threads';
-// songTargetOf must come from the app's wired wrapper, not
-// '@swift2/experience' directly (issue #4082) — see EraSection.tsx's
-// comment for why a direct import silently returns null in the client
-// bundle.
-import { songTargetOf } from '@/lib/longlive/tracks';
+import { useReader } from '@swift2/ui';
 import { trackKey } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
@@ -32,6 +27,7 @@ function entryColor(entry: LoveStoryEntry): string {
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
   const { trackGuideEraId } = useAppState();
   const { openSong } = useAppActions();
+  const { contentForThreadInRange, songTargetOf } = useReader();
 
   // Escape collapses the expanded entry (#525), matching its X. Only mounted
   // while an entry is expanded, so the listener exists only then; higher
@@ -53,7 +49,7 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
         console.error(`Love Story entry "${entry.id}" has an unresolved song link: ${song.relatedId}`);
       }
     }
-  }, [entry]);
+  }, [entry, songTargetOf]);
 
   const isRel = entry.kind === 'relationship';
   const color = entryColor(entry);

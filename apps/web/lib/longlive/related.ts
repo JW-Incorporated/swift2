@@ -8,7 +8,6 @@
  * resolve is silently skipped, so the UI can never render a dead link.
  */
 
-import { getContentItem } from './content';
 import { MOTIF_BY_ID, motifOf } from '@swift2/experience';
 import type { ContentItem, EraId, Motif, MotifId, RelatedId } from '@swift2/experience';
 
@@ -79,6 +78,7 @@ export interface RelatedMoment {
  * render. Order is preserved — authoring order is editorial intent.
  */
 export function resolveRelatedMoments(
+  getContentItem: (id: string) => ContentItem | undefined,
   relatedIds: readonly RelatedId[] | undefined,
   selfId?: string,
 ): RelatedMoment[] {

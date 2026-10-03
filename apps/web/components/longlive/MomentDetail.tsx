@@ -28,7 +28,6 @@ import {
   useProgressActions,
 } from '@/lib/longlive/store';
 import { isPointerOutsideContainedImage } from '@/lib/longlive/contain-fit';
-import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@swift2/experience';
 import { getThread } from '@swift2/experience';
 import {
@@ -487,6 +486,7 @@ function MomentLightbox({
 export function MomentDetail() {
   const q = useReader();
   const { Image } = useHost();
+  const { getContentItem } = useReader();
   const { openItemId } = useAppState();
   const { closeItem, goHome, openItem } = useAppActions();
   const { progress } = useProgress();
@@ -558,7 +558,7 @@ export function MomentDetail() {
   const trail = resolveMotifTrail(item.relatedIds);
   // Moment -> moment cross-links, resolved separately: resolveMotifTrail
   // handles only motif:/egg: and returns null for `moment:` ids.
-  const related = resolveRelatedMoments(item.relatedIds, item.id);
+  const related = resolveRelatedMoments(getContentItem, item.relatedIds, item.id);
   // Hero = the primary image (else the first one); the rest form the gallery.
   // When even the hero is a stand-in (no primary exists) it gets the same
   // honest labeling the gallery uses.
