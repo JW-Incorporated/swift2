@@ -34,18 +34,10 @@ import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@swi
  * a returning user shouldn't see it again either. */
 const SWIPE_HINT_KEY = 'll-track-swipe-hint-seen-v1';
 
-const PROBE_KEY = 'll-track-swipe-hint-probe';
-
-/** Host adapters swallow blocked-storage errors (null reads, silent writes),
- * so availability is probed with a write/read-back before trusting a read. */
+/** get → null means a new user; undefined (storage unavailable) counts as seen. */
 function readSwipeHintSeen(storage: HostStorage | undefined): boolean {
   try {
-    if (!storage) return true;
-    storage.set(PROBE_KEY, '1');
-    const ok = storage.get(PROBE_KEY) === '1';
-    storage.remove(PROBE_KEY);
-    if (!ok) return true;
-    return storage.get(SWIPE_HINT_KEY) === '1';
+    return storage ? storage.get(SWIPE_HINT_KEY) !== null : true;
   } catch {
     return true;
   }

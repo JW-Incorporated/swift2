@@ -132,7 +132,7 @@ describe('web host adapter', () => {
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('full');
     });
-    expect(s.get('k')).toBeNull();
+    expect(s.get('k')).toBeUndefined();
     expect(() => s.set('k', 'v')).not.toThrow();
   });
 
