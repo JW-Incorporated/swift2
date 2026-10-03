@@ -348,7 +348,12 @@ parity 37116269531 green; main-route gzip −65 KB of +117 → remainder = core/
 search code, accepted as inherent per Fable). Perf conflict: r0 browser
 median 12.1 ms vs r1 script median 36 ms (likely Node) → re-measure per
 ratified spec (Playwright, prod build + fixture, ≥10 fresh contexts) before
-any contract call. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+any contract call. **03:34:** re-measured per spec (e2e/perf/snapshot-build.spec.ts,
+prod build + fixture, 12 fresh contexts ×3): fromBakedCore median 12.55/12.75/
+12.60 ms, p90 24.0/13.6/12.9, max 24.6/14.1/13.4 → **gate PASSES**; 4x median
+58–76 ms (report-only, G3). Full fromBaked ≈23 ms → core split ~halves it. Node
+script deleted. #4843 MERGED; wp2.2a branch deleted (childless). Codex r1 on
+#4849 launched. (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
