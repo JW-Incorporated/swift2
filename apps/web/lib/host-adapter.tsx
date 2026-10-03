@@ -2,9 +2,21 @@ import { forwardRef, type ComponentProps } from 'react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import { webApiFetch } from '@swift2/content';
-import type { HostAdapter, HostImageProps, HostLinkProps, HostStorage } from '@swift2/ui';
+import type {
+  HostAdapter,
+  HostImageProps,
+  HostLinkProps,
+  HostStorage,
+  HostWebPush,
+} from '@swift2/ui';
 
 import { CANONICAL_ORIGIN } from './canonical-origin';
+import {
+  getOrCreateWebDeviceId,
+  isWebPushSupported,
+  subscribeToWebPush,
+  unsubscribeFromWebPush,
+} from './web-push-client';
 
 // Module-level so their identity is stable across renders (a component defined
 // inside the adapter factory would remount its subtree on every adapter rebuild).
@@ -64,6 +76,27 @@ export function createWebStorage(which: 'localStorage' | 'sessionStorage'): Host
   };
 }
 
+export const webPushHost: HostWebPush = {
+  isSupported: isWebPushSupported,
+  getDeviceId: getOrCreateWebDeviceId,
+  subscribe: subscribeToWebPush,
+  unsubscribe: unsubscribeFromWebPush,
+  async loadPrefs(deviceId) {
+    const res = await fetch(`/api/devices/${deviceId}/prefs`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  },
+  async savePrefs(deviceId, body) {
+    const res = await fetch(`/api/devices/${deviceId}/prefs`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  },
+};
+
 export type WebRouter = {
   push(path: string): void;
   replace(path: string): void;
@@ -93,5 +126,6 @@ export function createWebAdapter(router: WebRouter): HostAdapter {
     },
     insets: { top: 0, right: 0, bottom: 0, left: 0 },
     haptic: () => {},
+    webPush: webPushHost,
   };
 }

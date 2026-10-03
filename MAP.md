@@ -673,7 +673,11 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 (pending)
 
 ### WP2.12 settings
-(pending)
+| File | Purpose |
+|---|---|
+| `packages/ui/src/reader/settings/WebNotificationSettings.tsx` | Web-push settings screen; reads `useHost().webPush`. Old `apps/web/components/longlive/` path is a shim |
+| `packages/ui/src/reader/settings/NotificationSettingsPage.tsx` | Body of `/settings/notifications` (`useHost().Link`); the Next page keeps `metadata` + VAPID env |
+| `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
 
 ### WP2.13 legal
 (pending)

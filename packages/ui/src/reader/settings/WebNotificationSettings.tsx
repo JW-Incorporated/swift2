@@ -26,12 +26,7 @@ import {
   type NotificationCadence,
   type NotificationGroup,
 } from '@swift2/shared';
-import {
-  getOrCreateWebDeviceId,
-  isWebPushSupported,
-  subscribeToWebPush,
-  unsubscribeFromWebPush,
-} from '@/lib/web-push-client';
+import { useHost } from '../../host/context';
 
 const CADENCE_LABEL: Record<NotificationCadence, string> = {
   instant: 'Instant',
@@ -68,13 +63,14 @@ type SubscribeState =
   | { kind: 'error'; message: string };
 
 export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: string | null }) {
+  const { webPush } = useHost();
   const [subscribeState, setSubscribeState] = useState<SubscribeState>({ kind: 'checking' });
   const [prefsState, setPrefsState] = useState<DevicePrefsResponse | null>(null);
   const [prefsError, setPrefsError] = useState<string | null>(null);
   const [pendingKeys, setPendingKeys] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    if (!isWebPushSupported()) {
+    if (!webPush?.isSupported()) {
       setSubscribeState({ kind: 'unsupported' });
       return;
     }
@@ -83,24 +79,22 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
     // in a prior visit — re-check via the Notification API rather than
     // assuming, since permission can be revoked outside the app.
     if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-      setSubscribeState({ kind: 'subscribed', deviceId: getOrCreateWebDeviceId() });
+      setSubscribeState({ kind: 'subscribed', deviceId: webPush.getDeviceId() });
     } else if (typeof Notification !== 'undefined' && Notification.permission === 'denied') {
       setSubscribeState({ kind: 'denied' });
     } else {
       setSubscribeState({ kind: 'not_subscribed' });
     }
-  }, []);
+  }, [webPush]);
 
   const loadPrefs = useCallback(async (deviceId: string) => {
     try {
-      const res = await fetch(`/api/devices/${deviceId}/prefs`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setPrefsState((await res.json()) as DevicePrefsResponse);
+      setPrefsState((await webPush!.loadPrefs(deviceId)) as DevicePrefsResponse);
       setPrefsError(null);
     } catch (e) {
       setPrefsError(e instanceof Error ? e.message : String(e));
     }
-  }, []);
+  }, [webPush]);
 
   useEffect(() => {
     if (subscribeState.kind === 'subscribed') void loadPrefs(subscribeState.deviceId);
@@ -110,13 +104,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
     async (deviceId: string, key: string, body: { settings?: object; prefs?: object[] }) => {
       setPendingKeys((prev) => new Set(prev).add(key));
       try {
-        const res = await fetch(`/api/devices/${deviceId}/prefs`, {
-          method: 'PUT',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(body),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        setPrefsState((await res.json()) as DevicePrefsResponse);
+        setPrefsState((await webPush!.savePrefs(deviceId, body)) as DevicePrefsResponse);
         setPrefsError(null);
       } catch (e) {
         setPrefsError(e instanceof Error ? e.message : String(e));
@@ -128,12 +116,12 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
         });
       }
     },
-    [],
+    [webPush],
   );
 
   async function handleSubscribe() {
     setSubscribeState({ kind: 'subscribing' });
-    const result = await subscribeToWebPush(vapidPublicKey);
+    const result = await webPush!.subscribe(vapidPublicKey);
     if (result.status === 'subscribed') {
       setSubscribeState({ kind: 'subscribed', deviceId: result.deviceId });
     } else if (result.status === 'permission_denied') {
@@ -151,7 +139,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   }
 
   async function handleUnsubscribe() {
-    const outcome = await unsubscribeFromWebPush();
+    const outcome = await webPush!.unsubscribe();
     if (outcome.ok) {
       setSubscribeState({ kind: 'not_subscribed' });
       setPrefsState(null);
