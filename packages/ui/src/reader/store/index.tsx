@@ -264,10 +264,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // state-only, not URL-synced.
   const currentUrl = useHost().currentUrl;
   useEffect(() => {
-    if (!currentUrl) return;
+    const href = currentUrl?.() ?? (typeof window !== 'undefined' ? window.location.href : undefined);
+    if (href === undefined) return;
     let search: string;
     try {
-      search = new URL(currentUrl()).search;
+      search = new URL(href).search;
     } catch {
       return;
     }
