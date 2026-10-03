@@ -77,7 +77,7 @@ export function CurrentItemDetail({
           sources: item.sources,
         }),
       });
-      setVerifyState(res.status >= 200 && res.status < 300 ?'sent' : 'error');
+      setVerifyState(res.status >= 200 && res.status < 300 ? 'sent' : 'error');
     } catch {
       setVerifyState('error');
     }
