@@ -89,6 +89,15 @@ executors: loader chain #4815→#4816; DOM chain #4811→#4818+#4819→#4822 (#4
 only retargeted to main, not merged). TODO next free slot: size-baseline bump
 PR (+11.6%, after #4799); researcher on S1 reports → WP0.2 D decision;
 release-train check for the #4799 store builds.
+**17:37:** #4827 Codex r1 (`task-murncc9n-9q975l`) REQUEST CHANGES (P1 live
+fixture; P1 grey-PNG images; P1 b asset fallback to web public; P1 triggers
+miss packages/sync; P2 a-hash not runtime; P2 bypassCSP global; P3 diag). PM:
+fix all except KEEP grey-PNG stub (X2 is device-owned) + assert a/b image-URL
+sets identical. Fix round 1 executor launched (10 items). Round 2 = last
+review round (rule 3). WP1.2 → **#4828** (base wp1.1c-2; dispatch 37082405671
+green, PM verified; empty baselines = no serious/critical anywhere). Reviewer
+r1: no blockers (Low: assert axe `passes`>0; lockfile rn-web sync note);
+Codex r1 `task-murnv3l2-3dvkaa` running.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
