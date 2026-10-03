@@ -148,6 +148,6 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     expectTypeOf<NonNullable<ShareHost['share']>>().toEqualTypeOf<NonNullable<HostAdapter['share']>>();
     expectTypeOf<NonNullable<HostAdapter['resolveUrl']>>().toEqualTypeOf<(path: string) => string>();
     expectTypeOf<HostAdapter['storage']['local']>().toEqualTypeOf<HostStorage>();
-    expectTypeOf<ReturnType<HostStorage['get']>>().toEqualTypeOf<string | null>();
+    expectTypeOf<ReturnType<HostStorage['get']>>().toEqualTypeOf<string | null | undefined>();
   });
 });

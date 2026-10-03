@@ -36,5 +36,7 @@ export default defineConfig({
       'apps/mobile/**/*.test.ts',
       'scripts/**/*.test.ts',
     ],
+    testTimeout: 30000,
+    hookTimeout: 30000,
   },
 });

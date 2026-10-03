@@ -54,9 +54,10 @@ export function createWebStorage(which: 'localStorage' | 'sessionStorage'): Host
   return {
     get(key) {
       try {
-        return area()?.getItem(key) ?? null;
+        const a = area();
+        return a ? a.getItem(key) : undefined;
       } catch {
-        return null;
+        return undefined;
       }
     },
     set(key, value) {
@@ -129,7 +130,20 @@ export function createWebAdapter(router: WebRouter): HostAdapter {
   };
 }
 
-/** The Next app root's adapter: the base web adapter plus browser web push (never in the base, which the app DOM host spreads). */
+/** The Next app root's adapter: the base web adapter plus affiliate ids and browser web push (never in the base, which the app DOM host spreads). */
 export function createWebRootAdapter(router: WebRouter): HostAdapter {
-  return { ...createWebAdapter(router), webPush: webPushHost, currentUrl: () => window.location.href };
+  const base = createWebAdapter(router);
+  return {
+    ...base,
+    env: {
+      ...base.env,
+      affiliate: {
+        awinId: process.env.NEXT_PUBLIC_AWIN_ID,
+        amazonAssociatesTag: process.env.NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG,
+        catchallId: process.env.NEXT_PUBLIC_CATCHALL_ID,
+      },
+    },
+    webPush: webPushHost,
+    currentUrl: () => window.location.href,
+  };
 }

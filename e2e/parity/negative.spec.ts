@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { Page, Route } from '@playwright/test';
 import {
   BASE,
   captureRoot,
@@ -9,6 +9,8 @@ import {
   expect,
   FOOTER_SELECTOR,
   A_ONLY_ROUTES,
+  A_ONLY_ROUTES_BETA,
+  BETA_NEGATIVE_TARGETS,
   captureLocator,
   ITEM_SOCIAL,
   mutate,
@@ -127,21 +129,23 @@ test.describe('image settle gate (a slow image must be painted before capture)',
   const DELAY_MS = 4000;
   for (const side of ['a', 'b'] as const) {
     test(`side ${side}: a delayed image response (local or external) is waited for, so the capture matches the undelayed render`, async ({ page }, testInfo) => {
-      await openRoute(page, side, route);
-      const control = await captureRoot(page, route);
+      // The delayed pass runs FIRST, on a cold cache: eager images (#4895) are served from WebKit's memory cache on a
+      // reload, so a warm second pass would never reach the slow route. The undelayed control is captured after it.
       const delayed = new Set<string>();
-      await page.route(
-        (url) => /^https?:$/.test(url.protocol),
-        async (r) => {
-          if (r.request().resourceType() !== 'image') return r.fallback();
-          delayed.add(r.request().url());
-          await new Promise((done) => setTimeout(done, DELAY_MS));
-          return r.fallback();
-        },
-      );
+      const slow = async (r: Route) => {
+        if (r.request().resourceType() !== 'image') return r.fallback();
+        delayed.add(r.request().url());
+        await new Promise((done) => setTimeout(done, DELAY_MS));
+        return r.fallback();
+      };
+      const slowMatch = (url: URL) => /^https?:$/.test(url.protocol);
+      await page.route(slowMatch, slow);
       const started = Date.now();
       await openRoute(page, side, route);
       const shot = await captureRoot(page, route);
+      await page.unroute(slowMatch, slow);
+      await openRoute(page, side, route);
+      const control = await captureRoot(page, route);
       expect(delayed.size, 'the slow route must actually have intercepted images').toBeGreaterThan(0);
       expect(Date.now() - started, 'the capture must have waited for the slow images').toBeGreaterThanOrEqual(DELAY_MS);
       expect(await pixelMatches(testInfo, `neg-slow-${side}`, control, shot)).toBe(true);
@@ -293,4 +297,21 @@ test.describe('One UI PR0 a-only gates (WP2.5-2.8: a 1px mutation of each new su
     const mutated = await captureElement(page, 'main h1', clip);
     expect(await pixelMatches(testInfo, 'neg-threads-1px', clean, mutated)).toBe(false);
   });
+});
+
+test.describe('One UI PR0-beta a-only gates (WP2.9-2.13: a 1px shift of each new surface fails its clip)', () => {
+  test.use({ bypassCSP: true });
+  for (const route of A_ONLY_ROUTES_BETA) {
+    test(`a 1px shift on ${route.name} fails its clip`, async ({ page }, testInfo) => {
+      const selector = BETA_NEGATIVE_TARGETS[route.name]!;
+      await openAOnlyRoute(page, route);
+      const clip = await elementBox(page, selector);
+      const clean = await captureElement(page, selector, clip);
+      await page.locator(selector).first().evaluate((el) => {
+        el.style.transform = 'translateY(1px)';
+      });
+      const mutated = await captureElement(page, selector, clip);
+      expect(await pixelMatches(testInfo, `neg-beta-${route.name}`, clean, mutated)).toBe(false);
+    });
+  }
 });

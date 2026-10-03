@@ -26,6 +26,9 @@ import { feedCardImageHidden } from '../lib/video-affordance';
 import type { Era } from '@swift2/experience';
 import type { CurrentItem } from '@swift2/shared';
 
+/** How many leading feed cards of the first section load their photo eagerly. */
+const EAGER_CARD_IMAGES = 2;
+
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
  * sections each wear their own palette, while the global chrome tracks whichever
@@ -46,8 +49,11 @@ import type { CurrentItem } from '@swift2/shared';
 export function EraSection({
   era,
   currentItems = [],
+  eagerImages = false,
 }: {
   era: Era;
+  /** First section in the stream: its hero and first cards load eagerly at high priority; every other section lazy-loads. */
+  eagerImages?: boolean;
   /** Current era's live `current_item` rows (Stage 5); ignored elsewhere. */
   currentItems?: CurrentItem[];
 }) {
@@ -200,7 +206,10 @@ export function EraSection({
             src={resolveUrl(era.image || '/placeholder.svg')}
             alt=""
             fill
-            priority
+            priority={eagerImages}
+            loading={eagerImages ? 'eager' : 'lazy'}
+            fetchPriority={eagerImages ? 'high' : undefined}
+            decoding="async"
             className="object-cover opacity-40"
           />
           {/* Fades in from era-bg at the very top (blending into the solid-
@@ -271,6 +280,7 @@ export function EraSection({
         videoOwnerIds={videoOwnerIds}
         imageHiddenIds={imageHiddenIds}
         filters={filters}
+        eagerCount={eagerImages ? EAGER_CARD_IMAGES : 0}
         onOpenItem={openItem}
         onOpenDoorway={handleOpenDoorway}
         onOpenCurrentItem={setOpenCurrentItem}

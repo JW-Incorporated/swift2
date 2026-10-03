@@ -57,6 +57,8 @@ export type HostImageProps = {
   unoptimized?: boolean;
   loading?: 'lazy' | 'eager';
   draggable?: boolean;
+  fetchPriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
   style?: CSSProperties;
   onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 };
@@ -64,7 +66,8 @@ export type HostImageProps = {
 export type Unsubscribe = () => void;
 
 export type HostStorage = {
-  get(key: string): string | null;
+  /** undefined = storage unavailable, null = key absent. */
+  get(key: string): string | null | undefined;
   set(key: string, value: string): void;
   remove(key: string): void;
 };
@@ -74,6 +77,14 @@ export type HostEnv = {
   turnstileSiteKey: string | null;
   /** Canonical site origin; identical on server and client (hydration-stable). */
   origin: string;
+  /** Affiliate network ids for shop links (web root adapter only; absent = direct retailer links). */
+  affiliate?: HostAffiliateEnv;
+};
+
+export type HostAffiliateEnv = {
+  awinId?: string;
+  amazonAssociatesTag?: string;
+  catchallId?: string;
 };
 
 export type WebPushSubscribeResult =

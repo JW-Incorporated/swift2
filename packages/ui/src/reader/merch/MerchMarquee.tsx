@@ -10,9 +10,9 @@ import type { JSX, ReactNode } from 'react';
  * (globals.css, a sibling task in the same plan) — this file only
  * references them by name and never hardcodes their hex values.
  *
- * The `@keyframes flick` animation is scoped to this file via a plain
- * `<style>` tag rather than a shared stylesheet edit (no other file in this
- * plan is touched). It is still honoured by the app-wide
+ * The `merch-marquee-flick` keyframes and `.merch-marquee-bulb` class live in
+ * apps/web/app/globals.css (an inline `<style>` is blocked by the CSP). They
+ * are honoured by the app-wide
  * `prefers-reduced-motion: reduce` rule in globals.css, which forces
  * `animation-duration: 0.001ms !important` on `*, *::before, *::after`.
  * `!important` always wins over this file's un-important `animation`
@@ -30,16 +30,6 @@ export function MerchMarquee(props: {
 
   return (
     <div className="relative border border-[color:var(--merch-line-strong)] px-[22px] pb-[38px] pt-[46px] shadow-[0_40px_90px_-50px_rgba(0,0,0,.9),inset_0_1px_0_rgba(246,239,228,.06)] [background:linear-gradient(178deg,var(--merch-panel-2),var(--merch-ink-2)_78%)] sm:px-[34px]">
-      <style>{`
-        @keyframes merch-marquee-flick {
-          0%, 100% { opacity: .32; }
-          45% { opacity: 1; }
-        }
-        .merch-marquee-bulb {
-          animation: merch-marquee-flick 3.6s ease-in-out infinite;
-        }
-      `}</style>
-
       <div
         className="pointer-events-none absolute left-[14px] right-[14px] top-[-4px] flex justify-between"
         aria-hidden="true"

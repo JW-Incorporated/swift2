@@ -21,7 +21,7 @@ const ESCAPE_DISMISS_COMPONENTS = [
   '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
   '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
   '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
-  './TheoryGuide.tsx',
+  '../../../../packages/ui/src/reader/threads/TheoryGuide.tsx',
   '../../../../packages/ui/src/reader/tracks/TrackDetail.tsx',
   '../../../../packages/ui/src/reader/tracks/TrackGuide.tsx',
   '../../../../packages/ui/src/reader/threads/decode/DecodeThread.tsx',
