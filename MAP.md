@@ -692,7 +692,9 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 | `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
 
 ### WP2.13 legal
-(pending)
+| File | What it is |
+|---|---|
+| `packages/ui/src/reader/legal/FeedbackButton.tsx` | MOVED from `apps/web/components/longlive/` (WP2.13-A1b, move-only). Old path is a one-line `export *` shim (until A2) |
 
 ## CI concurrency (2026-10-01)
 

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 // FeedbackButton has no jsdom/testing-library render harness in this repo
 // (same constraint TimelineScrubber.test.ts documents), so these are
 // source-level regression pins for two re-review findings (2026-08-13).
-const src = readFileSync(join(__dirname, 'FeedbackButton.tsx'), 'utf8');
+const src = readFileSync(join(__dirname, '..', '..', '..', '..', 'packages', 'ui', 'src', 'reader', 'legal', 'FeedbackButton.tsx'), 'utf8');
 const globalsCss = readFileSync(join(__dirname, '..', '..', 'app', 'globals.css'), 'utf8');
 
 /** The idle floating cluster: everything from the trigger row's marker down. */
