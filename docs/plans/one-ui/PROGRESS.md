@@ -277,6 +277,19 @@ fails closed, Android skipped) → researcher diagnosing (EAS CLI command/flags/
 JSON noise?). #4845 reviewer: minor — branch carries the prune commits
 (merge main), negative spec may not discriminate (prove via mutation), SVG
 decode false-fail risk → fix next slot.
+**02:50:** Train "unknown" root cause: `eas workflow:status --json` prints JSON
+then exits 11 (FAILURE)/12 (CANCELED) (eas-cli 23.2.0 status.js:97-108) → old
+`if eas …; then` skipped the selector. Fix → **#4846** (read-android-status.sh
+accepts 0/11/12; fake-eas tests 34/34) → reviewer APPROVE → **auto-merge set**.
+Next train run after it lands should submit Android to Play internal (if the
+EAS Android build job succeeded). #4844 fix r1 74426fe8 (deps, HostImageProps
++5 props, constant origin, identity test) → scoped reviewer APPROVE
+(provisional on parity jobs); ops-env dispatch failure = wrong workflow
+(mobile-parity.yml), irrelevant; Codex r2 `task-mus7mnzi-srp8qe` pending.
+#4843 fix r1 pushed (PM accepted ~561 gross lines: moved wrappers, net +167;
+transitive purity test catches 12 offenders pre-fix) → scoped reviewer r2
+launched; Codex r2 next slot. #4845 fix r1 launched (merge main; prove the
+negative spec discriminates via mutation; SVG decode tolerance).
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
