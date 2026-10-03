@@ -209,6 +209,15 @@ fingerprint 473eab6c unchanged; parity 37112663539 green; suite 8240).
 `^19`, drop React-18 typing requirement (amends 2.1 rulings Q1). /eras
 allowlist closure → 2.1-C or D. Reviewer + Codex r1 launched. WP2.2-A running
 in parallel.
+**02:26:** #4841 reviewer r1 REQUEST CHANGES (peer ^19; @source missing in
+apps/mobile/dom/shared-ui-test.css; prettier drift unverified) → bundle with
+Codex r1. WP2.1-B launched (stacked on wp2.1a). **Font spike (G0 evidence):**
+DOM export drops url()/imported woff2 (404); data-URI @font-face works →
+PM ruling C: one generator, web url()+preload, DOM data-URI (~360 KB base64,
+OTA bump reason recorded), same bytes both sides (ruling in brief-wp21.md).
+**S4 additions:** data-URI faces `loaded` on iOS+Android; no FOUT before
+onReady; variable-axis weights render in WKWebView + Android WebView; 360 KB
+font CSS doesn't slow DOM cold start.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
