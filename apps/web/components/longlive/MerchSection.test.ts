@@ -18,7 +18,7 @@ const { buildShopUrl, isAffiliateListing } = vi.hoisted(() => ({
   isAffiliateListing: vi.fn(() => true),
 }));
 
-vi.mock('@/lib/longlive/store', () => ({
+vi.mock('@swift2/ui/reader/store/index', () => ({
   useAppActions: () => ({ openItem: vi.fn() }),
 }));
 
@@ -33,7 +33,7 @@ vi.mock('lucide-react', () => ({
   ExternalLink: () => createElement('svg', { 'aria-hidden': 'true' }),
 }));
 
-vi.mock('@/lib/longlive/shop', () => ({
+vi.mock('@swift2/ui/reader/moment/lib/shop', () => ({
   renderMerchShopLink: (listing: MerchItem) => ({ href: listing.url, isAffiliate: false }),
   buildShopUrl,
   isAffiliateListing,

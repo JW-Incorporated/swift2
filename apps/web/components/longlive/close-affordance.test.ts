@@ -25,7 +25,7 @@ function closeButtonTag(src: string, aria: string): string {
 
 const CLOSE_BUTTONS: Array<{ file: string; aria: string }> = [
   { file: '../../../../packages/ui/src/reader/threads/Crossings.tsx', aria: 'Close crossing detail' },
-  { file: './FeedbackButton.tsx', aria: 'Close feedback' },
+  { file: '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx', aria: 'Close feedback' },
   { file: '../../../../packages/ui/src/reader/threads/love-story/EntryDetail.tsx', aria: 'Close' },
 ];
 

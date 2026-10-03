@@ -7,6 +7,7 @@ import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
 import { MoodChat } from './MoodChat';
 import { ClownChat } from './ClownChat';
+import { LORE } from '@/lib/longlive/clownbot-lore';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
@@ -19,12 +20,16 @@ import { FeedbackButton } from './FeedbackButton';
 import { CommunitySection } from './CommunitySection';
 const MerchSection = dynamic(() => import('./MerchSection').then((module) => module.MerchSection));
 
+function WebClownChat() {
+  return <ClownChat lore={LORE} />;
+}
+
 const slots: ReaderSlots = {
   surfaces: {
     era: EraStream,
     threads: ThreadsMode,
     mood: MoodChat,
-    clownbot: ClownChat,
+    clownbot: WebClownChat,
     community: CommunitySection,
     merch: MerchSection,
   },
