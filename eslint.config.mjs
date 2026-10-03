@@ -162,10 +162,6 @@ export default tseslint.config(
     ignores: [
       '**/*.test.{ts,tsx}',
       '**/*.server.{ts,tsx}',
-      // TODO(#4859): merch + songMoods move to ReaderExtensionsProvider; drop these then.
-      'apps/web/components/longlive/MerchSection.tsx',
-      'apps/web/components/longlive/merch/MerchCard.tsx',
-      'apps/web/components/longlive/merch/MerchStyleSection.tsx',
     ],
     rules: {
       'no-restricted-imports': [

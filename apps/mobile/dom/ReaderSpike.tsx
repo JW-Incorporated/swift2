@@ -107,13 +107,13 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
           text = read.text;
         }
         if (!text) throw new Error('bundle cache unreadable');
-        const { snapshot, version } = snapshotFromEnvelope(text, { eraVideoFeed });
+        const { core, extensions, version } = snapshotFromEnvelope(text, { eraVideoFeed });
         probe.report.version = version;
-        const described = await describeSnapshotSafe(snapshot);
+        const described = await describeSnapshotSafe(core, extensions);
         probe.report.snapshot = described.snapshot;
         if (described.error) probe.report.error = described.error;
-        fill(snapshot);
-        const reader = loadReader(snapshot);
+        fill(core);
+        const reader = loadReader(core, extensions);
         setReader(() => reader);
         void checkMarkers(version, probe);
       } catch (e) {
