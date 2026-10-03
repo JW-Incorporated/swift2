@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #88 · 2026-10-03 · done · Finish the weekly Facebook export setup — "Joey asked in chat to close once the run worked; 2026-10-03 run uploaded 8/8 groups (fans club raw-file upload retried 1/1, no KEPT outstanding); prod fan_signal 8 rows, engagement_lead 231; #4589 closed" · by chat
+- #70 · 2026-10-03 · done · Confirm the first automated Facebook export — "Joey asked in chat to close once the run worked; weekly issue #4589 closed with the counts comment, every joined group uploaded, none failed" · by chat
 - #95 · 2026-10-01 · done · Save the refreshed Instagram token so DMs and FB comments reach Discord — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5939131633 — owner said done" · by status page
 - #94 · 2026-10-01 · skip · Add a free Reddit API key so Tree finds 10+ opportunities a day — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5938589539 — owner skipped 'Owner decision 2026-10-01: we will NEVER have a Reddit API key. Never raise this again. (Relayed by Claude from Joey's chat.)'" · by status page
 - #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat

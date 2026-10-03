@@ -19,11 +19,14 @@
     "./reader/shell/topbarLayout": "./src/reader/shell/topbarLayout.ts"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.3.3",
     "@swift2/content": "*",
     "@swift2/content-enrichment": "*",
     "@swift2/experience": "*",
     "@swift2/shared": "*",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lucide-react": "^1.39.0",
     "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
