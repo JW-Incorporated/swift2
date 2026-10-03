@@ -297,11 +297,12 @@ export async function captureElement(page: Page, selector: string, clip?: Clip):
   return page.screenshot({ clip: clip ?? (await elementBox(page, selector)), scale: 'css' });
 }
 
-/** Footer top band (border + wordmark): small and high-contrast, so a 1px footer shift exceeds the pixel ratio. Scrolls the footer into view. */
+/** Footer top band (border, wordmark, disclaimer text; at most 448 css px wide): small and high-contrast, so a 1px footer shift exceeds the pixel ratio. Scrolls the footer into view. */
 export async function footerBand(page: Page): Promise<Clip> {
   await page.locator('footer').last().scrollIntoViewIfNeeded();
   const box = await elementBox(page, 'footer >> nth=-1');
-  return { ...box, height: Math.min(box.height, 80) };
+  const width = Math.min(box.width, 448);
+  return { x: box.x + (box.width - width) / 2, y: box.y, width, height: Math.min(box.height, 120) };
 }
 
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */
