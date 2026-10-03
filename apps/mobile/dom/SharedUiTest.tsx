@@ -13,11 +13,17 @@ const ERA_ACCENTS = ['#c9a24b', '#7fb8d9', '#d97fa6'];
 interface SharedUiTestProps {
   onReady: () => Promise<void>;
   reportError: (message: string) => Promise<void>;
+  /** WP0.4b drill: 'throw' raises an uncaught error instead of ready; 'hang' never signals ready. */
+  forceFailure?: 'off' | 'throw' | 'hang';
   dom?: import('expo/dom').DOMProps;
   ref?: React.Ref<object>;
 }
 
-export default function SharedUiTest({ onReady, reportError }: SharedUiTestProps) {
+export default function SharedUiTest({
+  onReady,
+  reportError,
+  forceFailure = 'off',
+}: SharedUiTestProps) {
   const [eraIndex, setEraIndex] = useState(0);
 
   useEffect(() => {
@@ -43,6 +49,13 @@ export default function SharedUiTest({ onReady, reportError }: SharedUiTestProps
   useEffect(() => {
     if (readyFired.current) return;
     readyFired.current = true;
+    if (forceFailure === 'hang') return;
+    if (forceFailure === 'throw') {
+      setTimeout(() => {
+        throw new Error('forced DOM failure');
+      }, 0);
+      return;
+    }
     void onReady();
   }, []);
 

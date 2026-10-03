@@ -635,7 +635,9 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `apps/mobile/dom/SharedUiTest.tsx` (+ `shared-ui-test.css`, `css.d.ts`) | `'use dom'` test page: Tailwind v4, `--era-*` switch, Radix dialog, 50-row list, inlined web font, watchdog signals |
-| `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals, reloads itself on webview death |
+| `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals and forwards them to the watchdog; no reload or error screen of its own |
+| `apps/mobile/lib/dom-host-handlers.ts` (+ test) | Pure DOM-host signal handlers (`createDomHostHandlers`: signal + `watch` sink only) and `sharedUiActive` |
+| `apps/mobile/lib/watchdog.ts` (+ test), `watchdog-store.ts`, `watchdog-gate.ts` | One UI WP0.4b: DOM-reader watchdog. Pure record/monitor rules (`decideMount`, strikes, ready-timeout with fake-clock tests), one SecureStore key, and the `useDomMount` hook App.tsx uses (attempt write awaited, fail closed). No network. Diagnostics: tri-state Force DOM failure + watchdog block (panel only) |
 | `apps/mobile/lib/orientation-lock.ts` | Locks phones to portrait at runtime (app.json orientation is `default`) |
 | `apps/mobile/postcss.config.mjs` | Tailwind v4 PostCSS plugin for DOM CSS |
 | `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
