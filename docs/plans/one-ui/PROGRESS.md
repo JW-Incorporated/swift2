@@ -127,6 +127,9 @@ baselines don't match. **PM call:** land as a pair after #4827 approval —
 index.web.tsx + re-baselines on spike routes), (2) merge origin/main into
 wp0.5b keeping index.web.ts / deleting index.web.tsx, (3) #4822 → main
 (squash; then retarget #4828 to main before deleting wp0.5b/wp1.1c-2).
+**17:56:** #4828 r2 fixes 1a67746e (impact in key + test; passes>0; doc) +
+nit 6d6bd5d1 (stale type ref) → **#4828 APPROVED** (approve-with-nit), lands
+after #4827/#4822 pair (retarget to main first; re-run parity after merge-in).
 Local unpushed merge b853f1b4 in wt-05b — discard by not pushing. Spike is
 behind the override flag → nothing user-facing waits.
 
