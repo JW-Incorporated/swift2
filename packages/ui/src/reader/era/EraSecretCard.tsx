@@ -36,7 +36,7 @@ export function EraSecretCard({ eraId }: { eraId: EraId }) {
   useEffect(() => setDayKey(todayKey()), []);
 
   if (pool.length === 0) return null;
-  const secret = dayKey ? pool[epochDay(dayKey) % pool.length]! : pool[0];
+  const secret = dayKey ? pool[epochDay(dayKey) % pool.length]! : pool[0]!;
 
   const link = resolveEraSecretLink(secret.deeperLink);
   const deeper = link

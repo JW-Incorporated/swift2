@@ -46,7 +46,7 @@ export function LandingMasthead({
 }) {
   const [dayKey, setDayKey] = useState<string | null>(null);
   useLayoutEffect(() => setDayKey(todayKey()), []);
-  const gloss = (dayKey ? dailyGloss(dayKey) : GLOSS_SECTIONS[0]) ?? GLOSS_SECTIONS[0];
+  const gloss = (dayKey ? dailyGloss(dayKey) : GLOSS_SECTIONS[0]) ?? GLOSS_SECTIONS[0]!;
 
   const [nowMs, setNowMs] = useState<number | null>(null);
   useLayoutEffect(() => setNowMs(Date.now()), []);

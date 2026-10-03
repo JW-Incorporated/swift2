@@ -245,7 +245,7 @@ export function EraStream() {
   }, [pendingVideoAnchor, clearPendingVideoAnchor]);
 
   const sequence = useMemo(() => erasBackFrom(anchorId, count), [anchorId, count]);
-  const reachedBeginning = isFirstEra(sequence[sequence.length - 1].id);
+  const reachedBeginning = isFirstEra(sequence[sequence.length - 1]!.id);
   const sequenceKey = sequence.map((e) => e.id).join(',');
 
   // The active era's section-top offset (relative to the viewport), kept
@@ -388,7 +388,7 @@ export function EraStream() {
       <FilterBar />
       {sequence.map((era, i) => (
         <Fragment key={era.id}>
-          {i > 0 && <EraTransition from={sequence[i - 1]} to={era} />}
+          {i > 0 && <EraTransition from={sequence[i - 1]!} to={era} />}
           <EraSection era={era} currentItems={era.id === CURRENT_ERA_ID ? currentItems : undefined} />
         </Fragment>
       ))}
@@ -419,7 +419,7 @@ function EraTransition({ from, to }: { from: Era; to: Era }) {
 
 /** The terminus: scrolling past Debut reaches the start of her career. */
 function OriginCap() {
-  const debut = getEra(ERAS[0].id);
+  const debut = getEra(ERAS[0]!.id);
   const { goHome, setMode } = useAppActions();
 
   return (
