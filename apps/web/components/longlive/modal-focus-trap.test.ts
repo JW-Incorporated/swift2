@@ -134,7 +134,7 @@ describe('#3177 the feedback panel is a real focus-trapped dialog', () => {
   const src = read('../../../../packages/ui/src/reader/legal/FeedbackButton.tsx');
 
   it('imports the shared focus trap', () => {
-    expect(src).toContain("import { useFocusTrap } from '@/lib/longlive/useFocusTrap';");
+    expect(src).toContain("import { useFocusTrap } from '../moment/lib/useFocusTrap';");
   });
 
   it('the panel root declares dialog semantics and a focus target', () => {
