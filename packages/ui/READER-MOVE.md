@@ -88,7 +88,11 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 (pending)
 
 ### WP2.7 tracks
-(pending)
+- Moved (A1, move-only): `TrackGuide.tsx`, `TrackDetail.tsx` -> `packages/ui/src/reader/tracks/`. TheoryGuide/TheoryCard are WP2.6, not here.
+- Shims (one-line `export *`, in `apps/web`, importer `LongLive.tsx`): `components/longlive/{TrackGuide,TrackDetail}.tsx`. No plain renames.
+- Source-reading tests repointed at the moved files: `OverlayNav.test.ts`, `back-dismiss.test.ts`, `escape-dismiss.test.ts`, `modal-focus-trap.test.ts` (now expects the relative `useFocusTrap` import).
+- Imports: `useHost`/`useResolveUrl`/`useReader` from package-internal `../../host/context` and `../../snapshot/context`; `useFocusTrap` from `../moment/lib/useFocusTrap` (WP2.5). `@swift2/content-enrichment` already a `packages/ui` dependency.
+- Debt: `TrackDetail.tsx` (580) over the 300-line rule; moved as-is. A2 (swipe-hint `window.localStorage` -> `useHost().storage.local`) pending.
 
 ### WP2.8 search
 (pending)
@@ -106,7 +110,13 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 (pending)
 
 ### WP2.12 settings
-(pending)
+A1 + A2 in one PR (PM ruling), separate commits.
+
+- A1 (move-only): `WebNotificationSettings.tsx` -> `reader/settings/`. Old path is a one-line `export *` shim (stays until WP2.13). The `accent-fill-foreground` source-read test is repointed.
+- A2 (logic): `HostAdapter.webPush?: HostWebPush` (additive, web adapter only; app host omits it). The web implementation `webPushHost` in `apps/web/lib/host-adapter.tsx` wraps the unchanged `web-push-client` functions and the `/api/devices/:id/prefs` GET/PUT, so web behaviour is identical. `WebNotificationSettings` reads them via `useHost().webPush` (absent -> "unsupported" state); `WebPushSubscribeResult` re-homed to `host/types.ts`.
+- New `NotificationSettingsPage.tsx` (page body, `next/link` -> `useHost().Link`); `app/settings/notifications/page.tsx` keeps `metadata` and the VAPID env read and renders it.
+- `lib/web-push-client.ts` does not move. Tests: `components/longlive/WebNotificationSettings.host.test.tsx`.
+- Inbox/About rows and app-side `HostNotifications` wiring are 2.12-D.
 
 ### WP2.13 legal
 (pending)
