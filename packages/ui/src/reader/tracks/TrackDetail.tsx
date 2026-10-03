@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useScrollLock } from '../lib/useScrollLock';
 import { useHost, useResolveUrl } from '../../host/context';
 import { useReader } from '../../snapshot/context';
 import {
