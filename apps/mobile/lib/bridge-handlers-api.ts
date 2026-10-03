@@ -130,7 +130,11 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
             redirect: 'error',
             signal: ac.signal,
           });
-          // Persist the rotated token as soon as headers arrive, so a failed body read cannot strand it.
+          // Persist on ANY response carrying the header (status-agnostic, do not gate on res.ok): the server only
+          // emits X-Clown-Session after resolveClownSession already consumed our refresh token via Supabase
+          // rotation (apps/web/app/api/clown/route.ts:284-298, clown-session.ts:102), so the header is always a
+          // fresh mint; dropping it would leave a rotated-out token and trip refresh-token reuse detection.
+          // Persisted at headers, before the body read, so a failed stream cannot strand it.
           if (isClown && deps.clownSession) {
             const refreshed = res.headers.get('x-clown-session');
             if (refreshed) await deps.clownSession.set(refreshed).catch(() => {});

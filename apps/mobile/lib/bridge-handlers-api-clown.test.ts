@@ -75,7 +75,7 @@ describe('api handler: ClownChat (OS-036)', () => {
   });
 });
 
-describe('api handler: ClownChat token persists on every header-bearing outcome (P2)', () => {
+describe('api handler: ClownChat persists on every header-bearing response (refresh already rotated)', () => {
   const hdr = { 'x-clown-session': 'tok-2' };
   it.each([
     ['oversize by content-length', () => new Response('{}', { status: 200, headers: { ...hdr, 'content-length': '999999' } })],
