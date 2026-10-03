@@ -92,7 +92,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
         ),
         RAIL_HEIGHT,
       ),
-    [crossings, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+    [crossings, end, span],
   );
 
   // Lane dot tops after the ≥24px collision pass (#3398, WCAG 2.5.8): a lane's
@@ -102,11 +102,11 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
   // above, run once per lane so lane A and lane B spread independently.
   const laneATops = useMemo(
     () => resolveCrossingMarkerTops(pointsA.map((p) => pct(new Date(p.date).getTime())), RAIL_HEIGHT),
-    [pointsA, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+    [pointsA, end, span],
   );
   const laneBTops = useMemo(
     () => resolveCrossingMarkerTops(pointsB.map((p) => pct(new Date(p.date).getTime())), RAIL_HEIGHT),
-    [pointsB, end, span], // eslint-disable-line react-hooks/exhaustive-deps
+    [pointsB, end, span],
   );
 
   // Which point indices participate in a crossing, so we can emphasize them
@@ -135,7 +135,7 @@ export function Crossings({ a, b }: { a: LensId; b: LensId }) {
         top: pct(new Date(e.end).getTime()),
         bottom: pct(new Date(e.start).getTime()),
       })),
-    [end, span], // eslint-disable-line react-hooks/exhaustive-deps
+    [end, span],
   );
 
   const otherThreads = (exclude: LensId) => CROSSING_THREADS.filter((t) => t !== exclude);

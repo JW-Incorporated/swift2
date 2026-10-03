@@ -48,6 +48,7 @@ export function OwnershipTimeline({
   // Post-buyback, every album's original master is hers. The album-by-album
   // journey that remains is *re-recording* (freeing the vault), not ownership.
   const owned = albums.length;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const reRecorded = albums.filter((a) => a.reclaimedYear !== null).length;
   const awaitingTV = albums.filter((a) => a.reclaimedYear === null).length;
   const vaultTotal = albums.reduce((s, a) => s + a.vaultTracks, 0);

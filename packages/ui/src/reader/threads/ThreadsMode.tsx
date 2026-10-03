@@ -1,14 +1,12 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
 import { useHost } from '@swift2/ui';
 import {
   Heart,
   Shirt,
   RefreshCw,
   Sparkles,
-  Music,
   ArrowLeft,
   ArrowRight,
   Gem,
@@ -16,8 +14,6 @@ import {
   GitFork,
 } from 'lucide-react';
 import { useAppActions, useAppState } from '../store';
-import { getEra } from '@swift2/experience';
-import { eraStyle } from '../lib/theme';
 import {
   THREADS,
   getThread,
@@ -403,6 +399,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
 }
 
 /* Wrap each dated entry so the career timeline can scroll-sync to it. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ThreadItem({
   date,
   children,
