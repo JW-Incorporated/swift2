@@ -64,6 +64,7 @@ describe('WP2.2-D reader import ban', { timeout: 30_000 }, () => {
     ["import { x } from './content';", `${root}/apps/web/lib/longlive/share-payload.ts`],
     ["import { x } from '../tracks';", `${root}/apps/web/lib/longlive/store/navigation.tsx`],
     ["import { x } from '@/lib/longlive/content';", `${root}/apps/web/lib/longlive/use-live-data.ts`],
+    ["import { x } from './merch';", `${root}/apps/web/lib/longlive/merch-filters.ts`],
   ])('rejects %s in client file %s', async (line, filePath) => {
     const messages = await lint(`${line}\nexport default x;\n`, filePath);
     expect(messages).toHaveLength(1);
@@ -73,7 +74,6 @@ describe('WP2.2-D reader import ban', { timeout: 30_000 }, () => {
   it.each([
     `${root}/apps/web/lib/longlive/share-card-spec.server.ts`,
     `${root}/apps/web/lib/longlive/baked-modules.ts`,
-    `${root}/apps/web/lib/longlive/merch-filters.ts`,
   ])('exempts server/data lib file %s', async (filePath) => {
     const messages = await lint("import { x } from './content';\nexport default x;\n", filePath);
     expect(messages).toHaveLength(0);

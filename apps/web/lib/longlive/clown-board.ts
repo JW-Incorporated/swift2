@@ -17,8 +17,14 @@
  */
 
 import { LORE } from './clownbot-lore';
-import { THEORIES_RAW } from './theories.generated';
-import { ERAS, getEra } from '@swift2/experience';
+import { ERAS, getEra, type EraId, type TheoryNote } from '@swift2/experience';
+
+/** The reader's per-era theory query (`useReader().theoriesForEra`). */
+export type TheoriesForEra = (eraId: EraId) => readonly TheoryNote[];
+
+function theoryEntries(theoriesForEra: TheoriesForEra): [EraId, readonly TheoryNote[]][] {
+  return ERAS.map((e): [EraId, readonly TheoryNote[]] => [e.id, theoriesForEra(e.id)]);
+}
 
 export type BoardItem = {
   id: string;
@@ -103,11 +109,11 @@ function byDateDesc(a: BoardItem, b: BoardItem): number {
  * back in time to fill the slot — a padded "current" list is a lie about
  * what is current. The UI handles a short list (§ Step 8).
  */
-export function currentTheories(now: Date): BoardItem[] {
+export function currentTheories(now: Date, theoriesForEra: TheoriesForEra): BoardItem[] {
   const items: BoardItem[] = [];
 
-  for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
-    for (const note of notes ?? []) {
+  for (const [eraId, notes] of theoryEntries(theoriesForEra)) {
+    for (const note of notes) {
       if (note.kind !== 'theory' || note.outcome !== 'pending') continue;
       const date = vaultTheoryDate(eraId, now);
       items.push({
@@ -153,12 +159,12 @@ export interface ConfirmedEggsOptions {
  * with a title tiebreak. `limit` slices AFTER that sort, so a capped list
  * is always the most recent confirmations, never an arbitrary slice.
  */
-export function confirmedEggs(opts: ConfirmedEggsOptions = {}): BoardItem[] {
+export function confirmedEggs(theoriesForEra: TheoriesForEra, opts: ConfirmedEggsOptions = {}): BoardItem[] {
   const { limit } = opts;
   const items: BoardItem[] = [];
 
-  for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
-    for (const note of notes ?? []) {
+  for (const [eraId, notes] of theoryEntries(theoriesForEra)) {
+    for (const note of notes) {
       if (note.outcome !== 'confirmed' || note.kind !== 'easter_egg') continue;
       const date = getEra(eraId).end;
       items.push({
