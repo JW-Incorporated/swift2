@@ -268,6 +268,15 @@ unverified) → **Fable (mandatory, 2nd consecutive)** launched. **#4838 MERGED*
 (imagesReady wait; negative 4 s-delay spec; no baselines changed; 2 green runs)
 — was based on the prune branch, retargeted to main BEFORE GitHub deleted it
 (stacked-PR rule held); reviewer r1 launched.
+**02:46:** Fable #4841 (Fable log): fix-forward — ban all computed import()/
+require() in packages/ui; REMOVE data-swift2-ui (rendered DOM isn't a probe
+surface; proof-of-resolution → per-host tests); fingerprint from CI run URL;
+scoped reviewer, land A, retarget B + C → fix r2 launched. **First post-#4838
+train run 37112800404: Android selection `unknown`** (status read failed —
+fails closed, Android skipped) → researcher diagnosing (EAS CLI command/flags/
+JSON noise?). #4845 reviewer: minor — branch carries the prune commits
+(merge main), negative spec may not discriminate (prove via mutation), SVG
+decode false-fail risk → fix next slot.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
@@ -387,6 +396,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 | 2026-10-02 19:00 | WP2.1 (A–D) + WP2.3 (A–F) brief review | Sound. REQUIRED 2.1: apiFetch = WP0.3b `ApiFetch` type (Response can't cross bridge); shared primitive types in packages/ui/src/host/types.ts; web adapter built in provider, stable Link/Image, no module singleton (WP2.2 gate); turnstileSiteKey `string\|null`. 2.3: A after 2.1-B; HandlerMap in A; C contract 3rd leg HostAdapter⇄payloads; D navigate semantic (in-DOM routing stays DOM); Expo-DOM transport isolated to 2 files (G0 guard). ClownChat → WP2.11 "F2" native-held cookie, per-endpoint `nativeSession`. Wait for G0: 2.3-D/E/F, 2.3-B step 4, 2.3-C step 3 | Adopted all + OPTIONAL (preload Inter/Playfair; next/image fill styles doc). Briefs now durable at docs/plans/one-ui/briefs/brief-wp21.md, brief-wp23.md. Launch after G1 lands + G1 Fable go/no-go |
 | 2026-10-03 02:10 | **G1 go/no-go** (mandatory) + #4838 two consecutive Codex rejections | **G1 GO** for G2 limited to WP2.1 (all) + WP2.3 A, B-logic, C. Conditions: (1) parity becomes a REQUIRED check before the first WP2.4 slice branch (add an always-run job reporting success when paths untouched); (2) WP2.1 closes the /eras/*.png allowlist, no new entries; (3) no OTA baseline re-bump without a PROGRESS reason; (4) watch: WebKit parity flake with no code change ×2 → revisit comparator before required. #4838: fix-forward (strict string hash == GITHUB_SHA else skip; UUID regex), extract selection to scripts/release/select-android-build.mjs + vitest (no node -e on inline YAML); scoped reviewer, no Codex r3, land | Adopted all; WP2.1-A launched |
 | 2026-10-03 02:20 | WP2.2 brief review (A, B, C1–C3, D) + may it run pre-G0? | Sound; **GO pre-G0** (zero-visual refactor, parity-guarded, per-PR revertible). REQUIRED: A O(1) lookups as functions not prebuilt Maps; flat-order audit doesn't block A; B browser perf mark ≤15 ms unthrottled (+4x report), type-guard narrowing, packages/ui/package.json in touch set; C required data param + *.server.ts with server-only; merge main bottom-up before every parity run, never re-baseline. Eager snapshot = §4 contract (no laziness; >15 ms → contract change via Fable). Order: A now ∥ 2.1-A; B after 2.1-A; C, D after B | Adopted all + OPTIONAL (C1–C3 each on B). WP2.2-A launched |
+| 2026-10-03 02:44 | #4841 two consecutive Codex rejections (mandatory) | Fix-forward, land A. REQUIRED: no-restricted-syntax ImportExpression[source.type!='Literal'] + CallExpression[callee.name='require']:not([arguments.0.type='Literal']) with tests; remove data-swift2-ui from ReaderSpike (proof → per-host tests); fingerprint cited from CI run. Rejected Codex r3 + reverting the peer revert. Landing: scoped reviewer → merge A → retarget #4844 + 2.1-C | Adopted |
 | 2026-10-02 | Confirmation pass | READY after 3 text edits: stale `[diag]` wording, §8/§9 order, PROGRESS/HUMAN-ACTIONS landing without `--delete-branch` | All applied |
 
 ## Decisions log (PM, reversible, one line each)
