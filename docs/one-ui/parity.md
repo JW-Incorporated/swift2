@@ -96,7 +96,7 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
-4px shift fail the structural a-vs-b; the unmutated pair passes; a 4 s delay on every external image response must still
+4px shift fail the structural a-vs-b; the unmutated pair passes; a 4 s delay on every image response (local or external) must still
 yield a capture identical to the undelayed one (the image-settle guard). Self-referential
 (references captured on the machine), so it runs on any OS and needs no PNGs.
 
