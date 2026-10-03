@@ -67,6 +67,14 @@ dropped); safe-area → `var(--safe-*, env(...))` in the package (kills the
 spike's !important overrides); ESLint ban next/* + react-native* in
 packages/ui. Split A skeleton+wiring ~150 · B adapter+web adapter ~300 · C
 fonts+re-baseline · D next/* call-site refactor (split by domain) · E X3 list.
+**17:20:** WP1.1c part 2 → **#4827** (base wp0.5b; head c7355a8f; includes
+part 1 merged). PM spot-check: dispatch run 37081334650 success on c7355a8f,
+3m41s. Suite 8182; fingerprint dcf1ea59. Declared deviations under review:
+baselines from REAL synced content (PM concern: daily content PRs → red), 
+bypassCSP, external images → grey PNG, (b) serves /eras/*.png from web public.
+Codex r1 `task-murncc9n-9q975l` + reviewer r1 launched (part-2 commits only).
+**WP1.2** executor launched (wt `wt-wp12`, branch feature/one-ui-wp1.2 stacked
+on wp1.1c-2; axe baseline + negative spec; root devDep @axe-core/playwright).
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
