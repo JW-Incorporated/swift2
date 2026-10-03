@@ -22,6 +22,12 @@ const nextConfig = {
         source: '/:path*',
         headers: securityHeaders(),
       },
+      // Self-hosted fonts are content-hashed (build-fonts.mjs): cache forever,
+      // as next/font's own assets were.
+      {
+        source: '/fonts/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
       // The content bundle is public, static, cookie-less: the app's DOM host
       // (opaque `null` origin) reads it cross-origin. `*` only — never on /api
       // or HTML routes. No Vary/Allow-* (simple GETs need no preflight). The

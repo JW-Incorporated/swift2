@@ -1,0 +1,32 @@
+{
+  "preload": [
+    "/fonts/inter.3100e775.woff2",
+    "/fonts/playfair-display.e0c764a8.woff2"
+  ],
+  "files": {
+    "inter": {
+      "hash": "3100e775",
+      "bytes": 48256
+    },
+    "playfair-display": {
+      "hash": "e0c764a8",
+      "bytes": 38404
+    },
+    "special-elite": {
+      "hash": "770493d8",
+      "bytes": 53296
+    },
+    "dancing-script": {
+      "hash": "51acdc0e",
+      "bytes": 42708
+    },
+    "bodoni-moda": {
+      "hash": "192ae876",
+      "bytes": 25884
+    },
+    "bodoni-moda-italic": {
+      "hash": "e50a00b8",
+      "bytes": 30328
+    }
+  }
+}
