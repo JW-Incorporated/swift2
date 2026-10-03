@@ -4,13 +4,15 @@ import { createExpoBridge, createExpoBridgeClient } from './transport-expo';
 
 const okRes = (env: Envelope) => ({ v: 1, id: env.id, kind: 'res', type: env.type, payload: { ok: true, value: null }, ts: 1 });
 
+const readyAck = { v: 1, id: 'ra', kind: 'evt', type: 'readyAck', payload: { hwm: 0 }, ts: 1 };
+
 describe('createExpoBridgeClient', () => {
   it('posts through the bridge action and feeds a returned res back', async () => {
     const sent: Envelope[] = [];
     const client = createExpoBridgeClient(
       async (env) => {
         sent.push(env);
-        return env.type === 'ready' ? undefined : okRes(env);
+        return env.type === 'ready' ? readyAck : okRes(env);
       },
       () => 'x1',
     );
@@ -40,7 +42,7 @@ describe('createExpoBridgeClient', () => {
   it('a rejecting bridge action fails the call immediately (no 8 s wait)', async () => {
     const ids = ['r', 'c'];
     const client = createExpoBridgeClient(
-      (env) => (env.type === 'ready' ? undefined : Promise.reject(new Error('down'))),
+      (env) => (env.type === 'ready' ? Promise.resolve(readyAck) : Promise.reject(new Error('down'))),
       () => ids.shift() ?? 'z',
     );
     client.sendReady();
@@ -51,7 +53,7 @@ describe('createExpoBridgeClient', () => {
   it('queues calls made before ready and sends them after it, in order', async () => {
     const sent: string[] = [];
     let n = 0;
-    const client = createExpoBridgeClient(async (env) => { sent.push(env.type); return env.type === 'ready' ? undefined : okRes(env); }, () => `i${++n}`);
+    const client = createExpoBridgeClient(async (env) => { sent.push(env.type); return env.type === 'ready' ? readyAck : okRes(env); }, () => `i${++n}`);
     const a = client.call('haptic', { kind: 'light' });
     const b = client.call('openExternal', { url: 'https://example.com' as never });
     expect(sent).toEqual([]);
@@ -65,7 +67,7 @@ describe('createExpoBridge (mount lifecycle)', () => {
   it('mount sends ready; StrictMode double-mount stays usable', async () => {
     const sent: string[] = [];
     let n = 0;
-    const handle = createExpoBridge(async (env) => { sent.push(env.type); return env.type === 'ready' ? undefined : okRes(env); }, () => `m${++n}`);
+    const handle = createExpoBridge(async (env) => { sent.push(env.type); return env.type === 'ready' ? readyAck : okRes(env); }, () => `m${++n}`);
     const unmount1 = handle.mount();
     unmount1();
     const unmount2 = handle.mount();
@@ -74,11 +76,13 @@ describe('createExpoBridge (mount lifecycle)', () => {
     unmount2();
   });
 
-  it('ids stay strictly increasing across dispose/re-create even within one millisecond', () => {
+  it('ids stay strictly increasing across dispose/re-create even within one millisecond', async () => {
     const ids: string[] = [];
-    const handle = createExpoBridge((env) => void ids.push(env.id));
+    const handle = createExpoBridge(async (env) => { ids.push(env.id); return readyAck; });
     handle.mount()();
     handle.mount();
+    await Promise.resolve();
+    await Promise.resolve();
     void handle.client.call('haptic', { kind: 'light' });
     const nums = ids.map(Number);
     expect(nums).toHaveLength(3);
@@ -89,7 +93,7 @@ describe('createExpoBridge (mount lifecycle)', () => {
   it('a call made by a child before the parent mounts is queued, then flushed on mount', async () => {
     const sent: string[] = [];
     let n = 0;
-    const handle = createExpoBridge(async (env) => { sent.push(env.type); return env.type === 'ready' ? undefined : okRes(env); }, () => `p${++n}`);
+    const handle = createExpoBridge(async (env) => { sent.push(env.type); return env.type === 'ready' ? readyAck : okRes(env); }, () => `p${++n}`);
     const early = handle.client.call('haptic', { kind: 'light' });
     expect(sent).toEqual([]);
     handle.mount();

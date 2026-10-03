@@ -79,10 +79,45 @@ describe('ready retry (Fable 1)', () => {
     void c.call('haptic', { kind: 'light' });
     c.sendReady();
     fail = false;
-    fire(live()[0]!);
+    fire(live().find((t) => t.ms === 250)!);
+    expect(posted.map((e) => e.type)).toEqual(['ready']);
+    c.receive(ack(0));
     expect(posted.map((e) => e.type)).toEqual(['ready', 'haptic']);
     expect(live().map((t) => t.ms)).toEqual([8000]);
     expect(fatals).toEqual([]);
+  });
+});
+
+describe('missing readyAck (coordinator review)', () => {
+  it('a ready with no ack in 2 s is a failed attempt: backoff retry, then fatal + queued calls rejected', async () => {
+    const c = mk({ queueUntilReady: true });
+    const q = c.call('haptic', { kind: 'light' });
+    c.sendReady();
+    expect(live().map((t) => t.ms)).toEqual([2000]);
+    fire(live()[0]!);
+    expect(live().map((t) => t.ms)).toEqual([250]);
+    fire(live()[0]!);
+    while (live().length) fire(live()[0]!);
+    expect(posted.filter((e) => e.type === 'ready')).toHaveLength(6);
+    expect(posted.filter((e) => e.type === 'haptic')).toHaveLength(0);
+    expect(fatals).toEqual(['ready-failed']);
+    expect(await q).toMatchObject({ ok: false, error: { code: 'failed' } });
+  });
+
+  it('an invalid readyAck does not open the gate', () => {
+    const c = mk({ queueUntilReady: true });
+    void c.call('haptic', { kind: 'light' });
+    c.sendReady();
+    c.receive(ack(-5));
+    expect(posted.map((e) => e.type)).toEqual(['ready']);
+  });
+
+  it('a valid ack clears the ack timer (no spurious retry)', () => {
+    const c = mk({ queueUntilReady: true });
+    c.sendReady();
+    c.receive(ack(0));
+    expect(live()).toEqual([]);
+    expect(posted.filter((e) => e.type === 'ready')).toHaveLength(1);
   });
 });
 
@@ -104,11 +139,14 @@ describe('readyAck reseed (Fable 2)', () => {
   it('queued calls take their id after the reseed', () => {
     const c = mk({ queueUntilReady: true });
     void c.call('haptic', { kind: 'light' });
+    void c.call('haptic', { kind: 'heavy' });
+    void c.call('haptic', { kind: 'light' });
     c.sendReady();
+    expect(posted.map((e) => e.type)).toEqual(['ready']);
     c.receive(ack(9000));
     void c.call('haptic', { kind: 'heavy' });
-    expect(posted.map((e) => e.type)).toEqual(['ready', 'haptic', 'haptic']);
-    expect(Number(posted[2]!.id)).toBe(9001);
+    expect(posted.map((e) => e.type)).toEqual(['ready', 'haptic', 'haptic', 'haptic', 'haptic']);
+    expect(posted.slice(1).map((e) => Number(e.id))).toEqual([9001, 9002, 9003, 9004]);
   });
 
   it.each([[-1], [1.5], ['5'], [null], [Number.MAX_SAFE_INTEGER - 1], [Number.MAX_SAFE_INTEGER]])('ignores garbage hwm %s and signals', (bad) => {
@@ -142,6 +180,8 @@ describe('timeout starts at send (Fable 3)', () => {
     void c.call('haptic', { kind: 'light' });
     expect(live()).toEqual([]);
     c.sendReady();
+    expect(live().map((t) => t.ms)).toEqual([2000]);
+    c.receive(ack(0));
     expect(live().map((t) => t.ms)).toEqual([8000]);
   });
 
@@ -150,6 +190,7 @@ describe('timeout starts at send (Fable 3)', () => {
     const p = c.call('haptic', { kind: 'light' }, { timeoutMs: 100 });
     clock += 60_000;
     c.sendReady();
+    c.receive(ack(0));
     const t = live()[0]!;
     expect(t.ms).toBe(100);
     c.receive({ v: 1, id: posted[1]!.id, kind: 'res', type: 'haptic', payload: { ok: true, value: null }, ts: 1 });

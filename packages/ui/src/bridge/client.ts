@@ -1,22 +1,13 @@
-import { isResResult, makeRes, parseEnvelope, resErr, resOk } from './envelope';
+import { isResResult, parseEnvelope, resErr } from './envelope';
 import type { Envelope, JsonValue, ResResult } from './envelope';
-import { isNativeCommandType, isNativeEventType } from './messages';
+import { isNativeEventType } from './messages';
 import type { DomCommandType, EventPayloadOf, NativeEventType, PayloadOf, ResultOf } from './messages';
-import {
-  DEFAULT_TIMEOUT_MS,
-  MAX_BATCH,
-  MAX_PENDING,
-  MAX_RETAINED,
-  READY_MAX_ATTEMPTS,
-  clean,
-  isRec,
-  isThenable,
-  monotonicIds,
-  readyBackoff,
-  resultFits,
-  validHwm,
-} from './client-util';
+import { DEFAULT_TIMEOUT_MS, MAX_BATCH, MAX_PENDING, MAX_RETAINED, clean, isRec, isThenable, monotonicIds, resultFits, validHwm } from './client-util';
 import type { IdSource } from './client-util';
+import { createBackAnswerer } from './client-back';
+import type { BackResponder } from './client-back';
+import { createInbox } from './client-inbox';
+import { createReady } from './client-ready';
 import { BRIDGE_VERSION } from './version';
 import type { VersionRange } from './version';
 
@@ -28,12 +19,10 @@ export type { IdSource };
  * `post` (and feeds `receive`/`consumeInbox`); nothing here knows about Expo.
  * Never throws into React: every failure is a typed `ResResult`.
  *
- * Ordering: with `queueUntilReady`, calls made before the `ready` post succeeds
- * are held in call order and flushed after it (ids and timeouts start at send).
- * `ready` retries itself (250 ms doubling, cap 5 s, 6 attempts); after the last
- * failure `onFatal` fires and every queued call is rejected `failed`.
- * A successful `ready` is a new handshake: `lastSeq` resets to -1 (#4853).
- * The host answers it with `readyAck {hwm}`; ids reseed to max(now, hwm+1).
+ * Ordering: with `queueUntilReady`, calls wait for a valid `readyAck` (ids and timeouts start
+ * at send, after the id source reseeds to max(now, hwm+1)). `ready` retries on a failed post or a
+ * missing ack (client-ready.ts); exhausted retries fire `onFatal` and fail every queued call.
+ * A completed handshake resets `lastSeq` to -1 (#4853).
  */
 /** The range this DOM bundle speaks; sent on `ready`. */
 export const DOM_SUPPORTED_RANGE: VersionRange = { min: 1, max: BRIDGE_VERSION };
@@ -57,7 +46,6 @@ export type ClientOptions = {
 };
 export type CallOptions = { signal?: AbortSignal; timeoutMs?: number };
 type Call = { type: DomCommandType; id?: string; transmit(): void; resolve(r: ResResult<unknown>): void };
-type BackResponder = (payload: PayloadOf<'back'>) => 'handled' | 'exit' | Promise<'handled' | 'exit'>;
 
 export type BridgeClient = {
   call<T extends DomCommandType>(type: T, payload: PayloadOf<T>, opts?: CallOptions): Promise<ResResult<ResultOf<T>>>;
@@ -73,8 +61,6 @@ export type BridgeClient = {
   dispose(): void;
 };
 
-const SEEN_CAP = 256;
-const MAX_SCAN = 1024;
 
 export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
   const newId: IdSource = rawOpts.idGen ?? monotonicIds(rawOpts.now());
@@ -84,15 +70,10 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
   const byId = new Map<string, Call>();
   const calls = new Set<Call>();
   const subs = new Map<string, Set<(p: never) => void>>();
-  const seen: string[] = [];
-  const held = new Map<number, unknown>();
   let queue: Call[] = [];
-  let responder: BackResponder | null = null;
+  const back = createBackAnswerer((e) => opts.post(e), opts.now, () => disposed);
   let lastSeq = -1;
-  let handshook = false;
-  let readyInFlight = false;
-  let readyFailures = 0;
-  let readyTimer: TimerHandle | undefined;
+  const inbox = createInbox(() => lastSeq, opts.onSignal);
   let open = !opts.queueUntilReady;
   let disposed = false;
   let fatalHit = false;
@@ -104,8 +85,7 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
   const fatal = (reason: string) => {
     if (fatalHit || disposed) return;
     fatalHit = true;
-    if (readyTimer !== undefined) clearT(readyTimer);
-    readyTimer = undefined;
+    ready.stop();
     failAll(`bridge fatal: ${reason}`);
     try {
       opts.onFatal?.(reason);
@@ -156,6 +136,17 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
     q.forEach((c) => c.transmit());
   };
 
+  const ready = createReady({
+    setT,
+    clearT,
+    now: opts.now,
+    range: DOM_SUPPORTED_RANGE,
+    nextId,
+    post: (env, onFail) => postEnv(env, onFail),
+    dead: () => disposed || fatalHit,
+    fatal,
+  });
+
   const call: BridgeClient['call'] = (type, payload, o = {}) =>
     new Promise((resolve) => {
       if (disposed || fatalHit) return resolve(resErr('failed', disposed ? 'client disposed' : 'bridge fatal'));
@@ -199,30 +190,15 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       else queue.push(c);
     });
 
-  const answerBack = (env: Envelope) => {
-    if (seen.includes(env.id)) return;
-    seen.push(env.id);
-    if (seen.length > SEEN_CAP) seen.shift();
-    const reply = (r: ResResult<JsonValue>) => {
-      if (disposed) return;
-      try {
-        const p = opts.post(makeRes(env, r, BRIDGE_VERSION, opts.now()));
-        if (isThenable(p)) p.then(undefined, () => undefined);
-      } catch {
-        /* transport gone: nothing to tell */
-      }
-    };
-    if (!isNativeCommandType(env.type)) return reply(resErr('unsupported', `unknown command: ${env.type.slice(0, 64)}`));
-    if (!responder) return reply(resErr('unsupported', 'no responder registered'));
-    Promise.resolve()
-      .then(() => responder?.({}))
-      .then((v) => reply(resOk(v ?? 'exit')), () => reply(resErr('failed', 'responder threw')));
-  };
-
   const onReadyAck = (payload: unknown) => {
     const hwm = isRec(payload) ? payload.hwm : undefined;
     if (!validHwm(hwm)) return opts.onSignal?.('readyAck-invalid');
     newId.reseed?.(Math.max(opts.now(), hwm + 1));
+    if (!ready.complete()) return;
+    open = true;
+    lastSeq = -1;
+    inbox.clear();
+    flush();
   };
 
   const dispatch = (env: Envelope): boolean => {
@@ -236,7 +212,7 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       return true;
     }
     if (env.kind === 'cmd') {
-      answerBack(env);
+      back.answer(env);
       return true;
     }
     if (!isNativeEventType(env.type)) return false;
@@ -282,53 +258,6 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
     return dispatch(env);
   }
 
-  /** Cheap length/type checks only; the full parse happens after the batch slice. */
-  const hold = (inbox: readonly unknown[]): boolean => {
-    let stale = false;
-    const n = Math.min(inbox.length, MAX_SCAN);
-    for (let i = 0; i < n; i++) {
-      const raw = inbox[i];
-      if (!isRec(raw)) continue;
-      const seq = raw.seq;
-      if (typeof seq !== 'number' || !Number.isInteger(seq)) continue;
-      if (seq > lastSeq) held.set(seq, raw);
-      else stale = true;
-    }
-    if (held.size > MAX_RETAINED) {
-      const drop = held.size - MAX_RETAINED;
-      for (const s of [...held.keys()].sort((a, b) => a - b).slice(0, drop)) held.delete(s);
-      opts.onSignal?.('inbox-dropped', drop);
-    }
-    return stale;
-  };
-
-  const attemptReady = () => {
-    readyTimer = undefined;
-    if (disposed || fatalHit || handshook || readyInFlight) return;
-    readyInFlight = true;
-    const fail = () => {
-      if (!readyInFlight) return;
-      readyInFlight = false;
-      if (disposed || fatalHit) return;
-      readyFailures++;
-      if (readyFailures >= READY_MAX_ATTEMPTS) return fatal('ready-failed');
-      readyTimer = setT(attemptReady, readyBackoff(readyFailures));
-    };
-    const ok = () => {
-      if (disposed || fatalHit || !readyInFlight) return;
-      readyInFlight = false;
-      handshook = true;
-      open = true;
-      lastSeq = -1;
-      held.clear();
-      flush();
-    };
-    const id = nextId();
-    if (id === null) return;
-    const env: Envelope = { v: BRIDGE_VERSION, id, kind: 'evt', type: 'ready', payload: { v: BRIDGE_VERSION, range: DOM_SUPPORTED_RANGE }, ts: opts.now() };
-    if (!postEnv(env, fail, ok)) fail();
-  };
-
   return {
     call,
     on(type, fn) {
@@ -338,22 +267,16 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       return () => void set.delete(fn as (p: never) => void);
     },
     handle(_type, fn) {
-      responder = fn;
+      back.set(fn);
       return () => {
-        if (responder === fn) responder = null;
+        if (back.is(fn)) back.set(null);
       };
     },
     receive,
-    consumeInbox(inbox) {
+    consumeInbox(raw) {
       if (disposed) return;
-      const stale = hold(inbox);
-      const batch = [...held.keys()].sort((a, b) => a - b).slice(0, MAX_BATCH);
-      const envs: Envelope[] = [];
-      for (const s of batch) {
-        const parsed = parseEnvelope(held.get(s));
-        held.delete(s);
-        if (parsed.ok && parsed.envelope.seq !== undefined) envs.push(parsed.envelope);
-      }
+      const stale = inbox.hold(raw);
+      const envs = inbox.take();
       if (envs.length > 0) consume(envs);
       else if (stale && lastSeq >= 0) ack(lastSeq);
     },
@@ -361,18 +284,15 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       send('evt', 'diag', detail === undefined ? { stage } : { stage, detail });
     },
     sendReady() {
-      if (disposed || fatalHit || handshook || readyInFlight) return;
-      if (readyTimer !== undefined) clearT(readyTimer);
-      attemptReady();
+      ready.start();
     },
     dispose() {
       disposed = true;
       queue = [];
-      if (readyTimer !== undefined) clearT(readyTimer);
-      readyTimer = undefined;
+      ready.stop();
       for (const c of [...calls]) c.resolve(resErr('cancelled', 'client disposed'));
       subs.clear();
-      responder = null;
+      back.set(null);
     },
   };
 }

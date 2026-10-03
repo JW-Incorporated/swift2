@@ -11,6 +11,7 @@ const evt = (seq: number, type = 'contentVersion', payload: unknown = { token: '
   ({ v: 1, id: `e${seq}`, kind: 'evt', type, payload, ts: 1, seq }) as Envelope;
 const res = (id: string, payload: unknown): Envelope => ({ v: 1, id, kind: 'res', type: 'x', payload, ts: 1 }) as Envelope;
 const acks = () => posted.filter((e) => e.type === 'ack').map((e) => (e.payload as { seq: number }).seq);
+const rack = (hwm = 0): Envelope => ({ v: 1, id: 'ra', kind: 'evt', type: 'readyAck', payload: { hwm }, ts: 1 }) as Envelope;
 const types = () => posted.map((e) => e.type);
 
 beforeEach(() => {
@@ -27,6 +28,8 @@ describe('ready + ordering (1, 2)', () => {
     const b = c.call('haptic', { kind: 'heavy' });
     expect(posted).toEqual([]);
     c.sendReady();
+    expect(types()).toEqual(['ready']);
+    c.receive(rack());
     expect(types()).toEqual(['ready', 'haptic', 'haptic']);
     expect(posted.map((e) => e.id)).toEqual(['id1', 'id2', 'id3']);
     c.receive(res('id2', { ok: true, value: null }));
@@ -48,6 +51,8 @@ describe('ready + ordering (1, 2)', () => {
     expect(posted).toEqual([]);
     fail = false;
     c.sendReady();
+    expect(types()).toEqual(['ready']);
+    c.receive(rack());
     expect(types()).toEqual(['ready', 'haptic']);
     c.sendReady();
     expect(posted).toHaveLength(2);
@@ -67,6 +72,8 @@ describe('ready + ordering (1, 2)', () => {
     c.sendReady();
     expect(types()).toEqual(['ready', 'ready']);
     await vi.advanceTimersByTimeAsync(0);
+    expect(types()).toEqual(['ready', 'ready']);
+    c.receive(rack());
     expect(types()).toEqual(['ready', 'ready', 'haptic']);
   });
 
@@ -76,6 +83,7 @@ describe('ready + ordering (1, 2)', () => {
     c.on('contentVersion', (p) => got.push(p.token));
     c.consumeInbox([evt(3)]);
     c.sendReady();
+    c.receive(rack());
     c.consumeInbox([evt(3)]);
     expect(got).toEqual(['t', 't']);
   });
