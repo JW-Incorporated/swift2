@@ -157,6 +157,14 @@ fix round after Codex r1 (`task-murquos8-drekre`): verify via eas-cli npm
 package's GraphQL types + log parsed status. Fable G2 brief review adopted
 (Fable log); briefs copied to docs/plans/one-ui/briefs/. **G1 gate (Fable,
 mandatory) after #4827+#4828 land.**
+**19:26:** **#4822, #4827, #4828 MERGED** (WP0.5b + WP1.1c p2 + WP1.2 on main;
+branches deleted childless). Fingerprint main 473eab6c unchanged. **PM-noted
+deviation:** executor bumped the OTA size baseline +61% on wp0.5b (ReaderSpike
+pulls the web reader into the DOM bundle) — accepted for the spike, but it's
+a **G0 input** (every OTA now carries the spike bundle). Post-landing: main
+"Mobile parity check" RED at 4084510a → researcher diagnosing (also #4837
+build/build-full red). #4833 CONFLICTING after #4822 (DiagnosticsPanel) →
+executor merging main. G1 gate waits on parity green on main.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
