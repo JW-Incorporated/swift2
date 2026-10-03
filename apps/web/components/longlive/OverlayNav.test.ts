@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8');
 
 describe('#773 track overlays keep the global era navigation visible', () => {
-  const nav = read('./OverlayNav.tsx');
+  const nav = read('../../../../packages/ui/src/reader/era/OverlayNav.tsx');
 
   it('keeps the wordmark and responsive current-era label in the top-left group', () => {
     expect(nav).toContain('aria-label="Track overlay navigation"');

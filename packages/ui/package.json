@@ -10,6 +10,7 @@
     "./fonts/*": "./fonts/*",
     "./reader/lib/*": "./src/reader/lib/*.ts",
     "./reader/store/*": "./src/reader/store/*.tsx",
+    "./reader/era/*": "./src/reader/era/*.tsx",
     "./reader/shell/ReaderShell": "./src/reader/shell/ReaderShell.tsx",
     "./reader/shell/TopBar": "./src/reader/shell/TopBar.tsx",
     "./reader/shell/TimelineScrubber": "./src/reader/shell/TimelineScrubber.tsx",

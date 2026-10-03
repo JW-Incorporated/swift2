@@ -20,7 +20,7 @@ const eraStreamSrc = readFileSync(
   new URL('../../../../packages/experience/src/era-stream.ts', import.meta.url),
   'utf8',
 );
-const eraSectionSrc = readFileSync(new URL('./EraSection.tsx', import.meta.url), 'utf8');
+const eraSectionSrc = readFileSync(new URL('../../../../packages/ui/src/reader/era/EraSection.tsx', import.meta.url), 'utf8');
 
 describe('era-stream view-model wires ownership to the rendered list', () => {
   it('derives the video owners from `visible` (the filtered feed), never from the full era list', () => {
