@@ -10,6 +10,7 @@ import { formatFullDate } from '@swift2/experience';
 import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@swift2/experience';
 import { eraStyle } from '../lib/theme';
 import { useAppActions } from '../store';
+import { useHost } from '../../host/context';
 
 /**
  * The current-era live item's detail overlay (PLAN.md Stage 5). A lighter
@@ -38,6 +39,7 @@ export function CurrentItemDetail({
   onClose: () => void;
 }) {
   const { goHome } = useAppActions();
+  const { apiFetch } = useHost();
   const [verifyState, setVerifyState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   useScrollLock(item != null);
   useBackDismiss(item != null, onClose);
@@ -62,7 +64,8 @@ export function CurrentItemDetail({
     if (!item || verifyState === 'sending') return;
     setVerifyState('sending');
     try {
-      const res = await fetch('/api/intake', {
+      const res = await apiFetch({
+        path: '/api/intake',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -74,7 +77,7 @@ export function CurrentItemDetail({
           sources: item.sources,
         }),
       });
-      setVerifyState(res.ok ? 'sent' : 'error');
+      setVerifyState(res.status >= 200 && res.status < 300 ?'sent' : 'error');
     } catch {
       setVerifyState('error');
     }

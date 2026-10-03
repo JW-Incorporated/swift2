@@ -56,7 +56,7 @@ Moved to `packages/ui/src/reader/era/`: EraStream, EraSection, EraFeedList, Filt
 - One non-import hunk: the `react-hooks/exhaustive-deps` disable comment in `EraStream` removed (rule not registered under `packages/ui`, same as A1/B).
 - `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
 - Tests stay in `apps/web` (they read component source); source-read paths now point at the moved files.
-- DEFERRED to a companion logic PR (C2, per C-5): `CurrentItemDetail.tsx` `fetch('/api/intake')` to `useHost().apiFetch`. It needs a hook call at the top of the component plus a call-site edit (two non-import hunks), so it is not part of this move.
+- DONE in C2 (per C-5): `CurrentItemDetail.tsx` `fetch('/api/intake')` now goes through `useHost().apiFetch` (hook call at the top of the component plus the call-site edit); web resolves to the same relative request.
 - Debt: `EraStream.tsx` (470) and `MomentCardButton.tsx` (298) are over or near the 300-line rule; moved as-is.
 
 Debt (2.4-A): `video-affordance.ts` (294) and `store/index.tsx` (473) are over or near
