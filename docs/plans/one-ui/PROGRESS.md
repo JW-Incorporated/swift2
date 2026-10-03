@@ -36,6 +36,16 @@ brief-wp29-214.md top blocks (2.4-D gets overlayFallback + openExternal intercep
 ClownChat reuses OS-036 token; Turnstile: no native form; WP2.14 before any remote
 sharedUi:true). **Ask Joey:** is TURNSTILE_SECRET_KEY set in prod? **S4 add:** record
 time-to-ready per device.
+**07:34:** Peer session (Facebook automation) reported the main checkout was left
+detached by my agents (10-02 18:59 FETCH_HEAD; 10-03 02:49 origin/feature/
+one-ui-wp2.2a) — the weekly Facebook export (23:00) + its Chrome extension run
+FROM Projects/Swift2. Restored: `git checkout main` + `git pull --ff-only`
+(STATE.md untouched); replied "Swift2 on main". **Rule for every brief: never
+checkout/switch in the main checkout.** WP2.14 → #4867: reviewer REQUEST CHANGES
+(High: not-yet-wired items unmarked; Med: auto watchdog reports to PUBLIC #4791
+with device model, default on, no rate limit). PM: reports default OFF until remote
+config enables; ≤1 report/build/day; payload platform+build+category only; TODO
+markers; lows. Fix after Codex r1 (`task-musfe9mg-7yjgui`).
 Briefs: docs/plans/one-ui/briefs/brief-wp2{1,2,3,4}.md (top blocks = binding rulings).
 
 (Session log 2026-10-02 16:10 → 2026-10-03 05:41 moved verbatim to `PROGRESS-archive-2026-10-03.md`; earlier history in `PROGRESS-archive-2026-10-02.md`.)
