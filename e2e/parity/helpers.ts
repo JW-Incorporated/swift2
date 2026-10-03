@@ -282,14 +282,6 @@ export async function captureViewport(page: Page): Promise<Buffer> {
   return page.screenshot({ scale: 'css' });
 }
 
-/** PNG of the web site footer (SiteFooter) scrolled into view; chrome the root capture hides. */
-export async function captureFooter(page: Page): Promise<Buffer> {
-  const footer = page.locator('footer').last();
-  await footer.scrollIntoViewIfNeeded();
-  await imagesReady(page, 'body');
-  return footer.screenshot({ scale: 'css' });
-}
-
 export type Clip = { x: number; y: number; width: number; height: number };
 
 /** Bounding box of one element in page coordinates (feed it back to captureElement to hold the clip fixed across a mutation). */
@@ -303,6 +295,13 @@ export async function elementBox(page: Page, selector: string): Promise<Clip> {
 export async function captureElement(page: Page, selector: string, clip?: Clip): Promise<Buffer> {
   await imagesReady(page, 'body');
   return page.screenshot({ clip: clip ?? (await elementBox(page, selector)), scale: 'css' });
+}
+
+/** Footer top band (border + wordmark): small and high-contrast, so a 1px footer shift exceeds the pixel ratio. Scrolls the footer into view. */
+export async function footerBand(page: Page): Promise<Clip> {
+  await page.locator('footer').last().scrollIntoViewIfNeeded();
+  const box = await elementBox(page, 'footer >> nth=-1');
+  return { ...box, height: Math.min(box.height, 80) };
 }
 
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */

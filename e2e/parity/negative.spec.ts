@@ -5,6 +5,7 @@ import {
   captureElement,
   captureViewport,
   elementBox,
+  footerBand,
   expect,
   mutate,
   openRoute,
@@ -64,8 +65,7 @@ test.describe('web chrome element-clip gate (WP2.4-0: a pure 1px translate fails
 
   test('a pure 1px footer translate fails the footer clip', async ({ page }, testInfo) => {
     await openRoute(page, 'a', route);
-    await page.locator('footer').last().scrollIntoViewIfNeeded();
-    const clip = await elementBox(page, 'footer >> nth=-1');
+    const clip = await footerBand(page);
     const clean = await captureElement(page, 'footer >> nth=-1', clip);
     await page.locator('footer').last().evaluate((el) => {
       el.style.transform = 'translateY(1px)';
