@@ -17,6 +17,7 @@
     "test:e2e": "playwright test",
     "test:backup-restore": "node scripts/backup-restore-test.mjs --drill",
     "lint": "eslint .",
+    "one-ui:score-speed": "node scripts/one-ui/score-speed-tests.mjs",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "build": "npm run build --workspaces --if-present",
