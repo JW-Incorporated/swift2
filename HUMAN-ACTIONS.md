@@ -6,7 +6,7 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #90 🟡 [DECIDE] Expo build minutes are used up until Nov 1 (~5 min)
+## #98 🟡 [DECIDE] Expo build minutes are used up until Nov 1 (~5 min)
 <!-- ha filed=2026-10-03 -->
 
 **Why:** The app release pipeline stopped: Expo's free plan (account jw-labs) used its 60 CI/CD minutes for October, so no iOS or Android store build can start until Nov 1 — the new iOS profile can't be tested and no app update ships.
