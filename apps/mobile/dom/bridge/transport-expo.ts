@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { createBridgeClient, monotonicIds } from '@swift2/ui';
-import type { BridgeClient, Envelope } from '@swift2/ui';
+import type { BridgeClient, ClientOptions, Envelope, IdSource } from '@swift2/ui';
 
 /**
  * The ONE Expo-DOM-specific file on the DOM side (Fable REQUIRED 5): the
@@ -20,8 +20,10 @@ export type ExpoBridgeProps = {
  * after it. The action's promise is returned to the client, which feeds a
  * resolved `res` back and fails the call immediately on rejection.
  */
-export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?: () => string): BridgeClient {
-  return createBridgeClient({ now: () => Date.now(), idGen, queueUntilReady: true, post: (env) => bridge(env) });
+export type ExpoBridgeHooks = Pick<ClientOptions, 'onFatal' | 'onSignal' | 'setTimer' | 'clearTimer'>;
+
+export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?: IdSource, hooks: ExpoBridgeHooks = {}): BridgeClient {
+  return createBridgeClient({ ...hooks, now: () => Date.now(), idGen, queueUntilReady: true, post: (env) => bridge(env) });
 }
 
 /**
@@ -30,9 +32,9 @@ export function createExpoBridgeClient(bridge: ExpoBridgeProps['bridge'], idGen?
  * fresh one (a new session). One id source (seeded from `Date.now()`) is shared
  * across re-creations, so command ids are strictly increasing and never reused.
  */
-export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: () => string = monotonicIds(Date.now())) {
+export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSource = monotonicIds(Date.now()), hooks: ExpoBridgeHooks = {}) {
   let live: BridgeClient | null = null;
-  const cur = (): BridgeClient => (live ??= createExpoBridgeClient(bridge, idGen));
+  const cur = (): BridgeClient => (live ??= createExpoBridgeClient(bridge, idGen, hooks));
   const client: BridgeClient = {
     call: (type, payload, o) => cur().call(type, payload, o),
     on: (type, fn) => cur().on(type, fn),
@@ -56,10 +58,15 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: () =>
 }
 
 /** One client per mount: `ready` on mount, then `inbox` into `consumeInbox`, posting via `bridge`. */
-export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps): BridgeClient {
+export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}): BridgeClient {
   const ref = useRef(bridge);
   ref.current = bridge;
-  const handle = useMemo(() => createExpoBridge((e) => ref.current(e)), []);
+  const hooksRef = useRef(hooks);
+  hooksRef.current = hooks;
+  const handle = useMemo(
+    () => createExpoBridge((e) => ref.current(e), undefined, { onFatal: (r) => hooksRef.current.onFatal?.(r), onSignal: (k, d) => hooksRef.current.onSignal?.(k, d) }),
+    [],
+  );
   useEffect(() => handle.mount(), [handle]);
   useEffect(() => handle.client.consumeInbox(inbox), [handle, inbox]);
   return handle.client;

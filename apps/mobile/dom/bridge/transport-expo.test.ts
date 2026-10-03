@@ -19,6 +19,24 @@ describe('createExpoBridgeClient', () => {
     expect(sent.map((e) => e.type)).toEqual(['ready', 'haptic']);
   });
 
+  it('exhausted ready retries call onFatal and reject queued calls', async () => {
+    const timers: Array<() => void> = [];
+    const fatals: string[] = [];
+    let n = 0;
+    const client = createExpoBridgeClient(
+      () => {
+        throw new Error('down');
+      },
+      () => `i${n++}`,
+      { onFatal: (r) => void fatals.push(r), setTimer: (fn) => void timers.push(fn), clearTimer: () => undefined },
+    );
+    const q = client.call('haptic', { kind: 'light' });
+    client.sendReady();
+    while (timers.length) timers.shift()?.();
+    expect(fatals).toEqual(['ready-failed']);
+    expect(await q).toMatchObject({ ok: false, error: { code: 'failed' } });
+  });
+
   it('a rejecting bridge action fails the call immediately (no 8 s wait)', async () => {
     const ids = ['r', 'c'];
     const client = createExpoBridgeClient(

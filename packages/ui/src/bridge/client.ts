@@ -2,9 +2,26 @@ import { isResResult, makeRes, parseEnvelope, resErr, resOk } from './envelope';
 import type { Envelope, JsonValue, ResResult } from './envelope';
 import { isNativeCommandType, isNativeEventType } from './messages';
 import type { DomCommandType, EventPayloadOf, NativeEventType, PayloadOf, ResultOf } from './messages';
-import { checkStrictJson } from './validate';
+import {
+  DEFAULT_TIMEOUT_MS,
+  MAX_BATCH,
+  MAX_PENDING,
+  MAX_RETAINED,
+  READY_MAX_ATTEMPTS,
+  clean,
+  isRec,
+  isThenable,
+  monotonicIds,
+  readyBackoff,
+  resultFits,
+  validHwm,
+} from './client-util';
+import type { IdSource } from './client-util';
 import { BRIDGE_VERSION } from './version';
 import type { VersionRange } from './version';
+
+export { DEFAULT_TIMEOUT_MS, MAX_BATCH, MAX_PENDING, MAX_RETAINED, monotonicIds };
+export type { IdSource };
 
 /**
  * DOM-side bridge client (One UI WP2.3-C). Transport-neutral: the app injects
@@ -12,17 +29,12 @@ import type { VersionRange } from './version';
  * Never throws into React: every failure is a typed `ResResult`.
  *
  * Ordering: with `queueUntilReady`, calls made before the `ready` post succeeds
- * are held in call order and flushed after it (a promise-returning `post`
- * succeeds when it resolves); otherwise calls go out at once. A failed `ready`
- * can be retried with `sendReady()`. A successful `ready` is a new handshake:
- * `lastSeq` resets to -1 (the host re-flushes its unacked queue, #4853).
+ * are held in call order and flushed after it (ids and timeouts start at send).
+ * `ready` retries itself (250 ms doubling, cap 5 s, 6 attempts); after the last
+ * failure `onFatal` fires and every queued call is rejected `failed`.
+ * A successful `ready` is a new handshake: `lastSeq` resets to -1 (#4853).
+ * The host answers it with `readyAck {hwm}`; ids reseed to max(now, hwm+1).
  */
-export const DEFAULT_TIMEOUT_MS = 8000;
-export const MAX_PENDING = 64;
-export const MAX_BATCH = 64;
-const MAX_SCAN = 1024;
-const SEEN_CAP = 256;
-const STATUSES: readonly unknown[] = ['granted', 'denied', 'undetermined', 'unsupported'];
 /** The range this DOM bundle speaks; sent on `ready`. */
 export const DOM_SUPPORTED_RANGE: VersionRange = { min: 1, max: BRIDGE_VERSION };
 
@@ -31,16 +43,20 @@ export type ClientOptions = {
   /** May return a promise (an Expo action): its rejection fails the call, its value is fed to `receive`. */
   post(env: Envelope): void | PromiseLike<unknown>;
   now(): number;
-  /** Default: `monotonicIds(now())`. A custom source must stay strictly increasing (the host rejects ids at or below its high-water mark). */
-  idGen?(): string;
+  /** Default: `monotonicIds(now())`. A custom source must stay strictly increasing; give it `reseed` to honour `readyAck`. */
+  idGen?: IdSource;
   setTimer?(fn: () => void, ms: number): TimerHandle;
   clearTimer?(h: TimerHandle): void;
   defaultTimeoutMs?: number;
   /** Hold calls made before `ready` is posted, flushing them in order after. */
   queueUntilReady?: boolean;
+  /** `ready` exhausted its retries, or the id space ran out: the watchdog path. Fires once. */
+  onFatal?(reason: string): void;
+  /** Non-fatal anomalies: `readyAck-invalid`, `inbox-dropped` (count in `detail`). */
+  onSignal?(kind: string, detail?: number): void;
 };
 export type CallOptions = { signal?: AbortSignal; timeoutMs?: number };
-type Pending = { type: DomCommandType; resolve(r: ResResult<never>): void; finish(): void };
+type Call = { type: DomCommandType; id?: string; transmit(): void; resolve(r: ResResult<unknown>): void };
 type BackResponder = (payload: PayloadOf<'back'>) => 'handled' | 'exit' | Promise<'handled' | 'exit'>;
 
 export type BridgeClient = {
@@ -49,7 +65,7 @@ export type BridgeClient = {
   handle(type: 'back', fn: BackResponder): () => void;
   /** Feed one raw inbound message (a `res`, or a native `evt`/`cmd`; seq-bearing ones take the inbox path). */
   receive(raw: unknown): boolean;
-  /** Process up to MAX_BATCH `seq > lastSeq` in ascending order, then ack the last. Idempotent per seq. */
+  /** Process up to MAX_BATCH `seq > lastSeq` in ascending order, then ack the last; the rest stays held for the next consume. */
   consumeInbox(inbox: readonly unknown[]): void;
   sendDiag(stage: string, detail?: string): void;
   sendReady(): void;
@@ -57,58 +73,57 @@ export type BridgeClient = {
   dispose(): void;
 };
 
-const isRec = (x: unknown): x is Record<string, unknown> => typeof x === 'object' && x !== null && !Array.isArray(x);
-const isThenable = (x: unknown): x is PromiseLike<unknown> => isRec(x) && typeof x.then === 'function';
-
-/** Drop `undefined`-valued keys (optional fields) so the strict-JSON check sees the wire shape. */
-function strip(x: unknown, depth = 0): unknown {
-  if (depth > 40) return x;
-  if (Array.isArray(x)) return x.map((v) => strip(v, depth + 1));
-  if (!isRec(x)) return x;
-  const proto = Object.getPrototypeOf(x);
-  if (proto !== Object.prototype && proto !== null) return x;
-  const out: Record<string, unknown> = {};
-  for (const k of Object.keys(x)) if (x[k] !== undefined) out[k] = strip(x[k], depth + 1);
-  return out;
-}
-
-function clean(x: unknown): { ok: true; value: JsonValue } | { ok: false; reason: string } {
-  try {
-    return checkStrictJson(strip(x));
-  } catch {
-    return { ok: false, reason: 'bad-json' };
-  }
-}
-
-function resultFits(type: DomCommandType, v: unknown): boolean {
-  if (type === 'notifications.status' || type === 'notifications.request') return STATUSES.includes(v);
-  if (type === 'api') {
-    return isRec(v) && typeof v.status === 'number' && typeof v.body === 'string' && isRec(v.headers) && Object.values(v.headers).every((h) => typeof h === 'string');
-  }
-  return v === null;
-}
-
-/** Strictly increasing integer ids as digit strings, starting at `seed` (#4853 Fable ruling). */
-export function monotonicIds(seed: number): () => string {
-  let next = Math.max(0, Math.floor(seed));
-  return () => String(next++);
-}
+const SEEN_CAP = 256;
+const MAX_SCAN = 1024;
 
 export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
-  const newId = rawOpts.idGen ?? monotonicIds(rawOpts.now());
-  const opts = { ...rawOpts, idGen: newId };
+  const newId: IdSource = rawOpts.idGen ?? monotonicIds(rawOpts.now());
+  const opts = rawOpts;
   const setT = opts.setTimer ?? ((fn, ms) => setTimeout(fn, ms));
   const clearT = opts.clearTimer ?? ((h) => clearTimeout(h as ReturnType<typeof setTimeout>));
-  const pending = new Map<string, Pending>();
+  const byId = new Map<string, Call>();
+  const calls = new Set<Call>();
   const subs = new Map<string, Set<(p: never) => void>>();
   const seen: string[] = [];
-  let queue: Array<() => void> = [];
+  const held = new Map<number, unknown>();
+  let queue: Call[] = [];
   let responder: BackResponder | null = null;
   let lastSeq = -1;
   let handshook = false;
   let readyInFlight = false;
+  let readyFailures = 0;
+  let readyTimer: TimerHandle | undefined;
   let open = !opts.queueUntilReady;
   let disposed = false;
+  let fatalHit = false;
+
+  const failAll = (msg: string) => {
+    queue = [];
+    for (const c of [...calls]) c.resolve(resErr('failed', msg));
+  };
+  const fatal = (reason: string) => {
+    if (fatalHit || disposed) return;
+    fatalHit = true;
+    if (readyTimer !== undefined) clearT(readyTimer);
+    readyTimer = undefined;
+    failAll(`bridge fatal: ${reason}`);
+    try {
+      opts.onFatal?.(reason);
+    } catch {
+      /* the watchdog hook must not break teardown */
+    }
+  };
+  /** Assert-or-fatal: an id that cannot be issued (space exhausted) kills the bridge. */
+  const nextId = (): string | null => {
+    try {
+      const id = newId();
+      if (Number(id) >= Number.MAX_SAFE_INTEGER) throw new RangeError('id too large');
+      return id;
+    } catch {
+      fatal('id-space-exhausted');
+      return null;
+    }
+  };
 
   /** True when the post did not throw synchronously; async rejection calls `onFail`. */
   const postEnv = (env: Envelope, onFail: () => void, onOk?: () => void): boolean => {
@@ -129,49 +144,59 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
     }
   };
 
-  const send = (kind: Envelope['kind'], type: string, payload: JsonValue, id = opts.idGen()): boolean =>
-    !disposed && postEnv({ v: BRIDGE_VERSION, id, kind, type, payload, ts: opts.now() }, () => undefined);
+  const send = (kind: Envelope['kind'], type: string, payload: JsonValue): boolean => {
+    if (disposed || fatalHit) return false;
+    const id = nextId();
+    return id !== null && postEnv({ v: BRIDGE_VERSION, id, kind, type, payload, ts: opts.now() }, () => undefined);
+  };
 
   const flush = () => {
     const q = queue;
     queue = [];
-    q.forEach((f) => f());
+    q.forEach((c) => c.transmit());
   };
 
   const call: BridgeClient['call'] = (type, payload, o = {}) =>
     new Promise((resolve) => {
-      if (disposed) return resolve(resErr('failed', 'client disposed'));
+      if (disposed || fatalHit) return resolve(resErr('failed', disposed ? 'client disposed' : 'bridge fatal'));
       const body = clean(payload);
       if (!body.ok) return resolve(resErr('invalid', `payload rejected: ${body.reason}`));
       if (o.signal?.aborted) return resolve(resErr('cancelled', 'aborted before send'));
-      if (pending.size >= MAX_PENDING) return resolve(resErr('failed', 'busy: too many pending calls'));
-      const id = opts.idGen();
+      if (calls.size >= MAX_PENDING) return resolve(resErr('failed', 'busy: too many pending calls'));
       const signal = o.signal;
-      const timer: { h?: TimerHandle } = {};
+      let timer: TimerHandle | undefined;
       let done = false;
       let onAbort: (() => void) | undefined;
+      const c: Call = { type, transmit: () => undefined, resolve: (r) => settle(r, false) };
       const settle = (r: ResResult<unknown>, sendCancel: boolean) => {
-        if (!pending.delete(id)) return;
+        if (done) return;
         done = true;
-        if (timer.h !== undefined) clearT(timer.h);
+        calls.delete(c);
+        if (c.id !== undefined) byId.delete(c.id);
+        else queue = queue.filter((q) => q !== c);
+        if (timer !== undefined) clearT(timer);
         if (signal && onAbort) signal.removeEventListener('abort', onAbort);
-        if (sendCancel && type !== 'cancel') send('cmd', 'cancel', { targetId: id });
+        if (sendCancel && c.id !== undefined && type !== 'cancel') send('cmd', 'cancel', { targetId: c.id });
         resolve(r as ResResult<never>);
       };
-      const fail = () => settle(resErr('failed', 'transport rejected the message'), false);
-      pending.set(id, { type, resolve: (r) => settle(r, false), finish: () => settle(resErr('cancelled', 'client disposed'), false) });
-      timer.h = setT(() => settle(resErr('timeout', `${type} timed out`), true), o.timeoutMs ?? opts.defaultTimeoutMs ?? DEFAULT_TIMEOUT_MS);
-      if (done) return;
+      c.transmit = () => {
+        if (done) return;
+        const id = nextId();
+        if (id === null) return;
+        c.id = id;
+        byId.set(id, c);
+        timer = setT(() => settle(resErr('timeout', `${type} timed out`), true), o.timeoutMs ?? opts.defaultTimeoutMs ?? DEFAULT_TIMEOUT_MS);
+        if (done) return;
+        const fail = () => settle(resErr('failed', 'transport rejected the message'), false);
+        if (!postEnv({ v: BRIDGE_VERSION, id, kind: 'cmd', type, payload: body.value, ts: opts.now() }, fail)) fail();
+      };
+      calls.add(c);
       if (signal) {
         onAbort = () => settle(resErr('cancelled', 'aborted'), true);
         signal.addEventListener('abort', onAbort);
       }
-      const transmit = () => {
-        if (done) return;
-        if (!postEnv({ v: BRIDGE_VERSION, id, kind: 'cmd', type, payload: body.value, ts: opts.now() }, fail)) fail();
-      };
-      if (open) transmit();
-      else queue.push(transmit);
+      if (open) c.transmit();
+      else queue.push(c);
     });
 
   const answerBack = (env: Envelope) => {
@@ -194,14 +219,20 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       .then((v) => reply(resOk(v ?? 'exit')), () => reply(resErr('failed', 'responder threw')));
   };
 
+  const onReadyAck = (payload: unknown) => {
+    const hwm = isRec(payload) ? payload.hwm : undefined;
+    if (!validHwm(hwm)) return opts.onSignal?.('readyAck-invalid');
+    newId.reseed?.(Math.max(opts.now(), hwm + 1));
+  };
+
   const dispatch = (env: Envelope): boolean => {
     if (env.kind === 'res') {
-      const p = pending.get(env.id);
+      const p = byId.get(env.id);
       if (!p) return false;
       const r = isResResult(env.payload) ? (env.payload as ResResult<unknown>) : null;
       if (!r) p.resolve(resErr('failed', 'malformed res'));
       else if (r.ok && !resultFits(p.type, r.value)) p.resolve(resErr('failed', `unexpected result for ${p.type}`));
-      else p.resolve(r as ResResult<never>);
+      else p.resolve(r);
       return true;
     }
     if (env.kind === 'cmd') {
@@ -209,6 +240,10 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       return true;
     }
     if (!isNativeEventType(env.type)) return false;
+    if (env.type === 'readyAck') {
+      onReadyAck(env.payload);
+      return true;
+    }
     for (const fn of subs.get(env.type) ?? []) {
       try {
         fn(env.payload as never);
@@ -247,6 +282,53 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
     return dispatch(env);
   }
 
+  /** Cheap length/type checks only; the full parse happens after the batch slice. */
+  const hold = (inbox: readonly unknown[]): boolean => {
+    let stale = false;
+    const n = Math.min(inbox.length, MAX_SCAN);
+    for (let i = 0; i < n; i++) {
+      const raw = inbox[i];
+      if (!isRec(raw)) continue;
+      const seq = raw.seq;
+      if (typeof seq !== 'number' || !Number.isInteger(seq)) continue;
+      if (seq > lastSeq) held.set(seq, raw);
+      else stale = true;
+    }
+    if (held.size > MAX_RETAINED) {
+      const drop = held.size - MAX_RETAINED;
+      for (const s of [...held.keys()].sort((a, b) => a - b).slice(0, drop)) held.delete(s);
+      opts.onSignal?.('inbox-dropped', drop);
+    }
+    return stale;
+  };
+
+  const attemptReady = () => {
+    readyTimer = undefined;
+    if (disposed || fatalHit || handshook || readyInFlight) return;
+    readyInFlight = true;
+    const fail = () => {
+      if (!readyInFlight) return;
+      readyInFlight = false;
+      if (disposed || fatalHit) return;
+      readyFailures++;
+      if (readyFailures >= READY_MAX_ATTEMPTS) return fatal('ready-failed');
+      readyTimer = setT(attemptReady, readyBackoff(readyFailures));
+    };
+    const ok = () => {
+      if (disposed || fatalHit || !readyInFlight) return;
+      readyInFlight = false;
+      handshook = true;
+      open = true;
+      lastSeq = -1;
+      held.clear();
+      flush();
+    };
+    const id = nextId();
+    if (id === null) return;
+    const env: Envelope = { v: BRIDGE_VERSION, id, kind: 'evt', type: 'ready', payload: { v: BRIDGE_VERSION, range: DOM_SUPPORTED_RANGE }, ts: opts.now() };
+    if (!postEnv(env, fail, ok)) fail();
+  };
+
   return {
     call,
     on(type, fn) {
@@ -263,35 +345,32 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
     },
     receive,
     consumeInbox(inbox) {
+      if (disposed) return;
+      const stale = hold(inbox);
+      const batch = [...held.keys()].sort((a, b) => a - b).slice(0, MAX_BATCH);
       const envs: Envelope[] = [];
-      for (const raw of inbox.slice(0, MAX_SCAN)) {
-        const parsed = parseEnvelope(raw);
+      for (const s of batch) {
+        const parsed = parseEnvelope(held.get(s));
+        held.delete(s);
         if (parsed.ok && parsed.envelope.seq !== undefined) envs.push(parsed.envelope);
       }
-      consume(envs);
+      if (envs.length > 0) consume(envs);
+      else if (stale && lastSeq >= 0) ack(lastSeq);
     },
     sendDiag(stage, detail) {
       send('evt', 'diag', detail === undefined ? { stage } : { stage, detail });
     },
     sendReady() {
-      if (disposed || handshook || readyInFlight) return;
-      readyInFlight = true;
-      const fail = () => void (readyInFlight = false);
-      const ok = () => {
-        if (disposed) return;
-        readyInFlight = false;
-        handshook = true;
-        open = true;
-        lastSeq = -1;
-        flush();
-      };
-      const env: Envelope = { v: BRIDGE_VERSION, id: opts.idGen(), kind: 'evt', type: 'ready', payload: { v: BRIDGE_VERSION, range: DOM_SUPPORTED_RANGE }, ts: opts.now() };
-      if (!postEnv(env, fail, ok)) fail();
+      if (disposed || fatalHit || handshook || readyInFlight) return;
+      if (readyTimer !== undefined) clearT(readyTimer);
+      attemptReady();
     },
     dispose() {
       disposed = true;
       queue = [];
-      for (const p of [...pending.values()]) p.finish();
+      if (readyTimer !== undefined) clearT(readyTimer);
+      readyTimer = undefined;
+      for (const c of [...calls]) c.resolve(resErr('cancelled', 'client disposed'));
       subs.clear();
       responder = null;
     },

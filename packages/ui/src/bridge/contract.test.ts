@@ -77,8 +77,8 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());
-    expect([...NATIVE_EVENT_TYPES].sort()).toEqual(['contentVersion', 'insets', 'navigate']);
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready']);
+    expect([...NATIVE_EVENT_TYPES].sort()).toEqual(['contentVersion', 'insets', 'navigate', 'readyAck']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready', 'readyAck']);
     const posted: string[] = [];
     let i = 0;
     const c = createBridgeClient({ post: (e) => void posted.push(e.type), now: () => 1, idGen: () => `y${i++}`, setTimer: () => 0 });

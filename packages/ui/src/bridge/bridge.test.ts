@@ -293,6 +293,7 @@ describe('JSON round-trip, one sample per type', () => {
     ready: { v: 1, range: { min: 1, max: 1 } },
     diag: { stage: 'mount', detail: 'ok' },
     ack: { seq: 4 },
+    readyAck: { hwm: 0 },
     insets,
     contentVersion: { token: 'abc' },
     navigate: { path: toWebPath('/')!, source: 'deeplink' },

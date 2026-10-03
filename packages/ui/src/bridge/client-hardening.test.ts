@@ -28,9 +28,9 @@ describe('ready + ordering (1, 2)', () => {
     expect(posted).toEqual([]);
     c.sendReady();
     expect(types()).toEqual(['ready', 'haptic', 'haptic']);
-    expect(posted.map((e) => e.id)).toEqual(['id3', 'id1', 'id2']);
-    c.receive(res('id1', { ok: true, value: null }));
+    expect(posted.map((e) => e.id)).toEqual(['id1', 'id2', 'id3']);
     c.receive(res('id2', { ok: true, value: null }));
+    c.receive(res('id3', { ok: true, value: null }));
     expect(await Promise.all([a, b])).toEqual([{ ok: true, value: null }, { ok: true, value: null }]);
   });
 
