@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 70
+
+## Taylor Swift's Wedding Linked to Presley Gerber's Final Months
+
+- first seen: 2026-10-03 14:18 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest a poignant connection between Taylor Swift's wedding and the final months of Presley Gerber. The details highlight the emotional context surrounding the event.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdkNKbXRwN2drM3pfaUx2bTdIbjEweHR3Z3ZyOGZBc0EybUNsZTdPc2Jkb2UybzR0ZTV5ci14VTRxa0lEZ3pfWEJWR0lDRDAzcGxPNDQ1UEpKdmlZSlhhQ1lTWkkzTEhFb2FWN2ExOWN2eTJMT2xjMFpMX1BNX2tSSUJvbUJDT0I3b0hUanVYbjhPcE5VOUFlWmNMVnBjUEdpMWFmRHZycw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Honors Dolly Parton During VMA Acceptance Speech
+
+- first seen: 2026-10-03 14:18 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: During her acceptance speech at the VMAs, Taylor Swift dedicated her win to Dolly Parton, calling her 'The Ultimate Showgirl.' This gesture highlights Swift's admiration for the iconic singer and performer.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOS2s2MDBPclQtVUtXRXpiYXRxSDZWWUlsVHZDdjlkdlduZjFFeS1OcFo4T1ZQS1RXNnVRTTZJY3ViSGF3WFc1LTEwNWVQUVVjaFhnQU0tRUZfN091MERWeEZ4VmNqQVA4UTlHdW5JdUFOaThtdU5NQnh3NTFBV3FPMTB1M0dTNDBaSnhxUWMzb3JVMDRVSjJjVzlHb1g?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Marks Musical Milestone in Meaningful Outfit
+
+- first seen: 2026-10-03 14:18 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift celebrates a significant musical achievement while showcasing a symbolic outfit, as reported by Page Six.
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMinAFBVV95cUxPeUk4eGRYRkZsR29QM0VQbXlMaWQyaUpaejJMbFlGejhONm45SVVPb3ZNTnRueTd6UWZNX2g5eHlQWVhQOXdDTGFVYVlrNHkwM0NJMDNZeEZhRHBkclpEZ1lOX0I5TVB4ek4zcm45Yll4R3NMR2xxTS1YMXpNWm04SkY0RWFZQmJiR3YzaHdLejBDaVNLUm1YWHVrWjA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Shows Off New Curly Hairstyle and Shorter Haircut
 
@@ -59,14 +83,6 @@ Stories: 72
 - sources:
   - [unverified] The Decaturian — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQZlF3eFJ5Y1FoRnBZQjQ1R19JblZScWR4bWpuRGt4TEpUbEg5ZjNaSzVwcENPUTl3NG41SmxDbUhfSDAyQ0FlNmVYTkZxZVNUV1RJbzhkTUMtQTRRc0swRV9pamFVTlc5X3ZDalBERWVyLVFfeF9DTTNHa3hFSVVXTGdjaDVlN2RzUmVv?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Debuts New Curly Hairstyle Amid Fan Speculation
-
-- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has revealed a new curly hairstyle, prompting fans to speculate about its significance, including potential connections to Travis Kelce and the VMAs.
-- sources:
-  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMilAJBVV95cUxOYl93WGdBc2pQd1BPTWF4eEp5dWVlbjVYOXhyNndtQTM5MzBINkZ5THZ2aHFpd2pNX0M3VVBkZFJ2Sk80R01mWklRYmM1b0VhYzdxdGp5dlYycXhqZGdKN0wyRVJGSjZjMUJFdEdGODRJTDVuRjFQdHZYcDJWM0Y2OTRMSjBFdEdMN1Jva3FOWW43a2lkSm1RaUZ6SHMxaHY3d3NwVlpZNEVqclU1azRRY1Z0bG9kZjQ3WTFwX1ZxM3JpeWZtYjFSa1ZwLUplN3V5b1ZYME9JS090cnMtOVE5TTBNU2k2dGVZYUMxZ1k0OGxoTERkYkhDdjl6Y2t2OUdXbnRUNmpwRFJKR1A4Q21ORHUyd0fSAZoCQVVfeXFMUG5IV21mY2tsb0lfdy1MVlhGVlVRTGxuNjMxVmJlZ3VNUkFwOTVNUXFhSUt5RDNkNTY0akgzSjd3X0NJY2U5enlNUHdfR092VjNrZGpWRWxjb0luR3VXcXVRUEFCM29DVjNfVVRBaUpvcHRldGtqejFJczNxQjh4R3pnUTNCTmZPNkxBaFlKU0Q2YU9zMlBrVm83TGV5dmZHdmFyZm9SOUVha24yYmFBOFlFTEd2YzVROUdjRXJPUTZfT2IySElETGhiWllLR2VuZWVXR0d5eGJkdGItbTNFMmhEUXd5djhWV1pFZEprVi1iMlhULVk4ZDJqLUpuakxiTllLcGU0ZWQxejRFcmVYLXk5dUxKQkx4SWFB?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift's Friend to Host 'SNL' Tonight
 
 - first seen: 2026-10-03 06:25 UTC | category: business | importance: 5
@@ -82,6 +98,15 @@ Stories: 72
 - summary: Taylor Swift has debuted a new hairstyle with shorter locks and revived curls as she marks a significant career milestone. The change in her appearance coincides with her professional achievements.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNUG1EdVVvOUgwUm5CcTJmUVFKNjFKeURJSnNNdkJVdlA2bGszR2g5WUp3eHlkbTFkRzZBWmk2MkxIRnFJenlhOGVwYWxCb1p0RUswWGZ2V2h4ZldySXJIb1N5dTk0cXVrMklTTldVdWRuWGtCbV82d1lrblNNS1lZWkNzN1RqTUo1UzI0U3JqbUZxcGRMWnFScl9RUnJTRl9OYkoySDR3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts New Curly Hairstyle Amid Fan Speculation
+
+- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has revealed a new curly hairstyle, prompting fans to speculate about its significance, including potential connections to Travis Kelce and the VMAs.
+- sources:
+  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMilAJBVV95cUxOYl93WGdBc2pQd1BPTWF4eEp5dWVlbjVYOXhyNndtQTM5MzBINkZ5THZ2aHFpd2pNX0M3VVBkZFJ2Sk80R01mWklRYmM1b0VhYzdxdGp5dlYycXhqZGdKN0wyRVJGSjZjMUJFdEdGODRJTDVuRjFQdHZYcDJWM0Y2OTRMSjBFdEdMN1Jva3FOWW43a2lkSm1RaUZ6SHMxaHY3d3NwVlpZNEVqclU1azRRY1Z0bG9kZjQ3WTFwX1ZxM3JpeWZtYjFSa1ZwLUplN3V5b1ZYME9JS090cnMtOVE5TTBNU2k2dGVZYUMxZ1k0OGxoTERkYkhDdjl6Y2t2OUdXbnRUNmpwRFJKR1A4Q21ORHUyd0fSAZoCQVVfeXFMUG5IV21mY2tsb0lfdy1MVlhGVlVRTGxuNjMxVmJlZ3VNUkFwOTVNUXFhSUt5RDNkNTY0akgzSjd3X0NJY2U5enlNUHdfR092VjNrZGpWRWxjb0luR3VXcXVRUEFCM29DVjNfVVRBaUpvcHRldGtqejFJczNxQjh4R3pnUTNCTmZPNkxBaFlKU0Q2YU9zMlBrVm83TGV5dmZHdmFyZm9SOUVha24yYmFBOFlFTEd2YzVROUdjRXJPUTZfT2IySElETGhiWllLR2VuZWVXR0d5eGJkdGItbTNFMmhEUXd5djhWV1pFZEprVi1iMlhULVk4ZDJqLUpuakxiTllLcGU0ZWQxejRFcmVYLXk5dUxKQkx4SWFB?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] WHIO TV — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOZHdSSUFmRnVvVjVYbGZhdGo4SGRWZTRxbWVGS1kzUE5EUDlIRmwzMTNNQXMtZDRiZVFBc05HNHYzdm5RdlZNdmtORFppQ0lvWUxNOGVic2tOdW0wa2lKV2d1NlFYbEh3Y0FoTHBNUVJLUmdfZXNySmRrVlpzUnpmM3J3RXcwdENjQUl0VUdWWTUyTzVMRlNKSm5EYjFDd1dDRi0tMWRnSVIyMENpQWZEemVNSVRqd0tVNkNNQ0NMYWYwLVNRekN2dtIB3AFBVV95cUxQVWg0OEY5d2p3NjJDNUJxTUdac3lzcVdhR2pobXA3d1RzQjVmRl82UWlMX0lLLURhZDhweXQyVElXYlJuTmFveUJueVdCQjRNNkY2Znl0aHZWV21ZMjAyeV8wTVI5eHE1MUNGaHFMcEpzTklHcjM4U3VRVTQxakF2YTR1ZllMXzVZNDB0YUlmRXBvNEdiQlZrU0VPeThOT1EtRk9KUVFScDZwM2djN0IzMXVoMEZwQVZfaHRXTGxEM1VrZk9YZGNKYWJKS1dFeEhwZWtmaVNLZ3NFaVEy?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift References Cleveland in New Song Title
 
@@ -193,11 +218,12 @@ Stories: 72
 ## Erin Andrews Unable to Attend Taylor Swift Music Video Shoot
 
 - first seen: 2026-10-02 15:45 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Erin Andrews has disclosed that she was compelled to skip her appearance in a Taylor Swift music video. Reasons for her absence were provided in a recent report.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMisAFBVV95cUxOY3d3QzN2cEdyMTZrX1pmT3h2YkZoUWFieHAta2JFa0ZWdjFNNm43ZlhoZTJVb2x1STlqU3VaelgzV1lhdmF5WkQyQm9IaV9ldXd6LURJZVo1amRmR1I2Zkw1dUZiTEtsMzNjbXhzNG9YcVdXaXZ5eXBYV3hhYXFyQ3d1b2JtbDcxanNDYzJrYjJCX09CajN0V2dlMURZS3B5bmN6Q18zbUtLWk1waG45NA?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiiwFBVV95cUxOS0dOSjM2Nl9mR1RMNU1jcHE4dWhQeEticGdIV1BVTHlDcEJPSW9SdE5uT0FqSWRkSldsU1d5dGFmSThlcV8xYUt6b3daZjg4aFRhWDlXV2ZFNVZERGRDV0pTMUpwLWdkdXk4TmNPTlpzd2dEX0VPd0xDa2tOamV5eWhDcUdzSU5Mampn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiakFVX3lxTE9GVDBlb3VxSFJaWTNTUUpKNzI0aDR2ODZHbmN0SWxBV1k2TGREOTdSY0NLalhfVnRRb0pnVm9TU1hULWVsZ045MkY1bTRJWnhKM0VkMUNPb3R6UndaLTZPZk1Xel9tQW9FYnc?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Official Charts — https://news.google.com/rss/articles/CBMirgFBVV95cUxOTWhSNGdKbDRFclRxMHQ4Rjc3amJQVnJVMXhGLUJzOEZLbWZubUhfYmJrUTlYX004Snp0SU1NYVNfRWVnMkxIcnJPbTZrbGtaYTRuTDFjdk5MRnl2Z01ldldmLXh5WUhaczNudUZuZENtLVhOZWhJLUt4N01WdDVvbnhWREQ2WTJCa0ZTQllPMFM1b1VIUVFUYXBCZ3pHRmplQllZY2NiTHJTZzItVUE?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] people.com — https://news.google.com/rss/articles/CBMi0wFBVV95cUxPMW9QUlcwT1FVYnRSX2FpV1lDeHphY0Z6dTFsSl9WbnpmelNWOGd2enA3MGEzT1k4bFZfdnpWY2FmODljWDhKUV8tVmdRVDczd3NEQ3pEd0NJQTRSaVo4ekFMQ3ByeWUtZHhZQmlxVm1sQmhOa2d6NHNhTC1ydkVQY2EyS3RLOFY2U1pVVlhfcXYtVWdBaWo2MEUyTWx0TFczT3hZejNSekFhY01VOVdpVHg4YXc0Y1NhYjVjakxLRlZXZ1Zrc0o5V2U4YUk4TGozUFNv?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQSUpkY2tVT3BsMm90LU5XQW1TQ2tKZ0E2NmJycGZWTFJ3eWdoR0hac2JodHpnUGh2OUlsQTBkbUtXQXoyQktETm9MMG5HaUI4WTRhb2VLSlA2TXVaY1dhR2hUdHdCS1M1RlZlZVRvM1VZcW95NG5aSkpVWkJnYTJfNUliaU9jR3M1TmlVMk5SQl93STNrLUtKTk1PT3p3QQ?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -579,43 +605,3 @@ Stories: 72
 - summary: Travis and Jason Kelce share their thoughts on Taylor Swift's latest song 'Cleveland!', with Travis calling it a 'banger' inspired by his hometown. The Kelce brothers express their enthusiasm for Swift's work.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMipAFBVV95cUxNeVJ4eHhBWk5zS2lhYkY0NU5tMFpBOEJ1aUdqZ2Q3Yl82MmRteUIwbV9nUHBGMmIteVZoVzE3Y1M5dGVXX28xX2pid29XQlpDN0VUS0pDNmpfekpzbnhmb2xPQXdNYVNmTHBMZUZPZnVENWJLZVlQRGJCQlI5SjBfMm96QWpodG1BS3kzSy14dHpaZWNpTlVLZzRwT2ZXQ0c2bWNiMQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Critiques Taylor Swift's Impact on Music
-
-- first seen: 2026-09-30 06:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Todd Rundgren commented on Taylor Swift's influence in the music industry, stating that she has "ruined music" and referred to her as the "apotheosis of mediocrity."
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMid0FVX3lxTFB2OENWTkFHTzJIYmVldTdTMmlENXI4dDdWZ0x6NVA5bnZmb05YeEc4V2J5UjBMZGxTX3RsdmROaWZ4STBCZGpPWGtqaGNvY1NfaXNNTEZMSVlDUi1UYVBXT2RIbk5zc3hBdkFNY0hTQUdtUVBhSW5N?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ranking of Taylor Swift’s 'Life of a Showgirl: Encore' Released
-
-- first seen: 2026-09-30 06:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A ranking of Taylor Swift's 'Life of a Showgirl: Encore' has been published by The Daily Free Press, detailing the fan's perspective on the performance highlights. It provides insights into the show's standout moments and production quality.
-- sources:
-  - [unverified] The Daily Free Press — https://news.google.com/rss/articles/CBMitwFBVV95cUxPU3c4SXBvOUowTEhmWElCRUJGNlVfWU40U1RuOFRlREE3UkNZTEZ3dWpxeEpPYk9senkyVWVyZWM2OXlfeVltb2dydDBxbFZQUzFXd0FLY1NkQkhBVUoyYmFFU2hDdHd0ZlZBaHM3MHRpeG1ZZUFySUg5bGRaaFBNRjNCRno5ckZ6Y1BNUUpTcEgwY19IczIyWEhlaDNpa3UwUzMyUW5remlPX2FjSkVlTmZXNExNWVU?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Analysis of Taylor Swift's Lyrics Reveals Patterns
-
-- first seen: 2026-09-30 06:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A study has been conducted using a database of Taylor Swift's 123,553 lyrics to uncover hidden patterns within her songwriting. This analysis could provide insights into her lyrical style and themes.
-- sources:
-  - [unverified] Phys.org — https://news.google.com/rss/articles/CBMie0FVX3lxTE1adUpLem5MbmtTY3Q0elFzbl91WE84UXdiVU5xN3hEcGpQRXNmTktQaDM5VGpIbDRjd2hZQ1JFUDF4UFhmcVdURlN5bkwtalh0YnNnMFE3WnZLNG1GeEYtRTlNLWl6Y0JPSGpqanIzWnU1b0x5QVpFU3BPOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Forbes Reviews Taylor Swift's 'Patient Zero' Video for Its Epidemiology Accuracy
-
-- first seen: 2026-09-30 06:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Forbes critiques Taylor Swift's 'Patient Zero' video, pointing out inaccuracies in its depiction of epidemiology while acknowledging its overall effectiveness. The article provides insights into the video's content and its reception.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNR0RDbXhtWEdzNlQybmVYX3dwUkRFSDBkSHY3SVgwcmdfYV9GY19mVW5TWU5nMTFwSzFNVVpfejRHUkRLbjR6Mld6TWV1ejVYTm0yaGhYTm5KM3FILVIxRlVnREZnM0R5Ym1qSzJ4OFlKRDQtMC1nQ1ZVZlJnZEZmbUNYVFhHN2ZXbkNRdHY5bGEzanpTSVRTb0JnVTdNOG1LY1VzQTE5YUNmNzh0c0c4ek5jVWJISjdYc1ZrY0xqOUZQRHBvV0V6Ug?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Review of Taylor Swift's 'Patient Zero' Released by The State News
-
-- first seen: 2026-09-30 06:39 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The State News has published a review of Taylor Swift's 'Patient Zero', indicating that the work lacks depth in its commentary. The review highlights the song's perceived limitations.
-- sources:
-  - [unverified] The State News — https://news.google.com/rss/articles/CBMikwFBVV95cUxPSjFNd3V1TWNKWEs1V1VYdFctZFJaLWU0b2NjZUh0RDlvSlpZQ1FiM3VtamxFNzJ3UWlsRktLa284OXpRb3dIc0dhdUpLWUJaRTlUUl9TM1RzRnhWNTRmNy1PSmk4eElTRmxTUmNaQUc4TE1POWVHUUVFMDg2VG9MeG9vVkNCR29ib3BOTE9Zb2xPYmM?oc=5&hl=en-US&gl=US&ceid=US:en
