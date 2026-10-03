@@ -56,6 +56,7 @@ describe('bridge-host dispatcher', () => {
       api: (_p: unknown, ctx: { signal: AbortSignal }) => { signal = ctx.signal; return new Promise(() => {}); },
     } as never);
     s.cmd('c1', 'api', { req: { method: 'GET', path: '/api/mood' } });
+    await tick();
     s.cmd('c2', 'cancel', { targetId: 'c1' });
     await tick();
     expect(signal.aborted).toBe(true);
@@ -88,8 +89,10 @@ describe('bridge-host dispatcher', () => {
     const s = setup({ haptic } as never, { seenCap: 2 });
     s.cmd('a', 'haptic', { kind: 'light' });
     s.cmd('b', 'haptic', { kind: 'light' });
+    await tick();
     s.cmd('a', 'haptic', { kind: 'light' }); // refreshes a
     s.cmd('c', 'haptic', { kind: 'light' }); // evicts b
+    await tick();
     s.cmd('b', 'haptic', { kind: 'light' }); // b was evicted: runs again
     await tick();
     expect(haptic).toHaveBeenCalledTimes(4);
@@ -97,7 +100,7 @@ describe('bridge-host dispatcher', () => {
 
   it('validates payloads before any handler runs', async () => {
     const h = vi.fn(async () => resOk(null));
-    const s = setup({ navigate: h, openExternal: h, api: h, cancel: h } as never);
+    const s = setup({ navigate: h, openExternal: h, api: h } as never);
     s.cmd('n1', 'navigate', { path: '//evil.test' });
     s.cmd('n2', 'navigate', { path: '/era/x/../../y' });
     s.cmd('o1', 'openExternal', { url: 'http://x.test' });
@@ -133,7 +136,7 @@ describe('bridge-host dispatcher', () => {
       navigate: (async () => 'garbage') as never,
     });
     s.cmd('c1', 'share', {});
-    s.cmd('c2', 'haptic', {});
+    s.cmd('c2', 'haptic', { kind: 'light' });
     s.cmd('c3', 'navigate', { path: '/era/a' });
     await tick();
     for (const id of ['c1', 'c2', 'c3']) {

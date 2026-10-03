@@ -23,3 +23,5 @@ The dispatcher (WP2.3-B) must implement, and test:
 5. Replay and duplicate-id dedup: a repeated `cmd` id is not executed twice.
 6. Every inbound envelope goes through `parseEnvelope`, `navigate`/`openExternal`/`api`
    payloads through `isWebPath`/`isExternalUrl`/`sanitizeApiRequest` before any handler runs.
+7. `res` is unsequenced (no `seq`, never queued or replayed on ack/re-ready). A replayed `cmd` id
+   gets no second `res`, by design: the first `res` is the only answer.

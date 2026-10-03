@@ -3,7 +3,7 @@ import { resErr } from '@swift2/ui';
 import { setup, tick } from './bridge-host.test-kit';
 
 describe('bridge-host ready, queue and protocol-fatal', () => {
-  it('holds emits and requests until ready, flushes in order, double ready is a no-op', () => {
+  it('holds emits and requests until ready, flushes in order, a second ready re-flushes', () => {
     const s = setup();
     s.host.emit('contentVersion', { token: 'a' });
     s.host.emit('insets', { top: 1, right: 0, bottom: 2, left: 0 });
@@ -13,9 +13,9 @@ describe('bridge-host ready, queue and protocol-fatal', () => {
     s.makeReady();
     expect(s.sent.map((e) => [e.type, e.seq])).toEqual([['contentVersion', 1], ['insets', 2], ['back', 3]]);
     s.makeReady();
-    expect(s.sent).toHaveLength(3);
+    expect(s.sent).toHaveLength(6); // re-ready resends the unacked queue (see hardening tests)
     s.host.emit('contentVersion', { token: 'b' });
-    expect(s.sent[3]!.seq).toBe(4);
+    expect(s.sent[6]!.seq).toBe(4);
     expect(s.host.isReady()).toBe(true);
   });
 

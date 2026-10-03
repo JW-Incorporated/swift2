@@ -43,9 +43,8 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     'notifications.register': ok,
     'notifications.updatePrefs': ok,
     api: async () => resOk({ status: 200, headers: {}, body: '' }),
-    cancel: ok,
   };
-  const handlers = { ...base, ...over } as unknown as HandlerMap;
+  const handlers = { ...base, ...over } as unknown as Omit<HandlerMap, 'cancel'>;
   const sent: Envelope[] = [];
   const sch = fakeScheduler();
   const onProtocolFatal = vi.fn();
@@ -63,7 +62,7 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     host.receive({ v: 1, id, kind: 'cmd', type, payload, ts: 1 });
   const evt = (type: string, payload: unknown, id = `e-${type}`) =>
     host.receive({ v: 1, id, kind: 'evt', type, payload, ts: 1 });
-  const makeReady = () => evt('ready', { v: BRIDGE_VERSION });
+  const makeReady = (id = 'e-ready') => evt('ready', { v: BRIDGE_VERSION }, id);
   const resFor = (id: string) => sent.filter((e) => e.kind === 'res' && e.id === id);
   return { host, sent, sch, onProtocolFatal, onSignal, cmd, evt, makeReady, resFor };
 }
