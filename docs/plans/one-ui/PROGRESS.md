@@ -165,6 +165,16 @@ a **G0 input** (every OTA now carries the spike bundle). Post-landing: main
 "Mobile parity check" RED at 4084510a → researcher diagnosing (also #4837
 build/build-full red). #4833 CONFLICTING after #4822 (DiagnosticsPanel) →
 executor merging main. G1 gate waits on parity green on main.
+**19:33:** Red "Mobile parity check" on main = store-version divergence
+workflow (iOS build can't sign) → same root cause as HA #96, not the harness.
+#4837 red = my HA number collided with reserved #89 (weekly-review test) →
+renumbered **HA #96** (allocator must read ledger `- #N ·` lines too; true
+max was 95). #4833 merged main (9e31827a; both panels' intents kept) →
+auto-merge still set. #4838 Codex r1: P2 regex `\$` bug (Android always
+skipped), P2 build not tied to the run's build_android job, P3 resubmit
+idempotency (pre-existing → doc note) → fix round launched. Parity harness
+never ran on main (PR/dispatch only) → dispatched run 37090052458 on main →
+if green: **Fable G1 go/no-go**.
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
 POINT_STAGES → scoped reviewer APPROVE → auto-merge set. #4827 reviewer r2
