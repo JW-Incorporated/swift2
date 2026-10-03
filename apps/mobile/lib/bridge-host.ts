@@ -57,6 +57,9 @@ export interface BridgeHostDeps {
   outboxCap?: number;
 }
 
+export type AckRef = { epoch: number; seq: number };
+let nextEpoch = 0; // never resets within the process: one id per host instance
+
 type Pending = { type: NativeCommandType; resolve: (r: ResResult<never>) => void; timeoutMs: number; timer?: unknown };
 
 export function createBridgeHost(deps: BridgeHostDeps) {
@@ -73,13 +76,30 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   let readyTimes: number[] = [];
   const pending = new Map<string, Pending>(); // native-to-DOM requests, by id
   const { arm, disarm } = createTimers(deps.scheduler, onSignal);
-  const outbox = createOutbox(deps.outboxCap ?? OUTBOX_CAP, onSignal);
+  const epoch = ++nextEpoch;
+  const evicted = new Set<number>(); // seqs dropped unsent-or-unacked by outbox overflow
+  const outbox = createOutbox(deps.outboxCap ?? OUTBOX_CAP, onSignal, (gone) => {
+    evicted.add(gone.seq!);
+    if (evicted.size > 1024) evicted.delete(evicted.values().next().value as number);
+    settleWaiters((w) => w.seq === gone.seq, false);
+  });
   let ready = false;
   let closed = false; // fatal or disposed: nothing further is sent or run
   let negotiated: number | null = null;
   let hostId = 0;
   let ackedThrough = 0;
-  const ackWaiters = new Set<{ seq: number; cb: () => void }>();
+  const ackWaiters = new Set<{ seq: number; cb: (acked: boolean) => void }>();
+  function settleWaiters(pick: (w: { seq: number }) => boolean, acked: boolean) {
+    for (const w of [...ackWaiters]) {
+      if (!pick(w)) continue;
+      ackWaiters.delete(w);
+      try {
+        w.cb(acked);
+      } catch (e) {
+        onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
+      }
+    }
+  }
 
   const safeSend = (env: Envelope) => {
     if (closed) return;
@@ -109,7 +129,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       p.resolve(resErr('failed', 'bridge closed'));
     }
     outbox.clear();
-    ackWaiters.clear();
+    settleWaiters(() => true, false);
   }
   const raise = (reason: string) => {
     if (closed) return;
@@ -203,15 +223,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     if (typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= outbox.highest()) {
       outbox.ack(n);
       if (n > ackedThrough) ackedThrough = n;
-      for (const w of [...ackWaiters]) {
-        if (w.seq > n) continue;
-        ackWaiters.delete(w);
-        try {
-          w.cb();
-        } catch (e) {
-          onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
-        }
-      }
+      settleWaiters((w) => w.seq <= n, true);
     } else onSignal('bridge-bad-ack', String(n).slice(0, 32));
   }
 
@@ -267,10 +279,14 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     return env;
   }
 
-  /** Returns the envelope's monotonically increasing seq, or null when nothing was queued. */
-  function emit<T extends NativeEventType>(type: T, payload: EventPayloadOf<T>): number | null {
+  /**
+   * Returns the envelope's {epoch, seq} (seq is monotonic per host, epoch unique per
+   * host instance in this process), or null when nothing was queued. The wire is unchanged.
+   */
+  function emit<T extends NativeEventType>(type: T, payload: EventPayloadOf<T>): AckRef | null {
     try {
-      return enqueue('evt', `h-${++hostId}`, type, payload)?.seq ?? null;
+      const env = enqueue('evt', `h-${++hostId}`, type, payload);
+      return env ? { epoch, seq: env.seq! } : null;
     } catch (e) {
       onSignal('bridge-emit-failed', String(e).slice(0, 200));
       return null;
@@ -278,19 +294,27 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   }
 
   /**
-   * One-shot: `cb` runs when the DOM's cumulative ack reaches `seq` (at once if it
-   * already has). An unknown seq is ignored. Returns an unsubscribe. Dropped on dispose.
+   * One-shot: `cb(true)` when the DOM's cumulative ack reaches the ref's seq (at once if
+   * it already has). `cb(false)` when it can no longer be acked: evicted from the outbox,
+   * host disposed, or a ref from another host instance. A never-emitted seq is ignored.
+   * Returns an unsubscribe. A delayed wire ack from a previous instance is
+   * indistinguishable from the DOM here without an epoch on the wire (not added).
    */
-  function onAcked(seq: number, cb: () => void): () => void {
-    if (closed || !Number.isSafeInteger(seq) || seq < 1 || seq > outbox.highest()) return () => {};
-    if (seq <= ackedThrough) {
+  function onAcked(ref: AckRef, cb: (acked: boolean) => void): () => void {
+    const once = (acked: boolean) => {
       try {
-        cb();
+        cb(acked);
       } catch (e) {
         onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
       }
       return () => {};
-    }
+    };
+    if (ref.epoch !== epoch || closed) return once(false);
+    const seq = ref.seq;
+    if (!Number.isSafeInteger(seq) || seq < 1 || seq > outbox.highest()) return () => {};
+    if (evicted.has(seq)) return once(false);
+    if (seq <= ackedThrough) return once(true);
+    if (!outbox.all().some((e) => e.seq === seq)) return once(false);
     const w = { seq, cb };
     ackWaiters.add(w);
     return () => void ackWaiters.delete(w);
@@ -325,6 +349,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     receive,
     emit,
     onAcked,
+    ackWaiterCount: () => ackWaiters.size,
     request,
     isReady: () => ready,
     /** Aborts handlers, clears timers, settles pending requests; nothing is sent afterwards. */

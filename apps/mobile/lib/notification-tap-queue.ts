@@ -48,7 +48,7 @@ export type Tap = { id: string | null; path: WebPath; receivedAt: number };
  * (E2: the DOM's `ack`); `false`, a rejection or a disposed host means "not
  * delivered" and the tap stays at the head for the next `attach`.
  */
-export type TapSink = (tap: Tap) => Promise<boolean>;
+export type TapSink = (tap: Tap, signal?: AbortSignal) => Promise<boolean>;
 export type EnqueueOutcome = 'queued' | 'duplicate' | 'dropped';
 
 export interface TapQueueDeps {
@@ -114,13 +114,15 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       let acked = false;
       let timer: ReturnType<typeof setTimeout> | undefined;
       inFlight = head;
+      const ctl = new AbortController();
       try {
         const abandoned = new Promise<boolean>((r) => (abandon = () => r(false)));
         const timedOut = new Promise<boolean>((r) => (timer = setTimeout(() => r(false), ackTimeout)));
-        acked = await Promise.race([s(head).then((v) => v === true, () => false), abandoned, timedOut]);
+        acked = await Promise.race([s(head, ctl.signal).then((v) => v === true, () => false), abandoned, timedOut]);
       } catch {
         acked = false;
       } finally {
+        ctl.abort();
         clearTimeout(timer);
         abandon = null;
         inFlight = null;
@@ -194,17 +196,22 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
 
 export type TapQueue = ReturnType<typeof createTapQueue>;
 
+/** Structural twin of bridge-host's AckRef (the queue stays transport-neutral). */
+export type AckRef = { epoch: number; seq: number };
+
 /**
- * The ready-host sink: `emit` is `BridgeHost.emit` (its seq is passed on to `awaitAck`);
- * `awaitAck` resolves true on the DOM's ack (E2). `source` defaults to 'notification'.
+ * The ready-host sink: `emit` is `BridgeHost.emit` (its ref is passed on to `awaitAck`);
+ * `awaitAck` resolves true on the DOM's ack (E2) and must release its waiter when `signal`
+ * aborts (the queue aborts it on every path: ack, timeout, detach/attach). `source`
+ * defaults to 'notification'.
  */
 export const navigateSink =
   (
-    emit: (type: 'navigate', payload: EventPayloadOf<'navigate'>) => number | null | void,
-    awaitAck: (tap: Tap, seq: number | null) => Promise<boolean>,
+    emit: (type: 'navigate', payload: EventPayloadOf<'navigate'>) => AckRef | null | void,
+    awaitAck: (tap: Tap, ref: AckRef | null, signal: AbortSignal) => Promise<boolean>,
     source: EventPayloadOf<'navigate'>['source'] = 'notification',
   ): TapSink =>
-  (tap) => {
-    const seq = emit('navigate', { path: tap.path, source });
-    return awaitAck(tap, typeof seq === 'number' ? seq : null);
+  (tap, signal = new AbortController().signal) => {
+    const ref = emit('navigate', { path: tap.path, source });
+    return awaitAck(tap, ref ? ref : null, signal);
   };
