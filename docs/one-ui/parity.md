@@ -70,7 +70,10 @@ and a11y alike, via `openRoute` / `captureRoot` / `captureViewport`) also blocks
 `imagesReady` until each `<img>` and CSS `background-image` in the root's first screen
 is loaded and decoded (lazy imgs are forced eager); a broken, undecodable or
 10 s-stuck image fails the test naming its URL, so a baseline can never be captured
-before a hero image paints (the #4827 flake).
+before a hero image paints (the #4827 flake). Scope is the clip region both ways (vertical
+and the viewport width, so offscreen carousel slides are skipped); an image that is
+`complete` with a width is loaded even if `decode()` rejects (SVG). `negative.spec.ts`
+proves the gate: with `imagesReady` made a no-op the delayed-image specs fail.
 Web-only chrome outside the shared root (TopBar and its fixed timeline rail,
 footer) is hidden by stylesheet for pixel capture; the app host supplies its own.
 

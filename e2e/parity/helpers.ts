@@ -185,7 +185,12 @@ export async function imagesReady(page: Page, rootSel: string): Promise<void> {
       const limit = Math.max(window.innerHeight, root.getBoundingClientRect().top + window.scrollY + clip);
       const inRegion = (el: Element) => {
         const r = el.getBoundingClientRect();
-        return r.bottom + window.scrollY > 0 && r.top + window.scrollY < limit;
+        return (
+          r.bottom + window.scrollY > 0 &&
+          r.top + window.scrollY < limit &&
+          r.right > 0 &&
+          r.left < window.innerWidth
+        );
       };
       const failed: string[] = [];
       const pending = new Set<string>();
@@ -215,7 +220,10 @@ export async function imagesReady(page: Page, rootSel: string): Promise<void> {
               });
             }
             if (img.naturalWidth === 0) throw new Error('broken image');
-            await img.decode();
+            // decode() can reject for an SVG with no intrinsic size; a complete image with a width is loaded.
+            await img.decode().catch((e: unknown) => {
+              if (!(img.complete && img.naturalWidth > 0)) throw e;
+            });
           })(),
         );
       }
@@ -232,7 +240,9 @@ export async function imagesReady(page: Page, rootSel: string): Promise<void> {
           (async () => {
             const bg = new Image();
             bg.src = url;
-            await bg.decode();
+            await bg.decode().catch((e: unknown) => {
+              if (!(bg.complete && bg.naturalWidth > 0)) throw e;
+            });
           })(),
         );
       }
