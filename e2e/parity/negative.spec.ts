@@ -36,12 +36,12 @@ test.describe('pixel baseline gate (same side, mutated vs clean)', () => {
   }
 });
 
-test.describe('web chrome viewport gate (WP2.4-0: a 1px TopBar shift must fail the viewport capture)', () => {
-  test('a 1px TopBar shift fails', async ({ page }, testInfo) => {
+test.describe('web chrome viewport gate (WP2.4-0: a 1px TopBar growth must fail the viewport capture)', () => {
+  test('a 1px TopBar growth fails', async ({ page }, testInfo) => {
     await openRoute(page, 'a', route);
     const clean = await captureViewport(page);
     await page.locator('[data-ll-topbar]').evaluate((el) => {
-      el.style.transform = 'translateY(1px)';
+      el.style.paddingBottom = '1px';
     });
     const mutated = await captureViewport(page);
     expect(await pixelMatches(testInfo, 'neg-topbar-1px', clean, mutated)).toBe(false);
