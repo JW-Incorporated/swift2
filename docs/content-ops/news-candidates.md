@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 72
+
+## Taylor Swift Shows Off New Curly Hairstyle and Shorter Haircut
+
+- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent photo, Taylor Swift unveiled a new curly hairstyle along with a shorter haircut. The update showcases her evolving look as she continues to capture fans' attention with her style choices.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMitAFBVV95cUxOUmU2Qmt6d0tkazZtSkdOVzlqajhlYnprcS1EQVlFbmRrS2xNSlhSQzNHVDVDd1dVSFIzRndOODFLUzVwdFRveFNvLXBBZlZodFBseFk5R2pTNEktbXlma0V2UWFHUTVVNE1DbzVueDFFUXpwY1Vjb29UalRxd3A1OHljY25hRnZDVnFHRk9pZkdBckszanRoaUh0ZzEzTWFHczN1Q2VEVi11SWRYd2pSM0pmZWU?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Travis Kelce Comments on Controversial Taylor Swift Song
+
+- first seen: 2026-10-03 06:25 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has responded to fan criticisms of a Taylor Swift song that has been labeled as her 'worst' by some. The discourse surrounds public reactions to the track, adding to ongoing discussions about Swift's music.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxQTUx0dGJXX2t0RkpoX0dWUTY5LTdpcW1oako3b0dlYlRBUkEyRjJXbTIyeVR5QnpIMlFubmswRWQwTlFtNk00TFhBVjBvLTFLdmJ2LXdLTTFSMmtMOURKSXVkdkN1NG5hYTZhTUlxV0xkM2t3T29KRy1wUUQ5VXJEQVNmU0p5NDhkeE1ZX2pzeEJZeXo2azVGUEwyMmRLc3c?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Shows Off New Short Curly Lob Hairstyle
+
+- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has debuted a new shorter hairstyle featuring a curly lob, showcasing her latest transformation. The change has garnered attention from fans and media alike.
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMingFBVV95cUxQcnpmcXJRSFlGWWlHUWFya2JPZS1yUmpscnFVZGhiWGtTdVNrblRtQ0czUV9Dc2ZhTDV2dkUxVmh3Z0ExWWpLUnlKbzlJc0dOcGctN1BKemFjUEhMR3YxTURlTy0xNzVTb2E2V0tvUW1hWllfR0d5S3ZVT2RtV3JLRkJHNFJZZjBNMGxnMlo3M1FlMUFqdWVJVENiREppUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Review of Taylor Swift's Extended Album Published
+
+- first seen: 2026-10-03 06:25 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article titled 'My Thoughts on Taylor Swift’s Extended Album' has been released by The Decaturian, discussing the details and insights regarding the album.
+- sources:
+  - [unverified] The Decaturian — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQZlF3eFJ5Y1FoRnBZQjQ1R19JblZScWR4bWpuRGt4TEpUbEg5ZjNaSzVwcENPUTl3NG41SmxDbUhfSDAyQ0FlNmVYTkZxZVNUV1RJbzhkTUMtQTRRc0swRV9pamFVTlc5X3ZDalBERWVyLVFfeF9DTTNHa3hFSVVXTGdjaDVlN2RzUmVv?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Debuts New Curly Hairstyle Amid Fan Speculation
+
+- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has revealed a new curly hairstyle, prompting fans to speculate about its significance, including potential connections to Travis Kelce and the VMAs.
+- sources:
+  - [unverified] Hindustan Times — https://news.google.com/rss/articles/CBMilAJBVV95cUxOYl93WGdBc2pQd1BPTWF4eEp5dWVlbjVYOXhyNndtQTM5MzBINkZ5THZ2aHFpd2pNX0M3VVBkZFJ2Sk80R01mWklRYmM1b0VhYzdxdGp5dlYycXhqZGdKN0wyRVJGSjZjMUJFdEdGODRJTDVuRjFQdHZYcDJWM0Y2OTRMSjBFdEdMN1Jva3FOWW43a2lkSm1RaUZ6SHMxaHY3d3NwVlpZNEVqclU1azRRY1Z0bG9kZjQ3WTFwX1ZxM3JpeWZtYjFSa1ZwLUplN3V5b1ZYME9JS090cnMtOVE5TTBNU2k2dGVZYUMxZ1k0OGxoTERkYkhDdjl6Y2t2OUdXbnRUNmpwRFJKR1A4Q21ORHUyd0fSAZoCQVVfeXFMUG5IV21mY2tsb0lfdy1MVlhGVlVRTGxuNjMxVmJlZ3VNUkFwOTVNUXFhSUt5RDNkNTY0akgzSjd3X0NJY2U5enlNUHdfR092VjNrZGpWRWxjb0luR3VXcXVRUEFCM29DVjNfVVRBaUpvcHRldGtqejFJczNxQjh4R3pnUTNCTmZPNkxBaFlKU0Q2YU9zMlBrVm83TGV5dmZHdmFyZm9SOUVha24yYmFBOFlFTEd2YzVROUdjRXJPUTZfT2IySElETGhiWllLR2VuZWVXR0d5eGJkdGItbTNFMmhEUXd5djhWV1pFZEprVi1iMlhULVk4ZDJqLUpuakxiTllLcGU0ZWQxejRFcmVYLXk5dUxKQkx4SWFB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Friend to Host 'SNL' Tonight
+
+- first seen: 2026-10-03 06:25 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A close friend of Taylor Swift is set to host Saturday Night Live this evening. Fans can find information on how to watch the episode.
+- sources:
+  - [unverified] Centre Daily Times — https://news.google.com/rss/articles/CBMiggFBVV95cUxPc1Q4R0dGVEJ0Yi1kNzlrclYzdGhIQWJiM0V2cU1ta1RLYVhWZk9ONGF2a3ZGVm5JVzlQMmJ1b2p4bmlpYk14eGMydzIzc3cyQkJCVW0zcHhYa1ZBRmZNQm9vUGdMdEVaVHJMbGlMOUZ1MGxHMWRyMzVaeHRRa3lLblhn?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reveals New Short Hair and Curls for Career Milestone
+
+- first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has debuted a new hairstyle with shorter locks and revived curls as she marks a significant career milestone. The change in her appearance coincides with her professional achievements.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNUG1EdVVvOUgwUm5CcTJmUVFKNjFKeURJSnNNdkJVdlA2bGszR2g5WUp3eHlkbTFkRzZBWmk2MkxIRnFJenlhOGVwYWxCb1p0RUswWGZ2V2h4ZldySXJIb1N5dTk0cXVrMklTTldVdWRuWGtCbV82d1lrblNNS1lZWkNzN1RqTUo1UzI0U3JqbUZxcGRMWnFScl9RUnJTRl9OYkoySDR3?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift References Cleveland in New Song Title
 
@@ -563,44 +619,3 @@ Stories: 70
 - summary: The State News has published a review of Taylor Swift's 'Patient Zero', indicating that the work lacks depth in its commentary. The review highlights the song's perceived limitations.
 - sources:
   - [unverified] The State News — https://news.google.com/rss/articles/CBMikwFBVV95cUxPSjFNd3V1TWNKWEs1V1VYdFctZFJaLWU0b2NjZUh0RDlvSlpZQ1FiM3VtamxFNzJ3UWlsRktLa284OXpRb3dIc0dhdUpLWUJaRTlUUl9TM1RzRnhWNTRmNy1PSmk4eElTRmxTUmNaQUc4TE1POWVHUUVFMDg2VG9MeG9vVkNCR29ib3BOTE9Zb2xPYmM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Close-Up Photos of Taylor Swift’s Wedding Band Released
-
-- first seen: 2026-09-29 21:22 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Close-up photos of Taylor Swift's wedding band have been released, attracting attention from jewelers regarding its design. The details in the images provide insights into the craftsmanship and style of the band.
-- sources:
-  - [unverified] ELLE — https://news.google.com/rss/articles/CBMisgFBVV95cUxOMW9SYzAxYnU3d0tWbUhZeS1vNnUtbUJJcHdlczB2b2lGZEJ0VWpPU1AwNzRTTTdtOUJhaTMzZ0FlWjJyTlFlNkJha0EycG5RWlNtSDF3eVl3eG1LQWg4TENjT3p1eEZNSWFXMWk1cVo2MU5Cam5lMTJqNlkyWFh6bW9SNkVZbVRTOC1iS3NPS1VPclZnTkNNb25FSUQydjVOMk9KWG5veHhHYkVWdm1fNUd3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Graham Norton Comments on Taylor Swift's 'Opalite' Theory
-
-- first seen: 2026-09-29 21:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Graham Norton discusses the recently speculated 'Opalite' theory related to Taylor Swift, stating his views on the matter. The comments focus on the ongoing discussions surrounding Taylor's work.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPc204cVczYjFOYTBrbnRqMXdvOTR2UHBCaVg2b01LX3phYl9PZWQ4SmFCeC1fTTV4RjVUT25EVy1Sa0JSRlVLTG5Oa2RjYWpnS05abjFlV0FiR1FLYl9DVmxhYlVPNnE4RDE5dFU2TU5aNDB4TUJHWnVLSVN4TVlrVWpDWTMxRWRHTWk3VC1QdTl5Q2VjdDViZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Former Mansion in Beverly Hills Listed for $8 Million
-
-- first seen: 2026-09-29 21:22 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's former Beverly Hills mansion, where she wrote her album '1989', is now on the market for $8 million. This property is notable for its connection to the artist's successful music career.
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiogFBVV95cUxQYUw1bzEyaFZHSnBTeGVERjNzUUd6dXA4Tks0eFIzbndVdWpBMURxTlVVNW1RaTVYc0Q1YzBHeWFheHd3M0VuNFZsUXVrZnMxQUpJLS1LaW1vNDUxNW1Mdk4tWkJLUFNQcFJIVS0tazdwZ1ByeUtCcU41YmJJcDF4Vno5VThPNGtDTDNGaUhQbjlFQXRkZTUtTHBJekNOd3BUU3c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Graham Norton Addresses ‘Opalite’ Video Timing Rumors
-
-- first seen: 2026-09-29 21:22 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Graham Norton has refuted claims that Taylor Swift’s ‘Opalite’ video was filmed prior to her appearance on his show. He clarified the timeline surrounding the video’s production.
-- sources:
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMipAFBVV95cUxNOEZNZDJKZUFNcEdxdWQxbWdHRWUzMmp2RFV4b2RUQjhBTk5Db2hoTWFxQ1l5Rk91MENHdWFZeThNcGJMZnZlVEtoZlk5WEh0UzRQejR6aHJNQXRKZGNJNTlXUUJOakJpRkhjNXRIV3FId09jMVBuX3ZlYUZmSGdiaGJ2UndGWmljVVdmci1xR1Y4MVNkNkdWY0pBcVVlY3hZZ0llaw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/global/graham-norton-opalite-taylor-swift-conspiracy-theory-1236878178/
-
-## Travis Kelce Reacts to Taylor Swift's New Music Video
-
-- first seen: 2026-09-29 21:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has provided a one-word reaction to Taylor Swift's recently released music video, highlighting his thoughts on her latest work.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNbUFUbjV6dV92SHJXbUhxVjR1MVhVYlBqUmdqN3BTaVVNcXZsOFVHblZPZndDUTVseUJVQ2xmeU9PVklOYWNsanh0ZnhTY0l2SjZoYlBLU3lzbVdOckZQRWprOHZCY184T1ZwN0RRYnZ3TkF5Q2ZoV2VKRXFSeDZsSjBQSVJYcUdVUC02dXhLOUZxd3ZVRmFF?oc=5&hl=en-US&gl=US&ceid=US:en
