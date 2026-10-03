@@ -71,6 +71,7 @@
 export const LEGAL_STATUS: 'draft' | 'approved' = 'draft';
 
 /** Marker for a blank only a human can fill. Scanned by `legalPlaceholders()`. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for filling founder blanks
 const FOUNDERS = (question: string): string => `[FOUNDERS: ${question}]`;
 
 /**
