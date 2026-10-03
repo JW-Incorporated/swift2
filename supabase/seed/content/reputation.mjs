@@ -1564,6 +1564,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956319166-1-696x442.jpg',
+            focalPoint: '50% 24%',
             credit: 'Getty Images / NME',
             caption: 'Taylor Swift performing with Charli XCX and Camila Cabello on the Reputation Stadium Tour\'s opening night, Glendale, AZ, May 8, 2018 — the same night the olive branch arrived backstage.',
             kind: 'archival',
@@ -1696,6 +1697,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.rollingstone.com/wp-content/uploads/2018/10/taylorcrop.jpg?w=1600&h=900&crop=1',
+            focalPoint: '44% 18%',
             credit: 'Rolling Stone',
             caption: 'Taylor Swift performing on the Reputation Stadium Tour, October 2018 — the month of the political endorsement post.',
             kind: 'archival',

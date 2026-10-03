@@ -4065,6 +4065,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.inquirer.com/resizer/v2/Y5IH6SQ6VVD7JACZSYPDMZ5GW4.jpg?auth=0edda7cec059e02fce2e4d6ff7d1a5d1003350113244e27ee4c8ffe0fc7e28f6&width=760&height=507&smart=true',
+            focalPoint: '60% 38%',
             credit: 'The Philadelphia Inquirer',
             caption: 'Taylor Swift performing at the Eras Tour\'s Lincoln Financial Field opening night, Philadelphia, May 12, 2023 — the same three-show run credited in the Beige Book.',
             kind: 'reference',

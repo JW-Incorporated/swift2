@@ -407,7 +407,7 @@ export default {
             url: 'https://www.hellomagazine.com/fashion/news/2015033053845/taylor-swift-leads-best-dressed-at-i-heart-radio-music-awards/',
           },
         ],
-        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg', credit: 'Getty Images' }],
+        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg', focalPoint: '52% 12%', credit: 'Getty Images' }],
         // Shop pass (2026-07-21): KaufmanFranco has no e-commerce -- a
         // current, verified in-stock black sequin mini in the same spirit.
         products: [
@@ -547,7 +547,7 @@ export default {
           { outlet: 'E! Online', url: 'https://www.eonline.com/photos/31611/taylor-swift-at-the-billboard-music-awards' },
           { outlet: 'Bustle', url: 'https://www.bustle.com/articles/83746-taylor-swift-attends-2015-billboard-awards-red-carpet-in-a-white-jumpsuit-bad-blood-clutch' },
         ],
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg', credit: 'Jason Merritt/Getty Images' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg', focalPoint: '48% 14%', credit: 'Jason Merritt/Getty Images' }],
         // Shop pass (2026-07-21): the exact 2015 beaded jumpsuit is
         // discontinued -- a current Balmain white jumpsuit was linked as the
         // closest real match.

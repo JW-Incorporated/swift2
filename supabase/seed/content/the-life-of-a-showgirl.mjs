@@ -9432,6 +9432,7 @@ export default {
         photos: [
           {
             url: 'https://imageio.forbes.com/specials-images/imageserve/66e0a4564f7773423ee75414/Taylor-Swift---The-Eras-Tour---London--UK/0x0.jpg?crop=1579,1053,x335,y31,safe&width=960',
+            focalPoint: '55% 22%',
             credit: 'Kate Green/Getty Images via Forbes',
             caption: 'Taylor Swift performing on the Eras Tour; Forbes\' image for its story on her four-song Adult Contemporary top 10 sweep, July 18, 2026.',
             kind: 'reference',

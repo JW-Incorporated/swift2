@@ -3445,6 +3445,7 @@ export default {
             // from the official lyric-video still above. The prior note's
             // "no creditable still" finding no longer holds after this pass.
             url: 'https://i.ytimg.com/vi/tGHlsfhIq4Q/maxresdefault.jpg',
+            focalPoint: '40% 16%',
             credit: 'YouTube (fan recording)',
             caption: 'Taylor Swift performing the live "thanK you aIMee"/"Mean" mashup at Wembley Stadium, June 22, 2024.',
             kind: 'archival',

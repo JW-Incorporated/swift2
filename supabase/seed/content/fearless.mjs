@@ -1579,6 +1579,7 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016926/rs_634x1024-161026143557-634.Taylor-Swift-CMA-2009-Nashville.kg.102616.jpg',
+            focalPoint: '50% 14%',
             credit: 'Donna Svennevik/ABC via Getty Images, via E! Online',
             caption:
               'Arriving at the 43rd CMA Awards in the gold gown she wore to accept Entertainer of the Year, Nov. 11, 2009.',
