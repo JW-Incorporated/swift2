@@ -9,27 +9,14 @@ import { fileURLToPath } from 'node:url';
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // build_android was skipped because get_android_build found a production
-// build for the current native fingerprint. That lookup is by fingerprint, not
-// commit, so gitCommitHash is deliberately NOT compared to GITHUB_SHA here:
-// the same native code legitimately built at an earlier commit.
+// build for the current native fingerprint. That build was submitted by the
+// train that produced it (else that train went red), so it is never
+// submitted again: no build id is returned.
 function selectExisting(run) {
   const g = (run?.jobs ?? []).find((x) => x?.key === 'get_android_build');
-  if (!g || g.status !== 'SUCCESS') return { result: 'skipped' };
-  const b = g.turtleBuild;
-  if (b?.id === undefined || b?.id === null) return { result: 'skipped' };
-  if (
-    typeof b.id !== 'string' ||
-    !UUID.test(b.id) ||
-    (b.platform !== undefined && b.platform !== 'ANDROID') ||
-    (b.status !== undefined && b.status !== 'FINISHED') ||
-    (b.buildProfile !== undefined && b.buildProfile !== 'production')
-  ) {
-    return {
-      result: 'no_build',
-      warning: 'existing build id/platform/status/profile failed validation',
-    };
-  }
-  return { result: 'existing', buildId: b.id };
+  const id = g?.turtleBuild?.id;
+  if (g?.status !== 'SUCCESS' || id === undefined || id === null) return { result: 'skipped' };
+  return { result: 'existing' };
 }
 
 export function selectAndroidBuild(run, sha) {

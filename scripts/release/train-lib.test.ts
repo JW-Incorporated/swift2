@@ -68,7 +68,7 @@ describe('state file feeds select-android-build unchanged', () => {
   it('existing Android build is selected without a commit match', () => {
     const e = build({ gitCommitHash: 'b'.repeat(40) });
     const s = initialState({ android: e, ios: ios(), decision: decide({ android: e, ios: ios() }) });
-    expect(sel(s)).toEqual({ result: 'existing', buildId: A });
+    expect(sel(s)).toEqual({ result: 'existing' });
   });
   it('finished store build is success; errored is not_success', () => {
     const d = decide({ android: null, ios: null });

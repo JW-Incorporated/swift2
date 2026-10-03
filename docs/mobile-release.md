@@ -89,7 +89,7 @@ Old EAS job to new step:
 | `publish_update_both` / `_android_only` / `_ios_only` | "Publish OTA update": `eas update --branch production --environment production --platform all\|android\|ios --message ...` (`--environment` is required for SDK 55+) |
 | `force_store_build` input | Same input; plan builds both and publishes no OTA |
 | `eas workflow:status` job table + `read-android-status.sh` | `train-state.json` (same `jobs[]` shape) fed to the unchanged `select-android-build.mjs`; job table in the run summary |
-| Android Play submit + `android-play-submitted-<id>` cache marker | Unchanged |
+| Android Play submit | Only for a build this run produced; the `android-play-submitted-<id>` cache marker is removed (reused builds are never resubmitted) |
 | concurrency group `mobile-release`, 235-min job cap | Group unchanged (rollback workflow shares it); job cap 310, per-step caps in the workflow header |
 | (none) | New `plan_only` input: prints fingerprints and the decision, mutates nothing |
 
@@ -115,9 +115,8 @@ How the Android submit works (unchanged in effect):
   `production`, its `gitCommitHash` is a string equal to the run's
   `GITHUB_SHA` (absent, empty or mismatched fails closed with a loud
   warning), and its id is a UUID. If the fingerprint already had a build
-  (`build_android` SKIPPED) the existing build from the plan is used instead
-  (`existing`; lookup is by native fingerprint, so no commit match). If a
-  build id was found, the Action writes `PLAY_SERVICE_ACCOUNT_JSON` to a
+  (`build_android` SKIPPED) the result is `existing` and nothing is submitted
+  (see the submit rule below). If a build id was found, the Action writes `PLAY_SERVICE_ACCOUNT_JSON` to a
   gitignored file (`apps/mobile/credentials/play-service-account.json`,
   `chmod 600`, deleted via `trap ... EXIT`, never echoed) and runs `eas
   submit --platform android --id <build_id> --profile production
@@ -127,7 +126,7 @@ How the Android submit works (unchanged in effect):
   | Scenario | `result` | Run colour |
   |---|---|---|
   | OTA-only (fingerprint unchanged, `build_android` skipped or absent) | `skipped` | green |
-  | `build_android` skipped, existing production build id from the plan (submitted to Play internal unless a prior train already did; no commit match required) | `existing` | green (red if iOS failed) |
+  | `build_android` skipped, existing production build from the plan (not submitted; the producing train did that) | `existing` | green (red if iOS failed) |
   | Existing build lookup returned no id | `skipped` | green |
   | Existing build id/platform/status/profile malformed | `no_build` | red |
   | Store build, iOS and Android both ok | `success` | green |
@@ -155,16 +154,12 @@ How the Android submit works (unchanged in effect):
   iOS-only failure (e.g. code signing, HA #89) must not strand a good
   Android build. The wait step is `continue-on-error`, the Android steps run
   `if: always()`, and the last step turns the run red whenever any stage
-  failed, so the iOS failure stays visible. A re-run of the train would
-  resubmit the same build, and the duplicate version-code failure format is
-  unverified, so a successful submit writes a cache entry
-  `android-play-submitted-<build id>` (actions/cache, no secrets) and later
-  trains skip the submit when it exists (cache eviction after 7 days idle
-  only risks a repeat submit). Cases: iOS ok / Android ok → green, Android
+  failed, so the iOS failure stays visible. Cases: iOS ok / Android ok → green, Android
   submitted. iOS fail / Android ok → Android submitted, run red. Android
   fail (any iOS) → submit skipped, red. A platform with an existing build
   and no native change still gets its OTA regardless of the other platform.
-- **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the train refuses to start without `EXPO_TOKEN`. If a build needs submitting to Play and the Play key is missing, the Android submit step fails and the run ends red (changed in the HA #98 reroute: a green run must not mean iOS-only). The final step also fails the run whenever a produced build was not submitted (Android: no submitted marker and no cache hit; iOS: submit not successful).
+- **Missing `EXPO_TOKEN` or `PLAY_SERVICE_ACCOUNT_JSON`:** the train refuses to start without `EXPO_TOKEN`. If a build needs submitting to Play and the Play key is missing, the Android submit step fails and the run ends red (changed in the HA #98 reroute: a green run must not mean iOS-only). The final step also fails the run whenever a produced build was not submitted (Android: this run started an Android build and the submit did not succeed; iOS: this run started an iOS build and the submit was not successful).
+- **Submit rule (Fable ruling, HA #98):** a submit is required ONLY for a build this run produced. Reused or OTA-only runs never submit and keep no marker cache. Invariant: an existing finished production build was already submitted by the train that produced it (otherwise that train went red). If such a build never reached a store, the remedy is manual: `eas submit --platform <android|ios> --id <buildId> --profile production` from `apps/mobile`, or dispatch the train with `force_store_build=true`. A Play "already exists" rejection is a plain failure; no output parsing.
 - **Free-plan quotas:** the "Show EAS plan usage" step prints `eas
   account:usage` into the log (informational). Build and submission
   allowances on the Free plan are separate from CI/CD minutes and were not
