@@ -193,6 +193,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 - 2026-10-02 — **WP0.0 acceptance changed by evidence:** 12 successful mobile-release runs: 5 waits 15–20 min, 7 waits 70–155 min (max 154.8, run 36859454944). PLAN's 60-min cap (and Fable's 34-min fix) would fail legit store builds incl. WP0.4's. Decision: wait 195 / job 225; URL persisted before the wait; split-cap + slow-wait investigation → follow-up issue. Supersedes Fable's numbers (evidence Fable didn't have), not its approach.
 - 2026-10-02 — Play app-signing SHA-256 HA deferred until WP2.3 is near (the `.well-known` files must not ship before WP2.3; asking now isn't load-bearing).
 - 2026-10-02 — WP0.1: App.tsx deviation accepted; missing paint/wiring marks go in the same PR (S1 needs launch-to-eras).
+- 2026-10-02 17:35 — **Stacked PRs: never `--delete-branch` on a parent while children target it** — GitHub AUTO-CLOSES them (killed #4815; not reopenable → replacement PR from feature/one-ui-wp0.2b). Retarget children to main first, then delete the branch. OPERATING-MODE §5 Land step to be amended (grunt, docs PR).
 - 2026-10-02 — Workers open PRs without auto-merge; the PM enables it after `reviewer` (+ Codex) passes, so nothing lands unreviewed.
 
 ## Log
