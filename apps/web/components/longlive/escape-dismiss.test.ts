@@ -19,7 +19,7 @@ const ESCAPE_DISMISS_COMPONENTS = [
   '../../../../packages/ui/src/reader/era/CurrentItemDetail.tsx',
   './EraSelector.tsx',
   './FeedbackButton.tsx',
-  './MomentDetail.tsx',
+  '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
   './SearchOverlay.tsx',
   './TheoryGuide.tsx',
   './TrackDetail.tsx',

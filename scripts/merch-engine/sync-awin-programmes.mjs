@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
-const DIRECTORY = 'apps/web/lib/longlive/awin-advertisers.json';
+const DIRECTORY = 'packages/ui/src/reader/moment/lib/awin-advertisers.json';
 const PROGRAMMES_URL = 'https://api.awin.com/publishers/{publisherId}/programmes';
 
 function hostname(value) {
