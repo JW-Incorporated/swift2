@@ -116,6 +116,19 @@ main's post-#4799 value). Reviewer r1 APPROVE; Codex r1 `task-murof6pl-nys0wf`
 pending. Size baseline → #4831 (+11.7% both platforms; auto-merge set). #4828
 Codex r1 = REQUEST CHANGES (P2 baseline key lacks impact; P3 doc) → small fix
 round launched (+ reviewer Low: assert axe passes>0).
+**17:54:** DOM restack: **#4811, #4818, #4819 MERGED** (#4811 had been
+auto-closed; worker recreated feature/one-ui-wp0.4 at 39a129b0, reopened,
+retargeted, deleted again). Fingerprints = main 473eab6c. 0.5a/1.1c branches
+deleted. #4822 retargeted to main, NOT landed: **entry collision** — #4822's
+apps/mobile/index.web.ts (ReaderSpike) vs main's index.web.tsx (part-1 parity
+entry, #4819); Metro prefers .ts → would swap main's harness to a page its
+baselines don't match. **PM call:** land as a pair after #4827 approval —
+(1) merge #4827 into feature/one-ui-wp0.5b (its resolution deletes
+index.web.tsx + re-baselines on spike routes), (2) merge origin/main into
+wp0.5b keeping index.web.ts / deleting index.web.tsx, (3) #4822 → main
+(squash; then retarget #4828 to main before deleting wp0.5b/wp1.1c-2).
+Local unpushed merge b853f1b4 in wt-05b — discard by not pushing. Spike is
+behind the override flag → nothing user-facing waits.
 
 **CHECKPOINT 2026-10-02 14:56 PDT — supersedes everything below in this
 section.** Merge freeze ON (S1 with Joey in chat; no [diag] reports on #4791
