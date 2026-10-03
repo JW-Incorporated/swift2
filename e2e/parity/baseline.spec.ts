@@ -57,12 +57,17 @@ for (const route of A_ONLY_ROUTES) {
 }
 
 // One UI PR0-beta (WP2.9-2.13): side-a-only baselines for merch, community, clownbot, mood, notification settings and the legal pages.
-for (const route of A_ONLY_ROUTES_BETA) {
+const betaTest = (route: (typeof A_ONLY_ROUTES_BETA)[number]) =>
   test(`a (web build) ${route.name}`, async ({ page }) => {
     await openAOnlyRoute(page, route);
     expect(await captureRoot(page, route)).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
   });
-}
+for (const route of A_ONLY_ROUTES_BETA.filter((r) => r.name !== 'merch')) betaTest(route);
+// MerchMarquee emits a <style> tag without the CSP nonce, which chromium reports as a console error; webkit projects already bypass CSP.
+test.describe('merch', () => {
+  test.use({ bypassCSP: true });
+  for (const route of A_ONLY_ROUTES_BETA.filter((r) => r.name === 'merch')) betaTest(route);
+});
 
 test('a (web build) item-social related rail', async ({ page }) => {
   await openAOnlyRoute(page, ITEM_SOCIAL);

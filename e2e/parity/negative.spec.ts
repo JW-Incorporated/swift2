@@ -298,6 +298,7 @@ test.describe('One UI PR0 a-only gates (WP2.5-2.8: a 1px mutation of each new su
 });
 
 test.describe('One UI PR0-beta a-only gates (WP2.9-2.13: a 1px shift of each new surface fails its clip)', () => {
+  test.use({ bypassCSP: true });
   for (const route of A_ONLY_ROUTES_BETA) {
     test(`a 1px shift on ${route.name} fails its clip`, async ({ page }, testInfo) => {
       const selector = BETA_NEGATIVE_TARGETS[route.name]!;
