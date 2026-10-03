@@ -17,6 +17,16 @@ lib/longlive #4862, E extensions #4859); **WP2.3 A/B/C pre-G0 scope** (#4850, #4
 build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-evidence.md.
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
+
+**ADDENDUM 2026-10-03 09:40 PDT (supersedes BLOCKED ON OWNER / NEXT WITH JOEY below where they conflict):**
+- MERGED: #4867 WP2.14 watchdog hardening (16:09Z; Fable fix-forward after 2 Codex rejections; follow-up #4874 durable dedupe); #4873 WP2.4 A1 move-only (reviewer + Codex APPROVE).
+- HA #97 DONE (parity-gate required, verified ruleset ["build","parity-gate"]); HA #96 DONE (owner regenerated iOS App Store profile 57SBZ45RQA).
+- NEW BLOCKER HA #98 (DECIDE, owner): Expo jw-labs free-plan CI/CD 60 min exhausted until 2026-11-01 — release train run 37134936992 failed at fingerprint job start. Options pay / reroute (move release steps to GitHub Actions) / wait. No store builds until decided; OTA (EAS Update) path status unverified.
+- IN REVIEW: #4875 (closes #4872: hidden 7-tap Diagnostics trigger in the top safe-area strip while SharedUiHost is mounted; r1 overlay swallowed TopBar wordmark taps → moved; reviewer r2 APPROVE, Codex r2 pending; device check needed: Android edge-to-edge strip receives touches). #4876 WP2.4 A2 (reviewer APPROVE, Codex r1 pending; minor follow-up: shareCardImage reports all host.share rejections as 'cancelled').
+- S2 prep: owner's Android build 18 showed no Settings button — likely force-shared-UI override left on from S1; told owner to Clear storage. S2 steps unchanged.
+- PROCESS: PM heartbeat cron every 30 min (:13/:43) polls Codex jobs (they finish silently) and refills worker slots (owner request). Every human action is given to the owner as literal steps in chat (owner request).
+- NEXT: land #4875/#4876 on Codex approve → WP2.4 B (brief-wp24.md "Brief 2.4-B") → C. D after G0.
+
 **BLOCKED ON OWNER:** **HA #97** (make `parity-gate` required — rulesets require only
 `build`) → unblocks WP2.4 A1 (move-only rule, brief-wp24.md) → A2 → B → C. **HA #96** (Apple
 Associated Domains) → iOS store builds + iOS/iPad device sessions.
