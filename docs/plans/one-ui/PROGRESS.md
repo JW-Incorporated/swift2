@@ -454,7 +454,20 @@ excluded via testIgnore + dispatch-only perf workflow; legacy builder test-only
 rule (retarget #4856/#4857 to main). #4855 fix r1 (14 items + monotonic ids;
 176 tests) → reviewer r2 APPROVE; Codex r2 `task-musba925-ao4yi4`. #4853
 monotonic-ids round running. **Bridge landing order: A #4850 → B #4853 + C #4855
-retarget to main; README CONTRACT conflict between B and C expected (trivial).** (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
+retarget to main; README CONTRACT conflict between B and C expected (trivial).**
+**04:36:** #4853 reviewer r3 APPROVE (monotonic ids: 1–15 digits, hwm survives
+ready; ready 3/10 s; outbox; decisions.md entry) → lands after A. Codex: C1
+#4856 + C2 #4857 = P3 only (equivalence sampled) → approve-with-nit, grunt making
+them exhaustive (C1: every item, id AND slug). #4850 Codex r2 REQUEST CHANGES
+(P1 Proxy TOCTOU — returns original object; P2 unbounded walk before size cap;
+P2 double-encoded %252e bypasses isWebPath; P2 version parse throws on Proxies;
+P3 unicode slash lookalikes) and #4855 Codex r2 REQUEST CHANGES (P1 rejected
+ready never retried; P1 clock-backwards after reload → all ids ≤ hwm rejected;
+P2 pre-ready timeouts start before send; P2 inbox parses 1,024 before cap; P3
+ids beyond MAX_SAFE_INTEGER) → both 2nd consecutive → **Fable consult**
+(leaning: A returns a fresh clone + bounded walk + decode-until-stable + ASCII
+paths + guarded reads; C ready backoff, host returns hwm in ready ack → client
+reseeds max(now, hwm+1), timeouts from send, parse ≤ cap, BigInt ids). (Note for G3/WP2.4+: whole-viewport ratio tolerances hide
 small-element shifts — prefer element clips for chrome.)
 **18:09:** #4816 (WP0.2 C) + #4831 (size baseline) MERGED → **WP0.2 A–C all on
 main.** #4833 (WP0.1b): Codex r1 P2 (0 ms ≠ point mark) → fe95e5b8 explicit
