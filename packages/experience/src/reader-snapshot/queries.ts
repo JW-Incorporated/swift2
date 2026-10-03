@@ -9,6 +9,11 @@ import { corpusFromInputs } from './corpus';
 import type { ReaderSnapshotCore, ReaderSnapshotCoreInputs } from './types';
 
 /**
+ * TODO: callers migrate in WP2.2-C1..C3 (docs/plans/one-ui/briefs/brief-wp22.md); until then
+ * web reads both paths, and equivalence is proven by queries.test.
+ */
+
+/**
  * The video helpers live in `@swift2/content-enrichment`, which imports this
  * package, so the caller hands them over (same seam as `ReaderSnapshotDeps`).
  */

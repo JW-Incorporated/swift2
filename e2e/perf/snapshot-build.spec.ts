@@ -11,6 +11,7 @@ import { expect, test, type Browser } from '@playwright/test';
 
 const URL = process.env.PERF_URL ?? 'http://127.0.0.1:4180/';
 const SAMPLES = Number(process.env.PERF_SAMPLES ?? 12);
+const MIN_SAMPLES = 10;
 const GATE_MS = 15;
 
 async function sample(browser: Browser, throttle: number): Promise<number> {
@@ -39,6 +40,7 @@ const stats = (xs: number[]) => {
 for (const throttle of [1, 4]) {
   test(`snapshot core build, ${throttle === 1 ? 'unthrottled (gate)' : '4x CPU (report only)'}`, async ({ browser }) => {
     test.setTimeout(300_000);
+    expect(Number.isInteger(SAMPLES) && SAMPLES >= MIN_SAMPLES, `PERF_SAMPLES must be an integer >= ${MIN_SAMPLES}, got ${process.env.PERF_SAMPLES}`).toBe(true);
     const xs: number[] = [];
     for (let i = 0; i < SAMPLES; i++) xs.push(await sample(browser, throttle));
     const { median, p90, max } = stats(xs);
