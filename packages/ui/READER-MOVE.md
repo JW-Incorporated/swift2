@@ -97,7 +97,7 @@ Convention: components (.tsx) at `reader/<slice>/X.tsx`; non-component modules
 
 2.9-A1 (move-only). Moved to `packages/ui/src/reader/merch/`: `EraSpine` (+ test), `MerchMarquee`, `MerchEmptyPanel`, `MerchSectionRail`, `SubmitLinkForm`; libs in `merch/lib/`: `merch-filters`, `section-jump`. Old paths are one-line `export *` shims (delete in WP2.13). No type re-homing was needed.
 
-Stay in apps/web for 2.9-A1b (blocked on WP2.5 PR #4908 moving `shop.ts`): `MerchSection`, `merch/MerchCard`, `merch/MerchStyleSection` (MerchStyleSection imports MerchCard). `MerchSection` also imports baked `merch-extensions` (extensions prop = A2). `merch-filters.test.ts` stays (reads web-only data modules through the shim); `section-jump.test.ts` stays (fails the ui package's stricter `noUncheckedIndexedAccess`; fixing it is a non-import hunk, so it goes to A2).
+2.9-A1b: `MerchCard` and `MerchStyleSection` moved too (shop imported from `../moment/lib/shop`, WP2.5). `MerchSection` stays in apps/web: it imports baked `merch-extensions` (apps/web data), and the fix is the `extensions` prop = A2. `merch-filters.test.ts` stays (reads web-only data modules through the shim); `section-jump.test.ts` stays (fails the ui package's stricter `noUncheckedIndexedAccess`; fixing it is a non-import hunk, so it goes to A2).
 
 ### WP2.10 community
 (pending)

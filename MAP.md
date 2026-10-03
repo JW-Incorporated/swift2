@@ -670,7 +670,7 @@ Empty barrels `packages/ui/src/reader/<slice>/index.ts` with root re-exports and
 (pending)
 
 ### WP2.9 merch
-(2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. MerchSection/MerchCard/MerchStyleSection wait for 2.9-A1b (shop.ts, WP2.5). See `packages/ui/READER-MOVE.md`.
+(2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. MerchSection stays until A2 (extensions prop). See `packages/ui/READER-MOVE.md`.
 
 ### WP2.10 community
 (pending)
