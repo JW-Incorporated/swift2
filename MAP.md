@@ -603,7 +603,12 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `packages/content/src/forward-compat.ts` (+ test) | `pruneUnknownEnumValues`: drops unknown enum/literal values (array element, nearest enclosing array element, or whole file) for `loadBundle({ unknownEnumPolicy: 'drop' })`; any other zod issue stays a failure. Policy: `docs/decisions.md` 2026-10-01 |
 | `config/mobile/app-config.json` | Remote kill switch source: `routeFlags` (one boolean per native screen). Published by `scripts/publish-content-bundle.mjs` to `<outRoot>/app-config.json` (sibling of `current.json`, never a manifest entry; not mirrored to Storage). Runbook: `docs/mobile-release.md` |
 | `packages/content/src/app-config.ts` (+ test) | `appConfigSchema` (unknown keys stripped), `ROUTE_FLAG_KEYS` (the one list of flag names; mobile test asserts it matches `DEFAULT_ROUTE_FLAGS`) |
+| `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
+| `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
 | `packages/content/src/timing.ts` (+ test) | One UI WP0.1: optional load-stage hooks (`beginStage`, `setLoadTimingSink`); shared no-op when no sink is registered; `load.ts` reports pointer/manifest/download/hash/parse/validate/disk-write/load-total |
+| `packages/content/src/pool.ts` (+ test) · `load-concurrency.test.ts` | One UI WP0.2 PR B: `mapPool` capped-concurrency helper; `load.ts` downloads bundle file bodies 5 at a time (download marks overlap), then hash/parse/validate in manifest order |
+| `packages/content/src/warm-cache.ts` (+ test) | One UI WP0.2 PR C: `SCHEMA_FINGERPRINT` (hand-bumped; test pins a hash of `schema.ts` + `validation-contract.ts` + the zod version so a schema change cannot skip the bump) lets a warm launch skip per-file zod `safeParse`; `lastGoodJson` reuses the serialised files blob. `hash.ts` `createHash` also takes pre-encoded bytes |
+| `packages/content/src/validation-contract.ts` | `lookupSchema`: manifest entry name -> zod schema (split from `load.ts`; covered by the `SCHEMA_FINGERPRINT` pin) |
 | `apps/mobile/lib/diagnostics.ts` (+ test), `diagnostics-env.ts`, `diagnostics-override.ts`, `diagnostics-send.ts`, `components/DiagnosticsPanel.tsx` | One UI WP0.1: timing collector + `[diag]` report builder, device facts, C4 `Force shared UI` stub (persisted, unwired until WP0.4), send via `/api/feedback`. Hidden panel: 7 taps on the Settings version label. Marks: `provider-wiring` (era-stream-data.ts `wireTheories`), `first-era-paint` (EraSection.tsx, first rAF after real entries commit) |
 | `apps/web/app/api/feedback/route.ts` (32 KB body cap, 413), `diag.ts` (+ `route.test.ts`, `route.diag.test.ts`) | `{message:"[diag]", diag:{...}}` is validated against an exact schema (`parseDiagReport`) and the comment on tracking issue #4791 (hardcoded `DIAG_ISSUE_NUMBER`) is rebuilt from a fixed template; client text is never posted. Same token, repo and per-IP rate limit; 400 on any unknown/extra/out-of-range field |
 | `packages/shared/src/api/version.ts` | `API_VERSION`; `apps/web/proxy.ts` sends it as `x-api-version` on `/api/*` (test: `apps/web/proxy.test.ts`) |
@@ -624,3 +629,23 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | File | What it is |
 |---|---|
 | `scripts/ci-concurrency.test.ts` | Pins `ci.yml`'s concurrency: `main` pushes grouped per commit (a shared group silently dropped queued runs when merges clustered), PRs per-ref with cancel-in-progress |
+
+## Expo DOM host (One UI WP0.4)
+
+| File | What it is |
+|---|---|
+| `apps/mobile/dom/SharedUiTest.tsx` (+ `shared-ui-test.css`, `css.d.ts`) | `'use dom'` test page: Tailwind v4, `--era-*` switch, Radix dialog, 50-row list, inlined web font, watchdog signals |
+| `apps/mobile/dom/spike/resolver.js` (+ test) | WP0.5a Metro rules (wired in `metro.config.js`), web platform + apps/web origins only: match on resolved absolute path, `@/` to apps/web, `next/link`/`next/image`/`next/dynamic` to `stubs/` (any other `next/*` throws), baked `lib/longlive/{content,videos,tracks,era-secrets,merch,theories}` to `shims/`, react/react-dom/scheduler pinned to the mobile copy. Native and non-apps/web origins untouched |
+| `apps/mobile/dom/spike/shims/*.ts` (+ `fill.test.ts`, `parity.test.ts`, compile-time `parity.types.ts`) | Same exports as the baked web modules over live arrays/maps; `fill(snapshot)` mutates them in place and calls every `set*Provider`. `theories` is shimmed too (the baked one would overwrite the filled provider at import). Fill BEFORE importing reader components |
+| `apps/mobile/dom/spike/stubs/{link,image}.tsx` | `next/link` as `<a>`, `next/image` as lazy no-referrer `<img>`, `next/dynamic` as React.lazy + Suspense |
+| `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals and forwards them to the watchdog; no reload or error screen of its own |
+| `apps/mobile/lib/dom-host-handlers.ts` (+ test) | Pure DOM-host signal handlers (`createDomHostHandlers`: signal + `watch` sink only) and `sharedUiActive` |
+| `apps/mobile/lib/watchdog.ts` (+ test), `watchdog-store.ts`, `watchdog-gate.ts` | One UI WP0.4b: DOM-reader watchdog. Pure record/monitor rules (`decideMount`, strikes, ready-timeout with fake-clock tests), one SecureStore key, and the `useDomMount` hook App.tsx uses (attempt write awaited, fail closed). No network. Diagnostics: tri-state Force DOM failure + watchdog block (panel only) |
+| `apps/mobile/lib/orientation-lock.ts` | Locks phones to portrait at runtime (app.json orientation is `default`) |
+| `apps/mobile/postcss.config.mjs` | Tailwind v4 PostCSS plugin for DOM CSS |
+| `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
+| `apps/mobile/index.web.tsx` | One UI WP1.1c: web-only parity entry (mounts SharedUiTest; `?inset=`, `?mutate=` hooks). Native keeps `index.ts` (`main` is `index`) |
+| `playwright.parity.config.ts`, `e2e/parity/` (`helpers.ts`, `baseline.spec.ts`, `negative.spec.ts`, `__screenshots__/`) | Visual parity harness: 4 device projects, Linux baselines, tolerance negative specs. Root `playwright.config.ts` ignores it |
+| `scripts/parity/serve.mjs` | Static server for the web export the harness screenshots |
+| `.github/workflows/parity.yml` | Parity CI (pinned Playwright container) + baseline-update dispatch; never a required check |
+| `docs/one-ui/parity.md` | How the harness works, tolerance, baseline-update order |

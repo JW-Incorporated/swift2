@@ -4,6 +4,7 @@
 const { execFileSync } = require('child_process');
 const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
+const { createSpikeResolver } = require('./dom/spike/resolver');
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, '../..');
@@ -56,7 +57,9 @@ config.resolver.nodeModulesPaths = [
 // every bundle, anchored to the app's own node_modules, regardless of how npm
 // lays out the tree (locally or on EAS). react-native-reanimated/-worklets and
 // -gesture-handler live only under apps/mobile, so they need no pinning.
-const singletons = ['react', 'react-native'];
+// react-dom (DOM components) is pinned too: the repo root hoists react-dom
+// 18.3.1 for web, which would pair a React 19 DOM bundle with the wrong renderer.
+const singletons = ['react', 'react-dom', 'react-native'];
 
 function pinnedOrigin(name) {
   // Resolve from the app's own node_modules so we always get the copy that
@@ -67,7 +70,21 @@ function pinnedOrigin(name) {
 const pinnedDirs = Object.fromEntries(singletons.map((name) => [name, pinnedOrigin(name)]));
 
 const defaultResolveRequest = config.resolver.resolveRequest;
+
+// WP0.5a: real-screens spike. Web-platform requests from apps/web origins get
+// Next stubs, content shims and a single React; everything else is unchanged.
+const spikeResolver = createSpikeResolver({
+  webRoot: path.join(workspaceRoot, 'apps/web'),
+  spikeDir: path.join(projectRoot, 'dom/spike'),
+  pinned: {
+    ...pinnedDirs,
+    scheduler: path.dirname(require.resolve('scheduler/package.json', { paths: [pinnedDirs['react-dom']] })),
+  },
+});
+
 config.resolver.resolveRequest = (context, moduleName, platform) => {
+  const spiked = spikeResolver(context, moduleName, platform, defaultResolveRequest ?? context.resolveRequest);
+  if (spiked) return spiked;
   for (const name of singletons) {
     if (moduleName === name || moduleName.startsWith(`${name}/`)) {
       const resolve = defaultResolveRequest ?? context.resolveRequest;

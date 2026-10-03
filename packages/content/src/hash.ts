@@ -11,11 +11,11 @@
  * available in this runtime". Pure JS (rather than adding `expo-crypto`)
  * keeps the native fingerprint unchanged, so the fix ships as an OTA update.
  */
-export async function createHash(text: string): Promise<string> {
-  const bytes = new TextEncoder().encode(text);
+export async function createHash(input: string | Uint8Array): Promise<string> {
+  const bytes = typeof input === 'string' ? new TextEncoder().encode(input) : input;
   const subtle = (globalThis.crypto as Crypto | undefined)?.subtle;
   if (!subtle) return toHex(sha256(bytes));
-  const digest = await subtle.digest('SHA-256', bytes);
+  const digest = await subtle.digest('SHA-256', bytes as Parameters<typeof subtle.digest>[1]);
   return toHex(new Uint8Array(digest));
 }
 

@@ -70,6 +70,11 @@ import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
+import { SharedUiHost } from './components/SharedUiHost';
+import { lockPhonesToPortrait } from './lib/orientation-lock';
+import { sharedUiActive } from './lib/dom-host-handlers';
+import { getForceSharedUi } from './lib/diagnostics-override';
+import { useDomMount } from './lib/watchdog-gate';
 
 installDiagnostics();
 
@@ -230,6 +235,14 @@ export default function App() {
   const routeFlagsRef = useRef(routeFlags);
   routeFlagsRef.current = routeFlags;
   const [updateRequired, setUpdateRequired] = useState(false);
+  const [forceSharedUi, setForceSharedUi] = useState(false);
+  // WP0.4b watchdog gate: (sharedUi || override) && !fallbackActive, with the attempt record awaited first.
+  const domMount = useDomMount(sharedUiActive(routeFlags.sharedUi, forceSharedUi));
+  useEffect(() => {
+    void lockPhonesToPortrait();
+    // C4 override (Diagnostics panel); read once per launch, so a toggle applies on the next launch.
+    void getForceSharedUi().then(setForceSharedUi);
+  }, []);
   useEffect(() => {
     let cancelled = false;
     const endConfig = diagCollector.start('config');
@@ -365,6 +378,12 @@ export default function App() {
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
+          ) : domMount.mount === 'dom' ? (
+            <SharedUiHost
+              onSignal={(stage, detail) => diagCollector.mark(stage, detail)}
+              watch={domMount.watch}
+              forceFailure={domMount.forceFailure}
+            />
           ) : screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
