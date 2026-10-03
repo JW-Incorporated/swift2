@@ -18,6 +18,14 @@ build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-ev
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
 
+**ADDENDUM 2026-10-03 11:27 PDT (supersedes 09:40 where they conflict):**
+- MERGED: #4875 (closes #4872; hidden 7-tap Diagnostics in top+bottom inset strips while SharedUiHost is mounted; Fable ruling after 2 Codex rejections; deep-link fallback #4877 pending device evidence), #4876 WP2.4 A2 (17:21Z; parity harness now stubs canonical-origin /vault/*), #4880 WP2.4 B (18:02Z; @swift2/ui declares lucide-react/@radix-ui/react-slot/cva), #4881 WP2.4 C (18:13Z; source-reading tests repointed to packages/ui), #4882 WP2.4 C2 (18:23Z; CurrentItemDetail intake via useHost().apiFetch; mobile intake non-functional until WP2.3-F — Fable accepted; body-read retry gap → #4883).
+- WP2.4 pre-G0 work is COMPLETE (0, A1, A2, B, C, C2). Next WP2.4 step is D (after G0 GO).
+- IN REVIEW: #4884 (closes #4883, /api/intake idempotency: label+author-restricted search, sha256 marker, 2.5 s timeout, hit cache, in-flight map; cross-instance index-lag dupes accepted). Codex r2 pending.
+- Follow-ups open: #4874 (durable watchdog report dedupe), #4877 (diagnostics deep link — close with S2/S4 device evidence), #4883/#4884.
+- Codex runs: codex-companion queue wedges — use direct `codex exec -s read-only -o out.md - < prompt.md` in background; cancel needs MSYS_NO_PATHCONV=1.
+- BLOCKED ON OWNER: HA #98 (Expo CI minutes: pay/reroute/wait) → store builds AND likely OTA delivery of #4875; S2 Android (Clear storage first, then 5 cold + 5 warm Send report) → S4 → Fable G0 go/no-go → WP2.4-D, WP2.3 B4/C3/D/E/F, WP2.5–2.13.
+
 **ADDENDUM 2026-10-03 09:40 PDT (supersedes BLOCKED ON OWNER / NEXT WITH JOEY below where they conflict):**
 - MERGED: #4867 WP2.14 watchdog hardening (16:09Z; Fable fix-forward after 2 Codex rejections; follow-up #4874 durable dedupe); #4873 WP2.4 A1 move-only (reviewer + Codex APPROVE).
 - HA #97 DONE (parity-gate required, verified ruleset ["build","parity-gate"]); HA #96 DONE (owner regenerated iOS App Store profile 57SBZ45RQA).
