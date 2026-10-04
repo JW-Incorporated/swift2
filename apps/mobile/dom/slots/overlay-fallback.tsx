@@ -8,10 +8,10 @@ import { useAppActions, useAppState, type AppMode, type AppState } from '@swift2
 import { useReaderControls } from '../bridge/reader-controls';
 
 type Actions = ReturnType<typeof useAppActions>;
-type FallbackState = Pick<AppState, 'mode' | 'trackGuideEraId' | 'openTrackKey' | 'theoryGuideEraId' | 'searchOpen' | 'lensId'>;
+type FallbackState = Pick<AppState, 'mode' | 'trackGuideEraId' | 'openTrackKey' | 'theoryGuideEraId' | 'lensId'>;
 
 export type FallbackRow = {
-  id: 'search' | 'song' | 'track-guide' | 'theory-guide' | 'thread';
+  id: 'song' | 'track-guide' | 'theory-guide' | 'thread';
   /** The open overlay's value, or null while closed. */
   value: (s: FallbackState) => string | null;
   path: (value: string) => string;
@@ -30,7 +30,6 @@ export const OVERLAY_FALLBACK_ROWS: readonly FallbackRow[] = [
     clear: (a) => a.closeTrackGuide(),
   },
   { id: 'theory-guide', value: (s) => s.theoryGuideEraId, path: () => ERA_STREAM, clear: (a) => a.closeTheoryGuide() },
-  { id: 'search', value: (s) => (s.searchOpen ? 'open' : null), path: () => ERA_STREAM, clear: (a) => a.setSearchOpen(false) },
   { id: 'thread', value: (s) => (s.mode === 'era' ? s.lensId : null), path: () => '/?mode=threads', clear: (a) => a.clearLens() },
 ];
 
@@ -72,7 +71,7 @@ export function OverlayFallback() {
   const seen = useRef(new Map<string, string>());
   useEffect(() => {
     runFallbackRows(OVERLAY_FALLBACK_ROWS, state, seen.current, openNative, actions);
-  }, [state.openTrackKey, state.trackGuideEraId, state.theoryGuideEraId, state.searchOpen, state.lensId, state.mode]);
+  }, [state.openTrackKey, state.trackGuideEraId, state.theoryGuideEraId, state.lensId, state.mode]);
   return null;
 }
 
