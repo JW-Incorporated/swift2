@@ -3,6 +3,7 @@ import { NotificationSettingsPage } from '@swift2/ui/reader/settings/Notificatio
 import { ERA_CSS_VAR_NAMES, ERA_TOKENS } from '@swift2/experience';
 import { useHost } from '@swift2/ui';
 import { inboxOverlay, useInboxOpen } from './inbox-store';
+import { useOnboardingPhase } from './onboarding-store';
 import { isSettingsPath, settingsOverlay, useSettingsOpen } from './settings-store';
 
 // The web /settings/notifications page sits outside the era shell, so it shows the default :root palette
@@ -25,6 +26,7 @@ export function SettingsPage() {
   const { notifications } = useHost();
   // The inbox stacks above this dialog; while it is open this one is inert (no focus, taps or AT reach it).
   const inboxOpen = useInboxOpen();
+  const behindOffer = useOnboardingPhase() === 'shown';
   // The inbox row is host-gated: they show only once the native bridge answers (a plain browser has none).
   const [native, setNative] = useState(false);
 
@@ -47,7 +49,7 @@ export function SettingsPage() {
 
   if (!open) return null;
   return (
-    <div role="dialog" aria-modal="true" aria-label="Notification settings" inert={inboxOpen} className="fixed inset-0 z-50 overflow-y-auto" style={NEUTRAL}>
+    <div role="dialog" aria-modal="true" aria-label="Notification settings" inert={inboxOpen || behindOffer} className="fixed inset-0 z-50 overflow-y-auto" style={NEUTRAL}>
       <NotificationSettingsPage vapidPublicKey={null} />
       {native && (
         <nav aria-label="More settings" className="mx-auto flex max-w-xl flex-col gap-2 px-6 pb-16">

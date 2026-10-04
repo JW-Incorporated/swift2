@@ -11,7 +11,7 @@ describe('runtime registries', () => {
     expect([...COMMAND_TYPES].sort()).toEqual(
       [
         'api', 'apiRead', 'back', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
-        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share',
+        'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share',
       ].sort(),
     );
     expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
@@ -33,6 +33,8 @@ describe('JSON round-trip, one sample per type', () => {
     'notifications.savePrefs': {},
     'notifications.unregister': {},
     'notifications.registration': {},
+    'notifications.onboardingOffered': {},
+    'notifications.markOnboardingOffered': {},
     api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{}' } },
     apiRead: { streamId: 's1' },
     cancel: { targetId: 'a1' },

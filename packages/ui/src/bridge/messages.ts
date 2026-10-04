@@ -35,6 +35,9 @@ export type DomCommandSpec = {
   'notifications.savePrefs': Spec<NotificationPrefsUpdate, NotificationPrefsState>;
   'notifications.unregister': Spec<Record<string, never>, null>;
   'notifications.registration': Spec<Record<string, never>, { registered: boolean }>;
+  /** Add-only (W6): the native one-time push-offer flag, shared with the native OnboardingScreen's SecureStore key. */
+  'notifications.onboardingOffered': Spec<Record<string, never>, { offered: boolean }>;
+  'notifications.markOnboardingOffered': Spec<Record<string, never>, null>;
   /**
    * `stream: true` (ClownChat only) answers at headers with an `ApiStreamHead`; the DOM then pulls the body
    * with `apiRead`. A non-2xx answers the buffered `ApiResponse` shape (no streamId). Add-only (W6-stream).
@@ -144,6 +147,8 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.savePrefs': true,
   'notifications.unregister': true,
   'notifications.registration': true,
+  'notifications.onboardingOffered': true,
+  'notifications.markOnboardingOffered': true,
   api: true,
   apiRead: true,
   cancel: true,
