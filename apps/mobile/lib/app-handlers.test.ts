@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
-import { createAppHandlers, mergeHandlerGroups } from './app-handlers';
+import { createAppHandlers, createUnwiredHandlers, createWiredHandlers, mergeHandlerGroups } from './app-handlers';
 
 const ctx = { signal: new AbortController().signal };
 
@@ -78,6 +78,18 @@ describe('createAppHandlers', () => {
     d.notifications.status.mockReturnValue(new Promise(() => {}));
     const h = createAppHandlers({ ui: d.ui, notifications: d.notifications, api: d.api, notificationOpts: { opTimeoutMs: 5 } });
     expect(await h['notifications.status']({}, ctx)).toMatchObject({ ok: false });
+  });
+
+  it('createWiredHandlers replaces only the ui entries of the unwired map', async () => {
+    const d = fakeDeps();
+    const wired = createWiredHandlers(vi.fn(), { ui: d.ui });
+    const unwired = createUnwiredHandlers(vi.fn());
+    expect(Object.keys(wired).sort()).toEqual(Object.keys(unwired).sort());
+    expect(await wired.haptic({ kind: 'light' }, ctx)).toEqual({ ok: true, value: null });
+    expect(d.ui.haptic).toHaveBeenCalledWith('light');
+    expect(await wired.share({}, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(await wired.api({} as never, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(await wired['notifications.status']({}, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
   });
 
   it('is transport-neutral: composer source imports no host/transport', () => {

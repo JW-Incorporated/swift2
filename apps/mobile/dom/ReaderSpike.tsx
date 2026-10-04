@@ -9,7 +9,7 @@
 import './reader-spike.css';
 import { useEffect, useRef, useState, type ComponentType } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
-import { UI_PACKAGE_VERSION, type Envelope } from '@swift2/ui';
+import { UI_PACKAGE_VERSION, type Envelope, type Insets } from '@swift2/ui';
 import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
@@ -22,15 +22,13 @@ import { setImageLoadListener } from './spike/image-listener';
 export interface ReaderSpikeProps {
   /** file:// URI of the native `last-good` cache file. */
   cacheUri?: string;
-  /** Bundle version the host expects; the probe records the cache's own version. */
+  /** Web/dev seed for the probe version; on device the host sends it as the `contentVersion` event. */
   versionToken?: string;
-  /** Incremented by the host on each Android back press. */
-  backTick?: number;
-  insets?: { top: number; right: number; bottom: number; left: number };
+  /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
+  insets?: Insets;
   onReady: () => Promise<void>;
   reportError: (message: string) => Promise<void>;
   reportProbe: (json: string) => Promise<void>;
-  reportBack?: (result: 'handled' | 'exit') => Promise<void>;
   /** Speed test mode (#4896): one call per loaded image; `visible` = inside the viewport. */
   reportImageLoad?: (visible: boolean) => Promise<void>;
   /** Speed test mode is running: only then are image loads measured and reported. */
@@ -57,15 +55,32 @@ function insetsFromQuery(): ReaderSpikeProps['insets'] {
 
 type Probe = ReturnType<typeof createProbe>;
 
-/** Renders nothing: sends `ready` after mount and drains the inbox. Mounted only where a native host supplies `bridge`. */
-function ExpoBridgeMount({ inbox, bridge, onFatal }: Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge'>> & { onFatal: (reason: string) => void }) {
-  useExpoBridge({ inbox, bridge }, { onFatal });
+type BackFn = () => 'handled' | 'exit';
+type MountProps = Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge'>> & {
+  onFatal: (reason: string) => void;
+  onInsets: (insets: Insets) => void;
+  onContentVersion: (token: string) => void;
+  backRef: { current: BackFn | null };
+};
+
+/** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox. Mounted only where a native host supplies `bridge`. */
+function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, backRef }: MountProps) {
+  useExpoBridge({ inbox, bridge }, { onFatal }, (client) => {
+    const offs = [
+      client.on('insets', onInsets),
+      client.on('contentVersion', (e) => onContentVersion(e.token)),
+      client.handle('back', () => backRef.current?.() ?? 'exit'),
+    ];
+    return () => offs.forEach((off) => off());
+  });
   return null;
 }
 
 export default function ReaderSpike(props: ReaderSpikeProps) {
-  const { cacheUri, versionToken = '', backTick = 0, devLoader } = props;
-  const insets = props.insets ?? (devLoader ? insetsFromQuery() : undefined);
+  const { cacheUri, versionToken = '', devLoader } = props;
+  const [hostInsets, setHostInsets] = useState<Insets | undefined>();
+  const insets = hostInsets ?? props.insets ?? (devLoader ? insetsFromQuery() : undefined);
+  const backRef = useRef<BackFn | null>(null);
   const [Reader, setReader] = useState<ComponentType<ReaderProps> | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
   const started = useRef(false);
@@ -184,7 +199,16 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   }, [Reader]);
 
   const bridgeMount = props.bridge ? (
-    <ExpoBridgeMount inbox={props.inbox ?? []} bridge={props.bridge} onFatal={(reason) => void propsRef.current.reportProtocolFatal?.(reason)} />
+    <ExpoBridgeMount
+      inbox={props.inbox ?? []}
+      bridge={props.bridge}
+      onFatal={(reason) => void propsRef.current.reportProtocolFatal?.(reason)}
+      onInsets={setHostInsets}
+      onContentVersion={(token) => {
+        if (!probeRef.current.report.version) probeRef.current.report.version = token;
+      }}
+      backRef={backRef}
+    />
   ) : null;
 
   const view = failed ? (
@@ -194,7 +218,7 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
       Loading...
     </div>
   ) : (
-    <Reader backTick={backTick} onBack={(r) => void propsRef.current.reportBack?.(r)} />
+    <Reader registerBack={(fn) => void (backRef.current = fn)} />
   );
   return (
     <>

@@ -5,14 +5,16 @@
 // call-time require gives the same ordering as a dynamic import without
 // async chunks, which Expo's DOM export cannot serialize (it fails with
 // "Asset not found: __common"). Returns one component: era stream + moment
-// detail + bottom nav inside the web AppProvider, plus the Android back bridge.
+// detail + bottom nav inside the web AppProvider, plus the bridge back responder.
 import { createElement, useEffect, useRef, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { HostProvider, ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
+import { answerBack, type BackState } from '../bridge/back-responder';
 import { resolveAppUrl } from './resolve-url';
 
 type BackResult = 'handled' | 'exit';
-export type ReaderProps = { backTick: number; onBack: (r: BackResult) => void };
+/** `registerBack` hands the host the responder for the native `back` command (null on unmount). */
+export type ReaderProps = { registerBack: (fn: (() => BackResult) | null) => void };
 
 export function loadReader(
   snapshot: ReaderSnapshotCore,
@@ -38,18 +40,15 @@ export function loadReader(
     resolveUrl: (path: string) => resolveAppUrl(path, base.env.origin),
   };
 
-  function Shell({ backTick, onBack }: ReaderProps) {
+  function Shell({ registerBack }: ReaderProps) {
     const { eraId, openItemId } = store.useAppState();
     const { closeItem } = store.useAppActions();
-    const last = useRef(backTick);
+    const live = useRef<BackState>({ openItemId, closeItem });
+    live.current = { openItemId, closeItem };
     useEffect(() => {
-      if (backTick === last.current) return;
-      last.current = backTick;
-      if (openItemId) {
-        closeItem();
-        onBack('handled');
-      } else onBack('exit');
-    }, [backTick]);
+      registerBack(() => answerBack(live.current));
+      return () => registerBack(null);
+    }, []);
     return createElement(
       'div',
       { className: 'era-shell font-sans', style: theme.eraStyle(experience.getEra(eraId)) },
