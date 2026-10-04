@@ -17,12 +17,8 @@ export const onboardingOverlay = {
     phase = next;
     for (const fn of [...subs]) fn();
   },
-  /** A CTA is mid-flight: Back is swallowed (still handled) so it cannot dismiss under a pending native call. */
-  setBusy: (b: boolean) => {
-    if (busy === b) return;
-    busy = b;
-    for (const fn of [...subs]) fn();
-  },
+  /** A CTA is mid-flight: Back is swallowed (still handled) so it cannot dismiss under a pending native call. No notify. */
+  setBusy: (b: boolean) => void (busy = b),
   isBusy: () => busy,
   subscribe: (fn: () => void) => {
     subs.add(fn);
@@ -31,8 +27,6 @@ export const onboardingOverlay = {
 };
 
 export const useOnboardingPhase = (): OnboardingPhase => useSyncExternalStore(onboardingOverlay.subscribe, onboardingOverlay.phase, () => 'idle');
-
-export const useOnboardingBusy = (): boolean => useSyncExternalStore(onboardingOverlay.subscribe, onboardingOverlay.isBusy, () => false);
 
 /** Test only. */
 export function resetOnboardingForTests(): void {

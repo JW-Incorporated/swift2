@@ -57,16 +57,23 @@ describe('back routing with the push offer', () => {
     expect(h.closeItem).toHaveBeenCalledTimes(1);
   });
 
-  it('Back while a CTA is in flight is swallowed (handled) and does not dismiss the offer', () => {
+  it('Back while a CTA is in flight is always handled; afterwards offer, Settings, then exit', () => {
     render(createElement(ReaderBridge));
     act(() => (settingsOverlay.open(), onboardingOverlay.set('shown'), onboardingOverlay.setBusy(true)));
     let r: string = '';
-    act(() => void (r = h.back!()));
-    expect(r).toBe('handled');
+    for (let n = 0; n < 3; n++) {
+      act(() => void (r = h.back!()));
+      expect(r).toBe('handled');
+    }
     expect(onboardingOverlay.phase()).toBe('shown');
     expect(settingsOverlay.isOpen()).toBe(true);
     act(() => onboardingOverlay.setBusy(false));
     act(() => void (r = h.back!()));
+    expect(r).toBe('handled');
     expect(onboardingOverlay.phase()).toBe('done');
+    act(() => void (r = h.back!()));
+    expect(r).toBe('handled');
+    expect(settingsOverlay.isOpen()).toBe(false);
+    expect(h.back!()).toBe('exit');
   });
 });
