@@ -7,7 +7,7 @@
 import { createElement, useEffect, useMemo, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { HostProvider, ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
-import type { BridgeClient, HostAdapter, Insets } from '@swift2/ui';
+import type { BridgeClient, HostAdapter, HostStorage, Insets } from '@swift2/ui';
 import { createBridgeApiFetch, createBridgeApiStream } from '../bridge/api-fetch';
 import { createAppAdapter } from '../bridge/app-adapter';
 import { installBlankCapture } from '../bridge/app-adapter-nav';
@@ -22,6 +22,12 @@ export type ReaderProps = {
   getPath: () => string;
 };
 
+/** In-memory, per launch, identical on iOS and Android (the Android DOM has no storage, G3). Tri-state: null = absent. */
+export function createMapStorage(): HostStorage {
+  const m = new Map<string, string>();
+  return { get: (k) => m.get(k) ?? null, set: (k, v) => void m.set(k, v), remove: (k) => void m.delete(k) };
+}
+
 /** One adapter per client lifetime (host and transport share it); insets are layered on without rebuilding it. */
 export function createReaderAdapter(p: Pick<ReaderProps, 'client' | 'navigateDom' | 'getPath'> & { insets: Insets }): HostAdapter {
   const apiFetch = createBridgeApiFetch(p.client);
@@ -33,6 +39,7 @@ export function createReaderAdapter(p: Pick<ReaderProps, 'client' | 'navigateDom
       navigateDom: p.navigateDom,
       getPath: p.getPath,
       apiFetch,
+      storage: { local: createMapStorage(), session: createMapStorage() },
       onBack: () => () => {},
     }),
     apiStream: createBridgeApiStream(apiFetch),

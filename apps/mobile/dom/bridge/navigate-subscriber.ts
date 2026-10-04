@@ -8,8 +8,8 @@ import type { EventPayloadOf } from '@swift2/ui';
 
 export type NavigateDeps = {
   replaceUrl: (relative: string) => void;
-  /** Applies the reader search through the store; resolves once it committed, rejects when no reader is mounted. */
-  apply: (search: string) => Promise<void>;
+  /** Applies the reader search through the store; resolves true once it committed, false when the target did not resolve (state untouched), rejects when no reader is mounted. */
+  apply: (search: string) => Promise<boolean>;
 };
 
 type NavigateClient = {
@@ -22,8 +22,7 @@ export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'pa
     const u = new URL(e.path, 'http://dom.invalid');
     if (u.pathname !== '/') return false;
     deps.replaceUrl(`${u.search || '?'}${u.hash}`);
-    await deps.apply(u.search);
-    return true;
+    return await deps.apply(u.search);
   } catch {
     return false;
   }

@@ -4,10 +4,12 @@ import { createContext, useContext } from 'react';
 
 export type ReaderControls = {
   registerBack: (fn: (() => 'handled' | 'exit') | null) => void;
-  /** Installed by ReaderBridge: applies a reader search through the store; rejects until the reader is mounted. */
-  setApplier: (fn: ((search: string) => Promise<void>) | null) => void;
-  /** Hands a web path to native over the bridge `navigate` (the presenter opens it); never routes in the DOM. */
-  openNative: (path: string) => void;
+  /** Installed by ReaderBridge: applies a reader search through the store; resolves false when the target did not resolve; rejects until the reader is mounted. */
+  setApplier: (fn: ((search: string) => Promise<boolean>) | null) => void;
+  /** Hands a web path to native over the bridge `navigate` (the presenter opens it); never routes in the DOM. Resolves true only when native presented it. */
+  openNative: (path: string) => Promise<boolean>;
+  /** Bridge diag (`sendDiag`); a no-op without a native host. */
+  diag: (stage: string, detail?: string) => void;
   /** Modes that have a registered surface; the fallback reverts to the last of these. */
   slottedModes: ReadonlySet<string>;
   lastSlotted: { current: string };

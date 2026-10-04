@@ -7,8 +7,8 @@ import { installNavigateSubscriber, type NavigateDeps } from './navigate-subscri
 export type NavigateDomDeps = {
   replaceUrl: (relative: string) => void;
   /** The ReaderBridge applier, null until the reader is mounted. */
-  applier: () => ((search: string) => Promise<void>) | null;
-  openNative: (path: string) => void;
+  applier: () => ((search: string) => Promise<boolean>) | null;
+  openNative: (path: string) => unknown;
 };
 
 /**
@@ -19,7 +19,10 @@ export type NavigateDomDeps = {
 export function createNavigateDom(d: NavigateDomDeps) {
   return (path: string): void => {
     const u = new URL(path, 'http://dom.invalid');
-    if (u.pathname !== '/') return d.openNative(path);
+    if (u.pathname !== '/') {
+      void d.openNative(path);
+      return;
+    }
     d.replaceUrl(`${u.search || '?'}${u.hash}`);
     void d.applier()?.(u.search).catch(() => {});
   };

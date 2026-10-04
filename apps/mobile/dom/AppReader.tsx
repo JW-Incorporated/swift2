@@ -63,7 +63,7 @@ const ZERO_INSETS: Insets = { top: 0, right: 0, bottom: 0, left: 0 };
 const getPath = () => `/${window.location.search}${window.location.hash}`;
 
 type BackFn = () => 'handled' | 'exit';
-type ReaderClient = Pick<BridgeClient, 'call'>;
+type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag'>;
 type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
@@ -74,7 +74,7 @@ type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
 };
 
 /** Web/dev (no native host): the bridge calls the adapter makes fail closed. */
-const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'] };
+const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {} };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
 function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
@@ -95,7 +95,7 @@ export default function AppReader(props: AppReaderProps) {
   const clientRef = useRef(client);
   clientRef.current = client;
   // A native-to-DOM navigate is applied through the reader store (ReaderBridge installs the applier) (the reader never re-keys), so open overlays survive.
-  const applierRef = useRef<((search: string) => Promise<void>) | null>(null);
+  const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
   const navigateDeps = useRef<NavigateDeps>({
     replaceUrl: (relative) => window.history.replaceState(null, '', relative),
     apply: (search) => (applierRef.current ? applierRef.current(search) : Promise.reject(new Error('reader not mounted'))),
@@ -104,10 +104,17 @@ export default function AppReader(props: AppReaderProps) {
     () => ({
       registerBack: (fn) => void (backRef.current = fn),
       setApplier: (fn) => void (applierRef.current = fn),
-      openNative: (path) => {
+      openNative: async (path) => {
         const web = toWebPath(path);
-        if (web && clientRef.current) void clientRef.current.call('navigate', { path: web, replace: false });
+        const c = clientRef.current;
+        if (!web || !c) return false;
+        try {
+          return (await c.call('navigate', { path: web, replace: false })).ok;
+        } catch {
+          return false;
+        }
       },
+      diag: (stage, detail) => clientRef.current?.sendDiag(stage, detail),
       lastSlotted: { current: 'era' },
     }),
     [],

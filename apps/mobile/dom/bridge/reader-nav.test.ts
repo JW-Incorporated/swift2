@@ -11,7 +11,7 @@ import { createExpoBridge } from './transport-expo';
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>) };
 
 describe('createNavigateDom', () => {
-  const make = (applier: ((s: string) => Promise<void>) | null = vi.fn(async () => {})) => {
+  const make = (applier: ((s: string) => Promise<boolean>) | null = vi.fn(async () => true)) => {
     const d = { replaceUrl: vi.fn(), applier: () => applier, openNative: vi.fn() };
     return { d, nav: createNavigateDom(d), applier };
   };
@@ -67,7 +67,7 @@ describe('AppReader bridge round trip (real host + DOM client)', () => {
   it('ready is acked, then a native navigate is applied through the store and acked navigated{id, ok:true} only after', async () => {
     const e = epoch();
     let commit!: () => void;
-    const apply = vi.fn(() => new Promise<void>((r) => (commit = r)));
+    const apply = vi.fn(() => new Promise<boolean>((r) => (commit = () => r(true))));
     const back = vi.fn(() => 'handled' as const);
     const off = installReaderBridge(e.dom.client, { onInsets: vi.fn(), onContentVersion: vi.fn(), back, nav: { replaceUrl: vi.fn(), apply } });
     e.dom.mount();
@@ -86,7 +86,7 @@ describe('AppReader bridge round trip (real host + DOM client)', () => {
     const off = vi.fn();
     const client = { on: vi.fn((_type: string, _fn: unknown) => off), handle: vi.fn((_type: string, _fn: () => string) => off), sendEvent: vi.fn() };
     const back = vi.fn(() => 'handled' as const);
-    const stop = installReaderBridge(client as never, { onInsets: vi.fn(), onContentVersion: vi.fn(), back, nav: { replaceUrl: vi.fn(), apply: async () => {} } });
+    const stop = installReaderBridge(client as never, { onInsets: vi.fn(), onContentVersion: vi.fn(), back, nav: { replaceUrl: vi.fn(), apply: async () => true } });
     expect(client.on.mock.calls.map((c) => c[0]).sort()).toEqual(['contentVersion', 'insets', 'navigate']);
     const [type, fn] = client.handle.mock.calls[0]!;
     expect([type, fn()]).toEqual(['back', 'handled']);
