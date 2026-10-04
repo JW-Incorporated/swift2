@@ -127,8 +127,9 @@ and a flipped default cannot be killed remotely.
   nothing) only when `bridge` is supplied (never on web/dev): it sends `ready` after
   mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
   first-paint `onReady` still does; the `hang` drill is unchanged).
-- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing. TODO(PM, WP2.3-E): the
-  notification-tap queue.
+- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing.
+
+**Notification taps (H3).** App.tsx calls `useNotificationTaps(navigate, mount==='native')` (lib/use-notification-taps.ts): cold `getLastNotificationResponseAsync` + the live listener enqueue `request.identifier` + `data.deepLink` into `lib/notification-tap-gate.ts` (wraps the E1 queue: 15 s ack, 10 min TTL, cap 16) and clear the last response. Dedupe is by identifier; a response with no identifier is not deduplicated. Targets: native mode (DOM not mounted: fallback, quarantine) opens native screens (a link the queue cannot map still opens natively, as before); DOM host bound+ready sends bridge `navigate` (`source:'notification'`), delivered on ack; otherwise taps hold. **Not wired yet (needs SharedUiHost, outside H3):** call `notificationTapGate.bindHost(host)` when the host is ready and `unbindHost()` on dispose/not-ready, pass `createExpoNotificationDeps()` as `createUnwiredAppDeps(onSignal, …)`'s second argument, and ship H1's `navigate` handler (DOM-side `navigate` event consumer).
 
 **G4 drill.** Simulated (no device): `npx vitest run
 apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure
@@ -144,7 +145,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
 2. Failure `off`, Reset watchdog, relaunch: the shared UI returns. `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
-4. After WP2.3-E ships: a notification tap while quarantined lands on the native screen.
+4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
 
 ## Open items
 
