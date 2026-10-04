@@ -727,6 +727,7 @@ A1 (clown board/chat client modules only; Mood and all server-side `clown-*` sta
 | `packages/ui/src/reader/legal/MailtoLink.tsx` | WP2.13-A2b: `mailto:` anchor; routes the click through `host.openExternal` when the host has it (app), plain anchor otherwise (web). Used by `SupportPage`. `isMailtoUrl`/`MailtoUrl` live in `packages/ui/src/bridge/validate.ts` (bare address only; `openExternal` accepts it besides https) |
 | `apps/mobile/lib/mailto-allowlist.ts` (+ test) | `APP_MAILTO_ALLOWLIST` (exactly the two LEGAL_FACTS aliases), `isAllowedMailto`, `isAppOpenableUrl` (https or allow-listed mailto). One gate for the `openExternal` handler, the host command validator and `SiteShell`'s off-site navigation; everything else is dropped |
 | `apps/mobile/lib/site-url.ts` | WP2.13-A2b: canonical `SITE_URL` (`EXPO_PUBLIC_SITE_URL` override). `components/SiteShell.tsx` re-exports it until the shims go after 2.13-D |
+| `apps/mobile/dom/slots/{legal.ts,legal-overlay.tsx,legal-route.ts}` (+ tests) | WP2.13-D (at risk, ahead of D2): slots `overlay:legal` (full-bleed `LegalDocument`/`SupportPage` keyed on `host.currentUrl()` + popstate) and `floating` (`FeedbackButton`), imported directly from `@swift2/ui`. No `footer` (SiteFooter is shell chrome). Native `LegalPageScreen`/`SiteShell` untouched. `legal.test.ts` mocks `react` to apps/web's copy (apps/mobile pins its own) |
 
 ## CI concurrency (2026-10-01)
 
