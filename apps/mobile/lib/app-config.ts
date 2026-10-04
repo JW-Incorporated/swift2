@@ -8,6 +8,7 @@ import {
   type StorageAdapter,
 } from '@swift2/content';
 import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
+import { diagCollector } from './diagnostics';
 import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from './routes';
 
 export const APP_CONFIG_CACHE_KEY = 'swift2:app-config:last-good:v1';
@@ -42,6 +43,7 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
     const parsed = appConfigSchema.safeParse(JSON.parse(raw));
     return parsed.success ? parsed.data : null;
   } catch {
+    diagCollector.mark('app-config-cache-unreadable');
     return null;
   }
 }
