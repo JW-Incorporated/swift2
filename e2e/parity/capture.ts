@@ -15,9 +15,11 @@ export async function captureLocator(page: Page, selector: string): Promise<Buff
 }
 
 /** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
-export async function captureViewport(page: Page, maskSelectors: string[] = []): Promise<Buffer> {
+/** `hideSelectors` are hidden (not masked: a mask rectangle moves with its element and would expose different pixels beneath). */
+export async function captureViewport(page: Page, hideSelectors: string[] = []): Promise<Buffer> {
+  if (hideSelectors.length) await page.addStyleTag({ content: `${hideSelectors.join(',')}{visibility:hidden!important}` });
   await imagesReady(page, 'body');
-  return page.screenshot({ scale: 'css', mask: maskSelectors.map((s) => page.locator(s)) });
+  return page.screenshot({ scale: 'css' });
 }
 
 export type Clip = { x: number; y: number; width: number; height: number };

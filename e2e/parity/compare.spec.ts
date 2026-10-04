@@ -41,15 +41,15 @@ for (const route of ROUTES) {
   // home: body top padding and the nav clearance read --safe-*, so insets must show. item: MomentDetail has no safe-area
   // styles and its modal covers the nav, so it is inset-immune by construction (docs/one-ui/parity.md); pinned here.
   // The floating FeedbackButton sits OUTSIDE the dialog and legitimately rides the bottom inset (reader-spike.css uses
-  // var(--safe-bottom) like the web uses env()), so it is masked in the immunity check only; the dialog itself is compared.
+  // var(--safe-bottom) like the web uses env()), so it is hidden in the immunity check only; the dialog itself is compared.
   const FEEDBACK_PILL = '[class~="bottom-[calc(4.5rem+env(safe-area-inset-bottom))]"]';
-  const mask = route.name === 'home' ? [] : [FEEDBACK_PILL];
+  const hide = route.name === 'home' ? [] : [FEEDBACK_PILL];
   const verb = route.name === 'home' ? 'change' : 'do not change (immune dialog)';
   test(`real insets ${verb} b's viewport: ${route.name}`, async ({ page }, testInfo) => {
     await openRoute(page, 'b', route);
-    const flat = await captureViewport(page, mask);
+    const flat = await captureViewport(page, hide);
     await openRoute(page, 'b', route, realInsets(testInfo));
-    const inset = await captureViewport(page, mask);
+    const inset = await captureViewport(page, hide);
     const same = await pixelMatches(testInfo, `neg-inset-${route.name}`, flat, inset);
     expect(same, 'viewport equal at real insets').toBe(route.name !== 'home');
   });
