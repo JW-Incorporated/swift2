@@ -144,7 +144,7 @@ export default function App() {
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
   const legacyNative = nativeSurface(domMount.mount, domMount.nativeReason) === 'legacy';
-  useNotificationTaps(navigate, legacyNative, domMount.mount === 'dom');
+  useNotificationTaps(navigate, legacyNative);
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
   // first time so push permission is actually offered, settings after that.
@@ -204,7 +204,7 @@ export default function App() {
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : !legacyNative ? (
-            <RecoveryScreen />
+            <RecoveryScreen slow={domMount.nativeReason === 'pending-expired'} />
           ) : (
             <NativeScreenRouter
               nav={nav}

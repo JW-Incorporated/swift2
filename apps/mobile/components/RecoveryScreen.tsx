@@ -14,7 +14,7 @@ export const RELOAD_GRACE_MS = 3000;
 const ERROR_RETRY = "Couldn't restart. Please try again.";
 const ERROR_NO_RELOAD = "The app didn't restart. Please try again.";
 
-export function RecoveryScreen() {
+export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
   const [retrying, setRetrying] = useState(false);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState('');
@@ -68,9 +68,11 @@ export function RecoveryScreen() {
   return (
     <View style={styles.fill} testID="recovery-screen">
       <Text style={styles.title} accessibilityRole="header">
-        Something went wrong
+        {slow ? "Taking longer than expected" : "Something went wrong"}
       </Text>
-      <Text style={styles.body}>Long Live hit a snag loading. Try again, and if it keeps happening, send us a report.</Text>
+      <Text style={styles.body}>
+        {slow ? "Tap Retry to load Long Live." : "Long Live hit a snag loading. Try again, and if it keeps happening, send us a report."}
+      </Text>
       <Pressable
         onPress={retry}
         disabled={retrying}
