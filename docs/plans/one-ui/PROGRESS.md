@@ -23,6 +23,8 @@ parity capture.
 - Wave 1 dispatching: W1-A H0, W1-B H4/D1 (+#4953 inset fix), W1-D H6 drafts, W1-E parity b-side scaffolding, W1-F YouTube wrapper (#4954). W1-C 2.11-D1 already done (#4941). Merge order H0 → H4/D1 → rest.
 - PM calls 06:48: universal links claim **www only** (apex 308 is Vercel domain-level, can't exempt /.well-known) → H6 drops apex from app.json associatedDomains + intent filter (native change, rides H6 store build). WP1.1 WebKit leg exists + green (main run 37090052458); iOS-1 needs a fresh cited run. HA #99 filed (Apple Team ID + Play SHA-256, for H6).
 - Wave 1 PRs: #4957 W1-D (auto-merge), #4958 W1-E (approved, auto-merge), #4960 W1-F (reviewer APPROVE, Codex pending), #4961 W1-B D1 (review pending; merges after H0). H0 building.
+- 07:05 owner "max out parallelization": 6 writers (H0 fix r1, D1 fix r1, H2 + H3 AT RISK stacked on H0 as draft PRs, parity helpers split, 2.13 A2b mailto). H1 held (same hot files as H0 fix). Codex r1 REQUEST CHANGES on #4962 (4 High), #4961 (1 High, 5 Med/Low), #4960 (fixed; r2 running).
+- PM calls: G4 affiliate — none of NEXT_PUBLIC_AWIN_ID/AMAZON_ASSOCIATES_TAG/CATCHALL_ID set in Vercel swift2-web (live JS agrees) → app sends none (parity); owner told web earns no affiliate tags. G5 Turnstile keys unset → drop "verification required" item. 0b-5 tap `source:'deeplink'` folds into H6.
 - New issues from S4: #4952 (native images, not One UI scope), #4953, #4954, #4955 (backlog).
 
 **ADDENDUM 2026-10-04 06:18 PDT — S4 session (now closed):**
