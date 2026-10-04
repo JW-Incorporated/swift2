@@ -5,6 +5,7 @@
 // components); it uses './routes' (see `<slice>.routes.ts`). No slice bodies yet.
 
 // --- slice imports go here, one line each ---
+import './merch';
 
 export { register, slots } from './instance';
 export { createSlotRegistry } from './registry';
