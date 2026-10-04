@@ -8,7 +8,7 @@
 //
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
 // DONE (WP2.4-D1): App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback). TODO(PM, WP2.4-D2): the pending/launch overlay.
-// TODO(PM, WP2.3-E): the notification-tap queue (a tap while quarantined/fallback must land on the native screen).
+// Notification taps while quarantined/fallback land natively via lib/notification-tap-gate.ts (H3).
 // Bridge host onProtocolFatal -> `watch.protocol` is wired in SharedUiHost (H0).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
