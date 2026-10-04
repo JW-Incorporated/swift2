@@ -1,6 +1,7 @@
 import { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS, apiTimeoutFor, resErr, resOk } from '@swift2/ui';
-import type { HandlerMap, ResResult } from '@swift2/ui';
+import type { ApiStreamHead, HandlerMap, ResResult } from '@swift2/ui';
 import type { ApiResponse } from '@swift2/content';
+import { createStreamTable } from './bridge-handlers-api-stream';
 
 // Native side of the `api` bridge command (One UI WP2.3-F1). Pure and
 // transport-neutral: fetch, base URL and timers are injected, nothing here
@@ -36,6 +37,15 @@ export type ApiHandlerDeps = {
 
 const keepResponseHeader = (name: string) =>
   name === 'content-type' || name === 'retry-after' || name.startsWith('x-ratelimit-');
+
+function pickHeaders(res: Response): Record<string, string> {
+  const out: Record<string, string> = {};
+  res.headers.forEach((value, key) => {
+    const name = key.toLowerCase();
+    if (keepResponseHeader(name)) out[name] = value;
+  });
+  return out;
+}
 
 const UNREADABLE = Symbol('unreadable');
 
@@ -79,11 +89,13 @@ async function readCapped(
   }
 }
 
-export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
+export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api' | 'apiRead'> {
   const setTimer = deps.setTimer ?? ((fn, ms) => setTimeout(fn, ms));
   const clearTimer = deps.clearTimer ?? ((h) => clearTimeout(h as ReturnType<typeof setTimeout>));
+  const streams = createStreamTable({ maxBytes: MAX_API_BYTES, setTimer, clearTimer });
   return {
-    api: async (payload, ctx): Promise<ResResult<ApiResponse>> => {
+    apiRead: (payload, ctx) => streams.read(payload.streamId, ctx.signal),
+    api: async (payload, ctx): Promise<ResResult<ApiResponse | ApiStreamHead>> => {
       const req = payload?.req;
       if (!req || !API_ALLOWLIST.includes(`${req.method} ${req.path}`)) {
         return resErr('invalid', 'api endpoint not allowed');
@@ -96,7 +108,13 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
         if (REQ_HEADERS.includes(k.toLowerCase()) && typeof v === 'string') headers[k.toLowerCase()] = v;
       }
       const isClown = CLOWN_ENDPOINTS.includes(`${req.method} ${req.path}`);
+      const wantStream = payload.stream === true;
+      if (wantStream && !isClown) return resErr('invalid', 'api stream not allowed');
       if (ctx.signal.aborted) return resErr('cancelled', 'cancelled');
+      const reserved = wantStream && streams.reserve();
+      if (wantStream && !reserved) return resErr('invalid', 'a stream is already open');
+      let handedOver = false;
+      let openedId = '';
       const ac = new AbortController();
       let activeReader: ReadableStreamDefaultReader<Uint8Array> | undefined;
       const cancelAll = () => {
@@ -111,11 +129,13 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
         settleAbort(resErr('cancelled', 'cancelled'));
       };
       ctx.signal.addEventListener('abort', onAbort, { once: true });
-      const timer = setTimer(() => {
+      // Once a stream is handed over, this same timer is its total deadline (CLOWN_TIMEOUT_MS from request start).
+      let onTimeout = () => {
         cancelAll();
         settleAbort(resErr('timeout', 'api request timed out'));
-      }, isClown ? (deps.clownTimeoutMs ?? apiTimeoutFor(req.method, req.path)) : (deps.timeoutMs ?? apiTimeoutFor(req.method, req.path)));
-      const run = async (): Promise<ResResult<ApiResponse>> => {
+      };
+      const timer = setTimer(() => onTimeout(), isClown ? (deps.clownTimeoutMs ?? apiTimeoutFor(req.method, req.path)) : (deps.timeoutMs ?? apiTimeoutFor(req.method, req.path)));
+      const run = async (): Promise<ResResult<ApiResponse | ApiStreamHead>> => {
         try {
           // Added natively AFTER sanitization: a page-supplied authorization never survives.
           if (isClown && deps.clownSession) {
@@ -144,6 +164,24 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
             ac.abort();
             return resErr('failed', 'api response too large');
           }
+          if (wantStream) {
+            const reader = res.body?.getReader?.();
+            if (!reader) {
+              ac.abort();
+              return resErr('failed', 'api response not readable');
+            }
+            const head = pickHeaders(res);
+            if (res.status < 200 || res.status >= 300 || ctx.signal.aborted) {
+              ac.abort();
+              void reader.cancel().catch(() => {});
+              return ctx.signal.aborted ? resErr('cancelled', 'cancelled') : resOk({ status: res.status, headers: head, body: '' });
+            }
+            const opened = streams.open({ reader, abort: () => ac.abort(), own: ctx.own, alias: ctx.id, onEnd: () => clearTimer(timer) });
+            onTimeout = opened.expire;
+            handedOver = true;
+            openedId = opened.id;
+            return resOk({ status: res.status, headers: head, streamId: opened.id });
+          }
           const text = await readCapped(res, ac.signal, (r) => (activeReader = r));
           if (text === UNREADABLE) {
             ac.abort();
@@ -153,12 +191,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
             cancelAll();
             return resErr('failed', 'api response too large');
           }
-          const out: Record<string, string> = {};
-          res.headers.forEach((value, key) => {
-            const name = key.toLowerCase();
-            if (keepResponseHeader(name)) out[name] = value;
-          });
-          return resOk({ status: res.status, headers: out, body: text });
+          return resOk({ status: res.status, headers: pickHeaders(res), body: text });
         } catch {
           return resOk(NETWORK_FAILURE);
         }
@@ -166,7 +199,10 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api'> {
       try {
         return await Promise.race([run(), aborted]);
       } finally {
-        clearTimer(timer);
+        if (reserved && !handedOver) streams.unreserve();
+        // A cancel or timeout that settled this command after the stream opened means the DOM never sees the head.
+        if (handedOver && ctx.signal.aborted) streams.close(openedId);
+        if (!handedOver) clearTimer(timer);
         ctx.signal.removeEventListener('abort', onAbort);
       }
     },
