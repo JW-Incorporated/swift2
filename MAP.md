@@ -116,6 +116,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/live-theories.ts` (+ `.test.ts`) | Knowledge-engine Stage 7: `sortByHeatDesc`, `matchFanSignal` (theory_ids, else symbol overlap), `fansAreSayingLine` — pure, no I/O |
 | `lib/longlive/use-live-theories.ts` | Client hook: fetches `live_theory`/`fan_signal` from `/vault/live-theories`, fails soft to `{theories:[],signals:[]}` |
 | `lib/live-theories-data.ts` | Server-side `live_theory`/`fan_signal` loader — raw `fetch()` against Supabase's REST endpoint (not `@supabase/supabase-js`, not in `apps/web`'s deps), deliberately outside `packages/core/src/knowledge/` (file-disjoint from Stage 9's concurrent work there) |
+| `apps/web/app/embed/youtube/[id]/route.ts` | Wrapper HTML (route handler) the app DOM host frames so YouTube gets a real origin (#4954); only route exempt from frame-ancestors/X-Frame-Options (`lib/security-headers.mjs` `embed`, `proxy.ts`, `next.config.mjs`). UI side: `packages/ui/src/reader/lib/youtube-embed.ts` |
 | `app/vault/live-theories/route.ts` | Stage 7's one read route for both boards below, ISR `revalidate: 900` |
 | `components/longlive/LiveTheoryCard.tsx` | One live `live_theory` card in `TheoryGuide` — dashed-provisional border, heat pill, "fans are saying" line |
 | `app/api/intake/route.ts` | "Help us verify" (`CurrentItemDetail.tsx`) files a GitHub `intake`-labeled issue — shape copied from `/api/feedback/route.ts` |
