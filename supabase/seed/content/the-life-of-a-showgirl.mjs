@@ -3853,13 +3853,15 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
-            // "not confirmed" banner): re-verified the moment's status against
-            // current reporting — the late-Aug Grammy Museum "next album"
-            // speculation (see the new rumor entry below) confirms no album 13
-            // or re-record has been announced, so the banner stays and this
-            // records that someone looked.
-            accessed_at: '2026-08-25',
+            // Answerer re-check 2026-10-04 (lifecycle finding #4552: 30d-stale
+            // "not confirmed" banner; newest source was 2026-08-25): re-verified
+            // via WebSearch. Still no album 13 announced — "The Life of a
+            // Showgirl: The Encore" (Sept 25, 2026) expanded her TWELFTH album
+            // with four new tracks ("Patient Zero" et al.), it is not a new
+            // standalone record; fan timelines now put a possible TS13 in 2027
+            // and nothing is titled, dated, or confirmed. Banner stays
+            // (confidence reputable_reporting); this records that someone looked.
+            accessed_at: '2026-10-04',
             reliability_score: 4,
           },
         ],
