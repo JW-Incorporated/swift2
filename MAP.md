@@ -140,7 +140,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `components/longlive/VideoMomentCard.tsx` | Full-width video-record card (kind: `'video'`) |
 | `components/longlive/DoorwayCard.tsx` | Thread/egg doorway cards — same silhouette as a moment card (P3 step 15) |
 | `components/longlive/EraThreadsPivot.tsx` | The "Threads running through {era}" strip below the feed |
-| `components/longlive/TopBar.tsx` | MOVED to `packages/ui/src/reader/shell/TopBar.tsx` (WP2.4-B); one-line shim. Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode. Same for `TimelineScrubber`, `timelineScrubberLayout`, `topbarLayout`, `BottomNav`, `components/ui/button`; `ReaderShell.tsx` (new, same dir) is the old LongLive `Shell` with host `slots`; `LongLive.tsx` supplies the web slot map via `ReaderRoot` |
+| `components/longlive/TopBar.tsx` | MOVED to `packages/ui/src/reader/shell/TopBar.tsx` (WP2.4-B); one-line shim. Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode. Same for `TimelineScrubber`, `timelineScrubberLayout`, `topbarLayout`, `BottomNav`, `components/ui/button`, `EraGrid` (shim); `EraSelector` also lives there (takes optional `header`; the web file is a wrapper passing `YourLongLiveCard`); `ReaderShell.tsx` (new, same dir) is the old LongLive `Shell` with host `slots`; `LongLive.tsx` supplies the web slot map via `ReaderRoot` |
 | `components/longlive/EraStream.tsx` | MOVED to `packages/ui/src/reader/era/EraStream.tsx` (WP2.4-C); one-line shim. Same for EraSection, EraFeedList, FilterBar, LandingMasthead, CountdownBanner, ClusterCard, CurrentItemCard, CurrentItemDetail, DoorwayCard, EraSecretCard, EraThreadsPivot, MomentCard, MomentCardButton, MomentVideo, OverlayNav, ShareImageMenu, SignificanceBadge, TrackFivePill, TrackGuideBar, VideoMomentCard (see `packages/ui/READER-MOVE.md`) |
 | `lib/longlive/track-video.ts` | Pairs a track with a playable video. Exact match on normalised titles — **never strip edition qualifiers** like "(Taylor's Version)" |
 | `components/longlive/TrackGuideBar.tsx` | Full-width bar under the lyric, in the retired Spotify player's slot; opens `TrackGuide` |
@@ -685,6 +685,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 | Path | What |
 |---|---|
 | `packages/ui/src/reader/moment/{MomentDetail,MomentSocialPost,ZoomableImage}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.5-A1, move-only). `apps/web/components/longlive/MomentDetail.tsx` is a one-line `export *` shim (until D / WP2.13) |
+| `packages/ui/src/reader/moment/resolve-url.test.ts` | One UI W3-img: MomentDetail hero / lightbox / `RelatedMomentsRail` (now exported) pass era-art + `/placeholder.svg` paths through `useResolveUrl()`; app host → canonical origin, web identity, absolute untouched |
 | `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 
 ### WP2.6 threads
