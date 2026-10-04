@@ -1,11 +1,12 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { ContentItem } from '@swift2/experience';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter, HostImageProps } from '../../host/types';
-import { AppProvider } from '../store';
 import { FromTheEras } from './FromTheEras';
+
+vi.mock('../store', () => ({ useAppActions: () => ({ openItem: () => undefined }) }));
 
 const ORIGIN = 'https://longlivets.com';
 const Img = ({ src, alt }: HostImageProps) => createElement('img', { src, alt });
@@ -22,7 +23,7 @@ function html(adapter: Partial<HostAdapter>): string {
     createElement(
       HostProvider,
       { adapter: { Image: Img, ...adapter } as HostAdapter },
-      createElement(AppProvider, null, createElement(FromTheEras, { items: [item] })),
+      createElement(FromTheEras, { items: [item] }),
     ),
   );
 }
