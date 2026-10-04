@@ -1,14 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 import { MODE_PATHS, OVERLAY_FALLBACK_ROWS, modeFallbackPath, runFallbackRows, type FallbackRow } from './overlay-fallback';
 
-const closed = { mode: 'era', theoryGuideEraId: null, searchOpen: false } as const;
-const actions = () => ({ closeTheoryGuide: vi.fn(), setSearchOpen: vi.fn() });
-const flush = () => new Promise((r) => setTimeout(r, 0));
-// No shipped row has a native screen any more (D2 owned only unslotted overlays that did), so the native-handoff
-// mechanics are exercised on a synthetic row with a path.
+const closed = { mode: 'era', theoryGuideEraId: null } as const;
+const actions = () => ({ closeTheoryGuide: vi.fn() });
+// No shipped row has a native screen any more, so the native-handoff mechanics run on a synthetic row with a path.
 const NATIVE_ROWS: readonly FallbackRow[] = [
   { id: 'theory-guide', value: (s) => s.theoryGuideEraId, path: (v) => `/?screen=probe&era=${v}`, clear: (a) => a.closeTheoryGuide() },
 ];
+const flush = () => new Promise((r) => setTimeout(r, 0));
 const run = async (state: unknown, seen: Map<string, string>, ok = true, a = actions(), rows = OVERLAY_FALLBACK_ROWS) => {
   const io = { openNative: vi.fn(async () => ok), diag: vi.fn() };
   runFallbackRows(rows, state as never, seen, io, a as never);
@@ -17,8 +16,8 @@ const run = async (state: unknown, seen: Map<string, string>, ok = true, a = act
 };
 
 describe('overlay fallback table', () => {
-  it('has the stable row ids (moment, track guide and song are slots; thread is the ModeFallback)', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'theory-guide']);
+  it('has the stable row ids (moment, track guide, song are slots; thread is the ModeFallback)', () => {
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id)).toEqual(['theory-guide']);
   });
 
   it('a row with a native screen goes native once and is cleared only after native presented it', async () => {
@@ -34,17 +33,13 @@ describe('overlay fallback table', () => {
     expect(io.diag).toHaveBeenCalledWith('fallback-native-failed', 'theory-guide');
   });
 
-  it.each([
-    [{ theoryGuideEraId: 'folklore' }, 'theory-guide'],
-    [{ searchOpen: true }, 'search'],
-  ])('%j has no native screen: state kept, diag emitted once, no navigation', async (patch, id) => {
+  it('a row with no native screen: state kept, diag emitted once, no navigation', async () => {
     const seen = new Map<string, string>();
-    const { io, a } = await run({ ...closed, ...patch }, seen);
+    const { io, a } = await run({ ...closed, theoryGuideEraId: 'folklore' }, seen);
     expect(io.openNative).not.toHaveBeenCalled();
-    expect(io.diag).toHaveBeenCalledWith('fallback-no-native-screen', id);
+    expect(io.diag).toHaveBeenCalledWith('fallback-no-native-screen', 'theory-guide');
     expect(a.closeTheoryGuide).not.toHaveBeenCalled();
-    expect(a.setSearchOpen).not.toHaveBeenCalled();
-    expect((await run({ ...closed, ...patch }, seen)).io.diag).not.toHaveBeenCalled();
+    expect((await run({ ...closed, theoryGuideEraId: 'folklore' }, seen)).io.diag).not.toHaveBeenCalled();
   });
 
   it('loop guard: navigate, native, back, re-render does not re-trigger; a fresh open does', async () => {
@@ -76,7 +71,6 @@ describe('overlay fallback table', () => {
 describe('D-6 mode fallback paths', () => {
   it.each([
     ['threads', '/?mode=threads'],
-    ['merch', '/?mode=merch'],
     ['community', '/?mode=community'],
     ['clownbot', '/?screen=clownbot'],
     ['mood', '/?screen=clownbot'],
@@ -84,6 +78,7 @@ describe('D-6 mode fallback paths', () => {
   ] as const)('%s -> %s', (mode, path) => expect(modeFallbackPath(mode)).toBe(path));
 
   it('covers every unslotted mode', () => {
-    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'merch', 'mood', 'threads']);
+    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'mood', 'threads']);
+    expect(MODE_PATHS.merch).toBeUndefined();
   });
 });
