@@ -78,11 +78,14 @@ export function attachExtensions(
 ): ReaderSnapshot {
   return {
     ...core,
-    domains: { ...core.domains, merch: extensions.merch, songMoods: extensions.songMoods },
+    domains: { ...core.domains, merch: extensions.merch,
+      songMoods: extensions.songMoods,
+      lore: extensions.lore,
+    },
   };
 }
 
-/** The core domains only (no merch, songMoods). */
+/** The core domains only (no merch, songMoods, lore). */
 export function buildReaderSnapshotCore(
   inputs: ReaderSnapshotCoreInputs,
   deps: ReaderSnapshotDeps,

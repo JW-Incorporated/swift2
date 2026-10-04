@@ -1,6 +1,7 @@
 import type { BakedModules } from '@swift2/experience/reader-snapshot';
 
 import { bakedModules } from './baked-modules';
+import { LORE } from './clownbot-lore';
 import { MERCH_CATALOGUE } from './merch';
 import { SONG_MOODS } from './song-moods.generated';
 
@@ -10,5 +11,6 @@ export function bakedModulesFull(): BakedModules {
     ...bakedModules(),
     MERCH_CATALOGUE: MERCH_CATALOGUE as unknown as BakedModules['MERCH_CATALOGUE'],
     SONG_MOODS,
+    LORE,
   };
 }

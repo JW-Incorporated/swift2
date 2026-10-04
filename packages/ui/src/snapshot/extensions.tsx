@@ -42,3 +42,7 @@ export function useMerch(): ReaderSnapshot['domains']['merch'] {
 export function useSongMoods(): ReaderSnapshot['domains']['songMoods'] {
   return useExtendedSnapshot().domains.songMoods;
 }
+
+export function useLore(): ReaderSnapshot['domains']['lore'] {
+  return useExtendedSnapshot().domains.lore;
+}

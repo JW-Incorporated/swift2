@@ -9,7 +9,7 @@ import {
   type TracksBundleFile,
   type VideosBundleFile,
 } from '@swift2/content';
-import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
+import type { ContentItem, Era, EraId, EraSecret, LoreItem, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
 import { attachExtensions, buildReaderSnapshot, buildReaderSnapshotCore } from './build';
 import type {
   ReaderSnapshot,
@@ -35,6 +35,7 @@ export interface BakedCoreModules {
 export interface BakedModules extends BakedCoreModules {
   MERCH_CATALOGUE: MerchCatalogue;
   SONG_MOODS: SongMoodsBundleFile['songs'];
+  LORE: readonly LoreItem[];
 }
 
 function coreInputsFromBaked(mods: BakedCoreModules): ReaderSnapshotCoreInputs {
@@ -61,6 +62,7 @@ export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderS
   return attachExtensions(fromBakedCore(mods, deps), {
     merch: mods.MERCH_CATALOGUE,
     songMoods: mods.SONG_MOODS,
+    lore: [...mods.LORE],
   });
 }
 
@@ -80,6 +82,12 @@ function perEra<F extends { eraId: string }, T>(
   return Object.fromEntries((files ?? []).map((f) => [f.eraId, pick(f)])) as Partial<Record<EraId, T>>;
 }
 
+/** Optional and lenient: a missing or malformed file (an old cached bundle) is an empty board, never a throw. */
+function loreFromBundle(file: unknown): LoreItem[] {
+  const lore = (file as { lore?: unknown } | null | undefined)?.lore;
+  return Array.isArray(lore) ? (lore as LoreItem[]) : [];
+}
+
 /** Normalises a loaded bundle's files to the snapshot inputs. */
 export function inputsFromBundle(bundle: BundleLike): ReaderSnapshotInputs {
   const f = bundle.files;
@@ -95,6 +103,7 @@ export function inputsFromBundle(bundle: BundleLike): ReaderSnapshotInputs {
     eraSecrets: perEra(f.eraSecrets as EraSecretsBundleFile[] | undefined, (x) => x.secrets as EraSecret[]),
     merch: f.merch as MerchCatalogue,
     songMoods: (f.songMoods as SongMoodsBundleFile | undefined)?.songs ?? [],
+    lore: loreFromBundle(f.clownbotLore),
   };
 }
 
@@ -117,8 +126,8 @@ export function fromBundleCore(bundle: BundleLike, deps: ReaderSnapshotDeps): Re
 
 /** The extension domains of a loaded bundle, for `attachExtensions`. */
 export function extensionsFromBundle(bundle: BundleLike): ReaderSnapshotExtensions {
-  const { merch, songMoods } = inputsFromBundle(bundle);
-  return { merch, songMoods };
+  const { merch, songMoods, lore } = inputsFromBundle(bundle);
+  return { merch, songMoods, lore };
 }
 
 /** App path: builds from a loaded D1 bundle; reads only the bundle, no module-global provider. */

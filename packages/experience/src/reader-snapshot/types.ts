@@ -4,6 +4,7 @@ import type {
   Era,
   EraId,
   EraSecret,
+  LoreItem,
   Milestone,
   TheoryNote,
   TrackNote,
@@ -37,10 +38,12 @@ export interface ReaderSnapshotCoreInputs {
   eraSecrets: ByEra<EraSecret[]>;
 }
 
-/** The extension inputs: only the merch and mood chunks read these. */
+/** The extension inputs: only the merch, mood and ClownChat (lore) chunks read these. */
 export interface ReaderSnapshotExtensions {
   merch: MerchCatalogue;
   songMoods: SongMoodsBundleFile['songs'];
+  /** ClownChat's static lore board; [] when the bundle carries none. */
+  lore: LoreItem[];
 }
 
 /** Raw, per-source data both paths normalise to before derivation. */
@@ -93,7 +96,7 @@ export type ReaderSnapshotDomains = ReaderSnapshotCoreDomains & ReaderSnapshotEx
 
 export type ReaderSnapshotDomainName = keyof ReaderSnapshotDomains;
 
-/** All 13 domain names; `hashSnapshot` requires every one. */
+/** All 14 domain names; `hashSnapshot` requires every one. */
 export const READER_SNAPSHOT_DOMAIN_NAMES: readonly ReaderSnapshotDomainName[] = [
   'eras',
   'content',
@@ -108,9 +111,10 @@ export const READER_SNAPSHOT_DOMAIN_NAMES: readonly ReaderSnapshotDomainName[] =
   'trackGuide',
   'merch',
   'songMoods',
+  'lore',
 ];
 
-/** A snapshot without the extension domains (merch, songMoods): what the main route holds. Not hashable. */
+/** A snapshot without the extension domains (merch, songMoods, lore): what the main route holds. Not hashable. */
 export interface ReaderSnapshotCore {
   version: number;
   state: ReaderSnapshotState;

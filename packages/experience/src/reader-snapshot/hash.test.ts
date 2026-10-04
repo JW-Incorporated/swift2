@@ -32,8 +32,8 @@ describe('hashSnapshot', () => {
     expect(a.hash).not.toBe(b.hash);
   });
 
-  it('names all 13 domains', () => {
-    expect(READER_SNAPSHOT_DOMAIN_NAMES).toHaveLength(13);
+  it('names all 14 domains', () => {
+    expect(READER_SNAPSHOT_DOMAIN_NAMES).toHaveLength(14);
   });
 
   it.each(READER_SNAPSHOT_DOMAIN_NAMES.map((n) => [n]))('throws when domain %s is missing', async (name) => {
@@ -44,7 +44,7 @@ describe('hashSnapshot', () => {
 
   it('throws on a core-only snapshot, naming merch and songMoods', async () => {
     const core = Object.fromEntries(
-      Object.entries(fullDomains).filter(([k]) => k !== 'merch' && k !== 'songMoods'),
+      Object.entries(fullDomains).filter(([k]) => k !== 'merch' && k !== 'songMoods' && k !== 'lore'),
     );
     const snap = { version: 1, state: 'ready', origin: { kind: 'baked' }, domains: core };
     await expect(hashSnapshot(snap as unknown as ReaderSnapshot)).rejects.toThrow(/merch, songMoods/);

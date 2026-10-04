@@ -32,7 +32,7 @@ let baked: ReaderSnapshot;
 let fromFiles: ReaderSnapshot;
 
 async function loadBakedModules(): Promise<BakedModules> {
-  const [content, tracks, theories, videos, secrets, merch, moods] = await Promise.all([
+  const [content, tracks, theories, videos, secrets, merch, moods, lore] = await Promise.all([
     import(/* @vite-ignore */ `${web}content`),
     import(/* @vite-ignore */ `${web}tracks`),
     import(/* @vite-ignore */ `${web}theories`),
@@ -40,6 +40,7 @@ async function loadBakedModules(): Promise<BakedModules> {
     import(/* @vite-ignore */ `${web}era-secrets`),
     import(/* @vite-ignore */ `${web}merch`),
     import(/* @vite-ignore */ `${web}song-moods.generated`),
+    import(/* @vite-ignore */ `${web}clownbot-lore`),
   ]);
   const { ERAS } = await import('../eras');
   return {
@@ -48,6 +49,7 @@ async function loadBakedModules(): Promise<BakedModules> {
     MILESTONES: content.MILESTONES,
     MERCH_CATALOGUE: merch.MERCH_CATALOGUE,
     SONG_MOODS: moods.SONG_MOODS,
+    LORE: lore.LORE,
     tracksForEra: tracks.tracksForEra,
     theoriesForEra: theories.theoriesForEra,
     allVideoRecordsForEra: videos.allVideoRecordsForEra,
