@@ -11,12 +11,10 @@ const run = (state: Parameters<typeof runFallbackRows>[1], seen: Map<string, str
 
 describe('overlay fallback table', () => {
   it('has the stable row ids', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'song', 'theory-guide', 'thread', 'track-guide']);
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'theory-guide', 'thread']);
   });
 
   it.each([
-    [{ trackGuideEraId: 'debut' }, '/?screen=track-guide&era=debut', 'closeTrackGuide'],
-    [{ trackGuideEraId: 'debut', openTrackKey: 'debut::1::Tim' }, '/?screen=song&key=debut%3A%3A1%3A%3ATim', 'closeTrackGuide'],
     [{ theoryGuideEraId: 'folklore' }, '/?screen=era-stream', 'closeTheoryGuide'],
     [{ searchOpen: true }, '/?screen=era-stream', 'setSearchOpen'],
     [{ lensId: 'easter-eggs' }, '/?mode=threads', 'clearLens'],
@@ -25,11 +23,6 @@ describe('overlay fallback table', () => {
     expect(openNative).toHaveBeenCalledTimes(1);
     expect(openNative).toHaveBeenCalledWith(path);
     expect(a[clear]).toHaveBeenCalledTimes(1);
-  });
-
-  it('a song over its guide hands native the song only (one navigation)', () => {
-    const { openNative } = run({ ...closed, trackGuideEraId: 'debut', openTrackKey: 'debut::1::Tim' } as never, new Map());
-    expect(openNative).toHaveBeenCalledTimes(1);
   });
 
   it('loop guard: navigate, native, back, re-render does not re-trigger; a fresh open does', () => {

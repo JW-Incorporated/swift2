@@ -53,11 +53,12 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
       await page.getByRole('button', { name: /Where threads cross/ }).first().click();
     },
   },
-  { name: 'guide', path: '/?guide=fearless', root: '[role="dialog"][aria-label$="track guide"]' },
+  { name: 'guide', path: '/?guide=fearless', root: '[role="dialog"][aria-label$="track guide"]', sides: 'both' },
   {
     name: 'song',
     path: `/?song=${encodeURIComponent(SONG_KEY)}`,
     root: '[role="dialog"][aria-label$="song detail"]',
+    sides: 'both',
   },
   { name: 'theories', path: '/?theories=fearless', root: '[role="dialog"][aria-label$="theories and easter eggs"]' },
   {
