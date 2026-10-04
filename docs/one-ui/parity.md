@@ -5,7 +5,7 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 
 - Side a: the Next web build (`next start`, secretless; Supabase degrades to empty).
 - Side b: the app's DOM entry (`apps/mobile/index.web.ts`, which mounts
-  `ReaderSpike`) exported for a browser, fed from the fixture bundle on disk.
+  `AppReader`, the production DOM reader since D2) exported for a browser, fed from the fixture bundle on disk.
 - Routes: `/` (the era stream; shared root `main`) and `/?item=<id>` (the open
   moment; shared root `[role="dialog"]`). The item id is stored in
   `scripts/parity/fixture/fixture.json` (`itemId`).
@@ -151,7 +151,7 @@ surface into the app DOM bundle (side b), flip its route:
 3. The b-* baselines do not exist yet, so the run is red once. Create them with the "Updating baselines"
    dispatch (`gh workflow run parity.yml --ref <branch> -f update-baselines=true`; exactly `parity.yml`, not
    `mobile-parity.yml`), then push a non-bot commit (bot commits do not trigger PR CI).
-4. Side b must serve the route: it needs the slot in `apps/mobile/dom/AppReader.tsx`, and an unknown query
+4. Side b must serve the route: it needs the slot in `apps/mobile/dom/slots/` (see its header), and an unknown query
    mode renders the D-6 fallback, which fails the a-vs-b compare (that is the intended signal).
 
 `sides.spec.ts` is the browser-free dry run: a fixture route marked `both` plans one a-vs-b compare and two
@@ -255,3 +255,7 @@ static next/font faces vs a variable face with identical pixels). Three rules:
 - Faces compare as family + style only (deduped); weights are not compared
   because variable and static faces of one family render the same. The pixel
   diff is the real weight check.
+
+## Base-route viewport compare (One UI H4/D2)
+
+Side b renders the full packages/ui shell, so `compare.spec.ts` also runs `a vs b viewport: home` and `a vs b viewport: item` for the two base routes (header and nav visible). No existing baseline is regenerated. `item` needs the moment overlay slot (`overlay:moment`, slice 2.5-D); until it lands side b has no dialog (the fallback hands the item to native), so the existing `a vs b: item` gate and this one are red by design.
