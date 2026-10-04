@@ -33,7 +33,9 @@ createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://x').pathname);
   // /content/** is the frozen fixture bundle (scripts/parity/fixture), read from disk: side b never touches a network.
   const base = pathname.startsWith('/content/') ? fixture : root;
-  const file = normalize(join(base, pathname === '/' ? 'index.html' : pathname));
+  // SPA fallback: an extension-less app path (e.g. /settings/notifications) is the reader page, as on the web.
+  const spa = base === root && extname(pathname) === '' && pathname !== '/';
+  const file = normalize(join(base, pathname === '/' || spa ? 'index.html' : pathname));
   if (!file.startsWith(base) || !existsSync(file) || !statSync(file).isFile()) {
     res.writeHead(404).end('not found');
     return;
