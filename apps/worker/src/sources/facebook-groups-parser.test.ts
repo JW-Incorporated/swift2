@@ -93,6 +93,40 @@ describe('extractPostsFromHtml', () => {
     expect(posts).toHaveLength(1);
     expect(posts[0]!.text).toBe('entity names count too');
   });
+
+  it('removes a mentioned member whose profile link carries no aria-label', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article">' +
+        '<a href="/groups/x/user/999/" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">tagging <a href="/groups/x/user/777/">Priya Raman</a> who called this months ago</div>' +
+        '</div>',
+    );
+    expect(posts).toHaveLength(1);
+    expect(posts[0]!.text).not.toMatch(/Jane Fan|Priya Raman/i);
+    expect(posts[0]!.text).toContain('who called this months ago');
+  });
+
+  it('leaves an ordinary outbound link in the post body alone', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article">' +
+        '<a href="/groups/x/user/999/" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">bought it at <a href="https://www.etsy.com/listing/1">this etsy shop</a></div>' +
+        '</div>',
+    );
+    expect(posts[0]!.text).toContain('this etsy shop');
+  });
+
+  it('hashes the post author, not a member they mentioned', () => {
+    const withMention = extractPostsFromHtml(
+      '<div role="article"><a href="/groups/x/user/999/" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">hi <a href="/groups/x/user/777/">Priya Raman</a></div></div>',
+    );
+    const withoutMention = extractPostsFromHtml(
+      '<div role="article"><a href="/groups/x/user/999/" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">hi</div></div>',
+    );
+    expect(withMention[0]!.authorHash).toBe(withoutMention[0]!.authorHash);
+  });
 });
 
 describe('parseFacebookExport', () => {

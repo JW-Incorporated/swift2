@@ -55,9 +55,44 @@ describe('hasLeakedMarkup', () => {
     expect(hasLeakedMarkup("The Swiftie's Society — anyone going to night two")).toBe(false);
   });
 
-  it('ignores an angle bracket far into the excerpt (not the leak position)', () => {
-    const late = `Taylor Swift's Vault — ${'a'.repeat(70)} selling these for > $20`;
-    expect(hasLeakedMarkup(late)).toBe(false);
+  // Regression: an earlier signature flagged ANY angle bracket in the first 60
+  // chars, which would have deleted these clean rows. On a delete script a
+  // false positive is data loss, so each of these is a hard requirement.
+  it('does not fire on clean post text that starts with an angle bracket', () => {
+    expect(hasLeakedMarkup('Taylor Swift (Swifties) — >>> look at this bracelet')).toBe(false);
+    expect(hasLeakedMarkup('>>> look at this bracelet')).toBe(false);
+  });
+
+  it('does not fire on clean post text that contains an angle bracket', () => {
+    expect(hasLeakedMarkup("Taylor Swift- swifties — selling these for > $20 each, dm me")).toBe(false);
+    expect(hasLeakedMarkup('selling these for > $20 each, dm me')).toBe(false);
+  });
+
+  // "X > Y" ranking phrasing is extremely common in these groups; an earlier
+  // signature matched a bare word-run ending in `>` and would have deleted
+  // every one of these.
+  it('does not fire on era-ranking phrasing', () => {
+    for (const text of [
+      'this era > reputation',
+      'taylor > everyone else',
+      'rep > 1989 > lover',
+      'folklore>evermore fight me',
+    ]) {
+      expect(hasLeakedMarkup(text)).toBe(false);
+      expect(hasLeakedMarkup(`Taylor Swift's Vault — ${text}`)).toBe(false);
+    }
+  });
+
+  it('does not fire on clean post text containing attribute-looking words', () => {
+    expect(hasLeakedMarkup('is it era=1989 or era=rep? the aria label thing is confusing')).toBe(false);
+  });
+
+  it('fires on the exact pre-fix tag-tail shape with a single attribute', () => {
+    expect(hasLeakedMarkup('role="article"> Jane Fan hello')).toBe(true);
+  });
+
+  it('fires on a tag tail the 80-char excerpt cut before its closing bracket', () => {
+    expect(hasLeakedMarkup('role="article" data-posinset="65" class="x1yztbdb x1n2onr6"')).toBe(true);
   });
 
   it('is safe on empty/non-string values', () => {

@@ -25,8 +25,9 @@
 //   1. platform='facebook' AND status='new'
 //   2. `community` in the known Facebook group slugs
 //      (scripts/knowledge/fb-groups-checklist.mjs, the 7 groups of #4885)
-//   3. the leaked-markup signature below — an HTML attribute fragment or a
-//      stray `>` in the excerpt, which clean parser output can never contain
+//   3. the leak signature below — the derived text STARTS with the tail of
+//      the tag the block was wrongly sliced from (`attr="value"...>`), which
+//      `stripTags`ed post text can never do
 // so a row written by any other path, or by the fixed parser, is never
 // eligible. `--json-out <file>` writes the full pre-delete contents of every
 // deleted row (ids + values) so the action is auditable and reversible.
@@ -46,45 +47,40 @@ import { runMain } from '../lib/cli.mjs';
 import { FB_GROUPS_CHECKLIST } from '../knowledge/fb-groups-checklist.mjs';
 
 /**
- * Leaked-markup signatures. Clean parser output is `stripTags`ed text: it
- * cannot contain an `attr="value"` pair or a bare `<`/`>`, so either is
- * conclusive evidence the row came from the pre-fix parser.
- *  - `role="article" data-posinset="65">` — the exact #4885 bug-1 fragment
- *  - any `name="..."` attribute fragment, or `name=` immediately followed by
- *    a quote, with or without the closing `>`
- *  - a stray `<` or `>` anywhere in the excerpt
+ * The leak signature, anchored to the EXACT shape the pre-fix parser
+ * produced. `articleBlocks()` sliced from the `role="article"` attribute
+ * match, so the derived text always STARTS with the tail of that tag: a
+ * quoted attribute, any further attributes, then the tag's closing `>`
+ * (verified against the pre-fix parser:
+ * `role="article" data-posinset="65"> <name> <post text>`). The second
+ * alternative covers a tag tail long enough that the 80-char excerpt cut it
+ * before the `>`: `stripTags`ed post text can never START with `attr="`
+ * either.
+ *
+ * Anchoring to the START, and requiring a QUOTED attribute, both matter.
+ * Looser versions flagged any angle bracket or attribute-looking text near
+ * the head of the excerpt, which would have DELETED clean rows whose post
+ * text merely began with `>` ("&gt;&gt;&gt; look at this") or contained one
+ * ("selling these for > $20") — real data loss on a delete script.
  */
-const MARKUP_SIGNATURES = [
-  /\b[a-zA-Z_:][-a-zA-Z0-9_:.]*=["']/,
-  /[<>]/,
-];
+const ATTR = '[a-zA-Z_:][-a-zA-Z0-9_:.]*';
+const LEAK_SIGNATURE = new RegExp(
+  `^${ATTR}="[^"]*"(?:\\s+${ATTR}(?:="[^"]*")?)*\\s*>|^${ATTR}="`,
+);
 
 /** Separator `fb-export-ingest.mjs` puts between the group name and the excerpt in `locator`. */
 const LOCATOR_SEPARATOR = ' — ';
-/**
- * How far into the excerpt the signature must appear. The leak is always the
- * FIRST thing in the derived text (the fragment of the tag the block was
- * sliced from), so anchoring the check to the head avoids false-positiving a
- * clean row whose post text happens to contain a `<`/`>` later on (e.g.
- * "selling these for > $20").
- */
-const SIGNATURE_HEAD_CHARS = 60;
-
-/** The excerpt half of a `locator` (`"<group name> — <excerpt>"`), or the whole string if unseparated. */
-function excerptOf(value) {
-  const at = value.indexOf(LOCATOR_SEPARATOR);
-  return at === -1 ? value : value.slice(at + LOCATOR_SEPARATOR.length);
-}
 
 /**
- * True when this stored string shows the #4885 leaked-markup signature at
- * the head of its excerpt. Clean parser output is `stripTags`ed text and can
- * never begin with an `attr="value"` fragment or a stray angle bracket.
+ * True when this stored string shows the leak signature at the start of
+ * either the whole value (`context`, which is the bare excerpt) or the
+ * excerpt half of a `locator` (`"<group name> — <excerpt>"`).
  */
 export function hasLeakedMarkup(value) {
   if (typeof value !== 'string' || value === '') return false;
-  const head = excerptOf(value).slice(0, SIGNATURE_HEAD_CHARS);
-  return MARKUP_SIGNATURES.some((re) => re.test(head));
+  if (LEAK_SIGNATURE.test(value)) return true;
+  const at = value.indexOf(LOCATOR_SEPARATOR);
+  return at === -1 ? false : LEAK_SIGNATURE.test(value.slice(at + LOCATOR_SEPARATOR.length));
 }
 
 /** `facebook:<slug>` ids for every group in the export checklist. */

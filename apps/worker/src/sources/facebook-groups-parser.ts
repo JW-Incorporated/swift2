@@ -125,6 +125,15 @@ const COMMENT_RE = /([\d,]+)\s*comments?\b/i;
 const AUTHOR_ANCHOR_RE = /<a\b[^>]*\baria-label="([^"]{2,80})"[^>]*>([\s\S]*?)<\/a\s*>/gi;
 /** Attribute-only fallback for a profile link with no closing `</a>` in the block. */
 const AUTHOR_ATTR_RE = /\baria-label="([^"]{2,80})"/g;
+/**
+ * A profile link with NO `aria-label` at all, recognised by its href. Facebook
+ * renders a @mention of another member this way, so without this the mentioned
+ * person's name would survive in the text even though the poster's does not.
+ * Matched by href shape (`/user/<id>/`, `/profile.php?id=`, `/people/`) so an
+ * ordinary outbound link in the post body is untouched.
+ */
+const PROFILE_HREF_ANCHOR_RE =
+  /<a\b[^>]*\bhref="[^"]*(?:\/user\/|\/profile\.php|\/people\/)[^"]*"[^>]*>([\s\S]*?)<\/a\s*>/gi;
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -172,6 +181,13 @@ export function extractPostsFromHtml(html: string): ParsedFacebookPost[] {
       });
     }
     const authorName = names[0];
+    // A mentioned member's profile link carries no aria-label; drop those
+    // anchors (and their visible text) too, but never count one as the author.
+    withoutAuthors = withoutAuthors.replace(PROFILE_HREF_ANCHOR_RE, (_full, inner: string) => {
+      const mentioned = stripTags(inner);
+      if (mentioned.length >= 2 && mentioned.length <= 80) names.push(mentioned);
+      return ' ';
+    });
     const text = redactNames(stripTags(withoutAuthors), names);
     if (!text) continue;
     posts.push({

@@ -109,6 +109,23 @@ async function insertLeads(supabase, leads) {
   return { inserted, deduped };
 }
 
+/** Storage `list()` page size. The API caps a single page, so pages are walked. */
+const LIST_PAGE_SIZE = 100;
+
+/** Every object in the bucket, walking `list()`'s pages rather than assuming one. */
+async function listAllExports(supabase) {
+  const all = [];
+  for (let offset = 0; ; offset += LIST_PAGE_SIZE) {
+    const { data, error } = await supabase.storage
+      .from(BUCKET)
+      .list('', { limit: LIST_PAGE_SIZE, offset });
+    if (error) throw new Error(`could not list "${BUCKET}": ${error.message}`);
+    const page = data ?? [];
+    all.push(...page);
+    if (page.length < LIST_PAGE_SIZE) return all;
+  }
+}
+
 async function main() {
   const flags = parseArgs(process.argv.slice(2));
   const supabase = serviceClient();
@@ -118,8 +135,7 @@ async function main() {
   }
 
   const slugs = flags.group ? [flags.group] : FB_GROUPS_CHECKLIST.map((g) => g.slug);
-  const { data: objects, error: listError } = await supabase.storage.from(BUCKET).list('', { limit: 1000 });
-  if (listError) throw new Error(`could not list "${BUCKET}": ${listError.message}`);
+  const objects = await listAllExports(supabase);
 
   const exports_ = latestExportPerGroup(objects ?? [], { slugs });
   if (exports_.length === 0) {
@@ -136,7 +152,7 @@ async function main() {
       console.error(`fb-lead-reingest: could not download ${item.name}: ${downloadError.message}`);
       continue;
     }
-    const html = await blob.text();
+    const html = typeof blob.text === 'function' ? await blob.text() : Buffer.from(await blob.arrayBuffer()).toString('utf8');
     const { leads, postCount, screenedOut } = leadsFromExportHtml(html, {
       slug: item.slug,
       maxLeadsPerGroup: flags.maxLeadsPerGroup,

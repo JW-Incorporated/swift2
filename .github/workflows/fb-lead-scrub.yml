@@ -81,6 +81,12 @@ jobs:
           name: fb-lead-scrub-candidates
           path: scrub-candidates.json
           if-no-files-found: ignore
+          # This artifact deliberately contains the leaked rows VERBATIM —
+          # including the unhashed member names — so the deletion is auditable
+          # and reversible. That is private data in Actions storage: keep the
+          # retention short and delete the artifact once the repair is
+          # confirmed. The repo default retention would be far too long for it.
+          retention-days: 7
 
       - name: Regenerate clean leads from the stored exports
         if: ${{ inputs.reingest }}
