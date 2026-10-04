@@ -180,7 +180,9 @@ export function ModeToggle({
    *  its labels must be visible on every viewport, not just sm+. */
   alwaysShowLabels?: boolean;
 }) {
-  const labelClass = alwaysShowLabels ? undefined : 'hidden sm:inline';
+  // #5023: md..xl (iPad) is icon-only and content-width — the fixed 630px pill
+  // plus the actions overflowed the row and covered the era-menu button.
+  const labelClass = alwaysShowLabels ? undefined : 'hidden sm:inline md:hidden xl:inline';
   // With four labelled tabs the landing-page variant has no room for icons on
   // a narrow phone, so it goes text-only there and regains them at sm+.
   const iconClass = cn('size-3.5 md:size-4', alwaysShowLabels && 'hidden sm:block');
@@ -233,7 +235,7 @@ export function ModeToggle({
         // A fourth labelled tab overflows a 360px phone at a fixed width, so
         // the always-labelled (landing) variant is fluid up to its ideal size.
         // Fixed widths scaled 1.5x (352->528, 420->630) for the two new tabs.
-        alwaysShowLabels ? 'w-full max-w-[528px] md:max-w-[630px]' : 'sm:w-[528px] md:w-[630px]',
+        alwaysShowLabels ? 'w-full max-w-[528px] md:max-w-[630px]' : 'sm:w-[528px] md:w-auto xl:w-[630px]',
       )}
     >
       <span
