@@ -28,3 +28,12 @@ describe('resultFits: streamed api', () => {
     expect(apiCommandTimeout({ req: { method: 'POST', path: '/api/clown' }, stream: true })).toBe(CLOWN_TIMEOUT_MS);
   });
 });
+
+describe('resultFits: exact shapes (XOR)', () => {
+  it('rejects body and streamId together, neither, and extra keys', () => {
+    expect(resultFits('api', { status: 200, headers: {}, body: 'x', streamId: 's1' })).toBe(false);
+    expect(resultFits('api', { status: 200, headers: {}, body: 'x', extra: 1 })).toBe(false);
+    expect(resultFits('api', { status: 200, headers: {}, streamId: 's1', extra: 1 })).toBe(false);
+    expect(resultFits('api', { status: 200, headers: {} })).toBe(false);
+  });
+});

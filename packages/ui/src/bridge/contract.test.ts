@@ -55,7 +55,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
   });
 
   it('HandlerMap equals an independently spelled-out signature set (exact, not assignable)', () => {
-    type Ctx = { signal: AbortSignal; own?: (id: string, cancel: () => void) => () => void };
+    type Ctx = { signal: AbortSignal; own?: (id: string, cancel: () => void) => () => void; id?: string };
     type H<P, R> = (payload: P, ctx: Ctx) => Promise<ResResult<R>>;
     type Empty = Record<string, never>;
     type Exact = {
@@ -72,7 +72,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       'notifications.unregister': H<Empty, null>;
       'notifications.registration': H<Empty, { registered: boolean }>;
       api: H<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
-      apiRead: H<{ streamId: string }, ApiStreamChunk>;
+      apiRead: H<{ streamId: string; seq: number }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
     };
     expectTypeOf<HandlerMap>().toEqualTypeOf<Exact>();

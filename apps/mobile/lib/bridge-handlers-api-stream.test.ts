@@ -4,7 +4,14 @@ import { validateCommand } from './bridge-host-validate';
 import { fakeBody, session } from './bridge-handlers-api-stream.test-kit';
 
 const flush = () => new Promise<void>((r) => setTimeout(r, 0));
-const read = (s: ReturnType<typeof session>, streamId: string) => s.call('apiRead', { streamId });
+const seqs = new WeakMap<object, Map<string, number>>();
+const read = (s: ReturnType<typeof session>, streamId: string) => {
+  const m = seqs.get(s) ?? new Map<string, number>();
+  seqs.set(s, m);
+  const seq = (m.get(streamId) ?? 0) + 1;
+  m.set(streamId, seq);
+  return s.call('apiRead', { streamId, seq });
+};
 
 afterEach(() => vi.useRealTimers());
 
@@ -137,16 +144,17 @@ describe('api stream: lifecycle', () => {
     expect((await s.open()).r).toMatchObject({ ok: true });
   });
 
-  it('cancelling an in-flight apiRead command also closes the stream', async () => {
+  it('cancelling an in-flight apiRead command leaves the stream open and retryable', async () => {
     const b = fakeBody();
     const s = session([() => b.response]);
     const { id } = await s.open();
-    void read(s, id);
+    const first = read(s, id);
     await flush();
     s.inflight.cancel(s.lastId());
-    await flush();
-    expect(b.cancel).toHaveBeenCalled();
-    expect(await read(s, id)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(await first).toMatchObject({ ok: false, error: { code: 'cancelled' } });
+    expect(b.cancel).not.toHaveBeenCalled();
+    b.push('z');
+    expect(await s.call('apiRead', { streamId: id, seq: 1 })).toMatchObject({ ok: true, value: { chunk: 'z' } });
   });
 
   it('abortAll (host shutdown / DOM re-handshake) drops the stream table: a stale streamId is invalid', async () => {
@@ -194,8 +202,11 @@ describe('api stream: validation', () => {
     expect(validateCommand('api', { req })).not.toHaveProperty('stream');
     expect(validateCommand('api', { req, stream: false })).toBeNull();
     expect(validateCommand('api', { req, stream: 'yes' })).toBeNull();
-    expect(validateCommand('apiRead', { streamId: 's1' })).toEqual({ streamId: 's1' });
-    expect(validateCommand('apiRead', { streamId: '../x' })).toBeNull();
+    expect(validateCommand('apiRead', { streamId: 's1', seq: 1 })).toEqual({ streamId: 's1', seq: 1 });
+    expect(validateCommand('apiRead', { streamId: 's1' })).toBeNull();
+    expect(validateCommand('apiRead', { streamId: 's1', seq: 0 })).toBeNull();
+    expect(validateCommand('apiRead', { streamId: 's1', seq: 1.5 })).toBeNull();
+    expect(validateCommand('apiRead', { streamId: '../x', seq: 1 })).toBeNull();
     expect(validateCommand('apiRead', {})).toBeNull();
   });
 });

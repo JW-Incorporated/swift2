@@ -91,7 +91,7 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return p.stream === true ? { req: req as unknown as JsonValue, stream: true } : { req: req as unknown as JsonValue };
     }
     case 'apiRead':
-      return isBridgeId(p.streamId) ? { streamId: p.streamId } : null;
+      return isBridgeId(p.streamId) && Number.isSafeInteger(p.seq) && (p.seq as number) >= 1 ? { streamId: p.streamId, seq: p.seq as number } : null;
     case 'cancel':
       return isBridgeId(p.targetId) ? { targetId: p.targetId } : null;
     case 'share':

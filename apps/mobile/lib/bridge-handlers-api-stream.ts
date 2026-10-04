@@ -16,64 +16,93 @@ export type OpenStream = {
   reader: ReadableStreamDefaultReader<Uint8Array>;
   /** Aborts the underlying fetch. */
   abort: () => void;
-  /** Registers the stream for `cancel` / abort-all (ctx.own); returns the unregister. */
+  /** Registers a resource for `cancel` / abort-all (ctx.own); returns the unregister. */
   own?: (id: string, cancel: () => void) => () => void;
+  /** The opening command's id: an ownership alias until the DOM observes the head (its first apiRead). */
+  alias?: string;
   /** Runs once when the stream terminates (clears the deadline timer). */
   onEnd: () => void;
 };
+
+type Settled = { seq: number; result: ResResult<ApiStreamChunk> };
 
 type Stream = OpenStream & {
   id: string;
   dec: TextDecoder;
   queue: Uint8Array[];
+  /** Unread bytes retained in `queue`: never above API_STREAM_BUFFER_BYTES. */
   queued: number;
+  /** The tail of one source chunk that did not fit the buffer; the reader is not read again until it is moved over. */
+  carry: Uint8Array | null;
   total: number;
   ended: boolean;
-  /** Terminated by an error or the deadline; the next `apiRead` reports it, then the entry is dropped. */
   dead: boolean;
-  error: ResResult<never> | null;
   pumping: boolean;
   reading: boolean;
+  /** Last answered read, replayed when the DOM retries the same seq (a lost result). */
+  last: Settled | null;
   wake?: () => void;
   unown?: () => void;
+  unalias?: () => void;
 };
+
+const MAX_TOMBS = 8;
 
 export function createStreamTable(deps: StreamTableDeps) {
   const pollMs = deps.pollMs ?? API_STREAM_POLL_MS;
   const streams = new Map<string, Stream>();
+  /** Bounded record of how finished streams ended, so a late or retried apiRead still gets its answer. */
+  const tombs = new Map<string, Settled>();
   let opening = false;
   let seq = 0;
 
-  const hasOpen = () => opening || [...streams.values()].some((s) => !s.dead);
+  const hasOpen = () => opening || streams.size > 0;
 
-  function release(s: Stream) {
+  function tomb(id: string, entry: Settled) {
+    tombs.delete(id);
+    tombs.set(id, entry);
+    if (tombs.size > MAX_TOMBS) tombs.delete(tombs.keys().next().value as string);
+  }
+
+  /** Terminal: removes the record at once and releases everything it held. */
+  function finish(s: Stream, error: ResResult<never> | null) {
+    if (s.dead) return;
+    s.dead = true;
+    streams.delete(s.id);
+    if (error) tomb(s.id, { seq: (s.last?.seq ?? 0) + 1, result: error });
+    s.abort();
+    void s.reader.cancel().catch(() => {});
+    s.queue = [];
+    s.queued = 0;
+    s.carry = null;
     s.unown?.();
-    s.unown = undefined;
+    s.unalias?.();
     s.onEnd();
     s.wake?.();
   }
 
-  function kill(s: Stream, error: ResResult<never> | null) {
-    if (s.dead) return;
-    s.dead = true;
-    s.error = error;
-    s.abort();
-    void s.reader.cancel().catch(() => {});
-    release(s);
-  }
-
   function close(id: string) {
     const s = streams.get(id);
-    if (!s) return;
-    streams.delete(id);
-    kill(s, null);
+    if (s) finish(s, null);
+  }
+
+  function fill(s: Stream) {
+    if (!s.carry) return;
+    const take = s.carry.subarray(0, Math.max(0, API_STREAM_BUFFER_BYTES - s.queued));
+    if (!take.byteLength) return;
+    s.queue.push(take);
+    s.queued += take.byteLength;
+    s.carry = take.byteLength === s.carry.byteLength ? null : s.carry.subarray(take.byteLength);
+    s.wake?.();
   }
 
   async function pump(s: Stream) {
     if (s.pumping || s.ended || s.dead) return;
     s.pumping = true;
     try {
-      while (!s.dead && !s.ended && s.queued < API_STREAM_BUFFER_BYTES) {
+      for (;;) {
+        fill(s);
+        if (s.dead || s.ended || s.carry || s.queued >= API_STREAM_BUFFER_BYTES) break;
         const { done, value } = await s.reader.read();
         if (s.dead) return;
         if (done) {
@@ -81,13 +110,11 @@ export function createStreamTable(deps: StreamTableDeps) {
           break;
         }
         s.total += value.byteLength;
-        if (s.total > deps.maxBytes) return kill(s, resErr('failed', 'api response too large'));
-        s.queue.push(value);
-        s.queued += value.byteLength;
-        s.wake?.();
+        if (s.total > deps.maxBytes) return finish(s, resErr('failed', 'api response too large'));
+        s.carry = value;
       }
     } catch {
-      if (!s.dead) kill(s, resErr('failed', 'api stream failed'));
+      finish(s, resErr('failed', 'api stream failed'));
     } finally {
       s.pumping = false;
       s.wake?.();
@@ -124,7 +151,6 @@ export function createStreamTable(deps: StreamTableDeps) {
   }
 
   return {
-    /** True while a stream is open or being opened: one open stream per host instance. */
     hasOpen,
     /** Claims the single slot before the (async) fetch; false when a stream is already open. */
     reserve(): boolean {
@@ -144,48 +170,58 @@ export function createStreamTable(deps: StreamTableDeps) {
         dec: new TextDecoder(),
         queue: [],
         queued: 0,
+        carry: null,
         total: 0,
         ended: false,
         dead: false,
-        error: null,
         pumping: false,
         reading: false,
+        last: null,
       };
       streams.set(id, s);
       opening = false;
       s.unown = o.own?.(id, () => close(id));
+      if (o.alias) s.unalias = o.own?.(o.alias, () => close(id));
       void pump(s);
-      return { id, expire: () => kill(s, resErr('timeout', 'api request timed out')) };
+      return { id, expire: () => finish(s, resErr('timeout', 'api request timed out')) };
     },
     close,
     size: () => streams.size,
-    async read(id: string, signal: AbortSignal): Promise<ResResult<ApiStreamChunk>> {
+    tombs: () => tombs.size,
+    /** `seq` is the DOM's monotonic read counter: the next read is `last + 1`; a repeat of `last` replays its answer. */
+    async read(id: string, readSeq: number, signal: AbortSignal): Promise<ResResult<ApiStreamChunk>> {
       const s = streams.get(id);
-      if (!s) return resErr('invalid', 'unknown stream');
+      if (!s) {
+        const t = tombs.get(id);
+        return t && t.seq === readSeq ? t.result : resErr('invalid', 'unknown stream');
+      }
+      s.unalias?.();
+      s.unalias = undefined;
+      if (s.last && readSeq === s.last.seq) return s.last.result;
+      if (readSeq !== (s.last?.seq ?? 0) + 1) return resErr('invalid', 'unexpected read sequence');
       if (s.reading) return resErr('invalid', 'read already in flight');
       if (signal.aborted) return resErr('cancelled', 'cancelled');
       s.reading = true;
       try {
         void pump(s);
         if (!s.queued && !s.ended && !s.dead) await waitForData(s, signal);
-        if (signal.aborted) {
-          close(id);
-          return resErr('cancelled', 'cancelled');
-        }
-        if (s.dead && !s.error) return resErr('cancelled', 'stream closed');
-        if (s.error) {
-          streams.delete(id);
-          return s.error;
-        }
+        if (signal.aborted) return resErr('cancelled', 'cancelled');
+        if (s.dead) return tombs.get(id)?.result ?? resErr('cancelled', 'stream closed');
         let chunk = s.queued ? s.dec.decode(drain(s), { stream: true }) : '';
-        if (s.ended && !s.queued) {
+        let done = false;
+        if (s.ended && !s.queued && !s.carry) {
           chunk += s.dec.decode();
-          streams.delete(id);
-          release(s);
-          return resOk({ chunk, done: true });
+          done = true;
         }
-        void pump(s);
-        return resOk({ chunk, done: false });
+        const result = resOk({ chunk, done });
+        if (done) {
+          tomb(id, { seq: readSeq, result });
+          finish(s, null);
+        } else {
+          s.last = { seq: readSeq, result };
+          void pump(s);
+        }
+        return result;
       } finally {
         s.reading = false;
       }

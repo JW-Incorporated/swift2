@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { ApiRequest } from '@swift2/content';
-import { resOk, type BridgeClient } from '@swift2/ui';
+import { resErr, resOk, type BridgeClient } from '@swift2/ui';
 import { readClownStream, type ClownStreamEvent } from '../../../../packages/ui/src/reader/clown/lib/clown-stream';
 import { fakeBody, session } from '../../lib/bridge-handlers-api-stream.test-kit';
 import { createBridgeApiFetch, createBridgeApiStream } from './api-fetch';
@@ -9,7 +9,8 @@ const flush = () => new Promise<void>((r) => setTimeout(r, 0));
 const req = { method: 'POST', path: '/api/clown', body: '{}' } as ApiRequest;
 
 // The real native handlers + dispatcher behind a fake client; an aborted call sends `cancel` for its command id, like the real client.
-function rig(responses: (() => Response)[]) {
+function rig(responses: (() => Response)[], dropReads = 0) {
+  let drops = dropReads;
   const s = session(responses);
   const calls: string[] = [];
   const client = {
@@ -21,6 +22,10 @@ function rig(responses: (() => Response)[]) {
       }
       const p = s.call(type, payload);
       const id = s.lastId();
+      if (type === 'apiRead' && drops > 0) {
+        drops -= 1;
+        return p.then(() => resErr('timeout', 'result lost'));
+      }
       o?.signal?.addEventListener('abort', () => s.inflight.cancel(id), { once: true });
       return p;
     },
@@ -86,5 +91,20 @@ describe('createBridgeApiStream (pull-based)', () => {
     const out: string[] = [];
     for await (const c of createBridgeApiStream(apiFetch)(req)) out.push(c);
     expect(out).toEqual(['whole']);
+  });
+
+  it('a lost apiRead result is retried with the same seq: no chunk is skipped', async () => {
+    const b = fakeBody();
+    const r = rig([() => b.response], 1);
+    b.push('one;');
+    const out: string[] = [];
+    const run = (async () => {
+      for await (const c of r.apiStream(req)) out.push(c);
+    })();
+    await flush();
+    b.push('two;');
+    b.end();
+    await run;
+    expect(out.join('')).toBe('one;two;');
   });
 });

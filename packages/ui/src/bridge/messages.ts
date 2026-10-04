@@ -39,8 +39,11 @@ export type DomCommandSpec = {
    * with `apiRead`. A non-2xx answers the buffered `ApiResponse` shape (no streamId). Add-only (W6-stream).
    */
   api: Spec<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
-  /** Pull the next decoded chunk of an open stream (long-poll, `{ chunk: '', done: false }` on an idle poll). */
-  apiRead: Spec<{ streamId: string }, ApiStreamChunk>;
+  /**
+   * Pull the next decoded chunk of an open stream (long-poll, `{ chunk: '', done: false }` on an idle poll). `seq` counts
+   * reads from 1; repeating the last seq replays its answer (retry-safe), anything else out of order is `invalid`.
+   */
+  apiRead: Spec<{ streamId: string; seq: number }, ApiStreamChunk>;
   /** `targetId` is a command id, or an open stream's id (which aborts that stream). */
   cancel: Spec<{ targetId: string }, null>;
 };
@@ -94,6 +97,8 @@ export type EventPayloadOf<T extends EventType> = EventSpec[T];
 
 export type HandlerContext = {
   signal: AbortSignal;
+  /** The command id (absent in unit tests). */
+  id?: string;
   /**
    * Registers a resource that outlives its command (an open `api` stream) under `id`: a later `cancel { targetId: id }`
    * calls `cancel`, as does the host's abort-all (shutdown, DOM re-handshake). Returns an unregister. Absent in unit tests.

@@ -59,7 +59,7 @@ export function createInflight(deps: InflightDeps) {
     map.set(id, f);
     const handler = deps.handlers[type] as unknown as RunHandler;
     Promise.resolve()
-      .then((): Promise<Outcome> | Outcome => (map.get(id) !== f || controller.signal.aborted ? SKIP : handler(payload, { signal: controller.signal, own })))
+      .then((): Promise<Outcome> | Outcome => (map.get(id) !== f || controller.signal.aborted ? SKIP : handler(payload, { signal: controller.signal, own, id })))
       .then(
         (r) => {
           if (r === SKIP) return;

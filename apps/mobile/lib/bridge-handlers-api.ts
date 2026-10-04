@@ -94,7 +94,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api' | '
   const clearTimer = deps.clearTimer ?? ((h) => clearTimeout(h as ReturnType<typeof setTimeout>));
   const streams = createStreamTable({ maxBytes: MAX_API_BYTES, setTimer, clearTimer });
   return {
-    apiRead: (payload, ctx) => streams.read(payload.streamId, ctx.signal),
+    apiRead: (payload, ctx) => streams.read(payload.streamId, payload.seq, ctx.signal),
     api: async (payload, ctx): Promise<ResResult<ApiResponse | ApiStreamHead>> => {
       const req = payload?.req;
       if (!req || !API_ALLOWLIST.includes(`${req.method} ${req.path}`)) {
@@ -114,6 +114,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api' | '
       const reserved = wantStream && streams.reserve();
       if (wantStream && !reserved) return resErr('invalid', 'a stream is already open');
       let handedOver = false;
+      let openedId = '';
       const ac = new AbortController();
       let activeReader: ReadableStreamDefaultReader<Uint8Array> | undefined;
       const cancelAll = () => {
@@ -175,9 +176,10 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api' | '
               void reader.cancel().catch(() => {});
               return ctx.signal.aborted ? resErr('cancelled', 'cancelled') : resOk({ status: res.status, headers: head, body: '' });
             }
-            const opened = streams.open({ reader, abort: () => ac.abort(), own: ctx.own, onEnd: () => clearTimer(timer) });
+            const opened = streams.open({ reader, abort: () => ac.abort(), own: ctx.own, alias: ctx.id, onEnd: () => clearTimer(timer) });
             onTimeout = opened.expire;
             handedOver = true;
+            openedId = opened.id;
             return resOk({ status: res.status, headers: head, streamId: opened.id });
           }
           const text = await readCapped(res, ac.signal, (r) => (activeReader = r));
@@ -198,6 +200,8 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api' | '
         return await Promise.race([run(), aborted]);
       } finally {
         if (reserved && !handedOver) streams.unreserve();
+        // A cancel or timeout that settled this command after the stream opened means the DOM never sees the head.
+        if (handedOver && ctx.signal.aborted) streams.close(openedId);
         if (!handedOver) clearTimer(timer);
         ctx.signal.removeEventListener('abort', onAbort);
       }
