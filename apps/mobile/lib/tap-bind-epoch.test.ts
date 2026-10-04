@@ -198,3 +198,47 @@ describe('createTapTarget confirmation hardening', () => {
     expect(cb).not.toHaveBeenCalled();
   });
 });
+
+describe('createTapTarget.navigateDom (native screen -> DOM page)', () => {
+  function target() {
+    const acks: ((a: boolean) => void)[] = [];
+    const host = {
+      emit: vi.fn(() => ({ epoch: 1, seq: 1 })),
+      onAcked: vi.fn((_r: unknown, cb: (a: boolean) => void) => (acks.push(cb), () => {})),
+      isReady: () => true,
+    };
+    const openElsewhere = vi.fn(async () => true);
+    const t = createTapTarget({ host: host as never, isReaderPath: () => false, openElsewhere });
+    return { t, host, acks, openElsewhere };
+  }
+
+  it('emits the legal path to the DOM (never openElsewhere) and resolves true only after ack AND navigated ok', async () => {
+    const { t, host, acks, openElsewhere } = target();
+    const done = vi.fn();
+    const p = t.navigateDom('/privacy').then(done);
+    const [type, payload] = host.emit.mock.calls[0] as unknown as [string, { path: string; id: string }];
+    expect([type, payload.path]).toEqual(['navigate', '/privacy']);
+    acks[0](true);
+    await Promise.resolve();
+    expect(done).not.toHaveBeenCalled();
+    t.onNavigated({ id: payload.id, ok: true });
+    await p;
+    expect(done).toHaveBeenCalledWith(true);
+    expect(openElsewhere).not.toHaveBeenCalled();
+  });
+
+  it('resolves false on a refused ack, a DOM ok:false, or no host ref', async () => {
+    const a = target();
+    const pa = a.t.navigateDom('/privacy');
+    a.acks[0](false);
+    expect(await pa).toBe(false);
+    const b = target();
+    const pb = b.t.navigateDom('/terms');
+    const id = (b.host.emit.mock.calls[0] as unknown as [string, { id: string }])[1].id;
+    b.t.onNavigated({ id, ok: false });
+    expect(await pb).toBe(false);
+    const c = target();
+    c.host.emit.mockReturnValueOnce(null as never);
+    expect(await c.t.navigateDom('/support')).toBe(false);
+  });
+});

@@ -8,6 +8,7 @@ import { diagCollector } from '../lib/diagnostics';
 import type { NativeRouteState } from '../lib/dom-host-handlers';
 import type { NativeOverlayPresenter } from '../lib/use-native-overlay';
 import { DiagHotCorner } from './DiagHotCorner';
+import { NativeAboutScreen } from './NativeAboutScreen';
 import { NotificationInboxScreen } from './NotificationInboxScreen';
 
 const FILL = { flex: 1, backgroundColor: '#0b0b0f' } as const;
@@ -16,10 +17,12 @@ export function NativeOverlayHost({
   state,
   presenter,
   navigate,
+  navigateDom,
 }: {
   state: NativeRouteState;
   presenter: NativeOverlayPresenter;
   navigate: (url: string | null | undefined) => void;
+  navigateDom: (path: string) => Promise<boolean>;
 }) {
   return (
     <Modal
@@ -46,6 +49,12 @@ export function NativeOverlayHost({
                 presenter.dismiss();
                 navigate(event.deepLink);
               }}
+            />
+          ) : null}
+          {state.route === '/settings/about' ? (
+            <NativeAboutScreen
+              onClose={() => presenter.dismiss()}
+              navigateDom={navigateDom}
             />
           ) : null}
         </SafeAreaView>

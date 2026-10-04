@@ -48,17 +48,18 @@ describe('#657 MomentDetail sheet is a real focus-trapped dialog', () => {
     // `<img>` in its prose, which defeats a generic "scan to the next `>`"
     // tag-boundary parse — slice to the next unambiguous anchor (its
     // onClick handler) instead.
-    const tagStart = src.indexOf('const viewer = (');
-    const tagEnd = src.indexOf('onClick={(e) => {', tagStart);
+    const lightbox = read('../../../../packages/ui/src/reader/moment/MomentLightbox.tsx');
+    const tagStart = lightbox.indexOf('const viewer = (');
+    const tagEnd = lightbox.indexOf('onClick={(e) => {', tagStart);
     expect(tagStart).toBeGreaterThan(-1);
     expect(tagEnd).toBeGreaterThan(tagStart);
-    const tag = src.slice(tagStart, tagEnd);
+    const tag = lightbox.slice(tagStart, tagEnd);
     expect(tag).toContain('role="dialog"');
     expect(tag).toContain('aria-modal="true"');
     expect(tag).toContain('aria-label="Photo viewer"');
     expect(tag).toContain('tabIndex={-1}');
     expect(tag).toContain('ref={dialogRef}');
-    expect(src).toContain('useFocusTrap(true, dialogRef);');
+    expect(lightbox).toContain('useFocusTrap(true, dialogRef);');
   });
 });
 

@@ -113,7 +113,7 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
   const waiters = new Map<string, () => void>();
   const local = new Map<number, Promise<boolean>>();
   const key = (r: AckRef) => `${r.epoch}:${r.seq}`;
-  const target: TapHost & { isReady(): boolean; onNavigated(e: { id: string; ok: boolean }): void } = {
+  const target: TapHost & { isReady(): boolean; onNavigated(e: { id: string; ok: boolean }): void; navigateDom(path: string): Promise<boolean> } = {
     isReady: () => opts.host.isReady(),
     emit(_type, payload) {
       const path = payload.path as string;
@@ -173,6 +173,16 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
       if (!outstanding.has(id)) return;
       outcome.set(id, ok);
       waiters.get(id)?.();
+    },
+    // Native-initiated DOM navigation (About -> legal page): always emitted to the DOM, never opened elsewhere.
+    // Resolves true only after the host ack AND the DOM's navigated {ok:true}; false when no ref/ack/handler.
+    navigateDom(path) {
+      const id = `t${nonce}-${++counter}`;
+      const ref = opts.host.emit('navigate', { path: path as never, source: 'notification', id });
+      if (!ref) return Promise.resolve(false);
+      idByRef.set(key(ref), id);
+      outstanding.add(id);
+      return new Promise<boolean>((resolve) => void target.onAcked(ref, resolve));
     },
   };
   return target;
