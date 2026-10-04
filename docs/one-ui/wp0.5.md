@@ -99,7 +99,7 @@ locally and WITHOUT committing, `expo.platforms` += `web`, `expo.web =
 { "bundler": "metro", "output": "single" }` and `main` = `index.web.ts`; then
 `npx expo export --platform web --output-dir <dir outside the repo>` and serve
 that dir with `/content/` mapped to `apps/web/public/content` (from
-`npm run sync:content`). `index.web.ts` + `spike/dev-loader.ts` are the
+`npm run sync:content`). `index.web.ts` + `reader/dev-loader.ts` are the
 dev/web-only path that assembles the cache envelope from that served bundle;
 the check script fails if either reaches a native DOM bundle.
 Production persistence checks must use a store/production build, never a dev client.

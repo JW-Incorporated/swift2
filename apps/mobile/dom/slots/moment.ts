@@ -1,6 +1,6 @@
 // WP 2.5-D moment slice (DOM half). The moment detail dialog is the registered
 // `overlay:moment` slot (convention in index.ts / D2's reader-slots mapper).
-// Imported DIRECTLY from the package (G10): no spike resolver, no apps/web shim.
+// Imported DIRECTLY from the package (G10): no apps/web shim.
 // Affiliate (G4): the app sets no `HostEnv.affiliate`, so shop links stay plain.
 // Song/thread links inside a moment are handled by overlay-fallback (D2) until
 // 2.6-D/2.7-D; this slice adds no row of its own.

@@ -159,7 +159,6 @@ export interface HostAdapter {
   /**
    * Optional streaming transport (ClownChat). Web root adapter streams the real
    * fetch body; hosts without it fall back to `bufferedFrom(apiFetch)` (whole body once).
-   * TODO(PM, 2.11-D1): the app host implements this (or relies on the buffered fallback) via the bridge api allow-list.
    */
   apiStream?: ApiStream;
   storage: { local: HostStorage; session: HostStorage };

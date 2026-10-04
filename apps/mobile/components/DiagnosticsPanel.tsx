@@ -15,7 +15,7 @@ import {
   setUseTestPage,
   strikeClearedOverride,
 } from '../lib/diagnostics-override';
-import { latestProbeJson } from '../dom/spike/probe';
+import { latestProbeJson } from '../dom/reader/probe';
 import { readerSpikeLines } from '../lib/dom-probe-store';
 import { sendDiagReport } from '../lib/diagnostics-send';
 import { isActive, panelLines, type SpeedState } from '../lib/speed-test';

@@ -45,7 +45,6 @@ type Result =
   | null;
 
 export function MoodChat() {
-  // TODO(PM, WP2.3-F): mobile reach for /api/mood comes via the WP2.3-F2 bridge apiFetch.
   const { apiFetch } = useHost();
   const [text, setText] = useState('');
   const [result, setResult] = useState<Result>(null);

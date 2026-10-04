@@ -5,7 +5,7 @@ import 'expo';
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import AppReader from './dom/AppReader';
-import { loadDevEnvelope } from './dom/spike/dev-loader';
+import { loadDevEnvelope } from './dom/reader/dev-loader';
 
 const base = new URLSearchParams(window.location.search).get('content') ?? '/content';
 const noop = async () => {};

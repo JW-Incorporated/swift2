@@ -4,7 +4,6 @@
 const { execFileSync } = require('child_process');
 const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
-const { createSpikeResolver } = require('./dom/spike/resolver');
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, '../..');
@@ -71,20 +70,7 @@ const pinnedDirs = Object.fromEntries(singletons.map((name) => [name, pinnedOrig
 
 const defaultResolveRequest = config.resolver.resolveRequest;
 
-// WP0.5a: real-screens spike. Web-platform requests from apps/web origins get
-// Next stubs, content shims and a single React; everything else is unchanged.
-const spikeResolver = createSpikeResolver({
-  webRoot: path.join(workspaceRoot, 'apps/web'),
-  spikeDir: path.join(projectRoot, 'dom/spike'),
-  pinned: {
-    ...pinnedDirs,
-    scheduler: path.dirname(require.resolve('scheduler/package.json', { paths: [pinnedDirs['react-dom']] })),
-  },
-});
-
 config.resolver.resolveRequest = (context, moduleName, platform) => {
-  const spiked = spikeResolver(context, moduleName, platform, defaultResolveRequest ?? context.resolveRequest);
-  if (spiked) return spiked;
   for (const name of singletons) {
     if (moduleName === name || moduleName.startsWith(`${name}/`)) {
       const resolve = defaultResolveRequest ?? context.resolveRequest;

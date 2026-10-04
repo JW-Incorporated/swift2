@@ -33,7 +33,7 @@ describe('check-dom-bundle', () => {
       findForbiddenSources([
         '/r/apps/web/lib/longlive/generated/content.generated.ts',
         'C:\\r\\apps\\web\\lib\\longlive\\generated\\x.ts',
-        '/r/apps/mobile/dom/spike/dev-loader.ts',
+        '/r/apps/mobile/dom/reader/dev-loader.ts',
         '/r/apps/web/lib/longlive/store/index.tsx',
         '/r/apps/web/lib/longlive/tracks.generated.ts',
         '/r/apps/web/lib/other/merch.generated.ts',
@@ -43,8 +43,8 @@ describe('check-dom-bundle', () => {
   });
 
   it('matches forbidden paths case-insensitively and after URL-decoding', () => {
-    expect(findForbiddenSources(['/r/apps/mobile/DOM/Spike/Dev-Loader.ts'])).toHaveLength(1);
-    expect(findForbiddenSources(['/r/apps/mobile/dom/spike/dev-loader%2Ets', '/r/apps/web/lib/x%2Egenerated%2Ets'])).toHaveLength(2);
+    expect(findForbiddenSources(['/r/apps/mobile/DOM/Reader/Dev-Loader.ts'])).toHaveLength(1);
+    expect(findForbiddenSources(['/r/apps/mobile/dom/reader/dev-loader%2Ets', '/r/apps/web/lib/x%2Egenerated%2Ets'])).toHaveLength(2);
     expect(findForbiddenSources(['/r/%E0%A4%A/index.web.ts'])).toHaveLength(1);
   });
 
