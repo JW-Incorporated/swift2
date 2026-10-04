@@ -64,6 +64,7 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
     name: 'search-open',
     path: '/',
     root: 'main',
+    sides: 'both',
     clip: SEARCH_DIALOG,
     prepare: async (page) => {
       await page.locator(SEARCH_OPEN_BUTTON).first().click();
@@ -74,6 +75,7 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
     name: 'search-results',
     path: '/',
     root: 'main',
+    sides: 'both',
     clip: SEARCH_DIALOG,
     prepare: async (page) => {
       await page.locator(SEARCH_OPEN_BUTTON).first().click();
@@ -110,7 +112,7 @@ const CLOWN_ANSWER_NDJSON =
 
 /** Side-a-only baselines (One UI PR0-beta, WP2.9-2.13): merch, community, clownbot, mood, notification settings and the legal pages. */
 export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
-  { name: 'merch', path: '/?mode=merch', root: 'main' },
+  { name: 'merch', path: '/?mode=merch', root: 'main', sides: 'both' },
   { name: 'community', path: '/?mode=community', root: 'main' },
   { name: 'clownbot', path: '/?mode=clownbot', root: 'main', sides: 'both' },
   {
@@ -126,8 +128,7 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
       await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
     },
   },
-  // TODO(One UI 2.11-D2): sides 'both' once b matches a on a short page (iPad: footer + feedback pill sit ~56px apart).
-  { name: 'mood', path: '/?mode=mood', root: 'main' },
+  { name: 'mood', path: '/?mode=mood', root: 'main', sides: 'both' },
   {
     name: 'settings-notifications',
     path: '/settings/notifications',

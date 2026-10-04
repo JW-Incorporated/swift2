@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { MODE_PATHS, OVERLAY_FALLBACK_ROWS, modeFallbackPath, runFallbackRows } from './overlay-fallback';
 
-const closed = { mode: 'era', trackGuideEraId: null, openTrackKey: null, theoryGuideEraId: null, searchOpen: false } as const;
-const actions = () => ({ closeTrackGuide: vi.fn(), closeTheoryGuide: vi.fn(), setSearchOpen: vi.fn() });
+const closed = { mode: 'era', trackGuideEraId: null, openTrackKey: null, theoryGuideEraId: null } as const;
+const actions = () => ({ closeTrackGuide: vi.fn(), closeTheoryGuide: vi.fn() });
 const flush = () => new Promise((r) => setTimeout(r, 0));
 const run = async (state: unknown, seen: Map<string, string>, ok = true, a = actions()) => {
   const io = { openNative: vi.fn(async () => ok), diag: vi.fn() };
@@ -13,7 +13,7 @@ const run = async (state: unknown, seen: Map<string, string>, ok = true, a = act
 
 describe('overlay fallback table', () => {
   it('has the stable row ids (moment is a slot, thread is the ModeFallback)', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'song', 'theory-guide', 'track-guide']);
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['song', 'theory-guide', 'track-guide']);
   });
 
   it.each([
@@ -34,14 +34,12 @@ describe('overlay fallback table', () => {
 
   it.each([
     [{ theoryGuideEraId: 'folklore' }, 'theory-guide'],
-    [{ searchOpen: true }, 'search'],
   ])('%j has no native screen: state kept, diag emitted once, no navigation', async (patch, id) => {
     const seen = new Map<string, string>();
     const { io, a } = await run({ ...closed, ...patch }, seen);
     expect(io.openNative).not.toHaveBeenCalled();
     expect(io.diag).toHaveBeenCalledWith('fallback-no-native-screen', id);
     expect(a.closeTheoryGuide).not.toHaveBeenCalled();
-    expect(a.setSearchOpen).not.toHaveBeenCalled();
     expect((await run({ ...closed, ...patch }, seen)).io.diag).not.toHaveBeenCalled();
   });
 
@@ -78,7 +76,6 @@ describe('overlay fallback table', () => {
 describe('D-6 mode fallback paths', () => {
   it.each([
     ['threads', '/?mode=threads'],
-    ['merch', '/?mode=merch'],
     ['community', '/?mode=community'],
     ['clownbot', '/?screen=era-stream'],
     ['mood', '/?screen=era-stream'],
@@ -86,6 +83,9 @@ describe('D-6 mode fallback paths', () => {
   ] as const)('%s -> %s', (mode, path) => expect(modeFallbackPath(mode)).toBe(path));
 
   it('covers every unslotted mode', () => {
-    expect(Object.keys(MODE_PATHS).sort()).toEqual(['community', 'merch', 'threads']);
+    expect(Object.keys(MODE_PATHS).sort()).toEqual(['community', 'threads']);
+    expect(MODE_PATHS.merch).toBeUndefined();
+    expect(MODE_PATHS.clownbot).toBeUndefined();
+    expect(MODE_PATHS.mood).toBeUndefined();
   });
 });
