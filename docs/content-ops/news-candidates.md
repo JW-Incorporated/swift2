@@ -27,6 +27,54 @@ so far".
 
 Stories: 74
 
+## Taylor Swift's Attendance at Travis Kelce's Game on October 4
+
+- first seen: 2026-10-04 20:07 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The article discusses the speculation around Taylor Swift potentially attending Travis Kelce's game on October 4. It provides information on what is currently known regarding her plans for the event.
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPLWVzRWo3X3RMRjl5NkdRZGlaY2JvN0pvbTl3d2pqS3VKZmpnUFlHLTV5eF9xdWhwWlNjbzBXVnd0ZUVqTDNBejFLUHBsYkRkY0wwTnlpdnlKcnpyc1VmUFpndlJ3UmpLT1ZMa2ZkRjRvV0M3ZjJPSVVEbHdTMEEyZGNFNFJVa09LS294SC1PQl8tenFhdm0tWmdRWmxSeEZsZTJKal9sWWJVYUVTVEZXT214RThfblg1?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'SNL' Appearance Supports Fan Theories
+
+- first seen: 2026-10-04 20:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recent appearance on 'SNL' has confirmed a number of theories proposed by fans, sparking discussion and interest.
+- sources:
+  - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMickFVX3lxTE9fUGh6eGhWZHlyZnZoTnNYajFvMk1BOG02ZmIzdnpDNUg3SXJoekpacHNlcnlSNGFrMEFkWktrSkNRbFFpdFowcjBSWGkzU2lLenVzeksxdWNYV0g1TzdRNG1CTXRDeFQxOWtOUEVFUldIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Discusses Support Role for Dakota Johnson Post-Breakup
+
+- first seen: 2026-10-04 20:07 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent piece by ELLE, Taylor Swift talks about her supportive role in Dakota Johnson's life following a breakup. The insights reflect their friendship and the emotional support provided during difficult times.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMioAFBVV95cUxPOVRRRVlrZ2s5dFhyaVItYVVwMGFoeWdydzd4MGI5WlBQSlNIai00dTh2SmlmbTNYVEpKREt2a09rZDdPLTdBLS1XSmc4c1dmWnF4NF9LUTZCbC0zSUhmdU14UUhwY25jckhGQmI2WmtFcE9qS3hSczMxdXRBNUh2REVBVFM3OHJ5cHY4TC03ZDVXSHZPcjZvSjd0Nmx4WkNh?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Highlights Plaid Minidress as Fall Essential
+
+- first seen: 2026-10-04 20:07 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases the plaid minidress in a recent feature by ELLE, emphasizing its status as a must-have for the fall season. The piece highlights her fashion choices and sets trends for the upcoming months.
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxNWURWWTZDZEpBQzViby1aNGdHUE13RmhVYktEcmItS0lVX1NZVmtXM2FvbnZVdGc5RkFtWDJoNDExZ1hzSThoU3E0N3dZa045WGs2QmhVTGxTcjdjaHFaaWdmTzdiRnpvbUVkaUpNNUw2YXB5U1lYeGZNSzNtSDdEUURqQUhQcEtYWGdLam1qNVJCNUh2ZEgtMUIwY2U?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Attendance Update on Taylor Swift at Chiefs-Raiders Game
+
+- first seen: 2026-10-04 20:07 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Latest information is being gathered about Taylor Swift's potential attendance at the Chiefs-Raiders game today.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxQSlNlQUJIVmhoZzE1eXc5Q3R4a01EclRTRExwcjdGSUc0Z3doU2FRUUNxdnFwYTF0MUY1TmN0WmVXTFZXYnEzQWhNN1owazhMaUZZRHhUd3I2SHgyZ1RQZUZKNXdhUjFsNnN0QzBBMXpvQklSZUxuMGZiZ3pQNDhvYzNiMlJLMFBuVm12TkQ3dTVaWENXRVpsQVllMWNMZmZUQnZQUw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reportedly Working on New Album
+
+- first seen: 2026-10-04 20:07 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: According to a report, Taylor Swift is currently in the process of creating an entirely new album. The news emphasizes her commitment to her fans, ensuring she stays connected with her Swifties.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxPdjRGWUExUHp4eGpPNTMtMDYya2V0NUFHQ2lZcmVnYzVTZVRSZnVyTUk2SzFQeUJibzg2VEpZY2tSMnhoUlUzR3Z2YlRLT0JwNHg1SkRqSHZqZk1ISW5ZLUdXZFF1dXZrYUd5NlpCSmNqMkM0eXVQTkNQMm5vNnVEYUVmX21nc2owYkFlVUpoU21qZjhFTDFadnBMUQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
 ## Details Emerge on Dakota Johnson and Colin Farrell's Disagreement
 
 - first seen: 2026-10-04 14:46 UTC | category: relationship | importance: 5
@@ -34,14 +82,6 @@ Stories: 74
 - summary: A recent report uncovers the reasons behind a disagreement between Dakota Johnson and Colin Farrell. Further context on their altercation has drawn attention from fans and media alike.
 - sources:
   - [unverified] Vulture — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNS0QzRll5S09vYzdYMnQ0THlCWG5vUFM4ZENKSjZxSU1FYUg2bkl2U3dxakhzRG1mX1FkczlCS3g4OWJOU0c2dTdIa0cwaGdMdnp3dTFJWlVyUHJyMmZDU1RKYzVOTjZjVlZwSG9QT01MSlV5XzgyM1kyYTZqX0ZWaXF1V3M3a2VnaFZsXzFvaV9iZXV3R3I0UGtjRHcxYVBHRmFwVm0tZEc3Zw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Game Day Outfits Remain Fashionable
-
-- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article discusses the timeless nature of Taylor Swift's game day outfits and their enduring style appeal. It highlights how her fashion choices resonate with fans and continue to influence trends.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSU1GcmZtQkJRSEU0bEluMUtmejVHeHY0UkNoT3Z5azFvSGM3UTNObDFDQVVWT3lSQVc5ZTdvYXU5SlViQ2tPSE52a3c4RFVHd1l2YVNSZkR0UEd2ZEVKdEJTZFJCMkJRLVJuWWNMZFZkVXpIcFlwaEVfZWtnWXBCQS1oaUdBS0pHUkoyaXZyUDNBWmhmdHliTEVvNWQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift and Dakota Johnson Showcase Unique Bestie Style on SNL
 
@@ -90,6 +130,15 @@ Stories: 74
 - summary: Taylor Swift made a surprise appearance during Dakota Johnson's monologue on Saturday Night Live. The moment added excitement to the show's opening, highlighting Swift's presence in the entertainment scene.
 - sources:
   - [unverified] tvinsider.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQeUtjV0RNTHNUSWlhZTYxX0N1X0Y0Y0FsMC00SVE4NVQzMm0wMVpDVm5KZ3A4YnhFRXFHWmxnVUVZa2htNWpRNk5iQmNGaUpycTdBTC1GZTJPNEtyTEZEa01tVzBadjd2NXNCWUpGUEdTUU9ScjJ4SHJjVnlrYnRDMEFKYWRRWUN4RnFSSw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Game Day Outfits Remain Fashionable
+
+- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: The article discusses the timeless nature of Taylor Swift's game day outfits and their enduring style appeal. It highlights how her fashion choices resonate with fans and continue to influence trends.
+- sources:
+  - [unverified] eonline.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxOWVU1NG9ZUzdFNXpsZjRaNXItWnJSZDY3cjQzTThJVmZHS20tNmVfNU9KOEFZaGFJd1QxVDRJcHExMkFtWTZFRXNoSmd4NGFkZURaaV9fcktJSTF6YUo1a0szaFBJdlFoSnlfU01KMzlJbU53Q19jWWM1VGZVUG4yVDFoNExmTHJRcG9keExwT2szY3NqS2dHZnlNTzFQR0R0SXhFSm1WUEE4NjFD?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSU1GcmZtQkJRSEU0bEluMUtmejVHeHY0UkNoT3Z5azFvSGM3UTNObDFDQVVWT3lSQVc5ZTdvYXU5SlViQ2tPSE52a3c4RFVHd1l2YVNSZkR0UEd2ZEVKdEJTZFJCMkJRLVJuWWNMZFZkVXpIcFlwaEVfZWtnWXBCQS1oaUdBS0pHUkoyaXZyUDNBWmhmdHliTEVvNWQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dakota Johnson Cast in Taylor Swift's Patient Zero Video
 
@@ -152,22 +201,25 @@ Stories: 74
 ## Taylor Swift Surprises Audience with Appearance on 'SNL'
 
 - first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 7
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift unexpectedly appeared during an episode of 'SNL', delighting fans and viewers. This surprise moment added excitement to the show's lineup for the night.
 - sources:
+  - [unverified] boston.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxPSTZxLXJqcUN5b1E2ZEEtTjF3STMyUVZrVGtHZ3VQdFl0UThWdWE4Z0o3NFIyeWdYZjd6ZVRsX3p2MTM3QzM0eFlGWDRGWkhWWVJWUDVVQ1pUMFlhZENvS0UzdkF5X0pvUUljX2t3UW0xMktiU2l5NDd3RXdHNzF2eVV4NVVwMlFtV01WZlViWGo1SHYyc0FFLWYtaw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] CNN — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZFlPV1FnNVlFVDNFUjhDbFNpazhBM3FwbjlsWkliWnJ5WDM0Y3p4VVY4elQzU2I1d1BKUEFpSF93cnNPTFJFUEswY0sxUFIxM056LVZRQ0xNTTNnWi1yMC1IenQ3Y25ia0x4V2YwU19OTjZWU3FSTVZMYkplakMtaVZ5aF81alB4dWd0c2xicXlzZDQ5YkZQUjZ6QkVWMVNWdGlpeGNxNjFuRFpvSlhjTFJnUXp3QlNL?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdnItUndZWFNSUDduWUdyTmNBR08tcE9pckduWnpoako4ci16TGRsVG8wZkVQS1EwRHpzOF81TV9VbEduZHBEZW5MMmFWZ3pZbjJKMmRoRFhGblNscVpXOThoQVVvVlZCYjFFakxvOEhBaDNDTnN5eVJ0aFhta3N3RUJ3M3NiRFJuYlBhaG9ROWpVaFdySmlIdkVoN3F0dVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNaThkekZ3TXB4VzNOVm1yRHhHbVdqdUFSQ25TdEpUb0hzX1B3cy05RjhvQnpKWGRnekpsZ3pGWEVuTkh3cFE1UEFwTDZrNVpqSlU5UTlMQVU0TFMtN3NjOGxKSnpTZU1Lc0NFMFRfYlhkRmlHaWRZVkJqc3JjalVLanBYNlVrTS1lYkFpTFZBb3ZaaUhYRU1Bc3AxYXJCVzNKbWN4V2RUaHhVdlV3YWpjYUJFX0gxNmkx?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMisAFBVV95cUxQV3hkQkJKM0lZTllHQmMwVnVqMk5JaHlyaUQxYVBNNTJHQk5vNzFrb0JZdmVTM0FQWW9VYlJZYUlYUzhiLVVNbUtBNWJHUms2SUdzd3MyclV5Q2lpTTJzOHlNc3BBdDQ3RFFmbUJ5MmhxUEticzRzT1k4ZzQ3c0tHYnF6QkZ5NGhZUjdxTURrVENhMXMtYzB4WjJFbWF0cEtLdV95VzhwV09aTDRHSXlBVg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/tv-and-radio/2026/oct/04/saturday-night-live-dakota-johnson-host-taylor-swift-cameo
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPYlUyOHNqNVZIQmxaYzZLZm5LMGx6QW5RUl82T2FhU2JOV0pRNnF1TGFvbkxfdDBEN2YtRXZTNTFHYjA1Z0xIU2dJTHZpS21HU0xFdktWV0MxYVNQUnQ2cmR2d1J0RGx4dDM2eWJmbVdKV3pkQWJpTWN6Wlc5ZFZ4cmN0aXZxckJ1cGVyLVcyYWlUYmZVbTFSMA?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Makes Surprise Appearance at Dakota Johnson's SNL Hosting
 
 - first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift unexpectedly joined Dakota Johnson during her hosting segment on 'Saturday Night Live.' During the opening monologue, Swift acknowledged Travis Kelce with a subtle salute.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZUFaVWQ0Q3BuQ05SVjhBVU13aXpOQTc2T1ZHZUpTYjVVeGI4Y1daR3dOaUNUaGt6bV9sTjUyVm9OZUMySnNLNlpWbXU2aGVQTWFCc3JNamxwZVpBWlg0UHJZUHZVeHVXZWhzdEFxX1V4eV81cTNObGFZSFkzdHR5VUJ0U2dzRW04anVXci11ZE0tMnplRDgxWC1haw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPM2N5Zi12U1lrWi1qRWg5VmllYTVKUHNCYUxQMjNOU1B1RWtBcE1uV1ZqS2FVQkhCalcyVWdISVJmdGtuY2g4WHpHTFJPcGxSeUJqU25FY3RuQmFkS0dGTGJnUzhhbUpROXVkSVBVYXc0b09GY1Q4aTNVWW9YZUZBU0FmcXdxVVltcDZB?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQaURER0l5TkNUVjR6ZHNzUm1yRTBZSkJCTXU1VEhMNGJ2U29BRUF3N19zYWtBbVZIeEc3ZnQwRHhrVzBwekhMazBCS2twUE5xd2FGTHZ4VTFwU0FTbnppbk9XOUlZVFNiTVRCLTJhNGZTc2dKb3VBRUR3c1ZXQkVwMEpuN1BfUFZ1c0d0Yk95aw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMipwFBVV95cUxPVXhhb1RydGN5WWtWVE9JRFA4QV9CaVdSM0p6QmM0ckd1OEM5QlZGU0JQY2twU012WU5oaEJpZVYtbDNoNzdvUVgtQlBMTFZhZzJ5bEFRdEFfNEVXSjFMRmxxU3dEMVBXck9YT1JURkRfUXM2WkpobWY5dVphT1BySUVzRnMtWDRmZmE0VjdxY3NhWUNKRmptRUVmWC1SbXBFTE9ldXJpYw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-dakota-johnson-saturday-night-live-1236721702/
@@ -600,51 +652,3 @@ Stories: 74
 - summary: Taylor Swift's albums are experiencing a notable rise in the charts, potentially leading to her return to the No. 1 position soon. This shift highlights her ongoing popularity in the music industry.
 - sources:
   - [unverified] Forbes — https://news.google.com/rss/articles/CBMiygFBVV95cUxQeDBacklrUVdReTdmSmlXczl1X2FqLUt3VGRTLVZEU0NicmpvaC1hTllfNFZCTXVaekZjOWw1d0pwc3ItZk5ic0czVUF2ZU1yQXlBOHJuS3ZIN1YxZVpOY1p5Um1JRnFvalFIYWpnZWt4UndZWFl3cVlSR2N1SjRaVXhGZHA1WlpNR3Bhc0d0aHpyZ2tiQnNDR2FYTjAyU2djTzFUMHZXYWhlTjQ3a1hYc2xmZGo1bEk0SGZfcmdkZmhTLTVEb1pkeEdn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## AI-generated fashion at the 2026 MTV VMAs causes confusion
-
-- first seen: 2026-10-01 16:22 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: The 2026 MTV VMAs showcased fashion looks that went viral, sparking discussions about which appearances were real and which were AI-generated. This has raised questions about identifying authentic celebrity presence at the event.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/z8bxqyc?at_medium=RSS&at_campaign=rss
-
-## Tim Hardaway Critiques NFL's Attention on Taylor Swift
-
-- first seen: 2026-10-01 16:22 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tim Hardaway has voiced his criticism regarding the NFL's emphasis on Taylor Swift in their coverage. The remarks highlight a divergence in focus from traditional sports narratives.
-- sources:
-  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxQSU5RallMdXlEbTlGS0wxbFFYMHc1eWxDWnNZMlhrc0dmSHVCYmF4aXBCZE5aLVlqaG81RzhTVXNpM2gtT1N6ZlRBYXI4Rm5WN2tBZkRKTDdUM3AyZzVlSEFqRnN0VFJqYTI1RktCYjdPWVBLMjFnZVNyd1R2bndqc0l1YjE4ZW5QZ2c?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly Affected by Fan Backlash on New Songs
-
-- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is said to be taking the negative feedback to her new songs very personally following unexpected backlash from fans.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQMGlnTjlFWWNsVk5zemRKN1oydUlSTWFIcHE0RldEQVlRaU1ZWkZJLTVxcUh0ZjEtUHgtNjA4OVV5S2w1QjIzZ0tJR2huVjcxTmRjMkZGYTFocFhCODlEQ21UXzFsTFYxRVNnbW1Uem8xU3dQX254S1lmUk1yY3JybmtTM1NmMGxuaHFiQmFqVDlBWjN6M0JXdjFQb2hvb2VXMm1jazJkUTE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ariana Grande Could Set New Record Shared With Taylor Swift
-
-- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Ariana Grande is on the verge of potentially breaking a record that she currently shares with Taylor Swift. The details surrounding the record and the implications are yet to be disclosed.
-- sources:
-  - [unverified] forbes.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxQSGtWQ0d3VHcwWXZtSWlMT2p5T0w1b1d5a1lxOWZCbUppbUV0bGc0SmlKaktHV0QwUFBsaFMtNDVfTUtCcVZlb25hX1hLazBITVlmZjVlYW55V3NVU1pfaUVRRXNySlRqbFVmMVV3RUhQaEVKdVFPUDFDZkZMNVUzM1UxR3BkNWFoNTFieWtZZGtHWWJxM050c0l2czdtTlNtbHdZUjNYOTdUR1ZXVFpYVFpDLXREZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Oscar Campaign Under Discussion
-
-- first seen: 2026-10-01 16:22 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article titled 'Taylor Swift’s Oscar Campaign: Hiding in Plain Sight' examines the strategies behind her Oscar campaign. The piece provides insights into how Swift is navigating this prestigious awards landscape.
-- sources:
-  - [unverified] The Ankler — https://news.google.com/rss/articles/CBMifkFVX3lxTE9tSkdOQmJkcFlwYVdiSVRjLVRYWFNWMWRtY2kyZDUxX2ZmcE5DTE0xY1FHRXZBTVJPZENvc1RVNVlfbzZGT2dsQU9HMERrdWhPLTY1XzhDNXVfd2pYSkRnR0Z4Vzd6XzlrSVAzMzhCMkRVOWNqZm1JdnlUbFhoZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Faces Backlash Over 'Encore' Music Release
-
-- first seen: 2026-10-01 16:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A source reveals that Taylor Swift has received negative feedback regarding her recent music project, 'Encore'. This situation may impact her public image and reception among fans.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxPSjhXN2pKblN0ZlIwR19qZG0wRzdnRlZpNkFwS1FqZms1U2R3XzdxVkM0V1Mxd3VvSEMtcjBHb1JLSFVMYTZXekdFczVrNXVCNHBBZGlBSV9XalBPYVl0RzdOM0czclUxOUJROXU4ZER4WHRZdFRfa0JHSW10emdfSUl0ZUZQLTVodUJKT3BreXBaVXpkbXd4dzJB?oc=5&hl=en-US&gl=US&ceid=US:en
