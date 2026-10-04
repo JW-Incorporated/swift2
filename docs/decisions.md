@@ -7,6 +7,48 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-04 — Contaminated Facebook `engagement_lead` rows are deleted and regenerated, not redacted in place (issue #4885, HA #98)
+
+**Decision (Joey, HA #98: "scrub").** The ~72 `platform='facebook'`,
+`status='new'` `engagement_lead` rows written by the pre-fix fb-export ingest
+are DELETED, then regenerated from the exports already stored in the private
+`facebook-exports` bucket with the fixed parser. Two parser bugs caused them
+(`apps/worker/src/sources/facebook-groups-parser.ts`): `articleBlocks()`
+sliced each post from the `role="article"` attribute match instead of the
+enclosing tag's `<`, so an unclosed tag fragment survived `stripTags()`; and
+`AUTHOR_RE` stripped only the `aria-label` attribute copy of the author's
+name, leaving the identical name as the profile anchor's visible text. The
+result was a private group member's real, unhashed name as the leading words
+of `locator`/`context` — contradicting the hashed-authors guarantee
+(`docs/decisions.md` 2026-08-25).
+
+**Why delete rather than redact.** The stored value is a lossy 80-char
+excerpt in which the leaked name and the real post text are interleaved with
+no delimiter; the clean excerpt cannot be recovered from it. Re-running the
+ingest against the same saved exports produces the clean row, so deleting is
+both the complete privacy fix and recoverable. Every affected row is
+`status='new'`: never emailed, never posted, no `community_post_ledger`
+entry.
+
+**Consequences.** `scripts/community/fb-lead-scrub.mjs` (delete) and
+`fb-lead-reingest.mjs` (regenerate) are both dry-run by default, match only
+facebook + `status='new'` + a known checklist group + the leak signature, and
+dump the pre-delete rows for audit. `fan_signal` is deliberately NOT
+re-inserted: those rows hold aggregates only (never a name or an excerpt),
+and the table has no unique constraint, so re-inserting would duplicate a
+week's signal. The same change backfills the 7 missing
+`community_watchlist` rows for groups that were already producing leads.
+
+**Alternatives considered.** (1) Leave the rows as `status='new'` until a
+repair pass fixes them in place — rejected by Joey; it leaves unhashed
+private names persisted in Supabase indefinitely. (2) `UPDATE` the excerpt to
+a truncated/redacted form — rejected: not recoverable to a correct value, and
+a partial redaction of a free-text field is easy to get subtly wrong.
+
+**Approved by.** Joey (HA #98), recorded on issue #4885.
+
+---
+
 ## 2026-10-03 — Mobile release train moves from EAS Workflows to GitHub Actions (HA #98)
 
 **Decision (Joey, HA #98, 2026-10-03 12:04 PDT: "reroute").** The Expo account `jw-labs` is on the Free plan and its EAS Workflows CI/CD minutes (60/month) are exhausted until 2026-11-01, so `eas workflow:run` failed at start ("Free plan CI/CD 60 minute limit reached", run 37134936992). The orchestration now lives in `.github/workflows/mobile-release.yml`, driving the EAS CLI with the existing `EXPO_TOKEN`: `eas fingerprint:generate` + `eas build:list --fingerprint-hash` (reuse), `eas build --no-wait` + `eas build:view` polling, `eas update --branch production`, `eas submit`. `apps/mobile/.eas/workflows/release.yml` is removed from the tree (recover with `git show 6a59b605:apps/mobile/.eas/workflows/release.yml`).
