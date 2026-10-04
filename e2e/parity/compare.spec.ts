@@ -1,4 +1,8 @@
+import { bothSidesRoutes } from './sides';
 import {
+  A_ONLY_ROUTES,
+  A_ONLY_ROUTES_BETA,
+  openAOnlyRoute,
   captureViewport,
   captureRoot,
   expect,
@@ -44,6 +48,18 @@ for (const route of ROUTES) {
     const inset = await captureViewport(page);
     const same = await pixelMatches(testInfo, `neg-inset-${route.name}`, flat, inset);
     expect(same, 'viewport equal at real insets').toBe(route.name !== 'home');
+  });
+}
+
+// W1-E: routes a slice D flipped to sides 'both' get a whole-viewport a-vs-b compare (zero insets on b, same engine, font-normalised).
+// Empty today: every route is a-only, so no test is generated and the gate is unchanged.
+for (const route of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
+  test(`a vs b viewport: ${route.name}`, async ({ pages }, testInfo) => {
+    await openAOnlyRoute(pages.a, route, 'a');
+    const pixelsA = await captureViewport(pages.a);
+    await openAOnlyRoute(pages.b, route, 'b');
+    const pixelsB = await captureViewport(pages.b);
+    expect(await pixelMatches(testInfo, `ref-a-${route.name}-viewport`, pixelsA, pixelsB), 'viewport a-vs-b').toBe(true);
   });
 }
 
