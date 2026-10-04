@@ -31,7 +31,7 @@ describe('ROUTE_FLAG_KEYS', () => {
     expect(routeFlagsFrom({ routeFlags: { sharedUi: false } }).sharedUi).toBe(false);
     expect(routeFlagsFrom(shippedConfig)).toEqual(DEFAULT_ROUTE_FLAGS);
     expect(shippedConfig.routeFlags.sharedUi).toBe(true);
-    expect(shippedConfig.watchdogReports).toBe(true);
+    expect(shippedConfig.watchdogReports).toBe(false);
   });
 });
 

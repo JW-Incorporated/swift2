@@ -22,10 +22,10 @@ the DOM bundles.
   before ready, or a repeat inside 5 min, is a watchdog strike that unmounts
   the host; the first crash after ready re-keys the mount once (see the W3-iOS
   note at the end). Android render-process-gone waits for the app to be active.
-- `routeFlags.sharedUi` (default `false`; `config/mobile/app-config.json`
-  and `packages/content/src/app-config.ts`). When true, or when the
-  diagnostics C4 "Force shared UI (this device)" override is on, App.tsx
-  mounts the host instead of the native reader.
+- `routeFlags.sharedUi` (default `true` since 2026-10-04; `config/mobile/app-config.json`
+  and `packages/content/src/app-config.ts`). When true, App.tsx mounts the host
+  instead of the native reader. There is no Diagnostics override; the kill
+  switch is JSON `sharedUi:false`.
 - Diagnostics access while the host is mounted (#4872): the Settings -> About
   path is unreachable, so an invisible native hot corner
   (`components/DiagHotCorner.tsx`, logic in `lib/diag-hot-corner.ts`) sits in
@@ -81,16 +81,15 @@ Without it a broken DOM bundle costs 2 of every 3 launches up to 10 s each,
 and a flipped default cannot be killed remotely.
 
 - **Resolved once per launch, from local state only.** Precedence:
-  quarantine > override > cache > default. Quarantine = this build's record is
-  `quarantined`; override = Diagnostics "Force shared UI"; cache = the last-good
+  quarantine > cache > default. Quarantine = this build's record is
+  `quarantined`; cache = the last-good
   `app-config.json` `sharedUi` (`loadLaunchFlags`, one local read); default =
   `DEFAULT_ROUTE_FLAGS.sharedUi`. The network config is cached and applies on
   the NEXT launch: there is no native-to-DOM swap mid-launch.
 - **Kill switch latency.** Set `sharedUi:false` in `config/mobile/app-config.json`
   and publish (docs/mobile-release.md). A device fetches it on a launch, so it
   is native from that device's second launch after publish. A device that never
-  cached a config follows the compiled default. WP5.1 flips BOTH the JSON and
-  the compiled default.
+  cached a config follows the compiled default. The compiled default is now `true` (the JSON agrees, tested).
 - **Quarantine.** Strike 2 owes one native fallback launch; the second such
   cycle in one `buildKey` (`QUARANTINE_AFTER_FALLBACK_CYCLES = 2`) quarantines the build:
   native on every launch until a new OTA or binary changes the `buildKey`, or
@@ -105,10 +104,9 @@ and a flipped default cannot be killed remotely.
 - **Pending screen.** While the launch resolves, a plain view in the reader's
   body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
   `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
-  native mounts and the DOM never swaps in for that launch, with one exception:
-  the Diagnostics "Force shared UI" override. If it resolves ON after the bound
-  (slow iOS keychain on a cold launch), the DOM host still mounts (late upgrade,
-  `mount-late-upgrade` mark). Every expiry records a `mount-pending-expired`
+  native mounts and the DOM never swaps in for that launch: expiry is
+  terminal, the next launch decides normally (no late swap of an interactive
+  native UI). Every expiry records a `mount-pending-expired`
   mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
   `Mount:` line with the reason the mount is native (`pending-expired`,
   `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)

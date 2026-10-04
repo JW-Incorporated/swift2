@@ -31,8 +31,7 @@ owner's own).
    then open it again.
    *Pass:* the app opens to the era screen.
 2. **Turn on the new reader.** Tap 7 times in the **bottom-left corner, next to
-   the thin home bar** at the bottom of the screen. In Diagnostics, switch on
-   **Force shared UI (this device)**, tap **Done**, force-quit, reopen. Open
+   the thin home bar** at the bottom of the screen. The new reader is the default (no switch to turn on). In Diagnostics tap **Done**, force-quit, reopen (a device that cached the old config shows it from its second launch). Open
    Diagnostics again the same way and tap **Send report**, then **Done**.
    *Pass:* Diagnostics opened both times and the button said it sent.
 3. **Hidden corner, other spots.** Tap 7 times in the **top-left corner** (by
@@ -64,7 +63,7 @@ owner's own).
    **Update**). Open it, wait 10 seconds, force-quit, reopen.
    *Pass:* the app opens to the era screen.
 2. **Turn on the new reader.** Tap 7 times in the **bottom-left corner by the
-   home bar**. Switch on **Force shared UI (this device)**, **Done**,
+   home bar**. The new reader is the default; **Done**,
    force-quit, reopen. Open Diagnostics again, tap **Send report**, **Done**.
    *Pass:* Diagnostics opened both times; report sent.
 3. **Hidden corner, other spots.** 7 taps **top-left**; close. Then 4 taps
@@ -87,7 +86,7 @@ owner's own).
    reopen.
    *Pass:* first launch shows content; second launch shows the older app screens
    (not a blank page). Then put it back: Diagnostics > Force DOM failure
-   **off** > **Reset watchdog** > switch **Force shared UI** on > Done, Airplane
+   **off** > **Reset watchdog** > Done, Airplane
    Mode off, force-quit, reopen.
 8. **Speed test.** Same as iPhone step 7 (Speed test mode on; 5 force-quit
    relaunches; 5 quick go-home-and-back relaunches).
@@ -112,7 +111,7 @@ fills in>`.
 
 1. **Update and turn on the new reader.** Open Long Live, wait 10 seconds,
    force-stop, reopen. Tap 7 times in the **bottom strip** (just above the
-   gesture bar). Make sure **Force shared UI (this device)** is on, tap **Send
+   gesture bar). Tap **Send
    report**, then **Done**.
    *Pass:* Diagnostics opened and the report sent.
 2. **Top of the screen.** Look at the top while scrolling the era stream. Then
