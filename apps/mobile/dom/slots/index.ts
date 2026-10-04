@@ -18,6 +18,7 @@ import './tracks';
 import './era';
 import './legal';
 import './floating';
+import './footer';
 import './merch';
 import './community';
 import './search';
