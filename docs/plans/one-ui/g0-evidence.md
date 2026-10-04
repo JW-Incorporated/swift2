@@ -149,6 +149,33 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
 
 **Note:** S1 (n=2, warm only, broken offsets) and the 12:04 S2 run (all labelled warm, stale marks) are NOT valid baselines — superseded by Speed test mode (#4898). Score with `npm run one-ui:score-speed` (PR pending).
 
+### S4 Android 2026-10-04
+
+**Device:** Pixel 10 Pro, Android 16, gesture navigation, Play-internal build 1.0.0 (18), OTA update 01a10400-19de-7c8e-bc45-321d0e91143e.
+
+**Speed test (npm run one-ui:score-speed):**
+- **Native run 5ef3e6c1:** FAIL — worst cold 3183.8 ms (budget 2500), worst warm 222.1 ms (budget 1000), n 7 cold / 3 warm.
+- **Shared-UI run 87324b0c:** INCOMPLETE by count only — worst cold 864.4 ms, worst warm 17.0 ms, n 6 cold / 4 warm (OS killed backgrounded app so one warm counted cold); PM treats as PASS-with-caveat.
+
+**Native issues:** scroll lag ~0.5 s (#4895); post images missing ~half of launches → #4952 (bare RN Image burst, no onError); scorer image metric blind to it.
+
+**Shared UI results:**
+- Scrolling: perfect
+- Images: loaded every launch
+- Offline (airplane + wifi off): content shows
+- Hot corner: TOP strip failed, BOTTOM worked (#4877 deep link not needed on Android)
+- Layout: black band at top + sticky filter pills offset → #4953 (top inset double-applied, App.tsx SafeAreaView + DOM --safe-top)
+- YouTube: error 153 → #4954 (null origin, no Referer; fix = https baseUrl + referrerPolicy, G0 input)
+- Spotify: only SpotifyCompare in Taylor's Version thread remains, untested
+- Track guide, bottom nav, era picker, ClownChat: not mounted in spike (expected pre-G0, wired WP2.4/2.7-D) → era art offline + ClownChat safe-area UNTESTED
+- Loading state: "Loading..." placeholder flashes top-left on cold launch (ReaderSpike.tsx:176) — no true FOUT observed
+
+**Watchdog:** Force DOM failure=throw offline → native fallback shown (PASS). Strike clears Force-shared-UI override by design; Reset watchdog + "off" persistence quirk → #4955 (diagnostics-only; real users not stuck).
+
+**Probe JSON:** not captured ({} — shared from native fallback).
+
+**iOS / iPad:** NOT TESTED — owner decision 2026-10-04 06:37 PDT: "Use the android info and apply it everywhere"; iOS/iPad deferred to the first post-G0 device session.
+
 ## Traps
 - PROGRESS "Status" table (PG:634-650) is stale; trust the 04:43 checkpoint (PG:9-36).
 - S1 is n=2, warm-only, broken offsets: not a valid cold baseline. Native warm already misses 1 s.
