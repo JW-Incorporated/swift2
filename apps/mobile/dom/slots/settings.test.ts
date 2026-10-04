@@ -46,7 +46,7 @@ describe('navigateDom opens and closes the overlay', () => {
     const openNative = vi.fn();
     const replaceUrl = vi.fn();
     const apply = vi.fn().mockResolvedValue(true);
-    return { openNative, replaceUrl, apply, go: createNavigateDom({ replaceUrl, applier: () => apply, openNative }) };
+    return { openNative, replaceUrl, apply, go: createNavigateDom({ replaceUrl, applier: () => apply, openNative, setPath: vi.fn() }) };
   };
 
   it('/settings/notifications and /settings open the overlay in the DOM, never native', () => {

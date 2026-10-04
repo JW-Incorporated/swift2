@@ -14,11 +14,15 @@
 
 // --- slice imports go here, one line each ---
 import './moment';
+import './tracks';
 import './era';
+import './legal';
 import './floating';
 import './merch';
+import './community';
 import './settings';
 import './search';
+import './clown';
 
 export { register, slots } from './instance';
 export { createSlotRegistry } from './registry';

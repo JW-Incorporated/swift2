@@ -3,9 +3,10 @@
 // scroll survive): rewrite the page query (search + hash only; the DOM page keeps its own path), apply the
 // search via `deps.apply`, and only AFTER that committed answer `navigated {id, ok:true}`. Anything else
 // (another pathname, no reader mounted yet, a throw) answers ok:false so the tap stays queued, never a silent home.
-// A settings path (/settings, /settings/notifications) opens the DOM settings overlay and acks ok:true.
-// Native opens every other non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
+// The allow-listed legal paths (dom-path.ts) are shown in the DOM too: `deps.setPath` resolves true only once the layer is
+// observed committed (dom-path-commit.ts), false on a render failure or no layer; a reader path first closes any open legal page. A settings path (/settings, /settings/notifications) opens the DOM settings overlay and acks ok:true. Native opens every other non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
 import type { EventPayloadOf } from '@swift2/ui';
+import { isDomPath } from './dom-path';
 import { isSettingsPath } from '../slots/settings-paths';
 import { settingsOverlay } from '../slots/settings-store';
 
@@ -13,6 +14,8 @@ export type NavigateDeps = {
   replaceUrl: (relative: string) => void;
   /** Applies the reader search through the store; resolves true once it committed, false when the target did not resolve (state untouched), rejects when no reader is mounted. */
   apply: (search: string) => Promise<boolean>;
+  /** Shows an allow-listed legal path or the reader root and resolves once it committed (showDomPath); false when refused or not rendered. Absent: legal paths are refused. */
+  setPath?: (path: string) => boolean | Promise<boolean>;
 };
 
 type NavigateClient = {
@@ -27,7 +30,11 @@ export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'pa
       settingsOverlay.open();
       return true;
     }
+    if (isDomPath(u.pathname) && deps.setPath) {
+      return await deps.setPath(u.pathname);
+    }
     if (u.pathname !== '/') return false;
+    if (deps.setPath && !(await deps.setPath('/'))) return false;
     deps.replaceUrl(`${u.search || '?'}${u.hash}`);
     return await deps.apply(u.search);
   } catch {

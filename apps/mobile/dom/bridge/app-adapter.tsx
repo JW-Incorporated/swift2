@@ -4,8 +4,9 @@
 // transport-expo.ts + SharedUiHost). The web adapter's contract applies: the
 // reader only ever sees `useHost()`.
 import { forwardRef, type CSSProperties } from 'react';
-import { toExternalUrl, toWebPath } from '@swift2/ui';
+import { toExternalUrl, toMailtoUrl, toWebPath } from '@swift2/ui';
 import type { BridgeClient, HostAdapter, HostImageProps, HostLinkProps, Insets } from '@swift2/ui';
+import { isAllowedMailto } from '../../lib/mailto-allowlist';
 import { imageLoaded } from '../spike/image-listener';
 import { resolveAppUrl } from '../spike/resolve-url';
 import { createAppStorage, handleLinkClick, type NavDeps } from './app-adapter-nav';
@@ -83,7 +84,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
   };
 
   const openExternal = (url: string) => {
-    const ext = toExternalUrl(url);
+    const ext = toExternalUrl(url) ?? (isAllowedMailto(url) ? toMailtoUrl(url) : null);
     if (ext) void deps.client.call('openExternal', { url: ext });
   };
 
