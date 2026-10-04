@@ -34,9 +34,9 @@
  */
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
-import { ReaderExtensionsProvider, useMerch } from '@swift2/ui';
+import { ReaderExtensionsProvider, useHost, useMerch } from '@swift2/ui';
 import type { ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
-import { hasAffiliateMerch, SHOP_DISCLOSURE } from '../moment/lib/shop';
+import { createHostShopLinkRenderer, SHOP_DISCLOSURE } from '../moment/lib/shop';
 import { newDrops, type MerchItem } from '@swift2/content-enrichment';
 import { suggestLinkSectionId } from './lib/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
@@ -119,6 +119,7 @@ function MerchGrid({
 
 export function MerchSectionBody() {
   const merch = useMerch();
+  const affiliate = useHost().env.affiliate;
   const railSections = useMemo<readonly MerchRailSection[]>(
     () => [
       {
@@ -146,7 +147,7 @@ export function MerchSectionBody() {
   useEffect(() => {
     setDrops(newDrops([...merch.officialStore, ...merch.fanMade]));
   }, [merch]);
-  const anyAffiliate = hasAffiliateMerch([
+  const anyAffiliate = createHostShopLinkRenderer(affiliate ?? {}).hasAffiliateMerch([
     ...merch.officialStore,
     ...merch.fanMade,
     ...merch.shopTheLook,
