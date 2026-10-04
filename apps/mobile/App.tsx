@@ -78,6 +78,9 @@ import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
+import { domSurfaceRendered } from './lib/dom-host-handlers';
+import { useNativeOverlay } from './lib/use-native-overlay';
+import { NativeOverlayHost } from './components/NativeOverlayHost';
 
 installDiagnostics();
 installSpeedTest();
@@ -243,6 +246,10 @@ export default function App() {
   // next launch) + the last-good CACHED flags. The network result below never changes this launch.
   const [launchInputs, setLaunchInputs] = useState<LaunchInputs | null>(null);
   const domMount = useDomMount(launchInputs);
+  // D-7: native screens present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
+  // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
+  const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
+  const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   useEffect(() => {
     void lockPhonesToPortrait();
     void Promise.all([getForceSharedUi(), loadLaunchFlags()]).then(([override, flags]) =>
@@ -380,19 +387,24 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <SafeAreaView style={styles.fill}>
+        {/* #4953: ONE inset owner. The DOM mount is edge-to-edge (edges={[]}) and the DOM owns the
+            insets via --safe-top/--safe-bottom; native screens and the fallback keep all four edges. */}
+        <SafeAreaView style={styles.fill} edges={domRendered ? [] : undefined}>
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
-            <SharedUiHost
-              onSignal={(stage, detail) => {
-                diagCollector.mark(stage, detail);
-                if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
-              }}
-              watch={domMount.watch}
-              forceFailure={domMount.forceFailure}
-            />
+            <>
+              <SharedUiHost
+                onSignal={(stage, detail) => {
+                  diagCollector.mark(stage, detail);
+                  if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
+                }}
+                watch={domMount.watch}
+                forceFailure={domMount.forceFailure}
+              />
+              <NativeOverlayHost state={nativeRoute} presenter={presenter} navigate={navigate} />
+            </>
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : screen === 'inbox' ? (

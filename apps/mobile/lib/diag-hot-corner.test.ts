@@ -5,6 +5,7 @@ import {
   domContentRect,
   HOT_CORNER_WIDTH,
   hotCornerRects,
+  sharedHotCornerUnlock,
   type HotCornerRect,
   shouldMountHotCorner,
 } from './diag-hot-corner';
@@ -100,5 +101,18 @@ describe('createHotCornerPress', () => {
     const press = createHotCornerPress(onUnlock, createTapUnlock({ now: () => (t += 3000) }));
     for (let i = 0; i < 10; i++) press();
     expect(onUnlock).not.toHaveBeenCalled();
+  });
+});
+
+describe('sharedHotCornerUnlock', () => {
+  it('counts taps across strips in different windows (root + overlay Modal) toward one 7-tap unlock', () => {
+    const fired = vi.fn();
+    const rootStrip = createHotCornerPress(fired, sharedHotCornerUnlock);
+    const modalStrip = createHotCornerPress(fired, sharedHotCornerUnlock);
+    for (let i = 0; i < 4; i++) rootStrip();
+    for (let i = 0; i < 2; i++) modalStrip();
+    expect(fired).not.toHaveBeenCalled();
+    modalStrip();
+    expect(fired).toHaveBeenCalledTimes(1);
   });
 });
