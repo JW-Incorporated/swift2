@@ -181,6 +181,20 @@ describe('buildIngestResult', () => {
     expect(result.skippedRedlineCount).toBe(1);
   });
 
+  it('never lets a member name or a markup fragment into a built lead (#4885)', () => {
+    const result = buildIngestResult(SYNTHETIC_EXPORT_HTML, {
+      groupSlug: 'taylor-swifts-vault',
+      groupName: "Taylor Swift's Vault",
+      exportedAt: new Date('2026-09-07T16:00:00Z'),
+      maxLeadsPerGroup: 10,
+    });
+    for (const lead of result.engagementLeads) {
+      expect(lead.locator).not.toMatch(/Jane Fan|Another Fan|Third Fan/i);
+      expect(lead.context).not.toMatch(/Jane Fan|Another Fan|Third Fan/i);
+      expect(lead.context).not.toMatch(/role=|aria-label|[<>]/);
+    }
+  });
+
   it('handles an export with zero postable content without crashing', () => {
     const result = buildIngestResult('<html><body>nothing here</body></html>', {
       groupSlug: 'empty-group',

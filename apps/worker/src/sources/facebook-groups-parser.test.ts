@@ -36,6 +36,63 @@ describe('extractPostsFromHtml', () => {
     expect(extractPostsFromHtml('<html><body>no articles here</body></html>')).toEqual([]);
     expect(() => extractPostsFromHtml('<div role="article">unclosed')).not.toThrow();
   });
+
+  // Regression: issue #4885 bug 1 — blocks used to start at the `role="article"`
+  // attribute match, so the rest of the enclosing tag survived stripTags().
+  it('leaks no markup fragment into the derived text', () => {
+    const posts = extractPostsFromHtml(
+      '<div aria-posinset="1" role="article" data-posinset="65" class="x1y">' +
+        '<a href="/profile/1" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">the vault door theory is back</div></div>',
+    );
+    expect(posts).toHaveLength(1);
+    expect(posts[0]!.text).toBe('the vault door theory is back');
+    expect(posts[0]!.text).not.toMatch(/role=|data-posinset|class=|["<>]/);
+  });
+
+  // Regression: issue #4885 bug 2 (privacy) — AUTHOR_RE stripped only the
+  // aria-label attribute, leaving the identical name as the anchor's visible
+  // text, which became the leading words of the stored excerpt.
+  it('removes the author name from the visible anchor text, not just the attribute', () => {
+    const posts = extractPostsFromHtml(SYNTHETIC_EXPORT_HTML);
+    expect(posts).toHaveLength(2);
+    for (const post of posts) {
+      expect(post.text).not.toMatch(/Jane Fan|Another Fan/i);
+    }
+    expect(posts[0]!.text.startsWith('the clowning today is unreal')).toBe(true);
+  });
+
+  it('removes repeated copies of the author name elsewhere in the block', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article">' +
+        '<a href="/profile/1" aria-label="Jane Fan">Jane Fan</a>' +
+        '<span>Jane Fan shared a link</span>' +
+        '<div dir="auto">look at this bracelet</div>' +
+        '<span>Reply to Jane Fan</span></div>',
+    );
+    expect(posts).toHaveLength(1);
+    expect(posts[0]!.text).not.toMatch(/Jane Fan/i);
+    expect(posts[0]!.text).toContain('look at this bracelet');
+  });
+
+  it('still hashes an author whose profile link has no closing tag', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article"><a href="/profile/1" aria-label="Jane Fan"><div dir="auto">unclosed anchor post</div>',
+    );
+    expect(posts).toHaveLength(1);
+    expect(posts[0]!.authorHash).toMatch(/^[0-9a-f]{16}$/);
+    expect(posts[0]!.text).not.toMatch(/Jane Fan|aria-label/i);
+  });
+
+  it('decodes entity-escaped author names before hashing and redacting', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article">' +
+        '<a href="/profile/1" aria-label="Jane &amp; Jo">Jane &amp; Jo</a>' +
+        '<div dir="auto">entity names count too</div></div>',
+    );
+    expect(posts).toHaveLength(1);
+    expect(posts[0]!.text).toBe('entity names count too');
+  });
 });
 
 describe('parseFacebookExport', () => {

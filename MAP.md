@@ -366,6 +366,10 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 | `scripts/knowledge/fb-export-run.mjs` | Weekly idempotent orchestration: collect → real-parser copy gate → confirmed upload → reminder issue comment/close; `--dry-run` stops before upload/GitHub |
 | `scripts/knowledge/fb-export-task.ps1` | Registers the Sunday 18:00 local Windows task with start-after-miss and wake enabled |
 | `%LOCALAPPDATA%\longlive-fb` | **Outside repo:** DPAPI credential, Chrome profile, dated raw exports/diagnostics, and weekly completion ledgers |
+| `scripts/community/fb-lead-scrub.mjs` (+ test) | One-off repair for issue #4885 / HA #98: finds and DELETES the contaminated `engagement_lead` rows (leaked tag fragment + an unhashed group member's name in `locator`/`context`) written by the pre-fix parser. Dry run by DEFAULT; `--apply` deletes; `--json-out` dumps the pre-delete rows for audit. Matches only facebook + `status='new'` + a known checklist group + the leak signature at the head of the excerpt |
+| `scripts/community/fb-lead-reingest.mjs` (+ test) | The repair half: re-derives clean leads from the exports already stored in the private `facebook-exports` bucket with the fixed parser, LEADS ONLY (`fan_signal` holds aggregates only, was never contaminated, and has no unique constraint — re-inserting would duplicate). Dry run by DEFAULT; `--apply` writes; idempotent via `engagement_lead`'s dedupe index |
+| `.github/workflows/fb-lead-scrub.yml` | Manual-dispatch lane for the two scripts above (they need `SUPABASE_SERVICE_ROLE_KEY`, which only lives in Actions secrets). `apply` input defaults to false; uploads the deleted rows as a run artifact. One-off — delete after the repair has run |
+| `supabase/migrations/20261004000000_community_watchlist_facebook_backfill.sql` | Backfills the 7 `community_watchlist` rows for export-checklist Facebook groups that were producing leads with no watchlist row (#4885's last bullet). scan=true, crawl=false, allows_links=false for all |
 
 ## Notifications Phase 4 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
 
