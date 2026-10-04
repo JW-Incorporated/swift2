@@ -57,6 +57,7 @@ the DOM bundles.
 | iOS `associatedDomains`, Android `intentFilters` (apex + www) | added; `.well-known` files withheld until WP2.3 |
 | `softwareKeyboardLayoutMode: "resize"` | added |
 | Share, Linking, scheme, notification categories, safe areas, SecureStore, file-system cache, status bar, expo-updates, splash hold | present |
+| `mailto:` via `openExternal` (WP2.13 A2b) | present: `Linking.openURL`; the handler and host validator accept only a bare `mailto:<address>` (`isMailtoUrl`), no native change |
 | ATS exception, `expo-web-browser`, `.well-known` files | not needed / withheld |
 
 JS-only additions for the test page: `tailwindcss`, `@tailwindcss/postcss`,
@@ -119,7 +120,7 @@ and a flipped default cannot be killed remotely.
 - **Bridge wiring (H0).** SharedUiHost builds one host + link per epoch
   (disposed on unmount; the DOM page is `key`ed by the epoch, so a recreated host
   always meets a freshly handshaking client) over `createUnwiredHandlers`: every
-  command answers `failed` until H1/H2/H3 supply real handlers. The DOM page gets two
+  command answers `failed` until H1/H3 supply real handlers; H2 adds `createLiveAppHandlers` (same map, `api` live over expo/fetch via `createLiveApiDeps`, expo-fetch-deps loaded lazily), and the DOM side `createBridgeApiFetch`/`createBridgeApiStream` (dom/bridge/api-fetch.ts). `apiStream` is buffered (G12): ClownChat in the app has no live investigation trail and shows its pending state until the full answer arrives (up to 60 s); request bodies are capped at 64 KB at the bridge boundary, responses at 256 KB. The SharedUiHost swap to `createLiveAppHandlers` and the app-adapter hookup land in W2-I. The DOM page gets two
   props: `inbox` (the host's un-acked sequenced envelopes, re-delivered whole)
   and `bridge` (a native action, `handlers.bridge`). `createBridgeLink`
   (lib/dom-host-handlers.ts) routes the host's `send`: sequenced envelopes go to
@@ -133,7 +134,29 @@ and a flipped default cannot be killed remotely.
   nothing) only when `bridge` is supplied (never on web/dev): it sends `ready` after
   mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
   first-paint `onReady` still does; the `hang` drill is unchanged).
-- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing.
+- **UI commands live (H1 / WP2.3-D2).** SharedUiHost passes the host
+  `createWiredHandlers(onSignal, { ui: createUiDeps(...) })`: navigate,
+  openExternal (https), share (RN `Share`), haptic (expo-haptics) are real; api and
+  notifications stay unwired until H2/H3. Native-to-DOM: `insets` (from
+  `useSafeAreaInsets`, on change and held until `ready`) and `contentVersion`
+  (bundle version, once per change). The DOM is the sole inset owner: it sets
+  `--safe-*` from the `insets` event (the `insets` prop is web/dev only).
+  Hardware back: `createBackHandler` sends a `back` command (1000 ms); before
+  `ready` the press falls through to native, after it the DOM answers `handled`
+  (the reader closed an open item) or `exit` (root, timeout or error: `exitApp`).
+  The `backTick` counter is deleted. The reader Shell registers the responder and
+  `useExpoBridge(props, hooks, setup)` subscribes `insets`, `contentVersion` and
+  `back` before the inbox is consumed. `withFocusRestore(fn)`
+  (dom/bridge/focus-restore.ts) returns focus after a native sheet closes; the app
+  adapter (`dom/bridge/app-adapter.tsx` `share`) wraps its bridge call with it (live once D2 mounts the adapter).
+- **Navigate contract.** DOM to native `navigate {path, replace?}` takes a web path
+  (X4: `/?screen=settings`, `/?item=<id>`, `/?mode=threads`). `isNativeRoute`
+  (lib/routes.ts, live flags via `getRouteFlags`) true: the D-7 presenter
+  (`presentNativeRoute`, SharedUiHost prop supplied by App.tsx in H4/D1) opens it
+  natively; with no presenter attached the reply is `failed`. False: `invalid`,
+  and the DOM routes it itself (history API). Native to DOM `navigate {path,
+  source}` is `BridgeHost.emit('navigate', ...)` (`navigateSink`, H3).
+- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing and the presenter prop.
 
 **Notification taps (H3).** App.tsx calls `useNotificationTaps(navigate, mount==='native')` (lib/use-notification-taps.ts). `lib/notification-tap-ingest.ts` serializes the cold `getLastNotificationResponseAsync` read (+ clear) and the live listener into `lib/notification-tap-gate.ts`, which wraps the E1 queue (15 s ack, 10 min TTL, cap 16). Dedupe key = `request.identifier`, else `anon:<date>|<deepLink>`; a response with neither is rejected. Targets: native mode (DOM not mounted) opens native screens; a link the queue refuses opens its canonical `siteUrl+path` or home, never the raw string; a bound+ready host gets bridge `navigate` (`source:'notification'`), delivered on ack, re-awaiting the same event (no re-emit) after an ack timeout; retried every 5 s while held and on AppState active; otherwise taps hold. `bindHost(host)` returns an epoch lease cleanup that unbinds only if still current. **Not wired yet (SharedUiHost, post-H1):** spread `{...createUnwiredHandlers(onSignal), ...createExpoNotificationHandlers()}`; bind the current epoch's host only after bridge `ready` AND the reader's ready signal, after H1's navigate subscriber exists; call the lease cleanup on fatal, crash/render-gone, watchdog fallback, readiness loss and unmount, before disposing host/link; every readiness loss needing a rebind must create a new keyed host/client epoch (never rebind a detached live host).
 
@@ -152,6 +175,12 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
 4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
+
+## Insets, native overlay and the app adapter (WP2.4-D1, #4953)
+
+- **One inset owner.** While the DOM host is mounted, App.tsx's `SafeAreaView` has `edges={[]}`: the host is edge-to-edge and the DOM alone applies `--safe-top`/`--safe-bottom`. Native screens, the fallback and the update screen keep all four edges. The diag hot-corner strips are siblings rendered outside the `SafeAreaView` (absolute, sized by `useSafeAreaInsets()`), so they sit above the full-bleed webview and are unaffected. The stale comment on `domContentRect` (`lib/diag-hot-corner.ts`) still describes the old padded layout (follow-up, outside D1's touch set).
+- **Native overlay.** `presentNativeRoute` (pure presenter in `lib/dom-host-handlers.ts`) drives an RN `Modal` over the still-mounted `SharedUiHost` (never an unmount). Native owns hardware back in every phase but idle; opening/closing carry deadlines, so App.tsx schedules one `tick` after each transition (`msUntilDeadline`); leaving `mount === 'dom'` (watchdog fallback) resets the overlay. The overlay resets whenever the DOM surface is not rendered (`domSurfaceRendered`: mount is not dom, or update-required). The Modal is a separate native window, so it renders its own diag hot-corner strips; every strip feeds one app-wide 7-tap counter (`sharedHotCornerUnlock`), so top/bottom/mixed taps work with the overlay up. RN `Modal.onDismiss` is iOS-only: on Android the closing phase resolves through the deadline tick. State/effects live in `lib/use-native-overlay.ts`, rendering in `components/NativeOverlayHost.tsx`. Not yet reachable: the route allow-list (`dom/slots/routes`) is empty and `presentNativeRoute` is handed to the bridge `navigate` handler in D2.
+- **App HostAdapter** (`dom/bridge/app-adapter.tsx`, helpers in `app-adapter-nav.tsx`; not mounted until D2). Built per provider. `Link` intercepts clicks (every in-app route must pass `toWebPath`; https elsewhere -> bridge `openExternal`; malformed paths, `//host`, `javascript:`/`intent:`/`file:`/`mailto:` and plain http are consumed and dropped; every `_blank` click is consumed whatever the modifiers); `installBlankCapture` does the same for plain `a[target=_blank]` in the bubble phase, so page handlers can `preventDefault()` first. `navigate` sends native-owned routes over the bridge and the rest to the injected DOM navigator. `Image` replicates next/image `fill` styles. `storage` is tri-state (#4923): `null` = absent key, `undefined` only when the area is unavailable. `currentUrl` is the in-DOM web path on the canonical origin, never `file://` (`toWebPath(getPath())`, falling back to `/`; feedback reports keep their location). `embedOrigin` is the canonical origin.
 
 ## Open items
 

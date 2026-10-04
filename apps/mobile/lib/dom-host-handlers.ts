@@ -251,6 +251,12 @@ export function nativeOwnsBack(state: NativeRouteState): boolean {
   return state.phase !== 'idle';
 }
 
+// Delay for the one `tick` App.tsx schedules after an opening/closing transition;
+// null when no deadline is pending.
+export function msUntilDeadline(state: NativeRouteState, now: number): number | null {
+  return state.deadlineAt === null ? null : Math.max(0, state.deadlineAt - now);
+}
+
 // D-7 contract: `presentNativeRoute(path)` is the single presenter. Thin stateful
 // wrapper over the reducer; `onChange` lets App.tsx mirror state into React and
 // `now` is the injected clock (e.g. Date.now) used to stamp events.
@@ -283,3 +289,17 @@ export function createNativeRoutePresenter(
   };
 }
 
+
+// The DOM surface (host + overlay Modal) is rendered only for mount 'dom' and not
+// while the update-required screen preempts it. Anything else must drop the overlay,
+// or a stale 'open' phase would keep owning hardware back with nothing on screen.
+export function domSurfaceRendered(mount: string, updateRequired: boolean): boolean {
+  return mount === 'dom' && !updateRequired;
+}
+
+export function reconcileOverlay(
+  presenter: { clearOnWatchdogFallback: () => NativeRouteResult },
+  rendered: boolean,
+): NativeRouteResult {
+  return rendered ? 'noop' : presenter.clearOnWatchdogFallback();
+}

@@ -8,7 +8,7 @@ import type {
 } from '../host/types';
 import type { Envelope, ResResult } from './envelope';
 import { makeRes, resErr } from './envelope';
-import type { BridgeApiRequest, ExternalUrl, WebPath } from './validate';
+import type { BridgeApiRequest, ExternalUrl, MailtoUrl, WebPath } from './validate';
 import type { VersionRange } from './version';
 
 type Spec<P, R> = { payload: P; result: R };
@@ -22,8 +22,8 @@ export type DomCommandSpec = {
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
   share: Spec<SharePayload, null>;
   haptic: Spec<{ kind: HapticKind }, null>;
-  /** `https:` only (`isExternalUrl`); anything else is `invalid`. */
-  openExternal: Spec<{ url: ExternalUrl }, null>;
+  /** `https:` (`isExternalUrl`) or a bare `mailto:` (`isMailtoUrl`); anything else is `invalid`. */
+  openExternal: Spec<{ url: ExternalUrl | MailtoUrl }, null>;
   'notifications.status': Spec<Record<string, never>, NotificationStatus>;
   'notifications.request': Spec<Record<string, never>, NotificationStatus>;
   'notifications.register': Spec<Record<string, never>, null>;

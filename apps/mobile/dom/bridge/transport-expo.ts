@@ -57,17 +57,24 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSou
   };
 }
 
-/** One client per mount: `ready` on mount, then `inbox` into `consumeInbox`, posting via `bridge`. */
-export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}): BridgeClient {
+/**
+ * One client per mount: `ready` on mount, then `inbox` into `consumeInbox`, posting via `bridge`.
+ * `setup` runs against the live client after `ready` is posted and BEFORE the inbox is consumed
+ * (events consumed with no subscriber are lost); return its unsubscribe.
+ */
+export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}, setup?: (client: BridgeClient) => void | (() => void)): BridgeClient {
   const ref = useRef(bridge);
   ref.current = bridge;
   const hooksRef = useRef(hooks);
   hooksRef.current = hooks;
+  const setupRef = useRef(setup);
+  setupRef.current = setup;
   const handle = useMemo(
     () => createExpoBridge((e) => ref.current(e), undefined, { onFatal: (r) => hooksRef.current.onFatal?.(r), onSignal: (k, d) => hooksRef.current.onSignal?.(k, d) }),
     [],
   );
   useEffect(() => handle.mount(), [handle]);
+  useEffect(() => setupRef.current?.(handle.client), [handle]);
   useEffect(() => handle.client.consumeInbox(inbox), [handle, inbox]);
   return handle.client;
 }
