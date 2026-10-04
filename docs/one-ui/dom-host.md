@@ -127,6 +127,15 @@ and a flipped default cannot be killed remotely.
   then set it to `max(10 s, 2 x p95 on the slowest device)`.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
+- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `lib/watchdog-closure.test.ts` drives the real
+  monitor, tap gate, binder, bridge host/link/handlers and native-route presenter. (1) Protocol fatal from the
+  host (version too new) and from the DOM client strikes `protocol`, before and after first paint. (2) A
+  strike resets any open native overlay (hardware back stops being consumed) and releases the host lease first.
+  (3) Taps in flight to the DOM host, or held before a host binds, flush to the native navigator at fallback;
+  while quarantined, taps open natively at once and are never queued. The pending/launch overlay needs no
+  clearing: no overlay exists before the DOM host mounts.
+- **WP2.14 preconditions for any remote `sharedUi:true`:** all closed except `READY_TIMEOUT_MS`
+  (above; S7 time-to-ready data), which is the only open one.
 - **Bridge wiring (H0).** SharedUiHost builds one host + link per epoch
   (disposed on unmount; the DOM page is `key`ed by the epoch, so a recreated host
   always meets a freshly handshaking client) over `createUnwiredHandlers`: every
