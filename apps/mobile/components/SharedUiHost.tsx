@@ -35,7 +35,7 @@ import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
-import { lastGoodCacheUri } from '../lib/dom-reader-config';
+import { lastGoodSource, type LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
@@ -43,7 +43,7 @@ import type { DomWatch } from '../lib/watchdog-gate';
 const SITE_FALLBACK = 'https://www.longlivets.com';
 
 interface ReaderSource {
-  cacheUri: string | null;
+  cache: LastGoodSource | null;
 }
 
 export function SharedUiHost({
@@ -108,15 +108,15 @@ export function SharedUiHost({
   useEffect(() => {
     if (testPage !== false) return;
     // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
-    const cached = lastGoodCacheUri();
-    if (cached) setSource({ cacheUri: cached });
+    const cached = lastGoodSource();
+    if (cached) setSource({ cache: cached });
     void loadContentBundle()
       .then((bundle) => {
         setContentToken(bundle.manifest.bundleVersion);
-        if (!cached) setSource({ cacheUri: lastGoodCacheUri() });
+        if (!cached) setSource({ cache: lastGoodSource() });
       })
       .catch(() => {
-        if (!cached) setSource({ cacheUri: null });
+        if (!cached) setSource({ cache: null });
       });
   }, [testPage]);
 
@@ -260,7 +260,8 @@ export function SharedUiHost({
         <AppReader
           key={session.epoch}
           dom={dom}
-          cacheUri={source.cacheUri ?? undefined}
+          cacheUri={source.cache?.scriptUri}
+          cacheJsonUri={source.cache?.jsonUri}
           inbox={inbox}
           bridge={handlers.bridge}
           reportProtocolFatal={handlers.reportProtocolFatal}

@@ -42,7 +42,23 @@ const LAST_GOOD_SUFFIX = ':last-good';
 /** The `.js` twin of a last-good cache file: the JSON document as a JS string literal, so the DOM webview can load it
  * with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS). */
 export function lastGoodScriptSource(jsonText: string): string {
-  return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};`;
+  return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+}
+
+/** FNV-1a 32-bit over the JSON text + its length: the twin's content id, also the `?v=` cache-buster. */
+export function contentId(text: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) h = Math.imul(h ^ text.charCodeAt(i), 0x01000193);
+  return `${(h >>> 0).toString(16)}-${text.length}`;
+}
+
+/** Atomic twin write: temp file, then move over the target (a reader sees the old or the new twin, never a partial one). */
+export function writeLastGoodTwin(key: string, jsonText: string): void {
+  if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
+  const name = lastGoodScriptName(key);
+  const tmp = new FileSystem.File(CACHE_DIR, `${name}.tmp`);
+  tmp.write(lastGoodScriptSource(jsonText));
+  tmp.moveSync(new FileSystem.File(CACHE_DIR, name), { overwrite: true });
 }
 
 export function lastGoodScriptName(key: string): string {
@@ -69,7 +85,7 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
       const file = cacheFile(key);
       // Twin first: a crash between the writes may leave the DOM newer than native, never older.
       if (key.endsWith(LAST_GOOD_SUFFIX)) {
-        new FileSystem.File(CACHE_DIR, lastGoodScriptName(key)).write(lastGoodScriptSource(value));
+        writeLastGoodTwin(key, value);
       }
       file.write(value);
     },

@@ -25,10 +25,12 @@ function xhr(result: { readyState?: number; responseText: string; error?: boolea
   };
 }
 
+const URIS = { scriptUri: 'file:///a.js?v=1', jsonUri: 'file:///a.json' };
+
 // The node test env has no `document`, so the script attempt fails first unless a fake doc is passed.
 describe('readLocalText', () => {
   it('falls through script and xhr to fetch', async () => {
-    const r = await readLocalText('file:///a.json', {
+    const r = await readLocalText(URIS, {
       xhr: xhr({ responseText: '', error: true }),
       fetch: async () => ({ text: async () => '{"a":1}' }),
     });
@@ -41,7 +43,7 @@ describe('readLocalText', () => {
   });
 
   it('uses XHR before fetch, success at readyState 4 with status 0', async () => {
-    const r = await readLocalText('file:///a.json', {
+    const r = await readLocalText(URIS, {
       fetch: async () => {
         throw new TypeError('Fetch API cannot load file:');
       },
@@ -55,7 +57,7 @@ describe('readLocalText', () => {
   });
 
   it('treats an empty XHR body as failure and reports all attempts', async () => {
-    const r = await readLocalText('file:///a.json', {
+    const r = await readLocalText(URIS, {
       fetch: async () => ({ text: async () => '' }),
       xhr: xhr({ responseText: '' }),
     });
@@ -65,7 +67,7 @@ describe('readLocalText', () => {
   });
 
   it('reports an XHR network error', async () => {
-    const r = await readLocalText('file:///a.json', {
+    const r = await readLocalText(URIS, {
       fetch: async () => {
         throw new Error('blocked');
       },
@@ -100,7 +102,7 @@ describe('readLocalText', () => {
       const { doc, el } = fakeDoc((g) => {
         g.__swift2LastGood = '{"c":3}';
       });
-      const r = await readLocalText('file:///a.js', {
+      const r = await readLocalText(URIS, {
         doc,
         fetch: async () => {
           throw new TypeError('blocked');
@@ -109,22 +111,34 @@ describe('readLocalText', () => {
       });
       expect(r).toMatchObject({ text: '{"c":3}', via: 'script' });
       expect(r.attempts).toEqual([{ method: 'script', ok: true }]);
-      expect(el.src).toBe('file:///a.js');
+      expect(el.src).toBe('file:///a.js?v=1');
       expect(el.removed).toBe(true);
       expect('__swift2LastGood' in globalThis).toBe(false);
     });
 
-    it('strips a ?v= cache-buster when deriving the .json twin', async () => {
-      const { doc } = fakeDoc(() => {}, true);
+    it('gives the script the ?v= URI and XHR the separate .json URI', async () => {
+      const { doc, el } = fakeDoc(() => {}, true);
       const seen: string[] = [];
-      await readLocalText('file:///a.js?v=99', { doc, xhr: xhr({ responseText: 'X' }, seen) });
+      await readLocalText({ scriptUri: 'file:///a.js?v=99', jsonUri: 'file:///a.json' }, { doc, xhr: xhr({ responseText: 'X' }, seen) });
+      expect(el.src).toBe('file:///a.js?v=99');
       expect(seen).toEqual(['file:///a.json']);
+    });
+
+    it('times out a script that never fires, cleans up, and falls back to XHR', async () => {
+      const el: { remove(): void; removed?: boolean } = { remove() { el.removed = true; } };
+      const doc = { createElement: () => el, head: { appendChild: () => {} } } as unknown as Document;
+      (globalThis as Record<string, unknown>).__swift2LastGood = 'stale';
+      const r = await readLocalText(URIS, { doc, scriptTimeoutMs: 10, xhr: xhr({ responseText: 'Y' }) });
+      expect(r).toMatchObject({ text: 'Y', via: 'xhr' });
+      expect(r.attempts[0]).toMatchObject({ method: 'script', ok: false, error: 'script timeout' });
+      expect(el.removed).toBe(true);
+      expect('__swift2LastGood' in globalThis).toBe(false);
     });
 
     it('falls to XHR on script error and reads the .json twin', async () => {
       const { doc } = fakeDoc(() => {}, true);
       const seen: string[] = [];
-      const r = await readLocalText('file:///a.js', { doc, xhr: xhr({ responseText: 'X' }, seen) });
+      const r = await readLocalText(URIS, { doc, xhr: xhr({ responseText: 'X' }, seen) });
       expect(r).toMatchObject({ text: 'X', via: 'xhr' });
       expect(seen).toEqual(['file:///a.json']);
     });

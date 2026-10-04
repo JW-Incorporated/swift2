@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const files = new Map<string, string>();
-let mtime: number | null = 1234;
+const ops: string[] = [];
 vi.mock('expo-file-system', () => {
   class Directory {
     uri: string;
@@ -20,16 +20,16 @@ vi.mock('expo-file-system', () => {
       return files.has(this.uri);
     }
     write(v: string) {
+      ops.push(`write ${this.uri.split('/').pop()}`);
       files.set(this.uri, v);
-    }
-    get size() {
-      return (files.get(this.uri) ?? "").length;
-    }
-    info() {
-      return { modificationTime: mtime };
     }
     textSync() {
       return files.get(this.uri) as string;
+    }
+    moveSync(dest: { uri: string }) {
+      ops.push(`move ${this.uri.split('/').pop()}`);
+      files.set(dest.uri, files.get(this.uri) as string);
+      files.delete(this.uri);
     }
     delete() {
       files.delete(this.uri);
@@ -38,8 +38,8 @@ vi.mock('expo-file-system', () => {
   return { Directory, File, Paths: { document: { uri: 'file:///doc' } } };
 });
 
-import { cacheFileName, lastGoodCacheKey, lastGoodCacheUri } from './dom-reader-config';
-import { contentBaseUrl, expoFileSystemStorageAdapter, lastGoodScriptSource } from './vault-storage';
+import { cacheFileName, lastGoodCacheKey, lastGoodSource } from './dom-reader-config';
+import { contentBaseUrl, contentId, expoFileSystemStorageAdapter, lastGoodScriptSource } from './vault-storage';
 
 const key = () => lastGoodCacheKey(contentBaseUrl());
 const jsonUri = () => `file:///doc/swift2-content-cache/${cacheFileName(key())}`;
@@ -47,42 +47,62 @@ const jsUri = () => jsonUri().replace(/\.json$/, '.js');
 
 beforeEach(() => {
   files.clear();
-  mtime = 1234;
+  ops.length = 0;
 });
 
-describe('lastGoodCacheUri', () => {
+describe('lastGoodSource', () => {
   it('is null when no cache is on disk (first launch)', () => {
-    expect(lastGoodCacheUri()).toBeNull();
+    expect(lastGoodSource()).toBeNull();
   });
 
-  it('backfills the .js twin once from an existing .json and returns its URI', () => {
+  it('backfills a missing .js twin and returns separate script (?v=id) and json URIs', () => {
     files.set(jsonUri(), '{"v":1}');
-    expect(lastGoodCacheUri()).toBe(`${jsUri()}?v=1234`);
+    expect(lastGoodSource()).toEqual({ scriptUri: `${jsUri()}?v=${contentId('{"v":1}')}`, jsonUri: jsonUri() });
     expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":1}'));
-    files.set(jsUri(), 'sentinel');
-    expect(lastGoodCacheUri()).toBe(`${jsUri()}?v=1234`);
-    expect(files.get(jsUri())).toBe('sentinel');
   });
 
-  it('falls back to the file size when there is no mtime', () => {
-    mtime = null;
+  it('leaves a valid twin untouched', () => {
     files.set(jsonUri(), '{"v":1}');
-    expect(lastGoodCacheUri()).toBe(`${jsUri()}?v=7`);
+    files.set(jsUri(), lastGoodScriptSource('{"v":1}'));
+    lastGoodSource();
+    expect(ops).toEqual([]);
+  });
+
+  it('regenerates a stale twin (older content) and changes the ?v= id', () => {
+    files.set(jsonUri(), '{"v":2}');
+    files.set(jsUri(), lastGoodScriptSource('{"v":1}'));
+    const s = lastGoodSource();
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":2}'));
+    expect(s?.scriptUri.endsWith(`?v=${contentId('{"v":2}')}`)).toBe(true);
+    expect(contentId('{"v":2}')).not.toBe(contentId('{"v":1}'));
+  });
+
+  it('regenerates a truncated twin', () => {
+    files.set(jsonUri(), '{"v":1}');
+    files.set(jsUri(), lastGoodScriptSource('{"v":1}').slice(0, 30));
+    lastGoodSource();
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource('{"v":1}'));
   });
 });
 
 describe('storage adapter .js twin', () => {
-  const payloads = ['{"a":"q\\"uote","b":"back\\\\slash","c":"  "}', '{"e":"\u2028\u2029"}', '{"plain":1}'];
+  const payloads = ['{"a":"q\\"uote","b":"back\\\\slash","c":"  "}', '{"e":"\\u2028\\u2029"}', '{"plain":1}'];
 
   it.each(payloads)('writes a round-trippable .js sibling for :last-good (%#)', (json) => {
     expoFileSystemStorageAdapter().setItem(key(), json);
     const js = files.get(jsUri()) as string;
     expect(js.startsWith('globalThis.__swift2LastGood=')).toBe(true);
-    expect(js.endsWith(';')).toBe(true);
     const g: Record<string, unknown> = {};
     (new Function('globalThis', js) as (g: unknown) => void)(g);
     expect(g.__swift2LastGood).toBe(json);
+    expect(g.__swift2LastGoodId).toBe(contentId(json));
     expect(files.get(jsonUri())).toBe(json);
+  });
+
+  it('writes the twin atomically (temp then move) and before the .json', () => {
+    expoFileSystemStorageAdapter().setItem(key(), '{}');
+    expect(ops).toEqual(['write ' + jsUri().split('/').pop() + '.tmp', 'move ' + jsUri().split('/').pop() + '.tmp', 'write ' + jsonUri().split('/').pop()]);
+    expect([...files.keys()].sort()).toEqual([jsUri(), jsonUri()].sort());
   });
 
   it('removeItem deletes the .js twin with the .json', () => {
@@ -90,11 +110,6 @@ describe('storage adapter .js twin', () => {
     a.setItem(key(), '{}');
     a.removeItem?.(key());
     expect(files.size).toBe(0);
-  });
-
-  it('writes the .js twin before the .json', () => {
-    expoFileSystemStorageAdapter().setItem(key(), '{}');
-    expect([...files.keys()]).toEqual([jsUri(), jsonUri()]);
   });
 
   it('writes no .js for other keys', () => {

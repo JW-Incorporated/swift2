@@ -25,8 +25,10 @@ import { loadReader, type ReaderProps } from './reader/reader-modules';
 import { setImageLoadListener } from './reader/image-listener';
 
 export interface AppReaderProps {
-  /** file:// URI of the native `last-good` cache file. */
+  /** file:// URI of the `last-good` cache's `.js` twin (script-loaded, `?v=` cache-busted). */
   cacheUri?: string;
+  /** file:// URI of the `last-good` cache `.json`, for the XHR/fetch fallbacks. */
+  cacheJsonUri?: string;
   /** Web/dev seed for the probe version; on device the host sends it as the `contentVersion` event. */
   versionToken?: string;
   /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
@@ -88,7 +90,7 @@ function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, n
 }
 
 export default function AppReader(props: AppReaderProps) {
-  const { cacheUri, versionToken = '', devLoader } = props;
+  const { cacheUri, cacheJsonUri, versionToken = '', devLoader } = props;
   const [hostInsets, setHostInsets] = useState<Insets | undefined>();
   const insets = hostInsets ?? props.insets ?? (devLoader ? insetsFromQuery() : undefined);
   const backRef = useRef<BackFn | null>(null);
@@ -166,7 +168,7 @@ export default function AppReader(props: AppReaderProps) {
 
   useEffect(() => {
     const onError = (e: ErrorEvent) => {
-      if (cacheUri && e.filename === cacheUri) return; // the <script> probe of the JSON cache
+      if (cacheUri && e.filename === cacheUri) return; // the <script> twin of the JSON cache
       void propsRef.current.reportError(`error: ${e.message}`);
     };
     const onRejection = (e: PromiseRejectionEvent) => {
@@ -193,7 +195,7 @@ export default function AppReader(props: AppReaderProps) {
         let text: string | null = null;
         if (devLoader) text = await devLoader();
         else if (cacheUri) {
-          const read = await readLocalText(cacheUri);
+          const read = await readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' });
           probe.attempts(read.attempts);
           readAttempts = read.attempts;
           text = read.text;

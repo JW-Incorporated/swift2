@@ -27,7 +27,17 @@ export interface ReadDeps {
   fetch?: (uri: string) => Promise<{ text(): Promise<string> }>;
   xhr?: () => XhrLike;
   doc?: Document;
+  scriptTimeoutMs?: number;
 }
+
+export interface ReadUris {
+  /** The `.js` twin (with its `?v=` cache-buster). */
+  scriptUri: string;
+  /** The `.json` for XHR/fetch. */
+  jsonUri: string;
+}
+
+const SCRIPT_TIMEOUT_MS = 3000;
 
 const msg = (e: unknown) => (e instanceof Error ? e.message : String(e)).slice(0, 120);
 
@@ -48,16 +58,21 @@ function xhrRead(make: () => XhrLike, uri: string): Promise<string> {
 const GLOBAL_KEY = '__swift2LastGood';
 
 /** Load `uri` (the `.js` twin) as a classic script, take the JSON text it parks on globalThis, then clean up. */
-function scriptRead(uri: string, doc?: Document): Promise<string> {
+function scriptRead(uri: string, doc?: Document, timeoutMs = SCRIPT_TIMEOUT_MS): Promise<string> {
   return new Promise((resolve, reject) => {
     const d = doc ?? (typeof document === 'undefined' ? undefined : document);
     if (!d) return reject(new Error('no document'));
     const g = globalThis as unknown as Record<string, unknown>;
     const s = d.createElement('script');
     const done = () => {
+      clearTimeout(timer);
       delete g[GLOBAL_KEY];
       s.remove?.();
     };
+    const timer = setTimeout(() => {
+      done();
+      reject(new Error('script timeout'));
+    }, timeoutMs);
     s.onload = () => {
       const text = g[GLOBAL_KEY];
       done();
@@ -73,14 +88,13 @@ function scriptRead(uri: string, doc?: Document): Promise<string> {
   });
 }
 
-/** Order is script -> xhr -> fetch. `uri` is the `.js` twin; fetch/XHR read the sibling `.json`. */
-export async function readLocalText(uri: string, deps: ReadDeps = {}): Promise<ReadResult> {
+/** Order is script -> xhr -> fetch. the script reads the `.js` twin; fetch/XHR read the `.json`. */
+export async function readLocalText({ scriptUri, jsonUri }: ReadUris, deps: ReadDeps = {}): Promise<ReadResult> {
   const attempts: ReadAttempt[] = [];
-  const jsonUri = uri.replace(/\.js(\?.*)?$/, '.json');
   const doFetch = deps.fetch ?? (globalThis.fetch as unknown as ReadDeps['fetch']);
   const makeXhr = deps.xhr ?? (() => new XMLHttpRequest() as unknown as XhrLike);
   try {
-    const text = await scriptRead(uri, deps.doc);
+    const text = await scriptRead(scriptUri, deps.doc, deps.scriptTimeoutMs);
     attempts.push({ method: 'script', ok: true });
     return { text, via: 'script', attempts };
   } catch (e) {
