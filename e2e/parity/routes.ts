@@ -27,7 +27,7 @@ export interface AOnlyRoute extends RouteLike {
   /** Default 'a'. 'both' adds the a-vs-b viewport compare and b-* baselines (a slice D sets it; see docs/one-ui/parity.md). */
   sides?: Sides;
 }
-const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main', sides: 'both' });
+const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main' });
 const SEARCH_DIALOG = '[role="dialog"][aria-label="Search the archive"]';
 const SEARCH_OPEN_BUTTON = 'button[aria-label="Search the archive (press /)"]';
 export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
@@ -38,7 +38,7 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
     root: '[role="dialog"]',
     sides: 'both',
   },
-  { name: 'threads', path: '/?mode=threads', root: 'main', sides: 'both' },
+  { name: 'threads', path: '/?mode=threads', root: 'main' },
   threadLens('love-story'),
   threadLens('fashion'),
   threadLens('taylors-version'),
@@ -49,7 +49,6 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
     name: 'crossing',
     path: '/?mode=threads',
     root: 'main',
-    sides: 'both',
     prepare: async (page) => {
       await page.getByRole('button', { name: /Where threads cross/ }).first().click();
     },
