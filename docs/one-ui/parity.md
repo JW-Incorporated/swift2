@@ -154,6 +154,8 @@ surface into the app DOM bundle (side b), flip its route:
    `mobile-parity.yml`), then push a non-bot commit (bot commits do not trigger PR CI).
 4. Side b must serve the route: it needs the slot in `apps/mobile/dom/slots/` (see its header), and an unknown query
    mode renders the D-6 fallback, which fails the a-vs-b compare (that is the intended signal).
+   WP2.8-D flipped `search-open` and `search-results` (slot `overlay:search`, `dom/slots/search.ts`); their
+   `b-search-*` baselines are added by the update-baselines dispatch, the `a-search-*` ones are unchanged.
 
 `sides.spec.ts` is the browser-free dry run: a fixture route marked `both` plans one a-vs-b compare and two
 b baselines, and every real route is asserted a-only (so with no flip, no test is generated and the

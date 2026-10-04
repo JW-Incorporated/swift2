@@ -64,6 +64,7 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
     name: 'search-open',
     path: '/',
     root: 'main',
+    sides: 'both',
     clip: SEARCH_DIALOG,
     prepare: async (page) => {
       await page.locator(SEARCH_OPEN_BUTTON).first().click();
@@ -74,6 +75,7 @@ export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
     name: 'search-results',
     path: '/',
     root: 'main',
+    sides: 'both',
     clip: SEARCH_DIALOG,
     prepare: async (page) => {
       await page.locator(SEARCH_OPEN_BUTTON).first().click();
