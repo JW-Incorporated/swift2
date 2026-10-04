@@ -21,6 +21,7 @@ import { enqueueRegistration } from './registration-queue';
  * Token-free registration flag, stored as the INVERSE ("explicitly unregistered", set by the in-app turn-off) so
  * devices that registered before the flag existed still read as registered.
  */
+const REQUEST_TIMEOUT_MS = 10_000;
 export const UNREGISTERED_KEY = 'longlive_push_unregistered';
 
 export async function isExplicitlyUnregistered(): Promise<boolean> {
@@ -98,7 +99,17 @@ export function clearRegisteredToken(): Promise<void> {
  * screen), never unconditionally on cold start. `registerDevice()` above is
  * the cold-start-safe variant.
  */
-export function requestPushRegistration(opts: { clearOptOut?: boolean } = {}): Promise<PushRegistrationResult> {
+export async function requestPushRegistration(opts: { clearOptOut?: boolean } = {}): Promise<PushRegistrationResult> {
+  // The OS permission prompt can wait on the user indefinitely, so it runs OUTSIDE the queue.
+  let finalStatus: string | null = null;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+  }
   return enqueueRegistration(async (isCurrent) => {
     const deviceId = await getOrCreateDeviceId();
     await registerNotificationChannels();
@@ -117,13 +128,6 @@ export function requestPushRegistration(opts: { clearOptOut?: boolean } = {}): P
       // but don't attempt a token.
       await upsert(null);
       return done({ status: 'unsupported' });
-    }
-
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
     }
 
     if (finalStatus !== 'granted') {
@@ -167,6 +171,7 @@ async function registerWithBackend(input: {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   if (!res.ok) {
     throw new Error(`devices/register: HTTP ${res.status}`);
