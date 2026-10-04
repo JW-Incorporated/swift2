@@ -283,3 +283,20 @@ Surfaces that had no a-vs-b comparison (a-only element clips, or nothing) are `C
 **Bridge api stub on side b (`e2e/parity/b-api.ts`).** In a plain browser `AppReader` hands the reader `NO_BRIDGE`, whose `call` fails closed, and ClownChat reaches `/api/clown` through the bridge `apiFetch` (no `apiStream` on the app adapter), so a `page.route` stub cannot intercept it. `clownbot-transcript` therefore patches the exported entry bundle in flight so `NO_BRIDGE.call` answers `window.__parityApi` (defined by an init script) with the same NDJSON fixture side a gets from its network stub. Test-only, no product change; a bundle that no longer contains `NO_BRIDGE` fails the test loudly.
 
 Not coverable with the frozen fixture: EraSecretCard and CountdownBanner render nothing on side a (the pruned fixture has no sourced secret and no countdown at the fixed clock), so adding them needs a deliberate fixture regeneration. Running locally: a stale `serve.mjs` / `next start` from another session on 4173/4174 is silently reused (`reuseExistingServer`) and can serve an older build; set `PARITY_PORT` and `PARITY_A_PORT` to free ports.
+
+## Closure invariant (One UI W6-closure, G1 acceptance)
+
+"Identical" is a CI invariant, not a claim. `e2e/parity/closure.spec.ts` (runs in the parity gate, no browser) fails when: (a) `OVERLAY_FALLBACK_ROWS` or `MODE_PATHS` in `apps/mobile/dom/slots/overlay-fallback.tsx` is non-empty (a web surface or overlay is not slotted); (b) any route in `ROUTES` / `EXTRA_ROUTES` is not `sides: 'both'` and is not in the file's `A_ONLY_ALLOW_LIST` (empty; an entry needs a documented reason below); (c) any `both` route lacks its `b-*` baselines for all four projects. The G1 acceptance in PLAN.md (PM branch) means this invariant plus the divergences below, and nothing else.
+
+## Accepted platform divergences
+
+Each is a Fable ruling (docs/one-ui/PROGRESS.md Fable log 2026-10-04 15:13 and 15:14, on the PM branch). Anything not listed here is a parity bug.
+
+- **ShareFallbackToast is web-only.** The app uses the native share sheet; the toast is the web fallback when `navigator.share` is missing.
+- **Haptics are app-only.** The web has no equivalent.
+- **No pinch-zoom, overscroll or input-zoom in the app.** The Expo shell fixes the viewport.
+- **About and Diagnostics are reachable only through the hidden hot corner** (7 taps on the version row). Not on the web.
+- **Inbox**: native until W6-inbox-dom lands. Temporary.
+- **Notification onboarding offer**: native until W6-onboarding-dom lands. Temporary.
+- **`deniedHint` wording**: the app's own wording, since the system settings path differs per OS.
+- **Legal analytics wording**: the privacy page says analytics runs on every page of the website and that the mobile apps do not include it (Fable ruling c). Website text changed to match; the privacy baselines were regenerated on all projects.

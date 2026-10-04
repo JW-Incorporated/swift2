@@ -35,7 +35,9 @@
  *   - mood chat: apps/web/components/longlive/MoodChat.tsx
  *                apps/web/app/api/mood/route.ts
  *                apps/web/lib/longlive/mood-client.ts
- *   - analytics: apps/web/app/layout.tsx (`<Analytics />`, @vercel/analytics)
+ *   - analytics: apps/web/app/layout.tsx (`<Analytics />`, @vercel/analytics);
+ *                website only — the mobile apps include no analytics SDK
+ *                (see the apps/mobile/package.json line below)
  *   - on-device: packages/experience/src/progress.ts (`ll-progress-v1`,
  *                persisted on web via apps/web/lib/longlive/local-storage-adapter.ts)
  *                apps/web/components/longlive/TimelineScrubber.tsx
@@ -282,7 +284,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page.',
+          text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page of the website. The mobile apps do not include it.',
         },
         {
           kind: 'p',
@@ -403,7 +405,7 @@ export const PRIVACY_POLICY: LegalDoc = {
           // changes the app changes this section in the same release, and
           // both stores' data-safety forms with it.
           kind: 'p',
-          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged. The feedback button, the mood chat, Clownbot, the analytics, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
+          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged. The feedback button, the mood chat, Clownbot, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
         },
         {
           kind: 'p',
