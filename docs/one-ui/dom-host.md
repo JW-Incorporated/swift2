@@ -147,7 +147,7 @@ and a flipped default cannot be killed remotely.
   `useExpoBridge(props, hooks, setup)` subscribes `insets`, `contentVersion` and
   `back` before the inbox is consumed. `withFocusRestore(fn)`
   (dom/bridge/focus-restore.ts) returns focus after a native sheet closes; the app
-  adapter (H4/D1) wraps `share` with it.
+  adapter (`dom/bridge/app-adapter.tsx` `share`) wraps its bridge call with it (live once D2 mounts the adapter).
 - **Navigate contract.** DOM to native `navigate {path, replace?}` takes a web path
   (X4: `/?screen=settings`, `/?item=<id>`, `/?mode=threads`). `isNativeRoute`
   (lib/routes.ts, live flags via `getRouteFlags`) true: the D-7 presenter

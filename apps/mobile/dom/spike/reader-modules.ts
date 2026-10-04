@@ -6,10 +6,10 @@
 // async chunks, which Expo's DOM export cannot serialize (it fails with
 // "Asset not found: __common"). Returns one component: era stream + moment
 // detail + bottom nav inside the web AppProvider, plus the bridge back responder.
-import { createElement, useEffect, useRef, type ComponentType } from 'react';
+import { createElement, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { HostProvider, ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
-import { answerBack, type BackState } from '../bridge/back-responder';
+import { useBackRegistration } from '../bridge/back-responder';
 import { resolveAppUrl } from './resolve-url';
 
 type BackResult = 'handled' | 'exit';
@@ -52,12 +52,7 @@ export function loadReader(
   function Shell({ registerBack }: ReaderProps) {
     const { eraId, openItemId } = store.useAppState();
     const { closeItem } = store.useAppActions();
-    const live = useRef<BackState>({ openItemId, closeItem });
-    live.current = { openItemId, closeItem };
-    useEffect(() => {
-      registerBack(() => answerBack(live.current));
-      return () => registerBack(null);
-    }, []);
+    useBackRegistration(registerBack, openItemId, closeItem);
     return createElement(
       'div',
       { className: 'era-shell font-sans', style: theme.eraStyle(experience.getEra(eraId)) },

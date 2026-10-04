@@ -9,6 +9,7 @@ import type { BridgeClient, HostAdapter, HostImageProps, HostLinkProps, Insets }
 import { imageLoaded } from '../spike/image-listener';
 import { resolveAppUrl } from '../spike/resolve-url';
 import { createAppStorage, handleLinkClick, type NavDeps } from './app-adapter-nav';
+import { withFocusRestore } from './focus-restore';
 
 export const APP_ORIGIN = 'https://www.longlivets.com';
 
@@ -125,7 +126,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     currentUrl: () => resolveAppUrl(toWebPath(deps.getPath()) ?? '/', origin),
     openExternal,
     share: async (payload) => {
-      const r = await deps.client.call('share', payload);
+      const r = await withFocusRestore(() => deps.client.call('share', payload));
       if (!r.ok) throw new Error(`share ${r.error.code}`);
     },
     haptic: (kind) => {

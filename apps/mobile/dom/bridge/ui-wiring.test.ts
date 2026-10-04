@@ -5,7 +5,7 @@ import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } f
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-handlers';
 import { createUiDeps } from '../../lib/ui-deps';
-import { answerBack } from './back-responder';
+import { createBackResponder } from './back-responder';
 import { createExpoBridge } from './transport-expo';
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>) };
@@ -87,7 +87,12 @@ describe('H1 UI commands over a real host and DOM client', () => {
     const e = epoch();
     const dom = createExpoBridge((env) => e.handlers.bridge(env));
     let open: string | null = 'item';
-    dom.client.handle('back', () => answerBack({ openItemId: open, closeItem: () => void (open = null) }));
+    const responder = createBackResponder();
+    dom.client.handle('back', () => {
+      const r = responder.answer({ openItemId: open, closeItem: () => void (open = null) });
+      responder.reset();
+      return r;
+    });
     dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
 
