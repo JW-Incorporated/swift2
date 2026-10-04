@@ -79,6 +79,7 @@ export function createUnwiredHandlers(log: (stage: string, detail: string) => vo
     share: unwired('share'),
     haptic: unwired('haptic'),
     api: unwired('api'),
+    apiRead: unwired('apiRead'),
     'notifications.status': unwired('notifications.status'),
     'notifications.request': unwired('notifications.request'),
     'notifications.register': unwired('notifications.register'),

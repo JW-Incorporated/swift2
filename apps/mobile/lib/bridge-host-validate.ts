@@ -95,8 +95,11 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return isAppOpenableUrl(p.url) ? { url: p.url } : null;
     case 'api': {
       const req = sanitizeApiRequest(p.req);
-      return req ? { req: req as unknown as JsonValue } : null;
+      if (!req || (p.stream !== undefined && p.stream !== true)) return null;
+      return p.stream === true ? { req: req as unknown as JsonValue, stream: true } : { req: req as unknown as JsonValue };
     }
+    case 'apiRead':
+      return isBridgeId(p.streamId) ? { streamId: p.streamId } : null;
     case 'cancel':
       return isBridgeId(p.targetId) ? { targetId: p.targetId } : null;
     case 'share':

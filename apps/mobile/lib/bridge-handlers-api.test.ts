@@ -1,6 +1,6 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest';
 import type { ApiFetch, ApiResponse } from '@swift2/content';
-import type { HandlerMap, ResResult } from '@swift2/ui';
+import type { ApiStreamHead, HandlerMap, ResResult } from '@swift2/ui';
 import { BRIDGE_VERSION, sanitizeApiRequest } from '@swift2/ui';
 import { MAX_API_BYTES, createHandlers } from './bridge-handlers-api';
 import { body, setup, tick } from './bridge-host.test-kit';
@@ -19,7 +19,7 @@ function harness(fetchImpl?: (url: string, init: RequestInit) => Promise<Respons
   return { fetchMock, call, ac, h };
 }
 
-const value = (r: ResResult<ApiResponse>) => (r.ok ? r.value : null);
+const value = (r: ResResult<ApiResponse | ApiStreamHead>) => (r.ok ? (r.value as ApiResponse) : null);
 
 describe('api handler: allowlist', () => {
   it('accepts GET /api/notifications/inbox (the DOM inbox feed)', async () => {
