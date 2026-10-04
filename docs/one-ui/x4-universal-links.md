@@ -1,9 +1,10 @@
-# X4 universal links: H6 implementation plan (draft, NOT shipped)
+# X4 universal links: H6 (implemented in a DRAFT PR, NOT shipped)
+
+**H6 status:** implemented. Files live in `apps/web/public/.well-known/` with the `<APPLE_TEAM_ID>` / `<PLAY_APP_SIGNING_SHA256>` placeholders (HUMAN-ACTIONS #99). Do not merge before those values are filled and the PM approves: app.json changed (native config, new store builds). **PM ruling:** claim `www.longlivets.com` only; the apex 308-redirects at the Vercel domain level, which Apple and Android reject, so the apex is removed from `associatedDomains` and the Android intent filter (the blocker section below is resolved as option b). Intake: `apps/mobile/lib/use-deep-links.ts` (cold `getInitialURL` + `url` events, canonicalizeLink-validated, deduped by URL within 3 s, id `deeplink:<time>|<url>`) feeds the H3 tap gate with `source: 'deeplink'`; headers for the two files are in `apps/web/next.config.mjs`.
 
 Programme: One UI (epic #4788). Owner of this work: H6, which needs H3
-(notification tap wiring) merged first. Drafts of the two association files
-live in `docs/one-ui/drafts/well-known/` and must NOT be copied to
-`apps/web/public/.well-known/` before H3 and H6 land. Reason: once served,
+(notification tap wiring) merged first. The two association files (now in
+`apps/web/public/.well-known/`) must not ship before H3 and H6 land. Reason: once served,
 iOS/Android start routing longlivets.com links into the app, which has no
 Linking intake yet.
 
@@ -17,8 +18,7 @@ Linking intake yet.
 | Android intent filter | `autoVerify: true`, https, hosts `longlivets.com` and `www.longlivets.com` (already in app.json) |
 | URL scheme | `longlive` |
 
-app.json already declares the domains, so H6 needs NO app.json or native
-change (fingerprint stays identical).
+H6 narrows app.json to www only (a native change, fingerprint changes).
 
 ## Values still needed from the owner (placeholders in the drafts)
 
