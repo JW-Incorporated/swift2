@@ -3,6 +3,10 @@ import { InboxPage } from '@swift2/ui/reader/settings/InboxPage';
 import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { toWebPath, useHost } from '@swift2/ui';
 import { canonicalizeLink } from '../../lib/notification-tap-queue';
+import { resolveDestination } from '../../lib/destination-resolver';
+import { isNativeRoute as isHostRoute } from './routes';
+import { isInboxPath, isSettingsPath } from './settings-paths';
+import { settingsOverlay } from './settings-store';
 import { inboxOverlay, useInboxOpen } from './inbox-store';
 import { NEUTRAL } from './settings-page';
 
@@ -34,7 +38,17 @@ export function InboxOverlay() {
         onClose={inboxOverlay.close}
         onOpenItem={(deepLink) => {
           const rel = canonicalizeLink(deepLink);
-          const path = rel === null ? null : toWebPath(rel);
+          if (rel === null) return;
+          // The one resolver: legacy producer forms (?screen=settings, ?current=inbox, ...) become the DOM's own destinations.
+          const dest = resolveDestination(rel, { isHostRoute });
+          const dpath = new URL(dest.path, 'http://dom.invalid').pathname;
+          if (isInboxPath(dpath)) return;
+          if (isSettingsPath(dpath)) {
+            inboxOverlay.close();
+            settingsOverlay.open();
+            return;
+          }
+          const path = toWebPath(dest.path);
           if (!path) return;
           navigate(path);
         }}

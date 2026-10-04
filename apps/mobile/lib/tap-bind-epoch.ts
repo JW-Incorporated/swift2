@@ -107,7 +107,7 @@ type NavHost = {
 /** DOM deliveries the host ACKed but the DOM never confirmed (`navigated` lost) before a path is consumed, so it cannot head-block the queue. */
 export const MAX_UNCONFIRMED_ATTEMPTS = 3;
 
-export function createTapTarget(opts: { host: NavHost; /** Observability: a path was consumed after MAX_UNCONFIRMED_ATTEMPTS lost confirmations. */ onGiveUp?: (path: string) => void; /** Rewrites a link to its canonical destination path (destination-resolver); what is emitted/opened is always canonical. */ canonicalize?: (path: string) => string; isReaderPath: (path: string) => boolean; openElsewhere: (path: string) => boolean | Promise<boolean> }) {
+export function createTapTarget(opts: { host: NavHost; /** Observability: a path was consumed after MAX_UNCONFIRMED_ATTEMPTS lost confirmations. */ onGiveUp?: (path: string) => void; /** Observability: the DOM answered `navigated ok:false` for a path (it does not resolve): consumed, never retried at the queue head. */ onRejected?: (path: string) => void; /** Rewrites a link to its canonical destination path (destination-resolver); what is emitted/opened is always canonical. */ canonicalize?: (path: string) => string; isReaderPath: (path: string) => boolean; openElsewhere: (path: string) => boolean | Promise<boolean> }) {
   let counter = 0;
   const idByRef = new Map<string, string>();
   const outcome = new Map<string, boolean>();
@@ -119,6 +119,9 @@ export function createTapTarget(opts: { host: NavHost; /** Observability: a path
   const stale = new Set<string>();
   const pathByKey = new Map<string, string>();
   const lost = new Map<string, number>();
+  // One stable delivery id per path until it is delivered/consumed: a re-emission after a lost confirmation reuses it, so the DOM dedupes.
+  const idByPath = new Map<string, string>();
+  const strictIds = new Set<string>();
   const key = (r: AckRef) => `${r.epoch}:${r.seq}`;
   const target: TapHost & { isReady(): boolean; onNavigated(e: { id: string; ok: boolean }): void; navigateDom(path: string): Promise<boolean> } = {
     isReady: () => opts.host.isReady(),
@@ -131,12 +134,14 @@ export function createTapTarget(opts: { host: NavHost; /** Observability: a path
       }
       if ((lost.get(path) ?? 0) >= MAX_UNCONFIRMED_ATTEMPTS) {
         lost.delete(path);
+        idByPath.delete(path);
         opts.onGiveUp?.(path);
         const n = ++counter;
         local.set(n, Promise.resolve(true));
         return { epoch: -1, seq: n };
       }
-      const id = `t${nonce}-${++counter}`;
+      const id = idByPath.get(path) ?? `t${nonce}-${++counter}`;
+      idByPath.set(path, id);
       const ref = opts.host.emit('navigate', { path: path as never, source: 'notification', id });
       if (ref) {
         pathByKey.set(key(ref), path);
@@ -167,13 +172,21 @@ export function createTapTarget(opts: { host: NavHost; /** Observability: a path
         outstanding.delete(id);
         outcome.delete(id);
         idByRef.delete(key(ref));
-        if (v) lost.delete(pathByKey.get(key(ref)) ?? '');
+        const p = pathByKey.get(key(ref)) ?? '';
+        if (v || !stale.has(key(ref))) {
+          lost.delete(p);
+          if (idByPath.get(p) === id) idByPath.delete(p);
+        }
         pathByKey.delete(key(ref));
         cb(v);
       };
       const check = () => {
         const o = outcome.get(id);
-        if (o === false) finish(false);
+        if (o === false && strictIds.has(id)) finish(false);
+        else if (o === false) {
+          opts.onRejected?.(pathByKey.get(key(ref)) ?? '');
+          finish(true);
+        }
         else if (o === true && acked) finish(true);
       };
       const off = opts.host.onAcked(ref, (a) => {
@@ -208,6 +221,7 @@ export function createTapTarget(opts: { host: NavHost; /** Observability: a path
       if (!ref) return Promise.resolve(false);
       idByRef.set(key(ref), id);
       outstanding.add(id);
+      strictIds.add(id);
       return new Promise<boolean>((resolve) => void target.onAcked(ref, resolve));
     },
   };

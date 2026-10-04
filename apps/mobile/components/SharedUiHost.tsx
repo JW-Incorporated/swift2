@@ -175,6 +175,7 @@ export function SharedUiHost({
     const target = createTapTarget({
       host,
       onGiveUp: () => onSignal('bridge-nav-gave-up'),
+      onRejected: (p) => onSignal('bridge-nav-rejected', p.slice(0, 120)),
       canonicalize: (p) => destination(p).path,
       isReaderPath: (p) => destination(p).kind === 'dom',
       openElsewhere: async (p) => {

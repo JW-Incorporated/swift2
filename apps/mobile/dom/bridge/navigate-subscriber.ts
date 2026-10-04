@@ -50,8 +50,19 @@ export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'pa
 
 /** Installs the subscriber, then announces it (`navReady`); the host dedupes repeats, so announcing on every install is safe. */
 export function installNavigateSubscriber(client: NavigateClient, deps: NavigateDeps): () => void {
+  // Native re-emits a delivery whose confirmation was lost with the SAME id: apply once, answer every repeat from the
+  // first result (a double application would re-run overlays/history). Bounded, oldest evicted.
+  const seen = new Map<string, Promise<boolean>>();
   const off = client.on('navigate', (e) => {
-    void applyNavigateEvent(e, deps).then((ok) => {
+    let result = e.id === undefined ? undefined : seen.get(e.id);
+    if (!result) {
+      result = applyNavigateEvent(e, deps);
+      if (e.id !== undefined) {
+        seen.set(e.id, result);
+        if (seen.size > 32) seen.delete(seen.keys().next().value as string);
+      }
+    }
+    void result.then((ok) => {
       if (e.id !== undefined) client.sendEvent('navigated', { id: e.id, ok } as never);
     });
   });

@@ -159,14 +159,12 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     e.dispose();
   });
 
-  it('a DOM failure keeps the tap queued', async () => {
+  it('a DOM failure answers ok:false, which is consumed (never retried at the head until TTL)', async () => {
     const e = epoch({ apply: async () => Promise.reject(new Error('boom')) });
     await e.ready();
     e.gate.enqueue({ id: 'f1', deepLink: '/?item=abc' });
     await vi.waitFor(() => expect(e.deps.replaceUrl).toHaveBeenCalled());
-    await tick();
-    await tick();
-    expect(e.gate.size()).toBe(1);
+    await vi.waitFor(() => expect(e.gate.size()).toBe(0));
     e.dispose();
   });
 
@@ -200,5 +198,42 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     await vi.waitFor(() => expect(e.binder.isBound()).toBe(false));
     again.client.dispose();
     e.dispose();
+  });
+});
+
+describe('installNavigateSubscriber delivery dedupe (lost confirmation)', () => {
+  function fake() {
+    let handler!: (e: { path: never; source: 'notification'; id?: string }) => void;
+    const sent: { type: string; payload: unknown }[] = [];
+    const client = {
+      on: (_t: 'navigate', fn: typeof handler) => ((handler = fn), () => {}),
+      sendEvent: (type: 'navReady' | 'navigated', payload: never) => void sent.push({ type, payload }),
+    };
+    return { client, fire: (id: string, path = '/?item=abc') => handler({ path: path as never, source: 'notification', id }), sent };
+  }
+
+  it('a re-emission with the same id applies once and re-sends the confirmation', async () => {
+    const { client, fire, sent } = fake();
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
+    installNavigateSubscriber(client, deps);
+    fire('t1-1');
+    await tick();
+    fire('t1-1');
+    await tick();
+    expect(deps.apply).toHaveBeenCalledTimes(1);
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([
+      { type: 'navigated', payload: { id: 't1-1', ok: true } },
+      { type: 'navigated', payload: { id: 't1-1', ok: true } },
+    ]);
+  });
+
+  it('a different id applies again', async () => {
+    const { client, fire } = fake();
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
+    installNavigateSubscriber(client, deps);
+    fire('t1-1');
+    fire('t1-2');
+    await tick();
+    expect(deps.apply).toHaveBeenCalledTimes(2);
   });
 });

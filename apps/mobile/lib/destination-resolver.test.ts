@@ -1,10 +1,16 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { resolveTrackKey, setTracksRawProvider, trackKey } from '@swift2/experience';
+import { applyDeepLink, type DeepLinkActions, type DeepLinkQueries } from '../dom/bridge/deep-link-apply';
 import { registerRoutes, resetRoutesForTests, isNativeRoute as isHostRoute } from '../dom/slots/routes-instance';
 import { createUiDeps } from './ui-deps';
 import { resolveDestination } from './destination-resolver';
 import { resolveTapPath } from './notification-tap-queue';
 
 afterEach(resetRoutesForTests);
+
+setTracksRawProvider({ fearless: [{ title: 'Fearless', note: 'n', trackNumber: 1 }] });
+const KEY = trackKey('fearless', { title: 'Fearless', trackNumber: 1 });
+const KEY_Q = encodeURIComponent(KEY);
 
 const SITE = 'https://www.longlivets.com';
 const resolve = (l: string) => resolveDestination(l, { isHostRoute });
@@ -19,14 +25,16 @@ const cases: [string, string, 'dom' | 'native'][] = [
   [`${SITE}/?current=theories`, '/', 'dom'],
   [`${SITE}/?current=merch`, '/?mode=merch', 'dom'],
   [`${SITE}/?song=hello-world`, '/', 'dom'],
+  [`${SITE}/?song=${KEY_Q}`, `/?song=${KEY_Q}`, 'dom'],
   [`${SITE}/?moment=some-moment`, '/?moment=some-moment', 'dom'],
   [`${SITE}/?item=abc`, '/?item=abc', 'dom'],
   [`${SITE}/?era=debut`, '/?era=debut', 'dom'],
   [`${SITE}/?mode=threads`, '/?mode=threads', 'dom'],
   [`${SITE}/?screen=era-stream`, '/', 'dom'],
   [`${SITE}/?screen=clownbot`, '/', 'dom'],
-  [`${SITE}/?screen=track-guide&era=fearless`, '/', 'dom'],
-  [`${SITE}/?screen=song&key=k1`, '/', 'dom'],
+  [`${SITE}/?screen=track-guide&era=fearless`, '/?guide=fearless', 'dom'],
+  [`${SITE}/?screen=song&key=${KEY_Q}`, `/?song=${KEY_Q}`, 'dom'],
+  [`${SITE}/?screen=song&key=slug-only`, '/', 'dom'],
   [`${SITE}/#merch-new-drops`, '/#merch-new-drops', 'dom'],
   [`${SITE}/settings/notifications`, '/settings/notifications', 'dom'],
   [`${SITE}/inbox`, '/inbox', 'dom'],
@@ -84,4 +92,44 @@ describe('real predicate + presenter: no backend link queues forever', () => {
       expect(d.path.startsWith('/')).toBe(true);
     }
   });
+});
+
+describe('origin handling', () => {
+  it.each(['https://evil.com/?screen=settings', 'http://www.longlivets.com/inbox', 'https://www.longlivets.com:8443/inbox', 'https://user@www.longlivets.com/inbox', '//evil.com/inbox', 'https://longlivets.com.evil.com/settings', 'javascript:alert(1)'])(
+    '%s is not a local destination: the front door, never interpreted',
+    (link) => expect(resolve(link)).toEqual({ kind: 'dom', path: '/' }),
+  );
+  it('bare longlivets.com is local', () => expect(resolve('https://longlivets.com/?screen=settings')).toEqual({ kind: 'dom', path: '/settings' }));
+});
+
+describe('resolver agrees with the real applier (applyDeepLink + resolveTrackKey)', () => {
+  const actions = () => Object.fromEntries(['goHome', 'setEra', 'setMode', 'openThread', 'openItem', 'openVideo', 'openSong', 'openTrackGuide', 'openTheoryGuide', 'closeItem', 'closeInbox', 'closeSettings', 'closeTrackGuide', 'closeTheoryGuide', 'setSearchOpen', 'setSelectorOpen'].map((k) => [k, vi.fn()])) as unknown as Record<keyof DeepLinkActions, ReturnType<typeof vi.fn>>;
+  const queries: DeepLinkQueries = {
+    threadIds: [],
+    contentItemId: (id) => (id === 'abc' ? 'abc' : null),
+    isEraId: (id) => ['fearless', 'debut'].includes(id),
+    eraHasVideoSlug: () => false,
+    findEraForVideoSlug: () => null,
+    eraOfTrackKey: (k) => resolveTrackKey(k)?.eraId ?? null,
+  };
+  const reader = cases.filter(([, , k]) => k === 'dom').map(([l]) => resolve(l)).filter((d) => new URL(d.path, SITE).pathname === '/');
+
+  it('every legacy translation the producers can emit is honoured by the applier (state changes, never ok:false)', () => {
+    for (const link of [`${SITE}/?screen=track-guide&era=fearless`, `${SITE}/?screen=song&key=${KEY_Q}`, `${SITE}/?song=${KEY_Q}`, `${SITE}/?song=hello-world`, `${SITE}/?current=countdowns`, `${SITE}/?current=merch`, `${SITE}/?screen=era-stream`]) {
+      const a = actions();
+      const search = new URL(resolve(link).path, SITE).search;
+      expect(applyDeepLink(search, queries, a as unknown as DeepLinkActions), link).toBe(true);
+    }
+  });
+
+  it('translated forms reach the matching reader action', () => {
+    const a = actions();
+    applyDeepLink(new URL(resolve(`${SITE}/?screen=song&key=${KEY_Q}`).path, SITE).search, queries, a as unknown as DeepLinkActions);
+    expect(a.openSong).toHaveBeenCalledWith('fearless', KEY);
+    const b = actions();
+    applyDeepLink(new URL(resolve(`${SITE}/?screen=track-guide&era=fearless`).path, SITE).search, queries, b as unknown as DeepLinkActions);
+    expect(b.openTrackGuide).toHaveBeenCalledWith('fearless');
+  });
+
+  it('reader destinations exist for the table', () => expect(reader.length).toBeGreaterThan(5));
 });
