@@ -13,6 +13,8 @@ export type {
   HostWebPush,
   Insets,
   NotificationPrefs,
+  NotificationPrefsState,
+  NotificationPrefsUpdate,
   NotificationStatus,
   SharePayload,
   Unsubscribe,

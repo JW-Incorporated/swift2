@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createHandlers } from './bridge-handlers-notifications';
+import { PREFS_FIXTURE } from './bridge-host.test-kit';
 
 const ctx = { signal: new AbortController().signal };
 const deps = () => ({
@@ -7,6 +8,10 @@ const deps = () => ({
   request: vi.fn().mockResolvedValue('denied'),
   register: vi.fn().mockResolvedValue(undefined),
   updatePrefs: vi.fn().mockResolvedValue(undefined),
+  getPrefs: vi.fn().mockResolvedValue(PREFS_FIXTURE),
+  savePrefs: vi.fn().mockResolvedValue(PREFS_FIXTURE),
+  unregister: vi.fn().mockResolvedValue(undefined),
+  registered: vi.fn().mockResolvedValue(true),
 });
 
 describe('notification bridge handlers', () => {

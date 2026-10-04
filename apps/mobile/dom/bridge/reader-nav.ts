@@ -3,6 +3,7 @@
 // is the setup the Expo mount runs against the live client (after `ready`, before the inbox is consumed).
 import type { BridgeClient, Insets } from '@swift2/ui';
 import { isDomPath } from './dom-path';
+import { isSettingsPath, settingsOverlay } from '../slots/settings-store';
 import { installNavigateSubscriber, type NavigateDeps } from './navigate-subscriber';
 
 export type NavigateDomDeps = {
@@ -23,6 +24,11 @@ export type NavigateDomDeps = {
 export function createNavigateDom(d: NavigateDomDeps) {
   return (path: string): void => {
     const u = new URL(path, 'http://dom.invalid');
+    if (isSettingsPath(u.pathname)) {
+      settingsOverlay.open();
+      return;
+    }
+    settingsOverlay.close();
     if (isDomPath(u.pathname)) {
       d.setPath(u.pathname);
       return;

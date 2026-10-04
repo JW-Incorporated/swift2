@@ -21,6 +21,7 @@ import './floating';
 import './footer';
 import './merch';
 import './community';
+import './settings';
 import './search';
 import './clown';
 

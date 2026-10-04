@@ -1,4 +1,4 @@
-import { isAnyNotificationCategory } from '@swift2/shared';
+import { isAnyNotificationCategory, isValidCadenceForCategory } from '@swift2/shared';
 import { isBridgeId, isWebPath, sanitizeApiRequest } from '@swift2/ui';
 import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
@@ -42,6 +42,40 @@ export function validKnownPrefs(prefs: unknown): JsonValue | null {
   return Object.keys(out).every((k) => isAnyNotificationCategory(k)) ? v : null;
 }
 
+const SETTINGS_NUMERIC = ['dailyCap', 'quietStart', 'quietEnd', 'digestHour'] as const;
+
+/** Bounded validator for notifications.savePrefs: the prefs-API PUT body, known keys only, nothing else passes. */
+export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
+  if (Object.keys(p).some((k) => k !== 'settings' && k !== 'prefs')) return null;
+  const out: Record<string, JsonValue> = {};
+  if (p.settings !== undefined) {
+    const s = p.settings;
+    if (!isRecord(s)) return null;
+    const settings: Record<string, JsonValue> = {};
+    for (const k of Object.keys(s)) {
+      const v = s[k];
+      if (k === 'masterEnabled' && typeof v === 'boolean') settings[k] = v;
+      else if (k === 'snoozeUntil' && (v === null || (typeof v === 'string' && v.length <= 64))) settings[k] = v;
+      else if ((SETTINGS_NUMERIC as readonly string[]).includes(k) && typeof v === 'number' && Number.isFinite(v)) settings[k] = v;
+      else return null;
+    }
+    out.settings = settings;
+  }
+  if (p.prefs !== undefined) {
+    if (!Array.isArray(p.prefs) || p.prefs.length > MAX_PREFS) return null;
+    const prefs: JsonValue[] = [];
+    for (const e of p.prefs) {
+      if (!isRecord(e) || Object.keys(e).length !== 2) return null;
+      const { category, cadence } = e;
+      if (typeof category !== 'string' || !isAnyNotificationCategory(category)) return null;
+      if (typeof cadence !== 'string' || !isValidCadenceForCategory(category, cadence)) return null;
+      prefs.push({ category, cadence });
+    }
+    out.prefs = prefs;
+  }
+  return out;
+}
+
 /** Per-command payload validation; returns the cleaned payload or null. */
 export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue | null {
   if (!isRecord(p)) return null;
@@ -63,6 +97,8 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return typeof p.kind === 'string' && HAPTIC_KINDS.includes(p.kind) ? { kind: p.kind } : null;
     case 'notifications.updatePrefs':
       return validPrefs(p.prefs);
+    case 'notifications.savePrefs':
+      return validPrefsUpdate(p);
     default:
       return {};
   }

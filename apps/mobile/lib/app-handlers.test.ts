@@ -29,6 +29,10 @@ function fakeDeps() {
     request: vi.fn().mockResolvedValue('denied'),
     register: vi.fn().mockResolvedValue(undefined),
     updatePrefs: vi.fn().mockResolvedValue(undefined),
+    getPrefs: vi.fn().mockResolvedValue({ settings: {}, prefs: [] }),
+    savePrefs: vi.fn().mockResolvedValue({ settings: {}, prefs: [] }),
+    unregister: vi.fn().mockResolvedValue(undefined),
+    registered: vi.fn().mockResolvedValue(true),
   };
   const fetchFake = vi.fn(async (..._a: unknown[]) => new Response('{"ok":true}', { status: 200, headers: { 'content-type': 'application/json' } }));
   const api = { fetch: fetchFake as unknown as typeof fetch, baseUrl: () => 'https://example.test' };
@@ -47,6 +51,10 @@ describe('createAppHandlers', () => {
         'notifications.request',
         'notifications.status',
         'notifications.updatePrefs',
+        'notifications.getPrefs',
+        'notifications.savePrefs',
+        'notifications.unregister',
+        'notifications.registration',
         'openExternal',
         'share',
       ].sort(),

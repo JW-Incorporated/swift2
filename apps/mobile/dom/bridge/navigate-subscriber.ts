@@ -4,9 +4,11 @@
 // search via `deps.apply`, and only AFTER that committed answer `navigated {id, ok:true}`. Anything else
 // (another pathname, no reader mounted yet, a throw) answers ok:false so the tap stays queued, never a silent home.
 // The allow-listed legal paths (dom-path.ts) are shown in the DOM too: `deps.setPath` resolves true only once the layer is
-// observed committed (dom-path-commit.ts), false on a render failure or no layer; a reader path first closes any open legal page. Native opens every other non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
+// observed committed (dom-path-commit.ts), false on a render failure or no layer; a reader path first closes any open legal page. A settings path (/settings, /settings/notifications) opens the DOM settings overlay and acks ok:true. Native opens every other non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
 import type { EventPayloadOf } from '@swift2/ui';
 import { isDomPath } from './dom-path';
+import { isSettingsPath } from '../slots/settings-paths';
+import { settingsOverlay } from '../slots/settings-store';
 
 export type NavigateDeps = {
   replaceUrl: (relative: string) => void;
@@ -24,6 +26,10 @@ type NavigateClient = {
 export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'path'>, deps: NavigateDeps): Promise<boolean> {
   try {
     const u = new URL(e.path, 'http://dom.invalid');
+    if (isSettingsPath(u.pathname)) {
+      settingsOverlay.open();
+      return true;
+    }
     if (isDomPath(u.pathname) && deps.setPath) {
       return await deps.setPath(u.pathname);
     }

@@ -40,7 +40,7 @@ function epoch() {
 }
 
 describe('DOM navigate over the real host reaches the native presenter', () => {
-  it.each(['/settings/notifications', '/inbox'])('adapter.navigate(%s) opens it natively (not invalid)', async (path) => {
+  it.each(['/inbox'])('adapter.navigate(%s) opens it natively (not invalid)', async (path) => {
     const e = epoch();
     e.dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
@@ -54,7 +54,7 @@ describe('DOM navigate over the real host reaches the native presenter', () => {
     const e = epoch();
     e.dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
-    expect(await e.dom.client.call('navigate', { path: '/settings/notifications' as never })).toMatchObject({ ok: true });
+    expect(await e.dom.client.call('navigate', { path: '/inbox' as never })).toMatchObject({ ok: true });
     expect(await e.dom.client.call('navigate', { path: '/vault' as never })).toMatchObject({ ok: false, error: { code: 'invalid' } });
     e.dispose();
   });

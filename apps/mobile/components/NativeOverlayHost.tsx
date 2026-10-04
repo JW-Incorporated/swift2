@@ -9,7 +9,6 @@ import type { NativeRouteState } from '../lib/dom-host-handlers';
 import type { NativeOverlayPresenter } from '../lib/use-native-overlay';
 import { DiagHotCorner } from './DiagHotCorner';
 import { NotificationInboxScreen } from './NotificationInboxScreen';
-import { NotificationSettingsScreen } from './NotificationSettingsScreen';
 
 const FILL = { flex: 1, backgroundColor: '#0b0b0f' } as const;
 
@@ -47,11 +46,6 @@ export function NativeOverlayHost({
                 presenter.dismiss();
                 navigate(event.deepLink);
               }}
-            />
-          ) : state.route === '/settings/notifications' ? (
-            <NotificationSettingsScreen
-              onClose={() => presenter.dismiss()}
-              onOpenInbox={() => presenter.presentNativeRoute('/inbox')}
             />
           ) : null}
         </SafeAreaView>
