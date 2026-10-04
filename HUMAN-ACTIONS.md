@@ -2,9 +2,31 @@
 
 <!-- ha-format: 2 -->
 
-> **1 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #101 🔴 [BLOCKING] S5: test the new app on your Android phone (~20 min)
+<!-- ha filed=2026-10-04 -->
+
+**Why:** All Wave 4 screens (nav, era picker, track guide, search, merch, community, ClownChat, settings, legal) shipped by OTA to Play build 18; S5 confirms them on Android before the next gate.
+**Steps:**
+1. Open Long Live, wait 10 s, force-stop, reopen (the update applies).
+2. Follow docs/plans/one-ui/device-checklists.md → "S5 Android" (8 steps).
+3. Never type numbers — tap Send report and run Speed test mode; reports reach issue #4791.
+4. Reply `pass 1-6, fail 7: <what you saw>`.
+**Worked if:** the reply is all-pass, or each failure names what was on screen.
+
+## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
+<!-- ha filed=2026-10-04 -->
+
+**Why:** One UI's iOS-1 gate. All new screens (Waves 1–4) shipped by OTA on TestFlight build 38; nothing more is built on iOS until iPhone and iPad are checked.
+**Steps:**
+1. iPhone (coordinate with the iPhone tester) and your iPad: open TestFlight → Long Live → Install/Update.
+2. Follow docs/plans/one-ui/device-checklists.md → "iOS-1": iPhone 7 steps, iPad 8 steps.
+3. Never type numbers — tap Send report and run Speed test mode; reports reach issue #4791.
+4. Reply one line per device, e.g. `iPhone: pass 1-6, fail 7: <what you saw>`.
+**Worked if:** both devices reply all-pass, or each failure names what was on screen.
 
 ## #99 🟢 [UPGRADE] Send two app IDs so longlivets.com links open the app (~5 min)
 <!-- ha filed=2026-10-04 -->
