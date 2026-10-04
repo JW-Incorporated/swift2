@@ -11,7 +11,7 @@ vi.mock('../../../mobile/node_modules/react', async () => await import('react'))
 vi.mock('../../../mobile/node_modules/react/jsx-runtime', async () => await import('react/jsx-runtime'));
 vi.mock('../../../mobile/node_modules/react/jsx-dev-runtime', async () => await import('react/jsx-dev-runtime'));
 
-const ROW = { id: 'e1', category: 'new_release', tier: 1, title: 'A new drop', body: 'Out now', deep_link: '/?item=x', available_at: '2026-10-01T12:00:00Z' };
+const ROW = { id: 'e1', category: 'new_release', tier: 1, title: 'A new drop', body: 'Out now', deep_link: 'https://www.longlivets.com/?song=abc', available_at: '2026-10-01T12:00:00Z' };
 const notifications = {} as HostNotifications;
 
 function mount(opts: { host?: HostNotifications; body?: unknown; status?: number }) {
@@ -51,7 +51,57 @@ describe('InboxOverlay (app host)', () => {
     fireEvent.click(await screen.findByRole('button', { name: /A new drop/ }));
     expect(apiFetch.mock.calls[0][0]).toMatchObject({ method: 'GET', path: '/api/notifications/inbox' });
     expect(inboxOverlay.isOpen()).toBe(false);
-    expect(navigate).toHaveBeenCalledWith('/?item=x');
+    expect(navigate).toHaveBeenCalledWith('/?song=abc');
+  });
+
+  it.each([
+    ['https://longlivets.com/vault#x', '/vault#x'],
+    ['/?song=rel', '/?song=rel'],
+  ])('canonicalizes same-site link %s to %s', async (link, expected) => {
+    const { navigate } = mount({ host: notifications, body: { events: [{ ...ROW, deep_link: link }] } });
+    act(() => inboxOverlay.open());
+    fireEvent.click(await screen.findByRole('button', { name: /A new drop/ }));
+    expect(navigate).toHaveBeenCalledWith(expected);
+    expect(inboxOverlay.isOpen()).toBe(false);
+  });
+
+  it.each([
+    'javascript:alert(1)',
+    'data:text/html,hi',
+    'https://evil.example/?song=abc',
+    'https://www.longlivets.com.evil.example/',
+    'http://www.longlivets.com/?song=abc',
+    '//evil.example/x',
+  ])('refuses hostile link %s: no navigation, inbox stays open', async (link) => {
+    const { navigate } = mount({ host: notifications, body: { events: [{ ...ROW, deep_link: link }] } });
+    act(() => inboxOverlay.open());
+    fireEvent.click(await screen.findByRole('button', { name: /A new drop/ }));
+    expect(navigate).not.toHaveBeenCalled();
+    expect(inboxOverlay.isOpen()).toBe(true);
+  });
+
+  it('moves focus into the dialog, closes on Escape and restores focus', async () => {
+    const trigger = document.createElement('button');
+    document.body.appendChild(trigger);
+    trigger.focus();
+    mount({ host: notifications });
+    act(() => inboxOverlay.open());
+    await screen.findByRole('button', { name: /A new drop/ });
+    const dialog = screen.getByRole('dialog', { name: 'Notification inbox' });
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(inboxOverlay.isOpen()).toBe(false);
+    expect(document.activeElement).toBe(trigger);
+    trigger.remove();
+  });
+
+  it('wraps Tab inside the dialog', async () => {
+    mount({ host: notifications });
+    act(() => inboxOverlay.open());
+    const row = await screen.findByRole('button', { name: /A new drop/ });
+    row.focus();
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Tab' });
+    expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true);
   });
 
   it('shows the empty state, and Back closes', async () => {
