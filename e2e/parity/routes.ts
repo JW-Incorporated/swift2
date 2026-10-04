@@ -128,7 +128,7 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
       await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
     },
   },
-  { name: 'mood', path: '/?mode=mood', root: 'main', sides: 'both' },
+  { name: 'mood', path: '/?mode=mood', root: 'main' },
   {
     name: 'settings-notifications',
     path: '/settings/notifications',
