@@ -93,10 +93,10 @@ const sha = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 8);
 // only when a page uses a character outside latin): same bytes, same ranges.
 const SUBSETS = JSON.parse(readFileSync(join(FONTS_DIR, 'subsets.json'), 'utf8'));
 
-function faceCss(f, src, range = UNICODE_RANGE) {
+function faceCss(f, src, range = UNICODE_RANGE, display = 'swap') {
   return (
     `@font-face {\n  font-family: '${f.family}';\n  font-style: ${f.style};\n` +
-    `  font-weight: ${f.weight};\n  font-display: swap;\n  src: ${src} format('woff2');\n` +
+    `  font-weight: ${f.weight};\n  font-display: ${display};\n  src: ${src} format('woff2');\n` +
     `  unicode-range: ${range};\n}\n`
   );
 }
@@ -140,13 +140,14 @@ export function buildFonts() {
   const tail = fallbackCss() + rootCss();
   const web = header + files.map(webFaces).join('') + tail;
   // The DOM host carries latin + latin-ext only (content has a c-caron; no
-  // Cyrillic/Greek/Vietnamese). Same bytes and ranges as the web faces.
+  // Cyrillic/Greek/Vietnamese). Same bytes and ranges as the web faces. The faces are
+  // inline data URIs (no network wait), so font-display: block avoids a swap flash in the webview.
   const b64 = (x) => `url(data:font/woff2;base64,${x.bytes.toString('base64')})`;
   const domFaces = (f) =>
     subsets
       .filter((x) => x.family === f.family && x.style === f.style && x.file.endsWith('-latin-ext'))
-      .map((x) => faceCss(f, b64(x), x.range))
-      .join('') + faceCss(f, b64(f));
+      .map((x) => faceCss(f, b64(x), x.range, 'block'))
+      .join('') + faceCss(f, b64(f), UNICODE_RANGE, 'block');
   const dom = header + files.map(domFaces).join('') + tail;
   const manifest = {
     preload: files.filter((f) => f.preload).map((f) => `/fonts/${f.publicName}`),
