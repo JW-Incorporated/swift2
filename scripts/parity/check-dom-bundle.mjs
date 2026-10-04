@@ -90,10 +90,10 @@ export function checkDomBundle(exportDir, sentinels, root = path.resolve(path.di
     const map = JSON.parse(fs.readFileSync(mapFile, 'utf8'));
     if (map.debugId) mapsById.set(map.debugId, f);
     const sources = (map.sources ?? []).map((s) => canonicalizeSource(s, mapFile, map.sourceRoot, root));
-    if (sources.some((s) => /dom\/ReaderSpike\.tsx$/.test(s))) readerSpikeMaps += 1;
+    if (sources.some((s) => /dom\/(AppReader|ReaderSpike)\.tsx$/.test(s))) readerSpikeMaps += 1;
     for (const bad of findForbiddenSources(sources)) problems.push(`${f}: forbidden source ${bad}`);
   }
-  if (readerSpikeMaps === 0) problems.push('no DOM sourcemap lists dom/ReaderSpike.tsx (wrong export, or no --source-maps)');
+  if (readerSpikeMaps === 0) problems.push('no DOM sourcemap lists dom/AppReader.tsx (wrong export, or no --source-maps)');
   for (const f of files.filter((n) => n.endsWith('.js'))) {
     const text = fs.readFileSync(path.join(dir, f), 'utf8');
     const id = /^\/\/# debugId=(\S+)\s*$/m.exec(text)?.[1];

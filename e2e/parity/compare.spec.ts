@@ -51,6 +51,18 @@ for (const route of ROUTES) {
   });
 }
 
+// H4/D2: side b now renders the full packages/ui shell (TopBar, era stream, BottomNav), so the two base routes
+// also get the whole-viewport a-vs-b compare (header and nav visible); D2 renders only these two itself.
+for (const route of ROUTES) {
+  test(`a vs b viewport: ${route.name}`, async ({ pages }, testInfo) => {
+    await openRoute(pages.a, 'a', route);
+    const pixelsA = await captureViewport(pages.a);
+    await openRoute(pages.b, 'b', route);
+    const pixelsB = await captureViewport(pages.b);
+    expect(await pixelMatches(testInfo, `ref-a-${route.name}-viewport`, pixelsA, pixelsB), 'viewport a-vs-b').toBe(true);
+  });
+}
+
 // W1-E: routes a slice D flipped to sides 'both' get a whole-viewport a-vs-b compare (zero insets on b, same engine, font-normalised).
 // Empty today: every route is a-only, so no test is generated and the gate is unchanged.
 for (const route of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
