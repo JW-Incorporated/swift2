@@ -67,7 +67,6 @@ export function SubmitLinkForm({ section }: SubmitLinkFormProps) {
   const statusId = `submit-link-${section}-status`;
   const trimmed = url.trim();
   const valid = looksLikeUrl(trimmed);
-  // TODO(PM, WP2.3-F): the app host supplies no turnstileSiteKey and its apiFetch is bridge-backed; mobile reach lands with WP2.3-F2.
   const { apiFetch, env } = useHost();
   const TURNSTILE_SITE_KEY = env.turnstileSiteKey;
   const turnstileRef = useRef<HTMLDivElement>(null);

@@ -7,8 +7,8 @@ import { forwardRef, type CSSProperties } from 'react';
 import { toExternalUrl, toMailtoUrl, toWebPath } from '@swift2/ui';
 import type { BridgeClient, HostAdapter, HostImageProps, HostLinkProps, Insets } from '@swift2/ui';
 import { isAllowedMailto } from '../../lib/mailto-allowlist';
-import { imageLoaded } from '../spike/image-listener';
-import { resolveAppUrl } from '../spike/resolve-url';
+import { imageLoaded } from '../reader/image-listener';
+import { resolveAppUrl } from '../reader/resolve-url';
 import { createAppStorage, handleLinkClick, type NavDeps } from './app-adapter-nav';
 import { withFocusRestore } from './focus-restore';
 

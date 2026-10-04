@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 const FORBIDDEN = [
   /apps\/web\/lib\/.*\.generated\.[cm]?[jt]sx?$/i,
   /lib\/longlive\/generated\//i,
-  /dom\/spike\/dev-loader/i,
+  /dom\/reader\/dev-loader/i,
   /index\.web\./i,
 ];
 const KINDS = ['moment', 'track', 'theory', 'merch'];

@@ -25,7 +25,7 @@ export type ApiHandlerDeps = {
   baseUrl: () => string;
   timeoutMs?: number;
   clownTimeoutMs?: number;
-  /** Native-held ClownChat session (OS-036). TODO(PM, 2.11-D1): F2 wires clown-session-store here. */
+  /** Native-held ClownChat session (OS-036). */
   clownSession?: {
     get: () => Promise<string | null>;
     set: (token: string) => Promise<void>;

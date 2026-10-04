@@ -17,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
 import SharedUiTest from '../dom/SharedUiTest';
-import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
+import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
 import { isDomOwnedTapPath } from '../lib/tap-paths';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';

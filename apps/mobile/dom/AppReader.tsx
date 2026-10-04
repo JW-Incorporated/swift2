@@ -16,13 +16,13 @@ import { showDomPath } from './bridge/dom-path-commit';
 import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
-import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
-import { probeScript, readLocalText } from './spike/read-local';
-import { describeSnapshotSafe, snapshotFromEnvelope } from './spike/snapshot';
-import { fill } from './spike/shims/fill';
-import { installStorageShim } from './spike/storage-shim';
-import { loadReader, type ReaderProps } from './spike/reader-modules';
-import { setImageLoadListener } from './spike/image-listener';
+import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
+import { probeScript, readLocalText } from './reader/read-local';
+import { describeSnapshotSafe, snapshotFromEnvelope } from './reader/snapshot';
+import { fill } from './reader/shims/fill';
+import { installStorageShim } from './reader/storage-shim';
+import { loadReader, type ReaderProps } from './reader/reader-modules';
+import { setImageLoadListener } from './reader/image-listener';
 
 export interface AppReaderProps {
   /** file:// URI of the native `last-good` cache file. */

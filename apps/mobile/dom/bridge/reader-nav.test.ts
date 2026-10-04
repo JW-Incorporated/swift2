@@ -4,7 +4,7 @@ import { createUnwiredHandlers } from '../../lib/app-handlers';
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-handlers';
 import { registerRoutes, resetRoutesForTests } from '../slots/routes-instance';
-import { createReaderAdapter } from '../spike/reader-modules';
+import { createReaderAdapter } from '../reader/reader-modules';
 import { createNavigateDom, installReaderBridge } from './reader-nav';
 import { createExpoBridge } from './transport-expo';
 

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { createAppStorage } from './bridge/app-adapter-nav';
-import { installStorageShim } from './spike/storage-shim';
+import { installStorageShim } from './reader/storage-shim';
 
 const src = readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8');
 

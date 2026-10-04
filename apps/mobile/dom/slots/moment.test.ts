@@ -19,7 +19,7 @@ describe('moment slice slots', () => {
 
   it('imports no apps/web shim (G10)', () => {
     const src = readFileSync(fileURLToPath(new URL('./moment.ts', import.meta.url)), 'utf8');
-    expect(src).not.toMatch(/web\/components\/longlive|spike\/reader-modules/);
+    expect(src).not.toMatch(/web\/components\/longlive|reader\/reader-modules/);
   });
 });
 

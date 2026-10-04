@@ -14,7 +14,7 @@ vi.mock('@swift2/ui/reader/store/index', () => ({
 
 import { render, screen } from '@testing-library/react';
 import { HostProvider } from '@swift2/ui';
-import { createReaderAdapter } from '../spike/reader-modules';
+import { createReaderAdapter } from '../reader/reader-modules';
 import { buildReaderSlots } from './reader-slots';
 import { slots } from './index';
 

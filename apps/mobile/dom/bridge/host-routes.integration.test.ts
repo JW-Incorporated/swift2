@@ -3,7 +3,7 @@ import { createAppHandlersFor } from '../../lib/app-handlers';
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers, createNativeRoutePresenter } from '../../lib/dom-host-handlers';
 import { createUiDeps } from '../../lib/ui-deps';
-import { createReaderAdapter } from '../spike/reader-modules';
+import { createReaderAdapter } from '../reader/reader-modules';
 import { isNativeRoute } from '../slots/routes';
 import { createExpoBridge } from './transport-expo';
 
