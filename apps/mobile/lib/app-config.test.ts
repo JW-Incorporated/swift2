@@ -31,6 +31,8 @@ describe('ROUTE_FLAG_KEYS', () => {
     expect(routeFlagsFrom({ routeFlags: { sharedUi: false } }).sharedUi).toBe(false);
     expect(routeFlagsFrom(shippedConfig)).toEqual(DEFAULT_ROUTE_FLAGS);
     expect(shippedConfig.routeFlags.sharedUi).toBe(true);
+    expect(DEFAULT_ROUTE_FLAGS.sharedUiIos).toBe(false);
+    expect(shippedConfig.routeFlags.sharedUiIos).toBe(false);
     expect(shippedConfig.watchdogReports).toBe(false);
   });
 });
@@ -58,11 +60,11 @@ describe('loadLaunchFlags (WP2.14)', () => {
       APP_CONFIG_CACHE_KEY,
       JSON.stringify({ routeFlags: { sharedUi: true }, watchdogReports: false }),
     );
-    await expect(loadLaunchFlags({ storage })).resolves.toEqual({ sharedUi: true, watchdogReports: false });
+    await expect(loadLaunchFlags({ storage })).resolves.toEqual({ sharedUi: true, sharedUiIos: null, watchdogReports: false });
   });
 
   it('is null for both with no cache, an invalid cache, or no key', async () => {
-    const none = { sharedUi: null, watchdogReports: null };
+    const none = { sharedUi: null, sharedUiIos: null, watchdogReports: null };
     await expect(loadLaunchFlags({ storage: new MemoryStorageAdapter() })).resolves.toEqual(none);
     const bad = new MemoryStorageAdapter();
     bad.setItem(APP_CONFIG_CACHE_KEY, '{nope');
@@ -74,7 +76,7 @@ describe('loadLaunchFlags (WP2.14)', () => {
 
   it('never throws when storage blows up, and never touches the network', async () => {
     const broken = { getItem: () => { throw new Error('disk'); }, setItem: () => {} };
-    await expect(loadLaunchFlags({ storage: broken })).resolves.toEqual({ sharedUi: null, watchdogReports: null });
+    await expect(loadLaunchFlags({ storage: broken })).resolves.toEqual({ sharedUi: null, sharedUiIos: null, watchdogReports: null });
   });
 
   it('the network result is cached for the NEXT launch, not returned to this one', async () => {

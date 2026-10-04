@@ -13,6 +13,6 @@ describe('launch reads (default-on shared UI)', () => {
   it('the gate reads the watchdog record and nothing else from storage on the decision path', () => {
     expect(gate).toContain('await loadWatchdogRecord()');
     expect(gate).not.toMatch(/getForceSharedUi|setForceSharedUi|SecureStore/);
-    expect(Object.keys(gate.match(/export interface LaunchInputs \{[\s\S]*?\n\}/)![0].match(/^\s{2}(\w+):/gm) ?? [])).toHaveLength(2);
+    expect(Object.keys(gate.match(/export interface LaunchInputs \{[\s\S]*?\n\}/)![0].match(/^\s{2}(\w+):/gm) ?? [])).toHaveLength(3);
   });
 });
