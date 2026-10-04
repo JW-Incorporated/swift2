@@ -679,6 +679,7 @@ Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and packag
 | Path | What |
 |---|---|
 | `packages/ui/src/reader/moment/{MomentDetail,MomentSocialPost,ZoomableImage}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.5-A1, move-only). `apps/web/components/longlive/MomentDetail.tsx` is a one-line `export *` shim (until D / WP2.13) |
+| `packages/ui/src/reader/moment/resolve-url.test.ts` | One UI W3-img: MomentDetail hero / lightbox / `RelatedMomentsRail` (now exported) pass era-art + `/placeholder.svg` paths through `useResolveUrl()`; app host → canonical origin, web identity, absolute untouched |
 | `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
 
 ### WP2.6 threads
