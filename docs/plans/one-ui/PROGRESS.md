@@ -18,6 +18,11 @@ build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-ev
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
 
+**ADDENDUM 2026-10-04 06:18 PDT — S4 session OPEN (merge freeze on apps/mobile/** + packages/**):**
+- Android Pixel 10 Pro / Android 16, build 1.0.0 (18), update 01a10400-19de-7c8e-bc45-321d0e91143e (from [diag] on #4791 — never ask owner to type ids).
+- A native speed run 5ef3e6c1: FAIL — worst cold 3184 ms (>2500), worst warm 222 ms; counted 7 cold/3 warm (OS killed bg app). Owner: scroll lags ~0.5 s (#4895); post images missing ~half of launches → #4952 filed (likely unthrottled bare RN <Image> burst, no onError; scorer image metric blind to it).
+- B shared UI: hot corner TOP failed, BOTTOM worked (gesture nav) → #4877 deep link not needed on Android. Shared-UI speed run in progress. Remaining: C checklist, iPhone (build 38), then g0-evidence + Fable G0.
+
 **ADDENDUM 2026-10-03 14:47 PDT (supersedes earlier addenda where they conflict):**
 - ALL pre-G0 One UI work is merged or auto-merging. Merged since 13:40 (or armed): #4915 #4917 #4919 #4921 (speed-test scorer, `npm run one-ui:score-speed`) #4922 (client-corpus sentinel) #4923 (HostStorage.get tri-state) #4924 #4925 #4926 #4927 (vitest 30 s timeouts, #4920) #4929 (era perf rung 1b; #4901 closed) #4930 (MerchMarquee CSP, live-site fix) #4931 #4932 (OPERATING-MODE heartbeat/cap/codex/HA-steps) #4933 #4934 #4937 (Mood) #4938 #4939 #4940 #4941 #4942 (#4935) #4944 (eslint covers apps/mobile + transport-isolation ban, #4943).
 - WP2.4–2.13 extraction + A2s complete (2.6/2.8/2.10 A2 empty; 2.10 `_blank` → 2.4-D interceptor). Wave 0 of the post-G0 plan complete: composer + slots/routes registries, presentNativeRoute (deadlines/tick/reset), ack hook ({epoch,seq}), expo-fetch-deps + clown allow-list (apiTimeoutFor shared table), ClownChat apiStream.
