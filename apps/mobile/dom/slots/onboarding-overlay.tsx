@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ONBOARDING_PRESETS, type OnboardingPresetId } from '@swift2/shared';
 import { useHost } from '@swift2/ui';
 import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
-import { NEUTRAL } from './neutral-style';
 import { onboardingOverlay, useOnboardingPhase } from './onboarding-store';
+import { NEUTRAL } from './settings-page';
 import { settingsOverlay, useSettingsOpen } from './settings-store';
 
 // The push-permission offer (spec §7), shown once at the first value moment: the first time the settings overlay

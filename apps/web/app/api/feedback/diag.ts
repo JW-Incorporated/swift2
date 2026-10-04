@@ -29,6 +29,10 @@ export const DIAG_STAGES = [
   'resume-paint',
   'first-image-paint',
   'native-lead',
+  'mount-pending-expired',
+  'mount-late-upgrade',
+  'mount-inputs-resolved',
+  'mount-decision-resolved',
 ] as const;
 
 /** Instant marks (no duration): reported by `at:` offset only. Mirrors apps/mobile/lib/diagnostics.ts POINT_STAGES (a test pins them equal). */

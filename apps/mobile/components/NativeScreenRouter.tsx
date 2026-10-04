@@ -8,6 +8,7 @@ import { EraStreamScreen } from './EraStreamScreen';
 import { ThreadsScreen } from './ThreadsScreen';
 import { CommunityScreen } from './CommunityScreen';
 import { MerchScreen } from './MerchScreen';
+import { NativeBackBar } from './NativeBackBar';
 import { TrackGuideScreen } from './TrackGuideScreen';
 import { SongScreen } from './SongScreen';
 import { MomentSheet } from './MomentSheet';
@@ -54,6 +55,7 @@ export function NativeScreenRouter({
     openNativeScreen,
     openLegalPage,
     closeLegalPage,
+    goBack,
   } = nav;
 
   const screen = visibleScreen({
@@ -77,24 +79,30 @@ export function NativeScreenRouter({
       onOpenLegalPage={(page) => openLegalPage(page, 'settings')}
     />
   ) : screen === 'track-guide' && trackGuideRoute?.screen === 'track-guide' ? (
-    <TrackGuideScreen
-      eraId={trackGuideRoute.eraId}
-      tracks={trackGuideTracks}
-      onOpenSong={(track) =>
-        setTrackGuideRoute({ screen: 'song', eraId: trackGuideRoute.eraId, track })
-      }
-    />
+    <View style={styles.fill}>
+      <NativeBackBar label="Close" onBack={goBack} />
+      <TrackGuideScreen
+        eraId={trackGuideRoute.eraId}
+        tracks={trackGuideTracks}
+        onOpenSong={(track) =>
+          setTrackGuideRoute({ screen: 'song', eraId: trackGuideRoute.eraId, track })
+        }
+      />
+    </View>
   ) : screen === 'song' && trackGuideRoute?.screen === 'song' ? (
-    <SongScreen
-      eraId={trackGuideRoute.eraId}
-      track={trackGuideRoute.track}
-      onOpenSong={(eraId, track) => setTrackGuideRoute({ screen: 'song', eraId, track })}
-      // OS-033 ships the native moment sheet: a "Keep exploring"
-      // moment connection now opens it (through the same navigate()
-      // every other entry point uses), replacing the documented
-      // no-op OS-035 left here pending this card.
-      onOpenMoment={openMoment}
-    />
+    <View style={styles.fill}>
+      <NativeBackBar label="Back" onBack={goBack} />
+      <SongScreen
+        eraId={trackGuideRoute.eraId}
+        track={trackGuideRoute.track}
+        onOpenSong={(eraId, track) => setTrackGuideRoute({ screen: 'song', eraId, track })}
+        // OS-033 ships the native moment sheet: a "Keep exploring"
+        // moment connection now opens it (through the same navigate()
+        // every other entry point uses), replacing the documented
+        // no-op OS-035 left here pending this card.
+        onOpenMoment={openMoment}
+      />
+    </View>
   ) : screen === 'moment' && momentItemId ? (
     <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
   ) : screen === 'onboarding' ? (

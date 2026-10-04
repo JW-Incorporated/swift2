@@ -267,9 +267,7 @@ export default function AppReader(props: AppReaderProps) {
   const view = failed ? (
     <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>
   ) : !Reader || !client ? (
-    <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
-      Loading...
-    </div>
+    <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ minHeight: '100vh', background: 'var(--era-bg)' }} />
   ) : (
     <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} />
   );

@@ -8,7 +8,7 @@ export const TAP_TTL_MS = 10 * 60 * 1000;
 
 const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
 /** First path segments the shared UI serves; `/` itself (query-driven surfaces) is always allowed. */
-const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault']);
+const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault', 'inbox']);
 
 /**
  * Canonicalizes a link to a site-relative `path?query#hash`: an app-relative path or an
