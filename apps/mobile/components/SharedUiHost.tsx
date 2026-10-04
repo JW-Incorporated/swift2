@@ -10,47 +10,66 @@
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BackHandler, StyleSheet, View } from 'react-native';
+import { BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { Envelope } from '@swift2/ui';
+import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import ReaderSpike from '../dom/ReaderSpike';
 import SharedUiTest from '../dom/SharedUiTest';
-import { hardwareBackHandled } from '../dom/spike/back';
 import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
-import { createUnwiredHandlers } from '../lib/app-handlers';
+import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
+import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
+import { createExpoNotificationDeps } from '../lib/notification-host-ports';
+import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from '../lib/routes';
 import { speedTest } from '../lib/speed-test-runtime';
+import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
+import { createUiDeps } from '../lib/ui-deps';
+import { notificationTapGate } from '../lib/use-notification-taps';
 import { lastGoodCacheUri } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
 
+const SITE_FALLBACK = 'https://www.longlivets.com';
+
 interface ReaderSource {
   cacheUri: string | null;
-  versionToken: string;
 }
 
 export function SharedUiHost({
   onSignal,
   watch,
   forceFailure,
+  siteUrl,
+  getRouteFlags,
+  presentNativeRoute,
 }: {
   onSignal: DomSignal;
   watch: DomWatch;
   forceFailure: DomFailureMode;
+  /** UI bridge `navigate` inputs (H4/D1 wires them from App.tsx); defaults: production site, DEFAULT_ROUTE_FLAGS. */
+  siteUrl?: string;
+  getRouteFlags?: () => RouteFlags;
+  /** The D-7 presenter. Absent: a native-route `navigate` answers `failed`. */
+  presentNativeRoute?: (path: WebPath) => unknown;
 }) {
   const [testPage, setTestPage] = useState<boolean | null>(null);
   const [source, setSource] = useState<ReaderSource | null>(null);
-  const [backTick, setBackTick] = useState(0);
+  const [contentToken, setContentToken] = useState('');
   const [inbox, setInbox] = useState<Envelope[]>([]);
   // One bridge host + link per epoch; the DOM page is keyed by the epoch so it re-handshakes with every new host.
-  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink> } | null>(null);
+  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink>; binder: TapBinder } | null>(null);
+  const [generation, setGeneration] = useState(0);
   const epochRef = useRef(0);
-  const readerReady = useRef(false);
+  const hostRef = useRef<BridgeHost | null>(null);
+  const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
+  const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute });
+  navRef.current = { siteUrl, getRouteFlags, presentNativeRoute };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
   const rawProbe = useRef<string | null>(null);
@@ -72,13 +91,14 @@ export function SharedUiHost({
     if (testPage !== false) return;
     // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
     const cached = lastGoodCacheUri();
-    if (cached) setSource({ cacheUri: cached, versionToken: '' });
+    if (cached) setSource({ cacheUri: cached });
     void loadContentBundle()
       .then((bundle) => {
-        if (!cached) setSource({ cacheUri: lastGoodCacheUri(), versionToken: bundle.manifest.bundleVersion });
+        setContentToken(bundle.manifest.bundleVersion);
+        if (!cached) setSource({ cacheUri: lastGoodCacheUri() });
       })
       .catch(() => {
-        if (!cached) setSource({ cacheUri: null, versionToken: '' });
+        if (!cached) setSource({ cacheUri: null });
       });
   }, [testPage]);
 
@@ -86,7 +106,7 @@ export function SharedUiHost({
     () =>
       createDomHostHandlers({
         onSignal,
-        watch,
+        watch: session ? releaseBeforeStrike(watch, session.binder) : watch,
         bridge: session?.link.bridge,
         bridgeClosed: session?.link.isClosed,
       }),
@@ -95,16 +115,30 @@ export function SharedUiHost({
 
   useEffect(() => {
     const epoch = ++epochRef.current;
-    const ref: { host?: BridgeHost } = {};
+    const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
       setInbox((prev) => (sameInbox(prev, next) ? prev : next));
     });
+    const uiDeps = createUiDeps({
+      linking: Linking,
+      share: Share,
+      haptics: Haptics,
+      platformOS: Platform.OS,
+      log: onSignal,
+      siteUrl: navRef.current.siteUrl,
+      getFlags: () => navRef.current.getRouteFlags?.() ?? DEFAULT_ROUTE_FLAGS,
+      getPresenter: () => navRef.current.presentNativeRoute,
+    });
     const host = createBridgeHost({
-      handlers: createUnwiredHandlers(onSignal),
+      handlers: createAppHandlersFor(onSignal, { ui: uiDeps, api: createLiveApiDeps(), notifications: createExpoNotificationDeps() }),
       send: link.send,
       now: Date.now,
       scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
+      onBeforeShutdown: () => ref.binder?.release(),
+      onReadyAgain: () => ref.binder?.readyAgain(),
+      onNavReady: () => ref.binder?.navReady(),
+      onNavigated: (e) => ref.target?.onNavigated(e),
       onProtocolFatal: (reason) => {
         onSignal('bridge-protocol-fatal', reason.slice(0, 200));
         link.dispose();
@@ -112,25 +146,55 @@ export function SharedUiHost({
       },
       onSignal,
     });
+    const target = createTapTarget({
+      host,
+      isReaderPath: (p) => new URL(p, SITE_FALLBACK).pathname === '/' && !uiDeps.isNativeRoute(p as WebPath),
+      openElsewhere: async (p) => {
+        if (uiDeps.isNativeRoute(p as WebPath)) {
+          const r = navRef.current.presentNativeRoute?.(p as WebPath);
+          return r === 'applied' || r === 'noop';
+        }
+        await Linking.openURL(new URL(p, navRef.current.siteUrl ?? SITE_FALLBACK).toString());
+        return true;
+      },
+    });
+    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
+    ref.target = target;
+    ref.binder = binder;
     ref.host = host;
+    hostRef.current = host;
+    emitRef.current = {
+      insets: createInsetsEmitter((i) => void host.emit('insets', i)),
+      version: createContentVersionEmitter((e) => void host.emit('contentVersion', e)),
+    };
     link.attach(host);
     setInbox([]);
-    setSession({ epoch, link });
+    setSession({ epoch, link, binder });
     return () => {
-      host.dispose();
-      link.dispose();
+      hostRef.current = null;
+      emitRef.current = null;
+      disposeEpoch(binder, host, link);
       setSession(null);
       setInbox([]);
     };
-  }, []);
+  }, [generation]);
+
+  // Hardware back: DOM first over the bridge (a `back` command), then native exit. Before the DOM is ready the press falls through.
+  useEffect(() => {
+    const host = hostRef.current;
+    if (testPage !== false || !session || !host) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', createBackHandler(host, () => BackHandler.exitApp()));
+    return () => sub.remove();
+  }, [testPage, session]);
+
+  // The DOM is the sole inset owner: native only reports. The host holds these until `ready`, then flushes.
+  useEffect(() => {
+    emitRef.current?.insets(insets);
+  }, [session, insets.top, insets.right, insets.bottom, insets.left]);
 
   useEffect(() => {
-    if (testPage !== false) return;
-    const sub = BackHandler.addEventListener('hardwareBackPress', () =>
-      hardwareBackHandled(readerReady.current, () => setBackTick((n) => n + 1)),
-    );
-    return () => sub.remove();
-  }, [testPage]);
+    if (contentToken) emitRef.current?.version(contentToken);
+  }, [session, contentToken]);
 
   useEffect(() => {
     if (forceFailure === 'throw' && source) void handlers.reportError('forced DOM failure');
@@ -162,19 +226,16 @@ export function SharedUiHost({
           key={session.epoch}
           dom={dom}
           cacheUri={source.cacheUri ?? undefined}
-          versionToken={source.versionToken}
-          backTick={backTick}
           inbox={inbox}
           bridge={handlers.bridge}
           reportProtocolFatal={handlers.reportProtocolFatal}
-          insets={insets}
           onReady={
             forceFailure === 'off'
               ? async () => {
-                  readerReady.current = true;
                   nativeMs.current = Date.now() - launchedAt.current;
                   if (rawProbe.current) publishProbe(rawProbe.current);
                   await handlers.onReady();
+                  session.binder.firstPaint();
                 }
               : async () => {}
           }
@@ -182,9 +243,6 @@ export function SharedUiHost({
           reportProbe={async (json) => publishProbe(json)}
           speedTestOn={speedOn}
           reportImageLoad={async (visible) => noteImageLoaded(visible)}
-          reportBack={async (result) => {
-            if (result === 'exit') BackHandler.exitApp();
-          }}
         />
       ) : null}
     </View>
