@@ -67,14 +67,19 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
     setItem(key: string, value: string): void {
       if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
       const file = cacheFile(key);
-      file.write(value);
+      // Twin first: a crash between the writes may leave the DOM newer than native, never older.
       if (key.endsWith(LAST_GOOD_SUFFIX)) {
         new FileSystem.File(CACHE_DIR, lastGoodScriptName(key)).write(lastGoodScriptSource(value));
       }
+      file.write(value);
     },
     removeItem(key: string): void {
       const file = cacheFile(key);
       if (file.exists) file.delete();
+      if (key.endsWith(LAST_GOOD_SUFFIX)) {
+        const twin = new FileSystem.File(CACHE_DIR, lastGoodScriptName(key));
+        if (twin.exists) twin.delete();
+      }
     },
   };
 }

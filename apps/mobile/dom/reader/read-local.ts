@@ -76,7 +76,7 @@ function scriptRead(uri: string, doc?: Document): Promise<string> {
 /** Order is script -> xhr -> fetch. `uri` is the `.js` twin; fetch/XHR read the sibling `.json`. */
 export async function readLocalText(uri: string, deps: ReadDeps = {}): Promise<ReadResult> {
   const attempts: ReadAttempt[] = [];
-  const jsonUri = uri.replace(/.js$/, '.json');
+  const jsonUri = uri.replace(/\.js(\?.*)?$/, '.json');
   const doFetch = deps.fetch ?? (globalThis.fetch as unknown as ReadDeps['fetch']);
   const makeXhr = deps.xhr ?? (() => new XMLHttpRequest() as unknown as XhrLike);
   try {

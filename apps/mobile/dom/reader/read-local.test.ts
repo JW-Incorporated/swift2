@@ -114,6 +114,13 @@ describe('readLocalText', () => {
       expect('__swift2LastGood' in globalThis).toBe(false);
     });
 
+    it('strips a ?v= cache-buster when deriving the .json twin', async () => {
+      const { doc } = fakeDoc(() => {}, true);
+      const seen: string[] = [];
+      await readLocalText('file:///a.js?v=99', { doc, xhr: xhr({ responseText: 'X' }, seen) });
+      expect(seen).toEqual(['file:///a.json']);
+    });
+
     it('falls to XHR on script error and reads the .json twin', async () => {
       const { doc } = fakeDoc(() => {}, true);
       const seen: string[] = [];

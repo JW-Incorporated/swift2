@@ -30,5 +30,12 @@ export function lastGoodCacheUri(): string | null {
       return null;
     }
   }
-  return script.uri;
+  const version = ((): number | null => {
+    try {
+      return json.info().modificationTime ?? json.size;
+    } catch {
+      return null;
+    }
+  })();
+  return version === null ? script.uri : `${script.uri}?v=${version}`;
 }
