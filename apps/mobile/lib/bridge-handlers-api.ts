@@ -11,6 +11,7 @@ export const API_ALLOWLIST: readonly string[] = [
   'POST /api/mood',
   'POST /api/submit-link',
   'POST /api/clown',
+  'GET /api/notifications/inbox',
 ];
 export const MAX_API_BYTES = 256 * 1024;
 export { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS };

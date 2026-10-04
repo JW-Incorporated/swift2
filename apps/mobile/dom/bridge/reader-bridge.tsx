@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
+import { inboxOverlay, useInboxOpen } from '../slots/inbox-store';
 import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
@@ -17,10 +18,11 @@ export function ReaderBridge() {
   const q = useReader();
   // The settings overlay sits above everything: back closes it before any open item.
   const settingsOpen = useSettingsOpen();
+  const inboxOpen = useInboxOpen();
   useBackRegistration(
     controls.registerBack,
-    settingsOpen ? 'settings' : openItemId,
-    settingsOpen ? settingsOverlay.close : actions.closeItem,
+    inboxOpen ? 'inbox' : settingsOpen ? 'settings' : openItemId,
+    inboxOpen ? inboxOverlay.close : settingsOpen ? settingsOverlay.close : actions.closeItem,
   );
 
   useEffect(() => {
