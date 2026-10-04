@@ -16,6 +16,7 @@
 import './moment';
 import './era';
 import './floating';
+import './merch';
 import './search';
 
 export { register, slots } from './instance';

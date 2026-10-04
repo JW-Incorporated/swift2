@@ -64,7 +64,6 @@ export function runFallbackRows(rows: readonly FallbackRow[], state: FallbackSta
 /** Where each unslotted mode goes natively (D-6). Mood shares the native Clownbot screen. A selected lens is not carried yet (the native threads screen takes no lens param). */
 export const MODE_PATHS: Partial<Record<AppMode, string>> = {
   threads: '/?mode=threads',
-  merch: '/?mode=merch',
   community: '/?mode=community',
   clownbot: '/?screen=clownbot',
   mood: '/?screen=clownbot',

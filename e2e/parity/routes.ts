@@ -112,7 +112,7 @@ const CLOWN_ANSWER_NDJSON =
 
 /** Side-a-only baselines (One UI PR0-beta, WP2.9-2.13): merch, community, clownbot, mood, notification settings and the legal pages. */
 export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
-  { name: 'merch', path: '/?mode=merch', root: 'main' },
+  { name: 'merch', path: '/?mode=merch', root: 'main', sides: 'both' },
   { name: 'community', path: '/?mode=community', root: 'main' },
   { name: 'clownbot', path: '/?mode=clownbot', root: 'main' },
   {
