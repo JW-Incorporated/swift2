@@ -15,6 +15,7 @@
 // --- slice imports go here, one line each ---
 import './moment';
 import './era';
+import './legal';
 import './floating';
 import './merch';
 import './community';

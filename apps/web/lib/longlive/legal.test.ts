@@ -219,7 +219,7 @@ describe('reachability — an unlinked policy is no policy', () => {
   });
 
   it('renders those links from the site footer', () => {
-    const footer = read('../../components/longlive/SiteFooter.tsx');
+    const footer = read('../../../../packages/ui/src/reader/legal/SiteFooter.tsx');
     expect(footer).toContain('LEGAL_LINKS');
     expect(footer).toContain('aria-label="Legal"');
   });

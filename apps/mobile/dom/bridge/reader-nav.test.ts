@@ -12,7 +12,7 @@ const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, m
 
 describe('createNavigateDom', () => {
   const make = (applier: ((s: string) => Promise<boolean>) | null = vi.fn(async () => true)) => {
-    const d = { replaceUrl: vi.fn(), applier: () => applier, openNative: vi.fn() };
+    const d = { replaceUrl: vi.fn(), setPath: vi.fn(), applier: () => applier, openNative: vi.fn() };
     return { d, nav: createNavigateDom(d), applier };
   };
 
@@ -24,10 +24,29 @@ describe('createNavigateDom', () => {
     expect(d.openNative).not.toHaveBeenCalled();
   });
 
+  it('a reader path closes an open legal page first', () => {
+    const { d, nav } = make();
+    nav('/?item=abc');
+    expect(d.setPath).toHaveBeenCalledWith('/');
+    expect(d.setPath.mock.invocationCallOrder[0]).toBeLessThan(d.replaceUrl.mock.invocationCallOrder[0]);
+  });
+
+  it('the allow-listed legal paths stay in the DOM', () => {
+    for (const p of ['/privacy', '/terms', '/support']) {
+      const { d, nav, applier } = make();
+      nav(p);
+      expect(d.setPath).toHaveBeenCalledWith(p);
+      expect(d.openNative).not.toHaveBeenCalled();
+      expect(d.replaceUrl).not.toHaveBeenCalled();
+      expect(applier).not.toHaveBeenCalled();
+    }
+  });
+
   it('any other path goes to native, never a DOM dead end', () => {
     const { d, nav, applier } = make();
-    nav('/privacy');
-    expect(d.openNative).toHaveBeenCalledWith('/privacy');
+    nav('/privacy/x');
+    expect(d.openNative).toHaveBeenCalledWith('/privacy/x');
+    expect(d.setPath).not.toHaveBeenCalled();
     expect(d.replaceUrl).not.toHaveBeenCalled();
     expect(applier).not.toHaveBeenCalled();
   });
