@@ -22,6 +22,7 @@ import {
   SONG_NAV_CLIP,
   test,
 } from './helpers';
+import { bBaselineNames, bothSidesRoutes } from './sides';
 
 // Per-side baselines (Linux-only, generated in the pinned Playwright container).
 // Side b is captured with the project's REAL simulated safe-area insets.
@@ -68,6 +69,17 @@ test.describe('merch', () => {
   test.use({ bypassCSP: true });
   for (const route of A_ONLY_ROUTES_BETA.filter((r) => r.name === 'merch')) betaTest(route);
 });
+
+// W1-E: side-b baselines (real insets) for routes a slice D flipped to sides 'both'. Empty today.
+for (const route of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
+  test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
+    const names = bBaselineNames(route);
+    await openAOnlyRoute(page, route, 'b', realInsets(testInfo));
+    const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
+    expect(pixels).toMatchSnapshot(names.root, PIXEL_OPTS);
+    expect(await captureViewport(page)).toMatchSnapshot(names.viewport, PIXEL_OPTS);
+  });
+}
 
 test('a (web build) item-social related rail', async ({ page }) => {
   await openAOnlyRoute(page, ITEM_SOCIAL);

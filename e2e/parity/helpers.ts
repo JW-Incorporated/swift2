@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CANONICAL_ORIGIN } from '../../apps/web/lib/canonical-origin';
 import { PLACEHOLDER_PNG } from './placeholder';
+import type { Sides } from './sides';
 import { expect, test as base, type Page, type TestInfo } from '@playwright/test';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -55,6 +56,8 @@ export interface AOnlyRoute extends RouteLike {
   prepare?: (page: Page) => Promise<void>;
   init?: (page: Page) => Promise<void>;
   clip?: string;
+  /** Default 'a'. 'both' adds the a-vs-b viewport compare and b-* baselines (a slice D sets it; see docs/one-ui/parity.md). */
+  sides?: Sides;
 }
 const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main' });
 const SEARCH_DIALOG = '[role="dialog"][aria-label="Search the archive"]';
@@ -270,10 +273,10 @@ export async function openRoute(page: Page, side: Side, route: RouteLike, inset?
   await settle(page, route.root);
 }
 
-/** Open an A-only route, run its prepare step, and settle. */
-export async function openAOnlyRoute(page: Page, route: AOnlyRoute): Promise<void> {
+/** Open an A-only route (or its side-b twin once flipped to 'both'), run its prepare step, and settle. */
+export async function openAOnlyRoute(page: Page, route: AOnlyRoute, side: Side = 'a', inset?: string): Promise<void> {
   await route.init?.(page);
-  await openRoute(page, 'a', route);
+  await openRoute(page, side, route, inset);
   if (!route.prepare) return;
   await route.prepare(page);
   const root = route.clip ?? route.root;
