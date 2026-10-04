@@ -62,11 +62,13 @@ export {
   checkStrictJson,
   isBridgeId,
   isExternalUrl,
+  isMailtoUrl,
   isWebPath,
   sanitizeApiRequest,
   toExternalUrl,
+  toMailtoUrl,
   toWebPath,
 } from './validate';
-export type { BridgeApiHeaderName, BridgeApiRequest, ExternalUrl, JsonFailure, WebPath } from './validate';
+export type { BridgeApiHeaderName, BridgeApiRequest, ExternalUrl, JsonFailure, MailtoUrl, WebPath } from './validate';
 export { BRIDGE_VERSION, NATIVE_SUPPORTED_RANGE, inRange, isVersionRange, negotiate, parseReady } from './version';
 export type { NegotiateResult, VersionRange } from './version';

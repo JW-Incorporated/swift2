@@ -11,12 +11,12 @@ const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
 const ROUTE_ROOTS = new Set(['settings', 'privacy', 'terms', 'support', 'vault']);
 
 /**
- * Default tap resolver: an app-relative path or an absolute longlivets.com
- * (and www.) URL becomes a web path, only if it lands on an internal route.
- * `/api`, `/internal`, other hosts, userinfo/ports and traversal are refused.
+ * Canonicalizes a link to a site-relative `path?query#hash`: an app-relative path or an
+ * absolute https longlivets.com (and www.) URL only; other hosts, userinfo/ports,
+ * backslashes, traversal and over-long input are refused. Not route-restricted.
  */
-export function resolveTapPath(link: string): WebPath | null {
-  if (link.length === 0 || link.length > 2048 || link.includes('\\')) return null;
+export function canonicalizeLink(link: string): string | null {
+  if (link.length === 0 || link.length > 2048 || link.includes('\\') || link.startsWith('//')) return null;
   let rel = link;
   if (!link.startsWith('/')) {
     let u: URL;
@@ -36,6 +36,14 @@ export function resolveTapPath(link: string): WebPath | null {
   }
   const segs = pathname.split('/').filter(Boolean);
   if (segs.some((s) => s === '..' || s === '.')) return null;
+  return rel;
+}
+
+/** Default tap resolver: a canonical link that lands on an internal shared-UI route (`/api`, `/internal` etc. refused). */
+export function resolveTapPath(link: string): WebPath | null {
+  const rel = canonicalizeLink(link);
+  if (rel === null) return null;
+  const segs = new URL(rel, 'https://www.longlivets.com').pathname.split('/').filter(Boolean);
   if (segs.length > 0 && !ROUTE_ROOTS.has(segs[0])) return null;
   return toWebPath(rel);
 }
