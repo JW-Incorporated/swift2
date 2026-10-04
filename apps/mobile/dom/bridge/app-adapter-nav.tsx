@@ -75,8 +75,8 @@ export function handleLinkClick(
 }
 
 interface BlankCaptureDoc {
-  addEventListener(type: 'click', fn: (e: never) => void): void;
-  removeEventListener(type: 'click', fn: (e: never) => void): void;
+  addEventListener(type: 'click', fn: (e: never) => void, capture?: boolean): void;
+  removeEventListener(type: 'click', fn: (e: never) => void, capture?: boolean): void;
 }
 
 interface BlankCaptureEvent extends ClickLike {
@@ -84,8 +84,8 @@ interface BlankCaptureEvent extends ClickLike {
 }
 
 /**
- * Bubble-phase `a[target=_blank]` interceptor for anchors that do not go through the host
- * `Link`. Bubble (not capture) so React/page handlers run first and can `preventDefault()`.
+ * Capture-phase `a[target=_blank]` interceptor for anchors that do not go through the host
+ * `Link`. Page handlers cannot opt out (a bubble listener may stopPropagation, so only capture is reliable): a component needing custom _blank behaviour must render a button.
  */
 export function installBlankCapture(doc: BlankCaptureDoc, deps: NavDeps): () => void {
   const listener = (e: BlankCaptureEvent) => {
@@ -94,8 +94,8 @@ export function installBlankCapture(doc: BlankCaptureDoc, deps: NavDeps): () => 
     if (!a) return;
     handleLinkClick(e, a.getAttribute('href') ?? '', { blank: true, external: false }, deps);
   };
-  doc.addEventListener('click', listener as (e: never) => void);
-  return () => doc.removeEventListener('click', listener as (e: never) => void);
+  doc.addEventListener('click', listener as (e: never) => void, true);
+  return () => doc.removeEventListener('click', listener as (e: never) => void, true);
 }
 
 interface StorageArea {

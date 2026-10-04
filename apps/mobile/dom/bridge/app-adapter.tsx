@@ -116,7 +116,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     Image: AppImage,
     navigate,
     resolveUrl: (path) => resolveAppUrl(path, origin),
-    embedOrigin: APP_ORIGIN,
+    embedOrigin: origin,
     onBack: deps.onBack,
     apiFetch: deps.apiFetch,
     storage: deps.storage ?? { local: webStorage('localStorage'), session: webStorage('sessionStorage') },

@@ -129,7 +129,8 @@ describe('installBlankCapture', () => {
   it('intercepts a[target=_blank] clicks and uninstalls', () => {
     let fn: ((e: never) => void) | null = null;
     const doc = {
-      addEventListener: (_t: 'click', f: (e: never) => void) => {
+      addEventListener: (_t: 'click', f: (e: never) => void, c?: boolean) => {
+        expect(c).toBe(true);
         fn = f;
       },
       removeEventListener: vi.fn(),
@@ -144,7 +145,7 @@ describe('installBlankCapture', () => {
     fn!(none as never);
     expect(none.preventDefault).not.toHaveBeenCalled();
     off();
-    expect(doc.removeEventListener).toHaveBeenCalledWith('click', fn);
+    expect(doc.removeEventListener).toHaveBeenCalledWith('click', fn, true);
   });
 });
 
@@ -191,8 +192,19 @@ describe('createAppAdapter', () => {
     expect(navigateDom).not.toHaveBeenCalled();
     expect(call).not.toHaveBeenCalled();
   });
-  it('sets embedOrigin to the canonical origin (#4960)', () => {
+  it('sets embedOrigin to the adapter origin (#4960)', () => {
     expect(setup().adapter.embedOrigin).toBe(APP_ORIGIN);
+    const a = createAppAdapter({
+      client: { call: vi.fn() } as never,
+      origin: 'https://preview.example',
+      insets: { top: 0, right: 0, bottom: 0, left: 0 },
+      isNativeRoute: () => false,
+      navigateDom: vi.fn(),
+      getPath: () => '/',
+      apiFetch: vi.fn() as never,
+      onBack: () => () => {},
+    });
+    expect(a.embedOrigin).toBe('https://preview.example');
   });
   it('env, insets and resolveUrl', () => {
     const { adapter } = setup();

@@ -1,6 +1,8 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { APP_ORIGIN } from './app-adapter';
+import { createElement, act } from 'react';
+import { createRoot } from 'react-dom/client';
+import { APP_ORIGIN, createAppAdapter } from './app-adapter';
 import { installBlankCapture } from './app-adapter-nav';
 
 describe('installBlankCapture with real DOM events', () => {
@@ -28,11 +30,49 @@ describe('installBlankCapture with real DOM events', () => {
     off();
   });
 
-  it('respects a page handler that already called preventDefault (bubble phase)', () => {
-    const { deps, off, a } = mount('https://example.com/p');
-    a.addEventListener('click', (e) => e.preventDefault());
-    fire(a);
+  it('still intercepts when a bubble listener stops propagation (capture phase)', () => {
+    const { deps, off, inner } = mount('https://x.example/');
+    inner.addEventListener('click', (e) => e.stopPropagation());
+    const ev = new MouseEvent('click', { bubbles: true, cancelable: true });
+    expect(inner.dispatchEvent(ev)).toBe(false);
+    expect(deps.openExternal).toHaveBeenCalledTimes(1);
+    expect(deps.openExternal).toHaveBeenCalledWith('https://x.example/');
+    off();
+  });
+
+  it('consumes a blocked scheme even when propagation is stopped', () => {
+    const { deps, off, inner } = mount('javascript:alert(1)');
+    inner.addEventListener('click', (e) => e.stopPropagation());
+    const ev = new MouseEvent('click', { bubbles: true, cancelable: true });
+    expect(inner.dispatchEvent(ev)).toBe(false);
     expect(deps.openExternal).not.toHaveBeenCalled();
+    expect(deps.navigate).not.toHaveBeenCalled();
+    off();
+  });
+
+  it('an external Link click reaches openExternal exactly once (no double dispatch with the capture)', async () => {
+    const call = vi.fn(async () => ({ ok: true as const, value: null }));
+    const adapter = createAppAdapter({
+      client: { call } as never,
+      insets: { top: 0, right: 0, bottom: 0, left: 0 },
+      isNativeRoute: () => false,
+      navigateDom: vi.fn(),
+      getPath: () => '/',
+      apiFetch: vi.fn() as never,
+      onBack: () => () => {},
+    });
+    const deps = { origin: APP_ORIGIN, navigate: vi.fn(), openExternal: adapter.openExternal! };
+    const off = installBlankCapture(document as never, deps);
+    (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+    const host = document.createElement('div');
+    document.body.appendChild(host);
+    const root = createRoot(host);
+    await act(async () => {
+      root.render(createElement(adapter.Link, { href: 'https://x.example/', external: true }, 'go'));
+    });
+    host.querySelector('a')!.click();
+    expect(call.mock.calls.filter((c) => (c as unknown[])[0] === 'openExternal')).toHaveLength(1);
+    await act(async () => root.unmount());
     off();
   });
 
