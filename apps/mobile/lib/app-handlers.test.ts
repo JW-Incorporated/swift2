@@ -1,6 +1,17 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
-import { createAppHandlers, mergeHandlerGroups } from './app-handlers';
+import { apiBaseUrl } from './api-base';
+import { createAppHandlers, createLiveAppHandlers, mergeHandlerGroups } from './app-handlers';
+
+const expoFetch = vi.hoisted(() => vi.fn());
+const session = vi.hoisted(() => ({ token: 'tok-1' as string | null, set: vi.fn() }));
+vi.mock('./expo-fetch-deps', () => ({
+  createExpoApiDeps: () => ({
+    fetch: expoFetch,
+    baseUrl: () => 'https://api.test',
+    clownSession: { get: async () => session.token, set: session.set },
+  }),
+}));
 
 const ctx = { signal: new AbortController().signal };
 
@@ -84,5 +95,30 @@ describe('createAppHandlers', () => {
     const src = readFileSync(new URL('./app-handlers.ts', import.meta.url), 'utf8');
     const banned = ['expo/' + 'dom', 'Shared' + 'UiHost', 'transport-' + 'expo', "from 'react", "from 'expo"];
     for (const b of banned) expect(src).not.toContain(b);
+  });
+});
+
+describe('createLiveAppHandlers (H2)', () => {
+  const streamed = (text: string, headers: Record<string, string> = {}) =>
+    new Response(new ReadableStream<Uint8Array>({ start(c) { c.enqueue(new TextEncoder().encode(text)); c.close(); } }), { status: 200, headers });
+
+  it('registers the real api handler over the expo/fetch deps and leaves the rest unwired', async () => {
+    expoFetch.mockResolvedValueOnce(streamed('{"ok":true}'));
+    const log = vi.fn();
+    const h = createLiveAppHandlers(log) as unknown as Record<string, (p: unknown, c: typeof ctx) => Promise<unknown>>;
+    const r = await h.api({ req: { method: 'POST', path: '/api/intake', body: '{}' } }, ctx);
+    expect(r).toMatchObject({ ok: true, value: { status: 200, body: '{"ok":true}' } });
+    expect(expoFetch.mock.calls[0][0]).toBe(`${apiBaseUrl()}/api/intake`);
+    expect(await h.api({ req: { method: 'POST', path: '/api/devices/register' } }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(await h.haptic({ kind: 'light' }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(log).toHaveBeenCalledWith('bridge-unwired', 'haptic');
+  });
+
+  it('attaches the native clown session and persists a refreshed one', async () => {
+    expoFetch.mockResolvedValueOnce(streamed('hi', { 'x-clown-session': 'tok-2' }));
+    const h = createLiveAppHandlers(vi.fn()) as unknown as Record<string, (p: unknown, c: typeof ctx) => Promise<unknown>>;
+    await h.api({ req: { method: 'POST', path: '/api/clown', body: '{}' } }, ctx);
+    expect(expoFetch.mock.calls.at(-1)?.[1].headers.authorization).toBe('Bearer tok-1');
+    expect(session.set).toHaveBeenCalledWith('tok-2');
   });
 });

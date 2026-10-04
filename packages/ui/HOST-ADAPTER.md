@@ -12,7 +12,7 @@
 | `clipboard` (optional) | web root adapter only: wraps `navigator.clipboard.writeText`; absent = the `navigator.clipboard` fallback | native clipboard |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
-| `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | TODO(PM, 2.11-D1): bridge api allow-list entry for `/api/clown` (native-held session, 60 s timeout); buffered fallback until then |
+| `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | bridge `api` allow-list carries `/api/clown` (native-held session, 60 s timeout); the app adapter uses `createBridgeApiStream` (buffered) |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
@@ -39,7 +39,7 @@ Note: the web adapter's `onBack` does not consume the handler's boolean return; 
 
 ## Mobile `apiFetch` status
 
-`CurrentItemDetail` intake calls `useHost().apiFetch`. The mobile spike adapter still inherits the web `apiFetch` (relative fetch, null origin) and `/api` has no CORS (`apps/web/next.config.mjs` only opens `/content/**`), so mobile intake is not functional until the WP2.3-F bridge `apiFetch` lands (TODO(PM, WP2.3-F)).
+`CurrentItemDetail` intake calls `useHost().apiFetch`. On mobile the app adapter takes `apiFetch` from `createBridgeApiFetch(client)` (`apps/mobile/dom/bridge/api-fetch.ts`), which sends the request over the bridge `api` command to the native handler (expo/fetch, allow-list, 256 KB caps, 8 s / 60 s clown timeouts); a bridge `cancelled` surfaces as `AbortError`. `apiStream` is `createBridgeApiStream(apiFetch)` = `bufferedFrom` (whole body once; the native reader is capped, not streamed). The spike adapter still inherits the web `apiFetch` until the app adapter adopts these.
 
 ## `Image` with `fill`
 

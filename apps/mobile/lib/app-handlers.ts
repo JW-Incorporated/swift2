@@ -3,6 +3,7 @@
 // factories into the single map `createBridgeHost({ handlers })` takes, so no
 // slice registers handlers in the host component. The dispatcher owns `cancel`.
 import { resErr, type HandlerMap } from '@swift2/ui';
+import { apiBaseUrl } from './api-base';
 import { createHandlers as createApiHandlers, type ApiHandlerDeps } from './bridge-handlers-api';
 import { createHandlers as createNotificationHandlers, type NotificationHandlerDeps } from './bridge-handlers-notifications';
 import { createHandlers as createUiHandlers, type UiHandlerDeps } from './bridge-handlers-ui';
@@ -60,4 +61,25 @@ export function createUnwiredHandlers(log: (stage: string, detail: string) => vo
     'notifications.register': unwired('notifications.register'),
     'notifications.updatePrefs': unwired('notifications.updatePrefs'),
   };
+}
+
+/**
+ * Live `api` deps (H2): expo/fetch + apiBaseUrl + the native clown session. expo-fetch-deps is
+ * loaded on first call so importing the composer stays free of expo/* (node tests, transport isolation).
+ */
+export function createLiveApiDeps(): ApiHandlerDeps {
+  const deps = () => import('./expo-fetch-deps').then((m) => m.createExpoApiDeps());
+  return {
+    fetch: (async (input: RequestInfo | URL, init?: RequestInit) => (await deps()).fetch(input, init)) as typeof fetch,
+    baseUrl: apiBaseUrl,
+    clownSession: {
+      get: async () => (await deps()).clownSession?.get() ?? null,
+      set: async (token) => (await deps()).clownSession?.set(token),
+    },
+  };
+}
+
+/** H2 host map: the H0 map with `api` live; H1/H3 swap in their own groups the same way. */
+export function createLiveAppHandlers(log: (stage: string, detail: string) => void): AppHandlers {
+  return { ...createUnwiredHandlers(log), ...createApiHandlers(createLiveApiDeps()) };
 }
