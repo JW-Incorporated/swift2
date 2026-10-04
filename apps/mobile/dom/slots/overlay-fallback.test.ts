@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { MODE_PATHS, OVERLAY_FALLBACK_ROWS, modeFallbackPath, runFallbackRows } from './overlay-fallback';
 
-const closed = { mode: 'era', trackGuideEraId: null, openTrackKey: null, searchOpen: false } as const;
-const actions = () => ({ closeTrackGuide: vi.fn(), setSearchOpen: vi.fn() });
+const closed = { mode: 'era', trackGuideEraId: null, openTrackKey: null, } as const;
+const actions = () => ({ closeTrackGuide: vi.fn() });
 const flush = () => new Promise((r) => setTimeout(r, 0));
 const run = async (state: unknown, seen: Map<string, string>, ok = true, a = actions()) => {
   const io = { openNative: vi.fn(async () => ok), diag: vi.fn() };
@@ -13,7 +13,7 @@ const run = async (state: unknown, seen: Map<string, string>, ok = true, a = act
 
 describe('overlay fallback table', () => {
   it('has the stable row ids (moment is a slot, thread is the ModeFallback)', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'song', 'track-guide']);
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['song', 'track-guide']);
   });
 
   it.each([
@@ -30,17 +30,6 @@ describe('overlay fallback table', () => {
     const { io, a } = await run({ ...closed, trackGuideEraId: 'debut' }, new Map(), false);
     expect(a.closeTrackGuide).not.toHaveBeenCalled();
     expect(io.diag).toHaveBeenCalledWith('fallback-native-failed', 'track-guide');
-  });
-
-  it.each([
-    [{ searchOpen: true }, 'search'],
-  ])('%j has no native screen: state kept, diag emitted once, no navigation', async (patch, id) => {
-    const seen = new Map<string, string>();
-    const { io, a } = await run({ ...closed, ...patch }, seen);
-    expect(io.openNative).not.toHaveBeenCalled();
-    expect(io.diag).toHaveBeenCalledWith('fallback-no-native-screen', id);
-    expect(a.setSearchOpen).not.toHaveBeenCalled();
-    expect((await run({ ...closed, ...patch }, seen)).io.diag).not.toHaveBeenCalled();
   });
 
   it('a song over its guide hands native the song only (one navigation)', async () => {
@@ -75,7 +64,6 @@ describe('overlay fallback table', () => {
 
 describe('D-6 mode fallback paths', () => {
   it.each([
-    ['merch', '/?mode=merch'],
     ['community', '/?mode=community'],
     ['clownbot', '/?screen=clownbot'],
     ['mood', '/?screen=clownbot'],
@@ -83,6 +71,7 @@ describe('D-6 mode fallback paths', () => {
   ] as const)('%s -> %s', (mode, path) => expect(modeFallbackPath(mode)).toBe(path));
 
   it('covers every unslotted mode', () => {
-    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'merch', 'mood']);
+    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'mood']);
+    expect(MODE_PATHS.merch).toBeUndefined();
   });
 });

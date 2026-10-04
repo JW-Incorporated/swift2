@@ -2,18 +2,17 @@
 // an app-side component placed in the overlays array: every overlay the shell can open that has no slot yet is
 // handed to native ONCE (bridge `navigate`, X4 URLs). The DOM state is cleared ONLY after the bridge reports the
 // native screen was presented; a failed handoff keeps the state and emits a diag (never a silent dead end).
-// Overlays with no native screen at all (search) keep their state, emit a diag, and are an interim
-// gap until their slices land (#4972 search, after iOS-1). One row per overlay id; each slice D
+// Overlays with no native screen at all would keep their state and emit a diag (none remain). One row per overlay id; each slice D
 // deletes its own row (and, for modes, its entry in MODE_PATHS) when it registers the real slot.
 import { useEffect, useRef, useState } from 'react';
 import { useAppActions, useAppState, type AppMode, type AppState } from '@swift2/ui/reader/store/index';
 import { useReaderControls } from '../bridge/reader-controls';
 
 type Actions = ReturnType<typeof useAppActions>;
-type FallbackState = Pick<AppState, 'mode' | 'trackGuideEraId' | 'openTrackKey' | 'searchOpen'>;
+type FallbackState = Pick<AppState, 'mode' | 'trackGuideEraId' | 'openTrackKey'>;
 
 export type FallbackRow = {
-  id: 'search' | 'song' | 'track-guide';
+  id: 'song' | 'track-guide';
   /** The open overlay's value, or null while closed. */
   value: (s: FallbackState) => string | null;
   /** The native route, or null when no native screen exists for this overlay. */
@@ -36,7 +35,6 @@ export const OVERLAY_FALLBACK_ROWS: readonly FallbackRow[] = [
     path: (v) => `/?screen=track-guide&era=${encodeURIComponent(v)}`,
     clear: (a) => a.closeTrackGuide(),
   },
-  { id: 'search', value: (s) => (s.searchOpen ? 'open' : null), path: () => null, clear: (a) => a.setSearchOpen(false) },
 ];
 
 /** Fires each open row exactly once per opening: `seen` holds the value already handled until the row closes. */
@@ -63,7 +61,6 @@ export function runFallbackRows(rows: readonly FallbackRow[], state: FallbackSta
 
 /** Where each unslotted mode goes natively (D-6). Mood shares the native Clownbot screen. */
 export const MODE_PATHS: Partial<Record<AppMode, string>> = {
-  merch: '/?mode=merch',
   community: '/?mode=community',
   clownbot: '/?screen=clownbot',
   mood: '/?screen=clownbot',
@@ -78,7 +75,7 @@ export function OverlayFallback() {
   const seen = useRef(new Map<string, string>());
   useEffect(() => {
     runFallbackRows(OVERLAY_FALLBACK_ROWS, state, seen.current, { openNative, diag }, actions);
-  }, [state.openTrackKey, state.trackGuideEraId, state.searchOpen]);
+  }, [state.openTrackKey, state.trackGuideEraId]);
   return null;
 }
 
