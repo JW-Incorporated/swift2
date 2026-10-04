@@ -7,6 +7,98 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-10-04 — Affiliate tags: none (owner informed; web unset → app parity)
+
+**Decision (PM call, 2026-10-04 07:05 PDT).** The environment variables `NEXT_PUBLIC_AWIN_ID`, `AMAZON_ASSOCIATES_TAG`, and `CATCHALL_ID` are unset in Vercel swift2-web (verified live). The app sends no affiliate tags (parity). The owner was informed.
+
+**Why.** Affiliate monetization is not yet active on the site; the app's tag handling is unchanged and already sends none because there are no tags to send.
+
+**Approved by.** PM (operational observation, no approval gate required).
+
+---
+
+## 2026-10-04 — OTA size baseline rebaselined after slice batch; 15% budget kept, re-measure after Wave 5
+
+**Decision (PM, 2026-10-04).** After the slice batch (2.5–2.14) merged, the OTA size baseline is rebaselined. The 15% contingency budget is retained. Re-measurement occurs after Wave 5 cleanup to confirm headroom.
+
+**Why.** Slices added content to the DOM bundle; the baseline must track actual size for meaningful budgeting.
+
+**Approved by.** PM (part of Wave 1–3 resource planning).
+
+---
+
+## 2026-10-04 — Universal links claim www.longlivets.com only; apex host redirects via 308
+
+**Decision (PM call, 2026-10-04 06:48 PDT).** The app's universal links and intent filters claim `www.longlivets.com` only. The apex host at the Vercel domain (longlivets.com) issues a 308 redirect to www; the 308 is enforced at Vercel domain level and cannot exempt `/.well-known/` paths. H6 (native build) removes the apex from app.json `associatedDomains` and `intentFilters`, touching only web and app (no native infra).
+
+**Why.** Universal links require `.well-known/apple-app-site-association` hosted at the claimed domain; Vercel's domain-level redirect (before any path checking) would serve a redirect to `/.well-known/` requests rather than the file. Restricting to www simplifies the routing.
+
+**Consequences.** Deep links to the apex (e.g., `longlivets.com/threads/…`) land in the browser first, then redirect to www, then match the intent filter. This is the expected flow.
+
+**Approved by.** PM (routing ops decision).
+
+---
+
+## 2026-10-04 — Settings in app use host.notifications driver; no webPush shim, IDs never cross bridge
+
+**Decision (W2-I PM ruling, 2026-10-04 07:52 PDT).** Settings screens in the app use `host.notifications` (the native notifications driver). There is no webPush shim. Device IDs and push IDs never cross the bridge. Bridge prefs commands are add-only.
+
+**Why.** The app controls notification permissions natively; web and app do not share push token management.
+
+**Consequences.** Settings → Notifications page in the app is routed to the native SettingsNotificationsPage (not the DOM overlay) while SharedUiHost is mounted. The DOM page never renders in the app. The adapter shims `host.webPush` onto bridge `notifications.*` for the PackageNotificationsPage to use if the web version is accessed elsewhere.
+
+**Approved by.** PM (Wave 2 integration design).
+
+---
+
+## 2026-10-04 — ClownChat lore added as third ReaderSnapshotExtensions domain (snapshot contract v2)
+
+**Decision (Fable ruling, 2026-10-04 07:51 PDT).** ClownChat lore is added as a third extension domain in `ReaderSnapshotExtensions` (alongside merch and songMoods). It is optional in `BundleLike` (missing → empty array). The snapshot contract v2 documents this. The equivalence hash covers lore.
+
+**Why.** The ClownChat board is empty in the app until lore is available; one domain is needed for the loader to handle it correctly across web/app.
+
+**Consequences.** Small pre-work (W2-L) wraps MerchSection's pattern for lore before D2 proceeds.
+
+**Approved by.** Fable (2026-10-04 07:51).
+
+---
+
+## 2026-10-04 — OTA DOM/native build skew is atomic (expo-updates) — no per-asset versioning, diag as early-warning
+
+**Decision (Fable ruling, 2026-10-04 07:51 PDT).** OTA DOM and native build skew is impossible: expo-updates publishes an atomic set of assets for a given update ID. Assets cannot be versioned independently or partially fetched. Bridge navigation diagnostics (`bridge-nav-unbound`) serve as an early-warning system if skew ever occurs; the diag system is the only canary.
+
+**Why.** Codex raised a theoretical hazard of DOM JS being one OTA ahead of native binary expectations; Fable ruled the hazard mitigated by atomic updates. An out-of-sync pair would manifest as a bridge communication failure (unbound command handlers), not silent data loss.
+
+**Consequences.** No per-asset caching strategy or fallback versioning is needed. The diag system becomes the primary signal for detecting any skew.
+
+**Approved by.** Fable (2026-10-04 07:51, PM sided with Fable over Codex concern).
+
+---
+
+## 2026-10-04 — Wave 1–3 slices batch-merged after D2, before iOS-1 device session (parallelization override)
+
+**Decision (PM routing, 2026-10-04 07:05 PDT, per owner directive "max out parallelization").** Ready slices (2.5–2.14) are merged in batch after D2 lands, before the iOS-1 device session. This deviates from the G0 ruling (Fable wanted no slice writes before iOS-1); the PM allows building (not merging) at risk per owner directive. Cost is bounded to rework.
+
+**Why.** Owner directive: "max out parallelization." The risk of slice merges before device validation is acceptable if they stack as draft PRs and are reverted if iOS-1 fails.
+
+**Consequences.** Slices land before iOS-1 validation; if iOS-1 finds a blocker, some slices may need backport fixes. The brief ensures all slices depend only on D2 internals and avoid post-D2 bridges.
+
+**Approved by.** Owner (directive via chat, 2026-10-04 07:05 PDT). PM recorded disagreement with Fable (Fable log line 31).
+
+---
+
+## 2026-10-04 — G0 = GO with conditions: Android-only S4; iOS deferred to iOS-1 gate; YouTube wrapper path; S5 + iOS-1 before Wave 4
+
+**Decision (Fable ruling, 2026-10-04 06:39 PDT).** G0 is **GO with conditions** based on Android-only S4 evidence. iOS and iPad are deferred to a new **iOS-1 gate** (between Wave 3 and Wave 4). YouTube embeds use an https wrapper page at `/embed/youtube/[id]` instead of baseUrl spoofing. Wave 1–3 OTA must play on device at S5 and iOS-1 before Wave 4.
+
+**Why.** Android S4 (Pixel 10 Pro, build 18) validated performance, offline, watchdog, and sharing. iOS and iPad need a parallel device session (blocked by build 38 in TestFlight). YouTube baseUrl rewriting is fragile and causes CORS errors; a wrapper page is standard and proven.
+
+**Consequences.** (1) #4954 (YouTube wrapper) is a new WP1-F slice (packages/ui iframe switch when host is app). (2) #4953 (SafeAreaView edges) is bumped to W1-B (ProxyNavigation SafeAreaView edges around DOM host). (3) #4955 (back nav on gesture bar) moves to backlog. (4) iOS-1 becomes a mandatory gate blocking Wave 4. (5) S5 device tests (iOS) run in parallel to iOS-1 device gate (no sequential blocker).
+
+**Approved by.** Fable (2026-10-04 06:39, mandatory G0 go/no-go).
+
+---
+
 ## 2026-10-04 — Contaminated Facebook `engagement_lead` rows are deleted and regenerated, not redacted in place (issue #4885, HA #98)
 
 **Decision (Joey, HA #98: "scrub").** The ~72 `platform='facebook'`,
