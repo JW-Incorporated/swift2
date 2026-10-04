@@ -21,6 +21,8 @@ parity capture.
 **ADDENDUM 2026-10-04 06:40 PDT — G0 = GO with conditions (Fable log). S4 CLOSED, merge freeze lifted.**
 - Owner 06:37: "Use the android info and apply it everywhere" → iOS/iPad deferred to new **iOS-1 gate** (between Wave 3 and Wave 4). Evidence: g0-evidence.md S4 Android (d7cb6d3e).
 - Wave 1 dispatching: W1-A H0, W1-B H4/D1 (+#4953 inset fix), W1-D H6 drafts, W1-E parity b-side scaffolding, W1-F YouTube wrapper (#4954). W1-C 2.11-D1 already done (#4941). Merge order H0 → H4/D1 → rest.
+- PM calls 06:48: universal links claim **www only** (apex 308 is Vercel domain-level, can't exempt /.well-known) → H6 drops apex from app.json associatedDomains + intent filter (native change, rides H6 store build). WP1.1 WebKit leg exists + green (main run 37090052458); iOS-1 needs a fresh cited run. HA #99 filed (Apple Team ID + Play SHA-256, for H6).
+- Wave 1 PRs: #4957 W1-D (auto-merge), #4958 W1-E (approved, auto-merge), #4960 W1-F (reviewer APPROVE, Codex pending), #4961 W1-B D1 (review pending; merges after H0). H0 building.
 - New issues from S4: #4952 (native images, not One UI scope), #4953, #4954, #4955 (backlog).
 
 **ADDENDUM 2026-10-04 06:18 PDT — S4 session (now closed):**

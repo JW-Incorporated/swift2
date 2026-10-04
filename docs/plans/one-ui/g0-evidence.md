@@ -176,7 +176,6 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
 
 **iOS / iPad:** NOT TESTED — owner decision 2026-10-04 06:37 PDT: "Use the android info and apply it everywhere"; iOS/iPad deferred to the first post-G0 device session.
 
-=======
 ## Traps
 - PROGRESS "Status" table (PG:634-650) is stale; trust the 04:43 checkpoint (PG:9-36).
 - S1 is n=2, warm-only, broken offsets: not a valid cold baseline. Native warm already misses 1 s.
