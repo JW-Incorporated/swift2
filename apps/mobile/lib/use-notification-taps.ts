@@ -1,17 +1,19 @@
 // WP2.3-E2 (H3): the expo-bound half of notification taps (App.tsx calls one hook).
-// The process-wide gate is exported so the DOM host can `bindHost`/`unbindHost` it.
+// The process-wide gate is exported so the DOM host can `bindHost` it (returns the lease cleanup).
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import { SITE_URL } from '../components/SiteShell';
-import { createTapGate, tapFromResponse, type RawResponse } from './notification-tap-gate';
+import { createTapGate, type RawResponse } from './notification-tap-gate';
+import { startTapIngest } from './notification-tap-ingest';
 
 export const notificationTapGate = createTapGate({ siteUrl: SITE_URL });
 
 /**
- * Feeds cold-start and live notification taps into the gate. `native` is true
- * whenever the DOM host is not mounted; then taps open the native screens via
- * `navigate`. Each response is cleared after it is enqueued so a remount or a
- * second cold read cannot replay it.
+ * Feeds cold-start and live notification taps into the gate (serialized, see
+ * notification-tap-ingest.ts). `native` is true whenever the DOM host is not mounted;
+ * then taps open the native screens via `navigate`. Returning to the foreground
+ * retries held taps (an ack wait can time out while backgrounded).
  */
 export function useNotificationTaps(navigate: (url: string) => void, native: boolean): void {
   useEffect(() => {
@@ -20,16 +22,20 @@ export function useNotificationTaps(navigate: (url: string) => void, native: boo
   }, [navigate, native]);
 
   useEffect(() => {
-    const read = (resp: Notifications.NotificationResponse | null) => {
-      const tap = tapFromResponse(resp as RawResponse | null);
-      if (!tap) return;
-      notificationTapGate.enqueue(tap);
-      Notifications.clearLastNotificationResponseAsync().catch(() => {});
+    const stop = startTapIngest(notificationTapGate, {
+      getLast: async () => (await Notifications.getLastNotificationResponseAsync()) as RawResponse | null,
+      clearLast: () => Notifications.clearLastNotificationResponseAsync(),
+      listen: (cb) => {
+        const sub = Notifications.addNotificationResponseReceivedListener((r) => cb(r as unknown as RawResponse));
+        return () => sub.remove();
+      },
+    });
+    const app = AppState.addEventListener('change', (s) => {
+      if (s === 'active') notificationTapGate.resume();
+    });
+    return () => {
+      stop();
+      app.remove();
     };
-    Notifications.getLastNotificationResponseAsync()
-      .then(read)
-      .catch(() => {});
-    const sub = Notifications.addNotificationResponseReceivedListener(read);
-    return () => sub.remove();
   }, []);
 }

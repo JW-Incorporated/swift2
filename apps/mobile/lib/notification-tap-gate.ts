@@ -8,8 +8,9 @@
 //    bridge as `navigate` events and count as delivered only on the DOM's ack.
 //  - neither: the queue is detached and taps hold (15 s ack / 10 min TTL / cap 16).
 // Native mode wins over a bound host (the host is being torn down).
+// Every sink receives only canonical site-relative links: an unmappable link opens home, never raw.
 import type { Tap, TapQueue, AckRef, RawTap } from './notification-tap-queue';
-import { createTapQueue, navigateSink } from './notification-tap-queue';
+import { canonicalizeLink, createTapQueue } from './notification-tap-queue';
 import type { EventPayloadOf } from '@swift2/ui';
 
 /** The slice of BridgeHost the gate needs. */
@@ -19,42 +20,79 @@ export type TapHost = {
 };
 
 export type RawResponse = {
-  notification: { request: { identifier?: unknown; content: { data?: unknown } } };
+  notification: { date?: unknown; request: { identifier?: unknown; content: { data?: unknown } } };
 };
 
 /**
  * Reduces an expo notification response to a queue tap. The dedupe key is
  * `request.identifier` (cold `getLastNotificationResponseAsync` and the live
- * listener can deliver the SAME response twice). A missing/empty identifier
- * yields `id: undefined`: such a tap is NOT deduplicated (the queue only dedupes
- * non-empty string ids), so a double delivery with no identifier navigates twice.
+ * listener can deliver the SAME response twice). Without an identifier the key
+ * falls back to `anon:<notification.date>|<deepLink>`; with neither identifier nor
+ * a finite date the response is malformed and rejected (null), never navigated.
  */
 export function tapFromResponse(resp: RawResponse | null | undefined): RawTap | null {
   if (!resp) return null;
   const data = resp.notification.request.content.data as Record<string, unknown> | undefined;
-  const id = resp.notification.request.identifier;
-  return { id: typeof id === 'string' ? id : undefined, deepLink: data && typeof data.deepLink === 'string' ? data.deepLink : null };
+  const deepLink = data && typeof data.deepLink === 'string' ? data.deepLink : null;
+  const ident = resp.notification.request.identifier;
+  if (typeof ident === 'string' && ident.length > 0) return { id: ident, deepLink };
+  const date = resp.notification.date;
+  if (typeof date === 'number' && Number.isFinite(date)) return { id: `anon:${date}|${deepLink ?? ''}`.slice(0, 256), deepLink };
+  return null;
 }
 
-export function createTapGate(opts: { siteUrl: string; queue?: TapQueue }) {
+export function createTapGate(opts: {
+  siteUrl: string;
+  queue?: TapQueue;
+  retryMs?: number;
+  timers?: { set: (fn: () => void, ms: number) => unknown; clear: (h: unknown) => void };
+}) {
   const queue = opts.queue ?? createTapQueue();
+  const retryMs = opts.retryMs ?? 5000;
+  const timers = opts.timers ?? { set: (fn, ms) => setTimeout(fn, ms), clear: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) };
   let native: ((url: string) => void) | null = null;
   let host: TapHost | null = null;
+  let lease = 0;
+  let target: unknown = null;
+  let retry: unknown = null;
   const legacySeen = new Set<string>();
+  // Per live host: the ref each tap was already emitted with. A rebind or retry awaits the
+  // existing event instead of emitting a duplicate while it is still in the outbox.
+  const emitted = new WeakMap<TapHost, WeakMap<Tap, AckRef>>();
 
-  const hostSink = (h: TapHost) =>
-    navigateSink(
-      (type, payload) => h.emit(type, payload),
-      (_tap, ref, signal) =>
-        new Promise<boolean>((resolve) => {
-          if (!ref) return resolve(false);
-          const off = h.onAcked(ref, resolve);
-          signal.addEventListener('abort', off, { once: true });
-        }),
-    );
+  const hostSink = (h: TapHost) => {
+    const refs = emitted.get(h) ?? new WeakMap<Tap, AckRef>();
+    emitted.set(h, refs);
+    return async (tap: Tap, signal?: AbortSignal) => {
+      let ref = refs.get(tap) ?? null;
+      if (!ref) {
+        ref = h.emit('navigate', { path: tap.path, source: 'notification' });
+        if (ref) refs.set(tap, ref);
+      }
+      if (!ref) return false;
+      const live = ref;
+      return new Promise<boolean>((resolve) => {
+        const off = h.onAcked(live, (acked) => {
+          if (!acked) refs.delete(tap);
+          resolve(acked);
+        });
+        signal?.addEventListener('abort', off, { once: true });
+      });
+    };
+  };
+
+  function kick(): void {
+    if (retry !== null) timers.clear(retry);
+    retry = null;
+    if (target === null) return;
+    const mine = target;
+    void queue.flush().then(() => {
+      if (target !== mine || queue.size() === 0) return;
+      retry = timers.set(kick, retryMs);
+    });
+  }
 
   // Re-attaching abandons the in-flight tap and re-delivers it, so only attach when the target changed.
-  let target: unknown = null;
   function reconcile(): void {
     const next = native ?? host;
     if (next === target) return;
@@ -64,17 +102,19 @@ export function createTapGate(opts: { siteUrl: string; queue?: TapQueue }) {
       queue.attach(async (tap: Tap) => (go(`${opts.siteUrl}${tap.path}`), true));
     } else if (host) queue.attach(hostSink(host));
     else queue.detach();
+    kick();
   }
 
   return {
-    /** Enqueue one tap. In native mode a link the queue cannot map (unknown route root) still opens natively, as before E2. */
+    /** Enqueue one tap. In native mode a link the queue refuses (unknown route root, hostile, absent) opens canonical-or-home, once per id. */
     enqueue(raw: RawTap): 'queued' | 'duplicate' | 'dropped' {
       const outcome = queue.enqueue(raw);
-      if (outcome === 'dropped' && native && typeof raw.deepLink === 'string') {
+      if (outcome === 'dropped' && native) {
         const id = typeof raw.id === 'string' && raw.id.length > 0 ? raw.id : null;
         if (id === null || !legacySeen.has(id)) {
           if (id !== null) legacySeen.add(id);
-          native(raw.deepLink);
+          const rel = typeof raw.deepLink === 'string' ? canonicalizeLink(raw.deepLink) : null;
+          native(`${opts.siteUrl}${rel ?? '/'}`);
         }
       }
       return outcome;
@@ -84,14 +124,24 @@ export function createTapGate(opts: { siteUrl: string; queue?: TapQueue }) {
       native = fn;
       reconcile();
     },
-    /** DOM host mounted and ready: deliver over the bridge. Call `unbindHost` when it is disposed or not ready. */
-    bindHost(next: TapHost): void {
+    /**
+     * DOM host mounted and ready (bridge ready AND the reader's ready signal, after the DOM's `navigate`
+     * subscriber exists): deliver over the bridge. Returns this epoch's lease cleanup; it unbinds only
+     * if still current, so a stale cleanup from an old epoch never unbinds a newer host.
+     */
+    bindHost(next: TapHost): () => void {
+      const mine = ++lease;
       host = next;
       reconcile();
+      return () => {
+        if (lease !== mine || host !== next) return;
+        host = null;
+        reconcile();
+      };
     },
-    unbindHost(): void {
-      host = null;
-      reconcile();
+    /** Deterministic retry (AppState active): re-runs delivery of held taps to the current target. */
+    resume(): void {
+      kick();
     },
     size: () => queue.size(),
   };
