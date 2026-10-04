@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { NotificationSettingsPage } from '@swift2/ui/reader/settings/NotificationSettingsPage';
 import { useHost } from '@swift2/ui';
 import { NEUTRAL } from './neutral-style';
+import { useOnboardingPhase } from './onboarding-store';
 import { SETTINGS_NATIVE_ROWS } from './settings-native-rows';
 import { isSettingsPath, settingsOverlay, useSettingsOpen } from './settings-store';
 
@@ -10,6 +11,7 @@ import { isSettingsPath, settingsOverlay, useSettingsOpen } from './settings-sto
 // permission is re-read on every open.
 export function SettingsPage() {
   const open = useSettingsOpen();
+  const behindOffer = useOnboardingPhase() === 'shown';
   const { navigate, notifications } = useHost();
   // The native rows are host-gated: they show only once the native bridge answers (a plain browser has none).
   const [native, setNative] = useState(false);
@@ -33,7 +35,7 @@ export function SettingsPage() {
 
   if (!open) return null;
   return (
-    <div role="dialog" aria-modal="true" aria-label="Notification settings" className="fixed inset-0 z-50 overflow-y-auto" style={NEUTRAL}>
+    <div role="dialog" aria-modal="true" aria-label="Notification settings" inert={behindOffer} className="fixed inset-0 z-50 overflow-y-auto" style={NEUTRAL}>
       <NotificationSettingsPage vapidPublicKey={null} />
       {native && (
         <nav aria-label="More settings" className="mx-auto flex max-w-xl flex-col gap-2 px-6 pb-16">

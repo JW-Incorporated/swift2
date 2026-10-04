@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
+import { onboardingOverlay, useOnboardingPhase } from '../slots/onboarding-store';
 import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
@@ -17,10 +18,12 @@ export function ReaderBridge() {
   const q = useReader();
   // The settings overlay sits above everything: back closes it before any open item.
   const settingsOpen = useSettingsOpen();
+  // The push offer (when showing) is the top entry: back dismisses it before Settings.
+  const offerShown = useOnboardingPhase() === 'shown';
   useBackRegistration(
     controls.registerBack,
-    settingsOpen ? 'settings' : openItemId,
-    settingsOpen ? settingsOverlay.close : actions.closeItem,
+    offerShown ? 'onboarding' : settingsOpen ? 'settings' : openItemId,
+    offerShown ? () => onboardingOverlay.set('done') : settingsOpen ? settingsOverlay.close : actions.closeItem,
   );
 
   useEffect(() => {

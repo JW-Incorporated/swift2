@@ -46,7 +46,7 @@ import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
-import { hasOnboardingBeenOffered } from './lib/onboarding-state';
+import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
 import { useNativeScreenState } from './lib/use-native-screen-state';
 import { SITE_URL, type NativeBridgeMessage } from './components/SiteShell';
@@ -155,6 +155,7 @@ export default function App() {
   const openSettings = useCallback(() => {
     void openSettingsEntry({
       hasOnboardingBeenOffered,
+      isPushPermissionUndetermined,
       openSettings: () => openNativeScreen('settings'),
       openOnboarding: () => setOnboardingOpen(true),
     });
