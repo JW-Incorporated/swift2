@@ -18,7 +18,12 @@ build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-ev
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
 
-**ADDENDUM 2026-10-04 06:18 PDT — S4 session OPEN (merge freeze on apps/mobile/** + packages/**):**
+**ADDENDUM 2026-10-04 06:40 PDT — G0 = GO with conditions (Fable log). S4 CLOSED, merge freeze lifted.**
+- Owner 06:37: "Use the android info and apply it everywhere" → iOS/iPad deferred to new **iOS-1 gate** (between Wave 3 and Wave 4). Evidence: g0-evidence.md S4 Android (d7cb6d3e).
+- Wave 1 dispatching: W1-A H0, W1-B H4/D1 (+#4953 inset fix), W1-D H6 drafts, W1-E parity b-side scaffolding, W1-F YouTube wrapper (#4954). W1-C 2.11-D1 already done (#4941). Merge order H0 → H4/D1 → rest.
+- New issues from S4: #4952 (native images, not One UI scope), #4953, #4954, #4955 (backlog).
+
+**ADDENDUM 2026-10-04 06:18 PDT — S4 session (now closed):**
 - Android Pixel 10 Pro / Android 16, build 1.0.0 (18), update 01a10400-19de-7c8e-bc45-321d0e91143e (from [diag] on #4791 — never ask owner to type ids).
 - A native speed run 5ef3e6c1: FAIL — worst cold 3184 ms (>2500), worst warm 222 ms; counted 7 cold/3 warm (OS killed bg app). Owner: scroll lags ~0.5 s (#4895); post images missing ~half of launches → #4952 filed (likely unthrottled bare RN <Image> burst, no onError; scorer image metric blind to it).
 - B shared UI: hot corner TOP failed, BOTTOM worked (gesture nav) → #4877 deep link not needed on Android. Shared-UI speed run in progress. Remaining: C checklist, iPhone (build 38), then g0-evidence + Fable G0.
@@ -123,6 +128,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 
 | Date | Question | Advice | PM decision |
 |---|---|---|---|
+| 2026-10-04 06:39 | **G0 go/no-go** (Android-only S4; owner deferred iOS) | GO with conditions. Reject https baseUrl; #4954 fix = apps/web wrapper `/embed/youtube/[id]` + packages/ui iframe switch when host is app (new W1-F), must play on device at S5 + iOS-1 before Wave 5; new hard gate **iOS-1** (iPhone+iPad, build 38 + Wave 1–3 OTA, S4 checklist, H4/D2 ready→ack on both OS, WP1.1 WebKit leg green) before Wave 4; #4953 in W1-B: SafeAreaView edges [] around DOM host, DOM sole inset owner, retest top hot corner after; 5/5 speed capture folded into S5/iOS-1; #4955 backlog | Adopted in full |
 | 2026-10-02 | Plan review (pre-kickoff) | Blocker: no CORS on `/content`; watchdog too late; missing native-needs audit; `next/font` breaks parity; PROGRESS landing, kickoff prompt, OTA freeze undefined | All five required edits and the minor notes adopted (WP0.3b, WP0.4b, needs matrix, fonts in WP2.1, OPERATING-MODE §3/§6/§8 kickoff, `[diag]` → one issue, perceptual diff, OTA size budget) |
 
 | 2026-10-02 | Pre-launch review of WP0.3b + WP0.4 briefs | 0.3b: bridge-serializable `ApiFetch` ({method,path,headers,body:string}); strip non-safelisted request headers (no preflight); expose ETag only if read; no `Vary: Origin`; curl the Vercel preview on `www.`. 0.4: must-add = any WP through G5; add orientation/tablet, splash-hold, web-browser, inline media, X4 prereqs, fonts, webview version rows; name DOM ready/crash/imperative mechanisms + release origin/IndexedDB persistence; test page proves `onReady` + crash callbacks in S3; store build only if fingerprint diff non-empty; Fable signs matrix at the stage 1→2 boundary instead of post-impl | All 12 REQUIRED adopted; 0.4 Stage 1 launched first (critical path), 0.3b next free slot |
