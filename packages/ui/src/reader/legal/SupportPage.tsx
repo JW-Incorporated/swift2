@@ -1,4 +1,5 @@
 import { HostLink } from './HostLink';
+import { MailtoLink } from './MailtoLink';
 import type { ReactNode } from 'react';
 import { LEGAL_FACTS } from './lib/legal';
 
@@ -56,17 +57,17 @@ export function SupportPage({ footer }: { footer?: ReactNode }) {
           </h2>
           <p className="mt-4 leading-relaxed">
             Email{' '}
-            <a href={`mailto:${LEGAL_FACTS.privacyEmail}`} className={linkClass}>
+            <MailtoLink href={`mailto:${LEGAL_FACTS.privacyEmail}`} className={linkClass}>
               {LEGAL_FACTS.privacyEmail}
-            </a>{' '}
+            </MailtoLink>{' '}
             for help with the app, questions about your data, or corrections. We are a two-person
             team and read everything; expect a reply within a few days.
           </p>
           <p className="mt-4 leading-relaxed">
             Rights-holder and takedown notices go to{' '}
-            <a href={`mailto:${LEGAL_FACTS.legalEmail}`} className={linkClass}>
+            <MailtoLink href={`mailto:${LEGAL_FACTS.legalEmail}`} className={linkClass}>
               {LEGAL_FACTS.legalEmail}
-            </a>
+            </MailtoLink>
             .
           </p>
         </section>

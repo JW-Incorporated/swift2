@@ -32,10 +32,9 @@ import Constants from 'expo-constants';
 import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
 import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes';
 
-export const SITE_URL = (process.env.EXPO_PUBLIC_SITE_URL ?? 'https://www.longlivets.com').replace(
-  /\/$/,
-  '',
-);
+import { SITE_URL } from '../lib/site-url';
+
+export { SITE_URL };
 
 const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
 

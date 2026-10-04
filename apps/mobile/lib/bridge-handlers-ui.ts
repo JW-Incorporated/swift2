@@ -3,6 +3,7 @@
 // the host component yet (D2, after G0).
 import {
   isExternalUrl,
+  isMailtoUrl,
   isWebPath,
   resErr,
   resOk,
@@ -70,7 +71,7 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
     },
     openExternal: async (payload) => {
       const p: unknown = payload;
-      if (!isRecord(p) || !isExternalUrl(p.url)) return invalid('openExternal: https urls only');
+      if (!isRecord(p) || !(isExternalUrl(p.url) || isMailtoUrl(p.url))) return invalid('openExternal: https or mailto urls only');
       const url = p.url;
       return run(() => deps.openURL(url), 'openExternal');
     },
