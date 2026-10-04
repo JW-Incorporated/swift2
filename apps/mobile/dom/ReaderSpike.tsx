@@ -9,7 +9,8 @@
 import './reader-spike.css';
 import { useEffect, useRef, useState, type ComponentType } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
-import { UI_PACKAGE_VERSION } from '@swift2/ui';
+import { UI_PACKAGE_VERSION, type Envelope } from '@swift2/ui';
+import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
 import { describeSnapshotSafe, snapshotFromEnvelope } from './spike/snapshot';
@@ -34,6 +35,10 @@ export interface ReaderSpikeProps {
   reportImageLoad?: (visible: boolean) => Promise<void>;
   /** Speed test mode is running: only then are image loads measured and reported. */
   speedTestOn?: boolean;
+  /** Bridge (WP2.3): sequenced native-to-DOM queue, re-delivered whole on each render. */
+  inbox?: Envelope[];
+  /** Bridge native action: posts one envelope; may resolve with the reply (`res`, `readyAck`). Absent on web/dev. */
+  bridge?: (env: Envelope) => Promise<unknown>;
   /** Web/dev only (index.web.ts): supplies the cache envelope text where no native cache exists. */
   devLoader?: () => Promise<string>;
   dom?: import('expo/dom').DOMProps;
@@ -49,6 +54,12 @@ function insetsFromQuery(): ReaderSpikeProps['insets'] {
 }
 
 type Probe = ReturnType<typeof createProbe>;
+
+/** Renders nothing: sends `ready` after mount and drains the inbox. Mounted only where a native host supplies `bridge`. */
+function ExpoBridgeMount({ inbox, bridge, reportError }: Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge' | 'reportError'>>) {
+  useExpoBridge({ inbox, bridge }, { onFatal: (reason) => void reportError(`bridge-fatal: ${reason}`) });
+  return null;
+}
 
 export default function ReaderSpike(props: ReaderSpikeProps) {
   const { cacheUri, versionToken = '', backTick = 0, devLoader } = props;
@@ -170,12 +181,23 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
     return () => document.removeEventListener('error', onImgError, true);
   }, [Reader]);
 
-  if (failed) return <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>;
-  if (!Reader)
-    return (
-      <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
-        Loading...
-      </div>
-    );
-  return <Reader backTick={backTick} onBack={(r) => void propsRef.current.reportBack?.(r)} />;
+  const bridgeMount = props.bridge ? (
+    <ExpoBridgeMount inbox={props.inbox ?? []} bridge={props.bridge} reportError={(m) => propsRef.current.reportError(m)} />
+  ) : null;
+
+  const view = failed ? (
+    <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>
+  ) : !Reader ? (
+    <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
+      Loading...
+    </div>
+  ) : (
+    <Reader backTick={backTick} onBack={(r) => void propsRef.current.reportBack?.(r)} />
+  );
+  return (
+    <>
+      {bridgeMount}
+      {view}
+    </>
+  );
 }

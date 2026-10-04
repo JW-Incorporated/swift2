@@ -38,3 +38,30 @@ export function createAppHandlers(deps: AppHandlerDeps): AppHandlers {
     ['api', createApiHandlers(deps.api)],
   ]);
 }
+
+/**
+ * Deps for a host whose commands are not wired yet (H0): every command fails
+ * closed (`failed`/`invalid`, never reported to the watchdog). H1/H2/H3 replace
+ * the ui/api/notifications entries with real deps.
+ */
+export function createUnwiredAppDeps(log: (stage: string, detail: string) => void): AppHandlerDeps {
+  const unwired = (what: string) => async (): Promise<never> => {
+    throw new Error(`${what} not wired`);
+  };
+  return {
+    ui: {
+      navigate: unwired('navigate'),
+      isNativeRoute: () => false,
+      log,
+      openURL: unwired('openExternal'),
+      share: unwired('share'),
+    },
+    notifications: {
+      status: unwired('notifications.status'),
+      request: unwired('notifications.request'),
+      register: unwired('notifications.register'),
+      updatePrefs: unwired('notifications.updatePrefs'),
+    },
+    api: { fetch: unwired('api') as unknown as typeof fetch, baseUrl: () => '' },
+  };
+}

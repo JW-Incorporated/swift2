@@ -115,10 +115,20 @@ and a flipped default cannot be killed remotely.
 - **READY_TIMEOUT_MS stays 10 s** until S7 records time-to-ready per device;
   then set it to `max(10 s, 2 x p95 on the slowest device)`.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
-  the bridge host's `onProtocolFatal` calls it when the host is wired in.
-  TODO(PM, WP2.3-B step 4): that wiring is not done; nothing calls `watch.protocol` yet.
+  the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
+- **Bridge wiring (H0).** SharedUiHost builds one `createBridgeHost` per mount
+  (disposed on unmount) over `createAppHandlers(createUnwiredAppDeps)`: every
+  command fails closed until H1/H2/H3 supply real deps. The DOM page gets two
+  props: `inbox` (the host's un-acked sequenced envelopes, re-delivered whole)
+  and `bridge` (a native action, `handlers.bridge`). `createBridgeLink`
+  (lib/dom-host-handlers.ts) routes the host's `send`: sequenced envelopes go to
+  `inbox`; a `res` or `readyAck` resolves the `bridge` call that is awaiting it,
+  and the DOM client feeds it back. ReaderSpike mounts `useExpoBridge` (renders
+  nothing) only when `bridge` is supplied (never on web/dev): it sends `ready` after
+  mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
+  first-paint `onReady` still does; the `hang` drill is unchanged).
 - **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing. TODO(PM, WP2.3-E): the
-  notification-tap queue. TODO(PM, WP2.3-B step 4): `watch.protocol` wiring.
+  notification-tap queue.
 
 **G4 drill.** Simulated (no device): `npx vitest run
 apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure

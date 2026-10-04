@@ -12,12 +12,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BackHandler, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import type { Envelope } from '@swift2/ui';
 import ReaderSpike from '../dom/ReaderSpike';
 import SharedUiTest from '../dom/SharedUiTest';
 import { hardwareBackHandled } from '../dom/spike/back';
 import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
+import { createAppHandlers, createUnwiredAppDeps } from '../lib/app-handlers';
+import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
-import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
+import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { speedTest } from '../lib/speed-test-runtime';
@@ -43,6 +46,8 @@ export function SharedUiHost({
   const [testPage, setTestPage] = useState<boolean | null>(null);
   const [source, setSource] = useState<ReaderSource | null>(null);
   const [backTick, setBackTick] = useState(0);
+  const [inbox, setInbox] = useState<Envelope[]>([]);
+  const hostRef = useRef<BridgeHost | null>(null);
   const readerReady = useRef(false);
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
@@ -75,7 +80,39 @@ export function SharedUiHost({
       });
   }, [testPage]);
 
-  const handlers = useMemo(() => createDomHostHandlers({ onSignal, watch }), []);
+  const link = useMemo(
+    () =>
+      createBridgeLink(() => {
+        const next = hostRef.current?.inbox() ?? [];
+        setInbox((prev) => (sameInbox(prev, next) ? prev : next));
+      }),
+    [],
+  );
+  const handlers = useMemo(() => createDomHostHandlers({ onSignal, watch, bridge: link.bridge }), []);
+
+  // One bridge host per mount; the host and its DOM transport share one lifetime.
+  useEffect(() => {
+    const host = createBridgeHost({
+      handlers: createAppHandlers(createUnwiredAppDeps(onSignal)),
+      send: link.send,
+      now: Date.now,
+      scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
+      onProtocolFatal: (reason) => {
+        onSignal('bridge-protocol-fatal', reason.slice(0, 200));
+        link.dispose();
+        watch.protocol();
+      },
+      onSignal,
+    });
+    hostRef.current = host;
+    link.attach(host);
+    return () => {
+      hostRef.current = null;
+      host.dispose();
+      link.dispose();
+      setInbox([]);
+    };
+  }, [link]);
 
   useEffect(() => {
     if (testPage !== false) return;
@@ -116,6 +153,8 @@ export function SharedUiHost({
           cacheUri={source.cacheUri ?? undefined}
           versionToken={source.versionToken}
           backTick={backTick}
+          inbox={inbox}
+          bridge={handlers.bridge}
           insets={insets}
           onReady={
             forceFailure === 'off'

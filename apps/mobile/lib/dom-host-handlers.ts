@@ -10,6 +10,8 @@ export interface DomHostHandlerDeps {
     error: (message: string) => void;
     crashed: (kind: 'terminated' | 'render-gone') => void;
   };
+  // The Expo DOM `bridge` native action target (createBridgeLink().bridge); absent in unit tests.
+  bridge?: (env: unknown) => Promise<unknown>;
 }
 
 export function createDomHostHandlers(deps: DomHostHandlerDeps) {
@@ -22,6 +24,8 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
       deps.onSignal('dom-error', message.slice(0, 200));
       deps.watch.error(message);
     },
+    // Forwards one DOM envelope to the bridge host; resolves with the envelope the DOM is awaiting, if any.
+    bridge: async (env: unknown): Promise<unknown> => deps.bridge?.(env),
     onContentProcessDidTerminate: () => {
       deps.onSignal('dom-process-terminated');
       deps.watch.crashed('terminated');
@@ -29,6 +33,61 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
     onRenderProcessGone: () => {
       deps.onSignal('dom-render-process-gone');
       deps.watch.crashed('render-gone');
+    },
+  };
+}
+
+// Transport between the pure bridge host and the Expo DOM boundary. The host
+// sends sequenced envelopes (native-to-DOM events/commands), which ride the
+// `inbox` prop; unsequenced ones (a `res` to a DOM command, `readyAck`) ride the
+// resolved value of the `bridge` action that carried the request. Pure: React
+// state is reached only through `onInbox`.
+type LinkEnvelope = { kind: string; id: string; type: string; seq?: number };
+export interface BridgeLinkHost {
+  receive: (raw: unknown) => void;
+  inbox: () => unknown[];
+}
+
+export function sameInbox(a: readonly unknown[], b: readonly unknown[]): boolean {
+  const seq = (list: readonly unknown[], i: number) => (list[i] as { seq?: number } | undefined)?.seq;
+  return a.length === b.length && seq(a, 0) === seq(b, 0) && seq(a, a.length - 1) === seq(b, b.length - 1);
+}
+
+export function createBridgeLink(onInbox: () => void) {
+  let host: BridgeLinkHost | null = null;
+  const waiters = new Map<string, (env: unknown) => void>();
+  const release = (key: string, env: unknown) => {
+    const w = waiters.get(key);
+    if (!w) return;
+    waiters.delete(key);
+    w(env);
+  };
+  return {
+    attach(h: BridgeLinkHost) {
+      host = h;
+    },
+    send(env: LinkEnvelope) {
+      if (env.seq !== undefined) onInbox();
+      else if (env.kind === 'res') release(`res:${env.id}`, env);
+      else if (env.type === 'readyAck') release('ready', env);
+    },
+    bridge(raw: unknown): Promise<unknown> {
+      const env = raw as Partial<LinkEnvelope> | null;
+      const key =
+        env?.kind === 'cmd' && typeof env.id === 'string'
+          ? `res:${env.id}`
+          : env?.kind === 'evt' && env.type === 'ready'
+            ? 'ready'
+            : null;
+      const answered = key ? new Promise<unknown>((resolve) => waiters.set(key, resolve)) : Promise.resolve(undefined);
+      host?.receive(raw);
+      onInbox();
+      return answered;
+    },
+    // Unblocks every awaiting action (nothing is answered after the host closes).
+    dispose() {
+      host = null;
+      for (const key of [...waiters.keys()]) release(key, undefined);
     },
   };
 }
