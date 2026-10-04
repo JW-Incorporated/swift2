@@ -52,7 +52,7 @@ describe('bridge apiFetch', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('refuses a request body over the 256 KB cap', async () => {
+  it('refuses a request body over the handler 256 KB backstop (the bridge boundary caps requests at 64 KB, see the wiring test)', async () => {
     const { apiFetch, fetchMock } = rig(async () => streamed('x'));
     await expect(apiFetch(post('/api/feedback', 'a'.repeat(MAX_API_BYTES + 1)))).rejects.toThrow('too large');
     expect(fetchMock).not.toHaveBeenCalled();

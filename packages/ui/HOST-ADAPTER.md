@@ -40,7 +40,7 @@ Note: the web adapter's `onBack` does not consume the handler's boolean return; 
 
 ## Mobile `apiFetch` status
 
-`CurrentItemDetail` intake calls `useHost().apiFetch`. On mobile the app adapter takes `apiFetch` from `createBridgeApiFetch(client)` (`apps/mobile/dom/bridge/api-fetch.ts`), which sends the request over the bridge `api` command to the native handler (expo/fetch, allow-list, 256 KB caps, 8 s / 60 s clown timeouts); a bridge `cancelled` surfaces as `AbortError`. `apiStream` is `createBridgeApiStream(apiFetch)` = `bufferedFrom` (whole body once; the native reader is capped, not streamed). The spike adapter still inherits the web `apiFetch` until the app adapter adopts these.
+`CurrentItemDetail` intake calls `useHost().apiFetch`. On mobile the app adapter takes `apiFetch` from `createBridgeApiFetch(client)` (`apps/mobile/dom/bridge/api-fetch.ts`), which sends the request over the bridge `api` command to the native handler (expo/fetch, allow-list, 8 s default / 60 s clown timeouts). Limits: a request body is capped at 64 KB at the bridge boundary (`sanitizeApiRequest`; the native handler keeps a 256 KB backstop), and a response body is capped at 256 KB by the native reader; a bridge `cancelled` surfaces as `AbortError`. `apiStream` is `createBridgeApiStream(apiFetch)` = `bufferedFrom` (whole body once; the native reader is capped, not streamed). **The app's ClownChat is buffered (Fable ruling G12, 2026-10-03):** no live investigation trail in the app, the full answer arrives when complete (up to 60 s). ClownChat shows its pending state for the whole wait (`busy`: spinner on the send button, `aria-busy` on the stream). The spike adapter still inherits the web `apiFetch` until the app adapter adopts these.
 
 ## `Image` with `fill`
 

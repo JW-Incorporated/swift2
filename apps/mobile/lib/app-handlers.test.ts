@@ -4,12 +4,12 @@ import { apiBaseUrl } from './api-base';
 import { createAppHandlers, createLiveAppHandlers, mergeHandlerGroups } from './app-handlers';
 
 const expoFetch = vi.hoisted(() => vi.fn());
-const session = vi.hoisted(() => ({ token: 'tok-1' as string | null, set: vi.fn() }));
+const session = vi.hoisted(() => ({ token: 'tok-1' as string | null, enabled: true, set: vi.fn() }));
 vi.mock('./expo-fetch-deps', () => ({
   createExpoApiDeps: () => ({
     fetch: expoFetch,
     baseUrl: () => 'https://api.test',
-    clownSession: { get: async () => session.token, set: session.set },
+    clownSession: session.enabled ? { get: async () => session.token, set: session.set } : undefined,
   }),
 }));
 
@@ -120,5 +120,18 @@ describe('createLiveAppHandlers (H2)', () => {
     await h.api({ req: { method: 'POST', path: '/api/clown', body: '{}' } }, ctx);
     expect(expoFetch.mock.calls.at(-1)?.[1].headers.authorization).toBe('Bearer tok-1');
     expect(session.set).toHaveBeenCalledWith('tok-2');
+  });
+  it('works when the expo deps carry no clownSession (no authorization, nothing persisted)', async () => {
+    session.enabled = false;
+    try {
+      expoFetch.mockResolvedValueOnce(streamed('hi', { 'x-clown-session': 'tok-3' }));
+      const h = createLiveAppHandlers(vi.fn()) as unknown as Record<string, (p: unknown, c: typeof ctx) => Promise<unknown>>;
+      const r = await h.api({ req: { method: 'POST', path: '/api/clown', body: '{}' } }, ctx);
+      expect(r).toMatchObject({ ok: true, value: { status: 200, body: 'hi' } });
+      expect(expoFetch.mock.calls.at(-1)?.[1].headers.authorization).toBeUndefined();
+      expect(session.set).not.toHaveBeenCalledWith('tok-3');
+    } finally {
+      session.enabled = true;
+    }
   });
 });
