@@ -20,9 +20,9 @@ function intersects(a: HotCornerRect, b: HotCornerRect): boolean {
 }
 
 describe('shouldMountHotCorner', () => {
-  it('mounts only while the DOM host is mounted', () => {
+  it('mounts for the DOM host and the Recovery screen, not while pending', () => {
     expect(shouldMountHotCorner('dom')).toBe(true);
-    expect(shouldMountHotCorner('native')).toBe(false);
+    expect(shouldMountHotCorner('native')).toBe(true);
     expect(shouldMountHotCorner('pending')).toBe(false);
   });
 });
