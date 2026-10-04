@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   READY_TIMEOUT_MS,
+  RELOAD_WINDOW_MS,
   beginAttempt,
   createAttemptMonitor,
   createWriteQueue,
@@ -101,7 +102,7 @@ describe('attempt monitor', () => {
     expect(onStrike).toHaveBeenCalledWith('ready-timeout');
   });
 
-  it('counts a DOM error only before ready; a crash counts at the event even after ready', () => {
+  it('counts a DOM error only before ready; a crash before ready strikes at the event', () => {
     const a = fakeClock();
     a.m.error('x'.repeat(300));
     expect(a.onStrike).toHaveBeenCalledTimes(1);
@@ -110,9 +111,47 @@ describe('attempt monitor', () => {
     b.m.ready();
     b.m.error('late');
     expect(b.onStrike).not.toHaveBeenCalled();
-    b.m.crashed('terminated');
-    b.m.crashed('render-gone');
-    expect(b.onStrike).toHaveBeenCalledTimes(1);
+    const c = fakeClock();
+    expect(c.m.crashed('terminated')).toBe('strike');
+    expect(c.m.crashed('render-gone')).toBe('strike');
+    expect(c.onStrike).toHaveBeenCalledTimes(1);
+    expect(c.onStrike).toHaveBeenCalledWith('webview-terminated');
+  });
+
+  it('a first post-ready termination reloads without a strike; a repeat inside the window strikes', () => {
+    const { m, advance, onReady, onStrike } = fakeClock();
+    m.ready();
+    advance(1_000);
+    expect(m.crashed('terminated')).toBe('reload');
+    expect(onStrike).not.toHaveBeenCalled();
+    m.ready();
+    expect(onReady).toHaveBeenCalledTimes(1);
+    advance(RELOAD_WINDOW_MS - 1);
+    expect(m.crashed('render-gone')).toBe('strike');
+    expect(onStrike).toHaveBeenCalledTimes(1);
+    expect(onStrike).toHaveBeenCalledWith('webview-render-gone');
+  });
+
+  it('a termination after the window reloads again', () => {
+    const { m, advance, onStrike } = fakeClock();
+    m.ready();
+    expect(m.crashed('terminated')).toBe('reload');
+    m.ready();
+    advance(RELOAD_WINDOW_MS);
+    expect(m.crashed('terminated')).toBe('reload');
+    expect(onStrike).not.toHaveBeenCalled();
+  });
+
+  it('a reloaded page that never reaches ready times out, and one that crashes before ready strikes', () => {
+    const a = fakeClock();
+    a.m.ready();
+    expect(a.m.crashed('terminated')).toBe('reload');
+    a.advance(READY_TIMEOUT_MS);
+    expect(a.onStrike).toHaveBeenCalledWith('ready-timeout');
+    const b = fakeClock();
+    b.m.ready();
+    expect(b.m.crashed('terminated')).toBe('reload');
+    expect(b.m.crashed('terminated')).toBe('strike');
     expect(b.onStrike).toHaveBeenCalledWith('webview-terminated');
   });
 

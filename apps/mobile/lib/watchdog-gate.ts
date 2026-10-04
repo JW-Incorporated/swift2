@@ -25,6 +25,7 @@ import {
   shouldMountDom,
   startAttempt,
   type AttemptMonitor,
+  type CrashOutcome,
   type DomFailureMode,
   type MountDecision,
   type WatchdogRecord,
@@ -55,7 +56,8 @@ export interface LaunchInputs {
 export interface DomWatch {
   ready: () => void;
   error: (message: string) => void;
-  crashed: (kind: 'terminated' | 'render-gone') => void;
+  /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload; otherwise struck. */
+  crashed: (kind: 'terminated' | 'render-gone') => CrashOutcome | undefined;
   protocol: () => void;
 }
 

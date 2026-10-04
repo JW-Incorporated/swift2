@@ -11,7 +11,8 @@
 // fallback (2 abandoned -> strike 1, 2 more -> strike 2 -> fallback). A
 // double-failed ready save costs at most one false strike, which the next
 // ready launch clears. A failure (ready-timeout, DOM error before ready, webview
-// terminate/render-gone) is a strike: strike 1 mounts native for this launch;
+// terminate/render-gone before ready or a repeat within RELOAD_WINDOW_MS of a
+// post-ready reload) is a strike: strike 1 mounts native for this launch;
 // strike 2 (consecutive) also clears the C4 override and makes the next launch
 // native too.
 
@@ -22,6 +23,10 @@ export const STRIKES_TO_FALLBACK = 2;
 export const FALLBACK_LAUNCHES = 1;
 export const ABANDONED_TO_STRIKE = 2;
 export const MAX_REASON_CHARS = 120;
+/** A 2nd post-ready webview termination within this window (monotonic ms) is a strike; the 1st only reloads the DOM. */
+export const RELOAD_WINDOW_MS = 5 * 60_000;
+
+export type CrashOutcome = 'reload' | 'strike';
 
 export type WatchdogState = 'idle' | 'attempting' | 'ready' | 'failed' | 'fallback' | 'quarantined';
 
@@ -245,12 +250,15 @@ export interface AttemptMonitorOptions {
   onReady: () => void;
   onStrike: (reason: string) => void;
   timeoutMs?: number;
+  reloadWindowMs?: number;
 }
 
 /**
  * One launch's ready-timeout + signal accounting. `ready` is idempotent;
  * `error` only strikes before ready; crashes strike at the event even after
- * ready; at most one strike per launch. The timeout is paused while the app
+ * ready, except the first one (the OS reaping the content process is not a DOM
+ * fault): it asks the host to reload ('reload', ready timeout re-armed) and only a
+ * 2nd within RELOAD_WINDOW_MS, or any before ready, strikes; at most one strike per launch. The timeout is paused while the app
  * is backgrounded (an attempt that never returns is abandoned next launch).
  */
 export function createAttemptMonitor(opts: AttemptMonitorOptions) {
@@ -261,6 +269,10 @@ export function createAttemptMonitor(opts: AttemptMonitorOptions) {
   let startedAt = 0;
   let readySeen = false;
   let struck = false;
+  let reloading = false;
+  let activeNow = opts.active;
+  let lastReloadAt: number | null = null;
+  const reloadWindow = opts.reloadWindowMs ?? RELOAD_WINDOW_MS;
 
   const stopTimer = () => {
     if (handle !== null) scheduler.clearTimeout(handle);
@@ -286,19 +298,34 @@ export function createAttemptMonitor(opts: AttemptMonitorOptions) {
       if (readySeen || struck) return;
       readySeen = true;
       stopTimer();
-      onReady();
+      if (reloading) reloading = false;
+      else onReady();
     },
     error(message: string) {
       if (readySeen) return;
       strike(`dom-error: ${message}`);
     },
-    crashed(kind: 'terminated' | 'render-gone') {
-      strike(`webview-${kind}`);
+    crashed(kind: 'terminated' | 'render-gone'): CrashOutcome {
+      if (struck) return 'strike';
+      const t = now();
+      const recurred = lastReloadAt !== null && Math.max(0, t - lastReloadAt) < reloadWindow;
+      if (!readySeen || recurred) {
+        strike(`webview-${kind}`);
+        return 'strike';
+      }
+      lastReloadAt = t;
+      readySeen = false;
+      reloading = true;
+      remaining = total;
+      stopTimer();
+      if (activeNow) startTimer();
+      return 'reload';
     },
     protocolFatal() {
       strike('protocol-fatal');
     },
     setActive(active: boolean) {
+      activeNow = active;
       if (readySeen || struck) return;
       if (!active && handle !== null) {
         // A backward clock step reads as zero elapsed, so remaining never grows past `total`.

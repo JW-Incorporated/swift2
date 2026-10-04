@@ -1,6 +1,10 @@
 // Pure signal handlers for the shared-UI DOM host (WP0.4 / WP0.4b). Kept free of
 // React/RN imports so they are unit-testable. They only signal: recovery is the
-// watchdog's strike -> native mount (lib/watchdog.ts), never an in-host reload.
+// watchdog's strike -> native mount (lib/watchdog.ts). The one exception is a
+// post-ready webview process termination: the monitor answers 'reload' and the
+// host re-keys its mount once (a repeat strikes).
+import type { CrashOutcome } from './watchdog';
+
 export type DomSignal = (stage: string, detail?: string) => void;
 
 export interface DomHostHandlerDeps {
@@ -8,13 +12,26 @@ export interface DomHostHandlerDeps {
   watch: {
     ready: () => void;
     error: (message: string) => void;
-    crashed: (kind: 'terminated' | 'render-gone') => void;
+    crashed: (kind: 'terminated' | 'render-gone') => CrashOutcome | undefined | void;
     protocol?: () => void;
   };
   // True once this host epoch is closed: a late DOM protocol-fatal must not strike the watchdog.
   bridgeClosed?: () => boolean;
   // The Expo DOM `bridge` native action target (createBridgeLink().bridge); absent in unit tests.
   bridge?: (env: unknown) => Promise<unknown>;
+  // Re-keys the DOM mount (a fresh epoch); called only when the watchdog answers 'reload'.
+  reload?: () => void;
+}
+
+function crash(deps: DomHostHandlerDeps, stage: string, kind: 'terminated' | 'render-gone') {
+  deps.onSignal(stage);
+  const outcome = deps.watch.crashed(kind);
+  if (outcome === 'reload') {
+    deps.onSignal('dom-reload-after-crash', kind);
+    deps.reload?.();
+  } else if (outcome === 'strike') {
+    deps.onSignal('dom-crash-strike', kind);
+  }
 }
 
 export function createDomHostHandlers(deps: DomHostHandlerDeps) {
@@ -36,12 +53,10 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
       deps.watch.protocol?.();
     },
     onContentProcessDidTerminate: () => {
-      deps.onSignal('dom-process-terminated');
-      deps.watch.crashed('terminated');
+      crash(deps, 'dom-process-terminated', 'terminated');
     },
     onRenderProcessGone: () => {
-      deps.onSignal('dom-render-process-gone');
-      deps.watch.crashed('render-gone');
+      crash(deps, 'dom-render-process-gone', 'render-gone');
     },
   };
 }

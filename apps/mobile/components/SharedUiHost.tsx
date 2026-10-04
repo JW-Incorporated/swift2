@@ -4,9 +4,10 @@
 // signals (launch attempted / ready / DOM-side errors / webview process death)
 // through `onSignal` and forwards them to the WP0.4b watchdog via `watch`.
 // Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the
-// expo wrapper's auto-reload; this host never reloads or shows its own error
-// screen. A crash is a watchdog strike, and the strike unmounts this host in
-// favour of the native screens (lib/watchdog-gate.ts).
+// expo wrapper's auto-reload, so the policy is ours (lib/watchdog.ts): a crash before
+// ready, or a repeat within RELOAD_WINDOW_MS, is a watchdog strike that unmounts this
+// host in favour of the native screens (lib/watchdog-gate.ts); the first crash after
+// ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -109,6 +110,7 @@ export function SharedUiHost({
         watch: session ? releaseBeforeStrike(watch, session.binder) : watch,
         bridge: session?.link.bridge,
         bridgeClosed: session?.link.isClosed,
+        reload: () => setGeneration((g) => g + 1),
       }),
     [session],
   );
@@ -207,7 +209,12 @@ export function SharedUiHost({
     setLatestProbeJson(merged);
   };
 
+  // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
+  // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
   const dom = {
+    contentInsetAdjustmentBehavior: 'never' as const,
+    automaticallyAdjustContentInsets: false,
+    bounces: false,
     onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
     onRenderProcessGone: handlers.onRenderProcessGone,
   };
