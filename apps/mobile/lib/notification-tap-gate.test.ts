@@ -150,6 +150,49 @@ describe('tap gate', () => {
     });
   });
 
+  describe('retry armed by enqueue (fake timers)', () => {
+    it('a tap enqueued after bind retries past the ack timeout and completes on a late ack, no resume()', async () => {
+      vi.useFakeTimers();
+      try {
+        const gate = createTapGate({ siteUrl: SITE, queue: createTapQueue({ ackTimeoutMs: 100 }), retryMs: 50 });
+        const s = readyHost();
+        gate.bindHost(s.host);
+        await vi.advanceTimersByTimeAsync(0);
+        gate.enqueue({ id: 'late', deepLink: '/settings' });
+        await vi.advanceTimersByTimeAsync(120);
+        expect(gate.size()).toBe(1);
+        ackNavigate(s);
+        await vi.advanceTimersByTimeAsync(100);
+        expect(gate.size()).toBe(0);
+        expect(navigates(s.sent)).toHaveLength(1);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('unbinding clears an armed retry and arms no further timers', async () => {
+      vi.useFakeTimers();
+      try {
+        const set = vi.fn((fn: () => void, ms: number) => setTimeout(fn, ms));
+        const clear = vi.fn((h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>));
+        const gate = createTapGate({ siteUrl: SITE, queue: createTapQueue({ ackTimeoutMs: 100 }), retryMs: 50, timers: { set, clear } });
+        const s = readyHost();
+        const unbind = gate.bindHost(s.host);
+        await vi.advanceTimersByTimeAsync(0);
+        gate.enqueue({ id: 'u', deepLink: '/settings' });
+        await vi.advanceTimersByTimeAsync(260);
+        expect(set).toHaveBeenCalled();
+        const armed = set.mock.calls.length;
+        unbind();
+        expect(clear).toHaveBeenCalled();
+        await vi.advanceTimersByTimeAsync(500);
+        expect(set.mock.calls.length).toBe(armed);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+  });
+
   describe('epoch-safe lifecycle', () => {
     it('a stale cleanup from an older epoch does not unbind the newer host', async () => {
       const gate = createTapGate({ siteUrl: SITE });

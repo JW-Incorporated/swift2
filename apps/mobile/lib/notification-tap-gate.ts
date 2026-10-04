@@ -109,6 +109,7 @@ export function createTapGate(opts: {
     /** Enqueue one tap. In native mode a link the queue refuses (unknown route root, hostile, absent) opens canonical-or-home, once per id. */
     enqueue(raw: RawTap): 'queued' | 'duplicate' | 'dropped' {
       const outcome = queue.enqueue(raw);
+      if (outcome === 'queued' && target !== null && retry === null) kick();
       if (outcome === 'dropped' && native) {
         const id = typeof raw.id === 'string' && raw.id.length > 0 ? raw.id : null;
         if (id === null || !legacySeen.has(id)) {
