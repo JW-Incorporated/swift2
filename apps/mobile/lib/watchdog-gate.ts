@@ -21,6 +21,7 @@ import {
   createWriteQueue,
   decideMount,
   markReady,
+  markReloading,
   recordStrike,
   shouldMountDom,
   startAttempt,
@@ -56,8 +57,8 @@ export interface LaunchInputs {
 export interface DomWatch {
   ready: () => void;
   error: (message: string) => void;
-  /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload; otherwise struck. */
-  crashed: (kind: 'terminated' | 'render-gone') => CrashOutcome | undefined;
+  /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload (resolved only after the record was persisted as an unresolved attempt); otherwise struck. */
+  crashed: (kind: 'terminated' | 'render-gone') => Promise<CrashOutcome | undefined>;
   protocol: () => void;
 }
 
@@ -203,7 +204,15 @@ export function useDomMount(inputs: LaunchInputs | null): {
     () => ({
       ready: () => monitorRef.current?.ready(),
       error: (m) => monitorRef.current?.error(m),
-      crashed: (k) => monitorRef.current?.crashed(k),
+      crashed: async (k) => {
+        const outcome = monitorRef.current?.crashed(k);
+        const r = recordRef.current;
+        if (outcome !== 'reload' || !r) return outcome;
+        recordRef.current = markReloading(r, Date.now());
+        if (await write(recordRef.current, 1)) return 'reload';
+        diagCollector.mark('watchdog-reload-save-failed');
+        return monitorRef.current?.crashed(k);
+      },
       protocol: () => monitorRef.current?.protocolFatal(),
     }),
     [],

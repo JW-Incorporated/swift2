@@ -17,16 +17,14 @@
 // native too.
 
 import { QUARANTINE_AFTER_FALLBACK_CYCLES, escalate, quarantinedDecision } from './watchdog-policy';
+import { truncateReason } from './watchdog-monitor';
 
-export const READY_TIMEOUT_MS = 10_000;
+export { READY_TIMEOUT_MS, MAX_REASON_CHARS, RELOAD_WINDOW_MS, truncateReason, createAttemptMonitor } from './watchdog-monitor';
+export type { AttemptMonitor, AttemptMonitorOptions, CrashOutcome, Scheduler } from './watchdog-monitor';
+
 export const STRIKES_TO_FALLBACK = 2;
 export const FALLBACK_LAUNCHES = 1;
 export const ABANDONED_TO_STRIKE = 2;
-export const MAX_REASON_CHARS = 120;
-/** A 2nd post-ready webview termination within this window (monotonic ms) is a strike; the 1st only reloads the DOM. */
-export const RELOAD_WINDOW_MS = 5 * 60_000;
-
-export type CrashOutcome = 'reload' | 'strike';
 
 export type WatchdogState = 'idle' | 'attempting' | 'ready' | 'failed' | 'fallback' | 'quarantined';
 
@@ -52,7 +50,6 @@ export function parseDomFailureMode(raw: string | null | undefined): DomFailureM
   return raw === 'throw' || raw === 'hang' ? raw : 'off';
 }
 
-export const truncateReason = (s: string): string => s.slice(0, MAX_REASON_CHARS);
 
 const STATES: WatchdogState[] = ['idle', 'attempting', 'ready', 'failed', 'fallback', 'quarantined'];
 
@@ -212,6 +209,10 @@ export function createWriteQueue(save: (r: WatchdogRecord) => Promise<boolean>) 
   };
 }
 
+/** A post-ready webview reload is an unresolved attempt again: if the process dies mid-reload the next launch counts it as abandoned/failed, not clean. */
+export const markReloading = (r: WatchdogRecord, now: number): WatchdogRecord =>
+  r.state === 'ready' ? { ...r, state: 'attempting', backgrounded: false, at: now } : r;
+
 /** Monotonic within a launch: ready never overwrites a recorded strike/fallback. */
 export const markReady = (r: WatchdogRecord, now: number): WatchdogRecord =>
   r.state === 'attempting' ? { ...r, state: 'ready', fallbackCycles: 0, at: now } : r;
@@ -237,107 +238,3 @@ export function recordStrike(
     }),
   };
 }
-
-export interface Scheduler {
-  setTimeout(fn: () => void, ms: number): unknown;
-  clearTimeout(handle: unknown): void;
-}
-
-export interface AttemptMonitorOptions {
-  scheduler: Scheduler;
-  now: () => number;
-  active: boolean;
-  onReady: () => void;
-  onStrike: (reason: string) => void;
-  timeoutMs?: number;
-  reloadWindowMs?: number;
-}
-
-/**
- * One launch's ready-timeout + signal accounting. `ready` is idempotent;
- * `error` only strikes before ready; crashes strike at the event even after
- * ready, except the first one (the OS reaping the content process is not a DOM
- * fault): it asks the host to reload ('reload', ready timeout re-armed) and only a
- * 2nd within RELOAD_WINDOW_MS, or any before ready, strikes; at most one strike per launch. The timeout is paused while the app
- * is backgrounded (an attempt that never returns is abandoned next launch).
- */
-export function createAttemptMonitor(opts: AttemptMonitorOptions) {
-  const { scheduler, now, onReady, onStrike } = opts;
-  const total = opts.timeoutMs ?? READY_TIMEOUT_MS;
-  let remaining = total;
-  let handle: unknown = null;
-  let startedAt = 0;
-  let readySeen = false;
-  let struck = false;
-  let reloading = false;
-  let activeNow = opts.active;
-  let lastReloadAt: number | null = null;
-  const reloadWindow = opts.reloadWindowMs ?? RELOAD_WINDOW_MS;
-
-  const stopTimer = () => {
-    if (handle !== null) scheduler.clearTimeout(handle);
-    handle = null;
-  };
-  const strike = (reason: string) => {
-    if (struck) return;
-    struck = true;
-    stopTimer();
-    onStrike(truncateReason(reason));
-  };
-  const startTimer = () => {
-    startedAt = now();
-    handle = scheduler.setTimeout(() => {
-      handle = null;
-      if (!readySeen) strike('ready-timeout');
-    }, remaining);
-  };
-  if (opts.active) startTimer();
-
-  return {
-    ready() {
-      if (readySeen || struck) return;
-      readySeen = true;
-      stopTimer();
-      if (reloading) reloading = false;
-      else onReady();
-    },
-    error(message: string) {
-      if (readySeen) return;
-      strike(`dom-error: ${message}`);
-    },
-    crashed(kind: 'terminated' | 'render-gone'): CrashOutcome {
-      if (struck) return 'strike';
-      const t = now();
-      const recurred = lastReloadAt !== null && Math.max(0, t - lastReloadAt) < reloadWindow;
-      if (!readySeen || recurred) {
-        strike(`webview-${kind}`);
-        return 'strike';
-      }
-      lastReloadAt = t;
-      readySeen = false;
-      reloading = true;
-      remaining = total;
-      stopTimer();
-      if (activeNow) startTimer();
-      return 'reload';
-    },
-    protocolFatal() {
-      strike('protocol-fatal');
-    },
-    setActive(active: boolean) {
-      activeNow = active;
-      if (readySeen || struck) return;
-      if (!active && handle !== null) {
-        // A backward clock step reads as zero elapsed, so remaining never grows past `total`.
-        const elapsed = Math.max(0, now() - startedAt);
-        remaining = Math.min(total, Math.max(0, remaining - (Number.isFinite(elapsed) ? elapsed : 0)));
-        stopTimer();
-      } else if (active && handle === null) {
-        startTimer();
-      }
-    },
-    dispose: stopTimer,
-  };
-}
-
-export type AttemptMonitor = ReturnType<typeof createAttemptMonitor>;
