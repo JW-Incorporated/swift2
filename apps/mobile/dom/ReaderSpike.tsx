@@ -10,6 +10,7 @@ import './reader-spike.css';
 import { useEffect, useRef, useState, type ComponentType } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { UI_PACKAGE_VERSION, type Envelope, type Insets } from '@swift2/ui';
+import { installNavigateSubscriber, type NavigateDeps } from './bridge/navigate-subscriber';
 import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
@@ -60,16 +61,18 @@ type MountProps = Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge'>> & {
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
+  navigateDeps: NavigateDeps;
   backRef: { current: BackFn | null };
 };
 
 /** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox. Mounted only where a native host supplies `bridge`. */
-function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, backRef }: MountProps) {
+function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef }: MountProps) {
   useExpoBridge({ inbox, bridge }, { onFatal }, (client) => {
     const offs = [
       client.on('insets', onInsets),
       client.on('contentVersion', (e) => onContentVersion(e.token)),
       client.handle('back', () => backRef.current?.() ?? 'exit'),
+      installNavigateSubscriber(client, navigateDeps),
     ];
     return () => offs.forEach((off) => off());
   });
@@ -81,6 +84,12 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   const [hostInsets, setHostInsets] = useState<Insets | undefined>();
   const insets = hostInsets ?? props.insets ?? (devLoader ? insetsFromQuery() : undefined);
   const backRef = useRef<BackFn | null>(null);
+  // A native-to-DOM navigate rewrites the page query and remounts the reader, which re-reads its deep link.
+  const [readerKey, setReaderKey] = useState(0);
+  const navigateDeps = useRef<NavigateDeps>({
+    replaceUrl: (relative) => window.history.replaceState(null, '', relative),
+    remount: () => setReaderKey((k) => k + 1),
+  }).current;
   const [Reader, setReader] = useState<ComponentType<ReaderProps> | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
   const started = useRef(false);
@@ -207,6 +216,7 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
       onContentVersion={(token) => {
         if (!probeRef.current.report.version) probeRef.current.report.version = token;
       }}
+      navigateDeps={navigateDeps}
       backRef={backRef}
     />
   ) : null;
@@ -218,7 +228,7 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
       Loading...
     </div>
   ) : (
-    <Reader registerBack={(fn) => void (backRef.current = fn)} />
+    <Reader key={readerKey} registerBack={(fn) => void (backRef.current = fn)} />
   );
   return (
     <>

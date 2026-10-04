@@ -390,6 +390,9 @@ export default function App() {
                 }}
                 watch={domMount.watch}
                 forceFailure={domMount.forceFailure}
+                siteUrl={SITE_URL}
+                getRouteFlags={() => routeFlagsRef.current}
+                presentNativeRoute={presenter.presentNativeRoute}
               />
               <NativeOverlayHost state={nativeRoute} presenter={presenter} navigate={navigate} />
             </>
