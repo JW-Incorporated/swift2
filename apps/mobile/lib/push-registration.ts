@@ -68,23 +68,25 @@ export function registerDevice(): Promise<{ status: 'registered_no_token'; devic
       console.warn('registerDevice: push token unavailable, registering without one', e);
       pushToken = null;
     }
+    const result = { status: 'registered_no_token' as const, deviceId };
     // A newer user intent (unregister / explicit register) owns the server state; a stale refresh must not post.
-    if (!isCurrent()) return { status: 'registered_no_token' as const, deviceId };
+    if (!isCurrent()) return { write: null, result };
     if (pushToken && (await isExplicitlyUnregistered())) pushToken = null;
-    await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken });
-    return { status: 'registered_no_token' as const, deviceId };
-  }, { supersede: false });
+    return { write: { deviceId, platform: currentPlatform(), pushToken }, result };
+  }, registerWithBackend, { supersede: false });
 }
 
 /**
- * The in-app turn-off: upserts a null push token (never prompts, never fetches a token) and records the opt-out
- * flag. Supersedes any in-flight registration work.
+ * The in-app turn-off: records the opt-out flag, then upserts a null push token (never prompts, never fetches a
+ * token). Supersedes any in-flight registration work.
  */
 export function clearRegisteredToken(): Promise<void> {
-  return enqueueRegistration(async () => {
-    await registerWithBackend({ deviceId: await getOrCreateDeviceId(), platform: currentPlatform(), pushToken: null });
+  return enqueueRegistration(async (isCurrent) => {
+    const deviceId = await getOrCreateDeviceId();
+    if (!isCurrent()) return { write: null, result: undefined };
     await SecureStore.setItemAsync(UNREGISTERED_KEY, '1');
-  }, { supersede: true });
+    return { write: { deviceId, platform: currentPlatform(), pushToken: null }, result: undefined };
+  }, registerWithBackend, { supersede: true });
 }
 
 /**
@@ -113,27 +115,21 @@ export async function requestPushRegistration(opts: { clearOptOut?: boolean } = 
   return enqueueRegistration(async (isCurrent) => {
     const deviceId = await getOrCreateDeviceId();
     await registerNotificationChannels();
-    const upsert = async (pushToken: string | null) => {
-      if (!isCurrent()) return; // superseded by a newer user intent
-      await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken });
-    };
-    const done = async (result: PushRegistrationResult) => {
-      if (opts.clearOptOut && result.status !== 'error' && isCurrent()) await SecureStore.deleteItemAsync(UNREGISTERED_KEY);
-      return result;
+    const platform = currentPlatform();
+    const finish = async (result: PushRegistrationResult, pushToken: string | null) => {
+      if (!isCurrent()) return { write: null, result }; // superseded by a newer user intent
+      if (opts.clearOptOut) await SecureStore.deleteItemAsync(UNREGISTERED_KEY);
+      return { write: { deviceId, platform, pushToken }, result };
     };
 
     if (!Device.isDevice) {
       // Simulators/emulators can't receive real pushes; still register the
       // device row (tz/locale/platform) so the API round-trip is exercised,
       // but don't attempt a token.
-      await upsert(null);
-      return done({ status: 'unsupported' });
+      return finish({ status: 'unsupported' }, null);
     }
 
-    if (finalStatus !== 'granted') {
-      await upsert(null);
-      return done({ status: 'permission_denied', deviceId });
-    }
+    if (finalStatus !== 'granted') return finish({ status: 'permission_denied', deviceId }, null);
 
     try {
       const projectId =
@@ -142,14 +138,12 @@ export async function requestPushRegistration(opts: { clearOptOut?: boolean } = 
         projectId ? { projectId } : undefined,
       );
       const pushToken = tokenResponse.data;
-      await upsert(pushToken);
-      return await done({ status: 'registered', deviceId, pushToken });
+      return await finish({ status: 'registered', deviceId, pushToken }, pushToken);
     } catch (err) {
-      return { status: 'error', error: err instanceof Error ? err.message : String(err) } as PushRegistrationResult;
+      return { write: null, result: { status: 'error', error: err instanceof Error ? err.message : String(err) } as PushRegistrationResult };
     }
-  }, { supersede: true });
+  }, registerWithBackend, { supersede: true });
 }
-
 async function registerWithBackend(input: {
   deviceId: string;
   platform: DevicePlatform;
@@ -167,13 +161,19 @@ async function registerWithBackend(input: {
     appVersion,
   };
 
-  const res = await fetch(`${apiBaseUrl()}/api/devices/register`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-  });
-  if (!res.ok) {
-    throw new Error(`devices/register: HTTP ${res.status}`);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    const res = await fetch(`${apiBaseUrl()}/api/devices/register`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      throw new Error(`devices/register: HTTP ${res.status}`);
+    }
+  } finally {
+    clearTimeout(timer);
   }
 }
