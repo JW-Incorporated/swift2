@@ -131,6 +131,7 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    `a-support` (the footer capture `a-support-footer` is unchanged). `negative.spec.ts` proves a
    1px translate of one element per surface (`BETA_NEGATIVE_TARGETS`) fails its element clip on all
    four projects. `hydrated` no longer waits for a button when the root has none (static legal pages).
+   WP2.9-D flips `merch` to `sides: 'both'` (`b-merch.png`, `b-merch-viewport.png`, plus the a-vs-b viewport compare); the a-side `a-merch` baselines are unchanged.
 
 ## Flipping a route to both sides (One UI W1-E scaffolding, used by each slice D)
 
@@ -153,6 +154,8 @@ surface into the app DOM bundle (side b), flip its route:
    `mobile-parity.yml`), then push a non-bot commit (bot commits do not trigger PR CI).
 4. Side b must serve the route: it needs the slot in `apps/mobile/dom/slots/` (see its header), and an unknown query
    mode renders the D-6 fallback, which fails the a-vs-b compare (that is the intended signal).
+   WP2.8-D flipped `search-open` and `search-results` (slot `overlay:search`, `dom/slots/search.ts`); their
+   `b-search-*` baselines are added by the update-baselines dispatch, the `a-search-*` ones are unchanged.
 
 `sides.spec.ts` is the browser-free dry run: a fixture route marked `both` plans one a-vs-b compare and two
 b baselines, and every real route is asserted a-only (so with no flip, no test is generated and the
