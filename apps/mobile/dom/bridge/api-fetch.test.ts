@@ -27,8 +27,11 @@ function rig(fetchImpl: (url: string, init: RequestInit) => Promise<Response>, t
     },
   });
   const client = {
-    call: (_type: 'api', payload: Parameters<typeof handlers.api>[0], opts?: { signal?: AbortSignal }) =>
-      handlers.api(payload, { signal: opts?.signal ?? new AbortController().signal }),
+    call: (type: string, payload: never, opts?: { signal?: AbortSignal }) => {
+      const ctx = { signal: opts?.signal ?? new AbortController().signal };
+      if (type === 'cancel') return Promise.resolve({ ok: true, value: null });
+      return type === 'apiRead' ? handlers.apiRead(payload, ctx) : handlers.api(payload, ctx);
+    },
   } as unknown as BridgeClient;
   return { fetchMock, apiFetch: createBridgeApiFetch(client), timers };
 };

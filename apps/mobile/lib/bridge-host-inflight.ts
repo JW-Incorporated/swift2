@@ -23,6 +23,19 @@ type Outcome = ResResult<JsonValue> | typeof SKIP;
 export function createInflight(deps: InflightDeps) {
   const { arm, disarm, respond, onSignal } = deps;
   const map = new Map<string, Inflight>();
+  /** Resources that outlive their command (open `api` streams), cancelable by id. */
+  const owned = new Map<string, () => void>();
+  const own = (id: string, cancel: () => void) => {
+    owned.set(id, cancel);
+    return () => void (owned.get(id) === cancel && owned.delete(id));
+  };
+  const safely = (fn: () => void) => {
+    try {
+      fn();
+    } catch {
+      /* a throwing cancel must not break the dispatcher */
+    }
+  };
 
   /** The one `res` for a cmd: only the first settle of this very record wins. */
   function settle(f: Inflight, result: ResResult<JsonValue>) {
@@ -46,7 +59,7 @@ export function createInflight(deps: InflightDeps) {
     map.set(id, f);
     const handler = deps.handlers[type] as unknown as RunHandler;
     Promise.resolve()
-      .then((): Promise<Outcome> | Outcome => (map.get(id) !== f || controller.signal.aborted ? SKIP : handler(payload, { signal: controller.signal })))
+      .then((): Promise<Outcome> | Outcome => (map.get(id) !== f || controller.signal.aborted ? SKIP : handler(payload, { signal: controller.signal, own })))
       .then(
         (r) => {
           if (r === SKIP) return;
@@ -66,7 +79,12 @@ export function createInflight(deps: InflightDeps) {
     run,
     cancel(targetId: string) {
       const f = map.get(targetId);
-      if (!f) return;
+      if (!f) {
+        const stop = owned.get(targetId);
+        owned.delete(targetId);
+        if (stop) safely(stop);
+        return;
+      }
       f.controller.abort();
       settle(f, resErr('cancelled', 'cancelled by DOM'));
     },
@@ -80,6 +98,9 @@ export function createInflight(deps: InflightDeps) {
         disarm(f.timer);
       }
       map.clear();
+      const stops = [...owned.values()];
+      owned.clear();
+      for (const stop of stops) safely(stop);
     },
   };
 }

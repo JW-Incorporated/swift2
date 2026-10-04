@@ -34,9 +34,20 @@ export type DomCommandSpec = {
   'notifications.savePrefs': Spec<NotificationPrefsUpdate, NotificationPrefsState>;
   'notifications.unregister': Spec<Record<string, never>, null>;
   'notifications.registration': Spec<Record<string, never>, { registered: boolean }>;
-  api: Spec<{ req: BridgeApiRequest }, ApiResponse>;
+  /**
+   * `stream: true` (ClownChat only) answers at headers with an `ApiStreamHead`; the DOM then pulls the body
+   * with `apiRead`. A non-2xx answers the buffered `ApiResponse` shape (no streamId). Add-only (W6-stream).
+   */
+  api: Spec<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
+  /** Pull the next decoded chunk of an open stream (long-poll, `{ chunk: '', done: false }` on an idle poll). */
+  apiRead: Spec<{ streamId: string }, ApiStreamChunk>;
+  /** `targetId` is a command id, or an open stream's id (which aborts that stream). */
   cancel: Spec<{ targetId: string }, null>;
 };
+
+/** Headers of a streamed `api` response; the body follows via `apiRead`. */
+export type ApiStreamHead = { status: number; headers: Record<string, string>; streamId: string };
+export type ApiStreamChunk = { chunk: string; done: boolean };
 
 /** Native -> DOM commands. */
 export type NativeCommandSpec = {
@@ -81,7 +92,14 @@ export type PayloadOf<T extends CommandType> = CommandSpec[T]['payload'];
 export type ResultOf<T extends CommandType> = CommandSpec[T]['result'];
 export type EventPayloadOf<T extends EventType> = EventSpec[T];
 
-export type HandlerContext = { signal: AbortSignal };
+export type HandlerContext = {
+  signal: AbortSignal;
+  /**
+   * Registers a resource that outlives its command (an open `api` stream) under `id`: a later `cancel { targetId: id }`
+   * calls `cancel`, as does the host's abort-all (shutdown, DOM re-handshake). Returns an unregister. Absent in unit tests.
+   */
+  own?: (id: string, cancel: () => void) => () => void;
+};
 
 /**
  * A handler resolves with the `res` body, so a handler can answer `invalid`
@@ -119,6 +137,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.unregister': true,
   'notifications.registration': true,
   api: true,
+  apiRead: true,
   cancel: true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
