@@ -23,14 +23,14 @@ describe('createBackResponder', () => {
     expect(closeItem).not.toHaveBeenCalled();
   });
 
-  it('a second press before the close commits is a root press, not another handled', () => {
+  it('a repeat press before the close commits answers handled again, without closing twice', () => {
     const r = createBackResponder();
     const closeItem = vi.fn();
-    expect(r.answer({ openItemId: 'i1', closeItem })).toBe('handled');
-    expect(r.answer({ openItemId: 'i1', closeItem })).toBe('exit');
+    expect(r.answer({ openItemId: 'inbox', closeItem })).toBe('handled');
+    expect(r.answer({ openItemId: 'inbox', closeItem })).toBe('handled');
     expect(closeItem).toHaveBeenCalledTimes(1);
     r.reset();
-    expect(r.answer({ openItemId: 'i1', closeItem })).toBe('handled');
+    expect(r.answer({ openItemId: null, closeItem })).toBe('exit');
   });
 });
 
@@ -52,14 +52,14 @@ describe('useBackRegistration with real React state', () => {
     return { ref, ui: <Reader /> };
   }
 
-  it('two distinct presses batched before the state commits: one handled, one exit, one close', () => {
+  it('two distinct presses batched before the state commits: both handled, one close', () => {
     const { ref, ui } = harness();
     const { container } = render(ui);
     const answers: string[] = [];
     act(() => {
       answers.push(ref.back!(), ref.back!());
     });
-    expect(answers).toEqual(['handled', 'exit']);
+    expect(answers).toEqual(['handled', 'handled']);
     expect(ref.closeCalls).toBe(1);
     expect(container.firstElementChild?.getAttribute('data-open')).toBe('');
   });

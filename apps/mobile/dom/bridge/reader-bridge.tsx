@@ -42,7 +42,7 @@ export function ReaderBridge() {
         findEraForVideoSlug: (slug) => r.eras.find((e) => r.allVideoRecordsForEra(e.id).some((v) => v.slug === slug))?.id ?? null,
         eraOfTrackKey: (key) => resolveTrackKey(key)?.eraId ?? null,
       };
-      return applyAfterCommit(() => applyDeepLink(search, queries, a));
+      return applyAfterCommit(() => applyDeepLink(search, queries, { ...a, closeInbox: inboxOverlay.close, closeSettings: settingsOverlay.close }));
     });
     return () => controls.setApplier(null);
   }, []);

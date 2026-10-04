@@ -15,6 +15,8 @@ export type DeepLinkActions = {
   openTrackGuide(id: never): void;
   openTheoryGuide(id: never): void;
   closeItem(): void;
+  closeInbox(): void;
+  closeSettings(): void;
   closeTrackGuide(): void;
   closeTheoryGuide(): void;
   setSearchOpen(open: boolean): void;
@@ -64,6 +66,8 @@ export function applyDeepLink(search: string, q: DeepLinkQueries, a: DeepLinkAct
     act = () => a.setEra(as(target.id));
   }
   if (!act) return false;
+  a.closeInbox();
+  a.closeSettings();
   a.closeItem();
   a.closeTrackGuide();
   a.closeTheoryGuide();

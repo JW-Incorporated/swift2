@@ -45,12 +45,12 @@ describe('InboxOverlay (app host)', () => {
     expect(apiFetch).not.toHaveBeenCalled();
   });
 
-  it('loads the feed through host.apiFetch (GET) and a row closes the inbox then navigates to its deep link', async () => {
+  it('loads the feed through host.apiFetch (GET) and a row navigates to its deep link (reader apply closes the inbox)', async () => {
     const { navigate, apiFetch } = mount({ host: notifications });
     act(() => inboxOverlay.open());
     fireEvent.click(await screen.findByRole('button', { name: /A new drop/ }));
     expect(apiFetch.mock.calls[0][0]).toMatchObject({ method: 'GET', path: '/api/notifications/inbox' });
-    expect(inboxOverlay.isOpen()).toBe(false);
+    expect(inboxOverlay.isOpen()).toBe(true);
     expect(navigate).toHaveBeenCalledWith('/?song=abc');
   });
 
@@ -62,7 +62,7 @@ describe('InboxOverlay (app host)', () => {
     act(() => inboxOverlay.open());
     fireEvent.click(await screen.findByRole('button', { name: /A new drop/ }));
     expect(navigate).toHaveBeenCalledWith(expected);
-    expect(inboxOverlay.isOpen()).toBe(false);
+    expect(inboxOverlay.isOpen()).toBe(true);
   });
 
   it.each([
@@ -89,7 +89,11 @@ describe('InboxOverlay (app host)', () => {
     await screen.findByRole('button', { name: /A new drop/ });
     const dialog = screen.getByRole('dialog', { name: 'Notification inbox' });
     expect(dialog.contains(document.activeElement)).toBe(true);
-    fireEvent.keyDown(document, { key: 'Escape' });
+    const spy = vi.fn();
+    window.addEventListener('keydown', spy);
+    fireEvent.keyDown(screen.getByRole('button', { name: /A new drop/ }), { key: 'Escape' });
+    window.removeEventListener('keydown', spy);
+    expect(spy).not.toHaveBeenCalled();
     expect(inboxOverlay.isOpen()).toBe(false);
     expect(document.activeElement).toBe(trigger);
     trigger.remove();
