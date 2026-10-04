@@ -25,7 +25,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { BackHandler, Modal, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -78,6 +78,13 @@ import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
+import {
+  INITIAL_NATIVE_ROUTE_STATE,
+  createNativeRoutePresenter,
+  msUntilDeadline,
+  type NativeRouteState,
+} from './lib/dom-host-handlers';
+import { isNativeRoute } from './dom/slots/routes';
 
 installDiagnostics();
 installSpeedTest();
@@ -243,6 +250,32 @@ export default function App() {
   // next launch) + the last-good CACHED flags. The network result below never changes this launch.
   const [launchInputs, setLaunchInputs] = useState<LaunchInputs | null>(null);
   const domMount = useDomMount(launchInputs);
+  // D-7: native screens present in an RN Modal over the STILL-MOUNTED DOM host (never an
+  // unmount: a remount restarts READY_TIMEOUT and loses store/scroll state). The presenter
+  // is the single `presentNativeRoute` entry; D2 hands it to the bridge navigate handler.
+  const [nativeRoute, setNativeRoute] = useState<NativeRouteState>(INITIAL_NATIVE_ROUTE_STATE);
+  const presenterRef = useRef<ReturnType<typeof createNativeRoutePresenter> | null>(null);
+  if (!presenterRef.current) {
+    presenterRef.current = createNativeRoutePresenter({ isNativeRoute, now: Date.now, onChange: setNativeRoute });
+  }
+  const presenter = presenterRef.current;
+  useEffect(() => {
+    const ms = msUntilDeadline(nativeRoute, Date.now());
+    if (ms === null) return;
+    const h = setTimeout(() => presenter.tick(), ms);
+    return () => clearTimeout(h);
+  }, [nativeRoute, presenter]);
+  // The watchdog falling back (or the DOM never mounting) clears any overlay.
+  useEffect(() => {
+    if (domMount.mount !== 'dom') presenter.clearOnWatchdogFallback();
+  }, [domMount.mount, presenter]);
+  // Native owns hardware back in every overlay phase but idle (including closing).
+  const overlayActive = nativeRoute.phase !== 'idle';
+  useEffect(() => {
+    if (!overlayActive) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => presenter.handleBack());
+    return () => sub.remove();
+  }, [overlayActive, presenter]);
   useEffect(() => {
     void lockPhonesToPortrait();
     void Promise.all([getForceSharedUi(), loadLaunchFlags()]).then(([override, flags]) =>
@@ -380,19 +413,58 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <SafeAreaView style={styles.fill}>
+        {/* #4953: ONE inset owner. The DOM mount is edge-to-edge (edges={[]}) and the DOM owns the
+            insets via --safe-top/--safe-bottom; native screens and the fallback keep all four edges. */}
+        <SafeAreaView style={styles.fill} edges={domMount.mount === 'dom' && !updateRequired ? [] : undefined}>
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
-            <SharedUiHost
-              onSignal={(stage, detail) => {
-                diagCollector.mark(stage, detail);
-                if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
-              }}
-              watch={domMount.watch}
-              forceFailure={domMount.forceFailure}
-            />
+            <>
+              <SharedUiHost
+                onSignal={(stage, detail) => {
+                  diagCollector.mark(stage, detail);
+                  if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
+                }}
+                watch={domMount.watch}
+                forceFailure={domMount.forceFailure}
+              />
+              {/* While up, the Modal (a separate native window) covers the diag hot-corner strips by
+                  design; they work again the moment it closes. Hidden Modal renders nothing. */}
+              <Modal
+                visible={nativeRoute.phase === 'opening' || nativeRoute.phase === 'open'}
+                animationType="slide"
+                statusBarTranslucent
+                onShow={() => {
+                  if (presenter.opened(nativeRoute.seq) === 'stale') diagCollector.mark('native-overlay-stale', 'opened');
+                }}
+                onDismiss={() => {
+                  if (presenter.closed(nativeRoute.seq) === 'stale') diagCollector.mark('native-overlay-stale', 'closed');
+                }}
+                onRequestClose={() => {
+                  presenter.handleBack();
+                }}
+              >
+                <GestureHandlerRootView style={styles.fill}>
+                  <SafeAreaView style={styles.fill}>
+                    {nativeRoute.route === '/inbox' ? (
+                      <NotificationInboxScreen
+                        onClose={() => presenter.dismiss()}
+                        onOpenItem={(event) => {
+                          presenter.dismiss();
+                          navigate(event.deepLink);
+                        }}
+                      />
+                    ) : nativeRoute.route === '/settings/notifications' ? (
+                      <NotificationSettingsScreen
+                        onClose={() => presenter.dismiss()}
+                        onOpenInbox={() => presenter.presentNativeRoute('/inbox')}
+                      />
+                    ) : null}
+                  </SafeAreaView>
+                </GestureHandlerRootView>
+              </Modal>
+            </>
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : screen === 'inbox' ? (

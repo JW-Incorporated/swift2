@@ -7,7 +7,7 @@
 // bounded by PENDING_MAX_MS, after which native mounts and the DOM never swaps in.
 //
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
-// TODO(PM, WP2.4-D): clear the pending/launch overlay when the DOM host reports ready or the watchdog falls back.
+// DONE (WP2.4-D1): App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback). TODO(PM, WP2.4-D2): the pending/launch overlay.
 // TODO(PM, WP2.3-E): the notification-tap queue (a tap while quarantined/fallback must land on the native screen).
 // TODO(PM, WP2.3-B step 4): wire the bridge host's onProtocolFatal to `watch.protocol` (DomWatch.protocol has no caller yet).
 import { useEffect, useMemo, useRef, useState } from 'react';

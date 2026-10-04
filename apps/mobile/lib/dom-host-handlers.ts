@@ -162,6 +162,12 @@ export function nativeOwnsBack(state: NativeRouteState): boolean {
   return state.phase !== 'idle';
 }
 
+// Delay for the one `tick` App.tsx schedules after an opening/closing transition;
+// null when no deadline is pending.
+export function msUntilDeadline(state: NativeRouteState, now: number): number | null {
+  return state.deadlineAt === null ? null : Math.max(0, state.deadlineAt - now);
+}
+
 // D-7 contract: `presentNativeRoute(path)` is the single presenter. Thin stateful
 // wrapper over the reducer; `onChange` lets App.tsx mirror state into React and
 // `now` is the injected clock (e.g. Date.now) used to stamp events.

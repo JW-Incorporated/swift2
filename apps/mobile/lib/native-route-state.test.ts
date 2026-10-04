@@ -5,6 +5,7 @@ import {
   OPEN_MS,
   createNativeRoutePresenter,
   isPresentablePath,
+  msUntilDeadline,
   nativeOwnsBack,
   reduceNativeRoute,
   type NativeRouteEvent,
@@ -217,5 +218,14 @@ describe('createNativeRoutePresenter', () => {
     clock.t = 2500;
     expect(p.tick()).toBe('noop');
     expect(p.getState().phase).toBe('opening');
+  });
+});
+
+describe('msUntilDeadline', () => {
+  it('is null without a deadline and clamps at zero once past it', () => {
+    expect(msUntilDeadline(INITIAL_NATIVE_ROUTE_STATE, 5)).toBeNull();
+    const s: NativeRouteState = { phase: 'opening', route: '/inbox', seq: 1, deadlineAt: 1000 };
+    expect(msUntilDeadline(s, 400)).toBe(600);
+    expect(msUntilDeadline(s, 1500)).toBe(0);
   });
 });

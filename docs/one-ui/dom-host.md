@@ -136,6 +136,12 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
 4. After WP2.3-E ships: a notification tap while quarantined lands on the native screen.
 
+## Insets, native overlay and the app adapter (WP2.4-D1, #4953)
+
+- **One inset owner.** While the DOM host is mounted, App.tsx's `SafeAreaView` has `edges={[]}`: the host is edge-to-edge and the DOM alone applies `--safe-top`/`--safe-bottom`. Native screens, the fallback and the update screen keep all four edges. The diag hot-corner strips are siblings rendered outside the `SafeAreaView` (absolute, sized by `useSafeAreaInsets()`), so they sit above the full-bleed webview and are unaffected. The stale comment on `domContentRect` (`lib/diag-hot-corner.ts`) still describes the old padded layout (follow-up, outside D1's touch set).
+- **Native overlay.** `presentNativeRoute` (pure presenter in `lib/dom-host-handlers.ts`) drives an RN `Modal` over the still-mounted `SharedUiHost` (never an unmount). Native owns hardware back in every phase but idle; opening/closing carry deadlines, so App.tsx schedules one `tick` after each transition (`msUntilDeadline`); leaving `mount === 'dom'` (watchdog fallback) resets the overlay. While the Modal is visible it covers the hot-corner strips by design; they work again once it closes. Not yet reachable: the route allow-list (`dom/slots/routes`) is empty and `presentNativeRoute` is handed to the bridge `navigate` handler in D2.
+- **App HostAdapter** (`dom/bridge/app-adapter.tsx`, helpers in `app-adapter-nav.tsx`; not mounted until D2). Built per provider. `Link` intercepts clicks (in-app path or same-origin URL -> `navigate`; https elsewhere -> bridge `openExternal`; a `_blank` target never navigates the webview); `installBlankCapture` does the same for plain `a[target=_blank]`. `navigate` sends native-owned routes over the bridge and the rest to the injected DOM navigator. `Image` replicates next/image `fill` styles. `storage` is tri-state (#4923): `null` = absent key, `undefined` only when the area is unavailable. `currentUrl` is the in-DOM web path on the canonical origin, never `file://` (feedback reports keep their location).
+
 ## Open items
 
 - Device proof (onReady, crash callbacks, file-origin storage durability) is
