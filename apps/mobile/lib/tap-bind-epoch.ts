@@ -104,7 +104,10 @@ type NavHost = {
  * subscriber or a throwing handler leaves the tap queued). Any other path (/settings, /privacy, /terms,
  * /support, /vault, native-owned routes) is opened by native via `openElsewhere`; the DOM never sees it.
  */
-export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: string) => boolean; openElsewhere: (path: string) => boolean | Promise<boolean> }) {
+/** DOM deliveries the host ACKed but the DOM never confirmed (`navigated` lost) before a path is consumed, so it cannot head-block the queue. */
+export const MAX_UNCONFIRMED_ATTEMPTS = 3;
+
+export function createTapTarget(opts: { host: NavHost; /** Observability: a path was consumed after MAX_UNCONFIRMED_ATTEMPTS lost confirmations. */ onGiveUp?: (path: string) => void; /** Rewrites a link to its canonical destination path (destination-resolver); what is emitted/opened is always canonical. */ canonicalize?: (path: string) => string; isReaderPath: (path: string) => boolean; openElsewhere: (path: string) => boolean | Promise<boolean> }) {
   let counter = 0;
   const idByRef = new Map<string, string>();
   const outcome = new Map<string, boolean>();
@@ -112,19 +115,31 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
   const nonce = Math.random().toString(36).slice(2, 8);
   const waiters = new Map<string, () => void>();
   const local = new Map<number, Promise<boolean>>();
+  // Refs whose transport ACK arrived but whose `navigated` never did before the waiter timed out: spent, never reusable.
+  const stale = new Set<string>();
+  const pathByKey = new Map<string, string>();
+  const lost = new Map<string, number>();
   const key = (r: AckRef) => `${r.epoch}:${r.seq}`;
   const target: TapHost & { isReady(): boolean; onNavigated(e: { id: string; ok: boolean }): void; navigateDom(path: string): Promise<boolean> } = {
     isReady: () => opts.host.isReady(),
     emit(_type, payload) {
-      const path = payload.path as string;
+      const path = opts.canonicalize ? opts.canonicalize(payload.path as string) : (payload.path as string);
       if (!opts.isReaderPath(path)) {
         const n = ++counter;
         local.set(n, Promise.resolve(opts.openElsewhere(path)).catch(() => false));
         return { epoch: -1, seq: n };
       }
+      if ((lost.get(path) ?? 0) >= MAX_UNCONFIRMED_ATTEMPTS) {
+        lost.delete(path);
+        opts.onGiveUp?.(path);
+        const n = ++counter;
+        local.set(n, Promise.resolve(true));
+        return { epoch: -1, seq: n };
+      }
       const id = `t${nonce}-${++counter}`;
-      const ref = opts.host.emit('navigate', { path: payload.path as never, source: 'notification', id });
+      const ref = opts.host.emit('navigate', { path: path as never, source: 'notification', id });
       if (ref) {
+        pathByKey.set(key(ref), path);
         idByRef.set(key(ref), id);
         outstanding.add(id);
       }
@@ -135,6 +150,10 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
         let live = true;
         void local.get(ref.seq)?.then((ok) => live && cb(ok));
         return () => void (live = false);
+      }
+      if (stale.has(key(ref))) {
+        queueMicrotask(() => cb(false));
+        return () => {};
       }
       const id = idByRef.get(key(ref));
       if (id === undefined) return opts.host.onAcked(ref, cb);
@@ -148,6 +167,8 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
         outstanding.delete(id);
         outcome.delete(id);
         idByRef.delete(key(ref));
+        if (v) lost.delete(pathByKey.get(key(ref)) ?? '');
+        pathByKey.delete(key(ref));
         cb(v);
       };
       const check = () => {
@@ -163,6 +184,11 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
       waiters.set(id, check);
       check();
       return () => {
+        if (!done && acked) {
+          stale.add(key(ref));
+          const p = pathByKey.get(key(ref));
+          if (p !== undefined) lost.set(p, (lost.get(p) ?? 0) + 1);
+        }
         done = true;
         waiters.delete(id);
         outstanding.delete(id);

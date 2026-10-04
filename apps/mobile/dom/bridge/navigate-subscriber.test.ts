@@ -3,8 +3,12 @@ import { createAppHandlersFor } from '../../lib/app-handlers';
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-handlers';
 import { createTapGate } from '../../lib/notification-tap-gate';
+import { resolveDestination } from '../../lib/destination-resolver';
 import { createTapBinder, createTapTarget, type TapBinder } from '../../lib/tap-bind-epoch';
+import { isNativeRoute as isHostRoute } from '../slots/routes';
 import { applyNavigateEvent, installNavigateSubscriber } from './navigate-subscriber';
+import { inboxOverlay, resetInboxOverlayForTests } from '../slots/inbox-store';
+import { resetSettingsOverlayForTests, settingsOverlay } from '../slots/settings-store';
 import { createExpoBridge } from './transport-expo';
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>) };
@@ -78,7 +82,8 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
     onSignal: vi.fn(),
   });
   const openElsewhere = vi.fn(async (_p: string) => true);
-  const target = createTapTarget({ host, isReaderPath: (p) => new URL(p, 'https://x.test').pathname === '/', openElsewhere });
+  const destination = (p: string) => resolveDestination(p, { isHostRoute });
+  const target = createTapTarget({ host, canonicalize: (p) => destination(p).path, isReaderPath: (p) => destination(p).kind === 'dom', openElsewhere });
   const gate = createTapGate({ siteUrl: 'https://www.longlivets.com', retryMs: 60_000 });
   const binder = createTapBinder({ gate, host: target, onReadinessLoss: vi.fn() });
   ref.host = host;
@@ -87,7 +92,7 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
   link.attach(host);
   const dom = createExpoBridge((env) => handlers.bridge(env));
   ref.dom = dom;
-  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => true) };
+  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => true), setPath: vi.fn(async () => true) };
   dom.mount();
   if (subscribe) installNavigateSubscriber(dom.client, deps);
   const ready = async () => {
@@ -103,7 +108,8 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
 }
 
 describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () => {
-  it.each(['/settings', '/privacy', '/terms', '/support', '/vault', '/settings?tab=1'])('%s is opened by native, never swallowed by the reader', async (path) => {
+  it('/vault (no DOM route) is opened by native, never swallowed by the reader', async () => {
+    const path = '/vault';
     const e = epoch();
     await e.ready();
     e.gate.enqueue({ id: `id${path}`, deepLink: `https://www.longlivets.com${path}` });
@@ -111,6 +117,29 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     await vi.waitFor(() => expect(e.gate.size()).toBe(0));
     expect(e.deps.replaceUrl).not.toHaveBeenCalled();
     expect(e.deps.apply).not.toHaveBeenCalled();
+    e.dispose();
+  });
+
+  // Every backend-emitted settings/inbox/legal link form, through the REAL resolver, tap target and DOM subscriber.
+  it.each([
+    ['https://www.longlivets.com/?screen=settings', 'settings'],
+    ['https://www.longlivets.com/?current=inbox', 'inbox'],
+    ['https://www.longlivets.com/settings', 'settings'],
+    ['https://www.longlivets.com/settings?tab=1', 'settings'],
+    ['/privacy', 'legal'],
+    ['/terms', 'legal'],
+    ['/support', 'legal'],
+  ])('%s opens in the DOM and is delivered, never openElsewhere', async (deepLink, kind) => {
+    const e = epoch();
+    await e.ready();
+    e.gate.enqueue({ id: `d${deepLink}`, deepLink });
+    await vi.waitFor(() => expect(e.gate.size()).toBe(0));
+    expect(e.openElsewhere).not.toHaveBeenCalled();
+    if (kind === 'settings') expect(settingsOverlay.isOpen()).toBe(true);
+    if (kind === 'inbox') expect(inboxOverlay.isOpen()).toBe(true);
+    if (kind === 'legal') expect(e.deps.setPath).toHaveBeenCalledWith(deepLink.replace(/^https:\/\/www\.longlivets\.com/, ''));
+    resetSettingsOverlayForTests();
+    resetInboxOverlayForTests();
     e.dispose();
   });
 

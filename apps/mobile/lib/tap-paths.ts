@@ -1,9 +1,8 @@
-// Which notification-tap paths the DOM reader handles itself (everything else opens natively). Pure.
-import { isInboxPath, isSettingsPath } from '../dom/slots/settings-paths';
+// Which notification-tap paths the DOM reader handles itself (everything else opens natively). Pure; a thin view over
+// the ONE destination resolver (destination-resolver.ts) so the tap target and the bridge never disagree.
+import { resolveDestination } from './destination-resolver';
 
-/** The reader route (pathname `/`), a DOM settings page or the DOM inbox, and not claimed by a native route. */
-export function isDomOwnedTapPath(path: string, isNativeRoute: (p: string) => boolean, base = 'http://site.invalid'): boolean {
-  if (isNativeRoute(path)) return false;
-  const pathname = new URL(path, base).pathname;
-  return pathname === '/' || isSettingsPath(pathname) || isInboxPath(pathname);
+/** The path canonicalizes to a DOM destination (reader route, settings, inbox, legal) and no host route claims it. */
+export function isDomOwnedTapPath(path: string, isHostRoute: (p: string) => boolean, base = 'http://site.invalid'): boolean {
+  return resolveDestination(path, { isHostRoute, siteUrl: base }).kind === 'dom';
 }
