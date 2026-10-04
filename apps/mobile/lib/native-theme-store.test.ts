@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 import { ERA_TOKENS } from '@swift2/experience';
-import { DEFAULT_NATIVE_THEME, getNativeTheme, setNativeTheme, subscribeNativeTheme } from './native-theme-store';
+import { DEFAULT_NATIVE_THEME, effectiveNativeTheme, getNativeTheme, resetNativeTheme, setNativeTheme, subscribeNativeTheme } from './native-theme-store';
 
 describe('native theme store', () => {
   it('starts at the site theme (web viewport themeColor / --era-bg)', () => {
@@ -28,5 +28,19 @@ describe('cold start', () => {
     const src = readFileSync(new URL('../dom/AppReader.tsx', import.meta.url), 'utf8');
     expect(src).not.toMatch(/Loading\.\.\./);
     expect(src).toContain("background: 'var(--era-bg)'");
+  });
+});
+
+describe('fallback reset', () => {
+  const light = { statusBarStyle: 'dark', background: '#ffffff' } as const;
+  it('a DOM theme applies only while the DOM is rendered; fallback and update-required use the default', () => {
+    expect(effectiveNativeTheme(true, light)).toBe(light);
+    expect(effectiveNativeTheme(false, light)).toBe(DEFAULT_NATIVE_THEME);
+  });
+  it('resetNativeTheme restores the default (host teardown, fallback)', () => {
+    setNativeTheme(light);
+    expect(getNativeTheme()).toBe(light);
+    resetNativeTheme();
+    expect(getNativeTheme()).toBe(DEFAULT_NATIVE_THEME);
   });
 });

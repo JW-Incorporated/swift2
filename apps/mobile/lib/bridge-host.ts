@@ -26,13 +26,14 @@ import type {
   PayloadOf,
   ResResult,
   ResultOf,
+  ThemeChange,
   VersionRange,
 } from '@swift2/ui';
 import { OUTBOX_CAP, createOutbox } from './bridge-host-outbox';
 import { DEFAULT_TIMEOUT_MS, createInflight } from './bridge-host-inflight';
 import { createTimers } from './bridge-host-timers';
 import { type BridgeScheduler } from './bridge-host-timers';
-import { isExpectedResult, isRecord, validateCommand } from './bridge-host-validate';
+import { isExpectedResult, isRecord, validateCommand, validTheme } from './bridge-host-validate';
 
 export const HOST_RANGE: VersionRange = NATIVE_SUPPORTED_RANGE;
 export { DEFAULT_TIMEOUT_MS, type BridgeScheduler };
@@ -63,6 +64,8 @@ export interface BridgeHostDeps {
   onNavReady?: () => void;
   /** The DOM's outcome for a `navigate` emitted with an `id`. */
   onNavigated?: (e: { id: string; ok: boolean }) => void;
+  /** The DOM's theme event (validated; no reply is ever sent). */
+  onTheme?: (theme: ThemeChange) => void;
 }
 
 export type AckRef = { epoch: number; seq: number };
@@ -285,6 +288,13 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       if (isReady) return onReady(env);
       if (env.type === 'ack') return onAck(p);
       if ((env.type === 'navReady' || env.type === 'navigated') && !ready) return onSignal('bridge-pre-ready', env.type);
+      if (env.type === 'theme' && !ready) return onSignal('bridge-pre-ready', env.type);
+      if (env.type === 'theme') {
+        const t = validTheme(p);
+        if (t) deps.onTheme?.(t);
+        else onSignal('bridge-invalid', 'theme payload');
+        return;
+      }
       if (env.type === 'navReady') return deps.onNavReady?.();
       if (env.type === 'navigated') {
         if (isRecord(p) && typeof p.id === 'string' && typeof p.ok === 'boolean') deps.onNavigated?.({ id: p.id.slice(0, 64), ok: p.ok });

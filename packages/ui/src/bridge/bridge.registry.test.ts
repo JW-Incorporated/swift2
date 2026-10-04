@@ -10,11 +10,11 @@ describe('runtime registries', () => {
     expect(new Set(EVENT_TYPES).size).toBe(EVENT_TYPES.length);
     expect([...COMMAND_TYPES].sort()).toEqual(
       [
-        'api', 'back', 'cancel', 'haptic', 'theme', 'navigate', 'notifications.register', 'notifications.request',
+        'api', 'back', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
         'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
   });
 });
 
@@ -24,7 +24,6 @@ describe('JSON round-trip, one sample per type', () => {
     navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
     share: { title: 't', text: 'x', url: 'https://example.test' },
     haptic: { kind: 'success' },
-    theme: { statusBarStyle: 'light', background: '#0c0c0c' },
     openExternal: { url: toExternalUrl('https://example.test')! },
     'notifications.status': {},
     'notifications.request': {},
@@ -48,6 +47,7 @@ describe('JSON round-trip, one sample per type', () => {
     navigate: { path: toWebPath('/')!, source: 'deeplink', id: 't1' },
     navReady: {},
     navigated: { id: 't1', ok: true },
+    theme: { statusBarStyle: 'light', background: '#0c0c0c' },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);

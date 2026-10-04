@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, type ComponentType } from 'react';
+import { useEffect, useRef, type ComponentType } from 'react';
 import { getEra } from '@swift2/experience';
 import { AppProvider, useAppState } from '../store';
 import type { AppMode } from '../store/navigation';
-import { useHost } from '../../host';
+import { useHost, type ThemeChange } from '../../host';
 import { eraStyle, vaultStyle, merchStyle, statusBarStyleFor, VAULT_THEME, MERCH_THEME } from '../lib/theme';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
@@ -17,6 +17,17 @@ export interface ReaderSlots {
   footer?: ComponentType;
   floating?: ComponentType;
   fallback: ComponentType<{ mode: AppMode }>;
+}
+
+/** Mounted only when the host has a `theme` hook (the app); sends each distinct theme colour once. Web never mounts it. */
+function ThemeEmitter({ color, emit }: { color: string; emit: (t: ThemeChange) => void }) {
+  const last = useRef<string | null>(null);
+  useEffect(() => {
+    if (last.current === color) return;
+    last.current = color;
+    if (/^#[0-9a-fA-F]{6}$/.test(color)) emit({ statusBarStyle: statusBarStyleFor(color), background: color });
+  }, [color, emit]);
+  return null;
 }
 
 export function ReaderShell({ slots }: { slots: ReaderSlots }) {
@@ -35,8 +46,7 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', themeColor);
-    if (/^#[0-9a-fA-F]{6}$/.test(themeColor)) themeHost?.({ statusBarStyle: statusBarStyleFor(themeColor), background: themeColor });
-  }, [themeColor, themeHost]);
+  }, [themeColor]);
 
   // Entering Threads should start at the top. Era mode manages its own
   // scroll (EraStream restores the user's previous spot, or starts at the
@@ -50,6 +60,7 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
       className="era-shell font-sans"
       style={inThreads ? vaultStyle() : inMerch ? merchStyle() : eraStyle(era)}
     >
+      {themeHost ? <ThemeEmitter color={themeColor} emit={themeHost} /> : null}
       <TopBar />
       <main>{Surface ? <Surface /> : <Fallback mode={mode} />}</main>
       {Footer ? <Footer /> : null}

@@ -215,26 +215,3 @@ describe('emitters', () => {
     expect(emit.mock.calls).toEqual([[{ token: 'a' }], [{ token: 'b' }]]);
   });
 });
-
-describe('theme', () => {
-  const good = { statusBarStyle: 'dark', background: '#ffffff' } as const;
-  it('applies a valid theme', async () => {
-    const theme = vi.fn();
-    const { h } = fakeDeps({ theme });
-    expect((await h.theme(good, ctx)).ok).toBe(true);
-    expect(theme).toHaveBeenCalledWith(good);
-  });
-  it('rejects a bad style or colour', async () => {
-    const theme = vi.fn();
-    const { h } = fakeDeps({ theme });
-    expect(await h.theme({ ...good, statusBarStyle: bad('auto') }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
-    for (const background of ['red', '#fff', '#12345g', 'url(x)', '#0c0c0c;x']) {
-      expect(await h.theme({ ...good, background }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
-    }
-    expect(theme).not.toHaveBeenCalled();
-  });
-  it('is a no-op success when no applier is wired', async () => {
-    const { h } = fakeDeps({ theme: undefined });
-    expect(await h.theme(good, ctx)).toEqual({ ok: true, value: null });
-  });
-});

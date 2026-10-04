@@ -46,7 +46,6 @@ describe('createAppHandlers', () => {
       [
         'api',
         'haptic',
-        'theme',
         'navigate',
         'notifications.register',
         'notifications.request',

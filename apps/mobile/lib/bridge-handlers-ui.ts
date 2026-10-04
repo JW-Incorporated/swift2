@@ -11,7 +11,6 @@ import {
   type Insets,
   type ResResult,
   type SharePayload,
-  type ThemeChange,
   type WebPath,
 } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
@@ -29,11 +28,9 @@ export type UiHandlerDeps = {
   share: (payload: SharePayload) => Promise<void>;
   /** Absent when the haptics module is unavailable: no-op success. */
   haptic?: (kind: HapticKind) => void | Promise<void>;
-  /** Applies the document theme to the native chrome; absent: no-op success. */
-  theme?: (theme: ThemeChange) => void | Promise<void>;
 };
 
-export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'theme' | 'openExternal'>;
+export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal'>;
 
 const HAPTIC_KINDS: readonly string[] = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const SHARE_KEYS = ['title', 'text', 'url'] as const;
@@ -99,15 +96,6 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       const fn = deps.haptic;
       if (!fn) return resOk(null);
       return run(() => fn(kind), 'haptic');
-    },
-    theme: async (payload) => {
-      const p: unknown = payload;
-      if (!isRecord(p) || (p.statusBarStyle !== 'light' && p.statusBarStyle !== 'dark')) return invalid('theme: statusBarStyle');
-      if (typeof p.background !== 'string' || !/^#[0-9a-fA-F]{6}$/.test(p.background)) return invalid('theme: background');
-      const theme: ThemeChange = { statusBarStyle: p.statusBarStyle, background: p.background };
-      const fn = deps.theme;
-      if (!fn) return resOk(null);
-      return run(() => fn(theme), 'theme');
     },
   };
 }

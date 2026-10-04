@@ -59,7 +59,7 @@ import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
-import { getNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
+import { effectiveNativeTheme, getNativeTheme, resetNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
@@ -86,7 +86,10 @@ export default function App() {
   // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
   const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
-  const theme = useSyncExternalStore(subscribeNativeTheme, getNativeTheme);
+  const theme = effectiveNativeTheme(domRendered, useSyncExternalStore(subscribeNativeTheme, getNativeTheme));
+  useEffect(() => {
+    if (!domRendered) resetNativeTheme();
+  }, [domRendered]);
   useEffect(() => {
     void SystemUI.setBackgroundColorAsync(theme.background).catch(() => {});
   }, [theme.background]);

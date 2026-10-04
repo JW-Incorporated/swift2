@@ -19,7 +19,7 @@ import AppReader from '../dom/AppReader';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
 import { eraColors } from '../lib/theme';
-import { setNativeTheme } from '../lib/native-theme-store';
+import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { isDomOwnedTapPath } from '../lib/tap-paths';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
@@ -148,7 +148,6 @@ export function SharedUiHost({
       share: Share,
       haptics: Haptics,
       platformOS: Platform.OS,
-      onTheme: setNativeTheme,
       log: onSignal,
       siteUrl: navRef.current.siteUrl,
       getFlags: () => navRef.current.getRouteFlags?.() ?? DEFAULT_ROUTE_FLAGS,
@@ -163,6 +162,7 @@ export function SharedUiHost({
       onReadyAgain: () => ref.binder?.readyAgain(),
       onNavReady: () => ref.binder?.navReady(),
       onNavigated: (e) => ref.target?.onNavigated(e),
+      onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
         if (epochRef.current !== epoch) return;
         onSignal('bridge-protocol-fatal', reason.slice(0, 200));
@@ -201,6 +201,7 @@ export function SharedUiHost({
       hostRef.current = null;
       emitRef.current = null;
       disposeEpoch(binder, host, link);
+      resetNativeTheme();
       setSession(null);
       setInbox([]);
     };

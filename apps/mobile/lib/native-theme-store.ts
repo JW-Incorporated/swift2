@@ -17,6 +17,12 @@ export function setNativeTheme(next: ThemeChange): void {
   listeners.forEach((l) => l());
 }
 
+export const resetNativeTheme = (): void => setNativeTheme(DEFAULT_NATIVE_THEME);
+
+/** The reader's theme only applies while the DOM surface is rendered; native screens/fallback/update-required use the default. */
+export const effectiveNativeTheme = (domRendered: boolean, theme: ThemeChange): ThemeChange =>
+  domRendered ? theme : DEFAULT_NATIVE_THEME;
+
 export function subscribeNativeTheme(listener: () => void): () => void {
   listeners.add(listener);
   return () => void listeners.delete(listener);

@@ -58,7 +58,7 @@ export type BridgeClient = {
   consumeInbox(inbox: readonly unknown[]): void;
   sendDiag(stage: string, detail?: string): void;
   /** Fire-and-forget DOM events beyond ready/diag/ack (W2-I: navReady, navigated). */
-  sendEvent<T extends 'navReady' | 'navigated'>(type: T, payload: EventPayloadOf<T>): void;
+  sendEvent<T extends 'navReady' | 'navigated' | 'theme'>(type: T, payload: EventPayloadOf<T>): void;
   sendReady(): void;
   /** Resolves pending as cancelled; every later call resolves `failed`. */
   dispose(): void;

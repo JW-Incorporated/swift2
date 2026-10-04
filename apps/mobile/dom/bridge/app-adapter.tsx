@@ -15,7 +15,7 @@ import { withFocusRestore } from './focus-restore';
 export const APP_ORIGIN = 'https://www.longlivets.com';
 
 export interface AppAdapterDeps {
-  client: Pick<BridgeClient, 'call'>;
+  client: Pick<BridgeClient, 'call'> & Partial<Pick<BridgeClient, 'sendEvent'>>;
   /** Canonical site origin; defaults to APP_ORIGIN. */
   origin?: string;
   insets: Insets;
@@ -141,7 +141,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
       void deps.client.call('haptic', { kind });
     },
     theme: (t) => {
-      void deps.client.call('theme', t);
+      deps.client.sendEvent?.('theme', t);
     },
     notifications: {
       status: () => notif(deps.client.call('notifications.status', {})),

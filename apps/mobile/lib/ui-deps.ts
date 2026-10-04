@@ -1,7 +1,7 @@
 // Real deps for the UI bridge handlers (One UI H1 / WP2.3-D2). The native
 // modules are injected (Linking, Share, expo-haptics, Platform.OS) so this file
 // stays testable under node; SharedUiHost passes the real ones.
-import type { HapticKind, SharePayload, ThemeChange, WebPath } from '@swift2/ui';
+import type { HapticKind, SharePayload, WebPath } from '@swift2/ui';
 import type { UiHandlerDeps } from './bridge-handlers-ui';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import { DEFAULT_ROUTE_FLAGS, isNativeRoute, type RouteFlags } from './routes';
@@ -22,8 +22,6 @@ export type UiDepsEnv = {
   /** Absent when the haptics module is unavailable: the handler answers no-op success. */
   haptics?: HapticsLike;
   platformOS: string;
-  /** Applies the reader's theme colour to the native chrome (status bar, host background). */
-  onTheme?: (theme: ThemeChange) => void;
   log: (stage: string, detail: string) => void;
   siteUrl?: string;
   getFlags?: () => RouteFlags;
@@ -61,7 +59,6 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
       await env.share.share({ title: p.title, message: p.text, url: p.url });
     },
     haptic: haptics ? (kind) => runHaptic(haptics, kind) : undefined,
-    theme: env.onTheme,
   };
 }
 
