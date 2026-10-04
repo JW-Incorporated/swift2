@@ -2,8 +2,8 @@
 // tests (they inject fake ports). SharedUiHost spreads createExpoNotificationHandlers() over the unwired map.
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { saveDevicePrefs } from './prefs-client';
-import { requestPushRegistration } from './push-registration';
+import { fetchDevicePrefs, saveDevicePrefs } from './prefs-client';
+import { registerDevice, requestPushRegistration } from './push-registration';
 import { createHandlers } from './bridge-handlers-notifications';
 import { createNotificationHostDeps, type NotificationPorts, type Permission } from './notification-host-deps';
 
@@ -25,6 +25,9 @@ export const expoNotificationPorts: NotificationPorts = {
     if (r.status === 'error') throw new Error('registration failed');
   },
   savePrefs: async (prefs) => void (await saveDevicePrefs({ prefs })),
+  fetchPrefs: () => fetchDevicePrefs(),
+  writePrefs: (body) => saveDevicePrefs(body),
+  clearPushToken: async () => void (await registerDevice()),
 };
 
 export const createExpoNotificationDeps = () => createNotificationHostDeps(expoNotificationPorts);

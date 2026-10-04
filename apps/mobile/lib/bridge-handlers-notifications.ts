@@ -2,21 +2,27 @@
 // permission request already surfaces the OS prompt, so these handlers carry
 // no user-gesture gate. Prefs go through the strict `validKnownPrefs` (known categories only).
 import { resErr, resOk } from '@swift2/ui';
-import type { HandlerContext, HandlerMap, ResResult } from '@swift2/ui';
-import { validKnownPrefs } from './bridge-host-validate';
+import type { HandlerContext, HandlerMap, PayloadOf, ResResult } from '@swift2/ui';
+import type { DevicePrefsResponse } from '@swift2/shared';
+import { validKnownPrefs, validPrefsUpdate } from './bridge-host-validate';
 
 type Permission = 'granted' | 'denied' | 'undetermined' | 'unsupported';
+type PrefsUpdate = PayloadOf<'notifications.savePrefs'>;
 type NotificationHost = {
   status(): Promise<Permission>;
   request(): Promise<Permission>;
   register(): Promise<void>;
   updatePrefs(prefs: Record<string, boolean>): Promise<void>;
+  getPrefs(): Promise<DevicePrefsResponse>;
+  savePrefs(body: PrefsUpdate): Promise<DevicePrefsResponse>;
+  unregister(): Promise<void>;
 };
 
 export type NotificationHandlerDeps = NotificationHost;
 export type NotificationHandlers = Pick<
   HandlerMap,
   'notifications.status' | 'notifications.request' | 'notifications.register' | 'notifications.updatePrefs'
+  | 'notifications.getPrefs' | 'notifications.savePrefs' | 'notifications.unregister'
 >;
 
 const OP_TIMEOUT_MS = 15_000;
@@ -58,11 +64,22 @@ export function createHandlers(deps: NotificationHandlerDeps, opts: { opTimeoutM
   const guardedT = <V>(ctx: HandlerContext, run: () => Promise<V>) => guarded(ctx, run, opts.opTimeoutMs);
   let latest = 0;
   let tail: Promise<unknown> = Promise.resolve();
+  // savePrefs writes are independent per key, so they run strictly FIFO (never latest-wins).
+  let writeTail: Promise<unknown> = Promise.resolve();
 
   return {
     'notifications.status': (_p, ctx) => guardedT(ctx, () => deps.status()),
     'notifications.request': (_p, ctx) => guardedT(ctx, () => deps.request()),
     'notifications.register': (_p, ctx) => guardedT(ctx, async () => (await deps.register(), null)),
+    'notifications.getPrefs': (_p, ctx) => guardedT(ctx, () => deps.getPrefs()),
+    'notifications.unregister': (_p, ctx) => guardedT(ctx, async () => (await deps.unregister(), null)),
+    'notifications.savePrefs': (payload, ctx) => {
+      const clean = validPrefsUpdate(payload ?? {}) as PrefsUpdate | null;
+      if (!clean || typeof payload !== 'object' || payload === null) return Promise.resolve(resErr('invalid', 'invalid prefs update'));
+      const run = writeTail.then(() => guardedT(ctx, () => deps.savePrefs(clean)));
+      writeTail = run.catch(() => undefined);
+      return run;
+    },
     'notifications.updatePrefs': (payload, ctx) => {
       const clean = validKnownPrefs(payload?.prefs) as { prefs: Record<string, boolean> } | null;
       if (!clean) return Promise.resolve(resErr('invalid', 'prefs must be a bounded map of booleans'));

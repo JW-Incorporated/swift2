@@ -131,6 +131,7 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
     name: 'settings-notifications',
     path: '/settings/notifications',
     root: 'main',
+    sides: 'both',
     init: async (page) => {
       await page.addInitScript(() => {
         const define = (target: object, key: string, value: unknown) =>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
+import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
 import { applyAfterCommit } from './commit-apply';
@@ -14,7 +15,13 @@ export function ReaderBridge() {
   const { mode, openItemId } = useAppState();
   const actions = useAppActions();
   const q = useReader();
-  useBackRegistration(controls.registerBack, openItemId, actions.closeItem);
+  // The settings overlay sits above everything: back closes it before any open item.
+  const settingsOpen = useSettingsOpen();
+  useBackRegistration(
+    controls.registerBack,
+    settingsOpen ? 'settings' : openItemId,
+    settingsOpen ? settingsOverlay.close : actions.closeItem,
+  );
 
   useEffect(() => {
     if (controls.slottedModes.has(mode)) controls.lastSlotted.current = mode;

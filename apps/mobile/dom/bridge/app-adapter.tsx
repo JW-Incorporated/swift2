@@ -75,6 +75,13 @@ function webStorage(which: 'localStorage' | 'sessionStorage') {
 export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
   const origin = deps.origin ?? APP_ORIGIN;
 
+  // Fixed text only: a failed bridge call never forwards native detail (no ids or tokens either way).
+  const notif = async <T,>(call: Promise<{ ok: true; value: T } | { ok: false }>): Promise<T> => {
+    const r = await call;
+    if (!r.ok) throw new Error('notification request failed');
+    return r.value;
+  };
+
   const openExternal = (url: string) => {
     const ext = toExternalUrl(url);
     if (ext) void deps.client.call('openExternal', { url: ext });
@@ -131,6 +138,15 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     },
     haptic: (kind) => {
       void deps.client.call('haptic', { kind });
+    },
+    notifications: {
+      status: () => notif(deps.client.call('notifications.status', {})),
+      request: () => notif(deps.client.call('notifications.request', {})),
+      register: async () => void (await notif(deps.client.call('notifications.register', {}))),
+      updatePrefs: async (prefs) => void (await notif(deps.client.call('notifications.updatePrefs', { prefs }))),
+      loadPrefs: () => notif(deps.client.call('notifications.getPrefs', {})),
+      savePrefs: (body) => notif(deps.client.call('notifications.savePrefs', body)),
+      unregister: async () => void (await notif(deps.client.call('notifications.unregister', {}))),
     },
   };
 }

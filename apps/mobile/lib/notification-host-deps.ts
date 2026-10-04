@@ -10,7 +10,8 @@ import {
   cadenceVariantFor,
   isAnyNotificationCategory,
 } from '@swift2/shared';
-import type { NotificationCadence, NotificationPref } from '@swift2/shared';
+import type { DevicePrefsResponse, NotificationCadence, NotificationPref } from '@swift2/shared';
+import type { PayloadOf } from '@swift2/ui';
 import type { NotificationHandlerDeps } from './bridge-handlers-notifications';
 
 export type Permission = 'granted' | 'denied' | 'undetermined' | 'unsupported';
@@ -22,6 +23,11 @@ export interface NotificationPorts {
   /** Registers/refreshes the device (push-registration); throws on failure. */
   registerDevice(): Promise<void>;
   savePrefs(prefs: NotificationPref[]): Promise<void>;
+  /** Full prefs read; the device id is resolved natively and never returned. */
+  fetchPrefs(): Promise<DevicePrefsResponse>;
+  writePrefs(body: PayloadOf<'notifications.savePrefs'>): Promise<DevicePrefsResponse>;
+  /** Re-registers the device with a null push token (OS permission untouched). */
+  clearPushToken(): Promise<void>;
 }
 
 export function cadenceFor(category: NotificationPref['category'], on: boolean): NotificationCadence {
@@ -39,6 +45,9 @@ export function createNotificationHostDeps(ports: NotificationPorts): Notificati
       return current === 'undetermined' ? ports.requestPermission() : current;
     },
     register: () => ports.registerDevice(),
+    getPrefs: () => ports.fetchPrefs(),
+    savePrefs: (body) => ports.writePrefs(body),
+    unregister: () => ports.clearPushToken(),
     updatePrefs: async (prefs) => {
       const list: NotificationPref[] = [];
       for (const [category, on] of Object.entries(prefs)) {
