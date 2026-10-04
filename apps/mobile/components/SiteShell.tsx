@@ -37,15 +37,12 @@ import { SITE_URL } from '../lib/site-url';
 
 export { SITE_URL };
 
-const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
+const SITE_ORIGINS = new Set(['https://www.longlivets.com', 'https://longlivets.com']);
 
-function isSiteUrl(raw: string): boolean {
+export function isSiteUrl(raw: string): boolean {
   try {
     const u = new URL(raw);
-    return (
-      SITE_HOSTS.has(u.hostname) ||
-      (process.env.EXPO_PUBLIC_SITE_URL ? u.origin === SITE_URL : false)
-    );
+    return SITE_ORIGINS.has(u.origin) || u.origin === SITE_URL;
   } catch {
     return false;
   }
