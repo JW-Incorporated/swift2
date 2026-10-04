@@ -94,9 +94,16 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           APPLY: ${{ inputs.apply }}
+        # `tsx`, not bare `node`, and NOT interchangeable: this script reaches
+        # the fixed parser in apps/worker (a .ts file) and `@swift2/shared/redline`
+        # (whose own `./redline-gates` import is extensionless, which node's ESM
+        # resolver rejects outright). Same pattern as theory-miner.yml,
+        # theory-promote.yml and social-event-status.yml. A bare-node run fails
+        # with ERR_MODULE_NOT_FOUND. The scrub step above imports only .mjs
+        # siblings, so it stays on node.
         run: |
           if [ "$APPLY" = "true" ]; then
-            node scripts/community/fb-lead-reingest.mjs --apply
+            npx --no-install tsx scripts/community/fb-lead-reingest.mjs --apply
           else
-            node scripts/community/fb-lead-reingest.mjs
+            npx --no-install tsx scripts/community/fb-lead-reingest.mjs
           fi
