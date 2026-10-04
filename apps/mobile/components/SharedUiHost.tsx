@@ -1,5 +1,5 @@
 // One UI WP0.4/0.5b: native host for the 'use dom' pages. Under the C4 override
-// it mounts ReaderSpike (the real era stream, WP0.5b); the WP0.4 test page stays
+// it mounts AppReader (the production DOM reader, D2); the WP0.4 test page stays
 // reachable through the Diagnostics "test page" toggle. Records the watchdog
 // signals (launch attempted / ready / DOM-side errors / webview process death)
 // through `onSignal` and forwards them to the WP0.4b watchdog via `watch`.
@@ -14,7 +14,7 @@ import { BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-n
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
-import ReaderSpike from '../dom/ReaderSpike';
+import AppReader from '../dom/AppReader';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
@@ -222,7 +222,7 @@ export function SharedUiHost({
           forceFailure={forceFailure}
         />
       ) : testPage === false && source && session ? (
-        <ReaderSpike
+        <AppReader
           key={session.epoch}
           dom={dom}
           cacheUri={source.cacheUri ?? undefined}
