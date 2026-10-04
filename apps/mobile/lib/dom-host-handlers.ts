@@ -9,7 +9,10 @@ export interface DomHostHandlerDeps {
     ready: () => void;
     error: (message: string) => void;
     crashed: (kind: 'terminated' | 'render-gone') => void;
+    protocol?: () => void;
   };
+  // True once this host epoch is closed: a late DOM protocol-fatal must not strike the watchdog.
+  bridgeClosed?: () => boolean;
   // The Expo DOM `bridge` native action target (createBridgeLink().bridge); absent in unit tests.
   bridge?: (env: unknown) => Promise<unknown>;
 }
@@ -26,6 +29,12 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
     },
     // Forwards one DOM envelope to the bridge host; resolves with the envelope the DOM is awaiting, if any.
     bridge: async (env: unknown): Promise<unknown> => deps.bridge?.(env),
+    // The DOM client's own protocol fatal (ready-failed, id-space-exhausted): a strike in every phase, unlike reportError.
+    reportProtocolFatal: async (reason: string) => {
+      if (deps.bridgeClosed?.()) return;
+      deps.onSignal('dom-protocol-fatal', String(reason).slice(0, 200));
+      deps.watch.protocol?.();
+    },
     onContentProcessDidTerminate: () => {
       deps.onSignal('dom-process-terminated');
       deps.watch.crashed('terminated');
@@ -42,6 +51,12 @@ export function createDomHostHandlers(deps: DomHostHandlerDeps) {
 // `inbox` prop; unsequenced ones (a `res` to a DOM command, `readyAck`) ride the
 // resolved value of the `bridge` action that carried the request. Pure: React
 // state is reached only through `onInbox`.
+// One link per host (epoch): after `dispose` every `bridge` call REJECTS (the DOM
+// client fails the call at once and a stale epoch can never strike the watchdog).
+// A second pending waiter on the same key never overwrites the first: a duplicate
+// command id rejects the older call; a repeated `ready` (retry or webview reload)
+// releases the older ones with no reply, and a reload also releases every
+// pending command (their client is gone).
 type LinkEnvelope = { kind: string; id: string; type: string; seq?: number };
 export interface BridgeLinkHost {
   receive: (raw: unknown) => void;
@@ -53,41 +68,56 @@ export function sameInbox(a: readonly unknown[], b: readonly unknown[]): boolean
   return a.length === b.length && seq(a, 0) === seq(b, 0) && seq(a, a.length - 1) === seq(b, b.length - 1);
 }
 
+type Waiter = { resolve: (env: unknown) => void; reject: (e: Error) => void };
+
 export function createBridgeLink(onInbox: () => void) {
   let host: BridgeLinkHost | null = null;
-  const waiters = new Map<string, (env: unknown) => void>();
+  let closed = false;
+  const waiters = new Map<string, Waiter>();
   const release = (key: string, env: unknown) => {
     const w = waiters.get(key);
     if (!w) return;
     waiters.delete(key);
-    w(env);
+    w.resolve(env);
   };
+  const wait = (key: string) =>
+    new Promise<unknown>((resolve, reject) => {
+      const older = waiters.get(key);
+      if (older) {
+        waiters.delete(key);
+        if (key === 'ready') older.resolve(undefined);
+        else older.reject(new Error('superseded bridge call'));
+      }
+      waiters.set(key, { resolve, reject });
+    });
   return {
     attach(h: BridgeLinkHost) {
       host = h;
     },
+    isClosed: () => closed,
     send(env: LinkEnvelope) {
+      if (closed) return;
       if (env.seq !== undefined) onInbox();
       else if (env.kind === 'res') release(`res:${env.id}`, env);
       else if (env.type === 'readyAck') release('ready', env);
     },
     bridge(raw: unknown): Promise<unknown> {
+      if (closed || !host) return Promise.reject(new Error('bridge closed'));
       const env = raw as Partial<LinkEnvelope> | null;
-      const key =
-        env?.kind === 'cmd' && typeof env.id === 'string'
-          ? `res:${env.id}`
-          : env?.kind === 'evt' && env.type === 'ready'
-            ? 'ready'
-            : null;
-      const answered = key ? new Promise<unknown>((resolve) => waiters.set(key, resolve)) : Promise.resolve(undefined);
-      host?.receive(raw);
+      const isReady = env?.kind === 'evt' && env.type === 'ready';
+      if (isReady) for (const key of [...waiters.keys()]) if (key !== 'ready') release(key, undefined);
+      const key = isReady ? 'ready' : env?.kind === 'cmd' && typeof env.id === 'string' ? `res:${env.id}` : null;
+      const answered = key ? wait(key) : Promise.resolve(undefined);
+      host.receive(raw);
       onInbox();
       return answered;
     },
-    // Unblocks every awaiting action (nothing is answered after the host closes).
+    // Closes the link: pending calls reject and later ones reject at once.
     dispose() {
+      closed = true;
       host = null;
-      for (const key of [...waiters.keys()]) release(key, undefined);
+      for (const w of [...waiters.values()]) w.reject(new Error('bridge closed'));
+      waiters.clear();
     },
   };
 }

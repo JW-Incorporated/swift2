@@ -2,7 +2,7 @@
 // transport-neutral: composes the D1 (ui), E1 (notifications) and F1 (api)
 // factories into the single map `createBridgeHost({ handlers })` takes, so no
 // slice registers handlers in the host component. The dispatcher owns `cancel`.
-import type { HandlerMap } from '@swift2/ui';
+import { resErr, type HandlerMap } from '@swift2/ui';
 import { createHandlers as createApiHandlers, type ApiHandlerDeps } from './bridge-handlers-api';
 import { createHandlers as createNotificationHandlers, type NotificationHandlerDeps } from './bridge-handlers-notifications';
 import { createHandlers as createUiHandlers, type UiHandlerDeps } from './bridge-handlers-ui';
@@ -40,28 +40,24 @@ export function createAppHandlers(deps: AppHandlerDeps): AppHandlers {
 }
 
 /**
- * Deps for a host whose commands are not wired yet (H0): every command fails
- * closed (`failed`/`invalid`, never reported to the watchdog). H1/H2/H3 replace
- * the ui/api/notifications entries with real deps.
+ * H0 handler map: every DOM command answers `failed` (never success, never a
+ * watchdog report) until H1/H2/H3 swap in real handlers via createAppHandlers.
+ * Typed as the exhaustive AppHandlers, so a new command is a compile error here.
  */
-export function createUnwiredAppDeps(log: (stage: string, detail: string) => void): AppHandlerDeps {
-  const unwired = (what: string) => async (): Promise<never> => {
-    throw new Error(`${what} not wired`);
+export function createUnwiredHandlers(log: (stage: string, detail: string) => void): AppHandlers {
+  const unwired = (type: string) => async () => {
+    log('bridge-unwired', type);
+    return resErr('failed', `${type} is not available yet`);
   };
   return {
-    ui: {
-      navigate: unwired('navigate'),
-      isNativeRoute: () => false,
-      log,
-      openURL: unwired('openExternal'),
-      share: unwired('share'),
-    },
-    notifications: {
-      status: unwired('notifications.status'),
-      request: unwired('notifications.request'),
-      register: unwired('notifications.register'),
-      updatePrefs: unwired('notifications.updatePrefs'),
-    },
-    api: { fetch: unwired('api') as unknown as typeof fetch, baseUrl: () => '' },
+    navigate: unwired('navigate'),
+    openExternal: unwired('openExternal'),
+    share: unwired('share'),
+    haptic: unwired('haptic'),
+    api: unwired('api'),
+    'notifications.status': unwired('notifications.status'),
+    'notifications.request': unwired('notifications.request'),
+    'notifications.register': unwired('notifications.register'),
+    'notifications.updatePrefs': unwired('notifications.updatePrefs'),
   };
 }

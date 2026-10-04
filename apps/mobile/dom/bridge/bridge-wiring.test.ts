@@ -1,94 +1,183 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createAppHandlers, createUnwiredAppDeps } from '../../lib/app-handlers';
+import { DOM_COMMAND_TYPES } from '@swift2/ui';
+import { createUnwiredHandlers } from '../../lib/app-handlers';
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers, sameInbox } from '../../lib/dom-host-handlers';
 import { createExpoBridge } from './transport-expo';
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as ReturnType<typeof setTimeout>) };
+const ctx = { signal: new AbortController().signal };
+const ready = (id = 'r1', v = 1) => ({ v: 1, id, kind: 'evt', type: 'ready', payload: { v }, ts: 1 });
+const cmd = (id: string, type: string, payload: unknown) => ({ v: 1, id, kind: 'cmd', type, payload, ts: 1 });
+const unwiredTypes = DOM_COMMAND_TYPES.filter((t) => t !== 'cancel');
 
-// The SharedUiHost wiring, minus React: link + host + handlers.bridge, with the real DOM client.
-function wire() {
+// One host epoch, exactly as SharedUiHost builds it (link + host + handlers), minus React.
+function epoch() {
+  const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
   const onSignal = vi.fn();
-  const protocol = vi.fn();
-  const inboxes: unknown[][] = [];
   const ref: { host?: BridgeHost } = {};
-  const link = createBridgeLink(() => inboxes.push(ref.host?.inbox() ?? []));
-  const handlers = createDomHostHandlers({
-    onSignal,
-    watch: { ready: vi.fn(), error: vi.fn(), crashed: vi.fn() },
-    bridge: link.bridge,
-  });
+  const link = createBridgeLink(() => void ref.host?.inbox());
+  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
   const host = createBridgeHost({
-    handlers: createAppHandlers(createUnwiredAppDeps(onSignal)),
+    handlers: createUnwiredHandlers(onSignal),
     send: link.send,
     now: Date.now,
     scheduler,
     onProtocolFatal: (reason) => {
       onSignal('bridge-protocol-fatal', reason);
       link.dispose();
-      protocol();
+      watch.protocol();
     },
     onSignal,
   });
   ref.host = host;
   link.attach(host);
-  return { host, link, handlers, onSignal, protocol, inboxes };
+  const dispose = () => {
+    host.dispose();
+    link.dispose();
+  };
+  return { host, link, handlers, onSignal, watch, dispose };
 }
+
+describe('H0 unwired handler map', () => {
+  it('covers exactly the DOM commands except cancel', () => {
+    expect(Object.keys(createUnwiredHandlers(vi.fn())).sort()).toEqual([...unwiredTypes].sort());
+  });
+
+  it.each(unwiredTypes)('%s answers failed, never success', async (type) => {
+    const log = vi.fn();
+    const h = createUnwiredHandlers(log) as unknown as Record<string, (p: unknown, c: typeof ctx) => Promise<unknown>>;
+    expect(await h[type]!({}, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(log).toHaveBeenCalledWith('bridge-unwired', type);
+  });
+
+  it('through the host: haptic fails and nothing reaches the watchdog', async () => {
+    const e = epoch();
+    const bridge = createExpoBridge((env) => e.handlers.bridge(env));
+    bridge.mount();
+    await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
+    expect(await bridge.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(await bridge.client.call('navigate', { path: '/songs' as never })).toMatchObject({ ok: false });
+    expect(e.watch.protocol).not.toHaveBeenCalled();
+    bridge.client.dispose();
+    e.dispose();
+  });
+});
 
 describe('bridge wiring (SharedUiHost <-> DOM client)', () => {
   it('forwards ready: the DOM gets readyAck back and the host is ready', async () => {
-    const w = wire();
-    const bridge = createExpoBridge((env) => w.handlers.bridge(env));
+    const e = epoch();
+    const bridge = createExpoBridge((env) => e.handlers.bridge(env));
     bridge.mount();
-    await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
-    expect(w.protocol).not.toHaveBeenCalled();
+    await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
+    expect(e.watch.protocol).not.toHaveBeenCalled();
     bridge.client.dispose();
+    e.dispose();
   });
 
   it('drains the inbox once, in order, and the ack trims the host outbox', async () => {
-    const w = wire();
-    const bridge = createExpoBridge((env) => w.handlers.bridge(env));
+    const e = epoch();
+    const bridge = createExpoBridge((env) => e.handlers.bridge(env));
     const seen: string[] = [];
     bridge.client.on('contentVersion', (p) => void seen.push(p.token));
     bridge.mount();
-    await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
-    w.host.emit('contentVersion', { token: 'a' });
-    w.host.emit('contentVersion', { token: 'b' });
-    const inbox = w.host.inbox();
+    await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
+    e.host.emit('contentVersion', { token: 'a' });
+    e.host.emit('contentVersion', { token: 'b' });
+    const inbox = e.host.inbox();
     expect(inbox).toHaveLength(2);
     bridge.client.consumeInbox(inbox);
     bridge.client.consumeInbox(inbox);
     expect(seen).toEqual(['a', 'b']);
-    await vi.waitFor(() => expect(w.host.inbox()).toHaveLength(0));
+    await vi.waitFor(() => expect(e.host.inbox()).toHaveLength(0));
     bridge.client.dispose();
+    e.dispose();
   });
 
-  it('answers a DOM command with its res through the awaiting bridge action', async () => {
-    const w = wire();
-    const bridge = createExpoBridge((env) => w.handlers.bridge(env));
-    bridge.mount();
-    await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
-    const r = await bridge.client.call('haptic', { kind: 'light' });
-    expect(r.ok).toBe(true);
-    const nav = await bridge.client.call('navigate', { path: '/songs' as never });
-    expect(nav.ok).toBe(false);
-    expect(w.protocol).not.toHaveBeenCalled();
-    bridge.client.dispose();
+  it('a protocol-fatal ready (too new) strikes the watchdog once and later retries reject (no hang)', async () => {
+    const e = epoch();
+    const first = e.handlers.bridge(ready('r1', 99));
+    first.catch(() => undefined);
+    expect(e.watch.protocol).toHaveBeenCalledTimes(1);
+    await expect(first).rejects.toThrow('bridge closed');
+    await expect(e.handlers.bridge(ready('r2'))).rejects.toThrow('bridge closed');
+    await expect(e.handlers.bridge(cmd('5', 'haptic', { kind: 'light' }))).rejects.toThrow('bridge closed');
+    expect(e.watch.protocol).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('DOM client protocol fatal', () => {
+  it.each([
+    ['before first paint', false],
+    ['after first paint', true],
+  ])('strikes watch.protocol %s (reportError is ignored once ready)', async (_n, afterPaint) => {
+    const e = epoch();
+    if (afterPaint) await e.handlers.onReady();
+    await e.handlers.reportProtocolFatal('ready-failed');
+    expect(e.watch.protocol).toHaveBeenCalledTimes(1);
+    expect(e.watch.error).not.toHaveBeenCalled();
+    e.dispose();
   });
 
-  it('a protocol-fatal ready (too new) reaches the watchdog, not the DOM error path', async () => {
-    const w = wire();
-    await w.handlers.bridge({ v: 1, id: 'r1', kind: 'evt', type: 'ready', payload: { v: 99 }, ts: 1 }).catch(() => undefined);
-    expect(w.protocol).toHaveBeenCalledTimes(1);
-    expect(w.onSignal).toHaveBeenCalledWith('bridge-protocol-fatal', expect.stringContaining('bridge-version'));
+  it('is ignored once the host epoch is closed (stale or already struck)', async () => {
+    const e = epoch();
+    e.dispose();
+    await e.handlers.reportProtocolFatal('id-space-exhausted');
+    expect(e.watch.protocol).not.toHaveBeenCalled();
+  });
+});
+
+describe('host epochs and link lifetime', () => {
+  it('a recreated host never serves the old client: its calls reject, the new client re-handshakes', async () => {
+    const e1 = epoch();
+    const oldClient = createExpoBridge((env) => e1.handlers.bridge(env));
+    oldClient.mount();
+    await vi.waitFor(() => expect(e1.host.isReady()).toBe(true));
+    e1.dispose();
+    const e2 = epoch();
+    expect(await oldClient.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: false });
+    expect(e2.host.isReady()).toBe(false);
+    const newClient = createExpoBridge((env) => e2.handlers.bridge(env));
+    newClient.mount();
+    await vi.waitFor(() => expect(e2.host.isReady()).toBe(true));
+    expect(await newClient.client.call('haptic', { kind: 'light' })).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(e2.watch.protocol).not.toHaveBeenCalled();
+    oldClient.client.dispose();
+    newClient.client.dispose();
+    e2.dispose();
   });
 
-  it('dispose releases awaiting actions and a pre-attach bridge call is a no-op', async () => {
+  it('calls after unmount reject at once, and a pending call rejects on dispose', async () => {
     const link = createBridgeLink(() => undefined);
-    const pending = link.bridge({ kind: 'evt', type: 'ready', id: 'x' });
+    link.attach({ receive: () => undefined, inbox: () => [] });
+    const pending = link.bridge(cmd('7', 'haptic', { kind: 'light' }));
+    pending.catch(() => undefined);
     link.dispose();
-    await expect(pending).resolves.toBeUndefined();
-    await expect(link.bridge({ kind: 'evt', type: 'ack', id: 'y' })).resolves.toBeUndefined();
+    await expect(pending).rejects.toThrow('bridge closed');
+    await expect(link.bridge(ready('r9'))).rejects.toThrow('bridge closed');
+  });
+
+  it('a duplicate command id rejects the older call instead of overwriting it', async () => {
+    const link = createBridgeLink(() => undefined);
+    link.attach({ receive: () => undefined, inbox: () => [] });
+    const older = link.bridge(cmd('9', 'haptic', {}));
+    older.catch(() => undefined);
+    const newer = link.bridge(cmd('9', 'haptic', {}));
+    await expect(older).rejects.toThrow('superseded');
+    link.send({ kind: 'res', id: '9', type: 'haptic' });
+    await expect(newer).resolves.toMatchObject({ id: '9' });
+  });
+
+  it('a repeated ready (retry or webview reload) releases the older ready and every pending command', async () => {
+    const link = createBridgeLink(() => undefined);
+    link.attach({ receive: () => undefined, inbox: () => [] });
+    const r1 = link.bridge(ready('a'));
+    const c1 = link.bridge(cmd('3', 'haptic', {}));
+    const r2 = link.bridge(ready('b'));
+    await expect(r1).resolves.toBeUndefined();
+    await expect(c1).resolves.toBeUndefined();
+    link.send({ kind: 'evt', id: 'x', type: 'readyAck' });
+    await expect(r2).resolves.toMatchObject({ type: 'readyAck' });
   });
 });
 
