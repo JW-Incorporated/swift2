@@ -24,10 +24,12 @@ export interface NotificationPorts {
   registerDevice(): Promise<void>;
   savePrefs(prefs: NotificationPref[]): Promise<void>;
   /** Full prefs read; the device id is resolved natively and never returned. */
-  fetchPrefs(): Promise<DevicePrefsResponse>;
-  writePrefs(body: PayloadOf<'notifications.savePrefs'>): Promise<DevicePrefsResponse>;
+  fetchPrefs(signal?: AbortSignal): Promise<DevicePrefsResponse>;
+  writePrefs(body: PayloadOf<'notifications.savePrefs'>, signal?: AbortSignal): Promise<DevicePrefsResponse>;
   /** Re-registers the device with a null push token (OS permission untouched). */
   clearPushToken(): Promise<void>;
+  /** Persisted, token-free registration flag. */
+  isRegistered(): Promise<boolean>;
 }
 
 export function cadenceFor(category: NotificationPref['category'], on: boolean): NotificationCadence {
@@ -45,8 +47,9 @@ export function createNotificationHostDeps(ports: NotificationPorts): Notificati
       return current === 'undetermined' ? ports.requestPermission() : current;
     },
     register: () => ports.registerDevice(),
-    getPrefs: () => ports.fetchPrefs(),
-    savePrefs: (body) => ports.writePrefs(body),
+    getPrefs: (signal) => ports.fetchPrefs(signal),
+    savePrefs: (body, signal) => ports.writePrefs(body, signal),
+    registered: () => ports.isRegistered(),
     unregister: () => ports.clearPushToken(),
     updatePrefs: async (prefs) => {
       const list: NotificationPref[] = [];

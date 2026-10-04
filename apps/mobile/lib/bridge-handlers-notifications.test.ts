@@ -11,6 +11,7 @@ const deps = () => ({
   getPrefs: vi.fn().mockResolvedValue(PREFS_FIXTURE),
   savePrefs: vi.fn().mockResolvedValue(PREFS_FIXTURE),
   unregister: vi.fn().mockResolvedValue(undefined),
+  registered: vi.fn().mockResolvedValue(true),
 });
 
 describe('notification bridge handlers', () => {

@@ -25,6 +25,7 @@ const notifications = (status: 'granted' | 'undetermined' = 'granted'): HostNoti
   loadPrefs: vi.fn().mockResolvedValue(PREFS),
   savePrefs: vi.fn().mockResolvedValue(PREFS),
   unregister: vi.fn(),
+  registered: vi.fn().mockResolvedValue(true),
 });
 
 function mount(n: HostNotifications) {
@@ -71,6 +72,26 @@ describe('SettingsPage (app host overlay)', () => {
     act(() => settingsOverlay.close());
     act(() => settingsOverlay.open());
     await waitFor(() => expect(vi.mocked(n.status).mock.calls.length).toBeGreaterThan(first));
+  });
+
+  it('granted permission without a registration (after turn-off) shows not subscribed, not the controls', async () => {
+    const n = notifications('granted');
+    n.registered = vi.fn().mockResolvedValue(false);
+    mount(n);
+    act(() => settingsOverlay.open());
+    await screen.findByRole('button', { name: /enable notifications/i });
+    expect(screen.queryByRole('switch')).toBeNull();
+    expect(n.loadPrefs).not.toHaveBeenCalled();
+  });
+
+  it('returning from phone Settings (foreground) re-reads the permission', async () => {
+    const n = notifications('granted');
+    n.status = vi.fn().mockResolvedValueOnce('denied').mockResolvedValue('granted');
+    mount(n);
+    act(() => settingsOverlay.open());
+    await screen.findByText(/Notifications are turned off for Long Live/);
+    act(() => void window.dispatchEvent(new Event('focus')));
+    await waitFor(() => expect(screen.getByRole('switch')).toBeTruthy());
   });
 
   it('hides the native rows when the bridge does not answer', async () => {

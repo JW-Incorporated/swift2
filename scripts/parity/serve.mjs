@@ -6,6 +6,7 @@ import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isSpaRoute } from './spa-routes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../apps/mobile/dist/parity-web');
 const fixture = resolve(dirname(fileURLToPath(import.meta.url)), 'fixture');
@@ -33,8 +34,8 @@ createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://x').pathname);
   // /content/** is the frozen fixture bundle (scripts/parity/fixture), read from disk: side b never touches a network.
   const base = pathname.startsWith('/content/') ? fixture : root;
-  // SPA fallback: an extension-less app path (e.g. /settings/notifications) is the reader page, as on the web.
-  const spa = base === root && extname(pathname) === '' && pathname !== '/';
+  // SPA fallback for the real app routes only (spa-routes.mjs); any other missing path is a 404.
+  const spa = base === root && isSpaRoute(pathname);
   const file = normalize(join(base, pathname === '/' || spa ? 'index.html' : pathname));
   if (!file.startsWith(base) || !existsSync(file) || !statSync(file).isFile()) {
     res.writeHead(404).end('not found');

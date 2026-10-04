@@ -3,8 +3,7 @@
 // responder closes it, and SettingsPage renders null while it is closed.
 import { useSyncExternalStore } from 'react';
 
-export const SETTINGS_PATHS: readonly string[] = ['/settings', '/settings/notifications'];
-export const isSettingsPath = (pathname: string): boolean => SETTINGS_PATHS.includes(pathname);
+export { SETTINGS_PATHS, isSettingsPath } from './settings-paths';
 
 let open = false;
 const subs = new Set<() => void>();

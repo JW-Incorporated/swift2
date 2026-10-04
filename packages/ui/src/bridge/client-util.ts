@@ -43,6 +43,7 @@ export function clean(x: unknown): { ok: true; value: JsonValue } | { ok: false;
 export function resultFits(type: DomCommandType, v: unknown): boolean {
   if (type === 'notifications.status' || type === 'notifications.request') return STATUSES.includes(v);
   if (type === 'notifications.getPrefs' || type === 'notifications.savePrefs') return isDevicePrefsResponse(v);
+  if (type === 'notifications.registration') return isRec(v) && typeof v.registered === 'boolean' && Object.keys(v).length === 1;
   if (type === 'api') {
     return isRec(v) && typeof v.status === 'number' && typeof v.body === 'string' && isRec(v.headers) && Object.values(v.headers).every((h) => typeof h === 'string');
   }

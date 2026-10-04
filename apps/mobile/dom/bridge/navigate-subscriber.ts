@@ -3,8 +3,11 @@
 // scroll survive): rewrite the page query (search + hash only; the DOM page keeps its own path), apply the
 // search via `deps.apply`, and only AFTER that committed answer `navigated {id, ok:true}`. Anything else
 // (another pathname, no reader mounted yet, a throw) answers ok:false so the tap stays queued, never a silent home.
-// Native opens every non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
+// A settings path (/settings, /settings/notifications) opens the DOM settings overlay and acks ok:true.
+// Native opens every other non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
 import type { EventPayloadOf } from '@swift2/ui';
+import { isSettingsPath } from '../slots/settings-paths';
+import { settingsOverlay } from '../slots/settings-store';
 
 export type NavigateDeps = {
   replaceUrl: (relative: string) => void;
@@ -20,6 +23,10 @@ type NavigateClient = {
 export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'path'>, deps: NavigateDeps): Promise<boolean> {
   try {
     const u = new URL(e.path, 'http://dom.invalid');
+    if (isSettingsPath(u.pathname)) {
+      settingsOverlay.open();
+      return true;
+    }
     if (u.pathname !== '/') return false;
     deps.replaceUrl(`${u.search || '?'}${u.hash}`);
     return await deps.apply(u.search);

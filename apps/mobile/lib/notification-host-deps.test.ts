@@ -9,6 +9,7 @@ const ports = (over: Partial<NotificationPorts> = {}): NotificationPorts => ({
   fetchPrefs: vi.fn().mockResolvedValue({ settings: {}, prefs: [] }),
   writePrefs: vi.fn().mockResolvedValue({ settings: {}, prefs: [] }),
   clearPushToken: vi.fn().mockResolvedValue(undefined),
+  isRegistered: vi.fn().mockResolvedValue(true),
   ...over,
 });
 

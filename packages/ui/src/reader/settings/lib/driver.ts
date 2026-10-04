@@ -18,6 +18,8 @@ export type SettingsDriver = {
   savePrefs(body: { settings?: object; prefs?: object[] }): Promise<unknown>;
   /** Shown instead of the web "blocked in your browser" copy; the web driver omits it. */
   deniedHint?: string;
+  /** Re-read the permission when the page returns to the foreground (the app: the user may have changed it in phone Settings). */
+  refreshOnForeground?: boolean;
 };
 
 /** Browser path: reads Notification.permission exactly as the page always did; the device id stays in this closure. */
@@ -53,7 +55,10 @@ export function fromNotifications(n: HostNotifications): SettingsDriver {
     permission: async () => {
       try {
         const s = await n.status();
-        return s === 'undetermined' ? 'default' : s;
+        if (s === 'undetermined') return 'default';
+        // OS permission is not registration: after an in-app turn-off it stays granted while the push token is cleared.
+        if (s === 'granted' && !(await n.registered().catch(() => true))) return 'default';
+        return s;
       } catch {
         return 'default';
       }
@@ -93,6 +98,7 @@ export function fromNotifications(n: HostNotifications): SettingsDriver {
       }
     },
     deniedHint: APP_DENIED_HINT,
+    refreshOnForeground: true,
   };
 }
 

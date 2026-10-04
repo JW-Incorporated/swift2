@@ -146,6 +146,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
       updatePrefs: async (prefs) => void (await notif(deps.client.call('notifications.updatePrefs', { prefs }))),
       loadPrefs: () => notif(deps.client.call('notifications.getPrefs', {})),
       savePrefs: (body) => notif(deps.client.call('notifications.savePrefs', body)),
+      registered: async () => (await notif(deps.client.call('notifications.registration', {}))).registered,
       unregister: async () => void (await notif(deps.client.call('notifications.unregister', {}))),
     },
   };

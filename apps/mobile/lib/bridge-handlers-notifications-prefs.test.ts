@@ -44,8 +44,7 @@ describe('notifications.getPrefs / savePrefs / unregister handlers', () => {
     const a = h['notifications.savePrefs']({ settings: { dailyCap: 1 } }, ctx);
     const b = h['notifications.savePrefs']({ settings: { dailyCap: 2 } }, ctx);
     const c = h['notifications.savePrefs']({ settings: { dailyCap: 3 } }, ctx);
-    await Promise.resolve();
-    expect(order).toEqual(['start:1']);
+    await vi.waitFor(() => expect(order).toEqual(['start:1']));
     gates[0]();
     await a;
     await vi.waitFor(() => expect(order).toContain('start:2'));
@@ -105,12 +104,13 @@ describe('notification host deps: prefs ports', () => {
       fetchPrefs: vi.fn().mockResolvedValue(PREFS_FIXTURE),
       writePrefs: vi.fn().mockResolvedValue(PREFS_FIXTURE),
       clearPushToken: vi.fn().mockResolvedValue(undefined),
+      isRegistered: vi.fn().mockResolvedValue(true),
     };
     const d = createNotificationHostDeps(ports);
     expect(await d.getPrefs()).toBe(PREFS_FIXTURE);
     expect(await d.savePrefs(update as never)).toBe(PREFS_FIXTURE);
     await d.unregister();
-    expect(ports.writePrefs).toHaveBeenCalledWith(update);
+    expect(ports.writePrefs).toHaveBeenCalledWith(update, undefined);
     expect(ports.clearPushToken).toHaveBeenCalledTimes(1);
   });
 });

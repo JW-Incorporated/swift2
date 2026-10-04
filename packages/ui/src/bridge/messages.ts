@@ -33,6 +33,7 @@ export type DomCommandSpec = {
   'notifications.getPrefs': Spec<Record<string, never>, NotificationPrefsState>;
   'notifications.savePrefs': Spec<NotificationPrefsUpdate, NotificationPrefsState>;
   'notifications.unregister': Spec<Record<string, never>, null>;
+  'notifications.registration': Spec<Record<string, never>, { registered: boolean }>;
   api: Spec<{ req: BridgeApiRequest }, ApiResponse>;
   cancel: Spec<{ targetId: string }, null>;
 };
@@ -116,6 +117,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.getPrefs': true,
   'notifications.savePrefs': true,
   'notifications.unregister': true,
+  'notifications.registration': true,
   api: true,
   cancel: true,
 };

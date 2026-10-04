@@ -129,6 +129,8 @@ export type HostNotifications = {
   savePrefs(body: NotificationPrefsUpdate): Promise<NotificationPrefsState>;
   /** Clears this device's push token server-side (the OS permission itself stays). */
   unregister(): Promise<void>;
+  /** Token-free: true when this device is registered for push (permission alone is not registration). */
+  registered(): Promise<boolean>;
 };
 
 export interface HostAdapter {

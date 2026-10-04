@@ -81,14 +81,26 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
     // in a prior visit — re-read it on every mount rather than assuming, since
     // permission can be revoked outside the app.
     let live = true;
-    void driver.permission().then((p) => {
-      if (!live) return;
-      setSubscribeState(
-        p === 'granted' ? { kind: 'subscribed' } : p === 'denied' ? { kind: 'denied' } : p === 'unsupported' ? { kind: 'unsupported' } : { kind: 'not_subscribed' },
-      );
-    });
+    const read = () =>
+      void driver.permission().then((p) => {
+        if (!live) return;
+        const next: SubscribeState =
+          p === 'granted' ? { kind: 'subscribed' } : p === 'denied' ? { kind: 'denied' } : p === 'unsupported' ? { kind: 'unsupported' } : { kind: 'not_subscribed' };
+        // Keep the current state object when nothing changed (no prefs reload), and never interrupt an in-flight subscribe.
+        setSubscribeState((prev) => (prev.kind === next.kind || prev.kind === 'subscribing' ? prev : next));
+      });
+    read();
+    const onForeground = () => {
+      if (document.visibilityState === 'visible') read();
+    };
+    if (driver.refreshOnForeground) {
+      document.addEventListener('visibilitychange', onForeground);
+      window.addEventListener('focus', onForeground);
+    }
     return () => {
       live = false;
+      document.removeEventListener('visibilitychange', onForeground);
+      window.removeEventListener('focus', onForeground);
     };
   }, [driver]);
 

@@ -69,6 +69,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       'notifications.getPrefs': H<Empty, NotificationPrefsState>;
       'notifications.savePrefs': H<NotificationPrefsUpdate, NotificationPrefsState>;
       'notifications.unregister': H<Empty, null>;
+      'notifications.registration': H<Empty, { registered: boolean }>;
       api: H<{ req: BridgeApiRequest }, ApiResponse>;
       cancel: H<{ targetId: string }, null>;
     };
@@ -78,7 +79,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 
   it('runtime: the client posts exactly the registered DOM commands, and the lists are pinned', async () => {
     expect([...DOM_COMMAND_TYPES].sort()).toEqual(
-      ['api', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'openExternal', 'share'].sort(),
+      ['api', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share'].sort(),
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());

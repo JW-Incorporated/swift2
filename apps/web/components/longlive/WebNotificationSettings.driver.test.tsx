@@ -30,6 +30,7 @@ const appHost = (status: NotificationStatus): HostNotifications => ({
   loadPrefs: vi.fn().mockResolvedValue(PREFS),
   savePrefs: vi.fn().mockResolvedValue(PREFS),
   unregister: vi.fn(),
+  registered: vi.fn().mockResolvedValue(true),
 });
 
 async function html(adapter: Parameters<typeof HostProvider>[0]['adapter'], settled: () => unknown) {

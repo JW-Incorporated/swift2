@@ -11,6 +11,7 @@ const notif = (over: Partial<HostNotifications> = {}): HostNotifications => ({
   loadPrefs: vi.fn().mockResolvedValue(PREFS),
   savePrefs: vi.fn().mockResolvedValue(PREFS),
   unregister: vi.fn().mockResolvedValue(undefined),
+  registered: vi.fn().mockResolvedValue(true),
   ...over,
 });
 const webPush = (over: Partial<HostWebPush> = {}): HostWebPush => ({
