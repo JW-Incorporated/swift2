@@ -37,6 +37,7 @@ import { useNotificationTaps } from './lib/use-notification-taps';
 import {
   DEFAULT_ROUTE_FLAGS,
   createNavigate,
+  resolve as resolveRoute,
   type RouteFlags,
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
@@ -45,9 +46,13 @@ import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
+import { hasOnboardingBeenOffered } from './lib/onboarding-state';
+import { openSettingsEntry } from './lib/settings-entry';
 import { useNativeScreenState } from './lib/use-native-screen-state';
-import { SITE_URL } from './components/SiteShell';
+import { SITE_URL, type NativeBridgeMessage } from './components/SiteShell';
+import { NativeScreenRouter } from './components/NativeScreenRouter';
 import { RecoveryScreen } from './components/RecoveryScreen';
+import { nativeSurface } from './lib/recovery-surface';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { DiagHotCorner } from './components/DiagHotCorner';
 import { DomHostMount } from './components/DomHostMount';
@@ -63,7 +68,7 @@ installSpeedTest();
 
 export default function App() {
   const nav = useNativeScreenState();
-  const { openNativeScreen, openWebUrl } = nav;
+  const { setOnboardingOpen, openNativeScreen, openWebUrl } = nav;
 
   // Remote kill switch: starts on the compiled defaults (startup never waits
   // on the network); the ref lets the stable callbacks below read the latest
@@ -115,6 +120,14 @@ export default function App() {
     [openNativeScreen, openWebUrl],
   );
 
+  // SiteShell intercepts in-WebView link clicks that target a native-capable
+  // route (per the OS-030 card) so a link to Settings/Inbox opens the native
+  // screen instead of the WebView rendering the site's own version of it.
+  const isNativeCapableUrl = useCallback(
+    (url: string) => 'native' in resolveRoute(url, SITE_URL, routeFlagsRef.current),
+    [],
+  );
+
   useEffect(() => {
     // Phase 0: register (or refresh) this device's row on every cold start —
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
@@ -130,7 +143,44 @@ export default function App() {
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
-  useNotificationTaps(navigate, domMount.mount === 'native');
+  const legacyNative = nativeSurface(domMount.mount, domMount.nativeReason) === 'legacy';
+  useNotificationTaps(navigate, legacyNative, domMount.mount === 'dom');
+
+  // The one "open settings" gate (lib/settings-entry.ts): onboarding the
+  // first time so push permission is actually offered, settings after that.
+  // Used by HomeTopBar's Settings button — the native home's only entry to
+  // settings/inbox/onboarding since OS-039 retired the site's in-page bell —
+  // and by the legacy web bridge below.
+  const openSettings = useCallback(() => {
+    void openSettingsEntry({
+      hasOnboardingBeenOffered,
+      openSettings: () => openNativeScreen('settings'),
+      openOnboarding: () => setOnboardingOpen(true),
+    });
+  }, [openNativeScreen]);
+
+  // OS-002/OS-030: the in-page bell (site's own top bar, shown only when
+  // `isInApp()`) posts one of these instead of the app rendering its own
+  // floating bell overlay. Routes through openNativeScreen / openSettings so
+  // screen-opening logic lives in one place.
+  const handleBridgeMessage = useCallback(
+    (message: NativeBridgeMessage) => {
+      if (message.type === 'openInbox') openNativeScreen('inbox');
+      else openSettings();
+    },
+    [openNativeScreen, openSettings],
+  );
+
+  // OS-033: a moment id from anywhere in the native tree (era-stream cards,
+  // a song dossier's "Keep exploring" connection) funnels through the same
+  // navigate() every other entry point uses, so the moment/eraStream/
+  // trackGuide route flags all apply consistently regardless of which
+  // screen the tap originated from.
+  const openMoment = useCallback(
+    (id: string) => navigate(`${SITE_URL}?item=${encodeURIComponent(id)}`),
+    [navigate],
+  );
+
 
   return (
     <GestureHandlerRootView style={styles.fill}>
@@ -153,8 +203,17 @@ export default function App() {
             />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
-          ) : (
+          ) : !legacyNative ? (
             <RecoveryScreen />
+          ) : (
+            <NativeScreenRouter
+              nav={nav}
+              navigate={navigate}
+              openSettings={openSettings}
+              openMoment={openMoment}
+              handleBridgeMessage={handleBridgeMessage}
+              isNativeCapableUrl={isNativeCapableUrl}
+            />
           )}
         </SafeAreaView>
         {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
