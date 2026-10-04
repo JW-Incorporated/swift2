@@ -14,7 +14,7 @@ describe('runtime registries', () => {
         'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
   });
 });
 
@@ -47,6 +47,7 @@ describe('JSON round-trip, one sample per type', () => {
     navigate: { path: toWebPath('/')!, source: 'deeplink', id: 't1' },
     navReady: {},
     navigated: { id: 't1', ok: true },
+    theme: { statusBarStyle: 'light', background: '#0c0c0c' },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);
