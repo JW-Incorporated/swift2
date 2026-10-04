@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { describe, expect, it } from 'vitest';
 import nextConfig from './next.config.mjs';
-import { proxy } from './proxy';
+import { config, proxy } from './proxy';
 import { GET } from './app/embed/youtube/[id]/route';
 
 const ID = 'dQw4w9WgXcQ';
@@ -35,6 +35,10 @@ describe('/embed/youtube/<id> framing exemption (#4954)', () => {
     ['page', '/terms'],
   ])('keeps every protection: %s', (_name, path) => {
     expect(protections(path)).toEqual({ xfo: 'DENY', frameAncestors: true });
+  });
+
+  it('proxy matcher has no `missing` (prefetch) exclusion', () => {
+    expect(config.matcher.every((m) => typeof m === 'string' || !('missing' in m))).toBe(true);
   });
 
   it('next.config headers() sets no X-Frame-Options (proxy.ts owns it, case-sensitively)', async () => {
