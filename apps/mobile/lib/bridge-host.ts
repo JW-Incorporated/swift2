@@ -33,7 +33,8 @@ import { OUTBOX_CAP, createOutbox } from './bridge-host-outbox';
 import { DEFAULT_TIMEOUT_MS, createInflight } from './bridge-host-inflight';
 import { createTimers } from './bridge-host-timers';
 import { type BridgeScheduler } from './bridge-host-timers';
-import { isExpectedResult, isRecord, validateCommand, validTheme } from './bridge-host-validate';
+import { isExpectedResult, isRecord, validateCommand } from './bridge-host-validate';
+import { handleDomEvent } from './bridge-host-events';
 
 export const HOST_RANGE: VersionRange = NATIVE_SUPPORTED_RANGE;
 export { DEFAULT_TIMEOUT_MS, type BridgeScheduler };
@@ -284,28 +285,8 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       }
       if (env.kind === 'cmd') return onCmd(env);
       if (env.kind === 'res') return onRes(env);
-      const p = env.payload;
       if (isReady) return onReady(env);
-      if (env.type === 'ack') return onAck(p);
-      if ((env.type === 'navReady' || env.type === 'navigated') && !ready) return onSignal('bridge-pre-ready', env.type);
-      if (env.type === 'theme' && !ready) return onSignal('bridge-pre-ready', env.type);
-      if (env.type === 'theme') {
-        const t = validTheme(p);
-        if (t) deps.onTheme?.(t);
-        else onSignal('bridge-invalid', 'theme payload');
-        return;
-      }
-      if (env.type === 'navReady') return deps.onNavReady?.();
-      if (env.type === 'navigated') {
-        if (isRecord(p) && typeof p.id === 'string' && typeof p.ok === 'boolean') deps.onNavigated?.({ id: p.id.slice(0, 64), ok: p.ok });
-        else onSignal('bridge-invalid', 'navigated payload');
-        return;
-      }
-      if (env.type === 'diag' && isRecord(p) && typeof p.stage === 'string') {
-        onSignal(p.stage.slice(0, 64), typeof p.detail === 'string' ? p.detail.slice(0, 200) : undefined);
-      } else {
-        onSignal('bridge-ignored-evt', env.type.slice(0, 64));
-      }
+      handleDomEvent(env, { ready: () => ready, onSignal, onAck, onNavReady: deps.onNavReady, onNavigated: deps.onNavigated, onTheme: deps.onTheme });
     } catch (e) {
       onSignal('bridge-receive-error', String(e).slice(0, 200));
     }

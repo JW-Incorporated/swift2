@@ -7,7 +7,7 @@ const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warni
 const MAX_SHARE_FIELD = 2048;
 /** The `theme` event payload: light|dark enum + #rrggbb only; anything else is null (dropped). */
 export function validTheme(p: unknown): ThemeChange | null {
-  if (!isRecord(p) || (p.statusBarStyle !== 'light' && p.statusBarStyle !== 'dark')) return null;
+  if (!isRecord(p) || Object.keys(p).length !== 2 || (p.statusBarStyle !== 'light' && p.statusBarStyle !== 'dark')) return null;
   return typeof p.background === 'string' && /^#[0-9a-fA-F]{6}$/.test(p.background)
     ? { statusBarStyle: p.statusBarStyle, background: p.background }
     : null;
