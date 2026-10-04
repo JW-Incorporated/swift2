@@ -25,6 +25,8 @@ parity capture.
 - Wave 1 PRs: #4957 W1-D (auto-merge), #4958 W1-E (approved, auto-merge), #4960 W1-F (reviewer APPROVE, Codex pending), #4961 W1-B D1 (review pending; merges after H0). H0 building.
 - 07:05 owner "max out parallelization": 6 writers (H0 fix r1, D1 fix r1, H2 + H3 AT RISK stacked on H0 as draft PRs, parity helpers split, 2.13 A2b mailto). H1 held (same hot files as H0 fix). Codex r1 REQUEST CHANGES on #4962 (4 High), #4961 (1 High, 5 Med/Low), #4960 (fixed; r2 running).
 - PM calls: G4 affiliate — none of NEXT_PUBLIC_AWIN_ID/AMAZON_ASSOCIATES_TAG/CATCHALL_ID set in Vercel swift2-web (live JS agrees) → app sends none (parity); owner told web earns no affiliate tags. G5 Turnstile keys unset → drop "verification required" item. 0b-5 tap `source:'deeplink'` folds into H6.
+- 07:24 H0 #4962 MERGED (02e69fc5, Codex r2 APPROVE). Landing: #4960 (Fable-ruled, scoped reviewer APPROVE, auto-merge), #4963 helpers split + #4967 #4955 diag fix (auto-merge). In review: #4961 D1 (Codex r2), #4966 2.13 A2b (Codex r1), #4968 H3 draft (Codex r1; adds SharedUiHost bind/unbind after H1 merges). Building: H1, H2.
+- Wave 3–5 briefs drafted: docs/plans/one-ui/briefs/brief-wave3-5.md; device checklists (iOS-1 iPhone 7 / iPad 8, S5 Android 8 steps): docs/plans/one-ui/device-checklists.md. PM rulings: overlayFallback = app-side overlays component (STOP if packages/ui edit needed); slot names surface:<mode>/overlay:<name>/footer/floating; D2 device ready→ack verified POST-merge at iOS-1 (Wave 1–3 OTA), before Wave 4; revert if it fails.
 - New issues from S4: #4952 (native images, not One UI scope), #4953, #4954, #4955 (backlog).
 
 **ADDENDUM 2026-10-04 06:18 PDT — S4 session (now closed):**
