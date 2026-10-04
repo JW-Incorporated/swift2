@@ -137,7 +137,7 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
 Every route in `A_ONLY_ROUTES` / `A_ONLY_ROUTES_BETA` is side-a-only by default. When a slice D ports a
 surface into the app DOM bundle (side b), flip its route:
 
-1. In `e2e/parity/helpers.ts` add `sides: 'both'` to that route entry (type `Sides`, `e2e/parity/sides.ts`).
+1. In `e2e/parity/routes.ts` (re-exported by the `helpers.ts` barrel) add `sides: 'both'` to that route entry (type `Sides`, `e2e/parity/sides.ts`).
    Nothing else is edited; `compare.spec.ts` and `baseline.spec.ts` select flipped routes via
    `bothSidesRoutes`.
 2. The flip generates, per project: `a vs b viewport: <name>` (`compare.spec.ts`: whole viewport, zero insets
@@ -145,6 +145,9 @@ surface into the app DOM bundle (side b), flip its route:
    lacks a host-supplied bar either lands that bar or accepts the diff in the PR) and
    `b (DOM entry, real insets) <name>` (`baseline.spec.ts`: root or `clip` capture `b-<name>.png` plus the
    whole viewport `b-<name>-viewport.png`). The route's `init` / `prepare` / `clip` run on both sides.
+   Name guard: `assertNoBaselineCollisions` (`sides.ts`) runs at module load of `routes.ts` and throws if a flipped route's
+   `b-<name>.png` / `b-<name>-viewport.png` collides with the base routes' (`b-home*`, `b-item*`) or another flipped route's
+   (e.g. a route named `item-viewport`); unit-tested in `sides.spec.ts`.
 3. The b-* baselines do not exist yet, so the run is red once. Create them with the "Updating baselines"
    dispatch (`gh workflow run parity.yml --ref <branch> -f update-baselines=true`; exactly `parity.yml`, not
    `mobile-parity.yml`), then push a non-bot commit (bot commits do not trigger PR CI).
