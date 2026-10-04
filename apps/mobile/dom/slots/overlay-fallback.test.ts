@@ -1,41 +1,75 @@
 import { describe, expect, it, vi } from 'vitest';
-import { MODE_PATHS, OVERLAY_FALLBACK_ROWS, modeFallbackPath, runFallbackRows } from './overlay-fallback';
+import { MODE_PATHS, OVERLAY_FALLBACK_ROWS, modeFallbackPath, runFallbackRows, type FallbackRow } from './overlay-fallback';
 
-const closed = { mode: 'era', trackGuideEraId: null, openTrackKey: null, theoryGuideEraId: null, searchOpen: false, lensId: null } as const;
-const actions = () => ({ closeItem: vi.fn(), closeTrackGuide: vi.fn(), closeTheoryGuide: vi.fn(), setSearchOpen: vi.fn(), clearLens: vi.fn() });
-const run = (state: Parameters<typeof runFallbackRows>[1], seen: Map<string, string>, a = actions()) => {
-  const openNative = vi.fn();
-  runFallbackRows(OVERLAY_FALLBACK_ROWS, state, seen, openNative, a as never);
-  return { openNative, a };
+const closed = { mode: 'era', theoryGuideEraId: null, searchOpen: false } as const;
+const actions = () => ({ closeTheoryGuide: vi.fn(), setSearchOpen: vi.fn() });
+const flush = () => new Promise((r) => setTimeout(r, 0));
+// No shipped row has a native screen any more (D2 owned only unslotted overlays that did), so the native-handoff
+// mechanics are exercised on a synthetic row with a path.
+const NATIVE_ROWS: readonly FallbackRow[] = [
+  { id: 'theory-guide', value: (s) => s.theoryGuideEraId, path: (v) => `/?screen=probe&era=${v}`, clear: (a) => a.closeTheoryGuide() },
+];
+const run = async (state: unknown, seen: Map<string, string>, ok = true, a = actions(), rows = OVERLAY_FALLBACK_ROWS) => {
+  const io = { openNative: vi.fn(async () => ok), diag: vi.fn() };
+  runFallbackRows(rows, state as never, seen, io, a as never);
+  await flush();
+  return { io, a };
 };
 
 describe('overlay fallback table', () => {
-  it('has the stable row ids', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'theory-guide', 'thread']);
+  it('has the stable row ids (moment, track guide and song are slots; thread is the ModeFallback)', () => {
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'theory-guide']);
+  });
+
+  it('a row with a native screen goes native once and is cleared only after native presented it', async () => {
+    const { io, a } = await run({ ...closed, theoryGuideEraId: 'debut' }, new Map(), true, actions(), NATIVE_ROWS);
+    expect(io.openNative).toHaveBeenCalledTimes(1);
+    expect(io.openNative).toHaveBeenCalledWith('/?screen=probe&era=debut');
+    expect(a.closeTheoryGuide).toHaveBeenCalledTimes(1);
+  });
+
+  it('a failed native handoff keeps the DOM state and emits a diag (never a silent clear)', async () => {
+    const { io, a } = await run({ ...closed, theoryGuideEraId: 'debut' }, new Map(), false, actions(), NATIVE_ROWS);
+    expect(a.closeTheoryGuide).not.toHaveBeenCalled();
+    expect(io.diag).toHaveBeenCalledWith('fallback-native-failed', 'theory-guide');
   });
 
   it.each([
-    [{ theoryGuideEraId: 'folklore' }, '/?screen=era-stream', 'closeTheoryGuide'],
-    [{ searchOpen: true }, '/?screen=era-stream', 'setSearchOpen'],
-    [{ lensId: 'easter-eggs' }, '/?mode=threads', 'clearLens'],
-  ] as const)('%j goes native once as %s and is cleared', (patch, path, clear) => {
-    const { openNative, a } = run({ ...closed, ...patch } as never, new Map());
-    expect(openNative).toHaveBeenCalledTimes(1);
-    expect(openNative).toHaveBeenCalledWith(path);
-    expect(a[clear]).toHaveBeenCalledTimes(1);
+    [{ theoryGuideEraId: 'folklore' }, 'theory-guide'],
+    [{ searchOpen: true }, 'search'],
+  ])('%j has no native screen: state kept, diag emitted once, no navigation', async (patch, id) => {
+    const seen = new Map<string, string>();
+    const { io, a } = await run({ ...closed, ...patch }, seen);
+    expect(io.openNative).not.toHaveBeenCalled();
+    expect(io.diag).toHaveBeenCalledWith('fallback-no-native-screen', id);
+    expect(a.closeTheoryGuide).not.toHaveBeenCalled();
+    expect(a.setSearchOpen).not.toHaveBeenCalled();
+    expect((await run({ ...closed, ...patch }, seen)).io.diag).not.toHaveBeenCalled();
   });
 
-  it('loop guard: navigate, native, back, re-render does not re-trigger; a fresh open does', () => {
+  it('loop guard: navigate, native, back, re-render does not re-trigger; a fresh open does', async () => {
     const seen = new Map<string, string>();
-    const open = { ...closed, searchOpen: true } as never;
-    expect(run(open, seen).openNative).toHaveBeenCalledTimes(1);
-    // the store clear has not committed yet: the same open state re-renders
-    expect(run(open, seen).openNative).not.toHaveBeenCalled();
-    // cleared, then back from native and the DOM re-renders closed: still nothing
-    expect(run(closed as never, seen).openNative).not.toHaveBeenCalled();
-    expect(run(closed as never, seen).openNative).not.toHaveBeenCalled();
-    // the user opens the same item again: that is a new opening
-    expect(run(open, seen).openNative).toHaveBeenCalledTimes(1);
+    const open = { ...closed, theoryGuideEraId: 'debut' };
+    const go = (s: unknown) => run(s, seen, true, actions(), NATIVE_ROWS);
+    expect((await go(open)).io.openNative).toHaveBeenCalledTimes(1);
+    expect((await go(open)).io.openNative).not.toHaveBeenCalled();
+    expect((await go(closed)).io.openNative).not.toHaveBeenCalled();
+    expect((await go(open)).io.openNative).toHaveBeenCalledTimes(1);
+  });
+
+  it('a stale handoff does not clear a newer opening', async () => {
+    const seen = new Map<string, string>();
+    const releases: ((ok: boolean) => void)[] = [];
+    const io = { openNative: vi.fn(() => new Promise<boolean>((r) => releases.push(r))), diag: vi.fn() };
+    const a = actions();
+    runFallbackRows(NATIVE_ROWS, { ...closed, theoryGuideEraId: 'debut' } as never, seen, io, a as never);
+    runFallbackRows(NATIVE_ROWS, { ...closed, theoryGuideEraId: 'folklore' } as never, seen, io, a as never);
+    releases[0]!(true);
+    await flush();
+    expect(a.closeTheoryGuide).not.toHaveBeenCalled();
+    releases[1]!(true);
+    await flush();
+    expect(a.closeTheoryGuide).toHaveBeenCalledTimes(1);
   });
 });
 

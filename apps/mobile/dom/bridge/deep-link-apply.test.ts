@@ -12,6 +12,11 @@ const actions = () =>
     openSong: vi.fn(),
     openTrackGuide: vi.fn(),
     openTheoryGuide: vi.fn(),
+    closeItem: vi.fn(),
+    closeTrackGuide: vi.fn(),
+    closeTheoryGuide: vi.fn(),
+    setSearchOpen: vi.fn(),
+    setSelectorOpen: vi.fn(),
   }) satisfies Record<keyof DeepLinkActions, unknown>;
 
 const queries: DeepLinkQueries = {
@@ -33,16 +38,29 @@ describe('applyDeepLink (native navigate through the store, no remount)', () => 
     ['?lens=easter-eggs', 'openThread', ['easter-eggs']],
     ['?mode=threads', 'setMode', ['threads']],
     ['?era=debut', 'setEra', ['debut']],
-  ] as const)('%s calls %s', (search, fn, args) => {
+  ] as const)('%s calls %s after normalizing overlay state', (search, fn, args) => {
     const a = actions();
     expect(applyDeepLink(search, queries, a)).toBe(true);
     expect(a[fn]).toHaveBeenCalledWith(...args);
+    for (const close of ['closeItem', 'closeTrackGuide', 'closeTheoryGuide', 'setSelectorOpen'] as const) {
+      expect(a[close]).toHaveBeenCalledTimes(1);
+    }
+    expect(a.setSearchOpen).toHaveBeenCalledWith(false);
     expect(a.goHome).not.toHaveBeenCalled();
   });
 
-  it.each(['', '?', '?item=nope', '?song=bad::key', '?guide=nowhere', '?lens=unknown'])('%s lands on the front door, like a fresh mount', (search) => {
+  it.each(['?item=nope', '?song=bad::key', '?guide=nowhere', '?theories=nowhere', '?era=nowhere', '?lens=unknown', '?junk=1'])(
+    '%s does not resolve: false and NO store action at all (no goHome, no overlay closed)',
+    (search) => {
+      const a = actions();
+      expect(applyDeepLink(search, queries, a)).toBe(false);
+      for (const fn of Object.values(a)) expect(fn).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each(['', '?'])('a bare root %j is an explicit home', (search) => {
     const a = actions();
-    expect(applyDeepLink(search, queries, a)).toBe(false);
+    expect(applyDeepLink(search, queries, a)).toBe(true);
     expect(a.goHome).toHaveBeenCalledTimes(1);
   });
 });

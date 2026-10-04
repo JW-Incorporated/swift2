@@ -1,11 +1,11 @@
 // The app-side reader controller (D2). Rendered as the first slot overlay, so it sits inside the packages/ui
 // AppProvider: it can read the store, which AppReader (outside ReaderRoot) cannot. Renders nothing.
 import { useEffect, useRef } from 'react';
-import { flushSync } from 'react-dom';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
+import { applyAfterCommit } from './commit-apply';
 import { applyDeepLink, type DeepLinkQueries } from './deep-link-apply';
 import { useReaderControls } from './reader-controls';
 
@@ -33,9 +33,7 @@ export function ReaderBridge() {
         findEraForVideoSlug: (slug) => r.eras.find((e) => r.allVideoRecordsForEra(e.id).some((v) => v.slug === slug))?.id ?? null,
         eraOfTrackKey: (key) => resolveTrackKey(key)?.eraId ?? null,
       };
-      // flushSync: the caller acks `navigated` only after the store change has committed to the DOM.
-      flushSync(() => void applyDeepLink(search, queries, a));
-      return Promise.resolve();
+      return applyAfterCommit(() => applyDeepLink(search, queries, a));
     });
     return () => controls.setApplier(null);
   }, []);

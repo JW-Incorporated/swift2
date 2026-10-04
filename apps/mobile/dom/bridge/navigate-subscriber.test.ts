@@ -12,7 +12,7 @@ const tick = () => new Promise((r) => setTimeout(r, 0));
 
 describe('applyNavigateEvent', () => {
   it('keeps search + hash only, applies the search through the store, and reports success after it', async () => {
-    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => {}) };
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
     expect(await applyNavigateEvent({ path: '/?item=abc&era=debut#x' as never }, deps)).toBe(true);
     expect(deps.replaceUrl).toHaveBeenCalledWith('?item=abc&era=debut#x');
     expect(deps.apply).toHaveBeenCalledWith('?item=abc&era=debut');
@@ -20,16 +20,21 @@ describe('applyNavigateEvent', () => {
   });
 
   it('a bare root clears the query', async () => {
-    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => {}) };
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
     await applyNavigateEvent({ path: '/' as never }, deps);
     expect(deps.replaceUrl).toHaveBeenCalledWith('?');
   });
 
   it('a non-root pathname is refused without touching the page', async () => {
-    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => {}) };
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
     expect(await applyNavigateEvent({ path: '/settings' as never }, deps)).toBe(false);
     expect(deps.replaceUrl).not.toHaveBeenCalled();
     expect(deps.apply).not.toHaveBeenCalled();
+  });
+
+  it('an unresolved target (apply -> false) reports false, never ok:true', async () => {
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => false) };
+    expect(await applyNavigateEvent({ path: '/?item=gone' as never }, deps)).toBe(false);
   });
 
   it('an apply failure reports false', async () => {
@@ -39,7 +44,7 @@ describe('applyNavigateEvent', () => {
 });
 
 // One epoch wired as SharedUiHost does it (host hooks, tap target, binder), real gate + real DOM client.
-function epoch(opts: { subscribe?: boolean; apply?: () => Promise<void>; gateBind?: boolean } = {}) {
+function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gateBind?: boolean } = {}) {
   const { subscribe = true } = opts;
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
   const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget>; dom?: ReturnType<typeof createExpoBridge> } = {};
@@ -67,7 +72,7 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<void>; gateBin
   link.attach(host);
   const dom = createExpoBridge((env) => handlers.bridge(env));
   ref.dom = dom;
-  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => {}) };
+  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => true) };
   dom.mount();
   if (subscribe) installNavigateSubscriber(dom.client, deps);
   const ready = async () => {
@@ -96,7 +101,7 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
 
   it.each(['/?item=abc', '/?lens=easter-eggs', '/?era=debut', '/?mode=threads'])('%s routes in the DOM and is delivered only after the apply commits', async (path) => {
     let commit!: () => void;
-    const apply = vi.fn(() => new Promise<void>((r) => (commit = r)));
+    const apply = vi.fn(() => new Promise<boolean>((r) => (commit = () => r(true))));
     const e = epoch({ apply });
     await e.ready();
     e.gate.enqueue({ id: `id${path}`, deepLink: path });
