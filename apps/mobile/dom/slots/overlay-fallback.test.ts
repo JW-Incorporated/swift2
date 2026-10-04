@@ -78,7 +78,6 @@ describe('overlay fallback table', () => {
 describe('D-6 mode fallback paths', () => {
   it.each([
     ['threads', '/?mode=threads'],
-    ['merch', '/?mode=merch'],
     ['community', '/?mode=community'],
     ['clownbot', '/?screen=clownbot'],
     ['mood', '/?screen=clownbot'],
@@ -86,6 +85,7 @@ describe('D-6 mode fallback paths', () => {
   ] as const)('%s -> %s', (mode, path) => expect(modeFallbackPath(mode)).toBe(path));
 
   it('covers every unslotted mode', () => {
-    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'merch', 'mood', 'threads']);
+    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'mood', 'threads']);
+    expect(MODE_PATHS.merch).toBeUndefined();
   });
 });

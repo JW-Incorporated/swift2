@@ -16,8 +16,8 @@ export const MERCH_SLICE = 'merch';
 export function MerchSurface(): ReactElement {
   const { domains } = useExtendedSnapshot();
   const extensions = useMemo<ReaderSnapshotExtensions>(
-    () => ({ merch: domains.merch, songMoods: domains.songMoods }),
-    [domains.merch, domains.songMoods],
+    () => ({ merch: domains.merch, songMoods: domains.songMoods, lore: domains.lore }),
+    [domains.merch, domains.songMoods, domains.lore],
   );
   return createElement(MerchSection, { extensions });
 }

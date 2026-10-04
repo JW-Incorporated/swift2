@@ -9,9 +9,10 @@ const { newDrops } = vi.hoisted(() => ({
 vi.mock('@swift2/content-enrichment', () => ({ newDrops }));
 vi.mock('@swift2/ui', () => ({
   ReaderExtensionsProvider: ({ children }: { children: unknown }) => children,
+  useHost: () => ({ env: {} }),
   useMerch: () => ({ officialStore: [{ url: 'https://example.com/new-drop' }], fanMade: [], shopTheLook: [] }),
 }));
-vi.mock('../moment/lib/shop', () => ({ hasAffiliateMerch: () => false, SHOP_DISCLOSURE: '' }));
+vi.mock('../moment/lib/shop', () => ({ createHostShopLinkRenderer: () => ({ hasAffiliateMerch: () => false }), SHOP_DISCLOSURE: '' }));
 vi.mock('./lib/section-jump', () => ({ suggestLinkSectionId: () => 'suggest-link' }));
 vi.mock('./SubmitLinkForm', () => ({ SubmitLinkForm: () => null }));
 vi.mock('./MerchMarquee', () => ({ MerchMarquee: () => null }));
