@@ -8614,3 +8614,15 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 ## 2026-10-01 — auto-merge-content disarms only the auto-merge it armed (#4680)
 
 `auto-merge-content.yml` used to run `--disable-auto` on every non-`enabled` verdict, stranding agent PRs that set `gh pr merge --auto` themselves. It now stamps an `automerge:content` label before arming and disarms (and unlabels) only when that label is present; `social-draft` PRs, `social-poster/state-*` branches and the social-draft decline verdict keep the always-disarm behaviour. Tested in `scripts/automerge-own-arm.test.ts`.
+
+## 2026-10-04 — Shared (DOM) UI is the default for everyone; legacy native UI to be deleted later
+
+**Decision (Joey, CEO, 2026-10-04 16:03):** the shared (DOM) UI becomes everyone's default now; the legacy native UI will be deleted in a later PR. This supersedes the "default-off until S7+S8" roadmap.
+
+- `DEFAULT_ROUTE_FLAGS.sharedUi = true`; `config/mobile/app-config.json` ships `sharedUi: true` and `watchdogReports: true`.
+- Launch reads exactly two local inputs in parallel: the watchdog record (safety; fail-closed to native on read failure) and the last-good flag cache (an explicit cached OFF is honoured). The SecureStore "Force shared UI" override is no longer on the launch path. `PENDING_MAX_MS` stays 1500; an input resolving after the bound upgrades native to DOM from any source that wants it.
+- Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is still the legacy native UI until it is deleted.
+- Order: the S8 drill moves before the deletion PR (PR3); S7 becomes production telemetry.
+- Kill switch: JSON `sharedUi: false`, effective on the next launch.
+- Wrong-signal threshold: any `quarantined` report, or ready-timeout on more than 2% of reporting devices within 24h.
+- `watchdogReports: true` auto-posts to a public GitHub issue for all users; the privacy copy update (#5029) must merge first.

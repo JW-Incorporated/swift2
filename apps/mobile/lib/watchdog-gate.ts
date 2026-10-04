@@ -4,8 +4,8 @@
 // flag > compiled default, watchdog-policy.ts); a network config applies on the
 // next launch. The launch-attempt record is AWAITED before 'dom' is returned;
 // if that write fails the launch mounts native (fail closed). `pending` is
-// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); only a
-// Force-shared-UI override that resolves later still upgrades to the DOM host.
+// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); a
+// DOM-wanting decision that resolves later still upgrades to the DOM host.
 //
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
 // DONE (WP2.4-D1): App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback). TODO(PM, WP2.4-D2): the pending/launch overlay.
@@ -165,18 +165,18 @@ export function useDomMount(inputs: LaunchInputs | null): {
     // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
     const struck = decidedStrikeRef.current;
     if (struck) report(struck.lastReason, struck.buildKey);
-    if (expiredRef.current) {
-      // The Force-shared-UI override is a diagnostics path: it resolving late still upgrades native to the DOM host.
-      if (!inputs.override) return;
-      expiredRef.current = false;
-      diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
-    }
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
       override: inputs.override,
       cachedSharedUi: inputs.sharedUi,
       defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
     });
+    if (expiredRef.current) {
+      // Inputs resolving after the pending bound: any source that wants the DOM host still upgrades native to it (owed fallback / quarantine are honoured by shouldMountDom below).
+      if (!want.wantsDom) return;
+      expiredRef.current = false;
+      diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
+    }
     if (!shouldMountDom(want.wantsDom, decision)) {
       if (mountRef.current !== 'pending') void write(decision.record);
       apply('native', nativeReasonFor(want, decision.fallbackActive));

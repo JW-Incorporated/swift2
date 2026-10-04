@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
 vi.mock('react', async () => await import('../../web/node_modules/react'));
 
-const h = vi.hoisted(() => ({ saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
+const h = vi.hoisted(() => ({ getForceSharedUi: vi.fn(async () => false), saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
 vi.mock('react-native', () => ({
   AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
   Platform: { OS: 'ios' },
@@ -24,6 +24,7 @@ vi.mock('./watchdog-store', () => ({
   saveReportsRaw: async () => undefined,
 }));
 vi.mock('./diagnostics-override', () => ({
+  getForceSharedUi: h.getForceSharedUi,
   getForceDomFailure: async () => 'off',
   setForceSharedUi: async () => undefined,
 }));
@@ -44,6 +45,7 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     h.stored = null;
     h.loadDelay = 0;
     h.mark.mockClear();
+    h.getForceSharedUi.mockClear();
   });
   afterEach(() => vi.useRealTimers());
 
@@ -57,14 +59,50 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(result.current.nativeReason).toBeNull();
   });
 
-  it('without the override a late input stays native, with reason pending-expired', async () => {
+  it('a late input that wants DOM (cached on or default-on, no override) upgrades native to DOM', async () => {
     const { result, rerender } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
     await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
-    rerender({ i: inputs({ sharedUi: true }) });
-    await flush();
-    expect(result.current.mount).toBe('native');
     expect(result.current.nativeReason).toBe('pending-expired');
     expect(h.mark).toHaveBeenCalledWith('mount-pending-expired', expect.any(String));
+    rerender({ i: inputs() });
+    await flush();
+    expect(result.current.mount).toBe('dom');
+    expect(h.mark).toHaveBeenCalledWith('mount-late-upgrade', expect.any(String));
+  });
+
+  it('default-on mounts DOM without reading the SecureStore override on the launch path', async () => {
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    expect(result.current.mount).toBe('dom');
+    expect(h.getForceSharedUi).not.toHaveBeenCalled();
+  });
+
+  it('a slow watchdog-record read past the bound still upgrades to DOM when the record arrives', async () => {
+    h.loadDelay = PENDING_MAX_MS + 300;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    expect(result.current.mount).toBe('native');
+    await act(async () => { await vi.advanceTimersByTimeAsync(400); });
+    expect(result.current.mount).toBe('dom');
+  });
+
+  it('an explicit cached OFF stays native and a late OFF does not upgrade', async () => {
+    const { result, rerender } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    rerender({ i: inputs({ sharedUi: false }) });
+    await flush();
+    expect(result.current.mount).toBe('native');
+    const early = renderHook(() => useDomMount(inputs({ sharedUi: false })));
+    await flush();
+    expect(early.result.current.mount).toBe('native');
+    expect(early.result.current.nativeReason).toBe('flag-off');
+  });
+
+  it('a failed watchdog-record read fails closed to native', async () => {
+    h.stored = 'corrupt';
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    expect(result.current.mount).toBe('native');
   });
 
   it('override ON inside the bound mounts DOM with no expiry mark', async () => {
@@ -78,9 +116,6 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     const off = renderHook(() => useDomMount(inputs({ sharedUi: false })));
     await flush();
     expect(off.result.current.nativeReason).toBe('flag-off');
-    const def = renderHook(() => useDomMount(inputs()));
-    await flush();
-    expect(def.result.current.nativeReason).toBe('flag-off');
   });
 
   it('expiry then late override with an owed fallback: the override does not skip it; the owed launch is consumed', async () => {
