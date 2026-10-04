@@ -3,8 +3,10 @@
  * moment/sheet closes first (`handled`); at the root the answer is `exit` and
  * native leaves the app. Replaces the retired `backTick` counter: the client
  * answers each command id exactly once, and the responder remembers the item
- * it has already asked to close, so two distinct presses that arrive before
- * the close commits cannot both answer `handled` (the second is a root press).
+ * it has already asked to close. A repeat press before the close commits
+ * (an overlay such as the inbox closes on a later render) answers `handled` again
+ * and never closes twice, so it cannot exit the app; once the open item changes
+ * (`reset`) a press at the root is `exit`.
  */
 import { useEffect, useMemo, useRef } from 'react';
 
@@ -19,6 +21,7 @@ export function createBackResponder() {
         state.closeItem();
         return 'handled';
       }
+      if (state.openItemId && state.openItemId === closing) return 'handled';
       return 'exit';
     },
     /** Call when the committed open item changes: the pending close has landed (or the item was reopened). */

@@ -14,6 +14,7 @@ import type {
   ResponderMap,
   ResultOf,
 } from './messages';
+import type { ApiStreamChunk, ApiStreamHead } from './messages';
 import type { BridgeApiRequest, ExternalUrl, MailtoUrl, WebPath } from './validate';
 import type { ShareHost } from '../reader/lib/share-payload';
 import type { HostStorage } from '../host/types';
@@ -54,7 +55,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
   });
 
   it('HandlerMap equals an independently spelled-out signature set (exact, not assignable)', () => {
-    type Ctx = { signal: AbortSignal };
+    type Ctx = { signal: AbortSignal; own?: (id: string, cancel: () => void) => () => void; id?: string };
     type H<P, R> = (payload: P, ctx: Ctx) => Promise<ResResult<R>>;
     type Empty = Record<string, never>;
     type Exact = {
@@ -70,7 +71,8 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       'notifications.savePrefs': H<NotificationPrefsUpdate, NotificationPrefsState>;
       'notifications.unregister': H<Empty, null>;
       'notifications.registration': H<Empty, { registered: boolean }>;
-      api: H<{ req: BridgeApiRequest }, ApiResponse>;
+      api: H<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
+      apiRead: H<{ streamId: string }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
     };
     expectTypeOf<HandlerMap>().toEqualTypeOf<Exact>();
@@ -79,12 +81,12 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 
   it('runtime: the client posts exactly the registered DOM commands, and the lists are pinned', async () => {
     expect([...DOM_COMMAND_TYPES].sort()).toEqual(
-      ['api', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share'].sort(),
+      ['api', 'apiRead', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share'].sort(),
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());
     expect([...NATIVE_EVENT_TYPES].sort()).toEqual(['contentVersion', 'insets', 'navigate', 'readyAck']);
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
     const posted: string[] = [];
     let i = 0;
     const c = createBridgeClient({ post: (e) => void posted.push(e.type), now: () => 1, idGen: () => `y${i++}`, setTimer: () => 0 });
@@ -96,6 +98,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   type Share = NonNullable<HostAdapter['share']>;
   type Haptic = NonNullable<HostAdapter['haptic']>;
+  type Theme = NonNullable<HostAdapter['theme']>;
   type Open = NonNullable<HostAdapter['openExternal']>;
   type Notif = NonNullable<HostAdapter['notifications']>;
 
@@ -117,6 +120,9 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     expectTypeOf<VoidToNull<Awaited<ReturnType<Share>>>>().toEqualTypeOf<ResultOf<'share'>>();
     expectTypeOf<Mutual<Parameters<Haptic>[0], PayloadOf<'haptic'>['kind']>>().toEqualTypeOf<true>();
     expectTypeOf<VoidToNull<ReturnType<Haptic>>>().toEqualTypeOf<ResultOf<'haptic'>>();
+    // theme is a fire-and-forget DOM event (no res): the host hook takes exactly the event payload and returns void.
+    expectTypeOf<Mutual<Parameters<Theme>[0], EventPayloadOf<'theme'>>>().toEqualTypeOf<true>();
+    expectTypeOf<ReturnType<Theme>>().toEqualTypeOf<void>();
     // Exact host parameter: widening it (e.g. `string | URL`) fails here.
     expectTypeOf<Parameters<Open>[0]>().toEqualTypeOf<string>();
     expectTypeOf<ExternalUrl>().toExtend<Parameters<Open>[0]>();
@@ -140,8 +146,8 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   });
 
   it('apiFetch and insets', () => {
-    expectTypeOf<Awaited<ReturnType<ApiFetch>>>().toEqualTypeOf<ResultOf<'api'>>();
-    expectTypeOf<ResultOf<'api'>>().toEqualTypeOf<ApiResponse>();
+    expectTypeOf<Awaited<ReturnType<ApiFetch>>>().toEqualTypeOf<Extract<ResultOf<'api'>, { body: string }>>();
+    expectTypeOf<ResultOf<'api'>>().toEqualTypeOf<ApiResponse | ApiStreamHead>();
     expectTypeOf<Parameters<ApiFetch>[0]['method']>().toEqualTypeOf<BridgeApiRequest['method']>();
     expectTypeOf<Parameters<ApiFetch>[0]['path']>().toEqualTypeOf<BridgeApiRequest['path']>();
     expectTypeOf<HostAdapter['insets']>().toEqualTypeOf<EventPayloadOf<'insets'>>();
