@@ -55,18 +55,23 @@ describe('check-dom-bundle', () => {
     expect(pickSentinel(['Picture to Burn'], 12)).toBe('Picture to Burn');
   });
 
-  it('passes a clean ReaderSpike bundle', () => {
+  it('a stale ReaderSpike export no longer satisfies the check', () => {
     const root = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1');
+    expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems.join()).toMatch(/AppReader/);
+  });
+
+  it('passes a clean AppReader bundle', () => {
+    const root = fixture(['/r/apps/mobile/dom/AppReader.tsx'], 'var x=1');
     expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual([]);
   });
 
-  it('fails when baked content or the sentinel is present, or no ReaderSpike map', () => {
+  it('fails when baked content or the sentinel is present, or no AppReader map', () => {
     const baked = fixture(
-      ['/r/apps/mobile/dom/ReaderSpike.tsx', '/r/apps/web/lib/longlive/generated/c.generated.ts'],
+      ['/r/apps/mobile/dom/AppReader.tsx', '/r/apps/web/lib/longlive/generated/c.generated.ts'],
       'var t="MOMENT SENTINEL TITLE"',
     );
     expect(checkDomBundle(exportDirOf(baked), SENTINELS, baked).problems).toHaveLength(2);
-    const oneEach = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var a="TRACK SENTINEL",b="MERCH SENTINEL"');
+    const oneEach = fixture(['/r/apps/mobile/dom/AppReader.tsx'], 'var a="TRACK SENTINEL",b="MERCH SENTINEL"');
     expect(checkDomBundle(exportDirOf(oneEach), SENTINELS, oneEach).problems.map((p: string) => p.split(' sentinel')[0])).toEqual([
       'a.js: contains track',
       'a.js: contains merch',
@@ -75,15 +80,15 @@ describe('check-dom-bundle', () => {
     expect(checkDomBundle(exportDirOf(none), SENTINELS, none).problems).toHaveLength(1);
   });
   it('fails a chunk with no sourcemap, naming it', () => {
-    const root = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1', { mapped: false });
+    const root = fixture(['/r/apps/mobile/dom/AppReader.tsx'], 'var x=1', { mapped: false });
     expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual(['a.js: chunk has no sourcemap (debugId id-other)']);
   });
 
   it('canonicalizes relative sources before matching', () => {
-    const root = fixture(['../../web/lib/x.generated.ts', '/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1');
+    const root = fixture(['../../web/lib/x.generated.ts', '/apps/mobile/dom/AppReader.tsx'], 'var x=1');
     expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual(['a.map: forbidden source apps/web/lib/x.generated.ts']);
     const map = path.join(root, 'apps/mobile/www.bundle/a.map');
-    expect(canonicalizeSource('/apps/mobile/dom/ReaderSpike.tsx', map, undefined, root)).toBe('apps/mobile/dom/ReaderSpike.tsx');
+    expect(canonicalizeSource('/apps/mobile/dom/AppReader.tsx', map, undefined, root)).toBe('apps/mobile/dom/AppReader.tsx');
     expect(canonicalizeSource('x.generated.ts', map, '../../web/lib', root)).toBe('apps/web/lib/x.generated.ts');
   });
 

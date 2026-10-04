@@ -42,9 +42,10 @@ for (const route of ROUTES) {
 
   test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
     await openRoute(page, 'b', route, realInsets(testInfo));
-    expect(await captureRoot(page, route)).toMatchSnapshot(`b-${route.name}.png`, PIXEL_OPTS);
+    // Viewport FIRST: captureRoot installs a persistent stylesheet that hides the TopBar and rail, which would mask them here.
     // The root clip is root-relative and hides the insets; the whole viewport shows them (body top padding, nav bottom padding).
     expect(await captureViewport(page)).toMatchSnapshot(`b-${route.name}-viewport.png`, PIXEL_OPTS);
+    expect(await captureRoot(page, route)).toMatchSnapshot(`b-${route.name}.png`, PIXEL_OPTS);
   });
 }
 
@@ -75,9 +76,9 @@ for (const route of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) 
   test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
     const names = bBaselineNames(route);
     await openAOnlyRoute(page, route, 'b', realInsets(testInfo));
+    expect(await captureViewport(page)).toMatchSnapshot(names.viewport, PIXEL_OPTS);
     const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
     expect(pixels).toMatchSnapshot(names.root, PIXEL_OPTS);
-    expect(await captureViewport(page)).toMatchSnapshot(names.viewport, PIXEL_OPTS);
   });
 }
 

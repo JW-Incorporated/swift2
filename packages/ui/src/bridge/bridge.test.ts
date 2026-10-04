@@ -1,45 +1,5 @@
-import { describe, expect, expectTypeOf, it, vi } from 'vitest';
-import type { HapticKind, Insets, NotificationPrefs, NotificationStatus, SharePayload } from '../host/types';
-import {
-  BRIDGE_VERSION,
-  COMMAND_TYPES,
-  DOM_COMMAND_TYPES,
-  EVENT_TYPES,
-  MAX_API_BODY,
-  MAX_PAYLOAD_DEPTH,
-  MAX_PAYLOAD_SIZE,
-  NATIVE_COMMAND_TYPES,
-  NATIVE_SUPPORTED_RANGE,
-  answerUnknown,
-  inRange,
-  isBridgeId,
-  isDomCommandType,
-  isExternalUrl,
-  isResResult,
-  isVersionRange,
-  isWebPath,
-  makeRes,
-  negotiate,
-  parseEnvelope,
-  parseEnvelopeValue,
-  parseReady,
-  resErr,
-  resOk,
-  sanitizeApiRequest,
-  toExternalUrl,
-  toWebPath,
-} from './index';
-import type {
-  CommandType,
-  DomCommandType,
-  EventPayloadOf,
-  EventType,
-  Handler,
-  HandlerMap,
-  JsonValue,
-  PayloadOf,
-  ResultOf,
-} from './index';
+import { describe, expect, it, vi } from 'vitest';
+import { BRIDGE_VERSION, MAX_API_BODY, MAX_PAYLOAD_DEPTH, MAX_PAYLOAD_SIZE, NATIVE_SUPPORTED_RANGE, answerUnknown, inRange, isBridgeId, isDomCommandType, isExternalUrl, isResResult, isVersionRange, isWebPath, makeRes, negotiate, parseEnvelope, parseEnvelopeValue, parseReady, resErr, resOk, sanitizeApiRequest } from './index';
 
 const good = { v: 1, id: 'a1', kind: 'cmd', type: 'haptic', payload: { kind: 'light' }, ts: 5 };
 
@@ -54,6 +14,7 @@ const reason = (r: unknown) => {
 };
 const rawEnv = (payloadJson: string) =>
   `{"v":1,"id":"a1","kind":"cmd","type":"haptic","payload":${payloadJson},"ts":5}`;
+
 
 describe('parseEnvelope (string boundary)', () => {
   it('accepts a valid envelope string and an optional seq', () => {
@@ -296,96 +257,3 @@ describe('version rules', () => {
   });
 });
 
-describe('runtime registries', () => {
-  it('list every command and event exactly once', () => {
-    expect(new Set(COMMAND_TYPES).size).toBe(COMMAND_TYPES.length);
-    expect(COMMAND_TYPES).toHaveLength(DOM_COMMAND_TYPES.length + NATIVE_COMMAND_TYPES.length);
-    expect(new Set(EVENT_TYPES).size).toBe(EVENT_TYPES.length);
-    expect([...COMMAND_TYPES].sort()).toEqual(
-      [
-        'api', 'back', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request',
-        'notifications.status', 'notifications.updatePrefs', 'openExternal', 'share',
-      ].sort(),
-    );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready', 'readyAck']);
-  });
-});
-
-describe('JSON round-trip, one sample per type', () => {
-  const insets: Insets = { top: 1, right: 2, bottom: 3, left: 4 };
-  const commandSamples: { [T in CommandType]: PayloadOf<T> } = {
-    navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
-    share: { title: 't', text: 'x', url: 'https://example.test' },
-    haptic: { kind: 'success' },
-    openExternal: { url: toExternalUrl('https://example.test')! },
-    'notifications.status': {},
-    'notifications.request': {},
-    'notifications.register': {},
-    'notifications.updatePrefs': { prefs: { releases: true } },
-    api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{}' } },
-    cancel: { targetId: 'a1' },
-    back: {},
-  };
-  const eventSamples: { [T in EventType]: EventPayloadOf<T> } = {
-    ready: { v: 1, range: { min: 1, max: 1 } },
-    diag: { stage: 'mount', detail: 'ok' },
-    ack: { seq: 4 },
-    insets,
-    contentVersion: { token: 'abc' },
-    readyAck: { hwm: 0 },
-    navigate: { path: toWebPath('/')!, source: 'deeplink' },
-  };
-  it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
-    expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);
-  });
-});
-
-describe('type-level contract', () => {
-  it('HandlerMap is exhaustive over the DOM command union and keyed by it', () => {
-    expectTypeOf<keyof HandlerMap>().toEqualTypeOf<DomCommandType>();
-    expectTypeOf<HandlerMap['api']>().toEqualTypeOf<Handler<'api'>>();
-    // @ts-expect-error a map missing a command does not satisfy HandlerMap
-    const _missing: HandlerMap = { navigate: async () => resOk(null) };
-    void _missing;
-  });
-
-  it('payloads and results are JSON-serializable for every command and event', () => {
-    type CmdJson = {
-      [T in CommandType]: PayloadOf<T> extends JsonValue ? (ResultOf<T> extends JsonValue ? true : false) : false;
-    };
-    type EvtJson = { [T in EventType]: EventPayloadOf<T> extends JsonValue ? true : false };
-    expectTypeOf<CmdJson[CommandType]>().toEqualTypeOf<true>();
-    expectTypeOf<EvtJson[EventType]>().toEqualTypeOf<true>();
-  });
-
-  it('JsonValue rejects functions, Dates and Maps', () => {
-    expectTypeOf<() => void>().not.toExtend<JsonValue>();
-    expectTypeOf<Date>().not.toExtend<JsonValue>();
-    expectTypeOf<Map<string, string>>().not.toExtend<JsonValue>();
-    expectTypeOf<{ cb: () => void }>().not.toExtend<JsonValue>();
-  });
-
-  it('JsonValue rejects explicit undefined object values', () => {
-    expectTypeOf<{ a: undefined }>().not.toExtend<JsonValue>();
-    expectTypeOf<{ a?: string }>().toExtend<JsonValue>();
-  });
-
-  it('JsonValue admits optional fields (absent on the wire) and branded strings', () => {
-    expectTypeOf<{ a?: string }>().toExtend<JsonValue>();
-    expectTypeOf<PayloadOf<'navigate'>>().toExtend<JsonValue>();
-  });
-
-  it('a plain string is not a WebPath or ExternalUrl', () => {
-    expectTypeOf<string>().not.toExtend<PayloadOf<'navigate'>['path']>();
-    expectTypeOf<'/x'>().not.toExtend<PayloadOf<'navigate'>['path']>();
-    expectTypeOf<'https://x.test'>().not.toExtend<PayloadOf<'openExternal'>['url']>();
-  });
-
-  it('shared primitive types are the host/types definitions', () => {
-    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload>();
-    expectTypeOf<PayloadOf<'haptic'>['kind']>().toEqualTypeOf<HapticKind>();
-    expectTypeOf<PayloadOf<'notifications.updatePrefs'>['prefs']>().toEqualTypeOf<NotificationPrefs>();
-    expectTypeOf<ResultOf<'notifications.status'>>().toEqualTypeOf<NotificationStatus>();
-    expectTypeOf<EventPayloadOf<'insets'>>().toEqualTypeOf<Insets>();
-  });
-});

@@ -5,6 +5,7 @@ import {
   domContentRect,
   HOT_CORNER_WIDTH,
   hotCornerRects,
+  sharedHotCornerUnlock,
   type HotCornerRect,
   shouldMountHotCorner,
 } from './diag-hot-corner';
@@ -46,6 +47,11 @@ describe('hotCornerRects', () => {
     expect(rects).toEqual([
       { left: 0, top: win.height - 34, width: 88, height: 34 },
     ]);
+  });
+  it('bottom strip (on the home indicator) renders at exactly 20pt and not at 19; an iPad with no home indicator keeps only the top strip', () => {
+    expect(hotCornerRects(ins(24, 20), win).map((r) => r.top)).toEqual([0, win.height - 20]);
+    expect(hotCornerRects(ins(24, 19), win).map((r) => r.top)).toEqual([0]);
+    expect(hotCornerRects(ins(24, 0), win)).toHaveLength(1);
   });
   it('mounts nothing when both insets are too small', () => {
     expect(hotCornerRects(ins(10, 10), win)).toEqual([]);
@@ -100,5 +106,18 @@ describe('createHotCornerPress', () => {
     const press = createHotCornerPress(onUnlock, createTapUnlock({ now: () => (t += 3000) }));
     for (let i = 0; i < 10; i++) press();
     expect(onUnlock).not.toHaveBeenCalled();
+  });
+});
+
+describe('sharedHotCornerUnlock', () => {
+  it('counts taps across strips in different windows (root + overlay Modal) toward one 7-tap unlock', () => {
+    const fired = vi.fn();
+    const rootStrip = createHotCornerPress(fired, sharedHotCornerUnlock);
+    const modalStrip = createHotCornerPress(fired, sharedHotCornerUnlock);
+    for (let i = 0; i < 4; i++) rootStrip();
+    for (let i = 0; i < 2; i++) modalStrip();
+    expect(fired).not.toHaveBeenCalled();
+    modalStrip();
+    expect(fired).toHaveBeenCalledTimes(1);
   });
 });

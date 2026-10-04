@@ -7,6 +7,7 @@ import type {
   RefAttributes,
   SyntheticEvent,
 } from 'react';
+import type { DeviceNotificationSettings, DevicePrefsResponse, NotificationPref } from '@swift2/shared';
 import type { ApiFetch, ApiFetchOptions, ApiRequest } from '@swift2/content';
 
 /** Streaming transport for `/api/*`: yields decoded text chunks as they arrive; throws `Error(String(status))` on a non-2xx response. */
@@ -23,6 +24,15 @@ export type NotificationStatus = 'granted' | 'denied' | 'undetermined' | 'unsupp
 
 /** Per-category on/off map; the category keys are owned by the notifications domain (WP2.12). */
 export type NotificationPrefs = Record<string, boolean>;
+
+// Interfaces carry no index signature, so the bridge's JsonValue check rejects them; this maps them to plain object types.
+type Plain<T> = T extends readonly (infer U)[] ? Plain<U>[] : T extends object ? { [K in keyof T]: Plain<T[K]> } : T;
+
+/** `GET/PUT` prefs response (the shared `DevicePrefsResponse`, JSON-plain). */
+export type NotificationPrefsState = Plain<DevicePrefsResponse>;
+
+/** Body of a prefs write: only what changed (instant-apply). Mirrors the prefs API PUT. */
+export type NotificationPrefsUpdate = Plain<{ settings?: Partial<DeviceNotificationSettings>; prefs?: NotificationPref[] }>;
 
 /**
  * Every anchor attribute passes through (className, aria-*, title, onClick, ...)
@@ -114,6 +124,13 @@ export type HostNotifications = {
   request(): Promise<NotificationStatus>;
   register(): Promise<void>;
   updatePrefs(prefs: NotificationPrefs): Promise<void>;
+  /** Full settings state; the native side owns the device id (it never reaches the DOM). */
+  loadPrefs(): Promise<NotificationPrefsState>;
+  savePrefs(body: NotificationPrefsUpdate): Promise<NotificationPrefsState>;
+  /** Clears this device's push token server-side (the OS permission itself stays). */
+  unregister(): Promise<void>;
+  /** Token-free: true when this device is registered for push (permission alone is not registration). */
+  registered(): Promise<boolean>;
 };
 
 export interface HostAdapter {
@@ -126,6 +143,12 @@ export interface HostAdapter {
    * canonical-origin URL. Use `useResolveUrl()`.
    */
   resolveUrl?: (path: string) => string;
+  /**
+   * https origin to load YouTube wrapper pages from (`<embedOrigin>/embed/youtube/<id>`).
+   * Web omits it (direct YouTube embed). The app DOM host (null origin, no
+   * Referer, so YouTube error 153) sets `https://www.longlivets.com` (#4954).
+   */
+  embedOrigin?: string;
   /**
    * Subscribes to the host's back gesture (web: popstate, app: hardware/swipe
    * back). The handler returns true when it consumed the event. Returns an unsubscribe.

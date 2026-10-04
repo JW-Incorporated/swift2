@@ -7,9 +7,9 @@
 // bounded by PENDING_MAX_MS, after which native mounts and the DOM never swaps in.
 //
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
-// TODO(PM, WP2.4-D): clear the pending/launch overlay when the DOM host reports ready or the watchdog falls back.
-// TODO(PM, WP2.3-E): the notification-tap queue (a tap while quarantined/fallback must land on the native screen).
-// TODO(PM, WP2.3-B step 4): wire the bridge host's onProtocolFatal to `watch.protocol` (DomWatch.protocol has no caller yet).
+// DONE (WP2.4-D1): App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback). TODO(PM, WP2.4-D2): the pending/launch overlay.
+// Notification taps while quarantined/fallback land natively via lib/notification-tap-gate.ts (H3).
+// Bridge host onProtocolFatal -> `watch.protocol` is wired in SharedUiHost (H0).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
 import { diagCollector } from './diagnostics';
@@ -21,10 +21,12 @@ import {
   createWriteQueue,
   decideMount,
   markReady,
+  markReloading,
   recordStrike,
   shouldMountDom,
   startAttempt,
   type AttemptMonitor,
+  type CrashOutcome,
   type DomFailureMode,
   type MountDecision,
   type WatchdogRecord,
@@ -55,7 +57,8 @@ export interface LaunchInputs {
 export interface DomWatch {
   ready: () => void;
   error: (message: string) => void;
-  crashed: (kind: 'terminated' | 'render-gone') => void;
+  /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload (resolved only after the record was persisted as an unresolved attempt); otherwise struck. */
+  crashed: (kind: 'terminated' | 'render-gone') => Promise<CrashOutcome | undefined>;
   protocol: () => void;
 }
 
@@ -201,7 +204,15 @@ export function useDomMount(inputs: LaunchInputs | null): {
     () => ({
       ready: () => monitorRef.current?.ready(),
       error: (m) => monitorRef.current?.error(m),
-      crashed: (k) => monitorRef.current?.crashed(k),
+      crashed: async (k) => {
+        const outcome = monitorRef.current?.crashed(k);
+        const r = recordRef.current;
+        if (outcome !== 'reload' || !r) return outcome;
+        recordRef.current = markReloading(r, Date.now());
+        if (await write(recordRef.current, 1)) return 'reload';
+        diagCollector.mark('watchdog-reload-save-failed');
+        return monitorRef.current?.crashed(k);
+      },
       protocol: () => monitorRef.current?.protocolFatal(),
     }),
     [],

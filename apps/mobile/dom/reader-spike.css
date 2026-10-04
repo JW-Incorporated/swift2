@@ -3,6 +3,12 @@
 @source '../../web';
 @source '../../../packages/ui/src';
 
+/* App only: no pull/rubber-band chaining out of the DOM scroller (web keeps its own behaviour). */
+html,
+body {
+  overscroll-behavior: none;
+}
+
 /* WP0.5b safe-area bridge. ReaderSpike writes --safe-top/right/bottom/left from
    the native insets (the DOM webview's env() is not reliable on Android). Each
    var falls back to the web's own env() when the bridge has not set it. The web
@@ -26,10 +32,13 @@ nav[aria-label='Primary'] {
   height: calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
 }
 
-/* FeedbackButton floats above the bar. */
-[class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
-  bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
-}
-[class~='bottom-[calc(8.5rem+env(safe-area-inset-bottom))]'] {
-  bottom: calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+/* FeedbackButton floats above the bar. Mobile-only: the package gives it md:bottom-4 / md:bottom-20 (no bottom nav
+   at >= md), and an unconditional !important here defeated that on iPad. */
+@media (max-width: 767px) {
+  [class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
+    bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+  }
+  [class~='bottom-[calc(8.5rem+env(safe-area-inset-bottom))]'] {
+    bottom: calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+  }
 }

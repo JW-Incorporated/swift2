@@ -5,8 +5,8 @@ import type { BridgeClient, ClientOptions, Envelope, IdSource } from '@swift2/ui
 /**
  * The ONE Expo-DOM-specific file on the DOM side (Fable REQUIRED 5): the
  * `inbox` prop and the `bridge` native action live here and in B's
- * SharedUiHost wiring, nowhere else. Not imported by ReaderSpike/SharedUiTest
- * until G0 (WP2.3-C step 3).
+ * SharedUiHost wiring, nowhere else. Used by ReaderSpike (`ExpoBridgeMount`) when the
+ * host supplies `bridge`; SharedUiTest does not use it.
  */
 export type ExpoBridgeProps = {
   /** Sequenced native-to-DOM queue, re-delivered whole on every render. */
@@ -42,6 +42,7 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSou
     receive: (raw) => cur().receive(raw),
     consumeInbox: (inbox) => cur().consumeInbox(inbox),
     sendDiag: (stage, detail) => cur().sendDiag(stage, detail),
+    sendEvent: (type, payload) => cur().sendEvent(type, payload),
     sendReady: () => cur().sendReady(),
     dispose: () => {
       live?.dispose();
@@ -57,17 +58,24 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSou
   };
 }
 
-/** One client per mount: `ready` on mount, then `inbox` into `consumeInbox`, posting via `bridge`. */
-export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}): BridgeClient {
+/**
+ * One client per mount: `ready` on mount, then `inbox` into `consumeInbox`, posting via `bridge`.
+ * `setup` runs against the live client after `ready` is posted and BEFORE the inbox is consumed
+ * (events consumed with no subscriber are lost); return its unsubscribe.
+ */
+export function useExpoBridge({ inbox, bridge }: ExpoBridgeProps, hooks: ExpoBridgeHooks = {}, setup?: (client: BridgeClient) => void | (() => void)): BridgeClient {
   const ref = useRef(bridge);
   ref.current = bridge;
   const hooksRef = useRef(hooks);
   hooksRef.current = hooks;
+  const setupRef = useRef(setup);
+  setupRef.current = setup;
   const handle = useMemo(
     () => createExpoBridge((e) => ref.current(e), undefined, { onFatal: (r) => hooksRef.current.onFatal?.(r), onSignal: (k, d) => hooksRef.current.onSignal?.(k, d) }),
     [],
   );
   useEffect(() => handle.mount(), [handle]);
+  useEffect(() => setupRef.current?.(handle.client), [handle]);
   useEffect(() => handle.client.consumeInbox(inbox), [handle, inbox]);
   return handle.client;
 }

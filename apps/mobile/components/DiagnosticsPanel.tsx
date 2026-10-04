@@ -9,9 +9,11 @@ import {
   getForceDomFailure,
   getForceSharedUi,
   getUseTestPage,
+  persistAndReread,
   setForceDomFailure,
   setForceSharedUi,
   setUseTestPage,
+  strikeClearedOverride,
 } from '../lib/diagnostics-override';
 import { latestProbeJson } from '../dom/spike/probe';
 import { readerSpikeLines } from '../lib/dom-probe-store';
@@ -31,6 +33,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   const [wd, setWd] = useState<WatchdogRecord | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState('');
+  const [writeError, setWriteError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!visible) return;
@@ -57,18 +60,35 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     setError(result.error ?? '');
   }
 
-  function toggle(on: boolean) {
-    setForceShared(on);
-    void setForceSharedUi(on);
-    if (on) {
+  async function toggle(on: boolean) {
+    const r = await persistAndReread(() => setForceSharedUi(on), getForceSharedUi);
+    setForceShared(r.value);
+    setWriteError(r.error && `Force shared UI not saved: ${r.error}`);
+    if (on && r.value) {
       setWd(null);
       void clearWatchdogRecord();
     }
   }
 
-  function pickFailMode(mode: DomFailureMode) {
-    setFailMode(mode);
-    void setForceDomFailure(mode);
+  async function pickFailMode(mode: DomFailureMode) {
+    const r = await persistAndReread(() => setForceDomFailure(mode), getForceDomFailure);
+    setFailMode(r.value);
+    setWriteError(r.error && `Force DOM failure not saved: ${r.error}`);
+  }
+
+  async function toggleTestPage(on: boolean) {
+    const r = await persistAndReread(() => setUseTestPage(on), getUseTestPage);
+    setTestPage(r.value);
+    setWriteError(r.error && `Test page not saved: ${r.error}`);
+  }
+
+  async function toggleSpeed(on: boolean) {
+    const r = await persistAndReread(
+      () => (on ? speedTest.enable() : speedTest.disable()),
+      () => speedTest.state(),
+    );
+    setSpeed(r.value);
+    setWriteError(r.error && `Speed test not saved: ${r.error}`);
   }
 
   return (
@@ -97,25 +117,26 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           ))}
           <View style={styles.switchRow}>
             <Text style={styles.fact}>Force shared UI (this device)</Text>
-            <Switch value={forceShared} onValueChange={toggle} />
+            <Switch value={forceShared} onValueChange={(on) => void toggle(on)} />
           </View>
+          {!forceShared && strikeClearedOverride(wd) && (
+            <Text style={styles.fact}>
+              Off: a watchdog strike turned Force shared UI off (by design). Switch it on to retry.
+            </Text>
+          )}
+          {writeError && <Text style={styles.err}>{writeError}</Text>}
           <View style={styles.switchRow}>
             <Text style={styles.fact}>Use WP0.4 test page, not ReaderSpike (next launch)</Text>
             <Switch
               value={testPage}
-              onValueChange={(on) => {
-                setTestPage(on);
-                void setUseTestPage(on);
-              }}
+              onValueChange={(on) => void toggleTestPage(on)}
             />
           </View>
           <View style={styles.switchRow}>
             <Text style={styles.fact}>Speed test mode (auto-sends the next 10 launches)</Text>
             <Switch
               value={isActive(speed)}
-              onValueChange={(on) => {
-                void (on ? speedTest.enable() : speedTest.disable().then(() => null)).then(setSpeed);
-              }}
+              onValueChange={(on) => void toggleSpeed(on)}
             />
           </View>
           {panelLines(speed, speedTest.queued()).map((line) => (
@@ -128,7 +149,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
             {(['off', 'throw', 'hang'] as const).map((mode) => (
               <Pressable
                 key={mode}
-                onPress={() => pickFailMode(mode)}
+                onPress={() => void pickFailMode(mode)}
                 accessibilityRole="button"
                 accessibilityState={{ selected: failMode === mode }}
                 style={[styles.modeBtn, failMode === mode && styles.modeBtnOn]}
@@ -153,6 +174,9 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           >
             <Text style={styles.buttonText}>Reset watchdog (applies next launch)</Text>
           </Pressable>
+          <Text style={styles.fact}>
+            A watchdog strike also turns Force shared UI off (by design); reset does not turn it back on.
+          </Text>
           <Text style={styles.section}>Reader spike</Text>
           {readerSpikeLines().map((line) => (
             <Text key={line} style={styles.fact}>

@@ -3,12 +3,14 @@ import type {
   HapticKind,
   Insets,
   NotificationPrefs,
+  NotificationPrefsState,
+  NotificationPrefsUpdate,
   NotificationStatus,
   SharePayload,
 } from '../host/types';
 import type { Envelope, ResResult } from './envelope';
 import { makeRes, resErr } from './envelope';
-import type { BridgeApiRequest, ExternalUrl, WebPath } from './validate';
+import type { BridgeApiRequest, ExternalUrl, MailtoUrl, WebPath } from './validate';
 import type { VersionRange } from './version';
 
 type Spec<P, R> = { payload: P; result: R };
@@ -22,12 +24,16 @@ export type DomCommandSpec = {
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
   share: Spec<SharePayload, null>;
   haptic: Spec<{ kind: HapticKind }, null>;
-  /** `https:` only (`isExternalUrl`); anything else is `invalid`. */
-  openExternal: Spec<{ url: ExternalUrl }, null>;
+  /** `https:` (`isExternalUrl`) or a bare `mailto:` (`isMailtoUrl`); anything else is `invalid`. */
+  openExternal: Spec<{ url: ExternalUrl | MailtoUrl }, null>;
   'notifications.status': Spec<Record<string, never>, NotificationStatus>;
   'notifications.request': Spec<Record<string, never>, NotificationStatus>;
   'notifications.register': Spec<Record<string, never>, null>;
   'notifications.updatePrefs': Spec<{ prefs: NotificationPrefs }, null>;
+  'notifications.getPrefs': Spec<Record<string, never>, NotificationPrefsState>;
+  'notifications.savePrefs': Spec<NotificationPrefsUpdate, NotificationPrefsState>;
+  'notifications.unregister': Spec<Record<string, never>, null>;
+  'notifications.registration': Spec<Record<string, never>, { registered: boolean }>;
   api: Spec<{ req: BridgeApiRequest }, ApiResponse>;
   cancel: Spec<{ targetId: string }, null>;
 };
@@ -44,6 +50,12 @@ export type DomEventSpec = {
   ready: { v: number; range?: VersionRange };
   diag: { stage: string; detail?: string };
   ack: { seq: number };
+  /** The DOM `navigate` subscriber is installed (once per client; repeats are idempotent). Add-only (W2-I). */
+  navReady: Record<string, never>;
+  // Atomicity invariant: the 'use dom' reader HTML/JS ships as hashed assets of the same expo-updates update
+  // as the native JS and launches only when every asset is present, so DOM/native skew cannot occur.
+  /** Outcome of a native `navigate` that carried an `id`: `ok` after the reader committed, false on failure. Add-only (W2-I). */
+  navigated: { id: string; ok: boolean };
 };
 
 /** Native -> DOM events. */
@@ -52,7 +64,8 @@ export type NativeEventSpec = {
   contentVersion: { token: string };
   /** Unsequenced reply to each accepted `ready`: the host's cmd-id high-water mark (-1 -> 0). */
   readyAck: { hwm: number };
-  navigate: { path: WebPath; source: 'notification' | 'deeplink' };
+  /** `id` (optional, add-only) asks the DOM to answer with a `navigated` event once the navigation committed. */
+  navigate: { path: WebPath; source: 'notification' | 'deeplink'; id?: string };
 };
 
 export type EventSpec = DomEventSpec & NativeEventSpec;
@@ -101,11 +114,15 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.request': true,
   'notifications.register': true,
   'notifications.updatePrefs': true,
+  'notifications.getPrefs': true,
+  'notifications.savePrefs': true,
+  'notifications.unregister': true,
+  'notifications.registration': true,
   api: true,
   cancel: true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
-const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true };
+const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true };
 const NATIVE_EVENTS: Record<NativeEventType, true> = {
   insets: true,
   contentVersion: true,

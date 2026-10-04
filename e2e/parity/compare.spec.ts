@@ -1,4 +1,3 @@
-import { bothSidesRoutes } from './sides';
 import {
   A_ONLY_ROUTES,
   A_ONLY_ROUTES_BETA,
@@ -15,6 +14,7 @@ import {
   takeExternalImages,
   test,
 } from './helpers';
+import { bothSidesRoutes } from './sides';
 import { collectStructure, diffStructure } from './structure';
 
 // Side a (Next web build) vs side b (the app's DOM entry), zero insets on b,
@@ -40,14 +40,30 @@ for (const route of ROUTES) {
 
   // home: body top padding and the nav clearance read --safe-*, so insets must show. item: MomentDetail has no safe-area
   // styles and its modal covers the nav, so it is inset-immune by construction (docs/one-ui/parity.md); pinned here.
+  // The floating FeedbackButton sits OUTSIDE the dialog and legitimately rides the bottom inset (reader-spike.css uses
+  // var(--safe-bottom) like the web uses env()), so it is hidden in the immunity check only; the dialog itself is compared.
+  const FEEDBACK_PILL = '[class~="bottom-[calc(4.5rem+env(safe-area-inset-bottom))]"]';
+  const hide = route.name === 'home' ? [] : [FEEDBACK_PILL];
   const verb = route.name === 'home' ? 'change' : 'do not change (immune dialog)';
   test(`real insets ${verb} b's viewport: ${route.name}`, async ({ page }, testInfo) => {
     await openRoute(page, 'b', route);
-    const flat = await captureViewport(page);
+    const flat = await captureViewport(page, hide);
     await openRoute(page, 'b', route, realInsets(testInfo));
-    const inset = await captureViewport(page);
+    const inset = await captureViewport(page, hide);
     const same = await pixelMatches(testInfo, `neg-inset-${route.name}`, flat, inset);
     expect(same, 'viewport equal at real insets').toBe(route.name !== 'home');
+  });
+}
+
+// H4/D2: side b now renders the full packages/ui shell (TopBar, era stream, BottomNav), so the two base routes
+// also get the whole-viewport a-vs-b compare (header and nav visible); D2 renders only these two itself.
+for (const route of ROUTES) {
+  test(`a vs b viewport: ${route.name}`, async ({ pages }, testInfo) => {
+    await openRoute(pages.a, 'a', route);
+    const pixelsA = await captureViewport(pages.a);
+    await openRoute(pages.b, 'b', route);
+    const pixelsB = await captureViewport(pages.b);
+    expect(await pixelMatches(testInfo, `ref-a-${route.name}-viewport`, pixelsA, pixelsB), 'viewport a-vs-b').toBe(true);
   });
 }
 

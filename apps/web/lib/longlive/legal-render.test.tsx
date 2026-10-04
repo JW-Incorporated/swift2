@@ -19,7 +19,11 @@ describe('legal renderers stay server components', () => {
     expect(src).not.toMatch(/^\s*['"]use client['"]/m);
     expect(src).not.toMatch(/host\/context/);
     const local = [...src.matchAll(/from '(\.\/[^']+)'/g)].map((m) => m[1]);
-    expect(local.filter((p) => p !== './lib/legal')).toEqual(['./HostLink']);
+    expect(local.filter((p) => p !== './lib/legal')).toEqual(file === 'SupportPage.tsx' ? ['./HostLink', './MailtoLink'] : ['./HostLink']);
+  });
+
+  it('MailtoLink is a client leaf too', () => {
+    expect(read('MailtoLink.tsx')).toMatch(/^'use client'/);
   });
 
   it('HostLink is the client leaf and legal.ts is not imported by it', () => {

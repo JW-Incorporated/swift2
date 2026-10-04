@@ -29,17 +29,17 @@ describe('core / extension split', () => {
   });
 
   it('attachExtensions(core) is the full snapshot, hash for hash', async () => {
-    const attached = attachExtensions(core, { merch: full.MERCH_CATALOGUE, songMoods: full.SONG_MOODS });
+    const attached = attachExtensions(core, { merch: full.MERCH_CATALOGUE, songMoods: full.SONG_MOODS, lore: [...full.LORE] });
     expect((await hashSnapshot(attached)).hash).toBe((await hashSnapshot(fromBaked(full, deps))).hash);
   });
 
   it('attachExtensions does not mutate the core', () => {
     const before = Object.keys(core.domains).sort();
-    attachExtensions(core, { merch: full.MERCH_CATALOGUE, songMoods: full.SONG_MOODS });
+    attachExtensions(core, { merch: full.MERCH_CATALOGUE, songMoods: full.SONG_MOODS, lore: [...full.LORE] });
     expect(Object.keys(core.domains).sort()).toEqual(before);
   });
 
   it('a core snapshot cannot be hashed', async () => {
-    await expect(hashSnapshot(core as never)).rejects.toThrow(/merch, songMoods/);
+    await expect(hashSnapshot(core as never)).rejects.toThrow(/merch, songMoods, lore/);
   });
 });

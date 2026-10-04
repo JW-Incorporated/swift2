@@ -16,6 +16,81 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-04 (Vault Run, Content Shift lane) from intake #5001.
+      // Public live-TV appearance (an SNL cold-open monologue) — no privacy
+      // redline. Placed by broadcast date: the episode aired Saturday,
+      // Oct. 3, 2026, the eve of Dakota Johnson's Oct. 4 birthday. Intake
+      // #5001 dated it "Oct. 4 (Saturday)"; corrected here, because Oct. 4,
+      // 2026 was a Sunday and SNL airs Saturday night. The "subtle Travis
+      // Kelce salute" the intake cited to The Hollywood Reporter was CUT:
+      // THR is bot-gated in this run environment and none of the sources
+      // that did load (NBC News, Billboard, Deadline) mention it — the
+      // no-fabrication rule governs over a single unverifiable outlet.
+      slug: 'showgirl-dakota-johnson-snl-monologue-cameo',
+      year: 2026,
+      month: 10,
+      day: 3,
+      category: 'sighting',
+      title: 'Taylor crashes Dakota Johnson’s SNL monologue as her reluctant “therapist”',
+      snippet:
+        'Hosting Saturday Night Live on the eve of her birthday, Dakota Johnson introduced “my literal therapist” — and out walked Taylor to set the record straight: “I’m not your therapist, actually.” The two “Patient Zero” collaborators sparred through the cold-open monologue, and Taylor came back at the goodnights carrying a birthday cake.',
+      sourceUrl:
+        'https://www.nbcnews.com/pop-culture/tv/taylor-swift-snl-host-dakota-johnson-rcna601364',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Dakota Johnson returned to host Saturday Night Live on Oct. 3, 2026 — the eve of her 37th birthday — with Turnstile as the night’s musical guest, and she gave the cold open to a surprise. Deep into a monologue about her well-documented history of dating musicians, Johnson told the crowd she leans on supportive friends who "don’t judge me for dating these men," then introduced "my literal therapist." Out walked Taylor, who had co-starred in Johnson’s corner of the "Patient Zero" music video weeks earlier, to correct the record.\n\n"I’m not your therapist, actually," Taylor deadpanned. "You just show up once a week at my house with an empty bottle of wine and ask if I want some." She described their standing arrangement — Johnson flopping onto her couch to overshare while Taylor offers the occasional "Damn, that’s crazy" — before clarifying that the evenings end not with a sleepover but with a Pedialyte and a ride home courtesy of security.\n\nThe friendship got a second beat at the end of the night: Taylor reappeared during the goodnights carrying a blue-and-white birthday cake for Johnson, who turned 37 that Sunday. It was the latest public thread in a friendship the "Patient Zero" shoot had already put on screen, and it kept Taylor in the room during the Encore stretch of the Showgirl rollout without a performance or an announcement attached.',
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-10/261004-dakota-johnson-taylor-swift-vl-1109a-a229c7.jpg',
+            credit: 'NBC, via NBC News',
+            caption:
+              'Taylor (right) joins host Dakota Johnson during the Oct. 3, 2026 Saturday Night Live opening monologue.',
+            kind: 'primary',
+            focalPoint: '55% 32%',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/tv/taylor-swift-snl-host-dakota-johnson-rcna601364',
+            source_title:
+              'Taylor Swift pops into ‘SNL’ to joke around with host Dakota Johnson',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-04',
+            reliability_score: 5,
+            notes:
+              'Primary source (loaded directly) for the monologue bit, the "I’m not your therapist" lines, Turnstile as musical guest, and the birthday-cake reappearance at the goodnights. Supplied the credited still used here.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-dakota-johnson-snl-monologue-1236353893/',
+            source_title:
+              'Taylor Swift Makes Surprise ‘SNL’ Cameo in Dakota Johnson’s Monologue',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-04',
+            reliability_score: 4,
+            notes:
+              'Confirms Johnson’s "dating musicians" framing, the "literal therapist" introduction, and the "Patient Zero" co-starring connection.',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/',
+            source_title:
+              'Taylor Swift Joins ‘SNL’ host Dakota Johnson In Opening Monologue',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-04',
+            reliability_score: 4,
+            notes:
+              'Independent confirmation of the surprise cameo during the opening monologue.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-01 (Vault Run, Content Shift lane) from intake #4560.
       // On-the-record interview quotes about a public topic (handling online
       // criticism) — no privacy redline. Extends the sombr friendship already
@@ -3778,13 +3853,15 @@ export default {
             source_title: 'Taylor Swift Spends 9 Hours Recording at Electric Lady Studio in New York',
             publisher: 'E! News',
             source_type: 'reputable_press',
-            // Rumor Desk re-check 2026-08-25 (lifecycle finding: 30d-stale
-            // "not confirmed" banner): re-verified the moment's status against
-            // current reporting — the late-Aug Grammy Museum "next album"
-            // speculation (see the new rumor entry below) confirms no album 13
-            // or re-record has been announced, so the banner stays and this
-            // records that someone looked.
-            accessed_at: '2026-08-25',
+            // Answerer re-check 2026-10-04 (lifecycle finding #4552: 30d-stale
+            // "not confirmed" banner; newest source was 2026-08-25): re-verified
+            // via WebSearch. Still no album 13 announced — "The Life of a
+            // Showgirl: The Encore" (Sept 25, 2026) expanded her TWELFTH album
+            // with four new tracks ("Patient Zero" et al.), it is not a new
+            // standalone record; fan timelines now put a possible TS13 in 2027
+            // and nothing is titled, dated, or confirmed. Banner stays
+            // (confidence reputable_reporting); this records that someone looked.
+            accessed_at: '2026-10-04',
             reliability_score: 4,
           },
         ],

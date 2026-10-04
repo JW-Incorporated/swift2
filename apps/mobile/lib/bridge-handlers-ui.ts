@@ -1,6 +1,6 @@
 // UI-capability bridge handlers (One UI WP2.3-D1). Pure and transport-neutral: no
-// React/RN/Expo imports; every native capability is injected. Not wired into
-// the host component yet (D2, after G0).
+// React/RN/Expo imports; every native capability is injected. Wired into
+// SharedUiHost (H1) through lib/ui-deps.ts and createWiredHandlers.
 import {
   isExternalUrl,
   isWebPath,
@@ -13,6 +13,7 @@ import {
   type SharePayload,
   type WebPath,
 } from '@swift2/ui';
+import { isAppOpenableUrl } from './mailto-allowlist';
 
 export type UiHandlerDeps = {
   /** Performs the in-app navigation for an already validated web path. */
@@ -70,7 +71,7 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
     },
     openExternal: async (payload) => {
       const p: unknown = payload;
-      if (!isRecord(p) || !isExternalUrl(p.url)) return invalid('openExternal: https urls only');
+      if (!isRecord(p) || !isAppOpenableUrl(p.url)) return invalid('openExternal: https or allow-listed mailto urls only');
       const url = p.url;
       return run(() => deps.openURL(url), 'openExternal');
     },

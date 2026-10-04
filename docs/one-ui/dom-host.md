@@ -18,8 +18,10 @@ the DOM bundles.
   `window.onerror` / `unhandledrejection` -> async `reportError`),
   `dom-process-terminated` (iOS `onContentProcessDidTerminate`),
   `dom-render-process-gone` (Android `onRenderProcessGone`). Supplying the two
-  crash callbacks replaces the expo wrapper's auto-reload; the host does not
-  reload, each crash is a watchdog strike that unmounts it.
+  crash callbacks replaces the expo wrapper's auto-reload with ours: a crash
+  before ready, or a repeat inside 5 min, is a watchdog strike that unmounts
+  the host; the first crash after ready re-keys the mount once (see the W3-iOS
+  note at the end). Android render-process-gone waits for the app to be active.
 - `routeFlags.sharedUi` (default `false`; `config/mobile/app-config.json`
   and `packages/content/src/app-config.ts`). When true, or when the
   diagnostics C4 "Force shared UI (this device)" override is on, App.tsx
@@ -57,6 +59,7 @@ the DOM bundles.
 | iOS `associatedDomains`, Android `intentFilters` (apex + www) | added; `.well-known` files withheld until WP2.3 |
 | `softwareKeyboardLayoutMode: "resize"` | added |
 | Share, Linking, scheme, notification categories, safe areas, SecureStore, file-system cache, status bar, expo-updates, splash hold | present |
+| `mailto:` via `openExternal` (WP2.13 A2b) | present: `Linking.openURL`; the handler and host validator accept only a bare `mailto:<address>` (`isMailtoUrl`), no native change |
 | ATS exception, `expo-web-browser`, `.well-known` files | not needed / withheld |
 
 JS-only additions for the test page: `tailwindcss`, `@tailwindcss/postcss`,
@@ -115,10 +118,47 @@ and a flipped default cannot be killed remotely.
 - **READY_TIMEOUT_MS stays 10 s** until S7 records time-to-ready per device;
   then set it to `max(10 s, 2 x p95 on the slowest device)`.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
-  the bridge host's `onProtocolFatal` calls it when the host is wired in.
-  TODO(PM, WP2.3-B step 4): that wiring is not done; nothing calls `watch.protocol` yet.
-- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing. TODO(PM, WP2.3-E): the
-  notification-tap queue. TODO(PM, WP2.3-B step 4): `watch.protocol` wiring.
+  the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
+- **Bridge wiring (H0).** SharedUiHost builds one host + link per epoch
+  (disposed on unmount; the DOM page is `key`ed by the epoch, so a recreated host
+  always meets a freshly handshaking client) over `createUnwiredHandlers`: every
+  command answers `failed` until H1/H3 supply real handlers; H2 adds `createLiveAppHandlers` (same map, `api` live over expo/fetch via `createLiveApiDeps`, expo-fetch-deps loaded lazily), and the DOM side `createBridgeApiFetch`/`createBridgeApiStream` (dom/bridge/api-fetch.ts). `apiStream` is buffered (G12): ClownChat in the app has no live investigation trail and shows its pending state until the full answer arrives (up to 60 s); request bodies are capped at 64 KB at the bridge boundary, responses at 256 KB. The SharedUiHost swap to `createLiveAppHandlers` and the app-adapter hookup land in W2-I. The DOM page gets two
+  props: `inbox` (the host's un-acked sequenced envelopes, re-delivered whole)
+  and `bridge` (a native action, `handlers.bridge`). `createBridgeLink`
+  (lib/dom-host-handlers.ts) routes the host's `send`: sequenced envelopes go to
+  `inbox`; a `res` or `readyAck` resolves the `bridge` call that is awaiting it,
+  and the DOM client feeds it back. After dispose (fatal or unmount) every call
+  rejects, a duplicate command id rejects the older call, and a repeated `ready`
+  (webview reload) releases the pending ones. The DOM client's own fatal
+  (`ready-failed`, `id-space-exhausted`) goes through the `reportProtocolFatal`
+  action -> `watch.protocol()` (not `reportError`, which is ignored after first
+  paint). AppReader mounts `useExpoBridge` (renders
+  nothing; shares its client with the app adapter) only when `bridge` is supplied (never on web/dev): it sends `ready` after
+  mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
+  first-paint `onReady` still does; the `hang` drill is unchanged).
+- **UI commands live (H1 / WP2.3-D2).** SharedUiHost passes the host
+  `createWiredHandlers(onSignal, { ui: createUiDeps(...) })`: navigate,
+  openExternal (https), share (RN `Share`), haptic (expo-haptics) are real; api and
+  notifications stay unwired until H2/H3. Native-to-DOM: `insets` (from
+  `useSafeAreaInsets`, on change and held until `ready`) and `contentVersion`
+  (bundle version, once per change). The DOM is the sole inset owner: it sets
+  `--safe-*` from the `insets` event (the `insets` prop is web/dev only).
+  Hardware back: `createBackHandler` sends a `back` command (1000 ms); before
+  `ready` the press falls through to native, after it the DOM answers `handled`
+  (the reader closed an open item) or `exit` (root, timeout or error: `exitApp`).
+  The `backTick` counter is deleted. The reader Shell registers the responder and
+  `useExpoBridge(props, hooks, setup)` subscribes `insets`, `contentVersion` and
+  `back` before the inbox is consumed. `withFocusRestore(fn)`
+  (dom/bridge/focus-restore.ts) returns focus after a native sheet closes; the app
+  adapter (`dom/bridge/app-adapter.tsx` `share`) wraps its bridge call with it (live once D2 mounts the adapter).
+- **Navigate contract.** DOM to native `navigate {path, replace?}` takes a web path
+  (X4: `/?screen=settings`, `/?item=<id>`, `/?mode=threads`). `isNativeRoute`
+  (lib/routes.ts, live flags via `getRouteFlags`) true: the D-7 presenter
+  (`presentNativeRoute`, SharedUiHost prop supplied by App.tsx in H4/D1) opens it
+  natively; with no presenter attached the reply is `failed`. False: `invalid`,
+  and the DOM routes it itself (history API). Native to DOM `navigate {path,
+  source}` is `BridgeHost.emit('navigate', ...)` (`navigateSink`, H3).
+**Notification taps (H3).** App.tsx calls `useNotificationTaps(navigate, mount==='native')` (lib/use-notification-taps.ts). `lib/notification-tap-ingest.ts` serializes the cold `getLastNotificationResponseAsync` read (+ clear) and the live listener into `lib/notification-tap-gate.ts`, which wraps the E1 queue (15 s ack, 10 min TTL, cap 16). Dedupe key = `request.identifier`, else `anon:<date>|<deepLink>`; a response with neither is rejected. Targets: native mode (DOM not mounted) opens native screens; a link the queue refuses opens its canonical `siteUrl+path` or home, never the raw string; a bound+ready host gets bridge `navigate` (`source:'notification'`), delivered on ack, re-awaiting the same event (no re-emit) after an ack timeout; retried every 5 s while held and on AppState active; otherwise taps hold. `bindHost(host)` returns an epoch lease cleanup that unbinds only if still current. **Wired in W2-I (SharedUiHost).** One handler map: `createAppHandlersFor(onSignal, {ui, api: createLiveApiDeps(), notifications: createExpoNotificationDeps()})` overlays real groups on the unwired fail-closed base (each key present exactly once; a key claimed twice throws). Per keyed epoch `lib/tap-bind-epoch.ts` calls `gate.bindHost(target)` exactly once, only when the bridge is ready AND the reader painted (`onReady`) AND the DOM sent the dedicated `navReady` event (add-only DOM event; repeats from one client are idempotent). Host hooks (bridge-host.ts, add-only): `onBeforeShutdown` runs FIRST in shutdown (protocol fatal and dispose), so the lease is released before the host closes; `onReadyAgain` (a `ready` after the handshake: after bind the lease is released synchronously, then `generation` bumps = new keyed epoch; before bind it only clears the subscriber flag); `onNavReady`; `onNavigated`. Crash/render-gone/watchdog use `releaseBeforeStrike`, unmount `disposeEpoch`. A released epoch never rebinds. Routing: the tap target sends only reader paths (pathname `/`, not native-owned) as `navigate {path, source, id}`; the DOM rewrites the query (search + hash), applies it THROUGH the reader store (`ReaderBridge` applier + `applyDeepLink`; no remount, so open overlays and scroll survive) inside `flushSync`, and answers `navigated {id, ok}` AFTER that committed (ok:false when no reader is mounted). Delivery counts only on host ack AND `navigated ok:true`; no subscriber or a failure leaves the tap queued. Every other path the canonicalizer accepts (/settings, /privacy, /terms, /support, /vault, native-owned routes) is opened by native (presenter for native-owned, else the site URL) and never reaches the DOM. **D2 (AppReader) mounts the app adapter** with `apiFetch = createBridgeApiFetch(client)` and `apiStream` (buffered), `embedOrigin`, the capture-phase `_blank` interceptor. **Still open:** the `host.webPush` shim for the settings page (no bridge command returns the device id or reads prefs, and the device id deliberately never crosses the bridge; needs a PM decision, tracked with 2.12-D) and in-DOM pages for non-reader paths (those go to native).
 
 **G4 drill.** Simulated (no device): `npx vitest run
 apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure
@@ -131,10 +171,18 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
    attempt). Relaunch twice more: quarantined, native with no attempt.
    Diagnostics shows `Quarantined: yes`.
-2. Failure `off`, Reset watchdog, relaunch: the shared UI returns. `throw`
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
-4. After WP2.3-E ships: a notification tap while quarantined lands on the native screen.
+4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
+
+## Insets, native overlay and the app adapter (WP2.4-D1, #4953)
+
+- **One inset owner.** While the DOM host is mounted, App.tsx's `SafeAreaView` has `edges={[]}`: the host is edge-to-edge and the DOM alone applies `--safe-top`/`--safe-bottom`. Native screens, the fallback and the update screen keep all four edges. The diag hot-corner strips are siblings rendered outside the `SafeAreaView` (absolute, sized by `useSafeAreaInsets()`), so they sit above the full-bleed webview and are unaffected. The stale comment on `domContentRect` (`lib/diag-hot-corner.ts`) still describes the old padded layout (follow-up, outside D1's touch set).
+- **Native overlay.** `presentNativeRoute` (pure presenter in `lib/dom-host-handlers.ts`) drives an RN `Modal` over the still-mounted `SharedUiHost` (never an unmount). Native owns hardware back in every phase but idle; opening/closing carry deadlines, so App.tsx schedules one `tick` after each transition (`msUntilDeadline`); leaving `mount === 'dom'` (watchdog fallback) resets the overlay. The overlay resets whenever the DOM surface is not rendered (`domSurfaceRendered`: mount is not dom, or update-required). The Modal is a separate native window, so it renders its own diag hot-corner strips; every strip feeds one app-wide 7-tap counter (`sharedHotCornerUnlock`), so top/bottom/mixed taps work with the overlay up. RN `Modal.onDismiss` is iOS-only: on Android the closing phase resolves through the deadline tick. State/effects live in `lib/use-native-overlay.ts`, rendering in `components/NativeOverlayHost.tsx`. Not yet reachable: the route allow-list (`dom/slots/routes`) is empty and `presentNativeRoute` is handed to the bridge `navigate` handler in D2.
+- **App HostAdapter** (`dom/bridge/app-adapter.tsx`, helpers in `app-adapter-nav.tsx`; not mounted until D2). Built per provider. `Link` intercepts clicks (every in-app route must pass `toWebPath`; https elsewhere -> bridge `openExternal`; malformed paths, `//host`, `javascript:`/`intent:`/`file:`/`mailto:` and plain http are consumed and dropped; every `_blank` click is consumed whatever the modifiers); `installBlankCapture` does the same for plain `a[target=_blank]` in the capture phase, so page handlers cannot opt out (a component needing custom `_blank` behaviour renders a button). `navigate` sends native-owned routes over the bridge and the rest to the injected DOM navigator. `Image` replicates next/image `fill` styles. `storage` is tri-state (#4923): `null` = absent key, `undefined` only when the area is unavailable. `currentUrl` is the in-DOM web path on the canonical origin, never `file://` (`toWebPath(getPath())`, falling back to `/`; feedback reports keep their location). `embedOrigin` is the canonical origin.
+
+- **Clownbot live board (2.11-D2).** `use-live-data.ts` fetches `resolveUrl('/vault/live/<era>')` with global `fetch` (not `apiFetch`): the app adapter resolves it to `https://www.longlivets.com/vault/live/...`, a public cookie-less GET that returns `Access-Control-Allow-Origin: *` (next.config.mjs), so it works from the null-origin WebView. `surface:clownbot` feeds ClownChat lore from the snapshot extension via `useLore()` (`dom/slots/clown.tsx`).
 
 ## Open items
 
@@ -167,3 +215,17 @@ Behavior:
 - `first-era-paint` is the native era stream's first frame, or the shared-UI host's `dom-ready`; each report records which (`UI | native/shared`). `first-image-paint` = first loaded image inside the viewport. Shared UI reports via ReaderSpike's `reportImageLoad` prop (the next/image stub's `onLoad`), native via `MomentCard` `onLoad`.
 - State (run id, remaining, results) is one SecureStore key `longlive_diag_speed_test_v1`. The server caps reports at 31 per run id and 300 per 24 h overall, on top of the existing 5/min per IP.
 - Opt-in by the tester; unrelated to the category-only watchdog telemetry.
+
+## YouTube embeds in the DOM host (#4954)
+
+The DOM page is a null origin and sends no Referer, so a direct YouTube iframe fails with error 153. No `baseUrl` spoofing (G0 ruling 2026-10-04). Instead, when the host sets `embedOrigin` (the app sets `https://www.longlivets.com`; web omits it), `MomentVideo` and `MoodSongCard` point the iframe at `https://www.longlivets.com/embed/youtube/<id>` (via `youtubeEmbedSrc`, `packages/ui/src/reader/lib/youtube-embed.ts`). That route handler (`apps/web/app/embed/youtube/[id]/route.ts`, static HTML, no root layout) serves only a full-bleed youtube-nocookie iframe on the real origin, so YouTube sees a real embedder. The outer iframe is a navigation, so no CORS change. Web keeps the direct iframe. Both iframes carry `referrerPolicy="strict-origin-when-cross-origin"`. Spotify is out of scope.
+
+Framing: the site denies framing everywhere (`frame-ancestors 'none'` and `X-Frame-Options: DENY`, both set in `proxy.ts`). For exactly `/embed/youtube/<11-char id>` only (one shared case-sensitive predicate in `security-headers.mjs`; extra segments, trailing slash and every other path keep full protection), `frame-ancestors` is omitted (not `*`, which does not match a file:/custom-scheme parent) and X-Frame-Options is not sent. The page only shows a video, so framing it has no clickjacking value. Id must match `^[A-Za-z0-9_-]{11}$`, else 404.
+
+**AppReader slots and fallbacks (D2).** See `dom/slots/index.ts` for the slot-name convention. `overlay-fallback.tsx` hands the unslotted song and track guide, and every unslotted mode, to native ONCE through bridge `navigate` (X4 URLs: `/?screen=song&key=`, `/?screen=track-guide&era=`, `/?mode=threads|merch|community`, `/?screen=clownbot`) and clears the DOM state ONLY after the bridge reports native presented it (a failure keeps the state and emits a `fallback-native-failed` diag). Search and theory guide have no native screen: state is kept, a `fallback-no-native-screen` diag is emitted, and this is an interim gap until #4972/#4974 land (after iOS-1). A selected thread lens is not carried to native yet (the native threads screen takes no lens param): the gallery opens. Native `navigate` into the DOM is applied through the store with `applyAfterCommit` (deferred out of the transport effect, then `flushSync`); an unresolved target answers `navigated ok:false` and touches no state, a resolved one first closes moment/guides/search/selector. Storage is an explicit per-launch Map for both areas on both platforms. The adapter `navigate` for a path that is not a registered native route stays in the DOM for `/` (store) and goes to native for any other path.
+
+**iOS hardening (W3-iOS, JS-only, before the iOS-1 device gate).** (1) *Termination.* Overriding `onContentProcessDidTerminate`/`onRenderProcessGone` replaces the Expo wrapper's auto-reload, so the policy is ours: `createAttemptMonitor.crashed` strikes at once before ready; the first termination AFTER ready answers `reload` (no strike; ready timeout re-armed) and `SharedUiHost` bumps `generation` (new epoch, new bridge host, re-keyed `AppReader`, which re-handshakes); before re-keying the gate persists the record as an unresolved attempt (ready -> attempting) and awaits that write, so a process kill mid-reload counts as a failed launch next time; the replacement epoch's ready persists readiness again. The crashed epoch is fenced synchronously (late ready/error/protocol/bridge signals from the dead webview are ignored). Android render-process-gone is deferred until AppState is active (cleaned up on unmount). A 2nd termination within `RELOAD_WINDOW_MS` (5 min) strikes, as does a reloaded page that crashes or never reaches ready. Diag: `dom-process-terminated`/`dom-render-process-gone` then `dom-reload-after-crash` or `dom-crash-strike`. The diag "test page" is not epoch-keyed and does not reload. (2) *Insets.* The `dom` prop pins `contentInsetAdjustmentBehavior: 'never'`, `automaticallyAdjustContentInsets: false`, `bounces: false` (JS-only; `dom` spreads after the wrapper defaults). `--safe-*` is the single inset source in the DOM: `ClownChat.tsx` uses `var(--safe-*, env(safe-area-inset-*))` (web has no `--safe-*`, so it is unchanged); the other `env()` sites in `packages/ui` are overridden by the attribute rules in `dom/reader-spike.css`. The viewport meta is untouched (no `viewport-fit=cover`, so WKWebView `env()` is likely 0 and `--safe-*` is what counts). (3) *Hot corner.* `DiagHotCorner` is rendered after (above) the host with `zIndex`/`elevation` 1000; one shared counter. The bottom strip sits on the home indicator and renders only when `insets.bottom >= 20`; an iPad without a home indicator relies on the top strip or Settings -> About. (4) *Storage.* Decision: D2's explicit per-launch Map `HostStorage` stays the documented behaviour on both platforms (the adapter never touches WKWebView `localStorage`). `installStorageShim` is feature-detected (installs only where `localStorage` throws or is null), so it is already Android-only in effect and leaves iOS storage alone (tested); it is not platform-gated further. (5) *CSS.* `overscroll-behavior: none` on `html, body` in `dom/reader-spike.css` (app only); `font-display: block` on the DOM font faces (generated by `build-fonts.mjs`, web faces stay `swap`). (6) *Inline YouTube.* `mediaPlaybackRequiresUserAction` stays at the default (true): tap-to-play inside the wrapper iframe is a user gesture, autoplay stays off, and `allowsInlineMediaPlayback` already defaults true. To be re-checked on the iOS-1 device.
+
+## Legal pages in the DOM (W3-legal)
+
+The DOM page is one document; the reader owns pathname `/`. Exactly three more paths stay in the DOM: `/privacy`, `/terms`, `/support` (`dom/bridge/dom-path.ts`, an allow-list; everything else still goes to native). The current path lives in `history.state.swift2Path` (never the file:// URL), seeded from the page pathname on web/dev/parity. `currentUrl()` keeps its contract (a web path plus the page query) and now reports the real in-DOM path. The first legal page pushes one history entry; moving between legal pages or to the reader root replaces it; the native `back` command pops it first (`backFromDomPath`, answered `handled`) before the reader's own back runs. A native-to-DOM `navigate` to a legal path sets the path and acks `navigated {ok:true}` once the layer committed; a reader path closes an open legal page first. `openExternal` forwards the two allow-listed mailto aliases (`isAllowedMailto`) to the bridge. The legal layer renders the web `SiteFooter`, is portaled to <body> (outside the themed reader `.era-shell`, so it uses the root palette like the website), hides its own scrollbar (no layout width taken), is keyed per page (opens at the top), sits at z-80 above the floating `FeedbackButton` (z-71, D2's slot; the legal slice registers no `floating`) and sets the other <body> children (the reader root) `inert` while open. A native `navigate` to a legal path acks only after the layer is observed committed (`dom-path-commit.ts` `showDomPath`: flushSync, then `[data-legal-page]`); no layer or a render error answers false and restores the previous path. `currentDomPath`'s pathname fallback is test/dev only. Native-side tap routing still opens legal paths natively (unchanged). Caveat: `useBackDismiss` treats any popstate as a back gesture, so a reader overlay open under a legal page would also be dismissed when the legal page pops; legal pages are reached from the footer, where no overlay is open.
