@@ -4,13 +4,14 @@
 // signals (launch attempted / ready / DOM-side errors / webview process death)
 // through `onSignal` and forwards them to the WP0.4b watchdog via `watch`.
 // Supplying onContentProcessDidTerminate / onRenderProcessGone REPLACES the
-// expo wrapper's auto-reload; this host never reloads or shows its own error
-// screen. A crash is a watchdog strike, and the strike unmounts this host in
-// favour of the native screens (lib/watchdog-gate.ts).
+// expo wrapper's auto-reload, so the policy is ours (lib/watchdog.ts): a crash before
+// ready, or a repeat within RELOAD_WINDOW_MS, is a watchdog strike that unmounts this
+// host in favour of the native screens (lib/watchdog-gate.ts); the first crash after
+// ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
@@ -22,6 +23,7 @@ import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } f
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
+import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
@@ -67,6 +69,16 @@ export function SharedUiHost({
   const [generation, setGeneration] = useState(0);
   const epochRef = useRef(0);
   const hostRef = useRef<BridgeHost | null>(null);
+  const activeDeferral = useRef(
+    createRunWhenActive({
+      state: () => AppState.currentState,
+      subscribe: (cb) => {
+        const sub = AppState.addEventListener('change', cb);
+        return () => sub.remove();
+      },
+    }),
+  ).current;
+  useEffect(() => () => activeDeferral.cancel(), []);
   const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
   const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute });
   navRef.current = { siteUrl, getRouteFlags, presentNativeRoute };
@@ -109,6 +121,11 @@ export function SharedUiHost({
         watch: session ? releaseBeforeStrike(watch, session.binder) : watch,
         bridge: session?.link.bridge,
         bridgeClosed: session?.link.isClosed,
+        reload: () => setGeneration((g) => g + 1),
+        // Epoch fence: a crash closes the epoch synchronously, before React commits the re-key.
+        isCurrent: session ? () => epochRef.current === session.epoch : undefined,
+        invalidate: () => void (epochRef.current += 1),
+        whenActive: (fn) => activeDeferral.run(fn),
       }),
     [session],
   );
@@ -140,6 +157,7 @@ export function SharedUiHost({
       onNavReady: () => ref.binder?.navReady(),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onProtocolFatal: (reason) => {
+        if (epochRef.current !== epoch) return;
         onSignal('bridge-protocol-fatal', reason.slice(0, 200));
         link.dispose();
         watch.protocol();
@@ -207,7 +225,12 @@ export function SharedUiHost({
     setLatestProbeJson(merged);
   };
 
+  // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
+  // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
   const dom = {
+    contentInsetAdjustmentBehavior: 'never' as const,
+    automaticallyAdjustContentInsets: false,
+    bounces: false,
     onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
     onRenderProcessGone: handlers.onRenderProcessGone,
   };

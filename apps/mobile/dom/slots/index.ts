@@ -15,6 +15,8 @@
 // --- slice imports go here, one line each ---
 import './moment';
 import './era';
+import './floating';
+import './merch';
 import './settings';
 
 export { register, slots } from './instance';

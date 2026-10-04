@@ -5,13 +5,12 @@ import { isNativeRoute, registerRoutes, resetRoutesForTests } from './routes-ins
 import { SETTINGS_NATIVE_ROWS } from './settings-native-rows';
 import { SettingsPage } from './settings-page';
 import { SETTINGS_SLICE } from './settings';
-import { SETTINGS_ROUTES_SLICE } from './settings.routes';
 import { isSettingsPath, resetSettingsOverlayForTests, settingsOverlay } from './settings-store';
 
-// Registers exactly what settings.ts / settings.routes.ts register, against registries reset after each test.
+// Registers what settings.ts registers (the native /inbox route is host.routes.ts), against registries reset after each test.
 function registerSettings() {
   register({ slice: SETTINGS_SLICE, slots: { 'overlay:settings': SettingsPage } });
-  registerRoutes({ slice: SETTINGS_ROUTES_SLICE, nativeRoutes: SETTINGS_NATIVE_ROWS.map((r) => ({ id: `settings:${r.id}`, match: r.path })) });
+  registerRoutes({ slice: 'host', nativeRoutes: [{ id: 'host:inbox', match: '/inbox' }] });
 }
 
 afterEach(() => {
