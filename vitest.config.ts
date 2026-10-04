@@ -34,6 +34,7 @@ export default defineConfig({
       'apps/web/**/*.test.tsx',
       'apps/worker/**/*.test.ts',
       'apps/mobile/**/*.test.ts',
+      'apps/mobile/**/*.test.tsx',
       'scripts/**/*.test.ts',
     ],
     testTimeout: 30000,

@@ -40,6 +40,11 @@ export function createAppHandlers(deps: AppHandlerDeps): AppHandlers {
   ]);
 }
 
+/** The unwired map with each wired group's real handlers replacing its entries (H1: ui; H2/H3 add theirs). */
+export function createWiredHandlers(log: (stage: string, detail: string) => void, wired: { ui?: UiHandlerDeps }): AppHandlers {
+  return { ...createUnwiredHandlers(log), ...(wired.ui ? createUiHandlers(wired.ui) : {}) };
+}
+
 /**
  * H0 handler map: every DOM command answers `failed` (never success, never a
  * watchdog report) until H1/H2/H3 swap in real handlers via createAppHandlers.

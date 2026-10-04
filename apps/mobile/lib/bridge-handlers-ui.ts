@@ -1,6 +1,6 @@
 // UI-capability bridge handlers (One UI WP2.3-D1). Pure and transport-neutral: no
-// React/RN/Expo imports; every native capability is injected. Not wired into
-// the host component yet (D2, after G0).
+// React/RN/Expo imports; every native capability is injected. Wired into
+// SharedUiHost (H1) through lib/ui-deps.ts and createWiredHandlers.
 import {
   isExternalUrl,
   isWebPath,

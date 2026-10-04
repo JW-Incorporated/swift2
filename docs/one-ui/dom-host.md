@@ -134,7 +134,29 @@ and a flipped default cannot be killed remotely.
   nothing) only when `bridge` is supplied (never on web/dev): it sends `ready` after
   mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
   first-paint `onReady` still does; the `hang` drill is unchanged).
-- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing. TODO(PM, WP2.3-E): the
+- **UI commands live (H1 / WP2.3-D2).** SharedUiHost passes the host
+  `createWiredHandlers(onSignal, { ui: createUiDeps(...) })`: navigate,
+  openExternal (https), share (RN `Share`), haptic (expo-haptics) are real; api and
+  notifications stay unwired until H2/H3. Native-to-DOM: `insets` (from
+  `useSafeAreaInsets`, on change and held until `ready`) and `contentVersion`
+  (bundle version, once per change). The DOM is the sole inset owner: it sets
+  `--safe-*` from the `insets` event (the `insets` prop is web/dev only).
+  Hardware back: `createBackHandler` sends a `back` command (1000 ms); before
+  `ready` the press falls through to native, after it the DOM answers `handled`
+  (the reader closed an open item) or `exit` (root, timeout or error: `exitApp`).
+  The `backTick` counter is deleted. The reader Shell registers the responder and
+  `useExpoBridge(props, hooks, setup)` subscribes `insets`, `contentVersion` and
+  `back` before the inbox is consumed. `withFocusRestore(fn)`
+  (dom/bridge/focus-restore.ts) returns focus after a native sheet closes; the app
+  adapter (`dom/bridge/app-adapter.tsx` `share`) wraps its bridge call with it (live once D2 mounts the adapter).
+- **Navigate contract.** DOM to native `navigate {path, replace?}` takes a web path
+  (X4: `/?screen=settings`, `/?item=<id>`, `/?mode=threads`). `isNativeRoute`
+  (lib/routes.ts, live flags via `getRouteFlags`) true: the D-7 presenter
+  (`presentNativeRoute`, SharedUiHost prop supplied by App.tsx in H4/D1) opens it
+  natively; with no presenter attached the reply is `failed`. False: `invalid`,
+  and the DOM routes it itself (history API). Native to DOM `navigate {path,
+  source}` is `BridgeHost.emit('navigate', ...)` (`navigateSink`, H3).
+- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing and the presenter prop. TODO(PM, WP2.3-E): the
   notification-tap queue.
 
 **G4 drill.** Simulated (no device): `npx vitest run
