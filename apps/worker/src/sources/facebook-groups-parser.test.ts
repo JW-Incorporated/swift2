@@ -94,6 +94,13 @@ describe('extractPostsFromHtml', () => {
     expect(posts[0]!.text).toBe('entity names count too');
   });
 
+  it('does not double-unescape an escaped entity in post text', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article"><div dir="auto">she literally wrote &amp;quot; in the caption</div></div>',
+    );
+    expect(posts[0]!.text).toBe('she literally wrote &quot; in the caption');
+  });
+
   it('removes a mentioned member whose profile link carries no aria-label', () => {
     const posts = extractPostsFromHtml(
       '<div role="article">' +
@@ -114,6 +121,31 @@ describe('extractPostsFromHtml', () => {
         '</div>',
     );
     expect(posts[0]!.text).toContain('this etsy shop');
+  });
+
+  // The mention-stripping href match is scoped to Facebook's own profile
+  // paths: a third-party URL that merely contains /people/ or /user/ must
+  // keep its visible text (over-redaction would silently eat post content).
+  it('keeps the text of a third-party link whose path looks profile-shaped', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article">' +
+        '<a href="/groups/x/user/999/" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">read the <a href="https://www.gq.com/people/taylor-swift">profile piece</a> and the ' +
+        '<a href="https://forum.example/user/42">forum thread</a></div></div>',
+    );
+    expect(posts[0]!.text).toContain('profile piece');
+    expect(posts[0]!.text).toContain('forum thread');
+  });
+
+  it('still strips a facebook.com absolute profile-link mention', () => {
+    const posts = extractPostsFromHtml(
+      '<div role="article">' +
+        '<a href="/groups/x/user/999/" aria-label="Jane Fan">Jane Fan</a>' +
+        '<div dir="auto">tagging <a href="https://www.facebook.com/profile.php?id=777">Priya Raman</a> here</div>' +
+        '</div>',
+    );
+    expect(posts[0]!.text).not.toMatch(/Priya Raman/i);
+    expect(posts[0]!.text).toContain('tagging');
   });
 
   it('hashes the post author, not a member they mentioned', () => {

@@ -66,13 +66,15 @@ function hashAuthor(name: string): string {
 }
 
 /** The handful of entities `stripTags` decodes, shared so an author name can
- * be decoded the same way the body text is before the two are compared. */
+ * be decoded the same way the body text is before the two are compared.
+ * `&amp;` is decoded LAST, so an input of `&amp;quot;` yields the literal
+ * `&quot;` rather than being double-unescaped into `"`. */
 function decodeEntities(value: string): string {
   return value
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&#39;|&apos;/g, "'")
-    .replace(/&quot;/g, '"');
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&');
 }
 
 function stripTags(html: string): string {
@@ -129,11 +131,19 @@ const AUTHOR_ATTR_RE = /\baria-label="([^"]{2,80})"/g;
  * A profile link with NO `aria-label` at all, recognised by its href. Facebook
  * renders a @mention of another member this way, so without this the mentioned
  * person's name would survive in the text even though the poster's does not.
- * Matched by href shape (`/user/<id>/`, `/profile.php?id=`, `/people/`) so an
- * ordinary outbound link in the post body is untouched.
+ *
+ * Scoped to Facebook's OWN profile-link shapes — a root-relative
+ * `/groups/<id>/user/<id>/`, `/profile.php?id=`, or `/people/<name>/<id>`, or
+ * the same paths on a facebook.com host — so an outbound third-party link
+ * whose path merely contains `/user/` or `/people/`
+ * (`https://www.gq.com/people/taylor-swift`) keeps its visible text instead of
+ * having it stripped and added to the redaction list.
  */
-const PROFILE_HREF_ANCHOR_RE =
-  /<a\b[^>]*\bhref="[^"]*(?:\/user\/|\/profile\.php|\/people\/)[^"]*"[^>]*>([\s\S]*?)<\/a\s*>/gi;
+const FB_PROFILE_PATH = '(?:\\/groups\\/[^"\\/]+)?\\/(?:user\\/|profile\\.php|people\\/)';
+const PROFILE_HREF_ANCHOR_RE = new RegExp(
+  `<a\\b[^>]*\\bhref="(?:https?:\\/\\/(?:[a-z0-9-]+\\.)*facebook\\.com)?${FB_PROFILE_PATH}[^"]*"[^>]*>([\\s\\S]*?)<\\/a\\s*>`,
+  'gi',
+);
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
