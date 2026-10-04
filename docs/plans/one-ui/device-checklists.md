@@ -39,10 +39,12 @@ owner's own).
    the clock). Close with Done. Then tap 4 times bottom-left and 3 times
    top-left.
    *Pass:* Diagnostics opened both times.
-4. **Look, photos, letters, scrolling.** Scroll the era stream non-stop for
-   about 2 minutes. Then open 3 moments that have photos, in 2 different eras.
-   *Pass:* it looks like longlivets.com (same letters, same layout), real
-   photos (not grey boxes), and the screen never went blank or restarted.
+4. **Look, photos, menus, scrolling.** Tap every button on the bottom bar once,
+   then open the era picker (top) and switch eras. Scroll the era stream
+   non-stop for about 2 minutes. Open 3 moments that have photos, in 2 eras.
+   *Pass:* it looks like longlivets.com (same letters, same layout), every
+   bottom-bar page opens, real photos (not grey boxes), and the screen never
+   went blank or restarted.
 5. **YouTube.** Open a moment with a YouTube video and tap play.
    *Pass:* the video plays inside the app (no "error" box).
 6. **Offline.** Turn on **Airplane Mode** (and make sure Wi-Fi is off),
