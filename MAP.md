@@ -432,6 +432,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/one-ui/PLAN.md` | One UI programme (epic #4788): work packages WP0.0–WP5.2, gates G0–G5, device test sessions S1–S9 |
 | `docs/plans/one-ui/OPERATING-MODE.md` | How the One UI PM session runs: roles, decision authority, context discipline, Fable triggers, device-test protocol, kickoff prompt (§8) |
 | `docs/plans/one-ui/PROGRESS.md` | One UI PM's live state; the up-to-date copy is on branch `pm/one-ui-progress` |
+| `docs/one-ui/x4-universal-links.md` | H6 universal-link intake plan + owner values still needed; `docs/one-ui/drafts/well-known/` holds the draft AASA + assetlinks.json (placeholders, NOT served; must not move to `apps/web/public/.well-known` before H3/H6) |
 | `.github/workflows/plan-recheck-marjorie.yml` | Fork of `plan-recheck.yml` for the Marjorie plan (path hard-coded there); daily gate, Opus only when due |
 | `docs/agents/runner-prompts/plan-recheck-marjorie.md` | Prompt for the Marjorie recheck routine, reports on #4180 |
 | `docs/plans/tree-overhaul/WAVE-1-REVIEW-BRIEF.md` | Handoff for a later review session: what Wave 1 decided, what was already reviewed, and the five places worth pushing hardest |
