@@ -127,6 +127,12 @@ export interface HostAdapter {
    */
   resolveUrl?: (path: string) => string;
   /**
+   * https origin to load YouTube wrapper pages from (`<embedOrigin>/embed/youtube/<id>`).
+   * Web omits it (direct YouTube embed). The app DOM host (null origin, no
+   * Referer, so YouTube error 153) sets `https://www.longlivets.com` (#4954).
+   */
+  embedOrigin?: string;
+  /**
    * Subscribes to the host's back gesture (web: popstate, app: hardware/swipe
    * back). The handler returns true when it consumed the event. Returns an unsubscribe.
    */

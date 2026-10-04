@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from 'react';
 import { useHost } from '../../host/context';
+import { YOUTUBE_REFERRER_POLICY, youtubeEmbedSrc } from '../lib/youtube-embed';
 import { Play } from 'lucide-react';
 import type { MomentVideo as MomentVideoData } from '@swift2/experience';
 
@@ -153,6 +154,7 @@ export function MomentVideo({
   priority?: boolean;
 }) {
   const [playing, setPlaying] = useState(startPlaying);
+  const { embedOrigin } = useHost();
 
   return (
     <figure className={className}>
@@ -160,7 +162,8 @@ export function MomentVideo({
         <VideoFrame>
           <iframe
             title={video.title}
-            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
+            src={youtubeEmbedSrc(video.youtubeId, embedOrigin)}
+            referrerPolicy={YOUTUBE_REFERRER_POLICY}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             loading="lazy"

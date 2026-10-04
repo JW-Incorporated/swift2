@@ -14,6 +14,7 @@
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
 | `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | bridge `api` allow-list carries `/api/clown` (native-held session, 60 s timeout); the app adapter uses `createBridgeApiStream` (buffered) |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
+| `embedOrigin` (optional) | omitted: YouTube embeds go direct to youtube-nocookie.com | `https://www.longlivets.com`: embeds frame `<embedOrigin>/embed/youtube/<id>` (a real-origin wrapper page), because a null origin sends no Referer and YouTube refuses with error 153 (#4954) |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
 | `insets` | zeros | WP2.3 |

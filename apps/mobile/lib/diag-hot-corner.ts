@@ -30,9 +30,9 @@ export function shouldMountHotCorner(mount: string): boolean {
 }
 
 /**
- * Where the DOM host's content begins. The native SafeAreaView pads every edge
- * by the insets, so content occupies the window minus the insets. (The DOM body
- * pads --safe-top again inside that, which only pushes content lower.)
+ * The window minus the insets. Only tests call this today (the hot corner uses
+ * `hotCornerRects`), and the DOM host gets its insets as a prop from
+ * SharedUiHost, so this is not the layout source of truth for DOM content.
  */
 export function domContentRect(
   insets: Insets,
