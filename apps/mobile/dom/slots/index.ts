@@ -13,6 +13,7 @@
 // Anything else throws. A slice that registers a surface/overlay also deletes its row in ./overlay-fallback.tsx.
 
 // --- slice imports go here, one line each ---
+import './moment';
 import './era';
 
 export { register, slots } from './instance';

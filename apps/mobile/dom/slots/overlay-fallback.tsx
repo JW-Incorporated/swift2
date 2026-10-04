@@ -8,10 +8,10 @@ import { useAppActions, useAppState, type AppMode, type AppState } from '@swift2
 import { useReaderControls } from '../bridge/reader-controls';
 
 type Actions = ReturnType<typeof useAppActions>;
-type FallbackState = Pick<AppState, 'mode' | 'openItemId' | 'trackGuideEraId' | 'openTrackKey' | 'theoryGuideEraId' | 'searchOpen' | 'lensId'>;
+type FallbackState = Pick<AppState, 'mode' | 'trackGuideEraId' | 'openTrackKey' | 'theoryGuideEraId' | 'searchOpen' | 'lensId'>;
 
 export type FallbackRow = {
-  id: 'search' | 'song' | 'track-guide' | 'theory-guide' | 'thread' | 'moment';
+  id: 'search' | 'song' | 'track-guide' | 'theory-guide' | 'thread';
   /** The open overlay's value, or null while closed. */
   value: (s: FallbackState) => string | null;
   path: (value: string) => string;
@@ -21,7 +21,6 @@ export type FallbackRow = {
 const ERA_STREAM = '/?screen=era-stream';
 
 export const OVERLAY_FALLBACK_ROWS: readonly FallbackRow[] = [
-  { id: 'moment', value: (s) => s.openItemId, path: (v) => `/?item=${encodeURIComponent(v)}`, clear: (a) => a.closeItem() },
   // A song stacks on its album guide (openSong sets both): the song row wins and closing the guide closes both.
   { id: 'song', value: (s) => s.openTrackKey, path: (v) => `/?screen=song&key=${encodeURIComponent(v)}`, clear: (a) => a.closeTrackGuide() },
   {
@@ -73,7 +72,7 @@ export function OverlayFallback() {
   const seen = useRef(new Map<string, string>());
   useEffect(() => {
     runFallbackRows(OVERLAY_FALLBACK_ROWS, state, seen.current, openNative, actions);
-  }, [state.openItemId, state.openTrackKey, state.trackGuideEraId, state.theoryGuideEraId, state.searchOpen, state.lensId, state.mode]);
+  }, [state.openTrackKey, state.trackGuideEraId, state.theoryGuideEraId, state.searchOpen, state.lensId, state.mode]);
   return null;
 }
 

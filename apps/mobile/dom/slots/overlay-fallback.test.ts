@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { MODE_PATHS, OVERLAY_FALLBACK_ROWS, modeFallbackPath, runFallbackRows } from './overlay-fallback';
 
-const closed = { mode: 'era', openItemId: null, trackGuideEraId: null, openTrackKey: null, theoryGuideEraId: null, searchOpen: false, lensId: null } as const;
+const closed = { mode: 'era', trackGuideEraId: null, openTrackKey: null, theoryGuideEraId: null, searchOpen: false, lensId: null } as const;
 const actions = () => ({ closeItem: vi.fn(), closeTrackGuide: vi.fn(), closeTheoryGuide: vi.fn(), setSearchOpen: vi.fn(), clearLens: vi.fn() });
 const run = (state: Parameters<typeof runFallbackRows>[1], seen: Map<string, string>, a = actions()) => {
   const openNative = vi.fn();
@@ -11,11 +11,10 @@ const run = (state: Parameters<typeof runFallbackRows>[1], seen: Map<string, str
 
 describe('overlay fallback table', () => {
   it('has the stable row ids', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['moment', 'search', 'song', 'theory-guide', 'thread', 'track-guide']);
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id).sort()).toEqual(['search', 'song', 'theory-guide', 'thread', 'track-guide']);
   });
 
   it.each([
-    [{ openItemId: 'it 1' }, '/?item=it%201', 'closeItem'],
     [{ trackGuideEraId: 'debut' }, '/?screen=track-guide&era=debut', 'closeTrackGuide'],
     [{ trackGuideEraId: 'debut', openTrackKey: 'debut::1::Tim' }, '/?screen=song&key=debut%3A%3A1%3A%3ATim', 'closeTrackGuide'],
     [{ theoryGuideEraId: 'folklore' }, '/?screen=era-stream', 'closeTheoryGuide'],
@@ -35,7 +34,7 @@ describe('overlay fallback table', () => {
 
   it('loop guard: navigate, native, back, re-render does not re-trigger; a fresh open does', () => {
     const seen = new Map<string, string>();
-    const open = { ...closed, openItemId: 'a' } as never;
+    const open = { ...closed, searchOpen: true } as never;
     expect(run(open, seen).openNative).toHaveBeenCalledTimes(1);
     // the store clear has not committed yet: the same open state re-renders
     expect(run(open, seen).openNative).not.toHaveBeenCalled();
