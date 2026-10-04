@@ -64,7 +64,6 @@ export function runFallbackRows(rows: readonly FallbackRow[], state: FallbackSta
 /** Where each unslotted mode goes natively (D-6). A selected lens is not carried yet (the native threads screen takes no lens param). */
 export const MODE_PATHS: Partial<Record<AppMode, string>> = {
   threads: '/?mode=threads',
-  community: '/?mode=community',
 };
 
 export const modeFallbackPath = (mode: AppMode): string => MODE_PATHS[mode] ?? '/?screen=era-stream';
