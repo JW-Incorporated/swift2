@@ -3,6 +3,12 @@
 @source '../../web';
 @source '../../../packages/ui/src';
 
+/* App only: no pull/rubber-band chaining out of the DOM scroller (web keeps its own behaviour). */
+html,
+body {
+  overscroll-behavior: none;
+}
+
 /* WP0.5b safe-area bridge. ReaderSpike writes --safe-top/right/bottom/left from
    the native insets (the DOM webview's env() is not reliable on Android). Each
    var falls back to the web's own env() when the bridge has not set it. The web
