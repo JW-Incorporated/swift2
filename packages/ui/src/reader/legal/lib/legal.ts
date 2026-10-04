@@ -284,7 +284,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page of the website. The mobile apps do not include it.',
+          text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page of the website. The mobile apps do not include it in their own screens, but where the app opens Privacy, Terms or Support as the website itself (inside a web view), that website page loads it like any other page of the site.',
         },
         {
           kind: 'p',
@@ -405,7 +405,7 @@ export const PRIVACY_POLICY: LegalDoc = {
           // changes the app changes this section in the same release, and
           // both stores' data-safety forms with it.
           kind: 'p',
-          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged. The feedback button, the mood chat, Clownbot, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
+          text: 'There is also a Long Live mobile app for iPhone and Android — listed as "LongLive", bundle and package id ai.jwlabs.longlive. The app renders its own native screens for eras, threads, Clownbot, community, and merch, all built from the exact same content and the exact same rules described in every section above — nothing about what is collected or how it is handled changes because the screen is native instead of a web page. Only three pages — Privacy, Terms, and Support (this page among them) — still open inside the app as the website itself, unchanged, so the website’s analytics runs on those three pages inside the app. The feedback button, the mood chat, Clownbot, and the server logs all behave in the app exactly as they do in a browser, and the sections above are the description of them.',
         },
         {
           kind: 'p',
@@ -417,7 +417,11 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: 'Apart from internet access and — only if you grant it — permission to notify you, the app asks for no device permissions: not your camera, your microphone, your location, your contacts, your photos, or your storage. It carries no advertising SDK, no crash-reporting SDK, no in-app purchases, no account, and no sign-in of its own. Links that lead away from longlivets.com open in your phone’s browser, not inside the app.',
+          text: 'Apart from internet access and — only if you grant it — permission to notify you, the app asks for no device permissions: not your camera, your microphone, your location, your contacts, your photos, or your storage. It carries no advertising SDK, no crash-reporting SDK (the diagnostics reports described below are separate and are not a crash-reporting SDK), no in-app purchases, no account, and no sign-in of its own. Links that lead away from longlivets.com open in your phone’s browser, not inside the app.',
+        },
+        {
+          kind: 'p',
+          text: 'Two more things are sent only in narrow cases. Diagnostics: if you open the app’s Diagnostics screen and tap “Send report”, the app sends your device model, operating-system version, app version and build number, the id of the app update it is running, and timings of its start-up stages. Automatic fallback reports: when the app’s start-up safety check has to fall back to its older screens, and only while we have switched that reporting on in our remote configuration, the app can send the platform (iPhone or Android), the app version with its update id, and a coarse failure category. Neither report contains your name, your device id, a push token, your location or any text you typed; the update id identifies an app release, not you or your phone. Both go through our feedback endpoint and are posted as comments on a tracking issue in our GitHub repository, which is public, so anyone can read them.',
         },
         {
           kind: 'p',

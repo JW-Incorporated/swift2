@@ -23,6 +23,7 @@ const show = async (page: Page, selector: string): Promise<void> => {
 export const ERA_SELECTOR_CLIP = '[role="dialog"][aria-labelledby="era-selector-title"]';
 export const SHARE_MENU_CLIP = '[role="group"][aria-label="Share this moment as an image"]';
 export const CLOWN_FULLSCREEN_CLIP = 'div.fixed.inset-0:has(button[aria-label="Exit full screen"])';
+export const FEEDBACK_DIALOG_CLIP = '[role="dialog"][aria-label="Send feedback"]';
 export const LOVE_ENTRY_CLIP = 'div:has(> button[aria-expanded="true"])';
 
 export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
@@ -139,6 +140,17 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     prepare: async (page) => {
       await page.getByRole('button', { name: 'Decode the payoff' }).first().click();
       await show(page, 'article:has(button:has-text("Hide the payoff"))');
+    },
+  },
+  {
+    name: 'feedback-dialog-open',
+    path: '/',
+    root: 'main',
+    sides: 'both',
+    clip: FEEDBACK_DIALOG_CLIP,
+    prepare: async (page) => {
+      await page.locator('button[aria-label="Send feedback"]').first().dispatchEvent('click');
+      await expect(page.locator(FEEDBACK_DIALOG_CLIP)).toBeVisible();
     },
   },
 ];
