@@ -20,7 +20,6 @@ import {
   getForceDomFailure,
   persistAndReread,
   setForceDomFailure,
-  strikeClearedOverride,
 } from './diagnostics-override';
 
 beforeEach(() => {
@@ -52,10 +51,3 @@ describe('persistAndReread', () => {
   });
 });
 
-describe('strikeClearedOverride', () => {
-  it('is true only at the fallback strike count', () => {
-    expect(strikeClearedOverride(null)).toBe(false);
-    expect(strikeClearedOverride({ strikes: 1 })).toBe(false);
-    expect(strikeClearedOverride({ strikes: 2 })).toBe(true);
-  });
-});

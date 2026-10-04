@@ -1,11 +1,10 @@
 // One UI WP0.4b / WP2.14: React wiring for the watchdog. App.tsx asks
 // `useDomMount` whether the DOM host may render. The DOM-or-native choice is
-// made ONCE per launch from local state only (quarantine > override > cached
+// made ONCE per launch from local state only (quarantine > cached
 // flag > compiled default, watchdog-policy.ts); a network config applies on the
 // next launch. The launch-attempt record is AWAITED before 'dom' is returned;
 // if that write fails the launch mounts native (fail closed). `pending` is
-// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); a
-// DOM-wanting decision that resolves later still upgrades to the DOM host.
+// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); expiry is terminal for the launch (no late swap; the next launch decides).
 //
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
 // DONE (WP2.4-D1): App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback). TODO(PM, WP2.4-D2): the pending/launch overlay.
@@ -15,7 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
 import { diagCollector, setMountInfo } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
-import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
+import { getForceDomFailure } from './diagnostics-override';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
 import {
   createAttemptMonitor,
@@ -54,8 +53,6 @@ export type MountState = 'pending' | 'dom' | 'native';
 
 /** Everything the launch decision reads, all local: null until App has resolved them. */
 export interface LaunchInputs {
-  /** C4 "Force shared UI (this device)". */
-  override: boolean;
   /** Last-good cached remote sharedUi (loadLaunchFlags); null = none cached. */
   sharedUi: boolean | null;
   /** Last-good cached watchdogReports; reports are on ONLY when this is true (null/false = off). */
@@ -137,7 +134,6 @@ export function useDomMount(inputs: LaunchInputs | null): {
       const d = decideMount(prev, currentBuildKey(), Date.now());
       recordRef.current = d.record;
       await write(refundExpiredFallback(prev, d.record, expiredRef.current));
-      if (d.clearOverride) void setForceSharedUi(false);
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
@@ -167,25 +163,20 @@ export function useDomMount(inputs: LaunchInputs | null): {
     if (struck) report(struck.lastReason, struck.buildKey);
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
-      override: inputs.override,
+      override: false,
       cachedSharedUi: inputs.sharedUi,
       defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
     });
-    if (expiredRef.current) {
-      // Inputs resolving after the pending bound: any source that wants the DOM host still upgrades native to it (owed fallback / quarantine are honoured by shouldMountDom below).
-      if (!want.wantsDom) return;
-      expiredRef.current = false;
-      diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
-    }
+    // Pending expiry is terminal for this launch: native stays mounted (never swap an interactive UI); the next launch decides normally.
+    if (expiredRef.current) return;
     if (!shouldMountDom(want.wantsDom, decision)) {
       if (mountRef.current !== 'pending') void write(decision.record);
       apply('native', nativeReasonFor(want, decision.fallbackActive));
       return;
     }
-    const overrideOn = want.source === 'override';
     void (async () => {
       setForceFailure(await getForceDomFailure());
-      const attempt = await startAttempt(decision, Date.now(), write, () => overrideOn || !expiredRef.current);
+      const attempt = await startAttempt(decision, Date.now(), write, () => !expiredRef.current);
       if (!attempt) {
         apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
         return;
@@ -208,10 +199,9 @@ export function useDomMount(inputs: LaunchInputs | null): {
         },
         onStrike: (reason) => {
           if (!recordRef.current) return;
-          const { record, clearOverride } = recordStrike(recordRef.current, reason, Date.now());
+          const { record } = recordStrike(recordRef.current, reason, Date.now());
           recordRef.current = record;
           void write(record);
-          if (clearOverride) void setForceSharedUi(false);
           if (record.state === 'fallback' || record.state === 'quarantined') {
             report(reason, record.buildKey);
           }

@@ -1,17 +1,6 @@
-// C4 preview override: "Force shared UI (this device)". Persisted, internal
-// only. App.tsx reads it once per launch (WP0.4) and mounts the shared-UI DOM host.
+// Diagnostics-only persisted switches (watchdog failure drill, test page). Internal only.
 import * as SecureStore from 'expo-secure-store';
-import { parseDomFailureMode, STRIKES_TO_FALLBACK, type DomFailureMode } from './watchdog';
-
-export const FORCE_SHARED_UI_KEY = 'longlive_diag_force_shared_ui';
-
-export async function getForceSharedUi(): Promise<boolean> {
-  try {
-    return (await SecureStore.getItemAsync(FORCE_SHARED_UI_KEY)) === 'true';
-  } catch {
-    return false;
-  }
-}
+import { parseDomFailureMode, type DomFailureMode } from './watchdog';
 
 // WP0.4b: tri-state "force DOM failure" (off / throw / hang) to drill the watchdog.
 export const FORCE_DOM_FAILURE_KEY = 'longlive_diag_force_dom_failure';
@@ -29,12 +18,7 @@ export async function setForceDomFailure(mode: DomFailureMode): Promise<void> {
   else await SecureStore.setItemAsync(FORCE_DOM_FAILURE_KEY, mode);
 }
 
-export async function setForceSharedUi(on: boolean): Promise<void> {
-  if (on) await SecureStore.setItemAsync(FORCE_SHARED_UI_KEY, 'true');
-  else await SecureStore.deleteItemAsync(FORCE_SHARED_UI_KEY);
-}
-
-// WP0.5b: keep the WP0.4 test page reachable now that the C4 override mounts ReaderSpike.
+// WP0.5b: keep the WP0.4 test page reachable for the DOM host.
 export const USE_TEST_PAGE_KEY = 'longlive_diag_use_test_page';
 
 export async function getUseTestPage(): Promise<boolean> {
@@ -68,7 +52,3 @@ export async function persistAndReread<T>(
   }
   return { value: await read(), error };
 }
-
-/** The watchdog turns the Force shared UI override off once it has reached the fallback strike count. */
-export const strikeClearedOverride = (wd: { strikes: number } | null): boolean =>
-  wd !== null && wd.strikes >= STRIKES_TO_FALLBACK;

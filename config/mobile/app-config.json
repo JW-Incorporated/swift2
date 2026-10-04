@@ -12,5 +12,5 @@
     "clownbot": true,
     "sharedUi": true
   },
-  "watchdogReports": true
+  "watchdogReports": false
 }

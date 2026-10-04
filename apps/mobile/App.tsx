@@ -84,7 +84,7 @@ export default function App() {
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   useEffect(() => {
     void lockPhonesToPortrait();
-    void loadLaunchFlags().then((flags) => setLaunchInputs({ override: false, ...flags }));
+    void loadLaunchFlags().then((flags) => setLaunchInputs(flags));
   }, []);
   useEffect(() => {
     let cancelled = false;
