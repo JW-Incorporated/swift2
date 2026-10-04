@@ -23,3 +23,16 @@ export function planBSide(routes: readonly Sided[]): { route: string; compare: s
     return { route: r.name, compare: `a vs b viewport: ${r.name}`, baselines: [names.root, names.viewport] };
   });
 }
+
+/** Throws when a 'both' route's b baselines would overwrite a base route's (b-home*, b-item*) or another flipped route's. */
+export function assertNoBaselineCollisions(base: readonly Sided[], routes: readonly Sided[]): void {
+  const owner = new Map<string, string>();
+  for (const r of base) for (const f of Object.values(bBaselineNames(r))) owner.set(f, r.name);
+  for (const r of bothSidesRoutes(routes)) {
+    for (const f of Object.values(bBaselineNames(r))) {
+      const prior = owner.get(f);
+      if (prior !== undefined) throw new Error(`parity: route "${r.name}" b baseline ${f} collides with route "${prior}"`);
+      owner.set(f, r.name);
+    }
+  }
+}
