@@ -42,6 +42,7 @@ export function createExpoBridge(bridge: ExpoBridgeProps['bridge'], idGen: IdSou
     receive: (raw) => cur().receive(raw),
     consumeInbox: (inbox) => cur().consumeInbox(inbox),
     sendDiag: (stage, detail) => cur().sendDiag(stage, detail),
+    sendEvent: (type, payload) => cur().sendEvent(type, payload),
     sendReady: () => cur().sendReady(),
     dispose: () => {
       live?.dispose();

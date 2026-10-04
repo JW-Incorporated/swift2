@@ -40,11 +40,6 @@ export function createAppHandlers(deps: AppHandlerDeps): AppHandlers {
   ]);
 }
 
-/** The unwired map with each wired group's real handlers replacing its entries (H1: ui; H2/H3 add theirs). */
-export function createWiredHandlers(log: (stage: string, detail: string) => void, wired: { ui?: UiHandlerDeps }): AppHandlers {
-  return { ...createUnwiredHandlers(log), ...(wired.ui ? createUiHandlers(wired.ui) : {}) };
-}
-
 /**
  * W2-I: ONE host map from the unwired fail-closed base plus whichever groups have deps (ui: H1, api: H2,
  * notifications: H3). Real groups are merged (a key claimed twice throws); unwired entries remain only for

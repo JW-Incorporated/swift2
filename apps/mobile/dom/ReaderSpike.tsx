@@ -86,9 +86,18 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   const backRef = useRef<BackFn | null>(null);
   // A native-to-DOM navigate rewrites the page query and remounts the reader, which re-reads its deep link.
   const [readerKey, setReaderKey] = useState(0);
+  const remountWaiters = useRef<(() => void)[]>([]);
+  useEffect(() => {
+    const w = remountWaiters.current.splice(0);
+    w.forEach((done) => done());
+  }, [readerKey]);
   const navigateDeps = useRef<NavigateDeps>({
     replaceUrl: (relative) => window.history.replaceState(null, '', relative),
-    remount: () => setReaderKey((k) => k + 1),
+    remount: () =>
+      new Promise<void>((resolve) => {
+        remountWaiters.current.push(resolve);
+        setReaderKey((k) => k + 1);
+      }),
   }).current;
   const [Reader, setReader] = useState<ComponentType<ReaderProps> | null>(null);
   const [failed, setFailed] = useState<string | null>(null);

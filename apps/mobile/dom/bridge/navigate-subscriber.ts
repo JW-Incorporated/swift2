@@ -1,38 +1,41 @@
 // DOM side of native-to-DOM `navigate` (W2-I): the notification tap gate emits it to a bound host.
 // The reader reads its deep link (?item=, ?lens=, ?era=, ?mode=...) once on mount from the page URL, so
-// routing is: rewrite the query on the page (search + hash only; the DOM page keeps its own path) and
-// remount the reader. The client acks the sequenced event after this handler returns.
+// the reader-owned route (pathname `/`) is: rewrite the query (search + hash only; the DOM page keeps its
+// own path), remount the reader, and only AFTER the remount committed answer `navigated {id, ok:true}`.
+// Anything else (another pathname, a throw) answers ok:false so the tap stays queued, never a silent home.
+// Native opens every non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
 import type { EventPayloadOf } from '@swift2/ui';
-
-export const NAVIGATE_SUBSCRIBER_STAGE = 'navigate-subscriber'; // must equal lib/tap-bind-epoch.ts (asserted in navigate-subscriber.test.ts)
 
 export type NavigateDeps = {
   replaceUrl: (relative: string) => void;
-  remount: () => void;
+  /** Resolves once the reader has remounted and committed. */
+  remount: () => Promise<void>;
 };
 
-/** Returns false (and does nothing) for a path that does not parse. */
-export function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'path'>, deps: NavigateDeps): boolean {
-  let u: URL;
+type NavigateClient = {
+  on(type: 'navigate', fn: (e: EventPayloadOf<'navigate'>) => void): () => void;
+  sendEvent(type: 'navReady' | 'navigated', payload: never): void;
+};
+
+export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'path'>, deps: NavigateDeps): Promise<boolean> {
   try {
-    u = new URL(e.path, 'http://dom.invalid');
+    const u = new URL(e.path, 'http://dom.invalid');
+    if (u.pathname !== '/') return false;
+    deps.replaceUrl(`${u.search || '?'}${u.hash}`);
+    await deps.remount();
+    return true;
   } catch {
     return false;
   }
-  deps.replaceUrl(`${u.search || '?'}${u.hash}`);
-  deps.remount();
-  return true;
 }
 
-/**
- * Installs the subscriber, then announces it to native (`diag` stage) so the tap gate may bind. The diag
- * is queued by the client until the bridge is ready, so native sees it only after the handshake.
- */
-export function installNavigateSubscriber(
-  client: { on(type: 'navigate', fn: (e: EventPayloadOf<'navigate'>) => void): () => void; sendDiag(stage: string, detail?: string): void },
-  deps: NavigateDeps,
-): () => void {
-  const off = client.on('navigate', (e) => void applyNavigateEvent(e, deps));
-  client.sendDiag(NAVIGATE_SUBSCRIBER_STAGE);
+/** Installs the subscriber, then announces it (`navReady`); the host dedupes repeats, so announcing on every install is safe. */
+export function installNavigateSubscriber(client: NavigateClient, deps: NavigateDeps): () => void {
+  const off = client.on('navigate', (e) => {
+    void applyNavigateEvent(e, deps).then((ok) => {
+      if (e.id !== undefined) client.sendEvent('navigated', { id: e.id, ok } as never);
+    });
+  });
+  client.sendEvent('navReady', {} as never);
   return off;
 }

@@ -27,13 +27,15 @@ import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
 import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from '../lib/routes';
 import { speedTest } from '../lib/speed-test-runtime';
-import { NAVIGATE_SUBSCRIBER_STAGE, createTapBinder, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
+import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import { lastGoodCacheUri } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
+
+const SITE_FALLBACK = 'https://www.longlivets.com';
 
 interface ReaderSource {
   cacheUri: string | null;
@@ -113,7 +115,7 @@ export function SharedUiHost({
 
   useEffect(() => {
     const epoch = ++epochRef.current;
-    const ref: { host?: BridgeHost; binder?: TapBinder } = {};
+    const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
       setInbox((prev) => (sameInbox(prev, next) ? prev : next));
@@ -133,18 +135,31 @@ export function SharedUiHost({
       send: link.send,
       now: Date.now,
       scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
+      onBeforeShutdown: () => ref.binder?.release(),
+      onReadyAgain: () => ref.binder?.readyAgain(),
+      onNavReady: () => ref.binder?.navReady(),
+      onNavigated: (e) => ref.target?.onNavigated(e),
       onProtocolFatal: (reason) => {
         onSignal('bridge-protocol-fatal', reason.slice(0, 200));
-        ref.binder?.release();
         link.dispose();
         watch.protocol();
       },
-      onSignal: (stage, detail) => {
-        if (stage === NAVIGATE_SUBSCRIBER_STAGE) ref.binder?.subscriberInstalled();
-        onSignal(stage, detail);
+      onSignal,
+    });
+    const target = createTapTarget({
+      host,
+      isReaderPath: (p) => new URL(p, SITE_FALLBACK).pathname === '/' && !uiDeps.isNativeRoute(p as WebPath),
+      openElsewhere: async (p) => {
+        if (uiDeps.isNativeRoute(p as WebPath)) {
+          const r = navRef.current.presentNativeRoute?.(p as WebPath);
+          return r === 'applied' || r === 'noop';
+        }
+        await Linking.openURL(new URL(p, navRef.current.siteUrl ?? SITE_FALLBACK).toString());
+        return true;
       },
     });
-    const binder = createTapBinder({ gate: notificationTapGate, host, onReadinessLoss: () => setGeneration((g) => g + 1) });
+    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1) });
+    ref.target = target;
     ref.binder = binder;
     ref.host = host;
     hostRef.current = host;

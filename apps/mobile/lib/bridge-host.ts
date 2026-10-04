@@ -55,6 +55,14 @@ export interface BridgeHostDeps {
   timeouts?: Partial<Record<DomCommandType, number>>;
   maxInflight?: number;
   outboxCap?: number;
+  /** Runs once, FIRST in shutdown (protocol fatal or dispose), before anything is torn down: release leases here. */
+  onBeforeShutdown?: () => void;
+  /** A `ready` arrived while already ready (the DOM re-handshook: webview reload or a new client). */
+  onReadyAgain?: () => void;
+  /** The DOM announced its `navigate` subscriber (idempotent per client). */
+  onNavReady?: () => void;
+  /** The DOM's outcome for a `navigate` emitted with an `id`. */
+  onNavigated?: (e: { id: string; ok: boolean }) => void;
 }
 
 export type AckRef = { epoch: number; seq: number };
@@ -120,6 +128,13 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   const inflight = createInflight({ handlers: deps.handlers, timeouts: deps.timeouts, arm, disarm, respond, onSignal });
 
   function shutdown() {
+    if (!closed) {
+      try {
+        deps.onBeforeShutdown?.();
+      } catch (e) {
+        onSignal('bridge-before-shutdown-failed', String(e).slice(0, 200));
+      }
+    }
     closed = true;
     inflight.abortAll();
     const ps = [...pending.values()];
@@ -211,7 +226,14 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     }
     if (env.v !== r.v) return raise(`bridge-version envelope v=${env.v} ready v=${r.v}`);
     if (hwm >= Number.MAX_SAFE_INTEGER - 1) return raise('bridge-hwm exhausted');
-    if (ready) inflight.abortAll();
+    if (ready) {
+      inflight.abortAll();
+      try {
+        deps.onReadyAgain?.();
+      } catch (e) {
+        onSignal('bridge-ready-again-failed', String(e).slice(0, 200));
+      }
+    }
     ready = true;
     negotiated = r.v;
     safeSend({ v: BRIDGE_VERSION, id: `h-${++hostId}`, kind: 'evt', type: 'readyAck', payload: { hwm: Math.max(hwm, 0) }, ts: now() });
@@ -262,6 +284,12 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       const p = env.payload;
       if (isReady) return onReady(env);
       if (env.type === 'ack') return onAck(p);
+      if (env.type === 'navReady') return deps.onNavReady?.();
+      if (env.type === 'navigated') {
+        if (isRecord(p) && typeof p.id === 'string' && typeof p.ok === 'boolean') deps.onNavigated?.({ id: p.id.slice(0, 64), ok: p.ok });
+        else onSignal('bridge-invalid', 'navigated payload');
+        return;
+      }
       if (env.type === 'diag' && isRecord(p) && typeof p.stage === 'string') {
         onSignal(p.stage.slice(0, 64), typeof p.detail === 'string' ? p.detail.slice(0, 200) : undefined);
       } else {
