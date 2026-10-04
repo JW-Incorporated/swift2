@@ -9,10 +9,10 @@ import { useAppActions, useAppState, type AppMode, type AppState } from '@swift2
 import { useReaderControls } from '../bridge/reader-controls';
 
 type Actions = ReturnType<typeof useAppActions>;
-type FallbackState = Pick<AppState, 'mode' | 'trackGuideEraId' | 'openTrackKey'>;
+type FallbackState = Pick<AppState, 'mode' | 'theoryGuideEraId'>;
 
 export type FallbackRow = {
-  id: 'song' | 'track-guide';
+  id: string;
   /** The open overlay's value, or null while closed. */
   value: (s: FallbackState) => string | null;
   /** The native route, or null when no native screen exists for this overlay. */
@@ -27,14 +27,6 @@ export type FallbackIo = {
 };
 
 export const OVERLAY_FALLBACK_ROWS: readonly FallbackRow[] = [
-  // A song stacks on its album guide (openSong sets both): the song row wins and closing the guide closes both.
-  { id: 'song', value: (s) => s.openTrackKey, path: (v) => `/?screen=song&key=${encodeURIComponent(v)}`, clear: (a) => a.closeTrackGuide() },
-  {
-    id: 'track-guide',
-    value: (s) => (s.openTrackKey ? null : s.trackGuideEraId),
-    path: (v) => `/?screen=track-guide&era=${encodeURIComponent(v)}`,
-    clear: (a) => a.closeTrackGuide(),
-  },
 ];
 
 /** Fires each open row exactly once per opening: `seen` holds the value already handled until the row closes. */
@@ -61,7 +53,6 @@ export function runFallbackRows(rows: readonly FallbackRow[], state: FallbackSta
 
 /** Where each unslotted mode goes natively (D-6). Mood shares the native Clownbot screen. */
 export const MODE_PATHS: Partial<Record<AppMode, string>> = {
-  community: '/?mode=community',
   clownbot: '/?screen=clownbot',
   mood: '/?screen=clownbot',
 };
@@ -75,7 +66,7 @@ export function OverlayFallback() {
   const seen = useRef(new Map<string, string>());
   useEffect(() => {
     runFallbackRows(OVERLAY_FALLBACK_ROWS, state, seen.current, { openNative, diag }, actions);
-  }, [state.openTrackKey, state.trackGuideEraId]);
+  }, [state.mode]);
   return null;
 }
 
