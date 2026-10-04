@@ -40,7 +40,7 @@ function epoch() {
 }
 
 describe('DOM navigate over the real host reaches the native presenter', () => {
-  it.each(['/inbox'])('adapter.navigate(%s) opens it natively (not invalid)', async (path) => {
+  it.each(['/inbox', '/settings/about'])('adapter.navigate(%s) opens it natively (not invalid)', async (path) => {
     const e = epoch();
     e.dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));

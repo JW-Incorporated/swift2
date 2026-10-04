@@ -101,13 +101,15 @@ describe('SettingsPage (app host overlay)', () => {
     act(() => settingsOverlay.open());
     await screen.findByRole('button', { name: /enable notifications/i });
     expect(screen.queryByRole('button', { name: 'Notification inbox' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'About' })).toBeNull();
   });
 
-  it('shows the Inbox row, no About row, and Inbox navigates natively', async () => {
+  it('shows the Inbox and About rows and they navigate natively', async () => {
     const { navigate } = mount(notifications());
     act(() => settingsOverlay.open());
     fireEvent.click(await screen.findByRole('button', { name: 'Notification inbox' }));
     expect(navigate).toHaveBeenCalledWith('/inbox');
-    expect(screen.queryByText(/About/)).toBeNull();
+    fireEvent.click(await screen.findByRole('button', { name: 'About' }));
+    expect(navigate).toHaveBeenCalledWith('/settings/about');
   });
 });
