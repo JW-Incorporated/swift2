@@ -3,6 +3,9 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #98 · 2026-10-04 · done · Scrub ~70 unhashed FB names leaked into engagement_lead now, or wait? — "owner said answered in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602 (decision scrub recorded on issue #4885, repair shipped in PR #4951)" · by chat
+- #70 · 2026-10-04 · done · Confirm the first automated Facebook export — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602" · by chat
+- #88 · 2026-10-04 · done · Finish the weekly Facebook export setup — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602" · by chat
 - #98 · 2026-10-03 · done · Expo build minutes are used up until Nov 1 (~5 min) — "owner decided in chat 12:04 PDT: reroute (move release orchestration to GitHub Actions); PM executing" · by chat
 - #97 · 2026-10-03 · done · Make the parity check required on main (~3 min) — "owner verified 08:48 PDT — ruleset protect-swift2-main requires [\"build\",\"parity-gate\"]" · by chat
 - #96 · 2026-10-03 · done · Add Associated Domains to the iOS signing profile (~10 min) — "owner regenerated the App Store provisioning profile via EAS at 08:54 PDT (new Developer Portal ID 57SBZ45RQA); release train re-run 37134936992 started" · by chat

@@ -5,12 +5,12 @@
 import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createHotCornerPress, hotCornerRects } from '../lib/diag-hot-corner';
+import { createHotCornerPress, hotCornerRects, sharedHotCornerUnlock } from '../lib/diag-hot-corner';
 import { DiagnosticsPanel } from './DiagnosticsPanel';
 
 export function DiagHotCorner() {
   const [open, setOpen] = useState(false);
-  const onPress = useRef(createHotCornerPress(() => setOpen(true))).current;
+  const onPress = useRef(createHotCornerPress(() => setOpen(true), sharedHotCornerUnlock)).current;
   const insets = useSafeAreaInsets();
   const window = useWindowDimensions();
   const rects = hotCornerRects(insets, window);
