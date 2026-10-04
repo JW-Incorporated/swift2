@@ -1,3 +1,9 @@
+## FABLE RULING 2026-10-03 12:28 — pre-G0 parallelism (supersedes conflicting text below)
+
+Parallelism: a scaffold PR pre-creates per-slice barrels `packages/ui/src/reader/<slice>/index.ts`, package.json exports, and per-slice headings in MAP.md / READER-MOVE.md — executors edit ONLY under their own heading and never touch package.json exports or index.ts. PR0s consolidated into two PRs: α (2.5–2.8) and β (2.9–2.13, stacked on α). `shop.ts` / shop-networks / awin are owned by WP2.5 only (delete the WP2.9 claim). The 'A-series serial' rule and 'previous slice's A2' dependency rows are deleted; explicit deps only: wave 1 (parallel on main) = 2.5-A1, 2.6-A1, 2.9-A1 (minus shop), 2.11-clown A1, 2.12-A1; wave 2 = 2.7-A1, 2.8-A1, 2.13-A1b after 2.5-A1; 2.10-A1 after 2.9-A1. A2s stack on their own A1, HostAdapter edits additive, one A2 merge at a time. All X-D app mounts and 2.11-D1 HOLD until G0 GO. Integration order (PM sole merger, one at a time; after each merge open branches `git merge origin/main`, never rebase): scaffold → #4895 → PR0α → PR0β → F1 → D1 → E1 → 2.5-A1 → other wave-1 A1s → A2s → wave 2.
+
+---
+
 # WP2.9–2.13 (screen slices) + WP2.14 (watchdog for default-on): executor briefs, draft for the PM
 
 ## FABLE REQUIRED (2026-10-03 06:10) - supersedes the PM rulings block and anything below where they conflict

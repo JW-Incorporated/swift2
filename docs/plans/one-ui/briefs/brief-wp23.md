@@ -1,3 +1,9 @@
+## FABLE RULING 2026-10-03 12:28 — pre-G0 parallelism (supersedes conflicting text below)
+
+The pre-G0 line is transport, not app side. D/E/F split: D1/E1/F1 = pure RN-side handler modules (`bridge-handlers-{ui,notifications,api}`, exposing `createHandlers(deps)`), the notification tap queue, ApiFetch `signal`, `/vault/live` + share-PNG CORS — GO pre-G0, fake-host tests, zero edits to SharedUiHost.tsx / dom/bridge/transport-expo.ts / dom/spike. D2 (backTick/spike), E2/F2 wiring, B4, C3 — HOLD until G0 GO. Review must audit transport isolation (no expo/SharedUiHost imports in D1/E1/F1). The earlier 19:00 ruling 'hold all of 2.3-D/E/F' is superseded.
+
+---
+
 # WP2.3 Bridge protocol: executor briefs (draft, six PRs A–F)
 
 Drafted 2026-10-02 against `origin/main` @ `b09c8246`. Sources: PLAN.md §WP2.3, "Calls made up front" (C1–C6), "Cross-cutting concerns" (X1–X4); OPERATING-MODE.md §7 and §9; PROGRESS.md 16:54 (WP2.3 prep).
@@ -13,7 +19,7 @@ The host dispatcher (B) MUST implement and test: exactly one `res` per `cmd`; un
 4. D `navigate` semantic: in-DOM routing stays in the DOM (history API, X4 paths); DOM→native `navigate` only for routes native still owns, else `{ok:false, code:'invalid'}`.
 5. Transport isolation (G0 guard): everything Expo-DOM-specific (`inbox` prop, `bridge` native action) lives in exactly two files — B's SharedUiHost wiring and C's `dom/bridge/transport-expo.ts`; envelope/client/host transport-neutral. State in A/B/C acceptance.
 RULING ClownChat: /api/clown stays out of F; built later in the WP2.11 Clownbot slice as "F2": F's allowlist gets per-endpoint `nativeSession: true`; native holds the server-issued cookie in memory and re-attaches it for /api/clown only; nothing crosses the bridge, no DOM storage, no server change. Wrong-signal: clown-session-store.ts cookie attributes rotate per response.
-TIMING: wait for G0 → 2.3-D, E, F, 2.3-B step 4, 2.3-C step 3. Proceed after G1 lands → 2.3-A, 2.3-B logic, 2.3-C client/contract.
+TIMING: D1/E1/F1 pre-G0 (GO); D2/E2/F2 after G0 GO.
 
 ## PM rulings (2026-10-02 18:58) — supersede the open questions below
 1. Bridge version range = JS constant in bridge-host.ts (DOM bundle ships in the same OTA update group; no native change). 2. /api/clown EXCLUDED from F (HttpOnly cookie session); in-app ClownChat handling = open question for Fable. 3. Device endpoints via E (notification commands), not F. F also extends the X1 CORS rule to /vault/live/* and the share-card PNG. 4. Approved: optional AbortSignal `signal` on ApiFetch (packages/content/src/api-fetch.ts added to F touch set). 5. D depends on WP0.5b (#4822) merged. Every Land line: never --delete-branch a branch with open child PRs.

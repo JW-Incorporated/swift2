@@ -17,6 +17,56 @@ lib/longlive #4862, E extensions #4859); **WP2.3 A/B/C pre-G0 scope** (#4850, #4
 build 18 (0a1ef202) submitted to Play internal 11:43Z**. G0 evidence pack: g0-evidence.md.
 **IN FLIGHT:** lint allow-list cleanup (merch-filters/shims/clown-board); /support footer
 parity capture.
+
+**ADDENDUM 2026-10-04 06:40 PDT — G0 = GO with conditions (Fable log). S4 CLOSED, merge freeze lifted.**
+- Owner 06:37: "Use the android info and apply it everywhere" → iOS/iPad deferred to new **iOS-1 gate** (between Wave 3 and Wave 4). Evidence: g0-evidence.md S4 Android (d7cb6d3e).
+- Wave 1 dispatching: W1-A H0, W1-B H4/D1 (+#4953 inset fix), W1-D H6 drafts, W1-E parity b-side scaffolding, W1-F YouTube wrapper (#4954). W1-C 2.11-D1 already done (#4941). Merge order H0 → H4/D1 → rest.
+- PM calls 06:48: universal links claim **www only** (apex 308 is Vercel domain-level, can't exempt /.well-known) → H6 drops apex from app.json associatedDomains + intent filter (native change, rides H6 store build). WP1.1 WebKit leg exists + green (main run 37090052458); iOS-1 needs a fresh cited run. HA #99 filed (Apple Team ID + Play SHA-256, for H6).
+- Wave 1 PRs: #4957 W1-D (auto-merge), #4958 W1-E (approved, auto-merge), #4960 W1-F (reviewer APPROVE, Codex pending), #4961 W1-B D1 (review pending; merges after H0). H0 building.
+- New issues from S4: #4952 (native images, not One UI scope), #4953, #4954, #4955 (backlog).
+
+**ADDENDUM 2026-10-04 06:18 PDT — S4 session (now closed):**
+- Android Pixel 10 Pro / Android 16, build 1.0.0 (18), update 01a10400-19de-7c8e-bc45-321d0e91143e (from [diag] on #4791 — never ask owner to type ids).
+- A native speed run 5ef3e6c1: FAIL — worst cold 3184 ms (>2500), worst warm 222 ms; counted 7 cold/3 warm (OS killed bg app). Owner: scroll lags ~0.5 s (#4895); post images missing ~half of launches → #4952 filed (likely unthrottled bare RN <Image> burst, no onError; scorer image metric blind to it).
+- B shared UI: hot corner TOP failed, BOTTOM worked (gesture nav) → #4877 deep link not needed on Android. Shared-UI speed run in progress. Remaining: C checklist, iPhone (build 38), then g0-evidence + Fable G0.
+
+**ADDENDUM 2026-10-03 14:47 PDT (supersedes earlier addenda where they conflict):**
+- ALL pre-G0 One UI work is merged or auto-merging. Merged since 13:40 (or armed): #4915 #4917 #4919 #4921 (speed-test scorer, `npm run one-ui:score-speed`) #4922 (client-corpus sentinel) #4923 (HostStorage.get tri-state) #4924 #4925 #4926 #4927 (vitest 30 s timeouts, #4920) #4929 (era perf rung 1b; #4901 closed) #4930 (MerchMarquee CSP, live-site fix) #4931 #4932 (OPERATING-MODE heartbeat/cap/codex/HA-steps) #4933 #4934 #4937 (Mood) #4938 #4939 #4940 #4941 #4942 (#4935) #4944 (eslint covers apps/mobile + transport-isolation ban, #4943).
+- WP2.4–2.13 extraction + A2s complete (2.6/2.8/2.10 A2 empty; 2.10 `_blank` → 2.4-D interceptor). Wave 0 of the post-G0 plan complete: composer + slots/routes registries, presentNativeRoute (deadlines/tick/reset), ack hook ({epoch,seq}), expo-fetch-deps + clown allow-list (apiTimeoutFor shared table), ClownChat apiStream.
+- Post-G0 plan: docs/plans/one-ui/post-g0-plan.md (Fable-reviewed 14:10, rulings appended). Fable consults today logged in STATE.md (incl. #4901, #4903, #4904, #4915, #4923, #4934, #4939, #4940, #4941).
+- Store: iOS build 38 (bd2e0580, new profile) submitted to TestFlight 20:04Z; Android OTA live with Speed test mode + diag hot corner (top/bottom inset strips).
+- BLOCKED ON OWNER: S4 device session (Android now; iPhone when TestFlight processes; iPad when invite arrives) — 15-step checklist given in chat 13:40 (Speed test native + shared UI, hot-corner check, images/embeds/fonts/offline/ClownChat/watchdog, probe JSON). Then Fable G0 go/no-go using g0-evidence.md S2/S4 table → execute post-G0 plan waves (H0 B4+C3 critical path; D2 only after device ready→ack).
+- Open follow-ups: #4874 (durable report dedupe, 2 consumers), #4877 (diag deep link — only if both hot-corner strips fail on device).
+
+**ADDENDUM 2026-10-03 13:40 PDT (supersedes earlier addenda where they conflict):**
+- OWNER: "ramp to maximum parallelism and go fast" — cap 10 agents (≤6 branch-writing). Fable 12:28 ruling: pre-G0 line = transport; packages/ui/apps/web/e2e/pure handler modules GO; Expo-DOM wiring/app mounts/spike edits HOLD. Briefs revised (commit 521b7027).
+- HA #98 → owner chose REROUTE; release train now GitHub Actions + EAS CLI (#4897, #4905 buffer fix). plan_only verified Android reuse; real run 37149769717 GREEN: iOS store build bd2e0580 → TestFlight (new profile), Android OTA published (Speed test mode #4898 + diag hot-corner #4875). Free EAS builds: 16/30 used before that run.
+- S2 owner run 12:04: inconclusive (all reports labelled warm, stale marks, JS-start anchor) → fixed by Speed test mode (#4898: one switch, 10 launches, auto summary PASS/FAIL). Owner given steps; awaiting run.
+- Owner decision: do NOT fix native era stream (#4895 now a One UI perf requirement).
+- MERGED today since 11:27: #4897 #4898 #4900(scaffold) #4902(D1) #4904(E1) #4905 #4906(PR0α) #4907(2.12) #4908(2.5-A1) #4909(2.6-A1) #4910(2.9-A1) #4911(2.7-A1) #4912(2.11) #4913(2.8-A1) #4914(2.13-A1b) #4884(intake idempotency, HMAC marker).
+- LANDING (auto-merge armed): #4903 F1, #4915 2.13-A1, #4917 2.10-A1. IN REVIEW: #4901 era perf rung 1 (Codex r2; harness compares displayed decoded in-region images). BUILDING: PR0β (2.9–2.13 captures), 2.6-A1b TheoryGuide, A2s for 2.5/2.7/2.9/2.13-FeedbackButton, #4918 client-corpus sentinel.
+- Follow-ups: #4874 (durable report dedupe, 2 consumers), #4877 (diag deep link, needs device evidence), #4883 done via #4884, #4895 (era perf), #4918.
+- Fable invocations today (logged in STATE.md): #4867, #4875, #4882, #4884, #4897, #4898, #4903, #4904, #4915, pre-G0 parallelism.
+- Process: PM heartbeat cron every 30 min targets 10 busy agents; Codex via direct `codex exec -s read-only -o out.md - < prompt.md` (companion queue wedges; cancel needs MSYS_NO_PATHCONV=1).
+- NEXT: land in order; remaining A2s (2.6, 2.8 if any, 2.10, 2.11 already done, 2.12 done); owner Speed test run → S4 (incl. #4877 hot-corner device check, #4895 image timing) → Fable G0 go/no-go → HOLD items (WP2.3 B4/C3/D2/E2/F2 wiring, 2.4-D, X-D mounts, 2.11-D1).
+
+**ADDENDUM 2026-10-03 11:27 PDT (supersedes 09:40 where they conflict):**
+- MERGED: #4875 (closes #4872; hidden 7-tap Diagnostics in top+bottom inset strips while SharedUiHost is mounted; Fable ruling after 2 Codex rejections; deep-link fallback #4877 pending device evidence), #4876 WP2.4 A2 (17:21Z; parity harness now stubs canonical-origin /vault/*), #4880 WP2.4 B (18:02Z; @swift2/ui declares lucide-react/@radix-ui/react-slot/cva), #4881 WP2.4 C (18:13Z; source-reading tests repointed to packages/ui), #4882 WP2.4 C2 (18:23Z; CurrentItemDetail intake via useHost().apiFetch; mobile intake non-functional until WP2.3-F — Fable accepted; body-read retry gap → #4883).
+- WP2.4 pre-G0 work is COMPLETE (0, A1, A2, B, C, C2). Next WP2.4 step is D (after G0 GO).
+- IN REVIEW: #4884 (closes #4883, /api/intake idempotency: label+author-restricted search, sha256 marker, 2.5 s timeout, hit cache, in-flight map; cross-instance index-lag dupes accepted). Codex r2 pending.
+- Follow-ups open: #4874 (durable watchdog report dedupe), #4877 (diagnostics deep link — close with S2/S4 device evidence), #4883/#4884.
+- Codex runs: codex-companion queue wedges — use direct `codex exec -s read-only -o out.md - < prompt.md` in background; cancel needs MSYS_NO_PATHCONV=1.
+- BLOCKED ON OWNER: HA #98 (Expo CI minutes: pay/reroute/wait) → store builds AND likely OTA delivery of #4875; S2 Android (Clear storage first, then 5 cold + 5 warm Send report) → S4 → Fable G0 go/no-go → WP2.4-D, WP2.3 B4/C3/D/E/F, WP2.5–2.13.
+
+**ADDENDUM 2026-10-03 09:40 PDT (supersedes BLOCKED ON OWNER / NEXT WITH JOEY below where they conflict):**
+- MERGED: #4867 WP2.14 watchdog hardening (16:09Z; Fable fix-forward after 2 Codex rejections; follow-up #4874 durable dedupe); #4873 WP2.4 A1 move-only (reviewer + Codex APPROVE).
+- HA #97 DONE (parity-gate required, verified ruleset ["build","parity-gate"]); HA #96 DONE (owner regenerated iOS App Store profile 57SBZ45RQA).
+- NEW BLOCKER HA #98 (DECIDE, owner): Expo jw-labs free-plan CI/CD 60 min exhausted until 2026-11-01 — release train run 37134936992 failed at fingerprint job start. Options pay / reroute (move release steps to GitHub Actions) / wait. No store builds until decided; OTA (EAS Update) path status unverified.
+- IN REVIEW: #4875 (closes #4872: hidden 7-tap Diagnostics trigger in the top safe-area strip while SharedUiHost is mounted; r1 overlay swallowed TopBar wordmark taps → moved; reviewer r2 APPROVE, Codex r2 pending; device check needed: Android edge-to-edge strip receives touches). #4876 WP2.4 A2 (reviewer APPROVE, Codex r1 pending; minor follow-up: shareCardImage reports all host.share rejections as 'cancelled').
+- S2 prep: owner's Android build 18 showed no Settings button — likely force-shared-UI override left on from S1; told owner to Clear storage. S2 steps unchanged.
+- PROCESS: PM heartbeat cron every 30 min (:13/:43) polls Codex jobs (they finish silently) and refills worker slots (owner request). Every human action is given to the owner as literal steps in chat (owner request).
+- NEXT: land #4875/#4876 on Codex approve → WP2.4 B (brief-wp24.md "Brief 2.4-B") → C. D after G0.
+
 **BLOCKED ON OWNER:** **HA #97** (make `parity-gate` required — rulesets require only
 `build`) → unblocks WP2.4 A1 (move-only rule, brief-wp24.md) → A2 → B → C. **HA #96** (Apple
 Associated Domains) → iOS store builds + iOS/iPad device sessions.
@@ -36,6 +86,16 @@ brief-wp29-214.md top blocks (2.4-D gets overlayFallback + openExternal intercep
 ClownChat reuses OS-036 token; Turnstile: no native form; WP2.14 before any remote
 sharedUi:true). **Ask Joey:** is TURNSTILE_SECRET_KEY set in prod? **S4 add:** record
 time-to-ready per device.
+**07:34:** Peer session (Facebook automation) reported the main checkout was left
+detached by my agents (10-02 18:59 FETCH_HEAD; 10-03 02:49 origin/feature/
+one-ui-wp2.2a) — the weekly Facebook export (23:00) + its Chrome extension run
+FROM Projects/Swift2. Restored: `git checkout main` + `git pull --ff-only`
+(STATE.md untouched); replied "Swift2 on main". **Rule for every brief: never
+checkout/switch in the main checkout.** WP2.14 → #4867: reviewer REQUEST CHANGES
+(High: not-yet-wired items unmarked; Med: auto watchdog reports to PUBLIC #4791
+with device model, default on, no rate limit). PM: reports default OFF until remote
+config enables; ≤1 report/build/day; payload platform+build+category only; TODO
+markers; lows. Fix after Codex r1 (`task-musfe9mg-7yjgui`).
 Briefs: docs/plans/one-ui/briefs/brief-wp2{1,2,3,4}.md (top blocks = binding rulings).
 
 (Session log 2026-10-02 16:10 → 2026-10-03 05:41 moved verbatim to `PROGRESS-archive-2026-10-03.md`; earlier history in `PROGRESS-archive-2026-10-02.md`.)
@@ -70,6 +130,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 
 | Date | Question | Advice | PM decision |
 |---|---|---|---|
+| 2026-10-04 06:39 | **G0 go/no-go** (Android-only S4; owner deferred iOS) | GO with conditions. Reject https baseUrl; #4954 fix = apps/web wrapper `/embed/youtube/[id]` + packages/ui iframe switch when host is app (new W1-F), must play on device at S5 + iOS-1 before Wave 5; new hard gate **iOS-1** (iPhone+iPad, build 38 + Wave 1–3 OTA, S4 checklist, H4/D2 ready→ack on both OS, WP1.1 WebKit leg green) before Wave 4; #4953 in W1-B: SafeAreaView edges [] around DOM host, DOM sole inset owner, retest top hot corner after; 5/5 speed capture folded into S5/iOS-1; #4955 backlog | Adopted in full |
 | 2026-10-02 | Plan review (pre-kickoff) | Blocker: no CORS on `/content`; watchdog too late; missing native-needs audit; `next/font` breaks parity; PROGRESS landing, kickoff prompt, OTA freeze undefined | All five required edits and the minor notes adopted (WP0.3b, WP0.4b, needs matrix, fonts in WP2.1, OPERATING-MODE §3/§6/§8 kickoff, `[diag]` → one issue, perceptual diff, OTA size budget) |
 
 | 2026-10-02 | Pre-launch review of WP0.3b + WP0.4 briefs | 0.3b: bridge-serializable `ApiFetch` ({method,path,headers,body:string}); strip non-safelisted request headers (no preflight); expose ETag only if read; no `Vary: Origin`; curl the Vercel preview on `www.`. 0.4: must-add = any WP through G5; add orientation/tablet, splash-hold, web-browser, inline media, X4 prereqs, fonts, webview version rows; name DOM ready/crash/imperative mechanisms + release origin/IndexedDB persistence; test page proves `onReady` + crash callbacks in S3; store build only if fingerprint diff non-empty; Fable signs matrix at the stage 1→2 boundary instead of post-impl | All 12 REQUIRED adopted; 0.4 Stage 1 launched first (critical path), 0.3b next free slot |
