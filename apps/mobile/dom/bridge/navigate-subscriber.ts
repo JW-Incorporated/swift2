@@ -1,15 +1,15 @@
 // DOM side of native-to-DOM `navigate` (W2-I): the notification tap gate emits it to a bound host.
-// The reader reads its deep link (?item=, ?lens=, ?era=, ?mode=...) once on mount from the page URL, so
-// the reader-owned route (pathname `/`) is: rewrite the query (search + hash only; the DOM page keeps its
-// own path), remount the reader, and only AFTER the remount committed answer `navigated {id, ok:true}`.
-// Anything else (another pathname, a throw) answers ok:false so the tap stays queued, never a silent home.
+// The reader-owned route (pathname `/`) is applied THROUGH the reader store (never a remount, so open overlays and
+// scroll survive): rewrite the page query (search + hash only; the DOM page keeps its own path), apply the
+// search via `deps.apply`, and only AFTER that committed answer `navigated {id, ok:true}`. Anything else
+// (another pathname, no reader mounted yet, a throw) answers ok:false so the tap stays queued, never a silent home.
 // Native opens every non-reader path itself (lib/tap-bind-epoch.ts createTapTarget); the DOM never sees it.
 import type { EventPayloadOf } from '@swift2/ui';
 
 export type NavigateDeps = {
   replaceUrl: (relative: string) => void;
-  /** Resolves once the reader has remounted and committed. */
-  remount: () => Promise<void>;
+  /** Applies the reader search through the store; resolves once it committed, rejects when no reader is mounted. */
+  apply: (search: string) => Promise<void>;
 };
 
 type NavigateClient = {
@@ -22,7 +22,7 @@ export async function applyNavigateEvent(e: Pick<EventPayloadOf<'navigate'>, 'pa
     const u = new URL(e.path, 'http://dom.invalid');
     if (u.pathname !== '/') return false;
     deps.replaceUrl(`${u.search || '?'}${u.hash}`);
-    await deps.remount();
+    await deps.apply(u.search);
     return true;
   } catch {
     return false;

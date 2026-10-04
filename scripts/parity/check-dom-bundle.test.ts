@@ -55,6 +55,11 @@ describe('check-dom-bundle', () => {
     expect(pickSentinel(['Picture to Burn'], 12)).toBe('Picture to Burn');
   });
 
+  it('passes a clean AppReader bundle (the renamed ReaderSpike)', () => {
+    const root = fixture(['/r/apps/mobile/dom/AppReader.tsx'], 'var x=1');
+    expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual([]);
+  });
+
   it('passes a clean ReaderSpike bundle', () => {
     const root = fixture(['/r/apps/mobile/dom/ReaderSpike.tsx'], 'var x=1');
     expect(checkDomBundle(exportDirOf(root), SENTINELS, root).problems).toEqual([]);
