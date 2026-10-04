@@ -101,7 +101,7 @@ describe('spike resolver: singletons', () => {
 });
 
 describe('spike resolver: scope', () => {
-  const mobileOrigin = path.join(root, 'apps/mobile/dom/ReaderSpike.tsx');
+  const mobileOrigin = path.join(root, 'apps/mobile/dom/AppReader.tsx');
 
   it.each(['ios', 'android', null])('does nothing on platform %s', (platform) => {
     for (const spec of ['./content', '@/lib/longlive/content', 'next/link', 'next/image', 'react', 'scheduler']) {

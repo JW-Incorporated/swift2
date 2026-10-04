@@ -1,16 +1,18 @@
 'use dom';
 
-// One UI WP0.5b: the real era stream, moment detail and bottom nav inside the
-// DOM host. The webview is READ-ONLY over the native disk cache: the host
+// One UI H4/D2: the production DOM-host reader (was ReaderSpike): packages/ui ReaderRoot with the slot
+// registry, the app HostAdapter and the bridge. The webview is READ-ONLY over the native disk cache: the host
 // passes a file:// URI + version token (config, not content, C6); the bundle is
 // read here, turned into a ReaderSnapshot with packages/content (C6), poured
 // into the shims, and only THEN are the web components required (their
 // module-level constants derive from the filled arrays).
 import './reader-spike.css';
-import { useEffect, useRef, useState, type ComponentType } from 'react';
+import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import { eraVideoFeed } from '@swift2/content-enrichment';
-import { UI_PACKAGE_VERSION, type Envelope, type Insets } from '@swift2/ui';
-import { installNavigateSubscriber, type NavigateDeps } from './bridge/navigate-subscriber';
+import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
+import type { NavigateDeps } from './bridge/navigate-subscriber';
+import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
+import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './spike/probe';
 import { probeScript, readLocalText } from './spike/read-local';
@@ -20,7 +22,7 @@ import { installStorageShim } from './spike/storage-shim';
 import { loadReader, type ReaderProps } from './spike/reader-modules';
 import { setImageLoadListener } from './spike/image-listener';
 
-export interface ReaderSpikeProps {
+export interface AppReaderProps {
   /** file:// URI of the native `last-good` cache file. */
   cacheUri?: string;
   /** Web/dev seed for the probe version; on device the host sends it as the `contentVersion` event. */
@@ -47,7 +49,7 @@ export interface ReaderSpikeProps {
 }
 
 /** Dev/web only: ?inset=top,right,bottom,left simulates the native safe-area insets. */
-function insetsFromQuery(): ReaderSpikeProps['insets'] {
+function insetsFromQuery(): AppReaderProps['insets'] {
   const raw = new URLSearchParams(window.location.search).get('inset');
   if (!raw) return undefined;
   const [top = 0, right = 0, bottom = 0, left = 0] = raw.split(',').map((n) => Number(n) || 0);
@@ -56,49 +58,76 @@ function insetsFromQuery(): ReaderSpikeProps['insets'] {
 
 type Probe = ReturnType<typeof createProbe>;
 
+const ZERO_INSETS: Insets = { top: 0, right: 0, bottom: 0, left: 0 };
+/** The in-DOM web path: the page keeps its own path, only the query (deep link) varies. */
+const getPath = () => `/${window.location.search}${window.location.hash}`;
+
 type BackFn = () => 'handled' | 'exit';
-type MountProps = Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge'>> & {
+type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag'>;
+type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & {
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
   navigateDeps: NavigateDeps;
   backRef: { current: BackFn | null };
+  onClient: (client: ReaderClient) => void;
 };
 
-/** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox. Mounted only where a native host supplies `bridge`. */
-function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef }: MountProps) {
-  useExpoBridge({ inbox, bridge }, { onFatal }, (client) => {
-    const offs = [
-      client.on('insets', onInsets),
-      client.on('contentVersion', (e) => onContentVersion(e.token)),
-      client.handle('back', () => backRef.current?.() ?? 'exit'),
-      installNavigateSubscriber(client, navigateDeps),
-    ];
-    return () => offs.forEach((off) => off());
-  });
+/** Web/dev (no native host): the bridge calls the adapter makes fail closed. */
+const NO_BRIDGE: ReaderClient = { call: (async () => resErr('failed', 'no bridge')) as ReaderClient['call'], sendDiag: () => {} };
+
+/** Renders nothing: sends `ready` after mount, subscribes the native events and the back responder, drains the inbox, and shares its client (the adapter uses the same one). Mounted only where a native host supplies `bridge`. */
+function ExpoBridgeMount({ inbox, bridge, onFatal, onInsets, onContentVersion, navigateDeps, backRef, onClient }: MountProps) {
+  const client = useExpoBridge({ inbox, bridge }, { onFatal }, (c) =>
+    installReaderBridge(c, { onInsets, onContentVersion, back: () => backRef.current?.() ?? 'exit', nav: navigateDeps }),
+  );
+  useEffect(() => onClient(client), [client]);
   return null;
 }
 
-export default function ReaderSpike(props: ReaderSpikeProps) {
+export default function AppReader(props: AppReaderProps) {
   const { cacheUri, versionToken = '', devLoader } = props;
   const [hostInsets, setHostInsets] = useState<Insets | undefined>();
   const insets = hostInsets ?? props.insets ?? (devLoader ? insetsFromQuery() : undefined);
   const backRef = useRef<BackFn | null>(null);
-  // A native-to-DOM navigate rewrites the page query and remounts the reader, which re-reads its deep link.
-  const [readerKey, setReaderKey] = useState(0);
-  const remountWaiters = useRef<(() => void)[]>([]);
-  useEffect(() => {
-    const w = remountWaiters.current.splice(0);
-    w.forEach((done) => done());
-  }, [readerKey]);
+  const [bridgeClient, setBridgeClient] = useState<ReaderClient | null>(null);
+  const client = props.bridge ? bridgeClient : NO_BRIDGE;
+  const clientRef = useRef(client);
+  clientRef.current = client;
+  // A native-to-DOM navigate is applied through the reader store (ReaderBridge installs the applier) (the reader never re-keys), so open overlays survive.
+  const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
   const navigateDeps = useRef<NavigateDeps>({
     replaceUrl: (relative) => window.history.replaceState(null, '', relative),
-    remount: () =>
-      new Promise<void>((resolve) => {
-        remountWaiters.current.push(resolve);
-        setReaderKey((k) => k + 1);
-      }),
+    apply: (search) => (applierRef.current ? applierRef.current(search) : Promise.reject(new Error('reader not mounted'))),
   }).current;
+  const controls = useMemo<Omit<ReaderControls, 'slottedModes'>>(
+    () => ({
+      registerBack: (fn) => void (backRef.current = fn),
+      setApplier: (fn) => void (applierRef.current = fn),
+      openNative: async (path) => {
+        const web = toWebPath(path);
+        const c = clientRef.current;
+        if (!web || !c) return false;
+        try {
+          return (await c.call('navigate', { path: web, replace: false })).ok;
+        } catch {
+          return false;
+        }
+      },
+      diag: (stage, detail) => clientRef.current?.sendDiag(stage, detail),
+      lastSlotted: { current: 'era' },
+    }),
+    [],
+  );
+  const navigateDom = useMemo(
+    () =>
+      createNavigateDom({
+        replaceUrl: navigateDeps.replaceUrl,
+        applier: () => applierRef.current,
+        openNative: controls.openNative,
+      }),
+    [],
+  );
   const [Reader, setReader] = useState<ComponentType<ReaderProps> | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
   const started = useRef(false);
@@ -227,17 +256,18 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
       }}
       navigateDeps={navigateDeps}
       backRef={backRef}
+      onClient={setBridgeClient}
     />
   ) : null;
 
   const view = failed ? (
     <div style={{ padding: 16, color: '#fff' }}>Reader unavailable: {failed}</div>
-  ) : !Reader ? (
+  ) : !Reader || !client ? (
     <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ padding: 16, color: '#fff' }}>
       Loading...
     </div>
   ) : (
-    <Reader key={readerKey} registerBack={(fn) => void (backRef.current = fn)} />
+    <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} />
   );
   return (
     <>
