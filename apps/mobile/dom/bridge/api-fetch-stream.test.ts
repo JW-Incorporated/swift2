@@ -13,10 +13,12 @@ function rig(responses: (() => Response)[], dropReads = 0) {
   let drops = dropReads;
   const s = session(responses);
   const calls: string[] = [];
+  const cancelTargets: string[] = [];
   const client = {
     call: (type: string, payload: { targetId?: string }, o?: { signal?: AbortSignal }) => {
       calls.push(type);
       if (type === 'cancel') {
+        cancelTargets.push(payload.targetId as string);
         s.inflight.cancel(payload.targetId as string);
         return Promise.resolve(resOk(null));
       }
@@ -31,7 +33,7 @@ function rig(responses: (() => Response)[], dropReads = 0) {
     },
   } as unknown as BridgeClient;
   const apiFetch = createBridgeApiFetch(client);
-  return { ...s, calls, apiStream: createBridgeApiStream(apiFetch) };
+  return { ...s, calls, cancelTargets, apiStream: createBridgeApiStream(apiFetch) };
 }
 
 const line = (e: object) => `${JSON.stringify(e)}\n`;
@@ -93,18 +95,27 @@ describe('createBridgeApiStream (pull-based)', () => {
     expect(out).toEqual(['whole']);
   });
 
-  it('a lost apiRead result is retried with the same seq: no chunk is skipped', async () => {
+  it('T5: an apiRead timeout fails the stream: the generator throws after exactly one apiRead', async () => {
     const b = fakeBody();
     const r = rig([() => b.response], 1);
     b.push('one;');
-    const out: string[] = [];
-    const run = (async () => {
-      for await (const c of r.apiStream(req)) out.push(c);
-    })();
+    await expect(r.apiStream(req)[Symbol.asyncIterator]().next()).rejects.toThrow('timeout');
+    expect(r.calls.filter((c) => c === 'apiRead')).toHaveLength(1);
+  });
+
+  it('T2: aborting the signal sends cancel for the stream before the next api call', async () => {
+    const b = fakeBody();
+    const r = rig([() => b.response, () => fakeBody().response]);
+    const ac = new AbortController();
+    const first = r.apiStream(req, { signal: ac.signal })[Symbol.asyncIterator]();
+    const pending = first.next();
     await flush();
-    b.push('two;');
-    b.end();
-    await run;
-    expect(out.join('')).toBe('one;two;');
+    b.push('x');
+    await pending;
+    ac.abort();
+    void r.apiStream(req)[Symbol.asyncIterator]().next();
+    const order = r.calls.filter((c) => c === 'cancel' || c === 'api');
+    expect(order).toEqual(['api', 'cancel', 'api']);
+    expect(r.cancelTargets[0]).toMatch(/^s/);
   });
 });

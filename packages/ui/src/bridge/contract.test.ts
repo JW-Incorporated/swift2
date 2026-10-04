@@ -72,7 +72,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       'notifications.unregister': H<Empty, null>;
       'notifications.registration': H<Empty, { registered: boolean }>;
       api: H<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
-      apiRead: H<{ streamId: string; seq: number }, ApiStreamChunk>;
+      apiRead: H<{ streamId: string }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
     };
     expectTypeOf<HandlerMap>().toEqualTypeOf<Exact>();

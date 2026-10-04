@@ -34,7 +34,7 @@ describe('JSON round-trip, one sample per type', () => {
     'notifications.unregister': {},
     'notifications.registration': {},
     api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{}' } },
-    apiRead: { streamId: 's1', seq: 1 },
+    apiRead: { streamId: 's1' },
     cancel: { targetId: 'a1' },
     back: {},
   };

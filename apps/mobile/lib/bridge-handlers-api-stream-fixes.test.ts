@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CLOWN_TIMEOUT_MS } from '@swift2/ui';
 import { createHandlers } from './bridge-handlers-api';
+import { createStreamTable } from './bridge-handlers-api-stream';
 import { fakeBody, session } from './bridge-handlers-api-stream.test-kit';
 import { setup } from './bridge-host.test-kit';
 
 const flush = () => new Promise<void>((r) => setTimeout(r, 0));
-const readAt = (s: ReturnType<typeof session>, streamId: string, seq: number) => s.call('apiRead', { streamId, seq });
+const read = (s: ReturnType<typeof session>, streamId: string) => s.call('apiRead', { streamId });
 const text = (r: { ok: boolean; value?: unknown }) => (r.ok ? (r.value as { chunk: string }).chunk : '');
 
 afterEach(() => vi.useRealTimers());
@@ -22,8 +22,8 @@ describe('api stream: bounded buffer', () => {
     await flush();
     expect(b.reads).toHaveBeenCalledTimes(2);
     let total = '';
-    for (let seq = 1; seq <= 4; seq++) {
-      const r = await readAt(s, id, seq);
+    for (let i = 0; i < 4; i++) {
+      const r = await read(s, id);
       expect(text(r).length).toBeLessThanOrEqual(32 * 1024);
       total += text(r);
     }
@@ -36,8 +36,7 @@ describe('api stream: cancel during head handoff', () => {
   it('a cancel of the opening command id, arriving after native opened the stream, closes it and frees the slot', async () => {
     const b = fakeBody();
     const s = session([() => b.response, () => fakeBody().response]);
-    const first = await s.open();
-    expect(first.r.ok).toBe(true);
+    expect((await s.open()).r.ok).toBe(true);
     s.inflight.cancel(s.lastId());
     expect(b.cancel).toHaveBeenCalled();
     expect((await s.open()).r).toMatchObject({ ok: true });
@@ -48,7 +47,7 @@ describe('api stream: cancel during head handoff', () => {
     const s = session([() => b.response]);
     const { id } = await s.open();
     const openId = s.lastId();
-    void readAt(s, id, 1);
+    void read(s, id);
     await flush();
     s.inflight.cancel(openId);
     expect(b.cancel).not.toHaveBeenCalled();
@@ -63,64 +62,59 @@ describe('api stream: cancel during head handoff', () => {
     const r = await h.api({ req, stream: true }, { signal: ac.signal, own: () => (ac.abort(), () => {}) });
     expect(r.ok && 'streamId' in r.value).toBe(false);
     expect(b.cancel).toHaveBeenCalled();
-    const next = fakeBody();
-    fetchMock.mockImplementationOnce(async () => next.response);
+    fetchMock.mockImplementationOnce(async () => fakeBody().response);
     expect(await h.api({ req, stream: true }, { signal: new AbortController().signal })).toMatchObject({ ok: true, value: { streamId: expect.any(String) } });
   });
-});
 
-describe('api stream: terminal records are removed', () => {
-  it('deadline, error, done and cancel leave no record: the slot is free and every reader was cancelled', async () => {
-    vi.useFakeTimers();
-    const bodies = Array.from({ length: 12 }, () => fakeBody());
-    const s = session(bodies.map((b) => () => b.response));
-    for (let i = 0; i < 12; i++) {
-      const { id } = await s.open();
-      if (i % 3 === 0) await vi.advanceTimersByTimeAsync(CLOWN_TIMEOUT_MS);
-      else if (i % 3 === 1) s.inflight.cancel(id);
-      else {
-        bodies[i].end();
-        await readAt(s, id, 1);
-      }
-      expect(bodies[i].cancel).toHaveBeenCalled();
-    }
-    expect((await s.open()).r).toMatchObject({ ok: true });
-  });
-
-  it('an abandoned timed-out stream reports timeout once, then is gone', async () => {
-    vi.useFakeTimers();
-    const b = fakeBody();
-    const s = session([() => b.response]);
+  it('T1: cancel(A) then a new stream in the same tick gets a head; exactly one stream is open', async () => {
+    const a = fakeBody();
+    const s = session([() => a.response, () => fakeBody().response]);
     const { id } = await s.open();
-    await vi.advanceTimersByTimeAsync(CLOWN_TIMEOUT_MS);
-    expect(await readAt(s, id, 1)).toMatchObject({ ok: false, error: { code: 'timeout' } });
-    expect(await readAt(s, id, 2)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    s.inflight.cancel(id);
+    const next = await s.open();
+    expect(next.r).toMatchObject({ ok: true });
+    expect(a.cancel).toHaveBeenCalled();
   });
 });
 
-describe('api stream: retry-safe apiRead', () => {
-  it('a lost result followed by the same seq replays it: no bytes skipped, none duplicated', async () => {
-    const b = fakeBody();
-    const s = session([() => b.response]);
-    const { id } = await s.open();
-    b.push('AAA');
-    const lost = await readAt(s, id, 1);
-    expect(text(lost)).toBe('AAA');
-    expect(await readAt(s, id, 1)).toEqual(lost);
-    b.push('BBB');
-    expect(text(await readAt(s, id, 2))).toBe('BBB');
-    expect(text(await readAt(s, id, 2))).toBe('BBB');
-    expect(await readAt(s, id, 7)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+describe('api stream: terminal streams are deleted at once', () => {
+  const mk = (reader: object) => {
+    const table = createStreamTable({ maxBytes: 1 << 20, setTimer: (fn, ms) => setTimeout(fn, ms), clearTimer: (h) => clearTimeout(h as never) });
+    const opened = table.open({ reader: reader as never, abort: () => {}, onEnd: () => {} });
+    return { table, ...opened };
+  };
+
+  it('T3: a pump failure while a read waits fails that read; the next read is invalid and nothing is left', async () => {
+    let fail: (e: Error) => void = () => {};
+    const reader = { read: () => new Promise((_, rej) => (fail = rej)), cancel: async () => {} };
+    const { table, id } = mk(reader);
+    const waiting = table.read(id, new AbortController().signal);
+    await flush();
+    fail(new Error('boom'));
+    expect(await waiting).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(await table.read(id, new AbortController().signal)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(table.size()).toBe(0);
   });
 
-  it('replays the final done answer too', async () => {
+  it('T4: expire() makes the in-flight read time out; the next read is invalid and nothing is left', async () => {
+    const reader = { read: () => new Promise(() => {}), cancel: async () => {} };
+    const { table, id, expire } = mk(reader);
+    const waiting = table.read(id, new AbortController().signal);
+    await flush();
+    expire();
+    expect(await waiting).toMatchObject({ ok: false, error: { code: 'timeout' } });
+    expect(await table.read(id, new AbortController().signal)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(table.size()).toBe(0);
+  });
+
+  it('done and cancel also leave no record', async () => {
     const b = fakeBody();
-    const s = session([() => b.response]);
+    const s = session([() => b.response, () => fakeBody().response]);
     const { id } = await s.open();
     b.end();
-    const done = await readAt(s, id, 1);
-    expect(done).toMatchObject({ ok: true, value: { done: true } });
-    expect(await readAt(s, id, 1)).toEqual(done);
+    expect(await read(s, id)).toMatchObject({ ok: true, value: { done: true } });
+    expect(await read(s, id)).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect((await s.open()).r).toMatchObject({ ok: true });
   });
 });
 
@@ -132,11 +126,11 @@ describe('api stream: per-stream decoder and epoch', () => {
     const one = await s.open();
     a.push(new Uint8Array([0xe2, 0x82]));
     a.end();
-    await readAt(s, one.id, 1);
-    await readAt(s, one.id, 2);
+    await read(s, one.id);
+    await read(s, one.id);
     const two = await s.open();
     b.push('ok');
-    expect(text(await readAt(s, two.id, 1))).toBe('ok');
+    expect(text(await read(s, two.id))).toBe('ok');
   });
 
   it('a DOM re-handshake (second ready) aborts the host streams: a stale streamId is invalid', async () => {
@@ -151,7 +145,7 @@ describe('api stream: per-stream decoder and epoch', () => {
     const { streamId } = head.value;
     u.makeReady('e-ready-2');
     expect(b.cancel).toHaveBeenCalled();
-    u.cmd('2', 'apiRead', { streamId, seq: 1 });
+    u.cmd('2', 'apiRead', { streamId });
     await flush();
     expect(u.resFor('2')[0].payload).toMatchObject({ ok: false, error: { code: 'invalid' } });
   });

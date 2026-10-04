@@ -24,52 +24,42 @@ export type OpenStream = {
   onEnd: () => void;
 };
 
-type Settled = { seq: number; result: ResResult<ApiStreamChunk> };
-
 type Stream = OpenStream & {
   id: string;
   dec: TextDecoder;
   queue: Uint8Array[];
   /** Unread bytes retained in `queue`: never above API_STREAM_BUFFER_BYTES. */
   queued: number;
-  /** The tail of one source chunk that did not fit the buffer; the reader is not read again until it is moved over. */
+  /**
+   * Retention is bounded by maxBytes + API_STREAM_BUFFER_BYTES (~320 KB) because `total` caps what the source can deliver.
+   * The tail of one source chunk that did not fit the buffer; the reader is not read again until it is moved over. */
   carry: Uint8Array | null;
   total: number;
   ended: boolean;
   dead: boolean;
+  /** Why it ended, when not by a plain close; read once by an in-flight read. */
+  error: ResResult<never> | null;
   pumping: boolean;
   reading: boolean;
-  /** Last answered read, replayed when the DOM retries the same seq (a lost result). */
-  last: Settled | null;
   wake?: () => void;
   unown?: () => void;
   unalias?: () => void;
 };
 
-const MAX_TOMBS = 8;
-
 export function createStreamTable(deps: StreamTableDeps) {
   const pollMs = deps.pollMs ?? API_STREAM_POLL_MS;
   const streams = new Map<string, Stream>();
-  /** Bounded record of how finished streams ended, so a late or retried apiRead still gets its answer. */
-  const tombs = new Map<string, Settled>();
   let opening = false;
   let seq = 0;
 
   const hasOpen = () => opening || streams.size > 0;
-
-  function tomb(id: string, entry: Settled) {
-    tombs.delete(id);
-    tombs.set(id, entry);
-    if (tombs.size > MAX_TOMBS) tombs.delete(tombs.keys().next().value as string);
-  }
 
   /** Terminal: removes the record at once and releases everything it held. */
   function finish(s: Stream, error: ResResult<never> | null) {
     if (s.dead) return;
     s.dead = true;
     streams.delete(s.id);
-    if (error) tomb(s.id, { seq: (s.last?.seq ?? 0) + 1, result: error });
+    s.error = error;
     s.abort();
     void s.reader.cancel().catch(() => {});
     s.queue = [];
@@ -174,9 +164,9 @@ export function createStreamTable(deps: StreamTableDeps) {
         total: 0,
         ended: false,
         dead: false,
+        error: null,
         pumping: false,
         reading: false,
-        last: null,
       };
       streams.set(id, s);
       opening = false;
@@ -187,18 +177,11 @@ export function createStreamTable(deps: StreamTableDeps) {
     },
     close,
     size: () => streams.size,
-    tombs: () => tombs.size,
-    /** `seq` is the DOM's monotonic read counter: the next read is `last + 1`; a repeat of `last` replays its answer. */
-    async read(id: string, readSeq: number, signal: AbortSignal): Promise<ResResult<ApiStreamChunk>> {
+    async read(id: string, signal: AbortSignal): Promise<ResResult<ApiStreamChunk>> {
       const s = streams.get(id);
-      if (!s) {
-        const t = tombs.get(id);
-        return t && t.seq === readSeq ? t.result : resErr('invalid', 'unknown stream');
-      }
+      if (!s) return resErr('invalid', 'unknown stream');
       s.unalias?.();
       s.unalias = undefined;
-      if (s.last && readSeq === s.last.seq) return s.last.result;
-      if (readSeq !== (s.last?.seq ?? 0) + 1) return resErr('invalid', 'unexpected read sequence');
       if (s.reading) return resErr('invalid', 'read already in flight');
       if (signal.aborted) return resErr('cancelled', 'cancelled');
       s.reading = true;
@@ -206,7 +189,7 @@ export function createStreamTable(deps: StreamTableDeps) {
         void pump(s);
         if (!s.queued && !s.ended && !s.dead) await waitForData(s, signal);
         if (signal.aborted) return resErr('cancelled', 'cancelled');
-        if (s.dead) return tombs.get(id)?.result ?? resErr('cancelled', 'stream closed');
+        if (s.dead) return s.error ?? resErr('cancelled', 'stream closed');
         let chunk = s.queued ? s.dec.decode(drain(s), { stream: true }) : '';
         let done = false;
         if (s.ended && !s.queued && !s.carry) {
@@ -214,13 +197,8 @@ export function createStreamTable(deps: StreamTableDeps) {
           done = true;
         }
         const result = resOk({ chunk, done });
-        if (done) {
-          tomb(id, { seq: readSeq, result });
-          finish(s, null);
-        } else {
-          s.last = { seq: readSeq, result };
-          void pump(s);
-        }
+        if (done) finish(s, null);
+        else void pump(s);
         return result;
       } finally {
         s.reading = false;

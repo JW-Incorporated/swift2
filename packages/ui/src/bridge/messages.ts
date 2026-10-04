@@ -40,10 +40,10 @@ export type DomCommandSpec = {
    */
   api: Spec<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
   /**
-   * Pull the next decoded chunk of an open stream (long-poll, `{ chunk: '', done: false }` on an idle poll). `seq` counts
-   * reads from 1; repeating the last seq replays its answer (retry-safe), anything else out of order is `invalid`.
+   * Pull the next decoded chunk of an open stream (long-poll, `{ chunk: '', done: false }` on an idle poll). Any ambiguity
+   * (a timed-out or lost read) fails the stream; there is no replay.
    */
-  apiRead: Spec<{ streamId: string; seq: number }, ApiStreamChunk>;
+  apiRead: Spec<{ streamId: string }, ApiStreamChunk>;
   /** `targetId` is a command id, or an open stream's id (which aborts that stream). */
   cancel: Spec<{ targetId: string }, null>;
 };

@@ -94,7 +94,7 @@ export function createHandlers(deps: ApiHandlerDeps): Pick<HandlerMap, 'api' | '
   const clearTimer = deps.clearTimer ?? ((h) => clearTimeout(h as ReturnType<typeof setTimeout>));
   const streams = createStreamTable({ maxBytes: MAX_API_BYTES, setTimer, clearTimer });
   return {
-    apiRead: (payload, ctx) => streams.read(payload.streamId, payload.seq, ctx.signal),
+    apiRead: (payload, ctx) => streams.read(payload.streamId, ctx.signal),
     api: async (payload, ctx): Promise<ResResult<ApiResponse | ApiStreamHead>> => {
       const req = payload?.req;
       if (!req || !API_ALLOWLIST.includes(`${req.method} ${req.path}`)) {

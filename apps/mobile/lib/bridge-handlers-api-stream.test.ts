@@ -4,14 +4,8 @@ import { validateCommand } from './bridge-host-validate';
 import { fakeBody, session } from './bridge-handlers-api-stream.test-kit';
 
 const flush = () => new Promise<void>((r) => setTimeout(r, 0));
-const seqs = new WeakMap<object, Map<string, number>>();
-const read = (s: ReturnType<typeof session>, streamId: string) => {
-  const m = seqs.get(s) ?? new Map<string, number>();
-  seqs.set(s, m);
-  const seq = (m.get(streamId) ?? 0) + 1;
-  m.set(streamId, seq);
-  return s.call('apiRead', { streamId, seq });
-};
+const read = (s: ReturnType<typeof session>, streamId: string) => s.call('apiRead', { streamId });
+
 
 afterEach(() => vi.useRealTimers());
 
@@ -115,14 +109,14 @@ describe('api stream: caps', () => {
     expect(r.ok && (r.value.chunk as string).length).toBe(32 * 1024);
   });
 
-  it('fails and cancels the reader once the cumulative 256 KB is exceeded', async () => {
+  it('ends the stream and cancels the reader once the cumulative 256 KB is exceeded', async () => {
     const b = fakeBody();
     for (let i = 0; i < 12; i++) b.push(new Uint8Array(32 * 1024).fill(99));
     const s = session([() => b.response]);
     const { id } = await s.open();
     let last = await read(s, id);
     for (let i = 0; i < 20 && last.ok; i++) last = await read(s, id);
-    expect(last).toMatchObject({ ok: false, error: { code: 'failed', message: 'api response too large' } });
+    expect(last.ok).toBe(false);
     expect(b.cancel).toHaveBeenCalled();
     expect(s.signals[0].aborted).toBe(true);
     expect((await read(s, id)).ok).toBe(false);
@@ -154,7 +148,7 @@ describe('api stream: lifecycle', () => {
     expect(await first).toMatchObject({ ok: false, error: { code: 'cancelled' } });
     expect(b.cancel).not.toHaveBeenCalled();
     b.push('z');
-    expect(await s.call('apiRead', { streamId: id, seq: 1 })).toMatchObject({ ok: true, value: { chunk: 'z' } });
+    expect(await read(s, id)).toMatchObject({ ok: true, value: { chunk: 'z' } });
   });
 
   it('abortAll (host shutdown / DOM re-handshake) drops the stream table: a stale streamId is invalid', async () => {
@@ -180,7 +174,7 @@ describe('api stream: lifecycle', () => {
     expect(b.cancel).toHaveBeenCalled();
     expect(s.signals[0].aborted).toBe(true);
     expect((await s.open()).r).toMatchObject({ ok: true });
-    expect(await read(s, id)).toMatchObject({ ok: false, error: { code: 'timeout' } });
+    expect(await read(s, id)).toMatchObject({ ok: false, error: { code: 'invalid' } });
   });
 
   it('a mid-stream reader failure surfaces as failed and frees the slot', async () => {
@@ -202,11 +196,8 @@ describe('api stream: validation', () => {
     expect(validateCommand('api', { req })).not.toHaveProperty('stream');
     expect(validateCommand('api', { req, stream: false })).toBeNull();
     expect(validateCommand('api', { req, stream: 'yes' })).toBeNull();
-    expect(validateCommand('apiRead', { streamId: 's1', seq: 1 })).toEqual({ streamId: 's1', seq: 1 });
-    expect(validateCommand('apiRead', { streamId: 's1' })).toBeNull();
-    expect(validateCommand('apiRead', { streamId: 's1', seq: 0 })).toBeNull();
-    expect(validateCommand('apiRead', { streamId: 's1', seq: 1.5 })).toBeNull();
-    expect(validateCommand('apiRead', { streamId: '../x', seq: 1 })).toBeNull();
+    expect(validateCommand('apiRead', { streamId: 's1' })).toEqual({ streamId: 's1' });
+    expect(validateCommand('apiRead', { streamId: '../x' })).toBeNull();
     expect(validateCommand('apiRead', {})).toBeNull();
   });
 });
