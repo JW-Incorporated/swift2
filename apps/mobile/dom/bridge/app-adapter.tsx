@@ -81,10 +81,11 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
 
   const navigate: HostAdapter['navigate'] = (path, opts) => {
     const web = toWebPath(path);
-    if (web && deps.isNativeRoute(web)) {
+    if (!web) return;
+    if (deps.isNativeRoute(web)) {
       void deps.client.call('navigate', { path: web, replace: opts?.replace === true });
     } else {
-      deps.navigateDom(path, opts);
+      deps.navigateDom(web, opts);
     }
   };
 
@@ -115,12 +116,13 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     Image: AppImage,
     navigate,
     resolveUrl: (path) => resolveAppUrl(path, origin),
+    embedOrigin: APP_ORIGIN,
     onBack: deps.onBack,
     apiFetch: deps.apiFetch,
     storage: deps.storage ?? { local: webStorage('localStorage'), session: webStorage('sessionStorage') },
     env: { turnstileSiteKey: null, origin },
     insets: deps.insets,
-    currentUrl: () => resolveAppUrl(deps.getPath(), origin),
+    currentUrl: () => resolveAppUrl(toWebPath(deps.getPath()) ?? '/', origin),
     openExternal,
     share: async (payload) => {
       const r = await deps.client.call('share', payload);

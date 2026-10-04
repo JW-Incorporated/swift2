@@ -200,3 +200,17 @@ export function createNativeRoutePresenter(
   };
 }
 
+
+// The DOM surface (host + overlay Modal) is rendered only for mount 'dom' and not
+// while the update-required screen preempts it. Anything else must drop the overlay,
+// or a stale 'open' phase would keep owning hardware back with nothing on screen.
+export function domSurfaceRendered(mount: string, updateRequired: boolean): boolean {
+  return mount === 'dom' && !updateRequired;
+}
+
+export function reconcileOverlay(
+  presenter: { clearOnWatchdogFallback: () => NativeRouteResult },
+  rendered: boolean,
+): NativeRouteResult {
+  return rendered ? 'noop' : presenter.clearOnWatchdogFallback();
+}

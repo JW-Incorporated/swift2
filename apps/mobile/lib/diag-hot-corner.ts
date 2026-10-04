@@ -72,3 +72,6 @@ export function createHotCornerPress(onUnlock: () => void, unlock = createTapUnl
     if (unlock.tap()) onUnlock();
   };
 }
+
+/** One app-wide 7-tap counter: the strips in the root window and the ones in the overlay Modal window all feed it. */
+export const sharedHotCornerUnlock = createTapUnlock();

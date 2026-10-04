@@ -4,6 +4,8 @@ import {
   INITIAL_NATIVE_ROUTE_STATE,
   OPEN_MS,
   createNativeRoutePresenter,
+  domSurfaceRendered,
+  reconcileOverlay,
   isPresentablePath,
   msUntilDeadline,
   nativeOwnsBack,
@@ -227,5 +229,43 @@ describe('msUntilDeadline', () => {
     const s: NativeRouteState = { phase: 'opening', route: '/inbox', seq: 1, deadlineAt: 1000 };
     expect(msUntilDeadline(s, 400)).toBe(600);
     expect(msUntilDeadline(s, 1500)).toBe(0);
+  });
+});
+
+describe('overlay lifecycle vs the rendered DOM surface', () => {
+  const mk = () => {
+    const onChange = vi.fn();
+    const p = createNativeRoutePresenter({ isNativeRoute: (x) => x === '/inbox', now: () => 0, onChange });
+    return { p, onChange };
+  };
+  it('the DOM surface is rendered only for mount dom and not while update-required', () => {
+    expect(domSurfaceRendered('dom', false)).toBe(true);
+    expect(domSurfaceRendered('dom', true)).toBe(false);
+    expect(domSurfaceRendered('native', false)).toBe(false);
+    expect(domSurfaceRendered('pending', false)).toBe(false);
+  });
+  it('update-required while open drops the overlay and back ownership', () => {
+    const { p } = mk();
+    p.presentNativeRoute('/inbox');
+    p.opened(p.getState().seq);
+    expect(nativeOwnsBack(p.getState())).toBe(true);
+    reconcileOverlay(p, domSurfaceRendered('dom', false));
+    expect(p.getState().phase).toBe('open');
+    expect(reconcileOverlay(p, domSurfaceRendered('dom', true))).toBe('applied');
+    expect(p.getState().phase).toBe('idle');
+    expect(nativeOwnsBack(p.getState())).toBe(false);
+  });
+  it('watchdog fallback (mount native) drops the overlay too', () => {
+    const { p } = mk();
+    p.presentNativeRoute('/inbox');
+    reconcileOverlay(p, domSurfaceRendered('native', false));
+    expect(p.getState().phase).toBe('idle');
+  });
+  it('reconciling from idle is a no-op that does not notify or replace the state object', () => {
+    const { p, onChange } = mk();
+    const before = p.getState();
+    expect(reconcileOverlay(p, false)).toBe('noop');
+    expect(p.getState()).toBe(before);
+    expect(onChange).not.toHaveBeenCalled();
   });
 });

@@ -1,12 +1,14 @@
 // Pure DOM-side helpers for the app HostAdapter (One UI H4/D1): link
 // classification + click interception, the `_blank` capture interceptor, and the
 // tri-state storage wrapper. No React/RN/Expo imports, so they run under node tests.
+import { toWebPath } from '@swift2/ui';
 import type { HostStorage } from '@swift2/ui';
 
 export type LinkTarget =
   | { kind: 'dom'; path: string }
   | { kind: 'external'; url: string }
-  | { kind: 'pass' };
+  | { kind: 'pass' }
+  | { kind: 'blocked' };
 
 export interface NavDeps {
   /** Canonical site origin (`env.origin`). Absolute links to it are treated as in-app paths. */
@@ -26,24 +28,34 @@ export interface ClickLike {
   preventDefault: () => void;
 }
 
-/** Root-relative path (not protocol-relative) -> dom; https elsewhere -> external; same-origin absolute -> dom path. */
+/**
+ * Every in-app route must pass `toWebPath`; https elsewhere is external; a bare `#fragment`
+ * passes; everything else (malformed paths, `//host`, `javascript:`, `intent:`, `file:`,
+ * `mailto:`, plain http, relative hrefs) is blocked so it can never reach the host webview.
+ */
 export function classifyHref(href: string, origin: string): LinkTarget {
-  if (href.startsWith('/') && !href.startsWith('//')) return { kind: 'dom', path: href };
+  if (href.startsWith('#')) return { kind: 'pass' };
+  const asPath = (p: string): LinkTarget => {
+    const web = toWebPath(p);
+    return web ? { kind: 'dom', path: web } : { kind: 'blocked' };
+  };
+  if (href.startsWith('/')) return asPath(href);
   let url: URL;
   try {
     url = new URL(href);
   } catch {
-    return { kind: 'pass' };
+    return { kind: 'blocked' };
   }
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') return { kind: 'pass' };
-  if (url.origin === origin) return { kind: 'dom', path: `${url.pathname}${url.search}${url.hash}` };
-  if (url.protocol === 'https:') return { kind: 'external', url: url.href };
-  return { kind: 'pass' };
+  if (url.protocol !== 'https:') return { kind: 'blocked' };
+  if (url.origin === origin) return asPath(`${url.pathname}${url.search}${url.hash}`);
+  return { kind: 'external', url: url.href };
 }
 
 /**
- * One interceptor for `Link` clicks and `<a target="_blank">` capture. A click
- * the page already handled, a non-primary click, or a modified click is left alone.
+ * One interceptor for `Link` clicks and the `<a target="_blank">` capture. A click the page
+ * already handled is left alone. Every `_blank`/external click and every blocked href is
+ * consumed whatever the button or modifier keys; a modified/non-primary click on an ordinary
+ * link is consumed without acting (a webview has no new-tab semantics).
  */
 export function handleLinkClick(
   e: ClickLike,
@@ -51,40 +63,39 @@ export function handleLinkClick(
   opts: { blank: boolean; external: boolean },
   deps: NavDeps,
 ): void {
-  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (e.defaultPrevented) return;
   const target = classifyHref(href, deps.origin);
-  if (target.kind === 'dom') {
-    e.preventDefault();
-    deps.navigate(target.path);
-  } else if (target.kind === 'external') {
-    e.preventDefault();
-    deps.openExternal(target.url);
-  } else if (opts.blank || opts.external) {
-    // A popup/new-tab target must never navigate the host webview.
-    e.preventDefault();
-  }
+  const forced = opts.blank || opts.external;
+  if (target.kind === 'pass' && !forced) return;
+  e.preventDefault();
+  const plain = e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+  if (!plain && !forced) return;
+  if (target.kind === 'dom') deps.navigate(target.path);
+  else if (target.kind === 'external') deps.openExternal(target.url);
 }
 
 interface BlankCaptureDoc {
-  addEventListener: (type: 'click', fn: (e: never) => void, capture: boolean) => void;
-  removeEventListener: (type: 'click', fn: (e: never) => void, capture: boolean) => void;
+  addEventListener(type: 'click', fn: (e: never) => void): void;
+  removeEventListener(type: 'click', fn: (e: never) => void): void;
 }
 
 interface BlankCaptureEvent extends ClickLike {
   target: unknown;
 }
 
-/** Capture-phase `a[target=_blank]` interceptor for anchors that do not go through the host `Link`. */
+/**
+ * Bubble-phase `a[target=_blank]` interceptor for anchors that do not go through the host
+ * `Link`. Bubble (not capture) so React/page handlers run first and can `preventDefault()`.
+ */
 export function installBlankCapture(doc: BlankCaptureDoc, deps: NavDeps): () => void {
   const listener = (e: BlankCaptureEvent) => {
     const el = e.target as { closest?: (sel: string) => { getAttribute(name: string): string | null } | null } | null;
     const a = el && typeof el.closest === 'function' ? el.closest('a[target="_blank"]') : null;
-    const href = a?.getAttribute('href');
-    if (!a || !href) return;
-    handleLinkClick(e, href, { blank: true, external: false }, deps);
+    if (!a) return;
+    handleLinkClick(e, a.getAttribute('href') ?? '', { blank: true, external: false }, deps);
   };
-  doc.addEventListener('click', listener as (e: never) => void, true);
-  return () => doc.removeEventListener('click', listener as (e: never) => void, true);
+  doc.addEventListener('click', listener as (e: never) => void);
+  return () => doc.removeEventListener('click', listener as (e: never) => void);
 }
 
 interface StorageArea {
