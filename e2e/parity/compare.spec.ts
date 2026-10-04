@@ -1,7 +1,8 @@
 import {
-  A_ONLY_ROUTES,
-  A_ONLY_ROUTES_BETA,
+  COVERAGE_ROUTES,
+  EXTRA_ROUTES,
   openAOnlyRoute,
+  captureElement,
   captureViewport,
   captureRoot,
   expect,
@@ -68,14 +69,25 @@ for (const route of ROUTES) {
 }
 
 // W1-E: routes a slice D flipped to sides 'both' get a whole-viewport a-vs-b compare (zero insets on b, same engine, font-normalised).
-// Empty today: every route is a-only, so no test is generated and the gate is unchanged.
-for (const route of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
+// Every flipped route (all of A_ONLY_ROUTES, A_ONLY_ROUTES_BETA and COVERAGE_ROUTES) is generated here.
+for (const route of bothSidesRoutes(EXTRA_ROUTES)) {
   test(`a vs b viewport: ${route.name}`, async ({ pages }, testInfo) => {
     await openAOnlyRoute(pages.a, route, 'a');
     const pixelsA = await captureViewport(pages.a);
     await openAOnlyRoute(pages.b, route, 'b');
     const pixelsB = await captureViewport(pages.b);
     expect(await pixelMatches(testInfo, `ref-a-${route.name}-viewport`, pixelsA, pixelsB), 'viewport a-vs-b').toBe(true);
+  });
+}
+
+// W5-parity: the coverage routes are element surfaces (an open picker, lightbox, menu or detail), so the clip itself is also compared a-vs-b.
+for (const route of bothSidesRoutes(COVERAGE_ROUTES).filter((r) => r.clip)) {
+  test(`a vs b clip: ${route.name}`, async ({ pages }, testInfo) => {
+    await openAOnlyRoute(pages.a, route, 'a');
+    const pixelsA = await captureElement(pages.a, route.clip!);
+    await openAOnlyRoute(pages.b, route, 'b');
+    const pixelsB = await captureElement(pages.b, route.clip!);
+    expect(await pixelMatches(testInfo, `ref-a-${route.name}-clip`, pixelsA, pixelsB), 'clip a-vs-b').toBe(true);
   });
 }
 

@@ -1,6 +1,8 @@
 import {
   A_ONLY_ROUTES,
   A_ONLY_ROUTES_BETA,
+  COVERAGE_ROUTES,
+  EXTRA_ROUTES,
   captureElement,
   captureLocator,
   captureViewport,
@@ -71,8 +73,17 @@ test.describe('merch', () => {
   for (const route of A_ONLY_ROUTES_BETA.filter((r) => r.name === 'merch')) betaTest(route);
 });
 
-// W1-E: side-b baselines (real insets) for routes a slice D flipped to sides 'both'. Empty today.
-for (const route of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
+// W5-parity: a-side baselines for the coverage routes (the element clip when set).
+for (const route of COVERAGE_ROUTES) {
+  test(`a (web build) ${route.name}`, async ({ page }) => {
+    await openAOnlyRoute(page, route);
+    const pixels = route.clip ? await captureElement(page, route.clip) : await captureRoot(page, route);
+    expect(pixels).toMatchSnapshot(`a-${route.name}.png`, PIXEL_OPTS);
+  });
+}
+
+// W1-E: side-b baselines (real insets) for every route flipped to sides 'both'.
+for (const route of bothSidesRoutes(EXTRA_ROUTES)) {
   test(`b (DOM entry, real insets) ${route.name}`, async ({ page }, testInfo) => {
     const names = bBaselineNames(route);
     await openAOnlyRoute(page, route, 'b', realInsets(testInfo));

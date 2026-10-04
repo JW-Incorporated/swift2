@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { stubBridgeApiOnB } from './b-api';
 import { BASE, fixture, repo } from './env';
 import { assertNoBaselineCollisions, type Sides } from './sides';
 import { expect, type Page } from '@playwright/test';
@@ -134,6 +135,8 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
     name: 'clownbot-transcript',
     path: '/?mode=clownbot',
     root: 'main',
+    sides: 'both',
+    init: (page) => stubBridgeApiOnB(page, { '/api/clown': CLOWN_ANSWER_NDJSON }),
     prepare: async (page) => {
       await page.route('**/api/clown', (route) =>
         route.fulfill({ status: 200, contentType: 'application/x-ndjson', body: CLOWN_ANSWER_NDJSON }),
