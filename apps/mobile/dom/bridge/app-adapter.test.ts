@@ -230,6 +230,23 @@ describe('createAppAdapter', () => {
     await adapter.share?.({ title: 't' });
     expect(call).toHaveBeenCalledWith('share', { title: 't' });
   });
+  it('theme is a fire-and-forget event, never a call', () => {
+    const call = vi.fn();
+    const sendEvent = vi.fn();
+    const a = createAppAdapter({
+      client: { call, sendEvent } as never,
+      insets: { top: 0, right: 0, bottom: 0, left: 0 },
+      isNativeRoute: () => false,
+      navigateDom: vi.fn(),
+      getPath: () => '/',
+      apiFetch: vi.fn() as never,
+      onBack: () => () => {},
+      storage: { local: createAppStorage(() => null), session: createAppStorage(() => null) },
+    });
+    a.theme?.({ statusBarStyle: 'dark', background: '#ffffff' });
+    expect(sendEvent).toHaveBeenCalledWith('theme', { statusBarStyle: 'dark', background: '#ffffff' });
+    expect(call).not.toHaveBeenCalled();
+  });
   it('share rejects when the bridge reports failure', async () => {
     const call = vi.fn(async () => ({ ok: false as const, error: { code: 'failed', message: 'x' } }));
     const a = createAppAdapter({

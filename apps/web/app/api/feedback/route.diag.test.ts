@@ -201,6 +201,26 @@ describe('POST [diag] reports', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('accepts the mount-gate marks (and their at: offsets) but still rejects an unknown mount- name', async () => {
+    vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
+    const fetchSpy = okFetch();
+    vi.stubGlobal('fetch', fetchSpy);
+    const marks = ['mount-pending-expired', 'mount-late-upgrade', 'mount-inputs-resolved', 'mount-decision-resolved'];
+    const timings: Record<string, number> = {};
+    for (const m of marks) {
+      timings[m] = 0;
+      timings[`at:${m}`] = 1500;
+    }
+    expect((await POST(diagReq({ ...validDiag(), timings }, '10.9.5.1'))).status).toBe(201);
+    expect(
+      (await POST(diagReq({ ...validDiag(), timings: { 'mount-bogus': 1 } }, '10.9.5.2'))).status,
+    ).toBe(400);
+    expect(
+      (await POST(diagReq({ ...validDiag(), timings: { 'at:mount-bogus': 1 } }, '10.9.5.3'))).status,
+    ).toBe(400);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('accepts launch "unknown" truthfully', async () => {
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 'tok');
     vi.stubGlobal('fetch', okFetch());

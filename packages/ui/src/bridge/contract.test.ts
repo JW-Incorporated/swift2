@@ -84,7 +84,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());
     expect([...NATIVE_EVENT_TYPES].sort()).toEqual(['contentVersion', 'insets', 'navigate', 'readyAck']);
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'theme']);
     const posted: string[] = [];
     let i = 0;
     const c = createBridgeClient({ post: (e) => void posted.push(e.type), now: () => 1, idGen: () => `y${i++}`, setTimer: () => 0 });
@@ -96,6 +96,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   type Share = NonNullable<HostAdapter['share']>;
   type Haptic = NonNullable<HostAdapter['haptic']>;
+  type Theme = NonNullable<HostAdapter['theme']>;
   type Open = NonNullable<HostAdapter['openExternal']>;
   type Notif = NonNullable<HostAdapter['notifications']>;
 
@@ -117,6 +118,9 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     expectTypeOf<VoidToNull<Awaited<ReturnType<Share>>>>().toEqualTypeOf<ResultOf<'share'>>();
     expectTypeOf<Mutual<Parameters<Haptic>[0], PayloadOf<'haptic'>['kind']>>().toEqualTypeOf<true>();
     expectTypeOf<VoidToNull<ReturnType<Haptic>>>().toEqualTypeOf<ResultOf<'haptic'>>();
+    // theme is a fire-and-forget DOM event (no res): the host hook takes exactly the event payload and returns void.
+    expectTypeOf<Mutual<Parameters<Theme>[0], EventPayloadOf<'theme'>>>().toEqualTypeOf<true>();
+    expectTypeOf<ReturnType<Theme>>().toEqualTypeOf<void>();
     // Exact host parameter: widening it (e.g. `string | URL`) fails here.
     expectTypeOf<Parameters<Open>[0]>().toEqualTypeOf<string>();
     expectTypeOf<ExternalUrl>().toExtend<Parameters<Open>[0]>();

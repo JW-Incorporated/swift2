@@ -20,6 +20,9 @@ export type SharePayload = { title?: string; text?: string; url?: string };
 
 export type HapticKind = 'selection' | 'light' | 'medium' | 'heavy' | 'success' | 'warning' | 'error';
 
+/** Native chrome theme (status bar content + host background), mirrors the document theme-color. Add-only. */
+export type ThemeChange = { statusBarStyle: 'light' | 'dark'; background: string };
+
 export type NotificationStatus = 'granted' | 'denied' | 'undetermined' | 'unsupported';
 
 /** Per-category on/off map; the category keys are owned by the notifications domain (WP2.12). */
@@ -175,6 +178,8 @@ export interface HostAdapter {
   clipboard?: { writeText(text: string): Promise<void> };
   /** @later WP2.x (web: no-op) */
   haptic?: (kind: HapticKind) => void;
+  /** The surface theme colour changed (web adapter omits it: the theme-color meta tag is the web mechanism). */
+  theme?: (theme: ThemeChange) => void;
   /** @later WP2.5 */
   openExternal?: (url: string) => void;
   /** @later WP2.12 */
