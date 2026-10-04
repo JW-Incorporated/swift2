@@ -1,5 +1,7 @@
 import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA } from './helpers';
 import { assertNoBaselineCollisions, bBaselineNames, bothSidesRoutes, planBSide } from './sides';
+import { existsSync, readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 
 // Unit-level (no browser): the b-side plumbing for routes a slice D flips to both sides.
@@ -27,9 +29,21 @@ test('dry run: a flipped fixture route plans one a-vs-b compare and two b baseli
   ]);
 });
 
+test('every route flipped to both has its b baselines committed for every project', () => {
+  const shots = resolve(__dirname, '__screenshots__');
+  const projects = readdirSync(shots, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
+  expect(projects.length).toBeGreaterThan(0);
+  const missing: string[] = [];
+  for (const r of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
+    for (const file of Object.values(bBaselineNames(r))) {
+      for (const p of projects) if (!existsSync(resolve(shots, p, file))) missing.push(`${p}/${file}`);
+    }
+  }
+  expect(missing, 'missing b baselines (run parity.yml update-baselines)').toEqual([]);
+});
+
 // Folded into the last test so the parity test count is unchanged by the name guard.
-test('every real route is still a-only; baseline name collisions throw', () => {
-  expect(planBSide([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])).toEqual([]);
+test('baseline name collisions throw', () => {
   const base = [
     { name: 'home', path: '/', root: 'main' },
     { name: 'item', path: '/?item=x', root: 'main' },
