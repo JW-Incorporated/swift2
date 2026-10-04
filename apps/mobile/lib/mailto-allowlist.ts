@@ -8,4 +8,4 @@ export const isAllowedMailto = (s: unknown): s is `mailto:${string}` =>
   isMailtoUrl(s) && APP_MAILTO_ALLOWLIST.includes(s);
 
 /** What the app may hand to `Linking.openURL`: https, or an allow-listed mailto. Nothing else. */
-export const isAppOpenableUrl = (s: unknown): boolean => isExternalUrl(s) || isAllowedMailto(s);
+export const isAppOpenableUrl = (s: unknown): s is string => isExternalUrl(s) || isAllowedMailto(s);
