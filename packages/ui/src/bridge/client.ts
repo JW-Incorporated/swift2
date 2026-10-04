@@ -1,19 +1,21 @@
 import { isResResult, parseEnvelopeValue, resErr } from './envelope';
 import type { Envelope, JsonValue, ResResult } from './envelope';
 import { isNativeEventType } from './messages';
-import type { DomCommandType, EventPayloadOf, NativeEventType, PayloadOf, ResultOf } from './messages';
+import type { DomCommandType } from './messages';
 import { apiCommandTimeout } from './api-timeout';
 import { DEFAULT_TIMEOUT_MS, MAX_BATCH, MAX_PENDING, MAX_RETAINED, clean, isRec, isThenable, monotonicIds, resultFits, validHwm } from './client-util';
 import type { IdSource } from './client-util';
 import { createBackAnswerer } from './client-back';
-import type { BackResponder } from './client-back';
 import { createInbox } from './client-inbox';
 import { createReady } from './client-ready';
+import { queueEvent } from './client-events';
+import type { BridgeClient, ClientOptions, TimerHandle } from './client-types';
 import { BRIDGE_VERSION } from './version';
 import type { VersionRange } from './version';
 
 export { DEFAULT_TIMEOUT_MS, MAX_BATCH, MAX_PENDING, MAX_RETAINED, monotonicIds };
 export type { IdSource };
+export type { BridgeClient, CallOptions, ClientOptions } from './client-types';
 
 /**
  * DOM-side bridge client (One UI WP2.3-C). Transport-neutral: the app injects
@@ -28,41 +30,7 @@ export type { IdSource };
 /** The range this DOM bundle speaks; sent on `ready`. */
 export const DOM_SUPPORTED_RANGE: VersionRange = { min: 1, max: BRIDGE_VERSION };
 
-type TimerHandle = unknown;
-export type ClientOptions = {
-  /** May return a promise (an Expo action): its rejection fails the call, its value is fed to `receive`. */
-  post(env: Envelope): void | PromiseLike<unknown>;
-  now(): number;
-  /** Default: `monotonicIds(now())`. A custom source must stay strictly increasing; give it `reseed` to honour `readyAck`. */
-  idGen?: IdSource;
-  setTimer?(fn: () => void, ms: number): TimerHandle;
-  clearTimer?(h: TimerHandle): void;
-  defaultTimeoutMs?: number;
-  /** Hold calls made before `ready` is posted, flushing them in order after. */
-  queueUntilReady?: boolean;
-  /** `ready` exhausted its retries, or the id space ran out: the watchdog path. Fires once. */
-  onFatal?(reason: string): void;
-  /** Non-fatal anomalies: `readyAck-invalid`, `inbox-dropped` (count in `detail`). */
-  onSignal?(kind: string, detail?: number): void;
-};
-export type CallOptions = { signal?: AbortSignal; timeoutMs?: number };
 type Call = { type: DomCommandType; id?: string; transmit(): void; resolve(r: ResResult<unknown>): void };
-
-export type BridgeClient = {
-  call<T extends DomCommandType>(type: T, payload: PayloadOf<T>, opts?: CallOptions): Promise<ResResult<ResultOf<T>>>;
-  on<T extends NativeEventType>(type: T, fn: (payload: EventPayloadOf<T>) => void): () => void;
-  handle(type: 'back', fn: BackResponder): () => void;
-  /** Feed one raw inbound message (a `res`, or a native `evt`/`cmd`; seq-bearing ones take the inbox path). */
-  receive(raw: unknown): boolean;
-  /** Process up to MAX_BATCH `seq > lastSeq` in ascending order, then ack the last; the rest stays held for the next consume. */
-  consumeInbox(inbox: readonly unknown[]): void;
-  sendDiag(stage: string, detail?: string): void;
-  /** Fire-and-forget DOM events beyond ready/diag/ack (W2-I: navReady, navigated). */
-  sendEvent<T extends 'navReady' | 'navigated'>(type: T, payload: EventPayloadOf<T>): void;
-  sendReady(): void;
-  /** Resolves pending as cancelled; every later call resolves `failed`. */
-  dispose(): void;
-};
 
 
 export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
@@ -287,7 +255,9 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
       send('evt', 'diag', detail === undefined ? { stage } : { stage, detail });
     },
     sendEvent(type, payload) {
-      send('evt', type, payload as JsonValue);
+      if (disposed || fatalHit) return;
+      if (open) void send('evt', type, payload as JsonValue);
+      else queue = queueEvent(queue, type, payload as JsonValue, (p) => void send('evt', type, p), opts.onSignal);
     },
     sendReady() {
       ready.start();

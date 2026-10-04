@@ -4,7 +4,8 @@
 // flag > compiled default, watchdog-policy.ts); a network config applies on the
 // next launch. The launch-attempt record is AWAITED before 'dom' is returned;
 // if that write fails the launch mounts native (fail closed). `pending` is
-// bounded by PENDING_MAX_MS, after which native mounts and the DOM never swaps in.
+// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); only a
+// Force-shared-UI override that resolves later still upgrades to the DOM host.
 //
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
 // DONE (WP2.4-D1): App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback). TODO(PM, WP2.4-D2): the pending/launch overlay.
@@ -12,7 +13,7 @@
 // Bridge host onProtocolFatal -> `watch.protocol` is wired in SharedUiHost (H0).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
-import { diagCollector } from './diagnostics';
+import { diagCollector, setMountInfo } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
 import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
@@ -31,7 +32,15 @@ import {
   type MountDecision,
   type WatchdogRecord,
 } from './watchdog';
-import { armPendingBound, reasonCategory, refundExpiredFallback, resolveWantsDom } from './watchdog-policy';
+import {
+  armPendingBound,
+  nativeReasonFor,
+  reasonCategory,
+  refundExpiredFallback,
+  resolveWantsDom,
+  type NativeReason,
+  type WantSource,
+} from './watchdog-policy';
 import {
   currentBuildKey,
   loadReportsRaw,
@@ -65,12 +74,15 @@ export interface DomWatch {
 // Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
 const monotonicNow = (): number => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
 
+const elapsedMs = (): number => Math.round(diagCollector.elapsed());
+
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as never) };
 
 export function useDomMount(inputs: LaunchInputs | null): {
   mount: MountState;
   watch: DomWatch;
   forceFailure: DomFailureMode;
+  nativeReason: NativeReason | null;
 } {
   const [decision, setDecision] = useState<MountDecision | null>(null);
   const [mount, setMount] = useState<MountState>('pending');
@@ -79,6 +91,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);
   const expiredRef = useRef(false);
+  const decidedRef = useRef(false);
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
   inputsRef.current = inputs;
@@ -98,11 +111,21 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
 
+  const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
+  const mountRef = useRef<MountState>('pending');
+  const apply = (m: MountState, reason: NativeReason | null = null, source: WantSource | null = null) => {
+    mountRef.current = m;
+    setMount(m);
+    setNativeReason(m === 'native' ? reason : null);
+    setMountInfo({ mount: m, reason: m === 'native' ? reason : null, source: m === 'dom' ? source : null });
+  };
+
   useEffect(
     () =>
       armPendingBound(scheduler, () => {
         expiredRef.current = true;
-        setMount((m) => (m === 'pending' ? 'native' : m));
+        diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
+        if (mountRef.current === 'pending') apply('native', 'pending-expired');
       }),
     [],
   );
@@ -118,7 +141,11 @@ export function useDomMount(inputs: LaunchInputs | null): {
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
-      if (!cancelled) setDecision(d);
+      if (!cancelled) {
+        decidedRef.current = true;
+        diagCollector.mark('mount-decision-resolved', `${elapsedMs()}ms`);
+        setDecision(d);
+      }
     })();
     return () => {
       cancelled = true;
@@ -126,7 +153,10 @@ export function useDomMount(inputs: LaunchInputs | null): {
   }, []);
 
   useEffect(() => {
-    if (inputs) void telemetry.flush(reportsOn());
+    if (inputs) {
+      diagCollector.mark('mount-inputs-resolved', `${elapsedMs()}ms`);
+      void telemetry.flush(reportsOn());
+    }
   }, [inputs]);
 
   useEffect(() => {
@@ -135,7 +165,12 @@ export function useDomMount(inputs: LaunchInputs | null): {
     // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
     const struck = decidedStrikeRef.current;
     if (struck) report(struck.lastReason, struck.buildKey);
-    if (expiredRef.current) return;
+    if (expiredRef.current) {
+      // The Force-shared-UI override is a diagnostics path: it resolving late still upgrades native to the DOM host.
+      if (!inputs.override) return;
+      expiredRef.current = false;
+      diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
+    }
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
       override: inputs.override,
@@ -143,14 +178,16 @@ export function useDomMount(inputs: LaunchInputs | null): {
       defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
     });
     if (!shouldMountDom(want.wantsDom, decision)) {
-      setMount('native');
+      if (mountRef.current !== 'pending') void write(decision.record);
+      apply('native', nativeReasonFor(want, decision.fallbackActive));
       return;
     }
+    const overrideOn = want.source === 'override';
     void (async () => {
       setForceFailure(await getForceDomFailure());
-      const attempt = await startAttempt(decision, Date.now(), write, () => !expiredRef.current);
+      const attempt = await startAttempt(decision, Date.now(), write, () => overrideOn || !expiredRef.current);
       if (!attempt) {
-        setMount('native');
+        apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
         return;
       }
       recordRef.current = attempt;
@@ -178,10 +215,10 @@ export function useDomMount(inputs: LaunchInputs | null): {
           if (record.state === 'fallback' || record.state === 'quarantined') {
             report(reason, record.buildKey);
           }
-          setMount('native');
+          apply('native', 'dom-strike');
         },
       });
-      setMount('dom');
+      apply('dom', null, want.source);
     })();
   }, [decision, inputs]);
 
@@ -218,5 +255,5 @@ export function useDomMount(inputs: LaunchInputs | null): {
     [],
   );
 
-  return { mount, watch, forceFailure };
+  return { mount, watch, forceFailure, nativeReason };
 }

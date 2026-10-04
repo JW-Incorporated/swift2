@@ -105,7 +105,15 @@ and a flipped default cannot be killed remotely.
 - **Pending screen.** While the launch resolves, a plain view in the reader's
   body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
   `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
-  native mounts and the DOM never swaps in for that launch.
+  native mounts and the DOM never swaps in for that launch, with one exception:
+  the Diagnostics "Force shared UI" override. If it resolves ON after the bound
+  (slow iOS keychain on a cold launch), the DOM host still mounts (late upgrade,
+  `mount-late-upgrade` mark). Every expiry records a `mount-pending-expired`
+  mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
+  `Mount:` line with the reason the mount is native (`pending-expired`,
+  `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
+  or the source of a shared-UI mount. The mark is not in the `[diag]` /
+  `[watchdog]` server whitelists (apps/web), so it does not yet reach a report.
 - **Telemetry (default OFF).** Category-only `[watchdog]` reports, a separate
   strict server schema (`{platform, buildKey, category}`; no model, OS, update id
   field or timings; the user-initiated `[diag]` path is unchanged), categories
@@ -231,3 +239,9 @@ Framing: the site denies framing everywhere (`frame-ancestors 'none'` and `X-Fra
 ## Legal pages in the DOM (W3-legal)
 
 The DOM page is one document; the reader owns pathname `/`. Exactly three more paths stay in the DOM: `/privacy`, `/terms`, `/support` (`dom/bridge/dom-path.ts`, an allow-list; everything else still goes to native). The current path lives in `history.state.swift2Path` (never the file:// URL), seeded from the page pathname on web/dev/parity. `currentUrl()` keeps its contract (a web path plus the page query) and now reports the real in-DOM path. The first legal page pushes one history entry; moving between legal pages or to the reader root replaces it; the native `back` command pops it first (`backFromDomPath`, answered `handled`) before the reader's own back runs. A native-to-DOM `navigate` to a legal path sets the path and acks `navigated {ok:true}` once the layer committed; a reader path closes an open legal page first. `openExternal` forwards the two allow-listed mailto aliases (`isAllowedMailto`) to the bridge. The legal layer renders the web `SiteFooter`, is portaled to <body> (outside the themed reader `.era-shell`, so it uses the root palette like the website), hides its own scrollbar (no layout width taken), is keyed per page (opens at the top), sits at z-80 above the floating `FeedbackButton` (z-71, D2's slot; the legal slice registers no `floating`) and sets the other <body> children (the reader root) `inert` while open. A native `navigate` to a legal path acks only after the layer is observed committed (`dom-path-commit.ts` `showDomPath`: flushSync, then `[data-legal-page]`); no layer or a render error answers false and restores the previous path. `currentDomPath`'s pathname fallback is test/dev only. Native-side tap routing still opens legal paths natively (unchanged). Caveat: `useBackDismiss` treats any popstate as a back gesture, so a reader overlay open under a legal page would also be dismissed when the legal page pops; legal pages are reached from the footer, where no overlay is open.
+
+## Cold start and native chrome theme (W6-coldstart)
+
+The first second must look like longlivets.com loading. (1) The pre-reader placeholder in `dom/AppReader.tsx` is an empty full-height `<div>` on `var(--era-bg)` (the web `body` background); it renders no text, and the G9 probe / first-paint `onReady` signal is untouched. (2) The app background is `ERA_TOKENS.bg` (`#0c0c0c`, the web viewport `themeColor`), no longer the old `#0b0b0f`: `App.tsx`, `SharedUiHost` fill/test styles, and the DOM host `dom.style` / `dom.containerStyle`. `expo-system-ui` (already installed) sets the root view colour at runtime. (3) `ReaderShell` already keeps `meta[name=theme-color]` in sync per era/Threads/Merch. When the host has the optional `HostAdapter.theme` hook (the app only; the web adapter omits it, so web mounts nothing extra and its markup is unchanged) a null-rendering `ThemeEmitter` sends each distinct colour once. The app adapter sends the add-only DOM->native EVENT `theme {statusBarStyle, background}` (fire-and-forget: no `res`, no ack, no pending/timeout/cancel). The host validates it in `validTheme` (`light|dark` enum, `#rrggbb`; anything else is dropped with a `bridge-invalid` signal; before `ready` it is ignored with `bridge-pre-ready`) and calls `onTheme` -> `lib/native-theme-store.ts`. `App.tsx` applies it to `StatusBar style`, the SafeAreaView background and the system root colour, but only while the DOM surface is rendered (`effectiveNativeTheme`); the store resets to the default on watchdog fallback, quarantine, update-required and `SharedUiHost` teardown. `expo-status-bar` has no `backgroundColor` prop in this SDK (edge-to-edge), so the Android navigation bar follows the system root view colour.
+
+Native follow-up (NOT done, fingerprint-changing): `app.json` `backgroundColor` and the `expo-splash-screen` plugin `backgroundColor` are still `#0b0b0f`; change both to `#0c0c0c` in the next native build so the splash matches the first paint exactly.

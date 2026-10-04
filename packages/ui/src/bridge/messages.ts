@@ -7,6 +7,7 @@ import type {
   NotificationPrefsUpdate,
   NotificationStatus,
   SharePayload,
+  ThemeChange,
 } from '../host/types';
 import type { Envelope, ResResult } from './envelope';
 import { makeRes, resErr } from './envelope';
@@ -56,6 +57,8 @@ export type DomEventSpec = {
   // as the native JS and launches only when every asset is present, so DOM/native skew cannot occur.
   /** Outcome of a native `navigate` that carried an `id`: `ok` after the reader committed, false on failure. Add-only (W2-I). */
   navigated: { id: string; ok: boolean };
+  /** Fire-and-forget (no res, no ack): the surface theme colour changed. `background` is #rrggbb, `statusBarStyle` light|dark. Add-only. */
+  theme: ThemeChange;
 };
 
 /** Native -> DOM events. */
@@ -122,7 +125,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   cancel: true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
-const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true };
+const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true, theme: true };
 const NATIVE_EVENTS: Record<NativeEventType, true> = {
   insets: true,
   contentVersion: true,
