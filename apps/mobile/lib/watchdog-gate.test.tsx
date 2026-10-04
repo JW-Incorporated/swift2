@@ -5,15 +5,18 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
 vi.mock('react', async () => await import('../../web/node_modules/react'));
 
-const h = vi.hoisted(() => ({ saved: [] as unknown[], mark: vi.fn() }));
+const h = vi.hoisted(() => ({ saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
 vi.mock('react-native', () => ({
   AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
   Platform: { OS: 'ios' },
 }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '1:embedded',
-  loadWatchdogRecord: async () => null,
-  saveWatchdogRecord: async (r: unknown) => {
+  loadWatchdogRecord: async () => {
+    if (h.loadDelay) await new Promise((r) => setTimeout(r, h.loadDelay));
+    return h.stored;
+  },
+  saveWatchdogRecord: async (r: never) => {
     h.saved.push(r);
     return true;
   },
@@ -25,7 +28,7 @@ vi.mock('./diagnostics-override', () => ({
   setForceSharedUi: async () => undefined,
 }));
 vi.mock('./diagnostics-send', () => ({ sendDiagReport: async () => ({ ok: true }) }));
-vi.mock('./diagnostics', () => ({ diagCollector: { mark: h.mark }, setMountInfo: () => undefined }));
+vi.mock('./diagnostics', () => ({ diagCollector: { mark: h.mark, elapsed: () => 0 }, setMountInfo: () => undefined }));
 
 import { act, renderHook } from '@testing-library/react';
 import { PENDING_MAX_MS } from './watchdog-policy';
@@ -38,6 +41,8 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     h.saved.length = 0;
+    h.stored = null;
+    h.loadDelay = 0;
     h.mark.mockClear();
   });
   afterEach(() => vi.useRealTimers());
@@ -76,5 +81,31 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     const def = renderHook(() => useDomMount(inputs()));
     await flush();
     expect(def.result.current.nativeReason).toBe('flag-off');
+  });
+
+  it('expiry then late override with an owed fallback: the override does not skip it; the owed launch is consumed', async () => {
+    h.stored = { v: 1, fallbackCycles: 0, buildKey: '1:embedded', state: 'fallback', strikes: 0, lastReason: 'x', fallbackLaunchesRemaining: 1, backgrounded: false, abandonedStreak: 0, at: 1 };
+    h.loadDelay = PENDING_MAX_MS + 200;
+    const { result, rerender } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 300); });
+    expect(h.saved.map((r) => r.fallbackLaunchesRemaining)).toEqual([1]);
+    rerender({ i: inputs({ override: true }) });
+    await flush();
+    expect(result.current.mount).toBe('native');
+    expect(result.current.nativeReason).toBe('watchdog-fallback');
+    expect(h.saved.some((r) => r.state === 'attempting')).toBe(false);
+    expect(h.saved.at(-1)).toMatchObject({ state: 'fallback', fallbackLaunchesRemaining: 0 });
+  });
+
+  it('late upgrade then a DOM error strikes once and reports dom-strike', async () => {
+    const { result, rerender } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    rerender({ i: inputs({ override: true }) });
+    await flush();
+    expect(result.current.mount).toBe('dom');
+    await act(async () => { result.current.watch.error('boom'); await vi.advanceTimersByTimeAsync(0); });
+    expect(result.current.mount).toBe('native');
+    expect(result.current.nativeReason).toBe('dom-strike');
+    expect(h.saved.at(-1)?.strikes).toBe(1);
   });
 });

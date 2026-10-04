@@ -74,6 +74,8 @@ export interface DomWatch {
 // Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
 const monotonicNow = (): number => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
 
+const elapsedMs = (): number => Math.round(diagCollector.elapsed());
+
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as never) };
 
 export function useDomMount(inputs: LaunchInputs | null): {
@@ -89,6 +91,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);
   const expiredRef = useRef(false);
+  const decidedRef = useRef(false);
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
   inputsRef.current = inputs;
@@ -121,7 +124,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
     () =>
       armPendingBound(scheduler, () => {
         expiredRef.current = true;
-        diagCollector.mark('mount-pending-expired', inputsRef.current ? 'inputs-ready' : 'inputs-pending');
+        diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
         if (mountRef.current === 'pending') apply('native', 'pending-expired');
       }),
     [],
@@ -138,7 +141,11 @@ export function useDomMount(inputs: LaunchInputs | null): {
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
-      if (!cancelled) setDecision(d);
+      if (!cancelled) {
+        decidedRef.current = true;
+        diagCollector.mark('mount-decision-resolved', `${elapsedMs()}ms`);
+        setDecision(d);
+      }
     })();
     return () => {
       cancelled = true;
@@ -146,7 +153,10 @@ export function useDomMount(inputs: LaunchInputs | null): {
   }, []);
 
   useEffect(() => {
-    if (inputs) void telemetry.flush(reportsOn());
+    if (inputs) {
+      diagCollector.mark('mount-inputs-resolved', `${elapsedMs()}ms`);
+      void telemetry.flush(reportsOn());
+    }
   }, [inputs]);
 
   useEffect(() => {
@@ -159,7 +169,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
       // The Force-shared-UI override is a diagnostics path: it resolving late still upgrades native to the DOM host.
       if (!inputs.override) return;
       expiredRef.current = false;
-      diagCollector.mark('mount-late-upgrade');
+      diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
     }
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
