@@ -32,10 +32,13 @@ nav[aria-label='Primary'] {
   height: calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
 }
 
-/* FeedbackButton floats above the bar. */
-[class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
-  bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
-}
-[class~='bottom-[calc(8.5rem+env(safe-area-inset-bottom))]'] {
-  bottom: calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+/* FeedbackButton floats above the bar. Mobile-only: the package gives it md:bottom-4 / md:bottom-20 (no bottom nav
+   at >= md), and an unconditional !important here defeated that on iPad. */
+@media (max-width: 767px) {
+  [class~='bottom-[calc(4.5rem+env(safe-area-inset-bottom))]'] {
+    bottom: calc(4.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+  }
+  [class~='bottom-[calc(8.5rem+env(safe-area-inset-bottom))]'] {
+    bottom: calc(8.5rem + var(--safe-bottom, env(safe-area-inset-bottom))) !important;
+  }
 }
