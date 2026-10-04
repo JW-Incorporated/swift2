@@ -46,6 +46,7 @@ const BAKED = [
   'era-secrets',
   'merch',
   'song-moods',
+  'clownbot-lore',
 ].map((n) => `${n}.generated.ts`);
 
 /** Baked modules keyed by era at two-space indent (`  "<era>": [ ... ],`); pruned in step with the bundle. */
@@ -189,7 +190,7 @@ for (const [name, entry] of Object.entries(manifest.files)) {
   files[name] = JSON.parse(readFileSync(join(dir, entry.path), 'utf-8'));
 }
 
-const [content, tracks, theories, videos, secrets, merch, moods] = await Promise.all(
+const [content, tracks, theories, videos, secrets, merch, moods, loreMod] = await Promise.all(
   [
     'content',
     'tracks',
@@ -198,6 +199,7 @@ const [content, tracks, theories, videos, secrets, merch, moods] = await Promise
     'era-secrets',
     'merch',
     'song-moods.generated',
+    'clownbot-lore',
   ].map((m) => import(`${web}${m}.ts`)),
 );
 const baked = fromBaked(
@@ -207,6 +209,7 @@ const baked = fromBaked(
     MILESTONES: content.MILESTONES,
     MERCH_CATALOGUE: merch.MERCH_CATALOGUE,
     SONG_MOODS: moods.SONG_MOODS,
+    LORE: loreMod.LORE,
     tracksForEra: tracks.tracksForEra,
     theoriesForEra: theories.theoriesForEra,
     allVideoRecordsForEra: videos.allVideoRecordsForEra,

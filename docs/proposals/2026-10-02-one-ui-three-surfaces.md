@@ -109,6 +109,8 @@ paths produce one versioned `ReaderSnapshot`.**
   baked modules and the one built from the published D1 bundle must hash
   equal. This is what stops "same UI, different data" between web and app.
 
+**Addendum (2026-10-04, W2-L):** `lore` (ClownChat's static board, from bundle `clownbotLore.lore`) is a third extension domain beside `merch` and `songMoods`; absent or invalid in a bundle it is `[]`, never an error.
+
 ### 4.3 Mount and ownership
 - Expo DOM components (`'use dom'`, SDK 57) render `packages/ui` in one
   persistent webview from **local assets**. Fallback mount if Expo DOM

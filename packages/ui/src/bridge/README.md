@@ -11,8 +11,9 @@ Pure types plus pure validators; no dispatcher, no transport (that is WP2.3-B).
   (`parseEnvelopeValue`, `negotiate`, `parseReady`, `sanitizeApiRequest`) first run
   `canonicalize` (stringify, length check, parse, all in try), then validate.
 - `ts` is informational and untrusted: never used for auth, ordering or dedup.
-- `isWebPath` / `isExternalUrl` (https only) / `sanitizeApiRequest` guard what a
-  command may reach. `WebPath` and `ExternalUrl` are branded; only validators make them.
+- `isWebPath` / `isExternalUrl` (https only) / `isMailtoUrl` (one bare `mailto:` address,
+  no query; `openExternal` only) / `sanitizeApiRequest` guard what a
+  command may reach. `WebPath`, `ExternalUrl` and `MailtoUrl` are branded; only validators make them.
 - `NATIVE_SUPPORTED_RANGE` is a JS constant. `ready.range` absent means the DOM
   speaks only `ready.v`. `negotiate` fails closed (`invalid`).
 - Optional payload fields are absent on the wire; an explicit `undefined` is rejected.

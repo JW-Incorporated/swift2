@@ -80,7 +80,13 @@ describe('openExternal', () => {
     expect((await h.openExternal({ url: bad('https://example.com/a?b=1') }, ctx)).ok).toBe(true);
     expect(deps.openURL).toHaveBeenCalledWith('https://example.com/a?b=1');
   });
-  it.each(['http://example.com', 'javascript:alert(1)', 'intent://x', 'file:///etc/passwd', 'https://u:p@example.com', 7])(
+  it('opens an allow-listed mailto', async () => {
+    const { deps, h } = fakeDeps();
+    expect((await h.openExternal({ url: bad('mailto:privacy@longlivets.com') }, ctx)).ok).toBe(true);
+    expect(deps.openURL).toHaveBeenCalledWith('mailto:privacy@longlivets.com');
+  });
+  it.each([
+    'http://example.com', 'mailto:a@b.test', 'MAILTO:privacy@longlivets.com', 'mailto:privacy@longlivets.com?subject=x', 'mailto:privacy@longlivets.com,c@d.test', 'mailto:a%40b.test', 'mailto:', 'tel:123', 'data:text/html,hi', 'sms:123', 'javascript:alert(1)', 'intent://x', 'file:///etc/passwd', 'https://u:p@example.com', 7])(
     'rejects %s',
     async (url) => {
       const { deps, h } = fakeDeps();
