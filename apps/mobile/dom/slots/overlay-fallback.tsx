@@ -58,7 +58,6 @@ export function runFallbackRows(
 export const MODE_PATHS: Partial<Record<AppMode, string>> = {
   threads: '/?mode=threads',
   merch: '/?mode=merch',
-  community: '/?mode=community',
   clownbot: '/?screen=clownbot',
   mood: '/?screen=clownbot',
 };

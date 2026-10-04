@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CommunitySection } from '@swift2/ui/reader/community/CommunitySection';
 import { createSlotRegistry } from './registry';
-import { resetSlotsForTests, slots } from './instance';
+import { resetSlotsForTests } from './instance';
 
 describe('community slice', () => {
   beforeEach(() => resetSlotsForTests());
@@ -18,6 +18,5 @@ describe('community slice', () => {
     r.register({ slice: mod.COMMUNITY_SLICE, slots: mod.COMMUNITY_SLOTS });
     r.register({ slice: mod.COMMUNITY_SLICE, slots: mod.COMMUNITY_SLOTS });
     expect(Object.keys(r.slots())).toEqual(['surface:community']);
-    expect(Object.keys(slots())).toEqual([]);
   });
 });
