@@ -173,9 +173,20 @@ export function shopLinksFromPosts(posts, { groupSlug }) {
 
 /** First `MAX_LOCATOR_EXCERPT` chars of screened post text, used for both
  * `locator` (how Joey finds the post again) and `context` (our-words
- * summary, never a raw quote used downstream — see header). */
+ * summary, never a raw quote used downstream — see header).
+ *
+ * Sliced by CODE POINT, not by UTF-16 code unit. These posts are full of
+ * emoji, and a plain `slice(0, 80)` can cut an emoji's surrogate pair in
+ * half; the resulting lone surrogate is valid JS but cannot be UTF-8
+ * encoded, so PostgREST rejects the whole insert with "Empty or invalid
+ * json". `[...text]` iterates code points, so a slice never splits a
+ * character. (Latent until the parser fix put real post text in the first
+ * 80 chars — before it, they were ASCII markup.) */
 function excerpt(text) {
-  return text.length > MAX_LOCATOR_EXCERPT ? `${text.slice(0, MAX_LOCATOR_EXCERPT)}…` : text;
+  const points = [...text];
+  return points.length > MAX_LOCATOR_EXCERPT
+    ? `${points.slice(0, MAX_LOCATOR_EXCERPT).join('')}…`
+    : text;
 }
 
 /**
