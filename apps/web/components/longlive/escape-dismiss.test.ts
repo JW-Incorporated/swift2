@@ -17,7 +17,7 @@ const read = (rel: string) => readFileSync(new URL(rel, import.meta.url), 'utf8'
 const ESCAPE_DISMISS_COMPONENTS = [
   '../../../../packages/ui/src/reader/threads/Crossings.tsx',
   '../../../../packages/ui/src/reader/era/CurrentItemDetail.tsx',
-  './EraSelector.tsx',
+  '../../../../packages/ui/src/reader/shell/EraSelector.tsx',
   '../../../../packages/ui/src/reader/legal/FeedbackButton.tsx',
   '../../../../packages/ui/src/reader/moment/MomentDetail.tsx',
   '../../../../packages/ui/src/reader/search/SearchOverlay.tsx',
