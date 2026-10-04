@@ -9,6 +9,8 @@ Moved to `packages/ui/src/reader/{lib,store}/` with their pure tests. The old
 `apps/web` path is a one-line `export * from '@swift2/ui/reader/...'` shim
 (subpath exports in `packages/ui/package.json`). Shims stay until WP2.13.
 
+2.4-B leftover: `EraSelector` and `EraGrid` also moved to `reader/shell/` (imports only, plus an optional `header?: ReactNode` prop on `EraSelector` replacing the hard-wired `YourLongLiveCard`, which stays web-only). `apps/web/components/longlive/EraGrid.tsx` is an `export *` shim; `EraSelector.tsx` is a small wrapper passing `<YourLongLiveCard />` as `header`. Source-reading tests (`back-dismiss`, `escape-dismiss`, `modal-focus-trap`) repointed.
+
 Shims (all in `apps/web/lib`):
 
 - `utils.ts`

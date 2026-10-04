@@ -5,6 +5,7 @@
 // import graph contains no DOM slot file.
 
 // --- slice route imports go here, one line each ---
+import './host.routes';
 
 export { isNativeRoute, nativeRoutes, registerRoutes } from './routes-instance';
 export type { NativeRouteEntry, RouteModule } from './types';
