@@ -27,6 +27,7 @@ import {
   type NotificationGroup,
 } from '@swift2/shared';
 import { useHost } from '../../host/context';
+import { selectDriver } from './lib/driver';
 
 const CADENCE_LABEL: Record<NotificationCadence, string> = {
   instant: 'Instant',
@@ -58,54 +59,69 @@ type SubscribeState =
   | { kind: 'unsupported' }
   | { kind: 'not_subscribed' }
   | { kind: 'subscribing' }
-  | { kind: 'subscribed'; deviceId: string }
+  | { kind: 'subscribed' }
   | { kind: 'denied' }
   | { kind: 'error'; message: string };
 
 export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: string | null }) {
-  // webPush is absent on hosts without it; every webPush! below sits behind the unsupported-state gate.
-  const { webPush } = useHost();
+  // No driver (neither webPush nor notifications on the host) means unsupported; every driver! below sits behind that gate.
+  const host = useHost();
+  const driver = useMemo(() => selectDriver(host, vapidPublicKey), [host, vapidPublicKey]);
   const [subscribeState, setSubscribeState] = useState<SubscribeState>({ kind: 'checking' });
   const [prefsState, setPrefsState] = useState<DevicePrefsResponse | null>(null);
   const [prefsError, setPrefsError] = useState<string | null>(null);
   const [pendingKeys, setPendingKeys] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    if (!webPush?.isSupported()) {
+    if (!driver) {
       setSubscribeState({ kind: 'unsupported' });
       return;
     }
-    // A device_id already existing in localStorage plus an active
-    // permission grant is a strong signal this browser already subscribed
-    // in a prior visit — re-check via the Notification API rather than
-    // assuming, since permission can be revoked outside the app.
-    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-      setSubscribeState({ kind: 'subscribed', deviceId: webPush.getDeviceId() });
-    } else if (typeof Notification !== 'undefined' && Notification.permission === 'denied') {
-      setSubscribeState({ kind: 'denied' });
-    } else {
-      setSubscribeState({ kind: 'not_subscribed' });
+    // An active permission grant is a strong signal this device already subscribed
+    // in a prior visit — re-read it on every mount rather than assuming, since
+    // permission can be revoked outside the app.
+    let live = true;
+    const read = () =>
+      void driver.permission().then((p) => {
+        if (!live) return;
+        const next: SubscribeState =
+          p === 'granted' ? { kind: 'subscribed' } : p === 'denied' ? { kind: 'denied' } : p === 'unsupported' ? { kind: 'unsupported' } : { kind: 'not_subscribed' };
+        // Keep the current state object when nothing changed (no prefs reload), and never interrupt an in-flight subscribe.
+        setSubscribeState((prev) => (prev.kind === next.kind || prev.kind === 'subscribing' ? prev : next));
+      });
+    read();
+    const onForeground = () => {
+      if (document.visibilityState === 'visible') read();
+    };
+    if (driver.refreshOnForeground) {
+      document.addEventListener('visibilitychange', onForeground);
+      window.addEventListener('focus', onForeground);
     }
-  }, [webPush]);
+    return () => {
+      live = false;
+      document.removeEventListener('visibilitychange', onForeground);
+      window.removeEventListener('focus', onForeground);
+    };
+  }, [driver]);
 
-  const loadPrefs = useCallback(async (deviceId: string) => {
+  const loadPrefs = useCallback(async () => {
     try {
-      setPrefsState((await webPush!.loadPrefs(deviceId)) as DevicePrefsResponse);
+      setPrefsState((await driver!.loadPrefs()) as DevicePrefsResponse);
       setPrefsError(null);
     } catch (e) {
       setPrefsError(e instanceof Error ? e.message : String(e));
     }
-  }, [webPush]);
+  }, [driver]);
 
   useEffect(() => {
-    if (subscribeState.kind === 'subscribed') void loadPrefs(subscribeState.deviceId);
+    if (subscribeState.kind === 'subscribed') void loadPrefs();
   }, [subscribeState, loadPrefs]);
 
   const savePrefs = useCallback(
-    async (deviceId: string, key: string, body: { settings?: object; prefs?: object[] }) => {
+    async (key: string, body: { settings?: object; prefs?: object[] }) => {
       setPendingKeys((prev) => new Set(prev).add(key));
       try {
-        setPrefsState((await webPush!.savePrefs(deviceId, body)) as DevicePrefsResponse);
+        setPrefsState((await driver!.savePrefs(body)) as DevicePrefsResponse);
         setPrefsError(null);
       } catch (e) {
         setPrefsError(e instanceof Error ? e.message : String(e));
@@ -117,14 +133,14 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
         });
       }
     },
-    [webPush],
+    [driver],
   );
 
   async function handleSubscribe() {
     setSubscribeState({ kind: 'subscribing' });
-    const result = await webPush!.subscribe(vapidPublicKey);
+    const result = await driver!.subscribe();
     if (result.status === 'subscribed') {
-      setSubscribeState({ kind: 'subscribed', deviceId: result.deviceId });
+      setSubscribeState({ kind: 'subscribed' });
     } else if (result.status === 'permission_denied') {
       setSubscribeState({ kind: 'denied' });
     } else if (result.status === 'unsupported') {
@@ -140,7 +156,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
   }
 
   async function handleUnsubscribe() {
-    const outcome = await webPush!.unsubscribe();
+    const outcome = await driver!.unsubscribe();
     if (outcome.ok) {
       setSubscribeState({ kind: 'not_subscribed' });
       setPrefsState(null);
@@ -167,8 +183,8 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
       <div className="flex flex-col items-center gap-4">
         {subscribeState.kind === 'denied' && (
           <p className="max-w-md text-center text-sm text-ink-soft">
-            Notifications are blocked for this site in your browser settings. Allow them there, then
-            reload this page.
+            {driver?.deniedHint ??
+              'Notifications are blocked for this site in your browser settings. Allow them there, then reload this page.'}
           </p>
         )}
         {subscribeState.kind === 'error' && (
@@ -185,8 +201,6 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
       </div>
     );
   }
-
-  const { deviceId } = subscribeState;
 
   if (!prefsState) {
     return <p className="text-ink-soft">{prefsError ?? 'Loading your settings\u2026'}</p>;
@@ -210,7 +224,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
           aria-checked={settings.masterEnabled}
           disabled={pendingKeys.has('settings:masterEnabled')}
           onClick={() =>
-            savePrefs(deviceId, 'settings:masterEnabled', {
+            savePrefs('settings:masterEnabled', {
               settings: { masterEnabled: !settings.masterEnabled },
             })
           }
@@ -249,7 +263,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
                         disabled={pendingKeys.has(pendingKey)}
                         onClick={() =>
                           !active &&
-                          savePrefs(deviceId, pendingKey, {
+                          savePrefs(pendingKey, {
                             prefs: [{ category: def.id, cadence: option }],
                           })
                         }

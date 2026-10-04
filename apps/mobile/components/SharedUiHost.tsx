@@ -18,6 +18,7 @@ import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
+import { isDomOwnedTapPath } from '../lib/tap-paths';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
@@ -166,7 +167,7 @@ export function SharedUiHost({
     });
     const target = createTapTarget({
       host,
-      isReaderPath: (p) => new URL(p, SITE_FALLBACK).pathname === '/' && !uiDeps.isNativeRoute(p as WebPath),
+      isReaderPath: (p) => isDomOwnedTapPath(p, (x) => uiDeps.isNativeRoute(x as WebPath), SITE_FALLBACK),
       openElsewhere: async (p) => {
         if (uiDeps.isNativeRoute(p as WebPath)) {
           const r = navRef.current.presentNativeRoute?.(p as WebPath);

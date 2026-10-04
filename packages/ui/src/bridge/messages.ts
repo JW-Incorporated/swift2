@@ -3,6 +3,8 @@ import type {
   HapticKind,
   Insets,
   NotificationPrefs,
+  NotificationPrefsState,
+  NotificationPrefsUpdate,
   NotificationStatus,
   SharePayload,
 } from '../host/types';
@@ -28,6 +30,10 @@ export type DomCommandSpec = {
   'notifications.request': Spec<Record<string, never>, NotificationStatus>;
   'notifications.register': Spec<Record<string, never>, null>;
   'notifications.updatePrefs': Spec<{ prefs: NotificationPrefs }, null>;
+  'notifications.getPrefs': Spec<Record<string, never>, NotificationPrefsState>;
+  'notifications.savePrefs': Spec<NotificationPrefsUpdate, NotificationPrefsState>;
+  'notifications.unregister': Spec<Record<string, never>, null>;
+  'notifications.registration': Spec<Record<string, never>, { registered: boolean }>;
   api: Spec<{ req: BridgeApiRequest }, ApiResponse>;
   cancel: Spec<{ targetId: string }, null>;
 };
@@ -108,6 +114,10 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.request': true,
   'notifications.register': true,
   'notifications.updatePrefs': true,
+  'notifications.getPrefs': true,
+  'notifications.savePrefs': true,
+  'notifications.unregister': true,
+  'notifications.registration': true,
   api: true,
   cancel: true,
 };

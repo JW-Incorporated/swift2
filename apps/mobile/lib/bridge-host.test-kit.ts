@@ -3,6 +3,11 @@ import { BRIDGE_VERSION, resOk } from '@swift2/ui';
 import type { Envelope, HandlerMap, ResResult } from '@swift2/ui';
 import { createBridgeHost } from './bridge-host';
 
+export const PREFS_FIXTURE = {
+  settings: { masterEnabled: true, snoozeUntil: null, dailyCap: 3, quietStart: 22, quietEnd: 8, digestHour: 9 },
+  prefs: [],
+};
+
 function fakeScheduler() {
   let t = 0;
   let nextId = 1;
@@ -42,6 +47,10 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     'notifications.request': async () => resOk({ permission: 'granted', registered: true, prefs: {} }),
     'notifications.register': ok,
     'notifications.updatePrefs': ok,
+    'notifications.getPrefs': async () => resOk(PREFS_FIXTURE),
+    'notifications.savePrefs': async () => resOk(PREFS_FIXTURE),
+    'notifications.unregister': ok,
+    'notifications.registration': async () => resOk({ registered: true }),
     api: async () => resOk({ status: 200, headers: {}, body: '' }),
   };
   const handlers = { ...base, ...over } as unknown as Omit<HandlerMap, 'cancel'>;

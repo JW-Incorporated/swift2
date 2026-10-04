@@ -27,7 +27,7 @@ describe('applyNavigateEvent', () => {
 
   it('a non-root pathname is refused without touching the page', async () => {
     const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true) };
-    expect(await applyNavigateEvent({ path: '/settings' as never }, deps)).toBe(false);
+    expect(await applyNavigateEvent({ path: '/privacy' as never }, deps)).toBe(false);
     expect(deps.replaceUrl).not.toHaveBeenCalled();
     expect(deps.apply).not.toHaveBeenCalled();
   });

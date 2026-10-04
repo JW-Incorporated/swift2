@@ -10,10 +10,21 @@ import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import * as SecureStore from 'expo-secure-store';
 import type { DevicePlatform, DeviceRegistrationInput } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
 import { getOrCreateDeviceId } from './device-id';
 import { registerNotificationChannels } from './notification-channels';
+
+/**
+ * Token-free registration flag, stored as the INVERSE ("explicitly unregistered", set by the in-app turn-off) so
+ * devices that registered before the flag existed still read as registered.
+ */
+export const UNREGISTERED_KEY = 'longlive_push_unregistered';
+
+export async function isExplicitlyUnregistered(): Promise<boolean> {
+  return (await SecureStore.getItemAsync(UNREGISTERED_KEY)) === '1';
+}
 
 function currentPlatform(): DevicePlatform {
   if (Platform.OS === 'ios') return 'ios';
@@ -37,12 +48,30 @@ export type PushRegistrationResult =
  * "never fire the OS permission dialog cold on first launch" — that ask is
  * gated behind the pre-permission onboarding screen, Phase 2 scope, which
  * calls `requestPushRegistration()` below at the right moment instead.
+ *
+ * Refreshes the token when permission is ALREADY granted and the user has not turned notifications off in-app;
+ * otherwise upserts null. Never prompts. A token fetch failure falls back to the null upsert (non-fatal).
  */
 export async function registerDevice(): Promise<{ status: 'registered_no_token'; deviceId: string }> {
   const deviceId = await getOrCreateDeviceId();
   await registerNotificationChannels();
-  await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken: null });
+  let pushToken: string | null = null;
+  try {
+    if (Device.isDevice && (await Notifications.getPermissionsAsync()).status === 'granted' && !(await isExplicitlyUnregistered())) {
+      const projectId = Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
+      pushToken = (await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined)).data;
+    }
+  } catch (e) {
+    console.warn('registerDevice: push token unavailable, registering without one', e);
+    pushToken = null;
+  }
+  await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken });
   return { status: 'registered_no_token', deviceId };
+}
+
+/** Upserts this device with a null push token (the in-app turn-off); never prompts and never fetches a token. */
+export async function clearRegisteredToken(): Promise<void> {
+  await registerWithBackend({ deviceId: await getOrCreateDeviceId(), platform: currentPlatform(), pushToken: null });
 }
 
 /**

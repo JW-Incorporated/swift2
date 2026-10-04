@@ -270,3 +270,7 @@ The inset-immunity check for `item` hides the floating FeedbackButton pill (it i
 ## Legal routes on both sides (One UI W3-legal)
 
 `privacy`, `terms` and `support` are flipped to `sides: 'both'`. Side b serves only the DOM entry's `index.html`, so their `init` (`serveLegalOnB`, `routes.ts`) answers those three paths on b with that file (URL kept; the reader seeds its legal path from the pathname). Side b also has the reader's own `<main>`, so the shared root is the legal document's `main:has(> nav[aria-label="Breadcrumb"])` (the same element as `main` on side a: the `a-*` baselines are unchanged). The `b-*` baselines come from the `update-baselines` dispatch.
+
+## Mood on both sides (One UI 2.11-D2)
+
+`mood` is `sides: 'both'` (`b-mood*.png` plus the a-vs-b viewport compare). The a-vs-b diff on iPad was the app lacking the `footer` slot: the website mounts `SiteFooter` under every surface and mood is short enough for it to sit in the viewport, so the app now registers the same package component (`dom/slots/footer.ts`). Tall surfaces never showed the gap because their footer is below the fold.

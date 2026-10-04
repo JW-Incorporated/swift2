@@ -143,12 +143,12 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
       await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
     },
   },
-  // TODO(One UI 2.11-D2): sides 'both' once the b footer matches a on a short page (iPad: footer text offset ~1px; the pill is fixed by #5000).
-  { name: 'mood', path: '/?mode=mood', root: 'main' },
+  { name: 'mood', path: '/?mode=mood', root: 'main', sides: 'both' },
   {
     name: 'settings-notifications',
     path: '/settings/notifications',
     root: 'main',
+    sides: 'both',
     init: async (page) => {
       await page.addInitScript(() => {
         const define = (target: object, key: string, value: unknown) =>
