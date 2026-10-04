@@ -156,8 +156,8 @@ and a flipped default cannot be killed remotely.
   natively; with no presenter attached the reply is `failed`. False: `invalid`,
   and the DOM routes it itself (history API). Native to DOM `navigate {path,
   source}` is `BridgeHost.emit('navigate', ...)` (`navigateSink`, H3).
-- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing and the presenter prop. TODO(PM, WP2.3-E): the
-  notification-tap queue.
+
+**Notification taps (H3).** App.tsx calls `useNotificationTaps(navigate, mount==='native')` (lib/use-notification-taps.ts). `lib/notification-tap-ingest.ts` serializes the cold `getLastNotificationResponseAsync` read (+ clear) and the live listener into `lib/notification-tap-gate.ts`, which wraps the E1 queue (15 s ack, 10 min TTL, cap 16). Dedupe key = `request.identifier`, else `anon:<date>|<deepLink>`; a response with neither is rejected. Targets: native mode (DOM not mounted) opens native screens; a link the queue refuses opens its canonical `siteUrl+path` or home, never the raw string; a bound+ready host gets bridge `navigate` (`source:'notification'`), delivered on ack, re-awaiting the same event (no re-emit) after an ack timeout; retried every 5 s while held and on AppState active; otherwise taps hold. `bindHost(host)` returns an epoch lease cleanup that unbinds only if still current. **Not wired yet (SharedUiHost, post-H1):** spread `{...createUnwiredHandlers(onSignal), ...createExpoNotificationHandlers()}`; bind the current epoch's host only after bridge `ready` AND the reader's ready signal, after H1's navigate subscriber exists; call the lease cleanup on fatal, crash/render-gone, watchdog fallback, readiness loss and unmount, before disposing host/link; every readiness loss needing a rebind must create a new keyed host/client epoch (never rebind a detached live host).
 
 **G4 drill.** Simulated (no device): `npx vitest run
 apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure
@@ -173,7 +173,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
 2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
-4. After WP2.3-E ships: a notification tap while quarantined lands on the native screen.
+4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
 
 ## Insets, native overlay and the app adapter (WP2.4-D1, #4953)
 

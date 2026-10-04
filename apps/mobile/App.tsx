@@ -33,7 +33,7 @@ import {
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import * as Notifications from 'expo-notifications';
+import { useNotificationTaps } from './lib/use-notification-taps';
 import type { EraId, TrackNote } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import {
@@ -308,21 +308,9 @@ export default function App() {
     });
   }, []);
 
-  useEffect(() => {
-    // A tapped notification carries the same deep link the inbox shows; the
-    // payload key mirrors packages/core notification-events.ts (`deepLink`).
-    const read = (resp: Notifications.NotificationResponse | null) => {
-      if (!resp) return;
-      const data = resp.notification.request.content.data as Record<string, unknown> | undefined;
-      const link = data && typeof data.deepLink === 'string' ? data.deepLink : null;
-      navigate(link);
-    };
-    Notifications.getLastNotificationResponseAsync()
-      .then(read)
-      .catch(() => {});
-    const sub = Notifications.addNotificationResponseReceivedListener(read);
-    return () => sub.remove();
-  }, [navigate]);
+  // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
+  // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
+  useNotificationTaps(navigate, domMount.mount === 'native');
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
   // first time so push permission is actually offered, settings after that.
