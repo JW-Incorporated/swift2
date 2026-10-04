@@ -131,6 +131,7 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    `a-support` (the footer capture `a-support-footer` is unchanged). `negative.spec.ts` proves a
    1px translate of one element per surface (`BETA_NEGATIVE_TARGETS`) fails its element clip on all
    four projects. `hydrated` no longer waits for a button when the root has none (static legal pages).
+   WP2.9-D flips `merch` to `sides: 'both'` (`b-merch.png`, `b-merch-viewport.png`, plus the a-vs-b viewport compare); the a-side `a-merch` baselines are unchanged.
 
 ## Flipping a route to both sides (One UI W1-E scaffolding, used by each slice D)
 
