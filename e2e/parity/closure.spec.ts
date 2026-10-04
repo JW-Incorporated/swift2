@@ -31,7 +31,7 @@ const SLOT_ROUTE: Readonly<Record<string, string>> = {
   'overlay:theory-guide': 'theories',
   'overlay:track-guide': 'guide',
   'overlay:song': 'song',
-  footer: 'support',
+  footer: 'support-footer',
   floating: 'feedback-dialog-open',
 };
 

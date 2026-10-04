@@ -149,7 +149,7 @@ export const PRIVACY_POLICY: LegalDoc = {
   title: 'Privacy Policy',
   description: 'What Long Live collects, what it does not, and which third parties are involved.',
   summary:
-    'Long Live has no accounts, no logins, no passwords, and no payments, and it never asks you for your name or email. Three features do send something: the feedback button sends what you type to our private issue tracker; the mood chat sends what you type to an AI service so it can read the feeling; and Clownbot sends your questions to an AI service to answer them, and — only once an identity system described below is switched on — remembers the conversation in our database for up to 180 days. Everything else on this page is detail.',
+    'Long Live has no accounts, no logins, no passwords, and no payments, and it never asks you for your name or email. Three features do send something: the feedback button sends what you type to our issue tracker, which is public; the mood chat sends what you type to an AI service so it can read the feeling; and Clownbot sends your questions to an AI service to answer them, and — only once an identity system described below is switched on — remembers the conversation in our database for up to 180 days. Everything else on this page is detail.',
   sections: [
     {
       id: 'who-we-are',
@@ -210,7 +210,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: `A submission is filed as a ticket in our private source-code repository on GitHub. That repository is private: it is readable by the project's founders, by the automated agents that triage tickets, and by GitHub as the service provider. It is not published, and feedback is not displayed anywhere on this site.`,
+          text: `A submission is filed as a ticket in our source-code repository on GitHub. That repository is public, so a ticket, including what you typed, can be read by anyone on GitHub; please do not put personal details in it. Feedback is not displayed anywhere on this site itself.`,
         },
         {
           kind: 'p',
@@ -343,7 +343,7 @@ export const PRIVACY_POLICY: LegalDoc = {
             [
               'GitHub',
               'Where feedback tickets are stored',
-              'Only what a feedback submission contains, and only if you send one.',
+              `Feedback you send; and the app's diagnostics and fallback reports described in "The mobile app" below, which are posted as comments on a public issue there.`,
             ],
             [
               'Anthropic (Claude API)',
@@ -421,7 +421,7 @@ export const PRIVACY_POLICY: LegalDoc = {
         },
         {
           kind: 'p',
-          text: 'Two more things are sent only in narrow cases. Diagnostics: if you open the app’s Diagnostics screen and tap “Send report”, the app sends your device model, operating-system version, app version and build number, the id of the app update it is running, and timings of its start-up stages. Automatic fallback reports: when the app’s start-up safety check has to fall back to its older screens, and only while we have switched that reporting on in our remote configuration, the app can send the platform (iPhone or Android), the app version with its update id, and a coarse failure category. Neither report contains your name, your device id, a push token, your location or any text you typed; the update id identifies an app release, not you or your phone. Both go through our feedback endpoint and are posted as comments on a tracking issue in our GitHub repository, which is public, so anyone can read them.',
+          text: `Two more things are sent only in narrow cases. Diagnostics: if you open the app's Diagnostics screen and tap "Send report", the app sends your device model, operating-system version, app version and build number, the id of the app update it is running, and timings of its start-up stages. If you switch on "Speed test mode" on that screen, the app sends that same report automatically on each of its next ten launches, then stops. Automatic fallback reports: when the app's start-up safety check has to fall back to its older screens, the app can send the platform (iPhone or Android), its build number and update id, and a coarse failure category. That reporting is switched off today; we can turn it on from our server configuration without an app update, and this page is where that is disclosed. Neither report contains your name, your device id, a push token, your location or any text you typed; the update id identifies an app release, not you or your phone. Both go through our feedback endpoint and are posted as comments on a tracking issue in our GitHub repository, which is public, so anyone can read them.`,
         },
         {
           kind: 'p',
@@ -505,7 +505,7 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: "The site is served over HTTPS. Feedback tickets sit in a private repository behind the founders' accounts. The honest framing is that our best protection is holding almost nothing: there is no account database, no password store, and no payment data to lose.",
+          text: "The site is served over HTTPS. Feedback tickets are filed in our public source-code repository, so nothing personal should be put in them. The honest framing is that our best protection is holding almost nothing: there is no account database, no password store, and no payment data to lose.",
         },
       ],
     },

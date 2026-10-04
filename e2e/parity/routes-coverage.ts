@@ -1,5 +1,5 @@
 import { fixture, FIXED_TIME } from './env';
-import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, type AOnlyRoute } from './routes';
+import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LEGAL_MAIN, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, serveLegalOnB, type AOnlyRoute } from './routes';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { assertNoBaselineCollisions } from './sides';
 import { expect, type Page } from '@playwright/test';
@@ -193,6 +193,15 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
       await page.getByRole('button', { name: 'Decode the payoff' }).first().click();
       await show(page, 'article:has(button:has-text("Hide the payoff"))');
     },
+  },
+  {
+    name: 'support-footer',
+    path: '/support',
+    root: LEGAL_MAIN,
+    init: serveLegalOnB,
+    sides: 'both',
+    clip: PARITY_CLIP,
+    prepare: (page) => show(page, 'footer'),
   },
   {
     name: 'feedback-dialog-open',
