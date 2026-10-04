@@ -16,8 +16,11 @@ export async function captureLocator(page: Page, selector: string): Promise<Buff
 
 /** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
 /** `hideSelectors` are hidden (not masked: a mask rectangle moves with its element and would expose different pixels beneath). */
+/** The song overlay's one-time swipe hint shows for 3 s after mount, so which capture catches it is a race; never part of a viewport capture. */
+const TRANSIENT_HINT = 'div.fixed.bottom-6[aria-live="polite"]';
+
 export async function captureViewport(page: Page, hideSelectors: string[] = []): Promise<Buffer> {
-  if (hideSelectors.length) await page.addStyleTag({ content: `${hideSelectors.join(',')}{visibility:hidden!important}` });
+  await page.addStyleTag({ content: `${[...hideSelectors, TRANSIENT_HINT].join(',')}{visibility:hidden!important}` });
   await imagesReady(page, 'body');
   return page.screenshot({ scale: 'css' });
 }
