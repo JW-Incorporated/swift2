@@ -117,7 +117,6 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
     name: 'clownbot-transcript',
     path: '/?mode=clownbot',
     root: 'main',
-    sides: 'both',
     prepare: async (page) => {
       await page.route('**/api/clown', (route) =>
         route.fulfill({ status: 200, contentType: 'application/x-ndjson', body: CLOWN_ANSWER_NDJSON }),
