@@ -94,9 +94,14 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           APPLY: ${{ inputs.apply }}
+        # `tsx`, not bare `node`, and NOT interchangeable: this script reaches
+        # the fixed parser in apps/worker (a .ts file) and `@swift2/shared/redline`
+        # (a workspace package whose own imports are extensionless), neither of
+        # which bare node can resolve. Same convention as every other script
+        # workflow here. A bare-node run fails with ERR_MODULE_NOT_FOUND.
         run: |
           if [ "$APPLY" = "true" ]; then
-            node scripts/community/fb-lead-reingest.mjs --apply
+            npx --no-install tsx scripts/community/fb-lead-reingest.mjs --apply
           else
-            node scripts/community/fb-lead-reingest.mjs
+            npx --no-install tsx scripts/community/fb-lead-reingest.mjs
           fi
