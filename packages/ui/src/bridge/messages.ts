@@ -44,6 +44,12 @@ export type DomEventSpec = {
   ready: { v: number; range?: VersionRange };
   diag: { stage: string; detail?: string };
   ack: { seq: number };
+  /** The DOM `navigate` subscriber is installed (once per client; repeats are idempotent). Add-only (W2-I). */
+  navReady: Record<string, never>;
+  // Atomicity invariant: the 'use dom' reader HTML/JS ships as hashed assets of the same expo-updates update
+  // as the native JS and launches only when every asset is present, so DOM/native skew cannot occur.
+  /** Outcome of a native `navigate` that carried an `id`: `ok` after the reader committed, false on failure. Add-only (W2-I). */
+  navigated: { id: string; ok: boolean };
 };
 
 /** Native -> DOM events. */
@@ -52,7 +58,8 @@ export type NativeEventSpec = {
   contentVersion: { token: string };
   /** Unsequenced reply to each accepted `ready`: the host's cmd-id high-water mark (-1 -> 0). */
   readyAck: { hwm: number };
-  navigate: { path: WebPath; source: 'notification' | 'deeplink' };
+  /** `id` (optional, add-only) asks the DOM to answer with a `navigated` event once the navigation committed. */
+  navigate: { path: WebPath; source: 'notification' | 'deeplink'; id?: string };
 };
 
 export type EventSpec = DomEventSpec & NativeEventSpec;
@@ -105,7 +112,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   cancel: true,
 };
 const NATIVE_COMMANDS: Record<NativeCommandType, true> = { back: true };
-const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true };
+const DOM_EVENTS: Record<DomEventType, true> = { ready: true, diag: true, ack: true, navReady: true, navigated: true };
 const NATIVE_EVENTS: Record<NativeEventType, true> = {
   insets: true,
   contentVersion: true,

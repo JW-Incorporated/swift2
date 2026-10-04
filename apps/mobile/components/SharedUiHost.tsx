@@ -17,20 +17,25 @@ import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import ReaderSpike from '../dom/ReaderSpike';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
-import { createWiredHandlers } from '../lib/app-handlers';
+import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
+import { createExpoNotificationDeps } from '../lib/notification-host-ports';
 import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from '../lib/routes';
 import { speedTest } from '../lib/speed-test-runtime';
+import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
+import { notificationTapGate } from '../lib/use-notification-taps';
 import { lastGoodCacheUri } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
+
+const SITE_FALLBACK = 'https://www.longlivets.com';
 
 interface ReaderSource {
   cacheUri: string | null;
@@ -58,7 +63,8 @@ export function SharedUiHost({
   const [contentToken, setContentToken] = useState('');
   const [inbox, setInbox] = useState<Envelope[]>([]);
   // One bridge host + link per epoch; the DOM page is keyed by the epoch so it re-handshakes with every new host.
-  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink> } | null>(null);
+  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink>; binder: TapBinder } | null>(null);
+  const [generation, setGeneration] = useState(0);
   const epochRef = useRef(0);
   const hostRef = useRef<BridgeHost | null>(null);
   const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
@@ -100,7 +106,7 @@ export function SharedUiHost({
     () =>
       createDomHostHandlers({
         onSignal,
-        watch,
+        watch: session ? releaseBeforeStrike(watch, session.binder) : watch,
         bridge: session?.link.bridge,
         bridgeClosed: session?.link.isClosed,
       }),
@@ -109,7 +115,7 @@ export function SharedUiHost({
 
   useEffect(() => {
     const epoch = ++epochRef.current;
-    const ref: { host?: BridgeHost } = {};
+    const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
       setInbox((prev) => (sameInbox(prev, next) ? prev : next));
@@ -125,10 +131,14 @@ export function SharedUiHost({
       getPresenter: () => navRef.current.presentNativeRoute,
     });
     const host = createBridgeHost({
-      handlers: createWiredHandlers(onSignal, { ui: uiDeps }),
+      handlers: createAppHandlersFor(onSignal, { ui: uiDeps, api: createLiveApiDeps(), notifications: createExpoNotificationDeps() }),
       send: link.send,
       now: Date.now,
       scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
+      onBeforeShutdown: () => ref.binder?.release(),
+      onReadyAgain: () => ref.binder?.readyAgain(),
+      onNavReady: () => ref.binder?.navReady(),
+      onNavigated: (e) => ref.target?.onNavigated(e),
       onProtocolFatal: (reason) => {
         onSignal('bridge-protocol-fatal', reason.slice(0, 200));
         link.dispose();
@@ -136,6 +146,21 @@ export function SharedUiHost({
       },
       onSignal,
     });
+    const target = createTapTarget({
+      host,
+      isReaderPath: (p) => new URL(p, SITE_FALLBACK).pathname === '/' && !uiDeps.isNativeRoute(p as WebPath),
+      openElsewhere: async (p) => {
+        if (uiDeps.isNativeRoute(p as WebPath)) {
+          const r = navRef.current.presentNativeRoute?.(p as WebPath);
+          return r === 'applied' || r === 'noop';
+        }
+        await Linking.openURL(new URL(p, navRef.current.siteUrl ?? SITE_FALLBACK).toString());
+        return true;
+      },
+    });
+    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
+    ref.target = target;
+    ref.binder = binder;
     ref.host = host;
     hostRef.current = host;
     emitRef.current = {
@@ -144,16 +169,15 @@ export function SharedUiHost({
     };
     link.attach(host);
     setInbox([]);
-    setSession({ epoch, link });
+    setSession({ epoch, link, binder });
     return () => {
       hostRef.current = null;
       emitRef.current = null;
-      host.dispose();
-      link.dispose();
+      disposeEpoch(binder, host, link);
       setSession(null);
       setInbox([]);
     };
-  }, []);
+  }, [generation]);
 
   // Hardware back: DOM first over the bridge (a `back` command), then native exit. Before the DOM is ready the press falls through.
   useEffect(() => {
@@ -211,6 +235,7 @@ export function SharedUiHost({
                   nativeMs.current = Date.now() - launchedAt.current;
                   if (rawProbe.current) publishProbe(rawProbe.current);
                   await handlers.onReady();
+                  session.binder.firstPaint();
                 }
               : async () => {}
           }

@@ -57,6 +57,8 @@ export type BridgeClient = {
   /** Process up to MAX_BATCH `seq > lastSeq` in ascending order, then ack the last; the rest stays held for the next consume. */
   consumeInbox(inbox: readonly unknown[]): void;
   sendDiag(stage: string, detail?: string): void;
+  /** Fire-and-forget DOM events beyond ready/diag/ack (W2-I: navReady, navigated). */
+  sendEvent<T extends 'navReady' | 'navigated'>(type: T, payload: EventPayloadOf<T>): void;
   sendReady(): void;
   /** Resolves pending as cancelled; every later call resolves `failed`. */
   dispose(): void;
@@ -283,6 +285,9 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
     },
     sendDiag(stage, detail) {
       send('evt', 'diag', detail === undefined ? { stage } : { stage, detail });
+    },
+    sendEvent(type, payload) {
+      send('evt', type, payload as JsonValue);
     },
     sendReady() {
       ready.start();

@@ -45,7 +45,7 @@ import {
   type ScreenId,
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
-import { diagCollector, diagMarkOnce, installDiagnostics } from './lib/diagnostics';
+import { diagCollector, installDiagnostics } from './lib/diagnostics';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
@@ -72,7 +72,7 @@ import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { DiagHotCorner } from './components/DiagHotCorner';
-import { SharedUiHost } from './components/SharedUiHost';
+import { DomHostMount } from './components/DomHostMount';
 import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
@@ -80,7 +80,6 @@ import { eraColors } from './lib/theme';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
-import { NativeOverlayHost } from './components/NativeOverlayHost';
 
 installDiagnostics();
 installSpeedTest();
@@ -382,17 +381,15 @@ export default function App() {
           {updateRequired ? (
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
-            <>
-              <SharedUiHost
-                onSignal={(stage, detail) => {
-                  diagCollector.mark(stage, detail);
-                  if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
-                }}
-                watch={domMount.watch}
-                forceFailure={domMount.forceFailure}
-              />
-              <NativeOverlayHost state={nativeRoute} presenter={presenter} navigate={navigate} />
-            </>
+            <DomHostMount
+              watch={domMount.watch}
+              forceFailure={domMount.forceFailure}
+              siteUrl={SITE_URL}
+              getRouteFlags={() => routeFlagsRef.current}
+              state={nativeRoute}
+              presenter={presenter}
+              navigate={navigate}
+            />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : screen === 'inbox' ? (
