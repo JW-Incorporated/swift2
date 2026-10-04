@@ -116,20 +116,26 @@ and a flipped default cannot be killed remotely.
   then set it to `max(10 s, 2 x p95 on the slowest device)`.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
-- **Bridge wiring (H0).** SharedUiHost builds one `createBridgeHost` per mount
-  (disposed on unmount) over `createAppHandlers(createUnwiredAppDeps)`: every
-  command fails closed until H1/H2/H3 supply real deps. The DOM page gets two
+- **Bridge wiring (H0).** SharedUiHost builds one host + link per epoch
+  (disposed on unmount; the DOM page is `key`ed by the epoch, so a recreated host
+  always meets a freshly handshaking client) over `createUnwiredHandlers`: every
+  command answers `failed` until H1/H2/H3 supply real handlers. The DOM page gets two
   props: `inbox` (the host's un-acked sequenced envelopes, re-delivered whole)
   and `bridge` (a native action, `handlers.bridge`). `createBridgeLink`
   (lib/dom-host-handlers.ts) routes the host's `send`: sequenced envelopes go to
   `inbox`; a `res` or `readyAck` resolves the `bridge` call that is awaiting it,
-  and the DOM client feeds it back. ReaderSpike mounts `useExpoBridge` (renders
+  and the DOM client feeds it back. After dispose (fatal or unmount) every call
+  rejects, a duplicate command id rejects the older call, and a repeated `ready`
+  (webview reload) releases the pending ones. The DOM client's own fatal
+  (`ready-failed`, `id-space-exhausted`) goes through the `reportProtocolFatal`
+  action -> `watch.protocol()` (not `reportError`, which is ignored after first
+  paint). ReaderSpike mounts `useExpoBridge` (renders
   nothing) only when `bridge` is supplied (never on web/dev): it sends `ready` after
   mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
   first-paint `onReady` still does; the `hang` drill is unchanged).
 - **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing.
 
-**Notification taps (H3).** App.tsx calls `useNotificationTaps(navigate, mount==='native')` (lib/use-notification-taps.ts): cold `getLastNotificationResponseAsync` + the live listener enqueue `request.identifier` + `data.deepLink` into `lib/notification-tap-gate.ts` (wraps the E1 queue: 15 s ack, 10 min TTL, cap 16) and clear the last response. Dedupe is by identifier; a response with no identifier is not deduplicated. Targets: native mode (DOM not mounted: fallback, quarantine) opens native screens (a link the queue cannot map still opens natively, as before); DOM host bound+ready sends bridge `navigate` (`source:'notification'`), delivered on ack; otherwise taps hold. **Not wired yet (needs SharedUiHost, outside H3):** call `notificationTapGate.bindHost(host)` when the host is ready and `unbindHost()` on dispose/not-ready, pass `createExpoNotificationDeps()` as `createUnwiredAppDeps(onSignal, …)`'s second argument, and ship H1's `navigate` handler (DOM-side `navigate` event consumer).
+**Notification taps (H3).** App.tsx calls `useNotificationTaps(navigate, mount==='native')` (lib/use-notification-taps.ts): cold `getLastNotificationResponseAsync` + the live listener enqueue `request.identifier` + `data.deepLink` into `lib/notification-tap-gate.ts` (wraps the E1 queue: 15 s ack, 10 min TTL, cap 16) and clear the last response. Dedupe is by identifier; a response with no identifier is not deduplicated. Targets: native mode (DOM not mounted: fallback, quarantine) opens native screens (a link the queue cannot map still opens natively, as before); DOM host bound+ready sends bridge `navigate` (`source:'notification'`), delivered on ack; otherwise taps hold. **Not wired yet (needs SharedUiHost, outside H3):** call `notificationTapGate.bindHost(host)` when the host is ready and `unbindHost()` on dispose/not-ready, spread `createExpoNotificationHandlers()` over `createUnwiredHandlers(onSignal)` in the host's `handlers`, and ship H1's `navigate` handler (DOM-side `navigate` event consumer).
 
 **G4 drill.** Simulated (no device): `npx vitest run
 apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure

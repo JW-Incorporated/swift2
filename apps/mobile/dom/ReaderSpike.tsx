@@ -39,6 +39,8 @@ export interface ReaderSpikeProps {
   inbox?: Envelope[];
   /** Bridge native action: posts one envelope; may resolve with the reply (`res`, `readyAck`). Absent on web/dev. */
   bridge?: (env: Envelope) => Promise<unknown>;
+  /** The DOM client's own protocol fatal (a watchdog strike in every phase, unlike reportError). */
+  reportProtocolFatal?: (reason: string) => Promise<void>;
   /** Web/dev only (index.web.ts): supplies the cache envelope text where no native cache exists. */
   devLoader?: () => Promise<string>;
   dom?: import('expo/dom').DOMProps;
@@ -56,8 +58,8 @@ function insetsFromQuery(): ReaderSpikeProps['insets'] {
 type Probe = ReturnType<typeof createProbe>;
 
 /** Renders nothing: sends `ready` after mount and drains the inbox. Mounted only where a native host supplies `bridge`. */
-function ExpoBridgeMount({ inbox, bridge, reportError }: Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge' | 'reportError'>>) {
-  useExpoBridge({ inbox, bridge }, { onFatal: (reason) => void reportError(`bridge-fatal: ${reason}`) });
+function ExpoBridgeMount({ inbox, bridge, onFatal }: Required<Pick<ReaderSpikeProps, 'inbox' | 'bridge'>> & { onFatal: (reason: string) => void }) {
+  useExpoBridge({ inbox, bridge }, { onFatal });
   return null;
 }
 
@@ -182,7 +184,7 @@ export default function ReaderSpike(props: ReaderSpikeProps) {
   }, [Reader]);
 
   const bridgeMount = props.bridge ? (
-    <ExpoBridgeMount inbox={props.inbox ?? []} bridge={props.bridge} reportError={(m) => propsRef.current.reportError(m)} />
+    <ExpoBridgeMount inbox={props.inbox ?? []} bridge={props.bridge} onFatal={(reason) => void propsRef.current.reportProtocolFatal?.(reason)} />
   ) : null;
 
   const view = failed ? (

@@ -1,9 +1,10 @@
 // WP2.3-E2 (H3): expo-backed ports for notification-host-deps.ts. Not imported by
-// tests (they inject fake ports); `createUnwiredAppDeps` takes these via SharedUiHost.
+// tests (they inject fake ports). SharedUiHost spreads createExpoNotificationHandlers() over the unwired map.
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { saveDevicePrefs } from './prefs-client';
 import { requestPushRegistration } from './push-registration';
+import { createHandlers } from './bridge-handlers-notifications';
 import { createNotificationHostDeps, type NotificationPorts, type Permission } from './notification-host-deps';
 
 const permission = async (): Promise<Permission> => {
@@ -27,3 +28,4 @@ export const expoNotificationPorts: NotificationPorts = {
 };
 
 export const createExpoNotificationDeps = () => createNotificationHostDeps(expoNotificationPorts);
+export const createExpoNotificationHandlers = () => createHandlers(createExpoNotificationDeps());
