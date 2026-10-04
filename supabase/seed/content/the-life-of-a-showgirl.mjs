@@ -14846,7 +14846,7 @@ export default {
         // / 11 promoted heroes), so the official MV frame is used here as a
         // plain credited photo. The watchable player URL is the sourceUrl.
         context:
-          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.\n\nThe setting had a backstory of its own. Taylor shot the video inside a concrete-clad Beverly Hills mansion — roughly 18,300 square feet, built in 2014 for Oakley founder James Jannard and sold in June 2026 for just under $47 million — a glass-and-concrete fortress whose retractable walls open onto an infinity pool above Los Angeles. In an Instagram note after the premiere she explained the choice plainly: "The house was a metaphor for the coldness of a relationship that\'s faded and atrophied." It is a documented filming location, a former owner\'s property rather than anywhere Taylor lives.\n\nThe wardrobe ran the same doubling. In a ballroom scene, Taylor and Dakota Johnson wear the exact same dress — Valentino\'s beige Bow Embellished Tulle Gown, a plunging-V-neck tulle column worked in floral sequin-and-crystal embroidery, retailing around $30,000 — the ghost and the living woman mirrored in a single frame.',
+          'Two days after The Life of a Showgirl: The Encore arrived, the single that led it got its film. The music video for "Patient Zero" had its world premiere during the 2026 MTV Video Music Awards on Sept. 27 — the same night Taylor accepted the inaugural Artist Director Honor — and posted to her own YouTube channel two days later, on Sept. 29.\n\nTaylor directed it herself and shot it with Emmanuel Lubezki, the three-time Academy Award-winning cinematographer of Gravity, Birdman and The Revenant. The video casts Taylor as a ghost moving through the glass-and-concrete home of an affluent couple played by Colin Farrell and Dakota Johnson, with cameo appearances from model Cara Delevingne and Los Angeles Rams quarterback Matthew Stafford. The teaser she had posted on Sept. 24 set the tone — a cemetery, water, Taylor in tears — and the finished video holds that cool, architectural look in long symmetrical frames.\n\nCBS and MTV announced the premiere in an official statement. The clip is the Encore\'s lead visual and a separate piece from the sparkle-lettered lyric video that went up on release weekend; it extends the run of self-written, self-directed videos that the VMAs\' new Artist Director Honor was created to recognize.\n\nThe setting had a backstory of its own. Taylor shot the video inside a concrete-clad Beverly Hills mansion — roughly 18,300 square feet, built in 2014 for Oakley founder James Jannard and sold in June 2026 for just under $47 million — a glass-and-concrete fortress whose retractable walls open onto an infinity pool above Los Angeles. In an Instagram note after the premiere she explained the choice plainly: "The house was a metaphor for the coldness of a relationship that\'s faded and atrophied." It is a documented filming location, a former owner\'s property rather than anywhere Taylor lives.\n\nThe wardrobe ran the same doubling. In a ballroom scene, Taylor and Dakota Johnson wear the exact same dress — Valentino\'s beige Bow Embellished Tulle Gown, a plunging-V-neck tulle column worked in floral sequin-and-crystal embroidery, retailing around $30,000 — the ghost and the living woman mirrored in a single frame.\n\nOne of the cameos came with a story of its own. Rams quarterback Matthew Stafford — a friend of the couple who, with his wife Kelly, attended their July 2026 wedding — told reporters in early October that his four daughters were the real reason he said yes: "They were right there with me. That\'s one of the main reasons that I ended up going to do that," he said, framing it as Taylor wanting "to offer an experience for our family and our kids to see that." What stuck with him was watching her run the set rather than his own brief turn on camera: "Just to watch her do her thing is pretty impressive. From borderline directing, producing, writing, all of it, editing live as we were doing it." He joked he would likely never act again "based on my acting chops."',
         photos: [
           {
             url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxresdefault.jpg',
@@ -14940,6 +14940,17 @@ export default {
             reliability_score: 4,
             notes:
               'source for the filming location (an ~18,300 sq ft concrete Beverly Hills mansion built in 2014 for Oakley founder James Jannard) and its ~$46.95M June 2026 sale; corroborated by The Statesman. Address withheld per privacy-redlines.md — a past filming location, not a residence, capped at city level.',
+          },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo',
+            source_title: "Matthew Stafford explains his cameo in Taylor Swift's 'Patient Zero' music video",
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 5,
+            notes:
+              'source for Stafford\'s on-record account of the cameo (added 2026-10-03, intake #4891): his daughters as the reason, the "offer an experience for our family" and "borderline directing, producing, writing... editing live" quotes, and the acting-chops joke. Corroborated by Yahoo Sports and E! Online.',
           },
         ],
       },
@@ -15194,6 +15205,71 @@ export default {
             accessed_at: '2026-09-28',
             reliability_score: 4,
             notes: 'Source for the Matthew Stafford (and wife Kelly) black-tie-party cameo in the "Patient Zero" video.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-03 (Vault Run, Content Shift lane) from intake #4626.
+      // An artist's on-the-record recollection of a public-facing industry
+      // kindness — no privacy redline (no location/health/security, and the
+      // only private detail is one Rexha volunteered about herself). Placed in
+      // the current era by the real-world date of the remark (the Sept. 27,
+      // 2026 VMAs red carpet), the same era-by-date treatment the sombr advice
+      // item at the top of this file uses for a 2026 interview about an older
+      // friendship.
+      slug: 'showgirl-bebe-rexha-taylor-2019-grammys-dress-support',
+      year: 2026,
+      month: 9,
+      day: 27,
+      category: 'music',
+      title: 'Bebe Rexha on Taylor reaching out during her 2019 Grammys dress struggle: “really, really kind”',
+      snippet:
+        'On the 2026 VMAs red carpet, Bebe Rexha told E! News that Taylor had quietly reached out to her back in 2019, when — as Rexha said publicly at the time — several designers declined to dress her for the Grammys because of her size. “Nobody really reached out,” Rexha said; Taylor, at “such a high level,” made her “feel like I belonged.”',
+      sourceUrl:
+        'https://www.eonline.com/news/1436463/vmas-2026-taylor-swift-helped-bebe-rexha-when-designers-wouldnt-dress-her',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Working the 2026 MTV VMAs red carpet on Sept. 27 — the night Taylor became the most-decorated artist in the show’s history — Bebe Rexha was asked by E! News about Taylor and reached back seven years for her answer. “I remember when I had that whole Grammys situation when I couldn’t find a dress and she reached out to me because we’re the same age, and I thought that was really, really kind of her,” Rexha said. What made it land, she added, was how rare it was: “Nobody really reached out. Some people did, but for her at such a high level to make me feel like I belonged was really, really nice.”\n\nThe “Grammys situation” Rexha referred to is a documented one. Ahead of the 61st Grammy Awards in February 2019, Rexha — then up for Best New Artist and Best Country Duo/Group Performance for “Meant to Be” — said publicly that several designers had turned down the chance to dress her because of her size, telling fans a number of houses had declined because she was, in her words, “too big.” She turned the slight into a talking point about fashion and body image, and ultimately walked the Grammys red carpet in a custom red gown. Rexha’s 2026 recollection adds a private coda the public story never had: that amid the noise, Taylor — an exact contemporary, both born in 1989 — was one of the few who reached out directly.\n\nIt is the latest in a run of these quiet-support stories surfacing from across the industry, the same shape as the advice Taylor gave the young singer-songwriter sombr about handling online hate: a gesture made privately years earlier, recounted on the record by its recipient rather than publicized by Taylor herself.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1436463/vmas-2026-taylor-swift-helped-bebe-rexha-when-designers-wouldnt-dress-her',
+            source_title: 'VMAs 2026: Taylor Swift Helped Bebe Rexha When Designers Wouldn’t Dress Her',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 4,
+            notes:
+              'Primary source: the outlet that conducted the Sept. 27, 2026 VMAs red-carpet interview; carries Rexha’s on-record quote about Taylor reaching out during the 2019 Grammys dress situation.',
+          },
+          {
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/bebe-rexha-taylor-swift-2019-grammys-dress-support-1822432',
+            source_title: 'Bebe Rexha Says Taylor Swift Reached Out After Designers Refused To Dress Her for 2019 Grammys',
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-03',
+            reliability_score: 3,
+            notes:
+              'Corroborating source, loaded directly in the run environment: confirms the full “Nobody really reached out… make me feel like I belonged” quote, the red-carpet setting, and the 2019 “too big” dress controversy. Does not name a single designer who ultimately dressed her, so no designer is asserted here.',
+          },
+        ],
+        // Visual (charter step 3b): a 2019 red-carpet portrait of Bebe Rexha —
+        // the subject of the moment, from the same year as the dress story.
+        // Wikimedia Commons (upload.wikimedia.org, allowlisted reusable host),
+        // curl-verified HTTP 200 image/jpeg at 1884x2640, downloaded and
+        // vision-confirmed as Bebe Rexha (blonde, wide-brim black hat with chin
+        // tie, awards step-and-repeat behind). CC BY-SA 4.0, credited.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Bebe_Rexha_2019_-3_by_Glenn_Francis_%28cropped%29.jpg',
+            focalPoint: '50% 30%',
+            credit: 'Glenn Francis, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Bebe Rexha on a red carpet in 2019 — the year she said several designers declined to dress her for the Grammys, and Taylor reached out.',
+            kind: 'archival',
           },
         ],
       },

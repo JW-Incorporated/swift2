@@ -4,16 +4,20 @@ import { useRef } from 'react';
 import { describe, expect, it } from 'vitest';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import { ClownChat } from './ClownChat';
+import { LORE } from '@/lib/longlive/clownbot-lore';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import { MAX_TEXTAREA_HEIGHT_PX } from '@/lib/longlive/clown-chat-ui';
 import { useStickToBottomScroll } from '@/lib/longlive/clown-chat-ui';
 
 function renderClownChat() {
   return renderWithReader(
-    <AppProvider>
-      <ClownChat />
-    </AppProvider>,
+    <TestHostProvider>
+      <AppProvider>
+        <ClownChat lore={LORE} />
+      </AppProvider>
+    </TestHostProvider>,
   );
 }
 

@@ -8,9 +8,10 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 
 | Path | What it is |
 |------|-----------|
-| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` renders the static LongLive experience (`components/longlive/`, `lib/longlive/`) — see `docs/longlive-experience.md`. The old unmounted `VaultReader` UI was deleted 2026-08-11; the Supabase-backed `/vault/*` HTTP routes and `lib/vault.ts` remain. |
+| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` renders the static LongLive experience. The reader UI now lives in `packages/ui/src/reader/**`; `components/longlive/` and `lib/longlive/` keep data modules plus one-line `export *` shims at the old paths — see `docs/longlive-experience.md`. The old unmounted `VaultReader` UI was deleted 2026-08-11; the Supabase-backed `/vault/*` HTTP routes and `lib/vault.ts` remain. |
 | `apps/mobile` | Expo / React Native app. Reuses `packages/*` **unchanged**. ⚠️ Lands with **PR #42** — may not be on `main` yet. |
 | `apps/worker` | **Not code** — just holds a gitignored `.env` (`SUPABASE_DB_URL`) that the DB scripts read. No pipeline/worker in v1. |
+| `packages/ui` | **The reader UI (One UI).** `src/reader/<slice>/` (era, store, lib, shell, moment, threads, tracks, search, merch, community, clown, settings, legal) holds the components and reader logic moved out of `apps/web`; host-specific behaviour goes through `useHost()` (`HOST-ADAPTER.md`). Move log: `packages/ui/READER-MOVE.md`. Import components as `@swift2/ui/reader/<slice>/<Component>` and non-component modules as `@swift2/ui/reader/<slice>/lib/<module>`; slice barrels are intentionally empty. |
 | `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** Also `src/news/` — dormant post-v1 news-pipeline domain behind the `@swift2/shared/news` subpath; nothing imports it (see `docs/proposals/2026-07-07-news-pipeline-architecture.md`). |
 | `packages/core` | Supabase data access (Tier 0 skeleton / Tier 1 moment / track guide) + row→domain mappers. Portable (web + mobile). |
 | `supabase/migrations` | Idempotent SQL, applied in filename order. |
@@ -117,7 +118,7 @@ cp .env.example .env                        # fill in EXPO_PUBLIC_* creds
 npm run start --workspace @swift2/mobile    # open in Expo Go / emulator
 ```
 
-**Mobile diagnostics panel (One UI WP0.1):** Settings -> tap the version label at the bottom 7 times (within ~2 s of each other). Shows load-stage timings, model, OS, build and update id; "Send report" posts a structured `[diag]` payload; `/api/feedback` validates it strictly and appends a templated comment on tracking issue #4791 (no client text is ever posted). Reports carry no device ids, push tokens or personal data. "Force shared UI (this device)" is a stub until WP0.4.
+**Mobile diagnostics panel (One UI WP0.1):** Settings -> tap the version label at the bottom 7 times (within ~2 s of each other). Shows load-stage timings, model, OS, build and update id; "Send report" posts a structured `[diag]` payload; `/api/feedback` validates it strictly and appends a templated comment on tracking issue #4791 (no client text is ever posted). Reports carry no device ids, push tokens or personal data. "Force shared UI (this device)" is a stub until WP0.4. **Speed test mode** (#4896) auto-sends the next 10 launches plus a PASS/FAIL summary with no taps; procedure in `docs/one-ui/dom-host.md`.
 
 ## Data model (5 tables · RLS public-read)
 

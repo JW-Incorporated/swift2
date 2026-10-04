@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Mobile parity check — are iOS and Android carrying the same release?
 //
-// The release train (apps/mobile/.eas/workflows/release.yml) is designed so
+// The release train (.github/workflows/mobile-release.yml) is designed so
 // the platforms cannot drift; this script is the independent proof that they
 // have not. It reads EAS state only (no store APIs) and fails when:
 //

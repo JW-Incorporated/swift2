@@ -11,6 +11,7 @@
 - #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat
 - #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
 - #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
+- #88 · 2026-10-03 · done · Finish the weekly Facebook export setup — "Joey asked in chat to close once the run worked; 2026-10-03 run uploaded 8/8 groups (fans club raw-file upload retried 1/1, no KEPT outstanding); prod fan_signal 8 rows, engagement_lead 231; #4589 closed" · by chat
 - #86 · 2026-10-01 · done · SOCIAL_POSTER_PAT can't trigger GitHub Actions — "Joey regenerated swift2-social-poster (Actions: Read and write) and saved SOCIAL_POSTER_PAT 2026-10-01 ~16:00Z; pat-dispatch-health run 36889926352 dispatched run 36889947595 with the PAT" · by chat
 - #82 · 2026-10-01 · done · GH_DISPATCH_TOKEN can't dispatch workflows — "GH_DISPATCH_TOKEN is SOCIAL_POSTER_PAT (routine-template.yml); fixed by #86's token, proven by run 36889947595" · by chat
 - #78 · 2026-10-01 · done · Add Actions read/write to SOCIAL_POSTER_PAT — "same fix as #86; proven by pat-dispatch-health run 36889947595" · by chat
@@ -36,6 +37,7 @@
 - #73 · 2026-09-13 · done · Limit the Doorbell bot to #longlive-marjorie and #longlive-tree — "Joey confirmed in chat 2026-09-13: Doorbell bot limited to #longlive-marjorie and #longlive-tree" · by chat
 - #74 · 2026-09-13 · done · Create the GitHub key the Doorbell uses to wake Marjorie and Tree — "Joey confirmed in chat 2026-09-13: fine-grained key longlive-doorbell-dispatch created and saved" · by chat
 - #71 · 2026-09-13 · done · Send two or three short Discord messages so the bot chat can be proven — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1548841758950162463" · by chat
+- #70 · 2026-10-03 · done · Confirm the first automated Facebook export — "Joey asked in chat to close once the run worked; weekly issue #4589 closed with the counts comment, every joined group uploaded, none failed" · by chat
 - #69 · 2026-09-13 · done · Grant the Discord bot four permissions on #longlive-marjorie and #longlive-tree — "owner said done in chat; reply-poll run 34774300277 read the channel without a 403" · by chat
 - #68 · 2026-09-13 · done · Freeze, merge PR #4202 (social-poster alert reroute), unfreeze — "PR #4202 MERGED; SOCIAL_FREEZE verified false via gh variable list" · by agent
 - #64 · 2026-09-12 · done · X per-post metrics need a paid API tier — "closed via Discord reply" · by discord

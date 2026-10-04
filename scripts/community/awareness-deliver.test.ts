@@ -114,13 +114,23 @@ describe('runDelivery', () => {
     expect(result.failed).toEqual([]);
     expect(result.totalToday).toBe(3);
     expect(headers[0]).toContain('Awareness replies — 3 today');
-    expect(calls).toHaveLength(2);
+    expect(calls).toHaveLength(4);
     expect(calls[0].body).toBeInstanceOf(FormData);
     const form = calls[0].body as FormData;
     expect((form.get('files[0]') as File).type).toBe('image/png');
-    expect(String(JSON.parse(String(form.get('payload_json'))).content)).toContain(
-      '/api/community/ack?lead=lead-1&action=posted',
-    );
+    const card = String(JSON.parse(String(form.get('payload_json'))).content);
+    expect(card).toContain('/api/community/ack?lead=lead-1&action=posted');
+    expect(card).not.toContain('```');
+    // The reply follows its card as a plain message holding nothing else, so
+    // long-press "Copy Text" on mobile copies exactly the reply.
+    const reply = JSON.parse(String(calls[1].body));
+    expect(reply.content).toBe(lead(1).draft);
+    expect(reply).toMatchObject({
+      username: 'Tree · Awareness replies',
+      allowed_mentions: { parse: [] },
+    });
+    expect(calls[2].body).toBeInstanceOf(FormData);
+    expect(JSON.parse(String(calls[3].body)).content).toBe(lead(2, 'swifties').draft);
     expect(updates.filter((p) => (p as { status?: string }).status === 'delivered')).toHaveLength(
       2,
     );
@@ -223,6 +233,29 @@ describe('runDelivery', () => {
     expect(result.failed[0].message).toMatch(/HTTP 500/);
     expect(updates).toEqual([]);
   });
+
+  it('keeps a posted card delivered when only its reply-text message fails, and reports it', async () => {
+    const fetchImpl = vi.fn(async (url: string, init?: { body?: unknown }) => {
+      if (String(url).includes('/api/share-card')) return new Response(PNG);
+      if (init?.body instanceof FormData)
+        return new Response(JSON.stringify({ id: 'card-1' }), { status: 200 });
+      return new Response('no', { status: 500 });
+    });
+    const updates: unknown[] = [];
+    const result = await runDelivery({
+      supabase: fakeSupabase({ drafted: [lead(1)], onUpdate: (p) => updates.push(p) }),
+      webhook: 'h',
+      catalog,
+      config,
+      fetchImpl: fetchImpl as never,
+      postHeader: async () => true,
+    });
+    expect(result.delivered).toEqual([expect.objectContaining({ messageId: 'card-1' })]);
+    expect(result.failed[0].message).toMatch(/reply-text delivery failed with HTTP 500/);
+    expect(updates.filter((p) => (p as { status?: string }).status === 'delivered')).toHaveLength(
+      1,
+    );
+  });
 });
 
 describe('runDelivery caps and unlisted subs', () => {
@@ -307,7 +340,7 @@ describe('delivery re-lints what it reads', () => {
       postHeader: async () => true,
     });
     expect(result.delivered).toHaveLength(1);
-    expect(calls).toHaveLength(1);
+    expect(calls).toHaveLength(2); // its card + its reply text
     expect(result.drafted).toBe(1);
   });
 });

@@ -42,7 +42,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           add-paths: |
-            apps/web/lib/longlive/awin-advertisers.json
+            packages/ui/src/reader/moment/lib/awin-advertisers.json
             docs/ops/AFFILIATE-COVERAGE.md
           branch: merch-revenue/awin-advertiser-map
           commit-message: 'chore(merch): refresh Awin advertiser map'
@@ -56,7 +56,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: merch-awin-sync-handoff
-          path: apps/web/lib/longlive/awin-advertisers.json
+          path: packages/ui/src/reader/moment/lib/awin-advertisers.json
           if-no-files-found: error
       - name: Save Awin feed index cache
         uses: actions/cache/save@v6

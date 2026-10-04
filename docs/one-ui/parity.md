@@ -52,6 +52,11 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 
 ## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 
+The a-vs-b specs run each side in its own browser context (`pages.a` is the test's page, `pages.b` a second
+context with the same device options, armed by the same handler). When both sides shared one page, WebKit's
+in-memory image cache served side b an image side a had just fetched, so b's request never reached the route
+handler and the recorded external-image sets differed although both sides rendered the image.
+
 Fixed clock (`clock.setFixedTime`, never `install`), reduced motion, animations
 disabled, caret hidden, first-visit flags in `localStorage`, `/vault/live`
 stubbed empty, Vercel analytics stubbed, every external image answered by one
@@ -109,6 +114,23 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    opened by `openSupportFooter` which waits for hydration and the client-only
    "Vault refreshed" line to hold still); `negative.spec.ts` proves a pure 1px footer
    translate fails that clip on all four projects.
+   One UI PR0-alpha (WP2.5-2.8) adds side-a-only baselines (`A_ONLY_ROUTES` in
+   `helpers.ts`; they never enter `ROUTES`, so compare and a11y are unchanged): `a-item-video`,
+   `a-item-social` (the Instagram facade is never clicked, because an iframe is an external
+   non-image request), `a-threads`, one `a-lens-<id>` per thread lens, `a-crossing`,
+   `a-guide`, `a-song`, `a-theories`, `a-search-open`, `a-search-results`, plus element
+   clips: related rail and follow-threads row (on `item-social`, because the frozen
+   Fearless `item` has no related ids or threads), `a-item-lightbox` (on `item`), the
+   fashion career scrubber, the song OverlayNav and the search combobox row. The fixture
+   covers only Fearless and TLOAS, so some threads are sparse. `negative.spec.ts` proves a
+   1px mutation fails the rail clip, the search row clip and the threads root capture.
+   One UI PR0-beta (WP2.9-2.13) adds more side-a-only baselines (`A_ONLY_ROUTES_BETA` in
+   `helpers.ts`): `a-merch`, `a-community`, `a-clownbot`, `a-clownbot-transcript` (a stubbed
+   `/api/clown` NDJSON answer), `a-mood`, `a-settings-notifications` (the Notification, PushManager
+   and serviceWorker APIs are stubbed to `default` before load), `a-privacy`, `a-terms` and
+   `a-support` (the footer capture `a-support-footer` is unchanged). `negative.spec.ts` proves a
+   1px translate of one element per surface (`BETA_NEGATIVE_TARGETS`) fails its element clip on all
+   four projects. `hydrated` no longer waits for a button when the root has none (static legal pages).
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
@@ -142,9 +164,7 @@ passes iff nothing relevant changed, or `build-web`, `build-dom` and every
 relevant fails it. The `update-baselines` dispatch path is unchanged. When
 editing the filter, keep it in sync with this list.
 
-Parity is not yet a required check. Marking `parity-gate` required is a
-separate owner/PM step in branch protection (G1 condition 1); it is not done by
-this workflow change.
+Parity is required on main since 2026-10-03 (ruleset protect-swift2-main: build + parity-gate).
 
 Baselines depend on the frozen fixture, not live content, so a live content
 change does not turn the run red. A change to the renderers, the sync format

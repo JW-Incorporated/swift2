@@ -8,8 +8,11 @@
 |---|---|---|
 | `Link`, `Image` | `next/link`, `next/image` | WP2.4+ |
 | `resolveUrl` (optional; `useResolveUrl()`) | omitted: the path is used unchanged (same-origin) | `https://www.longlivets.com` + path (canonical origin, overridable). Era art (`/eras/*.png`) goes over the network like content photos. **S4: offline/airplane-mode era art must be checked on device.** |
+| `currentUrl` (optional) | web root adapter only: `window.location.href`; omitted in `createWebAdapter`. The reader reads `?era`/`?item` deep links from it; absent = no deep link | in-DOM web path (not `file://`) |
+| `clipboard` (optional) | web root adapter only: wraps `navigator.clipboard.writeText`; absent = the `navigator.clipboard` fallback | native clipboard |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
+| `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | TODO(PM, 2.11-D1): bridge api allow-list entry for `/api/clown` (native-held session, 60 s timeout); buffered fallback until then |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
@@ -33,6 +36,10 @@ Note: the web adapter's `onBack` does not consume the handler's boolean return; 
 | `localStorage`/`sessionStorage` assumptions | `storage.local` / `storage.session` | WP2.3 |
 | `popstate` / `useBackDismiss` history-stack back handling | `onBack` | WP2.3 |
 | Turnstile (`SubmitLinkForm`) | `env.turnstileSiteKey` (`null` hides the widget) | WP2.10 |
+
+## Mobile `apiFetch` status
+
+`CurrentItemDetail` intake calls `useHost().apiFetch`. The mobile spike adapter still inherits the web `apiFetch` (relative fetch, null origin) and `/api` has no CORS (`apps/web/next.config.mjs` only opens `/content/**`), so mobile intake is not functional until the WP2.3-F bridge `apiFetch` lands (TODO(PM, WP2.3-F)).
 
 ## `Image` with `fill`
 

@@ -20,14 +20,17 @@ export type ApiResponse = {
   body: string;
 };
 
-export type ApiFetch = (req: ApiRequest) => Promise<ApiResponse>;
+export type ApiFetchOptions = { signal?: AbortSignal };
+
+export type ApiFetch = (req: ApiRequest, opts?: ApiFetchOptions) => Promise<ApiResponse>;
 
 /** Web default: same-origin `fetch`, flattened to the bridge-serializable response shape. */
-export const webApiFetch: ApiFetch = async (req) => {
+export const webApiFetch: ApiFetch = async (req, opts) => {
   const res = await fetch(req.path, {
     method: req.method,
     headers: req.headers,
     body: req.body,
+    ...(opts?.signal ? { signal: opts.signal } : {}),
   });
   const headers: Record<string, string> = {};
   res.headers.forEach((value, key) => {

@@ -4,7 +4,7 @@
 import * as Application from 'expo-application';
 import * as SecureStore from 'expo-secure-store';
 import * as Updates from 'expo-updates';
-import { parseRecord, type WatchdogRecord } from './watchdog';
+import { readRecord, type WatchdogRecord } from './watchdog';
 
 export const WATCHDOG_KEY = 'longlive_watchdog_v1';
 
@@ -12,11 +12,12 @@ export function currentBuildKey(): string {
   return `${Application.nativeBuildVersion ?? '?'}:${Updates.updateId ?? 'embedded'}`;
 }
 
-export async function loadWatchdogRecord(): Promise<WatchdogRecord | null> {
+/** null = nothing stored; 'corrupt' = unreadable or failed the strict parse (the caller mounts native and resets). */
+export async function loadWatchdogRecord(): Promise<WatchdogRecord | null | 'corrupt'> {
   try {
-    return parseRecord(await SecureStore.getItemAsync(WATCHDOG_KEY));
+    return readRecord(await SecureStore.getItemAsync(WATCHDOG_KEY));
   } catch {
-    return null;
+    return 'corrupt';
   }
 }
 
@@ -29,6 +30,12 @@ export async function saveWatchdogRecord(record: WatchdogRecord): Promise<boolea
     return false;
   }
 }
+
+/** WP2.14: pending category-only watchdog reports (watchdog-telemetry.ts); small, one key. */
+export const WATCHDOG_REPORTS_KEY = 'longlive_watchdog_reports_v1';
+
+export const loadReportsRaw = (): Promise<string | null> => SecureStore.getItemAsync(WATCHDOG_REPORTS_KEY);
+export const saveReportsRaw = (raw: string): Promise<void> => SecureStore.setItemAsync(WATCHDOG_REPORTS_KEY, raw);
 
 /** Re-enabling the override in Diagnostics starts the watchdog from scratch. */
 export async function clearWatchdogRecord(): Promise<void> {

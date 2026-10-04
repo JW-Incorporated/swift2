@@ -34,8 +34,8 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
   ~23 ms (PG:380-384, #4849). Not a device number.
 - OTA size (baseline scripts/parity/size-check.mjs): +11.6/11.7% from WP0.4 native batch (baseline
   bump #4831); +61% from WP0.5b ReaderSpike (pulls web reader into DOM bundle; accepted for spike,
-  flagged "G0 input", PG:191-194). WP2.1-C fonts: 238,776 B woff2 / 321,939 B base64 = +322 KB (+4.4% (inconsistent — recompute at G0 from the live OTA))
-  at PG:285-287; later restated "+247 KB ~ +3.3% (inconsistent — recompute at G0 from the live OTA)" (latin-ext, PG ~405-426) - recheck live baseline.
+  flagged "G0 input", PG:191-194). WP2.1-C fonts: 238,776 B woff2 / 321,939 B base64 = +322 KB (+4.4%)
+  at PG:285-287; later restated "+247 KB ~ +3.3%" (latin-ext, PG ~405-426) - recheck live baseline. (Font OTA figures are cumulative, not conflicting.)
   Fable cond. 3: no re-bump without a PROGRESS reason (PG:685). 10k-MAU bandwidth forecast: not found.
 - Web bundle: eager snapshot cost +117 KB gzip on main routes; core/extension split took -65 KB
   back; remainder accepted as inherent (PG:375-377, 691).
@@ -176,6 +176,7 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
 
 **iOS / iPad:** NOT TESTED — owner decision 2026-10-04 06:37 PDT: "Use the android info and apply it everywhere"; iOS/iPad deferred to the first post-G0 device session.
 
+=======
 ## Traps
 - PROGRESS "Status" table (PG:634-650) is stale; trust the 04:43 checkpoint (PG:9-36).
 - S1 is n=2, warm-only, broken offsets: not a valid cold baseline. Native warm already misses 1 s.

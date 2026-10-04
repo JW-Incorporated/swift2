@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { LegalDocument } from '@/components/longlive/LegalDocument';
+import { LegalDocument } from '@swift2/ui/reader/legal/LegalDocument';
+import { SiteFooter } from '@/components/longlive/SiteFooter';
 import { PRIVACY_POLICY, legalRobots } from '@/lib/longlive/legal';
 
 // The copy lives in `lib/longlive/legal.ts` — including the standing rule that
@@ -19,5 +20,5 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
-  return <LegalDocument doc={PRIVACY_POLICY} />;
+  return <LegalDocument doc={PRIVACY_POLICY} footer={<SiteFooter />} />;
 }

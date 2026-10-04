@@ -264,6 +264,11 @@ export function runSummary(results, actingPageId = null) {
           `Tab hidden (${tabHidden.join(', ')}): the export tab was not visible, so Facebook's feed could not load. The run is unattended Sundays 23:00-04:00: keep the PC on and signed in (locking is fine; don't sign out or shut down), allow wake timers, and don't switch tabs in it.`,
         ]
       : []),
+    ...(results.some((row) => row.reason === 'extension-never-connected')
+      ? [
+          'Extension never connected: Chrome opened the receiver page but the Long Live extension did not run — check chrome://extensions in the export profile (enabled, Developer mode on).',
+        ]
+      : []),
     ...(results.some((row) => row.reason === 'chrome-profile-open')
       ? [
           'The Long Live Chrome profile was already open — close that Chrome window and rerun (the export must start Chrome itself).',

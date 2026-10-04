@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { TimelineScrubber } from './TimelineScrubber';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
+import { TestHostProvider } from '@/lib/test-host';
 import {
   CURRENT_ERA_NOW_GRAIN_MS,
   RAIL_PCT_DECIMALS,
@@ -82,7 +83,7 @@ describe('TimelineScrubber layout', () => {
     expect(scrubberTooltipTransform(0)).toBe('translateY(0)');
     expect(scrubberTooltipTransform(100)).toBe('translateY(-100%)');
 
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     expect(src).toContain('pillRef.current.style.transform = scrubberPillTransform(pct)');
   });
 
@@ -104,9 +105,11 @@ describe('TimelineScrubber layout', () => {
   // somewhere in the file.
   it('is actually wired into TimelineScrubber in shell > anchor > rail order', () => {
     const { container } = renderWithReader(
-      <AppProvider>
-        <TimelineScrubber />
-      </AppProvider>,
+      <TestHostProvider>
+        <AppProvider>
+          <TimelineScrubber />
+        </AppProvider>
+      </TestHostProvider>,
     );
 
     // Match by the FULL class string (not just the first token) — the scrim
@@ -169,7 +172,7 @@ describe('scrubberAnchorPaddingTop (finding #2, 2026-08-14)', () => {
   });
 
   it('is wired into TimelineScrubber via the same media query as SCRUBBER_ANCHOR_CLASS', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     expect(src).toContain('window.matchMedia(SCRUBBER_CENTER_MEDIA_QUERY)');
     expect(src).toContain('scrubberAnchorPaddingTop({');
     expect(src).toContain('anchorPaddingTop != null ? { paddingTop: anchorPaddingTop } : undefined');
@@ -209,13 +212,13 @@ describe('scrubberAnchorPaddingTop clamps to a LIVE position, not a summed heigh
   });
 
   it('TimelineScrubber feeds it measureChromeBottom (a live position), not measureChromeHeight (a summed height)', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     expect(src).toContain('chromeBottom: measureChromeBottom()');
     expect(src).not.toContain('chromeHeight: measureChromeHeight()');
   });
 
   it('recomputes on scroll (throttled), not only on resize/layout change — the position moves every frame pre-stick', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     const onScrollAt = src.indexOf('const onScroll = () => {');
     expect(onScrollAt).toBeGreaterThan(-1);
     const onScrollBody = src.slice(onScrollAt, src.indexOf('};', onScrollAt));
@@ -249,7 +252,7 @@ describe('snapNow (finding #3, 2026-08-14)', () => {
   });
 
   it('is wired into TimelineScrubber\'s `end` bound for the current era', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     expect(src).toContain('Math.min(authoredEnd, snapNow(Date.now()))');
   });
 });
@@ -276,7 +279,7 @@ describe('roundRailPct (finding #3, 2026-08-14)', () => {
   });
 
   it('is wired into TimelineScrubber at pctForDate, the single place a rail percentage is produced', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     const pctForDateAt = src.indexOf('const pctForDate = useCallback(');
     const roundAt = src.indexOf('return roundRailPct(raw);');
     expect(pctForDateAt).toBeGreaterThan(-1);
@@ -375,7 +378,7 @@ describe('TimelineScrubber never displays or announces a synthetic anchor date',
   // and measure() must read data-ll-exact off the DOM rather than assuming
   // every anchor is real.
   it('TimelineScrubber routes every displayed/announced date through labelForDate', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     const uses = src.match(/labelForDate\(fmtMonth\(pillDate\), exactForDate\(pillDate\)\)/g);
     // Once for aria-valuetext, once for the visible pill text — no third,
     // un-gated caller of fmtMonth(pillDate) may exist alongside them.
@@ -422,7 +425,7 @@ describe('scrubberRailMaxHeight (re-review finding #2, round 2)', () => {
   });
 
   it('is wired into TimelineScrubber alongside scrubberAnchorPaddingTop', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     expect(src).toContain('scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight })');
     expect(src).toContain('maxHeight: railMaxHeight');
   });
@@ -446,7 +449,7 @@ describe('SCRUBBER_RAIL_CLIP_PATH (re-review finding #3, round 2)', () => {
   });
 
   it('is applied to the rail only while anchorPaddingTop is clamped', () => {
-    const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+    const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
     const railStyleAt = src.indexOf('className={SCRUBBER_RAIL_CLASS}');
     expect(railStyleAt).toBeGreaterThan(-1);
     const nearby = src.slice(railStyleAt, railStyleAt + 300);
@@ -464,7 +467,7 @@ describe('SCRUBBER_RAIL_CLIP_PATH (re-review finding #3, round 2)', () => {
 // `pointer-events-none`, so the rail div itself is the only pointer-events:
 // auto element in the whole subtree.
 describe('rail adornments are pointer-events-none (re-review finding #1, round 2)', () => {
-  const src = readFileSync(join(__dirname, 'TimelineScrubber.tsx'), 'utf8');
+  const src = readFileSync(join(__dirname, '../../../../packages/ui/src/reader/shell/TimelineScrubber.tsx'), 'utf8');
 
   // Same balanced-<div>-counting approach scrubber-nested-interactive.test.ts
   // uses to isolate the role="slider" element's full subtree — reused here

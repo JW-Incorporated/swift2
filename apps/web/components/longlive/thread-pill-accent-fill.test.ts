@@ -12,7 +12,7 @@ import { describe, expect, it } from 'vitest';
 // (#3318). This file only source-locks both components so neither half of the
 // tinted-chip shape can quietly return.
 
-const SOURCES = ['./runway/RunwayThread.tsx', './proposal/ProposalThread.tsx'].map(
+const SOURCES = ['../../../../packages/ui/src/reader/threads/runway/RunwayThread.tsx', '../../../../packages/ui/src/reader/threads/proposal/ProposalThread.tsx'].map(
   (rel) => [rel, readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8')] as const,
 );
 

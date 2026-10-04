@@ -182,6 +182,7 @@ export function SiteShell({
           </Pressable>
         </View>
       ) : (
+        // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- WebView's generic prop-bag param; `object` would change typing
         <WebView<{}>
           key={reloadKey}
           ref={webRef}

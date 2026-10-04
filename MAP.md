@@ -79,7 +79,8 @@ docs `CLAUDE.md` points at:
 | `scripts/watchdog/news-worker-rotation-check.mjs` | Self-limiting: first news-worker run after the key rotation. Same expiry |
 | `scripts/watchdog/cron-maxage-hours.mjs` | Derives per-workflow cadence maxage-hours from a `routine-*.yml`'s own cron, for watchdog.yml's dynamic WATCHED list (tree-overhaul #4117 task A1) |
 | `scripts/mobile/lib/main-ahead.mjs` | Pure MAIN_AHEAD logic for `check-parity.mjs`: `readGitState` (injected git runner), `evaluateMainAhead`, `exitCodeFor` (exit 3 = production behind main) |
-| `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from `eas workflow:status` JSON; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
+| `scripts/release/select-android-build.mjs` (+ `.test.ts`) | Release train: picks this run's Android store build from the train state file; fails closed on commit-hash/UUID/status mismatch (see docs/mobile-release.md) |
+| `scripts/release/train-lib.mjs` (+ `.test.ts`), `train-plan.mjs`, `train-wait.mjs` | Release train, run from GitHub Actions since 2026-10-03 (HA #98): fingerprint + existing-build plan, build polling, state file, iOS submit gate; replaces the retired EAS workflow (see docs/mobile-release.md) |
 | `scripts/parity/size-check.mjs` (+ `.test.ts`) | OTA size budget: fails CI on >15% growth of the mobile export vs `e2e/parity/size-baseline.json` (`--update` rewrites it; see docs/mobile-release.md) |
 | `.claude/hooks/guard.test.sh` | Minimal shell fixture asserting guard.sh's deny patterns actually block (task A5) |
 
@@ -99,7 +100,7 @@ read once on mount (`deepLink.ts`) and never written back.
 
 | Path (under `apps/web/`) | Responsibility |
 |---|---|
-| `lib/longlive/store/` | The state container, split into slices (R21): `navigation.tsx` (mode/era/lens/crossing/selector/scrubbing + the back-gesture nav-history stack), `overlays.tsx` (moment/track-guide/theory-guide/clue-web-trail/pending-video-anchor), `return-points.tsx` (doorway `ReturnPoint` LIFO stack), `search-share.tsx` (search overlay, share sheet, timeline filters, clown transcript). `index.tsx` composes them into one `AppProvider`; `useAppState()`/`useAppActions()` keep the pre-split public signature unchanged |
+| `lib/longlive/store/` | MOVED to `packages/ui/src/reader/store/` (WP2.4-A1); this folder holds one-line `export *` shims. The state container, split into slices (R21): `navigation.tsx` (mode/era/lens/crossing/selector/scrubbing + the back-gesture nav-history stack), `overlays.tsx` (moment/track-guide/theory-guide/clue-web-trail/pending-video-anchor), `return-points.tsx` (doorway `ReturnPoint` LIFO stack), `search-share.tsx` (search overlay, share sheet, timeline filters, clown transcript). `index.tsx` composes them into one `AppProvider`; `useAppState()`/`useAppActions()` keep the pre-split public signature unchanged |
 | `lib/longlive/return-point-stack.ts` | Pure matching-consume rule for doorway return points; unrelated back restores leave the LIFO entry intact |
 | `lib/longlive/tags.ts` | `ContentTag` — the 5 authored topic tags. **Does not re-export the type; import `ContentTag` from `./types`** |
 | `lib/longlive/filters.ts` | `FilterId` (the 5 tags + `Videos`), `ALL_FILTERS`, `filterMatches`, `filtersForEntry`, `filterForThread` (LensId→FilterId, exhaustive) |
@@ -138,7 +139,8 @@ read once on mount (`deepLink.ts`) and never written back.
 | `components/longlive/VideoMomentCard.tsx` | Full-width video-record card (kind: `'video'`) |
 | `components/longlive/DoorwayCard.tsx` | Thread/egg doorway cards — same silhouette as a moment card (P3 step 15) |
 | `components/longlive/EraThreadsPivot.tsx` | The "Threads running through {era}" strip below the feed |
-| `components/longlive/TopBar.tsx` | Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode |
+| `components/longlive/TopBar.tsx` | MOVED to `packages/ui/src/reader/shell/TopBar.tsx` (WP2.4-B); one-line shim. Sticky top bar + the 4-tab `ModeToggle`; hosts `TimelineScrubber` in era mode. Same for `TimelineScrubber`, `timelineScrubberLayout`, `topbarLayout`, `BottomNav`, `components/ui/button`; `ReaderShell.tsx` (new, same dir) is the old LongLive `Shell` with host `slots`; `LongLive.tsx` supplies the web slot map via `ReaderRoot` |
+| `components/longlive/EraStream.tsx` | MOVED to `packages/ui/src/reader/era/EraStream.tsx` (WP2.4-C); one-line shim. Same for EraSection, EraFeedList, FilterBar, LandingMasthead, CountdownBanner, ClusterCard, CurrentItemCard, CurrentItemDetail, DoorwayCard, EraSecretCard, EraThreadsPivot, MomentCard, MomentCardButton, MomentVideo, OverlayNav, ShareImageMenu, SignificanceBadge, TrackFivePill, TrackGuideBar, VideoMomentCard (see `packages/ui/READER-MOVE.md`) |
 | `lib/longlive/track-video.ts` | Pairs a track with a playable video. Exact match on normalised titles — **never strip edition qualifiers** like "(Taylor's Version)" |
 | `components/longlive/TrackGuideBar.tsx` | Full-width bar under the lyric, in the retired Spotify player's slot; opens `TrackGuide` |
 | `app/api/share-card/route.tsx` | W9 share cards: `GET /api/share-card` → deterministic PNG (`?item=` moment, `?era=`, `?eras=&m=&e=&f=` "My Eras", `size=portrait\|story`). Invalid input → default brand card, never 500; CDN cache headers. Separate from `/api/og` (untouched). Details in `docs/longlive-experience.md` §7a |
@@ -148,7 +150,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/longlive/share-card-fonts.ts` · `share-fonts/` | Vendored Playfair/Inter `.woff` (OFL) read with fs; `next.config.mjs` `outputFileTracingIncludes` ships them with the function |
 | `components/longlive/ShareImageMenu.tsx` · `YourLongLiveCard.tsx` | "Share as image" Story/Post menu (moment detail, era hero) and the "Your Long Live" entry in `EraSelector`; `lib/longlive/share-action.ts` `triggerImageShare` + `share-payload.ts` `shareCardImage` do file-share-or-download |
 | `components/longlive/TrackGuide.tsx` | Full-screen track-guide modal; plays a paired song video inline (~20% of tracks pair) |
-| `components/longlive/TheoryGuide.tsx` | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
+| `packages/ui/src/reader/threads/TheoryGuide.tsx` (shim: `components/longlive/TheoryGuide.tsx`) | Full-screen theories & eggs modal shell; scroll-to-highlight + `ReturnPoint` pop on close |
 | `components/longlive/TheoryCard.tsx` | One theory/egg card: badges, sources, R4 back-link (thread if `theoryThreadId` resolves, else the unconditional "whole section" line) |
 | `components/longlive/ThreadsMode.tsx` | Thread gallery + thread detail |
 | `components/longlive/FeedbackButton.tsx` | Fixed bottom-right, `z-[71]`, POSTs to `/api/feedback` |
@@ -342,13 +344,13 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 - `apps/web/lib/longlive/submit-link.ts` — validation, domain/platform derivation, client-id hashing, and the three sinks. **Each sink is independently optional; a missing one must never fail a submission.** `neutralizeCell` here and `neutralizeCell_` in the Apps Script are the SAME rule deliberately duplicated — both sides of the sheet trust boundary. Change one, change both.
 - `apps/web/app/api/submit-link/route.ts` — the public endpoint. Honeypot + per-IP rate limit copied from `/api/feedback`. **Never fetches the submitted URL** (SSRF).
 - `apps/web/components/longlive/CommunitySection.tsx` — directory grouped by platform. Verification badge shows only when NOT verified; flags render above descriptions.
-- `apps/web/components/longlive/MerchSection.tsx` — composition only (~165 lines): marquee, sticky rail, three sections, submit form. Links out only; no cart, no checkout (item 4a standing rule).
-- `apps/web/components/longlive/merch/MerchMarquee.tsx` — flashing-bulb hero. Staggered `animationDelay`; relies on `globals.css`'s blanket `prefers-reduced-motion` `!important` rule, so the animation must stay a CSS `animation` (a JS timer would escape it).
-- `apps/web/components/longlive/merch/MerchSectionRail.tsx` — sticky 3-section rail + scrollspy. Offset comes from `measureChromeBottom()` re-read on scroll/resize, NEVER a constant. Tags itself `data-ll-merchrail` but is deliberately NOT wired into `chrome-offset.ts` — nothing sticky sits below it.
-- `apps/web/components/longlive/merch/EraSpine.tsx` — era filter spine. **Never use `scrollIntoView` here**: with `block:'nearest'` it scrolls the window too and hijacked page position on mount. Scroll the track's `scrollLeft` directly. 0 → em-dash + `disabled`, never "0".
-- `apps/web/components/longlive/merch/MerchStyleSection.tsx` — the "Seen on Taylor" section: spine wiring, the REAL filters, tally, grid, pager. **No garment-type filter exists — `Product` has no `kind` field, deliberately.**
-- `apps/web/components/longlive/merch/MerchCard.tsx` — split "On Taylor | the piece" card; exact-vs-similar with `altNote` INLINE (a hover tooltip is invisible on touch — that was the bug).
-- `apps/web/components/longlive/merch/MerchEmptyPanel.tsx` — honest placeholder for the two empty buckets. Never fabricates products.
+- `packages/ui/src/reader/merch/MerchSection.tsx` (apps/web `MerchSection.tsx` is a thin wrapper injecting the baked `MERCH_EXTENSIONS` via the `extensions` prop) — composition only (~165 lines): marquee, sticky rail, three sections, submit form. Links out only; no cart, no checkout (item 4a standing rule).
+- `packages/ui/src/reader/merch/MerchMarquee.tsx` (apps/web path is a one-line shim) — flashing-bulb hero. Staggered `animationDelay`; relies on `globals.css`'s blanket `prefers-reduced-motion` `!important` rule, so the animation must stay a CSS `animation` (a JS timer would escape it).
+- `packages/ui/src/reader/merch/MerchSectionRail.tsx` (apps/web path is a one-line shim) — sticky 3-section rail + scrollspy. Offset comes from `measureChromeBottom()` re-read on scroll/resize, NEVER a constant. Tags itself `data-ll-merchrail` but is deliberately NOT wired into `chrome-offset.ts` — nothing sticky sits below it.
+- `packages/ui/src/reader/merch/EraSpine.tsx` (apps/web path is a one-line shim) — era filter spine. **Never use `scrollIntoView` here**: with `block:'nearest'` it scrolls the window too and hijacked page position on mount. Scroll the track's `scrollLeft` directly. 0 → em-dash + `disabled`, never "0".
+- `packages/ui/src/reader/merch/MerchStyleSection.tsx` (apps/web path is a one-line shim) — the "Seen on Taylor" section: spine wiring, the REAL filters, tally, grid, pager. **No garment-type filter exists — `Product` has no `kind` field, deliberately.**
+- `packages/ui/src/reader/merch/MerchCard.tsx` (apps/web path is a one-line shim) — split "On Taylor | the piece" card; exact-vs-similar with `altNote` INLINE (a hover tooltip is invisible on touch — that was the bug).
+- `packages/ui/src/reader/merch/MerchEmptyPanel.tsx` (apps/web path is a one-line shim) — honest placeholder for the two empty buckets. Never fabricates products.
 - `.merch-shell` in `apps/web/app/globals.css` — 11 `--merch-*` tokens. Merch deliberately opts OUT of era skinning; do not "unify" it back into the nine `--era-*` vars.
 - `apps/web/components/longlive/SubmitLinkForm.tsx` — shared by both sections. Honeypot is off-screen, NOT `display:none`.
 - `scripts/apps-script/submissions-doPost.gs` — Apps Script for the sheet. Joey deploys it; shared-secret gated.
@@ -364,6 +366,10 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 | `scripts/knowledge/fb-export-run.mjs` | Weekly idempotent orchestration: collect → real-parser copy gate → confirmed upload → reminder issue comment/close; `--dry-run` stops before upload/GitHub |
 | `scripts/knowledge/fb-export-task.ps1` | Registers the Sunday 18:00 local Windows task with start-after-miss and wake enabled |
 | `%LOCALAPPDATA%\longlive-fb` | **Outside repo:** DPAPI credential, Chrome profile, dated raw exports/diagnostics, and weekly completion ledgers |
+| `scripts/community/fb-lead-scrub.mjs` (+ test) | One-off repair for issue #4885 / HA #98: finds and DELETES the contaminated `engagement_lead` rows (leaked tag fragment + an unhashed group member's name in `locator`/`context`) written by the pre-fix parser. Dry run by DEFAULT; `--apply` deletes; `--json-out` dumps the pre-delete rows for audit. Matches only facebook + `status='new'` + a known checklist group + the leak signature at the head of the excerpt |
+| `scripts/community/fb-lead-reingest.mjs` (+ test) | The repair half: re-derives clean leads from the exports already stored in the private `facebook-exports` bucket with the fixed parser, LEADS ONLY (`fan_signal` holds aggregates only, was never contaminated, and has no unique constraint — re-inserting would duplicate). Dry run by DEFAULT; `--apply` writes; idempotent via `engagement_lead`'s dedupe index |
+| `.github/workflows/fb-lead-scrub.yml` | Manual-dispatch lane for the two scripts above (they need `SUPABASE_SERVICE_ROLE_KEY`, which only lives in Actions secrets). `apply` input defaults to false; uploads the deleted rows as a run artifact. One-off — delete after the repair has run |
+| `supabase/migrations/20261004000000_community_watchlist_facebook_backfill.sql` | Backfills the 7 `community_watchlist` rows for export-checklist Facebook groups that were producing leads with no watchlist row (#4885's last bullet). scan=true, crawl=false, allows_links=false for all |
 
 ## Notifications Phase 4 (2026-08-31, NOTIFICATIONS_PLAN.md) — new files
 
@@ -612,6 +618,13 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `packages/ui/src/bridge/client.ts` (+ `client.test.ts`, `contract.test.ts`) | WP2.3-C transport-neutral DOM bridge client (`createBridgeClient`: id-correlated `call` with timeout/abort->`cancel`, `consumeInbox` seq dedupe + `ack`, `on`/`handle('back')`, `sendReady`); contract test = 3 type-level legs (client <-> `HandlerMap`, host handler signatures, `HostAdapter` <-> `PayloadOf`/`ResultOf`) |
 | `apps/mobile/dom/bridge/transport-expo.ts` (+ test) | WP2.3-C the ONE Expo-DOM-specific DOM-side file (`inbox` prop + `bridge` action -> client); NOT yet imported by ReaderSpike/SharedUiTest (waits for G0) |
 | `apps/mobile/lib/bridge-host.ts` (+ `bridge-host.test.ts`, `bridge-host-queue.test.ts`, `bridge-host.test-kit.ts`) | WP2.3-B native bridge dispatcher: pure/transport-neutral `createBridgeHost` (injected clock/scheduler/send/handlers). One res per cmd, 8 s per-type timeouts, `cancel`, bounded-LRU replay dedup, per-command validators before handlers, pre-ready seq queue + ack trim, version check vs `NATIVE_SUPPORTED_RANGE` -> `onProtocolFatal` (the only watchdog path). NOT wired into SharedUiHost/App yet (step 4 waits for G0) |
+| `apps/mobile/lib/bridge-handlers-api.ts` (+ test) | WP2.3-F1 native `api` handler: `createHandlers({fetch,baseUrl,...})` -> `{api}`; 4-endpoint POST allowlist, header allowlists both ways, 256 KB caps, 8 s timeout, abort -> cancelled, no expo/SharedUiHost imports. NOT wired (F2 waits for G0) |
+| `apps/mobile/lib/bridge-handlers-api-clown.test.ts` | 2.11-D1 tests: ClownChat allow-list entry, native Authorization after sanitize, x-clown-session persisted + stripped, 60 s clown timeout |
+| `apps/mobile/lib/expo-fetch-deps.ts` | `createExpoApiDeps()`: expo/fetch + apiBaseUrl + clown-session-store for the F2 `api` handler; no DOM transport imports. NOT wired |
+| `apps/mobile/lib/bridge-handlers-notifications.ts`, `notification-tap-queue.ts` (+ tests) | WP2.3-E1 (pre-G0, pure, no expo/SharedUiHost imports): `createHandlers(deps)` for `notifications.{status,request,register,updatePrefs}` (fixed failure text, no token); tap queue holds bounded, id-deduped taps until `attach(sink)` then replays in order (`navigateSink(host.emit)`; `detach` re-holds). E2 wiring (App.tsx listener, SharedUiHost, watchdog-gate TODO) waits for G0 |
+| `apps/mobile/lib/bridge-handlers-ui.ts` (+ test) | WP2.3-D1 UI bridge handlers: pure `createHandlers(deps)` (navigate/openExternal/share/haptic, injected native deps, validation before deps), `createBackHandler` (false pre-ready; non-`handled` -> exitApp; 1000 ms), `createInsetsEmitter`, `createContentVersionEmitter`. No RN/Expo imports; unwired until D2 (post-G0). |
+| `apps/mobile/lib/app-handlers.ts` (+ test) | One UI wave 0 composer: pure `createAppHandlers({ui,notifications,api})` merges the D1/E1/F1 factories (a duplicate message key throws) into the `createBridgeHost` handler map (everything but `cancel`); no transport imports, unwired |
+| `apps/mobile/dom/slots/` (`types`, `registry`, `instance`, `index`, `routes`, `routes-registry`, `routes-instance`, `slots.test`) | One UI wave 0 skeleton, split in two. DOM side: `index.ts` + `<slice>.ts` self-registering slots (idempotent per slice). Native-safe side: `routes.ts` + `<slice>.routes.ts` registering frozen native routes (dup ids/matchers and g/y regexes throw); a test asserts its import graph has no slot files. Each slice adds one import line per side. No slice bodies yet |
 | `packages/content/src/api-fetch.ts` (+ test) | `ApiFetch` request/response contract (bridge-serializable) + `webApiFetch` same-origin default; reader `/api` call sites not migrated yet (One UI WP0.3b) |
 | `apps/web/next-config.test.ts` | Asserts `next.config.mjs` headers(): ACAO `*` on `/content/:path*` only, none on `/api`/HTML |
 | `packages/content/src/timing.ts` (+ test) | One UI WP0.1: optional load-stage hooks (`beginStage`, `setLoadTimingSink`); shared no-op when no sink is registered; `load.ts` reports pointer/manifest/download/hash/parse/validate/disk-write/load-total |
@@ -642,8 +655,59 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/web/lib/longlive/render-with-reader.tsx` | Test helper `renderWithReader(ui)`: RTL `render` under `WebReaderSnapshotProvider`; any test rendering a `useReader()` component (incl. `AppProvider`) uses it | WP2.2-C1 migrated EraSection, TimelineScrubber, YourLongLiveCard, Crossings (threadPoints) and the store to `useReader()`; `threadsInEra`/`threadCrossings` still injected (no query yet) |
 | `apps/web/lib/longlive/search-golden.fixture.json` | Frozen era/egg/thread search results from the deleted web index builder; `search.ts` is now only the engine re-exports | Content-independent groups only, so content PRs do not move it |
 | `packages/experience/src/reader-snapshot/queries.test.ts` | Every `createReaderQueries` accessor deep-equals the web module it replaces, over all eras/ids/threads | Needs `npm run sync:content` (also covers `threadsInEra`, `threadCrossings`, `resolveTrackKey`, `adjacentTrackOnAlbum`, `keepExploring`, `resolveRelatedTheory`, WP2.2-C3) |
+| `packages/ui/src/reader/{lib,store}/` (+ `READER-MOVE.md`) | WP2.4-A1 move-only: reader store and shared libs (theme, share-*, use-*, bottom-nav-*, video-affordance, utils `cn`, ...) with their pure tests; old `apps/web/lib/longlive/*` and `apps/web/lib/utils.ts` paths are one-line `export * from '@swift2/ui/reader/{lib,store}/...'` shims (subpath exports in `packages/ui/package.json`), retired in WP2.13 | Move-only: import-path edits only; logic changes go to 2.4-A2 |
 | `eslint.config.mjs` + `packages/ui/src/reader-lint-ban.test.ts` | WP2.2-D: `no-restricted-imports` bans the module-global content accessors, baked/`*.generated` modules and injected `@swift2/experience` wrappers in `apps/web/components/longlive/**` and `packages/ui/**` ("read via useReader()"); tests + `*.server.*` exempt. `apps/web` is otherwise outside root lint; only that folder is un-ignored, with a parser and stub plugins so inline disables resolve | Merch components are allow-listed until #4859 (TODO in the config); the ban is import-level, so `lib/longlive/**` (mixed server/client) is not covered |
 | `packages/experience/src/reader-snapshot/equivalence.test.ts` | CI gate (own step in `ci.yml`): baked vs bundle hash equal, diverged fixture names its domain |
+
+## One UI reader slices (WP2.5-2.13 scaffold)
+
+Intentionally empty barrels `packages/ui/src/reader/<slice>/index.ts` and package subpath exports already exist (no root re-exports; import via deep subpaths); each slice adds its rows only under its own heading.
+
+### WP2.5 moment
+
+| Path | What |
+|---|---|
+| `packages/ui/src/reader/moment/{MomentDetail,MomentSocialPost,ZoomableImage}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.5-A1, move-only). `apps/web/components/longlive/MomentDetail.tsx` is a one-line `export *` shim (until D / WP2.13) |
+| `packages/ui/src/reader/moment/lib/{contain-fit,related,useFocusTrap,shop,shop-networks}.ts` + `awin-advertisers.json` | MOVED from `apps/web/lib/longlive/`; `related`, `shop`, `useFocusTrap` keep one-line shims at the old path. The awin sync workflow and `scripts/merch-engine/*` point at the moved JSON |
+
+### WP2.6 threads
+| Path | Purpose | Notes |
+|---|---|---|
+| `packages/ui/src/reader/threads/` (+ `READER-MOVE.md` § WP2.6 threads) | WP2.6-A1 move-only: ThreadsMode, ThreadsTimeline, ClueWeb, Crossings, FromTheEras, LiveTheoryCard, TheoryCard and the `decode/`, `love-story/`, `proposal/`, `runway/`, `taylors-version/` thread components; non-components under `threads/lib/` (`crossingMarkerLayout`, `decode`, `love-story`, `live-theories`, `lib/decode/patternRailLayout`) with their pure tests | One-line shims at `components/longlive/{ThreadsMode,TheoryCard,LiveTheoryCard}.tsx` and `lib/longlive/live-theories.ts`; `TheoryGuide` stays in `apps/web` until WP2.5 moves `useFocusTrap`; source-reading tests stay in `apps/web` and point at the moved files |
+
+### WP2.7 tracks
+
+| File | Note |
+|---|---|
+| `packages/ui/src/reader/tracks/{TrackGuide,TrackDetail}.tsx` | MOVED from `apps/web/components/longlive/` (WP2.7-A1, move-only). Both old paths are one-line `export *` shims (until D) |
+
+### WP2.8 search
+
+| Path | What |
+|---|---|
+| `packages/ui/src/reader/search/{SearchOverlay.tsx,search-listbox-children.test.ts}` | MOVED from `apps/web/components/longlive/` (WP2.8-A1, move-only). `apps/web/components/longlive/SearchOverlay.tsx` is a one-line `export *` shim (until D / WP2.13). `lib/longlive/search.ts` stays (still used by `clown-retrieve.ts`, the golden suite, regen script) |
+
+### WP2.9 merch
+(2.9-A1) Moved to `packages/ui/src/reader/merch/`: EraSpine, MerchMarquee, MerchEmptyPanel, MerchSectionRail, SubmitLinkForm, `lib/{merch-filters,section-jump}`. Old apps/web paths are one-line shims. 2.9-A1b also moved MerchCard and MerchStyleSection. 2.9-A2 moved MerchSection too (takes an `extensions` prop; web wrapper injects `MERCH_EXTENSIONS`); SubmitLinkForm now uses `useHost().apiFetch` and `env.turnstileSiteKey`. See `packages/ui/READER-MOVE.md`.
+
+### WP2.10 community
+(2.10-A1, move-only) Moved to `packages/ui/src/reader/community/`: CommunitySection, CommunityCard, SectionJumpBar. Old apps/web paths are one-line `export *` shims. Community data is imported from `@swift2/experience` directly; SubmitLinkForm and section-jump come from `reader/merch/`. A2 not needed (no non-import hunks). See `packages/ui/READER-MOVE.md`.
+
+### WP2.11 clown
+A1 (clown board/chat client modules only; Mood and all server-side `clown-*` stay in apps/web). MOVED to `packages/ui/src/reader/clown/`: `ClownBoard`, `ClownChat`, `ClownChatComposer`, `ClownChatTitlebar`, `ClownEmptyState`, `ClownItemCard`, `ClownMessageRow` (.tsx) and `lib/{clown-board,clown-chat-helpers,clown-chat-ui,clown-explain,clown-starters,clown-stream,useChromeOffset}.ts`. The old paths are one-line `export *` shims. Wire types come from `@swift2/shared`. `clown-board.ts` takes `lore` as a parameter (`ClownChat`/`ClownBoard` take a `lore` prop); the baked `LORE` (`apps/web/lib/longlive/clownbot-lore.ts` + `.generated`) stays app-side and `LongLive.tsx` passes it.
+
+### WP2.12 settings
+| File | Purpose |
+|---|---|
+| `packages/ui/src/reader/settings/WebNotificationSettings.tsx` | Web-push settings screen; reads `useHost().webPush`. Old `apps/web/components/longlive/` path is a shim |
+| `packages/ui/src/reader/settings/NotificationSettingsPage.tsx` | Body of `/settings/notifications` (`useHost().Link`); the Next page keeps `metadata` + VAPID env |
+| `apps/web/lib/host-adapter.tsx` (`webPushHost`) | Web `HostWebPush`: wraps `web-push-client.ts` + `/api/devices/:id/prefs` |
+
+### WP2.13 legal
+| Path | What it is |
+|---|---|
+| `packages/ui/src/reader/legal/{LegalDocument,SupportPage}.tsx` + `lib/legal.ts` | MOVED from `apps/web` (WP2.13-A1 + minimal A2). `apps/web/lib/longlive/legal.ts` is a one-line `export *` shim. `app/{privacy,terms,support}/page.tsx` keep `metadata` and pass `footer={<SiteFooter />}` (SiteFooter stays until 2.4-B). `Link` via `useHost()` |
+| `packages/ui/src/reader/legal/FeedbackButton.tsx` | MOVED from `apps/web/components/longlive/` (WP2.13-A1b, move-only). Old path is a one-line `export *` shim (until A2) |
 
 ## CI concurrency (2026-10-01)
 
@@ -662,14 +726,18 @@ OS-039 removed the only entry to Settings (the site's in-page bell). JS-only fix
 | `apps/mobile/dom/ReaderSpike.tsx` (+ `reader-spike.css`, `spike/back.ts` + test) | WP0.5b `'use dom'` page: reads the native cache file by URI, builds the snapshot in-webview, fills the shims, then `require`s the real EraStream/MomentDetail/BottomNav (`spike/reader-modules.ts`); ready/error/probe/back/insets bridge |
 | `apps/mobile/dom/spike/{read-local,storage-shim,snapshot,probe}.ts` (+ tests) | `readLocalText` (fetch then XHR, status 0 ok), Map-backed storage shim, cache envelope to `ReaderSnapshot` + hash, probe recorder / placeholder counter / marker check |
 | `apps/mobile/dom/spike/dev-loader.ts`, `apps/mobile/index.web.ts` | DEV/WEB ONLY browser entry (served content bundle); never in the app bundle, enforced by `scripts/parity/check-dom-bundle.mjs` |
+| `apps/mobile/lib/speed-test.ts`, `speed-test-controller.ts`, `speed-test-runtime.ts`, `speed-test-store.ts`, `image-marks.ts` (+ tests); `dom/spike/image-listener.ts` | #4896 Speed test mode: pure state/math/report builders, injected-deps controller + launch tracker (cold vs warm via AppState), runtime wiring (installed in App.tsx), one SecureStore key, image-load marks fed by MomentCard and the DOM image stub. Server side: `apps/web/app/api/feedback/diag.ts` `speed` meta + `speedAllowed` limiter (`route.speed.test.ts`) |
 | `apps/mobile/lib/dom-reader-config.ts`, `dom-probe-store.ts` | Cache-file URI handed to the webview (config, not content); latest probe for the Diagnostics panel |
 | `scripts/parity/check-dom-bundle.mjs` (+ test) | Asserts the exported DOM bundle has no baked content (sourcemap sources incl. every `*.generated.ts`, plus 4 content-kind sentinels) |
 | `docs/one-ui/wp0.5.md` | WP0.5 spike notes: shims, gaps, recipes, findings |
 | `apps/mobile/components/SharedUiHost.tsx` | Native host for it; records launch/ready/error/crash signals and forwards them to the watchdog; no reload or error screen of its own |
-| `apps/mobile/lib/dom-host-handlers.ts` (+ test) | Pure DOM-host signal handlers (`createDomHostHandlers`: signal + `watch` sink only) and `sharedUiActive` |
+| `apps/mobile/lib/dom-host-handlers.ts` (+ test) | Pure DOM-host signal handlers (`createDomHostHandlers`: signal + `watch` sink only) |
+| `apps/mobile/lib/native-route-state.test.ts` | Table tests for the pure native-route presenter state machine in `dom-host-handlers.ts` (`reduceNativeRoute`, `nativeOwnsBack`, `isPresentablePath`) |
+| `apps/mobile/lib/watchdog-policy.ts` (+ test), `watchdog-telemetry.ts` (+ test), `watchdog-drill.ts` (+ test) | One UI WP2.14: default-on policy. Quarantine (`QUARANTINE_AFTER_FALLBACK_CYCLES=2`), launch precedence quarantine > override > cache > default (`resolveWantsDom`), the 1500 ms pending bound, reason categories, default-off category-only `[watchdog]` telemetry queue (server side: `apps/web/app/api/feedback/watchdog-report.ts`, strict schema + flood guard), and the scripted G4 drill. Pure; `app-config.ts` `loadLaunchFlags` reads the cached flags. Docs: `docs/one-ui/dom-host.md` |
 | `apps/mobile/lib/watchdog.ts` (+ test), `watchdog-store.ts`, `watchdog-gate.ts` | One UI WP0.4b: DOM-reader watchdog. Pure record/monitor rules (`decideMount`, strikes, ready-timeout with fake-clock tests), one SecureStore key, and the `useDomMount` hook App.tsx uses (attempt write awaited, fail closed). No network. Diagnostics: tri-state Force DOM failure + watchdog block (panel only) |
 | `apps/mobile/lib/orientation-lock.ts` | Locks phones to portrait at runtime (app.json orientation is `default`) |
 | `apps/mobile/postcss.config.mjs` | Tailwind v4 PostCSS plugin for DOM CSS |
+| `apps/mobile/components/DiagHotCorner.tsx`, `lib/diag-hot-corner.ts` (+ test) | #4872: invisible 88pt top-inset-strip hot corner, mounted only with SharedUiHost; 7 taps open DiagnosticsPanel (the only Diagnostics path when the DOM host is up) |
 | `docs/one-ui/dom-host.md` | Native-needs matrix, fingerprint proof, open items |
 | `apps/mobile/package.json` `main` = `index` | One UI WP1.1c: Expo resolves `index.ts` for native and `index.web.ts` (WP0.5b, mounts ReaderSpike) for the parity web export, so no `app.json` edit and the native fingerprint is unchanged. The part-1 `index.web.tsx` test-page entry was removed in part 2 |
 | `playwright.parity.config.ts`, `e2e/parity/` (`helpers.ts`, `placeholder.ts`, `structure.ts`, `baseline.spec.ts`, `compare.spec.ts`, `negative.spec.ts`, `__screenshots__/`) | Visual parity harness on the spike routes: sides a (web build) and b (DOM entry), 4 device projects, a-vs-b pixel + structural gates, per-side Linux baselines, negative specs; WP2.4 footer: `a-support-footer.png` (side a, element clip of the `/support` footer via `openSupportFooter`) + its 1px-translate negative. Root `playwright.config.ts` ignores it |

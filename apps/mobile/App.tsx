@@ -44,8 +44,9 @@ import {
   type RouteFlags,
   type ScreenId,
 } from './lib/routes';
-import { loadAppConfig, routeFlagsFrom } from './lib/app-config';
-import { diagCollector, installDiagnostics } from './lib/diagnostics';
+import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
+import { diagCollector, diagMarkOnce, installDiagnostics } from './lib/diagnostics';
+import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
@@ -70,13 +71,16 @@ import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
 import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
+import { DiagHotCorner } from './components/DiagHotCorner';
 import { SharedUiHost } from './components/SharedUiHost';
+import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
-import { sharedUiActive } from './lib/dom-host-handlers';
 import { getForceSharedUi } from './lib/diagnostics-override';
-import { useDomMount } from './lib/watchdog-gate';
+import { eraColors } from './lib/theme';
+import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 
 installDiagnostics();
+installSpeedTest();
 
 /**
  * OS-035's two param-carrying screens don't fit the existing plain-boolean
@@ -235,13 +239,15 @@ export default function App() {
   const routeFlagsRef = useRef(routeFlags);
   routeFlagsRef.current = routeFlags;
   const [updateRequired, setUpdateRequired] = useState(false);
-  const [forceSharedUi, setForceSharedUi] = useState(false);
-  // WP0.4b watchdog gate: (sharedUi || override) && !fallbackActive, with the attempt record awaited first.
-  const domMount = useDomMount(sharedUiActive(routeFlags.sharedUi, forceSharedUi));
+  // WP2.14 launch inputs, all local and read once: C4 override (Diagnostics, so a toggle applies on the
+  // next launch) + the last-good CACHED flags. The network result below never changes this launch.
+  const [launchInputs, setLaunchInputs] = useState<LaunchInputs | null>(null);
+  const domMount = useDomMount(launchInputs);
   useEffect(() => {
     void lockPhonesToPortrait();
-    // C4 override (Diagnostics panel); read once per launch, so a toggle applies on the next launch.
-    void getForceSharedUi().then(setForceSharedUi);
+    void Promise.all([getForceSharedUi(), loadLaunchFlags()]).then(([override, flags]) =>
+      setLaunchInputs({ override, ...flags }),
+    );
   }, []);
   useEffect(() => {
     let cancelled = false;
@@ -380,10 +386,15 @@ export default function App() {
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
             <SharedUiHost
-              onSignal={(stage, detail) => diagCollector.mark(stage, detail)}
+              onSignal={(stage, detail) => {
+                diagCollector.mark(stage, detail);
+                if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
+              }}
               watch={domMount.watch}
               forceFailure={domMount.forceFailure}
             />
+          ) : domMount.mount === 'pending' ? (
+            <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
           ) : screen === 'inbox' ? (
             <NotificationInboxScreen
               onClose={() => setInboxOpen(false)}
@@ -467,6 +478,7 @@ export default function App() {
             </View>
           )}
         </SafeAreaView>
+        {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

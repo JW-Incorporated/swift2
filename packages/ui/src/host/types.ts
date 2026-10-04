@@ -7,7 +7,10 @@ import type {
   RefAttributes,
   SyntheticEvent,
 } from 'react';
-import type { ApiFetch } from '@swift2/content';
+import type { ApiFetch, ApiFetchOptions, ApiRequest } from '@swift2/content';
+
+/** Streaming transport for `/api/*`: yields decoded text chunks as they arrive; throws `Error(String(status))` on a non-2xx response. */
+export type ApiStream = (req: ApiRequest, opts?: ApiFetchOptions) => AsyncIterable<string>;
 
 /** Safe-area insets in CSS px. Package CSS should prefer `var(--safe-*, env(...))`. */
 export type Insets = { top: number; right: number; bottom: number; left: number };
@@ -57,6 +60,8 @@ export type HostImageProps = {
   unoptimized?: boolean;
   loading?: 'lazy' | 'eager';
   draggable?: boolean;
+  fetchPriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
   style?: CSSProperties;
   onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 };
@@ -64,7 +69,8 @@ export type HostImageProps = {
 export type Unsubscribe = () => void;
 
 export type HostStorage = {
-  get(key: string): string | null;
+  /** undefined = storage unavailable, null = key absent. */
+  get(key: string): string | null | undefined;
   set(key: string, value: string): void;
   remove(key: string): void;
 };
@@ -74,6 +80,33 @@ export type HostEnv = {
   turnstileSiteKey: string | null;
   /** Canonical site origin; identical on server and client (hydration-stable). */
   origin: string;
+  /** Affiliate network ids for shop links (web root adapter only; absent = direct retailer links). */
+  affiliate?: HostAffiliateEnv;
+};
+
+export type HostAffiliateEnv = {
+  awinId?: string;
+  amazonAssociatesTag?: string;
+  catchallId?: string;
+};
+
+export type WebPushSubscribeResult =
+  | { status: 'subscribed'; deviceId: string }
+  | { status: 'permission_denied'; deviceId: string }
+  | { status: 'unsupported' }
+  | { status: 'vapid_not_configured' }
+  | { status: 'error'; error: string };
+
+/** Browser web-push settings surface (web adapter only; the app host omits it). */
+export type HostWebPush = {
+  isSupported(): boolean;
+  getDeviceId(): string;
+  subscribe(vapidPublicKey: string | null): Promise<WebPushSubscribeResult>;
+  unsubscribe(): Promise<{ ok: true } | { ok: false; error: string }>;
+  /** GET /api/devices/:id/prefs; resolves to the parsed body, rejects on HTTP error. */
+  loadPrefs(deviceId: string): Promise<unknown>;
+  /** PUT /api/devices/:id/prefs; resolves to the parsed body, rejects on HTTP error. */
+  savePrefs(deviceId: string, body: { settings?: object; prefs?: object[] }): Promise<unknown>;
 };
 
 export type HostNotifications = {
@@ -100,6 +133,12 @@ export interface HostAdapter {
   onBack(handler: () => boolean): Unsubscribe;
   /** Transport for `/api/*` (X1). Same shape as WP0.3b's `ApiFetch`. */
   apiFetch: ApiFetch;
+  /**
+   * Optional streaming transport (ClownChat). Web root adapter streams the real
+   * fetch body; hosts without it fall back to `bufferedFrom(apiFetch)` (whole body once).
+   * TODO(PM, 2.11-D1): the app host implements this (or relies on the buffered fallback) via the bridge api allow-list.
+   */
+  apiStream?: ApiStream;
   storage: { local: HostStorage; session: HostStorage };
   env: HostEnv;
   insets: Insets;
@@ -108,10 +147,16 @@ export interface HostAdapter {
   lazy?: <T>(loader: () => Promise<{ default: ComponentType<T> }>) => ComponentType<T>;
   /** @later WP2.5 */
   share?: (payload: SharePayload) => Promise<void>;
+  /** Current page URL (web root adapter: `location.href`; reads `?era`/`?item` deep links and feedback reports). Absent: no deep link. */
+  currentUrl?: () => string;
+  /** Clipboard write for the share fallback (web root adapter: `navigator.clipboard.writeText`). Absent: the web `navigator.clipboard` path. */
+  clipboard?: { writeText(text: string): Promise<void> };
   /** @later WP2.x (web: no-op) */
   haptic?: (kind: HapticKind) => void;
   /** @later WP2.5 */
   openExternal?: (url: string) => void;
   /** @later WP2.12 */
   notifications?: HostNotifications;
+  /** @later WP2.12 (web adapter only; the app host omits it) */
+  webPush?: HostWebPush;
 }

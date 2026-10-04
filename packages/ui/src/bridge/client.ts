@@ -2,6 +2,7 @@ import { isResResult, parseEnvelopeValue, resErr } from './envelope';
 import type { Envelope, JsonValue, ResResult } from './envelope';
 import { isNativeEventType } from './messages';
 import type { DomCommandType, EventPayloadOf, NativeEventType, PayloadOf, ResultOf } from './messages';
+import { apiCommandTimeout } from './api-timeout';
 import { DEFAULT_TIMEOUT_MS, MAX_BATCH, MAX_PENDING, MAX_RETAINED, clean, isRec, isThenable, monotonicIds, resultFits, validHwm } from './client-util';
 import type { IdSource } from './client-util';
 import { createBackAnswerer } from './client-back';
@@ -176,7 +177,7 @@ export function createBridgeClient(rawOpts: ClientOptions): BridgeClient {
         if (id === null) return;
         c.id = id;
         byId.set(id, c);
-        timer = setT(() => settle(resErr('timeout', `${type} timed out`), true), o.timeoutMs ?? opts.defaultTimeoutMs ?? DEFAULT_TIMEOUT_MS);
+        timer = setT(() => settle(resErr('timeout', `${type} timed out`), true), o.timeoutMs ?? (type === 'api' ? apiCommandTimeout(payload) : (opts.defaultTimeoutMs ?? DEFAULT_TIMEOUT_MS)));
         if (done) return;
         const fail = () => settle(resErr('failed', 'transport rejected the message'), false);
         if (!postEnv({ v: BRIDGE_VERSION, id, kind: 'cmd', type, payload: body.value, ts: opts.now() }, fail)) fail();

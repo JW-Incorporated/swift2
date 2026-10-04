@@ -11,11 +11,11 @@ const componentSource = (relPath: string) =>
  */
 describe('ImageRef cover crops respect authored focal points (#746)', () => {
   it.each([
-    ['./MomentCardButton.tsx', 3],
-    ['./MomentDetail.tsx', 3],
-    ['./FromTheEras.tsx', 1],
-    ['./proposal/ProposalThread.tsx', 1],
-    ['./runway/RunwayThread.tsx', 2],
+    ['../../../../packages/ui/src/reader/era/MomentCardButton.tsx', 3],
+    ['../../../../packages/ui/src/reader/moment/MomentDetail.tsx', 3],
+    ['../../../../packages/ui/src/reader/threads/FromTheEras.tsx', 1],
+    ['../../../../packages/ui/src/reader/threads/proposal/ProposalThread.tsx', 1],
+    ['../../../../packages/ui/src/reader/threads/runway/RunwayThread.tsx', 2],
   ])('%s applies focalPointOf at every ImageRef cover crop', (relPath, expectedUses) => {
     const src = componentSource(relPath);
     expect(src).toContain('focalPointOf');

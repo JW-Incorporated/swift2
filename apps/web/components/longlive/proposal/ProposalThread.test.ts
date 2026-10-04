@@ -13,7 +13,7 @@ import { getContentItem } from '../../../lib/longlive/content';
 // env, no jsdom — vitest.config.ts), so this source-locks the wiring, same
 // as close-affordance.test.ts and scrubber-nested-interactive.test.ts.
 
-const src = readFileSync(new URL('./ProposalThread.tsx', import.meta.url), 'utf8');
+const src = readFileSync(new URL('../../../../../packages/ui/src/reader/threads/proposal/ProposalThread.tsx', import.meta.url), 'utf8');
 
 /**
  * End index of the JSX tag that starts at `start`, skipping `>` characters

@@ -41,6 +41,84 @@ export const ROUTES = [
   { name: 'item', path: `/?item=${fixture.itemId}`, root: '[role="dialog"]' },
 ] as const;
 export type Route = (typeof ROUTES)[number];
+type RouteLike = { readonly name: string; readonly path: string; readonly root: string };
+
+const frozenTracks = JSON.parse(
+  readFileSync(resolve(repo, 'scripts/parity/fixture/content/frozen/tracks.json'), 'utf-8'),
+) as { eraId: string; tracks: { trackNumber?: number; title: string }[] }[];
+// Mirrors trackKey() in packages/experience/src/track-guide.ts; importing @swift2/experience needs sync:content's generated files, which the baseline job does not run.
+const SONG_TRACK = frozenTracks.find((e) => e.eraId === 'fearless')!.tracks[1]!;
+const SONG_KEY = `fearless::${SONG_TRACK.trackNumber ?? 'x'}::${SONG_TRACK.title}`;
+
+/** Side-a-only baselines (One UI PR0, WP2.5-2.8): surfaces side b does not render yet. `prepare` runs after the route settles; `clip` (when set) is captured instead of the root. */
+export interface AOnlyRoute extends RouteLike {
+  prepare?: (page: Page) => Promise<void>;
+  init?: (page: Page) => Promise<void>;
+  clip?: string;
+}
+const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main' });
+const SEARCH_DIALOG = '[role="dialog"][aria-label="Search the archive"]';
+const SEARCH_OPEN_BUTTON = 'button[aria-label="Search the archive (press /)"]';
+export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
+  { name: 'item-video', path: '/?item=vault-tloas-the-fate-of-ophelia-video-premieres', root: '[role="dialog"]' },
+  {
+    name: 'item-social',
+    path: '/?item=vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
+    root: '[role="dialog"]',
+  },
+  { name: 'threads', path: '/?mode=threads', root: 'main' },
+  threadLens('love-story'),
+  threadLens('fashion'),
+  threadLens('taylors-version'),
+  threadLens('easter-eggs'),
+  threadLens('hidden-clues'),
+  threadLens('the-proposal'),
+  {
+    name: 'crossing',
+    path: '/?mode=threads',
+    root: 'main',
+    prepare: async (page) => {
+      await page.getByRole('button', { name: /Where threads cross/ }).first().click();
+    },
+  },
+  { name: 'guide', path: '/?guide=fearless', root: '[role="dialog"][aria-label$="track guide"]' },
+  {
+    name: 'song',
+    path: `/?song=${encodeURIComponent(SONG_KEY)}`,
+    root: '[role="dialog"][aria-label$="song detail"]',
+  },
+  { name: 'theories', path: '/?theories=fearless', root: '[role="dialog"][aria-label$="theories and easter eggs"]' },
+  {
+    name: 'search-open',
+    path: '/',
+    root: 'main',
+    clip: SEARCH_DIALOG,
+    prepare: async (page) => {
+      await page.locator(SEARCH_OPEN_BUTTON).first().click();
+      await expect(page.locator(SEARCH_DIALOG)).toBeVisible();
+    },
+  },
+  {
+    name: 'search-results',
+    path: '/',
+    root: 'main',
+    clip: SEARCH_DIALOG,
+    prepare: async (page) => {
+      await page.locator(SEARCH_OPEN_BUTTON).first().click();
+      await page.locator(`${SEARCH_DIALOG} [role="combobox"]`).fill('fearless');
+      await expect(page.locator(`${SEARCH_DIALOG} [role="listbox"] [role="option"]`).first()).toBeVisible();
+    },
+  },
+];
+
+/** Element-clip selectors for the A-only captures (existing roles, aria labels and headings only). */
+export const ITEM_SOCIAL = A_ONLY_ROUTES[1]!;
+export const RAIL_CLIP = '.era-card:has(> div:has-text("Keep reading"))';
+export const FOLLOW_CLIP = '.era-card:has(> div:has-text("Part of a bigger story"))';
+export const LIGHTBOX_CLIP = '[role="dialog"][aria-label="Photo viewer"]';
+export const SCRUBBER_CLIP = '[role="slider"][aria-label="Career timeline"]';
+export const SONG_NAV_CLIP = '[role="dialog"][aria-label$="song detail"] nav[aria-label="Track overlay navigation"]';
+export const SEARCH_ROW_CLIP = `${SEARCH_DIALOG} div:has(> [role="combobox"])`;
 
 /** Simulated native safe-area insets per project (top, right, bottom, left); side b only. */
 const REAL_INSETS: Record<string, string> = {
@@ -72,73 +150,108 @@ const PARITY_FONT_CSS = (() => {
  * analytics or external host (images get the placeholder; anything else is a
  * failure), first-visit flags set, and any pageerror or console.error fails.
  */
-export const test = base.extend<{ guard: void }>({
+async function arm(page: Page, problems: string[]): Promise<void> {
+  externalImages.set(page, new Set());
+  page.on('pageerror', (err) => problems.push(`pageerror: ${err.message}`));
+  page.on('response', (res) => {
+    if (res.status() >= 400) problems.push('http ' + res.status() + ' ' + res.url());
+  });
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') problems.push(`console.error: ${msg.text()}`);
+  });
+  await page.route('**/*', (route) => {
+    const req = route.request();
+    const url = new URL(req.url());
+    if (LOCAL_HOSTS.has(url.hostname)) {
+      if (url.pathname === FONT_CSS_PATH) return route.fulfill({ contentType: 'text/css', body: PARITY_FONT_CSS });
+      if (url.pathname === CAPTURE_CSS_PATH) {
+        return route.fulfill({ contentType: 'text/css', body: captureCss(url.searchParams.get('root') ?? '') });
+      }
+      if (url.pathname === '/favicon.ico') return route.fulfill({ status: 204 });
+      if (url.pathname.startsWith('/_vercel/')) {
+        return route.fulfill({ status: 200, contentType: 'text/javascript', body: '' });
+      }
+      if (url.pathname.startsWith('/vault/live')) {
+        return route.fulfill({ json: { items: [], theories: [], signals: [] } });
+      }
+      return route.continue();
+    }
+    if (['data:', 'blob:', 'about:'].includes(url.protocol)) return route.continue();
+    if (url.origin === ERA_ART_ORIGIN && url.pathname.startsWith('/vault/live')) {
+      // Side b resolves the live-data fetch (resolveUrl) to the canonical origin: same stub as the local hosts.
+      return route.fulfill({ json: { items: [], theories: [], signals: [] } });
+    }
+    const era = url.origin === ERA_ART_ORIGIN ?/^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
+    if (era) {
+      // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
+      const file = resolve(repo, 'apps/web/public/eras', era[1]!);
+      if (!existsSync(file)) {
+        problems.push(`missing era asset ${era[1]}`);
+        return route.fulfill({ status: 404 });
+      }
+      return route.fulfill({ status: 200, contentType: 'image/png', body: readFileSync(file) });
+    }
+    if (req.resourceType() === 'image') {
+      externalImages.get(page)?.add(url.href);
+      return route.fulfill({ status: 200, contentType: 'image/png', body: PLACEHOLDER_PNG });
+    }
+    problems.push(`external ${req.resourceType()} request blocked: ${url.href}`);
+    return route.abort();
+  });
+  await page.addInitScript(() => {
+    try {
+      localStorage.setItem('ll-feedback-dismissed-v1', '1');
+      localStorage.setItem('ll-track-swipe-hint-seen-v1', '1');
+    } catch {
+      /* storage is shimmed or absent on some hosts */
+    }
+  });
+  await page.clock.setFixedTime(FIXED_TIME);
+}
+
+export const test = base.extend<{ guard: void; problems: string[]; pages: Record<Side, Page> }>({
+  // eslint-disable-next-line no-empty-pattern -- Playwright fixtures must destructure their arguments
+  problems: async ({}, use) => {
+    await use([]);
+  },
   guard: [
-    async ({ page }, use) => {
-      const problems: string[] = [];
-      externalImages.set(page, new Set());
-      page.on('pageerror', (err) => problems.push(`pageerror: ${err.message}`));
-      page.on('response', (res) => {
-        if (res.status() >= 400) problems.push('http ' + res.status() + ' ' + res.url());
-      });
-      page.on('console', (msg) => {
-        if (msg.type() === 'error') problems.push(`console.error: ${msg.text()}`);
-      });
-      await page.route('**/*', (route) => {
-        const req = route.request();
-        const url = new URL(req.url());
-        if (LOCAL_HOSTS.has(url.hostname)) {
-          if (url.pathname === FONT_CSS_PATH) return route.fulfill({ contentType: 'text/css', body: PARITY_FONT_CSS });
-          if (url.pathname === CAPTURE_CSS_PATH) {
-            return route.fulfill({ contentType: 'text/css', body: captureCss(url.searchParams.get('root') ?? '') });
-          }
-          if (url.pathname === '/favicon.ico') return route.fulfill({ status: 204 });
-          if (url.pathname.startsWith('/_vercel/')) {
-            return route.fulfill({ status: 200, contentType: 'text/javascript', body: '' });
-          }
-          if (url.pathname.startsWith('/vault/live')) {
-            return route.fulfill({ json: { items: [], theories: [], signals: [] } });
-          }
-          return route.continue();
-        }
-        if (['data:', 'blob:', 'about:'].includes(url.protocol)) return route.continue();
-        const era = url.origin === ERA_ART_ORIGIN ? /^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
-        if (era) {
-          // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
-          const file = resolve(repo, 'apps/web/public/eras', era[1]!);
-          if (!existsSync(file)) {
-            problems.push(`missing era asset ${era[1]}`);
-            return route.fulfill({ status: 404 });
-          }
-          return route.fulfill({ status: 200, contentType: 'image/png', body: readFileSync(file) });
-        }
-        if (req.resourceType() === 'image') {
-          externalImages.get(page)?.add(url.href);
-          return route.fulfill({ status: 200, contentType: 'image/png', body: PLACEHOLDER_PNG });
-        }
-        problems.push(`external ${req.resourceType()} request blocked: ${url.href}`);
-        return route.abort();
-      });
-      await page.addInitScript(() => {
-        try {
-          localStorage.setItem('ll-feedback-dismissed-v1', '1');
-          localStorage.setItem('ll-track-swipe-hint-seen-v1', '1');
-        } catch {
-          /* storage is shimmed or absent on some hosts */
-        }
-      });
-      await page.clock.setFixedTime(FIXED_TIME);
+    async ({ page, problems }, use) => {
+      await arm(page, problems);
       await use();
       expect(problems, 'page must load with no errors and no unexpected external requests').toEqual([]);
     },
     { auto: true },
   ],
+  // Side a is the test's own page; side b gets its own browser context (same device options), armed identically and
+  // sharing the problems list. Separate contexts matter: WebKit's memory cache served side b images side a had
+  // already fetched, hiding b's requests from the route handler when both sides shared one page (docs/one-ui/parity.md).
+  // b's context closes in teardown, which runs before the auto guard's final expect.
+  pages: async (
+    { page, browser, problems, viewport, userAgent, deviceScaleFactor, isMobile, hasTouch, bypassCSP, reducedMotion, locale, timezoneId },
+    use,
+  ) => {
+    const ctxB = await browser.newContext({
+      viewport,
+      userAgent,
+      deviceScaleFactor,
+      isMobile,
+      hasTouch,
+      bypassCSP,
+      reducedMotion,
+      locale,
+      timezoneId,
+    });
+    const pageB = await ctxB.newPage();
+    await arm(pageB, problems);
+    await use({ a: page, b: pageB });
+    await ctxB.close();
+  },
 });
 
 export { expect };
 
 /** Open a route on one side and block until it is genuinely rendered and font-normalised. */
-export async function openRoute(page: Page, side: Side, route: Route, inset?: string): Promise<void> {
+export async function openRoute(page: Page, side: Side, route: RouteLike, inset?: string): Promise<void> {
   const query = inset ? `${route.path.includes('?') ? '&' : '?'}inset=${inset}` : '';
   await page.goto(`${BASE[side]}${route.path}${query}`);
   await page.addStyleTag({ url: FONT_CSS_PATH });
@@ -155,6 +268,26 @@ export async function openRoute(page: Page, side: Side, route: Route, inset?: st
   await settle(page, route.root);
   await quiet(page, route);
   await settle(page, route.root);
+}
+
+/** Open an A-only route, run its prepare step, and settle. */
+export async function openAOnlyRoute(page: Page, route: AOnlyRoute): Promise<void> {
+  await route.init?.(page);
+  await openRoute(page, 'a', route);
+  if (!route.prepare) return;
+  await route.prepare(page);
+  const root = route.clip ?? route.root;
+  await settle(page, root);
+  await quiet(page, { root });
+  await settle(page, root);
+}
+
+/** PNG of an element below the fold: scrolled into view first, then `locator.screenshot` (its box can sit outside the viewport clip). */
+export async function captureLocator(page: Page, selector: string): Promise<Buffer> {
+  const loc = page.locator(selector).first();
+  await loc.scrollIntoViewIfNeeded();
+  await imagesReady(page, 'body');
+  return loc.screenshot({ scale: 'css' });
 }
 
 /** The short static /support page on side a: its footer is the stable place to capture the web footer (the home stream is ~67k px and grows lazily). */
@@ -194,12 +327,13 @@ async function quiet(page: Page, route: { root: string }): Promise<void> {
 }
 
 /** Wait for React to own the page (the web build is server-rendered; hydration swaps client-only text). */
-async function hydrated(page: Page, route: Route): Promise<void> {
+async function hydrated(page: Page, route: RouteLike): Promise<void> {
   await page.waitForFunction((sel) => {
     const owned = (el: Element | null) =>
       !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'));
     const root = document.querySelector(sel);
-    return owned(root) && owned(root?.querySelector('button') ?? null);
+    const button = root?.querySelector('button') ?? null;
+    return owned(root) && (button === null || owned(button));
   }, route.root);
 }
 
@@ -331,7 +465,7 @@ export async function captureElement(page: Page, selector: string, clip?: Clip):
 }
 
 /** PNG of the shared content root: its top CLIP_HEIGHT css px (a full era stream is ~67k px tall). */
-export async function captureRoot(page: Page, route: Route): Promise<Buffer> {
+export async function captureRoot(page: Page, route: RouteLike): Promise<Buffer> {
   // Web-only chrome (TopBar and its fixed timeline rail, footer) is not part of the shared root; the app host supplies its own.
   // A stylesheet, not inline styles: the rail re-renders (and sets its own visibility) after hydration.
   await page.addStyleTag({ url: `${CAPTURE_CSS_PATH}?root=${encodeURIComponent(route.root)}` });
@@ -399,3 +533,77 @@ export async function mutate(page: Page, route: Route, kind: Mutation): Promise<
   }, kind);
   await settle(page, route.root);
 }
+
+const CLOWN_ANSWER_NDJSON =
+  JSON.stringify({
+    type: 'answer',
+    answer: {
+      kind: 'take',
+      theoryName: null,
+      segments: [
+        { role: 'stance', text: 'Parity fixture stance.' },
+        { role: 'argument', text: 'Parity fixture argument, fixed for the screenshot.' },
+      ],
+      delulu: 3,
+      sources: [],
+      investigation: [],
+    },
+  }) + '\n';
+
+/** Side-a-only baselines (One UI PR0-beta, WP2.9-2.13): merch, community, clownbot, mood, notification settings and the legal pages. */
+export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
+  { name: 'merch', path: '/?mode=merch', root: 'main' },
+  { name: 'community', path: '/?mode=community', root: 'main' },
+  { name: 'clownbot', path: '/?mode=clownbot', root: 'main' },
+  {
+    name: 'clownbot-transcript',
+    path: '/?mode=clownbot',
+    root: 'main',
+    prepare: async (page) => {
+      await page.route('**/api/clown', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/x-ndjson', body: CLOWN_ANSWER_NDJSON }),
+      );
+      await page.locator('#clown-input').fill('parity question');
+      await page.getByRole('button', { name: 'Send to clown bot' }).click();
+      await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
+    },
+  },
+  { name: 'mood', path: '/?mode=mood', root: 'main' },
+  {
+    name: 'settings-notifications',
+    path: '/settings/notifications',
+    root: 'main',
+    init: async (page) => {
+      await page.addInitScript(() => {
+        const define = (target: object, key: string, value: unknown) =>
+          Object.defineProperty(target, key, { configurable: true, get: () => value });
+        class FakeNotification {
+          static permission = 'default';
+          static requestPermission() {
+            return Promise.resolve('default');
+          }
+        }
+        if ('Notification' in window) define(window.Notification, 'permission', 'default');
+        else define(window, 'Notification', FakeNotification);
+        if (!('PushManager' in window)) define(window, 'PushManager', class PushManager {});
+        if (!('serviceWorker' in navigator)) define(navigator, 'serviceWorker', {});
+      });
+    },
+  },
+  { name: 'privacy', path: '/privacy', root: 'main' },
+  { name: 'terms', path: '/terms', root: 'main' },
+  { name: 'support', path: '/support', root: 'main' },
+];
+
+/** One element per new surface for the 1px negatives (a root clip is under the iPad tolerance). */
+export const BETA_NEGATIVE_TARGETS: Record<string, string> = {
+  merch: '.merch-shell > div:first-child',
+  community: 'main h1',
+  clownbot: 'div:has(> button[aria-label="Expand to full screen"])',
+  'clownbot-transcript': 'div:has(> button[aria-label="Expand to full screen"])',
+  mood: 'form:has(#mood-input)',
+  'settings-notifications': 'main h1',
+  privacy: 'main h1',
+  terms: 'main h1',
+  support: 'main h1',
+};

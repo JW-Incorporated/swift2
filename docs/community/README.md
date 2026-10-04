@@ -58,7 +58,8 @@ yourself** (guardrail 6); nothing posts automatically.
 
 Every 3 hours (a batch about 45 minutes past 00, 03, 06 ... 21 UTC, when there is something to send) a header reads
 **🎯 Awareness replies — N today** (N counts today's total, including that
-batch), then one message per opportunity:
+batch), then two messages per opportunity: the card, and right after it the
+reply text on its own.
 
 ```
 🎯 Awareness reply · r/<sub> · image comments allowed (or: 🖼️ image replies unverified — if there's no image button, post the text)
@@ -66,9 +67,17 @@ batch), then one message per opportunity:
 Why: one line on why a picture fits
 Image: attached card (era:folklore). Post it with the reply, no link.
 Sub rule: that sub's self-promo note
-[the reply text, in a code block]
+📋 Reply: next message ↓ (long-press it → Copy Text)
 Done? ✅ Posted · Skip
 ```
+```
+[the reply text, alone, nothing else in the message]
+```
+
+The reply is its own plain message because Discord mobile can't select text
+in a code block, and long-press **Copy Text** copies a whole message: on a
+phone, long-press the reply message → Copy Text; on desktop, select it as
+usual. Tap Posted/Skip (or react) on the **card**, not the reply message.
 
 The card is **attached as a PNG** (not a link). Paste the reply, attach the
 picture, post. No link, no site name in the text: the unexplained picture is

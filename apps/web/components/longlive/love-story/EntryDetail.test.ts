@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { RELATIONSHIPS } from '@swift2/experience';
 
-const source = readFileSync(new URL('./EntryDetail.tsx', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../../../../../packages/ui/src/reader/threads/love-story/EntryDetail.tsx', import.meta.url), 'utf8');
 
 describe('EntryDetail solo narrative', () => {
   it('renders the deeper story and its citations', () => {

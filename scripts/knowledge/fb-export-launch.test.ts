@@ -422,3 +422,91 @@ describe('extensionCollect relaunches Chrome after a stalled group', () => {
     }
   });
 });
+
+describe('extensionCollect relaunches Chrome when the extension never connects', () => {
+  const token = 'd'.repeat(64);
+  const headers = { 'x-llfb-token': token, 'content-type': 'application/json' };
+  const groups = [
+    { slug: 'one', label: 'One', groupId: '1' },
+    { slug: 'two', label: 'Two', groupId: '2' },
+  ];
+  const collectedBody = (slug: string) =>
+    JSON.stringify({
+      v: 1,
+      slug,
+      status: 'collected',
+      stopReason: 'feed-end',
+      units: [{ html: '<div>synthetic post</div>', position: 0 }],
+      coverage: { ageRuleMet: true, harvestedCount: 1, slotCount: 1, partial: false },
+      commentCoverage: { eligible: 0, processed: 0, failed: 0, timedOut: 0 },
+    });
+  const drive = async (base: string) => {
+    for (;;) {
+      let res = await fetch(`${base}/next`, { headers });
+      for (let retries = 0; res.status === 503 && retries < 200; retries += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        res = await fetch(`${base}/next`, { headers });
+      }
+      if (res.status !== 200) return;
+      const job = await res.json();
+      if (job.done) {
+        await fetch(`${base}/finished`, { method: 'POST', headers, body: '{}' });
+        return;
+      }
+      await fetch(`${base}/result`, { method: 'POST', headers, body: collectedBody(job.slug) });
+    }
+  };
+  const run = async (connectsOnLaunch: number | null) => {
+    const dir = await mkdtemp(join(tmpdir(), 'fbx-never-'));
+    try {
+      let launches = 0;
+      const close = vi.fn(async () => undefined);
+      const launch = vi.fn(async ({ url }: { url: string }) => {
+        launches += 1;
+        if (connectsOnLaunch !== null && launches >= connectsOnLaunch)
+          void drive(new URL(url).origin).catch(() => undefined);
+        return { pid: 1, close };
+      });
+      const out = await extensionCollect({
+        groups,
+        outputDir: dir,
+        now: new Date('2026-09-30T12:00:00Z'),
+        week: '2026-09-27',
+        startReceiver: ((args: Record<string, unknown>) =>
+          startReceiver({
+            ...args,
+            stallMs: 60_000,
+            connectWaitMs: 80,
+            log: () => {},
+          } as never)) as never,
+        launch,
+        token,
+        profileDir: dir,
+        profileInUse: () => false,
+        sleep: async () => undefined,
+      });
+      return { out, launches: () => launches, close };
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  };
+
+  it('relaunches once, then collects normally on the second launch', async () => {
+    const { out, launches, close } = await run(2);
+    expect(launches()).toBe(2);
+    expect(close).toHaveBeenCalled();
+    expect(out.results.map((r: { slug: string; status: string }) => [r.slug, r.status])).toEqual([
+      ['one', 'collected'],
+      ['two', 'collected'],
+    ]);
+  });
+
+  it('after 3 never-connected launches every group fails extension-never-connected', async () => {
+    const { out, launches } = await run(null);
+    expect(launches()).toBe(3);
+    expect(out.results).toEqual([
+      { slug: 'one', status: 'failed', reason: 'extension-never-connected' },
+      { slug: 'two', status: 'failed', reason: 'extension-never-connected' },
+    ]);
+  });
+});

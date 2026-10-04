@@ -70,11 +70,11 @@ describe('per-tier chrome', () => {
 // own files — see MAP.md. `MomentCard` now lives in MomentCard.tsx,
 // `VideoMomentCard` in VideoMomentCard.tsx; both read from there.
 const MOMENT_CARD = readFileSync(
-  new URL('../../components/longlive/MomentCard.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/era/MomentCard.tsx', import.meta.url),
   'utf8',
 );
 const VIDEO_MOMENT_CARD = readFileSync(
-  new URL('../../components/longlive/VideoMomentCard.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/era/VideoMomentCard.tsx', import.meta.url),
   'utf8',
 );
 
@@ -177,7 +177,7 @@ describe('one video treatment in the era feed', () => {
 });
 
 const MOMENT_VIDEO = readFileSync(
-  new URL('../../components/longlive/MomentVideo.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/era/MomentVideo.tsx', import.meta.url),
   'utf8',
 );
 
@@ -228,7 +228,7 @@ describe('VideoPoster keeps the #2051 accessibility contract', () => {
 });
 
 const MOMENT_DETAIL = readFileSync(
-  new URL('../../components/longlive/MomentDetail.tsx', import.meta.url),
+  new URL('../../../../packages/ui/src/reader/moment/MomentDetail.tsx', import.meta.url),
   'utf8',
 );
 

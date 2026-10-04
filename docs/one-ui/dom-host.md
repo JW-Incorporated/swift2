@@ -24,6 +24,21 @@ the DOM bundles.
   and `packages/content/src/app-config.ts`). When true, or when the
   diagnostics C4 "Force shared UI (this device)" override is on, App.tsx
   mounts the host instead of the native reader.
+- Diagnostics access while the host is mounted (#4872): the Settings -> About
+  path is unreachable, so an invisible native hot corner
+  (`components/DiagHotCorner.tsx`, logic in `lib/diag-hot-corner.ts`) sits in
+  both the top and the bottom safe-area inset strips (full window width, each
+  `insets.*` tall), rendered outside the SafeAreaView so it never overlaps DOM
+  content (it must not swallow the TopBar wordmark button). A strip renders
+  only when its inset is >= 20 pt (`MIN_STRIP_HEIGHT`); if both are < 20
+  nothing renders (Settings stays native-only). Geometry: the
+  SafeAreaView pads all edges by the insets, and the DOM `body` pads `--safe-top`
+  (= the same inset) again, so content starts at >= `insets.top`. Both strips
+  feed one shared counter. To open Diagnostics on the shared-UI path: tap the
+  status-bar area (top) or the bottom inset strip 7 times within 2 s, in any
+  mix of the two.
+  The same `DiagnosticsPanel`'s "Force shared UI" switch turns the override off
+  (applies next launch).
 - `apps/mobile/lib/orientation-lock.ts` — `app.json` is `orientation:
   "default"`; phones are locked to portrait at runtime (tablets rotate).
 
@@ -55,6 +70,72 @@ log-box; autolinking and expoConfig changed). Branch plus a trivial edit to
 `dom/SharedUiTest.tsx` stays `3603a03f…` (unchanged). `expo export` emits the
 DOM bundle under `www.bundle/`.
 
+## Watchdog for default-on (WP2.14)
+
+**This MUST be merged, and installed apps must carry it, before any channel
+publishes remote `routeFlags.sharedUi: true` or the compiled default flips.**
+Without it a broken DOM bundle costs 2 of every 3 launches up to 10 s each,
+and a flipped default cannot be killed remotely.
+
+- **Resolved once per launch, from local state only.** Precedence:
+  quarantine > override > cache > default. Quarantine = this build's record is
+  `quarantined`; override = Diagnostics "Force shared UI"; cache = the last-good
+  `app-config.json` `sharedUi` (`loadLaunchFlags`, one local read); default =
+  `DEFAULT_ROUTE_FLAGS.sharedUi`. The network config is cached and applies on
+  the NEXT launch: there is no native-to-DOM swap mid-launch.
+- **Kill switch latency.** Set `sharedUi:false` in `config/mobile/app-config.json`
+  and publish (docs/mobile-release.md). A device fetches it on a launch, so it
+  is native from that device's second launch after publish. A device that never
+  cached a config follows the compiled default. WP5.1 flips BOTH the JSON and
+  the compiled default.
+- **Quarantine.** Strike 2 owes one native fallback launch; the second such
+  cycle in one `buildKey` (`QUARANTINE_AFTER_FALLBACK_CYCLES = 2`) quarantines the build:
+  native on every launch until a new OTA or binary changes the `buildKey`, or
+  Diagnostics "Reset watchdog". A ready launch zeroes the cycle count. Worst
+  case per bad build: 4 failed launches (2 fallback cycles x 2 strikes; by design,
+  Fable's ruling: a false quarantine persists until the next OTA, which costs more
+  than 4 bad launches once), then native. A tampered or corrupt stored record is
+  never trusted: out-of-range counters, wrong types or an unknown state mount
+  native for that launch and reset the record. The ready timeout never gains time
+  from a backward wall-clock step (monotonic clock within a launch; a negative
+  delta counts as zero elapsed).
+- **Pending screen.** While the launch resolves, a plain view in the reader's
+  body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
+  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
+  native mounts and the DOM never swaps in for that launch.
+- **Telemetry (default OFF).** Category-only `[watchdog]` reports, a separate
+  strict server schema (`{platform, buildKey, category}`; no model, OS, update id
+  field or timings; the user-initiated `[diag]` path is unchanged), categories
+  `ready-timeout | dom-error | webview-terminated | webview-render-gone |
+  abandoned | protocol`), at most one per `buildKey` per day (persisted throttle),
+  max 3 queued, sent when online (next launch at the latest). Only an explicit
+  `watchdogReports:true` in the cached config turns them on; absent or false =
+  off, and anything queued is dropped. The server also rejects more than 5 per
+  `buildKey` per 10 minutes per instance (in-memory, best effort).
+- **READY_TIMEOUT_MS stays 10 s** until S7 records time-to-ready per device;
+  then set it to `max(10 s, 2 x p95 on the slowest device)`.
+- **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
+  the bridge host's `onProtocolFatal` calls it when the host is wired in.
+  TODO(PM, WP2.3-B step 4): that wiring is not done; nothing calls `watch.protocol` yet.
+- **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing. TODO(PM, WP2.3-E): the
+  notification-tap queue. TODO(PM, WP2.3-B step 4): `watch.protocol` wiring.
+
+**G4 drill.** Simulated (no device): `npx vitest run
+apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure
+mode (`hang`, `throw`, `terminated`, `render-gone`, `protocol`, `abandon`)
+through the real rules and prints the launch table (`runDrill`/`drillTable` in
+`lib/watchdog-drill.ts`). On device, offline, shared UI on via the remote flag:
+
+1. Diagnostics > Force DOM failure `hang`, airplane mode, relaunch: neutral
+   background within 1.5 s, the DOM attempt, native after the ready timeout
+   (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
+   attempt). Relaunch twice more: quarantined, native with no attempt.
+   Diagnostics shows `Quarantined: yes`.
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns. `throw`
+   repeats step 1 faster.
+3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
+4. After WP2.3-E ships: a notification tap while quarantined lands on the native screen.
+
 ## Open items
 
 - Device proof (onReady, crash callbacks, file-origin storage durability) is
@@ -65,3 +146,24 @@ DOM bundle under `www.bundle/`.
   bumped: this batch adds only the signed list).
 - **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) clears the C4 override and keeps the next launch native too. A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Re-enabling the override in Diagnostics clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
 - **App links declared but unverified until WP2.3 ships URL intake + .well-known; risk accepted (Codex vs Fable disagreement recorded in PROGRESS).** Without  files Android 12+ opens these links in the browser by default; only test devices exist (C5).
+
+## Speed test mode (#4896) — the S2/S4 device procedure
+
+Replaces "force-stop, 7 taps, Send report, repeat 10 times". Three steps:
+
+1. Open Diagnostics (hot corner or Settings version label) and turn on **Speed test mode**. Close the panel.
+2. Run the launches: force-stop and reopen for cold, or press Home and reopen for warm. Nothing else to tap.
+3. After the 10th launch the mode switches itself off and posts one summary comment (per-launch table, worst cold, worst warm, PASS/FAIL).
+
+Behavior:
+
+- Each launch posts a `[diag]` comment on #4791 tagged with the run id (`run abcd1234, launch 3 of 10`). A cold report is held until T+10 s so it can carry `Images loaded by T+10 s`; backgrounding the app sends it early with the count so far.
+- Cold vs warm comes from the process, not the content cache: a new JS runtime is cold; AppState background -> active inside one process is warm and gets fresh marks anchored to the resume (`resume-paint`). Fixes the S2 reports that were all labelled warm and repeated stale `at:` marks.
+- Cold clock: when RN's `performance.rnStartupTiming.startTime` is available the report adds `native-lead` (native app start to JS start) and says `Clock starts at: native process start`; otherwise it says `JS start (native lead unavailable)` and the number is JS start -> first-era-paint. Cold number = native-lead + `at:first-era-paint`. Unverified on device until the first S2/S4 run.
+- Bar (PLAN.md §WP0.2): cold <= 2500 ms worst, warm <= 1000 ms worst, worst-of-5 per kind. PASS needs at least 5 cold AND 5 warm launches; fewer is INCOMPLETE (so a run of 10 should be 5 force-stops and 5 resumes), and any launch over the bar is FAIL. The server recomputes the verdict from the raw launches.
+- Delivery: reports go to a small persisted outbox and leave it only when the server accepts them (or answers a permanent 4xx). A 429 or network failure is retried with backoff (1 min doubling to 1 h, 8 attempts) on the next paint or foreground; the panel shows how many are waiting. Speed test reports have their own server budget (31 per run id, 300 per 24 h) instead of the 5/min per-IP limit, and the server answers a repeated (run, launch index) or second summary with 200 duplicate (in-memory, per instance, best effort).
+- Cost when off: after one startup read the state lives in memory, so a paint with the mode off and nothing queued does no storage work, and the shared-UI image onLoad reporting is only wired (no bridge call, no layout read) while the mode is running.
+- Approximations: shared-UI `first-era-paint` is marked at the host's `dom-ready` (two animation frames after the reader mounts; no finer hook exists), and warm `resume-paint` is the first animation frame after the AppState resume.
+- `first-era-paint` is the native era stream's first frame, or the shared-UI host's `dom-ready`; each report records which (`UI | native/shared`). `first-image-paint` = first loaded image inside the viewport. Shared UI reports via ReaderSpike's `reportImageLoad` prop (the next/image stub's `onLoad`), native via `MomentCard` `onLoad`.
+- State (run id, remaining, results) is one SecureStore key `longlive_diag_speed_test_v1`. The server caps reports at 31 per run id and 300 per 24 h overall, on top of the existing 5/min per IP.
+- Opt-in by the tester; unrelated to the category-only watchdog telemetry.
