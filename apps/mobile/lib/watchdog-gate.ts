@@ -9,7 +9,7 @@
 // NOT YET WIRED (explicit follow-ups, not done in WP2.14):
 // TODO(PM, WP2.4-D): clear the pending/launch overlay when the DOM host reports ready or the watchdog falls back.
 // TODO(PM, WP2.3-E): the notification-tap queue (a tap while quarantined/fallback must land on the native screen).
-// TODO(PM, WP2.3-B step 4): wire the bridge host's onProtocolFatal to `watch.protocol` (DomWatch.protocol has no caller yet).
+// Bridge host onProtocolFatal -> `watch.protocol` is wired in SharedUiHost (H0).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
 import { diagCollector } from './diagnostics';

@@ -5,8 +5,8 @@ import type { BridgeClient, ClientOptions, Envelope, IdSource } from '@swift2/ui
 /**
  * The ONE Expo-DOM-specific file on the DOM side (Fable REQUIRED 5): the
  * `inbox` prop and the `bridge` native action live here and in B's
- * SharedUiHost wiring, nowhere else. Not imported by ReaderSpike/SharedUiTest
- * until G0 (WP2.3-C step 3).
+ * SharedUiHost wiring, nowhere else. Used by ReaderSpike (`ExpoBridgeMount`) when the
+ * host supplies `bridge`; SharedUiTest does not use it.
  */
 export type ExpoBridgeProps = {
   /** Sequenced native-to-DOM queue, re-delivered whole on every render. */
