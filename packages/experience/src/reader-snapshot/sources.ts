@@ -1,5 +1,6 @@
 import {
   LOAD_SOURCE,
+  clownbotLoreBundleFileSchema,
   type ContentBundleFile,
   type EraSecretsBundleFile,
   type LoadSource,
@@ -9,7 +10,17 @@ import {
   type TracksBundleFile,
   type VideosBundleFile,
 } from '@swift2/content';
-import type { ContentItem, Era, EraId, EraSecret, Milestone, TheoryNote, TrackNote, VideoNote } from '../types';
+import type {
+  ContentItem,
+  Era,
+  EraId,
+  EraSecret,
+  LoreItem,
+  Milestone,
+  TheoryNote,
+  TrackNote,
+  VideoNote,
+} from '../types';
 import { attachExtensions, buildReaderSnapshot, buildReaderSnapshotCore } from './build';
 import type {
   ReaderSnapshot,
@@ -35,6 +46,7 @@ export interface BakedCoreModules {
 export interface BakedModules extends BakedCoreModules {
   MERCH_CATALOGUE: MerchCatalogue;
   SONG_MOODS: SongMoodsBundleFile['songs'];
+  LORE: readonly LoreItem[];
 }
 
 function coreInputsFromBaked(mods: BakedCoreModules): ReaderSnapshotCoreInputs {
@@ -52,7 +64,10 @@ function coreInputsFromBaked(mods: BakedCoreModules): ReaderSnapshotCoreInputs {
 }
 
 /** Web path, core only: no merch or songMoods, so the caller need not import those chunks. */
-export function fromBakedCore(mods: BakedCoreModules, deps: ReaderSnapshotDeps): ReaderSnapshotCore {
+export function fromBakedCore(
+  mods: BakedCoreModules,
+  deps: ReaderSnapshotDeps,
+): ReaderSnapshotCore {
   return buildReaderSnapshotCore(coreInputsFromBaked(mods), deps, { kind: 'baked' }, 'ready');
 }
 
@@ -61,6 +76,7 @@ export function fromBaked(mods: BakedModules, deps: ReaderSnapshotDeps): ReaderS
   return attachExtensions(fromBakedCore(mods, deps), {
     merch: mods.MERCH_CATALOGUE,
     songMoods: mods.SONG_MOODS,
+    lore: [...mods.LORE],
   });
 }
 
@@ -77,24 +93,63 @@ function perEra<F extends { eraId: string }, T>(
   files: F[] | undefined,
   pick: (f: F) => T,
 ): Partial<Record<EraId, T>> {
-  return Object.fromEntries((files ?? []).map((f) => [f.eraId, pick(f)])) as Partial<Record<EraId, T>>;
+  return Object.fromEntries((files ?? []).map((f) => [f.eraId, pick(f)])) as Partial<
+    Record<EraId, T>
+  >;
+}
+
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+
+function isHttpUrl(value: string): boolean {
+  try {
+    const { protocol } = new URL(value);
+    return protocol === 'http:' || protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Optional and all-or-nothing: a missing file (an old cached bundle) or any
+ * structurally invalid item (schema, ISO dates, http(s) source URLs) is an
+ * empty board, never a throw and never a partially valid array.
+ */
+function loreFromBundle(file: unknown): LoreItem[] {
+  const parsed = clownbotLoreBundleFileSchema.safeParse(file);
+  if (!parsed.success) return [];
+  const ok = parsed.data.lore.every(
+    (i) =>
+      ISO_DAY.test(i.date) &&
+      ISO_DAY.test(i.lastCheckedOn) &&
+      i.sources.every((s) => isHttpUrl(s.url)),
+  );
+  return ok ? (file as { lore: LoreItem[] }).lore : [];
 }
 
 /** Normalises a loaded bundle's files to the snapshot inputs. */
 export function inputsFromBundle(bundle: BundleLike): ReaderSnapshotInputs {
   const f = bundle.files;
   const eras = (f.eras as Era[] | undefined) ?? [];
-  const content = eras.flatMap((e) => (f[`content:${e.id}`] as ContentBundleFile | undefined)?.items ?? []);
+  const content = eras.flatMap(
+    (e) => (f[`content:${e.id}`] as ContentBundleFile | undefined)?.items ?? [],
+  );
   return {
     eras,
     content: content as ContentItem[],
     milestones: (f.milestones as Milestone[] | undefined) ?? [],
     tracks: perEra(f.tracks as TracksBundleFile[] | undefined, (x) => x.tracks as TrackNote[]),
-    theories: perEra(f.theories as TheoriesBundleFile[] | undefined, (x) => x.theories as TheoryNote[]),
+    theories: perEra(
+      f.theories as TheoriesBundleFile[] | undefined,
+      (x) => x.theories as TheoryNote[],
+    ),
     videos: perEra(f.videos as VideosBundleFile[] | undefined, (x) => x.videos as VideoNote[]),
-    eraSecrets: perEra(f.eraSecrets as EraSecretsBundleFile[] | undefined, (x) => x.secrets as EraSecret[]),
+    eraSecrets: perEra(
+      f.eraSecrets as EraSecretsBundleFile[] | undefined,
+      (x) => x.secrets as EraSecret[],
+    ),
     merch: f.merch as MerchCatalogue,
     songMoods: (f.songMoods as SongMoodsBundleFile | undefined)?.songs ?? [],
+    lore: loreFromBundle(f.clownbotLore),
   };
 }
 
@@ -117,13 +172,18 @@ export function fromBundleCore(bundle: BundleLike, deps: ReaderSnapshotDeps): Re
 
 /** The extension domains of a loaded bundle, for `attachExtensions`. */
 export function extensionsFromBundle(bundle: BundleLike): ReaderSnapshotExtensions {
-  const { merch, songMoods } = inputsFromBundle(bundle);
-  return { merch, songMoods };
+  const { merch, songMoods, lore } = inputsFromBundle(bundle);
+  return { merch, songMoods, lore };
 }
 
 /** App path: builds from a loaded D1 bundle; reads only the bundle, no module-global provider. */
 export function fromBundle(bundle: BundleLike, deps: ReaderSnapshotDeps): ReaderSnapshot {
   const inputs = inputsFromBundle(bundle);
   const state = stateFromBundle(bundle);
-  return buildReaderSnapshot(inputs, deps, { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion }, state);
+  return buildReaderSnapshot(
+    inputs,
+    deps,
+    { kind: 'bundle', bundleVersion: bundle.manifest.bundleVersion },
+    state,
+  );
 }

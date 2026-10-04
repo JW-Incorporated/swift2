@@ -307,7 +307,7 @@ describe('runtime registries', () => {
         'notifications.status', 'notifications.updatePrefs', 'openExternal', 'share',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navigate', 'ready', 'readyAck']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck']);
   });
 });
 
@@ -333,7 +333,9 @@ describe('JSON round-trip, one sample per type', () => {
     insets,
     contentVersion: { token: 'abc' },
     readyAck: { hwm: 0 },
-    navigate: { path: toWebPath('/')!, source: 'deeplink' },
+    navigate: { path: toWebPath('/')!, source: 'deeplink', id: 't1' },
+    navReady: {},
+    navigated: { id: 't1', ok: true },
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);

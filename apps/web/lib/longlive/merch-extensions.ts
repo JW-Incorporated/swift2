@@ -5,4 +5,5 @@ import { MERCH_CATALOGUE } from './merch';
 export const MERCH_EXTENSIONS: ReaderSnapshotExtensions = {
   merch: MERCH_CATALOGUE as ReaderSnapshotExtensions['merch'],
   songMoods: [],
+  lore: [],
 };

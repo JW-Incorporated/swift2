@@ -123,13 +123,15 @@ describe('bridge-host dispatcher', () => {
     s.cmd('12', 'navigate', { path: '/era/x/../../y' });
     s.cmd('13', 'openExternal', { url: 'http://x.test' });
     s.cmd('14', 'openExternal', { url: 'javascript:alert(1)' });
+    s.cmd('20', 'openExternal', { url: 'mailto:a@b.test?bcc=c@d.test' });
+    s.cmd('21', 'openExternal', { url: 'mailto:a@b.test' });
     s.cmd('15', 'api', { req: { method: 'GET', path: '/api/x', headers: { authorization: 'Bearer t' } } });
     s.cmd('16', 'api', { req: { method: 'GET', path: '/api/x', headers: { cookie: 'a=b' } } });
     s.cmd('17', 'api', {});
     s.cmd('18', 'cancel', { targetId: 'bad id!' });
     s.cmd('19', 'haptic', 'not-an-object');
     await tick();
-    for (const id of ['11', '12', '13', '14', '15', '16', '17', '18', '19']) {
+    for (const id of ['11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']) {
       expect(s.resFor(id)).toHaveLength(1);
       expect((body(s.resFor(id)[0]!) as { error: { code: string } }).error.code).toBe('invalid');
     }
