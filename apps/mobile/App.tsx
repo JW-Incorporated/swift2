@@ -297,7 +297,8 @@ export default function App() {
 
   useEffect(() => {
     // Phase 0: register (or refresh) this device's row on every cold start —
-    // WITHOUT asking for notification permission here (spec §7). Failures are
+    // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
+    // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
     registerDevice().catch((e) => {
       console.warn('device registration failed', e instanceof Error ? e.message : e);
