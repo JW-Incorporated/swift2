@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { fixture, repo } from './env';
+import { BASE, fixture, repo } from './env';
 import { assertNoBaselineCollisions, type Sides } from './sides';
 import { expect, type Page } from '@playwright/test';
 
@@ -27,6 +27,19 @@ export interface AOnlyRoute extends RouteLike {
   /** Default 'a'. 'both' adds the a-vs-b viewport compare and b-* baselines (a slice D sets it; see docs/one-ui/parity.md). */
   sides?: Sides;
 }
+/**
+ * Side b serves only the DOM entry's index.html, which the reader seeds its legal path from (dom-path.ts reads the page
+ * pathname): answer the legal paths on b with that file, keeping the URL. Side a (the real web routes) is untouched.
+ */
+// Side b also renders the reader's own <main> under the legal layer, so the root is the legal document's <main> (its breadcrumb is its first child on both sides).
+const LEGAL_MAIN = 'main:has(> nav[aria-label="Breadcrumb"])';
+const LEGAL_PATHS = ['/privacy', '/terms', '/support'];
+const serveLegalOnB: NonNullable<AOnlyRoute['init']> = async (page) => {
+  await page.route(
+    (u) => u.origin === BASE.b && LEGAL_PATHS.includes(u.pathname),
+    async (route) => route.fulfill({ response: await route.fetch({ url: `${BASE.b}/${new URL(route.request().url()).search}` }) }),
+  );
+};
 const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?lens=${id}`, root: 'main' });
 const SEARCH_DIALOG = '[role="dialog"][aria-label="Search the archive"]';
 const SEARCH_OPEN_BUTTON = 'button[aria-label="Search the archive (press /)"]';
@@ -151,9 +164,9 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
       });
     },
   },
-  { name: 'privacy', path: '/privacy', root: 'main' },
-  { name: 'terms', path: '/terms', root: 'main' },
-  { name: 'support', path: '/support', root: 'main' },
+  { name: 'privacy', path: '/privacy', root: LEGAL_MAIN, init: serveLegalOnB, sides: 'both' },
+  { name: 'terms', path: '/terms', root: LEGAL_MAIN, init: serveLegalOnB, sides: 'both' },
+  { name: 'support', path: '/support', root: LEGAL_MAIN, init: serveLegalOnB, sides: 'both' },
 ];
 
 /** One element per new surface for the 1px negatives (a root clip is under the iPad tolerance). */
@@ -164,9 +177,9 @@ export const BETA_NEGATIVE_TARGETS: Record<string, string> = {
   'clownbot-transcript': 'div:has(> button[aria-label="Expand to full screen"])',
   mood: 'form:has(#mood-input)',
   'settings-notifications': 'main h1',
-  privacy: 'main h1',
-  terms: 'main h1',
-  support: 'main h1',
+  privacy: `${LEGAL_MAIN} h1`,
+  terms: `${LEGAL_MAIN} h1`,
+  support: `${LEGAL_MAIN} h1`,
 };
 
 assertNoBaselineCollisions(ROUTES, [...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA]);

@@ -266,3 +266,7 @@ Side b renders the full packages/ui shell, so `compare.spec.ts` also runs `a vs 
 The FeedbackButton `bottom` override in `reader-spike.css` is scoped to `max-width: 767px` (#4997): the package sets `md:bottom-4` / `md:bottom-20` (no bottom nav at >= md), and an unconditional `!important` override pushed the pill ~56px off the web position on iPad.
 
 The inset-immunity check for `item` hides the floating FeedbackButton pill (it is outside the dialog and rides the bottom inset through `reader-spike.css`'s `var(--safe-bottom)` override, like the web does with `env()`); `captureViewport(page, maskSelectors)` takes the selectors to hide (a mask rectangle would move with the pill and expose different pixels).
+
+## Legal routes on both sides (One UI W3-legal)
+
+`privacy`, `terms` and `support` are flipped to `sides: 'both'`. Side b serves only the DOM entry's `index.html`, so their `init` (`serveLegalOnB`, `routes.ts`) answers those three paths on b with that file (URL kept; the reader seeds its legal path from the pathname). Side b also has the reader's own `<main>`, so the shared root is the legal document's `main:has(> nav[aria-label="Breadcrumb"])` (the same element as `main` on side a: the `a-*` baselines are unchanged). The `b-*` baselines come from the `update-baselines` dispatch.
