@@ -140,6 +140,9 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     haptic: (kind) => {
       void deps.client.call('haptic', { kind });
     },
+    theme: (t) => {
+      void deps.client.call('theme', t);
+    },
     notifications: {
       status: () => notif(deps.client.call('notifications.status', {})),
       request: () => notif(deps.client.call('notifications.request', {})),

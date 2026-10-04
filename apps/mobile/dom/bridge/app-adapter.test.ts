@@ -227,6 +227,8 @@ describe('createAppAdapter', () => {
     expect(call).toHaveBeenCalledWith('openExternal', { url: 'https://example.com' });
     adapter.haptic?.('light');
     expect(call).toHaveBeenCalledWith('haptic', { kind: 'light' });
+    adapter.theme?.({ statusBarStyle: 'dark', background: '#ffffff' });
+    expect(call).toHaveBeenCalledWith('theme', { statusBarStyle: 'dark', background: '#ffffff' });
     await adapter.share?.({ title: 't' });
     expect(call).toHaveBeenCalledWith('share', { title: 't' });
   });

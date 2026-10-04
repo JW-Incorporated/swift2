@@ -4,7 +4,8 @@ import { useEffect, type ComponentType } from 'react';
 import { getEra } from '@swift2/experience';
 import { AppProvider, useAppState } from '../store';
 import type { AppMode } from '../store/navigation';
-import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '../lib/theme';
+import { useHost } from '../../host';
+import { eraStyle, vaultStyle, merchStyle, statusBarStyleFor, VAULT_THEME, MERCH_THEME } from '../lib/theme';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
 
@@ -20,6 +21,7 @@ export interface ReaderSlots {
 
 export function ReaderShell({ slots }: { slots: ReaderSlots }) {
   const { mode, eraId } = useAppState();
+  const themeHost = useHost().theme;
   const era = getEra(eraId);
   const inThreads = mode === 'threads';
   const inMerch = mode === 'merch';
@@ -33,7 +35,8 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', themeColor);
-  }, [themeColor]);
+    if (/^#[0-9a-fA-F]{6}$/.test(themeColor)) themeHost?.({ statusBarStyle: statusBarStyleFor(themeColor), background: themeColor });
+  }, [themeColor, themeHost]);
 
   // Entering Threads should start at the top. Era mode manages its own
   // scroll (EraStream restores the user's previous spot, or starts at the

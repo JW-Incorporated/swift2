@@ -1,6 +1,6 @@
 import type { ApiFetch, ApiResponse } from '@swift2/content';
 import { describe, expect, expectTypeOf, it } from 'vitest';
-import type { HapticKind, HostAdapter, NotificationPrefs, NotificationPrefsState, NotificationPrefsUpdate, NotificationStatus, SharePayload } from '../host/types';
+import type { HapticKind, HostAdapter, NotificationPrefs, NotificationPrefsState, NotificationPrefsUpdate, NotificationStatus, SharePayload, ThemeChange } from '../host/types';
 import { createBridgeClient } from './client';
 import type { BridgeClient } from './client';
 import type { ResResult } from './envelope';
@@ -61,6 +61,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       navigate: H<{ path: WebPath; replace?: boolean }, null>;
       share: H<SharePayload, null>;
       haptic: H<{ kind: HapticKind }, null>;
+      theme: H<ThemeChange, null>;
       openExternal: H<{ url: ExternalUrl | MailtoUrl }, null>;
       'notifications.status': H<Empty, NotificationStatus>;
       'notifications.request': H<Empty, NotificationStatus>;
@@ -79,7 +80,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 
   it('runtime: the client posts exactly the registered DOM commands, and the lists are pinned', async () => {
     expect([...DOM_COMMAND_TYPES].sort()).toEqual(
-      ['api', 'cancel', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share'].sort(),
+      ['api', 'cancel', 'haptic', 'theme', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'openExternal', 'share'].sort(),
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());
@@ -96,6 +97,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
   type Share = NonNullable<HostAdapter['share']>;
   type Haptic = NonNullable<HostAdapter['haptic']>;
+  type Theme = NonNullable<HostAdapter['theme']>;
   type Open = NonNullable<HostAdapter['openExternal']>;
   type Notif = NonNullable<HostAdapter['notifications']>;
 
@@ -117,6 +119,8 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     expectTypeOf<VoidToNull<Awaited<ReturnType<Share>>>>().toEqualTypeOf<ResultOf<'share'>>();
     expectTypeOf<Mutual<Parameters<Haptic>[0], PayloadOf<'haptic'>['kind']>>().toEqualTypeOf<true>();
     expectTypeOf<VoidToNull<ReturnType<Haptic>>>().toEqualTypeOf<ResultOf<'haptic'>>();
+    expectTypeOf<Mutual<Parameters<Theme>[0], PayloadOf<'theme'>>>().toEqualTypeOf<true>();
+    expectTypeOf<VoidToNull<ReturnType<Theme>>>().toEqualTypeOf<ResultOf<'theme'>>();
     // Exact host parameter: widening it (e.g. `string | URL`) fails here.
     expectTypeOf<Parameters<Open>[0]>().toEqualTypeOf<string>();
     expectTypeOf<ExternalUrl>().toExtend<Parameters<Open>[0]>();

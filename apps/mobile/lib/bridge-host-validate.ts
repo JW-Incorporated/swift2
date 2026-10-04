@@ -3,7 +3,8 @@ import { isBridgeId, isWebPath, sanitizeApiRequest } from '@swift2/ui';
 import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
 
-const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
+const isHexColor = (v: unknown): v is string => typeof v === 'string' && /^#[0-9a-fA-F]{6}$/.test(v);
+const HAPTIC_KINDS =['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const MAX_SHARE_FIELD = 2048;
 export const MAX_PREFS = 64;
 export const MAX_PREF_KEY = 64;
@@ -95,6 +96,10 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return validShare(p);
     case 'haptic':
       return typeof p.kind === 'string' && HAPTIC_KINDS.includes(p.kind) ? { kind: p.kind } : null;
+    case 'theme':
+      return (p.statusBarStyle === 'light' || p.statusBarStyle === 'dark') && isHexColor(p.background)
+        ? { statusBarStyle: p.statusBarStyle, background: p.background }
+        : null;
     case 'notifications.updatePrefs':
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':

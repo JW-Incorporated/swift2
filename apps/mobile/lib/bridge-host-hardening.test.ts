@@ -61,7 +61,7 @@ describe('bridge-host hardening: bounds', () => {
 describe('bridge-host hardening: payloads and version', () => {
   it('validates share, haptic and notification payloads per field', async () => {
     const h = vi.fn(async () => resOk(null));
-    const s = setup({ share: h, haptic: h, 'notifications.updatePrefs': h, 'notifications.status': h } as never);
+    const s = setup({ share: h, haptic: h, theme: h, 'notifications.updatePrefs': h, 'notifications.status': h } as never);
     s.cmd('1', 'share', { title: 5 });
     s.cmd('2', 'share', { url: 'x'.repeat(3000) });
     s.cmd('3', 'haptic', { kind: 'earthquake' });
@@ -76,7 +76,11 @@ describe('bridge-host hardening: payloads and version', () => {
     s.cmd('9', 'share', { title: 't', url: 'https://x.test', extra: 1 });
     s.cmd('10', 'haptic', { kind: 'light' });
     s.cmd('11', 'notifications.updatePrefs', { prefs: { news: true } });
+    s.cmd('12', 'theme', { statusBarStyle: 'blue', background: '#000000' });
+    s.cmd('13', 'theme', { statusBarStyle: 'dark', background: 'red' });
+    s.cmd('14', 'theme', { statusBarStyle: 'dark', background: '#fff' });
     await tick();
+    for (const id of ['12', '13', '14']) expect(code(s.resFor(id)[0]!)).toBe('invalid');
     expect(h).toHaveBeenCalledWith({ title: 't', url: 'https://x.test' }, expect.anything());
     expect(h).toHaveBeenCalledWith({ prefs: { news: true } }, expect.anything());
     expect(h).toHaveBeenCalledTimes(3);

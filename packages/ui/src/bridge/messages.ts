@@ -7,6 +7,7 @@ import type {
   NotificationPrefsUpdate,
   NotificationStatus,
   SharePayload,
+  ThemeChange,
 } from '../host/types';
 import type { Envelope, ResResult } from './envelope';
 import { makeRes, resErr } from './envelope';
@@ -24,6 +25,8 @@ export type DomCommandSpec = {
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
   share: Spec<SharePayload, null>;
   haptic: Spec<{ kind: HapticKind }, null>;
+  /** Add-only: `background` is a #rrggbb hex, `statusBarStyle` the light/dark enum; anything else is `invalid`. */
+  theme: Spec<ThemeChange, null>;
   /** `https:` (`isExternalUrl`) or a bare `mailto:` (`isMailtoUrl`); anything else is `invalid`. */
   openExternal: Spec<{ url: ExternalUrl | MailtoUrl }, null>;
   'notifications.status': Spec<Record<string, never>, NotificationStatus>;
@@ -109,6 +112,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   navigate: true,
   share: true,
   haptic: true,
+  theme: true,
   openExternal: true,
   'notifications.status': true,
   'notifications.request': true,
