@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
-import { act, createElement as h } from 'react';
+import { act, createElement as h, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HostProvider, resOk } from '@swift2/ui';
@@ -8,14 +8,12 @@ import { LEGAL_FACTS } from '@swift2/ui/reader/legal/lib/legal';
 // apps/mobile pins its own React; the render tests need the one @testing-library and react-dom use (apps/web's).
 // @ts-expect-error no types for the deep path; only the runtime module matters
 vi.mock('react', async () => await import('../../../web/node_modules/react/index.js'));
-// The real button needs the reader store; its visibility is the thing under test here.
-vi.mock('@swift2/ui/reader/legal/FeedbackButton', () => ({ FeedbackButton: () => h('button', null, 'Send feedback') }));
 import { createAppAdapter } from '../bridge/app-adapter';
 import { backFromDomPath, currentDomUrl, setDomPath } from '../bridge/dom-path';
 import { createNavigateDom } from '../bridge/reader-nav';
 import { createSlotRegistry } from './registry';
 import { resetSlotsForTests, slots } from './instance';
-import { LegalAwareFeedback, LegalOverlay } from './legal-overlay';
+import { LegalOverlay } from './legal-overlay';
 
 // The REAL app adapter (links, navigate, openExternal) over the real dom-path state; only the bridge client is a recorder.
 function realAdapter() {
@@ -38,7 +36,7 @@ function realAdapter() {
   return { adapter, call };
 }
 
-function mount(children = h(LegalOverlay)) {
+function mount(children: ReactNode = h(LegalOverlay)) {
   const r = realAdapter();
   return { ...r, ...render(h(HostProvider, { adapter: r.adapter, children })) };
 }
@@ -50,15 +48,14 @@ afterEach(() => {
 });
 
 describe('legal slice registration', () => {
-  it('registers overlay:legal and floating (the feedback button hides over a legal page)', async () => {
+  it('registers only overlay:legal (the floating feedback button is the D2 slot)', async () => {
     const mod = await import('./legal');
-    expect(Object.keys(mod.LEGAL_SLOTS).sort()).toEqual(['floating', 'overlay:legal']);
-    expect(mod.LEGAL_SLOTS.floating).toBe(LegalAwareFeedback);
+    expect(Object.keys(mod.LEGAL_SLOTS)).toEqual(['overlay:legal']);
     const r = createSlotRegistry();
     r.register({ slice: mod.LEGAL_SLICE, slots: mod.LEGAL_SLOTS });
     r.register({ slice: mod.LEGAL_SLICE, slots: mod.LEGAL_SLOTS });
-    expect(Object.keys(r.slots()).sort()).toEqual(['floating', 'overlay:legal']);
-    expect(Object.keys(slots()).sort()).toEqual(['floating', 'overlay:legal']);
+    expect(Object.keys(r.slots()).sort()).toEqual(['overlay:legal']);
+    expect(Object.keys(slots()).sort()).toEqual(['overlay:legal']);
   });
 });
 
@@ -103,10 +100,17 @@ describe('legal pages through the real app adapter', () => {
     expect(call).not.toHaveBeenCalled();
   });
 
-  it('hides the floating feedback button while a legal page is active', () => {
-    const { adapter, container } = mount(h(LegalAwareFeedback));
-    expect(screen.getByRole('button', { name: 'Send feedback' })).toBeInTheDocument();
+  it('covers reader chrome (a z-71 floating button) and makes it inert while a legal page is active, then restores it', async () => {
+    const reader = h('div', null, h('button', { 'data-testid': 'floating', className: 'z-[71]' }, 'Send feedback'), h(LegalOverlay));
+    const { adapter, container } = mount(reader);
+    const button = screen.getByTestId('floating');
+    expect(button.closest('[inert]')).toBeNull();
     act(() => adapter.navigate('/terms'));
-    expect(container).toBeEmptyDOMElement();
+    const layer = container.querySelector('[data-legal-page]') as HTMLElement;
+    expect(layer.className).toContain('z-[80]');
+    expect(button).toHaveAttribute('inert');
+    expect(layer).not.toHaveAttribute('inert');
+    act(() => void backFromDomPath());
+    await waitFor(() => expect(button).not.toHaveAttribute('inert'));
   });
 });
