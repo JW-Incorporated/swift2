@@ -17,10 +17,12 @@ export function NativeOverlayHost({
   state,
   presenter,
   navigate,
+  navigateDom,
 }: {
   state: NativeRouteState;
   presenter: NativeOverlayPresenter;
   navigate: (url: string | null | undefined) => void;
+  navigateDom: (path: string) => Promise<boolean>;
 }) {
   return (
     <Modal
@@ -52,10 +54,7 @@ export function NativeOverlayHost({
           {state.route === '/settings/about' ? (
             <NativeAboutScreen
               onClose={() => presenter.dismiss()}
-              onOpenLegalPage={(path) => {
-                presenter.dismiss();
-                navigate(path);
-              }}
+              navigateDom={navigateDom}
             />
           ) : null}
         </SafeAreaView>
