@@ -11,6 +11,7 @@ export {
 export {
   ReaderExtensionsProvider,
   useExtendedSnapshot,
+  useLore,
   useMerch,
   useSongMoods,
 } from './snapshot/extensions';

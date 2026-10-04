@@ -32,7 +32,7 @@ let baked: ReaderSnapshot;
 let fromFiles: ReaderSnapshot;
 
 async function loadBakedModules(): Promise<BakedModules> {
-  const [content, tracks, theories, videos, secrets, merch, moods] = await Promise.all([
+  const [content, tracks, theories, videos, secrets, merch, moods, lore] = await Promise.all([
     import(/* @vite-ignore */ `${web}content`),
     import(/* @vite-ignore */ `${web}tracks`),
     import(/* @vite-ignore */ `${web}theories`),
@@ -40,6 +40,7 @@ async function loadBakedModules(): Promise<BakedModules> {
     import(/* @vite-ignore */ `${web}era-secrets`),
     import(/* @vite-ignore */ `${web}merch`),
     import(/* @vite-ignore */ `${web}song-moods.generated`),
+    import(/* @vite-ignore */ `${web}clownbot-lore`),
   ]);
   const { ERAS } = await import('../eras');
   return {
@@ -48,6 +49,7 @@ async function loadBakedModules(): Promise<BakedModules> {
     MILESTONES: content.MILESTONES,
     MERCH_CATALOGUE: merch.MERCH_CATALOGUE,
     SONG_MOODS: moods.SONG_MOODS,
+    LORE: lore.LORE,
     tracksForEra: tracks.tracksForEra,
     theoriesForEra: theories.theoriesForEra,
     allVideoRecordsForEra: videos.allVideoRecordsForEra,
@@ -102,7 +104,7 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
   });
 
   it('carries version and state; state and origin never change the hash', async () => {
-    expect(baked.version).toBe(1);
+    expect(baked.version).toBe(2);
     expect(baked.state).toBe('ready');
     const stale = fromBundle({ ...bundle, stale: true }, deps);
     expect(stale.state).toBe('stale');
@@ -123,6 +125,15 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
     const bakedSecond = fromBaked(mods, deps);
     expect((await hashSnapshot(bundleFirst)).hash).toBe((await hashSnapshot(fromFiles)).hash);
     expect((await hashSnapshot(bakedSecond)).hash).toBe((await hashSnapshot(baked)).hash);
+  });
+
+  it('an old bundle without clownbotLore builds with lore [] and every other domain unchanged', async () => {
+    const files = { ...bundle.files };
+    delete files.clownbotLore;
+    const old = fromBundle({ ...bundle, files }, deps);
+    expect(old.domains.lore).toEqual([]);
+    expect(fromFiles.domains.lore.length).toBeGreaterThan(0);
+    expect(await diffSnapshots(fromFiles, old)).toEqual(['lore']);
   });
 
   it('leaves the module-global providers as it found them', () => {

@@ -5,14 +5,16 @@
 // call-time require gives the same ordering as a dynamic import without
 // async chunks, which Expo's DOM export cannot serialize (it fails with
 // "Asset not found: __common"). Returns one component: era stream + moment
-// detail + bottom nav inside the web AppProvider, plus the Android back bridge.
-import { createElement, useEffect, useRef, type ComponentType } from 'react';
+// detail + bottom nav inside the web AppProvider, plus the bridge back responder.
+import { createElement, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { HostProvider, ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
+import { useBackRegistration } from '../bridge/back-responder';
 import { resolveAppUrl } from './resolve-url';
 
 type BackResult = 'handled' | 'exit';
-export type ReaderProps = { backTick: number; onBack: (r: BackResult) => void };
+/** `registerBack` hands the host the responder for the native `back` command (null on unmount). */
+export type ReaderProps = { registerBack: (fn: (() => BackResult) | null) => void };
 
 /**
  * The DOM host's adapter over the web one: app-relative assets resolve against the canonical origin, and
@@ -47,18 +49,10 @@ export function loadReader(
   // TODO(PM, WP2.3-F): apiFetch is inherited (relative fetch) and /api has no CORS, so mobile intake is not functional until the WP2.3-F bridge apiFetch replaces it.
   const adapter = createSpikeAdapter(base);
 
-  function Shell({ backTick, onBack }: ReaderProps) {
+  function Shell({ registerBack }: ReaderProps) {
     const { eraId, openItemId } = store.useAppState();
     const { closeItem } = store.useAppActions();
-    const last = useRef(backTick);
-    useEffect(() => {
-      if (backTick === last.current) return;
-      last.current = backTick;
-      if (openItemId) {
-        closeItem();
-        onBack('handled');
-      } else onBack('exit');
-    }, [backTick]);
+    useBackRegistration(registerBack, openItemId, closeItem);
     return createElement(
       'div',
       { className: 'era-shell font-sans', style: theme.eraStyle(experience.getEra(eraId)) },

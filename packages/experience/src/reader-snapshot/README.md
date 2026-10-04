@@ -35,7 +35,7 @@ from the package root). The web reads it through React context (below).
   never reads them; it derives from the raw domains.
 - Domains: eras, content (by era), milestones, videos, eraStream (curated
   videos, doorways, render-ordered keys), theories, eraSecrets, threads,
-  searchIndex, tracks, trackGuide, merch, songMoods.
+  searchIndex, tracks, trackGuide, merch, songMoods, lore (14; contract version 2).
 
 ## Search ordering contract
 
@@ -79,12 +79,13 @@ never re-derived (it is unsorted, flat order).
 
 ## Core / extension split (WP2.2-B r1)
 
-- CORE = every domain except `merch` and `songMoods`; `fromBakedCore`/`buildReaderSnapshotCore` build it and it is what the context holds (`ReaderSnapshotCore`).
-- `attachExtensions(core, { merch, songMoods })` returns the full `ReaderSnapshot`. `hashSnapshot` throws if any of the 13 domains is missing, so a core-only snapshot is never hashed.
+- `lore` is ClownChat's static board (bundle `clownbotLore`). It is optional and all-or-nothing: a missing file or any invalid item gives `[]`, never a throw.
+- CORE = every domain except the extensions `merch`, `songMoods` and `lore`; `fromBakedCore`/`buildReaderSnapshotCore` build it and it is what the context holds (`ReaderSnapshotCore`).
+- `attachExtensions(core, { merch, songMoods, lore })` returns the full `ReaderSnapshot`. `hashSnapshot` throws if any of the 14 domains is missing, so a core-only snapshot is never hashed.
 
 ## Not covered
 
-Clownbot lore (server-side only) and live/current feeds (runtime, not baked).
+Live/current feeds (runtime, not baked).
 
 ## Tests
 
