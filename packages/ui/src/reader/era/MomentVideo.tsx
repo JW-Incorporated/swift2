@@ -154,7 +154,7 @@ export function MomentVideo({
   priority?: boolean;
 }) {
   const [playing, setPlaying] = useState(startPlaying);
-  const { resolveUrl } = useHost();
+  const { embedOrigin } = useHost();
 
   return (
     <figure className={className}>
@@ -162,7 +162,7 @@ export function MomentVideo({
         <VideoFrame>
           <iframe
             title={video.title}
-            src={youtubeEmbedSrc(video.youtubeId, resolveUrl)}
+            src={youtubeEmbedSrc(video.youtubeId, embedOrigin)}
             referrerPolicy={YOUTUBE_REFERRER_POLICY}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

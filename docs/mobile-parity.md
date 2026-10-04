@@ -29,7 +29,6 @@ Native status values:
 | `/terms` | route | web-only | Same as `/privacy`. |
 | `/support` | route | web-only | Same as `/privacy`. |
 | `/settings/notifications` | route | web-only | Path is not matched by `destinationFor`, so it degrades to the era tab. The native settings screen is reached via `?screen=settings` (see `settings` below), not this path. |
-| `/embed/youtube/[id]` | route | N/A | Wrapper page the app's DOM host frames so YouTube embeds get a real origin (#4954); not a user destination. |
 | `/internal/notifications` | route | N/A | Server-rendered internal metrics dashboard gated by `?secret=`; not linked from the public app. |
 | `?item=<id>` | query | native screen (`apps/mobile/components/MomentSheet.tsx`) | `destinationFor` returns kind `moment` for any non-empty id. Web also resolves non-moment ids as video slugs; native handling of a video slug is unverified. |
 | `?song=<trackKey>` | query | web-only | Falls through to `web` then era tab. Native song screen needs `?screen=song&key=<trackKey>` instead. |

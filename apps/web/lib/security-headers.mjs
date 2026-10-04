@@ -66,12 +66,22 @@ const VERCEL_ANALYTICS = 'https://va.vercel-scripts.com';
  * embedder (error 153, #4954). It renders only a YouTube iframe. Every other
  * route keeps frame-ancestors 'none' + X-Frame-Options DENY.
  */
-export const EMBED_PATH_PREFIX = '/embed/youtube/';
+export const EMBED_ID_PATTERN = '[A-Za-z0-9_-]{11}';
+
+/** Exactly /embed/youtube/<11-char id>: no extra segment, no trailing slash, case-sensitive. */
+const EMBED_PATH_RE = new RegExp(`^/embed/youtube/${EMBED_ID_PATTERN}$`);
 
 /** @param {string} pathname */
 export function isEmbedPath(pathname) {
-  return pathname.startsWith(EMBED_PATH_PREFIX);
+  return EMBED_PATH_RE.test(pathname);
 }
+
+/**
+ * X-Frame-Options is set by proxy.ts (not next.config `headers()`) so it uses
+ * the same case-sensitive predicate as frame-ancestors: Next matches header
+ * sources case-insensitively, which would have exempted `/EMBED/...`.
+ */
+export const FRAME_DENY_HEADER = { key: 'X-Frame-Options', value: 'DENY' };
 
 /** Where browsers POST CSP violation reports. */
 export const CSP_REPORT_PATH = '/api/csp-report';
@@ -161,11 +171,9 @@ export function contentSecurityPolicy({ nonce, dev = false, embed = false }) {
 }
 
 /**
- * @param {{ embed?: boolean }} [opts] `embed`: the frameable wrapper route
- *   (no X-Frame-Options); everything else is identical.
  * @returns {{ key: string, value: string }[]}
  */
-export function securityHeaders({ embed = false } = {}) {
+export function securityHeaders() {
   return [
     // Modern reporting transport for the enforcing policy generated in proxy.ts.
     { key: 'Reporting-Endpoints', value: `csp-endpoint="${CSP_REPORT_PATH}"` },
@@ -178,8 +186,8 @@ export function securityHeaders({ embed = false } = {}) {
 
     { key: 'X-Content-Type-Options', value: 'nosniff' },
 
-    // Legacy backstop for `frame-ancestors 'none'` (pre-CSP2 browsers).
-    ...(embed ? [] : [{ key: 'X-Frame-Options', value: 'DENY' }]),
+    // X-Frame-Options (legacy backstop for `frame-ancestors 'none'`) is set in
+    // proxy.ts, see FRAME_DENY_HEADER.
 
     // Send only the origin cross-site: third-party image hosts and embeds stop
     // learning which moment page a visitor is reading.

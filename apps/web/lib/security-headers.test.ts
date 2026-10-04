@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { contentSecurityPolicy, securityHeaders, isEmbedPath, FRAME_SRC, CSP_REPORT_PATH } from './security-headers.mjs';
+import { contentSecurityPolicy, securityHeaders, FRAME_SRC, CSP_REPORT_PATH } from './security-headers.mjs';
 
 const get = (headers: { key: string; value: string }[], key: string): string =>
   headers.find((h) => h.key.toLowerCase() === key.toLowerCase())?.value ?? '';
@@ -22,7 +22,8 @@ describe('securityHeaders — the always-on set', () => {
   it('ships every header the audit found missing', () => {
     expect(get(headers, 'Strict-Transport-Security')).toBe('max-age=63072000; includeSubDomains');
     expect(get(headers, 'X-Content-Type-Options')).toBe('nosniff');
-    expect(get(headers, 'X-Frame-Options')).toBe('DENY');
+    // Set per request in proxy.ts (embed-route exemption); see embed-route.test.ts.
+    expect(get(headers, 'X-Frame-Options')).toBe('');
     expect(get(headers, 'Referrer-Policy')).toBe('strict-origin-when-cross-origin');
     expect(get(headers, 'Content-Security-Policy')).toBe('');
   });
@@ -116,23 +117,5 @@ describe('the resource policy', () => {
     expect(prod.get('script-src')).not.toContain('unsafe-eval');
     expect(dev.get('script-src')).toContain("'unsafe-eval'");
     expect(dev.get('connect-src')).toContain('ws:');
-  });
-});
-
-describe('the frameable YouTube wrapper route (#4954)', () => {
-  it('drops X-Frame-Options and frame-ancestors only when embed is set', () => {
-    expect(get(securityHeaders({ embed: true }), 'X-Frame-Options')).toBe('');
-    expect(get(securityHeaders(), 'X-Frame-Options')).toBe('DENY');
-    const embed = directives(contentSecurityPolicy({ nonce: 'n', embed: true }).join('; '));
-    expect(embed.has('frame-ancestors')).toBe(false);
-    expect(embed.get('object-src')).toBe("'none'");
-    const normal = directives(contentSecurityPolicy({ nonce: 'n' }).join('; '));
-    expect(normal.get('frame-ancestors')).toBe("'none'");
-  });
-
-  it('isEmbedPath matches only /embed/youtube/*', () => {
-    expect(isEmbedPath('/embed/youtube/dQw4w9WgXcQ')).toBe(true);
-    expect(isEmbedPath('/embed/spotify/x')).toBe(false);
-    expect(isEmbedPath('/')).toBe(false);
   });
 });

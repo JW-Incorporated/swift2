@@ -18,7 +18,7 @@ import type { MoodMatch } from '@swift2/experience';
 
 export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: string }) {
   const [playing, setPlaying] = useState(false);
-  const { resolveUrl } = useHost();
+  const { embedOrigin } = useHost();
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)]">
@@ -43,7 +43,7 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
         >
           {playing ? (
             <iframe
-              src={youtubeEmbedSrc(pick.youtubeId, resolveUrl)}
+              src={youtubeEmbedSrc(pick.youtubeId, embedOrigin)}
               referrerPolicy={YOUTUBE_REFERRER_POLICY}
               title={pick.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
