@@ -14,14 +14,16 @@ export async function captureLocator(page: Page, selector: string): Promise<Buff
   return loc.screenshot({ scale: 'css' });
 }
 
-/** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
-/** `hideSelectors` are hidden (not masked: a mask rectangle moves with its element and would expose different pixels beneath). */
 /** The song overlay's one-time swipe hint shows for 3 s after mount, so which capture catches it is a race; never part of a viewport capture. */
 const TRANSIENT_HINT = 'div.fixed.bottom-6[aria-live="polite"]';
 
+/** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
+/** `hideSelectors` are hidden (not masked: a mask rectangle moves with its element and would expose different pixels beneath). */
 export async function captureViewport(page: Page, hideSelectors: string[] = []): Promise<Buffer> {
-  await page.addStyleTag({ content: `${[...hideSelectors, TRANSIENT_HINT].join(',')}{visibility:hidden!important}` });
+  if (hideSelectors.length) await page.addStyleTag({ content: `${hideSelectors.join(',')}{visibility:hidden!important}` });
   await imagesReady(page, 'body');
+  // CSSOM write, not a stylesheet: side a's CSP blocks inline style tags.
+  await page.evaluate((sel) => document.querySelectorAll<HTMLElement>(sel).forEach((el) => el.style.setProperty('visibility', 'hidden')), TRANSIENT_HINT);
   return page.screenshot({ scale: 'css' });
 }
 
