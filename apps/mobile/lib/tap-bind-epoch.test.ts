@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createTapBinder, disposeEpoch, releaseBeforeStrike } from './tap-bind-epoch';
+import { NAV_UNBOUND_MS, createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike } from './tap-bind-epoch';
 
 function setup(ready = true) {
   const lease = vi.fn();
@@ -122,5 +122,79 @@ describe('teardown ordering', () => {
       else watch.crashed(trigger);
       expect(order).toEqual(['lease', trigger === 'protocol' ? 'protocol' : 'crashed']);
     }
+  });
+});
+
+describe('bridge-nav-unbound observability', () => {
+  function timed() {
+    const fired: (() => void)[] = [];
+    const cleared: unknown[] = [];
+    const delays: number[] = [];
+    const timers = { set: (fn: () => void, ms: number) => (fired.push(fn), delays.push(ms), fired.length), clear: (h: unknown) => void cleared.push(h) };
+    const onNavUnbound = vi.fn();
+    const lease = vi.fn();
+    const host = { emit: vi.fn(), onAcked: vi.fn(), isReady: () => true };
+    const binder = createTapBinder({ gate: { bindHost: vi.fn(() => lease) }, host: host as never, onReadinessLoss: vi.fn(), onNavUnbound, timers });
+    return { fired, cleared, delays, onNavUnbound, binder };
+  }
+
+  it('arms at ready + first paint without navReady (10 s) and fires only observability', () => {
+    const t = timed();
+    t.binder.firstPaint();
+    expect(t.delays).toEqual([NAV_UNBOUND_MS]);
+    t.fired[0]();
+    expect(t.onNavUnbound).toHaveBeenCalledTimes(1);
+  });
+
+  it('is cleared on bind and on release', () => {
+    const a = timed();
+    a.binder.firstPaint();
+    a.binder.navReady();
+    expect(a.cleared).toEqual([1]);
+    const b = timed();
+    b.binder.firstPaint();
+    b.binder.release();
+    expect(b.cleared).toEqual([1]);
+  });
+});
+
+describe('createTapTarget confirmation hardening', () => {
+  function target() {
+    let seq = 0;
+    const acks: ((a: boolean) => void)[] = [];
+    const host = {
+      emit: vi.fn(() => ({ epoch: 1, seq: ++seq })),
+      onAcked: vi.fn((_r: unknown, cb: (a: boolean) => void) => (acks.push(cb), () => {})),
+      isReady: () => true,
+    };
+    const t = createTapTarget({ host: host as never, isReaderPath: () => true, openElsewhere: async () => true });
+    return { t, host, acks };
+  }
+
+  it('a navigated sent before any tap (t1) never confirms a later tap; only a genuine id does', () => {
+    const { t, host, acks } = target();
+    t.onNavigated({ id: 't1', ok: true });
+    const ref = t.emit('navigate', { path: '/?item=a' as never, source: 'notification' });
+    const cb = vi.fn();
+    t.onAcked(ref!, cb);
+    acks[0](true);
+    expect(cb).not.toHaveBeenCalled();
+    const id = (host.emit.mock.calls[0] as unknown as [string, { id: string }])[1].id;
+    expect(id).toMatch(/^t[a-z0-9]+-1$/);
+    t.onNavigated({ id: 't1', ok: true });
+    expect(cb).not.toHaveBeenCalled();
+    t.onNavigated({ id, ok: true });
+    expect(cb).toHaveBeenCalledWith(true);
+  });
+
+  it('a navigated after the waiter unsubscribed is ignored', () => {
+    const { t, host } = target();
+    const ref = t.emit('navigate', { path: '/?item=a' as never, source: 'notification' });
+    const cb = vi.fn();
+    const off = t.onAcked(ref!, cb);
+    off();
+    const id = (host.emit.mock.calls[0] as unknown as [string, { id: string }])[1].id;
+    t.onNavigated({ id, ok: true });
+    expect(cb).not.toHaveBeenCalled();
   });
 });

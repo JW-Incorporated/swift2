@@ -158,7 +158,7 @@ export function SharedUiHost({
         return true;
       },
     });
-    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1) });
+    const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
     ref.target = target;
     ref.binder = binder;
     ref.host = host;

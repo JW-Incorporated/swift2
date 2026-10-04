@@ -284,6 +284,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       const p = env.payload;
       if (isReady) return onReady(env);
       if (env.type === 'ack') return onAck(p);
+      if ((env.type === 'navReady' || env.type === 'navigated') && !ready) return onSignal('bridge-pre-ready', env.type);
       if (env.type === 'navReady') return deps.onNavReady?.();
       if (env.type === 'navigated') {
         if (isRecord(p) && typeof p.id === 'string' && typeof p.ok === 'boolean') deps.onNavigated?.({ id: p.id.slice(0, 64), ok: p.ok });

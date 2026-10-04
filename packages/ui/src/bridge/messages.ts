@@ -46,6 +46,8 @@ export type DomEventSpec = {
   ack: { seq: number };
   /** The DOM `navigate` subscriber is installed (once per client; repeats are idempotent). Add-only (W2-I). */
   navReady: Record<string, never>;
+  // Atomicity invariant: the 'use dom' reader HTML/JS ships as hashed assets of the same expo-updates update
+  // as the native JS and launches only when every asset is present, so DOM/native skew cannot occur.
   /** Outcome of a native `navigate` that carried an `id`: `ok` after the reader committed, false on failure. Add-only (W2-I). */
   navigated: { id: string; ok: boolean };
 };
