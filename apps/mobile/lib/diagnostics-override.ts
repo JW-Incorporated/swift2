@@ -1,7 +1,7 @@
 // C4 preview override: "Force shared UI (this device)". Persisted, internal
 // only. App.tsx reads it once per launch (WP0.4) and mounts the shared-UI DOM host.
 import * as SecureStore from 'expo-secure-store';
-import { parseDomFailureMode, type DomFailureMode } from './watchdog';
+import { parseDomFailureMode, STRIKES_TO_FALLBACK, type DomFailureMode } from './watchdog';
 
 export const FORCE_SHARED_UI_KEY = 'longlive_diag_force_shared_ui';
 
@@ -49,3 +49,26 @@ export async function setUseTestPage(on: boolean): Promise<void> {
   if (on) await SecureStore.setItemAsync(USE_TEST_PAGE_KEY, 'true');
   else await SecureStore.deleteItemAsync(USE_TEST_PAGE_KEY);
 }
+
+export interface PersistResult<T> {
+  value: T;
+  error: string | null;
+}
+
+/** Awaits a write, swallows its failure into `error`, then re-reads so the UI shows what is stored. */
+export async function persistAndReread<T>(
+  write: () => Promise<unknown>,
+  read: () => Promise<T>,
+): Promise<PersistResult<T>> {
+  let error: string | null = null;
+  try {
+    await write();
+  } catch (e) {
+    error = e instanceof Error ? e.message : String(e);
+  }
+  return { value: await read(), error };
+}
+
+/** The watchdog turns the Force shared UI override off once it has reached the fallback strike count. */
+export const strikeClearedOverride = (wd: { strikes: number } | null): boolean =>
+  wd !== null && wd.strikes >= STRIKES_TO_FALLBACK;

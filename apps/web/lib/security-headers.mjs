@@ -60,19 +60,45 @@ export const FRAME_SRC = [
  */
 const VERCEL_ANALYTICS = 'https://va.vercel-scripts.com';
 
+/**
+ * The ONE route allowed to be framed by someone else: the YouTube wrapper page
+ * the app's DOM host (null origin, no Referer) embeds so YouTube sees a real
+ * embedder (error 153, #4954). It renders only a YouTube iframe. Every other
+ * route keeps frame-ancestors 'none' + X-Frame-Options DENY.
+ */
+export const EMBED_ID_PATTERN = '[A-Za-z0-9_-]{11}';
+
+/** Exactly /embed/youtube/<11-char id>: no extra segment, no trailing slash, case-sensitive. */
+const EMBED_PATH_RE = new RegExp(`^/embed/youtube/${EMBED_ID_PATTERN}$`);
+
+/** @param {string} pathname */
+export function isEmbedPath(pathname) {
+  return EMBED_PATH_RE.test(pathname);
+}
+
+/**
+ * X-Frame-Options is set by proxy.ts (not next.config `headers()`) so it uses
+ * the same case-sensitive predicate as frame-ancestors: Next matches header
+ * sources case-insensitively, which would have exempted `/EMBED/...`.
+ */
+export const FRAME_DENY_HEADER = { key: 'X-Frame-Options', value: 'DENY' };
+
 /** Where browsers POST CSP violation reports. */
 export const CSP_REPORT_PATH = '/api/csp-report';
 
 /**
  * Directives that do not need the per-request nonce.
+ * `embed` drops frame-ancestors entirely (not `*`: that does not match a
+ * file:/custom-scheme parent, which the DOM host may be) for the wrapper route.
+ * @param {boolean} [embed]
  * @returns {string[]}
  */
-function enforcedDirectives() {
+function enforcedDirectives(embed = false) {
   return [
     // Nobody may frame us. This is the clickjacking control and the reason an
     // enforcing header exists at all — `frame-ancestors` is IGNORED in a
     // report-only policy, so it has to live here.
-    "frame-ancestors 'none'",
+    ...(embed ? [] : ["frame-ancestors 'none'"]),
     // An injected <base> can silently repoint every relative script URL.
     "base-uri 'self'",
     // No form on this site posts anywhere but our own origin.
@@ -84,10 +110,10 @@ function enforcedDirectives() {
 
 /**
  * The nonce-based resource policy enforced by proxy.ts.
- * @param {{ nonce: string, dev?: boolean }} opts
+ * @param {{ nonce: string, dev?: boolean, embed?: boolean }} opts
  * @returns {string[]}
  */
-export function contentSecurityPolicy({ nonce, dev = false }) {
+export function contentSecurityPolicy({ nonce, dev = false, embed = false }) {
   const script = ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'", VERCEL_ANALYTICS];
   // Next's dev bundler uses eval-based source maps. Production builds do not.
   if (dev) script.push("'unsafe-eval'");
@@ -97,7 +123,7 @@ export function contentSecurityPolicy({ nonce, dev = false }) {
   if (dev) connect.push('ws:', 'wss:');
 
   return [
-    ...enforcedDirectives(),
+    ...enforcedDirectives(embed),
     "default-src 'self'",
 
     // Next reads the nonce from the request CSP and attaches it to its hydration
@@ -145,7 +171,6 @@ export function contentSecurityPolicy({ nonce, dev = false }) {
 }
 
 /**
- * @param {{ dev?: boolean }} [opts]
  * @returns {{ key: string, value: string }[]}
  */
 export function securityHeaders() {
@@ -161,8 +186,8 @@ export function securityHeaders() {
 
     { key: 'X-Content-Type-Options', value: 'nosniff' },
 
-    // Legacy backstop for `frame-ancestors 'none'` (pre-CSP2 browsers).
-    { key: 'X-Frame-Options', value: 'DENY' },
+    // X-Frame-Options (legacy backstop for `frame-ancestors 'none'`) is set in
+    // proxy.ts, see FRAME_DENY_HEADER.
 
     // Send only the origin cross-site: third-party image hosts and embeds stop
     // learning which moment page a visitor is reading.

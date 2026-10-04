@@ -148,7 +148,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
    attempt). Relaunch twice more: quarantined, native with no attempt.
    Diagnostics shows `Quarantined: yes`.
-2. Failure `off`, Reset watchdog, relaunch: the shared UI returns. `throw`
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
 4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
@@ -184,3 +184,9 @@ Behavior:
 - `first-era-paint` is the native era stream's first frame, or the shared-UI host's `dom-ready`; each report records which (`UI | native/shared`). `first-image-paint` = first loaded image inside the viewport. Shared UI reports via ReaderSpike's `reportImageLoad` prop (the next/image stub's `onLoad`), native via `MomentCard` `onLoad`.
 - State (run id, remaining, results) is one SecureStore key `longlive_diag_speed_test_v1`. The server caps reports at 31 per run id and 300 per 24 h overall, on top of the existing 5/min per IP.
 - Opt-in by the tester; unrelated to the category-only watchdog telemetry.
+
+## YouTube embeds in the DOM host (#4954)
+
+The DOM page is a null origin and sends no Referer, so a direct YouTube iframe fails with error 153. No `baseUrl` spoofing (G0 ruling 2026-10-04). Instead, when the host sets `embedOrigin` (the app sets `https://www.longlivets.com`; web omits it), `MomentVideo` and `MoodSongCard` point the iframe at `https://www.longlivets.com/embed/youtube/<id>` (via `youtubeEmbedSrc`, `packages/ui/src/reader/lib/youtube-embed.ts`). That route handler (`apps/web/app/embed/youtube/[id]/route.ts`, static HTML, no root layout) serves only a full-bleed youtube-nocookie iframe on the real origin, so YouTube sees a real embedder. The outer iframe is a navigation, so no CORS change. Web keeps the direct iframe. Both iframes carry `referrerPolicy="strict-origin-when-cross-origin"`. Spotify is out of scope.
+
+Framing: the site denies framing everywhere (`frame-ancestors 'none'` and `X-Frame-Options: DENY`, both set in `proxy.ts`). For exactly `/embed/youtube/<11-char id>` only (one shared case-sensitive predicate in `security-headers.mjs`; extra segments, trailing slash and every other path keep full protection), `frame-ancestors` is omitted (not `*`, which does not match a file:/custom-scheme parent) and X-Frame-Options is not sent. The page only shows a video, so framing it has no clickjacking value. Id must match `^[A-Za-z0-9_-]{11}$`, else 404.
