@@ -200,7 +200,6 @@ export default function App() {
               getRouteFlags={() => routeFlagsRef.current}
               state={nativeRoute}
               presenter={presenter}
-              navigate={navigate}
             />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
