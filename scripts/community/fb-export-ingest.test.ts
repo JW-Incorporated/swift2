@@ -74,6 +74,27 @@ describe('engagementLeadsFromPosts', () => {
     expect(leads[1].locator).toContain('medium heat post');
   });
 
+  // Regression: the 80-char excerpt used to be a raw UTF-16 slice, so an
+  // emoji straddling the boundary was cut in half. The resulting lone
+  // surrogate is valid JS but cannot be UTF-8 encoded, and PostgREST
+  // rejected the whole insert with "Empty or invalid json" — which is
+  // exactly what killed a live re-ingest run. Every string on the row must
+  // survive a UTF-8 round trip.
+  it('never splits an emoji across the excerpt boundary', () => {
+    const text = `${'a'.repeat(79)}\u{1f3a4} the vault door in the new video`;
+    const leads = engagementLeadsFromPosts([{ text, reactionCount: 9, commentCount: 2 }], {
+      groupName: 'Test Group',
+      groupSlug: 'test-group',
+      maxLeadsPerGroup: 1,
+    });
+    for (const value of Object.values(leads[0])) {
+      if (typeof value !== 'string') continue;
+      expect(Buffer.from(value, 'utf8').toString('utf8')).toBe(value);
+      expect(value).not.toMatch(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/);
+    }
+    expect(leads[0].locator).toContain('\u{1f3a4}');
+  });
+
   it('produces schema-shaped rows: platform facebook, kind hot_thread, url null', () => {
     const leads = engagementLeadsFromPosts([{ text: 'a post', reactionCount: 5, commentCount: 1 }], {
       groupName: 'Taylor Swift\u2019s Vault',

@@ -12,10 +12,13 @@
  */
 import { useState } from 'react';
 import { Play } from 'lucide-react';
+import { useHost } from '../../host/context';
+import { YOUTUBE_REFERRER_POLICY, youtubeEmbedSrc } from '../lib/youtube-embed';
 import type { MoodMatch } from '@swift2/experience';
 
 export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: string }) {
   const [playing, setPlaying] = useState(false);
+  const { embedOrigin } = useHost();
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)]">
@@ -40,7 +43,8 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
         >
           {playing ? (
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${pick.youtubeId}?autoplay=1&rel=0`}
+              src={youtubeEmbedSrc(pick.youtubeId, embedOrigin)}
+              referrerPolicy={YOUTUBE_REFERRER_POLICY}
               title={pick.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
