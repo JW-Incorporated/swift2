@@ -11,34 +11,35 @@ const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, m
 const tick = () => new Promise((r) => setTimeout(r, 0));
 
 describe('applyNavigateEvent', () => {
-  it('keeps search + hash only, remounts, and reports success after the remount', async () => {
-    const deps = { replaceUrl: vi.fn(), remount: vi.fn(async () => {}) };
+  it('keeps search + hash only, applies the search through the store, and reports success after it', async () => {
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => {}) };
     expect(await applyNavigateEvent({ path: '/?item=abc&era=debut#x' as never }, deps)).toBe(true);
     expect(deps.replaceUrl).toHaveBeenCalledWith('?item=abc&era=debut#x');
-    expect(deps.remount).toHaveBeenCalledTimes(1);
+    expect(deps.apply).toHaveBeenCalledWith('?item=abc&era=debut');
+    expect(deps.apply).toHaveBeenCalledTimes(1);
   });
 
   it('a bare root clears the query', async () => {
-    const deps = { replaceUrl: vi.fn(), remount: vi.fn(async () => {}) };
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => {}) };
     await applyNavigateEvent({ path: '/' as never }, deps);
     expect(deps.replaceUrl).toHaveBeenCalledWith('?');
   });
 
   it('a non-root pathname is refused without touching the page', async () => {
-    const deps = { replaceUrl: vi.fn(), remount: vi.fn(async () => {}) };
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => {}) };
     expect(await applyNavigateEvent({ path: '/settings' as never }, deps)).toBe(false);
     expect(deps.replaceUrl).not.toHaveBeenCalled();
-    expect(deps.remount).not.toHaveBeenCalled();
+    expect(deps.apply).not.toHaveBeenCalled();
   });
 
-  it('a remount failure reports false', async () => {
-    const deps = { replaceUrl: vi.fn(), remount: vi.fn(async () => Promise.reject(new Error('boom'))) };
+  it('an apply failure reports false', async () => {
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => Promise.reject(new Error('boom'))) };
     expect(await applyNavigateEvent({ path: '/?item=a' as never }, deps)).toBe(false);
   });
 });
 
 // One epoch wired as SharedUiHost does it (host hooks, tap target, binder), real gate + real DOM client.
-function epoch(opts: { subscribe?: boolean; remount?: () => Promise<void>; gateBind?: boolean } = {}) {
+function epoch(opts: { subscribe?: boolean; apply?: () => Promise<void>; gateBind?: boolean } = {}) {
   const { subscribe = true } = opts;
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
   const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget>; dom?: ReturnType<typeof createExpoBridge> } = {};
@@ -66,7 +67,7 @@ function epoch(opts: { subscribe?: boolean; remount?: () => Promise<void>; gateB
   link.attach(host);
   const dom = createExpoBridge((env) => handlers.bridge(env));
   ref.dom = dom;
-  const deps = { replaceUrl: vi.fn(), remount: opts.remount ?? vi.fn(async () => {}) };
+  const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => {}) };
   dom.mount();
   if (subscribe) installNavigateSubscriber(dom.client, deps);
   const ready = async () => {
@@ -89,17 +90,17 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     await vi.waitFor(() => expect(e.openElsewhere).toHaveBeenCalledWith(path));
     await vi.waitFor(() => expect(e.gate.size()).toBe(0));
     expect(e.deps.replaceUrl).not.toHaveBeenCalled();
-    expect(e.deps.remount).not.toHaveBeenCalled();
+    expect(e.deps.apply).not.toHaveBeenCalled();
     e.dispose();
   });
 
-  it.each(['/?item=abc', '/?lens=easter-eggs', '/?era=debut', '/?mode=threads'])('%s routes in the DOM and is delivered only after the remount commits', async (path) => {
+  it.each(['/?item=abc', '/?lens=easter-eggs', '/?era=debut', '/?mode=threads'])('%s routes in the DOM and is delivered only after the apply commits', async (path) => {
     let commit!: () => void;
-    const remount = vi.fn(() => new Promise<void>((r) => (commit = r)));
-    const e = epoch({ remount });
+    const apply = vi.fn(() => new Promise<void>((r) => (commit = r)));
+    const e = epoch({ apply });
     await e.ready();
     e.gate.enqueue({ id: `id${path}`, deepLink: path });
-    await vi.waitFor(() => expect(remount).toHaveBeenCalledTimes(1));
+    await vi.waitFor(() => expect(apply).toHaveBeenCalledTimes(1));
     expect(e.deps.replaceUrl).toHaveBeenCalledWith(path.slice(1));
     await tick();
     await tick();
@@ -110,7 +111,7 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
   });
 
   it('a DOM failure keeps the tap queued', async () => {
-    const e = epoch({ remount: async () => Promise.reject(new Error('boom')) });
+    const e = epoch({ apply: async () => Promise.reject(new Error('boom')) });
     await e.ready();
     e.gate.enqueue({ id: 'f1', deepLink: '/?item=abc' });
     await vi.waitFor(() => expect(e.deps.replaceUrl).toHaveBeenCalled());
