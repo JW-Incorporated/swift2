@@ -26,10 +26,12 @@ describe('ROUTE_FLAG_KEYS', () => {
     expect([...ROUTE_FLAG_KEYS].sort()).toEqual(Object.keys(DEFAULT_ROUTE_FLAGS).sort());
   });
 
-  it('defaults sharedUi off and the shipped config agrees', () => {
-    expect(DEFAULT_ROUTE_FLAGS.sharedUi).toBe(false);
-    expect(routeFlagsFrom({ routeFlags: { sharedUi: true } }).sharedUi).toBe(true);
-    expect(shippedConfig.routeFlags.sharedUi).toBe(false);
+  it('defaults sharedUi on and the shipped config agrees', () => {
+    expect(DEFAULT_ROUTE_FLAGS.sharedUi).toBe(true);
+    expect(routeFlagsFrom({ routeFlags: { sharedUi: false } }).sharedUi).toBe(false);
+    expect(routeFlagsFrom(shippedConfig)).toEqual(DEFAULT_ROUTE_FLAGS);
+    expect(shippedConfig.routeFlags.sharedUi).toBe(true);
+    expect(shippedConfig.watchdogReports).toBe(true);
   });
 });
 
