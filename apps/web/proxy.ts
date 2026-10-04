@@ -1,13 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { API_VERSION } from '@swift2/shared';
 
-import { contentSecurityPolicy } from './lib/security-headers.mjs';
+import { contentSecurityPolicy, isEmbedPath } from './lib/security-headers.mjs';
 
 export function proxy(request: NextRequest) {
   const nonce = btoa(crypto.randomUUID());
   const policy = contentSecurityPolicy({
     nonce,
     dev: process.env.NODE_ENV !== 'production',
+    embed: isEmbedPath(request.nextUrl.pathname),
   }).join('; ');
 
   const requestHeaders = new Headers(request.headers);

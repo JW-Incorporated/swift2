@@ -18,9 +18,18 @@ const nextConfig = {
   // proxy.ts before the App Router renders each page.
   async headers() {
     return [
+      // Every route except the YouTube wrapper keeps the full set (incl.
+      // X-Frame-Options: DENY). Excluded by pattern, not by header-override
+      // order, so the DENY never reaches the embed route at all.
       {
-        source: '/:path*',
+        source: '/:path((?!embed/youtube/).*)',
         headers: securityHeaders(),
+      },
+      // The app's DOM host frames this page (null origin; #4954): same set,
+      // minus X-Frame-Options. proxy.ts drops frame-ancestors for it too.
+      {
+        source: '/embed/youtube/:path*',
+        headers: securityHeaders({ embed: true }),
       },
       // Self-hosted fonts are content-hashed (build-fonts.mjs): cache forever,
       // as next/font's own assets were.
