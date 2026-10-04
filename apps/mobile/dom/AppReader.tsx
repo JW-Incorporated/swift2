@@ -17,7 +17,7 @@ import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
-import { probeScript, readLocalText } from './reader/read-local';
+import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
 import { describeSnapshotSafe, snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
@@ -185,6 +185,7 @@ export default function AppReader(props: AppReaderProps) {
     started.current = true;
     const probe = probeRef.current;
     void (async () => {
+      let readAttempts: ReadAttempt[] = [];
       try {
         probe.report.storage.localStorage = installStorageShim(window).includes('localStorage')
           ? 'shimmed'
@@ -194,6 +195,7 @@ export default function AppReader(props: AppReaderProps) {
         else if (cacheUri) {
           const read = await readLocalText(cacheUri);
           probe.attempts(read.attempts);
+          readAttempts = read.attempts;
           text = read.text;
         }
         if (!text) throw new Error('bundle cache unreadable');
@@ -211,7 +213,10 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.error = message;
         setFailed(message);
         await propsRef.current.reportProbe(probe.json());
-        void propsRef.current.reportError(`reader-spike: ${message}`);
+        const unreadable = message === 'bundle cache unreadable' && !devLoader;
+        void propsRef.current.reportError(
+          unreadable ? unreadableMessage(readAttempts, !!cacheUri) : `reader-spike: ${message}`,
+        );
       }
     })();
   }, []);
@@ -230,7 +235,6 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
         await propsRef.current.reportProbe(probe.json());
         await propsRef.current.onReady();
-        if (cacheUri) probe.report.read.script = (await probeScript(cacheUri)) ? 'ok' : 'fail';
         // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
         for (const ms of [4000, 12000]) {
           setTimeout(() => {

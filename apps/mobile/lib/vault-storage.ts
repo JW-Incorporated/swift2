@@ -37,6 +37,18 @@ function cacheFile(key: string): FileSystem.File {
   return new FileSystem.File(CACHE_DIR, `${safeName}.json`);
 }
 
+const LAST_GOOD_SUFFIX = ':last-good';
+
+/** The `.js` twin of a last-good cache file: the JSON document as a JS string literal, so the DOM webview can load it
+ * with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS). */
+export function lastGoodScriptSource(jsonText: string): string {
+  return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};`;
+}
+
+export function lastGoodScriptName(key: string): string {
+  return `${encodeURIComponent(key)}.js`;
+}
+
 /** `StorageAdapter` (packages/content/src/cache.ts) backed by expo-file-system, so a bundle validated once survives
  * an app restart — the loader's `TransportError` fallback (offline, no network) can then serve last-good from disk
  * instead of only from the in-memory default. Shared by `vault.ts` (Tier 0/1) and `era-stream-data.ts` (OS-032) so
@@ -56,6 +68,9 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
       if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
       const file = cacheFile(key);
       file.write(value);
+      if (key.endsWith(LAST_GOOD_SUFFIX)) {
+        new FileSystem.File(CACHE_DIR, lastGoodScriptName(key)).write(lastGoodScriptSource(value));
+      }
     },
     removeItem(key: string): void {
       const file = cacheFile(key);
