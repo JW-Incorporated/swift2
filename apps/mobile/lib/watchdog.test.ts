@@ -1,12 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
-  READY_TIMEOUT_MS,
   beginAttempt,
-  createAttemptMonitor,
   createWriteQueue,
   decideMount,
   freshRecord,
   markReady,
+  markReloading,
   parseDomFailureMode,
   parseRecord,
   recordStrike,
@@ -18,36 +17,6 @@ import {
 
 const KEY = '42:embedded';
 
-function fakeClock(active = true) {
-  let t = 0;
-  const timers = new Map<number, { at: number; fn: () => void }>();
-  let id = 0;
-  const onReady = vi.fn();
-  const onStrike = vi.fn();
-  const m = createAttemptMonitor({
-    now: () => t,
-    active,
-    onReady,
-    onStrike,
-    scheduler: {
-      setTimeout: (fn, ms) => {
-        timers.set(++id, { at: t + ms, fn });
-        return id;
-      },
-      clearTimeout: (h) => void timers.delete(h as number),
-    },
-  });
-  const advance = (ms: number) => {
-    t += ms;
-    for (const [k, v] of [...timers]) {
-      if (v.at <= t) {
-        timers.delete(k);
-        v.fn();
-      }
-    }
-  };
-  return { m, advance, onReady, onStrike };
-}
 
 // One simulated launch: decide, begin attempt, then apply an outcome.
 function launch(
@@ -69,64 +38,26 @@ function launch(
   return { d, rec: r, clear };
 }
 
-describe('attempt monitor', () => {
-  it('strikes on ready-timeout', () => {
-    const { m, advance, onStrike } = fakeClock();
-    advance(READY_TIMEOUT_MS - 1);
-    expect(onStrike).not.toHaveBeenCalled();
-    advance(1);
-    expect(onStrike).toHaveBeenCalledWith('ready-timeout');
-    m.ready();
-  });
-
-  it('ready is idempotent and cancels the timeout', () => {
-    const { m, advance, onReady, onStrike } = fakeClock();
-    m.ready();
-    m.ready();
-    advance(READY_TIMEOUT_MS * 2);
-    expect(onReady).toHaveBeenCalledTimes(1);
-    expect(onStrike).not.toHaveBeenCalled();
-  });
-
-  it('pauses the timeout while backgrounded and resumes with the remainder', () => {
-    const { m, advance, onStrike } = fakeClock();
-    advance(4_000);
-    m.setActive(false);
-    advance(60_000);
-    expect(onStrike).not.toHaveBeenCalled();
-    m.setActive(true);
-    advance(READY_TIMEOUT_MS - 4_000 - 1);
-    expect(onStrike).not.toHaveBeenCalled();
-    advance(1);
-    expect(onStrike).toHaveBeenCalledWith('ready-timeout');
-  });
-
-  it('counts a DOM error only before ready; a crash counts at the event even after ready', () => {
-    const a = fakeClock();
-    a.m.error('x'.repeat(300));
-    expect(a.onStrike).toHaveBeenCalledTimes(1);
-    expect(a.onStrike.mock.calls[0][0].length).toBeLessThanOrEqual(120);
-    const b = fakeClock();
-    b.m.ready();
-    b.m.error('late');
-    expect(b.onStrike).not.toHaveBeenCalled();
-    b.m.crashed('terminated');
-    b.m.crashed('render-gone');
-    expect(b.onStrike).toHaveBeenCalledTimes(1);
-    expect(b.onStrike).toHaveBeenCalledWith('webview-terminated');
-  });
-
-  it('starts paused when created while backgrounded', () => {
-    const { m, advance, onStrike } = fakeClock(false);
-    advance(READY_TIMEOUT_MS * 3);
-    expect(onStrike).not.toHaveBeenCalled();
-    m.setActive(true);
-    advance(READY_TIMEOUT_MS);
-    expect(onStrike).toHaveBeenCalledTimes(1);
-  });
-});
-
 describe('record transitions', () => {
+  it('a process kill mid-reload is a failed attempt next launch, not a clean one; the replacement ready clears it', () => {
+    const ready = launch(null, 'ready').rec;
+    const reloading = markReloading(ready, 5);
+    expect(reloading.state).toBe('attempting');
+    expect(reloading.backgrounded).toBe(false);
+    const next = decideMount(reloading, KEY, 6);
+    expect(next.record.strikes).toBe(1);
+    expect(next.record.lastReason).toBe('abandoned-before-ready');
+    expect(markReady(reloading, 7).state).toBe('ready');
+    expect(markReloading(freshRecord(KEY, 1), 2).state).toBe('idle');
+  });
+
+  it('a kill while backgrounded mid-reload is merely abandoned', () => {
+    const reloading = { ...markReloading(launch(null, 'ready').rec, 5), backgrounded: true };
+    const next = decideMount(reloading, KEY, 6);
+    expect(next.record.strikes).toBe(0);
+    expect(next.record.abandonedStreak).toBe(1);
+  });
+
   it('an attempt that died in the foreground before ready is a strike', () => {
     const l1 = launch(null, 'abandon');
     expect(l1.rec.state).toBe('attempting');

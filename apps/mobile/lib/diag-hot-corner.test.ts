@@ -48,6 +48,11 @@ describe('hotCornerRects', () => {
       { left: 0, top: win.height - 34, width: 88, height: 34 },
     ]);
   });
+  it('bottom strip (on the home indicator) renders at exactly 20pt and not at 19; an iPad with no home indicator keeps only the top strip', () => {
+    expect(hotCornerRects(ins(24, 20), win).map((r) => r.top)).toEqual([0, win.height - 20]);
+    expect(hotCornerRects(ins(24, 19), win).map((r) => r.top)).toEqual([0]);
+    expect(hotCornerRects(ins(24, 0), win)).toHaveLength(1);
+  });
   it('mounts nothing when both insets are too small', () => {
     expect(hotCornerRects(ins(10, 10), win)).toEqual([]);
     expect(hotCornerRects(ins(0, 0), win)).toEqual([]);

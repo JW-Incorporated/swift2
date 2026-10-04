@@ -1,7 +1,11 @@
 // Invisible hot corner in the top and bottom inset strips that opens the
 // Diagnostics panel with 7 quick taps (shared across both strips) while the
 // shared-UI host is mounted (issue #4872). It lives outside the SafeAreaView so
-// it never overlaps DOM content. No visual change by design.
+// it never overlaps DOM content, and it is rendered AFTER (above) the DOM host
+// with zIndex/elevation so the strips take touches over the full-bleed webview on
+// iOS and Android. The bottom strip sits on the home indicator; it renders only when
+// insets.bottom >= MIN_STRIP_HEIGHT (20pt), so a device without a home indicator
+// relies on the top strip / Settings -> About. No visual change by design.
 import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -35,5 +39,7 @@ const styles = StyleSheet.create({
   corner: {
     backgroundColor: 'transparent',
     position: 'absolute',
+    zIndex: 1000,
+    elevation: 1000,
   },
 });

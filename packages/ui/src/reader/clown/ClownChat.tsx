@@ -61,7 +61,7 @@ import { ClownMessageRow } from './ClownMessageRow';
  * the DOM for the same fact). `md:hidden` there — BottomNav does not render
  * at md+, so this only applies to the mobile-viewport calc below.
  */
-const BOTTOM_NAV_CLEARANCE = 'calc(3.5rem + env(safe-area-inset-bottom))';
+const BOTTOM_NAV_CLEARANCE = 'calc(3.5rem + var(--safe-bottom, env(safe-area-inset-bottom)))';
 
 /** Matches the container's own `pt-3` below — kept as one literal so the
  * mobile height calc and the padding that produces it can't drift apart. */
@@ -265,11 +265,11 @@ export function ClownChat({ lore }: ClownChatProps) {
   const panelStyle = { '--clown-panel-h': `calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE})` } as React.CSSProperties;
 
   const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
-    expanded ? ' pt-[max(0.75rem,env(safe-area-inset-top))]' : ''
+    expanded ? ' pt-[max(0.75rem,var(--safe-top,env(safe-area-inset-top)))]' : ''
   }`;
 
   const composerWrapClassName = `flex-none bg-[color:var(--clown-bg)] px-4 pb-4 pt-3.5 sm:px-6${
-    expanded ? ' pb-[max(1rem,env(safe-area-inset-bottom))]' : ''
+    expanded ? ' pb-[max(1rem,var(--safe-bottom,env(safe-area-inset-bottom)))]' : ''
   }`;
 
   return (
