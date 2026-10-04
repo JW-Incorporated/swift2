@@ -3,7 +3,6 @@
 // Contract: packages/ui/src/bridge/README.md. Not wired into SharedUiHost yet (G0).
 import {
   BRIDGE_VERSION,
-  NATIVE_SUPPORTED_RANGE,
   answerUnknown,
   isBridgeId,
   isResResult,
@@ -15,64 +14,20 @@ import {
   resErr,
   resOk,
 } from '@swift2/ui';
-import type {
-  DomCommandType,
-  Envelope,
-  EventPayloadOf,
-  HandlerMap,
-  JsonValue,
-  NativeCommandType,
-  NativeEventType,
-  PayloadOf,
-  ResResult,
-  ResultOf,
-  ThemeChange,
-  VersionRange,
-} from '@swift2/ui';
+import type { DomCommandType, Envelope, EventPayloadOf, JsonValue, NativeCommandType, NativeEventType, PayloadOf, ResResult, ResultOf } from '@swift2/ui';
 import { OUTBOX_CAP, createOutbox } from './bridge-host-outbox';
 import { DEFAULT_TIMEOUT_MS, createInflight } from './bridge-host-inflight';
 import { createTimers } from './bridge-host-timers';
-import { type BridgeScheduler } from './bridge-host-timers';
+import { createAckTracker, type AckRef } from './bridge-host-acks';
+import { HOST_RANGE, MAX_INFLIGHT, MAX_PENDING, READY_LIMIT, READY_WINDOW_MS, type BridgeHostDeps, type Pending } from './bridge-host-types';
+
+export { HOST_RANGE, MAX_INFLIGHT, MAX_PENDING, READY_LIMIT, READY_WINDOW_MS, DEFAULT_TIMEOUT_MS } from './bridge-host-types';
+export type { AckRef };
+export type { BridgeHostDeps, BridgeScheduler } from './bridge-host-types';
 import { isExpectedResult, isRecord, validateCommand } from './bridge-host-validate';
 import { handleDomEvent } from './bridge-host-events';
 
-export const HOST_RANGE: VersionRange = NATIVE_SUPPORTED_RANGE;
-export { DEFAULT_TIMEOUT_MS, type BridgeScheduler };
-export const READY_LIMIT = 3;
-export const READY_WINDOW_MS = 10_000;
-export const MAX_INFLIGHT = 32;
-export const MAX_PENDING = 64;
-
-export interface BridgeHostDeps {
-  /** The dispatcher owns `cancel`; handlers cover every other DOM command. */
-  handlers: Omit<HandlerMap, 'cancel'>;
-  /** Delivers one native-to-DOM envelope (transport-neutral). */
-  send: (env: Envelope) => void;
-  now: () => number;
-  scheduler: BridgeScheduler;
-  /** Only protocol-fatal failures: the watchdog strike hook. */
-  onProtocolFatal: (reason: string) => void;
-  onSignal: (stage: string, detail?: string) => void;
-  /** Per-type overrides of DEFAULT_TIMEOUT_MS. */
-  timeouts?: Partial<Record<DomCommandType, number>>;
-  maxInflight?: number;
-  outboxCap?: number;
-  /** Runs once, FIRST in shutdown (protocol fatal or dispose), before anything is torn down: release leases here. */
-  onBeforeShutdown?: () => void;
-  /** A `ready` arrived while already ready (the DOM re-handshook: webview reload or a new client). */
-  onReadyAgain?: () => void;
-  /** The DOM announced its `navigate` subscriber (idempotent per client). */
-  onNavReady?: () => void;
-  /** The DOM's outcome for a `navigate` emitted with an `id`. */
-  onNavigated?: (e: { id: string; ok: boolean }) => void;
-  /** The DOM's theme event (validated; no reply is ever sent). */
-  onTheme?: (theme: ThemeChange) => void;
-}
-
-export type AckRef = { epoch: number; seq: number };
 let nextEpoch = 0; // never resets within the process: one id per host instance
-
-type Pending = { type: NativeCommandType; resolve: (r: ResResult<never>) => void; timeoutMs: number; timer?: unknown };
 
 export function createBridgeHost(deps: BridgeHostDeps) {
   const { send, now } = deps;
@@ -89,29 +44,12 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   const pending = new Map<string, Pending>(); // native-to-DOM requests, by id
   const { arm, disarm } = createTimers(deps.scheduler, onSignal);
   const epoch = ++nextEpoch;
-  const evicted = new Set<number>(); // seqs dropped unsent-or-unacked by outbox overflow
-  const outbox = createOutbox(deps.outboxCap ?? OUTBOX_CAP, onSignal, (gone) => {
-    evicted.add(gone.seq!);
-    if (evicted.size > 1024) evicted.delete(evicted.values().next().value as number);
-    settleWaiters((w) => w.seq === gone.seq, false);
-  });
+  const acks = createAckTracker({ epoch, closed: () => closed, outbox: () => outbox, onSignal });
+  const outbox = createOutbox(deps.outboxCap ?? OUTBOX_CAP, onSignal, (gone) => acks.evict(gone.seq!));
   let ready = false;
   let closed = false; // fatal or disposed: nothing further is sent or run
   let negotiated: number | null = null;
   let hostId = 0;
-  let ackedThrough = 0;
-  const ackWaiters = new Set<{ seq: number; cb: (acked: boolean) => void }>();
-  function settleWaiters(pick: (w: { seq: number }) => boolean, acked: boolean) {
-    for (const w of [...ackWaiters]) {
-      if (!pick(w)) continue;
-      ackWaiters.delete(w);
-      try {
-        w.cb(acked);
-      } catch (e) {
-        onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
-      }
-    }
-  }
 
   const safeSend = (env: Envelope) => {
     if (closed) return;
@@ -148,7 +86,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
       p.resolve(resErr('failed', 'bridge closed'));
     }
     outbox.clear();
-    settleWaiters(() => true, false);
+    acks.settle(() => true, false);
   }
   const raise = (reason: string) => {
     if (closed) return;
@@ -248,8 +186,7 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     const n = isRecord(payload) ? payload.seq : undefined;
     if (typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 && n <= outbox.highest()) {
       outbox.ack(n);
-      if (n > ackedThrough) ackedThrough = n;
-      settleWaiters((w) => w.seq <= n, true);
+      acks.acked(n);
     } else onSignal('bridge-bad-ack', String(n).slice(0, 32));
   }
 
@@ -313,33 +250,6 @@ export function createBridgeHost(deps: BridgeHostDeps) {
     }
   }
 
-  /**
-   * One-shot: `cb(true)` when the DOM's cumulative ack reaches the ref's seq (at once if
-   * it already has). `cb(false)` when it can no longer be acked: evicted from the outbox,
-   * host disposed, or a ref from another host instance. A never-emitted seq is ignored.
-   * Returns an unsubscribe. A delayed wire ack from a previous instance is
-   * indistinguishable from the DOM here without an epoch on the wire (not added).
-   */
-  function onAcked(ref: AckRef, cb: (acked: boolean) => void): () => void {
-    const once = (acked: boolean) => {
-      try {
-        cb(acked);
-      } catch (e) {
-        onSignal('bridge-acked-hook-failed', String(e).slice(0, 200));
-      }
-      return () => {};
-    };
-    if (ref.epoch !== epoch || closed) return once(false);
-    const seq = ref.seq;
-    if (!Number.isSafeInteger(seq) || seq < 1 || seq > outbox.highest()) return () => {};
-    if (evicted.has(seq)) return once(false);
-    if (seq <= ackedThrough) return once(true);
-    if (!outbox.all().some((e) => e.seq === seq)) return once(false);
-    const w = { seq, cb };
-    ackWaiters.add(w);
-    return () => void ackWaiters.delete(w);
-  }
-
   /** Native-to-DOM command. Never rejects: failure and timeout resolve as a `res` error. */
   function request<T extends NativeCommandType>(
     type: T,
@@ -368,8 +278,8 @@ export function createBridgeHost(deps: BridgeHostDeps) {
   return {
     receive,
     emit,
-    onAcked,
-    ackWaiterCount: () => ackWaiters.size,
+    onAcked: acks.onAcked,
+    ackWaiterCount: acks.size,
     request,
     isReady: () => ready,
     /** Aborts handlers, clears timers, settles pending requests; nothing is sent afterwards. */
