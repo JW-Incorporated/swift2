@@ -25,7 +25,84 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 72
+
+## Dakota Johnson Cast in Taylor Swift's Patient Zero Video
+
+- first seen: 2026-10-04 06:48 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dakota Johnson has been cast in the video for Taylor Swift's song 'Patient Zero'. This collaboration adds to the ongoing buzz around Swift's recent projects.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOU3ZpT0pZSWp3Sm4zbkRTUS1QcEotZDF0dFpjVVdMZkQ5R05MeGpmcnVUMk9FWVktekx3MjZ0bVlROUxad1FEaS1uZjhTS0JLYnZyUnZtVHZEZUJ6RjN2RU1XSjdSOThsTHptNE40SnB1UmV2ZGt3UWgxeDFZRHNsMk56NG05aWsxbEJLX1pYYS0wTzlwMXVtNm5VZW5kbTB4?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Appears on SNL with Dakota Johnson
+
+- first seen: 2026-10-04 06:48 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made a surprise appearance during Dakota Johnson's opening monologue on Saturday Night Live, humorously referencing their past collaboration in the 'Patient Zero' music video. The cameo coincided with Johnson's upcoming birthday celebration.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/
+
+## Kaley Cuoco's Second Child May Have a Taylor Swift-Inspired Name
+
+- first seen: 2026-10-04 06:48 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A baby name expert suggests that Kaley Cuoco's second child could be named after Taylor Swift, hinting at a possible Swift-inspired choice. The discussion highlights the influence of Taylor Swift's name in popular culture.
+- sources:
+  - [unverified] women.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPR0VQRVpTT0xJbEdkMEZfWVVRVDJQZ3ZfRm9wU3lFTUtUdTBLRVdHbF90c2JsS1hfa29FdUIyZDMwQ3VyVUxFWWhKbVlIT3lBMlZLeGRlYm5BSjVpeEpwN19SdmZ1RW52UExQLWFqQVZON2JyM2xiSmFEX3l2NWQ3eXpQZVktaU5YZ0p5cXFzMnNuVEZEYU9wckVWSmxpaGZBT1lqMDR4WW9yTTR6NFdmdEc3WDJDM0Rj?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Surprise Appearance at Dakota Johnson's SNL Hosting
+
+- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift unexpectedly joined Dakota Johnson during her hosting segment on 'Saturday Night Live.' During the opening monologue, Swift acknowledged Travis Kelce with a subtle salute.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZUFaVWQ0Q3BuQ05SVjhBVU13aXpOQTc2T1ZHZUpTYjVVeGI4Y1daR3dOaUNUaGt6bV9sTjUyVm9OZUMySnNLNlpWbXU2aGVQTWFCc3JNamxwZVpBWlg0UHJZUHZVeHVXZWhzdEFxX1V4eV81cTNObGFZSFkzdHR5VUJ0U2dzRW04anVXci11ZE0tMnplRDgxWC1haw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMipwFBVV95cUxPVXhhb1RydGN5WWtWVE9JRFA4QV9CaVdSM0p6QmM0ckd1OEM5QlZGU0JQY2twU012WU5oaEJpZVYtbDNoNzdvUVgtQlBMTFZhZzJ5bEFRdEFfNEVXSjFMRmxxU3dEMVBXck9YT1JURkRfUXM2WkpobWY5dVphT1BySUVzRnMtWDRmZmE0VjdxY3NhWUNKRmptRUVmWC1SbXBFTE9ldXJpYw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-dakota-johnson-saturday-night-live-1236721702/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOR0NXck1VYUFMajc1TEVmbHB2OFFnSDR2THhXQkxUVGIxVllqUmROd3JHclUzTlBwdnVOT1JYV25vRjZPVE5CY05pNk04TjFaMTQybWNVNHJwTzZBNWxvbzBnV2dnZUtYaGFiZlFGU2dRemJreEhxQU01S2hpNmRWQ2tlcFk2R0dOUWEwbmRLR0JHcDQ2M2EwaXRsUVB0R3RYbHQ3VGt5bTM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-snl-cameo-dakota-johnson-saturday-night-live-1236898411/
+
+## Taylor Swift Surprises Audience with Appearance on 'SNL'
+
+- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift unexpectedly appeared during an episode of 'SNL', delighting fans and viewers. This surprise moment added excitement to the show's lineup for the night.
+- sources:
+  - [unverified] NBC News — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdnItUndZWFNSUDduWUdyTmNBR08tcE9pckduWnpoako4ci16TGRsVG8wZkVQS1EwRHpzOF81TV9VbEduZHBEZW5MMmFWZ3pZbjJKMmRoRFhGblNscVpXOThoQVVvVlZCYjFFakxvOEhBaDNDTnN5eVJ0aFhta3N3RUJ3M3NiRFJuYlBhaG9ROWpVaFdySmlIdkVoN3F0dVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNaThkekZ3TXB4VzNOVm1yRHhHbVdqdUFSQ25TdEpUb0hzX1B3cy05RjhvQnpKWGRnekpsZ3pGWEVuTkh3cFE1UEFwTDZrNVpqSlU5UTlMQVU0TFMtN3NjOGxKSnpTZU1Lc0NFMFRfYlhkRmlHaWRZVkJqc3JjalVLanBYNlVrTS1lYkFpTFZBb3ZaaUhYRU1Bc3AxYXJCVzNKbWN4V2RUaHhVdlV3YWpjYUJFX0gxNmkx?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Gives Dakota Johnson Breakup Advice on 'SNL'
+
+- first seen: 2026-10-04 06:48 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During her recent appearance on 'SNL', Taylor Swift offered Dakota Johnson advice on dealing with breakups. The segment highlighted Swift's humorous perspective on relationships.
+- sources:
+  - [unverified] TheWrap — https://news.google.com/rss/articles/CBMilwFBVV95cUxQVVBvS283blloT2U5RXFWaTFIdlBpcm9KdEd5N0tybXlmb3JZd3FYUGhuTU12N3R3NHd2ejVIZ1AyR2czZ3ZwWnlHdE1yRkprRVNzQlBDZnNGMUNUbndPWng2bTBmWW9La01lYXBqcjc3YVdFZm1peFZTMzE5RGYzMXVpTWN5YnE1RzU1TUI3WDdWLTlLWkZB?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Reveals New Short Curly Hairstyle
+
+- first seen: 2026-10-04 06:48 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has unveiled a new hairstyle, featuring a dramatic cut and curly look. The change has caught the attention of fans and media alike.
+- sources:
+  - [unverified] Українські Національні Новини (УНН) — https://news.google.com/rss/articles/CBMiowFBVV95cUxQTDBsLUc1aEl2Ykl6T1ctMGJvN0JsZWRldS1aUnlGN0tfamF3TUJSSlBBZ005VU10ZlBfWjc2b2Q4MEZCUW5LaHZCYkRobGZoRzVnR1NBZDRjcHpYQXIxV2lQcUdCczZCSTRwZGlScXdpSmFjd2hTTGxuWDdHT2c1S2JJSEx1R3VhZERBNEpfNS10bmg3WjJ0c2hHX055NzJmYjRn0gGiAUFVX3lxTFBrSklpbC1iRUdDU1NoSk83SHpVQlZUbUNqVFlVaFpLQ0pVS3htaDg4UzJPekluRG42NGZyQXRZY2RDaklkdFZVV3loZTRqbGdKVjZjbnM2cWhmeExKUkVLYlZJTjJ5eFhjTG5xUmlHbzl6d0M3WU51blItLW5lRUpMbEJzcGMwVERsZEFNUXlkM1ozTDJGdGUzcVNxMncwX1hXQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Baby Names Inspired By Taylor Swift Songs
+
+- first seen: 2026-10-04 06:48 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from mom.com lists 10 baby names that are inspired by songs written by Taylor Swift. The names reflect the themes and characters present in her music.
+- sources:
+  - [unverified] mom.com — https://news.google.com/rss/articles/CBMickFVX3lxTE42LUVaNXhFekRVbmhTMy1zRzk0QXRaNU5rVWV3Mm80SGR4Ym84NkYzTElXSWhyOHVvTzRRdW56M0ZLM1VHQkpweEYyc3BiREhsZEhfYzRrNkt1WXBWTTZ3SEw4NG9IclRJN2Q5dUV0aF92UQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson Talks Dating Musicians with Taylor Swift on 'SNL'
+
+- first seen: 2026-10-04 06:48 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: During a segment on 'SNL,' Dakota Johnson shared her thoughts on dating musicians while confiding in Taylor Swift, humorously suggesting it serves as a public service for women. The conversation touched on personal experiences in the music industry.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/snl-dakota-johnson-confides-taylor-swift-dating-musicians-1235636528/
 
 ## Taylor Swift Discusses Close Friendship with Dakota Johnson
 
@@ -68,14 +145,6 @@ Stories: 63
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNU9IaGdVcmhLaV8tS24xa2x5RTNQb0VycC1YTzRCSHBweVpCUU94U19fQzktM0tJVzZxZHpZRWQwakJDdzY2RlBITDBWUUJzVU9XVnpUSHZjZ3o0VkN1eXgxMEdmVlp5UURiaVF5aDFWbGpJQi1RNDZ5emJDNmlYTVI5T0VZY0ZtblFwZE54UkZtbE1YUGhVSk1DOExSOXlBRVFTSF95bTk?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNQTVRdmQtQmMydS1oTUxnaDBvb1dzOXlDQnlYRFY3c1dEVkhfTlNQNFFlc3ZLRDh3WjE3cmtpMFBmV2RrczdvMVhsM3RKdEJHZER3YmgwVm5MSVBXZGFTUU1IZjAwcmhrVVBYOUJ3MGJnSGtsMHd4NGdjRkl2OFV5MzBZQVcybU4zRVNlbzFxYU9oLVpGRDBzU0p3eXQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Paul McCartney Shares Reason for Performing at Taylor Swift's Wedding
-
-- first seen: 2026-10-03 19:49 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Paul McCartney explained that he performed at Taylor Swift's wedding because she requested him to do so. He also mentioned an incident involving Larry David during his appearance on Jimmy Kimmel Live.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/paul-mccartney-taylor-swift-wedding-larry-david-kimmel-1235636499/
-
 ## Country singer who guided Taylor Swift passes away at 84
 
 - first seen: 2026-10-03 19:49 UTC | category: music | importance: 6
@@ -100,6 +169,15 @@ Stories: 63
 - summary: Taylor Swift has debuted a new curly hairstyle following her recent career milestones. The change in her look was highlighted in a feature by USA Today.
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiswFBVV95cUxOZk9BTWotczFxSmhyeFRWRkZFMUExbDh4ZnNBTkdZd3dXSzE2X2REcnZUaFp4QjZMTWVqX05CekhCWkpsaG1faVdLNXFLNnlwMU9zY1RRaTlrYnZ4dWRBbDVwc1BTYUdKQzM3M2I4dWVLNzZPQkJmaV9MSmotU2NBeUNuS2htRVNCbWd1V0tCcTM1MmljYVJmMVk3R1RYcEFQbVNDc2NKR2R2dmNMOTNRY19lcw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Paul McCartney Shares Reason for Performing at Taylor Swift's Wedding
+
+- first seen: 2026-10-03 19:49 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Paul McCartney explained that he performed at Taylor Swift's wedding because she requested him to do so. He also mentioned an incident involving Larry David during his appearance on Jimmy Kimmel Live.
+- sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMisgFBVV95cUxPMk1OMWRHRjlyWTRtb09VMjUwUXJadG0xM0dkSHVhRFJETkdwTUtPSWUzVEdwdXZxNHJaUTE2VUdCLWNLWldXaUpuYkZsclZmWFlYU2JRM1NFcEhxYTR0X0k5UUxPQk9NSTNUUTRhczNTQTFPQWp3ZHpmblJuekJCeTJBT0tTYWZid1RxNHFKZjNHZWtoRGcxbTZUTTM1TkhaUXZ6Y2dxTjJRTUxJM1pZc2dR?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/paul-mccartney-taylor-swift-wedding-larry-david-kimmel-1235636499/
 
 ## Taylor Swift Honors Dolly Parton During VMA Acceptance Speech
 
@@ -158,14 +236,6 @@ Stories: 63
 - sources:
   - [unverified] The Decaturian — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQZlF3eFJ5Y1FoRnBZQjQ1R19JblZScWR4bWpuRGt4TEpUbEg5ZjNaSzVwcENPUTl3NG41SmxDbUhfSDAyQ0FlNmVYTkZxZVNUV1RJbzhkTUMtQTRRc0swRV9pamFVTlc5X3ZDalBERWVyLVFfeF9DTTNHa3hFSVVXTGdjaDVlN2RzUmVv?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift's Friend to Host 'SNL' Tonight
-
-- first seen: 2026-10-03 06:25 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A close friend of Taylor Swift is set to host Saturday Night Live this evening. Fans can find information on how to watch the episode.
-- sources:
-  - [unverified] Centre Daily Times — https://news.google.com/rss/articles/CBMiggFBVV95cUxPc1Q4R0dGVEJ0Yi1kNzlrclYzdGhIQWJiM0V2cU1ta1RLYVhWZk9ONGF2a3ZGVm5JVzlQMmJ1b2p4bmlpYk14eGMydzIzc3cyQkJCVW0zcHhYa1ZBRmZNQm9vUGdMdEVaVHJMbGlMOUZ1MGxHMWRyMzVaeHRRa3lLblhn?oc=5&hl=en-US&gl=US&ceid=US:en
-
 ## Taylor Swift Reveals New Short Hair and Curls for Career Milestone
 
 - first seen: 2026-10-03 06:25 UTC | category: fashion | importance: 6
@@ -173,6 +243,15 @@ Stories: 63
 - summary: Taylor Swift has debuted a new hairstyle with shorter locks and revived curls as she marks a significant career milestone. The change in her appearance coincides with her professional achievements.
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxNUG1EdVVvOUgwUm5CcTJmUVFKNjFKeURJSnNNdkJVdlA2bGszR2g5WUp3eHlkbTFkRzZBWmk2MkxIRnFJenlhOGVwYWxCb1p0RUswWGZ2V2h4ZldySXJIb1N5dTk0cXVrMklTTldVdWRuWGtCbV82d1lrblNNS1lZWkNzN1RqTUo1UzI0U3JqbUZxcGRMWnFScl9RUnJTRl9OYkoySDR3?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Friend to Host 'SNL' Tonight
+
+- first seen: 2026-10-03 06:25 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A close friend of Taylor Swift is set to host Saturday Night Live this evening. Fans can find information on how to watch the episode.
+- sources:
+  - [unverified] Centre Daily Times — https://news.google.com/rss/articles/CBMiggFBVV95cUxPc1Q4R0dGVEJ0Yi1kNzlrclYzdGhIQWJiM0V2cU1ta1RLYVhWZk9ONGF2a3ZGVm5JVzlQMmJ1b2p4bmlpYk14eGMydzIzc3cyQkJCVW0zcHhYa1ZBRmZNQm9vUGdMdEVaVHJMbGlMOUZ1MGxHMWRyMzVaeHRRa3lLblhn?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4gFBVV95cUxOLUp3NXZoMHRpckRScEFPWkU1c2xDSUJ2QUFQcXgzZGxfUXQ3dWFCRV9lTmU0TjRNZkZpLWY2cTZUWW1CQm9uOFFXSl9VSHNoMjRDM0NfNW1HZTlVbmZib21XT3A0eE1yRDBHYU1VcHNIU3hPWk5XZktvVWM0azJoSmxBSVZJVDFnbFZrU3d6b1VSaGpRRVFYNS0wVHlRTGl4YUdsbC1YQ3VyUWt2LTNMRGdYdWZDQ010Si14WVFYTkJQMjdSaFF0cTRNZFcwcGh1WUNrVm1OZXZaejhoeFFKVkFB?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Debuts New Curly Hairstyle Amid Fan Speculation
 
