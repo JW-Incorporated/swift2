@@ -1,10 +1,18 @@
 import { isAnyNotificationCategory, isValidCadenceForCategory } from '@swift2/shared';
 import { isBridgeId, isWebPath, sanitizeApiRequest } from '@swift2/ui';
-import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
+import type { DomCommandType, JsonValue, NativeCommandType, ThemeChange } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
 
 const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const MAX_SHARE_FIELD = 2048;
+/** The `theme` event payload: light|dark enum + #rrggbb only; anything else is null (dropped). */
+export function validTheme(p: unknown): ThemeChange | null {
+  if (!isRecord(p) || Object.keys(p).length !== 2 || (p.statusBarStyle !== 'light' && p.statusBarStyle !== 'dark')) return null;
+  return typeof p.background === 'string' && /^#[0-9a-fA-F]{6}$/.test(p.background)
+    ? { statusBarStyle: p.statusBarStyle, background: p.background }
+    : null;
+}
+
 export const MAX_PREFS = 64;
 export const MAX_PREF_KEY = 64;
 
@@ -87,8 +95,11 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return isAppOpenableUrl(p.url) ? { url: p.url } : null;
     case 'api': {
       const req = sanitizeApiRequest(p.req);
-      return req ? { req: req as unknown as JsonValue } : null;
+      if (!req || (p.stream !== undefined && p.stream !== true)) return null;
+      return p.stream === true ? { req: req as unknown as JsonValue, stream: true } : { req: req as unknown as JsonValue };
     }
+    case 'apiRead':
+      return isBridgeId(p.streamId) ? { streamId: p.streamId } : null;
     case 'cancel':
       return isBridgeId(p.targetId) ? { targetId: p.targetId } : null;
     case 'share':

@@ -65,6 +65,23 @@ export function resolveWantsDom(i: WantInputs): { wantsDom: boolean; source: Wan
   return { wantsDom: i.defaultSharedUi, source: 'default' };
 }
 
+/** Why the current mount is native (never free text; shown in Diagnostics). */
+export type NativeReason = 'pending-expired' | 'quarantine' | 'watchdog-fallback' | 'flag-off' | 'attempt-failed' | 'dom-strike';
+
+/** Local cause of a native mount once the launch decision resolved without an attempt. */
+export function nativeReasonFor(want: { wantsDom: boolean; source: WantSource }, fallbackActive: boolean): NativeReason {
+  if (want.source === 'quarantine') return 'quarantine';
+  if (!want.wantsDom) return 'flag-off';
+  return fallbackActive ? 'watchdog-fallback' : 'flag-off';
+}
+
+/** Diagnostics line: which UI is mounted and why. */
+export function mountLine(mount: string, reason: string | null, source: string | null): string {
+  if (mount === 'dom') return `Mount: shared UI (${source ?? 'unknown'})`;
+  if (mount === 'native') return `Mount: native (${reason ?? 'unknown'})`;
+  return `Mount: ${mount}`;
+}
+
 /** Bound on the pending screen: after `ms` the caller mounts native. Returns the cancel function. */
 export function armPendingBound(scheduler: Scheduler, onExpire: () => void, ms: number = PENDING_MAX_MS): () => void {
   const handle = scheduler.setTimeout(onExpire, ms);

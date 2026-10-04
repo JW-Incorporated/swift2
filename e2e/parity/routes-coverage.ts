@@ -1,4 +1,4 @@
-import { fixture } from './env';
+import { fixture, FIXED_TIME } from './env';
 import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, type AOnlyRoute } from './routes';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { assertNoBaselineCollisions } from './sides';
@@ -20,6 +20,33 @@ const show = async (page: Page, selector: string): Promise<void> => {
   await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
 };
 
+export const COUNTDOWN_CLIP = '[data-ll-countdown-banner]';
+export const ERA_SECRET_CLIP = 'section[aria-label^="Era secret"]';
+
+/** One live countdown (3d 4h after the fixed clock) in the stubbed /vault/live payload: the only way the frozen fixture renders CountdownBanner. */
+const COUNTDOWN_ITEM = {
+  id: 'parity-countdown',
+  observedOn: '2025-12-31',
+  eraId: 'tloas',
+  category: 'announcement',
+  tags: [],
+  headline: 'Something is coming',
+  summary: 'A countdown is live on the official site.',
+  detail: 'A countdown is live on the official site.',
+  status: 'reported',
+  confidence: 'medium',
+  sourceTier: 'press',
+  sources: [{ name: 'Official site', url: 'https://www.taylorswift.com/' }],
+  symbols: [],
+  entities: [],
+  heat: 1,
+  lastCheckedOn: '2025-12-31',
+  expiresAt: '2026-02-01T00:00:00Z',
+  updatedAt: '2025-12-31T12:00:00Z',
+  redlineOk: true,
+  countdownTargetAt: new Date(FIXED_TIME.getTime() + (3 * 24 + 4) * 3_600_000).toISOString(),
+};
+
 export const ERA_SELECTOR_CLIP = '[role="dialog"][aria-labelledby="era-selector-title"]';
 export const SHARE_MENU_CLIP = '[role="group"][aria-label="Share this moment as an image"]';
 export const CLOWN_FULLSCREEN_CLIP = 'div.fixed.inset-0:has(button[aria-label="Exit full screen"])';
@@ -27,6 +54,31 @@ export const FEEDBACK_DIALOG_CLIP = '[role="dialog"][aria-label="Send feedback"]
 export const LOVE_ENTRY_CLIP = 'div:has(> button[aria-expanded="true"])';
 
 export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
+  {
+    name: 'countdown-banner',
+    path: '/',
+    root: 'main',
+    sides: 'both',
+    clip: COUNTDOWN_CLIP,
+    // Registered after the harness stub, so it answers first on either origin (local hosts and side b's canonical origin).
+    init: async (page) => {
+      await page.route(
+        (u) => u.pathname.startsWith('/vault/live'),
+        (route) => route.fulfill({ json: { items: [COUNTDOWN_ITEM], theories: [], signals: [] } }),
+      );
+    },
+    prepare: async (page) => {
+      await expect(page.locator(COUNTDOWN_CLIP)).toBeVisible();
+    },
+  },
+  {
+    name: 'era-secret',
+    path: '/?era=fearless',
+    root: 'main',
+    sides: 'both',
+    clip: PARITY_CLIP,
+    prepare: (page) => show(page, ERA_SECRET_CLIP),
+  },
   {
     name: 'era-selector',
     path: '/',

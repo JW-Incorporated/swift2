@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Music, Play } from 'lucide-react';
 import type { ReRecord } from '@swift2/experience';
+import { useHost } from '../../../host/context';
+import { spotifyEmbedSrc } from '../../lib/spotify-embed';
 
 type SpotifyRefs = ReRecord['spotify'];
 type Side = 'original' | 'taylorsVersion';
@@ -25,6 +27,7 @@ const EMBED_HEIGHT = 352;
  */
 function SpotifyEmbed({ id, title }: { id: string; title: string }) {
   const [playing, setPlaying] = useState(false);
+  const { embedOrigin } = useHost();
 
   if (playing) {
     return (
@@ -33,7 +36,7 @@ function SpotifyEmbed({ id, title }: { id: string; title: string }) {
         // No `autoplay` param: EraMedia's facade doesn't use one either, and
         // Spotify's widget ignores it for anonymous listeners anyway. The click
         // mounts the player; the player's own control starts it.
-        src={`https://open.spotify.com/embed/album/${id}?utm_source=generator&theme=0`}
+        src={spotifyEmbedSrc('album', id, embedOrigin)}
         width="100%"
         height={EMBED_HEIGHT}
         loading="lazy"
