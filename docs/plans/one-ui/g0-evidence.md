@@ -35,7 +35,7 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
 - OTA size (baseline scripts/parity/size-check.mjs): +11.6/11.7% from WP0.4 native batch (baseline
   bump #4831); +61% from WP0.5b ReaderSpike (pulls web reader into DOM bundle; accepted for spike,
   flagged "G0 input", PG:191-194). WP2.1-C fonts: 238,776 B woff2 / 321,939 B base64 = +322 KB (+4.4%)
-  at PG:285-287; later restated "+247 KB ~ +3.3%" (latin-ext, PG ~405-426) - recheck live baseline.
+  at PG:285-287; later restated "+247 KB ~ +3.3%" (latin-ext, PG ~405-426) - recheck live baseline. (Font OTA figures are cumulative, not conflicting.)
   Fable cond. 3: no re-bump without a PROGRESS reason (PG:685). 10k-MAU bandwidth forecast: not found.
 - Web bundle: eager snapshot cost +117 KB gzip on main routes; core/extension split took -65 KB
   back; remainder accepted as inherent (PG:375-377, 691).
@@ -120,6 +120,61 @@ decisions.md 2026-10-02/10-03, gh issue view 4791. "Fable log" = PG:660-694.
   WP5.2 after launch + 1 OTA cycle. App Review duration unknown.
 - Critical path: HA #96 -> iOS S2/S4 -> G0 -> 2.3 D-F + 2.4-D -> 2.5-2.13 -> S5/S6 -> S7 -> S8 -> S9.
   Joey's device availability, not agent throughput, is the dominant unknown.
+
+## S2/S4 results (2026-10-03 onward)
+
+| Criterion | Platform | Evidence | Status | Link |
+|---|---|---|---|---|
+| S2 cold ≤2.5 s worst-of-5 | Android native | Pending | pending | |
+| S2 cold ≤2.5 s worst-of-5 | Android shared-UI | Pending | pending | |
+| S2 cold ≤2.5 s worst-of-5 | iPhone | Pending | pending | |
+| S2 cold ≤2.5 s worst-of-5 | iPad | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | Android native | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | Android shared-UI | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | iPhone | Pending | pending | |
+| S2 warm ≤1 s worst-of-5 | iPad | Pending | pending | |
+| S4 persistence airplane-mode relaunch | Android | Pending | pending | |
+| S4 persistence airplane-mode relaunch | iOS | Pending | pending | |
+| S4 stability no content-process strike | iOS | Pending | pending | |
+| S4 stability no content-process strike | iPad | Pending | pending | |
+| S4 watchdog forced failure → native offline | Android | Pending | pending | |
+| S4 watchdog forced failure → native offline | iOS | Pending | pending | |
+| S4 real photos + YouTube/Spotify embeds | All | Pending | pending | |
+| S4 fonts no FOUT | All | Pending | pending | |
+| ClownChat safe area | All | Pending | pending | |
+| Diag hot-corner reachable | All | Pending | pending | #4877 |
+| First visible image + T+10 s load | Shared-UI | Pending | pending | #4895 |
+| OTA size within 15% rule | All | Pending | pending | |
+| Spike not materially worse than S2 | All | Pending | pending | |
+
+**Note:** S1 (n=2, warm only, broken offsets) and the 12:04 S2 run (all labelled warm, stale marks) are NOT valid baselines — superseded by Speed test mode (#4898). Score with `npm run one-ui:score-speed` (PR pending).
+
+### S4 Android 2026-10-04
+
+**Device:** Pixel 10 Pro, Android 16, gesture navigation, Play-internal build 1.0.0 (18), OTA update 01a10400-19de-7c8e-bc45-321d0e91143e.
+
+**Speed test (npm run one-ui:score-speed):**
+- **Native run 5ef3e6c1:** FAIL — worst cold 3183.8 ms (budget 2500), worst warm 222.1 ms (budget 1000), n 7 cold / 3 warm.
+- **Shared-UI run 87324b0c:** INCOMPLETE by count only — worst cold 864.4 ms, worst warm 17.0 ms, n 6 cold / 4 warm (OS killed backgrounded app so one warm counted cold); PM treats as PASS-with-caveat.
+
+**Native issues:** scroll lag ~0.5 s (#4895); post images missing ~half of launches → #4952 (bare RN Image burst, no onError); scorer image metric blind to it.
+
+**Shared UI results:**
+- Scrolling: perfect
+- Images: loaded every launch
+- Offline (airplane + wifi off): content shows
+- Hot corner: TOP strip failed, BOTTOM worked (#4877 deep link not needed on Android)
+- Layout: black band at top + sticky filter pills offset → #4953 (top inset double-applied, App.tsx SafeAreaView + DOM --safe-top)
+- YouTube: error 153 → #4954 (null origin, no Referer; fix = https baseUrl + referrerPolicy, G0 input)
+- Spotify: only SpotifyCompare in Taylor's Version thread remains, untested
+- Track guide, bottom nav, era picker, ClownChat: not mounted in spike (expected pre-G0, wired WP2.4/2.7-D) → era art offline + ClownChat safe-area UNTESTED
+- Loading state: "Loading..." placeholder flashes top-left on cold launch (ReaderSpike.tsx:176) — no true FOUT observed
+
+**Watchdog:** Force DOM failure=throw offline → native fallback shown (PASS). Strike clears Force-shared-UI override by design; Reset watchdog + "off" persistence quirk → #4955 (diagnostics-only; real users not stuck).
+
+**Probe JSON:** not captured ({} — shared from native fallback).
+
+**iOS / iPad:** NOT TESTED — owner decision 2026-10-04 06:37 PDT: "Use the android info and apply it everywhere"; iOS/iPad deferred to the first post-G0 device session.
 
 ## Traps
 - PROGRESS "Status" table (PG:634-650) is stale; trust the 04:43 checkpoint (PG:9-36).
