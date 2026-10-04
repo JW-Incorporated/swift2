@@ -5,8 +5,10 @@ import type { ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { matchMoods, MOOD_AXES, type MoodQuery } from '@swift2/experience';
 import * as snapshotModule from '@swift2/experience/reader-snapshot';
-import { ReaderExtensionsProvider, useMerch, useReaderSnapshot, useSongMoods } from '@swift2/ui';
+import { ReaderExtensionsProvider, useLore, useMerch, useReaderSnapshot, useSongMoods } from '@swift2/ui';
 import { MerchSection } from '../../components/longlive/MerchSection';
+import { LORE } from './clownbot-lore';
+import { CLOWN_EXTENSIONS } from './clown-extensions';
 import { MERCH_CATALOGUE } from './merch';
 import { TestHostProvider } from '../test-host';
 import { AppProvider } from './store';
@@ -17,6 +19,7 @@ import { SONG_MOODS } from './song-moods.generated';
 const extensions = {
   merch: MERCH_CATALOGUE as unknown as snapshotModule.ReaderSnapshotExtensions['merch'],
   songMoods: SONG_MOODS,
+  lore: [],
 };
 
 const wrapper = ({ children }: { children: ReactNode }) => (
@@ -34,6 +37,18 @@ describe('WP2.2-E: merch and songMoods through the extension provider', () => {
     });
     expect(result.current.merch).toBe(extensions.merch);
     expect(result.current.moods).toBe(SONG_MOODS);
+  });
+
+  it('serves ClownChat the very same lore the direct import holds', () => {
+    const { result } = renderHook(() => useLore(), {
+      wrapper: ({ children }: { children: ReactNode }) => (
+        <WebReaderSnapshotProvider>
+          <ReaderExtensionsProvider extensions={CLOWN_EXTENSIONS}>{children}</ReaderExtensionsProvider>
+        </WebReaderSnapshotProvider>
+      ),
+    });
+    expect(result.current).toEqual(LORE);
+    expect(result.current.length).toBeGreaterThan(0);
   });
 
   it('keeps the core snapshot free of both extension domains', () => {

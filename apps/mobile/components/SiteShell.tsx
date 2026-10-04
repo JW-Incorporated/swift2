@@ -32,20 +32,17 @@ import Constants from 'expo-constants';
 import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
 import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes';
 
-export const SITE_URL = (process.env.EXPO_PUBLIC_SITE_URL ?? 'https://www.longlivets.com').replace(
-  /\/$/,
-  '',
-);
+import { isAppOpenableUrl } from '../lib/mailto-allowlist';
+import { SITE_URL } from '../lib/site-url';
 
-const SITE_HOSTS = new Set(['www.longlivets.com', 'longlivets.com']);
+export { SITE_URL };
 
-function isSiteUrl(raw: string): boolean {
+const SITE_ORIGINS = new Set(['https://www.longlivets.com', 'https://longlivets.com']);
+
+export function isSiteUrl(raw: string): boolean {
   try {
     const u = new URL(raw);
-    return (
-      SITE_HOSTS.has(u.hostname) ||
-      (process.env.EXPO_PUBLIC_SITE_URL ? u.origin === SITE_URL : false)
-    );
+    return SITE_ORIGINS.has(u.origin) || u.origin === SITE_URL;
   } catch {
     return false;
   }
@@ -142,9 +139,11 @@ export function SiteShell({
         return true;
       }
       if (req.url.startsWith('about:')) return true;
-      Linking.openURL(req.url).catch(() => {
-        /* nothing sensible to do if the OS refuses; stay put */
-      });
+      if (isAppOpenableUrl(req.url)) {
+        Linking.openURL(req.url).catch(() => {
+          /* nothing sensible to do if the OS refuses; stay put */
+        });
+      }
       return false;
     },
     [isNativeCapableUrl, onNativeCapableLinkPress],

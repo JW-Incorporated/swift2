@@ -6,8 +6,8 @@ import { WebReaderSnapshotProvider } from '@/lib/longlive/reader-snapshot-provid
 import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
 import { MoodChat } from './MoodChat';
-import { ClownChat } from './ClownChat';
-import { LORE } from '@/lib/longlive/clownbot-lore';
+import { ClownChatSection } from '@swift2/ui/reader/clown/ClownChatSection';
+import { CLOWN_EXTENSIONS } from '@/lib/longlive/clown-extensions';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
@@ -21,7 +21,7 @@ import { CommunitySection } from './CommunitySection';
 const MerchSection = dynamic(() => import('./MerchSection').then((module) => module.MerchSection));
 
 function WebClownChat() {
-  return <ClownChat lore={LORE} />;
+  return <ClownChatSection extensions={CLOWN_EXTENSIONS} />;
 }
 
 const slots: ReaderSlots = {

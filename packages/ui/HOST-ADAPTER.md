@@ -12,13 +12,14 @@
 | `clipboard` (optional) | web root adapter only: wraps `navigator.clipboard.writeText`; absent = the `navigator.clipboard` fallback | native clipboard |
 | `navigate`, `onBack` | `next/navigation` router, `popstate` | WP2.3 |
 | `apiFetch` | same-origin `fetch` (`webApiFetch`) | postMessage bridge to native fetch (the DOM host is a null origin) |
-| `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | TODO(PM, 2.11-D1): bridge api allow-list entry for `/api/clown` (native-held session, 60 s timeout); buffered fallback until then |
+| `apiStream` (optional; ClownChat) | web ROOT adapter only: real `fetch` + body reader, decoded text chunks, no buffering; cancels on abort/consumer stop; non-2xx throws `Error(String(status))`. Hosts without it get `bufferedFrom(apiFetch)` (whole body yielded once). | bridge `api` allow-list carries `/api/clown` (native-held session, 60 s timeout); the app adapter uses `createBridgeApiStream` (buffered) |
 | `storage.local/session` | `localStorage`/`sessionStorage`, try/catch, SSR-safe | WP2.3 |
 | `embedOrigin` (optional) | omitted: YouTube embeds go direct to youtube-nocookie.com | `https://www.longlivets.com`: embeds frame `<embedOrigin>/embed/youtube/<id>` (a real-origin wrapper page), because a null origin sends no Referer and YouTube refuses with error 153 (#4954) |
 | `env.turnstileSiteKey` | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` or `null` | `null` (Turnstile cannot verify on a null origin) |
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
 | `insets` | zeros | WP2.3 |
 | `lazy`, `share`, `openExternal`, `haptic`, `notifications` | optional (`haptic` no-op) | WP2.4/2.5/2.12 |
+| `openExternal` and `mailto:` | absent on web: `MailtoLink` (legal/support) is a plain `<a href="mailto:…">` | `openExternal` accepts `https:` and the two allow-listed `mailto:` aliases (`apps/mobile/lib/mailto-allowlist.ts`; `isMailtoUrl` itself: lowercase scheme, bare address, no query/fragment/escapes); `MailtoLink` routes the click through it. Anything else is `invalid`. |
 
 Note: the web adapter's `onBack` does not consume the handler's boolean return; `popstate` cannot be cancelled, so the handler runs for its side effects only. The app host honours the boolean (consumed = swallow the native back).
 
@@ -40,7 +41,7 @@ Note: the web adapter's `onBack` does not consume the handler's boolean return; 
 
 ## Mobile `apiFetch` status
 
-`CurrentItemDetail` intake calls `useHost().apiFetch`. The mobile spike adapter still inherits the web `apiFetch` (relative fetch, null origin) and `/api` has no CORS (`apps/web/next.config.mjs` only opens `/content/**`), so mobile intake is not functional until the WP2.3-F bridge `apiFetch` lands (TODO(PM, WP2.3-F)).
+`CurrentItemDetail` intake calls `useHost().apiFetch`. On mobile the app adapter takes `apiFetch` from `createBridgeApiFetch(client)` (`apps/mobile/dom/bridge/api-fetch.ts`), which sends the request over the bridge `api` command to the native handler (expo/fetch, allow-list, 8 s default / 60 s clown timeouts). Limits: a request body is capped at 64 KB at the bridge boundary (`sanitizeApiRequest`; the native handler keeps a 256 KB backstop), and a response body is capped at 256 KB by the native reader; a bridge `cancelled` surfaces as `AbortError`. `apiStream` is `createBridgeApiStream(apiFetch)` = `bufferedFrom` (whole body once; the native reader is capped, not streamed). **The app's ClownChat is buffered (Fable ruling G12, 2026-10-03):** no live investigation trail in the app, the full answer arrives when complete (up to 60 s). ClownChat shows its pending state for the whole wait (`busy`: spinner on the send button, `aria-busy` on the stream). The spike adapter still inherits the web `apiFetch` until the app adapter adopts these.
 
 ## `Image` with `fill`
 

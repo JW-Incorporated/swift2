@@ -33,7 +33,7 @@ import {
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import * as Notifications from 'expo-notifications';
+import { useNotificationTaps } from './lib/use-notification-taps';
 import type { EraId, TrackNote } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import {
@@ -45,7 +45,7 @@ import {
   type ScreenId,
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
-import { diagCollector, diagMarkOnce, installDiagnostics } from './lib/diagnostics';
+import { diagCollector, installDiagnostics } from './lib/diagnostics';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
@@ -72,12 +72,14 @@ import { HomeTopBar } from './components/HomeTopBar';
 import { LegalPageScreen } from './components/LegalPageScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { DiagHotCorner } from './components/DiagHotCorner';
-import { SharedUiHost } from './components/SharedUiHost';
+import { DomHostMount } from './components/DomHostMount';
 import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
 import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
+import { domSurfaceRendered } from './lib/dom-host-handlers';
+import { useNativeOverlay } from './lib/use-native-overlay';
 
 installDiagnostics();
 installSpeedTest();
@@ -243,6 +245,10 @@ export default function App() {
   // next launch) + the last-good CACHED flags. The network result below never changes this launch.
   const [launchInputs, setLaunchInputs] = useState<LaunchInputs | null>(null);
   const domMount = useDomMount(launchInputs);
+  // D-7: native screens present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
+  // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
+  const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
+  const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   useEffect(() => {
     void lockPhonesToPortrait();
     void Promise.all([getForceSharedUi(), loadLaunchFlags()]).then(([override, flags]) =>
@@ -301,21 +307,9 @@ export default function App() {
     });
   }, []);
 
-  useEffect(() => {
-    // A tapped notification carries the same deep link the inbox shows; the
-    // payload key mirrors packages/core notification-events.ts (`deepLink`).
-    const read = (resp: Notifications.NotificationResponse | null) => {
-      if (!resp) return;
-      const data = resp.notification.request.content.data as Record<string, unknown> | undefined;
-      const link = data && typeof data.deepLink === 'string' ? data.deepLink : null;
-      navigate(link);
-    };
-    Notifications.getLastNotificationResponseAsync()
-      .then(read)
-      .catch(() => {});
-    const sub = Notifications.addNotificationResponseReceivedListener(read);
-    return () => sub.remove();
-  }, [navigate]);
+  // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
+  // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
+  useNotificationTaps(navigate, domMount.mount === 'native');
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
   // first time so push permission is actually offered, settings after that.
@@ -380,18 +374,21 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <SafeAreaView style={styles.fill}>
+        {/* #4953: ONE inset owner. The DOM mount is edge-to-edge (edges={[]}) and the DOM owns the
+            insets via --safe-top/--safe-bottom; native screens and the fallback keep all four edges. */}
+        <SafeAreaView style={styles.fill} edges={domRendered ? [] : undefined}>
           <StatusBar style="light" />
           {updateRequired ? (
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
-            <SharedUiHost
-              onSignal={(stage, detail) => {
-                diagCollector.mark(stage, detail);
-                if (stage === 'dom-ready') diagMarkOnce('first-era-paint', 'shared');
-              }}
+            <DomHostMount
               watch={domMount.watch}
               forceFailure={domMount.forceFailure}
+              siteUrl={SITE_URL}
+              getRouteFlags={() => routeFlagsRef.current}
+              state={nativeRoute}
+              presenter={presenter}
+              navigate={navigate}
             />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
