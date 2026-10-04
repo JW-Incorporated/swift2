@@ -85,6 +85,9 @@ export default function App() {
   // D-7: native screens present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
   // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
   const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
+  const { setNativeMounted } = nav;
+  const nativeMounted = !updateRequired && domMount.mount === 'native';
+  useEffect(() => setNativeMounted(nativeMounted), [nativeMounted, setNativeMounted]);
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   const theme = effectiveNativeTheme(domRendered, useSyncExternalStore(subscribeNativeTheme, getNativeTheme));
   useEffect(() => {
