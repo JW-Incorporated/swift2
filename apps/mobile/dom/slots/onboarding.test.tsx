@@ -253,6 +253,26 @@ describe('onboarding overlay (DOM push offer)', () => {
     expect(screen.getByRole('dialog', { name: 'Notification settings' }).hasAttribute('inert')).toBe(false);
   });
 
+  it('Customize only navigates if Settings is still open when the flag write resolves', async () => {
+    for (const closeFirst of [true, false]) {
+      cleanup();
+      resetOnboardingForTests();
+      resetSettingsOverlayForTests();
+      navigate.mockClear();
+      let release!: () => void;
+      const { n } = fake({ markOnboardingOffered: vi.fn(() => new Promise<void>((r) => (release = r))) as never });
+      mount(n);
+      act(() => settingsOverlay.open());
+      await flush();
+      fireEvent.click(screen.getByText('Customize'));
+      await flush();
+      if (closeFirst) act(() => settingsOverlay.close());
+      await act(async () => release());
+      await flush();
+      expect(navigate).toHaveBeenCalledTimes(closeFirst ? 0 : 1);
+    }
+  });
+
   // Structural guard: the only route to the native OnboardingScreen is NativeScreenRouter (App.tsx renders it only
   // for the native mount), so nothing the DOM host mounts may reference it. Deleted with the screen at WP5.2.
   it('the native onboarding screen is unreachable while the DOM host is mounted', () => {

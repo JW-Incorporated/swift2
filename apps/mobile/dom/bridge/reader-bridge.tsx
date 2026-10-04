@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { resolveTrackKey, THREADS } from '@swift2/experience';
 import { useReader } from '@swift2/ui';
-import { onboardingOverlay, useOnboardingPhase } from '../slots/onboarding-store';
+import { onboardingOverlay, useOnboardingBusy, useOnboardingPhase } from '../slots/onboarding-store';
 import { settingsOverlay, useSettingsOpen } from '../slots/settings-store';
 import { useAppActions, useAppState } from '@swift2/ui/reader/store/index';
 import { useBackRegistration } from './back-responder';
@@ -20,10 +20,12 @@ export function ReaderBridge() {
   const settingsOpen = useSettingsOpen();
   // The push offer (when showing) is the top entry: back dismisses it before Settings.
   const offerShown = useOnboardingPhase() === 'shown';
+  // Busy changes the key so the back responder's one-close-per-key guard re-arms once the swallowed press is over.
+  const offerBusy = useOnboardingBusy();
   useBackRegistration(
     controls.registerBack,
-    offerShown ? 'onboarding' : settingsOpen ? 'settings' : openItemId,
-    offerShown ? () => onboardingOverlay.set('done') : settingsOpen ? settingsOverlay.close : actions.closeItem,
+    offerShown ? (offerBusy ? 'onboarding-busy' : 'onboarding') : settingsOpen ? 'settings' : openItemId,
+    offerShown ? () => void (!onboardingOverlay.isBusy() && onboardingOverlay.set('done')) : settingsOpen ? settingsOverlay.close : actions.closeItem,
   );
 
   useEffect(() => {

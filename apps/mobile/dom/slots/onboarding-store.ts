@@ -7,6 +7,7 @@ import { useSyncExternalStore } from 'react';
 export type OnboardingPhase = 'idle' | 'checking' | 'shown' | 'done';
 
 let phase: OnboardingPhase = 'idle';
+let busy = false;
 const subs = new Set<() => void>();
 
 export const onboardingOverlay = {
@@ -16,6 +17,13 @@ export const onboardingOverlay = {
     phase = next;
     for (const fn of [...subs]) fn();
   },
+  /** A CTA is mid-flight: Back is swallowed (still handled) so it cannot dismiss under a pending native call. */
+  setBusy: (b: boolean) => {
+    if (busy === b) return;
+    busy = b;
+    for (const fn of [...subs]) fn();
+  },
+  isBusy: () => busy,
   subscribe: (fn: () => void) => {
     subs.add(fn);
     return () => void subs.delete(fn);
@@ -24,8 +32,11 @@ export const onboardingOverlay = {
 
 export const useOnboardingPhase = (): OnboardingPhase => useSyncExternalStore(onboardingOverlay.subscribe, onboardingOverlay.phase, () => 'idle');
 
+export const useOnboardingBusy = (): boolean => useSyncExternalStore(onboardingOverlay.subscribe, onboardingOverlay.isBusy, () => false);
+
 /** Test only. */
 export function resetOnboardingForTests(): void {
   phase = 'idle';
+  busy = false;
   subs.clear();
 }

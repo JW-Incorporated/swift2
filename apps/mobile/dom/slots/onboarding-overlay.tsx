@@ -52,7 +52,7 @@ export function OnboardingOverlay() {
       return false;
     }
     onboardingOverlay.set('done');
-    after?.();
+    if (settingsOverlay.isOpen()) after?.();
     return true;
   };
 
@@ -60,9 +60,11 @@ export function OnboardingOverlay() {
     if (busy) return;
     setError(null);
     setBusy(key);
+    onboardingOverlay.setBusy(true);
     try {
       await fn();
     } finally {
+      onboardingOverlay.setBusy(false);
       setBusy(null);
     }
   };
