@@ -15298,7 +15298,7 @@ export default {
             reportedOn: '2026-10-01',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-quietly-sets-sights-022434414.html',
-            note: 'Award-season intent speculation — an Always-OK public-facing category; no location, security, health, or private-individual content. No one (Swift, her team, the Academy) has confirmed a campaign; IndieWire and THR named the song an early Best Original Song front-runner in Sept. 2026. Resolves when Oscar noms post. sourceTier `tabloid`: The Ankler/Yahoo not allowlisted.',
+            note: 'Award-season intent speculation — an Always-OK public-facing category; no location, security, health, or private-individual content. No one (Taylor, her team, the Academy) has confirmed a campaign; IndieWire and THR named the song an early Best Original Song front-runner in Sept. 2026. Resolves when Oscar noms post. sourceTier `tabloid`: The Ankler/Yahoo not allowlisted.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-10-04',
           },
