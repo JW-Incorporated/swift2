@@ -17,9 +17,6 @@ export function NativeOverlayHost({
 }: {
   state: NativeRouteState;
   presenter: NativeOverlayPresenter;
-  /** Unused since no native route renders here; kept so DomHostMount's wiring is unchanged. */
-  navigate?: (url: string | null | undefined) => void;
-  navigateDom?: (path: string) => Promise<boolean>;
 }) {
   return (
     <Modal
@@ -39,7 +36,7 @@ export function NativeOverlayHost({
     >
       <GestureHandlerRootView style={FILL}>
         <SafeAreaView style={FILL}>
-          {/* No native route renders here any more (host.routes.ts registers none); the Modal never opens. */}
+          {/* No native route renders today (host.routes.ts registers none, so the Modal never opens); the presenter and Modal stay as the D-7 seam for a future native route. */}
         </SafeAreaView>
         <DiagHotCorner />
       </GestureHandlerRootView>
