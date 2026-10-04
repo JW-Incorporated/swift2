@@ -1,4 +1,3 @@
-import { bothSidesRoutes } from './sides';
 import {
   A_ONLY_ROUTES,
   A_ONLY_ROUTES_BETA,
@@ -15,6 +14,7 @@ import {
   takeExternalImages,
   test,
 } from './helpers';
+import { bothSidesRoutes } from './sides';
 import { collectStructure, diffStructure } from './structure';
 
 // Side a (Next web build) vs side b (the app's DOM entry), zero insets on b,
