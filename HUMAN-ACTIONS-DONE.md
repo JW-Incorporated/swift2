@@ -3,6 +3,7 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #97 · 2026-10-04 · done · Make the parity check required on main — "closed via Discord reply" · by discord
 - #96 · 2026-10-04 · done · Add Associated Domains to the iOS signing profile — "closed via Discord reply" · by discord
 - #88 · 2026-10-03 · done · Finish the weekly Facebook export setup — "Joey asked in chat to close once the run worked; 2026-10-03 run uploaded 8/8 groups (fans club raw-file upload retried 1/1, no KEPT outstanding); prod fan_signal 8 rows, engagement_lead 231; #4589 closed" · by chat
 - #70 · 2026-10-03 · done · Confirm the first automated Facebook export — "Joey asked in chat to close once the run worked; weekly issue #4589 closed with the counts comment, every joined group uploaded, none failed" · by chat
