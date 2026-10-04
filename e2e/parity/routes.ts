@@ -112,11 +112,12 @@ const CLOWN_ANSWER_NDJSON =
 export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
   { name: 'merch', path: '/?mode=merch', root: 'main' },
   { name: 'community', path: '/?mode=community', root: 'main' },
-  { name: 'clownbot', path: '/?mode=clownbot', root: 'main' },
+  { name: 'clownbot', path: '/?mode=clownbot', root: 'main', sides: 'both' },
   {
     name: 'clownbot-transcript',
     path: '/?mode=clownbot',
     root: 'main',
+    sides: 'both',
     prepare: async (page) => {
       await page.route('**/api/clown', (route) =>
         route.fulfill({ status: 200, contentType: 'application/x-ndjson', body: CLOWN_ANSWER_NDJSON }),
@@ -126,7 +127,7 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
       await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
     },
   },
-  { name: 'mood', path: '/?mode=mood', root: 'main' },
+  { name: 'mood', path: '/?mode=mood', root: 'main', sides: 'both' },
   {
     name: 'settings-notifications',
     path: '/settings/notifications',

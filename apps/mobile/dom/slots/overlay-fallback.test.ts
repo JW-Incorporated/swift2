@@ -80,12 +80,12 @@ describe('D-6 mode fallback paths', () => {
     ['threads', '/?mode=threads'],
     ['merch', '/?mode=merch'],
     ['community', '/?mode=community'],
-    ['clownbot', '/?screen=clownbot'],
-    ['mood', '/?screen=clownbot'],
+    ['clownbot', '/?screen=era-stream'],
+    ['mood', '/?screen=era-stream'],
     ['era', '/?screen=era-stream'],
   ] as const)('%s -> %s', (mode, path) => expect(modeFallbackPath(mode)).toBe(path));
 
   it('covers every unslotted mode', () => {
-    expect(Object.keys(MODE_PATHS).sort()).toEqual(['clownbot', 'community', 'merch', 'mood', 'threads']);
+    expect(Object.keys(MODE_PATHS).sort()).toEqual(['community', 'merch', 'threads']);
   });
 });
