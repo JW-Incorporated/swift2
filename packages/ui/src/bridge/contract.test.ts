@@ -14,7 +14,7 @@ import type {
   ResponderMap,
   ResultOf,
 } from './messages';
-import type { BridgeApiRequest, ExternalUrl, WebPath } from './validate';
+import type { BridgeApiRequest, ExternalUrl, MailtoUrl, WebPath } from './validate';
 import type { ShareHost } from '../reader/lib/share-payload';
 import type { HostStorage } from '../host/types';
 
@@ -61,7 +61,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       navigate: H<{ path: WebPath; replace?: boolean }, null>;
       share: H<SharePayload, null>;
       haptic: H<{ kind: HapticKind }, null>;
-      openExternal: H<{ url: ExternalUrl }, null>;
+      openExternal: H<{ url: ExternalUrl | MailtoUrl }, null>;
       'notifications.status': H<Empty, NotificationStatus>;
       'notifications.request': H<Empty, NotificationStatus>;
       'notifications.register': H<Empty, null>;
@@ -116,7 +116,8 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     // Exact host parameter: widening it (e.g. `string | URL`) fails here.
     expectTypeOf<Parameters<Open>[0]>().toEqualTypeOf<string>();
     expectTypeOf<ExternalUrl>().toExtend<Parameters<Open>[0]>();
-    expectTypeOf<PayloadOf<'openExternal'>['url']>().toEqualTypeOf<ExternalUrl>();
+    expectTypeOf<MailtoUrl>().toExtend<Parameters<Open>[0]>();
+    expectTypeOf<PayloadOf<'openExternal'>['url']>().toEqualTypeOf<ExternalUrl | MailtoUrl>();
     expectTypeOf<VoidToNull<ReturnType<Open>>>().toEqualTypeOf<ResultOf<'openExternal'>>();
   });
 

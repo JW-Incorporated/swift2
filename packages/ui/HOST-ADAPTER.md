@@ -19,6 +19,7 @@
 | `env.origin` | constant canonical origin `https://www.longlivets.com` (override: `NEXT_PUBLIC_SITE_ORIGIN`); identical on server and client, so hydration-stable | WP2.3 |
 | `insets` | zeros | WP2.3 |
 | `lazy`, `share`, `openExternal`, `haptic`, `notifications` | optional (`haptic` no-op) | WP2.4/2.5/2.12 |
+| `openExternal` and `mailto:` | absent on web: `MailtoLink` (legal/support) is a plain `<a href="mailto:…">` | `openExternal` accepts `https:` and the two allow-listed `mailto:` aliases (`apps/mobile/lib/mailto-allowlist.ts`; `isMailtoUrl` itself: lowercase scheme, bare address, no query/fragment/escapes); `MailtoLink` routes the click through it. Anything else is `invalid`. |
 
 Note: the web adapter's `onBack` does not consume the handler's boolean return; `popstate` cannot be cancelled, so the handler runs for its side effects only. The app host honours the boolean (consumed = swallow the native back).
 

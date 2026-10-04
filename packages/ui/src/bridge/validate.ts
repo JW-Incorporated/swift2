@@ -7,10 +7,14 @@ import type { JsonValue } from './envelope';
 
 declare const webPathBrand: unique symbol;
 declare const externalUrlBrand: unique symbol;
+declare const mailtoUrlBrand: unique symbol;
 /** A web path (X4): `/era/<id>?...`. Produced only by `isWebPath`/`toWebPath`. */
 export type WebPath = `/${string}` & { readonly [webPathBrand]: true };
 /** An `https:` URL. Produced only by `isExternalUrl`/`toExternalUrl`. */
 export type ExternalUrl = `https://${string}` & { readonly [externalUrlBrand]: true };
+
+/** A bare `mailto:<address>` URL. Produced only by `isMailtoUrl`/`toMailtoUrl`. */
+export type MailtoUrl = `mailto:${string}` & { readonly [mailtoUrlBrand]: true };
 
 export const MAX_PAYLOAD_DEPTH = 32;
 /** Serialized payload cap in UTF-16 code units. Content never crosses the bridge. */
@@ -55,10 +59,8 @@ export function isWebPath(s: unknown): s is WebPath {
 export const toWebPath = (s: unknown): WebPath | null => (isWebPath(s) ? s : null);
 
 /**
- * `https:` only. `mailto:` is deliberately excluded: the only reader mailto
- * (the share-fallback toast) is a web-only fallback that native never routes
- * through `openExternal`; the support page's mailto links are outside the
- * reader. `http:`, `javascript:`, `intent:`, `file:`, `data:` are rejected.
+ * `https:` only. `mailto:` is deliberately excluded here (the share path stays
+ * https); `openExternal` additionally accepts `isMailtoUrl`. `http:`, `javascript:`, `intent:`, `file:`, `data:` are rejected.
  */
 export function isExternalUrl(s: unknown): s is ExternalUrl {
   if (typeof s !== 'string' || s.length > 2048 || CONTROL.test(s) || s.includes('\\')) return false;
@@ -71,6 +73,19 @@ export function isExternalUrl(s: unknown): s is ExternalUrl {
   }
 }
 export const toExternalUrl = (s: unknown): ExternalUrl | null => (isExternalUrl(s) ? s : null);
+
+const MAILTO_RE = /^mailto:[A-Za-z0-9._+-]{1,64}@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$/;
+
+/**
+ * Lowercase `mailto:` with exactly one plain address and nothing else: no query (so no
+ * subject/body/cc/bcc header injection), no fragment, no percent-escapes (which
+ * could smuggle CR/LF or a second recipient), no comma/semicolon lists.
+ * `javascript:`, `data:`, `https:` and everything else is rejected.
+ */
+export function isMailtoUrl(s: unknown): s is MailtoUrl {
+  return typeof s === 'string' && s.length <= 320 && MAILTO_RE.test(s);
+}
+export const toMailtoUrl = (s: unknown): MailtoUrl | null => (isMailtoUrl(s) ? s : null);
 
 /** Ids: non-empty, at most 64 chars, `[A-Za-z0-9_-]`. */
 export const isBridgeId = (s: unknown): s is string => typeof s === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(s);

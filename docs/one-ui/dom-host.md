@@ -57,6 +57,7 @@ the DOM bundles.
 | iOS `associatedDomains`, Android `intentFilters` (apex + www) | added; `.well-known` files withheld until WP2.3 |
 | `softwareKeyboardLayoutMode: "resize"` | added |
 | Share, Linking, scheme, notification categories, safe areas, SecureStore, file-system cache, status bar, expo-updates, splash hold | present |
+| `mailto:` via `openExternal` (WP2.13 A2b) | present: `Linking.openURL`; the handler and host validator accept only a bare `mailto:<address>` (`isMailtoUrl`), no native change |
 | ATS exception, `expo-web-browser`, `.well-known` files | not needed / withheld |
 
 JS-only additions for the test page: `tailwindcss`, `@tailwindcss/postcss`,
