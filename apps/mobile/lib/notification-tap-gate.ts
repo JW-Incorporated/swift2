@@ -66,7 +66,7 @@ export function createTapGate(opts: {
     return async (tap: Tap, signal?: AbortSignal) => {
       let ref = refs.get(tap) ?? null;
       if (!ref) {
-        ref = h.emit('navigate', { path: tap.path, source: 'notification' });
+        ref = h.emit('navigate', { path: tap.path, source: tap.source });
         if (ref) refs.set(tap, ref);
       }
       if (!ref) return false;

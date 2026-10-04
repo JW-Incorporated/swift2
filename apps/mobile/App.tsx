@@ -33,7 +33,8 @@ import {
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { useNotificationTaps } from './lib/use-notification-taps';
+import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
+import { useDeepLinks } from './lib/use-deep-links';
 import type { EraId, TrackNote } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import {
@@ -310,6 +311,7 @@ export default function App() {
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
   useNotificationTaps(navigate, domMount.mount === 'native');
+  useDeepLinks(notificationTapGate);
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
   // first time so push permission is actually offered, settings after that.

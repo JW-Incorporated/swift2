@@ -43,6 +43,15 @@ const nextConfig = {
         source: '/vault/live/:path*',
         headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
       },
+      // X4 universal links (H6): Next serves the extensionless AASA as octet-stream; Apple needs JSON.
+      {
+        source: '/.well-known/apple-app-site-association',
+        headers: [{ key: 'Content-Type', value: 'application/json' }],
+      },
+      {
+        source: '/.well-known/assetlinks.json',
+        headers: [{ key: 'Content-Type', value: 'application/json' }],
+      },
       {
         source: '/api/share-card',
         headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
