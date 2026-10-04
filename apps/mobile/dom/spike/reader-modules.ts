@@ -16,6 +16,18 @@ type BackResult = 'handled' | 'exit';
 /** `registerBack` hands the host the responder for the native `back` command (null on unmount). */
 export type ReaderProps = { registerBack: (fn: (() => BackResult) | null) => void };
 
+/**
+ * The DOM host's adapter over the web one: app-relative assets resolve against the canonical origin, and
+ * YouTube embeds frame the wrapper page on that same origin (the null-origin DOM page sends no Referer; #4954).
+ */
+export function createSpikeAdapter<T extends { env: { origin: string } }>(base: T) {
+  return {
+    ...base,
+    resolveUrl: (path: string) => resolveAppUrl(path, base.env.origin),
+    embedOrigin: base.env.origin,
+  };
+}
+
 export function loadReader(
   snapshot: ReaderSnapshotCore,
   extensions: ReaderSnapshotExtensions,
@@ -35,10 +47,7 @@ export function loadReader(
   const base = hostAdapter.createWebAdapter({ push() {}, replace() {} });
   // The DOM page is a null origin: app-relative assets (era art) load over the network from the canonical origin.
   // TODO(PM, WP2.3-F): apiFetch is inherited (relative fetch) and /api has no CORS, so mobile intake is not functional until the WP2.3-F bridge apiFetch replaces it.
-  const adapter = {
-    ...base,
-    resolveUrl: (path: string) => resolveAppUrl(path, base.env.origin),
-  };
+  const adapter = createSpikeAdapter(base);
 
   function Shell({ registerBack }: ReaderProps) {
     const { eraId, openItemId } = store.useAppState();
