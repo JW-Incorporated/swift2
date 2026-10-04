@@ -51,10 +51,8 @@ export function runFallbackRows(rows: readonly FallbackRow[], state: FallbackSta
   }
 }
 
-/** Where each unslotted mode goes natively (D-6). Mood shares the native Clownbot screen. */
+/** Where each unslotted mode goes natively (D-6). Every mode is slotted now, so the table is empty. */
 export const MODE_PATHS: Partial<Record<AppMode, string>> = {
-  clownbot: '/?screen=clownbot',
-  mood: '/?screen=clownbot',
 };
 
 export const modeFallbackPath = (mode: AppMode): string => MODE_PATHS[mode] ?? '/?screen=era-stream';

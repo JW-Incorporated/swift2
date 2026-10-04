@@ -22,6 +22,7 @@ import './floating';
 import './merch';
 import './community';
 import './search';
+import './clown';
 
 export { register, slots } from './instance';
 export { createSlotRegistry } from './registry';
