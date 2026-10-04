@@ -24,4 +24,16 @@ describe('createReaderAdapter (the DOM host adapter D2 mounts)', () => {
     expect(adapter.env.turnstileSiteKey).toBeNull();
     expect(adapter.webPush).toBeUndefined();
   });
+
+  it('storage is Map-backed for both areas and tri-state, never window storage', () => {
+    const a = make();
+    const { local, session } = a.storage;
+    expect(local.get('k')).toBeNull();
+    local.set('k', 'v');
+    expect(local.get('k')).toBe('v');
+    expect(session.get('k')).toBeNull();
+    local.remove('k');
+    expect(local.get('k')).toBeNull();
+    expect(make().storage.local).not.toBe(local);
+  });
 });
