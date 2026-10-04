@@ -32,6 +32,21 @@ describe('applyNavigateEvent', () => {
     expect(deps.apply).not.toHaveBeenCalled();
   });
 
+  it('an allow-listed legal path is shown in the DOM and acked only after it was set; a reader path closes it first', async () => {
+    const order: string[] = [];
+    const deps = { replaceUrl: vi.fn(() => void order.push('replace')), apply: vi.fn(async () => true), setPath: vi.fn((p: string) => (order.push(p), true)) };
+    expect(await applyNavigateEvent({ path: '/privacy' as never }, deps)).toBe(true);
+    expect(deps.replaceUrl).not.toHaveBeenCalled();
+    expect(deps.apply).not.toHaveBeenCalled();
+    expect(await applyNavigateEvent({ path: '/?item=a' as never }, deps)).toBe(true);
+    expect(order).toEqual(['/privacy', '/', 'replace']);
+  });
+
+  it('a legal path is refused when the DOM has no path state, and a refused setPath answers false', async () => {
+    expect(await applyNavigateEvent({ path: '/terms' as never }, { replaceUrl: vi.fn(), apply: vi.fn(async () => true) })).toBe(false);
+    expect(await applyNavigateEvent({ path: '/terms' as never }, { replaceUrl: vi.fn(), apply: vi.fn(async () => true), setPath: () => false })).toBe(false);
+  });
+
   it('an unresolved target (apply -> false) reports false, never ok:true', async () => {
     const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => false) };
     expect(await applyNavigateEvent({ path: '/?item=gone' as never }, deps)).toBe(false);

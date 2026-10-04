@@ -28,8 +28,13 @@ test('dry run: a flipped fixture route plans one a-vs-b compare and two b baseli
 });
 
 // Folded into the last test so the parity test count is unchanged by the name guard.
-test('every real route is still a-only; baseline name collisions throw', () => {
-  expect(planBSide([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])).toEqual([]);
+test('every flipped real route plans one compare and two b baselines; baseline name collisions throw', () => {
+  const plan = planBSide([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA]);
+  expect(plan.map((p) => p.route)).toEqual(expect.arrayContaining(['privacy', 'terms', 'support']));
+  for (const p of plan) {
+    expect(p.compare).toBe(`a vs b viewport: ${p.route}`);
+    expect(p.baselines).toEqual([`b-${p.route}.png`, `b-${p.route}-viewport.png`]);
+  }
   const base = [
     { name: 'home', path: '/', root: 'main' },
     { name: 'item', path: '/?item=x', root: 'main' },
