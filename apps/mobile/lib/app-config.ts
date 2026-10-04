@@ -1,15 +1,8 @@
-// Remote kill switch for native screens (docs/mobile-release.md). Startup never
-// waits on this: App.tsx starts from DEFAULT_ROUTE_FLAGS and applies the result
-// when it arrives. Resolution: network -> last-good cache -> compiled defaults.
-import {
-  ROUTE_FLAG_KEYS,
-  appConfigSchema,
-  type AppConfig,
-  type StorageAdapter,
-} from '@swift2/content';
+// Remote app config (docs/mobile-release.md). Startup never waits on this: the
+// result is applied when it arrives. Resolution: network -> last-good cache -> compiled defaults.
+import { appConfigSchema, type AppConfig, type StorageAdapter } from '@swift2/content';
 import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
 import { diagCollector } from './diagnostics';
-import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from './routes';
 
 export const APP_CONFIG_CACHE_KEY = 'swift2:app-config:last-good:v1';
 const FETCH_TIMEOUT_MS = 3000;
@@ -19,21 +12,6 @@ export interface AppConfigDeps {
   storage?: StorageAdapter;
   baseUrl?: string;
   timeoutMs?: number;
-}
-
-/** Defaults overlaid with only the known flag keys that carry a boolean; everything else is ignored. */
-export function routeFlagsFrom(config: unknown): RouteFlags {
-  const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS };
-  const incoming =
-    config && typeof config === 'object'
-      ? (config as { routeFlags?: unknown }).routeFlags
-      : undefined;
-  if (!incoming || typeof incoming !== 'object') return flags;
-  for (const key of ROUTE_FLAG_KEYS) {
-    const value = (incoming as Record<string, unknown>)[key];
-    if (typeof value === 'boolean') flags[key] = value;
-  }
-  return flags;
 }
 
 async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> {

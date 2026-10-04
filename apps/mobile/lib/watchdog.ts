@@ -13,8 +13,7 @@
 // ready launch clears. A failure (ready-timeout, DOM error before ready, webview
 // terminate/render-gone before ready or a repeat within RELOAD_WINDOW_MS of a
 // post-ready reload) is a strike: strike 1 mounts native for this launch;
-// strike 2 (consecutive) makes the next launch native too (the C4 override was
-// removed 2026-10-04; its clearing code is deferred to the native-UI deletion PR).
+// strike 2 (consecutive) makes the next launch native too.
 
 import { QUARANTINE_AFTER_FALLBACK_CYCLES, escalate, quarantinedDecision } from './watchdog-policy';
 import { truncateReason } from './watchdog-monitor';
@@ -102,8 +101,6 @@ export function readRecord(raw: string | null): WatchdogRecord | null | 'corrupt
 export interface MountDecision {
   /** True while a fallback launch is owed: mount native whatever the flags say. */
   fallbackActive: boolean;
-  /** True when this decision itself reached strike 2: clear the C4 override. */
-  clearOverride: boolean;
   /** The normalised record to persist for this launch. */
   record: WatchdogRecord;
 }
@@ -117,16 +114,15 @@ export function decideMount(
   // A stored record we cannot trust is never a licence for the DOM host: native
   // this launch, record reset, the next launch starts clean.
   if (record === 'corrupt') {
-    return { fallbackActive: true, clearOverride: false, record: freshRecord(buildKey, now) };
+    return { fallbackActive: true, record: freshRecord(buildKey, now) };
   }
   if (!record || record.buildKey !== buildKey) {
-    return { fallbackActive: false, clearOverride: false, record: freshRecord(buildKey, now) };
+    return { fallbackActive: false, record: freshRecord(buildKey, now) };
   }
   if (record.state === 'quarantined') return quarantinedDecision(record, now);
   if (record.fallbackLaunchesRemaining > 0) {
     return {
       fallbackActive: true,
-      clearOverride: false,
       record: {
         ...record,
         state: 'fallback',
@@ -142,14 +138,14 @@ export function decideMount(
   // 'attempting' after backgrounding = abandoned; the 2nd in a row is a strike.
   if (record.state === 'attempting' && !record.backgrounded) {
     const s = recordStrike(record, 'abandoned-before-ready', now);
-    return { fallbackActive: s.clearOverride, clearOverride: s.clearOverride, record: s.record };
+    return { fallbackActive: s.fellBack, record: s.record };
   }
   let abandonedStreak = record.abandonedStreak;
   if (record.state === 'attempting' && record.backgrounded) {
     abandonedStreak += 1;
     if (abandonedStreak >= ABANDONED_TO_STRIKE) {
       const s = recordStrike(record, 'abandoned-repeated', now);
-      return { fallbackActive: s.clearOverride, clearOverride: s.clearOverride, record: s.record };
+      return { fallbackActive: s.fellBack, record: s.record };
     }
   }
   // 'ready' = the last launch ran clean: the streak is over.
@@ -157,12 +153,11 @@ export function decideMount(
   const strikes = record.state === 'ready' ? 0 : record.strikes;
   return {
     fallbackActive: false,
-    clearOverride: false,
     record: { ...record, state: 'idle', strikes, backgrounded: false, abandonedStreak, at: now },
   };
 }
 
-/** The mount predicate: shared UI wanted by flag or override, and no fallback owed. */
+/** The mount predicate: shared UI wanted by flag, and no fallback owed. */
 export function shouldMountDom(wantsDom: boolean, decision: MountDecision): boolean {
   return wantsDom && !decision.fallbackActive;
 }
@@ -215,11 +210,11 @@ export function recordStrike(
   r: WatchdogRecord,
   reason: string,
   now: number,
-): { record: WatchdogRecord; clearOverride: boolean } {
+): { record: WatchdogRecord; fellBack: boolean } {
   const strikes = r.strikes + 1;
   const fallback = strikes >= STRIKES_TO_FALLBACK;
   return {
-    clearOverride: fallback,
+    fellBack: fallback,
     record: escalate({
       ...r,
       state: fallback ? 'fallback' : 'failed',

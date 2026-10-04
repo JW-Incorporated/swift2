@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { SITE_URL } from '../components/SiteShell';
+import { SITE_URL } from './site-url';
 import { createTapGate, type RawResponse } from './notification-tap-gate';
 import { startTapIngest } from './notification-tap-ingest';
 
@@ -11,18 +11,11 @@ export const notificationTapGate = createTapGate({ siteUrl: SITE_URL });
 
 /**
  * Feeds cold-start and live notification taps into the gate (serialized, see
- * notification-tap-ingest.ts). `native` is true only while the legacy native router is the
- * visible surface; then taps open its screens via `navigate`. On the Recovery screen it is
- * false, so taps stay held in the gate's in-memory queue (never consumed by a native router)
- * until a DOM host binds and acks. Returning to the foreground retries held taps (an ack wait
- * can time out while backgrounded).
+ * notification-tap-ingest.ts). Taps are held in the gate's in-memory queue until a DOM host binds
+ * and acks; the Recovery screen never consumes them. Returning to the foreground retries held taps
+ * (an ack wait can time out while backgrounded).
  */
-export function useNotificationTaps(navigate: (url: string) => void, native: boolean): void {
-  useEffect(() => {
-    notificationTapGate.setNativeNavigator(native ? navigate : null);
-    return () => notificationTapGate.setNativeNavigator(null);
-  }, [navigate, native]);
-
+export function useNotificationTaps(): void {
   useEffect(() => {
     const stop = startTapIngest(notificationTapGate, {
       getLast: async () => (await Notifications.getLastNotificationResponseAsync()) as RawResponse | null,

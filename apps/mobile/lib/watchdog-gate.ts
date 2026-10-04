@@ -164,7 +164,6 @@ export function useDomMount(inputs: LaunchInputs | null): {
     if (struck) report(struck.lastReason, struck.buildKey);
     const want = resolveWantsDom({
       quarantined: decision.record.state === 'quarantined',
-      override: false,
       cachedSharedUi: inputs.sharedUi,
       defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
     });

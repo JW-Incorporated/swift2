@@ -55,8 +55,8 @@ describe('H1 UI commands over a real host and DOM client', () => {
     const dom = createExpoBridge((env) => e.handlers.bridge(env));
     dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
-    expect(await dom.client.call('navigate', { path: '/?screen=settings' as never })).toMatchObject({ ok: true });
-    expect(present).toHaveBeenCalledWith('/?screen=settings');
+    expect(await dom.client.call('navigate', { path: '/inbox' as never })).toMatchObject({ ok: true });
+    expect(present).toHaveBeenCalledWith('/inbox');
     present.mockClear();
     expect(await dom.client.call('navigate', { path: '/?current=theories' as never })).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(present).not.toHaveBeenCalled();

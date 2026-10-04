@@ -1,17 +1,13 @@
 # @swift2/mobile — Expo app (Android-first)
 
-> **2026-09-06 (OS-039):** SiteShell is retired as the app's default surface.
-> The app now renders five native worlds — era stream, threads, clownbot,
-> community, merch — behind a persistent `BottomTabBar` (`App.tsx`,
-> `components/BottomTabBar.tsx`); every one of them reads from
-> `@swift2/experience`/`@swift2/content`, the same headless core + published
-> bundle the web uses (D2: two renderers, one core). The WebView
-> (`components/SiteShell.tsx`) still exists, but only ever renders one of
-> the three legal pages (`/privacy`, `/terms`, `/support`) — see `routes.ts`'s
-> `DEFAULT_ROUTE_FLAGS` (every native screen flag-on by default) and
-> `App.tsx`'s `isLegalPageUrl`. The Vault navigator described below predates
-> all of this (Phase 0's original architecture) and is kept unmounted as
-> dead code, superseded by the native screens above.
+> **2026-10-04 (One UI PR3):** the legacy native UI (SiteShell WebView, the
+> BottomTabBar worlds, every native Era/Thread/Song/Track/Community/Merch/
+> Clown/Search/Legal/Settings/Onboarding screen, the Vault navigator and its
+> data layer) is deleted. The app mounts the shared-UI DOM host
+> (`components/SharedUiHost.tsx` via `DomHostMount`); native only supplies the
+> Inbox and About overlays, the Recovery screen (shown whenever the DOM host
+> is not mounted), UpdateRequired, the diagnostics hot corner, notification
+> tap intake, device registration and the watchdog. See `docs/one-ui/dom-host.md`.
 
 The iOS/Android reader. Reuses `@swift2/shared` (domain/types) and
 `@swift2/core` (Supabase data access) **unchanged** — the whole point of the
@@ -29,36 +25,12 @@ What's here (typechecked, and both platforms export headlessly with Hermes
 bytecode — `npx expo export --platform ios|android` → ~3.4 MB `.hbc` each,
 no errors):
 
-- **Native worlds** (`App.tsx` + `components/BottomTabBar.tsx`): the five
-  tabs a reader lands on by default — `EraStreamScreen`, `ThreadsScreen`,
-  `ClownChatScreen`, `CommunityScreen`, `MerchScreen` — plus the overlay
-  screens they open into (`MomentSheet`, `TrackGuideScreen`, `SongScreen`,
-  `NotificationSettingsScreen`, `NotificationInboxScreen`). Every one reads
-  the same published content bundle / `@swift2/experience` headless core the
-  web renders from — see each screen's own header comment for its exact web
-  equivalent and any documented scope cuts.
-- **Hybrid router** (`lib/routes.ts`): `resolve(url)` decides native vs.
-  WebView per URL behind a per-screen flag, all flags default ON since
-  OS-039 (a flag can still flip OFF as a kill switch without a new store
-  build, via EAS Update). Every URL this table doesn't recognize as one of
-  the three legal pages degrades to the native home, never a stale WebView
-  load (`App.tsx`'s `openWebUrl`/`isLegalPageUrl`).
-- **Data layer** (`lib/vault.ts`, unused by the mounted screens): the SAME
-  `createVaultClient` from `@swift2/core` the web app originally used —
-  superseded by the published content bundle (`packages/content`) that
-  every native screen above reads from instead. Kept for reference only.
-- **Vault navigator** (`components/VaultNavigator.tsx`): the ORIGINAL native
-  counterpart of `apps/web/components/VaultReader.tsx` from before this
-  phase's native screens existed — unmounted dead code, superseded by the
-  screens listed above.
-- **Era timeline scrubber** (`components/EraTimeline.tsx`): first pass of the
-  morph-on-grab navigator on the architecture's required foundation — Gesture
-  Handler + Reanimated, gesture and thumb animation entirely on the UI thread
-  (shared values in worklets, zero JS/React state per frame). JS is touched
-  once per gesture, on release, to snap + commit the era using the same
-  `@swift2/shared` snap math as the web scrubber. Milestones render as passive
-  tick marks. Snaps to era boundaries only (v1 spec). Not yet wired into any
-  mounted screen.
+- **Shared-UI DOM host** (`App.tsx` -> `components/DomHostMount.tsx`): the whole reader
+  runs in the DOM host; `NativeOverlayHost` presents the native Inbox and About
+  screens over it. When the DOM host is not mounted (watchdog fallback,
+  quarantine, pending expiry, `sharedUi` flag off) `RecoveryScreen` shows.
+- **Routing** (`lib/routes.ts`): only the `sharedUi` flag remains. The JSON route
+  keys in `config/mobile/app-config.json` stay because old OTAs still parse them.
 - **EAS config**: `eas.json` (development / preview internal APK / production
   AAB) + `app.json` (package `com.jwincorporated.swift2`, placeholder
   icon/splash from `scripts/make-placeholder-assets.mjs`).

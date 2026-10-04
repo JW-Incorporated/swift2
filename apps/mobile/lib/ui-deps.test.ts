@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { HandlerContext, WebPath } from '@swift2/ui';
 import { createHandlers } from './bridge-handlers-ui';
-import { DEFAULT_ROUTE_FLAGS } from './routes';
 import { createUiDeps, type HapticsLike, type UiDepsEnv } from './ui-deps';
 
 const ctx: HandlerContext = { signal: new AbortController().signal };
@@ -32,11 +31,11 @@ describe('navigate', () => {
   it('a native route goes to the presenter, never stays in the DOM', async () => {
     const present = vi.fn(() => 'applied');
     const { h } = setup({ getPresenter: () => present });
-    expect(await h.navigate({ path: path('/?screen=settings') }, ctx)).toEqual({ ok: true, value: null });
-    expect(present).toHaveBeenCalledWith('/?screen=settings');
+    expect(await h.navigate({ path: path('/inbox') }, ctx)).toEqual({ ok: true, value: null });
+    expect(present).toHaveBeenCalledWith('/inbox');
   });
 
-  it.each(['/', '/?current=theories', '/?song=abc', '/vault', '/settings', '/?screen=nope'])('a DOM route (%s) stays in the DOM: invalid, presenter untouched', async (p) => {
+  it.each(['/', '/?current=theories', '/?song=abc', '/vault', '/settings', '/?screen=nope', '/?screen=settings', '/?current=inbox'])('a DOM route (%s) stays in the DOM: invalid, presenter untouched', async (p) => {
     const present = vi.fn();
     const { h } = setup({ getPresenter: () => present });
     expect(await h.navigate({ path: path(p) }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
@@ -45,28 +44,21 @@ describe('navigate', () => {
 
   it('a native route with no presenter attached answers failed, not success', async () => {
     const { h, env } = setup();
-    expect(await h.navigate({ path: path('/?current=inbox') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
+    expect(await h.navigate({ path: path('/inbox') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
     expect(env.log).toHaveBeenCalledWith('bridge-navigate-failed', expect.stringContaining('presenter'));
   });
 
   it('a presenter that rejects the route answers failed', async () => {
     const { h } = setup({ getPresenter: () => () => 'rejected' });
-    expect(await h.navigate({ path: path('/?screen=settings') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
-  });
-
-  it('honours the live route flags: a flagged-off screen is a DOM route', async () => {
-    const present = vi.fn();
-    const { h } = setup({ getPresenter: () => present, getFlags: () => ({ ...DEFAULT_ROUTE_FLAGS, settings: false }) });
-    expect(await h.navigate({ path: path('/?screen=settings') }, ctx)).toMatchObject({ ok: false, error: { code: 'invalid' } });
-    expect(present).not.toHaveBeenCalled();
+    expect(await h.navigate({ path: path('/settings/about') }, ctx)).toMatchObject({ ok: false, error: { code: 'failed' } });
   });
 
   it('reads the presenter at call time (attached after the host was built)', async () => {
     const ref: { present?: (p: WebPath) => unknown } = {};
     const { h } = setup({ getPresenter: () => ref.present });
-    expect(await h.navigate({ path: path('/?screen=settings') }, ctx)).toMatchObject({ ok: false });
+    expect(await h.navigate({ path: path('/settings/about') }, ctx)).toMatchObject({ ok: false });
     ref.present = vi.fn();
-    expect(await h.navigate({ path: path('/?screen=settings') }, ctx)).toEqual({ ok: true, value: null });
+    expect(await h.navigate({ path: path('/settings/about') }, ctx)).toEqual({ ok: true, value: null });
   });
 });
 

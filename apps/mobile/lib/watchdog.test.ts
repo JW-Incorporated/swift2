@@ -25,7 +25,7 @@ function launch(
   key = KEY,
 ) {
   const d = decideMount(rec, key, 1);
-  if (d.fallbackActive) return { d, rec: d.record, clear: d.clearOverride };
+  if (d.fallbackActive) return { d, rec: d.record, clear: false };
   let r = beginAttempt(d.record, 2);
   if (outcome === 'background') r = { ...r, backgrounded: true };
   if (outcome === 'ready') r = markReady(r, 3);
@@ -33,7 +33,7 @@ function launch(
   if (outcome === 'fail') {
     const s = recordStrike(r, 'boom', 3);
     r = s.record;
-    clear = s.clearOverride;
+    clear = s.fellBack;
   }
   return { d, rec: r, clear };
 }
@@ -65,7 +65,6 @@ describe('record transitions', () => {
     expect(l2.d.record.strikes).toBe(1);
     expect(l2.d.record.lastReason).toBe('abandoned-before-ready');
     expect(l2.d.fallbackActive).toBe(false);
-    expect(l2.d.clearOverride).toBe(false);
   });
 
   it('an attempt backgrounded before ready is abandoned, not a strike', () => {
@@ -98,7 +97,6 @@ describe('record transitions', () => {
     l = launch(l.rec, 'background'); // DOM launch 4
     expect(l.d.fallbackActive).toBe(false);
     l = launch(l.rec, 'background'); // launch 5: strike 2 -> native
-    expect(l.d.clearOverride).toBe(true);
     expect(l.d.fallbackActive).toBe(true);
     const ready = launch(launch(null, 'background').rec, 'ready');
     expect(ready.d.record.abandonedStreak).toBe(1);
@@ -110,11 +108,10 @@ describe('record transitions', () => {
     expect(recordStrike(rec, 'x', 2).record.abandonedStreak).toBe(0);
   });
 
-  it('two foreground kills before ready clear the override and owe a fallback launch', () => {
+  it('two foreground kills before ready owe a fallback launch', () => {
     const l1 = launch(null, 'abandon');
     const l2 = launch(l1.rec, 'abandon');
     const l3 = launch(l2.rec, 'abandon');
-    expect(l3.d.clearOverride).toBe(true);
     expect(l3.d.fallbackActive).toBe(true);
     expect(l3.rec.fallbackLaunchesRemaining).toBe(1);
     const l4 = launch(l3.rec, 'ready');
@@ -122,7 +119,7 @@ describe('record transitions', () => {
     expect(launch(l4.rec, 'ready').d.fallbackActive).toBe(false);
   });
 
-  it('strike 1 keeps the override; strike 2 clears it and owes one fallback launch', () => {
+  it('strike 1 stays on the DOM path; strike 2 owes one fallback launch', () => {
     const l1 = launch(null, 'fail');
     expect(l1.clear).toBe(false);
     expect(l1.rec.strikes).toBe(1);
@@ -228,7 +225,7 @@ describe('fail-closed attempt write', () => {
 });
 
 describe('persistence helpers', () => {
-  it('round-trips a record and rejects garbage (override re-enable then sees no record)', () => {
+  it('round-trips a record and rejects garbage', () => {
     const r = recordStrike(freshRecord(KEY, 5), 'boom', 6).record;
     expect(parseRecord(JSON.stringify(r))).toEqual(r);
     expect(parseRecord(null)).toBeNull();

@@ -4,9 +4,6 @@
 import type { HapticKind, SharePayload, WebPath } from '@swift2/ui';
 import type { UiHandlerDeps } from './bridge-handlers-ui';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
-import { DEFAULT_ROUTE_FLAGS, isNativeRoute, type RouteFlags } from './routes';
-
-const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
 export type HapticsLike = {
   impactAsync(style: unknown): Promise<void>;
@@ -23,8 +20,6 @@ export type UiDepsEnv = {
   haptics?: HapticsLike;
   platformOS: string;
   log: (stage: string, detail: string) => void;
-  siteUrl?: string;
-  getFlags?: () => RouteFlags;
   /**
    * Reads the D-7 presenter (`createNativeRoutePresenter().presentNativeRoute`) at call
    * time. Until the app supplies one (H4/D1) a native-route navigate answers `failed`.
@@ -33,14 +28,12 @@ export type UiDepsEnv = {
 };
 
 export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
-  const siteUrl = env.siteUrl ?? DEFAULT_SITE_URL;
-  const getFlags = env.getFlags ?? (() => DEFAULT_ROUTE_FLAGS);
   const { haptics } = env;
   return {
     log: env.log,
-    // A DOM-routed path is not native: the handler answers `invalid` and the DOM routes it itself. The slot route
-    // registry (what the presenter accepts, e.g. /inbox) and the legacy screen table (lib/routes) both count.
-    isNativeRoute: (path) => isHostRoute(path) || isNativeRoute(new URL(path, siteUrl).toString(), siteUrl, getFlags()),
+    // A DOM-routed path is not native: the handler answers `invalid` and the DOM routes it itself. Only the slot route
+    // registry (what the presenter accepts, e.g. /inbox) counts.
+    isNativeRoute: (path) => isHostRoute(path),
     navigate: (path) => {
       const present = env.getPresenter?.();
       if (!present) throw new Error('native route presenter not attached');

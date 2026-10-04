@@ -112,7 +112,6 @@ describe('corrupt record', () => {
   it('safe default: native this launch, record reset, the next launch is clean', () => {
     const d = decideMount('corrupt', KEY, 9);
     expect(d.fallbackActive).toBe(true);
-    expect(d.clearOverride).toBe(false);
     expect(d.record).toEqual(freshRecord(KEY, 9));
     expect(decideMount(d.record, KEY, 10).fallbackActive).toBe(false);
   });

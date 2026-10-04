@@ -47,7 +47,7 @@ export function SettingsAboutSection({
   );
 }
 
-// Same palette/metrics as NotificationSettingsScreen's rows and group titles.
+// Palette/metrics for the About rows and group titles.
 const styles = StyleSheet.create({
   group: { paddingTop: 20 },
   groupTitle: {

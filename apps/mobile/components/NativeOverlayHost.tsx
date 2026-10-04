@@ -9,6 +9,7 @@ import type { NativeRouteState } from '../lib/dom-host-handlers';
 import type { NativeOverlayPresenter } from '../lib/use-native-overlay';
 import { DiagHotCorner } from './DiagHotCorner';
 import { NativeAboutScreen } from './NativeAboutScreen';
+import { canonicalizeLink } from '../lib/notification-tap-queue';
 import { NotificationInboxScreen } from './NotificationInboxScreen';
 
 const FILL = { flex: 1, backgroundColor: '#0b0b0f' } as const;
@@ -16,12 +17,10 @@ const FILL = { flex: 1, backgroundColor: '#0b0b0f' } as const;
 export function NativeOverlayHost({
   state,
   presenter,
-  navigate,
   navigateDom,
 }: {
   state: NativeRouteState;
   presenter: NativeOverlayPresenter;
-  navigate: (url: string | null | undefined) => void;
   navigateDom: (path: string) => Promise<boolean>;
 }) {
   return (
@@ -47,7 +46,7 @@ export function NativeOverlayHost({
               onClose={() => presenter.dismiss()}
               onOpenItem={(event) => {
                 presenter.dismiss();
-                navigate(event.deepLink);
+                void navigateDom(canonicalizeLink(event.deepLink) ?? '/');
               }}
             />
           ) : null}

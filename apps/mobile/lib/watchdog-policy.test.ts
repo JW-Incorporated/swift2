@@ -71,10 +71,9 @@ describe('quarantine', () => {
     expect(decideMount(ready, KEY, 3).record.fallbackCycles).toBe(0);
   });
 
-  it('does not clear the C4 override by itself and keeps the quarantined record', () => {
+  it('keeps the quarantined record', () => {
     const q = { ...freshRecord(KEY, 1), state: 'quarantined' as const, fallbackCycles: 2, lastReason: 'ready-timeout' };
     const d = decideMount(q, KEY, 9);
-    expect(d.clearOverride).toBe(false);
     expect(d.record).toMatchObject({ state: 'quarantined', lastReason: 'ready-timeout', at: 9 });
   });
 });
@@ -111,23 +110,20 @@ describe('the remote-flag loop is bounded', () => {
   });
 });
 
-describe('launch precedence: quarantine > override > cache > default', () => {
-  const rows: [string, boolean, boolean, boolean | null, boolean, boolean, string][] = [
-    ['quarantine beats override', true, true, true, true, false, 'quarantine'],
-    ['quarantine beats cache', true, false, true, true, false, 'quarantine'],
-    ['override beats cache off', false, true, false, false, true, 'override'],
-    ['override on, no cache', false, true, null, false, true, 'override'],
-    ['cache on beats default off', false, false, true, false, true, 'cache'],
-    ['cache OFF beats default ON (kill switch)', false, false, false, true, false, 'cache'],
-    ['no cache: default on', false, false, null, true, true, 'default'],
-    ['no cache: default off', false, false, null, false, false, 'default'],
+describe('launch precedence: quarantine > cache > default', () => {
+  const rows: [string, boolean, boolean | null, boolean, boolean, string][] = [
+    ['quarantine beats cache', true, true, true, false, 'quarantine'],
+    ['cache on beats default off', false, true, false, true, 'cache'],
+    ['cache OFF beats default ON (kill switch)', false, false, true, false, 'cache'],
+    ['no cache: default on', false, null, true, true, 'default'],
+    ['no cache: default off', false, null, false, false, 'default'],
   ];
-  it.each(rows)('%s', (_n, quarantined, override, cachedSharedUi, defaultSharedUi, wantsDom, source) => {
-    expect(resolveWantsDom({ quarantined, override, cachedSharedUi, defaultSharedUi })).toEqual({ wantsDom, source });
+  it.each(rows)('%s', (_n, quarantined, cachedSharedUi, defaultSharedUi, wantsDom, source) => {
+    expect(resolveWantsDom({ quarantined, cachedSharedUi, defaultSharedUi })).toEqual({ wantsDom, source });
   });
 
-  it('a quarantined build is native in the drill even with the override on', () => {
-    const rows2 = runDrill('hang', { launches: 8, override: true, cachedSharedUi: false });
+  it('a quarantined build is native in the drill even with the cache on', () => {
+    const rows2 = runDrill('hang', { launches: 8, cachedSharedUi: true });
     expect(rows2[7]).toMatchObject({ mount: 'native', skipped: true, source: 'quarantine' });
   });
 
@@ -137,7 +133,7 @@ describe('launch precedence: quarantine > override > cache > default', () => {
   });
 
   it('a network result is not an input: the decision is a pure function of local state', () => {
-    const a = resolveWantsDom({ quarantined: false, override: false, cachedSharedUi: false, defaultSharedUi: false });
+    const a = resolveWantsDom({ quarantined: false, cachedSharedUi: false, defaultSharedUi: false });
     expect(a.wantsDom).toBe(false);
   });
 });
@@ -205,9 +201,9 @@ describe('native mount reason', () => {
     const { nativeReasonFor, mountLine } = await import('./watchdog-policy');
     expect(nativeReasonFor({ wantsDom: false, source: 'quarantine' }, true)).toBe('quarantine');
     expect(nativeReasonFor({ wantsDom: false, source: 'cache' }, false)).toBe('flag-off');
-    expect(nativeReasonFor({ wantsDom: true, source: 'override' }, true)).toBe('watchdog-fallback');
+    expect(nativeReasonFor({ wantsDom: true, source: 'cache' }, true)).toBe('watchdog-fallback');
     expect(mountLine('native', 'pending-expired', null)).toBe('Mount: native (pending-expired)');
-    expect(mountLine('dom', null, 'override')).toBe('Mount: shared UI (override)');
+    expect(mountLine('dom', null, 'cache')).toBe('Mount: shared UI (cache)');
     expect(mountLine('pending', null, null)).toBe('Mount: pending');
   });
 });

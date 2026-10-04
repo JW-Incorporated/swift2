@@ -2,7 +2,6 @@
 // into. Extracted so App.tsx only passes props; all DOM-host composition lives here and in SharedUiHost.
 import { useRef, type ComponentProps } from 'react';
 import { diagCollector, diagMarkOnce } from '../lib/diagnostics';
-import type { RouteFlags } from '../lib/routes';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
 import { NativeOverlayHost } from './NativeOverlayHost';
@@ -14,18 +13,14 @@ export function DomHostMount({
   watch,
   forceFailure,
   siteUrl,
-  getRouteFlags,
   state,
   presenter,
-  navigate,
 }: {
   watch: DomWatch;
   forceFailure: DomFailureMode;
   siteUrl: string;
-  getRouteFlags: () => RouteFlags;
   state: OverlayProps['state'];
   presenter: OverlayProps['presenter'];
-  navigate: OverlayProps['navigate'];
 }) {
   const domNavigator = useRef<((path: string) => Promise<boolean>) | null>(null);
   return (
@@ -38,7 +33,6 @@ export function DomHostMount({
         watch={watch}
         forceFailure={forceFailure}
         siteUrl={siteUrl}
-        getRouteFlags={getRouteFlags}
         presentNativeRoute={presenter.presentNativeRoute}
         onDomNavigator={(fn) => {
           domNavigator.current = fn;
@@ -47,7 +41,6 @@ export function DomHostMount({
       <NativeOverlayHost
         state={state}
         presenter={presenter}
-        navigate={navigate}
         navigateDom={(path) => domNavigator.current?.(path) ?? Promise.resolve(false)}
       />
     </>

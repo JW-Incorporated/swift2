@@ -28,7 +28,6 @@ import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
-import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from '../lib/routes';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
@@ -49,16 +48,14 @@ export function SharedUiHost({
   watch,
   forceFailure,
   siteUrl,
-  getRouteFlags,
   presentNativeRoute,
   onDomNavigator,
 }: {
   onSignal: DomSignal;
   watch: DomWatch;
   forceFailure: DomFailureMode;
-  /** UI bridge `navigate` inputs (H4/D1 wires them from App.tsx); defaults: production site, DEFAULT_ROUTE_FLAGS. */
+  /** UI bridge `navigate` inputs (H4/D1 wires them from App.tsx); default: production site. */
   siteUrl?: string;
-  getRouteFlags?: () => RouteFlags;
   /** The D-7 presenter. Absent: a native-route `navigate` answers `failed`. */
   presentNativeRoute?: (path: WebPath) => unknown;
   /** Receives the live epoch's native-to-DOM navigator (null when the epoch ends), for native screens that hand a path to the DOM. */
@@ -84,8 +81,8 @@ export function SharedUiHost({
   ).current;
   useEffect(() => () => activeDeferral.cancel(), []);
   const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
-  const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator });
-  navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
+  const navRef = useRef({ siteUrl, presentNativeRoute, onDomNavigator });
+  navRef.current = { siteUrl, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
   const rawProbe = useRef<string | null>(null);
@@ -147,8 +144,6 @@ export function SharedUiHost({
       haptics: Haptics,
       platformOS: Platform.OS,
       log: onSignal,
-      siteUrl: navRef.current.siteUrl,
-      getFlags: () => navRef.current.getRouteFlags?.() ?? DEFAULT_ROUTE_FLAGS,
       getPresenter: () => navRef.current.presentNativeRoute,
     });
     const host = createBridgeHost({

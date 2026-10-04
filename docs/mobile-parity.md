@@ -1,10 +1,10 @@
 # Web to native parity inventory
 
 What the web app (`apps/web`) exposes, and whether the Expo app (`apps/mobile`)
-has a native equivalent. Native mapping comes from `apps/mobile/lib/routes.ts`
-(`resolve` / `isNativeRoute`, flags all ON via `DEFAULT_ROUTE_FLAGS`) and
-`apps/mobile/App.tsx` (`openNativeScreen`, `openWebUrl`), fed by
-`destinationFor` in `packages/shared/src/notification-deep-links.ts`. That
+has a native equivalent. Since One UI PR3 (2026-10-04) the shared-UI DOM host (`apps/mobile/dom/AppReader.tsx`)
+handles every surface except the native Inbox and About overlays; the
+legacy native screens and `resolve`/`openNativeScreen` routing were deleted.
+Deep-link kinds still come from `destinationFor` in `packages/shared/src/notification-deep-links.ts`. That
 function ignores the URL path and keys only on query params, so a web route
 is "native" only if it is the home screen or a deep-link kind below.
 
@@ -24,13 +24,13 @@ Native status values:
 
 | Surface | Kind | Native status | Notes |
 |---|---|---|---|
-| `/` | route | native screen (`apps/mobile/components/EraStreamScreen.tsx`) | Home. Any non-legal URL that resolves to `web` degrades to the era tab (`openWebUrl` in App.tsx). |
-| `/privacy` | route | web-only | Legal WebView via `apps/mobile/components/LegalPageScreen.tsx` (`legal-links.ts`). |
+| `/` | route | native screen (`apps/mobile/dom/AppReader.tsx`) | Home. Any non-legal URL that resolves to `web` degrades to the era tab (`openWebUrl` in App.tsx). |
+| `/privacy` | route | web-only | Shown by the DOM host's legal overlay (`apps/mobile/dom/slots/legal.ts`, `legal-links.ts`); the native LegalPageScreen WebView was deleted in One UI PR3. |
 | `/terms` | route | web-only | Same as `/privacy`. |
 | `/support` | route | web-only | Same as `/privacy`. |
 | `/settings/notifications` | route | web-only | Path is not matched by `destinationFor`, so it degrades to the era tab. The native settings screen is reached via `?screen=settings` (see `settings` below), not this path. |
 | `/internal/notifications` | route | N/A | Server-rendered internal metrics dashboard gated by `?secret=`; not linked from the public app. |
-| `?item=<id>` | query | native screen (`apps/mobile/components/MomentSheet.tsx`) | `destinationFor` returns kind `moment` for any non-empty id. Web also resolves non-moment ids as video slugs; native handling of a video slug is unverified. |
+| `?item=<id>` | query | native screen (`apps/mobile/dom/AppReader.tsx`) | `destinationFor` returns kind `moment` for any non-empty id. Web also resolves non-moment ids as video slugs; native handling of a video slug is unverified. |
 | `?song=<trackKey>` | query | web-only | Falls through to `web` then era tab. Native song screen needs `?screen=song&key=<trackKey>` instead. |
 | `?guide=<eraId>` | query | web-only | Falls through to `web` then era tab. Native track guide needs `?screen=track-guide&era=<eraId>` instead. |
 | `?theories=<eraId>` | query | web-only | No native theory guide found in `apps/mobile`; unverified beyond that search. |
@@ -40,22 +40,22 @@ Native status values:
 | `?lens=easter-eggs` | query | web-only | Same as `?lens=love-story`. |
 | `?lens=hidden-clues` | query | web-only | Same as `?lens=love-story`. |
 | `?lens=the-proposal` | query | web-only | Same as `?lens=love-story`. |
-| `?mode=threads` | query | native screen (`apps/mobile/components/ThreadsScreen.tsx`) | `destinationFor` returns kind `threads`. |
-| `?mode=community` | query | native screen (`apps/mobile/components/CommunityScreen.tsx`) | `destinationFor` returns kind `community`. |
-| `?mode=merch` | query | native screen (`apps/mobile/components/MerchScreen.tsx`) | `destinationFor` returns kind `merch`. |
+| `?mode=threads` | query | native screen (`apps/mobile/dom/AppReader.tsx`) | `destinationFor` returns kind `threads`. |
+| `?mode=community` | query | native screen (`apps/mobile/dom/AppReader.tsx`) | `destinationFor` returns kind `community`. |
+| `?mode=merch` | query | native screen (`apps/mobile/dom/AppReader.tsx`) | `destinationFor` returns kind `merch`. |
 | `?mode=clownbot` | query | web-only | `destinationFor` does not read this value, so the link degrades to the era tab. The native Clownbot screen is reached via `?screen=clownbot`. |
-| `?mode=mood` | query | web-only | Not read by `destinationFor`. A native mood mode exists inside `apps/mobile/components/ClownChatScreen.tsx` but has no deep link. |
+| `?mode=mood` | query | web-only | Not read by `destinationFor`. A native mood mode exists inside `apps/mobile/dom/AppReader.tsx` but has no deep link. |
 | `?era=<eraId>` | query | web-only | Not read by `destinationFor` outside `?screen=track-guide`; degrades to the era tab. |
 | `?current=inbox` | query | native screen (`apps/mobile/components/NotificationInboxScreen.tsx`) | `destinationFor` returns kind `inbox`. |
 | `?current=<other>` | query | web-only | Notification values such as `theories`, `merch`, `countdowns` or an event id. No reader found in `apps/web`, so what the site does with them is unverified. |
 | `kind: 'web'` | deep-link kind | web-only | Handed to the WebView only for the three legal pages; anything else degrades to the era tab. |
-| `kind: 'settings'` | deep-link kind | native screen (`apps/mobile/components/NotificationSettingsScreen.tsx`) | Reached via `?screen=settings`. |
+| `kind: 'settings'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=settings`. |
 | `kind: 'inbox'` | deep-link kind | native screen (`apps/mobile/components/NotificationInboxScreen.tsx`) | Reached via `?current=inbox`. |
-| `kind: 'era-stream'` | deep-link kind | native screen (`apps/mobile/components/EraStreamScreen.tsx`) | Reached via `?screen=era-stream`. |
-| `kind: 'threads'` | deep-link kind | native screen (`apps/mobile/components/ThreadsScreen.tsx`) | Reached via `?mode=threads`. |
-| `kind: 'community'` | deep-link kind | native screen (`apps/mobile/components/CommunityScreen.tsx`) | Reached via `?mode=community`. |
-| `kind: 'merch'` | deep-link kind | native screen (`apps/mobile/components/MerchScreen.tsx`) | Reached via `?mode=merch`. |
-| `kind: 'track-guide'` | deep-link kind | native screen (`apps/mobile/components/TrackGuideScreen.tsx`) | Reached via `?screen=track-guide&era=<eraId>`. |
-| `kind: 'song'` | deep-link kind | native screen (`apps/mobile/components/SongScreen.tsx`) | Reached via `?screen=song&key=<trackKey>`. |
-| `kind: 'clownbot'` | deep-link kind | native screen (`apps/mobile/components/ClownChatScreen.tsx`) | Reached via `?screen=clownbot`. |
-| `kind: 'moment'` | deep-link kind | native screen (`apps/mobile/components/MomentSheet.tsx`) | Reached via `?item=<id>`. |
+| `kind: 'era-stream'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=era-stream`. |
+| `kind: 'threads'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?mode=threads`. |
+| `kind: 'community'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?mode=community`. |
+| `kind: 'merch'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?mode=merch`. |
+| `kind: 'track-guide'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=track-guide&era=<eraId>`. |
+| `kind: 'song'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=song&key=<trackKey>`. |
+| `kind: 'clownbot'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?screen=clownbot`. |
+| `kind: 'moment'` | deep-link kind | native screen (`apps/mobile/dom/AppReader.tsx`) | Reached via `?item=<id>`. |

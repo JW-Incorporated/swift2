@@ -1,8 +1,5 @@
 // Shared file-system-backed `StorageAdapter` (OS-013's `@swift2/content`
-// contract) + published-bundle base URL — split out of `vault.ts` so
-// `era-stream-data.ts` (OS-032) can read the SAME on-disk cache and base URL
-// convention without a second copy of the expo-file-system wiring drifting
-// out of sync with the Vault reader.
+// contract) + published-bundle base URL.
 import * as FileSystem from 'expo-file-system';
 import type { StorageAdapter } from '@swift2/content';
 
@@ -39,8 +36,7 @@ function cacheFile(key: string): FileSystem.File {
 
 /** `StorageAdapter` (packages/content/src/cache.ts) backed by expo-file-system, so a bundle validated once survives
  * an app restart — the loader's `TransportError` fallback (offline, no network) can then serve last-good from disk
- * instead of only from the in-memory default. Shared by `vault.ts` (Tier 0/1) and `era-stream-data.ts` (OS-032) so
- * both read the same on-disk cache for the same bundle, rather than each keeping a separate copy warm. */
+ * instead of only from the in-memory default. */
 export function expoFileSystemStorageAdapter(): StorageAdapter {
   return {
     getItem(key: string): string | null {
