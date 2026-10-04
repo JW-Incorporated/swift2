@@ -57,6 +57,7 @@ the DOM bundles.
 | iOS `associatedDomains`, Android `intentFilters` (apex + www) | added; `.well-known` files withheld until WP2.3 |
 | `softwareKeyboardLayoutMode: "resize"` | added |
 | Share, Linking, scheme, notification categories, safe areas, SecureStore, file-system cache, status bar, expo-updates, splash hold | present |
+| `mailto:` via `openExternal` (WP2.13 A2b) | present: `Linking.openURL`; the handler and host validator accept only a bare `mailto:<address>` (`isMailtoUrl`), no native change |
 | ATS exception, `expo-web-browser`, `.well-known` files | not needed / withheld |
 
 JS-only additions for the test page: `tailwindcss`, `@tailwindcss/postcss`,
@@ -119,7 +120,7 @@ and a flipped default cannot be killed remotely.
 - **Bridge wiring (H0).** SharedUiHost builds one host + link per epoch
   (disposed on unmount; the DOM page is `key`ed by the epoch, so a recreated host
   always meets a freshly handshaking client) over `createUnwiredHandlers`: every
-  command answers `failed` until H1/H2/H3 supply real handlers. The DOM page gets two
+  command answers `failed` until H1/H3 supply real handlers; H2 adds `createLiveAppHandlers` (same map, `api` live over expo/fetch via `createLiveApiDeps`, expo-fetch-deps loaded lazily), and the DOM side `createBridgeApiFetch`/`createBridgeApiStream` (dom/bridge/api-fetch.ts). `apiStream` is buffered (G12): ClownChat in the app has no live investigation trail and shows its pending state until the full answer arrives (up to 60 s); request bodies are capped at 64 KB at the bridge boundary, responses at 256 KB. The SharedUiHost swap to `createLiveAppHandlers` and the app-adapter hookup land in W2-I. The DOM page gets two
   props: `inbox` (the host's un-acked sequenced envelopes, re-delivered whole)
   and `bridge` (a native action, `handlers.bridge`). `createBridgeLink`
   (lib/dom-host-handlers.ts) routes the host's `send`: sequenced envelopes go to

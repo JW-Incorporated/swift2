@@ -13,6 +13,7 @@ import {
   type SharePayload,
   type WebPath,
 } from '@swift2/ui';
+import { isAppOpenableUrl } from './mailto-allowlist';
 
 export type UiHandlerDeps = {
   /** Performs the in-app navigation for an already validated web path. */
@@ -70,7 +71,7 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
     },
     openExternal: async (payload) => {
       const p: unknown = payload;
-      if (!isRecord(p) || !isExternalUrl(p.url)) return invalid('openExternal: https urls only');
+      if (!isRecord(p) || !isAppOpenableUrl(p.url)) return invalid('openExternal: https or allow-listed mailto urls only');
       const url = p.url;
       return run(() => deps.openURL(url), 'openExternal');
     },
