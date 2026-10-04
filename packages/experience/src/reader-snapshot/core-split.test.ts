@@ -40,6 +40,6 @@ describe('core / extension split', () => {
   });
 
   it('a core snapshot cannot be hashed', async () => {
-    await expect(hashSnapshot(core as never)).rejects.toThrow(/merch, songMoods/);
+    await expect(hashSnapshot(core as never)).rejects.toThrow(/merch, songMoods, lore/);
   });
 });

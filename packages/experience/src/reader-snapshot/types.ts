@@ -13,8 +13,8 @@ import type {
 import type { SearchDoc } from '../search-index';
 import type { EraFeedEntry } from '../feed-types';
 
-/** Contract version, hashed with the domains: bump when a domain's shape changes. */
-export const READER_SNAPSHOT_VERSION = 1;
+/** Contract version, hashed with the domains: bump when a domain is added or its shape changes. 2: lore. */
+export const READER_SNAPSHOT_VERSION = 2;
 
 /**
  * 'error' = a last-good snapshot is shown and the latest refresh failed;

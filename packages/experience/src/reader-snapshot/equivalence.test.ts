@@ -104,7 +104,7 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
   });
 
   it('carries version and state; state and origin never change the hash', async () => {
-    expect(baked.version).toBe(1);
+    expect(baked.version).toBe(2);
     expect(baked.state).toBe('ready');
     const stale = fromBundle({ ...bundle, stale: true }, deps);
     expect(stale.state).toBe('stale');
@@ -125,6 +125,15 @@ describe('ReaderSnapshot equivalence (baked vs D1 bundle, same commit)', () => {
     const bakedSecond = fromBaked(mods, deps);
     expect((await hashSnapshot(bundleFirst)).hash).toBe((await hashSnapshot(fromFiles)).hash);
     expect((await hashSnapshot(bakedSecond)).hash).toBe((await hashSnapshot(baked)).hash);
+  });
+
+  it('an old bundle without clownbotLore builds with lore [] and every other domain unchanged', async () => {
+    const files = { ...bundle.files };
+    delete files.clownbotLore;
+    const old = fromBundle({ ...bundle, files }, deps);
+    expect(old.domains.lore).toEqual([]);
+    expect(fromFiles.domains.lore.length).toBeGreaterThan(0);
+    expect(await diffSnapshots(fromFiles, old)).toEqual(['lore']);
   });
 
   it('leaves the module-global providers as it found them', () => {

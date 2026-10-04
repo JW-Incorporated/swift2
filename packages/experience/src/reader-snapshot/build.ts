@@ -78,7 +78,9 @@ export function attachExtensions(
 ): ReaderSnapshot {
   return {
     ...core,
-    domains: { ...core.domains, merch: extensions.merch,
+    domains: {
+      ...core.domains,
+      merch: extensions.merch,
       songMoods: extensions.songMoods,
       lore: extensions.lore,
     },
@@ -99,26 +101,37 @@ export function buildReaderSnapshotCore(
 
   for (const era of inputs.eras) {
     const items = content[era.id] ?? [];
-    const videoFeed = deps.eraVideoFeed(inputs.videos[era.id] ?? [], embeddedYoutubeIds(items)) as VideoNote[];
+    const videoFeed = deps.eraVideoFeed(
+      inputs.videos[era.id] ?? [],
+      embeddedYoutubeIds(items),
+    ) as VideoNote[];
     const doorways = [
       ...threadDoorwaysForEraIn(corpus, era.id, era.start, era.end),
       ...eggDoorwaysForEraIn(corpus, era.id, era.start, era.end),
     ];
-    const vm = buildEraStreamViewModel({ era, items, videoFeed, doorwayEntries: doorways, filters: new Set() });
-    eraStream[era.id] = { videos: videoFeed.map((v) => v.slug), doorways, entries: vm.entries.map(entryKey) };
+    const vm = buildEraStreamViewModel({
+      era,
+      items,
+      videoFeed,
+      doorwayEntries: doorways,
+      filters: new Set(),
+    });
+    eraStream[era.id] = {
+      videos: videoFeed.map((v) => v.slug),
+      doorways,
+      entries: vm.entries.map(entryKey),
+    };
 
-    trackGuide[era.id] = (inputs.tracks[era.id] ?? []).map(
-      (track): TrackGuideEntry => {
-        const next = nextTrackOnAlbumIn(corpus, era.id, track);
-        return {
-          key: trackKey(era.id, track),
-          next: next ? trackKey(era.id, next) : null,
-          explore: keepExploringIn(corpus, era.id, track).map((c) =>
-            c.kind === 'song' ? `song:${c.track.slug}` : `moment:${c.item.id}`,
-          ),
-        };
-      },
-    );
+    trackGuide[era.id] = (inputs.tracks[era.id] ?? []).map((track): TrackGuideEntry => {
+      const next = nextTrackOnAlbumIn(corpus, era.id, track);
+      return {
+        key: trackKey(era.id, track),
+        next: next ? trackKey(era.id, next) : null,
+        explore: keepExploringIn(corpus, era.id, track).map((c) =>
+          c.kind === 'song' ? `song:${c.track.slug}` : `moment:${c.item.id}`,
+        ),
+      };
+    });
   }
 
   const domains: ReaderSnapshotCoreDomains = {
@@ -129,7 +142,10 @@ export function buildReaderSnapshotCore(
     eraStream,
     theories: inputs.theories,
     eraSecrets: inputs.eraSecrets,
-    threads: THREADS.map((t) => ({ id: t.id, itemIds: contentForThreadIn(corpus, t.id).map((i) => i.id) })),
+    threads: THREADS.map((t) => ({
+      id: t.id,
+      itemIds: contentForThreadIn(corpus, t.id).map((i) => i.id),
+    })),
     searchIndex: sortedDocs(buildSearchDocs(inputs)),
     tracks: inputs.tracks,
     trackGuide,

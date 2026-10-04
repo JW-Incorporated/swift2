@@ -42,11 +42,11 @@ describe('hashSnapshot', () => {
     await expect(hashSnapshot(snap as unknown as ReaderSnapshot)).rejects.toThrow(new RegExp(`missing domains: ${name}`));
   });
 
-  it('throws on a core-only snapshot, naming merch and songMoods', async () => {
+  it('throws on a core-only snapshot, naming merch, songMoods and lore', async () => {
     const core = Object.fromEntries(
       Object.entries(fullDomains).filter(([k]) => k !== 'merch' && k !== 'songMoods' && k !== 'lore'),
     );
     const snap = { version: 1, state: 'ready', origin: { kind: 'baked' }, domains: core };
-    await expect(hashSnapshot(snap as unknown as ReaderSnapshot)).rejects.toThrow(/merch, songMoods/);
+    await expect(hashSnapshot(snap as unknown as ReaderSnapshot)).rejects.toThrow(/merch, songMoods, lore/);
   });
 });
