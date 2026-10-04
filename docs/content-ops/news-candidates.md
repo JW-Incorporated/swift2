@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 67
+
+## Taylor Swift Issued Warning Ahead of Chiefs vs Raiders Game
+
+- first seen: 2026-10-04 23:56 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was warned prior to the upcoming game between the Kansas City Chiefs and the Las Vegas Raiders. The warning included a message to 'better watch yourself'.
+- sources:
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiiAFBVV95cUxNeEp6OWltYl9XcTJ1cVM0enFmZENZdWNBa0t2cVY5T2RtT01HSVo5VFdSSmd3eW8taHRVTTY2OEx2UkMyQ2U3Nk52T3NuNFFsOXJNb3VDT05vWTdjNWVZSi1RTU5yU2FLYUlCYXdWVVdGYkpoTl81MWVXbjgxaU82MzZfM1VUY2hG?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Upcoming NFL Appearance Could Happen in Vegas
+
+- first seen: 2026-10-04 23:56 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is expected to appear at an upcoming NFL game in Las Vegas, featuring the Chiefs versus Raiders. Fans can find information on how to watch the game for free online.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMivgFBVV95cUxQVHZ5eURRUExTNHdsQjlicXFpX3RDUld6Wlo4ZFhzTFJrWDlUX0NHWllIQ3hMVk1aVXpXbURtVmU5Z0xzamhmSUczNFFWQmhyTzZPazNEM3ZnajRZeHcxRGI2V2E0WDBDb1RlY0pOQ2czS1RfT3doTW1RYlgwR0FOZUpwWXBKdUdkMi1KVjYzTnFPLUNpR2Q2YzgtdFBQaTAzNlZ0SE9qUnRhTEs4SHBJSndTYVpLZXhEVGRWMkVR?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Dakota Johnson Performs with Taylor Swift on SNL
+
+- first seen: 2026-10-04 23:56 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Dakota Johnson appeared alongside Taylor Swift in sketches and monologues during the October 3 episode of SNL. The collaboration showcased their comedic timing and on-stage chemistry.
+- sources:
+  - [unverified] NBC TV — https://news.google.com/rss/articles/CBMihwFBVV95cUxQTXhlY2kzNVgycENaVmtoRlJ6Yk8tS0o2MGFpT0UxdXozcHRMSWVZcm1MMDFWeVdpYW4yWTRSVWc2ZFZhdGJwSGZNQmg4WjBpNThyMHVMMVNveXZYMFo2V1JnQzdnamx1OEU0Z0JhVzUxTk50TE1vWmdla21TSFZaY1NuOE9jWTQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's 'Encore' Edition Returns 'Showgirl' to No. 1
+
+- first seen: 2026-10-04 23:56 UTC | category: release | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: The expanded edition of Taylor Swift's 'The Life of a Showgirl' titled 'The Encore' has led the album back to the top of the Billboard 200 chart for the first time since January. This marks the album's 13th week at No. 1.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-showgirl-encore-album-chart-number-one-1236898681/
+
+## Former Raider Issues Warning to Taylor Swift Before Upcoming Game
+
+- first seen: 2026-10-04 23:56 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A former football player from the Raiders has issued a warning to Taylor Swift that is gaining attention ahead of the Sunday game. The comments have sparked discussions among fans and media outlets alike.
+- sources:
+  - [unverified] OregonLive.com — https://news.google.com/rss/articles/CBMizgFBVV95cUxQNFduekhPd2dKc3dFV2dqb2lkVjBLMGpIYmY5dWZJY2FNdlF3ZWZxSmlEcGRSRlBtSTgyNGpqZElXczZRRkVLWTZlekdmRmxyZUw5U1U3TnE4c0lUdUR0ZzlfV0JiRU5OeVNKM1YtT1pmSVB1dzN3NkxNWUF1R0lacTlDV0ZvZ0lrZEdIM2NXaGdudTFzWk5ic0otNGVaNGJOQmNCUHo4YU1HdzgtUnFYQndvTExpUzM0Q1RwTFlDVXF0ekp2M2ZxUGk2M08xZw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift's Attendance at Travis Kelce's Game on October 4
 
@@ -38,10 +78,11 @@ Stories: 74
 ## Taylor Swift's 'SNL' Appearance Supports Fan Theories
 
 - first seen: 2026-10-04 20:07 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift's recent appearance on 'SNL' has confirmed a number of theories proposed by fans, sparking discussion and interest.
 - sources:
   - [unverified] The Zoe Report — https://news.google.com/rss/articles/CBMickFVX3lxTE9fUGh6eGhWZHlyZnZoTnNYajFvMk1BOG02ZmIzdnpDNUg3SXJoekpacHNlcnlSNGFrMEFkWktrSkNRbFFpdFowcjBSWGkzU2lLenVzeksxdWNYV0g1TzdRNG1CTXRDeFQxOWtOUEVFUldIQQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMioAFBVV95cUxQN1FGcmtEN2hzN2NGMnVINHU3OU5ma290X1hoVHctZk1xNFhGQTFaY1dCa29fcHpVcGRtcEJ0VUR0S3RjaU12dW5Vdkc1RmViNG9YQy0yN3FGNzJhMldORGNUaDhqRDR4Z29KX3NpNUtlOXVoejdBSE9JaVpPc09jd1hab0dfQUN4eTBhNHNsbU1EVzJiNXJoYkM5V0lvOERO?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Discusses Support Role for Dakota Johnson Post-Breakup
 
@@ -201,13 +242,15 @@ Stories: 74
 ## Taylor Swift Surprises Audience with Appearance on 'SNL'
 
 - first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 7
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift unexpectedly appeared during an episode of 'SNL', delighting fans and viewers. This surprise moment added excitement to the show's lineup for the night.
 - sources:
   - [unverified] boston.com — https://news.google.com/rss/articles/CBMimwFBVV95cUxPSTZxLXJqcUN5b1E2ZEEtTjF3STMyUVZrVGtHZ3VQdFl0UThWdWE4Z0o3NFIyeWdYZjd6ZVRsX3p2MTM3QzM0eFlGWDRGWkhWWVJWUDVVQ1pUMFlhZENvS0UzdkF5X0pvUUljX2t3UW0xMktiU2l5NDd3RXdHNzF2eVV4NVVwMlFtV01WZlViWGo1SHYyc0FFLWYtaw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] CNN — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZFlPV1FnNVlFVDNFUjhDbFNpazhBM3FwbjlsWkliWnJ5WDM0Y3p4VVY4elQzU2I1d1BKUEFpSF93cnNPTFJFUEswY0sxUFIxM056LVZRQ0xNTTNnWi1yMC1IenQ3Y25ia0x4V2YwU19OTjZWU3FSTVZMYkplakMtaVZ5aF81alB4dWd0c2xicXlzZDQ5YkZQUjZ6QkVWMVNWdGlpeGNxNjFuRFpvSlhjTFJnUXp3QlNL?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] NBC News — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdnItUndZWFNSUDduWUdyTmNBR08tcE9pckduWnpoako4ci16TGRsVG8wZkVQS1EwRHpzOF81TV9VbEduZHBEZW5MMmFWZ3pZbjJKMmRoRFhGblNscVpXOThoQVVvVlZCYjFFakxvOEhBaDNDTnN5eVJ0aFhta3N3RUJ3M3NiRFJuYlBhaG9ROWpVaFdySmlIdkVoN3F0dVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMimgFBVV95cUxPQzlKSTFkNVEyOGJzTnZDQUVscks3N3dnY0RpMU5ia2hrSjdZMEt2YzlPSkxCMG04QlJJd1N4eFZZdkRuMjJ4S0lEV3dnQ2s4SHlpS1pLT0tSSTJXNzFyenNlTzZFLUpxenBOSkFaMks2emUxNExjdFk3TmVHcnY0OVVLRFhDSWJLTzB6Z1ZISFczbnpOeHN2eWV3?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNaThkekZ3TXB4VzNOVm1yRHhHbVdqdUFSQ25TdEpUb0hzX1B3cy05RjhvQnpKWGRnekpsZ3pGWEVuTkh3cFE1UEFwTDZrNVpqSlU5UTlMQVU0TFMtN3NjOGxKSnpTZU1Lc0NFMFRfYlhkRmlHaWRZVkJqc3JjalVLanBYNlVrTS1lYkFpTFZBb3ZaaUhYRU1Bc3AxYXJCVzNKbWN4V2RUaHhVdlV3YWpjYUJFX0gxNmkx?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Big Lead — https://news.google.com/rss/articles/CBMigAFBVV95cUxPb19PdzNrS3J2eUZ1WmlxakZIMEtXN0NzMVhDUDNUTmxYTS00UU11bXZjVmVWZnBpbGNnWnhYUnBXbG9sbUp1TlNDcEtLVWNnN2ppdHVYRFNhZDViS09RQXFYR1g0eHJxd1diS1FMaV9tdU9pTFlLeW0zdjVZbm1nTw?oc=5&hl=en-US&gl=US&ceid=US:en
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMisAFBVV95cUxQV3hkQkJKM0lZTllHQmMwVnVqMk5JaHlyaUQxYVBNNTJHQk5vNzFrb0JZdmVTM0FQWW9VYlJZYUlYUzhiLVVNbUtBNWJHUms2SUdzd3MyclV5Q2lpTTJzOHlNc3BBdDQ3RFFmbUJ5MmhxUEticzRzT1k4ZzQ3c0tHYnF6QkZ5NGhZUjdxTURrVENhMXMtYzB4WjJFbWF0cEtLdV95VzhwV09aTDRHSXlBVg?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/tv-and-radio/2026/oct/04/saturday-night-live-dakota-johnson-host-taylor-swift-cameo
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPYlUyOHNqNVZIQmxaYzZLZm5LMGx6QW5RUl82T2FhU2JOV0pRNnF1TGFvbkxfdDBEN2YtRXZTNTFHYjA1Z0xIU2dJTHZpS21HU0xFdktWV0MxYVNQUnQ2cmR2d1J0RGx4dDM2eWJmbVdKV3pkQWJpTWN6Wlc5ZFZ4cmN0aXZxckJ1cGVyLVcyYWlUYmZVbTFSMA?oc=5&hl=en-US&gl=US&ceid=US:en
@@ -555,100 +598,3 @@ Stories: 74
 - summary: Travis Kelce addressed mixed reactions from fans regarding Taylor Swift's song 'Cleveland!', which some critics described as showcasing her at her 'worst'. Additionally, a local board approved a privacy fence for their home following neighbor concerns.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxQMUtFd0lCVVpTemRveW04MFYycWlEbVBxWGVITTRQT3VhdWV3dTBjaGUzNlZ2Sm0tM0JVRFhMZHdadHpMYTFmMlhGU1UzUzYxWU5rNXBwZkx2VDBlNXF5TGZlTGdtSVQ3djRsOEQzZDlRaERZcW1Wbm5xTWZUVGpYSVRJZUhJQzVraTlfcjhvNFRqTUM0MGgtMWtQZXNwUzlNLUtj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Xtra Magazine Discusses Taylor Swift's Current Status
-
-- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Xtra Magazine features an article discussing Taylor Swift's current state in the music industry. The piece outlines her recent activities and public perception.
-- sources:
-  - [unverified] Xtra Magazine — https://news.google.com/rss/articles/CBMie0FVX3lxTFByYmpBOTZzd1YyUktPRzY4TnBxanR4UUZTRV81bDJXTnpSanR3T2lSYXlCdGN4am9ibURXX1ZzZVlZSjlJV3plOXIwU05EbmliTlgteHBRMnlBY3JMOXF4QXdJSENHUS1HYzRFelh1dkZYNlR6OTNPQ1N0Yw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Impact at the VMAs Sparks Discussion on Music Video Importance
-
-- first seen: 2026-10-01 21:47 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's significant presence at the VMAs has led to a broader conversation about the relevance of music videos in today's industry. The discussion highlights her influence and the changing landscape of music consumption.
-- sources:
-  - [unverified] BBC — https://news.google.com/rss/articles/CBMiW0FVX3lxTE1KRzRPVGtva3FSWDZYV1hRWFFhbDl2dW1uSnFYRFVyQUNaMGFlSDNwQnpnRVJXZTFWdmFFeFhSQXRzMV9tcUZUX1RmRERfR3lMaDM4VXlJWUgzb2s?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Fans Create Lip Reading of Swift and Farrell's Scene in 'Patient Zero'
-
-- first seen: 2026-10-01 21:47 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Fans have put together a lip reading interpretation of the argument between Taylor Swift and Colin Farrell in the film 'Patient Zero'. This creative endeavor highlights fan engagement with Swift's recent projects.
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMiqwFBVV95cUxOY0VUa3VDeXktWEo5QU9TdTNXb3pvVDdMV1JfaXpzLUlxbVl0NkxEdnUxaElHUi1oTWFGa3NEenNDUXg3T1hRTXlRbnNiZXFyZ2ljLURaRW5NZWZvZ1BjX25tQ3Q5eHh5NldhN1B0SVlPaW5NRjR1cDM1MnRPY1hQdDF1RVRDUGRCSlp4TkFaSDJXSTUtS0FWSkVfQTV0eEZSZExyRkVVQ2YyTnc?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxPc0Y1V0xya3VnQnFDNW8wT2RvZjgzYVpid0ZmbHVOM2pwU1hxeEJBU1AweDlRT3d0eEszN25sUXFYVlhLc1pVYzE2bkdsR3hzV3hpcmhhVEFVWjh2MVpCY24wSVpmRy16QnlDSndxazc4OU5jRFZMOUFSTFBLWTZjQ3FlTUlLbFdQazFzejgzQ0ZybXFVMTRSOUxhUWdVcXVMbkJsd2UyYlFhLXRDM3oxQmdYTTJGUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Matthew Stafford Explains Taylor Swift Cameo Reason
-
-- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Matthew Stafford discusses the motivation behind his cameo with Taylor Swift, as reported by New York Post. The details reveal insights into Stafford's perspective on the appearance.
-- sources:
-  - [unverified] New York Post — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQRU1xb1BnUDJHalhMZlNKZHF5Y1RsSldxdEJneHlFblVITHJka3FvYXpWbDYwdnhoRi15WUI3b0JkTDJ5dmdHNVF3WVlNS3d0bjNWQ2dQcU4tWHhFMTVnTGJHejhOb2tHOVY3cy1yWDdHdnRKTnlaX2pOTUNtZDdFSkxmLTE3VkFRRVQ1Uy1FWHpwNU41QlFoVWxsTFNCUDJmV3FieHM5bkZuR29kNlg1bGRHZE1xaU5BV1ROOVBjZE9lOHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Receives Artist Director Honor at VMAs, Details Revealed by Producer
-
-- first seen: 2026-10-01 21:47 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The VMAs producer shared insights into the decision to honor Taylor Swift with the Artist Director title. This recognition highlights her impact and achievements in the music industry.
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRndLZHY2RHZHbnQzXzRYajZrSG1leXlFaTR3TEpidGk5SnFlc3VQbzF1Z2I4dFNmTUNtaGVEOWFNMm1kRkU3QktWR3NVZGp6dUhpNDQwSW5OcFg1cnh1Q2FGdXVlUXVsckNwYlphMGZkalRQZy0yVVBTMEpfdDBmS3F5S0Rpa2pMYUppWkRsWkh5aUxVLV8xVGQ2T0ttTl82?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Responds to Criticism of New Songs Following Fan Backlash
-
-- first seen: 2026-10-01 21:47 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly affected by the recent criticism directed at her new songs after some backlash from fans. This reaction highlights the impact of fan responses on her music.
-- sources:
-  - [unverified] The Express Tribune — https://news.google.com/rss/articles/CBMitAFBVV95cUxPQkJWb3hNUFVPc2tHSUkwOUpMNm1Ua212OHN0MnotbDJtSVlIVFMzRlZ5ZWVjQ2xxcklfTU5oNkNHcGpiaHRvSl96N1cyUGMtUThyTUo5U0ZpWFlUd1RfdHVTNHVONEFPOWk3SDlIb3M0bGU2dDZMTnFMMnd1NTRNdVZudEpfVG9QakI1T0tReEVjUVNSTVJiazVKS253Wkk0bUNxc0VoOHdLUGJuQ2o3X3piVWfSAbwBQVVfeXFMT1JDVGZZWlY3TXg2dlB5c3pscFloSTBJRk0xcTF6eEpOUmtxSjFRUWZnNjM2QmdKcllPd2tIYVhfTXBOZEVLX3dvaHVCdHVzV05VWE40V0lFWnBXS2pIX1U5ZU9BQTNPTVBFZzRfdzRmbDZmdkJfWkRVVlBmNV9JbzE1X3A5Ym5aQWk1OWR0c2dGaVFaNGFSdlpPSWJBWlJxdUVpbWtDSVV5QzFkUWVfZmpMY0drVUlXRk1sZHM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Matthew Stafford Discusses Taylor Swift's Cameo Origin
-
-- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Matthew Stafford from the LA Rams shares insights on who influenced Taylor Swift's recent cameo. The revelation highlights connections between sports and entertainment.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxPeGtsWmhvRGZ0NVNlSEcxSTFyUVRhQ2JTX2hGSlNDX1lRZjEwNnpoMjl2Q2NFMnRybWpRRDZTRk5CTkpZeExoMk9FOEJmcF95MzRIajVFTVlBLWcza1pGT3RhQjRuRjRPZTRxdzdoWDh3QXN2V1ZEbnFwUkRRbXp4Q3RiSTBIc2VfazN2dE1WVG52UDhMSXJwWXFSRjBxdFl4d3BJOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Le Silla Sandals at MTV VMAs 2026
-
-- first seen: 2026-10-01 21:47 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: At the 2026 MTV VMAs, Taylor Swift completed her look with stunning Le Silla sandals as she is awarded the first-ever MTV VMA Artist Director Honors.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-le-silla-sandals-mtv-vmas-2026-1239282862/
-
-## Kylie Kelce Apologizes to Kate Middleton
-
-- first seen: 2026-10-01 21:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce, who is Taylor Swift's sister-in-law, has issued an apology to Kate Middleton. Details surrounding the situation have emerged.
-- sources:
-  - [unverified] HOLA — https://news.google.com/rss/articles/CBMitwFBVV95cUxQZExjNTdVUGt2MGlEMGtER0NqZTJuT3FSNnAzS1QyOFQ3Z2hURU1teVZFYVJTdXR0SlRWX1QyUGppdkpVcHlxUFd2VGRONEJQUlhqeExtZElGQVZ1QUxqVWxRcXdYZ0ZWbjgydUdPNTB2WWtmdVNCY3RweExGdG1aUF8tcnoxWXdkNlFnNU9pS2VqNVNJR0dHckZwY29wWUxRUEdWT0NsZXNxN1MzbkpTWm5VSlBZZ00?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Patient Zero' house sold for nearly $47 million
-
-- first seen: 2026-10-01 21:47 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report reveals that Taylor Swift's 'Patient Zero' house has been sold for approximately $47 million. The sale has drawn attention due to the significant price tag associated with the property.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxQN0RDS3FiNUFBTk9WdnhJdW5TbmN2UURHSmZZdHJwaXNSalMxZU1uc2NoX1Q0amZDaU1HMThqTENOTEJVeHJOZFAxd2RlMEpJQzNRdURKdXEtamxqZlcwMy1VTTZKODA2bHVuZFVJTkJrWVFCOTA4MTZkXzJVSHl0NDg5bDFXQVhvMFVxb3Q2OXU1TmoycnNSSnhISDFXZw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Sister-in-Law Issues Apology to Kate
-
-- first seen: 2026-10-01 21:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's sister-in-law has apologized for an offensive remark made after reports surfaced that Princess Kate did not attend Swift's wedding. The situation drew attention due to the implications for their relationship.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMnY0VHZwS3RZLTloR09lcVF5YnhiMm1nazJsdkppSVpkbTFjT1ppSUc5emJ3a2ZKTm1GekEwQkNXOHgwdjEtbGR0X19Ocm1TSVRPSllyQk9odFdqRU9EMDBlOG4xNTdwQjJSTzRHN09zYmtKdW82TFFCekhpc29oS2o3dGpwdmZMOWs5V0x3SC1hS0FCRFZZQ0YzTDBEU1E3ZWJBNDI1UQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Albums Continue to Climb Ahead of Potential No. 1 Return
-
-- first seen: 2026-10-01 21:47 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's albums are experiencing a notable rise in the charts, potentially leading to her return to the No. 1 position soon. This shift highlights her ongoing popularity in the music industry.
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMiygFBVV95cUxQeDBacklrUVdReTdmSmlXczl1X2FqLUt3VGRTLVZEU0NicmpvaC1hTllfNFZCTXVaekZjOWw1d0pwc3ItZk5ic0czVUF2ZU1yQXlBOHJuS3ZIN1YxZVpOY1p5Um1JRnFvalFIYWpnZWt4UndZWFl3cVlSR2N1SjRaVXhGZHA1WlpNR3Bhc0d0aHpyZ2tiQnNDR2FYTjAyU2djTzFUMHZXYWhlTjQ3a1hYc2xmZGo1bEk0SGZfcmdkZmhTLTVEb1pkeEdn?oc=5&hl=en-US&gl=US&ceid=US:en
