@@ -132,6 +132,7 @@ States: queued · in progress · in review · merged · blocked on <x> · droppe
 
 | Date | Question | Advice | PM decision |
 |---|---|---|---|
+| 2026-10-04 07:06 | #4960 2nd Codex rejection (mandatory) | Spike adapter sets embedOrigin=base.env.origin now; proxy matcher drops prefetch `missing` (option a, single header source); scoped reviewer acceptance listed | Adopted |
 | 2026-10-04 06:39 | **G0 go/no-go** (Android-only S4; owner deferred iOS) | GO with conditions. Reject https baseUrl; #4954 fix = apps/web wrapper `/embed/youtube/[id]` + packages/ui iframe switch when host is app (new W1-F), must play on device at S5 + iOS-1 before Wave 5; new hard gate **iOS-1** (iPhone+iPad, build 38 + Wave 1–3 OTA, S4 checklist, H4/D2 ready→ack on both OS, WP1.1 WebKit leg green) before Wave 4; #4953 in W1-B: SafeAreaView edges [] around DOM host, DOM sole inset owner, retest top hot corner after; 5/5 speed capture folded into S5/iOS-1; #4955 backlog | Adopted in full |
 | 2026-10-02 | Plan review (pre-kickoff) | Blocker: no CORS on `/content`; watchdog too late; missing native-needs audit; `next/font` breaks parity; PROGRESS landing, kickoff prompt, OTA freeze undefined | All five required edits and the minor notes adopted (WP0.3b, WP0.4b, needs matrix, fonts in WP2.1, OPERATING-MODE §3/§6/§8 kickoff, `[diag]` → one issue, perceptual diff, OTA size budget) |
 
