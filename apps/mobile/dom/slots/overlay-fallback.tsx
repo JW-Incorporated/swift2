@@ -5,7 +5,7 @@
 // Overlays with no native screen at all (search) keep their state, emit a diag, and are an interim
 // gap until their slices land (#4972 search, after iOS-1). One row per overlay id; each slice D
 // deletes its own row (and, for modes, its entry in MODE_PATHS) when it registers the real slot.
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppActions, useAppState, type AppMode, type AppState } from '@swift2/ui/reader/store/index';
 import { useReaderControls } from '../bridge/reader-controls';
 
@@ -82,20 +82,35 @@ export function OverlayFallback() {
   return null;
 }
 
-/** ReaderSlots.fallback: a mode with no surface goes native once; the reader returns to the last slotted mode only after native presented it. */
+/** ReaderSlots.fallback: a mode with no surface goes native once; the reader returns to the last slotted mode only after native presented it. A failed handoff shows a visible placeholder, never a blank screen. */
 export function ModeFallback({ mode }: { mode: AppMode }) {
   const { openNative, diag, lastSlotted } = useReaderControls();
   const { setMode } = useAppActions();
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
     let live = true;
+    setFailed(false);
     void openNative(modeFallbackPath(mode)).then((ok) => {
-      if (!ok) return diag('fallback-native-failed', `mode:${mode}`);
       if (!live) return;
+      if (!ok) {
+        diag('fallback-native-failed', `mode:${mode}`);
+        setFailed(true);
+        return;
+      }
       setMode(lastSlotted.current as AppMode);
     });
     return () => {
       live = false;
     };
   }, [mode]);
-  return null;
+  if (!failed) return null;
+  return (
+    <section role="status" className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
+      <p className="text-lg font-semibold capitalize">{mode}</p>
+      <p className="text-sm opacity-70">Coming in the next update.</p>
+      <button type="button" className="rounded-full border border-white/30 px-5 py-2 text-sm" onClick={() => setMode(lastSlotted.current as AppMode)}>
+        Back to eras
+      </button>
+    </section>
+  );
 }
