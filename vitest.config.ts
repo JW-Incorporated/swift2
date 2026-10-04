@@ -30,6 +30,7 @@ export default defineConfig({
     globalSetup: ['./scripts/lib/test/sync-web-react-globalSetup.ts'],
     include: [
       'packages/**/*.test.ts',
+      'packages/**/*.test.tsx',
       'apps/web/**/*.test.ts',
       'apps/web/**/*.test.tsx',
       'apps/worker/**/*.test.ts',

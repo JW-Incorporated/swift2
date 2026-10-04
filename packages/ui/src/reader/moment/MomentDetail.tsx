@@ -4,7 +4,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from './lib/useFocusTrap';
 import { createPortal } from 'react-dom';
-import { useHost } from '../../host/context';
+import { useHost, useResolveUrl } from '../../host/context';
 import { useReader } from '../../snapshot/context';
 import {
   X,
@@ -352,6 +352,7 @@ function MomentLightbox({
    *  the way an inline card's cropped thumbnail can (#834). */
   title: string;
 }) {
+  const resolveUrl = useResolveUrl();
   const img = images[index];
   const count = images.length;
   const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -438,9 +439,9 @@ function MomentLightbox({
       <div className="relative min-h-0 flex-1">
         <ZoomableImage
           key={img.url}
-          src={img.url}
+          src={resolveUrl(img.url)}
           alt={img.caption ?? `Photo — ${title}`}
-          unoptimized={isRemoteUrl(img.url)}
+          unoptimized={isRemoteUrl(resolveUrl(img.url))}
           fit="contain"
           frameClassName="h-full w-full"
           // Fullscreen has nothing behind it to scroll, so the plain wheel
@@ -488,6 +489,7 @@ export function MomentDetail() {
   const q = useReader();
   const host = useHost();
   const { Image } = host;
+  const resolveUrl = useResolveUrl();
   const { getContentItem } = useReader();
   const { openItemId } = useAppState();
   const { closeItem, goHome, openItem } = useAppActions();
@@ -582,7 +584,7 @@ export function MomentDetail() {
   // must not reappear woven through the body.
   const heroImage: ImageRef | undefined = primaryImageRef(item);
   const hero: ImageRef | undefined = heroVideo ? undefined : heroImage;
-  const heroUrl = hero?.url ?? '/placeholder.svg';
+  const heroUrl = resolveUrl(hero?.url ?? '/placeholder.svg');
   // Everything the body may weave in: not the hero's own image, and not a still
   // of footage this page plays. Identity alone is not enough — "'Elizabeth
   // Taylor' goes to radio" carries maxres3 (promoted to the hero) AND maxres2,
@@ -1091,7 +1093,7 @@ function ShopTheLook({
  * Renders nothing when nothing resolves, so an item whose links all dangle
  * degrades to the previous behaviour rather than showing an empty shell.
  */
-function RelatedMomentsRail({
+export function RelatedMomentsRail({
   related,
   onOpen,
 }: {
@@ -1099,6 +1101,7 @@ function RelatedMomentsRail({
   onOpen: (id: string) => void;
 }) {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   if (related.length === 0) return null;
 
   return (
@@ -1125,11 +1128,11 @@ function RelatedMomentsRail({
               >
                 {thumb && (
                   <Image
-                    src={thumb.url}
+                    src={resolveUrl(thumb.url)}
                     alt=""
                     width={56}
                     height={56}
-                    unoptimized={isRemoteUrl(thumb.url)}
+                    unoptimized={isRemoteUrl(resolveUrl(thumb.url))}
                     className="h-14 w-14 shrink-0 rounded-lg object-cover"
                     style={{ objectPosition: focalPointOf(thumb) }}
                     onLoad={autoFocalPoint(thumb)}
