@@ -56,6 +56,8 @@ describe('createAppHandlers', () => {
         'notifications.savePrefs',
         'notifications.unregister',
         'notifications.registration',
+        'notifications.onboardingOffered',
+        'notifications.markOnboardingOffered',
         'openExternal',
         'share',
       ].sort(),

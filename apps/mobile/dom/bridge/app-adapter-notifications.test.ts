@@ -30,6 +30,22 @@ describe('app adapter notifications -> bridge', () => {
     ]);
   });
 
+  it('maps the one-time offer flag to its two commands; a failure throws (fail closed upstream)', async () => {
+    const call = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, value: { offered: false } })
+      .mockResolvedValueOnce({ ok: true, value: null })
+      .mockResolvedValueOnce({ ok: false, error: { code: 'failed', message: 'x' } });
+    const n = adapterWith(call).notifications!;
+    expect(await n.onboardingOffered!()).toBe(false);
+    await n.markOnboardingOffered!();
+    await expect(n.onboardingOffered!()).rejects.toThrow(/^notification request failed$/);
+    expect(call.mock.calls.slice(0, 2)).toEqual([
+      ['notifications.onboardingOffered', {}],
+      ['notifications.markOnboardingOffered', {}],
+    ]);
+  });
+
   it('returns the bridge value and throws fixed text on failure', async () => {
     const call = vi
       .fn()
