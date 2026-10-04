@@ -12,6 +12,7 @@ import { eraVideoFeed } from '@swift2/content-enrichment';
 import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
 import type { NavigateDeps } from './bridge/navigate-subscriber';
 import { backFromDomPath, currentDomUrl, setDomPath } from './bridge/dom-path';
+import { showDomPath } from './bridge/dom-path-commit';
 import { createNavigateDom, installReaderBridge } from './bridge/reader-nav';
 import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
@@ -99,7 +100,7 @@ export default function AppReader(props: AppReaderProps) {
   const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
   const navigateDeps = useRef<NavigateDeps>({
     replaceUrl: (relative) => window.history.replaceState(window.history.state, '', relative),
-    setPath: (path) => setDomPath(path),
+    setPath: (path) => showDomPath(path),
     apply: (search) => (applierRef.current ? applierRef.current(search) : Promise.reject(new Error('reader not mounted'))),
   }).current;
   const controls = useMemo<Omit<ReaderControls, 'slottedModes'>>(

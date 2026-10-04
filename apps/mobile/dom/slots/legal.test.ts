@@ -9,7 +9,9 @@ import { LEGAL_FACTS } from '@swift2/ui/reader/legal/lib/legal';
 // @ts-expect-error no types for the deep path; only the runtime module matters
 vi.mock('react', async () => await import('../../../web/node_modules/react/index.js'));
 import { createAppAdapter } from '../bridge/app-adapter';
-import { backFromDomPath, currentDomUrl, setDomPath } from '../bridge/dom-path';
+import { backFromDomPath, currentDomPath, currentDomUrl, setDomPath } from '../bridge/dom-path';
+import { showDomPath } from '../bridge/dom-path-commit';
+import { applyNavigateEvent } from '../bridge/navigate-subscriber';
 import { createNavigateDom } from '../bridge/reader-nav';
 import { createSlotRegistry } from './registry';
 import { resetSlotsForTests, slots } from './instance';
@@ -100,17 +102,58 @@ describe('legal pages through the real app adapter', () => {
     expect(call).not.toHaveBeenCalled();
   });
 
-  it('covers reader chrome (a z-71 floating button) and makes it inert while a legal page is active, then restores it', async () => {
+  it('is portaled to <body> outside the themed reader shell, with no width-consuming scrollbar', () => {
+    const { adapter, container } = mount(h('div', { className: 'era-shell', style: { '--era-bg': '#8b5a2b' } as never }, h(LegalOverlay)));
+    act(() => adapter.navigate('/privacy'));
+    const layer = document.querySelector('[data-legal-page]') as HTMLElement;
+    expect(layer.parentElement).toBe(document.body);
+    expect(layer.closest('.era-shell [data-legal-page]')).toBeNull();
+    expect(container.contains(layer)).toBe(false);
+    expect(layer.style.scrollbarWidth).toBe('none');
+  });
+
+  it('covers reader chrome (a z-71 floating button) and makes the reader inert while a legal page is active, then restores it', async () => {
     const reader = h('div', null, h('button', { 'data-testid': 'floating', className: 'z-[71]' }, 'Send feedback'), h(LegalOverlay));
-    const { adapter, container } = mount(reader);
+    const { adapter } = mount(reader);
     const button = screen.getByTestId('floating');
     expect(button.closest('[inert]')).toBeNull();
     act(() => adapter.navigate('/terms'));
-    const layer = container.querySelector('[data-legal-page]') as HTMLElement;
+    const layer = document.querySelector('[data-legal-page]') as HTMLElement;
     expect(layer.className).toContain('z-[80]');
-    expect(button).toHaveAttribute('inert');
-    expect(layer).not.toHaveAttribute('inert');
+    expect(button.closest('[inert]')).not.toBeNull();
+    expect(layer.closest('[inert]')).toBeNull();
     act(() => void backFromDomPath());
-    await waitFor(() => expect(button).not.toHaveAttribute('inert'));
+    await waitFor(() => expect(button.closest('[inert]')).toBeNull());
+  });
+
+  it('a legal page opens scrolled to the top, also when reached from a scrolled footer', () => {
+    const { adapter } = mount();
+    act(() => adapter.navigate('/privacy'));
+    const first = document.querySelector('[data-legal-page]') as HTMLElement;
+    first.scrollTop = 900;
+    expect(first.scrollTop).toBe(900);
+    fireEvent.click(screen.getByRole('link', { name: 'Terms of Use' }));
+    const second = document.querySelector('[data-legal-page="terms"]') as HTMLElement;
+    expect(second).not.toBe(first);
+    expect(second.scrollTop).toBe(0);
+  });
+});
+
+describe('native-to-DOM navigate to a legal path (real subscriber + rendered overlay)', () => {
+  it('acks ok only once the legal layer has committed', async () => {
+    const { adapter } = mount();
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true), setPath: showDomPath };
+    expect(await applyNavigateEvent({ path: '/support' as never }, deps)).toBe(true);
+    expect(document.querySelector('[data-legal-page="support"]')).not.toBeNull();
+    expect(adapter.currentUrl?.()).toMatch(/\/support$/);
+    expect(await applyNavigateEvent({ path: '/?item=a' as never }, deps)).toBe(true);
+    expect(document.querySelector('[data-legal-page]')).toBeNull();
+    expect(deps.apply).toHaveBeenCalledWith('?item=a');
+  });
+
+  it('answers false and restores the previous path when no legal layer is mounted', async () => {
+    const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => true), setPath: showDomPath };
+    expect(await applyNavigateEvent({ path: '/privacy' as never }, deps)).toBe(false);
+    expect(currentDomPath()).toBe('/');
   });
 });
