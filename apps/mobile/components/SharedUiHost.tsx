@@ -51,6 +51,7 @@ export function SharedUiHost({
   siteUrl,
   getRouteFlags,
   presentNativeRoute,
+  onDomNavigator,
 }: {
   onSignal: DomSignal;
   watch: DomWatch;
@@ -60,6 +61,8 @@ export function SharedUiHost({
   getRouteFlags?: () => RouteFlags;
   /** The D-7 presenter. Absent: a native-route `navigate` answers `failed`. */
   presentNativeRoute?: (path: WebPath) => unknown;
+  /** Receives the live epoch's native-to-DOM navigator (null when the epoch ends), for native screens that hand a path to the DOM. */
+  onDomNavigator?: (fn: ((path: string) => Promise<boolean>) | null) => void;
 }) {
   const [testPage, setTestPage] = useState<boolean | null>(null);
   const [source, setSource] = useState<ReaderSource | null>(null);
@@ -81,8 +84,8 @@ export function SharedUiHost({
   ).current;
   useEffect(() => () => activeDeferral.cancel(), []);
   const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
-  const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute });
-  navRef.current = { siteUrl, getRouteFlags, presentNativeRoute };
+  const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator });
+  navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
   const rawProbe = useRef<string | null>(null);
@@ -179,6 +182,7 @@ export function SharedUiHost({
     });
     const binder = createTapBinder({ gate: notificationTapGate, host: target, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
     ref.target = target;
+    navRef.current.onDomNavigator?.(target.navigateDom);
     ref.binder = binder;
     ref.host = host;
     hostRef.current = host;
@@ -190,6 +194,7 @@ export function SharedUiHost({
     setInbox([]);
     setSession({ epoch, link, binder });
     return () => {
+      navRef.current.onDomNavigator?.(null);
       hostRef.current = null;
       emitRef.current = null;
       disposeEpoch(binder, host, link);
