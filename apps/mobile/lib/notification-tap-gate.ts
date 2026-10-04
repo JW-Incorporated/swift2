@@ -12,6 +12,7 @@
 import type { Tap, TapQueue, AckRef, RawTap } from './notification-tap-queue';
 import { canonicalizeLink, createTapQueue } from './notification-tap-queue';
 import type { EventPayloadOf } from '@swift2/ui';
+import { toDomTapPath, toNativeTapPath } from '../dom/slots/settings-paths';
 
 /** The slice of BridgeHost the gate needs. */
 export type TapHost = {
@@ -66,7 +67,7 @@ export function createTapGate(opts: {
     return async (tap: Tap, signal?: AbortSignal) => {
       let ref = refs.get(tap) ?? null;
       if (!ref) {
-        ref = h.emit('navigate', { path: tap.path, source: 'notification' });
+        ref = h.emit('navigate', { path: toDomTapPath(tap.path) as Tap['path'], source: 'notification' });
         if (ref) refs.set(tap, ref);
       }
       if (!ref) return false;
@@ -99,7 +100,7 @@ export function createTapGate(opts: {
     target = next;
     if (native) {
       const go = native;
-      queue.attach(async (tap: Tap) => (go(`${opts.siteUrl}${tap.path}`), true));
+      queue.attach(async (tap: Tap) => (go(`${opts.siteUrl}${toNativeTapPath(tap.path)}`), true));
     } else if (host) queue.attach(hostSink(host));
     else queue.detach();
     kick();

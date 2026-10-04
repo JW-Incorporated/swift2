@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider, type HostNotifications } from '@swift2/ui';
 import { createWebAdapter } from '@/lib/host-adapter';
 import { SettingsPage } from '../../../mobile/dom/slots/settings-page';
+import { inboxOverlay, resetInboxOverlayForTests } from '../../../mobile/dom/slots/inbox-store';
 import { resetSettingsOverlayForTests, settingsOverlay } from '../../../mobile/dom/slots/settings-store';
 
 // apps/mobile resolves its own pinned React copy; send its specifiers to the one apps/web renders with.
@@ -41,6 +42,7 @@ function mount(n: HostNotifications) {
 
 afterEach(() => {
   resetSettingsOverlayForTests();
+  resetInboxOverlayForTests();
   cleanup();
 });
 
@@ -94,22 +96,21 @@ describe('SettingsPage (app host overlay)', () => {
     await waitFor(() => expect(screen.getByRole('switch')).toBeTruthy());
   });
 
-  it('hides the native rows when the bridge does not answer', async () => {
+  it('hides the inbox row when the bridge does not answer', async () => {
     const n = notifications();
     n.status = vi.fn().mockRejectedValue(new Error('no bridge'));
     mount(n);
     act(() => settingsOverlay.open());
     await screen.findByRole('button', { name: /enable notifications/i });
     expect(screen.queryByRole('button', { name: 'Notification inbox' })).toBeNull();
-    expect(screen.queryByRole('button', { name: 'About' })).toBeNull();
   });
 
-  it('shows the Inbox and About rows and they navigate natively', async () => {
+  it('shows the Inbox row (no About row) and it opens the DOM inbox overlay, not a native route', async () => {
     const { navigate } = mount(notifications());
     act(() => settingsOverlay.open());
+    expect(screen.queryByRole('button', { name: 'About' })).toBeNull();
     fireEvent.click(await screen.findByRole('button', { name: 'Notification inbox' }));
-    expect(navigate).toHaveBeenCalledWith('/inbox');
-    fireEvent.click(await screen.findByRole('button', { name: 'About' }));
-    expect(navigate).toHaveBeenCalledWith('/settings/about');
+    expect(inboxOverlay.isOpen()).toBe(true);
+    expect(navigate).not.toHaveBeenCalled();
   });
 });
