@@ -56,9 +56,9 @@ describe('applyNavigateEvent', () => {
     expect(await applyNavigateEvent({ path: '/?item=gone' as never }, deps)).toBe(false);
   });
 
-  it('an apply failure reports false', async () => {
+  it('an apply failure propagates (no answer is not an ok:false answer)', async () => {
     const deps = { replaceUrl: vi.fn(), apply: vi.fn(async () => Promise.reject(new Error('boom'))) };
-    expect(await applyNavigateEvent({ path: '/?item=a' as never }, deps)).toBe(false);
+    await expect(applyNavigateEvent({ path: '/?item=a' as never }, deps)).rejects.toThrow('boom');
   });
 });
 
@@ -159,8 +159,8 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
     e.dispose();
   });
 
-  it('a DOM failure answers ok:false, which is consumed (never retried at the head until TTL)', async () => {
-    const e = epoch({ apply: async () => Promise.reject(new Error('boom')) });
+  it('an unresolved target answers ok:false, which is consumed (never retried at the head until TTL)', async () => {
+    const e = epoch({ apply: async () => false });
     await e.ready();
     e.gate.enqueue({ id: 'f1', deepLink: '/?item=abc' });
     await vi.waitFor(() => expect(e.deps.replaceUrl).toHaveBeenCalled());
@@ -224,6 +224,34 @@ describe('installNavigateSubscriber delivery dedupe (lost confirmation)', () => 
     expect(sent.filter((s) => s.type === 'navigated')).toEqual([
       { type: 'navigated', payload: { id: 't1-1', ok: true } },
       { type: 'navigated', payload: { id: 't1-1', ok: true } },
+    ]);
+  });
+
+  it('a throwing apply sends no navigated, and the same id re-invokes apply on retry', async () => {
+    const { client, fire, sent } = fake();
+    const apply = vi.fn().mockRejectedValueOnce(new Error('no reader')).mockResolvedValue(true);
+    installNavigateSubscriber(client, { replaceUrl: vi.fn(), apply });
+    fire('t9-1');
+    await tick();
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([]);
+    fire('t9-1');
+    await tick();
+    expect(apply).toHaveBeenCalledTimes(2);
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([{ type: 'navigated', payload: { id: 't9-1', ok: true } }]);
+  });
+
+  it('apply -> false answers navigated ok:false once; a repeated id is answered from the cache', async () => {
+    const { client, fire, sent } = fake();
+    const apply = vi.fn(async () => false);
+    installNavigateSubscriber(client, { replaceUrl: vi.fn(), apply });
+    fire('t9-2');
+    await tick();
+    fire('t9-2');
+    await tick();
+    expect(apply).toHaveBeenCalledTimes(1);
+    expect(sent.filter((s) => s.type === 'navigated')).toEqual([
+      { type: 'navigated', payload: { id: 't9-2', ok: false } },
+      { type: 'navigated', payload: { id: 't9-2', ok: false } },
     ]);
   });
 

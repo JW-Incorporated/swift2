@@ -55,7 +55,7 @@ describe('InboxOverlay (app host)', () => {
   });
 
   it.each([
-    ['https://longlivets.com/vault#x', '/vault#x'],
+    ['https://longlivets.com/?item=x#y', '/?item=x#y'],
     ['/?item=rel', '/?item=rel'],
   ])('canonicalizes same-site link %s to %s', async (link, expected) => {
     const { navigate } = mount({ host: notifications, body: { events: [{ ...ROW, deep_link: link }] } });
