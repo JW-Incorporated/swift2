@@ -87,7 +87,7 @@ or `…/lib/<module>`; populate a barrel only when a consumer needs it.
 - Tests that stay in `apps/web` (web data or render harness): `MomentDetail.test.tsx`, `related.test.ts`. Source-reading tests (`back-dismiss`, `escape-dismiss`, `focal-point-rendering`, `modal-focus-trap`, `card-chrome`) now read the moved `MomentDetail.tsx`; `modal-focus-trap` expects the new relative `useFocusTrap` import.
 - Hooks `useHost`/`useReader` are imported from `../../host/context` and `../../snapshot/context` (package-internal), a two-line import edit.
 - `noUncheckedIndexedAccess`: type-only `!` assertions in a separate commit, zero runtime change.
-- Debt: `MomentDetail.tsx` (1216) and `ZoomableImage.tsx` (382) over the 300-line rule; moved as-is.
+- Debt: `ZoomableImage.tsx` (382) over the 300-line rule; moved as-is. `MomentDetail.tsx` (was 1216) is now split into `reader/moment/{ConfidenceBanner,RumorSection,MomentFigure,MomentLightbox,MomentHero,MomentHeader,MomentSources,MomentClueCards,MomentThreadLinks,RelatedMomentsRail,ShopTheLook,momentShared}` (all <300); it still re-exports `RelatedMomentsRail`.
 
 ### WP2.6 threads
 
