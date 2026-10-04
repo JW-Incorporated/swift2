@@ -10,7 +10,7 @@ import { isSettingsPath, resetSettingsOverlayForTests, settingsOverlay } from '.
 // Registers what settings.ts registers (the native /inbox route is host.routes.ts), against registries reset after each test.
 function registerSettings() {
   register({ slice: SETTINGS_SLICE, slots: { 'overlay:settings': SettingsPage } });
-  registerRoutes({ slice: 'host', nativeRoutes: [{ id: 'host:inbox', match: '/inbox' }] });
+  registerRoutes({ slice: 'host', nativeRoutes: [{ id: 'host:inbox', match: '/inbox' }, { id: 'host:about', match: '/settings/about' }] });
 }
 
 afterEach(() => {
@@ -25,14 +25,15 @@ describe('settings slice', () => {
     expect(slots()['overlay:settings']).toBe(SettingsPage);
   });
 
-  it('lists only the Inbox row (no About under the app host)', () => {
-    expect(SETTINGS_NATIVE_ROWS.map((r) => r.path)).toEqual(['/inbox']);
+  it('lists the Inbox and About rows', () => {
+    expect(SETTINGS_NATIVE_ROWS.map((r) => r.path)).toEqual(['/inbox', '/settings/about']);
   });
 
-  it('keeps /inbox native; /settings, /settings/notifications and /settings/about are not native', () => {
+  it('keeps /inbox and /settings/about native; /settings and /settings/notifications are not', () => {
     registerSettings();
     expect(isNativeRoute('/inbox')).toBe(true);
-    for (const p of ['/settings', '/settings/notifications', '/settings/about']) expect(isNativeRoute(p)).toBe(false);
+    for (const p of ['/settings', '/settings/notifications']) expect(isNativeRoute(p)).toBe(false);
+    for (const p of ['/inbox', '/settings/about']) expect(isNativeRoute(p)).toBe(true);
   });
 
   it('every row path is a registered native route', () => {

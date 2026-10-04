@@ -34,15 +34,11 @@ import {
 } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useNotificationTaps } from './lib/use-notification-taps';
-import type { EraId, TrackNote } from '@swift2/experience';
-import { resolveTrackKey } from '@swift2/experience';
 import {
   DEFAULT_ROUTE_FLAGS,
   createNavigate,
   resolve as resolveRoute,
-  type NativeParams,
   type RouteFlags,
-  type ScreenId,
 } from './lib/routes';
 import { loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
@@ -50,26 +46,11 @@ import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { registerDevice } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
-import { hasOnboardingBeenOffered, markOnboardingOffered } from './lib/onboarding-state';
-import { isLegalPageUrl, legalPageUrl, type LegalPageId } from './lib/legal-links';
+import { hasOnboardingBeenOffered } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
-import { visibleScreen } from './lib/visible-screen';
-import { ensureTrackGuideWired, loadTrackGuide } from './lib/track-guide-data';
+import { useNativeScreenState } from './lib/use-native-screen-state';
 import { SITE_URL, type NativeBridgeMessage } from './components/SiteShell';
-import { NotificationSettingsScreen } from './components/NotificationSettingsScreen';
-import { NotificationInboxScreen } from './components/NotificationInboxScreen';
-import { OnboardingScreen } from './components/OnboardingScreen';
-import { EraStreamScreen } from './components/EraStreamScreen';
-import { ThreadsScreen } from './components/ThreadsScreen';
-import { CommunityScreen } from './components/CommunityScreen';
-import { MerchScreen } from './components/MerchScreen';
-import { TrackGuideScreen } from './components/TrackGuideScreen';
-import { SongScreen } from './components/SongScreen';
-import { MomentSheet } from './components/MomentSheet';
-import { ClownChatScreen } from './components/ClownChatScreen';
-import { BottomTabBar, type HomeTab } from './components/BottomTabBar';
-import { HomeTopBar } from './components/HomeTopBar';
-import { LegalPageScreen } from './components/LegalPageScreen';
+import { NativeScreenRouter } from './components/NativeScreenRouter';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { DiagHotCorner } from './components/DiagHotCorner';
 import { DomHostMount } from './components/DomHostMount';
@@ -84,155 +65,9 @@ import { useNativeOverlay } from './lib/use-native-overlay';
 installDiagnostics();
 installSpeedTest();
 
-/**
- * OS-035's two param-carrying screens don't fit the existing plain-boolean
- * `xOpen` state slots the other screens use (they need an eraId, and `song`
- * additionally needs which track) — this union is the minimal extension of
- * that pattern rather than a bigger routing refactor. `null` = neither is
- * showing (i.e. some other screen or the WebView owns the view).
- */
-type TrackGuideRouteState =
-  | { screen: 'track-guide'; eraId: EraId }
-  | { screen: 'song'; eraId: EraId; track: TrackNote }
-  | null;
-
 export default function App() {
-  // OS-039: the native home is now always one of the five BottomTabBar
-  // worlds — this replaces the old "webUrl state that defaults to the site
-  // root" posture. `legalUrl` is the ONLY thing that still drives a WebView
-  // load; it is null whenever no legal page is showing (i.e. every other
-  // screen state below takes priority in the render tree).
-  const [activeTab, setActiveTab] = useState<HomeTab>('era');
-  const [legalUrl, setLegalUrl] = useState<string | null>(null);
-  // Where a legal page's Done button returns to: Settings when it was opened
-  // from Settings → About, otherwise the home tab that was already active.
-  const [legalReturnTo, setLegalReturnTo] = useState<'settings' | null>(null);
-  // Notifications Phase 1 (spec §8): the bell is reachable from every screen
-  // → Notification Settings. App.tsx renders one screen at a time, so the
-  // native screens are full-bleed overlays toggled by local state.
-  const [notificationSettingsOpen, setNotificationSettingsOpen] = useState(false);
-  const [inboxOpen, setInboxOpen] = useState(false);
-  // Phase 2 (spec §7): the pre-permission onboarding screen, shown at most
-  // once per install, at the value moment of the first bell tap.
-  const [onboardingOpen, setOnboardingOpen] = useState(false);
-  // OS-035: the native track guide / song dossier, reached via
-  // `?screen=track-guide` / `?screen=song` (both flag-on by default since
-  // OS-039 — see routes.ts). See `TrackGuideRouteState`'s doc for why this
-  // is a small union rather than another plain boolean.
-  const [trackGuideRoute, setTrackGuideRoute] = useState<TrackGuideRouteState>(null);
-  // Tracks for the era currently open in `trackGuideRoute` — loaded async
-  // via `loadTrackGuide` (the published bundle, OS-035's data layer) and
-  // kept alongside the route so both TrackGuideScreen and SongScreen (which
-  // needs the full album list for Previous/Next) can read it without each
-  // re-fetching. Cleared whenever the route's era changes so a stale list
-  // never renders while the new era's fetch is in flight.
-  const [trackGuideTracks, setTrackGuideTracks] = useState<TrackNote[]>([]);
-  // OS-033: the native moment detail sheet, reached via `?item=<id>` (the
-  // `moment` route flag is on by default since OS-039 — see routes.ts).
-  // Holds the id rather than a boolean since the sheet needs it to load the
-  // moment.
-  const [momentItemId, setMomentItemId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!trackGuideRoute) return;
-    let cancelled = false;
-    setTrackGuideTracks([]);
-    loadTrackGuide(trackGuideRoute.eraId)
-      .then((tracks) => {
-        if (!cancelled) setTrackGuideTracks(tracks);
-      })
-      .catch((e) => {
-        console.warn('loadTrackGuide failed', e instanceof Error ? e.message : e);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [trackGuideRoute?.eraId]);
-
-  // OS-030: the single navigate(url) every entry point below funnels
-  // through — deep links, inbox rows, the web→native bridge, and (via
-  // SiteShell's onShouldStart) in-WebView link clicks to native-capable
-  // routes. `resolve()` already applies the per-screen feature flags, so
-  // toggling one takes effect on the very next navigation with no rebuild.
-  // OS-039: `era-stream`/`threads`/`community`/`merch`/`clownbot` no longer
-  // get their own boolean — they ARE the five BottomTabBar tabs, so
-  // resolving one of them just switches `activeTab` (closing every other
-  // overlay first, same as every other branch here always has).
-  const openNativeScreen = useCallback((screen: ScreenId, params: NativeParams = {}) => {
-    setNotificationSettingsOpen(false);
-    setInboxOpen(false);
-    setOnboardingOpen(false);
-    setTrackGuideRoute(null);
-    setMomentItemId(null);
-    setLegalUrl(null);
-    setLegalReturnTo(null);
-    if (screen === 'settings') {
-      setNotificationSettingsOpen(true);
-    } else if (
-      screen === 'era-stream' ||
-      screen === 'threads' ||
-      screen === 'community' ||
-      screen === 'merch' ||
-      screen === 'clownbot'
-    ) {
-      setActiveTab(screen === 'era-stream' ? 'era' : screen);
-    } else if (screen === 'track-guide') {
-      // routes.ts only resolves this screen when `params.eraId` is present
-      // (see `paramsForDestination`/`destinationFor`'s track-guide arm) —
-      // the fallback below is unreachable in practice, kept only so this
-      // function never silently no-ops on a malformed call.
-      if (params.eraId) setTrackGuideRoute({ screen: 'track-guide', eraId: params.eraId as EraId });
-    } else if (screen === 'song') {
-      const key = params.trackKey;
-      if (!key) return;
-      // The song screen also needs the resolved TrackNote (not just its
-      // key) — `resolveTrackKey` needs the tracks provider wired first, so
-      // this ensures the bundle is loaded before resolving. `loadTrackGuide`
-      // (below, via the route-state effect) redundantly re-wires the same
-      // provider for the era once `trackGuideRoute` is set, which is a
-      // no-op past the first call (see track-guide-data.ts's `tracksWired`
-      // guard) — cheap, and keeps this branch simple rather than needing
-      // its own loading state.
-      ensureTrackGuideWired()
-        .then(() => {
-          const resolved = resolveTrackKey(key);
-          if (resolved) {
-            setTrackGuideRoute({ screen: 'song', eraId: resolved.eraId, track: resolved.track });
-          } else {
-            console.warn('resolveTrackKey: unknown or stale song key', key);
-          }
-        })
-        .catch((e) => {
-          console.warn('ensureTrackGuideWired failed', e instanceof Error ? e.message : e);
-        });
-    } else if (screen === 'moment' && params.itemId) {
-      setMomentItemId(params.itemId);
-    } else {
-      setInboxOpen(true);
-    }
-  }, []);
-
-  // OS-039: a URL `resolve()` hands to `openWeb` is one of two things now —
-  // a legal page (`/privacy`, `/terms`, `/support`), which the WebView still
-  // renders, or anything else (a bare site root, an off-site URL, a stale
-  // notification param with no native screen), which degrades to the
-  // native home rather than ever loading the WebView on a non-legal route
-  // (this card's own "done when": no route resolves to `web` except the
-  // legal pages).
-  const openWebUrl = useCallback((url: string) => {
-    setNotificationSettingsOpen(false);
-    setInboxOpen(false);
-    setOnboardingOpen(false);
-    setTrackGuideRoute(null);
-    setMomentItemId(null);
-    setLegalReturnTo(null);
-    if (isLegalPageUrl(url, SITE_URL)) {
-      setLegalUrl(url);
-    } else {
-      setLegalUrl(null);
-      setActiveTab('era');
-    }
-  }, []);
+  const nav = useNativeScreenState();
+  const { setOnboardingOpen, openNativeScreen, openWebUrl } = nav;
 
   // Remote kill switch: starts on the compiled defaults (startup never waits
   // on the network); the ref lets the stable callbacks below read the latest
@@ -337,22 +172,6 @@ export default function App() {
     [openNativeScreen, openSettings],
   );
 
-  // App Store 5.1.1(i)/5.1.2(i): Settings → About and the Clownbot AI
-  // disclosure open the legal pages through the same `openWebUrl` path.
-  const openLegalPage = useCallback(
-    (page: LegalPageId, returnTo: 'settings' | null) => {
-      openWebUrl(legalPageUrl(page, SITE_URL));
-      setLegalReturnTo(returnTo);
-    },
-    [openWebUrl],
-  );
-
-  const closeLegalPage = useCallback(() => {
-    setLegalUrl(null);
-    setLegalReturnTo(null);
-    if (legalReturnTo === 'settings') setNotificationSettingsOpen(true);
-  }, [legalReturnTo]);
-
   // OS-033: a moment id from anywhere in the native tree (era-stream cards,
   // a song dossier's "Keep exploring" connection) funnels through the same
   // navigate() every other entry point uses, so the moment/eraStream/
@@ -363,14 +182,6 @@ export default function App() {
     [navigate],
   );
 
-  const screen = visibleScreen({
-    settingsOpen: notificationSettingsOpen,
-    inboxOpen,
-    trackGuideScreen: trackGuideRoute?.screen ?? null,
-    momentOpen: Boolean(momentItemId),
-    onboardingOpen,
-    legalOpen: Boolean(legalUrl),
-  });
 
   return (
     <GestureHandlerRootView style={styles.fill}>
@@ -393,87 +204,15 @@ export default function App() {
             />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
-          ) : screen === 'inbox' ? (
-            <NotificationInboxScreen
-              onClose={() => setInboxOpen(false)}
-              onOpenItem={(event) => navigate(event.deepLink)}
-            />
-          ) : screen === 'settings' ? (
-            <NotificationSettingsScreen
-              onClose={() => setNotificationSettingsOpen(false)}
-              onOpenInbox={() => setInboxOpen(true)}
-              onOpenLegalPage={(page) => openLegalPage(page, 'settings')}
-            />
-          ) : screen === 'track-guide' && trackGuideRoute?.screen === 'track-guide' ? (
-            <TrackGuideScreen
-              eraId={trackGuideRoute.eraId}
-              tracks={trackGuideTracks}
-              onOpenSong={(track) =>
-                setTrackGuideRoute({ screen: 'song', eraId: trackGuideRoute.eraId, track })
-              }
-            />
-          ) : screen === 'song' && trackGuideRoute?.screen === 'song' ? (
-            <SongScreen
-              eraId={trackGuideRoute.eraId}
-              track={trackGuideRoute.track}
-              onOpenSong={(eraId, track) => setTrackGuideRoute({ screen: 'song', eraId, track })}
-              // OS-033 ships the native moment sheet: a "Keep exploring"
-              // moment connection now opens it (through the same navigate()
-              // every other entry point uses), replacing the documented
-              // no-op OS-035 left here pending this card.
-              onOpenMoment={openMoment}
-            />
-          ) : screen === 'moment' && momentItemId ? (
-            <MomentSheet itemId={momentItemId} onClose={() => setMomentItemId(null)} />
-          ) : screen === 'onboarding' ? (
-            <OnboardingScreen
-              onDone={() => {
-                setOnboardingOpen(false);
-                markOnboardingOffered().catch(() => {
-                  /* best-effort — a re-offer on the next bell tap is harmless */
-                });
-                // Onboarding is only ever shown by the settings gate, so the
-                // user asked for Settings: land there whichever way they
-                // finished (a preset already applied its prefs + fired the
-                // OS permission dialog; Customize skips straight to it).
-                openNativeScreen('settings');
-              }}
-            />
-          ) : screen === 'legal' && legalUrl ? (
-            // OS-039: the WebView's LAST remaining job — one of the three
-            // legal pages. No native-capable-link interception here (a
-            // legal page has no in-page links back into the app's own
-            // native-capable routes worth intercepting); `navigate` still
-            // handles the rare in-page link to another part of the site.
-            // LegalPageScreen adds the Done button back out.
-            <LegalPageScreen
-              onClose={closeLegalPage}
-              url={legalUrl}
-              onBridgeMessage={handleBridgeMessage}
-              isNativeCapableUrl={isNativeCapableUrl}
-              onNativeCapableLinkPress={navigate}
-            />
           ) : (
-            <View style={styles.fill}>
-              <HomeTopBar onOpenSettings={openSettings} />
-              <View style={styles.fill}>
-                {activeTab === 'era' ? (
-                  <EraStreamScreen onOpenItem={openMoment} />
-                ) : activeTab === 'threads' ? (
-                  <ThreadsScreen />
-                ) : activeTab === 'clownbot' ? (
-                  <ClownChatScreen
-                    onClose={() => setActiveTab('era')}
-                    onOpenPrivacyPolicy={() => openLegalPage('privacy', null)}
-                  />
-                ) : activeTab === 'community' ? (
-                  <CommunityScreen />
-                ) : (
-                  <MerchScreen />
-                )}
-              </View>
-              <BottomTabBar active={activeTab} onChange={setActiveTab} />
-            </View>
+            <NativeScreenRouter
+              nav={nav}
+              navigate={navigate}
+              openSettings={openSettings}
+              openMoment={openMoment}
+              handleBridgeMessage={handleBridgeMessage}
+              isNativeCapableUrl={isNativeCapableUrl}
+            />
           )}
         </SafeAreaView>
         {!updateRequired && shouldMountHotCorner(domMount.mount) && <DiagHotCorner />}
