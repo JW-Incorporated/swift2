@@ -1,6 +1,11 @@
 // @vitest-environment jsdom
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
+
+// apps/mobile resolves its own react copy; the renderer is apps/web's, so pin hooks to the same one.
+// @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
+vi.mock('react', async () => await import('../../../web/node_modules/react'));
+
 import { act, render } from '@testing-library/react';
 import { createExpoBridge } from './transport-expo';
 import { createBackResponder, useBackRegistration } from './back-responder';
