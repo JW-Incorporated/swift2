@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 74
+
+## Details Emerge on Dakota Johnson and Colin Farrell's Disagreement
+
+- first seen: 2026-10-04 14:46 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent report uncovers the reasons behind a disagreement between Dakota Johnson and Colin Farrell. Further context on their altercation has drawn attention from fans and media alike.
+- sources:
+  - [unverified] Vulture — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNS0QzRll5S09vYzdYMnQ0THlCWG5vUFM4ZENKSjZxSU1FYUg2bkl2U3dxakhzRG1mX1FkczlCS3g4OWJOU0c2dTdIa0cwaGdMdnp3dTFJWlVyUHJyMmZDU1RKYzVOTjZjVlZwSG9QT01MSlV5XzgyM1kyYTZqX0ZWaXF1V3M3a2VnaFZsXzFvaV9iZXV3R3I0UGtjRHcxYVBHRmFwVm0tZEc3Zw?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift's Game Day Outfits Remain Fashionable
+
+- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses the timeless nature of Taylor Swift's game day outfits and their enduring style appeal. It highlights how her fashion choices resonate with fans and continue to influence trends.
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPSU1GcmZtQkJRSEU0bEluMUtmejVHeHY0UkNoT3Z5azFvSGM3UTNObDFDQVVWT3lSQVc5ZTdvYXU5SlViQ2tPSE52a3c4RFVHd1l2YVNSZkR0UEd2ZEVKdEJTZFJCMkJRLVJuWWNMZFZkVXpIcFlwaEVfZWtnWXBCQS1oaUdBS0pHUkoyaXZyUDNBWmhmdHliTEVvNWQ?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift and Dakota Johnson Showcase Unique Bestie Style on SNL
+
+- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: During her appearance on SNL, Taylor Swift, alongside Dakota Johnson, demonstrated that best friend fashion can be unique without being overly coordinated. Their style choices reflected individuality while still maintaining a friendship theme.
+- sources:
+  - [unverified] Vogue — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRnFQM3dQdzVDU2daRFZrY2VjSU5YaWxReGZVMmo3MTBMa2JtNElLcm9sazVoZnplT3lya0E0SERBVzl0RjF1d2RoMmFfNmFubmZSLS1QNFJLa3ZqZTBjbVR6QUxfTkxDX1IxUTZJVzF3VHhWWFhlSEwwbEF0MDBIN3VaMEpQQUFV?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Surprise Cameo on SNL with Dakota Johnson
+
+- first seen: 2026-10-04 14:46 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: During the opening monologue of 'Saturday Night Live,' Dakota Johnson, the host, was joined by Taylor Swift in a surprise appearance. The episode featured Turnstile as the musical guest.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/04/arts/television/snl-offers-midterm-promo-help-to-trump-and-hegseth.html
+
+## Taylor Swift Highlights Back-to-School Fashion in SNL Appearance
+
+- first seen: 2026-10-04 14:46 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased a stylish minidress during her recent appearance on SNL, offering a fresh take on back-to-school fashion trends. The outfit drew attention and set a fashionable tone for the season.
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxQNmJEYnhWRHJLcHBZM1MwaGIyNnRlY2U1dnBPN1NNbDRvajBtWFQ0QzFkTE8xZXdyNzN3LXozeEppYnR1WWs2Q3lwTWUzbHFhYnlfOHhpSjExQW9QTE1iT196U0VOalNVZm9UN2h2VG9hQ1lpZFdxZHAzRWdydFRmaVM1ZFFQX1RLRGlfS3pUZHAzdmJySEFEcFFMVVktX0k?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Appears During Dakota Johnson's 'SNL' Monologue
+
+- first seen: 2026-10-04 14:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made an unexpected appearance during Dakota Johnson's monologue on 'SNL'. The moment surprised both the audience and viewers alike.
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNaWJERW44QXdUREhBbmxkckJCTDNBc2ZjX1F5dnRkbUFvM3BwNnQzbzMtRHZIYkFmSjNFUllOeFBFUl9mQ3ZnSHFlMWZlWmJnNXVuX3BDaTFBeC11VUlnNi04bVFCeVJDS0dsQW44eXBBNDJSOVFBcVVSY3pXYUZGSTRRZHBCdHNqc2FNbGR4dDFrclRodFEwY19Lb3pOeG1zRFF6TFQ4Y0w1NnpaNGtYb19fbXhDb2tadGxER3c2VkVjNmQ5VEpOYg?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Cameo on SNL with Turnstile Debut
+
+- first seen: 2026-10-04 14:46 UTC | category: sighting | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: During the latest episode of Saturday Night Live hosted by Dakota Johnson, Taylor Swift made a cameo appearance as Turnstile debuted as the musical guest. This marks a significant moment as Turnstile is the first hardcore band to perform on the show in 45 years.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2513538/turnstile-make-snl-debut-taylor-swift-cameos/news/
+
+## Taylor Swift Appears During Dakota Johnson's SNL Monologue
+
+- first seen: 2026-10-04 14:46 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a surprise appearance during Dakota Johnson's monologue on Saturday Night Live. The moment added excitement to the show's opening, highlighting Swift's presence in the entertainment scene.
+- sources:
+  - [unverified] tvinsider.com — https://news.google.com/rss/articles/CBMijAFBVV95cUxQeUtjV0RNTHNUSWlhZTYxX0N1X0Y0Y0FsMC00SVE4NVQzMm0wMVpDVm5KZ3A4YnhFRXFHWmxnVUVZa2htNWpRNk5iQmNGaUpycTdBTC1GZTJPNEtyTEZEa01tVzBadjd2NXNCWUpGUEdTUU9ScjJ4SHJjVnlrYnRDMEFKYWRRWUN4RnFSSw?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Dakota Johnson Cast in Taylor Swift's Patient Zero Video
 
@@ -35,14 +99,6 @@ Stories: 72
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOU3ZpT0pZSWp3Sm4zbkRTUS1QcEotZDF0dFpjVVdMZkQ5R05MeGpmcnVUMk9FWVktekx3MjZ0bVlROUxad1FEaS1uZjhTS0JLYnZyUnZtVHZEZUJ6RjN2RU1XSjdSOThsTHptNE40SnB1UmV2ZGt3UWgxeDFZRHNsMk56NG05aWsxbEJLX1pYYS0wTzlwMXVtNm5VZW5kbTB4?oc=5&hl=en-US&gl=US&ceid=US:en
 
-## Taylor Swift Appears on SNL with Dakota Johnson
-
-- first seen: 2026-10-04 06:48 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift made a surprise appearance during Dakota Johnson's opening monologue on Saturday Night Live, humorously referencing their past collaboration in the 'Patient Zero' music video. The cameo coincided with Johnson's upcoming birthday celebration.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/
-
 ## Kaley Cuoco's Second Child May Have a Taylor Swift-Inspired Name
 
 - first seen: 2026-10-04 06:48 UTC | category: music | importance: 5
@@ -50,27 +106,6 @@ Stories: 72
 - summary: A baby name expert suggests that Kaley Cuoco's second child could be named after Taylor Swift, hinting at a possible Swift-inspired choice. The discussion highlights the influence of Taylor Swift's name in popular culture.
 - sources:
   - [unverified] women.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPR0VQRVpTT0xJbEdkMEZfWVVRVDJQZ3ZfRm9wU3lFTUtUdTBLRVdHbF90c2JsS1hfa29FdUIyZDMwQ3VyVUxFWWhKbVlIT3lBMlZLeGRlYm5BSjVpeEpwN19SdmZ1RW52UExQLWFqQVZON2JyM2xiSmFEX3l2NWQ3eXpQZVktaU5YZ0p5cXFzMnNuVEZEYU9wckVWSmxpaGZBT1lqMDR4WW9yTTR6NFdmdEc3WDJDM0Rj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Makes Surprise Appearance at Dakota Johnson's SNL Hosting
-
-- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift unexpectedly joined Dakota Johnson during her hosting segment on 'Saturday Night Live.' During the opening monologue, Swift acknowledged Travis Kelce with a subtle salute.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZUFaVWQ0Q3BuQ05SVjhBVU13aXpOQTc2T1ZHZUpTYjVVeGI4Y1daR3dOaUNUaGt6bV9sTjUyVm9OZUMySnNLNlpWbXU2aGVQTWFCc3JNamxwZVpBWlg0UHJZUHZVeHVXZWhzdEFxX1V4eV81cTNObGFZSFkzdHR5VUJ0U2dzRW04anVXci11ZE0tMnplRDgxWC1haw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMipwFBVV95cUxPVXhhb1RydGN5WWtWVE9JRFA4QV9CaVdSM0p6QmM0ckd1OEM5QlZGU0JQY2twU012WU5oaEJpZVYtbDNoNzdvUVgtQlBMTFZhZzJ5bEFRdEFfNEVXSjFMRmxxU3dEMVBXck9YT1JURkRfUXM2WkpobWY5dVphT1BySUVzRnMtWDRmZmE0VjdxY3NhWUNKRmptRUVmWC1SbXBFTE9ldXJpYw?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-dakota-johnson-saturday-night-live-1236721702/
-  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOR0NXck1VYUFMajc1TEVmbHB2OFFnSDR2THhXQkxUVGIxVllqUmROd3JHclUzTlBwdnVOT1JYV25vRjZPVE5CY05pNk04TjFaMTQybWNVNHJwTzZBNWxvbzBnV2dnZUtYaGFiZlFGU2dRemJreEhxQU01S2hpNmRWQ2tlcFk2R0dOUWEwbmRLR0JHcDQ2M2EwaXRsUVB0R3RYbHQ3VGt5bTM?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-snl-cameo-dakota-johnson-saturday-night-live-1236898411/
-
-## Taylor Swift Surprises Audience with Appearance on 'SNL'
-
-- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift unexpectedly appeared during an episode of 'SNL', delighting fans and viewers. This surprise moment added excitement to the show's lineup for the night.
-- sources:
-  - [unverified] NBC News — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdnItUndZWFNSUDduWUdyTmNBR08tcE9pckduWnpoako4ci16TGRsVG8wZkVQS1EwRHpzOF81TV9VbEduZHBEZW5MMmFWZ3pZbjJKMmRoRFhGblNscVpXOThoQVVvVlZCYjFFakxvOEhBaDNDTnN5eVJ0aFhta3N3RUJ3M3NiRFJuYlBhaG9ROWpVaFdySmlIdkVoN3F0dVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNaThkekZ3TXB4VzNOVm1yRHhHbVdqdUFSQ25TdEpUb0hzX1B3cy05RjhvQnpKWGRnekpsZ3pGWEVuTkh3cFE1UEFwTDZrNVpqSlU5UTlMQVU0TFMtN3NjOGxKSnpTZU1Lc0NFMFRfYlhkRmlHaWRZVkJqc3JjalVLanBYNlVrTS1lYkFpTFZBb3ZaaUhYRU1Bc3AxYXJCVzNKbWN4V2RUaHhVdlV3YWpjYUJFX0gxNmkx?oc=5&hl=en-US&gl=US&ceid=US:en
 
 ## Taylor Swift Gives Dakota Johnson Breakup Advice on 'SNL'
 
@@ -96,13 +131,48 @@ Stories: 72
 - sources:
   - [unverified] mom.com — https://news.google.com/rss/articles/CBMickFVX3lxTE42LUVaNXhFekRVbmhTMy1zRzk0QXRaNU5rVWV3Mm80SGR4Ym84NkYzTElXSWhyOHVvTzRRdW56M0ZLM1VHQkpweEYyc3BiREhsZEhfYzRrNkt1WXBWTTZ3SEw4NG9IclRJN2Q5dUV0aF92UQ?oc=5&hl=en-US&gl=US&ceid=US:en
 
+## Taylor Swift Appears on SNL with Dakota Johnson
+
+- first seen: 2026-10-04 06:48 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift made a surprise appearance during Dakota Johnson's opening monologue on Saturday Night Live, humorously referencing their past collaboration in the 'Patient Zero' music video. The cameo coincided with Johnson's upcoming birthday celebration.
+- sources:
+  - [unverified] Deadline — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdFJZUXItN1NIa2licEtQMGNCNV9wbUdjanZDc2xrUmJNUG5NaUNxV3JVWHdpU2xFSk9ZT0ZNblg5NWNEVF8xT1h2b0x2ZndZRUFyd0xpZDVKOHZRZlJ2ZGpkek05eWFtVWtpWnZWaVFIZWtBVGtzMUtPdGM1UzMzLVN3R2FZVWNLdFRr?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/
+
 ## Dakota Johnson Talks Dating Musicians with Taylor Swift on 'SNL'
 
 - first seen: 2026-10-04 06:48 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: During a segment on 'SNL,' Dakota Johnson shared her thoughts on dating musicians while confiding in Taylor Swift, humorously suggesting it serves as a public service for women. The conversation touched on personal experiences in the music industry.
 - sources:
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMivwFBVV95cUxNLWtpY3ZuM2l0akRhVWNVOU1IVVEyeE5jQkVIY3R0Wk11WmpRbjFXVlh5Y3BxS2pqRm5ocVY3UVZ6QV9SMVVjTDJqMlRMQkswYmVoMERvTlh4T040VmFqVERiOXBmZ0ctSjNXY0Q4bVRXcHZUTGh0NVNLbEdWWmR4SFRaOEFfNDd3cHhSLWpUVEF5cHBacTJhMkVsaDE1UzVYMGd2SnBxSU5OektoN1pGYThrd0d1NzR2YkV6dG1PRQ?oc=5&hl=en-US&gl=US&ceid=US:en
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/snl-dakota-johnson-confides-taylor-swift-dating-musicians-1235636528/
+
+## Taylor Swift Surprises Audience with Appearance on 'SNL'
+
+- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 7
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift unexpectedly appeared during an episode of 'SNL', delighting fans and viewers. This surprise moment added excitement to the show's lineup for the night.
+- sources:
+  - [unverified] CNN — https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZFlPV1FnNVlFVDNFUjhDbFNpazhBM3FwbjlsWkliWnJ5WDM0Y3p4VVY4elQzU2I1d1BKUEFpSF93cnNPTFJFUEswY0sxUFIxM056LVZRQ0xNTTNnWi1yMC1IenQ3Y25ia0x4V2YwU19OTjZWU3FSTVZMYkplakMtaVZ5aF81alB4dWd0c2xicXlzZDQ5YkZQUjZ6QkVWMVNWdGlpeGNxNjFuRFpvSlhjTFJnUXp3QlNL?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] NBC News — https://news.google.com/rss/articles/CBMioAFBVV95cUxPdnItUndZWFNSUDduWUdyTmNBR08tcE9pckduWnpoako4ci16TGRsVG8wZkVQS1EwRHpzOF81TV9VbEduZHBEZW5MMmFWZ3pZbjJKMmRoRFhGblNscVpXOThoQVVvVlZCYjFFakxvOEhBaDNDTnN5eVJ0aFhta3N3RUJ3M3NiRFJuYlBhaG9ROWpVaFdySmlIdkVoN3F0dVRZ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] pagesix.com — https://news.google.com/rss/articles/CBMiuAFBVV95cUxNaThkekZ3TXB4VzNOVm1yRHhHbVdqdUFSQ25TdEpUb0hzX1B3cy05RjhvQnpKWGRnekpsZ3pGWEVuTkh3cFE1UEFwTDZrNVpqSlU5UTlMQVU0TFMtN3NjOGxKSnpTZU1Lc0NFMFRfYlhkRmlHaWRZVkJqc3JjalVLanBYNlVrTS1lYkFpTFZBb3ZaaUhYRU1Bc3AxYXJCVzNKbWN4V2RUaHhVdlV3YWpjYUJFX0gxNmkx?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/tv-and-radio/2026/oct/04/saturday-night-live-dakota-johnson-host-taylor-swift-cameo
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPYlUyOHNqNVZIQmxaYzZLZm5LMGx6QW5RUl82T2FhU2JOV0pRNnF1TGFvbkxfdDBEN2YtRXZTNTFHYjA1Z0xIU2dJTHZpS21HU0xFdktWV0MxYVNQUnQ2cmR2d1J0RGx4dDM2eWJmbVdKV3pkQWJpTWN6Wlc5ZFZ4cmN0aXZxckJ1cGVyLVcyYWlUYmZVbTFSMA?oc=5&hl=en-US&gl=US&ceid=US:en
+
+## Taylor Swift Makes Surprise Appearance at Dakota Johnson's SNL Hosting
+
+- first seen: 2026-10-04 06:48 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 6
+- summary: Taylor Swift unexpectedly joined Dakota Johnson during her hosting segment on 'Saturday Night Live.' During the opening monologue, Swift acknowledged Travis Kelce with a subtle salute.
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZUFaVWQ0Q3BuQ05SVjhBVU13aXpOQTc2T1ZHZUpTYjVVeGI4Y1daR3dOaUNUaGt6bV9sTjUyVm9OZUMySnNLNlpWbXU2aGVQTWFCc3JNamxwZVpBWlg0UHJZUHZVeHVXZWhzdEFxX1V4eV81cTNObGFZSFkzdHR5VUJ0U2dzRW04anVXci11ZE0tMnplRDgxWC1haw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxQaURER0l5TkNUVjR6ZHNzUm1yRTBZSkJCTXU1VEhMNGJ2U29BRUF3N19zYWtBbVZIeEc3ZnQwRHhrVzBwekhMazBCS2twUE5xd2FGTHZ4VTFwU0FTbnppbk9XOUlZVFNiTVRCLTJhNGZTc2dKb3VBRUR3c1ZXQkVwMEpuN1BfUFZ1c0d0Yk95aw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] The Hollywood Reporter — https://news.google.com/rss/articles/CBMipwFBVV95cUxPVXhhb1RydGN5WWtWVE9JRFA4QV9CaVdSM0p6QmM0ckd1OEM5QlZGU0JQY2twU012WU5oaEJpZVYtbDNoNzdvUVgtQlBMTFZhZzJ5bEFRdEFfNEVXSjFMRmxxU3dEMVBXck9YT1JURkRfUXM2WkpobWY5dVphT1BySUVzRnMtWDRmZmE0VjdxY3NhWUNKRmptRUVmWC1SbXBFTE9ldXJpYw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-dakota-johnson-saturday-night-live-1236721702/
+  - [unverified] Variety — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOR0NXck1VYUFMajc1TEVmbHB2OFFnSDR2THhXQkxUVGIxVllqUmROd3JHclUzTlBwdnVOT1JYV25vRjZPVE5CY05pNk04TjFaMTQybWNVNHJwTzZBNWxvbzBnV2dnZUtYaGFiZlFGU2dRemJreEhxQU01S2hpNmRWQ2tlcFk2R0dOUWEwbmRLR0JHcDQ2M2EwaXRsUVB0R3RYbHQ3VGt5bTM?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-snl-cameo-dakota-johnson-saturday-night-live-1236898411/
 
 ## Taylor Swift Discusses Close Friendship with Dakota Johnson
 
@@ -578,55 +648,3 @@ Stories: 72
 - summary: A source reveals that Taylor Swift has received negative feedback regarding her recent music project, 'Encore'. This situation may impact her public image and reception among fans.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxPSjhXN2pKblN0ZlIwR19qZG0wRzdnRlZpNkFwS1FqZms1U2R3XzdxVkM0V1Mxd3VvSEMtcjBHb1JLSFVMYTZXekdFczVrNXVCNHBBZGlBSV9XalBPYVl0RzdOM0czclUxOUJROXU4ZER4WHRZdFRfa0JHSW10emdfSUl0ZUZQLTVodUJKT3BreXBaVXpkbXd4dzJB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Addresses Personal Feelings on Song Criticism
-
-- first seen: 2026-10-01 07:09 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: In a recent discussion, Taylor Swift expressed that she personally takes criticism of her songs to heart, viewing them as her 'babies.' She emphasizes the emotional connection she has with her music.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxNWmdNVWdlMmtGNGlONmdfazU4X1I2RjRQV0o4TFZWdVJrdldIbXFKT0R0RFBndUFBSDJyVWMyUnQzYkpnd2d5MTE1TVhNdTJWV3dhZVRIblBIMzc2WGRYR1VWOUlYY2g2ZTcxdGc4RVYxU0Y4Z1EwUTFsNE8wM2dfTi1sY2p2NkEtb2hhck5TR0tiMFpmQVFF?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Explains $47 Million Home in 'Patient Zero' Music Video
-
-- first seen: 2026-10-01 07:09 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift unveils the significance of the $47 million Beverly Hills property featured in her music video for 'Patient Zero'. The revelation provides insight into her artistic choices and the setting of the video.
-- sources:
-  - [unverified] Realtor.com — https://news.google.com/rss/articles/CBMisAFBVV95cUxNU3ROTFZsdURNUFhvOU52bEx5Q0NCZkVVd2Vpd0NsbXVuZE5fZjlRbGE5MFRjMHprYURlN3VsOHY0NTBpX0w1cnM0N1ozOVpjaXQ0c0dtRDNwWXBpS1FSUm1iQkgwM1ozSXJkVUhoRWdIX1BoRnRtdVZqS3FrYzRJR0piNGtfUFduVkFfdlY2b2JaSks4NFAxR1Y2TElpamQ4RV9iQ2pOMTBSSTZ1cWpNSw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## MTV VMAs Producer Addresses Comments on Taylor Swift's New Award
-
-- first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: An MTV VMAs producer has clarified remarks regarding the influence behind Taylor Swift's recent award, addressing claims of 'external' factors impacting the decision.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQN2VKeUF2NlZuR2k2LWZhNmtaRFJGMDhKdzI2RTBFRUtKY1NSR0NRcmVFdTVTWGVGa3h2YnU3LVlwenJRRWhfeGZpMkZGRlQwSlBsU1ZPYWFVdkZGNU1kYmw2SlEyNWhmOWxiSVpUUTRHZ1JRR1l6ZjJOM0xwMjJkNEZNMVg0QVZ6?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMikwFBVV95cUxNX0hxWWlidUhDZVBJV1UyZGRSMTdTemxUMzRtd0U5Ujhhc2Q2RnN1VUpURXhkcExXcktOS0ExT1FMSjVJbjU0YmJDQlRDVU1yQTM5dThqX3owalNOODRnQ1NFTzJjQlpQV2NadUdGQ1QyYTBPSTJRTWl4SnpOSjBLRnk2Y3V2dXdSeW83TGpmWDlkZHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Pat Garrett, early advisor to Taylor Swift, passes away
-
-- first seen: 2026-10-01 07:09 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Pat Garrett, an early advisor to Taylor Swift and a notable figure in country music, has died. His contributions to the music industry and support for Swift have been acknowledged following his passing.
-- sources:
-  - [unverified] local21news.com — https://news.google.com/rss/articles/CBMi4AFBVV95cUxNOGQ5cjJobnBUeGRiTTBsUklPUDFfclFsOXc1THFveW1ReWJ2ZTd5TldMc1V6Qm9xbXY2a1ExSlBIbHpvZ3NUVngxQTR4QXU0bjhaWDcwcmlnbWI2UUF4NXZRTDRJOTRnRVpjaFJBUUJYU3ViNkdHUUJMZDNlb3NWTWU1TU9YMi1vRnFhUExwampXQ3RWR1BDdzVxMFZKX2VvTGxrQXk4cWJ4eS1Db1dvdlVkVzh6Q3pockFnazItMDhtQlBra3BSYzVzZHRCVGtwS0tjUjAyaVZCZGdNdzl3bA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Rock Icon Claims Taylor Swift 'Ruined Music' and Calls Her Mediocre
-
-- first seen: 2026-10-01 07:09 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A '70s rock icon has publicly criticized Taylor Swift, stating she has 'ruined music' and referring to her as 'the apotheosis of mediocrity'. This statement has sparked discussions among music fans.
-- sources:
-  - [unverified] buzzfeed.com — https://news.google.com/rss/articles/CBMigAFBVV95cUxOXzJNUk9kTjh5VUdfcmlfN2RKTnM2NlYwWUtwMUs0QnZNSmNNRldzeExlSk5WRWVDNUk5dHhtRHlkR21yV2FGdGNhalk1SEljMGJETEZIQzkxRkEyN21NLW93T2MzVGhUVkUwbEo3eW54aWR2N1pOdXViN3FGeW85NQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Todd Rundgren Critiques Taylor Swift's Artistic Influence
-
-- first seen: 2026-10-01 07:09 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Musician Todd Rundgren has referred to Taylor Swift as 'the apotheosis of mediocrity' in a recent statement. This comment reflects his views on current music trends and highlights the ongoing discussions about artistry in pop music.
-- sources:
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMiggFBVV95cUxQY0Rtek9iLW45ZTVtTEpya1lHY3VNT1hjdEJmZXJNa3I3QVVRVEZTRVRpVTJTOHZFMDdvMlZIMnB4ZjE1aEIyaWxtR2tZc2xWSC1fUTZlNUNWUlJjTjZWdGFIeFFhdjNEZDJHZ0IyM296TEFWRDRsNndhdUVXdWcxSmhR?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMirwFBVV95cUxPQjU0TFJleVJxZnFNSkEyUmJPelltd0RZLWJ2LWxwaTNwMk84ejJnblFjbmxFWVUyaHoyNFVkZ01jRXljZzhqQllaeUVyR2J4MDc3MnhBMFB0SW1VU2xjS3lKQVFBbDcwY0JuUHkyR1JzbTRrZ3JZZmdHYVZONmhTQ3RyUVA1NkZaWXFsak5UNXlkUmxNdG1KR1hJdnNOckxKVFczRTA3d2wzNkpUcnB3?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] USA TODAY 10BEST — https://news.google.com/rss/articles/CBMihgFBVV95cUxQNkZTLUZhM21LRm03ZFpyVlV3blFkNWtVNW9wT19GMEdDZ3VZZ0lKb2hBV1RGdGRjclNfRjlMTHJCSnV5eUswVVFNbG9ZcE9keXc4Zktuak90b216Vy1yZkF5cWY0Wnp1VUJYa2xPS3RIWEJxR3NJSmFmejZoUDFpWDVVSnp5QQ?oc=5&hl=en-US&gl=US&ceid=US:en
-  - [unverified] winespectator.com — https://news.google.com/rss/articles/CBMioAFBVV95cUxPbUtQZDh4UGRxTHRwRnBVXzRVbS1DODFaLVRDOEFRTlp6Q05uV3o3TFBBdDBYcXlXV3VXdWNNVkpZM1JVUzc4VGZnYl9QVFNDeFJ1ZjZiak9vVTV0UGdqOEgzU2gyUi1VZW9RUVpyakY2TkhLRmpZUzNxSGdsUVg2VzJTUVJ3R2NHckVBVDRLaXNwdzc2VjFLTzRxT3ZyRklB?oc=5&hl=en-US&gl=US&ceid=US:en
