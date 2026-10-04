@@ -7,6 +7,9 @@ const actions = () => ({ closeTheoryGuide: vi.fn() });
 const NATIVE_ROWS: readonly FallbackRow[] = [
   { id: 'theory-guide', value: (s) => s.theoryGuideEraId, path: (v) => `/?screen=probe&era=${v}`, clear: (a) => a.closeTheoryGuide() },
 ];
+const NO_NATIVE_ROWS: readonly FallbackRow[] = [
+  { id: 'theory-guide', value: (s) => s.theoryGuideEraId, path: () => null, clear: (a) => a.closeTheoryGuide() },
+];
 const flush = () => new Promise((r) => setTimeout(r, 0));
 const run = async (state: unknown, seen: Map<string, string>, ok = true, a = actions(), rows = OVERLAY_FALLBACK_ROWS) => {
   const io = { openNative: vi.fn(async () => ok), diag: vi.fn() };
@@ -17,7 +20,7 @@ const run = async (state: unknown, seen: Map<string, string>, ok = true, a = act
 
 describe('overlay fallback table', () => {
   it('has the stable row ids (moment, track guide, song are slots; thread is the ModeFallback)', () => {
-    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id)).toEqual(['theory-guide']);
+    expect(OVERLAY_FALLBACK_ROWS.map((r) => r.id)).toEqual([]);
   });
 
   it('a row with a native screen goes native once and is cleared only after native presented it', async () => {
@@ -35,11 +38,11 @@ describe('overlay fallback table', () => {
 
   it('a row with no native screen: state kept, diag emitted once, no navigation', async () => {
     const seen = new Map<string, string>();
-    const { io, a } = await run({ ...closed, theoryGuideEraId: 'folklore' }, seen);
+    const { io, a } = await run({ ...closed, theoryGuideEraId: 'folklore' }, seen, true, actions(), NO_NATIVE_ROWS);
     expect(io.openNative).not.toHaveBeenCalled();
     expect(io.diag).toHaveBeenCalledWith('fallback-no-native-screen', 'theory-guide');
     expect(a.closeTheoryGuide).not.toHaveBeenCalled();
-    expect((await run({ ...closed, theoryGuideEraId: 'folklore' }, seen)).io.diag).not.toHaveBeenCalled();
+    expect((await run({ ...closed, theoryGuideEraId: 'folklore' }, seen, true, actions(), NO_NATIVE_ROWS)).io.diag).not.toHaveBeenCalled();
   });
 
   it('loop guard: navigate, native, back, re-render does not re-trigger; a fresh open does', async () => {
@@ -70,14 +73,12 @@ describe('overlay fallback table', () => {
 
 describe('D-6 mode fallback paths', () => {
   it.each([
-    ['threads', '/?mode=threads'],
-    ['clownbot', '/?screen=era-stream'],
-    ['mood', '/?screen=era-stream'],
     ['era', '/?screen=era-stream'],
   ] as const)('%s -> %s', (mode, path) => expect(modeFallbackPath(mode)).toBe(path));
 
   it('covers every unslotted mode', () => {
-    expect(Object.keys(MODE_PATHS).sort()).toEqual(['threads']);
+    expect(Object.keys(MODE_PATHS).sort()).toEqual([]);
+    expect(MODE_PATHS.threads).toBeUndefined();
     expect(MODE_PATHS.merch).toBeUndefined();
     expect(MODE_PATHS.clownbot).toBeUndefined();
     expect(MODE_PATHS.mood).toBeUndefined();

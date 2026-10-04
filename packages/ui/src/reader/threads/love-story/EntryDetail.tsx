@@ -6,6 +6,7 @@ import { useAppActions, useAppState } from '../../store';
 import { getEra } from '@swift2/experience';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '../lib/love-story';
 import { useReader } from '@swift2/ui';
+import { useResolveUrl } from '../../../host/context';
 import { trackKey } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
 
@@ -26,6 +27,7 @@ function entryColor(entry: LoveStoryEntry): string {
  */
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
   const { trackGuideEraId } = useAppState();
+  const resolveUrl = useResolveUrl();
   const { openSong } = useAppActions();
   const { contentForThreadInRange, songTargetOf } = useReader();
 
@@ -79,7 +81,7 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
               photo because he is not a public figure in his own right. */}
           {portrait ? (
             <img
-              src={portrait.url}
+              src={resolveUrl(portrait.url)}
               alt={portrait.alt}
               loading="lazy"
               className="mt-0.5 size-11 shrink-0 rounded-full object-cover"

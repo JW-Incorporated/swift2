@@ -1,6 +1,7 @@
 'use client';
 
 import { useHost, useReader } from '@swift2/ui';
+import { useResolveUrl } from '../../../host/context';
 import { Quote } from 'lucide-react';
 import { getEra } from '@swift2/experience';
 import { accentFgFor } from '../../lib/theme';
@@ -34,6 +35,7 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  */
 export function ProposalThread() {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openItem } = useAppActions();
   const { contentForThread } = useReader();
   const beats = contentForThread('the-proposal');
@@ -58,7 +60,7 @@ export function ProposalThread() {
               {image && (
                 <div className="relative aspect-[16/10] w-full">
                   <Image
-                    src={image.url}
+                    src={resolveUrl(image.url)}
                     alt={image.caption ?? item.title}
                     fill
                     unoptimized={isRemoteUrl(image.url)}

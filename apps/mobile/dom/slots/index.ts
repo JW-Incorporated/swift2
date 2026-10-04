@@ -16,6 +16,7 @@
 import './moment';
 import './tracks';
 import './era';
+import './threads';
 import './legal';
 import './floating';
 import './footer';

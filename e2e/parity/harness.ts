@@ -63,15 +63,15 @@ async function arm(page: Page, problems: string[]): Promise<void> {
       // Side b resolves the live-data fetch (resolveUrl) to the canonical origin: same stub as the local hosts.
       return route.fulfill({ json: { items: [], theories: [], signals: [] } });
     }
-    const era = url.origin === ERA_ART_ORIGIN ?/^\/eras\/([\w-]+\.png)$/.exec(url.pathname) : null;
+    const era = url.origin === ERA_ART_ORIGIN ?/^\/(eras\/[\w-]+\.png|threads\/[\w-]+\.jpg)$/.exec(url.pathname) : null;
     if (era) {
       // Era art is the app's one app-relative network asset (resolveUrl): serve the REAL bytes, not the grey stub, and do not record it as external.
-      const file = resolve(repo, 'apps/web/public/eras', era[1]!);
+      const file = resolve(repo, 'apps/web/public', era[1]!);
       if (!existsSync(file)) {
         problems.push(`missing era asset ${era[1]}`);
         return route.fulfill({ status: 404 });
       }
-      return route.fulfill({ status: 200, contentType: 'image/png', body: readFileSync(file) });
+      return route.fulfill({ status: 200, contentType: era[1]!.endsWith('.jpg') ? 'image/jpeg' : 'image/png', body: readFileSync(file) });
     }
     if (req.resourceType() === 'image') {
       externalImages.get(page)?.add(url.href);
