@@ -18,6 +18,7 @@ import './era';
 import './floating';
 import './merch';
 import './settings';
+import './search';
 
 export { register, slots } from './instance';
 export { createSlotRegistry } from './registry';
