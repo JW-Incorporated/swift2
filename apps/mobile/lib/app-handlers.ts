@@ -87,6 +87,8 @@ export function createUnwiredHandlers(log: (stage: string, detail: string) => vo
     'notifications.savePrefs': unwired('notifications.savePrefs'),
     'notifications.unregister': unwired('notifications.unregister'),
     'notifications.registration': unwired('notifications.registration'),
+    'notifications.onboardingOffered': unwired('notifications.onboardingOffered'),
+    'notifications.markOnboardingOffered': unwired('notifications.markOnboardingOffered'),
   };
 }
 

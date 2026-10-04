@@ -3,6 +3,7 @@
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import * as SecureStore from 'expo-secure-store';
+import { hasOnboardingBeenOffered, markOnboardingOffered } from './onboarding-state';
 import { fetchDevicePrefs, saveDevicePrefs } from './prefs-client';
 import { UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, requestPushRegistration } from './push-registration';
 import { createHandlers } from './bridge-handlers-notifications';
@@ -34,6 +35,8 @@ export const expoNotificationPorts: NotificationPorts = {
     await SecureStore.setItemAsync(UNREGISTERED_KEY, '1');
   },
   isRegistered: async () => !(await isExplicitlyUnregistered()),
+  onboardingOffered: hasOnboardingBeenOffered,
+  markOnboardingOffered,
 };
 
 export const createExpoNotificationDeps = () => createNotificationHostDeps(expoNotificationPorts);

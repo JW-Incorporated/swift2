@@ -131,6 +131,9 @@ export type HostNotifications = {
   unregister(): Promise<void>;
   /** Token-free: true when this device is registered for push (permission alone is not registration). */
   registered(): Promise<boolean>;
+  /** App-only one-time push-offer flag, persisted natively; absent = no offer is ever shown. */
+  onboardingOffered?(): Promise<boolean>;
+  markOnboardingOffered?(): Promise<void>;
 };
 
 export interface HostAdapter {

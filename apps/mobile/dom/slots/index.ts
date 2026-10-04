@@ -23,6 +23,7 @@ import './footer';
 import './merch';
 import './community';
 import './settings';
+import './onboarding';
 import './search';
 import './clown';
 
