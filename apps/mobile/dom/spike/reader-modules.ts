@@ -1,30 +1,48 @@
 /* eslint-disable @typescript-eslint/no-require-imports -- call-time require is deliberate (Metro lazy eval, see below) */
-// WP0.5b: lazy load of the real reader components, called only after
-// `fill(snapshot)` (never import these statically: module-level constants
-// would freeze empty). Metro evaluates a module on its first `require`, so a
-// call-time require gives the same ordering as a dynamic import without
-// async chunks, which Expo's DOM export cannot serialize (it fails with
-// "Asset not found: __common"). Returns one component: era stream + moment
-// detail + bottom nav inside the web AppProvider, plus the bridge back responder.
-import { createElement, type ComponentType } from 'react';
+// Lazy load of the packages/ui reader, called only after `fill(snapshot)` (never import the shell, store or
+// slots statically: module-level constants would freeze empty). Metro evaluates a module on its first
+// `require`, so a call-time require gives the same ordering as a dynamic import without async chunks, which
+// Expo's DOM export cannot serialize (it fails with "Asset not found: __common"). Returns one component:
+// the host adapter + snapshot providers around packages/ui ReaderRoot with the registered slots (D2).
+import { createElement, useEffect, useMemo, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { HostProvider, ReaderExtensionsProvider, ReaderSnapshotProvider } from '@swift2/ui';
-import { useBackRegistration } from '../bridge/back-responder';
-import { resolveAppUrl } from './resolve-url';
+import type { BridgeClient, HostAdapter, HostStorage, Insets } from '@swift2/ui';
+import { createBridgeApiFetch, createBridgeApiStream } from '../bridge/api-fetch';
+import { createAppAdapter } from '../bridge/app-adapter';
+import { installBlankCapture } from '../bridge/app-adapter-nav';
+import { ReaderControlsContext, type ReaderControls } from '../bridge/reader-controls';
+import { isNativeRoute } from '../slots/routes';
 
-type BackResult = 'handled' | 'exit';
-/** `registerBack` hands the host the responder for the native `back` command (null on unmount). */
-export type ReaderProps = { registerBack: (fn: (() => BackResult) | null) => void };
+export type ReaderProps = {
+  client: Pick<BridgeClient, 'call'>;
+  insets: Insets;
+  controls: Omit<ReaderControls, 'slottedModes'>;
+  navigateDom: (path: string) => void;
+  getPath: () => string;
+};
 
-/**
- * The DOM host's adapter over the web one: app-relative assets resolve against the canonical origin, and
- * YouTube embeds frame the wrapper page on that same origin (the null-origin DOM page sends no Referer; #4954).
- */
-export function createSpikeAdapter<T extends { env: { origin: string } }>(base: T) {
+/** In-memory, per launch, identical on iOS and Android (the Android DOM has no storage, G3). Tri-state: null = absent. */
+export function createMapStorage(): HostStorage {
+  const m = new Map<string, string>();
+  return { get: (k) => m.get(k) ?? null, set: (k, v) => void m.set(k, v), remove: (k) => void m.delete(k) };
+}
+
+/** One adapter per client lifetime (host and transport share it); insets are layered on without rebuilding it. */
+export function createReaderAdapter(p: Pick<ReaderProps, 'client' | 'navigateDom' | 'getPath'> & { insets: Insets }): HostAdapter {
+  const apiFetch = createBridgeApiFetch(p.client);
   return {
-    ...base,
-    resolveUrl: (path: string) => resolveAppUrl(path, base.env.origin),
-    embedOrigin: base.env.origin,
+    ...createAppAdapter({
+      client: p.client,
+      insets: p.insets,
+      isNativeRoute,
+      navigateDom: p.navigateDom,
+      getPath: p.getPath,
+      apiFetch,
+      storage: { local: createMapStorage(), session: createMapStorage() },
+      onBack: () => () => {},
+    }),
+    apiStream: createBridgeApiStream(apiFetch),
   };
 }
 
@@ -35,34 +53,27 @@ export function loadReader(
   // Merch and songMoods are poured and attached here, after the core fill and apart from it, as the web's lazy chunks do.
   const fillExt = require('./shims/fill-extensions') as typeof import('./shims/fill-extensions');
   fillExt.fillExtensions(extensions);
-  const store = require('../../../web/lib/longlive/store') as typeof import('../../../web/lib/longlive/store');
-  const theme = require('../../../web/lib/longlive/theme') as typeof import('../../../web/lib/longlive/theme');
-  const experience = require('@swift2/experience') as typeof import('@swift2/experience');
-  const stream = require('../../../web/components/longlive/EraStream') as typeof import('../../../web/components/longlive/EraStream');
-  const detail = require('../../../web/components/longlive/MomentDetail') as typeof import('../../../web/components/longlive/MomentDetail');
-  const nav = require('../../../web/components/longlive/BottomNav') as typeof import('../../../web/components/longlive/BottomNav');
-  // The web adapter lives under apps/web, so the spike resolver swaps its next/image and
-  // next/link imports for the DOM stubs: reader components get the same Image/Link seam here.
-  const hostAdapter = require('../../../web/lib/host-adapter') as typeof import('../../../web/lib/host-adapter');
-  const base = hostAdapter.createWebAdapter({ push() {}, replace() {} });
-  // The DOM page is a null origin: app-relative assets (era art) load over the network from the canonical origin.
-  // TODO(PM, WP2.3-F): apiFetch is inherited (relative fetch) and /api has no CORS, so mobile intake is not functional until the WP2.3-F bridge apiFetch replaces it.
-  const adapter = createSpikeAdapter(base);
+  const { ReaderRoot } = require('@swift2/ui/reader/shell/ReaderShell') as typeof import('@swift2/ui/reader/shell/ReaderShell');
+  const registry = require('../slots') as typeof import('../slots');
+  const { buildReaderSlots } = require('../slots/reader-slots') as typeof import('../slots/reader-slots');
+  const fallbacks = require('../slots/overlay-fallback') as typeof import('../slots/overlay-fallback');
+  const { ReaderBridge } = require('../bridge/reader-bridge') as typeof import('../bridge/reader-bridge');
 
-  function Shell({ registerBack }: ReaderProps) {
-    const { eraId, openItemId } = store.useAppState();
-    const { closeItem } = store.useAppActions();
-    useBackRegistration(registerBack, openItemId, closeItem);
-    return createElement(
-      'div',
-      { className: 'era-shell font-sans', style: theme.eraStyle(experience.getEra(eraId)) },
-      createElement('main', null, createElement(stream.EraStream)),
-      createElement(detail.MomentDetail),
-      createElement(nav.BottomNav),
+  const registered = registry.slots();
+  const slots = buildReaderSlots(registered, {
+    overlays: [ReaderBridge, fallbacks.OverlayFallback],
+    fallback: fallbacks.ModeFallback,
+  });
+  const slottedModes = new Set(Object.keys(slots.surfaces));
+
+  return function Reader({ client, insets, controls, navigateDom, getPath }: ReaderProps) {
+    const base = useMemo(() => createReaderAdapter({ client, insets, navigateDom, getPath }), [client]);
+    const adapter = useMemo(() => ({ ...base, insets }), [base, insets.top, insets.right, insets.bottom, insets.left]);
+    useEffect(
+      () => installBlankCapture(document as unknown as Parameters<typeof installBlankCapture>[0], { origin: adapter.env.origin, navigate: adapter.navigate, openExternal: adapter.openExternal! }),
+      [base],
     );
-  }
-
-  return function Reader(props: ReaderProps) {
+    const withModes = useMemo(() => ({ ...controls, slottedModes }), [controls]);
     return createElement(
       HostProvider,
       { adapter },
@@ -70,7 +81,7 @@ export function loadReader(
         value: snapshot,
         children: createElement(ReaderExtensionsProvider, {
           extensions,
-          children: createElement(store.AppProvider, null, createElement(Shell, props)),
+          children: createElement(ReaderControlsContext.Provider, { value: withModes }, createElement(ReaderRoot, { slots })),
         }),
       }),
     );
