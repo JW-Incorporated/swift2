@@ -31,11 +31,12 @@ const threadLens = (id: string): AOnlyRoute => ({ name: `lens-${id}`, path: `/?l
 const SEARCH_DIALOG = '[role="dialog"][aria-label="Search the archive"]';
 const SEARCH_OPEN_BUTTON = 'button[aria-label="Search the archive (press /)"]';
 export const A_ONLY_ROUTES: readonly AOnlyRoute[] = [
-  { name: 'item-video', path: '/?item=vault-tloas-the-fate-of-ophelia-video-premieres', root: '[role="dialog"]' },
+  { name: 'item-video', path: '/?item=vault-tloas-the-fate-of-ophelia-video-premieres', root: '[role="dialog"]', sides: 'both' },
   {
     name: 'item-social',
     path: '/?item=vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
     root: '[role="dialog"]',
+    sides: 'both',
   },
   { name: 'threads', path: '/?mode=threads', root: 'main' },
   threadLens('love-story'),

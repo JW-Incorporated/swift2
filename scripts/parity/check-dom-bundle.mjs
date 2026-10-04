@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// One UI WP0.5b: the ReaderSpike DOM bundle must carry NO baked content.
+// One UI WP0.5b: the AppReader DOM bundle must carry NO baked content.
 // Run on a native export that kept sourcemaps:
 //   cd apps/mobile && npx expo export --platform ios --source-maps --output-dir <dir>
 //   node scripts/parity/check-dom-bundle.mjs <dir>
-// Asserts (1) a DOM bundle containing ReaderSpike exists, (2) its sourcemap
+// Asserts (1) a DOM bundle containing AppReader exists, (2) its sourcemap
 // `sources` has no baked content module: no apps/web/lib/**/*.generated.ts,
 // nothing under lib/longlive/generated/, nor the web-only dev loader, (3) no DOM
 // script contains any of the 4 required sentinels (era moment title, track
@@ -90,10 +90,10 @@ export function checkDomBundle(exportDir, sentinels, root = path.resolve(path.di
     const map = JSON.parse(fs.readFileSync(mapFile, 'utf8'));
     if (map.debugId) mapsById.set(map.debugId, f);
     const sources = (map.sources ?? []).map((s) => canonicalizeSource(s, mapFile, map.sourceRoot, root));
-    if (sources.some((s) => /dom\/ReaderSpike\.tsx$/.test(s))) readerSpikeMaps += 1;
+    if (sources.some((s) => /dom\/AppReader\.tsx$/.test(s))) readerSpikeMaps += 1;
     for (const bad of findForbiddenSources(sources)) problems.push(`${f}: forbidden source ${bad}`);
   }
-  if (readerSpikeMaps === 0) problems.push('no DOM sourcemap lists dom/ReaderSpike.tsx (wrong export, or no --source-maps)');
+  if (readerSpikeMaps === 0) problems.push('no DOM sourcemap lists dom/AppReader.tsx (wrong export, or no --source-maps)');
   for (const f of files.filter((n) => n.endsWith('.js'))) {
     const text = fs.readFileSync(path.join(dir, f), 'utf8');
     const id = /^\/\/# debugId=(\S+)\s*$/m.exec(text)?.[1];
