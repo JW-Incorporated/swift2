@@ -64,6 +64,9 @@ export function useNativeScreenState() {
   // exposed setter) so an async song resolution that started earlier can tell
   // it is stale and must not open a screen over newer navigation.
   const navGen = useRef(0);
+  // Hardware Back is claimed only while the native router is what's on screen
+  // (App sets this); the DOM host / SiteShell / LegalPageScreen own Back otherwise.
+  const [nativeMounted, setNativeMounted] = useState(false);
 
   useEffect(() => {
     if (!trackGuideRoute) return;
@@ -257,11 +260,13 @@ export function useNativeScreenState() {
     closeLegalPage,
   ]);
 
+  const goBackRef = useRef(goBack);
+  goBackRef.current = goBack;
   useEffect(() => {
-    if (Platform.OS !== 'android') return;
-    const sub = BackHandler.addEventListener('hardwareBackPress', goBack);
+    if (Platform.OS !== 'android' || !nativeMounted) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => goBackRef.current());
     return () => sub.remove();
-  }, [goBack]);
+  }, [nativeMounted]);
 
   return {
     activeTab,
@@ -282,6 +287,7 @@ export function useNativeScreenState() {
     openWebUrl,
     openLegalPage,
     goBack,
+    setNativeMounted,
     closeLegalPage,
   };
 }
