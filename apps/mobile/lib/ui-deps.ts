@@ -3,6 +3,7 @@
 // stays testable under node; SharedUiHost passes the real ones.
 import type { HapticKind, SharePayload, WebPath } from '@swift2/ui';
 import type { UiHandlerDeps } from './bridge-handlers-ui';
+import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import { DEFAULT_ROUTE_FLAGS, isNativeRoute, type RouteFlags } from './routes';
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
@@ -37,8 +38,9 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
   const { haptics } = env;
   return {
     log: env.log,
-    // A DOM-routed path is not native: the handler answers `invalid` and the DOM routes it itself.
-    isNativeRoute: (path) => isNativeRoute(new URL(path, siteUrl).toString(), siteUrl, getFlags()),
+    // A DOM-routed path is not native: the handler answers `invalid` and the DOM routes it itself. The slot route
+    // registry (what the presenter accepts, e.g. /inbox) and the legacy screen table (lib/routes) both count.
+    isNativeRoute: (path) => isHostRoute(path) || isNativeRoute(new URL(path, siteUrl).toString(), siteUrl, getFlags()),
     navigate: (path) => {
       const present = env.getPresenter?.();
       if (!present) throw new Error('native route presenter not attached');
