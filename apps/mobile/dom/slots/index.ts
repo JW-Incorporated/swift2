@@ -16,6 +16,7 @@
 import './moment';
 import './era';
 import './legal';
+import './floating';
 
 export { register, slots } from './instance';
 export { createSlotRegistry } from './registry';
