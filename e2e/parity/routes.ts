@@ -128,7 +128,7 @@ const CLOWN_ANSWER_NDJSON =
 export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
   { name: 'merch', path: '/?mode=merch', root: 'main', sides: 'both' },
   { name: 'community', path: '/?mode=community', root: 'main', sides: 'both' },
-  { name: 'clownbot', path: '/?mode=clownbot', root: 'main' },
+  { name: 'clownbot', path: '/?mode=clownbot', root: 'main', sides: 'both' },
   {
     name: 'clownbot-transcript',
     path: '/?mode=clownbot',
@@ -142,6 +142,7 @@ export const A_ONLY_ROUTES_BETA: readonly AOnlyRoute[] = [
       await expect(page.getByText('Parity fixture argument, fixed for the screenshot.')).toBeVisible();
     },
   },
+  // TODO(One UI 2.11-D2): sides 'both' once the b footer matches a on a short page (iPad: footer text offset ~1px; the pill is fixed by #5000).
   { name: 'mood', path: '/?mode=mood', root: 'main' },
   {
     name: 'settings-notifications',
