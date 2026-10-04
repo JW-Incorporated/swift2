@@ -36,8 +36,35 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-26',
+  updatedOn: '2026-10-04',
   items: [
+    {
+      id: 'snl-dakota-johnson-cameo',
+      status: 'confirmed',
+      date: '2026-10-03',
+      lastCheckedOn: '2026-10-04',
+      headline: 'Taylor crashes Dakota Johnson’s SNL monologue as her "literal therapist"',
+      detail:
+        'On the 3 Oct 2026 Saturday Night Live (Dakota Johnson hosting, Turnstile the musical guest), Johnson introduced "my literal therapist" and out walked Taylor to correct her: "I’m not your therapist, actually." She described Johnson turning up weekly with an empty wine bottle, oversharing on her couch while Taylor offers the occasional "Damn, that’s crazy," then going home with a Pedialyte and a security escort rather than a sleepover. Taylor came back at the goodnights carrying a birthday cake for Johnson, who turned 37 the next day. The two had co-starred in the self-directed "Patient Zero" video.',
+      sources: [
+        {
+          name: 'NBC News',
+          url: 'https://www.nbcnews.com/pop-culture/tv/taylor-swift-snl-host-dakota-johnson-rcna601364',
+        },
+        {
+          name: 'Billboard',
+          url: 'https://www.billboard.com/culture/tv-film/taylor-swift-dakota-johnson-snl-monologue-1236353893/',
+        },
+        {
+          name: 'Deadline',
+          url: 'https://deadline.com/2026/10/taylor-swift-joins-snl-host-dakota-johnson-1237146104/',
+        },
+      ],
+      prompts: [
+        'Taylor keeps turning up in other people’s rooms this era — the SNL cameo, the VMAs. Decode it: is the Encore rollout deliberately low-key, or is she just enjoying herself? Commit.',
+      ],
+      tags: ['tloas', 'sighting', 'snl'],
+    },
     {
       id: 'showgirl-encore-patient-zero',
       status: 'confirmed',
@@ -99,12 +126,12 @@ export default {
       id: 'rep-tv-debut-tv',
       status: 'rumor',
       date: '2025-05-30',
-      // Rechecked 2026-09-26 (Vault Run): the 22 Sept countdown resolved into a
-      // NEW single, "Patient Zero," and then "The Life of a Showgirl: The
-      // Encore" (four new songs, out 25 Sept) — new music, but NOT a re-record.
-      // The longest-running open question stays open; neither reputation TV nor
-      // debut TV has been released or dated.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-04 (Vault Run): still unreleased and undated. The
+      // late-Sept VMAs (Patient Zero premiere) and the Oct 3 SNL cameo were
+      // Showgirl-era activity, not a re-record reveal; no reputation TV or
+      // debut TV has been released or dated. The longest-running open question
+      // stays open.
+      lastCheckedOn: '2026-10-04',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -184,10 +211,10 @@ export default {
       id: 'swifties-against-ai',
       status: 'reported',
       date: '2025-10-09',
-      // Rechecked 2026-09-26 (Vault Run): still `reported`. Nothing in the
-      // 25 Sept Encore news cycle revisited the promo-video AI question; her
-      // team has still neither confirmed nor denied it.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-04 (Vault Run): still `reported`. Re-verified via
+      // WebSearch — her team (and Google) have still neither confirmed nor
+      // denied the promo-video AI accusations; no formal statement has issued.
+      lastCheckedOn: '2026-10-04',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -215,11 +242,10 @@ export default {
       id: 'green-ts-next-era',
       status: 'reported',
       date: '2026-08-20',
-      // Rechecked 2026-09-26 (Vault Run): the 22 Sept countdown these clues fed
-      // into resolved to a single ("Patient Zero") and the Showgirl Encore —
-      // not a debut/Reputation/TS13 release. The green-TS read stays fandom
-      // interpretation; nothing official connects the images to a re-record.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-04 (Vault Run): still fandom interpretation. Nothing
+      // at the VMAs or since connects the green-TS imagery to a debut/
+      // Reputation/TS13 release; no next-era announcement has come.
+      lastCheckedOn: '2026-10-04',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -246,10 +272,11 @@ export default {
       id: 'ts13-lilac-cipher',
       status: 'reported',
       date: '2026-08-21',
-      // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
-      // activity was the Showgirl Encore, not a TS13 reveal — no album title,
-      // color system, or release plan has been confirmed.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-04 (Vault Run): still `reported`. WebSearch confirms
+      // no TS13 reveal — no album title, color system, or release plan has been
+      // confirmed; fan timelines now float a possible 2027 window, nothing
+      // official.
+      lastCheckedOn: '2026-10-04',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -271,12 +298,12 @@ export default {
     {
       id: 'writing-new-music-post-wedding',
       status: 'reported',
-      // Rechecked 2026-09-26 (Vault Run): the "writing new music" tip is now
-      // partly borne out — she released four brand-new songs on 25 Sept — but
-      // the TS13/next-era read it feeds is still unconfirmed, so status stays
-      // `reported`. Added the Encore as a corroborating source.
+      // Rechecked 2026-10-04 (Vault Run): status stays `reported`. The "writing
+      // new music" tip is partly borne out (the 25 Sept Encore's four new
+      // songs), but the TS13/next-era read it feeds is still unconfirmed — no
+      // next-era album, title, or timeline has been announced as of today.
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-26',
+      lastCheckedOn: '2026-10-04',
       headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',

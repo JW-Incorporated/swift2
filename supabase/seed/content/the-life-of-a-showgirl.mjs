@@ -15284,6 +15284,25 @@ export default {
             notes: 'Source for the Matthew Stafford (and wife Kelly) black-tie-party cameo in the "Patient Zero" video.',
           },
         ],
+        rumors: [
+          {
+            // Rumor Desk 2026-10-04 (Vault Run) from intake #4809. Verified the
+            // claim via the Yahoo repackaging (The Ankler itself paywalled);
+            // Yahoo credits The Ankler's Katey Rich and states plainly there is
+            // no official confirmation. Attached here because the reporting
+            // reads the VMA "Patient Zero" premiere and the Artist Director
+            // Honors as campaign signals.
+            claim:
+              'The Ankler reported that Taylor is quietly building an Academy Awards campaign — centered on her Toy Story 5 song "I Knew It, I Knew You" (co-written with Jack Antonoff) for Best Original Song — with the VMA-premiered, Lubezki-shot "Patient Zero" video and her inaugural VMAs Artist Director Honors read as supporting it, and no explicit, publicized campaign.',
+            reportedBy: 'The Ankler (Katey Rich)',
+            reportedOn: '2026-10-01',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-quietly-sets-sights-022434414.html',
+            note: 'Award-season intent speculation — an Always-OK public-facing category; no location, security, health, or private-individual content. No one (Swift, her team, the Academy) has confirmed a campaign; IndieWire and THR named the song an early Best Original Song front-runner in Sept. 2026. Resolves when Oscar noms post. sourceTier `tabloid`: The Ankler/Yahoo not allowlisted.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-10-04',
+          },
+        ],
       },
     },
     {
