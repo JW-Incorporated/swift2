@@ -3,18 +3,24 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
-- #97 · 2026-10-04 · done · Make the parity check required on main — "closed via Discord reply" · by discord
-- #96 · 2026-10-04 · done · Add Associated Domains to the iOS signing profile — "closed via Discord reply" · by discord
-- #88 · 2026-10-03 · done · Finish the weekly Facebook export setup — "Joey asked in chat to close once the run worked; 2026-10-03 run uploaded 8/8 groups (fans club raw-file upload retried 1/1, no KEPT outstanding); prod fan_signal 8 rows, engagement_lead 231; #4589 closed" · by chat
-- #70 · 2026-10-03 · done · Confirm the first automated Facebook export — "Joey asked in chat to close once the run worked; weekly issue #4589 closed with the counts comment, every joined group uploaded, none failed" · by chat
+- #98 · 2026-10-03 · done · Expo build minutes are used up until Nov 1 (~5 min) — "owner decided in chat 12:04 PDT: reroute (move release orchestration to GitHub Actions); PM executing" · by chat
+- #97 · 2026-10-03 · done · Make the parity check required on main (~3 min) — "owner verified 08:48 PDT — ruleset protect-swift2-main requires [\"build\",\"parity-gate\"]" · by chat
+- #96 · 2026-10-03 · done · Add Associated Domains to the iOS signing profile (~10 min) — "owner regenerated the App Store provisioning profile via EAS at 08:54 PDT (new Developer Portal ID 57SBZ45RQA); release train re-run 37134936992 started" · by chat
+- #95 · 2026-10-01 · done · Save the refreshed Instagram token so DMs and FB comments reach Discord — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5939131633 — owner said done" · by status page
+- #94 · 2026-10-01 · skip · Add a free Reddit API key so Tree finds 10+ opportunities a day — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5938589539 — owner skipped 'Owner decision 2026-10-01: we will NEVER have a Reddit API key. Never raise this again. (Relayed by Claude from Joey's chat.)'" · by status page
 - #93 · 2026-10-01 · done · Check the app's API address isn't overridden in Expo — "Joey said done in chat 2026-10-01: EXPO_PUBLIC_API_BASE_URL not listed in Expo env vars (full access); repo eas.json/workflows also don't set it" · by chat
 - #92 · 2026-10-01 · done · Refresh the Instagram token so DMs reach Discord — "Joey said done in chat 2026-10-01" · by chat
 - #89 · 2026-10-01 · done · Turn on Marjorie's bot1 bridge: Discord webhook, GitHub secret, Hermes allowlist — "Joey said done in chat 2026-10-01; webhook + ops secret set 13:08Z. Agent work left: Hermes allowlist (Hermes#1) + bot1Bridge.enabled PR" · by chat
+- #88 · 2026-10-03 · done · Finish the weekly Facebook export setup — "Joey asked in chat to close once the run worked; 2026-10-03 run uploaded 8/8 groups (fans club raw-file upload retried 1/1, no KEPT outstanding); prod fan_signal 8 rows, engagement_lead 231; #4589 closed" · by chat
 - #86 · 2026-10-01 · done · SOCIAL_POSTER_PAT can't trigger GitHub Actions — "Joey regenerated swift2-social-poster (Actions: Read and write) and saved SOCIAL_POSTER_PAT 2026-10-01 ~16:00Z; pat-dispatch-health run 36889926352 dispatched run 36889947595 with the PAT" · by chat
 - #82 · 2026-10-01 · done · GH_DISPATCH_TOKEN can't dispatch workflows — "GH_DISPATCH_TOKEN is SOCIAL_POSTER_PAT (routine-template.yml); fixed by #86's token, proven by run 36889947595" · by chat
 - #78 · 2026-10-01 · done · Add Actions read/write to SOCIAL_POSTER_PAT — "same fix as #86; proven by pat-dispatch-health run 36889947595" · by chat
 - #91 · 2026-10-01 · skip · May Tree post site-made share cards in the feed? — "Joey in chat 2026-10-01: wrong question for the founder — what Tree posts is Marjorie's and Tree's strategy call (Fable rules on taste); shipped as #4696" · by chat
 - #87 · 2026-10-01 · done · Ownership backlog stuck 7+ days — accept it or get it routed — "Joey asked agent 2026-10-01 to close verified-done items; founder decision comment on #4546, budget raised via merged PR #4631" · by agent
+- #85 · 2026-10-01 · done · #4559 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4559 (2026-09-30), issue closed" · by agent · <!-- marjorie-chase: 96h issue=4559 -->
+- #79 · 2026-10-01 · done · #4324 has had no activity for 4 days — "Joey asked agent 2026-10-01 to close verified-done items; founder decided 'assign' on #4324 (comment 2026-09-30)" · by agent · <!-- marjorie-chase: 96h issue=4324 -->
+- #90 · 2026-10-01 · done · Unfreeze social posting once PR #4660 has merged — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5931982869 — owner said done" · by status page
+- #80 · 2026-09-30 · done · #4364 has had no activity for 4 days — "status page https://github.com/JW-Incorporated/swift2/issues/4665#issuecomment-5925822083 — owner decided 'close'" · by status page · <!-- marjorie-chase: 96h issue=4364 -->
 - #49 · 2026-09-30 · done · Add the shared Community Tasks acknowledgement secret — "Joey said in chat 2026-09-30: close 49; GH secret set, Vercel Production+Preview set and redeployed, manual daily mailer run 36739720371 logged no COMMUNITY_ACK_SECRET unset" · by chat
 - #63 · 2026-09-30 · done · Add instagram_manage_insights scope — "Joey saved regenerated IG_ACCESS_TOKEN (with instagram_manage_insights + instagram_manage_comments) and said close after check; growth-snapshot run 36739561217 succeeded on new token (IG followers + 10 post-metric reads); insights call itself not exercised" · by chat
 - #43 · 2026-09-30 · done · OS-004 — Push credentials on EAS — "Joey said in chat 2026-09-30: close 43" · by chat
@@ -31,6 +37,7 @@
 - #73 · 2026-09-13 · done · Limit the Doorbell bot to #longlive-marjorie and #longlive-tree — "Joey confirmed in chat 2026-09-13: Doorbell bot limited to #longlive-marjorie and #longlive-tree" · by chat
 - #74 · 2026-09-13 · done · Create the GitHub key the Doorbell uses to wake Marjorie and Tree — "Joey confirmed in chat 2026-09-13: fine-grained key longlive-doorbell-dispatch created and saved" · by chat
 - #71 · 2026-09-13 · done · Send two or three short Discord messages so the bot chat can be proven — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1548841758950162463" · by chat
+- #70 · 2026-10-03 · done · Confirm the first automated Facebook export — "Joey asked in chat to close once the run worked; weekly issue #4589 closed with the counts comment, every joined group uploaded, none failed" · by chat
 - #69 · 2026-09-13 · done · Grant the Discord bot four permissions on #longlive-marjorie and #longlive-tree — "owner said done in chat; reply-poll run 34774300277 read the channel without a 403" · by chat
 - #68 · 2026-09-13 · done · Freeze, merge PR #4202 (social-poster alert reroute), unfreeze — "PR #4202 MERGED; SOCIAL_FREEZE verified false via gh variable list" · by agent
 - #64 · 2026-09-12 · done · X per-post metrics need a paid API tier — "closed via Discord reply" · by discord
