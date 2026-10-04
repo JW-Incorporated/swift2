@@ -116,10 +116,26 @@ and a flipped default cannot be killed remotely.
 - **READY_TIMEOUT_MS stays 10 s** until S7 records time-to-ready per device;
   then set it to `max(10 s, 2 x p95 on the slowest device)`.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
-  the bridge host's `onProtocolFatal` calls it when the host is wired in.
-  TODO(PM, WP2.3-B step 4): that wiring is not done; nothing calls `watch.protocol` yet.
+  the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
+- **Bridge wiring (H0).** SharedUiHost builds one host + link per epoch
+  (disposed on unmount; the DOM page is `key`ed by the epoch, so a recreated host
+  always meets a freshly handshaking client) over `createUnwiredHandlers`: every
+  command answers `failed` until H1/H2/H3 supply real handlers. The DOM page gets two
+  props: `inbox` (the host's un-acked sequenced envelopes, re-delivered whole)
+  and `bridge` (a native action, `handlers.bridge`). `createBridgeLink`
+  (lib/dom-host-handlers.ts) routes the host's `send`: sequenced envelopes go to
+  `inbox`; a `res` or `readyAck` resolves the `bridge` call that is awaiting it,
+  and the DOM client feeds it back. After dispose (fatal or unmount) every call
+  rejects, a duplicate command id rejects the older call, and a repeated `ready`
+  (webview reload) releases the pending ones. The DOM client's own fatal
+  (`ready-failed`, `id-space-exhausted`) goes through the `reportProtocolFatal`
+  action -> `watch.protocol()` (not `reportError`, which is ignored after first
+  paint). ReaderSpike mounts `useExpoBridge` (renders
+  nothing) only when `bridge` is supplied (never on web/dev): it sends `ready` after
+  mount and drains `inbox`. A bridge-level `ready` does not call `watch.ready()` (the
+  first-paint `onReady` still does; the `hang` drill is unchanged).
 - **Not yet wired.** TODO(PM, WP2.4-D): overlay clearing. TODO(PM, WP2.3-E): the
-  notification-tap queue. TODO(PM, WP2.3-B step 4): `watch.protocol` wiring.
+  notification-tap queue.
 
 **G4 drill.** Simulated (no device): `npx vitest run
 apps/mobile/lib/watchdog-drill.test.ts --reporter=verbose` runs every failure
@@ -132,7 +148,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
    attempt). Relaunch twice more: quarantined, native with no attempt.
    Diagnostics shows `Quarantined: yes`.
-2. Failure `off`, Reset watchdog, relaunch: the shared UI returns. `throw`
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
 4. After WP2.3-E ships: a notification tap while quarantined lands on the native screen.
@@ -168,3 +184,9 @@ Behavior:
 - `first-era-paint` is the native era stream's first frame, or the shared-UI host's `dom-ready`; each report records which (`UI | native/shared`). `first-image-paint` = first loaded image inside the viewport. Shared UI reports via ReaderSpike's `reportImageLoad` prop (the next/image stub's `onLoad`), native via `MomentCard` `onLoad`.
 - State (run id, remaining, results) is one SecureStore key `longlive_diag_speed_test_v1`. The server caps reports at 31 per run id and 300 per 24 h overall, on top of the existing 5/min per IP.
 - Opt-in by the tester; unrelated to the category-only watchdog telemetry.
+
+## YouTube embeds in the DOM host (#4954)
+
+The DOM page is a null origin and sends no Referer, so a direct YouTube iframe fails with error 153. No `baseUrl` spoofing (G0 ruling 2026-10-04). Instead, when the host sets `embedOrigin` (the app sets `https://www.longlivets.com`; web omits it), `MomentVideo` and `MoodSongCard` point the iframe at `https://www.longlivets.com/embed/youtube/<id>` (via `youtubeEmbedSrc`, `packages/ui/src/reader/lib/youtube-embed.ts`). That route handler (`apps/web/app/embed/youtube/[id]/route.ts`, static HTML, no root layout) serves only a full-bleed youtube-nocookie iframe on the real origin, so YouTube sees a real embedder. The outer iframe is a navigation, so no CORS change. Web keeps the direct iframe. Both iframes carry `referrerPolicy="strict-origin-when-cross-origin"`. Spotify is out of scope.
+
+Framing: the site denies framing everywhere (`frame-ancestors 'none'` and `X-Frame-Options: DENY`, both set in `proxy.ts`). For exactly `/embed/youtube/<11-char id>` only (one shared case-sensitive predicate in `security-headers.mjs`; extra segments, trailing slash and every other path keep full protection), `frame-ancestors` is omitted (not `*`, which does not match a file:/custom-scheme parent) and X-Frame-Options is not sent. The page only shows a video, so framing it has no clickjacking value. Id must match `^[A-Za-z0-9_-]{11}$`, else 404.

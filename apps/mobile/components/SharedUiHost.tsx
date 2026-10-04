@@ -12,12 +12,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BackHandler, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import type { Envelope } from '@swift2/ui';
 import ReaderSpike from '../dom/ReaderSpike';
 import SharedUiTest from '../dom/SharedUiTest';
 import { hardwareBackHandled } from '../dom/spike/back';
 import { setLatestProbeJson, withNativeTiming } from '../dom/spike/probe';
+import { createUnwiredHandlers } from '../lib/app-handlers';
+import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { loadContentBundle } from '../lib/content-bundle';
-import { createDomHostHandlers, type DomSignal } from '../lib/dom-host-handlers';
+import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { speedTest } from '../lib/speed-test-runtime';
@@ -43,6 +46,10 @@ export function SharedUiHost({
   const [testPage, setTestPage] = useState<boolean | null>(null);
   const [source, setSource] = useState<ReaderSource | null>(null);
   const [backTick, setBackTick] = useState(0);
+  const [inbox, setInbox] = useState<Envelope[]>([]);
+  // One bridge host + link per epoch; the DOM page is keyed by the epoch so it re-handshakes with every new host.
+  const [session, setSession] = useState<{ epoch: number; link: ReturnType<typeof createBridgeLink> } | null>(null);
+  const epochRef = useRef(0);
   const readerReady = useRef(false);
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
@@ -75,7 +82,47 @@ export function SharedUiHost({
       });
   }, [testPage]);
 
-  const handlers = useMemo(() => createDomHostHandlers({ onSignal, watch }), []);
+  const handlers = useMemo(
+    () =>
+      createDomHostHandlers({
+        onSignal,
+        watch,
+        bridge: session?.link.bridge,
+        bridgeClosed: session?.link.isClosed,
+      }),
+    [session],
+  );
+
+  useEffect(() => {
+    const epoch = ++epochRef.current;
+    const ref: { host?: BridgeHost } = {};
+    const link = createBridgeLink(() => {
+      const next = ref.host?.inbox() ?? [];
+      setInbox((prev) => (sameInbox(prev, next) ? prev : next));
+    });
+    const host = createBridgeHost({
+      handlers: createUnwiredHandlers(onSignal),
+      send: link.send,
+      now: Date.now,
+      scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
+      onProtocolFatal: (reason) => {
+        onSignal('bridge-protocol-fatal', reason.slice(0, 200));
+        link.dispose();
+        watch.protocol();
+      },
+      onSignal,
+    });
+    ref.host = host;
+    link.attach(host);
+    setInbox([]);
+    setSession({ epoch, link });
+    return () => {
+      host.dispose();
+      link.dispose();
+      setSession(null);
+      setInbox([]);
+    };
+  }, []);
 
   useEffect(() => {
     if (testPage !== false) return;
@@ -110,12 +157,16 @@ export function SharedUiHost({
           reportError={handlers.reportError}
           forceFailure={forceFailure}
         />
-      ) : testPage === false && source ? (
+      ) : testPage === false && source && session ? (
         <ReaderSpike
+          key={session.epoch}
           dom={dom}
           cacheUri={source.cacheUri ?? undefined}
           versionToken={source.versionToken}
           backTick={backTick}
+          inbox={inbox}
+          bridge={handlers.bridge}
+          reportProtocolFatal={handlers.reportProtocolFatal}
           insets={insets}
           onReady={
             forceFailure === 'off'

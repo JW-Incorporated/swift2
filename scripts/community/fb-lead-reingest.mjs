@@ -16,10 +16,20 @@
 // aggregates only (volume/heat/our-words summary — never a name or an
 // excerpt), so they were never contaminated; and `fan_signal` has no unique
 // constraint, so re-inserting would silently duplicate a week's signal.
-// Leads are protected by `engagement_lead`'s own dedupe index
-// (platform, coalesce(thread_id, locator), kind), so a re-run is idempotent.
 //
-// SAFETY: dry-run is the DEFAULT. Nothing is written without `--apply`.
+// IDEMPOTENT BY CLEARING, NOT BY THE DEDUPE INDEX. Before writing a group's
+// fresh leads, this deletes that group's existing status='new' facebook leads.
+// Relying on `engagement_lead`'s dedupe index alone is NOT enough: the index
+// is on (platform, coalesce(thread_id, locator), kind), facebook leads have no
+// thread_id, so the key is the 80-char excerpt itself — any change to how the
+// excerpt is built (the code-point slice fix, a parser change, a different
+// --max-leads) produces a different key for the same post and the 23505
+// dedupe silently stops matching, duplicating rows on a re-run. Only
+// status='new' rows are cleared, so a lead a human already triaged, replied
+// to or dismissed is never touched.
+//
+// SAFETY: dry-run is the DEFAULT. Nothing is written or deleted without
+// `--apply`.
 //
 //   node scripts/community/fb-lead-reingest.mjs                 # dry run, prints the plan
 //   node scripts/community/fb-lead-reingest.mjs --apply
@@ -126,6 +136,30 @@ async function listAllExports(supabase) {
   }
 }
 
+/**
+ * Clears this group's existing re-ingestable leads before writing the fresh
+ * set, so the whole script is idempotent and safe to re-run.
+ *
+ * Needed because the dedupe index is on `coalesce(thread_id, locator)` and
+ * facebook leads have no thread_id, so the key IS the excerpt. Any change to
+ * how the excerpt is built (the code-point slice fix, a parser change, a
+ * different maxLeadsPerGroup) yields a different key for the same post, and
+ * the 23505 dedupe silently stops protecting us — a re-run would insert a
+ * SECOND row for a post already present. Scoped to status='new' so a lead a
+ * human has already triaged, replied to, or dismissed is never touched.
+ */
+async function clearGroupLeads(supabase, slug) {
+  const { data, error } = await supabase
+    .from('engagement_lead')
+    .delete()
+    .eq('platform', 'facebook')
+    .eq('community', `facebook:${slug}`)
+    .eq('status', 'new')
+    .select('id');
+  if (error) throw new Error(`could not clear existing leads for ${slug}: ${error.message}`);
+  return data?.length ?? 0;
+}
+
 async function main() {
   const flags = parseArgs(process.argv.slice(2));
   const supabase = serviceClient();
@@ -146,6 +180,7 @@ async function main() {
 
   let totalInserted = 0;
   let totalDeduped = 0;
+  let totalCleared = 0;
   for (const item of exports_) {
     const { data: blob, error: downloadError } = await supabase.storage.from(BUCKET).download(item.name);
     if (downloadError) {
@@ -161,10 +196,15 @@ async function main() {
       `  ${item.name}: ${postCount} post(s) parsed, ${screenedOut} screened out, ${leads.length} lead(s)`,
     );
     if (!flags.apply) continue;
+    const cleared = await clearGroupLeads(supabase, item.slug);
     const { inserted, deduped } = await insertLeads(supabase, leads);
+    totalCleared += cleared;
     totalInserted += inserted;
     totalDeduped += deduped;
-    console.log(`    wrote ${inserted} lead(s)${deduped ? ` (${deduped} already existed, skipped)` : ''}`);
+    console.log(
+      `    wrote ${inserted} lead(s)${cleared ? ` (replaced ${cleared} untriaged)` : ''}` +
+        `${deduped ? ` (${deduped} already existed, skipped)` : ''}`,
+    );
   }
 
   if (!flags.apply) {
@@ -173,6 +213,7 @@ async function main() {
   }
   console.log(
     `fb-lead-reingest: inserted ${totalInserted} engagement_lead row(s)` +
+      (totalCleared ? `, replaced ${totalCleared} untriaged row(s)` : '') +
       (totalDeduped ? `, ${totalDeduped} already existed` : '') + '.',
   );
   return 0;
