@@ -32,6 +32,7 @@ import Constants from 'expo-constants';
 import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
 import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes';
 
+import { isAppOpenableUrl } from '../lib/mailto-allowlist';
 import { SITE_URL } from '../lib/site-url';
 
 export { SITE_URL };
@@ -141,9 +142,11 @@ export function SiteShell({
         return true;
       }
       if (req.url.startsWith('about:')) return true;
-      Linking.openURL(req.url).catch(() => {
-        /* nothing sensible to do if the OS refuses; stay put */
-      });
+      if (isAppOpenableUrl(req.url)) {
+        Linking.openURL(req.url).catch(() => {
+          /* nothing sensible to do if the OS refuses; stay put */
+        });
+      }
       return false;
     },
     [isNativeCapableUrl, onNativeCapableLinkPress],

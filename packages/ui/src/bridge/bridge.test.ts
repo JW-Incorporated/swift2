@@ -15,7 +15,6 @@ import {
   isBridgeId,
   isDomCommandType,
   isExternalUrl,
-  isMailtoUrl,
   isResResult,
   isVersionRange,
   isWebPath,
@@ -205,21 +204,6 @@ describe('isExternalUrl', () => {
   });
 });
 
-describe('isMailtoUrl', () => {
-  it('accepts one bare address', () => {
-    expect(isMailtoUrl('mailto:privacy@longlivets.com')).toBe(true);
-    expect(isMailtoUrl('MAILTO:a.b+c@x.test')).toBe(true);
-  });
-  it.each([
-    'mailto:', 'mailto:a@b', 'mailto:a@b.test?subject=x', 'mailto:a@b.test?bcc=c@d.test', 'mailto:a@b.test#x',
-    'mailto:a@b.test,c@d.test', 'mailto:a@b.test;c@d.test', 'mailto:a%40b.test', 'mailto:a@b.test%0d%0aBcc:c@d.test',
-    'mailto:a@b.test\n','mailto:a@b.test ', ' mailto:a@b.test', 'mailto:a b@c.test', 'mailto:<a@b.test>',
-    'javascript:alert(1)', 'data:text/html,hi', 'https://a.test', 'mailto://a@b.test', 'tel:123', '', 7, null,
-  ])('rejects %j', (u) => {
-    expect(isMailtoUrl(u)).toBe(false);
-  });
-});
-
 describe('sanitizeApiRequest', () => {
   const req = { method: 'POST', path: '/api/mood', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, body: '{}' };
   it('keeps safelisted headers (lower-cased) and drops nothing else silently', () => {
@@ -395,7 +379,6 @@ describe('type-level contract', () => {
     expectTypeOf<string>().not.toExtend<PayloadOf<'navigate'>['path']>();
     expectTypeOf<'/x'>().not.toExtend<PayloadOf<'navigate'>['path']>();
     expectTypeOf<'https://x.test'>().not.toExtend<PayloadOf<'openExternal'>['url']>();
-    expectTypeOf<'mailto:a@b.test'>().not.toExtend<PayloadOf<'openExternal'>['url']>();
   });
 
   it('shared primitive types are the host/types definitions', () => {

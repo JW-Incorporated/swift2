@@ -710,6 +710,7 @@ A1 (clown board/chat client modules only; Mood and all server-side `clown-*` sta
 | `packages/ui/src/reader/legal/{LegalDocument,SupportPage}.tsx` + `lib/legal.ts` | MOVED from `apps/web` (WP2.13-A1 + minimal A2). `apps/web/lib/longlive/legal.ts` is a one-line `export *` shim. `app/{privacy,terms,support}/page.tsx` keep `metadata` and pass `footer={<SiteFooter />}` (SiteFooter stays until 2.4-B). `Link` via `useHost()` |
 | `packages/ui/src/reader/legal/FeedbackButton.tsx` | MOVED from `apps/web/components/longlive/` (WP2.13-A1b, move-only). Old path is a one-line `export *` shim (until A2) |
 | `packages/ui/src/reader/legal/MailtoLink.tsx` | WP2.13-A2b: `mailto:` anchor; routes the click through `host.openExternal` when the host has it (app), plain anchor otherwise (web). Used by `SupportPage`. `isMailtoUrl`/`MailtoUrl` live in `packages/ui/src/bridge/validate.ts` (bare address only; `openExternal` accepts it besides https) |
+| `apps/mobile/lib/mailto-allowlist.ts` (+ test) | `APP_MAILTO_ALLOWLIST` (exactly the two LEGAL_FACTS aliases), `isAllowedMailto`, `isAppOpenableUrl` (https or allow-listed mailto). One gate for the `openExternal` handler, the host command validator and `SiteShell`'s off-site navigation; everything else is dropped |
 | `apps/mobile/lib/site-url.ts` | WP2.13-A2b: canonical `SITE_URL` (`EXPO_PUBLIC_SITE_URL` override). `components/SiteShell.tsx` re-exports it until the shims go after 2.13-D |
 
 ## CI concurrency (2026-10-01)

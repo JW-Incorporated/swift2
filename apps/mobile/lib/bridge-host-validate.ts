@@ -1,6 +1,7 @@
 import { isAnyNotificationCategory } from '@swift2/shared';
-import { isBridgeId, isExternalUrl, isMailtoUrl, isWebPath, sanitizeApiRequest } from '@swift2/ui';
+import { isBridgeId, isWebPath, sanitizeApiRequest } from '@swift2/ui';
 import type { DomCommandType, JsonValue, NativeCommandType } from '@swift2/ui';
+import { isAppOpenableUrl } from './mailto-allowlist';
 
 const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const MAX_SHARE_FIELD = 2048;
@@ -49,7 +50,7 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       if (!isWebPath(p.path) || (p.replace !== undefined && typeof p.replace !== 'boolean')) return null;
       return p.replace === undefined ? { path: p.path } : { path: p.path, replace: p.replace };
     case 'openExternal':
-      return isExternalUrl(p.url) || isMailtoUrl(p.url) ? { url: p.url } : null;
+      return isAppOpenableUrl(p.url) ? { url: p.url } : null;
     case 'api': {
       const req = sanitizeApiRequest(p.req);
       return req ? { req: req as unknown as JsonValue } : null;

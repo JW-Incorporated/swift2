@@ -74,10 +74,10 @@ export function isExternalUrl(s: unknown): s is ExternalUrl {
 }
 export const toExternalUrl = (s: unknown): ExternalUrl | null => (isExternalUrl(s) ? s : null);
 
-const MAILTO_RE = /^mailto:[A-Za-z0-9._+-]{1,64}@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$/i;
+const MAILTO_RE = /^mailto:[A-Za-z0-9._+-]{1,64}@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$/;
 
 /**
- * `mailto:` with exactly one plain address and nothing else: no query (so no
+ * Lowercase `mailto:` with exactly one plain address and nothing else: no query (so no
  * subject/body/cc/bcc header injection), no fragment, no percent-escapes (which
  * could smuggle CR/LF or a second recipient), no comma/semicolon lists.
  * `javascript:`, `data:`, `https:` and everything else is rejected.
