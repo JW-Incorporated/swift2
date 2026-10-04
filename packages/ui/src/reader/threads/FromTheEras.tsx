@@ -1,6 +1,7 @@
 'use client';
 
 import { useHost } from '@swift2/ui';
+import { useResolveUrl } from '../../host/context';
 import { ArrowRight, Compass } from 'lucide-react';
 import { useAppActions } from '../store';
 import { getEra } from '@swift2/experience';
@@ -31,6 +32,7 @@ export function FromTheEras({
   limit?: number;
 }) {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { openItem } = useAppActions();
   if (items.length === 0) return null;
   const shown = items.slice(0, limit);
@@ -59,7 +61,7 @@ export function FromTheEras({
             >
               <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                 <Image
-                  src={imgUrl}
+                  src={resolveUrl(imgUrl)}
                   alt=""
                   fill
                   unoptimized={isRemoteUrl(imgUrl)}

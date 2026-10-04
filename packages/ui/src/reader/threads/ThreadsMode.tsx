@@ -2,6 +2,7 @@
 
 import type React from 'react';
 import { useHost } from '@swift2/ui';
+import { useResolveUrl } from '../../host/context';
 import {
   Heart,
   Shirt,
@@ -93,6 +94,7 @@ function ThreadHeroArt({
   decorative?: boolean;
 }) {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const tiles = threadHeroTiles(meta.id);
 
   if (tiles.length > 0) {
@@ -113,7 +115,7 @@ function ThreadHeroArt({
         {tiles.map((tile, i) => (
           <img
             key={tile.id}
-            src={tile.url}
+            src={resolveUrl(tile.url)}
             alt=""
             // The hero is above the fold on the detail header, so `priority`
             // has to reach these too — lazy tiles there paint an empty hero
@@ -137,7 +139,7 @@ function ThreadHeroArt({
 
   return (
     <Image
-      src={meta.hero || '/placeholder.svg'}
+      src={resolveUrl(meta.hero || '/placeholder.svg')}
       alt={decorative ? '' : (meta.heroAlt ?? '')}
       fill
       priority={priority}

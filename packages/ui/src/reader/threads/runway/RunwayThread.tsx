@@ -1,6 +1,7 @@
 'use client';
 
 import { useHost, useReader } from '@swift2/ui';
+import { useResolveUrl } from '../../../host/context';
 import { getEra } from '@swift2/experience';
 import { accentFgFor, eraStyle } from '../../lib/theme';
 import { RUNWAY_LOOKS } from '@swift2/experience';
@@ -22,6 +23,7 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  */
 export function RunwayThread() {
   const { Image } = useHost();
+  const resolveUrl = useResolveUrl();
   const { contentForThreadInEra } = useReader();
   return (
     <div className="space-y-10 pt-8">
@@ -77,7 +79,7 @@ export function RunwayThread() {
                 <figure className="mt-5">
                   <div className="relative aspect-[16/10] w-full">
                     <Image
-                      src={feature.url}
+                      src={resolveUrl(feature.url)}
                       alt={feature.caption ?? look.name}
                       fill
                       unoptimized={isRemoteUrl(feature.url)}
@@ -106,7 +108,7 @@ export function RunwayThread() {
                     <figure key={i}>
                       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl">
                         <Image
-                          src={img.url}
+                          src={resolveUrl(img.url)}
                           alt={img.caption ?? look.name}
                           fill
                           unoptimized={isRemoteUrl(img.url)}
