@@ -105,7 +105,15 @@ and a flipped default cannot be killed remotely.
 - **Pending screen.** While the launch resolves, a plain view in the reader's
   body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
   `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
-  native mounts and the DOM never swaps in for that launch.
+  native mounts and the DOM never swaps in for that launch, with one exception:
+  the Diagnostics "Force shared UI" override. If it resolves ON after the bound
+  (slow iOS keychain on a cold launch), the DOM host still mounts (late upgrade,
+  `mount-late-upgrade` mark). Every expiry records a `mount-pending-expired`
+  mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
+  `Mount:` line with the reason the mount is native (`pending-expired`,
+  `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
+  or the source of a shared-UI mount. The mark is not in the `[diag]` /
+  `[watchdog]` server whitelists (apps/web), so it does not yet reach a report.
 - **Telemetry (default OFF).** Category-only `[watchdog]` reports, a separate
   strict server schema (`{platform, buildKey, category}`; no model, OS, update id
   field or timings; the user-initiated `[diag]` path is unchanged), categories

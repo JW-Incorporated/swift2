@@ -199,3 +199,15 @@ describe('Diagnostics lines', () => {
     expect(watchdogLines(null)).toEqual(['Watchdog: no record']);
   });
 });
+
+describe('native mount reason', () => {
+  it('names the local cause and renders the Diagnostics line', async () => {
+    const { nativeReasonFor, mountLine } = await import('./watchdog-policy');
+    expect(nativeReasonFor({ wantsDom: false, source: 'quarantine' }, true)).toBe('quarantine');
+    expect(nativeReasonFor({ wantsDom: false, source: 'cache' }, false)).toBe('flag-off');
+    expect(nativeReasonFor({ wantsDom: true, source: 'override' }, true)).toBe('watchdog-fallback');
+    expect(mountLine('native', 'pending-expired', null)).toBe('Mount: native (pending-expired)');
+    expect(mountLine('dom', null, 'override')).toBe('Mount: shared UI (override)');
+    expect(mountLine('pending', null, null)).toBe('Mount: pending');
+  });
+});

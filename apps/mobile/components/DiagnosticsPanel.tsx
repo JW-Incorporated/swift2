@@ -3,7 +3,7 @@
 // report, and holds the C4 "Force shared UI" stub switch (wired in WP0.4).
 import { useEffect, useState } from 'react';
 import { Modal, Pressable, ScrollView, Share, StyleSheet, Switch, Text, View } from 'react-native';
-import { buildDiagPayload, diagCollector, isPointStage } from '../lib/diagnostics';
+import { buildDiagPayload, diagCollector, getMountInfo, isPointStage } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import {
   getForceDomFailure,
@@ -21,7 +21,7 @@ import { sendDiagReport } from '../lib/diagnostics-send';
 import { isActive, panelLines, type SpeedState } from '../lib/speed-test';
 import { speedTest } from '../lib/speed-test-runtime';
 import type { DomFailureMode, WatchdogRecord } from '../lib/watchdog';
-import { watchdogLines } from '../lib/watchdog-policy';
+import { mountLine, watchdogLines } from '../lib/watchdog-policy';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
@@ -159,6 +159,9 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
             ))}
           </View>
           <Text style={styles.section}>Watchdog</Text>
+          <Text style={styles.fact}>
+            {mountLine(getMountInfo().mount, getMountInfo().reason, getMountInfo().source)}
+          </Text>
           {watchdogLines(wd).map((line) => (
             <Text key={line} style={styles.fact}>
               {line}
