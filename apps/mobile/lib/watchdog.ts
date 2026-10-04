@@ -13,8 +13,8 @@
 // ready launch clears. A failure (ready-timeout, DOM error before ready, webview
 // terminate/render-gone before ready or a repeat within RELOAD_WINDOW_MS of a
 // post-ready reload) is a strike: strike 1 mounts native for this launch;
-// strike 2 (consecutive) also clears the C4 override and makes the next launch
-// native too.
+// strike 2 (consecutive) makes the next launch native too (the C4 override was
+// removed 2026-10-04; its clearing code is deferred to the native-UI deletion PR).
 
 import { QUARANTINE_AFTER_FALLBACK_CYCLES, escalate, quarantinedDecision } from './watchdog-policy';
 import { truncateReason } from './watchdog-monitor';
@@ -179,15 +179,9 @@ export async function startAttempt(
   decision: MountDecision,
   now: number,
   save: (r: WatchdogRecord) => Promise<boolean>,
-  stillWanted: () => boolean = () => true,
 ): Promise<WatchdogRecord | null> {
   const attempt = beginAttempt(decision.record, now);
   if (!(await save(attempt))) return null;
-  if (!stillWanted()) {
-    // The flag flipped off mid-flow: nothing mounted, so un-record the attempt (no strike).
-    await save(decision.record);
-    return null;
-  }
   return attempt;
 }
 

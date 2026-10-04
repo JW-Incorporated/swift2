@@ -88,6 +88,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);
   const expiredRef = useRef(false);
+  const committedRef = useRef(false);
   const decidedRef = useRef(false);
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
@@ -122,7 +123,7 @@ export function useDomMount(inputs: LaunchInputs | null): {
       armPendingBound(scheduler, () => {
         expiredRef.current = true;
         diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
-        if (mountRef.current === 'pending') apply('native', 'pending-expired');
+        if (mountRef.current === 'pending' && !committedRef.current) apply('native', 'pending-expired');
       }),
     [],
   );
@@ -175,8 +176,11 @@ export function useDomMount(inputs: LaunchInputs | null): {
       return;
     }
     void (async () => {
-      setForceFailure(await getForceDomFailure());
-      const attempt = await startAttempt(decision, Date.now(), write, () => !expiredRef.current);
+      const failure = await getForceDomFailure();
+      if (expiredRef.current) return;
+      committedRef.current = true;
+      setForceFailure(failure);
+      const attempt = await startAttempt(decision, Date.now(), write);
       if (!attempt) {
         apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
         return;

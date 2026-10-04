@@ -217,20 +217,6 @@ describe('serialized record writes', () => {
   });
 });
 
-describe('wantsDom re-check', () => {
-  it('un-records the attempt and mounts native (no strike) when the flag went off mid-flow', async () => {
-    const d = decideMount(null, KEY, 1);
-    const saved: string[] = [];
-    const save = async (r: WatchdogRecord) => {
-      saved.push(r.state);
-      return true;
-    };
-    expect(await startAttempt(d, 2, save, () => false)).toBeNull();
-    expect(saved).toEqual(['attempting', 'idle']);
-    expect(decideMount(d.record, KEY, 3).record.strikes).toBe(0);
-  });
-});
-
 describe('fail-closed attempt write', () => {
   it('returns null (mount native) when the write fails, the attempt when it lands', async () => {
     const d = decideMount(null, KEY, 1);

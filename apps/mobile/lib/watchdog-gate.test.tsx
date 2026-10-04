@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
 vi.mock('react', async () => await import('../../web/node_modules/react'));
 
-const h = vi.hoisted(() => ({ saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
+const h = vi.hoisted(() => ({ saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
 vi.mock('react-native', () => ({
   AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
   Platform: { OS: 'ios' },
@@ -16,8 +16,9 @@ vi.mock('./watchdog-store', () => ({
     if (h.loadDelay) await new Promise((r) => setTimeout(r, h.loadDelay));
     return h.stored;
   },
-  saveWatchdogRecord: async (r: never) => {
-    h.saved.push(r);
+  saveWatchdogRecord: async (r: { state: string }) => {
+    if (h.saveDelay && r.state === 'attempting') await new Promise((res) => setTimeout(res, h.saveDelay));
+    h.saved.push(r as never);
     return true;
   },
   loadReportsRaw: async () => null,
@@ -43,6 +44,7 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     h.saved.length = 0;
     h.stored = null;
     h.loadDelay = 0;
+    h.saveDelay = 0;
     h.mark.mockClear();
   });
   afterEach(() => vi.useRealTimers());
@@ -100,6 +102,20 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     const off = renderHook(() => useDomMount(inputs({ sharedUi: false })));
     await flush();
     expect(off.result.current.nativeReason).toBe('flag-off');
+  });
+
+  it('timer firing during the attempt write still mounts DOM with an attempting record (commit latch)', async () => {
+    h.saveDelay = PENDING_MAX_MS + 200;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    await flush();
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
+    expect(h.mark).toHaveBeenCalledWith('mount-pending-expired', expect.any(String));
+    expect(result.current.mount).toBe('pending');
+    await act(async () => { await vi.advanceTimersByTimeAsync(300); });
+    expect(result.current.mount).toBe('dom');
+    expect(result.current.nativeReason).toBeNull();
+    expect(h.saved.at(-1)?.state).toBe('attempting');
   });
 
   it('an owed fallback is honoured: native, no attempt, launch consumed', async () => {
