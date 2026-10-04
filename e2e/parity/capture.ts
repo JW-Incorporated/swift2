@@ -15,9 +15,9 @@ export async function captureLocator(page: Page, selector: string): Promise<Buff
 }
 
 /** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
-export async function captureViewport(page: Page): Promise<Buffer> {
+export async function captureViewport(page: Page, maskSelectors: string[] = []): Promise<Buffer> {
   await imagesReady(page, 'body');
-  return page.screenshot({ scale: 'css' });
+  return page.screenshot({ scale: 'css', mask: maskSelectors.map((s) => page.locator(s)) });
 }
 
 export type Clip = { x: number; y: number; width: number; height: number };
