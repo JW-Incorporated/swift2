@@ -229,6 +229,23 @@ export function createTapUnlock(opts: { taps?: number; windowMs?: number; now?: 
 /** The process-wide collector the app uses. */
 export const diagCollector: TimingCollector = createTimingCollector();
 
+/** The current launch's mount choice, written by the watchdog gate and read by the Diagnostics panel. */
+export interface MountInfo {
+  mount: string;
+  reason: string | null;
+  source: string | null;
+}
+
+let mountInfo: MountInfo = { mount: 'pending', reason: null, source: null };
+
+export function setMountInfo(info: MountInfo): void {
+  mountInfo = info;
+}
+
+export function getMountInfo(): MountInfo {
+  return mountInfo;
+}
+
 let installed = false;
 
 const markedOnce = new Set<string>();

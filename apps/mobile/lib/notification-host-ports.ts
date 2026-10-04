@@ -2,9 +2,8 @@
 // tests (they inject fake ports). SharedUiHost spreads createExpoNotificationHandlers() over the unwired map.
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import * as SecureStore from 'expo-secure-store';
 import { fetchDevicePrefs, saveDevicePrefs } from './prefs-client';
-import { UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, requestPushRegistration } from './push-registration';
+import { clearRegisteredToken, isExplicitlyUnregistered, requestPushRegistration } from './push-registration';
 import { createHandlers } from './bridge-handlers-notifications';
 import { createNotificationHostDeps, type NotificationPorts, type Permission } from './notification-host-deps';
 
@@ -22,17 +21,13 @@ export const expoNotificationPorts: NotificationPorts = {
     return permission();
   },
   registerDevice: async () => {
-    const r = await requestPushRegistration();
+    const r = await requestPushRegistration({ clearOptOut: true });
     if (r.status === 'error') throw new Error('registration failed');
-    await SecureStore.deleteItemAsync(UNREGISTERED_KEY);
   },
   savePrefs: async (prefs) => void (await saveDevicePrefs({ prefs })),
   fetchPrefs: (signal) => fetchDevicePrefs(signal),
   writePrefs: (body, signal) => saveDevicePrefs(body, signal),
-  clearPushToken: async () => {
-    await clearRegisteredToken();
-    await SecureStore.setItemAsync(UNREGISTERED_KEY, '1');
-  },
+  clearPushToken: () => clearRegisteredToken(),
   isRegistered: async () => !(await isExplicitlyUnregistered()),
 };
 

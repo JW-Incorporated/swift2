@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, type ComponentType } from 'react';
+import { useEffect, useRef, type ComponentType } from 'react';
 import { getEra } from '@swift2/experience';
 import { AppProvider, useAppState } from '../store';
 import type { AppMode } from '../store/navigation';
-import { eraStyle, vaultStyle, merchStyle, VAULT_THEME, MERCH_THEME } from '../lib/theme';
+import { useHost, type ThemeChange } from '../../host';
+import { eraStyle, vaultStyle, merchStyle, statusBarStyleFor, VAULT_THEME, MERCH_THEME } from '../lib/theme';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
 
@@ -18,8 +19,20 @@ export interface ReaderSlots {
   fallback: ComponentType<{ mode: AppMode }>;
 }
 
+/** Mounted only when the host has a `theme` hook (the app); sends each distinct theme colour once. Web never mounts it. */
+function ThemeEmitter({ color, emit }: { color: string; emit: (t: ThemeChange) => void }) {
+  const last = useRef<string | null>(null);
+  useEffect(() => {
+    if (last.current === color) return;
+    last.current = color;
+    if (/^#[0-9a-fA-F]{6}$/.test(color)) emit({ statusBarStyle: statusBarStyleFor(color), background: color });
+  }, [color, emit]);
+  return null;
+}
+
 export function ReaderShell({ slots }: { slots: ReaderSlots }) {
   const { mode, eraId } = useAppState();
+  const themeHost = useHost().theme;
   const era = getEra(eraId);
   const inThreads = mode === 'threads';
   const inMerch = mode === 'merch';
@@ -47,6 +60,7 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
       className="era-shell font-sans"
       style={inThreads ? vaultStyle() : inMerch ? merchStyle() : eraStyle(era)}
     >
+      {themeHost ? <ThemeEmitter color={themeColor} emit={themeHost} /> : null}
       <TopBar />
       <main>{Surface ? <Surface /> : <Fallback mode={mode} />}</main>
       {Footer ? <Footer /> : null}

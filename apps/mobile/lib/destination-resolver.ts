@@ -28,9 +28,11 @@ export function resolveDestination(
   const legacy = destinationFor(u.toString(), site);
   if (legacy.kind === 'settings') return { kind: 'dom', path: SETTINGS_PATHS[0] };
   if (legacy.kind === 'inbox') return { kind: 'dom', path: INBOX_PATH };
-  if (legacy.kind === 'era-stream' || legacy.kind === 'clownbot') return { kind: 'dom', path: '/' };
-  if (legacy.kind === 'track-guide') return { kind: 'dom', path: `/?guide=${encodeURIComponent(legacy.eraId)}` };
-  if (legacy.kind === 'song') return { kind: 'dom', path: `/?song=${encodeURIComponent(legacy.trackKey)}` };
+  if (legacy.kind === 'era-stream' || legacy.kind === 'clownbot' || legacy.kind === 'track-guide' || legacy.kind === 'song') return { kind: 'dom', path: '/' };
+  // Web parity: the site drops `?current=<x>` / `?song=<slug>` to the front door (merch maps to its own mode).
+  const current = u.searchParams.get('current');
+  if (current === 'merch') return { kind: 'dom', path: '/?mode=merch' };
+  if (current !== null || u.searchParams.has('song')) return { kind: 'dom', path: '/' };
   const path = `${u.pathname}${u.search}${u.hash}`;
   if (opts.isHostRoute(path)) return { kind: 'native', path };
   const { pathname } = u;

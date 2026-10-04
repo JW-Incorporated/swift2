@@ -184,7 +184,7 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
   it('protocol fatal unbinds through the host pre-shutdown hook (ordering: bridge-host-nav-hooks.test.ts)', async () => {
     const e = epoch();
     await e.ready();
-    expect(e.binder.isBound()).toBe(true);
+    await vi.waitFor(() => expect(e.binder.isBound()).toBe(true));
     e.host.receive({ v: 1, id: 'bad', kind: 'evt', type: 'ready', payload: { v: 999 }, ts: 1 });
     expect(e.binder.isBound()).toBe(false);
     expect(e.watch.protocol).toHaveBeenCalledTimes(1);
@@ -194,7 +194,7 @@ describe('native-to-DOM navigate, end to end (real host, DOM client, gate)', () 
   it('a DOM re-handshake after bind releases the lease', async () => {
     const e = epoch();
     await e.ready();
-    expect(e.binder.isBound()).toBe(true);
+    await vi.waitFor(() => expect(e.binder.isBound()).toBe(true));
     const again = createExpoBridge((env) => e.host.receive(env));
     again.mount();
     await vi.waitFor(() => expect(e.binder.isBound()).toBe(false));

@@ -30,7 +30,7 @@ vi.mock('./device-id', () => ({ getOrCreateDeviceId: async () => 'dev-1' }));
 vi.mock('./notification-channels', () => ({ registerNotificationChannels: async () => undefined }));
 vi.mock('./api-base', () => ({ apiBaseUrl: () => 'https://api.test' }));
 
-import { UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, registerDevice } from './push-registration';
+import { UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, registerDevice, requestPushRegistration } from './push-registration';
 
 const bodies: { pushToken: string | null }[] = [];
 
@@ -82,6 +82,39 @@ describe('registerDevice (cold start)', () => {
     expect(bodies.at(-1)?.pushToken).toBeNull();
     expect(warn).toHaveBeenCalled();
     warn.mockRestore();
+  });
+});
+
+describe('registration race (opt-out vs stalled cold refresh)', () => {
+  it('cold refresh stalls, user unregisters, cold resumes: final server state is null', async () => {
+    let release!: (v: { data: string }) => void;
+    getExpoPushTokenAsync.mockReset().mockReturnValue(new Promise((r) => (release = r)));
+    const cold = registerDevice();
+    await vi.waitFor(() => expect(getExpoPushTokenAsync).toHaveBeenCalled());
+    const off = clearRegisteredToken();
+    release({ data: 'live' });
+    await Promise.all([cold, off]);
+    expect(bodies.map((b) => b.pushToken)).toEqual([null]);
+    expect(await isExplicitlyUnregistered()).toBe(true);
+  });
+
+  it('register after unregister wins and clears the opt-out', async () => {
+    await clearRegisteredToken();
+    await requestPushRegistration({ clearOptOut: true });
+    expect(bodies.at(-1)?.pushToken).toBe('tok');
+    expect(await isExplicitlyUnregistered()).toBe(false);
+  });
+
+  it('a stalled explicit register is superseded by a later unregister', async () => {
+    let release!: (v: { data: string }) => void;
+    getExpoPushTokenAsync.mockReset().mockReturnValue(new Promise((r) => (release = r)));
+    const on = requestPushRegistration({ clearOptOut: true });
+    await vi.waitFor(() => expect(getExpoPushTokenAsync).toHaveBeenCalled());
+    const off = clearRegisteredToken();
+    release({ data: 'live' });
+    await Promise.all([on, off]);
+    expect(bodies.at(-1)?.pushToken).toBeNull();
+    expect(await isExplicitlyUnregistered()).toBe(true);
   });
 });
 
