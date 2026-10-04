@@ -67,6 +67,20 @@ describe('bridge-host navigation hooks', () => {
     w.host.dispose();
   });
 
+  it('navReady/navigated before ready are ignored and signalled', () => {
+    const onNavReady = vi.fn();
+    const onNavigated = vi.fn();
+    const onSignal = vi.fn();
+    const w = wire({ onNavReady, onNavigated, onSignal });
+    w.host.receive({ v: 1, id: 'a', kind: 'evt', type: 'navReady', payload: {}, ts: 1 });
+    w.host.receive({ v: 1, id: 'b', kind: 'evt', type: 'navigated', payload: { id: 't1', ok: true }, ts: 1 });
+    expect(onNavReady).not.toHaveBeenCalled();
+    expect(onNavigated).not.toHaveBeenCalled();
+    expect(onSignal).toHaveBeenCalledWith('bridge-pre-ready', 'navReady');
+    expect(onSignal).toHaveBeenCalledWith('bridge-pre-ready', 'navigated');
+    w.host.dispose();
+  });
+
   it('onReadyAgain fires only for a ready after the handshake', async () => {
     const onReadyAgain = vi.fn();
     const w = wire({ onReadyAgain });

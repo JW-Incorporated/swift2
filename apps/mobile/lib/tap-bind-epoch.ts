@@ -7,22 +7,39 @@
 import type { TapGate, TapHost } from './notification-tap-gate';
 import type { AckRef } from './notification-tap-queue';
 
+export const NAV_UNBOUND_MS = 10_000;
+
 export function createTapBinder(opts: {
   gate: Pick<TapGate, 'bindHost'>;
   host: TapHost & { isReady(): boolean };
   /** The DOM re-handshook after this epoch bound: the lease is already released; start a new epoch. */
   onReadinessLoss: () => void;
+  /** Observability only: ready + first paint elapsed NAV_UNBOUND_MS without navReady. */
+  onNavUnbound?: () => void;
+  timers?: { set: (fn: () => void, ms: number) => unknown; clear: (h: unknown) => void };
 }) {
+  const timers = opts.timers ?? { set: (fn, ms) => setTimeout(fn, ms), clear: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) };
+  let unboundTimer: unknown = null;
+  const disarm = () => {
+    if (unboundTimer !== null) timers.clear(unboundTimer);
+    unboundTimer = null;
+  };
   let sub = false;
   let paint = false;
   let lease: (() => void) | null = null;
   let released = false;
   const tryBind = () => {
-    if (released || lease !== null || !sub || !paint || !opts.host.isReady()) return;
+    if (released || lease !== null || !paint || !opts.host.isReady()) return;
+    if (!sub) {
+      if (unboundTimer === null && opts.onNavUnbound) unboundTimer = timers.set(opts.onNavUnbound, NAV_UNBOUND_MS);
+      return;
+    }
+    disarm();
     lease = opts.gate.bindHost(opts.host);
   };
   const release = () => {
     released = true;
+    disarm();
     const l = lease;
     lease = null;
     l?.();
@@ -91,6 +108,8 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
   let counter = 0;
   const idByRef = new Map<string, string>();
   const outcome = new Map<string, boolean>();
+  const outstanding = new Set<string>();
+  const nonce = Math.random().toString(36).slice(2, 8);
   const waiters = new Map<string, () => void>();
   const local = new Map<number, Promise<boolean>>();
   const key = (r: AckRef) => `${r.epoch}:${r.seq}`;
@@ -103,9 +122,12 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
         local.set(n, Promise.resolve(opts.openElsewhere(path)).catch(() => false));
         return { epoch: -1, seq: n };
       }
-      const id = `t${++counter}`;
+      const id = `t${nonce}-${++counter}`;
       const ref = opts.host.emit('navigate', { path: payload.path as never, source: 'notification', id });
-      if (ref) idByRef.set(key(ref), id);
+      if (ref) {
+        idByRef.set(key(ref), id);
+        outstanding.add(id);
+      }
       return ref;
     },
     onAcked(ref, cb) {
@@ -118,10 +140,12 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
       if (id === undefined) return opts.host.onAcked(ref, cb);
       let acked = false;
       let done = false;
+      outstanding.add(id);
       const finish = (v: boolean) => {
         if (done) return;
         done = true;
         waiters.delete(id);
+        outstanding.delete(id);
         outcome.delete(id);
         idByRef.delete(key(ref));
         cb(v);
@@ -141,10 +165,12 @@ export function createTapTarget(opts: { host: NavHost; isReaderPath: (path: stri
       return () => {
         done = true;
         waiters.delete(id);
+        outstanding.delete(id);
         off();
       };
     },
     onNavigated({ id, ok }) {
+      if (!outstanding.has(id)) return;
       outcome.set(id, ok);
       waiters.get(id)?.();
     },
