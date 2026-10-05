@@ -22,6 +22,7 @@ export async function startAttemptBounded(
   write: (r: WatchdogRecord) => Promise<boolean>,
   scheduler: BoundScheduler,
   stillWanted: () => boolean,
+  onLateFailure: () => void = () => undefined,
 ): Promise<WatchdogRecord | null> {
   let timer: unknown;
   const bound = new Promise<'slow'>((resolve) => {
@@ -30,7 +31,10 @@ export async function startAttemptBounded(
   const started = startAttempt(decision, Date.now(), write, stillWanted);
   const attempt = await Promise.race([started, bound]);
   scheduler.clearTimeout(timer);
-  return attempt === 'slow' ? beginAttempt(decision.record, Date.now()) : attempt;
+  if (attempt !== 'slow') return attempt;
+  // Already mounting: a write that fails after this point is only observed, never flips the UI.
+  void started.then((late) => late || onLateFailure());
+  return beginAttempt(decision.record, Date.now());
 }
 
 /** The diagnostics failure drill is a SecureStore read: a slow one reads as 'off' rather than holding the launch. */
