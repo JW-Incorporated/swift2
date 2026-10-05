@@ -1,43 +1,32 @@
 {
-  "weekOf": "2026-09-28",
-  "whatChangedAndWhy": "The photo drought is over: PR #4592 merged this morning and the library went from 10 photographs to 30, twenty of which have never shipped — so every one of the thirteen draftable days below gets its own never-used photo and none repeats. In exchange I've broadened lesson L001 to what you actually said (\"All re-used pictures will be rejected\") — a photo that has ever shipped is now ineligible, full stop, and I've filed #4601 to put that rule in the checker instead of a prompt. The thing still broken is throughput, not quality: six draft PRs are open because one rejected picture blocks every approved post sitting beside it, which is why 3 posts shipped this week against 7 planned and why Mood — approved by you on 09-23 — still has never posted.",
+  "weekOf": "2026-10-05",
+  "whatChangedAndWhy": "Four daily-draft runs in a row finished green and opened no PR, so four of last week's seven beats were never drafted — and the one post you approved early, the 10-03 Mood pair, was retired to social/failed/ without a single posting attempt because the 48h staleness clock runs from your approval, not from the post's own slot. I changed three things in the strategy myself (PR #5168, reported not asked, lands on green): the calendar drops to ONE paired beat a day at 23:00Z because the poster's own code caps it there and the doc had been promising double; a beat is now drafted by its own day's run and never parked more than 24h ahead, which is what killed Mood; and the three things you named about the 10-01 Blank Spaces post — a real picture, specific text, a deep link into actual site content — are now three hard criteria instead of an average, with the image score getting its own floor. I also retired lesson L001 (no re-used photos) as codified: it fired six times, it is now check-drafts.mjs's checkPhotoReuse, and nothing has been rejected for a repeat photo since that gate landed on 10-01.",
   "calendar": [
-    { "day": 1, "text": "Mon 09-28 — lost. No draft run produced a PR today and the window has passed; I'm not backfilling a day-late post." },
-    { "day": 2, "text": "Tue 09-29 — End Game thread, one item told whole. September's End Game window closes tomorrow and it's shipped nothing, so this is its first of two last chances." },
-    { "day": 3, "text": "Wed 09-30 — End Game again, a different item. Window-bound: it runs tonight or September ends with this thread at zero." },
-    { "day": 4, "text": "Thu 10-01 — Blank Spaces relationship timeline, next confirmed chapter. This is the standing weekly minimum and it hasn't shipped since 09-21." },
-    { "day": 5, "text": "Fri 10-02 — The Decode thread, October's 'go find it and reply' angle. Opens October's rotation and it's the angle that actually asks for a reply." },
-    { "day": 6, "text": "Sat 10-03 — Mood, 'what it gave me'. Mood has never posted once; both halves of the version you approved on 09-23 are still stuck in an unmerged PR." },
-    { "day": 7, "text": "Sun 10-04 — The Decode, the answer beat to Friday's challenge, or a fresh one if nobody replied." },
-    { "day": 8, "text": "Mon 10-05 — Community Engine launch, day 0. Deferred from today; it now also covers the fan theories you can see on the front page. Only drafts if the drafter sees all three surfaces working live." },
-    { "day": 9, "text": "Tue 10-06 — Clue Web thread, how it knows what it knows. October's window opens and behind-the-data is its angle." },
-    { "day": 10, "text": "Wed 10-07 — Blank Spaces timeline, next chapter. The weekly minimum for the week of 10-05." },
-    { "day": 11, "text": "Thu 10-08 — Community Engine, the how-to. Literally where to tap, for someone who's never found it." },
-    { "day": 12, "text": "Fri 10-09 — Clue Web, a second item. Window closes 10-10, so it runs now or not at all." },
-    { "day": 13, "text": "Sat 10-10 — Community Engine, one real thing the feature produced. The proof it's good, not a description of it." },
-    { "day": 14, "text": "Sun 10-11 — Heartbeat, the Speak Now week-one record. The only everyday post in the fortnight; it died in the pipeline twice and gets a third run." }
+    { "day": 1, "text": "Mon 10-05 — lost. No draft run has fired by 19:00Z and a 23:00Z slot can no longer be drafted, approved and posted in time; I am not backfilling a day-late post. The Decode thread's second October slot goes with it." },
+    { "day": 2, "text": "Tue 10-06 — Community Engine launch, day 0: fan theories now show up on the site's front page. Twice deferred already; it goes first this week. The drafter checks the live site before announcing it." },
+    { "day": 3, "text": "Wed 10-07 — The Clue Web thread, hero post, this month's angle is the thread as a body of work (how many clues, how far back). Carries the Instagram hashtag experiment's tagged arm." },
+    { "day": 4, "text": "Thu 10-08 — Community Engine, how-to: literally where to tap, written for someone who has never found it." },
+    { "day": 5, "text": "Fri 10-09 — Blank Spaces relationship timeline, the weekly minimum, one chapter past the Joe Jonas chapter that shipped 10-01. Confirmed material only." },
+    { "day": 6, "text": "Sat 10-10 — The Clue Web, second slot, a different cut of the data than Tuesday's. The window closes tonight, so it runs even if Tuesday slipped. Experiment control (no hashtags)." },
+    { "day": 7, "text": "Sun 10-11 — news reserve: held for a real Taylor news event first. If nothing lands, it falls back to the fortnight's one everyday post, an era deep cut." },
+    { "day": 8, "text": "Mon 10-12 — Community Engine, the proof post: one real fan theory the site is actually carrying. If the board is empty the beat is deferred rather than invented." },
+    { "day": 9, "text": "Tue 10-13 — Mood, attempt four. The last three were drafted, one was approved by you, and none has ever posted. This one is drafted by its own day's run so the 48h clock cannot kill it." },
+    { "day": 10, "text": "Wed 10-14 — Community Engine, callback: tie it to one fan use-case and ask which theory people will actually defend. The arc closes here." },
+    { "day": 11, "text": "Thu 10-15 — The Runway thread, hero post, a real quiz/poll from the fashion lens. Runway shipped nothing at all in September; this is the slot that does not get dropped twice. Experiment control." },
+    { "day": 12, "text": "Fri 10-16 — Blank Spaces relationship timeline, the second week's minimum, one chapter further on." },
+    { "day": 13, "text": "Sat 10-17 — The Runway, second slot, different eras and options from Thursday's. Carries the experiment's second tagged arm." },
+    { "day": 14, "text": "Sun 10-18 — news reserve again (one per week is now a rule, not a courtesy). Fallback is Mood's second October slot in a different format." }
   ],
-  "proposals": [
-    {
-      "title": "Amend strategy §2 so the default is an UNUSED photograph, and name what happens when we run out",
-      "evidence": "Your four rejections in eight days, escalating to the absolute: \"Not approved. we've used this image before\" (#4471), \"Stop re-using pictures. No picture re-use allowed. If you need mroe pictures, made an issue and lets solve it\" (#4513), \"STOP TRYING TO REPOST THIS\" (#4544), and \"The reason for all the 'no's' on all of these posts is teh same: Re-used picture. All re-used pictures will be rejected. We need new pictures.\" (#4556). Strategy §2 currently says a real photograph is \"THE default for every post\" and says nothing about re-use, and social/photo-library.json says the opposite of your rule outright — that recency is \"never an eligibility ban, so a valid campaign cannot deadlock when the finite library is exhausted.\" Right now the written strategy and your standing instruction disagree.",
-      "cost": "Nothing to build — it's a wording change to one section, plus the checker work already filed as #4601. The real cost is that on any day with no unused photo left, Instagram posts nothing rather than repeating a tile.",
-      "onApprove": "Next week's run opens a separate PR changing strategy §2 to make 'a photograph that has never shipped' the default, and to state the fallback explicitly: X goes text-only and the Instagram slot stays empty rather than repeating. Your rule stops living only in a lessons file.",
-      "onReject": "I keep L001 as a drafting lesson only and leave strategy §2 as written, which means the strategy doc and your instruction stay in disagreement and the next agent to read §2 will reasonably re-use a photo."
-    }
-  ],
-  "questions": [
-    "Sixteen of the twenty new photographs are credited only as \"u/unknown via r/TaylorSwiftPictures\" — we have the Reddit link but not the person's name. Our own rule says we never repost someone's picture without crediting them. Can I ship those with the Reddit link as the credit, or should nothing go out until someone's real username is filled in? (Four photos do name their uploader; I've put those on the four biggest posts.)",
-    "Your weekly task email has gone five weeks with nothing ticked, while you answered nine post approvals in Discord this week in about three hours each. Should I stop sending the weekly task as a GitHub email and post it in #longlive-tree instead?"
-  ],
+  "proposals": [],
+  "questions": [],
   "needsFromMarjorie": [
     {
-      "ask": "Get the real Reddit usernames filled into the 16 photo-library entries currently credited 'u/unknown'",
-      "why": "social/photo-library.json has 16 of 30 entries crediting 'u/unknown via r/TaylorSwiftPictures' while carrying the exact source post URL, and Tree's charter bars reposting media without credit — Tree may not write the library or scripts, so 13 of this fortnight's 14 Instagram slots are planned on photos I cannot fully clear myself."
+      "ask": "Find out why the daily social draft run has opened no PR for four days straight while reporting success",
+      "why": "The last tree/draft/ PR of any kind is #4728 from 2026-10-01; the runs on 10-02, 10-03, 10-04 and 10-05 all report success, social/queue/ is empty and no draft PR is open — so four of last week's seven beats were never drafted at all, and the only posts that shipped were ones the 10-01 run wrote ahead."
     },
     {
-      "ask": "Get issue #4475 picked up — one rejected item blocks every approved post in the same draft PR",
-      "why": "#4475 has been open and unactioned since 09-20; six Tree draft PRs (#4471, #4513, #4544, #4556, #4565, #4574) are stuck behind a single rejection each, which is why 3 posts shipped this week against 7 planned and why the Mood pair you approved on 09-23 has still never posted."
+      "ask": "Get #4296 picked up — the 48h-after-approval sweep retires a post before its own scheduled time arrives",
+      "why": "The 10-03 Mood pair was founder-approved at 2026-10-01T16:21Z for a 2026-10-03T23:00Z slot, 54.6h later, so the sweep (which measures from approval.at, not scheduledAt) moved both halves to social/failed/ with no posting attempt ever made; #4296 has been open since before that and Mood has now never shipped across four attempts."
     }
   ]
 }
