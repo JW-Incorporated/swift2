@@ -61,6 +61,8 @@ describe('createAppHandlers', () => {
         'notifications.markOnboardingOffered',
         'openExternal',
         'share',
+        'storage.load',
+        'storage.write',
       ].sort(),
     );
   });

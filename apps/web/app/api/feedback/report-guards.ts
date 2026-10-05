@@ -11,13 +11,8 @@ import {
   speedDuplicate,
   type SpeedMeta,
 } from './diag';
-import {
-  WATCHDOG_PREFIX,
-  isWatchdogMessage,
-  parseWatchdogReport,
-  watchdogAllowed,
-  watchdogCommentFrom,
-} from './watchdog-report';
+import { isWatchdogMessage, type WatchdogReport } from './watchdog-report';
+import { prepareWatchdog } from './watchdog-lifecycle';
 
 // Request guards for POST /api/feedback, split out of route.ts (300-line cap,
 // pure move): the in-memory per-IP limiter, [diag]/[watchdog] validation, and
@@ -37,13 +32,21 @@ import {
 // just by rotating a header.
 const limiter = makeRateLimiter({ windowMs: 60_000, max: 5 });
 
-export function rateLimited(ip: string): boolean {
-  return limiter.isLimited(ip);
+// Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
+// the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
+// limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
+export function ipThrottled(message: string, payload: { diag?: unknown }, ip: string): boolean {
+  const speedShaped =
+    message === DIAG_PREFIX &&
+    typeof payload.diag === 'object' &&
+    payload.diag !== null &&
+    'speed' in payload.diag;
+  return !speedShaped && limiter.isLimited(ip);
 }
 
 export type ReportGuard =
   | { response: Response }
-  | { diag: boolean; diagComment: string; speedReport: SpeedMeta | null };
+  | { diag: boolean; diagComment: string; speedReport: SpeedMeta | null; watchdogReport: WatchdogReport | null };
 
 export async function guardReport(
   payload: { message?: string; diag?: unknown; watchdog?: unknown },
@@ -58,18 +61,12 @@ export async function guardReport(
   const diag = isDiagMessage(message) || watchdog;
   let diagComment = '';
   let speedReport: SpeedMeta | null = null;
+  let watchdogReport: WatchdogReport | null = null;
   if (watchdog) {
-    const exactShape =
-      payload.message === WATCHDOG_PREFIX &&
-      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'watchdog');
-    const parsed = exactShape ? parseWatchdogReport(payload.watchdog) : null;
-    if (!parsed?.ok) {
-      return { response: NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 }) };
-    }
-    if (!watchdogAllowed(parsed.report.buildKey)) {
-      return { response: NextResponse.json({ error: 'Too many reports.' }, { status: 429 }) };
-    }
-    diagComment = watchdogCommentFrom(parsed.report);
+    const prepared = prepareWatchdog(payload, ip);
+    if (!prepared.ok) return { response: prepared.response };
+    watchdogReport = prepared.durable ? prepared.report : null;
+    diagComment = prepared.comment;
   } else if (diag) {
     const exactShape =
       payload.message === DIAG_PREFIX &&
@@ -96,5 +93,5 @@ export async function guardReport(
       return { response: NextResponse.json({ error: 'Too many reports. Please try again later.' }, { status: 429 }) };
     }
   }
-  return { diag, diagComment, speedReport };
+  return { diag, diagComment, speedReport, watchdogReport };
 }

@@ -2,8 +2,11 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { readBodyText } from './body-text';
 import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, speedCommit, speedRefund } from './diag';
-import { guardReport, rateLimited } from './report-guards';
+import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
+import { watchdogClaim } from './watchdog-lifecycle';
+import { guardReport, ipThrottled } from './report-guards';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -24,38 +27,6 @@ export const dynamic = 'force-dynamic';
 
 const MAX_MESSAGE = 5000;
 const MAX_FIELD = 2000;
-// Route-wide request body cap (bytes), enforced before JSON parsing on every
-// path. 5000 chars of 4-byte UTF-8 is ~20 KB, so real feedback fits. Watch
-// signal: any 413 from a real user in the Vercel logs means the cap is too tight.
-const MAX_BODY_BYTES = 32 * 1024;
-
-/** Read the body as text, aborting past the cap even when no Content-Length is sent. */
-async function readBodyText(req: Request): Promise<string | null> {
-  const declared = Number(req.headers.get('content-length'));
-  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return null;
-  if (!req.body) return '';
-  const reader = req.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > MAX_BODY_BYTES) {
-      await reader.cancel().catch(() => {});
-      return null;
-    }
-    chunks.push(value);
-  }
-  const all = new Uint8Array(total);
-  let offset = 0;
-  for (const c of chunks) {
-    all.set(c, offset);
-    offset += c.byteLength;
-  }
-  return new TextDecoder().decode(all);
-}
-
 type Location = {
   eraId?: string;
   eraName?: string;
@@ -66,10 +37,11 @@ type Location = {
   trackGuideEraId?: string | null;
   theoryGuideEraId?: string | null;
   lensId?: string | null;
-  url?: string;
+  url?: string; // legacy clients; reduced to a path server-side
+  path?: string;
   pageTitle?: string;
   viewport?: string;
-  userAgent?: string;
+  platform?: string;
   ts?: string;
 };
 
@@ -81,6 +53,14 @@ export { trustedClientIp } from '../../../lib/longlive/client-ip';
 
 const clip = (s: unknown, n: number): string =>
   typeof s === 'string' ? s.slice(0, n) : '';
+
+// Public issue tracker: publish the page path only. Query strings and hashes
+// can carry personal values, and older clients still send a full URL.
+const pathOnly = (s: unknown): string => {
+  if (typeof s !== 'string') return '';
+  const rest = s.trim().replace(/^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/?#]*/i, '').split('#')[0]!.split('?')[0]!;
+  return rest ? (rest.startsWith('/') ? rest : `/${rest}`) : '';
+};
 
 // Defang GitHub autolinks in UNTRUSTED user text. This endpoint is public and
 // unauthenticated, and everything a submitter sends (the message AND every
@@ -108,7 +88,10 @@ export function titleFrom(message: string): string {
 export function bodyFrom(message: string, loc: Location): string {
   // Neutralize markdown/backticks in client-supplied free-text by rendering it
   // as a code span (GitHub renders code literally — no autolink, no markdown).
-  const code = (s: string): string => (s ? `\`${s.replace(/`/g, "'")}\`` : '');
+  const code = (s: string): string => {
+    const flat = s.replace(/\s+/g, ' ').replace(/`/g, "'").trim();
+    return flat ? `\`${flat}\`` : '';
+  };
 
   // Wrap multi-line free-text in a fenced code block whose fence is longer
   // than any backtick run already inside it, so the fence can't be broken out
@@ -124,15 +107,15 @@ export function bodyFrom(message: string, loc: Location): string {
 
   const locLines = [
     loc.eraName || loc.eraId
-      ? `- **Era:** ${defangGitHub(clip(loc.eraName, 80)) || ''}${loc.eraId ? ` (\`${clip(loc.eraId, 40)}\`)` : ''}`
+      ? `- **Era:** ${code(clip(loc.eraName, 80))}${loc.eraId ? ` (${code(clip(loc.eraId, 40))})` : ''}`
       : null,
-    loc.mode ? `- **View:** ${defangGitHub(clip(loc.mode, 40))}${loc.view ? ` — ${defangGitHub(clip(loc.view, 120))}` : ''}` : null,
-    loc.openMomentId ? `- **Open moment:** \`${clip(loc.openMomentId, 200)}\`` : null,
-    loc.openTrackKey ? `- **Open track:** \`${clip(loc.openTrackKey, 200)}\`` : null,
-    loc.trackGuideEraId ? `- **Track guide:** \`${clip(loc.trackGuideEraId, 40)}\`` : null,
-    loc.theoryGuideEraId ? `- **Theory guide:** \`${clip(loc.theoryGuideEraId, 40)}\`` : null,
-    loc.lensId ? `- **Thread/lens:** \`${clip(loc.lensId, 40)}\`` : null,
-    loc.url ? `- **URL:** ${code(clip(loc.url, 300))}` : null,
+    loc.mode ? `- **View:** ${code(clip(loc.mode, 40))}${loc.view ? ` — ${code(clip(loc.view, 120))}` : ''}` : null,
+    loc.openMomentId ? `- **Open moment:** ${code(clip(loc.openMomentId, 200))}` : null,
+    loc.openTrackKey ? `- **Open track:** ${code(clip(loc.openTrackKey, 200))}` : null,
+    loc.trackGuideEraId ? `- **Track guide:** ${code(clip(loc.trackGuideEraId, 40))}` : null,
+    loc.theoryGuideEraId ? `- **Theory guide:** ${code(clip(loc.theoryGuideEraId, 40))}` : null,
+    loc.lensId ? `- **Thread/lens:** ${code(clip(loc.lensId, 40))}` : null,
+    loc.path || loc.url ? `- **Path:** ${code(clip(pathOnly(loc.path || loc.url), 300))}` : null,
   ].filter(Boolean);
 
   return [
@@ -153,7 +136,7 @@ export function bodyFrom(message: string, loc: Location): string {
     '**Environment:**',
     `- Page: ${code(clip(loc.pageTitle, 200)) || '—'}`,
     `- Viewport: ${code(clip(loc.viewport, 40)) || '—'}`,
-    `- User agent: ${code(clip(loc.userAgent, 400)) || '—'}`,
+    `- Platform: ${code(clip(loc.platform, 40)) || '—'}`,
     `- Time: ${code(clip(loc.ts, 40)) || new Date().toISOString()}`,
     '',
     '---',
@@ -163,7 +146,7 @@ export function bodyFrom(message: string, loc: Location): string {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  let payload: { message?: string; location?: Location; hp?: string; diag?: unknown; watchdog?: unknown };
+  let payload: { id?: unknown; message?: string; location?: Location; hp?: string; diag?: unknown; watchdog?: unknown };
   const bodyText = await readBodyText(req);
   if (bodyText === null) {
     return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
@@ -185,16 +168,14 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
   }
 
+  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
+  const idemId = parseIdempotencyId(payload.id);
+  if (idemId && isDuplicate(idemId)) {
+    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
+  }
+
   const ip = trustedClientIp(req);
-  // Speed test reports (a run is up to 31 reports in quick succession, and the summary must not be
-  // the one dropped) have their own budget in diag.ts (speedAllowed) instead of the generic per-IP
-  // limiter. Only a payload that then passes the strict schema AND the run budget reaches GitHub.
-  const speedShaped =
-    message === DIAG_PREFIX &&
-    typeof payload.diag === 'object' &&
-    payload.diag !== null &&
-    'speed' in payload.diag;
-  if (!speedShaped && rateLimited(ip)) {
+  if (ipThrottled(message, payload, ip)) {
     return NextResponse.json(
       { error: 'Thanks — you’ve sent a few already. Please try again in a minute.' },
       { status: 429 },
@@ -203,7 +184,7 @@ export async function POST(req: Request): Promise<Response> {
 
   const guarded = await guardReport(payload, message, ip);
   if ('response' in guarded) return guarded.response;
-  const { diag, diagComment, speedReport } = guarded;
+  const { diag, diagComment, speedReport, watchdogReport } = guarded;
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
@@ -229,11 +210,23 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
+  // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
+  let postComment = diagComment;
+  if (watchdogReport) {
+    const claimed = await watchdogClaim(watchdogReport, ip, diagComment);
+    if ('stop' in claimed) return claimed.stop;
+    postComment = claimed.comment;
+  }
+
   const location = (payload.location ?? {}) as Location;
   // Clip free-form environment fields defensively before they hit the body.
-  location.userAgent = clip(location.userAgent, MAX_FIELD);
-  location.url = clip(location.url, MAX_FIELD);
+  location.platform = clip(location.platform, MAX_FIELD);
+  location.path = pathOnly(location.path || location.url);
+  delete location.url;
+  delete (location as Record<string, unknown>).userAgent;
 
+  if (idemId) markPending(idemId);
+  let filed = false;
   try {
     const res = await fetch(
       diag
@@ -250,7 +243,7 @@ export async function POST(req: Request): Promise<Response> {
         },
         body: JSON.stringify(
           diag
-            ? { body: diagComment }
+            ? { body: postComment }
             : {
                 title: titleFrom(message),
                 body: bodyFrom(message, location),
@@ -270,6 +263,7 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
+    filed = true;
     if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
     return NextResponse.json(
@@ -279,5 +273,7 @@ export async function POST(req: Request): Promise<Response> {
   } catch (err) {
     console.error('feedback: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
+  } finally {
+    if (idemId) settle(idemId, filed);
   }
 }

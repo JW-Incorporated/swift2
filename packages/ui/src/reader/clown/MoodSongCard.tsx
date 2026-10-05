@@ -10,15 +10,16 @@
  * oEmbed-verified id and is absent when the track has none). When it is
  * missing we render the card with no embed rather than guessing an id.
  */
-import { useState } from 'react';
 import { Play } from 'lucide-react';
+import { EmbedNotice, useEmbedGate } from '../lib/use-embed-gate';
 import { useHost } from '../../host/context';
 import { YOUTUBE_REFERRER_POLICY, youtubeEmbedSrc } from '../lib/youtube-embed';
 import type { MoodMatch } from '@swift2/experience';
 
 export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: string }) {
-  const [playing, setPlaying] = useState(false);
   const { embedOrigin } = useHost();
+  const { playing, notice, stalled, reloadKey, iframeRef, play, reload, onLoad, onError } =
+    useEmbedGate(false, embedOrigin);
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)]">
@@ -32,7 +33,9 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
         {/* oneLiner is ORIGINAL prose written for the catalogue — never quoted
             verse. The no-lyrics redline applies to this surface too. */}
         {pick.oneLiner && (
-          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{pick.oneLiner}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            {pick.oneLiner}
+          </p>
         )}
       </div>
 
@@ -43,17 +46,21 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
         >
           {playing ? (
             <iframe
+              key={reloadKey}
+              ref={iframeRef}
               src={youtubeEmbedSrc(pick.youtubeId, embedOrigin)}
               referrerPolicy={YOUTUBE_REFERRER_POLICY}
               title={pick.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              onLoad={onLoad}
+              onError={onError}
               className="absolute inset-0 h-full w-full"
             />
           ) : (
             <button
               type="button"
-              onClick={() => setPlaying(true)}
+              onClick={play}
               aria-label={`Play ${pick.title} on YouTube`}
               className="group absolute inset-0 h-full w-full"
             >
@@ -72,6 +79,7 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
           )}
         </div>
       )}
+      <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
     </article>
   );
 }

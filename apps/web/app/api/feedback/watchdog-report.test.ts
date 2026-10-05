@@ -8,9 +8,10 @@ import {
   resetWatchdogAllowed,
   watchdogAllowed,
   watchdogCommentFrom,
+  watchdogEscalationFrom,
 } from './watchdog-report';
 
-const valid = () => ({ platform: 'android', buildKey: '42:embedded', category: 'ready-timeout' });
+const valid = () => ({ platform: 'android', buildKey: '18:embedded', category: 'ready-timeout' });
 
 describe('parseWatchdogReport (strict schema)', () => {
   it('accepts exactly {platform, buildKey, category}', () => {
@@ -35,7 +36,7 @@ describe('parseWatchdogReport (strict schema)', () => {
     const parsed = parseWatchdogReport(valid());
     const body = watchdogCommentFrom((parsed as { ok: true; report: Parameters<typeof watchdogCommentFrom>[0] }).report);
     expect(body).toContain('| Platform | android |');
-    expect(body).toContain('| Build key | `42:embedded` |');
+    expect(body).toContain('| Build key | `18:embedded` |');
     expect(body).toContain('| Category | ready-timeout |');
     expect(body).not.toMatch(/Model|OS \||Update id/);
   });
@@ -104,5 +105,16 @@ describe('POST [watchdog]', () => {
       expect((await POST(req({ message: '[watchdog]', watchdog: valid() }, `10.7.0.${i}`))).status).toBe(201);
     }
     expect((await POST(req({ message: '[watchdog]', watchdog: valid() }, '10.7.1.1'))).status).toBe(429);
+  });
+});
+
+describe('watchdogEscalationFrom', () => {
+  it('is the fixed template plus the counts line, built only from validated fields', () => {
+    const r = { platform: 'ios', buildKey: '42:embedded', category: 'protocol' } as const;
+    const out = watchdogEscalationFrom(r, 5, 3);
+    expect(out).toContain('**5 reports from 3 sources today**');
+    expect(out).toContain('| Build key | `42:embedded` |');
+    expect(out.trimEnd().endsWith('<!-- watchdog:v1 -->')).toBe(true);
+    expect(out.split('\n')).toHaveLength(watchdogCommentFrom(r).split('\n').length + 2);
   });
 });
