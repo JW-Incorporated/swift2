@@ -135,7 +135,7 @@ export const PRIVACY_SECTIONS_A: LegalSection[] = [
     blocks: [
       {
         kind: 'p',
-        text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page of the website. The mobile apps do not include it in their own screens, but where the app opens Privacy, Terms or Support as the website itself (inside a web view), that website page loads it like any other page of the site.',
+        text: 'We use Vercel Web Analytics to count visits and see which parts of the site people actually use. It runs on every page of the website. The mobile apps do not include it: the app shows these same pages inside the app itself, and analytics does not run there.',
       },
       {
         kind: 'p',

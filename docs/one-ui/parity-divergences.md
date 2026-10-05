@@ -23,7 +23,7 @@ Fable rulings, cited by name: the Fable log in PROGRESS.md (PM branch), entries 
 - **`inbox`**: the notification inbox is a DOM overlay (`overlay:inbox`) that exists only in the app; the website has no notifications host. Covered by b-only parity routes.
 - **`notification-onboarding`**: the notification onboarding offer is a DOM overlay (`overlay:onboarding`) that exists only in the app. Covered by a b-only parity route.
 - **`denied-hint-wording`**: the app's own `deniedHint` wording, since the system settings path differs per OS.
-- **`legal-analytics-wording`**: the privacy page says analytics runs on every page of the website, not in the app's own screens, and that the website's analytics does run on the Privacy/Terms/Support pages the app opens as the website. Same words on both sides (Fable ruling c); the divergence is behaviour, not copy.
+- **`analytics-web-only`**: Vercel Web Analytics runs only on the website; the app includes none. The privacy page says so in the same words on both sides (Fable ruling c); the divergence is behaviour, not copy.
 
 Not a divergence, but a parity tripwire: `env.affiliate` is unset on both web (prod affiliate envs unset) and app today, so shop links match. Enabling affiliate ids on web without passing them through the app adapter would create one (see `packages/ui/HOST-ADAPTER.md`).
 

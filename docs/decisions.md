@@ -8661,3 +8661,7 @@ Joey, 2026-10-05 06:48 PDT: land the held One UI stack now, at risk, without the
 **Decision.** `sharedUiIos` is true in both the shipped `config/mobile/app-config.json` and the compiled `DEFAULT_ROUTE_FLAGS` (a fresh install has no cached config and uses the compiled default). Android was already on, so both platforms default ON.
 
 **Rollback.** Remote config `sharedUiIos: false` (devices with a cached config) plus the watchdog fallback to Recovery. Post-landing iOS confirmation stays on HUMAN-ACTIONS HA #100.
+
+## 2026-10-05 — Privacy policy corrected to describe the app as the shared UI in a web view with analytics off
+
+Parity audit PA-3/PA-4. The policy still described native screens, in-app website analytics on Privacy/Terms/Support, and a cookie-based Clownbot identity. Code: the app renders the shared UI in an in-app web view (`apps/mobile/dom/AppReader.tsx`), legal pages render from the bundled copy (`apps/mobile/dom/slots/legal-overlay.tsx`), `@vercel/analytics` is only in `apps/web`, and the app Clownbot identity is a bearer token in secure storage. Policy copy and the parity manifest entry (`analytics-web-only`) corrected; `data-inventory.ts` and the store data-safety doc are left as-is (founder decision, over-declaring is safe).
