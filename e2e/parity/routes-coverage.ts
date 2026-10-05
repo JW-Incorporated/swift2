@@ -1,5 +1,5 @@
 import { fixture, FIXED_TIME } from './env';
-import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, type AOnlyRoute } from './routes';
+import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LEGAL_MAIN, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, serveLegalOnB, type AOnlyRoute } from './routes';
 import { SEARCH_ROUTES } from './routes-search';
 import { PLACEHOLDER_PNG } from './placeholder';
 import { ERA_CONTROL_ROUTES } from './routes-era-controls';
@@ -18,8 +18,8 @@ const DIALOG = '[role="dialog"]';
 
 /** Tags a Playwright-selected element as the clip (CSS-only machinery such as settle cannot take :has-text) and scrolls it into view. */
 export const PARITY_CLIP = '[data-parity-clip]';
-const show = async (page: Page, selector: string): Promise<void> => {
-  const el = page.locator(selector).first();
+const show = async (page: Page, selector: string, last = false): Promise<void> => {
+  const el = last ? page.locator(selector).last() : page.locator(selector).first();
   await expect(el).toBeVisible();
   await el.scrollIntoViewIfNeeded();
   await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
@@ -55,6 +55,7 @@ const COUNTDOWN_ITEM = {
 export const ERA_SELECTOR_CLIP = '[role="dialog"][aria-labelledby="era-selector-title"]';
 export const SHARE_MENU_CLIP = '[role="group"][aria-label="Share this moment as an image"]';
 export const CLOWN_FULLSCREEN_CLIP = 'div.fixed.inset-x-0:has(button[aria-label="Exit full screen"])';
+export const FEEDBACK_DIALOG_CLIP = '[role="dialog"][aria-label="Send feedback"]';
 export const LOVE_ENTRY_CLIP = 'div:has(> button[aria-expanded="true"])';
 
 export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
@@ -196,6 +197,27 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     prepare: async (page) => {
       await page.getByRole('button', { name: 'Decode the payoff' }).first().click();
       await show(page, 'article:has(button:has-text("Hide the payoff"))');
+    },
+  },
+  {
+    name: 'support-footer',
+    path: '/support',
+    root: LEGAL_MAIN,
+    init: serveLegalOnB,
+    sides: 'both',
+    clip: PARITY_CLIP,
+    // Side b also mounts the reader's own footer under the legal layer; the legal page's footer is the last one on both sides.
+    prepare: (page) => show(page, 'footer', true),
+  },
+  {
+    name: 'feedback-dialog-open',
+    path: '/',
+    root: 'main',
+    sides: 'both',
+    clip: FEEDBACK_DIALOG_CLIP,
+    prepare: async (page) => {
+      await page.locator('button[aria-label="Send feedback"]').first().dispatchEvent('click');
+      await expect(page.locator(FEEDBACK_DIALOG_CLIP)).toBeVisible();
     },
   },
   ...ERA_CONTROL_ROUTES,

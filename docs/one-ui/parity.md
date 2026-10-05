@@ -290,6 +290,10 @@ Not coverable with the frozen fixture: EraSecretCard and CountdownBanner render 
 
 **CountdownBanner and EraSecretCard (W6-fixture).** No fixture regeneration was needed. `countdown-banner` answers `/vault/live` (both origins) with one live countdown item 3d 4h after the fixed clock, so the banner renders on both sides (clip `[data-ll-countdown-banner]`). `era-secret` opens `/?era=fearless` (the pruned fixture keeps fearless's sourced secrets; tloas has none, so `/` never shows a card) and clips the first `Era secret` section. Running locally: a stale `serve.mjs` / `next start` from another session on 4173/4174 is silently reused (`reuseExistingServer`) and can serve an older build; set `PARITY_PORT` and `PARITY_A_PORT` to free ports.
 
+## Closure invariant and accepted divergences
+
+See [parity-divergences.md](./parity-divergences.md): the CI closure invariant (`e2e/parity/closure.spec.ts`) and the enforced list of accepted platform divergences.
+
 ## W6-chrome: chrome-included a-vs-b (One UI W6)
 
 The shared root excludes web chrome, so TopBar, its timeline rail, BottomNav, the footer and the floating feedback pill were never compared a-vs-b. `chrome.spec.ts` (cases in `chrome.ts`) compares the WHOLE viewport, chrome included, for home, home scrolled 800 px, item, threads (top and document foot, where the footer shows) and merch (top only: its foot ends on the Submit-a-link block, an accepted divergence) on all four projects. Side b carries the project's real insets (`?inset=`); side a gets the equivalent: `emulateInsetsOnA` rewrites every `env(safe-area-inset-*)` in a's html / css / js / flight responses to the pixel value (inline-style values only in html / js; class names keep their text) and installs the native host's clearance rules (same as `reader-spike.css`) before hydration as a constructable sheet. A failure is a real app difference; b is never regenerated to pass.
