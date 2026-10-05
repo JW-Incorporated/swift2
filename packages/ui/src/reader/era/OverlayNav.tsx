@@ -61,12 +61,12 @@ export function OverlayNav({
         <button
           type="button"
           onClick={openEraSelector}
-          aria-label={`${era.name} — open the eras menu`}
           className="group flex min-w-0 items-center gap-1 rounded-full px-2 py-1 text-left transition-colors hover:bg-[color:var(--era-surface)]"
         >
           <span className="min-w-0 truncate text-sm font-medium text-[color:var(--era-ink)]">
             <span className="sm:hidden">Era: {era.shortName}</span>
             <span className="hidden sm:inline">Era: {era.name}</span>
+            <span className="sr-only">{' — open the eras menu'}</span>
           </span>
           <ChevronDown
             className="size-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition-transform group-hover:translate-y-0.5"
