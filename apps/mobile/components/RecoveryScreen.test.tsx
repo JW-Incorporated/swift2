@@ -41,7 +41,7 @@ vi.mock('react-native', async () => {
 });
 
 const retryDomAttempt = vi.hoisted(() => vi.fn());
-vi.mock('../lib/recovery-retry', () => ({ retryDomAttempt: () => retryDomAttempt() }));
+vi.mock('../lib/recovery-retry', () => ({ retryDomAttempt: (...args: unknown[]) => retryDomAttempt(...args) }));
 const sendDiagReport = vi.fn(async (_p: unknown) => ({ ok: true }));
 vi.mock('../lib/diagnostics-send', () => ({ sendDiagReport: (p: unknown) => sendDiagReport(p) }));
 vi.mock('../lib/diagnostics', () => ({
@@ -53,7 +53,6 @@ vi.mock('../lib/diagnostics-env', () => ({ readDiagEnv: () => ({}) }));
 
 import { RELOAD_GRACE_MS, RecoveryScreen } from './RecoveryScreen';
 import { shouldMountHotCorner } from '../lib/diag-hot-corner';
-import { nativeSurface } from '../lib/recovery-surface';
 import { decideMount, freshRecord, recordStrike, shouldMountDom } from '../lib/watchdog';
 
 beforeEach(() => {
@@ -93,6 +92,19 @@ describe('RecoveryScreen', () => {
     expect(announce).toHaveBeenCalledWith('Retrying');
   });
 
+  it('shows the OTA progress copy while checking and downloading', async () => {
+    retryDomAttempt.mockImplementation(async (_now: unknown, onPhase: (p: string) => void) => {
+      onPhase('checking');
+      await Promise.resolve();
+      onPhase('downloading');
+      return new Promise(() => {});
+    });
+    render(<RecoveryScreen />);
+    fireEvent.click(retryBtn());
+    await screen.findByText('Downloading update…');
+    expect(announce).toHaveBeenCalledWith('Checking for an update…');
+  });
+
   it('a failed record write shows a fixed error and keeps Retry enabled', async () => {
     retryDomAttempt.mockResolvedValue('save-failed');
     render(<RecoveryScreen />);
@@ -108,7 +120,7 @@ describe('RecoveryScreen', () => {
     retryDomAttempt.mockResolvedValue('reload-failed');
     render(<RecoveryScreen />);
     fireEvent.click(retryBtn());
-    await screen.findByText("Couldn't restart. Please try again.");
+    await screen.findByText('Close and reopen Long Live.');
     expect(retryBtn().getAttribute('aria-disabled')).toBe('false');
   });
 
@@ -147,12 +159,10 @@ describe('RecoveryScreen', () => {
     expect(document.querySelector('[data-live="polite"]')).toBeTruthy();
   });
 
-  it('a watchdog strike owes a native launch that mounts Recovery (not the legacy router), with the hot corner', () => {
+  it('a watchdog strike owes a native launch that mounts Recovery, with the hot corner', () => {
     const { record } = recordStrike({ ...freshRecord('7:u1', 1), strikes: 1 }, 'boom', 2);
     const decision = decideMount(record, '7:u1', 3);
     expect(shouldMountDom(true, decision)).toBe(false);
-    expect(nativeSurface('native', 'watchdog-fallback')).toBe('recovery');
-    expect(nativeSurface('native', 'dom-strike')).toBe('recovery');
     expect(shouldMountHotCorner('native')).toBe(true);
   });
 });

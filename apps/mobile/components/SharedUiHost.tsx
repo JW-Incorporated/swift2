@@ -30,7 +30,6 @@ import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
-import type { RouteFlags } from '../lib/routes';
 import { createHostTapTarget } from '../lib/host-tap-target';
 import { useSpeedOn } from '../lib/use-speed-on';
 import { createTapBinder, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
@@ -51,7 +50,6 @@ export function SharedUiHost({
   watch,
   forceFailure,
   siteUrl,
-  getRouteFlags,
   presentNativeRoute,
   onDomNavigator,
 }: {
@@ -60,7 +58,6 @@ export function SharedUiHost({
   forceFailure: DomFailureMode;
   /** UI bridge `navigate` inputs (H4/D1 wires them from App.tsx); defaults: production site, DEFAULT_ROUTE_FLAGS. */
   siteUrl?: string;
-  getRouteFlags?: () => RouteFlags;
   /** The D-7 presenter. Absent: a native-route `navigate` answers `failed`. */
   presentNativeRoute?: (path: WebPath) => unknown;
   /** Receives the live epoch's native-to-DOM navigator (null when the epoch ends), for native screens that hand a path to the DOM. */
@@ -86,8 +83,8 @@ export function SharedUiHost({
   ).current;
   useEffect(() => () => activeDeferral.cancel(), []);
   const emitRef = useRef<{ insets: (i: Insets) => void; version: (t: string) => void } | null>(null);
-  const navRef = useRef({ siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator });
-  navRef.current = { siteUrl, getRouteFlags, presentNativeRoute, onDomNavigator };
+  const navRef = useRef({ siteUrl, presentNativeRoute, onDomNavigator });
+  navRef.current = { siteUrl, presentNativeRoute, onDomNavigator };
   const launchedAt = useRef(0);
   const nativeMs = useRef<number | null>(null);
   const probe = useRef(createProbePublisher({ nativeMs: () => nativeMs.current, withNativeTiming, sinks: [setProbeJson, setLatestProbeJson] })).current;

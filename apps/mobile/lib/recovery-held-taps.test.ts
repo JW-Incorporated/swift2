@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { setup, tick } from './bridge-host.test-kit';
 import { createTapGate } from './notification-tap-gate';
-import { createTapQueue, TAP_TTL_MS } from './notification-tap-queue';
+import { createTapQueue, TAP_MAX_AGE_MS, TAP_TTL_MS } from './notification-tap-queue';
 import { startTapIngest } from './notification-tap-ingest';
 import { startDeepLinkIntake } from './use-deep-links';
 
@@ -62,11 +62,23 @@ describe('Recovery holds queued taps (#5102)', () => {
     expect(navigates(s2.sent)).toHaveLength(0);
   });
 
-  it('a tap older than the TTL when Retry lands is never delivered', async () => {
+  it('a tap that waited past the TTL with no host is still delivered when Retry lands', async () => {
+    let t = 0;
+    const gate = recoveryGate(createTapQueue({ now: () => t }));
+    gate.enqueue({ id: 'waited', deepLink: '/?item=abc' });
+    t += TAP_TTL_MS + 1;
+    const s = setup();
+    s.makeReady();
+    gate.bindHost(s.host);
+    await tick();
+    expect(navigates(s.sent)).toHaveLength(1);
+  });
+
+  it('a tap older than the absolute cap when Retry lands is never delivered', async () => {
     let t = 0;
     const gate = recoveryGate(createTapQueue({ now: () => t }));
     gate.enqueue({ id: 'old', deepLink: '/?item=abc' });
-    t += TAP_TTL_MS + 1;
+    t += TAP_MAX_AGE_MS + 1;
     const s = setup();
     s.makeReady();
     gate.bindHost(s.host);

@@ -84,7 +84,6 @@ vi.mock('./lib/content-bundle', async (orig) => ({ ...(await orig<object>()), lo
 vi.mock('./components/DiagHotCorner', () => ({ DiagHotCorner: () => null }));
 vi.mock('./components/UpdateRequiredScreen', () => ({ UpdateRequiredScreen: () => null }));
 vi.mock('./dom/SharedUiTest', () => ({ default: () => null }));
-vi.mock('./components/NativeScreenRouter', () => ({ NativeScreenRouter: () => null }));
 vi.mock('./components/RecoveryScreen', async () => {
   const React = await import('react');
   return { RecoveryScreen: () => React.createElement('div', { 'data-testid': 'native-surface' }) };

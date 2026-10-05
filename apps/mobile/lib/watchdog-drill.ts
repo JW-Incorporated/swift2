@@ -35,7 +35,6 @@ export interface DrillRow {
 
 export interface DrillOptions {
   launches?: number;
-  override?: boolean;
   cachedSharedUi?: boolean | null;
   defaultSharedUi?: boolean;
   buildKey?: string;
@@ -44,14 +43,13 @@ export interface DrillOptions {
 }
 
 export function runDrill(failure: DrillFailure, opts: DrillOptions = {}): DrillRow[] {
-  const { launches = 9, override = false, cachedSharedUi = true, defaultSharedUi = false, buildKey = '1:drill' } = opts;
+  const { launches = 9, cachedSharedUi = true, defaultSharedUi = false, buildKey = '1:drill' } = opts;
   let record: WatchdogRecord | null = opts.record ?? null;
   const rows: DrillRow[] = [];
   for (let launch = 1; launch <= launches; launch += 1) {
     const d = decideMount(record, buildKey, launch);
     const want = resolveWantsDom({
       quarantined: d.record.state === 'quarantined',
-      override,
       cachedSharedUi,
       defaultSharedUi,
     });
