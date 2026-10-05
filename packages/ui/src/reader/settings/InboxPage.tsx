@@ -17,7 +17,7 @@ const categoryLabel = (category: string): string =>
 function formatTimestamp(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  return d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
 }
 
 export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpenItem: (deepLink: string) => void }) {
@@ -69,6 +69,16 @@ export function InboxPage({ onClose, onOpenItem }: { onClose: () => void; onOpen
           </button>
         </div>
       )}
+
+      <div role="status" aria-live="polite" className="sr-only">
+        {events === null
+          ? error
+            ? ''
+            : 'Fetching notifications'
+          : events.length === 0
+            ? 'Inbox is empty.'
+            : `Inbox loaded, ${events.length} ${events.length === 1 ? 'notification' : 'notifications'}.`}
+      </div>
 
       {events === null && !error && <p className="text-ink-soft">Loading&hellip;</p>}
       {events?.length === 0 && <p className="text-ink-soft">Nothing here yet &mdash; check back soon.</p>}

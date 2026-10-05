@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { useHost, useResolveUrl } from '../../host/context';
@@ -28,7 +28,7 @@ import type { EraId, TrackNote } from '@swift2/experience';
 export function TrackGuide() {
   const { Image } = useHost();
   const resolveUrl = useResolveUrl();
-  const { trackGuideEraId, openTrackKey } = useAppState();
+  const { trackGuideEraId } = useAppState();
   const { closeTrackGuide } = useAppActions();
 
   const q = useReader();
@@ -42,19 +42,6 @@ export function TrackGuide() {
 
   useScrollLock(open);
   useFocusTrap(open, dialogRef);
-
-  // Close on Escape — unless a song's TrackDetail is layered on top; the
-  // top-most overlay owns Escape until it closes itself
-  // (otherwise one Escape while a song is open would tear down the whole
-  // guide stack, since closeTrackGuide clears the open track too).
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !openTrackKey) closeTrackGuide();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTrackGuide, openTrackKey]);
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTrackGuide);

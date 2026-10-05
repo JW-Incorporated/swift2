@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -147,7 +148,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
         y = anchor.top;
       }
     }
-    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
+    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : smoothScrollBehavior() });
   }, []);
 
   const syncFromScroll = useCallback(() => {
@@ -312,7 +313,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
             scrollToDate(d);
           }
         }}
-        className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none"
+        className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
       >
         {/* Era bands (faint, era-accent colored) */}
         {eraBands.map((b) => (

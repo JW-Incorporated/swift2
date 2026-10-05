@@ -61,6 +61,7 @@ const RESULT_FITS: Record<DomCommandType, (v: unknown) => boolean> = {
   'notifications.getPrefs': isDevicePrefsResponse,
   'notifications.savePrefs': isDevicePrefsResponse,
   'notifications.registration': (v) => isRec(v) && typeof v.registered === 'boolean' && Object.keys(v).length === 1,
+  'notifications.optOutPending': (v) => isRec(v) && typeof v.pending === 'boolean' && Object.keys(v).length === 1,
   'notifications.onboardingOffered': (v) => isRec(v) && typeof v.offered === 'boolean' && Object.keys(v).length === 1,
   api: (v) => {
     if (!isRec(v) || typeof v.status !== 'number' || !isRec(v.headers) || !Object.values(v.headers).every((h) => typeof h === 'string')) return false;

@@ -1,7 +1,7 @@
 // DOM-side navigation + bridge subscriptions for AppReader (D2), kept React-free so the real host/client
 // round trip is testable under node. `createNavigateDom` is the adapter's in-DOM navigation; `installReaderBridge`
 // is the setup the Expo mount runs against the live client (after `ready`, before the inbox is consumed).
-import type { BridgeClient, Insets } from '@swift2/ui';
+import type { BridgeClient, Insets, ReaderSnap } from '@swift2/ui';
 import { isDomPath } from './dom-path';
 import { inboxOverlay, isInboxPath } from '../slots/inbox-store';
 import { isSettingsPath, settingsOverlay } from '../slots/settings-store';
@@ -54,12 +54,15 @@ export type ReaderBridgeHandlers = {
   onContentVersion: (token: string) => void;
   back: () => 'handled' | 'exit';
   nav: NavigateDeps;
+  /** Native replays the reader state of the previous epoch (#5114); applied through the store, a no-op until the reader mounts. */
+  restore?: (snap: ReaderSnap) => void;
 };
 
 export function installReaderBridge(client: BridgeClient, h: ReaderBridgeHandlers): () => void {
   const offs = [
     client.on('insets', h.onInsets),
     client.on('contentVersion', (e) => h.onContentVersion(e.token)),
+    client.on('restore', (e) => h.restore?.(e.snap)),
     client.handle('back', () => h.back()),
     installNavigateSubscriber(client, h.nav),
   ];

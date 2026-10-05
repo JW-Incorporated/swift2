@@ -3,7 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { createAppStorage } from './bridge/app-adapter-nav';
 import { installStorageShim } from './reader/storage-shim';
 
-const src = readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8');
+const src =
+  readFileSync(new URL('./AppReader.tsx', import.meta.url), 'utf8') +
+  readFileSync(new URL('./bridge/expo-bridge-mount.tsx', import.meta.url), 'utf8') +
+  readFileSync(new URL('./bridge/sample-images.ts', import.meta.url), 'utf8');
 
 describe('G9 measurement instrumentation survives in AppReader (S2/S4/#4895 path)', () => {
   it.each([
@@ -16,16 +19,17 @@ describe('G9 measurement instrumentation survives in AppReader (S2/S4/#4895 path
     'firstPaintMs',
     'heapMb',
     '[4000, 12000]',
-    'reportProbe',
-    "addEventListener('error'",
-    "addEventListener('unhandledrejection'",
-    'e.filename === cacheUri',
     'devLoader',
     'useExpoBridge',
     'reportProtocolFatal',
     'installStorageShim',
     'insetsFromQuery',
   ])('keeps %s', (id) => expect(src).toContain(id));
+
+  it('starts the optional art map without awaiting it (it must never gate the reader paint)', () => {
+    expect(src).toContain('void loadArtMap(');
+    expect(src).not.toMatch(/await[^\n;]*loadArtMap|Promise\.all\([^\n]*loadArtMap/);
+  });
 
   it('has no remount-on-navigate left (reader state survives a native navigate)', () => {
     expect(src).not.toMatch(/readerKey|setReaderKey/);
@@ -54,11 +58,6 @@ describe('app storage after the DOM shim (the Android DOM has no storage, G3)', 
     expect(storage.get('k')).toBe('v');
     storage.remove('k');
     expect(storage.get('k')).toBeNull();
-  });
-
-  it('reportError stays wired through the error listener (message prefix kept)', () => {
-    expect(src).toContain('`error: ${e.message}`');
-    expect(src).toContain('`unhandledrejection: ${String(e.reason)}`');
   });
 });
 

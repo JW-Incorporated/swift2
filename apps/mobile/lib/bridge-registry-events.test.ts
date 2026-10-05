@@ -11,13 +11,19 @@ const DOM_SAMPLES: { [T in Exclude<DomEventType, 'ready' | 'ack'>]: EventPayload
   navReady: {},
   navigated: { id: 't1', ok: true },
   theme: { statusBarStyle: 'dark', background: '#0c0c0c' },
-  route: { path: '/era/folklore?x=1#h', busy: true },
+  route: {
+    path: '/era/folklore?x=1#h',
+    busy: true,
+    engaged: true,
+    snap: { v: 1, mode: 'era', eraId: 'folklore', lens: 'all', itemId: 'm1', anchorId: 'a1', count: 3, scrollY: 120 },
+  },
 };
 
 const NATIVE_SAMPLES: { [T in Exclude<NativeEventType, 'readyAck'>]: EventPayloadOf<T> } = {
-  insets: { top: 1, right: 2, bottom: 3, left: 4 },
+  insets: { top: 1, right: 2, bottom: 3, left: 4, keyboard: 300 },
   contentVersion: { token: 'abc' },
   navigate: { path: toWebPath('/')!, source: 'deeplink', id: 't1' },
+  restore: { snap: { v: 1, mode: 'era', eraId: 'folklore', scrollY: 120 } },
 };
 
 function rig() {
@@ -51,7 +57,7 @@ describe('registry-driven event round trip (real host + real client)', () => {
     if (type === 'navReady') expect(hooks.onNavReady).toHaveBeenCalledTimes(1);
     if (type === 'navigated') expect(hooks.onNavigated).toHaveBeenCalledWith(s.navigated);
     if (type === 'theme') expect(hooks.onTheme).toHaveBeenCalledWith(s.theme);
-    if (type === 'route') expect(hooks.onRoute).toHaveBeenCalledWith(s.route.path, true);
+    if (type === 'route') expect(hooks.onRoute).toHaveBeenCalledWith(s.route.path, true, true, s.route.snap);
     if (type === 'diag') expect(hooks.onSignal).toHaveBeenCalledWith('mount', 'ok');
   });
 

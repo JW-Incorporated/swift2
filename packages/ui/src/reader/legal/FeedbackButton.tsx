@@ -7,7 +7,8 @@ import { useHost } from '../../host';
 import { useAppState } from '../store';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { useBackDismiss } from '../lib/useBackDismiss';
-import { buildLocation, describeView } from './lib/feedback-location';
+import { describeView } from './lib/feedback-location';
+import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
@@ -44,9 +45,13 @@ export function FeedbackButton() {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
   const [hp, setHp] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
   const [dismissed, setDismissed] = useState(false);
+  const { status, errorMsg, submit } = useFeedbackSubmit({
+    msg,
+    setMsg,
+    hp,
+    onSent: () => setOpen(false),
+  });
   useReportBusy('feedback', open || msg.trim() !== '' || status === 'sending');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -73,20 +78,13 @@ export function FeedbackButton() {
   useFocusTrap(open, dialogRef);
 
   // Let the mobile back-swipe gesture close the compose panel instead of
-  // leaving the app, matching the Escape handler below.
+  // leaving the app, matching Escape (single dispatcher in useBackDismiss).
   useBackDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => textareaRef.current?.focus(), 60);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.clearTimeout(t);
-      window.removeEventListener('keydown', onKey);
-    };
+    return () => window.clearTimeout(t);
   }, [open]);
 
   // Dismissed for the rest of this session (sessionStorage), or the clown
@@ -99,41 +97,6 @@ export function FeedbackButton() {
   // stays identical across renders.
   if (dismissed || state.clownChatExpanded) return null;
 
-  async function submit() {
-    const message = msg.trim();
-    if (!message || status === 'sending') return;
-    setStatus('sending');
-    setErrorMsg('');
-    try {
-      const res = await host.apiFetch({
-        method: 'POST',
-        path: '/api/feedback',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, location: buildLocation(state, host), hp }),
-      });
-      let data: { error?: string } = {};
-      try {
-        data = JSON.parse(res.body) ?? {};
-      } catch {
-        data = {};
-      }
-      if (res.status >= 200 && res.status < 300) {
-        setStatus('sent');
-        setMsg('');
-        window.setTimeout(() => {
-          setOpen(false);
-          setStatus('idle');
-        }, 1800);
-      } else {
-        setStatus('error');
-        setErrorMsg(data.error || 'Couldn’t send that — please try again.');
-      }
-    } catch {
-      setStatus('error');
-      setErrorMsg('Network error — please try again.');
-    }
-  }
-
   return (
     <>
       {open && (
@@ -145,7 +108,7 @@ export function FeedbackButton() {
           aria-label="Send feedback"
           // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
           // by sitting well above it; desktop is unchanged (no bottom nav there).
-          className="fixed bottom-[calc(8.5rem+env(safe-area-inset-bottom))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
+          className="fixed bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
         >
           <div className="mb-2 flex items-start justify-between gap-2">
             <p className="text-sm font-medium text-ink">Find an issue? Report it here!</p>
@@ -186,7 +149,7 @@ export function FeedbackButton() {
                   }}
                   placeholder="Wrong date, bad photo, typo, broken link… tell us what you saw."
                   rows={4}
-                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
+                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-base sm:text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
                 />
                 {/* Honeypot — hidden from humans, catches bots. */}
                 <input
@@ -203,6 +166,9 @@ export function FeedbackButton() {
                     {errorMsg}
                   </p>
                 )}
+                <p className="mt-2 text-[11px] text-ink-soft">
+                  Posted publicly on GitHub — please don't include personal details.
+                </p>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-[11px] text-ink-soft">
                     Reporting from: {describeView(state)}

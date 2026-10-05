@@ -56,11 +56,13 @@ vi.mock('../lib/use-content-adoption', () => {
   };
   return { useContentAdoption: () => adoption };
 });
+vi.mock('../lib/use-keyboard-inset', () => ({ useKeyboardInset: () => 0 }));
 vi.mock('../lib/speed-test-runtime', () => ({
   speedTest: { isOn: () => false, onChange: () => () => {} },
 }));
 vi.mock('../lib/notification-host-ports', () => ({ createExpoNotificationDeps: () => ({}) }));
 vi.mock('../lib/share-card-ports', () => ({ shareCardPorts: {} }));
+vi.mock('../lib/host-storage-file', () => ({ createFileHostStorage: () => ({}) }));
 vi.mock('../lib/app-handlers', () => ({
   createAppHandlersFor: () => ({}),
   createLiveApiDeps: () => ({}),

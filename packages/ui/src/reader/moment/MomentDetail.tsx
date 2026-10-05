@@ -78,16 +78,6 @@ export function MomentDetail() {
     setRevealed(false);
   }, [item]);
 
-  useEffect(() => {
-    if (!openItemId) return;
-    const onKey = (e: KeyboardEvent) => {
-      // While the full-screen viewer is open it owns Escape (closes itself).
-      if (e.key === 'Escape' && lightboxIndex === null) closeItem();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [openItemId, closeItem, lightboxIndex]);
-
   // Let the mobile back-swipe gesture close this pill instead of leaving the app.
   useBackDismiss(Boolean(item), closeItem);
 
