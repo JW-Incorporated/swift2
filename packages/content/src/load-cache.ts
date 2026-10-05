@@ -122,12 +122,28 @@ export async function readCompleteCache(
 }
 
 /** A partial (pruned/skipped) load writes ONLY last-good: it never touches the version-keyed manifest/files/marker trio, so an overlapping full load of the same version can never be overwritten by pruned data. */
+/** The last FULL load's manifest + files, usable as a source of unchanged files — null unless it was written by a full load under this build's schema fingerprint (a partial load or another build's zod parse may have pruned/stripped it). */
+export async function readReusableBundle(
+  storage: StorageAdapter,
+  baseUrl: string,
+): Promise<CachedBundleRecord | null> {
+  try {
+    if ((await storeGet(storage, keyFor(baseUrl, 'last-good-fp'))) !== SCHEMA_FINGERPRINT) return null;
+    const record = await fetchLastGoodBundle(storage, baseUrl);
+    if (!record?.manifest?.files || !record.files || typeof record.files !== 'object') return null;
+    return record;
+  } catch {
+    return null;
+  }
+}
+
 export async function persistPartialLoad(
   storage: StorageAdapter,
   baseUrl: string,
   manifest: Manifest,
   files: BundleFiles,
 ): Promise<void> {
+  await storeSet(storage, keyFor(baseUrl, 'last-good-fp'), '');
   await storeSet(storage, keyFor(baseUrl, 'last-good'), JSON.stringify({ manifest, files }));
 }
 
@@ -143,6 +159,7 @@ export async function persistFullLoad(
   bundleVersion: string,
   manifest: Manifest,
   files: BundleFiles,
+  previousVersion?: string,
 ): Promise<void> {
   const completeKey = completeKeyFor(baseUrl, bundleVersion);
   const schemaFpKey = keyFor(baseUrl, `schemafp:${bundleVersion}`);
@@ -151,10 +168,27 @@ export async function persistFullLoad(
   await storeSet(storage, completeKey, '');
   await storeSet(storage, keyFor(baseUrl, `manifest:${bundleVersion}`), manifestJson);
   await storeSet(storage, filesKeyFor(baseUrl, bundleVersion), filesJson);
+  await storeSet(storage, keyFor(baseUrl, 'last-good-fp'), '');
   await storeSet(storage, keyFor(baseUrl, 'last-good'), lastGoodJson(manifestJson, filesJson));
   const previousFp = await storeGet(storage, schemaFpKey);
   await storeSet(storage, schemaFpKey, SCHEMA_FINGERPRINT);
+  await storeSet(storage, keyFor(baseUrl, 'last-good-fp'), SCHEMA_FINGERPRINT);
   await storeSet(storage, completeKey, '1');
+  if (previousVersion && previousVersion !== bundleVersion) {
+    // The superseded version's trio (~4.6 MB) is no longer served; its unchanged files live on in this one.
+    for (const stale of [
+      `etag:${previousVersion}:${SCHEMA_FINGERPRINT}`,
+      `files:${previousVersion}:${SCHEMA_FINGERPRINT}`,
+      `manifest:${previousVersion}`,
+      `schemafp:${previousVersion}`,
+    ]) {
+      try {
+        await storage.removeItem?.(keyFor(baseUrl, stale));
+      } catch {
+        // best effort: leftover bytes are harmless
+      }
+    }
+  }
   if (previousFp && previousFp !== SCHEMA_FINGERPRINT) {
     // The previous build's version-keyed entries (several MB) can never be read again.
     for (const stale of [`etag:${bundleVersion}:${previousFp}`, `files:${bundleVersion}:${previousFp}`]) {

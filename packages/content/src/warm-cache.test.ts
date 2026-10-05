@@ -149,8 +149,10 @@ describe('cold path', () => {
       `etag:${v}:${SCHEMA_FINGERPRINT}`,
       `manifest:${v}`,
       `files:${v}:${SCHEMA_FINGERPRINT}`,
+      'last-good-fp',
       'last-good',
       `schemafp:${v}`,
+      'last-good-fp',
       `etag:${v}:${SCHEMA_FINGERPRINT}`,
     ]);
     const lastGood = writes.find(([k]) => k.endsWith(':last-good'))![1];

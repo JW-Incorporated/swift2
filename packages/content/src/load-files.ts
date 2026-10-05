@@ -1,6 +1,7 @@
 /** Bundle-file download + validation for `load.ts` (split out for the 300-line limit). */
 import type { z } from 'zod';
 import type { Manifest } from './schema';
+import type { CachedBundleRecord } from './load-cache';
 import { lookupSchema } from './validation-contract';
 import { createHash } from './hash';
 import { mapPool } from './pool';
@@ -41,8 +42,11 @@ export async function fetchBundleFiles(args: {
   fetchImpl: FetchLike;
   requestTimeoutMs: number;
   dropUnknown: boolean;
+  /** A previous full load (same schema fingerprint): files whose manifest sha256 + bytes are unchanged are reused instead of fetched (#4508). */
+  reusable?: CachedBundleRecord | null;
 }): Promise<FetchedFiles> {
-  const { manifest, bundleVersion, baseUrl, fetchImpl, requestTimeoutMs, dropUnknown } = args;
+  const { manifest, bundleVersion, baseUrl, fetchImpl, requestTimeoutMs, dropUnknown, reusable } =
+    args;
   const files: BundleFiles = {};
   const skipped: string[] = [];
   let pruned = false;
@@ -57,7 +61,19 @@ export async function fetchBundleFiles(args: {
   // first failing file in manifest order decides the error. We never await
   // fetches past a decisive failure (a hung one must not block the fallback);
   // their results are discarded and nothing they do is written.
-  const { slots, stop } = mapPool(wanted, FETCH_CONCURRENCY, async ([name, entry]) => {
+  const reuses = ([name, entry]: (typeof wanted)[number]): boolean => {
+    const before = reusable?.manifest?.files?.[name];
+    return (
+      !!before &&
+      before.sha256 === entry.sha256 &&
+      before.bytes === entry.bytes &&
+      !!reusable?.files &&
+      name in reusable.files
+    );
+  };
+  const { slots, stop } = mapPool(wanted, FETCH_CONCURRENCY, async (item) => {
+    const [name, entry] = item;
+    if (reuses(item)) return null;
     const endDownload = beginStage('download', name);
     const fileRes = await transportFetch(
       fetchImpl,
@@ -77,6 +93,11 @@ export async function fetchBundleFiles(args: {
       const settled = await slots[i]!;
       if (!settled.ok) throw settled.error;
       const text = settled.value;
+      if (text === null) {
+        // Unchanged since a validated full load under this schema fingerprint: the manifest hash match is the integrity check.
+        files[name] = reusable!.files[name];
+        continue;
+      }
       const endHash = beginStage('hash', name);
       const bytes = new TextEncoder().encode(text);
       const byteLength = bytes.length;

@@ -63,6 +63,7 @@ import {
   persistFullLoad,
   persistPartialLoad,
   readCompleteCache,
+  readReusableBundle,
   revalidateLastGood,
 } from './load-cache';
 import { fetchBundleFiles } from './load-files';
@@ -205,6 +206,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     }
   }
 
+  const reusable = await readReusableBundle(storage, baseUrl);
   let files: LoadedBundle['files'];
   let skipped: string[];
   let pruned: boolean;
@@ -216,6 +218,7 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
       fetchImpl,
       requestTimeoutMs,
       dropUnknown,
+      reusable,
     }));
   } catch (err) {
     return fallbackOrRethrow(
@@ -238,7 +241,14 @@ async function loadBundleStrict(options: LoadBundleOptions): Promise<LoadedBundl
     };
   }
 
-  await persistFullLoad(storage, baseUrl, bundleVersion, manifest, files);
+  await persistFullLoad(
+    storage,
+    baseUrl,
+    bundleVersion,
+    manifest,
+    files,
+    reusable?.manifest.bundleVersion,
+  );
   endDiskWrite();
 
 
