@@ -1,3 +1,4 @@
+import { stubBridgeApiOnB } from './b-api';
 import { fixture, FIXED_TIME } from './env';
 import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LEGAL_MAIN, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, serveLegalOnB, type AOnlyRoute } from './routes';
 import { SEARCH_ROUTES } from './routes-search';
@@ -93,6 +94,25 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     prepare: async (page) => {
       await page.locator('button[aria-label$="open the eras menu"]').first().dispatchEvent('click');
       await expect(page.locator(ERA_SELECTOR_CLIP)).toBeVisible();
+    },
+  },
+  {
+    name: 'era-selector-progress',
+    path: '/',
+    root: 'main',
+    sides: 'both',
+    clip: ERA_SELECTOR_CLIP,
+    // The frozen fixture has empty progress, so only seeded progress renders the "Your Long Live" card.
+    init: async (page) => {
+      const progress = JSON.stringify({ v: 1, moments: [], eggs: [], trails: [], favorites: [fixture.itemId] });
+      await page.addInitScript((blob) => window.localStorage.setItem('ll-progress-v1', blob), progress);
+      // Side b's reader reads progress from the native-seeded host storage (storage.load), not window.localStorage.
+      await stubBridgeApiOnB(page, {}, { 'll-progress-v1': progress });
+    },
+    prepare: async (page) => {
+      await page.locator('button[aria-label$="open the eras menu"]').first().dispatchEvent('click');
+      await expect(page.locator(ERA_SELECTOR_CLIP)).toBeVisible();
+      await expect(page.locator('#your-long-live-title')).toBeVisible();
     },
   },
   {
