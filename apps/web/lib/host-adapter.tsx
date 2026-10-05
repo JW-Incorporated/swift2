@@ -41,7 +41,8 @@ export const WebLink = forwardRef<HTMLAnchorElement, HostLinkProps>(function Web
 
 export function WebImage(props: HostImageProps) {
   // next/image requires width+height unless `fill`; the host contract leaves both optional.
-  return <NextImage {...(props as ComponentProps<typeof NextImage>)} />;
+  // Same explicit policy as the app adapter, so referrer-sensitive CDNs see identical requests.
+  return <NextImage referrerPolicy="no-referrer" {...(props as ComponentProps<typeof NextImage>)} />;
 }
 
 export function createWebStorage(which: 'localStorage' | 'sessionStorage'): HostStorage {

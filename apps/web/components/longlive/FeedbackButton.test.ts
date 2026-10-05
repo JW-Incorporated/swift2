@@ -111,3 +111,11 @@ describe('FeedbackButton — #835 (outcomes silent to screen readers)', () => {
     expect(src).toMatch(/<textarea\s+id=\{textareaId\}/);
   });
 });
+
+describe('FeedbackButton — public-posting notice', () => {
+  it('warns above the submit row that feedback is posted publicly, once', () => {
+    const notice = "Posted publicly on GitHub — please don't include personal details.";
+    expect(src.split(notice).length - 1).toBe(1);
+    expect(src.indexOf(notice)).toBeLessThan(src.indexOf('Reporting from:'));
+  });
+});
