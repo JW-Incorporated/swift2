@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import { theoriesBoardLink } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
@@ -329,7 +330,7 @@ async function emitEasterEggEvent(
       category: 'easter_egg',
       title: 'New theory in play',
       body: theory.name || theory.claim,
-      deepLink: `${SITE_URL}/?current=theories`,
+      deepLink: theoriesBoardLink(),
       // One event per theory id — a re-observation of the SAME theory never
       // reaches this function (it takes the update/bump branch above), so
       // this key is only ever inserted once per theory's lifetime.
