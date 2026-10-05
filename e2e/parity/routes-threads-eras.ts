@@ -10,10 +10,26 @@ const CLIP = '[data-parity-clip]';
 const reveal = async (page: Page, selector: string): Promise<void> => {
   const el = page.locator(selector).first();
   await expect(el).toBeVisible();
-  await el.evaluate((node) => {
-    node.scrollIntoView({ block: 'start' });
-    node.setAttribute('data-parity-clip', '');
-  });
+  await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
+  // Lazy images and the era-jump landing correction shift layout above the target after the first scroll, so the offset differs run to
+  // run: re-scroll until the element sits at the top for several consecutive checks.
+  let stable = 0;
+  let landed = Number.NaN;
+  await expect
+    .poll(
+      async () => {
+        const [before, after] = await el.evaluate((node) => {
+          const b = Math.round(node.getBoundingClientRect().top);
+          node.scrollIntoView({ block: 'start' });
+          return [b, Math.round(node.getBoundingClientRect().top)];
+        });
+        stable = before === landed ? stable + 1 : 0;
+        landed = after;
+        return stable >= 6;
+      },
+      { intervals: [250], timeout: 20_000 },
+    )
+    .toBe(true);
 };
 
 // RunwayThread (?lens=fashion), ProposalThread (?lens=the-proposal) and OwnershipTimeline (inside ?lens=taylors-version): the lens deep link the website uses.
