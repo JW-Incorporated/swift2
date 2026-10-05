@@ -15,7 +15,7 @@
 // issues or comments itself. A stranger's comment on a public issue never
 // reaches the agent.
 import { gh as ghRun } from '../../lib/gh.mjs';
-import { FILER_LOGINS, REPO, askKey, fetchAsksFor, parseMarker, selectAsksFor } from './loop-asks.mjs';
+import { ERROR_MARKER, FILER_LOGINS, REPO, askKey, fetchAsksFor, parseMarker, selectAsksFor } from './loop-asks.mjs';
 import { apiFor, listIssuesByLabels } from './issues-rest.mjs';
 import { markedDepth, utcDay } from './loop-dispatch.mjs';
 
@@ -32,6 +32,8 @@ export const LOOP_LABELS = [
 ];
 // How many NEW help asks each side may file per UTC day (Monday's plan asks count too).
 export const HELP_DAILY_CAP = { tree: 2, marjorie: 4 };
+// Errors and blockers are not discretionary asks: they never use the cap above, only this runaway backstop.
+export const ERROR_DAILY_CAP = { tree: 6, marjorie: 6 };
 export const RESPONDER_LOGINS = new Set(['claude', 'claude[bot]']);
 /** The post-run guard's fallback comment carries this; only the workflow identity's copy counts as an answer. */
 export const FALLBACK_MARKER = '<!-- loop-fallback-disposition -->';
@@ -121,6 +123,11 @@ export async function currentPlan({ repo = REPO, gh = ghRun } = {}) {
 /** The queue file: reads open asks and the comments of the oldest candidates. */
 export async function buildQueue(bot, { primary = null, limit = 4, repo = REPO, gh = ghRun, now = Date.now(), scan = 15 } = {}) {
   const issues = await fetchAsksFor(bot, { repo, gh, state: 'open' });
+  // Routine failures (routine-failure-triage.mjs) are loop-ask filings for Marjorie too, labelled `routine-failure` rather than `tree-filed`.
+  if (bot === 'marjorie') {
+    const failures = await listIssuesByLabels(apiFor(gh), { repo, labels: ['routine-failure', 'desk:ops'], state: 'open' });
+    for (const f of failures) if (!issues.some((i) => i.number === f.number)) issues.push(f);
+  }
   const candidates = selectAsksFor(bot, issues, { now }).filter((i) => !isHeld(i));
   const ordered = [...candidates.filter((i) => i.number === primary), ...candidates.filter((i) => i.number !== primary)].slice(0, scan);
   const api = apiFor(gh);
@@ -148,7 +155,10 @@ export async function helpBudget(side, asks, { repo = REPO, gh = ghRun, now = Da
   const addressee = side === 'tree' ? 'marjorie' : 'tree';
   const rows = await fetchAsksFor(addressee, { repo, gh, state: 'all' });
   const today = utcDay(now);
-  const filedToday = selectAsksFor(addressee, rows, { now, closedWithinDays: 2 }).filter((i) => utcDay(Date.parse(i.createdAt)) === today).length;
+  const filedTodayRows = selectAsksFor(addressee, rows, { now, closedWithinDays: 2 }).filter((i) => utcDay(Date.parse(i.createdAt)) === today);
+  const isError = (i) => String(i.body ?? '').includes(ERROR_MARKER);
+  const filedToday = filedTodayRows.filter((i) => !isError(i)).length;
+  const errorsToday = filedTodayRows.filter(isError).length;
   const openHashes = new Map(selectAsksFor(addressee, rows, { now }).map((i) => [String(parseMarker(i.body)?.key ?? '').split('-').pop(), i.number]));
   const fresh = [];
   const duplicates = [];
@@ -157,5 +167,5 @@ export async function helpBudget(side, asks, { repo = REPO, gh = ghRun, now = Da
     if (open) duplicates.push({ ask, number: open });
     else fresh.push(ask);
   }
-  return { remaining: Math.max(HELP_DAILY_CAP[side] - filedToday, 0), filedToday, fresh, duplicates };
+  return { remaining: Math.max(HELP_DAILY_CAP[side] - filedToday, 0), errorRemaining: Math.max(ERROR_DAILY_CAP[side] - errorsToday, 0), filedToday, fresh, duplicates };
 }

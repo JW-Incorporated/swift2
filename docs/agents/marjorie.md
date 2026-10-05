@@ -800,3 +800,7 @@ the rule is `docs/social/guardrails.md` row 2.
   (`marjorie-weekly-review.md`, `marjorie-ask-response.md`).
 - **The photo priority is volume.** Growing the photo library — credited or not — is what she
   steers Tree toward in the weekly review.
+
+## Amendment (2026-10-05, BOTS-LOOP): routine failures and Tree's blockers land on Marjorie, not the founder
+
+`bot-failure-triage.yml` (plain code, no LLM) files one `desk:ops` + `marjorie-filed` + `routine-failure` issue per failed routine per UTC day and starts `routine-marjorie-ask-response.yml`; Tree's draft receipts (`desk:tree`) are adopted into the same mechanism. Tree's errors and blockers arrive as `--error` asks that do not count against the daily help cap. She diagnoses from the issue body and REROUTEs to the build desk with a concrete fix brief — or, only if the fix needs a founder, escalates through `scripts/marjorie/escalate.mjs`: WHERE to work (the Swift2 or the Hermes Claude Code session) plus a complete copy-paste prompt in a fenced block in the issue, the `HUMAN-ACTIONS.md` card reduced to "open Claude Code in <project>, paste the prompt from issue #N". Never a description alone. Her weekly review and daily brief re-dispatch any `desk:ops`/`desk:build` issue older than 3 days without a linked PR and list anything older than 7 days once as stuck with the blocker named. No new write authority: she still dispatches engineering work and does not implement it, and `.github/**` stays out of every bot's reach.
