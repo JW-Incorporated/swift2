@@ -20,7 +20,7 @@ vi.mock('./reader-controls', () => ({
 import { act, cleanup, render } from '@testing-library/react';
 import { ReaderBridge } from './reader-bridge';
 import { onboardingOverlay, resetOnboardingForTests } from '../slots/onboarding-store';
-import { pushBackEntry, useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
+import { pushBackEntry, resetBackStackForTests, useBackDismiss, waitForBackStackIdle } from '@swift2/ui/reader/lib/useBackDismiss';
 
 // One stand-in per useBackDismiss call site (all use the identical hook contract).
 const OVERLAYS = ['search', 'era selector', 'track guide', 'track detail', 'theory guide', 'crossings', 'feedback', 'thread subpanel'];
@@ -45,8 +45,8 @@ const press = () => {
 
 afterEach(async () => {
   cleanup();
-  // Let the popstates from overlay UI-close history.back() land before the next test.
-  await new Promise((r) => setTimeout(r, 60));
+  await waitForBackStackIdle();
+  resetBackStackForTests();
   resetOnboardingForTests();
   shown.clear();
   setters.clear();
@@ -96,7 +96,7 @@ describe('native Back closes useBackDismiss overlays', () => {
     const restore = vi.fn();
     pushBackEntry(restore);
     expect(press()).toBe('handled');
-    await act(async () => void (await new Promise((r) => setTimeout(r, 60))));
+    await act(async () => void (await waitForBackStackIdle()));
     expect(restore).toHaveBeenCalledTimes(1);
     expect(h.closeItem).not.toHaveBeenCalled();
     expect(press()).toBe('handled');

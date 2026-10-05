@@ -3,12 +3,12 @@ import type {} from '@testing-library/jest-dom/vitest';
 import { useState } from 'react';
 import { act, cleanup } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { dismissTopOverlayFromNativeBack, pushBackEntry, useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { dismissTopOverlayFromNativeBack, pushBackEntry, resetBackStackForTests, useBackDismiss, waitForBackStackIdle } from '@/lib/longlive/useBackDismiss';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider, useAppActions, useAppState } from '@/lib/longlive/store';
 import { TestHostProvider } from '@/lib/test-host';
 
-const settle = () => act(async () => void (await new Promise((r) => setTimeout(r, 60))));
+const settle = () => act(async () => void (await waitForBackStackIdle()));
 const nativeBack = async () => {
   let r = false;
   act(() => void (r = dismissTopOverlayFromNativeBack()));
@@ -16,7 +16,9 @@ const nativeBack = async () => {
   return r;
 };
 const webBack = async () => {
+  const popped = new Promise<void>((r) => window.addEventListener('popstate', () => r(), { once: true }));
   act(() => window.history.back());
+  await act(async () => void (await popped));
   await settle();
 };
 
@@ -40,6 +42,7 @@ function Overlay({ onDismiss }: { onDismiss: () => void }) {
 afterEach(async () => {
   cleanup();
   await settle();
+  resetBackStackForTests();
 });
 
 describe('native Back unwinds nav entries like the website Back', () => {

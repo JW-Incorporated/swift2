@@ -38,17 +38,54 @@ const buried = new Set<number>();
 
 const stateId = (): number | undefined => (window.history.state as { llId?: number } | null)?.llId;
 
+/** history.back() calls we issued whose popstate has not been handled yet (for waitForBackStackIdle). */
+let pendingPops = 0;
+let idleWaiters: Array<() => void> = [];
+
+function historyBack() {
+  pendingPops += 1;
+  window.history.back();
+}
+
+function flushIdle() {
+  if (pendingPops > 0 || suppressedPops > 0) return;
+  const waiters = idleWaiters;
+  idleWaiters = [];
+  for (const w of waiters) w();
+}
+
+/** Test-only: resolves once every history.back() issued here (incl. chained buried-entry skips) has been handled. */
+export function waitForBackStackIdle(): Promise<void> {
+  if (pendingPops === 0 && suppressedPops === 0) return Promise.resolve();
+  return new Promise((r) => idleWaiters.push(r));
+}
+
+/** Test-only: clears module-level stack state between tests. */
+export function resetBackStackForTests() {
+  stack.length = 0;
+  buried.clear();
+  suppressedPops = 0;
+  pendingPops = 0;
+  flushIdle();
+}
+
 /** After any pop: if history landed on a buried (already-closed) entry, step back over it. */
 function skipBuried() {
   const id = stateId();
   if (id !== undefined && buried.has(id)) {
     buried.delete(id);
     suppressedPops += 1;
-    window.history.back();
+    historyBack();
   }
 }
 
 function onPopState() {
+  if (pendingPops > 0) pendingPops -= 1;
+  handlePop();
+  flushIdle();
+}
+
+function handlePop() {
   if (suppressedPops > 0) {
     suppressedPops -= 1;
     skipBuried();
@@ -110,7 +147,7 @@ export function dismissTopOverlayFromNativeBack(): boolean {
   }, 500);
   // Nav entry on top: drive the real history pop so onPopState restores and consumes it exactly once.
   if (e.overlay) e.dismiss();
-  else window.history.back();
+  else historyBack();
   return true;
 }
 
@@ -137,7 +174,7 @@ export function useBackDismiss(active: boolean, onDismiss: () => void) {
         // that this back() emits so it isn't mistaken for a user gesture.
         if (stateId() === entry.id) {
           suppressedPops += 1;
-          window.history.back();
+          historyBack();
         } else buried.add(entry.id);
       }
     };
