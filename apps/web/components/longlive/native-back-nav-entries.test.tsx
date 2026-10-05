@@ -25,8 +25,8 @@ const webBack = async () => {
 let actions!: ReturnType<typeof useAppActions>;
 function Probe() {
   actions = useAppActions();
-  const { mode, activeEra } = useAppState();
-  return <output data-testid="nav">{`${mode}|${activeEra}`}</output>;
+  const { mode, eraId } = useAppState();
+  return <output data-testid="nav">{`${mode}|${eraId}`}</output>;
 }
 const nav = () => document.querySelector('[data-testid="nav"]')!.textContent;
 
