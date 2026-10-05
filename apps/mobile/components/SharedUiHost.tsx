@@ -10,7 +10,7 @@
 // ready re-keys the mount (new epoch/bridge host) and the page re-handshakes.
 // The webview reads the native disk cache itself: only a cache URI and a
 // version token cross the bridge (C6), never content.
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
@@ -223,24 +223,43 @@ export function SharedUiHost({
     if (forceFailure === 'throw' && source) void handlers.reportError('forced DOM failure');
   }, [forceFailure, source]);
 
-  const publishProbe = (json: string) => {
+  const publishProbe = useCallback((json: string) => {
     const merged = withNativeTiming(json, nativeMs.current);
     rawProbe.current = json;
     setProbeJson(merged);
     setLatestProbeJson(merged);
-  };
+  }, []);
 
   // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
   // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
-  const dom = {
-    contentInsetAdjustmentBehavior: 'never' as const,
-    automaticallyAdjustContentInsets: false,
-    bounces: false,
-    style: { backgroundColor: eraColors.bg },
-    containerStyle: { backgroundColor: eraColors.bg },
-    onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
-    onRenderProcessGone: handlers.onRenderProcessGone,
-  };
+  // Memoized so an unchanged host render hands the Expo DOM component referentially-equal props (no re-marshal).
+  const dom = useMemo(
+    () => ({
+      contentInsetAdjustmentBehavior: 'never' as const,
+      automaticallyAdjustContentInsets: false,
+      bounces: false,
+      style: { backgroundColor: eraColors.bg },
+      containerStyle: { backgroundColor: eraColors.bg },
+      onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,
+      onRenderProcessGone: handlers.onRenderProcessGone,
+    }),
+    [handlers],
+  );
+  const domReadyRef = useRef(domReady);
+  domReadyRef.current = domReady;
+  const onReadyReal = useMemo(
+    () => async () => {
+      nativeMs.current = Date.now() - launchedAt.current;
+      if (rawProbe.current) publishProbe(rawProbe.current);
+      domReadyRef.current();
+      await handlers.onReady();
+      session?.binder.firstPaint();
+    },
+    [handlers, session, publishProbe],
+  );
+  const onReadyNoop = useCallback(async () => {}, []);
+  const reportProbe = useCallback(async (json: string) => publishProbe(json), [publishProbe]);
+  const reportImageLoad = useCallback(async (visible: boolean) => noteImageLoaded(visible), []);
 
   return (
     <View style={testPage ? styles.test : styles.fill}>
@@ -260,21 +279,11 @@ export function SharedUiHost({
           inbox={inbox}
           bridge={handlers.bridge}
           reportProtocolFatal={handlers.reportProtocolFatal}
-          onReady={
-            forceFailure === 'off'
-              ? async () => {
-                  nativeMs.current = Date.now() - launchedAt.current;
-                  if (rawProbe.current) publishProbe(rawProbe.current);
-                  domReady();
-                  await handlers.onReady();
-                  session.binder.firstPaint();
-                }
-              : async () => {}
-          }
+          onReady={forceFailure === 'off' ? onReadyReal : onReadyNoop}
           reportError={handlers.reportError}
-          reportProbe={async (json) => publishProbe(json)}
+          reportProbe={reportProbe}
           speedTestOn={speedOn}
-          reportImageLoad={async (visible) => noteImageLoaded(visible)}
+          reportImageLoad={reportImageLoad}
         />
       ) : null}
     </View>

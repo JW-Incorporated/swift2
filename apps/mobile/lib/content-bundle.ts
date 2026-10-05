@@ -48,21 +48,58 @@ export async function selfHealOnce(): Promise<void> {
 }
 
 let inFlight: Promise<LoadedBundle> | null = null;
+let memo: LoadedBundle | null = null;
+
+/** Test seam: drop the in-process memo and any in-flight load. */
+export function resetBundleMemoForTests(): void {
+  memo = null;
+  inFlight = null;
+}
+
+/** The lightweight pointer check: null when unreachable/unreadable (callers then keep what they have). */
+async function fetchCurrentVersion(): Promise<string | null> {
+  try {
+    const res = await fetch(`${contentBaseUrl().replace(/\/+$/, '')}/current.json`);
+    if (!res.ok) return null;
+    const body = (await res.json()) as { bundleVersion?: unknown };
+    return typeof body.bundleVersion === 'string' ? body.bundleVersion : null;
+  } catch {
+    return null;
+  }
+}
 
 /**
+ * The settled bundle is kept for the process lifetime: re-reading and parsing
+ * the multi-MB cache is a synchronous RN-thread stall (20-250 ms). Later calls
+ * only revalidate the tiny current.json pointer; a changed version reloads and
+ * replaces the memo atomically, and a failed reload keeps the previous memo.
  * Concurrent callers share ONE in-flight load (the era stream mounts several
- * sections at once). The slot clears on settle, success or failure, so the
- * result is never cached: the next call after settlement re-checks freshness.
- * Options are fixed in this module, so every caller's options are equal.
+ * sections at once). Options are fixed in this module, so every caller's equal.
  */
 export function loadContentBundle(): Promise<LoadedBundle> {
   if (inFlight) return inFlight;
-  const run = loadOnce();
+  const run = refresh();
   const slot = run.finally(() => {
     if (inFlight === slot) inFlight = null;
   });
   inFlight = slot;
   return slot;
+}
+
+async function refresh(): Promise<LoadedBundle> {
+  const held = memo;
+  if (held) {
+    const current = await fetchCurrentVersion();
+    if (current === null || current === held.manifest?.bundleVersion) return held;
+  }
+  try {
+    const next = await loadOnce();
+    memo = next;
+    return next;
+  } catch (err) {
+    if (held) return held;
+    throw err;
+  }
 }
 
 async function loadOnce(): Promise<LoadedBundle> {

@@ -20,6 +20,7 @@ vi.mock('./vault-storage', () => ({
 
 import {
   loadContentBundle,
+  resetBundleMemoForTests,
   resetSelfHealForTests,
   selfHealOnce,
   setUpdatesForTests,
@@ -52,10 +53,16 @@ let fake: ReturnType<typeof fakeUpdates>;
 
 beforeEach(() => {
   loadBundle.mockReset();
+  resetBundleMemoForTests();
   resetSelfHealForTests();
+  vi.unstubAllGlobals();
   fake = fakeUpdates();
   setUpdatesForTests(fake.updates);
 });
+
+const withVersion = (bundleVersion: string) => ({ ...clean, manifest: { bundleVersion } });
+const pointerFetch = (bundleVersion: string) =>
+  vi.fn(async () => ({ ok: true, json: async () => ({ bundleVersion }) }));
 
 /** Lets the fire-and-forget self-heal chain settle. */
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
@@ -137,11 +144,53 @@ describe('loadContentBundle in-flight sharing', () => {
     expect(loadBundle).toHaveBeenCalledTimes(2);
   });
 
-  it('starts a fresh load for sequential calls after settle', async () => {
-    loadBundle.mockResolvedValue(clean);
+  it('serves sequential calls from the memo: one load, no re-read', async () => {
+    vi.stubGlobal('fetch', pointerFetch('v1'));
+    loadBundle.mockResolvedValue(withVersion('v1'));
+    const first = await loadContentBundle();
+    const second = await loadContentBundle();
+    expect(loadBundle).toHaveBeenCalledTimes(1);
+    expect(second).toBe(first);
+  });
+
+  it('replaces the memo atomically when the version changes', async () => {
+    vi.stubGlobal('fetch', pointerFetch('v2'));
+    const v1 = withVersion('v1');
+    const v2 = withVersion('v2');
+    loadBundle.mockResolvedValueOnce(v1).mockResolvedValueOnce(v2);
+    vi.stubGlobal('fetch', pointerFetch('v1'));
     await loadContentBundle();
-    await loadContentBundle();
+    vi.stubGlobal('fetch', pointerFetch('v2'));
+    await expect(loadContentBundle()).resolves.toBe(v2);
+    vi.stubGlobal('fetch', pointerFetch('v2'));
+    await expect(loadContentBundle()).resolves.toBe(v2);
     expect(loadBundle).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps the previous memo when the newer load fails', async () => {
+    const v1 = withVersion('v1');
+    loadBundle.mockResolvedValueOnce(v1).mockRejectedValueOnce(new Error('boom'));
+    vi.stubGlobal('fetch', pointerFetch('v1'));
+    await loadContentBundle();
+    vi.stubGlobal('fetch', pointerFetch('v2'));
+    await expect(loadContentBundle()).resolves.toBe(v1);
+    vi.stubGlobal('fetch', pointerFetch('v1'));
+    await expect(loadContentBundle()).resolves.toBe(v1);
+    expect(loadBundle).toHaveBeenCalledTimes(2);
+  });
+
+  it('serves the memo when the pointer is unreachable', async () => {
+    loadBundle.mockResolvedValue(withVersion('v1'));
+    vi.stubGlobal('fetch', pointerFetch('v1'));
+    const first = await loadContentBundle();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new Error('offline');
+      }),
+    );
+    await expect(loadContentBundle()).resolves.toBe(first);
+    expect(loadBundle).toHaveBeenCalledTimes(1);
   });
 });
 

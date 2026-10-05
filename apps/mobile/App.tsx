@@ -198,6 +198,8 @@ export default function App() {
   );
 
 
+  const getRouteFlags = useCallback(() => routeFlagsRef.current, []);
+
   return (
     <GestureHandlerRootView style={styles.fill}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -212,7 +214,7 @@ export default function App() {
               watch={domMount.watch}
               forceFailure={domMount.forceFailure}
               siteUrl={SITE_URL}
-              getRouteFlags={() => routeFlagsRef.current}
+              getRouteFlags={getRouteFlags}
               state={nativeRoute}
               presenter={presenter}
             />
