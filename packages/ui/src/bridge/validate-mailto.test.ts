@@ -1,6 +1,6 @@
 import { describe, expect, expectTypeOf, it } from 'vitest';
 import type { PayloadOf } from './messages';
-import { isMailtoUrl } from './validate';
+import { isComposeMailtoUrl, isMailtoUrl } from './validate';
 
 describe('isMailtoUrl', () => {
   it('accepts one bare lowercase-scheme address', () => {
@@ -19,4 +19,12 @@ describe('isMailtoUrl', () => {
   it('a plain mailto string is not a payload url', () => {
     expectTypeOf<'mailto:a@b.test'>().not.toExtend<PayloadOf<'openExternal'>['url']>();
   });
+});
+
+describe('isComposeMailtoUrl keys', () => {
+  it.each(['mailto:?subject=a&body=b', 'mailto:?body=b'])('accepts %s', (u) => expect(isComposeMailtoUrl(u)).toBe(true));
+  it.each([
+    'mailto:?constructor=x', 'mailto:?__proto__=x', 'mailto:?toString=x', 'mailto:?valueOf=x', 'mailto:?hasOwnProperty=x',
+    'mailto:?subject=a&prototype=x', 'mailto:?Subject=a', 'mailto:?cc=a',
+  ])('rejects inherited or unknown key %s', (u) => expect(isComposeMailtoUrl(u)).toBe(false));
 });

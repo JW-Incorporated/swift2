@@ -90,7 +90,8 @@ export const toMailtoUrl = (s: unknown): MailtoUrl | null => (isMailtoUrl(s) ? s
 export const COMPOSE_MAILTO_MAX_SUBJECT = 200;
 export const COMPOSE_MAILTO_MAX_BODY = 2000;
 const COMPOSE_MAILTO_MAX_LENGTH = 8192;
-const COMPOSE_LIMITS: Record<string, number> = { subject: COMPOSE_MAILTO_MAX_SUBJECT, body: COMPOSE_MAILTO_MAX_BODY };
+const composeLimit = (key: string): number | undefined =>
+  key === 'subject' ? COMPOSE_MAILTO_MAX_SUBJECT : key === 'body' ? COMPOSE_MAILTO_MAX_BODY : undefined;
 const COMPOSE_VALUE_RE = /^[A-Za-z0-9\-_.!~*'()%]*$/;
 
 /**
@@ -106,7 +107,7 @@ export function isComposeMailtoUrl(s: unknown): s is MailtoUrl {
     if (eq < 1) return false;
     const key = pair.slice(0, eq);
     const raw = pair.slice(eq + 1);
-    const max = COMPOSE_LIMITS[key];
+    const max = composeLimit(key);
     if (max === undefined || seen.has(key) || !COMPOSE_VALUE_RE.test(raw)) return false;
     seen.add(key);
     let value: string;

@@ -35,6 +35,7 @@ describe('recipient-less compose mailto (share fallback Email)', () => {
     'mailto:?subject=javascript:alert(1)', 'javascript:alert(1)//mailto:?subject=a',
     `mailto:?subject=${'a'.repeat(201)}`, `mailto:?body=${'a'.repeat(2001)}`,
     `mailto:?subject=${encodeURIComponent('é'.repeat(201))}`,
+    'mailto:?constructor=x', 'mailto:?__proto__=x', 'mailto:?toString=x', 'mailto:?hasOwnProperty=x', 'mailto:?subject=a&constructor=x',
   ])('rejects %s', (u) => {
     expect(isAllowedMailto(u)).toBe(false);
     expect(isAppOpenableUrl(u)).toBe(false);

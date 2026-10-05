@@ -1,8 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { dismissTopOverlayFromNativeBack, pushBackEntry, resetBackStackForTests, waitForBackStackIdle } from '@swift2/ui/reader/lib/useBackDismiss';
 import { backFromDomPath, currentDomPath, currentDomUrl, DOM_PATH_EVENT, isDomPath, setDomPath, subscribeDomPath } from './dom-path';
 
-afterEach(() => window.history.replaceState(null, '', '/'));
+afterEach(() => {
+  resetBackStackForTests();
+  window.history.replaceState(null, '', '/');
+});
 
 describe('dom-path', () => {
   it('allow-lists exactly /privacy, /terms, /support', () => {
@@ -24,7 +28,7 @@ describe('dom-path', () => {
     expect(window.history.length).toBe(len);
   });
 
-  it('every distinct legal page pushes, the same page is a no-op, back-to-root replaces, and every change notifies', () => {
+  it('every distinct legal page pushes, the same page is a no-op, back-to-root pushes too, and every change notifies', () => {
     const len = window.history.length;
     const cb = vi.fn();
     const off = subscribeDomPath(cb);
@@ -34,7 +38,7 @@ describe('dom-path', () => {
     expect(window.history.length).toBe(len + 2);
     setDomPath('/terms');
     setDomPath('/');
-    expect(window.history.length).toBe(len + 2);
+    expect(window.history.length).toBe(len + 3);
     expect(cb).toHaveBeenCalledTimes(3);
     off();
     setDomPath('/support');
@@ -56,12 +60,44 @@ describe('dom-path', () => {
     expect(backFromDomPath()).toBe(false);
   });
 
-  it('a replace-mode change (failed-render rollback) never grows history', () => {
+  it('legal Back pops only the legal entry: the reader nav entry beneath is not restored', async () => {
+    const restore = vi.fn();
+    pushBackEntry(restore);
     setDomPath('/privacy');
-    const len = window.history.length;
-    setDomPath('/terms', window, { replace: true });
-    expect(window.history.length).toBe(len);
-    expect(currentDomPath()).toBe('/terms');
+    setDomPath('/terms');
+    for (const expected of ['/privacy', '/']) {
+      const p = new Promise<void>((r) => window.addEventListener('popstate', () => r(), { once: true }));
+      expect(backFromDomPath()).toBe(true);
+      await p;
+      expect(currentDomPath()).toBe(expected);
+      expect(restore).not.toHaveBeenCalled();
+    }
+    expect(backFromDomPath()).toBe(false);
+    expect(dismissTopOverlayFromNativeBack()).toBe(true);
+    await waitForBackStackIdle();
+    expect(restore).toHaveBeenCalledTimes(1);
+  });
+
+  it('native Back over legal pages unwinds one entry per press, then the reader entry, never two at once', async () => {
+    const restore = vi.fn();
+    pushBackEntry(restore);
+    setDomPath('/privacy');
+    setDomPath('/terms');
+    const press = async () => {
+      const handled = backFromDomPath() || dismissTopOverlayFromNativeBack();
+      await new Promise((r) => setTimeout(r, 20));
+      await waitForBackStackIdle();
+      return handled;
+    };
+    expect(await press()).toBe(true);
+    expect(currentDomPath()).toBe('/privacy');
+    expect(restore).not.toHaveBeenCalled();
+    expect(await press()).toBe(true);
+    expect(currentDomPath()).toBe('/');
+    expect(restore).not.toHaveBeenCalled();
+    expect(await press()).toBe(true);
+    expect(restore).toHaveBeenCalledTimes(1);
+    expect(await press()).toBe(false);
   });
 
   it('a popstate (history back) returns to the previous reader state', async () => {

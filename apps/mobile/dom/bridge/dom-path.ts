@@ -3,6 +3,8 @@
 // standalone pages on the web, so the DOM shows them as a layer keyed on the current path. The path lives in
 // `history.state` (never the file:// URL, which a webview may refuse to rewrite) so history push/replace,
 // popstate and back all behave like the site. React-free: runs under node/jsdom tests.
+import { pushBackEntry } from '@swift2/ui/reader/lib/useBackDismiss';
+
 export const DOM_PATHS: readonly string[] = ['/privacy', '/terms', '/support'];
 
 export const isDomPath = (p: string): boolean => DOM_PATHS.includes(p);
@@ -30,20 +32,32 @@ export function currentDomUrl(win: DomWin = defaultWin()): string {
 }
 
 /**
- * Shows an allow-listed legal path, or the reader root (`/`). Moving to a DISTINCT legal page pushes one entry (like
- * the site: back returns to the previous legal page, then the reader); the same page is a no-op; going back to `/`
- * replaces the entry. `replace` forces a replace (the failed-render rollback). Returns false for any path outside the
- * allow-list (nothing changes).
+ * Shows an allow-listed legal path, or the reader root (`/`). Every change to a DIFFERENT path pushes one history entry,
+ * like the site (back returns to the previous legal page, then the reader); the same path is a no-op. Each entry is
+ * registered on useBackDismiss's one ordered back stack (a no-op dismiss: the path is read back from history.state on
+ * the popstate), so a single pop is consumed by exactly one entry and never also restores a reader nav entry beneath.
+ * Returns false for any path outside the allow-list (nothing changes).
  */
-export function setDomPath(path: string, win: DomWin = defaultWin(), opts?: { replace?: boolean }): boolean {
+export function setDomPath(path: string, win: DomWin = defaultWin()): boolean {
   if (path !== '/' && !isDomPath(path)) return false;
-  const cur = currentDomPath(win);
-  if (path === cur) return true;
-  const state = { swift2Path: path };
-  if (path !== '/' && !opts?.replace) win.history.pushState(state, '');
-  else win.history.replaceState(state, '');
+  if (path === currentDomPath(win)) return true;
+  pushBackEntry(() => {}, { swift2Path: path });
   win.dispatchEvent(new Event(DOM_PATH_EVENT));
   return true;
+}
+
+/** Pops the entry setDomPath pushed (a failed render): a real history pop, so the back stack unwinds it once. Resolves after the popstate. */
+export function popDomPath(win: DomWin = defaultWin()): Promise<void> {
+  return new Promise((resolve) => {
+    const done = () => {
+      win.removeEventListener('popstate', done);
+      clearTimeout(timer);
+      resolve();
+    };
+    const timer = setTimeout(done, 1000);
+    win.addEventListener('popstate', done);
+    win.history.back();
+  });
 }
 
 /** Hardware back while a legal page is showing: pops to the previous reader state. False when the reader is showing. */
