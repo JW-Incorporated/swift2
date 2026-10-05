@@ -22,7 +22,7 @@ export const CLOWNBOT_AI_DISCLOSURE =
 
 const LEGAL_PATHS = new Set(LEGAL_PAGES.map((p) => p.path));
 
-/** Full URL for one legal page on `siteUrl` (no trailing slash expected, same as SiteShell's SITE_URL). */
+/** Full URL for one legal page on `siteUrl` (no trailing slash expected, same as lib/site-url.ts). */
 export function legalPageUrl(id: LegalPageId, siteUrl: string): string {
   const page = LEGAL_PAGES.find((p) => p.id === id);
   return `${siteUrl.replace(/\/$/, '')}${page ? page.path : '/privacy'}`;

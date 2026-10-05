@@ -5,9 +5,10 @@ vi.mock('./vault-storage', () => ({
   expoFileSystemStorageAdapter: () => ({ getItem: () => null, setItem: () => {} }),
 }));
 
-import { ROUTE_FLAG_KEYS, MemoryStorageAdapter } from '@swift2/content';
-import { APP_CONFIG_CACHE_KEY, loadAppConfig, loadLaunchFlags, routeFlagsFrom } from './app-config';
+import { MemoryStorageAdapter } from '@swift2/content';
+import { APP_CONFIG_CACHE_KEY, loadAppConfig, loadLaunchFlags } from './app-config';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
+import { resolveWantsDom } from './watchdog-policy';
 import shippedConfig from '../../../config/mobile/app-config.json';
 
 function okFetch(body: unknown): typeof fetch {
@@ -21,39 +22,36 @@ const failingFetch = vi.fn(async () => {
   throw new Error('offline');
 }) as unknown as typeof fetch;
 
-describe('ROUTE_FLAG_KEYS', () => {
-  it('equals the keys of DEFAULT_ROUTE_FLAGS', () => {
-    expect([...ROUTE_FLAG_KEYS].sort()).toEqual(Object.keys(DEFAULT_ROUTE_FLAGS).sort());
-  });
-
+describe('shipped config', () => {
   it('defaults sharedUi on and the shipped config agrees', () => {
     expect(DEFAULT_ROUTE_FLAGS.sharedUi).toBe(true);
-    expect(routeFlagsFrom({ routeFlags: { sharedUi: false } }).sharedUi).toBe(false);
-    expect(routeFlagsFrom(shippedConfig)).toEqual(DEFAULT_ROUTE_FLAGS);
     expect(shippedConfig.routeFlags.sharedUi).toBe(true);
-    expect(DEFAULT_ROUTE_FLAGS.sharedUiIos).toBe(true);
-    expect(shippedConfig.routeFlags.sharedUiIos).toBe(true);
     expect(shippedConfig.watchdogReports).toBe(false);
   });
 });
 
-describe('routeFlagsFrom', () => {
-  it('returns defaults for an empty or malformed config', () => {
-    expect(routeFlagsFrom({ routeFlags: {} })).toEqual(DEFAULT_ROUTE_FLAGS);
-    expect(routeFlagsFrom(null)).toEqual(DEFAULT_ROUTE_FLAGS);
-    expect(routeFlagsFrom({ routeFlags: 'x' })).toEqual(DEFAULT_ROUTE_FLAGS);
-  });
-
-  it('applies known boolean keys and ignores unknown or non-boolean ones', () => {
-    const flags = routeFlagsFrom({
-      routeFlags: { song: false, moment: 'no', futureScreen: false },
-    });
-    expect(flags).toEqual({ ...DEFAULT_ROUTE_FLAGS, song: false });
-    expect(flags).not.toHaveProperty('futureScreen');
+// One UI PR3 deletes the legacy native UI: a device whose resolved flag is false has nothing to fall back to but the
+// Recovery screen. This fails until BOTH the compiled default and the shipped config enable iOS, so PR3 cannot land
+// ahead of the iOS flip and strand iPhones on Recovery.
+describe('PR3 requires the shared UI on for every platform', () => {
+  it('sharedUi and sharedUiIos are true in the compiled defaults and the shipped config', () => {
+    expect(DEFAULT_ROUTE_FLAGS).toEqual({ sharedUi: true, sharedUiIos: true });
+    expect(shippedConfig.routeFlags.sharedUi).toBe(true);
+    expect(shippedConfig.routeFlags.sharedUiIos).toBe(true);
   });
 });
 
 describe('loadLaunchFlags (WP2.14)', () => {
+  it('ignores a stale cached false (kill switch removed): null, so the default decides and the DOM attempt is made', async () => {
+    const storage = new MemoryStorageAdapter();
+    storage.setItem(APP_CONFIG_CACHE_KEY, JSON.stringify({ routeFlags: { sharedUi: false, sharedUiIos: false } }));
+    const flags = await loadLaunchFlags({ storage });
+    expect(flags).toEqual({ sharedUi: null, sharedUiIos: null, watchdogReports: null });
+    expect(resolveWantsDom({ quarantined: false, cachedSharedUi: flags.sharedUi, defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi })).toEqual({ wantsDom: true, source: 'default' });
+    // With the iOS default on (required by the guard above) the stale iOS false cannot strand the device either.
+    expect(resolveWantsDom({ quarantined: false, cachedSharedUi: flags.sharedUiIos, defaultSharedUi: true })).toEqual({ wantsDom: true, source: 'default' });
+  });
+
   it('reads only the last-good cache: cached sharedUi and watchdogReports', async () => {
     const storage = new MemoryStorageAdapter();
     storage.setItem(
@@ -100,7 +98,7 @@ describe('loadAppConfig', () => {
       storage,
       baseUrl: 'https://x.invalid/content',
     });
-    expect(routeFlagsFrom(config).song).toBe(false);
+    expect(config.routeFlags.song).toBe(false);
     expect(JSON.parse(storage.getItem(APP_CONFIG_CACHE_KEY)!)).toEqual({
       routeFlags: { song: false },
     });
@@ -110,7 +108,7 @@ describe('loadAppConfig', () => {
     const storage = new MemoryStorageAdapter();
     storage.setItem(APP_CONFIG_CACHE_KEY, JSON.stringify({ routeFlags: { merch: false } }));
     const config = await loadAppConfig({ fetchImpl: failingFetch, storage });
-    expect(routeFlagsFrom(config).merch).toBe(false);
+    expect(config.routeFlags.merch).toBe(false);
   });
 
   it('falls back to last-good when the fetched config is invalid', async () => {
@@ -120,7 +118,7 @@ describe('loadAppConfig', () => {
       fetchImpl: okFetch({ routeFlags: { song: 'no' } }),
       storage,
     });
-    expect(routeFlagsFrom(config)).toEqual({ ...DEFAULT_ROUTE_FLAGS, merch: false });
+    expect(config.routeFlags).toEqual({ merch: false });
   });
 
   it('returns compiled defaults when there is no network and no cache', async () => {
@@ -128,7 +126,7 @@ describe('loadAppConfig', () => {
       fetchImpl: failingFetch,
       storage: new MemoryStorageAdapter(),
     });
-    expect(routeFlagsFrom(config)).toEqual(DEFAULT_ROUTE_FLAGS);
+    expect(config).toEqual({ routeFlags: {} });
   });
 
   it('ignores unknown keys from the network', async () => {
@@ -136,7 +134,7 @@ describe('loadAppConfig', () => {
       fetchImpl: okFetch({ routeFlags: { inbox: false, brandNew: false } }),
       storage: new MemoryStorageAdapter(),
     });
-    expect(routeFlagsFrom(config)).toEqual({ ...DEFAULT_ROUTE_FLAGS, inbox: false });
+    expect(config.routeFlags).toEqual({ inbox: false });
   });
 
   it('never throws, even when storage and fetch both blow up', async () => {

@@ -53,7 +53,6 @@ vi.mock('../lib/diagnostics-env', () => ({ readDiagEnv: () => ({}) }));
 
 import { RELOAD_GRACE_MS, RecoveryScreen } from './RecoveryScreen';
 import { shouldMountHotCorner } from '../lib/diag-hot-corner';
-import { nativeSurface } from '../lib/recovery-surface';
 import { decideMount, freshRecord, recordStrike, shouldMountDom } from '../lib/watchdog';
 
 beforeEach(() => {
@@ -147,12 +146,10 @@ describe('RecoveryScreen', () => {
     expect(document.querySelector('[data-live="polite"]')).toBeTruthy();
   });
 
-  it('a watchdog strike owes a native launch that mounts Recovery (not the legacy router), with the hot corner', () => {
+  it('a watchdog strike owes a native launch that mounts Recovery, with the hot corner', () => {
     const { record } = recordStrike({ ...freshRecord('7:u1', 1), strikes: 1 }, 'boom', 2);
     const decision = decideMount(record, '7:u1', 3);
     expect(shouldMountDom(true, decision)).toBe(false);
-    expect(nativeSurface('native', 'watchdog-fallback')).toBe('recovery');
-    expect(nativeSurface('native', 'dom-strike')).toBe('recovery');
     expect(shouldMountHotCorner('native')).toBe(true);
   });
 });
