@@ -9,7 +9,8 @@ const MAX_IDS = 2000;
 const ID_PATTERN = /^[A-Za-z0-9_-]{8,64}$/;
 
 const done = new Map<string, number>();
-const pending = new Set<string>();
+const PENDING_TTL_MS = 60 * 1000;
+const pending = new Map<string, number>();
 
 /** A syntactically valid id, else null (an absent/invalid id just skips dedupe). */
 export function parseIdempotencyId(value: unknown): string | null {
@@ -18,6 +19,7 @@ export function parseIdempotencyId(value: unknown): string | null {
 
 function prune(now: number): void {
   for (const [id, at] of done) if (now - at > TTL_MS) done.delete(id);
+  for (const [id, at] of pending) if (now - at > PENDING_TTL_MS) pending.delete(id);
   while (done.size > MAX_IDS) done.delete(done.keys().next().value as string);
 }
 
@@ -27,8 +29,8 @@ export function isDuplicate(id: string, now = Date.now()): boolean {
   return done.has(id) || pending.has(id);
 }
 
-export function markPending(id: string): void {
-  pending.add(id);
+export function markPending(id: string, now = Date.now()): void {
+  pending.set(id, now);
 }
 
 /** Call once the upstream post finished: `ok` records it as done, otherwise it may be retried. */

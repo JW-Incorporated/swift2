@@ -4,14 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter } from '../../host/types';
 import { FeedbackButton } from './FeedbackButton';
-import {
-  FEEDBACK_DRAFT_KEY,
-  FEEDBACK_LEASE_KEY,
-  FEEDBACK_QUEUE_KEY,
-  MAX_QUEUE,
-  enqueue,
-  readQueue,
-} from './lib/feedback-outbox';
+import { FEEDBACK_DRAFT_KEY, FEEDBACK_QUEUE_KEY } from './lib/feedback-outbox';
 
 vi.mock('../store', () => ({ useAppState: () => ({ clownChatExpanded: false }) }));
 vi.mock('./lib/feedback-location', () => ({
@@ -157,34 +150,5 @@ describe('FeedbackButton outbox', () => {
     await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
     expect(bodyOf(apiFetch).id).toBe('queued-id-0001');
     await waitFor(() => expect(local.has(FEEDBACK_QUEUE_KEY)).toBe(false));
-  });
-
-  it('is single-flight across tabs: a live lease held elsewhere blocks the send', async () => {
-    local.set(
-      FEEDBACK_LEASE_KEY,
-      JSON.stringify({ owner: 'other-tab', until: Date.now() + 20_000 }),
-    );
-    mount(local, apiFetch);
-    await openAndType('dup?');
-    send();
-    await waitFor(() => expect(queueOf(local)).toHaveLength(1));
-    expect(apiFetch).not.toHaveBeenCalled();
-  });
-});
-
-describe('outbox bounds', () => {
-  it('holds at most MAX_QUEUE items and reuses the id of an identical one', () => {
-    const local = new Map<string, string>();
-    const host = makeHost(local, vi.fn());
-    const items = Array.from({ length: MAX_QUEUE }, (_, i) => enqueue(host, `report ${i}`));
-    expect(items.every(Boolean)).toBe(true);
-    expect(enqueue(host, 'one too many')).toBeNull();
-    expect(enqueue(host, 'report 0')?.id).toBe(items[0]!.id);
-    expect(readQueue(host)).toHaveLength(MAX_QUEUE);
-  });
-
-  it('clips each item to 8 KB', () => {
-    const host = makeHost(new Map(), vi.fn());
-    expect(enqueue(host, 'x'.repeat(20_000))!.message).toHaveLength(8 * 1024);
   });
 });

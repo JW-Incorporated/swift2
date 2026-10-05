@@ -33,22 +33,25 @@ function SpotifyEmbed({ id, title }: { id: string; title: string }) {
 
   if (playing) {
     return (
-      <iframe
-        key={reloadKey}
-        ref={iframeRef}
-        title={title}
-        // No `autoplay` param: EraMedia's facade doesn't use one either, and
-        // Spotify's widget ignores it for anonymous listeners anyway. The click
-        // mounts the player; the player's own control starts it.
-        src={spotifyEmbedSrc('album', id, embedOrigin)}
-        width="100%"
-        height={EMBED_HEIGHT}
-        loading="lazy"
-        onLoad={onLoad}
-        onError={onError}
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
-      />
+      <>
+        <iframe
+          key={reloadKey}
+          ref={iframeRef}
+          title={title}
+          // No `autoplay` param: EraMedia's facade doesn't use one either, and
+          // Spotify's widget ignores it for anonymous listeners anyway. The click
+          // mounts the player; the player's own control starts it.
+          src={spotifyEmbedSrc('album', id, embedOrigin)}
+          width="100%"
+          height={EMBED_HEIGHT}
+          loading="lazy"
+          onLoad={onLoad}
+          onError={onError}
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          style={{ border: 0, borderRadius: '0.5rem', colorScheme: 'normal' }}
+        />
+        <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
+      </>
     );
   }
 

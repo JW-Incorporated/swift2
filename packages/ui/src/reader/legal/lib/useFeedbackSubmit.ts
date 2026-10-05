@@ -11,7 +11,6 @@ import {
   FEEDBACK_RESTORED_MESSAGE,
   clearDraft,
   enqueue,
-  newId,
   readDraft,
   readQueue,
   writeDraft,
@@ -29,7 +28,7 @@ const SENT_LINGER_MS = 1800;
  *  - Send is attempt-first; `navigator.onLine` is never trusted to skip it.
  *  - A transport failure queues the report (stable idempotency id) and arms ONE
  *    resend on `online`; HTTP errors (429/4xx/5xx) are shown, never queued.
- *  - Single-flight: in-flight guard + storage lease; the item leaves storage
+ *  - Single-flight per mount (in-flight guard); the item leaves storage
  *    only after a 2xx.
  *  - A new mount restores the draft and any queued reports.
  */
@@ -48,7 +47,6 @@ export function useFeedbackSubmit({
   const host = useHost();
   const [status, setStatus] = useState<FeedbackStatus>('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const owner = useRef(newId());
   const inFlight = useRef(false);
   const autoRetry = useRef(false);
   const statusRef = useRef(status);
@@ -61,7 +59,7 @@ export function useFeedbackSubmit({
 
   function flush(): Promise<FlushResult> {
     const { state: s, host: h, hp: p } = live.current;
-    return flushQueue(h, owner.current, inFlight, () => ({ location: buildLocation(s, h), hp: p }));
+    return flushQueue(h, inFlight, () => ({ location: buildLocation(s, h), hp: p }));
   }
 
   function showSent() {
@@ -117,7 +115,15 @@ export function useFeedbackSubmit({
 
   async function retryQueued() {
     autoRetry.current = false;
+    const before = readQueue(host);
     const res = await flush();
+    // A queued report that was also the draft in the box is now filed: drop the copy.
+    const draft = readDraft(host);
+    if (draft && before.some((i) => res.sent.includes(i.id) && i.message === draft)) {
+      clearDraft(host);
+      lastPersisted.current = '';
+      setMsg('');
+    }
     if (res.sent.length && !readQueue(host).length && statusRef.current === 'queued') showSent();
     else if (res.http || res.transport) showFailure(res);
   }

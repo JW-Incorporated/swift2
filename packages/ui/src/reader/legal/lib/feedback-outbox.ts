@@ -5,16 +5,14 @@ type Host = ReturnType<typeof useHost>;
 /**
  * Local-only feedback outbox on the host storage abstraction (durable once the
  * persistent reader storage lands, #5059; localStorage on the website). Bounded:
- * one draft + at most MAX_QUEUE queued items, each at most MAX_ITEM_CHARS, so
+ * one draft + at most MAX_QUEUE queued items, each at most MAX_ITEM_CHARS (the server's message cap), so
  * the whole thing stays far below the app storage budget.
  */
 export const FEEDBACK_DRAFT_KEY = 'll-feedback-draft-v1';
 export const FEEDBACK_QUEUE_KEY = 'll-feedback-outbox-v1';
-export const FEEDBACK_LEASE_KEY = 'll-feedback-lease-v1';
 
 export const MAX_QUEUE = 3;
-export const MAX_ITEM_CHARS = 8 * 1024;
-export const LEASE_MS = 30_000;
+export const MAX_ITEM_CHARS = 5000;
 
 export const FEEDBACK_QUEUED_MESSAGE =
   'Couldn’t reach the network — your report is saved and will send when you’re back online.';
@@ -104,23 +102,6 @@ export function dequeue(host: Host, id: string): void {
     host,
     readQueue(host).filter((i) => i.id !== id),
   );
-}
-
-/**
- * Cross-tab / cross-mount single-flight. A lease with expiry in storage;
- * read-back after the write confirms we won (best effort — storage has no CAS).
- */
-export function acquireLease(host: Host, owner: string, now = Date.now()): boolean {
-  const cur = readJson(host, FEEDBACK_LEASE_KEY) as { owner?: unknown; until?: unknown } | null;
-  if (cur && cur.owner !== owner && typeof cur.until === 'number' && cur.until > now) return false;
-  writeJson(host, FEEDBACK_LEASE_KEY, { owner, until: now + LEASE_MS });
-  const after = readJson(host, FEEDBACK_LEASE_KEY) as { owner?: unknown } | null;
-  return after?.owner === owner;
-}
-
-export function releaseLease(host: Host, owner: string): void {
-  const cur = readJson(host, FEEDBACK_LEASE_KEY) as { owner?: unknown } | null;
-  if (cur?.owner === owner) remove(host, FEEDBACK_LEASE_KEY);
 }
 
 export type PostResult = { kind: 'sent' } | { kind: 'http'; error: string };

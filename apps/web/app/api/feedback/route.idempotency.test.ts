@@ -1,6 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST } from './route';
-import { isDuplicate, parseIdempotencyId, resetIdempotencyForTests, settle } from './idempotency';
+import {
+  isDuplicate,
+  markPending,
+  parseIdempotencyId,
+  resetIdempotencyForTests,
+  settle,
+} from './idempotency';
 
 const req = (body: unknown, ip: string) =>
   new Request('http://localhost/api/feedback', {
@@ -61,5 +67,11 @@ describe('feedback idempotency id', () => {
     settle('old-id-00001', true, 0);
     expect(isDuplicate('old-id-00001', 23 * 3600 * 1000)).toBe(true);
     expect(isDuplicate('old-id-00001', 25 * 3600 * 1000)).toBe(false);
+  });
+
+  it('a stuck pending id stops blocking after 60 s', () => {
+    markPending('stuck-id-0001', 0);
+    expect(isDuplicate('stuck-id-0001', 30_000)).toBe(true);
+    expect(isDuplicate('stuck-id-0001', 61_000)).toBe(false);
   });
 });
