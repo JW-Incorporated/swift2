@@ -118,7 +118,7 @@ and a flipped default cannot be killed remotely.
   strict server schema (`{platform, buildKey, category}`; no model, OS, update id
   field or timings; the user-initiated `[diag]` path is unchanged), categories
   `ready-timeout | dom-error | webview-terminated | webview-render-gone |
-  abandoned | protocol`), at most one per `buildKey` per day (persisted throttle),
+  abandoned | protocol`), once per (build, category) in the last 50 marks per install (persisted; the server also dedupes durably per build+category per day),
   max 3 queued, sent when online (next launch at the latest). Only an explicit
   `watchdogReports:true` in the cached config turns them on; absent or false =
   off, and anything queued is dropped. The server also rejects more than 5 per
@@ -190,7 +190,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    Diagnostics shows `Quarantined: yes`.
 2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
    repeats step 1 faster.
-3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per build per day on #4791.
+3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per (build, category) per day on #4791.
 4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
 
 ## Insets, native overlay and the app adapter (WP2.4-D1, #4953)

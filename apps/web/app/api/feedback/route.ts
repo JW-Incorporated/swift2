@@ -15,15 +15,8 @@ import {
   speedRefund,
   type SpeedMeta,
 } from './diag';
-import {
-  WATCHDOG_PREFIX,
-  type WatchdogReport,
-  isWatchdogMessage,
-  parseWatchdogReport,
-  watchdogAllowed,
-  watchdogCommentFrom,
-} from './watchdog-report';
-import { claimWatchdogReport, finishWatchdogReport } from './watchdog-dedupe';
+import { type WatchdogReport, isWatchdogMessage } from './watchdog-report';
+import { prepareWatchdog, watchdogClaimResponse } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -248,18 +241,10 @@ export async function POST(req: Request): Promise<Response> {
   let speedReport: SpeedMeta | null = null;
   let watchdogReport: WatchdogReport | null = null;
   if (watchdog) {
-    const exactShape =
-      payload.message === WATCHDOG_PREFIX &&
-      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'watchdog');
-    const parsed = exactShape ? parseWatchdogReport(payload.watchdog) : null;
-    if (!parsed?.ok) {
-      return NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 });
-    }
-    if (!watchdogAllowed(parsed.report.buildKey)) {
-      return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
-    }
-    watchdogReport = parsed.report;
-    diagComment = watchdogCommentFrom(parsed.report);
+    const prepared = prepareWatchdog(payload);
+    if (!prepared.ok) return prepared.response;
+    watchdogReport = prepared.report;
+    diagComment = prepared.comment;
   } else if (diag) {
     const exactShape =
       payload.message === DIAG_PREFIX &&
@@ -306,9 +291,8 @@ export async function POST(req: Request): Promise<Response> {
 
   // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
   if (watchdogReport) {
-    const claim = await claimWatchdogReport(watchdogReport);
-    if (claim === 'duplicate') return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
-    if (claim === 'capped') return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
+    const stop = await watchdogClaimResponse(watchdogReport);
+    if (stop) return stop;
   }
 
   const location = (payload.location ?? {}) as Location;
@@ -346,7 +330,6 @@ export async function POST(req: Request): Promise<Response> {
       const detail = await res.text();
       console.error('feedback: GitHub issue create failed', res.status, detail.slice(0, 300));
       if (speedReport) speedRefund(speedReport.run);
-      if (watchdogReport) await finishWatchdogReport(watchdogReport, false);
       return NextResponse.json(
         { error: 'Couldn’t file that right now — please try again later.' },
         { status: 502 },
@@ -354,7 +337,6 @@ export async function POST(req: Request): Promise<Response> {
     }
 
     if (speedReport) speedCommit(speedReport);
-    if (watchdogReport) await finishWatchdogReport(watchdogReport, true);
     const issue = (await res.json()) as { number?: number; html_url?: string };
     return NextResponse.json(
       { ok: true, number: issue.number, url: issue.html_url },
@@ -362,7 +344,6 @@ export async function POST(req: Request): Promise<Response> {
     );
   } catch (err) {
     console.error('feedback: unexpected error', (err as Error).message);
-    if (watchdogReport) await finishWatchdogReport(watchdogReport, false);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { claim, finish } = vi.hoisted(() => ({ claim: vi.fn(), finish: vi.fn(async () => undefined) }));
-vi.mock('./watchdog-dedupe', () => ({ claimWatchdogReport: claim, finishWatchdogReport: finish }));
+const { claim } = vi.hoisted(() => ({ claim: vi.fn() }));
+vi.mock('./watchdog-dedupe', () => ({ claimWatchdogReport: claim }));
 
 import { POST } from './route';
 import { resetWatchdogAllowed } from './watchdog-report';
@@ -17,11 +17,10 @@ const req = () => {
   });
 };
 
-describe('POST [watchdog] durable claim lifecycle', () => {
+describe('POST [watchdog] durable claim', () => {
   beforeEach(() => {
     resetWatchdogAllowed();
     claim.mockReset();
-    finish.mockClear();
     vi.stubEnv('GITHUB_FEEDBACK_TOKEN', 't');
   });
   afterEach(() => {
@@ -53,26 +52,19 @@ describe('POST [watchdog] durable claim lifecycle', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('new + successful post -> marked posted', async () => {
+  it('new + successful post -> 201', async () => {
     claim.mockResolvedValue('new');
     vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ id: 1 }), { status: 201 })));
     expect((await POST(req())).status).toBe(201);
-    expect(finish).toHaveBeenCalledWith(expect.objectContaining({ buildKey: '42:embedded' }), true);
+    expect(claim).toHaveBeenCalledTimes(1);
   });
 
-  it('new + failed post (non-2xx or throw) -> claim released so the retry is not a duplicate', async () => {
+  it('new + failed post -> 502 and the claim is not released or retried', async () => {
     claim.mockResolvedValue('new');
-    vi.stubGlobal('fetch', vi.fn(async () => new Response('no', { status: 500 })));
+    const spy = vi.fn(async () => new Response('no', { status: 500 }));
+    vi.stubGlobal('fetch', spy);
     expect((await POST(req())).status).toBe(502);
-    expect(finish).toHaveBeenLastCalledWith(expect.anything(), false);
-    vi.stubGlobal(
-      'fetch',
-      vi.fn(async () => {
-        throw new Error('net');
-      }),
-    );
-    expect((await POST(req())).status).toBe(500);
-    expect(finish).toHaveBeenLastCalledWith(expect.anything(), false);
-    expect(finish).toHaveBeenCalledTimes(2);
+    expect(claim).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });
