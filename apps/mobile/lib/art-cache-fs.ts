@@ -129,6 +129,10 @@ export function expoArtFs(): ArtFs {
         handle = null;
         try {
           h?.close();
+        } catch {
+          // The original error is the one that matters.
+        }
+        try {
           if (f.exists) f.delete();
         } catch {
           // Best-effort: the next start sweeps stray .tmp files.

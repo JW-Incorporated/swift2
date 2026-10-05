@@ -145,6 +145,7 @@ describe('expoArtFs().download', () => {
     responder = async () => ok(s.body);
     await expect(expoArtFs().download(URL, TMP, 1000)).rejects.toThrow(/size cap/);
     expect(state.handleClosed).toBe(1);
+    expect(tmpEntry().has()).toBe(false);
   });
 
   it('falls back to a whole-file download when streaming is unsupported, and keeps a file inside the bounds', async () => {
