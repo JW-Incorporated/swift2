@@ -26,12 +26,15 @@ import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
 import { setImageLoadListener } from './reader/image-listener';
+import { loadArtMap } from './reader/art-map';
+import { insetsFromQuery } from './reader/insets-query';
 
 export interface AppReaderProps {
   /** file:// URI of the `last-good` cache's `.js` twin (script-loaded, `?v=` cache-busted). */
   cacheUri?: string;
   /** file:// URI of the `last-good` cache `.json`, for the XHR/fetch fallbacks. */
   cacheJsonUri?: string;
+  artMapUri?: string;
   /** Web/dev seed for the probe version; on device the host sends it as the `contentVersion` event. */
   versionToken?: string;
   /** Web/dev only: on device the host sends `insets` events (the DOM is the sole inset owner). */
@@ -53,14 +56,6 @@ export interface AppReaderProps {
   devLoader?: () => Promise<string>;
   dom?: import('expo/dom').DOMProps;
   ref?: React.Ref<object>;
-}
-
-/** Dev/web only: ?inset=top,right,bottom,left simulates the native safe-area insets. */
-function insetsFromQuery(): AppReaderProps['insets'] {
-  const raw = new URLSearchParams(window.location.search).get('inset');
-  if (!raw) return undefined;
-  const [top = 0, right = 0, bottom = 0, left = 0] = raw.split(',').map((n) => Number(n) || 0);
-  return { top, right, bottom, left };
 }
 
 type Probe = ReturnType<typeof createProbe>;
@@ -204,7 +199,7 @@ export default function AppReader(props: AppReaderProps) {
         const tRead = performance.now();
         if (devLoader) input = await devLoader();
         else if (cacheUri) {
-          const read = await readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' });
+          const [read] = await Promise.all([readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' }), loadArtMap(props.artMapUri)]);
           probe.attempts(read.attempts);
           readAttempts = read.attempts;
           input = read.parsed ?? read.text;

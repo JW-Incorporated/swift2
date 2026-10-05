@@ -207,6 +207,10 @@ has no fallthrough. Era art is the one app-relative network asset: the DOM host'
 Playwright handler (`e2e/parity/helpers.ts`) fulfils that URL with the real bytes from
 `apps/web/public/eras` (not the grey stub, not recorded as an external image). S4:
 offline/airplane-mode era art in the app must be checked on a device.
+Offline art (#5074): on the app, `AppImage` first looks `src` up in the native `art-map.js` (era covers and
+first-party primary moment images only) and serves the cached `file://` copy with no srcSet, falling back to the
+remote responsive URL on a miss or `onError`. The parity harness never installs a map, so side b still renders the
+remote path; the `file://` path is covered by unit tests and the device check in `final-device-session.md`.
 
 ## Updating baselines
 

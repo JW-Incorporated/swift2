@@ -7,6 +7,7 @@ import { forwardRef, useState, type CSSProperties } from 'react';
 import { toExternalUrl, toMailtoUrl, toWebPath } from '@swift2/ui';
 import type { BridgeClient, HostAdapter, HostImageProps, HostLinkProps, Insets } from '@swift2/ui';
 import { isAllowedMailto } from '../../lib/mailto-allowlist';
+import { artSrc, noteArtFallback, noteArtLoaded } from '../reader/art-map';
 import { imageLoaded } from '../reader/image-listener';
 import { resolveAppUrl } from '../reader/resolve-url';
 import { createAppStorage, handleLinkClick, type NavDeps } from './app-adapter-nav';
@@ -52,14 +53,17 @@ export function AppImage({
   onLoad,
 }: HostImageProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
-  const responsive = failedSrc === src ? null : responsiveAttrs({ src, origin: APP_ORIGIN, width, fill, sizes, unoptimized });
+  const [artFailedSrc, setArtFailedSrc] = useState<string | null>(null);
+  // Offline art: a map hit serves the cached file:// copy directly (no srcSet); a miss or onError is today's remote path.
+  const art = artFailedSrc === src ? null : artSrc(src, APP_ORIGIN);
+  const responsive = art || failedSrc === src ? null : responsiveAttrs({ src, origin: APP_ORIGIN, width, fill, sizes, unoptimized });
   return (
     <img
       referrerPolicy="no-referrer"
       loading={priority ? 'eager' : (loading ?? 'lazy')}
       decoding={decoding ?? 'async'}
       fetchPriority={fetchPriority ?? (priority ? 'high' : undefined)}
-      src={responsive?.src ?? src}
+      src={art ?? responsive?.src ?? src}
       srcSet={responsive?.srcSet}
       sizes={responsive ? responsive.sizes : sizes}
       alt={alt}
@@ -68,9 +72,19 @@ export function AppImage({
       className={className}
       draggable={draggable}
       style={fill ? { ...FILL, ...style } : style}
-      onError={responsive ? () => setFailedSrc(src) : undefined}
+      onError={
+        art
+          ? () => {
+              noteArtFallback();
+              setArtFailedSrc(src);
+            }
+          : responsive
+            ? () => setFailedSrc(src)
+            : undefined
+      }
       onLoad={(e) => {
         onLoad?.(e);
+        if (art) noteArtLoaded();
         imageLoaded(e.currentTarget);
       }}
     />
