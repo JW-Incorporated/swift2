@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { EGG_NODES } from '@swift2/experience';
 import { HostProvider } from '../host/context';
 import type { HostAdapter } from '../host/types';
-import { ClueWebNode } from './threads/ClueWebNode';
+import { ClueWebNode, ClueWebNodes } from './threads/ClueWebNode';
 import { ShareFallbackToast } from './shell/ShareFallbackToast';
 import { MomentLightbox } from './moment/MomentLightbox';
 
@@ -27,6 +27,34 @@ describe('ClueWebNode keyboard operation', () => {
     expect(onToggle).toHaveBeenCalledTimes(2);
   });
 });
+
+describe('ClueWebNodes roving tabindex', () => {
+  it('has a single tab stop and arrow/Home/End move focus', () => {
+    const { getAllByRole } = render(
+      <svg role="group" aria-label="Clue web constellation">
+        <ClueWebNodes active={null} muted={() => false} onToggle={() => {}} onHover={() => {}} />
+      </svg>,
+    );
+    const nodes = getAllByRole('button');
+    expect(nodes.filter((n) => n.getAttribute('tabindex') === '0')).toHaveLength(1);
+    expect(nodes[0]!.getAttribute('tabindex')).toBe('0');
+    act(() => nodes[0]!.focus());
+    fireEvent.keyDown(nodes[0]!, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(nodes[1]);
+    expect(nodes[1]!.getAttribute('tabindex')).toBe('0');
+    expect(nodes[0]!.getAttribute('tabindex')).toBe('-1');
+    fireEvent.keyDown(nodes[1]!, { key: 'End' });
+    expect(document.activeElement).toBe(nodes[nodes.length - 1]);
+    fireEvent.keyDown(document.activeElement!, { key: 'Home' });
+    expect(document.activeElement).toBe(nodes[0]);
+  });
+});
+
+const pointer = (el: Element, type: 'pointerOver' | 'pointerOut', pointerType: string) => {
+  const ev = createEvent[type](el, { bubbles: true });
+  Object.defineProperty(ev, 'pointerType', { value: pointerType });
+  fireEvent(el, ev);
+};
 
 describe('ShareFallbackToast', () => {
   const show = () =>
@@ -53,6 +81,39 @@ describe('ShareFallbackToast', () => {
     act(() => void vi.advanceTimersByTime(20000));
     expect(queryByLabelText('Share link')).not.toBeNull();
     act(() => input.blur());
+    act(() => void vi.advanceTimersByTime(7001));
+    expect(queryByLabelText('Share link')).toBeNull();
+  });
+
+  it('touch pointer does not pause; mouse pauses and resumes with remaining time', () => {
+    vi.useFakeTimers();
+    const { getByLabelText, queryByLabelText, container } = mount();
+    show();
+    const aside = container.querySelector('aside')!;
+    pointer(aside, 'pointerOver', 'touch');
+    act(() => void vi.advanceTimersByTime(7001));
+    expect(queryByLabelText('Share link')).toBeNull();
+    show();
+    const aside2 = container.querySelector('aside')!;
+    act(() => void vi.advanceTimersByTime(5000));
+    pointer(aside2, 'pointerOver', 'mouse');
+    act(() => void vi.advanceTimersByTime(10000));
+    expect(getByLabelText('Share link')).not.toBeNull();
+    pointer(aside2, 'pointerOut', 'mouse');
+    act(() => void vi.advanceTimersByTime(1900));
+    expect(queryByLabelText('Share link')).not.toBeNull();
+    act(() => void vi.advanceTimersByTime(200));
+    expect(queryByLabelText('Share link')).toBeNull();
+  });
+
+  it('caps a focus pause at 30s', () => {
+    vi.useFakeTimers();
+    const { getByLabelText, queryByLabelText } = mount();
+    show();
+    act(() => getByLabelText('Share link').focus());
+    act(() => void vi.advanceTimersByTime(29000));
+    expect(queryByLabelText('Share link')).not.toBeNull();
+    act(() => void vi.advanceTimersByTime(1000));
     act(() => void vi.advanceTimersByTime(7001));
     expect(queryByLabelText('Share link')).toBeNull();
   });

@@ -35,7 +35,7 @@ import {
   useProgressActions,
 } from '../store';
 import type { EggNode, Motif, MotifId } from '@swift2/experience';
-import { ClueWebNode } from './ClueWebNode';
+import { ClueWebNodes } from './ClueWebNode';
 import { useBackDismiss } from '../lib/useBackDismiss';
 import { useLiveTheories } from '../lib/use-live-theories';
 import { sortByHeatDesc, matchFanSignal, fansAreSayingLine } from './lib/live-theories';
@@ -744,16 +744,12 @@ function ConstellationView({
                 />
               );
             })}
-            {EGG_NODES.map((n) => (
-              <ClueWebNode
-                key={n.id}
-                node={n}
-                isActive={active === n.id}
-                muted={muted(n.id)}
-                onToggle={() => setActive(active === n.id ? null : n.id)}
-                onHover={() => setHovered(n.id)}
-              />
-            ))}
+            <ClueWebNodes
+              active={active}
+              muted={muted}
+              onToggle={(id) => setActive(active === id ? null : id)}
+              onHover={setHovered}
+            />
           </svg>
 
           {EGG_NODES.filter((n) => showLabel(n.id) || active === n.id).map((n) => (

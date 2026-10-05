@@ -1,21 +1,78 @@
 'use client';
 
-import type { KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
+import { EGG_NODES } from '@swift2/experience';
 import { getEra } from '@swift2/experience';
 import type { EggNode } from '@swift2/experience';
+
+export function ClueWebNodes({
+  active,
+  muted,
+  onToggle,
+  onHover,
+}: {
+  active: string | null;
+  muted: (id: string) => boolean;
+  onToggle: (id: string) => void;
+  onHover: (id: string) => void;
+}) {
+  const refs = useRef(new Map<string, SVGGElement>());
+  const [current, setCurrent] = useState<string | null>(null);
+  const tabStop = current ?? active ?? EGG_NODES[0]?.id;
+  const move = (index: number) => {
+    const target = EGG_NODES[(index + EGG_NODES.length) % EGG_NODES.length];
+    if (!target) return;
+    setCurrent(target.id);
+    refs.current.get(target.id)?.focus();
+  };
+  return (
+    <>
+      {EGG_NODES.map((n, i) => (
+        <ClueWebNode
+          key={n.id}
+          node={n}
+          isActive={active === n.id}
+          muted={muted(n.id)}
+          tabStop={tabStop === n.id}
+          nodeRef={(el) => {
+            if (el) refs.current.set(n.id, el);
+            else refs.current.delete(n.id);
+          }}
+          onToggle={() => onToggle(n.id)}
+          onHover={() => {
+            setCurrent(n.id);
+            onHover(n.id);
+          }}
+          onNavigate={(key) => {
+            if (key === 'Home') move(0);
+            else if (key === 'End') move(EGG_NODES.length - 1);
+            else if (key === 'ArrowRight' || key === 'ArrowDown') move(i + 1);
+            else move(i - 1);
+          }}
+        />
+      ))}
+    </>
+  );
+}
 
 export function ClueWebNode({
   node: n,
   isActive,
   muted,
+  tabStop = true,
+  nodeRef,
   onToggle,
   onHover,
+  onNavigate,
 }: {
   node: EggNode;
   isActive: boolean;
   muted: boolean;
+  tabStop?: boolean;
+  nodeRef?: (el: SVGGElement | null) => void;
   onToggle: () => void;
   onHover: () => void;
+  onNavigate?: (key: string) => void;
 }) {
   const era = getEra(n.eraId);
   const isTheory = n.confirmed === false;
@@ -23,13 +80,17 @@ export function ClueWebNode({
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       onToggle();
+    } else if (onNavigate && ['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)) {
+      event.preventDefault();
+      onNavigate(event.key);
     }
   };
   return (
     <g
       transform={`translate(${n.x} ${n.y * 0.5625})`}
       role="button"
-      tabIndex={0}
+      ref={nodeRef}
+      tabIndex={tabStop ? 0 : -1}
       aria-label={n.label}
       aria-pressed={isActive}
       onClick={onToggle}

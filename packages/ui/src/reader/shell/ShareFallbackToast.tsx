@@ -1,16 +1,24 @@
 'use client';
 
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { Copy, X as XIcon } from 'lucide-react';
 import { useHost } from '../../host/context';
 import type { WebSharePayload } from '../lib/share-action';
 
 const EVENT_NAME = 'longlive-share-fallback';
+const DISMISS_MS = 7000;
+// A pause (hover or focus) never lasts forever: after this the timer re-arms.
+const MAX_PAUSE_MS = 30000;
 
 export function ShareFallbackToast() {
   const host = useHost();
   const [payload, setPayload] = useState<(WebSharePayload & { copied: boolean }) | null>(null);
-  const [paused, setPaused] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [capped, setCapped] = useState(false);
+  const remaining = useRef(DISMISS_MS);
+  const interacting = hover || focused;
+  const paused = interacting && !capped;
 
   useEffect(() => {
     const onFallback = (event: Event) =>
@@ -20,10 +28,33 @@ export function ShareFallbackToast() {
   }, []);
 
   useEffect(() => {
+    remaining.current = DISMISS_MS;
+    setCapped(false);
+    if (!payload) {
+      setHover(false);
+      setFocused(false);
+    }
+  }, [payload]);
+
+  useEffect(() => {
+    if (!interacting) setCapped(false);
+  }, [interacting]);
+
+  useEffect(() => {
     if (!payload || paused) return;
-    const timeout = window.setTimeout(() => setPayload(null), 7000);
-    return () => window.clearTimeout(timeout);
+    const startedAt = Date.now();
+    const timeout = window.setTimeout(() => setPayload(null), remaining.current);
+    return () => {
+      window.clearTimeout(timeout);
+      remaining.current = Math.max(0, remaining.current - (Date.now() - startedAt));
+    };
   }, [payload, paused]);
+
+  useEffect(() => {
+    if (!paused) return;
+    const cap = window.setTimeout(() => setCapped(true), MAX_PAUSE_MS);
+    return () => window.clearTimeout(cap);
+  }, [paused]);
 
   if (!payload) return null;
   const openVia = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -35,11 +66,13 @@ export function ShareFallbackToast() {
   return (
     <aside
       aria-live="polite"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
+      onPointerEnter={(event) => {
+        if (event.pointerType === 'mouse') setHover(true);
+      }}
+      onPointerLeave={() => setHover(false)}
+      onFocus={() => setFocused(true)}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false);
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
       }}
       className="fixed bottom-24 right-4 z-[70] w-[min(24rem,calc(100vw-2rem))] rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)] p-4 shadow-2xl"
     >
@@ -49,7 +82,8 @@ export function ShareFallbackToast() {
           type="button"
           aria-label="Close"
           onClick={() => {
-            setPaused(false);
+            setHover(false);
+            setFocused(false);
             setPayload(null);
           }}
           className="era-btn-ghost -mr-1 -mt-1 rounded-full p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
