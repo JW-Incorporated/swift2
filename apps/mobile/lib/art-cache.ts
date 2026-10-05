@@ -5,7 +5,7 @@
 export const ART_DIR_NAME = 'swift2-art-v1';
 export const MANIFEST_NAME = 'manifest.json';
 export const MAP_NAME = 'art-map.js';
-/** Hard cap on the cached art. */
+/** Steady-state cap on the cached art; on-disk may exceed it by up to SESSION_BUDGET_BYTES until the next launch's sweep. */
 export const CAP_BYTES = 40 * 1024 * 1024;
 /** Declared bytes reserved per session (a failed download keeps its reservation): no download starts past this. */
 export const SESSION_BUDGET_BYTES = 10 * 1024 * 1024;
@@ -118,21 +118,30 @@ const total = (entries: ArtEntries) => Object.values(entries).reduce((n, e) => n
 
 export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
   let running: Promise<ArtSyncResult | null> | null = null;
+  let swept = false;
 
   async function run(urls: string[], version: string): Promise<ArtSyncResult> {
     fs.ensureDir();
-    for (const n of fs.list()) if (n.endsWith('.tmp')) fs.remove(n);
+    const manifestText = fs.readText(MANIFEST_NAME);
+    if (!swept) {
+      // First run of this process only: the DOM's boot map may still point at files the previous run dropped, so
+      // deletion waits for the next launch. This sweep removes anything the manifest does not list (stray .tmp too).
+      swept = true;
+      const keep = new Set([MANIFEST_NAME, MAP_NAME, ...Object.values(parseEntries(manifestText)).map((e) => e.file)]);
+      for (const n of fs.list()) if (!keep.has(n)) fs.remove(n);
+    } else {
+      for (const n of fs.list()) if (n.endsWith('.tmp')) fs.remove(n);
+    }
     const stamp = now();
     const referenced = new Set(urls);
     const entries: ArtEntries = {};
-    for (const [url, e] of Object.entries(parseEntries(fs.readText(MANIFEST_NAME)))) {
+    for (const [url, e] of Object.entries(parseEntries(manifestText))) {
       if (fs.size(e.file) === null) continue; // file gone: re-download if still referenced
       // contentVersion is only ever changed by a successful re-fetch below, never relabelled here.
       entries[url] = referenced.has(url) ? { ...e, lastUsed: stamp } : e;
     }
     let evicted = 0;
     const drop = (url: string) => {
-      fs.remove(entries[url]!.file);
       delete entries[url];
       evicted += 1;
     };
@@ -169,7 +178,6 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
           }
           await fs.move(tmp, file);
           const old = entries[url];
-          if (old && old.file !== file) fs.remove(old.file);
           disk += size - declared - (old ? old.size : 0);
           downloaded += 1;
           entries[url] = { file, size, lastUsed: stamp, contentVersion: version };
@@ -194,8 +202,6 @@ export function createArtCache(fs: ArtFs, now: () => number = Date.now) {
       drop(url);
     }
 
-    const keep = new Set([MANIFEST_NAME, MAP_NAME, ...Object.values(entries).map((e) => e.file)]);
-    for (const n of fs.list()) if (!keep.has(n)) fs.remove(n);
     fs.writeText(MANIFEST_NAME, JSON.stringify({ v: 1, entries }));
     const map: Record<string, string> = {};
     for (const [url, e] of Object.entries(entries)) map[url] = fs.uri(e.file);
