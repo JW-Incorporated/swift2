@@ -7,6 +7,8 @@ export const MAX_QUEUED_TAPS = 16;
 export const MAX_SEEN_TAPS = 64;
 export const ACK_TIMEOUT_MS = 15_000;
 export const TAP_TTL_MS = 10 * 60 * 1000;
+/** Absolute age cap, host or not: a tap this old is dropped even if no host was ever available. */
+export const TAP_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 const SITE_HOSTS = new Set(['longlivets.com', 'www.longlivets.com']);
 
@@ -64,7 +66,10 @@ export interface TapQueueDeps {
   resolvePath?: (deepLink: string) => WebPath | null;
   capacity?: number;
   seenCapacity?: number;
+  /** Host-available time a held tap may wait for its ack; time with no sink attached (FirstLaunch/Recovery) does not count. */
   ttlMs?: number;
+  /** Absolute age cap on a held tap regardless of host availability (default 24 h). */
+  maxAgeMs?: number;
   /** Ack wait per tap before it is treated as not delivered (default 15 s). */
   ackTimeoutMs?: number;
   /** Clock for `receivedAt`/TTL: clock-relative, monotonic (performance.now) when available. */
@@ -87,6 +92,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   const capacity = deps.capacity ?? MAX_QUEUED_TAPS;
   const seenCap = deps.seenCapacity ?? MAX_SEEN_TAPS;
   const ttl = deps.ttlMs ?? TAP_TTL_MS;
+  const maxAge = deps.maxAgeMs ?? TAP_MAX_AGE_MS;
   const ackTimeout = deps.ackTimeoutMs ?? ACK_TIMEOUT_MS;
   const now = deps.now ?? (() => globalThis.performance?.now?.() ?? Date.now());
   const resolvePath = deps.resolvePath ?? resolveTapPath;
@@ -94,6 +100,16 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   // id -> when it was delivered: a repeat id is a duplicate only within the TTL (a reused id later is a new tap).
   const delivered = new Map<string, number>();
   let sink: TapSink | null = null;
+  // Host-available clock: accumulated sink-attached time (+ the open stretch). A tap's TTL age is measured on it.
+  let hostAccum = 0;
+  let attachedAt = 0;
+  const hostBase = new WeakMap<Tap, number>();
+  const hostTime = () => hostAccum + (sink ? now() - attachedAt : 0);
+  const setSink = (next: TapSink | null) => {
+    if (sink) hostAccum += now() - attachedAt;
+    sink = next;
+    if (next) attachedAt = now();
+  };
   let flushing: Promise<void> | null = null;
   let again = false;
   let inFlight: Tap | null = null;
@@ -130,7 +146,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
     while (sink && held.length > 0) {
       const s = sink;
       const head = held[0];
-      if (now() - head.receivedAt > ttl) {
+      if (now() - head.receivedAt > maxAge || hostTime() - (hostBase.get(head) ?? 0) > ttl) {
         held.shift();
         drop('stale', head.id);
         continue;
@@ -197,7 +213,12 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       if (idx >= held.length) return 'dropped';
       held.splice(idx, 1);
     }
-    held.push({ id, path, receivedAt: now(), source: raw.source === 'deeplink' ? 'deeplink' : 'notification' });
+    for (let i = held.length - 1; i >= 0; i--) {
+      if (held[i] !== inFlight && now() - held[i].receivedAt > maxAge) drop('stale', held.splice(i, 1)[0].id);
+    }
+    const tap: Tap = { id, path, receivedAt: now(), source: raw.source === 'deeplink' ? 'deeplink' : 'notification' };
+    hostBase.set(tap, hostTime());
+    held.push(tap);
     void flush();
     return 'queued';
   }
@@ -205,12 +226,12 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   return {
     enqueue,
     attach(next: TapSink): void {
-      sink = next;
+      setSink(next);
       abandon?.();
       void flush();
     },
     detach(): void {
-      sink = null;
+      setSink(null);
       abandon?.();
     },
     flush,
