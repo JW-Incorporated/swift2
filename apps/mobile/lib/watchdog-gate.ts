@@ -117,6 +117,17 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const reportsOn = () => inputsRef.current?.watchdogReports === true;
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
+  // A strike folded in at launch (an attempt that died last launch) is reported exactly once, whenever the record resolves.
+  const strikeReportedRef = useRef(false);
+  const reportStruck = () => {
+    const struck = decidedStrikeRef.current;
+    if (!struck || strikeReportedRef.current) return;
+    strikeReportedRef.current = true;
+    report(struck.lastReason, struck.buildKey);
+  };
+  const onFolded = (reason: string | null, record: WatchdogRecord) => {
+    if (reason && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+  };
 
   const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef } = useContentGate(deps);
   const cancelBoundRef = useRef<() => void>(() => undefined);
@@ -148,7 +159,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     void (async () => {
       const prev = await loadWatchdogRecord();
       const d = decideMount(prev, currentBuildKey(), Date.now());
-      recordRef.current = d.record;
+      if (!lateRef.current.held) recordRef.current = d.record;
       prevRef.current = prev;
       decisionRef.current = d;
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
@@ -159,7 +170,8 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
         diagCollector.mark('mount-decision-resolved', `${elapsedMs()}ms`);
         if (lateRef.current.held) {
           pendingRealRef.current = { prev, d };
-          if (monitorRef.current) reconcileLateRecord(prev, d, lateRef, recordRef, write);
+          if (monitorRef.current) reconcileLateRecord(prev, d, lateRef, recordRef, write, onFolded);
+          reportStruck();
         } else setDecision(d);
       }
     })();
@@ -181,8 +193,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     startedRef.current = true;
     const run = (d: MountDecision, slow: boolean) => {
       // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
-      const struck = decidedStrikeRef.current;
-      if (struck) report(struck.lastReason, struck.buildKey);
+      reportStruck();
       const ios = Platform.OS === 'ios';
       const want = resolveWantsDom({
         quarantined: d.record.state === 'quarantined',
