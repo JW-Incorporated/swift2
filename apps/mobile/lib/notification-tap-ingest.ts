@@ -12,7 +12,7 @@ export interface TapIngestPorts {
   listen(cb: (resp: RawResponse | null) => void): () => void;
 }
 
-export function startTapIngest(gate: Pick<TapGate, 'enqueue' | 'onSettled'>, ports: TapIngestPorts): () => void {
+export function startTapIngest(gate: Pick<TapGate, 'enqueue' | 'onSettled' | 'wasDelivered'>, ports: TapIngestPorts): () => void {
   let stopped = false;
   let chain: Promise<void> = Promise.resolve();
   const step = (run: () => Promise<void>) => {
@@ -33,13 +33,16 @@ export function startTapIngest(gate: Pick<TapGate, 'enqueue' | 'onSettled'>, por
     if (stopped || !resp) return;
     const tap = tapFromResponse(resp);
     if (!tap) return void (await ports.clearLast().catch(() => {}));
-    const coldId = tap.id;
+    const coldId = tap.id as string;
     offSettled = gate.onSettled((id) => {
       if (id !== coldId) return;
       offSettled();
       void ports.clearLast().catch(() => {});
     });
-    gate.enqueue(tap);
+    if (gate.enqueue(tap) === 'duplicate' && gate.wasDelivered(coldId)) {
+      offSettled();
+      await ports.clearLast().catch(() => {});
+    }
   });
   return () => {
     stopped = true;

@@ -171,6 +171,7 @@ export function createTapGate(opts: {
     resume(): void {
       kick();
     },
+    wasDelivered: (id: string): boolean => queue.wasDelivered(id),
     size: () => queue.size(),
   };
 }
