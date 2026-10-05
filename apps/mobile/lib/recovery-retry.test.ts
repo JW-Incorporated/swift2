@@ -17,6 +17,7 @@ vi.mock('./watchdog-store', () => ({
       h.slowFirst = false;
       await new Promise((res) => setTimeout(res, 20));
     }
+    h.calls.push('write');
     h.saved.push(r);
     return h.saveOk;
   },
@@ -113,7 +114,7 @@ describe('retryDomAttempt OTA', () => {
   it('enabled + available: check, fetch, then reload, reporting progress', async () => {
     const phases: string[] = [];
     expect(await retryDomAttempt(Date.now, (p) => phases.push(p))).toBe('reload-requested');
-    expect(h.calls).toEqual(['check', 'fetch', 'reload']);
+    expect(h.calls).toEqual(['write', 'check', 'fetch', 'reload']);
     expect(phases).toEqual(['checking', 'downloading']);
   });
 

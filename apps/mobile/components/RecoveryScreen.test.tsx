@@ -41,7 +41,7 @@ vi.mock('react-native', async () => {
 });
 
 const retryDomAttempt = vi.hoisted(() => vi.fn());
-vi.mock('../lib/recovery-retry', () => ({ retryDomAttempt: () => retryDomAttempt() }));
+vi.mock('../lib/recovery-retry', () => ({ retryDomAttempt: (...args: unknown[]) => retryDomAttempt(...args) }));
 const sendDiagReport = vi.fn(async (_p: unknown) => ({ ok: true }));
 vi.mock('../lib/diagnostics-send', () => ({ sendDiagReport: (p: unknown) => sendDiagReport(p) }));
 vi.mock('../lib/diagnostics', () => ({
@@ -90,6 +90,19 @@ describe('RecoveryScreen', () => {
     expect(retryBtn().getAttribute('aria-busy')).toBe('true');
     expect(retryBtn().getAttribute('aria-disabled')).toBe('true');
     expect(announce).toHaveBeenCalledWith('Retrying');
+  });
+
+  it('shows the OTA progress copy while checking and downloading', async () => {
+    retryDomAttempt.mockImplementation(async (_now: unknown, onPhase: (p: string) => void) => {
+      onPhase('checking');
+      await Promise.resolve();
+      onPhase('downloading');
+      return new Promise(() => {});
+    });
+    render(<RecoveryScreen />);
+    fireEvent.click(retryBtn());
+    await screen.findByText('Downloading update…');
+    expect(announce).toHaveBeenCalledWith('Checking for an update…');
   });
 
   it('a failed record write shows a fixed error and keeps Retry enabled', async () => {
