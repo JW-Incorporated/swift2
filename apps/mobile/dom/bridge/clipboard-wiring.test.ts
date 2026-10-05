@@ -15,7 +15,7 @@ function epoch(env: Partial<UiDepsEnv>) {
   const onSignal = vi.fn();
   const ref: { host?: BridgeHost } = {};
   const link = createBridgeLink(() => void ref.host?.inbox());
-  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const uiDeps = createUiDeps({
     linking: { openURL: vi.fn(async () => true) },
     share: { share: vi.fn(async () => ({})) },
@@ -38,7 +38,7 @@ function epoch(env: Partial<UiDepsEnv>) {
 
 async function connect(env: Partial<UiDepsEnv>) {
   const e = epoch(env);
-  const dom = createExpoBridge((m) => e.handlers.bridge(m));
+  const dom = createExpoBridge((m, t) => e.handlers.bridge(m, t), undefined, undefined, () => e.handlers.bridgeHello());
   dom.mount();
   await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
   return { dom, close: () => (dom.client.dispose(), e.dispose()) };
