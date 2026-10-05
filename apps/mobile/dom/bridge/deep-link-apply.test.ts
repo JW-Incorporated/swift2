@@ -13,6 +13,8 @@ const actions = () =>
     openTrackGuide: vi.fn(),
     openTheoryGuide: vi.fn(),
     closeItem: vi.fn(),
+    closeInbox: vi.fn(),
+    closeSettings: vi.fn(),
     closeTrackGuide: vi.fn(),
     closeTheoryGuide: vi.fn(),
     setSearchOpen: vi.fn(),
@@ -27,6 +29,21 @@ const queries: DeepLinkQueries = {
   findEraForVideoSlug: (slug) => (slug === 'vid' ? 'folklore' : null),
   eraOfTrackKey: (key) => (key.startsWith('debut::') ? 'debut' : null),
 };
+
+describe('applyDeepLink inbox/settings closing', () => {
+  it('an unresolved target closes nothing', () => {
+    const a = actions();
+    expect(applyDeepLink('?current=theories', queries, a)).toBe(false);
+    expect(a.closeInbox).not.toHaveBeenCalled();
+    expect(a.closeSettings).not.toHaveBeenCalled();
+  });
+  it('a resolved target closes the inbox and settings once', () => {
+    const a = actions();
+    expect(applyDeepLink('?item=moment-slug', queries, a)).toBe(true);
+    expect(a.closeInbox).toHaveBeenCalledTimes(1);
+    expect(a.closeSettings).toHaveBeenCalledTimes(1);
+  });
+});
 
 describe('applyDeepLink (native navigate through the store, no remount)', () => {
   it.each([

@@ -114,8 +114,8 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    opened by `openSupportFooter` which waits for hydration and the client-only
    "Vault refreshed" line to hold still); `negative.spec.ts` proves a pure 1px footer
    translate fails that clip on all four projects.
-   One UI PR0-alpha (WP2.5-2.8) adds side-a-only baselines (`A_ONLY_ROUTES` in
-   `helpers.ts`; they never enter `ROUTES`, so compare and a11y are unchanged): `a-item-video`,
+   One UI PR0-alpha (WP2.5-2.8) added the `a-*` baselines of `A_ONLY_ROUTES` (`routes.ts`; they never enter
+   `ROUTES`, so the base compare and a11y are unchanged; every one is now `sides: 'both'`, see below): `a-item-video`,
    `a-item-social` (the Instagram facade is never clicked, because an iframe is an external
    non-image request), `a-threads`, one `a-lens-<id>` per thread lens, `a-crossing`,
    `a-guide`, `a-song`, `a-theories`, `a-search-open`, `a-search-results`, plus element
@@ -124,29 +124,30 @@ footer) is hidden by stylesheet for pixel capture; the app host supplies its own
    fashion career scrubber, the song OverlayNav and the search combobox row. The fixture
    covers only Fearless and TLOAS, so some threads are sparse. `negative.spec.ts` proves a
    1px mutation fails the rail clip, the search row clip and the threads root capture.
-   One UI PR0-beta (WP2.9-2.13) adds more side-a-only baselines (`A_ONLY_ROUTES_BETA` in
-   `helpers.ts`): `a-merch`, `a-community`, `a-clownbot`, `a-clownbot-transcript` (a stubbed
-   `/api/clown` NDJSON answer), `a-mood`, `a-settings-notifications` (the Notification, PushManager
+   One UI PR0-beta (WP2.9-2.13) added more `a-*` baselines (`A_ONLY_ROUTES_BETA` in
+   `routes.ts`): `a-merch`, `a-community`, `a-clownbot`, `a-clownbot-transcript` (a stubbed
+   `/api/clown` NDJSON answer, served to side b through the bridge stub of `b-api.ts`, below), `a-mood`, `a-settings-notifications` (the Notification, PushManager
    and serviceWorker APIs are stubbed to `default` before load), `a-privacy`, `a-terms` and
    `a-support` (the footer capture `a-support-footer` is unchanged). `negative.spec.ts` proves a
    1px translate of one element per surface (`BETA_NEGATIVE_TARGETS`) fails its element clip on all
    four projects. `hydrated` no longer waits for a button when the root has none (static legal pages).
-   WP2.9-D flips `merch` to `sides: 'both'` (`b-merch.png`, `b-merch-viewport.png`, plus the a-vs-b viewport compare); the a-side `a-merch` baselines are unchanged.
+   Every route in these two lists is now `sides: 'both'` (each slice D flipped its own; W5-parity flipped the last, `clownbot-transcript`): each has an a-vs-b viewport compare and `b-<name>.png` / `b-<name>-viewport.png` baselines, and the `a-*` baselines were never regenerated. A route that omits `sides` is still side-a-only.
 
 ## Flipping a route to both sides (One UI W1-E scaffolding, used by each slice D)
 
-Every route in `A_ONLY_ROUTES` / `A_ONLY_ROUTES_BETA` is side-a-only by default. When a slice D ports a
-surface into the app DOM bundle (side b), flip its route:
+A route is side-a-only unless it sets `sides: 'both'` (the type default). Every route in `A_ONLY_ROUTES`,
+`A_ONLY_ROUTES_BETA` and `COVERAGE_ROUTES` is flipped today; `EXTRA_ROUTES` (`routes-coverage.ts`) is their union, the one
+list the specs iterate. A new route (or a surface a slice D newly ports into the app DOM bundle, side b) is flipped like this:
 
-1. In `e2e/parity/routes.ts` (re-exported by the `helpers.ts` barrel) add `sides: 'both'` to that route entry (type `Sides`, `e2e/parity/sides.ts`).
+1. In `e2e/parity/routes.ts` or `routes-coverage.ts` (re-exported by the `helpers.ts` barrel) add `sides: 'both'` to that route entry (type `Sides`, `e2e/parity/sides.ts`).
    Nothing else is edited; `compare.spec.ts` and `baseline.spec.ts` select flipped routes via
-   `bothSidesRoutes`.
+   `bothSidesRoutes(EXTRA_ROUTES)`.
 2. The flip generates, per project: `a vs b viewport: <name>` (`compare.spec.ts`: whole viewport, zero insets
    on b, same engine, threshold 0.3 / ratio 0.001; a still shows its web chrome, so a slice whose b side
    lacks a host-supplied bar either lands that bar or accepts the diff in the PR) and
    `b (DOM entry, real insets) <name>` (`baseline.spec.ts`: root or `clip` capture `b-<name>.png` plus the
    whole viewport `b-<name>-viewport.png`). The route's `init` / `prepare` / `clip` run on both sides.
-   Name guard: `assertNoBaselineCollisions` (`sides.ts`) runs at module load of `routes.ts` and throws if a flipped route's
+   Name guard: `assertNoBaselineCollisions` (`sides.ts`) runs at module load of `routes-coverage.ts` and throws if a flipped route's
    `b-<name>.png` / `b-<name>-viewport.png` collides with the base routes' (`b-home*`, `b-item*`) or another flipped route's
    (e.g. a route named `item-viewport`); unit-tested in `sides.spec.ts`.
 3. The b-* baselines do not exist yet, so the run is red once. Create them with the "Updating baselines"
@@ -158,8 +159,8 @@ surface into the app DOM bundle (side b), flip its route:
    `b-search-*` baselines are added by the update-baselines dispatch, the `a-search-*` ones are unchanged.
 
 `sides.spec.ts` is the browser-free dry run: a fixture route marked `both` plans one a-vs-b compare and two
-b baselines, and every real route is asserted a-only (so with no flip, no test is generated and the
-`parity-gate` result is identical).
+b baselines, and every real route flipped to `both` is asserted to have its b baselines committed for every project
+(so a flip is red until the update-baselines dispatch has run).
 
 `negative.spec.ts` proves each gate: a 4px shift and a colour change fail both
 the pixel baseline and the pixel a-vs-b; a missing landmark, changed text and a
@@ -274,3 +275,23 @@ The inset-immunity check for `item` hides the floating FeedbackButton pill (it i
 ## Mood on both sides (One UI 2.11-D2)
 
 `mood` is `sides: 'both'` (`b-mood*.png` plus the a-vs-b viewport compare). The a-vs-b diff on iPad was the app lacking the `footer` slot: the website mounts `SiteFooter` under every surface and mood is short enough for it to sit in the viewport, so the app now registers the same package component (`dom/slots/footer.ts`). Tall surfaces never showed the gap because their footer is below the fold.
+
+## W5-parity coverage routes (One UI W5)
+
+Surfaces that had no a-vs-b comparison (a-only element clips, or nothing) are `COVERAGE_ROUTES` in `e2e/parity/routes-coverage.ts`, all `sides: 'both'`: `era-selector` (the picker opened from the TopBar; also covers EraGrid), `item-lightbox` (ZoomableImage "Photo viewer"), `item-share-menu` (ShareImageMenu panel), `clownbot-expanded` ("Expand to full screen"), `love-story-entry` (one EntryDetail), `item-social-rail` and `item-social-follow` (related rail, follow-threads row), `lens-fashion-scrubber` (TimelineScrubber), `theory-guide-card` (a TheoryGuide card below the fold), `theory-guide-thread` (the guide's thread drill-down) and `decode-reveal` (a Decode card revealed). Each gets the whole-viewport compare and, when it has a `clip`, a second `a vs b clip: <name>` compare of the element itself (`compare.spec.ts`), plus `a-<name>.png` (side a, new files only) and the `b-*` pair. Clips that CSS cannot select (`:has-text`) are tagged `data-parity-clip` by the route's `prepare` (`show`), which also scrolls them into view. `item-share-menu` answers `/api/share-card` on either origin with the placeholder PNG (opening the menu prefetches both card images with `fetch`). The era selector opens with a dispatched click: on iPad portrait the TopBar mode tabs overlap the era button on side a, so a pointer click lands on Threads.
+
+**Bridge api stub on side b (`e2e/parity/b-api.ts`).** In a plain browser `AppReader` hands the reader `NO_BRIDGE`, whose `call` fails closed, and ClownChat reaches `/api/clown` through the bridge `apiFetch` (no `apiStream` on the app adapter), so a `page.route` stub cannot intercept it. `clownbot-transcript` therefore patches the exported entry bundle in flight so `NO_BRIDGE.call` answers `window.__parityApi` (defined by an init script) with the same NDJSON fixture side a gets from its network stub. Test-only, no product change; a bundle that no longer contains `NO_BRIDGE` fails the test loudly.
+
+Not coverable with the frozen fixture: EraSecretCard and CountdownBanner render nothing on side a (the pruned fixture has no sourced secret and no countdown at the fixed clock), so adding them needs a deliberate fixture regeneration. Running locally: a stale `serve.mjs` / `next start` from another session on 4173/4174 is silently reused (`reuseExistingServer`) and can serve an older build; set `PARITY_PORT` and `PARITY_A_PORT` to free ports.
+
+**CountdownBanner and EraSecretCard (W6-fixture).** No fixture regeneration was needed. `countdown-banner` answers `/vault/live` (both origins) with one live countdown item 3d 4h after the fixed clock, so the banner renders on both sides (clip `[data-ll-countdown-banner]`). `era-secret` opens `/?era=fearless` (the pruned fixture keeps fearless's sourced secrets; tloas has none, so `/` never shows a card) and clips the first `Era secret` section. Running locally: a stale `serve.mjs` / `next start` from another session on 4173/4174 is silently reused (`reuseExistingServer`) and can serve an older build; set `PARITY_PORT` and `PARITY_A_PORT` to free ports.
+
+## W6-chrome: chrome-included a-vs-b (One UI W6)
+
+The shared root excludes web chrome, so TopBar, its timeline rail, BottomNav, the footer and the floating feedback pill were never compared a-vs-b. `chrome.spec.ts` (cases in `chrome.ts`) compares the WHOLE viewport, chrome included, for home, home scrolled 800 px, item, threads and merch (top and document foot, where the footer shows) on all four projects. Side b carries the project's real insets (`?inset=`); side a gets the equivalent: `emulateInsetsOnA` rewrites every `env(safe-area-inset-*)` in a's html / css / js / flight responses to the pixel value (inline-style values only in html / js; class names keep their text) and installs the native host's clearance rules (same as `reader-spike.css`) before hydration as a constructable sheet. A failure is a real app difference; b is never regenerated to pass.
+
+Found and fixed (DOM-only, web unchanged): `reader-spike.css` padded `body` with `--safe-top/left/right`, and body carries only the default palette, so every non-default era showed a mismatched band under the status bar; and the sticky TopBar pinned at viewport y=0, under the notch, once scrolled. The clearance now lives on the themed `.era-shell` (sides) and on the TopBar itself (top, an `--era-bg` strip; FilterBar's measured offset follows). Shells without a TopBar (legal) pad their own top; a nested shell never pads twice. The `b-*-viewport.png` baselines shift by that intent and are regenerated by `update-baselines`.
+
+## Accepted platform divergences
+
+- **Notification inbox (W6-inbox-dom).** The website has no inbox, so side a has nothing to compare: the inbox is app-only (`overlay:inbox`, gated on `host.notifications`, null on the web and in the parity harness) and has no `sides: 'both'` route. Side b renders it only behind the host capability, so no existing route or baseline changes. Covered by unit and render tests (`apps/web/components/longlive/InboxOverlay.app-host.test.tsx`).

@@ -35,7 +35,7 @@ export function createProbe(version = '') {
   };
   return {
     report,
-    attempts(list: { method: 'fetch' | 'xhr'; ok: boolean }[]) {
+    attempts(list: { method: 'fetch' | 'xhr' | 'script'; ok: boolean }[]) {
       for (const a of list) report.read[a.method] = a.ok ? 'ok' : 'fail';
     },
     json: () => JSON.stringify(report),

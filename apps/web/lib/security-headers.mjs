@@ -61,15 +61,23 @@ export const FRAME_SRC = [
 const VERCEL_ANALYTICS = 'https://va.vercel-scripts.com';
 
 /**
- * The ONE route allowed to be framed by someone else: the YouTube wrapper page
- * the app's DOM host (null origin, no Referer) embeds so YouTube sees a real
- * embedder (error 153, #4954). It renders only a YouTube iframe. Every other
- * route keeps frame-ancestors 'none' + X-Frame-Options DENY.
+ * The ONLY routes allowed to be framed by someone else: the YouTube and Spotify
+ * wrapper pages the app's DOM host (null origin, no Referer) embeds so the
+ * player sees a real embedder (YouTube error 153, #4954). Each renders only
+ * its own player iframe. Every other route keeps frame-ancestors 'none' + X-Frame-Options DENY.
  */
 export const EMBED_ID_PATTERN = '[A-Za-z0-9_-]{11}';
 
-/** Exactly /embed/youtube/<11-char id>: no extra segment, no trailing slash, case-sensitive. */
-const EMBED_PATH_RE = new RegExp(`^/embed/youtube/${EMBED_ID_PATTERN}$`);
+export const SPOTIFY_TYPE_PATTERN = '(?:album|track|playlist)';
+export const SPOTIFY_ID_PATTERN = '[A-Za-z0-9]{22}';
+
+/**
+ * Exactly /embed/youtube/<11-char id> or /embed/spotify/<album|track|playlist>/<22-char id>:
+ * no extra segment, no trailing slash, case-sensitive.
+ */
+const EMBED_PATH_RE = new RegExp(
+  `^/embed/(?:youtube/${EMBED_ID_PATTERN}|spotify/${SPOTIFY_TYPE_PATTERN}/${SPOTIFY_ID_PATTERN})$`,
+);
 
 /** @param {string} pathname */
 export function isEmbedPath(pathname) {

@@ -1,4 +1,4 @@
-import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA } from './helpers';
+import { EXTRA_ROUTES } from './helpers';
 import { assertNoBaselineCollisions, bBaselineNames, bothSidesRoutes, planBSide } from './sides';
 import { existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -35,7 +35,7 @@ test('every route flipped to both has its b baselines committed for every projec
   const projects = readdirSync(shots, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
   expect(projects.length).toBeGreaterThan(0);
   const missing: string[] = [];
-  for (const r of bothSidesRoutes([...A_ONLY_ROUTES, ...A_ONLY_ROUTES_BETA])) {
+  for (const r of bothSidesRoutes(EXTRA_ROUTES)) {
     for (const file of Object.values(bBaselineNames(r))) {
       for (const p of projects) if (!existsSync(resolve(shots, p, file))) missing.push(`${p}/${file}`);
     }

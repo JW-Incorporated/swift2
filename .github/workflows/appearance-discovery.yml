@@ -144,7 +144,7 @@ jobs:
           else
             set -- --file "$@"
           fi
-          node scripts/appearance-discovery/discover.mjs "$@"
+          npx tsx scripts/appearance-discovery/discover.mjs "$@"
 
       # Fast lane (docs/decisions.md 2026-08-25; Tree Overhaul T6,
       # 2026-09-12): commit whatever discover.mjs left under social/inbox/ —

@@ -15,7 +15,7 @@ import { withFocusRestore } from './focus-restore';
 export const APP_ORIGIN = 'https://www.longlivets.com';
 
 export interface AppAdapterDeps {
-  client: Pick<BridgeClient, 'call'>;
+  client: Pick<BridgeClient, 'call'> & Partial<Pick<BridgeClient, 'sendEvent'>>;
   /** Canonical site origin; defaults to APP_ORIGIN. */
   origin?: string;
   insets: Insets;
@@ -140,6 +140,9 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     haptic: (kind) => {
       void deps.client.call('haptic', { kind });
     },
+    theme: (t) => {
+      deps.client.sendEvent?.('theme', t);
+    },
     notifications: {
       status: () => notif(deps.client.call('notifications.status', {})),
       request: () => notif(deps.client.call('notifications.request', {})),
@@ -149,6 +152,8 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
       savePrefs: (body) => notif(deps.client.call('notifications.savePrefs', body)),
       registered: async () => (await notif(deps.client.call('notifications.registration', {}))).registered,
       unregister: async () => void (await notif(deps.client.call('notifications.unregister', {}))),
+      onboardingOffered: async () => (await notif(deps.client.call('notifications.onboardingOffered', {}))).offered,
+      markOnboardingOffered: async () => void (await notif(deps.client.call('notifications.markOnboardingOffered', {}))),
     },
   };
 }

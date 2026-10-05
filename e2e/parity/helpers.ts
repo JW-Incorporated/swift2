@@ -5,3 +5,4 @@ export * from './harness';
 export * from './wait';
 export * from './open';
 export * from './capture';
+export * from './routes-coverage';

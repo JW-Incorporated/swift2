@@ -14,10 +14,23 @@ body {
    var falls back to the web's own env() when the bridge has not set it. The web
    components hard-code env(safe-area-inset-*) in inline styles / utilities, so
    the overrides below are !important and match what they emit. */
-body {
-  padding-top: var(--safe-top, 0px);
+/* The status-bar / side clearance lives on the themed .era-shell, not on body: body only has the default palette's
+   background, so body padding showed a mismatched band above every non-default era. The sticky TopBar carries the top
+   clearance itself (a strip of --era-bg under the status bar), so it stays pinned below the notch once scrolled
+   instead of at viewport y=0. Shells without a TopBar (legal pages) pad their own top; a nested shell never pads twice. */
+.era-shell {
   padding-left: var(--safe-left, 0px);
   padding-right: var(--safe-right, 0px);
+}
+.era-shell:not(:has(> header[data-ll-topbar])) {
+  padding-top: var(--safe-top, 0px);
+}
+.era-shell .era-shell {
+  padding: 0;
+}
+header[data-ll-topbar] {
+  padding-top: var(--safe-top, 0px);
+  background: linear-gradient(var(--era-bg), var(--era-bg)) top / 100% var(--safe-top, 0px) no-repeat;
 }
 
 /* BottomNav: fixed, inset-x-0; its padding already clears the home indicator. */

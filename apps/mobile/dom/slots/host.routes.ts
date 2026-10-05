@@ -1,13 +1,10 @@
-// Native screens NativeOverlayHost renders over the DOM host (D2): /inbox and /settings/about (refs #4992).
-// (/settings/notifications moved to the DOM settings overlay, 2.12-D.) The D-7 presenter
-// (`presentNativeRoute`) rejects every other path, so registering more would make the adapter route to a screen
-// that does not exist. Native-safe (no slot components).
+// Native screens NativeOverlayHost renders over the DOM host (D2). None remain: the inbox moved to the DOM
+// (inbox.ts, W6-inbox-dom) and the native About screen was retired (Diagnostics stays behind the hidden hot corner),
+// so every user-facing surface is the shared DOM UI. The D-7 presenter (`presentNativeRoute`) rejects every path;
+// register an entry here only for a route NativeOverlayHost actually renders. Native-safe (no slot components).
 import { registerRoutes } from './routes-instance';
 
 registerRoutes({
   slice: 'host',
-  nativeRoutes: [
-    { id: 'host:inbox', match: '/inbox' },
-    { id: 'host:about', match: '/settings/about' },
-  ],
+  nativeRoutes: [],
 });

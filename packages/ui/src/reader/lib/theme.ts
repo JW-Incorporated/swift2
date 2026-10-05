@@ -94,3 +94,12 @@ export function themeStyle(t: EraTheme): CSSProperties {
     ['--era-font' as string]: FONT_VAR[t.font],
   };
 }
+
+/** Status-bar content colour for a `#rrggbb` background: light content on dark, dark on light (WCAG relative luminance). */
+export function statusBarStyleFor(hex: string): 'light' | 'dark' {
+  const c = [1, 3, 5].map((i) => {
+    const v = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * c[0]! + 0.7152 * c[1]! + 0.0722 * c[2]! > 0.179 ? 'dark' : 'light';
+}

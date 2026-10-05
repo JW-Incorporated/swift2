@@ -44,9 +44,13 @@ export function resultFits(type: DomCommandType, v: unknown): boolean {
   if (type === 'notifications.status' || type === 'notifications.request') return STATUSES.includes(v);
   if (type === 'notifications.getPrefs' || type === 'notifications.savePrefs') return isDevicePrefsResponse(v);
   if (type === 'notifications.registration') return isRec(v) && typeof v.registered === 'boolean' && Object.keys(v).length === 1;
+  if (type === 'notifications.onboardingOffered') return isRec(v) && typeof v.offered === 'boolean' && Object.keys(v).length === 1;
   if (type === 'api') {
-    return isRec(v) && typeof v.status === 'number' && typeof v.body === 'string' && isRec(v.headers) && Object.values(v.headers).every((h) => typeof h === 'string');
+    if (!isRec(v) || typeof v.status !== 'number' || !isRec(v.headers) || !Object.values(v.headers).every((h) => typeof h === 'string')) return false;
+    if (Object.keys(v).length !== 3) return false;
+    return typeof v.body === 'string' !== (typeof v.streamId === 'string');
   }
+  if (type === 'apiRead') return isRec(v) && typeof v.chunk === 'string' && typeof v.done === 'boolean' && Object.keys(v).length === 2;
   return v === null;
 }
 

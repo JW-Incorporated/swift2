@@ -1,22 +1,16 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createNavigateDom } from '../bridge/reader-nav';
-import { resetSlotsForTests, register, slots } from './instance';
-import { isNativeRoute, registerRoutes, resetRoutesForTests } from './routes-instance';
-import { SETTINGS_NATIVE_ROWS } from './settings-native-rows';
+import { resetSlotsForTests, slots } from './instance';
+import { inboxOverlay, resetInboxOverlayForTests } from './inbox-store';
+import { isNativeRoute, resetRoutesForTests } from './routes-instance';
 import { SettingsPage } from './settings-page';
-import { SETTINGS_SLICE } from './settings';
 import { isSettingsPath, resetSettingsOverlayForTests, settingsOverlay } from './settings-store';
-
-// Registers what settings.ts registers (the native /inbox route is host.routes.ts), against registries reset after each test.
-function registerSettings() {
-  register({ slice: SETTINGS_SLICE, slots: { 'overlay:settings': SettingsPage } });
-  registerRoutes({ slice: 'host', nativeRoutes: [{ id: 'host:inbox', match: '/inbox' }, { id: 'host:about', match: '/settings/about' }] });
-}
 
 afterEach(() => {
   resetSlotsForTests();
   resetRoutesForTests();
   resetSettingsOverlayForTests();
+  resetInboxOverlayForTests();
 });
 
 describe('settings slice', () => {
@@ -25,20 +19,8 @@ describe('settings slice', () => {
     expect(slots()['overlay:settings']).toBe(SettingsPage);
   });
 
-  it('lists the Inbox and About rows', () => {
-    expect(SETTINGS_NATIVE_ROWS.map((r) => r.path)).toEqual(['/inbox', '/settings/about']);
-  });
-
-  it('keeps /inbox and /settings/about native; /settings and /settings/notifications are not', () => {
-    registerSettings();
-    expect(isNativeRoute('/inbox')).toBe(true);
-    for (const p of ['/settings', '/settings/notifications']) expect(isNativeRoute(p)).toBe(false);
-    for (const p of ['/inbox', '/settings/about']) expect(isNativeRoute(p)).toBe(true);
-  });
-
-  it('every row path is a registered native route', () => {
-    registerSettings();
-    for (const row of SETTINGS_NATIVE_ROWS) expect(isNativeRoute(row.path)).toBe(true);
+  it('no settings or inbox path is a native route (host.routes.ts registers none)', () => {
+    for (const p of ['/inbox', '/settings', '/settings/notifications', '/settings/about']) expect(isNativeRoute(p)).toBe(false);
   });
 });
 
@@ -67,6 +49,18 @@ describe('navigateDom opens and closes the overlay', () => {
     n.go('/');
     expect(settingsOverlay.isOpen()).toBe(false);
     expect(n.apply).toHaveBeenCalled();
+  });
+
+  it('/inbox opens the inbox over settings, never native; another path closes both', () => {
+    const n = nav();
+    settingsOverlay.open();
+    n.go('/inbox');
+    expect(inboxOverlay.isOpen()).toBe(true);
+    expect(settingsOverlay.isOpen()).toBe(true);
+    expect(n.openNative).not.toHaveBeenCalled();
+    n.go('/');
+    expect(inboxOverlay.isOpen()).toBe(false);
+    expect(settingsOverlay.isOpen()).toBe(false);
   });
 
   it('open then close notifies subscribers once each', () => {

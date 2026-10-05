@@ -1,10 +1,11 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { Insets, WebPath } from '@swift2/ui';
 import { createWiredHandlers } from '../../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-handlers';
 import { createUiDeps } from '../../lib/ui-deps';
+import { registerRoutes, resetRoutesForTests } from '../slots/routes-instance';
 import { createBackResponder } from './back-responder';
 import { createExpoBridge } from './transport-expo';
 
@@ -48,17 +49,21 @@ function epoch(presentNativeRoute?: (path: WebPath) => unknown) {
 const portrait: Insets = { top: 47, right: 0, bottom: 34, left: 0 };
 const landscape: Insets = { top: 0, right: 47, bottom: 21, left: 47 };
 
+afterEach(resetRoutesForTests);
+
 describe('H1 UI commands over a real host and DOM client', () => {
   it('navigate: a native route reaches the presenter; a DOM route is invalid and never does', async () => {
+    registerRoutes({ slice: 'test', nativeRoutes: [{ id: 'test:native', match: '/test-native' }] });
     const present = vi.fn(() => 'applied');
     const e = epoch(present);
     const dom = createExpoBridge((env) => e.handlers.bridge(env));
     dom.mount();
     await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
-    expect(await dom.client.call('navigate', { path: '/?screen=settings' as never })).toMatchObject({ ok: true });
-    expect(present).toHaveBeenCalledWith('/?screen=settings');
+    expect(await dom.client.call('navigate', { path: '/test-native' as never })).toMatchObject({ ok: true });
+    expect(present).toHaveBeenCalledWith('/test-native');
     present.mockClear();
     expect(await dom.client.call('navigate', { path: '/?current=theories' as never })).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(await dom.client.call('navigate', { path: '/?screen=settings' as never })).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(present).not.toHaveBeenCalled();
     dom.client.dispose();
     e.dispose();

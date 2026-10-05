@@ -15,11 +15,13 @@ import type { DevicePlatform, DeviceRegistrationInput } from '@swift2/shared';
 import { apiBaseUrl } from './api-base';
 import { getOrCreateDeviceId } from './device-id';
 import { registerNotificationChannels } from './notification-channels';
+import { enqueueRegistration } from './registration-queue';
 
 /**
  * Token-free registration flag, stored as the INVERSE ("explicitly unregistered", set by the in-app turn-off) so
  * devices that registered before the flag existed still read as registered.
  */
+const REQUEST_TIMEOUT_MS = 10_000;
 export const UNREGISTERED_KEY = 'longlive_push_unregistered';
 
 export async function isExplicitlyUnregistered(): Promise<boolean> {
@@ -52,26 +54,39 @@ export type PushRegistrationResult =
  * Refreshes the token when permission is ALREADY granted and the user has not turned notifications off in-app;
  * otherwise upserts null. Never prompts. A token fetch failure falls back to the null upsert (non-fatal).
  */
-export async function registerDevice(): Promise<{ status: 'registered_no_token'; deviceId: string }> {
-  const deviceId = await getOrCreateDeviceId();
-  await registerNotificationChannels();
-  let pushToken: string | null = null;
-  try {
-    if (Device.isDevice && (await Notifications.getPermissionsAsync()).status === 'granted' && !(await isExplicitlyUnregistered())) {
-      const projectId = Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
-      pushToken = (await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined)).data;
+export function registerDevice(): Promise<{ status: 'registered_no_token'; deviceId: string }> {
+  return enqueueRegistration(async (isCurrent) => {
+    const deviceId = await getOrCreateDeviceId();
+    await registerNotificationChannels();
+    let pushToken: string | null = null;
+    try {
+      if (Device.isDevice && (await Notifications.getPermissionsAsync()).status === 'granted' && !(await isExplicitlyUnregistered())) {
+        const projectId = Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
+        pushToken = (await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined)).data;
+      }
+    } catch (e) {
+      console.warn('registerDevice: push token unavailable, registering without one', e);
+      pushToken = null;
     }
-  } catch (e) {
-    console.warn('registerDevice: push token unavailable, registering without one', e);
-    pushToken = null;
-  }
-  await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken });
-  return { status: 'registered_no_token', deviceId };
+    const result = { status: 'registered_no_token' as const, deviceId };
+    // A newer user intent (unregister / explicit register) owns the server state; a stale refresh must not post.
+    if (!isCurrent()) return { write: null, result };
+    if (pushToken && (await isExplicitlyUnregistered())) pushToken = null;
+    return { write: { deviceId, platform: currentPlatform(), pushToken }, result };
+  }, registerWithBackend, { supersede: false });
 }
 
-/** Upserts this device with a null push token (the in-app turn-off); never prompts and never fetches a token. */
-export async function clearRegisteredToken(): Promise<void> {
-  await registerWithBackend({ deviceId: await getOrCreateDeviceId(), platform: currentPlatform(), pushToken: null });
+/**
+ * The in-app turn-off: records the opt-out flag, then upserts a null push token (never prompts, never fetches a
+ * token). Supersedes any in-flight registration work.
+ */
+export function clearRegisteredToken(): Promise<void> {
+  return enqueueRegistration(async (isCurrent) => {
+    const deviceId = await getOrCreateDeviceId();
+    if (!isCurrent()) return { write: null, result: undefined };
+    await SecureStore.setItemAsync(UNREGISTERED_KEY, '1');
+    return { write: { deviceId, platform: currentPlatform(), pushToken: null }, result: undefined };
+  }, registerWithBackend, { supersede: true });
 }
 
 /**
@@ -86,42 +101,63 @@ export async function clearRegisteredToken(): Promise<void> {
  * screen), never unconditionally on cold start. `registerDevice()` above is
  * the cold-start-safe variant.
  */
-export async function requestPushRegistration(): Promise<PushRegistrationResult> {
-  const deviceId = await getOrCreateDeviceId();
-  await registerNotificationChannels();
-
-  if (!Device.isDevice) {
-    // Simulators/emulators can't receive real pushes; still register the
-    // device row (tz/locale/platform) so the API round-trip is exercised,
-    // but don't attempt a token.
-    await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken: null });
-    return { status: 'unsupported' };
+export async function requestPushRegistration(opts: { clearOptOut?: boolean } = {}): Promise<PushRegistrationResult> {
+  // The OS permission prompt can wait on the user indefinitely, so it runs OUTSIDE the queue.
+  let finalStatus: string | null = null;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
   }
+  return enqueueRegistration(async (isCurrent) => {
+    const deviceId = await getOrCreateDeviceId();
+    await registerNotificationChannels();
+    const platform = currentPlatform();
+    const finish = async (result: PushRegistrationResult, pushToken: string | null) => {
+      if (!isCurrent()) return { write: null, result }; // superseded by a newer user intent
+      if (opts.clearOptOut) await SecureStore.deleteItemAsync(UNREGISTERED_KEY);
+      return { write: { deviceId, platform, pushToken }, result };
+    };
 
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus !== 'granted') {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
+    if (!Device.isDevice) {
+      // Simulators/emulators can't receive real pushes; still register the
+      // device row (tz/locale/platform) so the API round-trip is exercised,
+      // but don't attempt a token.
+      return finish({ status: 'unsupported' }, null);
+    }
 
-  if (finalStatus !== 'granted') {
-    await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken: null });
-    return { status: 'permission_denied', deviceId };
-  }
+    if (finalStatus !== 'granted') return finish({ status: 'permission_denied', deviceId }, null);
 
-  try {
-    const projectId =
-      Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
-    const tokenResponse = await Notifications.getExpoPushTokenAsync(
-      projectId ? { projectId } : undefined,
-    );
-    const pushToken = tokenResponse.data;
-    await registerWithBackend({ deviceId, platform: currentPlatform(), pushToken });
-    return { status: 'registered', deviceId, pushToken };
-  } catch (err) {
-    return { status: 'error', error: err instanceof Error ? err.message : String(err) };
-  }
+    try {
+      const projectId =
+        Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
+      const tokenResponse = await Notifications.getExpoPushTokenAsync(
+        projectId ? { projectId } : undefined,
+      );
+      const pushToken = tokenResponse.data;
+      return await finish({ status: 'registered', deviceId, pushToken }, pushToken);
+    } catch (err) {
+      return { write: null, result: { status: 'error', error: err instanceof Error ? err.message : String(err) } as PushRegistrationResult };
+    }
+  }, registerWithBackend, { supersede: true });
+}
+export const REGISTER_SEQ_KEY = 'longlive_register_seq';
+
+/**
+ * Persisted per-install write counter, stored as "<deviceId>:<n>" next to the device identity. A regenerated device id
+ * (reinstall / data clear) is a new server row, so a counter scoped to another id restarts at 1. Never clock-derived,
+ * so restarts, OTAs and clock rollback cannot lower it. Callers are serialized by the registration queue.
+ */
+async function nextSeq(deviceId: string): Promise<number> {
+  const raw = await SecureStore.getItemAsync(REGISTER_SEQ_KEY);
+  const sep = raw ? raw.lastIndexOf(':') : -1;
+  const prev = raw && sep > 0 && raw.slice(0, sep) === deviceId ? Number(raw.slice(sep + 1)) : 0;
+  const next = (Number.isSafeInteger(prev) && prev > 0 ? prev : 0) + 1;
+  await SecureStore.setItemAsync(REGISTER_SEQ_KEY, `${deviceId}:${next}`);
+  return next;
 }
 
 async function registerWithBackend(input: {
@@ -139,14 +175,22 @@ async function registerWithBackend(input: {
     tz,
     locale,
     appVersion,
+    seq: await nextSeq(input.deviceId),
   };
 
-  const res = await fetch(`${apiBaseUrl()}/api/devices/register`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    throw new Error(`devices/register: HTTP ${res.status}`);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    const res = await fetch(`${apiBaseUrl()}/api/devices/register`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      throw new Error(`devices/register: HTTP ${res.status}`);
+    }
+  } finally {
+    clearTimeout(timer);
   }
 }
