@@ -21,13 +21,14 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { FILER_LOGINS } from './loop-asks.mjs';
 import { apiFor, listIssuesByLabels } from './issues-rest.mjs';
+import { DISCORD_SUPPRESS_EMBEDS, suppressPreviews } from '../../community/discord-delivery.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 export const ENV_NAME = 'DISCORD_LONGLIVE_INTAKE_WEBHOOK_URL';
 export const TRACKING_LABEL = 'bot1-bridge';
 export const TRACKING_TITLE = 'Marjorie → bot1 prompt log';
 export const MAX_PROMPT_CHARS = 1500;
-export const SUPPRESS_EMBEDS = 4;
+export const SUPPRESS_EMBEDS = DISCORD_SUPPRESS_EMBEDS;
 const MARKER_RE = /<!-- bot1-prompt: (\d{4}-\d{2}-\d{2}) id=([a-f0-9]{8}) -->/g;
 const FAILED_RE = /<!-- bot1-prompt-failed: (\d{4}-\d{2}-\d{2}) id=([a-f0-9]{8}) -->/g;
 const SECRET_RE = /(ghp_|github_pat_|gho_|sk-[A-Za-z0-9]|xox[bp]-|discord(?:app)?\.com\/api\/webhooks|BEGIN [A-Z ]*PRIVATE KEY)/;
@@ -125,7 +126,7 @@ export async function sendWebhook(url, content, fetchImpl = fetch) {
     const res = await fetchImpl(`${url}?wait=true`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ content, username: 'Marjorie', allowed_mentions: { parse: [] }, flags: SUPPRESS_EMBEDS }),
+      body: JSON.stringify(suppressPreviews({ content, username: 'Marjorie', allowed_mentions: { parse: [] } })),
     });
     return res.ok ? { ok: true, status: res.status } : { ok: false, status: res.status, error: `Discord returned HTTP ${res.status}` };
   } catch {
