@@ -241,7 +241,7 @@ export async function POST(req: Request): Promise<Response> {
   let speedReport: SpeedMeta | null = null;
   let watchdogReport: WatchdogReport | null = null;
   if (watchdog) {
-    const prepared = prepareWatchdog(payload);
+    const prepared = prepareWatchdog(payload, ip);
     if (!prepared.ok) return prepared.response;
     watchdogReport = prepared.report;
     diagComment = prepared.comment;
