@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useReportBusy } from '../lib/useReportBusy';
 import { MessageSquarePlus, X, Check, Loader2 } from 'lucide-react';
 import { useHost } from '../../host';
 import { useAppState } from '../store';
@@ -46,6 +47,7 @@ export function FeedbackButton() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [dismissed, setDismissed] = useState(false);
+  useReportBusy('feedback', open || msg.trim() !== '' || status === 'sending');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const textareaId = useId();
