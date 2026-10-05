@@ -10,10 +10,12 @@
 // the DOM host alive forever. Bound: worst case 4 launches before the native
 // fallback (2 abandoned -> strike 1, 2 more -> strike 2 -> fallback). A
 // double-failed ready save costs at most one false strike, which the next
-// ready launch clears. A failure (ready-timeout, DOM error before ready, webview
+// ready launch clears. An in-launch failure (ready-timeout, DOM error before ready, webview
 // terminate/render-gone before ready or a repeat within RELOAD_WINDOW_MS of a
-// post-ready reload) is a strike: strike 1 mounts native for this launch;
-// strike 2 (consecutive) makes the next launch native too.
+// post-ready reload) sends THIS launch to Recovery and records state 'failed' only: it never
+// touches strikes / fallbackLaunchesRemaining / fallbackCycles (recordLaunchFailure), so the
+// next cold launch always attempts DOM. Only cross-launch deaths (decideMount) are strikes:
+// 2 consecutive deaths without ready owe a fallback launch; 2 such cycles quarantine.
 
 import { QUARANTINE_AFTER_FALLBACK_CYCLES, escalate, quarantinedDecision } from './watchdog-policy';
 import { truncateReason } from './watchdog-monitor';
@@ -223,6 +225,20 @@ export const markReloading = (r: WatchdogRecord, now: number): WatchdogRecord =>
 export const markReady = (r: WatchdogRecord, now: number): WatchdogRecord =>
   r.state === 'attempting' ? { ...r, state: 'ready', fallbackCycles: 0, at: now } : r;
 
+/**
+ * An in-launch failure (ready-timeout, DOM error, webview terminate, protocol): this launch goes to Recovery, but it
+ * never counts toward a fallback launch or quarantine. Counters are untouched; the next cold launch tries DOM again.
+ */
+export const recordLaunchFailure = (r: WatchdogRecord, reason: string, now: number): WatchdogRecord => ({
+  ...r,
+  state: 'failed',
+  lastReason: truncateReason(reason),
+  backgrounded: false,
+  abandonedStreak: 0,
+  at: now,
+});
+
+/** Cross-launch deaths only (decideMount's two death paths); in-launch failures use recordLaunchFailure. */
 export function recordStrike(
   r: WatchdogRecord,
   reason: string,

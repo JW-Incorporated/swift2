@@ -7,7 +7,7 @@ import {
   createAttemptMonitor,
   markReady,
   markReloading,
-  recordStrike,
+  recordLaunchFailure,
   shouldMountDom,
   type AttemptMonitor,
   type MountDecision,
@@ -51,7 +51,7 @@ export function createGateMonitor(o: {
     },
     onStrike: (reason) => {
       if (!o.recordRef.current) return;
-      const { record } = recordStrike(o.recordRef.current, reason, Date.now());
+      const record = recordLaunchFailure(o.recordRef.current, reason, Date.now());
       o.recordRef.current = record;
       if (o.late.current.held) o.late.current.strike = reason;
       else void o.write(record);
@@ -82,7 +82,7 @@ export function reconcileLateRecord(
     if (l.ready && rec.state === 'attempting') rec = markReady(rec, Date.now());
     let struck: string | null = null;
     if (l.strike && rec.state === 'attempting') {
-      rec = recordStrike(rec, l.strike, Date.now()).record;
+      rec = recordLaunchFailure(rec, l.strike, Date.now());
       struck = l.strike;
     }
     if (current?.state === 'ready' && rec.state === 'attempting') rec = current;

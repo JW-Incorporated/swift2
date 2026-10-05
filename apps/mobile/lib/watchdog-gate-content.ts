@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { loadContentBundle } from './content-bundle';
 import { lastGoodSource } from './dom-reader-config';
-import { createContentWaiter } from './watchdog-await-content';
+import { createContentWaiter, type ContentFailureKind } from './watchdog-await-content';
 import { getForceDomFailure } from './diagnostics-override';
 import { beginAttempt, startAttempt, type DomFailureMode, type MountDecision, type WatchdogRecord } from './watchdog';
 
@@ -60,19 +60,24 @@ export const DEFAULT_DEPS: GateDeps = {
 
 export function useContentGate(deps: GateDeps) {
   const [contentFailed, setContentFailed] = useState(false);
+  const [contentKind, setContentKind] = useState<ContentFailureKind>('server');
   const depsRef = useRef(deps);
   depsRef.current = deps;
   const unmountedRef = useRef(false);
   const waiterRef = useRef<ReturnType<typeof createContentWaiter> | null>(null);
   waiterRef.current ??= createContentWaiter(
     () => depsRef.current.loadContent(),
-    setContentFailed,
+    (failed, kind) => {
+      setContentFailed(failed);
+      if (kind) setContentKind(kind);
+    },
     () => unmountedRef.current,
   );
   /** Set once at launch decision: no cache on disk. */
   const noContentRef = useRef(false);
   return {
     contentFailed,
+    contentKind,
     depsRef,
     unmountedRef,
     waiterRef,

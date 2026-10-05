@@ -9,6 +9,9 @@ on:
         required: true
         type: number
 
+permissions:
+  contents: read
+
 concurrency:
   group: marjorie-brief-deliver
   cancel-in-progress: false

@@ -48,7 +48,7 @@ Both intakes share one queue and one canonicalizer.
 
 ## Watchdog on main (and what is pending)
 
-Behaviour on main is as written in `dom-host.md` "Watchdog": local-only launch resolution (quarantine > override > cache > default), 1500 ms pending bound, 10 s ready timeout, strike 2 and quarantine, native fallback surface is the Recovery screen, `[watchdog]` telemetry default OFF. The iOS-specific hardening and the script twin (#5045) exist so the iOS DOM can reach ready; iOS device proof is still outstanding (HA #100).
+Behaviour on main is as written in `dom-host.md` "Watchdog": local-only launch resolution (quarantine > override > cache > default), 1500 ms pending bound, 20 s ready timeout (in-launch failures show Recovery for that launch only), cross-launch death strikes and quarantine, native fallback surface is the Recovery screen, `[watchdog]` telemetry default OFF. The iOS-specific hardening and the script twin (#5045) exist so the iOS DOM can reach ready; iOS device proof is still outstanding (HA #100).
 
 Merged since: #5042 (default on, `sharedUiIos` separate flag, Diagnostics "Force shared UI" override removed, attempt write bounded at 3000 ms), #5043 (Recovery screen replaces the native fallback) and #5047 (legacy native UI deleted; `flag-off` shows Recovery and OTA rollback is the lever, the JSON kill switch is gone).
 

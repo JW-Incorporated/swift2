@@ -2,7 +2,7 @@
 // Replaces the legacy native screens: the only actions are Retry (one reload per human tap)
 // and Send report (the existing /api/feedback diagnostics sender).
 import { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Linking, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { buildDiagPayload, diagCollector } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import { sendDiagReport } from '../lib/diagnostics-send';
@@ -16,9 +16,10 @@ export const RELOAD_GRACE_MS = 3000;
 const LEGAL_ORIGIN = 'https://www.longlivets.com';
 
 const ERROR_RETRY = "Couldn't restart. Please try again.";
+const ERROR_REOPEN = 'Close and reopen Long Live.';
 const ERROR_NO_RELOAD = "The app didn't restart. Please try again.";
 
-export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
+export function RecoveryScreen() {
   const [retrying, setRetrying] = useState(false);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState('');
@@ -52,7 +53,10 @@ export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
     retryLock.current = true;
     setRetrying(true);
     say('Retrying');
-    const outcome = await retryDomAttempt();
+    const outcome = await retryDomAttempt(Date.now, (phase) => {
+      if (mounted.current) say(phase === 'checking' ? 'Checking for an update…' : 'Downloading update…');
+    });
+    if (outcome === 'reload-failed') return reopenRetry(ERROR_REOPEN);
     if (outcome !== 'reload-requested') return reopenRetry(ERROR_RETRY);
     timer.current = setTimeout(() => reopenRetry(ERROR_NO_RELOAD), RELOAD_GRACE_MS);
   }
@@ -70,12 +74,12 @@ export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
   }
 
   return (
-    <View style={styles.fill} testID="recovery-screen">
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.fill} testID="recovery-screen">
       <Text style={styles.title} accessibilityRole="header">
-        {slow ? "Taking longer than expected" : "Something went wrong"}
+        Something went wrong
       </Text>
       <Text style={styles.body}>
-        {slow ? "Tap Retry to load Long Live." : "Long Live hit a snag loading. Try again, and if it keeps happening, send us a report."}
+        Long Live hit a snag loading. Try again, and if it keeps happening, send us a report.
       </Text>
       <Pressable
         onPress={retry}
@@ -115,12 +119,13 @@ export function RecoveryScreen({ slow = false }: { slow?: boolean }) {
       <Text style={styles.status} accessibilityLiveRegion="polite" accessibilityRole="alert">
         {status}
       </Text>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  fill: { alignItems: 'center', backgroundColor: '#0c0c0c', flex: 1, justifyContent: 'center', padding: 24 },
+  scroll: { backgroundColor: '#0c0c0c', flex: 1 },
+  fill: { alignItems: 'center', backgroundColor: '#0c0c0c', flexGrow: 1, justifyContent: 'center', padding: 24 },
   title: { color: '#ffffff', fontSize: 22, fontWeight: '700', marginBottom: 12, textAlign: 'center' },
   body: { color: '#a0a0a8', fontSize: 15, lineHeight: 22, marginBottom: 28, maxWidth: 320, textAlign: 'center' },
   primary: { alignItems: 'center', backgroundColor: '#f2c744', borderRadius: 8, minHeight: 44, justifyContent: 'center', minWidth: 160, paddingHorizontal: 24 },

@@ -81,7 +81,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
       <View style={styles.fill}>
         <View style={styles.header}>
           <Text style={styles.title} accessibilityRole="header">Diagnostics</Text>
-          <Pressable onPress={onClose} accessibilityLabel="Close diagnostics" hitSlop={12}>
+          <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel="Done" hitSlop={12} style={styles.closeBtn}>
             <Text style={styles.close}>Done</Text>
           </Pressable>
         </View>
@@ -100,10 +100,11 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
                 : `${s.stage}: ${Math.round(s.totalMs)} ms / ${s.count} (at ${Math.round(s.firstStartMs)})`}
             </Text>
           ))}
-          {writeError && <Text style={styles.err}>{writeError}</Text>}
+          {writeError && <Text style={styles.err} accessibilityLiveRegion="polite">{writeError}</Text>}
           <View style={styles.switchRow}>
             <Text style={styles.fact}>Use WP0.4 test page, not ReaderSpike (next launch)</Text>
             <Switch
+              accessibilityLabel="Use WP0.4 test page, not ReaderSpike (next launch)"
               value={testPage}
               onValueChange={(on) => void toggleTestPage(on)}
             />
@@ -111,6 +112,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           <View style={styles.switchRow}>
             <Text style={styles.fact}>Speed test mode (auto-sends the next 10 launches)</Text>
             <Switch
+              accessibilityLabel="Speed test mode (auto-sends the next 10 launches)"
               value={isActive(speed)}
               onValueChange={(on) => void toggleSpeed(on)}
             />
@@ -171,8 +173,9 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               {status === 'sending' ? 'Sending…' : 'Send report'}
             </Text>
           </Pressable>
-          {status === 'sent' && <Text style={styles.fact}>Report sent.</Text>}
-          {status === 'error' && <Text style={styles.err}>{error}</Text>}
+          <Text style={status === 'error' ? styles.err : styles.fact} accessibilityLiveRegion="polite" testID="diag-status">
+            {status === 'sent' ? 'Report sent.' : status === 'error' ? error : ''}
+          </Text>
         </ScrollView>
       </View>
     </Modal>
@@ -189,6 +192,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   title: { color: '#fff', fontSize: 20, fontWeight: '800' },
+  closeBtn: { alignItems: 'center', justifyContent: 'center', minHeight: 44, minWidth: 44 },
   close: { color: '#f2c744', fontSize: 15, fontWeight: '700' },
   body: { paddingHorizontal: 16, paddingBottom: 48 },
   section: { color: '#f2c744', fontSize: 12, fontWeight: '800', paddingTop: 16, paddingBottom: 6 },
@@ -201,9 +205,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   modeRow: { flexDirection: 'row', gap: 8, paddingVertical: 8 },
-  modeBtn: { borderColor: '#f2c744', borderWidth: 1, borderRadius: 8, paddingHorizontal: 16, paddingVertical: 8 },
+  modeBtn: { alignItems: 'center', justifyContent: 'center', minHeight: 44, minWidth: 44, borderColor: '#f2c744', borderWidth: 1, borderRadius: 8, paddingHorizontal: 16, paddingVertical: 8 },
   modeBtnOn: { backgroundColor: '#3a3320' },
   modeText: { color: '#fff', fontSize: 13, fontWeight: '700' },
-  button: { backgroundColor: '#f2c744', borderRadius: 8, paddingVertical: 12, alignItems: 'center' },
+  button: { backgroundColor: '#f2c744', borderRadius: 8, paddingVertical: 12, alignItems: 'center', justifyContent: 'center', minHeight: 44 },
   buttonText: { color: '#000', fontSize: 15, fontWeight: '800' },
 });

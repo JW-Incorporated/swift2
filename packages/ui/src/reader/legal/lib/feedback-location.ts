@@ -1,6 +1,6 @@
 import { getEra } from '@swift2/experience';
 import { inAppPlatformFromUserAgent } from '../../lib/in-app';
-import type { useHost } from '../../../host';
+import type { HostPlatform, useHost } from '../../../host';
 import type { useAppState } from '../../store';
 
 type AppState = ReturnType<typeof useAppState>;
@@ -20,7 +20,7 @@ export type Location = {
   path?: string;
   pageTitle?: string;
   viewport?: string;
-  /** Coarse label ("iOS app", "Android app", "web: mobile|desktop") — never the raw user-agent. */
+  /** Coarse label ("iOS app", "Android app", "mobile app", "web: mobile|desktop") — never the raw user-agent. */
   platform?: string;
   ts?: string;
 };
@@ -46,7 +46,10 @@ export function pathOnly(url: string | undefined): string | undefined {
   return rest.startsWith('/') ? rest : `/${rest}`;
 }
 
-export function platformLabel(): string | undefined {
+export function platformLabel(platform?: HostPlatform): string | undefined {
+  if (platform === 'ios') return 'iOS app';
+  if (platform === 'android') return 'Android app';
+  if (platform === 'app') return 'mobile app';
   if (typeof navigator === 'undefined') return undefined;
   const app = inAppPlatformFromUserAgent(navigator.userAgent);
   if (app) return app === 'ios' ? 'iOS app' : 'Android app';
@@ -75,7 +78,7 @@ export function buildLocation(state: AppState, host: Host): Location {
     pageTitle: typeof document !== 'undefined' ? document.title : undefined,
     viewport:
       typeof window !== 'undefined' ? `${window.innerWidth}×${window.innerHeight}` : undefined,
-    platform: platformLabel(),
+    platform: platformLabel(host.platform),
     ts: new Date().toISOString(),
   };
 }

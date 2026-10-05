@@ -212,6 +212,23 @@ describe('createAppAdapter', () => {
     });
     expect(a.embedOrigin).toBe('https://preview.example');
   });
+  it('names the native platform, never web: ios, android, else the generic app', () => {
+    const make = (platform?: string) =>
+      createAppAdapter({
+        client: { call: vi.fn() } as never,
+        insets: { top: 0, right: 0, bottom: 0, left: 0 },
+        platform,
+        isNativeRoute: () => false,
+        navigateDom: vi.fn(),
+        getPath: () => '/',
+        apiFetch: vi.fn() as never,
+        onBack: () => () => {},
+      }).platform;
+    expect(make('ios')).toBe('ios');
+    expect(make('android')).toBe('android');
+    expect(make('windows')).toBe('app');
+    expect(make(undefined)).toBe('app');
+  });
   it('env, insets and resolveUrl', () => {
     const { adapter } = setup();
     expect(adapter.env).toEqual({ turnstileSiteKey: null, origin: APP_ORIGIN });
