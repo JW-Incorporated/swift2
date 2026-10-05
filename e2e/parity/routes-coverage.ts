@@ -2,6 +2,7 @@ import { fixture, FIXED_TIME } from './env';
 import { A_ONLY_ROUTES, A_ONLY_ROUTES_BETA, FOLLOW_CLIP, LIGHTBOX_CLIP, RAIL_CLIP, ROUTES, SCRUBBER_CLIP, type AOnlyRoute } from './routes';
 import { SEARCH_ROUTES } from './routes-search';
 import { PLACEHOLDER_PNG } from './placeholder';
+import { ERA_LANDING_ROUTES, THREAD_VIEW_ROUTES } from './routes-threads-eras';
 import { SURFACE_COVERAGE_ROUTES } from './routes-coverage-surfaces';
 import { assertNoBaselineCollisions } from './sides';
 import { expect, type Page } from '@playwright/test';
@@ -195,6 +196,8 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
       await show(page, 'article:has(button:has-text("Hide the payoff"))');
     },
   },
+  ...THREAD_VIEW_ROUTES,
+  ...ERA_LANDING_ROUTES,
   ...SURFACE_COVERAGE_ROUTES,
 ];
 
