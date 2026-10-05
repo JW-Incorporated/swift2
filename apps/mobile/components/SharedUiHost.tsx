@@ -242,11 +242,13 @@ export function SharedUiHost({
   };
 
   // iOS: no WKWebView scroll-view inset adjustment or rubber-banding (the DOM owns its insets via --safe-*, W3-iOS).
-  // mediaPlaybackRequiresUserAction stays at the default (true): the tap on the embed is the user gesture.
+  // Set explicitly (matches MomentSheet/SiteShell): inline playback so YouTube/Spotify embeds don't go fullscreen; the tap on the embed is the user gesture.
   const dom = {
     contentInsetAdjustmentBehavior: 'never' as const,
     automaticallyAdjustContentInsets: false,
     bounces: false,
+    allowsInlineMediaPlayback: true,
+    mediaPlaybackRequiresUserAction: true,
     style: { backgroundColor: eraColors.bg },
     containerStyle: { backgroundColor: eraColors.bg },
     onContentProcessDidTerminate: handlers.onContentProcessDidTerminate,

@@ -238,7 +238,7 @@ export function FeedbackButton() {
                   }}
                   placeholder="Wrong date, bad photo, typo, broken link… tell us what you saw."
                   rows={4}
-                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
+                  className="w-full resize-y rounded-lg border border-line bg-bg p-2.5 text-base sm:text-sm text-ink placeholder:text-ink-soft/70 focus:border-accent focus:outline-none"
                 />
                 {/* Honeypot — hidden from humans, catches bots. */}
                 <input

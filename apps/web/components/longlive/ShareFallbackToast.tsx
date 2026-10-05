@@ -39,7 +39,7 @@ export function ShareFallbackToast() {
         aria-label="Share link"
         onClick={(event) => event.currentTarget.select()}
         onFocus={(event) => event.currentTarget.select()}
-        className="mt-3 w-full rounded-lg border border-[color:var(--era-line)] bg-[color:var(--era-bg)] px-2 py-1.5 text-xs text-[color:var(--era-ink)]"
+        className="mt-3 w-full rounded-lg border border-[color:var(--era-line)] bg-[color:var(--era-bg)] px-2 py-1.5 text-base sm:text-xs text-[color:var(--era-ink)]"
       />
       <div className="mt-3 flex flex-wrap gap-2">
         <button
