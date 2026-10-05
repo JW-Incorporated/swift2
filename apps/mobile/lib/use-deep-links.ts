@@ -5,6 +5,7 @@
 import { useEffect } from 'react';
 import { canonicalizeLink } from './notification-tap-queue';
 import type { TapGate } from './notification-tap-gate';
+import { isDiagLink, openDiagPanel } from './diag-link';
 
 const APP_SCHEME = 'longlive://';
 const SITE = 'https://www.longlivets.com';
@@ -57,6 +58,7 @@ export function startDeepLinkIntake(
   gate: Pick<TapGate, 'enqueue'>,
   ports: DeepLinkPorts,
   now: () => number = Date.now,
+  onDiag: () => void = openDiagPanel,
 ): () => void {
   const startAt = now();
   let stopped = false;
@@ -69,6 +71,10 @@ export function startDeepLinkIntake(
     return canonicalizeLink(url) === null ? null : url;
   };
   const ingest = (raw: unknown, from: 'initial' | 'event') => {
+    if (!stopped && isDiagLink(raw)) {
+      onDiag();
+      return;
+    }
     const url = valid(raw);
     if (url === null) return;
     const key = urlKey(url);

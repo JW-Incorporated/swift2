@@ -25,7 +25,6 @@ import {
   markReloading,
   recordStrike,
   shouldMountDom,
-  startAttempt,
   type AttemptMonitor,
   type CrashOutcome,
   type DomFailureMode,
@@ -48,12 +47,11 @@ import {
   saveReportsRaw,
   saveWatchdogRecord,
 } from './watchdog-store';
+import { plannedReloadStep } from './watchdog-planned-reload';
+import { DEFAULT_DEPS, startAttemptBounded, useContentGate, type GateDeps } from './watchdog-gate-content';
 import { createTelemetry } from './watchdog-telemetry';
 
-/** A storage write that never settles must not hang the launch: treat it as a failed attempt write (native). */
-const ATTEMPT_WRITE_MAX_MS = 3000;
-
-export type MountState = 'pending' | 'dom' | 'native';
+export type MountState = 'pending' | 'awaiting-content' | 'dom' | 'native';
 
 /** Everything the launch decision reads, all local: null until App has resolved them. */
 export interface LaunchInputs {
@@ -72,6 +70,8 @@ export interface DomWatch {
   /** 'reload' = a post-ready process termination the monitor wants healed by a DOM reload (resolved only after the record was persisted as an unresolved attempt); otherwise struck. */
   crashed: (kind: 'terminated' | 'render-gone') => Promise<CrashOutcome | undefined>;
   protocol: () => void;
+  /** A planned DOM re-key (content adoption): persists the attempt as unresolved FIRST, then re-arms the ready timeout; false (nothing persisted or armed) means do not reload. The reload itself is never a strike. */
+  plannedReload?: () => Promise<boolean>;
 }
 
 // Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
@@ -81,11 +81,14 @@ const elapsedMs = (): number => Math.round(diagCollector.elapsed());
 
 const scheduler = { setTimeout: (fn: () => void, ms: number) => setTimeout(fn, ms), clearTimeout: (h: unknown) => clearTimeout(h as never) };
 
-export function useDomMount(inputs: LaunchInputs | null): {
+export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAULT_DEPS): {
   mount: MountState;
   watch: DomWatch;
   forceFailure: DomFailureMode;
   nativeReason: NativeReason | null;
+  /** awaiting-content only: the load failed (offline) / re-run it. */
+  contentFailed: boolean;
+  retryContent: () => void;
 } {
   const [decision, setDecision] = useState<MountDecision | null>(null);
   const [mount, setMount] = useState<MountState>('pending');
@@ -115,6 +118,8 @@ export function useDomMount(inputs: LaunchInputs | null): {
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
 
+  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef, launchWriteRef, flushLaunchWrite } = useContentGate(deps);
+  const cancelBoundRef = useRef<() => void>(() => undefined);
   const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
   const mountRef = useRef<MountState>('pending');
   const apply = (m: MountState, reason: NativeReason | null = null, source: WantSource | null = null) => {
@@ -124,15 +129,16 @@ export function useDomMount(inputs: LaunchInputs | null): {
     setMountInfo({ mount: m, reason: m === 'native' ? reason : null, source: m === 'dom' ? source : null });
   };
 
-  useEffect(
-    () =>
-      armPendingBound(scheduler, () => {
+  useEffect(() => {
+    // No cache on disk: the launch waits natively for the download, so the pending bound is never armed.
+    noContentRef.current = !depsRef.current.hasLocalContent();
+    cancelBoundRef.current = noContentRef.current ? () => undefined : armPendingBound(scheduler, () => {
         expiredRef.current = true;
         diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
         if (mountRef.current === 'pending' && !committedRef.current) apply('native', 'pending-expired');
-      }),
-    [],
-  );
+      });
+    return () => cancelBoundRef.current();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -140,7 +146,13 @@ export function useDomMount(inputs: LaunchInputs | null): {
       const prev = await loadWatchdogRecord();
       const d = decideMount(prev, currentBuildKey(), Date.now());
       recordRef.current = d.record;
-      await write(refundExpiredFallback(prev, d.record, expiredRef.current));
+      const expired = expiredRef.current;
+      const launchWrite = async () => {
+        await write(refundExpiredFallback(prev, d.record, expired));
+      };
+      // No cache: hold the launch record in memory until the DOM attempt starts.
+      if (noContentRef.current) launchWriteRef.current = launchWrite;
+      else await launchWrite();
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
@@ -176,32 +188,30 @@ export function useDomMount(inputs: LaunchInputs | null): {
       defaultSharedUi: ios ? DEFAULT_ROUTE_FLAGS.sharedUiIos : DEFAULT_ROUTE_FLAGS.sharedUi,
     });
     // Pending expiry is terminal for this launch: native stays mounted (never swap an interactive UI); the next launch decides normally.
-    if (expiredRef.current) return;
+    if (expiredRef.current) return void flushLaunchWrite();
     if (!shouldMountDom(want.wantsDom, decision)) {
-      if (mountRef.current !== 'pending') void write(decision.record);
-      apply('native', nativeReasonFor(want, decision.fallbackActive));
-      return;
+      return void (async () => {
+        await flushLaunchWrite();
+        if (unmountedRef.current) return;
+        if (mountRef.current !== 'pending') void write(decision.record);
+        apply('native', nativeReasonFor(want, decision.fallbackActive));
+      })();
     }
     void (async () => {
+      if (noContentRef.current) {
+        apply('awaiting-content');
+        const t0 = monotonicNow();
+        if (!(await waiterRef.current?.run())) return;
+        await flushLaunchWrite();
+        diagCollector.mark('first-download-ms', `${Math.round(monotonicNow() - t0)}ms`);
+      }
       const failure = await getForceDomFailure();
-      if (expiredRef.current) return;
+      if (unmountedRef.current || expiredRef.current) return;
       committedRef.current = true;
       setForceFailure(failure);
-      let timer: unknown;
-      const bound = new Promise<null>((resolve) => {
-        timer = scheduler.setTimeout(() => resolve(null), ATTEMPT_WRITE_MAX_MS);
-      });
-      const started = startAttempt(decision, Date.now(), write);
-      const attempt = await Promise.race([started, bound]);
-      scheduler.clearTimeout(timer);
-      if (!attempt) {
-        // Fence: if the abandoned write lands late as `attempting`, roll it back through the same ordered writer so the next launch sees no false strike.
-        void started.then((late) => {
-          if (late) void write(decision.record);
-        });
-        apply('native', 'attempt-failed');
-        return;
-      }
+      const attempt = await startAttemptBounded(decision, write, scheduler, () => !unmountedRef.current);
+      if (unmountedRef.current) return;
+      if (!attempt) return apply('native', 'attempt-failed');
       recordRef.current = attempt;
       if (AppState.currentState !== 'active') {
         recordRef.current = { ...attempt, backgrounded: true };
@@ -234,8 +244,10 @@ export function useDomMount(inputs: LaunchInputs | null): {
   }, [decision, inputs]);
 
   useEffect(() => {
+    unmountedRef.current = false;
     const sub = AppState.addEventListener('change', (s) => {
       monitorRef.current?.setActive(s === 'active');
+      if (s === 'active') waiterRef.current?.onActive();
       const r = recordRef.current;
       if (r?.state === 'attempting' && r.backgrounded !== (s !== 'active')) {
         recordRef.current = { ...r, backgrounded: s !== 'active' };
@@ -243,6 +255,8 @@ export function useDomMount(inputs: LaunchInputs | null): {
       }
     });
     return () => {
+      unmountedRef.current = true;
+      waiterRef.current?.release();
       sub.remove();
       monitorRef.current?.dispose();
     };
@@ -262,9 +276,18 @@ export function useDomMount(inputs: LaunchInputs | null): {
         return monitorRef.current?.crashed(k);
       },
       protocol: () => monitorRef.current?.protocolFatal(),
+      plannedReload: () =>
+        plannedReloadStep({
+          getRecord: () => recordRef.current,
+          setRecord: (r) => void (recordRef.current = r),
+          write,
+          arm: () => monitorRef.current?.plannedReload() ?? false,
+          onWriteFailed: () => diagCollector.mark('watchdog-reload-save-failed'),
+          now: Date.now,
+        }),
     }),
     [],
   );
 
-  return { mount, watch, forceFailure, nativeReason };
+  return { mount, watch, forceFailure, nativeReason, contentFailed, retryContent: () => waiterRef.current?.retry() };
 }
