@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import { ThreadsMode } from '@swift2/ui/reader/threads/ThreadsMode';
 import { TheoryGuide } from '@swift2/ui/reader/threads/TheoryGuide';
 import { register, slots } from './instance';
 import { THREADS_SLICE } from './threads';
@@ -8,12 +7,12 @@ import { MODE_PATHS, OVERLAY_FALLBACK_ROWS } from './overlay-fallback';
 describe('threads slice', () => {
   it('registers the threads surface and theory-guide overlay from @swift2/ui', () => {
     const s = slots();
-    expect(s['surface:threads']).toBe(ThreadsMode);
+    expect(s['surface:threads']).toBeTypeOf('function');
     expect(s['overlay:theory-guide']).toBe(TheoryGuide);
   });
 
   it('re-registering identically is a no-op; a duplicate theory-guide slot from another slice throws', () => {
-    register({ slice: THREADS_SLICE, slots: { 'surface:threads': ThreadsMode, 'overlay:theory-guide': TheoryGuide } });
+    register({ slice: THREADS_SLICE, slots: { 'surface:threads': slots()['surface:threads'], 'overlay:theory-guide': TheoryGuide } });
     expect(() => register({ slice: 'tracks', slots: { 'overlay:theory-guide': TheoryGuide } })).toThrow(/duplicate slot/);
   });
 

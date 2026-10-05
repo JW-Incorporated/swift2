@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
 import { InboxPage } from '@swift2/ui/reader/settings/InboxPage';
 import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { toWebPath, useHost } from '@swift2/ui';
@@ -22,6 +23,7 @@ export function InboxOverlay() {
   const shown = open && Boolean(notifications);
   const ref = useRef<HTMLDivElement>(null);
   useFocusTrap(shown, ref);
+  useBackDismiss(shown, inboxOverlay.close);
   if (!shown) return null;
   return (
     <div

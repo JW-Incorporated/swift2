@@ -6,20 +6,22 @@
 // the provider AppReader already mounts: the board gets the website's lore.
 // apiStream is absent on the app adapter, so ClownChat uses bufferedFrom(apiFetch).
 import { useLore } from '@swift2/ui';
-import { ClownChat } from '@swift2/ui/reader/clown/ClownChat';
-import { MoodChat } from '@swift2/ui/reader/clown/MoodChat';
 import { register } from './instance';
+import { lazySlot } from './lazy';
+import { loadClownChat, loadMoodChat } from './lazy-loaders';
 
 export const CLOWN_SLICE = 'clown';
 
+const LazyClownChat = lazySlot(loadClownChat);
+
 export function ClownSurface() {
-  return <ClownChat lore={useLore()} />;
+  return <LazyClownChat lore={useLore()} />;
 }
 
 register({
   slice: CLOWN_SLICE,
   slots: {
     'surface:clownbot': ClownSurface,
-    'surface:mood': MoodChat,
+    'surface:mood': lazySlot(loadMoodChat),
   },
 });

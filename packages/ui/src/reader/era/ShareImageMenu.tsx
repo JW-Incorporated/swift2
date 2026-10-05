@@ -6,6 +6,7 @@ import type { ShareTarget } from '@swift2/experience';
 import { useHost } from '../../host/context';
 import { useReader } from '../../snapshot/context';
 import { prefetchShareCard, shareCardImage } from '../lib/share-payload';
+import { useBackDismiss } from '../lib/useBackDismiss';
 import type { ShareCardSize, ShareCardSource } from '../lib/share-card-params';
 
 const CHOICES: { size: ShareCardSize; label: string; hint: string }[] = [
@@ -54,6 +55,7 @@ export function ShareImageMenu({
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>({ kind: 'idle' });
   const rootRef = useRef<HTMLDivElement | null>(null);
+  useBackDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (!open) return;
