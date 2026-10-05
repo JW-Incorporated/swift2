@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-10-05-the-life-of-a-showgirl-the-encore-digital-download-8344195399880",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-10-05T17:13:21.457Z",
+  "deadline": "2026-10-08T17:13:21.457Z",
+  "status": "open",
+  "facts": {
+    "name": "The Life of a Showgirl: The Encore Digital Download",
+    "price": "9.99",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/the-life-of-a-showgirl-the-encore-digital-download",
+    "firstSeenAt": "2026-10-05T17:12:38.158Z"
+  },
+  "media": [
+    "/social/library/merch-drop-37346415205.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/the-life-of-a-showgirl-the-encore-digital-download",
+  "altTextHint": "A Long Live store-drop card for 2 items newly available on the official store, led by \"The Life of a Showgirl: The Encore Digital Download\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
