@@ -16,6 +16,8 @@ export interface ProbeReport {
   /** Native clock, stamped by the host (not the webview): dom-launch-attempted to onReady. */
   nativeLaunchToReadyMs?: number | null;
   heapMb: number | null;
+  /** Webview cold-start stages in ms (Diagnostics): readMs (twin read), parseMs, buildMs (snapshot), hashMs (deferred, after ready). */
+  timings?: Record<string, number>;
   placeholders: Record<string, { total: number; bad: number; pending: number }> | null;
   error: string | null;
 }

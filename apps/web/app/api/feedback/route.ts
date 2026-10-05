@@ -15,13 +15,8 @@ import {
   speedRefund,
   type SpeedMeta,
 } from './diag';
-import {
-  WATCHDOG_PREFIX,
-  isWatchdogMessage,
-  parseWatchdogReport,
-  watchdogAllowed,
-  watchdogCommentFrom,
-} from './watchdog-report';
+import { type WatchdogReport, isWatchdogMessage } from './watchdog-report';
+import { prepareWatchdog, watchdogClaimResponse } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -84,10 +79,11 @@ type Location = {
   trackGuideEraId?: string | null;
   theoryGuideEraId?: string | null;
   lensId?: string | null;
-  url?: string;
+  url?: string; // legacy clients; reduced to a path server-side
+  path?: string;
   pageTitle?: string;
   viewport?: string;
-  userAgent?: string;
+  platform?: string;
   ts?: string;
 };
 
@@ -116,6 +112,14 @@ export { trustedClientIp } from '../../../lib/longlive/client-ip';
 
 const clip = (s: unknown, n: number): string =>
   typeof s === 'string' ? s.slice(0, n) : '';
+
+// Public issue tracker: publish the page path only. Query strings and hashes
+// can carry personal values, and older clients still send a full URL.
+const pathOnly = (s: unknown): string => {
+  if (typeof s !== 'string') return '';
+  const rest = s.trim().replace(/^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/?#]*/i, '').split('#')[0]!.split('?')[0]!;
+  return rest ? (rest.startsWith('/') ? rest : `/${rest}`) : '';
+};
 
 // Defang GitHub autolinks in UNTRUSTED user text. This endpoint is public and
 // unauthenticated, and everything a submitter sends (the message AND every
@@ -167,7 +171,7 @@ export function bodyFrom(message: string, loc: Location): string {
     loc.trackGuideEraId ? `- **Track guide:** \`${clip(loc.trackGuideEraId, 40)}\`` : null,
     loc.theoryGuideEraId ? `- **Theory guide:** \`${clip(loc.theoryGuideEraId, 40)}\`` : null,
     loc.lensId ? `- **Thread/lens:** \`${clip(loc.lensId, 40)}\`` : null,
-    loc.url ? `- **URL:** ${code(clip(loc.url, 300))}` : null,
+    loc.path || loc.url ? `- **Path:** ${code(clip(pathOnly(loc.path || loc.url), 300))}` : null,
   ].filter(Boolean);
 
   return [
@@ -188,7 +192,7 @@ export function bodyFrom(message: string, loc: Location): string {
     '**Environment:**',
     `- Page: ${code(clip(loc.pageTitle, 200)) || '—'}`,
     `- Viewport: ${code(clip(loc.viewport, 40)) || '—'}`,
-    `- User agent: ${code(clip(loc.userAgent, 400)) || '—'}`,
+    `- Platform: ${code(clip(loc.platform, 40)) || '—'}`,
     `- Time: ${code(clip(loc.ts, 40)) || new Date().toISOString()}`,
     '',
     '---',
@@ -244,18 +248,12 @@ export async function POST(req: Request): Promise<Response> {
   const diag = isDiagMessage(message) || watchdog;
   let diagComment = '';
   let speedReport: SpeedMeta | null = null;
+  let watchdogReport: WatchdogReport | null = null;
   if (watchdog) {
-    const exactShape =
-      payload.message === WATCHDOG_PREFIX &&
-      Object.keys(payload).every((k) => k === 'message' || k === 'hp' || k === 'watchdog');
-    const parsed = exactShape ? parseWatchdogReport(payload.watchdog) : null;
-    if (!parsed?.ok) {
-      return NextResponse.json({ error: 'Invalid watchdog report.' }, { status: 400 });
-    }
-    if (!watchdogAllowed(parsed.report.buildKey)) {
-      return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
-    }
-    diagComment = watchdogCommentFrom(parsed.report);
+    const prepared = prepareWatchdog(payload, ip);
+    if (!prepared.ok) return prepared.response;
+    watchdogReport = prepared.durable ? prepared.report : null;
+    diagComment = prepared.comment;
   } else if (diag) {
     const exactShape =
       payload.message === DIAG_PREFIX &&
@@ -300,10 +298,18 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
+  // Durable claim only once config is known good, so a misconfigured deploy never burns a claim.
+  if (watchdogReport) {
+    const stop = await watchdogClaimResponse(watchdogReport);
+    if (stop) return stop;
+  }
+
   const location = (payload.location ?? {}) as Location;
   // Clip free-form environment fields defensively before they hit the body.
-  location.userAgent = clip(location.userAgent, MAX_FIELD);
-  location.url = clip(location.url, MAX_FIELD);
+  location.platform = clip(location.platform, MAX_FIELD);
+  location.path = pathOnly(location.path || location.url);
+  delete location.url;
+  delete (location as Record<string, unknown>).userAgent;
 
   try {
     const res = await fetch(

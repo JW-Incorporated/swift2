@@ -12,6 +12,7 @@
 // version token cross the bridge (C6), never content.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
@@ -24,7 +25,8 @@ import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
-import { loadContentBundle } from '../lib/content-bundle';
+import { useContentAdoption } from '../lib/use-content-adoption';
+import { useDeferredBundleRefresh } from '../lib/use-deferred-bundle-refresh';
 import { createBridgeLink, createDomHostHandlers, sameInbox, type DomSignal } from '../lib/dom-host-handlers';
 import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
@@ -37,7 +39,7 @@ import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, ty
 import { createUiDeps } from '../lib/ui-deps';
 import { shareCardPorts } from '../lib/share-card-ports';
 import { notificationTapGate } from '../lib/use-notification-taps';
-import { lastGoodSource, type LastGoodSource } from '../lib/dom-reader-config';
+import type { LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
@@ -107,20 +109,8 @@ export function SharedUiHost({
     void getUseTestPage().then(setTestPage);
   }, []);
 
-  useEffect(() => {
-    if (testPage !== false) return;
-    // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
-    const cached = lastGoodSource();
-    if (cached) setSource({ cache: cached });
-    void loadContentBundle()
-      .then((bundle) => {
-        setContentToken(bundle.manifest.bundleVersion);
-        if (!cached) setSource({ cache: lastGoodSource() });
-      })
-      .catch(() => {
-        if (!cached) setSource({ cache: null });
-      });
-  }, [testPage]);
+  const domReady = useDeferredBundleRefresh(testPage, setSource, setContentToken);
+  const adoption = useContentAdoption(testPage, { bump: () => setGeneration((g) => g + 1), onSignal, setSource, watch });
 
   const handlers = useMemo(
     () =>
@@ -140,6 +130,7 @@ export function SharedUiHost({
 
   useEffect(() => {
     const epoch = ++epochRef.current;
+    adoption.epochStarted();
     const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
@@ -149,6 +140,7 @@ export function SharedUiHost({
       linking: Linking,
       share: Share,
       cards: shareCardPorts,
+      clipboard: Clipboard,
       haptics: Haptics,
       platformOS: Platform.OS,
       log: onSignal,
@@ -162,7 +154,11 @@ export function SharedUiHost({
       scheduler: { setTimeout: (fn, ms) => setTimeout(fn, ms), clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) },
       onBeforeShutdown: () => ref.binder?.release(),
       onReadyAgain: () => ref.binder?.readyAgain(),
-      onNavReady: () => ref.binder?.navReady(),
+      onNavReady: () => {
+        ref.binder?.navReady();
+        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
+      },
+      onRoute: (path, busy) => adoption.route(path, busy),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
@@ -276,8 +272,10 @@ export function SharedUiHost({
               ? async () => {
                   nativeMs.current = Date.now() - launchedAt.current;
                   if (rawProbe.current) publishProbe(rawProbe.current);
+                  domReady();
                   await handlers.onReady();
                   session.binder.firstPaint();
+                  adoption.readerReady();
                 }
               : async () => {}
           }
