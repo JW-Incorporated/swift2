@@ -6,15 +6,17 @@
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #108 🔴 [BLOCKING] Let the ops-fixer push workflow-file fixes (~3 min)
+## #108 🟢 [UPGRADE] Give the ops-fixer its own token for workflow-file fixes (~5 min)
 <!-- ha filed=2026-10-05 -->
 
-**Why:** The new ops-fixer pushes with SOCIAL_POSTER_PAT. GitHub refuses any push touching .github/workflows/** unless that token has Workflows: write, so workflow fixes escalate to you instead of landing.
+**Why:** Only fixes under .github/workflows/ are blocked without it: GitHub rejects that push unless the token has Workflows write. A dedicated token keeps the social poster's token narrow; other fixes work now.
 
 **Steps:**
-1. Open https://github.com/settings/personal-access-tokens and click the token named `swift2-social-poster`.
-2. Under "Repository permissions" set "Workflows" to "Read and write". Leave every other permission as it is.
-3. Click "Save" at the bottom (the token value does not change; do not touch the repo secret).
+1. Open https://github.com/settings/personal-access-tokens/new
+2. Name it `swift2-ops-fixer`, set Expiration to 1 year, Resource owner `JW-Incorporated`, choose "Only select repositories" and pick `JW-Incorporated/swift2`.
+3. Under "Repository permissions" set Contents, Pull requests, Issues, Workflows and Actions each to "Read and write". Leave the rest alone.
+4. Click "Generate token" and copy the value.
+5. Open https://github.com/JW-Incorporated/swift2/settings/secrets/actions/new, enter Name `OPS_FIXER_PAT`, paste the value, click "Add secret".
 
 **Worked if:** the ops-fixer's next fix that edits a file under .github/workflows/ pushes and opens its PR.
 

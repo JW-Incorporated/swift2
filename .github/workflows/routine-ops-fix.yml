@@ -6,13 +6,20 @@
 # rails: docs/agents/ops-fixer.md. Dispatched by Marjorie only:
 # `gh workflow run routine-ops-fix.yml -f issue=<n>`.
 #
-# Modeled on routine-austin-build.yml: same routine-template, same
-# CLAUDE_CODE_OAUTH_TOKEN, checked out with SOCIAL_POSTER_PAT (the built-in
-# GITHUB_TOKEN cannot trigger the required checks on its own PRs).
-# TOKEN CAVEAT: pushing changes under .github/workflows/** also needs the
-# PAT's fine-grained "Workflows: Read and write" permission (HUMAN-ACTIONS
-# #108). Until granted, workflow-file fixes escalate with a paste prompt; every
-# other fix is unaffected.
+# Three jobs, so the rails do not depend on the agent obeying its prompt:
+#   context  trust gate (issue author + label, scripts/marjorie/ops-fix-trust.mjs)
+#            and a deterministic 2-run cap, BEFORE the agent exists.
+#   run      the agent (routine-template, same CLAUDE_CODE_OAUTH_TOKEN as Austin).
+#   finish   AFTER the agent, from main's own checkout: runs ops-fix-guard against
+#            the agent's PR head, disables auto-merge + escalates on a violation,
+#            and escalates when the run failed/was cancelled. The agent cannot
+#            skip or edit it: it is a separate job that runs `if: always()`, and
+#            the guard/escalate files are on the guard's own protected list.
+#
+# TOKEN: the agent pushes with OPS_FIXER_PAT (a dedicated fine-grained PAT with
+# Workflows: read/write, HUMAN-ACTIONS #108), falling back to SOCIAL_POSTER_PAT
+# until it exists. Without Workflows write, a push under .github/workflows/**
+# is rejected and escalated; every other fix is unaffected.
 name: routine-ops-fix
 run-name: "ops-fix · #${{ inputs.issue }}"
 
@@ -37,14 +44,45 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: read
+      issues: read
+      actions: read
+    outputs:
+      state: ${{ steps.gate.outputs.state }}
     steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Trust gate and attempt cap (before any agent runs)
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ inputs.issue }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          set -uo pipefail
+          if ! node scripts/marjorie/ops-fix-trust.mjs "$ISSUE" --repo "$REPO"; then
+            echo "state=untrusted" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          PRIOR=$(gh run list --repo "$REPO" --workflow routine-ops-fix.yml --limit 200 --json databaseId,displayTitle --jq "[.[] | select(.databaseId != $RUN_ID and (.displayTitle | endswith(\"#$ISSUE\")))] | length") || PRIOR=0
+          if [ "${PRIOR:-0}" -ge 2 ]; then
+            echo "state=capped" >> "$GITHUB_OUTPUT"
+          else
+            echo "state=trusted" >> "$GITHUB_OUTPUT"
+          fi
       - name: Record which issue this run owns
+        if: steps.gate.outputs.state == 'trusted'
         env:
           ISSUE: ${{ inputs.issue }}
         run: |
           mkdir -p .scratch
           printf '{"issue":%s}\n' "$ISSUE" > .scratch/ops-fix-issue.json
       - uses: actions/upload-artifact@v7
+        if: steps.gate.outputs.state == 'trusted'
         with:
           name: ops-fix-issue
           path: .scratch/ops-fix-issue.json
@@ -52,6 +90,7 @@ jobs:
 
   run:
     needs: context
+    if: needs.context.outputs.state == 'trusted'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "ops-fixer"
@@ -65,4 +104,56 @@ jobs:
       pre_run_artifact: ops-fix-issue
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-      SOCIAL_POSTER_PAT: ${{ secrets.SOCIAL_POSTER_PAT }}
+      SOCIAL_POSTER_PAT: ${{ secrets.OPS_FIXER_PAT || secrets.SOCIAL_POSTER_PAT }}
+
+  finish:
+    needs: [context, run]
+    if: always() && needs.context.outputs.state != 'untrusted' && needs.context.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Guard the agent's PR from main's copy; escalate on failure
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ inputs.issue }}
+          STATE: ${{ needs.context.outputs.state }}
+          RUN_RESULT: ${{ needs.run.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -uo pipefail
+          mkdir -p .scratch
+          STUCK=""
+          if [ "$STATE" = capped ]; then
+            STUCK="two ops-fixer runs were already spent on this issue"
+          else
+            for PR in $(gh pr list --repo "$REPO" --state open --json number,headRefName --jq ".[] | select(.headRefName | startswith(\"ops-fix/${ISSUE}-\")) | .number"); do
+              git fetch -q origin "refs/pull/$PR/head:refs/remotes/pr/$PR"
+              if ! node scripts/marjorie/ops-fix-guard.mjs --base origin/main --head "refs/remotes/pr/$PR" 2> .scratch/guard.err; then
+                gh pr merge "$PR" --repo "$REPO" --disable-auto || true
+                MSG="ops-fix-guard (run from main, outside the agent) rejected this diff and auto-merge is disabled: $(tr '\n' ' ' < .scratch/guard.err)"
+                gh pr comment "$PR" --repo "$REPO" --body "$MSG" || true
+                STUCK="$MSG (PR #$PR)"
+              fi
+            done
+            if [ -z "$STUCK" ] && [ "$RUN_RESULT" != success ]; then
+              STUCK="the ops-fixer run ended $RUN_RESULT"
+            fi
+          fi
+          [ -z "$STUCK" ] && exit 0
+          LABELS=$(gh issue view "$ISSUE" --repo "$REPO" --json labels --jq '[.labels[].name] | join(",")')
+          case ",$LABELS," in *,ops-fix:stuck,*) exit 0 ;; esac
+          gh issue edit "$ISSUE" --repo "$REPO" --add-label ops-fix:stuck || true
+          node scripts/marjorie/ops-fix-escalate.mjs auto "$ISSUE" "$STUCK" "$RUN_URL" > .scratch/escalate.md
+          gh issue comment "$ISSUE" --repo "$REPO" --body-file .scratch/escalate.md

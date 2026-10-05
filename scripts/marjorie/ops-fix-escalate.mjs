@@ -5,6 +5,7 @@
 //
 //   node scripts/marjorie/ops-fix-escalate.mjs comment <spec.json>
 //   node scripts/marjorie/ops-fix-escalate.mjs ha <spec.json>
+//   node scripts/marjorie/ops-fix-escalate.mjs auto <issue> <reason> [runUrl] [title]
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
@@ -66,8 +67,24 @@ export function renderHa(spec) {
   ].join('\n');
 }
 
+// Deterministic escalation for the workflow's own failure/guard steps, where no
+// LLM wrote a spec: the run URL is the evidence, the goal is to finish the fix.
+export function autoSpec(issue, reason, runUrl = '', title = '') {
+  return {
+    issue: Number(issue), project: 'swift2', title, reason,
+    found: reason,
+    tried: `The ops-fixer routine ran${runUrl ? ` (${runUrl})` : ''} and did not land a fix.`,
+    goal: `Diagnose the root cause from issue #${issue} and the run log${runUrl ? ` at ${runUrl}` : ''}, fix it surgically, and land the fix.`,
+    acceptance: `The failure described in issue #${issue} no longer reproduces and CI is green.`,
+  };
+}
+
 export function main(argv = process.argv.slice(2)) {
   const [cmd, file] = argv;
+  if (cmd === 'auto') {
+    process.stdout.write(`${renderComment(autoSpec(argv[1], argv[2], argv[3], argv[4]))}\n`);
+    return 0;
+  }
   const spec = JSON.parse(readFileSync(file, 'utf8'));
   if (cmd === 'comment') process.stdout.write(`${renderComment(spec)}\n`);
   else if (cmd === 'ha') process.stdout.write(renderHa(spec));

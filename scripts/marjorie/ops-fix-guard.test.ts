@@ -2,22 +2,33 @@ import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error plain .mjs module
 import { checkDiff, main } from './ops-fix-guard.mjs';
 // @ts-expect-error plain .mjs module
-import { renderComment, renderHa, renderPrompt } from './ops-fix-escalate.mjs';
+import { autoSpec, renderComment, renderHa, renderPrompt } from './ops-fix-escalate.mjs';
 
 const file = (path: string, ...added: string[]) =>
   [`diff --git a/${path} b/${path}`, `--- a/${path}`, `+++ b/${path}`, ...added.map((l) => `+${l}`)].join('\n');
 
 describe('checkDiff', () => {
   it('passes an ordinary workflow and script fix', () => {
-    expect(checkDiff(file('.github/workflows/ci.yml', 'timeout-minutes: 20') + '\n' + file('scripts/x.mjs', 'run()'))).toEqual([]);
+    expect(checkDiff(file('.github/workflows/watchdog.yml', 'timeout-minutes: 20') + '\n' + file('scripts/x.mjs', 'run()'))).toEqual([]);
   });
   it('allows referencing a secret name in YAML', () => {
     expect(checkDiff(file('.github/workflows/a.yml', 'GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}'))).toEqual([]);
   });
   it('blocks edits to social approval/signing files', () => {
-    for (const p of ['.github/workflows/social-approval-poll.yml', 'scripts/automerge-social-approval-gate.mjs', 'scripts/social/stamp-approval.mjs']) {
+    for (const p of ['.github/workflows/social-approval-poll.yml', 'scripts/automerge-social-approval-gate.mjs', 'scripts/social/social-approval-poll.mjs', 'scripts/social/lib/queue.mjs', 'scripts/social/post-queue.mjs', 'scripts/social/delete-media.mjs']) {
       expect(checkDiff(file(p, 'x'))).toEqual([expect.stringContaining('rail 3')]);
     }
+  });
+  it('protects the ops-fixer machinery and the required-check workflows', () => {
+    for (const p of ['scripts/marjorie/ops-fix-guard.mjs', 'scripts/marjorie/ops-fix-guard.test.ts', 'scripts/marjorie/ops-fix-escalate.mjs', 'scripts/marjorie/ops-fix-trust.mjs', '.github/workflows/routine-ops-fix.yml', 'docs/agents/runner-prompts/ops-fix.md', 'docs/agents/ops-fixer.md', '.github/workflows/routine-template.yml', '.github/workflows/ci.yml', '.github/workflows/parity.yml', '.github/CODEOWNERS', '.github/rulesets/main.json']) {
+      expect(checkDiff(file(p, 'x'))).toEqual([expect.stringContaining('rail 4')]);
+    }
+  });
+  it('blocks --admin merges and ruleset/branch-protection API calls', () => {
+    for (const l of ['gh pr merge 5 --squash --admin', 'gh api -X PUT repos/o/r/rulesets/1', 'gh api repos/o/r/branches/main/protection']) {
+      expect(checkDiff(file('s.sh', l))).toHaveLength(1);
+    }
+    expect(checkDiff(file('s.sh', 'gh pr merge 5 --squash --auto'))).toEqual([]);
   });
   it('allows other social code', () => {
     expect(checkDiff(file('scripts/social/check-drafts.mjs', 'x'))).toEqual([]);
@@ -46,7 +57,7 @@ describe('main', () => {
   it('exits 1 on a violation and 0 when clean', () => {
     const err = vi.spyOn(console, 'error').mockImplementation(() => {});
     const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-    expect(main(['--base', 'b'], () => file('s.sh', 'git push -f'))).toBe(1);
+    expect(main(['--base', 'b', '--head', 'pr'], () => file('s.sh', 'git push -f'))).toBe(1);
     expect(main([], () => file('s.sh', 'echo hi'))).toBe(0);
     err.mockRestore();
     log.mockRestore();
@@ -68,6 +79,12 @@ describe('escalation text', () => {
     expect(c).toContain('Documents\\Claude\\Projects\\Swift2');
     expect(c).toMatch(/```text\n[\s\S]*Fixes #4821[\s\S]*\n```/);
     expect(renderComment({ ...spec, project: 'hermes' })).toContain('Projects\\Hermes');
+  });
+  it('builds a deterministic escalation without an LLM spec', () => {
+    const c = renderComment(autoSpec(7, 'guard failed', 'https://x/run/1'));
+    expect(c).toContain('Fixes #7');
+    expect(c).toContain('https://x/run/1');
+    expect(c).toContain('<!-- ops-fix-stuck:7 -->');
   });
   it('rejects an incomplete spec', () => {
     expect(() => renderPrompt({ ...spec, found: '' })).toThrow(/found/);
