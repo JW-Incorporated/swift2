@@ -14,14 +14,19 @@ const URL1 = 'https://github.com/o/r/actions/runs/111';
 const BOT = { login: 'github-actions[bot]' };
 const LOG = ['run / Run Claude\tRun Claude\t2026-10-05T11:00:00.1Z error_max_turns reached', 'run / Run Claude\tRun Claude\t2026-10-05T11:00:01.1Z CLAUDE_CODE_OAUTH_TOKEN=abc123', 'run / Run Claude\tRun Claude\t2026-10-05T11:00:02.1Z done'].join('\n');
 
+const CANCELLED = { jobs: [{ id: 77, databaseId: 77, name: 'run', conclusion: 'cancelled', steps: [{ name: 'Run Claude', conclusion: 'cancelled' }] }] };
 const JOBS = { jobs: [{ name: 'run / Run Claude', conclusion: 'failure', steps: [{ name: 'Set up job', conclusion: 'success' }, { name: 'Run Claude', conclusion: 'failure' }] }] };
-type Fake = { open?: unknown[]; tree?: unknown[]; comments?: unknown[]; log?: string; jobs?: unknown; runsToday?: number };
-function fakeGh({ open = [], tree = [], comments = [], log = LOG, jobs = JOBS, runsToday = 0 }: Fake = {}) {
+type Fake = { open?: unknown[]; tree?: unknown[]; comments?: unknown[]; log?: string; jobs?: unknown; annotations?: unknown; annotationsError?: boolean; runsToday?: number };
+function fakeGh({ open = [], tree = [], comments = [], log = LOG, jobs = JOBS, annotations = [], annotationsError = false, runsToday = 0 }: Fake = {}) {
   const calls: string[][] = [];
   const gh = vi.fn(async (args: string[]) => {
     calls.push(args);
     if (args[0] === 'api') {
       const p = args[1];
+      if (p.includes('/check-runs/')) {
+        if (annotationsError) throw new Error('404');
+        return { stdout: JSON.stringify(annotations) };
+      }
       if (p.includes('/actions/workflows/')) return { stdout: JSON.stringify({ total_count: runsToday }) };
       if (/issues\/\d+\/comments/.test(p)) return { stdout: JSON.stringify(comments) };
       if (p.includes('labels=desk%3Atree')) return { stdout: JSON.stringify(tree) };
@@ -39,9 +44,8 @@ const issueRow = (n: number, body: string, title = 'x', labels = ['routine-failu
 
 describe('job and step names', () => {
   it('names the first failing job and step, never log text', () => {
-    expect(failingJobStep(JOBS)).toEqual({ job: 'run / Run Claude', step: 'Run Claude', timedOut: false });
-    expect(failingJobStep({ jobs: [{ name: 'a', conclusion: 'success', steps: [] }] })).toEqual({ job: null, step: null, timedOut: false });
-    expect(failingJobStep({ jobs: [{ name: 'a', conclusion: 'cancelled', steps: [{ name: 's', conclusion: 'timed_out' }] }] }).timedOut).toBe(true);
+    expect(failingJobStep(JOBS)).toEqual({ job: 'run / Run Claude', step: 'Run Claude' });
+    expect(failingJobStep({ jobs: [{ name: 'a', conclusion: 'success', steps: [] }] })).toEqual({ job: null, step: null });
   });
 });
 
@@ -122,24 +126,27 @@ describe('triage', () => {
       expect((await triage({ workflow, runId: '1', runUrl: URL1, conclusion }, { gh, now: NOW })).action).toBe('skipped');
       expect(calls).toEqual([]);
     }
-    const plain = fakeGh({ log: 'job\tstep\t2026-10-05T11:00:00Z cancelled by user', jobs: { jobs: [{ name: 'run', conclusion: 'cancelled', steps: [{ name: 's', conclusion: 'cancelled' }] }] } });
+    const plain = fakeGh({ jobs: CANCELLED, annotations: [{ message: 'The operation was canceled.' }] });
     expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh: plain.gh, now: NOW })).action).toBe('skipped');
-    const capped = fakeGh();
-    expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh: capped.gh, now: NOW })).action).toBe('filed');
     q.mockRestore();
   });
-  it('a cancelled run with a timed-out step is triaged without needing the log', async () => {
-    const jobs = { jobs: [{ name: 'run', conclusion: 'cancelled', steps: [{ name: 'Run Claude', conclusion: 'timed_out' }] }] };
-    const { gh } = fakeGh({ jobs, log: '' });
+  it('a cancelled run whose job annotation says it exceeded the maximum execution time is triaged', async () => {
+    const { gh, calls } = fakeGh({ jobs: CANCELLED, annotations: [{ message: 'The operation was canceled.' }, { message: 'The job running on runner X has exceeded the maximum execution time of 45 minutes.' }] });
     const q = quiet();
     expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh, now: NOW })).action).toBe('filed');
     q.mockRestore();
+    expect(calls.some((c) => c[0] === 'api' && c[1] === 'repos/JW-Incorporated/swift2/check-runs/77/annotations')).toBe(true);
+    expect(calls.some((c) => c.includes('--log-failed'))).toBe(false);
   });
-  it('a cancelled run whose log shows the execution-time limit is triaged', async () => {
-    const { gh } = fakeGh({ log: 'job\tstep\t2026-10-05T11:00:00Z The job running on runner exceeded the maximum execution time of 45 minutes.' });
-    const q = quiet();
-    expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh, now: NOW })).action).toBe('filed');
-    q.mockRestore();
+  it('a cancelled run with empty or unreadable annotations is skipped with a warning naming the run URL', async () => {
+    for (const fake of [{ annotations: [] }, { annotationsError: true }]) {
+      const { gh } = fakeGh({ jobs: CANCELLED, ...fake });
+      const q = quiet();
+      expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh, now: NOW })).action).toBe('skipped');
+      const warned = q.mock.calls.some((c) => String(c[0]).startsWith('::warning::') && String(c[0]).includes(URL1));
+      q.mockRestore();
+      expect(warned).toBe(true);
+    }
   });
   it('comments on today’s CLOSED issue instead of filing a new one, and never reopens it', async () => {
     const closed = { ...issueRow(5100, `${failureMarker(WF, '2026-10-05')} earlier run`), state: 'closed' };
@@ -165,7 +172,7 @@ describe('triage', () => {
     expect(shouldComment([], NOW)).toBe(true);
   });
   it('has its own daily dispatch cap: a failure issue past six today is filed but not dispatched (the listing includes the new one)', async () => {
-    const six = Array.from({ length: 7 }, (_, i) => issueRow(5000 + i, failureMarker('routine-other-' + i, '2026-10-05')));
+    const six = Array.from({ length: 7 }, (_, i) => issueRow(5000 + i, failureMarker('routine-other-' + i, '2026-10-05'), 'routine failure: routine-other-' + i + ' 2026-10-05'));
     const { gh, calls } = fakeGh({ open: six, runsToday: 99 });
     const q = quiet();
     await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
@@ -177,6 +184,14 @@ describe('triage', () => {
     await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh: fresh.gh, now: NOW });
     q2.mockRestore();
     expect(fresh.calls.find((c) => c[0] === 'workflow')).toBeDefined();
+  });
+  it('the cap counts only this script’s own issues, not other routine-failure-labelled ones', async () => {
+    const adopted = Array.from({ length: 7 }, (_, i) => issueRow(5000 + i, failureMarker('routine-other-' + i, '2026-10-05'), 'tree: daily draft run failed 2026-10-05'));
+    const { gh, calls } = fakeGh({ open: adopted });
+    const q = quiet();
+    await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+    q.mockRestore();
+    expect(calls.find((c) => c[0] === 'workflow')).toBeDefined();
   });
   it('routine-ops-fix failures are labelled ops-fix:stuck and never dispatched', async () => {
     const { gh, calls } = fakeGh();

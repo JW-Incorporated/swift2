@@ -34,8 +34,11 @@ export const RECEIPT_TITLES = {
   'routine-tree-daily-draft': (day) => `tree: daily draft run failed ${day}`,
   'routine-tree-event-draft': (day) => `tree: event draft run failed ${day}`,
 };
-// GitHub reports a timeout-minutes stop as `cancelled`; a manual cancel looks the same, so tell them apart by evidence.
-const STOP_RE = /error_max_turns|max[ _-]?turns|exceeded the maximum execution time|operation was canceled.*timeout|timed? ?out/i;
+// GitHub reports a timeout-minutes stop as `cancelled`; a manual cancel looks the same. The job's check-run
+// annotation tells them apart: only a timeout says this. (Max-turns stops surface as `failure`, not `cancelled`.)
+const TIMEOUT_RE = /exceeded the maximum execution time/i;
+// The exact title prefix this script writes; its daily dispatch cap counts only issues carrying it.
+export const TITLE_PREFIX = 'routine failure:';
 
 const warn = (message) => console.log(`::warning::routine-failure-triage: ${message}`);
 const utcDay = (ms) => new Date(ms).toISOString().slice(0, 10);
@@ -46,9 +49,9 @@ export function failingJobStep(jobsJson) {
   for (const job of jobsJson?.jobs ?? []) {
     if (!bad.has(job.conclusion)) continue;
     const step = (job.steps ?? []).find((s) => bad.has(s.conclusion));
-    return { job: String(job.name ?? ''), step: step ? String(step.name ?? '') : null, timedOut: (job.steps ?? []).some((s) => s.conclusion === 'timed_out') };
+    return { job: String(job.name ?? ''), step: step ? String(step.name ?? '') : null };
   }
-  return { job: null, step: null, timedOut: false };
+  return { job: null, step: null };
 }
 
 export const failureMarker = (workflow, day) => `<!-- routine-failure: ${workflow} ${day} -->`;
@@ -62,7 +65,7 @@ export function buildFailureIssue({ workflow, runUrl, conclusion, job, step, day
     failureMarker(workflow, day),
     askMarker(workflow, day),
   ].join('\n\n');
-  return { title: `routine failure: ${workflow} ${day}`, body, labels: FAILURE_LABELS };
+  return { title: `${TITLE_PREFIX} ${workflow} ${day}`, body, labels: FAILURE_LABELS };
 }
 
 /** The same markers on an existing issue, so Marjorie's queue and the dedupe both find it. */
@@ -90,6 +93,23 @@ async function readRun(gh, repo, runId, args) {
 
 const issueNumber = (stdout) => Number(String(stdout ?? '').trim().split(/\s+/).pop()?.match(/\/issues\/(\d+)$/)?.[1]);
 
+/** True iff a cancelled job's check-run annotations say it exceeded the maximum execution time. Errors and empty annotations skip, with a warning. */
+async function cancelledByTimeout(gh, repo, jobs, runUrl) {
+  const cancelled = (jobs?.jobs ?? []).filter((j) => j.conclusion === 'cancelled');
+  if (cancelled.length === 0) warn(`no cancelled job found, skipping: ${runUrl}`);
+  for (const job of cancelled) {
+    const id = job.databaseId ?? job.id;
+    try {
+      const rows = JSON.parse(String((await gh(['api', `repos/${repo}/check-runs/${id}/annotations`])).stdout || '[]'));
+      if (!Array.isArray(rows) || rows.length === 0) warn(`no annotations for job ${id}, skipping: ${runUrl}`);
+      else if (rows.some((a) => TIMEOUT_RE.test(String(a?.message ?? '')))) return true;
+    } catch (err) {
+      warn(`could not read annotations for job ${id} (${String(err?.message || err).split('\n')[0].slice(0, 120)}), skipping: ${runUrl}`);
+    }
+  }
+  return false;
+}
+
 /** One comment per repeat failure, but never within an hour of the last triage comment or past five. */
 export function shouldComment(comments, now) {
   const mine = (comments || []).filter((c) => String(c.body ?? '').includes(COMMENT_MARKER));
@@ -110,9 +130,9 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
     if (!failed && conclusion !== 'cancelled') return { action: 'skipped', reason: `conclusion ${conclusion}` };
     let jobs = null;
     try { jobs = JSON.parse(await readRun(gh, repo, runId, ['--json', 'jobs'])); } catch { /* names are best-effort */ }
-    const { job, step, timedOut } = failingJobStep(jobs);
-    // A cancelled run is a manual stop or a concurrency swap unless a step timed out or the turn cap was hit.
-    if (!failed && !timedOut && !STOP_RE.test(await readRun(gh, repo, runId, ['--log-failed']))) return { action: 'skipped', reason: 'cancelled, not a timeout or max-turns stop' };
+    const { job, step } = failingJobStep(jobs);
+    // A cancelled run is a manual stop or a concurrency swap unless a cancelled job's annotation says it hit the time limit.
+    if (!failed && !(await cancelledByTimeout(gh, repo, jobs, runUrl))) return { action: 'skipped', reason: 'cancelled, not a timeout' };
     const day = utcDay(now);
     const marker = failureMarker(workflow, day);
     const api = apiFor(gh);
@@ -156,7 +176,7 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
     // The ops-fix routine's own failures go to Marjorie/escalation only — never back into a dispatch loop.
     if (!isOpsFix) {
       // Failure dispatches have their own daily cap, counted from today's failure issues (this one included), not Tree's shared run count.
-      const countToday = async () => (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' })).filter((i) => utcDay(Date.parse(i.createdAt)) === day).length - 1;
+      const countToday = async () => (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' })).filter((i) => String(i.title).startsWith(TITLE_PREFIX) && utcDay(Date.parse(i.createdAt)) === day).length - 1;
       await dispatchResponse('to-marjorie', number, { repo, gh, now, log, cap: FAILURE_DAILY_CAP, countToday });
     }
     return { action, number };
