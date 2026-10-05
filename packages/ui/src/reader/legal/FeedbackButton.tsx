@@ -108,7 +108,7 @@ export function FeedbackButton() {
           aria-label="Send feedback"
           // Mobile: cleared of BottomNav (fixed, ~56px + safe-area-inset-bottom)
           // by sitting well above it; desktop is unchanged (no bottom nav there).
-          className="fixed bottom-[calc(8.5rem+env(safe-area-inset-bottom))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
+          className="fixed bottom-[max(calc(8.5rem+var(--safe-bottom,env(safe-area-inset-bottom))),calc(var(--keyboard-inset,0px)+var(--safe-bottom,env(safe-area-inset-bottom))+1rem))] right-4 z-[71] w-[min(92vw,21rem)] rounded-2xl border border-line bg-surface/95 p-4 shadow-2xl backdrop-blur-md md:bottom-20"
         >
           <div className="mb-2 flex items-start justify-between gap-2">
             <p className="text-sm font-medium text-ink">Find an issue? Report it here!</p>

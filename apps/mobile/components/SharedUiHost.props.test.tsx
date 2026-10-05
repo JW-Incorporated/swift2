@@ -34,6 +34,7 @@ vi.mock('../dom/AppReader', () => ({
 }));
 vi.mock('../dom/SharedUiTest', () => ({ default: () => null }));
 vi.mock('../lib/diagnostics-override', () => ({ getUseTestPage: async () => false }));
+vi.mock('../lib/art-cache-fs', () => ({ noteArtEra: () => undefined }));
 vi.mock('../lib/use-deferred-bundle-refresh', () => ({
   useDeferredBundleRefresh: (
     _t: unknown,
@@ -56,6 +57,7 @@ vi.mock('../lib/use-content-adoption', () => {
   };
   return { useContentAdoption: () => adoption };
 });
+vi.mock('../lib/use-keyboard-inset', () => ({ useKeyboardInset: () => 0 }));
 vi.mock('../lib/speed-test-runtime', () => ({
   speedTest: { isOn: () => false, onChange: () => () => {} },
 }));

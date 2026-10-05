@@ -35,6 +35,7 @@ vi.mock('react-native', async () => {
   };
 });
 vi.mock('react-native-gesture-handler', () => ({ GestureHandlerRootView: (p: { children?: unknown }) => p.children }));
+vi.mock('./lib/use-keyboard-inset', () => ({ useKeyboardInset: () => 0 }));
 vi.mock('react-native-safe-area-context', () => ({
   SafeAreaProvider: (p: { children?: unknown }) => p.children,
   SafeAreaView: (p: { children?: unknown }) => p.children,

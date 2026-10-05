@@ -206,6 +206,15 @@ describe('emitters', () => {
     u({ top: 1, right: 0, bottom: 3, left: 0 });
     expect(emit.mock.calls.map((c) => c[0].bottom)).toEqual([2, 3]);
   });
+  it('re-emits when only the keyboard height changes', () => {
+    const emit = vi.fn();
+    const u = createInsetsEmitter(emit);
+    u({ top: 1, right: 0, bottom: 2, left: 0 });
+    u({ top: 1, right: 0, bottom: 2, left: 0, keyboard: 300 });
+    u({ top: 1, right: 0, bottom: 2, left: 0, keyboard: 300 });
+    u({ top: 1, right: 0, bottom: 2, left: 0 });
+    expect(emit.mock.calls.map((c) => c[0].keyboard)).toEqual([undefined, 300, undefined]);
+  });
   it('emits contentVersion only on change', () => {
     const emit = vi.fn();
     const u = createContentVersionEmitter(emit);

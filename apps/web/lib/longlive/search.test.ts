@@ -175,6 +175,24 @@ describe('snapshot search index (real data)', () => {
     }
   });
 
+  it('theory docs carry the theory slug so a pick can highlight it (#4608)', () => {
+    const theories = index.filter((d) => d.type === 'theory');
+    expect(theories.length).toBeGreaterThan(0);
+    for (const d of theories) {
+      expect(d.target.kind).toBe('theory-guide');
+      if (d.target.kind === 'theory-guide') {
+        expect(d.target.slug, d.key).toBeTruthy();
+        expect(d.key.endsWith(`:${d.target.slug}`)).toBe(true);
+      }
+    }
+  });
+
+  it('every starter suggestion chip returns results (#4608)', () => {
+    for (const q of ['snake', 'vault', '13', 'cardigan']) {
+      expect(flattenGroups(searchDocs(index, q)).length, q).toBeGreaterThan(0);
+    }
+  });
+
   it('still indexes a work whose video card is hidden for having no embed', () => {
     // Playable-first (2026-08-13) hides 8 records from the rail/feed because no
     // official upload of the work exists. Search deliberately still indexes
