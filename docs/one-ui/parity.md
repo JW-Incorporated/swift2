@@ -210,7 +210,7 @@ offline/airplane-mode era art in the app must be checked on a device.
 Offline art (#5074): on the app, `AppImage` first looks `src` up in the native `art-map.js` (era covers and
 first-party primary moment images only) and serves the cached `file://` copy with no srcSet, falling back to the
 remote responsive URL on a miss or `onError`. The parity harness never installs a map, so side b still renders the
-remote path; the `file://` path is covered by unit tests and the device check in `final-device-session.md`.
+remote path; the `file://` path is covered by unit tests and the offline steps in `docs/plans/one-ui/device-checklists.md`.
 
 ## Updating baselines
 
