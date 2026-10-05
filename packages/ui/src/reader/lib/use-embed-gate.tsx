@@ -47,6 +47,7 @@ export function useEmbedGate(startPlaying = false, embedOrigin?: string) {
   const [reloadKey, setReloadKey] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const ready = useRef(false);
+  const focusIframe = useRef(false);
   const origin = originOf(embedOrigin);
 
   const fail = useCallback(() => {
@@ -59,6 +60,7 @@ export function useEmbedGate(startPlaying = false, embedOrigin?: string) {
     ready.current = false;
     setStalled(false);
     setNotice(isOffline() ? EMBED_OFFLINE_MESSAGE : null);
+    focusIframe.current = true;
     setPlaying(true);
   }, []);
 
@@ -71,6 +73,14 @@ export function useEmbedGate(startPlaying = false, embedOrigin?: string) {
   const onLoad = useCallback(() => {
     if (!origin) ready.current = true;
   }, [origin]);
+
+  // The tapped Play button unmounts when the iframe mounts; hand focus to the
+  // titled iframe so keyboard / screen-reader users do not land on <body> (WCAG 2.4.3).
+  useEffect(() => {
+    if (!playing || !focusIframe.current) return;
+    focusIframe.current = false;
+    iframeRef.current?.focus();
+  }, [playing]);
 
   useEffect(() => {
     if (!playing || !origin) return;

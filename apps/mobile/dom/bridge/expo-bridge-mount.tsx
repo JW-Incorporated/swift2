@@ -1,16 +1,17 @@
-// Split out of AppReader (300-line cap): the native-bridge mount and its shared types. Pure move.
 import { useEffect } from 'react';
-import { resErr, type BridgeClient, type Insets, type ReaderSnap } from '@swift2/ui';
+import { resErr, type BridgeClient, type Envelope, type Insets, type ReaderSnap } from '@swift2/ui';
 import type { NavigateDeps } from './navigate-subscriber';
 import { backFromDomPath } from './dom-path';
 import { startRouteReporting } from './route-report';
 import { installReaderBridge } from './reader-nav';
 import { useExpoBridge } from './transport-expo';
-import type { AppReaderProps } from '../AppReader';
 
 export type BackFn = () => 'handled' | 'exit';
 export type ReaderClient = Pick<BridgeClient, 'call' | 'sendDiag' | 'sendEvent'>;
-type MountProps = Required<Pick<AppReaderProps, 'inbox' | 'bridge'>> & Pick<AppReaderProps, 'bridgeHello'> & {
+type MountProps = {
+  inbox: Envelope[];
+  bridge: (env: Envelope, token: string) => Promise<unknown>;
+  bridgeHello?: () => Promise<string>;
   onFatal: (reason: string) => void;
   onInsets: (insets: Insets) => void;
   onContentVersion: (token: string) => void;
