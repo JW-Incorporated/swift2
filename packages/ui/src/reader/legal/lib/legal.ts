@@ -300,18 +300,18 @@ export const PRIVACY_POLICY: LegalDoc = {
       blocks: [
         {
           kind: 'p',
-          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage, which never leave your device and are never sent to us or to anyone else:",
+          text: "The site sets no cookies of its own, except the one described in the Clownbot section above, and only once that feature's memory system is switched on. It does keep two small entries in your browser's local storage (in the app, a small file on your device instead). We never receive them and never send them to anyone else; in the app, your phone's own iCloud or Google backup may include that file:",
         },
         {
           kind: 'list',
           items: [
             'A record of what you have explored — the moments you have opened, the Easter eggs you have read, the clue trails you have started, and anything you have favourited — so your progress and favourites are still there when you come back.',
-            'A flag remembering that you have already seen the timeline-scrubber hint, so it is not shown to you twice.',
+            'A flag remembering that you have already seen the swipe-between-songs hint on a song page, so it is not shown to you twice.',
           ],
         },
         {
           kind: 'p',
-          text: "Clearing your browser's site data for this site erases both, which resets your progress and your favourites. Nothing else is affected, because we hold no copy.",
+          text: "Clearing your browser's site data for this site (or, in the app, clearing the app's data) erases both on that device, which resets your progress and your favourites; a copy in your own phone backup, if any, is yours to manage. Nothing else is affected, because we hold no copy.",
         },
       ],
     },

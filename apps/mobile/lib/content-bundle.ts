@@ -104,21 +104,75 @@ function noteLoaded(bundle: LoadedBundle): void {
 }
 
 let inFlight: Promise<LoadedBundle> | null = null;
+let memo: LoadedBundle | null = null;
+
+/** Test seam: drop the in-process memo and any in-flight load. */
+export function resetBundleMemoForTests(): void {
+  memo = null;
+  inFlight = null;
+}
 
 /**
+ * The lightweight pointer check. 'unreachable' (network/HTTP failure) keeps the memo silently;
+ * 'malformed' (reachable but unparseable) is a data problem that must still trigger the OTA repair.
+ */
+async function fetchCurrentVersion(): Promise<string | 'unreachable' | 'malformed'> {
+  let res: Response;
+  try {
+    res = await fetch(`${contentBaseUrl().replace(/\/+$/, '')}/current.json`);
+    if (!res.ok) return 'unreachable';
+  } catch {
+    return 'unreachable';
+  }
+  try {
+    const body = (await res.json()) as { bundleVersion?: unknown };
+    return typeof body.bundleVersion === 'string' && body.bundleVersion ? body.bundleVersion : 'malformed';
+  } catch {
+    return 'malformed';
+  }
+}
+
+/**
+ * The settled bundle is kept for the process lifetime: re-reading and parsing
+ * the multi-MB cache is a synchronous RN-thread stall (20-250 ms). Later calls
+ * only revalidate the tiny current.json pointer; a changed version reloads and
+ * replaces the memo atomically, and a failed reload keeps the previous memo.
  * Concurrent callers share ONE in-flight load (the era stream mounts several
- * sections at once). The slot clears on settle, success or failure, so the
- * result is never cached: the next call after settlement re-checks freshness.
- * Options are fixed in this module, so every caller's options are equal.
+ * sections at once). Options are fixed in this module, so every caller's equal.
  */
 export function loadContentBundle(): Promise<LoadedBundle> {
   if (inFlight) return inFlight;
-  const run = loadOnce();
+  const run = refresh();
   const slot = run.finally(() => {
     if (inFlight === slot) inFlight = null;
   });
   inFlight = slot;
   return slot;
+}
+
+async function refresh(): Promise<LoadedBundle> {
+  const held = memo;
+  let advertised: string | null = null;
+  if (held) {
+    const current = await fetchCurrentVersion();
+    if (current === 'unreachable') return held;
+    if (current === 'malformed') {
+      void selfHealOnce();
+      return held;
+    }
+    if (current === held.manifest?.bundleVersion) return held;
+    advertised = current;
+  }
+  try {
+    const next = await loadOnce();
+    // A resolved fallback (stale last-good) must not displace a memo: only the advertised version replaces it.
+    if (held && next.manifest?.bundleVersion !== advertised) return held;
+    memo = next;
+    return next;
+  } catch (err) {
+    if (held) return held;
+    throw err;
+  }
 }
 
 async function loadOnce(): Promise<LoadedBundle> {
