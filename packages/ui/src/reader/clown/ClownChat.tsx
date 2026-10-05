@@ -32,6 +32,7 @@
  * warning above was simply wrong about what happens after that.
  */
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useReportBusy } from '../lib/useReportBusy';
 import type { BoardItem } from './lib/clown-board';
@@ -116,16 +117,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   // measure/re-measure mechanics (split out for file-length hygiene).
   const chromeOffsetPx = useChromeOffset('[data-ll-topbar]');
 
-  // Escape exits full screen. Listener only lives while expanded, and is
-  // torn down on every collapse/unmount via the effect's own cleanup.
-  useEffect(() => {
-    if (!expanded) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setExpanded(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [expanded]);
+  // Escape exits full screen via the single dispatcher in useBackDismiss.
 
   // Return focus to the toggle button on collapse (Escape or the button
   // itself), so keyboard users aren't dumped at the top of the document.
@@ -162,7 +154,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   const handleBoardSelect = useCallback((item: BoardItem) => {
     setText(promptForItem(item));
     requestAnimationFrame(() => {
-      textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      textareaRef.current?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'center' });
       textareaRef.current?.focus();
     });
   }, []);
@@ -173,7 +165,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   }, []);
 
   const panelClassName = expanded
-    ? 'fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
+    ? 'fixed inset-x-0 top-0 bottom-[var(--keyboard-inset,0px)] z-50 flex w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
     : // Mobile: height comes from `--clown-panel-h` below, a measured fit
       // under the chrome and above BottomNav so the composer lands on
       // screen without scrolling (founder, first phone test, 2026-08-14).
@@ -182,7 +174,7 @@ export function ClownChat({ lore }: ClownChatProps) {
       // the fixed 46rem ceiling still reads comfortably.
       'relative flex h-[var(--clown-panel-h)] w-full flex-col overflow-hidden rounded-[1.25rem] border border-[color:var(--clown-line)] bg-[color:var(--clown-bg)] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)] md:h-[46rem]';
 
-  const panelStyle = { '--clown-panel-h': `calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - ${BOTTOM_NAV_CLEARANCE})` } as React.CSSProperties;
+  const panelStyle = { '--clown-panel-h': `max(12rem, calc(100dvh - ${chromeOffsetPx}px - ${CONTAINER_TOP_PADDING} - max(${BOTTOM_NAV_CLEARANCE}, calc(var(--keyboard-inset, 0px) + var(--safe-bottom,env(safe-area-inset-bottom)))))` } as React.CSSProperties;
 
   const titlebarClassName = `flex flex-none items-center gap-2.5 border-b border-[color:var(--clown-line)] bg-[color:var(--clown-panel)] px-4 py-3${
     expanded ? ' pt-[max(0.75rem,var(--safe-top,env(safe-area-inset-top)))]' : ''

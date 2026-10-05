@@ -73,7 +73,8 @@ vi.mock('@swift2/content', async () => {
   return { ...actual, loadBundle: (...args: unknown[]) => loadBundle(...args) };
 });
 
-const { fileExists, fileTextSync, fileWrite, fileDelete, dirExists, dirCreate } = vi.hoisted(() => ({
+const { fileExists, fileTextSync, fileWrite, fileDelete, fileMoveSync, dirExists, dirCreate } = vi.hoisted(() => ({
+  fileMoveSync: vi.fn(),
   fileExists: vi.fn().mockReturnValue(false),
   fileTextSync: vi.fn(),
   fileWrite: vi.fn(),
@@ -88,6 +89,7 @@ vi.mock('expo-file-system', () => {
     textSync = fileTextSync;
     write = fileWrite;
     delete = fileDelete;
+    moveSync = fileMoveSync;
   }
   class FakeDirectory {
     get exists() {
@@ -179,5 +181,6 @@ describe('the expo-file-system storage adapter', () => {
     call.storage.setItem('some-key', 'some-value');
     expect(dirCreate).toHaveBeenCalled();
     expect(fileWrite).toHaveBeenCalledWith('some-value');
+    expect(fileMoveSync).toHaveBeenCalled();
   });
 });

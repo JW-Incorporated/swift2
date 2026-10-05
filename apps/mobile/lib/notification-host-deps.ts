@@ -30,6 +30,8 @@ export interface NotificationPorts {
   clearPushToken(): Promise<void>;
   /** Persisted, token-free registration flag. */
   isRegistered(): Promise<boolean>;
+  /** A turn-off still waiting for its server write. */
+  optOutPending?(): Promise<boolean>;
   /** The persisted one-time push-offer flag (the native OnboardingScreen's key). */
   onboardingOffered?(): Promise<boolean>;
   markOnboardingOffered?(): Promise<void>;
@@ -54,6 +56,7 @@ export function createNotificationHostDeps(ports: NotificationPorts): Notificati
     savePrefs: (body, signal) => ports.writePrefs(body, signal),
     registered: () => ports.isRegistered(),
     unregister: () => ports.clearPushToken(),
+    optOutPending: ports.optOutPending && (() => ports.optOutPending!()),
     onboardingOffered: ports.onboardingOffered && (() => ports.onboardingOffered!()),
     markOnboardingOffered: ports.markOnboardingOffered && (() => ports.markOnboardingOffered!()),
     updatePrefs: async (prefs) => {

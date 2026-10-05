@@ -1,19 +1,16 @@
 // One UI WP0.1 — hidden diagnostics panel (unlocked by 7 taps on the Settings
 // version label). Shows load-stage timings + device facts, sends a `[diag]`
-// report, and holds the C4 "Force shared UI" stub switch (wired in WP0.4).
+// report, and holds the watchdog drill switches.
 import { useEffect, useState } from 'react';
 import { Modal, Pressable, ScrollView, Share, StyleSheet, Switch, Text, View } from 'react-native';
 import { buildDiagPayload, diagCollector, getMountInfo, isPointStage } from '../lib/diagnostics';
 import { readDiagEnv } from '../lib/diagnostics-env';
 import {
   getForceDomFailure,
-  getForceSharedUi,
   getUseTestPage,
   persistAndReread,
   setForceDomFailure,
-  setForceSharedUi,
   setUseTestPage,
-  strikeClearedOverride,
 } from '../lib/diagnostics-override';
 import { latestProbeJson } from '../dom/reader/probe';
 import { readerSpikeLines } from '../lib/dom-probe-store';
@@ -25,7 +22,6 @@ import { mountLine, watchdogLines } from '../lib/watchdog-policy';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
-  const [forceShared, setForceShared] = useState(false);
   const [testPage, setTestPage] = useState(false);
   const [failMode, setFailMode] = useState<DomFailureMode>('off');
   const [speed, setSpeed] = useState<SpeedState | null>(null);
@@ -37,7 +33,6 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
 
   useEffect(() => {
     if (!visible) return;
-    void getForceSharedUi().then(setForceShared);
     void getUseTestPage().then(setTestPage);
     void getForceDomFailure().then(setFailMode);
     void speedTest.state().then(setSpeed);
@@ -58,16 +53,6 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     const result = await sendDiagReport(buildDiagPayload(env, diagCollector.summary()));
     setStatus(result.ok ? 'sent' : 'error');
     setError(result.error ?? '');
-  }
-
-  async function toggle(on: boolean) {
-    const r = await persistAndReread(() => setForceSharedUi(on), getForceSharedUi);
-    setForceShared(r.value);
-    setWriteError(r.error && `Force shared UI not saved: ${r.error}`);
-    if (on && r.value) {
-      setWd(null);
-      void clearWatchdogRecord();
-    }
   }
 
   async function pickFailMode(mode: DomFailureMode) {
@@ -95,7 +80,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     <Modal visible animationType="slide" onRequestClose={onClose}>
       <View style={styles.fill}>
         <View style={styles.header}>
-          <Text style={styles.title}>Diagnostics</Text>
+          <Text style={styles.title} accessibilityRole="header">Diagnostics</Text>
           <Pressable onPress={onClose} accessibilityLabel="Close diagnostics" hitSlop={12}>
             <Text style={styles.close}>Done</Text>
           </Pressable>
@@ -115,15 +100,6 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
                 : `${s.stage}: ${Math.round(s.totalMs)} ms / ${s.count} (at ${Math.round(s.firstStartMs)})`}
             </Text>
           ))}
-          <View style={styles.switchRow}>
-            <Text style={styles.fact}>Force shared UI (this device)</Text>
-            <Switch value={forceShared} onValueChange={(on) => void toggle(on)} />
-          </View>
-          {!forceShared && strikeClearedOverride(wd) && (
-            <Text style={styles.fact}>
-              Off: a watchdog strike turned Force shared UI off (by design). Switch it on to retry.
-            </Text>
-          )}
           {writeError && <Text style={styles.err}>{writeError}</Text>}
           <View style={styles.switchRow}>
             <Text style={styles.fact}>Use WP0.4 test page, not ReaderSpike (next launch)</Text>
@@ -177,9 +153,6 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           >
             <Text style={styles.buttonText}>Reset watchdog (applies next launch)</Text>
           </Pressable>
-          <Text style={styles.fact}>
-            A watchdog strike also turns Force shared UI off (by design); reset does not turn it back on.
-          </Text>
           <Text style={styles.section}>Reader spike</Text>
           {readerSpikeLines().map((line) => (
             <Text key={line} style={styles.fact}>

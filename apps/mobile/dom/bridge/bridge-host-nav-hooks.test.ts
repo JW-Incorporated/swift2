@@ -10,7 +10,7 @@ function wire(extra: Partial<Parameters<typeof createBridgeHost>[0]> = {}) {
   const ref: { host?: BridgeHost } = {};
   const link = createBridgeLink(() => void ref.host?.inbox());
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
-  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: createAppHandlersFor(vi.fn(), {}),
     send: link.send,
@@ -54,7 +54,7 @@ describe('bridge-host navigation hooks', () => {
     const onNavigated = vi.fn();
     const onSignal = vi.fn();
     const w = wire({ onNavReady, onNavigated, onSignal });
-    const dom = createExpoBridge((env) => w.handlers.bridge(env));
+    const dom = createExpoBridge((env, t) => w.handlers.bridge(env, t), undefined, undefined, () => w.handlers.bridgeHello());
     dom.mount();
     dom.client.sendEvent('navReady', {});
     dom.client.sendEvent('navigated', { id: 't1', ok: true });
@@ -84,11 +84,11 @@ describe('bridge-host navigation hooks', () => {
   it('onReadyAgain fires only for a ready after the handshake', async () => {
     const onReadyAgain = vi.fn();
     const w = wire({ onReadyAgain });
-    const dom = createExpoBridge((env) => w.handlers.bridge(env));
+    const dom = createExpoBridge((env, t) => w.handlers.bridge(env, t), undefined, undefined, () => w.handlers.bridgeHello());
     dom.mount();
     await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
     expect(onReadyAgain).not.toHaveBeenCalled();
-    const again = createExpoBridge((env) => w.handlers.bridge(env));
+    const again = createExpoBridge((env, t) => w.handlers.bridge(env, t), undefined, undefined, () => w.handlers.bridgeHello());
     again.mount();
     await vi.waitFor(() => expect(onReadyAgain).toHaveBeenCalledTimes(1));
     again.client.dispose();

@@ -189,6 +189,11 @@ export function SongScreen({
   const era = getEra(eraId);
   const dossier = track.dossier;
   const sources = mergeSources(dossier?.sources, track.discussionSources ?? track.sources);
+  const hasNarrative = !!(
+    dossier?.whyItMatters ||
+    dossier?.meaning ||
+    (track.discussion && track.discussion.length > 0)
+  );
   const prevTrack = adjacentTrackOnAlbum(eraId, track, 'previous');
   const nextTrack = adjacentTrackOnAlbum(eraId, track, 'next');
 
@@ -262,7 +267,7 @@ export function SongScreen({
           )}
         </Section>
       ) : (
-        !dossier && (
+        !hasNarrative && (
           <Text style={styles.emptyStory}>
             The full story behind this song hasn&apos;t been written yet — check back soon.
           </Text>

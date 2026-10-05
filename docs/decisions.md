@@ -8615,6 +8615,19 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 
 `auto-merge-content.yml` used to run `--disable-auto` on every non-`enabled` verdict, stranding agent PRs that set `gh pr merge --auto` themselves. It now stamps an `automerge:content` label before arming and disarms (and unlabels) only when that label is present; `social-draft` PRs, `social-poster/state-*` branches and the social-draft decline verdict keep the always-disarm behaviour. Tested in `scripts/automerge-own-arm.test.ts`.
 
+## 2026-10-04 — Shared (DOM) UI is the default for everyone; legacy native UI to be deleted later
+
+**Decision (Joey, CEO, 2026-10-04 16:03):** the shared (DOM) UI becomes everyone's default now; the legacy native UI will be deleted in a later PR. This supersedes the "default-off until S7+S8" roadmap.
+
+- Android-only for now (PM, 2026-10-04): the iOS shared UI never reaches ready on iPhone yet, so iOS reads a separate gate `sharedUiIos` (default and JSON `false`); Android reads `sharedUi`. iOS is enabled by a one-line JSON/OTA change after the iOS DOM fix is verified on device. An iOS cache-miss is native `flag-off` (the legacy interim UI).
+- A committed attempt write is bounded at 3000 ms; a hung write mounts native `attempt-failed`.
+- `DEFAULT_ROUTE_FLAGS.sharedUi = true`; `config/mobile/app-config.json` ships `sharedUi: true` and `watchdogReports: false` (global auto-reporting is deferred until shared sampling/aggregation exists).
+- Launch reads exactly two local inputs in parallel: the watchdog record (safety; fail-closed to native on read failure) and the last-good flag cache (an explicit cached OFF is honoured). The Diagnostics "Force shared UI" control and its SecureStore key are removed. `PENDING_MAX_MS` stays 1500 and pending expiry is terminal for the launch: no late swap of an interactive native UI; the next launch decides normally.
+- Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is still the legacy native UI until it is deleted.
+- Order: the S8 drill moves before the deletion PR (PR3); S7 becomes production telemetry.
+- Kill switch: JSON `sharedUi: false`, effective on the next launch.
+- Wrong-signal threshold: any `quarantined` or `ready-timeout` `[watchdog]`/`[diag]` report from testers/devices that send reports (absolute, not a percentage).
+
 ## 2026-10-04 — Phones are portrait-only; feedback stays in the public repo for now
 
 Joey, 2026-10-04 21:06 PDT; Fable concurred.
@@ -8622,3 +8635,19 @@ Joey, 2026-10-04 21:06 PDT; Fable concurred.
 **Phone orientation.** The app is portrait-only on phones; tablets rotate. This is an accepted divergence from the website (listed in `docs/one-ui/parity.md`). Rationale: platform convention for content and fan apps, and it avoids a second test matrix. Revisit if user feedback asks. Watch: fullscreen video must still rotate under the lock; if it does not, unlock on fullscreen and relock, never a global unlock.
 
 **Feedback destination.** Feedback issues stay in the public `JW-Incorporated/swift2` repo for now. The founder wants a private repo eventually. Deferred because five same-repo consumers read `user-feedback` issues through the repo-scoped `GITHUB_TOKEN`: `routine-marjorie-triage.yml`, Kevin's daily-desk digest, `scripts/marjorie/lib/status-fans.mjs`, `scripts/ops/unowned-sweep.mjs` and assemble-brief. Privacy mitigations in place: #5029 disclosure, #5085 minimisation, #5098 escaping. The feedback form now says "Posted publicly on GitHub — please don't include personal details." Tracked in the move-to-private issue.
+
+## 2026-10-05 — The app may cache other sites' photos on the device for offline use (#5112)
+
+Joey, 2026-10-05 05:52 PDT, in chat: "Yes the app can store other sites photos for offline use."
+
+**Decision.** The Expo app extends its offline art cache (#5111) to the third-party primary images of recently viewed eras. The cache is on-device only and is never re-served, uploaded or shared: the same as a browser cache holding the pages a user opened. It stays under the existing 40 MB LRU cap, 10 MB session budget, 5 MB per-item ceiling and next-launch orphan sweep.
+
+**Shape.** Trigger is the reader's `route` event snapshot (`snap.eraId`, #5123), read natively; no new bridge message. After content has loaded and interactions settle, `syncEra` fetches the current era first, then the last 2 viewed eras (MRU list in the manifest). MRU eras' third-party URLs count as referenced, so they are not evicted as orphans. Guard against hotlink placeholders: `image/*` content-type, HEAD Content-Length of at least 2 KB, and a JPEG/PNG/WebP/GIF magic-byte check after download. A 429 skips that host for the session. Requests carry a descriptive `User-Agent` (supported by `File.downloadFileAsync` headers in expo-file-system 57).
+
+## 2026-10-05 — Shared UI ships default-on for iOS without the iOS-1 device session
+
+Joey, 2026-10-05 06:48 PDT: land the held One UI stack now, at risk, without the iOS device check.
+
+**Decision.** `sharedUiIos` is true in both the shipped `config/mobile/app-config.json` and the compiled `DEFAULT_ROUTE_FLAGS` (a fresh install has no cached config and uses the compiled default). Android was already on, so both platforms default ON.
+
+**Rollback.** Remote config `sharedUiIos: false` (devices with a cached config) plus the watchdog fallback to Recovery. Post-landing iOS confirmation stays on HUMAN-ACTIONS HA #100.

@@ -8,6 +8,7 @@ import {
   type StorageAdapter,
 } from '@swift2/content';
 import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
+import { diagCollector } from './diagnostics';
 import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from './routes';
 
 export const APP_CONFIG_CACHE_KEY = 'swift2:app-config:last-good:v1';
@@ -42,6 +43,7 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
     const parsed = appConfigSchema.safeParse(JSON.parse(raw));
     return parsed.success ? parsed.data : null;
   } catch {
+    diagCollector.mark('app-config-cache-unreadable');
     return null;
   }
 }
@@ -49,6 +51,8 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
 export interface LaunchFlags {
   /** Last-good cached remote `sharedUi`; null when nothing was cached. */
   sharedUi: boolean | null;
+  /** Same for the iOS-only gate `sharedUiIos`. */
+  sharedUiIos: boolean | null;
   /** Last-good cached `watchdogReports`; null = not set (reports off). */
   watchdogReports: boolean | null;
 }
@@ -63,12 +67,14 @@ export async function loadLaunchFlags(deps: { storage?: StorageAdapter } = {}): 
     const storage = deps.storage ?? expoFileSystemStorageAdapter();
     const cached = await readLastGood(storage);
     const sharedUi = cached?.routeFlags.sharedUi;
+    const sharedUiIos = cached?.routeFlags.sharedUiIos;
     return {
       sharedUi: typeof sharedUi === 'boolean' ? sharedUi : null,
+      sharedUiIos: typeof sharedUiIos === 'boolean' ? sharedUiIos : null,
       watchdogReports: typeof cached?.watchdogReports === 'boolean' ? cached.watchdogReports : null,
     };
   } catch {
-    return { sharedUi: null, watchdogReports: null };
+    return { sharedUi: null, sharedUiIos: null, watchdogReports: null };
   }
 }
 

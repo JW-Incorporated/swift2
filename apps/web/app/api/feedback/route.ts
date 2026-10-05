@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
-import { readBodyText } from './body-text';
-import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, speedCommit, speedRefund } from './diag';
+import { durableClaimResponse, finishDurableClaim } from './idempotency-durable';
 import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
-import { watchdogClaim } from './watchdog-lifecycle';
+import { DIAG_ISSUE_NUMBER, DIAG_REPO, speedCommit, speedRefund } from './diag';
+import { readBodyText } from './body-text';
 import { guardReport, ipThrottled, quotaResponse } from './report-guards';
+import { watchdogClaim } from './watchdog-lifecycle';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -168,11 +169,7 @@ export async function POST(req: Request): Promise<Response> {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
   }
 
-  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
   const idemId = parseIdempotencyId(payload.id);
-  if (idemId && isDuplicate(idemId)) {
-    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
-  }
 
   // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
   // public, unauthenticated endpoint (see file header).
@@ -196,6 +193,11 @@ export async function POST(req: Request): Promise<Response> {
       { error: 'Feedback isn’t wired up in this environment yet.' },
       { status: 503 },
     );
+  }
+
+  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
+  if (idemId && isDuplicate(idemId)) {
+    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
   }
 
   const ip = trustedClientIp(req);
@@ -230,8 +232,11 @@ export async function POST(req: Request): Promise<Response> {
   delete location.url;
   delete (location as Record<string, unknown>).userAgent;
 
+  const already = idemId ? await durableClaimResponse(idemId) : null;
+  if (already) return already;
   if (idemId) markPending(idemId);
   let filed = false;
+  let issueUrl: string | undefined;
   try {
     const res = await fetch(
       diag
@@ -271,6 +276,7 @@ export async function POST(req: Request): Promise<Response> {
     filed = true;
     if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
+    issueUrl = issue.html_url;
     return NextResponse.json(
       { ok: true, number: issue.number, url: issue.html_url },
       { status: 201 },
@@ -279,6 +285,9 @@ export async function POST(req: Request): Promise<Response> {
     console.error('feedback: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
   } finally {
-    if (idemId) settle(idemId, filed);
+    if (idemId) {
+      settle(idemId, filed);
+      await finishDurableClaim(idemId, filed, issueUrl);
+    }
   }
 }

@@ -1,13 +1,12 @@
 // One UI WP0.4b / WP2.14: React wiring for the watchdog. App.tsx asks
 // `useDomMount` whether the DOM host may render. The DOM-or-native choice is
-// made ONCE per launch from local state only (quarantine > override > cached
+// made ONCE per launch from local state only (quarantine > cached
 // flag > compiled default, watchdog-policy.ts); a network config applies on the
 // next launch. The launch-attempt record is AWAITED before 'dom' is returned;
 // if that write fails the launch mounts native (fail closed). `pending` is
-// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); only a
-// Force-shared-UI override that resolves later still upgrades to the DOM host.
+// bounded by PENDING_MAX_MS, after which native mounts (logged as mount-pending-expired); expiry is terminal for the launch (no late swap; the next launch decides).
 //
-// Wiring closed (proved end to end by lib/watchdog-closure.test.ts):
+// Wiring closed (proved end to end by App.watchdog.test.tsx):
 // App.tsx clears the native-route overlay whenever `mount` leaves 'dom' (watchdog fallback; D1). While pending no
 // overlay can exist (the DOM host is not mounted), so the pending/launch overlay needs no clearing.
 // Notification taps while quarantined/fallback land natively via lib/notification-tap-gate.ts (H3).
@@ -16,17 +15,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
 import { diagCollector, setMountInfo } from './diagnostics';
 import { sendDiagReport } from './diagnostics-send';
-import { getForceDomFailure, setForceSharedUi } from './diagnostics-override';
 import { DEFAULT_ROUTE_FLAGS } from './routes';
+import { createDomWatch, createGateMonitor, reconcileLateRecord, type LateRecord } from './watchdog-gate-parts';
 import {
-  createAttemptMonitor,
+  beginAttempt,
   createWriteQueue,
   decideMount,
-  markReady,
-  markReloading,
-  recordStrike,
   shouldMountDom,
-  startAttempt,
   type AttemptMonitor,
   type CrashOutcome,
   type DomFailureMode,
@@ -37,7 +32,6 @@ import {
   armPendingBound,
   nativeReasonFor,
   reasonCategory,
-  refundExpiredFallback,
   resolveWantsDom,
   type NativeReason,
   type WantSource,
@@ -49,18 +43,17 @@ import {
   saveReportsRaw,
   saveWatchdogRecord,
 } from './watchdog-store';
-import { plannedReloadStep } from './watchdog-planned-reload';
-import { DEFAULT_DEPS, useContentGate, type GateDeps } from './watchdog-gate-content';
+import { DEFAULT_DEPS, boundedForceFailure, startAttemptBounded, useContentGate, type GateDeps } from './watchdog-gate-content';
 import { createTelemetry } from './watchdog-telemetry';
 
 export type MountState = 'pending' | 'awaiting-content' | 'dom' | 'native';
 
 /** Everything the launch decision reads, all local: null until App has resolved them. */
 export interface LaunchInputs {
-  /** C4 "Force shared UI (this device)". */
-  override: boolean;
   /** Last-good cached remote sharedUi (loadLaunchFlags); null = none cached. */
   sharedUi: boolean | null;
+  /** Last-good cached iOS-only gate (iOS reads this instead of sharedUi); null = none cached. */
+  sharedUiIos: boolean | null;
   /** Last-good cached watchdogReports; reports are on ONLY when this is true (null/false = off). */
   watchdogReports: boolean | null;
 }
@@ -78,6 +71,8 @@ export interface DomWatch {
 
 // Monotonic within a launch where available, so a wall-clock step cannot stretch or shrink the ready timeout.
 const monotonicNow = (): number => (typeof performance !== 'undefined' && typeof performance.now === 'function' ? performance.now() : Date.now());
+
+const NO_INPUTS: LaunchInputs = { sharedUi: null, sharedUiIos: null, watchdogReports: null };
 
 const elapsedMs = (): number => Math.round(diagCollector.elapsed());
 
@@ -98,8 +93,13 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const recordRef = useRef<WatchdogRecord | null>(null);
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);
-  const expiredRef = useRef(false);
+  const committedRef = useRef(false);
   const decidedRef = useRef(false);
+  const prevRef = useRef<WatchdogRecord | null | 'corrupt'>(null);
+  const pendingRealRef = useRef<{ prev: WatchdogRecord | null | 'corrupt'; d: MountDecision } | null>(null);
+  const lateRef = useRef<LateRecord>({ held: false, ready: false, strike: null });
+  const beginRef = useRef<(d: MountDecision, i: LaunchInputs, slowRecord: boolean) => void>(() => undefined);
+  const decisionRef = useRef<MountDecision | null>(null);
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
   inputsRef.current = inputs;
@@ -118,8 +118,19 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const reportsOn = () => inputsRef.current?.watchdogReports === true;
   const report = (reason: string, buildKey: string) =>
     void telemetry.report(reasonCategory(reason), buildKey, reportsOn());
+  // A strike folded in at launch (an attempt that died last launch) is reported exactly once, whenever the record resolves.
+  const strikeReportedRef = useRef(false);
+  const reportStruck = () => {
+    const struck = decidedStrikeRef.current;
+    if (!struck || strikeReportedRef.current) return;
+    strikeReportedRef.current = true;
+    report(struck.lastReason, struck.buildKey);
+  };
+  const onFolded = (reason: string | null, record: WatchdogRecord) => {
+    if (reason && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+  };
 
-  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef, launchWriteRef, flushLaunchWrite } = useContentGate(deps);
+  const { contentFailed, depsRef, unmountedRef, waiterRef, noContentRef } = useContentGate(deps);
   const cancelBoundRef = useRef<() => void>(() => undefined);
   const [nativeReason, setNativeReason] = useState<NativeReason | null>(null);
   const mountRef = useRef<MountState>('pending');
@@ -134,9 +145,12 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     // No cache on disk: the launch waits natively for the download, so the pending bound is never armed.
     noContentRef.current = !depsRef.current.hasLocalContent();
     cancelBoundRef.current = noContentRef.current ? () => undefined : armPendingBound(scheduler, () => {
-        expiredRef.current = true;
         diagCollector.mark('mount-pending-expired', `${inputsRef.current ? 'inputs-ready' : 'inputs-pending'},${decidedRef.current ? 'decision-ready' : 'decision-pending'},${elapsedMs()}ms`);
-        if (mountRef.current === 'pending') apply('native', 'pending-expired');
+        if (mountRef.current !== 'pending' || startedRef.current) return;
+        // Slow reads never decide: start from the compiled default / a fresh record; evidence that arrives later applies next launch.
+        const slowRecord = decisionRef.current === null;
+        if (slowRecord) lateRef.current.held = true;
+        beginRef.current(decisionRef.current ?? decideMount(null, currentBuildKey(), Date.now()), inputsRef.current ?? NO_INPUTS, slowRecord);
       });
     return () => cancelBoundRef.current();
   }, []);
@@ -146,22 +160,20 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     void (async () => {
       const prev = await loadWatchdogRecord();
       const d = decideMount(prev, currentBuildKey(), Date.now());
-      recordRef.current = d.record;
-      const expired = expiredRef.current;
-      const launchWrite = async () => {
-        await write(refundExpiredFallback(prev, d.record, expired));
-        if (d.clearOverride) void setForceSharedUi(false);
-      };
-      // No cache: hold the launch record in memory until the DOM attempt starts.
-      if (noContentRef.current) launchWriteRef.current = launchWrite;
-      else await launchWrite();
+      if (!lateRef.current.held) recordRef.current = d.record;
+      prevRef.current = prev;
+      decisionRef.current = d;
       if (prev !== 'corrupt' && prev?.state === 'attempting' && (d.record.state === 'fallback' || d.record.state === 'quarantined')) {
         decidedStrikeRef.current = d.record;
       }
       if (!cancelled) {
         decidedRef.current = true;
         diagCollector.mark('mount-decision-resolved', `${elapsedMs()}ms`);
-        setDecision(d);
+        if (lateRef.current.held) {
+          pendingRealRef.current = { prev, d };
+          if (monitorRef.current) reconcileLateRecord(prev, d, lateRef, recordRef, write, onFolded);
+          reportStruck();
+        } else setDecision(d);
       }
     })();
     return () => {
@@ -176,77 +188,72 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     }
   }, [inputs]);
 
-  useEffect(() => {
-    if (!decision || !inputs || startedRef.current) return;
+  // slowRecord: the watchdog record was still unread when the bound passed; nothing is persisted until it resolves.
+  beginRef.current = (decision, inputs, slowRecord) => {
+    if (startedRef.current) return;
     startedRef.current = true;
-    // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
-    const struck = decidedStrikeRef.current;
-    if (struck) report(struck.lastReason, struck.buildKey);
-    if (expiredRef.current) {
-      // The Force-shared-UI override is a diagnostics path: it resolving late still upgrades native to the DOM host.
-      if (!inputs.override) return void flushLaunchWrite();
-      expiredRef.current = false;
-      diagCollector.mark('mount-late-upgrade', `${elapsedMs()}ms`);
-    }
-    const want = resolveWantsDom({
-      quarantined: decision.record.state === 'quarantined',
-      override: inputs.override,
-      cachedSharedUi: inputs.sharedUi,
-      defaultSharedUi: DEFAULT_ROUTE_FLAGS.sharedUi,
-    });
-    if (!shouldMountDom(want.wantsDom, decision)) {
-      return void (async () => {
-        await flushLaunchWrite();
-        if (unmountedRef.current) return;
-        if (mountRef.current !== 'pending') void write(decision.record);
-        apply('native', nativeReasonFor(want, decision.fallbackActive));
-      })();
-    }
-    const overrideOn = want.source === 'override';
-    void (async () => {
-      if (noContentRef.current) {
-        apply('awaiting-content');
-        const t0 = monotonicNow();
-        if (!(await waiterRef.current?.run())) return;
-        await flushLaunchWrite();
-        diagCollector.mark('first-download-ms', `${Math.round(monotonicNow() - t0)}ms`);
-      }
-      const forced = await getForceDomFailure();
-      if (unmountedRef.current) return;
-      setForceFailure(forced);
-      const attempt = await startAttempt(decision, Date.now(), write, () => (overrideOn || !expiredRef.current) && !unmountedRef.current);
-      if (unmountedRef.current) return;
-      if (!attempt) return apply('native', expiredRef.current ? 'pending-expired' : 'attempt-failed');
-      recordRef.current = attempt;
-      if (AppState.currentState !== 'active') {
-        recordRef.current = { ...attempt, backgrounded: true };
-        void write(recordRef.current);
-      }
-      monitorRef.current = createAttemptMonitor({
-        scheduler,
-        now: monotonicNow,
-        active: AppState.currentState === 'active',
-        onReady: () => {
-          if (!recordRef.current) return;
-          recordRef.current = markReady(recordRef.current, Date.now());
-          void write(recordRef.current, 1).then((ok) => {
-            if (!ok) diagCollector.mark('watchdog-ready-save-failed');
-          });
-        },
-        onStrike: (reason) => {
-          if (!recordRef.current) return;
-          const { record, clearOverride } = recordStrike(recordRef.current, reason, Date.now());
-          recordRef.current = record;
-          void write(record);
-          if (clearOverride) void setForceSharedUi(false);
-          if (record.state === 'fallback' || record.state === 'quarantined') {
-            report(reason, record.buildKey);
-          }
-          apply('native', 'dom-strike');
-        },
+    const run = (d: MountDecision, slow: boolean) => {
+      // A strike folded in at launch (an attempt that died last launch) is reported once the flag is known.
+      reportStruck();
+      const ios = Platform.OS === 'ios';
+      const want = resolveWantsDom({
+        quarantined: d.record.state === 'quarantined',
+        override: false,
+        cachedSharedUi: ios ? inputs.sharedUiIos : inputs.sharedUi,
+        defaultSharedUi: ios ? DEFAULT_ROUTE_FLAGS.sharedUiIos : DEFAULT_ROUTE_FLAGS.sharedUi,
       });
-      apply('dom', null, want.source);
-    })();
+      if (!shouldMountDom(want.wantsDom, d)) {
+        if (!slow) void write(d.record);
+        return apply('native', nativeReasonFor(want, d.fallbackActive));
+      }
+      void (async () => {
+        if (noContentRef.current) {
+          apply('awaiting-content');
+          const t0 = monotonicNow();
+          if (!(await waiterRef.current?.run())) return;
+          diagCollector.mark('first-download-ms', `${Math.round(monotonicNow() - t0)}ms`);
+        }
+        const failure = await boundedForceFailure(scheduler);
+        if (unmountedRef.current) return;
+        const real = pendingRealRef.current;
+        if (slow && real) {
+          // The record resolved before anything mounted: decide from it normally (an owed fallback is honoured now).
+          lateRef.current = { held: false, ready: false, strike: null };
+          prevRef.current = real.prev;
+          recordRef.current = real.d.record;
+          return run(real.d, false);
+        }
+        committedRef.current = true;
+        setForceFailure(failure);
+        const attempt = slow
+          ? beginAttempt(d.record, Date.now())
+          : await startAttemptBounded(d, write, scheduler, () => !unmountedRef.current, () => diagCollector.mark('watchdog-attempt-late-save-failed'));
+        if (unmountedRef.current) return;
+        if (!attempt) return apply('native', 'attempt-failed');
+        recordRef.current = attempt;
+        if (!slow && AppState.currentState !== 'active') {
+          recordRef.current = { ...attempt, backgrounded: true };
+          void write(recordRef.current);
+        }
+        monitorRef.current = createGateMonitor({
+          scheduler,
+          now: monotonicNow,
+          recordRef,
+          late: lateRef,
+          write,
+          onStrike: (reason, record, persisted) => {
+            if (persisted && (record.state === 'fallback' || record.state === 'quarantined')) report(reason, record.buildKey);
+            apply('native', 'dom-strike');
+          },
+        });
+        apply('dom', null, want.source);
+      })();
+    };
+    run(decision, slowRecord);
+  };
+
+  useEffect(() => {
+    if (decision && inputs) beginRef.current(decision, inputs, false);
   }, [decision, inputs]);
 
   useEffect(() => {
@@ -255,7 +262,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
       monitorRef.current?.setActive(s === 'active');
       if (s === 'active') waiterRef.current?.onActive();
       const r = recordRef.current;
-      if (r?.state === 'attempting' && r.backgrounded !== (s !== 'active')) {
+      if (!lateRef.current.held && r?.state === 'attempting' && r.backgrounded !== (s !== 'active')) {
         recordRef.current = { ...r, backgrounded: s !== 'active' };
         void write(recordRef.current);
       }
@@ -268,32 +275,7 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
     };
   }, []);
 
-  const watch = useMemo<DomWatch>(
-    () => ({
-      ready: () => monitorRef.current?.ready(),
-      error: (m) => monitorRef.current?.error(m),
-      crashed: async (k) => {
-        const outcome = monitorRef.current?.crashed(k);
-        const r = recordRef.current;
-        if (outcome !== 'reload' || !r) return outcome;
-        recordRef.current = markReloading(r, Date.now());
-        if (await write(recordRef.current, 1)) return 'reload';
-        diagCollector.mark('watchdog-reload-save-failed');
-        return monitorRef.current?.crashed(k);
-      },
-      protocol: () => monitorRef.current?.protocolFatal(),
-      plannedReload: () =>
-        plannedReloadStep({
-          getRecord: () => recordRef.current,
-          setRecord: (r) => void (recordRef.current = r),
-          write,
-          arm: () => monitorRef.current?.plannedReload() ?? false,
-          onWriteFailed: () => diagCollector.mark('watchdog-reload-save-failed'),
-          now: Date.now,
-        }),
-    }),
-    [],
-  );
+  const watch = useMemo<DomWatch>(() => createDomWatch(monitorRef, recordRef, write, lateRef), []);
 
   return { mount, watch, forceFailure, nativeReason, contentFailed, retryContent: () => waiterRef.current?.retry() };
 }

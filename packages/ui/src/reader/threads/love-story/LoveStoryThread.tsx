@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../../lib/scroll-behavior';
 import {
   useCallback,
   useEffect,
@@ -114,7 +115,7 @@ export function LoveStoryThread() {
       // Let the row expand first so we scroll to its final position.
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          rowRefs.current.get(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          rowRefs.current.get(id)?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'center' });
         });
       });
     },

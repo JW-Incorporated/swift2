@@ -61,7 +61,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     }
    ]
@@ -316,7 +317,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     }
    ]
@@ -475,7 +477,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -484,7 +487,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -493,7 +497,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     }
    ]
@@ -892,7 +897,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -901,7 +907,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -910,7 +917,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     }
    ]
@@ -1452,7 +1460,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -1461,7 +1470,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     }
    ]
@@ -1696,7 +1706,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -1705,7 +1716,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     }
    ]
@@ -1805,7 +1817,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -1814,7 +1827,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     }
    ]
@@ -2095,7 +2109,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -2104,7 +2119,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     }
    ]
@@ -2449,7 +2465,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     }
    ]
@@ -2542,7 +2559,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     }
    ]
@@ -2656,7 +2674,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -2665,7 +2684,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -2674,7 +2694,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -2683,7 +2704,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -2692,7 +2714,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     }
    ]
@@ -3325,7 +3348,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -3334,7 +3358,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -3343,7 +3368,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -3352,7 +3378,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -3361,7 +3388,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     }
    ]
@@ -3817,7 +3845,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     }
    ]
@@ -3907,7 +3936,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     }
    ]
@@ -3940,7 +3970,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     }
    ]
@@ -3957,7 +3988,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     }
    ]
@@ -4040,7 +4072,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     }
    ]
@@ -4233,7 +4266,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     }
    ]
@@ -4357,7 +4391,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     }
    ]
@@ -4522,7 +4557,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     }
    ]
@@ -4654,7 +4690,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -4663,7 +4700,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     }
    ]
@@ -4824,7 +4862,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -4833,7 +4872,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     }
    ]
@@ -4901,7 +4941,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -4910,7 +4951,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -4919,7 +4961,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     },
     {
@@ -4928,7 +4971,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-spotify-canvas-color-swap"
      }
     }
    ]
@@ -5173,7 +5217,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -5182,7 +5227,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -5191,7 +5237,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     },
     {
@@ -5200,7 +5247,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-spotify-canvas-color-swap"
      }
     }
    ]
@@ -5310,7 +5358,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     }
    ]
@@ -5502,7 +5551,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     }
    ]
@@ -5667,7 +5717,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -5676,7 +5727,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -5685,7 +5737,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -5694,7 +5747,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -5703,7 +5757,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     }
    ]
@@ -7305,7 +7360,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -7314,7 +7370,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -7323,7 +7380,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -7332,7 +7390,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -7341,7 +7400,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     },
     {
@@ -7350,7 +7410,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -7359,7 +7420,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -7368,7 +7430,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -7377,7 +7440,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     },
     {
@@ -7386,7 +7450,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     },
     {
@@ -7395,7 +7460,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-spotify-canvas-color-swap"
      }
     },
     {
@@ -7404,7 +7470,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     }
    ]
@@ -7740,7 +7807,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -7749,7 +7817,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -7758,7 +7827,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -7767,7 +7837,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     }
    ]
@@ -8326,7 +8397,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -8335,7 +8407,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -8344,7 +8417,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -8353,7 +8427,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     }
    ]
@@ -8666,7 +8741,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -8675,7 +8751,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -8684,7 +8761,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     },
     {
@@ -8693,7 +8771,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -8702,7 +8781,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     }
    ]
@@ -10835,7 +10915,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -10844,7 +10925,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -10853,7 +10935,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     },
     {
@@ -10862,7 +10945,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -10871,7 +10955,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -10880,7 +10965,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     },
     {
@@ -10889,7 +10975,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-spotify-canvas-color-swap"
      }
     },
     {
@@ -10898,7 +10985,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -10907,7 +10995,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -10916,7 +11005,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -10925,7 +11015,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -10934,7 +11025,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     },
     {
@@ -10943,7 +11035,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     },
     {
@@ -10952,7 +11045,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     }
    ]
@@ -11778,7 +11872,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -11787,7 +11882,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -11796,7 +11892,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     },
     {
@@ -11805,7 +11902,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -11814,7 +11912,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     }
    ]
@@ -12947,7 +13046,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -12956,7 +13056,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -12965,7 +13066,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     },
     {
@@ -12974,7 +13076,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -12983,7 +13086,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -12992,7 +13096,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     },
     {
@@ -13001,7 +13106,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -13010,7 +13116,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -13019,7 +13126,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     }
    ]
@@ -13372,7 +13480,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -13381,7 +13490,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -13390,7 +13500,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -13399,7 +13510,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -13408,7 +13520,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     }
    ]
@@ -15568,7 +15681,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -15577,7 +15691,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -15586,7 +15701,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -15595,7 +15711,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -15604,7 +15721,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -15613,7 +15731,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -15622,7 +15741,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -15631,7 +15751,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-spotify-canvas-color-swap"
      }
     },
     {
@@ -15640,7 +15761,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     },
     {
@@ -15649,7 +15771,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     },
     {
@@ -15658,7 +15781,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -15667,7 +15791,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -15676,7 +15801,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     },
     {
@@ -15685,7 +15811,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     }
    ]
@@ -16558,7 +16685,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -16567,7 +16695,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -16576,7 +16705,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -16585,7 +16715,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -16594,7 +16725,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     }
    ]
@@ -18754,7 +18886,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "eldest-daughter-track-five"
      }
     },
     {
@@ -18763,7 +18896,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-esb-green-ts-debut-era"
      }
     },
     {
@@ -18772,7 +18906,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "orange-era-clues"
      }
     },
     {
@@ -18781,7 +18916,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "change-underdog-anthem"
      }
     },
     {
@@ -18790,7 +18926,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -18799,7 +18936,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     },
     {
@@ -18808,7 +18946,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "father-figure-george-michael-interpolation"
      }
     },
     {
@@ -18817,7 +18956,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-rewrite"
      }
     },
     {
@@ -18826,7 +18966,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "gracie-abrams-death-wish-not-about-taylor"
      }
     },
     {
@@ -18835,7 +18976,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     },
     {
@@ -18844,7 +18986,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ophelia-video-self-references"
      }
     },
     {
@@ -18853,7 +18996,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "love-story-rewritten-ending"
      }
     },
     {
@@ -18862,7 +19006,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "showgirl-spotify-canvas-color-swap"
      }
     },
     {
@@ -18871,7 +19016,8 @@
      "eraId": "tloas",
      "target": {
       "kind": "theory-guide",
-      "eraId": "tloas"
+      "eraId": "tloas",
+      "slug": "ts12-twelfth-album-twelve-tracks"
      }
     }
    ]
@@ -19591,7 +19737,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -19600,7 +19747,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     }
    ]
@@ -19862,7 +20010,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-liner-note-code"
      }
     },
     {
@@ -19871,7 +20020,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     }
    ]
@@ -19968,7 +20118,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     }
    ]
@@ -20049,7 +20200,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "the-best-day-surprise-home-video"
      }
     }
    ]
@@ -20119,7 +20271,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     }
    ]
@@ -20185,7 +20338,8 @@
      "eraId": "fearless",
      "target": {
       "kind": "theory-guide",
-      "eraId": "fearless"
+      "eraId": "fearless",
+      "slug": "vault-track-anagram-reveal"
      }
     }
    ]

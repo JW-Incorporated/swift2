@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createBridgeClient } from '@swift2/ui';
 import type { BridgeClient, Envelope } from '@swift2/ui';
-import { loadStorageSeed } from '../dom/reader/storage-sync';
+import { createMapStorage } from '../dom/reader/reader-modules';
+import { createWriteCoalescer, LOAD_RETRY_MS, loadStorageSeed, recoverStorage } from '../dom/reader/storage-sync';
 import { createHandlers } from './bridge-handlers-ui';
 import { setup, tick } from './bridge-host.test-kit';
 import { createHostStorage, MAX_BLOB_BYTES, type HostStoragePort } from './host-storage';
@@ -58,6 +59,47 @@ describe('storage over the real bridge', () => {
     expect(await p).toMatchObject({ ok: false, error: { code: 'invalid' } });
     expect(log).toHaveBeenCalledWith('bridge-storage.write-rejected', expect.any(String));
     expect(port.text).toBeNull();
+  });
+
+  it('an unflagged empty write is refused over the real bridge; the file keeps its entries', async () => {
+    const port = mem();
+    port.text = JSON.stringify({ outbox: 'queued', draft: 'wip' });
+    const { client } = rig(port);
+    const p = client.call('storage.write', { entries: {} });
+    await tick();
+    expect(await p).toMatchObject({ ok: false, error: { code: 'invalid' } });
+    expect(JSON.parse(port.text as string)).toEqual({ outbox: 'queued', draft: 'wip' });
+  });
+
+  it('a failed DOM load then a mutation leaves the file intact; the retry merges into it', async () => {
+    vi.useFakeTimers();
+    try {
+      const port = mem();
+      port.text = JSON.stringify({ outbox: 'queued', fav: '1' });
+      const { client } = rig(port);
+      let failing = true;
+      const flaky = {
+        call: (type: string, payload: unknown) =>
+          failing && type === 'storage.load'
+            ? Promise.resolve({ ok: false as const, error: { code: 'failed', message: 'x' } })
+            : (client.call as (t: string, p: unknown) => Promise<unknown>)(type, payload),
+      };
+      expect(await loadStorageSeed(flaky as never)).toBeNull();
+      // eslint-disable-next-line prefer-const -- late-bound
+      let local!: ReturnType<typeof createMapStorage>;
+      const sync = createWriteCoalescer(flaky as never, () => local.snapshot());
+      local = createMapStorage({}, sync.push);
+      recoverStorage(flaky as never, local, sync);
+      local.set('fav', '2');
+      await vi.advanceTimersByTimeAsync(1000);
+      expect(JSON.parse(port.text as string)).toEqual({ outbox: 'queued', fav: '1' });
+      failing = false;
+      await vi.advanceTimersByTimeAsync(LOAD_RETRY_MS);
+      for (let i = 0; i < 20; i++) await vi.advanceTimersByTimeAsync(300);
+      expect(JSON.parse(port.text as string)).toEqual({ outbox: 'queued', fav: '2' });
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('a payload with extra keys is invalid', async () => {

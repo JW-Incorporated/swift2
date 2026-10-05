@@ -31,8 +31,7 @@ owner's own).
    then open it again.
    *Pass:* the app opens to the era screen.
 2. **Turn on the new reader.** Tap 7 times in the **bottom-left corner, next to
-   the thin home bar** at the bottom of the screen. In Diagnostics, switch on
-   **Force shared UI (this device)**, tap **Done**, force-quit, reopen. Open
+   the thin home bar** at the bottom of the screen. The new reader is the default (no switch to turn on). In Diagnostics tap **Done**, force-quit, reopen (a device that cached the old config shows it from its second launch). Open
    Diagnostics again the same way and tap **Send report**, then **Done**.
    *Pass:* Diagnostics opened both times and the button said it sent.
 3. **Hidden corner, other spots.** Tap 7 times in the **top-left corner** (by
@@ -47,7 +46,7 @@ owner's own).
    went blank or restarted.
 5. **YouTube.** Open a moment with a YouTube video and tap play.
    *Pass:* the video plays inside the app (no "error" box).
-6. **Offline.** Turn on **Airplane Mode** (and make sure Wi-Fi is off),
+6. **Offline.** With Wi-Fi on, first open Long Live, wait 30 seconds, then force-quit and reopen it twice (it saves era pictures for offline use, #5074). Then turn on **Airplane Mode** (and make sure Wi-Fi is off),
    force-quit, reopen.
    *Pass:* posts and era pictures still show. Turn Airplane Mode off after.
 7. **Speed test.** Open Diagnostics (bottom-left, 7 taps; if no strip is tappable, type `longlive://diag` into the phone browser or a Notes link and tap it), switch on **Speed
@@ -64,7 +63,7 @@ owner's own).
    **Update**). Open it, wait 10 seconds, force-quit, reopen.
    *Pass:* the app opens to the era screen.
 2. **Turn on the new reader.** Tap 7 times in the **bottom-left corner by the
-   home bar**. Switch on **Force shared UI (this device)**, **Done**,
+   home bar**. The new reader is the default; **Done**,
    force-quit, reopen. Open Diagnostics again, tap **Send report**, **Done**.
    *Pass:* Diagnostics opened both times; report sent.
 3. **Hidden corner, other spots.** 7 taps **top-left**; close. Then 4 taps
@@ -81,13 +80,13 @@ owner's own).
 6. **Video and music.** Open a moment with a YouTube video and tap play. Then
    open the **Taylor's Version** thread and tap play on the Spotify player.
    *Pass:* both play inside the app.
-7. **Offline, then the safety net.** Turn on **Airplane Mode** (Wi-Fi off),
+7. **Offline, then the safety net.** With Wi-Fi on, first open Long Live, wait 30 seconds, then force-quit and reopen it twice (it saves era pictures for offline use, #5074). Then turn on **Airplane Mode** (Wi-Fi off),
    force-quit, reopen: posts and era pictures should show. Still offline, open
    Diagnostics, set **Force DOM failure** to **throw**, **Done**, force-quit,
    reopen.
    *Pass:* first launch shows content; second launch shows the older app screens
    (not a blank page). Then put it back: Diagnostics > Force DOM failure
-   **off** > **Reset watchdog** > switch **Force shared UI** on > Done, Airplane
+   **off** > **Reset watchdog** > Done, Airplane
    Mode off, force-quit, reopen.
 8. **Speed test.** Same as iPhone step 7 (Speed test mode on; 5 force-quit
    relaunches; 5 quick go-home-and-back relaunches).
@@ -97,7 +96,7 @@ owner's own).
 `iPad: pass 1-8`
 
 **What the PM reads from the reports (no tester action):** build + update id,
-cold/warm worst-of-5 vs 2.5 s / 1 s, image loads, fonts, and the H4/D2
+cold/warm worst-of-5 vs 2.5 s / 1 s, image loads, offline art (probe `art`: loaded > 0 and fallback = 0 means file:// art works; fallback > 0 with loaded = 0 means the WebView refused it, note on #5074), fonts, and the H4/D2
 ready→ack round trip on both iOS devices. Also needed for the gate (PM, not
 tester): a fresh green WebKit (WP1.1) CI run cited in PROGRESS.md.
 
@@ -112,7 +111,7 @@ fills in>`.
 
 1. **Update and turn on the new reader.** Open Long Live, wait 10 seconds,
    force-stop, reopen. Tap 7 times in the **bottom strip** (just above the
-   gesture bar). Make sure **Force shared UI (this device)** is on, tap **Send
+   gesture bar). Tap **Send
    report**, then **Done**.
    *Pass:* Diagnostics opened and the report sent.
 2. **Top of the screen.** Look at the top while scrolling the era stream. Then
@@ -134,7 +133,7 @@ fills in>`.
 6. **Merch and community.** Open merch and tap a product: it opens in the
    browser; then return to Long Live. Open the community page.
    *Pass:* you come back to the same spot in merch, and community loads.
-7. **Offline.** Turn on Airplane Mode and Wi-Fi off, force-stop, reopen.
+7. **Offline.** With Wi-Fi on, first open Long Live, wait 30 seconds, then force-stop and reopen it twice (it saves era pictures for offline use, #5074). Then turn on Airplane Mode and Wi-Fi off, force-stop, reopen.
    *Pass:* posts and era pictures show. Turn Airplane Mode off after.
 8. **Speed test.** Diagnostics (bottom strip, 7 taps) > **Speed test mode** on >
    **Done**. Then:

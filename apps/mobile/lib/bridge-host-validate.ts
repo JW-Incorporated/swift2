@@ -1,6 +1,6 @@
 import { isAnyNotificationCategory, isValidCadenceForCategory } from '@swift2/shared';
-import { isBridgeId, isWebPath, sanitizeApiRequest } from '@swift2/ui';
-import type { DomCommandType, JsonValue, NativeCommandType, ThemeChange } from '@swift2/ui';
+import { isBridgeId, isWebPath, MAX_SNAP_COUNT, MAX_SNAP_SCROLL, MAX_SNAP_STR, sanitizeApiRequest } from '@swift2/ui';
+import type { DomCommandType, JsonValue, NativeCommandType, ReaderSnap, ThemeChange } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
 
 const HAPTIC_KINDS = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
@@ -13,12 +13,39 @@ export function validTheme(p: unknown): ThemeChange | null {
     : null;
 }
 
-/** The `route` event payload: `{ path, busy? }`, a `/`-rooted string of at most 2048 chars plus an optional boolean; any other key or type is null (dropped). */
-export function validRoute(p: unknown): { path: string; busy: boolean } | null {
+const SNAP_STR_KEYS = ['mode', 'eraId', 'lens', 'itemId', 'anchorId'] as const;
+const SNAP_KEYS: readonly string[] = ['v', ...SNAP_STR_KEYS, 'count', 'scrollY'];
+const snapStr = (x: unknown): x is string => typeof x === 'string' && x.length > 0 && x.length <= MAX_SNAP_STR;
+const snapInt = (x: unknown, max: number): x is number => typeof x === 'number' && Number.isInteger(x) && x >= 0 && x <= max;
+
+/** The route event's `snap` sub-object: an explicit allowlist (v 1, short strings, bounded ints); any unknown key, wrong type or oversized value is null (the snapshot is dropped, never partially kept). */
+export function validSnap(p: unknown): ReaderSnap | null {
+  if (!isRecord(p) || p.v !== 1 || Object.keys(p).some((k) => !SNAP_KEYS.includes(k))) return null;
+  if (!snapStr(p.mode) || !snapStr(p.eraId) || !snapInt(p.scrollY, MAX_SNAP_SCROLL)) return null;
+  for (const k of ['lens', 'itemId', 'anchorId'] as const) if (p[k] !== undefined && !snapStr(p[k])) return null;
+  if (p.count !== undefined && !(snapInt(p.count, MAX_SNAP_COUNT) && p.count >= 1)) return null;
+  const { mode, eraId, scrollY } = p;
+  return {
+    v: 1,
+    mode,
+    eraId,
+    ...(p.lens !== undefined ? { lens: p.lens as string } : {}),
+    ...(p.itemId !== undefined ? { itemId: p.itemId as string } : {}),
+    ...(p.anchorId !== undefined ? { anchorId: p.anchorId as string } : {}),
+    ...(p.count !== undefined ? { count: p.count as number } : {}),
+    scrollY,
+  };
+}
+
+/** The `route` event payload: `{ path, busy?, engaged?, snap? }`, a `/`-rooted string of at most 2048 chars, two optional booleans and an optional snapshot; any other key or type is null (dropped). An invalid `snap` alone is dropped, the rest kept. */
+export function validRoute(p: unknown): { path: string; busy: boolean; engaged: boolean; snap: ReaderSnap | null } | null {
   if (!isRecord(p) || typeof p.path !== 'string') return null;
   const keys = Object.keys(p);
-  if (keys.length !== (p.busy === undefined ? 1 : 2) || (p.busy !== undefined && typeof p.busy !== 'boolean')) return null;
-  return p.path.startsWith('/') && p.path.length <= MAX_SHARE_FIELD ? { path: p.path, busy: p.busy === true } : null;
+  if (keys.some((k) => k !== 'path' && k !== 'busy' && k !== 'engaged' && k !== 'snap')) return null;
+  if ((p.busy !== undefined && typeof p.busy !== 'boolean') || (p.engaged !== undefined && typeof p.engaged !== 'boolean')) return null;
+  return p.path.startsWith('/') && p.path.length <= MAX_SHARE_FIELD
+    ? { path: p.path, busy: p.busy === true, engaged: p.engaged === true, snap: p.snap === undefined ? null : validSnap(p.snap) }
+    : null;
 }
 
 export const MAX_PREFS = 64;
@@ -97,11 +124,13 @@ export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
-/** Strict `{ entries: Record<string,string> }`; key length and blob size are the native handler's `invalid`. */
+/** Strict `{ entries: Record<string,string>, allowEmpty?: boolean }`; key length and blob size are the native handler's `invalid`. */
 function validStorageWrite(p: Record<string, JsonValue>): JsonValue | null {
-  const { entries } = p;
-  if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
-  return { entries: { ...(entries as Record<string, string>) } };
+  const { entries, allowEmpty } = p;
+  if (Object.keys(p).length !== (allowEmpty === undefined ? 1 : 2) || (allowEmpty !== undefined && typeof allowEmpty !== 'boolean')) return null;
+  if (!isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
+  const clean = { ...(entries as Record<string, string>) };
+  return allowEmpty === undefined ? { entries: clean } : { entries: clean, allowEmpty };
 }
 
 /** Per-command payload validation; returns the cleaned payload or null. */
@@ -136,8 +165,21 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':
       return validPrefsUpdate(p);
-    default:
+    case 'notifications.status':
+    case 'notifications.request':
+    case 'notifications.register':
+    case 'notifications.getPrefs':
+    case 'notifications.unregister':
+    case 'notifications.registration':
+    case 'notifications.optOutPending':
+    case 'notifications.onboardingOffered':
+    case 'notifications.markOnboardingOffered':
       return {};
+    default: {
+      // A new command must be handled above: this fails typecheck until it is (never a silent {}).
+      const unhandled: never = type;
+      throw new Error(`validateCommand: unhandled command ${String(unhandled)}`);
+    }
   }
 }
 

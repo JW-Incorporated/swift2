@@ -24,10 +24,10 @@ the DOM bundles.
   before ready, or a repeat inside 5 min, is a watchdog strike that unmounts
   the host; the first crash after ready re-keys the mount once (see the W3-iOS
   note at the end). Android render-process-gone waits for the app to be active.
-- `routeFlags.sharedUi` (default `false`; `config/mobile/app-config.json`
-  and `packages/content/src/app-config.ts`). When true, or when the
-  diagnostics C4 "Force shared UI (this device)" override is on, App.tsx
-  mounts the host instead of the native reader.
+- `routeFlags.sharedUi` (default `true` since 2026-10-04; `config/mobile/app-config.json`
+  and `packages/content/src/app-config.ts`). When true, App.tsx mounts the host
+  instead of the native reader. There is no Diagnostics override; the kill
+  switch is JSON `sharedUi:false`.
 - Diagnostics access while the host is mounted (#4872): the Settings -> About
   path is unreachable, so an invisible native hot corner
   (`components/DiagHotCorner.tsx`, logic in `lib/diag-hot-corner.ts`) sits in
@@ -41,8 +41,6 @@ the DOM bundles.
   feed one shared counter. To open Diagnostics on the shared-UI path: tap the
   status-bar area (top) or the bottom inset strip 7 times within 2 s, in any
   mix of the two.
-  The same `DiagnosticsPanel`'s "Force shared UI" switch turns the override off
-  (applies next launch).
 - `apps/mobile/lib/orientation-lock.ts` — `app.json` is `orientation:
   "default"`; phones are locked to portrait at runtime (tablets rotate).
 
@@ -83,16 +81,15 @@ Without it a broken DOM bundle costs 2 of every 3 launches up to 10 s each,
 and a flipped default cannot be killed remotely.
 
 - **Resolved once per launch, from local state only.** Precedence:
-  quarantine > override > cache > default. Quarantine = this build's record is
-  `quarantined`; override = Diagnostics "Force shared UI"; cache = the last-good
+  quarantine > cache > default. Quarantine = this build's record is
+  `quarantined`; cache = the last-good
   `app-config.json` `sharedUi` (`loadLaunchFlags`, one local read); default =
   `DEFAULT_ROUTE_FLAGS.sharedUi`. The network config is cached and applies on
   the NEXT launch: there is no native-to-DOM swap mid-launch.
 - **Kill switch latency.** Set `sharedUi:false` in `config/mobile/app-config.json`
   and publish (docs/mobile-release.md). A device fetches it on a launch, so it
   is native from that device's second launch after publish. A device that never
-  cached a config follows the compiled default. WP5.1 flips BOTH the JSON and
-  the compiled default.
+  cached a config follows the compiled default. The compiled default is now `true` (the JSON agrees, tested).
 - **Quarantine.** Strike 2 owes one native fallback launch; the second such
   cycle in one `buildKey` (`QUARANTINE_AFTER_FALLBACK_CYCLES = 2`) quarantines the build:
   native on every launch until a new OTA or binary changes the `buildKey`, or
@@ -106,11 +103,14 @@ and a flipped default cannot be killed remotely.
   delta counts as zero elapsed).
 - **Pending screen.** While the launch resolves, a plain view in the reader's
   body-background token (`eraColors.bg`, the same `ERA_TOKENS.bg` that feeds
-  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`, then
-  native mounts and the DOM never swaps in for that launch, with one exception:
-  the Diagnostics "Force shared UI" override. If it resolves ON after the bound
-  (slow iOS keychain on a cold launch), the DOM host still mounts (late upgrade,
-  `mount-late-upgrade` mark). Every expiry records a `mount-pending-expired`
+  `--era-bg`, never a literal) shows for at most `PENDING_MAX_MS = 1500`. Slow local reads never
+  decide (#5040): at the bound the launch starts from the compiled default
+  flag and a fresh record, so the DOM mounts (never native or Recovery for
+  latency). Late evidence is for the next launch: a late flag is ignored, a late
+  quarantine/owed fallback is refunded and honoured next time, and until the
+  record resolves nothing is persisted (then ONE record folds in ready/strike).
+  A SLOW attempt write (3 s) mounts the DOM on the in-memory attempt; a FAILED
+  write still fails closed (`attempt-failed`). Each bound firing records a `mount-pending-expired`
   mark (Diagnostics "Stages"), and the Diagnostics Watchdog section shows a
   `Mount:` line with the reason the mount is native (`pending-expired`,
   `quarantine`, `watchdog-fallback`, `flag-off`, `attempt-failed`, `dom-strike`)
@@ -130,7 +130,7 @@ and a flipped default cannot be killed remotely.
 - **Protocol-fatal:** `DomWatch.protocol()` strikes with category `protocol`;
   the bridge host's `onProtocolFatal` calls it (wired in SharedUiHost, H0).
 - **Pending, not on main:** #5042 (default sharedUi on, Android first via `sharedUiIos`; removes the Force-shared-UI override and bounds the attempt write at 3000 ms), #5043 (Recovery screen replaces the native fallback), #5047 (deletes the legacy native UI). They change the precedence, fallback surface and kill-switch text above; this section describes main.
-- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `lib/watchdog-closure.test.ts` drives the real
+- **Watchdog wiring: closed (W6).** No open wiring TODOs remain; `App.watchdog.test.tsx` renders the real App (native modules, the DOM component and the screens stubbed) over the real
   monitor, tap gate, binder, bridge host/link/handlers and native-route presenter. (1) Protocol fatal from the
   host (version too new) and from the DOM client strikes `protocol`, before and after first paint. (2) A
   strike resets any open native overlay (hardware back stops being consumed) and releases the host lease first.
@@ -191,7 +191,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
    (strike 1). Relaunch: strike 2, native. Relaunch: fallback launch (native, no
    attempt). Relaunch twice more: quarantined, native with no attempt.
    Diagnostics shows `Quarantined: yes`.
-2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (via the remote flag; a strike-2 watchdog clear turns the manual Force shared UI override off and Reset does not restore it, so re-toggle it). `throw`
+2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (default-on, via the flag). `throw`
    repeats step 1 faster.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per (build, category) per day on #4791.
 4. A notification tap while quarantined/fallback lands on the native screen (H3: `useNotificationTaps` -> native navigator).
@@ -212,7 +212,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
   19.2.3 for mobile; same split as `react`, handled by the Metro singleton
   pins) and patch-level SDK drift on pre-existing packages (deliberately not
   bumped: this batch adds only the signed list).
-- **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) clears the C4 override and keeps the next launch native too. A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Re-enabling the override in Diagnostics clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
+- **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) keeps the next launch native too (the C4 override no longer exists). A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Diagnostics "Reset watchdog" clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
 - **App links declared but unverified: URL intake shipped (#5069, `longlive://` + www links), the `.well-known` association files are still pending (#4988 after HA #99); risk accepted (Codex vs Fable disagreement recorded in PROGRESS).** Without the files Android 12+ opens these links in the browser by default; only test devices exist (C5).
 
 ## Speed test mode (#4896) — the S2/S4 device procedure
@@ -285,8 +285,12 @@ Native follow-up (NOT done, fingerprint-changing): `app.json` `backgroundColor` 
 
 The webview reads the last-good content file once, at mount, so a refresh that lands while the app runs is invisible to the DOM (the website adopts on navigation). OTA-only ruling: `lib/content-bundle.ts` tracks the mounted version (`setMountedContentVersion`, seeded at launch from a tiny stamp written after each load, so the multi-MB cache is never read; `differsFromMountedContent`, `subscribeContentLoaded`). `lib/content-adoption.ts` (wired by `lib/use-content-adoption.ts`, three small hooks in `SharedUiHost`) arms `pendingVersion` when a load resolves with a different version. On the next AppState transition INTO `active` (a transition, not "while active") it bumps `generation`, which re-keys `AppReader`; the new webview re-reads the overwritten file. Once the new epoch's `navReady` arrives it issues a native `navigate` to the route the old DOM last reported. Scroll resets to the top of that route (accepted). It never re-keys while an epoch is mid-handshake (deferred to `navReady`), never re-keys on navigate, never appends `?v=` to the `readLocalText` URI and never sends content over the bridge.
 
-The route comes from the add-only DOM->native EVENT `route {path}` (fire-and-forget: no `res`, no ack). Payload is strictly one key, `path`, a `/`-rooted string of at most 2048 chars (`validRoute`; anything else is dropped with a `bridge-invalid` signal, before `ready` it is ignored with `bridge-pre-ready`). It is queued and coalesced before the handshake exactly like `theme` (`client-events.ts`: only the latest survives). The DOM sends the current path + query/hash once at mount and on every path change (`dom/bridge/route-report.ts`, driven by `subscribeDomPath`); the host calls `onRoute` and the adoption hook keeps only the latest.
+The route comes from the add-only DOM->native EVENT `route {path}` (fire-and-forget: no `res`, no ack). Payload is `path` (plus the optional keys below), a `/`-rooted string of at most 2048 chars (`validRoute`; anything else is dropped with a `bridge-invalid` signal, before `ready` it is ignored with `bridge-pre-ready`). It is queued and coalesced before the handshake exactly like `theme` (`client-events.ts`: only the latest survives). The DOM sends the current path + query/hash once at mount and on every path change (`dom/bridge/route-report.ts`, driven by `subscribeDomPath`); the host calls `onRoute` and the adoption hook keeps only the latest.
 
 Device check (iOS, not covered by unit tests): `readLocalText` and the `<script>` twin must return the NEW bytes after the in-place overwrite inside one webview, cold and warm.
 
 Adoption hardening (review r1): (1) before the re-key the host recomputes `lastGoodSource()` so the replacement reader gets the new `?v=<mtime>` cache-buster for the overwritten twin. (2) The route restore waits for BOTH the epoch's `navReady` and the new reader's first-paint `onReady` (the navigate applier only exists then); "ready" for the mid-handshake rule means both. (3) A planned re-key calls `DomWatch.plannedReload` (`watchdog-monitor` `plannedReload`, gate: `markReloading` persisted as an unresolved attempt): the ready timeout re-arms and a DOM error before ready strikes as for any launch, but the reload itself is never a strike and does not count toward the crash repeat window. (4) The `route` event also carries an optional strict `busy: boolean` (`{path}` or `{path, busy}`; any other key/type is `bridge-invalid`), fed by `bridge/busy-signal.ts` (`useReportBusy`: a ClownBot ask in flight or non-empty draft, the feedback form open / non-empty draft / sending). While busy, a foreground transition does not adopt; it adopts at a later foreground when idle.
+
+Adoption respects the reader (interim; full state restore is the follow-up "Adoption: restore full reader state (mode/era/item/scrollY) across re-key"). The re-key drops all in-memory reader state (scroll snapshot, open overlays, mode) and only the route is replayed, which is effectively `/`, so a pending version is adopted only when (a) the reader is idle: front door (era mode, current era), nothing open, `scrollY < 200`, not busy, held for `IDLE_MS` = 2000 through a cancellable gate that EVERY non-stale adoption goes through (any engaged/busy signal, or going to background, cancels the hold; engagement is unknown, i.e. treated as engaged, until the first `route` report of each DOM epoch, so a late signal can never race an adoption), or (b) the app was in AppState `background` (not iOS `inactive`) for at least `STALE_BACKGROUND_MS` = 30 min before this foreground, measured with the wall clock, guarded (a negative or > 7 day delta is a clock jump, never elapsed; busy still blocks), or (c) a cold start (no change). `dispose()` (hook cleanup) cancels the hold and invalidates an in-flight adoption (generation token; `prepare` receives `isCurrent` and every post-await action is guarded). Otherwise the version stays pending and the host signals `content-adopt-deferred-engaged`; it adopts the next time the reader idles while foregrounded, or at a later eligible foreground. The `route` event gains an optional strict `engaged: boolean` (`{path}`, `{path, busy}`, `{path, engaged}` or all three; any other key/type is `bridge-invalid`), fed by `bridge/engaged-signal.ts` (`useReportEngaged` in `ReaderShell`: off the front door, any overlay open, or `scrollY >= 200`; `route-report.ts` also reports a legal page as engaged). It is validated only in `validRoute` (events are DOM->host; the DOM-side validator and `resultFits` cover command results, which this event is not). Absent = idle, so an older DOM behaves as before. Website unaffected.
+
+Reader state restore across a re-key (#5114; the engaged gate above is kept as is). The `route` event gains an optional `snap` sub-object `{v:1, mode, eraId, lens?, itemId?, anchorId?, count?, scrollY}` (type `ReaderSnap`, `packages/ui/src/bridge/messages.ts`): every string 1..64 chars, `scrollY` an int 0..1e6, `count` an int 1..200, under ~300 bytes. `validRoute` validates it as an explicit allowlist (`validSnap`): an unknown key, wrong type or oversized value drops the `snap` only, the rest of the route is kept. Capture: `useReportSnapshot` (next to `useReportEngaged`, in `ReaderShell`) publishes mode/era/lens/open item (the item overlay only; guides, search and ClownChat are dropped), the era-stream position (`getEraScroll`: anchor era + appended count, era mode only) and `window.scrollY` to `bridge/snapshot-signal.ts`; `startRouteReporting` sends a snapshot-only change trailing, at most once per `SNAP_THROTTLE_MS` (1 s) and only when its serialized form changed (a cleared snapshot is never sent), and sends immediately, with the latest snapshot, when the path, busy or engaged changes. Native: `content-adoption.ts` keeps the latest snapshot per epoch (`epochStarted` resets it; `SharedUiHost` ignores `route` events from a closed epoch) and carries the last epoch's snapshot into the restore together with the route, for the ADOPTION re-key only: `adopt()` marks the re-key's cause, and a crash/reload re-key (no mark) replays neither route nor snapshot and drops any pending restore (state that crashes the WebView must not be restored in a loop; pre-#5114 behaviour). `route()` overwrites the epoch's snapshot every report, so an absent or invalid `snap` clears it. A navigation other than the restore that reaches the epoch first (a notification tap or deep link through the gate's `emit`, a native `navigateDom`, or a DOM `busy`/`engaged` report before the replay) sets a per-epoch `userNavigated` flag and abandons the whole restore (the tap wins). Once the new epoch has `navReady` and the reader's first paint, native emits (immediately when the route is the bare `/`, since a navigate there would reset it; otherwise after the route `navigate` settled) the add-only native->DOM event `restore {snap}` once. The DOM applies it through the store's `restoreReader` action (`reader/store/restore.ts`): mode/era/lens through the existing actions under `suppressNavPushRef` (the deep-link path, so no nav history entry; the item overlay's own `useBackDismiss` entry is then the single back entry), the item only if `getContentItemByIdOrSlug` resolves (else the era/mode landing stands), an unknown mode/era goes to the front door. The era-stream position is written to the `EraScrollSnapshot` ref after the era jump (which clears it) and `restoreSeq` keys the surface so `EraStream` remounts and its own double-rAF restore scrolls (never a separate `scrollTo`); with no era snapshot (non-era modes) `scrollY` is applied once after first paint, clamped to the document. The per-epoch token fence (#5079) is not on main; the host-level epoch check on `route` is the fence today.

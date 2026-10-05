@@ -35,9 +35,11 @@ not a plan still in progress.
    operational manual is `docs/AUTOMATION.md` — read it before touching any
    workflow, script, or desk routine.**
 3. **The mobile app (`apps/mobile`).** No longer a WebView shell. As of
-   OS-039 (2026-09-05), the app's default surface is **five native screens**
-   behind a persistent `BottomTabBar` (era stream, threads, clownbot,
-   community, merch) — see "Mobile app" below.
+   2026-10-04 the default surface is the shared (DOM) UI (`routeFlags.sharedUi`
+   default-on; kill switch JSON `sharedUi:false`). The five native screens
+   behind the `BottomTabBar` (era stream, threads, clownbot, community, merch)
+   remain only as the watchdog fallback until a later deletion PR — see
+   "Mobile app" below.
 
 Both apps, the factory, and the shared headless core are real and
 load-bearing; none substitutes for another's manual.
@@ -51,11 +53,11 @@ load-bearing; none substitutes for another's manual.
 > one versioned `ReaderSnapshot`, and the native shell keeps only
 > capabilities. D1 and D4 are unchanged. The migration is gated and in
 > progress: the shared reader is mounted in the app through the DOM host
-> behind `routeFlags.sharedUi` (default-off on main; #5042 flips it), so the
-> "five native screens" description below is the legacy/fallback state until
-> that lands. Current app architecture (bridge contract, last-good script
-> twin, Back stack, deep links, pending PRs, gaps):
-> `docs/one-ui/app-architecture.md`. Design and
+> behind `routeFlags.sharedUi` (default-on since 2026-10-04; iOS reads
+> `sharedUiIos`, still off), so the "five native screens" description
+> below is the legacy fallback state. Current app architecture (bridge
+> contract, last-good script twin, Back stack, deep links, pending PRs,
+> gaps): `docs/one-ui/app-architecture.md`. Design and
 > gates: `docs/proposals/2026-10-02-one-ui-three-surfaces.md`.
 
 Ratified 2026-09-05 (`docs/decisions.md` "Convergence decisions D1–D4",

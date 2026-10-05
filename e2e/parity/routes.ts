@@ -27,15 +27,17 @@ export interface AOnlyRoute extends RouteLike {
   clip?: string;
   /** Default 'a'. 'both' adds the a-vs-b viewport compare and b-* baselines (a slice D sets it; see docs/one-ui/parity.md). */
   sides?: Sides;
+  /** Accepted platform divergence (docs/one-ui/parity.md): keeps its b-* baselines, skips the a-vs-b compares. */
+  divergent?: boolean;
 }
 /**
  * Side b serves only the DOM entry's index.html, which the reader seeds its legal path from (dom-path.ts reads the page
  * pathname): answer the legal paths on b with that file, keeping the URL. Side a (the real web routes) is untouched.
  */
 // Side b also renders the reader's own <main> under the legal layer, so the root is the legal document's <main> (its breadcrumb is its first child on both sides).
-const LEGAL_MAIN = 'main:has(> nav[aria-label="Breadcrumb"])';
+export const LEGAL_MAIN = 'main:has(> nav[aria-label="Breadcrumb"])';
 const LEGAL_PATHS = ['/privacy', '/terms', '/support'];
-const serveLegalOnB: NonNullable<AOnlyRoute['init']> = async (page) => {
+export const serveLegalOnB: NonNullable<AOnlyRoute['init']> = async (page) => {
   await page.route(
     (u) => u.origin === BASE.b && LEGAL_PATHS.includes(u.pathname),
     async (route) => route.fulfill({ response: await route.fetch({ url: `${BASE.b}/${new URL(route.request().url()).search}` }) }),

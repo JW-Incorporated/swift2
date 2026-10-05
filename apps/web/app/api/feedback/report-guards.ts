@@ -11,7 +11,7 @@ import {
   speedDuplicate,
   type SpeedMeta,
 } from './diag';
-import { isWatchdogMessage, type WatchdogReport } from './watchdog-report';
+import { type WatchdogReport, isWatchdogMessage } from './watchdog-report';
 import { prepareWatchdog } from './watchdog-lifecycle';
 
 // Request guards for POST /api/feedback, split out of route.ts (300-line cap,

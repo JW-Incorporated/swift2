@@ -9,7 +9,8 @@ import { defineConfig, devices } from '@playwright/test';
  *
  * Baselines never pass vacuously: updateSnapshots is 'none' unless
  * PARITY_UPDATE=1 (set only by the workflow's update-baselines job), so a
- * missing baseline is a red run.
+ * missing baseline is a red run. 'changed' (not 'all') rewrites only a PNG that misses its
+ * tolerance, so sub-pixel render noise (#5046) never churns committed baselines.
  */
 const PORT = Number(process.env.PARITY_PORT ?? 4173);
 const A_PORT = Number(process.env.PARITY_A_PORT ?? 4174);
@@ -19,7 +20,7 @@ export default defineConfig({
   testMatch: '**/*.spec.ts',
   // No {platform}: baselines are Linux-only, generated in the pinned container.
   snapshotPathTemplate: '{testDir}/__screenshots__/{projectName}/{arg}{ext}',
-  updateSnapshots: process.env.PARITY_UPDATE === '1' ? 'all' : 'none',
+  updateSnapshots: process.env.PARITY_UPDATE === '1' ? 'changed' : 'none',
   timeout: 60_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,

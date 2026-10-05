@@ -4,7 +4,7 @@
 // which AppReader only holds inside its ReaderExtensionsProvider, so the
 // clownbot slot is the same composition (ClownChat fed by useLore()) reading
 // the provider AppReader already mounts: the board gets the website's lore.
-// apiStream is absent on the app adapter, so ClownChat uses bufferedFrom(apiFetch).
+// The app adapter gets apiStream injected in reader/reader-modules.ts (createBridgeApiStream), so ClownChat streams like the website.
 import { useLore } from '@swift2/ui';
 import { register } from './instance';
 import { lazySlot } from './lazy';

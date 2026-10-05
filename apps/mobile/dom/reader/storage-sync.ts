@@ -9,8 +9,10 @@ export const RETRY_START_MS = 500;
 export const RETRY_CAP_MS = 8000;
 export const MAX_RETRIES = 6;
 
-/** The native blob, or an empty seed on any failure (logged via `log`); never throws. */
-export async function loadStorageSeed(client: Caller, log: (detail: string) => void = () => {}): Promise<Record<string, string>> {
+export const LOAD_RETRY_MS = 2000;
+
+/** The native blob, or null on any failure (logged via `log`); never throws. null is NOT "empty": persisting over it would wipe the file. */
+export async function loadStorageSeed(client: Caller, log: (detail: string) => void = () => {}): Promise<Record<string, string> | null> {
   try {
     const r = await client.call('storage.load', {});
     if (r.ok && r.value && typeof r.value.entries === 'object' && r.value.entries !== null) return { ...r.value.entries };
@@ -18,7 +20,38 @@ export async function loadStorageSeed(client: Caller, log: (detail: string) => v
   } catch (e) {
     log(`storage.load: ${String(e).slice(0, 120)}`);
   }
-  return {};
+  return null;
+}
+
+type Recoverable = { track(): void; rebase(base: Record<string, string>): boolean };
+
+/**
+ * The seed load failed: the reader runs in memory only (`sync` held, no snapshot is sent) and the load is retried once.
+ * On success the loaded entries are the base, in-memory changes since are applied key by key, and pushing resumes.
+ */
+export function recoverStorage(
+  client: Caller,
+  local: Recoverable,
+  sync: { hold(): void; release(changed: boolean): void },
+  log: (detail: string) => void = () => {},
+  ms = LOAD_RETRY_MS,
+): () => void {
+  let disposed = false;
+  local.track();
+  sync.hold();
+  const timer = setTimeout(() => {
+    if (disposed) return;
+    void loadStorageSeed(client, log).then((base) => {
+      if (disposed) return;
+      if (!base) return log('storage.load retry failed; not persisting this session');
+      sync.release(local.rebase(base));
+    });
+  }, ms);
+  /** Teardown (unmount / re-key): the dead adapter must never load or push through its old client. */
+  return () => {
+    disposed = true;
+    clearTimeout(timer);
+  };
 }
 
 /**
@@ -39,6 +72,7 @@ export function createWriteCoalescer(
   let failures = 0;
   let warnedInvalid = false;
   let gaveUp = false;
+  let held = false;
 
   const arm = (delay: number) => {
     if (timer !== null) return;
@@ -74,10 +108,12 @@ export function createWriteCoalescer(
   }
 
   function send(): void {
-    if (inFlight || !dirty) return;
+    if (held || inFlight || !dirty) return;
     dirty = false;
     inFlight = true;
-    client.call('storage.write', { entries: getSnapshot() }).then(
+    const entries = getSnapshot();
+    // An empty map is only ever sent deliberately (the host refuses an unflagged empty overwrite of saved data).
+    client.call('storage.write', Object.keys(entries).length === 0 ? { entries, allowEmpty: true } : { entries }).then(
       (r) => {
         if (!r.ok && r.error.code !== 'invalid') dirty = true;
         settle(r.ok, !r.ok && r.error.code === 'invalid', r.ok ? '' : r.error.code);
@@ -102,5 +138,13 @@ export function createWriteCoalescer(
     timer = null;
     send();
   }
-  return { push, flush };
+  /** No snapshot is sent while held; pushes still mark the map dirty. */
+  function hold(): void {
+    held = true;
+  }
+  function release(changed: boolean): void {
+    held = false;
+    if (changed || dirty) push();
+  }
+  return { push, flush, hold, release };
 }

@@ -25,7 +25,7 @@
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { AppState, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -49,6 +49,7 @@ import { runAfterFirstPaint } from './lib/launch-defer';
 import { installSpeedTest } from './lib/speed-test-runtime';
 import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { ensureDeviceRegistered } from './lib/ensure-device-registered';
+import { flushPendingOptOut } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { hasOnboardingBeenOffered, isPushPermissionUndetermined } from './lib/onboarding-state';
 import { openSettingsEntry } from './lib/settings-entry';
@@ -60,7 +61,6 @@ import { DiagHotCorner } from './components/DiagHotCorner';
 import { DomHostMount } from './components/DomHostMount';
 import { shouldMountHotCorner } from './lib/diag-hot-corner';
 import { lockPhonesToPortrait } from './lib/orientation-lock';
-import { getForceSharedUi } from './lib/diagnostics-override';
 import { eraColors } from './lib/theme';
 import { effectiveNativeTheme, getNativeTheme, resetNativeTheme, subscribeNativeTheme } from './lib/native-theme-store';
 import { FirstLaunchScreen } from './components/FirstLaunchScreen';
@@ -82,8 +82,7 @@ export default function App() {
   const routeFlagsRef = useRef(routeFlags);
   routeFlagsRef.current = routeFlags;
   const [updateRequired, setUpdateRequired] = useState(false);
-  // WP2.14 launch inputs, all local and read once: C4 override (Diagnostics, so a toggle applies on the
-  // next launch) + the last-good CACHED flags. The network result below never changes this launch.
+  // WP2.14 launch inputs, read once: the last-good CACHED flags (the C4 Force-shared-UI override no longer feeds launch). The network result below never changes this launch.
   const [launchInputs, setLaunchInputs] = useState<LaunchInputs | null>(null);
   const domMount = useDomMount(launchInputs);
   // D-7: native screens present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
@@ -102,9 +101,7 @@ export default function App() {
   }, [theme.background]);
   useEffect(() => {
     void lockPhonesToPortrait();
-    void Promise.all([getForceSharedUi(), loadLaunchFlags()]).then(([override, flags]) =>
-      setLaunchInputs({ override, ...flags }),
-    );
+    void loadLaunchFlags().then((flags) => setLaunchInputs(flags));
   }, []);
   useEffect(() => {
     let cancelled = false;
@@ -151,7 +148,7 @@ export default function App() {
     // WITHOUT asking for notification permission here (spec §7); an already-granted, not-turned-off device refreshes its
     // push token, otherwise the row is upserted without one. Failures are
     // non-fatal: logged, never surfaced as a blocking error.
-    // Deferred past first paint (its SecureStore ops would delay the mount gate); ensureDeviceRegistered() is memoized,
+    // Deferred past first paint (its secure-storage ops would delay the mount gate); ensureDeviceRegistered() is memoized,
     // so an earlier on-demand caller (prefs client) triggers it once and this call joins it.
     const cancelRegistration = runAfterFirstPaint(() => {
       ensureDeviceRegistered().catch((e) => {
@@ -161,7 +158,12 @@ export default function App() {
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
-    return cancelRegistration;
+    // A turn-off whose server write failed offline is finished the next time the app returns to the foreground.
+    const sub = AppState.addEventListener('change', (s) => s === 'active' && void flushPendingOptOut());
+    return () => {
+      cancelRegistration();
+      sub.remove();
+    };
   }, []);
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
