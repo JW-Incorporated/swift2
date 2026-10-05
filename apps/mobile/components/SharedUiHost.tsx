@@ -8,14 +8,11 @@
 // within RELOAD_WINDOW_MS is a strike that unmounts this host; the first crash after ready re-keys the mount.
 // The webview reads the native disk cache itself: only a cache URI and version token cross the bridge (C6).
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, BackHandler, Linking, Platform, Share, StyleSheet, View } from 'react-native';
-import * as Clipboard from 'expo-clipboard';
-import * as Haptics from 'expo-haptics';
+import { AppState, BackHandler, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useKeyboardInset } from '../lib/use-keyboard-inset';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
-import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
 import { eraColors } from '../lib/theme';
@@ -34,26 +31,19 @@ import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
 import type { RouteFlags } from '../lib/routes';
-import { resolveDestination } from '../lib/destination-resolver';
+import { createHostTapTarget } from '../lib/host-tap-target';
 import { useSpeedOn } from '../lib/use-speed-on';
-import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
-import { createUiDeps } from '../lib/ui-deps';
-import { createFileHostStorage } from '../lib/host-storage-file';
-import { shareCardPorts } from '../lib/share-card-ports';
+import { createTapBinder, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
+import { createHostUiDeps } from '../lib/host-ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import type { LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
 
-const SITE_FALLBACK = 'https://www.longlivets.com';
-
 interface ReaderSource {
   cache: LastGoodSource | null;
 }
-
-// One per process: every epoch's bridge host shares the cached blob.
-const hostStorage = createFileHostStorage();
 
 export function SharedUiHost({
   onSignal,
@@ -135,23 +125,12 @@ export function SharedUiHost({
   useEffect(() => {
     const epoch = ++epochRef.current;
     adoption.epochStarted();
-    const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget> } = {};
+    const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createHostTapTarget>['target'] } = {};
     const link = createBridgeLink(() => {
       const next = ref.host?.inbox() ?? [];
       setInbox((prev) => (sameInbox(prev, next) ? prev : next));
     });
-    const uiDeps = createUiDeps({
-      linking: Linking,
-      share: Share,
-      cards: shareCardPorts,
-      clipboard: Clipboard,
-      haptics: Haptics,
-      hostStorage,
-      platformOS: Platform.OS,
-      log: onSignal,
-      siteUrl: navRef.current.siteUrl,
-      getPresenter: () => navRef.current.presentNativeRoute,
-    });
+    const uiDeps = createHostUiDeps(onSignal, navRef);
     const host = createBridgeHost({
       handlers: createAppHandlersFor(onSignal, { ui: uiDeps, api: createLiveApiDeps(), notifications: createExpoNotificationDeps() }),
       send: link.send,
@@ -174,24 +153,7 @@ export function SharedUiHost({
       },
       onSignal,
     });
-    const destination = (p: string) => resolveDestination(p, { isHostRoute, siteUrl: navRef.current.siteUrl ?? SITE_FALLBACK });
-    const target = createTapTarget({
-      host,
-      onGiveUp: () => onSignal('bridge-nav-gave-up'),
-      onRejected: (p) => onSignal('bridge-nav-rejected', p.slice(0, 120)),
-      canonicalize: (p) => destination(p).path,
-      isReaderPath: (p) => destination(p).kind === 'dom',
-      openElsewhere: async (p) => {
-        if (isHostRoute(p)) {
-          const r = navRef.current.presentNativeRoute?.(p as WebPath);
-          return r === 'applied' || r === 'noop';
-        }
-        await Linking.openURL(new URL(p, navRef.current.siteUrl ?? SITE_FALLBACK).toString());
-        return true;
-      },
-    });
-    // A tap/deep-link/native navigation reaching this epoch outranks a pending state restore (content adoption).
-    const gateTarget = { ...target, emit: ((t: 'navigate', p: never) => (adoption.userNavigated(), target.emit(t, p))) as typeof target.emit, navigateDom: (p: string) => (adoption.userNavigated(), target.navigateDom(p)) };
+    const { target, gateTarget } = createHostTapTarget(host, onSignal, navRef, () => adoption.userNavigated());
     const binder = createTapBinder({ gate: notificationTapGate, host: gateTarget, onReadinessLoss: () => setGeneration((g) => g + 1), onNavUnbound: () => onSignal('bridge-nav-unbound') });
     ref.target = target;
     navRef.current.onDomNavigator?.((p) => (adoption.userNavigated(), target.navigateDom(p)));
