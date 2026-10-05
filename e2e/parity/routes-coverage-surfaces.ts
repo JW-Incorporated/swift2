@@ -105,6 +105,8 @@ export const SURFACE_COVERAGE_ROUTES: readonly AOnlyRoute[] = [
       await page.locator('#mood-input').fill('parity mood');
       await page.getByRole('button', { name: 'Find songs' }).click();
       await show(page, 'section[aria-label="Songs that match"] article');
+      // Focus-neutral capture: the composer's focus-within ring plus a platform focus difference after submit.
+      await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
     },
   },
 ];
