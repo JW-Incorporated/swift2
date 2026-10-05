@@ -96,6 +96,24 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     },
   },
   {
+    name: 'era-selector-progress',
+    path: '/',
+    root: 'main',
+    sides: 'both',
+    clip: ERA_SELECTOR_CLIP,
+    // The frozen fixture has empty progress, so only seeded progress renders the "Your Long Live" card.
+    init: async (page) => {
+      await page.addInitScript((itemId) => {
+        window.localStorage.setItem('ll-progress-v1', JSON.stringify({ v: 1, moments: [], eggs: [], trails: [], favorites: [itemId] }));
+      }, fixture.itemId);
+    },
+    prepare: async (page) => {
+      await page.locator('button[aria-label$="open the eras menu"]').first().dispatchEvent('click');
+      await expect(page.locator(ERA_SELECTOR_CLIP)).toBeVisible();
+      await expect(page.locator('#your-long-live-title')).toBeVisible();
+    },
+  },
+  {
     name: 'item-lightbox',
     path: ITEM,
     root: DIALOG,

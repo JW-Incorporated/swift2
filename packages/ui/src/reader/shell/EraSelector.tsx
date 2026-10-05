@@ -1,16 +1,17 @@
 'use client';
 
-import { useRef, type ReactNode } from 'react';
+import { useRef } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { X } from 'lucide-react';
 import { useAppState, useAppActions } from '../store';
 import { useBackDismiss } from '../lib/useBackDismiss';
 import { EraGrid } from './EraGrid';
+import { YourLongLiveCard } from './YourLongLiveCard';
 
 const selectorTitleId = 'era-selector-title';
 
-export function EraSelector({ header }: { header?: ReactNode } = {}) {
+export function EraSelector() {
   const { selectorOpen, eraId } = useAppState();
   const { setEra, setSelectorOpen } = useAppActions();
   const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -54,7 +55,7 @@ export function EraSelector({ header }: { header?: ReactNode } = {}) {
           </button>
         </div>
 
-        {header}
+        <YourLongLiveCard />
 
         <EraGrid activeEraId={eraId} onPick={setEra} />
       </div>
