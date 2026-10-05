@@ -11,7 +11,7 @@ vi.mock('../../../mobile/node_modules/react', async () => await import('react'))
 vi.mock('../../../mobile/node_modules/react/jsx-runtime', async () => await import('react/jsx-runtime'));
 vi.mock('../../../mobile/node_modules/react/jsx-dev-runtime', async () => await import('react/jsx-dev-runtime'));
 
-const ROW = { id: 'e1', category: 'new_release', tier: 1, title: 'A new drop', body: 'Out now', deep_link: 'https://www.longlivets.com/?song=abc', available_at: '2026-10-01T12:00:00Z' };
+const ROW = { id: 'e1', category: 'new_release', tier: 1, title: 'A new drop', body: 'Out now', deep_link: 'https://www.longlivets.com/?item=abc', available_at: '2026-10-01T12:00:00Z' };
 const notifications = {} as HostNotifications;
 
 function mount(opts: { host?: HostNotifications; body?: unknown; status?: number }) {
@@ -51,12 +51,12 @@ describe('InboxOverlay (app host)', () => {
     fireEvent.click(await screen.findByRole('button', { name: /A new drop/ }));
     expect(apiFetch.mock.calls[0][0]).toMatchObject({ method: 'GET', path: '/api/notifications/inbox' });
     expect(inboxOverlay.isOpen()).toBe(true);
-    expect(navigate).toHaveBeenCalledWith('/?song=abc');
+    expect(navigate).toHaveBeenCalledWith('/?item=abc');
   });
 
   it.each([
-    ['https://longlivets.com/vault#x', '/vault#x'],
-    ['/?song=rel', '/?song=rel'],
+    ['https://longlivets.com/?item=x#y', '/?item=x#y'],
+    ['/?item=rel', '/?item=rel'],
   ])('canonicalizes same-site link %s to %s', async (link, expected) => {
     const { navigate } = mount({ host: notifications, body: { events: [{ ...ROW, deep_link: link }] } });
     act(() => inboxOverlay.open());

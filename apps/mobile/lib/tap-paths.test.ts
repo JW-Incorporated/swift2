@@ -16,10 +16,10 @@ afterEach(() => {
 describe('isDomOwnedTapPath', () => {
   it('owns the reader route, the settings pages and the inbox; native routes and other paths stay native', () => {
     registerRoutes({ slice: 'test', nativeRoutes: [{ id: 'test:native', match: '/test-native' }] });
-    for (const p of ['/', '/?item=x', '/settings', '/settings/notifications', '/settings/notifications?x=1', '/inbox', '/inbox?x=1']) {
+    for (const p of ['/', '/?item=x', '/settings', '/settings/notifications', '/settings/notifications?x=1', '/inbox', '/inbox?x=1', '/privacy', '/terms', '/support', '/?screen=settings', '/?current=inbox', '/?screen=era-stream', '/?screen=song&key=k']) {
       expect(isDomOwnedTapPath(p, isNativeRoute)).toBe(true);
     }
-    for (const p of ['/test-native', '/privacy', '/vault', '/settings/about']) expect(isDomOwnedTapPath(p, isNativeRoute)).toBe(false);
+    for (const p of ['/test-native', '/vault', '/settings/about']) expect(isDomOwnedTapPath(p, isNativeRoute)).toBe(false);
   });
 });
 
@@ -67,8 +67,8 @@ describe('notification tap to settings: real tap target + real DOM subscriber', 
       isReaderPath: (p) => isDomOwnedTapPath(p, isNativeRoute),
       openElsewhere,
     });
-    target.emit('navigate', { path: '/privacy' as never, source: 'notification' });
-    expect(openElsewhere).toHaveBeenCalledWith('/privacy');
+    target.emit('navigate', { path: '/vault' as never, source: 'notification' });
+    expect(openElsewhere).toHaveBeenCalledWith('/vault');
     expect(emit).not.toHaveBeenCalled();
   });
 });

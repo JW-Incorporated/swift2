@@ -3,6 +3,10 @@ import { InboxPage } from '@swift2/ui/reader/settings/InboxPage';
 import { useFocusTrap } from '@swift2/ui/reader/moment/lib/useFocusTrap';
 import { toWebPath, useHost } from '@swift2/ui';
 import { canonicalizeLink } from '../../lib/notification-tap-queue';
+import { resolveDestination } from '../../lib/destination-resolver';
+import { isNativeRoute as isHostRoute } from './routes';
+import { isInboxPath, isSettingsPath } from './settings-paths';
+import { settingsOverlay } from './settings-store';
 import { inboxOverlay, useInboxOpen } from './inbox-store';
 import { NEUTRAL } from './settings-page';
 
@@ -14,7 +18,7 @@ import { NEUTRAL } from './settings-page';
 // Modal: focus moves in and is trapped, Escape closes it, and Settings underneath is inert (settings-page.tsx).
 export function InboxOverlay() {
   const open = useInboxOpen();
-  const { navigate, notifications } = useHost();
+  const { navigate, notifications, openExternal, embedOrigin } = useHost();
   const shown = open && Boolean(notifications);
   const ref = useRef<HTMLDivElement>(null);
   useFocusTrap(shown, ref);
@@ -34,7 +38,25 @@ export function InboxOverlay() {
         onClose={inboxOverlay.close}
         onOpenItem={(deepLink) => {
           const rel = canonicalizeLink(deepLink);
-          const path = rel === null ? null : toWebPath(rel);
+          if (rel === null) return;
+          // The one resolver: legacy producer forms (?screen=settings, ?current=inbox, ...) become the DOM's own destinations.
+          const dest = resolveDestination(rel, { isHostRoute });
+          if (dest.kind === 'native') {
+            // A registered host route goes over the bridge; anything else the DOM cannot show opens in the browser. The inbox stays open either way.
+            if (isHostRoute(dest.path)) {
+              const hp = toWebPath(dest.path);
+              if (hp) navigate(hp);
+            } else openExternal?.(new URL(dest.path, embedOrigin ?? 'https://www.longlivets.com').toString());
+            return;
+          }
+          const dpath = new URL(dest.path, 'http://dom.invalid').pathname;
+          if (isInboxPath(dpath)) return;
+          if (isSettingsPath(dpath)) {
+            inboxOverlay.close();
+            settingsOverlay.open();
+            return;
+          }
+          const path = toWebPath(dest.path);
           if (!path) return;
           navigate(path);
         }}

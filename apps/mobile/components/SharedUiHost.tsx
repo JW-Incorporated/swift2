@@ -16,11 +16,11 @@ import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Envelope, Insets, WebPath } from '@swift2/ui';
 import AppReader from '../dom/AppReader';
+import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import SharedUiTest from '../dom/SharedUiTest';
 import { setLatestProbeJson, withNativeTiming } from '../dom/reader/probe';
 import { eraColors } from '../lib/theme';
 import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
-import { isDomOwnedTapPath } from '../lib/tap-paths';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
 import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
@@ -30,7 +30,8 @@ import { createRunWhenActive } from '../lib/run-when-active';
 import { setProbeJson } from '../lib/dom-probe-store';
 import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
-import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from '../lib/routes';
+import type { RouteFlags } from '../lib/routes';
+import { resolveDestination } from '../lib/destination-resolver';
 import { speedTest } from '../lib/speed-test-runtime';
 import { createTapBinder, createTapTarget, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createUiDeps } from '../lib/ui-deps';
@@ -150,7 +151,6 @@ export function SharedUiHost({
       platformOS: Platform.OS,
       log: onSignal,
       siteUrl: navRef.current.siteUrl,
-      getFlags: () => navRef.current.getRouteFlags?.() ?? DEFAULT_ROUTE_FLAGS,
       getPresenter: () => navRef.current.presentNativeRoute,
     });
     const host = createBridgeHost({
@@ -171,11 +171,15 @@ export function SharedUiHost({
       },
       onSignal,
     });
+    const destination = (p: string) => resolveDestination(p, { isHostRoute, siteUrl: navRef.current.siteUrl ?? SITE_FALLBACK });
     const target = createTapTarget({
       host,
-      isReaderPath: (p) => isDomOwnedTapPath(p, (x) => uiDeps.isNativeRoute(x as WebPath), SITE_FALLBACK),
+      onGiveUp: () => onSignal('bridge-nav-gave-up'),
+      onRejected: (p) => onSignal('bridge-nav-rejected', p.slice(0, 120)),
+      canonicalize: (p) => destination(p).path,
+      isReaderPath: (p) => destination(p).kind === 'dom',
       openElsewhere: async (p) => {
-        if (uiDeps.isNativeRoute(p as WebPath)) {
+        if (isHostRoute(p)) {
           const r = navRef.current.presentNativeRoute?.(p as WebPath);
           return r === 'applied' || r === 'noop';
         }

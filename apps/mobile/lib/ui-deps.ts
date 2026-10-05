@@ -4,7 +4,7 @@
 import type { HapticKind, SharePayload, WebPath } from '@swift2/ui';
 import type { UiHandlerDeps } from './bridge-handlers-ui';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
-import { DEFAULT_ROUTE_FLAGS, isNativeRoute, type RouteFlags } from './routes';
+import { resolveDestination } from './destination-resolver';
 
 const DEFAULT_SITE_URL = 'https://www.longlivets.com';
 
@@ -24,7 +24,6 @@ export type UiDepsEnv = {
   platformOS: string;
   log: (stage: string, detail: string) => void;
   siteUrl?: string;
-  getFlags?: () => RouteFlags;
   /**
    * Reads the D-7 presenter (`createNativeRoutePresenter().presentNativeRoute`) at call
    * time. Until the app supplies one (H4/D1) a native-route navigate answers `failed`.
@@ -34,17 +33,19 @@ export type UiDepsEnv = {
 
 export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
   const siteUrl = env.siteUrl ?? DEFAULT_SITE_URL;
-  const getFlags = env.getFlags ?? (() => DEFAULT_ROUTE_FLAGS);
   const { haptics } = env;
   return {
     log: env.log,
-    // A DOM-routed path is not native: the handler answers `invalid` and the DOM routes it itself. The slot route
-    // registry (what the presenter accepts, e.g. /inbox) and the legacy screen table (lib/routes) both count.
-    isNativeRoute: (path) => isHostRoute(path) || isNativeRoute(new URL(path, siteUrl).toString(), siteUrl, getFlags()),
+    // Native only when the ONE destination resolver says the path canonicalizes to a registered host route (what the
+    // presenter accepts). Everything else, legacy query forms included, is the DOM's to route: the handler answers invalid.
+    isNativeRoute: (path) => {
+      const d = resolveDestination(path, { isHostRoute, siteUrl });
+      return d.kind === 'native' && isHostRoute(d.path);
+    },
     navigate: (path) => {
       const present = env.getPresenter?.();
       if (!present) throw new Error('native route presenter not attached');
-      if (present(path) === 'rejected') throw new Error('native route rejected');
+      if (present(resolveDestination(path, { isHostRoute, siteUrl }).path as WebPath) === 'rejected') throw new Error('native route rejected');
     },
     openURL: async (url) => {
       await env.linking.openURL(url);
