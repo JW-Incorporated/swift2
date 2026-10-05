@@ -5087,18 +5087,6 @@ export default {
         'moment:vault-midnights-the-anti-hero-video-and-the-scale-scene-that-got-cut',
       ],
       moment: {
-        // Photo (Vault Run 2026-10-05, Lane 3): was a zero-photo page. Official
-        // MV still, oEmbed-verified author @TaylorSwift, downloaded + vision-
-        // confirmed, 1280×720, YouTube's own CDN.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/b1kbLwvqugk/maxresdefault.jpg',
-            focalPoint: '50% 28%',
-            credit: 'Republic Records, via YouTube/TaylorSwift',
-            caption: 'Taylor in the 1970s-styled house set of the self-directed "Anti-Hero" music video.',
-            kind: 'reference',
-          },
-        ],
         context:
           '“Anti-Hero” — written and produced by Taylor Swift and Jack Antonoff — was the lead single and the emotional center of Midnights; Taylor called it "a guided tour of all the things I tend to hate about myself," her most detailed reckoning with her own insecurities. It debuted at No. 1 on the Hot 100 (dated Nov. 5, 2022), the anchor of her history-making sweep of the chart\'s entire top 10, then held the summit for eight weeks — passing "Blank Space" to become her longest-running solo No. 1 to that point — and topped the UK, Australian and Canadian charts too. Its first day drew 17.4 million Spotify streams, the third-biggest single-day song total then on record.\n\nCritics made it the album\'s standout — Pitchfork heard "the lacquered synth-pop of 1989, the neurotic image analysis of reputation, the dense lyricism of folklore and evermore" folded into one song — and it placed high on year-end lists (No. 2 at USA Today and Slant, No. 5 at Billboard). It won Song of the Year at the 2023 VMAs and the iHeartRadio Awards; at the 2024 Grammys it was up for Record and Song of the Year — Taylor\'s record seventh Song of the Year nod — but won neither. It is certified 4× Platinum in the UK and 8× in Australia.\n\nLive, it first surfaced as a surprise guest turn at The 1975\'s London O2 show (Jan. 12, 2023) before settling into a fixed slot in the Eras Tour\'s Midnights act. Its self-lacerating hook — "It\'s me, hi, I\'m the problem, it\'s me" — became one of TikTok\'s defining sounds, drawing 120,000+ videos within days of release.',
         sources: [
@@ -5662,18 +5650,6 @@ export default {
       thumbnailUrl: null,
       moment: {
         video: { youtubeId: 'h8DLofLM7No', title: 'Taylor Swift - Lavender Haze (Official Music Video)' },
-        // Photo (Vault Run 2026-10-05, Lane 3): was a zero-photo page. Official
-        // MV still, oEmbed-verified author @TaylorSwift, downloaded + vision-
-        // confirmed, 1280×720, YouTube's own CDN.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/h8DLofLM7No/maxresdefault.jpg',
-            focalPoint: '20% 42%',
-            credit: 'Republic Records, via YouTube/TaylorSwift',
-            caption: 'The lavender-lit water scene from the self-directed "Lavender Haze" music video, the clip fans combed for the zodiac Easter egg.',
-            kind: 'reference',
-          },
-        ],
         context:
           'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [

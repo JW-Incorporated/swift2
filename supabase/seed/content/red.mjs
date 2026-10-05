@@ -2097,18 +2097,6 @@ export default {
       snippet: "A dubstep-tinged drop that pushed her sound to its poppiest edge yet.",
       video: { youtubeId: "vNoKguSdy4Y", title: "Taylor Swift - I Knew You Were Trouble" },
       moment: {
-        // Photo (Vault Run 2026-10-05, Lane 3): was a zero-photo page. Official
-        // MV still, oEmbed-verified author @TaylorSwift, downloaded + vision-
-        // confirmed, 1280×720, YouTube's own CDN.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/vNoKguSdy4Y/maxresdefault.jpg',
-            focalPoint: '40% 45%',
-            credit: 'Big Machine Records, via YouTube/TaylorSwift',
-            caption: 'Taylor and the leather-jacketed love interest in the desert, from the official "I Knew You Were Trouble" music video.',
-            kind: 'reference',
-          },
-        ],
         sources: [
           {
             outlet: 'Saving Country Music',
@@ -2975,18 +2963,6 @@ export default {
       snippet: "A gentle promotional single about hope after heartbreak.",
       video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
       moment: {
-        // Photo (Vault Run 2026-10-05, Lane 3): was a zero-photo page. Official
-        // MV still, oEmbed-verified author @TaylorSwift, downloaded + vision-
-        // confirmed, 640×480 (maxres unavailable), YouTube's own CDN.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/cMPEd8m79Hw/sddefault.jpg',
-            focalPoint: '58% 28%',
-            credit: 'Big Machine Records, via YouTube/TaylorSwift',
-            caption: 'Taylor on a Paris rooftop, the Eiffel Tower behind her, in the official "Begin Again" music video.',
-            kind: 'reference',
-          },
-        ],
         sources: [
           {
             outlet: 'HuffPost',

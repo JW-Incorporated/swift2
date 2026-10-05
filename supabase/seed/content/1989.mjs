@@ -2485,18 +2485,6 @@ export default {
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
       moment: {
-        // Photo (Vault Run 2026-10-05, Lane 3): was a zero-photo page. Official
-        // MV still, oEmbed-verified author @TaylorSwift, downloaded + vision-
-        // confirmed, 1280×720, YouTube's own CDN.
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
-            focalPoint: '50% 38%',
-            credit: 'Big Machine Records, via YouTube/TaylorSwift',
-            caption: 'The dark-lipped close-up from the official "Blank Space" music video.',
-            kind: 'reference',
-          },
-        ],
         sources: [
           {
             outlet: 'Slate',
