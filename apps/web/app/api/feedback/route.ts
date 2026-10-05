@@ -22,6 +22,7 @@ import {
   watchdogAllowed,
   watchdogCommentFrom,
 } from './watchdog-report';
+import { claimWatchdogReport } from './watchdog-dedupe';
 
 // In-app user feedback → a GitHub issue ("ticket"), mirroring the Karen/CIE
 // ticket shape but clearly marked user-submitted (label `user-feedback`, a
@@ -255,6 +256,9 @@ export async function POST(req: Request): Promise<Response> {
     if (!watchdogAllowed(parsed.report.buildKey)) {
       return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
     }
+    const claim = await claimWatchdogReport(parsed.report);
+    if (claim === 'duplicate') return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
+    if (claim === 'capped') return NextResponse.json({ error: 'Too many reports.' }, { status: 429 });
     diagComment = watchdogCommentFrom(parsed.report);
   } else if (diag) {
     const exactShape =
