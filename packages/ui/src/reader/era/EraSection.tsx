@@ -196,6 +196,7 @@ export function EraSection({
   return (
     <section
       data-ll-section={era.id}
+      aria-labelledby={`ll-era-heading-${era.id}`}
       style={eraStyle(era)}
       className="relative bg-[color:var(--era-bg)] text-[color:var(--era-ink)]"
     >
@@ -234,9 +235,11 @@ export function EraSection({
             {era.isCurrent ? 'Current era' : era.yearLabel}
           </button>
 
-          <h1 className="font-[family-name:var(--era-font)] text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
+          <h2
+            id={`ll-era-heading-${era.id}`}
+            className="font-[family-name:var(--era-font)] text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
             {era.name}
-          </h1>
+          </h2>
           {era.lyric ? (
             <figure className="mx-auto mt-6 max-w-xl">
               <blockquote className="font-[family-name:var(--era-font)] text-pretty text-xl italic leading-snug text-[color:var(--era-ink-soft)] sm:text-2xl">

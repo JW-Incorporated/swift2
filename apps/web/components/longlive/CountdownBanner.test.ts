@@ -17,11 +17,11 @@ describe('CountdownBanner — fail-soft, single-slot contract', () => {
   });
 
   it('renders nothing before the client clock resolves (no SSR flash of a stale countdown)', () => {
-    expect(src).toContain('if (nowMs == null) return null;');
+    expect(src).toContain('nowMs == null ? null : pickBannerCandidate');
   });
 
   it('renders nothing when no candidate qualifies (fails soft, never an error/loading state)', () => {
-    expect(src).toContain('if (!candidate) return null;');
+    expect(src).toContain('nowMs == null || !candidate ? null :');
   });
 
   it('resolves nowMs client-side only, via useEffect (never computed at module scope / SSR time)', () => {

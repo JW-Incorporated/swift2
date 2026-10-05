@@ -48,14 +48,29 @@ export function CountdownBanner({ currentItems }: { currentItems: CurrentItem[] 
   // contract `currentItems` itself already has via `useCurrentItems`.
   const { theories } = useLiveTheories(true);
 
-  if (nowMs == null) return null;
-  const candidate = pickBannerCandidate(currentItems, theories, nowMs);
-  if (!candidate) return null;
+  // The polite live region is mounted (empty) from the first render, before the
+  // banner content exists, so the later insertion is announced (WCAG 4.1.3).
+  const candidate = nowMs == null ? null : pickBannerCandidate(currentItems, theories, nowMs);
+  const announcement =
+    nowMs == null || !candidate
+      ? ''
+      : candidate.kind === 'countdown'
+        ? candidate.item.countdownTargetAt
+          ? `${candidate.item.headline} ${countdownLabel(candidate.item.countdownTargetAt, nowMs)}`
+          : ''
+        : `Fans are onto something: ${candidate.theory.name}`;
 
-  return candidate.kind === 'countdown' ? (
-    <CountdownSlot item={candidate.item} nowMs={nowMs} />
-  ) : (
-    <TheorySlot theory={candidate.theory} />
+  return (
+    <>
+      <div role="status" aria-live="polite" data-ll-banner-live className="sr-only">
+        {announcement}
+      </div>
+      {nowMs == null || !candidate ? null : candidate.kind === 'countdown' ? (
+        <CountdownSlot item={candidate.item} nowMs={nowMs} />
+      ) : (
+        <TheorySlot theory={candidate.theory} />
+      )}
+    </>
   );
 }
 
@@ -63,7 +78,7 @@ function CountdownSlot({ item, nowMs }: { item: CurrentItem; nowMs: number }) {
   if (!item.countdownTargetAt) return null;
   return (
     <div
-      role="status"
+      aria-hidden
       className="sticky top-0 z-40 w-full border-b-2 px-5 py-3 text-center text-sm font-semibold"
       style={{
         borderColor: 'var(--era-accent)',
@@ -88,7 +103,7 @@ function CountdownSlot({ item, nowMs }: { item: CurrentItem; nowMs: number }) {
 function TheorySlot({ theory }: { theory: LiveTheory }) {
   return (
     <div
-      role="status"
+      aria-hidden
       className="sticky top-0 z-40 w-full border-b-2 px-5 py-3 text-center text-sm font-semibold"
       style={{
         borderColor: 'var(--era-accent)',
@@ -109,9 +124,9 @@ function TheorySlot({ theory }: { theory: LiveTheory }) {
  * label refreshed on each render is enough for a banner that re-renders on
  * every EraStream mount/navigation; a per-second ticking clock is
  * deliberately out of scope for this card). */
-function CountdownClock({ targetIso, nowMs }: { targetIso: string; nowMs: number }) {
+function countdownLabel(targetIso: string, nowMs: number): string {
   const remainingMs = Date.parse(targetIso) - nowMs;
-  if (remainingMs <= 0) return <span>· revealing now</span>;
+  if (remainingMs <= 0) return '· revealing now';
   const totalMinutes = Math.floor(remainingMs / 60_000);
   const days = Math.floor(totalMinutes / (60 * 24));
   const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
@@ -120,5 +135,9 @@ function CountdownClock({ targetIso, nowMs }: { targetIso: string; nowMs: number
   if (days > 0) parts.push(`${days}d`);
   if (days > 0 || hours > 0) parts.push(`${hours}h`);
   parts.push(`${minutes}m`);
-  return <span>· {parts.join(' ')} left</span>;
+  return `· ${parts.join(' ')} left`;
+}
+
+function CountdownClock({ targetIso, nowMs }: { targetIso: string; nowMs: number }) {
+  return <span>{countdownLabel(targetIso, nowMs)}</span>;
 }

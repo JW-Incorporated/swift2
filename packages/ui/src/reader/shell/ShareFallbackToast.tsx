@@ -56,16 +56,24 @@ export function ShareFallbackToast() {
     return () => window.clearTimeout(cap);
   }, [paused]);
 
-  if (!payload) return null;
   const openVia = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!host.openExternal) return;
     event.preventDefault();
     host.openExternal(event.currentTarget.href);
   };
-  const message = encodeURIComponent(`${payload.text} ${payload.url}`);
+  const message = payload ? encodeURIComponent(`${payload.text} ${payload.url}`) : '';
+  // Persistent polite live region, mounted empty before any payload so the
+  // announcement is not lost (WCAG 4.1.3); the interactive aside is not live.
+  const live = (
+    <div role="status" aria-live="polite" data-ll-share-live className="sr-only">
+      {payload ? (payload.copied ? 'Link copied' : 'Share link ready') : ''}
+    </div>
+  );
+  if (!payload) return <>{live}</>;
   return (
+    <>
+      {live}
     <aside
-      aria-live="polite"
       onPointerEnter={(event) => {
         if (event.pointerType === 'mouse') setHover(true);
       }}
@@ -129,5 +137,6 @@ export function ShareFallbackToast() {
         </a>
       </div>
     </aside>
+    </>
   );
 }

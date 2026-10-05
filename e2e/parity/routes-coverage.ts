@@ -92,7 +92,7 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     sides: 'both',
     clip: ERA_SELECTOR_CLIP,
     prepare: async (page) => {
-      await page.locator('button[aria-label$="open the eras menu"]').first().dispatchEvent('click');
+      await page.locator('button:has-text("open the eras menu")').first().dispatchEvent('click');
       await expect(page.locator(ERA_SELECTOR_CLIP)).toBeVisible();
     },
   },
@@ -110,7 +110,7 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
       await stubBridgeApiOnB(page, {}, { 'll-progress-v1': progress });
     },
     prepare: async (page) => {
-      await page.locator('button[aria-label$="open the eras menu"]').first().dispatchEvent('click');
+      await page.locator('button:has-text("open the eras menu")').first().dispatchEvent('click');
       await expect(page.locator(ERA_SELECTOR_CLIP)).toBeVisible();
       await expect(page.locator('#your-long-live-title')).toBeVisible();
     },
