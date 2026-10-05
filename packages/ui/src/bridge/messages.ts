@@ -14,6 +14,9 @@ import { makeRes, resErr } from './envelope';
 import type { BridgeApiRequest, ExternalUrl, MailtoUrl, WebPath } from './validate';
 import type { VersionRange } from './version';
 
+/** Reader state the DOM reports on `route` so native can restore it after a re-key (#5114). Short ids/enums only; limits in snapshot-signal.ts. */
+export type ReaderSnap = { v: 1; mode: string; eraId: string; lens?: string; itemId?: string; anchorId?: string; count?: number; scrollY: number };
+
 type Spec<P, R> = { payload: P; result: R };
 
 /** DOM -> native commands. `null` result = completed, nothing to return. */
@@ -83,7 +86,7 @@ export type DomEventSpec = {
   /** Fire-and-forget (no res, no ack): the surface theme colour changed. `background` is #rrggbb, `statusBarStyle` light|dark. Add-only. */
   theme: ThemeChange;
   /** Fire-and-forget (no res, no ack): the DOM's current route (`/`-rooted path plus query/hash, <= 2048 chars) changed. Queued/coalesced like `theme`: only the latest matters. Add-only. */
-  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean; /** The reader is away from rest (not the front door, an overlay or legal page open, or scrolled down): native defers content adoption until it idles. Absent = idle. */ engaged?: boolean };
+  route: { path: string; /** The user is mid-interaction (ClownBot ask/draft, feedback form): native defers content adoption. Absent = idle. */ busy?: boolean; /** The reader is away from rest (not the front door, an overlay or legal page open, or scrolled down): native defers content adoption until it idles. Absent = idle. */ engaged?: boolean; /** The reader state (mode/era/lens/open item/scroll) native replays after a re-key. Absent = nothing to restore. */ snap?: ReaderSnap };
 };
 
 /** Native -> DOM events. */
@@ -94,6 +97,8 @@ export type NativeEventSpec = {
   readyAck: { hwm: number };
   /** `id` (optional, add-only) asks the DOM to answer with a `navigated` event once the navigation committed. */
   navigate: { path: WebPath; source: 'notification' | 'deeplink'; id?: string };
+  /** Replay the reader state the previous epoch last reported (#5114): sent once, after the new epoch navigated. Add-only. */
+  restore: { snap: ReaderSnap };
 };
 
 export type EventSpec = DomEventSpec & NativeEventSpec;
@@ -171,6 +176,7 @@ const NATIVE_EVENTS: Record<NativeEventType, true> = {
   contentVersion: true,
   readyAck: true,
   navigate: true,
+  restore: true,
 };
 
 export const DOM_COMMAND_TYPES = Object.keys(DOM_COMMANDS) as readonly DomCommandType[];

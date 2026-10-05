@@ -161,9 +161,9 @@ export function SharedUiHost({
       onReadyAgain: () => ref.binder?.readyAgain(),
       onNavReady: () => {
         ref.binder?.navReady();
-        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false));
+        adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false), (snap) => void ref.host?.emit('restore', { snap }));
       },
-      onRoute: (path, busy, engaged) => adoption.route(path, busy, engaged),
+      onRoute: (path, busy, engaged, snap) => epochRef.current === epoch && adoption.route(path, busy, engaged, snap),
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {

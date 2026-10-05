@@ -49,5 +49,10 @@ export function ReaderBridge() {
     return () => controls.setApplier(null);
   }, []);
 
+  useEffect(() => {
+    controls.setRestorer((snap) => void live.current.actions.restoreReader(snap));
+    return () => controls.setRestorer(null);
+  }, []);
+
   return null;
 }

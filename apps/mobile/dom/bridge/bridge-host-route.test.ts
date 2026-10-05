@@ -64,7 +64,7 @@ describe('route event (fire-and-forget)', () => {
     expect(onRoute).not.toHaveBeenCalled();
     w.release();
     await vi.waitFor(() => expect(onRoute).toHaveBeenCalledTimes(1));
-    expect(onRoute).toHaveBeenCalledWith('/terms?x=1', false, false);
+    expect(onRoute).toHaveBeenCalledWith('/terms?x=1', false, false, null);
     expect(onSignal).not.toHaveBeenCalledWith('bridge-pre-ready', 'route');
     expect(w.sent.some((e) => e.type === 'route' || e.kind === 'res')).toBe(false);
     w.dom.client.dispose();
@@ -80,7 +80,7 @@ describe('route event (fire-and-forget)', () => {
     w.dom.client.sendEvent('route', { path: '/', busy: true });
     w.release();
     await vi.waitFor(() => expect(onRoute).toHaveBeenCalledTimes(1));
-    expect(onRoute).toHaveBeenCalledWith('/', true, false);
+    expect(onRoute).toHaveBeenCalledWith('/', true, false, null);
     w.dom.client.dispose();
     w.host.dispose();
   });
@@ -91,9 +91,9 @@ describe('route event (fire-and-forget)', () => {
     w.dom.mount();
     await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
     w.dom.client.sendEvent('route', { path: '/', engaged: true });
-    await vi.waitFor(() => expect(onRoute).toHaveBeenLastCalledWith('/', false, true));
+    await vi.waitFor(() => expect(onRoute).toHaveBeenLastCalledWith('/', false, true, null));
     w.dom.client.sendEvent('route', { path: '/', busy: true, engaged: true });
-    await vi.waitFor(() => expect(onRoute).toHaveBeenLastCalledWith('/', true, true));
+    await vi.waitFor(() => expect(onRoute).toHaveBeenLastCalledWith('/', true, true, null));
     w.dom.client.dispose();
     w.host.dispose();
   });
@@ -105,7 +105,7 @@ describe('route event (fire-and-forget)', () => {
     await vi.waitFor(() => expect(w.host.isReady()).toBe(true));
     await vi.waitFor(() => {
       w.dom.client.sendEvent('route', { path: '/support' });
-      expect(onRoute).toHaveBeenCalledWith('/support', false, false);
+      expect(onRoute).toHaveBeenCalledWith('/support', false, false, null);
     });
     w.dom.client.dispose();
     w.host.dispose();
