@@ -39,10 +39,16 @@ function cacheFile(key: string): FileSystem.File {
 
 const LAST_GOOD_SUFFIX = ':last-good';
 
-/** The `.js` twin of a last-good cache file: the JSON document as a JS string literal, so the DOM webview can load it
- * with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS). */
+/** The `.js` twin of a last-good cache file: the JSON document as a JS object literal (JSON is valid JS), so the DOM
+ * webview loads it with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS)
+ * and gets the parsed object with no second JSON.parse. U+2028/U+2029 stay escaped for older engines. A document with a
+ * `__proto__` key keeps the old string-literal form (an object literal would set the prototype, JSON.parse would not).
+ * The reader accepts both forms, so twins written by older builds still load. */
 export function lastGoodScriptSource(jsonText: string): string {
-  return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+  const id = `globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+  if (jsonText.includes('"__proto__"')) return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};${id}`;
+  const literal = jsonText.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+  return `globalThis.__swift2LastGood=${literal};${id}`;
 }
 
 /** FNV-1a 32-bit over the JSON text + its length: the twin's content id, also the `?v=` cache-buster. */

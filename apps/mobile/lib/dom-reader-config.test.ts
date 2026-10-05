@@ -127,9 +127,23 @@ describe('storage adapter .js twin', () => {
     expect(js.startsWith('globalThis.__swift2LastGood=')).toBe(true);
     const g: Record<string, unknown> = {};
     (new Function('globalThis', js) as (g: unknown) => void)(g);
-    expect(g.__swift2LastGood).toBe(json);
+    expect(typeof g.__swift2LastGood).toBe('object');
+    expect(g.__swift2LastGood).toEqual(JSON.parse(json));
     expect(g.__swift2LastGoodId).toBe(contentId(json));
     expect(files.get(jsonUri())).toBe(json);
+  });
+
+  it('keeps U+2028/U+2029 escaped in the emitted script and falls back to the string form for a __proto__ key', () => {
+    const json = `{"e":"${String.fromCharCode(0x2028)}${String.fromCharCode(0x2029)}","t":"x"}`;
+    const js = lastGoodScriptSource(json);
+    expect(js.includes(String.fromCharCode(0x2028)) || js.includes(String.fromCharCode(0x2029))).toBe(false);
+    const g: Record<string, unknown> = {};
+    (new Function('globalThis', js) as (g: unknown) => void)(g);
+    expect(g.__swift2LastGood).toEqual(JSON.parse(json));
+    const proto = '{"__proto__":{"x":1}}';
+    const g2: Record<string, unknown> = {};
+    (new Function('globalThis', lastGoodScriptSource(proto)) as (g: unknown) => void)(g2);
+    expect(g2.__swift2LastGood).toBe(proto);
   });
 
   it('writes the twin atomically (temp then move) after the .json', () => {
