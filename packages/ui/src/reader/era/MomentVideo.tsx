@@ -161,14 +161,17 @@ export function MomentVideo({
   /** Passed straight to `VideoPoster` — see the note on its `priority`. */
   priority?: boolean;
 }) {
-  const { playing, notice, play, onLoad, onError } = useEmbedGate(startPlaying);
   const { embedOrigin } = useHost();
+  const { playing, notice, stalled, reloadKey, iframeRef, play, reload, onLoad, onError } =
+    useEmbedGate(startPlaying, embedOrigin);
 
   return (
     <figure className={className}>
       {playing ? (
         <VideoFrame>
           <iframe
+            key={reloadKey}
+            ref={iframeRef}
             title={video.title}
             src={youtubeEmbedSrc(video.youtubeId, embedOrigin)}
             referrerPolicy={YOUTUBE_REFERRER_POLICY}
@@ -184,7 +187,7 @@ export function MomentVideo({
       ) : (
         <VideoPoster video={video} playNoun={playNoun} priority={priority} onPlay={play} />
       )}
-      {notice && <EmbedNotice message={notice} />}
+      <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
       {caption !== null && (
         <figcaption className="mt-2 text-center text-xs text-[color:var(--era-ink-soft)]">
           {caption}

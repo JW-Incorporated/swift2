@@ -27,12 +27,15 @@ const EMBED_HEIGHT = 352;
  * embeds in the viewport together.
  */
 function SpotifyEmbed({ id, title }: { id: string; title: string }) {
-  const { playing, notice, play, onLoad, onError } = useEmbedGate();
   const { embedOrigin } = useHost();
+  const { playing, notice, stalled, reloadKey, iframeRef, play, reload, onLoad, onError } =
+    useEmbedGate(false, embedOrigin);
 
   if (playing) {
     return (
       <iframe
+        key={reloadKey}
+        ref={iframeRef}
         title={title}
         // No `autoplay` param: EraMedia's facade doesn't use one either, and
         // Spotify's widget ignores it for anonymous listeners anyway. The click
@@ -81,7 +84,7 @@ function SpotifyEmbed({ id, title }: { id: string; title: string }) {
           Play on Spotify
         </span>
       </button>
-      {notice && <EmbedNotice message={notice} />}
+      <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
     </>
   );
 }

@@ -17,8 +17,9 @@ import { YOUTUBE_REFERRER_POLICY, youtubeEmbedSrc } from '../lib/youtube-embed';
 import type { MoodMatch } from '@swift2/experience';
 
 export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: string }) {
-  const { playing, notice, play, onLoad, onError } = useEmbedGate();
   const { embedOrigin } = useHost();
+  const { playing, notice, stalled, reloadKey, iframeRef, play, reload, onLoad, onError } =
+    useEmbedGate(false, embedOrigin);
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)]">
@@ -45,6 +46,8 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
         >
           {playing ? (
             <iframe
+              key={reloadKey}
+              ref={iframeRef}
               src={youtubeEmbedSrc(pick.youtubeId, embedOrigin)}
               referrerPolicy={YOUTUBE_REFERRER_POLICY}
               title={pick.title}
@@ -76,7 +79,7 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
           )}
         </div>
       )}
-      {notice && <EmbedNotice message={notice} />}
+      <EmbedNotice message={notice} stalled={stalled} onReload={reload} />
     </article>
   );
 }

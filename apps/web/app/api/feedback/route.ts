@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { makeRateLimiter, isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
 import {
   DIAG_ISSUE_NUMBER,
   DIAG_PREFIX,
@@ -207,7 +208,7 @@ export function bodyFrom(message: string, loc: Location): string {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  let payload: { message?: string; location?: Location; hp?: string; diag?: unknown; watchdog?: unknown };
+  let payload: { id?: unknown; message?: string; location?: Location; hp?: string; diag?: unknown; watchdog?: unknown };
   const bodyText = await readBodyText(req);
   if (bodyText === null) {
     return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
@@ -227,6 +228,12 @@ export async function POST(req: Request): Promise<Response> {
   const message = clip(payload.message, MAX_MESSAGE).trim();
   if (!message) {
     return NextResponse.json({ error: 'Please enter some feedback.' }, { status: 400 });
+  }
+
+  // A resend of an already-filed report (offline outbox) is acknowledged without posting again.
+  const idemId = parseIdempotencyId(payload.id);
+  if (idemId && isDuplicate(idemId)) {
+    return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
   }
 
   const ip = trustedClientIp(req);
@@ -316,6 +323,8 @@ export async function POST(req: Request): Promise<Response> {
   delete location.url;
   delete (location as Record<string, unknown>).userAgent;
 
+  if (idemId) markPending(idemId);
+  let filed = false;
   try {
     const res = await fetch(
       diag
@@ -352,6 +361,7 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
+    filed = true;
     if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
     return NextResponse.json(
@@ -361,5 +371,7 @@ export async function POST(req: Request): Promise<Response> {
   } catch (err) {
     console.error('feedback: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
+  } finally {
+    if (idemId) settle(idemId, filed);
   }
 }

@@ -4,7 +4,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter } from '../../host/types';
 import { FeedbackButton } from './FeedbackButton';
-import { FEEDBACK_DRAFT_KEY } from './lib/feedback-outbox';
+import {
+  FEEDBACK_DRAFT_KEY,
+  FEEDBACK_LEASE_KEY,
+  FEEDBACK_QUEUE_KEY,
+  MAX_QUEUE,
+  enqueue,
+  readQueue,
+} from './lib/feedback-outbox';
 
 vi.mock('../store', () => ({ useAppState: () => ({ clownChatExpanded: false }) }));
 vi.mock('./lib/feedback-location', () => ({
@@ -19,12 +26,13 @@ function setOnline(v: boolean) {
   Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => v });
 }
 
+const store = (m: Map<string, string>) => ({
+  get: (k: string) => m.get(k) ?? null,
+  set: (k: string, v: string) => void m.set(k, v),
+  remove: (k: string) => void m.delete(k),
+});
+
 function makeHost(local: Map<string, string>, apiFetch: ReturnType<typeof vi.fn>) {
-  const store = (m: Map<string, string>) => ({
-    get: (k: string) => m.get(k) ?? null,
-    set: (k: string, v: string) => void m.set(k, v),
-    remove: (k: string) => void m.delete(k),
-  });
   return {
     apiFetch,
     storage: { local: store(local), session: store(new Map()) },
@@ -46,10 +54,14 @@ async function openAndType(text: string) {
   fireEvent.change(await screen.findByRole('textbox'), { target: { value: text } });
 }
 
+const send = () => fireEvent.click(screen.getByRole('button', { name: 'Send' }));
 const fireOnline = () =>
   act(async () => {
     window.dispatchEvent(new Event('online'));
   });
+const queueOf = (local: Map<string, string>) => JSON.parse(local.get(FEEDBACK_QUEUE_KEY) ?? '[]');
+const bodyOf = (apiFetch: ReturnType<typeof vi.fn>, call = 0) =>
+  JSON.parse(apiFetch.mock.calls[call]![0].body);
 
 describe('FeedbackButton outbox', () => {
   let local: Map<string, string>;
@@ -60,56 +72,119 @@ describe('FeedbackButton outbox', () => {
   });
   afterEach(() => setOnline(true));
 
-  it('offline submit saves a draft without sending, then one resend on online', async () => {
+  it('is attempt-first: navigator.onLine=false does not stop the send, and the POST carries an id', async () => {
     setOnline(false);
+    mount(local, apiFetch);
+    await openAndType('typo');
+    send();
+    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
+    expect(bodyOf(apiFetch).id).toMatch(/\S{8,}/);
+    await waitFor(() => expect(local.has(FEEDBACK_QUEUE_KEY)).toBe(false));
+  });
+
+  it('a transport failure queues with a stable id; one resend on online reuses it and clears on 2xx', async () => {
+    apiFetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
     mount(local, apiFetch);
     await openAndType('typo on page');
-    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
-    expect(apiFetch).not.toHaveBeenCalled();
-    expect(local.get(FEEDBACK_DRAFT_KEY)).toContain('typo on page');
-
-    setOnline(true);
-    await fireOnline();
-    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(local.has(FEEDBACK_DRAFT_KEY)).toBe(false));
+    send();
+    await waitFor(() => expect(queueOf(local)).toHaveLength(1));
+    const [{ id }] = queueOf(local);
+    expect(local.has(FEEDBACK_DRAFT_KEY)).toBe(false);
 
     await fireOnline();
-    expect(apiFetch).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(2));
+    expect(bodyOf(apiFetch, 1).id).toBe(id);
+    await waitFor(() => expect(local.has(FEEDBACK_QUEUE_KEY)).toBe(false));
+
+    await fireOnline();
+    expect(apiFetch).toHaveBeenCalledTimes(2);
   });
 
-  it('a failed auto-resend is not retried again', async () => {
-    setOnline(false);
-    apiFetch.mockResolvedValue({ status: 500, body: '{}' });
+  it('a failed auto-resend is not retried again and stays queued', async () => {
+    apiFetch.mockRejectedValue(new TypeError('Failed to fetch'));
     mount(local, apiFetch);
     await openAndType('broken');
-    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
-    setOnline(true);
+    send();
+    await waitFor(() => expect(queueOf(local)).toHaveLength(1));
     await fireOnline();
-    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(2));
+    await fireOnline();
+    expect(apiFetch).toHaveBeenCalledTimes(2);
+    expect(queueOf(local)).toHaveLength(1);
+  });
+
+  it('HTTP errors are shown, never queued or retried', async () => {
+    apiFetch.mockResolvedValue({ status: 429, body: JSON.stringify({ error: 'Slow down.' }) });
+    mount(local, apiFetch);
+    await openAndType('spam?');
+    send();
+    expect(await screen.findByText('Slow down.')).toBeTruthy();
+    expect(local.has(FEEDBACK_QUEUE_KEY)).toBe(false);
     await fireOnline();
     expect(apiFetch).toHaveBeenCalledTimes(1);
-    expect(local.get(FEEDBACK_DRAFT_KEY)).toContain('broken');
+    expect((screen.getByRole('textbox') as HTMLTextAreaElement).value).toBe('spam?');
   });
 
-  it('success clears the draft', async () => {
+  it('persists the draft on edit (debounced) and clears it when emptied', async () => {
     mount(local, apiFetch);
-    await openAndType('hello');
-    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
-    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(local.has(FEEDBACK_DRAFT_KEY)).toBe(false));
+    await openAndType('half-written');
+    expect(local.has(FEEDBACK_DRAFT_KEY)).toBe(false);
+    await waitFor(() => expect(local.get(FEEDBACK_DRAFT_KEY)).toContain('half-written'), {
+      timeout: 2000,
+    });
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: '' } });
+    await waitFor(() => expect(local.has(FEEDBACK_DRAFT_KEY)).toBe(false), { timeout: 2000 });
   });
 
-  it('a failed send keeps the draft, and a new mount restores it', async () => {
-    apiFetch.mockResolvedValue({ status: 500, body: '{}' });
+  it('a new mount restores the unsent draft', async () => {
     const first = mount(local, apiFetch);
     await openAndType('keep me');
-    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
-    await waitFor(() => expect(local.get(FEEDBACK_DRAFT_KEY)).toContain('keep me'));
+    await waitFor(() => expect(local.get(FEEDBACK_DRAFT_KEY)).toContain('keep me'), {
+      timeout: 2000,
+    });
     first.unmount();
-
     mount(local, apiFetch);
     fireEvent.click(screen.getByRole('button', { name: 'Send feedback' }));
-    const box = (await screen.findByRole('textbox')) as HTMLTextAreaElement;
-    expect(box.value).toBe('keep me');
+    expect(((await screen.findByRole('textbox')) as HTMLTextAreaElement).value).toBe('keep me');
+  });
+
+  it('a new mount sends a queued report once, then clears it', async () => {
+    local.set(
+      FEEDBACK_QUEUE_KEY,
+      JSON.stringify([{ id: 'queued-id-0001', message: 'from before' }]),
+    );
+    mount(local, apiFetch);
+    await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
+    expect(bodyOf(apiFetch).id).toBe('queued-id-0001');
+    await waitFor(() => expect(local.has(FEEDBACK_QUEUE_KEY)).toBe(false));
+  });
+
+  it('is single-flight across tabs: a live lease held elsewhere blocks the send', async () => {
+    local.set(
+      FEEDBACK_LEASE_KEY,
+      JSON.stringify({ owner: 'other-tab', until: Date.now() + 20_000 }),
+    );
+    mount(local, apiFetch);
+    await openAndType('dup?');
+    send();
+    await waitFor(() => expect(queueOf(local)).toHaveLength(1));
+    expect(apiFetch).not.toHaveBeenCalled();
+  });
+});
+
+describe('outbox bounds', () => {
+  it('holds at most MAX_QUEUE items and reuses the id of an identical one', () => {
+    const local = new Map<string, string>();
+    const host = makeHost(local, vi.fn());
+    const items = Array.from({ length: MAX_QUEUE }, (_, i) => enqueue(host, `report ${i}`));
+    expect(items.every(Boolean)).toBe(true);
+    expect(enqueue(host, 'one too many')).toBeNull();
+    expect(enqueue(host, 'report 0')?.id).toBe(items[0]!.id);
+    expect(readQueue(host)).toHaveLength(MAX_QUEUE);
+  });
+
+  it('clips each item to 8 KB', () => {
+    const host = makeHost(new Map(), vi.fn());
+    expect(enqueue(host, 'x'.repeat(20_000))!.message).toHaveLength(8 * 1024);
   });
 });
