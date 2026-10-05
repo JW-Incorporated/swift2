@@ -25,7 +25,7 @@ vi.mock('react-native', async () => {
   const el = (tag: string) => (p: { children?: unknown; testID?: string }) => React.createElement(tag, { 'data-testid': p.testID }, p.children as never);
   return {
     View: el('div'),
-    Platform: { OS: 'ios' },
+    Platform: { OS: 'android' },
     StyleSheet: { create: (s: unknown) => s, hairlineWidth: 1 },
     AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
     BackHandler: { addEventListener: () => ({ remove: () => undefined }), exitApp: () => undefined },
@@ -83,14 +83,10 @@ vi.mock('./lib/content-bundle', async (orig) => ({ ...(await orig<object>()), lo
 vi.mock('./components/DiagHotCorner', () => ({ DiagHotCorner: () => null }));
 vi.mock('./components/UpdateRequiredScreen', () => ({ UpdateRequiredScreen: () => null }));
 vi.mock('./dom/SharedUiTest', () => ({ default: () => null }));
-vi.mock('./components/NativeScreenRouter', async () => {
+vi.mock('./components/NativeScreenRouter', () => ({ NativeScreenRouter: () => null }));
+vi.mock('./components/RecoveryScreen', async () => {
   const React = await import('react');
-  return {
-    NativeScreenRouter: (p: { nav: { inboxOpen: boolean } }) => {
-      h.nav = p.nav;
-      return React.createElement('div', { 'data-testid': 'native-surface', 'data-inbox': String(p.nav.inboxOpen) });
-    },
-  };
+  return { RecoveryScreen: () => React.createElement('div', { 'data-testid': 'native-surface' }) };
 });
 vi.mock('./components/NativeOverlayHost', async () => {
   const React = await import('react');
@@ -115,7 +111,6 @@ vi.mock('./dom/AppReader', async () => {
 
 import App from './App';
 import { registerRoutes } from './dom/slots/routes';
-import { FORCE_SHARED_UI_KEY } from './lib/diagnostics-override';
 import { notificationTapGate } from './lib/use-notification-taps';
 import { beginAttempt, decideMount, recordStrike, shouldMountDom, type WatchdogRecord } from './lib/watchdog';
 
@@ -126,7 +121,6 @@ const tapResponse = (id: string, deepLink: string) => ({ notification: { date: 1
 
 /** Mount the App on the DOM host and run the DOM side of the handshake up to a bound tap target. */
 async function mountDomApp() {
-  h.store.set(FORCE_SHARED_UI_KEY, 'true');
   render(<App />);
   await vi.waitFor(() => expect(h.reader).not.toBeNull());
   await bridge(env('r1', 'evt', 'ready', { v: 1 }));
@@ -146,13 +140,13 @@ afterEach(() => {
 });
 
 describe('App: a DOM protocol fatal strikes the real watchdog and falls back to native', () => {
-  it('mounts the DOM host first (override on), no native surface yet', async () => {
+  it('mounts the DOM host first (default-on), no native surface yet', async () => {
     await mountDomApp();
     expect(screen.getByTestId('dom-reader')).toBeTruthy();
     expect(screen.queryByTestId('native-surface')).toBeNull();
   });
 
-  it('DOM-reported protocol fatal: surface switches to native, the open overlay clears, a queued tap opens a native screen', async () => {
+  it('DOM-reported protocol fatal: surface switches to native, the open overlay clears, a queued tap stays held (Recovery holds taps, #5102)', async () => {
     await mountDomApp();
     // an overlay is open over the DOM host (opened through the real bridge navigate -> presenter path)
     await bridge(env('1700000000000', 'cmd', 'navigate', { path: '/closure-native', replace: false }));
@@ -170,14 +164,12 @@ describe('App: a DOM protocol fatal strikes the real watchdog and falls back to 
     expect(screen.queryByTestId('dom-reader')).toBeNull();
     expect(screen.queryByTestId('overlay')).toBeNull();
     expect(h.overlay!.presenter.getState()).toMatchObject({ phase: 'idle', route: null });
-    await vi.waitFor(() => expect(screen.getByTestId('native-surface').getAttribute('data-inbox')).toBe('true'));
-    await vi.waitFor(() => expect(notificationTapGate.size()).toBe(0));
+    expect(notificationTapGate.size()).toBe(1);
     // the strike is persisted: the next launch starts from a fallback record, not a fresh attempt
     expect(JSON.parse(h.store.get('longlive_watchdog_v1')!)).toMatchObject({ strikes: 1, lastReason: 'protocol-fatal' });
   });
 
   it('a protocol version the host cannot speak (host-detected fatal) falls back the same way', async () => {
-    h.store.set(FORCE_SHARED_UI_KEY, 'true');
     render(<App />);
     await vi.waitFor(() => expect(h.reader).not.toBeNull());
     await bridge(env('r1', 'evt', 'ready', { v: 99 }));
@@ -186,8 +178,8 @@ describe('App: a DOM protocol fatal strikes the real watchdog and falls back to 
   });
 });
 
-describe('App: a quarantined build never mounts the DOM host, and taps open natively at once', () => {
-  it('launch with a quarantined record: native surface, no DOM reader, the tap is never queued', async () => {
+describe('App: a quarantined build never mounts the DOM host, and taps stay held on Recovery', () => {
+  it('launch with a quarantined record: Recovery surface, no DOM reader, the tap stays queued', async () => {
     let record: WatchdogRecord | null = null;
     for (const launch of [1, 2, 3, 4, 5, 6]) {
       const d = decideMount(record, '1:embedded', launch);
@@ -196,13 +188,12 @@ describe('App: a quarantined build never mounts the DOM host, and taps open nati
     }
     expect(decideMount(record, '1:embedded', Date.now()).record.state).toBe('quarantined');
     h.store.set('longlive_watchdog_v1', JSON.stringify(record));
-    h.store.set(FORCE_SHARED_UI_KEY, 'true');
     render(<App />);
     await vi.waitFor(() => expect(screen.getByTestId('native-surface')).toBeTruthy());
     expect(h.reader).toBeNull();
     await vi.waitFor(() => expect(h.tapListener).not.toBeNull());
+    const held = notificationTapGate.size();
     await act(async () => h.tapListener!(tapResponse('q1', '/inbox')));
-    await vi.waitFor(() => expect(screen.getByTestId('native-surface').getAttribute('data-inbox')).toBe('true'));
-    expect(notificationTapGate.size()).toBe(0);
+    await vi.waitFor(() => expect(notificationTapGate.size()).toBe(held + 1));
   });
 });
