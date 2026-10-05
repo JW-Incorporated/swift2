@@ -27,6 +27,14 @@ export async function captureViewport(page: Page, hideSelectors: string[] = []):
   return page.screenshot({ scale: 'css' });
 }
 
+/** Viewport capture with the timeline scrubber (rail, ridge, dots) hidden: its percent-positioned geometry anti-aliases differently run to run on phones (#5046), so it is excluded rather than the whole viewport being loosened. */
+export const SCRUBBER_RAIL = '[role="slider"][aria-label$="timeline scrubber"]';
+export async function captureViewportNoRail(page: Page): Promise<Buffer> {
+  // CSSOM write, not a stylesheet: side a's CSP blocks inline style tags.
+  await page.evaluate((sel) => document.querySelectorAll<HTMLElement>(sel).forEach((el) => el.style.setProperty('visibility', 'hidden')), SCRUBBER_RAIL);
+  return captureViewport(page);
+}
+
 export type Clip = { x: number; y: number; width: number; height: number };
 
 /** Bounding box of one element in page coordinates (feed it back to captureElement to hold the clip fixed across a mutation). */
@@ -71,9 +79,6 @@ export async function runtimeHash(page: Page, side: Side): Promise<{ hash?: stri
 }
 
 export const PIXEL_OPTS = { threshold: 0.3, maxDiffPixelRatio: 0.001 };
-
-/** Side-a whole-viewport baselines: the fixed timeline rail and its dots anti-alias differently run to run on phones (#5046, ~660 px of 335k). */
-export const VIEWPORT_PIXEL_OPTS = { threshold: 0.3, maxDiffPixelRatio: 0.003 };
 
 /** True when `actual` matches `ref` within the pixel tolerance (ref goes through a temp snapshot file). */
 export async function pixelMatches(
