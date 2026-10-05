@@ -56,6 +56,8 @@ import { openSettingsEntry } from './lib/settings-entry';
 import { useNativeScreenState } from './lib/use-native-screen-state';
 import { SITE_URL, type NativeBridgeMessage } from './components/SiteShell';
 import { NativeScreenRouter } from './components/NativeScreenRouter';
+import { RecoveryScreen } from './components/RecoveryScreen';
+import { nativeSurface } from './lib/recovery-surface';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
 import { DiagHotCorner } from './components/DiagHotCorner';
 import { DomHostMount } from './components/DomHostMount';
@@ -168,7 +170,8 @@ export default function App() {
 
   // A tapped notification's `deepLink` goes through the tap queue (lib/notification-tap-gate.ts):
   // native screens when the DOM host is not mounted, the bridge `navigate` once it is ready.
-  useNotificationTaps(navigate, domMount.mount === 'native');
+  const legacyNative = nativeSurface(domMount.mount, domMount.nativeReason) === 'legacy';
+  useNotificationTaps(navigate, legacyNative);
   useDeepLinks(notificationTapGate);
 
   // The one "open settings" gate (lib/settings-entry.ts): onboarding the
@@ -232,6 +235,8 @@ export default function App() {
             <FirstLaunchScreen failed={domMount.contentFailed} onRetry={domMount.retryContent} />
           ) : domMount.mount === 'pending' ? (
             <View style={{ flex: 1, backgroundColor: eraColors.bg }} testID="launch-pending" />
+          ) : !legacyNative ? (
+            <RecoveryScreen slow={domMount.nativeReason === 'pending-expired'} />
           ) : (
             <NativeScreenRouter
               nav={nav}

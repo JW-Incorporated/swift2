@@ -8623,7 +8623,7 @@ only under `%LOCALAPPDATA%\longlive-fb\comments`, never in the repo or uploaded.
 - A committed attempt write is bounded at 3000 ms; a hung write mounts native `attempt-failed`.
 - `DEFAULT_ROUTE_FLAGS.sharedUi = true`; `config/mobile/app-config.json` ships `sharedUi: true` and `watchdogReports: false` (global auto-reporting is deferred until shared sampling/aggregation exists).
 - Launch reads exactly two local inputs in parallel: the watchdog record (safety; fail-closed to native on read failure) and the last-good flag cache (an explicit cached OFF is honoured). The Diagnostics "Force shared UI" control and its SecureStore key are removed. `PENDING_MAX_MS` stays 1500 and pending expiry is terminal for the launch: no late swap of an interactive native UI; the next launch decides normally.
-- Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is still the legacy native UI until it is deleted.
+- Interim: strikes, fallback and quarantine are unchanged, and the fallback surface is the Recovery screen; only `flag-off` (kill switch) shows the legacy native UI until PR3.
 - Order: the S8 drill moves before the deletion PR (PR3); S7 becomes production telemetry.
 - Kill switch: JSON `sharedUi: false`, effective on the next launch.
 - Wrong-signal threshold: any `quarantined` or `ready-timeout` `[watchdog]`/`[diag]` report from testers/devices that send reports (absolute, not a percentage).

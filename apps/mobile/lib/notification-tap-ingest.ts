@@ -1,7 +1,8 @@
 // WP2.3-E2 (H3): serialized intake of notification responses (pure; expo is injected).
 // The cold read (get + enqueue + clear) and every live response run on ONE chain, so a
 // live tap can never interleave with the cold read's clear of the process-global
-// "last response". Only the cold path clears: the live listener already delivered its response.
+// "last response". Only the cold path clears, and only once its tap settles (acked or dropped) so a
+// reload before delivery re-ingests it; a malformed response clears at once. Live taps never clear.
 import { tapFromResponse, type RawResponse, type TapGate } from './notification-tap-gate';
 
 export interface TapIngestPorts {
@@ -11,7 +12,7 @@ export interface TapIngestPorts {
   listen(cb: (resp: RawResponse | null) => void): () => void;
 }
 
-export function startTapIngest(gate: Pick<TapGate, 'enqueue'>, ports: TapIngestPorts): () => void {
+export function startTapIngest(gate: Pick<TapGate, 'enqueue' | 'onSettled' | 'wasDelivered'>, ports: TapIngestPorts): () => void {
   let stopped = false;
   let chain: Promise<void> = Promise.resolve();
   const step = (run: () => Promise<void>) => {
@@ -26,14 +27,26 @@ export function startTapIngest(gate: Pick<TapGate, 'enqueue'>, ports: TapIngestP
       if (!stopped) ingest(resp);
     }),
   );
+  let offSettled: () => void = () => {};
   step(async () => {
     const resp = await ports.getLast();
-    if (stopped) return;
-    ingest(resp);
-    if (resp) await ports.clearLast().catch(() => {});
+    if (stopped || !resp) return;
+    const tap = tapFromResponse(resp);
+    if (!tap) return void (await ports.clearLast().catch(() => {}));
+    const coldId = tap.id as string;
+    offSettled = gate.onSettled((id) => {
+      if (id !== coldId) return;
+      offSettled();
+      void ports.clearLast().catch(() => {});
+    });
+    if (gate.enqueue(tap) === 'duplicate' && gate.wasDelivered(coldId)) {
+      offSettled();
+      await ports.clearLast().catch(() => {});
+    }
   });
   return () => {
     stopped = true;
     off();
+    offSettled();
   };
 }

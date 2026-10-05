@@ -70,7 +70,9 @@ export interface TapQueueDeps {
   /** Clock for `receivedAt`/TTL: clock-relative, monotonic (performance.now) when available. */
   now?: () => number;
   /** A tap lost to an unmappable payload, overflow or age; never throws into the caller. */
-  onDrop?: (reason: 'unmappable' | 'overflow' | 'stale') => void;
+  onDrop?: (reason: 'unmappable' | 'overflow' | 'stale', id: string | null) => void;
+  /** A tap was acknowledged by its sink (id is the tap's dedupe id; never fired for id-less taps). */
+  onDelivered?: (id: string) => void;
 }
 
 /**
@@ -97,9 +99,9 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
   let inFlight: Tap | null = null;
   let abandon: (() => void) | null = null;
 
-  const drop = (reason: 'unmappable' | 'overflow' | 'stale') => {
+  const drop = (reason: 'unmappable' | 'overflow' | 'stale', id: string | null = null) => {
     try {
-      deps.onDrop?.(reason);
+      deps.onDrop?.(reason, id);
     } catch {
       /* a throwing drop sink must not break tap handling */
     }
@@ -115,6 +117,11 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
 
   function markDelivered(id: string | null): void {
     if (id === null) return;
+    try {
+      deps.onDelivered?.(id);
+    } catch {
+      /* a throwing delivery sink must not break tap handling */
+    }
     delivered.set(id, now());
     if (delivered.size > seenCap) delivered.delete(delivered.keys().next().value as string);
   }
@@ -125,7 +132,7 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       const head = held[0];
       if (now() - head.receivedAt > ttl) {
         held.shift();
-        drop('stale');
+        drop('stale', head.id);
         continue;
       }
       let acked: boolean;
@@ -179,14 +186,14 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       path = null;
     }
     if (!path) {
-      drop('unmappable');
+      drop('unmappable', typeof raw.id === 'string' ? raw.id : null);
       return 'dropped';
     }
     const id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= 256 ? raw.id : null;
     if (id !== null && (isRecentlyDelivered(id) || held.some((t) => t.id === id))) return 'duplicate';
     if (held.length >= capacity) {
       const idx = held[0] === inFlight ? 1 : 0;
-      drop('overflow');
+      drop('overflow', idx >= held.length ? id : held[idx].id);
       if (idx >= held.length) return 'dropped';
       held.splice(idx, 1);
     }
@@ -207,6 +214,8 @@ export function createTapQueue(deps: TapQueueDeps = {}) {
       abandon?.();
     },
     flush,
+    /** True when this id was already acknowledged (within the TTL); a held, undelivered id is false. */
+    wasDelivered: isRecentlyDelivered,
     size: () => held.length,
   };
 }

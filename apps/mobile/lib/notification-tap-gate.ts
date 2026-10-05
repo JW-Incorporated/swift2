@@ -46,9 +46,27 @@ export function createTapGate(opts: {
   siteUrl: string;
   queue?: TapQueue;
   retryMs?: number;
+  /** Forwarded to the default queue (ignored when `queue` is supplied). */
+  onDelivered?: (id: string) => void;
+  onDrop?: (reason: 'unmappable' | 'overflow' | 'stale', id: string | null) => void;
   timers?: { set: (fn: () => void, ms: number) => unknown; clear: (h: unknown) => void };
 }) {
-  const queue = opts.queue ?? createTapQueue();
+  const settledListeners = new Set<(id: string) => void>();
+  const settle = (id: string | null) => {
+    if (id !== null) for (const l of [...settledListeners]) l(id);
+  };
+  const queue =
+    opts.queue ??
+    createTapQueue({
+      onDelivered: (id) => {
+        opts.onDelivered?.(id);
+        settle(id);
+      },
+      onDrop: (reason, id) => {
+        opts.onDrop?.(reason, id);
+        settle(id);
+      },
+    });
   const retryMs = opts.retryMs ?? 5000;
   const timers = opts.timers ?? { set: (fn, ms) => setTimeout(fn, ms), clear: (h) => clearTimeout(h as ReturnType<typeof setTimeout>) };
   let native: ((url: string) => void) | null = null;
@@ -144,10 +162,16 @@ export function createTapGate(opts: {
         reconcile();
       };
     },
+    /** Fires with a tap's id once it is delivered (acked) or dropped; returns the unsubscribe. Default queue only. */
+    onSettled(cb: (id: string) => void): () => void {
+      settledListeners.add(cb);
+      return () => void settledListeners.delete(cb);
+    },
     /** Deterministic retry (AppState active): re-runs delivery of held taps to the current target. */
     resume(): void {
       kick();
     },
+    wasDelivered: (id: string): boolean => queue.wasDelivered(id),
     size: () => queue.size(),
   };
 }

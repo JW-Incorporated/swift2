@@ -19,7 +19,6 @@ import { DEFAULT_ROUTE_FLAGS } from './routes';
 import { createDomWatch, createGateMonitor, reconcileLateRecord, type LateRecord } from './watchdog-gate-parts';
 import {
   beginAttempt,
-  createWriteQueue,
   decideMount,
   shouldMountDom,
   type AttemptMonitor,
@@ -41,10 +40,10 @@ import {
   loadReportsRaw,
   loadWatchdogRecord,
   saveReportsRaw,
-  saveWatchdogRecord,
 } from './watchdog-store';
 import { DEFAULT_DEPS, boundedForceFailure, startAttemptBounded, useContentGate, type GateDeps } from './watchdog-gate-content';
 import { createTelemetry } from './watchdog-telemetry';
+import { createWatchdogWriter, type WatchdogWriter } from './watchdog-writer';
 
 export type MountState = 'pending' | 'awaiting-content' | 'dom' | 'native';
 
@@ -103,9 +102,9 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const decidedStrikeRef = useRef<WatchdogRecord | null>(null);
   const inputsRef = useRef(inputs);
   inputsRef.current = inputs;
-  const writeRef = useRef<ReturnType<typeof createWriteQueue> | null>(null);
-  writeRef.current ??= createWriteQueue(saveWatchdogRecord);
-  const write = writeRef.current;
+  const writerRef = useRef<WatchdogWriter | null>(null);
+  writerRef.current ??= createWatchdogWriter();
+  const write = writerRef.current.write;
   const telemetryRef = useRef<ReturnType<typeof createTelemetry> | null>(null);
   telemetryRef.current ??= createTelemetry({
     load: loadReportsRaw,
