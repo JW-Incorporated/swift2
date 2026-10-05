@@ -1,9 +1,10 @@
 // SharedUiHost's cache-first source + content refresh effect: render from the disk cache at once, refresh after the
 // DOM ready signal (lib/deferred-bundle-refresh.ts). Returns `domReady`, which the host calls from the DOM onReady.
 import { useCallback, useEffect, useRef } from 'react';
-import { InteractionManager } from 'react-native';
+import { AppState, InteractionManager } from 'react-native';
 import { loadContentBundle } from './content-bundle';
 import { createDeferredRefresh, type DeferredRefresh } from './deferred-bundle-refresh';
+import { createForegroundRefresh } from './foreground-refresh';
 import { diagMarkOnce } from './diagnostics';
 import { lastGoodSource, type LastGoodSource } from './dom-reader-config';
 
@@ -18,23 +19,29 @@ export function useDeferredBundleRefresh(
     // Cache-first: render from what is on disk now (offline relaunch), refresh in the background.
     const cached = lastGoodSource();
     if (cached) setSource({ cache: cached });
+    const onLoaded = (bundle: unknown) => {
+      setContentToken((bundle as Awaited<ReturnType<typeof loadContentBundle>>).manifest.bundleVersion);
+      if (!cached) setSource({ cache: lastGoodSource() });
+    };
+    const onError = () => {
+      if (!cached) setSource({ cache: null });
+    };
+    const foreground = createForegroundRefresh({ load: loadContentBundle, now: Date.now, onLoaded, onError });
     const refresh = createDeferredRefresh({
-      load: loadContentBundle,
+      load: foreground.launch,
       runAfterInteractions: (fn) => InteractionManager.runAfterInteractions(fn),
       setTimeout: (fn, ms) => setTimeout(fn, ms),
       clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>),
       mark: diagMarkOnce,
-      onLoaded: (bundle) => {
-        setContentToken((bundle as Awaited<ReturnType<typeof loadContentBundle>>).manifest.bundleVersion);
-        if (!cached) setSource({ cache: lastGoodSource() });
-      },
-      onError: () => {
-        if (!cached) setSource({ cache: null });
-      },
+      onLoaded,
+      onError,
     });
+    const sub = AppState.addEventListener('change', (s) => s === 'active' && foreground.foreground());
     refreshRef.current = refresh;
     refresh.start(!!cached);
     return () => {
+      sub.remove();
+      foreground.dispose();
       refresh.dispose();
       if (refreshRef.current === refresh) refreshRef.current = null;
     };

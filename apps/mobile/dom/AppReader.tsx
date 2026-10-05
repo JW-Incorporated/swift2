@@ -10,7 +10,7 @@ import './reader-spike.css';
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { eraVideoFeed } from '@swift2/content-enrichment';
-import { toWebPath, UI_PACKAGE_VERSION, type Envelope, type Insets } from '@swift2/ui';
+import { toWebPath, UI_PACKAGE_VERSION, type Envelope, type Insets, type ReaderSnap } from '@swift2/ui';
 import type { NavigateDeps } from './bridge/navigate-subscriber';
 import { currentDomUrl, DOM_PATH_EVENT, setDomPath } from './bridge/dom-path';
 import { showDomPath } from './bridge/dom-path-commit';
@@ -91,6 +91,8 @@ export default function AppReader(props: AppReaderProps) {
   }, [client]);
   // A native-to-DOM navigate is applied through the reader store (ReaderBridge installs the applier) (the reader never re-keys), so open overlays survive.
   const applierRef = useRef<((search: string) => Promise<boolean>) | null>(null);
+  const restorerRef = useRef<((snap: ReaderSnap) => void) | null>(null);
+  const onRestore = useRef((snap: ReaderSnap) => restorerRef.current?.(snap)).current;
   const navigateDeps = useRef<NavigateDeps>({
     replaceUrl: (relative) => {
       window.history.replaceState(window.history.state, '', relative);
@@ -103,6 +105,7 @@ export default function AppReader(props: AppReaderProps) {
     () => ({
       registerBack: (fn) => void (backRef.current = fn),
       setApplier: (fn) => void (applierRef.current = fn),
+      setRestorer: (fn) => void (restorerRef.current = fn),
       openNative: async (path) => {
         const web = toWebPath(path);
         const c = clientRef.current;
@@ -261,6 +264,7 @@ export default function AppReader(props: AppReaderProps) {
         if (!probeRef.current.report.version) probeRef.current.report.version = token;
       }}
       navigateDeps={navigateDeps}
+      onRestore={onRestore}
       backRef={backRef}
       onClient={setBridgeClient}
     />

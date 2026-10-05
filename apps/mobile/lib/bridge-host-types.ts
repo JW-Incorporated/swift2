@@ -1,6 +1,6 @@
 // Types and limits for the native bridge host (split from bridge-host.ts).
 import { NATIVE_SUPPORTED_RANGE } from '@swift2/ui';
-import type { DomCommandType, Envelope, HandlerMap, NativeCommandType, ResResult, ThemeChange, VersionRange } from '@swift2/ui';
+import type { DomCommandType, Envelope, HandlerMap, NativeCommandType, ReaderSnap, ResResult, ThemeChange, VersionRange } from '@swift2/ui';
 import { DEFAULT_TIMEOUT_MS } from './bridge-host-inflight';
 import type { BridgeScheduler } from './bridge-host-timers';
 
@@ -36,8 +36,8 @@ export interface BridgeHostDeps {
   onNavigated?: (e: { id: string; ok: boolean }) => void;
   /** The DOM's theme event (validated; no reply is ever sent). */
   onTheme?: (theme: ThemeChange) => void;
-  /** The DOM's route event (validated; no reply is ever sent): its current path plus query/hash, whether the user is mid-interaction, and whether the reader is away from rest (not the front door / overlay open / scrolled). */
-  onRoute?: (path: string, busy: boolean, engaged: boolean) => void;
+  /** The DOM's route event (validated; no reply is ever sent): its current path plus query/hash, whether the user is mid-interaction, and whether the reader is away from rest (not the front door / overlay open / scrolled), and its validated restorable snapshot (null when absent or invalid). */
+  onRoute?: (path: string, busy: boolean, engaged: boolean, snap: ReaderSnap | null) => void;
 }
 
 export type AckRef = { epoch: number; seq: number };
