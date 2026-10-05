@@ -72,8 +72,9 @@ const bundle = { manifest: { bundleVersion: 'v-fresh' } };
 let load = vi.fn(async (..._a: unknown[]) => bundle as unknown);
 const mount = () => render(<SharedUiHost onSignal={vi.fn()} watch={watch} forceFailure="off" />);
 const settle = () => act(async () => void (await vi.advanceTimersByTimeAsync(0)));
-const handshake = () => act(async () => void (await (h.reader!.bridge as (e: unknown) => Promise<unknown>)({ v: 1, id: 'r1', kind: 'evt', type: 'ready', payload: { v: 1 }, ts: 1 } as never)));
-const domReady = () => act(async () => void (await (h.reader!.onReady as () => Promise<void>)()));
+const token = async () => await (h.reader!.bridgeHello as () => Promise<string>)();
+const handshake = () => act(async () => void (await (h.reader!.bridge as (e: unknown, t: string) => Promise<unknown>)({ v: 1, id: 'r1', kind: 'evt', type: 'ready', payload: { v: 1 }, ts: 1 } as never, await token())));
+const domReady = () => act(async () => void (await (h.reader!.onReady as (t: string) => Promise<void>)(await token())));
 const contentVersions = () => ((h.reader!.inbox as unknown as Array<{ type: string }>) ?? []).filter((e) => e.type === 'contentVersion');
 
 beforeEach(() => {

@@ -120,7 +120,8 @@ import { notificationTapGate } from './lib/use-notification-taps';
 import { beginAttempt, decideMount, recordStrike, shouldMountDom, type WatchdogRecord } from './lib/watchdog';
 
 const env = (id: string, kind: 'evt' | 'cmd', type: string, payload: unknown) => ({ v: 1, id, kind, type, payload, ts: 1 });
-const bridge = (e: unknown) => act(async () => void (await (h.reader!.bridge as (e: unknown) => Promise<unknown>)(e as never).catch(() => undefined)));
+const token = async () => await (h.reader!.bridgeHello as () => Promise<string>)();
+const bridge = (e: unknown) => act(async () => void (await (h.reader!.bridge as (e: unknown, t: string) => Promise<unknown>)(e as never, await token()).catch(() => undefined)));
 const tapResponse = (id: string, deepLink: string) => ({ notification: { date: 1, request: { identifier: id, content: { data: { deepLink } } } } });
 
 /** Mount the App on the DOM host and run the DOM side of the handshake up to a bound tap target. */
@@ -129,7 +130,7 @@ async function mountDomApp() {
   render(<App />);
   await vi.waitFor(() => expect(h.reader).not.toBeNull());
   await bridge(env('r1', 'evt', 'ready', { v: 1 }));
-  await act(async () => void (await (h.reader!.onReady as () => Promise<void>)()));
+  await act(async () => void (await (h.reader!.onReady as (t: string) => Promise<void>)(await token())));
   await bridge(env('r2', 'evt', 'navReady', {}));
 }
 
@@ -163,7 +164,7 @@ describe('App: a DOM protocol fatal strikes the real watchdog and falls back to 
     await vi.waitFor(() => expect(notificationTapGate.size()).toBe(1));
     expect(screen.queryByTestId('native-surface')).toBeNull();
 
-    await act(async () => void (await (h.reader!.reportProtocolFatal as (r: string) => Promise<void>)('ready-failed' as never)));
+    await act(async () => void (await (h.reader!.reportProtocolFatal as (r: string, t: string) => Promise<void>)('ready-failed' as never, await token())));
 
     await vi.waitFor(() => expect(screen.getByTestId('native-surface')).toBeTruthy());
     expect(screen.queryByTestId('dom-reader')).toBeNull();

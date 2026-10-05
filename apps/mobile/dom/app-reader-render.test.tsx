@@ -136,6 +136,6 @@ describe('AppReader over the real read -> snapshot -> fill -> loadReader pipelin
     window.dispatchEvent(new ErrorEvent('error', { message: 'boom', filename: TWIN_URI }));
     expect(p.reportError).not.toHaveBeenCalled();
     window.dispatchEvent(new ErrorEvent('error', { message: 'boom', filename: 'other.js' }));
-    expect(p.reportError).toHaveBeenCalledWith('error: boom');
+    await vi.waitFor(() => expect(p.reportError).toHaveBeenCalledWith('error: boom', ''));
   });
 });

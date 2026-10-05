@@ -70,15 +70,6 @@ export function TheoryGuide() {
   useScrollLock(open);
   useFocusTrap(open, dialogRef);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeTheoryGuide();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTheoryGuide]);
-
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTheoryGuide);
 

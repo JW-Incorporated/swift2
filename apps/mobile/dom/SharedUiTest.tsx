@@ -11,8 +11,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 const ERA_ACCENTS = ['#c9a24b', '#7fb8d9', '#d97fa6'];
 
 interface SharedUiTestProps {
-  onReady: () => Promise<void>;
-  reportError: (message: string) => Promise<void>;
+  /** Native actions take the per-epoch token from `bridgeHello` as their LAST arg. */
+  bridgeHello: () => Promise<string>;
+  onReady: (token: string) => Promise<void>;
+  reportError: (message: string, token: string) => Promise<void>;
   /** WP0.4b drill: 'throw' raises an uncaught error instead of ready; 'hang' never signals ready. */
   forceFailure?: 'off' | 'throw' | 'hang';
   dom?: import('expo/dom').DOMProps;
@@ -20,6 +22,7 @@ interface SharedUiTestProps {
 }
 
 export default function SharedUiTest({
+  bridgeHello,
   onReady,
   reportError,
   forceFailure = 'off',
@@ -32,10 +35,10 @@ export default function SharedUiTest({
 
   useEffect(() => {
     const onError = (event: ErrorEvent) => {
-      void reportError(`error: ${event.message}`);
+      void bridgeHello().then((t) => reportError(`error: ${event.message}`, t)).catch(() => undefined);
     };
     const onRejection = (event: PromiseRejectionEvent) => {
-      void reportError(`unhandledrejection: ${String(event.reason)}`);
+      void bridgeHello().then((t) => reportError(`unhandledrejection: ${String(event.reason)}`, t)).catch(() => undefined);
     };
     window.addEventListener('error', onError);
     window.addEventListener('unhandledrejection', onRejection);
@@ -56,7 +59,7 @@ export default function SharedUiTest({
       }, 0);
       return;
     }
-    void onReady();
+    void bridgeHello().then(onReady).catch(() => undefined);
   }, []);
 
   return (

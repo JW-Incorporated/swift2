@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Envelope } from '@swift2/ui';
-import { createExpoBridge, createExpoBridgeClient } from './transport-expo';
+import { createExpoBridge, createExpoBridgeClient, resetBridgeTokenForTests } from './transport-expo';
 
 const okRes = (env: Envelope) => ({ v: 1, id: env.id, kind: 'res', type: env.type, payload: { ok: true, value: null }, ts: 1 });
 
@@ -99,5 +99,58 @@ describe('createExpoBridge (mount lifecycle)', () => {
     handle.mount();
     expect(await early).toEqual({ ok: true, value: null });
     expect(sent).toEqual(['ready', 'haptic']);
+  });
+});
+
+describe('per-epoch bridge token transport', () => {
+  const flush = async () => {
+    for (let i = 0; i < 6; i++) await Promise.resolve();
+  };
+
+  it('fetches the token once, sends ready only after it, and posts it as the last arg on every call', async () => {
+    resetBridgeTokenForTests();
+    const order: string[] = [];
+    const seen: Array<[string, string]> = [];
+    const hello = async () => {
+      order.push('hello');
+      return 'T0K';
+    };
+    let n = 0;
+    const b = createExpoBridge(
+      async (env, token) => {
+        order.push(env.type);
+        seen.push([env.type, token]);
+        return env.type === 'ready' ? readyAck : okRes(env);
+      },
+      () => `i${++n}`,
+      {},
+      hello,
+    );
+    b.mount();
+    expect(order).not.toContain('ready');
+    await flush();
+    const r = await b.client.call('haptic', { kind: 'light' });
+    expect(r).toEqual({ ok: true, value: null });
+    expect(order.slice(0, 2)).toEqual(['hello', 'ready']);
+    expect(seen.length).toBeGreaterThanOrEqual(2);
+    expect(seen.every(([, t]) => t === 'T0K')).toBe(true);
+    const again = createExpoBridge(async () => undefined, undefined, {}, hello);
+    again.mount();
+    await flush();
+    expect(order.filter((x) => x === 'hello')).toHaveLength(1);
+  });
+
+  it('a failed hello reports onFatal and sends nothing', async () => {
+    resetBridgeTokenForTests();
+    const fatals: string[] = [];
+    const sent: string[] = [];
+    const b = createExpoBridge(async (env) => void sent.push(env.type), undefined, { onFatal: (r) => void fatals.push(r) }, async () => {
+      throw new Error('nope');
+    });
+    b.mount();
+    await flush();
+    expect(fatals).toEqual(['bridge-hello-failed']);
+    expect(sent).toEqual([]);
+    resetBridgeTokenForTests();
   });
 });
