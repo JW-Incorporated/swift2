@@ -5,7 +5,9 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { CONTENT } from '@/lib/longlive/content';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider, useAppActions } from '@/lib/longlive/store';
+import { createWebAdapter } from '@/lib/host-adapter';
 import { TestHostProvider } from '@/lib/test-host';
+import { HostProvider } from '@swift2/ui';
 import { EraSelector } from './EraSelector';
 
 // The "Your Long Live" card lives in the shared EraSelector, so the web wrapper and the app slot get it from one place.
@@ -46,5 +48,27 @@ describe('EraSelector "Your Long Live" card (web wrapper)', () => {
     await openSelector();
     expect(screen.getByText('Choose an era')).toBeInTheDocument();
     expect(screen.queryByText('Your Long Live')).toBeNull();
+  });
+
+  it('renders the card after hydrating from a fake host storage (the app progress source)', async () => {
+    const data = new Map([
+      ['ll-progress-v1', JSON.stringify({ v: 1, moments: [], eggs: [], trails: [], favorites: [CONTENT[0].id] })],
+    ]);
+    const fake: ReturnType<typeof createWebAdapter>['storage']['local'] = {
+      get: (k) => data.get(k) ?? null,
+      set: (k, v) => void data.set(k, v),
+      remove: (k) => void data.delete(k),
+    };
+    const adapter = { ...createWebAdapter({ push() {}, replace() {} }), storage: { local: fake, session: fake } };
+    renderWithReader(
+      <HostProvider adapter={adapter}>
+        <AppProvider>
+          <Capture />
+          <EraSelector />
+        </AppProvider>
+      </HostProvider>,
+    );
+    await act(async () => actions.setSelectorOpen(true));
+    expect(screen.getByRole('heading', { name: 'Your Long Live' })).toBeInTheDocument();
   });
 });
