@@ -76,7 +76,7 @@ function stripCr(line) {
  * this module appends after it — neutralizing a comment opener keeps ask
  * text from forging an earlier `<!-- loop-ask: ... -->` that `parseMarker`
  * could pick up instead of the real one. */
-function neutralizeMarker(text) {
+export function neutralizeMarker(text) {
   return String(text ?? '').replace(/<!--/g, '&lt;!--');
 }
 

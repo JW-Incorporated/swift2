@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { FAILURE_LABELS, adoptionFooter, buildFailureIssue, failureMarker, parseFailedLog, redact, triage } from './routine-failure-triage.mjs';
+import { COMMENT_MARKER, FAILURE_LABELS, adoptionFooter, buildFailureIssue, failingJobStep, failureMarker, shouldComment, triage } from './routine-failure-triage.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { parseMarker } from './lib/loop-asks.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -14,8 +14,9 @@ const URL1 = 'https://github.com/o/r/actions/runs/111';
 const BOT = { login: 'github-actions[bot]' };
 const LOG = ['run / Run Claude\tRun Claude\t2026-10-05T11:00:00.1Z error_max_turns reached', 'run / Run Claude\tRun Claude\t2026-10-05T11:00:01.1Z CLAUDE_CODE_OAUTH_TOKEN=abc123', 'run / Run Claude\tRun Claude\t2026-10-05T11:00:02.1Z done'].join('\n');
 
-type Fake = { open?: unknown[]; tree?: unknown[]; comments?: unknown[]; log?: string; runsToday?: number };
-function fakeGh({ open = [], tree = [], comments = [], log = LOG, runsToday = 0 }: Fake = {}) {
+const JOBS = { jobs: [{ name: 'run / Run Claude', conclusion: 'failure', steps: [{ name: 'Set up job', conclusion: 'success' }, { name: 'Run Claude', conclusion: 'failure' }] }] };
+type Fake = { open?: unknown[]; tree?: unknown[]; comments?: unknown[]; log?: string; jobs?: unknown; runsToday?: number };
+function fakeGh({ open = [], tree = [], comments = [], log = LOG, jobs = JOBS, runsToday = 0 }: Fake = {}) {
   const calls: string[][] = [];
   const gh = vi.fn(async (args: string[]) => {
     calls.push(args);
@@ -26,7 +27,7 @@ function fakeGh({ open = [], tree = [], comments = [], log = LOG, runsToday = 0 
       if (p.includes('labels=desk%3Atree')) return { stdout: JSON.stringify(tree) };
       return { stdout: JSON.stringify(open) };
     }
-    if (args[0] === 'run') return { stdout: log };
+    if (args[0] === 'run') return { stdout: args.includes('--json') ? JSON.stringify(jobs) : log };
     if (args[0] === 'issue' && args[1] === 'create') return { stdout: 'https://github.com/o/r/issues/5200\n' };
     return { stdout: '' };
   });
@@ -36,24 +37,16 @@ const verbs = (calls: string[][]) => calls.filter((c) => c[0] !== 'api').map((c)
 const quiet = () => vi.spyOn(console, 'log').mockImplementation(() => {});
 const issueRow = (n: number, body: string, title = 'x', labels = ['routine-failure', 'desk:ops']) => ({ number: n, title, html_url: `https://github.com/o/r/issues/${n}`, user: BOT, state: 'open', created_at: '2026-10-05T06:00:00Z', closed_at: null, labels: labels.map((name) => ({ name })), body });
 
-describe('log parsing and redaction', () => {
-  it('withholds lines that mention a token, secret, key or password', () => {
-    expect(redact(['all fine', 'Authorization: token ghp_x', 'SECRET=1', 'api_key set', 'Password: x'])).toEqual(['all fine', ...Array(4).fill('[line withheld: matched a secret-like word]')]);
-  });
-  it('finds the failing step and keeps only the last 30 stripped lines', () => {
-    const many = Array.from({ length: 50 }, (_, i) => `job\tstep one\t2026-10-05T11:00:00.0Z line ${i}`).join('\n');
-    const { failingStep, tail } = parseFailedLog(many);
-    expect(failingStep).toBe('job / step one');
-    expect(tail).toHaveLength(30);
-    expect(tail[29]).toBe('line 49');
-  });
-  it('an empty log has no step and no lines', () => {
-    expect(parseFailedLog('')).toEqual({ failingStep: null, tail: [] });
+describe('job and step names', () => {
+  it('names the first failing job and step, never log text', () => {
+    expect(failingJobStep(JOBS)).toEqual({ job: 'run / Run Claude', step: 'Run Claude', timedOut: false });
+    expect(failingJobStep({ jobs: [{ name: 'a', conclusion: 'success', steps: [] }] })).toEqual({ job: null, step: null, timedOut: false });
+    expect(failingJobStep({ jobs: [{ name: 'a', conclusion: 'cancelled', steps: [{ name: 's', conclusion: 'timed_out' }] }] }).timedOut).toBe(true);
   });
 });
 
 describe('issue body', () => {
-  const issue = buildFailureIssue({ workflow: WF, runUrl: URL1, conclusion: 'failure', failingStep: 'run / Run Claude', tail: ['a', 'b'], day: '2026-10-05' });
+  const issue = buildFailureIssue({ workflow: WF, runUrl: URL1, conclusion: 'failure', job: 'run / Run Claude', step: 'Run Claude', day: '2026-10-05' });
   it('carries the labels, the dedupe marker and a loop-ask marker Marjorie’s queue reads', () => {
     expect(issue.labels).toEqual(['desk:ops', 'marjorie-filed', 'routine-failure']);
     expect(FAILURE_LABELS).toEqual(issue.labels);
@@ -62,6 +55,9 @@ describe('issue body', () => {
     expect(parseMarker(issue.body).key).toBe(`routine-failure-${WF}-2026-10-05`);
     expect(issue.body).toContain(URL1);
     expect(issue.body).toContain('REROUTE');
+    expect(issue.body).toContain('`run / Run Claude` / `Run Claude`');
+    expect(issue.body).toContain('read the logs via the run URL');
+    expect(issue.body).not.toContain('```');
   });
   it('lands in the pending queue for Marjorie once the workflow token filed it', () => {
     const items = selectPending('marjorie', [{ number: 5200, url: 'u', title: issue.title, body: issue.body, author: BOT, labels: issue.labels.map((name: string) => ({ name })), state: 'OPEN', createdAt: '2026-10-05T06:00:00Z' }], {}, { now: NOW });
@@ -79,6 +75,7 @@ describe('triage', () => {
     const create = calls.find((c) => c[0] === 'issue' && c[1] === 'create') as string[];
     expect(create.filter((a, i) => create[i - 1] === '--label')).toEqual(['desk:ops', 'marjorie-filed', 'routine-failure']);
     expect(create.join('\n')).not.toContain('abc123');
+    expect(create.join('\n')).not.toContain('error_max_turns');
     expect(calls.find((c) => c[0] === 'workflow')).toEqual(['workflow', 'run', 'routine-marjorie-ask-response.yml', '--repo', 'JW-Incorporated/swift2', '--ref', 'main', '-f', 'issue_number=5200']);
   });
   it('comments the new run URL on today’s open issue instead of filing another, without dispatching again', async () => {
@@ -125,11 +122,70 @@ describe('triage', () => {
       expect((await triage({ workflow, runId: '1', runUrl: URL1, conclusion }, { gh, now: NOW })).action).toBe('skipped');
       expect(calls).toEqual([]);
     }
-    const plain = fakeGh({ log: 'job\tstep\t2026-10-05T11:00:00Z cancelled by user' });
+    const plain = fakeGh({ log: 'job\tstep\t2026-10-05T11:00:00Z cancelled by user', jobs: { jobs: [{ name: 'run', conclusion: 'cancelled', steps: [{ name: 's', conclusion: 'cancelled' }] }] } });
     expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh: plain.gh, now: NOW })).action).toBe('skipped');
     const capped = fakeGh();
     expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh: capped.gh, now: NOW })).action).toBe('filed');
     q.mockRestore();
+  });
+  it('a cancelled run with a timed-out step is triaged without needing the log', async () => {
+    const jobs = { jobs: [{ name: 'run', conclusion: 'cancelled', steps: [{ name: 'Run Claude', conclusion: 'timed_out' }] }] };
+    const { gh } = fakeGh({ jobs, log: '' });
+    const q = quiet();
+    expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh, now: NOW })).action).toBe('filed');
+    q.mockRestore();
+  });
+  it('a cancelled run whose log shows the execution-time limit is triaged', async () => {
+    const { gh } = fakeGh({ log: 'job\tstep\t2026-10-05T11:00:00Z The job running on runner exceeded the maximum execution time of 45 minutes.' });
+    const q = quiet();
+    expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'cancelled' }, { gh, now: NOW })).action).toBe('filed');
+    q.mockRestore();
+  });
+  it('comments on today’s CLOSED issue instead of filing a new one, and never reopens it', async () => {
+    const closed = { ...issueRow(5100, `${failureMarker(WF, '2026-10-05')} earlier run`), state: 'closed' };
+    const { gh, calls } = fakeGh({ open: [closed] });
+    const q = quiet();
+    expect(await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW })).toEqual({ action: 'commented', number: 5100 });
+    q.mockRestore();
+    expect(verbs(calls)).not.toContain('issue create');
+    expect(verbs(calls)).not.toContain('issue reopen');
+    expect(calls.some((c) => c[0] === 'api' && c[1].includes('state=all'))).toBe(true);
+  });
+  it('does not comment within an hour of the last triage comment, or after five', async () => {
+    const recent = { body: `x ${COMMENT_MARKER}`, created_at: new Date(NOW - 10 * 60_000).toISOString() };
+    const { gh, calls } = fakeGh({ open: [issueRow(5100, failureMarker(WF, '2026-10-05'))], comments: [recent] });
+    const q = quiet();
+    await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+    q.mockRestore();
+    expect(verbs(calls)).not.toContain('issue comment');
+    const old = { body: COMMENT_MARKER, created_at: new Date(NOW - 3 * 3_600_000).toISOString() };
+    expect(shouldComment([old], NOW)).toBe(true);
+    expect(shouldComment([recent], NOW)).toBe(false);
+    expect(shouldComment(Array(5).fill(old), NOW)).toBe(false);
+    expect(shouldComment([], NOW)).toBe(true);
+  });
+  it('has its own daily dispatch cap: a failure issue past six today is filed but not dispatched (the listing includes the new one)', async () => {
+    const six = Array.from({ length: 7 }, (_, i) => issueRow(5000 + i, failureMarker('routine-other-' + i, '2026-10-05')));
+    const { gh, calls } = fakeGh({ open: six, runsToday: 99 });
+    const q = quiet();
+    await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+    q.mockRestore();
+    expect(verbs(calls)).toContain('issue create');
+    expect(calls.find((c) => c[0] === 'workflow')).toBeUndefined();
+    const fresh = fakeGh({ runsToday: 99 });
+    const q2 = quiet();
+    await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh: fresh.gh, now: NOW });
+    q2.mockRestore();
+    expect(fresh.calls.find((c) => c[0] === 'workflow')).toBeDefined();
+  });
+  it('routine-ops-fix failures are labelled ops-fix:stuck and never dispatched', async () => {
+    const { gh, calls } = fakeGh();
+    const q = quiet();
+    expect((await triage({ workflow: 'routine-ops-fix', runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW })).action).toBe('filed');
+    q.mockRestore();
+    const create = calls.find((c) => c[0] === 'issue' && c[1] === 'create') as string[];
+    expect(create.filter((a, i) => create[i - 1] === '--label')).toContain('ops-fix:stuck');
+    expect(calls.find((c) => c[0] === 'workflow')).toBeUndefined();
   });
   it('never throws when GitHub is down', async () => {
     const gh = vi.fn(async () => { throw new Error('boom'); });
@@ -145,7 +201,9 @@ describe('workflow wiring', () => {
   const routines = readdirSync(path.join(root, '.github/workflows')).filter((f) => f.startsWith('routine-') && f.endsWith('.yml') && f !== 'routine-template.yml' && f !== 'routine-failure-triage.yml').map((f) => f.replace(/\.yml$/, '')).sort();
   it('listens to every routine workflow and never to itself', () => {
     const listed = [...text.matchAll(/^ {6}- (routine-[a-z0-9-]+)\s*$/gm)].map((m) => m[1]).sort();
-    expect(listed).toEqual(routines);
+    expect(listed.filter((n: string) => n !== 'routine-ops-fix')).toEqual(routines.filter((n: string) => n !== 'routine-ops-fix'));
+    expect(listed).toContain('routine-ops-fix');
+    expect(text).toContain('group: routine-failure-triage-${{ github.event.workflow_run.name }}');
     expect(listed).not.toContain('routine-failure-triage');
   });
   it('uses least privilege and never interpolates event data inside run:', () => {

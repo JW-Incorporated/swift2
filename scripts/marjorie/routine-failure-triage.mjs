@@ -22,49 +22,43 @@ import { parseArgs } from './loop-asks.mjs';
 
 export const FAILURE_LABELS = ['desk:ops', 'marjorie-filed', 'routine-failure'];
 export const FAILED_CONCLUSIONS = new Set(['failure', 'timed_out']);
-const LOG_LINES = 30;
-const LINE_CHARS = 300;
+export const OPS_FIX_WORKFLOW = 'routine-ops-fix';
+export const OPS_FIX_LABEL = 'ops-fix:stuck';
+// The repo is public: the issue carries names and the run URL only, never log text. Marjorie reads the logs herself.
+export const COMMENT_MARKER = '<!-- routine-failure-comment -->';
+export const COMMENT_MIN_GAP_MS = 3_600_000;
+export const COMMENT_MAX = 5;
+export const FAILURE_DAILY_CAP = 6;
 // Tree's draft receipts (scripts/social/draft-receipt.mjs) title themselves by run kind and day.
 export const RECEIPT_TITLES = {
   'routine-tree-daily-draft': (day) => `tree: daily draft run failed ${day}`,
   'routine-tree-event-draft': (day) => `tree: event draft run failed ${day}`,
 };
-const SECRET_RE = /token|secret|key|password/i;
-const MAX_TURNS_RE = /error_max_turns|max[ _-]?turns/i;
+// GitHub reports a timeout-minutes stop as `cancelled`; a manual cancel looks the same, so tell them apart by evidence.
+const STOP_RE = /error_max_turns|max[ _-]?turns|exceeded the maximum execution time|operation was canceled.*timeout|timed? ?out/i;
 
 const warn = (message) => console.log(`::warning::routine-failure-triage: ${message}`);
 const utcDay = (ms) => new Date(ms).toISOString().slice(0, 10);
 
-/** Never lets a line that could carry a credential into a public issue. */
-export function redact(lines) {
-  return lines.map((l) => (SECRET_RE.test(l) ? '[line withheld: matched a secret-like word]' : l));
-}
-
-/**
- * `gh run view --log-failed` rows are `job<TAB>step<TAB>timestamp message`.
- * Returns the failing step's name and the last lines, prefixes stripped, secret-like lines withheld.
- */
-export function parseFailedLog(text, max = LOG_LINES) {
-  const rows = String(text ?? '').split('\n').map((l) => l.replace(/\r$/, '')).filter((l) => l.trim());
-  const first = rows[0]?.split('\t') ?? [];
-  const failingStep = first.length >= 3 ? `${first[0]} / ${first[1]}`.trim() : null;
-  const stripped = rows.map((l) => {
-    const parts = l.split('\t');
-    const msg = (parts.length >= 3 ? parts.slice(2).join('\t') : l).replace(/^\d{4}-\d\d-\d\dT[\d:.]+Z\s?/, '');
-    return msg.slice(0, LINE_CHARS);
-  });
-  return { failingStep, tail: redact(stripped.slice(-max)) };
+/** First failing job and step NAMES from `gh run view --json jobs`; never log text. */
+export function failingJobStep(jobsJson) {
+  const bad = new Set(['failure', 'timed_out', 'cancelled']);
+  for (const job of jobsJson?.jobs ?? []) {
+    if (!bad.has(job.conclusion)) continue;
+    const step = (job.steps ?? []).find((s) => bad.has(s.conclusion));
+    return { job: String(job.name ?? ''), step: step ? String(step.name ?? '') : null, timedOut: (job.steps ?? []).some((s) => s.conclusion === 'timed_out') };
+  }
+  return { job: null, step: null, timedOut: false };
 }
 
 export const failureMarker = (workflow, day) => `<!-- routine-failure: ${workflow} ${day} -->`;
 export const askMarker = (workflow, day) => renderMarker(`routine-failure-${workflow}-${day}`, null);
 
-export function buildFailureIssue({ workflow, runUrl, conclusion, failingStep, tail, day }) {
+export function buildFailureIssue({ workflow, runUrl, conclusion, job, step, day }) {
   const body = [
     `**Routine failure:** \`${workflow}\` ended \`${conclusion}\` on ${day} (UTC). Run: ${runUrl}`,
-    `**Failing step:** ${failingStep ? `\`${failingStep}\`` : 'not found in the log (setup, auth or timeout — open the run)'}`,
-    tail.length > 0 ? `**Last ${tail.length} log lines** (secret-like lines withheld):\n\n\`\`\`\n${tail.join('\n').replace(/```/g, "'''")}\n\`\`\`` : '**Log:** empty — open the run.',
-    '**Marjorie:** diagnose from this body, then REROUTE to the build desk with a concrete fix brief (or to `HUMAN-ACTIONS.md` only if the fix needs a founder: a login, payment, secret value or approval — built with `node scripts/marjorie/escalate.mjs`, so it names the session and carries a copy-paste prompt). One failure issue per workflow per day: later failures today arrive as comments here.',
+    `**Failing job / step:** ${job ? `\`${job}\`${step ? ` / \`${step}\`` : ''}` : 'not reported (setup, auth or timeout — open the run)'}`,
+    `**Marjorie:** read the logs via the run URL — \`gh run view <id> --log-failed\`, filtered with \`tail\`/\`grep\` — and never paste raw log lines into an issue or comment (this repo is public). Diagnose, then REROUTE to the build desk with a concrete fix brief (or to \`HUMAN-ACTIONS.md\` only if the fix needs a founder: a login, payment, secret value or approval — built with \`node scripts/marjorie/escalate.mjs\`, so it names the session and carries a copy-paste prompt). One failure issue per workflow per day: later failures today arrive as comments here.`,
     failureMarker(workflow, day),
     askMarker(workflow, day),
   ].join('\n\n');
@@ -74,24 +68,35 @@ export function buildFailureIssue({ workflow, runUrl, conclusion, failingStep, t
 /** The same markers on an existing issue, so Marjorie's queue and the dedupe both find it. */
 export const adoptionFooter = (workflow, day) => `${failureMarker(workflow, day)}\n${askMarker(workflow, day)}`;
 
-async function ensureLabel(gh, repo) {
-  try {
-    await gh(['label', 'create', 'routine-failure', '--repo', repo, '--color', 'B60205', '--description', 'A routine workflow run failed — auto-filed for Marjorie', '--force']);
-  } catch (err) {
-    warn(`could not ensure the routine-failure label: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
+async function ensureLabels(gh, repo, names) {
+  const defs = { 'routine-failure': ['B60205', 'A routine workflow run failed — auto-filed for Marjorie'], [OPS_FIX_LABEL]: ['D93F0B', 'The ops-fix routine itself failed — Marjorie/escalation only'] };
+  for (const name of names) {
+    try {
+      await gh(['label', 'create', name, '--repo', repo, '--color', defs[name][0], '--description', defs[name][1], '--force']);
+    } catch (err) {
+      warn(`could not ensure the ${name} label: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
+    }
   }
 }
 
-async function readFailedLog(gh, repo, runId) {
+async function readRun(gh, repo, runId, args) {
   try {
-    return String((await gh(['run', 'view', String(runId), '--repo', repo, '--log-failed'])).stdout ?? '');
+    return String((await gh(['run', 'view', String(runId), '--repo', repo, ...args])).stdout ?? '');
   } catch (err) {
-    warn(`could not read the failed log: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
+    warn(`could not read the run: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
     return '';
   }
 }
 
 const issueNumber = (stdout) => Number(String(stdout ?? '').trim().split(/\s+/).pop()?.match(/\/issues\/(\d+)$/)?.[1]);
+
+/** One comment per repeat failure, but never within an hour of the last triage comment or past five. */
+export function shouldComment(comments, now) {
+  const mine = (comments || []).filter((c) => String(c.body ?? '').includes(COMMENT_MARKER));
+  if (mine.length >= COMMENT_MAX) return false;
+  const latest = Math.max(0, ...mine.map((c) => Date.parse(c.created_at ?? c.createdAt) || 0));
+  return !(latest && now - latest < COMMENT_MIN_GAP_MS);
+}
 
 /**
  * Files, comments on or adopts the failure issue, then starts Marjorie.
@@ -103,47 +108,57 @@ export async function triage({ workflow, runId, runUrl, conclusion }, { repo = R
     if (workflow === 'routine-failure-triage') return { action: 'skipped', reason: 'never triages itself' };
     const failed = FAILED_CONCLUSIONS.has(conclusion);
     if (!failed && conclusion !== 'cancelled') return { action: 'skipped', reason: `conclusion ${conclusion}` };
-    const raw = await readFailedLog(gh, repo, runId);
-    // A cancelled run is a manual stop or a concurrency swap unless it died on the turn cap.
-    if (!failed && !MAX_TURNS_RE.test(raw)) return { action: 'skipped', reason: 'cancelled, not a max-turns stop' };
+    let jobs = null;
+    try { jobs = JSON.parse(await readRun(gh, repo, runId, ['--json', 'jobs'])); } catch { /* names are best-effort */ }
+    const { job, step, timedOut } = failingJobStep(jobs);
+    // A cancelled run is a manual stop or a concurrency swap unless a step timed out or the turn cap was hit.
+    if (!failed && !timedOut && !STOP_RE.test(await readRun(gh, repo, runId, ['--log-failed']))) return { action: 'skipped', reason: 'cancelled, not a timeout or max-turns stop' };
     const day = utcDay(now);
-    const { failingStep, tail } = parseFailedLog(raw);
     const marker = failureMarker(workflow, day);
     const api = apiFor(gh);
 
-    const existing = (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'open' })).find((i) => String(i.body).includes(marker));
+    // state:all — a closed issue for today is commented on, never duplicated and never reopened.
+    const existing = (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' })).find((i) => String(i.body).includes(marker));
     if (existing) {
       const comments = (await api(`/repos/${repo}/issues/${existing.number}/comments?per_page=100`)) || [];
-      if (!String(existing.body).includes(runUrl) && !comments.some((c) => String(c.body ?? '').includes(runUrl))) {
-        await gh(['issue', 'comment', String(existing.number), '--repo', repo, '--body', `Another failure today: \`${conclusion}\` — ${runUrl}`]);
+      const seen = String(existing.body).includes(runUrl) || comments.some((c) => String(c.body ?? '').includes(runUrl));
+      if (!seen && shouldComment(comments, now)) {
+        await gh(['issue', 'comment', String(existing.number), '--repo', repo, '--body', `Another failure today: \`${conclusion}\` — ${runUrl}\n\n${COMMENT_MARKER}`]);
       }
-      log(`routine-failure-triage: #${existing.number} already open for ${workflow} ${day}.`);
+      log(`routine-failure-triage: #${existing.number} already filed for ${workflow} ${day}.`);
       return { action: 'commented', number: existing.number };
     }
 
-    await ensureLabel(gh, repo);
+    const isOpsFix = workflow === OPS_FIX_WORKFLOW;
+    await ensureLabels(gh, repo, isOpsFix ? ['routine-failure', OPS_FIX_LABEL] : ['routine-failure']);
     const receiptTitle = RECEIPT_TITLES[workflow]?.(day);
     const receipt = receiptTitle ? (await listIssuesByLabels(api, { repo, labels: ['desk:tree'], state: 'open' })).find((i) => i.title === receiptTitle) : null;
+    const labels = isOpsFix ? [...FAILURE_LABELS, OPS_FIX_LABEL] : FAILURE_LABELS;
     let number;
     let action;
     if (receipt) {
       const args = ['issue', 'edit', String(receipt.number), '--repo', repo, '--body', `${receipt.body}\n\n${adoptionFooter(workflow, day)}`];
-      for (const label of FAILURE_LABELS) args.push('--add-label', label);
+      for (const label of labels) args.push('--add-label', label);
       // Exactly one desk:* label is "routed" (scripts/check-work-ownership.mjs); Marjorie owns it now.
       args.push('--remove-label', 'desk:tree');
       await gh(args);
       number = receipt.number;
       action = 'adopted';
     } else {
-      const { title, body, labels } = buildFailureIssue({ workflow, runUrl, conclusion, failingStep, tail, day });
-      const args = ['issue', 'create', '--repo', repo, '--title', title, '--body', body];
+      const issue = buildFailureIssue({ workflow, runUrl, conclusion, job, step, day });
+      const args = ['issue', 'create', '--repo', repo, '--title', issue.title, '--body', issue.body];
       for (const label of labels) args.push('--label', label);
       number = issueNumber((await gh(args)).stdout);
       if (!number) throw new Error('gh issue create printed no issue URL');
       action = 'filed';
     }
     log(`routine-failure-triage: ${action} #${number} for ${workflow} ${day}.`);
-    await dispatchResponse('to-marjorie', number, { repo, gh, now, log });
+    // The ops-fix routine's own failures go to Marjorie/escalation only — never back into a dispatch loop.
+    if (!isOpsFix) {
+      // Failure dispatches have their own daily cap, counted from today's failure issues (this one included), not Tree's shared run count.
+      const countToday = async () => (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' })).filter((i) => utcDay(Date.parse(i.createdAt)) === day).length - 1;
+      await dispatchResponse('to-marjorie', number, { repo, gh, now, log, cap: FAILURE_DAILY_CAP, countToday });
+    }
     return { action, number };
   } catch (err) {
     warn(`${workflow}: ${String(err?.message || err).split('\n')[0].slice(0, 200)}`);

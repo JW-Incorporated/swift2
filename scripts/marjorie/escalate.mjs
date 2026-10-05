@@ -13,6 +13,7 @@
 import { writeFileSync } from 'node:fs';
 import { runMain } from '../lib/cli.mjs';
 import { parseArgs } from './loop-asks.mjs';
+import { neutralizeAt, neutralizeMarker } from './lib/loop-asks.mjs';
 
 const STEP_MAX = 200;
 export const PROJECTS = {
@@ -20,7 +21,8 @@ export const PROJECTS = {
   hermes: { session: 'Claude Code in Documents\\Claude\\Projects\\Hermes', repoRule: "Follow that project's own CLAUDE.md for branches, PRs and landing, and land the fix." },
 };
 const clean = (v) => String(v ?? '').replace(/\s+/g, ' ').trim();
-const safe = (v) => clean(v).replace(/`{3,}/g, "'''");
+// The issue is public and read by bots: no pings, no forged loop markers, no fence break-out.
+const safe = (v) => neutralizeMarker(neutralizeAt(clean(v).replace(/`{3,}/g, "'''")));
 
 /** The self-contained prompt a fresh session can run. Throws when any part is empty. */
 export function renderPrompt({ where, issueNumber, context, goal, acceptance }) {

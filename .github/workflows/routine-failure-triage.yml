@@ -32,6 +32,8 @@ on:
       - routine-marjorie-weekly-review
       - routine-news-triage
       - routine-nils-walk
+      # routine-ops-fix: not yet on main (PR #5190); names are matched at runtime. Its failures are labelled ops-fix:stuck and never dispatched back.
+      - routine-ops-fix
       - routine-paul-blart
       - routine-tree-ask-response
       - routine-tree-chat
@@ -47,8 +49,8 @@ permissions:
   actions: write # reads the failed run's log and dispatches Marjorie's ask-response routine
 
 concurrency:
-  group: routine-failure-triage
-  cancel-in-progress: false # two failures at once must not race the one-issue-per-day dedupe
+  group: routine-failure-triage-${{ github.event.workflow_run.name }}
+  cancel-in-progress: false # two failures of ONE workflow must not race the one-issue-per-day dedupe; different workflows run in parallel
 
 jobs:
   triage:
