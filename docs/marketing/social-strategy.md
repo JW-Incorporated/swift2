@@ -98,7 +98,7 @@ text-only X copy for the X sibling instead.
 
 | Day | Post | Platform | Job | Media |
 |---|---|---|---|---|
-| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: a real credited photo or text-only |
+| 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: the SAME photo as its IG sibling |
 | +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Photo tile + the tap-path screens as later slides |
 | +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Photo tile + a screenshot of that actual result |
 | +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A photo, or text-only |
@@ -274,9 +274,10 @@ days running on the same platform:
 - **The honest question** — one we'd actually like answered, not rhetorical.
 - **The challenge** — "find it in ten seconds."
 
-**Rule 6 — always land somewhere.** Every heartbeat post carries a deep link
-(era / item / lens) with the UTM tags from growth-plan §8. "longlivets.com" bare
-is only for Mood posts, which have no deep link.
+**Rule 6 — always land somewhere.** Every post in every lane carries a deep link
+(era / item / lens) with the UTM tags from growth-plan §8 — widened from
+heartbeat-only to all lanes on 2026-10-05, see §2's three criteria.
+"longlivets.com" bare is only for Mood posts, which have no deep link.
 
 **Rule 7 — mind X's real length limit, and it's weighted, not raw characters.**
 X counts any autolinked URL (including a bare domain like
@@ -385,29 +386,71 @@ see §3, it's the only real engagement data we can get.
 
 ## 2. The weekly calendar grammar
 
-### Slots — 2 paired campaign beats per day, fixed times
+### The bar every post clears — three criteria, not an average
+
+**Added 2026-10-05 (Tree), from the owner's own words about the one post he has
+praised.** `social/posted/2026-10-01-love-story-joe-jonas-ig.json` is the
+reference: a credited fan photograph, a sourced and specific chapter narrative,
+and a `/?lens=love-story` deep link into real site content. The owner asked that
+**every** post meet all three. It is written here as three gates because that
+post cleared `total` 21/25 while scoring `mediaEarnsItsPlace: 3` — exactly the
+floor — which is how a merely-defensible image rides to publication on the back
+of the other four scores.
+
+1. **A real picture worth stopping on.** `mediaEarnsItsPlace` has its own floor
+   of **≥4**, independent of `total` — the same shape `notEmbarrassed` already
+   has. A 3 means "defensible"; the ask is "great". *(The scoring floor itself
+   lives in `scripts/social/lib/queue-schema.mjs`'s
+   `CRITIQUE_DIMENSION_MIN_OVERRIDES`, which Tree may not edit — until that
+   lands, this is the bar the drafting run self-scores against and a 3 is a
+   rewrite, not a ship.)*
+2. **Text specific enough that it could not sit above another post.** Rule 4's
+   specificity test, applied to every lane and not just heartbeat.
+3. **A deep link into actual site content.** Rule 6 now covers **every** lane —
+   timeline, thread, launch, mood, merch, appearance, news — not heartbeat
+   alone. Mood is the single named exception, because no Mood deep link exists
+   yet; it says "tap Mood on longlivets.com". The bare homepage is never a
+   landing place.
+
+### Slots — ONE paired campaign beat per day, at `23:00Z`
 
 | Beat | Time (UTC) | Local | Queue items | Normally filled by |
 |---|---|---|---|---|
-| **A** | `15:00Z` | 11am ET / 8am PT | X + Instagram pair | heartbeat (on-this-day when today has a real Vault match) |
-| **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, or mood beat; heartbeat otherwise |
+| **B** | `23:00Z` | 7pm ET / 4pm PT | X + Instagram pair | the live campaign — launch arc, thread hero, timeline chapter or mood beat; heartbeat otherwise |
+
+**One beat, not two (changed 2026-10-05, Tree — the code was always the real
+grammar).** `scripts/social/lib/queue.mjs:61-62` sets `MAX_POSTS_PER_RUN = 1`
+and `MAX_POSTS_PER_PLATFORM_PER_DAY = 1`, so a second same-day pair cannot
+post however it is planned: the `15:00Z` beat A would be skipped, go stale and
+retire to `social/failed/` at 48h. Every calendar since 2026-09-28 has already
+planned one beat a day and flagged the contradiction; this section was the bug.
+`social/calendar.brief.json` is 14 entries, one per day, for the same reason.
+Evening-US is the priority window (growth-plan §6), so the one beat sits there.
+
+**Weekly volume: 7 IG + 7 X = 14 posts** (was 28 under the unreachable
+two-beat grammar). Each beat is two queue items authored together with the
+same story-unique `campaign` and `scheduledAt`. Facebook rides every Instagram
+item automatically (`postToFacebookPage`) — it is never planned or drafted
+separately.
+
+**A beat is drafted by its OWN day's run, and never parked more than 24h out
+(added 2026-10-05, Tree).** For a founder-approved item the 48h staleness clock
+runs from `approval.at`, not from `scheduledAt` (`social/README.md`'s "48h
+staleness check"; `lib/queue.mjs`'s `isStaleApproved`), so an item approved well
+before its slot can be retired *unposted* before its own scheduled time ever
+arrives. That is what killed the 2026-10-03 Mood pair: drafted by the 10-01 run,
+✅'d at `2026-10-01T16:21Z`, scheduled `2026-10-03T23:00Z` — 54.6h later, 6.6h
+past the sweep — so both halves went to `social/failed/` without a single
+posting attempt, and Mood has still never shipped. A catch-up or re-draft
+subject therefore takes **today's or tomorrow's** beat, never a date two days
+out; a calendar beat further ahead than that is drafted by the run on its own
+day.
 
 **At least one day of every calendar week is a news reserve** (§1(e2), added
 2026-10-01): its beat is written `news:` with a named fallback subject on the
 same line, and it is the only slot the previous day's run leaves alone. A
 calendar that assigns all seven days to planned campaigns is now a planning
 bug, not a full plan — it is what made 27 events in two weeks un-postable.
-
-Evening-US is the priority window (growth-plan §6), which is why the stronger
-campaign beat sits there. Each beat becomes two queue items authored together,
-with the same story-unique `campaign` and `scheduledAt`. Facebook rides every
-Instagram item automatically (`postToFacebookPage`) — it is never planned or
-drafted separately.
-
-**Weekly volume: 14 IG + 14 X = 28 posts.** That sits under every cap: each
-posting cycle handles a two-item pair against the poster's 5-per-run cap, both
-platforms remain under 10/day, and two pairs/day exactly match the Growth run's
-≤4 drafts per run.
 
 ### Sibling rule + the X length rule
 
@@ -516,7 +559,17 @@ the code is what actually ships and this file is the bug.
    committed `/social/library/` asset. On Instagram, prefer a carousel: Taylor
    photo as the grid tile, the screenshot as slide 2 — the grid shows Taylor
    either way. **X site-screen posts are permanently prohibited**; the X
-   sibling uses a real credited photo or text-only copy.
+   sibling carries the same real photograph its Instagram half does.
+
+   **X is never text-only (corrected 2026-10-05, Tree).** `check-drafts.mjs`
+   fails an X item with no media (`social/strategy-params.json`
+   `media.requireImageOnX`), and lesson L001's one sanctioned repeat is exactly
+   this: **one beat, one pair, one image**, shared by the IG and X halves of the
+   same `campaign` because the owner approves the pair as a single post
+   (`docs/decisions.md` 2026-09-30). Every "or text-only" fallback written
+   elsewhere in this file or in an older `social/calendar.md` is dead — dropping
+   X to text-only is never the answer to a media problem, including a photo-reuse
+   one. When no never-used photo fits a beat, the beat is deferred.
 
    **The "cool feature only" rule (Joey, 2026-09-01).** A `site-screen` may
    only show one of the site's genuinely distinctive, visually rich surfaces
