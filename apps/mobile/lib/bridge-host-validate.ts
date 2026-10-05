@@ -13,6 +13,14 @@ export function validTheme(p: unknown): ThemeChange | null {
     : null;
 }
 
+/** The `route` event payload: `{ path, busy? }`, a `/`-rooted string of at most 2048 chars plus an optional boolean; any other key or type is null (dropped). */
+export function validRoute(p: unknown): { path: string; busy: boolean } | null {
+  if (!isRecord(p) || typeof p.path !== 'string') return null;
+  const keys = Object.keys(p);
+  if (keys.length !== (p.busy === undefined ? 1 : 2) || (p.busy !== undefined && typeof p.busy !== 'boolean')) return null;
+  return p.path.startsWith('/') && p.path.length <= MAX_SHARE_FIELD ? { path: p.path, busy: p.busy === true } : null;
+}
+
 export const MAX_PREFS = 64;
 export const MAX_PREF_KEY = 64;
 
@@ -89,6 +97,13 @@ export function validPrefsUpdate(p: Record<string, unknown>): JsonValue | null {
   return out;
 }
 
+/** Strict `{ entries: Record<string,string> }`; key length and blob size are the native handler's `invalid`. */
+function validStorageWrite(p: Record<string, JsonValue>): JsonValue | null {
+  const { entries } = p;
+  if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((x) => typeof x === 'string')) return null;
+  return { entries: { ...(entries as Record<string, string>) } };
+}
+
 /** Per-command payload validation; returns the cleaned payload or null. */
 export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue | null {
   if (!isRecord(p)) return null;
@@ -109,8 +124,14 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
       return isBridgeId(p.targetId) ? { targetId: p.targetId } : null;
     case 'share':
       return validShare(p);
+    case 'clipboard.write':
+      return typeof p.text === 'string' && p.text.length > 0 && p.text.length <= MAX_SHARE_FIELD && Object.keys(p).length === 1 ? { text: p.text } : null;
     case 'haptic':
       return typeof p.kind === 'string' && HAPTIC_KINDS.includes(p.kind) ? { kind: p.kind } : null;
+    case 'storage.load':
+      return Object.keys(p).length === 0 ? {} : null;
+    case 'storage.write':
+      return validStorageWrite(p);
     case 'notifications.updatePrefs':
       return validPrefs(p.prefs);
     case 'notifications.savePrefs':
