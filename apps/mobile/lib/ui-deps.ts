@@ -16,9 +16,19 @@ export type HapticsLike = {
   NotificationFeedbackType: { Success: unknown; Warning: unknown; Error: unknown };
 };
 
+/** Native share-card file ports (expo-file-system / expo-clipboard); absent = image shares degrade to a link share. */
+export type ShareCardPorts = {
+  /** Downloads `url` to the cache as `share/<name>.png` (overwriting) and returns the file. */
+  download(url: string, name: string): Promise<{ uri: string; base64(): string | Promise<string> }>;
+  copyImage(base64: string): Promise<void>;
+};
+
+const CARD_DOWNLOAD_TIMEOUT_MS = 8000;
+
 export type UiDepsEnv = {
   linking: { openURL(url: string): Promise<unknown> };
   share: { share(content: { title?: string; message?: string; url?: string }): Promise<unknown> };
+  cards?: ShareCardPorts;
   /** Absent when the haptics module is unavailable: the handler answers no-op success. */
   haptics?: HapticsLike;
   platformOS: string;
@@ -50,17 +60,56 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
     openURL: async (url) => {
       await env.linking.openURL(url);
     },
-    share: async (p: SharePayload) => {
-      // iOS shows `url` itself; Android ignores it, so fold it into the message there.
-      if (env.platformOS === 'android') {
-        const message = [p.text, p.url].filter((s): s is string => !!s).join('\n');
-        await env.share.share({ title: p.title, message });
-        return;
+    imageHost: new URL(siteUrl).host,
+    share: async (p: SharePayload & { image?: { url: string } }) => {
+      const { image, ...link } = p;
+      const card = image && env.cards ? await fetchCard(env.cards, image.url) : null;
+      if (card) {
+        if (env.platformOS === 'android') {
+          // No file share on Android in this build: put the card on the clipboard, then share the text.
+          try {
+            await env.cards!.copyImage(await card.base64());
+          } catch (e) {
+            env.log('share.card', e instanceof Error ? e.message : 'copy failed');
+          }
+        } else {
+          await env.share.share({ title: link.title, message: [link.text, link.url].filter((x): x is string => !!x).join('\n'), url: card.uri });
+          return;
+        }
       }
-      await env.share.share({ title: p.title, message: p.text, url: p.url });
+      return shareLink(link);
     },
     haptic: haptics ? (kind) => runHaptic(haptics, kind) : undefined,
   };
+
+  async function fetchCard(cards: ShareCardPorts, url: string) {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      const size = new URL(url).searchParams.get('size');
+      const name = size === 'story' || size === 'portrait' ? size : 'card';
+      return await Promise.race([
+        cards.download(url, name),
+        new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new Error('card download timed out')), CARD_DOWNLOAD_TIMEOUT_MS);
+        }),
+      ]);
+    } catch (e) {
+      env.log('share.card', e instanceof Error ? e.message : 'download failed');
+      return null;
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
+  }
+
+  async function shareLink(p: SharePayload): Promise<void> {
+    // iOS shows `url` itself; Android ignores it, so fold it into the message there.
+    if (env.platformOS === 'android') {
+      const message = [p.text, p.url].filter((s): s is string => !!s).join('\n');
+      await env.share.share({ title: p.title, message });
+      return;
+    }
+    await env.share.share({ title: p.title, message: p.text, url: p.url });
+  }
 }
 
 async function runHaptic(h: HapticsLike, kind: HapticKind): Promise<void> {

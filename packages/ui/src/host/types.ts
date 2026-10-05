@@ -174,7 +174,7 @@ export interface HostAdapter {
   /** @later WP2.4/2.5 */
   lazy?: <T>(loader: () => Promise<{ default: ComponentType<T> }>) => ComponentType<T>;
   /** @later WP2.5 */
-  share?: (payload: SharePayload) => Promise<void>;
+  share?: (payload: SharePayload & { image?: { url: string } }) => Promise<void>;
   /** Current page URL (web root adapter: `location.href`; reads `?era`/`?item` deep links and feedback reports). Absent: no deep link. */
   currentUrl?: () => string;
   /** Clipboard write for the share fallback (web root adapter: `navigator.clipboard.writeText`). Absent: the web `navigator.clipboard` path. */

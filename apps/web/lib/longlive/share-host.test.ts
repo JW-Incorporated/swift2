@@ -53,6 +53,15 @@ describe('share with a host (WP2.4-A2)', () => {
     expect(share.mock.calls[0]?.[0]).toMatchObject({ url: expect.stringContaining('https://www.longlivets.com?item=') });
   });
 
+  it('shareCardImage with host.share + resolveUrl passes the card URL, no bytes', async () => {
+    const share = vi.fn().mockResolvedValue(undefined);
+    const resolveUrl = (p: string) => `https://www.longlivets.com${p}`;
+    expect(await shareCardImage(target, source, 'story', data, { share, resolveUrl })).toBe('native');
+    const arg = share.mock.calls[0]?.[0] as { image?: { url: string } };
+    expect(arg.image?.url).toMatch(/^https:\/\/www\.longlivets\.com\/api\/share-card\?.*size=story$/);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('shareCardImage with host.share falls back to a link share and fetches no card', async () => {
     const share = vi.fn().mockResolvedValue(undefined);
     expect(await shareCardImage(target, source, 'portrait', data, { share })).toBe('native');

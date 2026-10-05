@@ -60,7 +60,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
     type Empty = Record<string, never>;
     type Exact = {
       navigate: H<{ path: WebPath; replace?: boolean }, null>;
-      share: H<SharePayload, null>;
+      share: H<SharePayload & { image?: { url: string } }, null>;
       haptic: H<{ kind: HapticKind }, null>;
       openExternal: H<{ url: ExternalUrl | MailtoUrl }, null>;
       'notifications.status': H<Empty, NotificationStatus>;

@@ -25,7 +25,9 @@ export type UiHandlerDeps = {
   /** `Linking.openURL` in the host. */
   openURL: (url: string) => Promise<void>;
   /** RN `Share.share` in the host; resolves once the sheet has closed. */
-  share: (payload: SharePayload) => Promise<void>;
+  share: (payload: SharePayload & { image?: { url: string } }) => Promise<void>;
+  /** Host of the one origin a share card may be downloaded from (the site); absent = images rejected. */
+  imageHost?: string;
   /** Absent when the haptics module is unavailable: no-op success. */
   haptic?: (kind: HapticKind) => void | Promise<void>;
 };
@@ -38,6 +40,16 @@ const MAX_SHARE_FIELD = 2048;
 
 const invalid = (message: string): ResResult<never> => resErr('invalid', message);
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+
+function isCardUrl(u: string, host: string | undefined): boolean {
+  if (!host) return false;
+  try {
+    const url = new URL(u);
+    return url.protocol === 'https:' && url.host === host && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
 
 export function createHandlers(deps: UiHandlerDeps): UiHandlers {
   async function run(fn: () => void | Promise<void>, what: string): Promise<ResResult<null>> {
@@ -87,7 +99,13 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       }
       if (out.url !== undefined && !isExternalUrl(out.url)) return invalid('share: url scheme');
       if (out.title === undefined && out.text === undefined && out.url === undefined) return invalid('share: empty');
-      return run(() => deps.share(out), 'share');
+      let image: { url: string } | undefined;
+      if (p.image !== undefined) {
+        const u = isRecord(p.image) ? p.image.url : undefined;
+        if (typeof u !== 'string' || u.length > MAX_SHARE_FIELD || !isCardUrl(u, deps.imageHost)) return invalid('share: image');
+        image = { url: u };
+      }
+      return run(() => deps.share(image ? { ...out, image } : out), 'share');
     },
     haptic: async (payload) => {
       const p: unknown = payload;

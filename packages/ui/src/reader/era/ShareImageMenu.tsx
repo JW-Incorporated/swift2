@@ -29,6 +29,8 @@ const DONE_MESSAGES = {
   error: "Couldn't make the image. Try again in a moment.",
 } as const;
 
+const ANDROID_COPIED = 'Image copied — paste it into your post';
+
 /**
  * "Share as image" (W9): pick Story or Post, get a branded PNG of this moment
  * or era through the native share sheet (or a download). The caption link
@@ -76,7 +78,8 @@ export function ShareImageMenu({
   const run = async (size: ShareCardSize) => {
     setPhase({ kind: 'busy' });
     const result = await shareCardImage(target, source, size, q, host);
-    const message = DONE_MESSAGES[result];
+    const hostAndroid = !!host.share && /android/i.test(navigator.userAgent);
+    const message = result === 'native' && hostAndroid ? ANDROID_COPIED : DONE_MESSAGES[result];
     setPhase(message ? { kind: 'done', message } : { kind: 'idle' });
     if (!message) setOpen(false);
   };

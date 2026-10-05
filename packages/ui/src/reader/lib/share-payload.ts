@@ -182,10 +182,12 @@ export async function shareCardImage(
   host?: ShareHost,
 ): Promise<ImageShareResult | 'error'> {
   const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
-  // The bridge share carries no files: a host with share gets a link share.
+  // The bridge carries a card URL, never bytes: the host downloads it and shares the file.
   if (host?.share) {
     try {
-      await host.share(payload);
+      await host.share(
+        host.resolveUrl ? { ...payload, image: { url: host.resolveUrl(shareCardPath(source, size)) } } : payload,
+      );
       return 'native';
     } catch (error) {
       return error instanceof Error && error.name === 'AbortError' ? 'cancelled' : 'error';
