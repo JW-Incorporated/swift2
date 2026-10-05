@@ -37,7 +37,7 @@ export const WATCHDOG_REPORTS_KEY = 'longlive_watchdog_reports_v1';
 export const loadReportsRaw = (): Promise<string | null> => SecureStore.getItemAsync(WATCHDOG_REPORTS_KEY);
 export const saveReportsRaw = (raw: string): Promise<void> => SecureStore.setItemAsync(WATCHDOG_REPORTS_KEY, raw);
 
-/** Re-enabling the override in Diagnostics starts the watchdog from scratch. */
+/** Wipes the stored record so the watchdog starts from scratch. */
 export async function clearWatchdogRecord(): Promise<void> {
   try {
     await SecureStore.deleteItemAsync(WATCHDOG_KEY);

@@ -1,15 +1,8 @@
-// Remote kill switch for native screens (docs/mobile-release.md). Startup never
-// waits on this: App.tsx starts from DEFAULT_ROUTE_FLAGS and applies the result
-// when it arrives. Resolution: network -> last-good cache -> compiled defaults.
-import {
-  ROUTE_FLAG_KEYS,
-  appConfigSchema,
-  type AppConfig,
-  type StorageAdapter,
-} from '@swift2/content';
+// Remote app config (docs/mobile-release.md). Startup never waits on this: the
+// result is applied when it arrives. Resolution: network -> last-good cache -> compiled defaults.
+import { appConfigSchema, type AppConfig, type StorageAdapter } from '@swift2/content';
 import { contentBaseUrl, expoFileSystemStorageAdapter } from './vault-storage';
 import { diagCollector } from './diagnostics';
-import { DEFAULT_ROUTE_FLAGS, type RouteFlags } from './routes';
 
 export const APP_CONFIG_CACHE_KEY = 'swift2:app-config:last-good:v1';
 const FETCH_TIMEOUT_MS = 3000;
@@ -19,21 +12,6 @@ export interface AppConfigDeps {
   storage?: StorageAdapter;
   baseUrl?: string;
   timeoutMs?: number;
-}
-
-/** Defaults overlaid with only the known flag keys that carry a boolean; everything else is ignored. */
-export function routeFlagsFrom(config: unknown): RouteFlags {
-  const flags: RouteFlags = { ...DEFAULT_ROUTE_FLAGS };
-  const incoming =
-    config && typeof config === 'object'
-      ? (config as { routeFlags?: unknown }).routeFlags
-      : undefined;
-  if (!incoming || typeof incoming !== 'object') return flags;
-  for (const key of ROUTE_FLAG_KEYS) {
-    const value = (incoming as Record<string, unknown>)[key];
-    if (typeof value === 'boolean') flags[key] = value;
-  }
-  return flags;
 }
 
 async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> {
@@ -49,7 +27,7 @@ async function readLastGood(storage: StorageAdapter): Promise<AppConfig | null> 
 }
 
 export interface LaunchFlags {
-  /** Last-good cached remote `sharedUi`; null when nothing was cached. */
+  /** Last-good cached remote `sharedUi`; null when nothing was cached or the cache says false (see loadLaunchFlags). */
   sharedUi: boolean | null;
   /** Same for the iOS-only gate `sharedUiIos`. */
   sharedUiIos: boolean | null;
@@ -61,6 +39,9 @@ export interface LaunchFlags {
  * WP2.14: the flags a launch is decided on. One local read of the last-good
  * cache, never the network, so the DOM-or-native choice is made once at launch
  * and a fresh fetch applies on the NEXT launch. Never throws.
+ *
+ * One UI PR3 removed the kill switch (the legacy native UI is gone; the only lever is an OTA rollback), so a stale
+ * cached `false` from before it is ignored: it reads as null and the compiled default decides.
  */
 export async function loadLaunchFlags(deps: { storage?: StorageAdapter } = {}): Promise<LaunchFlags> {
   try {
@@ -69,8 +50,8 @@ export async function loadLaunchFlags(deps: { storage?: StorageAdapter } = {}): 
     const sharedUi = cached?.routeFlags.sharedUi;
     const sharedUiIos = cached?.routeFlags.sharedUiIos;
     return {
-      sharedUi: typeof sharedUi === 'boolean' ? sharedUi : null,
-      sharedUiIos: typeof sharedUiIos === 'boolean' ? sharedUiIos : null,
+      sharedUi: sharedUi === true ? true : null,
+      sharedUiIos: sharedUiIos === true ? true : null,
       watchdogReports: typeof cached?.watchdogReports === 'boolean' ? cached.watchdogReports : null,
     };
   } catch {
