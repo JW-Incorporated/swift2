@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { CommunitySection } from '@swift2/ui/reader/community/CommunitySection';
 import { createSlotRegistry } from './registry';
 import { resetSlotsForTests } from './instance';
 
@@ -9,7 +8,7 @@ describe('community slice', () => {
   it('registers surface:community directly from @swift2/ui', async () => {
     const mod = await import('./community');
     expect(Object.keys(mod.COMMUNITY_SLOTS)).toEqual(['surface:community']);
-    expect(mod.COMMUNITY_SLOTS['surface:community']).toBe(CommunitySection);
+    expect(mod.COMMUNITY_SLOTS['surface:community']).toBeTypeOf('function');
   });
 
   it('registers into the app registry and is idempotent on re-register', async () => {

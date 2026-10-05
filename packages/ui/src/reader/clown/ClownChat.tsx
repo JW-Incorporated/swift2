@@ -46,6 +46,7 @@ import { useHost } from '../../host/context';
 import { bufferedFrom } from '../../host/buffered-from';
 import { useStickToBottomScroll } from './lib/clown-chat-ui';
 import { useScrollLock } from '../lib/useScrollLock';
+import { useBackDismiss } from '../lib/useBackDismiss';
 import { ClownBoard } from './ClownBoard';
 import { ClownChatComposer } from './ClownChatComposer';
 import { ClownChatTitlebar } from './ClownChatTitlebar';
@@ -109,6 +110,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   const wasExpandedRef = useRef(false);
 
   useScrollLock(expanded);
+  useBackDismiss(expanded, () => setExpanded(false));
 
   // Scrolls the stream to the newest content — a new turn, a streamed
   // investigation step, or an error — but only when the reader was already

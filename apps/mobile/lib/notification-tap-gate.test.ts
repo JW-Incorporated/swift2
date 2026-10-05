@@ -91,26 +91,36 @@ describe('tap gate', () => {
   });
 
   describe('canonical links in native mode', () => {
-    it('forwards a canonical link the queue does not serve (e.g. /about), never the raw string', async () => {
+    it('delivers an unknown same-site link (e.g. /about) as its canonical native destination, once', async () => {
       const gate = createTapGate({ siteUrl: SITE, queue: createTapQueue() });
       const nav = vi.fn();
       gate.setNativeNavigator(nav);
-      expect(gate.enqueue({ id: 'm', deepLink: 'https://longlivets.com/about?x=1' })).toBe('dropped');
+      expect(gate.enqueue({ id: 'm', deepLink: 'https://longlivets.com/about?x=1' })).toBe('queued');
       gate.enqueue({ id: 'm', deepLink: '/about' });
+      await new Promise((r) => setTimeout(r, 0));
       expect(nav).toHaveBeenCalledTimes(1);
       expect(nav).toHaveBeenCalledWith(`${SITE}/about?x=1`);
     });
-    it.each(['https://evil.example/', 'javascript:alert(1)', '//evil.example/x', 'https://longlivets.com@evil.example/', '/a/../b\\c', 'myapp://x'])(
-      'hostile link %s opens home, never raw',
+    it.each(['https://evil.example/', 'javascript:alert(1)', '//evil.example/x', 'https://longlivets.com@evil.example/', '/a/../b\\c', 'myapp://x', '/api/devices/register', '/internal/x', '/_next/a'])(
+      'refused link %s is never navigated in native mode',
       async (link) => {
         const gate = createTapGate({ siteUrl: SITE });
         const nav = vi.fn();
         gate.setNativeNavigator(nav);
         gate.enqueue({ id: `h-${link}`, deepLink: link });
-        expect(nav).toHaveBeenCalledTimes(1);
-        expect(nav).toHaveBeenCalledWith(`${SITE}/`);
+        expect(nav).not.toHaveBeenCalled();
       },
     );
+    it('a payload with no link (absent or non-string) opens home once per id', () => {
+      const gate = createTapGate({ siteUrl: SITE });
+      const nav = vi.fn();
+      gate.setNativeNavigator(nav);
+      gate.enqueue({ id: 'n1', deepLink: undefined });
+      gate.enqueue({ id: 'n1', deepLink: undefined });
+      gate.enqueue({ id: 'n2', deepLink: 5 });
+      expect(nav).toHaveBeenCalledTimes(2);
+      expect(nav).toHaveBeenCalledWith(`${SITE}/`);
+    });
     it('a payload with no link opens home in native mode; an unmappable link is not forwarded while the DOM owns taps', () => {
       const gate = createTapGate({ siteUrl: SITE });
       expect(gate.enqueue({ id: 'x', deepLink: 'https://evil.example/' })).toBe('dropped');
