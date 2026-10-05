@@ -11,7 +11,7 @@ const FILES = [
   'apps/web/app/embed/youtube/[id]/route.ts',
   'apps/web/app/embed/spotify/[type]/[id]/route.ts',
 ];
-const REQUIRED = ['allow-scripts', 'allow-same-origin', 'allow-popups', 'allow-popups-to-escape-sandbox', 'allow-presentation'];
+const REQUIRED = ['allow-scripts', 'allow-same-origin', 'allow-popups', 'allow-popups-to-escape-sandbox'];
 
 describe('third-party embed iframes are sandboxed', () => {
   for (const file of FILES) {
@@ -19,6 +19,7 @@ describe('third-party embed iframes are sandboxed', () => {
       const src = readFileSync(join(root, file), 'utf8');
       const tokens = /sandbox="([^"]*)"/.exec(src)?.[1]?.split(' ') ?? [];
       for (const t of REQUIRED) expect(tokens).toContain(t);
+      expect(tokens).not.toContain('allow-presentation');
       expect(src).not.toContain('allow-top-navigation');
     });
   }
