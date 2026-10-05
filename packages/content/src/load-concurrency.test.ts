@@ -110,7 +110,7 @@ describe('loadBundle concurrent file fetches', () => {
     await loadBundle({ baseUrl, fetch: serve(), storage: inner });
     const writes: string[] = [];
     const view = {
-      getItem: async (key: string) => (key.includes('etag:') ? null : inner.getItem(key)),
+      getItem: async (key: string) => (key.includes('etag:') || key.includes('last-good-fp') ? null : inner.getItem(key)),
       setItem: async (key: string, value: string) => {
         writes.push(key);
         await inner.setItem(key, value);

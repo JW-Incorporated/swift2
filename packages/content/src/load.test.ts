@@ -23,6 +23,7 @@ import {
 } from './load';
 import { MemoryStorageAdapter, type StorageAdapter } from './cache';
 import type { Manifest } from './schema';
+import { SCHEMA_FINGERPRINT } from './warm-cache';
 
 const bundleDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'bundle');
 const manifest: Manifest = JSON.parse(readFileSync(join(bundleDir, 'manifest.json'), 'utf8'));
@@ -136,7 +137,7 @@ describe('loadBundle', () => {
 
   it('legacy install: a truthy ETag string in the marker key still gets a one-request warm hit', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
-    storage.setItem(`@swift2/content:v1:${baseUrl}:etag:${manifest.bundleVersion}`, '"legacy"');
+    storage.setItem(`@swift2/content:v1:${baseUrl}:etag:${manifest.bundleVersion}:${SCHEMA_FINGERPRINT}`, '"legacy"');
     const requestLog: string[] = [];
     const result = await loadBundle({ baseUrl, fetch: makeFakeFetch({ requestLog }), storage });
     expect(result.source).toBe('cache-etag');
@@ -145,7 +146,7 @@ describe('loadBundle', () => {
 
   it('legacy install: an empty marker (pruned load) forces a network load', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
-    storage.setItem(`@swift2/content:v1:${baseUrl}:etag:${manifest.bundleVersion}`, '');
+    storage.setItem(`@swift2/content:v1:${baseUrl}:etag:${manifest.bundleVersion}:${SCHEMA_FINGERPRINT}`, '');
     const result = await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
     expect(result.source).toBe('network');
   });
@@ -160,7 +161,7 @@ describe('loadBundle', () => {
 
   it('valid-JSON but schema-invalid cached files fall through to the network load', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
-    const key = `@swift2/content:v1:${baseUrl}:files:${manifest.bundleVersion}`;
+    const key = `@swift2/content:v1:${baseUrl}:files:${manifest.bundleVersion}:${SCHEMA_FINGERPRINT}`;
     const files = JSON.parse(storage.getItem(key)!);
     files.eras[0].name = 42;
     storage.setItem(key, JSON.stringify(files));
@@ -172,7 +173,7 @@ describe('loadBundle', () => {
 
   it('partial cached files (a manifest entry missing) fall through to the network load', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
-    const key = `@swift2/content:v1:${baseUrl}:files:${manifest.bundleVersion}`;
+    const key = `@swift2/content:v1:${baseUrl}:files:${manifest.bundleVersion}:${SCHEMA_FINGERPRINT}`;
     const files = JSON.parse(storage.getItem(key)!);
     delete files.eras;
     storage.setItem(key, JSON.stringify(files));
@@ -196,7 +197,7 @@ describe('loadBundle', () => {
     expect(result.source).toBe('network');
   });
 
-  it('a changed version downloads the manifest and every file (integrity checks: the sha256-mismatch test below)', async () => {
+  it('a new version whose files are all unchanged downloads only the pointer and manifest (#4508; reuse cases: load-incremental.test.ts)', async () => {
     await loadBundle({ baseUrl, fetch: makeFakeFetch(), storage });
 
     const requestLog: string[] = [];
@@ -207,7 +208,7 @@ describe('loadBundle', () => {
     });
     expect(result.source).toBe('network');
     expect(result.manifest.bundleVersion).toBe(V2);
-    expect(requestLog.length).toBe(2 + Object.keys(manifest.files).length);
+    expect(requestLog.length).toBe(2);
   });
 
   it('never sends request headers (a non-safelisted header forces a CORS preflight from an opaque origin)', async () => {
@@ -248,7 +249,9 @@ describe('loadBundle', () => {
 
     // The server publishes a new version (so the cache does not short-circuit)
     // in which one file's body is corrupted relative to its own manifest entry.
-    const v2 = serveFiles(fixtureServed(), { version: V2 });
+    const changed = fixtureServed();
+    changed.tracks = { ...changed.tracks!, text: `${changed.tracks!.text} ` };
+    const v2 = serveFiles(changed, { version: V2 });
     const corruptFetch: FetchLike = async (url, init) => {
       if (url === `${baseUrl}/${V2}/${manifest.files.tracks!.path}`) {
         return {
@@ -606,8 +609,8 @@ describe('loadBundle forward compatibility (unknownEnumPolicy / dataErrorFallbac
     await pruned;
 
     const v = manifest.bundleVersion;
-    expect(storage.getItem(`@swift2/content:v1:${baseUrl}:etag:${v}`)).toBe('1');
-    expect(JSON.parse(storage.getItem(`@swift2/content:v1:${baseUrl}:files:${v}`)!)).toEqual(
+    expect(storage.getItem(`@swift2/content:v1:${baseUrl}:etag:${v}:${SCHEMA_FINGERPRINT}`)).toBe('1');
+    expect(JSON.parse(storage.getItem(`@swift2/content:v1:${baseUrl}:files:${v}:${SCHEMA_FINGERPRINT}`)!)).toEqual(
       full.files,
     );
     const onlyPointer: FetchLike = async (url, init) => {

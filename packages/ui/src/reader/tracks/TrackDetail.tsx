@@ -139,6 +139,11 @@ export function TrackDetail() {
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.
   const sources = mergeSources(dossier?.sources, track.discussionSources ?? track.sources);
+  const hasNarrative = !!(
+    dossier?.whyItMatters ||
+    dossier?.meaning ||
+    (track.discussion && track.discussion.length > 0)
+  );
 
   return (
     <div
@@ -307,7 +312,7 @@ export function TrackDetail() {
             )}
           </Section>
         ) : (
-          !dossier && (
+          !hasNarrative && (
             <p className="mt-6 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
               The full story behind this song hasn&apos;t been written yet — check back soon.
             </p>

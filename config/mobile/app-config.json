@@ -11,7 +11,7 @@
     "moment": true,
     "clownbot": true,
     "sharedUi": true,
-    "sharedUiIos": false
+    "sharedUiIos": true
   },
   "watchdogReports": false
 }

@@ -5,6 +5,7 @@ import { createBridgeHost, type BridgeHost } from '../../lib/bridge-host';
 import { createBridgeLink, createDomHostHandlers } from '../../lib/dom-host-handlers';
 import { registerRoutes, resetRoutesForTests } from '../slots/routes-instance';
 import { createReaderAdapter } from '../reader/reader-modules';
+import { createInsetsEmitter } from '../../lib/bridge-handlers-ui';
 import { createNavigateDom, installReaderBridge } from './reader-nav';
 import { createExpoBridge } from './transport-expo';
 
@@ -97,6 +98,23 @@ describe('AppReader bridge round trip (real host + DOM client)', () => {
     expect(e.onNavigated).not.toHaveBeenCalled();
     commit();
     await vi.waitFor(() => expect(e.onNavigated).toHaveBeenCalledWith(expect.objectContaining({ id: 'n1', ok: true })));
+    off();
+    e.dispose();
+  });
+
+  it('insets carry the keyboard height over the real link, and hide arrives as 0', async () => {
+    const e = epoch();
+    const onInsets = vi.fn();
+    const off = installReaderBridge(e.dom.client, { onInsets, onContentVersion: vi.fn(), back: () => 'handled', nav: { replaceUrl: vi.fn(), apply: async () => true } });
+    e.dom.mount();
+    await vi.waitFor(() => expect(e.host.isReady()).toBe(true));
+    const emit = createInsetsEmitter((i) => void e.host.emit('insets', i));
+    const base = { top: 1, right: 0, bottom: 2, left: 0 };
+    emit({ ...base, keyboard: 300 });
+    await vi.waitFor(() => expect(onInsets).toHaveBeenCalledWith({ ...base, keyboard: 300 }));
+    emit({ ...base, keyboard: 0 });
+    await vi.waitFor(() => expect(onInsets).toHaveBeenCalledTimes(2));
+    expect(onInsets.mock.calls.map((c) => c[0].keyboard ?? 0)).toEqual([300, 0]);
     off();
     e.dispose();
   });

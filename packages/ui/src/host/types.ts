@@ -14,7 +14,8 @@ import type { ApiFetch, ApiFetchOptions, ApiRequest } from '@swift2/content';
 export type ApiStream = (req: ApiRequest, opts?: ApiFetchOptions) => AsyncIterable<string>;
 
 /** Safe-area insets in CSS px. Package CSS should prefer `var(--safe-*, env(...))`. */
-export type Insets = { top: number; right: number; bottom: number; left: number };
+/** `keyboard`: docked soft-keyboard height in px, sent by the app host only (absent on the website). */
+export type Insets = { top: number; right: number; bottom: number; left: number; keyboard?: number };
 
 export type SharePayload = { title?: string; text?: string; url?: string };
 

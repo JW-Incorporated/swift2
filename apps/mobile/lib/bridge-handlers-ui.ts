@@ -148,12 +148,16 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
     'storage.write': async (payload) => {
       const p: unknown = payload;
       if (!isRecord(p)) return invalid('storage.write: payload');
-      const { entries } = p;
-      if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((v) => typeof v === 'string')) return invalid('storage.write: entries');
+      const { entries, allowEmpty } = p;
+      if (Object.keys(p).length !== (allowEmpty === undefined ? 1 : 2) || (allowEmpty !== undefined && typeof allowEmpty !== 'boolean') || !isRecord(entries) || !Object.values(entries).every((v) => typeof v === 'string')) return invalid('storage.write: entries');
       if (Object.keys(entries).some((k) => k.length > MAX_KEY_LENGTH)) return invalid('storage.write: key too long');
       const s = deps.hostStorage;
       if (!s) return resErr('failed', 'storage.write unavailable');
       try {
+        if (Object.keys(entries).length === 0 && allowEmpty !== true && Object.keys(s.load()).length > 0) {
+          deps.log('bridge-storage.write-rejected', 'unflagged empty overwrite of saved data');
+          return invalid('storage.write: empty overwrite');
+        }
         if (!s.write(entries as Record<string, string>)) {
           deps.log('bridge-storage.write-rejected', 'blob over the size cap');
           return invalid('storage.write: too large');
@@ -199,10 +203,10 @@ const sameInsets = (a: Insets, b: Insets) =>
 export function createInsetsEmitter(emit: (insets: Insets) => void) {
   let last: Insets | null = null;
   return function update(next: Insets): void {
-    const ok = [next.top, next.right, next.bottom, next.left].every((n) => Number.isFinite(n) && n >= 0);
+    const ok = [next.top, next.right, next.bottom, next.left, next.keyboard ?? 0].every((n) => Number.isFinite(n) && n >= 0);
     if (!ok) return;
-    if (last && sameInsets(last, next)) return;
-    last = { top: next.top, right: next.right, bottom: next.bottom, left: next.left };
+    if (last && sameInsets(last, next) && (last.keyboard ?? 0) === (next.keyboard ?? 0)) return;
+    last = { top: next.top, right: next.right, bottom: next.bottom, left: next.left, ...(next.keyboard ? { keyboard: next.keyboard } : {}) };
     emit(last);
   };
 }

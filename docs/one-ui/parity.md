@@ -207,6 +207,10 @@ has no fallthrough. Era art is the one app-relative network asset: the DOM host'
 Playwright handler (`e2e/parity/helpers.ts`) fulfils that URL with the real bytes from
 `apps/web/public/eras` (not the grey stub, not recorded as an external image). S4:
 offline/airplane-mode era art in the app must be checked on a device.
+Offline art (#5074): on the app, `AppImage` first looks `src` up in the native `art-map.js` (era covers and
+first-party primary moment images only) and serves the cached `file://` copy with no srcSet, falling back to the
+remote responsive URL on a miss or `onError`. The parity harness never installs a map, so side b still renders the
+remote path; the `file://` path is covered by unit tests and the offline steps in `docs/plans/one-ui/device-checklists.md`.
 
 ## Updating baselines
 
@@ -285,6 +289,10 @@ Surfaces that had no a-vs-b comparison (a-only element clips, or nothing) are `C
 Not coverable with the frozen fixture: EraSecretCard and CountdownBanner render nothing on side a (the pruned fixture has no sourced secret and no countdown at the fixed clock), so adding them needs a deliberate fixture regeneration. Running locally: a stale `serve.mjs` / `next start` from another session on 4173/4174 is silently reused (`reuseExistingServer`) and can serve an older build; set `PARITY_PORT` and `PARITY_A_PORT` to free ports.
 
 **CountdownBanner and EraSecretCard (W6-fixture).** No fixture regeneration was needed. `countdown-banner` answers `/vault/live` (both origins) with one live countdown item 3d 4h after the fixed clock, so the banner renders on both sides (clip `[data-ll-countdown-banner]`). `era-secret` opens `/?era=fearless` (the pruned fixture keeps fearless's sourced secrets; tloas has none, so `/` never shows a card) and clips the first `Era secret` section. Running locally: a stale `serve.mjs` / `next start` from another session on 4173/4174 is silently reused (`reuseExistingServer`) and can serve an older build; set `PARITY_PORT` and `PARITY_A_PORT` to free ports.
+
+## Closure invariant and accepted divergences
+
+See [parity-divergences.md](./parity-divergences.md): the CI closure invariant (`e2e/parity/closure.spec.ts`) and the enforced list of accepted platform divergences.
 
 ## W6-chrome: chrome-included a-vs-b (One UI W6)
 

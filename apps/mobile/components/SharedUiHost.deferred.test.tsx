@@ -39,6 +39,7 @@ vi.mock('react-native', async () => {
 vi.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }) }));
 vi.mock('expo-secure-store', () => ({ getItemAsync: async () => null, setItemAsync: async () => undefined, deleteItemAsync: async () => undefined }));
 vi.mock('expo-file-system', () => ({ File: class {}, Directory: class {}, Paths: { document: { uri: 'file:///doc' } } }));
+vi.mock('../lib/use-keyboard-inset', () => ({ useKeyboardInset: () => 0 }));
 vi.mock('expo-clipboard', () => ({}));
 vi.mock('expo-haptics', () => ({}));
 vi.mock('expo-notifications', () => ({}));
