@@ -5,6 +5,7 @@ import { InteractionManager } from 'react-native';
 import { loadContentBundle } from './content-bundle';
 import { createDeferredRefresh, type DeferredRefresh } from './deferred-bundle-refresh';
 import { diagMarkOnce } from './diagnostics';
+import { startArtSync } from './art-cache-fs';
 import { lastGoodSource, type LastGoodSource } from './dom-reader-config';
 
 export function useDeferredBundleRefresh(
@@ -25,7 +26,9 @@ export function useDeferredBundleRefresh(
       clearTimeout: (h) => clearTimeout(h as ReturnType<typeof setTimeout>),
       mark: diagMarkOnce,
       onLoaded: (bundle) => {
-        setContentToken((bundle as Awaited<ReturnType<typeof loadContentBundle>>).manifest.bundleVersion);
+        const loaded = bundle as Awaited<ReturnType<typeof loadContentBundle>>;
+        setContentToken(loaded.manifest.bundleVersion);
+        startArtSync(loaded.files, loaded.manifest.bundleVersion);
         if (!cached) setSource({ cache: lastGoodSource() });
       },
       onError: () => {

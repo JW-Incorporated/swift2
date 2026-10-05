@@ -289,6 +289,7 @@ export function SharedUiHost({
           dom={dom}
           cacheUri={source.cache?.scriptUri}
           cacheJsonUri={source.cache?.jsonUri}
+          artMapUri={source.cache?.artMapUri}
           inbox={inbox}
           bridge={handlers.bridge}
           reportProtocolFatal={handlers.reportProtocolFatal}
