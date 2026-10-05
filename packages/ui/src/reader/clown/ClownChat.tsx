@@ -32,6 +32,7 @@
  * warning above was simply wrong about what happens after that.
  */
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useReportBusy } from '../lib/useReportBusy';
 import type { BoardItem } from './lib/clown-board';
@@ -162,7 +163,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   const handleBoardSelect = useCallback((item: BoardItem) => {
     setText(promptForItem(item));
     requestAnimationFrame(() => {
-      textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      textareaRef.current?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'center' });
       textareaRef.current?.focus();
     });
   }, []);

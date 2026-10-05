@@ -1,5 +1,6 @@
 'use client';
 
+import { smoothScrollBehavior } from '../lib/scroll-behavior';
 import { useEffect, useRef } from 'react';
 import type { JSX } from 'react';
 
@@ -71,7 +72,7 @@ export function EraSpine({
   }, [activeKey]);
 
   const scrollByStep = (direction: 1 | -1) => {
-    trackRef.current?.scrollBy({ left: direction * SCROLL_STEP_PX, behavior: 'smooth' });
+    trackRef.current?.scrollBy({ left: direction * SCROLL_STEP_PX, behavior: smoothScrollBehavior() });
   };
 
   return (

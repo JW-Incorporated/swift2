@@ -68,7 +68,7 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
   const ref: { host?: BridgeHost; binder?: TapBinder; target?: ReturnType<typeof createTapTarget>; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.dom?.client.consumeInbox(ref.host?.inbox() ?? []));
-  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: vi.fn(), watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({
     handlers: createAppHandlersFor(vi.fn(), {}),
     send: link.send,
@@ -90,7 +90,7 @@ function epoch(opts: { subscribe?: boolean; apply?: () => Promise<boolean>; gate
   ref.target = target;
   ref.binder = binder;
   link.attach(host);
-  const dom = createExpoBridge((env) => handlers.bridge(env));
+  const dom = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   const deps = { replaceUrl: vi.fn(), apply: opts.apply ?? vi.fn(async () => true), setPath: vi.fn(async () => true) };
   dom.mount();
