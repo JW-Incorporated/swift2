@@ -6,23 +6,21 @@ import * as Notifications from 'expo-notifications';
 import { SITE_URL } from '../components/SiteShell';
 import { createTapGate, type RawResponse } from './notification-tap-gate';
 import { startTapIngest } from './notification-tap-ingest';
-import { recoveryTapDiscard } from './recovery-taps';
 
 export const notificationTapGate = createTapGate({ siteUrl: SITE_URL });
 
 /**
  * Feeds cold-start and live notification taps into the gate (serialized, see
  * notification-tap-ingest.ts). `native` is true only while the legacy native router is the
- * visible surface; then taps open its screens via `navigate`. `recovery` is true while the Recovery
- * screen is mounted: taps and deep links are consumed and dropped (diag mark), never queued or
- * navigated. Otherwise (pending) they stay held for the DOM host. Returning to the foreground retries held taps (an ack wait
- * can time out while backgrounded).
+ * visible surface; then taps open its screens via `navigate`. Otherwise (pending, Recovery) the
+ * queue is detached: Recovery holds taps like pending (detached queue) for the DOM host.
+ * Returning to the foreground retries held taps (an ack wait can time out while backgrounded).
  */
-export function useNotificationTaps(navigate: (url: string) => void, native: boolean, recovery = false): void {
+export function useNotificationTaps(navigate: (url: string) => void, native: boolean): void {
   useEffect(() => {
-    notificationTapGate.setNativeNavigator(native ? navigate : recovery ? recoveryTapDiscard() : null);
+    notificationTapGate.setNativeNavigator(native ? navigate : null);
     return () => notificationTapGate.setNativeNavigator(null);
-  }, [navigate, native, recovery]);
+  }, [navigate, native]);
 
   useEffect(() => {
     const stop = startTapIngest(notificationTapGate, {
