@@ -3,6 +3,8 @@
 <!-- ha-format: 2. Machine record: nothing here needs you. One line per item, newest first.
      Full bodies are in git history. Numbers here are never reused. -->
 
+- #104 · 2026-10-05 · skip · Rotate the notifications metrics secret — "owner declined rotation in chat 2026-10-05 10:46 PDT" · by chat
+- #102 · 2026-10-05 · done · Skim the corrected privacy-policy wording (PR #5154) — "owner said '#102 looks good' in chat 2026-10-05 10:46 PDT; PR #5154 merged" · by chat
 - #98 · 2026-10-04 · done · Scrub ~70 unhashed FB names leaked into engagement_lead now, or wait? — "owner said answered in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602 (decision scrub recorded on issue #4885, repair shipped in PR #4951)" · by chat
 - #70 · 2026-10-04 · done · Confirm the first automated Facebook export — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602" · by chat
 - #88 · 2026-10-04 · done · Finish the weekly Facebook export setup — "owner said done in Discord chat: https://discord.com/channels/1542316443264360448/1548350324891328562/1556329418518167602" · by chat
