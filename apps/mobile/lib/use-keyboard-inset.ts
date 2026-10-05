@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Keyboard, Platform, useWindowDimensions } from 'react-native';
+import { Dimensions, Keyboard, Platform, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export type KeyboardFrame = { screenX?: number; screenY: number; width: number; height: number };
@@ -10,18 +10,24 @@ const MIN_SOFT_KEYBOARD = 100;
 /**
  * Docked overlap above the bottom safe inset, in px. Floating/undocked keyboards (iPad) and hardware-keyboard
  * accessory bars cover no bottom inset, so they are 0. The safe inset is removed because the DOM already pads it
- * (`--safe-bottom`); Android reports the frame above the nav bar, iOS reports it including the home indicator.
+ * (`--safe-bottom`). Android: the frame height is the keyboard height regardless of window origin (split-screen).
+ * iOS: only a full-screen-width keyboard docked to the screen bottom in a full-height window counts; Slide Over /
+ * Stage Manager windows have an unknowable origin, so they get 0.
  */
 export function computeKeyboardInset(
   f: KeyboardFrame | null,
   win: { width: number; height: number },
+  screen: { width: number; height: number },
   bottomInset: number,
+  os: string,
 ): number {
   if (!f || !(f.height >= MIN_SOFT_KEYBOARD)) return 0;
+  if (os === 'android') return Math.max(0, Math.round(f.height - bottomInset));
   const docked =
-    f.screenY + f.height >= win.height - bottomInset - EDGE_SLACK &&
-    f.width >= win.width - EDGE_SLACK;
-  if (!docked) return 0;
+    (f.screenX ?? 0) <= EDGE_SLACK &&
+    f.width >= screen.width - EDGE_SLACK &&
+    f.screenY + f.height >= screen.height - EDGE_SLACK;
+  if (!docked || win.height < screen.height - EDGE_SLACK) return 0;
   return Math.max(0, Math.round(win.height - f.screenY - bottomInset));
 }
 
@@ -40,5 +46,5 @@ export function useKeyboardInset(): number {
     ];
     return () => subs.forEach((s) => s.remove());
   }, []);
-  return computeKeyboardInset(frame, win, bottomInset);
+  return computeKeyboardInset(frame, win, Dimensions.get('screen'), bottomInset, Platform.OS);
 }
