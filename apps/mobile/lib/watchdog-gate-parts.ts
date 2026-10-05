@@ -11,6 +11,7 @@ import {
   shouldMountDom,
   type AttemptMonitor,
   type MountDecision,
+  type RecordSource,
   type Scheduler,
   type WatchdogRecord,
 } from './watchdog';
@@ -19,7 +20,7 @@ import { plannedReloadStep } from './watchdog-planned-reload';
 import type { DomWatch } from './watchdog-gate';
 
 type Ref<T> = { current: T };
-type Write = (r: WatchdogRecord, retries?: number) => Promise<boolean>;
+type Write = (r: RecordSource, retries?: number) => Promise<boolean>;
 
 /** A DOM launch that started before the watchdog record resolved: nothing is persisted until it does. */
 export interface LateRecord {
@@ -59,24 +60,36 @@ export function createGateMonitor(o: {
   });
 }
 
-/** The real record arrived after a DOM launch began: persist ONE record that folds in what already happened. */
+/**
+ * The real record arrived after a DOM launch began: persist ONE record that folds in what already happened. The fold runs
+ * INSIDE the write queue's turn (decideMount's `d` came from the read; the events and any earlier queued write are seen at
+ * write time), so it can neither regress a record an earlier write persisted nor miss an event that landed meanwhile.
+ */
 export function reconcileLateRecord(
   prev: WatchdogRecord | null | 'corrupt',
   d: MountDecision,
   late: Ref<LateRecord>,
   recordRef: Ref<WatchdogRecord | null>,
   write: Write,
-): WatchdogRecord {
-  const l = late.current;
-  late.current = { held: false, ready: false, strike: null };
-  // Positive evidence (an owed fallback / quarantine) arrives too late to swap the UI: keep this launch's DOM, refund the
-  // launch it would have consumed, and let the next launch honour it.
-  let rec = shouldMountDom(true, d) ? beginAttempt(d.record, Date.now()) : refundExpiredFallback(prev, d.record, true);
-  if (l.ready && rec.state === 'attempting') rec = markReady(rec, Date.now());
-  if (l.strike && rec.state === 'attempting') rec = recordStrike(rec, l.strike, Date.now()).record;
-  recordRef.current = rec;
-  void write(rec);
-  return rec;
+  onFolded: (strikeReason: string | null, record: WatchdogRecord) => void,
+): void {
+  void write((current) => {
+    const l = late.current;
+    late.current = { held: false, ready: false, strike: null };
+    // Positive evidence (an owed fallback / quarantine) arrives too late to swap the UI: keep this launch's DOM, refund the
+    // launch it would have consumed, and let the next launch honour it.
+    let rec = shouldMountDom(true, d) ? beginAttempt(d.record, Date.now()) : refundExpiredFallback(prev, d.record, true);
+    if (l.ready && rec.state === 'attempting') rec = markReady(rec, Date.now());
+    let struck: string | null = null;
+    if (l.strike && rec.state === 'attempting') {
+      rec = recordStrike(rec, l.strike, Date.now()).record;
+      struck = l.strike;
+    }
+    if (current?.state === 'ready' && rec.state === 'attempting') rec = current;
+    recordRef.current = rec;
+    onFolded(struck, rec);
+    return rec;
+  });
 }
 
 export function createDomWatch(monitorRef: Ref<AttemptMonitor | null>, recordRef: Ref<WatchdogRecord | null>, write: Write, late: Ref<LateRecord>): DomWatch {
