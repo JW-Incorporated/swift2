@@ -1,10 +1,10 @@
-# One UI app architecture: current main (2026-10-04)
+# One UI app architecture: current main (2026-10-05)
 
-State of `apps/mobile` as merged on `main` on 2026-10-04. Only merged work is documented; pending PRs are in "Pending" at the end. Per-component detail (watchdog, insets, embeds, hardening) stays in `dom-host.md`; screenshot parity in `parity.md`.
+State of `apps/mobile` as merged on `main` on 2026-10-05. Only merged work is documented. Per-component detail (watchdog, insets, embeds, hardening) stays in `dom-host.md`; screenshot parity in `parity.md`.
 
 ## Shape
 
-The app mounts the shared reader (`packages/ui`, via `apps/mobile/dom/AppReader.tsx`) in one Expo DOM host (`SharedUiHost`) when `routeFlags.sharedUi` resolves true at launch; otherwise the legacy native screens render (the watchdog fallback). `sharedUi` is still `false` in `config/mobile/app-config.json` and `DEFAULT_ROUTE_FLAGS` until #5042 lands. Native keeps capabilities only: notifications, share, haptics, external links, network, file cache, system Back.
+The app mounts the shared reader (`packages/ui`, via `apps/mobile/dom/AppReader.tsx`) in one Expo DOM host (`SharedUiHost`, mounted by `DomHostMount`). The legacy native UI was deleted in #5047 (2026-10-05): the shared UI is the only content UI, and whenever the DOM host is not mounted (every watchdog outcome, `flag-off`) `RecoveryScreen` renders instead. `sharedUi` and `sharedUiIos` are both `true` in `config/mobile/app-config.json` and `DEFAULT_ROUTE_FLAGS`. The only native screens are app-state surfaces: `FirstLaunchScreen` (downloading / offline), `RecoveryScreen` (Retry, Send report, legal links), `UpdateRequiredScreen`, plus the Diagnostics panel (hidden hot corner or `longlive://diag`; there is no About screen). Native keeps capabilities only: notifications, share, haptics, external links, network, file cache, system Back.
 
 ## Native <-> DOM bridge contract
 
@@ -43,20 +43,20 @@ Both intakes share one queue and one canonicalizer.
 
 - **Deep-link intake (#5069, `lib/use-deep-links.ts`).** Cold `Linking.getInitialURL` and live `url` events, validated, enqueued with source `deeplink`. Accepted: `https://www.longlivets.com` (the apex is also accepted by the queue, pre-existing for notification links) and `longlive://<path>` / `longlive:///<path>`; traversal (plain or percent-encoded dots), backslashes, whitespace/control characters, a second leading slash and URLs over 2048 chars are ignored. The cold URL and its first matching `url` event share a `cold:<hash>` id (deduped); later identical taps get sequence ids. HTTPS universal links are NOT live: they need the association files (`.well-known`, #4988 after HA #99), so until then only `longlive://` and OS-delivered www URLs open the app (`x4-universal-links.md`).
 - **Notification taps (H3, #4968/#4982).** `lib/use-notification-taps.ts` -> `notification-tap-ingest.ts` (serializes the cold `getLastNotificationResponseAsync` read and the live listener) -> `notification-tap-gate.ts` -> queue (`notification-tap-queue.ts`: 15 s ack, 10 min TTL, cap 16, dedupe on `request.identifier`).
-- **One canonicalizer (#5037, #5069).** `lib/destination-resolver.ts` decides for taps, deep links, the bridge `navigate` handler and the native overlay presenter; the queue's `resolveTapDestination` delegates to it, and the legacy `lib/routes` table is not consulted with the shared UI mounted. Only the site host (https, no port/userinfo), the site origin or a relative path is interpreted; `/api`, `/internal` and `/_next` and hostile links are rejected. Backend producers emit links the site understands (#5049); the vocabulary is tested in `notification-link-vocab.test.ts`.
-- **Delivery.** Reader paths go to the DOM as `navigate {path, source, id}` once the epoch is bound (bridge ready AND reader painted AND `navReady`; `tap-bind-epoch.ts`), applied through the reader store, and counted delivered only on host ack AND `navigated ok:true`. A lost `navigated` re-emits the same id; after `MAX_UNCONFIRMED_ATTEMPTS` (3) the path is consumed; an explicit `ok:false` is consumed (#5037). Other paths open natively (presenter or site URL). In fallback/quarantine taps open natively at once and are never queued.
+- **One canonicalizer (#5037, #5069).** `lib/destination-resolver.ts` decides for taps, deep links, the bridge `navigate` handler and the native overlay presenter; the queue's `resolveTapDestination` delegates to it, and `lib/routes.ts` now holds only the `sharedUi` flags. Only the site host (https, no port/userinfo), the site origin or a relative path is interpreted; `/api`, `/internal` and `/_next` and hostile links are rejected. Backend producers emit links the site understands (#5049); the vocabulary is tested in `notification-link-vocab.test.ts`.
+- **Delivery.** Reader paths go to the DOM as `navigate {path, source, id}` once the epoch is bound (bridge ready AND reader painted AND `navReady`; `tap-bind-epoch.ts`), applied through the reader store, and counted delivered only on host ack AND `navigated ok:true`. A lost `navigated` re-emits the same id; after `MAX_UNCONFIRMED_ATTEMPTS` (3) the path is consumed; an explicit `ok:false` is consumed (#5037). Other paths open natively (presenter or site URL). In fallback/quarantine the Recovery screen shows and taps stay held in the in-memory tap gate until a DOM host binds and acks.
 
 ## Watchdog on main (and what is pending)
 
-Behaviour on main is as written in `dom-host.md` "Watchdog": local-only launch resolution (quarantine > override > cache > default), 1500 ms pending bound, 10 s ready timeout, strike 2 and quarantine, native fallback surface is the legacy native UI, `[watchdog]` telemetry default OFF. The iOS-specific hardening and the script twin (#5045) exist so the iOS DOM can reach ready; iOS device proof is still outstanding (HA #100).
+Behaviour on main is as written in `dom-host.md` "Watchdog": local-only launch resolution (quarantine > override > cache > default), 1500 ms pending bound, 10 s ready timeout, strike 2 and quarantine, native fallback surface is the Recovery screen, `[watchdog]` telemetry default OFF. The iOS-specific hardening and the script twin (#5045) exist so the iOS DOM can reach ready; iOS device proof is still outstanding (HA #100).
 
-Pending, not on main: #5042 flips `sharedUi` default and JSON to true (Android first; iOS gated by a separate `sharedUiIos` flag, removes the Diagnostics "Force shared UI" override, bounds the attempt write at 3000 ms); #5043 replaces the legacy native fallback with a Recovery screen (Retry writes an idle record and reloads, Send report); #5047 deletes the legacy native UI (do not merge before the S8 device drill; `flag-off` then shows Recovery and the JSON kill switch is gone, OTA rollback is the lever). Until those merge, the statements above about the native fallback stay true.
+Merged since: #5042 (default on, `sharedUiIos` separate flag, Diagnostics "Force shared UI" override removed, attempt write bounded at 3000 ms), #5043 (Recovery screen replaces the native fallback) and #5047 (legacy native UI deleted; `flag-off` shows Recovery and OTA rollback is the lever, the JSON kill switch is gone).
 
 ## Images and storage
 
 - **Responsive images (#5070).** The app image adapter (`dom/bridge/responsive-image.ts`) mirrors next/image srcset generation (default device/image sizes, q=75) against the site's `/_next/image` optimizer, so the app fetches the same CDN-cached variants as the web instead of full-resolution art. Non-optimizable (svg, gif, unoptimized) sources are left alone.
-- **Offline art is not durable (#5074, open).** Era/thread art in the DOM webview relies on the WebView HTTP cache (`/_next/image` default TTL ~4 h), so it can blank offline after expiry; only content text is in the last-good cache. Proposed fix: persist the art set to the document directory and render file URLs when offline.
-- **No persistent DOM storage** (see the bridge section): host storage is per-launch.
+- **Offline art (#5074, #5111).** Offline era and first-party moment art is served from the app's art cache (#5111, see `packages/ui/HOST-ADAPTER.md`); offline behaviour on a real device is still to be checked (S4).
+- **DOM storage.** The reader's `local` storage is an in-memory Map seeded from a native blob loaded once before mount and persisted back as debounced full-map snapshots through the bridge (`dom/reader/storage-sync.ts`); the other area is per-launch.
 
 ## Known gaps
 
@@ -66,5 +66,4 @@ Pending, not on main: #5042 flips `sharedUi` default and JSON to true (Android f
 | #5079 | Per-epoch bridge token mitigation, open |
 | #5084 | `expo-crypto` for the token CSPRNG (next store build) |
 | #5055 | Android share-as-file needs `expo-sharing` (next store build); interim copy-image behaviour |
-| #5074 | Era/thread art not durable offline |
 | #4988 / HA #99 | Universal-link association files and verification |
