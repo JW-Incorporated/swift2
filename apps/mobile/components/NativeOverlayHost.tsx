@@ -45,8 +45,9 @@ export function NativeOverlayHost({
             <NotificationInboxScreen
               onClose={() => presenter.dismiss()}
               onOpenItem={(event) => {
-                presenter.dismiss();
-                void navigateDom(canonicalizeLink(event.deepLink) ?? '/');
+                void navigateDom(canonicalizeLink(event.deepLink) ?? '/').then((ok) => {
+                  if (ok) presenter.dismiss();
+                });
               }}
             />
           ) : null}

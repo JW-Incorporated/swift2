@@ -8,6 +8,7 @@ vi.mock('react', async () => await import('../../web/node_modules/react'));
 vi.mock('react-dom', async () => await import('../../web/node_modules/react-dom'));
 
 const announce = vi.hoisted(() => vi.fn());
+const openURL = vi.hoisted(() => vi.fn(async (_u: string) => true));
 vi.mock('react-native', async () => {
   const React = await import('react');
   const el = (tag: string) => (p: Record<string, unknown>) => React.createElement(tag, null, p.children as never);
@@ -18,6 +19,7 @@ vi.mock('react-native', async () => {
     StyleSheet: { create: (s: unknown) => s },
     Platform: { OS: 'ios' },
     AccessibilityInfo: { announceForAccessibility: announce },
+    Linking: { openURL },
     Pressable: (p: {
       onPress?: () => void;
       disabled?: boolean;
@@ -122,6 +124,16 @@ describe('RecoveryScreen', () => {
     });
     expect(screen.getByText("The app didn't restart. Please try again.")).toBeTruthy();
     expect(retryBtn().getAttribute('aria-disabled')).toBe('false');
+  });
+
+  it.each([
+    ['Privacy Policy', 'https://www.longlivets.com/privacy'],
+    ['Terms of Use', 'https://www.longlivets.com/terms'],
+    ['Support', 'https://www.longlivets.com/support'],
+  ])('the %s link opens %s externally', (label, url) => {
+    render(<RecoveryScreen />);
+    fireEvent.click(screen.getByLabelText(label));
+    expect(openURL).toHaveBeenCalledWith(url);
   });
 
   it('Send report uses the existing diagnostics sender and announces the result', async () => {
