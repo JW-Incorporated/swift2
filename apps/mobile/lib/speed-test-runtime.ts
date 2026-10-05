@@ -11,6 +11,7 @@ import {
 import { readDiagEnv } from './diagnostics-env';
 import { sendDiagReport } from './diagnostics-send';
 import { imageMarks, setImageMarksEnabled } from './image-marks';
+import { runAfterFirstPaint } from './launch-defer';
 import { createLaunchTracker, createSpeedTestController } from './speed-test-controller';
 import { loadSpeedOutbox, loadSpeedTestRaw, saveSpeedOutbox, saveSpeedTestRaw } from './speed-test-store';
 import type { Ui } from './speed-test';
@@ -39,7 +40,11 @@ export function installSpeedTest(): void {
   if (installed) return;
   installed = true;
   speedTest.onChange(() => setImageMarksEnabled(speedTest.isOn()));
-  void speedTest.init().then(() => void speedTest.retry());
+  // Startup perf: the two serialized SecureStore reads (mode flag, outbox) used to start here, ahead of the mount gate.
+  // They now run after first paint (or an 8 s fallback). Measurement stays valid: the cold metric comes from marks
+  // already recorded, and onPaint loads the state lazily itself. Trade-off: images that finish loading in the few
+  // tens of ms between first-era-paint and the flag landing are not counted for a speed-test launch.
+  runAfterFirstPaint(() => void speedTest.init().then(() => void speedTest.retry()));
   setPaintListener((stage, detail) => {
     if (stage === 'first-era-paint') ui = detail === 'shared' ? 'shared' : detail === 'native' ? 'native' : 'unknown';
     void speedTest.onPaint(stage === 'resume-paint' ? 'warm' : 'cold');
