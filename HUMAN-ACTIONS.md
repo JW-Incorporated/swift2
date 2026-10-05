@@ -2,9 +2,31 @@
 
 <!-- ha-format: 2 -->
 
-> **3 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **5 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #107 🟡 [DECIDE] #4719 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-05 -->
+<!-- marjorie-chase: 96h issue=4719 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (Measure visits per social campaign without the paid Vercel tier (byCampaign is always nul…). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4719 under stalled.
+
+## #106 🟡 [DECIDE] #4707 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-05 -->
+<!-- marjorie-chase: 96h issue=4707 -->
+
+**Why:** Marjorie dispatched it on 2026-10-01 (Drop the non-Taylor Reddit photos from the social photo library, and stop the sourcer adm…). Nothing has moved since 2026-10-01. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #4707 under stalled.
 
 ## #101 🔴 [BLOCKING] S5: test the new app on your Android phone (~20 min)
 <!-- ha filed=2026-10-04 -->
