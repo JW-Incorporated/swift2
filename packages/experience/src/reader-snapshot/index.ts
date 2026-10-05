@@ -8,6 +8,7 @@ export {
   fromBakedCore,
   fromBundle,
   fromBundleCore,
+  snapshotPartsFromBundle,
   inputsFromBundle,
   type BakedCoreModules,
   type BakedModules,

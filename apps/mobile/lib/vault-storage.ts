@@ -39,10 +39,17 @@ function cacheFile(key: string): FileSystem.File {
 
 const LAST_GOOD_SUFFIX = ':last-good';
 
-/** The `.js` twin of a last-good cache file: the JSON document as a JS string literal, so the DOM webview can load it
- * with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS). */
+/** The `.js` twin of a last-good cache file: the JSON document as a JS object literal (JSON is valid JS), so the DOM
+ * webview loads it with <script src> (exempt from the file:// origin rules that block fetch/XHR in WKWebView on iOS)
+ * and gets the parsed object with no second JSON.parse. U+2028/U+2029 stay escaped for older engines. A document with a
+ * `__proto__` key keeps the old string-literal form (an object literal would set the prototype, JSON.parse would not).
+ * The reader accepts both forms, so twins written by older builds still load. */
 export function lastGoodScriptSource(jsonText: string): string {
-  return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+  const id = `globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+  // JSON.stringify only ever emits the literal key text, never an escaped form like "__proto__", so this substring test is sufficient.
+  if (jsonText.includes('"__proto__"')) return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};${id}`;
+  const literal = jsonText.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+  return `globalThis.__swift2LastGood=${literal};${id}`;
 }
 
 /** FNV-1a 32-bit over the JSON text + its length: the twin's content id, also the `?v=` cache-buster. */
@@ -59,9 +66,28 @@ export function writeLastGoodTwin(key: string, jsonText: string): void {
   const tmp = new FileSystem.File(CACHE_DIR, `${name}.tmp`);
   tmp.write(lastGoodScriptSource(jsonText));
   tmp.moveSync(new FileSystem.File(CACHE_DIR, name), { overwrite: true });
+  const legacy = new FileSystem.File(CACHE_DIR, legacyLastGoodScriptName(key));
+  if (legacy.exists) legacy.delete();
 }
 
+/** Same as `writeLastGoodTwin` but with the async read-side/move APIs (`File.write` has no async form in SDK 57), for a rebuild that must not hold the RN thread. */
+export async function writeLastGoodTwinAsync(key: string, jsonText: string): Promise<void> {
+  if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
+  const name = lastGoodScriptName(key);
+  const tmp = new FileSystem.File(CACHE_DIR, `${name}.tmp`);
+  tmp.write(lastGoodScriptSource(jsonText));
+  await tmp.move(new FileSystem.File(CACHE_DIR, name), { overwrite: true });
+  const legacy = new FileSystem.File(CACHE_DIR, legacyLastGoodScriptName(key));
+  if (legacy.exists) legacy.delete();
+}
+
+/** The current (object-literal) twin. Versioned in the filename so a legacy string-form twin never passes as current. */
 export function lastGoodScriptName(key: string): string {
+  return `${encodeURIComponent(key)}.v2.js`;
+}
+
+/** The string-literal twin written by older builds: still readable by the DOM, migrated to v2 after first paint. */
+export function legacyLastGoodScriptName(key: string): string {
   return `${encodeURIComponent(key)}.js`;
 }
 
@@ -96,8 +122,10 @@ export function expoFileSystemStorageAdapter(): StorageAdapter {
       const file = cacheFile(key);
       if (file.exists) file.delete();
       if (key.endsWith(LAST_GOOD_SUFFIX)) {
-        const twin = new FileSystem.File(CACHE_DIR, lastGoodScriptName(key));
-        if (twin.exists) twin.delete();
+        for (const name of [lastGoodScriptName(key), legacyLastGoodScriptName(key)]) {
+          const twin = new FileSystem.File(CACHE_DIR, name);
+          if (twin.exists) twin.delete();
+        }
       }
     },
   };

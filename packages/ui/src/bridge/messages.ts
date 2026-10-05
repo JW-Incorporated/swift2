@@ -23,7 +23,7 @@ export type DomCommandSpec = {
    * anything else is answered `invalid`, never navigated.
    */
   navigate: Spec<{ path: WebPath; replace?: boolean }, null>;
-  share: Spec<SharePayload, null>;
+  share: Spec<SharePayload & { image?: { url: string } }, { imageCopied: boolean } | null>;
   haptic: Spec<{ kind: HapticKind }, null>;
   /** `https:` (`isExternalUrl`) or a bare `mailto:` (`isMailtoUrl`); anything else is `invalid`. */
   openExternal: Spec<{ url: ExternalUrl | MailtoUrl }, null>;

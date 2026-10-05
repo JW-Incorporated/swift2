@@ -8,6 +8,7 @@
 // module-level constants derive from the filled arrays).
 import './reader-spike.css';
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
+import type { ReaderSnapshotCore, ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
 import { eraVideoFeed } from '@swift2/content-enrichment';
 import { resErr, toWebPath, UI_PACKAGE_VERSION, type BridgeClient, type Envelope, type Insets } from '@swift2/ui';
 import type { NavigateDeps } from './bridge/navigate-subscriber';
@@ -18,7 +19,8 @@ import type { ReaderControls } from './bridge/reader-controls';
 import { useExpoBridge } from './bridge/transport-expo';
 import { countPlaceholders, createProbe, checkMarkers } from './reader/probe';
 import { readLocalText, unreadableMessage, type ReadAttempt } from './reader/read-local';
-import { describeSnapshotSafe, snapshotFromEnvelope } from './reader/snapshot';
+import { scheduleSnapshotHash } from './reader/deferred-hash';
+import { snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
@@ -144,6 +146,7 @@ export default function AppReader(props: AppReaderProps) {
   const [failed, setFailed] = useState<string | null>(null);
   const started = useRef(false);
   const probeRef = useRef<Probe>(createProbe(versionToken));
+  const snapRef = useRef<{ core: ReaderSnapshotCore; extensions: ReaderSnapshotExtensions } | null>(null);
   const propsRef = useRef(props);
   propsRef.current = props;
 
@@ -198,20 +201,21 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.storage.localStorage = installStorageShim(window).includes('localStorage')
           ? 'shimmed'
           : 'present';
-        let text: string | null = null;
-        if (devLoader) text = await devLoader();
+        let input: string | object | null = null;
+        const tRead = performance.now();
+        if (devLoader) input = await devLoader();
         else if (cacheUri) {
           const read = await readLocalText({ scriptUri: cacheUri, jsonUri: cacheJsonUri ?? '' });
           probe.attempts(read.attempts);
           readAttempts = read.attempts;
-          text = read.text;
+          input = read.parsed ?? read.text;
         }
-        if (!text) throw new Error('bundle cache unreadable');
-        const { core, extensions, version } = snapshotFromEnvelope(text, { eraVideoFeed });
+        if (!input) throw new Error('bundle cache unreadable');
+        const readMs = Math.round(performance.now() - tRead);
+        const { core, extensions, version, timings } = snapshotFromEnvelope(input, { eraVideoFeed });
+        probe.report.timings = { readMs, ...timings };
         probe.report.version = version;
-        const described = await describeSnapshotSafe(core, extensions);
-        probe.report.snapshot = described.snapshot;
-        if (described.error) probe.report.error = described.error;
+        snapRef.current = { core, extensions };
         fill(core);
         // The persisted `local` blob must be in the adapter's Map before the reader's first read (never a re-rendering prop).
         const live = clientRef.current ?? (await new Promise<ReaderClient>((res) => void clientWaiters.current.push(res)));
@@ -246,6 +250,10 @@ export default function AppReader(props: AppReaderProps) {
         probe.report.heapMb = mem ? Math.round(mem.usedJSHeapSize / 1048576) : null;
         await propsRef.current.reportProbe(probe.json());
         await propsRef.current.onReady();
+        if (snapRef.current) {
+          const { core, extensions } = snapRef.current;
+          scheduleSnapshotHash(core, extensions, probe, () => propsRef.current.reportProbe(probe.json()));
+        }
         // Sample once the first screen has settled, then again later: lazy images that had not finished are reported as pending, not dropped.
         for (const ms of [4000, 12000]) {
           setTimeout(() => {

@@ -27,6 +27,11 @@ function validShare(p: Record<string, unknown>): JsonValue | null {
     if (typeof v !== 'string' || v.length > MAX_SHARE_FIELD) return null;
     out[k] = v;
   }
+  if (p.image !== undefined) {
+    const u = isRecord(p.image) ? p.image.url : undefined;
+    if (typeof u !== 'string' || u.length > MAX_SHARE_FIELD) return null;
+    out.image = { url: u };
+  }
   return out;
 }
 

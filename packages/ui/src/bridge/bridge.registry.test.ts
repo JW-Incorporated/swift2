@@ -22,7 +22,7 @@ describe('JSON round-trip, one sample per type', () => {
   const insets: Insets = { top: 1, right: 2, bottom: 3, left: 4 };
   const commandSamples: { [T in CommandType]: PayloadOf<T> } = {
     navigate: { path: toWebPath('/era/folklore?x=1')!, replace: true },
-    share: { title: 't', text: 'x', url: 'https://example.test' },
+    share: { title: 't', text: 'x', url: 'https://example.test', image: { url: 'https://example.test/card.png' } },
     haptic: { kind: 'success' },
     openExternal: { url: toExternalUrl('https://example.test')! },
     'notifications.status': {},
@@ -101,7 +101,7 @@ describe('type-level contract', () => {
   });
 
   it('shared primitive types are the host/types definitions', () => {
-    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload>();
+    expectTypeOf<PayloadOf<'share'>>().toEqualTypeOf<SharePayload & { image?: { url: string } }>();
     expectTypeOf<PayloadOf<'haptic'>['kind']>().toEqualTypeOf<HapticKind>();
     expectTypeOf<PayloadOf<'notifications.updatePrefs'>['prefs']>().toEqualTypeOf<NotificationPrefs>();
     expectTypeOf<ResultOf<'notifications.status'>>().toEqualTypeOf<NotificationStatus>();
