@@ -43,8 +43,10 @@ const press = () => {
   return r;
 };
 
-afterEach(() => {
+afterEach(async () => {
   cleanup();
+  // Let the popstates from overlay UI-close history.back() land before the next test.
+  await new Promise((r) => setTimeout(r, 60));
   resetOnboardingForTests();
   shown.clear();
   setters.clear();
@@ -88,10 +90,15 @@ describe('native Back closes useBackDismiss overlays', () => {
     expect(shown.size).toBe(0);
   });
 
-  it('navigation entries are skipped; no overlay falls back to the open item, then exit', () => {
+  it('a navigation entry is consumed first (restore runs once), then the open item, then exit', async () => {
     h.item = 'x';
     mount([]);
-    pushBackEntry(() => {});
+    const restore = vi.fn();
+    pushBackEntry(restore);
+    expect(press()).toBe('handled');
+    await act(async () => void (await new Promise((r) => setTimeout(r, 60))));
+    expect(restore).toHaveBeenCalledTimes(1);
+    expect(h.closeItem).not.toHaveBeenCalled();
     expect(press()).toBe('handled');
     expect(h.closeItem).toHaveBeenCalledTimes(1);
   });

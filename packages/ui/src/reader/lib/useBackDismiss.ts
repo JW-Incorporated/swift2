@@ -91,26 +91,27 @@ export function pushBackEntry(onDismiss: () => void) {
 }
 
 /**
- * Native (Android hardware) Back driver: dismisses the TOP-most open overlay
- * (hook entries only; navigation entries are skipped). Returns true when an
- * overlay is open, including one whose dismissal from an earlier Back has not
- * committed yet, so a rapid repeat Back is swallowed rather than closing the
- * layer beneath or exiting. The overlay's UI-close cleanup consumes its history entry.
+ * Native (Android hardware) Back driver: unwinds the TOP of the logical stack,
+ * like the website's Back. An overlay is dismissed (its UI-close cleanup
+ * consumes its history entry); a navigation entry is consumed via
+ * history.back(), so the normal popstate restore runs once. Returns true when
+ * an entry is on the stack, including one whose dismissal from an earlier Back
+ * has not committed yet, so a rapid repeat Back is swallowed rather than
+ * closing the layer beneath or exiting.
  */
 export function dismissTopOverlayFromNativeBack(): boolean {
-  for (let i = stack.length - 1; i >= 0; i--) {
-    const e = stack[i]!;
-    if (!e.overlay) continue;
-    if (e.nativeClosing) return true;
-    e.nativeClosing = true;
-    // Safety net: a dismiss that never unmounts must not wedge Back forever.
-    setTimeout(() => {
-      e.nativeClosing = false;
-    }, 500);
-    e.dismiss();
-    return true;
-  }
-  return false;
+  const e = stack[stack.length - 1];
+  if (!e) return false;
+  if (e.nativeClosing) return true;
+  e.nativeClosing = true;
+  // Safety net: a dismiss that never unmounts must not wedge Back forever.
+  setTimeout(() => {
+    e.nativeClosing = false;
+  }, 500);
+  // Nav entry on top: drive the real history pop so onPopState restores and consumes it exactly once.
+  if (e.overlay) e.dismiss();
+  else window.history.back();
+  return true;
 }
 
 export function useBackDismiss(active: boolean, onDismiss: () => void) {
