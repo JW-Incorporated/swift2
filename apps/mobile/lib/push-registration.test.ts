@@ -32,7 +32,7 @@ vi.mock('./api-base', () => ({ apiBaseUrl: () => 'https://api.test' }));
 
 import { UNREGISTERED_KEY, clearRegisteredToken, isExplicitlyUnregistered, registerDevice, requestPushRegistration } from './push-registration';
 
-const bodies: { pushToken: string | null }[] = [];
+const bodies: { pushToken: string | null; seq?: number }[] = [];
 
 beforeEach(() => {
   state.isDevice = true;
@@ -124,5 +124,17 @@ describe('clearRegisteredToken', () => {
     expect(bodies.at(-1)?.pushToken).toBeNull();
     expect(getExpoPushTokenAsync).not.toHaveBeenCalled();
     expect(requestPermissionsAsync).not.toHaveBeenCalled();
+  });
+});
+
+describe('write ordering sequence', () => {
+  it('stamps each write with a strictly increasing seq', async () => {
+    await registerDevice();
+    await clearRegisteredToken();
+    await registerDevice();
+    const seqs = bodies.map((b) => b.seq);
+    expect(seqs.every((n) => Number.isInteger(n))).toBe(true);
+    expect(seqs[1]).toBeGreaterThan(seqs[0] as number);
+    expect(seqs[2]).toBeGreaterThan(seqs[1] as number);
   });
 });

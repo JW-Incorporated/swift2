@@ -144,6 +144,13 @@ export async function requestPushRegistration(opts: { clearOptOut?: boolean } = 
     }
   }, registerWithBackend, { supersede: true });
 }
+let lastSeq = 0;
+/** Monotonic per-install write sequence: wall-clock based so it keeps rising across app restarts. */
+function nextSeq(): number {
+  lastSeq = Math.max(lastSeq + 1, Date.now());
+  return lastSeq;
+}
+
 async function registerWithBackend(input: {
   deviceId: string;
   platform: DevicePlatform;
@@ -159,6 +166,7 @@ async function registerWithBackend(input: {
     tz,
     locale,
     appVersion,
+    seq: nextSeq(),
   };
 
   const controller = new AbortController();

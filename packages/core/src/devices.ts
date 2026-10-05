@@ -37,27 +37,25 @@ export interface DeviceRow {
  * they default once at insert and are owned by Phase 1's prefs API from
  * then on; a token-refresh call must never silently reset a user's
  * settings back to defaults.
+ *
+ * Ordering (#5039): a write carrying `seq` lower than the stored `register_seq` is stale and ignored
+ * atomically in the `upsert_device_ordered` function; the current row is returned (idempotent, no error).
+ * Writes without `seq` (old app builds) stay unconditional.
  */
 export async function upsertDevice(
   db: SupabaseClient,
   input: DeviceRegistrationInput,
 ): Promise<DeviceRow> {
-  const row = {
-    id: input.deviceId,
-    platform: input.platform,
-    push_token: input.pushToken ?? null,
-    tz: input.tz ?? 'America/Los_Angeles',
-    locale: input.locale ?? null,
-    app_version: input.appVersion ?? null,
-    last_seen_at: new Date().toISOString(),
-  };
-
   const { data, error } = await db
-    .from('devices')
-    .upsert(row, { onConflict: 'id' })
-    .select(
-      'id,user_id,platform,push_token,tz,locale,app_version,master_enabled,snooze_until,daily_cap,quiet_start,quiet_end,digest_hour,created_at,last_seen_at',
-    )
+    .rpc('upsert_device_ordered', {
+      p_id: input.deviceId,
+      p_platform: input.platform,
+      p_push_token: input.pushToken ?? null,
+      p_tz: input.tz ?? 'America/Los_Angeles',
+      p_locale: input.locale ?? null,
+      p_app_version: input.appVersion ?? null,
+      p_seq: input.seq ?? null,
+    })
     .single();
 
   if (error) throw new Error(`upsertDevice: ${error.message}`);

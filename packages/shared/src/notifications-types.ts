@@ -71,6 +71,8 @@ export interface DeviceRegistrationInput {
   tz?: string | null;
   locale?: string | null;
   appVersion?: string | null;
+  /** Monotonic per-install write sequence; the server ignores a write lower than the last applied one. Optional for old builds. */
+  seq?: number;
 }
 
 // ---------------------------------------------------------------------------
