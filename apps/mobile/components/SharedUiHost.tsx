@@ -36,6 +36,7 @@ import { useSpeedOn } from '../lib/use-speed-on';
 import { createTapBinder, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createHostUiDeps } from '../lib/host-ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
+import { noteArtEra } from '../lib/art-cache-fs';
 import type { LastGoodSource } from '../lib/dom-reader-config';
 import { getUseTestPage } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
@@ -142,7 +143,11 @@ export function SharedUiHost({
         ref.binder?.navReady();
         adoption.navReady((p) => ref.target?.navigateDom(p) ?? Promise.resolve(false), (snap) => void ref.host?.emit('restore', { snap }));
       },
-      onRoute: (path, busy, engaged, snap) => epochRef.current === epoch && adoption.route(path, busy, engaged, snap),
+      onRoute: (path, busy, engaged, snap) => {
+        if (epochRef.current !== epoch) return;
+        adoption.route(path, busy, engaged, snap);
+        noteArtEra(snap?.eraId);
+      },
       onNavigated: (e) => ref.target?.onNavigated(e),
       onTheme: setNativeTheme,
       onProtocolFatal: (reason) => {
