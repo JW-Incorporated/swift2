@@ -201,7 +201,11 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     init: serveLegalOnB,
     sides: 'both',
     clip: PARITY_CLIP,
-    prepare: (page) => show(page, 'footer'),
+    prepare: async (page) => {
+      await show(page, 'footer');
+      const d = await page.evaluate(() => { const f=document.querySelectorAll('footer'); return JSON.stringify({n:f.length,r:[...f].map(e=>{const b=e.getBoundingClientRect();return [b.x,b.y,b.width,b.height]}),vh:innerHeight,vw:innerWidth,sy:scrollY,dh:document.documentElement.scrollHeight,path:location.pathname}); });
+      throw new Error('DEBUGFOOTER '+d);
+    },
   },
   {
     name: 'feedback-dialog-open',
