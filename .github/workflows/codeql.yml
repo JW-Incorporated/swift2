@@ -7,6 +7,8 @@ on:
     branches: [main]
   schedule:
     - cron: "27 12 * * 1"  # weekly Monday, offset minute
+permissions:
+  contents: read
 jobs:
   analyze:
     name: Analyze (javascript-typescript)
