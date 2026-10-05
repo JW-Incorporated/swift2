@@ -23,6 +23,7 @@ vi.mock('react-native', () => ({
 vi.mock('./content-bundle', () => ({ loadContentBundle: h.load }));
 vi.mock('./dom-reader-config', () => ({ lastGoodSource: () => h.cache }));
 vi.mock('./diagnostics', () => ({ diagMarkOnce: () => undefined }));
+vi.mock('./art-cache-fs', () => ({ startArtSync: () => undefined, artMapUri: () => undefined }));
 
 import { act, renderHook } from '@testing-library/react';
 import { MIN_INTERVAL_MS } from './foreground-refresh';

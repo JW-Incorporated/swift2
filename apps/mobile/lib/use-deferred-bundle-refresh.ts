@@ -6,6 +6,7 @@ import { loadContentBundle } from './content-bundle';
 import { createDeferredRefresh, type DeferredRefresh } from './deferred-bundle-refresh';
 import { createForegroundRefresh } from './foreground-refresh';
 import { diagMarkOnce } from './diagnostics';
+import { startArtSync } from './art-cache-fs';
 import { lastGoodSource, type LastGoodSource } from './dom-reader-config';
 
 export function useDeferredBundleRefresh(
@@ -20,7 +21,9 @@ export function useDeferredBundleRefresh(
     const cached = lastGoodSource();
     if (cached) setSource({ cache: cached });
     const onLoaded = (bundle: unknown) => {
-      setContentToken((bundle as Awaited<ReturnType<typeof loadContentBundle>>).manifest.bundleVersion);
+      const loaded = bundle as Awaited<ReturnType<typeof loadContentBundle>>;
+      setContentToken(loaded.manifest.bundleVersion);
+      startArtSync(loaded.files, loaded.manifest.bundleVersion);
       if (!cached) setSource({ cache: lastGoodSource() });
     };
     const onError = () => {
