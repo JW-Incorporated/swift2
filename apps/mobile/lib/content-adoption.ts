@@ -5,8 +5,9 @@
 // epoch is ready (its `navigate` subscriber is up AND the reader has first-painted, so the applier exists), navigates
 // back to the route the old DOM last reported. Never re-keys while an epoch is mid-handshake (deferred until it is
 // ready), never while the user is mid-interaction (busy: adopted at a later foreground), never while the reader is engaged
-// (away from the front door, an overlay open, scrolled: held pending until it has idled for IDLE_MS, unless the app was
-// backgrounded for STALE_BACKGROUND_MS or more, when the context is stale anyway), never on navigate, and never
+// or its state is still unknown (no `route` report yet this epoch; away from the front door, an overlay open, scrolled): every
+// non-stale adoption waits behind a cancellable IDLE_MS idle hold that any engaged/busy signal cancels, unless the app was
+// backgrounded (AppState 'background', monotonic clock) for STALE_BACKGROUND_MS or more, when the context is stale anyway, never on navigate, and never
 // sends content over the bridge. A planned reload is announced to the watchdog first (`prepare`).
 export interface ContentAdoptionDeps {
   /** True when a mounted version is known and differs from `version`. */
@@ -14,11 +15,11 @@ export interface ContentAdoptionDeps {
   getMounted: () => string | null;
   setMounted: (version: string) => void;
   /** Runs before the re-key: persist the planned reload with the watchdog, then hand the reader its new cache-buster. False = do not re-key (pending is kept; retried on the next active transition). */
-  prepare: () => Promise<boolean>;
+  prepare: (isCurrent: () => boolean) => Promise<boolean>;
   /** Re-key the DOM (SharedUiHost bumps `generation`). */
   bump: () => void;
   onSignal?: (stage: string, detail?: string) => void;
-  /** Clock for the background-duration check (default Date.now). */
+  /** Monotonic clock (ms) for the background-duration check. Default: performance.now() when present, else Date.now(); a negative or implausibly large delta never counts as elapsed. */
   now?: () => number;
 }
 
@@ -26,6 +27,13 @@ export interface ContentAdoptionDeps {
 export const IDLE_MS = 2000;
 /** A background stay at least this long makes the user's context stale: adopt even if the reader is engaged. */
 export const STALE_BACKGROUND_MS = 30 * 60 * 1000;
+/** A background delta beyond this is a clock jump, not a stay. */
+const MAX_PLAUSIBLE_BACKGROUND_MS = 7 * 24 * 60 * 60 * 1000;
+
+const defaultNow = (): number => {
+  const p = (globalThis as { performance?: { now?: () => number } }).performance;
+  return typeof p?.now === 'function' ? p.now() : Date.now();
+};
 
 export type DomNavigator = (path: string) => Promise<boolean>;
 
@@ -33,7 +41,9 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
   let pending: string | null = null;
   let route: string | null = null;
   let busy = false;
-  let engaged = false;
+  let engagedFlag = false;
+  let routeSeen = false;
+  let generation = 0;
   let staleForeground = false;
   let watchIdle = false;
   let idleTimer: ReturnType<typeof setTimeout> | null = null;
@@ -46,14 +56,20 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
   let appState: string | null = null;
   let adopting = false;
 
+  // Unknown (no route report yet this epoch) counts as engaged: a late signal must never race an adoption.
+  const engaged = () => !routeSeen || engagedFlag;
+
   const adopt = () => {
     if (pending === null || adopting) return;
     adopting = true;
     waitingForReady = false;
+    const gen = generation;
+    const isCurrent = () => gen === generation;
     void Promise.resolve()
-      .then(() => deps.prepare())
+      .then(() => deps.prepare(isCurrent))
       .catch(() => false)
       .then((ok) => {
+        if (!isCurrent()) return;
         adopting = false;
         if (!ok || pending === null) return deps.onSignal?.('content-adopt-prepare-failed');
         // Commit only after the planned reload was persisted: from here the re-key is certain.
@@ -77,14 +93,15 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     else waitingForReady = true;
   };
 
-  // After an engaged deferral: adopt once the reader has been idle (front door, nothing open, top, not busy) for IDLE_MS.
+  // The idle gate every non-stale adoption goes through: adopt once the reader has been known-idle (front door, nothing
+  // open, top, not busy) for IDLE_MS. Any engaged/busy/unknown signal during the hold cancels it.
   const reconsider = () => {
     if (!watchIdle) return;
-    if (pending === null || appState !== 'active' || engaged || busy) return clearIdle();
+    if (pending === null || appState !== 'active' || engaged() || busy) return clearIdle();
     if (idleTimer !== null) return;
     idleTimer = setTimeout(() => {
       idleTimer = null;
-      if (!watchIdle || pending === null || appState !== 'active' || engaged || busy || adopting) return;
+      if (!watchIdle || pending === null || appState !== 'active' || engaged() || busy || adopting) return;
       watchIdle = false;
       proceed();
     }, IDLE_MS);
@@ -96,11 +113,13 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       const path = restore;
       restore = null;
       const failed = () => deps.onSignal?.('content-adopt-nav-failed', path.slice(0, 120));
-      void navigator(path).then((ok) => ok || failed(), failed);
+      const gen = generation;
+      const failedNow = () => gen === generation && failed();
+      void navigator(path).then((ok) => ok || failedNow(), failedNow);
     }
     if (waitingForReady && pending !== null && !adopting) {
       if (busy) waitingForReady = false;
-      else if (engaged && !staleForeground) {
+      else if (!staleForeground) {
         waitingForReady = false;
         watchIdle = true;
         reconsider();
@@ -119,7 +138,8 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     route(path: string, isBusy = false, isEngaged = false) {
       route = path;
       busy = isBusy;
-      engaged = isEngaged;
+      engagedFlag = isEngaged;
+      routeSeen = true;
       reconsider();
     },
     /** AppState change: only a transition INTO 'active' adopts (and only from a different state). */
@@ -127,25 +147,27 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       const prev = appState;
       appState = next;
       if (next !== 'active') {
-        if (prev === 'active' && backgroundedAt === null) backgroundedAt = (deps.now ?? Date.now)();
+        // Only a real 'background' starts the stay (iOS 'inactive' is the share sheet / app switcher / a call banner).
+        if (next === 'background' && backgroundedAt === null) backgroundedAt = (deps.now ?? defaultNow)();
         clearIdle();
         return;
       }
       const since = backgroundedAt;
       backgroundedAt = null;
       if (prev === 'active' || pending === null || adopting) return;
-      staleForeground = since !== null && (deps.now ?? Date.now)() - since >= STALE_BACKGROUND_MS;
+      const delta = since === null ? NaN : (deps.now ?? defaultNow)() - since;
+      staleForeground = Number.isFinite(delta) && delta >= STALE_BACKGROUND_MS && delta <= MAX_PLAUSIBLE_BACKGROUND_MS;
       watchIdle = false;
       clearIdle();
       if (busy) return deps.onSignal?.('content-adopt-deferred-busy');
-      if (engaged && !staleForeground) {
-        watchIdle = true;
-        return deps.onSignal?.('content-adopt-deferred-engaged');
-      }
-      proceed();
+      if (staleForeground) return proceed();
+      watchIdle = true;
+      if (engaged()) deps.onSignal?.('content-adopt-deferred-engaged');
+      reconsider();
     },
     /** A new bridge epoch began (mount, crash re-key, adoption re-key): not ready until navReady AND the reader's first paint. */
     epochStarted() {
+      routeSeen = false;
       navOk = false;
       readerOk = false;
       navigator = null;
@@ -160,6 +182,15 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
     readerReady() {
       readerOk = true;
       settle();
+    },
+    /** Teardown: cancel the idle hold, invalidate any in-flight adoption (its completion becomes a no-op) and drop queued work. The instance stays usable if the owner re-subscribes (StrictMode remount). */
+    dispose() {
+      generation++;
+      clearIdle();
+      adopting = false;
+      watchIdle = false;
+      waitingForReady = false;
+      backgroundedAt = null;
     },
   };
 }

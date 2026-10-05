@@ -99,12 +99,24 @@ describe('content adoption respects the reader (engaged)', () => {
     expect(bump).not.toHaveBeenCalled();
   });
 
-  it('an idle reader adopts at foreground immediately (unchanged), and going to background cancels a pending debounce', async () => {
+  it('an idle reader still waits the 2 s hold; any engaged signal during it cancels, and so does going to background', async () => {
     const idle = setup();
     idle.a.loaded('v2');
+    idle.a.route('/', false, false);
     bounce(idle.a);
-    await settle();
+    await vi.advanceTimersByTimeAsync(IDLE_MS - 1);
+    expect(idle.bump).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1);
     expect(idle.bump).toHaveBeenCalledTimes(1);
+
+    const late = setup();
+    late.a.loaded('v2');
+    late.a.route('/', false, false);
+    bounce(late.a);
+    await vi.advanceTimersByTimeAsync(IDLE_MS - 100);
+    late.a.route('/', false, true);
+    await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+    expect(late.bump).not.toHaveBeenCalled();
 
     const { a, bump } = setup();
     a.loaded('v2');
@@ -114,6 +126,88 @@ describe('content adoption respects the reader (engaged)', () => {
     a.appState('background');
     await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
     expect(bump).not.toHaveBeenCalled();
+  });
+
+  it('engagement is unknown (counts as engaged) until the first route report of the epoch', async () => {
+    const { a, bump, onSignal } = setup();
+    a.epochStarted();
+    a.navReady(vi.fn(async () => true));
+    a.readerReady();
+    a.loaded('v2');
+    bounce(a);
+    await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+    expect(bump).not.toHaveBeenCalled();
+    expect(onSignal).toHaveBeenCalledWith('content-adopt-deferred-engaged');
+    a.route('/', false, false);
+    await vi.advanceTimersByTimeAsync(IDLE_MS);
+    expect(bump).toHaveBeenCalledTimes(1);
+  });
+
+  it('inactive -> active never counts as a background stay, however long', async () => {
+    const { a, bump, advance } = setup();
+    a.loaded('v2');
+    a.route('/', false, true);
+    a.appState('inactive');
+    advance(STALE_BACKGROUND_MS * 3);
+    a.appState('active');
+    await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+    expect(bump).not.toHaveBeenCalled();
+  });
+
+  it('a clock jump (backwards, or absurdly forwards) is not an elapsed stay', async () => {
+    for (const jump of [-STALE_BACKGROUND_MS * 2, 365 * 24 * 60 * 60 * 1000]) {
+      const { a, bump, advance } = setup();
+      a.loaded('v2');
+      a.route('/', false, true);
+      a.appState('background');
+      advance(jump);
+      a.appState('active');
+      await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+      expect(bump).not.toHaveBeenCalled();
+    }
+  });
+
+  it('dispose during the idle hold cancels the adoption', async () => {
+    const { a, bump, prepare } = setup();
+    a.loaded('v2');
+    a.route('/', false, false);
+    bounce(a);
+    await vi.advanceTimersByTimeAsync(IDLE_MS - 100);
+    a.dispose();
+    await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+    expect(prepare).not.toHaveBeenCalled();
+    expect(bump).not.toHaveBeenCalled();
+  });
+
+  it('dispose during an in-flight adoption: the completion commits nothing and prepare sees it is stale', async () => {
+    let m: string | null = 'v1';
+    const bump = vi.fn();
+    const setMounted = vi.fn((v: string) => void (m = v));
+    const onSignal = vi.fn();
+    let release: (ok: boolean) => void = () => {};
+    let current: () => boolean = () => true;
+    const prepare = vi.fn((isCurrent: () => boolean) => {
+      current = isCurrent;
+      return new Promise<boolean>((r) => (release = r));
+    });
+    const a = createContentAdoption({ differs: (v) => v !== m, getMounted: () => m, setMounted, prepare, bump, onSignal });
+    a.appState('active');
+    a.epochStarted();
+    a.navReady(vi.fn(async () => true));
+    a.readerReady();
+    a.route('/', false, false);
+    a.loaded('v2');
+    bounce(a);
+    await vi.advanceTimersByTimeAsync(IDLE_MS);
+    expect(prepare).toHaveBeenCalledTimes(1);
+    expect(current()).toBe(true);
+    a.dispose();
+    expect(current()).toBe(false);
+    release(true);
+    await vi.advanceTimersByTimeAsync(IDLE_MS * 5);
+    expect(setMounted).not.toHaveBeenCalled();
+    expect(bump).not.toHaveBeenCalled();
+    expect(onSignal).not.toHaveBeenCalledWith('content-adopt', expect.anything());
   });
 
   it('cold start is unchanged: the first load records the baseline and nothing re-keys', async () => {

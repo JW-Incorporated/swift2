@@ -33,10 +33,11 @@ export function useContentAdoption(
     // The refresh overwrote last-good (and its twin): persist the planned reload with the watchdog first (it re-arms
     // the ready timeout only after the write; never a strike), then hand the replacement reader the new cache-buster.
     // False = do not re-key.
-    prepare: async () => {
+    prepare: async (isCurrent) => {
       const cache = lastGoodSource();
-      if (!cache) return false;
+      if (!cache || !isCurrent()) return false;
       if (!(await hostRef.current.watch.plannedReload?.())) return false;
+      if (!isCurrent()) return false;
       hostRef.current.setSource({ cache });
       return true;
     },
@@ -54,6 +55,7 @@ export function useContentAdoption(
     return () => {
       offLoaded();
       sub.remove();
+      a.dispose();
     };
   }, [testPage]);
   return adoption.current;

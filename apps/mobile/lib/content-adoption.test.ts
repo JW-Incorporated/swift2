@@ -1,7 +1,8 @@
-import { describe, expect, it, vi } from 'vitest';
-import { createContentAdoption } from './content-adoption';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { IDLE_MS, createContentAdoption } from './content-adoption';
 
-const tick = () => new Promise((r) => setTimeout(r, 0));
+// Every non-stale adoption waits behind the 2 s idle hold, so a tick lets it elapse (fake timers).
+const tick = () => vi.advanceTimersByTimeAsync(IDLE_MS + 50);
 
 function setup(mounted: string | null = 'v1') {
   let m = mounted;
@@ -15,11 +16,15 @@ function setup(mounted: string | null = 'v1') {
   a.epochStarted();
   a.navReady(navigate);
   a.readerReady();
+  a.route('/');
   order.length = 0;
   return { a, bump, prepare, navigate, onSignal, order, mounted: () => m };
 }
 
 describe('content adoption', () => {
+  beforeEach(() => void vi.useFakeTimers());
+  afterEach(() => void vi.useRealTimers());
+
   it('newer bundle + background -> foreground: prepares then bumps once, navigates to the latest route only after navReady AND reader ready', async () => {
     const { a, bump, order, mounted } = setup();
     a.route('/privacy');
@@ -78,6 +83,7 @@ describe('content adoption', () => {
     a.route('/support');
     a.loaded('v2');
     a.epochStarted();
+    a.route('/support');
     a.appState('background');
     a.appState('active');
     await tick();
