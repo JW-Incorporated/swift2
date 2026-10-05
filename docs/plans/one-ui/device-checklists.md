@@ -50,7 +50,7 @@ owner's own).
 6. **Offline.** Turn on **Airplane Mode** (and make sure Wi-Fi is off),
    force-quit, reopen.
    *Pass:* posts and era pictures still show. Turn Airplane Mode off after.
-7. **Speed test.** Open Diagnostics (bottom-left, 7 taps), switch on **Speed
+7. **Speed test.** Open Diagnostics (bottom-left, 7 taps; if no strip is tappable, type `longlive://diag` into the phone browser or a Notes link and tap it), switch on **Speed
    test mode**, tap **Done**. Then:
    - 5 times: force-quit, reopen, wait until the eras show;
    - 5 times, quickly: swipe up to go home, tap Long Live again straight away.

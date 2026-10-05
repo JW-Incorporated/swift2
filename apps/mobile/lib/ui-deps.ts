@@ -3,6 +3,7 @@
 // stays testable under node; SharedUiHost passes the real ones.
 import type { HapticKind, SharePayload, WebPath } from '@swift2/ui';
 import type { UiHandlerDeps } from './bridge-handlers-ui';
+import type { HostStorage } from './host-storage';
 import { isNativeRoute as isHostRoute } from '../dom/slots/routes';
 import { resolveDestination } from './destination-resolver';
 
@@ -19,7 +20,7 @@ export type HapticsLike = {
 /** Native share-card file ports (expo-file-system / expo-clipboard); absent = image shares degrade to a link share. */
 export type ShareCardPorts = {
   /** Downloads `url` to the cache as `share/<name>.png` and returns the file. Callers pass a unique name per request. */
-  download(url: string, name: string): Promise<{ uri: string; base64(): string | Promise<string> }>;
+  download(url: string, name: string, signal?: AbortSignal): Promise<{ uri: string; base64(): string | Promise<string> }>;
   copyImage(base64: string): Promise<void>;
   /** Best-effort: delete all but the newest `keep` share files (names sort oldest-first). */
   prune(keep: number): Promise<void>;
@@ -43,12 +44,14 @@ export type UiDepsEnv = {
    * time. Until the app supplies one (H4/D1) a native-route navigate answers `failed`.
    */
   getPresenter?: () => ((path: WebPath) => unknown) | undefined;
+  hostStorage?: HostStorage;
 };
 
 export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
   const siteUrl = env.siteUrl ?? DEFAULT_SITE_URL;
   const { haptics } = env;
   let generation = 0;
+  let activeDownload: AbortController | undefined;
   return {
     log: env.log,
     // Native only when the ONE destination resolver says the path canonicalizes to a registered host route (what the
@@ -90,29 +93,36 @@ export function createUiDeps(env: UiDepsEnv): UiHandlerDeps {
       }
       await shareLink(link);
     },
+    hostStorage: env.hostStorage,
     copyText: env.clipboard ? async (text) => void (await env.clipboard!.setStringAsync(text)) : undefined,
     haptic: haptics ? (kind) => runHaptic(haptics, kind) : undefined,
   };
 
   async function fetchCard(cards: ShareCardPorts, url: string, gen: number) {
     let timer: ReturnType<typeof setTimeout> | undefined;
+    activeDownload?.abort();
+    const ctl = new AbortController();
+    activeDownload = ctl;
     try {
       const size = new URL(url).searchParams.get('size');
       const name = size === 'story' || size === 'portrait' ? size : 'card';
       const card = await Promise.race([
-        cards.download(url, `${Date.now()}-${gen}-${name}`),
+        cards.download(url, `${Date.now()}-${gen}-${name}`, ctl.signal),
         new Promise<never>((_, reject) => {
-          timer = setTimeout(() => reject(new Error('card download timed out')), CARD_DOWNLOAD_TIMEOUT_MS);
+          timer = setTimeout(() => {
+            ctl.abort();
+            reject(new Error('card download timed out'));
+          }, CARD_DOWNLOAD_TIMEOUT_MS);
         }),
       ]);
-      if (gen !== generation) return null;
-      void cards.prune(2).catch(() => {});
-      return card;
+      return gen !== generation ? null : card;
     } catch (e) {
       env.log('share.card', e instanceof Error ? e.message : 'download failed');
       return null;
     } finally {
       if (timer) clearTimeout(timer);
+      if (activeDownload === ctl) activeDownload = undefined;
+      void cards.prune(2).catch(() => {});
     }
   }
 
