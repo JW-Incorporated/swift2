@@ -17,11 +17,11 @@ function rig(override: object) {
   const ref: { host?: BridgeHost; dom?: ReturnType<typeof createExpoBridge> } = {};
   const link = createBridgeLink(() => void ref.dom?.client.consumeInbox(ref.host?.inbox() ?? []));
   const watch = { ready: vi.fn(), error: vi.fn(), crashed: vi.fn(), protocol: vi.fn() };
-  const handlers = createDomHostHandlers({ onSignal: log, watch, bridge: link.bridge, bridgeClosed: link.isClosed });
+  const handlers = createDomHostHandlers({ onSignal: log, watch, bridge: link.bridge, bridgeClosed: link.isClosed, token: 'tok' });
   const host = createBridgeHost({ handlers: { ...real, ...override } as never, send: link.send, now: Date.now, scheduler, onProtocolFatal: () => watch.protocol(), onSignal: log });
   ref.host = host;
   link.attach(host);
-  const dom = createExpoBridge((env) => handlers.bridge(env));
+  const dom = createExpoBridge((env, t) => handlers.bridge(env, t), undefined, undefined, () => handlers.bridgeHello());
   ref.dom = dom;
   dom.mount();
   const adapter = createAppAdapter({
@@ -33,7 +33,7 @@ function rig(override: object) {
     apiFetch: vi.fn() as never,
     onBack: () => () => {},
   });
-  return { host, adapter, dispose: () => (dom.client.dispose(), host.dispose(), link.dispose()) };
+  return { host, adapter, handlers, dispose: () => (dom.client.dispose(), host.dispose(), link.dispose()) };
 }
 
 let live: ReturnType<typeof rig> | null = null;
@@ -65,6 +65,12 @@ describe('notifications.optOutPending end to end', () => {
   it('an extra key in the result is rejected by the client gate', async () => {
     const r = await start({ 'notifications.optOutPending': async () => resOk({ pending: true, token: 'x' }) });
     await expect(r.adapter.notifications!.optOutPending!()).rejects.toBeTruthy();
+  });
+
+  it('rides the token-checked bridge action: a wrong token is rejected, never reaching the host', async () => {
+    const r = await start(createHandlers({ optOutPending: async () => true } as never));
+    const env = { v: 1, id: 'x', type: 'notifications.optOutPending', payload: {} };
+    await expect(r.handlers.bridge(env, 'wrong')).rejects.toBeTruthy();
   });
 
   it('a host without the dep answers a fixed failure', async () => {
