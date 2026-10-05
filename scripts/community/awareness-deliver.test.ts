@@ -89,7 +89,7 @@ describe('ensureImageRef', () => {
 });
 
 describe('runDelivery', () => {
-  it('uploads each card as multipart, marks the lead delivered, and posts the header with the day total', async () => {
+  it('uploads each card as multipart, marks the lead delivered, and posts no batch header', async () => {
     const { fetchImpl, calls } = discord();
     const updates: unknown[] = [];
     const supabase = fakeSupabase({
@@ -97,7 +97,6 @@ describe('runDelivery', () => {
       deliveredToday: [{ community: 'TaylorSwift' }],
       onUpdate: (p) => updates.push(p),
     });
-    const headers: string[] = [];
     const result = await runDelivery({
       supabase,
       webhook: 'https://discord.test/hook',
@@ -105,21 +104,19 @@ describe('runDelivery', () => {
       config,
       ackSecret: 'secret',
       fetchImpl: fetchImpl as never,
-      postHeader: async (content: string) => {
-        headers.push(content);
-        return true;
-      },
     });
     expect(result.delivered).toHaveLength(2);
     expect(result.failed).toEqual([]);
     expect(result.totalToday).toBe(3);
-    expect(headers[0]).toContain('Awareness replies — 3 today');
+    // Exactly card + reply per lead: no header message before the batch.
     expect(calls).toHaveLength(4);
     expect(calls[0].body).toBeInstanceOf(FormData);
     const form = calls[0].body as FormData;
     expect((form.get('files[0]') as File).type).toBe('image/png');
     const card = String(JSON.parse(String(form.get('payload_json'))).content);
+    expect(card.split('\n')[0]).toBe('<https://www.reddit.com/r/TaylorSwift/comments/1/x/>');
     expect(card).toContain('/api/community/ack?lead=lead-1&action=posted');
+    expect(card).not.toContain('No self-promo');
     expect(card).not.toContain('```');
     // The reply follows its card as a plain message holding nothing else, so
     // long-press "Copy Text" on mobile copies exactly the reply.
@@ -288,7 +285,7 @@ describe('runDelivery caps and unlisted subs', () => {
     expect(result.delivered).toHaveLength(5);
   });
 
-  it('caps the whole day at 15 and sends an unlisted sub with a read-the-rules note and unverified label', async () => {
+  it('caps the whole day at 15 and sends an unlisted sub as a bare link card', async () => {
     const { fetchImpl, calls } = discord();
     const full = fakeSupabase({
       drafted: [lead(1, 'AskReddit', { image_comments: 'unknown' })],
@@ -315,9 +312,9 @@ describe('runDelivery caps and unlisted subs', () => {
     const content = String(
       JSON.parse(String((calls[0].body as FormData).get('payload_json'))).content,
     );
-    expect(content).toContain('Sub rule: Not one of our listed subs');
-    expect(content).toContain(
-      "image replies unverified — if there's no image button, post the text",
+    // Owner 2026-10-05: the card is the link only — no rule note, no label.
+    expect(content).toBe(
+      '<https://www.reddit.com/r/AskReddit/comments/1/x/>\nReact ✅ posted · ⏭️ skip\nref: reddit · lead-1',
     );
     expect(DAILY_CAP).toBe(15);
     expect(BATCH_CAP).toBe(5);

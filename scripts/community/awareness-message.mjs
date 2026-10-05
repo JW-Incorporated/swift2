@@ -1,54 +1,74 @@
 // Awareness lane — Discord message builders (pure). Two messages per
-// opportunity: the card (site card ATTACHED as a PNG upload — multipart
-// webhook post, not an embed URL — thread title + link, sub, why, and the
-// existing signed Posted/Skip links), then the reply text alone as a plain
-// message. A code block can't be copied on Discord mobile and long-press
-// "Copy Text" copies the whole message, so the reply gets a message of its
-// own. The owner posts the reply himself; nothing here sends anything
-// (awareness-deliver.mjs does).
+// opportunity, nothing else (owner 2026-10-05: "the link, the text to post,
+// and the image"): the card — the clean thread link with the site card
+// ATTACHED as a PNG upload, plus the signed Posted/Skip links and the
+// reaction ref line — then the reply text alone as a plain message, so
+// long-press "Copy Text" on mobile copies exactly what to post. No batch
+// header, title, sub, why, rule or instructions. The owner posts the reply
+// himself; nothing here sends anything (awareness-deliver.mjs does).
 import {
   DISCORD_MESSAGE_LIMIT,
   DISCORD_SUPPRESS_EMBEDS,
   TREE_AVATAR_URL,
 } from './discord-delivery.mjs';
-import {
-  clipUnits,
-  escapeLinkBrackets,
-  oneLine,
-  safe,
-  threadLinkLine,
-} from './reply-opportunity.mjs';
-import { replyAsLine } from './reddit-account.mjs';
-import { imageCommentsLabel } from './awareness-eligibility.mjs';
+import { clipUnits, oneLine, safe, urlLine } from './reply-opportunity.mjs';
 
 export const AWARENESS_WEBHOOK_USERNAME = 'Tree · Awareness replies';
 const MAX_ACK_URL_UNITS = 450;
 const TRIM_NOTE = '(Reply trimmed to fit Discord.)';
-export const REPLY_POINTER = 'Reply: next message ↓ (long-press it → Copy Text)';
-const WHY_BY_TYPE = {
-  ranking: 'Era/ranking debate, so a site card fits the conversation',
-  timeline: 'Timeline question, so a moment card answers it at a glance',
-  easter_egg: 'Easter-egg/theory thread, so a card for the moment fits',
-  nostalgia: 'Nostalgia/anniversary thread, so an era card lands',
-  news: 'News reaction thread, so a card shows the story behind it',
-  facebook: 'Facebook group post, so a site card fits',
-};
 
-export function whyFor(lead) {
-  const own = oneLine(safe(lead.why), 160);
-  return own || WHY_BY_TYPE[lead.thread_type] || 'Thread where a picture of the site fits';
+const REDDIT_HOST_RE = /^(?:(?:www|old|new|np|m)\.)?reddit\.com$/i;
+const FACEBOOK_HOST_RE = /^(?:(?:www|m|web|mbasic)\.)?(?:facebook|fb)\.com$/i;
+// Facebook params that identify the post/comment; everything else
+// (fbclid, __cft__[0], __tn__, mibextid, rdid, ref, …) is tracking.
+const FACEBOOK_ID_PARAMS = new Set([
+  'story_fbid',
+  'id',
+  'fbid',
+  'set',
+  'v',
+  'comment_id',
+  'reply_comment_id',
+  'multi_permalinks',
+  'post_id',
+]);
+const GENERIC_TRACKING_RE = /^(?:utm_.*|fbclid|gclid|igshid|mc_cid|mc_eid|ref|ref_source)$/i;
+
+/**
+ * The thread URL with tracking stripped: Reddit → https://www.reddit.com/<path>/
+ * with no query/hash; Facebook → only post/comment-identifying params; other
+ * hosts → common tracking params dropped. Malformed input comes back trimmed.
+ */
+export function cleanThreadUrl(url) {
+  const raw = String(url ?? '').trim();
+  let parsed;
+  try {
+    parsed = new URL(raw);
+  } catch {
+    return raw;
+  }
+  if (!/^https?:$/.test(parsed.protocol)) return raw;
+  parsed.hash = '';
+  const host = parsed.hostname;
+  if (REDDIT_HOST_RE.test(host)) {
+    parsed.protocol = 'https:';
+    parsed.hostname = 'www.reddit.com';
+    parsed.search = '';
+    if (!parsed.pathname.endsWith('/')) parsed.pathname += '/';
+    return parsed.toString();
+  }
+  const keep = FACEBOOK_HOST_RE.test(host)
+    ? (key) => FACEBOOK_ID_PARAMS.has(key)
+    : (key) => !GENERIC_TRACKING_RE.test(key);
+  for (const key of [...parsed.searchParams.keys()])
+    if (!keep(key)) parsed.searchParams.delete(key);
+  return parsed.toString();
 }
 
 export function imageFilename(ref) {
   return `${String(ref)
     .replace(/[^A-Za-z0-9._-]+/g, '-')
     .slice(0, 80)}.png`;
-}
-
-/** Header posted once per batch; `totalToday` counts every awareness opportunity delivered today including this batch. */
-export function buildAwarenessHeader(totalToday, batchCount) {
-  const noun = batchCount === 1 ? 'opportunity' : 'opportunities';
-  return `🎯 **Awareness replies — ${totalToday} today**\nThis batch: ${batchCount} new ${noun}. Reply with the attached picture only (no link), then tap Posted or Skip.`;
 }
 
 /**
@@ -64,47 +84,27 @@ export function buildAwarenessReplyText(lead) {
 
 /**
  * One awareness opportunity's card as Discord message text, always <= 2000
- * units. The reply itself is the next message (buildAwarenessReplyText).
- * Reddit leads keep `ref: reddit · <id>` as the true last line, same as reply
+ * units: the clean thread link (the PNG rides along as the attachment), then
+ * the Posted/Skip links. The reply itself is the next message
+ * (buildAwarenessReplyText), kept free of anything but the reply. Reddit leads
+ * keep `ref: reddit · <id>` as the true last line, same as reply
  * opportunities, so a ✅/⏭️ reaction on the card still routes.
  */
-export function buildAwarenessMessage(
-  lead,
-  { postedUrl = null, skipUrl = null, rule = null } = {},
-) {
+export function buildAwarenessMessage(lead, { postedUrl = null, skipUrl = null } = {}) {
   const isReddit = lead.platform === 'reddit';
-  const where = escapeLinkBrackets(
-    oneLine(safe(isReddit ? `r/${lead.community}` : lead.community), 80),
-  );
-  const title = lead.title ? `**${escapeLinkBrackets(oneLine(safe(lead.title), 200))}**` : null;
   const acks =
     postedUrl &&
     skipUrl &&
     postedUrl.length <= MAX_ACK_URL_UNITS &&
     skipUrl.length <= MAX_ACK_URL_UNITS;
   const footer = acks
-    ? `Done? [✅ Posted](<${postedUrl}>) · [Skip](<${skipUrl}>)`
-    : 'Done? React ✅ posted · ⏭️ skip. Nothing posts automatically.';
+    ? `[✅ Posted](<${postedUrl}>) · [Skip](<${skipUrl}>)`
+    : 'React ✅ posted · ⏭️ skip';
   const postId = oneLine(lead.id, 100);
   const refLine = isReddit && postId ? `ref: reddit · ${postId}` : null;
-  const label = imageCommentsLabel(lead.image_comments);
-  const head = [
-    `🎯 **Awareness reply · ${where}** · ${label}`,
-    title,
-    lead.url
-      ? threadLinkLine(lead.url)
-      : lead.locator
-        ? `Find it in: ${oneLine(safe(lead.locator), 160)}`
-        : null,
-    isReddit ? replyAsLine() : null,
-    `Why: ${whyFor(lead)}`,
-    `Image: attached card (${oneLine(safe(lead.image_ref), 90)}). Post it with the reply, no link.`,
-    rule ? `Sub rule: ${oneLine(safe(rule), 140)}` : null,
-  ].filter(Boolean);
+  const link = (lead.url && urlLine(cleanThreadUrl(lead.url))) || oneLine(safe(lead.locator), 160);
   const { trimmed } = buildAwarenessReplyText(lead);
-  const text = [...head, `📋 ${REPLY_POINTER}`, ...(trimmed ? [TRIM_NOTE] : []), footer, refLine]
-    .filter(Boolean)
-    .join('\n');
+  const text = [link, ...(trimmed ? [TRIM_NOTE] : []), footer, refLine].filter(Boolean).join('\n');
   if (text.length > DISCORD_MESSAGE_LIMIT)
     throw new Error(`Awareness opportunity ${postId} cannot fit Discord's limit`);
   return text;
