@@ -44,34 +44,49 @@ export interface DeepLinkPorts {
   listen(cb: (url: string) => void): () => void;
 }
 
+/** How long after start a launch URL's other side (initial URL vs its url-event echo) still pairs with it. */
+export const LAUNCH_PAIR_MS = 10_000;
+
 /**
- * The cold URL (getInitialURL) and the FIRST live 'url' event at launch are one launch: when they carry the same URL
- * they share the stable id `cold:<key>` whatever the delay or order, so the queue dedupes them. Every later event
- * (a user re-tapping the same link) gets a fresh sequence id and navigates again.
+ * The launch URL arrives twice on some platforms: via getInitialURL and as an echoed 'url' event. A single launch slot
+ * is filled by whichever side delivers a VALID link first (id `cold:<key>`); the OTHER side reuses that id iff it is
+ * the same URL within LAUNCH_PAIR_MS of start, then the slot clears, so the queue dedupes the pair at any delay or
+ * order. Everything else (other URLs, same-side repeats, later re-taps) gets a fresh `link:` sequence id.
  */
-export function startDeepLinkIntake(gate: Pick<TapGate, 'enqueue'>, ports: DeepLinkPorts): () => void {
+export function startDeepLinkIntake(
+  gate: Pick<TapGate, 'enqueue'>,
+  ports: DeepLinkPorts,
+  now: () => number = Date.now,
+): () => void {
+  const startAt = now();
   let stopped = false;
   let seq = 0;
-  let firstEventSeen = false;
-  const send = (url: string, id: string) => gate.enqueue({ id, deepLink: url, source: 'deeplink' });
+  let slotOpen = true;
+  let launch: { key: string; id: string; from: 'initial' | 'event' } | null = null;
   const valid = (raw: unknown): string | null => {
     if (stopped || typeof raw !== 'string') return null;
     const url = normalizeDeepLink(raw);
     return canonicalizeLink(url) === null ? null : url;
   };
-  const off = ports.listen((raw) => {
+  const ingest = (raw: unknown, from: 'initial' | 'event') => {
     const url = valid(raw);
-    const first = !firstEventSeen;
-    firstEventSeen = true;
     if (url === null) return;
-    send(url, first ? `cold:${urlKey(url)}` : `link:${++seq}:${urlKey(url)}`);
-  });
+    const key = urlKey(url);
+    let id = `link:${++seq}:${key}`;
+    if (launch !== null && launch.key === key && launch.from !== from && now() - startAt <= LAUNCH_PAIR_MS) {
+      id = launch.id;
+      launch = null;
+    } else if (slotOpen && launch === null) {
+      slotOpen = false;
+      launch = { key, id: `cold:${key}`, from };
+      id = launch.id;
+    }
+    gate.enqueue({ id, deepLink: url, source: 'deeplink' });
+  };
+  const off = ports.listen((raw) => ingest(raw, 'event'));
   ports
     .getInitialURL()
-    .then((raw) => {
-      const url = valid(raw);
-      if (url !== null) send(url, `cold:${urlKey(url)}`);
-    })
+    .then((raw) => ingest(raw, 'initial'))
     .catch(() => {});
   return () => {
     stopped = true;

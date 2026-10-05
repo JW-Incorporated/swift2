@@ -136,3 +136,63 @@ describe('startDeepLinkIntake', () => {
     stop();
   });
 });
+
+describe('launch slot (injected clock, recording gate)', () => {
+  function rig(initial: string | null | Promise<string | null>) {
+    let t = 0;
+    let emit: (u: string) => void = () => {};
+    const seen: { id: string; deepLink: string }[] = [];
+    const gate = { enqueue: (r: { id?: unknown; deepLink?: unknown }) => (seen.push({ id: String(r.id), deepLink: String(r.deepLink) }), 'queued' as const) };
+    startDeepLinkIntake(
+      gate,
+      { getInitialURL: async () => initial, listen: (cb) => ((emit = cb), () => {}) },
+      () => t,
+    );
+    return { seen, emit: (u: string) => emit(u), at: (ms: number) => (t = ms) };
+  }
+  const ids = (s: { id: string; deepLink: string }[]) => s.map((x) => x.id);
+
+  it('initial /support, /settings, /support echo: support shares the cold id, settings is fresh', async () => {
+    const r = rig(`${SITE}/support`);
+    await flush();
+    r.emit(`${SITE}/settings`);
+    r.emit(`${SITE}/support`);
+    expect(r.seen).toHaveLength(3);
+    expect(r.seen[0].id).toMatch(/^cold:/);
+    expect(r.seen[1].id).toMatch(/^link:/);
+    expect(r.seen[2].id).toBe(r.seen[0].id);
+  });
+
+  it('echo before initial dedupes via the same cold id', async () => {
+    let resolve: (u: string) => void = () => {};
+    let emit: (u: string) => void = () => {};
+    const seen: string[] = [];
+    startDeepLinkIntake(
+      { enqueue: (r) => (seen.push(String(r.id)), 'queued') },
+      { getInitialURL: () => new Promise<string>((res) => (resolve = res)), listen: (cb) => ((emit = cb), () => {}) },
+      () => 0,
+    );
+    emit(`${SITE}/support`);
+    resolve(`${SITE}/support`);
+    await flush();
+    expect(seen).toHaveLength(2);
+    expect(seen[0]).toBe(seen[1]);
+    expect(seen[0]).toMatch(/^cold:/);
+  });
+
+  it('a /support re-tap 11 s after start is a fresh navigation', async () => {
+    const r = rig(`${SITE}/support`);
+    await flush();
+    r.at(11_000);
+    r.emit(`${SITE}/support`);
+    expect(ids(r.seen)[1]).toMatch(/^link:/);
+  });
+
+  it('an invalid first event does not touch the slot; the valid initial gets the cold id', async () => {
+    const r = rig(`${SITE}/support`);
+    r.emit('https://evil.example/x');
+    await flush();
+    expect(ids(r.seen)).toHaveLength(1);
+    expect(r.seen[0].id).toMatch(/^cold:/);
+  });
+});
