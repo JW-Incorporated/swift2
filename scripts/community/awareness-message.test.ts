@@ -2,66 +2,119 @@ import { describe, expect, it } from 'vitest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import {
-  buildAwarenessHeader,
   buildAwarenessMessage,
   buildAwarenessReplyText,
   buildMultipartPayload,
+  cleanThreadUrl,
   imageFilename,
   selectBatch,
-  whyFor,
 } from './awareness-message.mjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — plain .mjs script, no declaration file
 import { eligibilityRank } from './awareness-eligibility.mjs';
 
+const ACKS = { postedUrl: 'https://x.test/p', skipUrl: 'https://x.test/s' };
+const ACK_LINE = '[✅ Posted](<https://x.test/p>) · [Skip](<https://x.test/s>)';
+const REF = 'ref: reddit · 11111111-1111-4111-8111-111111111111';
+
 const lead = (overrides: Record<string, unknown> = {}) => ({
   id: '11111111-1111-4111-8111-111111111111',
   platform: 'reddit',
   community: 'TaylorSwift',
-  url: 'https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/',
+  url: 'https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/?target_user=NegativeRest9507&ref_source=email&ref=email_digest&ref_campaign=email_digest&%24deep_link=true',
   title: 'Rank the eras',
   draft: 'folklore at number one and I will not be taking questions',
   why: 'Era ranking, so a card fits',
   image_ref: 'era:folklore',
-  image_comments: 'image',
+  image_comments: 'unknown',
   thread_type: 'ranking',
   ...overrides,
 });
 
-describe('awareness Discord message', () => {
-  it('keeps a Reddit message within 2000 chars with the account-switched link', () => {
+describe('cleanThreadUrl', () => {
+  it('reduces a Reddit link to the canonical thread URL', () => {
+    expect(cleanThreadUrl(lead().url)).toBe(
+      'https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/',
+    );
+    expect(cleanThreadUrl('http://old.reddit.com/r/swifties/comments/x1/slug?utm_source=a#c')).toBe(
+      'https://www.reddit.com/r/swifties/comments/x1/slug/',
+    );
+  });
+
+  it('keeps only the post/comment-identifying params on a Facebook link', () => {
+    expect(
+      cleanThreadUrl(
+        'https://www.facebook.com/groups/123/posts/456/?comment_id=789&__cft__[0]=AZX&__tn__=R]-R&fbclid=IwAR1&mibextid=abc',
+      ),
+    ).toBe('https://www.facebook.com/groups/123/posts/456/?comment_id=789');
+    expect(
+      cleanThreadUrl('https://m.facebook.com/permalink.php?story_fbid=1&id=2&ref=bookmarks'),
+    ).toBe('https://m.facebook.com/permalink.php?story_fbid=1&id=2');
+  });
+
+  it('leaves malformed input alone', () => {
+    expect(cleanThreadUrl(' not a url ')).toBe('not a url');
+  });
+});
+
+describe('awareness Discord messages', () => {
+  it('Reddit card with image: the clean link, the ack links, the ref line — nothing else', () => {
+    expect(buildAwarenessMessage(lead(), ACKS)).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+        '\n',
+      ),
+    );
+    expect(buildAwarenessReplyText(lead())).toEqual({
+      text: 'folklore at number one and I will not be taking questions',
+      trimmed: false,
+    });
+  });
+
+  it('Reddit card for a text-only sub renders the same: link only (the image is the attachment, not text)', () => {
+    const text = buildAwarenessMessage(lead({ image_comments: 'text_only' }), ACKS);
+    expect(text).toBe(
+      ['<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/>', ACK_LINE, REF].join(
+        '\n',
+      ),
+    );
+  });
+
+  it('Facebook card: the clean link and the ack links, no ref line', () => {
+    const fb = lead({
+      platform: 'facebook',
+      community: 'Taylor Swift Vault',
+      url: 'https://www.facebook.com/groups/123/posts/456/?__cft__[0]=AZX&__tn__=%2CO%2CP-R&fbclid=IwAR1',
+      draft: 'The Vault had this one on the timeline too',
+    });
+    expect(buildAwarenessMessage(fb, ACKS)).toBe(
+      ['<https://www.facebook.com/groups/123/posts/456/>', ACK_LINE].join('\n'),
+    );
+    expect(buildAwarenessReplyText(fb).text).toBe('The Vault had this one on the timeline too');
+  });
+
+  it('carries none of the old explanatory lines', () => {
+    const text = buildAwarenessMessage(lead(), ACKS);
+    for (const fluff of [
+      'Awareness reply',
+      'r/TaylorSwift ·',
+      'unverified',
+      'Rank the eras',
+      'Reply as u/',
+      'Why:',
+      'Image:',
+      'Sub rule',
+      'next message',
+      'Done?',
+      'folklore at number one',
+    ])
+      expect(text).not.toContain(fluff);
+  });
+
+  it('falls back to the reaction footer without ack links and stays within 2000 chars', () => {
     const text = buildAwarenessMessage(lead({ draft: 'y'.repeat(5000) }));
     expect(text.length).toBeLessThanOrEqual(2000);
-    expect(text).toContain('target_user=NegativeRest9507');
-  });
-
-  it('carries sub, title, link, why, a pointer to the reply message and the ack links, with the ref line last', () => {
-    const text = buildAwarenessMessage(lead(), {
-      postedUrl: 'https://x.test/p',
-      skipUrl: 'https://x.test/s',
-    });
-    expect(text).toContain('Awareness reply · r/TaylorSwift');
-    expect(text).toContain('image comments allowed');
-    expect(text).toContain('**Rank the eras**');
-    const link = text
-      .split('\n')
-      .find((l) =>
-        l.startsWith('<https://www.reddit.com/r/TaylorSwift/comments/abc/rank_the_eras/'),
-      );
-    expect(link).toMatch(/target_user=NegativeRest9507.*>$/);
-    expect(text).toContain('↪️ Reply as u/NegativeRest9507');
-    expect(text).toContain('Why: Era ranking, so a card fits');
-    expect(text).toContain('📋 Reply: next message ↓ (long-press it → Copy Text)');
-    expect(text).not.toContain('```');
-    expect(text).not.toContain('folklore at number one');
-    expect(text).toContain('[✅ Posted](<https://x.test/p>) · [Skip](<https://x.test/s>)');
-    expect(text.split('\n').at(-1)).toBe('ref: reddit · 11111111-1111-4111-8111-111111111111');
-  });
-
-  it('labels text-only subs and falls back to the reaction footer without ack links', () => {
-    const text = buildAwarenessMessage(lead({ image_comments: 'text_only' }));
-    expect(text).toContain('text-only sub');
-    expect(text).toContain('React ✅ posted');
+    expect(text).toContain('React ✅ posted · ⏭️ skip');
+    expect(text.split('\n').at(-1)).toBe(REF);
   });
 
   it('trims only an over-long reply and says so on the card', () => {
@@ -70,11 +123,7 @@ describe('awareness Discord message', () => {
     expect(reply.trimmed).toBe(true);
     expect(reply.text.length).toBeLessThanOrEqual(2000);
     expect(reply.text.startsWith('word word')).toBe(true);
-    const card = buildAwarenessMessage(big, {
-      postedUrl: 'https://x.test/p',
-      skipUrl: 'https://x.test/s',
-    });
-    expect(card).toContain('(Reply trimmed to fit Discord.)');
+    expect(buildAwarenessMessage(big, ACKS)).toContain('(Reply trimmed to fit Discord.)');
     expect(buildAwarenessMessage(lead())).not.toContain('trimmed');
   });
 
@@ -83,38 +132,24 @@ describe('awareness Discord message', () => {
     expect(reply).toEqual({ text: 'folklore *is* the one ```', trimmed: false });
   });
 
-  it('neutralises mentions in untrusted text, card and reply alike', () => {
-    const l = lead({ title: '@everyone [x](http://evil)', draft: 'hey @everyone' });
-    const text = buildAwarenessMessage(l);
-    expect(text).not.toContain('@everyone');
-    expect(text).toContain('\\[x\\]');
-    expect(buildAwarenessReplyText(l).text).not.toContain('@everyone');
+  it('neutralises mentions in the reply', () => {
+    expect(buildAwarenessReplyText(lead({ draft: 'hey @everyone' })).text).not.toContain(
+      '@everyone',
+    );
   });
 
-  it('writes a facebook lead without a ref line and with its locator', () => {
+  it('uses the locator when a Facebook lead has no URL', () => {
     const text = buildAwarenessMessage(
       lead({
         platform: 'facebook',
         community: 'Taylor Swift Vault',
         url: null,
-        locator: 'Vault - first 80 chars',
+        locator: 'Vault - first 80 chars @everyone',
       }),
     );
-    expect(text).toContain('Find it in: Vault - first 80 chars');
+    expect(text.split('\n')[0]).toMatch(/^Vault - first 80 chars /);
+    expect(text).not.toContain('@everyone');
     expect(text).not.toContain('ref: reddit');
-  });
-
-  it('falls back to a thread-type why', () => {
-    expect(whyFor(lead({ why: null, thread_type: 'timeline' }))).toContain('Timeline question');
-  });
-});
-
-describe('batch header', () => {
-  it('reads "Awareness replies — N today" with the batch size', () => {
-    expect(buildAwarenessHeader(13, 6)).toMatch(
-      /^🎯 \*\*Awareness replies — 13 today\*\*\nThis batch: 6 new opportunities\./,
-    );
-    expect(buildAwarenessHeader(1, 1)).toContain('1 new opportunity');
   });
 });
 
