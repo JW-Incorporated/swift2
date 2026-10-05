@@ -130,6 +130,20 @@ describe('legal pages through the real app adapter', () => {
     await waitFor(() => expect(button.closest('[inert]')).toBeNull());
   });
 
+  it('is a labelled modal dialog: focus moves in on open and returns to the opener on close', async () => {
+    const reader = h('div', null, h('button', { 'data-testid': 'opener' }, 'Open'), h(LegalOverlay));
+    const { adapter } = mount(reader);
+    const opener = screen.getByTestId('opener');
+    opener.focus();
+    act(() => adapter.navigate('/privacy'));
+    const dialog = screen.getByRole('dialog', { name: 'Privacy Policy' });
+    expect(dialog).toHaveAttribute('aria-modal', 'true');
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    act(() => void backFromDomPath());
+    await waitFor(() => expect(document.querySelector('[data-legal-page]')).toBeNull());
+    expect(document.activeElement).toBe(opener);
+  });
+
   it('a legal page opens scrolled to the top, also when reached from a scrolled footer', () => {
     const { adapter } = mount();
     act(() => adapter.navigate('/privacy'));

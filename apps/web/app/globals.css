@@ -48,6 +48,13 @@ body {
   padding: 0;
 }
 
+/* WCAG 2.4.11: keyboard focus must not land under the sticky TopBar / CountdownBanner (top) or the fixed
+   BottomNav + Feedback cluster (bottom). Vars so the app host can add the native safe-area insets. */
+html {
+  scroll-padding-top: var(--ll-scroll-pad-top, 5rem);
+  scroll-padding-bottom: var(--ll-scroll-pad-bottom, 6rem);
+}
+
 body {
   background: var(--era-bg);
   color: var(--era-ink);

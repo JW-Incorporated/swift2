@@ -44,6 +44,41 @@ export function trapBoundaryTarget<T>(
   return null;
 }
 
+// Ref-counted `inert` claims (A11Y-1): aria-modal alone leaves the background in the AT tree. A dialog marks every
+// sibling of its own ancestor chain inert, so the dialog itself stays live whether it is portaled or nested. Elements
+// already inert for another reason are left untouched; ours are un-inerted when the last claim is released, so
+// stacked dialogs (lightbox over a moment) nest: only the topmost is live, and closing in any order is safe.
+const inertClaims = new Map<Element, number>();
+
+function claimInert(node: HTMLElement): () => void {
+  const claimed: Element[] = [];
+  for (let el: HTMLElement | null = node; el && el.parentElement; el = el.parentElement) {
+    for (const sib of Array.from(el.parentElement.children)) {
+      if (sib === el) continue;
+      const entry = inertClaims.get(sib);
+      if (entry !== undefined) inertClaims.set(sib, entry + 1);
+      else if (sib.hasAttribute('inert')) continue; // someone else's inert (e.g. a React `inert` prop): never touch it
+      else {
+        inertClaims.set(sib, 1);
+        sib.setAttribute('inert', '');
+      }
+      claimed.push(sib);
+    }
+  }
+  return () => {
+    for (const sib of claimed) {
+      const entry = inertClaims.get(sib);
+      if (entry === undefined) continue;
+      if (entry > 1) {
+        inertClaims.set(sib, entry - 1);
+        continue;
+      }
+      inertClaims.delete(sib);
+      sib.removeAttribute('inert');
+    }
+  };
+}
+
 /**
  * Wire the contract above onto a real dialog root. `container` must be the
  * dialog's own outermost node (a plain ref — not a portal wrapper), and
@@ -64,6 +99,8 @@ export function useFocusTrap(active: boolean, container: RefObject<HTMLElement |
     // be restored on close — the trigger card, a nav button, another dialog.
     triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
+    const releaseInert = claimInert(node);
+
     const focusables = getFocusableElements(node);
     (focusables[0] ?? node).focus();
 
@@ -79,6 +116,7 @@ export function useFocusTrap(active: boolean, container: RefObject<HTMLElement |
 
     return () => {
       node.removeEventListener('keydown', onKeyDown);
+      releaseInert();
       triggerRef.current?.focus();
     };
   }, [active, container, resetKey]);
