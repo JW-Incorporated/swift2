@@ -66,8 +66,38 @@ export function expoArtFs(): ArtFs {
         clearTimeout(timer);
       }
     },
-    async download(url, name) {
-      await FileSystem.File.downloadFileAsync(url, file(name), { idempotent: true, headers: HEADERS });
+    async download(url, name, maxBytes) {
+      const f = file(name);
+      let handle: FileSystem.FileHandle | null = null;
+      try {
+        const { fetch: expoFetch } = await import('expo/fetch'); // lazy: only a real download needs the native stream
+        const res = await expoFetch(url, { headers: HEADERS, credentials: 'omit' });
+        const reader = res.ok ? res.body?.getReader() : undefined;
+        if (!reader) throw new Error(`art download failed (${res.status})`);
+        if (f.exists) f.delete();
+        f.create();
+        handle = f.open(FileSystem.FileMode.WriteOnly);
+        let written = 0;
+        for (let chunk = await reader.read(); !chunk.done; chunk = await reader.read()) {
+          written += chunk.value.byteLength;
+          if (written > maxBytes) {
+            void reader.cancel().catch(() => {});
+            throw new Error('art download over the size cap');
+          }
+          handle.writeBytes(chunk.value);
+        }
+      } catch (e) {
+        try {
+          handle?.close();
+          handle = null;
+          if (f.exists) f.delete();
+        } catch {
+          // Best-effort: the next start sweeps stray .tmp files.
+        }
+        throw e;
+      } finally {
+        handle?.close();
+      }
     },
     move: (from, to) => file(from).move(file(to), { overwrite: true }),
     uri: (name) => file(name).uri,
