@@ -17,10 +17,12 @@ const show = async (page: Page, selector: string): Promise<void> => {
   await el.evaluate((node) => node.setAttribute('data-parity-clip', ''));
 };
 
-const pickFashion = async (page: Page): Promise<void> => {
-  await page.locator(`${FILTERBAR} button:has-text("Fashion")`).first().click();
-  await expect(page.locator(`${FILTERBAR} button:has-text("Fashion")`).first()).toHaveAttribute('aria-pressed', 'true');
+const pick = async (page: Page, label: string): Promise<void> => {
+  const chip = page.locator(`${FILTERBAR} button:has-text("${label}")`).first();
+  await chip.click();
+  await expect(chip).toHaveAttribute('aria-pressed', 'true');
 };
+const pickFashion = (page: Page): Promise<void> => pick(page, 'Fashion');
 
 /** Scrolls well into the stream so the bar is stuck, then asserts it sits flush under the TopBar (the "floats oddly" symptom). */
 const stickFilterBar = async (page: Page): Promise<void> => {
@@ -106,7 +108,11 @@ export const ERA_CONTROL_ROUTES: readonly AOnlyRoute[] = [
     root: 'main',
     sides: 'both',
     clip: CLIP,
-    prepare: (page) => show(page, '[data-ll-item^="era-cluster-"]'),
+    // Unfiltered, doorways are spaced between the release-day moments and break the same-day run; a topic filter drops them.
+    prepare: async (page) => {
+      await pick(page, 'Music');
+      await show(page, '[data-ll-item^="era-cluster-"]');
+    },
   },
   {
     name: 'era-doorway-thread',
