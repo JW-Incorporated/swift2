@@ -7,7 +7,7 @@ export type FlushResult = {
   sent: string[];
   /** An HTTP error (429/4xx/5xx): the item is dropped from the queue and surfaced, never retried. */
   http?: { item: QueuedFeedback; error: string };
-  /** A transport failure: the item stays queued for one retry on `online`. */
+  /** A transport failure (or a server-side 'already being sent' 409): the item stays queued for one retry. */
   transport: boolean;
   /** A flush is already in flight in this mount. */
   busy: boolean;
@@ -37,6 +37,9 @@ export async function flushQueue(
         if (res.kind === 'sent') {
           dequeue(host, item.id);
           result.sent.push(item.id);
+        } else if (res.kind === 'pending') {
+          result.transport = true;
+          break;
         } else {
           // Deliberate: the text returns to the box and a resend is a new report.
           dequeue(host, item.id);

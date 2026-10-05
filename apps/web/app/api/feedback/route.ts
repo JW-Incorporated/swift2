@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { trustedClientIp } from '../../../lib/longlive/client-ip';
 import { isHoneypotTripped } from '../../../lib/longlive/rate-limit';
+import { durableClaimResponse, finishDurableClaim } from './idempotency-durable';
 import { isDuplicate, markPending, parseIdempotencyId, settle } from './idempotency';
 import { DIAG_ISSUE_NUMBER, DIAG_PREFIX, DIAG_REPO, speedCommit, speedRefund } from './diag';
 import { readBodyText } from './body-text';
@@ -236,8 +237,11 @@ export async function POST(req: Request): Promise<Response> {
   delete location.url;
   delete (location as Record<string, unknown>).userAgent;
 
+  const already = idemId ? await durableClaimResponse(idemId) : null;
+  if (already) return already;
   if (idemId) markPending(idemId);
   let filed = false;
+  let issueUrl: string | undefined;
   try {
     const res = await fetch(
       diag
@@ -277,6 +281,7 @@ export async function POST(req: Request): Promise<Response> {
     filed = true;
     if (speedReport) speedCommit(speedReport);
     const issue = (await res.json()) as { number?: number; html_url?: string };
+    issueUrl = issue.html_url;
     return NextResponse.json(
       { ok: true, number: issue.number, url: issue.html_url },
       { status: 201 },
@@ -285,6 +290,9 @@ export async function POST(req: Request): Promise<Response> {
     console.error('feedback: unexpected error', (err as Error).message);
     return NextResponse.json({ error: 'Something went wrong sending feedback.' }, { status: 500 });
   } finally {
-    if (idemId) settle(idemId, filed);
+    if (idemId) {
+      settle(idemId, filed);
+      await finishDurableClaim(idemId, filed, issueUrl);
+    }
   }
 }
