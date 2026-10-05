@@ -6,6 +6,8 @@ const mtimes = new Map<string, number>();
 let clock = 0;
 let textReads = 0;
 let failOp: string | null = null;
+const interactionCbs: Array<() => void> = [];
+vi.mock('react-native', () => ({ InteractionManager: { runAfterInteractions: (cb: () => void) => void interactionCbs.push(cb) } }));
 vi.mock('expo-file-system', () => {
   class Directory {
     uri: string;
@@ -34,6 +36,13 @@ vi.mock('expo-file-system', () => {
       if (failOp === 'tmp' && this.uri.endsWith('.tmp')) throw new Error('tmp write failed');
       files.set(this.uri, v);
       mtimes.set(this.uri, ++clock);
+    }
+    async text() {
+      textReads++;
+      return files.get(this.uri) as string;
+    }
+    async move(dest: { uri: string }) {
+      this.moveSync(dest);
     }
     textSync() {
       textReads++;
@@ -67,6 +76,7 @@ beforeEach(() => {
   ops.length = 0;
   textReads = 0;
   failOp = null;
+  interactionCbs.length = 0;
   vi.useRealTimers();
 });
 
@@ -120,7 +130,7 @@ describe('lastGoodSource', () => {
 });
 
 describe('legacy twin upgrade path', () => {
-  it('valid legacy twin: used this launch, v2 rebuilt atomically after the delay, next launch picks v2', () => {
+  it('valid legacy twin: used this launch, v2 rebuilt atomically after interactions settle, next launch picks v2', async () => {
     vi.useFakeTimers();
     const json = '{"v":1}';
     files.set(jsonUri(), json);
@@ -131,15 +141,36 @@ describe('legacy twin upgrade path', () => {
     expect(first?.scriptUri).toBe(`${legacyUri()}?v=${mtimes.get(legacyUri())}`);
     expect(ops).toEqual([]);
     expect(textReads).toBe(0);
-    vi.advanceTimersByTime(100);
+    vi.advanceTimersByTime(7000);
     expect(ops).toEqual([]);
-    vi.runAllTimers();
+    expect(interactionCbs).toHaveLength(1);
+    interactionCbs[0]!();
+    await vi.advanceTimersByTimeAsync(0);
     const v2 = jsUri().split('/').pop();
     expect(ops).toEqual(['write ' + v2 + '.tmp', 'move ' + v2 + '.tmp']);
     expect(files.get(jsUri())).toBe(lastGoodScriptSource(json));
     expect(files.has(legacyUri())).toBe(false);
     const second = lastGoodSource();
     expect(second?.scriptUri).toBe(`${jsUri()}?v=${mtimes.get(jsUri())}`);
+  });
+});
+
+describe('legacy twin hard fallback', () => {
+  it('migrates after 8 s even if interactions never settle, and only once', async () => {
+    vi.useFakeTimers();
+    const json = '{"v":1}';
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    files.set(legacyUri(), 'globalThis.__swift2LastGood=' + JSON.stringify(json) + ';');
+    mtimes.set(legacyUri(), ++clock);
+    lastGoodSource();
+    await vi.advanceTimersByTimeAsync(7999);
+    expect(ops).toEqual([]);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource(json));
+    interactionCbs[0]!();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(ops.filter((o) => o.startsWith('move'))).toHaveLength(1);
   });
 });
 

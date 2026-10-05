@@ -46,6 +46,7 @@ const LAST_GOOD_SUFFIX = ':last-good';
  * The reader accepts both forms, so twins written by older builds still load. */
 export function lastGoodScriptSource(jsonText: string): string {
   const id = `globalThis.__swift2LastGoodId="${contentId(jsonText)}";`;
+  // JSON.stringify only ever emits the literal key text, never an escaped form like "__proto__", so this substring test is sufficient.
   if (jsonText.includes('"__proto__"')) return `globalThis.__swift2LastGood=${JSON.stringify(jsonText)};${id}`;
   const literal = jsonText.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
   return `globalThis.__swift2LastGood=${literal};${id}`;
@@ -70,6 +71,17 @@ export function writeLastGoodTwin(key: string, jsonText: string): void {
 }
 
 /** The current (object-literal) twin. Versioned in the filename so a legacy string-form twin never passes as current. */
+/** Same as `writeLastGoodTwin` but with the async read-side/move APIs (`File.write` has no async form in SDK 57), for a rebuild that must not hold the RN thread. */
+export async function writeLastGoodTwinAsync(key: string, jsonText: string): Promise<void> {
+  if (!CACHE_DIR.exists) CACHE_DIR.create({ intermediates: true });
+  const name = lastGoodScriptName(key);
+  const tmp = new FileSystem.File(CACHE_DIR, `${name}.tmp`);
+  tmp.write(lastGoodScriptSource(jsonText));
+  await tmp.move(new FileSystem.File(CACHE_DIR, name), { overwrite: true });
+  const legacy = new FileSystem.File(CACHE_DIR, legacyLastGoodScriptName(key));
+  if (legacy.exists) legacy.delete();
+}
+
 export function lastGoodScriptName(key: string): string {
   return `${encodeURIComponent(key)}.v2.js`;
 }

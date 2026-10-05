@@ -3,10 +3,12 @@
 // mirrors vault-storage.ts's `cacheFile('<key>')` naming for the loader's
 // `last-good` record (packages/content load.ts `keyFor(baseUrl, 'last-good')`).
 import * as FileSystem from 'expo-file-system';
-import { contentBaseUrl, lastGoodScriptName, legacyLastGoodScriptName, writeLastGoodTwin } from './vault-storage';
+import { InteractionManager } from 'react-native';
+import { contentBaseUrl, lastGoodScriptName, legacyLastGoodScriptName, writeLastGoodTwin, writeLastGoodTwinAsync } from './vault-storage';
 
-/** Long enough that the migration write never competes with the webview's first paint. */
-const POST_PAINT_REBUILD_MS = 4000;
+/** Hard fallback for the legacy->v2 migration: normally it runs once interactions settle after launch (the host and
+ * bridge are off-limits to this file, so InteractionManager stands in for the DOM `ready` signal). */
+const MIGRATE_FALLBACK_MS = 8000;
 
 const CACHE_KEY_PREFIX = '@swift2/content:v1:';
 
@@ -39,14 +41,30 @@ export function lastGoodSource(): LastGoodSource | null {
   // A valid legacy (string-form) twin is still handed to the DOM this launch; the v2 rebuild waits until after first paint.
   const legacy = new FileSystem.File(dir, legacyLastGoodScriptName(key));
   const useLegacy = isValid(legacy);
-  setTimeout(() => {
-    try {
-      writeLastGoodTwin(key, json.textSync());
-      console.warn('[last-good-twin] rebuilt');
-    } catch (e) {
-      console.warn('[last-good-twin] rebuild failed', e instanceof Error ? e.message : String(e));
-    }
-  }, useLegacy ? POST_PAINT_REBUILD_MS : 0);
+  const warnFail = (e: unknown) => console.warn('[last-good-twin] rebuild failed', e instanceof Error ? e.message : String(e));
+  if (useLegacy) {
+    let started = false;
+    const migrate = () => {
+      if (started) return;
+      started = true;
+      clearTimeout(fallback);
+      json
+        .text()
+        .then((text) => writeLastGoodTwinAsync(key, text))
+        .then(() => console.warn('[last-good-twin] migrated to v2'), warnFail);
+    };
+    const fallback = setTimeout(migrate, MIGRATE_FALLBACK_MS);
+    InteractionManager.runAfterInteractions(migrate);
+  } else {
+    setTimeout(() => {
+      try {
+        writeLastGoodTwin(key, json.textSync());
+        console.warn('[last-good-twin] rebuilt');
+      } catch (e) {
+        warnFail(e);
+      }
+    }, 0);
+  }
   if (useLegacy) return { scriptUri: `${legacy.uri}?v=${legacy.modificationTime}`, jsonUri: json.uri };
   return { scriptUri: `${script.uri}?v=${Date.now()}`, jsonUri: json.uri };
 }
