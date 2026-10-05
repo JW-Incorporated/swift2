@@ -1941,6 +1941,18 @@ export default {
         "A banjo-driven single written directly about a critic's review of her performance.",
       moment: {
         video: { youtubeId: 'jYa1eI1hpDE', title: 'Taylor Swift - Mean' },
+        // Photo (Vault Run 2026-10-05, Lane 3): was a zero-photo page. Official
+        // MV still, oEmbed-verified author @TaylorSwift, downloaded + vision-
+        // confirmed, 640×480 (maxres unavailable), YouTube's own CDN.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/jYa1eI1hpDE/sddefault.jpg',
+            focalPoint: '48% 30%',
+            credit: 'Big Machine Records, via YouTube/TaylorSwift',
+            caption: 'Red-lipped, vintage-styled close-up from the official "Mean" music video.',
+            kind: 'reference',
+          },
+        ],
         sources: [
           {
             outlet: 'CBS News',
