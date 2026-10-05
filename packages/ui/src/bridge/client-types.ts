@@ -32,7 +32,7 @@ export type BridgeClient = {
   /** Process up to MAX_BATCH `seq > lastSeq` in ascending order, then ack the last; the rest stays held for the next consume. */
   consumeInbox(inbox: readonly unknown[]): void;
   sendDiag(stage: string, detail?: string): void;
-  /** Fire-and-forget DOM events beyond ready/diag/ack (navReady, navigated, theme). Before the handshake completes they queue with calls (theme coalesces); see client-events.ts. */
+  /** Fire-and-forget DOM events beyond ready/diag/ack (navReady, navigated, theme, route). Before the handshake completes they queue with calls (theme and route coalesce); see client-events.ts. */
   sendEvent<T extends QueuedEventType>(type: T, payload: EventPayloadOf<T>): void;
   sendReady(): void;
   /** Resolves pending as cancelled; every later call resolves `failed`. */

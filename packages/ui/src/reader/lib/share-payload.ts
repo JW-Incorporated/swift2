@@ -33,13 +33,28 @@ export type SharePayloadData = Pick<ReaderQueries, 'getContentItem' | 'resolveTr
  * The host members a share needs (`useHost()`). Omitted on the web: the
  * navigator.share / clipboard path and same-origin URLs are unchanged.
  */
-export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard'>;
+export type ShareHost = Pick<HostAdapter, 'share' | 'resolveUrl' | 'clipboard' | 'currentUrl'>;
+
+/**
+ * The query-free logical path to share. A host that owns its own routing (the app: the WebView document is a
+ * file:// bundle URL) reports it through `currentUrl()`; `window.location.pathname` is only the web's answer.
+ */
+function logicalPathname(host: ShareHost | undefined): string {
+  const current = host?.currentUrl?.();
+  if (current) {
+    try {
+      return new URL(current, 'https://logical.invalid').pathname;
+    } catch {
+      // fall through
+    }
+  }
+  return host?.resolveUrl ? '/' : window.location.pathname;
+}
 
 function shareBaseUrl(host: ShareHost | undefined): string {
   if (typeof window === 'undefined') return host?.resolveUrl ? host.resolveUrl('/') : '/';
-  return host?.resolveUrl
-    ? host.resolveUrl(window.location.pathname)
-    : window.location.origin + window.location.pathname;
+  const path = logicalPathname(host);
+  return host?.resolveUrl ? host.resolveUrl(path) : window.location.origin + path;
 }
 
 export function sharePayloadForTarget(
@@ -90,7 +105,7 @@ export async function shareTarget(
 ): Promise<WebShareResult> {
   const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
   const result = await triggerWebShare(payload, {
-    share: host?.share ?? navigator.share?.bind(navigator),
+    share: host?.share ? async (p) => void (await host.share!(p)) : navigator.share?.bind(navigator),
     copyText: host?.clipboard
       ? (text) => host.clipboard!.writeText(text)
       : navigator.clipboard?.writeText.bind(navigator.clipboard),
@@ -180,13 +195,15 @@ export async function shareCardImage(
   size: ShareCardSize,
   data: SharePayloadData,
   host?: ShareHost,
-): Promise<ImageShareResult | 'error'> {
+): Promise<ImageShareResult | 'copied' | 'error'> {
   const payload = sharePayloadForTarget(target, shareBaseUrl(host), data);
-  // The bridge share carries no files: a host with share gets a link share.
+  // The bridge carries a card URL, never bytes: the host downloads it and shares the file.
   if (host?.share) {
     try {
-      await host.share(payload);
-      return 'native';
+      const shared = await host.share(
+        host.resolveUrl ? { ...payload, image: { url: host.resolveUrl(shareCardPath(source, size)) } } : payload,
+      );
+      return shared?.imageCopied === true ? 'copied' : 'native';
     } catch (error) {
       return error instanceof Error && error.name === 'AbortError' ? 'cancelled' : 'error';
     }

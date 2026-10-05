@@ -29,6 +29,7 @@ import {
   buildEasterEggDigestBody,
   type AnyNotificationCategory,
   type DigestQueueItem,
+  theoriesBoardLink,
 } from '@swift2/shared';
 import { getTopTheories } from './notification-clownbot-source';
 import {
@@ -337,7 +338,7 @@ export async function dispatchClownReports(
         pushToken: device.push_token,
         title: 'The Weekly Clown Report \u{1F921}',
         body,
-        deepLink: 'https://www.longlivets.com/?current=theories',
+        deepLink: theoriesBoardLink(),
         platform: device.platform as 'ios' | 'android' | 'web' | undefined,
       },
     ]);

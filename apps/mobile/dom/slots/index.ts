@@ -26,6 +26,7 @@ import './settings';
 import './inbox';
 import './onboarding';
 import './search';
+import './share-fallback';
 import './clown';
 
 export { register, slots } from './instance';

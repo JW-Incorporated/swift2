@@ -27,11 +27,25 @@ describe('triggerWebShare', () => {
   });
 
   it('does not replace a dismissed native picker with an unexpected copy action', async () => {
-    const share = vi.fn().mockRejectedValue(new Error('cancelled'));
+    const share = vi.fn().mockRejectedValue(new DOMException('dismissed', 'AbortError'));
     const copyText = vi.fn();
 
     await expect(triggerWebShare(payload, { share, copyText })).resolves.toBe('cancelled');
     expect(copyText).not.toHaveBeenCalled();
+  });
+
+  it('falls back to copying the link when the native share genuinely fails', async () => {
+    const share = vi.fn().mockRejectedValue(new Error('share failed'));
+    const copyText = vi.fn().mockResolvedValue(undefined);
+
+    await expect(triggerWebShare(payload, { share, copyText })).resolves.toBe('fallback');
+    expect(copyText).toHaveBeenCalledWith(payload.url);
+  });
+
+  it('reports unavailable when the share fails and there is no clipboard', async () => {
+    const share = vi.fn().mockRejectedValue(new Error('share failed'));
+
+    await expect(triggerWebShare(payload, { share })).resolves.toBe('unavailable');
   });
 
   it('never claims a link was copied when clipboard access is unavailable', async () => {

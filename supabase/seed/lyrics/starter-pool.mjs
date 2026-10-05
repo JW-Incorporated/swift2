@@ -1624,7 +1624,7 @@ export const LYRIC_STARTER_POOL = [
     verified: false,
   },
   {
-    slug: 'the-life-of-a-showgirl',
+    slug: 'the-life-of-a-showgirl-title-track',
     song: 'The Life of a Showgirl',
     album: 'The Life of a Showgirl',
     lyric: 'This is the life of a showgirl',

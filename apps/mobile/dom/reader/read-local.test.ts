@@ -116,6 +116,16 @@ describe('readLocalText', () => {
       expect('__swift2LastGood' in globalThis).toBe(false);
     });
 
+    it('hands an object-literal twin over already parsed (no text, no second parse)', async () => {
+      const obj = { manifest: { bundleVersion: 'v' }, files: {} };
+      const { doc } = fakeDoc((g) => {
+        g.__swift2LastGood = obj;
+      });
+      const r = await readLocalText(URIS, { doc });
+      expect(r).toMatchObject({ text: null, parsed: obj, via: 'script' });
+      expect('__swift2LastGood' in globalThis).toBe(false);
+    });
+
     it('gives the script the ?v= URI and XHR the separate .json URI', async () => {
       const { doc, el } = fakeDoc(() => {}, true);
       const seen: string[] = [];

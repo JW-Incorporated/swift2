@@ -6,6 +6,16 @@ const mtimes = new Map<string, number>();
 let clock = 0;
 let textReads = 0;
 let failOp: string | null = null;
+const interactionCbs: Array<() => void> = [];
+let syncInteractions = false;
+vi.mock('react-native', () => ({
+  InteractionManager: {
+    runAfterInteractions: (cb: () => void) => {
+      if (syncInteractions) cb();
+      else interactionCbs.push(cb);
+    },
+  },
+}));
 vi.mock('expo-file-system', () => {
   class Directory {
     uri: string;
@@ -35,6 +45,13 @@ vi.mock('expo-file-system', () => {
       files.set(this.uri, v);
       mtimes.set(this.uri, ++clock);
     }
+    async text() {
+      textReads++;
+      return files.get(this.uri) as string;
+    }
+    async move(dest: { uri: string }) {
+      this.moveSync(dest);
+    }
     textSync() {
       textReads++;
       return files.get(this.uri) as string;
@@ -58,7 +75,8 @@ import { contentBaseUrl, contentId, expoFileSystemStorageAdapter, lastGoodScript
 
 const key = () => lastGoodCacheKey(contentBaseUrl());
 const jsonUri = () => `file:///doc/swift2-content-cache/${cacheFileName(key())}`;
-const jsUri = () => jsonUri().replace(/\.json$/, '.js');
+const jsUri = () => jsonUri().replace(/\.json$/, '.v2.js');
+const legacyUri = () => jsonUri().replace(/\.json$/, '.js');
 
 beforeEach(() => {
   files.clear();
@@ -66,6 +84,8 @@ beforeEach(() => {
   ops.length = 0;
   textReads = 0;
   failOp = null;
+  interactionCbs.length = 0;
+  syncInteractions = false;
   vi.useRealTimers();
 });
 
@@ -118,6 +138,67 @@ describe('lastGoodSource', () => {
   });
 });
 
+describe('legacy twin upgrade path', () => {
+  it('valid legacy twin: used this launch, v2 rebuilt atomically after interactions settle, next launch picks v2', async () => {
+    vi.useFakeTimers();
+    const json = '{"v":1}';
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    files.set(legacyUri(), 'globalThis.__swift2LastGood=' + JSON.stringify(json) + ';');
+    mtimes.set(legacyUri(), ++clock);
+    const first = lastGoodSource();
+    expect(first?.scriptUri).toBe(`${legacyUri()}?v=${mtimes.get(legacyUri())}`);
+    expect(ops).toEqual([]);
+    expect(textReads).toBe(0);
+    vi.advanceTimersByTime(7000);
+    expect(ops).toEqual([]);
+    expect(interactionCbs).toHaveLength(1);
+    interactionCbs[0]!();
+    await vi.advanceTimersByTimeAsync(0);
+    const v2 = jsUri().split('/').pop();
+    expect(ops).toEqual(['write ' + v2 + '.tmp', 'move ' + v2 + '.tmp']);
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource(json));
+    expect(files.has(legacyUri())).toBe(false);
+    const second = lastGoodSource();
+    expect(second?.scriptUri).toBe(`${jsUri()}?v=${mtimes.get(jsUri())}`);
+  });
+});
+
+describe('legacy twin hard fallback', () => {
+  it('migrates after 8 s even if interactions never settle, and only once', async () => {
+    vi.useFakeTimers();
+    const json = '{"v":1}';
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    files.set(legacyUri(), 'globalThis.__swift2LastGood=' + JSON.stringify(json) + ';');
+    mtimes.set(legacyUri(), ++clock);
+    lastGoodSource();
+    await vi.advanceTimersByTimeAsync(7999);
+    expect(ops).toEqual([]);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(files.get(jsUri())).toBe(lastGoodScriptSource(json));
+    interactionCbs[0]!();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(ops.filter((o) => o.startsWith('move'))).toHaveLength(1);
+  });
+});
+
+describe('legacy twin synchronous interaction callback', () => {
+  it('does not throw and rebuilds once, leaving no pending fallback timer', async () => {
+    vi.useFakeTimers();
+    syncInteractions = true;
+    const json = '{"v":1}';
+    files.set(jsonUri(), json);
+    mtimes.set(jsonUri(), ++clock);
+    files.set(legacyUri(), 'globalThis.__swift2LastGood=' + JSON.stringify(json) + ';');
+    mtimes.set(legacyUri(), ++clock);
+    expect(() => lastGoodSource()).not.toThrow();
+    await vi.advanceTimersByTimeAsync(9000);
+    expect(ops.filter((o) => o.startsWith('move'))).toHaveLength(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+});
+
 describe('storage adapter .js twin', () => {
   const payloads = ['{"a":"q\\"uote","b":"back\\\\slash","c":"  "}', '{"e":"\\u2028\\u2029"}', '{"plain":1}'];
 
@@ -127,9 +208,23 @@ describe('storage adapter .js twin', () => {
     expect(js.startsWith('globalThis.__swift2LastGood=')).toBe(true);
     const g: Record<string, unknown> = {};
     (new Function('globalThis', js) as (g: unknown) => void)(g);
-    expect(g.__swift2LastGood).toBe(json);
+    expect(typeof g.__swift2LastGood).toBe('object');
+    expect(g.__swift2LastGood).toEqual(JSON.parse(json));
     expect(g.__swift2LastGoodId).toBe(contentId(json));
     expect(files.get(jsonUri())).toBe(json);
+  });
+
+  it('keeps U+2028/U+2029 escaped in the emitted script and falls back to the string form for a __proto__ key', () => {
+    const json = `{"e":"${String.fromCharCode(0x2028)}${String.fromCharCode(0x2029)}","t":"x"}`;
+    const js = lastGoodScriptSource(json);
+    expect(js.includes(String.fromCharCode(0x2028)) || js.includes(String.fromCharCode(0x2029))).toBe(false);
+    const g: Record<string, unknown> = {};
+    (new Function('globalThis', js) as (g: unknown) => void)(g);
+    expect(g.__swift2LastGood).toEqual(JSON.parse(json));
+    const proto = '{"__proto__":{"x":1}}';
+    const g2: Record<string, unknown> = {};
+    (new Function('globalThis', lastGoodScriptSource(proto)) as (g: unknown) => void)(g2);
+    expect(g2.__swift2LastGood).toBe(proto);
   });
 
   it('writes the twin atomically (temp then move) after the .json', () => {

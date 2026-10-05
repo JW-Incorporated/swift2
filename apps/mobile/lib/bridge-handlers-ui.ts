@@ -14,6 +14,7 @@ import {
   type WebPath,
 } from '@swift2/ui';
 import { isAppOpenableUrl } from './mailto-allowlist';
+import { MAX_KEY_LENGTH, type HostStorage } from './host-storage';
 
 export type UiHandlerDeps = {
   /** Performs the in-app navigation for an already validated web path. */
@@ -25,12 +26,18 @@ export type UiHandlerDeps = {
   /** `Linking.openURL` in the host. */
   openURL: (url: string) => Promise<void>;
   /** RN `Share.share` in the host; resolves once the sheet has closed. */
-  share: (payload: SharePayload) => Promise<void>;
+  share: (payload: SharePayload & { image?: { url: string } }) => Promise<void | { imageCopied: boolean }>;
+  /** Host of the one origin a share card may be downloaded from (the site); absent = images rejected. */
+  imageHost?: string;
+  /** expo-clipboard `setStringAsync` in the host; absent = `clipboard.write` answers `failed`. */
+  copyText?: (text: string) => Promise<void>;
   /** Absent when the haptics module is unavailable: no-op success. */
   haptic?: (kind: HapticKind) => void | Promise<void>;
+  /** The persistent reader `local` blob; absent -> `failed` (the DOM then runs on an empty, non-persistent seed). */
+  hostStorage?: HostStorage;
 };
 
-export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal'>;
+export type UiHandlers = Pick<HandlerMap, 'navigate' | 'share' | 'haptic' | 'openExternal' | 'clipboard.write' | 'storage.load' | 'storage.write'>;
 
 const HAPTIC_KINDS: readonly string[] = ['selection', 'light', 'medium', 'heavy', 'success', 'warning', 'error'];
 const SHARE_KEYS = ['title', 'text', 'url'] as const;
@@ -38,6 +45,16 @@ const MAX_SHARE_FIELD = 2048;
 
 const invalid = (message: string): ResResult<never> => resErr('invalid', message);
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+
+function isCardUrl(u: string, host: string | undefined): boolean {
+  if (!host) return false;
+  try {
+    const url = new URL(u);
+    return url.protocol === 'https:' && url.host === host && !url.username && !url.password && url.pathname === '/api/share-card';
+  } catch {
+    return false;
+  }
+}
 
 export function createHandlers(deps: UiHandlerDeps): UiHandlers {
   async function run(fn: () => void | Promise<void>, what: string): Promise<ResResult<null>> {
@@ -87,7 +104,28 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       }
       if (out.url !== undefined && !isExternalUrl(out.url)) return invalid('share: url scheme');
       if (out.title === undefined && out.text === undefined && out.url === undefined) return invalid('share: empty');
-      return run(() => deps.share(out), 'share');
+      let image: { url: string } | undefined;
+      if (p.image !== undefined) {
+        const u = isRecord(p.image) ? p.image.url : undefined;
+        if (typeof u !== 'string' || u.length > MAX_SHARE_FIELD || !isCardUrl(u, deps.imageHost)) return invalid('share: image');
+        image = { url: u };
+      }
+      let outcome: { imageCopied: boolean } | null = null;
+      const res = await run(async () => {
+        const v = await deps.share(image ? { ...out, image } : out);
+        if (v) outcome = { imageCopied: v.imageCopied === true };
+      }, 'share');
+      return res.ok ? resOk(outcome) : res;
+    },
+    'clipboard.write': async (payload) => {
+      const p: unknown = payload;
+      if (!isRecord(p) || typeof p.text !== 'string' || p.text.length === 0 || p.text.length > MAX_SHARE_FIELD) return invalid('clipboard: text');
+      const text = p.text;
+      const copy = deps.copyText;
+      return run(async () => {
+        if (!copy) throw new Error('clipboard unavailable');
+        await copy(text);
+      }, 'clipboard');
     },
     haptic: async (payload) => {
       const p: unknown = payload;
@@ -96,6 +134,35 @@ export function createHandlers(deps: UiHandlerDeps): UiHandlers {
       const fn = deps.haptic;
       if (!fn) return resOk(null);
       return run(() => fn(kind), 'haptic');
+    },
+    'storage.load': async () => {
+      const s = deps.hostStorage;
+      if (!s) return resErr('failed', 'storage.load unavailable');
+      try {
+        return resOk({ entries: s.load() });
+      } catch (e) {
+        deps.log('bridge-storage.load-failed', String(e).slice(0, 200));
+        return resErr('failed', 'storage.load failed');
+      }
+    },
+    'storage.write': async (payload) => {
+      const p: unknown = payload;
+      if (!isRecord(p)) return invalid('storage.write: payload');
+      const { entries } = p;
+      if (Object.keys(p).length !== 1 || !isRecord(entries) || !Object.values(entries).every((v) => typeof v === 'string')) return invalid('storage.write: entries');
+      if (Object.keys(entries).some((k) => k.length > MAX_KEY_LENGTH)) return invalid('storage.write: key too long');
+      const s = deps.hostStorage;
+      if (!s) return resErr('failed', 'storage.write unavailable');
+      try {
+        if (!s.write(entries as Record<string, string>)) {
+          deps.log('bridge-storage.write-rejected', 'blob over the size cap');
+          return invalid('storage.write: too large');
+        }
+        return resOk(null);
+      } catch (e) {
+        deps.log('bridge-storage.write-failed', String(e).slice(0, 200));
+        return resErr('failed', 'storage.write failed');
+      }
     },
   };
 }
