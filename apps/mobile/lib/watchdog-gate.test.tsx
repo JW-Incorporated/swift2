@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error -- untyped deep path on purpose (no declaration file for the copy)
 vi.mock('react', async () => await import('../../web/node_modules/react'));
 
-const h = vi.hoisted(() => ({ os: 'android', saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0 }));
+const h = vi.hoisted(() => ({ os: 'android', saveDelay: 0, saved: [] as { state: string; strikes: number; fallbackLaunchesRemaining: number }[], mark: vi.fn(), stored: null as unknown, loadDelay: 0, saveFail: false }));
 vi.mock('react-native', () => ({
   AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
   Platform: { get OS() { return h.os; } },
@@ -18,6 +18,7 @@ vi.mock('./watchdog-store', () => ({
   },
   saveWatchdogRecord: async (r: { state: string }) => {
     if (h.saveDelay && r.state === 'attempting') await new Promise((res) => setTimeout(res, h.saveDelay));
+    if (h.saveFail && r.state === 'attempting') return false;
     h.saved.push(r as never);
     return true;
   },
@@ -34,7 +35,7 @@ vi.mock('./diagnostics-send', () => ({ sendDiagReport: async () => ({ ok: true }
 vi.mock('./diagnostics', () => ({ diagCollector: { mark: h.mark, elapsed: () => 0 }, setMountInfo: () => undefined }));
 
 import { act, renderHook } from '@testing-library/react';
-import { PENDING_MAX_MS, refundExpiredFallback } from './watchdog-policy';
+import { PENDING_MAX_MS } from './watchdog-policy';
 import { useDomMount, type LaunchInputs } from './watchdog-gate';
 import { decideMount } from './watchdog';
 
@@ -48,25 +49,24 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     h.stored = null;
     h.loadDelay = 0;
     h.saveDelay = 0;
+    h.saveFail = false;
     h.os = 'android';
     h.mark.mockClear();
   });
   afterEach(() => vi.useRealTimers());
 
-  it('pending expiry is terminal: inputs wanting DOM after the bound keep native this launch, the next launch mounts DOM', async () => {
+  it('inputs still unread at the bound: DOM mounts from the compiled default (never native for latency); a late OFF applies next launch', async () => {
     const { result, rerender } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
     await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
-    expect(result.current.mount).toBe('native');
-    expect(result.current.nativeReason).toBe('pending-expired');
+    expect(result.current.mount).toBe('dom');
     expect(h.mark).toHaveBeenCalledWith('mount-pending-expired', expect.stringMatching(/ms$/));
-    rerender({ i: inputs() });
+    rerender({ i: inputs({ sharedUi: false }) });
     await flush();
-    expect(result.current.mount).toBe('native');
-    expect(result.current.nativeReason).toBe('pending-expired');
-    expect(h.mark).not.toHaveBeenCalledWith('mount-late-upgrade', expect.anything());
-    const next = renderHook(() => useDomMount(inputs()));
+    expect(result.current.mount).toBe('dom');
+    const next = renderHook(() => useDomMount(inputs({ sharedUi: false })));
     await flush();
-    expect(next.result.current.mount).toBe('dom');
+    expect(next.result.current.mount).toBe('native');
+    expect(next.result.current.nativeReason).toBe('flag-off');
   });
 
   it('default-on mounts DOM inside the bound', async () => {
@@ -75,24 +75,52 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(result.current.mount).toBe('dom');
   });
 
-  it('a slow watchdog-record read past the bound stays native this launch', async () => {
-    h.loadDelay = PENDING_MAX_MS + 300;
+  it.each([2000, 10_000, 1e9])('a watchdog-record read taking %i ms still mounts DOM at the bound; nothing is persisted until it resolves, then ONE record', async (delay) => {
+    h.loadDelay = delay;
     const { result } = renderHook(() => useDomMount(inputs()));
-    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 500); });
-    expect(result.current.mount).toBe('native');
-    expect(result.current.nativeReason).toBe('pending-expired');
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 300); });
+    expect(result.current.mount).toBe('dom');
+    expect(result.current.nativeReason).toBeNull();
+    expect(h.saved).toHaveLength(0);
+    act(() => result.current.watch.ready());
+    if (delay < 1e9) {
+      await act(async () => { await vi.advanceTimersByTimeAsync(delay); });
+      expect(result.current.mount).toBe('dom');
+      expect(h.saved).toHaveLength(1);
+      expect(h.saved[0].state).toBe('ready');
+    }
   });
 
-  it('an explicit cached OFF stays native and a late OFF stays native', async () => {
-    const { result, rerender } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
+  it('a slow record that later reports quarantine: the DOM stays this launch, the quarantine record is kept for the next', async () => {
+    h.stored = { v: 1, fallbackCycles: 2, buildKey: '1:embedded', state: 'quarantined', strikes: 0, lastReason: 'x', fallbackLaunchesRemaining: 0, backgrounded: false, abandonedStreak: 0, at: 1 };
+    h.loadDelay = 4000;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 700); });
+    expect(result.current.mount).toBe('dom');
+    await act(async () => { await vi.advanceTimersByTimeAsync(3000); });
+    expect(result.current.mount).toBe('dom');
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0].state).toBe('quarantined');
+    expect(decideMount(h.saved[0] as never, '1:embedded', Date.now()).record.state).toBe('quarantined');
+  });
+
+  it('a slow record that reports a strike-free ready launch folds ready into the one record', async () => {
+    h.loadDelay = 3000;
+    const { result } = renderHook(() => useDomMount(inputs()));
     await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
-    rerender({ i: inputs({ sharedUi: false }) });
-    await flush();
+    expect(result.current.mount).toBe('dom');
+    act(() => result.current.watch.ready());
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(h.saved).toHaveLength(1);
+    expect(h.saved[0].state).toBe('ready');
+  });
+
+  it('an owed fallback with the inputs unread at the bound is honoured natively (decision ready), not pending-expired', async () => {
+    h.stored = { v: 1, fallbackCycles: 0, buildKey: '1:embedded', state: 'fallback', strikes: 0, lastReason: 'x', fallbackLaunchesRemaining: 1, backgrounded: false, abandonedStreak: 0, at: 1 };
+    const { result } = renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
+    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
     expect(result.current.mount).toBe('native');
-    const early = renderHook(() => useDomMount(inputs({ sharedUi: false })));
-    await flush();
-    expect(early.result.current.mount).toBe('native');
-    expect(early.result.current.nativeReason).toBe('flag-off');
+    expect(result.current.nativeReason).toBe('watchdog-fallback');
   });
 
   it('a failed watchdog-record read fails closed to native', async () => {
@@ -139,41 +167,37 @@ describe('useDomMount slow storage (iPhone cold launch)', () => {
     expect(stale.result.current.mount).toBe('native');
   });
 
-  it('pending expiry with the decision ready writes the refunded record (owed fallback launch not consumed)', async () => {
-    h.stored = { v: 1, fallbackCycles: 0, buildKey: '1:embedded', state: 'fallback', strikes: 0, lastReason: 'x', fallbackLaunchesRemaining: 1, backgrounded: false, abandonedStreak: 0, at: 1 };
-    renderHook(({ i }: { i: LaunchInputs | null }) => useDomMount(i), { initialProps: { i: null as LaunchInputs | null } });
-    await act(async () => { await vi.advanceTimersByTimeAsync(PENDING_MAX_MS + 100); });
-    expect(h.saved).toHaveLength(1);
-    expect(h.saved[0]).toMatchObject({ state: 'fallback', fallbackLaunchesRemaining: 1 });
-  });
-
-  it('an attempt write that never settles mounts native (attempt-failed) within the bound', async () => {
+  it('an attempt write that never settles mounts the DOM on the in-memory attempt after the bound (never Recovery)', async () => {
     h.saveDelay = 1e9;
     const { result } = renderHook(() => useDomMount(inputs()));
     await flush();
     await flush();
     await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
-    expect(result.current.mount).toBe('native');
-    expect(result.current.nativeReason).toBe('attempt-failed');
-    expect(h.saved.some((r) => r.state === 'attempting')).toBe(false);
+    expect(result.current.mount).toBe('dom');
+    expect(result.current.nativeReason).toBeNull();
   });
 
-  it('an attempt write that settles after the bound is rolled back: no attempting record persists, no false strike next launch', async () => {
+  it('an attempt write that lands after the bound records a real attempt (the DOM is mounting); a strike then persists in order', async () => {
     h.saveDelay = 3500;
     const { result } = renderHook(() => useDomMount(inputs()));
     await flush();
     await flush();
     await act(async () => { await vi.advanceTimersByTimeAsync(3100); });
+    expect(result.current.mount).toBe('dom');
+    await act(async () => { await vi.advanceTimersByTimeAsync(600); });
+    expect(h.saved.at(-1)?.state).toBe('attempting');
+    await act(async () => { result.current.watch.error('boom'); await vi.advanceTimersByTimeAsync(0); });
+    expect(result.current.mount).toBe('native');
+    expect(h.saved.at(-1)?.strikes).toBe(1);
+  });
+
+  it('an attempt write that FAILS (not slow) still fails closed to native', async () => {
+    h.saveFail = true;
+    const { result } = renderHook(() => useDomMount(inputs()));
+    await flush();
+    await flush();
     expect(result.current.mount).toBe('native');
     expect(result.current.nativeReason).toBe('attempt-failed');
-    await act(async () => { await vi.advanceTimersByTimeAsync(600); });
-    expect(result.current.mount).toBe('native');
-    const last = h.saved.at(-1)!;
-    const expected = refundExpiredFallback(h.stored as never, decideMount(h.stored as never, '1:embedded', Date.now()).record, true);
-    expect(last).toMatchObject({ state: expected.state, strikes: expected.strikes, fallbackLaunchesRemaining: expected.fallbackLaunchesRemaining });
-    expect(last.state).toBe('idle');
-    expect(last.strikes).toBe(0);
-    expect(decideMount(last as never, '1:embedded', Date.now()).record.strikes).toBe(0);
   });
 
   it('an owed fallback is honoured: native, no attempt, launch consumed', async () => {
